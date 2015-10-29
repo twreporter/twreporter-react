@@ -30,11 +30,12 @@ class App extends React.Component {
         <div className="index">
             foo
             <Link to="about">關於我們</Link>
+            <RouteHandler/>
         </div>
         )
    }
 }
-        
+
 export default Transmit.createContainer(App, {
     queries: {}
 })

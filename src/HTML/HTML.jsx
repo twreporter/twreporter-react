@@ -10,15 +10,16 @@ const pages = {
 class Static extends React.Component {
     static contextTypes = { router: React.PropTypes.func }
     componentWillMount() {
-        this.props.setNavList([
-                { path: '/', label: '首頁', type: 'title' },
-                { path: '/about/', label: '關於本站', type: 'section' },
-                ])
+        // this.props.setNavList([
+        //         { path: '/', label: '首頁', type: 'title' },
+        //         { path: '/about/', label: '關於本站', type: 'section' },
+        //         ])
     }
     render() {
+        console.log('test')
         const {router} = this.context
         const path = router.getCurrentPath().replace(/^\/|\/$/g, '')
-        return <div dangerouslySetInnerHTML={{__html: pages[path]}}></div>
+        return <div>test</div>
     }
 }
 

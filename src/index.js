@@ -9,13 +9,13 @@ import './index.css'
 
 const routes = (
     <Route handler={App} path="/">
-    <Route name="about" path="/about/" handler={HTML} />
+    <Route name="about" path="/about" handler={HTML} />
     </Route>
 );
 
 if(typeof document !== 'undefined') {
     const root = document.getElementById('root');
-    Router.run(routes, Router.HistoryLocation, (Root) => {
+    Router.run(routes, Router.HashLocation, (Root) => {
         React.render(<Root/>, root);
     });
 }
