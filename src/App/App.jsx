@@ -22,14 +22,11 @@ class App extends React.Component {
             this.setState({ showNavBar: false });
         }
     }
-    componentWillReceiveProps(nextProps) {
-    }
     render() {
-        var {router} = this.context;
         return (
         <div className="index">
-            foo
             <Link to="about">關於我們</Link>
+            <Link to="category" params={{category: "review"}}>評論</Link>
             <RouteHandler/>
         </div>
         )
