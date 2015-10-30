@@ -9,8 +9,15 @@ class Category extends React.Component {
     constructor (props) { super(props)
     }
 
+    componentDidMount() {
+        const category = this.props.params.category
+    }
+
     render() {
-        return <div class="class">category</div>
+        return (
+        <div class="class">
+            {this.props.params.category}
+        </div>)
     }
 }
 

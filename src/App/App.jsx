@@ -1,10 +1,9 @@
 "use strict"
 import React from 'react'
 import {Link} from 'react-router'
+import NavBar from '../NavBar/NavBar.jsx'
 import Transmit from 'react-transmit'
 import './App.css'
-
-import {RouteHandler} from 'react-router'
 
 class App extends React.Component {
     static propTypes = { id: React.PropTypes.string }
@@ -25,9 +24,7 @@ class App extends React.Component {
     render() {
         return (
         <div className="index">
-            <Link to="about">關於我們</Link>
-            <Link to="category" params={{category: "review"}}>評論</Link>
-            <RouteHandler/>
+            <NavBar/>
         </div>
         )
    }
