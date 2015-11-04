@@ -1,7 +1,7 @@
 {
-  "name": "redux-real-world-example",
+  "name": "twreporter-react",
   "version": "0.0.0",
-  "description": "Redux real-world example",
+  "description": "react-redux site for tw reporter",
   "scripts": {
     "start": "node server.js"
   },
