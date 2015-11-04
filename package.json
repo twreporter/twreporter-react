@@ -1,44 +1,47 @@
 {
-  "name": "twreporter-react",
-  "version": "0.0.1",
-  "description": "twreporter main site",
-  "main": "server.js",
+  "name": "redux-real-world-example",
+  "version": "0.0.0",
+  "description": "Redux real-world example",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "node server.js"
   },
-  "keywords": [
-    "twreporter-react",
-    "g0v"
-  ],
-  "author": "hcchien <hcchien@gmail.com> (http://www.twreporter.org/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rackt/redux.git"
+  },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rackt/redux/issues"
+  },
+  "homepage": "http://rackt.github.io/redux",
   "dependencies": {
-    "babel": "^5.8.5",
-    "babel-core": "^5.8.5",
-    "babel-loader": "^5.3.2",
-    "babel-runtime": "^5.8.5",
-    "es6-promise": "^3.0.2",
-    "install": "^0.1.8",
-    "npm": "^2.13.5",
-    "react": "^0.13.3",
-    "react-hot-loader": "^1.2.8",
-    "react-inline-css": "^1.1.1",
-    "react-redux": "^0.8.2",
-    "react-router": "^0.13.3",
-    "react-semantify": "^0.3.1",
-    "react-transmit": "^2.5.0",
-    "redux": "^1.0.1",
-    "redux-thunk": "^0.1.0",
-    "whatwg-fetch": "^0.9.0"
+    "history": "^1.9.0",
+    "humps": "^0.6.0",
+    "isomorphic-fetch": "^2.1.1",
+    "lodash": "^3.10.1",
+    "normalizr": "^1.0.0",
+    "nuka-carousel": "^1.0.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-redux": "^2.1.2",
+    "react-router": "^1.0.0-rc1",
+    "redux": "^3.0.0",
+    "redux-logger": "^2.0.2",
+    "redux-router": "^1.0.0-beta3",
+    "redux-thunk": "^0.1.0"
   },
   "devDependencies": {
-    "css-loader": "^0.11.0",
-    "html-loader": "^0.3.0",
-    "postcss-loader": "^0.6.0",
-    "react-hot-loader": "^1.2.8",
-    "redux-devtools": "^1.0.2",
-    "style-loader": "^0.11.0",
-    "webpack-dev-server": "^1.10.1"
+    "babel-core": "^5.6.18",
+    "babel-loader": "^5.1.4",
+    "babel-plugin-react-transform": "^1.1.0",
+    "concurrently": "^0.1.1",
+    "express": "^4.13.3",
+    "react-transform-hmr": "^1.0.0",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "webpack": "^1.9.11",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.2.0"
   }
 }

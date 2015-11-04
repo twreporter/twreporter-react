@@ -1,22 +1,23 @@
-"use strict"
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
-var path = require('path');
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
+var config = require('./webpack.config')
 
-var server = new WebpackDevServer(webpack(config), {
-      publicPath: config.output.publicPath,
-      hot: true,
-      historyApiFallback: true
-});
+var app = new (require('express'))()
+var port = 8080
 
-server.use('/', function(req, res){
-      res.sendFile(path.join(__dirname, '/index.html'));
-});
+var compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+app.use(webpackHotMiddleware(compiler))
 
-server.listen(8080, 'localhost', function (err) {
-      if (err) {
-              console.log(err);
-                }
-        console.log('Listening at localhost:8080');
-});
+app.use(function(req, res) {
+  res.sendFile(__dirname + '/index.html')
+})
+
+app.listen(port, function(error) {
+  if (error) {
+    console.error(error)
+  } else {
+    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
+  }
+})

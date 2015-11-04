@@ -1,60 +1,45 @@
-var path = require('path');
-var webpack = require('webpack');
-var plugins = [];
-var entries = [ './src/index' ];
-var loaders = [ 'babel?stage=0' ];
+var path = require('path')
+var webpack = require('webpack')
 
-if (/production/.test(process.env.NODE_ENV)) {
-    plugins = [
-        new ExtractTextPlugin("styles.css"),
-        new StaticSiteGeneratorPlugin('bundle.js', []),
-        new webpack.optimize.UglifyJsPlugin()];
-}
-else if (!/staging/.test(process.env.NODE_ENV)) {
-    plugins = [ new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin() ];
-    entries.push('webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server');
-    loaders.unshift('react-hot');
-
-}
 module.exports = {
-    devtool: 'eval',
-    entry: entries,
-    output: {
-        path: path.join(__dirname, 'build'),
-        filename: 'bundle.js',
-        publicPath: '/',
-        libraryTarget: 'umd'
-    },
-    plugins: plugins,
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
-    module: {
-                loaders: [
-                {
-                    test: /\.jsx?$/,
-                    loaders: loaders,
-                    include: path.join(__dirname, 'src'),
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.css$/,
-                    loader: (/production/.test(process.env.NODE_ENV)) ?
-                        ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader') :
-                        'style-loader!css-loader!postcss-loader'
-                },
-                {
-                    test: /\.(png|jpg|gif)$/,
-                    loader: 'url-loader?limit=1'
-                },
-                {
-                    test: /\.json$/,
-                    loader: 'json-loader'
-                },
-                {
-                    test: /\.html$/,
-                    loader: 'html-loader'
-                }
-                ]
-            }
-};
+  devtool: 'cheap-module-eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    './index'
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loaders: [ 'babel' ],
+      exclude: /node_modules/,
+      include: __dirname
+    }]
+  }
+}
+
+
+// When inside Redux repo, prefer src to compiled version.
+// You can safely delete these lines in your project.
+var reduxSrc = path.join(__dirname, '..', '..', 'src')
+var reduxNodeModules = path.join(__dirname, '..', '..', 'node_modules')
+var fs = require('fs')
+if (fs.existsSync(reduxSrc) && fs.existsSync(reduxNodeModules)) {
+  // Resolve Redux to source
+  module.exports.resolve = { alias: { 'redux': reduxSrc } }
+  // Compile Redux from source
+  module.exports.module.loaders.push({
+    test: /\.js$/,
+    loaders: [ 'babel' ],
+    include: reduxSrc
+  })
+}
