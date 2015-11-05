@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Carousel from 'nuka-carousel'
 
-export default class Top extends Component {
+export default class Features extends Component {
     mixins: [Carousel.ControllerMixin]
     constructor(props) {
         super(props)
@@ -20,4 +20,4 @@ export default class Top extends Component {
     }
 }
 
-Top.propTypes = { }
+Features.propTypes = { }

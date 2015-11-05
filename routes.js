@@ -1,14 +1,20 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { IndexRoute, Route } from 'react-router'
 import App from './containers/App'
-import UserPage from './containers/UserPage'
-import RepoPage from './containers/RepoPage'
+import Category from './containers/Category'
+import Home from './containers/Home'
+import NotFound from './containers/NotFound'
 
 export default (
-  <Route path="/" component={App}>
-    <Route path="/:login/:name"
-           component={RepoPage} />
-    <Route path="/:login"
-           component={UserPage} />
+    <Route path="/" component={App}>
+        { /* Home (main) route */ }
+        <IndexRoute component={Home}/>
+        { /* Routes requiring login */ }
+        { /* <Route onEnter={requireLogin}>
+            <Route path="loginSuccess" component={LoginSuccess}/>
+        </Route>
+        */ }
+        { /* Catch all route */ }
+        <Route path="*" component={NotFound} status={404} />     
   </Route>
 )
