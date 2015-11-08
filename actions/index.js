@@ -1,5 +1,26 @@
 import { CALL_API, Schemas } from '../middleware/api'
 
+export const ARTICLE_REQUEST = 'ARTICLE_REQUEST'
+export const ARTICLE_SUCCESS = 'ARTICLE_SUCCESS'
+export const ARTICLE_FAILURE = 'ARTICLE_FAILURE'
+
+function fetchArticle(tags) {
+    console.log("I am here")
+    return {
+        [CALL_API]: {
+            types: [ ARTICLE_REQUEST, ARTICLE_SUCCESS, ARTICLE_FAILURE ],
+            endpoint: `article`,
+            schema: Sechemas.ARTICLE
+        }
+    }
+}
+
+export function loadArticle(tag, requiredFields = []) {
+    return (dispatch, getState) => {
+        return dispatch(fetchArticle(tag))
+    }
+}
+
 export const USER_REQUEST = 'USER_REQUEST'
 export const USER_SUCCESS = 'USER_SUCCESS'
 export const USER_FAILURE = 'USER_FAILURE'

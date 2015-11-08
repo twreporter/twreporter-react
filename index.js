@@ -1,12 +1,28 @@
 import 'babel-core/polyfill'
+
 import React from 'react'
-import { render } from 'react-dom'
-import Root from './containers/Root'
+import ReactDOM from 'react-dom';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+
 import configureStore from './store/configureStore'
+import createRoutes from './routes'
+import { Provider } from 'react-redux'
 
-const store = configureStore()
+const history = createBrowserHistory();
 
-render(
-  <Root store={store} />,
-  document.getElementById('root')
-)
+let reduxState;
+if (window.__REDUX_STATE__) {
+    try {
+        reduxState = JSON.parse(unescape(__REDUX_STATE__));
+    } catch (e) { 
+    }      
+}         
+      
+const store = configureStore(reduxState);
+
+ReactDOM.render((
+    <Provider store={store}>
+         { createRoutes(history) }
+    </Provider>
+), document.getElementById('root'));
+
