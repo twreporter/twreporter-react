@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import { CALL_API } from '../middleware/api';
 
 export const LOADED_ARTICLES = 'LOADED_ARTICLES';
-export function loadArticles() {
+function fetchArticles() {
     return {
         [CALL_API]: {
             method: 'get',
@@ -10,4 +10,10 @@ export function loadArticles() {
                 successType: LOADED_ARTICLES
         }
     };
+}
+
+export function loadArticles() {
+    return (dispatch, getState) => {
+        return dispatch(fetchArticles())
+    }
 }
