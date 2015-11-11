@@ -5,6 +5,9 @@ import { loadArticles } from '../actions/articles'
 import _ from 'lodash'
 
 export default class Home extends Component {
+    static fetchData({ store }) {
+        return store.dispatch(loadArticles());
+    }
     constructor(props) {
         super(props)
     }
@@ -16,8 +19,13 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-            { this.props.articles }
-                foo
+            {
+                _.map(this.props.articles, (a)=> {
+                    return (
+                        <p key={a.id}> { a.title }</p>
+                        );
+                })
+            }
                 {this.props.children}
             </div>
         );

@@ -6,17 +6,17 @@ import rootReducer from '../reducers';
 
 
 const logger = createLogger({
-      level: 'info',
-        collapsed: false,
-        logger: console,
-        predicate: (getState, action) => true
+    level: 'info',
+    collapsed: false,
+    logger: console,
+    predicate: (getState, action) => true
 });
 
 const createStoreWithMiddleware = applyMiddleware(
-          thunkMiddleware,
-            apiMiddleware,
-              logger
-        )(createStore);
+    thunkMiddleware,
+    apiMiddleware,
+    logger
+)(createStore);
 
 export default function configureStore(initialState) {
     const store = createStoreWithMiddleware(rootReducer, initialState);

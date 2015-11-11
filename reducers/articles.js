@@ -1,4 +1,4 @@
-import * as ActionType from 'actions/articles';
+import * as ActionType from '../actions/articles';
 
 function articlesReducer (state = [], action) {
     switch(action.type) {

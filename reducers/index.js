@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actions'
 import merge from 'lodash/object/merge'
 import paginate from './paginate'
+import articles from './articles'
 import { routerStateReducer as router } from 'redux-router'
 import { combineReducers } from 'redux'
 
@@ -18,6 +19,7 @@ function errorMessage(state = null, action) {
 
 const rootReducer = combineReducers({
   errorMessage,
+  articles,
   router
 })
 

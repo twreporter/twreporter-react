@@ -19,7 +19,7 @@ export default store => next => action => {
             if ( !err ) {
                 next({
                     type: successType,
-                    response: res.body
+                    response: res.body._items
                 });
     
                 if (_.isFunction(request.afterSuccess)) {

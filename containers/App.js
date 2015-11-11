@@ -2,28 +2,35 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { pushState } from 'redux-router'
 import { resetErrorMessage } from '../actions'
+import { loadArticles } from 'actions/articles';
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
 
-  renderErrorMessage() {
-    const { errorMessage } = this.props
-    if (!errorMessage) {
-      return null
+    static fetchData({ store }) {
+        console.log("fetch");
+        return store.dispatch(loadArticles());
     }
 
-    return (
-      <p style={{ backgroundColor: '#e99', padding: 10 }}>
-        <b>{errorMessage}</b>
-        {' '}
-        (<a href="#"
+    constructor(props) {
+        super(props)
+    }
+
+    renderErrorMessage() {
+        const { errorMessage } = this.props
+        if (!errorMessage) {
+            return null
+        }
+
+        return (
+            <p style={{ backgroundColor: '#e99', padding: 10 }}>
+            <b>{errorMessage}</b>
+            {' '}
+            (<a href="#"
             onClick={this.handleDismissClick}>
-          Dismiss
-        </a>)
-      </p>
-    )
+            Dismiss
+            </a>)
+            </p>
+        )
   }
 
   render() {

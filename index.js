@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory'
 import configureStore from './store/configureStore'
 import createRoutes from './routes'
 import { Provider } from 'react-redux'
+import { createStore, combineReducers } from 'redux';
 
 const history = createBrowserHistory();
 
