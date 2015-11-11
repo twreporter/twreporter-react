@@ -7,13 +7,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rackt/redux.git"
+    "url": "https://github.com/twreporter/twreporter-react.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rackt/redux/issues"
+    "url": "https://github.com/twreporter/twreporter-react/issues"
   },
-  "homepage": "http://rackt.github.io/redux",
+  "homepage": "http://www.twreporter.org/",
   "dependencies": {
     "bluebird": "^2.10.0",
     "history": "^1.9.0",
