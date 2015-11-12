@@ -1,23 +1,43 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
+
 import { connect } from 'react-redux'
+import { loadArticles } from '../actions/articles'
+import _ from 'lodash'
 
-class Category extends Component {
+export default class Category extends Component {
+    static fetchData({ store }) {
+        return store.dispatch(loadArticles(this.tags));
+    }
+    constructor(props) {
+        super(props)
+        this.tags = this.props.params.category
+    }
+
+    componentDidMount() {
+        this.props.loadArticles(this.tags);
+    }
+
     render() {
-        const { tag } = this.props
-        if (!tag) {
-            return <div>No category selected</div>
-        }
-
         return (
             <div>
-                {tag}
-                category page
+            {
+                _.map(this.props.articles, (a)=> {
+                    return (
+                        <p key={a.id}> { a.title }</p>
+                        );
+                })
+            }
+                {this.props.children}
             </div>
-        )
+        );
     }
 }
 
-Category.propTypes = {
-    tag: PropTypes.string.isRequired
+function mapStateToProps (state) {
+      return { 
+          articles: state.articles 
+      };
 }
 
+export { Category };
+export default connect(mapStateToProps, { loadArticles })(Category);

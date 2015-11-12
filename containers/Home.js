@@ -6,14 +6,14 @@ import _ from 'lodash'
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        return store.dispatch(loadArticles());
+        return store.dispatch(loadArticles("review"));
     }
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.props.loadArticles();
+        this.props.loadArticles("review");
     }
 
     render() {
