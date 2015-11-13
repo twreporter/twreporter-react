@@ -16,6 +16,7 @@
   "homepage": "http://www.twreporter.org/",
   "dependencies": {
     "bluebird": "^2.10.0",
+    "extract-text-webpack-plugin": "^0.8.2",
     "history": "^1.9.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",

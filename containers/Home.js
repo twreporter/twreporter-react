@@ -3,6 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
 import _ from 'lodash'
+import Header from '../components/Header'
+import Features from '../components/Features'
+import NavBar from '../components/NavBar'
+import Footer from '../components/Footer'
 
 export default class Home extends Component {
     static fetchData({ store }) {
@@ -17,16 +21,14 @@ export default class Home extends Component {
     }
 
     render() {
+        const {articles} = this.props
         return (
             <div>
-            {
-                _.map(this.props.articles, (a)=> {
-                    return (
-                        <p key={a.id}> { a.title }</p>
-                        );
-                })
-            }
+                <Header/>
+                <NavBar/>
+                <Features articles={articles}/>
                 {this.props.children}
+                <Footer/>
             </div>
         );
     }
