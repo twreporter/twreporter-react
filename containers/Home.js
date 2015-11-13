@@ -5,6 +5,7 @@ import { loadArticles } from '../actions/articles'
 import _ from 'lodash'
 import Header from '../components/Header'
 import Features from '../components/Features'
+import TopNews from '../components/TopNews'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 
@@ -26,6 +27,7 @@ export default class Home extends Component {
             <div>
                 <Header/>
                 <NavBar/>
+                <TopNews articles={articles}/>
                 <Features articles={articles}/>
                 {this.props.children}
                 <Footer/>

@@ -12,23 +12,21 @@ export default class Features extends Component {
         const { articles } = this.props
         if (articles.length > 0 || !articles) {
         return (
-        <ul>
+        <Carousel>
             { _.map(articles, (a) => {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     if (img_existing != null) {
-                        a.firstImage = "https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/scale~2800x0x0x0~" + a.firstImage
+                        let slideshowImage = "https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/scale~2800x0x0x0~" + a.firstImage
                         return (
-                            <li key={a.id}>
-                                <a href={a.url}>
-                                    <img src={a.firstImage}/>
-                                </a>
-                            </li>
+                            <a key={a.id} href={a.url}>
+                                <img src={slideshowImage}/>
+                            </a>
                         );
                     }
                 })
             }
-        </ul>
+        </Carousel>
         )
         } else {
         return (        
