@@ -12,14 +12,14 @@ import Footer from '../components/Footer'
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        return store.dispatch(loadArticles("review"));
+        return store.dispatch(loadArticles());
     }
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.props.loadArticles("review");
+        this.props.loadArticles();
     }
 
     render() {

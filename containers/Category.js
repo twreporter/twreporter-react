@@ -15,28 +15,30 @@ export default class Category extends Component {
     constructor(props) {
         super(props)
         this.tags = this.props.params.category
-    }
-
-    componentDidMount() {
         this.props.loadArticles(this.tags);
     }
 
     render() {
         var { router } = this.context;
-        if (this.props.articles.length > 0) {
+        const { articles } = this.props
+        if (articles.length > 0) {
             return (
-                <div>
+                    <div>
                     <Header/>
                     <NavBar/>
                     {
-                        _.map(this.props.articles, (a)=> {
+                        _.map(articles, (a)=> {
                             return (
-                                <p key={a.id}> { a.title }</p>
-                        )})
+                    <div>
+                                <span>{a.title}</span>
+                                <img src={a.firstImage}/> 
+                    </div>
+                            );
+                        })
                     }
                     {this.props.children}
                     <Footer/>
-                </div>
+                    </div>
             )
         } else {
             console.log("not found");

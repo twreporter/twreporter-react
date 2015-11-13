@@ -25,6 +25,7 @@ export default class Daily extends Component {
                                 <a href={a.url}>
                                     <img src={thumbnail}/>
                                 </a>
+                                {a.title}
                                 {a.excerpt}
                             </li>
                         );}

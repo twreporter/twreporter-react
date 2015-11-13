@@ -14,13 +14,10 @@ export default class Features extends Component {
         return (
         <Carousel>
             { _.map(articles, (a) => {
-                    var re = /^[\w\d]/
-                    let img_existing = re.exec(a.firstImage)
-                    if (img_existing != null) {
-                        let slideshowImage = "https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/scale~2800x0x0x0~" + a.firstImage
+                    if (a.preview_image) {
                         return (
                             <a key={a.id} href={a.url}>
-                                <img src={slideshowImage}/>
+                                <img src={a.preview_image}/>
                             </a>
                         );
                     }
