@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
 import _ from 'lodash'
 import Header from '../components/Header'
+import NavBar from '../components/NavBar'
 import Features from '../components/Features'
 import TopNews from '../components/TopNews'
-import NavBar from '../components/NavBar'
+import Daily from '../components/Daily'
 import Footer from '../components/Footer'
 
 export default class Home extends Component {
@@ -28,6 +29,7 @@ export default class Home extends Component {
                 <Header/>
                 <NavBar/>
                 <TopNews articles={articles}/>
+                <Daily articles={articles}/>
                 <Features articles={articles}/>
                 {this.props.children}
                 <Footer/>
