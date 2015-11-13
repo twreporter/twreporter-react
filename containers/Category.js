@@ -15,9 +15,6 @@ export default class Category extends Component {
     constructor(props) {
         super(props)
         this.tags = this.props.params.category
-    }
-
-    componentDidMount() {
         this.props.loadArticles(this.tags);
     }
 
