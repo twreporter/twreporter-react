@@ -1,53 +1,50 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
-    './index'
+    'webpack-dev-server/client?http://localhost:3001',
+    'webpack/hot/only-dev-server',
+    './app'
   ],
+  resolve: {
+    root: [ __dirname ]
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: 'http://localhost:3001/static/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    loaders: [
-    {
+    loaders: [{
       test: /\.js$/,
-      loaders: [ 'babel' ],
+      loader: 'babel',
       exclude: /node_modules/,
-      include: __dirname
-    },
-    {
-      test: /\.scss$/,
-      //loaders: ['style', 'css', 'sass']
-      loader:ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true')  
-    }
-    ]
+      include: __dirname,
+      query: {
+        optional: ['runtime'],
+        stage: 2,
+        env: {
+          development: {
+            plugins: [
+              'react-transform'
+            ],
+            extra: {
+              'react-transform': {
+                'transforms': [{
+                  'transform':  'react-transform-hmr',
+                  imports: ['react'],
+                  locals:  ['module']
+                }]
+              }
+            }
+          }
+        }
+      }
+    }]
   }
-}
-
-
-// When inside Redux repo, prefer src to compiled version.
-// You can safely delete these lines in your project.
-var reduxSrc = path.join(__dirname, '..', '..', 'src')
-var reduxNodeModules = path.join(__dirname, '..', '..', 'node_modules')
-var fs = require('fs')
-if (fs.existsSync(reduxSrc) && fs.existsSync(reduxNodeModules)) {
-  // Resolve Redux to source
-  module.exports.resolve = { alias: { 'redux': reduxSrc } }
-  // Compile Redux from source
-  module.exports.module.loaders.push({
-    test: /\.js$/,
-    loaders: [ 'babel' ],
-    include: reduxSrc
-  })
-}
+};

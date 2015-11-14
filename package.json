@@ -1,22 +1,25 @@
 {
-  "name": "twreporter-react",
+  "name": "universal-redux-template",
   "version": "0.0.0",
-  "description": "react-redux site for tw reporter",
+  "description": "Universal Redux Template",
   "scripts": {
-    "start": "node server.js"
+    "start": "NODE_PATH=. nodemon server & node webpack.server.js",
+    "test:karma": "karma start",
+    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/twreporter/twreporter-react.git"
+    "url": "https://github.com/mz026/universal-redux-template"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/twreporter/twreporter-react/issues"
+    "url": "https://github.com/mz026/universal-redux-template/issues"
   },
-  "homepage": "http://www.twreporter.org/",
   "dependencies": {
+    "babel": "^5.8.23",
     "bluebird": "^2.10.0",
-    "extract-text-webpack-plugin": "^0.8.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
     "history": "^1.9.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
@@ -26,25 +29,39 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^2.1.2",
-    "react-router": "^1.0.0-rc1",
+    "react-router": "^1.0.0-rc4",
     "redux": "^3.0.0",
-    "redux-logger": "^2.0.2",
-    "redux-router": "^1.0.0-beta3",
+    "redux-logger": "^1.0.9",
     "redux-thunk": "^0.1.0",
+    "rewire": "^2.3.4",
     "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel-core": "^5.6.18",
     "babel-loader": "^5.1.4",
-    "babel-plugin-react-transform": "^1.1.0",
-    "concurrently": "^0.1.1",
-    "express": "^4.13.3",
-    "react-transform-hmr": "^1.0.0",
-    "redux-devtools": "^3.0.0-beta-3",
-    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
-    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "babel-plugin-react-transform": "^1.1.1",
+    "babel-plugin-rewire": "^0.1.22",
+    "babel-runtime": "^5.8.25",
+    "chai": "^3.3.0",
+    "chai-as-promised": "^5.1.0",
+    "jsdom": "^7.0.1",
+    "karma": "^0.13.10",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-sinon": "^1.0.4",
+    "karma-source-map-support": "^1.1.0",
+    "karma-spec-reporter": "0.0.20",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "nock": "^2.17.0",
+    "nodemon": "^1.6.0",
+    "react-addons-test-utils": "^0.14.0",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "rewire-webpack": "^1.0.0",
+    "sinon": "^1.17.1",
+    "sinon-chai": "^2.8.0",
     "webpack": "^1.9.11",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.2.0"
+    "webpack-dev-server": "^1.9.0"
   }
 }

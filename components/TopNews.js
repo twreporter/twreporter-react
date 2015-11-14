@@ -15,6 +15,7 @@ export default class Features extends Component {
         <Carousel>
             { _.map(articles, (a) => {
                     if (a.preview_image) {
+                    console.log(a.preview_image);
                         return (
                             <a key={a.id} href={a.url}>
                                 <img src={a.preview_image}/>
@@ -25,12 +26,7 @@ export default class Features extends Component {
             }
         </Carousel>
         )
-        } else {
-        return (        
-            <div>
-            </div>
-            )
-        }
+        } 
     }
 }
 
