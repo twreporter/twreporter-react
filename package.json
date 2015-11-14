@@ -1,7 +1,7 @@
 {
-  "name": "universal-redux-template",
-  "version": "0.0.0",
-  "description": "Universal Redux Template",
+  "name": "twreporter-react",
+  "version": "0.0.1",
+  "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "start": "NODE_PATH=. nodemon server & node webpack.server.js",
     "test:karma": "karma start",
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mz026/universal-redux-template"
+    "url": "https://github.com/twreporter/twreporter-react"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mz026/universal-redux-template/issues"
+    "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
     "babel": "^5.8.23",
