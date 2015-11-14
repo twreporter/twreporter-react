@@ -14,7 +14,7 @@ import crateRoutes from 'routes/index';
 import { Provider } from 'react-redux';
 
 let server = new Express();
-let port = 8080;
+let port = 3000;
 
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
