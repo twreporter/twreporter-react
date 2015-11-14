@@ -6,16 +6,18 @@ import _ from 'lodash'
 import NotFound from './NotFound'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
+import Tags from '../components/Tags'
 import Footer from '../components/Footer'
 
 export default class Category extends Component {
     static fetchData({ query, params, store, history }) {
         return store.dispatch(loadArticles(params.category));
     }
-    constructor(props) {
+    constructor(props, context) {
         super(props)
         this.tags = this.props.params.category
         this.props.loadArticles(this.tags);
+        this.context = context;
     }
 
     render() {
@@ -25,18 +27,9 @@ export default class Category extends Component {
             <div>
                 <Header/>
                 <NavBar/>
-                {
-                    _.map(articles, (a)=> {
-                        return (
-                        <div key={a.id}>
-                            <span>{a.title}</span>
-                            <img src={a.firstImage}/> 
-                        </div>
-                        );
-                    })
-                }
-             {this.props.children}
-             <Footer/>
+                <Tags articles={articles}/>
+                {this.props.children}
+                <Footer/>
              </div>
         )
     }
@@ -47,6 +40,7 @@ function mapStateToProps (state) {
           articles: state.articles 
       };
 }
+
 
 export { Category };
 export default connect(mapStateToProps, { loadArticles })(Category);
