@@ -20,6 +20,7 @@
     "bluebird": "^2.10.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^0.9.1",
     "history": "^1.9.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
@@ -32,6 +33,7 @@
     "react-router": "^1.0.0-rc4",
     "redux": "^3.0.0",
     "redux-logger": "^1.0.9",
+    "redux-router": "^1.0.0-beta4",
     "redux-thunk": "^0.1.0",
     "rewire": "^2.3.4",
     "superagent": "^1.4.0"
@@ -44,6 +46,7 @@
     "babel-runtime": "^5.8.25",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "extract-text-webpack-plugin": "^0.9.1",
     "jsdom": "^7.0.1",
     "karma": "^0.13.10",
     "karma-chrome-launcher": "^0.2.0",

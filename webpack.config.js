@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -14,10 +15,16 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    chunkFilename: "[id].js",
     publicPath: 'http://localhost:3001/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin("commons", "commons.js"),
+    new ExtractTextPlugin("[name].css"),
+    new ExtractTextPlugin("style.css", {
+      allChunks: true
+    })
   ],
   module: {
     loaders: [{
@@ -45,6 +52,14 @@ module.exports = {
           }
         }
       }
-    }]
-  }
+    },
+    {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+    }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin("[name].css")
+  ]
 };
