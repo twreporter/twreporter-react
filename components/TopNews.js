@@ -14,13 +14,11 @@ export default class Features extends Component {
         return (
         <Carousel>
             { _.map(articles, (a) => {
-                    if (a.preview_image) {
                         return (
                             <a key={a.id} href={a.url}>
                                 <img src={a.preview_image}/>
                             </a>
                         );
-                    }
                 })
             }
         </Carousel>

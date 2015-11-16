@@ -17,11 +17,11 @@ export default class Features extends Component {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     if (img_existing != null) {
-                        a.firstImage = "https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/scale~2800x0x0x0~" + a.firstImage
+                        a.firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1200x1200~" + a.firstImage
                         return (
                             <li key={a.id}>
                                 <a href={a.url}>
-                                    <img src={a.firstImage}/>
+                                    <img width="1185" height="525" src={a.firstImage}/>
                                 </a>
                             </li>
                         );
