@@ -19,7 +19,7 @@ export default class Daily extends Component {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     if (img_existing != null) {
-                        let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~240x360~" + a.firstImage
+                        let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
                         return (
                             <li key={a.id}>
                                 <a href={a.url}>

@@ -19,7 +19,7 @@ export default class Tags extends Component {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     if (img_existing != null) {
-                        let thumbnail = "https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/scale~260x346x0x0~" + a.firstImage
+                        let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~451x225~" + a.firstImage
                         return (
                             <li key={a.id}>
                                 <a href={a.url}>
