@@ -12,7 +12,6 @@ export default function(history) {
         <Router history={history}>
             <Route path="/" component={Home}/>
             <Route path="/category/:category" component={Category}/>
-            <Route path="*" component={NotFound} status={404} />
         </Router>
     );
 };
