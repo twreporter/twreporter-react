@@ -18,7 +18,7 @@ let port = 3000;
 
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
-server.use(Express.static(path.join(__dirname, ".", "build")));
+server.use(Express.static(path.join(__dirname, ".", "../build")));
 
 // mock apis
 //server.get('/questions', (req, res)=> {
