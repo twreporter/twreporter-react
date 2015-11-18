@@ -8,8 +8,8 @@ import { RoutingContext, match } from 'react-router'
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 import Promise from 'bluebird';
 
-import configureStore from 'store/configureStore';
-import crateRoutes from 'routes/index';
+import configureStore from '../src/store/configureStore';
+import crateRoutes from '../src/routes/index';
 
 import { Provider } from 'react-redux';
 

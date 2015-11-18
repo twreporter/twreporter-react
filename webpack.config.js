@@ -1,65 +1,46 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require('autoprefixer')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
 
-module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3001',
-    'webpack/hot/only-dev-server',
-    './app'
-  ],
-  resolve: {
-    root: [ __dirname ]
+const sassLoaders = [
+  'css-loader',
+  'postcss-loader'
+]
+
+const config = {
+  entry: {
+    app: ['./src/index']
   },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    chunkFilename: "[id].js",
-    publicPath: 'http://localhost:3001/static/'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin("commons", "commons.js"),
-    new ExtractTextPlugin("[name].css"),
-    new ExtractTextPlugin("style.css", {
-      allChunks: true
-    })
-  ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loader: 'babel',
-      exclude: /node_modules/,
-      include: __dirname,
-      query: {
-        optional: ['runtime'],
-        stage: 2,
-        env: {
-          development: {
-            plugins: [
-              'react-transform'
-            ],
-            extra: {
-              'react-transform': {
-                'transforms': [{
-                  'transform':  'react-transform-hmr',
-                  imports: ['react'],
-                  locals:  ['module']
-                }]
-              }
-            }
-          }
-        }
-      }
-    },
-    {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader']
+      },
+      {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-    }
+        loader: ExtractTextPlugin.extract('style-loader', "css-loader")
+      }
     ]
   },
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, './build'),
+    publicPath: '/build'
+  },
   plugins: [
-    new ExtractTextPlugin("[name].css")
-  ]
-};
+    new ExtractTextPlugin('[name].css')
+  ],
+  postcss: [
+    autoprefixer({
+      browsers: ['last 2 versions']
+    })
+  ],
+  resolve: {
+    extensions: ['', '.js', '.css'],
+    Directories: ['src', 'node_modules']
+  }
+}
+
+module.exports = config

@@ -1,0 +1,14 @@
+.footer-item {
+    color: black;
+    font-weight: bold;
+    line-height: 1.7;
+    font-size: 1rem;
+    &.right-reserved {
+        float: right;
+    }
+}
+.footer-item.right-reserved {
+    float: none;
+    display: block;
+    margin-top: 10px;
+}

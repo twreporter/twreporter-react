@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react'
+if (process.env.BROWSER) {
+      require("./Footer.css");
+}
 
 export default class Footer extends Component {
     constructor(props) {

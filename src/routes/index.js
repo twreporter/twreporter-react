@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
-import configureStore from 'store/configureStore';
+import configureStore from '../store/configureStore';
 
-import Home from 'containers/Home';
-import Category from 'containers/Category';
-import NotFound from 'containers/NotFound';
+import Home from '../containers/Home';
+import Category from '../containers/Category';
+import NotFound from '../containers/NotFound';
 
 export default function(history) {
     return (
