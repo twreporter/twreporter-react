@@ -8,9 +8,7 @@ const sassLoaders = [
 ]
 
 const config = {
-  entry: {
-    app: ['./src/index']
-  },
+  entry: './src/index.js',
   module: {
     loaders: [
       {
@@ -26,7 +24,7 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, 'server/build'),
+    path: path.join(__dirname, '/build'),
     publicPath: '/build'
   },
   plugins: [
