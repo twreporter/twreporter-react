@@ -6,7 +6,7 @@ import rootReducer from '../reducers';
 
 
 const logger = createLogger({
-    level: 'error',
+    level: 'info',
     collapsed: false,
     logger: console,
     predicate: (getState, action) => true
