@@ -18,6 +18,7 @@ let port = 3000;
 
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
+server.use(Express.static(path.join(__dirname, ".", "build")));
 
 // mock apis
 //server.get('/questions', (req, res)=> {
@@ -37,9 +38,9 @@ server.get('*', (req, res)=> {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      res.send(500, error.message)
+      res.status(500).send(error.message)
     } else if (renderProps == null) {
-      res.send(404, 'Not found')
+      res.status(404).send('Not found')
     } else {
       let [ getCurrentUrl, unsubscribe ] = subscribeUrl();
       let reqUrl = location.pathname + location.search;
