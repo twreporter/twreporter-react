@@ -3,13 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
 import _ from 'lodash'
-import Header from '../components/Header'
-import NavBar from '../components/NavBar'
 import Features from '../components/Features'
 import TopNews from '../components/TopNews'
 import Daily from '../components/Daily'
 import Footer from '../components/Footer'
 import SystemError from '../components/SystemError'
+if (process.env.BROWSER) {
+    require("./Home.css");
+}
 
 export default class Home extends Component {
     static fetchData({ store }) {
@@ -28,8 +29,17 @@ export default class Home extends Component {
         if (articles.length > 0) {
         return (
             <div>
-                <Header/>
-                <NavBar/>
+                <div className="header">
+                    <ul className="menu">
+                        <li className="menu-item">台灣</li>
+                        <li className="menu-item">國際</li>
+                        <li className="menu-item">評論</li>
+                        <li className="menu-item">文化</li>
+                        <li className="menu-item">影像</li>
+                        <li className="menu-item">專題</li>
+                        <li className="menu-item">媒體</li>
+                    </ul>
+                </div>
                 <TopNews articles={articles}/>
                 <Daily articles={articles}/>
                 <Features articles={articles}/>

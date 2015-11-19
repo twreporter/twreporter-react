@@ -1,0 +1,52 @@
+.daily-itemlist {
+    width: 100%;
+    margin-top: 23px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.daily-item {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align : top
+}
+
+.daily-image {
+    padding-top: 0;
+    height: 143px;
+    width: 213px;
+}
+
+.daily-title {
+    font-family: 'cwTeXHei', Roboto;
+    font-size: 16px;
+    margin-top: 20px;
+    height: 78px;
+    width: 253px;
+}
+
+.daily-news {
+    align: center;
+    width: 40%;
+    margin-left: 40%;
+}
+
+.what {
+    font-family: 'Times New Roman';
+    font-style: Italic;
+    font-size: 45px;
+    display: inline;
+}
+
+.new {
+    font-family: 'Montserrat';
+    font-weight: Bold;
+    font-size: 45px;
+    display: inline;
+}

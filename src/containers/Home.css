@@ -1,0 +1,15 @@
+.header {
+    display: inline;
+}
+
+menu {
+    display: block;
+    margini-top: 10px;
+    align: center;
+    width: 40%;
+}
+
+.menu-item {
+    display: inline;
+    padding: 15px 15px 15px 15px;
+}
