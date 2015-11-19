@@ -1,7 +1,9 @@
 import Promise from 'bluebird';
 import { CALL_API } from '../middleware/api';
 
-export const LOADED_ARTICLES = 'LOADED_ARTICLES';
+export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST';
+export const LOADED_SUCCESS = 'LOADED_SUCCESS';
+export const LOADED_FAILURE = 'LOADED_FAILURE';
 function fetchArticles(tags) {
     let ext = ''
     if (tags) {
@@ -13,8 +15,8 @@ function fetchArticles(tags) {
     return {
         [CALL_API]: {
             method: 'get',
-                url: 'http://api.reportr.news/article' + ext ,
-                successType: LOADED_ARTICLES
+            url: 'http://api.reportr.news/article' + ext ,
+            types: ['LOADED_ARTICLES_REQUEST', 'LOADED_SUCCESS', 'LOADED_FAILURE']
         }
     };
 }

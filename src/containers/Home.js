@@ -24,6 +24,7 @@ export default class Home extends Component {
 
     render() {
         const {articles} = this.props
+        if (articles.length > 0) {
         return (
             <div>
                 <Header/>
@@ -34,7 +35,10 @@ export default class Home extends Component {
                 {this.props.children}
                 <Footer/>
             </div>
-        );
+        )
+        } else {
+            return ( <div>Server error</div> )
+        }
     }
 }
 
