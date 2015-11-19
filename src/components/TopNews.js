@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Carousel from 'nuka-carousel'
 import _ from 'lodash';
 
-export default class Features extends Component {
+export default class TopNews extends Component {
     mixins: [Carousel.ControllerMixin]
     constructor(props, context) {
         super(props, context)
@@ -27,5 +27,5 @@ export default class Features extends Component {
     }
 }
 
-export { Features };
+export { TopNews };
 
