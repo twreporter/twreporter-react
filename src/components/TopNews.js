@@ -10,20 +10,22 @@ export default class TopNews extends Component {
 
     render() {
         const { articles } = this.props
-        if (articles.length > 0 || !articles) {
-        return (
-        <Carousel>
-            { _.map(articles, (a) => {
+            if (articles.length > 0 || !articles) {
                 return (
-                    <a key={a.id} href={a.url}>
-                        <img src={a.preview_image}/>
-                        </a>
-                    );
-                })
-            }
-        </Carousel>
-        )
-        } 
+                        <Carousel>
+                        { _.map(articles, (a) => {
+                             return (
+                                 <a key={a.id} href={a.url}>
+                                 <img src={a.preview_image}/>
+                                 </a>
+                             );
+                            })
+                        }
+                        </Carousel>
+                 )
+            } else {
+                return ( <div></div> )
+            } 
     }
 }
 
