@@ -15,9 +15,9 @@ export default store => next => action => {
     // handle 401 and auth here
     let { method, url, types } = request;
     const [ requestType, successType, failureType ] = types;
-    superAgent[method](url).timeout(100)
+    superAgent[method](url).timeout(200)
         .end((err, res)=> {
-            if ( res ) {
+            if ( res && res.body._items ) {
                 if (res.ok) {
                     next({
                         type: successType,
@@ -27,12 +27,6 @@ export default store => next => action => {
                     if (_.isFunction(request.afterSuccess)) {
                         request.afterSuccess({ getState });
                     }
-                } else if (res.serverError || err || res.clientError) {
-                    next({
-                        type: failureType,
-                        response: {}
-                    });
-
                 }
             } else {
                 next({

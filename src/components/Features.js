@@ -11,7 +11,6 @@ export default class Features extends Component {
     render() {
         const { articles } = this.props
             if (articles.length > 0 || !articles) {
-                console.log("GET NO RESULT");
                 return (
                         <ul>
                         { _.map(articles, (a) => {

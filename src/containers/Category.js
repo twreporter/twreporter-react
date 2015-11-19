@@ -23,6 +23,7 @@ export default class Category extends Component {
     render() {
         var { router } = this.context;
         const { articles } = this.props
+        if (articles && articles.length > 0) {
         return (
             <div>
                 <Header/>
@@ -32,6 +33,9 @@ export default class Category extends Component {
                 <Footer/>
              </div>
         )
+        } else {
+            return (<NotFound/>)
+        }
     }
 }
 

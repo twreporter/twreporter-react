@@ -9,6 +9,7 @@ import Features from '../components/Features'
 import TopNews from '../components/TopNews'
 import Daily from '../components/Daily'
 import Footer from '../components/Footer'
+import SystemError from '../components/SystemError'
 
 export default class Home extends Component {
     static fetchData({ store }) {
@@ -37,7 +38,7 @@ export default class Home extends Component {
             </div>
         )
         } else {
-            return ( <div>Server error</div> )
+            return ( <SystemError/> )
         }
     }
 }

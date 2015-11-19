@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
-    "start":"webpack --progress && nodemon server",
-    "production": "webpack -p --progress && node server",      
+    "start": "webpack --progress && nodemon server",
+    "production": "webpack -p --progress && node server",
     "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "history": "^1.9.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
+    "image-webpack-loader": "^1.6.2",
     "json-loader": "^0.5.3",
     "jsdom": "^7.0.1",
     "lodash": "^3.10.1",
@@ -68,6 +69,7 @@
     "eslint-loader": "^1.0.0",
     "eslint-plugin-import": "^0.8.0",
     "eslint-plugin-react": "^3.5.0",
+    "image-webpack-loader": "^1.6.2",
     "karma": "^0.13.10",
     "karma-chrome-launcher": "^0.2.0",
     "karma-sinon": "^1.0.4",
