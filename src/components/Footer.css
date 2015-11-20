@@ -1,14 +1,29 @@
-.footer-item {
-    color: black;
-    font-weight: bold;
-    line-height: 1.7;
-    font-size: 1rem;
-    &.right-reserved {
-        float: right;
+& {
+    display: block;
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid black;
+
+    a {
+        text-decoration: none;
+        padding-right: 20px;
+    }
+    .footer-item {
+        color: black;
+        font-weight: bold;
+        line-height: 1.7;
+        font-size: 1rem;
+        &.right-reserved {
+            float: right;
+        }
     }
 }
-.footer-item.right-reserved {
-    float: none;
-    display: block;
-    margin-top: 10px;
+@media screen and (max-width: 800px) {
+    & .footer-item.right-reserved {
+        float: none;
+        display: block;
+        margin-top: 10px;
+    }
 }
+

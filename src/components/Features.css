@@ -1,3 +1,60 @@
 .listing {
     list-style-type: none;
+    margin: 0;
+    padding:0;
+    border: 0;
+}
+
+.listing-img {
+    border: 0;
+    width: 100%;
+}
+
+.listing-item {
+    height: 768px;
+    margin: 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.listing-projectborder {
+    border: solid;
+    border-color: #000;
+    border-weight: 3px;
+    background-color: #FFF;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    position: fixed;
+}
+
+.listing-project {
+    margin-left:20%;
+    margin-right: 20%;
+    width: 60%;
+}
+
+.listing-projectpublished {
+    font-size: 12px;
+    font-family: Roboto;
+    margin-bottom: 12px;
+}
+
+.listing-title {
+    font-size: 30px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: bold;
+    height: 70px;
+    padding-top: 12px;
+    padding-bottom: 15px;
+}
+
+.listing-excerpt {
+    font-size: 16px;
+    height: 155px;
+    padding-top: 15px;
+    padding-bottom: 33px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: light;
 }

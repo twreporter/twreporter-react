@@ -13,15 +13,17 @@ export default class Daily extends Component {
 
     render() {
         const { articles } = this.props
-        if (articles.length > 0 || !articles) {
+        const daily = articles.slice(0, 5);
+        if (daily.length > 0 || !daily) {
         return (
             <div>
-            <h2 className="daily-news"><div className="what">What''s</div><div className="new"> New</div></h2>
+            <h2 className="daily-news"><div className="what">What's</div><div className="new"> New</div></h2>
             <ul className="daily-itemlist">
-                { _.map(articles, (a) => {
+                { _.map(daily, (a) => {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
-                    if (img_existing != null) {
+                    //if (img_existing != null) {
+                    if (1) {
                         let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
                         return (
                             <li key={a.id} className="daily-item">
