@@ -2,6 +2,25 @@
     display: inline;
 }
 
+.body {
+    width: 100%
+}
+
+a:link {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #101010;
+    text-decoration: none;
+}
+
 menu {
     display: block;
     margini-top: 10px;
