@@ -21,7 +21,9 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.loadArticles();
+        if (!this.props.articles) {
+            this.props.loadArticles();
+        }
     }
 
     render() {

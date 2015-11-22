@@ -16,8 +16,9 @@
     border-color: #000;
     border-weight: 3px;
     background-color: #FFF;
-    margin-bottom: 0px;
+    margin-bottom: 1px;
     padding-bottom: 0px;
+    position: relative;
 }
 
 .listing-project {
