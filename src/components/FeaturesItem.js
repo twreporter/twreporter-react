@@ -1,10 +1,27 @@
 import React, { Component, PropTypes } from 'react'
+
 if (process.env.BROWSER) {
     require("./FeaturesItem.css");
 }
 export default class FeaturesItem extends Component {
     constructor(props, context) {
         super(props, context)
+    }
+
+    componentDidMount() {
+    var Parallax = require('scroll-parallax');
+        var parallax = new Parallax('.parallax', {
+            offsetYBounds: 1600,
+            intensity: 10,
+            center: 1
+        })
+        parallax.on('image:loaded', function() {
+            console.log(arguments)
+        })
+        parallax.on('images:loaded', function() {
+            console.log(arguments)
+        })
+        parallax.init()
     }
 
     render() {
@@ -14,7 +31,7 @@ export default class FeaturesItem extends Component {
         return (
             <li className="listing-item" key={article.id}>
                 <a href={article.url}>
-                   <img className="listing-img" src={article.firstImage}/>
+                   <img className="parallax" src={article.firstImage}/>
                    <div className="listing-projectborder">
                       <div className="listing-project">
                           <div className="listing-projectpublished">{article.lastPublish}</div>
