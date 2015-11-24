@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import Carousel from 'nuka-carousel'
 import _ from 'lodash';
+if (process.env.BROWSER) {
+    require("./Tags.css")
+}
 
 export default class Tags extends Component {
     mixins: [Carousel.ControllerMixin]
@@ -12,22 +15,25 @@ export default class Tags extends Component {
         const { articles } = this.props
         if (articles.length > 0 || !articles) {
         return (
-            <div>
-            <h2>What's New</h2>
-            <ul>
+            <div className="category-items">
+            <ul className="tag-listing">
                 { _.map(articles, (a) => {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     if (img_existing != null) {
-                        let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~451x225~" + a.firstImage
+                        let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~600x600~" + a.firstImage
                         return (
-                            <li key={a.id}>
+                            <div className="tag-item" key={a.id}>
+                            <li>
+                                    <img className="category-itemimage" src={thumbnail}/>
                                 <a href={a.url}>
-                                    <img src={thumbnail}/>
+                                    <div className="tag-itemdesc">
+                                        <div className="tag-itemtitle">{a.title}</div>
+                                        <div className="tag-itemexcerpt">{a.excerpt}</div>
+                                    </div>
                                 </a>
-                                {a.title}
-                                {a.excerpt}
                             </li>
+                            </div>
                         );}
                     })
                 }

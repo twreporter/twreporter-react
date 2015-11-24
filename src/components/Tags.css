@@ -1,0 +1,47 @@
+
+.tag-listing {
+    list-style-type: none;
+    width: 100%;
+    margin-left: 7%;
+    margin-right: 5%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.tag-item {
+    display: inline-block;
+    height: 396px;
+    background-color: #FFF;
+    width: 40%;
+    margin-left: 2%;
+    margin-right: 2%;
+    vertical-align: top;
+}
+
+.category-itemimage {
+    align: center;
+    width: 95%;
+    height: 60%;
+}
+
+.tag-itemdesc {
+    width: 95%;
+    background-color: #FFF;
+    height: 171px;
+}
+
+.tag-itemtitle {
+    margin-top: 12px; 
+    margin-left: 18px;
+    margin-right: 18px;
+    margin-bottom: 12px; 
+    font-size: 18px;
+    font-family: 'cwTeXHei', Roboto;
+}
+
+.tag-itemexcerpt {
+    display: block;
+    font-size: 14px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: light;
+}

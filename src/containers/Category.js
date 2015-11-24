@@ -8,6 +8,9 @@ import Header from '../components/Header'
 import NavBar from '../components/NavBar'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
+if (process.env.BROWSER) { 
+    require("./Category.css");
+}
 
 export default class Category extends Component {
     static fetchData({ query, params, store, history }) {

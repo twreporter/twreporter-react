@@ -1,0 +1,19 @@
+.nav-menu {
+   list-style-type: none; 
+   margin-top: 15px;
+   margin-left: 22%;
+   margin-right: 22%;
+   margin-bottom: 26px;
+}
+
+.nav-menuitem {
+    display: inline;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: 18px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: bold;
+    letter-spacing: 0.3%;
+}
