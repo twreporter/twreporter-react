@@ -8,4 +8,4 @@ New Media foundation in Taiwan.
 
 # License
 
-MIT http://g0v.mit-license.org
+MIT http://mit-license.org

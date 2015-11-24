@@ -55,7 +55,6 @@
     "rewire": "^2.3.4",
     "rewire-webpack": "^1.0.0",
     "sass-loader": "^3.0.0",
-    "scroll-parallax": "^1.0.1",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
     "superagent": "^1.4.0",
