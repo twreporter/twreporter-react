@@ -18,10 +18,9 @@
     vertical-align: top;
 }
 
-.category-itemimage {
-    align: center;
+img.category-itemimage {
     width: 95%;
-    height: 60%;
+    object-fit: cover;
 }
 
 .tag-itemdesc {
