@@ -26,12 +26,12 @@ export default class Category extends Component {
     render() {
         var { router } = this.context;
         const { articles } = this.props
-        if (articles && articles.length > 0) {
+        if (articles) {
         return (
             <div>
                 <Header/>
                 <NavBar/>
-                <Tags articles={articles}/>
+                <Tags articles={articles[this.tags]}/>
                 {this.props.children}
                 <Footer/>
              </div>

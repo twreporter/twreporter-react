@@ -6,16 +6,19 @@ export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
 function fetchArticles(tags) {
     let ext = ''
+    let params = ''
     if (tags) {
         if (typeof(tags) == 'string') {
-            ext = '?where={"tags":"' + tags + '"}';
-        } else if (typeof(tags) == 'Array') {
+            params = {"tags": [tags] };
+        } else if (typeof(tags) == 'object') {
+            params = {"tags": tags}
         }
     }
     return {
         [CALL_API]: {
-            method: 'get',
-            url: 'http://api.reportr.news/article' + ext ,
+            method: 'post',
+            url: 'http://api.reportr.news/tags',
+            params: params,
             types: ['LOADED_ARTICLES_REQUEST', 'LOADED_SUCCESS', 'LOADED_FAILURE']
         }
     };

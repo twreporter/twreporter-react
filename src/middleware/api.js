@@ -13,15 +13,22 @@ export default store => next => action => {
     let { getState } = store;
     let deferred = Promise.defer();
     // handle 401 and auth here
-    let { method, url, types } = request;
+    let { method, url, types, params } = request;
     const [ requestType, successType, failureType ] = types;
-    superAgent[method](url).timeout(200)
+    superAgent[method](url).timeout(200).send(params)
         .end((err, res)=> {
-            if ( res && res.body._items ) {
+            if ( res && res.text ) {
                 if (res.ok) {
+                    let response = JSON.parse(res.text)
+                    let r = response.results
+                    let results = {}
+                    for (var i = 0; i < params.tags.length; i++) {
+                        let tag = params.tags[i]
+                        results[params.tags[i]] = r[i]._items
+                    }
                     next({
                         type: successType,
-                        response: res.body._items
+                        response: results
                     });
 
                     if (_.isFunction(request.afterSuccess)) {

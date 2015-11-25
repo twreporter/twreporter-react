@@ -14,7 +14,8 @@ if (process.env.BROWSER) {
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        return store.dispatch(loadArticles());
+        let params = ["daily", "review"]
+        return store.dispatch(loadArticles(params));
     }
     constructor(props) {
         super(props)
@@ -28,7 +29,7 @@ export default class Home extends Component {
 
     render() {
         const {articles} = this.props
-        if (articles.length > 0) {
+        if (articles) {
         return (
             <div>
                 <div className="header">
@@ -42,9 +43,9 @@ export default class Home extends Component {
                         <li className="menu-item">媒體</li>
                     </ul>
                 </div>
-                <TopNews articles={articles}/>
-                <Daily articles={articles}/>
-                <Features articles={articles}/>
+                <TopNews articles={articles.daily}/>
+                <Daily articles={articles.daily}/>
+                <Features articles={articles.review}/>
                 {this.props.children}
                 <Footer/>
             </div>
