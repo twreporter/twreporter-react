@@ -12,14 +12,14 @@ export default class Daily extends Component {
     }
 
     render() {
-        const { articles } = this.props
-        const daily = articles.slice(0, 5);
-        if (daily.length > 0 || !daily) {
+        const { daily } = this.props
+        const daily_top = daily.slice(0, 5);
+        if (daily_top.length > 0 || !daily_top) {
         return (
             <div>
             <h2 className="daily-news"><div className="what">What's</div><div className="new"> New</div></h2>
             <ul className="daily-itemlist">
-                { _.map(daily, (a) => {
+                { _.map(daily_top, (a) => {
                     var re = /^[\w\d]/
                     let img_existing = re.exec(a.firstImage)
                     //if (img_existing != null) {

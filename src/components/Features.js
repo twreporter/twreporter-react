@@ -13,11 +13,11 @@ export default class Features extends Component {
     }
 
     render() {
-        const { articles } = this.props
-            if (articles.length > 0 || !articles) {
+        const { features } = this.props
+            if (features.length > 0 || !features) {
                 return (
                         <ul className="listing">
-                        { _.map(articles, (a) => {
+                        { _.map(features, (a) => {
                            var re = /^[\w\d]/
                            let img_existing = re.exec(a.firstImage)
                             if (img_existing != null) {

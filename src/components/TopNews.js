@@ -9,23 +9,23 @@ export default class TopNews extends Component {
     }
 
     render() {
-        const { articles } = this.props
-            if (articles.length > 0 || !articles) {
-                return (
-                        <Carousel>
-                        { _.map(articles, (a) => {
-                             return (
-                                 <a key={a.id} href={a.url}>
+        const { topnews } = this.props
+        if (topnews.length > 0 || !topnews) {
+            return (
+                <Carousel>
+                    { _.map(topnews, (a) => {
+                        return (
+                            <a key={a.id} href={a.url}>
                                  <img src={a.preview_image}/>
-                                 </a>
-                             );
-                            })
-                        }
-                        </Carousel>
-                 )
-            } else {
-                return ( <div></div> )
-            } 
+                            </a>
+                        );
+                        })
+                    }
+                </Carousel>
+            )
+        } else {
+            return ( <div></div> )
+        } 
     }
 }
 

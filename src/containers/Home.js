@@ -29,6 +29,9 @@ export default class Home extends Component {
 
     render() {
         const {articles} = this.props
+        let topnews = articles.daily
+        let daily = articles.daily
+        let features = articles.review
         if (articles) {
         return (
             <div>
@@ -43,9 +46,9 @@ export default class Home extends Component {
                         <li className="menu-item">媒體</li>
                     </ul>
                 </div>
-                <TopNews articles={articles.daily}/>
-                <Daily articles={articles.daily}/>
-                <Features articles={articles.review}/>
+                <TopNews topnews={topnews}/>
+                <Daily daily={daily}/>
+                <Features features={features}/>
                 {this.props.children}
                 <Footer/>
             </div>
