@@ -1,0 +1,34 @@
+.slider {
+    top: -45px;;
+}
+
+.slider-decorator-2 {
+    position: relative;
+    top: -160px;
+}
+.carousel-image {
+    width: 100%;
+}
+.carousel-item {
+    background-color: #FFF;
+    width: 485px;
+    padding: 33px 33px 33px 33px;
+    border: solid;
+    border-weight: 2px;
+    position: relative;
+    top: -160px;
+    right: 50%;
+}
+.carousel-itemtitle {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 30px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: bold;
+}
+.carousel-excerpt {
+    padding-top: 18px;
+    font-size: 16px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: lighter;
+}
