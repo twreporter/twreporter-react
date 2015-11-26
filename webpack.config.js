@@ -16,6 +16,7 @@ const config = {
         exclude: /node_modules/,
         loaders: ['babel-loader']
       },
+       { test: /\.jsx$/, loader: 'babel-loader'},
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', "css-loader")
@@ -36,7 +37,7 @@ const config = {
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.css'],
+    extensions: ['', '.js', '.css', '.jsx'],
     Directories: ['src', 'node_modules']
   }
 }
