@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Parallex from './Parallex'
 
 if (process.env.BROWSER) {
     require("./FeaturesItem.css");
@@ -13,19 +14,21 @@ export default class FeaturesItem extends Component {
 
     render() {
         const { article } = this.props
-        article.firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1185x0~" + article.firstImage
+        let firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1185x0~" + article.firstImage
         var style = { backgroundImage: 'url(' + article.firstImage + ')' }
         return (
             <li className="listing-item" key={article.id}>
                 <a href={article.url}>
-                   <img className="listing-img" src={article.firstImage}/>
-                   <div className="listing-projectborder">
-                      <div className="listing-project">
-                          <div className="listing-projectpublished">{article.lastPublish}</div>
-                          <div className="listing-title">{article.title}</div>
-                          <div className="listing-excerpt">{article.excerpt}</div>
-                      </div>
-                   </div>
+                    <Parallex>
+                        <img className="listing-img" src={firstImage}/>
+                    </Parallex>
+                    <div className="listing-projectborder">
+                        <div className="listing-project">
+                            <div className="listing-projectpublished">{article.lastPublish}</div>
+                            <div className="listing-title">{article.title}</div>
+                            <div className="listing-excerpt">{article.excerpt}</div>
+                        </div>
+                    </div>
                 </a>
             </li>
         )

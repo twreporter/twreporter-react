@@ -8,10 +8,10 @@ function fetchArticles(tags) {
     let ext = ''
     let params = ''
     if (tags) {
-        if (typeof(tags) == 'string') {
-            params = {"tags": [tags] };
-        } else if (typeof(tags) == 'object') {
-            params = {"tags": tags}
+        if (Array.isArray(tags)) {
+            params = {'tags': tags}
+        } else {
+            params = {'tags': [tags] };
         }
     }
     return {
@@ -19,7 +19,7 @@ function fetchArticles(tags) {
             method: 'post',
             url: 'http://api.reportr.news/tags',
             params: params,
-            types: ['LOADED_ARTICLES_REQUEST', 'LOADED_SUCCESS', 'LOADED_FAILURE']
+            types: [LOADED_ARTICLES_REQUEST, LOADED_SUCCESS, LOADED_FAILURE]
         }
     };
 }
