@@ -1,4 +1,4 @@
-.listing-img{
+.listing-img {
     border: 0;
     width: 100%;
 }
@@ -9,22 +9,49 @@
     background-repeat: no-repeat;
     margin-bottom: 0px;
     padding-bottom: 0px;
+    height: 125px;
 }
+
 
 .listing-projectborder {
+    width: 98%%;
+    height: 255px;
     border: solid;
     border-color: #000;
-    border-weight: 3px;
+    border-width: 4px;
     background-color: #FFF;
     margin-bottom: 1px;
-    padding-bottom: 0px;
+    padding-bottom: 1px;
     position: relative;
+    top: -160px
+
 }
 
+.feature-categorycontainer {
+    width: 15%;
+    display: inline;
+    float: left;
+    padding-top: 33px;
+    padding-left: 46px;
+}
+
+.feature-category {
+    background-image: url('/asset/hexagon.png');
+    display: block;
+    font-size: 24pt;
+    background-repeat: no-repeat; 
+    background-position: center;
+    width: 46px;
+    height: 46px;
+    text-align: center;
+    padding-top: 15px;
+}
 .listing-project {
-    margin-left:25%;
-    margin-right: 25%;
-    width: 50%;
+    display: inline;
+    float: right;
+    padding-left:5%;
+    padding-right: 5%;
+    width: 70%;
 }
 
 .listing-projectpublished {
@@ -61,7 +88,8 @@
 .component-stickybox.frozen > * {
   position: fixed;
   top: 0;
-  z-index: -1
+  z-index: -1;
+  background-color: #FFF;
 }
 
 @media 

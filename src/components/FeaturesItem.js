@@ -19,10 +19,12 @@ export default class FeaturesItem extends Component {
         return (
             <li className="listing-item" key={article.id}>
                 <a href={article.url}>
-                    <Parallex>
-                        <img className="listing-img" src={firstImage}/>
-                    </Parallex>
+                    <img className="listing-img" src={firstImage}/>
                     <div className="listing-projectborder">
+                        <div className="feature-categorycontainer">
+                            <div className="feature-category">台</div>
+                            <div className="feature-category">灣</div>
+                        </div>
                         <div className="listing-project">
                             <div className="listing-projectpublished">{article.lastPublish}</div>
                             <div className="listing-title">{article.title}</div>

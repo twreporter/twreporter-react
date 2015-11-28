@@ -11,13 +11,13 @@
 }
 .carousel-item {
     background-color: #FFF;
-    width: 485px;
+    width: 45%;
     padding: 33px 33px 33px 33px;
     border: solid;
     border-weight: 2px;
     position: relative;
-    top: -160px;
-    right: 50%;
+    top: -220px;
+    left: 30%;
 }
 .carousel-itemtitle {
     padding-top: 12px;
