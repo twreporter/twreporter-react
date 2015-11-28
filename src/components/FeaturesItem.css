@@ -64,4 +64,41 @@
   z-index: -1
 }
 
+@media 
+only screen 
+and (max-device-width : 799px) { 
+    .listing-projectborder {
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        margin-bottom: 1px;
+        padding-bottom: 0px;
+        position: relative;
+        height: 160px;
+        top: -160px;
+    }
 
+    .listing-title {
+        font-size: 35px;
+        color: #FFF;
+        opacity: 1;
+        font-family: 'cwTeXHei', Roboto;
+        font-weight: bold;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-top: 12px;
+        margin-bottom: 15px;
+    }
+
+    .listing-excerpt {
+        display: none;
+    }
+
+    .listing-projectpublished {
+        font-size: 12px;
+        font-family: Roboto;
+        margin-top: 33px;
+        margin-bottom: 12px;
+        color: #FFF;
+    }
+
+}

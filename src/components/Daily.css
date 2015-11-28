@@ -62,18 +62,51 @@
     margin-bottom: 32px;
 }
 
-@media screen and (max-width: 800px) {
-    .daily-item {
-        display: block;
-        margin-top: 6px;
-        margin-bottom: 6px;
-    }
+@media 
+only screen 
+and (max-device-width : 799px) {
 
     .daily-title {
         display: inline-block;    
         padding-left: 15px;
         padding-right: 15px;
         vertical-align : top;
-        width: 60%;
+        width: 50%;
+    }
+    .daily-item {
+        width: 85%;
+        display: block;
+        padding: 25px;
+        margin: 20px;
+        display: inline-block;
+        vertical-align : top;
+        border-bottom-style: solid;
+        border-color: #CCC;
+        border-bottom-width: 2px;
+    }
+
+    .what {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 35px;
+        display: inline;
+    }
+
+    .new {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 35px;
+        display: inline;
+    }
+
+    .daily-news {
+        width: 40%;
+        margin-left: 5%;
+    }
+
+    .daily-line {
+        display: none;
     }
 }

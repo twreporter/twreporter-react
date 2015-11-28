@@ -31,7 +31,7 @@ export default class Home extends Component {
         const {articles} = this.props
         let topnews = articles.daily
         let daily = articles.daily
-        let features = articles.review
+        let features = articles.daily
         if (articles) {
         return (
             <div>

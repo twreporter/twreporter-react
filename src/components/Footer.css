@@ -20,7 +20,9 @@
         }
     }
 }
-@media screen and (max-width: 800px) {
+@media 
+only screen 
+and (max-device-width : 799px) {
     & .footer-item.right-reserved {
         float: none;
         display: block;

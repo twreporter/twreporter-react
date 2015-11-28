@@ -1,6 +1,27 @@
 .listing {
     list-style-type: none;
-    margin: 0;
+    margin: 24px 0px 48px 0px;
     padding:0;
     border: 0;
 }
+
+.features {
+    display:none;
+}
+
+
+@media 
+only screen 
+and (max-device-width : 799px) { 
+    .features {
+        display: block;
+        font-size: 35px;
+        font-family: montserral;
+        font-weight: bold;
+        width: 40%;
+        margin-top: 26px;
+        margin-bottom: 26px;
+        margin-left: 5%;
+    }
+}
+

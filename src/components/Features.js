@@ -16,17 +16,20 @@ export default class Features extends Component {
         const { features } = this.props
         if (features) {
             return (
-                <ul className="listing">
-                    { _.map(features, (a) => {
-                        var re = /^[\w\d]/
-                        let img_existing = re.exec(a.firstImage)
-                        if (img_existing != null) {
-                            return (
-                                <FeaturesItem article={a} key={a.id}/>
-                            );
-                        }})
-                    }
-                 </ul>
+                <div className="feature-list">
+                    <div className="features">FEATURES</div>
+                    <ul className="listing">
+                        { _.map(features, (a) => {
+                            var re = /^[\w\d]/
+                            let img_existing = re.exec(a.firstImage)
+                            if (img_existing != null) {
+                                return (
+                                    <FeaturesItem article={a} key={a.id}/>
+                                );
+                            }})
+                        }
+                    </ul>
+                 </div>
              )
         } else {
             return ( <div> </div>)

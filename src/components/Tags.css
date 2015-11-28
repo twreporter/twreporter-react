@@ -96,7 +96,9 @@ img.category-itemimage {
 
 /* 451 * 2 + 52 = 954 */
 /* 寬度800px 以下*/
-@media all and (max-width: 799px)  {
+@media 
+only screen 
+and (max-device-width : 799px) {
     .tag-listing {
         width: 475px;
         margin: 0 auto;
