@@ -19,10 +19,18 @@ export default class TopNews extends Component {
                     { _.map(topnews, (a) => {
                         return (
                             <a key={a.id} href={a.url}>
-                                <img className="carousel-image" src={a.preview_image}/>
+                                <div className="topnews_categorycontainer">
+                                    <div className="topnews_category">台</div>
+                                    <div className="topnews_category">灣</div>
+                                </div>
+                                <div className="topnewsimage-wrap">
+                                    <img className="carousel-image" src={a.preview_image}/>
+                                </div>
                                 <div className="carousel-item">
+                                    <div className="carousel-published">{a.lastPublish}</div>
                                     <div className="carousel-itemtitle">{a.title}</div>
                                     <div className="carousel-excerpt">{a.excerpt}</div>
+                                    <div className="carousel-author">{a.author_display}</div>
                                 </div>
                             </a>
                         );

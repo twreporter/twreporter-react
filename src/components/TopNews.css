@@ -2,27 +2,68 @@
     top: -45px;;
 }
 
-.slider-decorator-2 {
-    position: relative;
-    top: -160px;
+.slider-slide {
+    max-height: 690px;
 }
+
+.slider-decorator-2 {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    height: 20px;
+    background-color: #FFF;
+    z-index:2;
+}
+
+.slider-frame {
+    height: 690px;
+}
+
 .carousel-image {
     width: 100%;
+    overflow: hidden;
+    max-height: 690px;
 }
+
+.topnews_categorycontainer {
+    position: absolute;
+    top: 120px;
+    left: 46px;
+}
+
+.topnews_category {
+    background-image: url('/asset/hexagon.png');
+    display: block;
+    font-size: 24pt;
+    background-repeat: no-repeat; 
+    background-position: center;
+    width: 46px;
+    height: 46px;
+    text-align: center;
+    padding-top: 15px;
+    align: center;
+}
+
+.topnewsimage-wrap {
+    width: 100%;
+    height: 660px;
+    overflow: hidden;
+}
+
 .carousel-item {
     background-color: #FFF;
     width: 45%;
-    padding: 33px 33px 33px 33px;
+    padding: 2% 2% 2% 2%;
     border: solid;
     border-weight: 2px;
     position: relative;
     top: -220px;
-    left: 30%;
+    left: 42%;
 }
 .carousel-itemtitle {
     padding-top: 12px;
     padding-bottom: 12px;
-    font-size: 30px;
+    font-size: 27px;
     font-family: 'cwTeXHei', Roboto;
     font-weight: bold;
 }
@@ -31,4 +72,42 @@
     font-size: 16px;
     font-family: 'cwTeXHei', Roboto;
     font-weight: lighter;
+}
+
+.carousel-author {
+    text-align: right;
+    padding-right: 5%;
+    font-size: 16px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: lighter;
+}
+
+@media
+only screen
+and (max-device-width : 799px) {
+    .topnews_categorycontainer {
+        position: absolute;
+        width: 7%;
+        top: 5%;
+        left: 45%;
+    }
+    .carousel-item {
+        left: 25%;
+        top: -140px;
+    }
+    .carousel-image {
+        height: 790px;
+    }
+    .slider-decorator-2 {
+        z-index: -1;
+    }
+    .slider-slide {
+        height:790px;
+    }
+    .slider-frame {
+        height:790px;
+    }
+    .slider-list {
+        height: 790px;
+    }
 }

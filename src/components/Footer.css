@@ -13,7 +13,7 @@
         color: black;
         font-weight: bold;
         line-height: 1.7;
-        font-size: 1rem;
+        font-size: 10rem;
         padding: 2px 4px 2px 4px;
         &.right-reserved {
             float: right;

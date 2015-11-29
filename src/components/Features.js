@@ -16,7 +16,7 @@ export default class Features extends Component {
         const { features } = this.props
         if (features) {
             return (
-                <div className="feature-list">
+                <div className="features-list clearfix">
                     <div className="features">FEATURES</div>
                     <ul className="listing">
                         { _.map(features, (a) => {

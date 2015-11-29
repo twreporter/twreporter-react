@@ -1,6 +1,8 @@
 .listing-img {
     border: 0;
     width: 100%;
+    height: auto;
+    overflow: hidden;
 }
 
 .listing-item {
@@ -9,30 +11,32 @@
     background-repeat: no-repeat;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    height: 125px;
 }
 
+.featuresimage-wrap {
+    max-width: 100%;
+    max-height: 460px;
+    overflow: hidden;
+    text-align: center;
+}
 
 .listing-projectborder {
-    width: 98%%;
-    height: 255px;
+    width: 100%;
+    height: 285px;
     border: solid;
     border-color: #000;
     border-width: 4px;
     background-color: #FFF;
     margin-bottom: 1px;
     padding-bottom: 1px;
-    position: relative;
-    top: -160px
-
 }
 
 .feature-categorycontainer {
     width: 15%;
     display: inline;
     float: left;
-    padding-top: 33px;
-    padding-left: 46px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .feature-category {
@@ -45,13 +49,12 @@
     height: 46px;
     text-align: center;
     padding-top: 15px;
+    align: center;
 }
 .listing-project {
     display: inline;
     float: right;
-    padding-left:5%;
-    padding-right: 5%;
-    width: 70%;
+    width: 80%;
 }
 
 .listing-projectpublished {
@@ -67,6 +70,7 @@
     font-weight: bold;
     padding-top: 2px;
     padding-bottom: 2px;
+    padding-right: 12%;
     margin-top: 12px;
     margin-bottom: 15px;
 }
@@ -77,6 +81,16 @@
     padding-bottom: 33px;
     font-family: 'cwTeXHei', Roboto;
     font-weight: light;
+}
+
+.listing-author {
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 33px;
+    font-family: 'cwTeXHei', Roboto;
+    font-weight: light;
+    text-align: right;
+    padding-right: 12%;
 }
 
 .component-stickybox > * {
@@ -101,23 +115,35 @@ and (max-device-width : 799px) {
         margin-bottom: 1px;
         padding-bottom: 0px;
         position: relative;
-        height: 160px;
-        top: -160px;
+        height: 450px;
+        top: -450px;
+        overflow: hidden;
     }
 
+    .listing-project {
+        position: absolute;
+        width: 92%;
+        bottom: 20px;
+    }
     .listing-title {
-        font-size: 35px;
+        width: 92%;
         color: #FFF;
-        opacity: 1;
-        font-family: 'cwTeXHei', Roboto;
-        font-weight: bold;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        margin-top: 12px;
-        margin-bottom: 15px;
+        padding-right: 4%;
+        padding-left: 14%;
+    }
+
+    .listing-projectpublished {
+        width: 92%;
+        color: #FFF;
+        padding-right: 4%;
+        padding-left: 14%;
     }
 
     .listing-excerpt {
+        display: none;
+    }
+
+    .listing-author {
         display: none;
     }
 
@@ -129,4 +155,27 @@ and (max-device-width : 799px) {
         color: #FFF;
     }
 
+    .listing-item {
+        margin: 0px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        height: 460px;
+    }
+
+    .feature-categorycontainer {
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        display: block;
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .listing-project {
+        display: block;
+        float: right;
+        width: 80%;
+    }
 }
