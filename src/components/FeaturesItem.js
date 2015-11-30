@@ -14,7 +14,7 @@ export default class FeaturesItem extends Component {
 
     render() {
         const { article } = this.props
-        let firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1185x0~" + article.firstImage
+        let firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
         var d = new Date()
         d.setTime(article.lastPublish*1000)
         var d_str = d.toISOString().substring(0,10);

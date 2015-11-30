@@ -1,12 +1,13 @@
 .listing-img {
     border: 0;
     width: 100%;
-    height: auto;
+    height: 785px;
     overflow: hidden;
 }
 
 .listing-item {
     margin: 0px;
+    overflow: hidden;
     background-size: cover;
     background-repeat: no-repeat;
     margin-bottom: 0px;
@@ -15,19 +16,22 @@
 
 .featuresimage-wrap {
     max-width: 100%;
-    max-height: 460px;
+    max-height: 760px;
     overflow: hidden;
     text-align: center;
 }
 
 .listing-projectborder {
-    width: 100%;
+    position: relative;
+    top: -140px;
+    width: 90%;
     height: 285px;
     border: solid;
     border-color: #000;
     border-width: 4px;
-    background-color: #FFF;
+    background-color: rgba(255, 255, 255, 1);
     margin-bottom: 1px;
+    margin-left: 5%;
     padding-bottom: 1px;
 }
 
@@ -42,13 +46,13 @@
 .feature-category {
     background-image: url('/asset/hexagon.png');
     display: block;
-    font-size: 24pt;
+    font-size: 160%;
     background-repeat: no-repeat; 
     background-position: center;
     width: 46px;
     height: 46px;
     text-align: center;
-    padding-top: 15px;
+    padding-top: 17px;
     align: center;
 }
 .listing-project {
@@ -58,15 +62,15 @@
 }
 
 .listing-projectpublished {
-    font-size: 12px;
+    font-size: 80%;
     font-family: Roboto;
     margin-top: 33px;
     margin-bottom: 12px;
 }
 
 .listing-title {
-    font-size: 30px;
-    font-family: 'cwTeXHei', Roboto;
+    font-size: 220%;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
     font-weight: bold;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -76,18 +80,18 @@
 }
 
 .listing-excerpt {
-    font-size: 16px;
+    font-size: 120%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: 'cwTeXHei', Roboto;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
     font-weight: light;
 }
 
 .listing-author {
-    font-size: 16px;
+    font-size: 130%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: 'cwTeXHei', Roboto;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
     font-weight: light;
     text-align: right;
     padding-right: 12%;
@@ -148,7 +152,7 @@ and (max-device-width : 799px) {
     }
 
     .listing-projectpublished {
-        font-size: 12px;
+        font-size: 80%;
         font-family: Roboto;
         margin-top: 33px;
         margin-bottom: 12px;

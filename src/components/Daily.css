@@ -23,8 +23,8 @@
 }
 
 .daily-title {
-    font-family: 'cwTeXHei', Roboto;
-    font-size: 16px;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-size: 95%;
     margin-top: 20px;
     height: 78px;
     width: 213px;
@@ -40,14 +40,14 @@
     font-family: 'Times New Roman';
     font-style: Italic;
     font-weight: normal;
-    font-size: 45px;
+    font-size: 240%;
     display: inline;
 }
 
 .new {
     font-family: 'Montserrat';
     font-weight: Bold;
-    font-size: 45px;
+    font-size: 240%;
     display: inline;
 }
 
@@ -69,6 +69,7 @@ and (max-device-width : 799px) {
         display: inline-block;    
         padding-left: 15px;
         padding-right: 15px;
+        font-size: 140%;
         vertical-align : top;
         width: 50%;
     }
