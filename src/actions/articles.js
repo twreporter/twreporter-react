@@ -5,7 +5,6 @@ export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST';
 export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
 function fetchArticles(tags) {
-    let ext = ''
     let params = ''
     if (tags) {
         if (Array.isArray(tags)) {

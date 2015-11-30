@@ -15,7 +15,9 @@ export default class FeaturesItem extends Component {
     render() {
         const { article } = this.props
         let firstImage = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1185x0~" + article.firstImage
-        var style = { backgroundImage: 'url(' + article.firstImage + ')' }
+        var d = new Date()
+        d.setTime(article.lastPublish*1000)
+        var d_str = d.toISOString().substring(0,10);
         return (
             <li className="listing-item" key={article.id}>
                 <a href={article.url}>
@@ -28,7 +30,7 @@ export default class FeaturesItem extends Component {
                             <div className="feature-category">灣</div>
                         </div>
                         <div className="listing-project">
-                            <div className="listing-projectpublished">{article.lastPublish}</div>
+                            <div className="listing-projectpublished">{d_str}</div>
                             <div className="listing-title">{article.title}</div>
                             <div className="listing-excerpt">{article.excerpt}</div>
                             <div className="listing-author">{article.author_display}</div>

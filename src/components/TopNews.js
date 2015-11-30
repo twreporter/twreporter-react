@@ -17,6 +17,9 @@ export default class TopNews extends Component {
             return (
                 <Carousel>
                     { _.map(topnews, (a) => {
+                        var d = new Date()
+                        d.setTime(a.lastPublish*1000)
+                        var d_str = d.toISOString().substring(0,10)
                         return (
                             <a key={a.id} href={a.url}>
                                 <div className="topnews_categorycontainer">
@@ -27,11 +30,11 @@ export default class TopNews extends Component {
                                     <img className="carousel-image" src={a.preview_image}/>
                                 </div>
                                 <div className="carousel-item">
-                                    <div className="carousel-published">{a.lastPublish}</div>
+                                    <div className="carousel-published">{d_str}</div>
                                     <div className="carousel-itemtitle">{a.title}</div>
                                     <div className="carousel-excerpt">{a.excerpt}</div>
                                     <div className="carousel-author">{a.author_display}</div>
-                                </div>
+                                 </div>
                             </a>
                         );
                         })
