@@ -2,31 +2,27 @@
     display: block;
     width: 100%;
     margin: 40px 0 20px 0;
-    padding: 40px 0 10px 0;
+    padding: 40px 20px 10px 20px;
     border-bottom: 1px solid black;
-
-    a {
-        text-decoration: none;
-        padding-right: 20px;
-    }
-    .footer-item {
-        color: black;
-        font-weight: bold;
-        line-height: 1.7;
-        font-size: 10rem;
-        padding: 2px 4px 2px 4px;
-        &.right-reserved {
-            float: right;
-        }
+    box-sizing: border-box;
+}
+.footer a {
+    text-decoration: none;
+    padding-right: 20px;
+}
+.footer .footer-item {
+    color: black;
+    font-weight: bold;
+    padding: 0 4px 2px 4px;
+}
+.footer .footer-item.right-reserved {
+    float: none;
+    display: block;
+    margin-top: 10px;
+}
+@media screen and (min-width: 650px) {
+    .footer .footer-item.right-reserved{
+        float: right;
+        margin-top: 0;
     }
 }
-@media 
-only screen 
-and (max-device-width : 799px) {
-    & .footer-item.right-reserved {
-        float: none;
-        display: block;
-        margin-top: 10px;
-    }
-}
-
