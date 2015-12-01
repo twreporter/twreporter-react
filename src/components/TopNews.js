@@ -20,8 +20,9 @@ export default class TopNews extends Component {
                         var d = new Date()
                         d.setTime(a.lastPublish*1000)
                         var d_str = d.toISOString().substring(0,10)
+                        var url = "https://www.twreporter.org/a/" + a.slug
                         return (
-                            <a key={a.id} href={a.url}>
+                            <a key={a.id} href={url}>
                                 <div className="topnews_categorycontainer">
                                     <div className="topnews_category">台</div>
                                     <div className="topnews_category">灣</div>

@@ -25,10 +25,11 @@ export default class Daily extends Component {
                             var re = /^[\w\d]/
                             let img_existing = re.exec(a.firstImage)
                             if (img_existing != null) {
-                                let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
+                                let thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
+                                let url = "https://www.twreporter.org/a/" + a.slug
                                 return (
                                     <li key={a.id} className="daily-item">
-                                        <a href={a.url}>
+                                        <a href={url}>
                                             <img className="daily-image" src={thumbnail}/>
                                         </a>
                                         <div className="daily-title">{a.title}</div>

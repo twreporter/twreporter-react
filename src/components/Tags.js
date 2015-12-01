@@ -26,7 +26,7 @@ export default class Tags extends Component {
                             var re = /^[\w\d]/
                             let img_existing = re.exec(a.firstImage)
                             if (img_existing != null) {
-                                let thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~600x600~" + a.firstImage
+                                let thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~600x600~" + a.firstImage
                                 return (
                                     <li className="tag-item" key={a.id}>
                                         <div className="itemimage-wrap">
