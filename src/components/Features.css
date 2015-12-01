@@ -22,7 +22,7 @@ only screen
 and (max-device-width : 799px) { 
     .features {
         display: block;
-        font-size: 35px;
+        font-size: 160%;
         font-family: montserral;
         font-weight: bold;
         width: 40%;

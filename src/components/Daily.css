@@ -19,7 +19,7 @@
 .daily-image {
     padding-top: 0;
     height: 143px;
-    width: 213px;
+    width: 100%;
 }
 
 .daily-title {
@@ -69,15 +69,16 @@ and (max-device-width : 799px) {
         display: inline-block;    
         padding-left: 15px;
         padding-right: 15px;
-        font-size: 140%;
+        font-size: 120%;
         vertical-align : top;
         width: 50%;
     }
+    
     .daily-item {
-        width: 85%;
+        width: 90%;
         display: block;
-        padding: 25px;
-        margin: 20px;
+        padding: 2%;
+        margin: 2%;
         display: inline-block;
         vertical-align : top;
         border-bottom-style: solid;
@@ -85,11 +86,16 @@ and (max-device-width : 799px) {
         border-bottom-width: 2px;
     }
 
+    .daily-image {
+        padding-top: 0;
+        height: 100px;
+        width: 25%;
+    }   
     .what {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: bold;
-        font-size: 35px;
+        font-size: 160%;
         display: inline;
     }
 
@@ -97,7 +103,7 @@ and (max-device-width : 799px) {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: bold;
-        font-size: 35px;
+        font-size: 160%;
         display: inline;
     }
 

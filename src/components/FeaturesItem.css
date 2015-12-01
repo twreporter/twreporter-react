@@ -119,8 +119,15 @@ and (max-device-width : 799px) {
         margin-bottom: 1px;
         padding-bottom: 0px;
         position: relative;
-        height: 450px;
-        top: -450px;
+        height: 300px;
+        top: -400px;
+        overflow: hidden;
+    }
+    
+    .listing-img {
+        border: 0;
+        width: 100%;
+        height: 385px;
         overflow: hidden;
     }
 
@@ -128,12 +135,14 @@ and (max-device-width : 799px) {
         position: absolute;
         width: 92%;
         bottom: 20px;
+        background-color: rgba(50, 50, 50, 0.1);
     }
     .listing-title {
         width: 92%;
         color: #FFF;
         padding-right: 4%;
         padding-left: 14%;
+        font-size: 120%;
     }
 
     .listing-projectpublished {
@@ -165,7 +174,7 @@ and (max-device-width : 799px) {
         background-repeat: no-repeat;
         margin-bottom: 0px;
         padding-bottom: 0px;
-        height: 460px;
+        height: 260px;
     }
 
     .feature-categorycontainer {

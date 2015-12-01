@@ -89,25 +89,42 @@ and (max-device-width : 799px) {
         position: absolute;
         width: 7%;
         top: 5%;
-        left: 45%;
+        left: 43%;
     }
     .carousel-item {
-        left: 25%;
-        top: -140px;
+        width: 60%;
+        left: 17%;
+        top: -100px;
     }
     .carousel-image {
-        height: 790px;
+        height: 360px;
     }
     .slider-decorator-2 {
         z-index: -1;
     }
+    .slider {
+        height: 460px;
+    }
     .slider-slide {
-        height:790px;
+        height:400px;
     }
     .slider-frame {
-        height:790px;
+        height:400px;
     }
     .slider-list {
-        height: 790px;
+        height: 400px;
     }
+    .topnewsimage-wrap {
+        width: 100%;
+        height: 360px;
+        overflow: hidden;
+    }
+    .carousel-itemtitle {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 140%;
+        font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+        font-weight: bold;
+    }
+
 }
