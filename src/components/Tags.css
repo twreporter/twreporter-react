@@ -77,14 +77,15 @@ img.category-itemimage {
     padding-left: 18px;
     padding-right: 18px;
     margin-bottom: 12px; 
-    font-size: 18px;
-    font-family: 'cwTeXHei', Roboto;
+    font-size: 160%;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-weight: bold;
 }
 
 .tag-itemexcerpt {
     display: block;
     font-size: 14px;
-    font-family: 'cwTeXHei', Roboto;
+    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
     font-weight: light;
 }
 
@@ -100,15 +101,21 @@ img.category-itemimage {
 only screen 
 and (max-device-width : 799px) {
     .tag-listing {
-        width: 475px;
-        margin: 0 auto;
+        width: 86%;
+        margin: 0 7% 0 7%;
     }
     .tag-item {
         width: 100%;
         margin: 0;
+        height: 380px;
+        overflow: hidden;
     }
     .tag-listing {
         -webkit-column-count: 1;
         column-count: 1;
     }
+    .tag-itemtitle {
+        font-weight: bold;
+    }
+
 }
