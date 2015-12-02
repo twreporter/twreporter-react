@@ -42,6 +42,7 @@
     "nuka-carousel": "^1.0.1",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.0",
+    "react-burger-menu": "^1.4.4",
     "react-dom": "^0.14.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^2.1.2",
