@@ -31,8 +31,8 @@ export default class Daily extends Component {
                                     <li key={a.id} className="daily-item">
                                         <a href={url}>
                                             <img className="daily-image" src={thumbnail}/>
+                                            <div className="daily-title">{a.title}</div>
                                         </a>
-                                        <div className="daily-title">{a.title}</div>
                                     </li>
                                 );}
                             })

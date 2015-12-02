@@ -13,6 +13,7 @@ export default class TopNews extends Component {
 
     render() {
         const { topnews } = this.props
+        let cat_display = "台灣"
         if (topnews && topnews.length > 0) {
             return (
                 <Carousel>
@@ -24,8 +25,8 @@ export default class TopNews extends Component {
                         return (
                             <a key={a.id} href={url}>
                                 <div className="topnews_categorycontainer">
-                                    <div className="topnews_category">台</div>
-                                    <div className="topnews_category">灣</div>
+                                    <div className="topnews_category">{cat_display.substring(0,1)}</div>
+                                    <div className="topnews_category">{cat_display.substring(2,1)}</div>
                                 </div>
                                 <div className="topnewsimage-wrap">
                                     <img className="carousel-image" src={a.preview_image}/>
