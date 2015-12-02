@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { FacebookLikeButton, FacebookShareButton, TwitterButton } from 'react-social-buttons'
+if (process.env.BROWSER) {
+        require("./Header.css");
+}
 
 export default class Header extends Component {
     constructor(props) {
@@ -10,7 +13,6 @@ export default class Header extends Component {
         return (
             <div className="uh">
                 <FacebookShareButton url={url} />
-                This is header
             </div>
         )
     }

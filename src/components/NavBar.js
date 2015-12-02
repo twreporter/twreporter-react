@@ -11,12 +11,28 @@ export default class NaviBar extends Component {
     }
     render() {
         return (
-            <Menu>
-                <a id="home" className="menu-item" href="/">首頁</a>
-                <a id="about" className="menu-item" href="/about">國際</a>
-                <a id="contact" className="menu-item" href="/contact">評論</a>
-                <a onClick={ this.showSettings } className="menu-item--small" href="">文化</a>
-            </Menu>
+            <div className="nav-menu">
+                <div className="burger">
+                    <Menu>
+                        <a id="home" className="menu-item" href="/">台灣</a>
+                        <a id="about" className="menu-item" href="/about">國際</a>
+                        <a id="contact" className="menu-item" href="/contact">評論</a>
+                        <a id="home" className="menu-item" href="/">文華</a>
+                        <a id="about" className="menu-item" href="/about">攝影</a>
+                        <a id="contact" className="menu-item" href="/contact">專題</a>
+                    </Menu>
+                </div>
+                <div className="listing-menu">
+                    <ul className="menu-items">
+                        <li className="nav-item"><a id="home" className="menu-item" href="/">台灣</a></li>
+                        <li className="nav-item"><a id="about" className="menu-item" href="/about">國際</a></li>
+                        <li className="nav-item"><a id="contact" className="menu-item" href="/contact">評論</a></li>
+                        <li className="nav-item"><a id="contact" className="menu-item" href="/contact">文化</a></li>
+                        <li className="nav-item"><a id="contact" className="menu-item" href="/contact">影像</a></li>
+                        <li className="nav-item"><a id="contact" className="menu-item" href="/contact">專題</a></li>
+                    </ul>
+                </div>
+            </div>
         )
     }
 }
