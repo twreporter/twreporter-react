@@ -1,7 +1,7 @@
 .listing-img {
     border: 0;
     width: 100%;
-    height: 785px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -16,7 +16,7 @@
 
 .featuresimage-wrap {
     max-width: 100%;
-    max-height: 760px;
+    max-height: auto;
     overflow: hidden;
     text-align: center;
 }
@@ -45,11 +45,12 @@
 
 .feature-category {
     background-image: url('/asset/hexagon.png');
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     display: block;
     font-size: 160%;
     background-repeat: no-repeat; 
     background-position: center;
-    width: 46px;
+    width: 46x;
     height: 46px;
     text-align: center;
     padding-top: 17px;
@@ -69,8 +70,8 @@
 }
 
 .listing-title {
-    font-size: 220%;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-size: 170%;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -83,7 +84,7 @@
     font-size: 120%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
 }
 
@@ -91,7 +92,7 @@
     font-size: 130%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
     text-align: right;
     padding-right: 12%;
@@ -120,14 +121,14 @@ and (max-device-width : 799px) {
         padding-bottom: 0px;
         position: relative;
         height: 300px;
-        top: -400px;
+        top: -300px;
         overflow: hidden;
     }
     
     .listing-img {
         border: 0;
         width: 100%;
-        height: 385px;
+        height: auto;
         overflow: hidden;
     }
 

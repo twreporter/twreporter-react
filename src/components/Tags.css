@@ -78,14 +78,14 @@ img.category-itemimage {
     padding-right: 18px;
     margin-bottom: 12px; 
     font-size: 160%;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
 }
 
 .tag-itemexcerpt {
     display: block;
     font-size: 14px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
 }
 

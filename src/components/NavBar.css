@@ -1,19 +1,40 @@
-.nav-menu {
-   list-style-type: none; 
-   margin-top: 15px;
-   margin-left: 22%;
-   margin-right: 22%;
-   margin-bottom: 26px;
+/* Position and sizing of burger button */
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 36px;
+    top: 36px;
 }
 
-.nav-menuitem {
-    display: inline;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 5%;
-    padding-right: 3%;
-    font-size: 18px;
-    font-family: 'cwTeXHei', Roboto;
-    font-weight: bold;
-    letter-spacing: 0.7%;
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+    background: #373a47;
+}
+
+/* Color of close button cross */
+.bm-cross {
+    background: #bdc3c7;
+}
+
+/* Background color of sidebar */
+.bm-menu {
+    background: #373a47;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+    fill: #373a47;
+}
+
+/* General menu styles */
+.bm-menu {
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+    color: #b8b7ad;
+    padding: 0.8em;
 }

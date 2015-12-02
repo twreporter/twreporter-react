@@ -66,13 +66,13 @@
     padding-top: 12px;
     padding-bottom: 12px;
     font-size: 27px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
 }
 .carousel-excerpt {
     padding-top: 18px;
     font-size: 16px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: lighter;
 }
 
@@ -80,7 +80,7 @@
     text-align: right;
     padding-right: 5%;
     font-size: 16px;
-    font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: lighter;
 }
 
@@ -125,7 +125,7 @@ and (max-device-width : 799px) {
         padding-top: 12px;
         padding-bottom: 12px;
         font-size: 140%;
-        font-family: "Noto Sans",'Noto Sans CJK TC', Roboto;
+        font-family: "Noto Sans",'Noto Sans TC', Roboto;
         font-weight: bold;
     }
 
