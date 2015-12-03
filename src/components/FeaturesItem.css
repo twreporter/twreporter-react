@@ -169,7 +169,7 @@ and (max-device-width : 799px) {
         background-repeat: no-repeat;
         margin-bottom: 0px;
         padding-bottom: 0px;
-        height: 260px;
+        height: 460px;
     }
 
     .feature-categorycontainer {
@@ -247,7 +247,7 @@ and (max-width : 799px) {
         background-repeat: no-repeat;
         margin-bottom: 0px;
         padding-bottom: 0px;
-        height: 260px;
+        height: 460px;
     }
 
     .feature-categorycontainer {

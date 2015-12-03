@@ -154,4 +154,22 @@ and (max-width : 799px) {
     .daily-line {
         display: none;
     }
+    .daily-news {
+        margin-left: 0;
+    }
+
+    .what {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 140%;
+        display: inline;
+    }
+
+    .new {
+        font-family: 'Roboto';
+        font-weight: normal;
+        font-size: 140%;
+        display: inline;
+    }
 }

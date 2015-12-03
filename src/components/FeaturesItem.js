@@ -8,8 +8,18 @@ export default class FeaturesItem extends Component {
     constructor(props, context) {
         super(props, context)
     }
-
+    handleResize() {
+        var listingImg = document.getElementsByClassName('listing-img')
+        var refHeight = listingImg[0].style.height;
+        console.log(refHeight)
+        var listingItem = document.getElementsByClassName('listing-item')
+        for (var i = 0; i < listingItem.length; i++) {
+            listingItem[i].style.height = refHeight + 'px'
+        }
+    }
     componentDidMount() {
+        this.handleResize()
+        window.addEventListener('resize', this.handleResize);
     }
 
     render() {
