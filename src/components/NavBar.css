@@ -2,11 +2,12 @@
     width: 100%;
     height: 125px;
     position: fixed;
+    background-color: #FFF;
     z-index: 4;
 }
 
 .nav_logo {
-    width: 150px;
+    width: 200px;
     margin: 5px auto;
 }
 
@@ -26,9 +27,11 @@
 .nav-item {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     display: inline;
-    font-size: 120%;
+    font-size: 100%;
+    font-weight: 700;
     padding-left: 29px;
     padding-right: 29px;
+    letter-spacing: 5px;
 }
 
 @media
