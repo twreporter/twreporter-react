@@ -8,12 +8,11 @@
 }
 
 .slider-decorator-2 {
-    position: absolute;
-    left: 15px;
-    bottom: 10px;
+    left: 10% !important;
+    top: 85% !important;
+    bottom: 0 !important;
     height: 20px;
-    background-color: #FFF;
-    z-index:2;
+    text-color: #FFF;
 }
 
 .slider-frame {
@@ -94,15 +93,11 @@ and (max-width : 799px) {
         left: 5%;
     }
     .carousel-item {
-        width: 60%;
-        left: 17%;
+        width: 50%;
         top: 60%;
     }
-    .carousel-image {
-        height: 360px;
-    }
     .slider-decorator-2 {
-        z-index: -1;
+        top: 80% !important;
     }
     .slider {
         height: 460px;
@@ -140,15 +135,11 @@ and (max-device-width : 799px) {
         left: 5%;
     }
     .carousel-item {
-        width: 60%;
-        left: 17%;
+        width: 50%;
         top: 60%;
     }
-    .carousel-image {
-        height: 360px;
-    }
     .slider-decorator-2 {
-        z-index: -1;
+        top: 80% !important;
     }
     .slider {
         height: 460px;
