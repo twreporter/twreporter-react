@@ -12,15 +12,8 @@ export default class NaviBar extends Component {
     render() {
         return (
             <div className="nav-menu">
-                <div className="burger">
-                    <Menu>
-                        <a id="home" className="menu-item" href="/">台灣</a>
-                        <a id="about" className="menu-item" href="/about">國際</a>
-                        <a id="contact" className="menu-item" href="/contact">評論</a>
-                        <a id="home" className="menu-item" href="/">文華</a>
-                        <a id="about" className="menu-item" href="/about">攝影</a>
-                        <a id="contact" className="menu-item" href="/contact">專題</a>
-                    </Menu>
+                <div className="nav_logo">
+                    <a href="#"><img src="/asset/logo.png"/></a>
                 </div>
                 <div className="listing-menu">
                     <ul className="menu-items">
@@ -30,6 +23,7 @@ export default class NaviBar extends Component {
                         <li className="nav-item"><a id="contact" className="menu-item" href="/contact">文化</a></li>
                         <li className="nav-item"><a id="contact" className="menu-item" href="/contact">影像</a></li>
                         <li className="nav-item"><a id="contact" className="menu-item" href="/contact">專題</a></li>
+                        <li className="nav-item"><a id="contact" className="menu-item" href="/contact">媒體</a></li>
                     </ul>
                 </div>
             </div>

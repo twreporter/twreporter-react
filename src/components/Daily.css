@@ -33,6 +33,7 @@
 .daily-news {
     align: center;
     width: 40%;
+    margin-top: 0;
     margin-left: 30%;
     text-align: center;
 }

@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
 
-
 .header {
     display: inline;
 }
@@ -24,14 +23,3 @@ a:hover {
     text-decoration: none;
 }
 
-menu {
-    display: block;
-    margini-top: 10px;
-    align: center;
-    width: 40%;
-}
-
-.menu-item {
-    display: inline;
-    padding: 15px 15px 15px 15px;
-}

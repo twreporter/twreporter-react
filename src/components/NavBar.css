@@ -1,78 +1,39 @@
-.burger {
-    display: none;
-}
-
 .nav-menu {
     width: 100%;
+    height: 125px;
+    position: fixed;
+    z-index: 4;
+}
+
+.nav_logo {
+    width: 150px;
+    margin: 5px auto;
 }
 
 .listing-menu {
-    width: 80%;
-    margin:2% 10% 3% 10%;
-
+    width: 700px;
+    margin-top: 2%;
+    margin-bottom: 3%;
+    margin: 10px auto;
 }
 
 .menu-items {
-    width: 60%;
-    padding-left: 20%;
-    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
 }
 
 .nav-item {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     display: inline;
     font-size: 120%;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-
-/* Position and sizing of burger button */
-.bm-burger-button {
-    position: fixed;
-    width: 36px;
-    height: 30px;
-    left: 36px;
-    top: 36px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-    background: #373a47;
-}
-
-/* Color of close button cross */
-.bm-cross {
-    background: #bdc3c7;
-}
-
-/* Background color of sidebar */
-.bm-menu {
-    background: #373a47;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-    fill: #373a47;
-}
-
-/* General menu styles */
-.bm-menu {
-    padding: 2.5em 1.5em 0;
-    font-size: 1.15em;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-    color: #b8b7ad;
-    padding: 0.8em;
+    padding-left: 29px;
+    padding-right: 29px;
 }
 
 @media
 only screen
 and (max-device-width : 799px) {
-    .burger {
-        display: block;
-    }
     .listing-menu {
         display: none;
     }
