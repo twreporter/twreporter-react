@@ -35,7 +35,6 @@ export default class TopNews extends Component {
                                     <div className="carousel-published">{d_str}</div>
                                     <div className="carousel-itemtitle">{a.title}</div>
                                     <div className="carousel-excerpt">{a.excerpt}</div>
-                                    <div className="carousel-author">{a.author_display}</div>
                                  </div>
                             </a>
                         );

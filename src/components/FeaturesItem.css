@@ -121,8 +121,7 @@ and (max-device-width : 799px) {
         padding-bottom: 0px;
         position: relative;
         height: 300px;
-        top: -300px;
-        overflow: hidden;
+        top: -310px;
     }
     
     .listing-img {
@@ -136,7 +135,6 @@ and (max-device-width : 799px) {
         position: absolute;
         width: 92%;
         bottom: 20px;
-        background-color: rgba(50, 50, 50, 0.1);
     }
     .listing-title {
         width: 92%;
@@ -144,13 +142,6 @@ and (max-device-width : 799px) {
         padding-right: 4%;
         padding-left: 14%;
         font-size: 120%;
-    }
-
-    .listing-projectpublished {
-        width: 92%;
-        color: #FFF;
-        padding-right: 4%;
-        padding-left: 14%;
     }
 
     .listing-excerpt {
@@ -162,6 +153,87 @@ and (max-device-width : 799px) {
     }
 
     .listing-projectpublished {
+        font-size: 80%;
+        font-family: Roboto;
+        margin-top: 23px;
+        margin-bottom: 12px;
+        width: 92%;
+        color: #FFF;
+        padding-right: 4%;
+        padding-left: 14%;
+    }
+
+    .listing-item {
+        margin: 0px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        height: 260px;
+    }
+
+    .feature-categorycontainer {
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        display: block;
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .listing-project {
+        display: block;
+        float: right;
+        width: 80%;
+    }
+}
+
+@media 
+only screen 
+and (max-width : 799px) { 
+    .listing-projectborder {
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        margin-bottom: 1px;
+        padding-bottom: 0px;
+        position: relative;
+        height: 300px;
+        top: -310px;
+    }
+    
+    .listing-img {
+        border: 0;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .listing-project {
+        position: absolute;
+        width: 92%;
+        bottom: 20px;
+    }
+    .listing-title {
+        width: 92%;
+        color: #FFF;
+        padding-right: 4%;
+        padding-left: 14%;
+        font-size: 120%;
+    }
+
+    .listing-excerpt {
+        display: none;
+    }
+
+    .listing-author {
+        display: none;
+    }
+
+    .listing-projectpublished {
+        width: 92%;
+        color: #FFF;
+        padding-right: 4%;
+        padding-left: 14%;
         font-size: 80%;
         font-family: Roboto;
         margin-top: 33px;
