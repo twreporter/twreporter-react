@@ -9,17 +9,15 @@ export default class FeaturesItem extends Component {
         super(props, context)
     }
     handleResize() {
-        var listingImg = document.getElementsByClassName('listing-img')
-        var refHeight = listingImg[0].style.height;
-        console.log(refHeight)
         var listingItem = document.getElementsByClassName('listing-item')
+            console.log(window.screen.availWidth)
         for (var i = 0; i < listingItem.length; i++) {
-            listingItem[i].style.height = refHeight + 'px'
+            listingItem[i].style.height = window.screen.availWidth*0.75 + 'px'
         }
     }
     componentDidMount() {
-        this.handleResize()
-        window.addEventListener('resize', this.handleResize);
+        //this.handleResize()
+        //window.addEventListener('resize', this.handleResize);
     }
 
     render() {
@@ -35,11 +33,11 @@ export default class FeaturesItem extends Component {
                     <div className="featuresimage-wrap">
                         <img className="listing-img" src={firstImage}/>
                     </div>
+                    <div className="feature-categorycontainer">
+                        <div className="feature-category">台</div>
+                        <div className="feature-category">灣</div>
+                    </div>
                     <div className="listing-projectborder clearfix">
-                        <div className="feature-categorycontainer">
-                            <div className="feature-category">台</div>
-                            <div className="feature-category">灣</div>
-                        </div>
                         <div className="listing-project">
                             <div className="listing-projectpublished">{d_str}</div>
                             <div className="listing-title">{article.title}</div>
