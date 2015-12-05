@@ -11,7 +11,15 @@ export default class TopNews extends Component {
         super(props, context)
     }
     handleResize() {
-        var available = window.screen.availHeight - 200
+        var currentHeight = window.screen.availHeight;
+        var offset = 100;
+        if (currentHeight < 800) {
+            offset = 290;
+        } else {
+            offset = 200;
+        }
+        var available = window.screen.availHeight - offset
+        console.log(available);
         var wrapper = document.getElementsByClassName('topnewsimage-wrap')
         for (var i = 0; i < wrapper.length; i++) {
             wrapper[i].style.height = available + 'px'

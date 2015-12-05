@@ -84,7 +84,7 @@ and (max-width : 799px) {
         left: 25%;
         right: 25%;
         width: 50%;
-        top: -240px;
+        top: -130px;
     }
     .slider-decorator-2 {
         top: 80% !important;
@@ -131,7 +131,7 @@ and (max-device-width : 799px) {
     }
     .carousel-item {
         width: 50%;
-        top: -240px;
+        top: -270px;
         right: 25%;
         left: 25%;
     }

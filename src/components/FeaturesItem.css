@@ -23,7 +23,7 @@
 
 .listing-projectborder {
     position: relative;
-    top: -140px;
+    top: -260px;
     width: 90%;
     height: 285px;
     border: solid;
@@ -38,10 +38,11 @@
 .feature-categorycontainer {
     width: 15%;
     display: block;
-    padding-left: 20px;
+    padding-left: 40px;
     padding-top: 20px;
     position: relative;
-    bottom: -200px;
+    bottom: 100px;
+    z-index: 1;
 }
 
 .feature-category {
@@ -67,6 +68,8 @@
     font-family: Roboto;
     margin-top: 33px;
     margin-bottom: 12px;
+    margin-left: 15%;
+    width: 20%;
 }
 
 .listing-title {
@@ -76,8 +79,9 @@
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 12%;
-    margin-top: 12px;
-    margin-bottom: 15px;
+    margin-left: 15%;
+    margin-right: 5%;
+    margin-bottom: 1%;
 }
 
 .listing-excerpt {
@@ -112,6 +116,8 @@
 }
 
 @media 
+only screen 
+and (max-width : 799px) , 
 only screen 
 and (max-device-width : 799px) { 
     
@@ -156,100 +162,33 @@ and (max-device-width : 799px) {
 
     .listing-item {
         margin: 0px;
+        position: relative;
         background-size: cover;
         background-repeat: no-repeat;
         margin-bottom: 0px;
         padding-bottom: 0px;
         height: auto;
         overflow: hidden;
-        .listing-projectborder {
-            border: none;
-            background-color: rgba(255, 255, 255, 0);
-            margin-bottom: 1px;
-            padding-bottom: 0px;
-            position: relative;
-            height: auto;
-            .listing-project {
-                word-wrap: normal;
-                display: block;
-                float: right;
-                width: 80%;
-
-            }
-        }
+    }
+    .listing-projectborder {
+        border-width: 0px;
+        background-color: rgba(255, 255, 255, 0);
+        top: -40px;
+        position: absolute;
+        height: 100%;
+    }
+    .listing-project {
+        word-wrap: normal;
+        display: block;
+        float: right;
+        width: 80%;
     }
     .feature-categorycontainer {
+        position: absolute;
         display: block;
-        width: 100%;
-        padding-left: 20px;
-        padding-top: 20px;
+        width: 15%;
+        right: 2px;
+        top: 20px;
     }
 }
 
-@media 
-only screen 
-and (max-width : 799px) { 
-    .listing-projectborder {
-        border: none;
-        background-color: rgba(255, 255, 255, 0);
-        margin-bottom: 1px;
-        padding-bottom: 0px;
-        position: relative;
-        height: 100%;
-        .listing-img {
-            border: 0;
-            width: 100%;
-            height: auto;
-            overflow: hidden;
-        }
-        .listing-project {
-            position: absolute;
-            width: 80%;
-            bottom: 20px;
-        }
-    }
-    .listing-item {
-        margin: 0px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        margin-bottom: 0px;
-        padding-bottom: 0px;
-        height: auto;
-        .feature-categorycontainer {
-            position: relative;
-            display: block;
-            padding-left: 80%;
-            padding-top: 0px;
-            display: block;
-            width: 80%;
-        }
-    }
-    .listing-title {
-        width: 92%;
-        color: #FFF;
-        padding-right: 14%;
-        padding-left: 14%;
-        font-size: 120%;
-    }
-
-    .listing-excerpt {
-        display: none;
-    }
-
-    .listing-author {
-        display: none;
-    }
-
-    .listing-projectpublished {
-        width: 92%;
-        color: #FFF;
-        padding-right: 4%;
-        padding-left: 14%;
-        font-size: 80%;
-        font-family: Roboto;
-        margin-top: 33px;
-        margin-bottom: 12px;
-        color: #FFF;
-    }
-
-}
