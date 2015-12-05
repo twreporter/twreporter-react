@@ -23,7 +23,7 @@ export default class FeaturesItem extends Component {
     render() {
         const { article } = this.props
         let firstImage = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
-        let url = "https://www.twreporter.org/a/" + article.slug;
+        let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug 
         var d = new Date()
         d.setTime(article.lastPublish*1000)
         var d_str = d.toISOString().substring(0,10);

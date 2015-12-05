@@ -11,14 +11,15 @@ export default class TopNews extends Component {
         super(props, context)
     }
     handleResize() {
-        var currentHeight = window.screen.availHeight;
+        var currentHeight = window.innerHeight;
+        var currentWidth = window.innerWidth;
         var offset = 100;
-        if (currentHeight < 800) {
+        if (currentWidth < 800) {
             offset = 290;
         } else {
-            offset = 200;
+            offset = 150;
         }
-        var available = window.screen.availHeight - offset
+        var available = currentHeight - offset
         console.log(available);
         var wrapper = document.getElementsByClassName('topnewsimage-wrap')
         for (var i = 0; i < wrapper.length; i++) {
@@ -47,12 +48,12 @@ export default class TopNews extends Component {
         let cat_display = "台灣"
         if (topnews && topnews.length > 0) {
             return (
-                <Carousel>
+                <Carousel  slidesToScroll={1}>
                     { _.map(topnews, (a) => {
                         var d = new Date()
                         d.setTime(a.lastPublish*1000)
                         var d_str = d.toISOString().substring(0,10)
-                        var url = "https://www.twreporter.org/a/" + a.slug
+                        var url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug
                         return (
                             <a key={a.id} href={url}>
                                 <div className="topnewsimage-wrap">

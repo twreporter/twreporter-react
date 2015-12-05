@@ -15,7 +15,7 @@ if (process.env.BROWSER) {
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        let params = ["daily", "review"]
+        let params = ["hp-projects", "review", "hp-feature"]
         return store.dispatch(loadArticles(params));
     }
     constructor(props) {
@@ -30,9 +30,16 @@ export default class Home extends Component {
 
     render() {
         const {articles} = this.props
-        let topnews = articles.daily
-        let daily = articles.daily
-        let features = articles.daily
+        let topnews = articles["hp-feature"]
+        let features = articles["hp-projects"]
+        let daily = articles.review
+        if (topnews.length < 3) {
+            let less = 3 - topnews.length
+            topnews = topnews.concat(features.slice(0, less))
+            features = features.slice(less)
+        } else {
+            topnews = topnews.slide(0,5);
+        }
         if (articles) {
         return (
             <div>

@@ -14,7 +14,7 @@ export default class Daily extends Component {
     render() {
         const { daily } = this.props
         let daily_top = []
-        if ( daily ) { daily_top = daily.slice(0, 5); }
+        if ( daily ) { daily_top = daily.slice(0, 6); }
         if (daily_top) {
             return (
                 <div>
@@ -24,16 +24,20 @@ export default class Daily extends Component {
                         { _.map(daily_top, (a) => {
                             var re = /^[\w\d]/
                             let img_existing = re.exec(a.firstImage)
-                            if (img_existing != null) {
+                            var d = new Date()
+                            d.setTime(a.lastPublish*1000)
+                            var d_str = d.toISOString().substring(0,10);
+                            if (a.isPublishedVersion) {
                                 let thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
-                                let url = "https://www.twreporter.org/a/" + a.slug
+                                let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug 
                                 return (
-                                    <li key={a.id} className="daily-item">
-                                        <a href={url}>
+                                    <a href={url} key={a.id}>
+                                        <li className="daily-item">
                                             <img className="daily-image" src={thumbnail}/>
+                                            <div className="daily_lastpublish">{d_str}</div>
                                             <div className="daily-title">{a.title}</div>
-                                        </a>
-                                    </li>
+                                        </li>
+                                    </a>
                                 );}
                             })
                         }
