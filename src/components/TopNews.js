@@ -51,7 +51,7 @@ export default class TopNews extends Component {
             infinite: true,
             speed: 500,
             autoplay: true,
-            autoplaySpeed: 2500,
+            autoplaySpeed: 3500,
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
