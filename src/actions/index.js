@@ -5,7 +5,6 @@ export const ARTICLE_SUCCESS = 'ARTICLE_SUCCESS'
 export const ARTICLE_FAILURE = 'ARTICLE_FAILURE'
 
 function fetchArticle(tags) {
-    console.log("I am here")
     return {
         [CALL_API]: {
             types: [ ARTICLE_REQUEST, ARTICLE_SUCCESS, ARTICLE_FAILURE ],
