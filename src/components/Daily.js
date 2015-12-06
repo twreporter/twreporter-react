@@ -28,7 +28,7 @@ export default class Daily extends Component {
                             d.setTime(a.lastPublish*1000)
                             var d_str = d.toISOString().substring(0,10);
                             if (a.isPublishedVersion) {
-                                let thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage
+                                let thumbnail = (a.firstImage) ? "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage : a.preview_image
                                 let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug 
                                 return (
                                     <a href={url} key={a.id}>
