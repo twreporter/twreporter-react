@@ -19,24 +19,23 @@ export default class FeaturesItem extends Component {
         //this.handleResize()
         //window.addEventListener('resize', this.handleResize);
 
-        // init controller
-        let controller = new ScrollMagic.Controller();
+        // only for desktop, we have the parallax animation
+        if (window.innerWidth  > 800 ) {
+            // init controller
+            let controller = new ScrollMagic.Controller();
 
-        /*
-        // build tween
-        var tween = TweenMax.to("#parallax-trigger" + this.props.article.id, 1, {backgroundPosition: "-40% 0", ease: Linear.easeNone});
-        */
-
-        // create a scene
-        new ScrollMagic.Scene({
-            triggerElement: '#parallax-trigger'+this.props.article.id,
-            triggerHook: 0, // don't trigger until #pinned-trigger1 hits the top of the viewport,
-            offset: 0
-        })
-        .setPin('#parallax-trigger'+this.props.article.id) // pins the element for the the scene's duration
-        //    .setTween(tween)
-        .addIndicators()
-        .addTo(controller); // assign the scene to the controller
+            // create a scene
+            let scene = new ScrollMagic.Scene({
+                triggerElement: '#parallax-trigger'+this.props.article.id,
+                triggerHook: 0, // don't trigger until #pinned-trigger1 hits the top of the viewport,
+                // right now we set is as 90% by heuristic.
+                // TODO compute the best duration percentage
+                duration: '90%'
+            })
+            .setPin('#parallax-trigger'+this.props.article.id, {pushFollowers: false}) // pins the element for the the scene's duration
+            .addIndicators()
+            .addTo(controller)
+        }
     }
 
     render() {
