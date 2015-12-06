@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import Parallex from './Parallex'
 
 if (process.env.BROWSER) {
     require("./FeaturesItem.css");
