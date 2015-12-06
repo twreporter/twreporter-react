@@ -13,20 +13,16 @@ export default class TopNews extends Component {
     handleResize() {
         var currentHeight = window.innerHeight;
         var currentWidth = window.innerWidth;
-        var offset = 100;
-        if (currentWidth < 800) {
-            offset = 290;
-        } else {
-            offset = 150;
+        var fixedHeight = currentWidth * 0.75;
+        if (fixedHeight > currentHeight) {  // Make sure the users are able to get the title of the stories
+            fixedHeight = currentHeight - 100;
         }
-        var available = currentHeight - offset
-        console.log(available);
         var wrapper = document.getElementsByClassName('topnewsimage-wrap')
         for (var i = 0; i < wrapper.length; i++) {
-            wrapper[i].style.height = available + 'px'
+            wrapper[i].style.height = fixedHeight + 'px'
         }
         var slider = document.getElementsByClassName('slider')
-        var sliderHeight = available + 100
+        var sliderHeight = fixedHeight + 100
         for (var i = 0; i < slider.length; i++) {
             slider[i].style.height = sliderHeight + 'px'
         }
@@ -36,7 +32,7 @@ export default class TopNews extends Component {
         }
         var categoryContainer = document.getElementsByClassName('topnews_categorycontainer')
         for (var i = 0; i < categoryContainer.length; i++) {
-            categoryContainer[i].style.top = '-' + available + 'px'
+            categoryContainer[i].style.top = '-' + fixedHeight + 'px'
         }
     }
     componentDidMount() {
