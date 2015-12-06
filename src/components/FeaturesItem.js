@@ -9,7 +9,6 @@ export default class FeaturesItem extends Component {
     }
     handleResize() {
         var listingItem = document.getElementsByClassName('listing-item')
-            console.log(window.screen.availWidth)
         for (var i = 0; i < listingItem.length; i++) {
             listingItem[i].style.height = window.screen.availWidth*0.75 + 'px'
         }

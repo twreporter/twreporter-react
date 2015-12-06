@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Carousel from 'nuka-carousel'
+import Slider from 'react-slick'
 import _ from 'lodash';
 if (process.env.BROWSER) {
     require("./TopNews.css");
@@ -21,7 +21,11 @@ export default class TopNews extends Component {
         for (var i = 0; i < wrapper.length; i++) {
             wrapper[i].style.height = fixedHeight + 'px'
         }
-        var slider = document.getElementsByClassName('slider')
+        var dots = document.getElementsByClassName('ul#slick-dots')
+        for (var i = 0; i < dots.length; i++) {
+            dots[i].style.top = fixedHeight + 'px'
+        }
+        var slider = document.getElementsByClassName('slick-slider')
         var sliderHeight = fixedHeight + 100
         for (var i = 0; i < slider.length; i++) {
             slider[i].style.height = sliderHeight + 'px'
@@ -42,9 +46,20 @@ export default class TopNews extends Component {
     render() {
         const { topnews } = this.props
         let cat_display = "台灣"
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            autoplay: true,
+            autoplaySpeed: 2500,
+            arrows: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: false
+        };
         if (topnews && topnews.length > 0) {
             return (
-                <Carousel  slidesToScroll={1}>
+                <Slider {...settings}>
                     { _.map(topnews, (a) => {
                         var d = new Date()
                         d.setTime(a.lastPublish*1000)
@@ -68,7 +83,7 @@ export default class TopNews extends Component {
                         );
                         })
                     }
-                </Carousel>
+                </Slider>
             )
         } else {
             return ( <div></div> )
