@@ -21,9 +21,12 @@
     text-align: center;
 }
 
+.listing-projectcontainer {
+    height: 100vh
+}
+
 .listing-projectborder {
     position: relative;
-    top: -260px;
     width: 100%;
     height: 285px;
     border: solid;
@@ -36,11 +39,10 @@
 
 .feature-categorycontainer {
     width: 15%;
-    display: block;
+    display: inline-block;
     padding-left: 40px;
     padding-top: 20px;
-    position: relative;
-    bottom: 100px;
+    position: absolute;
     z-index: 1;
 }
 
@@ -63,6 +65,7 @@
 }
 
 .listing-projectpublished {
+    display: inline-block;
     font-size: 80%;
     font-family: Roboto;
     margin-top: 33px;
@@ -148,6 +151,10 @@ and (max-device-width : 799px) {
 
     .listing-author {
         display: none;
+    }
+
+    .listing-projectcontainer {
+        height: auto
     }
 
     .listing-projectpublished {
