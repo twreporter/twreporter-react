@@ -1,3 +1,7 @@
+.daily {
+    text-align: center;
+}
+
 .daily-itemlist {
     width: 84%;
     margin-left: 8%;
@@ -30,13 +34,6 @@
     width: 95%;
 }
 
-.daily-news {
-    width: 40%;
-    margin-top: 20px;
-    margin-left: 30%;
-    text-align: center;
-}
-
 .what {
     font-family: 'Times New Roman';
     font-style: Italic;
@@ -54,12 +51,8 @@
 
 .daily-line {
     width: 4%;
-    height: 1px;
-    border-top-style: solid;
-    border-width: 4px;
-    margin-left: 48%;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    border: 2px solid black;
+    margin: auto;
 }
 
 @media 
