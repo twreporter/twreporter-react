@@ -21,6 +21,10 @@
     text-align: center;
 }
 
+.listing-projectcontainer {
+    height: 100vh
+}
+
 .listing-projectborder {
     position: relative;
     width: 100%;
@@ -147,6 +151,10 @@ and (max-device-width : 799px) {
 
     .listing-author {
         display: none;
+    }
+
+    .listing-projectcontainer {
+        height: auto
     }
 
     .listing-projectpublished {
