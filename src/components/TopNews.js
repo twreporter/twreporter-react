@@ -45,8 +45,7 @@ export default class TopNews extends Component {
     }
     render() {
         const { topnews } = this.props
-        let cat_display = "台灣"
-        var settings = {
+        let settings = {
             dots: true,
             infinite: true,
             speed: 500,
@@ -61,10 +60,18 @@ export default class TopNews extends Component {
             return (
                 <Slider {...settings}>
                     { _.map(topnews, (a) => {
-                        var d = new Date()
+                        let tags = a.tags
+                        let cat_display = "專題"
+                        for (let i = 0; i < tags.length; i++) {
+                            if (tags[i].substring(0,4) == 'cat:') {
+                                cat_display = tags[i].substring(4)
+                                break
+                            }
+                        } 
+                        let d = new Date()
                         d.setTime(a.lastPublish*1000)
-                        var d_str = d.toISOString().substring(0,10)
-                        var url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug
+                        let d_str = d.toISOString().substring(0,10)
+                        let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug
                         return (
                             <a key={a.id} href={url}>
                                 <div className="topnewsimage-wrap">
