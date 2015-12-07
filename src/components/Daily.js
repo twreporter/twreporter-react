@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import Carousel from 'nuka-carousel'
 import _ from 'lodash';
 if (process.env.BROWSER) {
     require("./Daily.css");
 }
 
 export default class Daily extends Component {
-    mixins: [Carousel.ControllerMixin]
     constructor(props, context) {
         super(props, context)
     }
@@ -18,7 +16,7 @@ export default class Daily extends Component {
         if (daily_top) {
             return (
                 <div>
-                    <h2 className="daily-news"><div className="what">What's</div><div className="new"> New</div></h2>
+                    <h2 className="daily-news"><div className="what">What&#39;s</div><div className="new"> New</div></h2>
                     <div className="daily-line"></div>
                     <ul className="daily-itemlist">
                         { _.map(daily_top, (a) => {
