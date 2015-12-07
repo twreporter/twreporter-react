@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import Slider from 'react-slick'
-import _ from 'lodash';
 if (process.env.BROWSER) {
     require("./TopNews.css");
 }
