@@ -5,8 +5,7 @@ if (process.env.BROWSER) {
     require("./FeaturesItem.css");
 }
 
-const IMG_WIDTH = 1800;
-const IMG_HEIGHT = 1200;
+const IMG_RATIO = 0.667;
 
 export default class FeaturesItem extends Component {
     constructor(props, context) {
@@ -19,17 +18,28 @@ export default class FeaturesItem extends Component {
 
     _resizeImage() {
         let img = ReactDOM.findDOMNode(this.refs.listImg);
-        let height;
-        let width;
-        if (window.innerWidth > window.innerHeight) {
-            height = ((window.innerWidth / IMG_WIDTH) * IMG_HEIGHT)
-            width = window.innerWidth
+        // browser width and height
+        let bHeight = window.innerHeight
+        let bWidth =  window.innerWidth
+        let bRatio = bHeight / bWidth
+        let height
+        let width
+        let marginTop
+        let marginLeft
+
+        // height of browser is longer than image height in ratio.
+        // use browser height as criterion
+        if (bRatio > IMG_RATIO) {
+            height = bHeight
+            width = height / IMG_RATIO
+            marginLeft = bWidth - width
         } else {
-            height = window.innerHeight
-            width = ((window.innerHeight / IMG_HEIGHT) * IMG_WIDTH)
+            width = bWidth
+            height = width * IMG_RATIO
+            marginTop = bHeight - height
         }
-        img.style.marginTop = ( window.innerHeight - height ) + 'px'
-        img.style.marginLeft = ( window.innerWidth - width ) + 'px'
+        img.style.marginTop = marginTop ? marginTop + 'px' : ''
+        img.style.marginLeft = marginLeft ? marginLeft + 'px' : ''
         img.style.height = height + 'px'
         img.style.width = width + 'px'
     }
