@@ -58,6 +58,7 @@ export default class TopNews extends Component {
 	return topnews && topnews.length ? (
 	    <Slider {...settings}>
 		{topnews.map((a) => {
+		    var t = new Date(a.lastPublish * 1000).toString().split(' ');
 		    return (
 			<a
 			    key={a.id}
@@ -73,7 +74,7 @@ export default class TopNews extends Component {
 			    </div>
 			    <div className="carousel-item">
 				<div className="carousel-published">
-				    {(new Date(a.lastPublish * 1000)).toISOString().substring(0,10)}
+				    {[t[1], t[2], t[3]].join('.')}
 				</div>
 				<div className="carousel-itemtitle">{a.title}</div>
 				<div className="carousel-excerpt">{a.excerpt}</div>
