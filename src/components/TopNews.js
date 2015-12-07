@@ -6,7 +6,6 @@ if (process.env.BROWSER) {
 }
 
 export default class TopNews extends Component {
-    mixins: [Carousel.ControllerMixin]
     constructor(props, context) {
         super(props, context)
     }
@@ -40,8 +39,8 @@ export default class TopNews extends Component {
         }
     }
     componentDidMount() {
-        this.handleResize()
-        window.addEventListener('resize', this.handleResize);
+        // this.handleResize()
+        // window.addEventListener('resize', this.handleResize);
     }
     render() {
         const { topnews } = this.props
@@ -50,44 +49,41 @@ export default class TopNews extends Component {
             dots: true,
             infinite: true,
             speed: 500,
-            autoplay: true,
+            autoplay: false,
             autoplaySpeed: 3500,
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
             lazyLoad: false
         };
-        if (topnews && topnews.length > 0) {
-            return (
-                <Slider {...settings}>
-                    { _.map(topnews, (a) => {
-                        var d = new Date()
-                        d.setTime(a.lastPublish*1000)
-                        var d_str = d.toISOString().substring(0,10)
-                        var url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug
-                        return (
-                            <a key={a.id} href={url}>
-                                <div className="topnewsimage-wrap">
-                                    <img className="carousel-image" src={a.preview_image}/>
-                                </div>
-                                <div className="topnews_categorycontainer">
-                                    <div className="topnews_category">{cat_display.substring(0,1)}</div>
-                                    <div className="topnews_category">{cat_display.substring(2,1)}</div>
-                                </div>
-                                <div className="carousel-item">
-                                    <div className="carousel-published">{d_str}</div>
-                                    <div className="carousel-itemtitle">{a.title}</div>
-                                    <div className="carousel-excerpt">{a.excerpt}</div>
-                                 </div>
-                            </a>
-                        );
-                        })
-                    }
-                </Slider>
-            )
-        } else {
-            return ( <div></div> )
-        } 
+	return topnews && topnews.length ? (
+	    <Slider {...settings}>
+		{topnews.map((a) => {
+		    return (
+			<a
+			    key={a.id}
+			    href={a.story_link || "https://www.twreporter.org/a/" + a.slug}
+			    className="topnewsimage-wrap"
+			    style={{
+				backgroundImage: 'url(' + a.preview_image + ')',
+			    }}
+			>
+			    <div className="topnews_categorycontainer">
+				<div className="topnews_category">{cat_display.substring(0,1)}</div>
+				<div className="topnews_category">{cat_display.substring(2,1)}</div>
+			    </div>
+			    <div className="carousel-item">
+				<div className="carousel-published">
+				    {(new Date(a.lastPublish * 1000)).toISOString().substring(0,10)}
+				</div>
+				<div className="carousel-itemtitle">{a.title}</div>
+				<div className="carousel-excerpt">{a.excerpt}</div>
+			    </div>
+			</a>
+		    );
+		})}
+	    </Slider>
+	) : null;
     }
 }
 

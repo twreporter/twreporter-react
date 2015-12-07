@@ -1,6 +1,9 @@
+/* slider overwrite */
+.slick-slider {
+    margin-bottom: 100px !important;
+}
 .slick-dots {
-    top: 600px;
-    height: 60px;
+    bottom: -35px !important;
 }
 
 .slick-prev {
@@ -15,16 +18,12 @@
     font-size: 30px;
 }
 
-.carousel-image {
-    width: 100%;
-    overflow: hidden;
-    -height: auto;
-}
 
+/* slider content */
 .topnews_categorycontainer {
-    position: relative;
-    top: 120px;
-    left: 46px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
 }
 
 .topnews_category {
@@ -41,36 +40,47 @@
 }
 
 .topnewsimage-wrap {
+    background-size: auto 100%;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
     width: 100%;
-    height: auto;
-    overflow: hidden;
-    margin-bottom: 50px;
+    height: 100vh !important;
+    position: relative;
+    display: block;
 }
 
 .carousel-item {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 2% 2% 2% 2%;
-    border: solid;
-    border-weight: 2px;
-    position: relative;
-    width: 45%;
-    height: auto;
-    bottom: 450px;
-    left: 40%;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    width: 415px;
+    padding: 30px 30px 0 30px;
+}
+.carousel-published {
+    font-family: "New Roman";
+    font-style: italic;
+    color: black;
+    word-spacing: 20px;
+    padding-bottom: 30px;
 }
 .carousel-itemtitle {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    font-size: 200%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
+    font-size: 24px;
+    color: black;
+    line-height: 32px;
+    word-spacing: 20px;
+    padding-bottom: 30px;
 }
 .carousel-excerpt {
-    padding-top: 18px;
-    font-size: 16px;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: lighter;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 27px;
+    word-spacing: 27px;
+    padding-bottom: 30px;
 }
 
 @media
