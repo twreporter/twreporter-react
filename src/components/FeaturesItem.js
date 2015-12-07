@@ -20,35 +20,39 @@ export default class FeaturesItem extends Component {
 
             if (!this.scrollController) {
                 // init controller
-                this.scrollController = new ScrollMagic.Controller();
-            } else {
-                // destroy controller and scene
-                this.scrollScene.destroy(true)
-                this.scrollController.destroy(true)
+                this.scrollController = new ScrollMagic.Controller()
             }
 
-            // create a scene
-            this.scrollScene = new ScrollMagic.Scene({
-                triggerElement: '#parallax-trigger'+this.props.article.id,
-                triggerHook: 0, // don't trigger until #parallax-trigger hits the top of the viewport,
-                // right now we set is as 90% by heuristic.
-                // TODO compute the best duration percentage
-                duration: '90%'
-            })
+            if (this.scrollScene) {
+                // remove scene from controller
+                this.scrollScene.remove()
+            }
+
+            if (!this.scrollScene) {
+                // create a scene
+                this.scrollScene = new ScrollMagic.Scene({
+                    triggerElement: '#parallax-trigger'+this.props.article.id,
+                    triggerHook: 0, // don't trigger until #parallax-trigger hits the top of the viewport,
+                    // right now we set is as 90% by heuristic.
+                    // TODO compute the best duration percentage
+                    duration: '90%'
+                })
+            }
+
+            this.scrollScene
+            // duration will be different after resizing
+            // TODO compute the best duration after resizing
+            // .duration(duration)
             .setPin('#parallax-trigger'+this.props.article.id, {pushFollowers: false}) // pins the element for the the scene's duration
             .addIndicators()
             .addTo(this.scrollController)
 
         } else {
-            // destroy controller if existed
-            if (this.scrollController) {
-                this.scrollController.destroy(true)
-                this.scrollController = null
-            }
-            // destroy scene if existed
             if (this.scrollScene) {
-                this.scrollScene.destroy(true)
-                this.scrollScene = null
+                // remove the pin from the scene and reset the pin element to its initial position (spacer is removed)
+                this.scrollScene.removePin(true)
+                // remove scene from controller it belonged to
+                this.scrollScene.remove();
             }
         }
     }
