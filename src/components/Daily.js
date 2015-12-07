@@ -20,8 +20,10 @@ export default class Daily extends Component {
 		    <div className="new"> New</div>
 		</h2>
 		<div className="daily-line"></div>
+
+		<div className="daily-itemlistwrapprt">
 		<ul className="daily-itemlist">
-		    { _.map(daily_top, (a) => {
+		    { _.map(daily_top, (a, index) => {
 			var re = /^[\w\d]/;
 			let img_existing = re.exec(a.firstImage);
 			var t = new Date(a.lastPublish * 1000).toString().split(' ');
@@ -29,17 +31,18 @@ export default class Daily extends Component {
 			    let thumbnail = (a.firstImage) ? "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~213x143~" + a.firstImage : a.preview_image
 			    let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug 
 			    return (
-				<a href={url} key={a.id}>
-				    <li className="daily-item">
+				<li key={a.id} className="daily-item">
+				    <a href={url}>
 					<img className="daily-image" src={thumbnail}/>
-					<div className="daily_lastpublish">{[t[1], t[2], t[3]].join('.')}</div>
-					<div className="daily-title">{a.title}</div>
-				    </li>
-				</a>
+				    </a>
+				    <div className="daily_lastpublish">{[t[1], t[2], t[3]].join('.')}</div>
+				    <div className="daily-title">{a.title}</div>
+				</li>
 			    );}
 			})
 		    }
 		</ul>
+		</div>
 	    </div>
 	) : null;
     }

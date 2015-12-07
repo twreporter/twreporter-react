@@ -2,57 +2,58 @@
     text-align: center;
 }
 
+.daily-itemlistwrapprt {
+    width: 982px;
+    margin: auto;
+    text-align: left;
+}
 .daily-itemlist {
-    width: 84%;
-    margin-left: 8%;
-    margin-right: 8%;
-    padding-left: 3%;
-    padding-right: 3%;
+    margin-left: -26px;
 }
 
 .daily-item {
-    width: 14%;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     display: inline-block;
-    vertical-align : top
+    vertical-align : top;
+    padding-left: 26px;
 }
 
 .daily-image {
-    padding-top: 0;
-    height: auto;
-    width: 100%;
+    width: 310px;
+    height: 190px;
 }
 
+.daily_lastpublish {
+    font-style: italic;
+    padding: 15px 0;
+}
 .daily-title {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
-    font-size: 95%;
-    margin-top: 20px;
-    width: 95%;
+    font-size: 16px;
+    color: black;
+    line-height: 26px;
+    word-spacing: 30px;
+    margin-bottom: 75px;
 }
 
+.daily-news {
+    font-size: 26px;
+}
 .what {
     font-family: 'Times New Roman';
     font-style: Italic;
     font-weight: normal;
-    font-size: 240%;
     display: inline;
 }
-
 .new {
     font-family: 'Montserrat';
     font-weight: Bold;
-    font-size: 240%;
     display: inline;
 }
 
 .daily-line {
     width: 4%;
     border: 2px solid black;
-    margin: auto;
+    margin: 10px auto 60px;
 }
 
 @media 
@@ -118,6 +119,5 @@ all
 and (min-width : 800px)
 and (max-width : 1745px) {
     .daily-item {
-        width: 28%;
     }
 }
