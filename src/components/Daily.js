@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import Carousel from 'nuka-carousel'
 import _ from 'lodash';
 if (process.env.BROWSER) {
     require("./Daily.css");

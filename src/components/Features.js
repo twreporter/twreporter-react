@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import Carousel from 'nuka-carousel'
 import FeaturesItem from './FeaturesItem'
 import _ from 'lodash';
 if (process.env.BROWSER) {
