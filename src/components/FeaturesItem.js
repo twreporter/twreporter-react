@@ -5,6 +5,9 @@ if (process.env.BROWSER) {
     require("./FeaturesItem.css");
 }
 
+const IMG_WIDTH = 1800;
+const IMG_HEIGHT = 1200;
+
 export default class FeaturesItem extends Component {
     constructor(props, context) {
         super(props, context)
@@ -14,7 +17,27 @@ export default class FeaturesItem extends Component {
         this.scrollScene = null
     }
 
+    _resizeImage() {
+        let img = ReactDOM.findDOMNode(this.refs.listImg);
+        let height;
+        let width;
+        if (window.innerWidth > window.innerHeight) {
+            height = ((window.innerWidth / IMG_WIDTH) * IMG_HEIGHT)
+            width = window.innerWidth
+        } else {
+            height = window.innerHeight
+            width = ((window.innerHeight / IMG_HEIGHT) * IMG_WIDTH)
+        }
+        img.style.marginTop = ( window.innerHeight - height ) + 'px'
+        img.style.marginLeft = ( window.innerWidth - width ) + 'px'
+        img.style.height = height + 'px'
+        img.style.width = width + 'px'
+    }
+
     _handleResize() {
+        // resize image
+         this._resizeImage()
+
         // only for desktop, we have the parallax animation
         if (window.innerWidth  > 800 ) {
 
@@ -33,16 +56,11 @@ export default class FeaturesItem extends Component {
                 this.scrollScene = new ScrollMagic.Scene({
                     triggerElement: '#parallax-trigger'+this.props.article.id,
                     triggerHook: 0, // don't trigger until #parallax-trigger hits the top of the viewport,
-                    // right now we set is as 90% by heuristic.
-                    // TODO compute the best duration percentage
-                    duration: '90%'
                 })
             }
 
             this.scrollScene
-            // duration will be different after resizing
-            // TODO compute the best duration after resizing
-            // .duration(duration)
+            .duration(window.innerHeight)
             .setPin('#parallax-trigger'+this.props.article.id, {pushFollowers: false}) // pins the element for the the scene's duration
             .addIndicators()
             .addTo(this.scrollController)
@@ -76,12 +94,12 @@ export default class FeaturesItem extends Component {
                     <div id={'parallax-trigger'+this.props.article.id} className="featuresimage-wrap">
                         <img  ref='listImg' width='1800px' height='1200px' className="listing-img" src={firstImage}/>
                     </div>
-                    <div ref='parallaxIndicator'>
-                        <div className="feature-categorycontainer">
-                            <div className="feature-category">台</div>
-                            <div className="feature-category">灣</div>
-                        </div>
+                    <div ref='parallaxIndicator' style={{height: '100vh'}}>
                         <div className="listing-projectborder clearfix">
+                            <div className="feature-categorycontainer">
+                                <div className="feature-category">台</div>
+                                <div className="feature-category">灣</div>
+                            </div>
                             <div className="listing-project">
                                 <div className="listing-projectpublished">{d_str}</div>
                                 <div className="listing-title">{article.title}</div>
