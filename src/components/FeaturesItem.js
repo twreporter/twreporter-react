@@ -84,9 +84,17 @@ export default class FeaturesItem extends Component {
         const { article } = this.props
         let firstImage = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
         let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug
-        var d = new Date()
+        let d = new Date()
         d.setTime(article.lastPublish*1000)
-        var d_str = d.toISOString().substring(0,10);
+        let d_str = d.toISOString().substring(0,10);
+        let tags = article.tags
+        let cat_display = "專題"                                                                                       
+        for (let i = 0; i < tags.length; i++) {
+            if (tags[i].substring(0,4) == 'cat:') {
+                cat_display = tags[i].substring(4)
+                break
+            }
+        } 
 
         return (
             <li className="listing-item" key={article.id}>
@@ -97,8 +105,8 @@ export default class FeaturesItem extends Component {
                     <div ref='parallaxIndicator' className='listing-projectcontainer'>
                         <div className="listing-projectborder clearfix">
                             <div className="feature-categorycontainer">
-                                <div className="feature-category">台</div>
-                                <div className="feature-category">灣</div>
+                                <div className="feature-category">{cat_display.substring(0,1)}</div>
+                                <div className="feature-category">{cat_display.substring(2,1)}</div>
                             </div>
                             <div className="listing-project">
                                 <div className="listing-projectpublished">{d_str}</div>

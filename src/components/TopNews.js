@@ -43,8 +43,7 @@ export default class TopNews extends Component {
     }
     render() {
         const { topnews } = this.props
-        let cat_display = "台灣"
-        var settings = {
+        let settings = {
             dots: true,
             infinite: true,
             speed: 500,
@@ -58,7 +57,15 @@ export default class TopNews extends Component {
 	return topnews && topnews.length ? (
 	    <Slider {...settings}>
 		{topnews.map((a) => {
-		    var t = new Date(a.lastPublish * 1000).toString().split(' ');
+		    let t = new Date(a.lastPublish * 1000).toString().split(' ');
+		    let tags = a.tags
+		    let cat_display = "專題"
+		    for (let i = 0; i < tags.length; i++) {
+			if (tags[i].substring(0,4) == 'cat:') {
+			    cat_display = tags[i].substring(4)
+			    break
+			}
+		    } 
 		    return (
 			<a
 			    key={a.id}
