@@ -94,7 +94,7 @@ export default class FeaturesItem extends Component {
                     <div id={'parallax-trigger'+this.props.article.id} className="featuresimage-wrap">
                         <img  ref='listImg' width='1800px' height='1200px' className="listing-img" src={firstImage}/>
                     </div>
-                    <div ref='parallaxIndicator' style={{height: '100vh'}}>
+                    <div ref='parallaxIndicator' className='listing-projectcontainer'>
                         <div className="listing-projectborder clearfix">
                             <div className="feature-categorycontainer">
                                 <div className="feature-category">台</div>
