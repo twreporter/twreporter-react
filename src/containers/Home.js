@@ -36,15 +36,16 @@ export default class Home extends Component {
 
     render() {
         const {articles} = this.props
+        const topnews_num = 5;
         let topnews = articles["hp-feature"]
         let features = articles["hp-projects"]
         let daily = articles.review
-        if (topnews.length < 3) {
-            let less = 3 - topnews.length
+        if (topnews.length < topnews_num) {
+            let less = topnews_num - topnews.length
             topnews = topnews.concat(features.slice(0, less))
             features = features.slice(less)
         } else {
-            topnews = topnews.slide(0,5);
+            topnews = topnews.slide(0,topnews_num);
         }
         if (articles) {
         return (
