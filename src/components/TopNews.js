@@ -46,7 +46,7 @@ export default class TopNews extends Component {
         let settings = {
             dots: true,
             infinite: true,
-            speed: 500,
+            speed: 1500,
             autoplay: true,
             autoplaySpeed: 3500,
             arrows: true,
