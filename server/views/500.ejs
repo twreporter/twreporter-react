@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>404 - Internal Server Error</title>
+        <title>500 - Internal Server Error</title>
+        <style>
+            .nav-menu {
+                position: relative;
+                height: 120px;
+                overflow: hidden;
+                width: 100%;
+                padding-top: 5px;
+            }
+            .nav_logo {
+                text-align: center;
+            }
+            .listing-menu {
+                width: 750px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin: 10px auto;
+            }
+            .menu-items {
+                margin-left: auto;
+                margin-right: auto;
+                width: 750px;
+            }
+            .nav-item {
+                font-family: "Noto Sans",'Noto Sans TC', Roboto;
+                display: inline;
+                font-size: 100%;
+                font-weight: 700;
+                padding-left: 29px;
+                padding-right: 29px;
+                letter-spacing: 5px;
+            }
+        </style>
     </head>
     <body>
-        <img src="https://www.twreporter.org/asset/500.jpg"/>
+        <div class="nav-menu">
+            <div class="nav_logo" style="text-align: center;">
+                <a href="#"><img height="81" src="/asset/logo.png"/></a>
+           </div>
+           <div class="listing-menu">
+               <ul class="menu-items">
+                    <li class="nav-item"><a class="menu-item" href="/">台灣</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/about">國際</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/contact">評論</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/contact">文化</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/contact">影像</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/contact">專題</a></li>
+                    <li class="nav-item"><a class="menu-item" href="/contact">媒體</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <img class="error_img" src="/asset/500.jpg" width="80%" height="auto">
+        </div>
     </body>
 </html>
 
