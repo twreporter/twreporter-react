@@ -44,12 +44,18 @@ export default class FeaturesItem extends Component {
         img.style.width = width + 'px'
     }
 
+    _recoveryImage() {
+        let img = ReactDOM.findDOMNode(this.refs.listImg);
+        img.style.marginLeft = img.style.marginTop = img.style.height = img.style.width = ''
+    }
+
     _handleResize() {
-        // resize image
-         this._resizeImage()
 
         // only for desktop, we have the parallax animation
         if (window.innerWidth  > 800 ) {
+
+            // resize image
+            this._resizeImage()
 
             if (!this.scrollController) {
                 // init controller
@@ -76,6 +82,9 @@ export default class FeaturesItem extends Component {
             .addTo(this.scrollController)
 
         } else {
+            // remove style added by _resizeImage function
+            this._recoveryImage()
+
             if (this.scrollScene) {
                 // remove the pin from the scene and reset the pin element to its initial position (spacer is removed)
                 this.scrollScene.removePin(true)
@@ -98,13 +107,13 @@ export default class FeaturesItem extends Component {
         d.setTime(article.lastPublish*1000)
         let d_str = d.toISOString().substring(0,10);
         let tags = article.tags
-        let cat_display = "專題"                                                                                       
+        let cat_display = "專題"
         for (let i = 0; i < tags.length; i++) {
             if (tags[i].substring(0,4) == 'cat:') {
                 cat_display = tags[i].substring(4)
                 break
             }
-        } 
+        }
 
         return (
             <li className="listing-item" key={article.id}>
