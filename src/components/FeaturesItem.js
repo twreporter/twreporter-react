@@ -44,12 +44,18 @@ export default class FeaturesItem extends Component {
         img.style.width = width + 'px'
     }
 
+    _recoveryImage() {
+        let img = ReactDOM.findDOMNode(this.refs.listImg);
+        img.style.marginLeft = img.style.marginTop = img.style.height = img.style.width = ''
+    }
+
     _handleResize() {
-        // resize image
-         this._resizeImage()
 
         // only for desktop, we have the parallax animation
         if (window.innerWidth  > 800 ) {
+
+            // resize image
+            this._resizeImage()
 
             if (!this.scrollController) {
                 // init controller
@@ -76,6 +82,9 @@ export default class FeaturesItem extends Component {
             .addTo(this.scrollController)
 
         } else {
+            // remove style added by _resizeImage function
+            this._recoveryImage()
+
             if (this.scrollScene) {
                 // remove the pin from the scene and reset the pin element to its initial position (spacer is removed)
                 this.scrollScene.removePin(true)
@@ -86,11 +95,8 @@ export default class FeaturesItem extends Component {
     }
 
     componentDidMount() {
-        // only resize image and attach parallax for desktop
-        if (window.innerWidth > 800) {
-            this._handleResize()
-            window.addEventListener('resize', this._handleResize.bind(this));
-        }
+        this._handleResize()
+        window.addEventListener('resize', this._handleResize.bind(this));
     }
 
     render() {
