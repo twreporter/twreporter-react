@@ -86,8 +86,11 @@ export default class FeaturesItem extends Component {
     }
 
     componentDidMount() {
-        this._handleResize()
-        window.addEventListener('resize', this._handleResize.bind(this));
+        // only resize image and attach parallax for desktop
+        if (window.innerWidth > 800) {
+            this._handleResize()
+            window.addEventListener('resize', this._handleResize.bind(this));
+        }
     }
 
     render() {
@@ -98,13 +101,13 @@ export default class FeaturesItem extends Component {
         d.setTime(article.lastPublish*1000)
         let d_str = d.toISOString().substring(0,10);
         let tags = article.tags
-        let cat_display = "專題"                                                                                       
+        let cat_display = "專題"
         for (let i = 0; i < tags.length; i++) {
             if (tags[i].substring(0,4) == 'cat:') {
                 cat_display = tags[i].substring(4)
                 break
             }
-        } 
+        }
 
         return (
             <li className="listing-item" key={article.id}>
