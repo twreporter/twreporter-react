@@ -121,6 +121,7 @@ export default class FeaturesItem extends Component {
                 <a href={url}>
                     <div id={'parallax-trigger'+this.props.article.id} className="img-wrap">
                         <img  ref='listImg' width='1800px' height='1200px' className="img" src={firstImage}/>
+                        <div className='img-overlay' />
                     </div>
                     <div ref='parallaxIndicator' className='container'>
                         <div className="border clearfix">
