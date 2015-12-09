@@ -23,12 +23,6 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        // force page scroll position to top when page refresh
-        // this is for avoid parallax animation breaking.
-        window.onbeforeunload = function(){
-            window.scrollTo(0,0);
-        }
-
         if (!this.props.articles) {
             this.props.loadArticles();
         }
