@@ -104,9 +104,7 @@ export default class FeaturesItem extends Component {
         const { article } = this.props
         let firstImage = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
         let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug
-        let d = new Date()
-        d.setTime(article.lastPublish*1000)
-        let d_str = d.toISOString().substring(0,10);
+        let t = new Date(article.lastPublish * 1000).toString().split(' ');
         let tags = article.tags
         let cat_display = "專題"
         for (let i = 0; i < tags.length; i++) {
@@ -131,7 +129,9 @@ export default class FeaturesItem extends Component {
                                     <div className="category">{cat_display.substring(2,1)}</div>
                                 </div>
                                 <div className='infobox'>
-                                    <div className="published">{d_str}</div>
+                                    <div className="published">
+				                        {[t[1], t[2], t[3]].join('.')}
+                                    </div>
                                     <div className="title">{article.title}</div>
                                     <div className="excerpt">{article.excerpt}</div>
                                 </div>
