@@ -1,8 +1,10 @@
 /* slider overwrite */
 .slick-slider {
     margin-bottom: 100px !important;
+    padding-bottom: 35px;
 }
 .slick-dots {
+    position: static;
     bottom: -35px !important;
 }
 
