@@ -22,8 +22,15 @@
 .social-container .item {
     display: inline-block;
 }
-
+.us-container {
+    margin-top: 76px;
+}
 .us-container .item {
+    font-size: 15px;
+    font-weight: 700 !important;
+    display: inline-block;
+    padding-left: 55px;
+    padding-right: 55px;
 }
 .footer .open-source-container {
     height: 30px;
