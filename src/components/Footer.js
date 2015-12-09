@@ -13,7 +13,7 @@ export default class Footer extends Component {
                 <div className='container'>
                     <div className='logo-container'>
                         <div className='logo'>
-                            <img src='/asset/footer-logo-mobile.png' />
+                            <img src='/asset/footer-logo-desktop.png' />
                         </div>
                     </div>
                     <div className='social-container'>
