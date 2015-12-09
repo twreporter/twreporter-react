@@ -29,14 +29,14 @@
 .topnews_category {
     background-image: url('/asset/hexagon.png');
     display: block;
-    font-size: 16pt;
+    font-size: 16px;
     background-repeat: no-repeat; 
     background-position: center;
     width: 46px;
     height: 46px;
     text-align: center;
-    padding-top: 24px;
-    align: center;
+    padding-top: 50px;
+    padding-left: 50px;
 }
 
 .topnewsimage-wrap {
