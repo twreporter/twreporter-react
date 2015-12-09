@@ -19,12 +19,12 @@ export default class Footer extends Component {
                     <div className='social-container'>
                         <div className='item'>
                             <a href='https://www.facebook.com/twreporter/' target='_blank'>
-                                <img src='/asset/FB'/>
+                                <img className="fb" src='/asset/FB'/>
                             </a>
                         </div>
                         <div className='item'>
                             <a href='https://www.instagram.com/twreporter/' target='_blank' >
-                                <img src='/asset/IG.png' />
+                                <img className="ig" src='/asset/IG.png' />
                             </a>
                         </div>
                     </div>

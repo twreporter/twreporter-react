@@ -72,24 +72,41 @@ and (max-width : 799px) ,
 only screen 
 and (max-device-width : 799px) { 
     .footer {
-}
-.footer .container{
-}
-.footer .logo-container {
-}
+        height: 100%;
+    }
+    .footer .container{
+        width: 285px;
+        height: 132px;
+    }
+    .footer .logo-container {
+        width: 177px;
+        height: 36px;
+    }
+    .logo-img {
+        width: 177px;
+        height: 36px;
+    }
     .logo-container .logo {
+    }
+    .us-container {
+        margin-top: 0px;
+    }
+    .us-container .item {
+        padding: 35px 35px 0px 35px;
     }
     .footer .social-container {
     }
-    .us-container .about-us {
+    .footer .social-container .item .fb {
+        padding-left: 25px;
+        padding-right: 10px;
     }
-    .us-container .contact-us {
-    }
-    .us-container .policy {
-    }
-    .us-container .donate-us {
+    .footer .social-container .item .ig {
     }
     .footer .open-source-container {
+        width: 100%;
+        height: 135px;
+        margin-top: 29px;
+        text-align: center;
     }
     .open-source-container .cc{
     }
