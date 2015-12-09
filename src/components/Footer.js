@@ -13,7 +13,7 @@ export default class Footer extends Component {
                 <div className='container'>
                     <div className='logo-container'>
                         <div className='logo'>
-                            <img className="logo-img" src='/asset/logo.png' />
+                            <img src='/asset/footer-logo-mobile.png' />
                         </div>
                     </div>
                     <div className='social-container'>
@@ -50,16 +50,19 @@ export default class Footer extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className='open-source-container'>
-                        <div className='cc'>
+                </div>
+                <div className='open-source-container'>
+                    <div className='items'>
+                        <div className='item'>
                             <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' target='_blank'>
                                 <img src='/asset/cc.png' />
+                                <span>除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款</span>
                             </a>
                         </div>
-                        <div className='github'>
+                        <div className='item'>
                             <a href='https://github.com/twreporter' target='_blank'>
                                 <img src='/asset/github.png' />
-                                <span></span>
+                                <span>github.com/twreporter</span>
                             </a>
                         </div>
                     </div>
