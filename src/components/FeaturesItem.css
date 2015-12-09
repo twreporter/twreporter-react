@@ -40,8 +40,11 @@
 }
 
 .listing-item .published {
-    font-family: Roboto;
-    margin-bottom: 20px;
+    font-family: "New Roman";
+    font-style: italic;
+    color: black;
+    word-spacing: 20px;
+    padding-bottom: 30px;
 }
 
 .listing-item .title {
@@ -54,7 +57,7 @@
 .listing-item .excerpt {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 27px;
     word-spacing: 27px;
 }
