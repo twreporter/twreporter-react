@@ -32,11 +32,12 @@
     font-size: 16px;
     background-repeat: no-repeat; 
     background-position: center;
-    width: 46px;
-    height: 46px;
+    width: 31px;
+    height: 31px;
     text-align: center;
-    padding-top: 50px;
-    padding-left: 50px;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding-top: 13px;
 }
 
 .topnewsimage-wrap {
