@@ -1,31 +1,58 @@
-.organization {
-    height: 1200px;
-}
 .footer {
-    display: block;
-    width: 100%;
-    margin: 40px 0 20px 0;
-    padding: 40px 20px 10px 20px;
-    border-bottom: 1px solid black;
-    box-sizing: border-box;
+
 }
-.footer a {
-    text-decoration: none;
-    padding-right: 20px;
+.footer .container{
+    margin: 0px auto;
 }
-.footer .footer-item {
-    color: black;
-    font-weight: bold;
-    padding: 0 4px 2px 4px;
+.footer .logo-container {
 }
-.footer .footer-item.right-reserved {
-    float: none;
-    display: block;
-    margin-top: 10px;
+.logo-container .logo {
 }
-@media screen and (min-width: 650px) {
-    .footer .footer-item.right-reserved{
-        float: right;
-        margin-top: 0;
+.footer .social-container {
+}
+.us-container .about-us {
+}
+.us-container .contact-us {
+}
+.us-container .policy {
+}
+.us-container .donate-us {
+}
+.footer .open-source-container {
+}
+.open-source-container .cc{
+}
+.open-source-container .github {
+}
+
+@media 
+only screen 
+and (max-width : 799px) , 
+only screen 
+and (max-device-width : 799px) { 
+    .footer {
+    }
+    .footer .container{
+    }
+    .footer .logo-container {
+    }
+    .logo-container .logo {
+    }
+    .footer .social-container {
+    }
+    .us-container .about-us {
+    }
+    .us-container .contact-us {
+    }
+    .us-container .policy {
+    }
+    .us-container .donate-us {
+    }
+    .footer .open-source-container {
+    }
+    .open-source-container .cc{
+    }
+    .open-source-container .github {
     }
 }
+
