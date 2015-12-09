@@ -63,32 +63,44 @@ only screen
 and (max-device-width : 799px) {
 
     .daily-item {
-        width: 90%;
+        width: 350px;
+        margin: 0 0 auto;
         display: block;
-        padding: 2%;
-        margin: 2%;
         vertical-align : top;
+        padding: 0;
         border-bottom-style: solid;
         border-color: #CCC;
         border-bottom-width: 2px;
     }
 
+    .daily-itemlistwrapprt {
+        width: 100%;
+    }
     .daily-image {
         display: inline-block;
-        padding-top: 0;
-        height: auto;
-        width: 40%;
+        width: 99px;
+        height: 72px;
+        margin-left: 12px;
+        margin-right: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }   
 
+    .daily_lastpublish {
+        display: none;
+    }
     .daily-title {
         display: inline-block;
         padding-left: 15px;
         padding-right: 15px;
         padding-top: 0px;
-        font-size: 100%;
+        font-size: 19px;
         vertical-align : top;
-        width: 50%;
-        margin-top: 0px;
+        width: 180px;
+        margin-top: 18px;
+        margin-bottom: 18px;
+        line-height: 19px;
+        word-spacing: 20px;
     }
     
     .daily-line {
@@ -97,27 +109,19 @@ and (max-device-width : 799px) {
     .daily-news {
         margin-left: 0;
     }
+    .daily-itemlist {
+        margin-left: auto;
+        margin-top: 30px;
+    }
+
 
     .what {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: normal;
-        font-size: 140%;
+        font-size: 19px;
         display: inline;
     }
 
     .new {
-        font-family: 'Roboto';
-        font-weight: normal;
-        font-size: 140%;
+        font-size: 19px;
         display: inline;
-    }
-}
-
-@media 
-all 
-and (min-width : 800px)
-and (max-width : 1745px) {
-    .daily-item {
     }
 }

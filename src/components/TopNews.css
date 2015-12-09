@@ -55,7 +55,7 @@
     bottom: 50px;
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid black;
-    width: 415px;
+    width: 475px;
     padding: 30px 30px 0;
 }
 .carousel-published {
@@ -81,6 +81,17 @@
     line-height: 27px;
     word-spacing: 27px;
     padding-bottom: 30px;
+}
+
+@media
+all
+and (min-width : 1746px) {
+    .carousel-item {
+        width: 700px;
+        padding: 30px 30px 0;
+        right: 80px;
+        bottom: 80px;
+    }
 }
 
 @media
