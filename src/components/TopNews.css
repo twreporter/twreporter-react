@@ -29,13 +29,13 @@
 .topnews_category {
     background-image: url('/asset/hexagon.png');
     display: block;
-    font-size: 24pt;
+    font-size: 16pt;
     background-repeat: no-repeat; 
     background-position: center;
     width: 46px;
     height: 46px;
     text-align: center;
-    padding-top: 15px;
+    padding-top: 24px;
     align: center;
 }
 
@@ -113,6 +113,7 @@ and (max-width : 799px) {
 	font-size: 16pt;
 	width: 35px;
 	height: 35px;
+    padding-top: 15px;
     }
     .carousel-item {
 	width: 275px;
