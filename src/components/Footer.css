@@ -89,15 +89,37 @@ and (max-device-width : 799px) {
     .logo-container .logo {
     }
     .us-container {
-        margin-top: 0px;
+        margin-top: 35px;
     }
     .us-container .item {
-        padding: 35px 35px 0px 35px;
+        padding: 0px 35px 0px 35px;
+        width: 70px;
+        display: inline-block;
+    }
+    .us-container .item:nth-child(odd) {
+        border-right: solid 1px;
+    }
+    .us-container .item:nth-child(even) {
+        border: none;
+    }
+    .us-container .item:nth-child(1) {
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-left-width: 0px;
+    }
+    .us-container .item:nth-child(3n+0) {
+        padding-top: 35px;
     }
     .footer .social-container {
+        display: inline-block;
+        width: 78px;
+        clear: both;
+    }
+    .footer .social-container .item {
+        margin: 0px;
     }
     .footer .social-container .item .fb {
-        padding-left: 25px;
+        padding-left: 0px;
         padding-right: 10px;
     }
     .footer .social-container .item .ig {
@@ -108,7 +130,23 @@ and (max-device-width : 799px) {
         margin-top: 29px;
         text-align: center;
     }
+    .footer .open-source-container .items {
+        width: 285px;
+        text-align: center;
+    }
+    .open-source-container .item:nth-child(1) {
+        position: static;
+        display: block;
+        .span {
+            display: block;
+        }
+    }
+    .open-source-container .item:nth-child(2) {
+        position: static;
+        display: block;
+    }
     .open-source-container .cc{
+        margin: 10px auto;
     }
     .open-source-container .github {
     }
