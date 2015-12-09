@@ -133,4 +133,7 @@ and (max-width : 1024px) {
     .daily-itemlistwrapprt {
         width: 646px;
     }
+    .daily-title {
+        margin-bottom: 60px;
+    }
 }
