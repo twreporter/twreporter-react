@@ -119,20 +119,21 @@ export default class FeaturesItem extends Component {
         return (
             <li className="listing-item" key={article.id}>
                 <a href={url}>
-                    <div id={'parallax-trigger'+this.props.article.id} className="featuresimage-wrap">
-                        <img  ref='listImg' width='1800px' height='1200px' className="listing-img" src={firstImage}/>
+                    <div id={'parallax-trigger'+this.props.article.id} className="img-wrap">
+                        <img  ref='listImg' width='1800px' height='1200px' className="img" src={firstImage}/>
                     </div>
-                    <div ref='parallaxIndicator' className='listing-projectcontainer'>
-                        <div className="listing-projectborder clearfix">
-                            <div className="feature-categorycontainer">
-                                <div className="feature-category">{cat_display.substring(0,1)}</div>
-                                <div className="feature-category">{cat_display.substring(2,1)}</div>
-                            </div>
-                            <div className="listing-project">
-                                <div className="listing-projectpublished">{d_str}</div>
-                                <div className="listing-title">{article.title}</div>
-                                <div className="listing-excerpt">{article.excerpt}</div>
-                                <div className="listing-author">{article.author_display}</div>
+                    <div ref='parallaxIndicator' className='container'>
+                        <div className="border clearfix">
+                            <div className='featurebox'>
+                                <div className="container">
+                                    <div className="category">{cat_display.substring(0,1)}</div>
+                                    <div className="category">{cat_display.substring(2,1)}</div>
+                                </div>
+                                <div className='infobox'>
+                                    <div className="published">{d_str}</div>
+                                    <div className="title">{article.title}</div>
+                                    <div className="excerpt">{article.excerpt}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

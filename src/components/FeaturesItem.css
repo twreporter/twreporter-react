@@ -1,10 +1,3 @@
-.listing-img {
-    border: 0;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-}
-
 .listing-item {
     margin: 0px;
     overflow: hidden;
@@ -14,109 +7,89 @@
     padding-bottom: 0px;
 }
 
-.featuresimage-wrap {
+.listing-item .img {
+    border: 0;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.listing-item .img-wrap {
     max-width: 100%;
     max-height: auto;
     overflow: hidden;
     text-align: center;
 }
 
-.listing-projectcontainer {
+.listing-item .container {
     height: 100vh
 }
 
-.listing-projectborder {
+.listing-item .border {
     position: relative;
     width: 100%;
-    height: 285px;
     border: solid;
     border-color: #000;
     border-width: 4px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.85);
     margin-bottom: 1px;
     padding-bottom: 1px;
 }
 
-.feature-categorycontainer {
-    width: 15%;
-    display: inline-block;
-    padding-left: 40px;
-    padding-top: 20px;
-    position: absolute;
-    z-index: 1;
-}
-
-.feature-category {
-    background-image: url('/asset/hexagon.png');
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
-    display: block;
-    font-size: 160%;
-    background-repeat: no-repeat; 
-    background-position: center;
-    width: 46x;
-    height: 46px;
-    text-align: center;
-    padding-top: 17px;
-    align: center;
-}
-.listing-project {
-    display: inline;
-    width: 80%;
-}
-
-.listing-projectpublished {
-    display: inline-block;
-    font-size: 80%;
+.listing-item .published {
     font-family: Roboto;
-    margin-top: 33px;
-    margin-bottom: 12px;
-    margin-left: 15%;
-    width: 20%;
+    margin-bottom: 20px;
 }
 
-.listing-title {
+.listing-item .title {
     font-size: 170%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 12%;
-    margin-left: 15%;
-    margin-right: 5%;
-    margin-bottom: 1%;
+    margin-bottom: 30px
 }
 
-.listing-excerpt {
-    font-size: 120%;
-    padding-top: 15px;
-    padding-bottom: 33px;
-    margin-left: 15%;
-    margin-right: 15%;
+.listing-item .excerpt {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
-    font-weight: light;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 27px;
+    word-spacing: 27px;
 }
 
-.listing-author {
+.listing-item .author {
     font-size: 130%;
     padding-top: 15px;
     padding-bottom: 33px;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
     text-align: right;
-    padding-right: 12%;
 }
 
-.component-stickybox > * {
-  width: 100%;
-  padding: 0;
-  margin:0;
+.listing-item .featurebox {
+    width: 625px;
+    margin: 40px auto 40px auto;
 }
 
-.component-stickybox.frozen > * {
-  position: fixed;
-  top: 0;
-  z-index: -1;
-  background-color: #FFF;
+.listing-item .featurebox .container {
+    width: 32px;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}
+
+.listing-item .featurebox .category {
+    background-image: url('/asset/hexagon.png');
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-weight: bold;
+    display: block;
+    background-repeat: no-repeat; 
+    height: 32px;
+    text-align: center;
+    padding-top: 4px;
+}
+
+.listing-item .featurebox .infobox {
+    margin-left: 80px;
 }
 
 @media 
@@ -124,50 +97,6 @@ only screen
 and (max-width : 799px) , 
 only screen 
 and (max-device-width : 799px) { 
-    
-    .listing-img {
-        border: 0;
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-    }
-
-    .listing-project {
-        position: absolute;
-        width: 92%;
-        bottom: 20px;
-    }
-    .listing-title {
-        width: 92%;
-        color: #FFF;
-        padding-right: 4%;
-        padding-left: 14%;
-        font-size: 120%;
-    }
-
-    .listing-excerpt {
-        display: none;
-    }
-
-    .listing-author {
-        display: none;
-    }
-
-    .listing-projectcontainer {
-        height: auto
-    }
-
-    .listing-projectpublished {
-        font-size: 80%;
-        font-family: Roboto;
-        margin-top: 23px;
-        margin-bottom: 12px;
-        width: 92%;
-        color: #FFF;
-        padding-right: 4%;
-        padding-left: 14%;
-    }
-
     .listing-item {
         margin: 0px;
         position: relative;
@@ -177,26 +106,58 @@ and (max-device-width : 799px) {
         padding-bottom: 0px;
         height: auto;
         overflow: hidden;
+        background-color: black;
+        margin-top: -3px
     }
-    .listing-projectborder {
+    .listing-item .img {
+        border: 0;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        opacity: 0.85
+    }
+    .listing-item .container {
+        height: auto;
+        position: static;
+    }
+    .listing-item .border {
+        position: static;
+        border: none;
         border-width: 0px;
-        background-color: rgba(255, 255, 255, 0);
-        top: -40px;
-        position: absolute;
-        height: 100%;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+        background-color: transparent
     }
-    .listing-project {
-        word-wrap: normal;
-        display: block;
-        float: right;
-        width: 80%;
-    }
-    .feature-categorycontainer {
+    .listing-item .featurebox .infobox {
+        margin-left: 0px;
         position: absolute;
-        display: block;
-        width: 15%;
-        right: 2px;
-        top: 20px;
+        bottom: 0px;
+        padding: 0px 20px 20px 20px;
+    }
+    .listing-item .title {
+        color: #FFF;
+        font-size: 24px;
+        margin-bottom: 0px;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.85);
+    }
+    .listing-item .excerpt {
+        display: none;
+    }
+    .listing-item .author {
+        display: none;
+    }
+    .listing-item .published {
+        display: none;
+    }
+    .listing-item .featurebox {
+        width: auto;
+        margin: 0px;
+    }
+    .listing-item .featurebox .container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1;
     }
 }
 
