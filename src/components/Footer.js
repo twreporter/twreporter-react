@@ -13,18 +13,18 @@ export default class Footer extends Component {
                 <div className='container'>
                     <div className='logo-container'>
                         <div className='logo'>
-                            <img src='/asset/logo.png' />
+                            <img className="logo-img" src='/asset/logo.png' />
                         </div>
                     </div>
                     <div className='social-container'>
                         <div className='item'>
                             <a href='https://www.facebook.com/twreporter/' target='_blank'>
-                                <img src='/asset/FB'/>
+                                <img className="fb" src='/asset/FB'/>
                             </a>
                         </div>
                         <div className='item'>
                             <a href='https://www.instagram.com/twreporter/' target='_blank' >
-                                <img src='/asset/IG.png' />
+                                <img className="ig" src='/asset/IG.png' />
                             </a>
                         </div>
                     </div>
