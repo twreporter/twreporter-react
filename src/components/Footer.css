@@ -3,12 +3,10 @@
     background-color: #e6e6e6;
 }
 .footer .container{
-    width: 710px;
-    height: 145px;
+    width: 712px;
+    height: 195px;
     margin: 0px auto;
     padding-top: 50px;
-    padding-bottom: 50px;
-
 }
 .footer .logo-container {
     display: inline-block;
@@ -21,37 +19,64 @@
 }
 .social-container .item {
     display: inline-block;
+    margin-left: 30px;
 }
 .us-container {
     margin-top: 76px;
+    margin-bottom: 47px;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto
 }
 .us-container .item {
-    font-size: 15px;
-    font-weight: 700 !important;
+    font-size: 16px;
+    font-weight: 500;
     display: inline-block;
-    padding-left: 55px;
-    padding-right: 55px;
-}
-.footer .open-source-container {
-    height: 30px;
-    background-color: #ccc
-}
-.open-source-container .cc{
-}
-.open-source-container .github {
+    width: 176px;
+    border-right: solid;
+    border-width: 1px;
+    text-align: center;
 }
 
+.us-container .item:nth-child(1) {
+    border-left: solid;
+    border-width: 1px;
+}
+
+.footer .open-source-container {
+    height: 30px;
+    background-color: #ccc;
+}
+
+.open-source-container .items {
+    width: 712px;
+    margin: 0px auto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-weight: 300;
+    font-size: 12px;
+    position: relative;
+}
+
+.open-source-container .item:nth-child(1) {
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+}
+
+.open-source-container .item:nth-child(2) {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+}
 @media 
 only screen 
 and (max-width : 799px) , 
 only screen 
 and (max-device-width : 799px) { 
     .footer {
-    }
-    .footer .container{
-    }
-    .footer .logo-container {
-    }
+}
+.footer .container{
+}
+.footer .logo-container {
+}
     .logo-container .logo {
     }
     .footer .social-container {
