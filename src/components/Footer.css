@@ -1,6 +1,6 @@
 .footer {
     height: 275px;
-    background-color: grey;
+    background-color: #e6e6e6;
 }
 .footer .container{
     width: 710px;
@@ -27,6 +27,7 @@
 }
 .footer .open-source-container {
     height: 30px;
+    background-color: #ccc
 }
 .open-source-container .cc{
 }
