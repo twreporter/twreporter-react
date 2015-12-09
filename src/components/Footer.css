@@ -145,8 +145,15 @@ and (max-device-width : 799px) {
         position: static;
         display: block;
     }
-    .open-source-container .cc{
+    .cc-logo {
         margin: 10px auto;
+        padding-top: 10px;
+        width: 60px;
+        display: block;
+    }
+    .cc-license {
+        margin: 10px auto;
+        display: block;
     }
     .open-source-container .github {
     }
