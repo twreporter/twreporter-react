@@ -17,34 +17,34 @@ export default class Footer extends Component {
                         </div>
                     </div>
                     <div className='social-container'>
-                        <div className='fb'>
+                        <div className='item'>
                             <a href='https://www.facebook.com/twreporter/' target='_blank'>
                                 <img src='/asset/FB' />
                             </a>
                         </div>
-                        <div className='ig'>
+                        <div className='item'>
                             <a href='https://www.instagram.com/twreporter/' target='_blank' >
                                 <img src='/asset/IG.png' />
                             </a>
                         </div>
                     </div>
                     <div className='us-container'>
-                        <div className='about-us'>
+                        <div className='item'>
                             <a href=''>
                                 關於我們
                             </a>
                         </div>
-                        <div className='contact-us'>
+                        <div className='item'>
                             <a href=''>
                                 聯絡我們
                             </a>
                         </div>
-                        <div className='opolicy'>
+                        <div className='item'>
                             <a href=''>
                                 隱私政策
                             </a>
                         </div>
-                        <div className='donate-us'>
+                        <div className='item'>
                             <a href=''>
                                 贊助我們
                             </a>

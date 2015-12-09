@@ -1,24 +1,32 @@
 .footer {
-
+    height: 275px;
+    background-color: grey;
 }
 .footer .container{
+    width: 710px;
+    height: 145px;
     margin: 0px auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
 }
 .footer .logo-container {
+    display: inline-block;
 }
 .logo-container .logo {
 }
 .footer .social-container {
+    display: inline-block;
+    float: right;
 }
-.us-container .about-us {
+.social-container .item {
+    display: inline-block;
 }
-.us-container .contact-us {
-}
-.us-container .policy {
-}
-.us-container .donate-us {
+
+.us-container .item {
 }
 .footer .open-source-container {
+    height: 30px;
 }
 .open-source-container .cc{
 }
