@@ -28,7 +28,14 @@ export default class Daily extends Component {
 			let img_existing = re.exec(a.firstImage);
 			var t = new Date(a.lastPublish * 1000).toString().split(' ');
 			if (a.isPublishedVersion) {
-			    let thumbnail = (a.firstImage) ? "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~600x0~" + a.firstImage : a.preview_image
+			    let thumbnail;
+                if  (a.firstImage) {
+                    thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~600x0~" + a.firstImage
+                } else if (a.preview_image) {
+                   thumbnail = a.preview_image
+                } else if (a.facebook_image) {
+                    thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1200x1200~" + a.facebook_image
+                }
 			    let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug 
 			    return (
 				<li key={a.id} className="daily-item">
