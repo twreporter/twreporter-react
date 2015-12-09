@@ -78,7 +78,8 @@ export default class FeaturesItem extends Component {
             this.scrollScene
             .duration(window.innerHeight)
             .setPin('#parallax-trigger'+this.props.article.id, {pushFollowers: false}) // pins the element for the the scene's duration
-            .addIndicators()
+            // for debug
+            // .addIndicators()
             .addTo(this.scrollController)
 
         } else {
