@@ -102,7 +102,7 @@ export default class FeaturesItem extends Component {
 
     render() {
         const { article } = this.props
-        let firstImage = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
+        let firstImage = article.preview_image
         let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug
         let t = new Date(article.lastPublish * 1000).toString().split(' ');
         let tags = article.tags

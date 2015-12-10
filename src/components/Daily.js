@@ -23,13 +23,14 @@ export default class Daily extends Component {
 		<div className="daily-itemlistwrapprt">
 		<ul className="daily-itemlist">
 		    { _.map(daily_top, (a, index) => {
-			var re = /^[\w\d]/;
+			var re = /^[\w\d].+?\.(jpg|png)$/;
 			let img_existing = re.exec(a.firstImage);
 			var t = new Date(a.lastPublish * 1000).toString().split(' ');
 			if (a.isPublishedVersion) {
 			    let thumbnail;
-                if  (a.firstImage) {
-                    thumbnail = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~600x0~" + a.firstImage
+                if  (img_existing) {
+                    thumbnail = a.firstImage
+                console.log(thumbnail);
                 } else if (a.preview_image) {
                    thumbnail = a.preview_image
                 } else if (a.facebook_image) {
