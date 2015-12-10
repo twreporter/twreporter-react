@@ -16,8 +16,7 @@ export default class Daily extends Component {
 	return daily_top ? (
 	    <div className="daily">
 		<h2 className="daily-news">
-		    <div className="what">What&#39;s</div>
-		    <div className="new"> New</div>
+		    <div className="what">觀 點</div>
 		</h2>
 		<div className="daily-line"></div>
 

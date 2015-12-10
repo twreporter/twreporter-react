@@ -60,11 +60,12 @@
     padding: 30px 30px 0;
 }
 .carousel-published {
-    font-family: "New Roman";
+    font-family: "Times New Roman";
     font-style: italic;
     color: black;
     word-spacing: 20px;
     padding-bottom: 30px;
+    font-size: 12px;
 }
 .carousel-itemtitle {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;

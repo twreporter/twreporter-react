@@ -23,27 +23,32 @@
 }
 
 .daily_lastpublish {
+    font-family: "Times New Roman";
     font-style: italic;
+    font-size: 12px;
     padding: 15px 0;
 }
 .daily-title {
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 500;
     color: black;
     line-height: 26px;
     word-spacing: 30px;
     margin-bottom: 75px;
-    width: 245px;
+    width: 310px;
 }
 
 .daily-news {
     font-size: 26px;
 }
 .what {
-    font-family: 'Times New Roman';
-    font-style: Italic;
-    font-weight: normal;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-size: 25px;
+    word-spacing: 40px;
+    font-weight: 500;
     display: inline;
+    width: 200px;
 }
 .new {
     font-family: 'Montserrat';

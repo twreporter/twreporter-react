@@ -80,11 +80,11 @@ export default class TopNews extends Component {
 				<div className="topnews_category">{cat_display.substring(2,1)}</div>
 			    </div>
 			    <div className="carousel-item">
+				<div className="carousel-itemtitle">{a.title}</div>
+				<div className="carousel-excerpt">{a.excerpt}</div>
 				<div className="carousel-published">
 				    {[t[1], t[2], t[3]].join('.')}
 				</div>
-				<div className="carousel-itemtitle">{a.title}</div>
-				<div className="carousel-excerpt">{a.excerpt}</div>
 			    </div>
 			</a>
 		    );

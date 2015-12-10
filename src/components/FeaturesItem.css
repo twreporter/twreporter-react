@@ -40,11 +40,12 @@
 }
 
 .listing-item .published {
-    font-family: "New Roman";
+    font-family: "Times New Roman";
     font-style: italic;
     color: black;
     word-spacing: 20px;
     padding-bottom: 30px;
+    font-size: 12px;
 }
 
 .listing-item .title {
