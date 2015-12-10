@@ -42,8 +42,8 @@
 }
 
 .footer .open-source-container {
-    height: 30px;
     background-color: #ccc;
+    height: 30px;
 }
 
 .open-source-container .items {
@@ -55,17 +55,20 @@
     position: relative;
 }
 
+.open-source-container .item .img{
+    vertical-align:middle;
+}
+
 .open-source-container .item:nth-child(1) {
-    display: inline-block;
     position: absolute;
     left: 0px;
 }
 
 .open-source-container .item:nth-child(2) {
-    display: inline-block;
     position: absolute;
     right: 0px;
 }
+
 @media 
 only screen 
 and (max-width : 799px) , 
