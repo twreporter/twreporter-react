@@ -9,10 +9,64 @@ export default class Footer extends Component {
     }
     render() {
         return (
-            <div className="footer">
-                <a href="#" className="footer-item  about">ABOUT</a>    
-                <a href="#" className="footer-item  privacy-policy">PRIVACY-POLICY</a>
-                <span className="footer-item right-reserved">© THE REPORTER ALL RIGHTS RESERVED.</span>
+            <div className='footer'>
+                <div className='container'>
+                    <div className='logo-container'>
+                        <div className='logo'>
+                            <img className="logo-img" src='/asset/footer-logo-desktop.png' />
+                        </div>
+                    </div>
+                    <div className='social-container'>
+                        <div className='item'>
+                            <a href='https://www.facebook.com/twreporter/' target='_blank'>
+                                <img className="fb" src='/asset/FB'/>
+                            </a>
+                        </div>
+                        <div className='item'>
+                            <a href='https://www.instagram.com/twreporter/' target='_blank' >
+                                <img className="ig" src='/asset/IG.png' />
+                            </a>
+                        </div>
+                    </div>
+                    <div className='us-container'>
+                        <div className='item'>
+                            <a href=''>
+                                關於我們
+                            </a>
+                        </div>
+                        <div className='item'>
+                            <a href=''>
+                                聯絡我們
+                            </a>
+                        </div>
+                        <div className='item'>
+                            <a href=''>
+                                隱私政策
+                            </a>
+                        </div>
+                        <div className='item'>
+                            <a href=''>
+                                贊助我們
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div className='open-source-container'>
+                    <div className='items'>
+                        <div className='item'>
+                            <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' target='_blank'>
+                                <img className="cc-logo img" src='/asset/cc.png' />
+                                <span className="cc-license"> 除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款</span>
+                            </a>
+                        </div>
+                        <div className='item'>
+                            <a href='https://github.com/twreporter' target='_blank'>
+                                <img src='/asset/github.png' className='img' />
+                                <span> github.com/twreporter</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

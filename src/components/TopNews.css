@@ -1,63 +1,98 @@
-.slider {
-    top: 25px;
+/* slider overwrite */
+.slick-slider {
+    margin-bottom: 100px !important;
+    padding-bottom: 35px;
+}
+.slick-dots {
+    position: static;
+    bottom: -35px !important;
 }
 
-.carousel-image {
-    width: 100%;
-    overflow: hidden;
-    -height: auto;
+.slick-prev {
+    left: 30px !important;
 }
 
+.slick-next {
+    right: 30px !important;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 30px;
+}
+
+
+/* slider content */
 .topnews_categorycontainer {
-    position: relative;
-    top: 120px;
-    left: 46px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
 }
 
 .topnews_category {
     background-image: url('/asset/hexagon.png');
     display: block;
-    font-size: 24pt;
+    font-size: 16px;
     background-repeat: no-repeat; 
     background-position: center;
-    width: 46px;
-    height: 46px;
+    width: 31px;
+    height: 31px;
     text-align: center;
-    padding-top: 15px;
-    align: center;
+    padding-top: 13px;
 }
 
 .topnewsimage-wrap {
+    background-size: cover;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
     width: 100%;
-    height: auto;
-    overflow: hidden;
-    margin-bottom: 50px;
+    height: 100vh !important;
+    position: relative;
+    display: block;
 }
 
 .carousel-item {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 2% 2% 2% 2%;
-    border: solid;
-    border-weight: 2px;
-    position: relative;
-    width: 45%;
-    height: auto;
-    bottom: 450px;
-    left: 40%;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    width: 475px;
+    padding: 30px 30px 0;
+}
+.carousel-published {
+    font-family: "New Roman";
+    font-style: italic;
+    color: black;
+    word-spacing: 20px;
+    padding-bottom: 30px;
 }
 .carousel-itemtitle {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    font-size: 200%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: bold;
+    font-size: 24px;
+    color: black;
+    line-height: 32px;
+    word-spacing: 20px;
+    padding-bottom: 30px;
 }
 .carousel-excerpt {
-    padding-top: 18px;
-    font-size: 16px;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: lighter;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 27px;
+    word-spacing: 27px;
+    padding-bottom: 30px;
+}
+
+@media
+all
+and (min-width : 1746px) {
+    .carousel-item {
+        width: 700px;
+        padding: 30px 30px 0;
+        right: 80px;
+        bottom: 80px;
+    }
 }
 
 @media
@@ -65,49 +100,40 @@ only screen
 and (max-device-width : 799px),
 only screen
 and (max-width : 799px) {
-    .slider-decorator-2 {
+    .slick-dots {
         display:none;
     }
 
     .topnews_categorycontainer {
-        position: absolute;
-        width: 7%;
-        top: 5%;
-        left: 5%;
+	left: auto;
+	top: 20px;
+        right: 20px;
+    }
+    .topnews_category {
+	background-size: 35px 35px;
+	font-size: 16pt;
+	width: 35px;
+	height: 35px;
+    padding-top: 15px;
     }
     .carousel-item {
-        left: 25%;
-        right: 25%;
-        width: 50%;
-        top: -130px;
-    }
-    .slider-decorator-2 {
-        top: 80% !important;
-    }
-    .slider {
-        height: 460px;
-    }
-    .slider-slide {
-        height:400px;
-    }
-    .slider-frame {
-        height:400px;
-    }
-    .slider-list {
-        height: 400px;
+	width: 275px;
+    	bottom: 0px;
+    	left: 50%;
+    	margin-left: -154.5px;
+	padding: 15px 15px 0;
     }
     .topnewsimage-wrap {
-        width: 100%;
-        height: 360px;
-        padding: 0;
-        overflow: hidden;
+        height: 270px !important; /* 220 + 50 padding*/
+	background-size: 100% 220px;
+    }
+    .carousel-published {
+	display: none;
     }
     .carousel-itemtitle {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 130%;
-        font-family: "Noto Sans",'Noto Sans TC', Roboto;
-        font-weight: bold;
+	font-size: 17px;
+	line-height: 26px;
+	padding-bottom: 15px;
     }
     .carousel-excerpt {
         display: none;

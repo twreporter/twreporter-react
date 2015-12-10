@@ -1,65 +1,60 @@
-.daily-itemlist {
-    width: 84%;
-    margin-left: 8%;
-    margin-right: 8%;
-    padding-left: 3%;
-    padding-right: 3%;
-}
-
-.daily-item {
-    width: 14%;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: inline-block;
-    vertical-align : top
-}
-
-.daily-image {
-    padding-top: 0;
-    height: auto;
-    width: 100%;
-}
-
-.daily-title {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
-    font-size: 95%;
-    margin-top: 20px;
-    width: 95%;
-}
-
-.daily-news {
-    width: 40%;
-    margin-top: 20px;
-    margin-left: 30%;
+.daily {
     text-align: center;
 }
 
+.daily-itemlistwrapprt {
+    width: 982px;
+    margin: auto;
+    text-align: left;
+}
+.daily-itemlist {
+    margin-left: -26px;
+}
+
+.daily-item {
+    display: inline-block;
+    vertical-align : top;
+    padding-left: 26px;
+}
+
+.daily-image {
+    width: 310px;
+    height: 190px;
+}
+
+.daily_lastpublish {
+    font-style: italic;
+    padding: 15px 0;
+}
+.daily-title {
+    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-size: 16px;
+    color: black;
+    line-height: 26px;
+    word-spacing: 30px;
+    margin-bottom: 75px;
+    width: 245px;
+}
+
+.daily-news {
+    font-size: 26px;
+}
 .what {
     font-family: 'Times New Roman';
     font-style: Italic;
     font-weight: normal;
-    font-size: 240%;
     display: inline;
 }
-
 .new {
     font-family: 'Montserrat';
     font-weight: Bold;
-    font-size: 240%;
     display: inline;
 }
 
 .daily-line {
     width: 4%;
-    height: 1px;
-    border-top-style: solid;
-    border-width: 4px;
-    margin-left: 48%;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    border: 2px solid black;
+    margin: 10px auto 60px;
 }
 
 @media 
@@ -69,62 +64,76 @@ only screen
 and (max-device-width : 799px) {
 
     .daily-item {
-        width: 90%;
+        width: 350px;
+        margin: auto;
         display: block;
-        padding: 2%;
-        margin: 2%;
         vertical-align : top;
+        padding: 0;
         border-bottom-style: solid;
         border-color: #CCC;
         border-bottom-width: 2px;
     }
 
+    .daily-itemlistwrapprt {
+        width: 100%;
+    }
     .daily-image {
         display: inline-block;
-        padding-top: 0;
-        height: auto;
-        width: 40%;
+        width: 99px;
+        height: 72px;
+        margin-left: 12px;
+        margin-right: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }   
 
+    .daily_lastpublish {
+        display: none;
+    }
     .daily-title {
         display: inline-block;
         padding-left: 15px;
         padding-right: 15px;
         padding-top: 0px;
-        font-size: 100%;
+        font-size: 19px;
         vertical-align : top;
-        width: 50%;
-        margin-top: 0px;
+        width: 180px;
+        margin-top: 18px;
+        margin-bottom: 18px;
+        line-height: 19px;
+        word-spacing: 20px;
     }
     
-    .daily-line {
-        display: none;
-    }
     .daily-news {
         margin-left: 0;
     }
-
+    .daily-itemlist {
+        margin-left: auto;
+        margin-top: 30px;
+    }
     .what {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: normal;
-        font-size: 140%;
+        font-size: 19px;
         display: inline;
     }
 
     .new {
-        font-family: 'Roboto';
-        font-weight: normal;
-        font-size: 140%;
+        font-size: 19px;
         display: inline;
     }
 }
 
 @media 
-all 
-and (min-width : 800px)
-and (max-width : 1745px) {
-    .daily-item {
-        width: 28%;
+only screen 
+and (min-width : 800px) 
+and (max-width : 1024px) {
+    .daily {
+        width: 646px;
+        margin: auto;
+    }
+    .daily-itemlistwrapprt {
+        width: 646px;
+    }
+    .daily-title {
+        margin-bottom: 60px;
     }
 }
