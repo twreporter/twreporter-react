@@ -54,7 +54,7 @@ export default class TopNews extends Component {
             slidesToScroll: 1,
             lazyLoad: false
         };
-	return topnews && topnews.length ? (
+	return Array.isArray(topnews) ? (
 	    <Slider {...settings}>
 		{topnews.map((a) => {
 		    let t = new Date(a.lastPublish * 1000).toString().split(' ');
