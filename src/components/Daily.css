@@ -121,6 +121,7 @@ and (max-device-width : 799px) {
     .what {
         font-size: 19px;
         display: inline;
+        margin: 0 auto;
     }
 
     .new {
