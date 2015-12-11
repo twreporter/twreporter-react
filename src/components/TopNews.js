@@ -50,10 +50,11 @@ export default class TopNews extends Component {
             speed: 1500,
             autoplay: true,
             autoplaySpeed: 4500,
-            arrows: true,
+            arrows: false,
             slidesToShow: 1,
             slidesToScroll: 1,
-            lazyLoad: false
+            lazyLoad: false,
+            useCSS: true
         };
 	return Array.isArray(topnews) ? (
 	    <Slider {...settings}>
