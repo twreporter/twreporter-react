@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Slider from 'react-slick'
+import { ts2yyyymmdd } from '../lib/date-transformer'
 if (process.env.BROWSER) {
     require("./TopNews.css");
 }
@@ -57,7 +58,7 @@ export default class TopNews extends Component {
 	return Array.isArray(topnews) ? (
 	    <Slider {...settings}>
 		{topnews.map((a) => {
-		    let t = new Date(a.lastPublish * 1000).toString().split(' ');
+            const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.');
 		    let tags = a.tags
 		    let catDisplay = "專題"
 		    for (let i = 0; i < tags.length; i++) {
@@ -83,7 +84,7 @@ export default class TopNews extends Component {
 				<div className="carousel-itemtitle">{a.title}</div>
 				<div className="carousel-excerpt">{a.excerpt}</div>
 				<div className="carousel-published">
-				    {[t[1], t[2], t[3]].join('.')}
+                    {pubDate}
 				</div>
 			    </div>
 			</a>
