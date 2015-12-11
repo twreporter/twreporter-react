@@ -13,7 +13,7 @@ export default class Features extends Component {
 
     render() {
         const { features } = this.props
-        if (features) {
+        if (Array.isArray(features)) {
             return (
                 <div className="features-list clearfix">
                     <div className="features">FEATURES</div>
