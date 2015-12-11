@@ -28,3 +28,6 @@ export function loadArticles(tags) {
         return dispatch(fetchArticles(tags))
     }
 }
+
+export function loadMoreArticles(tag, count, page) {
+}
