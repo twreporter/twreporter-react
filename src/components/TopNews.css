@@ -1,11 +1,18 @@
 /* slider overwrite */
 .slick-slider {
-    margin-bottom: 100px !important;
-    padding-bottom: 35px;
+    margin-bottom: 135px !important;
+    height: 100vh;
+    box-sizing: border-box;
+    padding-top: 80px;
+    padding-bottom: 0;
+}
+.slick-list, .slick-track {
+    height: 100%;
+    box-sizing: border-box;
 }
 .slick-dots {
     position: static;
-    bottom: -35px !important;
+    bottom: -70px !important;
 }
 
 .slick-prev {
@@ -45,7 +52,7 @@
     background-position-x: 50%;
     background-repeat: no-repeat;
     width: 100%;
-    height: 100vh !important;
+    height: 100% !important;
     position: relative;
     display: block;
 }
@@ -101,6 +108,9 @@ only screen
 and (max-device-width : 799px),
 only screen
 and (max-width : 799px) {
+    .slick-slider {
+        height: auto;
+    }
     .slick-dots {
         display:none;
     }

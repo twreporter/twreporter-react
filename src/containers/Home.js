@@ -34,12 +34,14 @@ export default class Home extends Component {
         let topnews = articles["hp-feature"]
         let features = articles["hp-projects"]
         let daily = articles.review
-        if (topnews.length < topnews_num) {
-            let less = topnews_num - topnews.length
-            topnews = topnews.concat(features.slice(0, less))
-            features = features.slice(less)
-        } else {
-            topnews = topnews.slide(0,topnews_num);
+        if (Array.isArray(topnews)) {
+            if (topnews.length < topnews_num) {
+                let less = topnews_num - topnews.length
+                topnews = topnews.concat(features.slice(0, less))
+                features = features.slice(less)
+            } else {
+                topnews = topnews.slide(0,topnews_num);
+            }
         }
         if (articles) {
         return (

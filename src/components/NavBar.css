@@ -1,9 +1,11 @@
 .nav-menu {
-    position: relative;
+    position: absolute;
     height: 80px;
     overflow: hidden;
     width: 100%;
     padding-top: 5px;
+    top: 0;
+    box-sizing: border-box;
 }
 
 .nav_logo {
