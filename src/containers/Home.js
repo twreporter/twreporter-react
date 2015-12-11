@@ -40,7 +40,7 @@ export default class Home extends Component {
                 topnews = topnews.concat(features.slice(0, less))
                 features = features.slice(less)
             } else {
-                topnews = topnews.slide(0,topnews_num);
+                topnews = topnews.slice(0,topnews_num);
             }
         }
         if (topnews || features) {
