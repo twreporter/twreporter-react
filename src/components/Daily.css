@@ -78,7 +78,9 @@ and (max-device-width : 799px) {
         border-color: #CCC;
         border-bottom-width: 2px;
     }
-
+    .daily-line {
+        margin: 10px auto 40px;
+    }
     .daily-itemlistwrapprt {
         width: 100%;
     }

@@ -12,7 +12,7 @@
 }
 .slick-dots {
     position: static;
-    bottom: -70px !important;
+    bottom: -40px !important;
 }
 
 .slick-prev {
@@ -115,11 +115,11 @@ only screen
 and (max-width : 799px) {
     .slick-slider {
         height: auto;
+        margin-bottom: 60px !important;
     }
     .slick-dots {
         display:none;
     }
-
     .topnews_categorycontainer {
 	left: auto;
 	top: 20px;
