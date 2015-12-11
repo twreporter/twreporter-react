@@ -19,11 +19,15 @@ export default class Features extends Component {
                     <div className="features">FEATURES</div>
                     <ul className="listing">
                         { _.map(features, (a) => {
-                            var re = /^[\w\d]/
-                            let img_existing = re.exec(a.firstImage)
-                            if (img_existing != null) {
+                            let articleImage;
+                            if (a.firstImage && (a.firstImage.indexOf('.png') > -1 || a.firstImage.indexOf('.jpg') > -1)) {
+                               articleImage = a.firstImage;
+                            } else if (a.previewImage) {
+                                articleImage = a.previewImage;
+                            }
+                            if (articleImage) {
                                 return (
-                                    <FeaturesItem article={a} key={a.id}/>
+                                    <FeaturesItem article={a} image={articleImage} key={a.id}/>
                                 );
                             }})
                         }
