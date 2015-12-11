@@ -30,7 +30,6 @@ export default class Daily extends Component {
 			    let thumbnail;
                 if  (img_existing) {
                     thumbnail = a.firstImage
-                console.log(thumbnail);
                 } else if (a.preview_image) {
                    thumbnail = a.preview_image
                 } else if (a.facebook_image) {
@@ -38,13 +37,13 @@ export default class Daily extends Component {
                 }
 			    let url = (a.story_link) ? a.story_link : "https://www.twreporter.org/a/" + a.slug 
 			    return (
-				<li key={a.id} className="daily-item">
-				    <a href={url}>
-					<img className="daily-image" src={thumbnail}/>
-				    </a>
-				    <div className="daily_lastpublish">{[t[1], t[2], t[3]].join('.')}</div>
-				    <div className="daily-title">{a.title}</div>
-				</li>
+				<a href={url}>
+				    <li key={a.id} className="daily-item">
+					    <img className="daily-image" src={thumbnail}/>
+				        <div className="daily_lastpublish">{[t[1], t[2], t[3]].join('.')}</div>
+				        <div className="daily-title">{a.title}</div>
+				    </li>
+				</a>
 			    );}
 			})
 		    }
