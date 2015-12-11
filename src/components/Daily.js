@@ -36,8 +36,8 @@ export default class Daily extends Component {
                 }
 			    let url = (a.storyLink) ? a.storyLink : "https://www.twreporter.org/a/" + a.slug
 			    return (
-				<a href={url}>
-				    <li key={a.id} className="daily-item">
+				<a href={url} key={a.id}>
+				    <li className="daily-item">
 					    <img className="daily-image" src={thumbnail}/>
 				        <div className="daily_lastpublish">{[t[1], t[2], t[3]].join('.')}</div>
 				        <div className="daily-title">{a.title}</div>
