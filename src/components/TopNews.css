@@ -82,7 +82,7 @@
 .carousel-itemtitle {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 28px;
     color: black;
     line-height: 40px;
     word-spacing: 20px;
@@ -91,7 +91,7 @@
 .carousel-excerpt {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: lighter;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 27px;
     word-spacing: 27px;
     padding-bottom: 24px;

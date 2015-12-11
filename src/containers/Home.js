@@ -15,7 +15,7 @@ if (process.env.BROWSER) {
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        let params = ["hp-projects", "review", "hp-feature"]
+        let params = ["hp-projects", "review", "feature"]
         return store.dispatch(loadArticles(params));
     }
     constructor(props) {
@@ -31,7 +31,7 @@ export default class Home extends Component {
     render() {
         const {articles} = this.props
         const topnews_num = 5;
-        let topnews = articles["hp-feature"]
+        let topnews = articles["feature"]
         let features = articles["hp-projects"]
         let daily = articles.review
         if (Array.isArray(topnews)) {
