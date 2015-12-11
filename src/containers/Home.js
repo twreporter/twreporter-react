@@ -43,17 +43,17 @@ export default class Home extends Component {
                 topnews = topnews.slide(0,topnews_num);
             }
         }
-        if (articles) {
-        return (
-            <div>
-                <NavBar/>
-                <TopNews topnews={topnews}/>
-                <Daily daily={daily}/>
-                <Features features={features}/>
-                {this.props.children}
-                <Footer/>
-            </div>
-        )
+        if (topnews || features) {
+            return (
+                <div>
+                    <NavBar/>
+                    <TopNews topnews={topnews}/>
+                    <Daily daily={daily}/>
+                    <Features features={features}/>
+                    {this.props.children}
+                    <Footer/>
+                </div>
+            )
         } else {
             return ( <SystemError/> )
         }

@@ -19,12 +19,13 @@ export default store => next => action => {
         .end((err, res)=> {
             if ( res && res.text ) {
                 if (res.ok) {
-                    let response = JSON.parse(res.text)
-                    let r = response.results
-                    let results = {}
+                    let response = JSON.parse(res.text);
+                    let r = response.results;
+                    let results = {};
                     for (var i = 0; i < params.tags.length; i++) {
-                        let tag = params.tags[i]
-                        results[params.tags[i]] = r[i]._items
+                        let tag = params.tags[i];
+                        let camelizedJson = camelizeKeys(r[i]._items);
+                        results[params.tags[i]] = camelizedJson;
                     }
                     next({
                         type: successType,
@@ -43,6 +44,6 @@ export default store => next => action => {
             }
             deferred.resolve();
     });
-    
+
     return deferred.promise;
 };
