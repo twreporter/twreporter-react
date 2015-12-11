@@ -8,35 +8,6 @@ export default class TopNews extends Component {
     constructor(props, context) {
         super(props, context)
     }
-    handleResize() {
-        var currentHeight = window.innerHeight;
-        var currentWidth = window.innerWidth;
-        var fixedHeight = currentWidth * 0.75;
-        if (fixedHeight > currentHeight) {  // Make sure the users are able to get the title of the stories
-            fixedHeight = currentHeight - 100;
-        }
-        var wrapper = document.getElementsByClassName('topnewsimage-wrap')
-        for (var i = 0; i < wrapper.length; i++) {
-            wrapper[i].style.height = fixedHeight + 'px'
-        }
-        var dots = document.getElementsByClassName('ul#slick-dots')
-        for (var i = 0; i < dots.length; i++) {
-            dots[i].style.top = fixedHeight + 'px'
-        }
-        var slider = document.getElementsByClassName('slick-slider')
-        var sliderHeight = fixedHeight + 100
-        for (var i = 0; i < slider.length; i++) {
-            slider[i].style.height = sliderHeight + 'px'
-        }
-        var carouselItem = document.getElementsByClassName('carousel-item')
-        for (var i = 0; i < carouselItem.length; i++) {
-            carouselItem[i].style.top = '-' + carouselItem[i].style.height+ 'px'
-        }
-        var categoryContainer = document.getElementsByClassName('topnews_categorycontainer')
-        for (var i = 0; i < categoryContainer.length; i++) {
-            categoryContainer[i].style.top = '-' + fixedHeight + 'px'
-        }
-    }
     componentDidMount() {
         // this.handleResize()
         // window.addEventListener('resize', this.handleResize);
