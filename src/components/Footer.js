@@ -30,12 +30,12 @@ export default class Footer extends Component {
                     </div>
                     <div className='us-container'>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://twreporter.atavist.com/about-us-footer'>
                                 關於我們
                             </a>
                         </div>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://twreporter.atavist.com/contact-footer'>
                                 聯絡我們
                             </a>
                         </div>
