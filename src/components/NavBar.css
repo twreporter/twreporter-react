@@ -1,9 +1,11 @@
 .nav-menu {
-    position: relative;
-    height: 120px;
+    position: absolute;
+    height: 80px;
     overflow: hidden;
     width: 100%;
     padding-top: 5px;
+    top: 0;
+    box-sizing: border-box;
 }
 
 .nav_logo {
@@ -24,7 +26,7 @@
 }
 
 .nav-item {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     display: inline;
     font-size: 100%;
     font-weight: 700;

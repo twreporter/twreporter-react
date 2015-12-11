@@ -54,37 +54,37 @@ export default class TopNews extends Component {
             slidesToScroll: 1,
             lazyLoad: false
         };
-	return topnews && topnews.length ? (
+	return Array.isArray(topnews) ? (
 	    <Slider {...settings}>
 		{topnews.map((a) => {
 		    let t = new Date(a.lastPublish * 1000).toString().split(' ');
 		    let tags = a.tags
-		    let cat_display = "專題"
+		    let catDisplay = "專題"
 		    for (let i = 0; i < tags.length; i++) {
 			if (tags[i].substring(0,4) == 'cat:') {
-			    cat_display = tags[i].substring(4)
+			    catDisplay = tags[i].substring(4)
 			    break
 			}
-		    } 
+		    }
 		    return (
 			<a
 			    key={a.id}
-			    href={a.story_link || "https://www.twreporter.org/a/" + a.slug}
+			    href={a.storyLink || "https://www.twreporter.org/a/" + a.slug}
 			    className="topnewsimage-wrap"
 			    style={{
-				backgroundImage: 'url(' + a.preview_image + ')',
+				backgroundImage: 'url(' + a.previewImage + ')',
 			    }}
 			>
 			    <div className="topnews_categorycontainer">
-				<div className="topnews_category">{cat_display.substring(0,1)}</div>
-				<div className="topnews_category">{cat_display.substring(2,1)}</div>
+				<div className="topnews_category">{catDisplay.substring(0,1)}</div>
+				<div className="topnews_category">{catDisplay.substring(2,1)}</div>
 			    </div>
 			    <div className="carousel-item">
+				<div className="carousel-itemtitle">{a.title}</div>
+				<div className="carousel-excerpt">{a.excerpt}</div>
 				<div className="carousel-published">
 				    {[t[1], t[2], t[3]].join('.')}
 				</div>
-				<div className="carousel-itemtitle">{a.title}</div>
-				<div className="carousel-excerpt">{a.excerpt}</div>
 			    </div>
 			</a>
 		    );

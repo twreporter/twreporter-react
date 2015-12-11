@@ -24,7 +24,7 @@
 .us-container {
     margin-top: 76px;
     margin-bottom: 47px;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
 .us-container .item {
     font-size: 16px;
@@ -49,7 +49,7 @@
 .open-source-container .items {
     width: 712px;
     margin: 0px auto;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: 300;
     font-size: 12px;
     position: relative;
@@ -148,7 +148,6 @@ and (max-device-width : 799px) {
         position: static;
         display: block;
     }
-
     .cc-logo {
         margin: 10px auto;
         padding-top: 10px;

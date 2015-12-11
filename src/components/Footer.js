@@ -45,7 +45,7 @@ export default class Footer extends Component {
                             </a>
                         </div>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://twreporter.backme.tw:443/cashflow/checkout?project_id=175&reward_id=718'>
                                 贊助我們
                             </a>
                         </div>

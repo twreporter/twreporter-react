@@ -101,16 +101,15 @@ export default class FeaturesItem extends Component {
     }
 
     render() {
-        const { article } = this.props
-        let firstImage = "https://www.twreporter.org/data/files/organization/60826/image/derivative/scale~24050x0~" + article.firstImage
-        let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug
+        const { article, image } = this.props
+        let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug;
         let t = new Date(article.lastPublish * 1000).toString().split(' ');
-        let tags = article.tags
-        let cat_display = "專題"
+        let tags = article.tags;
+        let catDisplay = "專題";
         for (let i = 0; i < tags.length; i++) {
             if (tags[i].substring(0,4) == 'cat:') {
-                cat_display = tags[i].substring(4)
-                break
+                catDisplay = tags[i].substring(4);
+                break;
             }
         }
 
@@ -118,15 +117,15 @@ export default class FeaturesItem extends Component {
             <li className="listing-item" key={article.id}>
                 <a href={url}>
                     <div id={'parallax-trigger'+this.props.article.id} className="img-wrap">
-                        <img  ref='listImg' width='1800px' height='1200px' className="img" src={firstImage}/>
+                        <img  ref='listImg' width='1800px' height='1200px' className="img" src={image}/>
                         <div className='img-overlay' />
                     </div>
                     <div ref='parallaxIndicator' className='container'>
                         <div className="border clearfix">
                             <div className='featurebox'>
                                 <div className="container">
-                                    <div className="category">{cat_display.substring(0,1)}</div>
-                                    <div className="category">{cat_display.substring(2,1)}</div>
+                                    <div className="category">{catDisplay.substring(0,1)}</div>
+                                    <div className="category">{catDisplay.substring(2,1)}</div>
                                 </div>
                                 <div className='infobox'>
                                     <div className="published">

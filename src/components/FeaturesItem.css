@@ -40,22 +40,23 @@
 }
 
 .listing-item .published {
-    font-family: "New Roman";
+    font-family: "Times New Roman";
     font-style: italic;
     color: black;
     word-spacing: 20px;
     padding-bottom: 30px;
+    font-size: 12px;
 }
 
 .listing-item .title {
     font-size: 170%;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
     margin-bottom: 30px
 }
 
 .listing-item .excerpt {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: normal;
     font-size: 17px;
     line-height: 27px;
@@ -66,7 +67,7 @@
     font-size: 130%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: light;
     text-align: right;
 }
@@ -85,7 +86,7 @@
 
 .listing-item .featurebox .category {
     background-image: url('/asset/hexagon.png');
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
     display: block;
     background-repeat: no-repeat; 
