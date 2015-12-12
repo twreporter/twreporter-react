@@ -197,8 +197,8 @@ and (max-width : 667px) {
 	    padding: 15px 15px 0;
     }
     .topnewsimage-wrap {
-        height: 281px !important;
-	    background-size: auto 231px;
+        height: 300px !important;
+	    background-size: auto 250px;
     }
     .carousel-published {
 	display: none;
