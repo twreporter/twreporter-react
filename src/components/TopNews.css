@@ -108,11 +108,70 @@ and (min-width : 1746px) {
     }
 }
 
+/* for desktop with 13 inch screen*/
+@media 
+only screen 
+and (max-device-width : 1280px),
+only screen
+and (max-width : 1280px)  {
+    .carousel-excerpt {
+        display: none;
+    }
+}
+
+/* for tablet */
 @media
 only screen
-and (max-device-width : 799px),
+and (max-device-width : 767px),
 only screen
-and (max-width : 799px) {
+and (max-width : 767px) {
+    .slick-slider {
+        height: auto;
+        margin-bottom: 60px !important;
+    }
+    .slick-dots {
+        display:none;
+    }
+    .topnews_categorycontainer {
+        display:none;
+    }
+    .topnews_category {
+        background-size: 35px 35px;
+        font-size: 16pt;
+        width: 35px;
+        height: 35px;
+        padding-top: 15px;
+    }
+    .carousel-item {
+	    width: 275px;
+    	bottom: 0px;
+    	left: 50%;
+    	margin-left: -154.5px;
+	    padding: 15px 15px 0;
+    }
+    .topnewsimage-wrap {
+        height: 562px !important;
+	    background-size: auto 512px;
+    }
+    .carousel-published {
+	display: none;
+    }
+    .carousel-itemtitle {
+	font-size: 17px;
+	line-height: 26px;
+	padding-bottom: 15px;
+    }
+    .carousel-excerpt {
+        display: none;
+    }
+}
+
+/* for mobile */
+@media
+only screen
+and (max-device-width : 667px),
+only screen
+and (max-width : 667px) {
     .slick-slider {
         height: auto;
         margin-bottom: 60px !important;
@@ -124,22 +183,22 @@ and (max-width : 799px) {
         display: none;
     }
     .topnews_category {
-	background-size: 35px 35px;
-	font-size: 16pt;
-	width: 35px;
-	height: 35px;
-    padding-top: 15px;
+        background-size: 35px 35px;
+        font-size: 16pt;
+        width: 35px;
+        height: 35px;
+        padding-top: 15px;
     }
     .carousel-item {
-	width: 275px;
+	    width: 275px;
     	bottom: 0px;
     	left: 50%;
     	margin-left: -154.5px;
-	padding: 15px 15px 0;
+	    padding: 15px 15px 0;
     }
     .topnewsimage-wrap {
-        height: 270px !important; /* 220 + 50 padding*/
-	background-size: 100% 220px;
+        height: 281px !important;
+	    background-size: auto 231px;
     }
     .carousel-published {
 	display: none;
