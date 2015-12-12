@@ -118,6 +118,8 @@ and (max-device-width : 799px) {
     
     .daily-news {
         margin-left: 0;
+        margin-bottom: 40px;
+        margin-top: 80px;
     }
     .daily-itemlist {
         margin-left: auto;
@@ -125,13 +127,12 @@ and (max-device-width : 799px) {
     }
     .what {
         font-size: 19px;
-        display: inline;
-        margin: 0 auto;
-    }
-
-    .new {
-        font-size: 19px;
-        display: inline;
+        display: inline-block;
+        width: 86px;
+        padding-left: 0px;
+        margin: 0px;
+        word-spacing: 0px;
+        text-align: center;
     }
 }
 
