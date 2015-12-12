@@ -18,7 +18,7 @@ export default class Features extends Component {
         if (Array.isArray(features)) {
             return (
                 <div className="features-list clearfix">
-                    <div className="features">FEATURES</div>
+                    <div className="features">更多深度報導</div>
                     <ul className="listing">
                         { _.map(features, (a) => {
                             let articleImage = imageComposer(a, device);
