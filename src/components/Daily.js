@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { ts2yyyymmdd } from '../lib/date-transformer';
+import { imageComposer } from '../lib/image-composer';
+
 if (process.env.BROWSER) {
     require("./Daily.css");
 }
@@ -11,7 +13,7 @@ export default class Daily extends Component {
     }
 
     render() {
-        const { daily } = this.props
+        const { daily, device } = this.props
         let dailyTop = []
         if ( daily ) { dailyTop = daily.slice(0, 6); }
 	return dailyTop ? (
@@ -24,14 +26,7 @@ export default class Daily extends Component {
 		    { _.map(dailyTop, (a, index) => {
                 const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.');
                 if (a.isPublishedVersion) {
-                    let thumbnail;
-                    if (a.firstImage && (a.firstImage.indexOf('.png') > -1 || a.firstImage.indexOf('.jpg') > -1)) {
-                        thumbnail = a.firstImage;
-                    } else if (a.previewImage) {
-                        thumbnail = a.previewImage
-                    } else if (a.facebookImage) {
-                        thumbnail = "https://twreporter.atavist.com/data/files/organization/60826/image/derivative/scale~1200x1200~" + a.facebookImage
-                    }
+                    let thumbnail = imageComposer(a, device);
                     let url = (a.storyLink) ? a.storyLink : "https://www.twreporter.org/a/" + a.slug
                     return (
                         <a href={url} key={a.id}>
