@@ -17,18 +17,3 @@
     clear: both;
 }
 
-@media 
-only screen 
-and (max-device-width : 799px) { 
-    .features {
-        display: block;
-        font-size: 160%;
-        font-family: montserral;
-        font-weight: bold;
-        width: 40%;
-        margin-top: 26px;
-        margin-bottom: 26px;
-        margin-left: 5%;
-    }
-}
-
