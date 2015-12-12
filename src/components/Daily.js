@@ -19,8 +19,6 @@ export default class Daily extends Component {
 		<h2 className="daily-news">
 		    <div className="what">觀 點</div>
 		</h2>
-		<div className="daily-line"></div>
-
 		<div className="daily-itemlistwrapprt">
 		<ul className="daily-itemlist">
 		    { _.map(dailyTop, (a, index) => {

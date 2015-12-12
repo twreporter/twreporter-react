@@ -42,7 +42,7 @@ export default class TopNews extends Component {
                 return (
                     <a
                         key={a.id}
-                        href={a.storyLink || "https://www.twreporter.org/a/" + a.slug}
+                        href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
                         className="topnewsimage-wrap"
                         style={{
                             backgroundImage: 'url(' + a.previewImage + ')',
