@@ -50,6 +50,10 @@ server.get('*', (req, res)=> {
     } else {
       let [ getCurrentUrl, unsubscribe ] = subscribeUrl();
       let reqUrl = location.pathname + location.search;
+      store.dispatch({
+          type: 'DETECT_DEVICE',
+          req: req
+      });
 
       getReduxPromise().then(()=> {
         let reduxState = escape(JSON.stringify(store.getState()));
