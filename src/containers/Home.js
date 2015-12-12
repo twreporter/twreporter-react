@@ -29,7 +29,7 @@ export default class Home extends Component {
     }
 
     render() {
-        const {articles} = this.props
+        const {articles, device} = this.props
         const topnews_num = 5;
         let topnews = articles["feature"]
         let features = articles["hp-projects"]
@@ -47,9 +47,9 @@ export default class Home extends Component {
             return (
                 <div>
                     <NavBar/>
-                    <TopNews topnews={topnews}/>
-                    <Daily daily={daily}/>
-                    <Features features={features}/>
+                    <TopNews topnews={topnews} device={device}/>
+                    <Daily daily={daily} device={device} />
+                    <Features features={features} device={device}/>
                     {this.props.children}
                     <Footer/>
                 </div>
@@ -61,7 +61,7 @@ export default class Home extends Component {
 }
 
 function mapStateToProps (state) {
-      return { articles: state.articles };
+      return { articles: state.articles, device: state.device };
 }
 
 export { Home };

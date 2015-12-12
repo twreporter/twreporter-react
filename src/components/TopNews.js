@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import Slider from 'react-slick'
-import { ts2yyyymmdd } from '../lib/date-transformer'
+import React, { Component, PropTypes } from 'react';
+import Slider from 'react-slick';
+import { ts2yyyymmdd } from '../lib/date-transformer';
+import { imageComposer } from '../lib/image-composer.js';
+
 if (process.env.BROWSER) {
     require("./TopNews.css");
 }
@@ -14,7 +16,7 @@ export default class TopNews extends Component {
         // window.addEventListener('resize', this.handleResize);
     }
     render() {
-        const { topnews } = this.props
+        const { topnews, device } = this.props
         let settings = {
             dots: true,
             infinite: true,
@@ -39,13 +41,14 @@ export default class TopNews extends Component {
                         break
                     }
                 }
+                const image = imageComposer(a, device);
                 return (
                     <a
                         key={a.id}
                         href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
                         className="topnewsimage-wrap"
                         style={{
-                            backgroundImage: 'url(' + a.previewImage + ')',
+                            backgroundImage: 'url(' + image + ')',
                         }}
                         >
                         <div className="topnews_categorycontainer">
