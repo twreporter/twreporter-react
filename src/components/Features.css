@@ -5,10 +5,6 @@
     border: 0;
 }
 
-.features {
-    display:none;
-}
-
 .clearfix:after {
     content: " "; /* Older browser do not support empty content */
     visibility: hidden;
