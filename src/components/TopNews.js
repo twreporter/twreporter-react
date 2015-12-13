@@ -10,7 +10,7 @@ if (process.env.BROWSER) {
 export default class TopNews extends Component {
     constructor(props, context) {
         super(props, context)
-        this.state = {autoplay: true};
+        this.state = {autoplaySpeed: 4500};
     }
     componentDidMount() {
         // this.handleResize()
@@ -18,7 +18,8 @@ export default class TopNews extends Component {
     }
     _onClick(e) {
         e.stopPropagation();
-        this.state.autoplay = false;
+        // hack for stopping autoplay right away after clicking
+        this.state.autoplaySpeed = 5000;
         this.forceUpdate();
     }
     render() {
@@ -27,8 +28,8 @@ export default class TopNews extends Component {
             dots: true,
             infinite: true,
             speed: 1500,
-            autoplay: this.state.autoplay,
-            autoplaySpeed: 4500,
+            autoplay: true,
+            autoplaySpeed: this.state.autoplaySpeed,
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
