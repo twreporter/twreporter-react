@@ -26,7 +26,12 @@ export const imageComposer = (article, device) => {
     if (!source) {
         source = facebookImage;
     }
-    image = device === 'desktop' ? desktopImagePrefix + source : mobileImagePrefix + source;
+    // display logo when the image is empty
+    if (source) {
+        image = device === 'desktop' ? desktopImagePrefix + source : mobileImagePrefix + source;
+    } else {
+        image = '/asset/review.png';
+    }
 
     return image;
 }
