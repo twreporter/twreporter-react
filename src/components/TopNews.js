@@ -10,10 +10,16 @@ if (process.env.BROWSER) {
 export default class TopNews extends Component {
     constructor(props, context) {
         super(props, context)
+        this.state = {autoplay: true};
     }
     componentDidMount() {
         // this.handleResize()
         // window.addEventListener('resize', this.handleResize);
+    }
+    _onClick(e) {
+        e.stopPropagation();
+        this.state.autoplay = false;
+        this.forceUpdate();
     }
     render() {
         const { topnews, device } = this.props
@@ -21,7 +27,7 @@ export default class TopNews extends Component {
             dots: true,
             infinite: true,
             speed: 1500,
-            autoplay: true,
+            autoplay: this.state.autoplay,
             autoplaySpeed: 4500,
             arrows: true,
             slidesToShow: 1,
@@ -44,6 +50,7 @@ export default class TopNews extends Component {
                 const image = imageComposer(a, device);
                 return (
                     <a
+                        onClick = {this._onClick}
                         key={a.id}
                         href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
                         className="topnewsimage-wrap"
