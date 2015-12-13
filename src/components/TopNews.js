@@ -19,7 +19,7 @@ export default class TopNews extends Component {
     _onClick(e) {
         e.stopPropagation();
         // hack for stopping autoplay right away after clicking
-        this.state.autoplaySpeed = 5000;
+        this.state.autoplaySpeed = 10000;
         this.forceUpdate();
     }
     render() {
@@ -51,7 +51,7 @@ export default class TopNews extends Component {
                 const image = imageComposer(a, device);
                 return (
                     <a
-                        onClick = {this._onClick}
+                        onClick = {this._onClick.bind(this)}
                         key={a.id}
                         href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
                         className="topnewsimage-wrap"
@@ -72,7 +72,7 @@ export default class TopNews extends Component {
                         </div>
                     </a>
                 );
-            })}
+            }.bind(this))}
 	    </Slider>
 	) : null;
     }
