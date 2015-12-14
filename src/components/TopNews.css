@@ -111,9 +111,9 @@ and (min-width : 1746px) {
 /* for desktop with 13 inch screen*/
 @media 
 only screen 
-and (max-device-width : 1280px),
+and (max-device-width : 1600px),
 only screen
-and (max-width : 1280px)  {
+and (max-width : 1600px)  {
     .carousel-excerpt {
         display: none;
     }
