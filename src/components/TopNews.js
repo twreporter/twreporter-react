@@ -22,8 +22,8 @@ export default class TopNews extends Component {
     _onClick(e) {
         e.stopPropagation();
         // hack for stopping autoplay right away after clicking
-        this.state.autoplaySpeed = 10000;
-        this.state.speed = 10000;
+        this.state.autoplaySpeed = 10000000;
+        this.state.speed = 10000000;
         this.forceUpdate();
     }
     render() {
