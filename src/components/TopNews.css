@@ -79,6 +79,13 @@
     padding-bottom: 30px;
     font-size: 12px;
 }
+.carousel-itemsubtitle {
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-size: 20px;
+    word-spacing: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
 .carousel-itemtitle {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
@@ -86,7 +93,7 @@
     color: black;
     line-height: 36px;
     word-spacing: 20px;
-    padding-bottom: 24px;
+    padding-bottom: 20px;
 }
 .carousel-excerpt {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
