@@ -10,6 +10,8 @@
 
 .nav_logo {
     text-align: center;
+    vertical-align: center;
+    margin-top: 8px;
 }
 
 .listing-menu {
