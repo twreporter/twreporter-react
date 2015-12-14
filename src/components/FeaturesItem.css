@@ -51,8 +51,15 @@
     font-size: 28px;
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
-    margin-bottom: 24px;
+    margin-bottom: 14px;
     line-height: 36px;
+}
+
+.listing-item .subtitle {
+    font-size: 20px;
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .listing-item .excerpt {
@@ -152,6 +159,9 @@ and (max-device-width : 799px) {
         text-shadow: 0 0 6px rgba(0, 0, 0, 0.85);
     }
     .listing-item .excerpt {
+        display: none;
+    }
+    .listing-item .subtitle {
         display: none;
     }
     .listing-item .author {
