@@ -218,4 +218,10 @@ and (max-width : 667px) {
     .carousel-excerpt {
         display: none;
     }
+    .carousel-itemsubtitle {
+        font-size: 14px;
+        word-spacing: 14px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+}
 }
