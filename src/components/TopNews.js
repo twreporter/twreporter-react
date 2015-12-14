@@ -10,7 +10,10 @@ if (process.env.BROWSER) {
 export default class TopNews extends Component {
     constructor(props, context) {
         super(props, context)
-        this.state = {autoplaySpeed: 4500};
+        this.state = {
+            autoplaySpeed: 4500,
+            speed: 1500
+        };
     }
     componentDidMount() {
         // this.handleResize()
@@ -19,7 +22,8 @@ export default class TopNews extends Component {
     _onClick(e) {
         e.stopPropagation();
         // hack for stopping autoplay right away after clicking
-        this.state.autoplaySpeed = 10000;
+        this.state.autoplaySpeed = 10000000;
+        this.state.speed = 10000000;
         this.forceUpdate();
     }
     render() {
@@ -27,10 +31,10 @@ export default class TopNews extends Component {
         let settings = {
             dots: true,
             infinite: true,
-            speed: 1500,
+            speed: this.state.speed,
             autoplay: true,
             autoplaySpeed: this.state.autoplaySpeed,
-            arrows: true,
+            arrows: device === 'desktop' ? true : false,
             slidesToShow: 1,
             slidesToScroll: 1,
             lazyLoad: false,
@@ -50,28 +54,30 @@ export default class TopNews extends Component {
                 }
                 const image = imageComposer(a, device);
                 return (
-                    <a
+                    <div
                         onClick = {this._onClick.bind(this)}
-                        key={a.id}
-                        href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
-                        className="topnewsimage-wrap"
-                        style={{
-                            backgroundImage: 'url(' + image + ')',
-                        }}
                         >
-                        <div className="topnews_categorycontainer">
-                            <div className="topnews_category">{catDisplay.substring(0,1)}</div>
-                            <div className="topnews_category">{catDisplay.substring(2,1)}</div>
-                        </div>
-                        <div className="carousel-item">
-                            <div className="carousel-itemsubtitle">{a.subtitle}</div>
-                            <div className="carousel-itemtitle">{a.title}</div>
-                            <div className="carousel-excerpt">{a.excerpt}</div>
-                            <div className="carousel-published">
-                                {pubDate}
+                        <a
+                            key={a.id}
+                            href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
+                            className="topnewsimage-wrap"
+                            style={{
+                                backgroundImage: 'url(' + image + ')',
+                            }}
+                            >
+                            <div className="topnews_categorycontainer">
+                                <div className="topnews_category">{catDisplay.substring(0,1)}</div>
+                                <div className="topnews_category">{catDisplay.substring(2,1)}</div>
                             </div>
-                        </div>
-                    </a>
+                            <div className="carousel-item">
+                                <div className="carousel-itemtitle">{a.title}</div>
+                                <div className="carousel-excerpt">{a.excerpt}</div>
+                                <div className="carousel-published">
+                                    {pubDate}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 );
             }.bind(this))}
 	    </Slider>

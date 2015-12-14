@@ -129,11 +129,12 @@ export default class FeaturesItem extends Component {
                                     <div className="category">{catDisplay.substring(2,1)}</div>
                                 </div>
                                 <div className='infobox'>
+                                    <div className="subtitle">{article.subtitle}</div>
+                                    <div className="title">{article.title}</div>
+                                    <div className="excerpt">{article.excerpt}</div>
                                     <div className="published">
                                         {pubDate}
                                     </div>
-                                    <div className="title">{article.title}</div>
-                                    <div className="excerpt">{article.excerpt}</div>
                                 </div>
                             </div>
                         </div>
