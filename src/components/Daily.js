@@ -31,7 +31,9 @@ export default class Daily extends Component {
                     return (
                         <a href={url} key={a.id}>
                             <li className="daily-item">
-                                <img className="daily-image" src={thumbnail}/>
+                                <div className="daily-image" >
+                                    <div style={{backgroundImage: 'url(' + thumbnail + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', height: '100%'}}/>
+                                </div>
                                 <div className="daily_lastpublish">{pubDate}</div>
                                 <div className="daily-title">{a.title}</div>
                             </li>
