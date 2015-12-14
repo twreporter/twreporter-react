@@ -133,6 +133,7 @@ export default class FeaturesItem extends Component {
                                         {pubDate}
                                     </div>
                                     <div className="title">{article.title}</div>
+                                    <div className="subtitle">{article.subtitle}</div>
                                     <div className="excerpt">{article.excerpt}</div>
                                 </div>
                             </div>
