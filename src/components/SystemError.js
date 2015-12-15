@@ -9,7 +9,7 @@ export default class SystemError extends Component {
                         </div>
                     </div>
                     <div style="text-align: center;">
-                        <img class="error_img" src="/asset/500.jpg" width="80%" height="auto">
+                        <img class="error_img" src="/asset/500.jpg" width="80%" height="auto"/>
                     </div>
                 </div>
                );
