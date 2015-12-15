@@ -10,6 +10,10 @@ export const imageComposer = (article, device) => {
     let previewImage = article.previewImage;
     let facebookImage = article.facebookImage;
 
+    if (facebookImage) {
+        return device === 'desktop' ? desktopImagePrefix + facebookImage : mobileImagePrefix + facebookImage;
+    }
+
     if (firstImage && (firstImage.indexOf('.jpg') > -1 || firstImage.indexOf('.png') > -1)) {
         image = firstImage;
     } else {
@@ -23,9 +27,6 @@ export const imageComposer = (article, device) => {
         source = source ? source[1] : '';
     }
 
-    if (!source) {
-        source = facebookImage;
-    }
     // display logo when the image is empty
     if (source) {
         image = device === 'desktop' ? desktopImagePrefix + source : mobileImagePrefix + source;
