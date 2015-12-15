@@ -14,7 +14,7 @@ export default class NaviBar extends Component {
         return (
             <div className="nav-menu">
                 <div className="nav_logo">
-                    <a href="#"><img src="/asset/logo.png"/></a>
+                    <a href="#"><img src="/asset/logo.png" height="58px" /></a>
                 </div>
             </div>
         )
