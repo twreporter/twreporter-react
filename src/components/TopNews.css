@@ -208,12 +208,15 @@ and (max-width : 667px) {
 	    background-size: auto 250px;
     }
     .carousel-published {
-	display: none;
+        display: none;
     }
     .carousel-itemtitle {
-	font-size: 17px;
-	line-height: 26px;
-	padding-bottom: 15px;
+        font-size: 17px;
+        line-height: 26px;
+        padding-bottom: 15px;
+    }
+    .carousel-itemsubtitle {
+        font-size: 15px;
     }
     .carousel-excerpt {
         display: none;
