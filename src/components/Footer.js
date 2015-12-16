@@ -54,7 +54,7 @@ export default class Footer extends Component {
                 <div className='open-source-container'>
                     <div className='items'>
                         <div className='item'>
-                            <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' target='_blank'>
+                            <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' rel='license' target='_blank'>
                                 <img className="cc-logo img" src='/asset/cc.png' />
                                 <span className="cc-license"> 除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款</span>
                             </a>
