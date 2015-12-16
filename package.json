@@ -31,7 +31,7 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.9.1",
-    "history": "^1.9.0",
+    "history": "1.13.x",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
     "jsdom": "^7.0.1",
