@@ -13,7 +13,9 @@ export default class Footer extends Component {
                 <div className='container'>
                     <div className='logo-container'>
                         <div className='logo'>
-                            <img className="logo-img" src='/asset/footer-logo-desktop.png' />
+                            <a href='https://www.twreporter.org/' target='_self'>
+                                <img className="logo-img" src='/asset/footer-logo-desktop.png' />
+                            </a>
                         </div>
                     </div>
                     <div className='social-container'>
