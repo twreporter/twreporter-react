@@ -1,0 +1,14 @@
+{
+  "extends": "rackt",
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 2
+  },
+  "plugins": [
+    "babel",
+    "react"
+  ]
+}
