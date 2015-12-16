@@ -15,7 +15,7 @@ if (process.env.BROWSER) {
 
 export default class Home extends Component {
     static fetchData({ store }) {
-        let params = ["hp-projects", "review", "hp-feature"]
+        let params = ["hp-projects", "review", "feature"]
         return store.dispatch(loadArticles(params));
     }
     constructor(props) {
@@ -29,27 +29,27 @@ export default class Home extends Component {
     }
 
     render() {
-        const {articles} = this.props
+        const {articles, device} = this.props
         const topnews_num = 5;
-        let topnews = articles["hp-feature"]
+        let topnews = articles["feature"]
         let features = articles["hp-projects"]
         let daily = articles.review
-        if (topnews) {
+        if (Array.isArray(topnews)) {
             if (topnews.length < topnews_num) {
                 let less = topnews_num - topnews.length
                 topnews = topnews.concat(features.slice(0, less))
                 features = features.slice(less)
             } else {
-                topnews = topnews.slide(0,topnews_num);
+                topnews = topnews.slice(0,topnews_num);
             }
         }
         if (topnews || features) {
             return (
                 <div>
                     <NavBar/>
-                    <TopNews topnews={topnews}/>
-                    <Daily daily={daily}/>
-                    <Features features={features}/>
+                    <TopNews topnews={topnews} device={device}/>
+                    <Daily daily={daily} device={device} />
+                    <Features features={features} device={device}/>
                     {this.props.children}
                     <Footer/>
                 </div>
@@ -61,7 +61,7 @@ export default class Home extends Component {
 }
 
 function mapStateToProps (state) {
-      return { articles: state.articles };
+      return { articles: state.articles, device: state.device };
 }
 
 export { Home };

@@ -13,7 +13,9 @@ export default class Footer extends Component {
                 <div className='container'>
                     <div className='logo-container'>
                         <div className='logo'>
-                            <img className="logo-img" src='/asset/footer-logo-desktop.png' />
+                            <a href='https://www.twreporter.org/' target='_self'>
+                                <img className="logo-img" src='/asset/footer-logo-desktop.png' />
+                            </a>
                         </div>
                     </div>
                     <div className='social-container'>
@@ -30,17 +32,17 @@ export default class Footer extends Component {
                     </div>
                     <div className='us-container'>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://www.twreporter.org/a/about-us-footer'>
                                 關於我們
                             </a>
                         </div>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://www.twreporter.org/a/contact-footer'>
                                 聯絡我們
                             </a>
                         </div>
                         <div className='item'>
-                            <a href=''>
+                            <a href='https://twreporter.atavist.com/privacy-footer'>
                                 隱私政策
                             </a>
                         </div>
@@ -54,7 +56,7 @@ export default class Footer extends Component {
                 <div className='open-source-container'>
                     <div className='items'>
                         <div className='item'>
-                            <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' target='_blank'>
+                            <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/tw/' rel='license' target='_blank'>
                                 <img className="cc-logo img" src='/asset/cc.png' />
                                 <span className="cc-license"> 除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款</span>
                             </a>

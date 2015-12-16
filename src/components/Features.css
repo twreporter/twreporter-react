@@ -5,30 +5,11 @@
     border: 0;
 }
 
-.features {
-    display:none;
-}
-
 .clearfix:after {
     content: " "; /* Older browser do not support empty content */
     visibility: hidden;
     display: block;
     height: 0;
     clear: both;
-}
-
-@media 
-only screen 
-and (max-device-width : 799px) { 
-    .features {
-        display: block;
-        font-size: 160%;
-        font-family: montserral;
-        font-weight: bold;
-        width: 40%;
-        margin-top: 26px;
-        margin-bottom: 26px;
-        margin-left: 5%;
-    }
 }
 

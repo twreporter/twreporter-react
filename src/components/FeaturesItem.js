@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { ts2yyyymmdd } from '../lib/date-transformer';
 
 if (process.env.BROWSER) {
     require("./FeaturesItem.css");
@@ -102,8 +103,8 @@ export default class FeaturesItem extends Component {
 
     render() {
         const { article, image } = this.props
+        const pubDate = ts2yyyymmdd(article.lastPublish * 1000 , '.');
         let url = (article.story_link) ? article.story_link : "https://www.twreporter.org/a/" + article.slug;
-        let t = new Date(article.lastPublish * 1000).toString().split(' ');
         let tags = article.tags;
         let catDisplay = "專題";
         for (let i = 0; i < tags.length; i++) {
@@ -128,11 +129,12 @@ export default class FeaturesItem extends Component {
                                     <div className="category">{catDisplay.substring(2,1)}</div>
                                 </div>
                                 <div className='infobox'>
-                                    <div className="published">
-				                        {[t[1], t[2], t[3]].join('.')}
-                                    </div>
+                                    <div className="subtitle">{article.subtitle}</div>
                                     <div className="title">{article.title}</div>
                                     <div className="excerpt">{article.excerpt}</div>
+                                    <div className="published">
+                                        {pubDate}
+                                    </div>
                                 </div>
                             </div>
                         </div>

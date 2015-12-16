@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import FeaturesItem from './FeaturesItem'
+import React, { Component, PropTypes } from 'react';
+import FeaturesItem from './FeaturesItem';
 import _ from 'lodash';
+import { imageComposer } from '../lib/image-composer';
+
 if (process.env.BROWSER) {
     require("./Features.css");
 }
@@ -12,19 +14,13 @@ export default class Features extends Component {
     }
 
     render() {
-        const { features } = this.props
+        const { features, device } = this.props
         if (Array.isArray(features)) {
             return (
                 <div className="features-list clearfix">
-                    <div className="features">FEATURES</div>
                     <ul className="listing">
                         { _.map(features, (a) => {
-                            let articleImage;
-                            if (a.firstImage && (a.firstImage.indexOf('.png') > -1 || a.firstImage.indexOf('.jpg') > -1)) {
-                               articleImage = a.firstImage;
-                            } else if (a.previewImage) {
-                                articleImage = a.previewImage;
-                            }
+                            let articleImage = imageComposer(a, device);
                             if (articleImage) {
                                 return (
                                     <FeaturesItem article={a} image={articleImage} key={a.id}/>

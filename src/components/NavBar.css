@@ -1,13 +1,17 @@
 .nav-menu {
-    position: relative;
+    position: absolute;
     height: 80px;
     overflow: hidden;
     width: 100%;
     padding-top: 5px;
+    top: 0;
+    box-sizing: border-box;
 }
 
 .nav_logo {
     text-align: center;
+    vertical-align: middle;
+    margin-top: 6px;
 }
 
 .listing-menu {

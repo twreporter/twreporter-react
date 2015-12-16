@@ -41,6 +41,7 @@
 
 .daily-news {
     font-size: 26px;
+    margin-bottom: 60px;
 }
 .what {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
@@ -49,6 +50,10 @@
     font-weight: 500;
     display: inline;
     width: 200px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
 }
 .new {
     font-family: 'Montserrat';
@@ -78,7 +83,9 @@ and (max-device-width : 799px) {
         border-color: #CCC;
         border-bottom-width: 2px;
     }
-
+    .daily-line {
+        margin: 10px auto 40px;
+    }
     .daily-itemlistwrapprt {
         width: 100%;
     }
@@ -111,6 +118,8 @@ and (max-device-width : 799px) {
     
     .daily-news {
         margin-left: 0;
+        margin-bottom: 40px;
+        margin-top: 80px;
     }
     .daily-itemlist {
         margin-left: auto;
@@ -118,12 +127,12 @@ and (max-device-width : 799px) {
     }
     .what {
         font-size: 19px;
-        display: inline;
-    }
-
-    .new {
-        font-size: 19px;
-        display: inline;
+        display: inline-block;
+        width: 86px;
+        padding-left: 0px;
+        margin: 0px;
+        word-spacing: 0px;
+        text-align: center;
     }
 }
 

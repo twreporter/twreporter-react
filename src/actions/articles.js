@@ -16,7 +16,7 @@ function fetchArticles(tags) {
     return {
         [CALL_API]: {
             method: 'post',
-            url: 'http://104.155.203.197/tags',
+            url: 'http://api.twreporter.org/tags',
             params: params,
             types: [LOADED_ARTICLES_REQUEST, LOADED_SUCCESS, LOADED_FAILURE]
         }

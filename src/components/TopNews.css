@@ -1,11 +1,18 @@
 /* slider overwrite */
 .slick-slider {
-    margin-bottom: 100px !important;
-    padding-bottom: 35px;
+    margin-bottom: 135px !important;
+    height: 100vh;
+    box-sizing: border-box;
+    padding-top: 80px;
+    padding-bottom: 0;
+}
+.slick-list, .slick-track {
+    height: 100%;
+    box-sizing: border-box;
 }
 .slick-dots {
     position: static;
-    bottom: -35px !important;
+    bottom: -40px !important;
 }
 
 .slick-prev {
@@ -39,13 +46,18 @@
     text-align: center;
     padding-top: 13px;
 }
-
+.slick-dots li button:before {
+    font-size: 30px;
+}
+.slick-prev:before, .slick-next:before {
+    font-size: 30px;
+}
 .topnewsimage-wrap {
     background-size: cover;
     background-position-x: 50%;
     background-repeat: no-repeat;
     width: 100%;
-    height: 100vh !important;
+    height: 100% !important;
     position: relative;
     display: block;
 }
@@ -67,22 +79,29 @@
     padding-bottom: 30px;
     font-size: 12px;
 }
+.carousel-itemsubtitle {
+    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-size: 20px;
+    word-spacing: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
 .carousel-itemtitle {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 28px;
     color: black;
-    line-height: 32px;
+    line-height: 36px;
     word-spacing: 20px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 .carousel-excerpt {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: lighter;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 27px;
     word-spacing: 27px;
-    padding-bottom: 30px;
+    padding-bottom: 24px;
 }
 
 @media
@@ -96,37 +115,50 @@ and (min-width : 1746px) {
     }
 }
 
+/* for desktop with 13 inch screen*/
+@media 
+only screen 
+and (max-device-width : 1600px),
+only screen
+and (max-width : 1600px)  {
+    .carousel-excerpt {
+        display: none;
+    }
+}
+
+/* for tablet */
 @media
 only screen
-and (max-device-width : 799px),
+and (max-device-width : 767px),
 only screen
-and (max-width : 799px) {
+and (max-width : 767px) {
+    .slick-slider {
+        height: auto;
+        margin-bottom: 60px !important;
+    }
     .slick-dots {
         display:none;
     }
-
     .topnews_categorycontainer {
-	left: auto;
-	top: 20px;
-        right: 20px;
+        display:none;
     }
     .topnews_category {
-	background-size: 35px 35px;
-	font-size: 16pt;
-	width: 35px;
-	height: 35px;
-    padding-top: 15px;
+        background-size: 35px 35px;
+        font-size: 16pt;
+        width: 35px;
+        height: 35px;
+        padding-top: 15px;
     }
     .carousel-item {
-	width: 275px;
+	    width: 275px;
     	bottom: 0px;
     	left: 50%;
     	margin-left: -154.5px;
-	padding: 15px 15px 0;
+	    padding: 15px 15px 0;
     }
     .topnewsimage-wrap {
-        height: 270px !important; /* 220 + 50 padding*/
-	background-size: 100% 220px;
+        height: 562px !important;
+	    background-size: auto 512px;
     }
     .carousel-published {
 	display: none;
@@ -139,4 +171,60 @@ and (max-width : 799px) {
     .carousel-excerpt {
         display: none;
     }
+}
+
+/* for mobile */
+@media
+only screen
+and (max-device-width : 667px),
+only screen
+and (max-width : 667px) {
+    .slick-slider {
+        height: auto;
+        margin-bottom: 60px !important;
+    }
+    .slick-dots {
+        display:none;
+    }
+    .topnews_categorycontainer {
+        display: none;
+    }
+    .topnews_category {
+        background-size: 35px 35px;
+        font-size: 16pt;
+        width: 35px;
+        height: 35px;
+        padding-top: 15px;
+    }
+    .carousel-item {
+	    width: 275px;
+    	bottom: 0px;
+    	left: 50%;
+    	margin-left: -154.5px;
+	    padding: 15px 15px 0;
+    }
+    .topnewsimage-wrap {
+        height: 300px !important;
+	    background-size: auto 250px;
+    }
+    .carousel-published {
+        display: none;
+    }
+    .carousel-itemtitle {
+        font-size: 17px;
+        line-height: 26px;
+        padding-bottom: 15px;
+    }
+    .carousel-itemsubtitle {
+        font-size: 15px;
+    }
+    .carousel-excerpt {
+        display: none;
+    }
+    .carousel-itemsubtitle {
+        font-size: 14px;
+        word-spacing: 14px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+}
 }
