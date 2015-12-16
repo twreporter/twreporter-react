@@ -6,9 +6,6 @@ import _ from 'lodash';
 
 export const CALL_API = Symbol('CALL_API');
 
-function parseAPIResponse(response, schema) {
-}
-
 // We use this Normalizr schemas to transform API responses from a nested form
 // to a flat form where repos and users are placed in `entities`, and nested
 // JSON objects are replaced with their IDs. This is very convenient for
@@ -41,21 +38,11 @@ export default store => next => action => {
         .end((err, res)=> {
             if ( res && res.text ) {
                 if (res.ok) {
-                    let parsedResults = parseAPIResponse(response, schema);
-                    let response = JSON.parse(res.text);
-                    let r = response.results;
-                    let results = {};
-                    for (var i = 0; i < params.tags.length; i++) {
-                        let tag = params.tags[i];
-                        let camelizedJson = camelizeKeys(r[i]._items);
-                        results[params.tags[i]] = camelizedJson;
-                    }
                     next({
-type: successType,
-
-                        response: results
+                        type: successType,
+                        response: res,
+                        tags: params.tags || []
                     });
-
                     if (_.isFunction(request.afterSuccess)) {
                         request.afterSuccess({ getState });
                     }
@@ -63,7 +50,8 @@ type: successType,
             } else {
                 next({
                    type: failureType,
-                   response: {}
+                   response: {},
+                    tags: params.tags || []
                 });
             }
             deferred.resolve();
