@@ -1,6 +1,6 @@
 const imagePrefix = 'https://www.twreporter.org/data/files/organization/60826/image/derivative/';
-const desktopScale = 'scale~1800x0~';
-const mobileScale = 'scale~800x0~';
+const desktopScale = 'scale~1200x0~';
+const mobileScale = 'scale~1200x0~';
 const desktopImagePrefix = imagePrefix + desktopScale;
 const mobileImagePrefix = imagePrefix + mobileScale;
 
