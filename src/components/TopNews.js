@@ -44,8 +44,8 @@ export default class TopNews extends Component {
                 }
                 const image = imageComposer(a, device);
                 return (
+                    <div key={a.id}>
                     <a
-                        key={a.id}
                         href={(a.slug) ? "https://www.twreporter.org/a/" + a.slug : a.storyLink}
                         className="topnewsimage-wrap"
                         style={{
@@ -64,6 +64,7 @@ export default class TopNews extends Component {
                             </div>
                         </div>
                     </a>
+                    </div>
                 );
             }.bind(this))}
 	    </Slider>
