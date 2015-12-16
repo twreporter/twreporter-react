@@ -34,7 +34,7 @@ export default class TopNews extends Component {
             speed: this.state.speed,
             autoplay: true,
             autoplaySpeed: this.state.autoplaySpeed,
-            arrows: device === 'desktop' ? true : false,
+            arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
             lazyLoad: false,
