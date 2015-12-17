@@ -5,7 +5,13 @@ function taggedArticles(state = {}, action) {
   switch (action.type) {
     case ActionType.LOADED_TAGGED_ARTICLES_SUCCESS:
       if (action.response && action.response.text) {
-        let response = JSON.parse(action.response.text)
+        let response;
+        try {
+          response = JSON.parse(action.response.text)
+        } catch (e) {
+          console.warn('JSON.parse response occurs error');
+          return state;
+        }
         let results = response.results
         let tags = action.tags || []
         for (let i =0; i < tags.length; i++) {
