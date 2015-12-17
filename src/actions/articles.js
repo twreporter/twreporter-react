@@ -1,30 +1,61 @@
-import Promise from 'bluebird';
-import { CALL_API } from '../middleware/api';
+/*eslint no-unused-vars: 1*/
 
-export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST';
-export const LOADED_SUCCESS = 'LOADED_SUCCESS';
-export const LOADED_FAILURE = 'LOADED_FAILURE';
-function fetchArticles(tags) {
-    let params = ''
-    if (tags) {
-        if (Array.isArray(tags)) {
-            params = {'tags': tags}
-        } else {
-            params = {'tags': [tags] };
-        }
+import { CALL_API } from '../middleware/api'
+export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST'
+export const LOADED_MULTI_TAGGED_ARTICLES_SUCCESS = 'LOADED_MULTI_TAGGED_ARTICLES_SUCCESS'
+export const LOADED_MULTI_TAGGED_ARTICLES_FAILURE = 'LOADED_MULTI_TAGGED_ARTICLES_FAILURE'
+export const LOADED_ARTICLES_SUCCESS = 'LOADED_ARTICLES_SUCCESS'
+export const LOADED_ARTICLES_FAILURE = 'LOADED_ARTICLES_FAILURE'
+
+const API_URL = 'http://api.twreporter.org/'
+
+function fetchArticlesByTags(tags) {
+  let params = {}
+  tags = Array.isArray(tags) ? tags : [ tags ]
+  if (tags) {
+    params.tags = tags
+  }
+  return {
+    [CALL_API]: {
+      method: 'post',
+      url: API_URL + '/tags',
+      params,
+      tags,
+      types: [ LOADED_ARTICLES_REQUEST, LOADED_MULTI_TAGGED_ARTICLES_SUCCESS, LOADED_MULTI_TAGGED_ARTICLES_FAILURE ]
     }
-    return {
-        [CALL_API]: {
-            method: 'post',
-            url: 'http://api.twreporter.org/tags',
-            params: params,
-            types: [LOADED_ARTICLES_REQUEST, LOADED_SUCCESS, LOADED_FAILURE]
-        }
-    };
+  }
 }
 
-export function loadArticles(tags) {
-    return (dispatch, getState) => {
-        return dispatch(fetchArticles(tags))
+function fetchArticles(params, tags) {
+  return {
+    [CALL_API]: {
+      method: 'get',
+      url: API_URL + '/article',
+      params,
+      tags,
+      types: [ LOADED_ARTICLES_REQUEST, LOADED_ARTICLES_SUCCESS, LOADED_ARTICLES_FAILURE ]
     }
+  }
+}
+
+export function loadMultiTaggedArticles(tags) {
+  return (dispatch, getState) => {
+    return dispatch(fetchArticlesByTags(tags))
+  }
+}
+
+export function loadArticles(tags, count, page) {
+  let _tags = {}
+  let params = {}
+  let where = {}
+  if (tags) {
+    _tags['$in'] = Array.isArray(tags) ? tags : [ tags ]
+    where.tags = _tags
+  }
+  params.where = JSON.stringify(where)
+  params.max_results = count || 10
+  params.page = page || 0
+  return (dispatch, getState) => {
+    return dispatch(fetchArticles(params, tags))
+  }
 }
