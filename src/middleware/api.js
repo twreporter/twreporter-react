@@ -1,5 +1,6 @@
 /*eslint no-unused-vars: 1*/
 
+import qs from 'qs'
 import superAgent from 'superagent'
 import Promise from 'bluebird'
 import _ from 'lodash'
@@ -14,16 +15,16 @@ export default store => next => action => {
   let { getState } = store
   let deferred = Promise.defer()
   // handle 401 and auth here
-  let { method, url, types, params } = request
+  let { method, url, types, params, tags } = request
   const [ requestType, successType, failureType ] = types
-  superAgent[method](url).timeout(200).send(params)
-  .end((err, res)=> {
+
+  const callback = (err, res) => {
     if ( res && res.text ) {
       if (res.ok) {
         next({
           type: successType,
           response: res,
-          tags: params.tags || []
+          tags: tags || []
         })
         if (_.isFunction(request.afterSuccess)) {
           request.afterSuccess({ getState })
@@ -33,11 +34,19 @@ export default store => next => action => {
       next({
         type: failureType,
         response: {},
-        tags: params.tags || []
+        tags: tags || []
       })
     }
     deferred.resolve()
-  })
+  }
 
+  if (method === 'get') {
+    superAgent[method](url).timeout(500)
+    .query(qs.stringify(params))
+    .end(callback)
+  } else {
+    superAgent[method](url).timeout(500).send(params)
+    .end(callback)
+  }
   return deferred.promise
 }

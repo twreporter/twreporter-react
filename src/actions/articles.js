@@ -2,68 +2,60 @@
 
 import { CALL_API } from '../middleware/api'
 export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST'
-export const LOADED_TAGGED_ARTICLES_SUCCESS = 'LOADED_TAGGED_ARTICLES_SUCCESS'
-export const LOADED_TAGGED_ARTICLES_FAILURE = 'LOADED_TAGGED_ARTICLES_FAILURE'
+export const LOADED_MULTI_TAGGED_ARTICLES_SUCCESS = 'LOADED_MULTI_TAGGED_ARTICLES_SUCCESS'
+export const LOADED_MULTI_TAGGED_ARTICLES_FAILURE = 'LOADED_MULTI_TAGGED_ARTICLES_FAILURE'
+export const LOADED_ARTICLES_SUCCESS = 'LOADED_ARTICLES_SUCCESS'
+export const LOADED_ARTICLES_FAILURE = 'LOADED_ARTICLES_FAILURE'
 
-const API_URL = 'http://api.twreporter.org'
-
+const API_URL = 'http://api.twreporter.org/'
 
 function fetchArticlesByTags(tags) {
-  let params = ''
+  let params = {}
+  tags = Array.isArray(tags) ? tags : [ tags ]
   if (tags) {
-    if (Array.isArray(tags)) {
-      params = {
-        'tags': tags
-      }
-    } else {
-      params = {
-        'tags': [ tags ]
-      }
-    }
+    params.tags = tags
   }
   return {
     [CALL_API]: {
       method: 'post',
       url: API_URL + '/tags',
-      params: params,
-      types: [ LOADED_ARTICLES_REQUEST, LOADED_TAGGED_ARTICLES_SUCCESS, LOADED_TAGGED_ARTICLES_FAILURE ]
+      params,
+      tags,
+      types: [ LOADED_ARTICLES_REQUEST, LOADED_MULTI_TAGGED_ARTICLES_SUCCESS, LOADED_MULTI_TAGGED_ARTICLES_FAILURE ]
     }
   }
 }
 
-/*
-function fetchArticles(tag, count, page) {
-    let where = {}
-    let tags = {}
-    if (tag) {
-        tags['$in'] = tag
-        where.tags = tags
+function fetchArticles(params, tags) {
+  return {
+    [CALL_API]: {
+      method: 'get',
+      url: API_URL + '/article',
+      params,
+      tags,
+      types: [ LOADED_ARTICLES_REQUEST, LOADED_ARTICLES_SUCCESS, LOADED_ARTICLES_FAILURE ]
     }
-    return {
-        [CALL_API]: {
-            method: 'get',
-            url: API_URL + '/articles',
-            params: {
-                where: where,
-                max_results: count,
-                page: page
-            },
-            types: [LOADED_ARTICLES_REQUEST, LOADED_TAGGED_ARTICLES_SUCCES, LOADED_TAGGED_ARTICLES_FAILURE]
-        }
-    }
+  }
 }
-*/
 
-export function loadArticles(tags) {
+export function loadMultiTaggedArticles(tags) {
   return (dispatch, getState) => {
     return dispatch(fetchArticlesByTags(tags))
   }
 }
 
-/* for load more
-export function loadMoreArticles(tag, count, page) {
-    return (dispatch, getState) => {
-        return dispatch(fetchArticles(tag, count, page))
-    }
+export function loadArticles(tags, count, page) {
+  let _tags = {}
+  let params = {}
+  let where = {}
+  if (tags) {
+    _tags['$in'] = Array.isArray(tags) ? tags : [ tags ]
+    where.tags = _tags
+  }
+  params.where = JSON.stringify(where)
+  params.max_results = count || 10
+  params.page = page || 0
+  return (dispatch, getState) => {
+    return dispatch(fetchArticles(params, tags))
+  }
 }
-*/
