@@ -1,39 +1,43 @@
-import Promise from 'bluebird';
-import { CALL_API } from '../middleware/api';
+/*eslint no-unused-vars: 1*/
 
-export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST';
-export const LOADED_TAGGED_ARTICLES_SUCCESS = 'LOADED_TAGGED_ARTICLES_SUCCESS';
-export const LOADED_TAGGED_ARTICLES_FAILURE = 'LOADED_TAGGED_ARTICLES_FAILURE';
+import { CALL_API } from '../middleware/api'
+export const LOADED_ARTICLES_REQUEST = 'LOADED_ARTICLES_REQUEST'
+export const LOADED_TAGGED_ARTICLES_SUCCESS = 'LOADED_TAGGED_ARTICLES_SUCCESS'
+export const LOADED_TAGGED_ARTICLES_FAILURE = 'LOADED_TAGGED_ARTICLES_FAILURE'
 
-const API_URL = 'http://api.twreporter.org';
+const API_URL = 'http://api.twreporter.org'
 
 
 function fetchArticlesByTags(tags) {
-    let params = ''
-    if (tags) {
-        if (Array.isArray(tags)) {
-            params = {'tags': tags}
-        } else {
-            params = {'tags': [tags] };
-        }
+  let params = ''
+  if (tags) {
+    if (Array.isArray(tags)) {
+      params = {
+        'tags': tags
+      }
+    } else {
+      params = {
+        'tags': [ tags ]
+      }
     }
-    return {
-        [CALL_API]: {
-            method: 'post',
-            url: API_URL + '/tags',
-            params: params,
-            types: [LOADED_ARTICLES_REQUEST, LOADED_TAGGED_ARTICLES_SUCCESS, LOADED_TAGGED_ARTICLES_FAILURE]
-        }
-    };
+  }
+  return {
+    [CALL_API]: {
+      method: 'post',
+      url: API_URL + '/tags',
+      params: params,
+      types: [ LOADED_ARTICLES_REQUEST, LOADED_TAGGED_ARTICLES_SUCCESS, LOADED_TAGGED_ARTICLES_FAILURE ]
+    }
+  }
 }
 
 /*
 function fetchArticles(tag, count, page) {
-    let where = {};
-    let tags = {};
+    let where = {}
+    let tags = {}
     if (tag) {
-        tags['$in'] = tag;
-        where.tags = tags;
+        tags['$in'] = tag
+        where.tags = tags
     }
     return {
         [CALL_API]: {
@@ -46,14 +50,14 @@ function fetchArticles(tag, count, page) {
             },
             types: [LOADED_ARTICLES_REQUEST, LOADED_TAGGED_ARTICLES_SUCCES, LOADED_TAGGED_ARTICLES_FAILURE]
         }
-    };
+    }
 }
 */
 
 export function loadArticles(tags) {
-    return (dispatch, getState) => {
-        return dispatch(fetchArticlesByTags(tags))
-    }
+  return (dispatch, getState) => {
+    return dispatch(fetchArticlesByTags(tags))
+  }
 }
 
 /* for load more
