@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Category from './Category';
 import _ from 'lodash';
 if (process.env.BROWSER) {
     require("./Tags.css")
@@ -13,12 +14,11 @@ export default class Tags extends Component {
     render() {
         const { articles } = this.props
         let cat_display = "台灣"
-        if (articles.length > 0 || !articles) {
+        if (articles && articles.length > 0) {
         return (
             <div className="category-items">
                 <div className="category-name">
-                    <div className="name-title">{cat_display.substring(0,1)}</div>
-                    <div className="name-title">{cat_display.substring(2,1)}</div>
+                    <Category>{cat_display}</Category>
                 </div>
                 <ul className="tag-listing">
                 { _.map(articles, (a) => {
@@ -56,4 +56,3 @@ export default class Tags extends Component {
 }
 
 export { Tags };
-
