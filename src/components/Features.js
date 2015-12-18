@@ -28,7 +28,7 @@ export default class Features extends Component {
               }})
             }
           </ul>
-          {hasMore ? <More loadMore={loadMore} /> : null}
+          {hasMore ? <More loadMore={loadMore} device={device} /> : null}
         </div>
       )
     } else {

@@ -6,10 +6,23 @@
 }
 .more-articles > span {
     color: white;
-    line-height: 100px;
+    line-height: 70px;
     font-size: 18px;
     font-weight: 500;
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+}
+.arrow:hover polyline,
+.arrow:focus polyline {
+    stroke-width: 3;
+}
+
+.arrow:active polyline {
+    stroke-width: 10;
+    transition: all 100ms ease-in-out;
+}
+
+polyline {
+  transition: all 250ms ease-in-out;
 }
 @media 
 only screen 
@@ -20,7 +33,7 @@ and (max-device-width : 799px) {
       height: 50px;
   }
   .more-articles > span {
-      line-height: 50px;
+      line-height: 30px;
       font-size: 16px;
   }
 }
