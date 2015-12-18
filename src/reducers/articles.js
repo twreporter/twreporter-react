@@ -14,7 +14,8 @@ function parseResponse(response = {}) {
   return response
 }
 
-function taggedArticles(state = {}, action) {
+function tagArticles(state = {}, action) {
+  const response = action.response
   let rtn = {}
   switch (action.type) {
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
@@ -30,22 +31,19 @@ function taggedArticles(state = {}, action) {
             }
           }
       */
-      if (action.response) {
-        let response = parseResponse(action.response)
-        let results = camelizeKeys(response.results)
+      if (response) {
+        let results = response.results
         let tags = action.tags || []
         for (let i =0; i < tags.length; i++) {
           let tag = tags[i]
           let result = results[i]
-          if (!rtn[tag]) {
-            const total = result.meta && result.meta.total
-            rtn[tag] = {
-              items: [],
-              total: total,
-              hasMore: total > 0 ? true : false
-            }
+          let items = result.items || []
+          let total = result.meta && result.meta.total
+          rtn[tag] = {
+            items: items,
+            total: total,
+            hasMore: total > items.length ? true : false
           }
-          rtn[tag].items = rtn[tag].items.concat(result.items)
         }
       }
       return Object.assign({}, state, rtn)
@@ -58,7 +56,7 @@ function taggedArticles(state = {}, action) {
             }
           }
       */
-      if (action.response) {
+      if (response) {
         let tag = ''
         if ('string' === typeof action.tags) {
           tag = action.tags
@@ -66,27 +64,18 @@ function taggedArticles(state = {}, action) {
           tag = action.tags.toString()
         }
 
-        const response = camelizeKeys(parseResponse(action.response))
-        const items = response.items
+        let items = response.items
         const meta = response.meta
 
-        for (let item of items) {
-          if (!item) {
-            break
-          }
-          if (!rtn[tag]) {
-            rtn[tag] = {
-              items: [],
-              total: meta.total,
-              hasMore: meta.total > 0 ? true : false
-            }
-          }
+        items = state[tag] ? state[tag].items.concat(items) : items
 
-          rtn[tag].items = rtn[tag].items.concat(items)
-          rtn[tag].hasMore = rtn[tag].items.length < rtn[tag].total ? true : false
+        rtn[tag] = {
+          items: items,
+          total: meta.total,
+          hasMore: meta.total > items.length ? true : false
         }
       }
-      return Object.assign({}, state, articles)
+      return Object.assign({}, state, rtn)
 
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
     case ActionType.LOADED_ARTICLES_FAILURE:
@@ -101,11 +90,14 @@ function articles(state = {}, action) {
   switch(action.type) {
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
     case ActionType.LOADED_ARTICLES_SUCCESS:
-      return taggedArticles(state, action)
+      if (action.response) {
+        action.response = camelizeKeys(parseResponse(action.response))
+      }
+      return tagArticles(state, action)
 
     case ActionType.LOADED_ARTICLES_FAILURE:
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-      return {}
+      return state
 
     default:
       return state
