@@ -1,3 +1,4 @@
+import Compression from 'compression'
 import Express from 'express'
 import path from 'path'
 
@@ -18,6 +19,7 @@ let port = 3000
 
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
+server.use(Compression())
 server.use(Express.static(path.join(__dirname, '.', '../static')))
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
