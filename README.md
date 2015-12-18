@@ -3,7 +3,7 @@ New Media foundation in Taiwan.
 
 # Development
 
-    $ npm install --dev
+    $ npm install
 
 Start the server
 
