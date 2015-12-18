@@ -1,12 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
+
 if (process.env.BROWSER) {
   require("./Category.css");
 }
 
-export default class Category extends Component {
-  render() {
-      return (
-          <span className="category" style={this.props.style}>{this.props.children}</span>
-      )
-  }
+export default (props) => {
+	return (
+		<span className="category" style={props.style}>{props.children}</span>
+	);
 }

@@ -21,18 +21,7 @@
     display: inline;
     margin-left: 1%;
     margin-right: 1%;
-}
-
-.name-title {
-    background-image: url('/asset/hexagon.png');
-    display: block;
     font-size: 24pt;
-    background-repeat: no-repeat; 
-    background-position: center;
-    width: 46px;
-    height: 46px;
-    text-align: center;
-    padding-top: 15px;
 }
 
 .category-items {
@@ -72,10 +61,10 @@ img.category-itemimage {
 }
 
 .tag-itemtitle {
-    margin-top: 12px; 
+    margin-top: 12px;
     padding-left: 18px;
     padding-right: 18px;
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
     font-size: 160%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: 400;
@@ -99,8 +88,8 @@ img.category-itemimage {
 
 /* 451 * 2 + 52 = 954 */
 /* 寬度800px 以下*/
-@media 
-only screen 
+@media
+only screen
 and (max-device-width : 799px) {
     .tag-item {
         width: 100%;
