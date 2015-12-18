@@ -92,14 +92,8 @@
 }
 
 .listing-item .featurebox .category {
-    background-image: url('/asset/hexagon.png');
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
-    display: block;
-    background-repeat: no-repeat;
-    height: 32px;
-    text-align: center;
-    line-height: 30px;
 }
 
 .listing-item .featurebox .infobox {
