@@ -15,7 +15,7 @@ function parseResponse(response = {}) {
 }
 
 function taggedArticles(state = {}, action) {
-  let articles = {}
+  let rtn = {}
   switch (action.type) {
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
       /* data structure:
@@ -32,15 +32,23 @@ function taggedArticles(state = {}, action) {
       */
       if (action.response) {
         let response = parseResponse(action.response)
-        let results = response.results
+        let results = camelizeKeys(response.results)
         let tags = action.tags || []
         for (let i =0; i < tags.length; i++) {
           let tag = tags[i]
-          let camelizedJson = camelizeKeys(results[i]._items)
-          articles[tag] = camelizedJson
+          let result = results[i]
+          if (!rtn[tag]) {
+            const total = result.meta && result.meta.total
+            rtn[tag] = {
+              items: [],
+              total: total,
+              hasMore: total > 0 ? true : false
+            }
+          }
+          rtn[tag].items = rtn[tag].items.concat(result.items)
         }
       }
-      return Object.assign({}, state, articles)
+      return Object.assign({}, state, rtn)
 
     case ActionType.LOADED_ARTICLES_SUCCESS:
       /* data structure:
@@ -51,25 +59,31 @@ function taggedArticles(state = {}, action) {
           }
       */
       if (action.response) {
-        const tags = action.tags || []
-        let response = parseResponse(action.response)
-        let items = response._items
-        items = camelizeKeys(items)
+        let tag = ''
+        if ('string' === typeof action.tags) {
+          tag = action.tags
+        } else if (Array.isArray(action.tags)) {
+          tag = action.tags.toString()
+        }
+
+        const response = camelizeKeys(parseResponse(action.response))
+        const items = response.items
+        const meta = response.meta
 
         for (let item of items) {
           if (!item) {
             break
           }
-          const _tags = item.tags
-          for (let _tag of _tags) {
-            if (tags.indexOf(_tag) > -1) {
-              if (!Array.isArray(articles[_tag])) {
-                articles[_tag] = []
-              }
-              articles[_tag].push(item)
-              break
+          if (!rtn[tag]) {
+            rtn[tag] = {
+              items: [],
+              total: meta.total,
+              hasMore: meta.total > 0 ? true : false
             }
           }
+
+          rtn[tag].items = rtn[tag].items.concat(items)
+          rtn[tag].hasMore = rtn[tag].items.length < rtn[tag].total ? true : false
         }
       }
       return Object.assign({}, state, articles)
