@@ -41,6 +41,7 @@
     "node-sass": "^3.3.3",
     "nodemon": "^1.6.0",
     "normalizr": "^1.0.0",
+    "qs": "^5.2.0",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.0",
     "react-burger-menu": "^1.4.4",
@@ -67,6 +68,7 @@
   "devDependencies": {
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "compression": "^1.6.0",
     "eslint": "1.8.0",
     "eslint-config-rackt": "^1.1.1",
     "eslint-loader": "^1.0.0",

@@ -92,25 +92,19 @@
 }
 
 .listing-item .featurebox .category {
-    background-image: url('/asset/hexagon.png');
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
-    display: block;
-    background-repeat: no-repeat; 
-    height: 32px;
-    text-align: center;
-    padding-top: 4px;
 }
 
 .listing-item .featurebox .infobox {
     margin-left: 80px;
 }
 
-@media 
-only screen 
-and (max-width : 799px) , 
-only screen 
-and (max-device-width : 799px) { 
+@media
+only screen
+and (max-width : 799px) ,
+only screen
+and (max-device-width : 799px) {
     .listing-item {
         margin: 0px;
         position: relative;
@@ -181,4 +175,3 @@ and (max-device-width : 799px) {
         z-index: 1;
     }
 }
-

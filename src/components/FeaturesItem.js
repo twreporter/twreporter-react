@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Category from './Category';
 import ReactDOM from 'react-dom';
 import { ts2yyyymmdd } from '../lib/date-transformer';
 
@@ -125,8 +126,7 @@ export default class FeaturesItem extends Component {
                         <div className="border clearfix">
                             <div className='featurebox'>
                                 <div className="container">
-                                    <div className="category">{catDisplay.substring(0,1)}</div>
-                                    <div className="category">{catDisplay.substring(2,1)}</div>
+                                    <Category>{catDisplay}</Category>
                                 </div>
                                 <div className='infobox'>
                                     <div className="subtitle">{article.subtitle}</div>

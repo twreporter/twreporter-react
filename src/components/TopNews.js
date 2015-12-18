@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Category from './Category';
 import Slider from 'react-slick';
 import { ts2yyyymmdd } from '../lib/date-transformer';
 import { imageComposer } from '../lib/image-composer.js';
@@ -52,8 +53,7 @@ export default class TopNews extends Component {
                         }}
                         >
                         <div className="topnews_categorycontainer">
-                            <div className="topnews_category">{catDisplay.substring(0,1)}</div>
-                            <div className="topnews_category">{catDisplay.substring(2,1)}</div>
+                            <Category>{catDisplay}</Category>
                         </div>
                         <div className="carousel-item">
                             <div className="carousel-itemsubtitle">{a.subtitle}</div>
@@ -72,4 +72,3 @@ export default class TopNews extends Component {
 }
 
 export { TopNews };
-

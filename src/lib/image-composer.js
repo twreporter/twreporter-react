@@ -1,8 +1,16 @@
 const imagePrefix = 'https://www.twreporter.org/data/files/organization/60826/image/derivative/';
-const desktopScale = 'scale~1800x0~';
-const mobileScale = 'scale~800x0~';
+const desktopScale = 'scale~1200x0~';
+const mobileScale = 'scale~1200x0~';
 const desktopImagePrefix = imagePrefix + desktopScale;
 const mobileImagePrefix = imagePrefix + mobileScale;
+
+const isImage = (image) => {
+  if (image && (image.indexOf('.jpg') > -1 || image.indexOf('.png') > -1 || image.indexOf('.gif') > -1)) {
+    return true;
+  } else {
+    return false
+  }
+}
 
 export const imageComposer = (article, device) => {
     let image;
@@ -14,14 +22,14 @@ export const imageComposer = (article, device) => {
         return device === 'desktop' ? desktopImagePrefix + facebookImage : mobileImagePrefix + facebookImage;
     }
 
-    if (firstImage && (firstImage.indexOf('.jpg') > -1 || firstImage.indexOf('.png') > -1)) {
+    if (isImage(firstImage)) {
         image = firstImage;
-    } else {
+    } else if (isImage(previewImage)) {
         image = previewImage;
     }
 
     let source;
-    if (image && (image.indexOf('.jpg') > -1 || image.indexOf('.png') > -1)) {
+    if (image) {
         const regex = /.+~(.+)/;
         source = image.match(regex);
         source = source ? source[1] : '';
