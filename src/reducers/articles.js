@@ -14,8 +14,9 @@ function parseResponse(response = {}) {
   return response
 }
 
-function taggedArticles(state = {}, action) {
-  let articles = {}
+function tagArticles(state = {}, action) {
+  const response = action.response
+  let rtn = {}
   switch (action.type) {
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
       /* data structure:
@@ -30,17 +31,22 @@ function taggedArticles(state = {}, action) {
             }
           }
       */
-      if (action.response) {
-        let response = parseResponse(action.response)
+      if (response) {
         let results = response.results
         let tags = action.tags || []
         for (let i =0; i < tags.length; i++) {
           let tag = tags[i]
-          let camelizedJson = camelizeKeys(results[i]._items)
-          articles[tag] = camelizedJson
+          let result = results[i]
+          let items = result.items || []
+          let total = result.meta && result.meta.total
+          rtn[tag] = {
+            items: items,
+            total: total,
+            hasMore: total > items.length ? true : false
+          }
         }
       }
-      return Object.assign({}, state, articles)
+      return Object.assign({}, state, rtn)
 
     case ActionType.LOADED_ARTICLES_SUCCESS:
       /* data structure:
@@ -50,29 +56,26 @@ function taggedArticles(state = {}, action) {
             }
           }
       */
-      if (action.response) {
-        const tags = action.tags || []
-        let response = parseResponse(action.response)
-        let items = response._items
-        items = camelizeKeys(items)
+      if (response) {
+        let tag = ''
+        if ('string' === typeof action.tags) {
+          tag = action.tags
+        } else if (Array.isArray(action.tags)) {
+          tag = action.tags.toString()
+        }
 
-        for (let item of items) {
-          if (!item) {
-            break
-          }
-          const _tags = item.tags
-          for (let _tag of _tags) {
-            if (tags.indexOf(_tag) > -1) {
-              if (!Array.isArray(articles[_tag])) {
-                articles[_tag] = []
-              }
-              articles[_tag].push(item)
-              break
-            }
-          }
+        let items = response.items
+        const meta = response.meta
+
+        items = state[tag] ? state[tag].items.concat(items) : items
+
+        rtn[tag] = {
+          items: items,
+          total: meta.total,
+          hasMore: meta.total > items.length ? true : false
         }
       }
-      return Object.assign({}, state, articles)
+      return Object.assign({}, state, rtn)
 
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
     case ActionType.LOADED_ARTICLES_FAILURE:
@@ -87,11 +90,14 @@ function articles(state = {}, action) {
   switch(action.type) {
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
     case ActionType.LOADED_ARTICLES_SUCCESS:
-      return taggedArticles(state, action)
+      if (action.response) {
+        action.response = camelizeKeys(parseResponse(action.response))
+      }
+      return tagArticles(state, action)
 
     case ActionType.LOADED_ARTICLES_FAILURE:
     case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-      return {}
+      return state
 
     default:
       return state
