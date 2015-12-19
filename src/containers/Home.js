@@ -23,7 +23,7 @@ export default class Home extends Component {
   }
 
   loadMoreFeatureArticles() {
-    const maxResults = 5
+    const maxResults = 10
     const features = this.props.articles['hp-projects'] || {
       items: [],
       hasMore: true

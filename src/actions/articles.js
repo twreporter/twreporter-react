@@ -7,7 +7,7 @@ export const LOADED_MULTI_TAGGED_ARTICLES_FAILURE = 'LOADED_MULTI_TAGGED_ARTICLE
 export const LOADED_ARTICLES_SUCCESS = 'LOADED_ARTICLES_SUCCESS'
 export const LOADED_ARTICLES_FAILURE = 'LOADED_ARTICLES_FAILURE'
 
-const API_URL = 'http://api.twreporter.org/'
+const API_URL = 'https://www.twreporter.org/api/'
 
 function fetchArticlesByTags(tags) {
   let params = {}
@@ -55,6 +55,7 @@ export function loadArticles(tags, count, page) {
   params.where = JSON.stringify(where)
   params.max_results = count || 10
   params.page = page || 0
+  params.sort = '-lastPublish'
   return (dispatch, getState) => {
     return dispatch(fetchArticles(params, tags))
   }
