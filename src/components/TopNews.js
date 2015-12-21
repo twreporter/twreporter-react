@@ -43,7 +43,8 @@ export default class TopNews extends Component {
               break
             }
           }
-          const image = imageComposer(a, device)
+          let imageSet = imageComposer(a)
+          let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (
             <div key={a.id}>
               <a

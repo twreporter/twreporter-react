@@ -20,7 +20,8 @@ export default class Features extends Component {
         <div className="features-list clearfix">
           <ul className="listing">
             { _.map(features, (a) => {
-              let articleImage = imageComposer(a, device)
+              let imageSet = imageComposer(a)
+              let articleImage = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
               if (articleImage) {
                 return (
                   <FeaturesItem article={a} image={articleImage} key={a.id}/>
