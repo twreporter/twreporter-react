@@ -1,5 +1,6 @@
 .nav-menu {
     position: relative;
+    height: 80px;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
@@ -35,7 +36,7 @@
 
 @media
 only screen
-and (max-width: 768px), 
+and (max-width: 768px),
 only screen
 and (max-device-width : 768px) {
   .nav-logo {
