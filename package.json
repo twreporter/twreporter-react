@@ -13,6 +13,7 @@
     "url": "https://github.com/twreporter/twreporter-react"
   },
   "license": "MIT",
+  "engines": { "node" : ">=4.1.1" },
   "bugs": {
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
