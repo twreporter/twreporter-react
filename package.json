@@ -6,14 +6,16 @@
     "start": "webpack --progress && nodemon server",
     "production": "webpack -p --progress && forever start server",
     "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
-    "lint": "eslint server"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/twreporter/twreporter-react"
   },
   "license": "MIT",
-  "engines": { "node" : ">=4.1.1" },
+  "engines": {
+    "node": ">=4.1.1"
+  },
   "bugs": {
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
@@ -86,7 +88,11 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
     "nock": "^2.17.0",
+    "precommit-hook": "^3.0.0",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0"
-  }
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }
