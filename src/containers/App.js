@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
@@ -7,12 +7,12 @@ class App extends Component {
       <div>
         {this.props.children}
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {}
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)
