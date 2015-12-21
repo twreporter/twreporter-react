@@ -1,22 +1,22 @@
-const imagePrefix = 'https://www.twreporter.org/data/files/organization/60826/image/derivative/';
-const desktopScale = 'scale~2400x0~';
-const mobileScale = 'scale~1200x0~';
-const desktopImagePrefix = imagePrefix + desktopScale;
-const mobileImagePrefix = imagePrefix + mobileScale;
+const imagePrefix = 'https://www.twreporter.org/data/files/organization/60826/image/derivative/'
+const desktopScale = 'scale~2400x0~'
+const mobileScale = 'scale~1200x0~'
+const desktopImagePrefix = imagePrefix + desktopScale
+const mobileImagePrefix = imagePrefix + mobileScale
 
 const isImage = (image) => {
   if (image && (image.indexOf('.jpg') > -1 || image.indexOf('.png') > -1 || image.indexOf('.gif') > -1)) {
-    return true;
+    return true
   } else {
     return false
   }
 }
 
 export const imageComposer = (article) => {
-  let image;
-  let firstImage = article.firstImage;
-  let previewImage = article.previewImage;
-  let facebookImage = article.facebookImage;
+  let image
+  let firstImage = article.firstImage
+  let previewImage = article.previewImage
+  let facebookImage = article.facebookImage
 
   if (facebookImage) {
     return {
@@ -26,16 +26,16 @@ export const imageComposer = (article) => {
   }
 
   if (isImage(firstImage)) {
-    image = firstImage;
+    image = firstImage
   } else if (isImage(previewImage)) {
-    image = previewImage;
+    image = previewImage
   }
 
-  let source;
+  let source
   if (image) {
-    const regex = /.+~(.+)/;
-    source = image.match(regex);
-    source = source ? source[1] : '';
+    const regex = /.+~(.+)/
+    source = image.match(regex)
+    source = source ? source[1] : ''
   }
 
   let imageSet = {}
@@ -46,12 +46,12 @@ export const imageComposer = (article) => {
     }
   } else {
     // display logo when the image is empty
-    image = '/asset/review.png';
+    image = '/asset/review.png'
     imageSet = {
       desktopImage: image,
       mobileImage: image
     }
   }
 
-  return imageSet;
+  return imageSet
 }

@@ -1,17 +1,14 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute } from 'react-router';
-import configureStore from '../store/configureStore';
+import React from 'react'
+import { Router, Route } from 'react-router'
 
-import Home from '../containers/Home';
-import Category from '../containers/Category';
-import NotFound from '../containers/NotFound';
+import Home from '../containers/Home'
+import Category from '../containers/Category'
 
-export default function(history) {
-    return (
-        <Router history={history}>
-            <Route path="/" component={Home}/>
-            <Route path="/category/:category" component={Category}/>
-        </Router>
-    );
-};
+export default function (history) {
+  return (
+    <Router history={history}>
+      <Route path="/" component={Home}/>
+      <Route path="/category/:category" component={Category}/>
+    </Router>
+  )
+}
