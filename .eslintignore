@@ -1,0 +1,8 @@
+**/node_modules/*
+**/spec/*
+**/src/*
+**/static/*
+app.js
+routes.js
+karma.conf.js
+webpack*.js
