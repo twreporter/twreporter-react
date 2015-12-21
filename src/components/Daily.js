@@ -27,7 +27,7 @@ export default class Daily extends Component {
                 const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.');
                 if (a.isPublishedVersion) {
                     let imageSet = imageComposer(a);
-                    let thumbnail = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
+                    let thumbnail = imageSet.mobileImage
                     let url = (a.storyLink) ? a.storyLink : "https://www.twreporter.org/a/" + a.slug
                     return (
                         <a href={url} key={a.id}>
