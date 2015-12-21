@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react'
-import Category from './Category';
+import React, { Component } from 'react'
+import Category from './Category'
 import More from '../components/More'
-import _ from 'lodash';
+import _ from 'lodash'
 import { imageComposer } from '../lib/image-composer.js'
+
 if (process.env.BROWSER) {
-  require("./Tags.css")
+  require('./Tags.css')
 }
 
 export default class Tags extends Component {
@@ -14,7 +15,7 @@ export default class Tags extends Component {
 
   render() {
     const { articles, hasMore, loadMore } = this.props
-    let cat_display = "台灣"
+    let cat_display = '台灣'
     if (articles && articles.length > 0) {
       return (
         <div className="category-items">
@@ -24,11 +25,10 @@ export default class Tags extends Component {
           <ul className="tag-listing">
             { _.map(articles, (a) => {
               let image = imageComposer(a).mobileImage
-              var d = new Date()
+              let d = new Date()
               d.setTime(a.lastPublish*1000)
-              var d_str = d.toISOString().substring(0,10)
-              var re = /^[\w\d]/
-              var url = "https://www.twreporter.org/a/" + a.slug
+              let d_str = d.toISOString().substring(0,10)
+              let url = 'https://www.twreporter.org/a/' + a.slug
               if (image) {
                 return (
                   <li className="tag-item" key={a.id}>
@@ -43,10 +43,9 @@ export default class Tags extends Component {
                       </div>
                     </a>
                   </li>
-                  )
-                }
-              })
-            }
+                )
+              }
+            })}
           </ul>
           {hasMore ? <More loadMore={loadMore} /> : null}
         </div>
@@ -57,4 +56,4 @@ export default class Tags extends Component {
   }
 }
 
-export { Tags };
+export { Tags }
