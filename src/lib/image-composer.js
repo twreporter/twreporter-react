@@ -1,5 +1,5 @@
 const imagePrefix = 'https://www.twreporter.org/data/files/organization/60826/image/derivative/';
-const desktopScale = 'scale~1200x0~';
+const desktopScale = 'scale~2400x0~';
 const mobileScale = 'scale~1200x0~';
 const desktopImagePrefix = imagePrefix + desktopScale;
 const mobileImagePrefix = imagePrefix + mobileScale;
@@ -12,35 +12,46 @@ const isImage = (image) => {
   }
 }
 
-export const imageComposer = (article, device) => {
-    let image;
-    let firstImage = article.firstImage;
-    let previewImage = article.previewImage;
-    let facebookImage = article.facebookImage;
+export const imageComposer = (article) => {
+  let image;
+  let firstImage = article.firstImage;
+  let previewImage = article.previewImage;
+  let facebookImage = article.facebookImage;
 
-    if (facebookImage) {
-        return device === 'desktop' ? desktopImagePrefix + facebookImage : mobileImagePrefix + facebookImage;
+  if (facebookImage) {
+    return {
+      desktopImage: desktopImagePrefix + facebookImage,
+      mobileImage: mobileImagePrefix + facebookImage
     }
+  }
 
-    if (isImage(firstImage)) {
-        image = firstImage;
-    } else if (isImage(previewImage)) {
-        image = previewImage;
+  if (isImage(firstImage)) {
+    image = firstImage;
+  } else if (isImage(previewImage)) {
+    image = previewImage;
+  }
+
+  let source;
+  if (image) {
+    const regex = /.+~(.+)/;
+    source = image.match(regex);
+    source = source ? source[1] : '';
+  }
+
+  let imageSet = {}
+  if (source) {
+    imageSet = {
+      desktopImage: desktopImagePrefix + source,
+      mobileImage: mobileImagePrefix + source
     }
-
-    let source;
-    if (image) {
-        const regex = /.+~(.+)/;
-        source = image.match(regex);
-        source = source ? source[1] : '';
-    }
-
+  } else {
     // display logo when the image is empty
-    if (source) {
-        image = device === 'desktop' ? desktopImagePrefix + source : mobileImagePrefix + source;
-    } else {
-        image = '/asset/review.png';
+    image = '/asset/review.png';
+    imageSet = {
+      desktopImage: image,
+      mobileImage: image
     }
+  }
 
-    return image;
+  return imageSet;
 }

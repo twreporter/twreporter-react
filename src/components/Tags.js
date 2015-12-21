@@ -24,7 +24,7 @@ export default class Tags extends Component {
                 </div>
                 <ul className="tag-listing">
                 { _.map(list, (a) => {
-                    const image = imageComposer(a, device) 
+                    let image = imageComposer(a).mobileImage
                     var d = new Date()
                     d.setTime(a.lastPublish*1000)
                     var d_str = d.toISOString().substring(0,10)
