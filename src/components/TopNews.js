@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Category from './Category'
-import Slider from 'react-slick'
+import Slider from 'react-flex-carousel'
 import { ts2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../lib/image-composer.js'
 
@@ -19,21 +19,8 @@ export default class TopNews extends Component {
   render() {
     const { topnews } = this.props
     const { device } = this.context
-    let settings = {
-      dots: true,
-      infinite: true,
-      speed: 1500,
-      autoplay: true,
-      autoplaySpeed: 4500,
-      arrows: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      lazyLoad: false,
-      useCSS: true
-    }
-
     return Array.isArray(topnews) && topnews.length > 0 ? (
-      <Slider {...settings}>
+      <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
           let tags = a.tags
@@ -47,14 +34,8 @@ export default class TopNews extends Component {
           let imageSet = imageComposer(a)
           let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (
-            <div key={a.id}>
-              <a
-                href={(a.slug) ? '/a/' + a.slug : a.storyLink}
-                className="topnewsimage-wrap"
-                style={{
-                  backgroundImage: 'url(' + image + ')'
-                }}
-              >
+              <a key={a.id} href={(a.slug) ? '/a/' + a.slug : a.storyLink}>
+                <img src={image} alt={a.slug} />
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>
                 </div>
@@ -62,12 +43,9 @@ export default class TopNews extends Component {
                   <div className="carousel-itemsubtitle">{a.subtitle}</div>
                   <div className="carousel-itemtitle">{a.title}</div>
                   <div className="carousel-excerpt">{a.excerpt}</div>
-                  <div className="carousel-published">
-                    {pubDate}
-                  </div>
+                  <time className="carousel-published">{pubDate}</time>
                 </div>
               </a>
-            </div>
           )
         })}
       </Slider>
