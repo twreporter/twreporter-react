@@ -14,7 +14,8 @@ export default class Features extends Component {
   }
 
   render() {
-    const { features, device, hasMore, loadMore } = this.props
+    const { features, hasMore, loadMore } = this.props
+    const { device } = this.context
     if (Array.isArray(features)) {
       return (
         <div className="features-list clearfix">
@@ -36,6 +37,11 @@ export default class Features extends Component {
       return ( <div> </div>)
     }
   }
+}
+
+Features.contextTypes = {
+  // store: React.PropTypes.object
+  device: React.PropTypes.string
 }
 
 export { Features }

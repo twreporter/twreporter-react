@@ -17,8 +17,8 @@ export default class Home extends Component {
     let params = [ 'hp-projects', 'review', 'feature' ]
     return store.dispatch(loadMultiTaggedArticles(params))
   }
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.loadMoreFeatureArticles = this.loadMoreFeatureArticles.bind(this)
   }
 
@@ -35,7 +35,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { articles, device } = this.props
+    const { articles } = this.props
     const topnews_num = 5
     let topnewsItems = articles.feature && articles.feature.items || []
     let feature = articles['hp-projects'] || {
@@ -56,11 +56,10 @@ export default class Home extends Component {
       return (
         <div>
           <NavBar/>
-          <TopNews topnews={topnewsItems} device={device}/>
-          <Daily daily={dailyItems} device={device} />
+          <TopNews topnews={topnewsItems} />
+          <Daily daily={dailyItems} />
           <Features
             features={featureItems}
-            device={device}
             hasMore={feature.hasMore}
             loadMore={this.loadMoreFeatureArticles}
           />
@@ -75,7 +74,7 @@ export default class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { articles: state.articles, device: state.device }
+  return { articles: state.articles }
 }
 
 export { Home }

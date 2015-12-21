@@ -10,7 +10,8 @@ export default class More extends Component {
   }
 
   render() {
-    const { loadMore, device } = this.props
+    const { loadMore } = this.props
+    const { device } = this.context
     let points = '0,0 25,10 50,0'
     let width = 50
     let height = 11
@@ -30,6 +31,11 @@ export default class More extends Component {
       </div>
     )
   }
+}
+
+More.contextTypes = {
+  // store: React.PropTypes.object,
+  device: React.PropTypes.string
 }
 
 export { More }

@@ -13,6 +13,7 @@ import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
+import DeviceProvider from '../src/components/DeviceProvider'
 
 let server = new Express()
 let port = 3000
@@ -33,7 +34,7 @@ server.use(function (req, res, next) {
 //  let { questions } = require('./mock_api');
 //  res.send(questions);
 //});
-
+//
 server.get('*', (req, res)=> {
   let history = createMemoryHistory()
   let store = configureStore()
@@ -67,11 +68,15 @@ server.get('*', (req, res)=> {
         return promise
       }
 
+      const device = store.getState().device
+
       getReduxPromise().then(()=> {
         let reduxState = escape(JSON.stringify(store.getState()))
         let html = ReactDOMServer.renderToString(
-          <Provider store={store}>
-            { <RoutingContext {...renderProps}/> }
+          <Provider store={store} >
+            <DeviceProvider device={device}>
+              { <RoutingContext {...renderProps}/> }
+            </DeviceProvider>
           </Provider>
         )
 
