@@ -23,7 +23,7 @@ server.set('view engine', 'ejs')
 server.use(Compression())
 server.use(Express.static(path.join(__dirname, '.', '../static')))
 server.use(function (req, res, next) {
-  r=> es.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
+  res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
