@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { ts2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../lib/image-composer'
 
@@ -23,7 +23,7 @@ export default class Daily extends Component {
         </h2>
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
-          { _.map(dailyTop, (a, index) => {
+          { _.map(dailyTop, (a) => {
             const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
             if (a.isPublishedVersion) {
               let imageSet = imageComposer(a)

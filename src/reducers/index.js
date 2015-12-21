@@ -1,6 +1,4 @@
 import * as ActionTypes from '../actions'
-import merge from 'lodash/object/merge'
-import paginate from './paginate'
 import articles from './articles'
 import device from './device'
 import { routerStateReducer as router } from 'redux-router'

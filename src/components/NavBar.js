@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const Menu = require('react-burger-menu').slide
+require('react-burger-menu').slide
 
 if (process.env.BROWSER) {
   require('./NavBar.css')

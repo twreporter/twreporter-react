@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
@@ -9,13 +9,13 @@ import Tags from '../components/Tags'
 import Footer from '../components/Footer'
 
 if (process.env.BROWSER) {
-  require('./Category.css');
+  require('./Category.css')
 }
 
 const maxResults = 10
 
 export default class Category extends Component {
-  static fetchData({ query, params, store, history }) {
+  static fetchData({ params, store }) {
     return store.dispatch(loadArticles(params.category, maxResults, 1))
   }
   constructor(props) {
@@ -38,7 +38,7 @@ export default class Category extends Component {
   render() {
     const { articles, device } = this.props
     let categoryObj = articles[this.tag]
-    let load
+
     if (articles) {
       return (
         <div>

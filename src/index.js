@@ -8,8 +8,6 @@ import configureStore from './store/configureStore'
 import createRoutes from './routes'
 import { Provider } from 'react-redux'
 import DeviceProvider from './components/DeviceProvider'
-import { createStore, combineReducers } from 'redux'
-import { RoutingContext, match } from 'react-router'
 
 const history = createBrowserHistory()
 

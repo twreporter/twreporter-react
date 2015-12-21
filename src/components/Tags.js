@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
