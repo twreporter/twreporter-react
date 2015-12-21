@@ -13,7 +13,7 @@ export default class Tags extends Component {
   }
 
   render() {
-    const { articles, device, hasMore, loadMore } = this.props
+    const { articles, hasMore, loadMore } = this.props
     let cat_display = "台灣"
     if (articles && articles.length > 0) {
       return (
@@ -48,7 +48,7 @@ export default class Tags extends Component {
               })
             }
           </ul>
-          {hasMore ? <More loadMore={loadMore} device={device} /> : null}
+          {hasMore ? <More loadMore={loadMore} /> : null}
         </div>
       )
     } else {

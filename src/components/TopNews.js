@@ -17,7 +17,8 @@ export default class TopNews extends Component {
     // window.addEventListener('resize', this.handleResize);
   }
   render() {
-    const { topnews, device } = this.props
+    const { topnews } = this.props
+    const { device } = this.context
     let settings = {
       dots: true,
       infinite: true,
@@ -74,4 +75,8 @@ export default class TopNews extends Component {
   }
 }
 
+TopNews.contextTypes = {
+  //  store: React.PropTypes.object,
+  device: React.PropTypes.string
+}
 export { TopNews }

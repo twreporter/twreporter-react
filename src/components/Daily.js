@@ -13,7 +13,7 @@ export default class Daily extends Component {
     }
 
     render() {
-        const { daily, device } = this.props
+        const { daily } = this.props
         let dailyTop = []
         if ( daily ) { dailyTop = daily.slice(0, 6); }
 	return dailyTop ? (
