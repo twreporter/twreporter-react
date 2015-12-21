@@ -43,8 +43,9 @@ export default class Tags extends Component {
                       </div>
                     </a>
                   </li>
-                  );}
-            })
+                  )
+                }
+              })
             }
           </ul>
           {hasMore ? <More loadMore={loadMore} device={device} /> : null}
