@@ -16,7 +16,6 @@ import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
 
 let server = new Express()
-let port = 3000
 
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
@@ -104,5 +103,4 @@ server.get('*', (req, res)=> {
   }
 })
 
-console.log(`Server is listening to port: ${port}`) //eslint-disable-line no-console
-server.listen(port)
+export default server
