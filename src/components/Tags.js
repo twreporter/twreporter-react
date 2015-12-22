@@ -9,20 +9,34 @@ if (process.env.BROWSER) {
   require('./Tags.css')
 }
 
+class CategoryName extends Component {
+  constructor(props, context) {
+    super(props, context)
+  }
+
+  render() {
+    const { cat_display } = this.props
+    return (
+      <div className="category-name">
+        <Category>{cat_display}</Category>
+      </div>
+    )
+  }
+}
+
 export default class Tags extends Component {
   constructor(props, context) {
     super(props, context)
   }
 
   render() {
-    const { articles, hasMore, loadMore } = this.props
+    const { articles, hasMore, loadMore, catShow } = this.props
     let cat_display = '台灣'
+    let cat = (catShow == 'true') ? CategoryName : ''
     if (articles && articles.length > 0) {
       return (
         <div className="category-items">
-          <div className="category-name">
-            <Category>{cat_display}</Category>
-          </div>
+        <cat cat_display={cat_display}/>
           <ul className="tag-listing">
             { _.map(articles, (a) => {
               let image = imageComposer(a).mobileImage

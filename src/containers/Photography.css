@@ -1,0 +1,24 @@
+.header {
+    display: inline;
+}
+
+.body {
+    width: 100%
+    background-color: #2C323E;
+    color: #FFFFEB;
+}
+
+a:link {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #101010;
+    text-decoration: none;
+}

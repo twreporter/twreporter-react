@@ -11,10 +11,19 @@ if (process.env.BROWSER) {
 
 class DesktopNav extends Component {
   render() {
+    const { children } = this.props
+    let _children = []
+    children.map((child, i) => {
+      _children.push(
+        <li className="nav-item" key={i}>
+          {child}
+        </li>
+      )
+    })
     return (
       <div className="listing-menu">
         <ul className="menu-items">
-          {this.props.children}
+          {_children}
         </ul>
       </div>
     )
@@ -39,35 +48,21 @@ export default class NaviBar extends Component {
   }
   render() {
     const { device } = this.context
-    const Nav = device === 'desktop' ? DesktopNav : MobileNav
+    let Nav = device === 'desktop' ? DesktopNav : MobileNav
     return (
       <div className="nav-menu">
         <div className="nav_logo">
-          <Link to="/"><img src="/asset/logo.png" height="58px" /></Link>
-          </div>
-          <Nav>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/cat:台灣">台灣</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/cat:國際">國際</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/review">評論</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/cat:文化">文化</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/cat:影像">影像</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/hp-projects">專題</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="menu-item" to="/category/cat:媒體">媒體</Link>
-            </li>
-          </Nav>
+          <a href="#"><img src="/asset/logo.png" height="58px" /></a>
+        </div>
+        <Nav>
+          <Link className="menu-item" to="/category/cat:台灣">台灣</Link>
+          <Link className="menu-item" to="/category/cat:國際">國際</Link>
+          <Link className="menu-item" to="/category/review">評論</Link>
+          <Link className="menu-item" to="/category/cat:文化">文化</Link>
+          <Link className="menu-item" to="/category/cat:影像">影像</Link>
+          <Link className="menu-item" to="/category/hp-projects">專題</Link>
+          <Link className="menu-item" to="/category/cat:媒體">媒體</Link>
+        </Nav>
       </div>
     )
   }

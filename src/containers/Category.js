@@ -62,6 +62,7 @@ export default class Category extends Component {
         <Tags
           articles={categoryObj.items || []}
           device={device}
+          catShow="true"
           hasMore={categoryObj.hasMore}
           loadMore={this.loadMore}
         />
