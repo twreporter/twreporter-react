@@ -14,7 +14,6 @@ const IMG_RATIO = 0.667
 export default class FeaturesItem extends Component {
   constructor(props, context) {
     super(props, context)
-    this._handleResize = this._handleResize.bind(this)
 
     // scrollController and scrollScene are used for ScrollMagic
     this.scrollController = null
@@ -102,11 +101,7 @@ export default class FeaturesItem extends Component {
 
   componentDidMount() {
     this._handleResize()
-    window.addEventListener('resize', this._handleResize)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._handleResize)
+    window.addEventListener('resize', this._handleResize.bind(this))
   }
 
   render() {

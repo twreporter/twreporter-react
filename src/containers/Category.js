@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
+import NotFound from './NotFound'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
 import Tags from '../components/Tags'
@@ -19,56 +20,43 @@ export default class Category extends Component {
   }
   constructor(props) {
     super(props)
-    this.state = {
-      tag: this.props.params.category
-    }
+    this.tag = this.props.params.category
     this.loadMore = this.loadMore.bind(this)
   }
 
-  componentWillMount() {
-    this.props.loadArticles(this.state.tag, maxResults, 1)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.tag !== nextProps.params.category) {
-      this.props.loadArticles(this.state.tag, maxResults, 1)
-      this.setState({
-        tag: nextProps.params.category
-      })
-    }
-  }
-
   loadMore() {
-    const { tag } = this.state
-    const categoryObj = this.props.articles[tag] || {
+    const categoryObj = this.props.articles[this.tag] || {
       items: [],
       hasMore: true
     }
     if (categoryObj.hasMore) {
       let page = Math.floor(categoryObj.items.length / maxResults)  + 1
-      this.props.loadArticles(tag, maxResults, page)
+      this.props.loadArticles(this.tag, maxResults, page)
     }
   }
 
   render() {
     const { articles, device } = this.props
-    const { tag } = this.state
-    let categoryObj = articles[tag] || {}
+    let categoryObj = articles[this.tag]
 
-    return (
-      <div>
-        <Header/>
-        <NavBar/>
-        <Tags
-          articles={categoryObj.items || []}
-          device={device}
-          hasMore={categoryObj.hasMore}
-          loadMore={this.loadMore}
-        />
-        {this.props.children}
-        <Footer/>
-      </div>
-    )
+    if (articles) {
+      return (
+        <div>
+          <Header/>
+          <NavBar/>
+          <Tags
+            articles={categoryObj.items || []}
+            device={device}
+            hasMore={categoryObj.hasMore}
+            loadMore={this.loadMore}
+          />
+          {this.props.children}
+          <Footer/>
+        </div>
+      )
+    } else {
+      return (<NotFound/>)
+    }
   }
 }
 
