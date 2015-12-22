@@ -3,6 +3,7 @@ import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
 import { imageComposer } from '../lib/image-composer.js'
+import { ts2yyyymmdd } from '../lib/date-transformer'
 
 if (process.env.BROWSER) {
   require('./Tags.css')
@@ -25,9 +26,7 @@ export default class Tags extends Component {
           <ul className="tag-listing">
             { _.map(articles, (a) => {
               let image = imageComposer(a).mobileImage
-              let d = new Date()
-              d.setTime(a.lastPublish*1000)
-              let d_str = d.toISOString().substring(0,10)
+              const d_str = ts2yyyymmdd(a.lastPublish * 1000 , '.') 
               let url = 'https://www.twreporter.org/a/' + a.slug
               if (image) {
                 return (
