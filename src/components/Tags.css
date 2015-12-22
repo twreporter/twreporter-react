@@ -1,6 +1,6 @@
 .category-name {
     position: absolute;
-    top: 100px;
+    top: 170px;
     left: 10px;
     z-index: 2;
     width: 10%;
@@ -8,9 +8,8 @@
 
 .tag-listing {
     list-style-type: none;
-    width: 87%;
-    margin-left: 8%;
-    margin-right: 5%;
+    width: 954px;
+    margin: 20px auto;
     padding-left: 1%;
     padding-right: 1%;
 }
@@ -31,19 +30,24 @@
 .tag-item {
     display: inline-block;
     background-color: #FFF;
-    width: 49%;
+    width: 451px;
     font-size: 13px;
     vertical-align: top;
 }
 
 .tag-item:nth-child(odd) {
-    margin: 0 1% 0 0;
+    margin: 0 26px 0 0;
+    vertical-align: top;
+}
+
+.tag-item:nth-child(even) {
+    margin: 0 0 0 26px;
     vertical-align: top;
 }
 
 .itemimage-wrap {
-    max-width: 451px;
-    max-height: 225px;
+    width: 451px;
+    height: 312px;
     overflow: hidden;
     text-align: center;
 }
@@ -57,13 +61,12 @@ img.category-itemimage {
     width: 85%;
     background-color: #FFF;
     height: 171px;
+    margin: 0px auto;
 }
 
 .tag-itemtitle {
-    margin-top: 12px;
-    padding-left: 18px;
-    padding-right: 18px;
-    margin-bottom: 12px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     font-size: 160%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: 400;
@@ -77,8 +80,18 @@ img.category-itemimage {
 }
 
 .tag-itempublished {
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-family: Roboto;
     padding-left: 80%;
 }
+
+@media all and (max-width: 1200px) {
+    .category-name {
+        display: none;
+    }
+}
+
 @media all and (max-width: 954px) and (min-width: 800px) {
     .itemimage-wrap {
         width: 100%;
@@ -89,16 +102,18 @@ img.category-itemimage {
 /* 寬度800px 以下*/
 @media
 only screen
-and (max-device-width : 799px) {
+and (max-device-width : 799px),
+only screen
+and (max-width : 799px) {
     .tag-item {
         width: 100%;
         margin: 0;
-        height: 380px;
+        height: auto;
         overflow: hidden;
     }
     .tag-listing {
         width: 100%;
-        margin: 0;
+        margin-top: 20px;
         -webkit-column-count: 1;
         column-count: 1;
         padding: 0;
@@ -112,12 +127,30 @@ and (max-device-width : 799px) {
     }
     .tag-itemdesc {
         width: 85%;
+        height: 80px;
         margin-left:6%;
+        margin-top: 20px;
+        margin-bottom: 25px;
         background-color: #FFF;
-        height: 140px;
+        font-size: 16px;
     }
     .itemimage-wrap {
-        max-width: 1200px;
-        max-height: 225px;
+        margin: 0;
+        width: 100%;
+        height: auto;
+    }
+    .tag-item:nth-child(even) {
+        margin: 0;
+        vertical-align: top;
+    }
+    img.category-itemimage {
+        width: 100%;
+        height: auto;
+    }
+    .tag-itemexcerpt {
+        display: none;
+    }
+    .tag-itempublished {
+        display: none;
     }
 }
