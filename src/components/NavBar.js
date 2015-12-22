@@ -49,8 +49,11 @@ export default class NaviBar extends Component {
   render() {
     const { device } = this.context
     let Nav = device === 'desktop' ? DesktopNav : MobileNav
+    const style = {
+      zIndex: 1
+    }
     return (
-      <div className="nav-menu">
+      <div className="nav-menu" style={device === 'desktop' ? style : {}}>
         <div className="nav_logo">
           <a href="#"><img src="/asset/logo.png" height="58px" /></a>
         </div>
