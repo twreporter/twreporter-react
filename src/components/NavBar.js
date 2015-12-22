@@ -22,7 +22,7 @@ export default class NaviBar extends Component {
           <div className="listing-menu">
             <ul className="menu-items">
               <li className="nav-item">
-                <Link className="menu-item" to='/category/cat-台灣'>台灣</Link>
+                <Link className="menu-item" to="/category/cat-台灣">台灣</Link>
               </li>
               <li className="nav-item"><a id="about" className="menu-item" href="/about">國際</a></li>
               <li className="nav-item"><a id="contact" className="menu-item" href="/contact">評論</a></li>
