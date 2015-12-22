@@ -18,7 +18,7 @@
 }
 
 .arrow:active polyline {
-    stroke-width: 10;
+    stroke-width: 6;
     transition: all 100ms ease-in-out;
 }
 
