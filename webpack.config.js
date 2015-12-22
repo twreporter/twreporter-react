@@ -15,20 +15,18 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'babel',
+        presets: path.join(__dirname, '/.babelrc').presets,
         query: path.parse(require.main.filename).name !== 'browsersync-server' ? {} : { // HACK: enabled only in `npm start`
           "plugins": [
-            "react-transform"
-          ],
-          "extra": {
-            "react-transform": {
+            ["react-transform", {
               "transforms": [{
                 "transform": "react-transform-hmr",
                 "imports": ["react"],
                 "locals": ["module"]
               }]
-            }
-          }
+            }]
+          ]
         }
       },
       {
