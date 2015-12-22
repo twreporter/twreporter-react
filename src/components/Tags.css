@@ -1,6 +1,6 @@
 .category-name {
     position: absolute;
-    top: 100px;
+    top: 170px;
     left: 10px;
     z-index: 2;
     width: 10%;
@@ -9,7 +9,7 @@
 .tag-listing {
     list-style-type: none;
     width: 954px;
-    margin: 46px auto;
+    margin: 20px auto;
     padding-left: 1%;
     padding-right: 1%;
 }
@@ -82,6 +82,13 @@ img.category-itemimage {
 .tag-itempublished {
     padding-left: 80%;
 }
+
+@media all and (max-width: 1200px) {
+    .category-name {
+        display: none;
+    }
+}
+
 @media all and (max-width: 954px) and (min-width: 800px) {
     .itemimage-wrap {
         width: 100%;
