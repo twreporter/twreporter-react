@@ -8,9 +8,8 @@
 
 .tag-listing {
     list-style-type: none;
-    width: 87%;
-    margin-left: 8%;
-    margin-right: 5%;
+    width: 954px;
+    margin: 46px auto;
     padding-left: 1%;
     padding-right: 1%;
 }
@@ -31,19 +30,24 @@
 .tag-item {
     display: inline-block;
     background-color: #FFF;
-    width: 49%;
+    width: 451px;
     font-size: 13px;
     vertical-align: top;
 }
 
 .tag-item:nth-child(odd) {
-    margin: 0 1% 0 0;
+    margin: 0 26px 0 0;
+    vertical-align: top;
+}
+
+.tag-item:nth-child(even) {
+    margin: 0 0 0 26px;
     vertical-align: top;
 }
 
 .itemimage-wrap {
     max-width: 451px;
-    max-height: 225px;
+    max-height: 312px;
     overflow: hidden;
     text-align: center;
 }
@@ -57,13 +61,12 @@ img.category-itemimage {
     width: 85%;
     background-color: #FFF;
     height: 171px;
+    margin: 0px auto;
 }
 
 .tag-itemtitle {
-    margin-top: 12px;
-    padding-left: 18px;
-    padding-right: 18px;
-    margin-bottom: 12px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     font-size: 160%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: 400;
