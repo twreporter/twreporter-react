@@ -65,8 +65,8 @@ img.category-itemimage {
 }
 
 .tag-itemtitle {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 160%;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: 400;
@@ -77,10 +77,11 @@ img.category-itemimage {
     font-size: 14px;
     font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
+    line-height: 24px;
 }
 
 .tag-itempublished {
-    margin-top: 25px;
+    margin-top: 12px;
     margin-bottom: 12px;
     font-family: Roboto;
     padding-left: 80%;

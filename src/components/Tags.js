@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: 1*/
+
 import React, { Component } from 'react'
 import Category from './Category'
 import More from '../components/More'
@@ -30,9 +32,8 @@ export default class Tags extends Component {
   }
 
   render() {
-    const { articles, hasMore, loadMore, catShow } = this.props
+    const { articles, hasMore, loadMore } = this.props
     let cat_display = '台灣'
-    let cat = (catShow == 'true') ? CategoryName : ''
     if (articles && articles.length > 0) {
       return (
         <div className="category-items">
