@@ -39,7 +39,7 @@ function fetchArticles(params, tags) {
 }
 
 export function loadMultiTaggedArticles(tags) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticlesByTags(tags))
   }
 }
@@ -56,7 +56,7 @@ export function loadArticles(tags, count, page) {
   params.max_results = count || 10
   params.page = page || 0
   params.sort = '-lastPublish'
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticles(params, tags))
   }
 }
