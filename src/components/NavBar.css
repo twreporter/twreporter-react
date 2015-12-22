@@ -1,6 +1,6 @@
 .nav-menu {
     position: absolute;
-    height: 80px;
+    height: 120px;
     overflow: hidden;
     width: 100%;
     padding-top: 5px;
@@ -36,6 +36,8 @@
     padding-right: 29px;
     letter-spacing: 5px;
 }
+
+
 
 @media
 only screen
