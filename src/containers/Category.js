@@ -25,16 +25,15 @@ export default class Category extends Component {
     this.loadMore = this.loadMore.bind(this)
   }
 
-  componentWillMount() {
-    this.props.loadArticles(this.state.tag, maxResults, 1)
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (this.state.tag !== nextProps.params.category) {
-      this.props.loadArticles(this.state.tag, maxResults, 1)
+    const tag = nextProps.params.category
+    const { loadArticles, articles } = nextProps
+    if (articles[tag]) {
       this.setState({
         tag: nextProps.params.category
       })
+    } else {
+      loadArticles(tag, maxResults, 1)
     }
   }
 
