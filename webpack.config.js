@@ -1,4 +1,5 @@
 const autoprefixer = require('autoprefixer')
+const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 
@@ -12,11 +13,24 @@ const config = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        loader: 'babel-loader',
+        query: path.parse(require.main.filename).name !== 'browsersync-server' ? {} : { // HACK: enabled only in `npm start`
+          "plugins": [
+            "react-transform"
+          ],
+          "extra": {
+            "react-transform": {
+              "transforms": [{
+                "transform": "react-transform-hmr",
+                "imports": ["react"],
+                "locals": ["module"]
+              }]
+            }
+          }
+        }
       },
-       { test: /\.jsx$/, loader: 'babel-loader'},
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', "css-loader")
@@ -25,10 +39,12 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, '/static'),
-    publicPath: '/static'
+    path: path.join(__dirname, 'static'),
+    publicPath: '/'
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('[name].css')
   ],
   postcss: [
