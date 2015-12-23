@@ -1,6 +1,7 @@
 var browserSync          = require('browser-sync').create();
 var webpack              = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
 var stripAnsi            = require('strip-ansi');
 
 require('babel/register');
@@ -10,22 +11,20 @@ var server               = require('./server/server');
  * Require ./webpack.config.js and make a bundler from it
  */
 var webpackConfig = require('./webpack.config');
-var bundler       = webpack(webpackConfig);
+var bundler = webpack(Object.assign({}, webpackConfig, {
+  debug: true,
+  devtool: '#eval-source-map',
+  entry: ['webpack-hot-middleware/client', webpackConfig.entry],
+  plugins: [new webpack.HotModuleReplacementPlugin()].concat(webpackConfig.plugins)
+}));
 
 /**
  * Reload all devices when bundle is complete
- * or send a fullscreen error message to the browser instead
+ * but always inject new style
  */
 bundler.plugin('done', function (stats) {
-  if (stats.hasErrors()/* || stats.hasWarnings()*/) {
-    return browserSync.sockets.emit('fullscreen:message', {
-        title: "Webpack Error:",
-        body:  stripAnsi(stats.compilation.errors.toString()),
-        timeout: 100000
-    });
-  }
-	if (browserSync.active)
-		browserSync.reload();
+  if (browserSync.active)
+    browserSync.reload('main.css');
 });
 
 /**
@@ -42,8 +41,7 @@ browserSync.init({
             cached: false
           }
       }),
+      webpackHotMiddleware(bundler),
       server
-  ],
-  plugins: ['bs-fullscreen-message'],
-  reloadDelay: 2000
+  ]
 });
