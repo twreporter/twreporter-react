@@ -55,7 +55,7 @@ export default class NaviBar extends Component {
     return (
       <div className="nav-menu" style={device === 'desktop' ? style : {}}>
         <div className="nav_logo">
-          <a href="#"><img src="/asset/logo.png" height="58px" /></a>
+          <Link to="/"><img src="/asset/logo.png" height="58px" /></Link>
         </div>
         <Nav>
           <Link className="menu-item" to="/category/cat:台灣">台灣</Link>
