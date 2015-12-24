@@ -1,6 +1,6 @@
-require('babel/register');
+require('babel/register')
 
-(function() {
+(function () {
   "use strict"
   const port = 3000
   let server = require('./server.js')

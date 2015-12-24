@@ -3,6 +3,8 @@ import Category from './Category'
 import ReactDOM from 'react-dom'
 import { ts2yyyymmdd } from '../lib/date-transformer'
 
+/* global ScrollMagic */
+
 if (process.env.BROWSER) {
   require('./FeaturesItem.css')
 }

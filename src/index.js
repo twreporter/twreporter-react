@@ -9,6 +9,7 @@ import createRoutes from './routes'
 import { Provider } from 'react-redux'
 import DeviceProvider from './components/DeviceProvider'
 
+/* global __REDUX_STATE__ */
 const history = createBrowserHistory()
 
 let reduxState
@@ -16,6 +17,7 @@ if (window.__REDUX_STATE__) {
   try {
     reduxState = JSON.parse(unescape(__REDUX_STATE__))
   } catch (e) {
+    reduxState = ''
   }
 }
 
