@@ -28,7 +28,7 @@ export default class Tags extends Component {
               let d = new Date()
               d.setTime(a.lastPublish*1000)
               let d_str = d.toISOString().substring(0,10)
-              let url = 'https://www.twreporter.org/a/' + a.slug
+              let url = '/a/' + a.slug
               if (image) {
                 return (
                   <li className="tag-item" key={a.id}>

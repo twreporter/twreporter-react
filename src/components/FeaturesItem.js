@@ -107,7 +107,7 @@ export default class FeaturesItem extends Component {
   render() {
     const { article, image } = this.props
     const pubDate = ts2yyyymmdd(article.lastPublish * 1000 , '.')
-    let url = (article.story_link) ? article.story_link : 'https://www.twreporter.org/a/' + article.slug
+    let url = (article.story_link) ? article.story_link : '/a/' + article.slug
     let tags = article.tags
     let catDisplay = '專題'
     for (let i = 0; i < tags.length; i++) {
