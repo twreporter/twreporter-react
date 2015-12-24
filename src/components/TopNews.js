@@ -40,7 +40,7 @@ export default class TopNews extends Component {
           let catDisplay = '專題'
           for (let i = 0; i < tags.length; i++) {
             if (tags[i].substring(0,4) == 'cat:') {
-              catDisplay = tags[i].substring(4)
+              //catDisplay = tags[i].substring(4)
               break
             }
           }
