@@ -28,7 +28,7 @@ export default class Daily extends Component {
             if (a.isPublishedVersion) {
               let imageSet = imageComposer(a)
               let thumbnail = imageSet.mobileImage
-              let url = (a.storyLink) ? a.storyLink : 'https://www.twreporter.org/a/' + a.slug
+              let url = (a.storyLink) ? a.storyLink : '/a/' + a.slug
               return (
                 <a href={url} key={a.id}>
                   <li className="daily-item">
