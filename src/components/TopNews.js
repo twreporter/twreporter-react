@@ -69,7 +69,7 @@ export default class TopNews extends Component {
               </a>
             </div>
           )
-        }.bind(this))}
+        })}
       </Slider>
     ) : null
   }
