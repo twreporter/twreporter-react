@@ -34,6 +34,14 @@ server.use(function (req, res, next) {
 //  res.send(questions);
 //});
 //
+server.get('/robots.txt', (req, res) => {
+  res.format({
+      'text/plain': function() {
+          res.status(200).render('robots')
+      }
+  })
+})
+
 server.get('*', (req, res) => {
   let history = createMemoryHistory()
   let store = configureStore()
