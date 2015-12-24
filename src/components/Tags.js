@@ -34,6 +34,11 @@ export default class Tags extends Component {
   render() {
     const { articles, hasMore, loadMore } = this.props
     let cat_display = '台灣'
+    const bgStyle = {}
+    if (this.props.bgStyle === 'dark') {
+      bgStyle.backgroundColor = '#2C323E'
+      bgStyle.color = '#FFFFFF'
+    }
     if (articles && articles.length > 0) {
       return (
         <div className="category-items">
@@ -45,12 +50,12 @@ export default class Tags extends Component {
               let url = 'https://www.twreporter.org/a/' + a.slug
               if (image) {
                 return (
-                  <li className="tag-item" key={a.id}>
+                  <li className="tag-item" key={a.id} style={bgStyle}>
                     <a href={url}>
                       <div className="itemimage-wrap">
                         <img className="category-itemimage" src={image}/>
                       </div>
-                      <div className="tag-itemdesc">
+                      <div className="tag-itemdesc" style={bgStyle}>
                         <div className="tag-itemtitle">{a.title}</div>
                         <div className="tag-itemexcerpt">{a.excerpt}</div>
                         <div className="tag-itempublished">{d_str}</div>

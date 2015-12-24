@@ -41,6 +41,10 @@ export default class Home extends Component {
       hasMore: true
     }
     let featureItems = feature.items || []
+    const style = {
+      backgroundColor: '#2C323E',
+      color: '#FFFFEB'
+    }
     if (Array.isArray(topnewsItems)) {
       if (topnewsItems.length < topnews_num) {
         let less = topnews_num - topnewsItems.length
@@ -52,13 +56,13 @@ export default class Home extends Component {
     }
     if (topnewsItems || featureItems) {
       return (
-        <div>
-          <NavBar/>
+        <div style={style}>
+          <NavBar bgStyle="dark"/>
           <TopNews topnews={topnewsItems} />
           <Tags
             articles={featureItems || []}
             device={device}
-            catShow="false"
+            bgStyle="dark"
             hasMore={featureItems.hasMore}
             loadMore={this.loadMore}
           />

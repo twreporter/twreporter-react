@@ -26,7 +26,9 @@
     margin-right: auto;
     width: 700px;
 }
-
+.menu-item {
+    color: #101010;
+}
 .nav-item {
     font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     display: inline;

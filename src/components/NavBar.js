@@ -52,19 +52,22 @@ export default class NaviBar extends Component {
     const style = {
       zIndex: 1
     }
+    const itemStyle = {}
+    let logo = '/asset/logo.png'
+    if (this.props.bgStyle === 'dark') {
+      itemStyle.color = '#FFFFFF'
+      logo = 'asset/logo_dark.png'
+    } 
     return (
       <div className="nav-menu" style={device === 'desktop' ? style : {}}>
         <div className="nav_logo">
-          <Link to="/"><img src="/asset/logo.png" height="58px" /></Link>
+          <Link to="/"><img src={logo} height="58px" /></Link>
         </div>
         <Nav>
-          <Link className="menu-item" to="/category/cat:台灣">台灣</Link>
-          <Link className="menu-item" to="/category/cat:國際">國際</Link>
-          <Link className="menu-item" to="/category/review">評論</Link>
-          <Link className="menu-item" to="/category/cat:文化">文化</Link>
-          <Link className="menu-item" to="/category/cat:影像">影像</Link>
-          <Link className="menu-item" to="/category/hp-projects">專題</Link>
-          <Link className="menu-item" to="/category/cat:媒體">媒體</Link>
+          <Link className="menu-item" style={itemStyle} to="/category/cat:台灣">台灣</Link>
+          <Link className="menu-item" style={itemStyle} to="/category/review">觀點</Link>
+          <Link className="menu-item" style={itemStyle} to="/photography">影像</Link>
+          <Link className="menu-item" style={itemStyle} to="/category/cat:媒體">新媒體</Link>
         </Nav>
       </div>
     )
