@@ -15,20 +15,25 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: path.parse(require.main.filename).name !== 'browsersync-server' ? {} : { // HACK: enabled only in `npm start`
-          "plugins": [
-            "react-transform"
-          ],
-          "extra": {
-            "react-transform": {
-              "transforms": [{
-                "transform": "react-transform-hmr",
-                "imports": ["react"],
-                "locals": ["module"]
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          plugins: path.parse(require.main.filename).name !== 'browsersync-server' ?
+            [ // for production
+              'transform-react-inline-elements',
+              'transform-react-constant-elements',
+              'transform-runtime'
+            ] :
+            [ // for development
+              'transform-runtime',
+              ["react-transform", {
+                "transforms": [{
+                  "transform": "react-transform-hmr",
+                  "imports": ["react"],
+                  "locals": ["module"]
+                }]
               }]
-            }
-          }
+            ]
         }
       },
       {

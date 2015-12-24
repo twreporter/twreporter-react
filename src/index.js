@@ -1,4 +1,4 @@
-import 'babel-core/polyfill'
+require('babel-core/register')
 
 import React from 'react'
 import ReactDOM from 'react-dom'

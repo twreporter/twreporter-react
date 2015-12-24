@@ -15,7 +15,7 @@ const logger = createLogger({
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
-  apiMiddleware,
+  apiMiddleware
 )(createStore)
 
 export default function configureStore(initialState) {

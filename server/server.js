@@ -20,7 +20,7 @@ let server = new Express()
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
-server.use(Express.static(path.join(__dirname, '.', '../static')))
+server.use(Express.static(path.join(__dirname, '../static')))
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
@@ -34,7 +34,7 @@ server.use(function (req, res, next) {
 //  res.send(questions);
 //});
 //
-server.get('*', (req, res)=> {
+server.get('*', (req, res) => {
   let history = createMemoryHistory()
   let store = configureStore()
 
@@ -74,7 +74,7 @@ server.get('*', (req, res)=> {
         let html = ReactDOMServer.renderToString(
           <Provider store={store} >
             <DeviceProvider device={device}>
-              { <RoutingContext {...renderProps}/> }
+              { <RoutingContext {...renderProps} /> }
             </DeviceProvider>
           </Provider>
         )
@@ -91,7 +91,7 @@ server.get('*', (req, res)=> {
 
   function subscribeUrl() {
     let currentUrl = location.pathname + location.search
-    let unsubscribe = history.listen((newLoc)=> {
+    let unsubscribe = history.listen((newLoc) => {
       if (newLoc.action === 'PUSH') {
         currentUrl = newLoc.pathname + newLoc.search
       }
@@ -103,4 +103,4 @@ server.get('*', (req, res)=> {
   }
 })
 
-export default server
+module.exports = server;
