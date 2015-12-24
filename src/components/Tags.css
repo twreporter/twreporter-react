@@ -66,14 +66,12 @@ img.category-itemimage {
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 160%;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: 400;
 }
 
 .tag-itemexcerpt {
     display: block;
     font-size: 14px;
-    font-family: "Noto Sans",'Noto Sans TC', Roboto;
     font-weight: light;
     line-height: 24px;
 }
