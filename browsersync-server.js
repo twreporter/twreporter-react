@@ -4,7 +4,7 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var stripAnsi            = require('strip-ansi');
 
-require('babel/register');
+require('babel-core/register');
 var server               = require('./server/server');
 
 /**
