@@ -56,7 +56,7 @@ export default class NaviBar extends Component {
     let logo = '/asset/logo.png'
     if (this.props.bgStyle === 'dark') {
       itemStyle.color = '#FFFFFF'
-      logo = 'asset/logo_dark.png'
+      logo = '/asset/logo_dark.png'
     } 
     return (
       <div className="nav-menu" style={device === 'desktop' ? style : {}}>
