@@ -13,7 +13,7 @@ if (process.env.BROWSER) {
 
 export default class Home extends Component {
   static fetchData({ store }) {
-    let params = [ 'hp-projects', 'feature' ]
+    let params = [ 'photo-reviews', 'photo-features' ]
     return store.dispatch(loadMultiTaggedArticles(params))
   }
   constructor(props, context) {
@@ -23,36 +23,26 @@ export default class Home extends Component {
 
   loadMoreFeatureArticles() {
     const maxResults = 10
-    const features = this.props.articles['hp-projects'] || {
+    const features = this.props.articles['photo-reviews'] || {
       items: [],
       hasMore: true
     }
     if (features.hasMore) {
       let page = Math.floor(features.items.length / maxResults)  + 1
-      this.props.loadArticles('hp-projects', maxResults, page)
+      this.props.loadArticles('photo-reviews', maxResults, page)
     }
   }
 
   render() {
     const { articles, device } = this.props
-    const topnews_num = 5
     let topnewsItems = articles.feature && articles.feature.items || []
-    let feature = articles['hp-projects'] || {
+    let feature = articles['photo-reviews'] || {
       hasMore: true
     }
     let featureItems = feature.items || []
     const style = {
       backgroundColor: '#2C323E',
       color: '#FFFFEB'
-    }
-    if (Array.isArray(topnewsItems)) {
-      if (topnewsItems.length < topnews_num) {
-        let less = topnews_num - topnewsItems.length
-        topnewsItems = topnewsItems.concat(featureItems.slice(0, less))
-        featureItems = featureItems.slice(less)
-      } else {
-        topnewsItems = topnewsItems.slice(0,topnews_num)
-      }
     }
     if (topnewsItems || featureItems) {
       return (
