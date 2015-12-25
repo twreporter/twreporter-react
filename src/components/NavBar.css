@@ -1,50 +1,56 @@
 .nav-menu {
-    position: absolute;
-    height: 120px;
+    position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 5px;
-    top: 0;
     box-sizing: border-box;
 }
 
-.nav_logo {
-    text-align: center;
-    vertical-align: middle;
-    margin-top: 6px;
+.nav-logo-category {
+  height: 68px;
 }
 
-.listing-menu {
-    width: 700px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin: 10px auto;
+.nav-logo {
+  margin-left: 50px;
+  padding-top: 9px;
+}
+
+.nav-category {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  line-height: 68px;
 }
 
 .menu-items {
-    margin-left: auto;
-    margin-right: auto;
-    width: 700px;
+  vertical-align: middle;
 }
 .menu-item {
-    color: #101010;
-}
-.nav-item {
+    color: #000;
     font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     display: inline;
-    font-size: 100%;
-    font-weight: 700;
-    padding-left: 29px;
-    padding-right: 29px;
-    letter-spacing: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 50px;
 }
-
-
 
 @media
 only screen
-and (max-device-width : 799px) {
-    .listing-menu {
-        display: none;
-    }
+and (max-width: 768px), 
+only screen
+and (max-device-width : 768px) {
+  .nav-logo {
+    width: 276px;
+    margin: 0 auto;
+  }
+  .nav-logo-category {
+    height: auto;
+  }
+  .nav-category {
+    position: static;
+    line-height: normal;
+    top: auto;
+    right: auto;
+    text-align: center;
+    margin: 10px 0 10px 0;
+  }
 }

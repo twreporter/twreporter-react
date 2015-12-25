@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
-import Header from '../components/Header'
-import NavBar from '../components/NavBar'
+import DesktopNavBar from '../components/DesktopNavBar'
+import MobileNavBar from '../components/MobileNavBar'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
 
@@ -58,14 +58,16 @@ export default class Category extends Component {
   }
 
   render() {
-    const { articles, device } = this.props
+    const { articles } = this.props
+    const { device } = this.context
     const { tag } = this.state
     let categoryObj = articles[tag] || {}
 
+    const NavBar = device === 'desktop'  ? DesktopNavBar : MobileNavBar
+
     return (
       <div>
-        <Header/>
-        <NavBar/>
+        <NavBar />
         <Tags
           articles={categoryObj.items || []}
           device={device}
@@ -81,9 +83,12 @@ export default class Category extends Component {
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles,
-    device: state.device
+    articles: state.articles
   }
+}
+
+Category.contextTypes = {
+  device: React.PropTypes.string
 }
 
 export { Category }
