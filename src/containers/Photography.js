@@ -37,7 +37,6 @@ export default class Photography extends Component {
   render() {
     const { articles } = this.props
     const { device } = this.context
-    const topnews_num = 5
     let topnewsItems = articles.feature && articles.feature.items || []
     let feature = articles['photo-reviews'] || {
       hasMore: true
@@ -47,6 +46,9 @@ export default class Photography extends Component {
       backgroundColor: '#2C323E',
       color: '#FFFFEB'
     }
+
+    const NavBar = device === 'desktop' ? DesktopNavBar : MobileNavBar
+
     if (topnewsItems || featureItems) {
       return (
         <div style={style}>
