@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
-import NavBar from '../components/NavBar'
+import DesktopNavBar from '../components/DesktopNavBar'
+import MobileNavBar from '../components/MobileNavBar'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-export default class Home extends Component {
+export default class Photography extends Component {
   static fetchData({ store }) {
     let params = [ 'photo-reviews', 'photo-features' ]
     return store.dispatch(loadMultiTaggedArticles(params))
@@ -34,7 +35,8 @@ export default class Home extends Component {
   }
 
   render() {
-    const { articles, device } = this.props
+    const { articles } = this.props
+    const { device } = this.context
     let topnewsItems = articles['photo-features'] && articles['photo-features'].items || []
     let feature = articles['photo-reviews'] || {
       hasMore: true
@@ -44,6 +46,9 @@ export default class Home extends Component {
       backgroundColor: '#2C323E',
       color: '#FFFFEB'
     }
+
+    const NavBar = device === 'desktop' ? DesktopNavBar : MobileNavBar
+
     if (topnewsItems || featureItems) {
       return (
         <div style={style}>
@@ -51,7 +56,6 @@ export default class Home extends Component {
           <TopNews topnews={topnewsItems} />
           <Tags
             articles={featureItems || []}
-            device={device}
             bgStyle="dark"
             hasMore={featureItems.hasMore}
             loadMore={this.loadMore}
@@ -71,5 +75,9 @@ function mapStateToProps(state) {
   return { articles: state.articles }
 }
 
-export { Home }
-export default connect(mapStateToProps, { loadMultiTaggedArticles, loadArticles })(Home)
+Photography.contextTypes = {
+  device: React.PropTypes.string
+}
+
+export { Photography }
+export default connect(mapStateToProps, { loadMultiTaggedArticles, loadArticles })(Photography)

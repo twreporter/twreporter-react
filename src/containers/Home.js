@@ -5,7 +5,8 @@ import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
 import Footer from '../components/Footer'
-import NavBar from '../components/NavBar'
+import DesktopNavBar from '../components/DesktopNavBar'
+import MobileNavBar from '../components/MobileNavBar'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 if (process.env.BROWSER) {
@@ -36,6 +37,7 @@ export default class Home extends Component {
 
   render() {
     const { articles } = this.props
+    const { device } = this.context
     const topnews_num = 5
     let topnewsItems = articles.feature && articles.feature.items || []
     let feature = articles['hp-projects'] || {
@@ -52,6 +54,8 @@ export default class Home extends Component {
         topnewsItems = topnewsItems.slice(0,topnews_num)
       }
     }
+
+    const NavBar = device === 'desktop' ? DesktopNavBar : MobileNavBar
     if (topnewsItems || featureItems) {
       return (
         <div>
@@ -75,6 +79,10 @@ export default class Home extends Component {
 
 function mapStateToProps(state) {
   return { articles: state.articles }
+}
+
+Home.contextTypes = {
+  device: React.PropTypes.string
 }
 
 export { Home }
