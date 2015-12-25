@@ -3,7 +3,7 @@
     margin-bottom: 135px !important;
     height: 100vh;
     box-sizing: border-box;
-    padding-top: 80px;
+    padding-top: 120px;
     padding-bottom: 0;
 }
 .slick-list, .slick-track {
@@ -73,14 +73,14 @@
     font-size: 12px;
 }
 .carousel-itemsubtitle {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-size: 20px;
     word-spacing: 20px;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 .carousel-itemtitle {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
     font-size: 28px;
     color: black;
@@ -89,7 +89,7 @@
     padding-bottom: 20px;
 }
 .carousel-excerpt {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: lighter;
     font-size: 17px;
     line-height: 27px;

@@ -5,6 +5,8 @@ and (max-device-width: 800px) {
         font-size: 29px;
         line-height: 39px;
         word-spacing: 20px;
+        display: block;
+        outline: none;
     }
     /* Position and sizing of burger button */
     .bm-burger-button {

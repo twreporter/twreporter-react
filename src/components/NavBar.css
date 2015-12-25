@@ -1,6 +1,6 @@
 .nav-menu {
     position: absolute;
-    height: 80px;
+    height: 120px;
     overflow: hidden;
     width: 100%;
     padding-top: 5px;
@@ -26,9 +26,11 @@
     margin-right: auto;
     width: 700px;
 }
-
+.menu-item {
+    color: #101010;
+}
 .nav-item {
-    font-family: "Noto Sans",'Noto Sans TC', Roboto, "微軟正黑體", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     display: inline;
     font-size: 100%;
     font-weight: 700;
@@ -36,6 +38,8 @@
     padding-right: 29px;
     letter-spacing: 5px;
 }
+
+
 
 @media
 only screen
