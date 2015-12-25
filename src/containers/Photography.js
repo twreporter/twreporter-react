@@ -35,7 +35,7 @@ export default class Home extends Component {
 
   render() {
     const { articles, device } = this.props
-    let topnewsItems = articles.feature && articles.feature.items || []
+    let topnewsItems = articles['photo-features'] && articles['photo-features'].items || []
     let feature = articles['photo-reviews'] || {
       hasMore: true
     }
