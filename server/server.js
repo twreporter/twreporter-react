@@ -36,9 +36,9 @@ server.use(function (req, res, next) {
 //
 server.get('/robots.txt', (req, res) => {
   res.format({
-      'text/plain': function() {
-          res.status(200).render('robots')
-      }
+    'text/plain': function () {
+      res.status(200).render('robots')
+    }
   })
 })
 
@@ -111,4 +111,4 @@ server.get('*', (req, res) => {
   }
 })
 
-module.exports = server;
+module.exports = server
