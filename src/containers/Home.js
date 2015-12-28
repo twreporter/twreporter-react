@@ -13,14 +13,36 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
+function loadData(props, cats) {
+  let params = []
+  cats.forEach((cat) => {
+    if (!props.articles[cat]) {
+      params.push(cat)
+    }
+  })
+  if (params.length > 0) {
+    props.loadMultiTaggedArticles(params)
+  }
+}
+
 export default class Home extends Component {
   static fetchData({ store }) {
     let params = [ 'hp-projects', 'review', 'feature' ]
     return store.dispatch(loadMultiTaggedArticles(params))
   }
+
   constructor(props, context) {
     super(props, context)
     this.loadMoreFeatureArticles = this.loadMoreFeatureArticles.bind(this)
+    this.params = [ 'hp-projects', 'review', 'feature' ]
+  }
+
+  componentWillMount() {
+    loadData(this.props, this.params)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    loadData(nextProps, this.params)
   }
 
   loadMoreFeatureArticles() {
