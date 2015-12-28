@@ -32,7 +32,7 @@ export default class TopNews extends Component {
       useCSS: true
     }
 
-    return Array.isArray(topnews) ? (
+    return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider {...settings}>
         {topnews.map((a) => {
           const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')

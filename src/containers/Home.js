@@ -13,25 +13,47 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
+function loadData(props, cats) {
+  let params = []
+  cats.forEach((cat) => {
+    if (!props.articles[cat]) {
+      params.push(cat)
+    }
+  })
+  if (params.length > 0) {
+    props.loadMultiTaggedArticles(params)
+  }
+}
+
 export default class Home extends Component {
   static fetchData({ store }) {
     let params = [ 'hp-projects', 'review', 'feature' ]
     return store.dispatch(loadMultiTaggedArticles(params))
   }
+
   constructor(props, context) {
     super(props, context)
-    this.loadMoreFeatureArticles = this.loadMoreFeatureArticles.bind(this)
+    this.loadMoreArticles = this.loadMoreArticles.bind(this, 'hp-projects')
+    this.params = [ 'hp-projects', 'review', 'feature' ]
   }
 
-  loadMoreFeatureArticles() {
+  componentWillMount() {
+    loadData(this.props, this.params)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    loadData(nextProps, this.params)
+  }
+
+  loadMoreArticles(tag) {
     const maxResults = 10
-    const features = this.props.articles['hp-projects'] || {
+    const features = this.props.articles[tag] || {
       items: [],
       hasMore: true
     }
     if (features.hasMore) {
       let page = Math.floor(features.items.length / maxResults)  + 1
-      this.props.loadArticles('hp-projects', maxResults, page)
+      this.props.loadArticles(tag, maxResults, page)
     }
   }
 
@@ -65,7 +87,7 @@ export default class Home extends Component {
           <Features
             features={featureItems}
             hasMore={feature.hasMore}
-            loadMore={this.loadMoreFeatureArticles}
+            loadMore={this.loadMoreArticles}
           />
           {this.props.children}
           <Footer/>

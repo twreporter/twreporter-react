@@ -1,51 +1,51 @@
 @media
 all
 and (max-device-width: 800px) {
-    .menu-item {
-        font-size: 29px;
-        line-height: 39px;
-        word-spacing: 20px;
-        display: block;
-        outline: none;
-    }
-    /* Position and sizing of burger button */
-    .bm-burger-button {
-        position: fixed;
-        width: 36px;
-        height: 30px;
-        right: 0px;
-        top: 36px;
-    }
+  /* Position and sizing of burger button */
+  .bm-burger-button {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    top: 15px;
+  }
 
-    /* Color/shape of burger icon bars */
-    .bm-burger-bars {
-        background: #373a47;
-    }
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background: #373a47;
+  }
 
-    /* Color of close button cross */
-    .bm-cross {
-        background: #bdc3c7;
-    }
+  /* Background color of sidebar */
+  .bm-menu {
+    background: #373a47;
+  }
 
-    /* Background color of sidebar */
-    .bm-menu {
-        background: #DDD;
-    }
+  /* General menu styles */
+  .bm-menu {
+    padding: 1.5em 0 0 1em;
+    font-size: 1.2em;
+  }
 
-    /* Morph shape necessary with bubble or elastic */
-    .bm-morph-shape {
-        fill: #373a47;
-    }
-
-    /* General menu styles */
-    .bm-menu {
-        padding: 2.5em 1.5em 0;
-        font-size: 1.15em;
-    }
-
-    /* Wrapper for item list */
-    .bm-item-list {
-        color: #b8b7ad;
-        padding: 0.8em;
-    }
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: #b8b7ad;
+  }
+  .bm-item-list a {
+    display: block;
+    outline: none;
+   }
+  .bm-item-list a {
+    padding: 0.8em;
+  }
+  .bm-item-list a span {
+    margin-left: 10px;
+    font-weight: 700;
+    color: white;
+  }
+  .bm-burger-bars {
+    background: #373a47;
+  }
+  .bm-menu {
+    background: #373a47;
+  }
 }
