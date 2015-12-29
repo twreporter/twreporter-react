@@ -81,7 +81,7 @@ export default class Home extends Component {
     if (topnewsItems || featureItems) {
       return (
         <div>
-          <NavBar bgStyle="light"/>
+          <NavBar bgStyle="light" path="/" />
           <TopNews topnews={topnewsItems} />
           <Daily daily={dailyItems} />
           <Features

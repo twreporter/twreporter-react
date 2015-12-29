@@ -40,7 +40,7 @@ export default class Photography extends Home {
     if (topnewsItems || reviewItems) {
       return (
         <div style={style}>
-          <NavBar bgStyle="dark"/>
+          <NavBar bgStyle="dark" path="/photography"/>
           <TopNews topnews={topnewsItems} />
           <Tags
             articles={reviewItems || []}

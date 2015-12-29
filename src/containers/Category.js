@@ -6,6 +6,7 @@ import DesktopNavBar from '../components/DesktopNavBar'
 import MobileNavBar from '../components/MobileNavBar'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
+import catToTag from '../conf/category-tag-mapping-table'
 
 if (process.env.BROWSER) {
   require('./Category.css')
@@ -19,14 +20,15 @@ export default class Category extends Component {
   }
   constructor(props) {
     super(props)
+    let category = this.props.params.category
     this.state = {
-      tag: this.props.params.category
+      tag: catToTag[category]
     }
     this.loadMore = this.loadMore.bind(this)
   }
 
   componentWillMount() {
-    const tag = this.props.params.category
+    const tag = catToTag[this.props.params.category]
     const { loadArticles, articles } = this.props
     if (!articles[tag]) {
       loadArticles(tag, maxResults, 1)
@@ -34,11 +36,11 @@ export default class Category extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const tag = nextProps.params.category
+    const tag = catToTag[nextProps.params.category]
     const { loadArticles, articles } = nextProps
     if (articles[tag]) {
       this.setState({
-        tag: nextProps.params.category
+        tag: tag
       })
     } else {
       loadArticles(tag, maxResults, 1)
@@ -59,6 +61,7 @@ export default class Category extends Component {
 
   render() {
     const { articles } = this.props
+    const path = '/category/' + this.props.params.category
     const { device } = this.context
     const { tag } = this.state
     let categoryObj = articles[tag] || {}
@@ -67,7 +70,7 @@ export default class Category extends Component {
 
     return (
       <div>
-        <NavBar />
+        <NavBar bgStyle="light" path={path}/>
         <Tags
           articles={categoryObj.items || []}
           device={device}

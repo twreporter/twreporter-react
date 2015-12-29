@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
 }
 
+const taiwanPath = '/category/taiwan'
+const reviewPath = '/category/review'
+const photographyPath = '/photography'
+const mediaPath = '/category/media'
+
 class Items extends Component {
   render() {
-    const { children } = this.props
+    const { children, path, bgStyle } = this.props
+    let style = {
+      borderColor: bgStyle === 'dark' ? '#FFF' : '#000'
+    }
     let _children = []
     children.map((child, i) => {
+      let itemClassName
+      if (child.props.to === path) {
+        itemClassName = 'selected-menu-item'
+      }
       _children.push(
-        <li className="menu-item" key={i}>
+        <li className={classNames('menu-item', itemClassName)} style={style} key={i}>
           {child}
         </li>
       )
@@ -29,9 +42,10 @@ export default class DesktopNavBar extends Component {
     super(props)
   }
   render() {
+    const { bgStyle } = this.props
     const catStyle = {}
     let logo = '/asset/logo.png'
-    if (this.props.bgStyle === 'dark') {
+    if (bgStyle === 'dark') {
       catStyle.color = '#FFFFFF'
       logo = 'asset/logo_dark.png'
     }
@@ -42,15 +56,19 @@ export default class DesktopNavBar extends Component {
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
           </div>
           <div className="nav-category">
-            <Items>
-              <Link style={catStyle} to="/category/cat:台灣"><h1>台灣</h1></Link>
-              <Link style={catStyle} to="/category/review"><h1>觀點</h1></Link>
-              <Link style={catStyle} to="/photography"><h1>影像</h1></Link>
-              <Link style={catStyle} to="/category/cat:媒體"><h1>新媒體</h1></Link>
+            <Items path={this.props.path} bgStyle={bgStyle}>
+              <Link style={catStyle} to={taiwanPath}><h1>台灣</h1></Link>
+              <Link style={catStyle} to={reviewPath}><h1>觀點</h1></Link>
+              <Link style={catStyle} to={photographyPath}><h1>影像</h1></Link>
+              <Link style={catStyle} to={mediaPath}><h1>新媒體</h1></Link>
             </Items>
           </div>
         </div>
       </div>
     )
   }
+}
+
+DesktopNavBar.propTypes = {
+  path: React.PropTypes.string
 }
