@@ -57,17 +57,17 @@ export default class NaviBar extends Component {
     if (this.props.bgStyle === 'dark') {
       itemStyle.color = '#FFFFFF'
       logo = '/asset/logo_dark.png'
-    } 
+    }
     return (
       <div className="nav-menu" style={device === 'desktop' ? style : {}}>
         <div className="nav_logo">
           <Link to="/"><img src={logo} height="58px" /></Link>
         </div>
         <Nav>
-          <Link className="menu-item" style={itemStyle} to="/category/cat:台灣">台灣</Link>
-          <Link className="menu-item" style={itemStyle} to="/category/review">觀點</Link>
-          <Link className="menu-item" style={itemStyle} to="/photography">影像</Link>
-          <Link className="menu-item" style={itemStyle} to="/category/cat:媒體">新媒體</Link>
+          <Link className="menu-item" style={itemStyle} to="/category/cat:台灣"><h1>台灣</h1></Link>
+          <Link className="menu-item" style={itemStyle} to="/category/review"><h1>觀點</h1></Link>
+          <Link className="menu-item" style={itemStyle} to="/photography"><h1>影像</h1></Link>
+          <Link className="menu-item" style={itemStyle} to="/category/cat:媒體"><h1>新媒體</h1></Link>
         </Nav>
       </div>
     )

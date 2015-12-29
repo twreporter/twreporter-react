@@ -43,10 +43,10 @@ export default class DesktopNavBar extends Component {
           </div>
           <div className="nav-category">
             <Items>
-              <Link style={catStyle} to="/category/cat:台灣">台灣</Link>
-              <Link style={catStyle} to="/category/review">觀點</Link>
-              <Link style={catStyle} to="/photography">影像</Link>
-              <Link style={catStyle} to="/category/cat:媒體">新媒體</Link>
+              <Link style={catStyle} to="/category/cat:台灣"><h1>台灣</h1></Link>
+              <Link style={catStyle} to="/category/review"><h1>觀點</h1></Link>
+              <Link style={catStyle} to="/photography"><h1>影像</h1></Link>
+              <Link style={catStyle} to="/category/cat:媒體"><h1>新媒體</h1></Link>
             </Items>
           </div>
         </div>
