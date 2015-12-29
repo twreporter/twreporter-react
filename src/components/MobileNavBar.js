@@ -15,19 +15,16 @@ export default class MobileNaviBar extends Component {
     super(props)
   }
   render() {
-    const catStyle = {}
+    let backgroundColor = '#FFF'
     let logo = '/asset/logo.png'
     if (this.props.bgStyle === 'dark') {
-      catStyle.color = '#FFFFFF'
-      catStyle.backgroundColor = '#000'
+      backgroundColor = '#000'
       logo = 'asset/logo_dark.png'
-    } else {
-      catStyle.color = '#000'
-      catStyle.backgroundColor = '#FFF'
     }
+
     return (
       <Sticky topOffset={80}>
-        <div style= {{ backgroundColor: catStyle.backgroundColor }}>
+        <div style= {{ backgroundColor: backgroundColor }}>
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
           </div>
