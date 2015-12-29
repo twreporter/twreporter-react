@@ -18,9 +18,9 @@ export default class Daily extends Component {
     if ( daily ) { dailyTop = daily.slice(0, 6) }
     return dailyTop ? (
       <div className="daily">
-        <h2 className="daily-news">
+        <div className="daily-news">
           <div className="what">觀&nbsp;點</div>
-        </h2>
+        </div>
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
           { _.map(dailyTop, (a) => {
