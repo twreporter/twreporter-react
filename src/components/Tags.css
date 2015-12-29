@@ -123,9 +123,8 @@ and (max-width : 799px) {
         clear: both;
     }
     .tag-itemdesc {
-        width: 100%;
+        width: 90%;
         height: 80px;
-        margin-left:6%;
         margin-top: 20px;
         margin-bottom: 25px;
         font-size: 16px;

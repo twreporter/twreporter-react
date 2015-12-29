@@ -19,7 +19,7 @@ export default class TopNews extends Component {
   render() {
     const { topnews } = this.props
     const { device } = this.context
-    return Array.isArray(topnews) ? (
+    return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')

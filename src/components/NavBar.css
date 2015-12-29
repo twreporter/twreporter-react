@@ -37,11 +37,19 @@
   display: inline-block;
 }
 
+.selected-menu-item {
+  border-top: solid 2px;
+  padding-top : 5px;
+}
+
 @media
 only screen
 and (max-width: 768px),
 only screen
 and (max-device-width : 768px) {
+  .nav-menu {
+      height: auto;
+  }
   .nav-logo {
     width: 276px;
     margin: 0 auto;
