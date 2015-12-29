@@ -3,11 +3,6 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 
-const sassLoaders = [
-  'css-loader',
-  'postcss-loader'
-]
-
 const config = {
   entry: './src/index.js',
   module: {
