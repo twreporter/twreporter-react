@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
-import DesktopNavBar from '../components/DesktopNavBar'
-import MobileNavBar from '../components/MobileNavBar'
+import NavBar from '../components/NavBar'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
 import catToTag from '../conf/category-tag-mapping-table'
@@ -65,8 +64,6 @@ export default class Category extends Component {
     const { device } = this.context
     const { tag } = this.state
     let categoryObj = articles[tag] || {}
-
-    const NavBar = device === 'desktop'  ? DesktopNavBar : MobileNavBar
 
     return (
       <div>

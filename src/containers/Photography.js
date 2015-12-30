@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
 import Tags from '../components/Tags'
 import Footer from '../components/Footer'
-import DesktopNavBar from '../components/DesktopNavBar'
-import MobileNavBar from '../components/MobileNavBar'
+import NavBar from '../components/NavBar'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 import { Home } from './Home'
@@ -26,7 +25,6 @@ export default class Photography extends Home {
 
   render() {
     const { articles } = this.props
-    const { device } = this.context
     let topnewsItems = articles['photo-features'] && articles['photo-features'].items || []
     let review = articles['photo-reviews'] || {
       hasMore: true
@@ -36,7 +34,6 @@ export default class Photography extends Home {
       backgroundColor: '#2C323E',
       color: '#FFFFEB'
     }
-    const NavBar = device === 'desktop' ? DesktopNavBar : MobileNavBar
     if (topnewsItems || reviewItems) {
       return (
         <div style={style}>
@@ -60,10 +57,6 @@ export default class Photography extends Home {
 
 function mapStateToProps(state) {
   return { articles: state.articles }
-}
-
-Photography.contextTypes = {
-  device: React.PropTypes.string
 }
 
 export { Photography }

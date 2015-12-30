@@ -1,3 +1,7 @@
+.mobile-nav {
+  display: none;
+}
+
 .nav-menu {
     position: relative;
     height: 80px;
@@ -47,22 +51,28 @@ only screen
 and (max-width: 768px),
 only screen
 and (max-device-width : 768px) {
-  .nav-menu {
-      height: auto;
+  .mobile-nav {
+    display: block;
+    position: relative;
+  }
+  .desktop-nav {
+    display: none;
+  }
+}
+
+@media
+only screen
+and (max-width: 414px),
+only screen
+and (max-device-width : 414px) {
+  .mobile-nav {
+    display: block;
+    position: relative;
+  }
+  .desktop-nav {
+    display: none;
   }
   .nav-logo {
-    width: 276px;
-    margin: 0 auto;
-  }
-  .nav-logo-category {
-    height: auto;
-  }
-  .nav-category {
-    position: static;
-    line-height: normal;
-    top: auto;
-    right: auto;
-    text-align: center;
-    margin: 10px 0 10px 0;
+    margin-left: 20px;
   }
 }
