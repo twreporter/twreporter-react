@@ -11,6 +11,27 @@ const reviewPath = '/category/review'
 const photographyPath = '/photography'
 const mediaPath = '/category/media'
 
+class SearchBox extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      query: ''
+    }
+    this.handleQueryInput = this.handleQueryInput.bind(this)
+  }
+  handleQueryInput(e) {
+    this.setState({ query: e.target.value })
+  }
+  render() {
+    return (
+      <div style={this.props.style}>
+        <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
+        <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults></gcse:searchresults>' }} />
+      </div>
+    )
+  }
+}
+
 class Items extends Component {
   render() {
     const { children, path, bgStyle } = this.props
@@ -38,8 +59,8 @@ class Items extends Component {
 }
 
 export default class DesktopNavBar extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
   }
   render() {
     const { bgStyle } = this.props
@@ -54,6 +75,7 @@ export default class DesktopNavBar extends Component {
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
+            <SearchBox style={{ width: '230px', display: 'inline-block' }} />
           </div>
           <div className="nav-category">
             <Items path={this.props.path} bgStyle={bgStyle}>
