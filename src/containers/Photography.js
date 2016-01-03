@@ -3,8 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
 import Tags from '../components/Tags'
-import Footer from '../components/Footer'
-import NavBar from '../components/NavBar'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 import { Home } from './Home'
@@ -37,7 +35,6 @@ export default class Photography extends Home {
     if (topnewsItems || reviewItems) {
       return (
         <div style={style}>
-          <NavBar bgStyle="dark" path="/photography"/>
           <TopNews topnews={topnewsItems} />
           <Tags
             articles={reviewItems || []}
@@ -46,7 +43,6 @@ export default class Photography extends Home {
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
-          <Footer/>
         </div>
       )
     } else {

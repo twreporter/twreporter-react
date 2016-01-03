@@ -14,19 +14,11 @@ const mediaPath = '/category/media'
 class SearchBox extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      query: ''
-    }
-    this.handleQueryInput = this.handleQueryInput.bind(this)
-  }
-  handleQueryInput(e) {
-    this.setState({ query: e.target.value })
   }
   render() {
     return (
       <div style={this.props.style}>
         <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
-        <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults></gcse:searchresults>' }} />
       </div>
     )
   }
@@ -64,14 +56,16 @@ export default class DesktopNavBar extends Component {
   }
   render() {
     const { bgStyle } = this.props
-    const catStyle = {}
+    let backgroundColor = '#FFF'
+    let color = '#000'
     let logo = '/asset/logo.png'
     if (bgStyle === 'dark') {
-      catStyle.color = '#FFFFFF'
+      backgroundColor = '#000'
+      color = '#FFF'
       logo = 'asset/logo_dark.png'
     }
     return (
-      <div className="nav-menu">
+      <div className="nav-menu" style={{ backgroundColor: backgroundColor }}>
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
@@ -79,10 +73,10 @@ export default class DesktopNavBar extends Component {
           </div>
           <div className="nav-category">
             <Items path={this.props.path} bgStyle={bgStyle}>
-              <Link style={catStyle} to={taiwanPath}><h1>台灣</h1></Link>
-              <Link style={catStyle} to={reviewPath}><h1>觀點</h1></Link>
-              <Link style={catStyle} to={photographyPath}><h1>影像</h1></Link>
-              <Link style={catStyle} to={mediaPath}><h1>新媒體</h1></Link>
+              <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
+              <Link style={{ color: color }} to={reviewPath}><h1>觀點</h1></Link>
+              <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
+              <Link style={{ color: color }} to={mediaPath}><h1>新媒體</h1></Link>
             </Items>
           </div>
         </div>

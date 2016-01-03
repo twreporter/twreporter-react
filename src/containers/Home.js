@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
-import Footer from '../components/Footer'
-import NavBar from '../components/NavBar'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 if (process.env.BROWSER) {
@@ -78,7 +76,6 @@ export default class Home extends Component {
     if (topnewsItems || featureItems) {
       return (
         <div>
-          <NavBar bgStyle="light" path="/" />
           <TopNews topnews={topnewsItems} />
           <Daily daily={dailyItems} />
           <Features
@@ -87,7 +84,6 @@ export default class Home extends Component {
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
-          <Footer/>
         </div>
       )
     } else {

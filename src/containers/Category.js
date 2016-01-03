@@ -1,10 +1,9 @@
+/* eslint  no-unused-vars:1 */
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { loadArticles } from '../actions/articles'
-import NavBar from '../components/NavBar'
 import Tags from '../components/Tags'
-import Footer from '../components/Footer'
 import catToTag from '../conf/category-tag-mapping-table'
 
 if (process.env.BROWSER) {
@@ -60,14 +59,12 @@ export default class Category extends Component {
 
   render() {
     const { articles } = this.props
-    const path = '/category/' + this.props.params.category
     const { device } = this.context
     const { tag } = this.state
     let categoryObj = articles[tag] || {}
 
     return (
       <div>
-        <NavBar bgStyle="light" path={path}/>
         <Tags
           articles={categoryObj.items || []}
           device={device}
@@ -75,7 +72,6 @@ export default class Category extends Component {
           loadMore={this.loadMore}
         />
         {this.props.children}
-        <Footer/>
       </div>
     )
   }
