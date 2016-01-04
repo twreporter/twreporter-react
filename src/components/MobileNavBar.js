@@ -18,7 +18,7 @@ export default class MobileNaviBar extends Component {
     let backgroundColor = '#FFF'
     let logo = '/asset/logo.png'
     if (this.props.bgStyle === 'dark') {
-      backgroundColor = '#000'
+      backgroundColor = '#3e3a39'
       logo = 'asset/logo_dark.png'
     }
 
