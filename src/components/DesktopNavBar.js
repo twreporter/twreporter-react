@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { categoryPath } from '../lib/constants'
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
 }
-
-const taiwanPath = '/category/taiwan'
-const reviewPath = '/category/review'
-const photographyPath = '/photography'
-const intlPath = '/category/intl'
 
 class SearchBox extends Component {
   constructor(props, context) {
@@ -56,6 +52,7 @@ export default class DesktopNavBar extends Component {
   }
   render() {
     const { bgStyle, path } = this.props
+    const { taiwanPath, reviewPath, photographyPath, intlPath } = categoryPath
     let backgroundColor = '#FFF'
     let color = '#000'
     let logo = '/asset/logo.png'
