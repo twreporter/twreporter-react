@@ -19,6 +19,11 @@
   padding-top: 9px;
 }
 
+.nav-logo img {
+  height: 50px;
+  width: auto;
+}
+
 .nav-category {
   position: absolute;
   top: 0px;
@@ -74,5 +79,9 @@ and (max-device-width : 414px) {
   }
   .nav-logo {
     margin-left: 20px;
+  }
+  .nav-logo img {
+    height: 45px;
+    width: auto;
   }
 }
