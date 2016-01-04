@@ -15,6 +15,7 @@ export default class MobileNaviBar extends Component {
     super(props)
   }
   render() {
+    const { device } = this.context
     let backgroundColor = '#FFF'
     let logo = '/asset/logo.png'
     if (this.props.bgStyle === 'dark') {
@@ -28,6 +29,7 @@ export default class MobileNaviBar extends Component {
           <div className="nav-logo">
             <Link to="/"><img src={logo} /></Link>
           </div>
+          { device === 'desktop' ?
           <Menu right>
             <Link to="/"><span>首頁</span></Link>
             <Link to="/category/taiwan"><span>台灣</span></Link>
@@ -35,8 +37,13 @@ export default class MobileNaviBar extends Component {
             <Link to="/photography"><span>影像</span></Link>
             <Link to="/category/intl"><span>國際兩岸</span></Link>
           </Menu>
+          : null }
         </div>
       </Sticky>
     )
   }
+}
+
+MobileNaviBar.contextTypes = {
+  device: React.PropTypes.string
 }
