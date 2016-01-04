@@ -23,10 +23,10 @@ export default class MobileNaviBar extends Component {
     }
 
     return (
-      <Sticky topOffset={80}>
+      <Sticky topOffset={300}>
         <div style= {{ backgroundColor: backgroundColor }}>
           <div className="nav-logo">
-            <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
+            <Link to="/"><img src={logo} /></Link>
           </div>
           <Menu right>
             <Link to="/"><span>首頁</span></Link>
