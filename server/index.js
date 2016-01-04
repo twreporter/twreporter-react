@@ -1,3 +1,4 @@
+'use strict'
 require('babel-core/register')
 
 let port = 3000
