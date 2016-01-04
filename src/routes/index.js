@@ -16,8 +16,8 @@ class App extends Component {
         <NavBar
           bgStyle={pathname === '/photography' ? 'dark' : 'light'}
           path={pathname}/>
-          {this.props.children}
-          <Footer/>
+        {this.props.children}
+        <Footer/>
       </div>
     )
   }

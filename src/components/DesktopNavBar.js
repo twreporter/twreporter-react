@@ -55,12 +55,12 @@ export default class DesktopNavBar extends Component {
     super(props, context)
   }
   render() {
-    const { bgStyle } = this.props
+    const { bgStyle, path } = this.props
     let backgroundColor = '#FFF'
     let color = '#000'
     let logo = '/asset/logo.png'
     if (bgStyle === 'dark') {
-      backgroundColor = '#000'
+      backgroundColor = '#3e3a39'
       color = '#FFF'
       logo = 'asset/logo_dark.png'
     }
@@ -69,7 +69,7 @@ export default class DesktopNavBar extends Component {
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
-            <SearchBox style={{ width: '230px', display: 'inline-block' }} />
+            { path === '/' ? <SearchBox style={{ width: '230px', display: 'inline-block' }} /> : null }
           </div>
           <div className="nav-category">
             <Items path={this.props.path} bgStyle={bgStyle}>
