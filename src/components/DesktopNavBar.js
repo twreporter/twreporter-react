@@ -69,10 +69,10 @@ export default class DesktopNavBar extends Component {
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
-            { path === '/' ? <SearchBox style={{ width: '230px', display: 'inline-block' }} /> : null }
+            <SearchBox style={{ width: '230px', display: path === '/' ? 'inline-block' : 'none' }} path={path} />
           </div>
           <div className="nav-category">
-            <Items path={this.props.path} bgStyle={bgStyle}>
+            <Items path={path} bgStyle={bgStyle}>
               <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
               <Link style={{ color: color }} to={reviewPath}><h1>觀點</h1></Link>
               <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
