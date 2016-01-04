@@ -33,7 +33,7 @@ export default class MobileNaviBar extends Component {
             <Link to="/category/taiwan"><span>台灣</span></Link>
             <Link to="/category/review"><span>觀點</span></Link>
             <Link to="/photography"><span>影像</span></Link>
-            <Link to="/category/media"><span>新媒體</span></Link>
+            <Link to="/category/intl"><span>國際兩岸</span></Link>
           </Menu>
         </div>
       </Sticky>
