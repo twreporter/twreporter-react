@@ -35,9 +35,9 @@ export default class MobileNaviBar extends Component {
           <Menu right>
             <Link to="/"><span>首頁</span></Link>
             <Link to={taiwanPath}><span>台灣</span></Link>
+            <Link to={intlPath}><span>國際兩岸</span></Link>
             <Link to={reviewPath}><span>觀點</span></Link>
             <Link to={photographyPath}><span>影像</span></Link>
-            <Link to={intlPath}><span>國際兩岸</span></Link>
           </Menu>
           : null }
         </div>

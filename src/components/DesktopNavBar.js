@@ -71,9 +71,9 @@ export default class DesktopNavBar extends Component {
           <div className="nav-category">
             <Items path={path} bgStyle={bgStyle}>
               <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
+              <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
               <Link style={{ color: color }} to={reviewPath}><h1>觀點</h1></Link>
               <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
-              <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
             </Items>
           </div>
         </div>
