@@ -44,6 +44,7 @@
 .footer .open-source-container {
     background-color: #ccc;
     height: 30px;
+    padding: 20px 0;
 }
 
 .open-source-container .items {
@@ -69,11 +70,11 @@
     right: 0px;
 }
 
-@media 
-only screen 
-and (max-width : 799px) , 
-only screen 
-and (max-device-width : 799px) { 
+@media
+only screen
+and (max-width : 799px) ,
+only screen
+and (max-device-width : 799px) {
     .footer {
         height: 100%;
     }
@@ -161,4 +162,3 @@ and (max-device-width : 799px) {
     .open-source-container .github {
     }
 }
-

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Sticky from 'react-sticky'
 import { slide as Menu } from 'react-burger-menu'
+import { categoryPath } from '../lib/constants'
 
 // require('react-burger-menu').slide
 
@@ -15,6 +16,8 @@ export default class MobileNaviBar extends Component {
     super(props)
   }
   render() {
+    const { taiwanPath, reviewPath, photographyPath, intlPath } = categoryPath
+    const { device } = this.context
     let backgroundColor = '#FFF'
     let logo = '/asset/logo.png'
     if (this.props.bgStyle === 'dark') {
@@ -28,15 +31,21 @@ export default class MobileNaviBar extends Component {
           <div className="nav-logo">
             <Link to="/"><img src={logo} /></Link>
           </div>
+          { device === 'desktop' ?
           <Menu right>
             <Link to="/"><span>首頁</span></Link>
-            <Link to="/category/taiwan"><span>台灣</span></Link>
-            <Link to="/category/review"><span>觀點</span></Link>
-            <Link to="/photography"><span>影像</span></Link>
-            <Link to="/category/media"><span>新媒體</span></Link>
+            <Link to={taiwanPath}><span>台灣</span></Link>
+            <Link to={intlPath}><span>國際兩岸</span></Link>
+            <Link to={reviewPath}><span>觀點</span></Link>
+            <Link to={photographyPath}><span>影像</span></Link>
           </Menu>
+          : null }
         </div>
       </Sticky>
     )
   }
+}
+
+MobileNaviBar.contextTypes = {
+  device: React.PropTypes.string
 }

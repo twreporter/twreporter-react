@@ -26,8 +26,8 @@ export default class TopNews extends Component {
           let tags = a.tags
           let catDisplay = '專題'
           for (let i = 0; i < tags.length; i++) {
-            if (tags[i].substring(0,4) == 'cat:') {
-              //catDisplay = tags[i].substring(4)
+            if (tags[i].substring(0,4) === 'cat:') {
+              catDisplay = tags[i].substring(4)
               break
             }
           }
