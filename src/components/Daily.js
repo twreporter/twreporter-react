@@ -31,7 +31,7 @@ export default class Daily extends Component {
               let url = (a.storyLink) ? a.storyLink : '/a/' + a.slug
               return (
                 <li className="daily-item" key={a.id}>
-                  <a href={url}>
+                  <a className="clearfix" href={url}>
                     <div className="daily-image" >
                       <div style={{
                         backgroundImage: 'url(' + thumbnail + ')'

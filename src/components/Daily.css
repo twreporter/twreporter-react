@@ -13,8 +13,8 @@
 
 .daily-item {
     display: inline-block;
-    vertical-align : top;
-    padding-left: 26px;
+    vertical-align: top;
+    padding: 0;
 }
 
 .daily-item a {
@@ -25,7 +25,8 @@
     color: black;
     line-height: 26px;
     word-spacing: 30px;
-    margin-bottom: 75px;
+    padding-left: 26px;
+    padding-bottom: 75px;
     width: 310px;
 }
 
@@ -84,21 +85,21 @@ only screen
 and (max-device-width : 799px) {
 
     .daily-item {
-        width: 100%;
+        max-width: 350px;
         vertical-align: top;
-        padding: 0;
-        border-bottom-style: solid;
-        border-color: #CCC;
-        border-bottom-width: 2px;
+        display: block;
+        margin: 0 auto;
     }
 
     .daily-item a {
-        padding: 0 15px;
-        margin: 12px 0;
+        padding: 18px 32px 14px 12px;
+        margin: 0;
         font-size: 19px;
         line-height: 1;
         vertical-align: top;
         word-spacing: 20px;
+        width: auto;
+        border-bottom: 2px solid #ccc;
     }
 
     .daily-line {
@@ -113,7 +114,7 @@ and (max-device-width : 799px) {
         display: inline-block;
         width: 99px;
         height: 72px;
-        margin: 0 24px 0 0;
+        margin: -6px 27px 0 0;
         padding: 0;
         float: left;
     }   
@@ -155,7 +156,7 @@ and (max-width : 1024px) {
     .daily-itemlistwrapprt {
         width: 646px;
     }
-    .daily-title {
-        margin-bottom: 60px;
+    .daily-item a {
+        padding-bottom: 60px;
     }
 }
