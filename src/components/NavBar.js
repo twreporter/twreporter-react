@@ -22,7 +22,16 @@ export default class NaviBar extends Component {
   }
   _renderMobile() {
     return (
-      <MobileNavBar bgStyle={this.props.bgStyle}/>
+      <div className="mobile-nav">
+        <MobileNavBar bgStyle={this.props.bgStyle}/>
+      </div>
+    )
+  }
+  _renderDesktop() {
+    return (
+      <div className="desktop-nav">
+        <DesktopNavBar {...this.props}/>
+      </div>
     )
   }
   _render() {
@@ -39,7 +48,7 @@ export default class NaviBar extends Component {
   }
   render() {
     const { device } = this.context
-    return  device !== 'desktop' ? this._renderMobile() : this._render()
+    return  device !== 'mobile' ? this._renderDesktop() : this._renderMobile()
   }
 }
 

@@ -13,7 +13,7 @@ class SearchBox extends Component {
   }
   render() {
     return (
-      <div style={this.props.style}>
+      <div className="searchbox" style={this.props.style}>
         <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
       </div>
     )
@@ -52,7 +52,7 @@ export default class DesktopNavBar extends Component {
   }
   render() {
     const { bgStyle, path } = this.props
-    const { taiwanPath, reviewPath, photographyPath, intlPath } = categoryPath
+    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath } = categoryPath
     let backgroundColor = '#FFF'
     let color = '#000'
     let logo = '/asset/logo.png'
@@ -66,15 +66,16 @@ export default class DesktopNavBar extends Component {
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
-            <SearchBox style={{ width: '230px', display: path === '/' ? 'inline-block' : 'none' }} path={path} />
-          </div>
-          <div className="nav-category">
-            <Items path={path} bgStyle={bgStyle}>
-              <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
-              <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
-              <Link style={{ color: color }} to={reviewPath}><h1>觀點</h1></Link>
-              <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
-            </Items>
+            <div className="nav-category">
+              <Items path={path} bgStyle={bgStyle}>
+                <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
+                <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
+                <Link style={{ color: color }} to={culturePath}><h1>文化</h1></Link>
+                <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
+                <Link style={{ color: color }} to={reviewPath}><h1>專欄</h1></Link>
+              </Items>
+            </div>
+            <SearchBox style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />
           </div>
         </div>
       </div>
