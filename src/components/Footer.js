@@ -46,7 +46,7 @@ export default class Footer extends Component {
               </a>
             </div>
             <div className="item">
-              <a href="https://twreporter.atavist.com/privacy-footer">
+              <a href="/a/privacy-footer">
                   隱私政策
               </a>
             </div>
