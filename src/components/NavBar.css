@@ -4,7 +4,6 @@
 
 .nav-menu {
     position: relative;
-    height: 80px;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
@@ -22,13 +21,12 @@
 .nav-logo img {
   height: 50px;
   width: auto;
+  vertical-align: middle;
 }
 
 .nav-category {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  line-height: 68px;
+  display: inline-block;
+  margin-left: 85px;
 }
 
 .menu-items {
@@ -40,28 +38,46 @@
     display: inline;
     font-size: 16px;
     font-weight: 600;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 .menu-item h1 {
   display: inline-block;
 }
 
 .selected-menu-item {
-  border-top: solid 2px;
-  padding-top : 5px;
+  border-bottom: solid 2px;
+  padding-bottom : 5px;
+}
+
+.searchbox {
+  position: absolute;
+  right: 20px;
+  top: 5px;
 }
 
 @media
 only screen
-and (max-width: 768px),
+and (max-width: 1100px),
 only screen
-and (max-device-width : 768px) {
-  .mobile-nav {
-    display: block;
-    position: relative;
+and (max-device-width : 1100px) {
+  .nav-category {
+    margin-left: 20px;
   }
-  .desktop-nav {
-    display: none;
+}
+
+@media
+only screen
+and (max-width: 1035px),
+only screen
+and (max-device-width : 1035px) {
+  .nav-logo-category {
+    height: 130px;
+  }
+  .nav-category {
+    display: block;
+    text-align: center;
+    margin-left: 20px;
+    margin-top: 39px;
   }
 }
 
@@ -74,14 +90,15 @@ and (max-device-width : 414px) {
     display: block;
     position: relative;
   }
-  .desktop-nav {
-    display: none;
-  }
   .nav-logo {
-    margin-left: 20px;
+    margin-left: 0px;
+    text-align: center;
   }
   .nav-logo img {
     height: 45px;
     width: auto;
+  }
+  .searchbox {
+    display: none;
   }
 }
