@@ -2,3 +2,8 @@ bundle.js
 node_modules/
 static/main.js
 static/main.css
+
+.jshintignore
+.jshintrc
+npm-debug.log
+err.log

@@ -54,7 +54,10 @@ const config = {
   ],
   resolve: {
     extensions: ['', '.js', '.css', '.jsx'],
-    Directories: ['src', 'node_modules']
+    modulesDirectories: ['src', 'node_modules'],
+    alias: {
+      ScrollMagic: path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js')
+    }
   }
 }
 
