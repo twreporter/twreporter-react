@@ -45,6 +45,11 @@ const config = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        BROWSER: true
+      }
+    }),
     new ExtractTextPlugin('[name].css')
   ],
   postcss: [
@@ -54,7 +59,10 @@ const config = {
   ],
   resolve: {
     extensions: ['', '.js', '.css', '.jsx'],
-    Directories: ['src', 'node_modules']
+    modulesDirectories: ['src', 'node_modules'],
+    alias: {
+      ScrollMagic: 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
+    }
   }
 }
 

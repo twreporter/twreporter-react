@@ -3,10 +3,11 @@ import Category from './Category'
 import ReactDOM from 'react-dom'
 import { ts2yyyymmdd } from '../lib/date-transformer'
 
-/* global ScrollMagic */
+let ScrollMagic
 
 if (process.env.BROWSER) {
   require('./FeaturesItem.css')
+  ScrollMagic = require('ScrollMagic')
 }
 
 const IMG_RATIO = 0.667
