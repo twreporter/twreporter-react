@@ -6,7 +6,8 @@
     "start": "node browsersync-server",
     "production": "webpack -p --progress && forever -e err.log server/index.js",
     "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "validate": "npm ls"
   },
   "repository": {
     "type": "git",
