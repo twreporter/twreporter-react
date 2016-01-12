@@ -1,6 +1,6 @@
-const imagePrefix = 'https://dh1rvgpokacch.cloudfront.net/atavist/60826/image/derivative/'
-const desktopScale = 'scale~2400x0x0x0~'
-const mobileScale = 'scale~1200x0x0x0~'
+const imagePrefix = 'https://atavist.com/data/files/organization/60826/image/derivative/'
+const desktopScale = 'scale~2000x0~'
+const mobileScale = 'scale~1200x0~'
 const desktopImagePrefix = imagePrefix + desktopScale
 const mobileImagePrefix = imagePrefix + mobileScale
 

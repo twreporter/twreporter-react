@@ -1,6 +1,8 @@
 @media
-all
-and (max-device-width: 800px) {
+only screen
+and (max-device-width: 768px),
+only screen
+and (max-width: 768px){
   /* Position and sizing of burger button */
   .bm-burger-button {
     position: absolute;

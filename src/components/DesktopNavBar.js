@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { categoryPath } from '../lib/constants'
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
 }
 
-const taiwanPath = '/category/taiwan'
-const reviewPath = '/category/review'
-const photographyPath = '/photography'
-const mediaPath = '/category/media'
+class SearchBox extends Component {
+  constructor(props, context) {
+    super(props, context)
+  }
+  render() {
+    return (
+      <div className="searchbox" style={this.props.style}>
+        <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
+      </div>
+    )
+  }
+}
 
 class Items extends Component {
   render() {
@@ -38,30 +47,35 @@ class Items extends Component {
 }
 
 export default class DesktopNavBar extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
   }
   render() {
-    const { bgStyle } = this.props
-    const catStyle = {}
+    const { bgStyle, path } = this.props
+    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath } = categoryPath
+    let backgroundColor = '#FFF'
+    let color = '#000'
     let logo = '/asset/logo.png'
     if (bgStyle === 'dark') {
-      catStyle.color = '#FFFFFF'
+      backgroundColor = '#3e3a39'
+      color = '#FFF'
       logo = 'asset/logo_dark.png'
     }
     return (
-      <div className="nav-menu">
+      <div className="nav-menu" style={{ backgroundColor: backgroundColor }}>
         <div className="nav-logo-category">
           <div className="nav-logo">
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
-          </div>
-          <div className="nav-category">
-            <Items path={this.props.path} bgStyle={bgStyle}>
-              <Link style={catStyle} to={taiwanPath}><h1>台灣</h1></Link>
-              <Link style={catStyle} to={reviewPath}><h1>觀點</h1></Link>
-              <Link style={catStyle} to={photographyPath}><h1>影像</h1></Link>
-              <Link style={catStyle} to={mediaPath}><h1>新媒體</h1></Link>
-            </Items>
+            <div className="nav-category">
+              <Items path={path} bgStyle={bgStyle}>
+                <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
+                <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
+                <Link style={{ color: color }} to={culturePath}><h1>文化</h1></Link>
+                <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
+                <Link style={{ color: color }} to={reviewPath}><h1>專欄</h1></Link>
+              </Items>
+            </div>
+            <SearchBox style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant-TW">
   <head>
       <title>報導者The Reporter</title>
       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <meta name='viewport' content='width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1'/>
       <meta name="apple-mobile-web-app-capable" content="yes"/>
-      <meta name="description" content="致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。"/>
+      <meta name="keywords" content="報導者,twreporter,新聞,調查報道,原創報道,深度報道,環境,議題,評論,媒體,新媒體,台灣,兩岸,文化"/>
+      <meta name="description" content="報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。"/>
       <meta property="og:rich_attachment" content="true"/>
       <meta property="og:type" content="website"/>
       <meta property="og:title" content="報導者－深入挖掘新聞"/>
@@ -24,10 +25,33 @@
       <!-- reset css for cross browser-->
       <link rel="stylesheet" type="text/css" href="https://www.twreporter.org/asset/reset.css">
       <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
-      <script src="https://www.twreporter.org/asset/ScrollMagic.js"></script>
       <!-- debug usage -->
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
       <link href="/asset/favicon.png"  rel="shortcut icon" />
+      <script text="text/javascript" charset="utf-8">
+        (function() {
+          var cx = '008042460408727773288:mvn-lce5wvo';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+          '//cse.google.com/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+          })();
+        </script>
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-69336956-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        <!-- End Google Analytics -->
+      </script>
   </head>
   <body>
     <div id="root"><%- html %></div>
@@ -35,6 +59,5 @@
       window.__REDUX_STATE__ = '<%= reduxState %>';
     </script>
     <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/ga.js"></script>
   </body>
 </html>

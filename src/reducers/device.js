@@ -8,10 +8,10 @@ function device(state = 'desktop', action) {
       let req = action.req
       if (req && req.headers) {
         let md = new MobileDetect(req.headers['user-agent'])
-        if (md.mobile()) {
-          return 'mobile'
-        } else if (md.tablet()) {
+        if (md.tablet()) {
           return 'tablet'
+        } else if (md.mobile()) {
+          return 'mobile'
         }
       }
       return state

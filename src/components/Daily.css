@@ -13,8 +13,21 @@
 
 .daily-item {
     display: inline-block;
-    vertical-align : top;
+    vertical-align: top;
+    padding: 0;
+}
+
+.daily-item a {
+    display: block;
+    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    line-height: 26px;
+    word-spacing: 30px;
     padding-left: 26px;
+    padding-bottom: 75px;
+    width: 310px;
 }
 
 .daily-image {
@@ -22,21 +35,19 @@
     height: 190px;
 }
 
+.daily-image div {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
 .daily_lastpublish {
     font-family: "Times New Roman";
     font-style: italic;
     font-size: 12px;
     padding: 15px 0;
-}
-.daily-title {
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: black;
-    line-height: 26px;
-    word-spacing: 30px;
-    margin-bottom: 75px;
-    width: 310px;
+    line-height: 1;
 }
 
 .daily-news {
@@ -74,57 +85,55 @@ only screen
 and (max-device-width : 799px) {
 
     .daily-item {
-        width: 350px;
-        margin: auto;
+        max-width: 350px;
+        vertical-align: top;
         display: block;
-        vertical-align : top;
-        padding: 0;
-        border-bottom-style: solid;
-        border-color: #CCC;
-        border-bottom-width: 2px;
+        margin: 0 auto;
     }
+
+    .daily-item a {
+        padding: 18px 32px 14px 12px;
+        margin: 0;
+        font-size: 19px;
+        line-height: 1;
+        vertical-align: top;
+        word-spacing: 20px;
+        width: auto;
+        border-bottom: 2px solid #ccc;
+    }
+
     .daily-line {
         margin: 10px auto 40px;
     }
+
     .daily-itemlistwrapprt {
         width: 100%;
     }
+
     .daily-image {
         display: inline-block;
         width: 99px;
         height: 72px;
-        margin-left: 12px;
-        margin-right: 12px;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        margin: -6px 27px 0 0;
+        padding: 0;
+        float: left;
     }   
 
     .daily_lastpublish {
         display: none;
     }
-    .daily-title {
-        display: inline-block;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 0px;
-        font-size: 19px;
-        vertical-align : top;
-        width: 180px;
-        margin-top: 18px;
-        margin-bottom: 18px;
-        line-height: 19px;
-        word-spacing: 20px;
-    }
-    
+
     .daily-news {
         margin-left: 0;
         margin-bottom: 40px;
         margin-top: 80px;
     }
+
     .daily-itemlist {
         margin-left: auto;
         margin-top: 30px;
     }
+
     .what {
         font-size: 19px;
         display: inline-block;
@@ -147,7 +156,7 @@ and (max-width : 1024px) {
     .daily-itemlistwrapprt {
         width: 646px;
     }
-    .daily-title {
-        margin-bottom: 60px;
+    .daily-item a {
+        padding-bottom: 60px;
     }
 }

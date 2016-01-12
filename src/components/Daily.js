@@ -30,21 +30,17 @@ export default class Daily extends Component {
               let thumbnail = imageSet.mobileImage
               let url = (a.storyLink) ? a.storyLink : '/a/' + a.slug
               return (
-                <a href={url} key={a.id}>
-                  <li className="daily-item">
+                <li className="daily-item" key={a.id}>
+                  <a className="clearfix" href={url}>
                     <div className="daily-image" >
                       <div style={{
-                        backgroundImage: 'url(' + thumbnail + ')',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        height: '100%'
+                        backgroundImage: 'url(' + thumbnail + ')'
                       }}/>
                     </div>
                     <div className="daily_lastpublish">{pubDate}</div>
-                    <div className="daily-title">{a.title}</div>
-                  </li>
-                </a>
+                    {a.title}
+                  </a>
+                </li>
               )
             }
           })}
