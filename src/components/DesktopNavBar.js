@@ -52,7 +52,7 @@ export default class DesktopNavBar extends Component {
   }
   render() {
     const { bgStyle, path } = this.props
-    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath, electionPath } = categoryPath
+    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath } = categoryPath
     let backgroundColor = '#FFF'
     let color = '#000'
     let logo = '/asset/logo.png'
@@ -73,7 +73,6 @@ export default class DesktopNavBar extends Component {
                 <Link style={{ color: color }} to={culturePath}><h1>文化</h1></Link>
                 <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
                 <Link style={{ color: color }} to={reviewPath}><h1>專欄</h1></Link>
-                <Link style={{ color: color }} to={electionPath}><h1>2016大選</h1></Link>
               </Items>
             </div>
             <SearchBox style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />

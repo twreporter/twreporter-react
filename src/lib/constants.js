@@ -3,6 +3,5 @@ export const categoryPath = {
   reviewPath: '/category/review',
   photographyPath: '/photography',
   intlPath: '/category/intl',
-  culturePath: '/category/culture',
-  electionPath: 'category/election'
+  culturePath: '/category/culture'
 }
