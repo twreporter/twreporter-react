@@ -20,7 +20,7 @@ export default class MobileNaviBar extends Component {
   }
 
   render() {
-    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath } = categoryPath
+    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath, electionPath } = categoryPath
     let backgroundColor = '#FFF'
     let linkColor = 'black'
     let logo = '/asset/logo.png'
@@ -54,6 +54,7 @@ export default class MobileNaviBar extends Component {
             <Link style={{ color: linkColor }} to={culturePath}><h1>文化</h1></Link>
             <Link style={{ color: linkColor }} to={photographyPath}><h1>影像</h1></Link>
             <Link style={{ color: linkColor }} to={reviewPath}><h1>專欄</h1></Link>
+            <Link style={{ color: linkColor }} to={electionPath}><h1>2016大選</h1></Link>
           </div>
         </div>
       </Sticky>
