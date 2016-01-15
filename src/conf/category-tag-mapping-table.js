@@ -3,5 +3,6 @@ export default {
   media: 'cat:媒體',
   review: 'review',
   intl: 'cat:國際',
-  culture: 'cat:文化'
+  culture: 'cat:文化',
+  election: 'election'
 }
