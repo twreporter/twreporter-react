@@ -2,10 +2,33 @@
   from {
     opacity: 0;
     transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
   }
   to {
     opacity: 1;
     transform : translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes item-animation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform : translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
   }
 }
 
@@ -36,6 +59,9 @@
   text-align: center;
   font-size: 135%;
   animation: item-animation .3s linear forwards;
+  -webkit-animation-name: item-animation;
+    -webkit-animation-duration: .3s;
+    -webkit-animation-timing-function: linear;
 }
 
 .nav-icon {
