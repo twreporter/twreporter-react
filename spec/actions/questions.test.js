@@ -1,5 +1,5 @@
 import { CALL_API } from 'middleware/api';
-import config from '../../../config';
+import config from '../../config';
 
 // setup
 import * as actionCreator from 'actions/questions';

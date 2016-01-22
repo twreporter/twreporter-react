@@ -15,7 +15,7 @@ import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
-import config from '../../config'
+import config from '../config'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
