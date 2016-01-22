@@ -1,4 +1,5 @@
 import { CALL_API } from 'middleware/api';
+import config from '../../../config';
 
 // setup
 import * as actionCreator from 'actions/questions';
@@ -13,7 +14,7 @@ describe('Action::Question', function(){
       // verify
       expect(action[CALL_API]).to.deep.equal({
         method: 'get',
-        url: 'http://localhost:3000/questions',
+        url: `http://localhost:${config.port}/questions`,
         successType: ActionType.LOADED_QUESTIONS
       });
     });

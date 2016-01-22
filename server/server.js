@@ -15,9 +15,10 @@ import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
+import config from '../../config'
 
 const server = new Express()
-const targetUrl = 'http://localhost:3000'
+const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
 // create a proxy server to serve the API requests
 const proxy = httpProxy.createProxyServer({
   target: targetUrl
