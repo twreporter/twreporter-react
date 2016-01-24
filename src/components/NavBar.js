@@ -37,18 +37,15 @@ export default class NaviBar extends Component {
   _render() {
     return (
       <div>
-        <div className="mobile-nav">
-          {this._renderMobile()}
-        </div>
-        <div className="desktop-nav">
-          <DesktopNavBar {...this.props}/>
-        </div>
+        {this._renderMobile()}
+        {this._renderDesktop()}
       </div>
     )
   }
   render() {
-    const { device } = this.context
-    return  device !== 'mobile' ? this._renderDesktop() : this._renderMobile()
+    // const { device } = this.context
+    // return  device !== 'mobile' ? this._renderDesktop() : this._renderMobile()
+    return this._render()
   }
 }
 
