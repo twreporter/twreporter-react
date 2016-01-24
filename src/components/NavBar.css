@@ -83,12 +83,15 @@ and (max-device-width : 1035px) {
 
 @media
 only screen
-and (max-width: 414px),
+and (max-width: 768px),
 only screen
-and (max-device-width : 414px) {
+and (max-device-width : 768px) {
   .mobile-nav {
     display: block;
     position: relative;
+  }
+  .desktop-nav {
+    display: none;
   }
   .nav-logo {
     margin-left: 0.7em;
