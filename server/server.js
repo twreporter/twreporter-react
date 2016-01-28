@@ -8,14 +8,21 @@ import createLocation from 'history/lib/createLocation'
 import { RoutingContext, match } from 'react-router'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
 import Promise from 'bluebird'
+import httpProxy from 'http-proxy'
 
 import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
+import config from '../config'
 
-let server = new Express()
+const server = new Express()
+const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
+// create a proxy server to serve the API requests
+const proxy = httpProxy.createProxyServer({
+  target: targetUrl
+})
 
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
@@ -40,6 +47,10 @@ server.get('/robots.txt', (req, res) => {
       res.status(200).render('robots')
     }
   })
+})
+// proxy to the API server
+server.use('/api', (req, res) => {
+  proxy.web(req, res, { target: targetUrl } )
 })
 
 server.get('*', (req, res) => {

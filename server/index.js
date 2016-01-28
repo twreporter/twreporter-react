@@ -1,8 +1,8 @@
 'use strict'
+import config from '../config'
 require('babel-core/register')
 
-let port = 3000
-let server = require('./server.js')
+const server = require('./server.js')
 
-console.log(`Server is listening to port: ${port}`) //eslint-disable-line no-console
-server.listen(port)
+console.log(`Server is listening to port: ${config.port}`) //eslint-disable-line no-console
+server.listen(config.port)

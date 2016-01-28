@@ -7,3 +7,5 @@ static/main.css
 .jshintrc
 npm-debug.log
 err.log
+
+.idea/
