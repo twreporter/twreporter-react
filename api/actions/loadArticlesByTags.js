@@ -6,7 +6,8 @@ export default function loadArticlesByTags(req) {
   return new Promise((resolve, reject) => {
     const query = req.query
     let params = qs.parse(query)
-    const url = config.API + '/tags'
+    const { API_PROTOCOL, API_HOST, API_PATH } = config
+    const url = API_PROTOCOL + '://' + API_HOST + API_PATH + '/tags'
 
     superAgent['post'](url)
     .timeout(500)
