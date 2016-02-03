@@ -1,3 +1,4 @@
+/*eslint no-console: 0*/
 import Compression from 'compression'
 import Express from 'express'
 import path from 'path'
@@ -50,7 +51,20 @@ server.get('/robots.txt', (req, res) => {
 })
 // proxy to the API server
 server.use('/api', (req, res) => {
-  proxy.web(req, res, { target: targetUrl } )
+  proxy.web(req, res)
+})
+
+// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
+proxy.on('error', (error, req, res) => {
+  let json
+  if (error.code !== 'ECONNRESET') {
+    console.error('proxy error', error)
+  }
+  if (!res.headersSent) {
+    res.writeHead(500, { 'content-type': 'application/json' })
+  }
+  json = { error: 'proxy_error', reason: error.message }
+  res.end(JSON.stringify(json))
 })
 
 server.get('*', (req, res) => {
