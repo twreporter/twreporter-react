@@ -48,7 +48,10 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: true
-      }
+      },
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
     }),
     new ExtractTextPlugin('[name].css')
   ],

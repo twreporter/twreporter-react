@@ -3,4 +3,6 @@
 **/static/*
 karma.conf.js
 webpack*.js
-browsersync-server.js
+bin/browsersync-server.js
+bin/api.js
+server.babel.js
