@@ -2,7 +2,7 @@
 **/spec/*
 **/static/*
 karma.conf.js
-webpack*.js
-bin/browsersync-server.js
+webpack/*
+bin/server.js
 bin/api.js
 server.babel.js
