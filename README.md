@@ -1,6 +1,9 @@
 # TW Reporter
 New Media foundation in Taiwan.
 
+# Installation
+    $ npm install
+    
 # Development
 
     $ npm run dev
