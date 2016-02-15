@@ -3,15 +3,13 @@ New Media foundation in Taiwan.
 
 # Development
 
-    $ npm install
+    $ npm run dev
+  
+# Production
+    $ npm run build; npm run start
 
-Start the server
-
-    $ npm start
-
-Run tests
-
-    $ npm test
+# Reference
+https://github.com/erikras/react-redux-universal-hot-example
 
 # License
 
