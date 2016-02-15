@@ -13,5 +13,9 @@ module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT,
   apiHost: process.env.APIHOST || 'localhost',
-  apiPort: process.env.APIPORT
+  apiPort: process.env.APIPORT,
+  app: {
+    title: '報導者The Reporter',
+    description: 'All the modern best practices in one example.'
+  }
 }, environment)

@@ -3,12 +3,16 @@
   "version": "0.0.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
-    "dev": "concurrent --kill-others \"npm run start-dev-api\" \"npm run start-dev\" ", 
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-api\" \"npm run start-dev\" ",
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
+    "watch-client": "better-npm-run watch-client",
     "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
     "start-prod": "better-npm-run start-prod",
     "start-prod-api": "better-npm-run start-prod-api",
+    "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+    "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
+    "lint": "eslint -c .eslintrc src server api",
     "production": "webpack -p --progress && forever -e err.log server/index.js",
     "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
     "lint": "eslint .",
@@ -16,7 +20,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "forever start -e err.log ./server/server.js",
+      "command": "forever start -e err.log ./bin/server.js",
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
@@ -33,7 +37,7 @@
       }
     },
     "start-dev": {
-      "command": "node ./bin/browsersync-server.js",
+      "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "development",
@@ -47,6 +51,13 @@
         "NODE_PATH": "./api",
         "NODE_ENV": "development",
         "APIPORT": 3030
+      }
+    },
+    "watch-client": {
+      "command": "node webpack/webpack-dev-server.js",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./src"
       }
     }
   },
@@ -77,6 +88,7 @@
     "better-npm-run": "0.0.5",
     "bluebird": "^2.10.0",
     "classnames": "^2.2.1",
+    "clean-webpack-plugin": "^0.1.4",
     "concurrently": "^0.1.1",
     "css-loader": "^0.23.1",
     "ejs": "^2.3.4",
@@ -115,11 +127,12 @@
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
     "superagent": "^1.4.0",
-    "webpack": "^1.9.11"
+    "webpack": "^1.9.11",
+    "webpack-isomorphic-tools": "^2.2.18"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta6",
-    "babel-plugin-react-transform": "^2.0.0-beta1",
+    "babel-plugin-react-transform": "^2.0.0",
     "browser-sync": "^2.10.1",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",

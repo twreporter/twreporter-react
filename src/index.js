@@ -1,5 +1,3 @@
-require('babel-core/register')
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
@@ -23,7 +21,6 @@ if (window.__REDUX_STATE__) {
 
 const store = configureStore(reduxState)
 const device = store.getState().device
-
 ReactDOM.render((
   <Provider store={store}>
     <DeviceProvider device={device}>
