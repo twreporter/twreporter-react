@@ -1,11 +1,14 @@
 # TW Reporter
 New Media foundation in Taiwan.
 
+# Environment
+  Install node(https://nodejs.org/en/) v5.x.x first.
+  
+
 # Installation
     $ npm install
-    
-# Development
 
+# Development
     $ npm run dev
   
 # Production
