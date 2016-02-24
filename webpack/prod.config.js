@@ -7,8 +7,8 @@ var CleanPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var strip = require('strip-loader');
 
-var relativeAssetsPath = '../static/dist';
-var assetsPath = path.join(__dirname, relativeAssetsPath);
+var projectRootPath = path.resolve(__dirname, '../');
+var assetsPath = path.resolve(projectRootPath, './static/dist');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -50,14 +50,21 @@ module.exports = {
       'src',
       'node_modules'
     ],
-    extensions: ['', '.json', '.js', '.jsx']
+    extensions: ['', '.json', '.js', '.jsx'],
+    alias: {
+      ScrollMagic: 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
+    }
   },
   plugins: [
-    new CleanPlugin([relativeAssetsPath]),
+    new CleanPlugin([assetsPath], { root: projectRootPath }),
 
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
     new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"',
+        BROWSER: true
+      },
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: false,
@@ -66,14 +73,6 @@ module.exports = {
 
     // ignore dev config
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
-
-    // set global vars
-    new webpack.DefinePlugin({
-      'process.env': {
-        // Useful to reduce the size of client-side libraries, e.g. react
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
 
     // optimizations
     new webpack.optimize.DedupePlugin(),
