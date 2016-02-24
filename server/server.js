@@ -1,3 +1,5 @@
+/*eslint no-console: 0*/
+/*global __DEVELOPMENT__ webpackIsomorphicTools */
 import Compression from 'compression'
 import Express from 'express'
 import path from 'path'
@@ -8,14 +10,21 @@ import createLocation from 'history/lib/createLocation'
 import { RoutingContext, match } from 'react-router'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
 import Promise from 'bluebird'
+import httpProxy from 'http-proxy'
 
 import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
+import config from './config'
 
-let server = new Express()
+const server = new Express()
+const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
+// create a proxy server to serve the API requests
+const proxy = httpProxy.createProxyServer({
+  target: targetUrl
+})
 
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
@@ -41,8 +50,30 @@ server.get('/robots.txt', (req, res) => {
     }
   })
 })
+// proxy to the API server
+server.use('/api', (req, res) => {
+  proxy.web(req, res)
+})
+
+// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
+proxy.on('error', (error, req, res) => {
+  let json
+  if (error.code !== 'ECONNRESET') {
+    console.error('proxy error', error)
+  }
+  if (!res.headersSent) {
+    res.writeHead(500, { 'content-type': 'application/json' })
+  }
+  json = { error: 'proxy_error', reason: error.message }
+  res.end(JSON.stringify(json))
+})
 
 server.get('*', (req, res) => {
+  if (__DEVELOPMENT__) {
+    // Do not cache webpack stats: the script file would change since
+    // hot module replacement is enabled in the development env
+    webpackIsomorphicTools.refresh()
+  }
   let history = createMemoryHistory()
   let store = configureStore()
 
@@ -86,9 +117,17 @@ server.get('*', (req, res) => {
             </DeviceProvider>
           </Provider>
         )
+        let assets = webpackIsomorphicTools.assets()
+        {/* styles (will be present only in production with webpack extract text plugin) */}
+        let styles = ''
+        {
+          Object.keys(assets.styles).map((style, key) => {
+            styles += ReactDOMServer.renderToString(<link href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
+          }
+        )}
 
         if ( getCurrentUrl() === reqUrl ) {
-          res.render('index', { html, reduxState })
+          res.render('index', { html, reduxState, styles, javascript: assets.javascript.main })
         } else {
           res.redirect(302, getCurrentUrl())
         }
@@ -110,5 +149,17 @@ server.get('*', (req, res) => {
     ]
   }
 })
+
+if (config.port) {
+  server.listen(config.port, (err) => {
+    if (err) {
+      console.error(err)
+    }
+    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)
+    console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port)
+  })
+} else {
+  console.error('==>     ERROR: No PORT environment variable has been specified')
+}
 
 module.exports = server

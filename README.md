@@ -1,17 +1,21 @@
 # TW Reporter
 New Media foundation in Taiwan.
 
-# Development
+# Environment
+  Install node(https://nodejs.org/en/) v5.x.x first.
+  
 
+# Installation
     $ npm install
 
-Start the server
+# Development
+    $ npm run dev
+  
+# Production
+    $ npm run build; npm run start
 
-    $ npm start
-
-Run tests
-
-    $ npm test
+# Reference
+https://github.com/erikras/react-redux-universal-hot-example
 
 # License
 

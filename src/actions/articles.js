@@ -7,8 +7,6 @@ export const LOADED_MULTI_TAGGED_ARTICLES_FAILURE = 'LOADED_MULTI_TAGGED_ARTICLE
 export const LOADED_ARTICLES_SUCCESS = 'LOADED_ARTICLES_SUCCESS'
 export const LOADED_ARTICLES_FAILURE = 'LOADED_ARTICLES_FAILURE'
 
-const API_URL = 'https://www.twreporter.org/api/'
-
 function fetchArticlesByTags(tags) {
   let params = {}
   tags = Array.isArray(tags) ? tags : [ tags ]
@@ -17,8 +15,8 @@ function fetchArticlesByTags(tags) {
   }
   return {
     [CALL_API]: {
-      method: 'post',
-      url: API_URL + '/tags',
+      method: 'get',
+      path: '/tags',
       params,
       tags,
       types: [ LOADED_ARTICLES_REQUEST, LOADED_MULTI_TAGGED_ARTICLES_SUCCESS, LOADED_MULTI_TAGGED_ARTICLES_FAILURE ]
@@ -30,7 +28,7 @@ function fetchArticles(params, tags) {
   return {
     [CALL_API]: {
       method: 'get',
-      url: API_URL + '/article',
+      path: '/article',
       params,
       tags,
       types: [ LOADED_ARTICLES_REQUEST, LOADED_ARTICLES_SUCCESS, LOADED_ARTICLES_FAILURE ]

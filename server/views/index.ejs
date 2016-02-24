@@ -20,7 +20,6 @@
       <meta name="twitter:title" content="報導者－深入挖掘新聞">
       <meta name="twitter:description" content="" />
       <link rel="canonical" href="https://www.twreporter.org/"/>
-      <link rel="stylesheet" type="text/css" href="/main.css">
       <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/a/rss2.xml" />
       <!-- reset css for cross browser-->
       <link rel="stylesheet" type="text/css" href="https://www.twreporter.org/asset/reset.css">
@@ -52,12 +51,13 @@
         </script>
         <!-- End Google Analytics -->
       </script>
+      <%- styles %>
   </head>
   <body>
     <div id="root"><%- html %></div>
     <script type="text/javascript" charset="utf-8">
       window.__REDUX_STATE__ = '<%= reduxState %>';
     </script>
-    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+    <script type="text/javascript" charset="utf-8" src='<%- javascript %>'></script>
   </body>
 </html>
