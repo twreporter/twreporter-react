@@ -2,6 +2,7 @@ bundle.js
 node_modules/
 static/main.js
 static/main.css
+static/dist
 
 .jshintignore
 .jshintrc
@@ -9,3 +10,4 @@ npm-debug.log
 err.log
 
 .idea/
+webpack-assets.json
