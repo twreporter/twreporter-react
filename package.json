@@ -131,6 +131,7 @@
     "webpack-isomorphic-tools": "^2.2.18"
   },
   "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
     "babel-eslint": "^5.0.0-beta6",
     "babel-plugin-react-transform": "^2.0.0",
     "browser-sync": "^2.10.1",
@@ -152,9 +153,11 @@
     "karma-spec-reporter": "0.0.20",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.3",
+    "node-sass": "^3.4.2",
     "nock": "^2.17.0",
     "precommit-hook": "^3.0.0",
     "react-transform-hmr": "^1.0.1",
+    "sass-loader": "^3.1.2",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0",
     "strip-ansi": "^3.0.0",
