@@ -1,5 +1,6 @@
 /*eslint no-console: 0*/
 /*global __DEVELOPMENT__ webpackIsomorphicTools */
+import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
 import path from 'path'
