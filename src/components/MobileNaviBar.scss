@@ -87,6 +87,11 @@
   animation: item-animation .3s linear forwards;
 }
 
+.active h1 {
+  padding-bottom: 8px;
+  border-bottom: 3px solid $gray;
+}
+
 .navIcon {
   width: 40px;
   height: 35px;
@@ -110,7 +115,7 @@
   position: absolute;
   height: 4px;
   width: 100%;
-  background: #BEC0BC;
+  background: $gray;
   opacity: 1;
   left: 0;
   -webkit-transform: rotate(0deg);
@@ -124,7 +129,7 @@
 }
 
 .iconOpen span {
-  background: black;
+  background: $gray;
 }
 
 .navIcon span:nth-child(1) {
