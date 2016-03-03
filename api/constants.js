@@ -1,7 +1,7 @@
 let config = {
-  API_PROTOCOL: 'https',
-  API_HOST: 'www.twreporter.org',
-  API_PATH: '/api'
+  API_PROTOCOL: 'http',
+  API_HOST: 'api.twreporter.org',
+  API_PATH: ''
 }
 
 export default config
