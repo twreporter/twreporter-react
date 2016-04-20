@@ -1,23 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { categoryPath } from '../lib/constants'
+import { navPath } from '../lib/constants'
+import SubNavBar from './SubNavBar'
+import SearchBox from './SearchBox'
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
-}
-
-class SearchBox extends Component {
-  constructor(props, context) {
-    super(props, context)
-  }
-  render() {
-    return (
-      <div className="searchbox" style={this.props.style}>
-        <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
-      </div>
-    )
-  }
 }
 
 class Items extends Component {
@@ -52,15 +41,21 @@ export default class DesktopNavBar extends Component {
   }
   render() {
     const { bgStyle, path } = this.props
-    const { taiwanPath, reviewPath, photographyPath, culturePath, intlPath } = categoryPath
     let backgroundColor = '#FFF'
     let color = '#000'
     let logo = '/asset/logo.png'
+    let navLinks = []
+
     if (bgStyle === 'dark') {
       backgroundColor = '#3e3a39'
       color = '#FFF'
       logo = 'asset/logo_dark.png'
     }
+
+    for (let i in navPath) {
+      navLinks.push(<Link key={i} style={{ color: color }} to={navPath[i].path}><h1>{navPath[i].title}</h1></Link>)
+    }
+
     return (
       <div className="nav-menu" style={{ backgroundColor: backgroundColor }}>
         <div className="nav-logo-category">
@@ -68,16 +63,13 @@ export default class DesktopNavBar extends Component {
             <Link to="/"><img src={logo} height="50px" width="auto" /></Link>
             <div className="nav-category">
               <Items path={path} bgStyle={bgStyle}>
-                <Link style={{ color: color }} to={taiwanPath}><h1>台灣</h1></Link>
-                <Link style={{ color: color }} to={intlPath}><h1>國際兩岸</h1></Link>
-                <Link style={{ color: color }} to={culturePath}><h1>文化</h1></Link>
-                <Link style={{ color: color }} to={photographyPath}><h1>影像</h1></Link>
-                <Link style={{ color: color }} to={reviewPath}><h1>專欄</h1></Link>
+                {navLinks}
               </Items>
             </div>
-            <SearchBox style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />
+            <SearchBox class="searchbox" style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />
           </div>
         </div>
+        <SubNavBar {...this.props}/>
       </div>
     )
   }

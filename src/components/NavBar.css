@@ -3,10 +3,11 @@
 }
 
 .nav-menu {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in;
 }
 
 .nav-logo-category {
@@ -33,12 +34,13 @@
   vertical-align: middle;
 }
 .menu-item {
-    color: #000;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-    display: inline;
-    font-size: 16px;
-    font-weight: 600;
-    margin-right: 40px;
+  color: #000;
+  font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  display: inline;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 40px;
+  transition: border 0.3s ease-in;
 }
 .menu-item h1 {
   display: inline-block;
@@ -105,4 +107,9 @@ and (max-device-width : 768px) {
   .searchbox {
     display: none;
   }
+}
+
+.gsc-control-cse {
+  border: none !important;
+  background-color: transparent !important;
 }

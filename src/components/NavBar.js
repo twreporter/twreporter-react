@@ -23,7 +23,7 @@ export default class NaviBar extends Component {
   _renderMobile() {
     return (
       <div className="mobile-nav">
-        <MobileNavBar bgStyle={this.props.bgStyle}/>
+        <MobileNavBar {...this.props}/>
       </div>
     )
   }

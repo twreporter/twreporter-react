@@ -1,0 +1,158 @@
+@import '../themes/variables';
+$item-height: 32px;
+
+.outer {
+  @include media(">bp1Width") {
+    float: right;
+  }
+  @include media("<bp1Width") {
+    padding-bottom: 0.2em;
+    margin-top: -0.5em;
+  }
+}
+
+.mobile-link-item {
+  font-family: $sansSerif;
+  @include media("<bp1Width") {
+    margin: 0.5em 0.7em;
+    padding: 0.65em;
+    h1 {
+      font-size: 19px;
+    }
+  }
+}
+
+.subnav {
+  @include media(">bp1Width") {
+    height: $item-height;
+    max-height: 32px;
+    overflow: hidden;
+  }
+  @include media("<bp1Width") {
+    width: 100%;
+  }
+  transition: background-color 0.3s ease-in;
+
+  .items {
+    @include media(">bp1Width") {
+      display: inline-block;
+      padding: 8px;
+    }
+  }
+
+  .borderLine {
+    @include media(">bp1Width") {
+      border-right: 2px solid $gray;
+    }
+  }
+
+  .item {
+    @extend .mobile-link-item;
+    color: $black;
+    @include media(">bp1Width") {
+      float: left;
+      display: inline;
+      padding: 0 40px;
+    }
+
+    @include media("<bp1Width") {
+      background-color: $white;
+    }
+
+    font-size: 16px;
+    font-weight: 600;
+    position: relative;
+    &:before {
+    	position: absolute;
+    	content: "";
+    	top: 50%;
+    	-webkit-transform: translateY(-50%);
+    	-moz-transform: translateY(-50%);
+    	-o-transform: translateY(-50%);
+    	-ms-transform: translateY(-50%);
+    	transform: translateY(-50%);
+    	margin-left: -15px;
+    	width: 0;
+    	height: 0;
+    	border-top: 7px solid transparent;
+    	border-bottom: 7px solid transparent;
+    	border-left: 7px solid $brand-primary;
+      transition: opacity 0.5s ease-in;
+      opacity: 0;
+  	}
+  }
+
+  .active {
+    &:before {
+    	opacity: 1;
+  	}
+  }
+
+  .links {
+    @include media(">bp1Width") {
+      float: right;
+    }
+  }
+
+  .inlineBtn {
+    @include media(">bp1Width") {
+      display: inline-block;
+    }
+  }
+
+  .donateBtn {
+    @extend .mobile-link-item;
+    padding: 8px;
+    background-color: $red;
+    border-bottom: 1px solid $red;
+
+    @include media(">bp1Width") {
+      float: right;
+    }
+
+    &:before {
+      width: 0;
+      height: 0;
+      border-bottom: $item-height solid $red;
+      border-left: $item-height solid transparent;
+    }
+
+    h1 {
+      padding: 0 30px 0 25px;
+    }
+
+    a {
+      color: $white;
+    }
+  }
+
+  .triangle {
+    // red triangle decoration
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-bottom: 33px solid $red;
+    border-left: 16px solid transparent;
+    @include media("<bp1Width") {
+      display: none;
+    }
+  }
+
+}
+
+.white {
+  @include media(">bp1Width") {
+    background-color: $subnav-background;
+    color: $white;
+    a {
+      color: $white;
+    }
+  }
+}
+
+.dark {
+  @include media(">bp1Width") {
+    background-color: $white;
+    color: $subnav-background;
+  }
+}
