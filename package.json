@@ -19,7 +19,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "forever start -e err.log ./bin/server.js",
+      "command": "forever -e err.log ./bin/server.js",
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
@@ -28,7 +28,7 @@
       }
     },
     "start-prod-api": {
-      "command": "forever start ./bin/api.js",
+      "command": "forever ./bin/api.js",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
