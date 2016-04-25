@@ -14,7 +14,7 @@
     "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src server api",
     "production": "webpack -p --progress && forever -e err.log server/index.js",
-    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
+    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' ",
     "validate": "npm ls"
   },
   "betterScripts": {
@@ -92,8 +92,10 @@
     "concurrently": "^0.1.1",
     "css-loader": "^0.23.1",
     "ejs": "^2.3.4",
+    "expect": "^1.18.0",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.9.1",
+    "fetch-mock": "^4.4.0",
     "history": "^1.17.0",
     "http-proxy": "^1.12.0",
     "humps": "^0.6.0",
@@ -119,6 +121,7 @@
     "react-transform-hmr": "^1.0.1",
     "redux": "^3.0.0",
     "redux-logger": "^1.0.9",
+    "redux-mock-store": "^1.0.2",
     "redux-router": "^1.0.0-beta4",
     "redux-thunk": "^0.1.0",
     "rewire": "^2.3.4",
@@ -165,6 +168,7 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "test"
   ]
 }
