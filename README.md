@@ -21,7 +21,10 @@ It uses server-side(universal) rendering, and also integrate ```Webpack Hot Midd
 Since Redux see its state as single source of truth, we store our own data like the plain object below.
 ```
 {
-  selectedArticle: 'i-am-a-article-slug',
+  selectedArticle: {
+    isFetching: true,
+    slug: 'i-am-a-article-slug',
+  }
   entities: {
     athours: {
       2: {
