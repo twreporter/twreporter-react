@@ -22,7 +22,7 @@ Since Redux see its state as single source of truth, we store our own data like 
 ```
 {
   selectedArticle: {
-    isFetching: true,
+    isFetching: false,
     slug: 'i-am-a-article-slug',
     error: null,
     lastUpdated: 1461656746427
