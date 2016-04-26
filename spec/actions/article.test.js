@@ -10,6 +10,9 @@ import mockArticle from './mocks/article'
 import nock from 'nock'
 import thunk from 'redux-thunk'
 
+// for formatURl function in src/utils/index.js
+global.__SERVER__ = true
+
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 const mockSlug = 'i-am-a-slug'

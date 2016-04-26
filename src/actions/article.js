@@ -2,6 +2,7 @@
 
 'use strict'
 import { camelizeKeys } from 'humps'
+import { formatUrl } from '../utils/index'
 import { normalize } from 'normalizr'
 import articleSchema from '../schemas/article-schema'
 import config from '../../server/config'
@@ -35,7 +36,7 @@ function receiveArticle(response) {
 function fetchArticle(slug) {
   return dispatch => {
     dispatch(requestArticle(slug))
-    return fetch(`http://${config.apiHost}:${config.apiPort}/posts/${slug}`)
+    return fetch(formatUrl(`posts/${slug}`))
     .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from API')

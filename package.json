@@ -24,7 +24,9 @@
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
         "PORT": 3000,
-        "APIPORT": 3030
+        "APIHOST": "localhost",
+        "APIPORT": 3030,
+        "APIPROTOCOL": "http"
       }
     },
     "start-prod-api": {
@@ -41,7 +43,9 @@
         "NODE_PATH": "./server",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "APIPORT": 3030
+        "APIHOST": "localhost",
+        "APIPORT": 3030,
+        "APIPROTOCOL": "http"
       }
     },
     "start-dev-api": {
