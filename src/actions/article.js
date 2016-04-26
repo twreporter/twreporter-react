@@ -1,16 +1,12 @@
 /*eslint no-unused-vars: 1*/
 
 'use strict'
+import { camelizeKeys } from 'humps'
+import { normalize } from 'normalizr'
+import articleSchema from '../schemas/article-schema'
 import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import * as types from '../constants/action-types'
-
-export function selectArticle(slug) {
-  return {
-    type: types.SELECT_ARTICLE,
-    slug
-  }
-}
 
 function requestArticle(slug) {
   return {
@@ -28,11 +24,10 @@ function failToReceiveArticle(slug, error) {
   }
 }
 
-function receiveArticle(slug, article) {
+function receiveArticle(response) {
   return {
     type: types.FETCH_ARTICLE_SUCCESS,
-    slug,
-    article,
+    response,
     receivedAt: Date.now()
   }
 }
@@ -47,8 +42,9 @@ function fetchArticle(slug) {
       }
       return response.json()
     })
-    .then((article) => {
-      dispatch(receiveArticle(slug, article))
+    .then((response) => {
+      const camelizedJson = camelizeKeys(response)
+      dispatch(receiveArticle(normalize(camelizedJson, articleSchema)))
     }, (error) => {
       dispatch(failToReceiveArticle(slug, error))
     })

@@ -1,18 +1,18 @@
 'use strict'
+import { expect } from 'chai'
 import {
   merge
 } from 'lodash'
 import * as actions from '../../src/actions/article'
 import * as types from '../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
-import { expect } from 'chai' // You can use any testing library
+import mockArticle from './mocks/article'
 import nock from 'nock'
 import thunk from 'redux-thunk'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 const mockSlug = 'i-am-a-slug'
-const mockArticle =  {slug: mockSlug, id: 1}
 const mockDefaultStore = {
   selectedArticle: '',
   entities: {
@@ -39,10 +39,17 @@ describe('article action', () => {
 
     return store.dispatch(actions.fetchArticleIfNeeded(mockSlug))
       .then(() => { // return of async actions
+        const action = store.getActions()[1]
         expect(store.getActions()[0]).to.deep.equal(expectedActions[0])
-        expect(store.getActions()[1].type).to.deep.equal(expectedActions[1].type)
-        expect(store.getActions()[1].slug).to.deep.equal(expectedActions[1].slug)
-        expect(store.getActions()[1].article).to.deep.equal(expectedActions[1].article)
+        expect(action.type).to.deep.equal(expectedActions[1].type)
+        expect(action.response).to.be.an('object')
+        expect(action.response.entities).to.be.an('object')
+        expect(action.response.entities.articles).to.be.an('object')
+        expect(action.response.entities.articles.hasOwnProperty('test')).to.be.true
+        expect(action.response.entities.authors).to.be.an('object')
+        expect(action.response.entities.authors.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
+        expect(action.response.entities.authors.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true
+
       })
   })
 
