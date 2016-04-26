@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
 
+import Article from '../containers/Article'
 import Home from '../containers/Home'
 import Category from '../containers/Category'
 import Photography from '../containers/Photography'
@@ -30,6 +31,7 @@ export default function (history) {
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category}/>
         <Route path="photography" component={Photography}/>
+        <Route path="a/:article" component={Article}/>
       </Route>
     </Router>
   )
