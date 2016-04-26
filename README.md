@@ -24,6 +24,8 @@ Since Redux see its state as single source of truth, we store our own data like 
   selectedArticle: {
     isFetching: true,
     slug: 'i-am-a-article-slug',
+    error: null,
+    lastUpdated: 1461656746427
   }
   entities: {
     athours: {
@@ -56,18 +58,21 @@ Since Redux see its state as single source of truth, we store our own data like 
   articlesByTags: {
     index: {
       isFetching: false,
+      error: null,
       total: 2,
       current: 2,
       items: ['i-am-a-article-slug', 'i-am-a-article-slug-2']
     },
     intl: {
       isFetching: true,
+      error: null,
       total: 0,
       current: 0,
       items: []
     },
     taiwan: {
       isFetching: false,
+      error: null,
       total: 1,
       current: 1,
       items: ['i-am-a-article-slug-2']
