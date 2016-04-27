@@ -45,13 +45,21 @@ Since Redux see its state as single source of truth, we store our own data like 
         id: '4',
         slug: 'i-am-a-article-slug',
         title: 'show me the twreporter article',
-        authors: [2, 3]
+        authors: [2, 3],
+        tags: [],
+        categories: [],
+        relatedStories: [],
+        ...
       },
       'i-am-a-article-slug-2': {
         id: 14,
         slug: 'i-am-a-article-slug-2',
         title: 'this is another article',
-        authors: [2]
+        authors: [2],
+        tags: [],
+        categories: [],
+        relatedStories: [],
+        ...
       }
     }
   },
