@@ -9,6 +9,7 @@ import configureMockStore from 'redux-mock-store'
 import mockArticle from './mocks/article'
 import nock from 'nock'
 import thunk from 'redux-thunk'
+import qs from 'qs'
 
 // for formatURl function in src/utils/index.js
 global.__SERVER__ = true
@@ -23,6 +24,7 @@ const mockDefaultStore = {
     articles: {}
   }
 }
+let query = qs.stringify({embedded: { authors: 1, tags:1, categories:1 }})
 
 describe('article action', () => {
   afterEach(() => {
@@ -31,7 +33,7 @@ describe('article action', () => {
 
   it('creates FETCH_ARTICLE_REQUEST and FETCH_ARTICLE_SUCCESS when article has been fetched', () => {
     nock('http://localhost:3030/')
-      .get(`/posts/${mockSlug}`)
+      .get(`/posts/${mockSlug}?${query}`)
       .reply(200, mockArticle)
 
     const expectedActions = [
@@ -59,7 +61,7 @@ describe('article action', () => {
   it('creates FETCH_ARTICLE_REQUEST and FETCH_ARTICLE_FAILURE when fetching article occurs error', () => {
 
     nock('http://localhost:3030/')
-      .get(`/posts/${mockSlug}`)
+      .get(`/posts/${mockSlug}?${query}`)
       .reply(404, {});
 
     const expectedActions = [
