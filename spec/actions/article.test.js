@@ -24,7 +24,7 @@ const mockDefaultStore = {
     articles: {}
   }
 }
-let query = qs.stringify({embedded: { authors: 1, tags:1, categories:1 }})
+let query = qs.stringify({embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } )})
 
 describe('article action', () => {
   afterEach(() => {

@@ -1,11 +1,11 @@
 /*eslint no-unused-vars: 1*/
 
 'use strict'
+import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl } from '../utils/index'
 import { normalize } from 'normalizr'
 import * as types from '../constants/action-types'
-import articleSchema from '../schemas/article-schema'
 import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
@@ -37,7 +37,7 @@ function receiveArticle(response) {
 function fetchArticle(slug) {
   return dispatch => {
     dispatch(requestArticle(slug))
-    let query = qs.stringify({ embedded: { authors: 1, tags:1, categories:1 } })
+    let query = qs.stringify({ embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } ) })
     return fetch(formatUrl(`posts/${slug}?${query}`))
     .then((response) => {
       if (response.status >= 400) {
