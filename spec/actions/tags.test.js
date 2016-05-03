@@ -1,9 +1,7 @@
+/*global afterEach, describe, it*/
 'use strict'
-import { camelizeKeys } from 'humps'
 import { expect } from 'chai'
 import { merge } from 'lodash'
-import { arrayOf, normalize } from 'normalizr'
-import { tag as tagSchema } from '../../src/schemas/index'
 import * as actions from '../../src/actions/tags'
 import * as types from '../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
@@ -20,9 +18,9 @@ const mockDefaultStore = {
   tags: {}
 }
 const mockStore = configureMockStore(middlewares)
-const mockTagsName = ['mock-tag-1', 'mock-tag-2'];
+const mockTagsName = [ 'mock-tag-1', 'mock-tag-2' ]
 
-let query = qs.stringify({ where: JSON.stringify( { name: { "$in":  mockTagsName } }) })
+let query = qs.stringify({ where: JSON.stringify( { name: { '$in':  mockTagsName } }) })
 
 describe('tags action', () => {
   afterEach(() => {
@@ -38,7 +36,7 @@ describe('tags action', () => {
       { type: types.FETCH_TAGS_REQUEST, tags: mockTagsName },
       { type: types.FETCH_TAGS_SUCCESS }
     ]
-    const store = mockStore(mockDefaultStore);
+    const store = mockStore(mockDefaultStore)
 
     return store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))
       .then(() => { // return of async actions
@@ -57,13 +55,13 @@ describe('tags action', () => {
 
     nock('http://localhost:3030/')
       .get(`/tags/?${query}`)
-      .reply(404, {});
+      .reply(404, {})
 
     const expectedActions = [
       { type: types.FETCH_TAGS_REQUEST, tags: mockTagsName },
       { type: types.FETCH_TAGS_FAILURE, tags: mockTagsName, error: new Error('Bad response from API') }
     ]
-    const store = mockStore(mockDefaultStore);
+    const store = mockStore(mockDefaultStore)
 
     return store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))
       .then(() => { // return of async actions
@@ -75,8 +73,7 @@ describe('tags action', () => {
   })
 
   it('does not create any action when tags are already fetched', () => {
-    const expectedActions = []
     const store = mockStore(merge({}, mockDefaultStore, { tags: { [mockTagsName[0]]: {}, [mockTagsName[1]]: {} } }))
-    expect(store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))).to.equal(undefined);
+    expect(store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))).to.equal(undefined)
   })
 })

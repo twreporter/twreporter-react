@@ -1,3 +1,5 @@
+/*global describe, it*/
+'use strict'
 import { expect } from 'chai'
 import reducer from '../../src/reducers/article'
 import * as types from '../../src/constants/action-types'
@@ -15,13 +17,11 @@ describe('article reducer', () => {
         type: types.FETCH_ARTICLE_REQUEST,
         slug: 'run-the-tests'
       })
-    ).to.deep.equal(
-        {
-          slug: 'run-the-tests',
-          isFetching: true,
-          error: null
-        }
-    )
+    ).to.deep.equal({
+      slug: 'run-the-tests',
+      isFetching: true,
+      error: null
+    })
   })
 
   it('should handle FETCH_ARTICLE_FAILURE', () => {
@@ -32,14 +32,12 @@ describe('article reducer', () => {
         error: new Error('Test Error'),
         failedAt: 1234567890
       })
-    ).to.deep.equal(
-        {
-          slug: 'run-the-tests',
-          isFetching: false,
-          error: new Error('Test Error'),
-          lastUpdated: 1234567890
-        }
-    )
+    ).to.deep.equal({
+      slug: 'run-the-tests',
+      isFetching: false,
+      error: new Error('Test Error'),
+      lastUpdated: 1234567890
+    })
   })
 
   it('should handle FETCH_ARTICLE_SUCCESS', () => {
@@ -52,13 +50,11 @@ describe('article reducer', () => {
         },
         receivedAt: 1234567890
       })
-    ).to.deep.equal(
-        {
-          slug: 'run-the-tests',
-          isFetching: false,
-          error: null,
-          lastUpdated: 1234567890
-        }
-    )
+    ).to.deep.equal({
+      slug: 'run-the-tests',
+      isFetching: false,
+      error: null,
+      lastUpdated: 1234567890
+    })
   })
 })
