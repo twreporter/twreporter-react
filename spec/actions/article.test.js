@@ -1,9 +1,7 @@
 /*global describe, afterEach, it*/
 'use strict'
 import { expect } from 'chai'
-import {
-  merge
-} from 'lodash'
+import { merge } from 'lodash'
 import * as actions from '../../src/actions/article'
 import * as types from '../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'

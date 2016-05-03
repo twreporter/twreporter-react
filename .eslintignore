@@ -1,5 +1,6 @@
 **/node_modules/*
 **/static/*
+spec/actions/mocks/*
 karma.conf.js
 webpack/*
 bin/server.js
