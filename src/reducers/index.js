@@ -2,9 +2,10 @@ import { combineReducers } from 'redux'
 import { merge } from 'lodash'
 import { routerStateReducer as router } from 'redux-router'
 import * as ActionTypes from '../actions'
-import selectedArticle from './article'
 import articles from './articles'
 import device from './device'
+import selectedArticle from './article'
+import tags from './tags'
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { articlesByTags: {}, selectedArticle: {} }, action) {
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   entities,
   device,
   selectedArticle,
+  tags,
   router
 })
 
