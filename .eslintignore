@@ -1,5 +1,4 @@
 **/node_modules/*
-**/spec/*
 **/static/*
 karma.conf.js
 webpack/*

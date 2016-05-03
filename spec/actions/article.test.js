@@ -1,3 +1,4 @@
+/*global describe, afterEach, it*/
 'use strict'
 import { expect } from 'chai'
 import {
@@ -24,7 +25,7 @@ const mockDefaultStore = {
     articles: {}
   }
 }
-let query = qs.stringify({embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } )})
+let query = qs.stringify({ embedded: JSON.stringify({ authors: 1, tags:1, categories:1 }) })
 
 describe('article action', () => {
   afterEach(() => {
@@ -40,7 +41,7 @@ describe('article action', () => {
       { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug },
       { type: types.FETCH_ARTICLE_SUCCESS, slug: mockSlug, article: mockArticle }
     ]
-    const store = mockStore(mockDefaultStore);
+    const store = mockStore(mockDefaultStore)
 
     return store.dispatch(actions.fetchArticleIfNeeded(mockSlug))
       .then(() => { // return of async actions
@@ -62,13 +63,13 @@ describe('article action', () => {
 
     nock('http://localhost:3030/')
       .get(`/posts/${mockSlug}?${query}`)
-      .reply(404, {});
+      .reply(404, {})
 
     const expectedActions = [
       { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug },
       { type: types.FETCH_ARTICLE_FAILURE, slug: mockSlug, error: new Error('Bad response from API') }
     ]
-    const store = mockStore(mockDefaultStore);
+    const store = mockStore(mockDefaultStore)
 
     return store.dispatch(actions.fetchArticleIfNeeded(mockSlug))
       .then(() => { // return of async actions
@@ -80,8 +81,7 @@ describe('article action', () => {
   })
 
   it('does not create any action when article is already fetched', () => {
-    const expectedActions = []
-    const store = mockStore(merge({}, mockDefaultStore, {entities: { articles: { [mockSlug]: mockArticle }}}))
-    expect(store.dispatch(actions.fetchArticleIfNeeded(mockSlug))).to.equal(undefined);
+    const store = mockStore(merge({}, mockDefaultStore, { entities: { articles: { [mockSlug]: mockArticle } } }))
+    expect(store.dispatch(actions.fetchArticleIfNeeded(mockSlug))).to.equal(undefined)
   })
 })
