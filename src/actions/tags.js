@@ -55,10 +55,10 @@ function fetchTags(tags) {
 }
 
 function dedupTags(state, tags) {
-  const existedTags = state.entities.tags
+  const existedTags = state.tags
   let rtn = []
   tags.forEach((tag) => {
-    if (!existedTags.hasOwnProperty(tag)) {
+    if (!existedTags.hasOwnProperty(tag) || existedTags[tag].error ) {
       rtn.push(tag)
     }
   })

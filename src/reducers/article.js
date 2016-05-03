@@ -1,5 +1,3 @@
-/*eslint no-console: 0*/
-/* global console */
 import * as types from '../constants/action-types'
 
 function article(state = {}, action) {

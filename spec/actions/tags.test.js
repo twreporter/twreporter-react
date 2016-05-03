@@ -17,9 +17,7 @@ global.__SERVER__ = true
 
 const middlewares = [ thunk ]
 const mockDefaultStore = {
-  entities: {
-    tags: {}
-  }
+  tags: {}
 }
 const mockStore = configureMockStore(middlewares)
 const mockTagsName = ['mock-tag-1', 'mock-tag-2'];
@@ -55,7 +53,7 @@ describe('tags action', () => {
       })
   })
 
-  it('creates FETCH_TAGS_REQUEST and FETCH_TAGS_FAILURE when fetching article occurs error', () => {
+  it('creates FETCH_TAGS_REQUEST and FETCH_TAGS_FAILURE when fetching tags occurs error', () => {
 
     nock('http://localhost:3030/')
       .get(`/tags/?${query}`)
@@ -76,9 +74,9 @@ describe('tags action', () => {
       })
   })
 
-  it('does not create any action when article is already fetched', () => {
+  it('does not create any action when tags are already fetched', () => {
     const expectedActions = []
-    const store = mockStore(merge({}, mockDefaultStore, normalize(camelizeKeys(mockTags).items, arrayOf(tagSchema))))
+    const store = mockStore(merge({}, mockDefaultStore, { tags: { [mockTagsName[0]]: {}, [mockTagsName[1]]: {} } }))
     expect(store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))).to.equal(undefined);
   })
 })
