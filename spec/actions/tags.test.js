@@ -75,6 +75,6 @@ describe('tags action', () => {
 
   it('does not create any action when tags are already fetched', () => {
     const store = mockStore(merge({}, mockDefaultStore, { tags: { [mockTagsName[0]]: {}, [mockTagsName[1]]: {} } }))
-    expect(store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))).to.equal(undefined)
+    expect(store.dispatch(actions.fetchTagsIfNeeded(mockTagsName))).to.be.an.instanceof(Promise)
   })
 })

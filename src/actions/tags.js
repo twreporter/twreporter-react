@@ -55,7 +55,7 @@ function fetchTags(tags) {
 }
 
 function dedupTags(state, tags) {
-  const existedTags = state.tags
+  const existedTags = state.tags || {}
   let rtn = []
   tags.forEach((tag) => {
     if (!existedTags.hasOwnProperty(tag) || existedTags[tag].error ) {
@@ -72,5 +72,6 @@ export function fetchTagsIfNeeded(tags) {
     if (deduppedTags.length !== 0) {
       return dispatch(fetchTags(deduppedTags))
     }
+    return Promise.resolve()
   }
 }
