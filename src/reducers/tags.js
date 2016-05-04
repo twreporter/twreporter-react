@@ -21,8 +21,10 @@ function tags(state = {}, action) {
       })
       return Object.assign({}, state, _tags)
     case types.FETCH_TAGS_SUCCESS:
-      action.response.result.map((tag) => {
-        _tags[tag] = {
+      let tagEntities = action.response.entities.tags
+      Object.keys(tagEntities).map((tagEntityId) => {
+        _tags[tagEntities[tagEntityId].name] = {
+          id: tagEntityId,
           error: null,
           isFetching: false,
           lastUpdated: action.receivedAt

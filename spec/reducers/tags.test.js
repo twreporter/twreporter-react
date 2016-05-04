@@ -58,18 +58,29 @@ describe('tags reducer', () => {
       reducer([], {
         type: types.FETCH_TAGS_SUCCESS,
         response: {
-          entities: {},
-          result: mockTagsName
+          entities: {
+            tags: {
+              'mock-tag-id-1': {
+                name: mockTagsName[0]
+              },
+              'mock-tag-id-2': {
+                name: mockTagsName[1]
+              }
+            }
+          },
+          result: [ 'mock-tag-id-1', 'mock-tag-id-2' ]
         },
         receivedAt: 1234567890
       })
     ).to.deep.equal({
       [mockTagsName[0]]: {
+        id: 'mock-tag-id-1',
         isFetching: false,
         error: null,
         lastUpdated: 1234567890
       },
       [mockTagsName[1]]: {
+        id: 'mock-tag-id-2',
         isFetching: false,
         error: null,
         lastUpdated: 1234567890
