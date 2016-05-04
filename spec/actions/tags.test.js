@@ -46,8 +46,9 @@ describe('tags action', () => {
         expect(action.response).to.be.an('object')
         expect(action.response.entities).to.be.an('object')
         expect(action.response.entities.tags).to.be.an('object')
-        expect(action.response.entities.tags.hasOwnProperty(mockTagsName[0])).to.be.true
-        expect(action.response.entities.tags.hasOwnProperty(mockTagsName[1])).to.be.true
+        expect(action.response.entities.tags.hasOwnProperty('572315331cece3ae858dffe3')).to.be.true
+        expect(action.response.entities.tags.hasOwnProperty('572315471cece3ae858dffe4')).to.be.true
+        expect(action.response.result).to.deep.equal([ '572315331cece3ae858dffe3', '572315471cece3ae858dffe4' ])
       })
   })
 
