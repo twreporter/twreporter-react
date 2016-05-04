@@ -67,5 +67,6 @@ export function fetchArticleIfNeeded(slug) {
     if (shouldFetchArticle(getState(), slug)) {
       return dispatch(fetchArticle(slug))
     }
+    return Promise.resolve()
   }
 }

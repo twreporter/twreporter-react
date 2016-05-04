@@ -80,6 +80,6 @@ describe('article action', () => {
 
   it('does not create any action when article is already fetched', () => {
     const store = mockStore(merge({}, mockDefaultStore, { entities: { articles: { [mockSlug]: mockArticle } } }))
-    expect(store.dispatch(actions.fetchArticleIfNeeded(mockSlug))).to.equal(undefined)
+    expect(store.dispatch(actions.fetchArticleIfNeeded(mockSlug))).to.be.an.instanceof(Promise)
   })
 })
