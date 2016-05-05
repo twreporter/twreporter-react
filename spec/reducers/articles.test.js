@@ -15,7 +15,7 @@ import thunk from 'redux-thunk'
 global.__SERVER__ = true
 
 const MOCKTAG = 'tag-1'
-const MOCKTAGID = '572315331cece3ae858dffe3'
+const MOCKTAGID = 'tag-id-1'
 const mockTagNames = [ MOCKTAG, 'tag-2' ]
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

@@ -81,6 +81,11 @@ function getNextUrl(state, tags, count, page) {
   const tagStr = tags.join()
   const existedTaggedArticles = state.taggedArticles || {}
   if (existedTaggedArticles[tagStr]) {
+    let taggedArticles = existedTaggedArticles[tagStr]
+    // articles are already loaded
+    if (taggedArticles.items.length >= count * page) {
+      return null
+    }
     return existedTaggedArticles[tagStr].nextUrl
   }
   // for the first time to get the tagged articles
