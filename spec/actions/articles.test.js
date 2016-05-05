@@ -128,6 +128,7 @@ describe('articles action', () => {
         [mockTagNames.join()]: {
           isFetching: false,
           error: null,
+          items: [ 'post-slug-1' ],
           // mock nextUrl
           nextUrl: `http://localhost:3030/posts?${qs.stringify(query)}`,
           articles: [ '572315c51cece3ae858dffe7' ]
@@ -136,6 +137,13 @@ describe('articles action', () => {
     })
 
     return store.dispatch(actions.fetchArticlesIfNeeded(mockTagNames, mockMaxResults, mockPage))
+    .then(() => {
+      // articles are already loaded,
+      // so there is no action sent
+      const actions = store.getActions()
+      expect(actions).to.deep.equal([])
+    }).then(() => {
+      store.dispatch(actions.fetchArticlesIfNeeded(mockTagNames, mockMaxResults, mockPage + 1))
       .then(() => { // return of async actions
         const actions = store.getActions()
         expect(actions[0]).to.deep.equal(expectedActions[0])
@@ -147,6 +155,7 @@ describe('articles action', () => {
         expect(actions[1].response.entities.articles).to.be.an('object')
         expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-2')).to.be.true
       })
+    })
   })
 
   it('handles fetching tags occurs error', () => {
