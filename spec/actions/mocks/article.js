@@ -6,9 +6,9 @@ export default {
   subtitle: '',
   name: 'test',
   tags: [ {
-    _id: '56d6f9dfdfc9580f0c6066ba',
-    name: 'photo1',
-    key: 'photo1',
+    _id: 'tag-id-1',
+    name: 'tag-1',
+    key: 'tag-1',
     __v: 0
   } ],
   title: '',
@@ -18,7 +18,7 @@ export default {
   og_description: '',
   _links: {
     self: {
-      href: 'posts/570f1beddb0ab7b51b7680c5',
+      href: 'posts/post-id-1',
       title: 'post'
     },
     collection: {
@@ -46,7 +46,7 @@ export default {
     name: 'mika'
   } ],
   og_title: '',
-  _id: '570f1beddb0ab7b51b7680c5',
+  _id: 'post-id-1',
   slug: 'test',
   categories: [],
   _created: 'Thu, 01 Jan 1970 00:00:00 GMT'

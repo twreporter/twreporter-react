@@ -17,7 +17,7 @@ global.__SERVER__ = true
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
-const mockTagNames = [ 'mock-tag-1' ]
+const mockTagNames = [ 'tag-1' ]
 const mockTagIds = [ mockTags._items[0]._id ]
 const mockPage = 1
 const mockMaxResults = 1

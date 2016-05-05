@@ -9,7 +9,7 @@ export default {
       name: "i-am-a-slug",
       tags: [
         {
-          _id: "572315331cece3ae858dffe3",
+          _id: "tag-id-1",
           name: "tag-1",
           key: "tag-1",
           __v: 0
@@ -22,7 +22,7 @@ export default {
       og_description: "",
       _links: {
         self: {
-          href: "posts/572178869d428b01700869bf",
+          href: "posts/post-id-2",
           title: "post"
         }
       },
@@ -45,7 +45,7 @@ export default {
         }
       ],
       og_title: "",
-      _id: "572178869d428b01700869bf",
+      _id: "post-id-2",
       slug: "i-am-a-slug-2",
       categories: [
         {
@@ -61,7 +61,7 @@ export default {
   ],
   _links: {
     self: {
-      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"572315331cece3ae858dffe3\"]}}",
+      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"tag-id-1\"]}}",
       title: "posts"
     },
     parent: {
