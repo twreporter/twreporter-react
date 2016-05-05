@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { merge } from 'lodash'
 import { routerStateReducer as router } from 'redux-router'
 import * as ActionTypes from '../actions'
-import articles from './articles'
+import taggedArticles from './articles'
 import device from './device'
 import selectedArticle from './article'
 import tags from './tags'
@@ -29,10 +29,10 @@ function errorMessage(state = null, action) {
 
 const rootReducer = combineReducers({
   errorMessage,
-  articles,
   entities,
   device,
   selectedArticle,
+  taggedArticles,
   tags,
   router
 })

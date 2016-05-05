@@ -17,7 +17,7 @@ global.__SERVER__ = true
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
-const mockTagNames = [ 'mock-tag-1' ]
+const mockTagNames = [ 'tag-1' ]
 const mockTagIds = [ mockTags._items[0]._id ]
 const mockPage = 1
 const mockMaxResults = 1
@@ -88,10 +88,10 @@ describe('articles action', () => {
         expect(actions[1].type).to.deep.equal(expectedActions[1].type)
         expect(actions[1].response).to.be.an('object')
         expect(actions[1].tags).to.deep.equal(expectedActions[1].tags)
-        expect(actions[1].response.result).to.deep.equal([ 'i-am-a-slug' ])
+        expect(actions[1].response.result).to.deep.equal([ 'post-slug-1' ])
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('i-am-a-slug')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-1')).to.be.true
         expect(actions[1].response.entities.tags).to.be.an('object')
         expect(actions[1].response.links).to.be.an('object')
         expect(actions[1].response.meta).to.be.an('object')
@@ -145,7 +145,7 @@ describe('articles action', () => {
         expect(actions[1].response.result.length).to.equal(1)
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('i-am-a-slug-2')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-2')).to.be.true
       })
   })
 

@@ -2,31 +2,31 @@ export default {
   _items: [
     {
       _updated: 'Thu, 01 Jan 1970 00:00:00 GMT',
-      name: 'mock-tag-1',
+      name: 'tag-1',
       __v: 0,
       _links: {
         self: {
-          href: 'tags/572315331cece3ae858dffe3',
+          href: 'tags/tag-id-1',
           title: 'tag'
         }
       },
-      key: 'mock-tag-1',
+      key: 'tag-1',
       _created: 'Thu, 01 Jan 1970 00:00:00 GMT',
-      _id: '572315331cece3ae858dffe3'
+      _id: 'tag-id-1'
     },
     {
       _updated: 'Thu, 01 Jan 1970 00:00:00 GMT',
-      name: 'mock-tag-2',
+      name: 'tag-2',
       __v: 0,
       _links: {
         self: {
-          href: 'tags/572315471cece3ae858dffe4',
+          href: 'tags/tag-id-2',
           title: 'tag'
         }
       },
-      key: 'mock-tag-2',
+      key: 'tag-2',
       _created: 'Thu, 01 Jan 1970 00:00:00 GMT',
-      _id: '572315471cece3ae858dffe4'
+      _id: 'tag-id-2'
     }
   ],
   _links: {

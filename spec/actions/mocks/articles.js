@@ -9,7 +9,7 @@ export default {
       name: "test page",
       tags: [
         {
-          _id: "572315331cece3ae858dffe3",
+          _id: "tag-id-1",
           name: "tag-1",
           key: "tag-1",
           __v: 0
@@ -22,7 +22,7 @@ export default {
       og_description: "",
       _links: {
         self: {
-          href: "posts/572315c51cece3ae858dffe7",
+          href: "posts/post-id-1",
           title: "post"
         }
       },
@@ -35,8 +35,8 @@ export default {
         }
       ],
       og_title: "",
-      _id: "572315c51cece3ae858dffe7",
-      slug: "i-am-a-slug",
+      _id: "post-id-1",
+      slug: "post-slug-1",
       categories: [
         {
           __v: 0,
@@ -51,11 +51,11 @@ export default {
   ],
   _links: {
     self: {
-      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"572315331cece3ae858dffe3\"]}}",
+      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"tag-id-1\"]}}",
       title: "posts"
     },
     last: {
-      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"572315331cece3ae858dffe3\"]}}&page=2",
+      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"tag-id-1\"]}}&page=2",
       title: "last page"
     },
     parent: {

@@ -18,7 +18,7 @@ const mockDefaultStore = {
   tags: {}
 }
 const mockStore = configureMockStore(middlewares)
-const mockTagsName = [ 'mock-tag-1', 'mock-tag-2' ]
+const mockTagsName = [ 'tag-1', 'tag-2' ]
 
 let query = qs.stringify({ where: JSON.stringify( { name: { '$in':  mockTagsName } }) })
 
@@ -46,9 +46,9 @@ describe('tags action', () => {
         expect(action.response).to.be.an('object')
         expect(action.response.entities).to.be.an('object')
         expect(action.response.entities.tags).to.be.an('object')
-        expect(action.response.entities.tags.hasOwnProperty('572315331cece3ae858dffe3')).to.be.true
-        expect(action.response.entities.tags.hasOwnProperty('572315471cece3ae858dffe4')).to.be.true
-        expect(action.response.result).to.deep.equal([ '572315331cece3ae858dffe3', '572315471cece3ae858dffe4' ])
+        expect(action.response.entities.tags.hasOwnProperty('tag-id-1')).to.be.true
+        expect(action.response.entities.tags.hasOwnProperty('tag-id-2')).to.be.true
+        expect(action.response.result).to.deep.equal([ 'tag-id-1', 'tag-id-2' ])
       })
   })
 
