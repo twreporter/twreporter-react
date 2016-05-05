@@ -36,7 +36,7 @@ export default {
       ],
       og_title: "",
       _id: "post-id-1",
-      slug: "i-am-a-slug",
+      slug: "post-slug-1",
       categories: [
         {
           __v: 0,

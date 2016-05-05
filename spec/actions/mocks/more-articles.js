@@ -6,7 +6,7 @@ export default {
       style: "article",
       byline: "",
       subtitle: "",
-      name: "i-am-a-slug",
+      name: "i-am-a-title",
       tags: [
         {
           _id: "tag-id-1",
@@ -46,7 +46,7 @@ export default {
       ],
       og_title: "",
       _id: "post-id-2",
-      slug: "i-am-a-slug-2",
+      slug: "post-slug-2",
       categories: [
         {
           __v: 0,
@@ -69,7 +69,7 @@ export default {
       title: "home"
     },
     prev: {
-      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"572315331cece3ae858dffe3\"]}}&page=1",
+      href: "posts?max_results=1&where={\"tags\":{\"$in\":[\"tag-id-1\"]}}&page=1",
       title: "prev page"
     }
   },
