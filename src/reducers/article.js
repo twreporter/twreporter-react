@@ -1,3 +1,4 @@
+'use strict'
 import * as types from '../constants/action-types'
 
 function article(state = {}, action) {

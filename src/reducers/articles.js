@@ -1,107 +1,87 @@
 /*eslint no-console: 0*/
 /* global console */
-import * as ActionType from '../actions/articles'
-import { camelizeKeys } from 'humps'
+'use strict'
+import { formatUrl } from '../utils/index'
+import { merge } from 'lodash'
+import * as types from '../constants/action-types'
 
-function parseResponse(response = {}) {
-  if (response && response.text) {
-    try {
-      response = JSON.parse(response.text)
-    } catch (e) {
-      console.log('JSON.parse response occurs error', e)
-    }
-  }
-  return response
+function generateKey(tags) {
+  tags = Array.isArray(tags) ? tags : [ tags ]
+  return tags.sort().join()
 }
-
-function tagArticles(state = {}, action) {
-  const response = action.response
-  let rtn = {}
-  switch (action.type) {
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
-      /* data structure:
-          response: {
-            results: {
-              0: {
-                _items: [ ... ]
-              },
-              1 : {
-                _items: [ ... ]
-              }
-            }
-          }
-      */
-      if (response) {
-        let results = response.results
-        let tags = action.tags || []
-        for (let i =0; i < tags.length; i++) {
-          let tag = tags[i]
-          let result = results[i]
-          let items = result.items || []
-          let total = result.meta && result.meta.total
-          rtn[tag] = {
-            items: items,
-            total: total,
-            hasMore: total > items.length ? true : false
-          }
-        }
-      }
-      return Object.assign({}, state, rtn)
-
-    case ActionType.LOADED_ARTICLES_SUCCESS:
-      /* data structure:
-          response: {
-            results: {
-              _items: [ ... ]
-            }
-          }
-      */
-      if (response) {
-        let tag = ''
-        if ('string' === typeof action.tags) {
-          tag = action.tags
-        } else if (Array.isArray(action.tags)) {
-          tag = action.tags.toString()
-        }
-
-        let items = response.items
-        const meta = response.meta
-
-        items = state[tag] ? state[tag].items.concat(items) : items
-
-        rtn[tag] = {
-          items: items,
-          total: meta.total,
-          hasMore: meta.total > items.length ? true : false
-        }
-      }
-      return Object.assign({}, state, rtn)
-
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-    case ActionType.LOADED_ARTICLES_FAILURE:
-      return state
-
-    default:
-      return state
-  }
-}
-
 function articles(state = {}, action) {
-  switch(action.type) {
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
-    case ActionType.LOADED_ARTICLES_SUCCESS:
-      if (action.response) {
-        action.response = camelizeKeys(parseResponse(action.response))
+  let key = generateKey(action.tags)
+  let _state = {}
+  switch (action.type) {
+    case types.FETCH_ARTICLES_REQUEST:
+      if (state.hasOwnProperty(key)) {
+        merge(_state, state[key], {
+          isFetching: true
+        })
+      } else {
+        merge(_state, {
+          isFetching: true,
+          error: null,
+          nextUrl: null,
+          items: []
+        })
       }
-      return tagArticles(state, action)
-
-    case ActionType.LOADED_ARTICLES_FAILURE:
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-      return state
-
+      return merge({}, state, {
+        [ key ]: _state
+      })
+    case types.FETCH_ARTICLES_FAILURE:
+      if (state.hasOwnProperty(key)) {
+        merge(_state, state[key], {
+          isFetching: false,
+          error: action.error,
+          lastUpdated: action.failedAt
+        })
+      } else {
+        merge(_state, {
+          isFetching: false,
+          error: action.error,
+          nextUrl: null,
+          items: [],
+          lastUpdated: action.failedAt
+        })
+      }
+      return merge({}, state, {
+        [ key ]: _state
+      })
+    case types.FETCH_ARTICLES_SUCCESS:
+      let nextUrl = ''
+      let response = action.response
+      try {
+        let href = action.response.links.next.href
+        let embedded = JSON.stringify({ authors: 1, tags:1, categories:1 })
+        nextUrl = formatUrl(encodeURIComponent(`${href}&embedded=${embedded}`))
+      } catch(e) {
+        console.log('there is no next href ', e)
+      }
+      let items = state[key] && state[key].items ? state[key].items.concat(response.result) : response.result
+      merge(_state, state[key], {
+        isFetching: false,
+        nextUrl: nextUrl,
+        error: null,
+        items: items,
+        lastUpdated: action.receivedAt
+      })
+      return merge({}, state, {
+        [ key ]: _state
+      })
     default:
       return state
   }
 }
 
-export default articles
+export default function (state = {}, action) {
+  switch(action.type) {
+    case types.FETCH_ARTICLES_SUCCESS:
+    case types.FETCH_ARTICLES_REQUEST:
+    case types.FETCH_ARTICLES_FAILURE:
+      return articles(state, action)
+    default:
+      return state
+  }
+}
+
