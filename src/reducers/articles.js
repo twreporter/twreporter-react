@@ -52,9 +52,9 @@ function articles(state = {}, action) {
       let nextUrl = ''
       let response = action.response
       try {
-        let href = action.response.links.next.href
+        let nextHref = action.response.links.next.href
         let embedded = JSON.stringify({ authors: 1, tags:1, categories:1 })
-        nextUrl = formatUrl(encodeURIComponent(`${href}&embedded=${embedded}`))
+        nextUrl = formatUrl(encodeURIComponent(`${nextHref}&embedded=${embedded}`))
       } catch(e) {
         console.log('there is no next href ', e)
       }
