@@ -61,15 +61,7 @@ Since Redux see its state as single source of truth, we store our own data like 
     },
     articles: {
       'article-slug-1': {
-        id: 'article-id-1',
-        slug: 'artilce-slug-1',
-        title: 'show me the twreporter article',
-        subtitle: '',
-        authors: ['author-id-2', 'author-id-3'],
-        tags: ['tag-id-1', 'tag-id-2'],
-        relatedStories: ['article-slug-2', 'article-slug-3'],
-        ...
-        relateds: [ ],
+        relateds: ['article-slug-2'],
         _updated: "Thu, 01 Jan 1970 00:00:00 GMT",
         style: "article",
         byline: "文/mika 攝/HC",
