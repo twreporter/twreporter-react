@@ -96,7 +96,7 @@ Since Redux see its state as single source of truth, we store our own data like 
       }
     }
   },
-  articlesByTags: {
+  taggedArticles: {
     index: {
       isFetching: false,
       error: null,
