@@ -1,12 +1,12 @@
 import 'babel-polyfill'
+import { fetchTagsIfNeeded } from './actions/tags'
+import { Provider } from 'react-redux'
+import configureStore from './store/configureStore'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import createRoutes from './routes'
+import DeviceProvider from './components/DeviceProvider'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-
-import configureStore from './store/configureStore'
-import createRoutes from './routes'
-import { Provider } from 'react-redux'
-import DeviceProvider from './components/DeviceProvider'
 
 /* global __REDUX_STATE__ */
 const history = createBrowserHistory()
@@ -21,6 +21,11 @@ if (window.__REDUX_STATE__) {
 }
 
 const store = configureStore(reduxState)
+
+// preload the tag ids by tag names
+const tags = [ 'hp-projects', 'review', 'feature' ]
+store.dispatch(fetchTagsIfNeeded(tags))
+
 const device = store.getState().device
 ReactDOM.render((
   <Provider store={store}>

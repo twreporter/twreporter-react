@@ -1,76 +1,75 @@
-import React, { Component } from 'react'
-
 import { connect } from 'react-redux'
-import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
+import { denormalizeArticles } from '../utils/index'
+import { fetchArticlesIfNeeded } from '../actions/articles'
+import { get } from 'lodash'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
+import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
+
+const _ = {
+  get: get
+}
+const MAXRESULT = 1
+const PAGE = 1
+
 if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-function loadData(props, cats) {
-  let params = []
-  cats.forEach((cat) => {
-    if (!props.articles[cat]) {
-      params.push(cat)
-    }
-  })
-  if (params.length > 0) {
-    props.loadMultiTaggedArticles(params)
-  }
+function loadData(fetchArticlesIfNeeded) {
+  fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE)
+  fetchArticlesIfNeeded('review', MAXRESULT, PAGE)
+  fetchArticlesIfNeeded('feature', MAXRESULT, PAGE)
 }
+
 
 export default class Home extends Component {
   static fetchData({ store }) {
-    let params = [ 'hp-projects', 'review', 'feature' ]
-    return store.dispatch(loadMultiTaggedArticles(params))
+    // load tagged articles
+    store.dispatch(fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
+    store.dispatch(fetchArticlesIfNeeded('review', MAXRESULT, PAGE))
+    store.dispatch(fetchArticlesIfNeeded('feature', MAXRESULT, PAGE))
   }
 
   constructor(props, context) {
     super(props, context)
     this.loadMoreArticles = this.loadMoreArticles.bind(this, 'hp-projects')
-    this.params = [ 'hp-projects', 'review', 'feature' ]
   }
 
   componentWillMount() {
-    loadData(this.props, this.params)
+    loadData(this.props.fetchArticlesIfNeeded)
   }
 
   componentWillReceiveProps(nextProps) {
-    loadData(nextProps, this.params)
+    loadData(nextProps.fetchArticlesIfNeeded)
   }
 
   loadMoreArticles(tag) {
-    const maxResults = 10
-    const features = this.props.articles[tag] || {
-      items: [],
-      hasMore: true
+    const { taggedArticles, fetchArticlesIfNeeded } = this.props
+    const features = taggedArticles[tag] || {
+      items: []
     }
-    if (features.hasMore) {
-      let page = Math.floor(features.items.length / maxResults)  + 1
-      this.props.loadArticles(tag, maxResults, page)
-    }
+    let page = Math.floor(features.items.length / MAXRESULT)  + 1
+    fetchArticlesIfNeeded(tag, MAXRESULT, page)
   }
 
   render() {
-    const { articles } = this.props
+    const { taggedArticles, entities } = this.props
     const topnews_num = 5
-    let topnewsItems = articles.feature && articles.feature.items || []
-    let feature = articles['hp-projects'] || {
-      hasMore: true
-    }
-    let featureItems = feature.items || []
-    let dailyItems = articles.review && articles.review.items || []
-    if (Array.isArray(topnewsItems)) {
-      if (topnewsItems.length < topnews_num) {
-        let less = topnews_num - topnewsItems.length
-        topnewsItems = topnewsItems.concat(featureItems.slice(0, less))
-        featureItems = featureItems.slice(less)
-      } else {
-        topnewsItems = topnewsItems.slice(0,topnews_num)
-      }
+    let topnewsItems = denormalizeArticles(_.get(taggedArticles, [ 'feature','items' ] , []), entities)
+
+    let featureItems = denormalizeArticles(_.get(taggedArticles, [ 'hp-projects' , 'items' ], []), entities)
+
+    let dailyItems = denormalizeArticles(_.get(taggedArticles, [ 'review', 'items' ], []), entities)
+
+    if (topnewsItems.length < topnews_num) {
+      let less = topnews_num - topnewsItems.length
+      topnewsItems = topnewsItems.concat(featureItems.slice(0, less))
+      featureItems = featureItems.slice(less)
+    } else {
+      topnewsItems = topnewsItems.slice(0,topnews_num)
     }
 
     if (topnewsItems || featureItems) {
@@ -80,7 +79,7 @@ export default class Home extends Component {
           <Daily daily={dailyItems} />
           <Features
             features={featureItems}
-            hasMore={feature.hasMore}
+            hasMore={ _.get(taggedArticles, [ 'hp-projects', 'nextUrl' ]) !== null}
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
@@ -93,8 +92,11 @@ export default class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { articles: state.articles }
+  return {
+    taggedArticles: state.taggedArticles || {},
+    entities: state.entities || {}
+  }
 }
 
 export { Home }
-export default connect(mapStateToProps, { loadMultiTaggedArticles, loadArticles })(Home)
+export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Home)
