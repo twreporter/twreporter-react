@@ -34,21 +34,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          plugins:
-            [ // for development
-              'transform-runtime',
-              ["react-transform", {
-                "transforms": [{
-                  "transform": "react-transform-hmr",
-                  "imports": ["react"],
-                  "locals": ["module"]
-                }]
-              }]
-            ]
-        }
+        loaders: [ 'react-hot', 'babel-loader' ]
       },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.less$/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap' },
