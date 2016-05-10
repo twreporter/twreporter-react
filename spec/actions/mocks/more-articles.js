@@ -26,7 +26,7 @@ export default {
           title: "post"
         }
       },
-      authors: [
+      writters: [
         {
           name: "Mika",
           twitter: "",
@@ -44,6 +44,9 @@ export default {
           name: "HC"
         }
       ],
+      photographers: [],
+      designers: [],
+      engineers:[],
       og_title: "",
       _id: "post-id-2",
       slug: "post-slug-2",

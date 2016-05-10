@@ -2,7 +2,7 @@
 'use strict'
 import { expect } from 'chai'
 import { fetchArticlesIfNeeded } from '../../src/actions/articles'
-import { formatUrl } from '../../src/utils/index'
+import { formatUrl, getArticleEmbeddedQuery } from '../../src/utils/index'
 import { merge } from 'lodash'
 import * as types from '../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
@@ -41,7 +41,7 @@ const mockDefaultStore = {
 
 describe('articles reducer', () => {
   before(() => {
-    // mock posts api response
+    // mock articles api response
     let postQuery = {
       where: JSON.stringify( {
         tags: { '$in': [ MOCKTAGID ] }
@@ -49,7 +49,7 @@ describe('articles reducer', () => {
       max_results: 1,
       page: 1,
       sort: '-publishedDate',
-      embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } )
+      embedded: JSON.stringify(getArticleEmbeddedQuery())
     }
     nock('http://localhost:3030/')
       .get('/posts')
@@ -120,7 +120,7 @@ describe('articles reducer', () => {
         'tag-1': {
           isFetching: false,
           error: null,
-          nextUrl: formatUrl(encodeURIComponent(mockArticles._links.next.href + '&embedded=' + JSON.stringify( { authors: 1, tags:1, categories:1 }))),
+          nextUrl: formatUrl(encodeURIComponent(mockArticles._links.next.href + '&embedded=' + JSON.stringify(getArticleEmbeddedQuery()))),
           items: [ 'post-slug-2', 'post-slug-1' ],
           lastUpdated: 1234567890
         }

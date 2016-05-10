@@ -1,8 +1,9 @@
 /*eslint no-console: 0*/
 
+import { mapUrl } from './utils/url.js'
+import * as actions from './actions/index'
 import config from '../server/config'
 import express from 'express'
-import * as actions from './actions/index'
 import PrettyError from 'pretty-error'
 
 const pretty = new PrettyError()
@@ -10,10 +11,11 @@ const app = express()
 
 app.use((req, res) => {
   const splittedUrlPath = req.url.split('?')[0].split('/').slice(1)
-  let action = actions[splittedUrlPath]
+
+  const { action, params } = mapUrl(actions, splittedUrlPath)
 
   if (action) {
-    action(req)
+    action(req, params)
       .then((result) => {
         if (result instanceof Function) {
           result(res)

@@ -29,7 +29,7 @@ describe('tags action', () => {
 
   it('creates FETCH_TAGS_REQUEST and FETCH_TAGS_SUCCESS when tags has been fetched', () => {
     nock('http://localhost:3030/')
-      .get(`/tags/?${query}`)
+      .get(`/tags?${query}`)
       .reply(200, mockTags)
 
     const expectedActions = [
@@ -55,7 +55,7 @@ describe('tags action', () => {
   it('creates FETCH_TAGS_REQUEST and FETCH_TAGS_FAILURE when fetching tags occurs error', () => {
 
     nock('http://localhost:3030/')
-      .get(`/tags/?${query}`)
+      .get(`/tags?${query}`)
       .reply(404, {})
 
     const expectedActions = [

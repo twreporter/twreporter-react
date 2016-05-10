@@ -30,7 +30,7 @@ export default {
       title: 'home'
     }
   },
-  authors: [ {
+  writters: [ {
     name: 'nickhsine',
     twitter: '',
     instantgram: '',
@@ -45,6 +45,9 @@ export default {
     __v: 0,
     name: 'mika'
   } ],
+  photographers: [],
+  designers: [],
+  engineers: [],
   og_title: '',
   _id: 'post-id-1',
   slug: 'test',
