@@ -54,7 +54,7 @@ function articles(state = {}, action) {
       try {
         let nextHref = action.response.links.next.href
         let embedded = JSON.stringify(getArticleEmbeddedQuery())
-        nextUrl = formatUrl(encodeURIComponent(`${nextHref}&embedded=${embedded}`))
+        nextUrl = formatUrl(`${nextHref}&embedded=${embedded}`)
       } catch(e) {
         console.log('there is no next href ', e)
       }

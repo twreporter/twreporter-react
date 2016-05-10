@@ -120,7 +120,7 @@ describe('articles reducer', () => {
         'tag-1': {
           isFetching: false,
           error: null,
-          nextUrl: formatUrl(encodeURIComponent(mockArticles._links.next.href + '&embedded=' + JSON.stringify(getArticleEmbeddedQuery()))),
+          nextUrl: formatUrl(mockArticles._links.next.href + '&embedded=' + JSON.stringify(getArticleEmbeddedQuery())),
           items: [ 'post-slug-2', 'post-slug-1' ],
           lastUpdated: 1234567890
         }
