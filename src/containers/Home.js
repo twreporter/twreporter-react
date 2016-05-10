@@ -1,16 +1,13 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesIfNeeded } from '../actions/articles'
-import { get } from 'lodash'
+import _ from 'lodash'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 
-const _ = {
-  get: get
-}
 const MAXRESULT = 1
 const PAGE = 1
 

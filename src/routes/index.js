@@ -31,7 +31,7 @@ export default function (history) {
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category}/>
         <Route path="photography" component={Photography}/>
-        <Route path="a/:article" component={Article}/>
+        <Route path="a/:slug" component={Article}/>
       </Route>
     </Router>
   )

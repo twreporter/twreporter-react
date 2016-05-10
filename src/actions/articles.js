@@ -4,7 +4,7 @@
 import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { formatUrl } from '../utils/index'
+import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
 import { CALL_API } from '../middleware/api'
 import * as types from '../constants/action-types'
@@ -72,7 +72,7 @@ function buildQueryURL(tags, count, page) {
   query.max_results = count || 10
   query.page = page || 0
   query.sort = '-publishedDate'
-  query.embedded = JSON.stringify( { authors: 1, tags:1, categories:1 } )
+  query.embedded = JSON.stringify( getArticleEmbeddedQuery() )
   query = qs.stringify(query)
   return formatUrl(`posts?${query}`)
 }

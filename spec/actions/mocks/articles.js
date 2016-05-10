@@ -26,7 +26,7 @@ export default {
           title: "post"
         }
       },
-      authors: [
+      writters: [
         {
           _id: "5723157b1cece3ae858dffe6",
           email: "hc@twreporter.org",
@@ -34,6 +34,9 @@ export default {
           name: "HC"
         }
       ],
+      photographers: [],
+      designers:[],
+      engineers: [],
       og_title: "",
       _id: "post-id-1",
       slug: "post-slug-1",

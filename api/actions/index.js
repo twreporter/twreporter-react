@@ -1,2 +1,2 @@
-export article from './loadArticles'
-export tags from './loadArticlesByTags'
+export posts from './loadArticles'
+export tags from './loadTags'

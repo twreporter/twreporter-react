@@ -1,7 +1,7 @@
 let config = {
   API_PROTOCOL: 'http',
-  API_HOST: 'api.twreporter.org',
-  API_PATH: ''
+  API_HOST: 'localhost',
+  API_PORT: '8080'
 }
 
 export default config

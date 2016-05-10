@@ -3,7 +3,7 @@
 'use strict'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { formatUrl } from '../utils/index'
+import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { normalize } from 'normalizr'
 import * as types from '../constants/action-types'
 import config from '../../server/config'
@@ -37,11 +37,11 @@ function receiveArticle(response) {
 function fetchArticle(slug) {
   return dispatch => {
     dispatch(requestArticle(slug))
-    let query = qs.stringify({ embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } ) })
+    let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
     return fetch(formatUrl(`posts/${slug}?${query}`))
     .then((response) => {
       if (response.status >= 400) {
-        throw new Error('Bad response from API')
+        throw new Error('Bad response from API, response: ', response)
       }
       return response.json()
     })
@@ -55,7 +55,7 @@ function fetchArticle(slug) {
 }
 
 function shouldFetchArticle(state, slug) {
-  const articles = state.entities.articles
+  const articles = state.entities.articles || {}
   if (!articles[slug]) {
     return true
   }

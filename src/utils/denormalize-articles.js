@@ -1,26 +1,31 @@
 'use strict'
+import { getArticleEmbeddedQuery } from './get-article-embedded-query'
 function denormalizeEntity(entityIds = [], entityObj = {}) {
   let rtn = []
-  ( Array.isArray(entityIds) ? entityIds : [] ).forEach((id) => {
-    if (entityObj.hasOwnProperty(id)) {
-      rtn.push(entityObj[id])
-    }
-  })
-
+  entityObj = entityObj || {}
+  if (Array.isArray(entityIds)) {
+    entityIds.forEach((id) => {
+      if (entityObj.hasOwnProperty(id)) {
+        rtn.push(entityObj[id])
+      }
+    })
+  }
   return rtn
 }
 
-export function denormalizeArticles(articleIds = [], entities = {}) {
+export function denormalizeArticles(articleSlugs = [], entities = {}) {
   let denormalizedArticles = []
   // extract entities articles need
-  const { articles, tags, authors } = entities
+  const { articles } = entities
+  const list = Object.keys(getArticleEmbeddedQuery())
 
-  articleIds = Array.isArray(articleIds) ? articleIds : [ articleIds ]
-  articleIds.forEach((articleId) => {
-    if (articles.hasOwnProperty(articleId)) {
-      let article = articles[articleId]
-      article.tags = denormalizeEntity(article.tags, tags)
-      article.authors = denormalizeEntity(article.authors, authors)
+  articleSlugs = Array.isArray(articleSlugs) ? articleSlugs : [ articleSlugs ]
+  articleSlugs.forEach((articleSlug) => {
+    if (articles.hasOwnProperty(articleSlug)) {
+      let article = articles[articleSlug]
+      list.forEach((item) => {
+        article[item] = denormalizeEntity(article[item], entities[item])
+      })
       denormalizedArticles.push(article)
     }
   })

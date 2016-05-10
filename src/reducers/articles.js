@@ -1,7 +1,7 @@
 /*eslint no-console: 0*/
 /* global console */
 'use strict'
-import { formatUrl } from '../utils/index'
+import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
 import * as types from '../constants/action-types'
 
@@ -53,7 +53,7 @@ function articles(state = {}, action) {
       let response = action.response
       try {
         let nextHref = action.response.links.next.href
-        let embedded = JSON.stringify({ authors: 1, tags:1, categories:1 })
+        let embedded = JSON.stringify(getArticleEmbeddedQuery())
         nextUrl = formatUrl(encodeURIComponent(`${nextHref}&embedded=${embedded}`))
       } catch(e) {
         console.log('there is no next href ', e)

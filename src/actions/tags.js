@@ -38,7 +38,7 @@ function fetchTags(tags) {
   return dispatch => {
     dispatch(requestTags(tags))
     let query = qs.stringify({ where: JSON.stringify( { name: { '$in': tags } }) })
-    return fetch(formatUrl(`tags/?${query}`))
+    return fetch(formatUrl(`tags?${query}`))
     .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from API')

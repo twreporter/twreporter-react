@@ -1,6 +1,7 @@
 /*global describe, afterEach, it*/
 'use strict'
 import { expect } from 'chai'
+import { getArticleEmbeddedQuery } from '../../src/utils/index'
 import { merge } from 'lodash'
 import * as actions from '../../src/actions/article'
 import * as types from '../../src/constants/action-types'
@@ -15,7 +16,7 @@ global.__SERVER__ = true
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
-const mockSlug = 'i-am-a-slug'
+const mockSlug = 'post-slug-1'
 const mockDefaultStore = {
   selectedArticle: '',
   entities: {
@@ -23,7 +24,7 @@ const mockDefaultStore = {
     articles: {}
   }
 }
-let query = qs.stringify({ embedded: JSON.stringify({ authors: 1, tags:1, categories:1 }) })
+let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
 
 describe('article action', () => {
   afterEach(() => {
@@ -50,9 +51,9 @@ describe('article action', () => {
         expect(action.response.entities).to.be.an('object')
         expect(action.response.entities.articles).to.be.an('object')
         expect(action.response.entities.articles.hasOwnProperty('test')).to.be.true
-        expect(action.response.entities.authors).to.be.an('object')
-        expect(action.response.entities.authors.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
-        expect(action.response.entities.authors.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true
+        expect(action.response.entities.writters).to.be.an('object')
+        expect(action.response.entities.writters.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
+        expect(action.response.entities.writters.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true
 
       })
   })
@@ -65,7 +66,7 @@ describe('article action', () => {
 
     const expectedActions = [
       { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug },
-      { type: types.FETCH_ARTICLE_FAILURE, slug: mockSlug, error: new Error('Bad response from API') }
+      { type: types.FETCH_ARTICLE_FAILURE, slug: mockSlug }
     ]
     const store = mockStore(mockDefaultStore)
 
@@ -74,7 +75,7 @@ describe('article action', () => {
         expect(store.getActions()[0]).to.deep.equal(expectedActions[0])
         expect(store.getActions()[1].type).to.deep.equal(expectedActions[1].type)
         expect(store.getActions()[1].slug).to.deep.equal(expectedActions[1].slug)
-        expect(store.getActions()[1].error.toString()).to.deep.equal(expectedActions[1].error.toString())
+        expect(store.getActions()[1].error).to.be.instanceof(Error)
       })
   })
 

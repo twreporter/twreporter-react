@@ -1,6 +1,7 @@
 /*global afterEach, beforeEach, describe, it*/
 'use strict'
 import { expect } from 'chai'
+import { getArticleEmbeddedQuery } from '../../src/utils/index'
 import { merge } from 'lodash'
 import * as actions from '../../src/actions/articles'
 import * as types from '../../src/constants/action-types'
@@ -44,7 +45,7 @@ describe('articles action', () => {
     .query(tagQuery)
     .reply(200, mockTags)
 
-    // mock posts api response
+    // mock articles api response
     postQuery = {
       where: JSON.stringify( {
         tags: { '$in': mockTagIds }
@@ -52,7 +53,7 @@ describe('articles action', () => {
       max_results: mockMaxResults,
       page: mockPage,
       sort: '-publishedDate',
-      embedded: JSON.stringify( { authors: 1, tags:1, categories:1 } )
+      embedded: JSON.stringify(getArticleEmbeddedQuery())
     }
     nock('http://localhost:3030/')
       .get('/posts')
