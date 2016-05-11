@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
-import { loadArticles } from '../actions/articles'
+import { fetchArticlesIfNeeded } from '../actions/articles'
 import Tags from '../components/Tags'
 import catToTag from '../conf/category-tag-mapping-table'
 
@@ -14,7 +14,7 @@ const maxResults = 10
 
 export default class Category extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(loadArticles(params.category, maxResults, 1))
+    return store.dispatch(fetchArticlesIfNeeded(params.category, maxResults, 1))
   }
   constructor(props) {
     super(props)
@@ -88,4 +88,4 @@ Category.contextTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { loadArticles })(Category)
+export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Category)
