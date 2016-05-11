@@ -27,21 +27,21 @@ export default class Category extends Component {
 
   componentWillMount() {
     const tag = catToTag[this.props.params.category]
-    const { loadArticles, articles } = this.props
+    const { fetchArticlesIfNeeded, articles } = this.props
     if (!articles[tag]) {
-      loadArticles(tag, maxResults, 1)
+      fetchArticlesIfNeeded(tag, maxResults, 1)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const tag = catToTag[nextProps.params.category]
-    const { loadArticles, articles } = nextProps
+    const { fetchArticlesIfNeeded, articles } = nextProps
     if (articles[tag]) {
       this.setState({
         tag: tag
       })
     } else {
-      loadArticles(tag, maxResults, 1)
+      fetchArticlesIfNeeded(tag, maxResults, 1)
     }
   }
 
@@ -53,7 +53,7 @@ export default class Category extends Component {
     }
     if (categoryObj.hasMore) {
       let page = Math.floor(categoryObj.items.length / maxResults)  + 1
-      this.props.loadArticles(tag, maxResults, page)
+      this.props.fetchArticlesIfNeeded(tag, maxResults, page)
     }
   }
 
