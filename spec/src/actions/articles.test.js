@@ -1,10 +1,10 @@
 /*global afterEach, beforeEach, describe, it*/
 'use strict'
 import { expect } from 'chai'
-import { getArticleEmbeddedQuery } from '../../src/utils/index'
+import { getArticleEmbeddedQuery } from '../../../src/utils/index'
 import { merge } from 'lodash'
-import * as actions from '../../src/actions/articles'
-import * as types from '../../src/constants/action-types'
+import * as actions from '../../../src/actions/articles'
+import * as types from '../../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
 import mockArticles from './mocks/articles'
 import mockMoreArticles from './mocks/more-articles'
