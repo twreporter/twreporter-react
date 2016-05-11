@@ -133,6 +133,11 @@ server.get('*', (req, res) => {
           res.redirect(302, getCurrentUrl())
         }
         unsubscribe()
+      }).catch((err) => {
+        res.status(500)
+        let errStack = err.stack.split('\n')
+        console.log(err, errStack)
+        res.render('500', { error: errStack })
       })
     }
   })
