@@ -1,7 +1,10 @@
+/*eslint no-unused-vars:0, no-console:0 */
+'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
+import async from 'async'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
 import React, { Component } from 'react'
@@ -24,10 +27,34 @@ function loadData(fetchArticlesIfNeeded) {
 
 export default class Home extends Component {
   static fetchData({ store }) {
-    // load tagged articles
-    store.dispatch(fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
-    store.dispatch(fetchArticlesIfNeeded('review', MAXRESULT, PAGE))
-    store.dispatch(fetchArticlesIfNeeded('feature', MAXRESULT, PAGE))
+    return new Promise((resolve, reject) => {
+      // load tagged articles in parallel
+      async.parallel([
+        function (callback) {
+          store.dispatch(fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
+          .then(() => {
+            callback(null)
+          })
+        },
+        function (callback) {
+          store.dispatch(fetchArticlesIfNeeded('review', MAXRESULT, PAGE))
+          .then(() => {
+            callback(null)
+          })
+        },
+        function (callback) {
+          store.dispatch(fetchArticlesIfNeeded('feature', MAXRESULT, PAGE))
+          .then(() => {
+            callback(null)
+          })
+        }
+      ], (err, results) => {
+        if (err) {
+          console.warn('fetchData occurs error:', err)
+        }
+        resolve()
+      })
+    })
   }
 
   constructor(props, context) {
