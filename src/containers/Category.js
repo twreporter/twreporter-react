@@ -2,7 +2,9 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
+import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesIfNeeded } from '../actions/articles'
+import _ from 'lodash'
 import Tags from '../components/Tags'
 import catToTag from '../conf/category-tag-mapping-table'
 
@@ -27,8 +29,8 @@ export default class Category extends Component {
 
   componentWillMount() {
     const tag = catToTag[this.props.params.category]
-    const { fetchArticlesIfNeeded, articles } = this.props
-    if (!articles[tag]) {
+    const { fetchArticlesIfNeeded, taggedArticles } = this.props
+    if (!taggedArticles[tag]) {
       fetchArticlesIfNeeded(tag, maxResults, 1)
     }
   }
@@ -58,15 +60,16 @@ export default class Category extends Component {
   }
 
   render() {
-    const { articles } = this.props
     const { device } = this.context
     const { tag } = this.state
-    let categoryObj = articles[tag] || {}
+    const { taggedArticles, entities } = this.props
+    let fullArticles = denormalizeArticles(_.get(taggedArticles, [ tag ], []), entities)
+    let categoryObj = fullArticles[tag] || {}
 
     return (
       <div>
         <Tags
-          articles={categoryObj.items || []}
+          fullArticles={categoryObj.items || []}
           device={device}
           hasMore={categoryObj.hasMore}
           loadMore={this.loadMore}
@@ -79,7 +82,8 @@ export default class Category extends Component {
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles
+    taggedArticles: state.taggedArticles,
+    entities: state.entities || {}
   }
 }
 
