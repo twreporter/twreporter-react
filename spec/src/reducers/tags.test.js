@@ -1,8 +1,8 @@
 /*global describe, it*/
 'use strict'
 import { expect } from 'chai'
-import reducer from '../../src/reducers/tags'
-import * as types from '../../src/constants/action-types'
+import reducer from '../../../src/reducers/tags'
+import * as types from '../../../src/constants/action-types'
 
 const mockTagsName = [ 'mock-tag-1', 'mock-tag-2' ]
 

@@ -1,8 +1,8 @@
 /*global describe, it*/
 'use strict'
 import { expect } from 'chai'
-import reducer from '../../src/reducers/article'
-import * as types from '../../src/constants/action-types'
+import reducer from '../../../src/reducers/article'
+import * as types from '../../../src/constants/action-types'
 
 describe('article reducer', () => {
   it('should return the initial state', () => {
