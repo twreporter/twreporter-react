@@ -76,6 +76,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "async": "^1.5.2",
     "autoprefixer": "^6.2.1",
     "babel-core": "^6.3.21",
     "babel-loader": "^6.2.0",
