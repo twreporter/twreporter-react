@@ -35,6 +35,23 @@ module.exports = {
       extension: 'svg',
       parser: WebpackIsomorphicToolsPlugin.url_loader_parser
     },
+    bootstrap: {
+      extension: 'js',
+      include: ['./node_modules/bootstrap-loader/no-op.js'],
+      filter: function(module, regex, options, log) {
+        function is_bootstrap_style(name) {
+          return name.indexOf('./~/bootstrap-loader/no-op.js') >= 0;
+        }
+        if (options.development) {
+          return is_bootstrap_style(module.name) && WebpackIsomorphicToolsPlugin.style_loader_filter(module, regex, options, log);
+        }
+        // no need for it in production mode
+      },
+      // in development mode there's webpack "style-loader",
+      // so the module.name is not equal to module.name
+      path: WebpackIsomorphicToolsPlugin.style_loader_path_extractor,
+      parser: WebpackIsomorphicToolsPlugin.css_loader_parser
+    },
     style_modules: {
       extensions: ['less','scss'],
       filter: function(module, regex, options, log) {

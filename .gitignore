@@ -11,3 +11,6 @@ err.log
 
 .idea/
 webpack-assets.json
+
+# Ignore config files
+api/config.js
