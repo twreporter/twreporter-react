@@ -18,7 +18,10 @@ module.exports = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
-    'main': './src/index.js'
+    'main': [
+      './src/index.js',
+      'bootstrap-loader/extractStyles'
+    ]
   },
   output: {
     path: assetsPath,

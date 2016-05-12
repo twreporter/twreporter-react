@@ -57,7 +57,15 @@ export default class Article extends Component {
     let authors = this._composeAuthors(denormalizeArticles(article.slug, entities)[0])
     let deduppedAuthors = _.uniq(authors, 'id')
     return (
-      <div>
+      <div className={styles.article}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">.col-md-4</div>
+            <div className="col-md-4">.col-md-4</div>
+            <div className="col-md-4">.col-md-4</div>
+          </div>
+        </div>
+
         <ArticleComponents.HeadingAuthor
           authors={authors}
         />
