@@ -2,6 +2,7 @@
 'use strict'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import styles from './HeadingAuthor.scss'
 
 export class HeadingAuthor extends Component {
   constructor(props) {
@@ -39,7 +40,10 @@ export class HeadingAuthor extends Component {
     const { authors } = this.props
     const formattedAuthor = this._formatAuthor(authors)
     const authorRows = _.map(formattedAuthor, author =>
-      <span>{author.type} | {author.list} </span>)
+      <span className={styles.authorItem}>
+        {author.type} | {author.list}
+      </span>
+    )
 
     return (
       <div>
