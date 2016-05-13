@@ -45,18 +45,31 @@ Since Redux see its state as single source of truth, we store our own data like 
     categories: {
       'category-id-1': {
         id: "category-id-1",
-        key: "57175d923970a5e46ff854db",
-        name: "文化",
+        key: "category-1",
+        name: "category-1",
         _v: 0,
         sortOrder: 1
+      }, 
+      'category-id-2': {        
+        id: "category-id-2",
+        key: "category-2",
+        name: "category-2",
+        _v: 0,
+        sortOrder: 2
       }
     },
     tags: {
       'tag-id-1': {
         id: "tag-id-1",
-        key: "post-1",
+        key: "tag-1",
         v: 0,
         name: "tag-1"
+      }, 
+      'tag-id-2': {
+        id: "tag-id-2",
+        key: "tag-2",
+        v: 0,
+        name: "tag-2"
       }
     },
     articles: {
@@ -96,21 +109,66 @@ Since Redux see its state as single source of truth, we store our own data like 
       }
     }
   },
-  taggedArticles: {
-    index: {
+  tags: {
+    'tag-1': {
+      isFetching: false,
+      error: null, 
+      id: 'tag-id-1'
+    },
+    'tag-2': {
+      isFetching: false,
+      error: null, 
+      id: 'tag-id-2'
+    }
+  },
+  categories: {
+    'category-1': {
+      isFetching: false,
+      error: null, 
+      id: 'category-id-1'
+    },
+    'category-2': {
+      isFetching: false,
+      error: null, 
+      id: 'category-id-2'
+    }
+  },
+  articlesByCats: {
+    'category-1': {
       isFetching: false,
       error: null,
-      nextUrl: "http://104.199.134.142:8080/posts?where={%22tags%22:{%22$in%22:%22index%22}}embedded={%22categories%22:1,%20%22tags%22:1}&max_results=1&page=3",
+      nextUrl: "http://104.199.134.142:8080/posts?where={%22categories%22:{%22$in%22:%22category-id-1%22}}embedded={%22categories%22:1,%20%22tags%22:1}&max_results=1&page=3",
       items: ['article-slug-1', 'article-slug-2'],
       lastUpdated: 1234567890
     },
-    intl: {
+    'category-2': {
       isFetching: true,
       error: null,
       nextUrl: null,
       items: []
     },
-    taiwan: {
+    'category-3': {
+      isFetching: false,
+      error: Error("API return 500"),
+      nextUrl: null,
+      items: []
+    }
+  },
+  articlesByTags: {
+    'tag-1': {
+      isFetching: false,
+      error: null,
+      nextUrl: "http://104.199.134.142:8080/posts?where={%22tags%22:{%22$in%22:%22tag-id-1%22}}embedded={%22categories%22:1,%20%22tags%22:1}&max_results=1&page=3",
+      items: ['article-slug-1', 'article-slug-2'],
+      lastUpdated: 1234567890
+    },
+    'tag-2': {
+      isFetching: true,
+      error: null,
+      nextUrl: null,
+      items: []
+    },
+    'tag-3': {
       isFetching: false,
       error: Error("API return 500"),
       nextUrl: null,
