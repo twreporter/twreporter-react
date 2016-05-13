@@ -75,7 +75,7 @@ function fetchGroups(groupType, groupNames) {
 }
 
 function dedupGroups(state, groupType, groupNames) {
-  let existedGroups = state[groupType] || {}
+  let existedGroups = ( groupType === groupEnum.CATEGORY ? state.categories : state.tags ) || {}
   let rtn = []
   groupNames.forEach((groupName) => {
     if (!existedGroups.hasOwnProperty(groupName) || existedGroups[groupName].error ) {
