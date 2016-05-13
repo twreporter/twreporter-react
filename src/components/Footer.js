@@ -9,6 +9,14 @@ export default class Footer extends Component {
     super(props)
   }
   render() {
+    const { copyright } = this.props
+    let copyright_img = '/asset/cc.png'
+    let copyright_string = '除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款'
+
+    if (copyright == 'Copyrighted') {
+      copyright_img = '/asset/cc.png'
+      copyright_string = 'Copyright 2015-2016 報導者'
+    }
     return (
       <div className="footer">
         <div className="container">
@@ -66,8 +74,8 @@ export default class Footer extends Component {
             <div className="items">
               <div className="item">
                 <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/tw/" rel="license" target="_blank">
-                  <img className="cc-logo img" src="/asset/cc.png" />
-                  <span className="cc-license"> 除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款</span>
+                  <img className="cc-logo img" src={copyright_img} />
+                  <span className="cc-license"> {copyright_string} </span>
                 </a>
               </div>
               <div className="item">

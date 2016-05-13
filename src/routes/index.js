@@ -18,7 +18,7 @@ class App extends Component {
           bgStyle={pathname === '/photography' ? 'dark' : 'light'}
           path={pathname}/>
         {this.props.children}
-        <Footer/>
+        <Footer copyright = "Creative-Commons"/>
       </div>
     )
   }
