@@ -1,25 +1,22 @@
 /*global describe, it*/
 'use strict'
 import { expect } from 'chai'
-import * as reducer from '../../../src/reducers/groups'
+import reducer from '../../../src/reducers/groups'
 import * as types from '../../../src/constants/action-types'
 
 const mockTagsName = [ 'mock-tag-1', 'mock-tag-2' ]
 const mockCatsName = [ 'mock-cat-1', 'mock-cat-2' ]
 
-describe('tags reducer', () => {
+describe('groups reducer', () => {
   it('should return the initial state', () => {
     expect(
-      reducer.tags(undefined, {})
-    ).to.deep.equal({})
-    expect(
-      reducer.categories(undefined, {})
+      reducer(undefined, {})
     ).to.deep.equal({})
   })
 
   it('should handle FETCH_TAGS_REQUEST and FETCH_CATEGORIES_REQUEST', () => {
     expect(
-      reducer.tags([], {
+      reducer([], {
         type: types.FETCH_TAGS_REQUEST,
         groups: mockTagsName
       })
@@ -35,7 +32,7 @@ describe('tags reducer', () => {
     })
 
     expect(
-      reducer.categories([], {
+      reducer([], {
         type: types.FETCH_CATEGORIES_REQUEST,
         groups: mockCatsName
       })
@@ -53,7 +50,7 @@ describe('tags reducer', () => {
 
   it('should handle FETCH_TAGS_FAILURE and FETCH_CATEGORIES_FAILURE', () => {
     expect(
-      reducer.tags([], {
+      reducer([], {
         type: types.FETCH_TAGS_FAILURE,
         groups: mockTagsName,
         error: new Error('Test Error'),
@@ -73,7 +70,7 @@ describe('tags reducer', () => {
     })
 
     expect(
-      reducer.categories([], {
+      reducer([], {
         type: types.FETCH_CATEGORIES_FAILURE,
         groups: mockCatsName,
         error: new Error('Test Error'),
@@ -95,7 +92,7 @@ describe('tags reducer', () => {
 
   it('should handle FETCH_TAGS_SUCCESS and FETCH_CATEGORIES_SUCCESS', () => {
     expect(
-      reducer.tags([], {
+      reducer([], {
         type: types.FETCH_TAGS_SUCCESS,
         response: {
           entities: {
@@ -128,7 +125,7 @@ describe('tags reducer', () => {
     })
 
     expect(
-      reducer.categories([], {
+      reducer([], {
         type: types.FETCH_CATEGORIES_SUCCESS,
         response: {
           entities: {

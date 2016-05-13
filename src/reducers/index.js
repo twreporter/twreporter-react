@@ -1,11 +1,11 @@
 'use strict'
-import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { merge } from 'lodash'
 import { routerStateReducer as router } from 'redux-router'
 import * as ActionTypes from '../actions'
-import taggedArticles from './articles'
+import articles from './articles'
 import device from './device'
+import groups from './groups'
 import selectedArticle from './article'
 
 // Updates an entity cache in response to any action with response.entities.
@@ -29,13 +29,14 @@ function errorMessage(state = null, action) {
 }
 
 const rootReducer = combineReducers({
-  categories,
+  articlesByCats: articles,
+  articlesByTags: articles,
+  categories: groups,
   errorMessage,
   entities,
   device,
   selectedArticle,
-  taggedArticles,
-  tags,
+  tags: groups,
   router
 })
 

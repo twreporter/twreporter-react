@@ -1,6 +1,6 @@
 import * as types from '../constants/action-types'
 
-function groups(state = {}, action = {}) {
+export default function groups(state = {}, action = {}) {
   let _groups = {}
   switch (action.type) {
     case types.FETCH_TAGS_REQUEST:
@@ -40,28 +40,6 @@ function groups(state = {}, action = {}) {
         }
       })
       return Object.assign({}, state, _groups)
-    default:
-      return state
-  }
-}
-
-export function tags(state = {}, action = {}) {
-  switch(action.type) {
-    case types.FETCH_TAGS_SUCCESS:
-    case types.FETCH_TAGS_REQUEST:
-    case types.FETCH_TAGS_FAILURE:
-      return groups(state, action)
-    default:
-      return state
-  }
-}
-
-export function categories(state = {}, action = {}) {
-  switch(action.type) {
-    case types.FETCH_CATEGORIES_SUCCESS:
-    case types.FETCH_CATEGORIES_REQUEST:
-    case types.FETCH_CATEGORIES_FAILURE:
-      return groups(state, action)
     default:
       return state
   }

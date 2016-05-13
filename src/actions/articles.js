@@ -84,7 +84,7 @@ function buildQueryURL(groupType, groupIds = [], count = 10, page = 1) {
   return formatUrl(`posts?${query}`)
 }
 
-function getNextUrl(state, groupType, groupNames, count, page) {
+function getNextUrl(state = {}, groupType, groupNames = [], count = 10, page = 1) {
   let existedArticles
   let existedGroups
   if (groupType === groupEnum.CATEGORY) {
@@ -97,6 +97,7 @@ function getNextUrl(state, groupType, groupNames, count, page) {
     return null
   }
 
+  groupNames = Array.isArray(groupNames) ? groupNames : [ groupNames ]
   const groupNameStr = groupNames.join()
   const articles = _.get(existedArticles, [ groupNameStr ])
   if (articles) {
