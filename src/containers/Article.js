@@ -33,6 +33,13 @@ export default class Article extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.article.slug === nextProps.article.slug) {
+      return false
+    }
+    return true
+  }
+
   _composeAuthors(article) {
     article = article || {}
     let authors = []
@@ -47,9 +54,6 @@ export default class Article extends Component {
       }
     })
     return authors
-  }
-
-  _dedup(arr) {
   }
 
   render() {

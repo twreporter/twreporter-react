@@ -1,5 +1,7 @@
 'use strict'
 import { getArticleEmbeddedQuery } from './get-article-embedded-query'
+import _ from 'lodash'
+
 function denormalizeEntity(entityIds = [], entityObj = {}) {
   let rtn = []
   entityObj = entityObj || {}
@@ -22,7 +24,7 @@ export function denormalizeArticles(articleSlugs = [], entities = {}) {
   articleSlugs = Array.isArray(articleSlugs) ? articleSlugs : [ articleSlugs ]
   articleSlugs.forEach((articleSlug) => {
     if (articles.hasOwnProperty(articleSlug)) {
-      let article = articles[articleSlug]
+      let article = _.merge({} ,articles[articleSlug])
       list.forEach((item) => {
         article[item] = denormalizeEntity(article[item], entities[item])
       })

@@ -53,7 +53,7 @@ export default {
       categories: [
         {
           __v: 0,
-          _id: "572303491cece3ae858dffe2",
+          _id: "category-id-1",
           sortOrder: 1,
           key: "category-1",
           name: "category-1"

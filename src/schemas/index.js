@@ -21,3 +21,4 @@ article.define({
 
 export { article }
 export { tag }
+export { category }
