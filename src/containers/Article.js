@@ -5,6 +5,7 @@ import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
+import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import styles from './Article.scss'
 
@@ -72,6 +73,7 @@ export default class Article extends Component {
         <ArticleComponents.Author
           authors={deduppedAuthors}
         />
+        <Footer/>
       </div>
     )
   }

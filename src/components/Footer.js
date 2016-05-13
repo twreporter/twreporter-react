@@ -16,6 +16,9 @@ export default class Footer extends Component {
     if (copyright == 'Copyrighted') {
       copyright_img = '/asset/cc.png'
       copyright_string = 'Copyright 2015-2016 報導者'
+    } else if (copyright == 'Creative-Commons') {
+      copyright_img = '/asset/cc.png'
+      copyright_string = '創用CC姓名標示-非商業性-禁止改作授權條款'
     }
     return (
       <div className="footer">

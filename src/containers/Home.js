@@ -7,6 +7,7 @@ import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
+import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
@@ -107,6 +108,7 @@ export default class Home extends Component {
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
+          <Footer/>
         </div>
       )
     } else {

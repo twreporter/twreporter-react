@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
 
 import Article from '../containers/Article'
-import Home from '../containers/Home'
 import Category from '../containers/Category'
+import Home from '../containers/Home'
+import NavBar from '../components/NavBar'
 import Photography from '../containers/Photography'
 
-import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 
 class App extends Component {
   render() {
@@ -18,7 +17,6 @@ class App extends Component {
           bgStyle={pathname === '/photography' ? 'dark' : 'light'}
           path={pathname}/>
         {this.props.children}
-        <Footer copyright = "Creative-Commons"/>
       </div>
     )
   }

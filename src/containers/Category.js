@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
-import Tags from '../components/Tags'
 import catToTag from '../conf/category-tag-mapping-table'
+import Footer from '../components/Footer'
+import Tags from '../components/Tags'
 
 if (process.env.BROWSER) {
   require('./Category.css')
@@ -75,6 +76,7 @@ export default class Category extends Component {
           loadMore={this.loadMore}
         />
         {this.props.children}
+        <Footer/>
       </div>
     )
   }
