@@ -5,15 +5,17 @@ import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
 import * as types from '../constants/action-types'
 
-function generateKey(tags) {
-  tags = Array.isArray(tags) ? tags : [ tags ]
-  return tags.sort().join()
+function generateKey(groups) {
+  groups = Array.isArray(groups) ? groups : [ groups ]
+  return groups.sort().join()
 }
+
 function articles(state = {}, action) {
-  let key = generateKey(action.tags)
+  let key = generateKey(action.groups)
   let _state = {}
   switch (action.type) {
-    case types.FETCH_ARTICLES_REQUEST:
+    case types.FETCH_ARTICLES_BY_CATS_REQUEST:
+    case types.FETCH_ARTICLES_BY_TAGS_REQUEST:
       if (state.hasOwnProperty(key)) {
         merge(_state, state[key], {
           isFetching: true
@@ -29,7 +31,8 @@ function articles(state = {}, action) {
       return merge({}, state, {
         [ key ]: _state
       })
-    case types.FETCH_ARTICLES_FAILURE:
+    case types.FETCH_ARTICLES_BY_CATS_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAGS_FAILURE:
       if (state.hasOwnProperty(key)) {
         merge(_state, state[key], {
           isFetching: false,
@@ -48,7 +51,8 @@ function articles(state = {}, action) {
       return merge({}, state, {
         [ key ]: _state
       })
-    case types.FETCH_ARTICLES_SUCCESS:
+    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
+    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
       let nextUrl = ''
       let response = action.response
       try {
@@ -74,14 +78,24 @@ function articles(state = {}, action) {
   }
 }
 
-export default function (state = {}, action) {
+export function articlesByTags(state = {}, action = {}) {
   switch(action.type) {
-    case types.FETCH_ARTICLES_SUCCESS:
-    case types.FETCH_ARTICLES_REQUEST:
-    case types.FETCH_ARTICLES_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAGS_REQUEST:
+    case types.FETCH_ARTICLES_BY_TAGS_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
       return articles(state, action)
     default:
       return state
   }
 }
 
+export function articlesByCats(state = {}, action = {}) {
+  switch(action.type) {
+    case types.FETCH_ARTICLES_BY_CATS_REQUEST:
+    case types.FETCH_ARTICLES_BY_CATS_FAILURE:
+    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
+      return articles(state, action)
+    default:
+      return state
+  }
+}
