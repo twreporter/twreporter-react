@@ -9,7 +9,8 @@ function generateKey(groups) {
   groups = Array.isArray(groups) ? groups : [ groups ]
   return groups.sort().join()
 }
-export default function articles(state = {}, action) {
+
+function articles(state = {}, action) {
   let key = generateKey(action.groups)
   let _state = {}
   switch (action.type) {
@@ -72,6 +73,28 @@ export default function articles(state = {}, action) {
       return merge({}, state, {
         [ key ]: _state
       })
+    default:
+      return state
+  }
+}
+
+export function articlesByTags(state = {}, action = {}) {
+  switch(action.type) {
+    case types.FETCH_ARTICLES_BY_TAGS_REQUEST:
+    case types.FETCH_ARTICLES_BY_TAGS_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
+      return articles(state, action)
+    default:
+      return state
+  }
+}
+
+export function articlesByCats(state = {}, action = {}) {
+  switch(action.type) {
+    case types.FETCH_ARTICLES_BY_CATS_REQUEST:
+    case types.FETCH_ARTICLES_BY_CATS_FAILURE:
+    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
+      return articles(state, action)
     default:
       return state
   }

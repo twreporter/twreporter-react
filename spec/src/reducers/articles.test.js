@@ -8,7 +8,7 @@ import * as types from '../../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
 import mockArticles from '../actions/mocks/articles'
 import nock from 'nock'
-import reducer from '../../../src/reducers/articles'
+import { articlesByCats, articlesByTags } from '../../../src/reducers/articles'
 import thunk from 'redux-thunk'
 
 // for formatURl function in src/utils/index.js
@@ -71,14 +71,14 @@ describe('articlesByTags reducer', () => {
   })
   it('should return the initial state', () => {
     expect(
-      reducer(undefined, {})
+      articlesByTags(undefined, {})
     ).to.deep.equal({})
   })
 
   it('should handle FETCH_ARTICLES_BY_TAGS_REQUEST', () => {
     let joinedTag = mockTagNames.join()
     expect(
-      reducer({}, {
+      articlesByTags({}, {
         type: types.FETCH_ARTICLES_BY_TAGS_REQUEST,
         groups: mockTagNames
       })
@@ -95,7 +95,7 @@ describe('articlesByTags reducer', () => {
   it('should handle FETCH_ARTICLES_BY_TAGS_FAILURE', () => {
     let joinedTag = mockTagNames.join()
     expect(
-      reducer({}, {
+      articlesByTags({}, {
         type: types.FETCH_ARTICLES_BY_TAGS_FAILURE,
         groups: mockTagNames,
         error: new Error('Test Error'),
@@ -121,7 +121,7 @@ describe('articlesByTags reducer', () => {
     return store.dispatch(fetchTaggedArticlesIfNeeded('tag-1', 1, 1))
     .then(() => {
       expect(
-        reducer({
+        articlesByTags({
           'tag-1': {
             isFetching: true,
             error: null,
@@ -164,7 +164,7 @@ describe('articlesByCats reducer', () => {
   it('should handle FETCH_ARTICLES_BY_CATS_REQUEST', () => {
     let joinedTag = mockCatNames.join()
     expect(
-      reducer({}, {
+      articlesByCats({}, {
         type: types.FETCH_ARTICLES_BY_CATS_REQUEST,
         groups: mockCatNames
       })
@@ -181,7 +181,7 @@ describe('articlesByCats reducer', () => {
   it('should handle FETCH_ARTICLES_BY_CATS_FAILURE', () => {
     let joinedTag = mockCatNames.join()
     expect(
-      reducer({}, {
+      articlesByCats({}, {
         type: types.FETCH_ARTICLES_BY_CATS_FAILURE,
         groups: mockCatNames,
         error: new Error('Test Error'),
@@ -207,7 +207,7 @@ describe('articlesByCats reducer', () => {
     return store.dispatch(fetchCategorizedArticlesIfNeeded('category-1', 1, 1))
     .then(() => {
       expect(
-        reducer({
+        articlesByCats({
           'category-1': {
             isFetching: true,
             error: null,

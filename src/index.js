@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import { fetchTagsIfNeeded } from './actions/tags'
+import { fetchTagsIfNeeded } from './actions/groups'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
