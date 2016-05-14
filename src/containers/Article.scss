@@ -1,4 +1,6 @@
+@import '../themes/variables';
+
 .article {
-  background-color: red;
+  background-color: $article-gray;
   min-height: 20em;
 }

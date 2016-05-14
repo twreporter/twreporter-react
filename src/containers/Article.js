@@ -65,15 +65,14 @@ export default class Article extends Component {
       <div className={styles.article}>
         <div className="container">
           <div className="row">
-            <div className="col-md-4">.col-md-4</div>
-            <div className="col-md-4">.col-md-4</div>
-            <div className="col-md-4">.col-md-4</div>
+            <div className="col-md-12 text-center">
+              <ArticleComponents.HeadingAuthor
+                authors={authors}
+              />
+            </div>
           </div>
         </div>
 
-        <ArticleComponents.HeadingAuthor
-          authors={authors}
-        />
         <ArticleComponents.Author
           authors={deduppedAuthors}
         />

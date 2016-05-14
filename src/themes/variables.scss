@@ -11,7 +11,8 @@ $cyan: #33e0ff;
 $humility: #777;
 
 // Bootstrap Variables
-$brand-primary: darken(#428bca, 6.5%);
+$red: #C6000B;
+$brand-primary: $red;
 $brand-secondary: #e25139;
 $brand-success: #5cb85c;
 $brand-warning: #f0ad4e;
@@ -21,14 +22,13 @@ $brand-info: #5bc0de;
 $text-color: #333;
 
 $font-size-base: 14px;
-$font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
+$font-family-sans-serif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 
 
-
-
-$red: #e60012;
-$brand-primary: $red;
+// TWReporter's custom variable
 $subnav-background: #3E3A39;
+$article-gray: #F7F7F7;
+$gray-text1: #4D4D4D;
 $white: #ffffff;
 $black: #000;
 $gray: #898989;
