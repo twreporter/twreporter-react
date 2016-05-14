@@ -4,7 +4,7 @@ import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { merge } from 'lodash'
 import { routerStateReducer as router } from 'redux-router'
-import * as ActionTypes from '../actions'
+import { FatalError } from '../lib/custom-error'
 import device from './device'
 import selectedArticle from './article'
 
@@ -16,13 +16,13 @@ function entities(state = {}, action) {
   return state
 }
 
-function errorMessage(state = null, action) {
-  const { type, error } = action
+function fatalError(state = null, action) {
+  const { error } = action
 
-  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-    return null
-  } else if (error) {
+  if ( error instanceof FatalError ) {
     return action.error
+  } else {
+    return null
   }
 
   return state
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   articlesByCats,
   articlesByTags,
   categories,
-  errorMessage,
+  fatalError,
   entities,
   device,
   selectedArticle,

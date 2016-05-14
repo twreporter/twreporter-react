@@ -20,6 +20,9 @@ import { Provider } from 'react-redux'
 import DeviceProvider from '../src/components/DeviceProvider'
 import config from './config'
 
+import {  NotFoundError } from '../src/lib/custom-error'
+import _ from 'lodash'
+
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
 // create a proxy server to serve the API requests
@@ -90,11 +93,12 @@ server.get('*', (req, res) => {
     } else if (renderProps == null) {
       res.status(404).render('404')
     } else {
+
       let [ getCurrentUrl, unsubscribe ] = subscribeUrl()
       let reqUrl = location.pathname + location.search
       store.dispatch({
         type: 'DETECT_DEVICE',
-        req: req
+        headers: _.get(req, [ 'headers', 'user-agent' ])
       })
 
       const getReduxPromise = function () {
@@ -110,6 +114,10 @@ server.get('*', (req, res) => {
       const device = store.getState().device
 
       getReduxPromise().then(()=> {
+        let fatalError = store.getState().fatalError
+        if (fatalError) {
+          throw fatalError
+        }
         let reduxState = escape(JSON.stringify(store.getState()))
         let html = ReactDOMServer.renderToString(
           <Provider store={store} >
@@ -134,9 +142,14 @@ server.get('*', (req, res) => {
         }
         unsubscribe()
       }).catch((err) => {
+        console.log(err.stack)
+        if (err instanceof NotFoundError) {
+          res.status(404)
+          res.render('404')
+          return
+        }
         res.status(500)
         let errStack = err.stack.split('\n')
-        console.log(err, errStack)
         res.render('500', { error: errStack })
       })
     }
