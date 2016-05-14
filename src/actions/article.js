@@ -5,6 +5,7 @@ import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { normalize } from 'normalizr'
+import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import * as types from '../constants/action-types'
 import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
@@ -40,16 +41,19 @@ function fetchArticle(slug) {
     let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
     return fetch(formatUrl(`posts/${slug}?${query}`))
     .then((response) => {
-      if (response.status >= 400) {
-        throw new Error('Bad response from API, response: ', response)
+      let status = response.status
+      if (status === 404) {
+        throw new NotFoundError('Article ' +  slug + ' is not found')
+      } else if (status >= 400) {
+        throw new InternalServerError('Bad response from API, response: ' + response)
       }
       return response.json()
     })
     .then((response) => {
       const camelizedJson = camelizeKeys(response)
-      dispatch(receiveArticle(normalize(camelizedJson, articleSchema)))
+      return dispatch(receiveArticle(normalize(camelizedJson, articleSchema)))
     }, (error) => {
-      dispatch(failToReceiveArticle(slug, error))
+      return dispatch(failToReceiveArticle(slug, error))
     })
   }
 }
