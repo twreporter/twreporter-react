@@ -19,22 +19,22 @@ export default class Article extends Component {
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, article } = this.props
-    if (article.slug !== slug || ( article.isFetching === false && article.error !== null) ) {
+    const { fetchArticleIfNeeded, selectedArticle } = this.props
+    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const slug = nextProps.params.slug
-    const { fetchArticleIfNeeded, article } = nextProps
-    if (article.slug !== slug || ( article.isFetching === false && article.error !== null) ) {
+    const { fetchArticleIfNeeded, selectedArticle } = nextProps
+    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.article.slug === nextProps.article.slug) {
+    if (this.props.selectedArticle.slug === nextProps.selectedArticle.slug) {
       return false
     }
     return true
@@ -57,9 +57,10 @@ export default class Article extends Component {
   }
 
   render() {
-    const { article, entities } = this.props
+    const { selectedArticle, entities } = this.props
     const { device } = this.context
-    let authors = this._composeAuthors(denormalizeArticles(article.slug, entities)[0])
+    let article = denormalizeArticles(selectedArticle.slug, entities)[0]
+    let authors = this._composeAuthors(article)
     let deduppedAuthors = _.uniq(authors, 'id')
     return (
       <div className={styles.article}>
@@ -68,11 +69,11 @@ export default class Article extends Component {
             <div className="col-md-12 text-center">
               <ArticleComponents.HeadingAuthor
                 authors={authors}
+                publishedDate={new Date(article.publishedDate)}
               />
             </div>
           </div>
         </div>
-
         <ArticleComponents.Author
           authors={deduppedAuthors}
         />
@@ -84,7 +85,7 @@ export default class Article extends Component {
 
 function mapStateToProps(state) {
   return {
-    article: state.selectedArticle,
+    selectedArticle: state.selectedArticle,
     entities: state.entities
   }
 }
