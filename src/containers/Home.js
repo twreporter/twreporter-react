@@ -2,7 +2,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchArticlesIfNeeded } from '../actions/articles'
+import { fetchTaggedArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
@@ -19,10 +19,10 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-function loadData(fetchArticlesIfNeeded) {
-  fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE)
-  fetchArticlesIfNeeded('review', MAXRESULT, PAGE)
-  fetchArticlesIfNeeded('feature', MAXRESULT, PAGE)
+function loadData(fetchTaggedArticlesIfNeeded) {
+  fetchTaggedArticlesIfNeeded('hp-projects', MAXRESULT, PAGE)
+  fetchTaggedArticlesIfNeeded('review', MAXRESULT, PAGE)
+  fetchTaggedArticlesIfNeeded('feature', MAXRESULT, PAGE)
 }
 
 
@@ -32,19 +32,19 @@ export default class Home extends Component {
       // load tagged articles in parallel
       async.parallel([
         function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
+          store.dispatch(fetchTaggedArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
         },
         function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('review', MAXRESULT, PAGE))
+          store.dispatch(fetchTaggedArticlesIfNeeded('review', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
         },
         function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('feature', MAXRESULT, PAGE))
+          store.dispatch(fetchTaggedArticlesIfNeeded('feature', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
@@ -64,30 +64,30 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    loadData(this.props.fetchArticlesIfNeeded)
+    loadData(this.props.fetchTaggedArticlesIfNeeded)
   }
 
   componentWillReceiveProps(nextProps) {
-    loadData(nextProps.fetchArticlesIfNeeded)
+    loadData(nextProps.fetchTaggedArticlesIfNeeded)
   }
 
   loadMoreArticles(tag) {
-    const { taggedArticles, fetchArticlesIfNeeded } = this.props
-    const features = taggedArticles[tag] || {
+    const { articlesByTags, fetchTaggedArticlesIfNeeded } = this.props
+    const features = articlesByTags[tag] || {
       items: []
     }
     let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchArticlesIfNeeded(tag, MAXRESULT, page)
+    fetchTaggedArticlesIfNeeded(tag, MAXRESULT, page)
   }
 
   render() {
-    const { taggedArticles, entities } = this.props
+    const { articlesByTags, entities } = this.props
     const topnews_num = 5
-    let topnewsItems = denormalizeArticles(_.get(taggedArticles, [ 'feature','items' ] , []), entities)
+    let topnewsItems = denormalizeArticles(_.get(articlesByTags, [ 'feature','items' ] , []), entities)
 
-    let featureItems = denormalizeArticles(_.get(taggedArticles, [ 'hp-projects' , 'items' ], []), entities)
+    let featureItems = denormalizeArticles(_.get(articlesByTags, [ 'hp-projects' , 'items' ], []), entities)
 
-    let dailyItems = denormalizeArticles(_.get(taggedArticles, [ 'review', 'items' ], []), entities)
+    let dailyItems = denormalizeArticles(_.get(articlesByTags, [ 'review', 'items' ], []), entities)
 
     if (topnewsItems.length < topnews_num) {
       let less = topnews_num - topnewsItems.length
@@ -104,7 +104,7 @@ export default class Home extends Component {
           <Daily daily={dailyItems} />
           <Features
             features={featureItems}
-            hasMore={ _.get(taggedArticles, [ 'hp-projects', 'nextUrl' ]) !== null}
+            hasMore={ _.get(articlesByTags, [ 'hp-projects', 'nextUrl' ]) !== null}
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
@@ -119,10 +119,10 @@ export default class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    taggedArticles: state.taggedArticles || {},
+    articlesByTags: state.articlesByTags || {},
     entities: state.entities || {}
   }
 }
 
 export { Home }
-export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Home)
+export default connect(mapStateToProps, { fetchTaggedArticlesIfNeeded })(Home)
