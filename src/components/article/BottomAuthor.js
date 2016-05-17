@@ -15,7 +15,6 @@ export class BottomAuthor extends Component {
 
   render() {
     const { authors } = this.props
-    console.log("AUTHOR", authors)
     const authorRows = _.map(authors, author =>
       <div className={'row ' + styles.authorRow}>
         <div className="col-sm-2">
