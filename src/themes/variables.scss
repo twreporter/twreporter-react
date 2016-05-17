@@ -1,10 +1,10 @@
 /**
  *  Define scss variables here.
  *
- *  Available options for Bootstrap:
- *  http://getbootstrap.com/customize/
- *
  */
+
+// Common variables
+@import './common-variables.scss';
 
 // Custom Colors
 $cyan: #33e0ff;
