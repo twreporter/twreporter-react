@@ -1,2 +1,2 @@
-export * from './Author.js'
 export * from './HeadingAuthor.js'
+export * from './BottomAuthor.js'

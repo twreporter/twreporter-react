@@ -73,10 +73,12 @@ export default class Article extends Component {
               />
             </div>
           </div>
+
+          <ArticleComponents.BottomAuthor
+            authors={deduppedAuthors}
+          />
         </div>
-        <ArticleComponents.Author
-          authors={deduppedAuthors}
-        />
+
         <Footer/>
       </div>
     )
