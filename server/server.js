@@ -17,7 +17,6 @@ import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
-import DeviceProvider from '../src/components/DeviceProvider'
 import config from './config'
 
 import {  NotFoundError } from '../src/lib/custom-error'
@@ -111,8 +110,6 @@ server.get('*', (req, res) => {
         return promise
       }
 
-      const device = store.getState().device
-
       getReduxPromise().then(()=> {
         let fatalError = store.getState().fatalError
         if (fatalError) {
@@ -121,9 +118,7 @@ server.get('*', (req, res) => {
         let reduxState = escape(JSON.stringify(store.getState()))
         let html = ReactDOMServer.renderToString(
           <Provider store={store} >
-            <DeviceProvider device={device}>
-              { <RoutingContext {...renderProps} /> }
-            </DeviceProvider>
+            { <RoutingContext {...renderProps} /> }
           </Provider>
         )
         let assets = webpackIsomorphicTools.assets()

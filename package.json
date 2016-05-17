@@ -14,7 +14,7 @@
     "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src server api spec",
     "production": "webpack -p --progress && forever -e err.log server/index.js",
-    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' ",
+    "test": "./node_modules/mocha/bin/mocha $(find spec -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
   },
   "betterScripts": {
