@@ -7,7 +7,11 @@ $brand-danger: #d9534f;
 $brand-info: #5bc0de;
 
 $text-color: #333;
+$gray-border-color: #ACACB1;
 
-$font-size-base: 14px;
+$font-size-base: 16px !default;
 $font-family-sans-serif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+$font-date-serif: "Times New Roman", serif;
 
+$article-inner-width: 712px;
+$article-outer-width: 900px;

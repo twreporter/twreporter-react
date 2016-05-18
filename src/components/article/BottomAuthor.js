@@ -16,7 +16,7 @@ export class BottomAuthor extends Component {
   render() {
     const { authors } = this.props
     const authorRows = _.map(authors, author =>
-      <div className={'row ' + styles.authorRow}>
+      <div key={author.name} className={'row ' + styles.authorRow}>
         <div className="col-sm-2">
           <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" className="img-responsive img-circle center-block"/>
         </div>
@@ -31,7 +31,7 @@ export class BottomAuthor extends Component {
     )
 
     return (
-      <div>
+      <div className={styles.bottomAuthor}>
         { authorRows }
       </div>
     )

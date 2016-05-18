@@ -17,7 +17,7 @@ export class PublishDate extends Component {
     const { date } = this.props
     const dateTime = new Date(date)
     return (
-      <div>
+      <div className={styles.publishDate}>
         <FormattedDate value={ dateTime } day="numeric" month="numeric" year="numeric" />
       </div>
     )

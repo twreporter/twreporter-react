@@ -1,9 +1,17 @@
 
 .container {
   line-height: 1.8;
-  
+}
+
+.inner-max {
   @media only screen and (min-width: $screen-md-min) {
-    max-width: 712px;
+    max-width: $article-inner-width;
+  }
+}
+
+.outer-max {
+  @media only screen and (min-width: $screen-md-min) {
+    max-width: $article-outer-width;
   }
 }
 
@@ -11,7 +19,7 @@
 // Bootswatch
 // -----------------------------------------------------
 
-$web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic" !default;
+$web-font-path: "https://fonts.googleapis.com/earlyaccess/notosanstc.css";
 @import url($web-font-path);
 
 // Navbar =====================================================================
