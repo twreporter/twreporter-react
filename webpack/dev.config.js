@@ -41,6 +41,14 @@ module.exports = {
       { test:/\.json$/,
         loader: 'json-loader'
       },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&sourceMap&localIdentName=[local]',
+          'postcss'
+        ]
+      },
       { test: /\.scss$/,
         loaders: [
           'style',
@@ -54,11 +62,7 @@ module.exports = {
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?mimetype=application/vnd.ms-fontobject" },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', "css-loader")
-      }
+      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
   postcss: [autoprefixer],
@@ -75,7 +79,6 @@ module.exports = {
   },
   plugins: [
     // hot reload
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
@@ -87,7 +90,6 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
     }),
-    new ExtractTextPlugin('[name].css'),
     webpackIsomorphicToolsPlugin.development()
   ]
 };
