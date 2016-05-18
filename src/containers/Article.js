@@ -71,6 +71,9 @@ export default class Article extends Component {
                 authors={authors}
                 publishedDate={new Date(article.publishedDate)}
               />
+              <ArticleComponents.PublishDate
+                date={selectedArticle.lastUpdated}
+              />
             </div>
           </div>
 
