@@ -64,16 +64,30 @@ export default class Article extends Component {
     let deduppedAuthors = _.uniq(authors, 'id')
     return (
       <div className={styles.article}>
-        <div className="container">
-          <div className="row">
+        <div className="container outer-max">
+          <div className={'row ' + styles.titleRow}>
             <div className="col-md-12 text-center">
+              <hgroup>
+                <h1>{article.title}</h1>
+              </hgroup>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-10 text-left">
               <ArticleComponents.HeadingAuthor
                 authors={authors}
                 publishedDate={new Date(article.publishedDate)}
               />
             </div>
+            <div className="col-md-2 text-right">
+              <ArticleComponents.PublishDate
+                date={selectedArticle.lastUpdated}
+              />
+            </div>
           </div>
 
+        </div>
+        <div className="container inner-max">
           <ArticleComponents.BottomAuthor
             authors={deduppedAuthors}
           />

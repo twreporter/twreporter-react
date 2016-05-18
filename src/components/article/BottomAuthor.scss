@@ -1,3 +1,11 @@
+@import '../../themes/common-variables';
+
+.bottomAuthor {
+  padding: 4em 0;
+  border-top: 2px solid $gray-border-color;
+  margin-top: 3.8em;
+}
+
 .authorRow {
   margin-bottom: 5rem;
 }

@@ -22,7 +22,7 @@ export default class Footer extends Component {
     }
     return (
       <div className="footer">
-        <div className="container">
+        <div className="container inner-max">
           <div className="row">
             <div className="col-md-12">
               <div className="logo-container">
@@ -73,7 +73,7 @@ export default class Footer extends Component {
           </div>
         </div>
         <div className="open-source-container">
-          <div className="container">
+          <div className="container inner-max">
             <div className="items">
               <div className="item">
                 <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/tw/" rel="license" target="_blank">

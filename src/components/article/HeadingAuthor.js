@@ -39,8 +39,9 @@ export class HeadingAuthor extends Component {
   render() {
     const { authors } = this.props
     const formattedAuthor = this._formatAuthor(authors)
+    let count = 0
     const authorRows = _.map(formattedAuthor, author =>
-      <span className={styles.authorItem}>
+      <span key={count++} className={styles.authorItem}>
         {author.type} | {author.list}
       </span>
     )
