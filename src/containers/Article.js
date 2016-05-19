@@ -76,12 +76,11 @@ export default class Article extends Component {
             <div className="col-md-10 text-left">
               <ArticleComponents.HeadingAuthor
                 authors={authors}
-                publishedDate={new Date(article.publishedDate)}
               />
             </div>
             <div className="col-md-2 text-right">
               <ArticleComponents.PublishDate
-                date={selectedArticle.lastUpdated}
+                date={article.publishedDate}
               />
             </div>
           </div>

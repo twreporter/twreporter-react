@@ -9,10 +9,6 @@ export class PublishDate extends Component {
     super(props)
   }
 
-  setHtml(html) {
-    return { __html: html }
-  }
-
   render() {
     const { date } = this.props
     const dateTime = new Date(date)
