@@ -62,6 +62,8 @@ export default class Article extends Component {
     let article = denormalizeArticles(selectedArticle.slug, entities)[0]
     let authors = this._composeAuthors(article)
     let deduppedAuthors = _.uniq(authors, 'id')
+    let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
+    let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
     return (
       <div className={styles.article}>
         <div className="container outer-max">
@@ -81,6 +83,16 @@ export default class Article extends Component {
             <div className="col-md-2 text-right">
               <ArticleComponents.PublishDate
                 date={article.publishedDate}
+              />
+            </div>
+            <div className="col-md-12">
+              <ArticleComponents.Introduction
+                data={introData}
+              />
+            </div>
+            <div className="col-md-12">
+              <ArticleComponents.Body
+                data={bodyData}
               />
             </div>
           </div>

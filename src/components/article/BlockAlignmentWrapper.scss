@@ -1,0 +1,32 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import "../../themes/media-queries.scss";
+
+.align-left {
+  /* TBD needs to wait for mockup */
+  max-width: 300px;
+  float: left;
+  margin-bottom: 40px;
+  margin-right: 40px;
+}
+
+.align-right {
+  /* TBD needs to wait for mockup */
+  max-width: 300px;
+  float: right;
+  margin-bottom: 40px;
+  margin-left: 40px;
+}
+
+.align-center {
+  width: 100%;
+  margin-top: 35px;
+  margin-bottom: 40px;
+}
+
+@include mq($max-width: $screen-sm-max) {
+  .align-left, .align-right {
+    max-width: 100%;
+    float: none;
+  }
+}
+
