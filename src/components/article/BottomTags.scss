@@ -1,0 +1,18 @@
+@import '../../themes/common-variables';
+
+.keywordList {
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin: 0.2rem 1.3rem 0.3rem 0;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 62rem;
+    border-width: 0.0625rem;
+    // border-style: solid;
+    background-color: #4bc6df;
+    // border-color: #005689;
+    padding: 0.05rem 1.5rem;
+  }
+}
