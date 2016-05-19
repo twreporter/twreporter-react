@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: 1*/
 
 'use strict'
 import { arrayOf, normalize } from 'normalizr'
@@ -6,10 +5,8 @@ import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
-import { CALL_API } from '../middleware/api'
 import _ from 'lodash'
 import * as CONSTANTS from '../constants/index'
-import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import { fetchTagsIfNeeded, fetchCategoriesIfNeeded } from './groups'
 import qs from 'qs'
@@ -149,13 +146,13 @@ function fetchArticlesIfNeeded(groupType, groupNames, count, page) {
 }
 
 export function fetchTaggedArticlesIfNeeded(tags, count, page) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticlesIfNeeded(groupEnum.TAG, tags, count, page))
   }
 }
 
 export function fetchCategorizedArticlesIfNeeded(categories, count, page) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticlesIfNeeded(groupEnum.CATEGORY, categories, count, page))
   }
 }

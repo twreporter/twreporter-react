@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: 1*/
 
 'use strict'
 import { article as articleSchema } from '../schemas/index'
@@ -7,7 +6,6 @@ import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { normalize } from 'normalizr'
 import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import * as types from '../constants/action-types'
-import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 

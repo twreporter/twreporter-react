@@ -1,4 +1,3 @@
-/* eslint no-unused-vars:1 */
 import React, { Component, PropTypes } from 'react'
 import DesktopNavBar from './DesktopNavBar'
 import MobileNavBar from './MobileNavBar'
@@ -14,7 +13,7 @@ export default class NaviBar extends Component {
     this._renderMobile = this._renderMobile.bind(this)
     this._render = this._render.bind(this)
   }
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
     if (nextProps.path === this.props.path) {
       return false
     }
