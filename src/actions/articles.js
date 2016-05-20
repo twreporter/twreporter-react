@@ -132,14 +132,14 @@ function fetchArticlesIfNeeded(groupType, groupNames, count, page) {
     // load group ids by group names
     return dispatch(fetchGroup(groupNames)).then(() => {
       const nextUrl = getNextUrl(getState(), groupType, groupNames, count, page)
-      if (nextUrl === null) {
-        // if nextUrl is null, then it means no more to load
-        return Promise.resolve()
-      } else if (nextUrl instanceof Error) {
+      if (nextUrl instanceof Error) {
         // dispatch fail action
         return dispatch(failToReceiveArticles(groupType, groupNames, nextUrl))
-      } else {
+      } else if (nextUrl) {
         return dispatch(fetchArticles(groupType, groupNames, nextUrl))
+      } else {
+        // if nextUrl is null or '', then it means no more to load
+        return Promise.resolve()
       }
     })
   }

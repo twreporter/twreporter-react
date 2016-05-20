@@ -53,7 +53,7 @@ function articles(state = {}, action) {
       })
     case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
     case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
-      let nextUrl = ''
+      let nextUrl = null
       let response = action.response
       try {
         let nextHref = action.response.links.next.href
