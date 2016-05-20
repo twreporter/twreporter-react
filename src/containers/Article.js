@@ -1,4 +1,3 @@
-/* eslint  no-unused-vars:1 */
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
@@ -33,7 +32,7 @@ export default class Article extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
     if (this.props.selectedArticle.slug === nextProps.selectedArticle.slug) {
       return false
     }
@@ -58,7 +57,6 @@ export default class Article extends Component {
 
   render() {
     const { selectedArticle, entities } = this.props
-    const { device } = this.context
     let article = denormalizeArticles(selectedArticle.slug, entities)[0]
     let authors = this._composeAuthors(article)
     let deduppedAuthors = _.uniq(authors, 'id')
