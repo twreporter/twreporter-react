@@ -6,7 +6,7 @@ import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 
-class ImageBlock extends Component {
+class Image extends Component {
   constructor(props) {
     super(props)
   }
@@ -49,6 +49,6 @@ class ImageBlock extends Component {
   }
 }
 
-const Image = BlockAlignmentWrapper(ImageBlock)
+const AlignedImage = BlockAlignmentWrapper(Image)
 
-export { Image }
+export { AlignedImage, Image }
