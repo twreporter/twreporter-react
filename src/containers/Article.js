@@ -74,6 +74,7 @@ export default class Article extends Component {
               </hgroup>
             </div>
           </div>
+
           <div className="row">
             <div className="col-md-10 text-left">
               <ArticleComponents.HeadingAuthor
@@ -90,15 +91,25 @@ export default class Article extends Component {
                 data={introData}
               />
             </div>
+          </div>
+
+          <div className="row">
             <div className="col-md-12">
               <ArticleComponents.Body
                 data={bodyData}
               />
             </div>
           </div>
-
         </div>
+
         <div className="container inner-max">
+          <div className="row">
+            <div className="col-md-12">
+              <ArticleComponents.BottomTags
+                data={article.tags}
+              />
+            </div>
+          </div>
           <ArticleComponents.BottomAuthor
             authors={deduppedAuthors}
           />
