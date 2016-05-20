@@ -14,9 +14,11 @@ export class BottomTags extends Component {
     // select distinct tags
     const tags = _.uniq(data, 'id')
     const tagList = _.map(tags, tag =>
-      <li>
-        <a href="#">{tag.name}</a>
-      </li>
+      <a href="#">
+        <li>
+          {tag.name}
+        </li>
+      </a>
     )
 
     return (

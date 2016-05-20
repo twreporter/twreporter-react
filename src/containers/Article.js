@@ -60,7 +60,6 @@ export default class Article extends Component {
     const { selectedArticle, entities } = this.props
     const { device } = this.context
     let article = denormalizeArticles(selectedArticle.slug, entities)[0]
-    console.log('article', article)
     let authors = this._composeAuthors(article)
     let deduppedAuthors = _.uniq(authors, 'id')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])

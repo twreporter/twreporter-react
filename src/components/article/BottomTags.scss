@@ -2,17 +2,23 @@
 
 .keywordList {
   list-style: none;
+  margin-top: 3rem;
 
   li {
     display: inline-block;
-    margin: 0.2rem 1.3rem 0.3rem 0;
-    font-weight: bold;
+    margin: 0.2rem 1.3rem 0.5rem 0;
     text-decoration: none;
     border-radius: 62rem;
-    border-width: 0.0625rem;
-    // border-style: solid;
-    background-color: #4bc6df;
-    // border-color: #005689;
-    padding: 0.05rem 1.5rem;
+    background-color: $gray-tag-bg;
+    border: 1px solid $gray-tag-bg;
+    color: $white;
+    padding: 0.04rem 1.5rem 0.05rem 1.5rem;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $white;
+      color: $brand-primary;
+      border: 1px solid $brand-primary;
+    }
   }
 }
