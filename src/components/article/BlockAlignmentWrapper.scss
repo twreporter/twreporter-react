@@ -1,19 +1,30 @@
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
 @import "../../themes/media-queries.scss";
+@import "../../themes/common-variables.scss";
+
+.align-wrapper {
+  margin-bottom: $twreporter-line-height;
+}
+
+.align-extend {
+  @extend .align-wrapper;
+  /* TBD needs to wait for mockup */
+  max-width: 1vw;
+}
 
 .align-left {
+  @extend .align-wrapper;
   /* TBD needs to wait for mockup */
   max-width: 300px;
   float: left;
-  margin-bottom: 40px;
   margin-right: 40px;
 }
 
 .align-right {
+  @extend .align-wrapper;
   /* TBD needs to wait for mockup */
   max-width: 300px;
   float: right;
-  margin-bottom: 40px;
   margin-left: 40px;
 }
 
