@@ -58,8 +58,10 @@ export default function loadArticles(req, params = []) {
 
 function addImage(authors, imgItems) {
   authors.forEach((author) => {
-    let match = _.filter(imgItems, '_id', author.image)
-    const wImg = _.get(match, [ 0, 'image' ])
-    author.image = wImg
+    if(author.image) {
+      let match = _.filter(imgItems, '_id', author.image)
+      const wImg = _.get(match, [ 0, 'image' ])
+      author.image = wImg
+    }
   })
 }

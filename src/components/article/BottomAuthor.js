@@ -13,12 +13,16 @@ export class BottomAuthor extends Component {
     return { __html: html }
   }
 
+  getAvatar(author) {
+    return _.get(author, [ 'image', 'url' ]) || 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png'
+  }
+
   render() {
     const { authors } = this.props
     const authorRows = _.map(authors, author =>
       <div key={author.id} className={'row ' + styles.authorRow}>
         <div className="col-sm-2">
-          <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" className="img-responsive img-circle center-block"/>
+          <img src={this.getAvatar(author)} className="img-responsive img-circle center-block"/>
         </div>
         <div className="col-sm-10">
           <p>|<span className={styles.authorName}>{author.name}</span>|</p>
