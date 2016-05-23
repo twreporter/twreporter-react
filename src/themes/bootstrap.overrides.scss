@@ -1,6 +1,7 @@
+@import './common-variables.scss';
 
 .container {
-  line-height: 1.8;
+  line-height: $twreporter-line-height;
 }
 
 .inner-max {
