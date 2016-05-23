@@ -17,11 +17,20 @@ export default function loadArticles(req, params = []) {
       } else {
         const queryObj = JSON.parse(_.get(query, 'embedded'))
         let aricleRes = res.body
-        let writers =  _.get(aricleRes, 'writters')
+        let writers =  []
+        const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
+        list.forEach((item) => {
+          let aArr = _.get(aricleRes, item)
+          aArr.forEach((author) => {
+            if(author.image) {
+              writers.push('"' + author.image + '"')
+            }
+          })
+        })
 
         // combine author images data if the query contains 'authorImages'
         if(_.get(queryObj, 'authorImages')) {
-          const imgIds = _.uniq(_.map(writers, (writers)=>{ return '"' + writers.image + '"' }))
+          const imgIds = _.uniq(writers)
           const imgQuery = encodeURI(`where={"_id":{"$in":[${imgIds}]}}`)
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
 
@@ -31,10 +40,10 @@ export default function loadArticles(req, params = []) {
               reject(err)
             } else {
               const imgItems = _.get(res.body, '_items')
-              writers.forEach((writer) => {
-                let match = _.filter(imgItems, '_id', writer.image)
-                const wImg = _.get(match, [ 0, 'image' ])
-                writer.image = wImg
+
+              list.forEach((item) => {
+                let authors = _.get(aricleRes, item)
+                addImage(authors, imgItems)
               })
               resolve(aricleRes)
             }
@@ -44,5 +53,13 @@ export default function loadArticles(req, params = []) {
         }
       }
     })
+  })
+}
+
+function addImage(authors, imgItems) {
+  authors.forEach((author) => {
+    let match = _.filter(imgItems, '_id', author.image)
+    const wImg = _.get(match, [ 0, 'image' ])
+    author.image = wImg
   })
 }
