@@ -2,7 +2,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchTaggedArticlesIfNeeded } from '../actions/articles'
+import { fetchTaggedArticlesIfNeeded, fetchCategorizedArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
@@ -20,9 +20,8 @@ if (process.env.BROWSER) {
 }
 
 function loadData(fetchTaggedArticlesIfNeeded) {
-  fetchTaggedArticlesIfNeeded('hp-projects', MAXRESULT, PAGE)
-  fetchTaggedArticlesIfNeeded('review', MAXRESULT, PAGE)
-  fetchTaggedArticlesIfNeeded('feature', MAXRESULT, PAGE)
+  fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE)
+  fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE)
 }
 
 
@@ -38,13 +37,13 @@ export default class Home extends Component {
           })
         },
         function (callback) {
-          store.dispatch(fetchTaggedArticlesIfNeeded('review', MAXRESULT, PAGE))
+          store.dispatch(fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
         },
         function (callback) {
-          store.dispatch(fetchTaggedArticlesIfNeeded('feature', MAXRESULT, PAGE))
+          store.dispatch(fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
@@ -64,47 +63,36 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    loadData(this.props.fetchTaggedArticlesIfNeeded)
+    loadData(this.props.fetchCategorizedArticlesIfNeeded)
   }
 
   componentWillReceiveProps(nextProps) {
-    loadData(nextProps.fetchTaggedArticlesIfNeeded)
+    loadData(nextProps.fetchCategorizedArticlesIfNeeded)
   }
 
   loadMoreArticles(tag) {
-    const { articlesByTags, fetchTaggedArticlesIfNeeded } = this.props
-    const features = articlesByTags[tag] || {
+    const { articlesByCats, fetchCategorizedArticlesIfNeeded } = this.props
+    const features = articlesByCats[tag] || {
       items: []
     }
     let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchTaggedArticlesIfNeeded(tag, MAXRESULT, page)
+    fetchCategorizedArticlesIfNeeded(tag, MAXRESULT, page)
   }
 
   render() {
-    const { articlesByTags, entities } = this.props
+    const { articlesByCats, entities } = this.props
     const topnews_num = 5
-    let topnewsItems = denormalizeArticles(_.get(articlesByTags, [ 'feature','items' ] , []), entities)
+    let topnewsItems = denormalizeArticles(_.get(articlesByCats, [ '專題','items' ] , []), entities)
 
-    let featureItems = denormalizeArticles(_.get(articlesByTags, [ 'hp-projects' , 'items' ], []), entities)
+    let dailyItems = denormalizeArticles(_.get(articlesByCats, [ '評論', 'items' ], []), entities)
 
-    let dailyItems = denormalizeArticles(_.get(articlesByTags, [ 'review', 'items' ], []), entities)
-
-    if (topnewsItems.length < topnews_num) {
-      let less = topnews_num - topnewsItems.length
-      topnewsItems = topnewsItems.concat(featureItems.slice(0, less))
-      featureItems = featureItems.slice(less)
-    } else {
-      topnewsItems = topnewsItems.slice(0,topnews_num)
-    }
-
-    if (topnewsItems || featureItems) {
+    if (topnewsItems) {
       return (
         <div>
-          <TopNews topnews={topnewsItems} />
           <Daily daily={dailyItems} />
           <Features
-            features={featureItems}
-            hasMore={ _.get(articlesByTags, [ 'hp-projects', 'nextUrl' ]) !== null}
+            features={topnewsItems}
+            hasMore={ _.get(articlesByCats, [ 'hp-projects', 'nextUrl' ]) !== null}
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
@@ -119,10 +107,10 @@ export default class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    articlesByTags: state.articlesByTags || {},
+    articlesByCats: state.articlesByCats || {},
     entities: state.entities || {}
   }
 }
 
 export { Home }
-export default connect(mapStateToProps, { fetchTaggedArticlesIfNeeded })(Home)
+export default connect(mapStateToProps, { fetchCategorizedArticlesIfNeeded })(Home)
