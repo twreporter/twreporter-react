@@ -15,23 +15,28 @@ export default function loadArticles(req, params = []) {
       if (err) {
         reject(err)
       } else {
-        console.log('\n ***QUERY', query, url)
         const queryObj = JSON.parse(_.get(query, 'embedded'))
-        const aricleRes = res.body
-        const writers =  _.get(aricleRes, 'writters')
+        let aricleRes = res.body
+        let writers =  _.get(aricleRes, 'writters')
+
+        // combine author images data if the query contains 'authorImages'
         if(_.get(queryObj, 'authorImages')) {
-          // combine author images data if the query contains 'authorImages'
           const imgIds = _.uniq(_.map(writers, (writers)=>{ return '"' + writers.image + '"' }))
           const imgQuery = encodeURI(`where={"_id":{"$in":[${imgIds}]}}`)
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
-          console.log('\n ***WRITERS', imgQuery, imgUrl)
 
           superAgent['get'](imgUrl).timeout(500)
           .end(function (err, res) {
             if (err) {
               reject(err)
             } else {
-              console.log('\n ***IMAGES', res.body)
+              const imgItems = _.get(res.body, '_items')
+              writers.forEach((writer) => {
+                let match = _.filter(imgItems, '_id', writer.image)
+                const wImg = _.get(match, [ 0, 'image' ])
+                writer.image = wImg
+              })
+              resolve(aricleRes)
             }
           })
         } else {
