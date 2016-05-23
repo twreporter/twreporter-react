@@ -19,7 +19,7 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-function loadData(fetchTaggedArticlesIfNeeded) {
+function loadData(fetchCategorizedArticlesIfNeeded) {
   fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE)
   fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE)
 }
@@ -30,12 +30,14 @@ export default class Home extends Component {
     return new Promise((resolve, reject) => {
       // load tagged articles in parallel
       async.parallel([
+        /*
         function (callback) {
           store.dispatch(fetchTaggedArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
         },
+        */
         function (callback) {
           store.dispatch(fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE))
           .then(() => {
@@ -59,7 +61,7 @@ export default class Home extends Component {
 
   constructor(props, context) {
     super(props, context)
-    this.loadMoreArticles = this.loadMoreArticles.bind(this, 'hp-projects')
+    this.loadMoreArticles = this.loadMoreArticles.bind(this, '專題')
   }
 
   componentWillMount() {
@@ -70,13 +72,13 @@ export default class Home extends Component {
     loadData(nextProps.fetchCategorizedArticlesIfNeeded)
   }
 
-  loadMoreArticles(tag) {
+  loadMoreArticles(cat) {
     const { articlesByCats, fetchCategorizedArticlesIfNeeded } = this.props
-    const features = articlesByCats[tag] || {
+    const features = articlesByCats[cat] || {
       items: []
     }
     let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchCategorizedArticlesIfNeeded(tag, MAXRESULT, page)
+    fetchCategorizedArticlesIfNeeded(cat, MAXRESULT, page)
   }
 
   render() {
@@ -92,7 +94,7 @@ export default class Home extends Component {
           <Daily daily={dailyItems} />
           <Features
             features={topnewsItems}
-            hasMore={ _.get(articlesByCats, [ 'hp-projects', 'nextUrl' ]) !== null}
+            hasMore={ _.get(articlesByCats, [ '專題', 'nextUrl' ]) !== null}
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
