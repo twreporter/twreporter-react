@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import superAgent from 'superagent'
 import config from '../config'
+import querystring from 'qs'
 
 export default function loadArticles(req, params = []) {
   return new Promise((resolve, reject) => {
@@ -20,10 +21,10 @@ export default function loadArticles(req, params = []) {
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
         list.forEach((item) => {
-          let aArr = _.get(aricleRes, item)
+          let aArr = _.get(aricleRes, item, [])
           aArr.forEach((author) => {
             if(author.image) {
-              writers.push('"' + author.image + '"')
+              writers.push(author.image)
             }
           })
         })
@@ -31,22 +32,20 @@ export default function loadArticles(req, params = []) {
         // combine author images data if the query contains 'authorImages'
         if(_.get(queryObj, 'authorImages')) {
           const imgIds = _.uniq(writers)
-          const imgQuery = encodeURI(`where={"_id":{"$in":[${imgIds}]}}`)
+          const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
 
           superAgent['get'](imgUrl).timeout(500)
           .end(function (err, res) {
-            if (err) {
-              reject(err)
-            } else {
+            if (!err) {
               const imgItems = _.get(res.body, '_items')
 
               list.forEach((item) => {
-                let authors = _.get(aricleRes, item)
+                let authors = _.get(aricleRes, item, [])
                 addImage(authors, imgItems)
               })
-              resolve(aricleRes)
             }
+            resolve(aricleRes)
           })
         } else {
           resolve(aricleRes)

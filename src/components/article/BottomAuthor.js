@@ -14,7 +14,7 @@ export class BottomAuthor extends Component {
   }
 
   getAvatar(author) {
-    return _.get(author, [ 'image', 'url' ]) || 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png'
+    return _.get(author, [ 'image', 'url' ], 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png')
   }
 
   render() {
