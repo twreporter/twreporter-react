@@ -59,7 +59,7 @@ function fetchGroups(groupType, groupNames) {
     return fetch(formatUrl(`${path}?${query}`))
     .then((response) => {
       if (response.status >= 400) {
-        throw new Error('Bad response from API')
+        throw new Error('Bad response from API, response:' + JSON.stringify(response))
       }
       return response.json()
     })

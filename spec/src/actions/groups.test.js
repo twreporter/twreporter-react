@@ -74,7 +74,7 @@ describe('tags action', () => {
         expect(store.getActions()[0]).to.deep.equal(expectedActions[0])
         expect(store.getActions()[1].type).to.deep.equal(expectedActions[1].type)
         expect(store.getActions()[1].groups).to.deep.equal(expectedActions[1].groups)
-        expect(store.getActions()[1].error.toString()).to.deep.equal(expectedActions[1].error.toString())
+        expect(store.getActions()[1].error.toString()).to.contain(expectedActions[1].error.toString())
       })
   })
 
@@ -135,7 +135,7 @@ describe('categories action', () => {
         expect(store.getActions()[0]).to.deep.equal(expectedActions[0])
         expect(store.getActions()[1].type).to.deep.equal(expectedActions[1].type)
         expect(store.getActions()[1].groups).to.deep.equal(expectedActions[1].groups)
-        expect(store.getActions()[1].error.toString()).to.deep.equal(expectedActions[1].error.toString())
+        expect(store.getActions()[1].error.toString()).to.contain(expectedActions[1].error.toString())
       })
   })
 
