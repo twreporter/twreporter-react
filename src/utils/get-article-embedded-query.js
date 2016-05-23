@@ -7,6 +7,7 @@ export function getArticleEmbeddedQuery() {
     og_image: 1,
     photographers: 1,
     tags: 1,
-    writters: 1
+    writters: 1,
+    authorImages: 1
   }
 }
