@@ -1,3 +1,5 @@
+/*eslint no-console: 0*/
+
 import _ from 'lodash'
 import superAgent from 'superagent'
 import config from '../config'
@@ -37,7 +39,9 @@ export default function loadArticles(req, params = []) {
 
           superAgent['get'](imgUrl).timeout(500)
           .end(function (err, res) {
-            if (!err) {
+            if (err) {
+              console.warning('AUTHOR IMAGE LOADING FAILED:', err)
+            } else {
               const imgItems = _.get(res.body, '_items')
 
               list.forEach((item) => {
