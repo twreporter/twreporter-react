@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Category from './Category'
 import ReactDOM from 'react-dom'
-import { ts2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../lib/date-transformer'
 
 let ScrollMagic
 
@@ -112,16 +112,9 @@ export default class FeaturesItem extends Component {
 
   render() {
     const { article, image } = this.props
-    const pubDate = ts2yyyymmdd(article.lastPublish * 1000 , '.')
-    let url = (article.story_link) ? article.story_link : '/a/' + article.slug
-    let tags = article.tags
+    const pubDate = date2yyyymmdd(article.publishedDate , '.')
+    let url = '/a/' + article.slug
     let catDisplay = '專題'
-    for (let i = 0; i < tags.length; i++) {
-      if (tags[i].substring(0,4) == 'cat:') {
-        catDisplay = tags[i].substring(4)
-        break
-      }
-    }
 
     return (
       <li className="listing-item" key={article.id}>
@@ -143,12 +136,12 @@ export default class FeaturesItem extends Component {
             <div className="border clearfix">
               <div className="featurebox">
                 <div className="container">
-                    <Category>{catDisplay}</Category>
+                  <Category>{catDisplay}</Category>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
                   <div className="title">{article.title}</div>
-                  <div className="excerpt">{article.excerpt}</div>
+                  <div className="excerpt">{article.content.brief.apiData[0].content[0]}</div>
                   <div className="published">
                     {pubDate}
                   </div>

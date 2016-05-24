@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchArticlesIfNeeded } from '../actions/articles'
+import { fetchCategorizedArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import catToTag from '../conf/category-tag-mapping-table'
 import Footer from '../components/Footer'
@@ -17,62 +17,51 @@ const maxResults = 10
 
 export default class Category extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesIfNeeded(params.category, maxResults, 1))
+    return store.dispatch(fetchCategorizedArticlesIfNeeded(catToTag[params.category], maxResults, 1))
   }
   constructor(props) {
     super(props)
     let category = this.props.params.category
     this.state = {
-      tag: catToTag[category]
+      category: catToTag[category]
     }
     this.loadMore = this.loadMore.bind(this)
   }
 
   componentWillMount() {
-    const tag = catToTag[this.props.params.category]
-    const { fetchArticlesIfNeeded, taggedArticles } = this.props
-    if (!taggedArticles[tag]) {
-      fetchArticlesIfNeeded(tag, maxResults, 1)
-    }
+    const category = catToTag[this.props.params.category]
+    fetchCategorizedArticlesIfNeeded(category, maxResults, 1)
   }
 
   componentWillReceiveProps(nextProps) {
-    const tag = catToTag[nextProps.params.category]
-    const { fetchArticlesIfNeeded, articles } = nextProps
-    if (articles[tag]) {
-      this.setState({
-        tag: tag
-      })
-    } else {
-      fetchArticlesIfNeeded(tag, maxResults, 1)
-    }
+    const category = catToTag[nextProps.params.category]
+    nextProps.fetchCategorizedArticlesIfNeeded(category, maxResults, 1)
   }
 
   loadMore() {
-    const { tag } = this.state
-    const categoryObj = this.props.articles[tag] || {
+    const { category } = this.state
+    const categoryObj = this.props.articles[category] || {
       items: [],
       hasMore: true
     }
     if (categoryObj.hasMore) {
       let page = Math.floor(categoryObj.items.length / maxResults)  + 1
-      this.props.fetchArticlesIfNeeded(tag, maxResults, page)
+      this.props.fetchCategorizedArticlesIfNeeded(category, maxResults, page)
     }
   }
 
   render() {
     const { device } = this.context
-    const { tag } = this.state
-    const { taggedArticles, entities } = this.props
-    let fullArticles = denormalizeArticles(_.get(taggedArticles, [ tag ], []), entities)
-    let categoryObj = fullArticles[tag] || {}
+    const { category } = this.state
+    const { articlesByCats, entities } = this.props
+    let fullArticles = denormalizeArticles(_.get(articlesByCats, [ category, 'items' ], []), entities)
 
     return (
       <div>
         <Tags
-          fullArticles={categoryObj.items || []}
+          fullArticles={fullArticles || []}
           device={device}
-          hasMore={categoryObj.hasMore}
+          hasMore={ _.get(articlesByCats, [ category, 'nextUrl' ]) !== null }
           loadMore={this.loadMore}
         />
         {this.props.children}
@@ -84,7 +73,7 @@ export default class Category extends Component {
 
 function mapStateToProps(state) {
   return {
-    taggedArticles: state.taggedArticles,
+    articlesByCats: state.articlesByCats || {},
     entities: state.entities || {}
   }
 }
@@ -94,4 +83,4 @@ Category.contextTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Category)
+export default connect(mapStateToProps, { fetchCategorizedArticlesIfNeeded })(Category)

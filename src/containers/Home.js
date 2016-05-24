@@ -12,7 +12,7 @@ import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 
-const MAXRESULT = 1
+const MAXRESULT = 10
 const PAGE = 1
 
 if (process.env.BROWSER) {
