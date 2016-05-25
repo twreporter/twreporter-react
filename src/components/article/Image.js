@@ -1,14 +1,25 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
-import screenSize from '../../constants/screen-size'
+import { getScreenType } from '../../lib/screen-type'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
-import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 
 class Image extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      mounted: false,
+      screenType: 'MOBILE'
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      mounted: true,
+      screenType: getScreenType(window.innerWidth)
+    })
   }
 
   _renderFigure(imageObj) {
@@ -27,23 +38,27 @@ class Image extends Component {
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop } = imageByDevice
+    let { mounted, screenType } = this.state
+    let renderedFigure = null
+    if (mounted) {
+      switch(screenType) {
+        case 'MOBILE':
+          renderedFigure = this._renderFigure(mobile)
+          break
+        case 'TABLET':
+          renderedFigure = this._renderFigure(tablet)
+          break
+        case 'DESKTOP':
+          renderedFigure = this._renderFigure(desktop)
+          break
+        default:
+          renderedFigure = this._renderFigure(mobile)
+      }
+    }
+
     return (
       <div>
-        <MediaQuery maxWidth={screenSize.smallScreenMaxWidth}>
-          {
-            this._renderFigure(mobile)
-          }
-        </MediaQuery>
-        <MediaQuery minWidth={screenSize.mediumScreenMinWidth} maxWidth={screenSize.mediumScreenMaxWidth}>
-          {
-            this._renderFigure(tablet)
-          }
-        </MediaQuery>
-        <MediaQuery minWidth={screenSize.largeScreenMinWidth}>
-          {
-            this._renderFigure(desktop)
-          }
-        </MediaQuery>
+        {renderedFigure}
       </div>
     )
   }
