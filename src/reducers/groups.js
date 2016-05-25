@@ -1,4 +1,5 @@
 import * as types from '../constants/action-types'
+import _ from 'lodash'
 
 function groups(state = {}, action = {}) {
   let _groups = {}
@@ -26,9 +27,9 @@ function groups(state = {}, action = {}) {
     case types.FETCH_CATEGORIES_SUCCESS:
       let entities
       if (action.type === types.FETCH_TAGS_SUCCESS) {
-        entities = action.response.entities.tags
+        entities = _.get(action, [ 'response', 'entities', 'tags' ], [])
       } else {
-        entities = action.response.entities.categories
+        entities = _.get(action, [ 'response', 'entities', 'categories' ], [])
       }
 
       Object.keys(entities).map((entityId) => {
