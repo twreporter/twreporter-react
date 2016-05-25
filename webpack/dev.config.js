@@ -21,7 +21,7 @@ module.exports = {
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      'bootstrap-loader',
+      'bootstrap-loader/extractStyles',
       './src/index.js'
     ]
   },
@@ -90,6 +90,8 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
     }),
+    // css files from the extract-text-plugin loader
+    new ExtractTextPlugin('[name].css'),
     webpackIsomorphicToolsPlugin.development()
   ]
 };
