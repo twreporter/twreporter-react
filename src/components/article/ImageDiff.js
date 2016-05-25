@@ -27,8 +27,6 @@ class ImageDiff extends Component {
   fitToParentWidth() {
     const elem = ReactDOM.findDOMNode(this.refs.imgDiff).parentNode
     const width = elem.clientWidth
-    const currentSize = this.state.size
-    console.log('width', elem.getBoundingClientRect(), width)
     if (width !== this.state.width) {
       this.setState({
         width: width
