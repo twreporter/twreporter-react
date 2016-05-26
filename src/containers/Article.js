@@ -62,6 +62,7 @@ export default class Article extends Component {
     let deduppedAuthors = _.uniq(authors, 'id')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
+    let copyright = _.get(article, [ 'copyright' ], [])
     return (
       <div className={styles.article}>
         <div className="container outer-max">
@@ -113,7 +114,7 @@ export default class Article extends Component {
           />
         </div>
 
-        <Footer/>
+        <Footer copyright={copyright}/>
       </div>
     )
   }
