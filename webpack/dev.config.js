@@ -41,21 +41,17 @@ module.exports = {
       { test:/\.json$/,
         loader: 'json-loader'
       },
+      { test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css?modules&importLoaders=2&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]' +
+          '!postcss' +
+          '!sass'
+        )
+      },
       {
         test: /\.css$/,
-        loaders: [
-          'style',
-          'css?modules&importLoaders=1&sourceMap&localIdentName=[local]',
-          'postcss'
-        ]
-      },
-      { test: /\.scss$/,
-        loaders: [
-          'style',
-          'css?modules&importLoaders=2&sourceMap&localIdentName=[local]__[hash:base64:5]',
-          'postcss',
-          'sass'
-        ]
+        loader: ExtractTextPlugin.extract('style-loader', "css-loader")
       },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },

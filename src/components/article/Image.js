@@ -15,6 +15,8 @@ class Image extends Component {
       mounted: false,
       screenType: 'MOBILE'
     }
+
+    this.fitToParentWidth = this.fitToParentWidth.bind(this)
   }
 
   componentDidMount() {
@@ -29,7 +31,7 @@ class Image extends Component {
   }
 
   fitToParentWidth() {
-    const elem = ReactDOM.findDOMNode(this.refs.image).parentNode
+    const elem = ReactDOM.findDOMNode(this.refs.imageBox).parentNode
     const width = elem.clientWidth
     if (width !== this.state.width) {
       this.setState({
@@ -41,7 +43,7 @@ class Image extends Component {
   _renderFigure(imageObj) {
     if (imageObj) {
       return (
-        <figure ref="image">
+        <figure>
           <LazyLoad>
             <img src={ imageObj.url } className={classNames('img-responsive', 'center-block')} style={{ paddingBottom: '1.5rem' }}
             />
@@ -60,6 +62,13 @@ class Image extends Component {
       return width * oriHeight / oriWidth
     }
     return width
+  }
+
+  _getNoscript(imgUrl, imgDes) {
+    // generate image tag for search engines
+    return {
+      __html: '<img src="'+imgUrl+'" alt="'+imgDes+'">'
+    }
   }
 
   render() {
@@ -88,8 +97,9 @@ class Image extends Component {
     }
 
     return (
-      <div style={outerStyle}>
+      <div ref="imageBox" style={outerStyle} offsetTop={100}>
         {renderedFigure}
+        <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), _.get(imageByDevice, 'description', ''))} />
       </div>
     )
   }

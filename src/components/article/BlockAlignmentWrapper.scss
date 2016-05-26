@@ -15,7 +15,7 @@
 .align-left {
   @extend .align-wrapper;
   /* TBD needs to wait for mockup */
-  max-width: 300px;
+  width: 300px;
   float: left;
   margin-right: 40px;
 }
@@ -40,4 +40,3 @@
     float: none;
   }
 }
-
