@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import FeaturesItem from './FeaturesItem'
 import More from '../components/More'
-import _ from 'lodash'
+import map from 'lodash/map'
 import { imageComposer } from '../lib/image-composer'
 
 if (process.env.BROWSER) {
@@ -20,7 +20,7 @@ export default class Features extends Component {
       return (
         <div className="features-list clearfix">
           <ul className="listing">
-            { _.map(features, (a) => {
+            { map(features, (a) => {
               let imageSet = imageComposer(a)
               let articleImage = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
               if (articleImage) {
@@ -45,4 +45,3 @@ Features.contextTypes = {
 }
 
 export { Features }
-

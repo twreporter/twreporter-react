@@ -5,7 +5,7 @@ import config from '../../server/config'
 import qs from 'qs'
 import superAgent from 'superagent'
 import Promise from 'bluebird'
-import _ from 'lodash'
+import isFunction from 'lodash/isFunction'
 
 export const CALL_API = Symbol('CALL_API')
 
@@ -37,7 +37,7 @@ export default store => next => action => {
           response: res,
           tags: tags || []
         })
-        if (_.isFunction(request.afterSuccess)) {
+        if (isFunction(request.afterSuccess)) {
           request.afterSuccess({ getState })
         }
       }
