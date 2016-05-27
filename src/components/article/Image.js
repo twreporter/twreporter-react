@@ -1,22 +1,23 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import FitwidthMixin from '../../lib/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import LazyLoad from 'react-lazy-load'
 import styles from './Image.scss'
+import UI_SETTING from '../../constants/ui-settings'
 
-class Image extends Component {
+class Image extends FitwidthMixin(Component) {
   constructor(props) {
     super(props)
 
     this.state = {
-      mounted: false,
+      isMounted: false,
       screenType: 'MOBILE',
       width: 200,
-      placeHolderOpacity: 0,
+      placeholderOpacity: 0,
       imageOpacity: 0
     }
 
@@ -25,31 +26,20 @@ class Image extends Component {
 
   componentDidMount() {
     this.setState({
-      mounted: true,
+      isMounted: true,
       screenType: getScreenType(window.innerWidth)
     })
-    // set state for the width of the images and listen to window resize event
-    this.fitToParentWidth()
-    window.addEventListener('resize', this.fitToParentWidth)
-  }
-
-  fitToParentWidth() {
-    const elem = ReactDOM.findDOMNode(this.refs.imageBox).parentNode
-    const width = elem.clientWidth
-    if (width !== this.state.width) {
-      this.setState({
-        width: width
-      })
-    }
+    
+    if (super.componentDidMount) super.componentDidMount()
   }
 
   _renderPlaceHoderImage(imageUrl, imgStyle) {
     if (imageUrl) {
       return (
-        <LazyLoad offsetTop={200}
-          onContentVisible={() => this.setState({ placeHolderOpacity: 1 })}
-          className={styles.imgPlaceHolderOuter}
-          style={ { ...imgStyle, opacity: this.state.placeHolderOpacity } }>
+        <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}
+          onContentVisible={() => this.setState({ placeholderOpacity: 1 })}
+          className={styles.imgPlaceholderOuter}
+          style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
           <img src={ imageUrl } className={classNames('center-block', styles.imgPlaceHolder)} style={imgStyle} />
         </LazyLoad>
       )
@@ -61,7 +51,7 @@ class Image extends Component {
     if (imageObj) {
       return (
         <figure>
-          <LazyLoad offsetTop={20} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
+          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
             <img src={ imageObj.url }
               style={ { ...imgStyle, opacity: this.state.imageOpacity } }
               className={classNames('center-block', styles.imgAbsolute)}
@@ -74,11 +64,11 @@ class Image extends Component {
     return null
   }
 
-  _getHeight(width, original) {
+  _getHeight(width, original, defaultWidth, defaultHeight) {
     if (original) {
-      const oriWidth = _.get(original, 'width', width)
-      const oriHeight = _.get(original, 'height', width)
-      return width * oriHeight / oriWidth
+      const oriWidth = _.get(original, 'width', defaultWidth)
+      const oriHeight = _.get(original, 'height', defaultHeight)
+      return Math.round(width * oriHeight / oriWidth)
     }
     return width
   }
@@ -93,10 +83,10 @@ class Image extends Component {
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice
-    let { mounted, screenType, width } = this.state
+    let { isMounted, screenType, width } = this.state
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    const height = this._getHeight(width, original)
+    const height = this._getHeight(width, original, width, width)
     let outerStyle = {
       width: width,
       minHeight: height
@@ -108,7 +98,7 @@ class Image extends Component {
 
     // if the Image is being mounted, select image to render
     // according to the device of the client
-    if (mounted) {
+    if (isMounted) {
       // TODO: replace the image with TINY image obtained from Keystone
       renderedPlaceHoderImage = this._renderPlaceHoderImage('https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20', imgStyle)
 
@@ -128,7 +118,7 @@ class Image extends Component {
     }
 
     return (
-      <div ref="imageBox" style={outerStyle} className={styles.imageBox} offsetTop={100}>
+      <div ref="imageBox" style={outerStyle} className={styles.imageBox}>
         {renderedPlaceHoderImage}
         {renderedFigure}
         <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), _.get(imageByDevice, 'description', ''))} />

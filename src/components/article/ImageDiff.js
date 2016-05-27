@@ -3,13 +3,14 @@
 import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import classNames from 'classnames'
+import FitwidthMixin from '../../lib/FitwidthMixin'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
 
-class ImageDiff extends Component {
+class ImageDiff extends FitwidthMixin(Component) {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,19 +20,7 @@ class ImageDiff extends Component {
   }
 
   componentDidMount() {
-    // set state for the width of the images and listen to window resize event
-    this.fitToParentWidth()
-    window.addEventListener('resize', this.fitToParentWidth)
-  }
-
-  fitToParentWidth() {
-    const elem = ReactDOM.findDOMNode(this.refs.imgDiff).parentNode
-    const width = elem.clientWidth
-    if (width !== this.state.width) {
-      this.setState({
-        width: width
-      })
-    }
+    if (super.componentDidMount) super.componentDidMount()
   }
 
   _renderFigure(imageObj) {
@@ -54,7 +43,6 @@ class ImageDiff extends Component {
       width: this.state.width
     }
 
-    console.log('ImageDiff', this.props)
     return (
       <div ref="imgDiff">
         <figure className={styles.wrapper}>
