@@ -145,7 +145,7 @@
     "superagent": "^1.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.9.11",
-    "webpack-isomorphic-tools": "^2.2.18"
+    "webpack-isomorphic-tools": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",

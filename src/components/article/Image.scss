@@ -1,0 +1,20 @@
+.imageBox {
+  position: relative;
+}
+
+.imgAbsolute {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: opacity 1s linear;
+}
+
+.imgPlaceHolderOuter {
+  @extend .imgAbsolute;
+  overflow: hidden;
+}
+
+.imgPlaceHolder {
+  filter: blur(50px);
+}
