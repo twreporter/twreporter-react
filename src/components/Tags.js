@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import Category from './Category'
 import More from '../components/More'
-import _ from 'lodash'
+import map from 'lodash/map'
 import { imageComposer } from '../lib/image-composer.js'
 import { ts2yyyymmdd } from '../lib/date-transformer'
 
@@ -44,7 +44,7 @@ export default class Tags extends Component {
         <div className="category-items">
         <cat cat_display={cat_display}/>
           <ul className="tag-listing">
-            { _.map(articles, (a) => {
+            { map(articles, (a) => {
               let image = imageComposer(a).mobileImage
               const d_str = ts2yyyymmdd(a.lastPublish * 1000 , '.')
               let url = '/a/' + a.slug
