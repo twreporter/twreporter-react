@@ -3,15 +3,17 @@ import { getArticleFieldToEntity } from './article-nested-entity-methods'
 import _ from 'lodash'
 
 function denormalizeEntity(entityIds = [], entityObj = {}) {
-  let rtn = []
-  entityIds = Array.isArray(entityIds) ? entityIds : [ entityIds ]
+  let rtn
   entityObj = entityObj || {}
   if (Array.isArray(entityIds)) {
+    rtn = []
     _.forEach(entityIds, (id) => {
       if (entityObj.hasOwnProperty(id)) {
         rtn.push(entityObj[id])
       }
     })
+  } else {
+    rtn = entityObj[entityIds]
   }
   return rtn
 }
