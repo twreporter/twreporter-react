@@ -1,6 +1,7 @@
 'use strict'
 import superAgent from 'superagent'
 import config from '../config'
+import constants from '../constants'
 
 function loadGroups(req, path) {
   return new Promise((resolve, reject) => {
@@ -9,7 +10,7 @@ function loadGroups(req, path) {
     const url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/${path}`
 
     superAgent['get'](url)
-    .timeout(500)
+    .timeout(constants.timeout)
     .query(query)
     .end( function (err, res) {
       if (err) {

@@ -15,7 +15,7 @@
 .align-left {
   @extend .align-wrapper;
   /* TBD needs to wait for mockup */
-  max-width: 300px;
+  width: 300px;
   float: left;
   margin-right: 40px;
 }
@@ -23,7 +23,7 @@
 .align-right {
   @extend .align-wrapper;
   /* TBD needs to wait for mockup */
-  max-width: 300px;
+  width: 300px;
   float: right;
   margin-left: 40px;
 }
@@ -36,8 +36,7 @@
 
 @include mq($max-width: $screen-sm-max) {
   .align-left, .align-right {
-    max-width: 100%;
+    width: 100%;
     float: none;
   }
 }
-

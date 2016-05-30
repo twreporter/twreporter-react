@@ -3,6 +3,7 @@
 import _ from 'lodash'
 import superAgent from 'superagent'
 import config from '../config'
+import constants from '../constants'
 import querystring from 'qs'
 
 export default function loadArticles(req, params = []) {
@@ -12,7 +13,7 @@ export default function loadArticles(req, params = []) {
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
     let slug = typeof params[0] === 'string' ? params[0] : null
     url = slug ? `${url}/${slug}` : url
-    superAgent['get'](url).timeout(500)
+    superAgent['get'](url).timeout(constants.timeout)
     .query(query)
     .end(function (err, res) {
       if (err) {
@@ -37,7 +38,7 @@ export default function loadArticles(req, params = []) {
           const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
 
-          superAgent['get'](imgUrl).timeout(500)
+          superAgent['get'](imgUrl).timeout(constants.timeout)
           .end(function (err, res) {
             if (err) {
               console.warning('AUTHOR IMAGE LOADING FAILED:', err)

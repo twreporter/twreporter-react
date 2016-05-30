@@ -10,8 +10,8 @@ export default function getArticleComponent(type = 'unstyled') {
       return ArticleComps.Embedded
     case 'image':
       return ArticleComps.AlignedImage
-    case 'imagediff':
-      return ArticleComps.ImageDiff
+    case 'imageDiff':
+      return ArticleComps.AlignedImageDiff
     case 'infobox':
       return ArticleComps.AlignedInfoBox
     case 'ordered-list':
