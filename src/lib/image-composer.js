@@ -1,34 +1,13 @@
-const imagePrefix = 'https://atavist.com/data/files/organization/60826/image/derivative/'
-const desktopScale = 'scale~2000x0~'
-const mobileScale = 'scale~1200x0~'
-const desktopImagePrefix = imagePrefix + desktopScale
-const mobileImagePrefix = imagePrefix + mobileScale
-
-const isImage = (image) => {
-  if (image && (image.indexOf('.jpg') > -1 || image.indexOf('.png') > -1 || image.indexOf('.gif') > -1)) {
-    return true
-  } else {
-    return false
-  }
-}
-
 export const imageComposer = (article) => {
   let image
-  let firstImage = article.firstImage
-  let previewImage = article.previewImage
-  let facebookImage = article.facebookImage
+  let heroImage = article.heroImage[0]
+  let facebookImage = article.ogImage[0]
 
-  if (facebookImage) {
+  if (heroImage) {
     return {
-      desktopImage: desktopImagePrefix + facebookImage,
-      mobileImage: mobileImagePrefix + facebookImage
+      desktopImage: heroImage.image.resizedTargets.desktop.url,
+      mobileImage: heroImage.image.resizedTargets.mobile.url
     }
-  }
-
-  if (isImage(firstImage)) {
-    image = firstImage
-  } else if (isImage(previewImage)) {
-    image = previewImage
   }
 
   let source
@@ -39,10 +18,10 @@ export const imageComposer = (article) => {
   }
 
   let imageSet = {}
-  if (source) {
+  if (facebookImage) {
     imageSet = {
-      desktopImage: desktopImagePrefix + source,
-      mobileImage: mobileImagePrefix + source
+      desktopImage: facebookImage.image.resizedTargets.desktop.url,
+      mobileImage: facebookImage.image.resizedTargets.mobile.url
     }
   } else {
     // display logo when the image is empty
