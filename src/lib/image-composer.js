@@ -1,9 +1,9 @@
 export const imageComposer = (article) => {
   let image
-  let heroImage = article.heroImage[0]
-  let facebookImage = article.ogImage[0]
+  let heroImage = article.heroImage
+  let facebookImage = article.ogImage
 
-  if (heroImage) {
+  if (heroImage.image) {
     return {
       desktopImage: heroImage.image.resizedTargets.desktop.url,
       mobileImage: heroImage.image.resizedTargets.mobile.url
@@ -18,7 +18,7 @@ export const imageComposer = (article) => {
   }
 
   let imageSet = {}
-  if (facebookImage) {
+  if (facebookImage.image) {
     imageSet = {
       desktopImage: facebookImage.image.resizedTargets.desktop.url,
       mobileImage: facebookImage.image.resizedTargets.mobile.url
