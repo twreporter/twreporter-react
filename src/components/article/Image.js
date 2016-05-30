@@ -29,7 +29,7 @@ class Image extends FitwidthMixin(Component) {
       isMounted: true,
       screenType: getScreenType(window.innerWidth)
     })
-    
+
     if (super.componentDidMount) super.componentDidMount()
   }
 
@@ -62,15 +62,6 @@ class Image extends FitwidthMixin(Component) {
       )
     }
     return null
-  }
-
-  _getHeight(width, original, defaultWidth, defaultHeight) {
-    if (original) {
-      const oriWidth = _.get(original, 'width', defaultWidth)
-      const oriHeight = _.get(original, 'height', defaultHeight)
-      return Math.round(width * oriHeight / oriWidth)
-    }
-    return width
   }
 
   _getNoscript(imgUrl, imgDes) {

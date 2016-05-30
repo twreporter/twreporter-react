@@ -1,10 +1,35 @@
-.wrapper {
-  img {
-    // width: 100%;
-  }
+@import '../../themes/common-variables';
 
+.diffContainer {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  position: relative;
 }
 
 .imgContainer {
   max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.overlayContainer {
+  @extend .imgContainer;
+  border-right: 3px solid $white;
+}
+
+.rangeInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sliderButton {
+  position: absolute;
+  top: 0;
+  width: 2.5em;
+  transform: translate(-50%, 0);
 }
