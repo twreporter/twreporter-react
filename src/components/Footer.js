@@ -30,7 +30,7 @@ export default class Footer extends Component {
                   <a href="/" target="_self">
                       <img
                         className="logo-img"
-                        src="/asset/footer-logo-desktop.png"
+                        src="/asset/logo-desk.svg"
                       />
                   </a>
                 </div>

@@ -1,5 +1,5 @@
 .footer {
-  background-color: #e6e6e6;
+  background-color: #f7f7f7;
 }
 .footer .container {
   margin: 0px auto;
@@ -32,8 +32,8 @@
   padding-top: 0;
 }
 .footer .open-source-container {
-  background-color: #ccc;
-  padding: 10px 0 36px 0;
+  background-color: #f7f7f7;
+  padding: 45px 0 36px 0;
 }
 .open-source-container .items {
   margin: 0px auto;
@@ -71,7 +71,8 @@
     height: 36px;
   }
   .logo-img {
-    height: 36px;
+    width: 268px;
+    height: 58px;
   }
   .logo-container .logo {}
   .us-container {
