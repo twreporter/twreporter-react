@@ -88,16 +88,18 @@ class Image extends FitwidthMixin(Component) {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice
     let { isMounted, screenType, width } = this.state
+    let { outerWidth, outerHeight } = this.props
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    const height = this._getHeight(width, original, width, width)
+    const boxWidth = outerWidth || width
+    const boxHeight = outerHeight || this._getHeight(boxWidth, original, boxWidth, boxWidth)
     let outerStyle = {
-      width: width,
-      minHeight: height
+      width: boxWidth,
+      minHeight: boxHeight
     }
     let imgStyle = {
       ...outerStyle,
-      height: height
+      height: boxHeight
     }
 
     // if the Image is being mounted, select image to render
