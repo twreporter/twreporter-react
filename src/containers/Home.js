@@ -2,7 +2,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchTaggedArticlesIfNeeded, fetchCategorizedArticlesIfNeeded } from '../actions/articles'
+import { fetchCategorizedArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
