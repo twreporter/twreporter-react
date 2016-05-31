@@ -71,6 +71,19 @@ class Image extends FitwidthMixin(Component) {
     }
   }
 
+  _renderByDevice(screenType, imageByDevice, imgStyle) {
+    switch(screenType) {
+      case 'MOBILE':
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+      case 'TABLET':
+        return this._renderFigure(imageByDevice.tablet, imgStyle)
+      case 'DESKTOP':
+        return this._renderFigure(imageByDevice.desktop, imgStyle)
+      default:
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+    }
+  }
+
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice
@@ -92,20 +105,7 @@ class Image extends FitwidthMixin(Component) {
     if (isMounted) {
       // TODO: replace the image with TINY image obtained from Keystone
       renderedPlaceHoderImage = this._renderPlaceHoderImage('https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20', imgStyle)
-
-      switch(screenType) {
-        case 'MOBILE':
-          renderedFigure = this._renderFigure(mobile, imgStyle)
-          break
-        case 'TABLET':
-          renderedFigure = this._renderFigure(tablet, imgStyle)
-          break
-        case 'DESKTOP':
-          renderedFigure = this._renderFigure(desktop, imgStyle)
-          break
-        default:
-          renderedFigure = this._renderFigure(mobile, imgStyle)
-      }
+      renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
     return (
