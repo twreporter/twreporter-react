@@ -16,6 +16,7 @@ class ImageDiff extends FitwidthMixin(Component) {
     super(props)
     this.state = {
       isMounted: false,
+      onhovered: false,
       screenType: 'MOBILE',
       width: 200,
       placeholderOpacity: 0,
@@ -49,8 +50,9 @@ class ImageDiff extends FitwidthMixin(Component) {
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice
-    let { isMounted, screenType, width, percentage } = this.state
+    let { isMounted, screenType, width, percentage, onhovered } = this.state
     const height = this._getHeight(width, original, width, width)
+    let buttonClass = null
     let outerStyle = {
       width: width,
       minHeight: height
@@ -58,6 +60,10 @@ class ImageDiff extends FitwidthMixin(Component) {
     let imgStyle = {
       ...outerStyle,
       height: height
+    }
+
+    if(onhovered) {
+      buttonClass = styles.hovered
     }
 
     return (
@@ -70,10 +76,12 @@ class ImageDiff extends FitwidthMixin(Component) {
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/photoshop-face-before.jpg" style={imgStyle}/>
           </div>
           <img src="/asset/slider-button.svg"
-            className={styles.sliderButton} style={{ left: percentage+'%' }} />
+            className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
           <input type="range" min="0" max="100" className={styles.rangeInput} style={imgStyle}
             value={percentage} onChange={ (event)=>{
-              this.setState({ percentage: parseInt(event.target.value) })} } />
+              this.setState({ percentage: parseInt(event.target.value) })} }
+              onMouseOver={()=>{this.setState({ onhovered: true })}}
+              onMouseOut={()=>{this.setState({ onhovered: false })}}/>
         </figure>
       </div>
     )
