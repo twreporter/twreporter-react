@@ -1,14 +1,14 @@
 /*global before, describe, it*/
 'use strict'
 import { expect } from 'chai'
-import { fetchTaggedArticlesIfNeeded, fetchCategorizedArticlesIfNeeded } from '../../../src/actions/articles'
+import { fetchTaggedArticlesIfNeeded, fetchCategorizedArticlesIfNeeded } from '../../../src/actions/group-articles'
 import { formatUrl, getArticleEmbeddedQuery } from '../../../src/utils/index'
 import { merge } from 'lodash'
 import * as types from '../../../src/constants/action-types'
 import configureMockStore from 'redux-mock-store'
 import mockArticles from '../actions/mocks/articles'
 import nock from 'nock'
-import { articlesByCats, articlesByTags } from '../../../src/reducers/articles'
+import { articlesByCats, articlesByTags } from '../../../src/reducers/group-articles'
 import thunk from 'redux-thunk'
 
 // for formatURl function in src/utils/index.js

@@ -3,7 +3,7 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchCategorizedArticlesIfNeeded } from '../actions/articles'
+import { fetchCategorizedArticlesIfNeeded } from '../actions/group-articles'
 import { Home } from './Home'
 import _ from 'lodash'
 import async from 'async'

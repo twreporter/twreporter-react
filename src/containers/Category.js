@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchCategorizedArticlesIfNeeded } from '../actions/articles'
+import { fetchCategorizedArticlesIfNeeded } from '../actions/group-articles'
 import _ from 'lodash'
 import catToTag from '../conf/category-tag-mapping-table'
 import Footer from '../components/Footer'
