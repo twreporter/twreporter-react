@@ -6,14 +6,36 @@ import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import styles from './Article.scss'
 
 export default class Article extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticleIfNeeded(params.slug))
   }
+
   constructor(props) {
     super(props)
+    this.state = {
+      topY: 100,
+      bottomY: 200,
+      percent: 0
+    }
+
+    this._setArticleBounding = this._setArticleBounding.bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    this._setArticleBounding()
+    window.addEventListener('resize', this._setArticleBounding)
+
+    // detect sroll position
+    window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate() {
+    this._setArticleBounding()
   }
 
   componentWillMount() {
@@ -37,6 +59,31 @@ export default class Article extends Component {
       return false
     }
     return true
+  }
+
+  _setArticleBounding() {
+    const top = ReactDOM.findDOMNode(this.refs.articleWrapper).offsetTop
+    const bottom = ReactDOM.findDOMNode(this.refs.progressEnding).offsetTop
+    if(this.state.topY !== top || this.state.bottomY !== bottom) {
+      this.setState({
+        topY: top,
+        bottomY: bottom
+      })
+    }
+  }
+
+  _handleScroll() {
+    const { bottomY, topY, percent } = this.state
+    let scrollRatio = Math.abs((window.scrollY-topY) / (bottomY-topY))
+    if(window.scrollY < topY) {
+      scrollRatio = 0
+    } else if (scrollRatio > 1) {
+      scrollRatio = 1
+    }
+    let curPercent = Math.round(scrollRatio*100)
+    if(curPercent != percent) {
+      this.setState({ percent: curPercent })
+    }
   }
 
   _composeAuthors(article) {
@@ -64,7 +111,7 @@ export default class Article extends Component {
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     return (
-      <div className={styles.article}>
+      <div ref="articleWrapper" className={styles.article}>
         <div className="container outer-max">
           <div className={'row ' + styles.titleRow}>
             <div className="col-md-12 text-center">
@@ -101,7 +148,7 @@ export default class Article extends Component {
           </div>
         </div>
 
-        <div className="container inner-max">
+        <div ref="progressEnding" className="container inner-max">
           <div className="row">
             <div className="col-md-12">
               <ArticleComponents.BottomTags
