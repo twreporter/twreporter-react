@@ -1,5 +1,5 @@
 'use strict'
-import { articlesByCats, articlesByTags } from './articles'
+import { articlesByCats, articlesByTags } from './group-articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { merge } from 'lodash'
