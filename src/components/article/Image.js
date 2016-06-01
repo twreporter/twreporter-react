@@ -29,7 +29,7 @@ class Image extends FitwidthMixin(Component) {
       isMounted: true,
       screenType: getScreenType(window.innerWidth)
     })
-    
+
     if (super.componentDidMount) super.componentDidMount()
   }
 
@@ -64,15 +64,6 @@ class Image extends FitwidthMixin(Component) {
     return null
   }
 
-  _getHeight(width, original, defaultWidth, defaultHeight) {
-    if (original) {
-      const oriWidth = _.get(original, 'width', defaultWidth)
-      const oriHeight = _.get(original, 'height', defaultHeight)
-      return Math.round(width * oriHeight / oriWidth)
-    }
-    return width
-  }
-
   _getNoscript(imgUrl, imgDes) {
     // generate image tag for search engines
     return {
@@ -80,20 +71,35 @@ class Image extends FitwidthMixin(Component) {
     }
   }
 
+  _renderByDevice(screenType, imageByDevice, imgStyle) {
+    switch(screenType) {
+      case 'MOBILE':
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+      case 'TABLET':
+        return this._renderFigure(imageByDevice.tablet, imgStyle)
+      case 'DESKTOP':
+        return this._renderFigure(imageByDevice.desktop, imgStyle)
+      default:
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+    }
+  }
+
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice
     let { isMounted, screenType, width } = this.state
+    let { outerWidth, outerHeight } = this.props
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    const height = this._getHeight(width, original, width, width)
+    const boxWidth = outerWidth || width
+    const boxHeight = outerHeight || this._getHeight(boxWidth, original, boxWidth, boxWidth)
     let outerStyle = {
-      width: width,
-      minHeight: height
+      width: boxWidth,
+      minHeight: boxHeight
     }
     let imgStyle = {
       ...outerStyle,
-      height: height
+      height: boxHeight
     }
 
     // if the Image is being mounted, select image to render
@@ -101,20 +107,7 @@ class Image extends FitwidthMixin(Component) {
     if (isMounted) {
       // TODO: replace the image with TINY image obtained from Keystone
       renderedPlaceHoderImage = this._renderPlaceHoderImage('https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20', imgStyle)
-
-      switch(screenType) {
-        case 'MOBILE':
-          renderedFigure = this._renderFigure(mobile, imgStyle)
-          break
-        case 'TABLET':
-          renderedFigure = this._renderFigure(tablet, imgStyle)
-          break
-        case 'DESKTOP':
-          renderedFigure = this._renderFigure(desktop, imgStyle)
-          break
-        default:
-          renderedFigure = this._renderFigure(mobile, imgStyle)
-      }
+      renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
     return (

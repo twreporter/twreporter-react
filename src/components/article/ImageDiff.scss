@@ -1,10 +1,54 @@
-.wrapper {
-  img {
-    // width: 100%;
-  }
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/common-variables';
+@import "../../themes/media-queries.scss";
 
+.diffContainer {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  position: relative;
 }
 
 .imgContainer {
   max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.overlayContainer {
+  @extend .imgContainer;
+  border-right: 3px solid $white;
+}
+
+.rangeInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.sliderButton {
+  position: absolute;
+  top: 0;
+  width: 2.6em;
+  transform: translate(-50%, 0);
+  margin-left: -2px;
+  transition: width 0.3s ease-in-out;
+}
+
+.hovered {
+  width: 3.2em;
+}
+
+@include mq($max-width: $screen-sm-max) {
+  .sliderButton {
+    width: 2.2em;
+  }
+
+  .hovered {
+    width: 2.8em;
+  }
 }
