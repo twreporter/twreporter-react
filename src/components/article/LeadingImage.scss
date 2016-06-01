@@ -1,0 +1,23 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/common-variables';
+@import "../../themes/media-queries.scss";
+
+.extended-leading-img {
+  width: 100%;
+}
+
+.leading-img {
+  max-width: 1050px;
+}
+
+.small-leading-img {
+  max-width: 800px;
+}
+
+
+@include mq($max-width: $screen-sm-max) {
+  .leading-img, .small-leading-img {
+    max-width: 100%;
+    width: 100%;
+  }
+}

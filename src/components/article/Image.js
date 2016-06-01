@@ -1,13 +1,17 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
-import FitwidthMixin from '../../lib/FitwidthMixin'
+import FitwidthMixin from '../mixins/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
 import LazyLoad from 'react-lazy-load'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
+
+const DEFAULT_WIDTH = 200
+const DEFAULT_HEIGHT = 200
+const DEFAULT_PLACEHOLDER = 'https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20'
 
 class Image extends FitwidthMixin(Component) {
   constructor(props) {
@@ -16,7 +20,7 @@ class Image extends FitwidthMixin(Component) {
     this.state = {
       isMounted: false,
       screenType: 'MOBILE',
-      width: 200,
+      width: DEFAULT_WIDTH,
       placeholderOpacity: 0,
       imageOpacity: 0
     }
@@ -86,13 +90,14 @@ class Image extends FitwidthMixin(Component) {
 
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
-    let { mobile, tablet, desktop, original } = imageByDevice
+    let { desktop, tiny } = imageByDevice
     let { isMounted, screenType, width } = this.state
     let { outerWidth, outerHeight } = this.props
+    let boxWidth = outerWidth || width
+    let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    const boxWidth = outerWidth || width
-    const boxHeight = outerHeight || this._getHeight(boxWidth, original, boxWidth, boxWidth)
+
     let outerStyle = {
       width: boxWidth,
       minHeight: boxHeight
@@ -105,8 +110,7 @@ class Image extends FitwidthMixin(Component) {
     // if the Image is being mounted, select image to render
     // according to the device of the client
     if (isMounted) {
-      // TODO: replace the image with TINY image obtained from Keystone
-      renderedPlaceHoderImage = this._renderPlaceHoderImage('https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20', imgStyle)
+      renderedPlaceHoderImage = this._renderPlaceHoderImage(_.get(tiny, [ 'url' ], DEFAULT_PLACEHOLDER), imgStyle)
       renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
@@ -118,6 +122,18 @@ class Image extends FitwidthMixin(Component) {
       </div>
     )
   }
+}
+
+Image.propTypes = {
+  content: React.PropTypes.array,
+  customeStyles: React.PropTypes.array,
+  id: React.PropTypes.string
+}
+
+Image.defaultProps = {
+  content: [],
+  customeStyles: [],
+  id: ''
 }
 
 const AlignedImage = BlockAlignmentWrapper(Image)
