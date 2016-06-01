@@ -34,19 +34,6 @@ class ImageDiff extends FitwidthMixin(Component) {
     if (super.componentDidMount) super.componentDidMount()
   }
 
-  _renderFigure(imageObj) {
-    if (imageObj) {
-      return (
-        <figure>
-          <img src={ imageObj.url } className={classNames('img-responsive', 'center-block')} style={{ paddingBottom: '1.5rem' }}
-          />
-          { imageObj.description ? <figcaption className="image-caption" style={{ paddingTop: '1rem' }}>{ imageObj.description }</figcaption> : null}
-        </figure>
-      )
-    }
-    return null
-  }
-
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { mobile, tablet, desktop, original } = imageByDevice

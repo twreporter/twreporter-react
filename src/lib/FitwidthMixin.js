@@ -24,7 +24,7 @@ let FitwidthMixin = (superclass) => class extends superclass {
       const oriHeight = _.get(original, 'height', defaultHeight)
       return Math.round(width * oriHeight / oriWidth)
     }
-    return width
+    return defaultHeight
   }
 }
 
