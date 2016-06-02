@@ -11,7 +11,6 @@ import UI_SETTING from '../../constants/ui-settings'
 
 const DEFAULT_WIDTH = 200
 const DEFAULT_HEIGHT = 200
-const DEFAULT_PLACEHOLDER = 'https://cdn-images-2.medium.com/freeze/max/30/1*HKrv5OV9P63vz5sa8-Cceg.png?q=20'
 
 class Image extends FitwidthMixin(Component) {
   constructor(props) {
@@ -52,7 +51,7 @@ class Image extends FitwidthMixin(Component) {
   }
 
   _renderFigure(imageObj, imgStyle) {
-    if (imageObj) {
+    if (_.get(imageObj, 'url')) {
       return (
         <figure>
           <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
@@ -110,7 +109,7 @@ class Image extends FitwidthMixin(Component) {
     // if the Image is being mounted, select image to render
     // according to the device of the client
     if (isMounted) {
-      renderedPlaceHoderImage = this._renderPlaceHoderImage(_.get(tiny, [ 'url' ], DEFAULT_PLACEHOLDER), imgStyle)
+      renderedPlaceHoderImage = this._renderPlaceHoderImage(_.get(tiny, [ 'url' ]), imgStyle)
       renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
