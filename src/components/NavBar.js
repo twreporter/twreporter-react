@@ -1,6 +1,11 @@
+import _ from 'lodash'
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 import DesktopNavBar from './DesktopNavBar'
+import HeaderProgress from './HeaderProgress'
 import MobileNavBar from './MobileNavBar'
+
+const DEFAULT_HEIGHT = 10
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
@@ -10,15 +15,35 @@ if (process.env.BROWSER) {
 export default class NaviBar extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      height: 10
+    }
     this._renderMobile = this._renderMobile.bind(this)
-    this._render = this._render.bind(this)
+    this._getHeaderHeight = this._getHeaderHeight.bind(this)
   }
+
+  componentDidMount() {
+    this._getHeaderHeight()
+    window.addEventListener('resize', this._getHeaderHeight)
+  }
+
+  _getHeaderHeight() {
+    const rect = ReactDOM.findDOMNode(this.refs.headerbox).getBoundingClientRect()
+    this.setState({
+      height: _.get(rect, 'height', DEFAULT_HEIGHT)
+    })
+  }
+
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
+    if(nextState.height !== this.state.height) {
+      return true
+    }
     if (nextProps.path === this.props.path) {
       return false
     }
     return true
   }
+
   _renderMobile() {
     return (
       <div className="mobile-nav">
@@ -26,6 +51,7 @@ export default class NaviBar extends Component {
       </div>
     )
   }
+
   _renderDesktop() {
     return (
       <div className="desktop-nav">
@@ -33,18 +59,19 @@ export default class NaviBar extends Component {
       </div>
     )
   }
-  _render() {
+
+  render() {
+    const { height } = this.state
+
     return (
-      <div>
-        {this._renderMobile()}
-        {this._renderDesktop()}
+      <div style={{ height: height+'px' }}>
+        <div ref="headerbox" className="fixTop">
+          {this._renderMobile()}
+          {this._renderDesktop()}
+          <HeaderProgress />
+        </div>
       </div>
     )
-  }
-  render() {
-    // const { device } = this.context
-    // return  device !== 'mobile' ? this._renderDesktop() : this._renderMobile()
-    return this._render()
   }
 }
 

@@ -2,6 +2,7 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
+import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
 import Footer from '../components/Footer'
@@ -62,7 +63,7 @@ export default class Article extends Component {
   }
 
   _setArticleBounding() {
-    const top = ReactDOM.findDOMNode(this.refs.articleWrapper).offsetTop
+    const top = ReactDOM.findDOMNode(this.refs.progressBegin).offsetTop
     const bottom = ReactDOM.findDOMNode(this.refs.progressEnding).offsetTop
     if(this.state.topY !== top || this.state.bottomY !== bottom) {
       this.setState({
@@ -81,8 +82,10 @@ export default class Article extends Component {
       scrollRatio = 1
     }
     let curPercent = Math.round(scrollRatio*100)
-    if(curPercent != percent) {
+    if(percent!== curPercent) {
       this.setState({ percent: curPercent })
+      // update the header progress bar
+      this.props.setReadProgress(curPercent)
     }
   }
 
@@ -111,7 +114,7 @@ export default class Article extends Component {
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     return (
-      <div ref="articleWrapper" className={styles.article}>
+      <div className={styles.article}>
         <div className="container outer-max">
           <div className={'row ' + styles.titleRow}>
             <div className="col-md-12 text-center">
@@ -132,7 +135,7 @@ export default class Article extends Component {
                 date={article.publishedDate}
               />
             </div>
-            <div className="col-md-12">
+            <div ref="progressBegin" className="col-md-12">
               <ArticleComponents.Introduction
                 data={introData}
               />
@@ -148,7 +151,7 @@ export default class Article extends Component {
           </div>
         </div>
 
-        <div ref="progressEnding" className="container inner-max">
+        <div className="container inner-max">
           <div className="row">
             <div className="col-md-12">
               <ArticleComponents.BottomTags
@@ -161,7 +164,9 @@ export default class Article extends Component {
           />
         </div>
 
-        <Footer copyright={copyright}/>
+        <Footer
+          ref="progressEnding"
+          copyright={copyright}/>
       </div>
     )
   }
@@ -179,4 +184,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, setReadProgress })(Article)
