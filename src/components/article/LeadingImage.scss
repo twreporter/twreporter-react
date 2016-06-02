@@ -1,0 +1,30 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/common-variables';
+@import "../../themes/media-queries.scss";
+
+.leading-img-container {
+  padding: 40px 0 40px 0;
+}
+
+.extended-leading-img {
+  @extend .leading-img-container;
+  width: 100%;
+}
+
+.leading-img {
+  @extend .leading-img-container;
+  max-width: 1050px;
+}
+
+.small-leading-img {
+  @extend .leading-img-container;
+  max-width: 800px;
+}
+
+
+@include mq($max-width: $screen-sm-max) {
+  .leading-img, .small-leading-img {
+    max-width: 100%;
+    width: 100%;
+  }
+}

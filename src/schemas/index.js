@@ -7,7 +7,6 @@ const engineer = new Schema('engineers')
 const photographer = new Schema('photographers')
 const writter = new Schema('writters')
 const tag = new Schema('tags')
-const image = new Schema('images')
 
 const article = new Schema('articles', { idAttribute: 'slug' })
 
@@ -17,9 +16,7 @@ article.define({
   engineers: arrayOf(engineer),
   photographers: arrayOf(photographer),
   writters: arrayOf(writter),
-  tags: arrayOf(tag),
-  heroImage: image,
-  ogImage: image
+  tags: arrayOf(tag)
 })
 
 export { article }

@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import classNames from 'classnames'
-import FitwidthMixin from '../../lib/FitwidthMixin'
+import FitwidthMixin from '../mixins/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
@@ -73,6 +73,18 @@ class ImageDiff extends FitwidthMixin(Component) {
       </div>
     )
   }
+}
+
+ImageDiff.propTypes = {
+  content: React.PropTypes.array,
+  customeStyles: React.PropTypes.array,
+  id: React.PropTypes.string
+}
+
+ImageDiff.defaultProps = {
+  content: [],
+  customeStyles: [],
+  id: ''
 }
 
 const AlignedImageDiff = BlockAlignmentWrapper(ImageDiff)

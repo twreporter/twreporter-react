@@ -12,17 +12,7 @@ export function getArticleEmbeddedQuery() {
 export function getArticleFieldToEntity() {
   let fieldToEntity = []
   list.forEach((ele) => {
-    if (ele === 'heroImage') {
-      fieldToEntity.push({
-        field: ele,
-        entity: 'images'
-      })
-    } else if (ele === 'og_image') {
-      fieldToEntity.push({
-        field: 'ogImage',
-        entity: 'images'
-      })
-    } else {
+    if (ele !== 'heroImage' && ele !== 'og_image') {
       fieldToEntity.push({
         field: ele,
         entity: ele
