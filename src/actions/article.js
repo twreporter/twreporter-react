@@ -43,7 +43,7 @@ function fetchArticle(slug) {
       if (status === 404) {
         throw new NotFoundError('Article ' +  slug + ' is not found')
       } else if (status >= 400) {
-        throw new InternalServerError('Bad response from API, response: ' + response)
+        throw new InternalServerError('Bad response from API, response: ' + JSON.stringify(response))
       }
       return response.json()
     })
