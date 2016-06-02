@@ -62,24 +62,22 @@ export default class MobileNaviBar extends Component {
     }
 
     return (
-      <Sticky topOffset={300}>
-        <div className={mobileNavClass} style= {{ backgroundColor: backgroundColor }}>
-          <div className="nav-logo">
-            {navLogo}
-            <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
-          </div>
-          <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div className={mobileMenuClass}>
-            {navLinks}
-            <SubNavBar {...this.props}/>
-          </div>
+      <div className={mobileNavClass} style= {{ backgroundColor: backgroundColor }}>
+        <div className="nav-logo">
+          {navLogo}
+          <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
         </div>
-      </Sticky>
+        <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className={mobileMenuClass}>
+          {navLinks}
+          <SubNavBar {...this.props}/>
+        </div>
+      </div>
     )
   }
 }
