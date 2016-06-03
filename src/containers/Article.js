@@ -67,8 +67,6 @@ export default class Article extends Component {
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
-    let heroImageId = (heroImage) ? heroImage.id : ''
-    let heroImageDescription = (heroImage) ? heroImage.description : ''
     return (
       <div className={styles.article}>
         <div ref="articleContainer">
@@ -98,8 +96,8 @@ export default class Article extends Component {
               <ArticleComponents.LeadingImage
                 size={heroImageSize}
                 image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
-                id={heroImageId}
-                description={heroImageDescription}
+                id={_.get(heroImage, 'id')}
+                description={_.get(heroImage, 'description' )}
               />
             </div>
           </div>

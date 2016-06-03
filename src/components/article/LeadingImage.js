@@ -14,6 +14,9 @@ class LeadingImage extends React.Component {
   render() {
     const { size, image, id, description } = this.props
     let leadingImgClass
+    if (!image) {
+      return null
+    }
     switch (size) {
       case 'normal':
         leadingImgClass = 'leading-img'
@@ -29,9 +32,6 @@ class LeadingImage extends React.Component {
         break
     }
 
-    if (!image) {
-      return null
-    }
     return (
       <div className={classNames('center-block', styles[leadingImgClass])}>
         <Image
@@ -52,7 +52,7 @@ LeadingImage.propTypes = {
 
 LeadingImage.defaultProps = {
   size: 'normal',
-  image: {},
+  image: null,
   description: '',
   id: ''
 }
