@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { navPath } from '../lib/constants'
+import { navPath } from '../../lib/constants'
 import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
 
 if (process.env.BROWSER) {
-  require('../containers/NavBar.css')
+  require('../../containers/NavBar.css')
 }
 
 class Items extends Component {
@@ -69,7 +69,7 @@ export default class DesktopNavBar extends Component {
             <SearchBox class="searchbox" style={{ width: '230px', display: path !== '/photography' ? 'inline-block' : 'none' }} path={path} />
           </div>
         </div>
-        <SubNavBar {...this.props}/>
+        {/*<SubNavBar {...this.props}/>*/}
       </div>
     )
   }
