@@ -6,7 +6,7 @@ import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
 
 if (process.env.BROWSER) {
-  require('./NavBar.css')
+  require('../containers/NavBar.css')
 }
 
 class Items extends Component {

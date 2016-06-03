@@ -3,19 +3,43 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
+import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
 import classNames from 'classnames'
 import styles from './Article.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+let articlePostition = {
+  beginY: 100,
+  endY: 200,
+  percent: 0
+}
 
 export default class Article extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticleIfNeeded(params.slug))
   }
+
   constructor(props) {
     super(props)
+
+    this._setArticleBounding = this._setArticleBounding.bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    this._setArticleBounding()
+    window.addEventListener('resize', this._setArticleBounding)
+
+    // detect sroll position
+    window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate() {
+    this._setArticleBounding()
   }
 
   componentWillMount() {
@@ -34,11 +58,37 @@ export default class Article extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    if (this.props.selectedArticle.slug === nextProps.selectedArticle.slug) {
-      return false
+  _getCumulativeOffset(element) {
+    let top = 0
+    do {
+      top += element.offsetTop  || 0
+      element = element.offsetParent
+    } while(element)
+
+    return top
+  }
+
+  _setArticleBounding() {
+    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
+    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
+    articlePostition.beginY = beginEl.offsetTop
+    articlePostition.endY = endEl.offsetTop
+  }
+
+  _handleScroll() {
+    const { beginY, endY, percent } = articlePostition
+    let scrollRatio = Math.abs((window.scrollY-beginY) / (endY-beginY))
+    if(window.scrollY < beginY) {
+      scrollRatio = 0
+    } else if (scrollRatio > 1) {
+      scrollRatio = 1
     }
-    return true
+    let curPercent = Math.round(scrollRatio*100)
+    if(percent!== curPercent) {
+      articlePostition.percent = curPercent
+      // update the header progress bar
+      this.props.setReadProgress(curPercent)
+    }
   }
 
   _composeAuthors(article) {
@@ -84,9 +134,14 @@ export default class Article extends Component {
                 authors={authors}
               />
             </div>
-            <div className="col-md-2 text-right">
+            <div ref="progressBegin" className="col-md-2 text-right">
               <ArticleComponents.PublishDate
                 date={article.publishedDate}
+              />
+            </div>
+            <div className="col-md-12">
+              <ArticleComponents.Introduction
+                data={introData}
               />
             </div>
           </div>
@@ -110,7 +165,7 @@ export default class Article extends Component {
             </div>
           </div>
 
-          <div className="inner-max center-block">
+          <div ref="progressEnding" className="inner-max center-block">
             <div className="row">
               <div className="col-md-12">
                 <ArticleComponents.BottomTags
@@ -123,7 +178,9 @@ export default class Article extends Component {
             />
           </div>
         </div>
-        <Footer copyright={copyright}/>
+
+        <Footer
+          copyright={copyright}/>
       </div>
     )
   }
@@ -141,4 +198,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, setReadProgress })(Article)

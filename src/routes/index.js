@@ -5,7 +5,7 @@ import Article from '../containers/Article'
 import Blank from '../containers/Blank'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
-import NavBar from '../components/NavBar'
+import NavBar from '../containers/NavBar'
 import Photography from '../containers/Photography'
 
 
