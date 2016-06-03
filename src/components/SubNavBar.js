@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { subnavPath } from '../lib/constants'
 
 if (process.env.BROWSER) {
-  require('./NavBar.css')
+  require('../containers/NavBar.css')
 }
 const styles = require('./SubNavBar.scss')
 

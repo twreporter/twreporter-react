@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Sticky from 'react-sticky'
 import classNames from 'classnames'
 import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
@@ -9,7 +8,7 @@ import { navPath } from '../lib/constants'
 // require('react-burger-menu').slide
 
 if (process.env.BROWSER) {
-  require('./NavBar.css')
+  require('../containers/NavBar.css')
 }
 const styles = require('./MobileNaviBar.scss')
 

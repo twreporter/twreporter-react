@@ -1,8 +1,6 @@
 'use strict'
-import { connect } from 'react-redux'
 import React, { Component } from 'react' // eslint-disable-line
 import styles from './HeaderProgress.scss'
-import { setReadProgress } from '../actions/header'
 
 class HeaderProgress extends Component {
   constructor(props) {
@@ -10,8 +8,7 @@ class HeaderProgress extends Component {
   }
 
   render() {
-    const { header } = this.props
-    const percent = header.readPercent || 0
+    const { percent } = this.props
 
     return (
       <div className={styles.progressOuter}>
@@ -23,11 +20,4 @@ class HeaderProgress extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    header: state.header || {},
-    entities: state.entities || {}
-  }
-}
-
-export default connect(mapStateToProps, { setReadProgress })(HeaderProgress)
+export default HeaderProgress

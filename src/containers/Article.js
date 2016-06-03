@@ -12,6 +12,12 @@ import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
+let articlePostition = {
+  beginY: 100,
+  endY: 200,
+  percent: 0
+}
+
 export default class Article extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticleIfNeeded(params.slug))
@@ -19,11 +25,6 @@ export default class Article extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      topY: 100,
-      bottomY: 200,
-      percent: 0
-    }
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
@@ -57,35 +58,34 @@ export default class Article extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    if (this.props.selectedArticle.slug === nextProps.selectedArticle.slug) {
-      return false
-    }
-    return true
+  _getCumulativeOffset(element) {
+    let top = 0
+    do {
+      top += element.offsetTop  || 0
+      element = element.offsetParent
+    } while(element)
+
+    return top
   }
 
   _setArticleBounding() {
-    const top = ReactDOM.findDOMNode(this.refs.progressBegin).offsetTop
-    const bottom = ReactDOM.findDOMNode(this.refs.progressEnding).offsetTop
-    if(this.state.topY !== top || this.state.bottomY !== bottom) {
-      this.setState({
-        topY: top,
-        bottomY: bottom
-      })
-    }
+    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
+    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
+    articlePostition.beginY = beginEl.offsetTop
+    articlePostition.endY = endEl.offsetTop
   }
 
   _handleScroll() {
-    const { bottomY, topY, percent } = this.state
-    let scrollRatio = Math.abs((window.scrollY-topY) / (bottomY-topY))
-    if(window.scrollY < topY) {
+    const { beginY, endY, percent } = articlePostition
+    let scrollRatio = Math.abs((window.scrollY-beginY) / (endY-beginY))
+    if(window.scrollY < beginY) {
       scrollRatio = 0
     } else if (scrollRatio > 1) {
       scrollRatio = 1
     }
     let curPercent = Math.round(scrollRatio*100)
     if(percent!== curPercent) {
-      this.setState({ percent: curPercent })
+      articlePostition.percent = curPercent
       // update the header progress bar
       this.props.setReadProgress(curPercent)
     }
@@ -134,12 +134,12 @@ export default class Article extends Component {
                 authors={authors}
               />
             </div>
-            <div className="col-md-2 text-right">
+            <div ref="progressBegin" className="col-md-2 text-right">
               <ArticleComponents.PublishDate
                 date={article.publishedDate}
               />
             </div>
-            <div ref="progressBegin" className="col-md-12">
+            <div className="col-md-12">
               <ArticleComponents.Introduction
                 data={introData}
               />
@@ -165,7 +165,7 @@ export default class Article extends Component {
             </div>
           </div>
 
-          <div className="inner-max center-block">
+          <div ref="progressEnding" className="inner-max center-block">
             <div className="row">
               <div className="col-md-12">
                 <ArticleComponents.BottomTags
@@ -180,7 +180,6 @@ export default class Article extends Component {
         </div>
 
         <Footer
-          ref="progressEnding"
           copyright={copyright}/>
       </div>
     )

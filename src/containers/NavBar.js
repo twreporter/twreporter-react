@@ -1,9 +1,11 @@
 import _ from 'lodash'
+import { connect } from 'react-redux'
+import { setReadProgress } from '../actions/header'
+import DesktopNavBar from '../components/DesktopNavBar'
+import HeaderProgress from '../components/HeaderProgress'
+import MobileNavBar from '../components/MobileNavBar'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import DesktopNavBar from './DesktopNavBar'
-import HeaderProgress from './HeaderProgress'
-import MobileNavBar from './MobileNavBar'
 
 const DEFAULT_HEIGHT = 10
 
@@ -12,7 +14,7 @@ if (process.env.BROWSER) {
   require('./NavBurg.css')
 }
 
-export default class NaviBar extends Component {
+class NaviBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,7 +37,8 @@ export default class NaviBar extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    if(nextState.height !== this.state.height) {
+    if(nextState.height !== this.state.height ||
+       nextProps.header.readPercent !== this.props.header.readPercent) {
       return true
     }
     if (nextProps.path === this.props.path) {
@@ -62,13 +65,15 @@ export default class NaviBar extends Component {
 
   render() {
     const { height } = this.state
+    const { header } = this.props
+    const percent = header.readPercent || 0
 
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className="fixTop">
           {this._renderMobile()}
           {this._renderDesktop()}
-          <HeaderProgress />
+          <HeaderProgress percent={percent}/>
         </div>
       </div>
     )
@@ -78,3 +83,11 @@ export default class NaviBar extends Component {
 NaviBar.contextTypes = {
   device: PropTypes.string
 }
+
+function mapStateToProps(state) {
+  return {
+    header: state.header || {}
+  }
+}
+
+export default connect(mapStateToProps, { setReadProgress })(NaviBar)
