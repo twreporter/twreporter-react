@@ -1,0 +1,144 @@
+@import '../../themes/common-variables';
+
+.navContainer {
+  width:100%;
+  text-align:center;
+}
+
+.navLeft {
+  float:left;
+  padding-left: 2.6rem;
+  min-width: 9rem;
+  min-height: 3rem;
+}
+
+.navCenter {
+  display: inline-block;
+  margin: 0.7rem 0;
+  min-width: 9rem;
+  min-height: 3rem;
+}
+
+.navRight {
+  float: right;
+  min-width: 9rem;
+  min-height: 3rem;
+  padding-right: 2.6rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.navLogo {
+  img{
+    width: 9rem;
+  }
+  transform: translate(-40%, 0);
+}
+
+.donateButton {
+  width: 250px;
+  height: 70px;
+  border-radius: 62rem;
+  background-color: $gray-tag-bg;
+  border: 1px solid $gray-tag-bg;
+  color: $white;
+  padding: 0.2rem 1.8rem;
+  transition: all 0.3s ease-in-out;
+
+  &:link, &:visited {
+    color: $white;
+  }
+
+  &:hover {
+    color: $white;
+    background-color: $brand-primary;
+    border: 1px solid $brand-primary;
+  }
+}
+
+.donateIcon {
+  width: 2.2rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.2rem;
+}
+
+// START - burger menu icon
+.navIcon {
+  width: 30px;
+  height: 29px;
+  margin: 5px;
+  top: 11px;
+  right: 5px;
+  margin-top: 1.1rem;
+  margin-left: 0.2rem;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+.navIcon span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: $gray-tag-bg;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+
+.iconOpen span {
+  background: $gray-tag-bg;
+}
+
+.navIcon span:nth-child(1) {
+  top: 0px;
+}
+
+.navIcon span:nth-child(2), .navIcon span:nth-child(3) {
+  top: 10px;
+}
+
+.navIcon span:nth-child(4) {
+  top: 20px;
+}
+
+.iconOpen span:nth-child(1) {
+  top: 10px;
+  width: 0%;
+  left: 50%;
+}
+
+.iconOpen span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.iconOpen span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.iconOpen span:nth-child(4) {
+  top: 16px;
+  width: 0%;
+  left: 50%;
+}
+// END - burger menu icon
