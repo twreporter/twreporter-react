@@ -11,7 +11,7 @@ export const EmbeddedCode = ({ content }) => {
   let embeddedCode = _.get(content, [ 0 ], {})
 
   return (
-    <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
+    <div className={classNames('inner-max', 'center-block')}>
       <span dangerouslySetInnerHTML={{ __html: embeddedCode }}/> 
     </div>
   )

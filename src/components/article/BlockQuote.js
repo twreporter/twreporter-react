@@ -9,7 +9,7 @@ export const BlockQuote = ({ content }) => {
   let blockQuote = _.get(content, [ 0 ], {})
 
   return (
-    <blockquote className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>{blockQuote}</blockquote>
+    <blockquote className={classNames('inner-max', 'center-block', styles.BlockQuoteContainer)}>{blockQuote}</blockquote>
   )
 }
 
