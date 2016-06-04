@@ -6,34 +6,61 @@ import styles from './BottomRelateds.scss'
 
 export class BottomRelateds extends Component {
   constructor(props) {
+    const itemWidth = 420
+    let relateds = _.get(props, 'relateds', [])
+    let count = relateds.length || 0
+
     super(props)
+
+    this.totalWidth = Math.max(count * itemWidth, 0)
+    this.state = {
+      width: 'auto'
+    }
   }
 
-  setHtml(html) {
+  _setHtml(html) {
     return { __html: html }
+  }
+
+  _handleResize() {
+    let totalWidth = this.totalWidth || 0
+    let wrapperWidth = this.state.width
+    let winWidth = window.innerWidth
+
+    if (winWidth > 767 && winWidth < totalWidth && wrapperWidth === 'auto') {
+      this.setState({ width: totalWidth })
+    } else if (wrapperWidth !== 'auto') {
+      this.setState({ width: 'auto' })
+    }
+  }
+
+  componentDidMount() {
+    this._handleResize()
+    window.addEventListener('resize', this._handleResize.bind(this))
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._handleResize.bind(this))
   }
 
   render() {
     const { relateds } = this.props
 
     if (!_.get(relateds, '0')) {
-      return null;
+      return null
     }
 
-    const relatedRows = _.map(relateds, related => {
-      let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '')
+    const relatedRows = _.map(relateds, (related, index) => {
+      let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
       return (  
-        <li className={styles.relatedItem} key={related._id}>
-          <a className={'row ' + styles.relatedAnchor} href={'/a/' + related.slug}>
-            {imageUrl ? (
-                <div className={styles.relatedImg}>
-                  <img src={imageUrl} width="180" height="120" />
-                </div>
-              ) : null
-            }
+        <li className={styles.relatedItem} key={'related-' + (index++)}>
+          <a className={styles.relatedAnchor} href={'/a/' + related.slug}>
+            <div className={styles.relatedImg}>
+              <img src={imageUrl} width="180" height="120" />
+            </div>
             <div className={styles.relatedContent}>
-              <p className='relatedSubtitle'>{related.subtitle}</p>
-              <p className='relatedTitle'>{related.title}</p>
+              <span className={styles.relatedAlignHelper}></span>
+              <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
             </div>
           </a>
         </li>
@@ -41,10 +68,12 @@ export class BottomRelateds extends Component {
     })
 
     return (
-      <div className={styles.bottomRelateds}>
-        <ul>
+      <div className={styles.bottomRelatedsWrapper}>
+        <div className={styles.bottomRelateds}>
+          <ul style={ { width: _.get(this, 'state.width', 'auto') } }>
             { relatedRows }
-        </ul>
+          </ul>
+        </div>
       </div>
     )
   }

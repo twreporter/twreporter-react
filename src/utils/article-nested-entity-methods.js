@@ -1,5 +1,5 @@
 'use strict'
-const list = [ 'designers', 'engineers', 'photographers', 'tags', 'writters', 'authorImages', 'heroImage', 'og_image', 'relateds' ]
+const list = [ 'designers', 'engineers', 'photographers', 'tags', 'writters', 'authorImages', 'heroImage', 'og_image' ]
 
 export function getArticleEmbeddedQuery() {
   let query = {}

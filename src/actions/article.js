@@ -50,20 +50,17 @@ function fetchArticle(slug) {
       return response.json()
     })
     .then((response) => {
-      console.log('------response', response)
-      // let relateds = ["573423fc3fac3c7322005bbd","573423bc3fac3c7322005b76"]
-      let relateds = _.get(response, 'relateds', []);
+      let relateds = _.get(response, 'relateds', [])
       finialResponse = response
 
       if (_.get(relateds, '0')) {
-          let query = qs.stringify({ where: '{"relateds":{"$in":' + JSON.stringify(relateds) + '}}' })
-          console.log('------related url', formatUrl(`posts/?${query}`))
-          return fetch(formatUrl(`posts/?${query}`))
+        let query = qs.stringify({ where: '{"_id":{"$in":' + JSON.stringify(relateds) + '}}' })
+        return fetch(formatUrl(`posts/?${query}`))
       } else {
-          return {
-              status: 200,
-              json: () => {}
-          }
+        return {
+          status: 200,
+          json: () => {}
+        }
       }
     })
     .then((relatedsResponse) => {
@@ -71,14 +68,12 @@ function fetchArticle(slug) {
       if (status === 404) {
         throw new NotFoundError('Relateds of Article ' +  slug + ' is not found')
       } else if (status >= 400) {
-        throw new InternalServerError('Bad response from API, response: ' + relatedsResponse)
+        throw new InternalServerError('Bad response from API, response: ' + JSON.stringify(relatedsResponse))
       }
       return relatedsResponse.json()
     })
     .then((relatedsResponse) => {
       finialResponse.relateds = _.get(relatedsResponse, '_items', [])
-      console.log('-------relatedsResponse', relatedsResponse)
-      console.log('-------finialResponse', finialResponse)
       const camelizedJson = camelizeKeys(finialResponse)
       return dispatch(receiveArticle(normalize(camelizedJson, articleSchema)))
     }, (error) => {
