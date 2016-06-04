@@ -1,7 +1,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
-import styles from './Blockquote.scss'
+import styles from './BlockQuote.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 
