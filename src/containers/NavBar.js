@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import DesktopNavBar from '../components/DesktopNavBar'
-import HeaderProgress from '../components/HeaderProgress'
-import MobileNavBar from '../components/MobileNavBar'
+import DesktopNavBar from '../components/navigation/DesktopNavBar'
+import HeaderProgress from '../components/navigation/HeaderProgress'
+import MobileNavBar from '../components/navigation/MobileNavBar'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
