@@ -1,3 +1,4 @@
+export * from './BlockQuote'
 export * from './Body'
 export * from './BottomAuthor'
 export * from './BottomTags'
