@@ -7,7 +7,7 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'code':
       return null
     case 'embeddedCode':
-      return ArticleComps.Embedded
+      return ArticleComps.AlignedEmbedded
     case 'image':
       return ArticleComps.AlignedImage
     case 'imageDiff':

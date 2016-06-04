@@ -1,16 +1,20 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import React, { Component } from 'react'
 import _ from 'lodash'
+import classNames from 'classnames'
 import styles from './Embedded.scss'
+import BlockAlignmentWrapper from './BlockAlignmentWrapper'
+import React from 'react' // eslint-disable-next-line
 
-export class Embedded extends Component {
-  constructor(props) {
-    super(props)
-  }
+export const EmbeddedCode = ({ content }) => {
+  
+  let embeddedCode = _.get(content, [ 0 ], {})
 
-  render() {
-    return null
-  }
+  return (
+    <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
+      <span dangerouslySetInnerHTML={{ __html: embeddedCode }}/> 
+    </div>
+  )
 }
 
+export const AlignedEmbedded = BlockAlignmentWrapper(EmbeddedCode)
