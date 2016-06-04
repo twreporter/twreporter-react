@@ -1,0 +1,49 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/media-queries.scss';
+
+.bottomRelateds {
+  background-color: #ffffff;
+  margin: 2em 0 6em;
+}
+
+.relatedItem {
+  border-bottom: 1px solid #dddddd;
+  margin: 0 25px;
+}
+
+.relatedItem:last-of-type {
+  border-bottom: 0;
+}
+
+.relatedAnchor {
+  display: block;
+  margin: 0;
+}
+
+.relatedImg {
+  float: left;
+  margin: 25px 25px 25px 0;
+}
+
+.relatedContent {
+  margin: 25px 0;
+  color: #666674;
+}
+
+@include mq($max-width: $screen-xs-max) {
+  .bottomRelateds {
+    margin: 0.8em 0;
+  }
+
+  .relatedItem {
+    margin: 0 15px;
+  }
+
+  .relatedImg {
+    margin: 20px 20px 20px 0;
+  }
+
+  .relatedContent {
+    margin: 20px 0;
+  }
+}

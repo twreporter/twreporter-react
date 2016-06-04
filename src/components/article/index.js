@@ -1,5 +1,6 @@
 export * from './Body'
 export * from './BottomAuthor'
+export * from './BottomRelateds'
 export * from './BottomTags'
 export * from './Embedded'
 export * from './HeadingAuthor'
