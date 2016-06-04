@@ -13,11 +13,15 @@ export const Introduction = ({ data }) => {
       <p>{_.get(ele, [ 'content', 0 ])}</p>
     )
   } ) : <p>{_.get(data, [ 'content', 0 ])}</p>
-  return (
-    <div className={classNames('inner-max', 'center-block', styles.introContainer)}>
-      <img className={styles.leftQuote} src={ leftQuote } />
-      {content}
-      <img className={styles.rightQuote} src={ rightQuote } />
-    </div>
-  )
+  if (content > 0) {
+    return (
+      <div className={classNames('inner-max', 'center-block', styles.introContainer)}>
+        <img className={styles.leftQuote} src={ leftQuote } />
+        {content}
+        <img className={styles.rightQuote} src={ rightQuote } />
+      </div>
+    )
+  } else {
+    return (<div></div>)
+  }
 }
