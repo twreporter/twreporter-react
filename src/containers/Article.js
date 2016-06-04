@@ -177,6 +177,9 @@ export default class Article extends Component {
               authors={deduppedAuthors}
             />
           </div>
+          <ArticleComponents.BottomRelateds
+            relateds={article.relateds}
+          />
         </div>
 
         <Footer
