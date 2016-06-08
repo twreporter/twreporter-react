@@ -36,7 +36,6 @@ class LeadingImage extends React.Component {
       <div className={classNames('center-block', styles[leadingImgClass])}>
         <Image
           content={ [ _.assign({}, image, { id: id, description: description }) ] }
-          id={id}
         />
       </div>
     )

@@ -126,13 +126,15 @@ class Image extends FitwidthMixin(Component) {
 Image.propTypes = {
   content: React.PropTypes.array,
   customeStyles: React.PropTypes.array,
-  id: React.PropTypes.string
+  outerHeight: React.PropTypes.number,
+  outerWidth: React.PropTypes.number
 }
 
 Image.defaultProps = {
   content: [],
   customeStyles: [],
-  id: ''
+  outerHeight: 0,
+  outerWidth: 0
 }
 
 const AlignedImage = BlockAlignmentWrapper(Image)

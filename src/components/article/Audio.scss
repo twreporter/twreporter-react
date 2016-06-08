@@ -1,0 +1,60 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/common-variables.scss';
+@import "../../themes/media-queries.scss";
+
+.audio-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.audio-flex-coverphoto {
+  flex: 2;
+  max-width: $audio-coverphoto-width;
+}
+
+.audio-flex-info {
+  background-color: white;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.info-flex-item:first-child {
+  margin: auto;
+}
+
+.info-flex-item {
+  margin: 0 auto 2rem auto;
+  h4 {
+    font-size: $font-size-base;
+    color: $caption-color;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 15px;
+    color: $caption-color;
+    margin: 0 0 0 0;
+  }
+
+  div {
+    font-size: 15px;
+    color: $caption-color;
+  }
+}
+
+@include mq($max-width: $screen-sm-max) {
+  .info-flex-item {
+    margin: 2rem 2rem 2rem 0;
+  }
+  .audio-flex-coverphoto {
+    flex: initial;
+    max-width: none;
+    width: 100%;
+  }
+  .audio-flex-info {
+    width: 100%;
+    flex-direction: row;
+  }
+}
