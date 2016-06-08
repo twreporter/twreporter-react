@@ -12,7 +12,7 @@ export const EmbeddedCode = ({ content }) => {
 
   return (
     <div className={classNames('inner-max', 'center-block')}>
-      <span dangerouslySetInnerHTML={{ __html: embeddedCode }}/> 
+      <span dangerouslySetInnerHTML={{ __html: embeddedCode.embeddedCode }}/> 
     </div>
   )
 }
