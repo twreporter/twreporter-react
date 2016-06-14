@@ -12,16 +12,16 @@ export function getArticleEmbeddedQuery() {
 export function getArticleFieldToEntity() {
   return  [ {
     field: 'designers',
-    entity: 'designers'
+    entity: 'authors'
   }, {
     field: 'engineers',
-    entity: 'engineers'
+    entity: 'authors'
   }, {
     field: 'photographers',
-    entity: 'photographers'
+    entity: 'authors'
   }, {
     field: 'writters',
-    entity: 'writters'
+    entity: 'authors'
   }, {
     field: 'relateds',
     entity: 'articles'

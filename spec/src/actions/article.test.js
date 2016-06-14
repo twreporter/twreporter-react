@@ -51,9 +51,9 @@ describe('article action', () => {
         expect(action.response).to.be.an('object')
         expect(action.response.entities).to.be.an('object')
         expect(action.response.entities.articles).to.be.an('object')
-        expect(action.response.entities.writters).to.be.an('object')
-        expect(action.response.entities.writters.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
-        expect(action.response.entities.writters.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true
+        expect(action.response.entities.authors).to.be.an('object')
+        expect(action.response.entities.authors.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
+        expect(action.response.entities.authors.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true
 
       })
   })

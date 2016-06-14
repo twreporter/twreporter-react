@@ -106,8 +106,8 @@ export default class Article extends Component {
       if (Array.isArray(article[item])) {
         article[item].forEach((author) => {
           // remove 's'. writters -> writter
-          author.type = item.slice(0, -1)
-          authors.push(author)
+          let type = item.slice(0, -1)
+          authors.push(_.merge({}, author, { type: type }))
         })
       }
     })
