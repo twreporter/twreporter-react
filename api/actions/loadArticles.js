@@ -19,6 +19,7 @@ export default function loadArticles(req, params = []) {
       if (err) {
         reject(err)
       } else {
+        const embedded = JSON.parse(_.get(query, 'embedded', null))
         let aricleRes = res.body
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
@@ -32,7 +33,7 @@ export default function loadArticles(req, params = []) {
         })
 
         // combine author images data if the query contains 'authorImages'
-        if(_.get(query, [ 'embedded', 'authorImages' ])) {
+        if(_.get(embedded, 'authorImages')) {
           const imgIds = _.uniq(writers)
           const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
