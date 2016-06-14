@@ -72,7 +72,7 @@ function fetchArticles(ids) {
 }
 
 
-export function fetchArticlesIfNeeded(ids) {
+export function fetchArticlesByIdsIfNeeded(ids) {
   return (dispatch, getState) => {
     const articles = _.get(getState(), [ 'entities', 'articles' ], {})
     let idToFetch = []

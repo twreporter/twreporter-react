@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesIfNeeded } from '../actions/articles'
+import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
 import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
@@ -38,10 +38,10 @@ export default class Article extends Component {
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
 
-    const { fetchArticlesIfNeeded, selectedArticle, entities } = this.props
+    const { fetchArticlesByIdsIfNeeded, selectedArticle, entities } = this.props
     if (!selectedArticle.error && !selectedArticle.isFetching) {
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
-      fetchArticlesIfNeeded(relatedIds)
+      fetchArticlesByIdsIfNeeded(relatedIds)
     }
   }
 
@@ -208,4 +208,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesIfNeeded, setReadProgress })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, setReadProgress })(Article)
