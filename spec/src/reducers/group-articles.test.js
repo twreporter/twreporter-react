@@ -125,7 +125,7 @@ describe('articlesByTags reducer', () => {
           'tag-1': {
             isFetching: true,
             error: null,
-            items: [ 'post-slug-2' ],
+            items: [ 'post-id-2' ],
             nextUrl: ''
           }
         }, store.getActions()[1])
@@ -134,7 +134,7 @@ describe('articlesByTags reducer', () => {
           isFetching: false,
           error: null,
           nextUrl: formatUrl(mockArticles._links.next.href + '&embedded=' + JSON.stringify(getArticleEmbeddedQuery())),
-          items: [ 'post-slug-2', 'post-slug-1' ],
+          items: [ 'post-id-2', 'post-id-1' ],
           lastUpdated: 1234567890
         }
       })
@@ -211,7 +211,7 @@ describe('articlesByCats reducer', () => {
           'category-1': {
             isFetching: true,
             error: null,
-            items: [ 'post-slug-2' ],
+            items: [ 'post-id-2' ],
             nextUrl: ''
           }
         }, store.getActions()[1])
@@ -220,7 +220,7 @@ describe('articlesByCats reducer', () => {
           isFetching: false,
           error: null,
           nextUrl: formatUrl(mockArticles._links.next.href + '&embedded=' + JSON.stringify(getArticleEmbeddedQuery())),
-          items: [ 'post-slug-2', 'post-slug-1' ],
+          items: [ 'post-id-2', 'post-id-1' ],
           lastUpdated: 1234567890
         }
       })

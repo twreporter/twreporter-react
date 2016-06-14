@@ -1,7 +1,7 @@
 'use strict'
-const list = [ 'designers', 'engineers', 'photographers', 'tags', 'writters', 'authorImages', 'heroImage', 'og_image' ]
 
 export function getArticleEmbeddedQuery() {
+  const list = [ 'authorImages', 'og_image', 'tags', 'categories' ]
   let query = {}
   list.forEach((ele) => {
     query[ele] = 1
@@ -10,14 +10,26 @@ export function getArticleEmbeddedQuery() {
 }
 
 export function getArticleFieldToEntity() {
-  let fieldToEntity = []
-  list.forEach((ele) => {
-    if (ele !== 'heroImage' && ele !== 'og_image') {
-      fieldToEntity.push({
-        field: ele,
-        entity: ele
-      })
-    }
-  })
-  return fieldToEntity
+  return  [ {
+    field: 'designers',
+    entity: 'designers'
+  }, {
+    field: 'engineers',
+    entity: 'engineers'
+  }, {
+    field: 'photographers',
+    entity: 'photographers'
+  }, {
+    field: 'writters',
+    entity: 'writters'
+  }, {
+    field: 'relateds',
+    entity: 'articles'
+  }, {
+    field: 'tags',
+    entity: 'tags'
+  }, {
+    field: 'categories',
+    entity: 'categories'
+  } ]
 }

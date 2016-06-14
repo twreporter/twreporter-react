@@ -47,10 +47,10 @@ describe('article action', () => {
         const action = store.getActions()[1]
         expect(store.getActions()[0]).to.deep.equal(expectedActions[0])
         expect(action.type).to.deep.equal(expectedActions[1].type)
+        expect(action.slug).to.deep.equal(expectedActions[1].slug)
         expect(action.response).to.be.an('object')
         expect(action.response.entities).to.be.an('object')
         expect(action.response.entities.articles).to.be.an('object')
-        expect(action.response.entities.articles.hasOwnProperty('test')).to.be.true
         expect(action.response.entities.writters).to.be.an('object')
         expect(action.response.entities.writters.hasOwnProperty('571ede3874ae22f42a8da30a')).to.be.true
         expect(action.response.entities.writters.hasOwnProperty('571ede4774ae22f42a8da30b')).to.be.true

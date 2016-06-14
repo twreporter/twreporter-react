@@ -20,7 +20,8 @@ function article(state = {}, action) {
       return Object.assign({}, state, {
         isFetching: false,
         error: null,
-        slug: action.response.result,
+        id: action.response.result,
+        slug: action.slug,
         lastUpdated: action.receivedAt
       })
     default:
@@ -28,15 +29,4 @@ function article(state = {}, action) {
   }
 }
 
-function selectedArticle(state = {}, action) {
-  switch(action.type) {
-    case types.FETCH_ARTICLE_SUCCESS:
-    case types.FETCH_ARTICLE_REQUEST:
-    case types.FETCH_ARTICLE_FAILURE:
-      return Object.assign({}, state, article(state, action))
-    default:
-      return state
-  }
-}
-
-export default selectedArticle
+export default article

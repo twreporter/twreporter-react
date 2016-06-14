@@ -8,7 +8,7 @@ const photographer = new Schema('photographers')
 const writter = new Schema('writters')
 const tag = new Schema('tags')
 
-const article = new Schema('articles', { idAttribute: 'slug' })
+const article = new Schema('articles')
 
 article.define({
   categories: arrayOf(category),
