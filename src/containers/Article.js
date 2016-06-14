@@ -1,43 +1,94 @@
-/* eslint  no-unused-vars:1 */
+/* eslint no-unused-vars:0*/
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
+import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
+import classNames from 'classnames'
+import styles from './Article.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import styles from './Article.scss'
+import ReactDOM from 'react-dom'
+
+let articlePostition = {
+  beginY: 100,
+  endY: 200,
+  percent: 0
+}
 
 export default class Article extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticleIfNeeded(params.slug))
   }
+
   constructor(props) {
     super(props)
+
+    this._setArticleBounding = this._setArticleBounding.bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    this._setArticleBounding()
+    window.addEventListener('resize', this._setArticleBounding)
+
+    // detect sroll position
+    window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate() {
+    this._setArticleBounding()
   }
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, article } = this.props
-    if (article.slug !== slug || ( article.isFetching === false && article.error !== null) ) {
+    const { fetchArticleIfNeeded, selectedArticle } = this.props
+    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const slug = nextProps.params.slug
-    const { fetchArticleIfNeeded, article } = nextProps
-    if (article.slug !== slug || ( article.isFetching === false && article.error !== null) ) {
+    const { fetchArticleIfNeeded, selectedArticle } = nextProps
+    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.article.slug === nextProps.article.slug) {
-      return false
+  _getCumulativeOffset(element) {
+    let top = 0
+    do {
+      top += element.offsetTop  || 0
+      element = element.offsetParent
+    } while(element)
+
+    return top
+  }
+
+  _setArticleBounding() {
+    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
+    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
+    articlePostition.beginY = beginEl.offsetTop
+    articlePostition.endY = endEl.offsetTop
+  }
+
+  _handleScroll() {
+    const { beginY, endY, percent } = articlePostition
+    let scrollRatio = Math.abs((window.scrollY-beginY) / (endY-beginY))
+    if(window.scrollY < beginY) {
+      scrollRatio = 0
+    } else if (scrollRatio > 1) {
+      scrollRatio = 1
     }
-    return true
+    let curPercent = Math.round(scrollRatio*100)
+    if(percent!== curPercent) {
+      articlePostition.percent = curPercent
+      // update the header progress bar
+      this.props.setReadProgress(curPercent)
+    }
   }
 
   _composeAuthors(article) {
@@ -57,26 +108,82 @@ export default class Article extends Component {
   }
 
   render() {
-    const { article, entities } = this.props
-    const { device } = this.context
-    let authors = this._composeAuthors(denormalizeArticles(article.slug, entities)[0])
+    const { selectedArticle, entities } = this.props
+    let article = denormalizeArticles(selectedArticle.slug, entities)[0]
+    let authors = this._composeAuthors(article)
+    let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
     let deduppedAuthors = _.uniq(authors, 'id')
+    let heroImage = _.get(article, [ 'heroImage' ], null)
+    let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
+    let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
+    let copyright = _.get(article, [ 'copyright' ], [])
     return (
       <div className={styles.article}>
-        <div className="container">
-          <div className="row">
+        <div ref="articleContainer">
+          <div className={classNames('row', styles.titleRow, 'outer-max', 'center-block')}>
             <div className="col-md-12 text-center">
+              <hgroup>
+                <h1>{article.title}</h1>
+              </hgroup>
+            </div>
+          </div>
+
+          <div className="row outer-max center-block">
+            <div className="col-md-10 text-left">
               <ArticleComponents.HeadingAuthor
                 authors={authors}
               />
             </div>
+            <div ref="progressBegin" className="col-md-2 text-right">
+              <ArticleComponents.PublishDate
+                date={article.publishedDate}
+              />
+            </div>
+            <div className="col-md-12">
+              <ArticleComponents.Introduction
+                data={introData}
+              />
+            </div>
           </div>
+
+          <div className="row centrer-block">
+            <div className="col-md-12">
+              <ArticleComponents.LeadingImage
+                size={heroImageSize}
+                image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                id={_.get(heroImage, 'id')}
+                description={_.get(heroImage, 'description' )}
+              />
+            </div>
+          </div>
+
+          <div className="row outer-max center-block">
+            <div className="col-md-12">
+              <ArticleComponents.Body
+                data={bodyData}
+              />
+            </div>
+          </div>
+
+          <div ref="progressEnding" className="inner-max center-block">
+            <div className="row">
+              <div className="col-md-12">
+                <ArticleComponents.BottomTags
+                  data={article.tags}
+                />
+              </div>
+            </div>
+            <ArticleComponents.BottomAuthor
+              authors={deduppedAuthors}
+            />
+          </div>
+          <ArticleComponents.BottomRelateds
+            relateds={article.relateds}
+          />
         </div>
 
-        <ArticleComponents.Author
-          authors={deduppedAuthors}
-        />
-        <Footer/>
+        <Footer
+          copyright={copyright}/>
       </div>
     )
   }
@@ -84,7 +191,7 @@ export default class Article extends Component {
 
 function mapStateToProps(state) {
   return {
-    article: state.selectedArticle,
+    selectedArticle: state.selectedArticle,
     entities: state.entities
   }
 }
@@ -94,4 +201,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, setReadProgress })(Article)

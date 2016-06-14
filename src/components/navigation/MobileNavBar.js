@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Sticky from 'react-sticky'
 import classNames from 'classnames'
 import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
-import { navPath } from '../lib/constants'
+import { navPath } from '../../lib/constants'
 
 // require('react-burger-menu').slide
 
 if (process.env.BROWSER) {
-  require('./NavBar.css')
+  require('../../containers/NavBar.css')
 }
 const styles = require('./MobileNaviBar.scss')
 
@@ -62,24 +61,22 @@ export default class MobileNaviBar extends Component {
     }
 
     return (
-      <Sticky topOffset={300}>
-        <div className={mobileNavClass} style= {{ backgroundColor: backgroundColor }}>
-          <div className="nav-logo">
-            {navLogo}
-            <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
-          </div>
-          <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div className={mobileMenuClass}>
-            {navLinks}
-            <SubNavBar {...this.props}/>
-          </div>
+      <div className={mobileNavClass} style= {{ backgroundColor: backgroundColor }}>
+        <div className="nav-logo">
+          {navLogo}
+          <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
         </div>
-      </Sticky>
+        <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className={mobileMenuClass}>
+          {navLinks}
+          <SubNavBar {...this.props}/>
+        </div>
+      </div>
     )
   }
 }

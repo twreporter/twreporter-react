@@ -1,0 +1,20 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/media-queries.scss';
+
+.bodyContainer {
+  max-width: 900px;  
+}
+
+@include mq($max-width: $screen-sm-max) {
+  .bodyContainer {
+    /* TBD */
+    max-width: 600px;  
+  }
+}
+
+@include mq($max-width: $screen-xs-max) {
+  .bodyContainer {
+    /* TBD */
+    max-width: 400px;  
+  }
+}

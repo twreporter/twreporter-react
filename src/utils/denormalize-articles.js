@@ -1,16 +1,19 @@
 'use strict'
-import { getArticleEmbeddedQuery } from './get-article-embedded-query'
+import { getArticleFieldToEntity } from './article-nested-entity-methods'
 import _ from 'lodash'
 
 function denormalizeEntity(entityIds = [], entityObj = {}) {
-  let rtn = []
+  let rtn
   entityObj = entityObj || {}
   if (Array.isArray(entityIds)) {
-    entityIds.forEach((id) => {
+    rtn = []
+    _.forEach(entityIds, (id) => {
       if (entityObj.hasOwnProperty(id)) {
         rtn.push(entityObj[id])
       }
     })
+  } else {
+    rtn = entityObj[entityIds]
   }
   return rtn
 }
@@ -19,14 +22,14 @@ export function denormalizeArticles(articleSlugs = [], entities = {}) {
   let denormalizedArticles = []
   // extract entities articles need
   const { articles } = entities
-  const list = Object.keys(getArticleEmbeddedQuery())
+  const fieldToEntity = getArticleFieldToEntity()
 
   articleSlugs = Array.isArray(articleSlugs) ? articleSlugs : [ articleSlugs ]
   articleSlugs.forEach((articleSlug) => {
     if (articles.hasOwnProperty(articleSlug)) {
       let article = _.merge({} ,articles[articleSlug])
-      list.forEach((item) => {
-        article[item] = denormalizeEntity(article[item], entities[item])
+      _.forEach(fieldToEntity, (ele) => {
+        article[ele.field] = denormalizeEntity(article[ele.field], entities[ele.entity])
       })
       denormalizedArticles.push(article)
     }

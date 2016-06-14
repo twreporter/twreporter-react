@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { ts2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../lib/image-composer'
 
 if (process.env.BROWSER) {
@@ -24,13 +24,13 @@ export default class Daily extends Component {
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
           { _.map(dailyTop, (a) => {
-            const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
-            if (a.isPublishedVersion) {
+            const pubDate = date2yyyymmdd(a.publishedDate, '.')
+            if (a.state == 'published') {
               let imageSet = imageComposer(a)
               let thumbnail = imageSet.mobileImage
-              let url = (a.storyLink) ? a.storyLink : '/a/' + a.slug
+              let url = '/a/' + a.slug
               return (
-                <li className="daily-item" key={a.id}>
+                <li className="daily-item" key={a._id}>
                   <a className="clearfix" href={url}>
                     <div className="daily-image" >
                       <div style={{

@@ -5,7 +5,7 @@ import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
 import { imageComposer } from '../lib/image-composer.js'
-import { ts2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../lib/date-transformer'
 
 if (process.env.BROWSER) {
   require('./Tags.css')
@@ -32,32 +32,33 @@ export default class Tags extends Component {
   }
 
   render() {
-    const { articles, hasMore, loadMore } = this.props
+    const { fullArticles, hasMore, loadMore } = this.props
     let cat_display = '台灣'
     const bgStyle = {}
     if (this.props.bgStyle === 'dark') {
       bgStyle.backgroundColor = '#2C323E'
       bgStyle.color = '#FFFFFF'
     }
-    if (articles && articles.length > 0) {
+    if (fullArticles && fullArticles.length > 0) {
       return (
         <div className="category-items">
         <cat cat_display={cat_display}/>
           <ul className="tag-listing">
-            { _.map(articles, (a) => {
+            { _.map(fullArticles, (a) => {
               let image = imageComposer(a).mobileImage
-              const d_str = ts2yyyymmdd(a.lastPublish * 1000 , '.')
+              const d_str = date2yyyymmdd(a.publishedDate , '.')
               let url = '/a/' + a.slug
+              let excerpt = (a.content.brief) ? a.content.brief.apiData[0].content[0] : ''
               if (image) {
                 return (
-                  <li className="tag-item" key={a.id} style={bgStyle}>
+                  <li className="tag-item" key={a._id} style={bgStyle}>
                     <a href={url}>
                       <div className="itemimage-wrap">
                         <img className="category-itemimage" src={image}/>
                       </div>
                       <div className="tag-itemdesc" style={bgStyle}>
                         <div className="tag-itemtitle">{a.title}</div>
-                        <div className="tag-itemexcerpt">{a.excerpt}</div>
+                        <div className="tag-itemexcerpt">{excerpt}</div>
                         <div className="tag-itempublished">{d_str}</div>
                       </div>
                     </a>

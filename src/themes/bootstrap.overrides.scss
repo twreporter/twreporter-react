@@ -1,8 +1,32 @@
+@import './common-variables.scss';
+
+.container {
+  line-height: $twreporter-line-height;
+}
+
+.inner-max {
+  @media only screen and (min-width: $screen-md-min) {
+    max-width: $article-inner-width;
+  }
+}
+
+.outer-max {
+  @media only screen and (min-width: $screen-md-min) {
+    max-width: $article-outer-width;
+  }
+}
+
+.image-caption {
+  font-size: $font-size-small;
+  color: $caption-color;
+  border-top: 1px dotted;
+}
+
 // Flatly 3.3.5
 // Bootswatch
 // -----------------------------------------------------
 
-$web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic" !default;
+$web-font-path: "https://fonts.googleapis.com/earlyaccess/notosanstc.css";
 @import url($web-font-path);
 
 // Navbar =====================================================================

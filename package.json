@@ -14,7 +14,7 @@
     "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src server api spec",
     "production": "webpack -p --progress && forever -e err.log server/index.js",
-    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-core/register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' ",
+    "test": "./node_modules/mocha/bin/mocha $(find spec -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
   },
   "betterScripts": {
@@ -122,9 +122,11 @@
     "react-dom": "^0.14.0",
     "react-flex-carousel": "^0.1.0",
     "react-inline-css": "^2.0.0",
+    "react-intl": "^2.1.2",
+    "react-lazy-load": "^3.0.10",
     "react-redux": "^2.1.2",
+    "react-responsive": "^1.1.3",
     "react-router": "^1.0.3",
-    "react-sticky": "^3.0.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redux": "^3.0.0",
@@ -142,7 +144,7 @@
     "superagent": "^1.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.9.11",
-    "webpack-isomorphic-tools": "^2.2.18"
+    "webpack-isomorphic-tools": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",

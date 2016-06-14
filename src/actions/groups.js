@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: 1*/
 
 'use strict'
 import { camelizeKeys } from 'humps'
@@ -6,7 +5,6 @@ import { formatUrl } from '../utils/index'
 import { arrayOf, normalize } from 'normalizr'
 import { tag as tagSchema, category as categorySchema } from '../schemas/index'
 import * as CONSTANTS from '../constants/index'
-import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 
@@ -61,7 +59,7 @@ function fetchGroups(groupType, groupNames) {
     return fetch(formatUrl(`${path}?${query}`))
     .then((response) => {
       if (response.status >= 400) {
-        throw new Error('Bad response from API')
+        throw new Error('Bad response from API, response:' + JSON.stringify(response))
       }
       return response.json()
     })

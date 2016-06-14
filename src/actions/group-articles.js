@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: 1*/
 
 'use strict'
 import { arrayOf, normalize } from 'normalizr'
@@ -6,10 +5,8 @@ import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
-import { CALL_API } from '../middleware/api'
 import _ from 'lodash'
 import * as CONSTANTS from '../constants/index'
-import config from '../../server/config'
 import fetch from 'isomorphic-fetch'
 import { fetchTagsIfNeeded, fetchCategoriesIfNeeded } from './groups'
 import qs from 'qs'
@@ -135,27 +132,27 @@ function fetchArticlesIfNeeded(groupType, groupNames, count, page) {
     // load group ids by group names
     return dispatch(fetchGroup(groupNames)).then(() => {
       const nextUrl = getNextUrl(getState(), groupType, groupNames, count, page)
-      if (nextUrl === null) {
-        // if nextUrl is null, then it means no more to load
-        return Promise.resolve()
-      } else if (nextUrl instanceof Error) {
+      if (nextUrl instanceof Error) {
         // dispatch fail action
         return dispatch(failToReceiveArticles(groupType, groupNames, nextUrl))
-      } else {
+      } else if (nextUrl) {
         return dispatch(fetchArticles(groupType, groupNames, nextUrl))
+      } else {
+        // if nextUrl is null or '', then it means no more to load
+        return Promise.resolve()
       }
     })
   }
 }
 
 export function fetchTaggedArticlesIfNeeded(tags, count, page) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticlesIfNeeded(groupEnum.TAG, tags, count, page))
   }
 }
 
 export function fetchCategorizedArticlesIfNeeded(categories, count, page) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return dispatch(fetchArticlesIfNeeded(groupEnum.CATEGORY, categories, count, page))
   }
 }

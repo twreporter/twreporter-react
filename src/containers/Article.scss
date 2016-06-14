@@ -4,3 +4,9 @@
   background-color: $article-gray;
   min-height: 20em;
 }
+
+.titleRow {
+  border-bottom: 2px solid $gray-border-color;
+  padding-bottom: 1.45em;
+  margin-bottom: 0.65em;
+}

@@ -2,7 +2,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchArticlesIfNeeded } from '../actions/articles'
+import { fetchCategorizedArticlesIfNeeded } from '../actions/group-articles'
 import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
@@ -12,17 +12,16 @@ import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 
-const MAXRESULT = 1
+const MAXRESULT = 10
 const PAGE = 1
 
 if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-function loadData(fetchArticlesIfNeeded) {
-  fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE)
-  fetchArticlesIfNeeded('review', MAXRESULT, PAGE)
-  fetchArticlesIfNeeded('feature', MAXRESULT, PAGE)
+function loadData(fetchCategorizedArticlesIfNeeded) {
+  fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE)
+  fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE)
 }
 
 
@@ -31,20 +30,22 @@ export default class Home extends Component {
     return new Promise((resolve, reject) => {
       // load tagged articles in parallel
       async.parallel([
+        /*
         function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
+          store.dispatch(fetchTaggedArticlesIfNeeded('hp-projects', MAXRESULT, PAGE))
+          .then(() => {
+            callback(null)
+          })
+        },
+        */
+        function (callback) {
+          store.dispatch(fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
         },
         function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('review', MAXRESULT, PAGE))
-          .then(() => {
-            callback(null)
-          })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesIfNeeded('feature', MAXRESULT, PAGE))
+          store.dispatch(fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE))
           .then(() => {
             callback(null)
           })
@@ -60,51 +61,40 @@ export default class Home extends Component {
 
   constructor(props, context) {
     super(props, context)
-    this.loadMoreArticles = this.loadMoreArticles.bind(this, 'hp-projects')
+    this.loadMoreArticles = this.loadMoreArticles.bind(this, '專題')
   }
 
   componentWillMount() {
-    loadData(this.props.fetchArticlesIfNeeded)
+    loadData(this.props.fetchCategorizedArticlesIfNeeded)
   }
 
   componentWillReceiveProps(nextProps) {
-    loadData(nextProps.fetchArticlesIfNeeded)
+    loadData(nextProps.fetchCategorizedArticlesIfNeeded)
   }
 
-  loadMoreArticles(tag) {
-    const { taggedArticles, fetchArticlesIfNeeded } = this.props
-    const features = taggedArticles[tag] || {
+  loadMoreArticles(cat) {
+    const { articlesByCats, fetchCategorizedArticlesIfNeeded } = this.props
+    const features = articlesByCats[cat] || {
       items: []
     }
     let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchArticlesIfNeeded(tag, MAXRESULT, page)
+    fetchCategorizedArticlesIfNeeded(cat, MAXRESULT, page)
   }
 
   render() {
-    const { taggedArticles, entities } = this.props
+    const { articlesByCats, entities } = this.props
     const topnews_num = 5
-    let topnewsItems = denormalizeArticles(_.get(taggedArticles, [ 'feature','items' ] , []), entities)
+    let topnewsItems = denormalizeArticles(_.get(articlesByCats, [ '專題','items' ] , []), entities)
 
-    let featureItems = denormalizeArticles(_.get(taggedArticles, [ 'hp-projects' , 'items' ], []), entities)
+    let dailyItems = denormalizeArticles(_.get(articlesByCats, [ '評論', 'items' ], []), entities)
 
-    let dailyItems = denormalizeArticles(_.get(taggedArticles, [ 'review', 'items' ], []), entities)
-
-    if (topnewsItems.length < topnews_num) {
-      let less = topnews_num - topnewsItems.length
-      topnewsItems = topnewsItems.concat(featureItems.slice(0, less))
-      featureItems = featureItems.slice(less)
-    } else {
-      topnewsItems = topnewsItems.slice(0,topnews_num)
-    }
-
-    if (topnewsItems || featureItems) {
+    if (topnewsItems) {
       return (
         <div>
-          <TopNews topnews={topnewsItems} />
           <Daily daily={dailyItems} />
           <Features
-            features={featureItems}
-            hasMore={ _.get(taggedArticles, [ 'hp-projects', 'nextUrl' ]) !== null}
+            features={topnewsItems}
+            hasMore={ _.get(articlesByCats, [ '專題', 'nextUrl' ]) !== null}
             loadMore={this.loadMoreArticles}
           />
           {this.props.children}
@@ -119,10 +109,10 @@ export default class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    taggedArticles: state.taggedArticles || {},
+    articlesByCats: state.articlesByCats || {},
     entities: state.entities || {}
   }
 }
 
 export { Home }
-export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Home)
+export default connect(mapStateToProps, { fetchCategorizedArticlesIfNeeded })(Home)

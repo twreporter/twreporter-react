@@ -1,23 +1,11 @@
 /**
  *  Define scss variables here.
  *
- *  Available options for Bootstrap:
- *  http://getbootstrap.com/customize/
- *
  */
 
-// Custom Colors
-$cyan: #33e0ff;
-$humility: #777;
+// Common variables
+@import './common-variables.scss';
 
-// TWReporter's custom variable
-$subnav-background: #3E3A39;
-$article-gray: #F7F7F7;
-$gray-text1: #4D4D4D;
-$white: #ffffff;
-$black: #000;
-$gray: #898989;
-$light-gray: #F7F8F8;
 $sansSerif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 
 // Predefined Break-points

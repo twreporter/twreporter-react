@@ -2,22 +2,45 @@ import React, { Component } from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
 
 import Article from '../containers/Article'
+import Blank from '../containers/Blank'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
-import NavBar from '../components/NavBar'
+import NavBar from '../containers/NavBar'
 import Photography from '../containers/Photography'
 
 
+// import locale data
+import { addLocaleData, IntlProvider } from 'react-intl'
+import enLocaleData from 'react-intl/locale-data/en'
+import zhLocaleData from 'react-intl/locale-data/zh'
+addLocaleData(enLocaleData)
+addLocaleData(zhLocaleData)
+let currentLocale = 'zh-Hant'
+
+
 class App extends Component {
+  componentWillMount() {
+    // set current locale
+    if (process.env.BROWSER) {
+      currentLocale = navigator.language
+      addLocaleData({
+        locale: navigator.language,
+        parentLocale: navigator.language.split('-')[0]
+      })
+    }
+  }
+
   render() {
     const pathname = this.props.location.pathname
     return (
-      <div>
-        <NavBar
-          bgStyle={pathname === '/photography' ? 'dark' : 'light'}
-          path={pathname}/>
-        {this.props.children}
-      </div>
+      <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
+        <div>
+          <NavBar
+            bgStyle={pathname === '/photography' ? 'dark' : 'light'}
+            path={pathname}/>
+          {this.props.children}
+        </div>
+      </IntlProvider>
     )
   }
 }
@@ -29,6 +52,7 @@ export default function (history) {
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category}/>
         <Route path="photography" component={Photography}/>
+        <Route path="check" component={Blank}/>
         <Route path="a/:slug" component={Article}/>
       </Route>
     </Router>

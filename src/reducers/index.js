@@ -1,7 +1,8 @@
 'use strict'
-import { articlesByCats, articlesByTags } from './articles'
+import { articlesByCats, articlesByTags } from './group-articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
+import header from './header'
 import { merge } from 'lodash'
 import { routerStateReducer as router } from 'redux-router'
 import { FatalError } from '../lib/custom-error'
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
   device,
   selectedArticle,
   tags,
-  router
+  router,
+  header
 })
 
 export default rootReducer

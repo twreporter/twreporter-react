@@ -5,6 +5,7 @@ import configureStore from './store/configureStore'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
+import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -17,6 +18,14 @@ if (window.__REDUX_STATE__) {
     reduxState = JSON.parse(unescape(__REDUX_STATE__))
   } catch (e) {
     reduxState = ''
+  }
+  let md = new MobileDetect(window.navigator.userAgent)
+  if (md.tablet()) {
+    reduxState.device = 'tablet'
+  } else if (md.mobile()) {
+    reduxState.device = 'mobile'
+  } else {
+    reduxState.device = 'desktop'
   }
 }
 
