@@ -1,8 +1,9 @@
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
 @import '../../themes/common-variables.scss';
-@import "../../themes/media-queries.scss";
+@import '../../themes/media-queries.scss';
 
 .audio-flex-container {
+  background-color: white;
   display: flex;
   flex-wrap: wrap;
 }
@@ -10,22 +11,38 @@
 .audio-flex-coverphoto {
   flex: 2;
   max-width: $audio-coverphoto-width;
+  padding: 0px;
 }
 
 .audio-flex-info {
-  background-color: white;
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  padding-bottom: 2em;
+}
+
+.audio-flex-info.without-coverphoto {
+  flex-direction: row;
 }
 
 .info-flex-item:first-child {
   margin: auto;
+  text-align: center;
 }
 
 .info-flex-item {
-  margin: 0 auto 2rem auto;
+  padding: 0px;
+  .audio-slider {
+    > span {
+      display: inline-block;
+      margin-bottom: 1em;
+    }
+    margin-top: 2em;
+    width: 270px;
+    text-align: center;
+    font-size: 15px;
+  }
   h4 {
     font-size: $font-size-base;
     color: $caption-color;
@@ -44,17 +61,63 @@
   }
 }
 
-@include mq($max-width: $screen-sm-max) {
-  .info-flex-item {
-    margin: 2rem 2rem 2rem 0;
+.info-flex-item.without-coverphoto {
+  margin: 0 auto;
+}
+
+@include mq($min-width: $screen-sm-min ,$max-width: $screen-sm-max) {
+  .audio-flex-container {
+    padding: 0 0 2.5em 0;
+  }
+  .info-flex-item, .info-flex-item:first-child {
+    margin: 0;
   }
   .audio-flex-coverphoto {
     flex: initial;
     max-width: none;
     width: 100%;
+    margin-bottom: 2em;
   }
   .audio-flex-info {
     width: 100%;
     flex-direction: row;
+    justify-content: space-around; 
+    padding: 0;
+  }
+  .audio-flex-info.without-coverphoto {
+    flex-direction: column;
+    align-items: center;
+  }
+  .info-flex-item.without-coverphoto:first-child {
+    margin-bottom: 2.5em;
+  }
+}
+
+@include mq($max-width: $screen-xs-max) {
+  .audio-flex-container {
+    padding: 2.5em 0 2.5em 0;
+  }
+
+  .audio-flex-info {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .audio-flex-info.without-coverphoto {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-flex-item:first-child {
+    margin-bottom: 2.5em;
+  }
+
+  .info-flex-item:last-child {
+    margin-top: 2em;
+  }
+
+  .info-flex-item.without-coverphoto:first-child {
+    margin-bottom: 2.5em;
   }
 }

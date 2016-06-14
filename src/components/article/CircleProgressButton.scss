@@ -1,10 +1,12 @@
+@import '../../themes/common-variables';
+
 .progress-button {
   position: relative;
   cursor: pointer;
 
   button {
     position: absolute;
-    border: 2px solid #C6000B;
+    border: 2px solid $red;
     border-radius: 40px;
     background: transparent;
   }
@@ -18,7 +20,7 @@
 
     circle {
       fill: none;
-      stroke: #C6000B;
+      stroke: $red;
       stroke-width: 2;
     }
   }

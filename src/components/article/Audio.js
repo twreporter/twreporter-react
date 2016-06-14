@@ -5,16 +5,22 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
-import Player from 'react-howler'
 import CircleProgressButton from './CircleProgressButton'
+import Player from 'react-howler'
 import React from 'react' // eslint-disable-line
+import Slider from 'rc-slider'
+
+if (process.env.BROWSER) {
+  require('rc-slider/assets/index.css')
+  require('./rcslider-overwrite.css')
+}
 
 class Audio extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      duration: 0,
+      duration: 100,
       loaded: false,
       playing: false,
       seek: 0
@@ -24,10 +30,19 @@ class Audio extends React.Component {
     this.handleOnEnd = this._handleOnEnd.bind(this)
     this.handleOnPlay = this._handleOnPlay.bind(this)
     this.renderSeekPos = this._renderSeekPos.bind(this)
+    this.onSeekChange = this._onSeekChange.bind(this)
   }
 
   componentWillUnmount() {
     this.clearRAF()
+  }
+
+  _getMinSecStr(time) {
+    time = Math.round(time)
+    let minutes = Math.floor(time / 60)
+    let seconds = time - minutes * 60
+    seconds = seconds < 10 ? 0 + seconds.toString() : seconds.toString()
+    return minutes + ':' + seconds
   }
 
   _handleToggle(e) {
@@ -72,39 +87,67 @@ class Audio extends React.Component {
     }
   }
 
+  _onSeekChange(seek) {
+    this.setState({
+      seek: seek
+    }, () => {
+      this.player.seek(seek)
+    })
+  }
+
   clearRAF() {
     raf.cancel(this._raf)
   }
 
   render() {
     const { content } = this.props
+    const {  duration, playing, seek } = this.state
     const { url, coverPhoto, title, description } = content[0]
-    let image = _.get(coverPhoto, [ 'resizedTargets' ], {})
+    let image = _.get(coverPhoto, [ 'resizedTargets' ], null)
+    let coverPhotoStyle = image ? '' : styles['without-coverphoto']
 
     return (
       <div className={styles['audio-flex-container']}>
-        <div className={styles['audio-flex-coverphoto']}>
+        { image ? (
+        <div className={classNames(styles['audio-flex-coverphoto'], 'col-md-12', 'hidden-xs')}>
           <Image
             content = { [ image ] }
           />
         </div>
-        <div className={styles['audio-flex-info']}>
-          <div className={styles['info-flex-item']}>
+        ) : null }
+        <div className={classNames(styles['audio-flex-info'], coverPhotoStyle)}>
+          <div className={classNames(styles['info-flex-item'], coverPhotoStyle)}>
             <CircleProgressButton
-              duration={this.state.duration}
-              playing={this.state.playing}
-              seek={this.state.seek}
+              duration={duration}
+              playing={playing}
+              seek={seek}
               onToggle={this.handleToggle}
             />
+            <div className={styles['audio-slider']}>
+              <span>{this._getMinSecStr(seek)} / {this._getMinSecStr(duration)}</span>
+              <Slider
+                tipFormatter={null}
+                onChange={this.onSeekChange}
+                value={seek}
+                max={duration}
+              />
+            </div>
           </div>
-          <div className={styles['info-flex-item']}>
+          { image ? (
+          <div className={classNames(styles['info-flex-item'], 'col-xs-12', 'visible-xs')}>
+            <Image
+              content = { [ image ] }
+            />
+          </div>
+          ) : null }
+          <div className={classNames(styles['info-flex-item'], coverPhotoStyle)}>
             <h4>{title}</h4>
             <div dangerouslySetInnerHTML={{ __html: description }} />
           </div>
         </div>
         <Player
           src={url}
-          playing={this.state.playing}
+          playing={playing}
           onLoad={this.handleOnLoad}
           onPlay={this.handleOnPlay}
           onEnd={this.handleOnEnd}

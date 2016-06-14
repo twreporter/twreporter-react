@@ -107,7 +107,7 @@ CircleProgressButton.defaultProps = {
   icon: null,
   duration: 0,
   playing: false,
-  radius: 32.5,
+  radius: 30,
   seek: 0
 }
 
