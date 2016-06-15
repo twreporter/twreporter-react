@@ -34,24 +34,38 @@ function receiveArticles(response, ids) {
   }
 }
 
-function buildQueryURL(ids = []) {
+function buildQueryURL(params = {}) {
   let query = {}
-  let where = {
-    '_id': {
-      '$in': ids
+  let whitelist = [ 'where', 'sort', 'embedded' ]
+  _.forEach(whitelist, (ele) => {
+    if (params.hasOwnProperty(ele)) {
+      if (ele === 'where' || ele === 'embedded') {
+        query[ele] = JSON.stringify(params[ele])
+      } else {
+        query[ele] = params[ele]
+      }
     }
-  }
-  query.where = JSON.stringify(where)
-  query.sort = '-publishedDate'
-  query.embedded = JSON.stringify( getArticleEmbeddedQuery() )
+  })
   query = qs.stringify(query)
   return formatUrl(`posts?${query}`)
 }
 
-function fetchArticles(ids) {
+function buildArticlesURL(ids = [], params = {}) {
+  params = params || {}
+  _.merge(params.where, {
+    '_id': {
+      '$in': ids
+    }
+  })
+  params.sort = params.sort || '-publishedDate'
+  params.embedded = params.embedded || getArticleEmbeddedQuery()
+  return buildQueryURL(params)
+}
+
+function fetchArticles(ids = [], params = {}) {
   return dispatch => {
     dispatch(requestArticles(ids))
-    return fetch(buildQueryURL(ids))
+    return fetch(buildArticlesURL(ids, params))
     .then((response) => {
       let status = response.status
       if (status === 404) {
@@ -72,7 +86,7 @@ function fetchArticles(ids) {
 }
 
 
-export function fetchArticlesByIdsIfNeeded(ids) {
+export function fetchArticlesByIdsIfNeeded(ids = [], params = {}) {
   return (dispatch, getState) => {
     const articles = _.get(getState(), [ 'entities', 'articles' ], {})
     let idToFetch = []
@@ -86,6 +100,6 @@ export function fetchArticlesByIdsIfNeeded(ids) {
       return Promise.resolve()
     }
 
-    return dispatch(fetchArticles(idToFetch))
+    return dispatch(fetchArticles(idToFetch, params))
   }
 }
