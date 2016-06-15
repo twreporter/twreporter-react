@@ -24,6 +24,7 @@
 
 .audio-flex-info.without-coverphoto {
   flex-direction: row;
+  padding-top: 2em;
 }
 
 .info-flex-item:first-child {
@@ -67,7 +68,7 @@
 
 @include mq($min-width: $screen-sm-min ,$max-width: $screen-sm-max) {
   .audio-flex-container {
-    padding: 0 0 2.5em 0;
+    padding: 2.5em 0 2.5em 0;
   }
   .info-flex-item, .info-flex-item:first-child {
     margin: 0;
@@ -87,6 +88,7 @@
   .audio-flex-info.without-coverphoto {
     flex-direction: column;
     align-items: center;
+    padding: 0;
   }
   .info-flex-item.without-coverphoto:first-child {
     margin-bottom: 2.5em;
@@ -107,6 +109,7 @@
   .audio-flex-info.without-coverphoto {
     flex-direction: column;
     align-items: center;
+    padding: 0;
   }
 
   .info-flex-item:first-child {
