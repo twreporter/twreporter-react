@@ -1,17 +1,18 @@
 /* eslint no-unused-vars:0*/
 'use strict'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
 import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
-import _ from 'lodash'
+import * as page from '../constants/page-types'
 import classNames from 'classnames'
-import styles from './Article.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import styles from './Article.scss'
 
 let articlePostition = {
   beginY: 100,
@@ -32,6 +33,7 @@ export default class Article extends Component {
   }
 
   componentDidMount() {
+    this.props.setPageType(page.ARTICLE)
     this._setArticleBounding()
     window.addEventListener('resize', this._setArticleBounding)
 

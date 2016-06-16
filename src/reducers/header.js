@@ -8,6 +8,11 @@ function header(state = {}, action) {
         ...state,
         readPercent: action.percent
       }
+    case types.SET_PAGE_TYPE:
+      return {
+        ...state,
+        pageType: action.pageType
+      }
     default:
       return state
   }

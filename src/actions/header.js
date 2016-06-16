@@ -13,3 +13,10 @@ export function setReadProgress(percent) {
     percent: percent
   }
 }
+
+export function setPageType(pageType) {
+  return {
+    type: types.SET_PAGE_TYPE,
+    pageType: pageType
+  }
+}
