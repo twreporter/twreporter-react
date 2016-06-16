@@ -18,6 +18,19 @@ let FitwidthMixin = (superclass) => class extends superclass {
     }
   }
 
+  _renderByDevice(screenType, imageByDevice, imgStyle) {
+    switch(screenType) {
+      case 'MOBILE':
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+      case 'TABLET':
+        return this._renderFigure(imageByDevice.tablet, imgStyle)
+      case 'DESKTOP':
+        return this._renderFigure(imageByDevice.desktop, imgStyle)
+      default:
+        return this._renderFigure(imageByDevice.mobile, imgStyle)
+    }
+  }
+
   _getHeight(width, original, defaultWidth, defaultHeight) {
     if (original) {
       const oriWidth = _.get(original, 'width', defaultWidth)

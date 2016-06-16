@@ -11,6 +11,9 @@ import ReactDOM from 'react-dom'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
 
+const DEFAULT_WIDTH = 200
+const DEFAULT_HEIGHT = 200
+
 class ImageDiff extends FitwidthMixin(Component) {
   constructor(props) {
     super(props)
@@ -34,42 +37,80 @@ class ImageDiff extends FitwidthMixin(Component) {
     if (super.componentDidMount) super.componentDidMount()
   }
 
+  _renderFigure(imageObj, imgStyle) {
+    if (_.get(imageObj, 'url')) {
+      return (
+        <img
+          src={ imageObj.url }
+          style={ imgStyle }
+          className={classNames('center-block', styles.imgAbsolute)}
+        />
+      )
+    }
+    return null
+  }
+
   render() {
-    let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
-    let { mobile, tablet, desktop, original } = imageByDevice
+    let imageByDevice0 = _.get(this.props, [ 'content', 0 ], {})
+    let imageByDevice1 = _.get(this.props, [ 'content', 1 ], {})
+    let { desktop } = imageByDevice0
     let { isMounted, screenType, width, percentage, onhovered } = this.state
-    const height = this._getHeight(width, original, width, width)
+    let { outerWidth, outerHeight } = this.props
+    let boxWidth = outerWidth || width
+    let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let buttonClass = null
+    let renderedFigure0 = null
+    let renderedFigure1 = null
+    let imageDescription = _.get(imageByDevice0, 'description', null)
+    let descriptionBox
+
     let outerStyle = {
-      width: width,
-      minHeight: height
+      width: boxWidth,
+      minHeight: boxHeight
     }
     let imgStyle = {
       ...outerStyle,
-      height: height
+      height: boxHeight
     }
 
     if(onhovered) {
       buttonClass = styles.hovered
     }
 
+    // if the Image is being mounted, select image to render
+    // according to the device of the client
+    if (isMounted) {
+      renderedFigure0 = this._renderByDevice(screenType, imageByDevice0, imgStyle)
+      renderedFigure1 = this._renderByDevice(screenType, imageByDevice1, imgStyle)
+    }
+
+    if(imageDescription) {
+      descriptionBox =
+        <div className={classNames(styles.imgDescription, 'text-center')}>
+          {imageDescription}
+        </div>
+    }
+
     return (
-      <div ref="imgDiff" className={styles.diffContainer} style={outerStyle}>
-        <figure className={styles.wrapper}>
-          <div className={styles.imgContainer}>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/photoshop-face-after.jpg" style={imgStyle}/>
-          </div>
-          <div className={styles.overlayContainer} style={{ width: percentage+'%' }}>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/photoshop-face-before.jpg" style={imgStyle}/>
-          </div>
-          <img src="/asset/slider-button.svg"
-            className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
-          <input type="range" min="0" max="100" className={styles.rangeInput} style={imgStyle}
-            value={percentage} onChange={ (event)=>{
-              this.setState({ percentage: parseInt(event.target.value) })} }
-              onMouseOver={()=>{this.setState({ onhovered: true })}}
-              onMouseOut={()=>{this.setState({ onhovered: false })}}/>
-        </figure>
+      <div ref="imgDiff" className={styles.diffContainer}>
+        <div style={outerStyle}>
+          <figure className={styles.wrapper}>
+            <div className={styles.imgContainer}>
+              {renderedFigure0}
+            </div>
+            <div className={styles.overlayContainer} style={{ width: percentage+'%' }}>
+              {renderedFigure1}
+            </div>
+            <img src="/asset/slider-button.svg"
+              className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
+            <input type="range" min="0" max="100" className={styles.rangeInput} style={imgStyle}
+              value={percentage} onChange={ (event)=>{
+                this.setState({ percentage: parseInt(event.target.value) })} }
+                onMouseOver={()=>{this.setState({ onhovered: true })}}
+                onMouseOut={()=>{this.setState({ onhovered: false })}}/>
+          </figure>
+        </div>
+        {descriptionBox}
       </div>
     )
   }
