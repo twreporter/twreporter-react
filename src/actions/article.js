@@ -26,9 +26,10 @@ function failToReceiveArticle(slug, error) {
   }
 }
 
-function receiveArticle(response) {
+function receiveArticle(response, slug) {
   return {
     type: types.FETCH_ARTICLE_SUCCESS,
+    slug,
     response,
     receivedAt: Date.now()
   }
@@ -38,7 +39,6 @@ function fetchArticle(slug) {
   return dispatch => {
     dispatch(requestArticle(slug))
     let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
-    let finialResponse = {}
     return fetch(formatUrl(`posts/${slug}?${query}`))
     .then((response) => {
       let status = response.status
@@ -50,32 +50,8 @@ function fetchArticle(slug) {
       return response.json()
     })
     .then((response) => {
-      let relateds = _.get(response, 'relateds', [])
-      finialResponse = response
-
-      if (_.get(relateds, '0')) {
-        let query = qs.stringify({ where: '{"_id":{"$in":' + JSON.stringify(relateds) + '}}' })
-        return fetch(formatUrl(`posts/?${query}`))
-      } else {
-        return {
-          status: 200,
-          json: () => {}
-        }
-      }
-    })
-    .then((relatedsResponse) => {
-      let status = relatedsResponse.status
-      if (status === 404) {
-        throw new NotFoundError('Relateds of Article ' +  slug + ' is not found')
-      } else if (status >= 400) {
-        throw new InternalServerError('Bad response from API, response: ' + JSON.stringify(relatedsResponse))
-      }
-      return relatedsResponse.json()
-    })
-    .then((relatedsResponse) => {
-      finialResponse.relateds = _.get(relatedsResponse, '_items', [])
-      const camelizedJson = camelizeKeys(finialResponse)
-      return dispatch(receiveArticle(normalize(camelizedJson, articleSchema)))
+      const camelizedJson = camelizeKeys(response)
+      return dispatch(receiveArticle(normalize(camelizedJson, articleSchema), slug))
     }, (error) => {
       return dispatch(failToReceiveArticle(slug, error))
     })
@@ -83,11 +59,12 @@ function fetchArticle(slug) {
 }
 
 function shouldFetchArticle(state, slug) {
-  const articles = state.entities.articles || {}
-  if (!articles[slug]) {
-    return true
+  const slugToId = _.get(state, 'slugToId', {})
+  const articles = _.get(state, [ 'entities', 'articles' ], {})
+  if (slugToId.hasOwnProperty(slug) && articles[slugToId[slug]]) {
+    return false
   }
-  return false
+  return true
 }
 
 export function fetchArticleIfNeeded(slug) {

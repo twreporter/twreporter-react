@@ -3,6 +3,7 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
+import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
 import { setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import _ from 'lodash'
@@ -36,6 +37,12 @@ export default class Article extends Component {
 
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
+
+    const { fetchArticlesByIdsIfNeeded, selectedArticle, entities } = this.props
+    if (!selectedArticle.error && !selectedArticle.isFetching) {
+      let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
+      fetchArticlesByIdsIfNeeded(relatedIds)
+    }
   }
 
   componentDidUpdate() {
@@ -99,8 +106,8 @@ export default class Article extends Component {
       if (Array.isArray(article[item])) {
         article[item].forEach((author) => {
           // remove 's'. writters -> writter
-          author.type = item.slice(0, -1)
-          authors.push(author)
+          let type = item.slice(0, -1)
+          authors.push(_.merge({}, author, { type: type }))
         })
       }
     })
@@ -109,7 +116,7 @@ export default class Article extends Component {
 
   render() {
     const { selectedArticle, entities } = this.props
-    let article = denormalizeArticles(selectedArticle.slug, entities)[0]
+    let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
     let deduppedAuthors = _.uniq(authors, 'id')
@@ -201,4 +208,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, setReadProgress })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, setReadProgress })(Article)

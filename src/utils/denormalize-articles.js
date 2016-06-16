@@ -18,16 +18,16 @@ function denormalizeEntity(entityIds = [], entityObj = {}) {
   return rtn
 }
 
-export function denormalizeArticles(articleSlugs = [], entities = {}) {
+export function denormalizeArticles(ids = [], entities = {}) {
   let denormalizedArticles = []
   // extract entities articles need
   const { articles } = entities
   const fieldToEntity = getArticleFieldToEntity()
 
-  articleSlugs = Array.isArray(articleSlugs) ? articleSlugs : [ articleSlugs ]
-  articleSlugs.forEach((articleSlug) => {
-    if (articles.hasOwnProperty(articleSlug)) {
-      let article = _.merge({} ,articles[articleSlug])
+  ids = Array.isArray(ids) ? ids : [ ids ]
+  ids.forEach((id) => {
+    if (articles.hasOwnProperty(id)) {
+      let article = _.merge({} ,articles[id])
       _.forEach(fieldToEntity, (ele) => {
         article[ele.field] = denormalizeEntity(article[ele.field], entities[ele.entity])
       })

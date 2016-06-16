@@ -1,27 +1,26 @@
 'use strict'
 import * as types from '../constants/action-types'
 
-function article(state = {}, action) {
+function articles(state = {}, action) {
   switch (action.type) {
-    case types.FETCH_ARTICLE_REQUEST:
+    case types.FETCH_ARTICLES_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        slug: action.slug,
+        ids: action.ids,
         error: null
       })
-    case types.FETCH_ARTICLE_FAILURE:
+    case types.FETCH_ARTICLES_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        slug: action.slug,
+        ids: action.ids,
         error: action.error,
         lastUpdated: action.failedAt
       })
-    case types.FETCH_ARTICLE_SUCCESS:
+    case types.FETCH_ARTICLES_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         error: null,
-        id: action.response.result,
-        slug: action.slug,
+        ids: action.ids,
         lastUpdated: action.receivedAt
       })
     default:
@@ -29,4 +28,4 @@ function article(state = {}, action) {
   }
 }
 
-export default article
+export default articles

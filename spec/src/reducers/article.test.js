@@ -44,14 +44,16 @@ describe('article reducer', () => {
     expect(
       reducer([], {
         type: types.FETCH_ARTICLE_SUCCESS,
+        slug: 'post-slug-1',
         response: {
           entities: {},
-          result: 'run-the-tests'
+          result: 'post-id-1'
         },
         receivedAt: 1234567890
       })
     ).to.deep.equal({
-      slug: 'run-the-tests',
+      slug: 'post-slug-1',
+      id: 'post-id-1',
       isFetching: false,
       error: null,
       lastUpdated: 1234567890

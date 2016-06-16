@@ -89,10 +89,10 @@ describe('fetch tagged articles action', () => {
         expect(actions[1].type).to.deep.equal(expectedActions[1].type)
         expect(actions[1].response).to.be.an('object')
         expect(actions[1].tags).to.deep.equal(expectedActions[1].tags)
-        expect(actions[1].response.result).to.deep.equal([ 'post-slug-1' ])
+        expect(actions[1].response.result).to.deep.equal([ 'post-id-1' ])
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-1')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-id-1')).to.be.true
         expect(actions[1].response.entities.tags).to.be.an('object')
         expect(actions[1].response.links).to.be.an('object')
         expect(actions[1].response.meta).to.be.an('object')
@@ -129,7 +129,7 @@ describe('fetch tagged articles action', () => {
         [mockTagNames.join()]: {
           isFetching: false,
           error: null,
-          items: [ 'post-slug-1' ],
+          items: [ 'post-id-1' ],
           // mock nextUrl
           nextUrl: `http://localhost:3030/posts?${qs.stringify(query)}`
         }
@@ -153,7 +153,7 @@ describe('fetch tagged articles action', () => {
         expect(actions[1].response.result.length).to.equal(1)
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-2')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-id-2')).to.be.true
       })
     })
   })
@@ -215,7 +215,7 @@ describe('fetch tagged articles action', () => {
       articlesByTags: {
         [mockTagNames.join()]: {
           isFetching: false,
-          items: [ 'post-slug-1' ],
+          items: [ 'post-id-1' ],
           error: null,
           // nextUrl is null means no more to load
           nextUrl: null
@@ -296,10 +296,10 @@ describe('fetch categorized articles action', () => {
         expect(actions[1].type).to.deep.equal(expectedActions[1].type)
         expect(actions[1].response).to.be.an('object')
         expect(actions[1].tags).to.deep.equal(expectedActions[1].tags)
-        expect(actions[1].response.result).to.deep.equal([ 'post-slug-1' ])
+        expect(actions[1].response.result).to.deep.equal([ 'post-id-1' ])
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-1')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-id-1')).to.be.true
         expect(actions[1].response.entities.tags).to.be.an('object')
         expect(actions[1].response.links).to.be.an('object')
         expect(actions[1].response.meta).to.be.an('object')
@@ -336,7 +336,7 @@ describe('fetch categorized articles action', () => {
         [mockCatNames.join()]: {
           isFetching: false,
           error: null,
-          items: [ 'post-slug-1' ],
+          items: [ 'post-id-1' ],
           // mock nextUrl
           nextUrl: `http://localhost:3030/posts?${qs.stringify(query)}`
         }
@@ -360,7 +360,7 @@ describe('fetch categorized articles action', () => {
         expect(actions[1].response.result.length).to.equal(1)
         expect(actions[1].response.entities).to.be.an('object')
         expect(actions[1].response.entities.articles).to.be.an('object')
-        expect(actions[1].response.entities.articles.hasOwnProperty('post-slug-2')).to.be.true
+        expect(actions[1].response.entities.articles.hasOwnProperty('post-id-2')).to.be.true
       })
     })
   })
@@ -402,7 +402,7 @@ describe('fetch categorized articles action', () => {
       articlesByCats: {
         [mockCatNames.join()]: {
           isFetching: false,
-          items: [ 'post-slug-1' ],
+          items: [ 'post-id-1' ],
           error: null,
           // nextUrl is null means no more to load
           nextUrl: null
