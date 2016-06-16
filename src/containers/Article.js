@@ -65,6 +65,11 @@ export default class Article extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._setArticleBounding)
+    window.removeEventListener('scroll', this._handleScroll)
+  }
+
   _getCumulativeOffset(element) {
     let top = 0
     do {

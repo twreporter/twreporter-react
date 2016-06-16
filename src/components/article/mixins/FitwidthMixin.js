@@ -8,6 +8,10 @@ let FitwidthMixin = (superclass) => class extends superclass {
     window.addEventListener('resize', this.fitToParentWidth)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.fitToParentWidth)
+  }
+
   fitToParentWidth() {
     const elem = ReactDOM.findDOMNode(this).parentNode
     const width = elem.clientWidth

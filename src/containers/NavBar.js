@@ -29,6 +29,10 @@ class NaviBar extends Component {
     window.addEventListener('resize', this._getHeaderHeight)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._getHeaderHeight)
+  }
+
   _getHeaderHeight() {
     const rect = ReactDOM.findDOMNode(this.refs.headerbox).getBoundingClientRect()
     this.setState({
