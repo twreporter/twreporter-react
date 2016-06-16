@@ -74,19 +74,6 @@ class Image extends FitwidthMixin(Component) {
     }
   }
 
-  _renderByDevice(screenType, imageByDevice, imgStyle) {
-    switch(screenType) {
-      case 'MOBILE':
-        return this._renderFigure(imageByDevice.mobile, imgStyle)
-      case 'TABLET':
-        return this._renderFigure(imageByDevice.tablet, imgStyle)
-      case 'DESKTOP':
-        return this._renderFigure(imageByDevice.desktop, imgStyle)
-      default:
-        return this._renderFigure(imageByDevice.mobile, imgStyle)
-    }
-  }
-
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
     let { desktop, tiny } = imageByDevice
@@ -96,6 +83,8 @@ class Image extends FitwidthMixin(Component) {
     let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let renderedPlaceHoderImage = null
     let renderedFigure = null
+    let imageDescription = _.get(imageByDevice, 'description', null)
+    let descriptionBox
 
     let outerStyle = {
       width: boxWidth,
@@ -113,11 +102,22 @@ class Image extends FitwidthMixin(Component) {
       renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
+    if(imageDescription) {
+      descriptionBox =
+        <div className={classNames(styles.imgDescription, 'text-center')}>
+          {imageDescription}
+        </div>
+    }
+
     return (
-      <div ref="imageBox" style={outerStyle} className={styles.imageBox}>
-        {renderedPlaceHoderImage}
-        {renderedFigure}
-        <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), _.get(imageByDevice, 'description', ''))} />
+      <div ref="imageBox" className={styles.imageBox}>
+        <div style={outerStyle}>
+          {renderedPlaceHoderImage}
+          {renderedFigure}
+          <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), _.get(imageByDevice, 'description', ''))} />
+        </div>
+
+        {descriptionBox}
       </div>
     )
   }

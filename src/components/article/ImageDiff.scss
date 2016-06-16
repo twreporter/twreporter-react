@@ -3,7 +3,12 @@
 @import "../../themes/media-queries.scss";
 
 .diffContainer {
-  overflow-x: hidden;
+  overflow: hidden;
+}
+
+.imgDescription {
+  padding: 0.8rem;
+  color: $gray-tag-bg;
 }
 
 .wrapper {
@@ -32,6 +37,7 @@
 
 .sliderButton {
   position: absolute;
+  margin-top: -1px;
   top: 0;
   width: 2.6em;
   transform: translate(-50%, 0);

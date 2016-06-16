@@ -1,5 +1,12 @@
+@import '../../themes/common-variables';
+
 .imageBox {
   position: relative;
+}
+
+.imgDescription {
+  padding: 0.8rem;
+  color: $gray-tag-bg;
 }
 
 .imgAbsolute {
