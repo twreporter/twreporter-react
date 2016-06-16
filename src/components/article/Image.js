@@ -114,7 +114,7 @@ class Image extends FitwidthMixin(Component) {
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
-          <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), _.get(imageByDevice, 'description', ''))} />
+          <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), imageDescription)} />
         </div>
 
         {descriptionBox}
