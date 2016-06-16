@@ -86,6 +86,13 @@ function fetchArticles(ids = [], params = {}) {
 }
 
 
+/* Fetch articles by their ids if those are not existed in the state
+ * @param {string[]} ids - article ids to fetch
+ * @param {object} params - params for composing query param of api
+ * @param {string} [params.sort=-publishedDate] -the way returned articles are sorted by
+ * @param {object} params.where - where query param
+ * @param {object} params.embedded - embedded query param
+ */
 export function fetchArticlesByIdsIfNeeded(ids = [], params = {}) {
   return (dispatch, getState) => {
     const articles = _.get(getState(), [ 'entities', 'articles' ], {})
