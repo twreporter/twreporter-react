@@ -116,7 +116,7 @@ class Audio extends React.Component {
         </div>
         ) : null }
         <div className={classNames(styles['audio-flex-info'], coverPhotoStyle)}>
-          <div className={classNames(styles['info-flex-item'], coverPhotoStyle)}>
+          <div className={classNames(styles['flex-item'], coverPhotoStyle)}>
             <CircleProgressButton
               duration={duration}
               playing={playing}
@@ -134,13 +134,13 @@ class Audio extends React.Component {
             </div>
           </div>
           { image ? (
-          <div className={classNames(styles['info-flex-item'], 'col-xs-12', 'visible-xs')}>
+          <div className={classNames(styles['flex-item'], 'col-xs-12', 'visible-xs')}>
             <Image
               content = { [ image ] }
             />
           </div>
           ) : null }
-          <div className={classNames(styles['info-flex-item'], coverPhotoStyle)}>
+          <div className={classNames(styles['flex-item'], coverPhotoStyle)}>
             <h4>{title}</h4>
             <div dangerouslySetInnerHTML={{ __html: description }} />
           </div>
