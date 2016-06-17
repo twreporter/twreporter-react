@@ -188,7 +188,14 @@ export default class Article extends Component {
             relateds={article.relateds}
           />
         </div>
-
+        <ArticleComponents.PageNavigation
+          article={ _.get(article, [ 'relateds', 0 ])}
+          navigate="next"
+        />
+        <ArticleComponents.PageNavigation
+          article={_.get(article, [ 'relateds', 1 ])}
+          navigate="previous"
+        />
         <Footer
           copyright={copyright}/>
       </div>
