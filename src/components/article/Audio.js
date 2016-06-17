@@ -22,7 +22,7 @@ class Audio extends React.Component {
     this.state = {
       duration: 100,
       loaded: false,
-      playing: false,
+      isPlaying: false,
       seek: 0
     }
     this.handleToggle = this._handleToggle.bind(this)
@@ -48,7 +48,7 @@ class Audio extends React.Component {
   _handleToggle(e) {
     e.stopPropagation()
     this.setState({
-      playing: !this.state.playing
+      isPlaying: !this.state.isPlaying
     })
   }
 
@@ -61,14 +61,14 @@ class Audio extends React.Component {
 
   _handleOnPlay() {
     this.setState({
-      playing: true
+      isPlaying: true
     })
     this.renderSeekPos()
   }
 
   _handleOnEnd() {
     this.setState({
-      playing: false
+      isPlaying: false
     })
     this.clearRAF()
   }
@@ -82,7 +82,7 @@ class Audio extends React.Component {
     this.setState({
       seek: this.player.seek()
     })
-    if (this.state.playing) {
+    if (this.state.isPlaying) {
       this._raf = raf(this.renderSeekPos)
     }
   }
@@ -101,8 +101,8 @@ class Audio extends React.Component {
 
   render() {
     const { content } = this.props
-    const {  duration, playing, seek } = this.state
-    const { url, coverPhoto, title, description } = content[0]
+    const {  duration, isPlaying, seek } = this.state
+    const { url, coverPhoto, title, description } = _.get(content, 0, {})
     let image = _.get(coverPhoto, [ 'resizedTargets' ], null)
     let coverPhotoStyle = image ? '' : styles['without-coverphoto']
 
@@ -119,7 +119,7 @@ class Audio extends React.Component {
           <div className={classNames(styles['flex-item'], coverPhotoStyle)}>
             <CircleProgressButton
               duration={duration}
-              playing={playing}
+              isPlaying={isPlaying}
               seek={seek}
               onToggle={this.handleToggle}
             />
@@ -147,7 +147,7 @@ class Audio extends React.Component {
         </div>
         <Player
           src={url}
-          playing={playing}
+          playing={isPlaying}
           onLoad={this.handleOnLoad}
           onPlay={this.handleOnPlay}
           onEnd={this.handleOnEnd}

@@ -12,8 +12,8 @@ class CircleProgressButton extends Component {
     super(props)
     this.state = {
       duration: props.duration,
-      oncePlayed: false,
-      playing: props.playing,
+      isOncePlayed: false,
+      isPlaying: props.isPlaying,
       seek: props.seek
     }
     this.diameter = props.radius * 2
@@ -22,8 +22,8 @@ class CircleProgressButton extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       duration: nextProps.duration,
-      oncePlayed: this.state.oncePlayed || nextProps.playing,
-      playing: nextProps.playing,
+      isOncePlayed: this.state.isOncePlayed || nextProps.isPlaying,
+      isPlaying: nextProps.isPlaying,
       seek: nextProps.seek
     })
   }
@@ -57,16 +57,16 @@ class CircleProgressButton extends Component {
   }
 
   _renderIcon() {
-    const { oncePlayed, playing } = this.state
+    const { isOncePlayed, isPlaying } = this.state
     let style = {
       width: this.diameter,
       height: this.diameter
     }
     let iconSvg
 
-    if (!oncePlayed) {
+    if (!isOncePlayed) {
       iconSvg = this.props.icon || defaultIcon
-    } else if (playing) {
+    } else if (isPlaying) {
       iconSvg = pauseIcon
     } else {
       iconSvg = playIcon
@@ -78,13 +78,13 @@ class CircleProgressButton extends Component {
   }
 
   render() {
-    const { oncePlayed } = this.state
+    const { isOncePlayed } = this.state
     let buttonStyle = {
       width: this.diameter,
       height: this.diameter
     }
     return (
-      <div onClick={this.props.onToggle} className={classNames(styles['progress-button'], oncePlayed ? styles['loading'] : '')}>
+      <div onClick={this.props.onToggle} className={classNames(styles['progress-button'], isOncePlayed ? styles['loading'] : '')}>
         <button style={buttonStyle}></button>
         {this._renderProgressCircle()}
         {this._renderIcon()}
@@ -98,7 +98,7 @@ CircleProgressButton.propTypes = {
   icon: React.PropTypes.element,
   duration: React.PropTypes.number,
   onToggle: React.PropTypes.func.isRequired,
-  playing: React.PropTypes.bool,
+  isPlaying: React.PropTypes.bool,
   radius: React.PropTypes.number,
   seek: React.PropTypes.number
 }
@@ -106,7 +106,7 @@ CircleProgressButton.propTypes = {
 CircleProgressButton.defaultProps = {
   icon: null,
   duration: 0,
-  playing: false,
+  isPlaying: false,
   radius: 30,
   seek: 0
 }
