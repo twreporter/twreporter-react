@@ -39,8 +39,28 @@ export default class DesktopNavBar extends Component {
     )
   }
 
-  _renderAritcleSecond(burgerIconClass, logo) {
-    return null
+  _renderAritcleSecond(burgerIconClass) {
+    const navItemClass = styles.navButton
+    return (
+      <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
+        <div className={classNames(styles.navLeft, styles.fadeRight)}>
+          <Link className={navItemClass} to="/"><img src="/asset/navbar-fixed-top-logo.svg" /></Link>
+          <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div className={classNames(styles.navRight, styles.fadeLeft)}>
+          <Link className={navItemClass} to="/"><img src="/asset/fb.svg" /></Link>
+          <Link className={navItemClass} to="/"><img src="/asset/twitter.svg" /></Link>
+          <a target="_blank" className={styles.donateButton} href="https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718">
+            <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
+          </a>
+        </div>
+      </div>
+    )
   }
 
   render() {
@@ -61,7 +81,7 @@ export default class DesktopNavBar extends Component {
 
     let menuBar = this._renderAritcleFirst(burgerIconClass, logo)
     if (isScrolledOver && header.pageType === page.ARTICLE) {
-      menuBar = this._renderAritcleSecond(burgerIconClass, logo)
+      menuBar = this._renderAritcleSecond(burgerIconClass)
     }
 
     return (
