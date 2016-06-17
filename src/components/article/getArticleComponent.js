@@ -4,6 +4,8 @@ import * as ArticleComps from './index'
 
 export default function getArticleComponent(type = 'unstyled') {
   switch (type) {
+    case 'audio':
+      return ArticleComps.Audio
     case 'code':
       return null
     case 'embeddedCode':

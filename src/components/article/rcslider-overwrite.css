@@ -1,0 +1,12 @@
+.rc-slider-track {
+  background-color: #C6000B;
+}
+
+.rc-slider-handle {
+  margin-left: -5px;
+  margin-top: -3px;
+  width: 10px;
+  height: 10px;
+  border: 0px;
+  background-color: #C6000B;
+}
