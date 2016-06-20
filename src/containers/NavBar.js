@@ -41,7 +41,6 @@ class NaviBar extends Component {
 
   _handleScroll() {
     const scrollPos = window.scrollY
-    console.log('scrollPos', scrollPos, this.props)
     if(scrollPos > this.state.height && !this.state.isScrolledOver) {
       this.setState({ isScrolledOver: true })
     } else if(scrollPos <= this.state.height && this.state.isScrolledOver) {

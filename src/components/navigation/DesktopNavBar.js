@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import styles from './DesktopNavBar.scss'
+import { FacebookButton, TwitterButton } from 'react-social'
+import { getAbsPath } from '../../lib/url-transformer'
+import { appId } from '../../lib/constants'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
@@ -39,7 +42,7 @@ export default class DesktopNavBar extends Component {
     )
   }
 
-  _renderAritcleSecond(burgerIconClass) {
+  _renderAritcleSecond(burgerIconClass, cUrl) {
     const navItemClass = styles.navButton
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -53,8 +56,12 @@ export default class DesktopNavBar extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <Link className={navItemClass} to="/"><img src="/asset/fb.svg" /></Link>
-          <Link className={navItemClass} to="/"><img src="/asset/twitter.svg" /></Link>
+          <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
+            <img src="/asset/fb.svg" />
+          </FacebookButton>
+          <TwitterButton className={navItemClass} url={cUrl}>
+            <img src="/asset/twitter.svg" />
+          </TwitterButton>
           <a target="_blank" className={styles.donateButton} href="https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718">
             <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
           </a>
@@ -65,6 +72,7 @@ export default class DesktopNavBar extends Component {
 
   render() {
     const { bgStyle, header, isScrolledOver } = this.props
+    const cUrl = getAbsPath(this.context.location.pathname,this.context.location.search)
     let backgroundColor = '#FFF'
     let logo = '/asset/logo-desk.svg'
 
@@ -81,7 +89,7 @@ export default class DesktopNavBar extends Component {
 
     let menuBar = this._renderAritcleFirst(burgerIconClass, logo)
     if (isScrolledOver && header.pageType === page.ARTICLE) {
-      menuBar = this._renderAritcleSecond(burgerIconClass)
+      menuBar = this._renderAritcleSecond(burgerIconClass, cUrl)
     }
 
     return (
@@ -90,6 +98,10 @@ export default class DesktopNavBar extends Component {
       </div>
     )
   }
+}
+
+DesktopNavBar.contextTypes = {
+  location: React.PropTypes.object
 }
 
 DesktopNavBar.propTypes = {

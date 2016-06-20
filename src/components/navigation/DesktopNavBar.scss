@@ -97,6 +97,9 @@
 .navButton {
   @extend .nav-item-algin;
   width: 32px;
+  border: none;
+  background: none;
+  padding: 0;
   img {
     width: 100%;
     height: auto;
