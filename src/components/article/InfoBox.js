@@ -15,7 +15,7 @@ export const InfoBox = ({ content }) => {
         <img src={boxSvg} />
         {infoBox.title}
       </h4>
-      <span>{infoBox.body}</span>
+      <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
     </div>
   )
 }
