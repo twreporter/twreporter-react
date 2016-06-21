@@ -6,3 +6,13 @@ This is built for [Editorial Tool](https://github.com/twreporter/keystone) (you 
 In our editorial tool, We hope to make our Editor tool **WYSIWYG**.
 Hence, these Article React Components will be used on Article Page and Editorial Tool.
 
+### How to use this?
+```
+  // build the js and css
+  // js and css will be built in ./lib/ 
+  npm run build
+  npm login
+  // upgrade version
+  npm version patch
+  npm publish
+```
