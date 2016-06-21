@@ -4,13 +4,13 @@ import classNames from 'classnames'
 import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
 import { navPath } from '../../lib/constants'
+import styles from './MobileNaviBar.scss'
 
 // require('react-burger-menu').slide
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
 }
-const styles = require('./MobileNaviBar.scss')
 
 export default class MobileNaviBar extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class MobileNaviBar extends Component {
     const { path } = this.props
     let backgroundColor = '#FFF'
     let linkColor = 'black'
-    let logo = '/asset/logo.png'
+    let logo = '/asset/logo-mobile.svg'
     let navLogo
     let searchClass = ''
     let mobileNavClass = styles.mobileNav
@@ -35,7 +35,7 @@ export default class MobileNaviBar extends Component {
     if (this.props.bgStyle === 'dark') {
       backgroundColor = '#3e3a39'
       linkColor = 'white'
-      logo = 'asset/logo_dark.png'
+      logo = '/asset/logo-mobile-dark.svg'
     }
 
     if (this.state.open) {
@@ -46,7 +46,7 @@ export default class MobileNaviBar extends Component {
         backgroundColor = '#F7F8F8'
       }
     } else {
-      navLogo = <Link to="/"><img src={logo} /></Link>
+      navLogo = <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
       searchClass = 'hidden'
     }
 

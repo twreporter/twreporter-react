@@ -23,7 +23,7 @@
   color: $gray-tag-bg;
   margin: 0 3rem;
   vertical-align: middle;
-  @include fade-in-down(0.5s);
+  @include fade-in-left(0.5s);
 }
 
 .fadeRight {
@@ -110,6 +110,15 @@
   img {
     width: 100%;
     height: auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    img {
+      width: 110%;
+      margin-left: -5%;
+      margin-top: -10%;
+    }
   }
 }
 
