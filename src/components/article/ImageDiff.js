@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import classNames from 'classnames'
-import FitwidthMixin from '../mixins/FitwidthMixin'
+import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
