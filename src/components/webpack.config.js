@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
+  entry: ['bootstrap-loader/extractStyles'],
   output: {
     publicPath: '/',
     libraryTarget: 'commonjs2', // necessary for the babel plugin
