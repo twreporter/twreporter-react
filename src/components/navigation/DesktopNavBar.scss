@@ -19,6 +19,13 @@
   }
 }
 
+.articleTitle {
+  color: $gray-tag-bg;
+  margin: 0 3rem;
+  vertical-align: middle;
+  @include fade-in-down(0.5s);
+}
+
 .fadeRight {
   @include fade-in-left(0.5s);
 }

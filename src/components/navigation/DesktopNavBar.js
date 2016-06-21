@@ -54,6 +54,7 @@ export default class DesktopNavBar extends Component {
             <span></span>
             <span></span>
           </div>
+          <span className={styles.articleTitle}>{this.props.pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <FacebookButton className={navItemClass} url={cUrl} appId={appId}>

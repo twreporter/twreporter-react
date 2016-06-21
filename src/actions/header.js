@@ -20,3 +20,10 @@ export function setPageType(pageType) {
     pageType: pageType
   }
 }
+
+export function setPageTitle(pageTitle) {
+  return {
+    type: types.SET_PAGE_TITLE,
+    pageTitle: pageTitle
+  }
+}

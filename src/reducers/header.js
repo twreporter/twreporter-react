@@ -13,6 +13,11 @@ function header(state = {}, action) {
         ...state,
         pageType: action.pageType
       }
+    case types.SET_PAGE_TITLE:
+      return {
+        ...state,
+        pageTitle: action.pageTitle
+      }
     default:
       return state
   }

@@ -82,6 +82,7 @@ class NaviBar extends Component {
       <div className="desktop-nav">
         <DesktopNavBar {...this.props}
           isScrolledOver={this.state.isScrolledOver}
+          pageTitle={this.props.header.pageTitle}
           />
       </div>
     )
