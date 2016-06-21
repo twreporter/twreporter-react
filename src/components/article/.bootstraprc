@@ -28,7 +28,7 @@ extractStyles: false
 # Thus, derived Bootstrap variables can depend on values from here.
 # See the Bootstrap _variables.scss file for examples of derived Bootstrap variables.
 #
-preBootstrapCustomizations: ../themes/pre-bootstrap-customization.scss
+preBootstrapCustomizations: ../../themes/pre-bootstrap-customization.scss
 
 
 # This gets loaded after bootstrap/variables is loaded
@@ -41,7 +41,7 @@ preBootstrapCustomizations: ../themes/pre-bootstrap-customization.scss
 # Import your custom styles here
 # Usually this endpoint-file contains list of @imports of your application styles
 #
-appStyles: ../themes/bootstrap.overrides.scss
+appStyles: ../../themes/bootstrap.overrides.scss
 
 
 ### Bootstrap styles
