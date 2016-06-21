@@ -6,3 +6,6 @@ webpack/*
 bin/server.js
 bin/api.js
 server.babel.js
+src/components/webpack.config.js
+src/components/concatCssFiles.js
+src/components/lib/*
