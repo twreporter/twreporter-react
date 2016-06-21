@@ -16,8 +16,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/twreporter/twreporter-react/issues"
-  },
-  "devDependencies": {
-    "babel-plugin-webpack-loaders": "^0.4.0"
   }
 }

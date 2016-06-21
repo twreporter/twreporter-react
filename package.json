@@ -154,6 +154,7 @@
     "babel-cli": "^6.10.1",
     "babel-eslint": "^5.0.0-beta6",
     "babel-plugin-react-transform": "^2.0.0",
+    "babel-plugin-webpack-loaders": "^0.6.1",
     "browser-sync": "^2.10.1",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
