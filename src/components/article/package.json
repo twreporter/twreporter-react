@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react-article-components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Article Components for Rendering Article Page of The Reporter Site in Taiwan",
   "scripts": {
     "clean": "../../../node_modules/.bin/rimraf lib",
