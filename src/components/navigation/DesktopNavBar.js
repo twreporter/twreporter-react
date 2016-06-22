@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import styles from './DesktopNavBar.scss'
 import { FacebookButton, TwitterButton } from 'react-social'
 import { getAbsPath } from '../../lib/url-transformer'
-import { appId } from '../../lib/constants'
+import { appId, donatePath } from '../../lib/constants'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
@@ -34,7 +34,7 @@ export default class DesktopNavBar extends Component {
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
         </div>
         <div className={styles.navRight}>
-          <a target="_blank" className={styles.donateButton} href="https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718">
+          <a target="_blank" className={styles.donateButton} href={donatePath}>
             <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
           </a>
         </div>
@@ -63,7 +63,7 @@ export default class DesktopNavBar extends Component {
           <TwitterButton className={navItemClass} url={cUrl}>
             <img src="/asset/twitter.svg" />
           </TwitterButton>
-          <a target="_blank" className={styles.donateButton} href="https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718">
+          <a target="_blank" className={styles.donateButton} href={donatePath}>
             <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
           </a>
         </div>
