@@ -1,10 +1,11 @@
 {
   "name": "twreporter-react-article-components",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Article Components for Rendering Article Page of The Reporter Site in Taiwan",
   "scripts": {
     "clean": "../../../node_modules/.bin/rimraf lib",
-    "build": "../../../node_modules/.bin/webpack --verbose --colors --display-error-details --config $(pwd)/webpack.config.js",
+    "build": "npm run clean && npm run build:jscss",
+    "build:jscss": "../../../node_modules/.bin/webpack --verbose --colors --display-error-details --config $(pwd)/webpack.config.js",
     "prepublish": "npm run build"
   },
   "repository": {
