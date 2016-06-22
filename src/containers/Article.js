@@ -1,17 +1,18 @@
 /* eslint no-unused-vars:0*/
 'use strict'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
-import { setReadProgress } from '../actions/header'
+import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
-import _ from 'lodash'
+import * as page from '../constants/page-types'
 import classNames from 'classnames'
-import styles from './Article.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import styles from './Article.scss'
 
 let articlePostition = {
   beginY: 100,
@@ -32,14 +33,18 @@ export default class Article extends Component {
   }
 
   componentDidMount() {
+    this.props.setPageType(page.ARTICLE)
     this._setArticleBounding()
     window.addEventListener('resize', this._setArticleBounding)
 
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
 
-    const { fetchArticlesByIdsIfNeeded, selectedArticle, entities } = this.props
+    const { fetchArticlesByIdsIfNeeded, setPageTitle, selectedArticle, entities } = this.props
     if (!selectedArticle.error && !selectedArticle.isFetching) {
+      // set navbar title for this article
+      setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''))
+      // fetch related articles
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchArticlesByIdsIfNeeded(relatedIds)
     }
@@ -63,6 +68,11 @@ export default class Article extends Component {
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._setArticleBounding)
+    window.removeEventListener('scroll', this._handleScroll)
   }
 
   _getCumulativeOffset(element) {
@@ -124,6 +134,7 @@ export default class Article extends Component {
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
+
     return (
       <div className={styles.article}>
         <div ref="articleContainer">
@@ -215,4 +226,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, setReadProgress })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, setReadProgress, setPageType, setPageTitle })(Article)

@@ -18,15 +18,34 @@ class NaviBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: 10
+      height: 10,
+      isScrolledOver: false
     }
     this._renderMobile = this._renderMobile.bind(this)
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
   }
 
   componentDidMount() {
     this._getHeaderHeight()
     window.addEventListener('resize', this._getHeaderHeight)
+
+    // detect sroll position
+    window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._getHeaderHeight)
+    window.removeEventListener('scroll', this._handleScroll)
+  }
+
+  _handleScroll() {
+    const scrollPos = window.scrollY
+    if(scrollPos > this.state.height && !this.state.isScrolledOver) {
+      this.setState({ isScrolledOver: true })
+    } else if(scrollPos <= this.state.height && this.state.isScrolledOver) {
+      this.setState({ isScrolledOver: false })
+    }
   }
 
   _getHeaderHeight() {
@@ -38,7 +57,8 @@ class NaviBar extends Component {
 
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
     if(nextState.height !== this.state.height ||
-       nextProps.header.readPercent !== this.props.header.readPercent) {
+       nextProps.header.readPercent !== this.props.header.readPercent ||
+       nextState.isScrolledOver !== this.state.isScrolledOver) {
       return true
     }
     if (nextProps.path === this.props.path) {
@@ -50,7 +70,9 @@ class NaviBar extends Component {
   _renderMobile() {
     return (
       <div className="mobile-nav">
-        <MobileNavBar {...this.props}/>
+        <MobileNavBar {...this.props}
+          isScrolledOver={this.state.isScrolledOver}
+          />
       </div>
     )
   }
@@ -58,7 +80,10 @@ class NaviBar extends Component {
   _renderDesktop() {
     return (
       <div className="desktop-nav">
-        <DesktopNavBar {...this.props}/>
+        <DesktopNavBar {...this.props}
+          isScrolledOver={this.state.isScrolledOver}
+          pageTitle={this.props.header.pageTitle}
+          />
       </div>
     )
   }

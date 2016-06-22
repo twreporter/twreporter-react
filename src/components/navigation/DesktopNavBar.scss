@@ -1,43 +1,82 @@
 @import '../../themes/common-variables';
+@import '../../themes/animation';
+
+.nav-block {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.nav-item-algin {
+  display: inline-block;
+  float: left;
+  margin: 0 0.5rem;
+}
+
+.slidedUpNav {
+  > div {
+    padding-top: 0.7rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.articleTitle {
+  color: $gray-tag-bg;
+  margin: 0 3rem;
+  vertical-align: middle;
+  @include fade-in-left(0.5s);
+}
+
+.fadeRight {
+  @include fade-in-left(0.5s);
+}
+
+.fadeLeft {
+  @include fade-in-right(0.5s);
+}
 
 .navContainer {
-  width:100%;
-  text-align:center;
+  width: 100%;
+  text-align: center;
+  transition: height 0.5s, transform 0.5s;
+  -moz-transition: height 0.5s, transform 0.5s;
+  -webkit-transition: height 0.5s, transform 0.5s;
 }
 
 .navLeft {
-  float:left;
+  @extend .nav-block;
+  float: left;
   padding-left: 2.6rem;
   min-width: 9rem;
   min-height: 3rem;
 }
 
 .navCenter {
+  @extend .nav-block;
   display: inline-block;
-  margin: 0.7rem 0;
   min-width: 9rem;
   min-height: 3rem;
 }
 
 .navRight {
+  @extend .nav-block;
   float: right;
   min-width: 9rem;
   min-height: 3rem;
   padding-right: 2.6rem;
-  padding-top: 1.2rem;
-  padding-bottom: 1.2rem;
 }
 
 .navLogo {
   img{
     width: 9rem;
   }
-  transform: translate(-40%, 0);
+  transform: translate(-20%, 0);
+  @include fade-in(0.5s);
 }
 
 .donateButton {
-  width: 250px;
-  height: 70px;
+  @extend .nav-item-algin;
+  min-width: 12rem;
+  height: 30px;
   border-radius: 62rem;
   background-color: $gray-tag-bg;
   border: 1px solid $gray-tag-bg;
@@ -62,15 +101,33 @@
   padding-bottom: 0.2rem;
 }
 
+.navButton {
+  @extend .nav-item-algin;
+  width: 32px;
+  border: none;
+  background: none;
+  padding: 0;
+  img {
+    width: 100%;
+    height: auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    img {
+      width: 110%;
+      margin-left: -5%;
+      margin-top: -10%;
+    }
+  }
+}
+
 // START - burger menu icon
 .navIcon {
-  width: 30px;
-  height: 29px;
-  margin: 5px;
-  top: 11px;
-  right: 5px;
-  margin-top: 1.1rem;
-  margin-left: 0.2rem;
+  @extend .nav-item-algin;
+  width: 26px;
+  height: 20px;
+  margin-left: 0.7rem;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
@@ -80,6 +137,7 @@
   -o-transition: .5s ease-in-out;
   transition: .5s ease-in-out;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .navIcon span {
@@ -109,15 +167,15 @@
 }
 
 .navIcon span:nth-child(2), .navIcon span:nth-child(3) {
-  top: 10px;
+  top: 8px;
 }
 
 .navIcon span:nth-child(4) {
-  top: 20px;
+  top: 16px;
 }
 
 .iconOpen span:nth-child(1) {
-  top: 10px;
+  top: 8px;
   width: 0%;
   left: 50%;
 }

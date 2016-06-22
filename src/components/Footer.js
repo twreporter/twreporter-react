@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { donatePath } from '../lib/constants'
 
 if (process.env.BROWSER) {
   require('./Footer.css')
@@ -66,7 +67,7 @@ export default class Footer extends Component {
               </a>
             </div>
             <div className="item col-md-3 col-sm-3 col-xs-6">
-              <a href="https://twreporter.backme.tw:443/cashflow/checkout?project_id=175&reward_id=718">
+              <a href={donatePath} target="_blank">
                   贊助我們
               </a>
             </div>
