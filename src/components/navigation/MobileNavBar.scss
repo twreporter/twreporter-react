@@ -1,3 +1,4 @@
+@import '../../themes/animation';
 @import '../../themes/variables';
 
 .mobileNav {
@@ -11,9 +12,20 @@
 }
 
 .navLogo {
-  float: left;
-  margin-left: 50%;
-  transform: translateX(-50%);
+  padding-bottom: 0.3rem;
+}
+
+.navButton {
+  width: 32px;
+  border: none;
+  background: none;
+  padding: 0;
+  img {
+    width: 100%;
+    height: auto;
+    transition: all 0.3s ease-in-out;
+  }
+  @include fade-in-right(0.5s);
 }
 
 @keyframes item-animation {

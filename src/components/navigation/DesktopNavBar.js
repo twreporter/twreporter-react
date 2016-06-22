@@ -1,11 +1,11 @@
-import * as page from '../../constants/page-types'
-import React, { Component } from 'react'
-import { Link } from 'react-router'
-import classNames from 'classnames'
-import styles from './DesktopNavBar.scss'
+import { appId, donatePath, colors } from '../../lib/constants'
 import { FacebookButton, TwitterButton } from 'react-social'
 import { getAbsPath } from '../../lib/url-transformer'
-import { appId, donatePath } from '../../lib/constants'
+import { Link } from 'react-router'
+import * as page from '../../constants/page-types'
+import classNames from 'classnames'
+import React, { Component } from 'react'
+import styles from './DesktopNavBar.scss'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
@@ -19,16 +19,11 @@ export default class DesktopNavBar extends Component {
     }
   }
 
-  _renderAritcleFirst(burgerIconClass, logo) {
+  _renderAritcleFirst(burgerMenu, logo) {
     return (
       <div className={styles.navContainer}>
         <div className={styles.navLeft}>
-          <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+          {burgerMenu}
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
@@ -42,18 +37,13 @@ export default class DesktopNavBar extends Component {
     )
   }
 
-  _renderAritcleSecond(burgerIconClass, cUrl) {
+  _renderAritcleSecond(burgerMenu, cUrl) {
     const navItemClass = styles.navButton
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.fadeRight)}>
           <Link className={navItemClass} to="/"><img src="/asset/navbar-fixed-top-logo.svg" /></Link>
-          <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+          {burgerMenu}
           <span className={styles.articleTitle}>{this.props.pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
@@ -73,24 +63,32 @@ export default class DesktopNavBar extends Component {
 
   render() {
     const { bgStyle, header, isScrolledOver } = this.props
-    const cUrl = getAbsPath(this.context.location.pathname,this.context.location.search)
-    let backgroundColor = '#FFF'
+    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
+    let backgroundColor = colors.whiteBg
     let logo = '/asset/logo-desk.svg'
 
     let burgerIconClass = styles.navIcon
-
-    if (bgStyle === 'dark') {
-      backgroundColor = '#3e3a39'
-      logo = '/asset/logo-desk-dark.svg'
-    }
-
     if (this.state.open) {
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
     }
 
-    let menuBar = this._renderAritcleFirst(burgerIconClass, logo)
+    let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+
+    if (bgStyle === 'dark') {
+      backgroundColor = colors.darkBg
+      logo = '/asset/logo-desk-dark.svg'
+    }
+
+
+
+    let menuBar = this._renderAritcleFirst(burgerMenu, logo)
     if (isScrolledOver && header.pageType === page.ARTICLE) {
-      menuBar = this._renderAritcleSecond(burgerIconClass, cUrl)
+      menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
     }
 
     return (
