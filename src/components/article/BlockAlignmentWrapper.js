@@ -19,8 +19,11 @@ export default function WrapComponent(WrappedComponent) {
       return (
         <div className={styles[`align-${alignment}`]}>
           <WrappedComponent
-            {...this.props}
+            content={this.props.content}
+            customeStyles={this.props.customeStyles}
+            id={this.props.id}
           />
+          {this.props.children}
         </div>
       )
     }
