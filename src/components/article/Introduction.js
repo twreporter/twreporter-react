@@ -13,7 +13,8 @@ export const Introduction = ({ data }) => {
       <p>{_.get(ele, [ 'content', 0 ])}</p>
     )
   } ) : <p>{_.get(data, [ 'content', 0 ])}</p>
-  if (content > 0) {
+
+  if (content.length > 0) {
     return (
       <div className={classNames('inner-max', 'center-block', styles.introContainer)}>
         <img className={styles.leftQuote} src={ leftQuote } />
