@@ -4,16 +4,14 @@ import { Link } from 'react-router'
 import { navPath, colors } from '../../lib/constants'
 import * as page from '../../constants/page-types'
 import classNames from 'classnames'
+import fbIcon from '../../../static/asset/fb.svg'
+import logoIcon from '../../../static/asset/logo-mobile.svg'
+import logoIconDark from '../../../static/asset/logo-mobile-dark.svg'
 import React, { Component } from 'react'
 import SearchBox from './SearchBox'
 import styles from './MobileNavBar.scss'
 import SubNavBar from './SubNavBar'
-
-// require('react-burger-menu').slide
-
-if (process.env.BROWSER) {
-  require('../../containers/NavBar.css')
-}
+import twitterIcon from '../../../static/asset/twitter.svg'
 
 export default class MobileNavBar extends Component {
   constructor(props) {
@@ -26,7 +24,7 @@ export default class MobileNavBar extends Component {
   _renderAritcleFirst(burgerMenu, logo, searchBox) {
     return (
       <div>
-        <div className="nav-logo">
+        <div className={styles.topBar}>
           {logo}
           {searchBox}
         </div>
@@ -39,11 +37,14 @@ export default class MobileNavBar extends Component {
     const navItemClass = styles.navButton
     return (
       <div>
-        <div className="nav-logo">
-          <div className={classNames('center-block', 'text-right')}>
+        <div className={styles.topBar}>
+          <div className={classNames('center-block', 'text-right', styles.shareBtns)}>
             <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
-              <img src="/asset/fb.svg" />
+              <img src={fbIcon} />
             </FacebookButton>
+            <TwitterButton className={navItemClass} url={cUrl}>
+              <img src={twitterIcon} />
+            </TwitterButton>
           </div>
           {searchBox}
         </div>
@@ -57,7 +58,7 @@ export default class MobileNavBar extends Component {
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
     let linkColor = colors.darkBg
-    let logo = '/asset/logo-mobile.svg'
+    let logo = logoIcon
     let navLogo
     let searchClass = ''
     let mobileNavClass = styles.mobileNav
@@ -68,7 +69,7 @@ export default class MobileNavBar extends Component {
     if (this.props.bgStyle === 'dark') {
       backgroundColor = colors.darkBg
       linkColor = colors.whiteBg
-      logo = '/asset/logo-mobile-dark.svg'
+      logo = logoIconDark
     }
 
     if (this.state.open) {

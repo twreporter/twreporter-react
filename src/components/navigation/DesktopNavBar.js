@@ -4,8 +4,14 @@ import { getAbsPath } from '../../lib/url-transformer'
 import { Link } from 'react-router'
 import * as page from '../../constants/page-types'
 import classNames from 'classnames'
+import donateIcon from '../../../static/asset/donate.svg'
+import fbIcon from '../../../static/asset/fb.svg'
+import logoIcon from '../../../static/asset/logo-desk.svg'
+import logoIconDark from '../../../static/asset/logo-desk-dark.svg'
 import React, { Component } from 'react'
+import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
+import twitterIcon from '../../../static/asset/twitter.svg'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
@@ -42,19 +48,19 @@ export default class DesktopNavBar extends Component {
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.fadeRight)}>
-          <Link className={navItemClass} to="/"><img src="/asset/navbar-fixed-top-logo.svg" /></Link>
+          <Link className={navItemClass} to="/"><img src={smallLogo} /></Link>
           {burgerMenu}
           <span className={styles.articleTitle}>{this.props.pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
-            <img src="/asset/fb.svg" />
+            <img src={fbIcon} />
           </FacebookButton>
           <TwitterButton className={navItemClass} url={cUrl}>
-            <img src="/asset/twitter.svg" />
+            <img src={twitterIcon} />
           </TwitterButton>
           <a target="_blank" className={styles.donateButton} href={donatePath}>
-            <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
+            <img className={styles.donateIcon} src={donateIcon}/>贊助我們
           </a>
         </div>
       </div>
@@ -65,7 +71,7 @@ export default class DesktopNavBar extends Component {
     const { bgStyle, header, isScrolledOver } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
-    let logo = '/asset/logo-desk.svg'
+    let logo = logoIcon
 
     let burgerIconClass = styles.navIcon
     if (this.state.open) {
@@ -81,7 +87,7 @@ export default class DesktopNavBar extends Component {
 
     if (bgStyle === 'dark') {
       backgroundColor = colors.darkBg
-      logo = '/asset/logo-desk-dark.svg'
+      logo = logoIconDark
     }
 
 
