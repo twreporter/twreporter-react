@@ -13,6 +13,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/,
+        exclude: /node_modules/,
         loaders: [strip.loader('debug'), 'babel']
       },
       { test: /\.scss$/,
