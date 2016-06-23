@@ -159,17 +159,13 @@ class Audio extends React.Component {
 }
 
 Audio.propTypes = {
-  audio: React.PropTypes.string,
-  coverPhoto: React.PropTypes.object,
-  description: React.PropTypes.string,
-  title: React.PropTypes.string
+  content: React.PropTypes.array,
+  customeStyles: React.PropTypes.array
 }
 
 Audio.defaultProps = {
-  audio: '',
-  coverPhoto: {},
-  description: '',
-  title: ''
+  content: [],
+  customeStyles: []
 }
 
 export { Audio }

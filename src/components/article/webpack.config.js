@@ -5,14 +5,10 @@ var strip = require('strip-loader');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: {
-    'main': ['bootstrap-loader/extractStyles', './index.js']
-  },
   output: {
     publicPath: '/',
-    filename: '[name].js',
     libraryTarget: 'commonjs2', // necessary for the babel plugin
-    path: path.join(__dirname, 'lib'), // where to place webpack files
+    path: path.join(__dirname, 'lib-css'), // where to place webpack files
   },
   module: {
     loaders: [
@@ -34,6 +30,6 @@ module.exports = {
   },
   postcss: [autoprefixer({ browsers: ['> 1%'] })],
   plugins: [
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin(`${path.parse(process.argv[2]).name}.css`),
   ],
 };
