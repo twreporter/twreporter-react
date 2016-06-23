@@ -2,13 +2,19 @@
 # Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-node_modules
 
-# sources
+# source files
 .babelrc
 .gitignore
 .bootstraprc
-webpack.config.js
+.npmignore
+/*.js
+/*.css
+/*.scss
 README.md
 CHANGELOG.md
+
+# source folders
+mixins/
 node_modules/
 
 # NPM debug
