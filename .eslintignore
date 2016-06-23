@@ -8,4 +8,4 @@ bin/api.js
 server.babel.js
 src/components/article/webpack.config.js
 src/components/article/concatCssFiles.js
-src/components/article/lib/*
+src/components/article/src/*

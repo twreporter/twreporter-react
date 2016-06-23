@@ -12,7 +12,9 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
+      { test: /\.jsx?$/,
+        loaders: [strip.loader('debug'), 'babel']
+      },
       { test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',

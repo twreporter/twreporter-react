@@ -14,3 +14,6 @@ webpack-assets.json
 
 # Ignore config files
 api/config.js
+
+# Ignore transpiled files
+src/components/article/src/
