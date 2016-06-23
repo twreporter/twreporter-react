@@ -9,6 +9,7 @@
 webpack.config.js
 README.md
 CHANGELOG.md
+node_modules/
 
 # NPM debug
 npm-debug.log
