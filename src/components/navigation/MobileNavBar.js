@@ -12,6 +12,7 @@ import SearchBox from './SearchBox'
 import styles from './MobileNavBar.scss'
 import SubNavBar from './SubNavBar'
 import twitterIcon from '../../../static/asset/twitter.svg'
+import lineIcon from '../../../static/asset/line.svg'
 
 export default class MobileNavBar extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ export default class MobileNavBar extends Component {
 
   _renderAritcleSecond(burgerMenu, searchBox, cUrl) {
     const navItemClass = styles.navButton
+    const { pageTitle } = this.props
+    const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(pageTitle)}%0D%0A${encodeURI(cUrl)}`
     return (
       <div>
         <div className={styles.topBar}>
@@ -45,6 +48,9 @@ export default class MobileNavBar extends Component {
             <TwitterButton className={navItemClass} url={cUrl}>
               <img src={twitterIcon} />
             </TwitterButton>
+            <a href={lineUrl} className={navItemClass} url={cUrl}>
+              <img src={lineIcon} />
+            </a>
           </div>
           {searchBox}
         </div>

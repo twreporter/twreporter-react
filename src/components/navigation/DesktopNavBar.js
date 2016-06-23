@@ -45,18 +45,19 @@ export default class DesktopNavBar extends Component {
 
   _renderAritcleSecond(burgerMenu, cUrl) {
     const navItemClass = styles.navButton
+    const { pageTitle } = this.props
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.fadeRight)}>
           <Link className={navItemClass} to="/"><img src={smallLogo} /></Link>
           {burgerMenu}
-          <span className={styles.articleTitle}>{this.props.pageTitle}</span>
+          <span className={styles.articleTitle}>{pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
             <img src={fbIcon} />
           </FacebookButton>
-          <TwitterButton className={navItemClass} url={cUrl}>
+          <TwitterButton className={navItemClass} message={pageTitle} url={cUrl}>
             <img src={twitterIcon} />
           </TwitterButton>
           <a target="_blank" className={styles.donateButton} href={donatePath}>
