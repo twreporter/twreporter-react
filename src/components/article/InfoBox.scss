@@ -1,16 +1,55 @@
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/media-queries.scss';
+
 .infoBoxContainer {
-  padding: 25px 50px 25px 50px;
+  $color: #262626;
+  $logo-width: 23px;
+  $logo-height: 24px;
   background-color: #FFF;
-
-  h4 {
-    font-size: 17px;
-    color: #333533;
-    font-weight: bold;
+  position: relative;
+  >img {
+      width: $logo-width;
+      height: $logo-height;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: -($logo-height / 2);
   }
 
-  >span {
-    font-size: 15px;
-    color: #333533;
+  .infoBoxText {
+    padding: rem(36) rem(24) 0 rem(24);
+    h4 {
+      color: $color;
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+    }
+
+    >div {
+      color: $color;
+      text-align: justify;
+    }
+    >div:after {
+      content: "";
+      display: inline-block;
+      width: 100%;
+    }
   }
-  
+}
+
+@include mq($max-width: $screen-xs-max) {
+  .infoBoxText {
+    h4 {
+      font-size: rem(20);
+      line-height: 1.2;
+    }
+
+    >div {
+      font-size: rem(15);
+      line-height: 1.8;
+    }
+  }
 }

@@ -22,26 +22,23 @@ $link-hover-decoration: underline !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Noto Sans TC", "Microsoft JhengHei", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-family-serif:       "Times New Roman", Georgia, Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
 
-$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // 23px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // 16px
 
-$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
-$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
-$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
-$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // 46px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // 38px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // 31px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // 23px
 $font-size-h5:            $font-size-base !default;
-$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // 16px
 
-//** Unit-less `line-height` for use in components like buttons.
-$line-height-base:        1.428571429 !default; // 20/14
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~30px
 
 //** By default, this inherits from the `<body>`.
 $headings-font-family:    $font-family-base !default;
