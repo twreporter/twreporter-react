@@ -1,6 +1,6 @@
 import { appId, donatePath, colors } from '../../lib/constants'
-import { FacebookButton, TwitterButton } from 'react-social'
 import { getAbsPath } from '../../lib/url-transformer'
+import { FacebookButton, TwitterButton } from 'react-social'
 import { Link } from 'react-router'
 import * as page from '../../constants/page-types'
 import classNames from 'classnames'
@@ -8,10 +8,10 @@ import donateIcon from '../../../static/asset/donate.svg'
 import fbIcon from '../../../static/asset/fb.svg'
 import logoIcon from '../../../static/asset/logo-desk.svg'
 import logoIconDark from '../../../static/asset/logo-desk-dark.svg'
-import React, { Component } from 'react'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
 import twitterIcon from '../../../static/asset/twitter.svg'
+import React, { Component } from 'react'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')

@@ -15,8 +15,8 @@ import twitterIcon from '../../../static/asset/twitter.svg'
 import lineIcon from '../../../static/asset/line.svg'
 
 export default class MobileNavBar extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       open: false
     }
@@ -37,7 +37,7 @@ export default class MobileNavBar extends Component {
   _renderAritcleSecond(burgerMenu, searchBox, cUrl) {
     const navItemClass = styles.navButton
     const { pageTitle } = this.props
-    const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(pageTitle)}%0D%0A${encodeURI(cUrl)}`
+    const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(pageTitle + ' ' + cUrl)}`
     return (
       <div>
         <div className={styles.topBar}>
@@ -45,7 +45,7 @@ export default class MobileNavBar extends Component {
             <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
               <img src={fbIcon} />
             </FacebookButton>
-            <TwitterButton className={navItemClass} url={cUrl}>
+            <TwitterButton className={navItemClass} message={pageTitle} url={cUrl}>
               <img src={twitterIcon} />
             </TwitterButton>
             <a href={lineUrl} className={navItemClass} url={cUrl}>
