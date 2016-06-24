@@ -27,3 +27,8 @@ export const subnavPath = [
   { title: '五輕關廠', path:'/a/refinery-content' },
   { title: '急診人生', path:'/a/emergency-content' }
 ]
+
+export const colors = {
+  whiteBg: '#F7F8F8',
+  darkBg: '#3e3a39'
+}

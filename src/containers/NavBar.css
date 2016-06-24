@@ -101,15 +101,6 @@ and (max-device-width : 768px) {
   .desktop-nav {
     display: none;
   }
-  .nav-logo {
-    margin-left: 0.7em;
-    margin-bottom: 0.3em;
-    text-align: left;
-  }
-  .nav-logo img {
-    height: 45px;
-    width: auto;
-  }
   .searchbox {
     display: none;
   }

@@ -72,6 +72,7 @@ class NaviBar extends Component {
       <div className="mobile-nav">
         <MobileNavBar {...this.props}
           isScrolledOver={this.state.isScrolledOver}
+          pageTitle={this.props.header.pageTitle}
           />
       </div>
     )
