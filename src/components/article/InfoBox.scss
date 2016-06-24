@@ -1,12 +1,12 @@
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../themes/common-variables.scss';
 @import '../../themes/font-mixins.scss';
 @import '../../themes/media-queries.scss';
 
 .infoBoxContainer {
-  $color: #262626;
-  $logo-width: 23px;
-  $logo-height: 24px;
-  background-color: #FFF;
+  $logo-width: rem(23);
+  $logo-height: rem(24);
+  background-color: $white;
   position: relative;
   >img {
       width: $logo-width;
@@ -22,14 +22,14 @@
   .infoBoxText {
     padding: rem(36) rem(24) 0 rem(24);
     h4 {
-      color: $color;
+      color: $gray-15;
       font-weight: bold;
       margin: 0;
       text-align: center;
     }
 
     >div {
-      color: $color;
+      color: $gray-15;
       text-align: justify;
     }
     >div:after {
