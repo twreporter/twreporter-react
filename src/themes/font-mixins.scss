@@ -10,3 +10,12 @@
 
   @return $pixels / $context * 1em;
 }
+
+@function rem($pixels) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  // bootstrap html font-size is 10px;
+  @return $pixels / $font-size-base * 1rem;
+}

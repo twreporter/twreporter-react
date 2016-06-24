@@ -1,7 +1,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
-import boxSvg from '../../../static/asset/box.svg'
+import boxSvg from '../../../static/asset/infobox-logo.svg'
 import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
@@ -11,11 +11,13 @@ export const InfoBox = ({ content }) => {
 
   return (
     <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
-      <h4>
-        <img src={boxSvg} />
-        {infoBox.title}
-      </h4>
-      <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+      <img src={boxSvg} />
+      <div className={styles.infoBoxText}>
+        <h4>
+          {infoBox.title}
+        </h4>
+        <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+      </div>
     </div>
   )
 }

@@ -20,9 +20,11 @@ $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
 
-$font-size-base: 16px !default;
-$font-family-sans-serif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+$font-size-base: 18px;
+$font-family-sans-serif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif !default;
 $font-date-serif: "Times New Roman", serif;
+
+$line-height-base: 1.667 !default; // 30/18
 
 $article-inner-width: 712px;
 $article-outer-width: 900px;
@@ -31,3 +33,8 @@ $article-outer-width: 900px;
 $caption-color: #242423;
 
 $z-index-widget: 1000000010;
+
+// colors
+$gray-15: #262626;
+$white: #FFF;
+

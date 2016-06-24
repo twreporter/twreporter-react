@@ -1,5 +1,10 @@
 @import './common-variables.scss';
 
+// html default styles 
+html {
+  font-size: $font-size-base;
+}
+
 .container {
   line-height: $twreporter-line-height;
 }
