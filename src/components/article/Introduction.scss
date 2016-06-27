@@ -1,31 +1,19 @@
 @import '../../themes/common-variables.scss';
+@import '../../themes/font-mixins';
+@import '../../themes/pre-bootstrap-customization';
 
-$quoteMargin: 25px;
-$quoteTextColor: #666666;
-$quoteWidth: 30px;
+$quoteMargin: rem(25px);
+$quoteTextColor: $gray-15;
+$quoteWidth: rem(30px);
 
 .introContainer {
   position: relative;
-  margin-top: 90px;
-  margin-bottom: 90px;
-  font-size: $font-size-base + 1px;
+  margin-top: rem(90px);
+  margin-bottom: rem(90px);
+  font-size: $font-size-large;
   color: $quoteTextColor;
 
   >img {
     max-width: $quoteWidth;
-  }
-
-  .leftQuote {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: -($quoteWidth + $quoteMargin);
-  }
-  
-  .rightQuote {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: -($quoteWidth + $quoteMargin);
   }
 }
