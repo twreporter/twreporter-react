@@ -23,14 +23,14 @@ export default class Daily extends Component {
         </div>
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
-          { _.map(dailyTop, (a) => {
+          { _.map(dailyTop, (a, idx) => {
             const pubDate = date2yyyymmdd(a.publishedDate, '.')
             if (a.state == 'published') {
               let imageSet = imageComposer(a)
               let thumbnail = imageSet.mobileImage
               let url = '/a/' + a.slug
               return (
-                <li className="daily-item" key={a._id}>
+                <li className="daily-item" key={a.id || idx}>
                   <a className="clearfix" href={url}>
                     <div className="daily-image" >
                       <div style={{
