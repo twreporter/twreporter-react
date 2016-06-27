@@ -1,10 +1,11 @@
 @import '../../themes/common-variables';
+@import '../../themes/font-mixins';
 
 .progressOuter {
-  height: 0.2rem;
+  height: rem(2px);
 }
 
 .progressbar {
   background-color: $progressbar-color;
-  height: 0.2rem;
+  height: rem(2px);
 }

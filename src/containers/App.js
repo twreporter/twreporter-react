@@ -5,6 +5,8 @@ import React, { Component } from 'react'
 import { addLocaleData, IntlProvider } from 'react-intl'
 import enLocaleData from 'react-intl/locale-data/en'
 import zhLocaleData from 'react-intl/locale-data/zh'
+import styles from './App.scss'
+
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
 let currentLocale = 'zh-Hant'
@@ -25,7 +27,7 @@ class App extends Component {
     const pathname = this.props.location.pathname
     return (
       <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-        <div>
+        <div className={styles.app}>
           <NavBar
             bgStyle={pathname === '/photography' ? 'dark' : 'light'}
             path={pathname}/>
