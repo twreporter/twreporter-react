@@ -91,8 +91,6 @@ export default class DesktopNavBar extends Component {
       logo = logoIconDark
     }
 
-
-
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
     if (isScrolledOver && header.pageType === page.ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
