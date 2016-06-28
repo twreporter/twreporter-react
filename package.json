@@ -130,7 +130,7 @@
     "react-lazy-load": "^3.0.10",
     "react-redux": "^2.1.2",
     "react-responsive": "^1.1.3",
-    "react-router": "^1.0.3",
+    "react-router": "^2.5.1",
     "react-social": "^1.4.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
