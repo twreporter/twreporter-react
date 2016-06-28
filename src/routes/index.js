@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import App from '../containers/App'
 import Article from '../containers/Article'
@@ -8,7 +8,7 @@ import Category from '../containers/Category'
 import Home from '../containers/Home'
 import Photography from '../containers/Photography'
 
-export default function (history) {
+export default function (history = browserHistory) {
   return (
     <Router history={history}>
       <Route path="/" component={App}>
