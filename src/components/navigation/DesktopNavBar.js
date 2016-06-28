@@ -70,7 +70,7 @@ export default class DesktopNavBar extends Component {
 
   render() {
     const { bgStyle, header, isScrolledOver } = this.props
-    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
+    const cUrl = getAbsPath(this.props.location.pathname, this.props.location.search)
     let backgroundColor = colors.whiteBg
     let logo = logoIcon
 

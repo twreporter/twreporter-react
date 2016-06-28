@@ -61,7 +61,7 @@ export default class MobileNavBar extends Component {
 
   render() {
     const { path, header, isScrolledOver } = this.props
-    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
+    const cUrl = getAbsPath(this.props.location.pathname, this.props.location.search)
     let backgroundColor = colors.whiteBg
     let linkColor = colors.darkBg
     let logo = logoIcon
