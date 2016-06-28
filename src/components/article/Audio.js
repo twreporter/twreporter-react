@@ -6,9 +6,9 @@ import classNames from 'classnames'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import CircleProgressButton from './CircleProgressButton'
+import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Player from 'react-howler'
 import React from 'react' // eslint-disable-line
-import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Slider from 'rc-slider'
 
 if (process.env.BROWSER) {
@@ -216,9 +216,7 @@ class Audio extends React.Component {
             seek={seek}
           />
         </div>
-        <div style={{
-          padding: '28px 24px 24px 24px'
-        }}>
+        <div className={styles['audio-info-container']}>
           <h4>{title}</h4>
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>

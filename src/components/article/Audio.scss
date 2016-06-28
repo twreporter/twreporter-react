@@ -67,19 +67,24 @@
       }
     }
   }
-  h4 {
-    font-size: rem(20px);
-    color: $gray-15;
-    text-align: center;
-    line-height: 1.2;
-    font-weight: bold;
-    margin-bottom: rem(24px);
-  }
+  
+  .audio-info-container {
+    padding: rem(28px) rem(24px) rem(24px) rem(24px);
 
-  p {
-    font-size: rem(15px);
-    line-height: 1.5;
-    color: $gray-40;
+    >h4 {
+      font-size: rem(20px);
+      color: $gray-15;
+      text-align: center;
+      line-height: 1.2;
+      font-weight: bold;
+      margin-bottom: rem(24px);
+    }
+
+    >p {
+      font-size: rem(15px);
+      line-height: 1.5;
+      color: $gray-40;
+    }
   }
 }
 
