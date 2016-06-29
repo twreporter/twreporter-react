@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import { fetchTagsIfNeeded } from './actions/groups'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { createBrowserHistory } from 'react-router'
 import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
@@ -10,7 +10,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 /* global __REDUX_STATE__ */
-const history = createBrowserHistory()
+const history = createBrowserHistory
 
 let reduxState
 if (window.__REDUX_STATE__) {
