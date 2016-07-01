@@ -1,8 +1,16 @@
 @import '../../themes/common-variables';
+@import '../../themes/font-mixins.scss';
 
 .progress-button {
-  position: relative;
+  bottom: 0;
   cursor: pointer;
+  height: rem(80px);
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: rem(80px);
 
   button {
     position: absolute;

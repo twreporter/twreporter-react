@@ -3,151 +3,94 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
-$font-size: 15px;
+.audio-container {
+  $speed: .5s;
 
-.audio-flex-container {
-  $audio-coverphoto-width: 600px;
-  $slider-width: 270px;
-  $background-color: white;
+  background-color: $white;
 
-  background-color: $background-color;
-  display: flex;
-  flex-wrap: wrap;
-
-  .audio-flex-coverphoto {
-    flex: 2;
-    max-width: $audio-coverphoto-width;
-    padding: 0px;
-  }
-
-  .audio-flex-info {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: em(30, $font-size);
-
-    &.without-coverphoto {
-      flex-direction: row;
-      padding-top: em(30, $font-size);
+  .audio-coverphoto {
+    position: relative;
+    width: 100%;
+    
+    .enter {
+      opacity: .25;
+      &.enterActive {
+        opacity: 1;
+        transition: opacity .6s ease-in;
+      }
     }
 
+    .leave {
+      opacity: 1;
+      &.leaveActive {
+        opacity: 0.01;
+        transition: opacity .6s ease-in-out;
+      }
+    }
 
-    .flex-item {
-      padding: 0px;
-        
-      &:first-child {
-        margin: auto;
+    .appear {
+      opacity: 0.01;
+      &.appearActive {
+        opacity: 1;
+        transition: opacity .6s ease-in-out;
+      }
+    }
+
+    .audio-img-filter {
+      opacity: .25;
+      transition: opacity 1s linear;
+    }
+
+    .audio-duration-block {
+      width: rem(50px);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      font-size: rem(15px);
+      color: $white;
+      background-color: $gray-15;
+      text-align: center;
+    }
+
+    .audio-slider {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .audio-time-display {
+        width: rem(50px);
+        font-size: rem(15px);
         text-align: center;
       }
+    }
+  }
+  
+  .audio-info-container {
+    padding: rem(28px) rem(24px) rem(24px) rem(24px);
 
-      &.without-coverphoto {
-        margin: 0 auto;
-      }
+    >h4 {
+      font-size: rem(20px);
+      color: $gray-15;
+      text-align: center;
+      line-height: 1.2;
+      font-weight: bold;
+      margin-bottom: rem(24px);
+    }
 
-      .audio-slider {
-        > span {
-          display: inline-block;
-          margin-bottom: em(15, $font-size);
-        }
-
-        margin-top: em(30, $font-size);
-        width: $slider-width;
-        text-align: center;
-        font-size: $font-size;
-      }
-
-      h4 {
-        font-size: $font-size-base;
-        color: $caption-color;
-        font-weight: bold;
-      }
-
-      p {
-        font-size: $font-size;
-        color: $caption-color;
-        margin: 0 0 0 0;
-      }
-
-      div {
-        font-size: $font-size;
-        color: $caption-color;
-      }
-
+    >p {
+      font-size: rem(15px);
+      line-height: 1.5;
+      color: $gray-40;
     }
   }
 }
 
+
 @include mq($min-width: $screen-sm-min ,$max-width: $screen-sm-max) {
-  .audio-flex-container {
-    $padding: em(40, $font-size);
-    padding: $padding 0 $padding 0;
-
-    .audio-flex-coverphoto {
-      flex: initial;
-      max-width: none;
-      width: 100%;
-      margin-bottom: em(30, $font-size);
-    }
-
-    .audio-flex-info {
-      width: 100%;
-      flex-direction: row;
-      justify-content: space-around; 
-      padding: 0;
-
-      &.without-coverphoto {
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-      }
-
-      .flex-item {
-        margin: 0;
-
-        &:first-child {
-          margin: 0;
-        }
-
-        &.without-coverphoto:first-child {
-          margin-bottom: $padding;
-        }
-
-      }
-    }
-  }
 }
 
 @include mq($max-width: $screen-xs-max) {
-  .audio-flex-container {
-    $padding: em(40, $font-size);
-    padding: $padding 0 $padding 0;
-    .audio-flex-info {
-      flex-direction: column;
-      align-items: center;
-      padding: 0;
-
-      &.without-coverphoto {
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-      }
-
-      .flex-item {
-        &:first-child {
-          margin-bottom: $padding;
-        }
-
-        &:last-child {
-          margin-top: 2em;
-        }
-
-        &.without-coverphoto {
-          &:first-child {
-            margin-bottom: $padding;
-          }
-        }
-      }
-    }
-  }
 }

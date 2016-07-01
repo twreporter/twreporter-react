@@ -1,7 +1,7 @@
 /*eslint no-console:0*/
 'use strict'
 import classNames from 'classnames'
-import defaultIcon from '../../../static/asset/audio-icon.svg'
+import defaultIcon from '../../../static/asset/play-icon.svg'
 import playIcon from '../../../static/asset/audio-play.svg'
 import pauseIcon from '../../../static/asset/audio-pause.svg'
 import styles from './CircleProgressButton.scss'
@@ -12,7 +12,7 @@ class CircleProgressButton extends Component {
     super(props)
     this.state = {
       duration: props.duration,
-      isOncePlayed: false,
+      isOncePlayed: props.isOncePlayed,
       isPlaying: props.isPlaying,
       seek: props.seek
     }
@@ -22,7 +22,7 @@ class CircleProgressButton extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       duration: nextProps.duration,
-      isOncePlayed: this.state.isOncePlayed || nextProps.isPlaying,
+      isOncePlayed: nextProps.isOncePlayed,
       isPlaying: nextProps.isPlaying,
       seek: nextProps.seek
     })

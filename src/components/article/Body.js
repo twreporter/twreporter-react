@@ -31,7 +31,7 @@ export class Body extends Component {
         )
       })
       return (
-        <div className="outer-max">
+        <div>
           {Blocks}
         </div>
       )

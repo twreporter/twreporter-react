@@ -10,13 +10,15 @@ export const InfoBox = ({ content }) => {
   let infoBox = _.get(content, [ 0 ], {})
 
   return (
-    <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
-      <img src={boxSvg} />
-      <div className={styles.infoBoxText}>
-        <h4>
-          {infoBox.title}
-        </h4>
-        <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+    <div className="row">
+      <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
+        <img src={boxSvg} />
+        <div className={styles.infoBoxText}>
+          <h4>
+            {infoBox.title}
+          </h4>
+          <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+        </div>
       </div>
     </div>
   )
