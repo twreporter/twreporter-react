@@ -194,7 +194,6 @@ class Audio extends React.Component {
     const { content } = this.props
     const {  duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = _.get(content, 0, {})
-    let image = _.get(coverPhoto, [ 'resizedTargets' ], null)
 
     return (
       <div className={classNames(styles['audio-container'], 'row')}>
@@ -203,7 +202,7 @@ class Audio extends React.Component {
             opacity: 1
           }: {}}>
             <Image
-              content = { [ image ] }
+              content = { [ coverPhoto ] }
             />
           </div>
           <AudioController
