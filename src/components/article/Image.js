@@ -76,6 +76,9 @@ class Image extends FitwidthMixin(Component) {
 
   render() {
     let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
+    if (imageByDevice===null) {
+      return null
+    }
     let { desktop, tiny } = imageByDevice
     let { isMounted, screenType, width } = this.state
     let { outerWidth, outerHeight } = this.props
