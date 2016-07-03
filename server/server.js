@@ -16,8 +16,6 @@ import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
 
 import { Provider } from 'react-redux'
-import DeviceProvider from '../src/components/DeviceProvider'
-import { getDevice } from '../src/lib/tr-mobile-detect'
 import config from './config'
 
 import {  NotFoundError } from '../src/lib/custom-error'
@@ -78,7 +76,6 @@ server.get('*', (req, res) => {
     // hot module replacement is enabled in the development env
     webpackIsomorphicTools.refresh()
   }
-  let userAgent = req.headers['user-agent']
   let history = createMemoryHistory()
   let store = configureStore()
 
@@ -118,12 +115,9 @@ server.get('*', (req, res) => {
           throw fatalError
         }
         let reduxState = escape(JSON.stringify(store.getState()))
-        let device = getDevice(userAgent)
         let html = ReactDOMServer.renderToString(
           <Provider store={store} >
-            <DeviceProvider device={device}>
             { <RouterContext {...renderProps} /> }
-            </DeviceProvider>
           </Provider>
         )
         let assets = webpackIsomorphicTools.assets()

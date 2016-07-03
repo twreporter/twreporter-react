@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { createBrowserHistory } from 'react-router'
-import { routerMiddleware, push } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 import routes from '../routes'
 import thunk from 'redux-thunk'
 import api from '../middleware/api'
