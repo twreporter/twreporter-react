@@ -2,7 +2,8 @@ import 'babel-polyfill'
 import { fetchTagsIfNeeded } from './actions/groups'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
@@ -10,8 +11,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 /* global __REDUX_STATE__ */
-const history = createBrowserHistory()
-
 let reduxState
 if (window.__REDUX_STATE__) {
   try {
@@ -30,6 +29,8 @@ if (window.__REDUX_STATE__) {
 }
 
 const store = configureStore(reduxState)
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 // preload the tag ids by tag names
 const tags = [ 'hp-projects', 'review', 'feature' ]

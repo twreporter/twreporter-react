@@ -2,7 +2,7 @@
 import { articlesByCats, articlesByTags } from './group-articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
-import { routerStateReducer as router } from 'redux-router'
+import { routerReducer } from 'react-router-redux'
 import { FatalError } from '../lib/custom-error'
 import _ from 'lodash'
 import * as types from '../constants/action-types'
@@ -58,7 +58,7 @@ const rootReducer = combineReducers({
   device,
   selectedArticle,
   tags,
-  router,
+  routing: routerReducer,
   header,
   slugToId,
   entities

@@ -12,6 +12,11 @@ addLocaleData(zhLocaleData)
 let currentLocale = 'zh-Hant'
 
 class App extends Component {
+
+  getChildContext() {
+      return { location: this.props.location }
+  }
+
   componentWillMount() {
     // set current locale
     if (process.env.BROWSER) {
@@ -36,6 +41,10 @@ class App extends Component {
       </IntlProvider>
     )
   }
+}
+
+App.childContextTypes = {
+    location: React.PropTypes.object
 }
 
 export default App
