@@ -18,16 +18,16 @@ Hence, these Article React Components will be used on Article Page and Editorial
 ```
 ### How to install this?
 ```
-  npm i twreporter-react-article-components --save
+  npm i react-article-components --save
 ```
 
 ### How to use this?
 ```
 // es5
-var Components = require('twreporter-react-article-components/lib/main');
+var Components = require('react-article-components/lib/main');
 
 // es6
-import * as Components from 'twreporter-react-article-components/lib/main'
+import * as Components from 'react-article-components/lib/main'
 
 // a piece of code in React Component render function
   return (
