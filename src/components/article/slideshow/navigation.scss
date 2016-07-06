@@ -1,0 +1,25 @@
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/font-mixins.scss';
+
+.ss-nav {
+  color: $white;
+  cursor: pointer;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: rem(18px);
+  margin: auto;
+}
+
+.ss-left-nav {
+  @extend .ss-nav;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.ss-right-nav {
+  @extend .ss-nav;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

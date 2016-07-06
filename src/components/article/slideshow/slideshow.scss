@@ -1,0 +1,38 @@
+@import '../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/font-mixins.scss';
+@import '../../../themes/media-queries.scss';
+
+.ss-slider {
+  overflow: hidden;
+  width: $ss-ms-image-width;
+  margin: 0 auto;
+
+  .ss-slides {
+    width: 100%;
+  }
+
+  .ss-more-images {
+    position: relative;
+  }
+
+  .ss-thumbnails {
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .ss-description {
+    color: $gray-50;
+    font-size: rem(15px);
+    line-height: 1.5;
+    margin: rem(22px) rem(24px) rem(38px) rem(24px);
+    text-align: justify;
+  }
+}
+
+
+@include mq($max-width: $screen-xs-max) {
+  .ss-slider {
+    width: 100%;
+  }
+}

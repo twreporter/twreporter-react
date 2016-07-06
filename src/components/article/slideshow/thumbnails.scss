@@ -1,0 +1,38 @@
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/font-mixins.scss';
+
+.thumbnails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition:  transform .8s ease-in-out;
+  margin-bottom: 0;
+
+  &.flex-center {
+    justify-content: center;
+  }
+
+  .thumbnail {
+    cursor: pointer;
+    flex-shrink: 0;
+    flex-basis: auto;
+    margin-right: rem(8px);
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.grey-out {
+      opacity: 0.4;
+      filter: alpha(opacity=40); /* msie*/
+      background-color: $black;
+    }
+
+    > img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+

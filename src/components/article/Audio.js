@@ -233,13 +233,13 @@ class Audio extends React.Component {
 }
 
 Audio.propTypes = {
-  content: React.PropTypes.array,
-  customeStyles: React.PropTypes.array
+  content: React.PropTypes.array.isRequired,
+  customStyles: React.PropTypes.array
 }
 
 Audio.defaultProps = {
   content: [],
-  customeStyles: []
+  customStyles: []
 }
 
 export { Audio }
