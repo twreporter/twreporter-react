@@ -2,11 +2,14 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
+import LazyLoad from 'react-lazy-load'
 import Navigation from  './navigation'
 import Slides from './slides'
 import Thumbnails from './thumbnails'
 import React, { Component } from 'react' // eslint-disable-line
+import UI_SETTING from '../../../constants/ui-settings'
 
 export class Slideshow extends Component {
   constructor(props, context) {
@@ -30,6 +33,7 @@ export class Slideshow extends Component {
 
   componentWillUnmount() {
     this._slideshow = null
+    window.removeEventListener('resize', this.handleResize)
   }
 
   _handleResize() {
@@ -43,7 +47,6 @@ export class Slideshow extends Component {
   }
 
   _onImageLoad(event) {
-    // eslint-disable-next-line
     console.log(event.target.src)
   }
 
@@ -51,7 +54,7 @@ export class Slideshow extends Component {
     let desktopSrc = _.get(imgObj, [ 'desktop', 'url' ])
     let tabletSrc = _.get(imgObj, [ 'tablet', 'url' ])
     let mobileSrc = _.get(imgObj, [ 'mobile', 'url' ])
-    return `${mobileSrc} 480w, ${tabletSrc} 768w, ${desktopSrc} 992w`
+    return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
   }
 
   _parseContent(content) {
@@ -118,31 +121,32 @@ export class Slideshow extends Component {
     let thumbnailsWidth = this.state.slideshowWidth - thumbnailsPadding * 2
 
     return (
-      <div
-        className={styles['ss-slider']}
-        ref={i => this._slideshow = i}
-      >
+      <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>
         <div
-          className={styles['ss-slides']}
+          className={styles['ss-slider']}
+          ref={i => this._slideshow = i}
         >
-          <Slides
-            isSwipeable={true}
-            onImageLoad={this.onImageLoad}
-            onImageError={this.onImageError}
-            slides={slides}
-            slideStart={currentIndex}
-            slideToIndex={this.slideToIndex}
-            width={this.state.slideshowWidth}
-          />
-        </div>
-        <div className={styles['ss-more-images']}>
-          <Navigation
-            onSlideLeft={this.slideLeft}
-            onSlideRight={this.slideRight}
-          />
-          <div className={styles['ss-thumbnails']} style={{
-            width: thumbnailsWidth
-          }}>
+          <div
+            className={styles['ss-slides']}
+          >
+            <Slides
+              isSwipeable={true}
+              onImageLoad={this.onImageLoad}
+              onImageError={this.onImageError}
+              slides={slides}
+              slideStart={currentIndex}
+              slideToIndex={this.slideToIndex}
+              width={this.state.slideshowWidth}
+            />
+          </div>
+          <div className={styles['ss-more-images']}>
+            <Navigation
+              onSlideLeft={this.slideLeft}
+              onSlideRight={this.slideRight}
+            />
+            <div className={styles['ss-thumbnails']} style={{
+              width: thumbnailsWidth
+            }}>
             <Thumbnails
               currentIndex={currentIndex}
               slideToIndex={this.slideToIndex}
@@ -156,6 +160,7 @@ export class Slideshow extends Component {
           <span>{description}</span>
         </div>
       </div>
+    </LazyLoad>
     )
   }
 }
