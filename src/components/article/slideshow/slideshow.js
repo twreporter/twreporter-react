@@ -121,46 +121,48 @@ export class Slideshow extends Component {
     let thumbnailsWidth = this.state.slideshowWidth - thumbnailsPadding * 2
 
     return (
-      <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>
-        <div
-          className={styles['ss-slider']}
-          ref={i => this._slideshow = i}
-        >
-          <div
-            className={styles['ss-slides']}
-          >
-            <Slides
-              isSwipeable={true}
-              onImageLoad={this.onImageLoad}
-              onImageError={this.onImageError}
-              slides={slides}
-              slideStart={currentIndex}
-              slideToIndex={this.slideToIndex}
-              width={this.state.slideshowWidth}
-            />
+      <div
+        className={styles['ss-slider']}
+        ref={i => this._slideshow = i}
+      >
+        <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>
+          <div>
+            <div
+              className={styles['ss-slides']}
+            >
+              <Slides
+                isSwipeable={true}
+                onImageLoad={this.onImageLoad}
+                onImageError={this.onImageError}
+                slides={slides}
+                slideStart={currentIndex}
+                slideToIndex={this.slideToIndex}
+                width={this.state.slideshowWidth}
+              />
+            </div>
+            <div className={styles['ss-more-images']}>
+              <Navigation
+                onSlideLeft={this.slideLeft}
+                onSlideRight={this.slideRight}
+              />
+              <div className={styles['ss-thumbnails']} style={{
+                width: thumbnailsWidth
+              }}>
+              <Thumbnails
+                currentIndex={currentIndex}
+                slideToIndex={this.slideToIndex}
+                thumbnails={thumbnails}
+                thumbnailOffset={thumbnailOffset}
+                width={thumbnailsWidth}
+              />
+            </div>
           </div>
-          <div className={styles['ss-more-images']}>
-            <Navigation
-              onSlideLeft={this.slideLeft}
-              onSlideRight={this.slideRight}
-            />
-            <div className={styles['ss-thumbnails']} style={{
-              width: thumbnailsWidth
-            }}>
-            <Thumbnails
-              currentIndex={currentIndex}
-              slideToIndex={this.slideToIndex}
-              thumbnails={thumbnails}
-              thumbnailOffset={thumbnailOffset}
-              width={thumbnailsWidth}
-            />
+          <div className={classNames(styles['ss-description'], 'inner-max', 'center-block')}>
+            <span>{description}</span>
           </div>
         </div>
-        <div className={classNames(styles['ss-description'], 'inner-max', 'center-block')}>
-          <span>{description}</span>
-        </div>
-      </div>
-    </LazyLoad>
+      </LazyLoad>
+    </div>
     )
   }
 }
