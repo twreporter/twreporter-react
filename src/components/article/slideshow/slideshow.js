@@ -117,12 +117,12 @@ export class Slideshow extends Component {
     let description = _.get(content, [ currentIndex, 'description' ], '')
 
     const thumbnailOffset = 8
-    const thumbnailsPadding = 50
+    const thumbnailsPadding = 70
     let thumbnailsWidth = this.state.slideshowWidth - thumbnailsPadding * 2
 
     return (
       <div
-        className={styles['ss-slider']}
+        className={classNames(styles['ss-container'], 'row')}
         ref={i => this._slideshow = i}
       >
         <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>

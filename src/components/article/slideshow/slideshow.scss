@@ -3,10 +3,8 @@
 @import '../../../themes/font-mixins.scss';
 @import '../../../themes/media-queries.scss';
 
-.ss-slider {
+.ss-container {
   overflow: hidden;
-  width: $ss-ms-image-width;
-  margin: 0 auto;
 
   .ss-slides {
     width: 100%;
@@ -14,6 +12,7 @@
 
   .ss-more-images {
     position: relative;
+    margin: 0 rem(24px) 0 rem(24px);
   }
 
   .ss-thumbnails {
@@ -31,8 +30,15 @@
 }
 
 
+@include mq($min-width: $screen-sm-min) {
+  .ss-container {
+    margin: 0 auto;
+    width: $ss-ms-image-width;
+  }
+}
+
 @include mq($max-width: $screen-xs-max) {
-  .ss-slider {
-    width: 100%;
+  .ss-container {
+    width: 100vw;
   }
 }

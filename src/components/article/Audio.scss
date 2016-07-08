@@ -80,17 +80,24 @@
       margin-bottom: rem(24px);
     }
 
-    >p {
+    p {
       font-size: rem(15px);
       line-height: 1.5;
-      color: $gray-40;
+      color: $gray-50;
     }
   }
 }
 
 
-@include mq($min-width: $screen-sm-min ,$max-width: $screen-sm-max) {
+@include mq($min-width: $screen-sm-min) {
+  .audio-container {
+    width: $ss-ms-audio-width;
+    margin: 0 auto;
+  }
 }
 
 @include mq($max-width: $screen-xs-max) {
+  .audio-container {
+    width: 100vw;
+  }
 }
