@@ -12,9 +12,8 @@ addLocaleData(zhLocaleData)
 let currentLocale = 'zh-Hant'
 
 class App extends Component {
-
   getChildContext() {
-      return { location: this.props.location }
+    return { location: this.props.location }
   }
 
   componentWillMount() {
@@ -44,7 +43,7 @@ class App extends Component {
 }
 
 App.childContextTypes = {
-    location: React.PropTypes.object
+  location: React.PropTypes.object
 }
 
 export default App

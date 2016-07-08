@@ -4,9 +4,9 @@ import _ from 'lodash'
 let FitwidthMixin = (superclass) => class extends superclass {
   componentDidMount() {
     // set state for the width of the images and listen to window resize event
-    if (ReactDOM.findDOMNode(this)){
-    this.fitToParentWidth()
-    window.addEventListener('resize', this.fitToParentWidth)
+    if (ReactDOM.findDOMNode(this)) {
+      this.fitToParentWidth()
+      window.addEventListener('resize', this.fitToParentWidth)
     }
   }
 
