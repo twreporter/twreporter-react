@@ -81,7 +81,7 @@ class Image extends FitwidthMixin(Component) {
     }
     let { desktop, tiny } = imageByDevice
     let { isMounted, screenType, width } = this.state
-    let { outerWidth, outerHeight } = this.props
+    let { isToShowDescription, outerWidth, outerHeight } = this.props
     let boxWidth = outerWidth || width
     let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let renderedPlaceHoderImage = null
@@ -105,7 +105,7 @@ class Image extends FitwidthMixin(Component) {
       renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
-    if(imageDescription) {
+    if(imageDescription && isToShowDescription) {
       descriptionBox =
         <div className={classNames(styles.imgDescription, 'text-center')}>
           {imageDescription}
@@ -129,6 +129,7 @@ class Image extends FitwidthMixin(Component) {
 Image.propTypes = {
   content: React.PropTypes.array,
   customeStyles: React.PropTypes.array,
+  isToShowDescription: React.PropTypes.bool,
   outerHeight: React.PropTypes.number,
   outerWidth: React.PropTypes.number
 }
@@ -136,6 +137,7 @@ Image.propTypes = {
 Image.defaultProps = {
   content: [],
   customeStyles: [],
+  isToShowDescription: true,
   outerHeight: 0,
   outerWidth: 0
 }

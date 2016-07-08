@@ -203,6 +203,7 @@ class Audio extends React.Component {
           }: {}}>
             <Image
               content = { [ coverPhoto ] }
+              isToShowDescription={false}
             />
           </div>
           <AudioController
