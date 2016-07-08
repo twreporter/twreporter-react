@@ -27,7 +27,7 @@ export default store => next => action => {
   let deferred = Promise.defer()
   // handle 401 and auth here
   let { method, path, types, params, tags } = request
-  const [ requestType, successType, failureType ] = types
+  const [ successType, failureType ] = types
 
   const callback = (err, res) => {
     if ( res && res.text ) {
