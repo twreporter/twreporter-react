@@ -37,6 +37,12 @@ class ImageDiff extends FitwidthMixin(Component) {
     if (super.componentDidMount) super.componentDidMount()
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (ReactDOM.findDOMNode(this)) {
+      this.fitToParentWidth()
+    }
+  }
+
   _renderFigure(imageObj, imgStyle) {
     if (_.get(imageObj, 'url')) {
       return (

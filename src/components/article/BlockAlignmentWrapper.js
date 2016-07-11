@@ -1,4 +1,5 @@
 'use strict'
+import classNames from 'classnames'
 import styles from './BlockAlignmentWrapper.scss'
 import React, { Component } from 'react'
 
@@ -14,10 +15,10 @@ export default function WrapComponent(WrappedComponent) {
     }
 
     render() {
-      const { alignment } = this.props
+      const { alignment, device } = this.props
 
       return (
-        <div className={styles[`align-${alignment}`]}>
+        <div className={classNames(styles[`align-${alignment}`], { [styles['mobile']]: device === 'mobile' ? true : false })}>
           <WrappedComponent
             content={this.props.content}
             customeStyles={this.props.customeStyles}

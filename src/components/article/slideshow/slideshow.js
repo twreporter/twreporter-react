@@ -11,7 +11,7 @@ import Thumbnails from './thumbnails'
 import React, { Component } from 'react' // eslint-disable-line
 import UI_SETTING from '../../../constants/ui-settings'
 
-export class Slideshow extends Component {
+class Slideshow extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -109,9 +109,8 @@ export class Slideshow extends Component {
 
 
   render() {
-    const { content } = this.props
+    const { content, device } = this.props
     const { currentIndex } = this.state
-    // let items = this._prepareItemsForImageGallery(content)
     let { slides, thumbnails } = this._parseContent(content)
 
     let description = _.get(content, [ currentIndex, 'description' ], '')
@@ -122,7 +121,7 @@ export class Slideshow extends Component {
 
     return (
       <div
-        className={classNames(styles['ss-container'], 'row')}
+        className={classNames(styles['ss-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}
         ref={i => this._slideshow = i}
       >
         <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>
@@ -169,3 +168,16 @@ export class Slideshow extends Component {
   }
 }
 
+Slideshow.propTypes = {
+  content: React.PropTypes.array.isRequired,
+  customStyles: React.PropTypes.array,
+  device: React.PropTypes.string
+}
+
+Slideshow.defaultProps = {
+  content: [],
+  customStyles: [],
+  device: ''
+}
+
+export { Slideshow }

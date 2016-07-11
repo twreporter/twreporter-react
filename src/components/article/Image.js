@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -5,6 +6,7 @@ import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import LazyLoad from 'react-lazy-load'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
@@ -34,6 +36,12 @@ class Image extends FitwidthMixin(Component) {
     })
 
     if (super.componentDidMount) super.componentDidMount()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (ReactDOM.findDOMNode(this)) {
+      this.fitToParentWidth()
+    }
   }
 
   _renderPlaceHoderImage(imageUrl, imgStyle) {

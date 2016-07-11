@@ -3,7 +3,20 @@
 @import '../../themes/font-mixins.scss';
 @import '../../themes/media-queries.scss';
 
-.infoBoxContainer {
+@include mq($max-width: $screen-xs-max) {
+  .infobox-text {
+    h4 {
+      font-size: rem(20);
+      line-height: 1.2;
+    }
+    >div {
+      font-size: rem(15);
+      line-height: 1.8;
+    }
+  }
+}
+
+.infobox-container {
   $logo-width: rem(23);
   $logo-height: rem(24);
   background-color: $white;
@@ -19,7 +32,7 @@
       margin-top: -($logo-height / 2);
   }
 
-  .infoBoxText {
+  .infobox-text {
     padding: rem(36) rem(24) 0 rem(24);
     h4 {
       color: $gray-15;
@@ -38,18 +51,11 @@
       width: 100%;
     }
   }
-}
 
-@include mq($max-width: $screen-xs-max) {
-  .infoBoxText {
-    h4 {
-      font-size: rem(20);
-      line-height: 1.2;
-    }
-
-    >div {
-      font-size: rem(15);
-      line-height: 1.8;
+  &.mobile {
+    .infobox-text {
+      @extend .infobox-text;
     }
   }
 }
+
