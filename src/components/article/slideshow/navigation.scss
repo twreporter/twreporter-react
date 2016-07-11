@@ -15,6 +15,10 @@
   left: 0;
   top: 0;
   bottom: 0;
+
+  &.disabled {
+    cursor: auto;
+  }
 }
 
 .ss-right-nav {
@@ -22,4 +26,8 @@
   right: 0;
   top: 0;
   bottom: 0;
+
+  &.disabled {
+    cursor: auto;
+  }
 }

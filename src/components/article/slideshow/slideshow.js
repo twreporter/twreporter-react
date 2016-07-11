@@ -144,6 +144,8 @@ export class Slideshow extends Component {
               <Navigation
                 onSlideLeft={this.slideLeft}
                 onSlideRight={this.slideRight}
+                isLeftNavDisabled={currentIndex === 0 ? true : false}
+                isRightNavDisabled={currentIndex === _.get(content, 'length', 0) - 1 ? true : false}
               />
               <div className={styles['ss-thumbnails']} style={{
                 width: thumbnailsWidth
