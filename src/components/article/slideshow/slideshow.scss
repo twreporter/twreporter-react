@@ -6,6 +6,10 @@
 .ss-container {
   overflow: hidden;
 
+  &.mobile {
+    width: 100%;
+  }
+
   .ss-slides {
     width: 100%;
   }

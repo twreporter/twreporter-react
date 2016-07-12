@@ -8,6 +8,10 @@
 
   background-color: $white;
 
+  &.mobile {
+    width: 100%;
+  }
+
   .audio-coverphoto {
     position: relative;
     width: 100%;
@@ -84,6 +88,8 @@
       font-size: rem(15px);
       line-height: 1.5;
       color: $gray-50;
+      // reset margin 
+      margin: 0;
     }
   }
 }

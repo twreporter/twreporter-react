@@ -6,14 +6,17 @@ import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 
-export const InfoBox = ({ content }) => {
+export const InfoBox = ({ content, device }) => {
   let infoBox = _.get(content, [ 0 ], {})
 
   return (
     <div className="row">
-      <div className={classNames('inner-max', 'center-block', styles.infoBoxContainer)}>
+      <div className={classNames('inner-max', 'center-block',
+        styles['infobox-container'],
+        { [styles['mobile']]: device === 'mobile' ? true : false }
+      )}>
         <img src={boxSvg} />
-        <div className={styles.infoBoxText}>
+        <div className={styles['infobox-text']}>
           <h4>
             {infoBox.title}
           </h4>

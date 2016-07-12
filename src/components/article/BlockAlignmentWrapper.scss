@@ -6,10 +6,15 @@
   margin-bottom: $twreporter-line-height;
 }
 
+.mobile {
+  width: 100%;
+  float: none;
+}
+
 .align-extend {
   @extend .align-wrapper;
   /* TBD needs to wait for mockup */
-  max-width: 1vw;
+  max-width: 100vw;
 }
 
 .align-left {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="33px" viewBox="0 0 18 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-arrow-right</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Tablet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Tablet-Portrait" transform="translate(-668.000000, -545.000000)" fill="#BFBFBF">
+            <path d="M669.057209,577.119841 C669.450437,577.502549 670.094883,577.495836 670.480778,577.120264 L685.39466,562.605346 C686.190121,561.831164 686.186811,560.572747 685.39466,559.801787 L670.480778,545.286869 C670.08779,544.904394 669.449769,544.905233 669.048324,545.29594 L668.325177,545.999741 C667.927042,546.387226 667.895033,547.046208 668.245688,547.462136 L678.567032,559.704766 C679.278306,560.548442 679.281718,561.912265 678.569837,562.75666 L668.270975,574.972624 C667.917512,575.391883 667.946478,576.038823 668.342976,576.424714 L669.057209,577.119841 Z" id="icon-arrow-right"></path>
+        </g>
+    </g>
+</svg>

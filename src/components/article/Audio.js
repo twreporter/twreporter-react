@@ -191,12 +191,12 @@ class Audio extends React.Component {
   }
 
   render() {
-    const { content } = this.props
+    const { content, device } = this.props
     const {  duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = _.get(content, 0, {})
 
     return (
-      <div className={classNames(styles['audio-container'], 'row')}>
+      <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
         <div className={styles['audio-coverphoto']} onClick={this.handleMouseClick} onMouseEnter={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseOut}>
           <div className={styles['audio-img-filter']} style={ isOncePlayed ? {
             opacity: 1
@@ -235,12 +235,14 @@ class Audio extends React.Component {
 
 Audio.propTypes = {
   content: React.PropTypes.array.isRequired,
-  customStyles: React.PropTypes.array
+  customStyles: React.PropTypes.array,
+  device: React.PropTypes.string
 }
 
 Audio.defaultProps = {
   content: [],
-  customStyles: []
+  customStyles: [],
+  device: ''
 }
 
 export { Audio }
