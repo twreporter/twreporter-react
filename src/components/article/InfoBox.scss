@@ -1,4 +1,4 @@
-@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
 @import '../../themes/font-mixins.scss';
 @import '../../themes/media-queries.scss';
@@ -33,22 +33,18 @@
   }
 
   .infobox-text {
-    padding: rem(36) rem(24) 0 rem(24);
+    padding: rem(36) rem(24) rem(24) rem(24);
     h4 {
       color: $gray-15;
       font-weight: bold;
       margin: 0;
       text-align: center;
+			margin-bottom: rem(23px)
     }
 
     >div {
       color: $gray-15;
       text-align: justify;
-    }
-    >div:after {
-      content: "";
-      display: inline-block;
-      width: 100%;
     }
   }
 

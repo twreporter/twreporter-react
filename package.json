@@ -136,6 +136,7 @@
     "react-swipeable": "^3.3.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
+    "react-youtube": "^7.0.1",
     "redux": "^3.5.2",
     "redux-logger": "^1.0.9",
     "redux-mock-store": "^1.0.2",

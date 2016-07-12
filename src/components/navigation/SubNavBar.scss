@@ -1,6 +1,6 @@
 @import '../../themes/variables.scss';
 $item-height: 32px;
-
+$red: $harley-davidson-orange;
 .outer {
   @include media(">bp1Width") {
     float: right;
@@ -86,7 +86,7 @@ $item-height: 32px;
     	height: 0;
     	border-top: 7px solid transparent;
     	border-bottom: 7px solid transparent;
-    	border-left: 7px solid $brand-primary;
+    	border-left: 7px solid $red;
       transition: opacity 0.5s ease-in;
       opacity: 0;
   	}

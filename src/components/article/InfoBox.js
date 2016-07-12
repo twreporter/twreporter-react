@@ -10,18 +10,15 @@ export const InfoBox = ({ content, device }) => {
   let infoBox = _.get(content, [ 0 ], {})
 
   return (
-    <div className="row">
-      <div className={classNames('inner-max', 'center-block',
-        styles['infobox-container'],
-        { [styles['mobile']]: device === 'mobile' ? true : false }
-      )}>
-        <img src={boxSvg} />
-        <div className={styles['infobox-text']}>
-          <h4>
-            {infoBox.title}
-          </h4>
-          <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
-        </div>
+    <div className={classNames(styles['infobox-container'],
+      { [styles['mobile']]: device === 'mobile' ? true : false }
+    )}>
+      <img src={boxSvg} />
+      <div className={styles['infobox-text']}>
+        <h4>
+          {infoBox.title}
+        </h4>
+        <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
       </div>
     </div>
   )
