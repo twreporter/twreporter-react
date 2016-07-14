@@ -94,14 +94,6 @@
   }
 }
 
-
-@include mq($min-width: $screen-sm-min) {
-  .audio-container {
-    width: $ss-ms-audio-width;
-    margin: 0 auto;
-  }
-}
-
 @include mq($max-width: $screen-xs-max) {
   .audio-container {
     width: 100vw;

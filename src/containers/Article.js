@@ -175,11 +175,9 @@ export default class Article extends Component {
             </div>
           </div>
 
-          <div className="row outer-max center-block">
-            <ArticleComponents.Body
-              data={bodyData}
-            />
-          </div>
+          <ArticleComponents.Body
+            data={bodyData}
+          />
 
           <div ref="progressEnding" className="inner-max center-block">
             <div className="row">

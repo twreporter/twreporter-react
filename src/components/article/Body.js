@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import classNames from 'classnames'
 import getArticleComponent from './getArticleComponent'
-// import styles from './Body.scss'
+import styles from './Body.scss'
 import React, { Component } from 'react'
 
 export class Body extends Component {
@@ -12,7 +12,7 @@ export class Body extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, customStyles } = this.props
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
         let type = ele.type
@@ -21,17 +21,25 @@ export class Body extends Component {
           return null
         }
         return (
-          <Component
+          <div
             key={ele.id}
-            alignment={ele.alignment}
-            content={ele.content}
-            customeStyles={ele.styles}
-            id={ele.id}
-          />
+            className={classNames(styles['component'], styles[type])}
+            style={_.get(customStyles, 'component', {})}
+          >
+            <Component
+              alignment={ele.alignment}
+              content={ele.content}
+              customStyles={ele.styles}
+              id={ele.id}
+            />
+          </div>
         )
       })
       return (
-        <div>
+        <div
+          className={styles['components']}
+          style={_.get(customStyles, 'components', {})}
+        >
           {Blocks}
         </div>
       )

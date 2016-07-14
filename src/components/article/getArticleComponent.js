@@ -21,8 +21,6 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'ordered-list':
     case 'unordered-list':
       return null
-    case 'blockquote':
-      return ArticleComps.AlignedBlockQuote
     case 'unstyled':
       return ArticleComps.Paragraph
     case 'slideshow':

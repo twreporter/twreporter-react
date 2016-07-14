@@ -33,14 +33,6 @@
   }
 }
 
-
-@include mq($min-width: $screen-sm-min) {
-  .ss-container {
-    margin: 0 auto;
-    width: $ss-ms-image-width;
-  }
-}
-
 @include mq($max-width: $screen-xs-max) {
   .ss-container {
     width: 100vw;

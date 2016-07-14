@@ -12,8 +12,7 @@
     height: auto;
 
     >img {
-      width: $ss-ms-image-width;
-      height: $ss-ms-image-height;
+      width: 100%;
       object-fit: cover;
     }
   }
