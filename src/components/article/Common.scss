@@ -3,35 +3,33 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
+$red: $harley-davidson-orange;
+
 // mobile
-.image-box {
-  position: relative;
+// inner component block
+.inner-block {
+  margin: 0 rem(24px) 0 rem(24px);
 }
 
-.img-absolute {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transition: opacity 1s linear;
+// Text
+.text-color {
+  color: $gray-15;
 }
 
-.img-placeholder-outer {
-  @extend .img-absolute;
-  overflow: hidden;
+.description-color {
+  color: $gray-50;
 }
 
-.img-placeholder {
-  filter: blur(50px);
-}
-
-.img-description {
+.text-link {
+  border-bottom: 2px solid;
+  border-color: $red;
 }
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
-  .img-description {
-    max-width: $tablet-small-width;
+  .inner-block {
+    display: block;
+    margin: 0 auto;
   }
 }
 

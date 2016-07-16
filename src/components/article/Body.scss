@@ -3,33 +3,36 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
-
 // mobile
 .components {
-  max-width: 100vw;
+  max-width: 100%;
 
   .component {
     margin: 0 0 rem(40px) 0;
-    width: 100vw;
+    width: 100%;
   }
 }
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .components {
-    max-width: 100vw;  
+    max-width: 100%; 
 
     .component {
       margin: 0 auto rem(40px) auto;
 
-      max-width: $tablet-inner-width;
+      max-width: $tablet-small-width;
+
+      &.audio, .infobox {
+        max-width: $tablet-medium-width;
+      }
 
       &.image, &.imageDiff, &.slideshow {
-        max-width: $tablet-outer-width;
+        max-width: $tablet-large-width;
       }
 
       &.youtube {
-        max-width: 100vw;
+        max-width: 100%;
       }
     }
   }

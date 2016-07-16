@@ -1,9 +1,10 @@
 'use strict'
 import _ from 'lodash'
+import commonStyles from './Common.scss'
 import classNames from 'classnames'
-// import styles from './Paragraph.scss'
+import styles from './Paragraph.scss'
 import React from 'react' // eslint-disable-next-line
 
 export const Paragraph = ({ content }) => {
-  return <div className={classNames('inner-max', 'center-block')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }} />
+  return <div className={classNames(styles.paragraph, commonStyles['inner-block'], commonStyles['text-color'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }} />
 }

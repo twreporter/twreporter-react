@@ -3,11 +3,14 @@
 
 @import './common-variables.scss';
 
+$red: $harley-davidson-orange;
+
 // html default styles 
 html {
   font-size: $font-size-base;
 }
 
+// Container width
 .container {
   line-height: $twreporter-line-height;
 }
@@ -23,10 +26,3 @@ html {
     max-width: $article-outer-width;
   }
 }
-
-.image-caption {
-  font-size: $font-size-small;
-  color: $caption-color;
-  border-top: 1px dotted;
-}
-

@@ -29,7 +29,7 @@
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .youtube-container {
     .description {
-      width: $tablet-inner-width;
+      width: $tablet-medium-width;
       margin: rem(16px) auto 0 auto;
     }
   }

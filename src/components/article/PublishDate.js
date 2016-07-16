@@ -1,8 +1,10 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { date2yyyymmdd } from '../../lib/date-transformer'
-import React, { Component } from 'react'
 import { FormattedDate } from 'react-intl'
+import React, { Component } from 'react'
+import commonStyles from './Common.scss'
+import classNames from 'classnames'
 import styles from './PublishDate.scss'
 
 export class PublishDate extends Component {
@@ -20,7 +22,7 @@ export class PublishDate extends Component {
   render() {
     const { date } = this.props
     const dateTime = new Date(date)
-    let fDate = date2yyyymmdd(date, '/')
+    let fDate = date2yyyymmdd(date, '.')
 
     // avoid the server-side rendered date being inconsistent with the client-side results rendered by react-intl
     if(this.state.isLoaded) {
@@ -28,7 +30,7 @@ export class PublishDate extends Component {
     }
 
     return (
-      <div className={styles.publishDate}>
+      <div className={classNames(styles['publish-date'], commonStyles['description-color'])}>
         {fDate}
       </div>
     )

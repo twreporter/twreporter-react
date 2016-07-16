@@ -3,6 +3,7 @@
 import { Image } from './Image'
 import _ from 'lodash'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import CircleProgressButton from './CircleProgressButton'
@@ -217,7 +218,7 @@ class Audio extends React.Component {
           />
         </div>
         <div className={styles['audio-info-container']}>
-          <h4>{title}</h4>
+          <h4 className={classNames('text-center', commonStyles['text-color'])}>{title}</h4>
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <Player

@@ -2,6 +2,8 @@
 'use strict'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import styles from './HeadingAuthor.scss'
 
 export class HeadingAuthor extends Component {
@@ -11,7 +13,7 @@ export class HeadingAuthor extends Component {
 
   _formatAuthor(authors) {
     const authorTypes = {
-      'writter': '文',
+      'writter': '採訪',
       'photographer': '攝影',
       'designer': '設計',
       'engineer': '工程'
@@ -41,9 +43,12 @@ export class HeadingAuthor extends Component {
     const formattedAuthor = this._formatAuthor(authors)
     let count = 0
     const authorRows = _.map(formattedAuthor, author =>
-      <span key={count++} className={styles.authorItem}>
-        {author.type} | {author.list}
-      </span>
+      <div key={count++} className={classNames(styles['author-item'], commonStyles['text-color'])}>
+        <span>{author.type} </span>
+        <span className={commonStyles['text-link']}>
+          <a href="">{author.list}</a>
+        </span>
+      </div>
     )
 
     return (

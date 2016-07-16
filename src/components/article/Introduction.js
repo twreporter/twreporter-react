@@ -2,6 +2,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import styles from './Introduction.scss'
 import React, { Component } from 'react'
 
@@ -14,7 +15,7 @@ export const Introduction = ({ data }) => {
 
   if (content.length > 0) {
     return (
-      <div className={classNames('inner-max', 'center-block', styles.introContainer)}>
+      <div className={classNames(styles['intro-container'], 'text-justify', commonStyles['text-color'])}>
         {content}
       </div>
     )

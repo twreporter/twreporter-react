@@ -9,6 +9,7 @@ import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import * as page from '../constants/page-types'
 import classNames from 'classnames'
+import commonStyles from '../components/article/Common.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -136,43 +137,36 @@ export default class Article extends Component {
     let copyright = _.get(article, [ 'copyright' ], [])
 
     return (
-      <div className={styles.article}>
-        <div ref="articleContainer">
-          <div className={classNames('row', styles.titleRow, 'outer-max', 'center-block')}>
-            <div className="col-md-12 text-center">
-              <hgroup>
-                <h1>{article.title}</h1>
-              </hgroup>
-            </div>
+      <div>
+        <div className={styles['article-container']}>
+          <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+            <hgroup>
+              <h1 className={classNames('text-center')}>{article.title}</h1>
+            </hgroup>
           </div>
 
-          <div className="row outer-max center-block">
-            <div className="col-md-10 text-left">
-              <ArticleComponents.HeadingAuthor
-                authors={authors}
-              />
-            </div>
-            <div ref="progressBegin" className="col-md-2 text-right">
-              <ArticleComponents.PublishDate
-                date={article.publishedDate}
-              />
-            </div>
-            <div className="col-md-12">
-              <ArticleComponents.Introduction
-                data={introData}
-              />
-            </div>
+          <div ref="progressBegin" className={classNames('text-center', styles['article-meta'])}>
+            <ArticleComponents.HeadingAuthor
+              authors={authors}
+            />
+            <ArticleComponents.PublishDate
+              date={article.publishedDate}
+            />
           </div>
 
-          <div className="row centrer-block">
-            <div className="col-md-12">
-              <ArticleComponents.LeadingImage
-                size={heroImageSize}
-                image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
-                id={_.get(heroImage, 'id')}
-                description={_.get(heroImage, 'description' )}
-              />
-            </div>
+          <div className={styles['leading-img']}>
+            <ArticleComponents.LeadingImage
+              size={heroImageSize}
+              image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+              id={_.get(heroImage, 'id')}
+              description={_.get(heroImage, 'description' )}
+            />
+          </div>
+
+          <div className={styles.introduction}>
+            <ArticleComponents.Introduction
+              data={introData}
+            />
           </div>
 
           <ArticleComponents.Body

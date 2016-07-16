@@ -17,8 +17,6 @@ $red: $harley-davidson-orange;
   .block-quotation {
     font-size: rem(24px);
     line-height: 1.5;
-    color: $gray-15;
-    text-align: justify;
     font-weight: 700;
   }
 
@@ -26,8 +24,6 @@ $red: $harley-davidson-orange;
     margin-top: rem(50px);
     font-size: rem(15px);
     line-height: 1.5;
-    text-align: center;
-    color: $gray-50;
     position: relative;
 
     &::before {

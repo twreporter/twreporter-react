@@ -77,8 +77,6 @@
 
     >h4 {
       font-size: rem(20px);
-      color: $gray-15;
-      text-align: center;
       line-height: 1.2;
       font-weight: bold;
       margin-bottom: rem(24px);
@@ -96,6 +94,6 @@
 
 @include mq($max-width: $screen-xs-max) {
   .audio-container {
-    width: 100vw;
+    width: 100%;
   }
 }

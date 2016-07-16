@@ -1,12 +1,57 @@
-@import '../themes/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/common-variables.scss';
+@import '../themes/media-queries.scss';
+@import '../themes/font-mixins.scss';
 
-.article {
-  background-color: $article-gray;
+// mobile
+.article-container {
+
+  background-color: $gray-97;
   min-height: 20em;
+  padding-top: 68px;
+
+  .title-row {
+    margin-bottom: rem(24px);
+    h1 {
+      font-weight: 900;
+    }
+  }
+
+  .article-meta {
+    margin-bottom: rem(40px);
+
+    >div:first-child {
+      margin-bottom: rem(8px);
+    }
+  }
+
+  .leading-img {
+    margin-bottom: rem(40px);
+  }
+
+  .introduction {
+    margin: 0 rem(24px) rem(65px) rem(24px);
+  }
+
 }
 
-.titleRow {
-  border-bottom: 2px solid $gray-border-color;
-  padding-bottom: 1.45em;
-  margin-bottom: 0.65em;
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .article-container {
+    .title-row {
+      width: $tablet-small-width;
+    }
+
+    .article-meta {
+      margin-bottom: rem(49px);
+      >div:first-child {
+        margin-bottom: rem(25px);
+      }
+    }
+  }
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
 }

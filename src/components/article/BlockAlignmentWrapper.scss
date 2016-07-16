@@ -1,45 +1,68 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import "../../themes/media-queries.scss";
 @import "../../themes/common-variables.scss";
+@import "../../themes/font-mixins.scss";
 
-.align-wrapper {
-  margin-bottom: $twreporter-line-height;
-}
+.align-extend, .align-center, .align-right, .align-left {
 
-.mobile {
   width: 100%;
-  float: none;
-}
 
-.align-extend {
-  @extend .align-wrapper;
-  /* TBD needs to wait for mockup */
-  max-width: 100vw;
-}
-
-.align-left {
-  @extend .align-wrapper;
-  /* TBD needs to wait for mockup */
-  width: 300px;
-  float: left;
-  margin-right: 40px;
-}
-
-.align-right {
-  @extend .align-wrapper;
-  /* TBD needs to wait for mockup */
-  width: 300px;
-  float: right;
-  margin-left: 40px;
-}
-
-.align-center {
-  width: 100%;
-}
-
-@include mq($max-width: $screen-sm-max) {
-  .align-left, .align-right {
+  &.mobile {
     width: 100%;
     float: none;
+	margin-left: 0;
+	margin-right: 0;
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  $aligned-width: 364px;
+  $tablet-width: 768px;
+  $inner-margin: 20px;
+  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
+
+  .align-left {
+    width: $aligned-width;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    width: $aligned-width;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
+  }
+}
+
+// desktop. wait for spec. temporarily use tablet styles
+@include mq($min-width: $screen-md-min) {
+  $aligned-width: 364px;
+  $tablet-width: 768px;
+  $inner-margin: 20px;
+  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
+
+  .align-left {
+    width: $aligned-width;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    width: $aligned-width;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
   }
 }

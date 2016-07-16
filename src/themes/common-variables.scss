@@ -1,7 +1,6 @@
 // TWReporter's custom variable
 $twreporter-line-height: 1.8em;
 $subnav-background: #3E3A39;
-$article-gray: #F7F7F7;
 $gray-text1: #4D4D4D;
 $white: #ffffff;
 $black: #000;
@@ -11,10 +10,6 @@ $text-color: #333;
 $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
-
-
-$article-inner-width: 712px;
-$article-outer-width: 900px;
 
 // == Typography
 // ## Font
@@ -28,18 +23,25 @@ $caption-color: #242423;
 
 $z-index-widget: 1000000010;
 
-// colors
-// gray
+// == Colors
+// ## gray
 $gray-15: #262626;
 $gray-40: #666666;
 $gray-50: #808080;
+$gray-97: #F7F7F7;
+$white-smoke: #F7F7F7;
 
-// orange
+// ## orange
 $harley-davidson-orange: #c71b0a;
 
-// white
+// ## white
 $white: #FFF;
 
-// WIDTH 
-$tablet-inner-width: 532px;
-$tablet-outer-width: 644px;
+// == Layout 
+// ## width
+$article-inner-width: 712px;
+$article-outer-width: 900px;
+
+$tablet-small-width: 492px;
+$tablet-medium-width: 532px;
+$tablet-large-width: 644px;

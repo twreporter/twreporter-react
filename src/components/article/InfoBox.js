@@ -1,6 +1,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import boxSvg from '../../../static/asset/infobox-logo.svg'
 import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
@@ -15,10 +16,10 @@ export const InfoBox = ({ content, device }) => {
     )}>
       <img src={boxSvg} />
       <div className={styles['infobox-text']}>
-        <h4>
+        <h4 className={classNames(commonStyles['text-color'], 'text-center')}>
           {infoBox.title}
         </h4>
-        <div dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+        <div className={classNames(commonStyles['text-color'], 'text-justify')} dangerouslySetInnerHTML={{ __html: infoBox.body }} />
       </div>
     </div>
   )

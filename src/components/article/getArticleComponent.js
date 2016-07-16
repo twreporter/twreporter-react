@@ -7,7 +7,7 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'audio':
       return ArticleComps.Audio
     case 'blockQuote':
-      return ArticleComps.BlockQuote
+      return ArticleComps.AlignedBlockQuote
     case 'code':
       return null
     case 'embeddedCode':

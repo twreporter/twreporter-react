@@ -3,19 +3,6 @@
 @import '../../themes/font-mixins.scss';
 @import '../../themes/media-queries.scss';
 
-@include mq($max-width: $screen-xs-max) {
-  .infobox-text {
-    h4 {
-      font-size: rem(20);
-      line-height: 1.2;
-    }
-    >div {
-      font-size: rem(15);
-      line-height: 1.8;
-    }
-  }
-}
-
 .infobox-container {
   $logo-width: rem(23);
   $logo-height: rem(24);
@@ -35,16 +22,16 @@
   .infobox-text {
     padding: rem(36) rem(24) rem(24) rem(24);
     h4 {
-      color: $gray-15;
+      font-size: rem(20px);
+      line-height: 1.2;
       font-weight: bold;
       margin: 0;
-      text-align: center;
 			margin-bottom: rem(23px)
     }
 
     >div {
-      color: $gray-15;
-      text-align: justify;
+      font-size: rem(15px);
+      line-height: 1.8;
     }
   }
 
@@ -55,3 +42,11 @@
   }
 }
 
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}
