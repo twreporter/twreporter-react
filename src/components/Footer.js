@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { donatePath } from '../lib/constants'
+import { donatePath } from '../constants/index'
 
 if (process.env.BROWSER) {
   require('./Footer.css')

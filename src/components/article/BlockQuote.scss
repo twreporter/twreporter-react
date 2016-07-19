@@ -1,4 +1,43 @@
-.BlockQuoteContainer {
-  padding: 25px 50px 25px 50px;
-  background-color: #FFF;
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+@include mq($min-width: $screen-sm-min) {
 }
+
+@include mq($max-width: $screen-xs-max) {
+}
+
+$red: $harley-davidson-orange;
+.block-quotation-container {
+  background-color: $white;
+  padding: rem(24px) rem(24px) rem(24px) rem(24px);
+
+  .block-quotation {
+    font-size: rem(24px);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .block-quotation-by {
+    margin-top: rem(50px);
+    font-size: rem(15px);
+    line-height: 1.5;
+    position: relative;
+
+    &::before {
+      content: "";
+      color: $red;
+      width: rem(24px);
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: rem(-24px);
+      border-top: 1px solid;
+      position: absolute;
+    }
+  }
+}
+
+

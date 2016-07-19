@@ -1,6 +1,10 @@
 @import '../../themes/variables';
 
-.authorItem {
-  color: $gray-text1;
+.author-item {
   padding-right: 2rem;
+  display: inline-block;
+
+  &:last-child {
+    padding-right: 0;
+  }
 }

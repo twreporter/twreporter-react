@@ -2,6 +2,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
 import LazyLoad from 'react-lazy-load'
@@ -139,7 +140,7 @@ class Slideshow extends Component {
                 width={this.state.slideshowWidth}
               />
             </div>
-            <div className={styles['ss-more-images']}>
+            <div className={classNames(styles['ss-more-images'], commonStyles['inner-block'])}>
               <Navigation
                 onSlideLeft={this.slideLeft}
                 onSlideRight={this.slideRight}
@@ -158,7 +159,7 @@ class Slideshow extends Component {
               />
             </div>
           </div>
-          <div className={classNames(styles['ss-description'], 'inner-max', 'center-block')}>
+          <div className={classNames(styles['ss-description'], 'text-justify', commonStyles['description-color'], commonStyles['inner-block'])}>
             <span>{description}</span>
           </div>
         </div>

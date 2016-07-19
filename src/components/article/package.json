@@ -1,6 +1,6 @@
 {
   "name": "react-article-components",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Article Components for Rendering Article Page of The Reporter Site in Taiwan",
   "scripts": {
     "clean": "../../../node_modules/.bin/rimraf src",

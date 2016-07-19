@@ -6,6 +6,8 @@ export default function getArticleComponent(type = 'unstyled') {
   switch (type) {
     case 'audio':
       return ArticleComps.Audio
+    case 'blockQuote':
+      return ArticleComps.AlignedBlockQuote
     case 'code':
       return null
     case 'embeddedCode':
@@ -19,11 +21,13 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'ordered-list':
     case 'unordered-list':
       return null
-    case 'blockquote':
-      return ArticleComps.AlignedBlockQuote
     case 'unstyled':
       return ArticleComps.Paragraph
     case 'slideshow':
       return ArticleComps.Slideshow
+    case 'youtube':
+      return ArticleComps.AlignedYoutube
+    default:
+      return
   }
 }

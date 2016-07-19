@@ -1,15 +1,6 @@
-$red: #c71b0a;
-$brand-primary: $red;
-$brand-secondary: #e25139;
-$brand-success: #5cb85c;
-$brand-warning: #f0ad4e;
-$brand-danger: #d9534f;
-$brand-info: #5bc0de;
-
 // TWReporter's custom variable
 $twreporter-line-height: 1.8em;
 $subnav-background: #3E3A39;
-$article-gray: #F7F7F7;
 $gray-text1: #4D4D4D;
 $white: #ffffff;
 $black: #000;
@@ -20,30 +11,37 @@ $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
 
-$font-size-base: 18px;
-$font-family-sans-serif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif !default;
+// == Typography
+// ## Font
 $font-date-serif: "Times New Roman", serif;
-
-$line-height-base: 1.667 !default; // 30/18
-
-$article-inner-width: 712px;
-$article-outer-width: 900px;
+$font-size-base: 18px;
+$font-size-large: 24px;
+$font-size-xsmall: 14px;
 
 // caption of image
 $caption-color: #242423;
 
 $z-index-widget: 1000000010;
 
-// colors
+// == Colors
+// ## gray
 $gray-15: #262626;
 $gray-40: #666666;
 $gray-50: #808080;
+$gray-97: #F7F7F7;
+$white-smoke: #F7F7F7;
+
+// ## orange
+$harley-davidson-orange: #c71b0a;
+
+// ## white
 $white: #FFF;
 
-// audio
-$ss-ms-audio-width: 530px;
+// == Layout 
+// ## width
+$article-inner-width: 712px;
+$article-outer-width: 900px;
 
-// slideshow
-$ss-ms-image-width: 645px;
-$ss-ms-image-height: 430px;
-
+$tablet-small-width: 492px;
+$tablet-medium-width: 532px;
+$tablet-large-width: 644px;

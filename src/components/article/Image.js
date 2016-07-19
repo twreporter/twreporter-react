@@ -2,6 +2,7 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../lib/screen-type'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
@@ -49,9 +50,9 @@ class Image extends FitwidthMixin(Component) {
       return (
         <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}
           onContentVisible={() => this.setState({ placeholderOpacity: 1 })}
-          className={styles.imgPlaceholderOuter}
+          className={styles['img-placeholder-outer']}
           style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
-          <img src={ imageUrl } className={classNames('center-block', styles.imgPlaceHolder)} style={imgStyle} />
+          <img src={ imageUrl } className={classNames('center-block', styles['img-placeholder'])} style={imgStyle} />
         </LazyLoad>
       )
     }
@@ -65,10 +66,9 @@ class Image extends FitwidthMixin(Component) {
           <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
             <img src={ imageObj.url }
               style={ { ...imgStyle, opacity: this.state.imageOpacity } }
-              className={classNames('center-block', styles.imgAbsolute)}
+              className={classNames('center-block', styles['img-absolute'])}
             />
           </LazyLoad>
-          { imageObj.description ? <figcaption className="image-caption" style={{ paddingTop: '1rem' }}>{ imageObj.description }</figcaption> : null}
         </figure>
       )
     }
@@ -115,13 +115,16 @@ class Image extends FitwidthMixin(Component) {
 
     if(imageDescription && isToShowDescription) {
       descriptionBox =
-        <div className={classNames(styles.imgDescription, 'text-center')}>
+        <div
+          className={classNames(styles['img-description'], commonStyles['inner-block'], commonStyles['description-color'], 'text-justify')}
+          style={{ marginTop: '16px' }}
+        >
           {imageDescription}
         </div>
     }
 
     return (
-      <div ref="imageBox" className={styles.imageBox}>
+      <div ref="imageBox" className={styles['image-box']}>
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}

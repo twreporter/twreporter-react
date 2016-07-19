@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { subnavPath } from '../../lib/constants'
+import { subnavPath } from '../../constants/index'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')

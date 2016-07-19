@@ -1,0 +1,15 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+.paragraph {
+  font-size: $font-size-base;
+  font-weight: 500;
+  line-height: 1.7;
+
+  a {
+    border-bottom: 2px red solid;
+    cursor: pointer;
+  }
+}

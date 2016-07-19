@@ -33,9 +33,10 @@ class LeadingImage extends React.Component {
     }
 
     return (
-      <div className={classNames('center-block', styles[leadingImgClass])}>
+      <div className={styles[leadingImgClass]}>
         <Image
           content={ [ _.assign({}, image, { id: id, description: description }) ] }
+          isToShowDescription={false}
         />
       </div>
     )

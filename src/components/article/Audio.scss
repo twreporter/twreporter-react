@@ -1,4 +1,4 @@
-@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
@@ -77,8 +77,6 @@
 
     >h4 {
       font-size: rem(20px);
-      color: $gray-15;
-      text-align: center;
       line-height: 1.2;
       font-weight: bold;
       margin-bottom: rem(24px);
@@ -94,16 +92,8 @@
   }
 }
 
-
-@include mq($min-width: $screen-sm-min) {
-  .audio-container {
-    width: $ss-ms-audio-width;
-    margin: 0 auto;
-  }
-}
-
 @include mq($max-width: $screen-xs-max) {
   .audio-container {
-    width: 100vw;
+    width: 100%;
   }
 }

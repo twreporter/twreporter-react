@@ -1,9 +1,10 @@
-@import '../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../../themes/common-variables.scss';
 @import '../../../themes/font-mixins.scss';
 @import '../../../themes/media-queries.scss';
 
 .ss-container {
+  width: 100%;
   overflow: hidden;
 
   &.mobile {
@@ -16,7 +17,6 @@
 
   .ss-more-images {
     position: relative;
-    margin: 0 rem(24px) 0 rem(24px);
   }
 
   .ss-thumbnails {
@@ -25,24 +25,22 @@
   }
 
   .ss-description {
-    color: $gray-50;
     font-size: rem(15px);
     line-height: 1.5;
-    margin: rem(22px) rem(24px) rem(38px) rem(24px);
-    text-align: justify;
+    margin-top: rem(22px);
   }
 }
 
-
-@include mq($min-width: $screen-sm-min) {
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .ss-container {
-    margin: 0 auto;
-    width: $ss-ms-image-width;
+    .ss-description {
+      margin: rem(15px) auto 0 auto;
+      max-width: $tablet-small-width;
+    }
   }
 }
 
-@include mq($max-width: $screen-xs-max) {
-  .ss-container {
-    width: 100vw;
-  }
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
 }

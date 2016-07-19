@@ -1,20 +1,46 @@
-@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
 
-.bodyContainer {
-  max-width: 900px;  
-}
+// mobile
+.components {
+  max-width: 100%;
 
-@include mq($max-width: $screen-sm-max) {
-  .bodyContainer {
-    /* TBD */
-    max-width: 600px;  
+  .component {
+    margin: 0 0 rem(40px) 0;
+    width: 100%;
   }
 }
 
-@include mq($max-width: $screen-xs-max) {
-  .bodyContainer {
-    /* TBD */
-    max-width: 400px;  
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .components {
+    max-width: 100%; 
+
+    .component {
+      margin: 0 auto rem(40px) auto;
+
+      max-width: $tablet-small-width;
+
+      &.audio, .infobox {
+        max-width: $tablet-medium-width;
+      }
+
+      &.image, &.imageDiff, &.slideshow {
+        max-width: $tablet-large-width;
+      }
+
+      &.youtube {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+  .components {
+    max-width: 900px;  
   }
 }

@@ -1,19 +1,45 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins';
-@import '../../themes/pre-bootstrap-customization';
 
-$quoteMargin: rem(25px);
-$quoteTextColor: $gray-15;
-$quoteWidth: rem(30px);
+$red: $harley-davidson-orange;
+$red-line-distance: 40px;
 
-.introContainer {
+.intro-container {
   position: relative;
-  margin-top: rem(90px);
-  margin-bottom: rem(90px);
   font-size: $font-size-large;
-  color: $quoteTextColor;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: rem($red-line-distance);
 
-  >img {
-    max-width: $quoteWidth;
+  &::after {
+    content: "";
+    color: $red;
+    width: rem(24px);
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: rem(-$red-line-distance);
+    border-top: 2px solid;
+    position: absolute;
   }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  $red-line-distance: 24px;
+
+  .intro-container {
+    width: $tablet-small-width;
+    margin: 0 auto rem($red-line-distance) auto;
+
+    &::after {
+      bottom: rem(-$red-line-distance);
+    }
+  }
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
 }
