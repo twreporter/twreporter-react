@@ -1,8 +1,7 @@
-import { appId, donatePath, colors } from '../../lib/constants'
+import { ARTICLE, appId, donatePath, colors } from '../../constants/index'
 import { getAbsPath } from '../../lib/url-transformer'
 import { FacebookButton, TwitterButton } from 'react-social'
 import { Link } from 'react-router'
-import * as page from '../../constants/page-types'
 import classNames from 'classnames'
 import donateIcon from '../../../static/asset/donate.svg'
 import fbIcon from '../../../static/asset/fb.svg'
@@ -92,7 +91,7 @@ export default class DesktopNavBar extends Component {
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
-    if (isScrolledOver && header.pageType === page.ARTICLE) {
+    if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
     }
 

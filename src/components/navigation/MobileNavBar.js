@@ -1,8 +1,8 @@
 import { appId, getAbsPath } from '../../lib/url-transformer'
 import { FacebookButton, TwitterButton } from 'react-social'
 import { Link } from 'react-router'
-import { navPath, colors } from '../../lib/constants'
-import * as page from '../../constants/page-types'
+import { navPath, colors } from '../../constants/index'
+import { ARTICLE } from '../../constants/index'
 import classNames from 'classnames'
 import fbIcon from '../../../static/asset/fb.svg'
 import logoIcon from '../../../static/asset/logo-mobile.svg'
@@ -109,7 +109,7 @@ export default class MobileNavBar extends Component {
     let searchBox = <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
     let menuBar = this._renderAritcleFirst(burgerMenu, navLogo, searchBox)
 
-    if (isScrolledOver && header.pageType === page.ARTICLE) {
+    if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, searchBox, cUrl)
     }
 

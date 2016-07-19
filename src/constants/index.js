@@ -1,3 +1,59 @@
 'use strict'
 export * from './action-types'
-export * from './enum'
+
+export const groupEnum = {
+  CATEGORY: 'category',
+  TAG: 'tag'
+}
+export const pathEnum = {
+  CATEGORY: 'postcategories',
+  TAG: 'tags'
+}
+
+export const authorTypes = {
+  writter: '採訪',
+  photographer: '攝影',
+  designer: '設計',
+  engineer: '工程'
+}
+
+export const ARTICLE = 'ARTICLE'
+
+export const HOME = 'HOME'
+
+export const CATEGORY = 'CATEGORY'
+
+export const basePath = 'https://www.twreporter.org'
+
+export const appId = 962589903815787
+
+export const donatePath = 'https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718'
+
+export const categoryPath = {
+  taiwanPath: '/category/taiwan',
+  reviewPath: '/category/review',
+  photographyPath: '/photography',
+  intlPath: '/category/intl',
+  culturePath: '/category/culture'
+}
+
+export const navPath = [
+  { title: '台灣', path: '/category/taiwan' },
+  { title: '國際兩岸', path:'/category/intl' },
+  { title: '文化', path:'/category/culture' },
+  { title: '影像', path:'/photography' },
+  { title: '專欄', path:'/category/review' }
+]
+
+export const subnavPath = [
+  { title: '轉型正義', path:'/a/transitional-justice-content' },
+  { title: '0206地震', path:'/a/0206earthquake-content' },
+  { title: '亞洲森林浩劫', path:'/a/asia-forest-content' },
+  { title: '五輕關廠', path:'/a/refinery-content' },
+  { title: '急診人生', path:'/a/emergency-content' }
+]
+
+export const colors = {
+  whiteBg: '#F7F8F8',
+  darkBg: '#3e3a39'
+}

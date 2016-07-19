@@ -1,5 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
+import { authorTypes } from '../../constants/index'
 import React, { Component } from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -12,12 +13,6 @@ export class HeadingAuthor extends Component {
   }
 
   _formatAuthor(authors) {
-    const authorTypes = {
-      'writter': '採訪',
-      'photographer': '攝影',
-      'designer': '設計',
-      'engineer': '工程'
-    }
     const authorSeparator = '、'
     let retAuthor = []
     // organize the header author list by types

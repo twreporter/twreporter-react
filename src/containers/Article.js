@@ -7,7 +7,7 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
-import * as page from '../constants/page-types'
+import { ARTICLE } from '../constants/index'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import Footer from '../components/Footer'
@@ -34,7 +34,7 @@ export default class Article extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageType(page.ARTICLE)
+    this.props.setPageType(ARTICLE)
     this._setArticleBounding()
     window.addEventListener('resize', this._setArticleBounding)
 
