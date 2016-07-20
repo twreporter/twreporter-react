@@ -41,6 +41,8 @@
 // desktop. wait for spec
 @include mq($min-width: $screen-md-min) {
   .components {
-    max-width: 900px;  
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

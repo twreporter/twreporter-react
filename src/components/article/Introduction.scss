@@ -9,7 +9,7 @@ $red-line-distance: 40px;
 .intro-container {
   position: relative;
   font-size: $font-size-large;
-  font-weight: 700;
+  font-weight: $font-weight-bold;
   line-height: 1.5;
   margin-bottom: rem($red-line-distance);
 
