@@ -34,7 +34,7 @@ export class HeadingAuthor extends Component {
   }
 
   render() {
-    const { authors } = this.props
+    const { authors, extendByline } = this.props
     const formattedAuthor = this._formatAuthor(authors)
     let count = 0
     const authorRows = _.map(formattedAuthor, author =>
@@ -49,6 +49,7 @@ export class HeadingAuthor extends Component {
     return (
       <div>
         { authorRows }
+        <span>{extendByline}</span>
       </div>
     )
   }

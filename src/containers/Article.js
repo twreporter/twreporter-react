@@ -148,6 +148,7 @@ export default class Article extends Component {
           <div ref="progressBegin" className={classNames('text-center', styles['article-meta'])}>
             <ArticleComponents.HeadingAuthor
               authors={authors}
+              extendByline={_.get(article, 'extendByline')}
             />
             <ArticleComponents.PublishDate
               date={article.publishedDate}
