@@ -25,7 +25,7 @@ export class PublishDate extends Component {
     let fDate = date2yyyymmdd(date, '.')
 
     // avoid the server-side rendered date being inconsistent with the client-side results rendered by react-intl
-    if(this.state.isLoaded) {
+    if(this.state.isMounted) {
       fDate = <FormattedDate value={ dateTime } day="numeric" month="numeric" year="numeric" />
     }
 
