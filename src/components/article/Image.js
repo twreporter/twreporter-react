@@ -116,7 +116,7 @@ class Image extends FitwidthMixin(Component) {
     if(imageDescription && isToShowDescription) {
       descriptionBox =
         <div
-          className={classNames(styles['img-description'], commonStyles['inner-block'], commonStyles['description-color'], 'text-justify')}
+          className={classNames(styles['img-description'], commonStyles['inner-block'], commonStyles['desc-text-block'], 'text-justify')}
           style={{ marginTop: '16px' }}
         >
           {imageDescription}

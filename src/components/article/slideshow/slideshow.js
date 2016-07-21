@@ -159,7 +159,7 @@ class Slideshow extends Component {
               />
             </div>
           </div>
-          <div className={classNames(styles['ss-description'], 'text-justify', commonStyles['description-color'], commonStyles['inner-block'])}>
+          <div className={classNames(styles['ss-description'], 'text-justify', commonStyles['desc-text-block'], commonStyles['inner-block'])}>
             <span>{description}</span>
           </div>
         </div>

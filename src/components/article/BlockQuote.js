@@ -20,7 +20,7 @@ export const BlockQuote = ({ content, device }) => {
         {quote}
       </div>
       { quoteBy ?
-        <div className={classNames(styles['block-quotation-by'], 'text-center', commonStyles['description-color'])}>
+        <div className={classNames(styles['block-quotation-by'], 'text-center', commonStyles['desc-text-block'])}>
           {quoteBy}
         </div>
         : null

@@ -30,7 +30,7 @@ export class PublishDate extends Component {
     }
 
     return (
-      <div className={classNames(styles['publish-date'], commonStyles['description-color'])}>
+      <div className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
         {fDate}
       </div>
     )
