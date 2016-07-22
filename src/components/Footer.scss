@@ -1,0 +1,31 @@
+@import '../themes/common-variables.scss';
+@import '../themes/font-mixins.scss';
+
+.footer {
+  background: $light-gray;
+
+    .logo {
+      width: rem(202px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cc-image {
+      width: rem(68px);
+    }
+
+    .cc-license {
+      color: $gray-50;
+
+      p {
+        color: $gray-50;
+        font-size: $font-size-tiny;
+      }
+    }
+
+    .social-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+}
