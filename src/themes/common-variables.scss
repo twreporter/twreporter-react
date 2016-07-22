@@ -2,10 +2,8 @@
 $twreporter-line-height: 1.8em;
 $subnav-background: #3E3A39;
 $gray-text1: #4D4D4D;
-$white: #ffffff;
 $black: #000;
 $gray: #898989;
-$light-gray: #F1F1F1;
 $text-color: #333;
 $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
@@ -33,13 +31,18 @@ $gray-15: #262626;
 $gray-40: #666666;
 $gray-50: #808080;
 $gray-97: #F7F7F7;
-$white-smoke: #F7F7F7;
+$light-gray: #F1F1F1;
 
 // ## orange
 $harley-davidson-orange: #c71b0a;
 
 // ## white
 $white: #FFF;
+
+
+// ## Global color settings
+$primary-color: $harley-davidson-orange;
+
 
 // == Layout 
 // ## width
