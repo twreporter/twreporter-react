@@ -1,5 +1,7 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../themes/common-variables.scss';
 @import '../themes/font-mixins.scss';
+@import '../themes/media-queries.scss';
 
 .footer {
   background: $light-gray;
@@ -18,8 +20,36 @@
       color: $gray-50;
 
       p {
+        margin-top: rem(2px);
         color: $gray-50;
         font-size: $font-size-tiny;
+      }
+    }
+
+    .logo-container {
+      margin-bottom: rem(24px);
+
+      @include mq($min-width: $screen-sm-min) {
+        margin-bottom: rem(30px);
+      }
+    }
+
+    .us-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: rem(20px);
+
+      .support {
+        color: $harley-davidson-orange;
+
+        a:link {
+          color: $harley-davidson-orange;
+        }
+
+        a:visited {
+          color: $harley-davidson-orange;
+        }
       }
     }
 
@@ -27,5 +57,30 @@
       display: flex;
       flex-direction: row;
       justify-content: space-around;
+      margin-bottom: rem(10px);
+
+      @include mq($min-width: $screen-sm-min) {
+        margin-left: 15%;
+        margin-right: 15%;
+      }
+
+      .item {
+        margin: 0.5rem;
+        
+        img {
+          width: rem(26px);
+          transition: all 0.3s ease-in-out;
+          
+          @include mq($max-width: $screen-xs-max) {
+            width: rem(24px);
+          }
+        }
+
+        &:hover {
+          img {
+            transform: translateY(-20%);
+          }
+        }
+      }
     }
 }
