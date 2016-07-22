@@ -1,9 +1,13 @@
+import { copyrightTypes, donatePath } from '../constants/index'
+import classNames from 'classnames'
+import logoFB from '../../static/asset/icon-facebook.svg'
+import logoGithub from '../../static/asset/icon-github.svg'
+import logoIcon from '../../static/asset/logo-mobile.svg'
+import logoIG from '../../static/asset/icon-instagram.svg'
+import logoLine from '../../static/asset/icon-line.svg'
+import logoRss from '../../static/asset/icon-rss.svg'
 import React, { Component } from 'react'
-import { donatePath } from '../constants/index'
-
-if (process.env.BROWSER) {
-  require('./Footer.css')
-}
+import styles from './Footer.scss'
 
 export default class Footer extends Component {
   constructor(props) {
@@ -11,84 +15,100 @@ export default class Footer extends Component {
   }
   render() {
     const { copyright } = this.props
-    let copyright_img = '/asset/cc.png'
-    let copyright_string = '除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款'
+    let copyrightObj = copyrightTypes.default
 
     if (copyright == 'Copyrighted') {
-      copyright_img = '/asset/cc.png'
-      copyright_string = 'Copyright 2015-2016 報導者'
+      copyrightObj = copyrightTypes.copyrighted
     } else if (copyright == 'Creative-Commons') {
-      copyright_img = '/asset/cc.png'
-      copyright_string = '創用CC姓名標示-非商業性-禁止改作授權條款'
+      copyrightObj = copyrightTypes.creativeCommons
     }
+    
+    let copyrightString = copyrightObj.string
+    let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={copyrightObj.image} /> : null
+    let copyrightLink = copyrightObj.link ?
+                    (<a href={copyrightObj.link} rel="license" target="_blank" className={styles['cc-license']}>
+                      {copyrightImg}
+                      <p> {copyrightString} </p>
+                      </a>) : null
+
     return (
-      <div className="footer">
+      <div className={styles['footer']}>
         <div className="container inner-max">
+
           <div className="row">
             <div className="col-md-12">
-              <div className="logo-container">
-                <div className="logo">
+              <div className={styles['logo-container']}>
+                <div className={styles['logo']}>
                   <a href="/" target="_self">
                       <img
                         className="logo-img"
-                        src="/asset/logo-desk.svg"
+                        src={logoIcon}
                       />
-                  </a>
-                </div>
-              </div>
-              <div className="social-container">
-                <div className="item">
-                  <a href="https://www.facebook.com/twreporter/" target="_blank">
-                      <img className="fb" src="/asset/FB"/>
-                  </a>
-                </div>
-                <div className="item">
-                  <a href="https://www.instagram.com/twreporter/" target="_blank" >
-                      <img className="ig" src="/asset/IG.png" />
                   </a>
                 </div>
               </div>
             </div>
           </div>
-          <div className="us-container row">
-            <div className="item col-md-3 col-sm-3 col-xs-6">
+
+          <div className={classNames('row', 'text-center', styles['us-container'])}>
+            <div>
               <a href="/a/about-us-footer">
                   關於我們
               </a>
             </div>
-            <div className="item col-md-3 col-sm-3 col-xs-6">
+            <div>
               <a href="/a/contact-footer">
                   聯絡我們
               </a>
             </div>
-            <div className="item col-md-3 col-sm-3 col-xs-6">
+            <div>
               <a href="/a/privacy-footer">
                   隱私政策
               </a>
             </div>
-            <div className="item col-md-3 col-sm-3 col-xs-6">
+            <div className={styles['support']}>
               <a href={donatePath} target="_blank">
                   贊助我們
               </a>
             </div>
           </div>
+
+          <div className="row text-center">
+            <div className={styles['social-container']}>
+                <div className={styles['item']}>
+                  <a href="https://www.facebook.com/twreporter/" target="_blank">
+                      <img src={ logoFB }/>
+                  </a>
+                </div>
+                <div className={styles['item']}>
+                  <a href="https://www.instagram.com/twreporter/" target="_blank" >
+                      <img src={logoIG} />
+                  </a>
+                </div>
+                <div className={styles['item']}>
+                  <a href="http://line.me/ti/p/%40nbs5015j" target="_blank" >
+                      <img src={logoLine} />
+                  </a>
+                </div>
+                <div className={styles['item']}>
+                  <a href="https://github.com/twreporter" target="_blank" >
+                      <img src={logoGithub} />
+                  </a>
+                </div>
+                <div className={styles['item']}>
+                  <a href="https://www.twreporter.org/a/rss2.xml" target="_blank" >
+                      <img src={logoRss} />
+                  </a>
+                </div>
+              </div>
+          </div>
         </div>
+
         <div className="open-source-container">
           <div className="container inner-max">
-            <div className="items">
-              <div className="item">
-                <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/tw/" rel="license" target="_blank">
-                  <img className="cc-logo img" src={copyright_img} />
-                  <span className="cc-license"> {copyright_string} </span>
-                </a>
+              <div className="row text-center">
+                {copyrightLink}
               </div>
-              <div className="item">
-                <a href="https://github.com/twreporter" target="_blank">
-                  <img src="/asset/github.png" className="img" />
-                  <span> github.com/twreporter</span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
