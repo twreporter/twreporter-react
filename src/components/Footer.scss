@@ -6,10 +6,28 @@
 .footer {
   background: $light-gray;
 
-    .logo {
+    .tablet-logo {
+      display: none;
+
+      @include mq($min-width: $screen-sm-min) { 
+        display: block;
+        width: rem(202px);
+        margin-left: -1rem;
+        margin-right: 1rem;
+      }
+
+      img {
+        margin-top: -0.25rem;
+      }
+    }
+
+    .mobile-logo {
       width: rem(202px);
       margin-left: auto;
       margin-right: auto;
+      @include mq($min-width: $screen-sm-min) { 
+        display: none;
+      }
     }
 
     .cc-image {
@@ -53,6 +71,27 @@
       }
     }
 
+    .social-outer {
+      @include mq($min-width: $screen-sm-min) { 
+        width: 45%;
+        float: left;
+      }
+    }
+
+    .open-source-outer {
+      @include mq($min-width: $screen-sm-min) { 
+        width: 55%;
+        float: left;
+      }
+
+      .license-text {
+        @include mq($min-width: $screen-sm-min) { 
+          display: inline;
+          margin-left: 0.2rem;
+        }
+      }
+    }
+
     .social-container {
       display: flex;
       flex-direction: row;
@@ -60,8 +99,8 @@
       margin-bottom: rem(10px);
 
       @include mq($min-width: $screen-sm-min) {
-        margin-left: 15%;
-        margin-right: 15%;
+        margin-top: -2.8%;
+        margin-left: 5%;
       }
 
       .item {
