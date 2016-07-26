@@ -115,6 +115,10 @@ export default class FeaturesItem extends Component {
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
     let url = '/a/' + article.slug
     let catDisplay = '專題'
+    let excerpt = ''
+    if (article.content.brief != undefined && article.content.brief.apiData[0].content[0] != undefined) {
+      excerpt = article.content.brief.apiData[0].content[0]
+    }
 
     return (
       <li className="listing-item" key={article.id}>
@@ -141,7 +145,7 @@ export default class FeaturesItem extends Component {
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
                   <div className="title">{article.title}</div>
-                  <div className="excerpt">{article.content.brief.apiData[0].content[0]}</div>
+                  <div className="excerpt">{excerpt}</div>
                   <div className="published">
                     {pubDate}
                   </div>
