@@ -9,12 +9,10 @@ import logoIcon from '../../../static/asset/logo-desk.svg'
 import logoIconDark from '../../../static/asset/logo-desk-dark.svg'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
+import navCommonStyles from './NavCommon.scss'
 import twitterIcon from '../../../static/asset/twitter.svg'
 import React, { Component } from 'react'
 
-if (process.env.BROWSER) {
-  require('../../containers/NavBar.css')
-}
 
 export default class DesktopNavBar extends Component {
   constructor(props, context) {
@@ -48,8 +46,10 @@ export default class DesktopNavBar extends Component {
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.fadeRight)}>
-          <Link className={navItemClass} to="/"><img src={smallLogo} /></Link>
           {burgerMenu}
+          <a target="_blank" title="贊助我們" className={styles.donateButton} href={donatePath}>
+            <img src={donateIcon} />
+          </a>
           <span className={styles.articleTitle}>{pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
@@ -59,9 +59,6 @@ export default class DesktopNavBar extends Component {
           <TwitterButton className={navItemClass} message={pageTitle} url={cUrl}>
             <img src={twitterIcon} />
           </TwitterButton>
-          <a target="_blank" className={styles.donateButton} href={donatePath}>
-            <img className={styles.donateIcon} src={donateIcon}/>贊助我們
-          </a>
         </div>
       </div>
     )
@@ -74,6 +71,7 @@ export default class DesktopNavBar extends Component {
     let logo = logoIcon
 
     let burgerIconClass = styles.navIcon
+    let navOuterClass = ''
     if (this.state.open) {
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
     }
@@ -93,10 +91,11 @@ export default class DesktopNavBar extends Component {
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
+      navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
     return (
-      <div className="nav-menu" style={{ backgroundColor: backgroundColor }}>
+      <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
         {menuBar}
       </div>
     )
