@@ -23,8 +23,6 @@ export default class Footer extends Component {
       copyrightObj = copyrightTypes.creativeCommons
     }
 
-    console.log(copyright, copyrightObj)
-
     let copyrightString = copyrightObj.string
     let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={copyrightObj.image} /> : null
     let copyrightLink = copyrightObj.link ?
