@@ -17,19 +17,19 @@ export default class Footer extends Component {
     const { copyright } = this.props
     let copyrightObj = copyrightTypes.default
 
-    if (copyright == 'Copyrighted') {
+    if (copyright === 'Copyrighted') {
       copyrightObj = copyrightTypes.copyrighted
-    } else if (copyright == 'Creative-Commons') {
+    } else if (copyright === 'Creative-Commons') {
       copyrightObj = copyrightTypes.creativeCommons
     }
-    
+
     let copyrightString = copyrightObj.string
     let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={copyrightObj.image} /> : null
     let copyrightLink = copyrightObj.link ?
                     (<a href={copyrightObj.link} rel="license" target="_blank" className={styles['cc-license']}>
                       {copyrightImg}
-                      <p> {copyrightString} </p>
-                      </a>) : null
+                      <p className={styles['license-text']}> {copyrightString} </p>
+                      </a>) : <p className={styles['license-text']}> {copyrightString} </p>
 
     return (
       <div className={styles['footer']}>
@@ -38,7 +38,7 @@ export default class Footer extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className={styles['logo-container']}>
-                <div className={styles['logo']}>
+                <div className={styles['mobile-logo']}>
                   <a href="/" target="_self">
                       <img
                         className="logo-img"
@@ -51,6 +51,12 @@ export default class Footer extends Component {
           </div>
 
           <div className={classNames('row', 'text-center', styles['us-container'])}>
+            <a href="/" className={classNames(styles['tablet-logo'])} target="_self">
+              <img
+                className="logo-img"
+                src={logoIcon}
+              />
+            </a>
             <div>
               <a href="/a/about-us-footer">
                   關於我們
@@ -73,44 +79,50 @@ export default class Footer extends Component {
             </div>
           </div>
 
-          <div className="row text-center">
-            <div className={styles['social-container']}>
+          <div className="text-center">
+
+            <div className={styles['social-outer']}>
+              <div className={styles['social-container']}>
                 <div className={styles['item']}>
-                  <a href="https://www.facebook.com/twreporter/" target="_blank">
+                  <a title="Facebook" href="https://www.facebook.com/twreporter/" target="_blank">
                       <img src={ logoFB }/>
                   </a>
                 </div>
                 <div className={styles['item']}>
-                  <a href="https://www.instagram.com/twreporter/" target="_blank" >
+                  <a title="Instagram" href="https://www.instagram.com/twreporter/" target="_blank" >
                       <img src={logoIG} />
                   </a>
                 </div>
                 <div className={styles['item']}>
-                  <a href="http://line.me/ti/p/%40nbs5015j" target="_blank" >
+                  <a title="Line" href="http://line.me/ti/p/%40nbs5015j" target="_blank" >
                       <img src={logoLine} />
                   </a>
                 </div>
                 <div className={styles['item']}>
-                  <a href="https://github.com/twreporter" target="_blank" >
+                  <a title="Github" href="https://github.com/twreporter" target="_blank" >
                       <img src={logoGithub} />
                   </a>
                 </div>
-                <div className={styles['item']}>
+                <div title="RSS" className={styles['item']}>
                   <a href="https://www.twreporter.org/a/rss2.xml" target="_blank" >
                       <img src={logoRss} />
                   </a>
                 </div>
               </div>
+            </div>
+
+            <div className={styles['open-source-outer']}>
+              <div className="inner-max">
+                  <div className="text-center">
+                    {copyrightLink}
+                  </div>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
-        <div className="open-source-container">
-          <div className="container inner-max">
-              <div className="row text-center">
-                {copyrightLink}
-              </div>
-          </div>
-        </div>
       </div>
     )
   }
