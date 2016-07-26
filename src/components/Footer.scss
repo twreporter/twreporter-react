@@ -39,8 +39,6 @@
 
       p {
         margin-top: rem(2px);
-        color: $gray-50;
-        font-size: $font-size-tiny;
       }
     }
 
@@ -85,6 +83,9 @@
       }
 
       .license-text {
+        color: $gray-50;
+        font-size: $font-size-tiny;
+
         @include mq($min-width: $screen-sm-min) { 
           display: inline;
           margin-left: 0.2rem;

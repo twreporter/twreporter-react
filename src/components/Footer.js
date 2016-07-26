@@ -17,11 +17,13 @@ export default class Footer extends Component {
     const { copyright } = this.props
     let copyrightObj = copyrightTypes.default
 
-    if (copyright == 'Copyrighted') {
+    if (copyright === 'Copyrighted') {
       copyrightObj = copyrightTypes.copyrighted
-    } else if (copyright == 'Creative-Commons') {
+    } else if (copyright === 'Creative-Commons') {
       copyrightObj = copyrightTypes.creativeCommons
     }
+
+    console.log(copyright, copyrightObj)
 
     let copyrightString = copyrightObj.string
     let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={copyrightObj.image} /> : null
@@ -29,7 +31,7 @@ export default class Footer extends Component {
                     (<a href={copyrightObj.link} rel="license" target="_blank" className={styles['cc-license']}>
                       {copyrightImg}
                       <p className={styles['license-text']}> {copyrightString} </p>
-                      </a>) : null
+                      </a>) : <p className={styles['license-text']}> {copyrightString} </p>
 
     return (
       <div className={styles['footer']}>

@@ -26,7 +26,7 @@ export const copyrightTypes = {
     image: logoCC
   },
   copyrighted: {
-    string: 'Copyright 2015-2016 報導者',
+    string: 'Copyright © 2015-2016 報導者',
     link: null,
     image: null
   },
