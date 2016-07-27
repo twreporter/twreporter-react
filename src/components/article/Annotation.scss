@@ -23,6 +23,7 @@ $red: $harley-davidson-orange;
   .container {
     .annotated-text {
       color: $red;
+      position: relative;
 
       // triangle within circle 
       >span.indicator {
@@ -46,21 +47,18 @@ $red: $harley-davidson-orange;
           border-width: 6px 6px 0;
           border-color: $white transparent;
         }
-
-        // up triangle
-        &.up::after {
-          top: 5px;
-          border-width: 0 6px 6px;
-        }
       }
     }
-    h3 {
+
+    h3, h4 {
       font-size: rem(20px);
       line-height: 1.5;
       color: $gray-15;
       margin-top: 0;
     }
+
     .body {
+      display: none;
       background-color: $white;
       line-height: 1.8;
       padding: rem(16px) rem(24px) rem(16px) rem(24px);
@@ -69,6 +67,39 @@ $red: $harley-davidson-orange;
       p, div {
         margin-bottom: rem(16px);
       } 
+      &.expand {
+        display: 'block';
+      }
+    }
+
+    // expand annotation block
+    &.expand {
+      .annotated-text {
+        display: inline-block;
+
+        // triangle below the annotated text
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -50%;
+          left: 45%;
+          border-style: solid;
+          border-width: 0 10px 15px;
+          border-color: $white transparent;
+        }
+
+        // up triangle within circle 
+        >span.indicator {
+          &::after {
+            top: 5px;
+            border-width: 0 6px 6px;
+          }
+        }
+      }
+
+      .body {
+        display: block;
+      }
     }
   }
 }

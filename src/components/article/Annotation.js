@@ -23,24 +23,24 @@ export class AnnotationBlock extends React.Component {
 
   render() {
     const { annotation, pureAnnotationText, text } = this.props
+    const { isExpanded } = this.state
     return (
       <abbr
+        className={classNames({ [styles.expand]: isExpanded }, styles['container'])}
         title={pureAnnotationText}
-        className={styles['container']}
       >
         <span
-          className={classNames(styles['annotated-text'], commonStyles['text-color'])}
+          className={classNames(styles['annotated-text'],commonStyles['text-color'])}
           onClick={this.handleExpand}
         >
           {text}
           <span
-            className={classNames(styles['indicator'], this.state.isExpanded ? styles.up : '')}
+            className={classNames(styles['indicator'])}
           />
         </span>
         <div
           dangerouslySetInnerHTML={{ __html: annotation }}
           className={classNames(styles['body'], commonStyles['desc-text-block'], commonStyles['disable-inner-block'], 'text-justify')}
-          style={{ display: this.state.isExpanded ? 'block': 'none' }}
         />
       </abbr>
     )
