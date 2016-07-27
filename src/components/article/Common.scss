@@ -4,15 +4,16 @@
 @import '../../themes/font-mixins.scss';
 
 $red: $harley-davidson-orange;
+$inner-block-margin: 24px;
 
 // mobile
 // inner component block
 .inner-block {
-  margin: 0 rem(24px) 0 rem(24px);
+  margin: 0 rem($inner-block-margin) 0 rem($inner-block-margin);
 }
 
 .disable-inner-block {
-  margin: 0 rem(-24px) 0 rem(-24px);
+  margin: 0 rem(-$inner-block-margin) 0 rem(-$inner-block-margin);
 }
 
 // Text
