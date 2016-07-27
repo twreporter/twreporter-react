@@ -4,11 +4,16 @@
 @import '../../themes/font-mixins.scss';
 
 $red: $harley-davidson-orange;
+$inner-block-margin: 24px;
 
 // mobile
 // inner component block
 .inner-block {
-  margin: 0 rem(24px) 0 rem(24px);
+  margin: 0 rem($inner-block-margin) 0 rem($inner-block-margin);
+}
+
+.disable-inner-block {
+  margin: 0 rem(-$inner-block-margin) 0 rem(-$inner-block-margin);
 }
 
 // Text
@@ -16,8 +21,14 @@ $red: $harley-davidson-orange;
   color: $gray-15;
 }
 
-.description-color {
+.desc-text-color {
   color: $gray-50;
+}
+
+.desc-text-block {
+  @extend .desc-text-color;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .text-link {
@@ -30,6 +41,10 @@ $red: $harley-davidson-orange;
   .inner-block {
     display: block;
     margin: 0 auto;
+  }
+
+  .disable-inner-block {
+    margin: 0;
   }
 }
 

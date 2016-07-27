@@ -1,0 +1,113 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+$red: $harley-davidson-orange;
+
+// mobile
+.block {
+  // reset default abbr style
+  > abbr {
+    margin: 0;
+    cursor: pointer;
+    border-bottom: 0;
+  }
+
+  span {
+    font-size: $font-size-base;
+    line-height: 1.7;
+    font-weight: 500;
+  } 
+
+  .container {
+    .annotated-text {
+      color: $red;
+      position: relative;
+
+      // triangle within circle 
+      >span.indicator {
+        // circle
+        width: 18px;
+        height: 18px;
+        background-color: $red;
+        border-radius: 9px;
+        position: relative;
+        top: -3px;
+        display: inline-block;
+        margin-left: 3px; 
+
+        // down triangle
+        &::after {
+          content: "";
+          position: absolute;
+          top: 7px;
+          left: 3px;
+          border-style: solid;
+          border-width: 6px 6px 0;
+          border-color: $white transparent;
+        }
+      }
+    }
+
+    h3, h4 {
+      font-size: rem(20px);
+      line-height: 1.5;
+      color: $gray-15;
+      margin-top: 0;
+    }
+
+    .body {
+      display: none;
+      background-color: $white;
+      line-height: 1.8;
+      padding: rem(16px) rem(24px) rem(16px) rem(24px);
+      margin-top: rem(10px);
+      margin-bottom: rem(16px);
+      p, div {
+        margin-bottom: rem(16px);
+      } 
+      &.expand {
+        display: 'block';
+      }
+    }
+
+    // expand annotation block
+    &.expand {
+      .annotated-text {
+        display: inline-block;
+
+        // triangle below the annotated text
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -50%;
+          left: 45%;
+          border-style: solid;
+          border-width: 0 10px 15px;
+          border-color: $white transparent;
+        }
+
+        // up triangle within circle 
+        >span.indicator {
+          &::after {
+            top: 5px;
+            border-width: 0 6px 6px;
+          }
+        }
+      }
+
+      .body {
+        display: block;
+      }
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

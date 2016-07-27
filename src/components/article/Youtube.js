@@ -1,9 +1,11 @@
 'use strict'
 import _ from 'lodash'
-import styles from './Youtube.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 import YoutubePlayer from 'react-youtube'
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
+import styles from './Youtube.scss'
 
 class Youtube extends React.Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class Youtube extends React.Component {
         <div className={styles['youtube-iframe-container']}>
           <YoutubePlayer videoId={youtubeId} />
         </div>
-        <div className={styles['description']}>{description}</div>
+        <div className={classNames(commonStyles['desc-text-block'], styles['description'], 'text-justify')}>{description}</div>
       </div>
     )
   }
