@@ -4,6 +4,8 @@ import * as ArticleComps from './index'
 
 export default function getArticleComponent(type = 'unstyled') {
   switch (type) {
+    case 'annotation':
+      return ArticleComps.Annotation
     case 'audio':
       return ArticleComps.Audio
     case 'blockQuote':

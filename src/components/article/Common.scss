@@ -11,6 +11,10 @@ $red: $harley-davidson-orange;
   margin: 0 rem(24px) 0 rem(24px);
 }
 
+.disable-inner-block {
+  margin: 0 rem(-24px) 0 rem(-24px);
+}
+
 // Text
 .text-color {
   color: $gray-15;
@@ -36,6 +40,10 @@ $red: $harley-davidson-orange;
   .inner-block {
     display: block;
     margin: 0 auto;
+  }
+
+  .disable-inner-block {
+    margin: 0;
   }
 }
 

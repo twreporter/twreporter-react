@@ -1,5 +1,6 @@
-export * from './BlockQuote'
+export * from './Annotation'
 export * from './Audio'
+export * from './BlockQuote'
 export * from './Body'
 export * from './BottomAuthor'
 export * from './BottomRelateds'
