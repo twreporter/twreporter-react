@@ -1,5 +1,8 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/animation';
 @import '../../themes/common-variables';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/media-queries.scss';
 .nav-block {
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
@@ -19,9 +22,11 @@
 }
 
 .articleTitle {
-    color: $gray-tag-bg;
+    color: $gray-15;
     margin: 0 3rem;
     vertical-align: middle;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-base;
     @include fade-in-left(0.5s);
 }
 
@@ -31,6 +36,10 @@
 
 .fadeLeft {
     @include fade-in-right(0.5s);
+}
+
+.slideUp {
+    @include slide-up(0.3s, 5px);
 }
 
 .navContainer {
@@ -74,7 +83,42 @@
 
 .donateButton {
     @extend .nav-item-algin;
-    height: 30px;
+    height: rem(25px);
+    margin-left: 1.5rem;
+    display: table;
+    transition: all 0.3s;
+    > * {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    img {
+        width: auto;
+        height: 90%;
+        min-width: rem(25px);
+        margin-top: rem(3px);
+    }
+    span {
+        padding-left: rem(7px);
+        color: $gray-50;
+        transition: color 0.3s;
+    }
+    &:hover {
+        span {
+            color: $primary-color;
+        }
+        img {
+            height: 100%;
+        }
+    }
+}
+
+.up {
+    span {
+        display: none;
+        @media (min-width: $screen-sm-min) and (max-width: $screen-md-min) {
+            display: table-cell;
+        }
+    }
 }
 
 .donateIcon {

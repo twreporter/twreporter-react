@@ -1,5 +1,4 @@
 'use strict'
-import logoCC from '../../static/asset/icon-cc.svg'
 
 export * from './action-types'
 
@@ -25,7 +24,7 @@ export const copyrightTypes = {
   default: {
     string: '除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款',
     link: 'http://creativecommons.org/licenses/by-nc-nd/3.0/tw/',
-    image: logoCC
+    image: 'LOGO_CC'
   },
   copyrighted: {
     string: 'Copyright © 2015-2016 報導者',
@@ -35,7 +34,7 @@ export const copyrightTypes = {
   creativeCommons: {
     string: '創用CC姓名標示-非商業性-禁止改作授權條款',
     link: 'http://creativecommons.org/licenses/by-nc-nd/3.0/tw/',
-    image: logoCC
+    image: 'LOGO_CC'
   }
 }
 

@@ -27,14 +27,13 @@ export default class DesktopNavBar extends Component {
       <div className={styles.navContainer}>
         <div className={styles.navLeft}>
           {burgerMenu}
+          <DonateButton isSlidedUp={false}/>
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
         </div>
         <div className={styles.navRight}>
-          <a target="_blank" className={styles.donateButton} href={donatePath}>
-            <img className={styles.donateIcon} src="/asset/donate.svg"/>贊助我們
-          </a>
+          
         </div>
       </div>
     )
@@ -45,12 +44,10 @@ export default class DesktopNavBar extends Component {
     const { pageTitle } = this.props
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
-        <div className={classNames(styles.navLeft, styles.fadeRight)}>
+        <div className={classNames(styles.navLeft, styles.slideUp)}>
           {burgerMenu}
-          <a target="_blank" title="贊助我們" className={styles.donateButton} href={donatePath}>
-            <img src={donateIcon} />
-          </a>
-          <span className={styles.articleTitle}>{pageTitle}</span>
+          <DonateButton isSlidedUp={true}/>
+          <span className={classNames(styles.articleTitle, styles.fadeRight)}>{pageTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
@@ -100,6 +97,15 @@ export default class DesktopNavBar extends Component {
       </div>
     )
   }
+}
+
+const DonateButton = (props) => {
+  const { isSlidedUp } = props
+  const dClass = isSlidedUp ? styles['up'] : null
+  return <a target="_blank" title="贊助我們" className={classNames(styles.donateButton, dClass)} href={donatePath}>
+            <img src={donateIcon} />
+            <span>贊助我們</span>
+          </a>
 }
 
 DesktopNavBar.contextTypes = {

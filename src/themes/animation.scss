@@ -3,6 +3,26 @@
   animation-duration: $sec;
 }
 
+// slide-up
+@mixin slide-up-keyframe($translateY) {
+  @keyframes         slide-up { 0% { transform: translateY($translateY); }        100% { transform: translateY(0); } }
+  animation-name: slide-up;
+}
+@mixin slide-up($sec: 1s, $translateY: 20px) {
+  @include animated($sec);
+  @include slide-up-keyframe($translateY);
+}
+
+// slide-down
+@mixin slide-down-keyframe($translateY) {
+  @keyframes         slide-down { 0% { transform: translateY(-$translateY); }        100% { transform: translateY(0); } }
+  animation-name: slide-down;
+}
+@mixin slide-down($sec: 1s, $translateY: 20px) {
+  @include animated($sec);
+  @include slide-down-keyframe($translateY);
+}
+
 // Fade-in
 @-webkit-keyframes fade-in { 0% {opacity: 0;} 100% {opacity: 1;} }
 @-moz-keyframes    fade-in { 0% {opacity: 0;} 100% {opacity: 1;} }
