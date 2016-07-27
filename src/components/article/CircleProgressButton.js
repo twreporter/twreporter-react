@@ -84,7 +84,9 @@ class CircleProgressButton extends Component {
       height: this.diameter
     }
     return (
-      <div onClick={this.props.onToggle} className={classNames(styles['progress-button'], isOncePlayed ? styles['loading'] : '')}>
+      <div onClick={this.props.onToggle}
+        className={classNames(styles['progress-button'], isOncePlayed ? styles['loading'] : '')}
+        style={{ height: this.diameter, width: this.diameter }}>
         <button style={buttonStyle}></button>
         {this._renderProgressCircle()}
         {this._renderIcon()}

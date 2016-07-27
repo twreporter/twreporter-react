@@ -23,11 +23,11 @@
 
       max-width: $tablet-small-width;
 
-      &.audio, .infobox {
+      &.infobox {
         max-width: $tablet-medium-width;
       }
 
-      &.image, &.imageDiff, &.slideshow, &.embeddedCode {
+      &.audio, &.image, &.imageDiff, &.slideshow, &.embeddedCode {
         max-width: $tablet-large-width;
       }
 
