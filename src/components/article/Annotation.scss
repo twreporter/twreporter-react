@@ -17,7 +17,7 @@ $red: $harley-davidson-orange;
   span {
     font-size: $font-size-base;
     line-height: 1.7;
-    font-weight: 500;
+    font-weight: $font-weight-normal;
   } 
 
   .container {
@@ -60,7 +60,8 @@ $red: $harley-davidson-orange;
     .body {
       display: none;
       background-color: $white;
-      line-height: 1.8;
+      font-size: rem(15px);
+      line-height: 1.5;
       padding: rem(16px) rem(24px) rem(16px) rem(24px);
       margin-top: rem(10px);
       margin-bottom: rem(16px);

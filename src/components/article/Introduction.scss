@@ -9,9 +9,8 @@ $red-line-distance: 40px;
 .intro-container {
   position: relative;
   font-size: $font-size-large;
-  font-weight: $font-weight-bold;
+  font-weight: $font-weight-normal;
   line-height: 1.5;
-  margin-bottom: rem($red-line-distance);
 
   &::after {
     content: "";
@@ -28,16 +27,6 @@ $red-line-distance: 40px;
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
-  $red-line-distance: 24px;
-
-  .intro-container {
-    width: $tablet-small-width;
-    margin: 0 auto rem($red-line-distance) auto;
-
-    &::after {
-      bottom: rem(-$red-line-distance);
-    }
-  }
 }
 
 // desktop. wait for spec

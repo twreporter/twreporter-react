@@ -40,7 +40,7 @@ export class AnnotationBlock extends React.Component {
         </span>
         <div
           dangerouslySetInnerHTML={{ __html: annotation }}
-          className={classNames(styles['body'], commonStyles['desc-text-block'], commonStyles['disable-inner-block'], 'text-justify')}
+          className={classNames(styles['body'], commonStyles['disable-inner-block'], commonStyles['desc-text-color'],  'text-justify')}
         />
       </abbr>
     )

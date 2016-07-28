@@ -8,6 +8,7 @@ import { getScreenType } from '../../lib/screen-type'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
 
@@ -92,7 +93,7 @@ class ImageDiff extends FitwidthMixin(Component) {
 
     if(imageDescription) {
       descriptionBox =
-        <div className={classNames(styles.imgDescription, 'text-center')}>
+        <div className={classNames(commonStyles['desc-text-block'])}>
           {imageDescription}
         </div>
     }

@@ -26,7 +26,7 @@ class Youtube extends React.Component {
         <div className={styles['youtube-iframe-container']}>
           <YoutubePlayer videoId={youtubeId} />
         </div>
-        <div className={classNames(commonStyles['desc-text-block'], styles['description'], 'text-justify')}>{description}</div>
+        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{description}</div>
       </div>
     )
   }

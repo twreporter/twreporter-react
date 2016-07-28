@@ -37,4 +37,7 @@
 
 // desktop. wait for spec
 @include mq($min-width: $screen-md-min) {
+  .img-description {
+    max-width: $desktop-small-width;
+  }
 }

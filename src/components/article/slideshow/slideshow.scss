@@ -23,20 +23,10 @@
     margin: 0 auto;
     overflow-x: hidden;
   }
-
-  .ss-description {
-    margin-top: rem(22px);
-  }
 }
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
-  .ss-container {
-    .ss-description {
-      margin: rem(15px) auto 0 auto;
-      max-width: $tablet-small-width;
-    }
-  }
 }
 
 // desktop. wait for spec

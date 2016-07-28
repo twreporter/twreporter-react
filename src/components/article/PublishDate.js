@@ -30,9 +30,9 @@ export class PublishDate extends Component {
     }
 
     return (
-      <div className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
+      <span className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
         {fDate}
-      </div>
+      </span>
     )
   }
 }

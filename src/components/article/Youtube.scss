@@ -16,19 +16,10 @@
       height: 100%;
     }
   }
-  .description {
-    margin: rem(16px) rem(24px) 0 rem(24px);
-  }
 }
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
-  .youtube-container {
-    .description {
-      width: $tablet-medium-width;
-      margin: rem(16px) auto 0 auto;
-    }
-  }
 }
 
 // desktop. wait for spec
