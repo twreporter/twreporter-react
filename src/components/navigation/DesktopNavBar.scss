@@ -86,6 +86,13 @@
     @include fade-in(0.5s);
 }
 
+.logoRight {
+    height: rem(30px);
+    img {
+        height: rem(30px);
+    }
+}
+
 .donateButton {
     @extend .nav-item-algin;
     height: rem(25px);
@@ -101,6 +108,7 @@
         height: 90%;
         min-width: rem(25px);
         margin-top: rem(3px);
+        transition: transform 0.3s;
     }
     span {
         padding-left: rem(7px);
@@ -112,7 +120,7 @@
             color: $primary-color;
         }
         img {
-            height: 100%;
+            transform: translateY(-15%);
         }
     }
 }
