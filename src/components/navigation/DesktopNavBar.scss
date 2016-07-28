@@ -4,8 +4,8 @@
 @import '../../themes/font-mixins.scss';
 @import '../../themes/media-queries.scss';
 .nav-block {
-    padding-top: 1.2rem;
-    padding-bottom: 1.2rem;
+    padding-top: rem(50px);
+    padding-bottom: rem(10px);
 }
 
 .nav-item-algin {
@@ -42,6 +42,10 @@
     @include slide-up(0.3s, 5px);
 }
 
+.slideDown {
+    @include slide-down(0.5s, 5px);
+}
+
 .navContainer {
     width: 100%;
     text-align: center;
@@ -63,6 +67,7 @@
     display: inline-block;
     min-width: 9rem;
     min-height: 3rem;
+    transform: translate(-12%, -6%);
 }
 
 .navRight {
@@ -75,7 +80,7 @@
 
 .navLogo {
     img {
-        width: 9rem;
+        width: rem(119px);
     }
     transform: translate(-20%, 0);
     @include fade-in(0.5s);

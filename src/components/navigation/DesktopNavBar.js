@@ -5,8 +5,8 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import donateIcon from '../../../static/asset/icon-donation.svg'
 import fbIcon from '../../../static/asset/fb.svg'
-import logoIcon from '../../../static/asset/logo-desk.svg'
-import logoIconDark from '../../../static/asset/logo-desk-dark.svg'
+import logoIcon from '../../../static/asset/logo-navbar-s.svg'
+import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
 import navCommonStyles from './NavCommon.scss'
@@ -18,13 +18,22 @@ export default class DesktopNavBar extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      open: false
+      open: false,
+      isDown: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.isScrolledOver) {
+      this.setState({ isDown: true })
     }
   }
 
   _renderAritcleFirst(burgerMenu, logo) {
+    let animateClass = this.state.isDown ? styles['slideDown'] : null
+
     return (
-      <div className={styles.navContainer}>
+      <div className={classNames(styles.navContainer, animateClass)}>
         <div className={styles.navLeft}>
           {burgerMenu}
           <DonateButton isSlidedUp={false}/>
@@ -33,7 +42,6 @@ export default class DesktopNavBar extends Component {
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
         </div>
         <div className={styles.navRight}>
-          
         </div>
       </div>
     )
