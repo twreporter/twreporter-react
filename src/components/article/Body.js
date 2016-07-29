@@ -1,10 +1,11 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import _ from 'lodash'
+import React, { Component } from 'react'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import getArticleComponent from './getArticleComponent'
 import styles from './Body.scss'
-import React, { Component } from 'react'
 
 export class Body extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export class Body extends Component {
         return (
           <div
             key={ele.id}
-            className={classNames(styles['component'], styles[type])}
+            className={classNames(styles['component'], styles[type], commonStyles['inner-block'])}
             style={_.get(customStyles, 'component', {})}
           >
             <Component

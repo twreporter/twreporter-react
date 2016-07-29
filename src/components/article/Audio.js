@@ -2,15 +2,17 @@
 'use strict'
 import { Image } from './Image'
 import _ from 'lodash'
-import classNames from 'classnames'
-import commonStyles from './Common.scss'
-import raf from 'raf' // requestAnimationFrame polyfill
-import styles from './Audio.scss'
 import CircleProgressButton from './CircleProgressButton'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Player from 'react-howler'
 import React from 'react' // eslint-disable-line
 import Slider from 'rc-slider'
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
+import playIcon from '../../../static/asset/audio-play.svg'
+import pauseIcon from '../../../static/asset/audio-pause.svg'
+import raf from 'raf' // requestAnimationFrame polyfill
+import styles from './Audio.scss'
 
 if (process.env.BROWSER) {
   require('rc-slider/assets/index.css')
@@ -220,14 +222,7 @@ class Audio extends React.Component {
           />
           <div className={classNames(styles['audio-info-container'], styles['without-cp'])}>
             <div className={styles['progress-bt']} style={{ width: btRadius * 2, height: btRadius * 2 }}>
-              <CircleProgressButton
-                duration={duration}
-                isOncePlayed={isOncePlayed}
-                isPlaying={isPlaying}
-                onToggle={this.handleToggle}
-                seek={seek}
-                radius={btRadius}
-              />
+              { isPlaying ? <img onClick={this.handleToggle} src={pauseIcon} /> : <img onClick={this.handleToggle} src={playIcon} /> }
             </div>
             <div style={{ display: 'inline-block' }}>
               <h4 className={commonStyles['text-color']}>{title}</h4>
