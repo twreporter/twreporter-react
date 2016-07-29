@@ -6,6 +6,10 @@
 .nav-block {
     padding-top: rem(50px);
     padding-bottom: rem(10px);
+    @media (max-width: $screen-xs-max) {
+        padding-top: rem(30px);
+        padding-bottom: rem(5px);
+    }
 }
 
 .nav-item-algin {
@@ -26,7 +30,6 @@
     display: inline-block;
     margin: 0 auto;
     @include fade-in-left(0.5s);
-
     @media (max-width: $screen-xs-max) {
         display: none;
     }

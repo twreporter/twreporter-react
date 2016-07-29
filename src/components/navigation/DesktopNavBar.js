@@ -6,6 +6,7 @@ import donateIcon from '../../../static/asset/icon-donation.svg'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
+import SubNavBar from './SubNavBar'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
 import navCommonStyles from './NavCommon.scss'
@@ -72,9 +73,7 @@ export default class DesktopNavBar extends Component {
       if(pageTitle.length > wordCnt) {
         titleText = pageTitle.substr(0, wordCnt-1) + '...'
       }
-
-      console.log('trimmedTitle', titleText)
-
+      
       this.setState({ trimmedTitle: titleText })
     }
   }
@@ -128,8 +127,15 @@ export default class DesktopNavBar extends Component {
 
     let burgerIconClass = styles.navIcon
     let navOuterClass = ''
+    let subNavBar = null
+
+    // if the burger icon is clicked
     if (this.state.open) {
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
+      subNavBar = <SubNavBar {...this.props}/>
+      
+      // change the color of the navbar
+      navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
     let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
@@ -145,6 +151,8 @@ export default class DesktopNavBar extends Component {
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
+
+    // if the page has been scrolled down, show another menu
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
       navOuterClass = navCommonStyles['nav-scrolled-outer']
@@ -154,6 +162,7 @@ export default class DesktopNavBar extends Component {
       <div style={{ backgroundColor: backgroundColor }}>
         <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
           {menuBar}
+          {subNavBar}
         </div>
       </div>
     )

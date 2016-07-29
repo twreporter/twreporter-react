@@ -1,4 +1,6 @@
 @import '../../themes/variables.scss';
+@import '../../themes/common-variables.scss';
+
 $item-height: 32px;
 $red: $harley-davidson-orange;
 .outer {
@@ -12,7 +14,7 @@ $red: $harley-davidson-orange;
 
   h1 {
     font-size: 16px;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-normal;
     margin-top: 0;
     margin-bottom: 0;
     margin: 0;
@@ -54,7 +56,7 @@ $red: $harley-davidson-orange;
 
   .borderLine {
     @include media(">bp1Width") {
-      border-right: 2px solid $gray;
+      // border-right: 2px solid $gray;
     }
   }
 
@@ -152,7 +154,6 @@ $red: $harley-davidson-orange;
 
 .white {
   @include media(">bp1Width") {
-    background-color: $subnav-background;
     color: $white;
     a {
       color: $white;
