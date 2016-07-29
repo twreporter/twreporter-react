@@ -1,17 +1,14 @@
 import { ARTICLE, appId, donatePath, colors } from '../../constants/index'
 import { getAbsPath } from '../../lib/url-transformer'
-import { FacebookButton, TwitterButton } from 'react-social'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import donateIcon from '../../../static/asset/icon-donation.svg'
-import fbIcon from '../../../static/asset/fb.svg'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
 import navCommonStyles from './NavCommon.scss'
-import twitterIcon from '../../../static/asset/twitter.svg'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -115,9 +112,9 @@ export default class DesktopNavBar extends Component {
           <span className={classNames(styles.articleTitleText)} ref="title">{trimmedTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
+          <div className={navItemClass} url={cUrl} appId={appId}>
             <img src={tocIcon} />
-          </FacebookButton>
+          </div>
         </div>
       </div>
     )
@@ -154,8 +151,10 @@ export default class DesktopNavBar extends Component {
     }
 
     return (
-      <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
-        {menuBar}
+      <div style={{ backgroundColor: backgroundColor }}>
+        <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
+          {menuBar}
+        </div>
       </div>
     )
   }

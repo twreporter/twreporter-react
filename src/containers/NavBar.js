@@ -6,12 +6,12 @@ import HeaderProgress from '../components/navigation/HeaderProgress'
 import MobileNavBar from '../components/navigation/MobileNavBar'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import styles from './NavBar.scss'
 
 const DEFAULT_HEIGHT = 10
 
 if (process.env.BROWSER) {
   require('./NavBar.css')
-  require('./NavBurg.css')
 }
 
 class NaviBar extends Component {
@@ -69,7 +69,7 @@ class NaviBar extends Component {
 
   _renderMobile() {
     return (
-      <div className="mobile-nav">
+      <div className={styles['mobile-nav']}>
         <MobileNavBar {...this.props}
           isScrolledOver={this.state.isScrolledOver}
           pageTitle={this.props.header.pageTitle}
@@ -80,7 +80,7 @@ class NaviBar extends Component {
 
   _renderDesktop() {
     return (
-      <div className="desktop-nav">
+      <div>
         <DesktopNavBar {...this.props}
           isScrolledOver={this.state.isScrolledOver}
           pageTitle={this.props.header.pageTitle}
@@ -97,7 +97,7 @@ class NaviBar extends Component {
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className="fixTop">
-          {this._renderMobile()}
+          {/* this._renderMobile() */}
           {this._renderDesktop()}
           <HeaderProgress percent={percent}/>
         </div>
