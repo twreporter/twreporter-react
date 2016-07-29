@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import donateIcon from '../../../static/asset/icon-donation.svg'
 import fbIcon from '../../../static/asset/fb.svg'
+import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
@@ -14,6 +15,7 @@ import twitterIcon from '../../../static/asset/twitter.svg'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
+const TRIMMED_RATIO = 0.5 
 
 export default class DesktopNavBar extends Component {
   constructor(props, context) {
@@ -42,10 +44,14 @@ export default class DesktopNavBar extends Component {
     if(nextProps.isScrolledOver) {
       this.setState({ isDown: true })
     }
-    // if(!this.state.isDown) {
-      // when the user hasn't scroll down and the component receive the article title'
-    this.handleArticleTitle()
-    // }
+    
+    if(nextProps.pageTitle !== this.props.pageTitle) {
+      this.setState({ trimmedTitle: '' })
+    }
+
+    if(this.state.trimmedTitle=='') {
+      this.handleArticleTitle(nextProps.pageTitle)
+    }
   }
 
   _handleResize() {
@@ -58,16 +64,19 @@ export default class DesktopNavBar extends Component {
   _handleArticleTitle() {
     const titleSpan = ReactDOM.findDOMNode(this.refs.title)
     const { pageTitle } = this.props
+
     if(titleSpan) {
       let fontSize = Number(getComputedStyle(titleSpan, '').fontSize.match(/(\d*(\.\d*)?)px/)[1])
       if(!fontSize || fontSize < 0) {
         fontSize = 18
       } 
-      const wordCnt = this.state.windowWidth * 0.35 / fontSize
+      const wordCnt = this.state.windowWidth * TRIMMED_RATIO / fontSize
       let titleText = pageTitle
       if(pageTitle.length > wordCnt) {
         titleText = pageTitle.substr(0, wordCnt-1) + '...'
       }
+
+      console.log('trimmedTitle', titleText)
 
       this.setState({ trimmedTitle: titleText })
     }
@@ -94,7 +103,6 @@ export default class DesktopNavBar extends Component {
 
   _renderAritcleSecond(burgerMenu, cUrl) {
     const navItemClass = styles.navButton
-    const { pageTitle } = this.props      // riginal title
     const { trimmedTitle } = this.state   // trimmed title
 
     return (
@@ -102,17 +110,14 @@ export default class DesktopNavBar extends Component {
         <div className={classNames(styles.navLeft, styles.slideUp)}>
           {burgerMenu}
           <DonateButton isSlidedUp={true}/>
-          <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-            <span ref="title">{trimmedTitle}</span>
-          </div>
+        </div>
+        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+          <span className={classNames(styles.articleTitleText)} ref="title">{trimmedTitle}</span>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
-            <img src={fbIcon} />
+            <img src={tocIcon} />
           </FacebookButton>
-          <TwitterButton className={navItemClass} message={pageTitle} url={cUrl}>
-            <img src={twitterIcon} />
-          </TwitterButton>
         </div>
       </div>
     )

@@ -22,12 +22,16 @@
 }
 
 .articleTitle {
-    color: $gray-15;
-    margin: 0 3rem;
     vertical-align: middle;
+    display: inline-block;
+    margin: 0 auto;
+    @include fade-in-left(0.5s);
+}
+
+.articleTitleText {
+    color: $gray-15;
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
-    @include fade-in-left(0.5s);
 }
 
 .fadeRight {
