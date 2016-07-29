@@ -30,7 +30,7 @@
   }
 
   .introduction {
-    margin: 0 rem(24px) rem(65px) rem(24px);
+    margin: 0 rem(24px) rem(80px) rem(24px);
   }
 
 }
@@ -44,14 +44,37 @@
     }
 
     .article-meta {
+      width: $tablet-small-width;
       margin-bottom: rem(49px);
       >div:first-child {
         margin-bottom: rem(25px);
       }
+    }
+    .introduction {
+      width: $tablet-small-width;
+      margin: 0 auto rem(80px) auto;
     }
   }
 }
 
 // desktop. wait for spec
 @include mq($min-width: $screen-md-min) {
+  .article-container {
+    .title-row {
+      width: $desktop-small-width;
+    }
+
+    .article-meta {
+      width: $desktop-small-width;
+      margin-bottom: rem(49px);
+      >div:first-child {
+        margin-bottom: rem(25px);
+      }
+    }
+
+    .introduction {
+      width: $desktop-small-width;
+      margin: 0 auto rem(80px) auto;
+    }
+  }
 }

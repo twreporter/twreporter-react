@@ -145,14 +145,15 @@ export default class Article extends Component {
             </hgroup>
           </div>
 
-          <div ref="progressBegin" className={classNames('text-center', styles['article-meta'])}>
+          <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
             <ArticleComponents.HeadingAuthor
               authors={authors}
               extendByline={_.get(article, 'extendByline')}
-            />
-            <ArticleComponents.PublishDate
-              date={article.publishedDate}
-            />
+            >
+              <ArticleComponents.PublishDate
+                date={article.publishedDate}
+              />
+            </ArticleComponents.HeadingAuthor>
           </div>
 
           <div className={styles['leading-img']}>

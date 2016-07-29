@@ -1,10 +1,30 @@
-@import '../../themes/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
 
-.author-item {
-  padding-right: 2rem;
-  display: inline-block;
+.author-container {
+  width: 100%;
 
-  &:last-child {
-    padding-right: 0;
+  span::after {
+    content: " ";
   }
+
+  .author-item {
+    display: inline-block;
+    padding-right: 8px;
+
+    // author types
+    &>span:first-child {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
 }
