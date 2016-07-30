@@ -9,11 +9,11 @@ $inner-block-margin: $component-margin-left;
 // mobile
 // inner component block
 .inner-block {
-  margin: 0 $inner-block-margin 0 $inner-block-margin;
+  margin: 0 rem($inner-block-margin) 0 rem($inner-block-margin);
 }
 
 .disable-inner-block {
-  margin: 0 -$inner-block-margin 0 -$inner-block-margin;
+  margin: 0 rem(-$inner-block-margin) 0 rem(-$inner-block-margin);
 }
 
 // Text
@@ -45,7 +45,7 @@ $inner-block-margin: $component-margin-left;
   }
 
   .disable-inner-block {
-    margin: 0 !important;
+    margin: 0;
   }
 
   .desc-text-block {
@@ -62,7 +62,7 @@ $inner-block-margin: $component-margin-left;
   }
 
   .disable-inner-block {
-    margin: 0 !important;
+    margin: 0; 
   }
 
   .desc-text-block {

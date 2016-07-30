@@ -103,7 +103,7 @@ export const Annotation = ({ content }) => {
   }
 
   return (
-    <div className={classNames(styles['block'], 'text-justify')}>
+    <div className={classNames(styles['block'], commonStyles['inner-block'], 'text-justify')}>
       {sections}
     </div>
   )
