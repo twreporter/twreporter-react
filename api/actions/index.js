@@ -1,3 +1,3 @@
 'use strict'
 export { loadTags as tags, loadCategories as postcategories } from './loadGroups'
-export posts from './loadArticles'
+export { loadMetaOfArticles as meta, loadArticles as posts } from './loadArticles'

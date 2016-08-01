@@ -6,7 +6,25 @@ import config from '../config'
 import constants from '../constants'
 import querystring from 'qs'
 
-export default function loadArticles(req, params = []) {
+export function loadMetaOfArticles(req) {
+  return new Promise((resolve, reject) => {
+    const query = req.query
+    const { API_PROTOCOL, API_PORT, API_HOST } = config
+    let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/meta`
+    superAgent['get'](url)
+      .timeout(constants.timeout)
+      .query(query)
+      .end(function (err, res) {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(res.body)
+        }
+      })
+  })
+}
+
+export function loadArticles(req, params = []) {
   return new Promise((resolve, reject) => {
     const query = req.query
     const { API_PROTOCOL, API_PORT, API_HOST } = config
