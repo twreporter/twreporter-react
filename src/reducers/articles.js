@@ -2,7 +2,7 @@
 import * as types from '../constants/action-types'
 import _ from 'lodash'
 
-function articlesByIds(state = {}, action) {
+export function articlesByIds(state = {}, action) {
   switch (action.type) {
     case types.FETCH_ARTICLES_REQUEST:
       return Object.assign({}, state, {
@@ -95,7 +95,7 @@ function _groupArticles(state = {}, action) {
   }
 }
 
-function articlesByTopicId(state = {}, action) {
+export function articlesByTopics(state = {}, action) {
   switch (action.type) {
     case types.FETCH_ARTICLES_BY_TOPIC_ID_REQUEST:
     case types.FETCH_ARTICLES_BY_TOPIC_ID_FAILURE:
@@ -128,7 +128,3 @@ export function articlesByCats(state = {}, action = {}) {
   }
 }
 
-export {
-  articlesByIds,
-  articlesByTopicId
-}

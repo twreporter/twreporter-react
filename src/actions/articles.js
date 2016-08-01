@@ -6,7 +6,7 @@ import { getArticleEmbeddedQuery } from '../utils/index'
 import _ from 'lodash'
 import * as articleUtils from '../utils/fetch-articles-funcs'
 import * as types from '../constants/action-types'
-import { devCatListId, prodCatListId, devTagListId, prodTagListId } from '../conf/list-id'
+import { devCatListId, prodCatListId, devTopicListId, prodTopicListId } from '../conf/list-id'
 
 function requestArticlesByTagId(ids) {
   return {
@@ -115,7 +115,8 @@ function _fetchArticles(ids = [], params = {}, isOnlyMeta = true, requestAction,
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        return dispatch(successAction(_.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta }), ids))
+        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
+        return dispatch(successAction(normalized, ids))
       }, (error) => {
         return dispatch(failAction(ids, error))
       })
@@ -143,9 +144,9 @@ function _dedupArticleIds(ids = [], state, isOnlyMeta) {
 
 function _getListId(target = 'category') {
   if (__DEVELOPMENT__) { // eslint-disable-line
-    return target === 'category' ? devCatListId : devTagListId
+    return target === 'category' ? devCatListId : devTopicListId
   }
-  return target === 'category' ? prodCatListId : prodTagListId
+  return target === 'category' ? prodCatListId : prodTopicListId
 }
 
 /* Fetch meta of articles by their ids if those are not existed in the state
@@ -177,7 +178,7 @@ export function fetchArticlesByIdsIfNeeded(ids = [], params = {}, isOnlyMeta = t
 
 export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnlyMeta = true)  {
   return (dispatch, getState) => {
-    if (_.get(getState(), [ 'entities', 'articlesByTopics', topicId ])) {
+    if (!topicId || _.get(getState(), [ 'articlesByTopics', topicId ])) {
       return Promise.resolve()
     }
 
@@ -193,9 +194,9 @@ export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnly
 
 export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    let items = _.get(getState(), [ 'entities', 'articleByTags', tagId, 'items' ])
+    let items = _.get(getState(), [ 'articleByTags', tagId, 'items' ], [])
 
-    if (items.length >= params.max_results * params.page) {
+    if (!tagId || items.length >= params.max_results * params.page) {
       return Promise.resolve()
     }
 
@@ -211,9 +212,9 @@ export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta
 
 export function fetchArticlesByCatIdIfNeeded(catId = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    let items = _.get(getState(), [ 'entities', 'articleByCats', catId, 'items' ])
+    let items = _.get(getState(), [ 'articleByCats', catId, 'items' ], [])
 
-    if (items.length >= params.max_results * params.page) {
+    if (!catId || items.length >= params.max_results * params.page) {
       return Promise.resolve()
     }
 
@@ -229,7 +230,7 @@ export function fetchArticlesByCatIdIfNeeded(catId = '', params = {}, isOnlyMeta
 
 
 export function fetchArticlesByTopicIdNameIfNeeded(topicName = '', params = {} , isOnlyMeta = true) {
-  let listId = _getListId()
+  let listId = _getListId('topic')
   let topicId = listId[topicName]
   return fetchArticlesByTopicIdIfNeeded(topicId, params, isOnlyMeta)
 }

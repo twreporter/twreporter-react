@@ -56,13 +56,15 @@ function fetchArticles(url) {
 function setupWhereParam(key, value, params={}) {
   params = params || {}
   value = Array.isArray(value) ? value : [ value ]
+  let where = {}
   if (value.length > 0) {
-    _.merge(params.where, {
+    _.merge(where, params.where, {
       [key]: {
         '$in': value
       }
     })
   }
+  params.where = where
   return params
 }
 

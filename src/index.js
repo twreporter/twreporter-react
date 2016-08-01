@@ -1,5 +1,4 @@
 import 'babel-polyfill'
-import { fetchTagsIfNeeded } from './actions/groups'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import { browserHistory } from 'react-router'
@@ -31,10 +30,6 @@ if (window.__REDUX_STATE__) {
 const store = configureStore(reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
-
-// preload the tag ids by tag names
-const tags = [ 'hp-projects', 'review', 'feature' ]
-store.dispatch(fetchTagsIfNeeded(tags))
 
 const device = store.getState().device
 ReactDOM.render((

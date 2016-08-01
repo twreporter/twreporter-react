@@ -1,12 +1,11 @@
 'use strict'
-import { articlesByCats, articlesByTags } from './group-articles'
+import { articlesByCats, articlesByIds, articlesByTags, articlesByTopics } from './articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { FatalError } from '../lib/custom-error'
 import _ from 'lodash'
 import * as types from '../constants/action-types'
-import articlesByIds from './articles'
 import device from './device'
 import header from './header'
 import selectedArticle from './article'
@@ -27,8 +26,8 @@ function slugToId(state = {}, action) {
       })
     case types.FETCH_ARTICLES_SUCCESS:
     case types.FETCH_ARTICLES_BY_TOPIC_ID_SUCCESS:
-    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
-    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
+    case types.FETCH_ARTICLES_BY_CAT_ID_SUCCESS:
+    case types.FETCH_ARTICLES_BY_TAG_ID_SUCCESS:
       let rtn = {}
       let articles = _.get(action, [ 'response', 'entities', 'articles' ], {})
       _.forEach(articles, (article) => {
@@ -56,6 +55,7 @@ const rootReducer = combineReducers({
   articlesByIds,
   articlesByCats,
   articlesByTags,
+  articlesByTopics,
   categories,
   fatalError,
   device,

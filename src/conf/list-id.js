@@ -1,15 +1,22 @@
-export const prodTagListId = {
+export const prodTopicListId = {
   'hp-projects': ''
 }
-export const devTagListId = {
-  'hp-projects': '57317a058c0c261000b3f6d5'
+export const devTopicListId = {
+  '轉型正義': '579f01eca825a25a31eabc19',
+  '0206地震': '579f01ffa825a25a31eabc1a',
+  '亞洲森林浩劫': '579f0211a825a25a31eabc1b',
+  '走入同志家庭': '579f0224a825a25a31eabc1c',
+  '急診人生': '579f022fa825a25a31eabc1d',
+  '測試專題': '579c4301411c987224380ad2'
 }
 
 export const prodCatListId = {
   '台灣': '',
   '媒體': '',
   '國際': '',
-  '文化': ''
+  '文化': '',
+  '攝影評論': '',
+  '攝影專題': ''
 }
 export const devCatListId = {
   '台灣': '5743d323940ee41000e81f48',
