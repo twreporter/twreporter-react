@@ -4,7 +4,7 @@ import { getAbsPath } from '../lib/url-transformer'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
+import { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
 import { ARTICLE, appId } from '../constants/index'
 import _ from 'lodash'
@@ -45,13 +45,19 @@ export default class Article extends Component {
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
 
-    const { fetchArticlesByIdsIfNeeded, setPageTitle, selectedArticle, entities } = this.props
+    const { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded, setPageTitle, selectedArticle, entities } = this.props
     if (!selectedArticle.error && !selectedArticle.isFetching) {
       // set navbar title for this article
       setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''))
       // fetch related articles
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchArticlesByIdsIfNeeded(relatedIds)
+
+      // fetch other aritcles in the same topic
+      let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
+      if (topicId) {
+        fetchArticlesByTopicIdIfNeeded(topicId)
+      }
     }
   }
 
@@ -232,4 +238,4 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, setReadProgress, setPageType, setPageTitle })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded, setReadProgress, setPageType, setPageTitle })(Article)

@@ -5,11 +5,13 @@ export * from './action-types'
 
 export const groupEnum = {
   CATEGORY: 'category',
-  TAG: 'tag'
+  TAG: 'tag',
+  TOPIC: 'topic'
 }
-export const pathEnum = {
+export const apiPathEnum = {
   CATEGORY: 'postcategories',
-  TAG: 'tags'
+  TAG: 'tags',
+  TOPIC: 'topics'
 }
 
 export const authorTypes = {

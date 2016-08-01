@@ -2,7 +2,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
-import { fetchCategorizedArticlesIfNeeded } from '../actions/group-articles'
+import { fetchArticlesByCatNameIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Daily from '../components/Daily'
@@ -19,14 +19,22 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-function loadData(fetchCategorizedArticlesIfNeeded) {
-  fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE)
-  fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE)
+function loadData(fetchArticlesByCatNameIfNeeded) {
+  let params = {
+    page: PAGE,
+    max_results: MAXRESULT
+  }
+  fetchArticlesByCatNameIfNeeded('評論', params)
+  fetchArticlesByCatNameIfNeeded('專題', params)
 }
 
 
 export default class Home extends Component {
   static fetchData({ store }) {
+    let params = {
+      page: PAGE,
+      max_results: MAXRESULT
+    }
     return new Promise((resolve, reject) => {
       // load tagged articles in parallel
       async.parallel([
@@ -39,13 +47,13 @@ export default class Home extends Component {
         },
         */
         function (callback) {
-          store.dispatch(fetchCategorizedArticlesIfNeeded('評論', MAXRESULT, PAGE))
+          store.dispatch(fetchArticlesByCatNameIfNeeded('評論', params))
           .then(() => {
             callback(null)
           })
         },
         function (callback) {
-          store.dispatch(fetchCategorizedArticlesIfNeeded('專題', MAXRESULT, PAGE))
+          store.dispatch(fetchArticlesByCatNameIfNeeded('專題', params))
           .then(() => {
             callback(null)
           })
@@ -65,20 +73,21 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    loadData(this.props.fetchCategorizedArticlesIfNeeded)
+    loadData(this.props.fetchArticlesByCatNameIfNeeded)
   }
 
   componentWillReceiveProps(nextProps) {
-    loadData(nextProps.fetchCategorizedArticlesIfNeeded)
+    // loadData(nextProps.fetchArticlesByCatNameIfNeeded)
   }
 
   loadMoreArticles(cat) {
-    const { articlesByCats, fetchCategorizedArticlesIfNeeded } = this.props
-    const features = articlesByCats[cat] || {
-      items: []
-    }
-    let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchCategorizedArticlesIfNeeded(cat, MAXRESULT, page)
+    const { articlesByCats, fetchArticlesByCatNameIfNeeded } = this.props
+    let itemSize = _.get(articlesByCats, [ cat, 'items', 'length' ], 0)
+    let page = Math.floor(itemSize / MAXRESULT)  + 1
+    fetchArticlesByCatNameIfNeeded(cat, {
+      page: page,
+      max_results: MAXRESULT
+    })
   }
 
   render() {
@@ -115,4 +124,4 @@ function mapStateToProps(state) {
 }
 
 export { Home }
-export default connect(mapStateToProps, { fetchCategorizedArticlesIfNeeded })(Home)
+export default connect(mapStateToProps, { fetchArticlesByCatNameIfNeeded })(Home)

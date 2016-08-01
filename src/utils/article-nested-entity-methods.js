@@ -31,5 +31,8 @@ export function getArticleFieldToEntity() {
   }, {
     field: 'categories',
     entity: 'categories'
+  }, {
+    field: 'topics',
+    entity: 'topics'
   } ]
 }
