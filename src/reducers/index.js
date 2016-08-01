@@ -22,15 +22,18 @@ function entities(state = {}, action) {
 function slugToId(state = {}, action) {
   switch (action.type) {
     case types.FETCH_ARTICLE_SUCCESS:
+      return _.merge({}, state, {
+        [action.slug]: _.get(action, 'response.result' )
+      })
+    case types.FETCH_ARTICLES_SUCCESS:
+    case types.FETCH_ARTICLES_BY_TOPIC_ID_SUCCESS:
     case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
     case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
       let rtn = {}
       let articles = _.get(action, [ 'response', 'entities', 'articles' ], {})
-      for(let id in articles) {
-        if (articles.hasOwnProperty(id)) {
-          rtn[articles[id].slug] = id
-        }
-      }
+      _.forEach(articles, (article) => {
+        rtn[article.slug] = article.id
+      })
       return _.merge({}, state, rtn)
     default:
       return state

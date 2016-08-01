@@ -3,6 +3,7 @@
 'use strict'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import { merge } from 'lodash'
+import _ from 'lodash'
 import * as types from '../constants/action-types'
 
 function generateKey(groups) {
@@ -55,12 +56,10 @@ function articles(state = {}, action) {
     case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
       let nextUrl = null
       let response = action.response
-      try {
-        let nextHref = action.response.links.next.href
+      let nextHref = _.get(action, 'response.links.next.href')
+      if (nextHref) {
         let embedded = JSON.stringify(getArticleEmbeddedQuery())
         nextUrl = formatUrl(`${nextHref}&embedded=${embedded}`)
-      } catch(e) {
-        console.log('there is no next href ', e)
       }
       let items = state[key] && state[key].items ? state[key].items.concat(response.result) : response.result
       merge(_state, state[key], {

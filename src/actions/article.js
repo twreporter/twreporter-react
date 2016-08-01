@@ -61,7 +61,7 @@ function fetchArticle(slug) {
 function shouldFetchArticle(state, slug) {
   const slugToId = _.get(state, 'slugToId', {})
   const articles = _.get(state, [ 'entities', 'articles' ], {})
-  if (slugToId.hasOwnProperty(slug) && articles[slugToId[slug]]) {
+  if (_.get(articles, [ slugToId[slug], 'content' ])) {
     return false
   }
   return true
