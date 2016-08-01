@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
 import DesktopNavBar from '../components/navigation/DesktopNavBar'
 import HeaderProgress from '../components/navigation/HeaderProgress'
-import MobileNavBar from '../components/navigation/MobileNavBar'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
@@ -21,7 +20,6 @@ class NaviBar extends Component {
       height: 10,
       isScrolledOver: false
     }
-    this._renderMobile = this._renderMobile.bind(this)
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
   }
@@ -67,17 +65,6 @@ class NaviBar extends Component {
     return true
   }
 
-  _renderMobile() {
-    return (
-      <div className={styles['mobile-nav']}>
-        <MobileNavBar {...this.props}
-          isScrolledOver={this.state.isScrolledOver}
-          pageTitle={this.props.header.pageTitle}
-          />
-      </div>
-    )
-  }
-
   _renderDesktop() {
     return (
       <div>
@@ -97,7 +84,6 @@ class NaviBar extends Component {
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className="fixTop">
-          {/* this._renderMobile() */}
           {this._renderDesktop()}
           <HeaderProgress percent={percent}/>
         </div>

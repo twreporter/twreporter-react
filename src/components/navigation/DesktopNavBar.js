@@ -1,4 +1,4 @@
-import { ARTICLE, appId, donatePath, colors } from '../../constants/index'
+import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../lib/url-transformer'
 import { Link } from 'react-router'
 import classNames from 'classnames'
@@ -7,6 +7,8 @@ import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import SubNavBar from './SubNavBar'
+import SearchBox from './SearchBox'
+import CategoryNavBar from './CategoryNavBar'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './DesktopNavBar.scss'
 import navCommonStyles from './NavCommon.scss'
@@ -120,22 +122,46 @@ export default class DesktopNavBar extends Component {
   }
 
   render() {
-    const { bgStyle, header, isScrolledOver } = this.props
+    const { path, bgStyle, header, isScrolledOver } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
     let logo = logoIcon
+    let linkColor = colors.darkBg
 
+    let navLinks = []
     let burgerIconClass = styles.navIcon
     let navOuterClass = ''
     let subNavBar = null
+    let searchClass = ''
+
+    // generate category navigation bar
+    let navItems = [].concat(navPath)
+    navItems.unshift( { title: '首頁', path: '/' } )
+    for (let i in navItems) {
+      let itemClassName
+      if (navItems[i].path === path) {
+        itemClassName = styles.active
+      }
+      navLinks.push(<Link key={i} style={{ color: linkColor }} 
+        className={classNames('menu-item', itemClassName)} to={navItems[i].path} 
+        onClick={()=> { this.setState( { open: !this.state.open } )}}><h1>{navItems[i].title}</h1></Link>)
+    }
 
     // if the burger icon is clicked
     if (this.state.open) {
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
-      subNavBar = <SubNavBar {...this.props}/>
-      
+      subNavBar = 
+      <div className={styles.linkOuterContainer}>
+        <div className={styles.catLinkContainer}>
+          {navLinks}
+        </div>
+        <SubNavBar {...this.props}/>
+      </div>
+
       // change the color of the navbar
       navOuterClass = navCommonStyles['nav-scrolled-outer']
+    } else {
+      searchClass = 'hidden'
     }
 
     let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
@@ -148,10 +174,15 @@ export default class DesktopNavBar extends Component {
     if (bgStyle === 'dark') {
       backgroundColor = colors.darkBg
       logo = logoIconDark
+      linkColor = colors.whiteBg
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
-
+    let searchBox = 
+      <div className={classNames(styles.topBar, searchClass)}>
+        <SearchBox style={{ width: '260px', marginTop: '-5px', display: 'inline-block' }} path={path} />
+      </div>
+      
     // if the page has been scrolled down, show another menu
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
@@ -162,6 +193,7 @@ export default class DesktopNavBar extends Component {
       <div style={{ backgroundColor: backgroundColor }}>
         <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
           {menuBar}
+          {searchBox}
           {subNavBar}
         </div>
       </div>

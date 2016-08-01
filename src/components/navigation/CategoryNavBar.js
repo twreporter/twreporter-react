@@ -9,12 +9,11 @@ import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import React, { Component } from 'react'
 import SearchBox from './SearchBox'
-import styles from './MobileNavBar.scss'
-import SubNavBar from './SubNavBar'
+import styles from './CategoryNavBar.scss'
 import twitterIcon from '../../../static/asset/twitter.svg'
 import lineIcon from '../../../static/asset/line.svg'
 
-export default class MobileNavBar extends Component {
+export default class CategoryNavBar extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -22,39 +21,23 @@ export default class MobileNavBar extends Component {
     }
   }
 
-  _renderAritcleFirst(burgerMenu, logo, searchBox) {
+  _renderAritcleFirst(logo, searchBox) {
     return (
       <div>
         <div className={styles.topBar}>
           {logo}
           {searchBox}
         </div>
-        {burgerMenu}
       </div>
     )
   }
 
-  _renderAritcleSecond(burgerMenu, searchBox, cUrl) {
-    const navItemClass = styles.navButton
-    const { pageTitle } = this.props
-    const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(pageTitle + ' ' + cUrl)}`
+  _renderAritcleSecond(searchBox) {
     return (
       <div>
         <div className={styles.topBar}>
-          <div className={classNames('center-block', 'text-right', styles.shareBtns)}>
-            <FacebookButton className={navItemClass} url={cUrl} appId={appId}>
-              <img src={fbIcon} />
-            </FacebookButton>
-            <TwitterButton className={navItemClass} message={pageTitle} url={cUrl}>
-              <img src={twitterIcon} />
-            </TwitterButton>
-            <a href={lineUrl} className={navItemClass} url={cUrl}>
-              <img src={lineIcon} />
-            </a>
-          </div>
           {searchBox}
         </div>
-        {burgerMenu}
       </div>
     )
   }
@@ -78,20 +61,21 @@ export default class MobileNavBar extends Component {
       logo = logoIconDark
     }
 
-    if (this.state.open) {
+    // if (this.state.open) {
       mobileNavClass = classNames(styles.mobileNav, styles.navOpen)
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
       mobileMenuClass = classNames(styles.mobileLinkContainer, styles.containerOpen)
       if (this.props.bgStyle !== 'dark') {
         backgroundColor = colors.whiteBg
       }
-    } else {
-      navLogo = <Link className={classNames(styles.navLogo, 'center-block', 'text-center')} to="/"><img src={logo} /></Link>
-      searchClass = 'hidden'
-    }
+    // } else {
+    //   navLogo = <Link className={classNames(styles.navLogo, 'center-block', 'text-center')} to="/"><img src={logo} /></Link>
+    //   searchClass = 'hidden'
+    // }
 
     let navItems = [].concat(navPath)
     navItems.unshift( { title: '首頁', path: '/' } )
+
     for (let i in navItems) {
       let itemClassName
       if (navItems[i].path === path) {
@@ -100,6 +84,9 @@ export default class MobileNavBar extends Component {
       navLinks.push(<Link key={i} style={{ color: linkColor }} className={classNames('menu-item', itemClassName)} to={navItems[i].path} onClick={()=> { this.setState( { open: !this.state.open } )}}><h1>{navItems[i].title}</h1></Link>)
     }
 
+    
+    
+
     let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
                       <span></span>
                       <span></span>
@@ -107,24 +94,24 @@ export default class MobileNavBar extends Component {
                       <span></span>
                     </div>
     let searchBox = <SearchBox class={searchClass} style={{ width: '250px', marginTop: '-5px', display: 'inline-block' }} path={path} />
-    let menuBar = this._renderAritcleFirst(burgerMenu, navLogo, searchBox)
+    let menuBar = this._renderAritcleFirst(navLogo, searchBox)
 
     if (isScrolledOver && header.pageType === ARTICLE) {
-      menuBar = this._renderAritcleSecond(burgerMenu, searchBox, cUrl)
+      menuBar = this._renderAritcleSecond(searchBox)
     }
 
     return (
       <div className={mobileNavClass} style= {{ backgroundColor: backgroundColor }}>
         {menuBar}
+        
         <div className={mobileMenuClass}>
           {navLinks}
-          <SubNavBar {...this.props}/>
         </div>
       </div>
     )
   }
 }
 
-MobileNavBar.contextTypes = {
+CategoryNavBar.contextTypes = {
   location: React.PropTypes.object
 }

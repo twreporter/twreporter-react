@@ -12,6 +12,19 @@
     }
 }
 
+.active h1 {
+    padding-bottom: 8px;
+    border-bottom: 3px solid $gray;
+}
+
+.topBar {
+    text-align: right;
+    padding-top: 9px;
+    padding-right: 0.8rem;
+    background: $light-gray;
+    @include fade-in-down(0.5s);
+}
+
 .nav-item-algin {
     display: inline-block;
     float: left;
@@ -57,8 +70,31 @@
     @include slide-down(0.5s, 5px);
 }
 
+.linkOuterContainer {
+    background: $light-gray;
+    @include fade-in-down(0.5s);
+}
+
+.catLinkContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 0 1em 0.1em 1em;
+    transition: all .5s ease;
+    a {
+        visibility: visible;
+        width: 33%;
+        height: 60px;
+        margin: auto;
+        text-align: center;
+        font-size: 135%;
+        animation: item-animation .3s linear forwards;
+    }
+}
+
 .navContainer {
     width: 100%;
+    min-height: 3rem;
     text-align: center;
     transition: height 0.5s, transform 0.5s;
     -moz-transition: height 0.5s, transform 0.5s;
@@ -84,7 +120,7 @@
     min-height: 3rem;
     transform: translate(-42%, -6%);
     @media (max-width: $screen-xs-max) {
-        transform: initial;
+        transform: translate(-3.5%, -3%);
     }
 }
 

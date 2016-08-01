@@ -50,6 +50,15 @@
   animation-name: fade-in-up;
 }
 
+// Fade-in-down
+@-webkit-keyframes fade-in-down { 0% { opacity: 0; -webkit-transform: translateY(-20px); } 100% { opacity: 1; -webkit-transform: translateY(0); } }
+@-moz-keyframes    fade-in-down { 0% { opacity: 0; -moz-transform: translateY(-20px);}     100% { opacity: 1; -moz-transform: translateY(0); } }
+@keyframes         fade-in-down { 0% { opacity: 0;  transform: translateY(-20px); }        100% { opacity: 1; transform: translateY(0); } }
+@mixin fade-in-down($sec: 1s) {
+  @include animated($sec);
+  animation-name: fade-in-down;
+}
+
 // Fade-down
 @-webkit-keyframes fade-out-down { 0% { opacity: 1; -webkit-transform: translateY(0); } 100% { opacity: 0; -webkit-transform: translateY(20px); } }
 @-moz-keyframes    fade-out-down { 0% { opacity: 1; -moz-transform: translateY(0); }    100% { opacity: 0; -moz-transform: translateY(20px); } }
