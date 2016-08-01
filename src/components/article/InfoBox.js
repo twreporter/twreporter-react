@@ -19,7 +19,7 @@ export const InfoBox = ({ content, device }) => {
         <h4 className={classNames(commonStyles['text-color'], 'text-center')}>
           {infoBox.title}
         </h4>
-        <div className={classNames(commonStyles['text-color'], 'text-justify')} dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')} dangerouslySetInnerHTML={{ __html: infoBox.body }} />
       </div>
     </div>
   )

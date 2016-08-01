@@ -1,19 +1,23 @@
 /* eslint no-unused-vars:0*/
 'use strict'
-import _ from 'lodash'
+import { getAbsPath } from '../lib/url-transformer'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
+import { ARTICLE, appId } from '../constants/index'
+import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
-import { ARTICLE } from '../constants/index'
-import classNames from 'classnames'
-import commonStyles from '../components/article/Common.scss'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import classNames from 'classnames'
+import commonStyles from '../components/article/Common.scss'
+import fbIcon from '../../static/asset/fb.svg'
+import lineIcon from '../../static/asset/line.svg'
 import styles from './Article.scss'
+import twitterIcon from '../../static/asset/twitter.svg'
 
 let articlePostition = {
   beginY: 100,
@@ -135,6 +139,7 @@ export default class Article extends Component {
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
+    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
     return (
       <div>
@@ -145,13 +150,22 @@ export default class Article extends Component {
             </hgroup>
           </div>
 
-          <div ref="progressBegin" className={classNames('text-center', styles['article-meta'])}>
+          <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
             <ArticleComponents.HeadingAuthor
               authors={authors}
               extendByline={_.get(article, 'extendByline')}
-            />
-            <ArticleComponents.PublishDate
-              date={article.publishedDate}
+            >
+              <ArticleComponents.PublishDate
+                date={article.publishedDate}
+              />
+            </ArticleComponents.HeadingAuthor>
+            <ArticleComponents.ShareBt
+              appId={appId}
+              url={cUrl}
+              title={article.title}
+              fbIcon={fbIcon}
+              twitterIcon={twitterIcon}
+              lineIcon={lineIcon}
             />
           </div>
 
@@ -164,7 +178,7 @@ export default class Article extends Component {
             />
           </div>
 
-          <div className={styles.introduction}>
+          <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
             <ArticleComponents.Introduction
               data={introData}
             />
@@ -213,7 +227,8 @@ function mapStateToProps(state) {
 }
 
 Article.contextTypes = {
-  device: React.PropTypes.string
+  device: React.PropTypes.string,
+  location: React.PropTypes.object
 }
 
 export { Article }

@@ -7,50 +7,51 @@ import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './HeadingAuthor.scss'
 
-export class HeadingAuthor extends Component {
-  constructor(props) {
-    super(props)
+export const HeadingAuthor = ({ authors, children, extendByline }) => {
+
+  function _groupAuthor(authors) {
+    return _.groupBy(authors, 'type')
   }
 
-  _formatAuthor(authors) {
-    const authorSeparator = '、'
-    let retAuthor = []
-    // organize the header author list by types
-    for(let type in authorTypes) {
-      let curAuthors = []    // store author of the same type
-      authors.forEach((author) => {
-        if(author.type === type) {
-          curAuthors.push(author.name)
-        }
-      })
-      if(curAuthors.length > 0) {
-        retAuthor.push({
-          type: authorTypes[type],
-          list: curAuthors.join(authorSeparator)   // format the author list with '、'
-        })
-      }
-    }
-    return retAuthor
-  }
-
-  render() {
-    const { authors, extendByline } = this.props
-    const formattedAuthor = this._formatAuthor(authors)
-    let count = 0
-    const authorRows = _.map(formattedAuthor, author =>
-      <div key={count++} className={classNames(styles['author-item'], commonStyles['text-color'])}>
-        <span>{author.type} </span>
-        <span className={commonStyles['text-link']}>
-          <a href="">{author.list}</a>
-        </span>
-      </div>
-    )
-
+  function _renderAuthor(author, key) {
+    // TBD After we have author page,
+    // we can add link onto each author
+    /*
     return (
-      <div>
-        { authorRows }
-        <span>{extendByline}</span>
-      </div>
+      <a href="">
+        <span className={commonStyles['text-link']}>
+          {author.name}
+        </span>
+      </a>
+      )
+      */
+    return (
+      <span key={key}>{author.name}</span>
     )
   }
+
+  function _renderAuthors(authors) {
+    return _.map(authors, (author, index) => _renderAuthor(author, index))
+  }
+
+  const groupedAuthors = _groupAuthor(authors)
+  let count = 0
+  const authorRows = []
+  _.forIn(groupedAuthors, (authors, type) => {
+    let _authors = _renderAuthors(authors)
+    authorRows.push(
+      <div key={count++} className={classNames(styles['author-item'], commonStyles['text-color'])}>
+        <span>{authorTypes[type]}</span>
+        {_authors}
+      </div>
+    )
+  })
+
+  return (
+    <div className={styles['author-container']}>
+      { authorRows }
+      <span style={{ paddingRight: '8px' }}>{extendByline}</span>
+      { children }
+    </div>
+  )
 }

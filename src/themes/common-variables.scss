@@ -16,7 +16,7 @@ $font-size-base: 18px;
 $font-size-large: 24px;
 $font-size-xsmall: 14px;
 $font-size-tiny: 12px;
-$font-weight-normal: 500;
+$font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-superbold: 900;
 
@@ -24,6 +24,13 @@ $font-weight-superbold: 900;
 $caption-color: #242423;
 
 $z-index-widget: 1000000010;
+
+// == Margin
+// ## Components
+$component-margin-bottom: 40px;
+$component-margin-left: 24px;
+$component-margin-right: 24px;
+
 
 // == Colors
 // ## gray
@@ -49,6 +56,10 @@ $primary-color: $harley-davidson-orange;
 $article-inner-width: 712px;
 $article-outer-width: 900px;
 
-$tablet-small-width: 492px;
-$tablet-medium-width: 532px;
-$tablet-large-width: 644px;
+$tablet-small-width: 556px;
+$tablet-medium-width: 672px;
+$tablet-large-width: 768px;
+
+$desktop-small-width: 664px;
+$desktop-medium-width: 833px;
+$desktop-large-width: 1024px;

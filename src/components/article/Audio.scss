@@ -3,8 +3,10 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
+// mobile
 .audio-container {
   $speed: .5s;
+	position: relative;
 
   background-color: $white;
 
@@ -40,6 +42,22 @@
       }
     }
 
+    .audio-slider {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .audio-time-display {
+        font-size: rem(15px);
+        text-align: center;
+        color: $gray-50;
+        width: rem(50px);
+      }
+    }
+
     .audio-img-filter {
       opacity: .25;
       transition: opacity 1s linear;
@@ -55,45 +73,61 @@
       background-color: $gray-15;
       text-align: center;
     }
-
-    .audio-slider {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .audio-time-display {
-        width: rem(50px);
-        font-size: rem(15px);
-        text-align: center;
-      }
-    }
   }
   
   .audio-info-container {
+    position: relative;
     padding: rem(28px) rem(24px) rem(24px) rem(24px);
 
-    >h4 {
+    h4 {
       font-size: rem(20px);
-      line-height: 1.2;
+      line-height: 1.5;
       font-weight: $font-weight-bold;
       margin-bottom: rem(24px);
     }
 
-    p {
-      font-size: rem(15px);
-      line-height: 1.5;
-      color: $gray-50;
-      // reset margin 
-      margin: 0;
+    .html {
+      p, div, span {
+        font-size: rem(15px);
+        line-height: 1.5;
+        color: $gray-50;
+      }
+    }
+
+    // without cover photo
+    &.without-cp {
+      .progress-bt {
+        position: relative;
+        display: inline-block;
+        margin-right: rem(16px);
+        vertical-align: top;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      span {
+        font-size: rem(12px);
+      }
     }
   }
 }
 
-@include mq($max-width: $screen-xs-max) {
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .audio-container {
-    width: 100%;
+    .audio-info-container {
+      padding: rem(24px) rem(58px) rem(24px) rem(58px);
+    }
+  }
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+  .audio-container {
+    .audio-info-container {
+      padding: rem(24px) rem(85px) rem(24px) rem(85px);
+    }
   }
 }

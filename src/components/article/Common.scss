@@ -4,7 +4,7 @@
 @import '../../themes/font-mixins.scss';
 
 $red: $harley-davidson-orange;
-$inner-block-margin: 24px;
+$inner-block-margin: $component-margin-left;
 
 // mobile
 // inner component block
@@ -27,12 +27,13 @@ $inner-block-margin: 24px;
 
 .desc-text-block {
   @extend .desc-text-color;
-  font-size: 15px;
+  font-size: rem(15px);
   line-height: 1.5;
+  margin: rem(17px) rem($inner-block-margin) 0 rem($inner-block-margin);
 }
 
 .text-link {
-  border-bottom: 2px solid;
+  border-bottom: 1px solid;
   border-color: $red;
 }
 
@@ -46,8 +47,26 @@ $inner-block-margin: 24px;
   .disable-inner-block {
     margin: 0;
   }
+
+  .desc-text-block {
+    max-width: $tablet-small-width;
+    margin: rem(17px) auto 0 auto;
+  }
 }
 
-// desktop. wait for spec
+// desktop
 @include mq($min-width: $screen-md-min) {
+  .inner-block {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .disable-inner-block {
+    margin: 0; 
+  }
+
+  .desc-text-block {
+    max-width: $desktop-small-width;
+    margin: rem(17px) auto 0 auto;
+  }
 }

@@ -1,10 +1,11 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import _ from 'lodash'
+import React, { Component } from 'react'
 import classNames from 'classnames'
+import commonStyles from './Common.scss'
 import getArticleComponent from './getArticleComponent'
 import styles from './Body.scss'
-import React, { Component } from 'react'
 
 export class Body extends Component {
   constructor(props) {

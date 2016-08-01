@@ -1,0 +1,19 @@
+@import '../../themes/animation';
+@import '../../themes/font-mixins.scss';
+
+.share-bt-container {
+  .bt {
+    width: rem(24px);
+    border: none;
+    background: none;
+    padding: 0;
+    margin-right: 10px;
+    display: inline-block;
+    img {
+      width: 100%;
+      height: auto;
+      transition: all 0.3s ease-in-out;
+    }
+    @include fade-in-left(0.5s);
+  }
+}

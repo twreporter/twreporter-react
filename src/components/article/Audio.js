@@ -2,15 +2,17 @@
 'use strict'
 import { Image } from './Image'
 import _ from 'lodash'
-import classNames from 'classnames'
-import commonStyles from './Common.scss'
-import raf from 'raf' // requestAnimationFrame polyfill
-import styles from './Audio.scss'
 import CircleProgressButton from './CircleProgressButton'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Player from 'react-howler'
 import React from 'react' // eslint-disable-line
 import Slider from 'rc-slider'
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
+import playIcon from '../../../static/asset/audio-play.svg'
+import pauseIcon from '../../../static/asset/audio-pause.svg'
+import raf from 'raf' // requestAnimationFrame polyfill
+import styles from './Audio.scss'
 
 if (process.env.BROWSER) {
   require('rc-slider/assets/index.css')
@@ -196,39 +198,71 @@ class Audio extends React.Component {
     const {  duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = _.get(content, 0, {})
 
+    const player = (
+      <Player
+        src={url}
+        playing={isPlaying}
+        onLoad={this.handleOnLoad}
+        onPlay={this.handleOnPlay}
+        onEnd={this.handleOnEnd}
+        ref={(ref) => this.player = ref}
+      />
+    )
+
+    // render Audio without cover photo
+    if (!coverPhoto) {
+      let btRadius = 24
+      return (
+        <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
+          <Slider
+            tipFormatter={null}
+            onChange={this.handleSeekChange}
+            value={seek}
+            max={duration}
+          />
+          <div className={classNames(styles['audio-info-container'], styles['without-cp'])}>
+            <div className={styles['progress-bt']} style={{ width: btRadius * 2, height: btRadius * 2 }}>
+              { isPlaying ? <img onClick={this.handleToggle} src={pauseIcon} /> : <img onClick={this.handleToggle} src={playIcon} /> }
+            </div>
+            <div style={{ display: 'inline-block' }}>
+              <h4 className={commonStyles['text-color']}>{title}</h4>
+              <span className={commonStyles['desc-text-block']}>{getMinSecStr(seek)} / </span>
+              <span className={commonStyles['desc-text-block']}>{getMinSecStr(duration)}</span>
+            </div>
+            <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
+          </div>
+          { player }
+        </div>
+      )
+    }
+
+    // render Audio with cover photo
     return (
       <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
         <div className={styles['audio-coverphoto']} onClick={this.handleMouseClick} onMouseEnter={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseOut}>
           <div className={styles['audio-img-filter']} style={ isOncePlayed ? {
             opacity: 1
           }: {}}>
-            <Image
-              content = { [ coverPhoto ] }
-              isToShowDescription={false}
-            />
-          </div>
-          <AudioController
-            duration={duration}
-            isFocused={isFocused}
-            isOncePlayed={isOncePlayed}
-            isPlaying={isPlaying}
-            onToggle={this.handleToggle}
-            onSeekChange={this.handleSeekChange}
-            seek={seek}
+          <Image
+            content = { [ coverPhoto ] }
+            isToShowDescription={false}
           />
         </div>
-        <div className={styles['audio-info-container']}>
-          <h4 className={classNames('text-center', commonStyles['text-color'])}>{title}</h4>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </div>
-        <Player
-          src={url}
-          playing={isPlaying}
-          onLoad={this.handleOnLoad}
-          onPlay={this.handleOnPlay}
-          onEnd={this.handleOnEnd}
-          ref={(ref) => this.player = ref}
+        <AudioController
+          duration={duration}
+          isFocused={isFocused}
+          isOncePlayed={isOncePlayed}
+          isPlaying={isPlaying}
+          onToggle={this.handleToggle}
+          onSeekChange={this.handleSeekChange}
+          seek={seek}
         />
+      </div>
+      <div className={styles['audio-info-container']}>
+        <h4 className={classNames('text-center', commonStyles['text-color'])}>{title}</h4>
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+      </div>
+      { player }
       </div>
     )
   }

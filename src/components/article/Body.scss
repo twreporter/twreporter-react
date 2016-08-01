@@ -5,34 +5,20 @@
 
 // mobile
 .components {
-  max-width: 100%;
-
   .component {
-    margin: 0 0 rem(40px) 0;
-    width: 100%;
+    margin-bottom: $component-margin-bottom;
   }
 }
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .components {
-    max-width: 100%; 
-
     .component {
-      margin: 0 auto rem(40px) auto;
-
-      max-width: $tablet-small-width;
-
-      &.audio, .infobox {
-        max-width: $tablet-medium-width;
-      }
-
-      &.image, &.imageDiff, &.slideshow, &.embeddedCode {
-        max-width: $tablet-large-width;
-      }
-
-      &.youtube {
-        max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      width: $tablet-small-width;
+      &.image, &.imageDiff, &.slideshow, &.embeddedCode, &.youtube {
+        width: $tablet-medium-width;
       }
     }
   }
@@ -41,8 +27,13 @@
 // desktop. wait for spec
 @include mq($min-width: $screen-md-min) {
   .components {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+    .component {
+      margin-left: auto;
+      margin-right: auto;
+      width: $desktop-small-width;
+      &.image, &.imageDiff, &.slideshow, &.embeddedCode, &.youtube {
+        width: $desktop-medium-width;
+      }
+    }
   }
 }

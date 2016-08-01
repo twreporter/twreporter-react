@@ -2,13 +2,14 @@
 @import '../../themes/common-variables';
 @import "../../themes/media-queries.scss";
 
+// mobile
 .diffContainer {
   overflow: hidden;
 }
 
 .imgDescription {
-  padding: 0.8rem;
   color: $gray-tag-bg;
+  margin: 16px auto;
 }
 
 .wrapper {
@@ -39,22 +40,27 @@
   position: absolute;
   margin-top: -1px;
   top: 0;
-  width: 2.6em;
+  width: 2.2em;
   transform: translate(-50%, 0);
   margin-left: -2px;
   transition: width 0.3s ease-in-out;
 }
 
 .hovered {
-  width: 3.2em;
+  width: 2.8em;
 }
 
-@include mq($max-width: $screen-sm-max) {
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
   .sliderButton {
-    width: 2.2em;
+    width: 2.6em;
   }
 
   .hovered {
-    width: 2.8em;
+    width: 3.2em;
   }
 }

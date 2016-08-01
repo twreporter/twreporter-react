@@ -18,19 +18,17 @@
   }
 
   .article-meta {
-    margin-bottom: rem(40px);
-
-    >div:first-child {
-      margin-bottom: rem(8px);
+    >div {
+      margin-bottom: rem(24px);
     }
   }
-
+  
   .leading-img {
-    margin-bottom: rem(40px);
+    margin-bottom: $component-margin-bottom;
   }
 
   .introduction {
-    margin: 0 rem(24px) rem(65px) rem(24px);
+    margin-bottom: $component-margin-bottom * 2;
   }
 
 }
@@ -44,14 +42,30 @@
     }
 
     .article-meta {
-      margin-bottom: rem(49px);
-      >div:first-child {
-        margin-bottom: rem(25px);
-      }
+      width: $tablet-small-width;
+      margin-bottom: 24px;
+    }
+
+    .introduction {
+      width: $tablet-small-width;
     }
   }
 }
 
 // desktop. wait for spec
 @include mq($min-width: $screen-md-min) {
+  .article-container {
+    .title-row {
+      width: $desktop-small-width;
+    }
+
+    .article-meta {
+      width: $desktop-small-width;
+      margin-bottom: $component-margin-bottom;
+    }
+
+    .introduction {
+      width: $desktop-small-width;
+    }
+  }
 }
