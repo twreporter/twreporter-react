@@ -1,27 +1,21 @@
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import DesktopNavBar from '../components/navigation/DesktopNavBar'
+import { ARTICLE } from '../constants/index'
+import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
-import MobileNavBar from '../components/navigation/MobileNavBar'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
-const DEFAULT_HEIGHT = 10
-
-if (process.env.BROWSER) {
-  require('./NavBar.css')
-  require('./NavBurg.css')
-}
+const DEFAULT_HEIGHT = 80
 
 class NaviBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: 10,
+      height: DEFAULT_HEIGHT,
       isScrolledOver: false
     }
-    this._renderMobile = this._renderMobile.bind(this)
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
   }
@@ -67,21 +61,10 @@ class NaviBar extends Component {
     return true
   }
 
-  _renderMobile() {
-    return (
-      <div className="mobile-nav">
-        <MobileNavBar {...this.props}
-          isScrolledOver={this.state.isScrolledOver}
-          pageTitle={this.props.header.pageTitle}
-          />
-      </div>
-    )
-  }
-
   _renderDesktop() {
     return (
-      <div className="desktop-nav">
-        <DesktopNavBar {...this.props}
+      <div>
+        <NavMenu {...this.props}
           isScrolledOver={this.state.isScrolledOver}
           pageTitle={this.props.header.pageTitle}
           />
@@ -93,13 +76,14 @@ class NaviBar extends Component {
     const { height } = this.state
     const { header } = this.props
     const percent = header.readPercent || 0
+    
+    let progressBar = (header.pageType === ARTICLE) ? <HeaderProgress percent={percent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className="fixTop">
-          {this._renderMobile()}
           {this._renderDesktop()}
-          <HeaderProgress percent={percent}/>
+          {progressBar}
         </div>
       </div>
     )

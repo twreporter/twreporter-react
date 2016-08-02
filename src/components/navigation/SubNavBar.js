@@ -13,15 +13,11 @@ class Items extends Component {
     let _children = []
     children.map((child, i) => {
       let itemClassName
-      let borderClass
       if (child.props.href === path) {
         itemClassName = styles.active
       }
-      if(i < children.length - 1) {
-        borderClass = styles.borderLine
-      }
       _children.push(
-        <li className={classNames(styles.item, itemClassName, borderClass)} key={i}>
+        <li className={classNames(styles.item, itemClassName)} key={i}>
           {child}
         </li>
       )

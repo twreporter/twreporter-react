@@ -8,10 +8,10 @@ $text-color: #333;
 $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
-
 // == Typography
 // ## Font
-$font-date-serif: "Times New Roman", serif;
+$font-date-serif: "Times New Roman",
+serif;
 $font-size-base: 18px;
 $font-size-large: 24px;
 $font-size-xsmall: 14px;
@@ -19,10 +19,8 @@ $font-size-tiny: 12px;
 $font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-superbold: 900;
-
 // caption of image
 $caption-color: #242423;
-
 $z-index-widget: 1000000010;
 
 // == Margin
@@ -31,7 +29,6 @@ $component-margin-bottom: 40px;
 $component-margin-left: 24px;
 $component-margin-right: 24px;
 
-
 // == Colors
 // ## gray
 $gray-15: #262626;
@@ -39,18 +36,13 @@ $gray-40: #666666;
 $gray-50: #808080;
 $gray-97: #F7F7F7;
 $light-gray: #F1F1F1;
-
 // ## orange
 $harley-davidson-orange: #c71b0a;
-
 // ## white
 $white: #FFF;
-
-
 // ## Global color settings
 $primary-color: $harley-davidson-orange;
-
-
+$photography-dark: #121D2F;
 // == Layout 
 // ## width
 $article-inner-width: 712px;

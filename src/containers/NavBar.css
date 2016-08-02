@@ -8,14 +8,6 @@
   display: none;
 }
 
-.nav-menu {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease-in;
-}
-
 .nav-logo-category {
   height: 68px;
 }

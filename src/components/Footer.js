@@ -6,6 +6,7 @@ import logoIcon from '../../static/asset/logo-mobile.svg'
 import logoIG from '../../static/asset/icon-instagram.svg'
 import logoLine from '../../static/asset/icon-line.svg'
 import logoRss from '../../static/asset/icon-rss.svg'
+import logoCC from '../../static/asset/icon-cc.svg'
 import React, { Component } from 'react'
 import styles from './Footer.scss'
 
@@ -24,7 +25,7 @@ export default class Footer extends Component {
     }
 
     let copyrightString = copyrightObj.string
-    let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={copyrightObj.image} /> : null
+    let copyrightImg = copyrightObj.image ? <img className={styles['cc-image']} src={logoCC} /> : null
     let copyrightLink = copyrightObj.link ?
                     (<a href={copyrightObj.link} rel="license" target="_blank" className={styles['cc-license']}>
                       {copyrightImg}

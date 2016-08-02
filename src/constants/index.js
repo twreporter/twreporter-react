@@ -1,7 +1,12 @@
 'use strict'
-import logoCC from '../../static/asset/icon-cc.svg'
 
 export * from './action-types'
+
+export const SITE_NAME = {
+  FULL: '報導者The Reporter',
+  SHORT: '報導者',
+  SEPARATOR: ' - '
+}
 
 export const groupEnum = {
   CATEGORY: 'category',
@@ -25,7 +30,7 @@ export const copyrightTypes = {
   default: {
     string: '除另有註明，網站內容皆採用創用CC姓名標示-非商業性-禁止改作授權條款',
     link: 'http://creativecommons.org/licenses/by-nc-nd/3.0/tw/',
-    image: logoCC
+    image: 'LOGO_CC'
   },
   copyrighted: {
     string: 'Copyright © 2015-2016 報導者',
@@ -35,7 +40,7 @@ export const copyrightTypes = {
   creativeCommons: {
     string: '創用CC姓名標示-非商業性-禁止改作授權條款',
     link: 'http://creativecommons.org/licenses/by-nc-nd/3.0/tw/',
-    image: logoCC
+    image: 'LOGO_CC'
   }
 }
 
@@ -94,6 +99,7 @@ export const subnavPath = [ {
 } ]
 
 export const colors = {
-  whiteBg: '#F7F8F8',
-  darkBg: '#3e3a39'
+  whiteBg: '#F1F1F1',
+  superWhite: '#FFFFFF',
+  darkBg: '#121F2F'
 }
