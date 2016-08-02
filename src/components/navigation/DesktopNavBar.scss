@@ -12,6 +12,18 @@
     }
 }
 
+.menu-item {
+  display: inline;
+  margin-right: 40px;
+  transition: border 0.3s ease-in;
+ 
+  h1 {
+    display: inline-block;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-base;
+  }
+}
+
 .active h1 {
     padding-bottom: 8px;
     border-bottom: 3px solid $gray;
@@ -52,6 +64,7 @@
     color: $gray-15;
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
+    transform: translateX(-30%);
 }
 
 .fadeRight {
@@ -79,7 +92,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    margin: 0 1em 0.1em 1em;
+    margin: 0 1em 1em 1em;
     transition: all .5s ease;
     a {
         visibility: visible;

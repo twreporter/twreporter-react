@@ -94,5 +94,6 @@ export const subnavPath = [ {
 
 export const colors = {
   whiteBg: '#F1F1F1',
+  superWhite: '#FFFFFF',
   darkBg: '#121F2F'
 }

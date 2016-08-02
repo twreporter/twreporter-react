@@ -110,7 +110,7 @@ export default class DesktopNavBar extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <span className={classNames(styles.articleTitleText)} ref="title">{trimmedTitle}</span>
+          <div className={classNames(styles.articleTitleText)} ref="title">{trimmedTitle}</div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <div className={navItemClass} url={cUrl} appId={appId}>
@@ -125,6 +125,7 @@ export default class DesktopNavBar extends Component {
     const { path, bgStyle, header, isScrolledOver } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
+    let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
     let logo = logoIcon
     let linkColor = colors.darkBg
 
@@ -143,7 +144,7 @@ export default class DesktopNavBar extends Component {
         itemClassName = styles.active
       }
       navLinks.push(<Link key={i} style={{ color: linkColor }} 
-        className={classNames('menu-item', itemClassName)} to={navItems[i].path} 
+        className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path} 
         onClick={()=> { this.setState( { open: !this.state.open } )}}><h1>{navItems[i].title}</h1></Link>)
     }
 
@@ -171,8 +172,9 @@ export default class DesktopNavBar extends Component {
                         <span></span>
                       </div>
 
-    if (bgStyle === 'dark') {
+    if (bgStyle === 'dark' && !this.state.open) {
       backgroundColor = colors.darkBg
+      navTopBackground = colors.darkBg
       logo = logoIconDark
       linkColor = colors.whiteBg
     }
@@ -191,7 +193,7 @@ export default class DesktopNavBar extends Component {
 
     return (
       <div style={{ backgroundColor: backgroundColor }}>
-        <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)}>
+        <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)} style={{ backgroundColor: navTopBackground }}>
           {menuBar}
           {searchBox}
           {subNavBar}
