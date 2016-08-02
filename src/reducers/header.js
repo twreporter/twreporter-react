@@ -16,7 +16,8 @@ function header(state = {}, action) {
     case types.SET_PAGE_TITLE:
       return {
         ...state,
-        pageTitle: action.pageTitle
+        pageTitle: action.pageTitle,
+        pageTopic: action.pageTopic
       }
     default:
       return state
