@@ -1,17 +1,13 @@
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import DesktopNavBar from '../components/navigation/DesktopNavBar'
+import { ARTICLE } from '../constants/index'
+import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import styles from './NavBar.scss'
 
-const DEFAULT_HEIGHT = 10
-
-if (process.env.BROWSER) {
-  require('./NavBar.css')
-}
+const DEFAULT_HEIGHT = 50
 
 class NaviBar extends Component {
   constructor(props) {
@@ -68,7 +64,7 @@ class NaviBar extends Component {
   _renderDesktop() {
     return (
       <div>
-        <DesktopNavBar {...this.props}
+        <NavMenu {...this.props}
           isScrolledOver={this.state.isScrolledOver}
           pageTitle={this.props.header.pageTitle}
           />
@@ -80,12 +76,14 @@ class NaviBar extends Component {
     const { height } = this.state
     const { header } = this.props
     const percent = header.readPercent || 0
+    
+    let progressBar = (header.pageType === ARTICLE) ? <HeaderProgress percent={percent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className="fixTop">
           {this._renderDesktop()}
-          <HeaderProgress percent={percent}/>
+          {progressBar}
         </div>
       </div>
     )

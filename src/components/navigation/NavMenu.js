@@ -8,16 +8,15 @@ import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import SubNavBar from './SubNavBar'
 import SearchBox from './SearchBox'
-import CategoryNavBar from './CategoryNavBar'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
-import styles from './DesktopNavBar.scss'
+import styles from './NavMenu.scss'
 import navCommonStyles from './NavCommon.scss'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 const TRIMMED_RATIO = 0.5 
 
-export default class DesktopNavBar extends Component {
+export default class NavMenu extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -212,10 +211,10 @@ const DonateButton = (props) => {
           </a>
 }
 
-DesktopNavBar.contextTypes = {
+NavMenu.contextTypes = {
   location: React.PropTypes.object
 }
 
-DesktopNavBar.propTypes = {
+NavMenu.propTypes = {
   path: React.PropTypes.string
 }
