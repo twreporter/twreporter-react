@@ -6,7 +6,7 @@ import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
-import { ARTICLE, appId } from '../constants/index'
+import { ARTICLE, appId, SITE_NAME } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -14,13 +14,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
+import DocumentTitle from 'react-document-title'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
 import styles from './Article.scss'
 import twitterIcon from '../../static/asset/twitter.svg'
 
 let articlePostition = {
-  beginY: 100,
+  beginY: 120,
   endY: 200,
   percent: 0
 }
@@ -148,79 +149,81 @@ export default class Article extends Component {
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
     return (
-      <div>
-        <div className={styles['article-container']}>
-          <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
-            <hgroup>
-              <h1 className={classNames('text-center')}>{article.title}</h1>
-            </hgroup>
-          </div>
-
-          <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
-            <ArticleComponents.HeadingAuthor
-              authors={authors}
-              extendByline={_.get(article, 'extendByline')}
-            >
-              <ArticleComponents.PublishDate
-                date={article.publishedDate}
-              />
-            </ArticleComponents.HeadingAuthor>
-            <ArticleComponents.ShareBt
-              appId={appId}
-              url={cUrl}
-              title={article.title}
-              fbIcon={fbIcon}
-              twitterIcon={twitterIcon}
-              lineIcon={lineIcon}
-            />
-          </div>
-
-          <div className={styles['leading-img']}>
-            <ArticleComponents.LeadingImage
-              size={heroImageSize}
-              image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
-              id={_.get(heroImage, 'id')}
-              description={_.get(heroImage, 'description' )}
-            />
-          </div>
-
-          <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
-            <ArticleComponents.Introduction
-              data={introData}
-            />
-          </div>
-
-          <ArticleComponents.Body
-            data={bodyData}
-          />
-
-          <div ref="progressEnding" className="inner-max center-block">
-            <div className="row">
-              <div className="col-md-12">
-                <ArticleComponents.BottomTags
-                  data={article.tags}
-                />
-              </div>
+      <DocumentTitle title={article.title+SITE_NAME.SEPARATOR+SITE_NAME.SHORT}>
+        <div>
+          <div className={styles['article-container']}>
+            <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+              <hgroup>
+                <h1 className={classNames('text-center')}>{article.title}</h1>
+              </hgroup>
             </div>
-            <ArticleComponents.BottomAuthor
-              authors={deduppedAuthors}
+
+            <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
+              <ArticleComponents.HeadingAuthor
+                authors={authors}
+                extendByline={_.get(article, 'extendByline')}
+              >
+                <ArticleComponents.PublishDate
+                  date={article.publishedDate}
+                />
+              </ArticleComponents.HeadingAuthor>
+              <ArticleComponents.ShareBt
+                appId={appId}
+                url={cUrl}
+                title={article.title}
+                fbIcon={fbIcon}
+                twitterIcon={twitterIcon}
+                lineIcon={lineIcon}
+              />
+            </div>
+
+            <div className={styles['leading-img']}>
+              <ArticleComponents.LeadingImage
+                size={heroImageSize}
+                image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                id={_.get(heroImage, 'id')}
+                description={_.get(heroImage, 'description' )}
+              />
+            </div>
+
+            <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+              <ArticleComponents.Introduction
+                data={introData}
+              />
+            </div>
+
+            <ArticleComponents.Body
+              data={bodyData}
+            />
+
+            <div ref="progressEnding" className="inner-max center-block">
+              <div className="row">
+                <div className="col-md-12">
+                  <ArticleComponents.BottomTags
+                    data={article.tags}
+                  />
+                </div>
+              </div>
+              <ArticleComponents.BottomAuthor
+                authors={deduppedAuthors}
+              />
+            </div>
+            <ArticleComponents.BottomRelateds
+              relateds={article.relateds}
             />
           </div>
-          <ArticleComponents.BottomRelateds
-            relateds={article.relateds}
+          <ArticleComponents.PageNavigation
+            article={ _.get(article, [ 'relateds', 0 ])}
+            navigate="next"
           />
+          <ArticleComponents.PageNavigation
+            article={_.get(article, [ 'relateds', 1 ])}
+            navigate="previous"
+          />
+          <Footer
+            copyright={copyright}/>
         </div>
-        <ArticleComponents.PageNavigation
-          article={ _.get(article, [ 'relateds', 0 ])}
-          navigate="next"
-        />
-        <ArticleComponents.PageNavigation
-          article={_.get(article, [ 'relateds', 1 ])}
-          navigate="previous"
-        />
-        <Footer
-          copyright={copyright}/>
-      </div>
+      </DocumentTitle>
     )
   }
 }

@@ -2,6 +2,12 @@
 
 export * from './action-types'
 
+export const SITE_NAME = {
+  FULL: '報導者The Reporter',
+  SHORT: '報導者',
+  SEPARATOR: ' - '
+}
+
 export const groupEnum = {
   CATEGORY: 'category',
   TAG: 'tag',

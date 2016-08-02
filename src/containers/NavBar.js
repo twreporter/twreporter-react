@@ -7,13 +7,13 @@ import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
-const DEFAULT_HEIGHT = 50
+const DEFAULT_HEIGHT = 80
 
 class NaviBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: 10,
+      height: DEFAULT_HEIGHT,
       isScrolledOver: false
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)

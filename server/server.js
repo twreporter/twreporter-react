@@ -8,6 +8,7 @@ import path from 'path'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import createLocation from 'history/lib/createLocation'
+import DocumentTitle from 'react-document-title'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import Promise from 'bluebird'
 import httpProxy from 'http-proxy'
@@ -131,6 +132,7 @@ server.get('*', (req, res) => {
 
         if ( getCurrentUrl() === reqUrl ) {
           res.render('index', { html, reduxState, styles, javascript: assets.javascript.main })
+          DocumentTitle.rewind()   // render custom ducument title
         } else {
           res.redirect(302, getCurrentUrl())
         }
