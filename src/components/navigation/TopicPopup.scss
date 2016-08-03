@@ -1,0 +1,47 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/variables.scss';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+
+.popup {
+  position: fixed;
+  background-color: rgba($white, 0.8);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 0%;
+  opacity: 0;
+  transition: all 0.5s ease-in;
+}
+
+.open {
+  max-height: 100%;
+  opacity: 1;
+}
+
+.close {
+  display: none;
+  max-height: 0;
+  opacity: 0;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.7rem;
+  right: 3rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.3rem;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  user-select: none;
+
+  img {
+    width: 100%;
+  }
+
+  &:hover {
+    padding: 0.1rem;
+  }
+}

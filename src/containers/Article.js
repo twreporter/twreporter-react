@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded } from '../actions/articles'
-import { setReadProgress, setPageType, setPageTitle } from '../actions/header'
+import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
 import { ARTICLE, appId, SITE_NAME } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
@@ -36,7 +36,8 @@ export default class Article extends Component {
 
     this.state = {
       topicId: null,
-      topicName: null
+      topicName: null,
+      topicArr: null
     }
     this._setArticleBounding = this._setArticleBounding.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
@@ -50,7 +51,7 @@ export default class Article extends Component {
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
 
-    const { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded, setPageTitle, selectedArticle, entities } = this.props
+    const { fetchArticlesByIdsIfNeeded, setPageTitle, selectedArticle, entities } = this.props
     const { topicId } = this.state
     if (!selectedArticle.error && !selectedArticle.isFetching) {
       // set topic
@@ -63,6 +64,7 @@ export default class Article extends Component {
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchArticlesByIdsIfNeeded(relatedIds)
     }
+
   }
 
   componentDidUpdate() {
@@ -71,7 +73,7 @@ export default class Article extends Component {
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, selectedArticle, entities } = this.props
+    const { fetchArticleIfNeeded, fetchArticlesByTopicIdIfNeeded, selectedArticle, entities } = this.props
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
@@ -85,9 +87,23 @@ export default class Article extends Component {
 
   componentWillReceiveProps(nextProps) {
     const slug = nextProps.params.slug
-    const { fetchArticleIfNeeded, selectedArticle } = nextProps
+    const { fetchArticleIfNeeded, selectedArticle, entities } = nextProps
+    const { setArticleTopicList } = this.props
+    const { topicId, topicArr } = this.state
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
+    }
+
+    let tArr = []
+    if(topicId && !topicArr) {
+      _.forEach(entities.articles, function (value, key) {
+        if(_.get(value, 'topics') === topicId) {
+          tArr.push(value)
+        }
+      })
+
+      this.setState({ topicArr: tArr })
+      setArticleTopicList(tArr)  // dispatch action for the navbar to display article list
     }
   }
 
@@ -254,4 +270,5 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded, setReadProgress, setPageType, setPageTitle })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, 
+  fetchArticlesByTopicIdIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)

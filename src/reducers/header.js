@@ -19,6 +19,11 @@ function header(state = {}, action) {
         pageTitle: action.pageTitle,
         pageTopic: action.pageTopic
       }
+    case types.SET_ARTICLE_TOPIC_LIST:
+      return {
+        ...state,
+        topicArr: action.topicArr
+      }
     default:
       return state
   }
