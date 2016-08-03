@@ -2,6 +2,7 @@ import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/ind
 import { getAbsPath } from '../../lib/url-transformer'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import commonStyles from '../article/Common.scss'
 import donateIcon from '../../../static/asset/icon-donation.svg'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
@@ -62,14 +63,15 @@ export default class NavMenu extends Component {
 
   _handleArticleTitle() {
     const titleSpan = ReactDOM.findDOMNode(this.refs.title)
-    const { pageTitle } = this.props
+    const { pageTitle, pageTopic } = this.props
+    const topicOffset = pageTopic ? pageTopic.length : 0
 
     if(titleSpan) {
       let fontSize = Number(getComputedStyle(titleSpan, '').fontSize.match(/(\d*(\.\d*)?)px/)[1])
       if(!fontSize || fontSize < 0) {
         fontSize = 18
       } 
-      const wordCnt = this.state.windowWidth * TRIMMED_RATIO / fontSize
+      const wordCnt = (this.state.windowWidth * TRIMMED_RATIO / fontSize) - topicOffset
       let titleText = pageTitle
       if(pageTitle.length > wordCnt) {
         titleText = pageTitle.substr(0, wordCnt-1) + '...'
@@ -101,6 +103,8 @@ export default class NavMenu extends Component {
   _renderAritcleSecond(burgerMenu, cUrl) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
+    const { pageTopic } = this.props
+    let topicBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -109,7 +113,10 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={classNames(styles.articleTitleText)} ref="title">{trimmedTitle}</div>
+          <div className={classNames(styles.articleTitleText)} ref="title">
+            {topicBox}
+            {trimmedTitle}
+          </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           <div className={navItemClass} url={cUrl} appId={appId}>
@@ -216,5 +223,7 @@ NavMenu.contextTypes = {
 }
 
 NavMenu.propTypes = {
-  path: React.PropTypes.string
+  path: React.PropTypes.string,
+  pageTitle: React.PropTypes.string,
+  pageTopic: React.PropTypes.string
 }

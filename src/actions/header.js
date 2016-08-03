@@ -21,9 +21,10 @@ export function setPageType(pageType) {
   }
 }
 
-export function setPageTitle(pageTitle) {
+export function setPageTitle(pageTitle, pageTopic=null) {
   return {
     type: types.SET_PAGE_TITLE,
-    pageTitle: pageTitle
+    pageTitle: pageTitle,
+    pageTopic: pageTopic
   }
 }

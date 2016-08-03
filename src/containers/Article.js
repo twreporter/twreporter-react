@@ -34,6 +34,10 @@ export default class Article extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      topicId: null,
+      topicName: null
+    }
     this._setArticleBounding = this._setArticleBounding.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
   }
@@ -47,18 +51,17 @@ export default class Article extends Component {
     window.addEventListener('scroll', this._handleScroll)
 
     const { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded, setPageTitle, selectedArticle, entities } = this.props
+    const { topicId } = this.state
     if (!selectedArticle.error && !selectedArticle.isFetching) {
+      // set topic
+      let topicName = topicId ? _.get(entities, [ 'topics', topicId, 'name' ], null) : null
+      this.setState({ topicName: topicName })
+
       // set navbar title for this article
-      setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''))
+      setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''), topicName)
       // fetch related articles
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchArticlesByIdsIfNeeded(relatedIds)
-
-      // fetch other aritcles in the same topic
-      let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
-      if (topicId) {
-        fetchArticlesByTopicIdIfNeeded(topicId)
-      }
     }
   }
 
@@ -68,9 +71,15 @@ export default class Article extends Component {
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, selectedArticle } = this.props
+    const { fetchArticleIfNeeded, selectedArticle, entities } = this.props
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
+    }
+    // fetch other aritcles in the same topic
+    let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
+    if (topicId) {
+      this.setState({ topicId: topicId })
+      fetchArticlesByTopicIdIfNeeded(topicId)
     }
   }
 
@@ -138,6 +147,7 @@ export default class Article extends Component {
 
   render() {
     const { selectedArticle, entities } = this.props
+    const { topicId, topicName } = this.state
     let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
@@ -148,13 +158,16 @@ export default class Article extends Component {
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
+    let topicBox = topicName ? <h3 className={commonStyles['topic-box']}>{topicName}</h3> : null
+
     return (
       <DocumentTitle title={article.title+SITE_NAME.SEPARATOR+SITE_NAME.SHORT}>
         <div>
           <div className={styles['article-container']}>
             <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
               <hgroup>
-                <h1 className={classNames('text-center')}>{article.title}</h1>
+                {topicBox}
+                <h1>{article.title}</h1>
               </hgroup>
             </div>
 

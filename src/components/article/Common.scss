@@ -70,3 +70,13 @@ $inner-block-margin: $component-margin-left;
     margin: rem(17px) auto 0 auto;
   }
 }
+
+.topic-box {
+    border: solid 2px $primary-color;
+    color: $primary-color;
+    display: inline;
+    padding: 0.1rem 0.5rem;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-bold;
+    margin-right: 0.5rem;
+}
