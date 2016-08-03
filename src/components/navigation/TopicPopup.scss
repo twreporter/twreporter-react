@@ -2,6 +2,7 @@
 @import '../../themes/variables.scss';
 @import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
 
 .popup {
   position: fixed;
@@ -43,5 +44,24 @@
 
   &:hover {
     padding: 0.1rem;
+  }
+
+  @media (max-width: $screen-md-max) {
+    right: 2rem;
+  }
+}
+
+.topic-title {
+  color: $primary-color;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  @media (max-width: $screen-xs-max) {
+    font-size: $font-size-large;
+  }
+}
+
+.list-outer {
+  @media (max-width: $screen-md-min) {
+    margin-top: rem(50px);
   }
 }

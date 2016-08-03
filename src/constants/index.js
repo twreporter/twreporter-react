@@ -8,6 +8,10 @@ export const SITE_NAME = {
   SEPARATOR: ' - '
 }
 
+export const LINK_PREFIX = {
+  ARTICLE: '/a/'
+}
+
 export const groupEnum = {
   CATEGORY: 'category',
   TAG: 'tag',
