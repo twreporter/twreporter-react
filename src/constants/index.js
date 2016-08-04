@@ -48,6 +48,12 @@ export const copyrightTypes = {
   }
 }
 
+export const CHARACTERS_LIMIT = {
+  TOPIC_DESC: 120
+}
+
+export const CONTINUE_READING = '繼續閱讀'
+
 export const ARTICLE = 'ARTICLE'
 
 export const HOME = 'HOME'

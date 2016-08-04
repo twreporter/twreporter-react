@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
 import classNames from 'classnames'
-import { LINK_PREFIX } from '../../constants/index'
+import { LINK_PREFIX, CHARACTERS_LIMIT, CONTINUE_READING } from '../../constants/index'
+import { shortenString } from '../../lib/string-processor'
 import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 
 const Topic = (props) => {
   const { data } = props
+  const link =  LINK_PREFIX.ARTICLE + data.slug
   return (
     <div className="col-md-12 col-lg-6">
-      <a href={LINK_PREFIX.ARTICLE + data.slug}>{data.title}</a>
+      <div className={styles['topic']}>
+        <div className={styles['img-outer']}>
+          <div className={styles['img-box']}>
+          </div>
+        </div>
+        <div className={styles['text-box']}>
+          <a href={link}><h3 className={styles['article-title']}>{data.title}</h3></a>
+          <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
+          <a href={link} className={styles['continue']}>{CONTINUE_READING}</a>
+        </div>
+      </div>
     </div>
   )
 }
