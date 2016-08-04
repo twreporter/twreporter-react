@@ -130,7 +130,15 @@ export default class NavMenu extends Component {
   }
 
   _onTopicBtnClick() {
-    this.setState({ isTopicOpen: !this.state.isTopicOpen })
+    const isOpen = !this.state.isTopicOpen
+    this.setState({ isTopicOpen: isOpen })
+    
+    // disable the page scrolling function if the Topic popup is being open
+    if(isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
   }
 
   render() {
