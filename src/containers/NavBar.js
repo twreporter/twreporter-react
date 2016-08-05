@@ -50,14 +50,14 @@ class NaviBar extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    if(nextState.height !== this.state.height ||
-       nextProps.header.readPercent !== this.props.header.readPercent ||
-       nextState.isScrolledOver !== this.state.isScrolledOver) {
-      return true
-    }
-    if (nextProps.path === this.props.path) {
-      return false
-    }
+    // if(nextState.height !== this.state.height ||
+    //    nextProps.header.readPercent !== this.props.header.readPercent ||
+    //    nextState.isScrolledOver !== this.state.isScrolledOver) {
+    //   return true
+    // }
+    // if (nextProps.path === this.props.path) {
+    //   return false
+    // }
     return true
   }
 

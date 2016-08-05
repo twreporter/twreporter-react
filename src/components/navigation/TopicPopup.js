@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
 import classNames from 'classnames'
@@ -8,11 +9,14 @@ import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 const Topic = (props) => {
   const { data } = props
   const link =  LINK_PREFIX.ARTICLE + data.slug
+  const heroImgUrl = _.get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null)
+
   return (
     <div className="col-md-12 col-lg-6">
       <div className={styles['topic']}>
         <div className={styles['img-outer']}>
           <div className={styles['img-box']}>
+            <img className={styles['crop']} src={heroImgUrl}/>
           </div>
         </div>
         <div className={styles['text-box']}>
@@ -40,19 +44,19 @@ export default class TopicPopup extends Component {
       topicList.push(<Topic data={topicArr[i]} />)
     }
 
-    console.log('***topicArr', topicArr)
-
     return (
       <div className={classNames(styles.popup, displayClass)}>
         <div className={styles.closeBtn} onClick={onTopicBtnClick}>
           <img src={closeIcon} />
         </div>
-        <div className={classNames('container', styles['list-outer'])}>
-          <div className="row text-center">
-            <h2 className={styles['topic-title']}> {pageTopic} </h2>
-          </div>
-          <div className="row">
-            {topicList}
+        <div className={styles['topic-wrapper']}>
+          <div className={classNames('container', styles['list-outer'])}>
+            <div className="row text-center">
+              <h2 className={styles['topic-title']}> {pageTopic} </h2>
+            </div>
+            <div className="row">
+              {topicList}
+            </div>
           </div>
         </div>
       </div>
