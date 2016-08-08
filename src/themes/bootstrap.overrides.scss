@@ -9,6 +9,11 @@ $red: $harley-davidson-orange;
 // html default styles 
 html {
   font-size: $font-size-base;
+
+  ::selection { 
+    background: $light-red;
+    color: $white;
+  }
 }
 
 // Container width

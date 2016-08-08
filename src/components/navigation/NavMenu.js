@@ -4,16 +4,17 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import donateIcon from '../../../static/asset/icon-donation.svg'
-import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
-import SubNavBar from './SubNavBar'
-import SearchBox from './SearchBox'
-import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
-import styles from './NavMenu.scss'
 import navCommonStyles from './NavCommon.scss'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import SearchBox from './SearchBox'
+import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
+import styles from './NavMenu.scss'
+import SubNavBar from './SubNavBar'
+import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
+import TopicPopup from './TopicPopup'
 
 const TRIMMED_RATIO = 0.5 
 
@@ -24,11 +25,13 @@ export default class NavMenu extends Component {
       open: false,
       windowWidth: 200,
       trimmedTitle: '',
-      isDown: false
+      isDown: false,
+      isTopicOpen: false
     }
 
     this.handleResize = this._handleResize.bind(this)
     this.handleArticleTitle = this._handleArticleTitle.bind(this)
+    this._onTopicBtnClick = this._onTopicBtnClick.bind(this)
   }
 
   componentDidMount() {
@@ -119,7 +122,7 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <div className={navItemClass} url={cUrl} appId={appId}>
+          <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
             <img src={tocIcon} />
           </div>
         </div>
@@ -127,8 +130,20 @@ export default class NavMenu extends Component {
     )
   }
 
+  _onTopicBtnClick() {
+    const isOpen = !this.state.isTopicOpen
+    this.setState({ isTopicOpen: isOpen })
+    
+    // disable the page scrolling function if the Topic popup is being open
+    if(isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }
+
   render() {
-    const { path, bgStyle, header, isScrolledOver } = this.props
+    const { path, bgStyle, header, isScrolledOver, pageTopic } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
@@ -204,6 +219,10 @@ export default class NavMenu extends Component {
           {searchBox}
           {subNavBar}
         </div>
+        <TopicPopup isOpen={this.state.isTopicOpen} 
+          topicArr={header.topicArr}
+          pageTopic={pageTopic}
+          onTopicBtnClick={this._onTopicBtnClick}/>
       </div>
     )
   }

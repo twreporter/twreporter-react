@@ -28,3 +28,10 @@ export function setPageTitle(pageTitle, pageTopic=null) {
     pageTopic: pageTopic
   }
 }
+
+export function setArticleTopicList(topicArr) {
+  return {
+    type: types.SET_ARTICLE_TOPIC_LIST,
+    topicArr: topicArr
+  }
+}

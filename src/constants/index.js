@@ -8,6 +8,10 @@ export const SITE_NAME = {
   SEPARATOR: ' - '
 }
 
+export const LINK_PREFIX = {
+  ARTICLE: '/a/'
+}
+
 export const groupEnum = {
   CATEGORY: 'category',
   TAG: 'tag',
@@ -43,6 +47,12 @@ export const copyrightTypes = {
     image: 'LOGO_CC'
   }
 }
+
+export const CHARACTERS_LIMIT = {
+  TOPIC_DESC: 120
+}
+
+export const CONTINUE_READING = '繼續閱讀'
 
 export const ARTICLE = 'ARTICLE'
 
