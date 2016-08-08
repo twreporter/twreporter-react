@@ -1,8 +1,7 @@
 /* eslint no-unused-vars:0*/
 'use strict'
-import { getAbsPath } from '../lib/url-transformer'
 import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/index'
+import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle } from '../actions/header'

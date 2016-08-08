@@ -1,5 +1,5 @@
 import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/index'
-import { getAbsPath } from '../../lib/url-transformer'
+import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -15,7 +15,7 @@ import navCommonStyles from './NavCommon.scss'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-const TRIMMED_RATIO = 0.5 
+const TRIMMED_RATIO = 0.5
 
 export default class NavMenu extends Component {
   constructor(props, context) {
@@ -44,7 +44,7 @@ export default class NavMenu extends Component {
     if(nextProps.isScrolledOver) {
       this.setState({ isDown: true })
     }
-    
+
     if(nextProps.pageTitle !== this.props.pageTitle) {
       this.setState({ trimmedTitle: '' })
     }
@@ -70,13 +70,13 @@ export default class NavMenu extends Component {
       let fontSize = Number(getComputedStyle(titleSpan, '').fontSize.match(/(\d*(\.\d*)?)px/)[1])
       if(!fontSize || fontSize < 0) {
         fontSize = 18
-      } 
+      }
       const wordCnt = (this.state.windowWidth * TRIMMED_RATIO / fontSize) - topicOffset
       let titleText = pageTitle
       if(pageTitle.length > wordCnt) {
         titleText = pageTitle.substr(0, wordCnt-1) + '...'
       }
-      
+
       this.setState({ trimmedTitle: titleText })
     }
   }
@@ -149,15 +149,15 @@ export default class NavMenu extends Component {
       if (navItems[i].path === path) {
         itemClassName = styles.active
       }
-      navLinks.push(<Link key={i} style={{ color: linkColor }} 
-        className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path} 
+      navLinks.push(<Link key={i} style={{ color: linkColor }}
+        className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path}
         onClick={()=> { this.setState( { open: !this.state.open } )}}><h1>{navItems[i].title}</h1></Link>)
     }
 
     // if the burger icon is clicked
     if (this.state.open) {
       burgerIconClass = classNames(styles.navIcon, styles.iconOpen)
-      subNavBar = 
+      subNavBar =
       <div className={styles.linkOuterContainer}>
         <div className={styles.catLinkContainer}>
           {navLinks}
@@ -186,11 +186,11 @@ export default class NavMenu extends Component {
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo)
-    let searchBox = 
+    let searchBox =
       <div className={classNames(styles.topBar, searchClass)}>
         <SearchBox style={{ width: '260px', marginTop: '-5px', display: 'inline-block' }} path={path} />
       </div>
-      
+
     // if the page has been scrolled down, show another menu
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
