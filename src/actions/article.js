@@ -72,6 +72,10 @@ export function fetchArticleIfNeeded(slug) {
     if (shouldFetchArticle(getState(), slug)) {
       return dispatch(fetchArticle(slug))
     }
-    return Promise.resolve()
+    let state = getState()
+    let response = {
+      result: _.get(state, [ 'slugToId', slug ])
+    }
+    return dispatch(receiveArticle(response, slug))
   }
 }

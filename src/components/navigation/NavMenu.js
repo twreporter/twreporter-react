@@ -52,6 +52,11 @@ export default class NavMenu extends Component {
       this.setState({ trimmedTitle: '' })
     }
 
+    // close the topic popup if user switch to different page
+    if(nextProps.path !== this.props.path) {
+      this._onTopicBtnClick()
+    }
+
     if(this.state.trimmedTitle=='') {
       this.handleArticleTitle(nextProps.pageTitle)
     }

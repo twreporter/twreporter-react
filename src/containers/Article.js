@@ -26,7 +26,7 @@ let articlePostition = {
   percent: 0
 }
 
-export default class Article extends Component {
+class Article extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticleIfNeeded(params.slug))
   }
@@ -35,6 +35,7 @@ export default class Article extends Component {
     super(props)
 
     this.state = {
+      articleId: null,
       topicId: null,
       topicName: null,
       topicArr: null
@@ -50,10 +51,20 @@ export default class Article extends Component {
 
     // detect sroll position
     window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate() {
+    this._setArticleBounding()
 
     const { fetchArticlesByIdsIfNeeded, setPageTitle, selectedArticle, entities } = this.props
+
     const { topicId } = this.state
-    if (!selectedArticle.error && !selectedArticle.isFetching) {
+    if (!selectedArticle.error && !selectedArticle.isFetching && 
+        this.state.articleId !== selectedArticle.id ) {
+
+      // set article ID
+      this.setState({ articleId: selectedArticle.id })
+
       // set topic
       let topicName = topicId ? _.get(entities, [ 'topics', topicId, 'name' ], null) : null
       this.setState({ topicName: topicName })
@@ -64,11 +75,6 @@ export default class Article extends Component {
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchArticlesByIdsIfNeeded(relatedIds)
     }
-
-  }
-
-  componentDidUpdate() {
-    this._setArticleBounding()
   }
 
   componentWillMount() {
