@@ -8,7 +8,7 @@ import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 
 const Topic = (props) => {
   const { data } = props
-  const link =  LINK_PREFIX.ARTICLE + data.slug
+  const link =  LINK_PREFIX.ARTICLE + _.get(data, 'slug', '')
   const heroImgUrl = _.get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null)
 
   return (
@@ -41,7 +41,7 @@ export default class TopicPopup extends Component {
     let topicList = []
 
     for(let i=0; i<topicArr.length; i++) {
-      topicList.push(<Topic data={topicArr[i]} />)
+      topicList.push(<Topic key={i} data={topicArr[i]} />)
     }
 
     return (

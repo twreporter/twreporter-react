@@ -38,13 +38,14 @@
 .closeBtn {
   position: fixed;
   top: 0.7rem;
-  right: 2.5rem;
+  right: 3.2rem;
   width: 1.8rem;
   height: 1.8rem;
   padding: 0.3rem;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   user-select: none;
+  z-index: 1000;
 
   img {
     width: 100%;

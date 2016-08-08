@@ -31,6 +31,7 @@ export default class NavMenu extends Component {
 
     this.handleResize = this._handleResize.bind(this)
     this.handleArticleTitle = this._handleArticleTitle.bind(this)
+    this._onTopicBtnClick = this._onTopicBtnClick.bind(this)
   }
 
   componentDidMount() {
@@ -121,7 +122,7 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick.bind(this)}>
+          <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
             <img src={tocIcon} />
           </div>
         </div>
@@ -221,7 +222,7 @@ export default class NavMenu extends Component {
         <TopicPopup isOpen={this.state.isTopicOpen} 
           topicArr={header.topicArr}
           pageTopic={pageTopic}
-          onTopicBtnClick={this._onTopicBtnClick.bind(this)}/>
+          onTopicBtnClick={this._onTopicBtnClick}/>
       </div>
     )
   }
