@@ -10,7 +10,7 @@ import Photography from '../containers/Photography'
 
 export default function (history = browserHistory) {
   return (
-    <Router history={history}>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category}/>

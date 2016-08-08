@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
 import classNames from 'classnames'
 import { LINK_PREFIX, CHARACTERS_LIMIT, CONTINUE_READING } from '../../constants/index'
+import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 
@@ -20,9 +21,9 @@ const Topic = (props) => {
           </div>
         </div>
         <div className={styles['text-box']}>
-          <a href={link}><h3 className={styles['article-title']}>{data.title}</h3></a>
+          <Link to={link}><h3 className={styles['article-title']}>{data.title}</h3></Link>
           <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
-          <a href={link} className={styles['continue']}>{CONTINUE_READING}</a>
+          <Link to={link} className={styles['continue']}>{CONTINUE_READING}</Link>
         </div>
       </div>
     </div>
