@@ -1,11 +1,12 @@
 import _ from 'lodash'
+import { Link } from 'react-router'
+import { LINK_PREFIX, CHARACTERS_LIMIT, CONTINUE_READING } from '../../constants/index'
+import { shortenString } from '../../lib/string-processor'
+import classNames from 'classnames'
+import closeIcon from '../../../static/asset/icon-navbar-close.svg'
+import LazyLoad from 'react-lazy-load'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
-import classNames from 'classnames'
-import { LINK_PREFIX, CHARACTERS_LIMIT, CONTINUE_READING } from '../../constants/index'
-import { Link } from 'react-router'
-import { shortenString } from '../../lib/string-processor'
-import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 
 const Topic = (props) => {
   const { data } = props
@@ -17,7 +18,9 @@ const Topic = (props) => {
       <div className={styles['topic']}>
         <div className={styles['img-outer']}>
           <div className={styles['img-box']}>
-            <img className={styles['crop']} src={heroImgUrl}/>
+            <LazyLoad>
+              <img className={styles['crop']} src={heroImgUrl}/>
+            </LazyLoad>
           </div>
         </div>
         <div className={styles['text-box']}>

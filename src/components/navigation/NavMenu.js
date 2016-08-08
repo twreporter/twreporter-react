@@ -1,6 +1,7 @@
 import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../lib/url-transformer'
 import { Link } from 'react-router'
+import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import donateIcon from '../../../static/asset/icon-donation.svg'
@@ -74,7 +75,7 @@ export default class NavMenu extends Component {
     const { pageTitle, pageTopic } = this.props
     const topicOffset = pageTopic ? pageTopic.length : 0
 
-    if(titleSpan) {
+    if(titleSpan && pageTitle) {
       let fontSize = Number(getComputedStyle(titleSpan, '').fontSize.match(/(\d*(\.\d*)?)px/)[1])
       if(!fontSize || fontSize < 0) {
         fontSize = 18
@@ -82,7 +83,7 @@ export default class NavMenu extends Component {
       const wordCnt = (this.state.windowWidth * TRIMMED_RATIO / fontSize) - topicOffset
       let titleText = pageTitle
       if(pageTitle.length > wordCnt) {
-        titleText = pageTitle.substr(0, wordCnt-1) + '...'
+        titleText = shortenString(pageTitle, wordCnt) + '...'
       }
       
       this.setState({ trimmedTitle: titleText })
