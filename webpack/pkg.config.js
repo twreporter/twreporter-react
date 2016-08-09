@@ -8,7 +8,7 @@ module.exports = {
   output: {
     publicPath: '/',
     libraryTarget: 'commonjs2', // necessary for the babel plugin
-    path: path.join(__dirname, 'lib-css'), // where to place webpack files
+    path: path.resolve(__dirname, '../lib-css'), // where to place webpack files
   },
   module: {
     loaders: [

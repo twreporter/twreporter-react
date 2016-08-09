@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../lib/image-composer'
+import { imageComposer } from '../utils/index'
 
 if (process.env.BROWSER) {
   require('./Daily.css')

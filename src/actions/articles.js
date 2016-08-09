@@ -1,12 +1,15 @@
 'use strict'
+import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { getArticleEmbeddedQuery } from '../utils/index'
-import _ from 'lodash'
-import * as articleUtils from '../utils/fetch-articles-funcs'
-import * as types from '../constants/action-types'
 import { devCatListId, prodCatListId, devTopicListId, prodTopicListId } from '../conf/list-id'
+import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
+import _ from 'lodash'
+import * as types from '../constants/action-types'
+import fetch from 'isomorphic-fetch'
+import qs from 'qs'
+
 
 function requestArticlesByTagId(ids) {
   return {
@@ -83,14 +86,14 @@ function receiveArticlesByTopicId(response, ids) {
   }
 }
 
-function requestArticles(ids) {
+function requestArticlesByIds(ids) {
   return {
     type: types.FETCH_ARTICLES_REQUEST,
     ids
   }
 }
 
-function failToReceiveArticles(ids, error) {
+function failToReceiveArticlesByIds(ids, error) {
   return {
     type: types.FETCH_ARTICLES_FAILURE,
     ids,
@@ -99,7 +102,7 @@ function failToReceiveArticles(ids, error) {
   }
 }
 
-function receiveArticles(response, ids) {
+function receiveArticlesByIds(response, ids) {
   return {
     type: types.FETCH_ARTICLES_SUCCESS,
     ids,
@@ -108,10 +111,74 @@ function receiveArticles(response, ids) {
   }
 }
 
-function _fetchArticles(ids = [], params = {}, isOnlyMeta = true, requestAction, successAction, failAction) {
+function _buildQuery(params = {}) {
+  let query = {}
+  let whitelist = [ 'where', 'embedded', 'max_results', 'page', 'sort' ]
+  _.forEach(whitelist, (ele) => {
+    if (params.hasOwnProperty(ele)) {
+      if (ele === 'where' || ele === 'embedded') {
+        query[ele] = JSON.stringify(params[ele])
+      } else {
+        query[ele] = params[ele]
+      }
+    }
+  })
+  query = qs.stringify(query)
+  return query
+}
+
+function _buildPostQueryUrl(params = {}) {
+  let query = _buildQuery(params)
+  return formatUrl(`posts?${query}`)
+}
+
+function _buildMetaQueryUrl(params = {}) {
+  let query = _buildQuery(params)
+  return formatUrl(`meta?${query}`)
+}
+
+function _buildUrl(params = {}, target) {
+  params = params || {}
+  params.sort = params.sort || '-publishedDate'
+  if (target === 'meta') {
+    return _buildMetaQueryUrl(params)
+  }
+  return _buildPostQueryUrl(params)
+}
+
+
+function _setupWhereParam(key, value, params={}) {
+  params = params || {}
+  value = Array.isArray(value) ? value : [ value ]
+  let where = {}
+  if (value.length > 0) {
+    _.merge(where, params.where, {
+      [key]: {
+        '$in': value
+      }
+    })
+  }
+  params.where = where
+  return params
+}
+
+function _fetchArticles(url) {
+  return fetch(url)
+    .then((response) => {
+      let status = response.status
+      if (status === 404) {
+        throw new NotFoundError('Resource are not found by url: ', url)
+      } else if (status >= 400) {
+        throw new InternalServerError('Bad response from API, response: ' + JSON.stringify(response))
+      }
+      return response.json()
+    })
+}
+
+function _fetchArticlesAndDispatchActions(ids = [], params = {}, isOnlyMeta = true, requestAction, successAction, failAction) {
   return dispatch => {
     dispatch(requestAction(ids))
-    return articleUtils.fetchArticles(articleUtils.buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
@@ -166,13 +233,13 @@ export function fetchArticlesByIdsIfNeeded(ids = [], params = {}, isOnlyMeta = t
       return Promise.resolve()
     }
 
-    params = articleUtils.setupWhereParam('_id', idsToFetch, params)
+    params = _setupWhereParam('_id', idsToFetch, params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticles(idsToFetch, params, isOnlyMeta, requestArticles, receiveArticles, failToReceiveArticles))
+    return dispatch(_fetchArticlesAndDispatchActions(idsToFetch, params, isOnlyMeta, requestArticlesByIds, receiveArticlesByIds, failToReceiveArticlesByIds))
   }
 }
 
@@ -182,13 +249,13 @@ export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnly
       return Promise.resolve()
     }
 
-    params = articleUtils.setupWhereParam('topics', [ topicId ], params)
+    params = _setupWhereParam('topics', [ topicId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticles([ topicId ], params, isOnlyMeta, requestArticlesByTopicId, receiveArticlesByTopicId, failToReceiveArticlesByTopicId))
+    return dispatch(_fetchArticlesAndDispatchActions([ topicId ], params, isOnlyMeta, requestArticlesByTopicId, receiveArticlesByTopicId, failToReceiveArticlesByTopicId))
   }
 }
 
@@ -200,13 +267,13 @@ export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta
       return Promise.resolve()
     }
 
-    params = articleUtils.setupWhereParam('tags', [ tagId ], params)
+    params = _setupWhereParam('tags', [ tagId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticles([ tagId ], params, isOnlyMeta, requestArticlesByTagId, receiveArticlesByTagId, failToReceiveArticlesByTagId))
+    return dispatch(_fetchArticlesAndDispatchActions([ tagId ], params, isOnlyMeta, requestArticlesByTagId, receiveArticlesByTagId, failToReceiveArticlesByTagId))
   }
 }
 
@@ -218,13 +285,13 @@ export function fetchArticlesByCatIdIfNeeded(catId = '', params = {}, isOnlyMeta
       return Promise.resolve()
     }
 
-    params = articleUtils.setupWhereParam('categories', [ catId ], params)
+    params = _setupWhereParam('categories', [ catId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticles([ catId ], params, isOnlyMeta, requestArticlesByCatId, receiveArticlesByCatId, failToReceiveArticlesByCatId))
+    return dispatch(_fetchArticlesAndDispatchActions([ catId ], params, isOnlyMeta, requestArticlesByCatId, receiveArticlesByCatId, failToReceiveArticlesByCatId))
   }
 }
 

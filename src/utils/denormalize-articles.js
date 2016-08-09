@@ -1,6 +1,33 @@
 'use strict'
-import { getArticleFieldToEntity } from './article-nested-entity-methods'
 import _ from 'lodash'
+
+function getArticleFieldToEntity() {
+  return  [ {
+    field: 'designers',
+    entity: 'authors'
+  }, {
+    field: 'engineers',
+    entity: 'authors'
+  }, {
+    field: 'photographers',
+    entity: 'authors'
+  }, {
+    field: 'writters',
+    entity: 'authors'
+  }, {
+    field: 'relateds',
+    entity: 'articles'
+  }, {
+    field: 'tags',
+    entity: 'tags'
+  }, {
+    field: 'categories',
+    entity: 'categories'
+  }, {
+    field: 'topics',
+    entity: 'topics'
+  } ]
+}
 
 function denormalizeEntity(entityIds = [], entityObj = {}) {
   let rtn

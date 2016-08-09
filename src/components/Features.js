@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FeaturesItem from './FeaturesItem'
 import More from '../components/More'
 import _ from 'lodash'
-import { imageComposer } from '../lib/image-composer'
+import { imageComposer } from '../utils/index'
 
 if (process.env.BROWSER) {
   require('./Features.css')

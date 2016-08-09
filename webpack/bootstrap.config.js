@@ -9,7 +9,7 @@ module.exports = {
   output: {
     publicPath: '/',
     filename: '[name].js',
-    path: path.join(__dirname, 'lib-css'), // where to place webpack files
+    path: path.resolve(__dirname, '../lib-css'), // where to place webpack files
   },
   plugins: [
     // css files from the extract-text-plugin loader

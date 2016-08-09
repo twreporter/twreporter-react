@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
 import { ts2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../lib/image-composer.js'
+import { imageComposer } from '../utils/index'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
