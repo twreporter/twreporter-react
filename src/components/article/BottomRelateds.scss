@@ -1,26 +1,22 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/media-queries.scss';
+@import '../../themes/common-variables.scss';
+@import '../../themes/font-mixins.scss';
 
 .bottomRelatedsWrapper {
-  background-color: #ffffff;
-  text-align: center;
-}
-
-.bottomRelateds {
-  margin: 2em auto 6em;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 177px;
-  max-width: 1280px;
+  margin: 3rem 0;
 }
 
 .relatedItem {
-  border-right: 1px solid #dddddd;
-  margin: 25px 0 25px 25px;
-  padding-right: 25px;
-  width: 395px;
-  display: inline-block;
+  width: 100%;
   vertical-align: middle;
+  background-color: $white;
+  margin: rem(16px) 0;
+  transition: all 0.2s;
+
+  &:hover {
+    box-shadow: 0px 3px 8px 0px rgba($gray-40, 0.5);
+  }
 }
 
 .relatedItem:last-of-type {
@@ -46,7 +42,6 @@
 .relatedContent {
   text-align: left;
   margin: 25px 0 25px 205px;
-  color: #666674;
 }
 
 .relatedAlignHelper {
@@ -58,6 +53,8 @@
 .relatedTitle {
   vertical-align: middle;
   display: inline-block;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
 }
 
 @include mq($max-width: $screen-xs-max) {
@@ -70,7 +67,7 @@
 
   .relatedItem {
     border-right: 0;
-    margin: 0;
+    margin: rem(10px) 0;
     padding: 0 15px;
     width: 100%;
   }
@@ -84,7 +81,6 @@
   }
 
   .relatedAnchor {
-    border-bottom: 1px solid #dddddd;
     width: 100%;
   }
 

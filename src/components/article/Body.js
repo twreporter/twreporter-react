@@ -24,7 +24,7 @@ export class Body extends Component {
         return (
           <div
             key={ele.id}
-            className={classNames(styles['component'], styles[type])}
+            className={classNames(commonStyles['component'], styles[type])}
             style={_.get(customStyles, 'component', {})}
           >
             <Component
@@ -38,7 +38,7 @@ export class Body extends Component {
       })
       return (
         <div
-          className={styles['components']}
+          className={commonStyles['components']}
           style={_.get(customStyles, 'components', {})}
         >
           {Blocks}

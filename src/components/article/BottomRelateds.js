@@ -2,6 +2,8 @@
 'use strict'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import commonStyles from '../article/Common.scss'
+import classNames from 'classnames'
 import styles from './BottomRelateds.scss'
 
 export class BottomRelateds extends Component {
@@ -68,9 +70,9 @@ export class BottomRelateds extends Component {
     })
 
     return (
-      <div className={styles.bottomRelatedsWrapper}>
-        <div className={styles.bottomRelateds}>
-          <ul style={ { width: _.get(this, 'state.width', 'auto') } }>
+      <div className={classNames(commonStyles['component'], 'center-block')}>
+        <div className={classNames(styles.bottomRelatedsWrapper, commonStyles['inner-block'])}>
+          <ul>
             { relatedRows }
           </ul>
         </div>

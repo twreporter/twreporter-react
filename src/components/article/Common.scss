@@ -6,7 +6,7 @@
 $red: $harley-davidson-orange;
 $inner-block-margin: $component-margin-left;
 
-// mobile
+// === mobile ===
 // inner component block
 .inner-block {
   margin: 0 rem($inner-block-margin) 0 rem($inner-block-margin);
@@ -14,6 +14,12 @@ $inner-block-margin: $component-margin-left;
 
 .disable-inner-block {
   margin: 0 rem(-$inner-block-margin) 0 rem(-$inner-block-margin);
+}
+// control components in the body of the article
+.components {
+  .component {
+    margin-bottom: $component-margin-bottom;
+  }
 }
 
 // Text
@@ -37,7 +43,7 @@ $inner-block-margin: $component-margin-left;
   border-color: $red;
 }
 
-// tablet
+// === tablet ===
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .inner-block {
     display: block;
@@ -52,9 +58,20 @@ $inner-block-margin: $component-margin-left;
     max-width: $tablet-small-width;
     margin: rem(17px) auto 0 auto;
   }
+
+  .components {
+    .component {
+      margin-left: auto;
+      margin-right: auto;
+      width: $tablet-small-width;
+      &.image, &.imageDiff, &.slideshow, &.embeddedCode, &.youtube {
+        width: $tablet-medium-width;
+      }
+    }
+  }
 }
 
-// desktop
+// === desktop ===
 @include mq($min-width: $screen-md-min) {
   .inner-block {
     display: block;
@@ -68,6 +85,17 @@ $inner-block-margin: $component-margin-left;
   .desc-text-block {
     max-width: $desktop-small-width;
     margin: rem(17px) auto 0 auto;
+  }
+
+  .components {
+    .component {
+      margin-left: auto;
+      margin-right: auto;
+      width: $desktop-small-width;
+      &.image, &.imageDiff, &.slideshow, &.embeddedCode, &.youtube {
+        width: $desktop-medium-width;
+      }
+    }
   }
 }
 
