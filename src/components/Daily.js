@@ -25,24 +25,22 @@ export default class Daily extends Component {
           <ul className="daily-itemlist">
           { _.map(dailyTop, (a, idx) => {
             const pubDate = date2yyyymmdd(a.publishedDate, '.')
-            if (a.state == 'published') {
-              let imageSet = imageComposer(a)
-              let thumbnail = imageSet.mobileImage
-              let url = '/a/' + a.slug
-              return (
-                <li className="daily-item" key={a.id || idx}>
-                  <a className="clearfix" href={url}>
-                    <div className="daily-image" >
-                      <div style={{
-                        backgroundImage: 'url(' + thumbnail + ')'
-                      }}/>
-                    </div>
-                    <div className="daily_lastpublish">{pubDate}</div>
-                    {a.title}
-                  </a>
-                </li>
-              )
-            }
+            let imageSet = imageComposer(a)
+            let thumbnail = imageSet.mobileImage
+            let url = '/a/' + a.slug
+            return (
+              <li className="daily-item" key={a.id || idx}>
+                <a className="clearfix" href={url}>
+                  <div className="daily-image" >
+                    <div style={{
+                      backgroundImage: 'url(' + thumbnail + ')'
+                    }}/>
+                </div>
+                <div className="daily_lastpublish">{pubDate}</div>
+                {a.title}
+              </a>
+            </li>
+            )
           })}
           </ul>
         </div>

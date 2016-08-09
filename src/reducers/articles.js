@@ -2,23 +2,23 @@
 import * as types from '../constants/action-types'
 import _ from 'lodash'
 
-export function articlesByIds(state = {}, action) {
+export function articlesByIds(state = {}, action = {}) {
   switch (action.type) {
     case types.FETCH_ARTICLES_REQUEST:
-      return Object.assign({}, state, {
+      return _.merge({}, state, {
         isFetching: true,
         ids: action.ids,
         error: null
       })
     case types.FETCH_ARTICLES_FAILURE:
-      return Object.assign({}, state, {
+      return _.merge({}, state, {
         isFetching: false,
         ids: action.ids,
         error: action.error,
         lastUpdated: action.failedAt
       })
     case types.FETCH_ARTICLES_SUCCESS:
-      return Object.assign({}, state, {
+      return _.merge({}, state, {
         isFetching: false,
         error: null,
         ids: action.ids,
@@ -29,13 +29,38 @@ export function articlesByIds(state = {}, action) {
   }
 }
 
-function _groupArticles(state = {}, action) {
+export function featureArticles(state = {}, action = {})  {
+  switch (action.type) {
+    case types.FETCH_FEATURE_ARTICLES_REQUEST:
+      return _.merge({}, state, {
+        isFetching: true,
+        error: null
+      })
+    case types.FETCH_FEATURE_ARTICLES_FAILURE:
+      return _.merge({}, state, {
+        isFetching: false,
+        error: action.error,
+        lastUpdated: action.failedAt
+      })
+    case types.FETCH_FEATURE_ARTICLES_SUCCESS:
+      return _.merge({}, state, {
+        isFetching: false,
+        error: null,
+        items: _.get(action, 'response.result'),
+        lastUpdated: action.receivedAt
+      })
+    default:
+      return state
+  }
+}
+
+function _groupArticles(state = {}, action = {}) {
   let _state = {}
   let id = action.id
   switch (action.type) {
     case types.FETCH_ARTICLES_BY_TOPIC_ID_REQUEST:
-    case types.FETCH_ARTICLES_BY_CATS_REQUEST:
-    case types.FETCH_ARTICLES_BY_TAGS_REQUEST:
+    case types.FETCH_ARTICLES_BY_CAT_ID_REQUEST:
+    case types.FETCH_ARTICLES_BY_TAG_ID_REQUEST:
       if (state.hasOwnProperty(id)) {
         _.merge(_state, {
           isFetching: true
@@ -52,8 +77,8 @@ function _groupArticles(state = {}, action) {
         [ id ]: _state
       })
     case types.FETCH_ARTICLES_BY_TOPIC_ID_FAILURE:
-    case types.FETCH_ARTICLES_BY_CATS_FAILURE:
-    case types.FETCH_ARTICLES_BY_TAGS_FAILURE:
+    case types.FETCH_ARTICLES_BY_CAT_ID_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAG_ID_FAILURE:
       _.merge(_state, {
         isFetching: false,
         error: action.error,
@@ -63,17 +88,15 @@ function _groupArticles(state = {}, action) {
         [ id ]: _state
       })
     case types.FETCH_ARTICLES_BY_TOPIC_ID_SUCCESS:
-    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
-    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
+    case types.FETCH_ARTICLES_BY_CAT_ID_SUCCESS:
+    case types.FETCH_ARTICLES_BY_TAG_ID_SUCCESS:
       _state = _.get(state, id)
-      let total = _.get(_state, 'total')
+      let total = _.get(_state, 'total') || _.get(action, 'response.meta.total')
       let items = _.get(_state, 'items')
       let hasMore = _.get(_state, 'hasMore')
-      if (!total) {
-        total = _.get(action, 'response.meta.total')
-      }
 
-      items = items.concat(_.get(action, 'response.result'))
+      // dedup items
+      items = _.uniq(items.concat(_.get(action, 'response.result')))
 
       if (items.length >= total) {
         hasMore = false
@@ -84,9 +107,10 @@ function _groupArticles(state = {}, action) {
       return _.merge({}, state, {
         [ id ]: {
           isFetching: false,
-          hasMore: hasMore,
+          hasMore,
           error: null,
-          items: items,
+          items,
+          total,
           lastUpdated: action.receivedAt
         }
       })
@@ -95,7 +119,7 @@ function _groupArticles(state = {}, action) {
   }
 }
 
-export function articlesByTopics(state = {}, action) {
+export function articlesByTopics(state = {}, action = {}) {
   switch (action.type) {
     case types.FETCH_ARTICLES_BY_TOPIC_ID_REQUEST:
     case types.FETCH_ARTICLES_BY_TOPIC_ID_FAILURE:
@@ -108,9 +132,9 @@ export function articlesByTopics(state = {}, action) {
 
 export function articlesByTags(state = {}, action = {}) {
   switch(action.type) {
-    case types.FETCH_ARTICLES_BY_TAGS_REQUEST:
-    case types.FETCH_ARTICLES_BY_TAGS_FAILURE:
-    case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
+    case types.FETCH_ARTICLES_BY_TAG_ID_REQUEST:
+    case types.FETCH_ARTICLES_BY_TAG_ID_FAILURE:
+    case types.FETCH_ARTICLES_BY_TAG_ID_SUCCESS:
       return _groupArticles(state, action)
     default:
       return state
@@ -119,9 +143,9 @@ export function articlesByTags(state = {}, action = {}) {
 
 export function articlesByCats(state = {}, action = {}) {
   switch(action.type) {
-    case types.FETCH_ARTICLES_BY_CATS_REQUEST:
-    case types.FETCH_ARTICLES_BY_CATS_FAILURE:
-    case types.FETCH_ARTICLES_BY_CATS_SUCCESS:
+    case types.FETCH_ARTICLES_BY_CAT_ID_REQUEST:
+    case types.FETCH_ARTICLES_BY_CAT_ID_FAILURE:
+    case types.FETCH_ARTICLES_BY_CAT_ID_SUCCESS:
       return _groupArticles(state, action)
     default:
       return state

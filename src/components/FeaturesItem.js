@@ -1,7 +1,8 @@
+import { date2yyyymmdd } from '../lib/date-transformer'
+import _ from 'lodash'
 import React, { Component } from 'react'
 import Category from './Category'
 import ReactDOM from 'react-dom'
-import { date2yyyymmdd } from '../lib/date-transformer'
 
 let ScrollMagic
 
@@ -115,10 +116,7 @@ export default class FeaturesItem extends Component {
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
     let url = '/a/' + article.slug
     let catDisplay = '專題'
-    let excerpt = ''
-    if (article.content.brief != undefined && article.content.brief.apiData[0].content[0] != undefined) {
-      excerpt = article.content.brief.apiData[0].content[0]
-    }
+    let excerpt = _.get(article, 'ogDescription', '')
 
     return (
       <li className="listing-item" key={article.id}>
@@ -136,10 +134,10 @@ export default class FeaturesItem extends Component {
             />
           <div className="img-overlay" />
           </div>
-          <div ref="parallaxIndicator" className="container">
+          <div ref="parallaxIndicator" className="listing-item-container">
             <div className="border clearfix">
               <div className="featurebox">
-                <div className="container">
+                <div className="cat-container">
                   <Category>{catDisplay}</Category>
                 </div>
                 <div className="infobox">

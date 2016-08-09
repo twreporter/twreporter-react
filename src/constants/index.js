@@ -1,6 +1,7 @@
 'use strict'
 
 export * from './action-types'
+export * from './strings'
 
 export const SITE_NAME = {
   FULL: '報導者The Reporter',

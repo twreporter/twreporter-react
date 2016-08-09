@@ -54,10 +54,25 @@ export function denormalizeArticles(ids = [], entities = {}) {
   ids = Array.isArray(ids) ? ids : [ ids ]
   ids.forEach((id) => {
     if (articles.hasOwnProperty(id)) {
-      let article = _.merge({} ,articles[id])
+      let article = _.merge({}, articles[id])
       _.forEach(fieldToEntity, (ele) => {
         article[ele.field] = denormalizeEntity(article[ele.field], entities[ele.entity])
       })
+      denormalizedArticles.push(article)
+    }
+  })
+  return denormalizedArticles
+}
+
+export function shallowDenormalizeArticles(ids = [], entities = {}) {
+  let denormalizedArticles = []
+  // extract entities articles need
+  const { articles } = entities
+
+  ids = Array.isArray(ids) ? ids : [ ids ]
+  ids.forEach((id) => {
+    if (articles.hasOwnProperty(id)) {
+      let article = _.merge({}, articles[id])
       denormalizedArticles.push(article)
     }
   })
