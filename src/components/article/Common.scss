@@ -22,6 +22,10 @@ $inner-block-margin: $component-margin-left;
   }
 }
 
+.hide {
+  display: none;
+}
+
 // Text
 .text-color {
   color: $gray-15;
