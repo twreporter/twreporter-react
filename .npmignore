@@ -3,19 +3,23 @@
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-node_modules
 
 # source files
-.babelrc
+.editorconfig
+.eslintignore
+.eslintrc
 .gitignore
-.bootstraprc
+.jshintignore
+.jshintrc
 .npmignore
-/*.js
-/*.css
-/*.scss
+
+err.log
+webpack-assets.json
 README.md
 CHANGELOG.md
 
 # source folders
-mixins/
+constributors/
 node_modules/
+spec/
 
 # NPM debug
 npm-debug.log
