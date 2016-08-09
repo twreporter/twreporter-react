@@ -1,9 +1,12 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import React, { Component } from 'react'
 import _ from 'lodash'
-import commonStyles from '../article/Common.scss'
+import { CHARACTERS_LIMIT, LOAD_MORE_ARTICLES } from '../../constants/index'
+import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
+import commonStyles from '../article/Common.scss'
+import LazyLoad from 'react-lazy-load'
+import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
 
 export class BottomRelateds extends Component {
@@ -54,15 +57,19 @@ export class BottomRelateds extends Component {
 
     const relatedRows = _.map(relateds, (related, index) => {
       let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
+      const description = _.get(related, 'ogDescription', '')
       return (  
         <li className={styles.relatedItem} key={'related-' + (index++)}>
           <a className={styles.relatedAnchor} href={'/a/' + related.slug}>
             <div className={styles.relatedImg}>
-              <img src={imageUrl} width="180" height="120" />
+              <LazyLoad>
+                <img className={styles['crop']} src={imageUrl} />
+              </LazyLoad>
             </div>
             <div className={styles.relatedContent}>
               <span className={styles.relatedAlignHelper}></span>
               <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
+              <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
             </div>
           </a>
         </li>
@@ -75,6 +82,7 @@ export class BottomRelateds extends Component {
           <ul>
             { relatedRows }
           </ul>
+          <div className={classNames(styles.loadMore, 'text-center')}> {LOAD_MORE_ARTICLES} </div>
         </div>
       </div>
     )

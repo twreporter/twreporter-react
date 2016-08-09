@@ -11,8 +11,9 @@
   width: 100%;
   vertical-align: middle;
   background-color: $white;
-  margin: rem(16px) 0;
+  margin: rem(8px) 0;
   transition: all 0.2s;
+  float: left;
 
   &:hover {
     box-shadow: 0px 3px 8px 0px rgba($gray-40, 0.5);
@@ -35,13 +36,17 @@
   margin: 0;
 }
 
-.relatedImg {
-  float: left;
-}
-
 .relatedContent {
   text-align: left;
-  margin: 25px 0 25px 205px;
+  margin: rem(15px) rem(15px) rem(15px) rem(130px);
+
+  @include mq($max-width: $screen-md-max) {
+    margin: rem(15px) rem(10px) rem(15px) rem(120px);
+  }
+
+  @include mq($max-width: $screen-xs-max) {
+    margin: rem(15px) rem(10px) rem(15px) rem(110px);
+  }
 }
 
 .relatedAlignHelper {
@@ -57,6 +62,53 @@
   font-weight: $font-weight-bold;
 }
 
+.relatedDescription {
+  vertical-align: middle;
+  color: $gray-50;
+  @media (max-width: $screen-xs-max) {
+    display: none;
+  }
+}
+
+.loadMore {
+  display: inline-table;
+  width: 100%;
+  color: $primary-color;
+  margin: 0.8rem 0 2rem 0;
+  font-weight: $font-weight-bold;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(10%);
+  }
+}
+
+.relatedImg {
+  margin-top: rem(18px);
+  width: rem(80px);
+  height: rem(80px);
+  overflow: hidden;
+  margin: rem(15px);
+  position: relative;
+  background-color: $gray-border-color;
+  float: left;
+
+  .crop {
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    margin: auto; 
+    height: auto;
+    width: auto;
+    max-width: rem(150px);
+    max-height: rem(150px);
+  }
+}
+
 @include mq($max-width: $screen-xs-max) {
   .bottomRelateds {
     margin: 0.8em 0;
@@ -67,7 +119,7 @@
 
   .relatedItem {
     border-right: 0;
-    margin: rem(10px) 0;
+    margin: rem(5px) 0;
     padding: 0 15px;
     width: 100%;
   }
@@ -82,13 +134,5 @@
 
   .relatedAnchor {
     width: 100%;
-  }
-
-  .relatedImg {
-    margin: 20px 20px 20px 0;
-  }
-
-  .relatedContent {
-    margin: 20px 0 20px 200px;
   }
 }
