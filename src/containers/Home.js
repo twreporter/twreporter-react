@@ -1,10 +1,10 @@
 /*eslint no-unused-vars:0, no-console:0 */
 /* global __DEVELOPMENT__ */
 'use strict'
-import { REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
+import { CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchArticlesByCatIdIfNeeded, fetchFeatureArticlesIfNeeded } from '../actions/articles'
+import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
@@ -40,13 +40,13 @@ export default class Home extends Component {
             })
         },
         function (callback) {
-          store.dispatch(fetchArticlesByCatIdIfNeeded(getCatId(REVIEW_CH_STR), params))
+          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(REVIEW_CH_STR), CATEGORY, params))
             .then(() => {
               callback(null)
             })
         },
         function (callback) {
-          store.dispatch(fetchArticlesByCatIdIfNeeded(getCatId(SPECIAL_TOPIC_CH_STR), params))
+          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(SPECIAL_TOPIC_CH_STR), CATEGORY, params))
             .then(() => {
               callback(null)
             })
@@ -68,14 +68,14 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByCatIdIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
     let params = {
       page: PAGE,
       max_results: MAXRESULT
     }
     fetchFeatureArticlesIfNeeded()
-    fetchArticlesByCatIdIfNeeded(this.reviewListId, params)
-    fetchArticlesByCatIdIfNeeded(this.specialTopicListId, params)
+    fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
+    fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,26 +83,26 @@ export default class Home extends Component {
   }
 
   _loadMoreArticles(catId) {
-    const { articlesByCats, fetchArticlesByCatIdIfNeeded } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
 
-    if (_.get(articlesByCats, [ catId, 'hasMore' ]) === false) {
+    if (_.get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
       return
     }
 
-    let itemSize = _.get(articlesByCats, [ catId, 'items', 'length' ], 0)
+    let itemSize = _.get(articlesByUuids, [ catId, 'items', 'length' ], 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
-    fetchArticlesByCatIdIfNeeded(catId, {
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
       page: page,
       max_results: MAXRESULT
     })
   }
 
   render() {
-    const { articlesByCats, entities, featureArticles } = this.props
+    const { articlesByUuids, entities, featureArticles } = this.props
     const topnews_num = 5
     let topnewsItems = denormalizeArticles(_.get(featureArticles, 'items', []), entities)
-    let specialTopicItems = denormalizeArticles(_.get(articlesByCats, [ this.specialTopicListId, 'items' ], []), entities)
-    let reviewItems = denormalizeArticles(_.get(articlesByCats, [ this.reviewListId, 'items' ], []), entities)
+    let specialTopicItems = denormalizeArticles(_.get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
+    let reviewItems = denormalizeArticles(_.get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
 
     if (topnewsItems) {
       return (
@@ -112,7 +112,7 @@ export default class Home extends Component {
           />
           <Features
             features={specialTopicItems}
-            hasMore={ _.get(articlesByCats, [ this.specialTopicListId, 'hasMore' ])}
+            hasMore={ _.get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
             loadMore={this.loadMoreArticles}
           />
           {
@@ -129,7 +129,7 @@ export default class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    articlesByCats: state.articlesByCats || {},
+    articlesByUuids: state.articlesByUuids || {},
     entities: state.entities || {},
     featureArticles: state.featureArticles || {}
   }
@@ -138,6 +138,6 @@ function mapStateToProps(state) {
 export { Home }
 
 export default connect(mapStateToProps, {
-  fetchArticlesByCatIdIfNeeded,
+  fetchArticlesByUuidIfNeeded,
   fetchFeatureArticlesIfNeeded
 })(Home)
