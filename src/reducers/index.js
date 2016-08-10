@@ -24,10 +24,9 @@ function slugToId(state = {}, action) {
       return _.merge({}, state, {
         [action.slug]: _.get(action, 'response.result' )
       })
-    case types.FETCH_ARTICLES_SUCCESS:
-    case types.FETCH_ARTICLES_BY_TOPIC_ID_SUCCESS:
-    case types.FETCH_ARTICLES_BY_CAT_ID_SUCCESS:
-    case types.FETCH_ARTICLES_BY_TAG_ID_SUCCESS:
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS:
+    case types.FETCH_FEATURE_ARTICLES_SUCCESS:
+    case types.FETCH_RELATED_ARTICLES_SUCCESS:
       let rtn = {}
       let articles = _.get(action, [ 'response', 'entities', 'articles' ], {})
       _.forEach(articles, (article) => {
