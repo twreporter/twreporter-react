@@ -70,6 +70,10 @@ export const HOME = 'HOME'
 
 export const CATEGORY = 'CATEGORY'
 
+export const TAG = 'TAG'
+
+export const TOPIC = 'TOPIC'
+
 export const basePath = 'https://www.twreporter.org'
 
 export const appId = 962589903815787
