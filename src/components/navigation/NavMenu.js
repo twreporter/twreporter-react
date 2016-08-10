@@ -51,11 +51,13 @@ export default class NavMenu extends Component {
 
     if(nextProps.pageTitle !== this.props.pageTitle) {
       this.setState({ trimmedTitle: '' })
+      this._checkIfPopupShown(this.state.isOpen)
     }
 
     // close the topic popup if user switch to different page
     if(nextProps.path !== this.props.path) {
-      this._onTopicBtnClick()
+      this.setState({ trimmedTitle: '', isTopicOpen: false })
+      this._checkIfPopupShown(this.state.isOpen)
     }
 
     if(this.state.trimmedTitle=='') {
@@ -114,6 +116,9 @@ export default class NavMenu extends Component {
     const { trimmedTitle } = this.state   // trimmed title
     const { pageTopic } = this.props
     let topicBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
+    let topicButton = pageTopic ? <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
+            <img src={tocIcon} />
+          </div> : null
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -128,9 +133,7 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
-            <img src={tocIcon} />
-          </div>
+          {topicButton}
         </div>
       </div>
     )
@@ -139,7 +142,10 @@ export default class NavMenu extends Component {
   _onTopicBtnClick() {
     const isOpen = !this.state.isTopicOpen
     this.setState({ isTopicOpen: isOpen })
-    
+    this._checkIfPopupShown(isOpen)
+  }
+
+  _checkIfPopupShown(isOpen) {
     // disable the page scrolling function if the Topic popup is being open
     if(isOpen) {
       document.body.style.overflow = 'hidden'

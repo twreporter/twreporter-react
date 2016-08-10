@@ -3,6 +3,7 @@ import { TAG } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -42,6 +43,10 @@ export default class Tag extends Component {
       max_results: MAXRESULT
     })
 
+  }
+
+  componentDidMount() {
+    this.props.setPageType(TAG)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,4 +105,4 @@ Tag.contextTypes = {
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded })(Tag)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Tag)

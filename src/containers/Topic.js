@@ -3,6 +3,7 @@ import { TOPIC } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -18,6 +19,10 @@ export default class Topic extends Component {
     this.state = {
       topicId: props.params.topicId
     }
+  }
+
+  componentDidMount() {
+    this.props.setPageType(TOPIC)
   }
 
   componentWillMount() {
@@ -66,4 +71,4 @@ Topic.contextTypes = {
 }
 
 export { Topic }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded })(Topic)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Topic)
