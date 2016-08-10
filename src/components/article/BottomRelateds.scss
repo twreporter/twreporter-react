@@ -50,13 +50,14 @@
 .relatedTitle {
   vertical-align: middle;
   display: inline-block;
-  font-size: $font-size-base;
+  font-size: $font-size-large;
   font-weight: $font-weight-bold;
 }
 
 .relatedDescription {
   vertical-align: middle;
   color: $gray-50;
+  font-size: $font-size-xsmall;
   @media (max-width: $screen-xs-max) {
     display: none;
   }
@@ -71,6 +72,7 @@
   padding: 0.6rem 0;
   cursor: pointer;
   transition: all 0.2s;
+  font-size: $font-size-medium;
 
   &:hover {
     transform: translateY(10%);

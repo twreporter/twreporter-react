@@ -166,6 +166,7 @@
     margin-left: 1.5rem;
     display: table;
     transition: all 0.3s;
+    font-size: $font-size-xsmall;
     @media (max-width: $screen-xs-max) {
         display: none;
     }
