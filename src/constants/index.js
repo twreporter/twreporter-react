@@ -50,10 +50,19 @@ export const copyrightTypes = {
 }
 
 export const CHARACTERS_LIMIT = {
-  TOPIC_DESC: 120
+  TOPIC_DESC: 120,
+  BOTTOM_RELATED_DESC: 120
 }
 
+export const ITEMS_LIMIT = {
+  ARTICLE_RELATED: 3
+}
+
+export const RELATED_ARTICLES = '延伸閱讀'
+
 export const CONTINUE_READING = '繼續閱讀'
+
+export const LOAD_MORE_ARTICLES = '載入更多文章'
 
 export const ARTICLE = 'ARTICLE'
 

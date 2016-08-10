@@ -172,7 +172,6 @@ class Article extends Component {
     let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
-    let deduppedAuthors = _.uniq(authors, 'id')
     let heroImage = _.get(article, [ 'heroImage' ], null)
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
@@ -230,30 +229,26 @@ class Article extends Component {
               data={bodyData}
             />
 
-            <div ref="progressEnding" className="inner-max center-block">
-              <div className="row">
-                <div className="col-md-12">
-                  <ArticleComponents.BottomTags
-                    data={article.tags}
-                  />
-                </div>
+            <div ref="progressEnding" 
+                className={classNames('inner-max', 'center-block', commonStyles['components'])}>
+              <div className={classNames('inner-max', commonStyles['component'])}>
+                <ArticleComponents.BottomTags
+                  data={article.tags}
+                />
               </div>
-              <ArticleComponents.BottomAuthor
-                authors={deduppedAuthors}
+              <ArticleComponents.BottomRelateds
+                relateds={article.relateds}
               />
             </div>
-            <ArticleComponents.BottomRelateds
-              relateds={article.relateds}
-            />
           </div>
-          <ArticleComponents.PageNavigation
+          {/*<ArticleComponents.PageNavigation
             article={ _.get(article, [ 'relateds', 0 ])}
             navigate="next"
           />
           <ArticleComponents.PageNavigation
             article={_.get(article, [ 'relateds', 1 ])}
             navigate="previous"
-          />
+          />*/}
           <Footer
             copyright={copyright}/>
         </div>

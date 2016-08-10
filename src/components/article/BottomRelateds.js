@@ -1,7 +1,12 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import React, { Component } from 'react'
 import _ from 'lodash'
+import { CHARACTERS_LIMIT, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
+import { shortenString } from '../../lib/string-processor'
+import classNames from 'classnames'
+import commonStyles from '../article/Common.scss'
+import LazyLoad from 'react-lazy-load'
+import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
 
 export class BottomRelateds extends Component {
@@ -14,7 +19,8 @@ export class BottomRelateds extends Component {
 
     this.totalWidth = Math.max(count * itemWidth, 0)
     this.state = {
-      width: 'auto'
+      width: 'auto',
+      isCollapse: false
     }
   }
 
@@ -45,6 +51,7 @@ export class BottomRelateds extends Component {
 
   render() {
     const { relateds } = this.props
+    const { isCollapse } = this.state
 
     if (!_.get(relateds, '0')) {
       return null
@@ -52,27 +59,42 @@ export class BottomRelateds extends Component {
 
     const relatedRows = _.map(relateds, (related, index) => {
       let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
+      const description = _.get(related, 'ogDescription', '')
+      let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
+
       return (  
-        <li className={styles.relatedItem} key={'related-' + (index++)}>
+        <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
           <a className={styles.relatedAnchor} href={'/a/' + related.slug}>
-            <div className={styles.relatedImg}>
-              <img src={imageUrl} width="180" height="120" />
+            <div className={styles.relatedImgWrapper}>
+              <div className={styles.relatedImg}>
+                <LazyLoad>
+                  <img className={styles['crop']} src={imageUrl} />
+                </LazyLoad>
+              </div>
             </div>
             <div className={styles.relatedContent}>
-              <span className={styles.relatedAlignHelper}></span>
               <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
+              <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
             </div>
           </a>
         </li>
       )
     })
 
+    const loadMoreBtn = isCollapse ? null : <div className={classNames(styles.loadMore, 'text-center')} onClick={()=>{this.setState({ isCollapse: true })}}>
+            {LOAD_MORE_ARTICLES}
+          </div>
+
     return (
-      <div className={styles.bottomRelatedsWrapper}>
-        <div className={styles.bottomRelateds}>
-          <ul style={ { width: _.get(this, 'state.width', 'auto') } }>
+      <div className={classNames(commonStyles['component'], 'center-block')}>
+        <div className={classNames(styles.bottomRelatedsWrapper, commonStyles['inner-block'])}>
+          <div className={classNames(styles['topicWrapper'], 'text-center')}>
+            <h3 className={commonStyles['topic-box']}> {RELATED_ARTICLES} </h3>
+          </div>
+          <ul>
             { relatedRows }
           </ul>
+          {loadMoreBtn}
         </div>
       </div>
     )

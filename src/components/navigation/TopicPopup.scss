@@ -160,8 +160,8 @@
       margin: auto; 
       height: auto;
       width: auto;
-      max-width: rem(160px);
-      max-height: rem(160px);
+      max-width: rem(150px);
+      max-height: rem(150px);
 
       @media (max-width: $screen-xs-min) {
         width: rem(96px);
