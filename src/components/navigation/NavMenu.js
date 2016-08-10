@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
@@ -93,7 +94,10 @@ export default class NavMenu extends Component {
   }
 
   _renderAritcleFirst(burgerMenu, logo) {
+    const { header } = this.props
+    const pageType = _.get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
+    let subNavBar = (!pageType || pageType === ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -107,6 +111,7 @@ export default class NavMenu extends Component {
         <div className={styles.navRight}>
           <Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>
         </div>
+        {subNavBar}
       </div>
     )
   }
@@ -134,6 +139,21 @@ export default class NavMenu extends Component {
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           {topicButton}
+        </div>
+      </div>
+    )
+  }
+
+  _renderGeneralSecond(burgerMenu, navLinks) {
+    return (
+      <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
+        <div className={classNames(styles.navLeft, styles.slideUp)}>
+          {burgerMenu}
+          <DonateButton isSlidedUp={true}/>
+        </div>
+        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+        </div>
+        <div className={classNames(styles.navRight, styles.fadeLeft)}>
         </div>
       </div>
     )
@@ -221,6 +241,9 @@ export default class NavMenu extends Component {
     // if the page has been scrolled down, show another menu
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
+      navOuterClass = navCommonStyles['nav-scrolled-outer']
+    } else if (isScrolledOver) {
+      menuBar = this._renderGeneralSecond(burgerMenu, navLinks)
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
