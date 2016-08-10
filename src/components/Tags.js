@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
+// import { Link } from 'react-router'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 

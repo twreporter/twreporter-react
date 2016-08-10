@@ -179,7 +179,7 @@ class Article extends Component {
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
     let heroImage = _.get(article, [ 'heroImage' ], null)
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
-    let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
+    let introData = _.get(article, [ 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
