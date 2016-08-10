@@ -65,13 +65,14 @@ export class BottomRelateds extends Component {
       return (  
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
           <a className={styles.relatedAnchor} href={'/a/' + related.slug}>
-            <div className={styles.relatedImg}>
-              <LazyLoad>
-                <img className={styles['crop']} src={imageUrl} />
-              </LazyLoad>
+            <div className={styles.relatedImgWrapper}>
+              <div className={styles.relatedImg}>
+                <LazyLoad>
+                  <img className={styles['crop']} src={imageUrl} />
+                </LazyLoad>
+              </div>
             </div>
             <div className={styles.relatedContent}>
-              <span className={styles.relatedAlignHelper}></span>
               <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
               <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
             </div>

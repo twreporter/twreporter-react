@@ -2,6 +2,7 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/common-variables.scss';
 @import '../../themes/font-mixins.scss';
+@import '../../themes/animation.scss';
 
 .bottomRelatedsWrapper {
   margin: 3rem 0;
@@ -11,12 +12,18 @@
   width: 100%;
   vertical-align: middle;
   background-color: $white;
-  margin: rem(8px) 0;
+  margin: rem(16px) 0;
   transition: all 0.2s;
-  float: left;
+  @include fade-in-down(0.5s);
 
   &:hover {
     box-shadow: 0px 3px 8px 0px rgba($gray-40, 0.5);
+  }
+
+  @include mq($max-width: $screen-xs-max) {
+    margin: rem(10px) 0;
+    padding: 0 15px;
+    width: 100%;
   }
 }
 
@@ -24,35 +31,16 @@
   border-right: 0;
 }
 
-.relatedItem:before,
-.relatedItem:after {
-  content: " ";
-  display: table;
-  clear: both;
-}
-
 .relatedAnchor {
-  display: inline-block;
+  display: table;
   margin: 0;
 }
 
 .relatedContent {
+  display: table-cell;
   text-align: left;
-  margin: rem(15px) rem(15px) rem(15px) rem(130px);
-
-  @include mq($max-width: $screen-md-max) {
-    margin: rem(15px) rem(10px) rem(15px) rem(120px);
-  }
-
-  @include mq($max-width: $screen-xs-max) {
-    margin: rem(15px) rem(10px) rem(15px) rem(110px);
-  }
-}
-
-.relatedAlignHelper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
+  vertical-align: top;
+  padding: rem(15px) rem(10px) rem(15px) rem(5px);
 }
 
 .relatedTitle {
@@ -74,15 +62,19 @@
   display: inline-table;
   width: 100%;
   color: $primary-color;
-  margin: 0.8rem 0 2rem 0;
+  margin: 0 0 2rem 0;
   font-weight: $font-weight-bold;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
     transform: translateY(10%);
   }
+}
+
+.relatedImgWrapper {
+  display: table-cell;
 }
 
 .relatedImg {
@@ -93,7 +85,6 @@
   margin: rem(15px);
   position: relative;
   background-color: $gray-border-color;
-  float: left;
 
   .crop {
     position: absolute;
@@ -106,33 +97,5 @@
     width: auto;
     max-width: rem(150px);
     max-height: rem(150px);
-  }
-}
-
-@include mq($max-width: $screen-xs-max) {
-  .bottomRelateds {
-    margin: 0.8em 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    height: auto;
-  }
-
-  .relatedItem {
-    border-right: 0;
-    margin: rem(5px) 0;
-    padding: 0 15px;
-    width: 100%;
-  }
-
-  .relatedItem:last-of-type {
-    border-right: 0;
-
-    .relatedAnchor {
-      border-bottom: 0;
-    }
-  }
-
-  .relatedAnchor {
-    width: 100%;
   }
 }
