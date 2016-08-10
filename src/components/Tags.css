@@ -35,7 +35,6 @@
 }
 
 .tag-item:nth-child(odd) {
-    margin: 0 26px 0 0;
     vertical-align: top;
 }
 

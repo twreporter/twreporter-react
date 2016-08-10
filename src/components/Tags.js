@@ -32,23 +32,23 @@ export default class Tags extends Component {
   }
 
   render() {
-    const { fullArticles, hasMore, loadMore } = this.props
+    const { articles, hasMore, loadMore } = this.props
     let cat_display = '台灣'
     const bgStyle = {}
     if (this.props.bgStyle === 'dark') {
       bgStyle.backgroundColor = '#2C323E'
       bgStyle.color = '#FFFFFF'
     }
-    if (fullArticles && fullArticles.length > 0) {
+    if (articles && articles.length > 0) {
       return (
         <div className="category-items">
         <cat cat_display={cat_display}/>
           <ul className="tag-listing">
-            { _.map(fullArticles, (a) => {
+            { _.map(articles, (a) => {
               let image = imageComposer(a).mobileImage
               const d_str = date2yyyymmdd(a.publishedDate , '.')
               let url = '/a/' + a.slug
-              let excerpt = (a.content.brief) ? a.content.brief.apiData[0].content[0] : ''
+              let excerpt =  _.get(a, 'ogDescription', '')
               if (image) {
                 return (
                   <li className="tag-item" key={a._id} style={bgStyle}>
