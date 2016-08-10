@@ -9,7 +9,7 @@ import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 
 const groupEnum = CONSTANTS.groupEnum
-const pathEnum = CONSTANTS.pathEnum
+const pathEnum = CONSTANTS.apiPathEnum
 
 function requestGroups(groupType, groupNames) {
   let type = groupType === groupEnum.CATEGORY ? CONSTANTS.FETCH_CATEGORIES_REQUEST : CONSTANTS.FETCH_TAGS_REQUEST

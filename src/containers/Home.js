@@ -68,9 +68,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const {
-      fetchArticlesByCatIdIfNeeded
-    } = this.props
+    const { fetchArticlesByCatIdIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
     let params = {
       page: PAGE,
       max_results: MAXRESULT
