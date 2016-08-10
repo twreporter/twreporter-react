@@ -3,8 +3,9 @@
 }
 
 .daily-itemlistwrapprt {
-    width: 100%;
+    max-width: 1200px;
     text-align: left;
+    margin: 0 auto;
 }
 
 .daily-itemlist {
