@@ -17,11 +17,13 @@ const Topic = (props) => {
     <div className="col-md-12 col-lg-6">
       <div className={styles['topic']}>
         <div className={styles['img-outer']}>
-          <div className={styles['img-box']}>
-            <LazyLoad>
-              <img className={styles['crop']} src={heroImgUrl}/>
-            </LazyLoad>
-          </div>
+          <Link to={link}>
+            <div className={styles['img-box']}>
+              <LazyLoad>
+                <img className={styles['crop']} src={heroImgUrl}/>
+              </LazyLoad>
+            </div>
+          </Link>
         </div>
         <div className={styles['text-box']}>
           <Link to={link}><h3 className={styles['article-title']}>{data.title}</h3></Link>

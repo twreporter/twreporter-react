@@ -78,13 +78,14 @@
 }
 
 .article-title {
-  font-size: $font-size-base;
+  font-size: $font-size-large;
   font-weight: $font-weight-bold;
 }
 
 .article-desc {
   display: inline;
   color: $gray-50;
+  font-size: $font-size-xsmall;
   @media (max-width: $screen-xs-max) {
     display: none;
   }
@@ -94,7 +95,8 @@
   display: inline;
   color: $primary-color;
   font-weight: $font-weight-bold;
-  margin: 0 0.2rem;
+  font-size: $font-size-xsmall;
+  margin: 0 0.1rem;
 
   @media (max-width: $screen-xs-max) {
     display: none;
@@ -113,6 +115,7 @@
 
 .topic {
   display: table;
+  line-height: rem(23px);
 
   @media (max-width: $screen-md-min) {
     margin: 1rem 0.3rem;
@@ -126,6 +129,7 @@
     width: rem(90px);
     display: table-cell;
     vertical-align: top;
+    padding-top: 0.7rem;
 
     @media (max-width: $screen-xs-min) {
       width: rem(60px);
