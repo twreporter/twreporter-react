@@ -1,7 +1,7 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import _ from 'lodash'
-import { CHARACTERS_LIMIT, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
+import { CHARACTERS_LIMIT, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -88,6 +88,9 @@ export class BottomRelateds extends Component {
     return (
       <div className={classNames(commonStyles['component'], 'center-block')}>
         <div className={classNames(styles.bottomRelatedsWrapper, commonStyles['inner-block'])}>
+          <div className={classNames(styles['topicWrapper'], 'text-center')}>
+            <h3 className={commonStyles['topic-box']}> {RELATED_ARTICLES} </h3>
+          </div>
           <ul>
             { relatedRows }
           </ul>
