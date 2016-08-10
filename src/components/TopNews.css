@@ -216,7 +216,7 @@ and (max-width : 667px) {
         height: 300px;
     }
     .topnews ul li {
-			height: 200px;
+			height: 300px;
 			padding-bottom: 100px;
 		}
     .topnews menu {

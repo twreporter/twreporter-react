@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-.listing-item .container {
+.listing-item .listing-item-container {
     height: 100vh
 }
 
@@ -84,7 +84,7 @@
     margin: 40px auto 40px auto;
 }
 
-.listing-item .featurebox .container {
+.listing-item .featurebox .cat-container {
     width: 32px;
     display: inline-block;
     position: absolute;
@@ -128,7 +128,7 @@ and (max-device-width : 799px) {
         height: 100%;
         width: 100%;
     }
-    .listing-item .container {
+    .listing-item .listing-item-container {
         height: auto;
         position: static;
     }
@@ -168,7 +168,7 @@ and (max-device-width : 799px) {
         width: auto;
         margin: 0px;
     }
-    .listing-item .featurebox .container {
+    .listing-item .featurebox .cat-container {
         position: absolute;
         top: 10px;
         right: 10px;

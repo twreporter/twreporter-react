@@ -147,7 +147,7 @@ function _buildUrl(params = {}, target) {
 }
 
 
-function _setupWhereParam(key, value, params={}) {
+function _setupWhereInParam(key, value, params={}) {
   params = params || {}
   value = Array.isArray(value) ? value : [ value ]
   let where = {}
@@ -233,7 +233,7 @@ export function fetchArticlesByIdsIfNeeded(ids = [], params = {}, isOnlyMeta = t
       return Promise.resolve()
     }
 
-    params = _setupWhereParam('_id', idsToFetch, params)
+    params = _setupWhereInParam('_id', idsToFetch, params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
@@ -249,7 +249,7 @@ export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnly
       return Promise.resolve()
     }
 
-    params = _setupWhereParam('topics', [ topicId ], params)
+    params = _setupWhereInParam('topics', [ topicId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
@@ -261,13 +261,11 @@ export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnly
 
 export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    let items = _.get(getState(), [ 'articleByTags', tagId, 'items' ], [])
-
-    if (!tagId || items.length >= params.max_results * params.page) {
+    if (_.get(getState(), [ 'articlesByTags', tagId, 'hasMore' ]) === false) {
       return Promise.resolve()
     }
 
-    params = _setupWhereParam('tags', [ tagId ], params)
+    params = _setupWhereInParam('tags', [ tagId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
@@ -279,13 +277,11 @@ export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta
 
 export function fetchArticlesByCatIdIfNeeded(catId = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    let items = _.get(getState(), [ 'articleByCats', catId, 'items' ], [])
-
-    if (!catId || items.length >= params.max_results * params.page) {
+    if (_.get(getState(), [ 'articlesByCats', catId, 'hasMore' ]) === false) {
       return Promise.resolve()
     }
 
-    params = _setupWhereParam('categories', [ catId ], params)
+    params = _setupWhereInParam('categories', [ catId ], params)
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
@@ -302,7 +298,7 @@ export function fetchArticlesByTopicIdNameIfNeeded(topicName = '', params = {} ,
   return fetchArticlesByTopicIdIfNeeded(topicId, params, isOnlyMeta)
 }
 
-function _fetchArticlesByName(name = '', params = {}, isOnlyMeta = true, target) {
+function _fetchArticlesByListName(name = '', params = {}, isOnlyMeta = true, target) {
   let listId = _getListId(target)
   let id = listId[name]
   params = params || {}
@@ -312,10 +308,49 @@ function _fetchArticlesByName(name = '', params = {}, isOnlyMeta = true, target)
 }
 
 export function fetchArticlesByCatNameIfNeeded(catName = '', params = {}, isOnlyMeta = true) {
-  return _fetchArticlesByName(catName, params, isOnlyMeta, 'category')
+  return _fetchArticlesByListName(catName, params, isOnlyMeta, 'category')
 }
 
 export function fetchArticlesByTagNameIfNeeded(tagName = '', params = {}, isOnlyMeta = true) {
-  return _fetchArticlesByName(tagName, params, isOnlyMeta, 'tag')
+  return _fetchArticlesByListName(tagName, params, isOnlyMeta, 'tag')
 }
 
+export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
+  const limit = 6
+  const page = 1
+
+  return (dispatch, getState) => {
+
+    if (_.get(getState(), 'featureArticles.items.length', 0) > 0) {
+      return Promise.resolve()
+    }
+
+    params = params || {}
+    params.where = _.merge({}, params.where, {
+      isFeatured: true
+    })
+    params.max_results = params.max_results || limit
+    params.page = params.page || page
+
+    dispatch({
+      type: types.FETCH_FEATURE_ARTICLES_REQUEST
+    })
+
+    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+      .then((response) => {
+        let camelizedJson = camelizeKeys(response)
+        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
+        return dispatch({
+          type: types.FETCH_FEATURE_ARTICLES_SUCCESS,
+          response: normalized,
+          receivedAt: Date.now()
+        })
+      }, (error) => {
+        return dispatch({
+          types: types.FETCH_FEATURE_ARTICLES_FAILURE,
+          error,
+          failedAt: Date.now()
+        })
+      })
+  }
+}

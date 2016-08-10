@@ -1,8 +1,9 @@
+import { date2yyyymmdd } from '../lib/date-transformer'
+import { imageComposer } from '../utils/index'
+import _ from 'lodash'
 import React, { Component } from 'react'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
-import { ts2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../utils/index'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
@@ -22,19 +23,13 @@ export default class TopNews extends Component {
     return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
-          const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
-          let tags = a.tags
-          let catDisplay = '專題'
-          for (let i = 0; i < tags.length; i++) {
-            if (tags[i].substring(0,4) === 'cat:') {
-              catDisplay = tags[i].substring(4)
-              break
-            }
-          }
+          const pubDate = date2yyyymmdd(a.publishedDate * 1000, '.')
+          let cats = _.get(a, 'categories', [])
+          let catDisplay = _.get(cats, [ 0, 'name' ], '專題')
           let imageSet = imageComposer(a)
           let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (
-              <a key={a.id} href={(a.slug) ? '/a/' + a.slug : a.storyLink}>
+              <a key={a.id} href={'/a/' + a.slug}>
                 <img src={image} alt={a.slug} />
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>

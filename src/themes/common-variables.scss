@@ -1,3 +1,5 @@
+@import './pre-bootstrap-customization.scss';
+
 // TWReporter's custom variable
 $twreporter-line-height: 1.8em;
 $subnav-background: #3E3A39;
@@ -10,8 +12,7 @@ $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
 // == Typography
 // ## Font
-$font-date-serif: "Times New Roman",
-serif;
+$font-date-serif: "Times New Roman",serif;
 $font-size-base: 18px;
 $font-size-larger: 24px;
 $font-size-large: 20px;

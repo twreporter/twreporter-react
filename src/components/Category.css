@@ -1,5 +1,5 @@
 .category {
-  width: 1.8em;
+  width: 2.6em;
 	/* encodeURIComponent() for Fx and IE
 	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="330" height="330"><polygon fill="#fff" stroke="#000" stroke-width="15" stroke-linejoin="round" points="315,165 240,295 90,295 15,165 90,35 240,35"></polygon></svg>');
 	*/
@@ -8,5 +8,5 @@
   background-repeat: repeat-y;
   text-align: center;
   line-height: 2.63em;
-  padding: 0 calc((1.8em - 1em)/2);
+  padding: 0 0.4em;
 }
