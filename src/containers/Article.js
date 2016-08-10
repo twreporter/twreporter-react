@@ -168,7 +168,7 @@ class Article extends Component {
 
   render() {
     const { selectedArticle, entities } = this.props
-    const { topicId, topicName } = this.state
+    const { topicId, topicName, topicArr } = this.state
     let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
@@ -238,6 +238,8 @@ class Article extends Component {
               </div>
               <ArticleComponents.BottomRelateds
                 relateds={article.relateds}
+                topicName={topicName}
+                topicArr={topicArr}
               />
             </div>
           </div>
