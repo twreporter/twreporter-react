@@ -50,14 +50,17 @@ export class BottomRelateds extends Component {
   }
 
   render() {
-    const { relateds } = this.props
+    const { relateds, topicName, topicArr } = this.props
     const { isCollapse } = this.state
+
+    const titleText = (topicArr && topicName) ? topicName : RELATED_ARTICLES
+    const listItems = (topicArr && topicName) ? topicArr : relateds
 
     if (!_.get(relateds, '0')) {
       return null
     }
 
-    const relatedRows = _.map(relateds, (related, index) => {
+    const relatedRows = _.map(listItems, (related, index) => {
       let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
       const description = _.get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
@@ -89,7 +92,7 @@ export class BottomRelateds extends Component {
       <div className={classNames(commonStyles['component'], 'center-block')}>
         <div className={classNames(styles.bottomRelatedsWrapper, commonStyles['inner-block'])}>
           <div className={classNames(styles['topicWrapper'], 'text-center')}>
-            <h3 className={commonStyles['topic-box']}> {RELATED_ARTICLES} </h3>
+            <h3 className={commonStyles['topic-box']}> {titleText} </h3>
           </div>
           <ul>
             { relatedRows }
