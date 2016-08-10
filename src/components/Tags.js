@@ -33,7 +33,6 @@ export default class Tags extends Component {
 
   render() {
     const { articles, hasMore, loadMore } = this.props
-    let cat_display = '台灣'
     const bgStyle = {}
     if (this.props.bgStyle === 'dark') {
       bgStyle.backgroundColor = '#2C323E'
@@ -42,7 +41,6 @@ export default class Tags extends Component {
     if (articles && articles.length > 0) {
       return (
         <div className="category-items">
-        <cat cat_display={cat_display}/>
           <ul className="tag-listing">
             { _.map(articles, (a) => {
               let image = imageComposer(a).mobileImage
@@ -51,7 +49,7 @@ export default class Tags extends Component {
               let excerpt =  _.get(a, 'ogDescription', '')
               if (image) {
                 return (
-                  <li className="tag-item" key={a._id} style={bgStyle}>
+                  <li className="tag-item" key={a.id} style={bgStyle}>
                     <a href={url}>
                       <div className="itemimage-wrap">
                         <img className="category-itemimage" src={image}/>

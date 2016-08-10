@@ -3,18 +3,22 @@
 }
 
 .daily-itemlistwrapprt {
-    width: 982px;
-    margin: auto;
+    width: 100%;
     text-align: left;
 }
+
 .daily-itemlist {
-    margin-left: -26px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .daily-item {
     display: inline-block;
     vertical-align: top;
     padding: 0;
+    margin: 10px;
 }
 
 .daily-item a {
@@ -25,7 +29,6 @@
     color: black;
     line-height: 26px;
     word-spacing: 30px;
-    padding-left: 26px;
     padding-bottom: 75px;
     width: 310px;
 }
@@ -85,7 +88,7 @@ only screen
 and (max-device-width : 799px) {
 
     .daily-item {
-        max-width: 350px;
+        width: 350px;
         vertical-align: top;
         display: block;
         margin: 0 auto;
@@ -149,13 +152,6 @@ and (max-device-width : 799px) {
 only screen 
 and (min-width : 800px) 
 and (max-width : 1024px) {
-    .daily {
-        width: 646px;
-        margin: auto;
-    }
-    .daily-itemlistwrapprt {
-        width: 646px;
-    }
     .daily-item a {
         padding-bottom: 60px;
     }
