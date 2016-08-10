@@ -7,7 +7,8 @@ export const devTopicListId = {
   '亞洲森林浩劫': '579f0211a825a25a31eabc1b',
   '走入同志家庭': '579f0224a825a25a31eabc1c',
   '急診人生': '579f022fa825a25a31eabc1d',
-  '測試專題': '579c4301411c987224380ad2'
+  '測試專題': '579c4301411c987224380ad2',
+  '五輕關廠': '57ab381936b7f2b2458e3bcf'
 }
 
 export const prodCatListId = {

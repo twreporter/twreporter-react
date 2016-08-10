@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
+// import { Link } from 'react-router'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 
@@ -30,16 +31,16 @@ export default class Daily extends Component {
             let url = '/a/' + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
-                <a className="clearfix" href={url}>
+                <a href={url}>
                   <div className="daily-image" >
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'
                     }}/>
-                </div>
-                <div className="daily_lastpublish">{pubDate}</div>
-                {a.title}
-              </a>
-            </li>
+                  </div>
+                  <div className="daily_lastpublish">{pubDate}</div>
+                  {a.title}
+                </a>
+              </li>
             )
           })}
           </ul>

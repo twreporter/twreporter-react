@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { subnavPath } from '../../constants/index'
+import _ from 'lodash'
+import { LINK_PREFIX, subnavPath } from '../../constants/index'
+import { Link } from 'react-router'
+import { getTopicId } from '../../utils/get-list-id'
 
 if (process.env.BROWSER) {
   require('../../containers/NavBar.css')
@@ -51,7 +54,9 @@ export default class SubNavBar extends Component {
     }
 
     for(let i in subnavPath) {
-      subMenuLinks.push(<a key={i} href={subnavPath[i].path}><h1>{subnavPath[i].title}</h1></a>)
+      let topicName = _.get(subnavPath, [ i, 'title' ])
+      let topicId = getTopicId(topicName)
+      subMenuLinks.push(<Link key={i} to={`${LINK_PREFIX.TOPIC}${topicId}`}><h1 onClick={() => {this.props.onClick()}}>{subnavPath[i].title}</h1></Link>)
     }
 
     return (

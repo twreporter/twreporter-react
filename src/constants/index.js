@@ -10,7 +10,10 @@ export const SITE_NAME = {
 }
 
 export const LINK_PREFIX = {
-  ARTICLE: '/a/'
+  ARTICLE: '/a/',
+  CATEGORY: '/category/',
+  TAG: '/tag/',
+  TOPIC: '/topic/'
 }
 
 export const groupEnum = {
@@ -115,8 +118,8 @@ export const subnavPath = [ {
   title: '亞洲森林浩劫',
   path: '/a/asia-forest-content'
 }, {
-  title: '五輕關廠',
-  path: '/a/refinery-content'
+  title: '走入同志家庭',
+  path: '/a/homofamily-content'
 }, {
   title: '急診人生',
   path: '/a/emergency-content'

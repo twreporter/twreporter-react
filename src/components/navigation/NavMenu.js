@@ -144,7 +144,7 @@ export default class NavMenu extends Component {
     )
   }
 
-  _renderGeneralSecond(burgerMenu, navLinks) {
+  _renderGeneralSecond(burgerMenu, navLinks) { // eslint-disable-line
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.slideUp)}>
@@ -209,7 +209,7 @@ export default class NavMenu extends Component {
         <div className={styles.catLinkContainer}>
           {navLinks}
         </div>
-        <SubNavBar {...this.props}/>
+        <SubNavBar onClick={() => {this.setState( { open: !this.state.open } )}} {...this.props}/>
       </div>
 
       // change the color of the navbar
@@ -254,7 +254,7 @@ export default class NavMenu extends Component {
           {searchBox}
           {subNavBar}
         </div>
-        <TopicPopup isOpen={this.state.isTopicOpen} 
+        <TopicPopup isOpen={this.state.isTopicOpen}
           topicArr={header.topicArr}
           pageTopic={pageTopic}
           onTopicBtnClick={this._onTopicBtnClick}/>
