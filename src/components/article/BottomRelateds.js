@@ -2,6 +2,7 @@
 'use strict'
 import _ from 'lodash'
 import { CHARACTERS_LIMIT, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
+import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -67,7 +68,7 @@ export class BottomRelateds extends Component {
 
       return (  
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
-          <a className={styles.relatedAnchor} href={'/a/' + related.slug}>
+          <Link className={styles.relatedAnchor} to={'/a/' + related.slug}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
                 <LazyLoad>
@@ -79,7 +80,7 @@ export class BottomRelateds extends Component {
               <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
               <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
             </div>
-          </a>
+          </Link>
         </li>
       )
     })

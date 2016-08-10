@@ -1,10 +1,11 @@
 /*eslint no-unused-vars:0, no-console:0 */
 /* global __DEVELOPMENT__ */
 'use strict'
-import { CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
+import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Daily from '../components/Daily'
 import Features from '../components/Features'
@@ -65,6 +66,10 @@ export default class Home extends Component {
     this.specialTopicListId = getCatId(SPECIAL_TOPIC_CH_STR)
     this.reviewListId = getCatId(REVIEW_CH_STR)
     this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
+  }
+
+  componentDidMount() {
+    this.props.setPageType(HOME)
   }
 
   componentWillMount() {
@@ -139,5 +144,6 @@ export { Home }
 
 export default connect(mapStateToProps, {
   fetchArticlesByUuidIfNeeded,
-  fetchFeatureArticlesIfNeeded
+  fetchFeatureArticlesIfNeeded,
+  setPageType
 })(Home)

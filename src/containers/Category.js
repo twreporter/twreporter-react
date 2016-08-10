@@ -3,6 +3,7 @@ import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, TAI
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -55,6 +56,10 @@ export default class Category extends Component {
       max_results: MAXRESULT
     })
 
+  }
+
+  componentDidMount() {
+    this.props.setPageType(CATEGORY)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -113,4 +118,4 @@ Category.contextTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded })(Category)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Category)
