@@ -3,9 +3,9 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesByIdsIfNeeded, fetchArticlesByTopicIdIfNeeded } from '../actions/articles'
+import { fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ARTICLE, appId, SITE_NAME } from '../constants/index'
+import { ARTICLE, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -55,10 +55,10 @@ class Article extends Component {
   componentDidUpdate() {
     this._setArticleBounding()
 
-    const { fetchArticlesByIdsIfNeeded, setPageTitle, selectedArticle, entities } = this.props
+    const { fetchRelatedArticlesIfNeeded, setPageTitle, selectedArticle, entities } = this.props
 
     const { topicId } = this.state
-    if (!selectedArticle.error && !selectedArticle.isFetching && 
+    if (!selectedArticle.error && !selectedArticle.isFetching &&
         this.state.articleId !== selectedArticle.id ) {
 
       // set article ID
@@ -72,13 +72,13 @@ class Article extends Component {
       setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''), topicName)
       // fetch related articles
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
-      fetchArticlesByIdsIfNeeded(relatedIds)
+      fetchRelatedArticlesIfNeeded(selectedArticle.id, relatedIds)
     }
   }
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, fetchArticlesByTopicIdIfNeeded, selectedArticle, entities } = this.props
+    const { fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, selectedArticle, entities } = this.props
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
@@ -86,7 +86,7 @@ class Article extends Component {
     let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
     if (topicId) {
       this.setState({ topicId: topicId })
-      fetchArticlesByTopicIdIfNeeded(topicId)
+      fetchArticlesByUuidIfNeeded(topicId, TOPIC)
     }
   }
 
@@ -171,7 +171,7 @@ class Article extends Component {
     const { topicId, topicName, topicArr } = this.state
     let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
-    let bodyData = _.get(article, [ 'content', 'extended', 'apiData' ], [])
+    let bodyData = _.get(article, [ 'content', 'apiData' ], [])
     let heroImage = _.get(article, [ 'heroImage' ], null)
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'content', 'brief', 'apiData' ], [])
@@ -229,7 +229,7 @@ class Article extends Component {
               data={bodyData}
             />
 
-            <div ref="progressEnding" 
+            <div ref="progressEnding"
                 className={classNames('inner-max', 'center-block', commonStyles['components'])}>
               <div className={classNames('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
@@ -272,5 +272,5 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchArticlesByIdsIfNeeded, 
-  fetchArticlesByTopicIdIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded,
+  fetchArticlesByUuidIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)

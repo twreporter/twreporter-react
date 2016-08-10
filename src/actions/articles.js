@@ -1,111 +1,85 @@
 'use strict'
+import { CATEGORY, TAG, TOPIC } from '../constants/index'
 import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { devCatListId, prodCatListId, devTopicListId, prodTopicListId } from '../conf/list-id'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
 import _ from 'lodash'
 import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 
-
-function requestArticlesByTagId(ids) {
+function requestArticlesByUuid(id) {
   return {
-    type: types.FETCH_ARTICLES_BY_TAG_ID_REQUEST,
-    id: _.get(ids, 0)
+    type: types.FETCH_ARTICLES_BY_GROUP_UUID_REQUEST,
+    id
   }
 }
 
-function failToReceiveArticlesByTagId(ids, error) {
+function failToReceiveArticlesByUuid(id, error) {
   return {
-    type: types.FETCH_ARTICLES_BY_TAG_ID_FAILURE,
-    id: _.get(ids, 0),
+    type: types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE,
+    id,
     error,
     failedAt: Date.now()
   }
 }
 
-function receiveArticlesByTagId(response, ids) {
+function receiveArticlesByUuid(response, id) {
   return {
-    type: types.FETCH_ARTICLES_BY_TAG_ID_SUCCESS,
-    id: _.get(ids, 0),
+    type: types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS,
+    id,
     response,
     receivedAt: Date.now()
   }
 }
 
-function requestArticlesByCatId(ids) {
+function requestRelatedArticles(id, relatedIds) {
   return {
-    type: types.FETCH_ARTICLES_BY_CAT_ID_REQUEST,
-    id: _.get(ids, 0)
+    type: types.FETCH_RELATED_ARTICLES_REQUEST,
+    id,
+    relatedIds
   }
 }
 
-function failToReceiveArticlesByCatId(ids, error) {
+function failToReceiveRelatedArticles(id, relatedIds, error) {
   return {
-    type: types.FETCH_ARTICLES_BY_CAT_ID_FAILURE,
-    id: _.get(ids, 0),
+    type: types.FETCH_RELATED_ARTICLES_FAILURE,
+    id,
+    relatedIds,
     error,
     failedAt: Date.now()
   }
 }
 
-function receiveArticlesByCatId(response, ids) {
+function receiveRelatedArticles(response, id, relatedIds) {
   return {
-    type: types.FETCH_ARTICLES_BY_CAT_ID_SUCCESS,
-    id: _.get(ids, 0),
+    type: types.FETCH_RELATED_ARTICLES_SUCCESS,
+    id,
+    relatedIds,
     response,
     receivedAt: Date.now()
   }
 }
 
-function requestArticlesByTopicId(ids) {
+function requestFeatureArticles() {
   return {
-    type: types.FETCH_ARTICLES_BY_TOPIC_ID_REQUEST,
-    id: _.get(ids, 0)
+    type: types.FETCH_FEATURE_ARTICLES_REQUEST
   }
 }
 
-function failToReceiveArticlesByTopicId(ids, error) {
+function failToReceiveFeatureArticles(error) {
   return {
-    type: types.FETCH_ARTICLES_BY_TOPIC_ID_FAILURE,
-    id: _.get(ids, 0),
+    type: types.FETCH_FEATURE_ARTICLES_FAILURE,
     error,
     failedAt: Date.now()
   }
 }
 
-function receiveArticlesByTopicId(response, ids) {
+function receiveFeaturedArticles(response) {
   return {
-    type: types.FETCH_ARTICLES_BY_TOPIC_ID_SUCCESS,
-    id: _.get(ids, 0),
-    response,
-    receivedAt: Date.now()
-  }
-}
-
-function requestArticlesByIds(ids) {
-  return {
-    type: types.FETCH_ARTICLES_REQUEST,
-    ids
-  }
-}
-
-function failToReceiveArticlesByIds(ids, error) {
-  return {
-    type: types.FETCH_ARTICLES_FAILURE,
-    ids,
-    error,
-    failedAt: Date.now()
-  }
-}
-
-function receiveArticlesByIds(response, ids) {
-  return {
-    type: types.FETCH_ARTICLES_SUCCESS,
-    ids,
+    type: types.FETCH_FEATURE_ARTICLES_SUCCESS,
     response,
     receivedAt: Date.now()
   }
@@ -175,122 +149,139 @@ function _fetchArticles(url) {
     })
 }
 
-function _fetchArticlesAndDispatchActions(ids = [], params = {}, isOnlyMeta = true, requestAction, successAction, failAction) {
-  return dispatch => {
-    dispatch(requestAction(ids))
-    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
-      .then((response) => {
-        let camelizedJson = camelizeKeys(response)
-        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
-        return dispatch(successAction(normalized, ids))
-      }, (error) => {
-        return dispatch(failAction(ids, error))
-      })
-  }
-}
-
-function _dedupArticleIds(ids = [], state, isOnlyMeta) {
-  const articles = _.get(state, [ 'entities', 'articles' ], {})
-  let idsToFetch = []
-  for(let id of ids) {
-    if (isOnlyMeta) {
-      if (!articles.hasOwnProperty(id)) {
-        idsToFetch.push(id)
-      }
-    } else {
-      // use content of article to determine if the article is fully fetched or not
-      if (!_.get(articles, [ id, 'content' ])) {
-        idsToFetch.push(id)
-      }
-    }
-  }
-  return idsToFetch
-
-}
-
-function _getListId(target = 'category') {
-  if (__DEVELOPMENT__) { // eslint-disable-line
-    return target === 'category' ? devCatListId : devTopicListId
-  }
-  return target === 'category' ? prodCatListId : prodTopicListId
-}
-
-/* Fetch meta of articles by their ids if those are not existed in the state
+/* Fetch related articles' meta of one certain article
  * properties of meta: subtitle, name, heroImage, title, topics, publishedDate, slug, links, created and id
- * @param {string[]} ids - article ids to fetch
+ * @param {string} articleId
+ * @param {string[]} relatedIds - related article ids
  * @param {object} params - params for composing query param of api
  * @param {string} [params.sort=-publishedDate] -the way returned articles are sorted by
  * @param {object} params.where - where query param
  * @param {object} params.embedded - embedded query param
  * @param {boolean} isOnlyMeta - if true, only get metadata of articles. Otherwise, get full articles.
  */
-export function fetchArticlesByIdsIfNeeded(ids = [], params = {}, isOnlyMeta = true) {
+export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-
-    let idsToFetch = _dedupArticleIds(ids, getState(), isOnlyMeta)
-    if (idsToFetch.length === 0) {
+    if (_.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
       return Promise.resolve()
     }
 
-    params = _setupWhereInParam('_id', idsToFetch, params)
+    params = _setupWhereInParam('_id', [ relatedIds ], params)
+
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticlesAndDispatchActions(idsToFetch, params, isOnlyMeta, requestArticlesByIds, receiveArticlesByIds, failToReceiveArticlesByIds))
+    dispatch(requestRelatedArticles(articleId, relatedIds))
+
+    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+      .then((response) => {
+        let camelizedJson = camelizeKeys(response)
+        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
+        return dispatch(receiveRelatedArticles(normalized, articleId, relatedIds))
+      }, (error) => {
+        return dispatch(failToReceiveRelatedArticles(articleId, relatedIds, error))
+      })
   }
 }
 
-export function fetchArticlesByTopicIdIfNeeded(topicId = '', params = {}, isOnlyMeta = true)  {
+/* Fetch meta of articles according to one group uuid.
+ * Group uuid could be Category, Tag or Topic uuid.
+ * properties of meta: subtitle, name, heroImage, title, topics, publishedDate, slug, links, created and id
+ * @param {string} uuid - Category, Tag or Topic uuid
+ * @param {string} type - CATEGORY, TAG or TOPIC
+ * @param {object} params - params for composing query param of api
+ * @param {string} [params.sort=-publishedDate] -the way returned articles are sorted by
+ * @param {object} params.where - where query param
+ * @param {object} params.embedded - embedded query param
+ * @param {boolean} isOnlyMeta - if true, only get metadata of articles. Otherwise, get full articles.
+ */
+export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (!topicId || _.get(getState(), [ 'articlesByTopics', topicId ])) {
+    if (_.get(getState(), [ 'articlesByUuids', uuid, 'hasMore' ]) === false) {
       return Promise.resolve()
     }
 
-    params = _setupWhereInParam('topics', [ topicId ], params)
+    switch (type) {
+      case CATEGORY:
+        params = _setupWhereInParam('categories', [ uuid ], params)
+        break
+      case TAG:
+        params = _setupWhereInParam('tags', [ uuid ], params)
+        break
+      case TOPIC:
+        params = _setupWhereInParam('topics', [ uuid ], params)
+        break
+      default:
+        return Promise.resolve()
+    }
+
     if (!isOnlyMeta) {
       // add default embedded
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    return dispatch(_fetchArticlesAndDispatchActions([ topicId ], params, isOnlyMeta, requestArticlesByTopicId, receiveArticlesByTopicId, failToReceiveArticlesByTopicId))
+    dispatch(requestArticlesByUuid(uuid))
+    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+      .then((response) => {
+        let camelizedJson = camelizeKeys(response)
+        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
+        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
+        return dispatch(receiveArticlesByUuid(normalized, uuid))
+      }, (error) => {
+        return dispatch(failToReceiveArticlesByUuid(uuid, error))
+      })
+
   }
 }
 
-export function fetchArticlesByTagIdIfNeeded(tagId = '', params = {}, isOnlyMeta = true) {
+/* Fetch meta of articles whose 'isFeature' field is true
+ * properties of meta: subtitle, name, heroImage, title, topics, publishedDate, slug, links, created and id
+ * @param {object} params - params for composing query param of api
+ * @param {string} [params.sort=-publishedDate] -the way returned articles are sorted by
+ * @param {object} params.where - where query param
+ * @param {object} params.embedded - embedded query param
+ * @param {boolean} isOnlyMeta - if true, only get metadata of articles. Otherwise, get full articles.
+ */
+export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
+  const limit = 6
+  const page = 1
+
   return (dispatch, getState) => {
-    if (_.get(getState(), [ 'articlesByTags', tagId, 'hasMore' ]) === false) {
+
+    if (_.get(getState(), 'featureArticles.items.length', 0) > 0) {
       return Promise.resolve()
     }
 
-    params = _setupWhereInParam('tags', [ tagId ], params)
-    if (!isOnlyMeta) {
-      // add default embedded
-      params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
-    }
+    params = params || {}
+    params.where = _.merge({}, params.where, {
+      isFeatured: true
+    })
+    params.max_results = params.max_results || limit
+    params.page = params.page || page
 
-    return dispatch(_fetchArticlesAndDispatchActions([ tagId ], params, isOnlyMeta, requestArticlesByTagId, receiveArticlesByTagId, failToReceiveArticlesByTagId))
+    dispatch(requestFeatureArticles())
+
+    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+      .then((response) => {
+        let camelizedJson = camelizeKeys(response)
+        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
+        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
+        return dispatch(receiveFeaturedArticles(normalized))
+      }, (error) => {
+        return dispatch(failToReceiveFeatureArticles(error))
+      })
   }
 }
 
-export function fetchArticlesByCatIdIfNeeded(catId = '', params = {}, isOnlyMeta = true) {
-  return (dispatch, getState) => {
-    if (_.get(getState(), [ 'articlesByCats', catId, 'hasMore' ]) === false) {
-      return Promise.resolve()
-    }
-
-    params = _setupWhereInParam('categories', [ catId ], params)
-    if (!isOnlyMeta) {
-      // add default embedded
-      params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
-    }
-
-    return dispatch(_fetchArticlesAndDispatchActions([ catId ], params, isOnlyMeta, requestArticlesByCatId, receiveArticlesByCatId, failToReceiveArticlesByCatId))
+// no need temporarily
+/*
+function _getListId(target = 'category') {
+  if (__DEVELOPMENT__) { // eslint-disable-line
+    return target === 'category' ? devCatListId : devTopicListId
   }
+  return target === 'category' ? prodCatListId : prodTopicListId
 }
-
 
 export function fetchArticlesByTopicIdNameIfNeeded(topicName = '', params = {} , isOnlyMeta = true) {
   let listId = _getListId('topic')
@@ -315,42 +306,4 @@ export function fetchArticlesByTagNameIfNeeded(tagName = '', params = {}, isOnly
   return _fetchArticlesByListName(tagName, params, isOnlyMeta, 'tag')
 }
 
-export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
-  const limit = 6
-  const page = 1
-
-  return (dispatch, getState) => {
-
-    if (_.get(getState(), 'featureArticles.items.length', 0) > 0) {
-      return Promise.resolve()
-    }
-
-    params = params || {}
-    params.where = _.merge({}, params.where, {
-      isFeatured: true
-    })
-    params.max_results = params.max_results || limit
-    params.page = params.page || page
-
-    dispatch({
-      type: types.FETCH_FEATURE_ARTICLES_REQUEST
-    })
-
-    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
-      .then((response) => {
-        let camelizedJson = camelizeKeys(response)
-        let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        return dispatch({
-          type: types.FETCH_FEATURE_ARTICLES_SUCCESS,
-          response: normalized,
-          receivedAt: Date.now()
-        })
-      }, (error) => {
-        return dispatch({
-          types: types.FETCH_FEATURE_ARTICLES_FAILURE,
-          error,
-          failedAt: Date.now()
-        })
-      })
-  }
-}
+*/

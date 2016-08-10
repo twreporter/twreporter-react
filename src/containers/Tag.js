@@ -1,56 +1,43 @@
 /* eslint  no-unused-vars:1 */
-import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, TAIWAN_CH_STR } from '../constants/index'
+import { TAG } from '../constants/index'
 import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId } from '../utils/index'
+import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
 
-if (process.env.BROWSER) {
-  require('./Category.css')
-}
-
 const MAXRESULT = 10
 const PAGE = 1
 
-// english to chinese of category
-const catENtoCH = {
-  culture: CULTURE_CH_STR,
-  intl: INTL_CH_STR,
-  media: MEDIA_CH_STR,
-  review: REVIEW_CH_STR,
-  taiwan: TAIWAN_CH_STR
-}
-
-export default class Category extends Component {
+export default class Tag extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(catENtoCH[params.category]), {
+    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId), TAG, {
       page: PAGE,
       max_results: MAXRESULT
-    }))
+    })
   }
 
   constructor(props) {
     super(props)
-    let category = this.props.params.category
+    let tagId = this.props.params.tagId
     this.state = {
-      catId: getCatId(catENtoCH[category])
+      tagId: tagId
     }
     this.loadMore = this._loadMore.bind(this)
   }
 
   componentWillMount() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let catId = this.state.catId
+    let tagId = this.state.tagId
 
     // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+    fetchArticlesByUuidIfNeeded(tagId, TAG, {
       page: PAGE,
       max_results: MAXRESULT
     })
@@ -59,14 +46,14 @@ export default class Category extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      catId: getCatId(catENtoCH[nextProps.params.category])
+      tagId: nextProps.params.tagId
     })
   }
 
   _loadMore() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let { catId } = this.state
-    let articlesByCat = _.get(articlesByUuids, [ catId ], {})
+    let { tagId } = this.state
+    let articlesByCat = _.get(articlesByUuids, [ tagId ], {})
     if (_.get(articlesByCat, 'hasMore') === false) {
       return
     }
@@ -74,7 +61,7 @@ export default class Category extends Component {
     let itemSize = _.get(articlesByCat, 'items.length', 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
 
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+    fetchArticlesByUuidIfNeeded(tagId, TAG, {
       page: page,
       max_results: MAXRESULT
     })
@@ -82,16 +69,16 @@ export default class Category extends Component {
 
   render() {
     const { device } = this.context
-    const { catId } = this.state
+    const { tagId } = this.state
     const { articlesByUuids, entities } = this.props
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
 
     return (
       <div>
         <Tags
           articles={articles}
           device={device}
-          hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
+          hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
           loadMore={this.loadMore}
         />
         {this.props.children}
@@ -108,9 +95,9 @@ function mapStateToProps(state) {
   }
 }
 
-Category.contextTypes = {
+Tag.contextTypes = {
   device: React.PropTypes.string
 }
 
-export { Category }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded })(Category)
+export { Tag }
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded })(Tag)
