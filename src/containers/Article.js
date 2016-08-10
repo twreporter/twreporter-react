@@ -186,7 +186,7 @@ class Article extends Component {
     let topicBox = topicName ? <h3 className={commonStyles['topic-box']}>{topicName}</h3> : null
 
     return (
-      <DocumentTitle title={article.title+SITE_NAME.SEPARATOR+SITE_NAME.SHORT}>
+      <DocumentTitle title={_.get(article, 'title', '')+SITE_NAME.SEPARATOR+SITE_NAME.SHORT}>
         <div>
           <div className={styles['article-container']}>
             <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>

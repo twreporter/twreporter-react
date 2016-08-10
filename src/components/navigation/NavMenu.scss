@@ -12,6 +12,12 @@
     }
 }
 
+.general-subnav {
+    @media (max-width: $screen-md-min) {
+        display: none;
+    }
+}
+
 .menu-item {
     display: inline;
     margin-right: 40px;
