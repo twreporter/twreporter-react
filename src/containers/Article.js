@@ -78,16 +78,21 @@ class Article extends Component {
 
   componentWillMount() {
     const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, selectedArticle, entities } = this.props
+    const { fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded,  selectedArticle, entities } = this.props
     if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
       fetchArticleIfNeeded(slug)
     }
+
     // fetch other aritcles in the same topic
     let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
     if (topicId) {
       this.setState({ topicId: topicId })
       fetchArticlesByUuidIfNeeded(topicId, TOPIC)
     }
+
+    // fetch related articles
+    let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
+    fetchRelatedArticlesIfNeeded(selectedArticle.id, relatedIds)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -167,7 +172,7 @@ class Article extends Component {
   }
 
   render() {
-    const { selectedArticle, entities } = this.props
+    const { entities, selectedArticle } = this.props
     const { topicId, topicName, topicArr } = this.state
     let article = denormalizeArticles(selectedArticle.id, entities)[0]
     let authors = this._composeAuthors(article)
@@ -261,8 +266,8 @@ class Article extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedArticle: state.selectedArticle,
-    entities: state.entities
+    entities: state.entities,
+    selectedArticle: state.selectedArticle
   }
 }
 

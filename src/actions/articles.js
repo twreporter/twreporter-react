@@ -165,7 +165,7 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
       return Promise.resolve()
     }
 
-    params = _setupWhereInParam('_id', [ relatedIds ], params)
+    params = _setupWhereInParam('_id', relatedIds, params)
 
     if (!isOnlyMeta) {
       // add default embedded
@@ -266,7 +266,6 @@ export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
         return dispatch(receiveFeaturedArticles(normalized))
       }, (error) => {
         return dispatch(failToReceiveFeatureArticles(error))

@@ -195,7 +195,7 @@ class Audio extends React.Component {
 
   render() {
     const { content, device } = this.props
-    const {  duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
+    const { duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = _.get(content, 0, {})
 
     const player = (
@@ -210,7 +210,7 @@ class Audio extends React.Component {
     )
 
     // render Audio without cover photo
-    if (!coverPhoto) {
+    if (_.isEmpty(coverPhoto)) {
       let btRadius = 24
       return (
         <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
