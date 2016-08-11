@@ -1,4 +1,4 @@
-// import { Link } from 'react-router'
+import { Link } from 'react-router'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import _ from 'lodash'
 import React, { Component } from 'react'
@@ -121,7 +121,7 @@ export default class FeaturesItem extends Component {
 
     return (
       <li className="listing-item" key={article.id}>
-        <a href={url}>
+        <Link to={url}>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"
@@ -152,7 +152,7 @@ export default class FeaturesItem extends Component {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       </li>
     )
   }

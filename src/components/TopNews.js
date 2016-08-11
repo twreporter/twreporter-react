@@ -1,4 +1,4 @@
-// import { Link } from 'react-router'
+import { Link } from 'react-router'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 import _ from 'lodash'
@@ -30,7 +30,7 @@ export default class TopNews extends Component {
           let imageSet = imageComposer(a)
           let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (
-              <a key={a.id} href={'/a/' + a.slug}>
+              <Link key={a.id} to={'/a/' + a.slug}>
                 <img src={image} alt={a.slug} />
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>
@@ -41,7 +41,7 @@ export default class TopNews extends Component {
                   <div className="carousel-excerpt">{a.excerpt}</div>
                   <time className="carousel-published">{pubDate}</time>
                 </div>
-              </a>
+              </Link>
           )
         })}
       </Slider>
