@@ -7,16 +7,21 @@ import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Embedded.scss'
 
-export const EmbeddedCode = ({ content }) => {
+export class EmbeddedCode extends React.PureComponent {
+  constructor(props) {
+    super(props)
+  }
 
-  let embeddedCode = _.get(content, [ 0 ], {})
+  render() {
+    let embeddedCode = _.get(this.props, [ 'content', 0 ], {})
 
-  return (
-    <div className={classNames(commonStyles['inner-block'])}>
-      <div dangerouslySetInnerHTML={{ __html: embeddedCode.embeddedCode }}/>
-      <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{embeddedCode.caption}</div>
-    </div>
-  )
+    return (
+      <div className={classNames(commonStyles['inner-block'])}>
+        <div dangerouslySetInnerHTML={{ __html: embeddedCode.embeddedCode }}/>
+        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{embeddedCode.caption}</div>
+      </div>
+    )
+  }
 }
 
 export const AlignedEmbedded = BlockAlignmentWrapper(EmbeddedCode)
