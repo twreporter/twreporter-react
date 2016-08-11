@@ -1,4 +1,4 @@
-/* eslint no-unused-vars:0*/
+/* eslint no-console:0 */
 'use strict'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
@@ -14,6 +14,7 @@ import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import DocumentTitle from 'react-document-title'
+import async from 'async'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
 import styles from './Article.scss'
@@ -26,19 +27,47 @@ let articlePostition = {
 }
 
 class Article extends Component {
+
+  // for server side rendering,
+  // we get not only the article itself but also get related articles and
+  // other articles in the same topic for BETTER SEO
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticleIfNeeded(params.slug))
+    // get article itself first
+    return store.dispatch(fetchArticleIfNeeded(params.slug)).then(() => {
+      let state = store.getState()
+      let articleId = _.get(state, 'selectedArticle.id')
+      let article = _.get(state, [ 'entities', 'articles', articleId ])
+      let topicId = _.get(article, 'topics')
+      let relateds = _.get(article, 'relateds')
+
+      // fetch related articles and other articles in the same topic
+      return new Promise((resolve, reject) => { // eslint-disable-line
+        // load in parallel
+        async.parallel([
+          function (callback) {
+            store.dispatch(fetchRelatedArticlesIfNeeded(articleId, relateds))
+              .then(() => {
+                callback(null)
+              })
+          },
+          function (callback) {
+            store.dispatch(fetchArticlesByUuidIfNeeded(topicId, TOPIC))
+              .then(() => {
+                callback(null)
+              })
+          }
+        ], (err, results) => { // eslint-disable-line
+          if (err) {
+            console.warn('fetchData occurs error:', err)
+          }
+          resolve()
+        })
+      })
+    })
   }
 
   constructor(props) {
     super(props)
-
-    this.state = {
-      articleId: null,
-      topicId: null,
-      topicName: null,
-      topicArr: null
-    }
     this._setArticleBounding = this._setArticleBounding.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
   }
@@ -54,72 +83,55 @@ class Article extends Component {
 
   componentDidUpdate() {
     this._setArticleBounding()
-
-    const { fetchRelatedArticlesIfNeeded, setPageTitle, selectedArticle, entities } = this.props
-
-    const { topicId, articleId } = this.state
-    if (!selectedArticle.error && !selectedArticle.isFetching &&
-        articleId !== selectedArticle.id ) {
-
-      // set article ID
-      this.setState({ articleId: selectedArticle.id })
-
-      // set topic
-      let topicName = topicId ? _.get(entities, [ 'topics', topicId, 'name' ], null) : null
-      this.setState({ topicName: topicName })
-
-      // set navbar title for this article
-      setPageTitle(selectedArticle.id, _.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''), topicName)
-      // fetch related articles
-      let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
-      fetchRelatedArticlesIfNeeded(selectedArticle.id, relatedIds)
-    }
   }
 
   componentWillMount() {
-    const slug = this.props.params.slug
-    const { fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded,  selectedArticle, entities } = this.props
-    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
-      fetchArticleIfNeeded(slug)
-    }
+    const { params, selectedArticle } = this.props
+    let slug = _.get(params, 'slug')
 
-    // fetch other aritcles in the same topic
-    let topicId = _.get(entities, [ 'articles', selectedArticle.id, 'topics' ])
-    if (topicId) {
-      this.setState({ topicId: topicId })
-      fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+    // Check if selectedArticle is up to date
+    if (_.get(selectedArticle, 'slug') !== slug) {
+      // fetch data we need to render the whole article page
+      this._fetchData()
     }
-
-    // fetch related articles
-    let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
-    fetchRelatedArticlesIfNeeded(selectedArticle.id, relatedIds)
   }
 
   componentWillReceiveProps(nextProps) {
-    const slug = nextProps.params.slug
-    const { fetchArticleIfNeeded, selectedArticle, entities } = nextProps
-    const { setArticleTopicList } = this.props
-    const { topicId, topicArr } = this.state
-    if (selectedArticle.slug !== slug || ( selectedArticle.isFetching === false && selectedArticle.error !== null) ) {
-      fetchArticleIfNeeded(slug)
-    }
+    const { params, selectedArticle } = nextProps
+    const slug = _.get(params, 'slug')
 
-    let tArr = []
-    if(topicId) {
-      _.forEach(entities.articles, function (value, key) {
-        if(_.get(value, 'topics') === topicId) {
-          tArr.push(value)
-        }
-      })
-
-      this.setState({ topicArr: tArr })
-      setArticleTopicList(tArr)  // dispatch action for the navbar to display article list
+    // Check if selectedArticle is up to date
+    if (selectedArticle.slug !== slug) {
+      // fetch data we need to render the whole article page
+      this._fetchData()
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._setArticleBounding)
     window.removeEventListener('scroll', this._handleScroll)
+  }
+
+  // fetch article whole data, including body, related articls and other articles in the same topic
+  _fetchData() {
+    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded, params, selectedArticle, slugToId } = this.props
+    let slug = _.get(params, 'slug')
+
+    // Check if selectedArticle is up to date
+    if (_.get(selectedArticle, 'slug') !== slug) {
+      // fetch article
+      fetchArticleIfNeeded(slug)
+
+      let article = _.get(entities, [ 'articles', slugToId[slug] ])
+      let topicId = _.get(article, 'topics')
+      let relateds = _.get(article, 'relateds')
+
+      //  fetch other articles in the same topic
+      fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+
+      // fetch related articles
+      fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
+    }
   }
 
   _getCumulativeOffset(element) {
@@ -135,8 +147,8 @@ class Article extends Component {
   _setArticleBounding() {
     const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
     const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
-    articlePostition.beginY = beginEl.offsetTop
-    articlePostition.endY = endEl.offsetTop
+    articlePostition.beginY = _.get(beginEl, 'offsetTop', articlePostition.beginY)
+    articlePostition.endY = _.get(endEl, 'offsetTop', articlePostition.endY)
   }
 
   _handleScroll() {
@@ -171,10 +183,30 @@ class Article extends Component {
     return authors
   }
 
+  _getTopicArticles(topicId) {
+    const { articlesByUuids, entities } = this.props
+    let articleIds = _.get(articlesByUuids, [ topicId, 'items' ], [])
+    return _.map(articleIds, (id) => _.merge({}, _.get(entities, [ 'articles', id ])))
+  }
+
   render() {
-    const { entities, selectedArticle } = this.props
-    const { topicId, topicName, topicArr } = this.state
-    let article = denormalizeArticles(selectedArticle.id, entities)[0]
+    const { entities, params, selectedArticle, setPageTitle, setArticleTopicList } = this.props
+
+    if (_.get(selectedArticle, 'slug') !== _.get(params, 'slug')) {
+      return null
+    }
+
+    let article = denormalizeArticles(_.get(selectedArticle, 'id'), entities)[0] || {}
+    let topicName = _.get(article, 'topics.name')
+    let relatedArticles = _.get(article, 'relateds')
+
+    // set navbar title for this article
+    setPageTitle(article.id, article.title, topicName)
+
+    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
+    // dispatch action for the navbar to display article list
+    setArticleTopicList(topicArr)
+
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
     let heroImage = _.get(article, [ 'heroImage' ], null)
@@ -242,7 +274,7 @@ class Article extends Component {
                 />
               </div>
               <ArticleComponents.BottomRelateds
-                relateds={article.relateds}
+                relateds={relatedArticles}
                 currentId={article.id}
                 topicName={topicName}
                 topicArr={topicArr}
@@ -267,8 +299,10 @@ class Article extends Component {
 
 function mapStateToProps(state) {
   return {
+    articlesByUuids: state.articlesByUuids,
     entities: state.entities,
-    selectedArticle: state.selectedArticle
+    selectedArticle: state.selectedArticle,
+    slugToId: state.slugToId
   }
 }
 
