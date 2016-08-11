@@ -2,6 +2,7 @@
 import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
+import nameMap from '../conf/category-tag-mapping-table'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType } from '../actions/header'
 import _ from 'lodash'
@@ -43,7 +44,7 @@ export default class Category extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
     let catId = this.state.catId
 
     // if fetched before, do nothing
@@ -88,11 +89,17 @@ export default class Category extends Component {
   render() {
     const { device } = this.context
     const { catId } = this.state
-    const { articlesByUuids, entities } = this.props
+    const { articlesByUuids, entities, params } = this.props
     let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
+    const category = _.get(params, 'category', null)
+    const catName = category ? _.get(nameMap, category, null): null
+    const catBox = catName ? <div className="top-title-outer"><div className="top-title"> {catName} </div></div> : null
 
     return (
       <div>
+        <div className="container text-center">
+          {catBox}
+        </div>
         <Tags
           articles={articles}
           device={device}
