@@ -24,6 +24,10 @@
   padding-bottom: 3rem;
 }
 
+.current {
+  opacity: 0.45;
+}
+
 .open {
   max-height: 100%;
   opacity: 1;
@@ -116,6 +120,13 @@
 .topic {
   display: table;
   line-height: rem(23px);
+  width: 100%;
+  transition: background-color 0.2s ease-in;
+  padding: 0 0.5rem 1rem 0.5rem;
+
+  &:hover {
+    background-color: $light-gray;
+  }
 
   @media (max-width: $screen-md-min) {
     margin: 1rem 0.3rem;

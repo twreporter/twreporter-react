@@ -119,11 +119,15 @@ export default class NavMenu extends Component {
   _renderAritcleSecond(burgerMenu, cUrl) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
-    const { pageTopic } = this.props
-    let topicBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
+    const { pageTopic, header } = this.props
+    const topicLength = _.get(header, 'topicArr', []).length
+    const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
+    let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
+    let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
     let topicButton = pageTopic ? <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
-            <img src={tocIcon} />
+            <img src={tocIcon} /> {topicCnt}
           </div> : null
+   
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -132,13 +136,14 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={classNames(styles.articleTitleText)} ref="title">
-            {topicBox}
+          <div className={titleClass} ref="title">
+            {topicRedBox}
             {trimmedTitle}
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           {topicButton}
+          
         </div>
       </div>
     )
@@ -175,7 +180,7 @@ export default class NavMenu extends Component {
   }
 
   render() {
-    const { path, bgStyle, header, isScrolledOver, pageTopic } = this.props
+    const { path, bgStyle, header, isScrolledOver, pageTopic, articleId } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
@@ -187,6 +192,7 @@ export default class NavMenu extends Component {
     let navOuterClass = ''
     let subNavBar = null
     let searchClass = ''
+    let topicPopup = null
 
     // generate category navigation bar
     let navItems = [].concat(navPath)
@@ -247,6 +253,14 @@ export default class NavMenu extends Component {
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
+    if (header.pageType === ARTICLE && pageTopic) {
+      topicPopup = <TopicPopup isOpen={this.state.isTopicOpen}
+          topicArr={header.topicArr}
+          pageTopic={pageTopic}
+          articleId={articleId}
+          onTopicBtnClick={this._onTopicBtnClick}/>
+    }
+
     return (
       <div style={{ backgroundColor: backgroundColor }}>
         <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)} style={{ backgroundColor: navTopBackground }}>
@@ -254,10 +268,7 @@ export default class NavMenu extends Component {
           {searchBox}
           {subNavBar}
         </div>
-        <TopicPopup isOpen={this.state.isTopicOpen}
-          topicArr={header.topicArr}
-          pageTopic={pageTopic}
-          onTopicBtnClick={this._onTopicBtnClick}/>
+        {topicPopup}
       </div>
     )
   }

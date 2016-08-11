@@ -16,6 +16,7 @@ function header(state = {}, action) {
     case types.SET_PAGE_TITLE:
       return {
         ...state,
+        articleId: action.articleId,
         pageTitle: action.pageTitle,
         pageTopic: action.pageTopic
       }

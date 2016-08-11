@@ -57,9 +57,9 @@ class Article extends Component {
 
     const { fetchRelatedArticlesIfNeeded, setPageTitle, selectedArticle, entities } = this.props
 
-    const { topicId } = this.state
+    const { topicId, articleId } = this.state
     if (!selectedArticle.error && !selectedArticle.isFetching &&
-        this.state.articleId !== selectedArticle.id ) {
+        articleId !== selectedArticle.id ) {
 
       // set article ID
       this.setState({ articleId: selectedArticle.id })
@@ -69,7 +69,7 @@ class Article extends Component {
       this.setState({ topicName: topicName })
 
       // set navbar title for this article
-      setPageTitle(_.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''), topicName)
+      setPageTitle(selectedArticle.id, _.get(entities, [ 'articles', selectedArticle.id, 'title' ], ''), topicName)
       // fetch related articles
       let relatedIds = _.get(entities, [ 'articles', selectedArticle.id, 'relateds' ], [])
       fetchRelatedArticlesIfNeeded(selectedArticle.id, relatedIds)
@@ -105,7 +105,7 @@ class Article extends Component {
     }
 
     let tArr = []
-    if(topicId && !topicArr) {
+    if(topicId) {
       _.forEach(entities.articles, function (value, key) {
         if(_.get(value, 'topics') === topicId) {
           tArr.push(value)
@@ -243,6 +243,7 @@ class Article extends Component {
               </div>
               <ArticleComponents.BottomRelateds
                 relateds={article.relateds}
+                currentId={article.id}
                 topicName={topicName}
                 topicArr={topicArr}
               />
