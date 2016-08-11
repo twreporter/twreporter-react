@@ -1,39 +1,44 @@
 require('babel-polyfill');
 
-// Webpack config for creating the production bundle.
+// Webpack config for development
 var autoprefixer = require('autoprefixer');
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
-var CleanPlugin = require('clean-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var strip = require('strip-loader');
-
-var projectRootPath = path.resolve(__dirname, '../');
-var assetsPath = path.resolve(projectRootPath, './static/dist');
+var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
+var assetsPath = path.resolve(__dirname, '../static/dist');
+var port = parseInt(process.env.PORT) + 1 || 3001;
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      './src/index.js',
-      'bootstrap-loader/extractStyles'
+      'bootstrap-loader/extractStyles',
+      './src/index.js'
     ]
   },
   output: {
     path: assetsPath,
-    filename: '[name]-[chunkhash].js',
+    filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     publicPath: '/dist/'
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
-      { test: /\.json$/, loader: 'json-loader' },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loaders: [ 'react-hot', 'babel-loader' ]
+      },
+      { test:/\.json$/,
+        loader: 'json-loader'
+      },
       { test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',
@@ -49,17 +54,9 @@ module.exports = {
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?mimetype=application/vnd.ms-fontobject" },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' },
-      {
-        test: /\.js$/,
-        include: /react-flex-carousel/,
-        loader: "babel-loader",
-        query: {
-          presets: ["es2015"]
-        }
-      }
+      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
   postcss: [autoprefixer],
@@ -75,33 +72,20 @@ module.exports = {
     }
   },
   plugins: [
-    new CleanPlugin([assetsPath], { root: projectRootPath }),
-
-    // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
+    // hot reload
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"',
         BROWSER: true
       },
       __CLIENT__: true,
       __SERVER__: false,
-      __DEVELOPMENT__: false,
-      __DEVTOOLS__: false
+      __DEVELOPMENT__: true,
+      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
     }),
-
-    // ignore dev config
-    new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
-
-    // optimizations
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-
-    webpackIsomorphicToolsPlugin
+    // css files from the extract-text-plugin loader
+    new ExtractTextPlugin('[name].css'),
+    webpackIsomorphicToolsPlugin.development()
   ]
 };
