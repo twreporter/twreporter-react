@@ -51,15 +51,19 @@ export class BottomRelateds extends Component {
   }
 
   render() {
-    const { relateds, topicName, topicArr } = this.props
+    const { relateds, topicName, topicArr, currentId } = this.props
     const { isCollapse } = this.state
 
     const titleText = (topicArr && topicName) ? topicName : RELATED_ARTICLES
-    const listItems = (topicArr && topicName) ? topicArr : relateds
+    let listItems = (topicArr && topicName) ? topicArr : relateds
 
     if (!_.get(relateds, '0')) {
       return null
     }
+
+    // find unique items and filter out the current article in display
+    listItems = _.uniq(listItems)
+    listItems = _.filter(listItems, (related) => { return related.id!==currentId })
 
     const relatedRows = _.map(listItems, (related, index) => {
       let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
@@ -85,7 +89,7 @@ export class BottomRelateds extends Component {
       )
     })
 
-    const loadMoreBtn = isCollapse ? null : <div className={classNames(styles.loadMore, 'text-center')} onClick={()=>{this.setState({ isCollapse: true })}}>
+    const loadMoreBtn = isCollapse || listItems.length <= ITEMS_LIMIT.ARTICLE_RELATED ? null : <div className={classNames(styles.loadMore, 'text-center')} onClick={()=>{this.setState({ isCollapse: true })}}>
             {LOAD_MORE_ARTICLES}
           </div>
 

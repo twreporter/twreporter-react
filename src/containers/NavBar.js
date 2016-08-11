@@ -68,6 +68,7 @@ class NaviBar extends Component {
           isScrolledOver={this.state.isScrolledOver}
           pageTitle={this.props.header.pageTitle}
           pageTopic={this.props.header.pageTopic}
+          articleId={this.props.header.articleId}
           />
       </div>
     )
