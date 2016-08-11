@@ -1,44 +1,39 @@
 require('babel-polyfill');
 
-// Webpack config for development
+// Webpack config for creating the production bundle.
 var autoprefixer = require('autoprefixer');
-var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
-var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-var assetsPath = path.resolve(__dirname, '../static/dist');
-var port = parseInt(process.env.PORT) + 1 || 3001;
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var CleanPlugin = require('clean-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var strip = require('strip-loader');
+
+var projectRootPath = path.resolve(__dirname, '../');
+var assetsPath = path.resolve(projectRootPath, './static/dist');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      'bootstrap-loader/extractStyles',
-      './src/index.js'
+      './src/index.js',
+      'bootstrap-loader/extractStyles'
     ]
   },
   output: {
     path: assetsPath,
-    filename: '[name]-[hash].js',
+    filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
     publicPath: '/dist/'
   },
   module: {
     loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: [ 'react-hot', 'babel-loader' ]
-      },
-      { test:/\.json$/,
-        loader: 'json-loader'
-      },
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
+      { test: /\.json$/, loader: 'json-loader' },
       { test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',
@@ -54,9 +49,17 @@ module.exports = {
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?mimetype=application/vnd.ms-fontobject" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' },
+      {
+        test: /\.js$/,
+        include: /react-flex-carousel/,
+        loader: "babel-loader",
+        query: {
+          presets: ["es2015"]
+        }
+      }
     ]
   },
   postcss: [autoprefixer],
@@ -72,20 +75,33 @@ module.exports = {
     }
   },
   plugins: [
-    // hot reload
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.IgnorePlugin(/webpack-stats\.json$/),
+    new CleanPlugin([assetsPath], { root: projectRootPath }),
+
+    // css files from the extract-text-plugin loader
+    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
     new webpack.DefinePlugin({
       'process.env': {
+        NODE_ENV: '"production"',
         BROWSER: true
       },
       __CLIENT__: true,
       __SERVER__: false,
-      __DEVELOPMENT__: true,
-      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+      __DEVELOPMENT__: false,
+      __DEVTOOLS__: false
     }),
-    // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name].css'),
-    webpackIsomorphicToolsPlugin.development()
+
+    // ignore dev config
+    new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
+
+    // optimizations
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+
+    webpackIsomorphicToolsPlugin
   ]
 };
