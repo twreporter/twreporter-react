@@ -59,7 +59,6 @@
     margin-bottom: 60px;
 }
 .what {
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-size: 25px;
     word-spacing: 40px;
     font-weight: 500;
@@ -69,6 +68,30 @@
     border-bottom-width: 2px;
     padding-bottom: 15px;
     margin-bottom: 30px;
+}
+.top-title-outer {
+    font-size: 20px;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #808080;
+}
+@media (max-width: 992px) { 
+    .top-title-outer {
+        margin-top: 1rem;
+        font-size: 18px;
+    }
+}
+.top-title {
+    word-spacing: 40px;
+    font-weight: 700;
+    display: inline;
+    width: 200px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    padding-left: 3px;
 }
 .new {
     font-family: 'Montserrat';
