@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
-// import { Link } from 'react-router'
+import { Link } from 'react-router'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 
@@ -51,7 +51,7 @@ export default class Tags extends Component {
               if (image) {
                 return (
                   <li className="tag-item" key={a.id} style={bgStyle}>
-                    <a href={url}>
+                    <Link to={url}>
                       <div className="itemimage-wrap">
                         <img className="category-itemimage" src={image}/>
                       </div>
@@ -60,7 +60,7 @@ export default class Tags extends Component {
                         <div className="tag-itemexcerpt">{excerpt}</div>
                         <div className="tag-itempublished">{d_str}</div>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 )
               }
