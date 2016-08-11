@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Embedded.scss'
 
-export class EmbeddedCode extends React.PureComponent {
+export class EmbeddedCode extends React.Component {
   constructor(props) {
     super(props)
   }
