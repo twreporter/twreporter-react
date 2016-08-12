@@ -75,6 +75,7 @@ class Article extends Component {
   componentDidMount() {
     this.props.setPageType(ARTICLE)
     this._setArticleBounding()
+    this._sendPageLevelAction()
     window.addEventListener('resize', this._setArticleBounding)
 
     // detect sroll position
@@ -83,6 +84,7 @@ class Article extends Component {
 
   componentDidUpdate() {
     this._setArticleBounding()
+    this._sendPageLevelAction()
   }
 
   componentWillMount() {
@@ -112,26 +114,37 @@ class Article extends Component {
     window.removeEventListener('scroll', this._handleScroll)
   }
 
+  _sendPageLevelAction() {
+    const { entities, selectedArticle, setArticleTopicList, setPageTitle } = this.props
+
+    let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
+    let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
+
+    // set navbar title for this article
+    setPageTitle(article.id, article.title, topicName)
+
+    let topicArr = this._getTopicArticles(_.get(article, 'topics'))
+    // dispatch action for the navbar to display article list
+    setArticleTopicList(topicArr)
+  }
+
   // fetch article whole data, including body, related articls and other articles in the same topic
   _fetchData() {
-    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded, params, selectedArticle, slugToId } = this.props
+    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
     let slug = _.get(params, 'slug')
 
-    // Check if selectedArticle is up to date
-    if (_.get(selectedArticle, 'slug') !== slug) {
-      // fetch article
-      fetchArticleIfNeeded(slug)
+    // fetch article
+    fetchArticleIfNeeded(slug)
 
-      let article = _.get(entities, [ 'articles', slugToId[slug] ])
-      let topicId = _.get(article, 'topics')
-      let relateds = _.get(article, 'relateds')
+    let article = _.get(entities, [ 'articles', slugToId[slug] ])
+    let topicId = _.get(article, 'topics')
+    let relateds = _.get(article, 'relateds')
 
-      //  fetch other articles in the same topic
-      fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+    //  fetch other articles in the same topic
+    fetchArticlesByUuidIfNeeded(topicId, TOPIC)
 
-      // fetch related articles
-      fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
-    }
+    // fetch related articles
+    fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
   }
 
   _getCumulativeOffset(element) {
@@ -190,23 +203,16 @@ class Article extends Component {
   }
 
   render() {
-    const { entities, params, selectedArticle, setPageTitle, setArticleTopicList } = this.props
+    const { entities, params, selectedArticle } = this.props
 
     if (_.get(selectedArticle, 'slug') !== _.get(params, 'slug')) {
       return null
     }
 
     let article = denormalizeArticles(_.get(selectedArticle, 'id'), entities)[0] || {}
+    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
     let topicName = _.get(article, 'topics.name')
     let relatedArticles = _.get(article, 'relateds')
-
-    // set navbar title for this article
-    setPageTitle(article.id, article.title, topicName)
-
-    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
-    // dispatch action for the navbar to display article list
-    setArticleTopicList(topicArr)
-
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
     let heroImage = _.get(article, [ 'heroImage' ], null)
