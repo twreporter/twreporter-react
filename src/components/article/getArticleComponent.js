@@ -20,9 +20,10 @@ export default function getArticleComponent(type = 'unstyled') {
       return ArticleComps.AlignedImageDiff
     case 'infobox':
       return ArticleComps.AlignedInfoBox
-    case 'ordered-list':
-    case 'unordered-list':
-      return null
+    case 'ordered-list-item':
+    return ArticleComps.OrderedList
+    case 'unordered-list-item':
+      return ArticleComps.UnorderedList
     case 'unstyled':
       return ArticleComps.Paragraph
     case 'slideshow':

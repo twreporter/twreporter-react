@@ -1,0 +1,16 @@
+@import '../../themes/common-variables.scss';
+
+.list {
+  // list-style: none;
+  margin-left: 2.8rem;
+  line-height: 1.8rem;
+}
+.item {
+  padding-left: 0.5rem;
+  &:before {
+    content: "-";
+    margin-left: -2rem;
+    margin-right: 1rem;
+    color: $primary-color; /* Or a color you prefer */
+  }
+}
