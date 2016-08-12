@@ -1,14 +1,12 @@
-/* eslint  no-unused-vars:1 */
-import React from 'react'
-
+/* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
+import { CATEGORY } from '../constants/index'
 import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/index'
-import { fetchCategorizedArticlesIfNeeded } from '../actions/group-articles'
-import { Home } from './Home'
+import { denormalizeArticles, getCatId } from '../utils/index'
+import { fetchFeatureArticlesIfNeeded, fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Footer from '../components/Footer'
-import SystemError from '../components/SystemError'
+import React, { Component } from 'react'
 import Tags from '../components/Tags'
 import TopNews from '../components/TopNews'
 if (process.env.BROWSER) {
@@ -17,25 +15,38 @@ if (process.env.BROWSER) {
 
 const MAXRESULT = 10
 const PAGE = 1
+const PHOTOGRAPHY_CH_STR = '影像'
 
-function loadData(fetchCategorizedArticlesIfNeeded) {
-  fetchCategorizedArticlesIfNeeded('攝影', MAXRESULT, PAGE)
-}
-
-export default class Photography extends Home {
+export default class Photography extends Component {
   static fetchData({ store }) {
     return new Promise((resolve, reject) => {
       // load tagged articles in parallel
       async.parallel([
         function (callback) {
-          store.dispatch(fetchCategorizedArticlesIfNeeded('攝影', MAXRESULT, PAGE))
-          .then(() => {
+          store.dispatch(fetchFeatureArticlesIfNeeded({
+            where: {
+              categories: {
+                '$in': [ getCatId(PHOTOGRAPHY_CH_STR) ]
+              }
+            }
+          })).then(() => {
+            callback(null)
+          })
+        },
+        function (callback) {
+          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(PHOTOGRAPHY_CH_STR), CATEGORY, {
+            page: PAGE,
+            max_result: MAXRESULT,
+            where: {
+              isFeatured: false
+            }
+          })).then(() => {
             callback(null)
           })
         }
       ], (err, results) => {
         if (err) {
-          // console.warn('fetchData occurs error:', err)
+          console.warn('fetchData occurs error:', err)
         }
         resolve()
       })
@@ -44,62 +55,76 @@ export default class Photography extends Home {
 
   constructor(props, context) {
     super(props, context)
-    this.loadMoreArticles = this.loadMoreArticles.bind(this, '攝影')
+    this.loadMoreArticles = this._loadMoreArticles.bind(this)
   }
 
   componentWillMount() {
-    loadData(this.props.fetchCategorizedArticlesIfNeeded)
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    fetchFeatureArticlesIfNeeded({
+      where: {
+        categories: {
+          '$in': [ catId ]
+        }
+      }
+    })
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: PAGE,
+      max_result: MAXRESULT,
+      where: {
+        isFeatured: false
+      }
+    })
   }
 
-  componentWillReceiveProps(nextProps) {
-    loadData(nextProps.fetchCategorizedArticlesIfNeeded)
-  }
-
-  loadMoreArticles(cat) {
-    const { articlesByCats, fetchCategorizedArticlesIfNeeded } = this.props
-    const features = articlesByCats[cat] || {
-      items: []
-    }
-    let page = Math.floor(features.items.length / MAXRESULT)  + 1
-    fetchCategorizedArticlesIfNeeded(cat, MAXRESULT, page)
+  _loadMoreArticles() {
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    const articles = articlesByUuids[catId]
+    let page = Math.floor(_.get(articles, 'items.length', 0) / MAXRESULT)  + 1
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page,
+      max_result: MAXRESULT,
+      where: {
+        isFeatured: false
+      }
+    })
   }
 
   render() {
-    const { articlesByCats, entities } = this.props
+    const { articlesByUuids, featureArticles, entities } = this.props
     const style = {
       backgroundColor: '#2C323E',
       color: '#FFFFEB'
     }
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
 
-    let fullArticles = denormalizeArticles(_.get(articlesByCats, [ '攝影','items' ] , []), entities)
-    let featureItems = fullArticles
+    let topNewsItems = denormalizeArticles(_.get(featureArticles, 'items', []), entities)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
 
-    if (fullArticles || featureItems) {
-      return (
-        <div style={style}>
-          <TopNews topnews={featureItems} />
-          <Tags
-            articles={fullArticles || []}
-            bgStyle="dark"
-            hasMore={ _.get(articlesByCats, [ '攝影', 'nextUrl' ]) !== null}
-            loadMore={this.loadMoreArticles}
-          />
-          {this.props.children}
-          <Footer/>
-        </div>
-      )
-    } else {
-      return ( <SystemError/> )
-    }
+    return (
+      <div style={style}>
+        <TopNews topnews={topNewsItems} />
+        <Tags
+          articles={articles}
+          bgStyle="dark"
+          hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
+          loadMore={this.loadMoreArticles}
+        />
+        {this.props.children}
+        <Footer/>
+      </div>
+    )
   }
 }
 
 function mapStateToProps(state) {
-  return { 
-    articlesByCats: state.articlesByCats || {},
-    entitie: state.entities || {} 
+  return {
+    articlesByUuids: state.articlesByUuids || {},
+    entities: state.entities || {},
+    featureArticles: state.featureArticles || {}
   }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchCategorizedArticlesIfNeeded })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded })(Photography)

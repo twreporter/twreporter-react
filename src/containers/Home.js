@@ -83,10 +83,6 @@ export default class Home extends Component {
     fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
   }
 
-  componentWillReceiveProps(nextProps) {
-    // loadData(nextProps.fetchArticlesByCatNameIfNeeded)
-  }
-
   _loadMoreArticles(catId) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
 

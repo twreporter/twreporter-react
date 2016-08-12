@@ -1,4 +1,3 @@
-/* eslint  no-unused-vars:1 */
 import { TAG } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
@@ -30,7 +29,7 @@ export default class Tag extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
     let tagId = this.state.tagId
 
     // if fetched before, do nothing
@@ -56,7 +55,7 @@ export default class Tag extends Component {
   }
 
   _loadMore() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
     let { tagId } = this.state
     let articlesByCat = _.get(articlesByUuids, [ tagId ], {})
     if (_.get(articlesByCat, 'hasMore') === false) {
