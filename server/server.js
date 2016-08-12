@@ -126,7 +126,7 @@ server.get('*', (req, res) => {
         let styles = ''
         {
           Object.keys(assets.styles).map((style, key) => {
-            styles += ReactDOMServer.renderToString(<link href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
+            styles += ReactDOMServer.renderToString(<link async href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
           }
         )}
 
