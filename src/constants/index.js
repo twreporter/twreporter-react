@@ -28,7 +28,7 @@ export const apiPathEnum = {
 }
 
 export const authorTypes = {
-  writter: '採訪',
+  writter: '文',
   photographer: '攝影',
   designer: '設計',
   engineer: '工程'

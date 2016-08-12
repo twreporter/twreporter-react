@@ -57,7 +57,7 @@ export class BottomRelateds extends Component {
     const titleText = (topicArr && topicName) ? topicName : RELATED_ARTICLES
     let listItems = (topicArr && topicName) ? topicArr : relateds
 
-    if (!_.get(relateds, '0')) {
+    if (!_.get(relateds, '0') && (!topicArr || topicArr.length===0)) {
       return null
     }
 

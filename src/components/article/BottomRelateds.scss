@@ -29,6 +29,11 @@
     padding: 0 15px;
     width: 100%;
   }
+
+  a:focus, a:hover {
+    text-decoration: none;
+    color: $gray-15;
+  }
 }
 
 .relatedItem:last-of-type {
