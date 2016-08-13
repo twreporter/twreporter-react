@@ -33,6 +33,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
+      { test: /node_modules\/react-flex-carousel\/index.js/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
