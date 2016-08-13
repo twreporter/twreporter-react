@@ -14,13 +14,11 @@ export class Body extends Component {
 
   render() {
     const { data, customStyles } = this.props
-    console.log('***data', data)
 
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
         let type = ele.type
         let Component = getArticleComponent(type)
-        console.log('***getArticleComponent', type, Component)
 
         if (!Component) {
           return null

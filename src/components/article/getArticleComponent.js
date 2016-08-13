@@ -10,6 +10,10 @@ export default function getArticleComponent(type = 'unstyled') {
       return ArticleComps.Audio
     case 'blockQuote':
       return ArticleComps.AlignedBlockQuote
+    case 'header-one':
+      return ArticleComps.HeaderOne
+    case 'header-two':
+      return ArticleComps.HeaderTwo
     case 'code':
       return null
     case 'embeddedCode':
@@ -21,7 +25,7 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'infobox':
       return ArticleComps.AlignedInfoBox
     case 'ordered-list-item':
-    return ArticleComps.OrderedList
+      return ArticleComps.OrderedList
     case 'unordered-list-item':
       return ArticleComps.UnorderedList
     case 'unstyled':

@@ -14,10 +14,10 @@ export const OrderedList = ({ content }) => {
   }
 
   for(let i=0; i<cList.length; i++) {
-    bArr.push(<li className={styles.item}>{ cList[i] }</li>)
+    bArr.push(<li key={i} className={styles.item}>{ cList[i] }</li>)
   }
 
-  return <ol className={classNames(styles.list, commonStyles['inner-block'], 
+  return <ol className={classNames(styles.list, commonStyles['inner-block'],
           commonStyles['text-color'], 'text-justify')}>
           { bArr }
           </ol>
