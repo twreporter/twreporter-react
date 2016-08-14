@@ -1,5 +1,4 @@
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './UnorderedList.scss'
