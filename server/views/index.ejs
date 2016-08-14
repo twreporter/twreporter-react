@@ -55,10 +55,10 @@
   <body>
     <div id="root"><%- html %></div>
     <!-- Load Intl Polyfill -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
+    <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
     <script type="text/javascript" charset="utf-8">
       window.__REDUX_STATE__ = '<%= reduxState %>';
     </script>
-    <script type="text/javascript" charset="utf-8" src='<%- javascript %>'></script>
+    <script async type="text/javascript" charset="utf-8" src='<%- javascript %>'></script>
   </body>
 </html>
