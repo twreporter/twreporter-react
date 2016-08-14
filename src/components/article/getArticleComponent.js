@@ -9,6 +9,7 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'audio':
       return ArticleComps.Audio
     case 'blockQuote':
+    case 'blockquote':
       return ArticleComps.AlignedBlockQuote
     case 'header-one':
       return ArticleComps.HeaderOne
@@ -17,10 +18,12 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'code':
       return null
     case 'embeddedCode':
+    case 'embeddedcode':
       return ArticleComps.AlignedEmbedded
     case 'image':
       return ArticleComps.AlignedImage
     case 'imageDiff':
+    case 'imagediff':
       return ArticleComps.AlignedImageDiff
     case 'infobox':
       return ArticleComps.AlignedInfoBox
