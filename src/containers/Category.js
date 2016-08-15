@@ -5,6 +5,7 @@ import nameMap from '../conf/category-tag-mapping-table'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType } from '../actions/header'
 import _ from 'lodash'
+import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
@@ -93,9 +94,16 @@ export default class Category extends Component {
     const category = _.get(params, 'category', null)
     const catName = category ? _.get(nameMap, category, null): null
     const catBox = catName ? <div className="top-title-outer"><div className="top-title"> {catName} </div></div> : null
+    const meta = {
+      title: '報導者 The Reporter',
+      description: '報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。',
+      canonical: 'https://www.twreporter.org/category/' + category,
+      meta: { property: {} },
+      auto: { ograph: true }
+    }
 
     return (
-      <div>
+      <DocumentMeta {...meta}>
         <div className="container text-center">
           {catBox}
         </div>
@@ -107,7 +115,7 @@ export default class Category extends Component {
         />
         {this.props.children}
         <Footer/>
-      </div>
+      </DocumentMeta>
     )
   }
 }

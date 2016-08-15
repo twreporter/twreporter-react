@@ -8,6 +8,7 @@ import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } from '../ac
 import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Daily from '../components/Daily'
+import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -104,10 +105,17 @@ export default class Home extends Component {
     let topnewsItems = denormalizeArticles(_.get(featureArticles, 'items', []), entities)
     let specialTopicItems = denormalizeArticles(_.get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
     let reviewItems = denormalizeArticles(_.get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
+    const meta = {
+      title: '報導者 The Reporter',
+      description: '報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。',
+      canonical: 'https://www.twreporter.org/',
+      meta: { property: {} },
+      auto: { ograph: true }
+    }
 
     if (topnewsItems) {
       return (
-        <div>
+        <DocumentMeta {...meta}>
           <TopNews topnews={topnewsItems} />
           <Daily daily={reviewItems}
           />
@@ -120,7 +128,7 @@ export default class Home extends Component {
             this.props.children
           }
           <Footer />
-        </div>
+        </DocumentMeta>
       )
     } else {
       return ( <SystemError /> )
