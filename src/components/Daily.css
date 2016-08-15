@@ -24,7 +24,6 @@
 
 .daily-item a {
     display: block;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-size: 18px;
     font-weight: 500;
     color: black;
@@ -105,6 +104,13 @@
     margin: 10px auto 60px;
 }
 
+
+@media screen and (min-width: 700px) and (max-width: 799px) {
+    .daily-item:nth-last-child(2) {
+        border-bottom: 0; 
+    }
+}
+
 @media 
 only screen 
 and (max-width : 799px) ,
@@ -116,6 +122,12 @@ and (max-device-width : 799px) {
         vertical-align: top;
         display: block;
         margin: 0 auto;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 12px;
+    }
+
+    .daily-item:last-child {
+        border-bottom: 0; 
     }
 
     .daily-item a {
@@ -126,7 +138,6 @@ and (max-device-width : 799px) {
         vertical-align: top;
         word-spacing: 20px;
         width: auto;
-        border-bottom: 2px solid #ccc;
     }
 
     .daily-line {
