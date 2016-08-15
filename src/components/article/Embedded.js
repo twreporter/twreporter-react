@@ -3,6 +3,7 @@
 import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
+import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Embedded.scss'
@@ -12,13 +13,33 @@ export class EmbeddedCode extends React.Component {
     super(props)
   }
 
+  componentDidMount() {
+    let node = ReactDOM.findDOMNode(this.refs.embedded)
+    let scripts = _.get(this.props, [ 'content', 0, 'scripts' ])
+    if (node && Array.isArray(scripts)) {
+      let scriptEle = document.createElement('script')
+      _.forEach(scripts, (script) => {
+        let attribs = script.attribs
+        _.forIn(attribs, (value, key) => {
+          scriptEle[key] = value
+        })
+        scriptEle.innerHtml = script.text || ''
+      })
+      node.appendChild(scriptEle)
+    }
+  }
+
+  componentWillUnmount() {
+    this.refs.embedded = null
+  }
+
   render() {
-    let embeddedCode = _.get(this.props, [ 'content', 0 ], {})
+    let content = _.get(this.props, [ 'content', 0 ], {})
 
     return (
       <div className={classNames(commonStyles['inner-block'])}>
-        <div dangerouslySetInnerHTML={{ __html: embeddedCode.embeddedCode }}/>
-        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{embeddedCode.caption}</div>
+        <div ref="embedded" dangerouslySetInnerHTML={{ __html: content.embeddedCodeWithoutScript }}/>
+        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{content.caption}</div>
       </div>
     )
   }
