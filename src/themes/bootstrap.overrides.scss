@@ -16,6 +16,25 @@ html {
   }
 }
 
+a:link {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #101010;
+    text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
 // Container width
 .container {
   line-height: $twreporter-line-height;
