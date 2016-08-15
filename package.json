@@ -136,6 +136,7 @@
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-test-utils": "^15.2.0",
     "react-burger-menu": "^1.4.4",
+    "react-document-meta": "^2.0.3",
     "react-document-title": "^2.0.2",
     "react-dom": "^15.1.0",
     "react-flex-carousel": "^0.1.7",

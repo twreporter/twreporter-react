@@ -5,7 +5,7 @@ import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ARTICLE, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ARTICLE, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -13,7 +13,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
-import DocumentTitle from 'react-document-title'
+import DocumentMeta from 'react-document-meta'
 import async from 'async'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
@@ -222,9 +222,19 @@ class Article extends Component {
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
     let topicBox = topicName ? <h3 className={commonStyles['topic-box']}>{topicName}</h3> : null
+    const meta = {
+      title: _.get(article, [ 'title' ], '報導者'),
+      description: _.get(article, [ 'ogDescription' ], ''),
+      canonical: 'https://www.twreporter.org/a/' + _.get(article, [ 'slug' ], []),
+      meta: { property: {} },
+      auto: { ograph: true }
+    }
+    if (heroImage) {
+      meta['meta']['property']['og:image'] = heroImage['image']['url']
+    }
 
     return (
-      <DocumentTitle title={_.get(article, 'title', '')+SITE_NAME.SEPARATOR+SITE_NAME.SHORT}>
+      <DocumentMeta {...meta}>
         <div>
           <div className={styles['article-container']}>
             <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
@@ -298,7 +308,7 @@ class Article extends Component {
           <Footer
             copyright={copyright}/>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     )
   }
 }
