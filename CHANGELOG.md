@@ -1,3 +1,6 @@
+### 1.0.5
+- Fix Infogram embedded script bug.
+
 ### 1.0.4
 - Fix bug. Embedded script can not be execute by react@15.3.0
 
