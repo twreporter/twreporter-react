@@ -9,6 +9,13 @@ export const SITE_NAME = {
   SEPARATOR: ' - '
 }
 
+export const SITE_META = {
+  DESC: '報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。',
+  URL: 'https://www.twreporter.org/',
+  LOGO: 'https://www.twreporter.org/asset/logo.png',
+  KEYWORDS: '報導者,twreporter,新聞,調查報道,原創報道,深度報道,環境,議題,評論,媒體,新媒體,台灣,兩岸,文化'
+}
+
 export const LINK_PREFIX = {
   ARTICLE: '/a/',
   CATEGORY: '/category/',
