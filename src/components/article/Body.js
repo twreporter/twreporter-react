@@ -14,11 +14,17 @@ export class Body extends Component {
 
   render() {
     const { data, customStyles } = this.props
+    let sectionCnt = 0
 
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
         let type = ele.type
         let Component = getArticleComponent(type)
+        let anchor = null
+        if(type === 'header-one') {
+          sectionCnt++
+          anchor = <div id={`section-${sectionCnt}`} className={styles['anchor']}></div>
+        }
 
         if (!Component) {
           return null
@@ -29,6 +35,7 @@ export class Body extends Component {
             className={classNames(commonStyles['component'], commonStyles[type])}
             style={_.get(customStyles, 'component', {})}
           >
+            {anchor}
             <Component
               alignment={ele.alignment}
               content={ele.content}
