@@ -1,5 +1,6 @@
 'use strict'
 import { FacebookButton, TwitterButton } from 'react-social'
+import classNames from 'classnames'
 import styles from './ShareBt.scss'
 import React from 'react' // eslint-disable-next-line
 
@@ -14,7 +15,7 @@ export const ShareBt = (props) => {
       <TwitterButton className={styles.bt} message={title} url={url}>
         <img src={twitterIcon} />
       </TwitterButton>
-      <a href={lineUrl} className={styles.bt}>
+      <a href={lineUrl} className={classNames(styles.bt, styles.line)}>
         <img src={lineIcon} />
       </a>
     </div>
