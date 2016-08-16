@@ -141,6 +141,8 @@ server.get('*', async function (req, res) {
             if (currentArticle['heroImage']) {
               ogImage = _.get(currentArticle, 'heroImage.image.url', '')
             }
+          } else {
+            res.status(500).render('500')
           }
         }
 
