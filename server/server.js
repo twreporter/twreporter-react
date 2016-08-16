@@ -132,13 +132,15 @@ server.get('*', async function (req, res) {
         let desc = SITE_META.DESC
         let ogType = 'website'
         if (pageState['selectedArticle']['id']) {
-          let currentArticle = pageState['entities']['articles'][pageState['selectedArticle']['id']]
-          canonical = SITE_META.URL + LINK_PREFIX.ARTICLE + currentArticle['slug']
-          title = currentArticle['title']
-          desc = currentArticle['ogDescription']
-          ogType = 'article'
-          if (currentArticle['heroImage']) {
-            ogImage = currentArticle['heroImage']['image']['url']
+          let currentArticle = _.get(pageState, [ 'entities', 'articles', _.get(pageState, 'selectedArticle.id') ], null)
+          if (currentArticle) {
+            canonical = SITE_META.URL + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug', '')
+            title = _.get(currentArticle, 'title', title)
+            desc = _.get(currentArticle, 'ogDescription', desc)
+            ogType = 'article'
+            if (currentArticle['heroImage']) {
+              ogImage = _.get(currentArticle, 'heroImage.image.url', '')
+            }
           }
         }
 
@@ -175,28 +177,6 @@ server.get('*', async function (req, res) {
                   <!-- debug usage -->
                   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
                   <link href="/asset/favicon.png"  rel="shortcut icon" />
-                  <script text="text/javascript" charset="utf-8">
-                    (function() {
-                      var cx = '008042460408727773288:mvn-lce5wvo';
-                      var gcse = document.createElement('script');
-                      gcse.type = 'text/javascript';
-                      gcse.async = true;
-                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                      '//cse.google.com/cse.js?cx=' + cx;
-                      var s = document.getElementsByTagName('script')[0];
-                      s.parentNode.insertBefore(gcse, s);
-                      })();
-                    </script>
-                    <!-- Google Tag Manager -->
-                    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
-                            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                        })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
-                    <!-- End Google Tag Manager -->
-                  </script>
                   ${styles}
               </head>
           `)
@@ -211,6 +191,28 @@ server.get('*', async function (req, res) {
               <div id="root">${html}</div>
               <!-- Load Intl Polyfill -->
               <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
+              <script text="text/javascript" charset="utf-8">
+                (function() {
+                  var cx = '008042460408727773288:mvn-lce5wvo';
+                  var gcse = document.createElement('script');
+                  gcse.type = 'text/javascript';
+                  gcse.async = true;
+                  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                  '//cse.google.com/cse.js?cx=' + cx;
+                  var s = document.getElementsByTagName('script')[0];
+                  s.parentNode.insertBefore(gcse, s);
+                  })();
+                </script>
+                <!-- Google Tag Manager -->
+                <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
+                        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
+                <!-- End Google Tag Manager -->
+              </script>
               <script type="text/javascript" charset="utf-8">
                 window.__REDUX_STATE__ = '${reduxState}';
               </script>
