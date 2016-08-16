@@ -7,8 +7,9 @@ import path from 'path'
 
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+//import ReactDOMStream from 'react-dom-stream/server'
 import createLocation from 'history/lib/createLocation'
-import DocumentMeta from 'react-document-meta'
+//import DocumentMeta from 'react-document-meta'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import Promise from 'bluebird'
 import httpProxy from 'http-proxy'
@@ -19,7 +20,8 @@ import crateRoutes from '../src/routes/index'
 import { Provider } from 'react-redux'
 import config from './config'
 
-import {  NotFoundError } from '../src/lib/custom-error'
+import { NotFoundError } from '../src/lib/custom-error'
+import { SITE_NAME, LINK_PREFIX, SITE_META } from '../src/constants/'
 import _ from 'lodash'
 
 const server = new Express()
@@ -71,7 +73,7 @@ proxy.on('error', (error, req, res) => {
   res.end(JSON.stringify(json))
 })
 
-server.get('*', (req, res) => {
+server.get('*', async function (req, res) {
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
@@ -115,12 +117,6 @@ server.get('*', (req, res) => {
         if (fatalError) {
           throw fatalError
         }
-        let reduxState = escape(JSON.stringify(store.getState()))
-        let html = ReactDOMServer.renderToString(
-          <Provider store={store} >
-            { <RouterContext {...renderProps} /> }
-          </Provider>
-        )
         let assets = webpackIsomorphicTools.assets()
         {/* styles (will be present only in production with webpack extract text plugin) */}
         let styles = ''
@@ -129,10 +125,101 @@ server.get('*', (req, res) => {
             styles += ReactDOMServer.renderToString(<link async href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
           }
         )}
+        let pageState = store.getState()
+        let ogImage = SITE_META.LOGO
+        let title = SITE_NAME.FULL
+        let canonical = SITE_META.URL
+        let desc = SITE_META.DESC
+        let ogType = 'website'
+        if (pageState['selectedArticle']['id']) {
+          let currentArticle = pageState['entities']['articles'][pageState['selectedArticle']['id']]
+          canonical = SITE_META.URL + LINK_PREFIX.ARTICLE + currentArticle['slug']
+          title = currentArticle['title']
+          desc = currentArticle['ogDescription']
+          ogType = 'article'
+          if (currentArticle['heroImage']) {
+            ogImage = currentArticle['heroImage']['image']['url']
+          }
+        }
 
         if ( getCurrentUrl() === reqUrl ) {
-          res.render('index', { html, reduxState, styles, javascript: assets.javascript.main })
-          DocumentMeta.rewind()   // render custom ducument title
+          //res.render('index', { html, reduxState, styles, javascript: assets.javascript.main })
+          res.write(`
+            <!DOCTYPE html>
+            <html lang="zh-Hant-TW">
+              <head>
+                  <title>${title}</title>
+                  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+                  <meta http-equiv="Cache-control" content="public">
+                  <meta name='viewport' content='width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1'/>
+                  <meta name="apple-mobile-web-app-capable" content="yes"/>
+                  <meta name="keywords" content=${SITE_META.KEYWORDS}/>
+                  <meta name="description" content=${desc} data-rdm/>
+                  <meta property="og:rich_attachment" content="true"/>
+                  <meta property="og:type" content=${ogType}/>
+                  <meta property="og:title" content=${title} data-rdm/>
+                  <meta property="og:site_name" content=${SITE_NAME.SHORT}/>
+                  <meta property="og:image" content=${ogImage} data-rdm/>
+                  <meta property="og:image:type" content="image/png" />
+                  <meta property="og:image:width" content="960" />
+                  <meta property="og:image:height" content="720" />
+                  <meta name="twitter:card" content="summary_large_image" />
+                  <meta name="twitter:image" content=${ogImage} />
+                  <meta name="twitter:title" content=${title} data-rdm/>
+                  <meta name="twitter:description" content="" data-rdm/>
+                  <meta name="theme-color" content="#E30B20">
+                  <link rel="canonical" href=${canonical} data-rdm/>
+                  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/a/rss2.xml" />
+                  <!-- reset css for cross browser-->
+                  <link rel="stylesheet" async type="text/css" href="https://www.twreporter.org/asset/reset.css">
+                  <!-- debug usage -->
+                  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
+                  <link href="/asset/favicon.png"  rel="shortcut icon" />
+                  <script text="text/javascript" charset="utf-8">
+                    (function() {
+                      var cx = '008042460408727773288:mvn-lce5wvo';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                      '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                      })();
+                    </script>
+                    <!-- Google Tag Manager -->
+                    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
+                            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                        })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
+                    <!-- End Google Tag Manager -->
+                  </script>
+                  ${styles}
+              </head>
+          `)
+          let html = ReactDOMServer.renderToString(
+            <Provider store={store} >
+              { <RouterContext {...renderProps} /> }
+            </Provider>
+          )
+          let reduxState = escape(JSON.stringify(store.getState()))
+          res.write(`
+            <body>
+              <div id="root">${html}</div>
+              <!-- Load Intl Polyfill -->
+              <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
+              <script type="text/javascript" charset="utf-8">
+                window.__REDUX_STATE__ = '${reduxState}';
+              </script>
+              <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+            </body>
+            </html>
+          `)
+          res.end()
+          //DocumentMeta.rewind()   // render custom ducument title
         } else {
           res.redirect(302, getCurrentUrl())
         }
