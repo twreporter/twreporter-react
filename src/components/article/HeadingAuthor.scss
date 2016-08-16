@@ -5,6 +5,7 @@
 
 .author-container {
   width: 100%;
+  font-size: $font-size-medium;
 
   span::after {
     content: " ";
@@ -12,7 +13,7 @@
 
   .author-item {
     display: inline-block;
-    padding-right: 8px;
+    padding-right: rem(8px);
 
     // author types
     &>span:first-child {
