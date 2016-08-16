@@ -17,15 +17,13 @@ export class EmbeddedCode extends React.Component {
     let node = ReactDOM.findDOMNode(this.refs.embedded)
     let scripts = _.get(this.props, [ 'content', 0, 'scripts' ])
     if (node && Array.isArray(scripts)) {
-      let scriptEle = document.createElement('script')
       _.forEach(scripts, (script) => {
+        let scriptEle = document.createElement('script')
         let attribs = script.attribs
-        _.forIn(attribs, (value, key) => {
-          scriptEle[key] = value
-        })
-        scriptEle.innerHtml = script.text || ''
+        _.merge(scriptEle, attribs)
+        scriptEle.text = script.text || ''
+        node.appendChild(scriptEle)
       })
-      node.appendChild(scriptEle)
     }
   }
 
