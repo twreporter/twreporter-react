@@ -198,7 +198,7 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
  */
 export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (_.get(getState(), [ 'articlesByUuids', uuid, 'hasMore' ]) === false) {
+    if (!uuid || _.get(getState(), [ 'articlesByUuids', uuid, 'hasMore' ]) === false) {
       return Promise.resolve()
     }
 
