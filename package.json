@@ -1,13 +1,13 @@
 {
   "name": "twreporter-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build-pkg": "npm run clean && npm run build-pkg:js && npm run build-pkg:css",
-    "build-pkg:js": "WEBPACK_CONFIG=$(pwd)/webpack/pkg.config.js BABEL_DISABLE_CACHE=1 BABEL_ENV=BUILDPKG NODE_ENV=production ./node_modules/.bin/babel --out-dir='lib' src",
-    "build-pkg:css": "npm run build-pkg:bootstrap && mkdir -p lib/styles && node ./concatCssFiles $(pwd) && ./node_modules/.bin/rimraf lib-css",
+    "build-pkg:js": "WEBPACK_CONFIG=$(pwd)/webpack/pkg.config.js BABEL_DISABLE_CACHE=1 BABEL_ENV=BUILDPKG NODE_ENV=production ./node_modules/.bin/babel --out-dir='dist' src",
+    "build-pkg:css": "npm run build-pkg:bootstrap && mkdir -p dist/styles && node ./concatCssFiles $(pwd) && ./node_modules/.bin/rimraf lib-css",
     "build-pkg:bootstrap": "./node_modules/.bin/webpack --verbose --colors --display-error-details --config $(pwd)/webpack/bootstrap.config.js",
-    "clean": "./node_modules/.bin/rimraf lib",
+    "clean": "./node_modules/.bin/rimraf dist",
     "build": "better-npm-run build",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-api\" \"npm run start-dev\" ",
     "start-dev": "better-npm-run start-dev",

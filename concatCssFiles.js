@@ -9,5 +9,5 @@ filenames.forEach((filename) => {
         content += fs.readFileSync(filePath, 'utf-8');
 });
 
-const outputFilePath = path.join(process.argv[2], 'lib/styles', 'main.css');
+const outputFilePath = path.join(process.argv[2], 'dist/styles', 'main.css');
 fs.writeFileSync(outputFilePath, content);

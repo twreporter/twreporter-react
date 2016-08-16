@@ -229,8 +229,9 @@ class Article extends Component {
       meta: { property: {} },
       auto: { ograph: true }
     }
-    if (heroImage) {
-      meta['meta']['property']['og:image'] = heroImage['image']['url']
+
+    if (_.get(heroImage, [ 'image', 'url' ])) {
+      _.set(meta, [ 'meta', 'property', 'og:image' ], _.get(heroImage, [ 'image', 'url' ]))
     }
 
     return (
