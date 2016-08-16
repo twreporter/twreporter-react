@@ -23,6 +23,22 @@ $red-line-distance: 40px;
     border-top: 2px solid;
     position: absolute;
   }
+
+  a {
+    border-bottom: 2px $primary-color solid;
+    cursor: pointer;
+    transition: 0.5s all ease;
+    position: relative;
+
+    &:hover {
+      color: $primary-color;
+    }  
+  }
+
+  u {
+    text-decoration: none;
+    background-color: $underline-marker-color;
+  }
 }
 
 // tablet

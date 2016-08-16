@@ -212,7 +212,7 @@
 .up {
     span {
         display: none;
-        @media (min-width: $screen-sm-min) {
+        @media (min-width: $screen-sm-max) {
             display: table-cell;
         }
     }
