@@ -3,6 +3,9 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
-.anchor {
-  height: 1rem;
+.title {
+  font-size: $font-size-xlarger;
+  font-weight: $font-weight-bold;
+  line-height: 1.5;
+  padding-top: 3rem;
 }

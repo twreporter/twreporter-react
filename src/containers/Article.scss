@@ -33,6 +33,14 @@
 
   em {
     font-style: italic;
+    padding-right: 0.2rem;
+  }
+
+  h2 {
+    font-size: $font-size-larger;
+    font-weight: $font-weight-bold;
+    line-height: 1.5;
+    padding-top: 2.5rem;
   }
 
 }
