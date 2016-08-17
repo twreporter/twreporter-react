@@ -10,6 +10,12 @@ $text-color: #333;
 $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
+
+// == Screen 
+// ## size
+$screen-hd-min: 1440px;
+$screen-lg-max: $screen-hd-min - 1px;
+
 // == Typography
 // ## Font
 $font-date-serif: "Times New Roman",serif;
@@ -41,6 +47,7 @@ $gray-40: #666666;
 $gray-50: #808080;
 $gray-97: #F7F7F7;
 $light-gray: #F1F1F1;
+$blockquote-gray: rgba(74, 74, 74, 0.25);
 // ## orange
 $harley-davidson-orange: #c71b0a;
 $light-red: #D92616;
