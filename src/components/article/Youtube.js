@@ -34,14 +34,14 @@ class Youtube extends React.Component {
 
 Youtube.propTypes = {
   content: React.PropTypes.array.isRequired,
-  customStyles: React.PropTypes.array,
-  device: React.PropTypes.string
+  device: React.PropTypes.string,
+  styles: React.PropTypes.object
 }
 
 Youtube.defaultProps = {
   content: [],
-  customStyles: [],
-  device: ''
+  device: '',
+  styles: {}
 }
 
 export const AlignedYoutube = BlockAlignmentWrapper(Youtube)

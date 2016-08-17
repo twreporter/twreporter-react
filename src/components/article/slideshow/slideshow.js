@@ -171,14 +171,14 @@ class Slideshow extends Component {
 
 Slideshow.propTypes = {
   content: React.PropTypes.array.isRequired,
-  customStyles: React.PropTypes.array,
-  device: React.PropTypes.string
+  device: React.PropTypes.string,
+  styles: React.PropTypes.object
 }
 
 Slideshow.defaultProps = {
   content: [],
-  customStyles: [],
-  device: ''
+  device: '',
+  styles: []
 }
 
 export { Slideshow }
