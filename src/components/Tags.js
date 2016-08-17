@@ -56,7 +56,7 @@ export default class Tags extends Component {
                         <img className="category-itemimage" src={image}/>
                       </div>
                       <div className="tag-itemdesc" style={bgStyle}>
-                        <div className="tag-itemtitle">{a.title}</div>
+                        <div className="tag-itemtitle"><h3>{a.title}</h3></div>
                         <div className="tag-itemexcerpt">{excerpt}</div>
                         <div className="tag-itempublished">{d_str}</div>
                       </div>
