@@ -39,15 +39,16 @@ function slugToId(state = {}, action) {
 }
 
 function fatalError(state = null, action) {
-  const { error } = action
-
-  if ( error instanceof FatalError ) {
-    return action.error
-  } else {
-    return null
+  switch (action.type) {
+    case types.FETCH_ARTICLE_FAILURE:
+      const { error } = action
+      if ( error instanceof FatalError ) {
+        return error
+      }
+      return state
+    default:
+      return state
   }
-
-  return state
 }
 
 const rootReducer = combineReducers({
