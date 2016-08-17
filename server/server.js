@@ -117,6 +117,12 @@ server.get('*', async function (req, res) {
         if (fatalError) {
           throw fatalError
         }
+        let loadError = _.get(store.getState(), [ 'selectedArticle', 'error', 'status' ])
+        if (loadError == '404') {
+          res.status(404).render('404') 
+        } else {
+          res.status(500).render('500')
+        } 
         let assets = webpackIsomorphicTools.assets()
         {/* styles (will be present only in production with webpack extract text plugin) */}
         let styles = ''
@@ -182,12 +188,12 @@ server.get('*', async function (req, res) {
                   ${styles}
               </head>
           `)
+          let reduxState = escape(JSON.stringify(store.getState()))
           let html = ReactDOMServer.renderToString(
             <Provider store={store} >
               { <RouterContext {...renderProps} /> }
             </Provider>
           )
-          let reduxState = escape(JSON.stringify(store.getState()))
           res.write(`
             <body>
               <div id="root">${html}</div>
