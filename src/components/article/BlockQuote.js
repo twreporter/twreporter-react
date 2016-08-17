@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -7,7 +6,7 @@ import styles from './BlockQuote.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 
-export const BlockQuote = ({ content, device }) => {
+export const QuoteBy = ({ content, device }) => { // eslint-disable-line
   let quote = _.get(content, [ 0, 'quote' ])
   let quoteBy = _.get(content, [ 0, 'quoteBy' ])
   if (!quote) {
@@ -29,4 +28,8 @@ export const BlockQuote = ({ content, device }) => {
   )
 }
 
-export const AlignedBlockQuote = BlockAlignmentWrapper(BlockQuote)
+export const BlockQuote = ({ content, device }) => { // eslint-disable-line
+  return <blockquote className={classNames(commonStyles['inner-block'], styles['blockquote'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></blockquote>
+}
+
+export const AlignedQuoteBy = BlockAlignmentWrapper(QuoteBy)

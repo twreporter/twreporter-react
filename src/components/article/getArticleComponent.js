@@ -8,9 +8,10 @@ export default function getArticleComponent(type = 'unstyled') {
       return ArticleComps.Annotation
     case 'audio':
       return ArticleComps.Audio
-    case 'blockQuote':
     case 'blockquote':
-      return ArticleComps.AlignedBlockQuote
+      return ArticleComps.BlockQuote
+    case 'quoteby':
+      return ArticleComps.AlignedQuoteBy
     case 'header-one':
       return ArticleComps.HeaderOne
     case 'header-two':

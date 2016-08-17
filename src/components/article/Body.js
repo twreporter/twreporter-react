@@ -13,7 +13,7 @@ export class Body extends Component {
   }
 
   render() {
-    const { data, customStyles } = this.props
+    const { data } = this.props
     let sectionCnt = 0
 
     if (Array.isArray(data)) {
@@ -33,14 +33,13 @@ export class Body extends Component {
           <div
             key={ele.id}
             className={classNames(commonStyles['component'], commonStyles[type])}
-            style={_.get(customStyles, 'component', {})}
           >
             {anchor}
             <Component
               alignment={ele.alignment}
               content={ele.content}
-              customStyles={ele.styles}
               id={ele.id}
+              styles={ele.styles}
             />
           </div>
         )
@@ -48,7 +47,6 @@ export class Body extends Component {
       return (
         <div
           className={commonStyles['components']}
-          style={_.get(customStyles, 'components', {})}
         >
           {Blocks}
         </div>

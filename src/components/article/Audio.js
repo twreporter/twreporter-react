@@ -270,14 +270,14 @@ class Audio extends React.Component {
 
 Audio.propTypes = {
   content: React.PropTypes.array.isRequired,
-  customStyles: React.PropTypes.array,
-  device: React.PropTypes.string
+  device: React.PropTypes.string,
+  styles: React.PropTypes.object
 }
 
 Audio.defaultProps = {
   content: [],
-  customStyles: [],
-  device: ''
+  device: '',
+  styles: {}
 }
 
 export { Audio }
