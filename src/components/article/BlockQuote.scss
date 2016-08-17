@@ -41,3 +41,14 @@ $red: $harley-davidson-orange;
 }
 
 
+.blockquote {
+  font-style: italic;
+  padding-left: rem($font-size-base);
+  border-left: 2px solid rgba(74, 74, 74, 0.25);
+  line-height: 1.85;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  white-space: normal;
+  color: $gray-50;
+}
+
