@@ -79,10 +79,14 @@
         margin-top: 1rem;
         font-size: 18px;
     }
+    .top-title {
+        font-size: 18px;
+    }
 }
 .top-title {
     word-spacing: 40px;
     font-weight: 700;
+    font-size: 20px;
     display: inline;
     width: 200px;
     border-bottom-style: solid;
