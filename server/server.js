@@ -90,11 +90,10 @@ server.get('*', async function (req, res) {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      res.status(500).render('500')
+      res.status(500).render('500', error)
     } else if (renderProps == null) {
       res.status(404).render('404')
     } else {
-
       let [ getCurrentUrl, unsubscribe ] = subscribeUrl()
       let reqUrl = location.pathname + location.search
       store.dispatch({
@@ -117,20 +116,14 @@ server.get('*', async function (req, res) {
         if (fatalError) {
           throw fatalError
         }
-        let loadError = _.get(store.getState(), [ 'selectedArticle', 'error', 'status' ])
-        if (loadError == '404') {
-          res.status(404).render('404') 
-        } else {
-          res.status(500).render('500')
-        } 
         let assets = webpackIsomorphicTools.assets()
         {/* styles (will be present only in production with webpack extract text plugin) */}
         let styles = ''
         {
           Object.keys(assets.styles).map((style, key) => {
             styles += ReactDOMServer.renderToString(<link async href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
-          }
-        )}
+          })
+        }
         let pageState = store.getState()
         let ogImage = SITE_META.LOGO
         let title = SITE_NAME.FULL
@@ -154,6 +147,12 @@ server.get('*', async function (req, res) {
 
         if ( getCurrentUrl() === reqUrl ) {
           //res.render('index', { html, reduxState, styles, javascript: assets.javascript.main })
+          let reduxState = escape(JSON.stringify(store.getState()))
+          let html = ReactDOMServer.renderToString(
+              <Provider store={store} >
+                { <RouterContext {...renderProps} /> }
+              </Provider>
+          )
           res.write(`
             <!DOCTYPE html>
             <html lang="zh-Hant-TW">
@@ -187,45 +186,37 @@ server.get('*', async function (req, res) {
                   <link href="/asset/favicon.png"  rel="shortcut icon" />
                   ${styles}
               </head>
-          `)
-          let reduxState = escape(JSON.stringify(store.getState()))
-          let html = ReactDOMServer.renderToString(
-            <Provider store={store} >
-              { <RouterContext {...renderProps} /> }
-            </Provider>
-          )
-          res.write(`
-            <body>
-              <div id="root">${html}</div>
-              <!-- Load Intl Polyfill -->
-              <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
-              <script text="text/javascript" charset="utf-8">
-                (function() {
-                  var cx = '008042460408727773288:mvn-lce5wvo';
-                  var gcse = document.createElement('script');
-                  gcse.type = 'text/javascript';
-                  gcse.async = true;
-                  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                  '//cse.google.com/cse.js?cx=' + cx;
-                  var s = document.getElementsByTagName('script')[0];
-                  s.parentNode.insertBefore(gcse, s);
-                  })();
+              <body>
+                <div id="root">${html}</div>
+                <!-- Load Intl Polyfill -->
+                <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
+                <script text="text/javascript" charset="utf-8">
+                  (function() {
+                    var cx = '008042460408727773288:mvn-lce5wvo';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//cse.google.com/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                    })();
+                  </script>
+                  <!-- Google Tag Manager -->
+                  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                      })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
+                  <!-- End Google Tag Manager -->
                 </script>
-                <!-- Google Tag Manager -->
-                <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
-                        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
-                <!-- End Google Tag Manager -->
-              </script>
-              <script type="text/javascript" charset="utf-8">
-                window.__REDUX_STATE__ = '${reduxState}';
-              </script>
-              <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
-            </body>
+                <script type="text/javascript" charset="utf-8">
+                  window.__REDUX_STATE__ = '${reduxState}';
+                </script>
+                <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+              </body>
             </html>
           `)
           res.end()
