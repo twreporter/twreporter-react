@@ -93,7 +93,7 @@ export default class NavMenu extends Component {
     }
   }
 
-  _renderAritcleFirst(burgerMenu, logo) {
+  _renderAritcleFirst(burgerMenu, logo, navLinks) {
     const { header } = this.props
     const pageType = _.get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
@@ -107,6 +107,7 @@ export default class NavMenu extends Component {
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
+          <div className={styles.seoHidden}>{navLinks}</div>
         </div>
         <div className={styles.navRight}>
           <Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>
@@ -143,20 +144,22 @@ export default class NavMenu extends Component {
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           {topicButton}
-          
         </div>
       </div>
     )
   }
 
   _renderGeneralSecond(burgerMenu, navLinks) { // eslint-disable-line
+    const isCatHidden = this.state.open ? styles['hide-category'] : null
+
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.slideUp)}>
           {burgerMenu}
           <DonateButton isSlidedUp={true}/>
         </div>
-        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+        <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], isCatHidden)}>
+          {navLinks}
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
         </div>
@@ -238,7 +241,7 @@ export default class NavMenu extends Component {
       linkColor = colors.whiteBg
     }
 
-    let menuBar = this._renderAritcleFirst(burgerMenu, logo)
+    let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
     let searchBox =
       <div className={classNames(styles.topBar, searchClass)}>
         <SearchBox style={{ width: '260px', marginTop: '-5px', display: 'inline-block' }} path={path} />
