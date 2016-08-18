@@ -44,8 +44,9 @@ export default class Topic extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, setPageTitle } = this.props
-    const topicName = _.get(entities, [ 'topics', this.state.topicId, 'name' ], null)
+    const { entities, setPageTitle, params } = this.props
+    const topicId = _.get(params, 'topicId')
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
 
     // set navbar title for this topic
     setPageTitle(null, topicName, TOPIC_TEXT)
