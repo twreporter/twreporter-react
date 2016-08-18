@@ -1,7 +1,6 @@
 import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import nameMap from '../conf/category-tag-mapping-table'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType } from '../actions/header'
 import _ from 'lodash'
@@ -64,14 +63,24 @@ export default class Category extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      catId: getCatId(catENtoCH[nextProps.params.category])
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
+    let catId = getCatId(catENtoCH[_.get(params, 'category')])
+
+    // if fetched before, do nothing
+    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+      return
+    }
+
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: PAGE,
+      max_results: MAXRESULT
     })
   }
 
   _loadMore() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-    let { catId } = this.state
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    let catId = getCatId(catENtoCH[_.get(params, 'category')])
+
     let articlesByCat = _.get(articlesByUuids, [ catId ], {})
     if (_.get(articlesByCat, 'hasMore') === false) {
       return
@@ -88,11 +97,11 @@ export default class Category extends Component {
 
   render() {
     const { device } = this.context
-    const { catId } = this.state
     const { articlesByUuids, entities, params } = this.props
+    const catId = getCatId(catENtoCH[_.get(params, 'category')])
     let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
     const category = _.get(params, 'category', null)
-    const catName = category ? _.get(nameMap, category, null): null
+    const catName = catENtoCH[category]
     const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
     const meta = {
       title: '報導者 The Reporter',

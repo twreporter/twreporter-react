@@ -16,9 +16,6 @@ export default class Topic extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      topicId: props.params.topicId
-    }
   }
 
   componentDidMount() {
@@ -26,21 +23,21 @@ export default class Topic extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded } = this.props
-    let topicId = this.state.topicId
+    const { fetchArticlesByUuidIfNeeded, params } = this.props
+    let topicId = _.get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      topicId: nextProps.params.topicId
-    })
+    const { fetchArticlesByUuidIfNeeded, params } = nextProps
+    let topicId = _.get(params, 'topicId')
+    fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
   render() {
     const { device } = this.context
-    const { topicId } = this.state
     const { articlesByUuids, entities, params } = this.props
+    const topicId = _.get(params, 'topicId')
     const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
     const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
 
