@@ -17,4 +17,4 @@ webpack-assets.json
 api/config.js
 
 # Ignore transpiled files
-lib/
+dist/
