@@ -1,4 +1,4 @@
-import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, TAIWAN_CH_STR } from '../constants/index'
+import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -104,9 +104,9 @@ export default class Category extends Component {
     const catName = catENtoCH[category]
     const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
     const meta = {
-      title: '報導者 The Reporter',
-      description: '報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。',
-      canonical: 'https://www.twreporter.org/category/' + category,
+      title: catName ? catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
+      description: SITE_META.DESC,
+      canonical: `${SITE_META.URL}category/${category}`,
       meta: { property: {} },
       auto: { ograph: true }
     }
