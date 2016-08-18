@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ARTICLE, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
@@ -19,6 +19,7 @@ import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import TopicPopup from './TopicPopup'
 
 const TRIMMED_RATIO = 0.5
+const FULL_WIDTH = 1200
 
 export default class NavMenu extends Component {
   constructor(props, context) {
@@ -58,6 +59,7 @@ export default class NavMenu extends Component {
     // close the topic popup if user switch to different page
     if(nextProps.path !== this.props.path) {
       this.setState({ trimmedTitle: '', isTopicOpen: false })
+      this.setState({ open: false })
       this._checkIfPopupShown(this.state.isOpen)
     }
 
@@ -76,6 +78,7 @@ export default class NavMenu extends Component {
   _handleArticleTitle() {
     const titleSpan = ReactDOM.findDOMNode(this.refs.title)
     const { pageTitle, pageTopic } = this.props
+    const { windowWidth } = this.state
     const topicOffset = pageTopic ? pageTopic.length : 0
 
     if(titleSpan && pageTitle) {
@@ -83,7 +86,10 @@ export default class NavMenu extends Component {
       if(!fontSize || fontSize < 0) {
         fontSize = 18
       }
-      const wordCnt = (this.state.windowWidth * TRIMMED_RATIO / fontSize) - topicOffset
+      let wordCnt = (this.state.windowWidth * TRIMMED_RATIO / fontSize) - topicOffset
+      if(windowWidth > 0 && windowWidth < FULL_WIDTH) {
+        wordCnt = Math.round(wordCnt * (windowWidth / FULL_WIDTH))
+      }
       let titleText = pageTitle
       if(pageTitle.length > wordCnt) {
         titleText = shortenString(pageTitle, wordCnt) + '...'
@@ -159,7 +165,33 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], isCatHidden)}>
-          {navLinks}
+          <div className={styles['nav-category']}>
+            {navLinks}
+          </div>
+        </div>
+        <div className={classNames(styles.navRight, styles.fadeLeft)}>
+        </div>
+      </div>
+    )
+  }
+
+  _renderTopicSecond(burgerMenu, navLinks) { // eslint-disable-line
+    const { pageTopic } = this.state   // trimmed title
+    const { pageTitle } = this.props
+    const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
+    let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
+
+    return (
+      <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
+        <div className={classNames(styles.navLeft, styles.slideUp)}>
+          {burgerMenu}
+          <DonateButton isSlidedUp={true}/>
+        </div>
+        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+          <div className={titleClass} ref="title">
+            {topicRedBox}
+            {pageTitle}
+          </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
         </div>
@@ -250,9 +282,13 @@ export default class NavMenu extends Component {
     // if the page has been scrolled down, show another menu
     if (isScrolledOver && header.pageType === ARTICLE) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
-      navOuterClass = navCommonStyles['nav-scrolled-outer']
+    } else if (isScrolledOver && header.pageType === TOPIC) {
+      menuBar = this._renderTopicSecond(burgerMenu, navLinks)
     } else if (isScrolledOver) {
       menuBar = this._renderGeneralSecond(burgerMenu, navLinks)
+    }
+
+    if (isScrolledOver) {
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 

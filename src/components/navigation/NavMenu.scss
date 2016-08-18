@@ -38,6 +38,10 @@
     visibility: hidden;
 }
 
+.nav-category {
+    transform: translateX(-40%);
+}
+
 .menu-item {
     display: inline;
     margin-right: 40px;
@@ -83,22 +87,26 @@
     @media (max-width: $screen-xs-max) {
         display: none;
     }
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .titleText {
     color: $gray-15;
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
+    display: inline-block;
 }
 
 .articleTitleText {
     @extend .titleText;
-    transform: translateX(-33%);
+    transform: translateX(-50%);
 }
 
 .topicTitleText {
     @extend .titleText;
-    transform: translateX(-25%);
+    transform: translateX(-45%);
 }
 
 .fadeRight {
