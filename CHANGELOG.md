@@ -1,3 +1,8 @@
+### 1.0.8
+- Show topic title on navbar when scrolled down 
+- Fix photography NavBar style  
+- change the way getting topicId
+
 ### 1.0.7
 - Show url to fetch in the redux log
 - Do not fetch related articles while articleId is not provided 
