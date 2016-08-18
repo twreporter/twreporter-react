@@ -1,3 +1,6 @@
+### 1.0.10
+- Fix QuoteBy Component style
+
 ### 1.0.9
 - Show topic title on navbar when scrolled down 
 - Fix photography NavBar style  
