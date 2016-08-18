@@ -37,7 +37,7 @@ const ArticlePlaceholder = () => {
               <div className={classNames(styles['leading-img'], leadingImgStyles['leading-img'])}>
                 <div className={styles['ph-image']}></div>
               </div>
-              <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
+              <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
                 <div className={styles['ph-content']}></div>
                 <div className={styles['ph-content']}></div>
                 <div className={styles['ph-content-last']}></div>
