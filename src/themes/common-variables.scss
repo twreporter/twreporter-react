@@ -45,6 +45,7 @@ $component-margin-right: 24px;
 $gray-15: #262626;
 $gray-40: #666666;
 $gray-50: #808080;
+$gray-70: #B3B3B3;
 $gray-97: #F7F7F7;
 $light-gray: #F1F1F1;
 $blockquote-gray: rgba(74, 74, 74, 0.25);
@@ -57,6 +58,10 @@ $white: #FFF;
 $primary-color: $harley-davidson-orange;
 $photography-dark: #121D2F;
 $underline-marker-color: rgba(199, 26, 10, 0.25);
+
+$material-box-shadow: 0px 3px 8px 0px rgba($gray-40, 0.5);
+$box-glow: 0px 0px 3px rgba($gray-40, 0.5);
+
 // == Layout 
 // ## width
 $article-inner-width: 712px;
