@@ -164,7 +164,7 @@ function _fetchArticles(url) {
  */
 export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (_.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
+    if (!articleId || _.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
       return Promise.resolve()
     }
 
