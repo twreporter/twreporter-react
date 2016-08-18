@@ -23,7 +23,7 @@
 }
 
 .slided-down-category {
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease;
     h1 {
         font-size: $font-size-medium !important;
         margin-top: 0 !important;
@@ -31,6 +31,12 @@
     }
     @media (max-width: $screen-md-min) {
         display: none;
+    }
+}
+
+.photography {
+    h1, span {
+        color: $gray-97 !important;
     }
 }
 

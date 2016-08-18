@@ -221,6 +221,7 @@ export default class NavMenu extends Component {
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
     let logo = logoIcon
     let linkColor = colors.darkBg
+    let photographyClass
 
     let navLinks = []
     let burgerIconClass = styles.navIcon
@@ -271,6 +272,7 @@ export default class NavMenu extends Component {
       navTopBackground = colors.darkBg
       logo = logoIconDark
       linkColor = colors.whiteBg
+      photographyClass = styles['photography']
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
@@ -302,7 +304,7 @@ export default class NavMenu extends Component {
 
     return (
       <div style={{ backgroundColor: backgroundColor }}>
-        <div className={classNames(navCommonStyles['nav-menu'], navOuterClass)} style={{ backgroundColor: navTopBackground }}>
+        <div className={classNames(navCommonStyles['nav-menu'], navOuterClass, photographyClass)} style={{ backgroundColor: navTopBackground }}>
           {menuBar}
           {searchBox}
           {subNavBar}

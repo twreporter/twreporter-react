@@ -104,7 +104,7 @@ export const navPath = [ {
   title: '台灣',
   path: '/category/taiwan'
 }, {
-  title: '國際兩岸',
+  title: '國際',
   path: '/category/intl'
 }, {
   title: '文化',
@@ -113,7 +113,7 @@ export const navPath = [ {
   title: '影像',
   path: '/photography'
 }, {
-  title: '專欄',
+  title: '評論',
   path: '/category/review'
 } ]
 

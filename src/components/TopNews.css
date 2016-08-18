@@ -175,7 +175,7 @@ and (max-width : 767px) {
 			overflow: hidden;
     }
 		.topnews ul li {
-			height: 500px;
+			height: 400px;
 			padding-bottom: 100px;
 		}
 		.topnews menu {
