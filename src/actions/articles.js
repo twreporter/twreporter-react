@@ -10,10 +10,11 @@ import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 
-function requestArticlesByUuid(id) {
+function requestArticlesByUuid(id, url) {
   return {
     type: types.FETCH_ARTICLES_BY_GROUP_UUID_REQUEST,
-    id
+    id,
+    url
   }
 }
 
@@ -35,11 +36,12 @@ function receiveArticlesByUuid(response, id) {
   }
 }
 
-function requestRelatedArticles(id, relatedIds) {
+function requestRelatedArticles(id, relatedIds, url) {
   return {
     type: types.FETCH_RELATED_ARTICLES_REQUEST,
     id,
-    relatedIds
+    relatedIds,
+    url
   }
 }
 
@@ -63,9 +65,10 @@ function receiveRelatedArticles(response, id, relatedIds) {
   }
 }
 
-function requestFeatureArticles() {
+function requestFeatureArticles(url) {
   return {
-    type: types.FETCH_FEATURE_ARTICLES_REQUEST
+    type: types.FETCH_FEATURE_ARTICLES_REQUEST,
+    url
   }
 }
 
@@ -161,7 +164,7 @@ function _fetchArticles(url) {
  */
 export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (_.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
+    if (!articleId || _.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
       return Promise.resolve()
     }
 
@@ -172,9 +175,9 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    dispatch(requestRelatedArticles(articleId, relatedIds))
-
-    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+    let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')
+    dispatch(requestRelatedArticles(articleId, relatedIds, url))
+    return _fetchArticles(url)
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
@@ -221,8 +224,9 @@ export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, i
       params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
-    dispatch(requestArticlesByUuid(uuid))
-    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+    let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')
+    dispatch(requestArticlesByUuid(uuid, url))
+    return _fetchArticles(url)
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
@@ -260,9 +264,9 @@ export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
     params.max_results = params.max_results || limit
     params.page = params.page || page
 
-    dispatch(requestFeatureArticles())
-
-    return _fetchArticles(_buildUrl(params, isOnlyMeta ? 'meta' : 'article'))
+    let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')
+    dispatch(requestFeatureArticles(url))
+    return _fetchArticles(url)
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
