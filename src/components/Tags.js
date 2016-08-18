@@ -41,33 +41,35 @@ export default class Tags extends Component {
     }
     if (articles && articles.length > 0) {
       return (
-        <div className="category-items">
-          <ul className="tag-listing">
-            { _.map(articles, (a) => {
-              let image = imageComposer(a).mobileImage
-              const d_str = date2yyyymmdd(a.publishedDate , '.')
-              let url = '/a/' + a.slug
-              let excerpt =  _.get(a, 'ogDescription', '')
-              if (image) {
-                return (
-                  <li className="tag-item" key={a.id} style={bgStyle}>
-                    <Link to={url}>
-                      <div className="itemimage-wrap">
-                        <img className="category-itemimage" src={image}/>
-                      </div>
-                      <div className="tag-itemdesc" style={bgStyle}>
-                        <div className="tag-itemtitle">{a.title}</div>
-                        <div className="tag-itemexcerpt">{excerpt}</div>
-                        <div className="tag-itempublished">{d_str}</div>
-                      </div>
-                    </Link>
-                  </li>
-                )
-              }
-            })}
-          </ul>
+        <section>
+          <div className="container">
+            <ul className="tag-listing">
+              { _.map(articles, (a) => {
+                let image = imageComposer(a).mobileImage
+                const d_str = date2yyyymmdd(a.publishedDate , '.')
+                let url = '/a/' + a.slug
+                let excerpt =  _.get(a, 'ogDescription', '')
+                if (image) {
+                  return (
+                    <li className="tag-item" key={a.id} style={bgStyle}>
+                      <Link to={url}>
+                        <div className="itemimage-wrap">
+                          <img className="category-itemimage" src={image}/>
+                        </div>
+                        <div className="tag-itemdesc" style={bgStyle}>
+                          <div className="tag-itemtitle"><h3>{a.title}</h3></div>
+                          <div className="tag-itemexcerpt">{excerpt}</div>
+                          <div className="tag-itempublished">{d_str}</div>
+                        </div>
+                      </Link>
+                    </li>
+                  )
+                }
+              })}
+            </ul>
+          </div>
           {hasMore ? <More loadMore={loadMore} /> : null}
-        </div>
+        </section>
       )
     } else {
       return (<div> </div>)

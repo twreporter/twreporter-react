@@ -32,14 +32,21 @@
     width: 451px;
     font-size: 13px;
     vertical-align: top;
+    transition: all 0.3s ease;
+}
+
+.tag-item:hover {
+    background-color: white;
+    box-shadow: 0px 3px 8px 0px rgba(102, 102, 102, 0.5);
 }
 
 .tag-item:nth-child(odd) {
     vertical-align: top;
+    margin-bottom: 15px;
 }
 
 .tag-item:nth-child(even) {
-    margin: 0 0 0 26px;
+    margin: 0 0 15px 20px;
     vertical-align: top;
 }
 
@@ -59,14 +66,18 @@ img.category-itemimage {
     width: 100%;
     height: auto;
     margin: 0px auto;
+    padding: 0 0.6rem;
 }
 
 .tag-itemtitle {
     margin-top: 20px;
     margin-bottom: 20px;
-    font-size: 160%;
-    font-weight: 400;
     line-height: 1.25em;
+}
+
+.tag-itemtitle h3 {
+    font-size: 160%;
+    font-weight: 700;
 }
 
 .tag-itemexcerpt {
@@ -75,6 +86,7 @@ img.category-itemimage {
     font-weight: light;
     line-height: 24px;
     text-align: justify;
+    color: #808080;
 }
 
 .tag-itempublished {
@@ -96,13 +108,14 @@ img.category-itemimage {
     }
 }
 
+
 /* 451 * 2 + 52 = 954 */
+
+
 /* 寬度800px 以下*/
-@media
-only screen
-and (max-device-width : 799px),
-only screen
-and (max-width : 799px) {
+
+@media only screen and (max-device-width: 799px),
+only screen and (max-width: 799px) {
     .tag-item {
         width: 100%;
         margin: 0;

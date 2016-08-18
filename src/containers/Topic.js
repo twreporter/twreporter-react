@@ -40,13 +40,19 @@ export default class Topic extends Component {
   render() {
     const { device } = this.context
     const { topicId } = this.state
-    const { articlesByUuids, entities } = this.props
+    const { articlesByUuids, entities, params } = this.props
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
+
     let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
     return (
       <div style={{
         backgroundColor: '#FDFFFA'
       }}>
+        <div className="container text-center">
+          {topicBox}
+        </div>
         <Tags
           articles={articles}
           device={device}

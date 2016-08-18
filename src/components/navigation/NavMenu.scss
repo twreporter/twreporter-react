@@ -18,6 +18,26 @@
     }
 }
 
+.seoHidden {
+    display: none;
+}
+
+.slided-down-category {
+    transition: all 0.2s ease-out;
+    h1 {
+        font-size: $font-size-medium !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    @media (max-width: $screen-md-min) {
+        display: none;
+    }
+}
+
+.hide-category {
+    visibility: hidden;
+}
+
 .menu-item {
     display: inline;
     margin-right: 40px;
@@ -70,10 +90,12 @@
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
 }
+
 .articleTitleText {
     @extend .titleText;
     transform: translateX(-33%);
 }
+
 .topicTitleText {
     @extend .titleText;
     transform: translateX(-25%);

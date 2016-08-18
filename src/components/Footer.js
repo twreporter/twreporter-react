@@ -33,7 +33,7 @@ export default class Footer extends Component {
                       </a>) : <p className={styles['license-text']}> {copyrightString} </p>
 
     return (
-      <div className={styles['footer']}>
+      <footer className={styles['footer']}>
         <div className="container inner-max">
 
           <div className="row">
@@ -124,7 +124,7 @@ export default class Footer extends Component {
 
         </div>
 
-      </div>
+      </footer>
     )
   }
 }
