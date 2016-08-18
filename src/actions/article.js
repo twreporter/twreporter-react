@@ -10,10 +10,11 @@ import fetch from 'isomorphic-fetch'
 import qs from 'qs'
 import _ from 'lodash'
 
-function requestArticle(slug) {
+function requestArticle(slug, url) {
   return {
     type: types.FETCH_ARTICLE_REQUEST,
-    slug
+    slug,
+    url
   }
 }
 
@@ -37,9 +38,10 @@ function receiveArticle(response, slug) {
 
 function fetchArticle(slug) {
   return dispatch => {
-    dispatch(requestArticle(slug))
     let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
-    return fetch(formatUrl(`posts/${slug}?${query}`))
+    let url = formatUrl(`posts/${slug}?${query}`)
+    dispatch(requestArticle(slug, url))
+    return fetch(url)
     .then((response) => {
       let status = response.status
       if (status === 404) {
