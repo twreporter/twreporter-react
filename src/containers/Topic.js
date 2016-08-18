@@ -1,9 +1,9 @@
 'use strict'
-import { TOPIC } from '../constants/index'
+import { TOPIC, TOPIC_TEXT } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setPageType, setPageTitle } from '../actions/header'
 import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -20,6 +20,11 @@ export default class Topic extends Component {
 
   componentDidMount() {
     this.props.setPageType(TOPIC)
+    this._sendPageLevelAction()
+  }
+
+  componentDidUpdate() {
+    this._sendPageLevelAction()
   }
 
   componentWillMount() {
@@ -32,6 +37,19 @@ export default class Topic extends Component {
     const { fetchArticlesByUuidIfNeeded, params } = nextProps
     let topicId = _.get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+    this.setState({
+      topicId: nextProps.params.topicId
+    })
+    this._sendPageLevelAction()
+  }
+
+  _sendPageLevelAction() {
+    const { entities, setPageTitle, params } = this.props
+    const topicId = _.get(params, 'topicId')
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+
+    // set navbar title for this topic
+    setPageTitle(null, topicName, TOPIC_TEXT)
   }
 
   render() {
@@ -74,4 +92,4 @@ Topic.contextTypes = {
 }
 
 export { Topic }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Topic)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType, setPageTitle })(Topic)

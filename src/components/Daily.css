@@ -25,7 +25,7 @@
 .daily-item a {
     display: block;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     color: black;
     line-height: 26px;
     word-spacing: 30px;
@@ -57,10 +57,11 @@
     font-size: 26px;
     margin-bottom: 60px;
 }
+
 .what {
     font-size: 25px;
     word-spacing: 40px;
-    font-weight: 500;
+    font-weight: 400;
     display: inline;
     width: 200px;
     border-bottom-style: solid;
@@ -68,13 +69,15 @@
     padding-bottom: 15px;
     margin-bottom: 30px;
 }
+
 .top-title-outer {
     font-size: 20px;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     color: #808080;
 }
-@media (max-width: 992px) { 
+
+@media (max-width: 992px) {
     .top-title-outer {
         margin-top: 1rem;
         font-size: 18px;
@@ -83,6 +86,7 @@
         font-size: 18px;
     }
 }
+
 .top-title {
     word-spacing: 40px;
     font-weight: 700;
@@ -96,6 +100,7 @@
     letter-spacing: 5px;
     padding-left: 3px;
 }
+
 .new {
     font-family: 'Montserrat';
     font-weight: Bold;
@@ -108,19 +113,14 @@
     margin: 10px auto 60px;
 }
 
-
 @media screen and (min-width: 700px) and (max-width: 799px) {
     .daily-item:nth-last-child(2) {
-        border-bottom: 0; 
+        border-bottom: 0;
     }
 }
 
-@media 
-only screen 
-and (max-width : 799px) ,
-only screen 
-and (max-device-width : 799px) {
-
+@media only screen and (max-width: 799px),
+only screen and (max-device-width: 799px) {
     .daily-item {
         width: 350px;
         vertical-align: top;
@@ -129,11 +129,9 @@ and (max-device-width : 799px) {
         border-bottom: 2px solid #ccc;
         padding-bottom: 12px;
     }
-
     .daily-item:last-child {
-        border-bottom: 0; 
+        border-bottom: 0;
     }
-
     .daily-item a {
         padding: 18px 32px 14px 12px;
         margin: 0;
@@ -143,15 +141,12 @@ and (max-device-width : 799px) {
         word-spacing: 20px;
         width: auto;
     }
-
     .daily-line {
         margin: 10px auto 40px;
     }
-
     .daily-itemlistwrapprt {
         width: 100%;
     }
-
     .daily-image {
         display: inline-block;
         width: 99px;
@@ -159,23 +154,19 @@ and (max-device-width : 799px) {
         margin: -6px 27px 0 0;
         padding: 0;
         float: left;
-    }   
-
+    }
     .daily_lastpublish {
         display: none;
     }
-
     .daily-news {
         margin-left: 0;
         margin-bottom: 40px;
         margin-top: 80px;
     }
-
     .daily-itemlist {
         margin-left: auto;
         margin-top: 30px;
     }
-
     .what {
         font-size: 19px;
         display: inline-block;
@@ -187,10 +178,7 @@ and (max-device-width : 799px) {
     }
 }
 
-@media 
-only screen 
-and (min-width : 800px) 
-and (max-width : 1024px) {
+@media only screen and (min-width: 800px) and (max-width: 1024px) {
     .daily-item a {
         padding-bottom: 60px;
     }

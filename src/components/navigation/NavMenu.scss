@@ -23,7 +23,7 @@
 }
 
 .slided-down-category {
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease;
     h1 {
         font-size: $font-size-medium !important;
         margin-top: 0 !important;
@@ -34,8 +34,18 @@
     }
 }
 
+.photography {
+    h1, span {
+        color: $gray-97 !important;
+    }
+}
+
 .hide-category {
     visibility: hidden;
+}
+
+.nav-category {
+    transform: translateX(-40%);
 }
 
 .menu-item {
@@ -83,22 +93,26 @@
     @media (max-width: $screen-xs-max) {
         display: none;
     }
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .titleText {
     color: $gray-15;
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
+    display: inline-block;
 }
 
 .articleTitleText {
     @extend .titleText;
-    transform: translateX(-33%);
+    transform: translateX(-50%);
 }
 
 .topicTitleText {
     @extend .titleText;
-    transform: translateX(-25%);
+    transform: translateX(-45%);
 }
 
 .fadeRight {

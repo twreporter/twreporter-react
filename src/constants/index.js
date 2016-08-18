@@ -74,6 +74,8 @@ export const CONTINUE_READING = '繼續閱讀'
 
 export const LOAD_MORE_ARTICLES = '載入更多文章'
 
+export const TOPIC_TEXT = '專題'
+
 export const ARTICLE = 'ARTICLE'
 
 export const HOME = 'HOME'
@@ -102,7 +104,7 @@ export const navPath = [ {
   title: '台灣',
   path: '/category/taiwan'
 }, {
-  title: '國際兩岸',
+  title: '國際',
   path: '/category/intl'
 }, {
   title: '文化',
@@ -111,7 +113,7 @@ export const navPath = [ {
   title: '影像',
   path: '/photography'
 }, {
-  title: '專欄',
+  title: '評論',
   path: '/category/review'
 } ]
 

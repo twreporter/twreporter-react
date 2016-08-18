@@ -35,6 +35,7 @@ export default class Tags extends Component {
   render() {
     const { articles, hasMore, loadMore } = this.props
     const bgStyle = {}
+
     if (this.props.bgStyle === 'dark') {
       bgStyle.backgroundColor = '#2C323E'
       bgStyle.color = '#FFFFFF'
