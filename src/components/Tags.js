@@ -1,6 +1,7 @@
 /*eslint no-unused-vars: 1*/
 
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
@@ -35,16 +36,16 @@ export default class Tags extends Component {
   render() {
     const { articles, hasMore, loadMore } = this.props
     const bgStyle = {}
+    let photoClass
 
     if (this.props.bgStyle === 'dark') {
-      bgStyle.backgroundColor = '#2C323E'
-      bgStyle.color = '#FFFFFF'
+      photoClass = 'tag-photography'
     }
     if (articles && articles.length > 0) {
       return (
         <section>
           <div className="container">
-            <ul className="tag-listing">
+            <ul className={classNames("tag-listing", photoClass)}>
               { _.map(articles, (a) => {
                 let image = imageComposer(a).mobileImage
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
