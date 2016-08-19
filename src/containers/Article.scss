@@ -6,11 +6,27 @@
 .article-container {
     background-color: $light-gray;
     min-height: 20em;
+
     padding-top: 68px;
     .title-row {
         margin-bottom: rem(24px);
         h1 {
             font-weight: $font-weight-bold;
+        }
+        .topic-name {
+          color: $primary-color;
+          font-size: $font-size-medium;
+          margin-right: 6px;
+
+          > img {
+            margin-top: -3px;    
+            margin-left: 3px;
+          }
+        }
+        
+        .subtitle {
+          color: $gray-50;
+          font-size: $font-size-medium;
         }
     }
     .article-meta {
