@@ -5,7 +5,7 @@ import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ARTICLE, TOPIC, appId } from '../constants/index'
+import { ARTICLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -19,6 +19,7 @@ import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
 import styles from './Article.scss'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
+import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 
 let articlePostition = {
@@ -241,11 +242,16 @@ class Article extends Component {
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
-    let topicBox = topicName ? <h3 className={commonStyles['topic-box']}>{topicName}</h3> : null
+
+    let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+
+    let subtitle = _.get(article, 'subtitle', '')
+    let subtitleBlock = subtitle ? <span className={styles['subtitle']}>{subtitle}</span> : null
+
     const meta = {
-      title: _.get(article, [ 'title' ], '報導者'),
-      description: _.get(article, [ 'ogDescription' ], ''),
-      canonical: 'https://www.twreporter.org/a/' + _.get(article, [ 'slug' ], []),
+      title: _.get(article, [ 'title' ], SITE_NAME.FULL),
+      description: _.get(article, [ 'ogDescription' ], SITE_META.DESC),
+      canonical: SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], ''),
       meta: { property: {} },
       auto: { ograph: true }
     }
@@ -257,12 +263,12 @@ class Article extends Component {
     return (
       <DocumentMeta {...meta}>
         <div>
-          {isFetching ? <div className={styles['article-container']}><ArticlePlaceholder /></div> : 
-          
+          {isFetching ? <div className={styles['article-container']}><ArticlePlaceholder /></div> :
+
           <div className={styles['article-container']}>
             <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
               <hgroup>
-                {topicBox}
+                <h3>{topicBlock}{subtitleBlock}</h3>
                 <h1>{article.title}</h1>
               </hgroup>
             </div>
@@ -319,7 +325,7 @@ class Article extends Component {
                 topicArr={topicArr}
               />
             </div>
-          </div> 
+          </div>
           }
           {/*<ArticleComponents.PageNavigation
             article={ _.get(article, [ 'relateds', 0 ])}

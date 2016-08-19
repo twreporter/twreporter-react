@@ -45,7 +45,7 @@ export default class Tags extends Component {
       return (
         <section>
           <div className="container">
-            <ul className={classNames("tag-listing", photoClass)}>
+            <ul className={classNames('tag-listing', photoClass)}>
               { _.map(articles, (a) => {
                 let image = imageComposer(a).mobileImage
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
