@@ -30,7 +30,7 @@ export class AnnotationBlock extends React.Component {
         title={pureAnnotationText}
       >
         <span
-          className={classNames(styles['annotated-text'],commonStyles['text-color'])}
+          className={classNames(styles['annotated-text'])}
           onClick={this.handleExpand}
         >
           {text}

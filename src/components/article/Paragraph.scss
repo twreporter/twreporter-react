@@ -8,33 +8,6 @@
   font-weight: $font-weight-normal;
   line-height: 1.7;
 
-  a {
-    border-bottom: 2px $primary-color solid;
-    cursor: pointer;
-    transition: 0.5s all ease;
-    position: relative;
-
-    &:hover {
-      color: $primary-color;
-    }
-
-    &:after {
-      position: absolute;
-      content: "";
-      left: 0;
-      bottom: -0.2em;
-      height: 0.11rem;
-      width: 0;
-      background: $primary-color;
-      transition: 0.5s all ease;
-    }
-
-    &:hover:after {
-      width: 100%;
-    }
-  
-  }
-
   u {
     text-decoration: none;
     background-color: $underline-marker-color;

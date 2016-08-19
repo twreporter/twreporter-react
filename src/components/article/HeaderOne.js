@@ -7,5 +7,5 @@ import React from 'react' // eslint-disable-next-line
 
 export const HeaderOne = ({ content }) => {
   return <h1 className={classNames(commonStyles['inner-block'],
-          commonStyles['text-color'], styles['title'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></h1>
+           styles['title'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></h1>
 }

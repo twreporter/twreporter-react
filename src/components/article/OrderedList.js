@@ -17,7 +17,7 @@ export const OrderedList = ({ content }) => {
   }
 
   return <ol className={classNames(styles.list, commonStyles['inner-block'],
-          commonStyles['text-color'], 'text-justify')}>
+          'text-justify')}>
           { bArr }
           </ol>
 }

@@ -40,7 +40,7 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   _.forIn(groupedAuthors, (authors, type) => {
     let _authors = _renderAuthors(authors)
     authorRows.push(
-      <div key={count++} className={classNames(styles['author-item'], commonStyles['text-color'])}>
+      <div key={count++} className={classNames(styles['author-item'])}>
         <span>{authorTypes[type]}</span>
         {_authors}
       </div>

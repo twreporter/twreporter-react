@@ -6,5 +6,5 @@ import React from 'react' // eslint-disable-next-line
 
 export const HeaderTwo = ({ content }) => {
   return <h2 className={classNames(commonStyles['inner-block'],
-          commonStyles['text-color'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></h2>
+          'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></h2>
 }
