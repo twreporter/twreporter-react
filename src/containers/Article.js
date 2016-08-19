@@ -18,12 +18,31 @@ import async from 'async'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
 import styles from './Article.scss'
+import leadingImgStyles from '../components/article/LeadingImage.scss'
 import twitterIcon from '../../static/asset/twitter.svg'
 
 let articlePostition = {
   beginY: 120,
   endY: 200,
   percent: 0
+}
+
+const ArticlePlaceholder = () => {
+  return (<div className={classNames(styles['placeholder'])}>
+              <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+                <div className={styles['ph-title-1']}></div>
+                <div className={styles['ph-title-2']}></div>
+                <div className={styles['ph-author']}></div>
+              </div>
+              <div className={classNames(styles['leading-img'], leadingImgStyles['leading-img'])}>
+                <div className={styles['ph-image']}></div>
+              </div>
+              <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+                <div className={styles['ph-content']}></div>
+                <div className={styles['ph-content']}></div>
+                <div className={styles['ph-content-last']}></div>
+              </div>
+            </div>)
 }
 
 class Article extends Component {
@@ -204,6 +223,7 @@ class Article extends Component {
 
   render() {
     const { entities, params, selectedArticle } = this.props
+    const isFetching = _.get(selectedArticle, 'isFetching')
 
     if (_.get(selectedArticle, 'slug') !== _.get(params, 'slug')) {
       return null
@@ -237,6 +257,8 @@ class Article extends Component {
     return (
       <DocumentMeta {...meta}>
         <div>
+          {isFetching ? <div className={styles['article-container']}><ArticlePlaceholder /></div> : 
+          
           <div className={styles['article-container']}>
             <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
               <hgroup>
@@ -297,7 +319,8 @@ class Article extends Component {
                 topicArr={topicArr}
               />
             </div>
-          </div>
+          </div> 
+          }
           {/*<ArticleComponents.PageNavigation
             article={ _.get(article, [ 'relateds', 0 ])}
             navigate="next"

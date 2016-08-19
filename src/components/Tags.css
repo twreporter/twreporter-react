@@ -27,6 +27,18 @@
     width: 94%;
 }
 
+.tag-photography h3, .tag-photography .tag-itemexcerpt, .tag-photography .tag-itempublished {
+    color: #F7F7F7;
+}
+
+.tag-photography .tag-item:hover h3, .tag-photography .tag-item:hover .tag-itempublished {
+    color: black;
+}
+
+.tag-photography .tag-item:hover .tag-itemexcerpt {
+    color: #808080;
+}
+
 .tag-item {
     display: inline-block;
     width: 451px;
