@@ -16,10 +16,10 @@ export const InfoBox = ({ content, device }) => {
     )}>
       <img src={boxSvg} />
       <div className={styles['infobox-text']}>
-        <h4 className={classNames(commonStyles['text-color'], 'text-center')}>
+        <h4 className={'text-center'}>
           {infoBox.title}
         </h4>
-        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')} dangerouslySetInnerHTML={{ __html: infoBox.body }} />
+        <div className={'text-justify'} dangerouslySetInnerHTML={{ __html: infoBox.body }} />
       </div>
     </div>
   )

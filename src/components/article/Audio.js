@@ -225,7 +225,7 @@ class Audio extends React.Component {
               { isPlaying ? <img onClick={this.handleToggle} src={pauseIcon} /> : <img onClick={this.handleToggle} src={playIcon} /> }
             </div>
             <div style={{ display: 'inline-block' }}>
-              <h4 className={commonStyles['text-color']}>{title}</h4>
+              <h4>{title}</h4>
               <span className={commonStyles['desc-text-block']}>{getMinSecStr(seek)} / </span>
               <span className={commonStyles['desc-text-block']}>{getMinSecStr(duration)}</span>
             </div>
@@ -259,7 +259,7 @@ class Audio extends React.Component {
         />
       </div>
       <div className={styles['audio-info-container']}>
-        <h4 className={classNames('text-center', commonStyles['text-color'])}>{title}</h4>
+        <h4 className={'text-center'}>{title}</h4>
         <div dangerouslySetInnerHTML={{ __html: description }} />
       </div>
       { player }

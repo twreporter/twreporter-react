@@ -7,6 +7,6 @@ import React from 'react' // eslint-disable-next-line
 
 export const Paragraph = ({ content }) => {
   return <div className={classNames(styles.paragraph, commonStyles['inner-block'], 
-          commonStyles['text-color'], 'text-justify')} 
+          'text-justify')} 
           dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }} />
 }

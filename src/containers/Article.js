@@ -241,6 +241,10 @@ class Article extends Component {
     let introData = _.get(article, [ 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
+    const outerClass = (article.style==='photography') ? 
+                 classNames(styles['article-container'], styles['photo-container']) : styles['article-container']
+    const contentClass = (article.style==='photography') ? 
+                 classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
     let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
@@ -263,53 +267,55 @@ class Article extends Component {
     return (
       <DocumentMeta {...meta}>
         <div>
-          {isFetching ? <div className={styles['article-container']}><ArticlePlaceholder /></div> :
+          {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :           
+          
+          <div className={outerClass}>
+            <div className={contentClass}>
+              <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+                <hgroup>
+                  <h3>{topicBlock}{subtitleBlock}</h3>
+                  <h1>{article.title}</h1>
+                </hgroup>
+              </div>
 
-          <div className={styles['article-container']}>
-            <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
-              <hgroup>
-                <h3>{topicBlock}{subtitleBlock}</h3>
-                <h1>{article.title}</h1>
-              </hgroup>
-            </div>
-
-            <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
-              <ArticleComponents.HeadingAuthor
-                authors={authors}
-                extendByline={_.get(article, 'extendByline')}
-              >
-                <ArticleComponents.PublishDate
-                  date={article.publishedDate}
+              <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
+                <ArticleComponents.HeadingAuthor
+                  authors={authors}
+                  extendByline={_.get(article, 'extendByline')}
+                >
+                  <ArticleComponents.PublishDate
+                    date={article.publishedDate}
+                  />
+                </ArticleComponents.HeadingAuthor>
+                <ArticleComponents.ShareBt
+                  appId={appId}
+                  url={cUrl}
+                  title={article.title}
+                  fbIcon={fbIcon}
+                  twitterIcon={twitterIcon}
+                  lineIcon={lineIcon}
                 />
-              </ArticleComponents.HeadingAuthor>
-              <ArticleComponents.ShareBt
-                appId={appId}
-                url={cUrl}
-                title={article.title}
-                fbIcon={fbIcon}
-                twitterIcon={twitterIcon}
-                lineIcon={lineIcon}
+              </div>
+
+              <div className={styles['leading-img']}>
+                <ArticleComponents.LeadingImage
+                  size={heroImageSize}
+                  image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                  id={_.get(heroImage, 'id')}
+                  description={_.get(heroImage, 'description' )}
+                />
+              </div>
+
+              <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+                <ArticleComponents.Introduction
+                  data={introData}
+                />
+              </div>
+
+              <ArticleComponents.Body
+                data={bodyData}
               />
             </div>
-
-            <div className={styles['leading-img']}>
-              <ArticleComponents.LeadingImage
-                size={heroImageSize}
-                image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
-                id={_.get(heroImage, 'id')}
-                description={_.get(heroImage, 'description' )}
-              />
-            </div>
-
-            <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
-              <ArticleComponents.Introduction
-                data={introData}
-              />
-            </div>
-
-            <ArticleComponents.Body
-              data={bodyData}
-            />
 
             <div ref="progressEnding"
                 className={classNames('inner-max', 'center-block', commonStyles['components'])}>

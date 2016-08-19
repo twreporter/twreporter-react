@@ -17,7 +17,7 @@ export const UnorderedList = ({ content }) => {
   }
 
   return <ul className={classNames(styles.list, commonStyles['inner-block'],
-          commonStyles['text-color'], 'text-justify')}>
+           'text-justify')}>
           { bArr }
           </ul>
 }

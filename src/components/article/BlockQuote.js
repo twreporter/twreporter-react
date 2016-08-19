@@ -15,7 +15,7 @@ export const QuoteBy = ({ content, device }) => { // eslint-disable-line
 
   return (
     <div className={classNames(styles['block-quotation-container'])}>
-      <div className={classNames(styles['block-quotation'], 'text-justify', commonStyles['text-color'])}>
+      <div className={classNames(styles['block-quotation'], 'text-justify')}>
         {quote}
       </div>
       { quoteBy ?
