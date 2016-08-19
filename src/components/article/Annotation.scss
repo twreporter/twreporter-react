@@ -10,7 +10,7 @@ $red: $harley-davidson-orange;
   // reset default abbr style
   > abbr {
     margin: 0;
-    cursor: pointer;
+    cursor: pointer !important;
     border-bottom: 0;
   }
 
