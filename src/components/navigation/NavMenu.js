@@ -164,7 +164,7 @@ export default class NavMenu extends Component {
           {burgerMenu}
           <DonateButton isSlidedUp={true}/>
         </div>
-        <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], isCatHidden)}>
+        <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], 'visible-lg', isCatHidden)}>
           <div className={styles['nav-category']}>
             {navLinks}
           </div>
