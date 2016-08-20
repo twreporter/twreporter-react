@@ -259,16 +259,11 @@ export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, i
  * @param {object} params.embedded - embedded query param
  * @param {boolean} isOnlyMeta - if true, only get metadata of articles. Otherwise, get full articles.
  */
-export function fetchFeatureArticlesIfNeeded(params = {}, isOnlyMeta = true) {
+export function fetchFeatureArticles(params = {}, isOnlyMeta = true) {
   const limit = 6
   const page = 1
 
-  return (dispatch, getState) => {
-
-    if (_.get(getState(), 'featureArticles.items.length', 0) > 0) {
-      return Promise.resolve()
-    }
-
+  return (dispatch) => {
     params = params || {}
     params.where = _.merge({}, params.where, {
       isFeatured: true
