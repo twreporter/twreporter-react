@@ -23,18 +23,19 @@
   .base-align {
     width: $aligned-width;
     float: none;
-    margin-right: rem($inner-margin);
     margin-bottom: rem($inner-margin);
   }
 
   .align-left {
     @extend .base-align;
     float: left;
+    margin-right: rem($inner-margin);
   }
 
   .align-right {
     @extend .base-align;
     float: right;
+    margin-left: rem($inner-margin);
   }
 
   .align-center {
@@ -50,18 +51,19 @@
   .base-align {
     width: $aligned-width;
     float: none;
-    margin-right: rem($inner-margin);
     margin-bottom: rem($inner-margin);
   }
 
   .align-left {
     @extend .base-align;
     float: left;
+    margin-right: rem($inner-margin);
   }
 
   .align-right {
     @extend .base-align;
     float: right;
+    margin-left: rem($inner-margin);
   }
 
   .align-center {
