@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
+import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
 import { ARTICLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
@@ -73,7 +73,7 @@ class Article extends Component {
                 })
             } else {
               // fallback - fetch feature articles
-              store.dispatch(fetchFeatureArticlesIfNeeded())
+              store.dispatch(fetchFeatureArticles())
                 .then(() => {
                   callback(null)
                 })
@@ -97,6 +97,8 @@ class Article extends Component {
 
   constructor(props) {
     super(props)
+    this._isFeatureArticlesFetched = false
+
     this._setArticleBounding = this._setArticleBounding.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
   }
@@ -125,6 +127,10 @@ class Article extends Component {
       // fetch data we need to render the whole article page
       this._fetchData()
     }
+  }
+
+  componentWillUnmount() {
+    this._isFeatureArticlesFetched = false
   }
 
   componentWillReceiveProps(nextProps) {
@@ -159,7 +165,7 @@ class Article extends Component {
 
   // fetch article whole data, including body, related articls and other articles in the same topic
   _fetchData() {
-    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
+    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
     let slug = _.get(params, 'slug')
 
     // fetch article
@@ -175,8 +181,11 @@ class Article extends Component {
     // fetch related articles
     fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
 
-    // fallback - fetch feature articles
-    fetchFeatureArticlesIfNeeded()
+    if (!this._isFeatureArticlesFetched) {
+      // fallback - fetch feature articles
+      fetchFeatureArticles()
+      this._isFeatureArticlesFetched = true
+    }
   }
 
   _getCumulativeOffset(element) {
@@ -237,6 +246,14 @@ class Article extends Component {
   _getFeatureArticles() {
     const { entities, featureArticles } = this.props
     let rtn = []
+
+    if (featureArticles.isFetching) {
+      return rtn
+    } else if (featureArticles.error !== null) {
+      this._isFeatureArticlesFetched = false
+      return rtn
+    }
+
     let articles = _.get(entities, 'articles', {})
     let articleIds = _.get(featureArticles, 'items', [])
     _.forEach(articleIds, (id) => {
@@ -272,9 +289,9 @@ class Article extends Component {
     let introData = _.get(article, [ 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-    const outerClass = (article.style==='photography') ? 
+    const outerClass = (article.style==='photography') ?
                  classNames(styles['article-container'], styles['photo-container']) : styles['article-container']
-    const contentClass = (article.style==='photography') ? 
+    const contentClass = (article.style==='photography') ?
                  classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
@@ -298,8 +315,8 @@ class Article extends Component {
     return (
       <DocumentMeta {...meta}>
         <div>
-          {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :           
-          
+          {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
+
           <div className={outerClass}>
             <div className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
@@ -396,5 +413,5 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticlesIfNeeded,
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticles,
   fetchArticlesByUuidIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)
