@@ -4,7 +4,7 @@
 import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } from '../actions/articles'
+import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
 import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import Daily from '../components/Daily'
@@ -36,7 +36,7 @@ export default class Home extends Component {
       // load tagged articles in parallel
       async.parallel([
         function (callback) {
-          store.dispatch(fetchFeatureArticlesIfNeeded())
+          store.dispatch(fetchFeatureArticles())
             .then(() => {
               callback(null)
             })
@@ -74,12 +74,12 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
     let params = {
       page: PAGE,
       max_results: MAXRESULT
     }
-    fetchFeatureArticlesIfNeeded()
+    fetchFeatureArticles()
     fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
     fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
   }
@@ -148,6 +148,6 @@ export { Home }
 
 export default connect(mapStateToProps, {
   fetchArticlesByUuidIfNeeded,
-  fetchFeatureArticlesIfNeeded,
+  fetchFeatureArticles,
   setPageType
 })(Home)
