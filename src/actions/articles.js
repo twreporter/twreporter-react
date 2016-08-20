@@ -164,11 +164,23 @@ function _fetchArticles(url) {
  */
 export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (!articleId || _.get(getState(), [ 'relatedArticles', articleId, 'items', 'length' ], 0) > 0) {
+    if (!articleId) {
+      return Promise.resolve()
+    }
+    let articles = _.get(getState(), [ 'entities', 'articles' ], {})
+    let idsToFetch = []
+
+    _.forEach(relatedIds, (id) => {
+      if (!_.has(articles, id)) {
+        idsToFetch.push(id)
+      }
+    })
+
+    if (_.get(idsToFetch, 'length', 0) === 0) {
       return Promise.resolve()
     }
 
-    params = _setupWhereInParam('_id', relatedIds, params)
+    params = _setupWhereInParam('_id', idsToFetch, params)
 
     if (!isOnlyMeta) {
       // add default embedded
@@ -176,14 +188,14 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
     }
 
     let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')
-    dispatch(requestRelatedArticles(articleId, relatedIds, url))
+    dispatch(requestRelatedArticles(articleId, idsToFetch, url))
     return _fetchArticles(url)
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        return dispatch(receiveRelatedArticles(normalized, articleId, relatedIds))
+        return dispatch(receiveRelatedArticles(normalized, articleId, idsToFetch))
       }, (error) => {
-        return dispatch(failToReceiveRelatedArticles(articleId, relatedIds, error))
+        return dispatch(failToReceiveRelatedArticles(articleId, idsToFetch, error))
       })
   }
 }

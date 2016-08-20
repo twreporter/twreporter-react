@@ -10,30 +10,31 @@
   &.mobile {
     width: 100%;
     float: none;
-	margin-left: 0;
-	margin-right: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
-// tablet
-@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
-  $aligned-width: 364px;
-  $tablet-width: 768px;
+// tablet && desktop
+@include mq($min-width: $screen-sm-min, $max-width: $screen-lg-max) {
+  $aligned-width: 326px;
   $inner-margin: 20px;
-  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
+  
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-right: rem($inner-margin);
+    margin-bottom: rem($inner-margin);
+  }
 
   .align-left {
-    width: $aligned-width;
+    @extend .base-align;
     float: left;
-    margin-right: rem($inner-margin);
-    margin-left: rem($float-margin);
   }
 
   .align-right {
-    width: $aligned-width;
+    @extend .base-align;
     float: right;
-    margin-left: rem($inner-margin);
-    margin-right: rem($float-margin);
   }
 
   .align-center {
@@ -41,25 +42,26 @@
   }
 }
 
-// desktop. wait for spec. temporarily use tablet styles
-@include mq($min-width: $screen-md-min) {
-  $aligned-width: 364px;
-  $tablet-width: 768px;
+// desktop HD
+@include mq($min-width: $screen-hd-min) {
+  $aligned-width: 344px;
   $inner-margin: 20px;
-  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
+
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-right: rem($inner-margin);
+    margin-bottom: rem($inner-margin);
+  }
 
   .align-left {
-    width: $aligned-width;
+    @extend .base-align;
     float: left;
-    margin-right: rem($inner-margin);
-    margin-left: rem($float-margin);
   }
 
   .align-right {
-    width: $aligned-width;
+    @extend .base-align;
     float: right;
-    margin-left: rem($inner-margin);
-    margin-right: rem($float-margin);
   }
 
   .align-center {

@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
+import { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
 import { ARTICLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
@@ -58,17 +58,26 @@ class Article extends Component {
       let articleId = _.get(state, 'selectedArticle.id')
       let article = _.get(state, [ 'entities', 'articles', articleId ])
       let topicId = _.get(article, 'topics')
-      let relateds = _.get(article, 'relateds')
+      let relateds = _.get(article, 'relateds', [])
 
       // fetch related articles and other articles in the same topic
       return new Promise((resolve, reject) => { // eslint-disable-line
         // load in parallel
         async.parallel([
           function (callback) {
-            store.dispatch(fetchRelatedArticlesIfNeeded(articleId, relateds))
-              .then(() => {
-                callback(null)
-              })
+            if (_.get(relateds, 'length', 0) > 0) {
+              // fetch related articles
+              store.dispatch(fetchRelatedArticlesIfNeeded(articleId, relateds))
+                .then(() => {
+                  callback(null)
+                })
+            } else {
+              // fallback - fetch feature articles
+              store.dispatch(fetchFeatureArticlesIfNeeded())
+                .then(() => {
+                  callback(null)
+                })
+            }
           },
           function (callback) {
             store.dispatch(fetchArticlesByUuidIfNeeded(topicId, TOPIC))
@@ -150,7 +159,7 @@ class Article extends Component {
 
   // fetch article whole data, including body, related articls and other articles in the same topic
   _fetchData() {
-    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
+    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
     let slug = _.get(params, 'slug')
 
     // fetch article
@@ -158,13 +167,16 @@ class Article extends Component {
 
     let article = _.get(entities, [ 'articles', slugToId[slug] ])
     let topicId = _.get(article, 'topics')
-    let relateds = _.get(article, 'relateds')
+    let relateds = _.get(article, 'relateds', [])
 
     //  fetch other articles in the same topic
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
 
     // fetch related articles
     fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
+
+    // fallback - fetch feature articles
+    fetchFeatureArticlesIfNeeded()
   }
 
   _getCumulativeOffset(element) {
@@ -222,6 +234,19 @@ class Article extends Component {
     return _.map(articleIds, (id) => _.merge({}, _.get(entities, [ 'articles', id ])))
   }
 
+  _getFeatureArticles() {
+    const { entities, featureArticles } = this.props
+    let rtn = []
+    let articles = _.get(entities, 'articles', {})
+    let articleIds = _.get(featureArticles, 'items', [])
+    _.forEach(articleIds, (id) => {
+      if (_.has(articles, id)) {
+        rtn.push(_.merge({}, articles[id]))
+      }
+    })
+    return rtn
+  }
+
   render() {
     const { entities, params, selectedArticle } = this.props
     const isFetching = _.get(selectedArticle, 'isFetching')
@@ -234,6 +259,12 @@ class Article extends Component {
     let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
     let topicName = _.get(article, 'topics.name')
     let relatedArticles = _.get(article, 'relateds')
+
+    // fallback - use feature article
+    if (_.get(relatedArticles, 'length', 0) === 0) {
+      relatedArticles = this._getFeatureArticles()
+    }
+
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
     let heroImage = _.get(article, [ 'heroImage' ], null)
@@ -353,6 +384,7 @@ function mapStateToProps(state) {
   return {
     articlesByUuids: state.articlesByUuids,
     entities: state.entities,
+    featureArticles: state.featureArticles,
     selectedArticle: state.selectedArticle,
     slugToId: state.slugToId
   }
@@ -364,5 +396,5 @@ Article.contextTypes = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded,
+export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticlesIfNeeded,
   fetchArticlesByUuidIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)
