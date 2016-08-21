@@ -5,7 +5,7 @@ import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ARTICLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -29,21 +29,23 @@ let articlePostition = {
 }
 
 const ArticlePlaceholder = () => {
-  return (<div className={classNames(styles['placeholder'])}>
-              <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
-                <div className={styles['ph-title-1']}></div>
-                <div className={styles['ph-title-2']}></div>
-                <div className={styles['ph-author']}></div>
-              </div>
-              <div className={classNames(styles['leading-img'], leadingImgStyles['leading-img'])}>
-                <div className={styles['ph-image']}></div>
-              </div>
-              <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
-                <div className={styles['ph-content']}></div>
-                <div className={styles['ph-content']}></div>
-                <div className={styles['ph-content-last']}></div>
-              </div>
-            </div>)
+  return (
+    <div className={classNames(styles['placeholder'])}>
+      <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+        <div className={styles['ph-title-1']}></div>
+        <div className={styles['ph-title-2']}></div>
+        <div className={styles['ph-author']}></div>
+      </div>
+      <div className={classNames(styles['leading-img'], leadingImgStyles['leading-img'])}>
+        <div className={styles['ph-image']}></div>
+      </div>
+      <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+        <div className={styles['ph-content']}></div>
+        <div className={styles['ph-content']}></div>
+        <div className={styles['ph-content-last']}></div>
+      </div>
+    </div>
+  )
 }
 
 class Article extends Component {
@@ -104,7 +106,6 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageType(ARTICLE)
     this._setArticleBounding()
     this._sendPageLevelAction()
     window.addEventListener('resize', this._setArticleBounding)
@@ -150,10 +151,16 @@ class Article extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, selectedArticle, setArticleTopicList, setPageTitle } = this.props
+    const { entities, selectedArticle, setArticleTopicList, setPageTitle, setPageType } = this.props
 
     let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
     let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
+
+    if (_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE) {
+      setPageType(PHOTOGRAPHY_ARTICLE)
+    } else {
+      setPageType(ARTICLE)
+    }
 
     // set navbar title for this article
     setPageTitle(article.id, article.title, topicName)
@@ -289,9 +296,9 @@ class Article extends Component {
     let introData = _.get(article, [ 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-    const outerClass = (article.style==='photography') ?
+    const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  classNames(styles['article-container'], styles['photo-container']) : styles['article-container']
-    const contentClass = (article.style==='photography') ?
+    const contentClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
@@ -390,6 +397,7 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <Footer
+            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY : ARTICLE}
             copyright={copyright}/>
         </div>
       </DocumentMeta>

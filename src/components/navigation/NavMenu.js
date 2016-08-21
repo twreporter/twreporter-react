@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ARTICLE, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
@@ -103,7 +103,7 @@ export default class NavMenu extends Component {
     const { header } = this.props
     const pageType = _.get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
+    let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -128,13 +128,14 @@ export default class NavMenu extends Component {
     const { trimmedTitle } = this.state   // trimmed title
     const { pageTopic, header } = this.props
     const topicLength = _.get(header, 'topicArr', []).length
+    const pageType = _.get(header, 'pageType')
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
     let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
     let topicButton = pageTopic ? <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
             <img src={tocIcon} /> {topicCnt}
           </div> : null
-   
+
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -143,7 +144,7 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={titleClass} ref="title">
+          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE })} ref="title">
             {topicRedBox}
             {trimmedTitle}
           </div>
@@ -267,7 +268,7 @@ export default class NavMenu extends Component {
                         <span></span>
                       </div>
 
-    if (bgStyle === 'dark' && !this.state.open) {
+    if (!this.state.open && (bgStyle === 'dark' || header.pageType === PHOTOGRAPHY || header.pageType === PHOTOGRAPHY_ARTICLE)) {
       backgroundColor = colors.darkBg
       navTopBackground = colors.darkBg
       logo = logoIconDark
@@ -282,7 +283,7 @@ export default class NavMenu extends Component {
       </div>
 
     // if the page has been scrolled down, show another menu
-    if (isScrolledOver && header.pageType === ARTICLE) {
+    if (isScrolledOver && (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE)) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
     } else if (isScrolledOver && header.pageType === TOPIC) {
       menuBar = this._renderTopicSecond(burgerMenu, navLinks)

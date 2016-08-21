@@ -108,11 +108,17 @@
 .articleTitleText {
     @extend .titleText;
     transform: translateX(-50%);
+    &.photography {
+      color: #F7F7F7 !important;
+    }
 }
 
 .topicTitleText {
     @extend .titleText;
     transform: translateX(-45%);
+    &.photography {
+      color: #F7F7F7 !important;
+    }
 }
 
 .fadeRight {

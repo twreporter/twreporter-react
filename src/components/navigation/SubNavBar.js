@@ -66,12 +66,7 @@ export default class SubNavBar extends Component {
             {subMenuLinks}
           </Items>
           <div className={ styles.links }>
-            <div className={styles.inlineBtn}>
-              <div className={styles.triangle}></div>
-              <div className={styles.donateBtn}>
-                <a target="_blank" href="https://twreporter.backme.tw:443/cashflow/checkout?project_id=175&reward_id=718"><h1>贊助我們</h1></a>
-              </div>
-            </div>
+            <div className={styles.inlineBtn} />
           </div>
         </div>
       </div>

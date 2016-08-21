@@ -1,13 +1,16 @@
-import NavBar from '../containers/NavBar'
-import React, { Component } from 'react'
-
+'use strict'
+import { PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, SITE_NAME } from '../constants/index'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import DocumentTitle from 'react-document-title'
+import NavBar from '../containers/NavBar'
+import React, { Component } from 'react'
+import classNames from 'classnames'
 import enLocaleData from 'react-intl/locale-data/en'
 import zhLocaleData from 'react-intl/locale-data/zh'
 import styles from './App.scss'
-import DocumentTitle from 'react-document-title'
-import { SITE_NAME } from '../constants/index'
 
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
@@ -31,10 +34,11 @@ class App extends Component {
 
   render() {
     const pathname = this.props.location.pathname
+    let pageType = _.get(this.props, [ 'header', 'pageType' ])
     return (
       <DocumentTitle title={SITE_NAME.FULL}>
         <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-          <div className={styles.app}>
+          <div className={classNames(styles.app, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE || pageType === PHOTOGRAPHY })}>
             <NavBar
               bgStyle={pathname === '/photography' ? 'dark' : 'light'}
               path={pathname}/>
@@ -50,4 +54,10 @@ App.childContextTypes = {
   location: React.PropTypes.object
 }
 
-export default App
+function mapStateToProps(state) {
+  return {
+    header: state.header
+  }
+}
+
+export default connect(mapStateToProps)(App)

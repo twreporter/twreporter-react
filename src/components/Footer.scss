@@ -4,6 +4,10 @@
 @import '../themes/media-queries.scss';
 
 .footer {
+  &.photography-theme {
+    background-color: $photography-dark;
+  }
+
   background: $light-gray;
 
     .tablet-logo {
