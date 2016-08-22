@@ -1,7 +1,6 @@
 'use strict'
 import _ from 'lodash'
 import classNames from 'classnames'
-import commonStyles from './Common.scss'
 import boxSvg from '../../../static/asset/infobox-logo.svg'
 import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'

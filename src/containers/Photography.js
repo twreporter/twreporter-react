@@ -1,8 +1,8 @@
 /* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchFeatureArticlesIfNeeded, fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import _ from 'lodash'
 import async from 'async'
 import Footer from '../components/Footer'
@@ -23,7 +23,7 @@ export default class Photography extends Component {
       // load tagged articles in parallel
       async.parallel([
         function (callback) {
-          store.dispatch(fetchFeatureArticlesIfNeeded({
+          store.dispatch(fetchFeatureArticles({
             where: {
               categories: {
                 '$in': [ getCatId(PHOTOGRAPHY_CH_STR) ]
@@ -59,15 +59,16 @@ export default class Photography extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded } = this.props
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
-    fetchFeatureArticlesIfNeeded({
+    fetchFeatureArticles({
       where: {
         categories: {
           '$in': [ catId ]
         }
       }
     })
+
     fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
       page: PAGE,
       max_result: MAXRESULT,
@@ -127,4 +128,4 @@ function mapStateToProps(state) {
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticlesIfNeeded })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles })(Photography)

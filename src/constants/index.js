@@ -82,6 +82,8 @@ export const HOME = 'HOME'
 
 export const CATEGORY = 'CATEGORY'
 
+export const PHOTOGRAPHY = 'PHOTOGRAPHY'
+
 export const TAG = 'TAG'
 
 export const TOPIC = 'TOPIC'

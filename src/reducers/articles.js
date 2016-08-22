@@ -113,12 +113,12 @@ export function featureArticles(state = {}, action = {})  {
         lastUpdated: action.failedAt
       })
     case types.FETCH_FEATURE_ARTICLES_SUCCESS:
-      return _.merge({}, state, {
+      return {
         isFetching: false,
         error: null,
         items: _.get(action, 'response.result'),
         lastUpdated: action.receivedAt
-      })
+      }
     default:
       return state
   }
