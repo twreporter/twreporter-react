@@ -1,5 +1,5 @@
 /* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY, PHOTOGRAPHY } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -100,7 +100,7 @@ export default class Photography extends Component {
   render() {
     const { articlesByUuids, featureArticles, entities } = this.props
     const style = {
-      backgroundColor: '#08192d',
+      backgroundColor: colors.darkBg,
       color: '#FFFFEB'
     }
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
