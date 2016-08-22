@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import { ARTICLE } from '../constants/index'
+import { ARTICLE, PHOTOGRAPHY_ARTICLE } from '../constants/index'
 import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
@@ -79,7 +79,7 @@ class NaviBar extends Component {
     const { header } = this.props
     const percent = header.readPercent || 0
     
-    let progressBar = (header.pageType === ARTICLE) ? <HeaderProgress percent={percent}/> : null
+    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) ? <HeaderProgress percent={percent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>
