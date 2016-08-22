@@ -1,8 +1,9 @@
 /* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY, PHOTOGRAPHY } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
 import _ from 'lodash'
 import async from 'async'
 import Footer from '../components/Footer'
@@ -78,6 +79,10 @@ export default class Photography extends Component {
     })
   }
 
+  componentDidMount() {
+    this.props.setPageType(PHOTOGRAPHY)
+  }
+
   _loadMoreArticles() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
@@ -95,7 +100,7 @@ export default class Photography extends Component {
   render() {
     const { articlesByUuids, featureArticles, entities } = this.props
     const style = {
-      backgroundColor: '#2C323E',
+      backgroundColor: colors.darkBg,
       color: '#FFFFEB'
     }
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
@@ -113,7 +118,7 @@ export default class Photography extends Component {
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer/>
+        <Footer theme={PHOTOGRAPHY}/>
       </div>
     )
   }
@@ -128,4 +133,4 @@ function mapStateToProps(state) {
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setPageType })(Photography)

@@ -78,6 +78,12 @@ export const TOPIC_TEXT = '專題'
 
 export const ARTICLE = 'ARTICLE'
 
+export const PHOTOGRAPHY = 'PHOTOGRAPHY'
+
+export const PHOTOGRAPHY_ARTICLE = 'PHOTOGRAPHY_ARTICLE'
+
+export const PHOTOGRAPHY_ARTICLE_STYLE = 'photography'
+
 export const HOME = 'HOME'
 
 export const CATEGORY = 'CATEGORY'
@@ -139,5 +145,5 @@ export const subnavPath = [ {
 export const colors = {
   whiteBg: '#F1F1F1',
   superWhite: '#FFFFFF',
-  darkBg: '#121F2F'
+  darkBg: '#08192d'
 }

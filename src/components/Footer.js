@@ -1,4 +1,4 @@
-import { copyrightTypes, donatePath } from '../constants/index'
+import { PHOTOGRAPHY, copyrightTypes, donatePath } from '../constants/index'
 import classNames from 'classnames'
 import logoFB from '../../static/asset/icon-facebook.svg'
 import logoGithub from '../../static/asset/icon-github.svg'
@@ -7,6 +7,7 @@ import logoIG from '../../static/asset/icon-instagram.svg'
 import logoLine from '../../static/asset/icon-line.svg'
 import logoRss from '../../static/asset/icon-rss.svg'
 import logoCC from '../../static/asset/icon-cc.svg'
+import whiteLogIcon from '../../static/asset/logo-white.svg'
 import React, { Component } from 'react'
 import styles from './Footer.scss'
 
@@ -15,7 +16,7 @@ export default class Footer extends Component {
     super(props)
   }
   render() {
-    const { copyright } = this.props
+    const { copyright, theme } = this.props
     let copyrightObj = copyrightTypes.default
 
     if (copyright === 'Copyrighted') {
@@ -33,7 +34,7 @@ export default class Footer extends Component {
                       </a>) : <p className={styles['license-text']}> {copyrightString} </p>
 
     return (
-      <footer className={styles['footer']}>
+      <footer className={classNames(styles['footer'], { [styles['photography-theme']]: theme === PHOTOGRAPHY })}>
         <div className="container inner-max">
 
           <div className="row">
@@ -43,7 +44,7 @@ export default class Footer extends Component {
                   <a href="/" target="_self">
                       <img
                         className="logo-img"
-                        src={logoIcon}
+                        src={theme === PHOTOGRAPHY ? whiteLogIcon : logoIcon}
                       />
                   </a>
                 </div>
@@ -55,7 +56,7 @@ export default class Footer extends Component {
             <a href="/" className={classNames(styles['tablet-logo'])} target="_self">
               <img
                 className="logo-img"
-                src={logoIcon}
+                src={theme === PHOTOGRAPHY ? whiteLogIcon : logoIcon}
               />
             </a>
             <div>
