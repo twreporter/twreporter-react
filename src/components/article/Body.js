@@ -18,21 +18,35 @@ export class Body extends Component {
 
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
+        let anchor = null
+        let styles = {}
         let type = ele.type
         let Component = getArticleComponent(type)
-        let anchor = null
+
         if(type === 'header-one') {
           sectionCnt++
           anchor = <div id={`section-${sectionCnt}`} className={styles['anchor']}></div>
+        } else if (type === 'embeddedcode') {
+          let embeddedContent = _.get(ele, [ 'content', 0 ], {})
+          let width = _.get(embeddedContent, 'width')
+          let height = _.get(embeddedContent, 'height')
+          if (width) {
+            styles.maxWidth = width
+          }
+          if (height) {
+            styles.minHeight = height
+          }
         }
 
         if (!Component) {
           return null
         }
+
         return (
           <div
             key={ele.id}
             className={classNames(commonStyles['component'], commonStyles[type])}
+            style={styles}
           >
             {anchor}
             <Component
