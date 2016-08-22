@@ -13,7 +13,9 @@ export const UnorderedList = ({ content }) => {
   }
 
   for(let i=0; i<cList.length; i++) {
-    bArr.push(<li key={i} className={styles.item}>{ cList[i] }</li>)
+    bArr.push(<li key={i} className={styles.item}>
+                <span dangerouslySetInnerHTML={{ __html: cList[i] }} />
+              </li>)
   }
 
   return <ul className={classNames(styles.list, commonStyles['inner-block'],
