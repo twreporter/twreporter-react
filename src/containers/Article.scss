@@ -59,7 +59,7 @@
         padding-top: 2.5rem;
     }
     a {
-        border-bottom: 2px $primary-color solid;
+        border-bottom: 1px $primary-color solid;
         cursor: pointer;
         transition: 0.5s all ease;
         position: relative;
@@ -70,7 +70,7 @@
             position: absolute;
             content: "";
             left: 0;
-            bottom: -0.2em;
+            bottom: -0.13em;
             height: 0.11rem;
             width: 0;
             background: $primary-color;
