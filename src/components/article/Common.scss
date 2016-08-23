@@ -62,9 +62,9 @@ $inner-block-margin: $component-margin-left;
     .component {
       margin-left: auto;
       margin-right: auto;
-      width: $tablet-small-width;
+      max-width: $tablet-small-width;
       &.image, &.imagediff, &.slideshow, &.embeddedcode, &.youtube {
-        width: $tablet-medium-width;
+        max-width: $tablet-medium-width;
       }
     }
   }
@@ -90,9 +90,9 @@ $inner-block-margin: $component-margin-left;
     .component {
       margin-left: auto;
       margin-right: auto;
-      width: $desktop-small-width;
+      max-width: $desktop-small-width;
       &.image, &.imagediff, &.slideshow, &.embeddedcode, &.youtube {
-        width: $desktop-medium-width;
+        max-width: $desktop-medium-width;
       }
     }
   }
