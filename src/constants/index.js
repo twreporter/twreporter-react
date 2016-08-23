@@ -76,6 +76,8 @@ export const LOAD_MORE_ARTICLES = '載入更多文章'
 
 export const TOPIC_TEXT = '專題'
 
+export const SEARCH_RESULTS_TEXT = '搜尋結果'
+
 export const ARTICLE = 'ARTICLE'
 
 export const PHOTOGRAPHY = 'PHOTOGRAPHY'
