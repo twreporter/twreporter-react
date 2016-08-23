@@ -1,3 +1,14 @@
+### 1.0.11
+- Make Embedded align center even if it is too small
+- Show the reading progress bar and box shadow for the header of Photography
+- Render HTML in ordered and unordered list 
+- Add dark theme for photography channel
+- Use feature articles as fallback when there is no related articles
+- Add subtitle and change style of topic name
+- Show placeholders when loading articles 
+- Fix photography list item styling 
+- Fix content placeholder align
+
 ### 1.0.10
 - Fix QuoteBy Component style
 
