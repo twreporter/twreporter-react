@@ -175,7 +175,7 @@
     min-width: 9rem;
     min-height: 3rem;
     @media (max-width: $screen-xs-max) {
-        padding-left: 1rem;
+        padding-left: 0.8rem;
         min-width: 3rem;
     }
 }
@@ -197,7 +197,7 @@
     min-height: 3rem;
     padding-right: 2.6rem;
     @media (max-width: $screen-xs-max) {
-        padding-right: 1rem;
+        padding-right: rem(24px);
     }
 }
 
@@ -218,7 +218,7 @@
 .donateButton {
     @extend .nav-item-algin;
     height: rem(25px);
-    margin-left: 1.5rem;
+    margin-left: 1.2rem;
     display: table;
     transition: all 0.3s;
     font-size: $font-size-xsmall;
@@ -274,7 +274,7 @@
     width: 32px;
     border: none;
     background: none;
-    padding: 0;
+    padding: 0 0.2rem 0 0;
     cursor: pointer;
     user-select: none;
     position: relative;
