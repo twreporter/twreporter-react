@@ -75,7 +75,7 @@
     "type": "git",
     "url": "https://github.com/twreporter/twreporter-react"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "engines": {
     "node": ">=4.1.1"
   },

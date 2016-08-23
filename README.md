@@ -183,5 +183,6 @@ Since Redux see its state as single source of truth, we store our own data like 
 [React](https://github.com/facebook/react)
 
 # License
+* Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
+* Distributed under the GNU AGPL v3.0
 
-MIT http://mit-license.org

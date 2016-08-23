@@ -7,7 +7,7 @@ export default class SearchBox extends Component {
   render() {
     return (
       <div className={this.props.class} style={this.props.style}>
-        <div dangerouslySetInnerHTML={{ __html: '<gcse:search></gcse:search>' }} />
+        <div dangerouslySetInnerHTML={{ __html: '<gcse:searchbox-only></gcse:searchbox-only>' }} />
       </div>
     )
   }

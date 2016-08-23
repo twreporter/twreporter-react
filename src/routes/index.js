@@ -7,6 +7,7 @@ import Blank from '../containers/Blank'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
 import Photography from '../containers/Photography'
+import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 
@@ -19,6 +20,7 @@ export default function (history = browserHistory) {
         <Route path="topic/:topicId" component={Topic} />
         <Route path="tag/:tagId" component={Tag} />
         <Route path="photography" component={Photography}/>
+        <Route path="search" component={Search}/>
         <Route path="check" component={Blank}/>
         <Route path="a/:slug" component={Article}/>
       </Route>
