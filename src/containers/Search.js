@@ -12,6 +12,18 @@ class Search extends Component {
       resolve()
     })
   }
+
+  componentDidMount() {
+    // display search results
+    let cx = '013371828254368986439:_ega685nikw'
+    let gcse = document.createElement('script')
+    gcse.type = 'text/javascript'
+    gcse.async = true
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx
+    let s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(gcse, s)
+  }
+
   render() {
     const meta = {
       title: SITE_NAME.SEPARATOR + SITE_NAME.FUL,
@@ -24,12 +36,14 @@ class Search extends Component {
     return (
       <DocumentMeta {...meta}>
         <div className={styles['container']}>
-          <div className="container text-center">
-            <div className="top-title-outer">
+          <div className="container">
+            <div className="top-title-outer text-center">
               <h1 className="top-title">
                 { SEARCH_RESULTS_TEXT }
               </h1>
             </div>
+            <div dangerouslySetInnerHTML={{ __html: '<gcse:searchbox-only></gcse:searchbox-only>' }} />
+            <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults-only></gcse:searchresults-only>' }} />
           </div>
         </div>
         <Footer/>
