@@ -23,6 +23,7 @@
     padding: rem(36) rem(24) rem(24) rem(24);
     h4 {
       font-size: rem(20px);
+      color: $gray-15;
       line-height: 1.2;
       font-weight: bold;
       margin: 0;
@@ -32,6 +33,11 @@
     >div {
       font-size: rem(15px);
       line-height: 1.8;
+      color: $gray-50;
+    }
+
+    p {
+      color: $gray-50;
     }
   }
 
