@@ -8,6 +8,8 @@
   $logo-height: rem(24);
   background-color: $white;
   position: relative;
+  white-space: pre-wrap;
+
   >img {
       width: $logo-width;
       height: $logo-height;
