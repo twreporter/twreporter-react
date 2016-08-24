@@ -5,13 +5,13 @@ import styles from './UnorderedList.scss'
 import React from 'react' // eslint-disable-next-line
 
 export const UnorderedList = ({ content }) => {
-  const cList = (content && content[0].length>0) ? content[0] : null
-  let bArr = []
+  const cList = content
 
-  if(!cList) {
+  if(!Array.isArray(cList)) {
     return null
   }
 
+  let bArr = []
   for(let i=0; i<cList.length; i++) {
     bArr.push(<li key={i} className={styles.item}>
                 <span dangerouslySetInnerHTML={{ __html: cList[i] }} />
