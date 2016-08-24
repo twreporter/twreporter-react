@@ -1,5 +1,6 @@
 /*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
@@ -52,7 +53,7 @@ class Image extends FitwidthMixin(Component) {
           onContentVisible={() => this.setState({ placeholderOpacity: 1 })}
           className={styles['img-placeholder-outer']}
           style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
-          <img src={ imageUrl } className={classNames('center-block', styles['img-placeholder'])} style={imgStyle} />
+          <img src={ replaceStorageUrlPrefix(imageUrl) } className={classNames('center-block', styles['img-placeholder'])} style={imgStyle} />
         </LazyLoad>
       )
     }
@@ -64,7 +65,7 @@ class Image extends FitwidthMixin(Component) {
       return (
         <figure>
           <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
-            <img src={ imageObj.url }
+            <img src={ replaceStorageUrlPrefix(imageObj.url) }
               style={ { ...imgStyle, opacity: this.state.imageOpacity } }
               className={classNames('center-block', styles['img-absolute'])}
             />
@@ -132,7 +133,7 @@ class Image extends FitwidthMixin(Component) {
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
-          <noscript dangerouslySetInnerHTML={this._getNoscript(_.get(desktop, 'url', ''), imageDescription)} />
+          <noscript dangerouslySetInnerHTML={this._getNoscript(replaceStorageUrlPrefix(_.get(desktop, 'url', '')), imageDescription)} />
         </div>
 
         {descriptionBox}

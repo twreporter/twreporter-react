@@ -52,10 +52,5 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  }
-}
-
 export { Search }
-export default connect(mapStateToProps, { })(Search)
+export default connect()(Search)

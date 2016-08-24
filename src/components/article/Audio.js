@@ -1,6 +1,7 @@
 /* eslint no-unused-vars:0 */
 'use strict'
 import { Image } from './Image'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 import _ from 'lodash'
 import CircleProgressButton from './CircleProgressButton'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
@@ -200,7 +201,7 @@ class Audio extends React.Component {
 
     const player = (
       <Player
-        src={url}
+        src={replaceStorageUrlPrefix(url)}
         playing={isPlaying}
         onLoad={this.handleOnLoad}
         onPlay={this.handleOnPlay}
