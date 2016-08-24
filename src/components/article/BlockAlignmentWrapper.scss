@@ -18,7 +18,9 @@
 // tablet && desktop
 @include mq($min-width: $screen-sm-min, $max-width: $screen-lg-max) {
   $aligned-width: 326px;
+  $tablet-width: 768px;
   $inner-margin: 20px;
+  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
   
   .base-align {
     width: $aligned-width;
@@ -30,12 +32,14 @@
     @extend .base-align;
     float: left;
     margin-right: rem($inner-margin);
+    margin-left: $float-margin;
   }
 
   .align-right {
     @extend .base-align;
     float: right;
     margin-left: rem($inner-margin);
+    margin-right: $float-margin;
   }
 
   .align-center {
@@ -45,8 +49,9 @@
 
 // desktop HD
 @include mq($min-width: $screen-hd-min) {
-  $aligned-width: 344px;
+  $aligned-width: 340px;
   $inner-margin: 20px;
+  $float-margin: -90px;
 
   .base-align {
     width: $aligned-width;
@@ -58,12 +63,14 @@
     @extend .base-align;
     float: left;
     margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
   }
 
   .align-right {
     @extend .base-align;
     float: right;
     margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
   }
 
   .align-center {

@@ -63,7 +63,7 @@ $inner-block-margin: $component-margin-left;
       margin-left: auto;
       margin-right: auto;
       max-width: $tablet-small-width;
-      &.image, &.imagediff, &.slideshow, &.embeddedcode, &.youtube {
+      &.image, &.imagediff, &.slideshow, &.youtube {
         max-width: $tablet-medium-width;
       }
     }
@@ -71,7 +71,7 @@ $inner-block-margin: $component-margin-left;
 }
 
 // === desktop ===
-@include mq($min-width: $screen-md-min) {
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   .inner-block {
     display: block;
     margin: 0 auto;
@@ -91,8 +91,36 @@ $inner-block-margin: $component-margin-left;
       margin-left: auto;
       margin-right: auto;
       max-width: $desktop-small-width;
-      &.image, &.imagediff, &.slideshow, &.embeddedcode, &.youtube {
+      &.image, &.imagediff, &.slideshow, &.youtube {
         max-width: $desktop-medium-width;
+      }
+    }
+  }
+}
+
+// desktop HD
+@include mq($min-width: $screen-hd-min) {
+  .inner-block {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .disable-inner-block {
+    margin: 0; 
+  }
+
+  .desc-text-block {
+    max-width: $hd-desktop-small-width;
+    margin: rem(17px) auto 0 auto;
+  }
+
+  .components {
+    .component {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $hd-desktop-small-width;
+      &.image, &.imagediff, &.slideshow, &.youtube {
+        max-width: $hd-desktop-medium-width;
       }
     }
   }
