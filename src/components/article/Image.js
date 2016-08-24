@@ -91,6 +91,10 @@ class Image extends FitwidthMixin(Component) {
     let { isMounted, screenType, width } = this.state
     let { isToShowDescription, outerWidth, outerHeight } = this.props
     let boxWidth = outerWidth || width
+    let maxWidth = _.get(desktop, 'width', DEFAULT_WIDTH)
+    if(maxWidth < boxWidth) {
+      boxWidth = maxWidth
+    }
     let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let renderedPlaceHoderImage = null
     let renderedFigure = null
