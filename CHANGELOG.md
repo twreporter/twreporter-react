@@ -1,3 +1,10 @@
+### 1.0.12
+- Refine padding and margin of Navbar
+- Change letter spacing
+- Update link style 
+- fix ul and ol list alignment 
+- Add google search page to display the user queried results
+
 ### 1.0.11
 - Make Embedded align center even if it is too small
 - Show the reading progress bar and box shadow for the header of Photography
