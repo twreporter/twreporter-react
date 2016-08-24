@@ -15,10 +15,10 @@
   }
 }
 
-// tablet && desktop
-@include mq($min-width: $screen-sm-min, $max-width: $screen-lg-max) {
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   $aligned-width: 326px;
-  $tablet-width: 768px;
+  $tablet-width: $screen-sm-min;
   $inner-margin: 20px;
   $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
   
@@ -32,14 +32,46 @@
     @extend .base-align;
     float: left;
     margin-right: rem($inner-margin);
-    margin-left: $float-margin;
+    margin-left: rem($float-margin);
   }
 
   .align-right {
     @extend .base-align;
     float: right;
     margin-left: rem($inner-margin);
-    margin-right: $float-margin;
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
+  }
+}
+
+// desktop
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  $aligned-width: 326px;
+  $desktop-width: 1024px;
+  $inner-margin: 20px;
+  $float-margin: - (( $desktop-width / 2 ) - ( $desktop-small-width / 2 ) - $inner-margin - 10px);
+  
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-bottom: rem($inner-margin);
+  }
+
+  .align-left {
+    @extend .base-align;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    @extend .base-align;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
   }
 
   .align-center {
