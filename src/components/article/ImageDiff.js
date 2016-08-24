@@ -1,5 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import classNames from 'classnames'
@@ -48,7 +49,7 @@ class ImageDiff extends FitwidthMixin(Component) {
     if (_.get(imageObj, 'url')) {
       return (
         <img
-          src={ imageObj.url }
+          src={ replaceStorageUrlPrefix(imageObj.url) }
           style={ imgStyle }
           className={classNames('center-block', styles.imgAbsolute)}
         />

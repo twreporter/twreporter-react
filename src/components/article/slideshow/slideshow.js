@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 'use strict'
+import { replaceStorageUrlPrefix } from '../../../utils/index'
 import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from '../Common.scss'
@@ -52,9 +53,9 @@ class Slideshow extends Component {
   }
 
   _composeSrcSet(imgObj) {
-    let desktopSrc = _.get(imgObj, [ 'desktop', 'url' ])
-    let tabletSrc = _.get(imgObj, [ 'tablet', 'url' ])
-    let mobileSrc = _.get(imgObj, [ 'mobile', 'url' ])
+    let desktopSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'desktop', 'url' ]))
+    let tabletSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'tablet', 'url' ]))
+    let mobileSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'mobile', 'url' ]))
     return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
   }
 
@@ -66,11 +67,11 @@ class Slideshow extends Component {
       let thumbnail = {}
       let defaultImg = imgObj.url
       let id = _.get(imgObj, 'id')
-      slide.src = defaultImg || _.get(imgObj, [ 'desktop', 'url' ])
+      slide.src = replaceStorageUrlPrefix(defaultImg || _.get(imgObj, [ 'desktop', 'url' ]))
       slide.id = id
       slide.description = imgObj.description
       slide.srcSet = this._composeSrcSet(imgObj)
-      thumbnail.src = _.get(imgObj, [ 'tiny', 'url' ], defaultImg)
+      thumbnail.src = replaceStorageUrlPrefix(_.get(imgObj, [ 'tiny', 'url' ], defaultImg))
       thumbnail.id = id
       slides.push(slide)
       thumbnails.push(thumbnail)
