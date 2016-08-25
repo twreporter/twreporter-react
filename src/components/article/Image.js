@@ -49,12 +49,13 @@ class Image extends FitwidthMixin(Component) {
   _renderPlaceHoderImage(imageUrl, imgStyle) {
     if (imageUrl) {
       return (
-        <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}
-          onContentVisible={() => this.setState({ placeholderOpacity: 1 })}
-          className={styles['img-placeholder-outer']}
-          style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
-          <img src={ replaceStorageUrlPrefix(imageUrl) } className={classNames('center-block', styles['img-placeholder'])} style={imgStyle} />
-        </LazyLoad>
+        <div className={styles['img-placeholder-outer']}
+            style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
+          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}
+            onContentVisible={() => this.setState({ placeholderOpacity: 1 })}>
+            <img src={ replaceStorageUrlPrefix(imageUrl) } className={classNames(styles['img-placeholder'])} style={imgStyle} />
+          </LazyLoad>
+        </div>
       )
     }
     return null
@@ -64,10 +65,11 @@ class Image extends FitwidthMixin(Component) {
     if (_.get(imageObj, 'url')) {
       return (
         <figure>
-          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image} onContentVisible={() => this.setState({ imageOpacity: 1 })}>
+          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image}
+              onContentVisible={() => this.setState({ imageOpacity: 1 })}>
             <img src={ replaceStorageUrlPrefix(imageObj.url) }
               style={ { ...imgStyle, opacity: this.state.imageOpacity } }
-              className={classNames('center-block', styles['img-absolute'])}
+              className={classNames(styles['img-absolute'])}
             />
           </LazyLoad>
         </figure>
