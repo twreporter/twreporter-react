@@ -25,7 +25,7 @@ const catENtoCH = {
   taiwan: TAIWAN_CH_STR
 }
 
-export default class Category extends Component {
+class Category extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(catENtoCH[params.category]), {
       page: PAGE,

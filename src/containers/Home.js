@@ -24,7 +24,7 @@ if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-export default class Home extends Component {
+class Home extends Component {
   static fetchData({
     store
   }) {

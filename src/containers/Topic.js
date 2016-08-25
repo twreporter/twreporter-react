@@ -9,7 +9,7 @@ import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
 
-export default class Topic extends Component {
+class Topic extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticlesByUuidIfNeeded(params.topicId, TOPIC))
   }
