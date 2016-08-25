@@ -295,7 +295,7 @@ export default class NavMenu extends Component {
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
-    if (header.pageType === ARTICLE && pageTopic) {
+    if ( (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && pageTopic) {
       topicPopup = <TopicPopup isOpen={this.state.isTopicOpen}
           topicArr={header.topicArr}
           pageTopic={pageTopic}
