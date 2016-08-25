@@ -51,3 +51,15 @@ a:hover {
     max-width: $article-outer-width;
   }
 }
+
+// custom class to hide unwanted link hover effects
+.no-hover {
+    border-bottom: 0 !important;
+    &:after {
+        display: none;
+    }
+    &:hover:after {
+        width: 0;
+        display: none;
+    }
+}
