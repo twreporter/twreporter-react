@@ -18,7 +18,7 @@ const MAXRESULT = 10
 const PAGE = 1
 const PHOTOGRAPHY_CH_STR = '影像'
 
-export default class Photography extends Component {
+class Photography extends Component {
   static fetchData({ store }) {
     return new Promise((resolve, reject) => {
       // load tagged articles in parallel

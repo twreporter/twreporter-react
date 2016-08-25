@@ -12,7 +12,7 @@ import Tags from '../components/Tags'
 const MAXRESULT = 10
 const PAGE = 1
 
-export default class Tag extends Component {
+class Tag extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId), TAG, {
       page: PAGE,

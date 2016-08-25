@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
-export default class Blank extends Component {
+class Blank extends Component {
   static fetchData({ store }) {
     return new Promise((resolve, reject) => {
       resolve()
@@ -16,10 +16,5 @@ export default class Blank extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  }
-}
-
 export { Blank }
-export default connect(mapStateToProps, { })(Blank)
+export default connect()(Blank)
