@@ -24,7 +24,7 @@ export default class TopNews extends Component {
     return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
-          const pubDate = date2yyyymmdd(a.publishedDate * 1000, '.')
+          const pubDate = date2yyyymmdd(a.publishedDate, '.')
           let cats = _.get(a, 'categories', [])
           let catDisplay = _.get(cats, [ 0, 'name' ], '專題')
           let imageSet = imageComposer(a)
