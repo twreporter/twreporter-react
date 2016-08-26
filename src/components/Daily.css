@@ -28,7 +28,6 @@
     font-weight: 400;
     color: black;
     line-height: 26px;
-    word-spacing: 30px;
     padding-bottom: 75px;
     width: 310px;
 }
@@ -138,7 +137,6 @@ only screen and (max-device-width: 799px) {
         font-size: 19px;
         line-height: 1;
         vertical-align: top;
-        word-spacing: 20px;
         width: auto;
     }
     .daily-line {
