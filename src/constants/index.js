@@ -59,9 +59,12 @@ export const copyrightTypes = {
   }
 }
 
+export const DEFAULT_HEADER_HEIGHT = 80
+
 export const CHARACTERS_LIMIT = {
   TOPIC_DESC: 120,
-  BOTTOM_RELATED_DESC: 120
+  BOTTOM_RELATED_DESC: 120,
+  HEADER_TITLE_TRIMMED_RATIO: 0.45
 }
 
 export const ITEMS_LIMIT = {

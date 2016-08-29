@@ -47,6 +47,7 @@
     }
 
     .logo-container {
+      margin-top: rem(30px);
       margin-bottom: rem(24px);
 
       @include mq($min-width: $screen-sm-min) {

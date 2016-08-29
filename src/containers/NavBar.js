@@ -1,21 +1,22 @@
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import { ARTICLE, PHOTOGRAPHY_ARTICLE } from '../constants/index'
+import { ARTICLE, PHOTOGRAPHY_ARTICLE, DEFAULT_HEADER_HEIGHT } from '../constants/index'
 import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
 
-const DEFAULT_HEIGHT = 80
 
-class NaviBar extends Component {
+
+class NavBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: DEFAULT_HEIGHT,
-      isScrolledOver: false
+      height: DEFAULT_HEADER_HEIGHT,
+      isScrolledOver: false,
+      isPageChanged: false
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
@@ -34,6 +35,19 @@ class NaviBar extends Component {
     window.removeEventListener('scroll', this._handleScroll)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.path !== nextProps.path) {
+      this.setState({ isPageChanged: true })
+    }
+  }
+
+  componentDidUpdate() {
+    if(this.state.isPageChanged) {
+      this._getHeaderHeight()
+      this.setState({ isPageChanged: false })
+    }
+  }
+
   _handleScroll() {
     const scrollPos = window.scrollY
     if(scrollPos > this.state.height && !this.state.isScrolledOver) {
@@ -45,8 +59,10 @@ class NaviBar extends Component {
 
   _getHeaderHeight() {
     const rect = ReactDOM.findDOMNode(this.refs.headerbox).getBoundingClientRect()
+    let hHeight = _.get(rect, 'height', DEFAULT_HEADER_HEIGHT)
+    hHeight = (hHeight < DEFAULT_HEADER_HEIGHT) ? DEFAULT_HEADER_HEIGHT : hHeight
     this.setState({
-      height: _.get(rect, 'height', DEFAULT_HEIGHT)
+      height: hHeight
     })
   }
 
@@ -62,7 +78,7 @@ class NaviBar extends Component {
     return true
   }
 
-  _renderDesktop() {
+  _renderMenu() {
     return (
       <div>
         <NavMenu {...this.props}
@@ -85,7 +101,7 @@ class NaviBar extends Component {
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className={styles.fixTop}>
-          {this._renderDesktop()}
+          {this._renderMenu()}
           {progressBar}
         </div>
       </div>
@@ -93,7 +109,7 @@ class NaviBar extends Component {
   }
 }
 
-NaviBar.contextTypes = {
+NavBar.contextTypes = {
   device: PropTypes.string
 }
 
@@ -103,4 +119,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { setReadProgress })(NaviBar)
+export default connect(mapStateToProps, { setReadProgress })(NavBar)

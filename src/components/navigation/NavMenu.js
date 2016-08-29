@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
@@ -18,7 +18,7 @@ import SubNavBar from './SubNavBar'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import TopicPopup from './TopicPopup'
 
-const TRIMMED_RATIO = 0.5
+const TRIMMED_RATIO = CHARACTERS_LIMIT.HEADER_TITLE_TRIMMED_RATIO
 const FULL_WIDTH = 1200
 
 export default class NavMenu extends Component {
