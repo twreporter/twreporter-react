@@ -25,7 +25,6 @@
 .daily-item a {
     display: block;
     font-size: 18px;
-    font-weight: 400;
     color: black;
     line-height: 26px;
     padding-bottom: 75px;
@@ -55,12 +54,12 @@
 .daily-news {
     font-size: 26px;
     margin-bottom: 60px;
+    font-weight: 700;
 }
 
 .what {
     font-size: 25px;
     word-spacing: 40px;
-    font-weight: 400;
     display: inline;
     width: 200px;
     border-bottom-style: solid;
@@ -159,7 +158,7 @@ only screen and (max-device-width: 799px) {
     .daily-news {
         margin-left: 0;
         margin-bottom: 40px;
-        margin-top: 80px;
+        margin-top: 60px;
     }
     .daily-itemlist {
         margin-left: auto;
