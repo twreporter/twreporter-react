@@ -5,9 +5,6 @@ import { LINK_PREFIX, subnavPath } from '../../constants/index'
 import { Link } from 'react-router'
 import { getTopicId } from '../../utils/get-list-id'
 
-if (process.env.BROWSER) {
-  require('../../containers/NavBar.css')
-}
 const styles = require('./SubNavBar.scss')
 
 class Items extends Component {

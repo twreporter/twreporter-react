@@ -6,6 +6,7 @@ import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import styles from './NavBar.scss'
 
 const DEFAULT_HEIGHT = 80
 
@@ -83,7 +84,7 @@ class NaviBar extends Component {
 
     return (
       <div style={{ height: height+'px' }}>
-        <div ref="headerbox" className="fixTop">
+        <div ref="headerbox" className={styles.fixTop}>
           {this._renderDesktop()}
           {progressBar}
         </div>
