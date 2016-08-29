@@ -1,3 +1,21 @@
+### 1.0.13
+- set maxwidth for the lazy-loaded images 
+- Fix OrderedList and UnorderedList component 
+- Style change for HD Desktop and update BlockAlignmentWrapper.scss
+- Add align style on desktop screen 
+- fix LazyLoad images alignment 
+- Only one default export allowed per module
+- Replace storage link prefix
+- fix Photography topic popup
+- Add a class to take out unwanted article link hover effects 
+- Fix publishedDate
+- refine css of the navbar
+- adjust characters limits of the article header 
+- fix top margin of the footer 
+- fix styles of the 'more article' button 
+- fix the display problem of indicator on the Home slider 
+- Leave enough padding for header when page changed   
+
 ### 1.0.12
 - Refine padding and margin of Navbar
 - Change letter spacing
