@@ -221,7 +221,7 @@ export default class NavMenu extends Component {
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
     let logo = logoIcon
-    let linkColor = colors.darkBg
+    let linkColor = colors.darkText
     let photographyClass
 
     let navLinks = []
