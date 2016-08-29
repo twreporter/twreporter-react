@@ -1,4 +1,5 @@
-import { PHOTOGRAPHY, copyrightTypes, donatePath } from '../constants/index'
+import { ABOUT_US_FOOTER, CONTACT_FOOTER, PHOTOGRAPHY, PRIVACY_FOOTER, copyrightTypes, donatePath } from '../constants/index'
+import { Link } from 'react-router'
 import classNames from 'classnames'
 import logoFB from '../../static/asset/icon-facebook.svg'
 import logoGithub from '../../static/asset/icon-github.svg'
@@ -60,19 +61,19 @@ export default class Footer extends Component {
               />
             </a>
             <div>
-              <a href="/a/about-us-footer">
+              <Link to={`/a/${ABOUT_US_FOOTER}`}>
                   關於我們
-              </a>
+              </Link>
             </div>
             <div>
-              <a href="/a/contact-footer">
+              <Link to={`/a/${CONTACT_FOOTER}`}>
                   聯絡我們
-              </a>
+              </Link>
             </div>
             <div>
-              <a href="/a/privacy-footer">
+              <Link to={`/a/${PRIVACY_FOOTER}`}>
                   隱私政策
-              </a>
+              </Link>
             </div>
             <div className={styles['support']}>
               <a href={donatePath} target="_blank">

@@ -5,7 +5,7 @@ import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE, CONTACT_FOOTER, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -54,8 +54,12 @@ class Article extends Component {
   // we get not only the article itself but also get related articles and
   // other articles in the same topic for BETTER SEO
   static fetchData({ params, store }) {
+    let slug = params.slug
+    if (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) {
+      return store.dispatch(fetchArticleIfNeeded(slug))
+    }
     // get article itself first
-    return store.dispatch(fetchArticleIfNeeded(params.slug)).then(() => {
+    return store.dispatch(fetchArticleIfNeeded(slug)).then(() => {
       let state = store.getState()
       let articleId = _.get(state, 'selectedArticle.id')
       let article = _.get(state, [ 'entities', 'articles', articleId ])
@@ -284,8 +288,11 @@ class Article extends Component {
     let topicName = _.get(article, 'topics.name')
     let relatedArticles = _.get(article, 'relateds')
 
+    let slug = _.get(params, 'slug')
+    let useFallback = (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) ? false : true
+
     // fallback - use feature article
-    if (_.get(relatedArticles, 'length', 0) === 0) {
+    if (_.get(relatedArticles, 'length', 0) === 0 && useFallback) {
       relatedArticles = this._getFeatureArticles()
     }
 
@@ -418,6 +425,24 @@ function mapStateToProps(state) {
 Article.contextTypes = {
   device: React.PropTypes.string,
   location: React.PropTypes.object
+}
+
+Article.propTypes = {
+  articlesByUuids: React.PropTypes.object,
+  entities: React.PropTypes.object,
+  featureArticles: React.PropTypes.object,
+  params: React.PropTypes.object,
+  selectedArticle: React.PropTypes.object,
+  slugToId: React.PropTypes.object
+}
+
+Article.defaultProps = {
+  articlesByUuids: {},
+  entities: {},
+  featureArticles: {},
+  params: {},
+  selectedArticle: {},
+  slugToId: {}
 }
 
 export { Article }
