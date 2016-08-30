@@ -40,7 +40,7 @@ class NavBar extends Component {
   }
 
   componentDidUpdate() {
-    if(this.state.isPageChanged) {
+    if(this.state.isPageChanged && !this.state.isScrolledOver) {
       this._getHeaderHeight()
       this.setState({ isPageChanged: false })
     }
@@ -65,14 +65,14 @@ class NavBar extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    // if(nextState.height !== this.state.height ||
-    //    nextProps.header.readPercent !== this.props.header.readPercent ||
-    //    nextState.isScrolledOver !== this.state.isScrolledOver) {
-    //   return true
-    // }
-    // if (nextProps.path === this.props.path) {
-    //   return false
-    // }
+    if(nextState.height !== this.state.height ||
+       nextProps.header.readPercent !== this.props.header.readPercent ||
+       nextState.isScrolledOver !== this.state.isScrolledOver) {
+      return true
+    }
+    if (nextProps.path === this.props.path) {
+      return false
+    }
     return true
   }
 
@@ -90,11 +90,11 @@ class NavBar extends Component {
   }
 
   render() {
-    const { height } = this.state
+    const { height, isScrolledOver } = this.state
     const { header } = this.props
     const percent = header.readPercent || 0
-
-    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) ? <HeaderProgress percent={percent}/> : null
+    
+    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && isScrolledOver ? <HeaderProgress percent={percent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>

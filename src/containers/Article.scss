@@ -7,8 +7,7 @@
 .article-container {
     background-color: $light-gray;
     min-height: 20em;
-
-    padding-top: 68px;
+    padding-top: rem(20px);
     color: $text-color;
 }
 
@@ -23,6 +22,9 @@
             font-weight: $font-weight-bold;
             @include mq($max-width: $screen-sm-min) { 
                 font-size: $font-size-xlarger;
+            }
+            @include mq($min-width: $screen-lg-min) { 
+                font-size: 42px;
             }
         }
         .topic-name {
