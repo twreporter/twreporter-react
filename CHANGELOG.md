@@ -1,3 +1,16 @@
+### 1.0.15
+- Show all the articles of the same topic in Popup and related section
+- Replace url prefix in the Popup section
+- Replace global.__DEVELOPMENT__ by __DEVELOPMENT__
+- Hide log on production
+- global css styles tuning 
+- Use lodash to get author image, Add article SEO tag 
+- Use <a> tag rather than Link of react-router when the style of article is interactive
+- fix topic item overflow
+- refine top spacing as page switches
+- hide read progress bar as page switches
+- refine topic text display on header
+
 ### 1.0.14
 - Replace __DEVELOPMENT__ by global.__DEVELOPMENT__
 - Fix the version of bootstrap-loader
