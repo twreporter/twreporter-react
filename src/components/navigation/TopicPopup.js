@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import Link from '../Link'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 //import commonStyles from '../article/Common.scss'
@@ -13,7 +14,7 @@ const Topic = (props) => {
   const { data, articleId } = props
   const isCurrentViewing = _.get(data, 'id', '') === articleId
   const link =  LINK_PREFIX.ARTICLE + _.get(data, 'slug', '')
-  const heroImgUrl = _.get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null)
+  const heroImgUrl = replaceStorageUrlPrefix(_.get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null))
   const currentClass = isCurrentViewing ? styles['current'] : null
 
   const topic = <div className={classNames(styles['topic'], currentClass)}>
