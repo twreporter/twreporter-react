@@ -86,7 +86,8 @@ class Article extends Component {
             }
           },
           function (callback) {
-            store.dispatch(fetchArticlesByUuidIfNeeded(topicId, TOPIC))
+            // TODO Add loading-more functionality
+            store.dispatch(fetchArticlesByUuidIfNeeded(topicId, TOPIC, { max_results: 30 }))
               .then(() => {
                 callback(null)
               })
@@ -187,7 +188,8 @@ class Article extends Component {
     let relateds = _.get(article, 'relateds', [])
 
     //  fetch other articles in the same topic
-    fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+    // TODO Add loading-more functionality
+    fetchArticlesByUuidIfNeeded(topicId, TOPIC, { max_results: 30 })
 
     // fetch related articles
     fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
