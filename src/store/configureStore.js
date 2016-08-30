@@ -1,3 +1,5 @@
+/* global __DEVELOPMENT__ */
+'use strict'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import apiMiddleware from '../middleware/api'
@@ -15,7 +17,7 @@ const logger = createLogger({
 
 export default function configureStore(initialState) {
   const middlewares = [ thunkMiddleware, apiMiddleware ]
-  if (global.__DEVELOPMENT__) {
+  if (__DEVELOPMENT__) {
     middlewares.push(createLogger())
   }
   const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
