@@ -1,8 +1,9 @@
+/*global __DEVELOPMENT__*/
 'use strict'
 import { google as storageConfig } from '../conf/storage'
 import { SITE_META } from '../constants/index'
 
-function replaceStorageUrlPrefix(url, isDev = global.__DEVELOPMENT__) {
+function replaceStorageUrlPrefix(url, isDev = __DEVELOPMENT__) {
   if (isDev) {
     return url
   }
