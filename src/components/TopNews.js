@@ -1,10 +1,12 @@
-import { Link } from 'react-router'
+'use strict'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 import _ from 'lodash'
-import React, { Component } from 'react'
+import Link from './Link'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
+import React, { Component } from 'react'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
@@ -30,7 +32,7 @@ export default class TopNews extends Component {
           let imageSet = imageComposer(a)
           let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (
-              <Link key={a.id} to={'/a/' + a.slug}>
+              <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
                 <img src={image} alt={a.slug} />
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>

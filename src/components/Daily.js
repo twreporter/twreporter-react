@@ -1,6 +1,7 @@
 import _ from 'lodash'
+import Link from './Link'
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 
@@ -31,7 +32,7 @@ export default class Daily extends Component {
             let url = '/a/' + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
-                <Link to={url}>
+                <Link to={url} disableReactRouter={_.get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
                   <div className="daily-image" >
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'

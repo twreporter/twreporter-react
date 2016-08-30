@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { Link } from 'react-router'
-import { LINK_PREFIX, CHARACTERS_LIMIT } from '../../constants/index'
+import Link from '../Link'
+import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 //import commonStyles from '../article/Common.scss'
@@ -29,7 +29,7 @@ const Topic = (props) => {
             <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
           </div>
         </div>
-  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link}> { topic } </Link>
+  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} disableReactRouter={_.get(data, 'style') === INTERACTIVE_ARTICLE_STYLE}> { topic } </Link>
 
   return (
     <div className="col-md-12 col-lg-6">

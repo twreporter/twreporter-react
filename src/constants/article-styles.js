@@ -1,0 +1,13 @@
+'use strict'
+
+const ARTICLE_STYLE = 'article'
+const INTERACTIVE_ARTICLE_STYLE = 'interactive'
+const PHOTOGRAPHY_ARTICLE_STYLE = 'photography'
+const REVIEW_ARTICLE_STYLE = 'review'
+
+export {
+  ARTICLE_STYLE,
+  INTERACTIVE_ARTICLE_STYLE,
+  PHOTOGRAPHY_ARTICLE_STYLE,
+  REVIEW_ARTICLE_STYLE
+}
