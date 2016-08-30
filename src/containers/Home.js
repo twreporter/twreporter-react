@@ -1,5 +1,4 @@
 /*eslint no-unused-vars:0, no-console:0 */
-/* global __DEVELOPMENT__ */
 'use strict'
 import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
