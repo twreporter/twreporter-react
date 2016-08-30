@@ -44,8 +44,9 @@ export function loadArticles(req, params = []) {
         list.forEach((item) => {
           let aArr = _.get(aricleRes, item, [])
           aArr.forEach((author) => {
-            if(author.image) {
-              writers.push(author.image)
+            let authorImg = _.get(author, 'image', null)
+            if(authorImg) {
+              writers.push(authorImg)
             }
           })
         })
@@ -80,8 +81,9 @@ export function loadArticles(req, params = []) {
 
 function addImage(authors, imgItems) {
   authors.forEach((author) => {
-    if(author.image) {
-      let match = _.filter(imgItems, '_id', author.image)
+    let authorImg = _.get(author, 'image', null)
+    if(authorImg) {
+      let match = _.filter(imgItems, '_id', authorImg)
       const wImg = _.get(match, [ 0, 'image' ])
       author.image = wImg
     }
