@@ -6,7 +6,6 @@ $subnav-background: #3E3A39;
 $gray-text1: #4D4D4D;
 $black: #000;
 $gray: #898989;
-$text-color: #333;
 $gray-border-color: #ACACB1;
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
@@ -20,8 +19,8 @@ $screen-lg-max: $screen-hd-min - 1px;
 // ## Font
 $font-date-serif: "Times New Roman",serif;
 $font-size-base: 18px;
-$font-size-xlarger: 30px;
-$font-size-larger: 24px;
+$font-size-xlarger: 34px;
+$font-size-larger: 22px;
 $font-size-large: 20px;
 $font-size-base: 18px;
 $font-size-medium: 16px;
@@ -43,6 +42,7 @@ $component-margin-right: 24px;
 // == Colors
 // ## gray
 $gray-15: #262626;
+$gray-25: #404040;
 $gray-40: #666666;
 $gray-50: #808080;
 $gray-70: #B3B3B3;
@@ -55,6 +55,7 @@ $light-red: #D92616;
 // ## white
 $white: #FFF;
 // ## Global color settings
+$text-color: $gray-25;
 $primary-color: $harley-davidson-orange;
 $photography-dark: #08192d;
 $underline-marker-color: rgba(199, 26, 10, 0.25);
@@ -62,6 +63,8 @@ $loading-placeholder: rgba(191,191,191,0.50);
 
 $material-box-shadow: 0px 3px 8px 0px rgba($gray-40, 0.5);
 $box-glow: 0px 0px 3px rgba($gray-40, 0.5);
+
+$general-letter-space: 0.3px;
 
 // == Layout 
 // ## width

@@ -332,7 +332,7 @@ class Article extends Component {
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
-            <div className={contentClass}>
+            <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
                   <h3>{topicBlock}{subtitleBlock}</h3>
@@ -377,7 +377,7 @@ class Article extends Component {
               <ArticleComponents.Body
                 data={bodyData}
               />
-            </div>
+            </article>
 
             <div ref="progressEnding"
                 className={classNames('inner-max', 'center-block', commonStyles['components'])}>

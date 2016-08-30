@@ -9,18 +9,21 @@
     min-height: 20em;
 
     padding-top: 68px;
-    color: $gray-15;
+    color: $text-color;
 }
 
 .article-inner {
     p {
-        color: $gray-15;
-        letter-spacing: 0.1px;
+        color: $text-color;
+        letter-spacing: $general-letter-space;
     }
     .title-row {
         margin-bottom: rem(24px);
         h1 {
             font-weight: $font-weight-bold;
+            @include mq($max-width: $screen-sm-min) { 
+                font-size: $font-size-xlarger;
+            }
         }
         .topic-name {
           color: $primary-color;
