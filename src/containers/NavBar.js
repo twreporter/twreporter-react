@@ -8,8 +8,6 @@ import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
 
-
-
 class NavBar extends Component {
   constructor(props) {
     super(props)
@@ -95,7 +93,7 @@ class NavBar extends Component {
     const { height } = this.state
     const { header } = this.props
     const percent = header.readPercent || 0
-    
+
     let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) ? <HeaderProgress percent={percent}/> : null
 
     return (
