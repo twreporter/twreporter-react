@@ -1,5 +1,6 @@
 'use strict'
 
+export * from './article-styles'
 export * from './action-types'
 export * from './footer'
 export * from './strings'
@@ -87,8 +88,6 @@ export const ARTICLE = 'ARTICLE'
 export const PHOTOGRAPHY = 'PHOTOGRAPHY'
 
 export const PHOTOGRAPHY_ARTICLE = 'PHOTOGRAPHY_ARTICLE'
-
-export const PHOTOGRAPHY_ARTICLE_STYLE = 'photography'
 
 export const HOME = 'HOME'
 

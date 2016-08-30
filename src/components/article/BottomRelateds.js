@@ -1,8 +1,8 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import _ from 'lodash'
-import { CHARACTERS_LIMIT, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
-import { Link } from 'react-router'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
+import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -70,9 +70,9 @@ export class BottomRelateds extends Component {
       const description = _.get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
 
-      return (  
+      return (
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
-          <Link className={styles.relatedAnchor} to={'/a/' + related.slug}>
+          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} disableReactRouter={_.get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
                 <LazyLoad>

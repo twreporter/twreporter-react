@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { LINK_PREFIX, subnavPath } from '../../constants/index'
-import { Link } from 'react-router'
+import Link from '../Link'
 import { getTopicId } from '../../utils/get-list-id'
 
 const styles = require('./SubNavBar.scss')

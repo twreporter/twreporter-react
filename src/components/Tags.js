@@ -5,7 +5,8 @@ import classNames from 'classnames'
 import Category from './Category'
 import More from '../components/More'
 import _ from 'lodash'
-import { Link } from 'react-router'
+import Link from './Link'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
 
@@ -54,7 +55,7 @@ export default class Tags extends Component {
                 if (image) {
                   return (
                     <li className="tag-item" key={a.id} style={bgStyle}>
-                      <Link to={url}>
+                      <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
                         <div className="itemimage-wrap">
                           <img className="category-itemimage" src={image}/>
                         </div>

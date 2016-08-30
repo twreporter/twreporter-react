@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
-import { Link } from 'react-router'
+import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
