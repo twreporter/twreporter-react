@@ -103,6 +103,11 @@
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
     display: inline-block;
+
+    min-width: 480px;
+    @media (min-width: $screen-lg-min) {
+        min-width: 650px;
+    }
 }
 
 .articleTitleText {

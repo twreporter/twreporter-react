@@ -61,7 +61,7 @@ export const copyrightTypes = {
   }
 }
 
-export const DEFAULT_HEADER_HEIGHT = 80
+export const DEFAULT_HEADER_HEIGHT = 70
 
 export const CHARACTERS_LIMIT = {
   TOPIC_DESC: 112,
