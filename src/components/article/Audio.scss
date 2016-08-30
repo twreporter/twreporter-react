@@ -70,7 +70,7 @@
       bottom: 0;
       font-size: rem(15px);
       color: $white;
-      background-color: $gray-15;
+      background-color: $text-color;
       text-align: center;
     }
   }
@@ -81,7 +81,7 @@
 
     h4 {
       font-size: rem(20px);
-      color: $gray-15;
+      color: $text-color;
       line-height: 1.5;
       font-weight: $font-weight-bold;
       margin-bottom: rem(24px);

@@ -19,7 +19,8 @@ $red: $harley-davidson-orange;
 
   span {
     font-size: $font-size-base;
-    line-height: 1.7;
+    line-height: 1.8;
+    letter-spacing: $general-letter-space;
     font-weight: $font-weight-normal;
   } 
 
@@ -57,7 +58,7 @@ $red: $harley-davidson-orange;
     h3, h4 {
       font-size: rem(20px);
       line-height: 1.5;
-      color: $gray-15;
+      color: $text-color;
       margin-top: 0;
     }
 
