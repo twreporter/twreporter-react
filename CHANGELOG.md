@@ -1,3 +1,7 @@
+### 1.0.14
+- Replace __DEVELOPMENT__ by global.__DEVELOPMENT__
+- Fix the version of bootstrap-loader
+
 ### 1.0.13
 - set maxwidth for the lazy-loaded images 
 - Fix OrderedList and UnorderedList component 

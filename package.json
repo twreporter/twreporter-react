@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build-pkg": "gulp build-packages",
