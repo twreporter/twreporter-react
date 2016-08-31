@@ -126,7 +126,7 @@ class Slideshow extends Component {
         className={classNames(styles['ss-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}
         ref={i => this._slideshow = i}
       >
-        <LazyLoad offset={UI_SETTING.image.loadingOffset.placeholder}>
+        <LazyLoad offset={UI_SETTING.image.loadingOffset.placeholder} once={true}>
           <div>
             <div
               className={styles['ss-slides']}
