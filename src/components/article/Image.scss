@@ -2,10 +2,14 @@
 @import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
+@import '../../themes/animation.scss';
 
 // mobile
 .image-box {
   position: relative;
+  figure > img {
+    @include fade-in(0.5s);
+  }
 }
 
 .img-absolute {
@@ -19,14 +23,15 @@
 .img-placeholder-outer {
   @extend .img-absolute;
   overflow: hidden;
+  img {
+    @include fade-in(0.2s);
+  }
 }
 
 .img-placeholder {
   filter: blur(50px);
 }
 
-.img-description {
-}
 
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {

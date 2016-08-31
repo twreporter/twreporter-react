@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
-import LazyLoad from 'react-lazy-load'
+import LazyLoad from 'react-lazyload'
 import Navigation from  './navigation'
 import Slides from './slides'
 import Thumbnails from './thumbnails'
@@ -126,7 +126,7 @@ class Slideshow extends Component {
         className={classNames(styles['ss-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}
         ref={i => this._slideshow = i}
       >
-        <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}>
+        <LazyLoad offset={UI_SETTING.image.loadingOffset.placeholder}>
           <div>
             <div
               className={styles['ss-slides']}

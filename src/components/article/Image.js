@@ -9,7 +9,7 @@ import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import LazyLoad from 'react-lazy-load'
+import LazyLoad from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
 
@@ -23,9 +23,7 @@ class Image extends FitwidthMixin(Component) {
     this.state = {
       isMounted: false,
       screenType: 'MOBILE',
-      width: DEFAULT_WIDTH,
-      placeholderOpacity: 0,
-      imageOpacity: 0
+      width: DEFAULT_WIDTH
     }
 
     this.fitToParentWidth = this.fitToParentWidth.bind(this)
@@ -50,9 +48,8 @@ class Image extends FitwidthMixin(Component) {
     if (imageUrl) {
       return (
         <div className={styles['img-placeholder-outer']}
-            style={ { ...imgStyle, opacity: this.state.placeholderOpacity } }>
-          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.placeholder}
-            onContentVisible={() => this.setState({ placeholderOpacity: 1 })}>
+            style={ { ...imgStyle } }>
+          <LazyLoad offset={UI_SETTING.image.loadingOffset.placeholder} once>
             <img src={ replaceStorageUrlPrefix(imageUrl) } className={classNames(styles['img-placeholder'])} style={imgStyle} />
           </LazyLoad>
         </div>
@@ -65,10 +62,9 @@ class Image extends FitwidthMixin(Component) {
     if (_.get(imageObj, 'url')) {
       return (
         <figure>
-          <LazyLoad offsetTop={UI_SETTING.image.loadingOffset.image}
-              onContentVisible={() => this.setState({ imageOpacity: 1 })}>
+          <LazyLoad offset={UI_SETTING.image.loadingOffset.image} once>
             <img src={ replaceStorageUrlPrefix(imageObj.url) }
-              style={ { ...imgStyle, opacity: this.state.imageOpacity } }
+              style={ { ...imgStyle } }
               className={classNames(styles['img-absolute'])}
             />
           </LazyLoad>

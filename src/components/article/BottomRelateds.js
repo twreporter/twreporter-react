@@ -6,7 +6,7 @@ import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
-import LazyLoad from 'react-lazy-load'
+import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
 
