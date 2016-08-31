@@ -9,6 +9,7 @@ import { getScreenType } from '../../utils/index'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import Range from 'react-range'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
@@ -80,6 +81,10 @@ class ImageDiff extends FitwidthMixin(Component) {
       ...outerStyle,
       height: boxHeight
     }
+    let rangeStyle = {
+      width: boxWidth,
+      height: boxHeight*0.7
+    }
 
     if(onhovered) {
       buttonClass = styles.hovered
@@ -111,11 +116,17 @@ class ImageDiff extends FitwidthMixin(Component) {
             </div>
             <img src="/asset/slider-button.svg"
               className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
-            <input type="range" min="0" max="100" className={styles.rangeInput} style={imgStyle}
-              value={percentage} onChange={ (event)=>{
+            <Range
+              className={styles.rangeInput} style={rangeStyle}
+              onChange={ (event)=>{
                 this.setState({ percentage: parseInt(event.target.value) })} }
                 onMouseOver={()=>{this.setState({ onhovered: true })}}
-                onMouseOut={()=>{this.setState({ onhovered: false })}}/>
+                onMouseOut={()=>{this.setState({ onhovered: false })}
+              }
+              type="range"
+              value={50}
+              min={0}
+              max={100} />
           </figure>
         </div>
         {descriptionBox}
