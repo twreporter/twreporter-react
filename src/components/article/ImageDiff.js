@@ -9,7 +9,7 @@ import { getScreenType } from '../../utils/index'
 import MediaQuery from 'react-responsive'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Range from 'react-range'
+import Slider from 'rc-slider'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
@@ -116,17 +116,20 @@ class ImageDiff extends FitwidthMixin(Component) {
             </div>
             <img src="/asset/slider-button.svg"
               className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
-            <Range
-              className={styles.rangeInput} style={rangeStyle}
-              onChange={ (event)=>{
-                this.setState({ percentage: parseInt(event.target.value) })} }
-                onMouseOver={()=>{this.setState({ onhovered: true })}}
-                onMouseOut={()=>{this.setState({ onhovered: false })}
-              }
-              type="range"
-              value={50}
-              min={0}
-              max={100} />
+            <div style={rangeStyle}>
+              <Slider
+                className={styles.rangeInput}
+                onChange={ (value)=>{
+                  this.setState({ percentage: parseInt(value) })} }
+                  onMouseOver={()=>{this.setState({ onhovered: true })}}
+                  onMouseOut={()=>{this.setState({ onhovered: false })}
+                }
+                value={50}
+                min={0}
+                max={100} 
+                tipFormatter={null}
+                />
+            </div>
           </figure>
         </div>
         {descriptionBox}
