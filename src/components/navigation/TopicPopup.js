@@ -20,7 +20,7 @@ const Topic = (props) => {
   const topic = <div className={classNames(styles['topic'], currentClass)}>
           <div className={styles['img-outer']}>
             <div className={styles['img-box']}>
-              <LazyLoad>
+              <LazyLoad once={true}>
                 <img className={styles['crop']} src={heroImgUrl}/>
               </LazyLoad>
             </div>

@@ -75,7 +75,7 @@ export class BottomRelateds extends Component {
           <Link className={styles.relatedAnchor} to={'/a/' + related.slug} disableReactRouter={_.get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
-                <LazyLoad>
+                <LazyLoad once={true}>
                   <img className={styles['crop']} src={imageUrl} />
                 </LazyLoad>
               </div>
