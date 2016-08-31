@@ -179,9 +179,7 @@ server.get('*', async function (req, res) {
                   <meta name="twitter:description" content="" data-rdm/>
                   <meta name="theme-color" content="#E30B20">
                   <link rel="canonical" href=${canonical} data-rdm/>
-                  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/a/rss2.xml" />
-                  <!-- reset css for cross browser-->
-                  <link rel="stylesheet" async type="text/css" href="https://www.twreporter.org/asset/reset.css">
+                  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
                   <!-- debug usage -->
                   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
                   <link href="/asset/favicon.png"  rel="shortcut icon" />
