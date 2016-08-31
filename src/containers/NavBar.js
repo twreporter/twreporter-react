@@ -66,6 +66,7 @@ class NavBar extends Component {
 
   shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
     if(nextState.height !== this.state.height ||
+       nextProps.header.pageType !== this.props.header.pageType ||
        nextProps.header.readPercent !== this.props.header.readPercent ||
        nextState.isScrolledOver !== this.state.isScrolledOver) {
       return true
