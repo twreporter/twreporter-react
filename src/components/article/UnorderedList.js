@@ -6,10 +6,15 @@ import styles from './UnorderedList.scss'
 import React from 'react' // eslint-disable-next-line
 
 export const UnorderedList = ({ content }) => {
-  const cList = _.get(content, 0, null)
-
-  if(!Array.isArray(cList)) {
+  if(!Array.isArray(content)) {
     return null
+  }
+
+  // TODO cList = content directly.
+  // Right now it's a workaround here
+  let cList = _.get(content, 0)
+  if (!Array.isArray(cList)) {
+    cList = content
   }
 
   let bArr = []
