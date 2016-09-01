@@ -4,6 +4,8 @@
 
 .topnews ul {
 	margin-bottom: 135px;
+	list-style: none;
+    padding-left: 0;
 }
 
 .topnews ul li {

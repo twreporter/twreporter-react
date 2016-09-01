@@ -8,7 +8,7 @@
 .image-box {
   position: relative;
   figure > img {
-    @include fade-in(0.5s);
+    @include fade-in(0.3s);
   }
 }
 
@@ -17,7 +17,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  transition: opacity 1s linear;
+  transition: opacity 0.5s linear;
 }
 
 .img-placeholder-outer {

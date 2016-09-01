@@ -55,6 +55,8 @@ $red: $harley-davidson-orange;
   transition: background-color 0.3s ease-in;
 
   .items {
+    list-style: none;
+    padding-left: 0;
     @media (min-width: $screen-md-min) {
       display: inline-block;
       padding: 8px;
