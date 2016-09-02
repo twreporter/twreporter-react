@@ -35,7 +35,9 @@ const proxy = httpProxy.createProxyServer({
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
-server.use(Express.static(path.join(__dirname, '../static')))
+
+const oneDay = 86400000
+server.use(Express.static(path.join(__dirname, '../static')), { maxAge: oneDay })
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')

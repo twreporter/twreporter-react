@@ -2,8 +2,9 @@
 'use strict'
 import _ from 'lodash'
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
-import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
+import { replaceStorageUrlPrefix } from '../../utils/index'
+import Link from '../Link'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import LazyLoad from 'react-lazyload'
@@ -66,7 +67,7 @@ export class BottomRelateds extends Component {
     listItems = _.filter(listItems, (related) => { return related.id!==currentId })
 
     const relatedRows = _.map(listItems, (related, index) => {
-      let imageUrl = _.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')
+      let imageUrl = replaceStorageUrlPrefix(_.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
       const description = _.get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
 
