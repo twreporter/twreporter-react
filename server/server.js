@@ -138,8 +138,10 @@ server.get('*', async function (req, res) {
             title = _.get(currentArticle, 'title', title)
             desc = _.get(currentArticle, 'ogDescription', desc)
             ogType = 'article'
-            if (currentArticle['heroImage']) {
-              ogImage = _.get(currentArticle, 'heroImage.image.url', '')
+            if (currentArticle['ogImage']) {
+              ogImage = _.get(currentArticle, 'ogImage.image.url', 'image.resizedTargets.desktop.url')
+            } else if (currentArticle['heroImage']) {
+              ogImage = _.get(currentArticle, 'heroImage.image.url', 'image.resizedTargets.desktop.url')
             }
           } else {
             res.status(500).render('500')
