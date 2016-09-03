@@ -324,8 +324,8 @@ class Article extends Component {
       auto: { ograph: true }
     }
 
-    if (_.get(heroImage, [ 'image', 'url' ])) {
-      _.set(meta, [ 'meta', 'property', 'og:image' ], _.get(heroImage, [ 'image', 'url' ]))
+    if (_.get(article, [ 'ogImage' ], null)) {
+      _.set(meta, [ 'meta', 'property', 'og:image' ], _.get(article, 'ogImage.image.resizedTargets.desktop.url', ''))
     }
 
     return (

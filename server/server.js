@@ -128,13 +128,13 @@ server.get('*', async function (req, res) {
         let pageState = store.getState()
         let ogImage = SITE_META.LOGO
         let title = SITE_NAME.FULL
-        let canonical = SITE_META.URL
+        let canonical = SITE_META.URL_NO_SLASH
         let desc = SITE_META.DESC
         let ogType = 'website'
         if (pageState['selectedArticle']['id']) {
           let currentArticle = _.get(pageState, [ 'entities', 'articles', _.get(pageState, 'selectedArticle.id') ], null)
           if (currentArticle) {
-            canonical = SITE_META.URL + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug', '')
+            canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug', '')
             title = _.get(currentArticle, 'title', title)
             desc = _.get(currentArticle, 'ogDescription', desc)
             ogType = 'article'
@@ -169,12 +169,10 @@ server.get('*', async function (req, res) {
                   <meta name="description" content="${desc}" data-rdm/>
                   <meta property="og:rich_attachment" content="true"/>
                   <meta property="og:type" content="${ogType}"/>
+                  <meta property="og:url" content="${canonical}"/>
                   <meta property="og:title" content="${title}" data-rdm/>
                   <meta property="og:site_name" content="${SITE_NAME.SHORT}"/>
-                  <meta property="og:image" content="${ogImage}" data-rdm/>
-                  <meta property="og:image:type" content="image/png"/>
-                  <meta property="og:image:width" content="960"/>
-                  <meta property="og:image:height" content="720"/>
+                  <meta property="og:image" content="${ogImage}"/>
                   <meta name="twitter:card" content="summary_large_image"/>
                   <meta name="twitter:image" content="${ogImage}"/>
                   <meta name="twitter:title" content="${title}" data-rdm/>
