@@ -161,24 +161,24 @@ server.get('*', async function (req, res) {
                   <title>${title}</title>
                   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
                   <meta http-equiv="Cache-control" content="public">
-                  <meta name='viewport' content='width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1'/>
+                  <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1"/>
                   <meta name="apple-mobile-web-app-capable" content="yes"/>
-                  <meta name="keywords" content=${SITE_META.KEYWORDS}/>
-                  <meta name="description" content=${desc} data-rdm/>
+                  <meta name="keywords" content="${SITE_META.KEYWORDS}"/>
+                  <meta name="description" content="${desc}" data-rdm/>
                   <meta property="og:rich_attachment" content="true"/>
-                  <meta property="og:type" content=${ogType}/>
-                  <meta property="og:title" content=${title} data-rdm/>
-                  <meta property="og:site_name" content=${SITE_NAME.SHORT}/>
-                  <meta property="og:image" content=${ogImage} data-rdm/>
-                  <meta property="og:image:type" content="image/png" />
-                  <meta property="og:image:width" content="960" />
-                  <meta property="og:image:height" content="720" />
-                  <meta name="twitter:card" content="summary_large_image" />
-                  <meta name="twitter:image" content=${ogImage} />
-                  <meta name="twitter:title" content=${title} data-rdm/>
+                  <meta property="og:type" content="${ogType}"/>
+                  <meta property="og:title" content="${title}" data-rdm/>
+                  <meta property="og:site_name" content="${SITE_NAME.SHORT}"/>
+                  <meta property="og:image" content="${ogImage}" data-rdm/>
+                  <meta property="og:image:type" content="image/png"/>
+                  <meta property="og:image:width" content="960"/>
+                  <meta property="og:image:height" content="720"/>
+                  <meta name="twitter:card" content="summary_large_image"/>
+                  <meta name="twitter:image" content="${ogImage}"/>
+                  <meta name="twitter:title" content="${title}" data-rdm/>
                   <meta name="twitter:description" content="" data-rdm/>
                   <meta name="theme-color" content="#E30B20">
-                  <link rel="canonical" href=${canonical} data-rdm/>
+                  <link rel="canonical" href="${canonical}" data-rdm/>
                   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
                   <!-- debug usage -->
                   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
