@@ -117,7 +117,14 @@ export default class FeaturesItem extends Component {
     const { article, image } = this.props
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
     let url = '/a/' + article.slug
-    let catDisplay = '專題'
+    let catDisplay
+    let cats = _.get(article, 'categories', [])
+    for (let i = 0; i < cats.length; i++) {
+      catDisplay = _.get(cats, [ i, 'name' ])
+      if (catDisplay) {
+        break
+      }
+    }
     let excerpt = _.get(article, 'ogDescription', '')
 
     return (
