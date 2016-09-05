@@ -1,6 +1,7 @@
 /*eslint no-console: 0*/
 /*global __DEVELOPMENT__ webpackIsomorphicTools */
 import 'babel-polyfill'
+import Compression from 'compression'
 import Express from 'express'
 import path from 'path'
 
@@ -33,6 +34,7 @@ const proxy = httpProxy.createProxyServer({
 
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
+server.use(Compression())
 
 const oneDay = 86400000
 server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
