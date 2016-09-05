@@ -37,10 +37,12 @@ server.set('view engine', 'ejs')
 server.use(Compression())
 
 const oneDay = 86400000
-server.use(Express.static(path.join(__dirname, '../static')), { maxAge: oneDay })
+server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
+server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay }))
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Cache-Control', 'public, max-age=900')
   next()
 })
 
