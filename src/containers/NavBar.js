@@ -18,7 +18,7 @@ class NavBar extends Component {
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this.debouncedScroll = _.debounce(() => { this._handleScroll() }, 100, { 'maxWait': 300 })
+    this.debouncedScroll = _.debounce(() => { this._handleScroll() }, 50, { 'maxWait': 150 })
     this.getDebouncedHeight = _.debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
   }
 
