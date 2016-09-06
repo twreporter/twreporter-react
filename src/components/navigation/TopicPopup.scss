@@ -160,6 +160,7 @@
     margin: 10px;
     position: relative;
     background-color: $gray-border-color;
+    @include fade-in(0.2s);
 
     @media (max-width: $screen-xs-min) {
       width: rem(48px);

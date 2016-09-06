@@ -18,19 +18,21 @@ class NavBar extends Component {
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    this.debouncedScroll = _.debounce(() => { this._handleScroll() }, 100, { 'maxWait': 300 })
+    this.getDebouncedHeight = _.debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
   }
 
   componentDidMount() {
     this._getHeaderHeight()
-    window.addEventListener('resize', this._getHeaderHeight)
+    window.addEventListener('resize', this.getDebouncedHeight)
 
     // detect sroll position
-    window.addEventListener('scroll', this._handleScroll)
+    window.addEventListener('scroll', this.debouncedScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._getHeaderHeight)
-    window.removeEventListener('scroll', this._handleScroll)
+    window.removeEventListener('resize', this.getDebouncedHeight)
+    window.removeEventListener('scroll', this.debouncedScroll)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,9 +50,10 @@ class NavBar extends Component {
 
   _handleScroll() {
     const scrollPos = window.scrollY
-    if(scrollPos > this.state.height && !this.state.isScrolledOver) {
+    const sThreshold = this.state.height / 2
+    if(scrollPos > sThreshold && !this.state.isScrolledOver) {
       this.setState({ isScrolledOver: true })
-    } else if(scrollPos <= this.state.height && this.state.isScrolledOver) {
+    } else if(scrollPos <= sThreshold && this.state.isScrolledOver) {
       this.setState({ isScrolledOver: false })
     }
   }
