@@ -12,7 +12,9 @@
 }
 
 .article-inner {
-    p {
+    p, 
+    a:link,
+    a:visited {
         color: $text-color;
         letter-spacing: $general-letter-space;
     }

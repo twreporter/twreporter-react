@@ -1,6 +1,7 @@
 'use strict'
 import { connect } from 'react-redux'
 import { SITE_META, SITE_NAME, SEARCH_RESULTS_TEXT } from '../constants/index'
+import { googleSearchId } from '../conf/service'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -15,7 +16,7 @@ class Search extends Component {
 
   componentDidMount() {
     // display search results
-    let cx = '013371828254368986439:_ega685nikw'
+    let cx = googleSearchId
     let gcse = document.createElement('script')
     gcse.type = 'text/javascript'
     gcse.async = true
