@@ -113,5 +113,7 @@
     width: auto;
     max-width: rem(150px);
     max-height: rem(150px);
+    @include fade-in(0.2s);
+    transform: translateZ(0);
   }
 }
