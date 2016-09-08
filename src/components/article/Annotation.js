@@ -65,16 +65,15 @@ export const Annotation = ({ content }) => {
   let html = _.get(content, 0, '')
 
   // annotation data will be in the comment with prefix __ANNOTATION__=
-  let re = /<!--__ANNOTATION__=(.+?)-->/g
+  let re = /<!--__ANNOTATION__=(.+?)-->/
 
   let sections = []
   let result
-  let lastIndex = 0
   do {
     result = re.exec(html)
     if (result) {
       try {
-        let inlineText = html.substring(lastIndex, result.index)
+        let inlineText = html.substring(0, result.index)
         let annotationObj = JSON.parse(result[1])
         sections.push(
           <span key={sections.length}
@@ -85,9 +84,7 @@ export const Annotation = ({ content }) => {
             {...annotationObj}
           />
         )
-        html = html.replace(inlineText, '')
-        html = html.replace(result[0], '')
-        lastIndex = result.index
+        html = html.substr(result.index + _.get(result, [ 0, 'length' ]))
       } catch(e) {
         console.warn('Can not JSON parse annotation obj string', _.get(result, 1)) // eslint-disable-line
       }
