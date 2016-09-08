@@ -317,7 +317,7 @@ class Article extends Component {
     let subtitleBlock = subtitle ? <span className={styles['subtitle']}>{subtitle}</span> : null
 
     const meta = {
-      title: _.get(article, [ 'title' ], SITE_NAME.FULL),
+      title: _.get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT,
       description: _.get(article, [ 'ogDescription' ], SITE_META.DESC),
       canonical: SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], ''),
       meta: { property: {} },

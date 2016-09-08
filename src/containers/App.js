@@ -4,7 +4,7 @@ import { PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, SITE_NAME } from '../constants/index'
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import DocumentTitle from 'react-document-title'
+import DocumentMeta from 'react-document-meta'
 import NavBar from '../containers/NavBar'
 import React, { Component } from 'react'
 import classNames from 'classnames'
@@ -35,8 +35,12 @@ class App extends Component {
   render() {
     const pathname = this.props.location.pathname
     let pageType = _.get(this.props, [ 'header', 'pageType' ])
+    const meta = {
+      title: SITE_NAME.FULL
+    }
+
     return (
-      <DocumentTitle title={SITE_NAME.FULL}>
+      <DocumentMeta {...meta}>
         <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
           <div className={classNames(styles.app, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE || pageType === PHOTOGRAPHY })}>
             <NavBar
@@ -45,7 +49,7 @@ class App extends Component {
             {this.props.children}
           </div>
         </IntlProvider>
-      </DocumentTitle>
+      </DocumentMeta>
     )
   }
 }
