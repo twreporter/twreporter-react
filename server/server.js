@@ -138,8 +138,9 @@ server.get('*', async function (req, res) {
         if (pageState['selectedArticle']['id']) {
           let currentArticle = _.get(pageState, [ 'entities', 'articles', _.get(pageState, 'selectedArticle.id') ], null)
           if (currentArticle) {
+            // if this page is an article
             canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug', '')
-            title = _.get(currentArticle, 'title', title)
+            title = _.get(currentArticle, 'title', title) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT
             desc = _.get(currentArticle, 'ogDescription', desc)
             ogType = 'article'
             if (currentArticle['ogImage']) {

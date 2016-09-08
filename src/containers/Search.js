@@ -27,7 +27,7 @@ class Search extends Component {
 
   render() {
     const meta = {
-      title: SITE_NAME.SEPARATOR + SITE_NAME.FUL,
+      title: SEARCH_RESULTS_TEXT + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
       description: SITE_META.DESC,
       canonical: `${SITE_META.URL}search/`,
       meta: { property: {} },
