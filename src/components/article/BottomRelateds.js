@@ -30,27 +30,6 @@ export class BottomRelateds extends Component {
     return { __html: html }
   }
 
-  _handleResize() {
-    let totalWidth = this.totalWidth || 0
-    let wrapperWidth = this.state.width
-    let winWidth = window.innerWidth
-
-    if (winWidth > 767 && winWidth < totalWidth && wrapperWidth === 'auto') {
-      this.setState({ width: totalWidth })
-    } else if (wrapperWidth !== 'auto') {
-      this.setState({ width: 'auto' })
-    }
-  }
-
-  componentDidMount() {
-    this._handleResize()
-    window.addEventListener('resize', this._handleResize.bind(this))
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._handleResize.bind(this))
-  }
-
   render() {
     const { relateds, topicName, topicArr, currentId } = this.props
     const { isCollapse } = this.state

@@ -227,8 +227,7 @@ class Audio extends React.Component {
             </div>
             <div style={{ display: 'inline-block' }}>
               <h4>{title}</h4>
-              <span className={commonStyles['desc-text-block']}>{getMinSecStr(seek)} / </span>
-              <span className={commonStyles['desc-text-block']}>{getMinSecStr(duration)}</span>
+              <span className={styles['audio-time-block']}>{getMinSecStr(seek)} / {getMinSecStr(duration)}</span>
             </div>
             <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
           </div>
