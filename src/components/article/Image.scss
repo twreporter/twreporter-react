@@ -9,6 +9,7 @@
   position: relative;
   figure > img {
     @include fade-in(0.3s);
+    transform: translateZ(0);
   }
 }
 
@@ -25,6 +26,7 @@
   overflow: hidden;
   img {
     @include fade-in(0.2s);
+    transform: translateZ(0);
   }
 }
 

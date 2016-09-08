@@ -178,6 +178,7 @@
       width: auto;
       max-width: rem(150px);
       max-height: rem(150px);
+      transform: translateZ(0);
 
       @media (max-width: $screen-xs-min) {
         width: rem(96px);

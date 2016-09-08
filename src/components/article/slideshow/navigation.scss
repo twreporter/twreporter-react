@@ -6,28 +6,48 @@
   cursor: pointer;
   position: absolute;
   transition: all .2s ease-out;
-  width: rem(18px);
+  width: rem(25px);
   margin: auto;
 }
 
 .ss-left-nav {
   @extend .ss-nav;
-  left: 0;
+  left: rem(3px);
   top: 0;
   bottom: 0;
+  transition: all .2s ease;
+  padding-right: rem(5px);
+
+  &:hover {
+    left: 0;
+  }
 
   &.disabled {
     cursor: auto;
+
+    &:hover {
+      left: rem(3px);
+    }
   }
 }
 
 .ss-right-nav {
   @extend .ss-nav;
-  right: 0;
+  right: rem(3px);
   top: 0;
   bottom: 0;
+  transition: all .2s ease;
+  padding-left: rem(5px);
+
+  &:hover {
+    right: 0;
+  }
 
   &.disabled {
     cursor: auto;
+
+    &:hover {
+      right: rem(3px);
+    }
   }
 }
