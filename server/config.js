@@ -15,6 +15,6 @@ module.exports = Object.assign({
   apiPort: parseInt(process.env.APIPORT) || 3030,
   app: {
     title: '報導者The Reporter',
-    description: '報導者致力於具有手作質感的深度報導，並勇於探索網路新工具與呈現方式，重視網路的公共性與開放性，結合各種進步價值與公民力量。'
+    description: '《報導者》是由「財團法人報導者文化基金會」成立的非營利網路媒體，致力於公共領域的深度報導及調查報導，為讀者持續追蹤各項重要議題。我們秉持開放參與的精神，結合各種進步價值與公民力量，共同打造多元進步的社會與媒體環境。'
   }
 }, environment)
