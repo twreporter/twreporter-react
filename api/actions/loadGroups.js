@@ -3,11 +3,12 @@ import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
 
+const { API_HOST, API_PATH, API_PORT, API_PROTOCOL } = config
+
 function loadGroups(req, path) {
   return new Promise((resolve, reject) => {
     const query = req.query
-    const { API_PROTOCOL, API_PORT, API_HOST } = config
-    const url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/${path}`
+    const url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}${API_PATH}${path}`
 
     superAgent['get'](url)
     .timeout(constants.timeout)
