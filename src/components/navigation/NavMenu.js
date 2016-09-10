@@ -116,7 +116,8 @@ export default class NavMenu extends Component {
           <div className={styles.seoHidden}>{navLinks}</div>
         </div>
         <div className={styles.navRight}>
-          <Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>
+          {/*<Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>*/}
+          <SearchBox />
         </div>
         {subNavBar}
       </div>
@@ -151,6 +152,7 @@ export default class NavMenu extends Component {
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
           {topicButton}
+          <Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>
         </div>
       </div>
     )
@@ -171,6 +173,7 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
+          <Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>
         </div>
       </div>
     )
@@ -195,6 +198,7 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
+          <SearchBox />
         </div>
       </div>
     )
@@ -228,7 +232,6 @@ export default class NavMenu extends Component {
     let burgerIconClass = styles.navIcon
     let navOuterClass = ''
     let subNavBar = null
-    let searchClass = ''
     let topicPopup = null
 
     // generate category navigation bar
@@ -257,8 +260,6 @@ export default class NavMenu extends Component {
 
       // change the color of the navbar
       navOuterClass = navCommonStyles['nav-scrolled-outer']
-    } else {
-      searchClass = 'hidden'
     }
 
     let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
@@ -277,10 +278,6 @@ export default class NavMenu extends Component {
     }
 
     let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
-    let searchBox =
-      <div className={classNames(styles.topBar, searchClass)}>
-        <SearchBox style={{ width: '260px', marginTop: '-5px', display: 'inline-block' }} path={path} />
-      </div>
 
     // if the page has been scrolled down, show another menu
     if (isScrolledOver && (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE)) {
@@ -307,7 +304,6 @@ export default class NavMenu extends Component {
       <div style={{ backgroundColor: backgroundColor }}>
         <div className={classNames(navCommonStyles['nav-menu'], navOuterClass, photographyClass)} style={{ backgroundColor: navTopBackground }}>
           {menuBar}
-          {searchBox}
           {subNavBar}
         </div>
         {topicPopup}

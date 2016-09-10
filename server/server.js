@@ -16,7 +16,6 @@ import httpProxy from 'http-proxy'
 
 import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
-import { googleSearchId } from '../src/conf/service'
 
 import { Provider } from 'react-redux'
 import config from './config'
@@ -194,17 +193,6 @@ server.get('*', async function (req, res) {
                 <div id="root">${html}</div>
                 <!-- Load Intl Polyfill -->
                 <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
-                <script async type="text/javascript" charset="utf-8">
-                  (function() {
-                    var cx = '${googleSearchId}';
-                    var gcse = document.createElement('script');
-                    gcse.type = 'text/javascript';
-                    gcse.async = true;
-                    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(gcse, s);
-                  })();
-                </script>
                   <!-- Google Tag Manager -->
                   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
                           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

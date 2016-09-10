@@ -1,0 +1,38 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/animation.scss';
+
+// tablet & desktop & desktopHD
+.search-box-container {
+  position: absolute;
+  right: 2.6rem;
+
+  img {
+    width: 26px;
+  }
+
+  .search-form {
+    display: inline-block;
+    padding-left: rem(20px);
+    @include fade-in(0.5s)
+  }
+
+  .search-input {
+    background-color: $light-gray;
+    border: none;
+    cursor: pointer;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-normal;
+    outline: none;
+  }
+}
+
+
+// mobile
+@media (max-width: $screen-xs-max) {
+  .search-box-container {
+    right: 1rem;
+  }
+}

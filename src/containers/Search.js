@@ -38,11 +38,6 @@ class Search extends Component {
       <DocumentMeta {...meta}>
         <div className={styles['container']}>
           <div className="container">
-            <div className="top-title-outer text-center">
-              <h1 className="top-title">
-                { SEARCH_RESULTS_TEXT }
-              </h1>
-            </div>
             <div dangerouslySetInnerHTML={{ __html: '<gcse:searchbox-only></gcse:searchbox-only>' }} />
             <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults-only></gcse:searchresults-only>' }} />
           </div>
