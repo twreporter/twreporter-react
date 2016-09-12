@@ -4,13 +4,22 @@
 @import '../../themes/font-mixins.scss';
 @import '../../themes/animation.scss';
 
+$imgWidth: 26px;
+
+.expand {
+  padding-right: $imgWidth;
+}
+
 // tablet & desktop & desktopHD
 .search-box-container {
-  position: absolute;
-  right: 2.6rem;
+
+  &.expand {
+    position: absolute;
+    right: 2.6rem;
+  }
 
   img {
-    width: 26px;
+    width: $imgWidth;
   }
 
   .search-form {

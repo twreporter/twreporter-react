@@ -1,7 +1,11 @@
 'use strict'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import searchIcon from '../../../static/asset/search.svg'
 import styles from './SearchBox.scss'
+
+const SEARCH_PATH = 'search'
 
 class SearchInput extends Component {
   constructor(props) {
@@ -25,7 +29,7 @@ class SearchInput extends Component {
 
   _handleSubmit(event) {
     event.preventDefault()
-    window.location=`/search?q=${this.state.input}`
+    window.location=`/${SEARCH_PATH}?q=${this.state.input}`
   }
 
   render() {
@@ -55,18 +59,23 @@ export default class SearchBox extends Component {
   }
 
   render() {
+    let expandClass = {
+      [styles.expand]: this.state.isToggled
+    }
     return (
-      <label className={styles['search-box-container']}>
-        <div className="visible-xs">
-          <a href="/search">
-            <img src={searchIcon}/>
-          </a>
-        </div>
-        <div className="hidden-xs">
-          <img src={searchIcon} onClick={this._handleToggle.bind(this, true)}/>
-          <SearchInput handleToggle={this._handleToggle.bind(this)} isToggled={this.state.isToggled}/>
-        </div>
-      </label>
+      <div className={classNames(expandClass)}>
+        <label className={classNames(styles['search-box-container'], expandClass)}>
+          <div className="visible-xs">
+            <Link to={`/${SEARCH_PATH}`}>
+              <img src={searchIcon}/>
+            </Link>
+          </div>
+          <div className="hidden-xs">
+            <img src={searchIcon} onClick={this._handleToggle.bind(this, true)}/>
+            <SearchInput handleToggle={this._handleToggle.bind(this)} isToggled={this.state.isToggled}/>
+          </div>
+        </label>
+      </div>
     )
   }
 }
