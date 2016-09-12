@@ -6,12 +6,11 @@ import config from '../config'
 import constants from '../constants'
 import querystring from 'qs'
 
-const { API_HOST, API_PROTOCOL, API_PORT, API_PATH } = config
-
 export function loadMetaOfArticles(req) {
   return new Promise((resolve, reject) => {
     const query = req.query
-    let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}${API_PATH}meta`
+    const { API_PROTOCOL, API_PORT, API_HOST } = config
+    let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/meta`
     superAgent['get'](url)
       .timeout(constants.timeout)
       .query(query)
@@ -28,7 +27,8 @@ export function loadMetaOfArticles(req) {
 export function loadArticles(req, params = []) {
   return new Promise((resolve, reject) => {
     const query = req.query
-    let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}${API_PATH}posts`
+    const { API_PROTOCOL, API_PORT, API_HOST } = config
+    let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
     let slug = typeof params[0] === 'string' ? params[0] : null
     url = slug ? `${url}/${slug}` : url
     superAgent['get'](url).timeout(constants.timeout)
@@ -55,7 +55,7 @@ export function loadArticles(req, params = []) {
         if(_.get(embedded, 'authorImages')) {
           const imgIds = _.uniq(writers)
           const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
-          const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}${API_PATH}images?${imgQuery}`
+          const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
 
           superAgent['get'](imgUrl).timeout(constants.timeout)
           .end(function (err, res) {
