@@ -4,12 +4,16 @@
 @import '../../themes/font-mixins.scss';
 @import '../../themes/animation.scss';
 
-// mobile
 .image-box {
   position: relative;
+  figure{
+    z-index: 100;
+  }
+
   figure > img {
     @include fade-in(0.3s);
     transform: translateZ(0);
+    background: $light-gray;
   }
 }
 
@@ -24,6 +28,7 @@
 .img-placeholder-outer {
   @extend .img-absolute;
   overflow: hidden;
+  z-index: -1;
   img {
     @include fade-in(0.2s);
     transform: translateZ(0);
