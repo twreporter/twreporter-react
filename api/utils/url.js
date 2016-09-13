@@ -1,4 +1,6 @@
 'use strict'
+import _ from 'lodash'
+
 export function mapUrl(availableActions = {}, url = []) {
   const notFound = { action: null, params: [] }
 
@@ -8,7 +10,7 @@ export function mapUrl(availableActions = {}, url = []) {
   }
   /*eslint-disable */
   const reducer = (prev, current) => {
-    if (prev.action && prev.action[current]) {
+    if (_.has(prev, [ 'action', current ])) {
       return {action: prev.action[current], params: []} // go deeper
     } else {
       if (typeof prev.action === 'function') {
