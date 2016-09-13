@@ -35,7 +35,8 @@
 }
 
 .photography {
-    h1, span {
+    h1,
+    span {
         color: $gray-97 !important;
     }
 }
@@ -79,7 +80,7 @@
 }
 
 .slidedUpNav {
-    > div {
+    >div {
         padding-top: 0.7rem;
         padding-bottom: 0.5rem;
     }
@@ -103,7 +104,6 @@
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
     display: inline-block;
-
     min-width: 480px;
     @media (min-width: $screen-lg-min) {
         min-width: 650px;
@@ -114,7 +114,7 @@
     @extend .titleText;
     transform: translateX(-50%);
     &.photography {
-      color: #F7F7F7 !important;
+        color: #F7F7F7 !important;
     }
 }
 
@@ -122,7 +122,7 @@
     @extend .titleText;
     transform: translateX(-45%);
     &.photography {
-      color: #F7F7F7 !important;
+        color: #F7F7F7 !important;
     }
 }
 
@@ -216,8 +216,16 @@
 
 .logoRight {
     height: rem(30px);
+    margin-left: rem(10px);
+    @media (min-width: $screen-md-min) {
+        margin-left: rem(15px);
+    }
     img {
         height: rem(30px);
+        transition: transform 0.3s ease;
+    }
+    &:hover img {
+        transform: translateY(-10%);
     }
 }
 
@@ -231,7 +239,7 @@
     @media (max-width: $screen-xs-max) {
         display: none;
     }
-    > * {
+    >* {
         display: table-cell;
         vertical-align: middle;
     }
