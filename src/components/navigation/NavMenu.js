@@ -133,7 +133,7 @@ export default class NavMenu extends Component {
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
     let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
-    let topicButton = pageTopic ? <div className={navItemClass} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
+    let topicButton = pageTopic ? <div className={classNames(navItemClass, styles['topic-dots'])} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
             <img src={tocIcon} /> {topicCnt}
           </div> : null
 

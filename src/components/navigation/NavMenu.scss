@@ -296,6 +296,12 @@
             margin-top: -10%;
         }
     }
+    
+    &.topic-dots {
+      float: none;
+      margin-right: 1rem;
+    }
+
     .topic-count {
         position: absolute;
         top: rem(-5px);

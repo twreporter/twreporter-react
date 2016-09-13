@@ -1,5 +1,4 @@
 'use strict'
-import { Link } from 'react-router'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import searchIcon from '../../../static/asset/search.svg'
@@ -66,9 +65,9 @@ export default class SearchBox extends Component {
       <div className={classNames(expandClass)}>
         <label className={classNames(styles['search-box-container'], expandClass)}>
           <div className="visible-xs">
-            <Link to={`/${SEARCH_PATH}`}>
+            <a href={`/${SEARCH_PATH}`}>
               <img src={searchIcon}/>
-            </Link>
+            </a>
           </div>
           <div className="hidden-xs">
             <img src={searchIcon} onClick={this._handleToggle.bind(this, true)}/>
