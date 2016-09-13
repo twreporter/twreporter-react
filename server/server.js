@@ -23,6 +23,7 @@ import config from './config'
 import { NotFoundError } from '../src/lib/custom-error'
 import { SITE_NAME, LINK_PREFIX, SITE_META } from '../src/constants/'
 import _ from 'lodash'
+import polyfill from 'express-polyfill-service'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -63,6 +64,14 @@ server.get('/robots.txt', (req, res) => {
 server.use('/api', (req, res) => {
   proxy.web(req, res)
 })
+
+// polyfill service for react-intl
+server.use('/polyfill.js', polyfill({
+  minify: true,
+  features: {
+    'Element.prototype.matches': { flags: [ 'Intl' ] }
+  }
+}))
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
@@ -160,56 +169,57 @@ server.get('*', async function (req, res) {
                 { <RouterContext {...renderProps} /> }
               </Provider>
           )
-          res.write(`
-            <!DOCTYPE html>
-            <html lang="zh-Hant-TW">
-              <head>
-                  <title>${title}</title>
-                  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-                  <meta http-equiv="Cache-control" content="public">
-                  <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1"/>
-                  <meta name="apple-mobile-web-app-capable" content="yes"/>
-                  <meta name="keywords" content="${SITE_META.KEYWORDS}"/>
-                  <meta name="description" content="${desc}" data-rdm/>
-                  <meta property="og:rich_attachment" content="true"/>
-                  <meta property="og:type" content="${ogType}"/>
-                  <meta property="og:url" content="${canonical}"/>
-                  <meta property="og:title" content="${title}" data-rdm/>
-                  <meta property="og:site_name" content="${SITE_NAME.SHORT}"/>
-                  <meta property="og:image" content="${ogImage}"/>
-                  <meta name="twitter:card" content="summary_large_image"/>
-                  <meta name="twitter:image" content="${ogImage}"/>
-                  <meta name="twitter:title" content="${title}" data-rdm/>
-                  <meta name="twitter:description" content="" data-rdm/>
-                  <meta name="theme-color" content="#E30B20">
-                  <link rel="canonical" href="${canonical}" data-rdm/>
-                  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
-                  <!-- debug usage -->
-                  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
-                  <link href="/asset/favicon.png"  rel="shortcut icon" />
-                  ${styles}
-              </head>
-              <body>
-                <div id="root">${html}</div>
-                <!-- Load Intl Polyfill -->
-                <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
-                  <!-- Google Tag Manager -->
-                  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
-                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                      })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
-                  <!-- End Google Tag Manager -->
-                </script>
-                <script type="text/javascript" charset="utf-8">
-                  window.__REDUX_STATE__ = '${reduxState}';
-                </script>
-                <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
-              </body>
-            </html>
-          `)
+          res.write(
+`<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <title>${title}</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Cache-control" content="public">
+  <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="keywords" content="${SITE_META.KEYWORDS}"/>
+  <meta name="description" content="${desc}" data-rdm/>
+  <meta property="og:rich_attachment" content="true"/>
+  <meta property="og:type" content="${ogType}"/>
+  <meta property="og:url" content="${canonical}"/>
+  <meta property="og:title" content="${title}" data-rdm/>
+  <meta property="og:site_name" content="${SITE_NAME.SHORT}"/>
+  <meta property="og:image" content="${ogImage}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="${ogImage}"/>
+  <meta name="twitter:title" content="${title}" data-rdm/>
+  <meta name="twitter:description" content="" data-rdm/>
+  <meta name="theme-color" content="#E30B20">
+  <link rel="canonical" href="${canonical}" data-rdm/>
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
+  <!-- debug usage -->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
+  <link href="/asset/favicon.png"  rel="shortcut icon" />
+  ${styles}
+</head>
+<body>
+  <div id="root">${html}</div>
+  <!-- Load Intl Polyfill -->
+  <script async type="application/javascript" src="/polyfill.js"></script>
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
+  <!-- End Google Tag Manager -->
+  </script>
+  <script type="text/javascript" charset="utf-8">
+  window.__REDUX_STATE__ = '${reduxState}';
+  </script>
+  <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+</body>
+</html>
+<link rel="stylesheet" href="/asset/font.css">
+`)
           res.end()
           //DocumentMeta.rewind()   // render custom ducument title
         } else {
