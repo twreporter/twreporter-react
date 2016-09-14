@@ -162,12 +162,13 @@ server.get('*', async function (req, res) {
           )
           res.write(
 `<!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html amp lang="zh-Hant-TW">
 <head>
+  <meta charset="utf-8">
   <title>${title}</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta http-equiv="Cache-control" content="public">
-  <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, initial-scale=1"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="keywords" content="${SITE_META.KEYWORDS}"/>
   <meta name="description" content="${desc}" data-rdm/>
@@ -188,12 +189,15 @@ server.get('*', async function (req, res) {
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>-->
   <link href="/asset/favicon.png"  rel="shortcut icon" />
   ${styles}
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
   <div id="root">${html}</div>
   <!-- Load Intl Polyfill -->
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
   <!-- Google Tag Manager -->
+  <amp-analytics>
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -201,6 +205,7 @@ server.get('*', async function (req, res) {
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-NB59ZP');</script>
+  </amp-analytics>
   <!-- End Google Tag Manager -->
   </script>
   <script type="text/javascript" charset="utf-8">

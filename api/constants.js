@@ -1,3 +1,3 @@
 export default {
-  timeout: 800
+  timeout: 1000
 }

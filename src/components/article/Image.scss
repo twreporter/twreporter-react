@@ -8,12 +8,17 @@
   position: relative;
   figure{
     z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   figure > img {
     @include fade-in(0.3s);
-    transform: translateZ(0);
     background: $light-gray;
+    @media (max-width: $screen-md-max) {
+      transform: translateZ(0);
+    }
   }
 }
 
@@ -28,10 +33,12 @@
 .img-placeholder-outer {
   @extend .img-absolute;
   overflow: hidden;
-  z-index: -1;
+  z-index: 0;
   img {
     @include fade-in(0.2s);
-    transform: translateZ(0);
+    @media (max-width: $screen-md-max) {
+      transform: translateZ(0);
+    }
   }
 }
 
