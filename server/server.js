@@ -23,7 +23,6 @@ import config from './config'
 import { NotFoundError } from '../src/lib/custom-error'
 import { SITE_NAME, LINK_PREFIX, SITE_META } from '../src/constants/'
 import _ from 'lodash'
-import polyfill from 'express-polyfill-service'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -64,14 +63,6 @@ server.get('/robots.txt', (req, res) => {
 server.use('/api', (req, res) => {
   proxy.web(req, res)
 })
-
-// polyfill service for react-intl
-server.use('/polyfill.js', polyfill({
-  minify: true,
-  features: {
-    'Element.prototype.matches': { flags: [ 'Intl' ] }
-  }
-}))
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
@@ -201,7 +192,7 @@ server.get('*', async function (req, res) {
 <body>
   <div id="root">${html}</div>
   <!-- Load Intl Polyfill -->
-  <script async type="application/javascript" src="/polyfill.js"></script>
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"></script>
   <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NB59ZP"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
