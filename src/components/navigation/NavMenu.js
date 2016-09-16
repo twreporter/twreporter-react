@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ARTICLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
@@ -9,6 +9,7 @@ import donateIcon from '../../../static/asset/icon-donation.svg'
 import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import navCommonStyles from './NavCommon.scss'
+import Bookmarks from './Bookmarks'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import SearchBox from './SearchBox'
@@ -204,6 +205,19 @@ export default class NavMenu extends Component {
     )
   }
 
+  _renderLongformArticleSecond() {
+    const { header } = this.props
+    let bookmarks = _.get(header, 'bookmarks', [])
+
+    return (
+      <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
+        <div className={classNames(styles.slideUp)}>
+          <Bookmarks bookmarks={bookmarks} />
+        </div>
+      </div>
+    )
+  }
+
   _onTopicBtnClick() {
     const isOpen = !this.state.isTopicOpen
     this.setState({ isTopicOpen: isOpen })
@@ -284,6 +298,8 @@ export default class NavMenu extends Component {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
     } else if (isScrolledOver && header.pageType === TOPIC) {
       menuBar = this._renderTopicSecond(burgerMenu, navLinks)
+    } else if (isScrolledOver && header.pageType === LONGFORM_ARTICLE_STYLE) {
+      menuBar = this._renderLongformArticleSecond()
     } else if (isScrolledOver) {
       menuBar = this._renderGeneralSecond(burgerMenu, navLinks)
     }
@@ -326,6 +342,7 @@ NavMenu.contextTypes = {
 }
 
 NavMenu.propTypes = {
+  header: React.PropTypes.object,
   path: React.PropTypes.string,
   pageTitle: React.PropTypes.string,
   pageTopic: React.PropTypes.string

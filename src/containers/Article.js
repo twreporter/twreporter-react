@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
-import { setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
-import { ABOUT_US_FOOTER, ARTICLE, CONTACT_FOOTER, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
+import { ABOUT_US_FOOTER, ARTICLE, CONTACT_FOOTER, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import _ from 'lodash'
 import * as ArticleComponents from '../components/article/index'
 import Footer from '../components/Footer'
@@ -156,13 +156,33 @@ class Article extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, selectedArticle, setArticleTopicList, setPageTitle, setPageType } = this.props
+    const { entities, selectedArticle, setArticleTopicList, setBookmarksOfLongformArticle,  setPageTitle, setPageType } = this.props
 
+    // normalized article
     let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
+
+    // in normalized article, article.topics is an id
     let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
 
-    if (_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE) {
+    let style = _.get(article, 'style')
+
+    if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
       setPageType(PHOTOGRAPHY_ARTICLE)
+    } else if (style === LONGFORM_ARTICLE_STYLE) {
+      setPageType(LONGFORM_ARTICLE_STYLE)
+      let relatedBookmarks = _.get(article, 'relatedBookmarks', [])
+      const { bookmark, bookmarkOrder, publishedDate, slug } = article
+      let curBookMark = {
+        style,
+        slug,
+        bookmark,
+        bookmarkOrder,
+        publishedDate,
+        isSelected: true
+      }
+      let bookmarks = relatedBookmarks.concat(curBookMark)
+      bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
+      setBookmarksOfLongformArticle(bookmarks)
     } else {
       setPageType(ARTICLE)
     }
@@ -183,8 +203,12 @@ class Article extends Component {
     // fetch article
     fetchArticleIfNeeded(slug)
 
+    // normalized article
     let article = _.get(entities, [ 'articles', slugToId[slug] ])
+
+    // in normalized article, article.topics is not an object, just an id.
     let topicId = _.get(article, 'topics')
+    // in normalized article, article.relateds is an array of objects, just an array of ids
     let relateds = _.get(article, 'relateds', [])
 
     //  fetch other articles in the same topic
@@ -285,9 +309,8 @@ class Article extends Component {
       return null
     }
 
+    // unnormalized article
     let article = denormalizeArticles(_.get(selectedArticle, 'id'), entities)[0] || {}
-    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
-    let topicName = _.get(article, 'topics.name')
     let relatedArticles = _.get(article, 'relateds')
 
     let slug = _.get(params, 'slug')
@@ -311,7 +334,9 @@ class Article extends Component {
                  classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
+    let topicName = _.get(article, 'topics.name')
     let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
 
     let subtitle = _.get(article, 'subtitle', '')
     let subtitleBlock = subtitle ? <span className={styles['subtitle']}>{subtitle}</span> : null
@@ -449,4 +474,4 @@ Article.defaultProps = {
 
 export { Article }
 export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticles,
-  fetchArticlesByUuidIfNeeded, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)
+  fetchArticlesByUuidIfNeeded, setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)

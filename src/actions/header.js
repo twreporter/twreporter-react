@@ -37,3 +37,10 @@ export function setArticleTopicList(topicArr) {
     topicArr: topicArr
   }
 }
+
+export function setBookmarksOfLongformArticle(bookmarks) {
+  return {
+    type: types.SET_BOOKMARKS_OF_LONGFORM_ARTICLE,
+    bookmarks
+  }
+}

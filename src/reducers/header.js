@@ -26,6 +26,11 @@ function header(state = {}, action) {
         ...state,
         topicArr: action.topicArr
       }
+    case types.SET_BOOKMARKS_OF_LONGFORM_ARTICLE:
+      return {
+        ...state,
+        bookmarks: action.bookmarks
+      }
     default:
       return state
   }
