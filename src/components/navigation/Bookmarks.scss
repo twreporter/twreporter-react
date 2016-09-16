@@ -1,0 +1,78 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+// mobile
+.bookmarks-container {
+  width: 100%;
+  margin: 0 auto;
+  overflow: scroll;
+}
+.bookmarks {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition:  transform .8s ease-in-out;
+  margin-bottom: 0;
+  list-style: none;
+
+  &.flex-center {
+    justify-content: center;
+  }
+
+  .bookmark {
+    font-size: $font-size-medium;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding-right: rem(18px);
+
+    &.selected {
+      span {
+        color: $gray-15;
+      }
+    }
+    
+    span {
+      color: $gray-50;
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .bookmarks-container {
+    width: $tablet-small-width;
+  }
+  .bookmarks {
+    padding-left: 0px;
+    padding-right: 0px;
+    width: $tablet-small-width;
+  }
+}
+
+// desktop
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  .bookmarks-container {
+    width: $desktop-small-width;
+  }
+  .bookmarks {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+// HD desktop
+@include mq($min-width: $screen-hd-min) {
+  .bookmarks-container {
+    width: $hd-desktop-small-width;
+  }
+  .bookmarks {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
