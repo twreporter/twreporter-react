@@ -103,8 +103,14 @@ export default class Bookmarks extends Component {
     let classNames = {
       [styles['flex-center']]: containerWidth > bookmarksWidth
     }
+
+    // this is used for caculating the offsetLeft of the current bookmark
+    let style = {
+      position: 'relative'
+    }
+
     return (
-      <div ref="boomarksRef" className={styles['bookmarks-container']} id="bookmarksForLongformArtilce">
+      <div ref="boomarksRef" className={styles['bookmarks-container']} id="bookmarksForLongformArtilce" style={style}>
         <ul className={cx(styles.bookmarks, classNames)}>
           {_Bookmarks}
         </ul>
