@@ -3,7 +3,6 @@
 import screenSize from '../../constants/screen-size'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import _ from 'lodash'
-import VideoPlayer from 'react-player'
 import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
