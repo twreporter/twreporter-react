@@ -22,6 +22,8 @@ import leadingImgStyles from '../components/article/LeadingImage.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 
+import { LeadingVideo } from '../components/article/LeadingVideo'
+
 let articlePostition = {
   beginY: 120,
   endY: 200,
@@ -102,8 +104,8 @@ class Article extends Component {
     })
   }
 
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this._isFeatureArticlesFetched = false
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
@@ -323,6 +325,7 @@ class Article extends Component {
 
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
+    let leadingVideo = _.get(article, [ 'leadingVideo', 'video', 'url' ], '')
     let heroImage = _.get(article, [ 'heroImage' ], null)
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'brief', 'apiData' ], [])
@@ -359,6 +362,7 @@ class Article extends Component {
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
+            { leadingVideo ? <LeadingVideo src={leadingVideo} poster={_.get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
             <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
@@ -386,14 +390,17 @@ class Article extends Component {
                 />
               </div>
 
-              <div className={styles['leading-img']}>
-                <ArticleComponents.LeadingImage
-                  size={heroImageSize}
-                  image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
-                  id={_.get(heroImage, 'id')}
-                  description={_.get(heroImage, 'description' )}
-                />
-              </div>
+              {
+                !leadingVideo ?
+                  <div className={styles['leading-img']}>
+                    <ArticleComponents.LeadingImage
+                      size={heroImageSize}
+                      image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                      id={_.get(heroImage, 'id')}
+                      description={_.get(heroImage, 'description' )}
+                    />
+                  </div> : null
+              }
 
               <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
                 <ArticleComponents.Introduction
