@@ -1,0 +1,17 @@
+.video-js {
+  width: 100%;
+  height: auto;
+}
+
+.video-js video {
+  width: 100%;
+  height: auto;
+}
+
+.vjs-control-bar, .vjs-big-play-button {
+  display: none;
+}
+
+.vjs-hidden {
+  display: none;
+}
