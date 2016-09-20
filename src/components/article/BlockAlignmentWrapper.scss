@@ -18,9 +18,8 @@
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   $aligned-width: 326px;
-  $tablet-width: $screen-sm-min;
   $inner-margin: 20px;
-  $float-margin: - (( $tablet-width / 2 ) - ( $tablet-small-width / 2 ) - $inner-margin - 10px);
+  $float-margin: 0px;
   
   .base-align {
     width: $aligned-width;
@@ -50,9 +49,8 @@
 // desktop
 @include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   $aligned-width: 326px;
-  $desktop-width: 1024px;
   $inner-margin: 20px;
-  $float-margin: - (( $desktop-width / 2 ) - ( $desktop-small-width / 2 ) - $inner-margin - 10px);
+  $float-margin: 0px;
   
   .base-align {
     width: $aligned-width;
@@ -83,7 +81,7 @@
 @include mq($min-width: $screen-hd-min) {
   $aligned-width: 340px;
   $inner-margin: 20px;
-  $float-margin: -90px;
+  $float-margin: 0px;
 
   .base-align {
     width: $aligned-width;
