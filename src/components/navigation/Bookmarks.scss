@@ -3,33 +3,34 @@
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
 
+$nav-width: 10px;
+$nav-height: 18px;
+$nav-margin: 30px;
+
 // mobile
 .bookmarks-container {
   width: 100%;
   margin: 0 auto;
-  overflow: scroll;
+  padding: 0 10px 0 10px;
+  overflow-y: hidden;
+  position: relative;
 }
-.bookmarks {
-  padding-left: 10px;
-  padding-right: 10px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  transition:  transform .8s ease-in-out;
-  margin-bottom: 0;
-  list-style: none;
 
-  &.flex-center {
-    justify-content: center;
-  }
+.bookmarks {
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  padding-left: 0;
+  list-style: none;
+  overflow-x: auto;
+  white-space: nowrap;
 
   .bookmark {
     font-size: $font-size-medium;
     white-space: nowrap;
     cursor: pointer;
-    flex-shrink: 0;
-    flex-basis: auto;
     padding-right: rem(18px);
+    display: inline;
 
     &.selected {
       span {
@@ -43,14 +44,32 @@
   }
 }
 
+.nav {
+  height: rem(18px);
+  cursor: 'pointer';
+  width: auto;
+}
+
+.left-nav {
+  @extend .nav;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.right-nav {
+  @extend .nav;
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .bookmarks-container {
     width: $tablet-small-width;
   }
   .bookmarks {
-    padding-left: 0px;
-    padding-right: 0px;
     width: $tablet-small-width;
   }
 }
@@ -59,10 +78,10 @@
 @include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   .bookmarks-container {
     width: $desktop-small-width;
+    padding: 0;
   }
   .bookmarks {
-    padding-left: 0px;
-    padding-right: 0px;
+    width: $desktop-small-width - ($nav-width * 2) - ($nav-margin * 2);
   }
 }
 
@@ -70,9 +89,9 @@
 @include mq($min-width: $screen-hd-min) {
   .bookmarks-container {
     width: $hd-desktop-small-width;
+    padding: 0;
   }
   .bookmarks {
-    padding-left: 0px;
-    padding-right: 0px;
+    width: $hd-desktop-small-width - ($nav-width * 2) - ($nav-margin * 2);
   }
 }

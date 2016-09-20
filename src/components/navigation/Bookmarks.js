@@ -4,7 +4,13 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
+import leftNav from '../../../static/asset/disabled-left-arrow.svg'
+import rightNav from '../../../static/asset/disabled-right-arrow.svg'
 import styles from './Bookmarks.scss'
+
+const RIGHT = 'right'
+const LEFT = 'left'
+const DISTANCE_PER_SCROLL = 50
 
 class Bookmark extends Component {
   constructor(props) {
@@ -48,7 +54,7 @@ export default class Bookmarks extends Component {
   }
 
   componentDidMount() {
-    let bookmarksNode = ReactDOM.findDOMNode(this.refs.boomarksRef)
+    let bookmarksNode = ReactDOM.findDOMNode(this.refs.bookmarksRef)
     this.setState({
       containerWidth: bookmarksNode.offsetWidth,
       bookmarksWidth: this._calculateTotalWidth()
@@ -56,7 +62,6 @@ export default class Bookmarks extends Component {
   }
 
   componentDidUpdate() {
-    //
     let node = document.getElementById('bookmarksForLongformArtilce')
     node.scrollLeft = this._calculateScrollLeft()
   }
@@ -86,9 +91,21 @@ export default class Bookmarks extends Component {
     return totalWidth
   }
 
+  _handleNavClick(direction, event) { //eslint-disable-line
+    let node = document.getElementById('bookmarksForLongformArtilce')
+    let scrollLeft = node.scrollLeft
+    if (direction === LEFT) {
+      if (scrollLeft !== 0) {
+        let scrollDelta = scrollLeft - DISTANCE_PER_SCROLL
+        node.scrollLeft = scrollDelta < 0 ? 0 : scrollDelta
+      }
+    } else if (direction === RIGHT) {
+      node.scrollLeft = scrollLeft + DISTANCE_PER_SCROLL
+    }
+  }
+
   render() {
     const { bookmarks } = this.props
-    const { containerWidth, bookmarksWidth } = this.state
     let _Bookmarks = _.map(bookmarks, (ele, index) => {
       return (
         <Bookmark
@@ -100,20 +117,26 @@ export default class Bookmarks extends Component {
       )
     })
 
-    let classNames = {
-      [styles['flex-center']]: containerWidth > bookmarksWidth
-    }
-
     // this is used for caculating the offsetLeft of the current bookmark
     let style = {
       position: 'relative'
     }
 
     return (
-      <div ref="boomarksRef" className={styles['bookmarks-container']} id="bookmarksForLongformArtilce" style={style}>
-        <ul className={cx(styles.bookmarks, classNames)}>
+      <div className={styles['bookmarks-container']}>
+        <img
+          className={cx(styles['left-nav'], 'hidden-sm', 'hidden-xs')}
+          onClick={this._handleNavClick.bind(this, LEFT)}
+          src={leftNav}
+        />
+        <ul ref="bookmarksRef" className={cx(styles.bookmarks)} id="bookmarksForLongformArtilce" style={style}>
           {_Bookmarks}
         </ul>
+        <img
+          className={cx(styles['right-nav'], 'hidden-sm', 'hidden-xs')}
+          onClick={this._handleNavClick.bind(this, RIGHT)}
+          src={rightNav}
+        />
       </div>
     )
   }
