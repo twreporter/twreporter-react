@@ -2,9 +2,11 @@
 /* global console */
 'use strict'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
-import { merge } from 'lodash'
-import _ from 'lodash'
 import * as types from '../constants/action-types'
+
+// lodash
+import get from 'lodash/get'
+import merge from 'lodash/merge'
 
 function generateKey(groups) {
   groups = Array.isArray(groups) ? groups : [ groups ]
@@ -56,7 +58,7 @@ function articles(state = {}, action) {
     case types.FETCH_ARTICLES_BY_TAGS_SUCCESS:
       let nextUrl = null
       let response = action.response
-      let nextHref = _.get(action, 'response.links.next.href')
+      let nextHref = get(action, 'response.links.next.href')
       if (nextHref) {
         let embedded = JSON.stringify(getArticleEmbeddedQuery())
         nextUrl = formatUrl(`${nextHref}&embedded=${embedded}`)

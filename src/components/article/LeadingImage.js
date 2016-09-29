@@ -1,10 +1,12 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import styles from './LeadingImage.scss'
 import { Image } from './Image'
 import React from 'react' // eslint-disable-line
+
+// lodash
+import assign from 'lodash/assign'
 
 class LeadingImage extends React.Component {
   constructor(props) {
@@ -35,7 +37,7 @@ class LeadingImage extends React.Component {
     return (
       <div className={styles[leadingImgClass]}>
         <Image
-          content={ [ _.assign({}, image, { id: id, description: description }) ] }
+          content={ [ assign({}, image, { id: id, description: description }) ] }
           isToShowDescription={false}
         />
       </div>

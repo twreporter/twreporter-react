@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import Link from '../Link'
@@ -18,6 +17,9 @@ import styles from './NavMenu.scss'
 import SubNavBar from './SubNavBar'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import TopicPopup from './TopicPopup'
+
+// lodash
+import get from 'lodash/get'
 
 const TRIMMED_RATIO = CHARACTERS_LIMIT.HEADER_TITLE_TRIMMED_RATIO
 const FULL_WIDTH = 1200
@@ -102,7 +104,7 @@ export default class NavMenu extends Component {
 
   _renderAritcleFirst(burgerMenu, logo, navLinks) {
     const { header } = this.props
-    const pageType = _.get(header, 'pageType', null)
+    const pageType = get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
     let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
 
@@ -129,8 +131,8 @@ export default class NavMenu extends Component {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
     const { pageTopic, header } = this.props
-    const topicLength = _.get(header, 'topicArr', []).length
-    const pageType = _.get(header, 'pageType')
+    const topicLength = get(header, 'topicArr', []).length
+    const pageType = get(header, 'pageType')
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
     let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
@@ -207,7 +209,7 @@ export default class NavMenu extends Component {
 
   _renderLongformArticleSecond() {
     const { header } = this.props
-    let bookmarks = _.get(header, 'bookmarks', [])
+    let bookmarks = get(header, 'bookmarks', [])
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>

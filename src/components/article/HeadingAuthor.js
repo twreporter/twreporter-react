@@ -2,15 +2,19 @@
 'use strict'
 import { authorTypes } from '../../constants/index'
 import React, { Component } from 'react'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './HeadingAuthor.scss'
 
+// lodash
+import forIn from 'lodash/forIn'
+import groupBy from 'lodash/groupBy'
+import map from 'lodash/map'
+
 export const HeadingAuthor = ({ authors, children, extendByline }) => {
 
   function _groupAuthor(authors) {
-    return _.groupBy(authors, 'type')
+    return groupBy(authors, 'type')
   }
 
   function _renderAuthor(author, key) {
@@ -31,13 +35,13 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   }
 
   function _renderAuthors(authors) {
-    return _.map(authors, (author, index) => _renderAuthor(author, index))
+    return map(authors, (author, index) => _renderAuthor(author, index))
   }
 
   const groupedAuthors = _groupAuthor(authors)
   let count = 0
   const authorRows = []
-  _.forIn(groupedAuthors, (authors, type) => {
+  forIn(groupedAuthors, (authors, type) => {
     let _authors = _renderAuthors(authors)
     authorRows.push(
       <div key={count++} className={classNames(styles['author-item'])}>

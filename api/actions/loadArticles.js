@@ -1,10 +1,14 @@
 /*eslint no-console: 0*/
 
-import _ from 'lodash'
 import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
 import querystring from 'qs'
+
+// lodash
+import filter from 'lodash/filter'
+import get from 'lodash/get'
+import uniq from 'lodash/uniq'
 
 export function loadMetaOfArticles(req) {
   return new Promise((resolve, reject) => {
@@ -37,14 +41,14 @@ export function loadArticles(req, params = []) {
       if (err) {
         reject(err)
       } else {
-        const embedded = JSON.parse(_.get(query, 'embedded', null))
+        const embedded = JSON.parse(get(query, 'embedded', null))
         let aricleRes = res.body
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
         list.forEach((item) => {
-          let aArr = _.get(aricleRes, item, [])
+          let aArr = get(aricleRes, item, [])
           aArr.forEach((author) => {
-            let authorImg = _.get(author, 'image', null)
+            let authorImg = get(author, 'image', null)
             if(authorImg) {
               writers.push(authorImg)
             }
@@ -52,8 +56,8 @@ export function loadArticles(req, params = []) {
         })
 
         // combine author images data if the query contains 'authorImages'
-        if(_.get(embedded, 'authorImages')) {
-          const imgIds = _.uniq(writers)
+        if(get(embedded, 'authorImages')) {
+          const imgIds = uniq(writers)
           const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
           const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
 
@@ -62,10 +66,10 @@ export function loadArticles(req, params = []) {
             if (err) {
               console.warning('AUTHOR IMAGE LOADING FAILED:', err)
             } else {
-              const imgItems = _.get(res.body, '_items')
+              const imgItems = get(res.body, '_items')
 
               list.forEach((item) => {
-                let authors = _.get(aricleRes, item, [])
+                let authors = get(aricleRes, item, [])
                 addImage(authors, imgItems)
               })
             }
@@ -81,10 +85,10 @@ export function loadArticles(req, params = []) {
 
 function addImage(authors, imgItems) {
   authors.forEach((author) => {
-    let authorImg = _.get(author, 'image', null)
+    let authorImg = get(author, 'image', null)
     if(authorImg) {
-      let match = _.filter(imgItems, '_id', authorImg)
-      const wImg = _.get(match, [ 0, 'image' ])
+      let match = filter(imgItems, '_id', authorImg)
+      const wImg = get(match, [ 0, 'image' ])
       author.image = wImg
     }
   })

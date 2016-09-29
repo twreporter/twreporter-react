@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 'use strict'
 import { replaceStorageUrlPrefix } from '../../../utils/index'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
@@ -12,6 +11,10 @@ import Slides from './slides'
 import Thumbnails from './thumbnails'
 import React, { Component } from 'react' // eslint-disable-line
 import UI_SETTING from '../../../constants/ui-settings'
+
+// lodash
+import forEach from 'lodash/forEach'
+import get from 'lodash/get'
 
 class Slideshow extends Component {
   constructor(props, context) {
@@ -53,25 +56,25 @@ class Slideshow extends Component {
   }
 
   _composeSrcSet(imgObj) {
-    let desktopSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'desktop', 'url' ]))
-    let tabletSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'tablet', 'url' ]))
-    let mobileSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'mobile', 'url' ]))
+    let desktopSrc = replaceStorageUrlPrefix(get(imgObj, [ 'desktop', 'url' ]))
+    let tabletSrc = replaceStorageUrlPrefix(get(imgObj, [ 'tablet', 'url' ]))
+    let mobileSrc = replaceStorageUrlPrefix(get(imgObj, [ 'mobile', 'url' ]))
     return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
   }
 
   _parseContent(content) {
     let slides = []
     let thumbnails = []
-    _.forEach(content, (imgObj) => {
+    forEach(content, (imgObj) => {
       let slide = {}
       let thumbnail = {}
       let defaultImg = imgObj.url
-      let id = _.get(imgObj, 'id')
-      slide.src = replaceStorageUrlPrefix(defaultImg || _.get(imgObj, [ 'desktop', 'url' ]))
+      let id = get(imgObj, 'id')
+      slide.src = replaceStorageUrlPrefix(defaultImg || get(imgObj, [ 'desktop', 'url' ]))
       slide.id = id
       slide.description = imgObj.description
       slide.srcSet = this._composeSrcSet(imgObj)
-      thumbnail.src = replaceStorageUrlPrefix(_.get(imgObj, [ 'tiny', 'url' ], defaultImg))
+      thumbnail.src = replaceStorageUrlPrefix(get(imgObj, [ 'tiny', 'url' ], defaultImg))
       thumbnail.id = id
       slides.push(slide)
       thumbnails.push(thumbnail)
@@ -115,7 +118,7 @@ class Slideshow extends Component {
     const { currentIndex } = this.state
     let { slides, thumbnails } = this._parseContent(content)
 
-    let description = _.get(content, [ currentIndex, 'description' ], '')
+    let description = get(content, [ currentIndex, 'description' ], '')
 
     const thumbnailOffset = 8
     const thumbnailsPadding = 70
@@ -146,7 +149,7 @@ class Slideshow extends Component {
                 onSlideLeft={this.slideLeft}
                 onSlideRight={this.slideRight}
                 isLeftNavDisabled={currentIndex === 0 ? true : false}
-                isRightNavDisabled={currentIndex === _.get(content, 'length', 0) - 1 ? true : false}
+                isRightNavDisabled={currentIndex === get(content, 'length', 0) - 1 ? true : false}
               />
               <div className={styles['ss-thumbnails']} style={{
                 width: thumbnailsWidth

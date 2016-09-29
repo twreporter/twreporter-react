@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType, setPageTitle } from '../actions/header'
-import _ from 'lodash'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
+
+// lodash
+import get from 'lodash/get'
 
 class Topic extends Component {
   static fetchData({ params, store }) {
@@ -29,13 +31,13 @@ class Topic extends Component {
 
   componentWillMount() {
     const { fetchArticlesByUuidIfNeeded, params } = this.props
-    let topicId = _.get(params, 'topicId')
+    let topicId = get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchArticlesByUuidIfNeeded, params } = nextProps
-    let topicId = _.get(params, 'topicId')
+    let topicId = get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
     this.setState({
       topicId: nextProps.params.topicId
@@ -45,8 +47,8 @@ class Topic extends Component {
 
   _sendPageLevelAction() {
     const { entities, setPageTitle, params } = this.props
-    const topicId = _.get(params, 'topicId')
-    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicId = get(params, 'topicId')
+    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
 
     // set navbar title for this topic
     setPageTitle(null, topicName, TOPIC_TEXT)
@@ -55,11 +57,11 @@ class Topic extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const topicId = _.get(params, 'topicId')
-    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicId = get(params, 'topicId')
+    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
     const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
 
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
+    let articles = denormalizeArticles(get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
     return (
       <div style={{

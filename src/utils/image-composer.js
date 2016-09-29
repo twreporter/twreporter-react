@@ -1,5 +1,5 @@
 'use strict'
-import _ from 'lodash'
+import get from 'lodash/get'
 import { replaceStorageUrlPrefix } from './index'
 
 export const imageComposer = (article) => {
@@ -9,8 +9,8 @@ export const imageComposer = (article) => {
 
   if (heroImage && heroImage.image) {
     return {
-      desktopImage: replaceStorageUrlPrefix(_.get(heroImage, 'image.resizedTargets.desktop.url')),
-      mobileImage: replaceStorageUrlPrefix(_.get(heroImage, 'image.resizedTargets.mobile.url'))
+      desktopImage: replaceStorageUrlPrefix(get(heroImage, 'image.resizedTargets.desktop.url')),
+      mobileImage: replaceStorageUrlPrefix(get(heroImage, 'image.resizedTargets.mobile.url'))
     }
   }
 
@@ -24,8 +24,8 @@ export const imageComposer = (article) => {
   let imageSet = {}
   if (facebookImage && facebookImage.image) {
     imageSet = {
-      desktopImage: replaceStorageUrlPrefix(_.get(facebookImage, 'image.resizedTargets.desktop.url')),
-      mobileImage: replaceStorageUrlPrefix(_.get(facebookImage, 'image.resizedTargets.mobile.url'))
+      desktopImage: replaceStorageUrlPrefix(get(facebookImage, 'image.resizedTargets.desktop.url')),
+      mobileImage: replaceStorageUrlPrefix(get(facebookImage, 'image.resizedTargets.mobile.url'))
     }
   } else {
     // display logo when the image is empty

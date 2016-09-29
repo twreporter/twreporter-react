@@ -4,12 +4,14 @@ import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
-import { merge } from 'lodash'
-import _ from 'lodash'
 import * as CONSTANTS from '../constants/index'
 import fetch from 'isomorphic-fetch'
 import { fetchTagsIfNeeded, fetchCategoriesIfNeeded } from './groups'
 import qs from 'qs'
+
+// lodash
+import get from 'lodash/get'
+import merge from 'lodash/merge'
 
 const groupEnum = CONSTANTS.groupEnum
 
@@ -96,7 +98,7 @@ function getNextUrl(state = {}, groupType, groupNames = [], count = 10, page = 1
 
   groupNames = Array.isArray(groupNames) ? groupNames : [ groupNames ]
   const groupNameStr = groupNames.join()
-  const articles = _.get(existedArticles, [ groupNameStr ])
+  const articles = get(existedArticles, [ groupNameStr ])
   if (articles) {
     // articles are already loaded
     if (articles.items.length >= count * page) {
@@ -110,7 +112,7 @@ function getNextUrl(state = {}, groupType, groupNames = [], count = 10, page = 1
   let groupIds = []
   // get group ids by group name from state
   groupNames.forEach((groupName) => {
-    let id = _.get(existedGroups, [ groupName, 'id' ])
+    let id = get(existedGroups, [ groupName, 'id' ])
     if (id) {
       groupIds.push(id)
     }

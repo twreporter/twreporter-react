@@ -1,9 +1,12 @@
-import _ from 'lodash'
 import Link from './Link'
 import React, { Component } from 'react'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 if (process.env.BROWSER) {
   require('./Daily.css')
@@ -25,14 +28,14 @@ export default class Daily extends Component {
         </div>
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
-          { _.map(dailyTop, (a, idx) => {
+          { map(dailyTop, (a, idx) => {
             const pubDate = date2yyyymmdd(a.publishedDate, '.')
             let imageSet = imageComposer(a)
             let thumbnail = imageSet.mobileImage
             let url = '/a/' + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
-                <Link to={url} disableReactRouter={_.get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
+                <Link to={url} disableReactRouter={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
                   <div className="daily-image" >
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'

@@ -1,12 +1,15 @@
 'use strict'
 import { Link } from 'react-router'
-import _ from 'lodash'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import leftNav from '../../../static/asset/disabled-left-arrow.svg'
 import rightNav from '../../../static/asset/disabled-right-arrow.svg'
 import styles from './Bookmarks.scss'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 const RIGHT = 'right'
 const LEFT = 'left'
@@ -82,10 +85,10 @@ export default class Bookmarks extends Component {
 
   _calculateTotalWidth() {
     let totalWidth = 0
-    let bookmarksLength = _.get(this.props, [ 'bookmarks', 'length' ], 0)
+    let bookmarksLength = get(this.props, [ 'bookmarks', 'length' ], 0)
     for (let i = 0; i < bookmarksLength; i++) {
       let bookmarkNode = ReactDOM.findDOMNode(this.refs[`bookmarkRef-${i}`])
-      let width = _.get(bookmarkNode, 'offsetWidth', 0)
+      let width = get(bookmarkNode, 'offsetWidth', 0)
       totalWidth += width
     }
     return totalWidth
@@ -106,7 +109,7 @@ export default class Bookmarks extends Component {
 
   render() {
     const { bookmarks } = this.props
-    let _Bookmarks = _.map(bookmarks, (ele, index) => {
+    let _Bookmarks = map(bookmarks, (ele, index) => {
       return (
         <Bookmark
           ref={`bookmarkRef-${index}`}

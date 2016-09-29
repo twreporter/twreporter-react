@@ -2,11 +2,13 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { imageComposer } from '../utils/index'
-import _ from 'lodash'
 import Link from './Link'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
 import React, { Component } from 'react'
+
+// lodash
+import get from 'lodash/get'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
@@ -27,8 +29,8 @@ export default class TopNews extends Component {
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = date2yyyymmdd(a.publishedDate, '.')
-          let cats = _.get(a, 'categories', [])
-          let catDisplay = _.get(cats, [ 0, 'name' ], '專題')
+          let cats = get(a, 'categories', [])
+          let catDisplay = get(cats, [ 0, 'name' ], '專題')
           let imageSet = imageComposer(a)
           let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
           return (

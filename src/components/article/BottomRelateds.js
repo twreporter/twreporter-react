@@ -1,6 +1,5 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import _ from 'lodash'
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
 import { shortenString } from '../../lib/string-processor'
 import { replaceStorageUrlPrefix } from '../../utils/index'
@@ -11,10 +10,16 @@ import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
 
+// lodash
+import get from 'lodash/get'
+import filter from 'lodash/filter'
+import map from 'lodash/map'
+import uniq from 'lodash/uniq'
+
 export class BottomRelateds extends Component {
   constructor(props) {
     const itemWidth = 420
-    let relateds = _.get(props, 'relateds', [])
+    let relateds = get(props, 'relateds', [])
     let count = relateds.length || 0
 
     super(props)
@@ -37,22 +42,22 @@ export class BottomRelateds extends Component {
     const titleText = (topicArr && topicName) ? topicName : RELATED_ARTICLES
     let listItems = (topicArr && topicName) ? topicArr : relateds
 
-    if (!_.get(relateds, '0') && (!topicArr || topicArr.length===0)) {
+    if (!get(relateds, '0') && (!topicArr || topicArr.length===0)) {
       return null
     }
 
     // find unique items and filter out the current article in display
-    listItems = _.uniq(listItems)
-    listItems = _.filter(listItems, (related) => { return related.id!==currentId })
+    listItems = uniq(listItems)
+    listItems = filter(listItems, (related) => { return related.id!==currentId })
 
-    const relatedRows = _.map(listItems, (related, index) => {
-      let imageUrl = replaceStorageUrlPrefix(_.get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
-      const description = _.get(related, 'ogDescription', '')
+    const relatedRows = map(listItems, (related, index) => {
+      let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
+      const description = get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
 
       return (
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
-          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} disableReactRouter={_.get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
+          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} disableReactRouter={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
                 <LazyLoad once={true}>

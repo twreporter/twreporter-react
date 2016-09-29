@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import Link from '../Link'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceStorageUrlPrefix } from '../../utils/index'
@@ -10,11 +9,15 @@ import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
 
+// lodash
+import get from 'lodash/get'
+import uniq from 'lodash/uniq'
+
 const Topic = (props) => {
   const { data, articleId } = props
-  const isCurrentViewing = _.get(data, 'id', '') === articleId
-  const link =  LINK_PREFIX.ARTICLE + _.get(data, 'slug', '')
-  const heroImgUrl = replaceStorageUrlPrefix(_.get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null))
+  const isCurrentViewing = get(data, 'id', '') === articleId
+  const link =  LINK_PREFIX.ARTICLE + get(data, 'slug', '')
+  const heroImgUrl = replaceStorageUrlPrefix(get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null))
   const currentClass = isCurrentViewing ? styles['current'] : null
 
   const topic = <div className={classNames(styles['topic'], currentClass)}>
@@ -30,7 +33,7 @@ const Topic = (props) => {
             <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
           </div>
         </div>
-  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} disableReactRouter={_.get(data, 'style') === INTERACTIVE_ARTICLE_STYLE}> { topic } </Link>
+  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} disableReactRouter={get(data, 'style') === INTERACTIVE_ARTICLE_STYLE}> { topic } </Link>
 
   return (
     <div className="col-md-12 col-lg-6">
@@ -46,7 +49,7 @@ export default class TopicPopup extends Component {
 
   render() {
     const { isOpen, onTopicBtnClick, pageTopic, topicArr, articleId } = this.props
-    const uniqTopics = _.uniq(topicArr)
+    const uniqTopics = uniq(topicArr)
     let displayClass = isOpen ? styles.open : styles.close
     let topicList = []
 

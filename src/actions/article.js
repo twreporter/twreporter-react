@@ -8,7 +8,9 @@ import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
-import _ from 'lodash'
+
+// lodash
+import get from 'lodash/get'
 
 function requestArticle(slug, url) {
   return {
@@ -61,9 +63,9 @@ function fetchArticle(slug) {
 }
 
 function shouldFetchArticle(state, slug) {
-  const slugToId = _.get(state, 'slugToId', {})
-  const articles = _.get(state, [ 'entities', 'articles' ], {})
-  if (_.get(articles, [ slugToId[slug], 'content' ])) {
+  const slugToId = get(state, 'slugToId', {})
+  const articles = get(state, [ 'entities', 'articles' ], {})
+  if (get(articles, [ slugToId[slug], 'content' ])) {
     return false
   }
   return true
@@ -76,7 +78,7 @@ export function fetchArticleIfNeeded(slug) {
     }
     let state = getState()
     let response = {
-      result: _.get(state, [ 'slugToId', slug ])
+      result: get(state, [ 'slugToId', slug ])
     }
     return dispatch(receiveArticle(response, slug))
   }

@@ -1,13 +1,15 @@
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import boxSvg from '../../../static/asset/infobox-logo.svg'
 import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 
+// lodash
+import get from 'lodash/get'
+
 export const InfoBox = ({ content, device }) => {
-  let infoBox = _.get(content, [ 0 ], {})
+  let infoBox = get(content, [ 0 ], {})
 
   return (
     <div className={classNames(styles['infobox-container'],

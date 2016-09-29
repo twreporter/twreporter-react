@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import _ from 'lodash'
 import { LINK_PREFIX, subnavPath } from '../../constants/index'
 import Link from '../Link'
 import { getTopicId } from '../../utils/get-list-id'
+
+// lodash
+import get from 'lodash/get'
 
 const styles = require('./SubNavBar.scss')
 
@@ -51,7 +53,7 @@ export default class SubNavBar extends Component {
     }
 
     for(let i in subnavPath) {
-      let topicName = _.get(subnavPath, [ i, 'title' ])
+      let topicName = get(subnavPath, [ i, 'title' ])
       let topicId = getTopicId(topicName)
       subMenuLinks.push(<Link key={i} to={`${LINK_PREFIX.TOPIC}${topicId}`}><h1 onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subnavPath[i].title}</h1></Link>)
     }
