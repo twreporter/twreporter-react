@@ -45,4 +45,3 @@ Features.contextTypes = {
 }
 
 export { Features }
-
