@@ -16,6 +16,7 @@ import httpProxy from 'http-proxy'
 
 import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
+import DeviceProvider from '../src/components/DeviceProvider'
 
 import { Provider } from 'react-redux'
 import config from './config'
@@ -159,7 +160,9 @@ server.get('*', async function (req, res) {
           let reduxState = escape(JSON.stringify(store.getState()))
           let html = ReactDOMServer.renderToString(
               <Provider store={store} >
-                { <RouterContext {...renderProps} /> }
+                <DeviceProvider device={get(store.getState(), 'device')}>
+                  { <RouterContext {...renderProps} /> }
+                </DeviceProvider>
               </Provider>
           )
           res.write(
