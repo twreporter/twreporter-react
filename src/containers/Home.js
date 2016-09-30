@@ -75,14 +75,20 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
     let params = {
       page: PAGE,
       max_results: MAXRESULT
     }
-    fetchFeatureArticles()
-    fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
-    fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
+    if (get(featureArticles, 'items.length', 0) === 0) {
+      fetchFeatureArticles()
+    }
+    if (get(articlesByUuids, [ this.reviewListId, 'items', 'length' ], 0) < MAXRESULT) {
+      fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
+    }
+    if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
+      fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
+    }
   }
 
   _loadMoreArticles(catId) {
