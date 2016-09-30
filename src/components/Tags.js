@@ -7,7 +7,7 @@ import More from '../components/More'
 import Link from './Link'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../utils/index'
+import { getImageSrc, getImageSrcSet } from '../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -51,7 +51,8 @@ export default class Tags extends Component {
           <div className="container">
             <ul className={classNames('tag-listing', photoClass)}>
               { map(articles, (a) => {
-                let image = imageComposer(a).mobileImage
+                let image = getImageSrc(a)
+                let imageSrcSet = getImageSrcSet(a)
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
                 let url = '/a/' + a.slug
                 let excerpt =  get(a, 'ogDescription', '')
@@ -60,7 +61,7 @@ export default class Tags extends Component {
                     <li className="tag-item" key={a.id} style={bgStyle}>
                       <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
                         <div className="itemimage-wrap">
-                          <img className="category-itemimage" src={image}/>
+                          <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
                         </div>
                         <div className="tag-itemdesc" style={bgStyle}>
                           <div className="tag-itemtitle"><h3>{a.title}</h3></div>

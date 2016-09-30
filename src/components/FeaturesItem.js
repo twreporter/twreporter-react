@@ -116,7 +116,7 @@ export default class FeaturesItem extends Component {
   }
 
   render() {
-    const { article, image } = this.props
+    const { article, image, imageSrcSet } = this.props
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
     let url = '/a/' + article.slug
     let catDisplay
@@ -142,6 +142,7 @@ export default class FeaturesItem extends Component {
               height="1200px"
               className="img"
               src={image}
+              srcSet={imageSrcSet}
             />
           <div className="img-overlay" />
           </div>
