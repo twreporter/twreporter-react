@@ -3,7 +3,6 @@ import { articlesByUuids, featureArticles, relatedArticles } from './articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { FatalError } from '../lib/custom-error'
 import * as types from '../constants/action-types'
 import device from './device'
 import header from './header'
@@ -42,25 +41,11 @@ function slugToId(state = {}, action) {
   }
 }
 
-function fatalError(state = null, action) {
-  switch (action.type) {
-    case types.FETCH_ARTICLE_FAILURE:
-      const { error } = action
-      if ( error instanceof FatalError ) {
-        return error
-      }
-      return state
-    default:
-      return state
-  }
-}
-
 const rootReducer = combineReducers({
   articlesByUuids,
   featureArticles,
   relatedArticles,
   categories,
-  fatalError,
   device,
   selectedArticle,
   tags,

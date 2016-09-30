@@ -119,10 +119,6 @@ server.get('*', async function (req, res) {
       }
 
       getReduxPromise().then(()=> {
-        let fatalError = store.getState().fatalError
-        if (fatalError) {
-          throw fatalError
-        }
         let assets = webpackIsomorphicTools.assets()
         {/* styles (will be present only in production with webpack extract text plugin) */}
         let styles = ''
@@ -227,6 +223,8 @@ server.get('*', async function (req, res) {
           res.redirect(302, getCurrentUrl())
         }
         unsubscribe()
+      }, (err) => {
+        throw err
       }).catch((err) => {
         console.log(err.stack)
         if (err instanceof NotFoundError) {

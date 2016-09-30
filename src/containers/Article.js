@@ -70,6 +70,12 @@ class Article extends Component {
     // get article itself first
     return store.dispatch(fetchArticleIfNeeded(slug)).then(() => {
       let state = store.getState()
+      let error = get(state, 'selectedArticle.error')
+
+      if (error !== null) {
+        return Promise.reject(error)
+      }
+
       let articleId = get(state, 'selectedArticle.id')
       let article = get(state, [ 'entities', 'articles', articleId ])
       let topicId = get(article, 'topics')
