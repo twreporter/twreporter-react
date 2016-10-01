@@ -16,10 +16,10 @@ const PAGE = 1
 
 class Tag extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId), TAG, {
+    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId, TAG, {
       page: PAGE,
       max_results: MAXRESULT
-    })
+    }))
   }
 
   constructor(props) {
