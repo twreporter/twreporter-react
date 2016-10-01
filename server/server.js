@@ -16,13 +16,16 @@ import httpProxy from 'http-proxy'
 
 import configureStore from '../src/store/configureStore'
 import crateRoutes from '../src/routes/index'
+import DeviceProvider from '../src/components/DeviceProvider'
 
 import { Provider } from 'react-redux'
 import config from './config'
 
 import { NotFoundError } from '../src/lib/custom-error'
 import { SITE_NAME, LINK_PREFIX, SITE_META } from '../src/constants/'
-import _ from 'lodash'
+
+// lodash
+import get from 'lodash/get'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -102,7 +105,7 @@ server.get('*', async function (req, res) {
       let reqUrl = location.pathname + location.search
       store.dispatch({
         type: 'DETECT_DEVICE',
-        headers: _.get(req, [ 'headers', 'user-agent' ])
+        headers: get(req, [ 'headers', 'user-agent' ])
       })
 
       const getReduxPromise = function () {
@@ -116,10 +119,6 @@ server.get('*', async function (req, res) {
       }
 
       getReduxPromise().then(()=> {
-        let fatalError = store.getState().fatalError
-        if (fatalError) {
-          throw fatalError
-        }
         let assets = webpackIsomorphicTools.assets()
         {/* styles (will be present only in production with webpack extract text plugin) */}
         let styles = ''
@@ -135,17 +134,17 @@ server.get('*', async function (req, res) {
         let desc = SITE_META.DESC
         let ogType = 'website'
         if (pageState['selectedArticle']['id']) {
-          let currentArticle = _.get(pageState, [ 'entities', 'articles', _.get(pageState, 'selectedArticle.id') ], null)
+          let currentArticle = get(pageState, [ 'entities', 'articles', get(pageState, 'selectedArticle.id') ], null)
           if (currentArticle) {
             // if this page is an article
-            canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug', '')
-            title = _.get(currentArticle, 'title', title) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT
-            desc = _.get(currentArticle, 'ogDescription', desc)
+            canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + get(currentArticle, 'slug', '')
+            title = get(currentArticle, 'title', title) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT
+            desc = get(currentArticle, 'ogDescription', desc)
             ogType = 'article'
             if (currentArticle['ogImage']) {
-              ogImage = _.get(currentArticle, 'ogImage.image.resizedTargets.desktop.url', '')
+              ogImage = get(currentArticle, 'ogImage.image.resizedTargets.desktop.url', '')
             } else if (currentArticle['heroImage']) {
-              ogImage = _.get(currentArticle, 'heroImage.image.resizedTargets.desktop.url', '')
+              ogImage = get(currentArticle, 'heroImage.image.resizedTargets.desktop.url', '')
             }
           } else {
             res.status(500).render('500')
@@ -157,7 +156,9 @@ server.get('*', async function (req, res) {
           let reduxState = escape(JSON.stringify(store.getState()))
           let html = ReactDOMServer.renderToString(
               <Provider store={store} >
-                { <RouterContext {...renderProps} /> }
+                <DeviceProvider device={get(store.getState(), 'device')}>
+                  { <RouterContext {...renderProps} /> }
+                </DeviceProvider>
               </Provider>
           )
           res.write(
@@ -222,6 +223,8 @@ server.get('*', async function (req, res) {
           res.redirect(302, getCurrentUrl())
         }
         unsubscribe()
+      }, (err) => {
+        throw err
       }).catch((err) => {
         console.log(err.stack)
         if (err instanceof NotFoundError) {

@@ -4,11 +4,14 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import Category from './Category'
 import More from '../components/More'
-import _ from 'lodash'
 import Link from './Link'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../utils/index'
+import { getImageSrc, getImageSrcSet } from '../utils/index'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 if (process.env.BROWSER) {
   require('./Tags.css')
@@ -47,17 +50,18 @@ export default class Tags extends Component {
         <section>
           <div className="container">
             <ul className={classNames('tag-listing', photoClass)}>
-              { _.map(articles, (a) => {
-                let image = imageComposer(a).mobileImage
+              { map(articles, (a) => {
+                let image = getImageSrc(a)
+                let imageSrcSet = getImageSrcSet(a)
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
                 let url = '/a/' + a.slug
-                let excerpt =  _.get(a, 'ogDescription', '')
+                let excerpt =  get(a, 'ogDescription', '')
                 if (image) {
                   return (
                     <li className="tag-item" key={a.id} style={bgStyle}>
                       <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
                         <div className="itemimage-wrap">
-                          <img className="category-itemimage" src={image}/>
+                          <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
                         </div>
                         <div className="tag-itemdesc" style={bgStyle}>
                           <div className="tag-itemtitle"><h3>{a.title}</h3></div>

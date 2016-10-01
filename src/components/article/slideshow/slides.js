@@ -1,9 +1,12 @@
 'use strict'
 
-import _ from 'lodash'
 import styles from './slides.scss'
 import React, { Component } from 'react'
 import Swipeable from 'react-swipeable'
+
+// lodash
+import map from 'lodash/map'
+import merge from 'lodash/merge'
 
 class Slides extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Slides extends Component {
     this.props.slideToIndex(slideTo)
   }
 
-  _handleSwiping(index, _, delta) {
+  _handleSwiping(index, ev, delta) {
     const offsetPercentage = index * (delta / this.props.width * 100)
     this.setState({ offsetPercentage: offsetPercentage })
   }
@@ -37,7 +40,7 @@ class Slides extends Component {
     const { isSwipeable, onImageError, onImageLoad, slides, slideStart } = this.props
     const { offsetPercentage } = this.state
 
-    let slideComponents = _.map(slides, (slide) => {
+    let slideComponents = map(slides, (slide) => {
       return (
         <li
           key={slide.id}
@@ -68,7 +71,7 @@ class Slides extends Component {
     // workaround here
     // Put transition in style rather than in CSS class makes animation smoother
     if (offsetPercentage === 0) {
-      _.merge(slidesStyle, {
+      merge(slidesStyle, {
         transition: 'transform .4s ease-out'
       })
     }

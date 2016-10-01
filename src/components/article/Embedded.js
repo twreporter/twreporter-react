@@ -1,12 +1,16 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Embedded.scss'
+
+// lodash
+import get from 'lodash/get'
+import forEach from 'lodash/forEach'
+import merge from 'lodash/merge'
 
 export class EmbeddedCode extends React.Component {
   constructor(props) {
@@ -15,12 +19,12 @@ export class EmbeddedCode extends React.Component {
 
   componentDidMount() {
     let node = ReactDOM.findDOMNode(this.refs.embedded)
-    let scripts = _.get(this.props, [ 'content', 0, 'scripts' ])
+    let scripts = get(this.props, [ 'content', 0, 'scripts' ])
     if (node && Array.isArray(scripts)) {
-      _.forEach(scripts, (script) => {
+      forEach(scripts, (script) => {
         let scriptEle = document.createElement('script')
         let attribs = script.attribs
-        _.merge(scriptEle, attribs)
+        merge(scriptEle, attribs)
         scriptEle.text = script.text || ''
         node.appendChild(scriptEle)
       })
@@ -32,7 +36,7 @@ export class EmbeddedCode extends React.Component {
   }
 
   render() {
-    let content = _.get(this.props, [ 'content', 0 ], {})
+    let content = get(this.props, [ 'content', 0 ], {})
 
     return (
       <div className={classNames(commonStyles['inner-block'])}>

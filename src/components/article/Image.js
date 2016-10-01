@@ -1,7 +1,6 @@
 /*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import FitwidthMixin from './mixins/FitwidthMixin'
@@ -12,6 +11,9 @@ import ReactDOM from 'react-dom'
 import LazyLoad from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
+
+// lodash
+import get from 'lodash/get'
 
 const DEFAULT_WIDTH = 200
 const DEFAULT_HEIGHT = 200
@@ -59,7 +61,7 @@ class Image extends FitwidthMixin(Component) {
   }
 
   _renderFigure(imageObj, imgStyle) {
-    if (_.get(imageObj, 'url')) {
+    if (get(imageObj, 'url')) {
       return (
         <figure>
           <LazyLoad offset={UI_SETTING.image.loadingOffset.image} height={imgStyle.height} once={true}>
@@ -82,7 +84,7 @@ class Image extends FitwidthMixin(Component) {
   }
 
   render() {
-    let imageByDevice = _.get(this.props, [ 'content', 0 ], {})
+    let imageByDevice = get(this.props, [ 'content', 0 ], {})
     if (imageByDevice===null) {
       return null
     }
@@ -90,14 +92,14 @@ class Image extends FitwidthMixin(Component) {
     let { isMounted, screenType, width } = this.state
     let { isToShowDescription, outerWidth, outerHeight } = this.props
     let boxWidth = outerWidth || width
-    let maxWidth = _.get(desktop, 'width', DEFAULT_WIDTH)
+    let maxWidth = get(desktop, 'width', DEFAULT_WIDTH)
     if(maxWidth < boxWidth) {
       boxWidth = maxWidth
     }
     let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    let imageDescription = _.get(imageByDevice, 'description', null)
+    let imageDescription = get(imageByDevice, 'description', null)
     let descriptionBox
 
     let outerStyle = {
@@ -112,7 +114,7 @@ class Image extends FitwidthMixin(Component) {
     // if the Image is being mounted, select image to render
     // according to the device of the client
     if (isMounted) {
-      renderedPlaceHoderImage = this._renderPlaceHoderImage(_.get(tiny, [ 'url' ]), imgStyle)
+      renderedPlaceHoderImage = this._renderPlaceHoderImage(get(tiny, [ 'url' ]), imgStyle)
       renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
     }
 
@@ -131,7 +133,7 @@ class Image extends FitwidthMixin(Component) {
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
-          <noscript dangerouslySetInnerHTML={this._getNoscript(replaceStorageUrlPrefix(_.get(desktop, 'url', '')), imageDescription)} />
+          <noscript dangerouslySetInnerHTML={this._getNoscript(replaceStorageUrlPrefix(get(desktop, 'url', '')), imageDescription)} />
         </div>
 
         {descriptionBox}

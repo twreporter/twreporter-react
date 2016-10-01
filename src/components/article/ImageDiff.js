@@ -1,7 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import classNames from 'classnames'
 import FitwidthMixin from './mixins/FitwidthMixin'
@@ -13,6 +12,9 @@ import Slider from 'rc-slider'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
+
+// lodash
+import get from 'lodash/get'
 
 const DEFAULT_WIDTH = 200
 const DEFAULT_HEIGHT = 200
@@ -47,7 +49,7 @@ class ImageDiff extends FitwidthMixin(Component) {
   }
 
   _renderFigure(imageObj, imgStyle) {
-    if (_.get(imageObj, 'url')) {
+    if (get(imageObj, 'url')) {
       return (
         <img
           src={ replaceStorageUrlPrefix(imageObj.url) }
@@ -60,8 +62,8 @@ class ImageDiff extends FitwidthMixin(Component) {
   }
 
   render() {
-    let imageByDevice0 = _.get(this.props, [ 'content', 0 ], {})
-    let imageByDevice1 = _.get(this.props, [ 'content', 1 ], {})
+    let imageByDevice0 = get(this.props, [ 'content', 0 ], {})
+    let imageByDevice1 = get(this.props, [ 'content', 1 ], {})
     let { desktop } = imageByDevice0
     let { isMounted, screenType, width, percentage, onhovered } = this.state
     let { outerWidth, outerHeight } = this.props
@@ -70,7 +72,7 @@ class ImageDiff extends FitwidthMixin(Component) {
     let buttonClass = null
     let renderedFigure0 = null
     let renderedFigure1 = null
-    let imageDescription = _.get(imageByDevice0, 'description', null)
+    let imageDescription = get(imageByDevice0, 'description', null)
     let descriptionBox
 
     let outerStyle = {
@@ -126,7 +128,7 @@ class ImageDiff extends FitwidthMixin(Component) {
                 }
                 value={50}
                 min={0}
-                max={100} 
+                max={100}
                 tipFormatter={null}
                 />
             </div>

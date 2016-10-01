@@ -2,12 +2,15 @@
 'use strict'
 import screenSize from '../../constants/screen-size'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import _ from 'lodash'
 import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import styles from './LeadingVideo.scss'
 import vjs from 'video.js'
+
+// lodash
+import defaults from 'lodash/defaults'
+import get from 'lodash/get'
 
 if (process.env.BROWSER) {
   require ('./LeadingVideo.css')
@@ -52,8 +55,8 @@ class LeadingVideo extends React.Component {
   getVideoPlayerOptions() {
     const { poster } = this.props
 
-    return _.defaults(
-      {}, this.props.options, { poster: _.get(poster, 'desktop.url', '') }, DEFAULT_VIDEO_OPTIONS)
+    return defaults(
+      {}, this.props.options, { poster: get(poster, 'desktop.url', '') }, DEFAULT_VIDEO_OPTIONS)
   }
 
   setVideoPlayerSrc(src) {
@@ -94,9 +97,9 @@ class LeadingVideo extends React.Component {
   }
 
   _composeSrcSet(imgObj) {
-    let desktopSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'desktop', 'url' ]))
-    let tabletSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'tablet', 'url' ]))
-    let mobileSrc = replaceStorageUrlPrefix(_.get(imgObj, [ 'mobile', 'url' ]))
+    let desktopSrc = replaceStorageUrlPrefix(get(imgObj, [ 'desktop', 'url' ]))
+    let tabletSrc = replaceStorageUrlPrefix(get(imgObj, [ 'tablet', 'url' ]))
+    let mobileSrc = replaceStorageUrlPrefix(get(imgObj, [ 'mobile', 'url' ]))
     return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
   }
 
@@ -108,7 +111,7 @@ class LeadingVideo extends React.Component {
     })
 
     let imageSrcSet = this._composeSrcSet(poster)
-    let imageSrc = replaceStorageUrlPrefix(_.get(poster, 'mobile.url', ''))
+    let imageSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
 
     return (
       <div>

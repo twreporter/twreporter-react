@@ -1,11 +1,13 @@
 'use strict'
-import _ from 'lodash'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 import YoutubePlayer from 'react-youtube'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Youtube.scss'
+
+// lodash
+import get from 'lodash/get'
 
 class Youtube extends React.Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class Youtube extends React.Component {
   render() {
     const { content } = this.props
 
-    let { description, youtubeId } = _.get(content, [ 0 ], {})
+    let { description, youtubeId } = get(content, [ 0 ], {})
 
     if (!youtubeId) {
       return null

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
 import { ARTICLE, PHOTOGRAPHY_ARTICLE, DEFAULT_HEADER_HEIGHT } from '../constants/index'
@@ -7,6 +6,10 @@ import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
+
+// lodash
+import debounce from 'lodash/debounce'
+import get from 'lodash/get'
 
 class NavBar extends Component {
   constructor(props) {
@@ -18,8 +21,8 @@ class NavBar extends Component {
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this.debouncedScroll = _.debounce(() => { this._handleScroll() }, 50, { 'maxWait': 150 })
-    this.getDebouncedHeight = _.debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
+    this.debouncedScroll = debounce(() => { this._handleScroll() }, 50, { 'maxWait': 150 })
+    this.getDebouncedHeight = debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
   }
 
   componentDidMount() {
@@ -60,7 +63,7 @@ class NavBar extends Component {
 
   _getHeaderHeight() {
     const rect = ReactDOM.findDOMNode(this.refs.headerbox).getBoundingClientRect()
-    let hHeight = _.get(rect, 'height', DEFAULT_HEADER_HEIGHT)
+    let hHeight = get(rect, 'height', DEFAULT_HEADER_HEIGHT)
     hHeight = (hHeight < DEFAULT_HEADER_HEIGHT) ? DEFAULT_HEADER_HEIGHT : hHeight
     this.setState({
       height: hHeight
@@ -97,7 +100,7 @@ class NavBar extends Component {
     const { height, isScrolledOver } = this.state
     const { header } = this.props
     const percent = header.readPercent || 0
-    
+
     let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && isScrolledOver ? <HeaderProgress percent={percent}/> : null
 
     return (

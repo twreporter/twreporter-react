@@ -1,9 +1,12 @@
 /*eslint-disable no-console*/
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import styles from './thumbnails.scss'
 import React from 'react'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 const defaultThumbnailWidth = 56
 
@@ -45,7 +48,7 @@ const Thumbnails = (props) => {
     slideToIndex(index, event)
   }
 
-  let thumbnailComponents = _.map(thumbnails, (thumbnail, index) => {
+  let thumbnailComponents = map(thumbnails, (thumbnail, index) => {
     return (
       <Thumbnail
         alt={thumbnail.alt}
@@ -61,7 +64,7 @@ const Thumbnails = (props) => {
     )
   })
 
-  let length = _.get(thumbnails, 'length', 0)
+  let length = get(thumbnails, 'length', 0)
 
   // calculate how many thumbnails can show in the thumbnails conatiner
   let maximum =  Math.floor((width - thumbnailOffset * (length - 1))/ thumbnailWidth)

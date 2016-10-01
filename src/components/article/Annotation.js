@@ -1,9 +1,11 @@
 'use strict'
-import _ from 'lodash'
 import commonStyles from './Common.scss'
 import classNames from 'classnames'
 import styles from './Annotation.scss'
 import React from 'react' // eslint-disable-next-line
+
+// lodash
+import get from 'lodash/get'
 
 export class AnnotationBlock extends React.Component {
   constructor(props) {
@@ -62,7 +64,7 @@ AnnotationBlock.defaultProps = {
 }
 
 export const Annotation = ({ content }) => {
-  let html = _.get(content, 0, '')
+  let html = get(content, 0, '')
 
   // annotation data will be in the comment with prefix __ANNOTATION__=
   let re = /<!--__ANNOTATION__=(.+?)-->/
@@ -84,9 +86,9 @@ export const Annotation = ({ content }) => {
             {...annotationObj}
           />
         )
-        html = html.substr(result.index + _.get(result, [ 0, 'length' ]))
+        html = html.substr(result.index + get(result, [ 0, 'length' ]))
       } catch(e) {
-        console.warn('Can not JSON parse annotation obj string', _.get(result, 1)) // eslint-disable-line
+        console.warn('Can not JSON parse annotation obj string', get(result, 1)) // eslint-disable-line
       }
     }
   } while (result)

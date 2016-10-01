@@ -1,11 +1,13 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import _ from 'lodash'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import getArticleComponent from './getArticleComponent'
 import styles from './Body.scss'
+
+// lodash
+import get from 'lodash/get'
 
 export class Body extends Component {
   constructor(props) {
@@ -27,9 +29,9 @@ export class Body extends Component {
           sectionCnt++
           anchor = <div id={`section-${sectionCnt}`} className={styles['anchor']}></div>
         } else if (type === 'embeddedcode') {
-          let embeddedContent = _.get(ele, [ 'content', 0 ], {})
-          let width = _.get(embeddedContent, 'width')
-          let height = _.get(embeddedContent, 'height')
+          let embeddedContent = get(ele, [ 'content', 0 ], {})
+          let width = get(embeddedContent, 'width')
+          let height = get(embeddedContent, 'height')
           if (width) {
             styles.maxWidth = width
           }

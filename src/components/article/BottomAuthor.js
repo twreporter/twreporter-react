@@ -1,8 +1,11 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import React, { Component } from 'react'
-import _ from 'lodash'
 import styles from './BottomAuthor.scss'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 export class BottomAuthor extends Component {
   constructor(props) {
@@ -14,12 +17,12 @@ export class BottomAuthor extends Component {
   }
 
   getAvatar(author) {
-    return _.get(author, [ 'image', 'url' ], 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png')
+    return get(author, [ 'image', 'url' ], 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png')
   }
 
   render() {
     const { authors } = this.props
-    const authorRows = _.map(authors, author =>
+    const authorRows = map(authors, author =>
       <div key={author.id} className={'row ' + styles.authorRow}>
         <div className="col-sm-2">
           <img src={this.getAvatar(author)} className="img-responsive img-circle center-block"/>

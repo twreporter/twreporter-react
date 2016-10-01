@@ -3,7 +3,6 @@ import { PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, SITE_NAME } from '../constants/index'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import DocumentMeta from 'react-document-meta'
 import NavBar from '../containers/NavBar'
 import React, { Component } from 'react'
@@ -11,6 +10,9 @@ import classNames from 'classnames'
 import enLocaleData from 'react-intl/locale-data/en'
 import zhLocaleData from 'react-intl/locale-data/zh'
 import styles from './App.scss'
+
+// lodash
+import get from 'lodash/get'
 
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
@@ -34,7 +36,7 @@ class App extends Component {
 
   render() {
     const pathname = this.props.location.pathname
-    let pageType = _.get(this.props, [ 'header', 'pageType' ])
+    let pageType = get(this.props, [ 'header', 'pageType' ])
     const meta = {
       title: SITE_NAME.FULL
     }

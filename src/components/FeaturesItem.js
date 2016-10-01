@@ -1,10 +1,12 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import _ from 'lodash'
 import Category from './Category'
 import Link from './Link'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+
+// lodash
+import get from 'lodash/get'
 
 let ScrollMagic
 
@@ -114,22 +116,22 @@ export default class FeaturesItem extends Component {
   }
 
   render() {
-    const { article, image } = this.props
+    const { article, image, imageSrcSet } = this.props
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
     let url = '/a/' + article.slug
     let catDisplay
-    let cats = _.get(article, 'categories', [])
+    let cats = get(article, 'categories', [])
     for (let i = 0; i < cats.length; i++) {
-      catDisplay = _.get(cats, [ i, 'name' ])
+      catDisplay = get(cats, [ i, 'name' ])
       if (catDisplay) {
         break
       }
     }
-    let excerpt = _.get(article, 'ogDescription', '')
+    let excerpt = get(article, 'ogDescription', '')
 
     return (
       <li className="listing-item" key={article.id}>
-        <Link to={url} disableReactRouter={ _.get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
+        <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"
@@ -140,6 +142,7 @@ export default class FeaturesItem extends Component {
               height="1200px"
               className="img"
               src={image}
+              srcSet={imageSrcSet}
             />
           <div className="img-overlay" />
           </div>

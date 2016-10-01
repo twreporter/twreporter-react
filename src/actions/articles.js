@@ -5,10 +5,16 @@ import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
-import _ from 'lodash'
 import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
+
+// lodash
+import forEach from 'lodash/forEach'
+import has from 'lodash/has'
+import get from 'lodash/get'
+import merge from 'lodash/merge'
+
 
 function requestArticlesByUuid(id, url) {
   return {
@@ -91,7 +97,7 @@ function receiveFeaturedArticles(response) {
 function _buildQuery(params = {}) {
   let query = {}
   let whitelist = [ 'where', 'embedded', 'max_results', 'page', 'sort' ]
-  _.forEach(whitelist, (ele) => {
+  forEach(whitelist, (ele) => {
     if (params.hasOwnProperty(ele)) {
       if (ele === 'where' || ele === 'embedded') {
         query[ele] = JSON.stringify(params[ele])
@@ -129,7 +135,7 @@ function _setupWhereInParam(key, value, params={}) {
   value = Array.isArray(value) ? value : [ value ]
   let where = {}
   if (value.length > 0) {
-    _.merge(where, params.where, {
+    merge(where, params.where, {
       [key]: {
         '$in': value
       }
@@ -167,16 +173,16 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
     if (!articleId) {
       return Promise.resolve()
     }
-    let articles = _.get(getState(), [ 'entities', 'articles' ], {})
+    let articles = get(getState(), [ 'entities', 'articles' ], {})
     let idsToFetch = []
 
-    _.forEach(relatedIds, (id) => {
-      if (!_.has(articles, id)) {
+    forEach(relatedIds, (id) => {
+      if (!has(articles, id)) {
         idsToFetch.push(id)
       }
     })
 
-    if (_.get(idsToFetch, 'length', 0) === 0) {
+    if (get(idsToFetch, 'length', 0) === 0) {
       return Promise.resolve()
     }
 
@@ -213,7 +219,7 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
  */
 export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, isOnlyMeta = true) {
   return (dispatch, getState) => {
-    if (!uuid || _.get(getState(), [ 'articlesByUuids', uuid, 'hasMore' ]) === false) {
+    if (!uuid || get(getState(), [ 'articlesByUuids', uuid, 'hasMore' ]) === false) {
       return Promise.resolve()
     }
 
@@ -242,7 +248,7 @@ export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, i
       .then((response) => {
         let camelizedJson = camelizeKeys(response)
         let normalized = normalize(camelizedJson.items, arrayOf(articleSchema))
-        _.merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
+        merge(normalized, { links: camelizedJson.links, meta: camelizedJson.meta })
         return dispatch(receiveArticlesByUuid(normalized, uuid))
       }, (error) => {
         return dispatch(failToReceiveArticlesByUuid(uuid, error))
@@ -265,7 +271,7 @@ export function fetchFeatureArticles(params = {}, isOnlyMeta = true) {
 
   return (dispatch) => {
     params = params || {}
-    params.where = _.merge({}, params.where, {
+    params.where = merge({}, params.where, {
       isFeatured: true
     })
     params.max_results = params.max_results || limit

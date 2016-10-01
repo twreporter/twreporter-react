@@ -1,5 +1,5 @@
 'use strict'
-import _ from 'lodash'
+import has from 'lodash/has'
 
 export function mapUrl(availableActions = {}, url = []) {
   const notFound = { action: null, params: [] }
@@ -10,7 +10,7 @@ export function mapUrl(availableActions = {}, url = []) {
   }
   /*eslint-disable */
   const reducer = (prev, current) => {
-    if (_.has(prev, [ 'action', current ])) {
+    if (has(prev, [ 'action', current ])) {
       return {action: prev.action[current], params: []} // go deeper
     } else {
       if (typeof prev.action === 'function') {

@@ -3,9 +3,9 @@
 import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
+import { devCatListId, prodCatListId } from '../conf/list-id'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
 import { setPageType } from '../actions/header'
-import _ from 'lodash'
 import Daily from '../components/Daily'
 import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
@@ -14,7 +14,9 @@ import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 import async from 'async'
-import { devCatListId, prodCatListId } from '../conf/list-id'
+
+// lodash
+import get from 'lodash/get'
 
 const MAXRESULT = 10
 const PAGE = 1
@@ -73,24 +75,30 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
     let params = {
       page: PAGE,
       max_results: MAXRESULT
     }
-    fetchFeatureArticles()
-    fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
-    fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
+    if (get(featureArticles, 'items.length', 0) === 0) {
+      fetchFeatureArticles()
+    }
+    if (get(articlesByUuids, [ this.reviewListId, 'items', 'length' ], 0) < MAXRESULT) {
+      fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
+    }
+    if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
+      fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
+    }
   }
 
   _loadMoreArticles(catId) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
 
-    if (_.get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
+    if (get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
       return
     }
 
-    let itemSize = _.get(articlesByUuids, [ catId, 'items', 'length' ], 0)
+    let itemSize = get(articlesByUuids, [ catId, 'items', 'length' ], 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
     fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
       page: page,
@@ -101,9 +109,9 @@ class Home extends Component {
   render() {
     const { articlesByUuids, entities, featureArticles } = this.props
     const topnews_num = 5
-    let topnewsItems = denormalizeArticles(_.get(featureArticles, 'items', []), entities)
-    let specialTopicItems = denormalizeArticles(_.get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
-    let reviewItems = denormalizeArticles(_.get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
+    let topnewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
+    let specialTopicItems = denormalizeArticles(get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
+    let reviewItems = denormalizeArticles(get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
     const meta = {
       title: '報導者 The Reporter',
       description: '《報導者》是由「財團法人報導者文化基金會」成立的非營利網路媒體，致力於公共領域的深度報導及調查報導，為讀者持續追蹤各項重要議題。我們秉持開放參與的精神，結合各種進步價值與公民力量，共同打造多元進步的社會與媒體環境。',
@@ -120,7 +128,7 @@ class Home extends Component {
           />
           <Features
             features={specialTopicItems}
-            hasMore={ _.get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
+            hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
             loadMore={this.loadMoreArticles}
           />
           {

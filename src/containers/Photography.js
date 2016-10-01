@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType } from '../actions/header'
-import _ from 'lodash'
 import async from 'async'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
 import TopNews from '../components/TopNews'
+
+// lodash
+import get from 'lodash/get'
+
 if (process.env.BROWSER) {
   require('./Home.css')
 }
@@ -87,7 +90,7 @@ class Photography extends Component {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
     const articles = articlesByUuids[catId]
-    let page = Math.floor(_.get(articles, 'items.length', 0) / MAXRESULT)  + 1
+    let page = Math.floor(get(articles, 'items.length', 0) / MAXRESULT)  + 1
     fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
       page,
       max_result: MAXRESULT,
@@ -105,8 +108,8 @@ class Photography extends Component {
     }
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
 
-    let topNewsItems = denormalizeArticles(_.get(featureArticles, 'items', []), entities)
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
+    let topNewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
+    let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
 
     return (
       <div style={style}>
@@ -114,7 +117,7 @@ class Photography extends Component {
         <Tags
           articles={articles}
           bgStyle="dark"
-          hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
+          hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}

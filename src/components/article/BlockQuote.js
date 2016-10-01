@@ -1,14 +1,16 @@
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './BlockQuote.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 
+// lodash
+import get from 'lodash/get'
+
 export const QuoteBy = ({ content, device }) => { // eslint-disable-line
-  let quote = _.get(content, [ 0, 'quote' ])
-  let quoteBy = _.get(content, [ 0, 'quoteBy' ])
+  let quote = get(content, [ 0, 'quote' ])
+  let quoteBy = get(content, [ 0, 'quoteBy' ])
   if (!quote) {
     return null
   }
@@ -29,7 +31,7 @@ export const QuoteBy = ({ content, device }) => { // eslint-disable-line
 }
 
 export const BlockQuote = ({ content, device }) => { // eslint-disable-line
-  return <blockquote className={classNames(commonStyles['inner-block'], styles['blockquote'], 'text-justify')} dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></blockquote>
+  return <blockquote className={classNames(commonStyles['inner-block'], styles['blockquote'], 'text-justify')} dangerouslySetInnerHTML={{ __html: get(content, [ 0 ], '') }}></blockquote>
 }
 
 export const AlignedQuoteBy = BlockAlignmentWrapper(QuoteBy)

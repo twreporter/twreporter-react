@@ -133,47 +133,27 @@ Since Redux see its state as single source of truth, we store our own data like 
       id: 'category-id-2'
     }
   },
-  articlesByCats: {
-    'category-1': {
+  articlesByUuids: {
+    'category-id-1': {
       isFetching: false,
       error: null,
       nextUrl: "http://104.199.134.142:8080/posts?where={%22categories%22:{%22$in%22:%22category-id-1%22}}embedded={%22categories%22:1,%20%22tags%22:1}&max_results=1&page=3",
       items: ['article-slug-1', 'article-slug-2'],
       lastUpdated: 1234567890
     },
-    'category-2': {
+    'category-id-2': {
       isFetching: true,
       error: null,
       nextUrl: null,
       items: []
-    },
-    'category-3': {
-      isFetching: false,
-      error: Error("API return 500"),
-      nextUrl: null,
-      items: []
-    }
-  },
-  articlesByTags: {
-    'tag-1': {
+    }, 
+    'tag-id-1': {
       isFetching: false,
       error: null,
       nextUrl: "http://104.199.134.142:8080/posts?where={%22tags%22:{%22$in%22:%22tag-id-1%22}}embedded={%22categories%22:1,%20%22tags%22:1}&max_results=1&page=3",
       items: ['article-slug-1', 'article-slug-2'],
       lastUpdated: 1234567890
     },
-    'tag-2': {
-      isFetching: true,
-      error: null,
-      nextUrl: null,
-      items: []
-    },
-    'tag-3': {
-      isFetching: false,
-      error: Error("API return 500"),
-      nextUrl: null,
-      items: []
-    }
   }
 }
 ```

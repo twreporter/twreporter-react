@@ -1,12 +1,14 @@
 'use strict'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../utils/index'
-import _ from 'lodash'
+import { getImageSrc, getImageSrcSet } from '../utils/index'
 import Link from './Link'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
 import React, { Component } from 'react'
+
+// lodash
+import get from 'lodash/get'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
@@ -22,18 +24,17 @@ export default class TopNews extends Component {
   }
   render() {
     const { topnews } = this.props
-    const { device } = this.context
     return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = date2yyyymmdd(a.publishedDate, '.')
-          let cats = _.get(a, 'categories', [])
-          let catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-          let imageSet = imageComposer(a)
-          let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
+          let cats = get(a, 'categories', [])
+          let catDisplay = get(cats, [ 0, 'name' ], '專題')
+          let imageSet = getImageSrcSet(a)
+          let image = getImageSrc(a)
           return (
               <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
-                <img src={image} alt={a.slug} />
+                <img src={image} alt={a.slug} srcSet={imageSet}/>
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>
                 </div>

@@ -1,5 +1,6 @@
 'use strict'
-import _ from 'lodash'
+import merge from 'lodash/merge'
+import forEach from 'lodash/forEach'
 
 function getArticleFieldToEntity() {
   return  [ {
@@ -34,7 +35,7 @@ function denormalizeEntity(entityIds = [], entityObj = {}) {
   entityObj = entityObj || {}
   if (Array.isArray(entityIds)) {
     rtn = []
-    _.forEach(entityIds, (id) => {
+    forEach(entityIds, (id) => {
       if (entityObj.hasOwnProperty(id)) {
         rtn.push(entityObj[id])
       }
@@ -54,8 +55,8 @@ export function denormalizeArticles(ids = [], entities = {}) {
   ids = Array.isArray(ids) ? ids : [ ids ]
   ids.forEach((id) => {
     if (articles.hasOwnProperty(id)) {
-      let article = _.merge({}, articles[id])
-      _.forEach(fieldToEntity, (ele) => {
+      let article = merge({}, articles[id])
+      forEach(fieldToEntity, (ele) => {
         article[ele.field] = denormalizeEntity(article[ele.field], entities[ele.entity])
       })
       denormalizedArticles.push(article)
@@ -72,7 +73,7 @@ export function shallowDenormalizeArticles(ids = [], entities = {}) {
   ids = Array.isArray(ids) ? ids : [ ids ]
   ids.forEach((id) => {
     if (articles.hasOwnProperty(id)) {
-      let article = _.merge({}, articles[id])
+      let article = merge({}, articles[id])
       denormalizedArticles.push(article)
     }
   })

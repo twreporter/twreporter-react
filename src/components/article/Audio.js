@@ -2,7 +2,6 @@
 'use strict'
 import { Image } from './Image'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import _ from 'lodash'
 import CircleProgressButton from './CircleProgressButton'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Player from 'react-howler'
@@ -14,6 +13,10 @@ import playIcon from '../../../static/asset/audio-play.svg'
 import pauseIcon from '../../../static/asset/audio-pause.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
+
+// lodash
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 
 if (process.env.BROWSER) {
   require('rc-slider/assets/index.css')
@@ -197,7 +200,7 @@ class Audio extends React.Component {
   render() {
     const { content, device } = this.props
     const { duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
-    const { url, coverPhoto, title, description } = _.get(content, 0, {})
+    const { url, coverPhoto, title, description } = get(content, 0, {})
 
     const player = (
       <Player
@@ -211,7 +214,7 @@ class Audio extends React.Component {
     )
 
     // render Audio without cover photo
-    if (_.isEmpty(coverPhoto)) {
+    if (isEmpty(coverPhoto)) {
       let btRadius = 24
       return (
         <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>

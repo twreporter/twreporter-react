@@ -1,11 +1,13 @@
 'use strict'
 import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
-import _ from 'lodash'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
 import Link from '../Link'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+
+// lodash
+import get from 'lodash/get'
 
 class PageNavigation extends Component {
   constructor(props) {
@@ -30,8 +32,8 @@ class PageNavigation extends Component {
   }
 
   _handleTitleTextOverflow() {
-    let containerHeight = _.get(ReactDOM.findDOMNode(this.refs.container), 'clientHeight', 75)
-    let thumbWidth = _.get(ReactDOM.findDOMNode(this.refs.thumb), 'width', 0)
+    let containerHeight = get(ReactDOM.findDOMNode(this.refs.container), 'clientHeight', 75)
+    let thumbWidth = get(ReactDOM.findDOMNode(this.refs.thumb), 'width', 0)
     let titleNode = ReactDOM.findDOMNode(this.refs.title)
     if (!titleNode) {
       return
@@ -50,8 +52,8 @@ class PageNavigation extends Component {
   }
 
   _renderArticle(article) {
-    let imgUrl = _.get(article, [ 'heroImage', 'image', 'resizeTargets', 'mobile', 'url' ], null)
-    let title = _.get(article, 'title', _.get(article, 'og_title'))
+    let imgUrl = get(article, [ 'heroImage', 'image', 'resizeTargets', 'mobile', 'url' ], null)
+    let title = get(article, 'title', get(article, 'og_title'))
 
     return (
       <article className={classNames(styles['article'], imgUrl ? '' : styles['no-thumbnail'], 'clearfix')}>
@@ -80,16 +82,16 @@ class PageNavigation extends Component {
   render() {
     const { navigate } = this.props
     const { article } = this.state
-    let slug = _.get(article, 'slug')
+    let slug = get(article, 'slug')
     if (!slug) {
       return null
     }
 
-    let link = '/a/' + _.get(article, 'slug', '')
+    let link = '/a/' + get(article, 'slug', '')
 
     return (
       <nav ref="container" className={classNames(styles['aside-page-navigation'], styles[navigate])}>
-        <Link to={link} disableReactRouter={_.get(article, 'style') === INTERACTIVE_ARTICLE_STYLE}>
+        <Link to={link} disableReactRouter={get(article, 'style') === INTERACTIVE_ARTICLE_STYLE}>
           {this._renderArticle(article)}
           {this._renderArrow(navigate)}
         </Link>

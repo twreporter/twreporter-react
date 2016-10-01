@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom'
-import _ from 'lodash'
+
+// lodash
+import get from 'lodash/get'
 
 let FitwidthMixin = (superclass) => class extends superclass {
   componentDidMount() {
@@ -39,8 +41,8 @@ let FitwidthMixin = (superclass) => class extends superclass {
 
   _getHeight(width, original, defaultWidth, defaultHeight) {
     if (original) {
-      const oriWidth = _.get(original, 'width', defaultWidth)
-      const oriHeight = _.get(original, 'height', defaultHeight)
+      const oriWidth = get(original, 'width', defaultWidth)
+      const oriHeight = get(original, 'height', defaultHeight)
       return Math.round(width * oriHeight / oriWidth)
     }
     return defaultHeight

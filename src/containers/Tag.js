@@ -3,21 +3,23 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType } from '../actions/header'
-import _ from 'lodash'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
+
+// lodash
+import get from 'lodash/get'
 
 const MAXRESULT = 10
 const PAGE = 1
 
 class Tag extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId), TAG, {
+    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId, TAG, {
       page: PAGE,
       max_results: MAXRESULT
-    })
+    }))
   }
 
   constructor(props) {
@@ -27,10 +29,10 @@ class Tag extends Component {
 
   componentWillMount() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let tagId = _.get(params, 'tagId')
+    let tagId = get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -46,10 +48,10 @@ class Tag extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
-    let tagId = _.get(params, 'tagId')
+    let tagId = get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -61,13 +63,13 @@ class Tag extends Component {
 
   _loadMore() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    const tagId = _.get(params, 'tagId')
-    let articlesByTag = _.get(articlesByUuids, [ tagId ], {})
-    if (_.get(articlesByTag, 'hasMore') === false) {
+    const tagId = get(params, 'tagId')
+    let articlesByTag = get(articlesByUuids, [ tagId ], {})
+    if (get(articlesByTag, 'hasMore') === false) {
       return
     }
 
-    let itemSize = _.get(articlesByTag, 'items.length', 0)
+    let itemSize = get(articlesByTag, 'items.length', 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
 
     fetchArticlesByUuidIfNeeded(tagId, TAG, {
@@ -79,9 +81,9 @@ class Tag extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const tagId = _.get(params, 'tagId')
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
-    let tagName = _.get(entities, [ 'tags', tagId, 'name' ], '')
+    const tagId = get(params, 'tagId')
+    let articles = denormalizeArticles(get(articlesByUuids, [ tagId, 'items' ], []), entities)
+    let tagName = get(entities, [ 'tags', tagId, 'name' ], '')
     const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const meta = {
       title: tagName ? tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
@@ -100,7 +102,7 @@ class Tag extends Component {
           <Tags
             articles={articles}
             device={device}
-            hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
+            hasMore={ get(articlesByUuids, [ tagId, 'hasMore' ])}
             loadMore={this.loadMore}
           />
           {this.props.children}

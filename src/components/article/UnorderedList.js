@@ -1,9 +1,11 @@
 'use strict'
-import _ from 'lodash'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './UnorderedList.scss'
 import React from 'react' // eslint-disable-next-line
+
+// lodash
+import get from 'lodash/get'
 
 export const UnorderedList = ({ content }) => {
   if(!Array.isArray(content)) {
@@ -12,7 +14,7 @@ export const UnorderedList = ({ content }) => {
 
   // TODO cList = content directly.
   // Right now it's a workaround here
-  let cList = _.get(content, 0)
+  let cList = get(content, 0)
   if (!Array.isArray(cList)) {
     cList = content
   }
