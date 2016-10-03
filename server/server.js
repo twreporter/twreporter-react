@@ -213,9 +213,10 @@ server.get('*', async function (req, res) {
   window.__REDUX_STATE__ = '${reduxState}';
   </script>
   <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+  <script src="https://use.typekit.net/ckp5jxu.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </body>
 </html>
-<link rel="stylesheet" href="/asset/font.css">
 `)
           res.end()
           //DocumentMeta.rewind()   // render custom ducument title
