@@ -9,9 +9,25 @@ New Media foundation in Taiwan.
 
 # Pre-process
     $ cp api/config.example.js api/config.js 
-    // edit api/config.js to connect to your own api host
-    // if you have no api server, you can use this [CMS](https://github.com/twreporter/plate) and this [API SERVER](https://github.com/twreporter/tr-projects-rest) to build your own API layer.
-  
+edit api/config.js to connect to your own api host <br />
+if you have no api server, you can follow [this](https://github.com/twreporter/twreporter-react/blob/revamp/README.md#build-your-own-api) to build your own API layer.
+
+## Build your own API
+Before starting up twreporter-react, you may need serveral API endpoints to provide the articles.<br/>
+If you don't have these endpoints, you can follow next steps to build up your own API layer.
+
+### FIRST STEP: create a CMS 
+You can use [CMS of twreporter](https://github.com/twreporter/plate) to create your own CMS.<br/>
+Since you have your own CMS, you can create, edit and delete those articles you want to show on your twreporter-react site.
+
+### SECOND STEP: start up an API server
+[tr-projects-rest](https://github.com/twreporter/tr-projects-rest) is used to start up a RESTful webservice which is created for [CMS of twreporter](https://github.com/twreporter/plate).<br />
+
+### THIRD STEP: edit api config to connect to your own API
+edit the api/config.js, and connect to your own API host.<br />
+
+After doing these setups, you can start up your twreporter-react site.
+
 # Development
     $ npm run dev
   
