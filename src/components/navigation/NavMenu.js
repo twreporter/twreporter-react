@@ -260,7 +260,7 @@ export default class NavMenu extends Component {
       }
       navLinks.push(<Link key={i} style={{ color: linkColor }}
         className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path}
-        onClick={()=> { this.setState( { open: !this.state.open } )}}><h1>{navItems[i].title}</h1></Link>)
+        onClick={()=> { this.setState( { open: !this.state.open } )}}><span>{navItems[i].title}</span></Link>)
     }
 
     // if the burger icon is clicked

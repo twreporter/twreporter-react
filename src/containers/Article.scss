@@ -22,6 +22,7 @@
         margin-bottom: rem(24px);
         h1 {
             font-weight: $font-weight-bold;
+            line-height: 1.4;
             @include mq($max-width: $screen-sm-min) { 
                 font-size: $font-size-xlarger;
             }
