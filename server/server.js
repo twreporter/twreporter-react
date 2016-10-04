@@ -213,6 +213,7 @@ server.get('*', async function (req, res) {
   window.__REDUX_STATE__ = '${reduxState}';
   </script>
   <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+  <!-- Adobe typekit for getting webfont -->
   <script src="https://use.typekit.net/ckp5jxu.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </body>
