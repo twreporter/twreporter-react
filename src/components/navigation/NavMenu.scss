@@ -24,7 +24,7 @@
 
 .slided-down-category {
     transition: all 0.1s ease;
-    h1 {
+    span {
         font-size: $font-size-medium !important;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
@@ -61,7 +61,7 @@
     }
 }
 
-.active h1 {
+.active span {
     padding-bottom: 8px;
     border-bottom: 3px solid $gray;
 }
