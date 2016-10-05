@@ -15,7 +15,7 @@ $red: $harley-davidson-orange;
     margin-top: -0.5em;
   }
 
-  h1 {
+  span {
     font-size: 16px;
     font-weight: $font-weight-normal;
     margin-top: 0;
@@ -33,7 +33,7 @@ $red: $harley-davidson-orange;
   @media (max-width: $screen-md-min) {
     margin: 0.5em 0.7em;
     padding: 0.65em;
-    h1 {
+    span {
       font-size: 19px;
     }
   }
@@ -59,7 +59,7 @@ $red: $harley-davidson-orange;
     padding-left: 0;
     @media (min-width: $screen-md-min) {
       display: inline-block;
-      padding: 8px;
+      padding: 4px;
     }
   }
 

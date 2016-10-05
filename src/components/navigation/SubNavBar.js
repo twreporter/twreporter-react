@@ -55,7 +55,7 @@ export default class SubNavBar extends Component {
     for(let i in subnavPath) {
       let topicName = get(subnavPath, [ i, 'title' ])
       let topicId = getTopicId(topicName)
-      subMenuLinks.push(<Link key={i} to={`${LINK_PREFIX.TOPIC}${topicId}`}><h1 onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subnavPath[i].title}</h1></Link>)
+      subMenuLinks.push(<Link key={i} to={`${LINK_PREFIX.TOPIC}${topicId}`}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subnavPath[i].title}</span></Link>)
     }
 
     return (
