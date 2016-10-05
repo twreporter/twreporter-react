@@ -34,6 +34,14 @@ class App extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (get(this.props, 'location.pathname') !== get(nextProps, 'location.pathname') ||
+      get(this.props, 'header.pageType') !== get(nextProps, 'header.pageType')) {
+      return true
+    }
+    return false
+  }
+
   render() {
     const pathname = this.props.location.pathname
     let pageType = get(this.props, [ 'header', 'pageType' ])
