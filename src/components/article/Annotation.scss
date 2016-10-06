@@ -66,7 +66,7 @@ $letter-spacing: .5px;
     .body {
       display: none;
       background-color: $white;
-      font-size: rem(16px);
+      font-size: rem($font-size-medium);
       line-height: 1.8;
       letter-spacing: $letter-spacing;
       padding: rem(16px) rem(24px) rem(16px) rem(24px);
