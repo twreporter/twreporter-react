@@ -8,17 +8,18 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
+import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import async from 'async'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
-import DocumentMeta from 'react-document-meta'
-import async from 'async'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
-import styles from './Article.scss'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
+import raf from 'raf' // requestAnimationFrame polyfill
+import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 
@@ -122,16 +123,19 @@ class Article extends Component {
     this._isFeatureArticlesFetched = false
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
+    this._onScroll = this._onScroll.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+
+    // for requestAnimationFrame
+    this._ticking = false
   }
 
   componentDidMount() {
     this._setArticleBounding()
     this._sendPageLevelAction()
     window.addEventListener('resize', this._setArticleBounding)
-
     // detect sroll position
-    window.addEventListener('scroll', this._handleScroll)
+    window.addEventListener('scroll', this._onScroll)
   }
 
   componentDidUpdate() {
@@ -151,7 +155,11 @@ class Article extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this._setArticleBounding)
+    window.removeEventListener('scroll', this._onScroll)
     this._isFeatureArticlesFetched = false
+    this._ticking = false
+    this.clearRAF()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -165,9 +173,19 @@ class Article extends Component {
     }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._setArticleBounding)
-    window.removeEventListener('scroll', this._handleScroll)
+  _requestTick() {
+    if (!this._ticking) {
+      this._raf = raf(this._handleScroll)
+      this._ticking = true
+    }
+  }
+
+  _onScroll() {
+    this._requestTick()
+  }
+
+  clearRAF() {
+    raf.cancel(this._raf)
   }
 
   _sendPageLevelAction() {
@@ -266,11 +284,15 @@ class Article extends Component {
       scrollRatio = 1
     }
     let curPercent = Math.round(scrollRatio*100)
-    if(percent!== curPercent) {
+    if(percent !== curPercent) {
       articlePostition.percent = curPercent
       // update the header progress bar
       this.props.setReadProgress(curPercent)
     }
+
+    // reset the tick so we can
+    // capture the next onScroll
+    this._ticking = false
   }
 
   _composeAuthors(article) {

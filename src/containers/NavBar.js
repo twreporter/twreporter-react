@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setReadProgress } from '../actions/header'
-import { ARTICLE, PHOTOGRAPHY_ARTICLE, DEFAULT_HEADER_HEIGHT } from '../constants/index'
+import { ARTICLE, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE, LONGFORM_ARTICLE_STYLE } from '../constants/index'
 import NavMenu from '../components/navigation/NavMenu'
 import HeaderProgress from '../components/navigation/HeaderProgress'
 import React, { Component, PropTypes } from 'react'
@@ -101,7 +101,7 @@ class NavBar extends Component {
     const { header } = this.props
     const percent = header.readPercent || 0
 
-    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && isScrolledOver ? <HeaderProgress percent={percent}/> : null
+    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE || header.pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={percent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>
