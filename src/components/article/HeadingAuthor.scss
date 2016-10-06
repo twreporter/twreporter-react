@@ -1,0 +1,31 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+.author-container {
+  width: 100%;
+  font-size: $font-size-medium;
+
+  span::after {
+    content: " ";
+  }
+
+  .author-item {
+    display: inline;
+    padding-right: rem(8px);
+
+    // author types
+    &>span:first-child {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

@@ -1,0 +1,175 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/variables.scss';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+
+$item-height: 32px;
+$red: $harley-davidson-orange;
+.outer {
+  @media (min-width: $screen-md-min) {
+    float: right;
+  }
+  @media (max-width: $screen-md-min) {
+    background-color: $light-gray;
+    padding-bottom: 0.2em;
+    margin-top: -0.5em;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: $font-weight-normal;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin: 0;
+  }
+
+  a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+  }
+}
+
+.mobile-link-item {
+  font-family: $sansSerif;
+  @media (max-width: $screen-md-min) {
+    margin: 0.5em 0.7em;
+    padding: 0.65em;
+    span {
+      font-size: 19px;
+    }
+  }
+}
+
+.subnav {
+  display: block;
+  width: 100%;
+
+  @media (min-width: $screen-md-min) {
+    height: $item-height;
+    max-height: 32px;
+    overflow: hidden;
+    background: $white;
+  }
+  @media (max-width: $screen-md-min) {
+    width: 100%;
+  }
+  transition: background-color 0.3s ease-in;
+
+  .items {
+    list-style: none;
+    padding-left: 0;
+    @media (min-width: $screen-md-min) {
+      display: inline-block;
+      padding: 4px;
+    }
+  }
+
+  .item {
+    @extend .mobile-link-item;
+    color: $black;
+    text-align: center;
+
+    @media (min-width: $screen-md-min) {
+      float: left;
+      display: inline;
+      padding: 0 40px;
+    }
+
+    @media (max-width: $screen-md-min) {
+      background-color: $white;
+    }
+
+    position: relative;
+    &:before {
+    	position: absolute;
+    	content: "";
+    	top: 50%;
+    	-webkit-transform: translateY(-50%);
+    	-moz-transform: translateY(-50%);
+    	-o-transform: translateY(-50%);
+    	-ms-transform: translateY(-50%);
+    	transform: translateY(-50%);
+    	margin-left: -15px;
+    	width: 0;
+    	height: 0;
+    	border-top: 7px solid transparent;
+    	border-bottom: 7px solid transparent;
+    	border-left: 7px solid $red;
+      transition: opacity 0.5s ease-in;
+      opacity: 0;
+  	}
+  }
+
+  .active {
+    &:before {
+    	opacity: 1;
+  	}
+  }
+
+  .links {
+    @media (min-width: $screen-md-min) {
+      float: right;
+    }
+  }
+
+  .inlineBtn {
+    @media (min-width: $screen-md-min) {
+      display: inline-block;
+    }
+  }
+
+  .donateBtn {
+    @extend .mobile-link-item;
+    padding: 8px;
+    background-color: $red;
+    border-bottom: 1px solid $red;
+    text-align: center;
+
+    @media (min-width: $screen-md-min) {
+      float: right;
+    }
+
+    &:before {
+      width: 0;
+      height: 0;
+      border-bottom: $item-height solid $red;
+      border-left: $item-height solid transparent;
+    }
+
+    h1 {
+      padding: 0 30px 0 25px;
+    }
+
+    a {
+      color: $white;
+    }
+  }
+
+  .triangle {
+    // red triangle decoration
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-bottom: 33px solid $red;
+    border-left: 16px solid transparent;
+    @media (max-width: $screen-md-min) {
+      display: none;
+    }
+  }
+
+}
+
+.white {
+  @media (min-width: $screen-md-min) {
+    color: $white;
+    a {
+      color: $white;
+    }
+  }
+}
+
+.dark {
+  @media (min-width: $screen-md-min) {
+    background-color: $gray-40;
+    color: $subnav-background;
+  }
+}

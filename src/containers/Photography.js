@@ -1,59 +1,139 @@
-import React from 'react'
-
+/* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
+import { CATEGORY, PHOTOGRAPHY, colors } from '../constants/index'
 import { connect } from 'react-redux'
-import { loadMultiTaggedArticles, loadArticles } from '../actions/articles'
+import { denormalizeArticles, getCatId } from '../utils/index'
+import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
+import async from 'async'
+import Footer from '../components/Footer'
+import React, { Component } from 'react'
 import Tags from '../components/Tags'
-import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
-import { Home } from './Home'
+
+// lodash
+import get from 'lodash/get'
+
 if (process.env.BROWSER) {
   require('./Home.css')
 }
 
-export default class Photography extends Home {
+const MAXRESULT = 10
+const PAGE = 1
+const PHOTOGRAPHY_CH_STR = '影像'
+
+class Photography extends Component {
   static fetchData({ store }) {
-    let params = [ 'photo-reviews', 'photo-features' ]
-    return store.dispatch(loadMultiTaggedArticles(params))
+    return new Promise((resolve, reject) => {
+      // load tagged articles in parallel
+      async.parallel([
+        function (callback) {
+          store.dispatch(fetchFeatureArticles({
+            where: {
+              categories: {
+                '$in': [ getCatId(PHOTOGRAPHY_CH_STR) ]
+              }
+            }
+          })).then(() => {
+            callback(null)
+          })
+        },
+        function (callback) {
+          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(PHOTOGRAPHY_CH_STR), CATEGORY, {
+            page: PAGE,
+            max_result: MAXRESULT,
+            where: {
+              isFeatured: false
+            }
+          })).then(() => {
+            callback(null)
+          })
+        }
+      ], (err, results) => {
+        if (err) {
+          console.warn('fetchData occurs error:', err)
+        }
+        resolve()
+      })
+    })
   }
+
   constructor(props, context) {
     super(props, context)
-    this.loadMoreArticles = this.loadMoreArticles.bind(this, 'photo-reviews')
-    this.params = [ 'photo-reviews', 'photo-features' ]
+    this.loadMoreArticles = this._loadMoreArticles.bind(this)
+  }
+
+  componentWillMount() {
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    fetchFeatureArticles({
+      where: {
+        categories: {
+          '$in': [ catId ]
+        }
+      }
+    })
+
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: PAGE,
+      max_result: MAXRESULT,
+      where: {
+        isFeatured: false
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.props.setPageType(PHOTOGRAPHY)
+  }
+
+  _loadMoreArticles() {
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    const articles = articlesByUuids[catId]
+    let page = Math.floor(get(articles, 'items.length', 0) / MAXRESULT)  + 1
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page,
+      max_result: MAXRESULT,
+      where: {
+        isFeatured: false
+      }
+    })
   }
 
   render() {
-    const { articles } = this.props
-    let topnewsItems = articles['photo-features'] && articles['photo-features'].items || []
-    let review = articles['photo-reviews'] || {
-      hasMore: true
-    }
-    let reviewItems = review.items || []
+    const { articlesByUuids, featureArticles, entities } = this.props
     const style = {
-      backgroundColor: '#2C323E',
+      backgroundColor: colors.darkBg,
       color: '#FFFFEB'
     }
-    if (topnewsItems || reviewItems) {
-      return (
-        <div style={style}>
-          <TopNews topnews={topnewsItems} />
-          <Tags
-            articles={reviewItems || []}
-            bgStyle="dark"
-            hasMore={review.hasMore}
-            loadMore={this.loadMoreArticles}
-          />
-          {this.props.children}
-        </div>
-      )
-    } else {
-      return ( <SystemError/> )
-    }
+    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+
+    let topNewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
+    let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
+
+    return (
+      <div style={style}>
+        <TopNews topnews={topNewsItems} />
+        <Tags
+          articles={articles}
+          bgStyle="dark"
+          hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
+          loadMore={this.loadMoreArticles}
+        />
+        {this.props.children}
+        <Footer theme={PHOTOGRAPHY}/>
+      </div>
+    )
   }
 }
 
 function mapStateToProps(state) {
-  return { articles: state.articles }
+  return {
+    articlesByUuids: state.articlesByUuids || {},
+    entities: state.entities || {},
+    featureArticles: state.featureArticles || {}
+  }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { loadMultiTaggedArticles, loadArticles })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setPageType })(Photography)

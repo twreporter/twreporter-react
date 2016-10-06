@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import FeaturesItem from './FeaturesItem'
 import More from '../components/More'
+import { getImageSrc, getImageSrcSet } from '../utils/index'
+
+// lodash
 import map from 'lodash/map'
-import { imageComposer } from '../lib/image-composer'
 
 if (process.env.BROWSER) {
   require('./Features.css')
@@ -21,11 +23,11 @@ export default class Features extends Component {
         <div className="features-list clearfix">
           <ul className="listing">
             { map(features, (a) => {
-              let imageSet = imageComposer(a)
-              let articleImage = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
+              let imageSrcSet = getImageSrcSet(a)
+              let articleImage = getImageSrc(a)
               if (articleImage) {
                 return (
-                  <FeaturesItem article={a} image={articleImage} key={a.id}/>
+                  <FeaturesItem article={a} image={articleImage} imageSrcSet={imageSrcSet} key={a.id}/>
                   )
               }})
             }

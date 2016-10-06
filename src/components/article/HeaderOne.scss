@@ -1,0 +1,11 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+
+.title {
+  font-size: $font-size-xlarger;
+  font-weight: $font-weight-bold;
+  line-height: 1.5;
+  padding-top: 3rem;
+}

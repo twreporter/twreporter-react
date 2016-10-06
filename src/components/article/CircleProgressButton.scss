@@ -1,0 +1,45 @@
+@import '../../themes/common-variables';
+@import '../../themes/font-mixins.scss';
+
+$red: $harley-davidson-orange;
+.progress-button {
+  bottom: 0;
+  cursor: pointer;
+  height: rem(80px);
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: rem(80px);
+
+  button {
+    position: absolute;
+    border: 2px solid $red;
+    border-radius: 40px;
+    background: transparent;
+  }
+
+  .icon-img {
+    // will add transition animation
+  }
+
+  svg.progress-circle {
+    position: absolute;
+
+    circle {
+      fill: none;
+      stroke: $red;
+      stroke-width: 2;
+    }
+  }
+
+}
+
+.loading.progress-button {
+  button {
+    border-width: 2px;
+    border-color: #ddd;
+    background-color: transparent;
+  }
+}

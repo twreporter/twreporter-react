@@ -1,7 +1,12 @@
-import map from 'lodash/map'
+import Link from './Link'
 import React, { Component } from 'react'
-import { ts2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../lib/image-composer'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { date2yyyymmdd } from '../lib/date-transformer'
+import { getImageSrc } from '../utils/index'
+
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 
 if (process.env.BROWSER) {
   require('./Daily.css')
@@ -23,26 +28,23 @@ export default class Daily extends Component {
         </div>
         <div className="daily-itemlistwrapprt">
           <ul className="daily-itemlist">
-          { map(dailyTop, (a) => {
-            const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
-            if (a.isPublishedVersion) {
-              let imageSet = imageComposer(a)
-              let thumbnail = imageSet.mobileImage
-              let url = (a.storyLink) ? a.storyLink : '/a/' + a.slug
-              return (
-                <li className="daily-item" key={a.id}>
-                  <a className="clearfix" href={url}>
-                    <div className="daily-image" >
-                      <div style={{
-                        backgroundImage: 'url(' + thumbnail + ')'
-                      }}/>
-                    </div>
-                    <div className="daily_lastpublish">{pubDate}</div>
-                    {a.title}
-                  </a>
-                </li>
-              )
-            }
+          { map(dailyTop, (a, idx) => {
+            const pubDate = date2yyyymmdd(a.publishedDate, '.')
+            let thumbnail = getImageSrc(a, 'mobile')
+            let url = '/a/' + a.slug
+            return (
+              <li className="daily-item" key={a.id || idx}>
+                <Link to={url} disableReactRouter={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
+                  <div className="daily-image" >
+                    <div style={{
+                      backgroundImage: 'url(' + thumbnail + ')'
+                    }}/>
+                  </div>
+                  <div className="daily_lastpublish">{pubDate}</div>
+                  {a.title}
+                </Link>
+              </li>
+            )
           })}
           </ul>
         </div>

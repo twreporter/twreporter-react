@@ -1,8 +1,12 @@
 **/node_modules/*
-**/spec/*
 **/static/*
+spec/src/actions/mocks/*
 karma.conf.js
 webpack/*
 bin/server.js
 bin/api.js
 server.babel.js
+src/components/article/webpack.config.js
+src/components/article/webpack.bootstrap.config.js
+src/components/article/concatCssFiles.js
+src/components/article/src/*

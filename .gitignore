@@ -10,4 +10,11 @@ npm-debug.log
 err.log
 
 .idea/
+.vscode/
 webpack-assets.json
+
+# Ignore config files
+api/config.js
+
+# Ignore transpiled files
+dist/

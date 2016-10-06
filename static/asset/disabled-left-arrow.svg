@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="33px" viewBox="0 0 18 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-arrow-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Tablet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Tablet-Portrait" transform="translate(-82.000000, -545.000000)" fill="#BFBFBF">
+            <path d="M83.0641129,577.119841 C83.4573407,577.502549 84.1017872,577.495836 84.487682,577.120264 L99.4015645,562.605346 C100.197025,561.831164 100.193715,560.572747 99.4015645,559.801787 L84.487682,545.286869 C84.0946943,544.904394 83.4566733,544.905233 83.0552276,545.29594 L82.3320814,545.999741 C81.9339463,546.387226 81.901937,547.046208 82.2525921,547.462136 L92.5739355,559.704766 C93.2852101,560.548442 93.2886218,561.912265 92.5767407,562.75666 L82.2778789,574.972624 C81.9244161,575.391883 81.9533822,576.038823 82.3498799,576.424714 L83.0641129,577.119841 Z" id="icon-arrow-left" transform="translate(91.003452, 561.202931) scale(-1, 1) translate(-91.003452, -561.202931) "></path>
+        </g>
+    </g>
+</svg>

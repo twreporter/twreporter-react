@@ -1,16 +1,15 @@
 import 'babel-polyfill'
+import { Provider } from 'react-redux'
+import configureStore from './store/configureStore'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import createRoutes from './routes'
+import DeviceProvider from './components/DeviceProvider'
+import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-
-import configureStore from './store/configureStore'
-import createRoutes from './routes'
-import { Provider } from 'react-redux'
-import DeviceProvider from './components/DeviceProvider'
 
 /* global __REDUX_STATE__ */
-const history = createBrowserHistory()
-
 let reduxState
 if (window.__REDUX_STATE__) {
   try {
@@ -18,9 +17,20 @@ if (window.__REDUX_STATE__) {
   } catch (e) {
     reduxState = ''
   }
+  let md = new MobileDetect(window.navigator.userAgent)
+  if (md.tablet()) {
+    reduxState.device = 'tablet'
+  } else if (md.mobile()) {
+    reduxState.device = 'mobile'
+  } else {
+    reduxState.device = 'desktop'
+  }
 }
 
 const store = configureStore(reduxState)
+
+const history = syncHistoryWithStore(browserHistory, store)
+
 const device = store.getState().device
 ReactDOM.render((
   <Provider store={store}>

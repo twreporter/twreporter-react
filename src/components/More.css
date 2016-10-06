@@ -1,7 +1,7 @@
 .more-articles {
     cursor: pointer;
     width: 100%;
-    height: 100px;
+    height: 105px;
     background-color: black;
     text-align: center;
 }
@@ -9,8 +9,7 @@
     color: white;
     line-height: 70px;
     font-size: 18px;
-    font-weight: 500;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-weight: 700;
 }
 .arrow:hover polyline,
 .arrow:focus polyline {
@@ -31,7 +30,8 @@ and (max-width : 799px) ,
 only screen 
 and (max-device-width : 799px) { 
   .more-articles {
-      height: 50px;
+    height: 76px;
+    padding-top: 10px;
   }
   .more-articles > span {
       line-height: 30px;

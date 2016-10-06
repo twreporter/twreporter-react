@@ -1,0 +1,190 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/common-variables.scss';
+@import '../themes/media-queries.scss';
+@import '../themes/font-mixins.scss';
+// mobile
+
+.article-container {
+    background-color: $light-gray;
+    min-height: 20em;
+    padding-top: rem(20px);
+    color: $text-color;
+}
+
+.article-inner {
+    p, 
+    a:link,
+    a:visited {
+        color: $text-color;
+        letter-spacing: $general-letter-space;
+    }
+    .title-row {
+        margin-bottom: rem(24px);
+        h1 {
+            font-weight: $font-weight-bold;
+            line-height: 1.4;
+            @include mq($max-width: $screen-sm-min) { 
+                font-size: $font-size-xlarger;
+            }
+            @include mq($min-width: $screen-lg-min) { 
+                font-size: 42px;
+            }
+        }
+        .topic-name {
+          color: $primary-color;
+          font-size: $font-size-medium;
+          margin-right: 6px;
+
+          > img {
+            margin-top: -3px;    
+            margin-left: 3px;
+          }
+        }
+        
+        .subtitle {
+          color: $gray-50;
+          font-size: $font-size-medium;
+        }
+    }
+    .article-meta {
+        >div {
+            margin-bottom: rem(24px);
+        }
+    }
+    .leading-img {
+        margin-bottom: $component-margin-bottom;
+    }
+    .introduction {
+        margin-bottom: $component-margin-bottom * 2;
+    }
+    em {
+        font-style: italic;
+        padding-right: 0.2rem;
+    }
+    h2 {
+        font-size: $font-size-larger;
+        font-weight: $font-weight-bold;
+        line-height: 1.5;
+        padding-top: 1.5rem;
+    }
+    a {
+        border-bottom: 1px $primary-color solid;
+        cursor: pointer;
+        transition: 0.5s all ease;
+        position: relative;
+        &:hover {
+            color: $primary-color;
+        }
+        &:after {
+            position: absolute;
+            content: "";
+            left: 0;
+            bottom: -0.13em;
+            height: 0.11rem;
+            width: 0;
+            background: $primary-color;
+            transition: 0.5s all ease;
+        }
+        &:hover:after {
+            width: 100%;
+        }
+    }
+    u {
+        text-decoration: none;
+        background-color: $underline-marker-color;
+    }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+    .article-container {
+        .title-row {
+            width: $tablet-small-width;
+        }
+        .article-meta {
+            width: $tablet-small-width;
+            margin-bottom: 24px;
+        }
+        .introduction {
+            width: $tablet-small-width;
+        }
+    }
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+    .article-container {
+        .title-row {
+            width: $desktop-small-width;
+        }
+        .article-meta {
+            width: $desktop-small-width;
+            margin-bottom: $component-margin-bottom;
+        }
+        .introduction {
+            width: $desktop-small-width;
+        }
+    }
+}
+
+.placeholder {
+    .base-ph {
+        background-color: $loading-placeholder;
+        box-shadow: $box-glow;
+        opacity: 0.9;
+    }
+    .ph-title-1 {
+        @extend .base-ph;
+        height: 1.8rem;
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 0.7rem;
+    }
+    .ph-title-2 {
+        @extend .base-ph;
+        height: 1.8rem;
+        width: 60%;
+        margin-bottom: 1.5rem;
+    }
+    .ph-author {
+        @extend .base-ph;
+        height: 1rem;
+        width: 38%;
+    }
+    .ph-image {
+        @extend .base-ph;
+        width: 100%;
+        padding-bottom: 55%;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .ph-content {
+        @extend .base-ph;
+        height: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .ph-content-last {
+        @extend .base-ph;
+        height: 1rem;
+        width: 70%;
+        margin-bottom: 1rem;
+    }
+}
+
+.photo-container {
+    background-color: $photography-dark;
+}
+
+.photo-page-inner {
+    color: $white;
+    p,
+    a,
+    a:link,
+    a:visited {
+        color: $white;
+    }
+    a:hover {
+        color: $primary-color;
+    }
+}

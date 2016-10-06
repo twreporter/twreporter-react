@@ -1,0 +1,39 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins';
+
+$red: $harley-davidson-orange;
+$red-line-distance: 40px;
+
+.intro-container {
+  position: relative;
+  font-size: $font-size-larger;
+  font-weight: $font-weight-normal;
+  line-height: 1.8;
+
+  &::after {
+    content: "";
+    color: $red;
+    width: rem(24px);
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: rem(-$red-line-distance);
+    border-top: 2px solid;
+    position: absolute;
+  }
+
+  u {
+    text-decoration: none;
+    background-color: $underline-marker-color;
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

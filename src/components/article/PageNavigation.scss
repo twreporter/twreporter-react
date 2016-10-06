@@ -1,0 +1,135 @@
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+$red: $harley-davidson-orange;
+
+.aside-page-navigation {
+    $background-color: $white;
+    $height: 75px;
+    $width: 35px;
+    $extended-width: 275px;
+    $speed: .5s;
+    $arrow-color: #e2e2e2;
+    $arrow-size: 12px;
+
+    width: $width;
+    height: $height;
+    margin-top: -($height / 2);
+    background-color: $background-color;
+    z-index: $z-index-widget;
+    position: fixed;
+    top: 50%;
+    border: 1px solid $arrow-color;
+    cursor: pointer;
+    overflow: hidden;
+    transition: $speed ease-in-out;
+    &:hover,
+    &:active {
+        width: $extended-width;
+        .article {
+          .thumbnail {
+            display: block;
+          }
+          .title {
+            opacity: .9;
+          }
+        }
+    }
+
+    &.mobile {
+        display: none;
+        width: 0;
+    }
+
+    &.previous {
+        border-radius:0 5px 5px 0;
+        left: 0;
+        border-left: none;
+        &:hover {
+            .arrow {
+                border-color: transparent $red transparent transparent;
+            }
+        }
+
+        .arrow {
+            left: (($width - $arrow-size) / 2);
+        }
+
+        .article {
+            right: 5px;
+        }
+
+    } // end previous
+
+    &.next {
+        border-radius: 5px 0 0 5px;
+        right: 0;
+        border-right: none;
+
+        &:hover {
+            .arrow {
+                border-color: transparent transparent transparent $red;
+            }
+        }
+
+        .arrow {
+            right: ($width / 2) - ($arrow-size / 2);
+        }
+
+    }
+
+    .arrow {
+        $arrow-half: ($arrow-size / 2);
+        transition: border $speed ease-in;
+        position: absolute;
+        overflow: visible;
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        margin-top: (($height - $arrow-size) / 2);
+
+        &.arrow-right {
+            border-width: $arrow-half 0 $arrow-half $arrow-size;
+            border-color: transparent transparent transparent $arrow-color;
+            border-style: inset inset inset solid;
+        }
+
+        &.arrow-left {
+            border-width: $arrow-half $arrow-size $arrow-half 0;
+            border-color: transparent $arrow-color transparent transparent;
+            border-style: inset solid inset inset;
+        }
+    } // end arrow
+
+    .article {
+        $article-width: 235px;
+        $image-width: 65px;
+        width: $article-width;
+        position: absolute;
+        padding-top: 5px;
+
+        .thumbnail {
+            float: left;
+            display: none;
+            margin: 0 10px 0 5px;
+            > img {
+              width: $image-width;
+              height: $image-width;
+            }
+        }
+
+        &.no-thumbnail {
+            padding-left: 10px;
+        }
+        
+        .title {
+          transition: opacity $speed ease-in;
+          opacity: 0;
+          > h3 {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.25em;
+          }
+        }
+    }
+}

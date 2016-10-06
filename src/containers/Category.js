@@ -1,85 +1,140 @@
-/* eslint  no-unused-vars:1 */
-import React, { Component } from 'react'
-
+import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
-import { loadArticles } from '../actions/articles'
+import { denormalizeArticles, getCatId } from '../utils/index'
+import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setPageType } from '../actions/header'
+import DocumentMeta from 'react-document-meta'
+import Footer from '../components/Footer'
+import React, { Component } from 'react'
 import Tags from '../components/Tags'
-import catToTag from '../conf/category-tag-mapping-table'
+
+// lodash
+import get from 'lodash/get'
 
 if (process.env.BROWSER) {
   require('./Category.css')
 }
 
-const maxResults = 10
+const MAXRESULT = 10
+const PAGE = 1
 
-export default class Category extends Component {
+// english to chinese of category
+const catENtoCH = {
+  culture: CULTURE_CH_STR,
+  intl: INTL_CH_STR,
+  media: MEDIA_CH_STR,
+  review: REVIEW_CH_STR,
+  taiwan: TAIWAN_CH_STR
+}
+
+class Category extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(loadArticles(params.category, maxResults, 1))
+    return store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(catENtoCH[params.category]), CATEGORY, {
+      page: PAGE,
+      max_results: MAXRESULT
+    }))
   }
+
   constructor(props) {
     super(props)
     let category = this.props.params.category
     this.state = {
-      tag: catToTag[category]
+      catId: getCatId(catENtoCH[category])
     }
-    this.loadMore = this.loadMore.bind(this)
+    this.loadMore = this._loadMore.bind(this)
   }
 
   componentWillMount() {
-    const tag = catToTag[this.props.params.category]
-    const { loadArticles, articles } = this.props
-    if (!articles[tag]) {
-      loadArticles(tag, maxResults, 1)
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
+    let catId = this.state.catId
+
+    // if fetched before, do nothing
+    if (get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+      return
     }
+
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: PAGE,
+      max_results: MAXRESULT
+    })
+
+  }
+
+  componentDidMount() {
+    this.props.setPageType(CATEGORY)
   }
 
   componentWillReceiveProps(nextProps) {
-    const tag = catToTag[nextProps.params.category]
-    const { loadArticles, articles } = nextProps
-    if (articles[tag]) {
-      this.setState({
-        tag: tag
-      })
-    } else {
-      loadArticles(tag, maxResults, 1)
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
+    let catId = getCatId(catENtoCH[get(params, 'category')])
+
+    // if fetched before, do nothing
+    if (get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+      return
     }
+
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: PAGE,
+      max_results: MAXRESULT
+    })
   }
 
-  loadMore() {
-    const { tag } = this.state
-    const categoryObj = this.props.articles[tag] || {
-      items: [],
-      hasMore: true
+  _loadMore() {
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    let catId = getCatId(catENtoCH[get(params, 'category')])
+
+    let articlesByCat = get(articlesByUuids, [ catId ], {})
+    if (get(articlesByCat, 'hasMore') === false) {
+      return
     }
-    if (categoryObj.hasMore) {
-      let page = Math.floor(categoryObj.items.length / maxResults)  + 1
-      this.props.loadArticles(tag, maxResults, page)
-    }
+
+    let itemSize = get(articlesByCat, 'items.length', 0)
+    let page = Math.floor(itemSize / MAXRESULT) + 1
+
+    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
+      page: page,
+      max_results: MAXRESULT
+    })
   }
 
   render() {
-    const { articles } = this.props
     const { device } = this.context
-    const { tag } = this.state
-    let categoryObj = articles[tag] || {}
+    const { articlesByUuids, entities, params } = this.props
+    const catId = getCatId(catENtoCH[get(params, 'category')])
+    let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
+    const category = get(params, 'category', null)
+    const catName = catENtoCH[category]
+    const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
+    const meta = {
+      title: catName ? catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
+      description: SITE_META.DESC,
+      canonical: `${SITE_META.URL}category/${category}`,
+      meta: { property: {} },
+      auto: { ograph: true }
+    }
 
     return (
-      <div>
+      <DocumentMeta {...meta}>
+        <div className="container text-center">
+          {catBox}
+        </div>
         <Tags
-          articles={categoryObj.items || []}
+          articles={articles}
           device={device}
-          hasMore={categoryObj.hasMore}
+          hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMore}
         />
         {this.props.children}
-      </div>
+        <Footer/>
+      </DocumentMeta>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles
+    articlesByUuids: state.articlesByUuids || {},
+    entities: state.entities || {}
   }
 }
 
@@ -88,4 +143,4 @@ Category.contextTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { loadArticles })(Category)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Category)

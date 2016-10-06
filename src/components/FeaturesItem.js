@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { date2yyyymmdd } from '../lib/date-transformer'
 import Category from './Category'
+import Link from './Link'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { ts2yyyymmdd } from '../lib/date-transformer'
+
+// lodash
+import get from 'lodash/get'
 
 let ScrollMagic
 
@@ -111,21 +116,22 @@ export default class FeaturesItem extends Component {
   }
 
   render() {
-    const { article, image } = this.props
-    const pubDate = ts2yyyymmdd(article.lastPublish * 1000 , '.')
-    let url = (article.story_link) ? article.story_link : '/a/' + article.slug
-    let tags = article.tags
-    let catDisplay = '專題'
-    for (let i = 0; i < tags.length; i++) {
-      if (tags[i].substring(0,4) == 'cat:') {
-        catDisplay = tags[i].substring(4)
+    const { article, image, imageSrcSet } = this.props
+    const pubDate = date2yyyymmdd(article.publishedDate , '.')
+    let url = '/a/' + article.slug
+    let catDisplay
+    let cats = get(article, 'categories', [])
+    for (let i = 0; i < cats.length; i++) {
+      catDisplay = get(cats, [ i, 'name' ])
+      if (catDisplay) {
         break
       }
     }
+    let excerpt = get(article, 'ogDescription', '')
 
     return (
       <li className="listing-item" key={article.id}>
-        <a href={url}>
+        <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"
@@ -136,19 +142,20 @@ export default class FeaturesItem extends Component {
               height="1200px"
               className="img"
               src={image}
+              srcSet={imageSrcSet}
             />
           <div className="img-overlay" />
           </div>
-          <div ref="parallaxIndicator" className="container">
+          <div ref="parallaxIndicator" className="listing-item-container">
             <div className="border clearfix">
               <div className="featurebox">
-                <div className="container">
-                    <Category>{catDisplay}</Category>
+                <div className="cat-container">
+                  <Category>{catDisplay}</Category>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
                   <div className="title">{article.title}</div>
-                  <div className="excerpt">{article.excerpt}</div>
+                  <div className="excerpt">{excerpt}</div>
                   <div className="published">
                     {pubDate}
                   </div>
@@ -156,7 +163,7 @@ export default class FeaturesItem extends Component {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       </li>
     )
   }

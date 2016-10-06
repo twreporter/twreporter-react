@@ -1,3 +1,5 @@
+/* global __DEVELOPMENT__ */
+'use strict'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import apiMiddleware from '../middleware/api'
@@ -13,14 +15,12 @@ const logger = createLogger({
 })
 */
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  apiMiddleware,
-  createLogger
-)(createStore)
-
 export default function configureStore(initialState) {
-  const store = createStoreWithMiddleware(rootReducer, initialState)
+  const middlewares = [ thunkMiddleware, apiMiddleware ]
+  if (__DEVELOPMENT__) {
+    middlewares.push(createLogger())
+  }
+  const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

@@ -1,10 +1,11 @@
-$red: #e60012;
-$brand-primary: $red;
-$subnav-background: #3E3A39;
-$white: #ffffff;
-$black: #000;
-$gray: #898989;
-$light-gray: #F7F8F8;
+/**
+ *  Define scss variables here.
+ *
+ */
+
+// Common variables
+@import './common-variables.scss';
+
 $sansSerif: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 
 // Predefined Break-points

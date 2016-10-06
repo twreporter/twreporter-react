@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Article" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Topic-–-Mobile-Portrait" transform="translate(-52.000000, -8272.000000)" fill="#BFBFBF">
+            <g id="Group-2" transform="translate(52.000000, 8272.000000)">
+                <path d="M22.6754292,0 L1.3245708,0 C0.592864583,0 0,0.592864583 0,1.3245708 L0,22.6754292 C0,23.4069556 0.592864583,24 1.3245708,24 L12.8191117,24 L12.8191117,14.7059732 L9.69148801,14.7059732 L9.69148801,11.083861 L12.8191117,11.083861 L12.8191117,8.41268818 C12.8191117,5.31276087 14.7124476,3.62480985 17.4777702,3.62480985 C18.802341,3.62480985 19.9408604,3.72345575 20.2725876,3.76751819 L20.2725876,7.00709645 L18.3547026,7.00799568 C16.8507347,7.00799568 16.559563,7.72261647 16.559563,8.77130246 L16.559563,11.083861 L20.1463352,11.083861 L19.6792734,14.7059732 L16.559563,14.7059732 L16.559563,24 L22.6754292,24 C23.4069556,24 24,23.4069556 24,22.6754292 L24,1.3245708 C24,0.592864583 23.4069556,0 22.6754292,0" id="icon-facebook"></path>
+            </g>
+        </g>
+    </g>
+</svg>

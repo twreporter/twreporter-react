@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-play</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Article" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Topic-–-Mobile-Portrait" transform="translate(-121.000000, -5010.000000)" fill="#C71B0A">
+            <g id="Video" transform="translate(0.000000, 4960.000000)">
+                <path d="M161,130 C183.09139,130 201,112.09139 201,90 C201,67.90861 183.09139,50 161,50 C138.90861,50 121,67.90861 121,90 C121,112.09139 138.90861,130 161,130 Z M146,73.6192686 L164.857143,82.5714286 L164.857143,97.4285714 L146,106.380853 L146,73.6192686 Z M164.857143,82.5714286 L176.857143,79.4783757 L176.857143,100.541486 L164.857143,97.4285714 L164.857143,82.5714286 Z" id="icon-play"></path>
+            </g>
+        </g>
+    </g>
+</svg>

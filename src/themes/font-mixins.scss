@@ -1,0 +1,20 @@
+@import './common-variables';
+@function em($pixels, $context: $font-size-base) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1em;
+}
+
+@function rem($pixels) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @return $pixels / $font-size-base * 1rem;
+}

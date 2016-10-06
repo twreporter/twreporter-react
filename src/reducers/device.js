@@ -5,9 +5,9 @@ export const DETECT_DEVICE = 'DETECT_DEVICE'
 function device(state = 'desktop', action) {
   switch (action.type) {
     case 'DETECT_DEVICE':
-      let req = action.req
-      if (req && req.headers) {
-        let md = new MobileDetect(req.headers['user-agent'])
+      let userAgent = action.userAgent
+      if (userAgent) {
+        let md = new MobileDetect(userAgent)
         if (md.tablet()) {
           return 'tablet'
         } else if (md.mobile()) {

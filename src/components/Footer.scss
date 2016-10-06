@@ -1,0 +1,136 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/common-variables.scss';
+@import '../themes/font-mixins.scss';
+@import '../themes/media-queries.scss';
+
+.footer {
+  &.photography-theme {
+    background-color: $photography-dark;
+  }
+
+  background: $light-gray;
+
+    .tablet-logo {
+      display: none;
+
+      @include mq($min-width: $screen-sm-min) { 
+        display: block;
+        width: rem(202px);
+        margin-left: -1rem;
+        margin-right: 1rem;
+      }
+
+      img {
+        margin-top: -0.25rem;
+      }
+    }
+
+    .mobile-logo {
+      width: rem(202px);
+      margin-left: auto;
+      margin-right: auto;
+      @include mq($min-width: $screen-sm-min) { 
+        display: none;
+      }
+    }
+
+    .cc-image {
+      width: rem(68px);
+    }
+
+    .cc-license {
+      color: $gray-50;
+
+      p {
+        margin-top: rem(2px);
+      }
+    }
+
+    .logo-container {
+      margin-top: rem(30px);
+      margin-bottom: rem(24px);
+
+      @include mq($min-width: $screen-sm-min) {
+        margin-bottom: rem(30px);
+      }
+    }
+
+    .us-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: rem(20px);
+      font-size: $font-size-xsmall;
+
+      a:link, a:visited {
+        color: $gray-50;
+      }
+
+      .support {
+        color: $primary-color;
+
+        a:link {
+          color: $primary-color;
+        }
+
+        a:visited {
+          color: $primary-color;
+        }
+      }
+    }
+
+    .social-outer {
+      @include mq($min-width: $screen-sm-min) { 
+        width: 45%;
+        float: left;
+      }
+    }
+
+    .open-source-outer {
+      @include mq($min-width: $screen-sm-min) { 
+        width: 55%;
+        float: left;
+      }
+
+      .license-text {
+        color: $gray-50;
+        font-size: $font-size-tiny;
+
+        @include mq($min-width: $screen-sm-min) { 
+          display: inline;
+          margin-left: 0.2rem;
+        }
+      }
+    }
+
+    .social-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: rem(10px);
+
+      @include mq($min-width: $screen-sm-min) {
+        margin-top: -2.8%;
+        margin-left: 5%;
+      }
+
+      .item {
+        margin: 0.5rem;
+        
+        img {
+          width: rem(26px);
+          transition: all 0.3s ease-in-out;
+          
+          @include mq($max-width: $screen-xs-max) {
+            width: rem(24px);
+          }
+        }
+
+        &:hover {
+          img {
+            transform: translateY(-20%);
+          }
+        }
+      }
+    }
+}

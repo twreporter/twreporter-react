@@ -1,6 +1,7 @@
 require('babel-polyfill');
 
 // Webpack config for creating the production bundle.
+var autoprefixer = require('autoprefixer');
 var path = require('path');
 var webpack = require('webpack');
 var CleanPlugin = require('clean-webpack-plugin');
@@ -18,7 +19,10 @@ module.exports = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
-    'main': './src/index.js'
+    'main': [
+      './src/index.js',
+      'bootstrap-loader/extractStyles'
+    ]
   },
   output: {
     path: assetsPath,
@@ -29,9 +33,16 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: [strip.loader('debug'), 'babel']},
+      { test: /node_modules\/react-flex-carousel\/index.js/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
+      { test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css?modules&importLoaders=2&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]' +
+          '!postcss' +
+          '!sass'
+        )
+      },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', "css-loader")
@@ -41,9 +52,10 @@ module.exports = {
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' },
     ]
   },
+  postcss: [autoprefixer],
   progress: true,
   resolve: {
     modulesDirectories: [

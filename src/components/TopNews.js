@@ -1,8 +1,14 @@
-import React, { Component } from 'react'
+'use strict'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { date2yyyymmdd } from '../lib/date-transformer'
+import { getImageSrc, getImageSrcSet } from '../utils/index'
+import Link from './Link'
 import Category from './Category'
 import Slider from 'react-flex-carousel'
-import { ts2yyyymmdd } from '../lib/date-transformer'
-import { imageComposer } from '../lib/image-composer.js'
+import React, { Component } from 'react'
+
+// lodash
+import get from 'lodash/get'
 
 if (process.env.BROWSER) {
   require('./TopNews.css')
@@ -18,24 +24,17 @@ export default class TopNews extends Component {
   }
   render() {
     const { topnews } = this.props
-    const { device } = this.context
     return Array.isArray(topnews) && topnews.length > 0 ? (
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
-          const pubDate = ts2yyyymmdd(a.lastPublish * 1000, '.')
-          let tags = a.tags
-          let catDisplay = '專題'
-          for (let i = 0; i < tags.length; i++) {
-            if (tags[i].substring(0,4) === 'cat:') {
-              catDisplay = tags[i].substring(4)
-              break
-            }
-          }
-          let imageSet = imageComposer(a)
-          let image = device === 'desktop' ? imageSet.desktopImage : imageSet.mobileImage
+          const pubDate = date2yyyymmdd(a.publishedDate, '.')
+          let cats = get(a, 'categories', [])
+          let catDisplay = get(cats, [ 0, 'name' ], '專題')
+          let imageSet = getImageSrcSet(a)
+          let image = getImageSrc(a)
           return (
-              <a key={a.id} href={(a.slug) ? '/a/' + a.slug : a.storyLink}>
-                <img src={image} alt={a.slug} />
+              <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
+                <img src={image} alt={a.slug} srcSet={imageSet}/>
                 <div className="topnews_categorycontainer">
                   <Category>{catDisplay}</Category>
                 </div>
@@ -45,7 +44,7 @@ export default class TopNews extends Component {
                   <div className="carousel-excerpt">{a.excerpt}</div>
                   <time className="carousel-published">{pubDate}</time>
                 </div>
-              </a>
+              </Link>
           )
         })}
       </Slider>

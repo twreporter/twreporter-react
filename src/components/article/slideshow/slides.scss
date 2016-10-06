@@ -1,0 +1,29 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/media-queries.scss';
+
+.slides {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  list-style: none;
+  padding-left: 0;
+
+  .slide {
+    flex-shrink: 0;
+    flex-basis: 100%;
+
+    >img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

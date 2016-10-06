@@ -1,107 +1,129 @@
-/*eslint no-console: 0*/
-/* global console */
-import * as ActionType from '../actions/articles'
-import { camelizeKeys } from 'humps'
+'use strict'
+import * as types from '../constants/action-types'
 
-function parseResponse(response = {}) {
-  if (response && response.text) {
-    try {
-      response = JSON.parse(response.text)
-    } catch (e) {
-      console.log('JSON.parse response occurs error', e)
-    }
-  }
-  return response
-}
+// lodash
+import get from 'lodash/get'
+import merge from 'lodash/merge'
+import uniq from 'lodash/uniq'
 
-function tagArticles(state = {}, action) {
-  const response = action.response
-  let rtn = {}
+function articles(state = {}, action = {}) {
+  let _state = {}
+  let id = action.id
   switch (action.type) {
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
-      /* data structure:
-          response: {
-            results: {
-              0: {
-                _items: [ ... ]
-              },
-              1 : {
-                _items: [ ... ]
-              }
-            }
-          }
-      */
-      if (response) {
-        let results = response.results
-        let tags = action.tags || []
-        for (let i =0; i < tags.length; i++) {
-          let tag = tags[i]
-          let result = results[i]
-          let items = result.items || []
-          let total = result.meta && result.meta.total
-          rtn[tag] = {
-            items: items,
-            total: total,
-            hasMore: total > items.length ? true : false
-          }
-        }
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_REQUEST:
+    case types.FETCH_RELATED_ARTICLES_REQUEST:
+      if (state.hasOwnProperty(id)) {
+        merge(_state, {
+          isFetching: true
+        })
+      } else {
+        merge(_state, {
+          isFetching: true,
+          error: null,
+          hasMore: false,
+          items: []
+        })
       }
-      return Object.assign({}, state, rtn)
+      return merge({}, state, {
+        [ id ]: _state
+      })
 
-    case ActionType.LOADED_ARTICLES_SUCCESS:
-      /* data structure:
-          response: {
-            results: {
-              _items: [ ... ]
-            }
-          }
-      */
-      if (response) {
-        let tag = ''
-        if ('string' === typeof action.tags) {
-          tag = action.tags
-        } else if (Array.isArray(action.tags)) {
-          tag = action.tags.toString()
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE:
+    case types.FETCH_RELATED_ARTICLES_FAILURE:
+      merge(_state, {
+        isFetching: false,
+        error: action.error,
+        lastUpdated: action.failedAt
+      })
+      return merge({}, state, {
+        [ id ]: _state
+      })
+
+    case types.FETCH_RELATED_ARTICLES_SUCCESS:
+      return merge({}, state, {
+        [ id ]: {
+          isFetching: false,
+          hasMore: false,
+          error: null,
+          items: get(action, 'relatedIds'),
+          total: get(action, 'relatedIds.length'),
+          lastUpdated: action.receivedAt
         }
+      })
 
-        let items = response.items
-        const meta = response.meta
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS:
+      _state = get(state, id)
+      let total = get(_state, 'total') || get(action, 'response.meta.total')
+      let items = get(_state, 'items')
+      let hasMore = get(_state, 'hasMore')
 
-        items = state[tag] ? state[tag].items.concat(items) : items
+      // dedup items
+      items = uniq(items.concat(get(action, 'response.result')))
 
-        rtn[tag] = {
-          items: items,
-          total: meta.total,
-          hasMore: meta.total > items.length ? true : false
-        }
+      if (items.length >= total) {
+        hasMore = false
+      } else {
+        hasMore = true
       }
-      return Object.assign({}, state, rtn)
 
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-    case ActionType.LOADED_ARTICLES_FAILURE:
-      return state
-
+      return merge({}, state, {
+        [ id ]: {
+          isFetching: false,
+          hasMore,
+          error: null,
+          items,
+          total,
+          lastUpdated: action.receivedAt
+        }
+      })
     default:
       return state
   }
 }
 
-function articles(state = {}, action) {
-  switch(action.type) {
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_SUCCESS:
-    case ActionType.LOADED_ARTICLES_SUCCESS:
-      if (action.response) {
-        action.response = camelizeKeys(parseResponse(action.response))
-      }
-      return tagArticles(state, action)
-
-    case ActionType.LOADED_ARTICLES_FAILURE:
-    case ActionType.LOADED_MULTI_TAGGED_ARTICLES_FAILURE:
-      return state
-
+export function relatedArticles(state = {}, action = {}) {
+  switch (action.type) {
+    case types.FETCH_RELATED_ARTICLES_REQUEST:
+    case types.FETCH_RELATED_ARTICLES_FAILURE:
+    case types.FETCH_RELATED_ARTICLES_SUCCESS:
+      return articles(state, action)
     default:
       return state
   }
 }
 
-export default articles
+export function articlesByUuids(state = {}, action = {}) {
+  switch (action.type) {
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_REQUEST:
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE:
+    case types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS:
+      return articles(state, action)
+    default:
+      return state
+  }
+}
+
+export function featureArticles(state = {}, action = {})  {
+  switch (action.type) {
+    case types.FETCH_FEATURE_ARTICLES_REQUEST:
+      return merge({}, state, {
+        isFetching: true,
+        error: null
+      })
+    case types.FETCH_FEATURE_ARTICLES_FAILURE:
+      return merge({}, state, {
+        isFetching: false,
+        error: action.error,
+        lastUpdated: action.failedAt
+      })
+    case types.FETCH_FEATURE_ARTICLES_SUCCESS:
+      return {
+        isFetching: false,
+        error: null,
+        items: get(action, 'response.result'),
+        lastUpdated: action.receivedAt
+      }
+    default:
+      return state
+  }
+}

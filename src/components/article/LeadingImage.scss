@@ -1,0 +1,59 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables';
+@import "../../themes/media-queries.scss";
+
+.extended-leading-img, .leading-img, .small-leading-img {
+  width: 100%;
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .extended-leading-img {
+    max-width: 100%;
+  }
+
+  .leading-img {
+    max-width: 672px;
+    margin: 0 auto;
+  }
+
+  .small-leading-img {
+    max-width: 556px;
+    margin: 0 auto;
+  }
+}
+
+// desktop.
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  .extended-leading-img {
+    max-width: 100%;
+  }
+
+  .leading-img {
+    max-width: 833px;
+    margin: 0 auto;
+  }
+
+  .small-leading-img {
+    max-width: 664px;
+    margin: 0 auto;
+  }
+}
+
+// desktop HD
+@include mq($min-width: $screen-hd-min) {
+  .extended-leading-img {
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .leading-img {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .small-leading-img {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}

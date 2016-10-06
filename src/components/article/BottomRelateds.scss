@@ -1,0 +1,119 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/media-queries.scss';
+@import '../../themes/common-variables.scss';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/animation.scss';
+
+.bottomRelatedsWrapper {
+  margin: 4rem 0;
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+.topicWrapper {
+  margin: 1.1rem 0;
+}
+
+.relatedItem {
+  width: 100%;
+  vertical-align: middle;
+  background-color: $white;
+  margin: rem(16px) 0;
+  transition: all 0.2s;
+  @include fade-in-down(0.5s);
+
+  &:hover {
+    box-shadow: $material-box-shadow;
+  }
+
+  @include mq($max-width: $screen-xs-max) {
+    margin: rem(10px) 0;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  a:focus, a:hover {
+    text-decoration: none;
+    color: $text-color;
+  }
+}
+
+.relatedItem:last-of-type {
+  border-right: 0;
+}
+
+.relatedAnchor {
+  display: table;
+  margin: 0;
+}
+
+.relatedContent {
+  display: table-cell;
+  text-align: left;
+  vertical-align: top;
+  padding: rem(15px) rem(10px) rem(15px) rem(5px);
+}
+
+.relatedTitle {
+  vertical-align: middle;
+  display: inline-block;
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+}
+
+.relatedDescription {
+  vertical-align: middle;
+  color: $gray-50;
+  font-size: $font-size-xsmall;
+  @media (max-width: $screen-xs-max) {
+    display: none;
+  }
+}
+
+.loadMore {
+  display: inline-table;
+  width: 100%;
+  color: $primary-color;
+  margin: 0 0 2rem 0;
+  font-weight: $font-weight-bold;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: $font-size-medium;
+
+  &:hover {
+    transform: translateY(10%);
+  }
+}
+
+.relatedImgWrapper {
+  display: table-cell;
+}
+
+.relatedImg {
+  margin-top: rem(18px);
+  width: rem(80px);
+  height: rem(80px);
+  overflow: hidden;
+  margin: rem(15px);
+  position: relative;
+  background-color: $gray-border-color;
+  @include fade-in(0.2s);
+
+  .crop {
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    margin: auto; 
+    height: auto;
+    width: auto;
+    max-width: rem(150px);
+    max-height: rem(150px);
+    @include fade-in(0.2s);
+    transform: translateZ(0);
+  }
+}

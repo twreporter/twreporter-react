@@ -1,0 +1,27 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/media-queries.scss';
+
+.youtube-container {
+  .youtube-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%; // 16:9
+
+    iframe,object,embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

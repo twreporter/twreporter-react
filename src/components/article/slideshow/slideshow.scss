@@ -1,0 +1,34 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/font-mixins.scss';
+@import '../../../themes/media-queries.scss';
+
+.ss-container {
+  width: 100%;
+  overflow: hidden;
+
+  &.mobile {
+    width: 100%;
+  }
+
+  .ss-slides {
+    width: 100%;
+  }
+
+  .ss-more-images {
+    position: relative;
+  }
+
+  .ss-thumbnails {
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+}
+
+// desktop. wait for spec
+@include mq($min-width: $screen-md-min) {
+}

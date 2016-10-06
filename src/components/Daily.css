@@ -3,29 +3,30 @@
 }
 
 .daily-itemlistwrapprt {
-    width: 982px;
-    margin: auto;
+    max-width: 1200px;
     text-align: left;
+    margin: 0 auto;
 }
+
 .daily-itemlist {
-    margin-left: -26px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .daily-item {
     display: inline-block;
     vertical-align: top;
     padding: 0;
+    margin: 10px;
 }
 
 .daily-item a {
     display: block;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-size: 18px;
-    font-weight: 500;
     color: black;
     line-height: 26px;
-    word-spacing: 30px;
-    padding-left: 26px;
     padding-bottom: 75px;
     width: 310px;
 }
@@ -53,12 +54,12 @@
 .daily-news {
     font-size: 26px;
     margin-bottom: 60px;
+    font-weight: 700;
 }
+
 .what {
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-size: 25px;
     word-spacing: 40px;
-    font-weight: 500;
     display: inline;
     width: 200px;
     border-bottom-style: solid;
@@ -66,6 +67,38 @@
     padding-bottom: 15px;
     margin-bottom: 30px;
 }
+
+.top-title-outer {
+    font-size: 20px;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #808080;
+}
+
+@media (max-width: 992px) {
+    .top-title-outer {
+        margin-top: 1rem;
+        font-size: 18px;
+    }
+    .top-title {
+        font-size: 18px;
+    }
+}
+
+.top-title {
+    word-spacing: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    display: inline;
+    width: 200px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    padding-left: 3px;
+}
+
 .new {
     font-family: 'Montserrat';
     font-weight: Bold;
@@ -78,38 +111,39 @@
     margin: 10px auto 60px;
 }
 
-@media 
-only screen 
-and (max-width : 799px) ,
-only screen 
-and (max-device-width : 799px) {
+@media screen and (min-width: 700px) and (max-width: 799px) {
+    .daily-item:nth-last-child(2) {
+        border-bottom: 0;
+    }
+}
 
+@media only screen and (max-width: 799px),
+only screen and (max-device-width: 799px) {
     .daily-item {
-        max-width: 350px;
+        width: 350px;
         vertical-align: top;
         display: block;
         margin: 0 auto;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 12px;
     }
-
+    .daily-item:last-child {
+        border-bottom: 0;
+    }
     .daily-item a {
         padding: 18px 32px 14px 12px;
         margin: 0;
         font-size: 19px;
         line-height: 1;
         vertical-align: top;
-        word-spacing: 20px;
         width: auto;
-        border-bottom: 2px solid #ccc;
     }
-
     .daily-line {
         margin: 10px auto 40px;
     }
-
     .daily-itemlistwrapprt {
         width: 100%;
     }
-
     .daily-image {
         display: inline-block;
         width: 99px;
@@ -117,23 +151,19 @@ and (max-device-width : 799px) {
         margin: -6px 27px 0 0;
         padding: 0;
         float: left;
-    }   
-
+    }
     .daily_lastpublish {
         display: none;
     }
-
     .daily-news {
         margin-left: 0;
         margin-bottom: 40px;
-        margin-top: 80px;
+        margin-top: 60px;
     }
-
     .daily-itemlist {
         margin-left: auto;
         margin-top: 30px;
     }
-
     .what {
         font-size: 19px;
         display: inline-block;
@@ -145,17 +175,7 @@ and (max-device-width : 799px) {
     }
 }
 
-@media 
-only screen 
-and (min-width : 800px) 
-and (max-width : 1024px) {
-    .daily {
-        width: 646px;
-        margin: auto;
-    }
-    .daily-itemlistwrapprt {
-        width: 646px;
-    }
+@media only screen and (min-width: 800px) and (max-width: 1024px) {
     .daily-item a {
         padding-bottom: 60px;
     }

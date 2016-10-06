@@ -1,0 +1,72 @@
+// ## Customize Variables
+// This gets loaded after bootstrap/variables is loaded, so you can refer to bootstrap variables
+
+@import './common-variables.scss';
+
+$red: $harley-davidson-orange;
+
+// html default styles 
+html {
+  font-size: $font-size-base;
+
+  ::selection { 
+    background: $light-red;
+    color: $white;
+  }
+}
+
+body {
+  letter-spacing: $general-letter-space;
+
+  abbr[title], abbr[data-original-title] {
+    border-bottom: 0;
+  }
+}
+
+a:link {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #101010;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #101010;
+    text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+// Container width
+.container {
+  line-height: $twreporter-line-height;
+}
+
+.inner-max {
+  @media only screen and (min-width: $screen-md-min) {
+    max-width: $article-inner-width;
+  }
+}
+
+.outer-max {
+  @media only screen and (min-width: $screen-md-min) {
+    max-width: $article-outer-width;
+  }
+}
+
+// custom class to hide unwanted link hover effects
+.no-hover {
+    border-bottom: 0 !important;
+    &:after {
+        display: none;
+    }
+    &:hover:after {
+        width: 0;
+        display: none;
+    }
+}

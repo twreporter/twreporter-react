@@ -1,0 +1,109 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import "../../themes/media-queries.scss";
+@import "../../themes/common-variables.scss";
+@import "../../themes/font-mixins.scss";
+
+.align-extend, .align-center, .align-right, .align-left {
+
+  width: 100%;
+
+  &.mobile {
+    width: 100%;
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+// tablet
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  $aligned-width: 326px;
+  $inner-margin: 20px;
+  $float-margin: 0px;
+  
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-bottom: rem($inner-margin);
+  }
+
+  .align-left {
+    @extend .base-align;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    @extend .base-align;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
+  }
+}
+
+// desktop
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  $aligned-width: 326px;
+  $inner-margin: 20px;
+  $float-margin: 0px;
+  
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-bottom: rem($inner-margin);
+  }
+
+  .align-left {
+    @extend .base-align;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    @extend .base-align;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
+  }
+}
+
+// desktop HD
+@include mq($min-width: $screen-hd-min) {
+  $aligned-width: 340px;
+  $inner-margin: 20px;
+  $float-margin: 0px;
+
+  .base-align {
+    width: $aligned-width;
+    float: none;
+    margin-bottom: rem($inner-margin);
+  }
+
+  .align-left {
+    @extend .base-align;
+    float: left;
+    margin-right: rem($inner-margin);
+    margin-left: rem($float-margin);
+  }
+
+  .align-right {
+    @extend .base-align;
+    float: right;
+    margin-left: rem($inner-margin);
+    margin-right: rem($float-margin);
+  }
+
+  .align-center {
+    width: 100%;
+  }
+}

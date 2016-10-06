@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="33px" viewBox="0 0 18 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-arrow-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Article" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Topic-–-Mobile-Portrait" transform="translate(-24.000000, -3363.000000)" fill="#C71B0A">
+            <path d="M25.0641129,3395.11984 C25.4573407,3395.50255 26.1017872,3395.49584 26.487682,3395.12026 L41.4015645,3380.60535 C42.1970252,3379.83116 42.1937147,3378.57275 41.4015645,3377.80179 L26.487682,3363.28687 C26.0946943,3362.90439 25.4566733,3362.90523 25.0552276,3363.29594 L24.3320814,3363.99974 C23.9339463,3364.38723 23.901937,3365.04621 24.2525921,3365.46214 L34.5739355,3377.70477 C35.2852101,3378.54844 35.2886218,3379.91226 34.5767407,3380.75666 L24.2778789,3392.97262 C23.9244161,3393.39188 23.9533822,3394.03882 24.3498799,3394.42471 L25.0641129,3395.11984 Z" id="icon-arrow-left" transform="translate(33.003452, 3379.202931) scale(-1, 1) translate(-33.003452, -3379.202931) "></path>
+        </g>
+    </g>
+</svg>

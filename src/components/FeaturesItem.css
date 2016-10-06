@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-.listing-item .container {
+.listing-item .listing-item-container {
     height: 100vh
 }
 
@@ -42,14 +42,12 @@
     font-family: "Times New Roman";
     font-style: italic;
     color: black;
-    word-spacing: 20px;
     padding-top: 24px;
     font-size: 12px;
 }
 
 .listing-item .title {
     font-size: 28px;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
     margin-bottom: 14px;
     line-height: 36px;
@@ -57,24 +55,20 @@
 
 .listing-item .subtitle {
     font-size: 20px;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: normal;
     margin-bottom: 10px;
 }
 
 .listing-item .excerpt {
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: normal;
     font-size: 17px;
     line-height: 27px;
-    word-spacing: 27px;
 }
 
 .listing-item .author {
     font-size: 130%;
     padding-top: 15px;
     padding-bottom: 33px;
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: light;
     text-align: right;
 }
@@ -84,7 +78,7 @@
     margin: 40px auto 40px auto;
 }
 
-.listing-item .featurebox .container {
+.listing-item .featurebox .cat-container {
     width: 32px;
     display: inline-block;
     position: absolute;
@@ -92,7 +86,6 @@
 }
 
 .listing-item .featurebox .category {
-    font-family: "Noto Sans",'Noto Sans TC', "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Microsoft JhengHei", "新細明體", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     font-weight: bold;
 }
 
@@ -128,7 +121,7 @@ and (max-device-width : 799px) {
         height: 100%;
         width: 100%;
     }
-    .listing-item .container {
+    .listing-item .listing-item-container {
         height: auto;
         position: static;
     }
@@ -168,7 +161,7 @@ and (max-device-width : 799px) {
         width: auto;
         margin: 0px;
     }
-    .listing-item .featurebox .container {
+    .listing-item .featurebox .cat-container {
         position: absolute;
         top: 10px;
         right: 10px;

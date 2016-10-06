@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>81280D37-DFE1-4032-B585-17D0623175D8</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Components" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Audio" transform="translate(-504.000000, -645.000000)" fill="#C71B0A">
+            <g id="Group" transform="translate(480.000000, 617.000000)">
+                <path d="M48,76 C61.254834,76 72,65.254834 72,52 C72,38.745166 61.254834,28 48,28 C34.745166,28 24,38.745166 24,52 C24,65.254834 34.745166,76 48,76 Z M43.7270487,61.0113105 C42.773226,61.5614233 42,61.1216011 42,60.0152431 L42,43.9860549 C42,42.8858293 42.7679097,42.4368085 43.7270487,42.9899875 L57.6232922,51.0045816 C58.5771149,51.5546945 58.5824312,52.4435374 57.6232922,52.9967164 L43.7270487,61.0113105 Z" id="icon-audio-play"></path>
+            </g>
+        </g>
+    </g>
+</svg>
