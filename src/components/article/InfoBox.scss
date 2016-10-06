@@ -33,7 +33,7 @@
     }
 
     >div {
-      font-size: rem(15px);
+      font-size: rem($font-size-medium);
       line-height: 1.8;
       color: $gray-50;
     }

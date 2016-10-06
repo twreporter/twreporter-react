@@ -17,15 +17,15 @@ $red: $harley-davidson-orange;
   .block-quotation {
     color: $text-color;
     font-size: rem(24px);
-    line-height: 1.5;
+    line-height: 1.7;
     font-weight: $font-weight-normal;
     white-space: pre-wrap;
   }
 
   .block-quotation-by {
     margin-top: rem(50px);
-    font-size: rem(15px);
-    line-height: 1.5;
+    font-size: rem($font-size-medium);
+    line-height: 1.8;
     position: relative;
 
     &::before {
@@ -48,7 +48,7 @@ $red: $harley-davidson-orange;
   padding-left: rem($font-size-base);
   border-left: 2px solid $blockquote-gray;
   line-height: 1.85;
-  font-size: $font-size-base;
+  font-size: rem($font-size-base);
   font-weight: $font-weight-normal;
   white-space: pre-wrap;
   color: $gray-50;

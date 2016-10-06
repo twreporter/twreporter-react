@@ -32,8 +32,8 @@ $inner-block-margin: $component-margin-left;
 
 .desc-text-block {
   @extend .desc-text-color;
-  font-size: rem(15px);
-  line-height: 1.5;
+  font-size: rem($font-size-medium);
+  line-height: 1.8;
   margin: rem(17px) rem($inner-block-margin) 0 rem($inner-block-margin);
 }
 
