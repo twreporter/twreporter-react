@@ -24,6 +24,10 @@ export default function (history = browserHistory) {
         <Route path="check" component={Blank}/>
         <Route path="a/:slug" component={Article}/>
       </Route>
+      <Route path="/keystone/preview" component={App}>
+        <IndexRoute component={Home} />
+        <Route path="a/:slug" component={Article}/>
+      </Route>
     </Router>
   )
 }
