@@ -39,8 +39,8 @@ server.set('view engine', 'ejs')
 server.use(Compression())
 
 const oneDay = 86400000
-server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
-server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay }))
+server.use('/keystone/preview/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
+server.use('/keystone/preview/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay }))
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
@@ -124,7 +124,8 @@ server.get('*', async function (req, res) {
         let styles = ''
         {
           Object.keys(assets.styles).map((style, key) => {
-            styles += ReactDOMServer.renderToString(<link async href={assets.styles[style]} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
+            let _style = '/keystone/preview/' + assets.styles[style]
+            styles += ReactDOMServer.renderToString(<link async href={_style} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
           })
         }
         let pageState = store.getState()
@@ -212,7 +213,7 @@ server.get('*', async function (req, res) {
   <script type="text/javascript" charset="utf-8">
   window.__REDUX_STATE__ = '${reduxState}';
   </script>
-  <script async type="text/javascript" charset="utf-8" src='${assets.javascript.main}'></script>
+  <script async type="text/javascript" charset="utf-8" src="/keystone/preview${assets.javascript.main}"></script>
   <!-- Adobe typekit for getting webfont -->
   <script src="https://use.typekit.net/ckp5jxu.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
