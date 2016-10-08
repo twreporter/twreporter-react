@@ -39,8 +39,8 @@ server.set('view engine', 'ejs')
 server.use(Compression())
 
 const oneDay = 86400000
-server.use('/keystone/preview/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
-server.use('/keystone/preview/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay }))
+server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
+server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay * 7 }))
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
@@ -124,7 +124,7 @@ server.get('*', async function (req, res) {
         let styles = ''
         {
           Object.keys(assets.styles).map((style, key) => {
-            let _style = '/keystone/preview/' + assets.styles[style]
+            let _style = '/keystone/preview' + assets.styles[style]
             styles += ReactDOMServer.renderToString(<link async href={_style} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>)
           })
         }
