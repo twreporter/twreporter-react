@@ -129,23 +129,6 @@ export const navPath = [ {
   path: '/category/review'
 } ]
 
-export const subnavPath = [ {
-  title: '轉型正義',
-  path: '/a/transitional-justice-content'
-}, {
-  title: '0206地震',
-  path: '/a/0206earthquake-content'
-}, {
-  title: '亞洲森林浩劫',
-  path: '/a/asia-forest-content'
-}, {
-  title: '走入同志家庭',
-  path: '/a/homofamily-content'
-}, {
-  title: '急診人生',
-  path: '/a/emergency-content'
-} ]
-
 export const colors = {
   whiteBg: '#F1F1F1',
   superWhite: '#FFFFFF',
