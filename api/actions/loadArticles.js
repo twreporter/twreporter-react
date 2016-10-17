@@ -8,6 +8,7 @@ import querystring from 'qs'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 
 export function loadMetaOfArticles(req) {
@@ -34,15 +35,22 @@ export function loadArticles(req, params = []) {
     const { API_PROTOCOL, API_PORT, API_HOST } = config
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
     let slug = typeof params[0] === 'string' ? params[0] : null
-    url = slug ? `${url}/${slug}` : url
+    if (slug) {
+      merge(query, { where: JSON.stringify({ slug: slug }) })
+    }
     superAgent['get'](url).timeout(constants.timeout)
     .query(query)
     .end(function (err, res) {
       if (err) {
         reject(err)
       } else {
-        const embedded = JSON.parse(get(query, 'embedded', null))
-        let aricleRes = res.body
+        let embedded
+        try {
+          embedded = JSON.parse(get(query, 'embedded', null))
+        } catch (error) {
+          console.warning('Parse embedded error:', error)
+        }
+        let aricleRes = get(res.body, '_items.0')
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
         list.forEach((item) => {
