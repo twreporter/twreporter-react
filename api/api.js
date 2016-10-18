@@ -14,7 +14,7 @@ const app = express()
 
 let redisClient = redis.createClient({
   host: upstreamConfig.REDIS_HOST || 'localhost',
-  port: upstreamConfig.REDIS_PORT || '',
+  port: upstreamConfig.REDIS_PORT || 6379,
   retry_strategy: function (options) {
     if (options.error.code === 'ECONNREFUSED') {
       // End reconnecting on a specific error and flush all commands with a individual error
