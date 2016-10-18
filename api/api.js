@@ -8,6 +8,7 @@ import express from 'express'
 import redis from 'redis'
 import serverConfig from '../server/config'
 
+const EXPIRE = 600 // ten mins
 const pretty = new PrettyError()
 const app = express()
 
@@ -41,7 +42,6 @@ function getDataFromRedis(url) {
         if (reply === null) {
           return reject()
         }
-
         // cached
         return resolve(reply)
       } catch(e) {
@@ -62,7 +62,7 @@ function getDataFromAPI(req, res) {
           result(res)
         } else {
           res.json(result)
-          redisClient.set(req.url, JSON.stringify(result), redis.print)
+          redisClient.setex(req.url, EXPIRE, JSON.stringify(result), redis.print)
         }
       }, (reason) => {
         if (reason && reason.redirect) {
