@@ -45,7 +45,7 @@ function getDataFromRedis(url) {
         // cached
         return resolve(reply)
       } catch(e) {
-        console.warning('Getting cache from REDIS occurs error: ', e)
+        console.warn('Getting cache from REDIS occurs error: ', e)
         return reject(e)
       }
     })
@@ -62,7 +62,9 @@ function getDataFromAPI(req, res) {
           result(res)
         } else {
           res.json(result)
-          redisClient.setex(req.url, EXPIRE, JSON.stringify(result), redis.print)
+          if (result !== null && result !== undefined) {
+            redisClient.setex(req.url, EXPIRE, JSON.stringify(result), redis.print)
+          }
         }
       }, (reason) => {
         if (reason && reason.redirect) {
