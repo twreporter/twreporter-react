@@ -393,7 +393,7 @@ class Article extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <div>
+        <div itemScope itemType="http://schema.org/Article">
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
@@ -401,8 +401,8 @@ class Article extends Component {
             <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
-                  <h3>{topicBlock}{subtitleBlock}</h3>
-                  <h1>{article.title}</h1>
+                  <h3 itemProp="about">{topicBlock}{subtitleBlock}</h3>
+                  <h1 itemProp="name">{article.title}</h1>
                 </hgroup>
               </div>
 

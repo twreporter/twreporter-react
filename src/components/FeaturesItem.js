@@ -130,7 +130,7 @@ export default class FeaturesItem extends Component {
     let excerpt = get(article, 'ogDescription', '')
 
     return (
-      <li className="listing-item" key={article.id}>
+      <li itemScope itemType="http://schema.org/Article" className="listing-item" key={article.id}>
         <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
@@ -144,6 +144,7 @@ export default class FeaturesItem extends Component {
               src={image}
               srcSet={imageSrcSet}
             />
+            <meta itemProp="image" content={image} />
           <div className="img-overlay" />
           </div>
           <div ref="parallaxIndicator" className="listing-item-container">
@@ -151,14 +152,15 @@ export default class FeaturesItem extends Component {
               <div className="featurebox">
                 <div className="cat-container">
                   <Category>{catDisplay}</Category>
+                  <meta itemProp="articleSection" content={catDisplay}/>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
-                  <div className="title">{article.title}</div>
-                  <div className="excerpt">{excerpt}</div>
-                  <div className="published">
+                  <div itemProp="title" className="title">{article.title}</div>
+                  <div itemProp="description" className="excerpt">{excerpt}</div>
+                  <time itemProp="datePublished" dateTime={date2yyyymmdd(article.publishedDate, '-')} className="published">
                     {pubDate}
-                  </div>
+                  </time>
                 </div>
               </div>
             </div>

@@ -58,15 +58,16 @@ export default class Tags extends Component {
                 let excerpt =  get(a, 'ogDescription', '')
                 if (image) {
                   return (
-                    <li className="tag-item" key={a.id} style={bgStyle}>
-                      <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
+                    <li itemScope itemType="http://schema.org/Article" className="tag-item" key={a.id} style={bgStyle}>
+                      <Link itemProp="url" to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
                         <div className="itemimage-wrap">
                           <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
+                          <meta itemProp="image" content={image} />
                         </div>
                         <div className="tag-itemdesc" style={bgStyle}>
-                          <div className="tag-itemtitle"><h3>{a.title}</h3></div>
-                          <div className="tag-itemexcerpt">{excerpt}</div>
-                          <div className="tag-itempublished">{d_str}</div>
+                          <div className="tag-itemtitle"><h3 itemProp="title">{a.title}</h3></div>
+                          <div itemProp="description" className="tag-itemexcerpt">{excerpt}</div>
+                          <time itemProp="datePublished" dateTime={date2yyyymmdd(a.publishedDate, '-')} className="tag-itempublished">{d_str}</time>
                         </div>
                       </Link>
                     </li>

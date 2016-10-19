@@ -30,7 +30,7 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
       )
       */
     return (
-      <span key={key}>{author.name}</span>
+      <span itemProp="author" key={key}>{author.name}</span>
     )
   }
 
