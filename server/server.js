@@ -44,7 +44,6 @@ server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { max
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  res.header('Cache-Control', 'public, max-age=900')
   next()
 })
 
@@ -161,6 +160,12 @@ server.get('*', async function (req, res) {
                 </DeviceProvider>
               </Provider>
           )
+
+          // set Cache-Control header for caching
+          if (!res.headersSent) {
+            res.header('Cache-Control', 'public, max-age=900')
+          }
+
           res.write(
 `<!DOCTYPE html>
 <html amp lang="zh-Hant-TW">
