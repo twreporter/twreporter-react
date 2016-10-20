@@ -1,4 +1,4 @@
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE, SITE_META } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import Category from './Category'
 import Link from './Link'
@@ -131,6 +131,7 @@ export default class FeaturesItem extends Component {
 
     return (
       <li itemScope itemType="http://schema.org/Article" className="listing-item" key={article.id}>
+        <meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${url}`} />
         <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
@@ -143,8 +144,8 @@ export default class FeaturesItem extends Component {
               className="img"
               src={image}
               srcSet={imageSrcSet}
+              itemProp="image"
             />
-            <meta itemProp="image" content={image} />
           <div className="img-overlay" />
           </div>
           <div ref="parallaxIndicator" className="listing-item-container">
@@ -156,7 +157,7 @@ export default class FeaturesItem extends Component {
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
-                  <div itemProp="title" className="title">{article.title}</div>
+                  <div itemProp="headline" className="title">{article.title}</div>
                   <div itemProp="description" className="excerpt">{excerpt}</div>
                   <time itemProp="datePublished" dateTime={date2yyyymmdd(article.publishedDate, '-')} className="published">
                     {pubDate}
