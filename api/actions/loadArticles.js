@@ -1,5 +1,7 @@
 /*eslint no-console: 0*/
 
+import { NotFoundError } from '../../src/lib/custom-error'
+
 import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
@@ -50,11 +52,17 @@ export function loadArticles(req, params = []) {
         } catch (error) {
           console.warning('Parse embedded error:', error)
         }
-        let aricleRes = get(res.body, '_items.0')
+
+        if (slug && get(res.body, '_items.length', 0) === 0) {
+          return reject(new NotFoundError('Articles are not found by query :' +  JSON.stringify(query)))
+        }
+
+        let articleRes = get(res.body, '_items.0')
+
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
         list.forEach((item) => {
-          let aArr = get(aricleRes, item, [])
+          let aArr = get(articleRes, item, [])
           aArr.forEach((author) => {
             let authorImg = get(author, 'image', null)
             if(authorImg) {
@@ -77,14 +85,14 @@ export function loadArticles(req, params = []) {
               const imgItems = get(res.body, '_items')
 
               list.forEach((item) => {
-                let authors = get(aricleRes, item, [])
+                let authors = get(articleRes, item, [])
                 addImage(authors, imgItems)
               })
             }
-            resolve(aricleRes)
+            resolve(articleRes)
           })
         } else {
-          resolve(aricleRes)
+          resolve(articleRes)
         }
       }
     })
