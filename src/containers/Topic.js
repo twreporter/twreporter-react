@@ -1,9 +1,10 @@
 'use strict'
-import { TOPIC, TOPIC_TEXT } from '../constants/index'
+import { HOME_CH_STR, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setPageType, setPageTitle } from '../actions/header'
+import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import Tags from '../components/Tags'
@@ -59,25 +60,45 @@ class Topic extends Component {
     const { articlesByUuids, entities, params } = this.props
     const topicId = get(params, 'topicId')
     const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
-    const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
 
     let articles = denormalizeArticles(get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
+    const meta = {
+      title: topicName ? topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
+      description: SITE_META.DESC,
+      canonical: `${SITE_META.URL}topic/${topicId}`,
+      meta: { property: {} },
+      auto: { ograph: true }
+    }
+
     return (
-      <div style={{
-        backgroundColor: '#FDFFFA'
-      }}>
-        <div className="container text-center">
-          {topicBox}
+      <DocumentMeta {...meta}>
+        <div style={{
+          backgroundColor: '#FDFFFA'
+        }}>
+          <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
+            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <div itemProp="item">
+                <meta itemProp="name" content={HOME_CH_STR} />
+                <meta itemProp="url" content={SITE_META.URL} />
+              </div>
+              <meta itemProp="position" content="1" />
+            </div>
+            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              {topicName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {topicName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
+              }
+              <meta itemProp="position" content="2"/>
+            </div>
+          </div>
+          <Tags
+            articles={articles}
+            device={device}
+            hasMore={false}
+          />
+          {this.props.children}
+          <Footer/>
         </div>
-        <Tags
-          articles={articles}
-          device={device}
-          hasMore={false}
-        />
-        {this.props.children}
-        <Footer/>
-      </div>
+      </DocumentMeta>
     )
   }
 }
