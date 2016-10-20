@@ -77,9 +77,15 @@ class Image extends FitwidthMixin(Component) {
   }
 
   _getNoscript(imgUrl, imgDes) {
+    let microData = (
+      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
+        <meta itemProp="contentUrl" content={imgUrl} />
+        <meta itemProp="description" content={imgDes} />
+      </div>
+    )
     // generate image tag for search engines
     return {
-      __html: '<img src="'+imgUrl+'" alt="'+imgDes+'">'
+      __html: { microData }
     }
   }
 
@@ -130,12 +136,6 @@ class Image extends FitwidthMixin(Component) {
     }
 
     let imgUrl = replaceStorageUrlPrefix(get(desktop, 'url', ''))
-    let microData = (
-      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
-        <meta itemProp="contentUrl" content={imgUrl} />
-        <meta itemProp="description" content={imageDescription} />
-      </div>
-    )
 
     return (
       <div itemScope itemType="http://schema.org/ImageObject" ref="imageBox" className={styles['image-box']}>
@@ -146,7 +146,6 @@ class Image extends FitwidthMixin(Component) {
         </div>
 
         {descriptionBox}
-        {microData}
       </div>
     )
   }

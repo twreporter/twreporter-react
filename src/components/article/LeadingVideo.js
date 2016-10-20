@@ -114,10 +114,12 @@ class LeadingVideo extends React.Component {
     let imageSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
 
     return (
-      <div>
+      <div itemScope itemType="http://schema.org/VideoObject">
+        <link itemProp="url" href={this.props.src} />
+        <meta itemProp="name" content={this.props.title}/>
         <video ref="videoPlayer" className={videoPlayerClasses}>
         </video>
-        <img
+        <img itemProp="thumbnailUrl"
           className={styles['leading-poster']}
           src={imageSrc}
           srcSet={imageSrcSet}

@@ -360,7 +360,8 @@ class Article extends Component {
 
     let authors = this._composeAuthors(article)
     let bodyData = get(article, [ 'content', 'apiData' ], [])
-    let leadingVideo = get(article, [ 'leadingVideo', 'video', 'url' ], '')
+    let leadingVideo = get(article, 'leadingVideo.video.url', '')
+    let leadingVideoTitle = get(article, 'leadingVideo.video.title', '')
     let heroImage = get(article, [ 'heroImage' ], null)
     let heroImageSize = get(article, [ 'heroImageSize' ], 'normal')
     let introData = get(article, [ 'brief', 'apiData' ], [])
@@ -397,12 +398,12 @@ class Article extends Component {
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
-            { leadingVideo ? <LeadingVideo src={leadingVideo} poster={get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
+            { leadingVideo ? <LeadingVideo title={leadingVideoTitle} src={leadingVideo} poster={get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
             <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
                   <h3 itemProp="about">{topicBlock}{subtitleBlock}</h3>
-                  <h1 itemProp="name">{article.title}</h1>
+                  <h1 itemProp="headline">{article.title}</h1>
                 </hgroup>
               </div>
 

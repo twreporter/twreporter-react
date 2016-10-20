@@ -1,4 +1,4 @@
-import { SITE_META, SITE_NAME, TAG } from '../constants/index'
+import { HOME_CH_STR, SITE_META, SITE_NAME, TAG } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -84,7 +84,6 @@ class Tag extends Component {
     const tagId = get(params, 'tagId')
     let articles = denormalizeArticles(get(articlesByUuids, [ tagId, 'items' ], []), entities)
     let tagName = get(entities, [ 'tags', tagId, 'name' ], '')
-    const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const meta = {
       title: tagName ? tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
       description: SITE_META.DESC,
@@ -95,8 +94,19 @@ class Tag extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <div className="container text-center">
-          {tagBox}
+        <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
+          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <div itemProp="item">
+              <meta itemProp="name" content={HOME_CH_STR} />
+              <meta itemProp="url" content={SITE_META.URL} />
+            </div>
+            <meta itemProp="position" content="1" />
+          </div>
+          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            {tagName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {tagName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
+            }
+            <meta itemProp="position" content="2"/>
+          </div>
         </div>
         <div>
           <Tags
