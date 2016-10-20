@@ -1,4 +1,4 @@
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE, SITE_META } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import Category from './Category'
 import Link from './Link'
@@ -130,7 +130,8 @@ export default class FeaturesItem extends Component {
     let excerpt = get(article, 'ogDescription', '')
 
     return (
-      <li className="listing-item" key={article.id}>
+      <li itemScope itemType="http://schema.org/Article" className="listing-item" key={article.id}>
+        <meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${url}`} />
         <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
@@ -143,6 +144,7 @@ export default class FeaturesItem extends Component {
               className="img"
               src={image}
               srcSet={imageSrcSet}
+              itemProp="image"
             />
           <div className="img-overlay" />
           </div>
@@ -151,14 +153,15 @@ export default class FeaturesItem extends Component {
               <div className="featurebox">
                 <div className="cat-container">
                   <Category>{catDisplay}</Category>
+                  <meta itemProp="articleSection" content={catDisplay}/>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
-                  <div className="title">{article.title}</div>
-                  <div className="excerpt">{excerpt}</div>
-                  <div className="published">
+                  <div itemProp="headline" className="title">{article.title}</div>
+                  <div itemProp="description" className="excerpt">{excerpt}</div>
+                  <time itemProp="datePublished" dateTime={date2yyyymmdd(article.publishedDate, '-')} className="published">
                     {pubDate}
-                  </div>
+                  </time>
                 </div>
               </div>
             </div>

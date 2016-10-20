@@ -1,4 +1,4 @@
-import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
+import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, HOME_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -104,7 +104,6 @@ class Category extends Component {
     let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
     const category = get(params, 'category', null)
     const catName = catENtoCH[category]
-    const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
     const meta = {
       title: catName ? catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
       description: SITE_META.DESC,
@@ -115,8 +114,19 @@ class Category extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <div className="container text-center">
-          {catBox}
+        <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
+          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <div itemProp="item">
+              <meta itemProp="name" content={HOME_CH_STR} />
+              <meta itemProp="url" content={SITE_META.URL} />
+            </div>
+            <meta itemProp="position" content="1" />
+          </div>
+          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            {catName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {catName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
+            }
+            <meta itemProp="position" content="2"/>
+          </div>
         </div>
         <Tags
           articles={articles}

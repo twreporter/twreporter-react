@@ -77,9 +77,15 @@ class Image extends FitwidthMixin(Component) {
   }
 
   _getNoscript(imgUrl, imgDes) {
+    let microData = (
+      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
+        <meta itemProp="contentUrl" content={imgUrl} />
+        <meta itemProp="description" content={imgDes} />
+      </div>
+    )
     // generate image tag for search engines
     return {
-      __html: '<img src="'+imgUrl+'" alt="'+imgDes+'">'
+      __html: { microData }
     }
   }
 
@@ -121,6 +127,7 @@ class Image extends FitwidthMixin(Component) {
     if(imageDescription && isToShowDescription) {
       descriptionBox =
         <div
+          itemProp="description"
           className={classNames(commonStyles['desc-text-block'], 'text-justify')}
           style={{ marginTop: '16px' }}
         >
@@ -128,12 +135,14 @@ class Image extends FitwidthMixin(Component) {
         </div>
     }
 
+    let imgUrl = replaceStorageUrlPrefix(get(desktop, 'url', ''))
+
     return (
-      <div ref="imageBox" className={styles['image-box']}>
+      <div itemScope itemType="http://schema.org/ImageObject" ref="imageBox" className={styles['image-box']}>
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
-          <noscript dangerouslySetInnerHTML={this._getNoscript(replaceStorageUrlPrefix(get(desktop, 'url', '')), imageDescription)} />
+          <noscript dangerouslySetInnerHTML={this._getNoscript(imgUrl, imageDescription)} />
         </div>
 
         {descriptionBox}

@@ -216,6 +216,19 @@ server.get('*', async function (req, res) {
   <!-- Adobe typekit for getting webfont -->
   <script src="https://use.typekit.net/ckp5jxu.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "WebSite",
+      "name" : "報導者",
+      "url" : "https://www.twreporter.org/",
+      "potentialAction" : {
+        "@type" : "SearchAction",
+        "target" : "https://www.twreporter.org/search?q={search_term}",
+        "query-input" : "required name=search_term"
+      }
+    }
+  </script>
 </body>
 </html>
 `)

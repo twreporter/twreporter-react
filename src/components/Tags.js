@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Category from './Category'
 import More from '../components/More'
 import Link from './Link'
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE, SITE_META } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getImageSrc, getImageSrcSet } from '../utils/index'
 
@@ -58,15 +58,16 @@ export default class Tags extends Component {
                 let excerpt =  get(a, 'ogDescription', '')
                 if (image) {
                   return (
-                    <li className="tag-item" key={a.id} style={bgStyle}>
+                    <li itemScope itemType="http://schema.org/Article" className="tag-item" key={a.id} style={bgStyle}>
+                      <meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${url}`} />
                       <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
                         <div className="itemimage-wrap">
-                          <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
+                          <img itemProp="image" className="category-itemimage" src={image} srcSet={imageSrcSet} />
                         </div>
                         <div className="tag-itemdesc" style={bgStyle}>
-                          <div className="tag-itemtitle"><h3>{a.title}</h3></div>
-                          <div className="tag-itemexcerpt">{excerpt}</div>
-                          <div className="tag-itempublished">{d_str}</div>
+                          <div className="tag-itemtitle"><h3 itemProp="headline">{a.title}</h3></div>
+                          <div itemProp="description" className="tag-itemexcerpt">{excerpt}</div>
+                          <time itemProp="datePublished" dateTime={date2yyyymmdd(a.publishedDate, '-')} className="tag-itempublished">{d_str}</time>
                         </div>
                       </Link>
                     </li>
