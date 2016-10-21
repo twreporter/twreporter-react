@@ -1,4 +1,4 @@
-import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, SITE_META, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
@@ -106,7 +106,8 @@ export default class NavMenu extends Component {
     const { header } = this.props
     const pageType = get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
+    let isSubNavHidden = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open)
+    let subNavBar = <div className={classNames(styles['general-subnav'], { [styles.seoHidden]: isSubNavHidden })}><SubNavBar {...this.props}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -116,7 +117,9 @@ export default class NavMenu extends Component {
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
-          <div itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.seoHidden}>{navLinks}</div>
+          <div itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.seoHidden}>
+            {navLinks}
+          </div>
         </div>
         <div className={styles.navRight}>
           {/*<Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>*/}
@@ -258,9 +261,9 @@ export default class NavMenu extends Component {
       if (navItems[i].path === path) {
         itemClassName = styles.active
       }
-      navLinks.push(<Link itemProp="url" key={i} style={{ color: linkColor }}
+      navLinks.push(<Link key={i} style={{ color: linkColor }}
         className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path}
-        onClick={()=> { this.setState( { open: !this.state.open } )}}><span itemProp="name">{navItems[i].title}</span></Link>)
+        onClick={()=> { this.setState( { open: !this.state.open } )}}><span itemProp="name">{navItems[i].title}</span><meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${navItems[i].path}`} /></Link>)
     }
 
     // if the burger icon is clicked
