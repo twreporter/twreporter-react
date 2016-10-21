@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import App from '../containers/App'
 import Article from '../containers/Article'
-import Authors from '../components/authors/AuthorList'
+import Authors from '../containers/AuthorList'
 import Blank from '../containers/Blank'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
