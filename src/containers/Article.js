@@ -374,11 +374,11 @@ class Article extends Component {
 
 
     let topicName = get(article, 'topics.name')
-    let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    let topicBlock = topicName ? <span itemProp="about" className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
     let topicArr = this._getTopicArticles(get(article, 'topics.id'))
 
     let subtitle = get(article, 'subtitle', '')
-    let subtitleBlock = subtitle ? <span className={styles['subtitle']}>{subtitle}</span> : null
+    let subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
 
     const meta = {
       title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT,
@@ -402,7 +402,7 @@ class Article extends Component {
             <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
-                  <h3 itemProp="about">{topicBlock}{subtitleBlock}</h3>
+                  <h3>{topicBlock}{subtitleBlock}</h3>
                   <h1 itemProp="headline">{article.title}</h1>
                 </hgroup>
               </div>
