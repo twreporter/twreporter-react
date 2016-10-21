@@ -27,7 +27,8 @@
         "PORT": 3000,
         "APIHOST": "localhost",
         "APIPORT": 3030,
-        "APIPROTOCOL": "http"
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": true
       }
     },
     "start-prod-api": {
@@ -46,7 +47,8 @@
         "PORT": 3000,
         "APIHOST": "localhost",
         "APIPORT": 3030,
-        "APIPROTOCOL": "http"
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": false
       }
     },
     "start-dev-api": {
