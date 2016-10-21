@@ -62,7 +62,7 @@ function getDataFromAPI(req, res) {
           result(res)
         } else {
           res.json(result)
-          if (result !== null && result !== undefined) {
+          if (result !== null && result !== undefined && serverConfig.isRedisEnabled) {
             redisClient.setex(req.url, EXPIRE, JSON.stringify(result), redis.print)
           }
         }

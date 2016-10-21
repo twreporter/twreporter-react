@@ -27,15 +27,20 @@
         "PORT": 3000,
         "APIHOST": "localhost",
         "APIPORT": 3030,
-        "APIPROTOCOL": "http"
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": true
       }
     },
     "start-prod-api": {
-      "command": "forever ./bin/api.js",
+      "command": "forever -e api-err.log ./bin/api.js",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
-        "APIPORT": 3030
+        "PORT": 3000,
+        "APIHOST": "localhost",
+        "APIPORT": 3030,
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": true
       }
     },
     "start-dev": {
@@ -46,7 +51,8 @@
         "PORT": 3000,
         "APIHOST": "localhost",
         "APIPORT": 3030,
-        "APIPROTOCOL": "http"
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": false
       }
     },
     "start-dev-api": {
@@ -54,7 +60,11 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "development",
-        "APIPORT": 3030
+        "PORT": 3000,
+        "APIHOST": "localhost",
+        "APIPORT": 3030,
+        "APIPROTOCOL": "http",
+        "REDIS_ENABLE": false
       }
     },
     "watch-client": {
