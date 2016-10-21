@@ -1,4 +1,4 @@
-import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, SITE_META, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import Link from '../Link'
 import { shortenString } from '../../lib/string-processor'
@@ -258,9 +258,9 @@ export default class NavMenu extends Component {
       if (navItems[i].path === path) {
         itemClassName = styles.active
       }
-      navLinks.push(<Link itemProp="url" key={i} style={{ color: linkColor }}
+      navLinks.push(<Link key={i} style={{ color: linkColor }}
         className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path}
-        onClick={()=> { this.setState( { open: !this.state.open } )}}><span itemProp="name">{navItems[i].title}</span></Link>)
+        onClick={()=> { this.setState( { open: !this.state.open } )}}><span itemProp="name">{navItems[i].title}</span><meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${navItems[i].path}`} /></Link>)
     }
 
     // if the burger icon is clicked
