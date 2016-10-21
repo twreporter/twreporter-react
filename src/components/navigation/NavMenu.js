@@ -106,7 +106,8 @@ export default class NavMenu extends Component {
     const { header } = this.props
     const pageType = get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
+    let isSubNavHidden = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open)
+    let subNavBar = <div className={classNames(styles['general-subnav'], { [styles.seoHidden]: isSubNavHidden })}><SubNavBar {...this.props}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -116,7 +117,9 @@ export default class NavMenu extends Component {
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
-          <div itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.seoHidden}>{navLinks}</div>
+          <div itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.seoHidden}>
+            {navLinks}
+          </div>
         </div>
         <div className={styles.navRight}>
           {/*<Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>*/}
