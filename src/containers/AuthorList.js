@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import AuthorList from '../components/authors/AuthorList'
 
-
 class AuthorListContainer extends Component {
 
   constructor(props) {
@@ -35,10 +34,12 @@ class AuthorListContainer extends Component {
     }
 
     return (
-      <AuthorList
-        inHouseReporters={mockData.inHouse}
-        correspondents={mockData.outSource}
-      />
+      <div>
+        <AuthorList
+          inHouseReporters={mockData.inHouse}
+          correspondents={mockData.outSource}
+        />
+      </div>
     )
   }
 }

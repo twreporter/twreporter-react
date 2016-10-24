@@ -3,16 +3,25 @@ import React from 'react'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+import style from './AuthorList.scss'
 
-class AuthorItem extends React.Component {
-  render() {
-    return (
-      <div className="authorItem">
-        <img src={this.props.imgUrl} alt={this.props.authorName} />
-        <div><p>{this.props.authorName}</p></div>
-      </div>
-    )
-  }
+const AuthorItem = (props) => {
+  return (
+    <div className={style.authorItem}>
+      <img src={props.imgUrl} alt={props.authorName} className={style.authorImg} />
+      <div className={style.authorName} >{props.authorName}</div>
+    </div>
+  )
+}
+
+AuthorItem.propTypes = {
+  imgUrl: React.PropTypes.string,
+  authorName: React.PropTypes.string
+}
+
+AuthorItem.defaultProps = {
+  imgUrl: '',
+  authorName: '作者名稱'
 }
 
 class AuthorList extends React.Component {
@@ -37,11 +46,21 @@ class AuthorList extends React.Component {
       )}
     )
     return (
-      <div>
-        {inHouseListJSX}
+      <div className={style.authorList} >
         {corresListJSX}
+        {inHouseListJSX}
       </div>)
   }
+}
+
+AuthorList.propTypes = {
+  inHouseReporters: React.PropTypes.array,
+  correspondents: React.PropTypes.array
+}
+
+AuthorList.defaultProps = {
+  inHouseReporters: [],
+  correspondents: []
 }
 
 export default AuthorList

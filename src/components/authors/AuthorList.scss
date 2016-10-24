@@ -1,0 +1,47 @@
+// VARIABLE
+$img-h: 114px; //image height
+$img-w: 114px; //image width
+
+@mixin size ($h, $w) {
+  height: $h;
+  width: $w
+}
+
+* {
+  border: 1px solid grey;
+}
+
+.authorImg {
+  @include size($img-h,$img-w);
+  border-radius: 50%;
+}
+
+.authorItem {
+  display: inline-block;
+  vertical-align: top;
+  height: auto;
+  width: 114px;
+  margin-left: 23px;
+  margin-right: 23px;
+  margin-bottom: 60px;
+}
+
+.authorName {
+  margin-top: 14px;
+  height: 18px;
+  width: 100%;
+  font-size: 18px;
+  font-family: SourceHanSansTWHK;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1;
+  color: #404040;
+}
+
+.authorList {
+  margin-left: auto;
+  margin-right: auto;
+	width: 556px;
+	height: 1443px;
+	background-color: #f2f2f2;
+}
