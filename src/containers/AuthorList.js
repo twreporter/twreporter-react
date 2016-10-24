@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import AuthorList from '../components/authors/AuthorList'
 
+
 class AuthorListContainer extends Component {
 
   constructor(props) {
@@ -13,30 +14,30 @@ class AuthorListContainer extends Component {
     let mockData = {
       inHouse: [ {
         name: '王立柔',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       },{
         name: '王文彥',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       },{
         name: '王珣沛',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       } ],
       outSource: [ {
         name: '野島剛',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       },{
         name: '黃一峰',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       },{
         name: 'George Chien',
-        imgUrl: '/asset/authorPhoto.jpg'
+        imgUrl: 'http://i.imgur.com/Clyp3sKb.jpg'
       } ]
     }
 
     return (
       <AuthorList
-        inHouseReporter={mockData.inHouse}
-        correspondent={mockData.outSource}
+        inHouseReporters={mockData.inHouse}
+        correspondents={mockData.outSource}
       />
     )
   }

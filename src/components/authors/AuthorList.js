@@ -1,14 +1,47 @@
 'use strict'
-import { connect } from 'react-redux'
 import React from 'react'
+// lodash
+import forEach from 'lodash/forEach'
+import get from 'lodash/get'
 
-export class AuthorList extends React.Component {
-
+class AuthorItem extends React.Component {
   render() {
     return (
-      <h1>This is an author list page</h1>
+      <div className="authorItem">
+        <img src={this.props.imgUrl} alt={this.props.authorName} />
+        <div><p>{this.props.authorName}</p></div>
+      </div>
     )
   }
 }
 
-export default connect()(AuthorList)
+class AuthorList extends React.Component {
+  constructor() {
+    super()
+  }
+  render() {
+    let inHouseReporters = this.props.inHouseReporters
+    // Rendering inHouseReporters
+    let inHouseListJSX = []
+    forEach(inHouseReporters, (ele) => {
+      inHouseListJSX.push(
+        <AuthorItem authorName={get(ele, 'name')} imgUrl={get(ele, 'imgUrl')} />
+      )}
+    )
+    // Rendering correspondent
+    let correspondents = this.props.correspondents
+    let corresListJSX =[]
+    forEach(correspondents, (ele) => {
+      corresListJSX.push(
+        <AuthorItem authorName={get(ele, 'name')} imgUrl={get(ele, 'imgUrl')} />
+      )}
+    )
+    return (
+      <div>
+        {inHouseListJSX}
+        {corresListJSX}
+      </div>)
+  }
+}
+
+export default AuthorList
