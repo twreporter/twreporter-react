@@ -374,7 +374,7 @@ class Article extends Component {
 
 
     let topicName = get(article, 'topics.name')
-    let topicBlock = topicName ? <span itemProp="about" className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    let topicBlock = topicName ? <span itemProp="mainEntityOfPage" className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
     let topicArr = this._getTopicArticles(get(article, 'topics.id'))
 
     let subtitle = get(article, 'subtitle', '')
@@ -405,6 +405,12 @@ class Article extends Component {
                   <h3>{topicBlock}{subtitleBlock}</h3>
                   <h1 itemProp="headline">{article.title}</h1>
                 </hgroup>
+                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+                  <meta itemProp="name" content="報導者" />
+                  <meta itemProp="email" content="contact@twreporter.org" />
+                  <meta itemProp="logo" content="https://www.twreporter.org/storage/images/logo-desk.svg" />
+                  <meta itemProp="url" content="https://www.twreporter.org/" />
+                </div>
               </div>
 
               <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
