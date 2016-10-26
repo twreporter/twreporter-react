@@ -20,7 +20,7 @@ export class BottomTags extends Component {
     const tags = uniq(data, 'id')
     const tagList = map(tags, tag =>
       <Link key={tag.id} to={`${LINK_PREFIX.TAG}${tag.id}`}>
-        <li itemProp="keywords">
+        <li itemProp="about">
           {tag.name}
         </li>
       </Link>
