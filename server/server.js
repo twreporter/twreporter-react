@@ -228,7 +228,7 @@ server.get('*', async function (req, res) {
     "legalName" : "財團法人報導者文化基金會",
     "alternateName": "報導者 The Reporter",
     "url" : "https://www.twreporter.org/",
-    "logo" : "https://www.twreporter.org/storage/images/logo-desk.svg",
+    "logo" : "https://www.twreporter.org/storage/images/logo.png",
     "sameAs" : [ "http://www.facebook.com/twreporter", "https://www.instagram.com/twreporter/" ]
   }
   </script>
