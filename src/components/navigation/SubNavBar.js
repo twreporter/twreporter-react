@@ -1,5 +1,3 @@
-'use strict'
-import { SITE_META } from '../../constants/index'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import subNavPath from '../../conf/sub-nav-path'
@@ -24,7 +22,7 @@ class Items extends Component {
 
     })
     return (
-      <ul itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.items}>
+      <ul className={styles.items}>
         {_children}
       </ul>
     )
@@ -51,7 +49,7 @@ export default class SubNavBar extends Component {
     }
 
     for(let i in subNavPath) {
-      subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span itemProp="name" onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span><mata itemProp="url" content={`${SITE_META.URL_NO_SLASH}${subNavPath[i].path}`} /></Link>)
+      subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span></Link>)
     }
 
     return (
