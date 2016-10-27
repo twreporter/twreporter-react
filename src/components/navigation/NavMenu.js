@@ -116,7 +116,7 @@ export default class NavMenu extends Component {
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
-          <div itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.seoHidden}>{navLinks}</div>
+          <div className={styles.seoHidden}>{navLinks}</div>
         </div>
         <div className={styles.navRight}>
           {/*<Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>*/}
@@ -258,9 +258,9 @@ export default class NavMenu extends Component {
       if (navItems[i].path === path) {
         itemClassName = styles.active
       }
-      navLinks.push(<Link itemProp="url" key={i} style={{ color: linkColor }}
+      navLinks.push(<Link key={i} style={{ color: linkColor }}
         className={classNames(styles['menu-item'], itemClassName)} to={navItems[i].path}
-        onClick={()=> { this.setState( { open: !this.state.open } )}}><span itemProp="name">{navItems[i].title}</span></Link>)
+        onClick={()=> { this.setState( { open: !this.state.open } )}}><span>{navItems[i].title}</span></Link>)
     }
 
     // if the burger icon is clicked
