@@ -1,6 +1,8 @@
 // VARIABLE
 $img-h: 114px; //image height
 $img-w: 114px; //image width
+$item-h: auto;
+$item-w: 114px;
 
 @mixin size ($h, $w) {
   height: $h;
@@ -9,6 +11,7 @@ $img-w: 114px; //image width
 
 * {
   border: 1px solid grey;
+  box-sizing: border-box;
 }
 
 .authorImg {
@@ -17,31 +20,32 @@ $img-w: 114px; //image width
 }
 
 .authorItem {
+  @include size($item-h,$item-w);
   display: inline-block;
   vertical-align: top;
-  height: auto;
-  width: 114px;
   margin-left: 23px;
   margin-right: 23px;
   margin-bottom: 60px;
 }
 
 .authorName {
+  @include size(18px,100%);
   margin-top: 14px;
-  height: 18px;
-  width: 100%;
-  font-size: 18px;
-  font-family: SourceHanSansTWHK;
-  font-weight: 500;
-  text-align: center;
-  line-height: 1;
   color: #404040;
+  line-height: 1;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: SourceHanSansTWHK;
+  text-align: center;
 }
 
 .authorList {
+  @include size(663px,auto);
   margin-left: auto;
   margin-right: auto;
-	width: 556px;
-	height: 1443px;
 	background-color: #f2f2f2;
+}
+
+.AuthorSearch{
+  @include size(200px,auto);
 }

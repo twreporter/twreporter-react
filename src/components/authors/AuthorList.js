@@ -1,15 +1,21 @@
 'use strict'
 import React from 'react'
+import styles from './AuthorList.scss'
+
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import style from './AuthorList.scss'
+
+const _ = {
+  forEach: forEach,
+  get: get
+}
 
 const AuthorItem = (props) => {
   return (
-    <div className={style.authorItem}>
-      <img src={props.imgUrl} alt={props.authorName} className={style.authorImg} />
-      <div className={style.authorName} >{props.authorName}</div>
+    <div className={styles.authorItem}>
+      <img src={props.imgUrl} alt={props.authorName} className={styles.authorImg} />
+      <div className={styles.authorName} >{props.authorName}</div>
     </div>
   )
 }
@@ -25,28 +31,28 @@ AuthorItem.defaultProps = {
 }
 
 class AuthorList extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
   render() {
-    let inHouseReporters = this.props.inHouseReporters
+    const { inHouseReporters, correspondents } = this.props
+    // console.log('inHouseReporters:', inHouseReporters)
     // Rendering inHouseReporters
     let inHouseListJSX = []
-    forEach(inHouseReporters, (ele) => {
+    _.forEach(inHouseReporters, (ele, index) => {
       inHouseListJSX.push(
-        <AuthorItem authorName={get(ele, 'name')} imgUrl={get(ele, 'imgUrl')} />
+        <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
       )}
     )
     // Rendering correspondent
-    let correspondents = this.props.correspondents
     let corresListJSX =[]
-    forEach(correspondents, (ele) => {
+    _.forEach(correspondents, (ele, index) => {
       corresListJSX.push(
-        <AuthorItem authorName={get(ele, 'name')} imgUrl={get(ele, 'imgUrl')} />
+        <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
       )}
     )
     return (
-      <div className={style.authorList} >
+      <div className={styles.authorList} >
         {corresListJSX}
         {inHouseListJSX}
       </div>)
