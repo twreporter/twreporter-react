@@ -1,5 +1,5 @@
 'use strict'
-import { HOME_CH_STR, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
+import {  SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -60,7 +60,7 @@ class Topic extends Component {
     const { articlesByUuids, entities, params } = this.props
     const topicId = get(params, 'topicId')
     const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
-
+    const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
     let articles = denormalizeArticles(get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
     const meta = {
@@ -76,19 +76,8 @@ class Topic extends Component {
         <div style={{
           backgroundColor: '#FDFFFA'
         }}>
-          <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
-            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-              <div itemProp="item">
-                <meta itemProp="name" content={HOME_CH_STR} />
-                <meta itemProp="url" content={SITE_META.URL} />
-              </div>
-              <meta itemProp="position" content="1" />
-            </div>
-            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-              {topicName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {topicName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
-              }
-              <meta itemProp="position" content="2"/>
-            </div>
+          <div className="container text-center">
+            {topicBox}
           </div>
           <Tags
             articles={articles}

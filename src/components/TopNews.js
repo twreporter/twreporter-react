@@ -1,5 +1,5 @@
 'use strict'
-import { INTERACTIVE_ARTICLE_STYLE, SITE_META } from '../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getImageSrc, getImageSrcSet } from '../utils/index'
 import Link from './Link'
@@ -33,22 +33,18 @@ export default class TopNews extends Component {
           let imageSet = getImageSrcSet(a)
           let image = getImageSrc(a)
           return (
-              <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
-                <div itemScope itemType="http://schema.org/Article">
-                  <meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}/a/${a.slug}`} />
-                  <img itemProp="image" src={image} alt={a.slug} srcSet={imageSet} />
-                  <div className="topnews_categorycontainer">
-                    <Category>{catDisplay}</Category>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="carousel-itemsubtitle">{a.subtitle}</div>
-                    <div itemProp="headline" className="carousel-itemtitle">{a.title}</div>
-                    <div itemProp="description" className="carousel-excerpt">{a.excerpt}</div>
-                    <time itemProp="datePublished" dateTime={date2yyyymmdd(a.publishedDate, '-')} className="carousel-published">{pubDate}</time>
-                  </div>
-                  <meta itemProp="articleSection" content={catDisplay}/>
-                </div>
-              </Link>
+            <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
+              <img src={image} alt={a.slug} srcSet={imageSet} />
+              <div className="topnews_categorycontainer">
+                <Category>{catDisplay}</Category>
+              </div>
+              <div className="carousel-item">
+                <div className="carousel-itemsubtitle">{a.subtitle}</div>
+                <div className="carousel-itemtitle">{a.title}</div>
+                <div className="carousel-excerpt">{a.excerpt}</div>
+                <time dateTime={date2yyyymmdd(a.publishedDate, '-')} className="carousel-published">{pubDate}</time>
+              </div>
+            </Link>
           )
         })}
       </Slider>

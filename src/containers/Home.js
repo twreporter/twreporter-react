@@ -120,6 +120,140 @@ class Home extends Component {
       auto: { ograph: true }
     }
 
+    let microData = (
+      <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
+        <div>
+          <meta itemProp="name" content="首頁" />
+          <link itemProp="url" href="https://www.twreporter.org/" />
+        </div>
+        <div>
+          <meta itemProp="name" content="台灣" />
+          <link itemProp="url" href="https://www.twreporter.org/category/taiwan" />
+        </div>
+        <div>
+          <meta itemProp="name" content="文化" />
+          <link itemProp="url" href="https://www.twreporter.org/category/culture" />
+        </div>
+        <div>
+          <meta itemProp="name" content="國際" />
+          <link itemProp="url" href="https://www.twreporter.org/category/intl" />
+        </div>
+        <div>
+          <meta itemProp="name" content="影像" />
+          <link itemProp="url" href="https://www.twreporter.org/photography" />
+        </div>
+        <div>
+          <meta itemProp="name" content="評論" />
+          <link itemProp="url" href="https://www.twreporter.org/category/review" />
+        </div>
+        <div>
+          <meta itemProp="name" content="轉型正義" />
+          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8151363d1610007ef656" />
+        </div>
+        <div>
+          <meta itemProp="name" content="美國總統大選" />
+          <link itemProp="url" href="https://www.twreporter.org/tag/57b065e5360b651200848d76" />
+        </div>
+        <div>
+          <meta itemProp="name" content="亞洲森林浩劫" />
+          <link itemProp="url" href="https://www.twreporter.org/topic/57ac816f363d1610007ef658" />
+        </div>
+        <div>
+          <meta itemProp="name" content="走入同志家庭" />
+          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8177363d1610007ef659" />
+        </div>
+        <div>
+          <meta itemProp="name" content="急診人生" />
+          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8180363d1610007ef65aa" />
+        </div>
+        <div>
+          <meta itemProp="name" content="五輕關廠" />
+          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8192363d1610007ef65b" />
+        </div>
+      </div>
+
+    )
+
+    let schemaOrgScript = `
+      <script type="application/ld+json">
+      {
+        "@context" : "http://schema.org",
+        "@type" : "Organization",
+        "legalName" : "財團法人報導者文化基金會",
+        "alternateName": "報導者 The Reporter",
+        "url": "https://www.twreporter.org/",
+        "logo": "https://www.twreporter.org/storage/images/logo.png",
+        "sameAs": [
+          "http://www.facebook.com/twreporter",
+          "https://www.instagram.com/twreporter/",
+          "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
+        ]
+      }
+      </script>
+      <script type="application/ld+json">
+      {
+        "@context" : "http://schema.org",
+        "@type" : "WebSite",
+        "name" : "報導者 The Reporter",
+        "url" : "https://www.twreporter.org/",
+        "potentialAction" : {
+          "@type" : "SearchAction",
+          "target" : "https://www.twreporter.org/search?q={search_term}",
+          "query-input" : "required name=search_term"
+        }
+      }
+      </script>
+      <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://www.twreporter.org/",
+            "name": "首頁"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/category/taiwan",
+            "name": "台灣"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/category/intl",
+            "name": "國際"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/category/culture",
+            "name": "文化"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/category/review",
+            "name": "評論"
+          }
+        }, {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/photography",
+            "name": "影像"
+          }
+        }]
+      }
+      </script>
+    `
+
     if (topnewsItems) {
       return (
         <DocumentMeta {...meta}>
@@ -135,6 +269,8 @@ class Home extends Component {
             this.props.children
           }
           <Footer />
+          { microData }
+          <script dangerouslySetInnerHTML={{ __html: schemaOrgScript }} />
         </DocumentMeta>
       )
     } else {
