@@ -381,7 +381,7 @@ class Article extends Component {
     let subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
 
     const meta = {
-      title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT,
+      title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
       description: get(article, [ 'ogDescription' ], SITE_META.DESC),
       canonical: SITE_META.URL + 'a/' + get(article, [ 'slug' ], ''),
       meta: { property: {} },
