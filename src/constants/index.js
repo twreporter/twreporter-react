@@ -6,7 +6,7 @@ export * from './footer'
 export * from './strings'
 
 export const SITE_NAME = {
-  FULL: '報導者The Reporter',
+  FULL: '報導者 The Reporter',
   SHORT: '報導者',
   SEPARATOR: ' - '
 }

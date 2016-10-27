@@ -137,7 +137,7 @@ server.get('*', async function (req, res) {
           if (currentArticle) {
             // if this page is an article
             canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + get(currentArticle, 'slug', '')
-            title = get(currentArticle, 'title', title) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT
+            title = get(currentArticle, 'title', title) + SITE_NAME.SEPARATOR + SITE_NAME.FULL
             desc = get(currentArticle, 'ogDescription', desc)
             ogType = 'article'
             if (currentArticle['ogImage']) {
@@ -182,7 +182,7 @@ server.get('*', async function (req, res) {
   <meta property="og:type" content="${ogType}"/>
   <meta property="og:url" content="${canonical}"/>
   <meta property="og:title" content="${title}" data-rdm/>
-  <meta property="og:site_name" content="${SITE_NAME.SHORT}"/>
+  <meta property="og:site_name" content="${SITE_NAME.FULL}"/>
   <meta property="og:image" content="${ogImage}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="${ogImage}"/>
@@ -226,7 +226,7 @@ server.get('*', async function (req, res) {
     "@context" : "http://schema.org",
     "@type" : "Organization",
     "legalName" : "財團法人報導者文化基金會",
-    "alternateName": "報導者",
+    "alternateName": "報導者 The Reporter",
     "url" : "https://www.twreporter.org/",
     "logo" : "https://www.twreporter.org/storage/images/logo-desk.svg",
     "sameAs" : [ "http://www.facebook.com/twreporter", "https://www.instagram.com/twreporter/" ]
@@ -236,7 +236,7 @@ server.get('*', async function (req, res) {
   {
     "@context" : "http://schema.org",
     "@type" : "WebSite",
-    "name" : "報導者",
+    "name" : "報導者 The Reporter",
     "url" : "https://www.twreporter.org/",
     "potentialAction" : {
       "@type" : "SearchAction",
