@@ -36,7 +36,6 @@ class AuthorList extends React.Component {
   }
   render() {
     const { inHouseReporters, correspondents } = this.props
-    // console.log('inHouseReporters:', inHouseReporters)
     // Rendering inHouseReporters
     let inHouseListJSX = []
     _.forEach(inHouseReporters, (ele, index) => {

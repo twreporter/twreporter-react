@@ -54,3 +54,8 @@ $item-w: 114px;
   margin-right: auto;
   text-align: center;
 }
+
+.input-box:focus{
+  @include size(100%,100%);
+  background-color: black;
+}
