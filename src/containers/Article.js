@@ -3,6 +3,7 @@
 import { ABOUT_US_FOOTER, ARTICLE, CONTACT_FOOTER, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { LeadingVideo } from '../components/article/LeadingVideo'
 import { connect } from 'react-redux'
+import { date2yyyymmdd } from '../lib/date-transformer'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
@@ -374,14 +375,16 @@ class Article extends Component {
 
 
     let topicName = get(article, 'topics.name')
-    let topicBlock = topicName ? <span itemProp="mainEntityOfPage" className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
     let topicArr = this._getTopicArticles(get(article, 'topics.id'))
 
     let subtitle = get(article, 'subtitle', '')
     let subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
 
+    let updatedAt = get(article, 'updatedAt') || get(article, 'publishedDate')
+
     const meta = {
-      title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.SHORT,
+      title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
       description: get(article, [ 'ogDescription' ], SITE_META.DESC),
       canonical: SITE_META.URL + 'a/' + get(article, [ 'slug' ], ''),
       meta: { property: {} },
@@ -408,9 +411,11 @@ class Article extends Component {
                 <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
                   <meta itemProp="name" content="報導者" />
                   <meta itemProp="email" content="contact@twreporter.org" />
-                  <meta itemProp="logo" content="https://www.twreporter.org/storage/images/logo-desk.svg" />
-                  <meta itemProp="url" content="https://www.twreporter.org/" />
+                  <link itemProp="logo" href="https://www.twreporter.org/storage/images/logo.png" />
+                  <link itemProp="url" href="https://www.twreporter.org/" />
                 </div>
+                <link itemProp="mainEntityOfPage" href={meta.canonical} />
+                <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
               <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
