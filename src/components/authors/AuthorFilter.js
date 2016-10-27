@@ -10,13 +10,12 @@ class AuthorFilter extends React.Component {
   }
 
   render() {
-    return (<div className={styles.authorSearch}><input type="text" placeholder="input search keyword" onChange={this._handleChange} /></div>)
+    return (<div className={styles.authorSearch}><input value={this.props.keyword} ref="keyword" type="text" placeholder="input search keyword" onChange={this._handleChange} /></div>)
   }
 
-  _handleChange(event) {
+  _handleChange() {
     // console.log('input change')
-    let k = event.target.value
-    this.props.passKeyword(k)
+    this.props.passKeyword(this.refs.keyword.value)
   }
 }
 

@@ -6,7 +6,7 @@ $item-w: 114px;
 
 @mixin size ($h, $w) {
   height: $h;
-  width: $w
+  width: $w;
 }
 
 * {
@@ -46,6 +46,11 @@ $item-w: 114px;
 	background-color: #f2f2f2;
 }
 
-.AuthorSearch{
-  @include size(200px,auto);
+.authorSearch{
+  @include size(50px,300px);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }

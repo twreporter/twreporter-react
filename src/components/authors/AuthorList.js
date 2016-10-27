@@ -51,11 +51,16 @@ class AuthorList extends React.Component {
         <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
       )}
     )
-    return (
-      <div className={styles.authorList} >
-        {corresListJSX}
-        {inHouseListJSX}
-      </div>)
+    if (inHouseListJSX.length>0 || corresListJSX.length>0) {
+      return (
+        <div className={styles.authorList} >
+          {inHouseListJSX}
+          {corresListJSX}
+        </div>)
+    } else {
+      return (<div>找不到名字內有 {this.props.keyword} 的作者</div>)
+    }
+
   }
 }
 
