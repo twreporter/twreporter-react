@@ -174,8 +174,7 @@ class Home extends Component {
 
     )
 
-    let schemaOrgScript = `
-      <script type="application/ld+json">
+    let organizationJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "Organization",
@@ -189,8 +188,8 @@ class Home extends Component {
           "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
         ]
       }
-      </script>
-      <script type="application/ld+json">
+    `
+    let webSiteJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "WebSite",
@@ -202,9 +201,9 @@ class Home extends Component {
           "query-input" : "required name=search_term"
         }
       }
-      </script>
-      <script type="application/ld+json">
-      {
+    `
+    let breadcrumbListJSONLD = `
+    {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [{
@@ -251,7 +250,6 @@ class Home extends Component {
           }
         }]
       }
-      </script>
     `
 
     if (topnewsItems) {
@@ -270,7 +268,9 @@ class Home extends Component {
           }
           <Footer />
           { microData }
-          <script dangerouslySetInnerHTML={{ __html: schemaOrgScript }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
         </DocumentMeta>
       )
     } else {
