@@ -3,14 +3,17 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import AuthorList from '../components/authors/AuthorList'
 import AuthorFilter from '../components/authors/AuthorFilter'
+import LoadMore from '../components/authors/LoadMore'
 import concat from 'lodash/concat'
 import forEach from 'lodash/forEach'
 import lowerCase from 'lodash/lowerCase'
+import slice from 'lodash/slice'
 
 const _ = {
   forEach: forEach,
   concat: concat,
-  lowerCase: lowerCase
+  lowerCase: lowerCase,
+  slice: slice
 }
 
 class AuthorListContainer extends Component {
@@ -18,7 +21,8 @@ class AuthorListContainer extends Component {
     super(props)
     this.state = {
       // the input keyword for filtering
-      keyword: ''
+      keyword: '',
+      limit: 2
     }
   }
 
@@ -106,6 +110,7 @@ class AuthorListContainer extends Component {
       } ]
     }
 
+    //Filtering Data
     let filteredData = {}
     // console.log('state:', this.state)
     if (this.state.keyword) {
@@ -114,6 +119,22 @@ class AuthorListContainer extends Component {
       filteredData = mockData
     }
 
+    // Limiting Data
+    let limitedData = {}
+    let isFinish = false
+    if (filteredData.inHouse.length>this.state.limit) {
+      isFinish = false
+      limitedData.outSource = []
+      limitedData.inHouse = _.slice(filteredData.inHouse, 0, this.state.limit)
+    } else if (filteredData.inHouse.length+filteredData.outSource.length>this.state.limit) {
+      isFinish = false
+      limitedData.inHouse = filteredData.inHouse
+      limitedData.outSource = _.slice(filteredData.outSource, 0, this.state.limit-filteredData.inHouse.length)
+    } else {
+      isFinish = true
+      limitedData.inHouse = filteredData.inHouse
+      limitedData.outSource = filteredData.outSource
+    }
     // console.log(filteredData.inHouse)
 
     return (
@@ -123,15 +144,26 @@ class AuthorListContainer extends Component {
           passKeyword={this.passKeyword.bind(this)}
           />
         <AuthorList
-          inHouseReporters={filteredData.inHouse}
-          correspondents={filteredData.outSource}
+          inHouseReporters={limitedData.inHouse}
+          correspondents={limitedData.outSource}
           keyword={this.state.keyword}
+        />
+        <LoadMore
+          isFinish={isFinish}
+          addLimit={this._addLimit.bind(this)}
         />
       </div>
     )
   }
 
+  _addLimit() {
+    let newLimit = this.state.limit + 1
+    this.setState({ limit: newLimit })
+  }
+
+
   /* Callback function to change the state of the container */
+
   passKeyword(input) {
     const k = { keyword: input }
     this.setState(k)

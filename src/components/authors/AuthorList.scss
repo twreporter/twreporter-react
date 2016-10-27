@@ -10,7 +10,7 @@ $item-w: 114px;
 }
 
 * {
-  border: 1px solid grey;
+  // border: 1px solid grey;
   box-sizing: border-box;
 }
 
@@ -40,13 +40,13 @@ $item-w: 114px;
 }
 
 .authorList {
-  @include size(663px,auto);
+  @include size(auto,663px);
   margin-left: auto;
   margin-right: auto;
 	background-color: #f2f2f2;
 }
 
-.authorSearch{
+.authorSearch {
   @include size(50px,300px);
   margin-top: 50px;
   margin-bottom: 50px;
@@ -55,7 +55,14 @@ $item-w: 114px;
   text-align: center;
 }
 
-.input-box:focus{
+.input-box:focus {
   @include size(100%,100%);
   background-color: black;
+}
+
+.loadMore {
+  @include size(50px,150px);
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
