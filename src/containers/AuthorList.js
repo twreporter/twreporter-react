@@ -20,9 +20,10 @@ class AuthorListContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // the input keyword for filtering
+      //The input keyword for filtering
       keyword: '',
-      limit: 2
+      //The defaut litmit of authors when load the page
+      limit: 12
     }
   }
 
@@ -122,15 +123,19 @@ class AuthorListContainer extends Component {
     // Limiting Data
     let limitedData = {}
     let isFinish = false
+
     if (filteredData.inHouse.length>this.state.limit) {
+      // inHouse > limit => load limited / not finish
       isFinish = false
       limitedData.outSource = []
       limitedData.inHouse = _.slice(filteredData.inHouse, 0, this.state.limit)
     } else if (filteredData.inHouse.length+filteredData.outSource.length>this.state.limit) {
+      // inHouse + outSource > limit  => load limited / not finish
       isFinish = false
       limitedData.inHouse = filteredData.inHouse
       limitedData.outSource = _.slice(filteredData.outSource, 0, this.state.limit-filteredData.inHouse.length)
     } else {
+      // inHouse + outSource < limit  => load all / finish
       isFinish = true
       limitedData.inHouse = filteredData.inHouse
       limitedData.outSource = filteredData.outSource
@@ -157,7 +162,7 @@ class AuthorListContainer extends Component {
   }
 
   _addLimit() {
-    let newLimit = this.state.limit + 1
+    let newLimit = this.state.limit + 12
     this.setState({ limit: newLimit })
   }
 

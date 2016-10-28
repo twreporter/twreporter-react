@@ -7,9 +7,9 @@ class LoadMore extends React.Component {
     super(props)
     this._handleClick = this._handleClick.bind(this)
   }
-
   render() {
-    if (this.props.isFinish) {
+    const isFinish = this.props.isFinish
+    if (isFinish) {
       return <div className={styles['loadMore']}>已經到最底了</div>
     } else {
       return <div onClick={this._handleClick} className={styles['loadMore']}>載入更多作者</div>
