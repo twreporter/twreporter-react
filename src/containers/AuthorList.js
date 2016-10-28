@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import AuthorList from '../components/authors/AuthorList'
 import AuthorFilter from '../components/authors/AuthorFilter'
+import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
 import concat from 'lodash/concat'
 import forEach from 'lodash/forEach'
@@ -27,6 +28,45 @@ class AuthorListContainer extends Component {
     }
   }
 
+  _addLimit() {
+    let newLimit = this.state.limit + 12
+    this.setState({ limit: newLimit })
+  }
+
+  /* Callback function to change the state of the container */
+
+  passKeyword(input) {
+    const k = { keyword: input }
+    this.setState(k)
+  }
+
+  /* Use keyword from state to filter the data for listing */
+  filter(originData, keyword) {
+    // Make new filtered data object that will be returned
+    // Make new propieties(array) that all item.name contain keyword
+    let inHouseReporters = []
+    inHouseReporters = filterArray(originData.inHouse, keyword)
+    // console.log('inHouseReporters:', inHouseReporters)
+    let correspondents = []
+    correspondents = filterArray(originData.outSource, keyword)
+    // console.log('correspondents:', correspondents)
+    return { inHouse: inHouseReporters, outSource: correspondents }
+
+    // If item of inputArray contains keyowrd, then concat it to outputArray (Won't change the oring array)
+    function filterArray(inputArray,keyword) {
+      let outputArray = []
+      //Unify keyword to lowercase
+      keyword = _.lowerCase(keyword)
+      _.forEach(inputArray, function (value) {
+        //Unify author name to lowercase
+        let checkValue = _.lowerCase(value.name)
+        if (checkValue.indexOf(keyword) !== -1) {
+          outputArray = _.concat(outputArray, value)
+        }
+      })
+      return outputArray
+    }
+  }
   render() {
     const mockData = {
       inHouse: [ {
@@ -163,49 +203,9 @@ class AuthorListContainer extends Component {
           displayCount={displayCount}
           isFinish={isFinish}
         />
+        <Footer/>
       </div>
     )
-  }
-
-  _addLimit() {
-    let newLimit = this.state.limit + 12
-    this.setState({ limit: newLimit })
-  }
-
-
-  /* Callback function to change the state of the container */
-
-  passKeyword(input) {
-    const k = { keyword: input }
-    this.setState(k)
-  }
-
-  /* Use keyword from state to filter the data for listing */
-  filter(originData, keyword) {
-    // Make new filtered data object that will be returned
-    // Make new propieties(array) that all item.name contain keyword
-    let inHouseReporters = []
-    inHouseReporters = filterArray(originData.inHouse, keyword)
-    // console.log('inHouseReporters:', inHouseReporters)
-    let correspondents = []
-    correspondents = filterArray(originData.outSource, keyword)
-    // console.log('correspondents:', correspondents)
-    return { inHouse: inHouseReporters, outSource: correspondents }
-
-    // If item of inputArray contains keyowrd, then concat it to outputArray (Won't change the oring array)
-    function filterArray(inputArray,keyword) {
-      let outputArray = []
-      //Unify keyword to lowercase
-      keyword = _.lowerCase(keyword)
-      _.forEach(inputArray, function (value) {
-        //Unify author name to lowercase
-        let checkValue = _.lowerCase(value.name)
-        if (checkValue.indexOf(keyword) !== -1) {
-          outputArray = _.concat(outputArray, value)
-        }
-      })
-      return outputArray
-    }
   }
 }
 
