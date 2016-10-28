@@ -9,18 +9,20 @@ $item-w: 114px;
   width: $w;
 }
 
-* {
-  // border: 1px solid grey;
-  box-sizing: border-box;
+body {
+  background-color: #f2f2f2;
 }
+
 
 .authorImg {
   @include size($img-h,$img-w);
+  box-sizing: border-box;
   border-radius: 50%;
 }
 
 .authorItem {
   @include size($item-h,$item-w);
+  box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
   margin-left: 23px;
@@ -30,6 +32,7 @@ $item-w: 114px;
 
 .authorName {
   @include size(18px,100%);
+  box-sizing: border-box;
   margin-top: 14px;
   color: #404040;
   line-height: 1;
@@ -48,6 +51,7 @@ $item-w: 114px;
 
 .authorSearch {
   @include size(50px,300px);
+  box-sizing: border-box;
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: auto;
@@ -57,11 +61,13 @@ $item-w: 114px;
 
 .input-box:focus {
   @include size(100%,100%);
+  box-sizing: border-box;
   background-color: black;
 }
 
 .loadMore {
   @include size(50px,150px);
+  box-sizing: border-box;
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
