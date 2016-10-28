@@ -50,7 +50,7 @@ class AuthorList extends React.Component {
         <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
       )}
     )
-    if (inHouseListJSX.length>0 || corresListJSX.length>0) {
+    if (this.props.displayCount>0) {
       return (
         <div className={styles.authorList} >
           {inHouseListJSX}

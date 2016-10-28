@@ -142,6 +142,10 @@ class AuthorListContainer extends Component {
     }
     // console.log(filteredData.inHouse)
 
+    // Sum of the author items send to AuthorList to display
+
+    let displayCount = limitedData.inHouse.length + limitedData.outSource.length
+
     return (
       <div>
         <AuthorFilter
@@ -151,11 +155,13 @@ class AuthorListContainer extends Component {
         <AuthorList
           inHouseReporters={limitedData.inHouse}
           correspondents={limitedData.outSource}
+          displayCount={displayCount}
           keyword={this.state.keyword}
         />
         <LoadMore
-          isFinish={isFinish}
           addLimit={this._addLimit.bind(this)}
+          displayCount={displayCount}
+          isFinish={isFinish}
         />
       </div>
     )

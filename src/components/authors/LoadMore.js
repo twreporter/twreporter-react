@@ -9,12 +9,14 @@ class LoadMore extends React.Component {
   }
   render() {
     const isFinish = this.props.isFinish
+    if (this.props.displayCount<1) {
+      return <div></div>
+    }
     if (isFinish) {
       return <div className={styles['loadMore']}>已經到最底了</div>
     } else {
       return <div onClick={this._handleClick} className={styles['loadMore']}>載入更多作者</div>
     }
-
   }
 
   _handleClick() {
