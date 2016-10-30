@@ -13,9 +13,9 @@ const _ = {
 
 const AuthorItem = (props) => {
   return (
-    <div className={styles.authorItem}>
-      <img src={props.imgUrl} alt={props.authorName} className={styles.authorImg} />
-      <div className={styles.authorName} >{props.authorName}</div>
+    <div className={styles['author-item']}>
+      <img className={styles['author-img']} src={props.imgUrl} alt={props.authorName} />
+      <div className={styles['author-name']} >{props.authorName}</div>
     </div>
   )
 }
@@ -52,12 +52,12 @@ class AuthorList extends React.Component {
     )
     if (this.props.displayCount>0) {
       return (
-        <div className={styles.authorList} >
+        <div className={styles['author-list']} >
           {inHouseListJSX}
           {corresListJSX}
         </div>)
     } else {
-      return (<div>找不到名字內有 {this.props.keyword} 的作者</div>)
+      return (<div className={styles['no-result']} >找不到名字內有 {this.props.keyword} 的作者</div>)
     }
 
   }

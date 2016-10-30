@@ -13,9 +13,9 @@ class LoadMore extends React.Component {
       return <div></div>
     }
     if (isFinish) {
-      return <div className={styles['loadMore']}>已經到最底了</div>
+      return <div className={styles['is-finish']} >已經到最底了</div>
     } else {
-      return <div onClick={this._handleClick} className={styles['loadMore']}>載入更多作者</div>
+      return <div className={styles['load-more']} onClick={this._handleClick}>載入更多作者</div>
     }
   }
 

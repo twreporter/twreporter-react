@@ -9,6 +9,7 @@ import concat from 'lodash/concat'
 import forEach from 'lodash/forEach'
 import lowerCase from 'lodash/lowerCase'
 import slice from 'lodash/slice'
+import styles from '../components/authors/AuthorList.scss'
 
 const _ = {
   forEach: forEach,
@@ -187,7 +188,7 @@ class AuthorListContainer extends Component {
     let displayCount = limitedData.inHouse.length + limitedData.outSource.length
 
     return (
-      <div>
+      <div className={styles['author-list-container']} >
         <AuthorFilter
           keyword={this.state.keyword}
           passKeyword={this.passKeyword.bind(this)}
