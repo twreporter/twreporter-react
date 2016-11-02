@@ -80,11 +80,15 @@ function getDataFromAPI(req, res) {
 }
 
 app.use((req, res) => {
-  getDataFromRedis(req.url).then((cacheData) => {
-    res.json(cacheData)
-  }, (reason) => { // eslint-disable-line
+  if (serverConfig.isRedisEnabled) {
+    getDataFromRedis(req.url).then((cacheData) => {
+      res.json(cacheData)
+    }, (reason) => { // eslint-disable-line
+      getDataFromAPI(req, res)
+    })
+  } else {
     getDataFromAPI(req, res)
-  })
+  }
 })
 
 if (serverConfig.apiPort) {

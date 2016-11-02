@@ -18,12 +18,17 @@ $nav-margin: 30px;
 
 .bookmarks {
   width: 100%;
-  height: 30px;
+  height: 40px;
   margin: 0 auto;
   padding-left: 0;
   list-style: none;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
   white-space: nowrap;
+
+  &:hover {
+    overflow-x: auto;
+  }
 
   .bookmark {
     font-size: $font-size-medium;
