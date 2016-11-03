@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import Category from './Category'
 import More from '../components/More'
 import Link from './Link'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
@@ -15,21 +14,6 @@ import map from 'lodash/map'
 
 if (process.env.BROWSER) {
   require('./Tags.css')
-}
-
-class CategoryName extends Component {
-  constructor(props, context) {
-    super(props, context)
-  }
-
-  render() {
-    const { cat_display } = this.props
-    return (
-      <div className="category-name">
-        <Category>{cat_display}</Category>
-      </div>
-    )
-  }
 }
 
 export default class Tags extends Component {
