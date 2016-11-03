@@ -1,6 +1,6 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import Category from './Category'
+import Hexagon from './Hexagon'
 import Link from './Link'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -150,7 +150,7 @@ export default class FeaturesItem extends Component {
             <div className="border clearfix">
               <div className="featurebox">
                 <div className="cat-container">
-                  <Category>{catDisplay}</Category>
+                  <Hexagon>{catDisplay}</Hexagon>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>

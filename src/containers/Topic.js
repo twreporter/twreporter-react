@@ -7,10 +7,15 @@ import { setPageType, setPageTitle } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import SystemError from '../components/SystemError'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
+
+const _  = {
+  get
+}
 
 class Topic extends Component {
   static fetchData({ params, store }) {
@@ -32,13 +37,13 @@ class Topic extends Component {
 
   componentWillMount() {
     const { fetchArticlesByUuidIfNeeded, params } = this.props
-    let topicId = get(params, 'topicId')
+    let topicId = _.get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchArticlesByUuidIfNeeded, params } = nextProps
-    let topicId = get(params, 'topicId')
+    let topicId = _.get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
     this.setState({
       topicId: nextProps.params.topicId
@@ -48,8 +53,8 @@ class Topic extends Component {
 
   _sendPageLevelAction() {
     const { entities, setPageTitle, params } = this.props
-    const topicId = get(params, 'topicId')
-    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicId = _.get(params, 'topicId')
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
 
     // set navbar title for this topic
     setPageTitle(null, topicName, TOPIC_TEXT)
@@ -58,10 +63,21 @@ class Topic extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const topicId = get(params, 'topicId')
-    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicId = _.get(params, 'topicId')
+    const error = _.get(articlesByUuids, [ topicId, 'error' ], null)
+
+    if (error !== null) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
     const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
-    let articles = denormalizeArticles(get(articlesByUuids, [ topicId, 'items' ], []), entities)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
     const meta = {
       title: topicName ? topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
@@ -79,7 +95,7 @@ class Topic extends Component {
           <div className="container text-center">
             {topicBox}
           </div>
-          <Tags
+          <ArticleList
             articles={articles}
             device={device}
             hasMore={false}

@@ -1,9 +1,8 @@
 'use strict'
-import { PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, SITE_NAME } from '../constants/index'
+import { PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE } from '../constants/index'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import DocumentMeta from 'react-document-meta'
 import NavBar from '../containers/NavBar'
 import React, { Component } from 'react'
 import classNames from 'classnames'
@@ -45,21 +44,16 @@ class App extends Component {
   render() {
     const pathname = this.props.location.pathname
     let pageType = get(this.props, [ 'header', 'pageType' ])
-    const meta = {
-      title: SITE_NAME.FULL
-    }
 
     return (
-      <DocumentMeta {...meta}>
-        <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-          <div className={classNames(styles.app, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE || pageType === PHOTOGRAPHY })}>
-            <NavBar
-              bgStyle={pathname === '/photography' ? 'dark' : 'light'}
-              path={pathname}/>
-            {this.props.children}
-          </div>
-        </IntlProvider>
-      </DocumentMeta>
+      <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
+        <div className={classNames(styles.app, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE || pageType === PHOTOGRAPHY })}>
+          <NavBar
+            bgStyle={pathname === '/photography' ? 'dark' : 'light'}
+            path={pathname}/>
+          {this.props.children}
+        </div>
+      </IntlProvider>
     )
   }
 }

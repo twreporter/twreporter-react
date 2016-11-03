@@ -1,18 +1,51 @@
-import React, { Component } from 'react'
+'use strict'
+import React from 'react'
+import commonStyles from './article/Common.scss'
+import cx from 'classnames'
+import refreshBt from '../../static/asset/refresh_bt.svg'
+import styles from './SystemError.scss'
+import { ERROR_MESSAGE_404, ERROR_MESSAGE_500 } from '../constants/index'
 
-export default class SystemError extends Component {
-  render() {
-    return (
-      <div>
-        <div className="nav-menu">
-          <div className="nav_logo">
-            <a href="#"><img height="81" src="/asset/logo.png"/></a>
-          </div>
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <img className="error_img" src="/asset/500.jpg" width="80%" height="auto"/>
-        </div>
-      </div>
-    )
-  }
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get
 }
+
+function SystemError({ error }) {
+  const refreshPage = () => {
+    // on client side
+    if (window) {
+      window.location.reload()
+    }
+  }
+
+  let style = {
+    marginTop: 35
+  }
+
+  let errorMessageJsx = _.get(error, 'status', 500) === 404 ? (
+    <h1 style={style}>{ERROR_MESSAGE_404}</h1>
+  ) : (
+    <div className={commonStyles['inner-block']}>
+      <div className={cx('center-block', 'text-center', styles.message)}>
+        {ERROR_MESSAGE_500}
+      </div>
+        <div className={cx(styles['refresh-bt'], 'text-center')}>
+          <img src={refreshBt} width="30px" height="30px" onClick={refreshPage} style={{ cursor: 'pointer' }}/>
+        </div>
+    </div>
+  )
+  return (
+    <div className="container" style={{ height: 300, marginTop: 50 }}>
+      {errorMessageJsx}
+    </div>
+  )
+}
+
+SystemError.propTypes = {
+  error: React.PropTypes.object.isRequired
+}
+
+export default SystemError
