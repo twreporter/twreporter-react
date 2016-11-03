@@ -13,10 +13,10 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 
 if (process.env.BROWSER) {
-  require('./Tags.css')
+  require('./ArticleList.css')
 }
 
-export default class Tags extends Component {
+export default class ListArticleItem extends Component {
   constructor(props, context) {
     super(props, context)
   }
@@ -76,5 +76,3 @@ export default class Tags extends Component {
     }
   }
 }
-
-export { Tags }

@@ -8,7 +8,7 @@ import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import Tags from '../components/Tags'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
@@ -95,7 +95,7 @@ class Topic extends Component {
           <div className="container text-center">
             {topicBox}
           </div>
-          <Tags
+          <ArticleList
             articles={articles}
             device={device}
             hasMore={false}

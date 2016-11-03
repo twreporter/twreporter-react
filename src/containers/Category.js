@@ -7,7 +7,7 @@ import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import Tags from '../components/Tags'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
@@ -135,7 +135,7 @@ class Category extends Component {
         <div className="container text-center">
           {catBox}
         </div>
-        <Tags
+        <ArticleList
           articles={articles}
           device={device}
           hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
