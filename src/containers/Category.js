@@ -107,8 +107,10 @@ class Category extends Component {
     const { articlesByUuids, entities, params } = this.props
     const catId = getCatId(catENtoCH[_.get(params, 'category')])
     const error = _.get(articlesByUuids, [ catId, 'error' ], null)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
 
-    if (error !== null) {
+    // Error handling
+    if (error !== null && _.get(articles, 'length', 0) === 0) {
       return (
         <div>
           <SystemError error={error} />
@@ -117,7 +119,6 @@ class Category extends Component {
       )
     }
 
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
     const category = _.get(params, 'category', null)
     const catName = catENtoCH[category]
     const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
@@ -139,6 +140,7 @@ class Category extends Component {
           device={device}
           hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMore}
+          loadMoreError={error}
         />
         {this.props.children}
         <Footer/>

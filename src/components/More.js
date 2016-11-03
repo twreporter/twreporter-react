@@ -10,7 +10,7 @@ export default class More extends Component {
   }
 
   render() {
-    const { loadMore } = this.props
+    const { loadMore, children } = this.props
     const { device } = this.context
     let points = '0,0 25,10 50,0'
     let width = 50
@@ -20,9 +20,10 @@ export default class More extends Component {
       width = 30
       height = 6
     }
+
     return (
       <div className="more-articles arrow clearfix" onClick={loadMore}>
-        <span>更多文章</span>
+        { children ? React.Children.only(children) : <span>更多文章</span> }
         <div>
           <svg width={width} height={height}>
             <polyline points={points} fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -31,6 +32,10 @@ export default class More extends Component {
       </div>
     )
   }
+}
+
+More.propTypes = {
+  loadMore: React.PropTypes.func.isRequired
 }
 
 More.contextTypes = {

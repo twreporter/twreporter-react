@@ -88,8 +88,10 @@ class Tag extends Component {
     const { articlesByUuids, entities, params } = this.props
     const tagId = _.get(params, 'tagId')
     const error = _.get(articlesByUuids, [ tagId, 'error' ], null)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
 
-    if (error !== null) {
+    // Error handling
+    if (error !== null && _.get(articles, 'length', 0) === 0) {
       return (
         <div>
           <SystemError error={error} />
@@ -98,7 +100,6 @@ class Tag extends Component {
       )
     }
 
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
     let tagName = _.get(entities, [ 'tags', tagId, 'name' ], '')
     const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const meta = {
@@ -120,6 +121,7 @@ class Tag extends Component {
             device={device}
             hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
             loadMore={this.loadMore}
+            loadMoreError={error}
           />
           {this.props.children}
           <Footer/>
