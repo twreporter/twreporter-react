@@ -1,4 +1,5 @@
 'use strict'
+
 // action-types
 
 export const LOAD_MORE = 'LOAD_MORE'

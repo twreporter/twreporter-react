@@ -1,76 +1,32 @@
 'use strict'
-import React from 'react'
-import styles from './AuthorList.scss'
-
-// lodash
-import forEach from 'lodash/forEach'
-import get from 'lodash/get'
+import React, { PropTypes } from 'react'
+import map from 'lodash/map'
+// import styles from './AuthorList.scss'
 
 const _ = {
-  forEach: forEach,
-  get: get
+  map
 }
 
-const AuthorItem = (props) => {
-  return (
-    <div className={styles['author-item']}>
-      <img className={styles['author-img']} src={props.imgUrl} alt={props.authorName} />
-      <div className={styles['author-name']} >{props.authorName}</div>
-    </div>
-  )
-}
+// filteredAuthors -> 是一個有著 { id, authorName, authorImg, authorUrl } 形狀的 todo 項目的陣列
 
-AuthorItem.propTypes = {
-  imgUrl: React.PropTypes.string,
-  authorName: React.PropTypes.string
-}
-
-AuthorItem.defaultProps = {
-  imgUrl: '',
-  authorName: '作者名稱'
-}
-
-class AuthorList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    const { inHouseReporters, correspondents } = this.props
-    // Rendering inHouseReporters
-    let inHouseListJSX = []
-    _.forEach(inHouseReporters, (ele, index) => {
-      inHouseListJSX.push(
-        <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
-      )}
-    )
-    // Rendering correspondent
-    let corresListJSX =[]
-    _.forEach(correspondents, (ele, index) => {
-      corresListJSX.push(
-        <AuthorItem key={index} authorName={_.get(ele, 'name')} imgUrl={_.get(ele, 'imgUrl')} />
-      )}
-    )
-    if (this.props.displayCount>0) {
-      return (
-        <div className={styles['author-list']} >
-          {inHouseListJSX}
-          {corresListJSX}
-        </div>)
-    } else {
-      return (<div className={styles['no-result']} >找不到名字內有 {this.props.keyword} 的作者</div>)
-    }
-
-  }
-}
+const AuthorList = ( { filteredAuthors } ) => (
+  <div>
+    {_.map(filteredAuthors, author =>
+      <AuthorItem
+        key = {author.id}
+        {...author}
+      />
+    )}
+  </div>
+)
 
 AuthorList.propTypes = {
-  inHouseReporters: React.PropTypes.array,
-  correspondents: React.PropTypes.array
-}
-
-AuthorList.defaultProps = {
-  inHouseReporters: [],
-  correspondents: []
+  filteredAuthors: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    authorName: PropTypes.string.isRequired,
+    authorImg: PropTypes.string,
+    authorUrl: PropTypes.string.isRequired
+  }).isRequired).isRequired
 }
 
 export default AuthorList
