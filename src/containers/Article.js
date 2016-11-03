@@ -13,6 +13,7 @@ import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import SystemError from '../components/SystemError'
 import async from 'async'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
@@ -32,6 +33,16 @@ import map from 'lodash/map'
 import merge from 'lodash/merge'
 import set from 'lodash/set'
 import sortBy from 'lodash/sortBy'
+
+const _ = {
+  forEach,
+  get,
+  has,
+  map,
+  merge,
+  set,
+  sortBy
+}
 
 let articlePostition = {
   beginY: 120,
@@ -72,23 +83,23 @@ class Article extends Component {
     // get article itself first
     return store.dispatch(fetchArticleIfNeeded(slug)).then(() => {
       let state = store.getState()
-      let error = get(state, 'selectedArticle.error')
+      let error = _.get(state, 'selectedArticle.error')
 
       if (error !== null) {
         return Promise.reject(error)
       }
 
-      let articleId = get(state, 'selectedArticle.id')
-      let article = get(state, [ 'entities', 'articles', articleId ])
-      let topicId = get(article, 'topics')
-      let relateds = get(article, 'relateds', [])
+      let articleId = _.get(state, 'selectedArticle.id')
+      let article = _.get(state, [ 'entities', 'articles', articleId ])
+      let topicId = _.get(article, 'topics')
+      let relateds = _.get(article, 'relateds', [])
 
       // fetch related articles and other articles in the same topic
       return new Promise((resolve, reject) => { // eslint-disable-line
         // load in parallel
         async.parallel([
           function (callback) {
-            if (get(relateds, 'length', 0) > 0) {
+            if (_.get(relateds, 'length', 0) > 0) {
               // fetch related articles
               store.dispatch(fetchRelatedArticlesIfNeeded(articleId, relateds))
                 .then(() => {
@@ -146,10 +157,10 @@ class Article extends Component {
 
   componentWillMount() {
     const { params, selectedArticle } = this.props
-    let slug = get(params, 'slug')
+    let slug = _.get(params, 'slug')
 
     // Check if selectedArticle is up to date
-    if (get(selectedArticle, 'slug') !== slug) {
+    if (_.get(selectedArticle, 'slug') !== slug) {
       // fetch data we need to render the whole article page
       this._fetchData()
     }
@@ -165,7 +176,7 @@ class Article extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { params, selectedArticle } = nextProps
-    const slug = get(params, 'slug')
+    const slug = _.get(params, 'slug')
 
     // Check if selectedArticle is up to date
     if (selectedArticle.slug !== slug) {
@@ -193,18 +204,18 @@ class Article extends Component {
     const { entities, selectedArticle, setArticleTopicList, setBookmarksOfLongformArticle,  setPageTitle, setPageType } = this.props
 
     // normalized article
-    let article = get(entities, [ 'articles', selectedArticle.id ], {})
+    let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
 
     // in normalized article, article.topics is an id
-    let topicName = get(entities, [ 'topics', get(article, 'topics'), 'name' ])
+    let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
 
-    let style = get(article, 'style')
+    let style = _.get(article, 'style')
 
     if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
       setPageType(PHOTOGRAPHY_ARTICLE)
     } else if (style === LONGFORM_ARTICLE_STYLE) {
       setPageType(LONGFORM_ARTICLE_STYLE)
-      let relatedBookmarks = get(article, 'relatedBookmarks', [])
+      let relatedBookmarks = _.get(article, 'relatedBookmarks', [])
       const { bookmark, bookmarkOrder, publishedDate, slug } = article
       let curBookMark = {
         style,
@@ -215,7 +226,7 @@ class Article extends Component {
         isSelected: true
       }
       let bookmarks = relatedBookmarks.concat(curBookMark)
-      bookmarks = sortBy(bookmarks, 'bookmarkOrder')
+      bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
       setBookmarksOfLongformArticle(bookmarks)
     } else {
       setPageType(ARTICLE)
@@ -224,7 +235,7 @@ class Article extends Component {
     // set navbar title for this article
     setPageTitle(article.id, article.title, topicName)
 
-    let topicArr = this._getTopicArticles(get(article, 'topics'))
+    let topicArr = this._getTopicArticles(_.get(article, 'topics'))
     // dispatch action for the navbar to display article list
     setArticleTopicList(topicArr)
   }
@@ -232,25 +243,25 @@ class Article extends Component {
   // fetch article whole data, including body, related articls and other articles in the same topic
   _fetchData() {
     const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
-    let slug = get(params, 'slug')
+    let slug = _.get(params, 'slug')
 
     // fetch article
     fetchArticleIfNeeded(slug)
 
     // normalized article
-    let article = get(entities, [ 'articles', slugToId[slug] ])
+    let article = _.get(entities, [ 'articles', slugToId[slug] ])
 
     // in normalized article, article.topics is not an object, just an id.
-    let topicId = get(article, 'topics')
+    let topicId = _.get(article, 'topics')
     // in normalized article, article.relateds is an array of objects, just an array of ids
-    let relateds = get(article, 'relateds', [])
+    let relateds = _.get(article, 'relateds', [])
 
     //  fetch other articles in the same topic
     // TODO Add loading-more functionality
     fetchArticlesByUuidIfNeeded(topicId, TOPIC, { max_results: 30 })
 
     // fetch related articles
-    fetchRelatedArticlesIfNeeded(get(article, 'id'), relateds)
+    fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
 
     if (!this._isFeatureArticlesFetched) {
       // fallback - fetch feature articles
@@ -272,8 +283,8 @@ class Article extends Component {
   _setArticleBounding() {
     const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
     const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
-    articlePostition.beginY = get(beginEl, 'offsetTop', articlePostition.beginY)
-    articlePostition.endY = get(endEl, 'offsetTop', articlePostition.endY)
+    articlePostition.beginY = _.get(beginEl, 'offsetTop', articlePostition.beginY)
+    articlePostition.endY = _.get(endEl, 'offsetTop', articlePostition.endY)
   }
 
   _handleScroll() {
@@ -305,7 +316,7 @@ class Article extends Component {
         article[item].forEach((author) => {
           // remove 's'. writters -> writter
           let type = item.slice(0, -1)
-          authors.push(merge({}, author, { type: type }))
+          authors.push(_.merge({}, author, { type: type }))
         })
       }
     })
@@ -314,8 +325,8 @@ class Article extends Component {
 
   _getTopicArticles(topicId) {
     const { articlesByUuids, entities } = this.props
-    let articleIds = get(articlesByUuids, [ topicId, 'items' ], [])
-    return map(articleIds, (id) => merge({}, get(entities, [ 'articles', id ])))
+    let articleIds = _.get(articlesByUuids, [ topicId, 'items' ], [])
+    return _.map(articleIds, (id) => _.merge({}, _.get(entities, [ 'articles', id ])))
   }
 
   _getFeatureArticles() {
@@ -329,11 +340,11 @@ class Article extends Component {
       return rtn
     }
 
-    let articles = get(entities, 'articles', {})
-    let articleIds = get(featureArticles, 'items', [])
-    forEach(articleIds, (id) => {
-      if (has(articles, id)) {
-        rtn.push(merge({}, articles[id]))
+    let articles = _.get(entities, 'articles', {})
+    let articleIds = _.get(featureArticles, 'items', [])
+    _.forEach(articleIds, (id) => {
+      if (_.has(articles, id)) {
+        rtn.push(_.merge({}, articles[id]))
       }
     })
     return rtn
@@ -341,32 +352,43 @@ class Article extends Component {
 
   render() {
     const { entities, params, selectedArticle } = this.props
-    const isFetching = get(selectedArticle, 'isFetching')
+    const error = _.get(selectedArticle, 'error', null)
 
-    if (get(selectedArticle, 'slug') !== get(params, 'slug')) {
+    if (error !== null) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    const isFetching = _.get(selectedArticle, 'isFetching')
+
+    if (_.get(selectedArticle, 'slug') !== _.get(params, 'slug')) {
       return null
     }
 
     // unnormalized article
-    let article = denormalizeArticles(get(selectedArticle, 'id'), entities)[0] || {}
-    let relatedArticles = get(article, 'relateds')
+    let article = denormalizeArticles(_.get(selectedArticle, 'id'), entities)[0] || {}
+    let relatedArticles = _.get(article, 'relateds')
 
-    let slug = get(params, 'slug')
+    let slug = _.get(params, 'slug')
     let useFallback = (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) ? false : true
 
     // fallback - use feature article
-    if (get(relatedArticles, 'length', 0) === 0 && useFallback) {
+    if (_.get(relatedArticles, 'length', 0) === 0 && useFallback) {
       relatedArticles = this._getFeatureArticles()
     }
 
     let authors = this._composeAuthors(article)
-    let bodyData = get(article, [ 'content', 'apiData' ], [])
-    let leadingVideo = get(article, 'leadingVideo.video.url', '')
-    let leadingVideoTitle = get(article, 'leadingVideo.video.title', '')
-    let heroImage = get(article, [ 'heroImage' ], null)
-    let heroImageSize = get(article, [ 'heroImageSize' ], 'normal')
-    let introData = get(article, [ 'brief', 'apiData' ], [])
-    let copyright = get(article, [ 'copyright' ], [])
+    let bodyData = _.get(article, [ 'content', 'apiData' ], [])
+    let leadingVideo = _.get(article, 'leadingVideo.video.url', '')
+    let leadingVideoTitle = _.get(article, 'leadingVideo.video.title', '')
+    let heroImage = _.get(article, [ 'heroImage' ], null)
+    let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
+    let introData = _.get(article, [ 'brief', 'apiData' ], [])
+    let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  classNames(styles['article-container'], styles['photo-container']) : styles['article-container']
@@ -374,25 +396,25 @@ class Article extends Component {
                  classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
-    let topicName = get(article, 'topics.name')
+    let topicName = _.get(article, 'topics.name')
     let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
-    let topicArr = this._getTopicArticles(get(article, 'topics.id'))
+    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
 
-    let subtitle = get(article, 'subtitle', '')
+    let subtitle = _.get(article, 'subtitle', '')
     let subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
 
-    let updatedAt = get(article, 'updatedAt') || get(article, 'publishedDate')
+    let updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
 
     const meta = {
-      title: get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
-      description: get(article, [ 'ogDescription' ], SITE_META.DESC),
-      canonical: SITE_META.URL + 'a/' + get(article, [ 'slug' ], ''),
+      title: _.get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
+      description: _.get(article, [ 'ogDescription' ], SITE_META.DESC),
+      canonical: SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], ''),
       meta: { property: {} },
       auto: { ograph: true }
     }
 
-    if (get(article, [ 'ogImage' ], null)) {
-      set(meta, [ 'meta', 'property', 'og:image' ], get(article, 'ogImage.image.resizedTargets.desktop.url', ''))
+    if (_.get(article, [ 'ogImage' ], null)) {
+      _.set(meta, [ 'meta', 'property', 'og:image' ], _.get(article, 'ogImage.image.resizedTargets.desktop.url', ''))
     }
 
     return (
@@ -401,7 +423,7 @@ class Article extends Component {
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
-            { leadingVideo ? <LeadingVideo title={leadingVideoTitle} src={leadingVideo} poster={get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
+            { leadingVideo ? <LeadingVideo title={leadingVideoTitle} src={leadingVideo} poster={_.get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
             <article className={contentClass}>
               <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
@@ -421,7 +443,7 @@ class Article extends Component {
               <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
                 <ArticleComponents.HeadingAuthor
                   authors={authors}
-                  extendByline={get(article, 'extendByline')}
+                  extendByline={_.get(article, 'extendByline')}
                 >
                   <ArticleComponents.PublishDate
                     date={article.publishedDate}
@@ -442,9 +464,9 @@ class Article extends Component {
                   <div className={styles['leading-img']}>
                     <ArticleComponents.LeadingImage
                       size={heroImageSize}
-                      image={get(heroImage, [ 'image', 'resizedTargets' ])}
-                      id={get(heroImage, 'id')}
-                      description={get(heroImage, 'description' )}
+                      image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                      id={_.get(heroImage, 'id')}
+                      description={_.get(heroImage, 'description' )}
                     />
                   </div> : null
               }
@@ -485,7 +507,7 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <Footer
-            theme={get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY : ARTICLE}
+            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY : ARTICLE}
             copyright={copyright}/>
         </div>
       </DocumentMeta>
