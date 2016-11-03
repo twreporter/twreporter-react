@@ -15,7 +15,7 @@ if (window.__REDUX_STATE__) {
   try {
     reduxState = JSON.parse(unescape(__REDUX_STATE__))
   } catch (e) {
-    reduxState = ''
+    reduxState = {}
   }
   let md = new MobileDetect(window.navigator.userAgent)
   if (md.tablet()) {

@@ -11,7 +11,6 @@ import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import SystemError from '../components/SystemError'
 import TopNews from '../components/TopNews'
 import async from 'async'
 
@@ -252,30 +251,26 @@ class Home extends Component {
       }
     `
 
-    if (topnewsItems) {
-      return (
-        <DocumentMeta {...meta}>
-          <TopNews topnews={topnewsItems} />
-          <Daily daily={reviewItems}
-          />
-          <Features
-            features={specialTopicItems}
-            hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
-            loadMore={this.loadMoreArticles}
-          />
-          {
-            this.props.children
-          }
-          <Footer />
-          { microData }
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
-        </DocumentMeta>
-      )
-    } else {
-      return ( <SystemError /> )
-    }
+    return (
+      <DocumentMeta {...meta}>
+        <TopNews topnews={topnewsItems} />
+        <Daily daily={reviewItems}
+        />
+        <Features
+          features={specialTopicItems}
+          hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
+          loadMore={this.loadMoreArticles}
+        />
+        {
+          this.props.children
+        }
+        <Footer />
+        { microData }
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
+      </DocumentMeta>
+    )
   }
 }
 
