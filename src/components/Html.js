@@ -23,19 +23,19 @@ function Html({ canonical, children, description, meta, reduxState, styles, scri
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1, initial-scale=1" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="keywords" content={SITE_META.KEYWORDS} />
-        <meta name="description" content={description} data-rdm />
+        <meta name="description" content={description} />
         <meta property="og:rich_attachment" content="true" />
         <meta property="og:type" content={_.get(meta, 'ogType', 'website')} />
         <meta property="og:url" content={canonical} />
-        <meta property="og:title" content={title} data-rdm />
+        <meta property="og:title" content={title} />
         <meta property="og:site_name" content={SITE_NAME.FULL} />
         <meta property="og:image" content={_.get(meta, 'ogImage')} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={_.get(meta, 'ogImage')} />
-        <meta name="twitter:title" content={title} data-rdm />
-        <meta name="twitter:description" content={description} data-rdm />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
         <meta name="theme-color" content="#E30B20" />
-        <link rel="canonical" href={canonical} data-rdm />
+        <link rel="canonical" href={canonical} />
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
         <link href="/asset/favicon.png"  rel="shortcut icon" />
         { _.map(styles, (style, key) => {
