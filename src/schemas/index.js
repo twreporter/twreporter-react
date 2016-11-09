@@ -20,4 +20,5 @@ article.define({
 
 export { article }
 export { tag }
+export { author }
 export { category }

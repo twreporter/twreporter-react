@@ -7,7 +7,7 @@ const _ = {
   map
 }
 
-// filteredAuthors -> 是一個有著 { id, authorName, authorImg, authorUrl } 形狀的 todo 項目的陣列
+// filteredAuthors -> 是一個有著 { id, authorName, authorImg, authorUrl } 形狀的 authorItem 項目的陣列
 
 const AuthorList = ( { filteredAuthors } ) => (
   <div>
