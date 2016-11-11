@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { fetchAuthorsIfNeeded } from '../actions/authors'
+import { fetchAuthorsIfNeeded, loadMoreAuthors } from '../actions/authors'
 import { connect } from 'react-redux'
 // import map from 'lodash/map'
 
@@ -12,17 +12,16 @@ import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
 
 class ShownAuthors extends React.Component {
-  fetchData({ store }) {
-    return store.dispatch(fetchAuthorsIfNeeded())
-  }
+  // fetchData({ store }) {
+  //   return store.dispatch(fetchAuthorsIfNeeded())
+  // }
 
   constructor(props) {
     super(props)
   }
 
   componentWillMount() {
-    const { fetchAuthorsIfNeeded } = this.props
-    fetchAuthorsIfNeeded()
+    this.props.fetchAuthorsIfNeeded()
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -31,24 +30,30 @@ class ShownAuthors extends React.Component {
   // }
 
   render() {
-    // const { entities } = this.props
-    // let shownAuthors = _.map(entities.authors, (id, name, links) => ({
-    //   id: id,
-    //   authorName: name,
-    //   authorUrl: links.sekf.herf
-    // }))
-    // console.log(shownAuthors)
+    const _onIncrement = this.props.onIncrement
     return (
-      <div>This is ShownAuthors</div>
+      <div>
+        <div>This is ShownAuthors</div>
+        <button onClick={_onIncrement}>LOAD MORE</button>
+      </div>
     )
   }
 }
 
+
 function mapStateToProps(state) {
   return {
-    entities: state.entities || {}
+    entities: state.entities || {},
+    page: state.authorsList.page
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onIncrement: () => {dispatch(loadMoreAuthors())},
+    fetchAuthorsIfNeeded: () => {dispatch(fetchAuthorsIfNeeded())}
   }
 }
 
 export { ShownAuthors }
-export default connect(mapStateToProps, { fetchAuthorsIfNeeded })(ShownAuthors)
+export default connect(mapStateToProps, mapDispatchToProps)(ShownAuthors)
