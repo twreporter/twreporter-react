@@ -5,29 +5,11 @@
 // SCREEN (DEFAULT)
 .author-list-container {
   background-color: $light-gray;
-
-  .author-filter {
-    box-sizing: border-box;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    .input-box {
-      background-color: $light-gray;
-      border: none;
-      cursor: pointer;
-      font-size: $font-size-medium;
-      font-weight: $font-weight-normal;
-      outline: none;
-      &:focus {
-        background-color: black;
-      }
-    }
-  }
-  //.author-list OR .no-result
-  .author-list {
+  text-align: center;
+  .shown-authors {
     width: 663px;
+    height: auto;
+    margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     .author-item {
@@ -56,10 +38,6 @@
       }
     }
   }
-  .no-result {
-    box-sizing: border-box;
-  }
-  //.is-finish OR .load-more
   .is-finish {
     height: 50px;
     width: 150px;
@@ -68,55 +46,44 @@
     margin-right: auto;
   }
   .load-more {
-    height: 50px;
-    width: 150px;
+    height: 60px;
+    width: 110px;
     box-sizing: border-box;
     cursor: pointer;
+    margin-top: 50px;
+    margin-bottom: 80px;
     margin-left: auto;
     margin-right: auto;
   }
-  .sponsor {
-    box-sizing: border-box;
-  }
-  .footer {
-    box-sizing: border-box;
-  }
 }
+  // .author-filter {
+  //   box-sizing: border-box;
+  //   margin-top: 50px;
+  //   margin-bottom: 50px;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  //   text-align: center;
+  //   .input-box {
+  //     background-color: $light-gray;
+  //     border: none;
+  //     cursor: pointer;
+  //     font-size: $font-size-medium;
+  //     font-weight: $font-weight-normal;
+  //     outline: none;
+  //     &:focus {
+  //       background-color: black;
+  //     }
+  //   }
+  // }
+  //.author-list OR .no-result
+  // .no-result {
+  //   box-sizing: border-box;
+  // }
+  // //.is-finish OR .load-more
 
-
-
-// // SCREEN (DEFAULT)
-// .author-list-container {
-//   .author-filter {
-//     .input-box {
-
-//     }
-//   }
-//   //.author-list OR .no-result
-//   .author-list {
-//     .author-item {
-//       .author-img {
-
-//       }
-//       .author-name {
-
-//       }
-//     }
-//   }
-//   .no-result {
-
-//   }
-//   //.is-finish OR .load-more
-//   .is-finish {
-
-//   }
-//   .load-more {
-
-//   }
-//   .sponsor {
-
-//   }
-//   .footer {
-
-//   }
-// }
+  // .sponsor {
+  //   box-sizing: border-box;
+  // }
+  // .footer {
+  //   box-sizing: border-box;
+  // }
