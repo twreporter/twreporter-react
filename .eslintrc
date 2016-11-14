@@ -5,8 +5,7 @@
     "modules": true
   },
   "rules": {
-    "react/jsx-uses-react": 2,
-    "no-multiple-empty-lines": [1, {"max": 5}]
+    "react/jsx-uses-react": 2
   },
   "plugins": [
     "babel",

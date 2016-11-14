@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { fetchAuthorsIfNeeded, loadMoreAuthors } from '../actions/authors'
+import { fetchAuthorsIfNeeded, loadMoreAuthors, shouldLoadMoreAuthors } from '../actions/authors'
 import { connect } from 'react-redux'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import get from 'lodash/get'
@@ -31,10 +31,6 @@ class AuthorsList extends React.Component {
     this.props.fetchAuthorsIfNeeded()
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { fetchAuthorsIfNeeded } = nextProps
-  //   fetchAuthorsIfNeeded()
-  // }
 
   render() {
     const _onIncrement = this.props.onIncrement
@@ -48,25 +44,20 @@ class AuthorsList extends React.Component {
       return newValue
     }
     const authorsArray = _.map(_.values(this.props.entities.authors), iteratee)
-    let isFinish = (this.props.finalPage <= this.props.currentPage) ? true : false
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
-        <LoadMore isFinish={isFinish} onIncrement={_onIncrement} />
+        <LoadMore isFinish={this.props.isFinish} onIncrement={_onIncrement} />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ])
-  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ])
-  const finalPage = Math.ceil(totalResults/maxResultsPerPage)
+  let isFinish = !shouldLoadMoreAuthors(state)
   return {
     entities: state.entities || {},
-    currentPage,
-    finalPage
+    isFinish
   }
 }
 

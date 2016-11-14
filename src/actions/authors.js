@@ -73,26 +73,21 @@ export function fetchAuthorsIfNeeded() {
 }
 
 function shouldFetchAuthors(state) {
-  const authors = _.get(state, [ 'entities', 'authors' ])
-  const isFetching = _.get(state, [ 'authorsPage', 'isFetching' ])
-  if (authors) {
-    // console.log('authors already exist')
+  const isFetching = _.get(state, 'authorsList.isFetching' )
+  const authorNum = _.get(state, 'entities.authors.length', 0)
+  if (authorNum > 0 || isFetching) {
     return false
-  } else if (isFetching === true) {
-    // console.log('isFetching === true')
-    return false
-  } else {
-    // console.log('shouldFetchAuthors')
-    return true
   }
+  return true
+
 }
 
-function shouldLoadMoreAuthors(state) {
+export function shouldLoadMoreAuthors(state) {
   const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ])
-  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ])
+  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ], 12)
+  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ], 300)
   const finalPage = Math.ceil(totalResults/maxResultsPerPage)
-  if (currentPage===finalPage) {
+  if (currentPage>=finalPage) {
     return false
   } else {
     return true
@@ -106,7 +101,6 @@ export function loadMoreAuthors() {
     if (shouldLoadMoreAuthors(state)) {
       dispatch(fetchAuthors(currentPage+1))
     } else {
-      alert('No More Authors')
       return
     }
   }

@@ -4,7 +4,7 @@ import styles from './AuthorList.scss'
 const LoadMore = ({ isFinish, onIncrement }) => {
   if (isFinish) {
     return (
-      <div className={styles['is-finish']}>已經到最底了</div>
+      <div className={styles['is-finish']}></div>
     )
   } else {
     return (
