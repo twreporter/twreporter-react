@@ -33,7 +33,6 @@ class AuthorsList extends React.Component {
 
 
   render() {
-    const _onIncrement = this.props.onIncrement
     function iteratee(oldValue) {
       let newValue = {
         id: get(oldValue, 'id'),
@@ -47,7 +46,7 @@ class AuthorsList extends React.Component {
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
-        <LoadMore isFinish={this.props.isFinish} onIncrement={_onIncrement} />
+        <LoadMore isFinish={this.props.isFinish} fetchAuthorsIfNeeded={this.props.fetchAuthorsIfNeeded} />
       </div>
     )
   }
@@ -63,7 +62,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrement: () => {dispatch(loadMoreAuthors())},
     fetchAuthorsIfNeeded: () => {dispatch(fetchAuthorsIfNeeded())}
   }
 }

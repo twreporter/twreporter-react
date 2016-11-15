@@ -62,30 +62,21 @@ export function fetchAuthors(page=1) {
   }
 }
 
-export function fetchAuthorsIfNeeded() {
-  return (dispatch, getState) => {
-    if(shouldFetchAuthors(getState())) {
-      return dispatch(fetchAuthors())
-    } else {
-      return
-    }
-  }
-}
-
 function shouldFetchAuthors(state) {
-  const isFetching = _.get(state, 'authorsList.isFetching' )
-  const authorNum = _.get(state, 'entities.authors.length', 0)
-  if (authorNum > 0 || isFetching) {
+  console.log(state)
+  let isFetching = _.get(state, 'authorsList.isFetching' )
+  let authorNum = _.get(state, 'entities.authors.length', 0)
+  console.log(`authorNum:${authorNum}, isFetching:${isFetching}`)
+  if ((authorNum > 0) || isFetching) {
     return false
   }
   return true
-
 }
 
 export function shouldLoadMoreAuthors(state) {
   const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ], 12)
-  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ], 300)
+  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ], 10)
+  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ], 0)
   const finalPage = Math.ceil(totalResults/maxResultsPerPage)
   if (currentPage>=finalPage) {
     return false
@@ -94,14 +85,18 @@ export function shouldLoadMoreAuthors(state) {
   }
 }
 
-export function loadMoreAuthors() {
+export function fetchAuthorsIfNeeded() {
   return (dispatch, getState) => {
     let state = getState()
-    let currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-    if (shouldLoadMoreAuthors(state)) {
-      dispatch(fetchAuthors(currentPage+1))
-    } else {
-      return
+    const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
+    const targetPage = currentPage + 1
+    const isEmpty = shouldFetchAuthors(state)
+    const isNotEnd = shouldLoadMoreAuthors(state)
+    console.log(`shouldFetchAuthors: ${isEmpty}, shouldLoadMoreAuthors:${isNotEnd}`)
+    console.log('callback function of fetchAuthorsIfNeeded')
+    if(isEmpty && isNotEnd) {
+      return dispatch(fetchAuthors(targetPage))
     }
+    return null
   }
 }
