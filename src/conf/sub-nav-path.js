@@ -1,11 +1,15 @@
 'use strict'
 
 export default [ {
-  title: '轉型正義',
-  path: '/topic/57ac8151363d1610007ef656'
+  title: '零安樂死真相',
+  path: '/a/animal-protection-no-killing-ch1'
 },
 { title: '美國總統大選',
   path: '/tag/57b065e5360b651200848d76'
+},
+{
+  title: '台灣空汙紫爆怎麼辦',
+  path: '/tag/5773c909c107b51000e9beb4'
 },
 {
   title: '亞洲森林浩劫',
@@ -16,10 +20,6 @@ export default [ {
   path: '/topic/57ac8177363d1610007ef659'
 },
 {
-  title: '急診人生',
-  path: '/topic/57ac8180363d1610007ef65a'
-},
-{
-  title: '五輕關廠',
-  path: '/topic/57ac8192363d1610007ef65b'
+  title: '轉型正義',
+  path: '/topic/57ac8151363d1610007ef656'
 } ]
