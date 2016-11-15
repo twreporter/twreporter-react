@@ -1,5 +1,4 @@
 'use strict'
-import { Link } from 'react-router'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
@@ -10,6 +9,9 @@ import styles from './Bookmarks.scss'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
+
+import Link from '../Link'
+import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
 const RIGHT = 'right'
 const LEFT = 'left'
@@ -29,21 +31,30 @@ class Bookmark extends Component {
   }
 
   render() {
-    const { bookmark, isSelected, slug } = this.props
+    const { bookmark, isSelected, slug, style } = this.props
     let classNames = {
       [styles.selected]: isSelected
     }
 
     return (
       <li ref="bookmarkRef" className={cx(styles.bookmark, classNames)}>
-        <Link to={`/a/${slug}`}>
-          <span>{ bookmark }</span>
+        <Link to={`/a/${slug}`} disableReactRouter={style === INTERACTIVE_ARTICLE_STYLE} target="_blank">
+          <span>{bookmark}</span>
         </Link>
       </li>
     )
   }
 }
 
+Bookmark.propTypes = {
+  bookmark: React.PropTypes.string.isRequired,
+  isSelected: React.PropTypes.bool,
+  slug: React.PropTypes.string.isRequired
+}
+
+Bookmark.defaultProps = {
+  isSelected: false
+}
 
 export default class Bookmarks extends Component {
   constructor(props) {
@@ -110,12 +121,13 @@ export default class Bookmarks extends Component {
   render() {
     const { bookmarks } = this.props
     let _Bookmarks = map(bookmarks, (ele, index) => {
+      const { bookmarkOrder, publishedDate, ...rest } = ele
       return (
         <Bookmark
           ref={`bookmarkRef-${index}`}
           key={index}
           changeSelectedBookmarkOffsetLeft={this.changeSelectedBookmarkOffsetLeft}
-          {...ele}
+          {...rest}
         />
       )
     })
@@ -143,4 +155,17 @@ export default class Bookmarks extends Component {
       </div>
     )
   }
+}
+
+Bookmarks.propTypes = {
+  bookmarks: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      bookmark: React.PropTypes.string.isRequired,
+      bookmarkOrder: React.PropTypes.number,
+      publishedDate: React.PropTypes.string,
+      isSelected: React.PropTypes.bool,
+      slug: React.PropTypes.string.isRequired,
+      style: React.PropTypes.string.isRequired
+    })
+  ).isRequired
 }
