@@ -7,7 +7,7 @@ import { setPageType } from '../actions/header'
 import async from 'async'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import ArticleList from '../components/ArticleList'
 import TopNews from '../components/TopNews'
 
 // lodash
@@ -114,7 +114,7 @@ class Photography extends Component {
     return (
       <div style={style}>
         <TopNews topnews={topNewsItems} />
-        <Tags
+        <ArticleList
           articles={articles}
           bgStyle="dark"
           hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}

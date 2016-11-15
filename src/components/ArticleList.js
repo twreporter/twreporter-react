@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import Category from './Category'
 import More from '../components/More'
 import Link from './Link'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
@@ -14,31 +13,16 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 
 if (process.env.BROWSER) {
-  require('./Tags.css')
+  require('./ArticleList.css')
 }
 
-class CategoryName extends Component {
+export default class ListArticleItem extends Component {
   constructor(props, context) {
     super(props, context)
   }
 
   render() {
-    const { cat_display } = this.props
-    return (
-      <div className="category-name">
-        <Category>{cat_display}</Category>
-      </div>
-    )
-  }
-}
-
-export default class Tags extends Component {
-  constructor(props, context) {
-    super(props, context)
-  }
-
-  render() {
-    const { articles, hasMore, loadMore } = this.props
+    const { articles, hasMore, loadMore, loadMoreError } = this.props
     const bgStyle = {}
     let photoClass
 
@@ -66,7 +50,7 @@ export default class Tags extends Component {
                         <div className="tag-itemdesc" style={bgStyle}>
                           <div className="tag-itemtitle"><h3>{a.title}</h3></div>
                           <div className="tag-itemexcerpt">{excerpt}</div>
-                          <div className="tag-itempublished">{d_str}</div>
+                          <time dateTime={date2yyyymmdd(a.publishedDate, '-')} className="tag-itempublished">{d_str}</time>
                         </div>
                       </Link>
                     </li>
@@ -75,7 +59,16 @@ export default class Tags extends Component {
               })}
             </ul>
           </div>
-          {hasMore ? <More loadMore={loadMore} /> : null}
+          {
+            hasMore ? (
+              <div>
+                <More loadMore={loadMore}>
+                  <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
+                </More>
+              </div>
+            )
+            : null
+          }
         </section>
       )
     } else {
@@ -83,5 +76,3 @@ export default class Tags extends Component {
     }
   }
 }
-
-export { Tags }

@@ -6,7 +6,7 @@ export * from './footer'
 export * from './strings'
 
 export const SITE_NAME = {
-  FULL: '報導者The Reporter',
+  FULL: '報導者 The Reporter',
   SHORT: '報導者',
   SEPARATOR: ' - '
 }
@@ -127,23 +127,6 @@ export const navPath = [ {
 }, {
   title: '評論',
   path: '/category/review'
-} ]
-
-export const subnavPath = [ {
-  title: '轉型正義',
-  path: '/a/transitional-justice-content'
-}, {
-  title: '0206地震',
-  path: '/a/0206earthquake-content'
-}, {
-  title: '亞洲森林浩劫',
-  path: '/a/asia-forest-content'
-}, {
-  title: '走入同志家庭',
-  path: '/a/homofamily-content'
-}, {
-  title: '急診人生',
-  path: '/a/emergency-content'
 } ]
 
 export const colors = {

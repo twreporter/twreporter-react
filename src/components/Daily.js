@@ -35,10 +35,10 @@ export default class Daily extends Component {
             return (
               <li className="daily-item" key={a.id || idx}>
                 <Link to={url} disableReactRouter={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
-                  <div className="daily-image" >
+                  <div className="daily-image">
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'
-                    }}/>
+                    }} />
                   </div>
                   <div className="daily_lastpublish">{pubDate}</div>
                   {a.title}

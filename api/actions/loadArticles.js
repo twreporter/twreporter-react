@@ -1,5 +1,7 @@
 /*eslint no-console: 0*/
 
+import { NotFoundError } from '../../src/lib/custom-error'
+
 import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
@@ -8,6 +10,7 @@ import querystring from 'qs'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 
 export function loadMetaOfArticles(req) {
@@ -34,19 +37,32 @@ export function loadArticles(req, params = []) {
     const { API_PROTOCOL, API_PORT, API_HOST } = config
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
     let slug = typeof params[0] === 'string' ? params[0] : null
-    url = slug ? `${url}/${slug}` : url
+    if (slug) {
+      merge(query, { where: JSON.stringify({ slug: slug }) })
+    }
     superAgent['get'](url).timeout(constants.timeout)
     .query(query)
     .end(function (err, res) {
       if (err) {
         reject(err)
       } else {
-        const embedded = JSON.parse(get(query, 'embedded', null))
-        let aricleRes = res.body
+        let embedded
+        try {
+          embedded = JSON.parse(get(query, 'embedded', null))
+        } catch (error) {
+          console.warning('Parse embedded error:', error)
+        }
+
+        if (slug && get(res.body, '_items.length', 0) === 0) {
+          return reject(new NotFoundError('Articles are not found by query :' +  JSON.stringify(query)))
+        }
+
+        let articleRes = get(res.body, '_items.0')
+
         let writers =  []
         const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
         list.forEach((item) => {
-          let aArr = get(aricleRes, item, [])
+          let aArr = get(articleRes, item, [])
           aArr.forEach((author) => {
             let authorImg = get(author, 'image', null)
             if(authorImg) {
@@ -69,14 +85,14 @@ export function loadArticles(req, params = []) {
               const imgItems = get(res.body, '_items')
 
               list.forEach((item) => {
-                let authors = get(aricleRes, item, [])
+                let authors = get(articleRes, item, [])
                 addImage(authors, imgItems)
               })
             }
-            resolve(aricleRes)
+            resolve(articleRes)
           })
         } else {
-          resolve(aricleRes)
+          resolve(articleRes)
         }
       }
     })

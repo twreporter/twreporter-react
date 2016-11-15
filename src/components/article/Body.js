@@ -62,6 +62,7 @@ export class Body extends Component {
       })
       return (
         <div
+          itemProp="articleBody"
           className={commonStyles['components']}
         >
           {Blocks}

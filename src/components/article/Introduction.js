@@ -33,7 +33,7 @@ export const Introduction = ({ data }) => {
 
   if (block) {
     return (
-      <div className={classNames(styles['intro-container'], 'text-justify')}>
+      <div itemProp="description" className={classNames(styles['intro-container'], 'text-justify')}>
       {introArr}
       </div>
     )

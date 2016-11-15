@@ -128,15 +128,26 @@ class Image extends FitwidthMixin(Component) {
         </div>
     }
 
+    let imgUrl = replaceStorageUrlPrefix(get(desktop, 'url', ''))
+
+    let microData = (
+      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
+        <meta itemProp="url" content={imgUrl} />
+        <meta itemProp="description" content={imageDescription} />
+        <meta itemProp="height" content={get(desktop, 'height')} />
+        <meta itemProp="width" content={get(desktop, 'width')} />
+      </div>
+    )
+
     return (
       <div ref="imageBox" className={styles['image-box']}>
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
-          <noscript dangerouslySetInnerHTML={this._getNoscript(replaceStorageUrlPrefix(get(desktop, 'url', '')), imageDescription)} />
+          <noscript dangerouslySetInnerHTML={this._getNoscript(imgUrl, imageDescription)} />
         </div>
-
         {descriptionBox}
+        {microData}
       </div>
     )
   }
