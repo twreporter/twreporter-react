@@ -38,7 +38,7 @@ class Bookmark extends Component {
 
     return (
       <li ref="bookmarkRef" className={cx(styles.bookmark, classNames)}>
-        <Link to={`/a/${slug}`} target={style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+        <Link to={`/a/${slug}`} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           <span>{bookmark}</span>
         </Link>
       </li>
