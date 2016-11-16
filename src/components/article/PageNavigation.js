@@ -2,7 +2,7 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
-import Link from '../Link'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -91,7 +91,7 @@ class PageNavigation extends Component {
 
     return (
       <nav ref="container" className={classNames(styles['aside-page-navigation'], styles[navigate])}>
-        <Link to={link} disableReactRouter={get(article, 'style') === INTERACTIVE_ARTICLE_STYLE}>
+        <Link to={link} target={get(article, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
           {this._renderArticle(article)}
           {this._renderArrow(navigate)}
         </Link>
