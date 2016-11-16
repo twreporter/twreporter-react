@@ -1,7 +1,7 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import Hexagon from './Hexagon'
-import Link from './Link'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -131,7 +131,7 @@ export default class FeaturesItem extends Component {
 
     return (
       <li className="listing-item" key={article.id}>
-        <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
+        <Link to={url} target={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"

@@ -10,7 +10,7 @@ import styles from './Bookmarks.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
 
-import Link from '../Link'
+import { Link } from 'react-router'
 import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
 const RIGHT = 'right'
@@ -38,7 +38,7 @@ class Bookmark extends Component {
 
     return (
       <li ref="bookmarkRef" className={cx(styles.bookmark, classNames)}>
-        <Link to={`/a/${slug}`} disableReactRouter={style === INTERACTIVE_ARTICLE_STYLE} target="_blank">
+        <Link to={`/a/${slug}`} target={style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
           <span>{bookmark}</span>
         </Link>
       </li>
