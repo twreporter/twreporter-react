@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { LOAD_MORE } from '../../constants/strings'
 import styles from './AuthorList.scss'
 
 const LoadMore = ({ isFinish, fetchAuthorsIfNeeded }) => {
@@ -8,7 +9,7 @@ const LoadMore = ({ isFinish, fetchAuthorsIfNeeded }) => {
     )
   } else {
     return (
-      <button className={styles['load-more']} onClick={fetchAuthorsIfNeeded}>載入更多</button>
+      <button className={styles['load-more']} onClick={fetchAuthorsIfNeeded}>{LOAD_MORE}</button>
     )
   }
 }
