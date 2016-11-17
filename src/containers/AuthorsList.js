@@ -17,18 +17,13 @@ const _ = {
 }
 
 class AuthorsList extends React.Component {
-  // fetchData({ store }) {
-  //   return store.dispatch(fetchAuthorsIfNeeded())
-  // }
+  static fetchData({ store }) {
+    return store.dispatch(fetchAuthorsIfNeeded())
+  }
 
   constructor(props) {
     super(props)
   }
-
-  componentWillMount() {
-    this.props.fetchAuthorsIfNeeded()
-  }
-
 
   render() {
     function iteratee(oldValue) {
