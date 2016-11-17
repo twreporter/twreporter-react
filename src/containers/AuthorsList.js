@@ -1,14 +1,15 @@
 'use strict'
 
+import LoadMore from '../components/authors/LoadMore'
 import React from 'react'
-import { fetchAuthorsIfNeeded } from '../actions/authors'
-import { connect } from 'react-redux'
 import ShownAuthors from '../components/authors/ShownAuthors'
+import VisibilitySensor from 'react-visibility-sensor'
+import { connect } from 'react-redux'
+import { fetchAuthorsIfNeeded } from '../actions/authors'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import values from 'lodash/values'
 import styles from '../components/authors/AuthorList.scss'
-import LoadMore from '../components/authors/LoadMore'
+import values from 'lodash/values'
 
 const _ = {
   get: get,
@@ -35,11 +36,38 @@ class AuthorsList extends React.Component {
       }
       return newValue
     }
+
     const authorsArray = _.map(_.values(this.props.entities.authors), iteratee)
+
+    let handleSeen = (isVisible) => {
+      if (this.props.currentPage>1 && isVisible === true) {
+        this.props.fetchAuthorsIfNeeded()
+      }
+      return
+    }
+    //
+    let bottomDisplay = () => {
+      let options = { loadmore: false, sensor: false }
+      if (this.props.currentPage <= 1) {
+        options.loadmore = true
+      }
+      if (this.props.currentPage>1 && !this.props.isFinish) {
+        options.sensor = true
+      }
+      return options
+    }
+
+    let bottomDisplayOptions = bottomDisplay()
+
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
-        <LoadMore isFinish={this.props.isFinish} fetchAuthorsIfNeeded={this.props.fetchAuthorsIfNeeded} />
+        {!bottomDisplayOptions.loadmore ? null:
+        <LoadMore isFinish={this.props.isFinish} fetchAuthorsIfNeeded={this.props.fetchAuthorsIfNeeded} />}
+        {!bottomDisplayOptions.sensor ? null:
+        <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
+          <div className={styles['sensor']}></div>
+        </VisibilitySensor>}
       </div>
     )
   }
@@ -48,7 +76,8 @@ class AuthorsList extends React.Component {
 function mapStateToProps(state) {
   return {
     entities: state.entities || {},
-    isFinish: state.authorsList.isFinish
+    isFinish: state.authorsList.isFinish,
+    currentPage: state.authorsList.currentPage
   }
 }
 
