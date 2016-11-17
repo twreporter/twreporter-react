@@ -2,7 +2,7 @@
 
 export default [ {
   title: '零安樂死真相',
-  path: '/a/animal-protection-no-killing-ch1'
+  path: '/a/protect-animal-no-killing-ch1'
 },
 { title: '美國總統大選',
   path: '/tag/57b065e5360b651200848d76'
