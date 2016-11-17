@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { fetchAuthorsIfNeeded, loadMoreAuthors, shouldLoadMoreAuthors } from '../actions/authors'
+import { fetchAuthorsIfNeeded } from '../actions/authors'
 import { connect } from 'react-redux'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import get from 'lodash/get'
@@ -15,8 +15,6 @@ const _ = {
   map: map,
   values: values
 }
-
-// import { connect } from 'react-redux'
 
 class AuthorsList extends React.Component {
   // fetchData({ store }) {
@@ -53,10 +51,9 @@ class AuthorsList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let isFinish = !shouldLoadMoreAuthors(state)
   return {
     entities: state.entities || {},
-    isFinish
+    isFinish: state.authorsList.isFinish
   }
 }
 

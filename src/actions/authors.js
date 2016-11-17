@@ -26,21 +26,21 @@ export function failToReceiveAuthors(error, failedAt) {
   }
 }
 
-export function receiveAuthors(items, meta, receivedAt) {
+export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
   return {
     type: CONSTANTS.FETCH_AUTHORS_SUCCESS,
     response: items,
-    meta,
+    currentPage,
+    isFinish,
     receivedAt
   }
 }
 
-export function fetchAuthors(page=1) {
+export function fetchAuthors(targetPage=1) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
-    let url = formatUrl('authors?page='+page)
+    let url = formatUrl('authors?page='+targetPage)
     dispatch(requestAuthors(url))
     return fetch(url)
-    // => fetch('http://localhost:3030/authors?page=') or fetch('api/authors')
       .then((response) => {
         if (response.status >= 400) {
           throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
@@ -52,8 +52,13 @@ export function fetchAuthors(page=1) {
           const camelizedJson = camelizeKeys(response)
           let items = normalize(camelizedJson.items, arrayOf(authorSchema))
           let meta = camelizedJson.meta
+          let currentPage = meta.page
+          let maxResultsPerPage = meta.maxResults
+          let totalResults = meta.total
+          let finalPage = Math.ceil(totalResults/maxResultsPerPage)
+          let isFinish = currentPage >= finalPage ? true : false
           let receivedAt = Date.now()
-          return dispatch(receiveAuthors(items, meta, receivedAt))
+          return dispatch(receiveAuthors(items, currentPage, isFinish, receivedAt))
         },
         (error) => {
           let failedAt = Date.now()
@@ -62,41 +67,26 @@ export function fetchAuthors(page=1) {
   }
 }
 
-function shouldFetchAuthors(state) {
-  console.log(state)
-  let isFetching = _.get(state, 'authorsList.isFetching' )
-  let authorNum = _.get(state, 'entities.authors.length', 0)
-  console.log(`authorNum:${authorNum}, isFetching:${isFetching}`)
-  if ((authorNum > 0) || isFetching) {
-    return false
-  }
-  return true
-}
-
-export function shouldLoadMoreAuthors(state) {
-  const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-  const maxResultsPerPage = _.get(state, [ 'authorsList', 'meta', 'maxResults' ], 10)
-  const totalResults = _.get(state, [ 'authorsList', 'meta', 'total' ], 0)
-  const finalPage = Math.ceil(totalResults/maxResultsPerPage)
-  if (currentPage>=finalPage) {
-    return false
-  } else {
+// Check if
+//   the entities.authors is empty &&
+//   is not fetching data &&
+//   is currentPage >= finalPage
+function shouldFetchAuthors(authorNum, isFetching, isFinish) {
+  if ((authorNum <= 0) && !isFetching && !isFinish) {
     return true
   }
+  return false
 }
 
 export function fetchAuthorsIfNeeded() {
   return (dispatch, getState) => {
-    let state = getState()
-    const currentPage = _.get(state, [ 'authorsList', 'meta', 'page' ])
-    const targetPage = currentPage + 1
-    const isEmpty = shouldFetchAuthors(state)
-    const isNotEnd = shouldLoadMoreAuthors(state)
-    console.log(`shouldFetchAuthors: ${isEmpty}, shouldLoadMoreAuthors:${isNotEnd}`)
-    console.log('callback function of fetchAuthorsIfNeeded')
-    if(isEmpty && isNotEnd) {
+    const state = getState()
+    let authorNum = _.get(state, 'entities.authors.length', 0)
+    let isFetching = _.get(state, 'authorsList.isFetching', false)
+    let isFinish = _.get(state, 'authorsList.isFinish', false)
+    let targetPage = _.get(state, 'authorsList.currentPage', 0) + 1
+    if(shouldFetchAuthors(authorNum, isFetching, isFinish)) {
       return dispatch(fetchAuthors(targetPage))
     }
-    return null
   }
 }
