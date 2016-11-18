@@ -59,12 +59,13 @@ class AuthorsList extends React.Component {
       return options
     }
     let bottomDisplayOptions = bottomDisplay()
-
+    let isLoading = this.props.isFetching
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
         {!bottomDisplayOptions.loadmore ? null:
         <LoadMore isFinish={this.props.isFinish} fetchAuthorsIfNeeded={this.props.fetchAuthorsIfNeeded} />}
+        {!isLoading ? null : <div>載入更多作者中…</div>}
         {!bottomDisplayOptions.sensor ? null:
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>
@@ -78,6 +79,7 @@ function mapStateToProps(state) {
   return {
     entities: state.entities || {},
     isFinish: state.authorsList.isFinish,
+    isFetching: state.authorsList.isFetching,
     currentPage: state.authorsList.currentPage
   }
 }
