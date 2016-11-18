@@ -9,7 +9,7 @@ import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 
 const _ = {
-  get: get
+  get
 }
 
 export function requestAuthors() {
@@ -30,6 +30,7 @@ export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
   return {
     type: CONSTANTS.FETCH_AUTHORS_SUCCESS,
     response: items,
+    authorsInList: items.result,
     currentPage,
     isFinish,
     receivedAt

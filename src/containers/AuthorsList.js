@@ -28,16 +28,17 @@ class AuthorsList extends React.Component {
 
   render() {
     // Turn the entities.authors in to props [{id:..., authorName:...,...},...]
-    function iteratee(oldValue) {
-      let newValue = {
-        id: get(oldValue, 'id'),
-        authorName: get(oldValue, 'name'),
-        authorImg: get(oldValue, 'image', 'http://i.imgur.com/Clyp3sKb.jpg'),
-        authorUrl: get(oldValue, [ 'links', 'self', 'href' ])
+    let entities = this.props.entities
+    function iteratee(id) {
+      let authorItemObject = {
+        id: id,
+        authorName: get(entities, 'authors.'+id+'.name'),
+        authorImg: get(entities, 'authors.'+id+'.image', 'http://i.imgur.com/Clyp3sKb.jpg'),
+        authorUrl: get(entities, 'authors.'+id+'.links.self.href')
       }
-      return newValue
+      return authorItemObject
     }
-    const authorsArray = _.map(_.values(this.props.entities.authors), iteratee)
+    const authorsArray = _.map(this.props.authorsInList, iteratee)
 
     // Callback for sensor is triggered
     let handleSeen = (isVisible) => {
@@ -78,6 +79,7 @@ class AuthorsList extends React.Component {
 function mapStateToProps(state) {
   return {
     entities: state.entities || {},
+    authorsInList: state.authorsList.authorsInList,
     isFinish: state.authorsList.isFinish,
     isFetching: state.authorsList.isFetching,
     currentPage: state.authorsList.currentPage

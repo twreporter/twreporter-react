@@ -1,10 +1,24 @@
 'use strict'
 import * as types from '../constants/action-types'
+import isArray from 'lodash/isArray'
+import mergeWith from 'lodash/mergeWith'
+
+const _ = {
+  isArray,
+  mergeWith
+}
 
 const initialStates = {
   isFetching: false,
   currentPage: 0,
-  isFinish: false
+  isFinish: false,
+  authorsInList: []
+}
+
+function customizer(objValue, srcValue) {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue)
+  }
 }
 
 export const authorsList = (state = initialStates, action = {}) => {
@@ -14,15 +28,14 @@ export const authorsList = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.FETCH_AUTHORS_SUCCESS:
-      return Object.assign({}, state, {
-        // 回傳 state 要修改的部分
+      return _.mergeWith({}, state, {
         isFetching: false,
         currentPage: action.currentPage,
-        isFinish: action.isFinish
-      })
+        isFinish: action.isFinish,
+        authorsInList: action.authorsInList
+      }, customizer)
     case types.FETCH_AUTHORS_FAILURE:
       return Object.assign({}, state, {
-        // 回傳 state 要修改的部分
         isFetching: false,
         error: action.error
       })
