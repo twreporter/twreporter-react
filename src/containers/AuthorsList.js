@@ -82,11 +82,5 @@ function mapStateToProps(state) {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchAuthorsIfNeeded: () => {dispatch(fetchAuthorsIfNeeded())}
-  }
-}
-
 export { AuthorsList }
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorsList)
+export default connect(mapStateToProps, { fetchAuthorsIfNeeded })(AuthorsList)
