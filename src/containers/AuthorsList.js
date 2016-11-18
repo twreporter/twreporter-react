@@ -27,6 +27,7 @@ class AuthorsList extends React.Component {
   }
 
   render() {
+    // Turn the entities.authors in to props [{id:..., authorName:...,...},...]
     function iteratee(oldValue) {
       let newValue = {
         id: get(oldValue, 'id'),
@@ -36,16 +37,17 @@ class AuthorsList extends React.Component {
       }
       return newValue
     }
-
     const authorsArray = _.map(_.values(this.props.entities.authors), iteratee)
 
+    // Callback for sensor is triggered
     let handleSeen = (isVisible) => {
       if (this.props.currentPage>1 && isVisible === true) {
         this.props.fetchAuthorsIfNeeded()
       }
       return
     }
-    //
+
+    // Page bottom display options
     let bottomDisplay = () => {
       let options = { loadmore: false, sensor: false }
       if (this.props.currentPage <= 1) {
@@ -56,7 +58,6 @@ class AuthorsList extends React.Component {
       }
       return options
     }
-
     let bottomDisplayOptions = bottomDisplay()
 
     return (
