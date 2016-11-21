@@ -1,95 +1,147 @@
-@import '../../themes/common-variables.scss';
-@import '../../themes/media-queries.scss';
-@import '../../themes/font-mixins.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables';
+@import '../../themes/media-queries';
+@import '../../themes/font-mixins';
 
-// SCREEN (DEFAULT)
+// Add border for all elements to check the layout:
+// * {
+//   border: 1px solid $gray-70;
+// }
+
 .author-list-container {
   background-color: $light-gray;
   text-align: center;
-  .shown-authors {
-    width: 663px;
-    height: auto;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    .author-item {
-      display: inline-block;
-      vertical-align: top;
-      box-sizing: border-box;
-      margin-left: 23px;
-      margin-right: 23px;
-      margin-bottom: 60px;
-      .author-img {
-        height: 114px;
-        width: 114px;
-        border-radius: 50%;
-      }
-      .author-name {
-        height: 18px;
-        width: 100%;
-        box-sizing: border-box;
-        margin-top: 14px;
-        color: #404040;
-        line-height: 1;
-        font-size: 18px;
-        font-weight: 500;
-        font-family: SourceHanSansTWHK;
-        text-align: center;
-      }
-    }
+}
+
+.shown-authors,
+.author-item,
+.author-img,
+.author-name {
+  box-sizing: border-box;
+}
+
+//==== MOBILE (& OVERALL) ====
+
+.shown-authors {
+  width: $authors-list-mobile-width;
+  // overall setting below:
+  height: auto;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.author-item {
+  width: $authors-item-mobile-width;
+  // overall setting below:
+  margin-left: $authors-list-columns-distance / 2;
+  margin-right: $authors-list-columns-distance / 2;
+  margin-bottom: $authors-list-rows-distance-mobile - $font-size-base;
+  display: inline-block;
+  vertical-align: top;
+
+  .author-img {
+    height: $authors-img-mobile-size;
+    width: $authors-img-mobile-size;
+    // overall setting below:
+    border-radius: 50%;
   }
-  .is-finish {
-    height: 50px;
-    width: 150px;
+
+// overall setting below:
+  .author-name {
+    height: $font-size-base * 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
     box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .load-more {
-    height: 60px;
-    width: 110px;
-    box-sizing: border-box;
-    cursor: pointer;
-    margin-top: 50px;
-    margin-bottom: 80px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .sensor {
-    height: 30px;
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: $authors-list-name-img-distance;
+    color: $gray-25;
+    line-height: 1;
+    font-size: $font-size-base;
+    font-weight: $authors-list-name-fontweight;
+    font-family: SourceHanSansTWHK;
+    text-align: center;
   }
 }
-  // .author-filter {
-  //   box-sizing: border-box;
-  //   margin-top: 50px;
-  //   margin-bottom: 50px;
-  //   margin-left: auto;
-  //   margin-right: auto;
-  //   text-align: center;
-  //   .input-box {
-  //     background-color: $light-gray;
-  //     border: none;
-  //     cursor: pointer;
-  //     font-size: $font-size-medium;
-  //     font-weight: $font-weight-normal;
-  //     outline: none;
-  //     &:focus {
-  //       background-color: black;
-  //     }
-  //   }
-  // }
-  //.author-list OR .no-result
-  // .no-result {
-  //   box-sizing: border-box;
-  // }
-  // //.is-finish OR .load-more
 
-  // .sponsor {
-  //   box-sizing: border-box;
-  // }
-  // .footer {
-  //   box-sizing: border-box;
-  // }
+.load-more {
+  height: 60px;
+  width: 200px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sensor {
+  height: 50px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//==== TABLET ====
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .shown-authors {
+    width: $authors-list-tablet-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+
+  }
+}
+
+//==== DESKTOP ====
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  .shown-authors {
+    width: $authors-list-desktop-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+  }
+}
+
+//==== DESKTOP HD ====
+@include mq($min-width: $screen-hd-min) {
+  .shown-authors {
+    width: $authors-list-desktop-hd-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+  }
+}
