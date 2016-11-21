@@ -10,6 +10,8 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
+import Sponsor from '../components/Sponsor'
+import Footer from '../components/Footer'
 
 const _ = {
   get: get,
@@ -71,6 +73,8 @@ class AuthorsList extends React.Component {
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>
         </VisibilitySensor>}
+      <Sponsor />
+      <Footer />
       </div>
     )
   }
