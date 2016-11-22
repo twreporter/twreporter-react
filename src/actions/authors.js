@@ -37,9 +37,9 @@ export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
   }
 }
 
-export function fetchAuthors(targetPage=1) {
+export function fetchAuthors(targetPage = 1, maxResults = 12) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
-    let url = formatUrl('authors?page='+targetPage)
+    let url = formatUrl(`authors?max_results=${maxResults}&page=${targetPage}`)
     dispatch(requestAuthors(url))
     return fetch(url)
       .then((response) => {
