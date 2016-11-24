@@ -8,7 +8,7 @@ import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import LazyLoad from 'react-lazyload'
+import LazyLoad, { forceCheck } from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
 
@@ -38,6 +38,8 @@ class Image extends FitwidthMixin(Component) {
     })
 
     if (super.componentDidMount) super.componentDidMount()
+
+    forceCheck()
   }
 
   componentWillReceiveProps(nextProps) {

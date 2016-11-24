@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import More from '../components/More'
-import Link from './Link'
+import { Link } from 'react-router'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getImageSrc, getImageSrcSet } from '../utils/index'
@@ -43,7 +43,7 @@ export default class ListArticleItem extends Component {
                 if (image) {
                   return (
                     <li className="tag-item" key={a.id} style={bgStyle}>
-                      <Link to={url} disableReactRouter={a.style === INTERACTIVE_ARTICLE_STYLE}>
+                      <Link to={url} target={a.style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
                         <div className="itemimage-wrap">
                           <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
                         </div>

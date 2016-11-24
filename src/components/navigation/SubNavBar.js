@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import subNavPath from '../../conf/sub-nav-path'
-import Link from '../Link'
+import { Link } from 'react-router'
 
 const styles = require('./SubNavBar.scss')
 
