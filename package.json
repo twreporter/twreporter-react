@@ -28,7 +28,7 @@
         "APIHOST": "localhost",
         "APIPORT": 3030,
         "APIPROTOCOL": "http",
-        "REDIS_ENABLE": true
+        "REDIS_ENABLE": false
       }
     },
     "start-prod-api": {
@@ -40,7 +40,7 @@
         "APIHOST": "localhost",
         "APIPORT": 3030,
         "APIPROTOCOL": "http",
-        "REDIS_ENABLE": true
+        "REDIS_ENABLE": false
       }
     },
     "start-dev": {
