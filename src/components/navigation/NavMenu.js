@@ -1,6 +1,6 @@
 import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
-import Link from '../Link'
+import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -333,10 +333,12 @@ export default class NavMenu extends Component {
 const DonateButton = (props) => {
   const { isSlidedUp } = props
   const dClass = isSlidedUp ? styles['up'] : null
-  return <a target="_blank" title="贊助我們" className={classNames(styles.donateButton, dClass)} href={donatePath}>
-            <img src={donateIcon} />
-            <span>贊助我們</span>
-          </a>
+  return (
+    <Link target="_blank" title="贊助我們" className={classNames(styles.donateButton, dClass)} href={donatePath}>
+      <img src={donateIcon} />
+      <span>贊助我們</span>
+    </Link>
+  )
 }
 
 NavMenu.contextTypes = {

@@ -3,7 +3,7 @@
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
 import { shortenString } from '../../lib/string-processor'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import Link from '../Link'
+import { Link } from 'react-router'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import LazyLoad from 'react-lazyload'
@@ -57,7 +57,7 @@ export class BottomRelateds extends Component {
 
       return (
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
-          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} disableReactRouter={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
+          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} target={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
                 <LazyLoad once={true}>
