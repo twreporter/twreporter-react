@@ -6,10 +6,15 @@ import { setPageType } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import SystemError from '../components/SystemError'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
+
+const _  = {
+  get
+}
 
 const MAXRESULT = 10
 const PAGE = 1
@@ -29,10 +34,10 @@ class Tag extends Component {
 
   componentWillMount() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let tagId = get(params, 'tagId')
+    let tagId = _.get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -48,10 +53,10 @@ class Tag extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
-    let tagId = get(params, 'tagId')
+    let tagId = _.get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -63,13 +68,13 @@ class Tag extends Component {
 
   _loadMore() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    const tagId = get(params, 'tagId')
-    let articlesByTag = get(articlesByUuids, [ tagId ], {})
-    if (get(articlesByTag, 'hasMore') === false) {
+    const tagId = _.get(params, 'tagId')
+    let articlesByTag = _.get(articlesByUuids, [ tagId ], {})
+    if (_.get(articlesByTag, 'hasMore') === false) {
       return
     }
 
-    let itemSize = get(articlesByTag, 'items.length', 0)
+    let itemSize = _.get(articlesByTag, 'items.length', 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
 
     fetchArticlesByUuidIfNeeded(tagId, TAG, {
@@ -81,9 +86,21 @@ class Tag extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const tagId = get(params, 'tagId')
-    let articles = denormalizeArticles(get(articlesByUuids, [ tagId, 'items' ], []), entities)
-    let tagName = get(entities, [ 'tags', tagId, 'name' ], '')
+    const tagId = _.get(params, 'tagId')
+    const error = _.get(articlesByUuids, [ tagId, 'error' ], null)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
+
+    // Error handling
+    if (error !== null && _.get(articles, 'length', 0) === 0) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    let tagName = _.get(entities, [ 'tags', tagId, 'name' ], '')
     const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const meta = {
       title: tagName ? tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
@@ -96,14 +113,15 @@ class Tag extends Component {
     return (
       <DocumentMeta {...meta}>
         <div className="container text-center">
-          {tagBox}
+          { tagBox }
         </div>
         <div>
-          <Tags
+          <ArticleList
             articles={articles}
             device={device}
-            hasMore={ get(articlesByUuids, [ tagId, 'hasMore' ])}
+            hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
             loadMore={this.loadMore}
+            loadMoreError={error}
           />
           {this.props.children}
           <Footer/>

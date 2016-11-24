@@ -1,4 +1,4 @@
-import Link from './Link'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
@@ -34,11 +34,11 @@ export default class Daily extends Component {
             let url = '/a/' + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
-                <Link to={url} disableReactRouter={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE }>
-                  <div className="daily-image" >
+                <Link to={url} target={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+                  <div className="daily-image">
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'
-                    }}/>
+                    }} />
                   </div>
                   <div className="daily_lastpublish">{pubDate}</div>
                   {a.title}

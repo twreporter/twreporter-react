@@ -18,11 +18,12 @@ $nav-margin: 30px;
 
 .bookmarks {
   width: 100%;
-  height: 30px;
+  height: 40px;
   margin: 0 auto;
   padding-left: 0;
   list-style: none;
   overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
 
   .bookmark {
@@ -82,6 +83,10 @@ $nav-margin: 30px;
   }
   .bookmarks {
     width: $desktop-small-width - ($nav-width * 2) - ($nav-margin * 2);
+    overflow-x: hidden;
+    &:hover {
+      overflow-x: auto;
+    }
   }
 }
 
@@ -93,5 +98,9 @@ $nav-margin: 30px;
   }
   .bookmarks {
     width: $hd-desktop-small-width - ($nav-width * 2) - ($nav-margin * 2);
+    overflow-x: hidden;
+    &:hover {
+      overflow-x: auto;
+    }
   }
 }

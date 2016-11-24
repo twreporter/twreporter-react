@@ -2,8 +2,8 @@
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getImageSrc, getImageSrcSet } from '../utils/index'
-import Link from './Link'
-import Category from './Category'
+import { Link } from 'react-router'
+import Hexagon from './Hexagon'
 import Slider from 'react-flex-carousel'
 import React, { Component } from 'react'
 
@@ -33,18 +33,18 @@ export default class TopNews extends Component {
           let imageSet = getImageSrcSet(a)
           let image = getImageSrc(a)
           return (
-              <Link key={a.id} to={'/a/' + a.slug} disableReactRouter={a.style===INTERACTIVE_ARTICLE_STYLE}>
-                <img src={image} alt={a.slug} srcSet={imageSet}/>
-                <div className="topnews_categorycontainer">
-                  <Category>{catDisplay}</Category>
-                </div>
-                <div className="carousel-item">
-                  <div className="carousel-itemsubtitle">{a.subtitle}</div>
-                  <div className="carousel-itemtitle">{a.title}</div>
-                  <div className="carousel-excerpt">{a.excerpt}</div>
-                  <time className="carousel-published">{pubDate}</time>
-                </div>
-              </Link>
+            <Link key={a.id} to={'/a/' + a.slug} target={a.style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+              <img src={image} alt={a.slug} srcSet={imageSet} />
+              <div className="topnews_categorycontainer">
+                <Hexagon>{catDisplay}</Hexagon>
+              </div>
+              <div className="carousel-item">
+                <div className="carousel-itemsubtitle">{a.subtitle}</div>
+                <div className="carousel-itemtitle">{a.title}</div>
+                <div className="carousel-excerpt">{a.excerpt}</div>
+                <time dateTime={date2yyyymmdd(a.publishedDate, '-')} className="carousel-published">{pubDate}</time>
+              </div>
+            </Link>
           )
         })}
       </Slider>

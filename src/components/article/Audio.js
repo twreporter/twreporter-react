@@ -31,6 +31,14 @@ function getMinSecStr(time) {
   return minutes + ':' + seconds
 }
 
+function getDurationISO8601Format(time) {
+  time = Math.round(time)
+  let minutes = Math.floor(time / 60)
+  let seconds = time - minutes * 60
+  seconds = seconds < 10 ? 0 + seconds.toString() : seconds.toString()
+  return 'T' + minutes + 'M' + seconds + 'S'
+}
+
 const AudioSlider = ({ duration, onSeekChange, seek }) => {
   return (
     <div key="audio-slider" className={styles['audio-slider']}>
@@ -202,15 +210,26 @@ class Audio extends React.Component {
     const { duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = get(content, 0, {})
 
+    let vUrl = replaceStorageUrlPrefix(url)
+
     const player = (
       <Player
-        src={replaceStorageUrlPrefix(url)}
+        src={vUrl}
         playing={isPlaying}
         onLoad={this.handleOnLoad}
         onPlay={this.handleOnPlay}
         onEnd={this.handleOnEnd}
         ref={(ref) => this.player = ref}
       />
+    )
+
+    const microData = (
+      <div itemProp="audio" itemScope itemType="http://schema.org/AudioObject">
+        <meta itemProp="contentUrl" content={vUrl} />
+        <meta itemProp="duration" content={getDurationISO8601Format(duration)}/>
+        <meta itemProp="description" content={description} />
+        <meta itemProp="name" content={title} />
+      </div>
     )
 
     // render Audio without cover photo
@@ -235,37 +254,39 @@ class Audio extends React.Component {
             <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
           </div>
           { player }
+          { microData }
         </div>
       )
     }
 
     // render Audio with cover photo
     return (
-      <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
+      <div itemScope itemType="http://schema.org/AudioObject" className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
         <div className={styles['audio-coverphoto']} onClick={this.handleMouseClick} onMouseEnter={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseOut}>
           <div className={styles['audio-img-filter']} style={ isOncePlayed ? {
             opacity: 1
           }: {}}>
-          <Image
-            content = { [ coverPhoto ] }
-            isToShowDescription={false}
+            <Image
+              content = { [ coverPhoto ] }
+              isToShowDescription={false}
+            />
+          </div>
+          <AudioController
+            duration={duration}
+            isFocused={isFocused}
+            isOncePlayed={isOncePlayed}
+            isPlaying={isPlaying}
+            onToggle={this.handleToggle}
+            onSeekChange={this.handleSeekChange}
+            seek={seek}
           />
         </div>
-        <AudioController
-          duration={duration}
-          isFocused={isFocused}
-          isOncePlayed={isOncePlayed}
-          isPlaying={isPlaying}
-          onToggle={this.handleToggle}
-          onSeekChange={this.handleSeekChange}
-          seek={seek}
-        />
-      </div>
-      <div className={styles['audio-info-container']}>
-        <h4 className={'text-center'}>{title}</h4>
-        <div dangerouslySetInnerHTML={{ __html: description }} />
-      </div>
-      { player }
+        <div className={styles['audio-info-container']}>
+          <h4 className={'text-center'}>{title}</h4>
+          <div dangerouslySetInnerHTML={{ __html: description }} />
+        </div>
+        { player }
+        { microData }
       </div>
     )
   }

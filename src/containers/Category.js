@@ -6,10 +6,15 @@ import { setPageType } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import SystemError from '../components/SystemError'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
+
+const _  = {
+  get
+}
 
 if (process.env.BROWSER) {
   require('./Category.css')
@@ -49,7 +54,7 @@ class Category extends Component {
     let catId = this.state.catId
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -66,10 +71,10 @@ class Category extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
-    let catId = getCatId(catENtoCH[get(params, 'category')])
+    let catId = getCatId(catENtoCH[_.get(params, 'category')])
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -81,14 +86,14 @@ class Category extends Component {
 
   _loadMore() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let catId = getCatId(catENtoCH[get(params, 'category')])
+    let catId = getCatId(catENtoCH[_.get(params, 'category')])
 
-    let articlesByCat = get(articlesByUuids, [ catId ], {})
-    if (get(articlesByCat, 'hasMore') === false) {
+    let articlesByCat = _.get(articlesByUuids, [ catId ], {})
+    if (_.get(articlesByCat, 'hasMore') === false) {
       return
     }
 
-    let itemSize = get(articlesByCat, 'items.length', 0)
+    let itemSize = _.get(articlesByCat, 'items.length', 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
 
     fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
@@ -100,9 +105,21 @@ class Category extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const catId = getCatId(catENtoCH[get(params, 'category')])
-    let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
-    const category = get(params, 'category', null)
+    const catId = getCatId(catENtoCH[_.get(params, 'category')])
+    const error = _.get(articlesByUuids, [ catId, 'error' ], null)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
+
+    // Error handling
+    if (error !== null && _.get(articles, 'length', 0) === 0) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    const category = _.get(params, 'category', null)
     const catName = catENtoCH[category]
     const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
     const meta = {
@@ -118,11 +135,12 @@ class Category extends Component {
         <div className="container text-center">
           {catBox}
         </div>
-        <Tags
+        <ArticleList
           articles={articles}
           device={device}
-          hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
+          hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMore}
+          loadMoreError={error}
         />
         {this.props.children}
         <Footer/>

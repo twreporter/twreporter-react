@@ -22,7 +22,7 @@ export class PublishDate extends Component {
   render() {
     const { date } = this.props
     const dateTime = new Date(date)
-    let fDate = date2yyyymmdd(date, '.')
+    let fDate = date2yyyymmdd(date, '-')
 
     // avoid the server-side rendered date being inconsistent with the client-side results rendered by react-intl
     if(this.state.isMounted) {
@@ -30,7 +30,7 @@ export class PublishDate extends Component {
     }
 
     return (
-      <span className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
+      <span itemProp="datePublished" className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
         {fDate}
       </span>
     )

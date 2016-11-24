@@ -33,7 +33,7 @@ export class Body extends Component {
           let width = get(embeddedContent, 'width')
           let height = get(embeddedContent, 'height')
           if (width) {
-            styles.maxWidth = width
+            styles.width = width
           }
           if (height) {
             styles.minHeight = height
@@ -62,6 +62,7 @@ export class Body extends Component {
       })
       return (
         <div
+          itemProp="articleBody"
           className={commonStyles['components']}
         >
           {Blocks}
