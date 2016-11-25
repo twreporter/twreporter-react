@@ -8,7 +8,7 @@ import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import LazyLoad, {forceCheck} from 'react-lazyload'
+import LazyLoad, { forceCheck } from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
 
