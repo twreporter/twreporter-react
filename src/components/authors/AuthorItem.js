@@ -1,10 +1,13 @@
 import React, { PropTypes } from 'react'
 import styles from './AuthorList.scss'
+import Link from '../Link'
 
 const AuthorItem = ({ authorName, authorImg, authorUrl }) => (
   <div className={styles['author-item']}>
-    <img src={authorImg} className={styles['author-img']} />
-    <div className={styles['author-name']} ><a href={authorUrl}>{authorName}</a></div>
+    <Link to={authorUrl}>
+      <img src={authorImg} className={styles['author-img']} />
+      <div className={styles['author-name']} >{authorName}</div>
+    </Link>
   </div>
 )
 

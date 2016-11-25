@@ -36,7 +36,7 @@ class AuthorsList extends React.Component {
         id: id,
         authorName: get(entities, 'authors.'+id+'.name'),
         authorImg: get(entities, 'authors.'+id+'.image', 'http://i.imgur.com/Clyp3sKb.jpg'),
-        authorUrl: get(entities, 'authors.'+id+'.links.self.href')
+        authorUrl: id ? 'author/'+id : ''
       }
       return authorItemObject
     }
