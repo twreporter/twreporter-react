@@ -37,8 +37,9 @@ export function receiveAuthorCollection(items, currentPage, isFinish, receivedAt
   }
 }
 
-export function fetchAuthorCollection(targetPage = 1, maxResults = 10, authorId='571dd6e3dae62379576d7ef9') {
+export function fetchAuthorCollection(targetPage = 1, authorId='') {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
+    const maxResults = 4
     let url = formatUrl(`meta?where={"writters": { "$in": ["${authorId}"]}}&max_results=${maxResults}&page=${targetPage}`)
     dispatch(requestAuthorCollection(url))
     return fetch(url)
@@ -69,25 +70,17 @@ export function fetchAuthorCollection(targetPage = 1, maxResults = 10, authorId=
 }
 
 // Check if
-//   the entities.authors is empty &&
 //   is not fetching data &&
 //   is currentPage >= finalPage
-// function shouldFetchAuthors(authorNum, isFetching, isFinish) {
-//   if ((authorNum <= 0) && !isFetching && !isFinish) {
-//     return true
-//   }
-//   return false
-// }
-//
-// export function fetchAuthorsIfNeeded() {
-//   return (dispatch, getState) => {
-//     const state = getState()
-//     let authorNum = _.get(state, 'entities.authors.length', 0)
-//     let isFetching = _.get(state, 'authorsList.isFetching', false)
-//     let isFinish = _.get(state, 'authorsList.isFinish', false)
-//     let targetPage = _.get(state, 'authorsList.currentPage', 0) + 1
-//     if(shouldFetchAuthors(authorNum, isFetching, isFinish)) {
-//       return dispatch(fetchAuthorCollection(targetPage))
-//     }
-//   }
-// }
+
+export function fetchAuthorsIfNeeded(authorId) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const isFetching = _.get(state, 'author.isFetching', false)
+    const isFinish = _.get(state, 'author.isFinish', false)
+    let targetPage = _.get(state, 'author.currentPage', 0) + 1
+    if(!isFetching && !isFinish) {
+      return dispatch(fetchAuthorCollection(targetPage,authorId))
+    }
+  }
+}

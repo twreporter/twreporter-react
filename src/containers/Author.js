@@ -4,10 +4,19 @@ import React from 'react'
 import Sponsor from '../components/Sponsor'
 import get from 'lodash/get'
 import { connect } from 'react-redux'
-import { fetchAuthorCollection } from '../actions/author'
+import { fetchAuthorsIfNeeded } from '../actions/author'
+import { AuthorCollection } from '../components/AuthorCollection'
+import commonStyles from '../components/article/Common.scss'
+import classNames from 'classnames'
+import uniq from 'lodash/uniq'
+import { denormalizeArticles } from '../utils/denormalize-articles'
+import styles from '../components/AuthorCollection.scss'
+import { LOAD_MORE_ARTICLES } from '../constants/index'
+import AuthorData from '../components/AuthorData'
 
 const _ = {
-  get
+  get,
+  uniq
 }
 
 
@@ -15,8 +24,11 @@ class Author extends React.Component {
   constructor(props) {
     super(props)
   }
-  render() {
+  componentWillMount() {
     const authorId = this.props.params['authorId']
+    this.props.fetchAuthorsIfNeeded(authorId)
+  }
+  render() {
     // mock data
     const mockData = {
       id: '571dd6e3dae62379576d7ef9',
@@ -36,45 +48,35 @@ class Author extends React.Component {
       authorBio: _.get(mockData, 'bio.md')
     }
     // const relatedArticles = _.get(mockData, 'relatedArticles')
+    const authorId = this.props.params['authorId']
+    let { entities, collectIndexList, isFinish, isFetching, currentPage } = this.props
+    collectIndexList = _.uniq(collectIndexList)
+    let authorCollection = denormalizeArticles(collectIndexList, entities)
     let handleClick = () => {
-      this.props.fetchAuthorCollection()
+      this.props.fetchAuthorsIfNeeded(authorId)
     }
+    const loadmoreBtn = isFinish || isFetching || !currentPage ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
     return (
     <div>
-      <div>Author page of: {authorId}</div>
       <AuthorData authorData={authorData} />
+      <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
+        <AuthorCollection relateds={authorCollection} currentId={authorId} />
+      </div>
+      {loadmoreBtn}
       <Sponsor />
       <button onClick={handleClick}>fetch</button>
     </div>)
   }
 }
 
-const AuthorData = (props) => {
-  const authorData = props.authorData
-  return (
-  <div>
-    <div>{authorData.authorId}</div>
-    <div>{authorData.authorName}</div>
-    <div>{authorData.authorMail}</div>
-    <div>{authorData.authorImg}</div>
-    <div>{authorData.authorBio}</div>
-  </div>
-)}
-
-AuthorData.propTypes = {
-  authorData: React.PropTypes.shape({
-    authorId: React.PropTypes.string,
-    authorName: React.PropTypes.string,
-    authorImg: React.PropTypes.string,
-    authorMail: React.PropTypes.string,
-    authorBio: React.PropTypes.string
-  })
-}
-
 function mapStateToProps(state) {
   return {
-    entities: state.entities || {}
+    entities: state.entities || {},
+    collectIndexList: state.author.collectIndexList || [],
+    isFinish: state.author.isFinish,
+    isFetching: state.author.isFetching,
+    currentPage: state.author.currentPage
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollection })(Author)
+export default connect(mapStateToProps, { fetchAuthorsIfNeeded })(Author)
