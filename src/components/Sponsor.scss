@@ -30,6 +30,11 @@ $sponsor-letter-space: .1px;
   // overall setting below:
   padding-top: $sponsor-inside-margin-vertical;
   background-color: $white;
+  transition: all .2s;
+
+  &:hover {
+    box-shadow: $material-box-shadow;
+  }
 
   .sponsor-title {
     // overall setting below:

@@ -82,6 +82,21 @@
   margin-right: auto;
 }
 
+//==== TABLET, DESKTOP & HD ====
+@include mq($min-width: $screen-sm-min) {
+  .author-item:hover {
+    .author-img {
+      position: relative;
+      top: -4px;
+      left: -2px;
+      box-shadow: 0 2px 10px 1px rgba(#B3B3B3, .7);
+    }
+    .author-img {
+      transition: all .2s;
+    }
+  }
+}
+
 //==== TABLET ====
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .shown-authors {
