@@ -24,6 +24,7 @@ import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
+import FontChangeButton from '../components/FontChangeButton'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -140,6 +141,15 @@ class Article extends Component {
 
     // for requestAnimationFrame
     this._ticking = false
+    this.state = {
+      fontSize:'medium'
+    }
+  }
+
+  changeFontSize(fontSize) {
+    this.setState({
+      fontSize:fontSize
+    })
   }
 
   componentDidMount() {
@@ -457,7 +467,9 @@ class Article extends Component {
                   twitterIcon={twitterIcon}
                   lineIcon={lineIcon}
                 />
+                <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}/>
               </div>
+
 
               {
                 !leadingVideo ?
@@ -478,7 +490,7 @@ class Article extends Component {
               </div>
 
               <ArticleComponents.Body
-                data={bodyData}
+                data={bodyData} fontSize={this.state.fontSize}
               />
             </article>
 

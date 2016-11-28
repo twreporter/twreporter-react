@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import styles from './ShareBt.scss'
 import React from 'react' // eslint-disable-next-line
 
+
 export const ShareBt = (props) => {
   const { appId, fbIcon, lineIcon, url, title, twitterIcon } = props
   const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(title + ' ' + url)}`
