@@ -8,10 +8,16 @@ import React, { Component } from 'react'
 // lodash
 import get from 'lodash/get'
 
-export const Introduction = ({ data }) => {
+export const Introduction = ({ data, fontSize }) => {
   let content
   let block = false
   let introArr = []
+
+  let fontSizeStyle = {
+    [styles['font-shrink']]: fontSize === 'small',
+    [styles['font-default']]: fontSize === 'medium',
+    [styles['font-enlarge']]: fontSize === 'large'
+  }
 
   if (Array.isArray(data)) {
     content = data.map((ele, idx) => {
@@ -33,7 +39,7 @@ export const Introduction = ({ data }) => {
 
   if (block) {
     return (
-      <div itemProp="description" className={classNames(styles['intro-container'], 'text-justify')}>
+      <div itemProp="description" className={classNames(styles['intro-container'], 'text-justify', fontSizeStyle)}>
       {introArr}
       </div>
     )

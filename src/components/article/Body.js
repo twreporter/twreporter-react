@@ -20,14 +20,13 @@ export class Body extends Component {
 
     // -----------fontChanging-----------//
     const fontSize = this.props.fontSize
-    let theStyle
-    if(fontSize ==='large') {
-      theStyle = styles['font-enlarge']
-    }else if(fontSize ==='medium') {
-      theStyle = styles['font-default']
-    }else {
-      theStyle = styles['font-shrink']
-    }
+
+    let fontSizeStyle = classNames({
+      'font-shrink': fontSize === 'small',
+      'font-default': fontSize === 'medium',
+      'font-enlarge': fontSize === 'large'
+    })
+    fontSizeStyle = styles[fontSizeStyle]
 
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
@@ -58,7 +57,7 @@ export class Body extends Component {
         return (
           <div
             key={ele.id}
-            className={classNames(commonStyles['component'], commonStyles[type], theStyle)}
+            className={classNames(commonStyles['component'], commonStyles[type], fontSizeStyle)}
             style={styles}
           >
             {anchor}
