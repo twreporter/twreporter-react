@@ -29,6 +29,7 @@ import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 import FontChangeButton from '../components/FontChangeButton'
+import logoIcon from '../../static/asset/icon-placeholder.svg'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -64,7 +65,9 @@ const ArticlePlaceholder = () => {
         <div className={styles['ph-author']}></div>
       </div>
       <div className={cx(styles['leading-img'], leadingImgStyles['leading-img'])}>
-        <div className={styles['ph-image']}></div>
+        <div className={styles['ph-image']}>
+          <img src={logoIcon} className={styles['logo-icon']}/>
+        </div>
       </div>
       <div className={cx(styles.introduction, commonStyles['inner-block'])}>
         <div className={styles['ph-content']}></div>

@@ -2,6 +2,7 @@
 @import '../themes/common-variables.scss';
 @import '../themes/media-queries.scss';
 @import '../themes/font-mixins.scss';
+@import '../themes/centering.scss';
 // mobile
 
 .article-container {
@@ -12,7 +13,7 @@
 }
 
 .article-inner {
-    p, 
+    p,
     a:link,
     a:visited {
         color: $text-color;
@@ -23,10 +24,10 @@
         h1 {
             font-weight: $font-weight-bold;
             line-height: 1.4;
-            @include mq($max-width: $screen-sm-min) { 
+            @include mq($max-width: $screen-sm-min) {
                 font-size: $font-size-xlarger;
             }
-            @include mq($min-width: $screen-lg-min) { 
+            @include mq($min-width: $screen-lg-min) {
                 font-size: 42px;
             }
         }
@@ -36,11 +37,11 @@
           margin-right: 6px;
 
           > img {
-            margin-top: -3px;    
+            margin-top: -3px;
             margin-left: 3px;
           }
         }
-        
+
         .subtitle {
           color: $gray-50;
           font-size: $font-size-medium;
@@ -158,7 +159,8 @@
     .ph-image {
         @extend .base-ph;
         width: 100%;
-        padding-bottom: 55%;
+        height: rem(370px);
+        position:relative;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
     }
@@ -191,4 +193,8 @@
     a:hover {
         color: $primary-color;
     }
+}
+
+.logo-icon{
+  @extend .ab-center-by-transform;
 }

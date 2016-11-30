@@ -8,6 +8,7 @@ import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
+import logoIcon from '../../../static/asset/icon-placeholder.svg'
 
 // lodash
 import get from 'lodash/get'
@@ -23,6 +24,7 @@ const Topic = (props) => {
   const topic = <div className={classNames(styles['topic'], currentClass)}>
           <div className={styles['img-outer']}>
             <div className={styles['img-box']}>
+              <img src={logoIcon} className={styles['logo-icon']}/>
               <LazyLoad once={true}>
                 <img className={styles['crop']} src={heroImgUrl}/>
               </LazyLoad>
