@@ -13,12 +13,8 @@ const AuthorItem = ({ authorName, authorImg, authorUrl }) => (
 
 AuthorItem.propTypes = {
   authorName: PropTypes.string.isRequired,
-  authorImg: PropTypes.string,
+  authorImg: PropTypes.string.isRequired,
   authorUrl: PropTypes.string.isRequired
-}
-
-AuthorItem.defaultProps = {
-  authorImg: ''  // Default img
 }
 
 export default AuthorItem

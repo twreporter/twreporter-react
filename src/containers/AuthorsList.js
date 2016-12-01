@@ -29,18 +29,24 @@ class AuthorsList extends React.Component {
   }
 
   render() {
-    // Turn the entities.authors in to props [{id:..., authorName:...,...},...]
-    let entities = this.props.entities
+    const { entities, authorsInList, isFinish, isFetching, currentPage, fetchAuthorsIfNeeded } = this.props // eslint-disable-line no-unused-vars
+
+    //Tran entities.authors to the format: [{ id, authorName, authorImg, authorUrl },{...},...]
+    const authorsEntities = entities.authors
     function iteratee(id) {
+      const authorName = _.get(authorsEntities, `${id}.name`, '')
+      let authorImg = _.get(authorsEntities, `${id}.image`)
+      // for some authors' api data 'image' may be null
+      authorImg = authorImg ? authorImg : 'http://i.imgur.com/Clyp3sKb.jpg'
       let authorItemObject = {
-        id: id,
-        authorName: get(entities, 'authors.'+id+'.name'),
-        authorImg: get(entities, 'authors.'+id+'.image', 'http://i.imgur.com/Clyp3sKb.jpg'),
-        authorUrl: id ? 'author/'+id : ''
+        id,
+        authorName,
+        authorImg,
+        authorUrl: id ? `author/${id}` : ''
       }
       return authorItemObject
     }
-    const authorsArray = _.map(this.props.authorsInList, iteratee)
+    const authorsArray = _.map(authorsInList, iteratee)
 
     // Callback for sensor is triggered
     let handleSeen = (isVisible) => {
