@@ -6,7 +6,9 @@ const MEDIA_CH_STR = '媒體'
 const REVIEW_CH_STR = '評論'
 const SPECIAL_TOPIC_CH_STR = '專題'
 const TAIWAN_CH_STR = '台灣'
-const LOAD_MORE = '載入更多作者'
+const LOAD_MORE_AUTHORS_BTN = '載入更多作者'
+const LOADING_MORE_AUTHORS = '載入更多作者'
+const SEARCHING_AUTHOR_NAME = '搜尋作者'
 
 export {
   CULTURE_CH_STR,
@@ -16,5 +18,7 @@ export {
   REVIEW_CH_STR,
   SPECIAL_TOPIC_CH_STR,
   TAIWAN_CH_STR,
-  LOAD_MORE
+  LOAD_MORE_AUTHORS_BTN,
+  LOADING_MORE_AUTHORS,
+  SEARCHING_AUTHOR_NAME
 }

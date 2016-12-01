@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { LOAD_MORE_ARTICLES } from '../../constants/index'
+import { LOAD_MORE_AUTHORS_BTN } from '../../constants/strings'
 import styles from './AuthorList.scss'
 import classNames from 'classnames'
 
@@ -25,7 +25,9 @@ class LoadMore extends React.Component {
   }
 
   render() {
-    const loadmoreBtn = this.state.loadmoreBtnClicked ? <div className={classNames(styles['load-more'], 'text-center')}></div> : <div className={classNames(styles['load-more'], 'text-center')} onClick={this._handleClick}>{LOAD_MORE_ARTICLES}</div>
+    const loadmoreBtn = this.state.loadmoreBtnClicked ?
+      <div className={classNames(styles['load-more'], 'text-center')}></div> :
+      <div className={classNames(styles['load-more'], 'text-center')} onClick={this._handleClick}>{LOAD_MORE_AUTHORS_BTN}</div>
     return (<div>{loadmoreBtn}</div>)
   }
 }

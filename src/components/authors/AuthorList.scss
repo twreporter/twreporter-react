@@ -4,6 +4,33 @@
 @import '../../themes/font-mixins';
 @import '../../themes/animation';
 
+// ## authors list
+
+$authors-filter-input-width: 250px;
+$authors-filter-input-height: 30px;
+$authors-filter-margin-top: 60px;
+$authors-filter-margin-bottom: 40px;
+$authors-filter-margin-top-mobile: 30px;
+$authors-filter-margin-bottom-mobile: 30px;
+
+$authors-img-size: 114px;
+$authors-img-mobile-size: 95px;
+$authors-item-width: $authors-img-size;
+$authors-item-mobile-width: $authors-img-mobile-size;
+
+$authors-list-columns-distance: 44px;
+$authors-list-name-img-distance: 14px;
+$authors-list-rows-distance-mobile: 50px;
+$authors-list-rows-distance: 60px;
+
+$authors-list-mobile-width: ($authors-item-mobile-width + $authors-list-columns-distance + 2px) * 2;
+$authors-list-tablet-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 3;
+$authors-list-desktop-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
+$authors-list-desktop-hd-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
+
+$authors-list-name-fontsize: 18px;
+$authors-list-name-fontweight: 500;
+
 @-webkit-keyframes load5 {
   0%,
   100% {
@@ -78,11 +105,24 @@
 
 //==== MOBILE (& OVERALL) ====
 
+.filter-input {
+  border: initial;
+  border: solid 1px $input-border-gray;
+  padding-left: 15px;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-xsmall;
+  color: $gray-50;
+  width: $authors-filter-input-width;
+  height: $authors-filter-input-height;
+  margin: $authors-filter-margin-top-mobile auto $authors-filter-margin-bottom-mobile;
+  border-radius: $authors-filter-input-height / 2;
+}
+
 .shown-authors {
   width: $authors-list-mobile-width;
   // overall setting below:
   height: auto;
-  margin-top: 100px;
+  // margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -136,6 +176,7 @@
   }
 }
 
+
 .sensor {
   height: 50px;
   width: 100%;
@@ -158,7 +199,12 @@
   transform: translateZ(0);
 }
 
-
+//==== TABLET, DESKTOP & HD ====
+@include mq($min-width: $screen-sm-min) {
+  .filter-input {
+    margin: $authors-filter-margin-top auto $authors-filter-margin-bottom;
+  }
+}
 //==== TABLET ====
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .shown-authors {

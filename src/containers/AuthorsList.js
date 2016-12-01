@@ -12,6 +12,7 @@ import values from 'lodash/values'
 import Sponsor from '../components/Sponsor'
 import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
+import { LOADING_MORE_AUTHORS, SEARCHING_AUTHOR_NAME } from '../constants/strings'
 
 const _ = {
   get: get,
@@ -78,8 +79,9 @@ class AuthorsList extends React.Component {
     // }
     return (
       <div className={styles['author-list-container']}>
+        <input className={styles['filter-input']} placeholder={SEARCHING_AUTHOR_NAME} ></input>
         <ShownAuthors filteredAuthors={authorsArray} />
-        {!loaderDisply ? null : <div className={styles['loader']}>載入更多作者中…</div>}
+        {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div>}
         {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
         {!sensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>

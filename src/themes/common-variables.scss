@@ -7,6 +7,7 @@ $gray-text1: #4D4D4D;
 $black: #000;
 $gray: #898989;
 $gray-border-color: #ACACB1;
+
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
 
@@ -47,6 +48,7 @@ $gray-40: #666666;
 $gray-50: #808080;
 $gray-70: #B3B3B3;
 $gray-97: #F7F7F7;
+$input-border-gray: #CBCBCB;
 $light-gray: #F1F1F1;
 $blockquote-gray: rgba(74, 74, 74, 0.25);
 $pinkish-grey: #BFBFBF;
@@ -83,22 +85,3 @@ $desktop-large-width: 1024px;
 $hd-desktop-small-width: 700px;
 $hd-desktop-medium-width: 880px;
 $hd-desktop-large-width: 1440px;
-
-// ## authors list
-$authors-img-size: 114px;
-$authors-img-mobile-size: 95px;
-$authors-item-width: $authors-img-size;
-$authors-item-mobile-width: $authors-img-mobile-size;
-
-$authors-list-columns-distance: 44px;
-$authors-list-name-img-distance: 14px;
-$authors-list-rows-distance-mobile: 50px;
-$authors-list-rows-distance: 60px;
-
-$authors-list-mobile-width: ($authors-item-mobile-width + $authors-list-columns-distance + 2px) * 2;
-$authors-list-tablet-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 3;
-$authors-list-desktop-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
-$authors-list-desktop-hd-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
-
-$authors-list-name-fontsize: 18px;
-$authors-list-name-fontweight: 500;
