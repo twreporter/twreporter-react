@@ -9,6 +9,7 @@ import commonStyles from './article/Common.scss'
 import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './AuthorCollection.scss'
+import { LOAD_MORE_ARTICLES } from '../constants/index'
 
 // lodash
 import get from 'lodash/get'
@@ -35,7 +36,7 @@ export class AuthorCollection extends Component {
   }
 
   render() {
-    const { relateds } = this.props
+    const { relateds, currentId, isFinish, isFetching, currentPage, handleClick } = this.props
     const { isCollapse } = this.state
 
     const titleText = AUTHOR_COLLECTION
@@ -67,15 +68,18 @@ export class AuthorCollection extends Component {
       )
     })
 
+    const loadmoreBtn = isFinish || isFetching || !currentPage ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
+
     return (
       <div className={classNames(commonStyles['component'], 'center-block')}>
-        <div className={classNames(styles['bottomr-relateds-wrapper'], commonStyles['inner-block'])}>
+        <div className={classNames(styles['bottom-relateds-wrapper'], commonStyles['inner-block'])}>
           <div className={classNames(styles['topic-wrapper'], 'text-center')}>
             <h3 className={commonStyles['topic-box']}> {titleText} </h3>
           </div>
           <ul>
             {relatedRows}
           </ul>
+          {loadmoreBtn}
         </div>
       </div>
     )

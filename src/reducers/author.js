@@ -2,17 +2,16 @@
 import * as types from '../constants/action-types'
 import isArray from 'lodash/isArray'
 import mergeWith from 'lodash/mergeWith'
+import get from 'lodash/get'
 
 const _ = {
   isArray,
-  mergeWith
+  mergeWith,
+  get
 }
 
 const initialStates = {
-  isFetching: false,
-  currentPage: 0,
-  isFinish: false,
-  collectIndexList: []
+  isFetching: false
 }
 
 function customizer(objValue, srcValue) {
@@ -28,12 +27,9 @@ export const author = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
-      return _.mergeWith({}, state, {
-        isFetching: false,
-        currentPage: action.currentPage,
-        isFinish: action.isFinish,
-        collectIndexList: action.collectIndexList
-      }, customizer)
+      let addToStore = action
+      addToStore.isFetching = false
+      return _.mergeWith({}, state, addToStore, customizer)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,

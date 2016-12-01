@@ -26,15 +26,21 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection(items, currentPage, isFinish, receivedAt) {
-  return {
+export function receiveAuthorCollection(authorId, items, currentPage, isFinish, receivedAt) {
+  let receiveAuthorCollection = {
+    authorId,
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
-    response: items,
-    collectIndexList: items.result,
-    currentPage,
-    isFinish,
-    receivedAt
+    response: items
   }
+  if (typeof authorId === 'string') {
+    receiveAuthorCollection[authorId] = {
+      collectIndexList: items.result,
+      currentPage,
+      isFinish,
+      receivedAt
+    }
+  }
+  return receiveAuthorCollection
 }
 
 export function fetchAuthorCollection(targetPage = 1, authorId='') {
@@ -60,7 +66,7 @@ export function fetchAuthorCollection(targetPage = 1, authorId='') {
           let finalPage = Math.ceil(totalResults/maxResultsPerPage)
           let isFinish = currentPage >= finalPage ? true : false
           let receivedAt = Date.now()
-          return dispatch(receiveAuthorCollection(items, currentPage, isFinish, receivedAt))
+          return dispatch(receiveAuthorCollection(authorId, items, currentPage, isFinish, receivedAt))
         },
         (error) => {
           let failedAt = Date.now()
@@ -76,9 +82,9 @@ export function fetchAuthorCollection(targetPage = 1, authorId='') {
 export function fetchAuthorsIfNeeded(authorId) {
   return (dispatch, getState) => {
     const state = getState()
-    const isFetching = _.get(state, 'author.isFetching', false)
-    const isFinish = _.get(state, 'author.isFinish', false)
-    let targetPage = _.get(state, 'author.currentPage', 0) + 1
+    const isFetching = _.get(state, [ 'author', authorId, 'isFetching' ], false)
+    const isFinish = _.get(state, [ 'author', authorId, 'isFinish' ], false)
+    let targetPage = _.get(state, [ 'author', authorId, 'currentPage' ], 0) + 1
     if(!isFetching && !isFinish) {
       return dispatch(fetchAuthorCollection(targetPage,authorId))
     }

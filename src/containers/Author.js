@@ -10,13 +10,12 @@ import commonStyles from '../components/article/Common.scss'
 import classNames from 'classnames'
 import uniq from 'lodash/uniq'
 import { denormalizeArticles } from '../utils/denormalize-articles'
-import styles from '../components/AuthorCollection.scss'
-import { LOAD_MORE_ARTICLES } from '../constants/index'
 import AuthorData from '../components/AuthorData'
-
+import omit from 'lodash/omit'
 const _ = {
   get,
-  uniq
+  uniq,
+  omit
 }
 
 
@@ -49,20 +48,26 @@ class Author extends React.Component {
     }
     // const relatedArticles = _.get(mockData, 'relatedArticles')
     const authorId = this.props.params['authorId']
-    let { entities, collectIndexList, isFinish, isFetching, currentPage } = this.props
+    let { entities, isFetching, authorPage } = this.props
+    let { isFinish, currentPage, collectIndexList } = _.get(authorPage, authorId, {})
     collectIndexList = _.uniq(collectIndexList)
     let authorCollection = denormalizeArticles(collectIndexList, entities)
     let handleClick = () => {
       this.props.fetchAuthorsIfNeeded(authorId)
     }
-    const loadmoreBtn = isFinish || isFetching || !currentPage ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
     return (
     <div>
       <AuthorData authorData={authorData} />
       <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
-        <AuthorCollection relateds={authorCollection} currentId={authorId} />
+        <AuthorCollection
+          relateds={authorCollection}
+          currentId={authorId}
+          isFinish={isFinish}
+          isFetching={isFetching}
+          currentPage={currentPage}
+          handleClick={handleClick}
+        />
       </div>
-      {loadmoreBtn}
       <Sponsor />
       <button onClick={handleClick}>fetch</button>
     </div>)
@@ -72,10 +77,8 @@ class Author extends React.Component {
 function mapStateToProps(state) {
   return {
     entities: state.entities || {},
-    collectIndexList: state.author.collectIndexList || [],
-    isFinish: state.author.isFinish,
     isFetching: state.author.isFetching,
-    currentPage: state.author.currentPage
+    authorPage: _.omit(state.author, 'response') || {}
   }
 }
 
