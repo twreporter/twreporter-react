@@ -37,7 +37,7 @@ export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
   }
 }
 
-export function fetchAuthors(targetPage = 1, maxResults = 12) {
+export function fetchAuthors(targetPage, returnDelay = 0, maxResults = 12) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     let url = formatUrl(`authors?max_results=${maxResults}&page=${targetPage}`)
     dispatch(requestAuthors(url))
@@ -59,7 +59,16 @@ export function fetchAuthors(targetPage = 1, maxResults = 12) {
           let finalPage = Math.ceil(totalResults/maxResultsPerPage)
           let isFinish = currentPage >= finalPage ? true : false
           let receivedAt = Date.now()
-          return dispatch(receiveAuthors(items, currentPage, isFinish, receivedAt))
+          function delayDispatch() {
+            return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
+              setTimeout(() => {
+                resolve()
+              }, 1000)
+            })
+          }
+          return delayDispatch().then(()=>{
+            return dispatch(receiveAuthors(items, currentPage, isFinish, receivedAt))
+          })
         },
         (error) => {
           let failedAt = Date.now()
@@ -76,8 +85,9 @@ export function fetchAuthorsIfNeeded() {
     const isFinish    = _.get(state, 'authorsList.isFinish', false)
     const currentPage = _.get(state, 'authorsList.currentPage', 0)
     const targetPage  = currentPage + 1
+    const returnDelay = currentPage<1 ? 0 : 1000
     if (!isFetching && !isFinish) {
-      return dispatch(fetchAuthors(targetPage))
+      return dispatch(fetchAuthors(targetPage, returnDelay))
     }
     return
   }
