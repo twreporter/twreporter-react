@@ -1,6 +1,5 @@
 'use strict'
 
-import LoadMore from '../components/authors/LoadMore'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -12,6 +11,8 @@ import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
 import Sponsor from '../components/Sponsor'
 import Footer from '../components/Footer'
+import { LOAD_MORE_ARTICLES } from '../constants/index'
+import classNames from 'classnames'
 
 const _ = {
   get: get,
@@ -48,34 +49,36 @@ class AuthorsList extends React.Component {
     }
     const authorsArray = _.map(authorsInList, iteratee)
 
-    // Callback for sensor is triggered
+    // Callback for sensor is triggered to seen
     let handleSeen = (isVisible) => {
-      if (this.props.currentPage>1 && isVisible === true) {
-        this.props.fetchAuthorsIfNeeded()
+      if (currentPage>1 && isVisible === true) {
+        fetchAuthorsIfNeeded()
       }
       return
     }
 
     // Page bottom display options
-    let bottomDisplay = () => {
-      let options = { loadmore: false, sensor: false }
-      if (this.props.currentPage <= 1) {
-        options.loadmore = true
-      }
-      if (this.props.currentPage>1 && !this.props.isFinish) {
-        options.sensor = true
-      }
-      return options
-    }
-    let bottomDisplayOptions = bottomDisplay()
-    let isLoading = this.props.isFetching
+
+    let loadmoreBtnDisplay = false
+    let sensorDisplay = false
+    let loaderDisply = false
+
+    loadmoreBtnDisplay = (currentPage <= 1) ? true : false
+    sensorDisplay = (currentPage>1 && !isFinish) ? true : false
+    loaderDisply = isFetching ? true : false
+
+    // function handleClickLoadmore() {
+    //   ReactDOM.findDOMNode(this.bt)
+    //   fetchAuthorsIfNeeded()
+    // }
+    const loadmoreBtn = <div ref={(input)=> this.bt = input} className={classNames(styles['load-more'], 'text-center')} onClick={fetchAuthorsIfNeeded}>{LOAD_MORE_ARTICLES}</div>
+
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
-        {!bottomDisplayOptions.loadmore ? null:
-        <LoadMore isFinish={this.props.isFinish} fetchAuthorsIfNeeded={this.props.fetchAuthorsIfNeeded} />}
-        {!isLoading ? null : <div>載入更多作者中…</div>}
-        {!bottomDisplayOptions.sensor ? null:
+        {!loaderDisply ? null : <div className={styles['loader']}>載入更多作者中…</div>}
+        {!loadmoreBtnDisplay ? null : loadmoreBtn}
+        {!sensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>
         </VisibilitySensor>}
