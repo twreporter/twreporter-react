@@ -88,6 +88,7 @@
 }
 
 .author-item {
+  @include fade-in-down(.5s);
   width: $authors-item-mobile-width;
   // overall setting below:
   margin-left: $authors-list-columns-distance / 2;
@@ -121,14 +122,19 @@
 }
 
 .load-more {
-  height: 60px;
-  width: 200px;
-  box-sizing: border-box;
+  display: inline-table;
+  width: 100%;
+  color: $primary-color;
+  margin: 0 0 2rem 0;
+  font-weight: $font-weight-bold;
+  padding: .6rem 0;
   cursor: pointer;
-  margin-top: 50px;
-  margin-bottom: 80px;
-  margin-left: auto;
-  margin-right: auto;
+  transition: all .2s;
+  font-size: $font-size-medium;
+
+  &:hover {
+    transform: translateY(10%);
+  }
 }
 
 .sensor {
@@ -138,19 +144,6 @@
   margin-right: auto;
 }
 
-//==== TABLET, DESKTOP & HD ====
-@include mq($min-width: $screen-sm-min) {
-  .author-item:hover {
-    .author-img {
-      position: relative;
-      top: -4px;
-      left: -2px;
-      box-shadow: 0 2px 10px 1px rgba(#B3B3B3, .7);
-    }
-    .author-img {
-      transition: all .2s;
-    }
-  }
 .loader {
   margin: 20px auto;
   font-size: 5px;
@@ -186,6 +179,22 @@
       width: $authors-list-tablet-width;
     }
 
+  }
+}
+
+//==== DESKTOP & HD ====
+@include mq($min-width: $screen-md-min) {
+  .author-item:hover {
+    .author-img {
+      position: relative;
+      top: -4px;
+      left: -2px;
+      box-shadow: 0 2px 10px 1px rgba(#B3B3B3, .7);
+    }
+  }
+
+  .author-img {
+    transition: all .2s;
   }
 }
 
