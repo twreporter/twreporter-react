@@ -48,7 +48,6 @@ export class AuthorCollection extends Component {
     const relatedRows = map(listItems, (related, index) => {
       let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
       const description = get(related, 'ogDescription', '')
-
       return (
         <li className={classNames(styles['related-item'])} key={'related-' + (index++)}>
           <Link className={styles['related-anchor']} to={'/a/' + related.slug} disableReactRouter={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
