@@ -11,8 +11,7 @@ import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
 import Sponsor from '../components/Sponsor'
 import Footer from '../components/Footer'
-import { LOAD_MORE_ARTICLES } from '../constants/index'
-import classNames from 'classnames'
+import LoadMore from '../components/authors/LoadMore'
 
 const _ = {
   get: get,
@@ -77,13 +76,11 @@ class AuthorsList extends React.Component {
     //   ReactDOM.findDOMNode(this.bt)
     //   fetchAuthorsIfNeeded()
     // }
-    const loadmoreBtn = <div ref={(input)=> this.bt = input} className={classNames(styles['load-more'], 'text-center')} onClick={fetchAuthorsIfNeeded}>{LOAD_MORE_ARTICLES}</div>
-
     return (
       <div className={styles['author-list-container']}>
         <ShownAuthors filteredAuthors={authorsArray} />
         {!loaderDisply ? null : <div className={styles['loader']}>載入更多作者中…</div>}
-        {!loadmoreBtnDisplay ? null : loadmoreBtn}
+        {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
         {!sensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>

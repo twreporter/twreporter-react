@@ -122,10 +122,9 @@
 }
 
 .load-more {
-  display: inline-table;
-  width: 100%;
+  margin: 10px auto 40px;
+  width: 10em;
   color: $primary-color;
-  margin: 0 0 2rem 0;
   font-weight: $font-weight-bold;
   padding: .6rem 0;
   cursor: pointer;
