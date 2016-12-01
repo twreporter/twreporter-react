@@ -68,26 +68,17 @@ export function fetchAuthors(targetPage = 1, maxResults = 12) {
   }
 }
 
-// Check if
-//   the entities.authors is empty &&
-//   is not fetching data &&
-//   is currentPage >= finalPage
-function shouldFetchAuthors(authorNum, isFetching, isFinish) {
-  if ((authorNum <= 0) && !isFetching && !isFinish) {
-    return true
-  }
-  return false
-}
 
 export function fetchAuthorsIfNeeded() {
   return (dispatch, getState) => {
     const state = getState()
-    let authorNum = _.get(state, 'entities.authors.length', 0)
-    let isFetching = _.get(state, 'authorsList.isFetching', false)
-    let isFinish = _.get(state, 'authorsList.isFinish', false)
-    let targetPage = _.get(state, 'authorsList.currentPage', 0) + 1
-    if(shouldFetchAuthors(authorNum, isFetching, isFinish)) {
+    const isFetching  = _.get(state, 'authorsList.isFetching', false)
+    const isFinish    = _.get(state, 'authorsList.isFinish', false)
+    const currentPage = _.get(state, 'authorsList.currentPage', 0)
+    const targetPage  = currentPage + 1
+    if (!isFetching && !isFinish) {
       return dispatch(fetchAuthors(targetPage))
     }
+    return
   }
 }
