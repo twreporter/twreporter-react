@@ -29,6 +29,12 @@ class AuthorsList extends React.Component {
     super(props)
   }
 
+  componentWillMount() {
+    if (this.props.currentPage === 0) {
+      this.props.fetchAuthorsIfNeeded()
+    }
+  }
+
   render() {
     const { entities, authorsInList, isFinish, isFetching, currentPage, fetchAuthorsIfNeeded } = this.props // eslint-disable-line no-unused-vars
 
