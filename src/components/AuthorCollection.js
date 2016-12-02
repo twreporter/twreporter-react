@@ -13,7 +13,7 @@ import { replaceStorageUrlPrefix } from '../utils/index'
 import { shortenString } from '../lib/string-processor'
 import styles from './AuthorCollection.scss'
 
-export class AuthorCollection extends Component {
+export class AuthorCollection extends React.Component {
   constructor(props) {
     const itemWidth = 420
     let relateds = get(props, 'relateds', [])
@@ -33,8 +33,7 @@ export class AuthorCollection extends Component {
   }
 
   render() {
-    const { relateds, currentId, isFinish, isFetching, currentPage, handleClick } = this.props
-    const { isCollapse } = this.state
+    const { relateds, isFinish, isFetching, currentPage, handleClick } = this.props
 
     const titleText = AUTHOR_COLLECTION
     let listItems = relateds

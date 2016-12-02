@@ -46,11 +46,10 @@ class Author extends React.Component {
       authorMail: _.get(mockData, 'email'),
       authorBio: _.get(mockData, 'bio.md')
     }
-    // const relatedArticles = _.get(mockData, 'relatedArticles')
     const authorId = this.props.params['authorId']
-    let { entities, isFetching, authorPage } = this.props
+    const { entities, isFetching, authorPage } = this.props
     let { isFinish, currentPage, collectIndexList } = _.get(authorPage, authorId, {})
-    collectIndexList = _.uniq(collectIndexList)
+    collectIndexList = _.uniq(collectIndexList) //remove duplicated
     let authorCollection = denormalizeArticles(collectIndexList, entities)
     let handleClick = () => {
       this.props.fetchAuthorIfNeeded(authorId)
