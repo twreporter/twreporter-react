@@ -1,5 +1,6 @@
 'use strict'
 import { articlesByUuids, featureArticles, relatedArticles } from './articles'
+import { authorsList } from './authors'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
@@ -52,7 +53,8 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   header,
   slugToId,
-  entities
+  entities,
+  authorsList
 })
 
 export default rootReducer

@@ -1,0 +1,136 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/common-variables';
+@import '../themes/font-mixins';
+@import '../themes/media-queries';
+@import '../themes/animation';
+
+
+// Add border for all elements to check the layout:
+// * {
+//   border: 1px solid $gray-70;
+// }
+
+$sponsor-button-width-mobile: 100%;
+$sponsor-button-width: 320px;
+$sponsor-button-height: 48px;
+$sponsor-box-width-mobile: 100%;
+$sponsor-box-width-tablet: $tablet-small-width;
+$sponsor-box-width-desktop: $desktop-small-width;
+$sponsor-box-width-desktop-hd: $hd-desktop-small-width;
+$sponsor-box-height-mobile: auto;
+$sponsor-box-height: 195px;
+$sponsor-text-width: 84%;
+$sponsor-inside-margin-vertical: 24px;
+$sponsor-letter-space: .1px;
+
+//==== MOBILE (& OVERALL) ====
+
+.sponsor-box {
+  width: $sponsor-box-width-mobile;
+  height: $sponsor-box-height-mobile;
+  margin-bottom: $component-margin-bottom;
+  // overall setting below:
+  padding-top: $sponsor-inside-margin-vertical;
+  background-color: $white;
+  // transition-property: box-shadow, display;
+  // transition-duration: .2s, .5s;
+  @include fade-in-down-wait(.5s, 1.5s);
+
+  &:hover {
+    box-shadow: $material-box-shadow;
+  }
+
+  .sponsor-title {
+    // overall setting below:
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    color: $gray-15;
+  }
+
+  .sponsor-text {
+    // overall setting below:
+    margin-top: $sponsor-inside-margin-vertical;
+    margin-bottom: $sponsor-inside-margin-vertical;
+    width: $sponsor-text-width;
+    text-align: left;
+    font-size: $font-size-xsmall;
+    line-height: 1.4;
+    letter-spacing: $sponsor-letter-space;
+    color: $gray-15;
+
+    p {
+      margin-bottom: $font-size-xsmall;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .sponsor-button {
+    width: $sponsor-button-width-mobile;
+    // overall setting below:
+    height: $sponsor-button-height;
+    border: 0;
+    box-sizing: border-box;
+    background-color: $harley-davidson-orange;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    letter-spacing: $sponsor-letter-space;
+
+    &:active {
+      transform: translateY(5px), translateX(5px);
+    }
+  }
+}
+
+//==== TABLET, DESKTOP, & HD SHARED SETTINGS ====
+@include mq($min-width: $screen-sm-min) {
+  .sponsor-box {
+    height: $sponsor-box-height;
+    position: relative;
+
+    .sponsor-button {
+      width: $sponsor-button-width;
+      border-radius: 4px;
+      position: absolute;
+      top: $sponsor-box-height - ($sponsor-button-height / 2);
+    }
+  }
+}
+
+//==== TABLET ====
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .sponsor-box {
+    width: $sponsor-box-width-tablet;
+
+    .sponsor-button {
+      left: ($sponsor-box-width-tablet - $sponsor-button-width) / 2;
+    }
+  }
+}
+//==== DESKTOP ====
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  .sponsor-box {
+    width: $sponsor-box-width-desktop;
+
+    .sponsor-button {
+      left: ($sponsor-box-width-desktop - $sponsor-button-width) / 2;
+    }
+  }
+}
+
+//==== DESKTOP HD ====
+@include mq($min-width: $screen-hd-min) {
+  .sponsor-box {
+    width: $sponsor-box-width-desktop-hd;
+
+    .sponsor-button {
+      left: ($sponsor-box-width-desktop-hd - $sponsor-button-width) / 2;
+    }
+  }
+}

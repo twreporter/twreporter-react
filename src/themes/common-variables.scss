@@ -7,10 +7,11 @@ $gray-text1: #4D4D4D;
 $black: #000;
 $gray: #898989;
 $gray-border-color: #ACACB1;
+
 $gray-tag-bg: #666674;
 $progressbar-color: rgba(#C6000B, 0.35);
 
-// == Screen 
+// == Screen
 // ## size
 $screen-hd-min: 1440px;
 $screen-lg-max: $screen-hd-min - 1px;
@@ -47,6 +48,7 @@ $gray-40: #666666;
 $gray-50: #808080;
 $gray-70: #B3B3B3;
 $gray-97: #F7F7F7;
+$input-border-gray: #CBCBCB;
 $light-gray: #F1F1F1;
 $blockquote-gray: rgba(74, 74, 74, 0.25);
 $pinkish-grey: #BFBFBF;
@@ -67,7 +69,7 @@ $box-glow: 0px 0px 3px rgba($gray-40, 0.5);
 
 $general-letter-space: 0.4px;
 
-// == Layout 
+// == Layout
 // ## width
 $article-inner-width: 712px;
 $article-outer-width: 900px;

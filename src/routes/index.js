@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import App from '../containers/App'
 import Article from '../containers/Article'
-import Authors from '../containers/AuthorList'
+import AuthorsList from '../containers/AuthorsList'
 import Blank from '../containers/Blank'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
@@ -24,7 +24,7 @@ export default function (history = browserHistory) {
         <Route path="search" component={Search}/>
         <Route path="check" component={Blank}/>
         <Route path="a/:slug" component={Article}/>
-        <Route path="authors" component={Authors}/>
+        <Route path="authors" component={AuthorsList}/>
       </Route>
     </Router>
   )
