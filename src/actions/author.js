@@ -79,7 +79,7 @@ export function fetchAuthorCollection(targetPage = 1, authorId='') {
 //   is not fetching data &&
 //   is currentPage >= finalPage
 
-export function fetchAuthorsIfNeeded(authorId) {
+export function fetchAuthorIfNeeded(authorId) {
   return (dispatch, getState) => {
     const state = getState()
     const isFetching = _.get(state, [ 'author', authorId, 'isFetching' ], false)

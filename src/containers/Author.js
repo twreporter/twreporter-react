@@ -4,7 +4,7 @@ import React from 'react'
 import Sponsor from '../components/Sponsor'
 import get from 'lodash/get'
 import { connect } from 'react-redux'
-import { fetchAuthorsIfNeeded } from '../actions/author'
+import { fetchAuthorIfNeeded } from '../actions/author'
 import { AuthorCollection } from '../components/AuthorCollection'
 import commonStyles from '../components/article/Common.scss'
 import classNames from 'classnames'
@@ -25,7 +25,7 @@ class Author extends React.Component {
   }
   componentWillMount() {
     const authorId = this.props.params['authorId']
-    this.props.fetchAuthorsIfNeeded(authorId)
+    this.props.fetchAuthorIfNeeded(authorId)
   }
   render() {
     // mock data
@@ -53,7 +53,7 @@ class Author extends React.Component {
     collectIndexList = _.uniq(collectIndexList)
     let authorCollection = denormalizeArticles(collectIndexList, entities)
     let handleClick = () => {
-      this.props.fetchAuthorsIfNeeded(authorId)
+      this.props.fetchAuthorIfNeeded(authorId)
     }
     return (
     <div>
@@ -82,4 +82,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorsIfNeeded })(Author)
+export default connect(mapStateToProps, { fetchAuthorIfNeeded })(Author)
