@@ -14,19 +14,6 @@ import { shortenString } from '../lib/string-processor'
 import styles from './AuthorCollection.scss'
 
 export class AuthorCollection extends React.Component {
-  constructor(props) {
-    const itemWidth = 420
-    let relateds = get(props, 'relateds', [])
-    let count = relateds.length || 0
-
-    super(props)
-
-    this.totalWidth = Math.max(count * itemWidth, 0)
-    this.state = {
-      width: 'auto',
-      isCollapse: false
-    }
-  }
 
   _setHtml(html) {
     return { __html: html }
@@ -43,19 +30,23 @@ export class AuthorCollection extends React.Component {
     }
 
     const relatedRows = map(listItems, (related, index) => {
-      let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
-      const description = get(related, 'ogDescription', '')
+      const imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
+      const slug = get(related, 'slug', '')
+      const title = get(related, 'title', '')
+      let description = get(related, 'ogDescription', '')
+      description = shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
+      const disableReactRouter = (get(related, 'style') === INTERACTIVE_ARTICLE_STYLE)
       return (
         <li className={classNames(styles['related-item'])} key={'related-' + (index++)}>
-          <Link className={styles['related-anchor']} to={'/a/' + related.slug} disableReactRouter={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
+          <Link className={styles['related-anchor']} to={'/a/' + slug} disableReactRouter={disableReactRouter}>
             <div className={styles['related-img-wrapper']}>
               <div className={styles['related-img']}>
                 <img className={styles['crop']} src={imageUrl} />
               </div>
             </div>
             <div className={styles['related-content']}>
-              <p className={styles['related-title']} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
-              <p className={styles['related-description']}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
+              <p className={styles['related-title']}>{title}</p>
+              <p className={styles['related-description']}>{description}</p>
             </div>
           </Link>
         </li>
