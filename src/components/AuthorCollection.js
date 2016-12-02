@@ -54,9 +54,7 @@ export class AuthorCollection extends Component {
           <Link className={styles['related-anchor']} to={'/a/' + related.slug} disableReactRouter={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE}>
             <div className={styles['related-img-wrapper']}>
               <div className={styles['related-img']}>
-                <LazyLoad once={true}>
-                  <img className={styles['crop']} src={imageUrl} />
-                </LazyLoad>
+                <img className={styles['crop']} src={imageUrl} />
               </div>
             </div>
             <div className={styles['related-content']}>
