@@ -76,6 +76,8 @@ export const ITEMS_LIMIT = {
 
 export const RELATED_ARTICLES = '延伸閱讀'
 
+export const AUTHOR_COLLECTION = '所有文章'
+
 export const CONTINUE_READING = '繼續閱讀'
 
 export const LOAD_MORE_ARTICLES = '載入更多文章'
