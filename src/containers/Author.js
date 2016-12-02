@@ -11,7 +11,9 @@ import { denormalizeArticles } from '../utils/denormalize-articles'
 import { fetchAuthorIfNeeded } from '../actions/author'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
+import { setPageType } from '../actions/header'
 import uniq from 'lodash/uniq'
+import { AUTHOR_PAGE_STYLE } from '../constants/article-styles'
 
 const _ = {
   get,
@@ -25,7 +27,9 @@ class Author extends React.Component {
   }
   componentWillMount() {
     const authorId = this.props.params['authorId']
-    this.props.fetchAuthorIfNeeded(authorId)
+    let { setPageType, fetchAuthorIfNeeded } = this.props
+    fetchAuthorIfNeeded(authorId)
+    setPageType(AUTHOR_PAGE_STYLE)
   }
   render() {
     // mock data
@@ -81,4 +85,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorIfNeeded })(Author)
+export default connect(mapStateToProps, { fetchAuthorIfNeeded, setPageType })(Author)
