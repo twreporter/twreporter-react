@@ -1,7 +1,8 @@
 'use strict'
+
 import React from 'react'
-import styles from './AuthorData.scss'
 import classNames from 'classnames'
+import styles from './AuthorData.scss'
 
 const boxClasses = classNames(
   styles['author-box'],

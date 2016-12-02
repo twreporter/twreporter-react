@@ -1,23 +1,23 @@
 'use strict'
 
+import { AuthorCollection } from '../components/AuthorCollection'
+import AuthorData from '../components/AuthorData'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
-import get from 'lodash/get'
-import { connect } from 'react-redux'
-import { fetchAuthorIfNeeded } from '../actions/author'
-import { AuthorCollection } from '../components/AuthorCollection'
-import commonStyles from '../components/article/Common.scss'
 import classNames from 'classnames'
-import uniq from 'lodash/uniq'
+import commonStyles from '../components/article/Common.scss'
+import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
-import AuthorData from '../components/AuthorData'
+import { fetchAuthorIfNeeded } from '../actions/author'
+import get from 'lodash/get'
 import omit from 'lodash/omit'
+import uniq from 'lodash/uniq'
+
 const _ = {
   get,
   uniq,
   omit
 }
-
 
 class Author extends React.Component {
   constructor(props) {

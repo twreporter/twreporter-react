@@ -1,12 +1,15 @@
 'use strict'
+
+import * as CONSTANTS from '../constants/index'
+
+import { arrayOf, normalize } from 'normalizr'
+
 import { InternalServerError } from '../lib/custom-error'
 import { camelizeKeys } from 'humps'
-import { formatUrl } from '../utils/index'
-import { arrayOf, normalize } from 'normalizr'
-import { article as metaSchema } from '../schemas/index'
-import * as CONSTANTS from '../constants/index'
 import fetch from 'isomorphic-fetch'
+import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
+import { article as metaSchema } from '../schemas/index'
 
 const _ = {
   get

@@ -1,20 +1,17 @@
-/*eslint no-unused-vars:0*/
 'use strict'
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, AUTHOR_COLLECTION } from '../constants/index'
-import { shortenString } from '../lib/string-processor'
-import { replaceStorageUrlPrefix } from '../utils/index'
+
+import { AUTHOR_COLLECTION, CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+
+import { LOAD_MORE_ARTICLES } from '../constants/index'
 import Link from './Link'
+import React from 'react'
 import classNames from 'classnames'
 import commonStyles from './article/Common.scss'
-import LazyLoad from 'react-lazyload'
-import React, { Component } from 'react'
-import styles from './AuthorCollection.scss'
-import { LOAD_MORE_ARTICLES } from '../constants/index'
-
-// lodash
 import get from 'lodash/get'
-import filter from 'lodash/filter'
 import map from 'lodash/map'
+import { replaceStorageUrlPrefix } from '../utils/index'
+import { shortenString } from '../lib/string-processor'
+import styles from './AuthorCollection.scss'
 
 export class AuthorCollection extends Component {
   constructor(props) {
