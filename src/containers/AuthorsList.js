@@ -49,7 +49,7 @@ class AuthorsList extends React.Component {
         id,
         authorName,
         authorImg,
-        authorUrl: id ? `author/${id}` : ''
+        authorUrl: id ? `/author/${id}` : ''
       }
       return authorItemObject
     }
