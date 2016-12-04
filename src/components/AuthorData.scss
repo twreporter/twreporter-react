@@ -1,0 +1,144 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/common-variables';
+@import '../themes/font-mixins';
+@import '../themes/media-queries';
+
+$authorbox-width-mobile: 100%;
+$authorbox-width-tablet: $tablet-small-width;
+$authorbox-width-desktop: $desktop-small-width;
+$authorbox-width-desktop-hd: $hd-desktop-small-width;
+
+//==== OVERALL) ====
+
+.author-box {
+  padding: 10px;
+  margin-top: 30px;
+  min-height: 170px;
+  margin-bottom: 50px;
+}
+
+.author-name {
+  font-size: 20px;
+  font-weight: $font-weight-bold;
+}
+
+.author-mail {
+  font-size: 15px;
+}
+
+.author-bio {
+  font-size: 18px;
+  font-weight: $font-weight-normal;
+  line-height: 1.7;
+  letter-spacing: .5px;
+}
+
+.author-img {
+  border-radius: 50%;
+}
+
+//==== MOBILE ====
+
+@include mq($max-width: $screen-sm-min) {
+  .author-img-container {
+    width: 100%;
+    text-align: center;
+  }
+
+  .author-img {
+    width: 95px;
+    height: 95px;
+    margin-bottom: 12px;
+  }
+
+  .author-name {
+    margin-bottom: 8px;
+    width: 100%;
+    text-align: center;
+    padding: 0 30px;
+  }
+
+  .author-mail {
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
+    padding: 0 30px;
+  }
+
+  .author-bio {
+    max-width: $screen-sm-min * .7;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+//==== TABLET, DESKTOP, & HD SHARED SETTINGS ====
+@include mq($min-width: $screen-sm-min) {
+  .author-img-container {
+    float: left;
+  }
+
+  .author-name {
+    vertical-align: middle;
+    display: inline;
+  }
+
+  .author-mail::before {
+    content: '|';
+    font-weight: $font-weight-normal;
+    vertical-align: middle;
+    display: inline;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    top: -2px;
+  }
+
+  .author-mail {
+    vertical-align: middle;
+    display: inline;
+  }
+
+  .author-bio {
+    margin-top: 20px;
+  }
+}
+
+//==== TABLET ====
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .author-box {
+    width: $authorbox-width-tablet;
+  }
+
+  .author-img-container {
+    width: 190px;
+  }
+
+  .author-img {
+    width: 145px;
+    height: 145px;
+  }
+}
+
+//==== DESKTOP & DESKTOP HD ====
+@include mq($min-width: $screen-md-min) {
+  .author-box {
+    width: $authorbox-width-desktop;
+  }
+
+  .author-img-container {
+    width: 200px;
+  }
+
+  .author-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+//==== DESKTOP HD ====
+@include mq($min-width: $screen-hd-min) {
+  .author-box {
+    width: $authorbox-width-desktop-hd;
+  }
+}

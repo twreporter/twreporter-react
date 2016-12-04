@@ -6,6 +6,7 @@ const MEDIA_CH_STR = '媒體'
 const REVIEW_CH_STR = '評論'
 const SPECIAL_TOPIC_CH_STR = '專題'
 const TAIWAN_CH_STR = '台灣'
+const LOAD_MORE = '載入更多作者'
 
 const ERROR_MESSAGE_500 = '抱歉，系統繁忙中，請重新整理頁面。'
 const ERROR_MESSAGE_404 = '抱歉，網頁不存在，請確認網址是否正確。'
@@ -19,5 +20,6 @@ export {
   MEDIA_CH_STR,
   REVIEW_CH_STR,
   SPECIAL_TOPIC_CH_STR,
-  TAIWAN_CH_STR
+  TAIWAN_CH_STR,
+  LOAD_MORE
 }
