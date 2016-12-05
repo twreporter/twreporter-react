@@ -72,7 +72,6 @@ class Author extends React.Component {
         />
       </div>
       <Sponsor />
-      <button onClick={handleClick}>fetch</button>
     </div>)
   }
 }
