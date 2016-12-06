@@ -75,21 +75,22 @@ class NavBar extends Component {
 
 
   _renderMenu() {
+    const { pathname, header } = this.props
     return (
       <div>
-        <NavMenu {...this.props}
+        <NavMenu
+          pathname={pathname}
+          {...header}
           isScrolledOver={this.state.isScrolledOver}
-          pageTitle={this.props.pageTitle}
-          pageTopic={this.props.pageTopic}
-          articleId={this.props.articleId}
-          />
+        />
       </div>
     )
   }
 
   render() {
     const { height, isScrolledOver } = this.state
-    const { readPercent, pageType } = this.props
+    const readPercent = _.get(this.props, 'header.readPercent', 0)
+    const pageType = _.get(this.props, 'header.pageType', '')
 
     let progressBar = (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={readPercent}/> : null
 
@@ -105,18 +106,26 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  articleId: PropTypes.string,
-  readPercent: PropTypes.number,
-  pageTopic: PropTypes.string,
-  pageType: PropTypes.string,
+  header: PropTypes.shape({
+    articleId: PropTypes.string,
+    bookmarks: PropTypes.array,
+    readPercent: PropTypes.number,
+    pageTopic: PropTypes.string,
+    pageType: PropTypes.string,
+    topicArr: PropTypes.array
+  }),
   pathname: PropTypes.string.isRequired
 }
 
 NavBar.defaultProps = {
-  articleId: '',
-  readPercent: 0,
-  pageTopic: '',
-  pageType: '',
+  header: {
+    articleId: '',
+    bookmarks: [],
+    readPercent: 0,
+    pageType: '',
+    pageTopic: '',
+    topicArr: []
+  },
   pathname: ''
 }
 
