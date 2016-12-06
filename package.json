@@ -142,6 +142,7 @@
     "rc-slider": "^3.7.2",
     "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",
+    "react-addons-pure-render-mixin": "15.3.2",
     "react-addons-test-utils": "15.3.2",
     "react-burger-menu": "^1.4.4",
     "react-document-meta": "^2.0.3",
