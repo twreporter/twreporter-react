@@ -1,4 +1,4 @@
-import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
 import { getAbsPath } from '../../utils/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
@@ -106,7 +106,7 @@ export default class NavMenu extends Component {
     const { header } = this.props
     const pageType = get(header, 'pageType', null)
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
+    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -148,7 +148,7 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE })} ref="title">
+          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE_STYLE })} ref="title">
             {topicRedBox}
             {trimmedTitle}
           </div>
@@ -236,7 +236,7 @@ export default class NavMenu extends Component {
   }
 
   render() {
-    const { path, bgStyle, header, isScrolledOver, pageTopic, articleId } = this.props
+    const { path, header, isScrolledOver, pageTopic, articleId } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
@@ -285,7 +285,7 @@ export default class NavMenu extends Component {
                         <span></span>
                       </div>
 
-    if (!this.state.open && (bgStyle === 'dark' || header.pageType === PHOTOGRAPHY || header.pageType === PHOTOGRAPHY_ARTICLE)) {
+    if (!this.state.open && (header.pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
       backgroundColor = colors.darkBg
       navTopBackground = colors.darkBg
       logo = logoIconDark
@@ -296,7 +296,7 @@ export default class NavMenu extends Component {
     let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
 
     // if the page has been scrolled down, show another menu
-    if (isScrolledOver && (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE)) {
+    if (isScrolledOver && (header.pageType === ARTICLE_STYLE || header.pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
       menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
     } else if (isScrolledOver && header.pageType === TOPIC) {
       menuBar = this._renderTopicSecond(burgerMenu, navLinks)
@@ -310,7 +310,7 @@ export default class NavMenu extends Component {
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
-    if ( (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && pageTopic) {
+    if ( (header.pageType === ARTICLE_STYLE || header.pageType === PHOTOGRAPHY_ARTICLE_STYLE) && pageTopic) {
       topicPopup = <TopicPopup isOpen={this.state.isTopicOpen}
           topicArr={header.topicArr}
           pageTopic={pageTopic}

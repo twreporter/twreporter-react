@@ -12,7 +12,7 @@ function header(state = {}, action) {
       return {
         ...state,
         pageType: action.pageType,
-        percent: action.percent
+        readPercent: action.percent
       }
     case types.SET_PAGE_TITLE:
       return {

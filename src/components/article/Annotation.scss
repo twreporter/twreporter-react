@@ -19,18 +19,18 @@ $letter-spacing: .5px;
   }
 
   span {
-    font-size: $font-size-base;
+    font-size: em($font-size-base);
     line-height: 1.8;
     letter-spacing: $letter-spacing;
     font-weight: $font-weight-normal;
-  } 
+  }
 
   .container {
     .annotated-text {
       color: $red;
       position: relative;
 
-      // triangle within circle 
+      // triangle within circle
       >span.indicator {
         // circle
         width: 18px;
@@ -40,7 +40,7 @@ $letter-spacing: .5px;
         position: relative;
         top: -3px;
         display: inline-block;
-        margin-left: 3px; 
+        margin-left: 3px;
 
         // down triangle
         &::after {
@@ -57,7 +57,7 @@ $letter-spacing: .5px;
     }
 
     h3, h4 {
-      font-size: rem(20px);
+      font-size: em(20px);
       line-height: 1.5;
       color: $text-color;
       margin-top: 0;
@@ -66,17 +66,17 @@ $letter-spacing: .5px;
     .body {
       display: none;
       background-color: $white;
-      font-size: rem($font-size-medium);
+      font-size: em($font-size-medium);
       line-height: 1.8;
       letter-spacing: $letter-spacing;
       padding: rem(16px) rem(24px) rem(16px) rem(24px);
       margin-top: rem(10px);
       margin-bottom: rem(16px);
       @include fade-in-down(0.5s);
-      
+
       p, div {
         margin-bottom: rem(16px);
-      } 
+      }
       &.expand {
         display: 'block';
       }
@@ -98,7 +98,7 @@ $letter-spacing: .5px;
           border-color: $white transparent;
         }
 
-        // up triangle within circle 
+        // up triangle within circle
         >span.indicator {
           &::after {
             top: 5px;
