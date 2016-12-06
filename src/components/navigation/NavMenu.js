@@ -1,5 +1,4 @@
-import { ARTICLE, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, CHARACTERS_LIMIT, TOPIC, appId, donatePath, navPath, colors } from '../../constants/index'
-import { getAbsPath } from '../../utils/index'
+import { ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
@@ -9,7 +8,8 @@ import logoIcon from '../../../static/asset/logo-navbar-s.svg'
 import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import navCommonStyles from './NavCommon.scss'
 import Bookmarks from './Bookmarks'
-import React, { Component } from 'react'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import SearchBox from './SearchBox'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
@@ -20,6 +20,10 @@ import TopicPopup from './TopicPopup'
 
 // lodash
 import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 const TRIMMED_RATIO = CHARACTERS_LIMIT.HEADER_TITLE_TRIMMED_RATIO
 const FULL_WIDTH = 1200
@@ -38,6 +42,7 @@ export default class NavMenu extends Component {
     this.handleResize = this._handleResize.bind(this)
     this.handleArticleTitle = this._handleArticleTitle.bind(this)
     this._onTopicBtnClick = this._onTopicBtnClick.bind(this)
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -60,7 +65,7 @@ export default class NavMenu extends Component {
     }
 
     // close the topic popup if user switch to different page
-    if(nextProps.path !== this.props.path) {
+    if(nextProps.pathname !== this.props.pathname) {
       this.setState({ trimmedTitle: '', isTopicOpen: false })
       this.setState({ open: false })
       this._checkIfPopupShown(this.state.isOpen)
@@ -103,10 +108,9 @@ export default class NavMenu extends Component {
   }
 
   _renderAritcleFirst(burgerMenu, logo, navLinks) {
-    const { header } = this.props
-    const pageType = get(header, 'pageType', null)
+    const { pageType, pathname } = this.props
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE || pageType === PHOTOGRAPHY_ARTICLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar {...this.props}/></div>
+    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -127,16 +131,15 @@ export default class NavMenu extends Component {
     )
   }
 
-  _renderAritcleSecond(burgerMenu, cUrl) {
+  _renderAritcleSecond(burgerMenu) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
-    const { pageTopic, header } = this.props
-    const topicLength = get(header, 'topicArr', []).length
-    const pageType = get(header, 'pageType')
+    const { pageTopic, pageType, topicArr } = this.props
+    const topicLength = _.get(topicArr, 'length', 0)
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
     let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
-    let topicButton = pageTopic ? <div className={classNames(navItemClass, styles['topic-dots'])} url={cUrl} appId={appId} onClick={this._onTopicBtnClick}>
+    let topicButton = pageTopic ? <div className={classNames(navItemClass, styles['topic-dots'])} onClick={this._onTopicBtnClick}>
             <img src={tocIcon} /> {topicCnt}
           </div> : null
 
@@ -148,7 +151,7 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE })} ref="title">
+          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE_STYLE })} ref="title">
             {topicRedBox}
             {trimmedTitle}
           </div>
@@ -208,8 +211,7 @@ export default class NavMenu extends Component {
   }
 
   _renderLongformArticleSecond() {
-    const { header } = this.props
-    let bookmarks = get(header, 'bookmarks', [])
+    const { bookmarks } = this.props
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -236,8 +238,7 @@ export default class NavMenu extends Component {
   }
 
   render() {
-    const { path, bgStyle, header, isScrolledOver, pageTopic, articleId } = this.props
-    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
+    const { pathname, isScrolledOver, pageType,  pageTopic, articleId, topicArr } = this.props
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
     let logo = logoIcon
@@ -255,7 +256,7 @@ export default class NavMenu extends Component {
     navItems.unshift( { title: '首頁', path: '/' } )
     for (let i in navItems) {
       let itemClassName
-      if (navItems[i].path === path) {
+      if (navItems[i].path === pathname) {
         itemClassName = styles.active
       }
       navLinks.push(<Link key={i} style={{ color: linkColor }}
@@ -271,7 +272,10 @@ export default class NavMenu extends Component {
         <div className={styles.catLinkContainer}>
           {navLinks}
         </div>
-        <SubNavBar onClick={() => {this.setState( { open: !this.state.open } )}} {...this.props}/>
+        <SubNavBar
+          onClick={() => {this.setState( { open: !this.state.open } )}}
+          pathname={pathname}
+        />
       </div>
 
       // change the color of the navbar
@@ -285,7 +289,7 @@ export default class NavMenu extends Component {
                         <span></span>
                       </div>
 
-    if (!this.state.open && (bgStyle === 'dark' || header.pageType === PHOTOGRAPHY || header.pageType === PHOTOGRAPHY_ARTICLE)) {
+    if (!this.state.open && (pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
       backgroundColor = colors.darkBg
       navTopBackground = colors.darkBg
       logo = logoIconDark
@@ -296,11 +300,11 @@ export default class NavMenu extends Component {
     let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
 
     // if the page has been scrolled down, show another menu
-    if (isScrolledOver && (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE)) {
-      menuBar = this._renderAritcleSecond(burgerMenu, cUrl)
-    } else if (isScrolledOver && header.pageType === TOPIC) {
+    if (isScrolledOver && (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
+      menuBar = this._renderAritcleSecond(burgerMenu)
+    } else if (isScrolledOver && pageType === TOPIC) {
       menuBar = this._renderTopicSecond(burgerMenu, navLinks)
-    } else if (isScrolledOver && header.pageType === LONGFORM_ARTICLE_STYLE) {
+    } else if (isScrolledOver && pageType === LONGFORM_ARTICLE_STYLE) {
       menuBar = this._renderLongformArticleSecond()
     } else if (isScrolledOver) {
       menuBar = this._renderGeneralSecond(burgerMenu, navLinks)
@@ -310,9 +314,9 @@ export default class NavMenu extends Component {
       navOuterClass = navCommonStyles['nav-scrolled-outer']
     }
 
-    if ( (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE) && pageTopic) {
+    if ( (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE) && pageTopic) {
       topicPopup = <TopicPopup isOpen={this.state.isTopicOpen}
-          topicArr={header.topicArr}
+          topicArr={topicArr}
           pageTopic={pageTopic}
           articleId={articleId}
           onTopicBtnClick={this._onTopicBtnClick}/>
@@ -346,8 +350,29 @@ NavMenu.contextTypes = {
 }
 
 NavMenu.propTypes = {
-  header: React.PropTypes.object,
-  path: React.PropTypes.string,
+  articleId: React.PropTypes.string,
+  bookmarks: PropTypes.arrayOf(PropTypes.shape({
+    style: PropTypes.string,
+    slug: PropTypes.string,
+    bookmark: PropTypes.string,
+    bookmarkOrder: PropTypes.number,
+    publishedDate: PropTypes.string,
+    isSelected: PropTypes.bool
+  })),
+  isScrolledOver: PropTypes.bool,
+  pageType: React.PropTypes.string,
   pageTitle: React.PropTypes.string,
-  pageTopic: React.PropTypes.string
+  pageTopic: React.PropTypes.string,
+  pathname: React.PropTypes.string,
+  topicArr: React.PropTypes.arrayOf(PropTypes.object)
+}
+
+NavMenu.defaultProps = {
+  articleId: '',
+  bookmarks: [],
+  isScrolledOver: false,
+  pageTopic: '',
+  pageType: '',
+  pathname: '',
+  topicArr: []
 }

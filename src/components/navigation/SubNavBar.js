@@ -7,11 +7,11 @@ const styles = require('./SubNavBar.scss')
 
 class Items extends Component {
   render() {
-    const { children, path } = this.props
+    const { children, pathname } = this.props
     let _children = []
     children.map((child, i) => {
       let itemClassName
-      if (child.props.href === path) {
+      if (child.props.href === pathname) {
         itemClassName = styles.active
       }
       _children.push(
@@ -38,24 +38,17 @@ export default class SubNavBar extends Component {
   }
 
   render() {
-    const { bgStyle, path } = this.props
-    let subMenuClass
+    const { pathname } = this.props
     let subMenuLinks = []
-
-    if (bgStyle === 'dark') {
-      subMenuClass = styles.dark
-    } else {
-      subMenuClass = styles.white
-    }
 
     for(let i in subNavPath) {
       subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span></Link>)
     }
 
     return (
-      <div className={ classNames(styles.subnav, subMenuClass) }>
+      <div className={ classNames(styles.subnav, styles.white) }>
         <div className={ styles.outer }>
-          <Items path={path} bgStyle={bgStyle}>
+          <Items pathname={pathname}>
             {subMenuLinks}
           </Items>
           <div className={ styles.links }>
