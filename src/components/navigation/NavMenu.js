@@ -110,7 +110,7 @@ export default class NavMenu extends Component {
   _renderAritcleFirst(burgerMenu, logo, navLinks) {
     const { pageType, pathname } = this.props
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname} bgStyle={pageType === PHOTOGRAPHY_PAGE ? 'dark' : 'white'}/></div>
+    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname} bgStyle={pageType === PHOTOGRAPHY_PAGE ? 'dark' : 'white'}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
