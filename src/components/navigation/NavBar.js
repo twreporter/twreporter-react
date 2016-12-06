@@ -1,8 +1,7 @@
-import { connect } from 'react-redux'
-import { setReadProgress } from '../actions/header'
-import { ARTICLE, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE, LONGFORM_ARTICLE_STYLE } from '../constants/index'
-import NavMenu from '../components/navigation/NavMenu'
-import HeaderProgress from '../components/navigation/HeaderProgress'
+import { ARTICLE_STYLE, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE } from '../../constants/index'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+import NavMenu from './NavMenu'
+import HeaderProgress from './HeaderProgress'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
@@ -11,18 +10,23 @@ import styles from './NavBar.scss'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 
+const _ = {
+  debounce,
+  get
+}
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
       height: DEFAULT_HEADER_HEIGHT,
-      isScrolledOver: false,
-      isPageChanged: false
+      isScrolledOver: false
     }
     this._getHeaderHeight = this._getHeaderHeight.bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this.debouncedScroll = debounce(() => { this._handleScroll() }, 50, { 'maxWait': 150 })
-    this.getDebouncedHeight = debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
+    this.debouncedScroll = _.debounce(() => { this._handleScroll() }, 50, { 'maxWait': 150 })
+    this.getDebouncedHeight = _.debounce(() => { this._getHeaderHeight() }, 100, { 'maxWait': 300 })
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -39,15 +43,14 @@ class NavBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.path !== nextProps.path) {
-      this.setState({ isPageChanged: true })
+    if(this.props.pathname !== nextProps.pathname) {
+      this.setState({ isScrolledOver: false })
     }
   }
 
   componentDidUpdate() {
-    if(this.state.isPageChanged && !this.state.isScrolledOver) {
+    if(!this.state.isScrolledOver) {
       this._getHeaderHeight()
-      this.setState({ isPageChanged: false })
     }
   }
 
@@ -63,34 +66,22 @@ class NavBar extends Component {
 
   _getHeaderHeight() {
     const rect = ReactDOM.findDOMNode(this.refs.headerbox).getBoundingClientRect()
-    let hHeight = get(rect, 'height', DEFAULT_HEADER_HEIGHT)
+    let hHeight = _.get(rect, 'height', DEFAULT_HEADER_HEIGHT)
     hHeight = (hHeight < DEFAULT_HEADER_HEIGHT) ? DEFAULT_HEADER_HEIGHT : hHeight
     this.setState({
       height: hHeight
     })
   }
 
-  shouldComponentUpdate(nextProps, nextState) { // eslint-disable-line
-    if(nextState.height !== this.state.height ||
-       nextProps.header.pageType !== this.props.header.pageType ||
-       nextProps.header.readPercent !== this.props.header.readPercent ||
-       nextState.isScrolledOver !== this.state.isScrolledOver) {
-      return true
-    }
-    if (nextProps.path === this.props.path) {
-      return false
-    }
-    return true
-  }
 
   _renderMenu() {
     return (
       <div>
         <NavMenu {...this.props}
           isScrolledOver={this.state.isScrolledOver}
-          pageTitle={this.props.header.pageTitle}
-          pageTopic={this.props.header.pageTopic}
-          articleId={this.props.header.articleId}
+          pageTitle={this.props.pageTitle}
+          pageTopic={this.props.pageTopic}
+          articleId={this.props.articleId}
           />
       </div>
     )
@@ -98,10 +89,9 @@ class NavBar extends Component {
 
   render() {
     const { height, isScrolledOver } = this.state
-    const { header } = this.props
-    const percent = header.readPercent || 0
+    const { readPercent, pageType } = this.props
 
-    let progressBar = (header.pageType === ARTICLE || header.pageType === PHOTOGRAPHY_ARTICLE || header.pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={percent}/> : null
+    let progressBar = (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={readPercent}/> : null
 
     return (
       <div style={{ height: height+'px' }}>
@@ -114,14 +104,20 @@ class NavBar extends Component {
   }
 }
 
-NavBar.contextTypes = {
-  device: PropTypes.string
+NavBar.propTypes = {
+  articleId: PropTypes.string,
+  readPercent: PropTypes.number,
+  pageTopic: PropTypes.string,
+  pageType: PropTypes.string,
+  pathname: PropTypes.string.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    header: state.header || {}
-  }
+NavBar.defaultProps = {
+  articleId: '',
+  readPercent: 0,
+  pageTopic: '',
+  pageType: '',
+  pathname: ''
 }
 
-export default connect(mapStateToProps, { setReadProgress })(NavBar)
+export default NavBar
