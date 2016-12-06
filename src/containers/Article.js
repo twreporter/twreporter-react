@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
 'use strict'
-import { ABOUT_US_FOOTER, ARTICLE, CONTACT_FOOTER, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY, PHOTOGRAPHY_ARTICLE, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, CONTACT_FOOTER, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { LeadingVideo } from '../components/article/LeadingVideo'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
@@ -9,6 +9,7 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -24,6 +25,7 @@ import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
+import FontChangeButton from '../components/FontChangeButton'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -140,6 +142,16 @@ class Article extends Component {
 
     // for requestAnimationFrame
     this._ticking = false
+    this.state = {
+      fontSize:'medium'
+    }
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+  }
+
+  changeFontSize(fontSize) {
+    this.setState({
+      fontSize:fontSize
+    })
   }
 
   componentDidMount() {
@@ -212,7 +224,7 @@ class Article extends Component {
     let style = _.get(article, 'style')
 
     if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-      setPageType(PHOTOGRAPHY_ARTICLE)
+      setPageType(PHOTOGRAPHY_ARTICLE_STYLE)
     } else if (style === LONGFORM_ARTICLE_STYLE) {
       setPageType(LONGFORM_ARTICLE_STYLE)
       let relatedBookmarks = _.get(article, 'relatedBookmarks', [])
@@ -229,7 +241,7 @@ class Article extends Component {
       bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
       setBookmarksOfLongformArticle(bookmarks)
     } else {
-      setPageType(ARTICLE)
+      setPageType(ARTICLE_STYLE)
     }
 
     // set navbar title for this article
@@ -457,7 +469,9 @@ class Article extends Component {
                   twitterIcon={twitterIcon}
                   lineIcon={lineIcon}
                 />
+                <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}/>
               </div>
+
 
               {
                 !leadingVideo ?
@@ -478,7 +492,7 @@ class Article extends Component {
               </div>
 
               <ArticleComponents.Body
-                data={bodyData}
+                data={bodyData} fontSize={this.state.fontSize}
               />
             </article>
 
@@ -507,7 +521,7 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <Footer
-            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY : ARTICLE}
+            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY_ARTICLE_STYLE : ARTICLE_STYLE}
             copyright={copyright}/>
         </div>
       </DocumentMeta>

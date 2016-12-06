@@ -1,9 +1,9 @@
 'use strict'
 
-export * from './article-styles'
 export * from './action-types'
 export * from './footer'
 export * from './strings'
+export * from './page-types'
 
 export const SITE_NAME = {
   FULL: '報導者 The Reporter',
@@ -83,20 +83,6 @@ export const LOAD_MORE_ARTICLES = '載入更多文章'
 export const TOPIC_TEXT = '專題'
 
 export const SEARCH_RESULTS_TEXT = '搜尋結果'
-
-export const ARTICLE = 'ARTICLE'
-
-export const PHOTOGRAPHY = 'PHOTOGRAPHY'
-
-export const PHOTOGRAPHY_ARTICLE = 'PHOTOGRAPHY_ARTICLE'
-
-export const HOME = 'HOME'
-
-export const CATEGORY = 'CATEGORY'
-
-export const TAG = 'TAG'
-
-export const TOPIC = 'TOPIC'
 
 export const basePath = 'https://www.twreporter.org'
 
