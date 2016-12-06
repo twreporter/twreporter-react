@@ -1,5 +1,5 @@
 /* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY, PHOTOGRAPHY_ARTICLE_STYLE, colors } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -83,7 +83,7 @@ class Photography extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageType(PHOTOGRAPHY_ARTICLE_STYLE)
+    this.props.setPageType(PHOTOGRAPHY_PAGE)
   }
 
   _loadMoreArticles() {
@@ -121,7 +121,7 @@ class Photography extends Component {
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer theme={PHOTOGRAPHY_ARTICLE_STYLE}/>
+        <Footer theme="dark"/>
       </div>
     )
   }

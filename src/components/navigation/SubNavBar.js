@@ -38,7 +38,11 @@ export default class SubNavBar extends Component {
   }
 
   render() {
-    const { pathname } = this.props
+    const { bgStyle, pathname } = this.props
+    const subMenuClass = {
+      [styles.dark]: bgStyle === 'dark',
+      [styles.white]: bgStyle !== 'dark'
+    }
     let subMenuLinks = []
 
     for(let i in subNavPath) {
@@ -46,7 +50,7 @@ export default class SubNavBar extends Component {
     }
 
     return (
-      <div className={ classNames(styles.subnav, styles.white) }>
+      <div className={ classNames(styles.subnav, subMenuClass) }>
         <div className={ styles.outer }>
           <Items pathname={pathname}>
             {subMenuLinks}
