@@ -1,4 +1,4 @@
-import { ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_PAGE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import classNames from 'classnames'
@@ -110,7 +110,7 @@ export default class NavMenu extends Component {
   _renderAritcleFirst(burgerMenu, logo, navLinks) {
     const { pageType, pathname } = this.props
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname}/></div>
+    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname} bgStyle={pageType === PHOTOGRAPHY_PAGE ? 'dark' : 'white'}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -275,6 +275,7 @@ export default class NavMenu extends Component {
         <SubNavBar
           onClick={() => {this.setState( { open: !this.state.open } )}}
           pathname={pathname}
+          bgStyle={pageType === PHOTOGRAPHY_ARTICLE_STYLE ? 'dark' : 'white'}
         />
       </div>
 
@@ -289,7 +290,7 @@ export default class NavMenu extends Component {
                         <span></span>
                       </div>
 
-    if (!this.state.open && (pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
+    if (!this.state.open && (pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === PHOTOGRAPHY_PAGE)) {
       backgroundColor = colors.darkBg
       navTopBackground = colors.darkBg
       logo = logoIconDark
