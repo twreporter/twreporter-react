@@ -46,7 +46,7 @@ class App extends Component {
     return (
       <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
         <Layout
-          {...this.props.header}
+          header={this.props.header}
           pathname={pathname}
         >
           {this.props.children}

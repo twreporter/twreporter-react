@@ -20,7 +20,7 @@ class Layout extends Component {
   }
 
   render() {
-    let pageType = _.get(this.props, 'pageType')
+    let pageType = _.get(this.props, 'header.pageType')
 
     return (
       <div className={classNames(styles.theme, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE_STYLE })}>
@@ -34,18 +34,12 @@ class Layout extends Component {
 }
 
 Layout.propTypes = {
-  articleId: PropTypes.string,
-  readPercent: PropTypes.number,
-  pageTopic: PropTypes.string,
-  pageType: PropTypes.string,
+  header: PropTypes.object,
   pathname: PropTypes.string.isRequired
 }
 
 Layout.defaultProps = {
-  articleId: '',
-  readPercent: 0,
-  pageTopic: '',
-  pageType: '',
+  header: {},
   pathname: ''
 }
 
