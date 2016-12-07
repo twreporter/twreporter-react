@@ -1,4 +1,3 @@
-
 'use strict'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
@@ -63,7 +62,7 @@ function fetchArticle(slug) {
 }
 
 function shouldFetchArticle(state, slug) {
-  const slugToId = get(state, 'slugToId', {})
+  const slugToId = get(state, 'articleSlugToId', {})
   const articles = get(state, [ 'entities', 'articles' ], {})
   if (get(articles, [ slugToId[slug], 'content' ])) {
     return false
@@ -78,7 +77,7 @@ export function fetchArticleIfNeeded(slug) {
     }
     let state = getState()
     let response = {
-      result: get(state, [ 'slugToId', slug ])
+      result: get(state, [ 'articleSlugToId', slug ])
     }
     return dispatch(receiveArticle(response, slug))
   }

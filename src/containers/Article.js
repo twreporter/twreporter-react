@@ -539,7 +539,7 @@ function mapStateToProps(state) {
     entities: state.entities,
     featureArticles: state.featureArticles,
     selectedArticle: state.selectedArticle,
-    slugToId: state.slugToId
+    slugToId: state.articleSlugToId
   }
 }
 
