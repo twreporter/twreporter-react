@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import subNavPath from '../../conf/sub-nav-path'
+import { DARK } from '../../constants/index'
 import { Link } from 'react-router'
 
 const styles = require('./SubNavBar.scss')
@@ -40,8 +41,8 @@ export default class SubNavBar extends Component {
   render() {
     const { bgStyle, pathname } = this.props
     const subMenuClass = {
-      [styles.dark]: bgStyle === 'dark',
-      [styles.white]: bgStyle !== 'dark'
+      [styles.dark]: bgStyle === DARK,
+      [styles.white]: bgStyle !== DARK
     }
     let subMenuLinks = []
 

@@ -3,6 +3,11 @@ import * as types from '../constants/action-types'
 
 function header(state = {}, action) {
   switch (action.type) {
+    case types.SET_HEADER_INFO:
+      return {
+        ...state,
+        ...action.info
+      }
     case types.SET_PROGRESS_PRECENTAGE:
       return {
         ...state,
@@ -13,6 +18,11 @@ function header(state = {}, action) {
         ...state,
         pageType: action.pageType,
         readPercent: action.percent
+      }
+    case types.SET_PAGE_THEME:
+      return {
+        ...state,
+        pageTheme: action.pageTheme
       }
     case types.SET_PAGE_TITLE:
       return {

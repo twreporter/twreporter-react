@@ -1,9 +1,9 @@
 /* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
+import { CATEGORY, DARK, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import async from 'async'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -63,7 +63,7 @@ class Photography extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
     fetchFeatureArticles({
       where: {
@@ -80,10 +80,12 @@ class Photography extends Component {
         isFeatured: false
       }
     })
-  }
 
-  componentDidMount() {
-    this.props.setPageType(PHOTOGRAPHY_PAGE)
+    setHeaderInfo({
+      pageTheme: DARK,
+      pageType: PHOTOGRAPHY_PAGE,
+      readPercent: 0
+    })
   }
 
   _loadMoreArticles() {
@@ -116,12 +118,12 @@ class Photography extends Component {
         <TopNews topnews={topNewsItems} />
         <ArticleList
           articles={articles}
-          bgStyle="dark"
+          bgStyle={DARK}
           hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer theme="dark"/>
+        <Footer theme={DARK} />
       </div>
     )
   }
@@ -136,4 +138,4 @@ function mapStateToProps(state) {
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setPageType })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo })(Photography)

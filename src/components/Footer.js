@@ -1,4 +1,4 @@
-import { ABOUT_US_FOOTER, CONTACT_FOOTER, PRIVACY_FOOTER, copyrightTypes, donatePath } from '../constants/index'
+import { ABOUT_US_FOOTER, CONTACT_FOOTER, DARK, PRIVACY_FOOTER, copyrightTypes, donatePath } from '../constants/index'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import logoFB from '../../static/asset/icon-facebook.svg'
@@ -35,7 +35,7 @@ export default class Footer extends Component {
                       </a>) : <p className={styles['license-text']}> {copyrightString} </p>
 
     return (
-      <footer className={classNames(styles['footer'], { [styles['photography-theme']]: theme === 'dark' })}>
+      <footer className={classNames(styles['footer'], { [styles['photography-theme']]: theme === DARK })}>
         <div className="container inner-max">
 
           <div className="row">
@@ -45,7 +45,7 @@ export default class Footer extends Component {
                   <a href="/" target="_self">
                       <img
                         className="logo-img"
-                        src={theme === 'dark' ? whiteLogIcon : logoIcon}
+                        src={theme === DARK ? whiteLogIcon : logoIcon}
                       />
                   </a>
                 </div>
@@ -57,7 +57,7 @@ export default class Footer extends Component {
             <a href="/" className={classNames(styles['tablet-logo'])} target="_self">
               <img
                 className="logo-img"
-                src={theme === 'dark' ? whiteLogIcon : logoIcon}
+                src={theme === DARK ? whiteLogIcon : logoIcon}
               />
             </a>
             <div>

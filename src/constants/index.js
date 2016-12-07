@@ -3,6 +3,7 @@
 export * from './action-types'
 export * from './footer'
 export * from './strings'
+export * from './page-themes'
 export * from './page-types'
 
 export const SITE_NAME = {
