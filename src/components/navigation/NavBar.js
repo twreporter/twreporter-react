@@ -1,4 +1,4 @@
-import { ARTICLE_STYLE, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE } from '../../constants/index'
+import { ARTICLE_STYLE, BRIGHT, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE } from '../../constants/index'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import NavMenu from './NavMenu'
 import HeaderProgress from './HeaderProgress'
@@ -110,6 +110,7 @@ NavBar.propTypes = {
     articleId: PropTypes.string,
     bookmarks: PropTypes.array,
     readPercent: PropTypes.number,
+    pageTheme: PropTypes.string,
     pageTopic: PropTypes.string,
     pageType: PropTypes.string,
     topicArr: PropTypes.array
@@ -122,6 +123,7 @@ NavBar.defaultProps = {
     articleId: '',
     bookmarks: [],
     readPercent: 0,
+    pageTheme: BRIGHT,
     pageType: '',
     pageTopic: '',
     topicArr: []
