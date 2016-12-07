@@ -1,6 +1,7 @@
-import { ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_PAGE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE_STYLE, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
+import { isArticlePageType } from '../../utils/index'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import donateIcon from '../../../static/asset/icon-donation.svg'
@@ -108,9 +109,9 @@ export default class NavMenu extends Component {
   }
 
   _renderAritcleFirst(burgerMenu, logo, navLinks) {
-    const { pageType, pathname } = this.props
+    const { pageTheme, pageType, pathname } = this.props
     let animateClass = this.state.isDown ? styles['slideDown'] : null
-    let subNavBar = (!pageType || pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname} bgStyle={pageType === PHOTOGRAPHY_PAGE ? 'dark' : 'white'}/></div>
+    let subNavBar = ( isArticlePageType(pageType) || this.state.open) ? null : <div className={styles['general-subnav']}><SubNavBar pathname={pathname} bgStyle={pageTheme}/></div>
 
     return (
       <div className={classNames(styles.navContainer, animateClass)}>
@@ -134,7 +135,7 @@ export default class NavMenu extends Component {
   _renderAritcleSecond(burgerMenu) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
-    const { pageTopic, pageType, topicArr } = this.props
+    const { pageTopic, pageTheme, topicArr } = this.props
     const topicLength = _.get(topicArr, 'length', 0)
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
@@ -151,7 +152,7 @@ export default class NavMenu extends Component {
           <DonateButton isSlidedUp={true}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
-          <div className={classNames(titleClass, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE_STYLE })} ref="title">
+          <div className={classNames(titleClass, { [styles.photography]: pageTheme === DARK })} ref="title">
             {topicRedBox}
             {trimmedTitle}
           </div>
@@ -238,7 +239,7 @@ export default class NavMenu extends Component {
   }
 
   render() {
-    const { pathname, isScrolledOver, pageType,  pageTopic, articleId, topicArr } = this.props
+    const { pathname, isScrolledOver, pageTheme, pageType,  pageTopic, articleId, topicArr } = this.props
     let backgroundColor = colors.whiteBg
     let navTopBackground = isScrolledOver ? colors.superWhite : colors.whiteBg
     let logo = logoIcon
@@ -275,7 +276,7 @@ export default class NavMenu extends Component {
         <SubNavBar
           onClick={() => {this.setState( { open: !this.state.open } )}}
           pathname={pathname}
-          bgStyle={pageType === PHOTOGRAPHY_ARTICLE_STYLE ? 'dark' : 'white'}
+          bgStyle={pageTheme}
         />
       </div>
 
@@ -290,7 +291,7 @@ export default class NavMenu extends Component {
                         <span></span>
                       </div>
 
-    if (!this.state.open && (pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === PHOTOGRAPHY_PAGE)) {
+    if (!this.state.open && (pageTheme === DARK)) {
       backgroundColor = colors.darkBg
       navTopBackground = colors.darkBg
       logo = logoIconDark
@@ -361,17 +362,19 @@ NavMenu.propTypes = {
     isSelected: PropTypes.bool
   })),
   isScrolledOver: PropTypes.bool,
-  pageType: React.PropTypes.string,
-  pageTitle: React.PropTypes.string,
-  pageTopic: React.PropTypes.string,
-  pathname: React.PropTypes.string,
-  topicArr: React.PropTypes.arrayOf(PropTypes.object)
+  pageTheme: PropTypes.string,
+  pageType: PropTypes.string,
+  pageTitle: PropTypes.string,
+  pageTopic: PropTypes.string,
+  pathname: PropTypes.string,
+  topicArr: PropTypes.arrayOf(PropTypes.object)
 }
 
 NavMenu.defaultProps = {
   articleId: '',
   bookmarks: [],
   isScrolledOver: false,
+  pageTheme: BRIGHT,
   pageTopic: '',
   pageType: '',
   pathname: '',

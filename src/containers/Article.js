@@ -1,13 +1,13 @@
 /* eslint no-console:0 */
 'use strict'
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, CONTACT_FOOTER, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { LeadingVideo } from '../components/article/LeadingVideo'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
-import { setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList } from '../actions/header'
+import { setHeaderInfo, setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import DocumentMeta from 'react-document-meta'
@@ -213,7 +213,7 @@ class Article extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, selectedArticle, setArticleTopicList, setBookmarksOfLongformArticle,  setPageTitle, setPageType } = this.props
+    const { entities, selectedArticle, setHeaderInfo } = this.props
 
     // normalized article
     let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
@@ -222,11 +222,12 @@ class Article extends Component {
     let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
 
     let style = _.get(article, 'style')
+    let theme = BRIGHT
+    let bookmarks = []
 
     if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-      setPageType(PHOTOGRAPHY_ARTICLE_STYLE)
+      theme = DARK
     } else if (style === LONGFORM_ARTICLE_STYLE) {
-      setPageType(LONGFORM_ARTICLE_STYLE)
       let relatedBookmarks = _.get(article, 'relatedBookmarks', [])
       const { bookmark, bookmarkOrder, publishedDate, slug } = article
       let curBookMark = {
@@ -237,19 +238,22 @@ class Article extends Component {
         publishedDate,
         isSelected: true
       }
-      let bookmarks = relatedBookmarks.concat(curBookMark)
+      bookmarks = relatedBookmarks.concat(curBookMark)
       bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
-      setBookmarksOfLongformArticle(bookmarks)
-    } else {
-      setPageType(ARTICLE_STYLE)
     }
 
-    // set navbar title for this article
-    setPageTitle(article.id, article.title, topicName)
-
     let topicArr = this._getTopicArticles(_.get(article, 'topics'))
-    // dispatch action for the navbar to display article list
-    setArticleTopicList(topicArr)
+
+    setHeaderInfo({
+      articleId: article.id,
+      bookmarks,
+      pageTitle: article.title,
+      pageTheme: theme,
+      pageTopic: topicName,
+      pageType: style,
+      readPercent: 0,
+      topicArr
+    })
   }
 
   // fetch article whole data, including body, related articls and other articles in the same topic
@@ -564,4 +568,4 @@ Article.defaultProps = {
 
 export { Article }
 export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticles,
-  fetchArticlesByUuidIfNeeded, setBookmarksOfLongformArticle, setReadProgress, setPageType, setPageTitle, setArticleTopicList })(Article)
+  fetchArticlesByUuidIfNeeded, setHeaderInfo, setReadProgress })(Article)
