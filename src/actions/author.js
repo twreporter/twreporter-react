@@ -1,23 +1,23 @@
 'use strict'
 
+import * as ALGOLIA from '../constants/algolia'
 import * as CONSTANTS from '../constants/index'
 
 import { arrayOf, normalize } from 'normalizr'
 
-import { InternalServerError } from '../lib/custom-error'
+import algoliasearch from 'algoliasearch'
 import { camelizeKeys } from 'humps'
-import fetch from 'isomorphic-fetch'
-import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
-import { article as metaSchema } from '../schemas/index'
+import { article as articleSchema } from '../schemas/index'
 
 const _ = {
   get
 }
 
-export function requestAuthorCollection() {
+export function requestAuthorCollection(authorId) {
   return {
-    type: CONSTANTS.FETCH_AUTHOR_COLLECTION_REQUEST
+    type: CONSTANTS.FETCH_AUTHOR_COLLECTION_REQUEST,
+    authorId
   }
 }
 
@@ -29,15 +29,15 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection(authorId, items, currentPage, isFinish, receivedAt) {
+export function receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, receivedAt) {
   let receiveAuthorCollection = {
-    authorId,
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
+    authorId,
     response: items
   }
   if (typeof authorId === 'string') {
     receiveAuthorCollection[authorId] = {
-      collectIndexList: items.result,
+      collectIndexList,
       currentPage,
       isFinish,
       receivedAt
@@ -47,40 +47,32 @@ export function receiveAuthorCollection(authorId, items, currentPage, isFinish, 
 }
 
 export function fetchAuthorCollection(targetPage = 1, authorId='') {
+  const maxResults = 3
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
-    const maxResults = 4
-    let url = formatUrl(`meta?where={"writters": { "$in": ["${authorId}"]}}&max_results=${maxResults}&page=${targetPage}`)
-    dispatch(requestAuthorCollection(url))
-    return fetch(url)
-      .then((response) => {
-        if (response.status >= 400) {
-          throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
-        }
-        return response.json()
+    const searchParas = {
+      hitsPerPage: maxResults,
+      page: targetPage
+    }
+    let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
+    let index = client.initIndex(ALGOLIA.POSTS_INDEX)
+    dispatch(requestAuthorCollection(authorId))
+    return index.search(authorId, searchParas)
+      .then(function searchSuccess(content) {
+        const hits = _.get(content, 'hits', {})
+        const camelizedJson = camelizeKeys(hits)
+        let items = normalize(camelizedJson, arrayOf(articleSchema))
+        const collectIndexList = items.result
+        const currentPage = content.page
+        const isFinish = ( currentPage >= content.nbPages )
+        const receivedAt = Date.now()
+        return dispatch(receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, receivedAt))
       })
-      .then(
-        (response) => {
-          const camelizedJson = camelizeKeys(response)
-          let items = normalize(camelizedJson.items, arrayOf(metaSchema))
-          let meta = camelizedJson.meta
-          let currentPage = _.get(meta, 'page', 1)
-          let maxResultsPerPage = meta.maxResults
-          let totalResults = meta.total
-          let finalPage = Math.ceil(totalResults/maxResultsPerPage)
-          let isFinish = currentPage >= finalPage ? true : false
-          let receivedAt = Date.now()
-          return dispatch(receiveAuthorCollection(authorId, items, currentPage, isFinish, receivedAt))
-        },
-        (error) => {
-          let failedAt = Date.now()
-          return dispatch(failToReceiveAuthorCollection(error, failedAt))
-        })
+      .catch(function searchFailure(error) {
+        let failedAt = Date.now()
+        return dispatch(failToReceiveAuthorCollection(error, failedAt))
+      })
   }
 }
-
-// Check if
-//   is not fetching data &&
-//   is currentPage >= finalPage
 
 export function fetchAuthorIfNeeded(authorId) {
   return (dispatch, getState) => {
