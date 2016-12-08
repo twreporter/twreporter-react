@@ -1,11 +1,11 @@
 /*eslint no-unused-vars:0, no-console:0 */
 'use strict'
-import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
+import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { devCatListId, prodCatListId } from '../conf/list-id'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import Daily from '../components/Daily'
 import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
@@ -69,12 +69,14 @@ class Home extends Component {
     this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
   }
 
-  componentDidMount() {
-    this.props.setPageType(HOME)
-  }
-
   componentWillMount() {
-    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT,
+      pageType: HOME,
+      readPercent: 0
+    })
+
     let params = {
       page: PAGE,
       max_results: MAXRESULT
@@ -88,6 +90,7 @@ class Home extends Component {
     if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
       fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
     }
+
   }
 
   _loadMoreArticles(catId) {
@@ -287,5 +290,5 @@ export { Home }
 export default connect(mapStateToProps, {
   fetchArticlesByUuidIfNeeded,
   fetchFeatureArticles,
-  setPageType
+  setHeaderInfo
 })(Home)

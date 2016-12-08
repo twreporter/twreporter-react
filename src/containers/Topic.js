@@ -1,9 +1,9 @@
 'use strict'
-import {  SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
+import { BRIGHT, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType, setPageTitle } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -26,18 +26,11 @@ class Topic extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.setPageType(TOPIC)
-    this._sendPageLevelAction()
-  }
-
-  componentDidUpdate() {
-    this._sendPageLevelAction()
-  }
-
   componentWillMount() {
     const { fetchArticlesByUuidIfNeeded, params } = this.props
     let topicId = _.get(params, 'topicId')
+
+    this._sendPageLevelAction()
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
@@ -52,12 +45,17 @@ class Topic extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, setPageTitle, params } = this.props
+    const { entities, setHeaderInfo, params } = this.props
     const topicId = _.get(params, 'topicId')
     const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
 
-    // set navbar title for this topic
-    setPageTitle(null, topicName, TOPIC_TEXT)
+    setHeaderInfo({
+      pageTitle: topicName,
+      pageTopic: TOPIC_TEXT,
+      pageTheme: BRIGHT,
+      pageType: TOPIC,
+      readPercent: 0
+    })
   }
 
   render() {
@@ -120,4 +118,4 @@ Topic.contextTypes = {
 }
 
 export { Topic }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType, setPageTitle })(Topic)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Topic)

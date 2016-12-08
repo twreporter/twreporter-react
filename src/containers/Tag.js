@@ -1,8 +1,8 @@
-import { SITE_META, SITE_NAME, TAG } from '../constants/index'
+import { BRIGHT, SITE_META, SITE_NAME, TAG } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -33,7 +33,13 @@ class Tag extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT,
+      pageType: TAG,
+      readPercent: 0
+    })
+
     let tagId = _.get(params, 'tagId')
 
     // if fetched before, do nothing
@@ -45,10 +51,6 @@ class Tag extends Component {
       page: PAGE,
       max_results: MAXRESULT
     })
-  }
-
-  componentDidMount() {
-    this.props.setPageType(TAG)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -143,4 +145,4 @@ Tag.contextTypes = {
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Tag)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Tag)
