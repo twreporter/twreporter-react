@@ -1,13 +1,18 @@
 'use strict'
-import { InternalServerError } from '../lib/custom-error'
-import { camelizeKeys } from 'humps'
-import { formatUrl } from '../utils/index'
-import { arrayOf, normalize } from 'normalizr'
-import { author as authorSchema } from '../schemas/index'
-import * as CONSTANTS from '../constants/index'
-import fetch from 'isomorphic-fetch'
-import get from 'lodash/get'
 
+import * as CONSTANTS from '../constants/index'
+import * as ALGOLIA from '../constants/algolia'
+
+import { arrayOf, normalize } from 'normalizr'
+
+import { InternalServerError } from '../lib/custom-error'
+import algoliasearch from 'algoliasearch'
+import { author as authorSchema } from '../schemas/index'
+import { camelizeKeys } from 'humps'
+import fetch from 'isomorphic-fetch'
+import { formatUrl } from '../utils/index'
+import get from 'lodash/get'
+import { hitsToEntities } from '../utils/algolia'
 const _ = {
   get
 }
@@ -34,6 +39,66 @@ export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
     currentPage,
     isFinish,
     receivedAt
+  }
+}
+
+export function requestSearchAuthors(keyWords) {
+  return {
+    type: CONSTANTS.SEARCH_AUTHORS_REQUEST,
+    keyWords: keyWords
+  }
+}
+
+export function failToSearchAuthors(error, failedAt) {
+  return {
+    type: CONSTANTS.SEARCH_AUTHORS_FAILURE,
+    error,
+    failedAt
+  }
+}
+
+export function receiveSearchAuthors(response, currentPage, isFinish, receivedAt) {
+  return {
+    type: CONSTANTS.SEARCH_AUTHORS_SUCCESS,
+    response: response,
+    authorsInList: response.result,
+    currentPage,
+    isFinish,
+    receivedAt
+  }
+}
+
+export function searchAuthors(targetPage, returnDelay = 0, keyWords='', maxResults = 12) {
+  return (dispatch, getState) => { // eslint-disable-line no-unused-vars
+    const searchParas = {
+      hitsPerPage: maxResults,
+      page: targetPage
+    }
+    let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
+    let index = client.initIndex(ALGOLIA.CONTACTS_INDEX)
+    dispatch(requestSearchAuthors(keyWords))
+    return index.search(keyWords, searchParas)
+      .then(function searchSuccess(content) {
+        const response = hitsToEntities(content.hits, 'authors')
+        const currentPage = content.page
+        const isFinish = ( currentPage >= content.nbPages )
+        const receivedAt = Date.now()
+        function delayDispatch() {
+          return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
+            setTimeout(() => {
+              resolve()
+            }, 1000)
+          })
+        }
+        return delayDispatch().then(()=>{
+          return dispatch(receiveSearchAuthors(response, currentPage, isFinish, receivedAt))
+        })
+      }
+      )
+      .catch(function searchFailure(error) {
+        let failedAt = Date.now()
+        return dispatch(failToSearchAuthors(error, failedAt))
+      })
   }
 }
 
@@ -87,7 +152,7 @@ export function fetchAuthorsIfNeeded() {
     const targetPage  = currentPage + 1
     const returnDelay = currentPage<1 ? 0 : 1000
     if (!isFetching && !isFinish) {
-      return dispatch(fetchAuthors(targetPage, returnDelay))
+      return dispatch(searchAuthors(targetPage, returnDelay))
     }
     return
   }

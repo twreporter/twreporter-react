@@ -23,18 +23,18 @@ function customizer(objValue, srcValue) {
 
 export const authorsList = (state = initialStates, action = {}) => {
   switch (action.type) {
-    case types.FETCH_AUTHORS_REQUEST:
+    case types.SEARCH_AUTHORS_REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
-    case types.FETCH_AUTHORS_SUCCESS:
+    case types.SEARCH_AUTHORS_SUCCESS:
       return _.mergeWith({}, state, {
         isFetching: false,
         currentPage: action.currentPage,
         isFinish: action.isFinish,
         authorsInList: action.authorsInList
       }, customizer)
-    case types.FETCH_AUTHORS_FAILURE:
+    case types.SEARCH_AUTHORS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         error: action.error
@@ -43,3 +43,26 @@ export const authorsList = (state = initialStates, action = {}) => {
       return state
   }
 }
+
+// export const authorsList = (state = initialStates, action = {}) => {
+//   switch (action.type) {
+//     case types.FETCH_AUTHORS_REQUEST:
+//       return Object.assign({}, state, {
+//         isFetching: true
+//       })
+//     case types.FETCH_AUTHORS_SUCCESS:
+//       return _.mergeWith({}, state, {
+//         isFetching: false,
+//         currentPage: action.currentPage,
+//         isFinish: action.isFinish,
+//         authorsInList: action.authorsInList
+//       }, customizer)
+//     case types.FETCH_AUTHORS_FAILURE:
+//       return Object.assign({}, state, {
+//         isFetching: false,
+//         error: action.error
+//       })
+//     default:
+//       return state
+//   }
+// }
