@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 import NavBar from './navigation/NavBar'
 import styles from './Layout.scss'
-import { PHOTOGRAPHY_ARTICLE_STYLE } from '../constants/index'
+import { DARK } from '../constants/index'
 
 // lodash
 import get from 'lodash/get'
@@ -20,10 +20,10 @@ class Layout extends Component {
   }
 
   render() {
-    let pageType = _.get(this.props, 'header.pageType')
+    let pageTheme = _.get(this.props, 'header.pageTheme')
 
     return (
-      <div className={classNames(styles.theme, { [styles.photography]: pageType === PHOTOGRAPHY_ARTICLE_STYLE })}>
+      <div className={classNames(styles.theme, { [styles.photography]: pageTheme === DARK })}>
         <NavBar
           {...this.props}
         />

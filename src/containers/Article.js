@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
 'use strict'
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { LeadingVideo } from '../components/article/LeadingVideo'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
@@ -525,7 +525,7 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <Footer
-            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? PHOTOGRAPHY_ARTICLE_STYLE : ARTICLE_STYLE}
+            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
             copyright={copyright}/>
         </div>
       </DocumentMeta>
