@@ -6,7 +6,7 @@ import * as CONSTANTS from '../constants/index'
 import { arrayOf, normalize } from 'normalizr'
 
 import { InternalServerError } from '../lib/custom-error'
-import { REQUEST_PAGE_START_FROM } from '../constants/authors-list'
+import { REQUEST_PAGE_START_FROM, MAX_RESULTS_PER_FETCH, RETURN_DELAY } from '../constants/authors-list'
 import algoliasearch from 'algoliasearch'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
@@ -70,7 +70,7 @@ export function receiveSearchAuthors(response, currentPage, isFinish, receivedAt
   }
 }
 
-export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0, keyWords='', maxResults = 12) {
+export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0, keyWords='', maxResults = MAX_RESULTS_PER_FETCH) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       hitsPerPage: maxResults,
@@ -130,7 +130,7 @@ export function fetchAuthors(targetPage, returnDelay = 0, maxResults = 12) {
             return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
               setTimeout(() => {
                 resolve()
-              }, 1000)
+              }, returnDelay)
             })
           }
           return delayDispatch().then(()=>{
@@ -152,7 +152,7 @@ export function fetchAuthorsIfNeeded() {
     const isFinish    = _.get(state, 'authorsList.isFinish', false)
     const currentPage = _.get(state, 'authorsList.currentPage', REQUEST_PAGE_START_FROM -1)
     const targetPage  = currentPage + 1
-    const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : 1000
+    const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : RETURN_DELAY
     if (!isFetching && !isFinish) {
       return dispatch(searchAuthors(targetPage, returnDelay))
     }

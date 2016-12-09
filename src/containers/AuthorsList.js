@@ -1,10 +1,9 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, SEARCHING_AUTHOR_NAME } from '../constants/strings'
+import { LOADING_MORE_AUTHORS, REQUEST_PAGE_START_FROM, SEARCHING_AUTHOR_NAME } from '../constants/authors-list'
 
 import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
-import { REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
@@ -71,8 +70,9 @@ class AuthorsList extends React.Component {
     let sensorDisplay = false
     let loaderDisply = false
 
-    loadmoreBtnDisplay = (currentPage <= (REQUEST_PAGE_START_FROM + 1)) ? true : false
-    sensorDisplay = (currentPage > (REQUEST_PAGE_START_FROM + 1) && !isFinish) ? true : false
+    loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM) ? true : false
+    console.log(`loadmoreBtnDisplay: ${loadmoreBtnDisplay}`)
+    sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && !isFinish) ? true : false
     loaderDisply = isFetching ? true : false
 
     // function handleClickLoadmore() {

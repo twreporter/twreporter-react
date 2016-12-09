@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { LOAD_MORE_AUTHORS_BTN } from '../../constants/strings'
+import { LOAD_MORE_AUTHORS_BTN } from '../../constants/authors-list'
 import styles from './AuthorList.scss'
 import classNames from 'classnames'
 
