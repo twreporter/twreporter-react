@@ -1,0 +1,278 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables.scss';
+@import '../../themes/media-queries.scss';
+@import '../../themes/font-mixins.scss';
+@import '../../themes/truncate-text.scss';
+
+// === Desktop === 
+
+$red: $harley-davidson-orange;
+$red-line-distance: 40px;
+$cards-width: 960px;
+$card-width: 300px;
+$image-card-height: 200px;
+$text-card-height: 200px;
+
+.description {
+  font-size: $font-size-base;
+  max-width: $desktop-medium-width;
+  line-height: 1.8;
+  color: $gray-15;
+  position: relative;
+  padding-bottom: $red-line-distance;
+
+  &::after {
+    content: "";
+    color: $red;
+    width: rem(200px);
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 2px solid;
+    position: absolute;
+  }
+}
+
+.team-description {
+  max-width: $desktop-small-width;
+  font-size: $font-size-medium;
+  color: $gray-50;
+  line-height: 1.8;
+  margin-top: 43px;
+  p {
+    white-space: pre-wrap;
+  }
+}
+
+.cards-container {
+  background-color: #738498;
+  padding: 60px 0 10px 0;
+  margin-top: 40px;
+}
+
+.cards {
+  display: flex;
+  max-width: $cards-width;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  >a {
+    margin-right: 20px;
+    margin-bottom: 50px;
+  }
+
+  >a:nth-of-type(3) {
+    margin-right: 0;
+  }
+}
+
+.card {
+  width: $card-width;
+
+  &:hover {
+    .image-card {
+      .image-border {
+        border: 5px solid white;
+      }
+      &::before {
+        border-width: 0 0 0 0;
+      }
+    }
+
+    .text-card {
+      margin-top: 0px;
+
+      h2 {
+        color: $red;
+      }
+    }
+  }
+
+  .image-card {
+    position: relative;
+
+    .image-border {
+      width: 100%;
+      height: $image-card-height;
+      top: 0;
+      border: 0px solid white;
+      position: absolute;
+      transition: border .1s ease-in-out;
+    }
+    img {
+      width: 100%;
+      height: $image-card-height;
+      object-fit: cover;
+    }
+
+    // triangle on the upper left corner
+    &::before {
+      transition: border-width .1s ease-in-out;
+      content: '';
+      width: 0;
+      height: 0;
+      top: 0;
+      left: 0;
+      position: absolute;
+      border-style: solid;
+      border-width: 25px 25px 0 0;
+      border-color: white transparent transparent transparent;
+    }
+  }
+
+  .text-card {
+    background-color: white;
+    margin-top: 5px;
+    width: 100%;
+    height: $text-card-height;
+    overflow: hidden;
+
+    transition: margin-top .1s ease-in-out;
+
+    .title-block {
+      height: 85px;
+      border-bottom: 2px solid $gray-50;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    h2 {
+      // .truncate-text will truncate text by ...
+      @extend .truncate-text;
+      color: black;
+      font-size: $font-size-large;
+      font-weight: 700;
+      margin: 0;
+      max-height: 58px;
+      position: relative;
+    }
+    p {
+      // .truncate-text will truncate text by ...
+      @extend .truncate-text;
+      font-size: $font-size-medium;
+      margin: 10px 15px 15px 15px;
+      max-height: 92px;
+    }
+  }
+}
+
+// === Tablet ===
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  $cards-width: 620px;
+  .description {
+    max-width: $tablet-medium-width;
+  }
+
+  .team-description {
+    max-width: $tablet-small-width;
+  }
+
+  .cards {
+    max-width: $cards-width;
+    div:nth-of-type(3) {
+      margin-right: 20px;
+    }
+    div:nth-of-type(2) {
+      margin-right: 0px;
+    }
+  }
+}
+
+// === HD Desktop ===
+@include mq($min-width: $screen-hd-min) {
+  .description {
+    max-width: $hd-desktop-medium-width;
+  }
+
+  .team-description {
+    max-width: $hd-desktop-small-width;
+  }
+}
+
+// === Mobile ===
+@include mq($max-width: $screen-sm-min - 1px) {
+   $img-width: 70px;
+   $img-height: 70px;
+
+  .description {
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 100%; 
+    padding-bottom: $red-line-distance;
+  }
+
+  .team-description {
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 100%;
+    margin-top: 40px;
+    p {
+      white-space: pre-line;
+    }
+  }
+
+  .cards-container {
+    background-color: #738498;
+    padding: 40px 10px 30px 10px;
+    margin-top: 40px;
+  }
+
+  .cards {
+    display: block;
+    max-width: 100%;
+    justify-content: initial;
+    flex-wrap: initial;
+
+    >div {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .card {
+    width: 100%;
+    height: 110px;
+    background-color: white;
+    display: table;
+
+    .image-card {
+      display: table-cell;
+      vertical-align: middle;
+
+      .image-border {
+        transition: none;
+      }
+
+      img {
+        width: $img-width;
+        height: $img-height;
+        object-fit: cover;
+      }
+    }
+
+    .text-card {
+      display: table-cell;
+      height: 110px;
+      vertical-align: middle;
+      margin: 0px;
+      transition: none;
+
+      .title-block {
+        margin: 0;
+        padding: 0 0 0 10px;
+        border-bottom: 0; 
+      }
+
+      h2 {
+        max-height: 96px;
+      }
+
+      p {
+        display: none;
+      }
+    }
+  }
+}
