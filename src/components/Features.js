@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import FeaturesItem from './FeaturesItem'
 import More from '../components/More'
-import { getImageSrc, getImageSrcSet } from '../utils/index'
+import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 
 // lodash
 import map from 'lodash/map'
@@ -23,8 +23,8 @@ export default class Features extends Component {
         <div className="features-list clearfix">
           <ul className="listing">
             { map(features, (a) => {
-              let imageSrcSet = getImageSrcSet(a)
-              let articleImage = getImageSrc(a)
+              let imageSrcSet = getArticleImageSrcSet(a)
+              let articleImage = getArticleImageSrc(a)
               if (articleImage) {
                 return (
                   <FeaturesItem article={a} image={articleImage} imageSrcSet={imageSrcSet} key={a.id}/>
