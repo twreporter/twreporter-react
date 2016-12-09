@@ -4,7 +4,7 @@ import { LOADING_MORE_AUTHORS, SEARCHING_AUTHOR_NAME } from '../constants/string
 
 import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
-import { REQUEST_PAGE_START_FROM } from '../constants/authorslist'
+import { REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'

@@ -6,7 +6,7 @@ import * as CONSTANTS from '../constants/index'
 import { arrayOf, normalize } from 'normalizr'
 
 import { InternalServerError } from '../lib/custom-error'
-import { REQUEST_PAGE_START_FROM } from '../constants/authorslist'
+import { REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 import algoliasearch from 'algoliasearch'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'

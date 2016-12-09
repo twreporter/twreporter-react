@@ -2,7 +2,7 @@
 
 import * as types from '../constants/action-types'
 
-import { REQUEST_PAGE_START_FROM } from '../constants/authorslist'
+import { REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 import isArray from 'lodash/isArray'
 import mergeWith from 'lodash/mergeWith'
 
