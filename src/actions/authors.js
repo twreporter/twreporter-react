@@ -1,11 +1,12 @@
 'use strict'
 
-import * as CONSTANTS from '../constants/index'
 import * as ALGOLIA from '../constants/algolia'
+import * as CONSTANTS from '../constants/index'
 
 import { arrayOf, normalize } from 'normalizr'
 
 import { InternalServerError } from '../lib/custom-error'
+import { REQUEST_PAGE_START_FROM } from '../constants/authorslist'
 import algoliasearch from 'algoliasearch'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
@@ -13,6 +14,7 @@ import fetch from 'isomorphic-fetch'
 import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
 import { hitsToEntities } from '../utils/algolia'
+
 const _ = {
   get
 }
@@ -68,7 +70,7 @@ export function receiveSearchAuthors(response, currentPage, isFinish, receivedAt
   }
 }
 
-export function searchAuthors(targetPage, returnDelay = 0, keyWords='', maxResults = 12) {
+export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0, keyWords='', maxResults = 12) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       hitsPerPage: maxResults,
@@ -148,9 +150,9 @@ export function fetchAuthorsIfNeeded() {
     const state = getState()
     const isFetching  = _.get(state, 'authorsList.isFetching', false)
     const isFinish    = _.get(state, 'authorsList.isFinish', false)
-    const currentPage = _.get(state, 'authorsList.currentPage', 0)
+    const currentPage = _.get(state, 'authorsList.currentPage', REQUEST_PAGE_START_FROM -1)
     const targetPage  = currentPage + 1
-    const returnDelay = currentPage<1 ? 0 : 1000
+    const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : 1000
     if (!isFetching && !isFinish) {
       return dispatch(searchAuthors(targetPage, returnDelay))
     }

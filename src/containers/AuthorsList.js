@@ -1,7 +1,13 @@
 'use strict'
 
+import { LOADING_MORE_AUTHORS, SEARCHING_AUTHOR_NAME } from '../constants/strings'
+
+import Footer from '../components/Footer'
+import LoadMore from '../components/authors/LoadMore'
+import { REQUEST_PAGE_START_FROM } from '../constants/authorslist'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
+import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
 import { connect } from 'react-redux'
 import { fetchAuthorsIfNeeded } from '../actions/authors'
@@ -9,10 +15,6 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
-import Sponsor from '../components/Sponsor'
-import Footer from '../components/Footer'
-import LoadMore from '../components/authors/LoadMore'
-import { LOADING_MORE_AUTHORS, SEARCHING_AUTHOR_NAME } from '../constants/strings'
 
 const _ = {
   get: get,
@@ -30,7 +32,7 @@ class AuthorsList extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.currentPage === 0) {
+    if (this.props.currentPage === (REQUEST_PAGE_START_FROM -1) ) {
       this.props.fetchAuthorsIfNeeded()
     }
   }
@@ -57,7 +59,7 @@ class AuthorsList extends React.Component {
 
     // Callback for sensor is triggered to seen
     let handleSeen = (isVisible) => {
-      if (currentPage>1 && isVisible === true) {
+      if (currentPage>REQUEST_PAGE_START_FROM && isVisible === true) {
         fetchAuthorsIfNeeded()
       }
       return
@@ -69,8 +71,8 @@ class AuthorsList extends React.Component {
     let sensorDisplay = false
     let loaderDisply = false
 
-    loadmoreBtnDisplay = (currentPage <= 1) ? true : false
-    sensorDisplay = (currentPage>1 && !isFinish) ? true : false
+    loadmoreBtnDisplay = (currentPage <= (REQUEST_PAGE_START_FROM + 1)) ? true : false
+    sensorDisplay = (currentPage > (REQUEST_PAGE_START_FROM + 1) && !isFinish) ? true : false
     loaderDisply = isFetching ? true : false
 
     // function handleClickLoadmore() {
