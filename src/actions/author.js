@@ -30,17 +30,18 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, receivedAt) {
+export function receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt) {
   let receiveAuthorCollection = {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
-    response: items
+    response: items // objects {entities:{},result:[]}
   }
   if (typeof authorId === 'string') {
     receiveAuthorCollection[authorId] = {
-      collectIndexList,
+      collectIndexList, //array
       currentPage,
       isFinish,
+      totalResults,
       receivedAt
     }
   }
@@ -65,7 +66,8 @@ export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, auth
         const currentPage = content.page
         const isFinish = ( currentPage >= content.nbPages )
         const receivedAt = Date.now()
-        return dispatch(receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, receivedAt))
+        const totalResults = content.nbHits
+        return dispatch(receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt))
       })
       .catch(function searchFailure(error) {
         let failedAt = Date.now()
@@ -74,7 +76,7 @@ export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, auth
   }
 }
 
-export function fetchAuthorIfNeeded(authorId) {
+export function fetchAuthorCollectionIfNeeded(authorId) {
   return (dispatch, getState) => {
     const state = getState()
     const isFetching = _.get(state, [ 'author', authorId, 'isFetching' ], false)

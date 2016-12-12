@@ -20,9 +20,9 @@ export class AuthorCollection extends React.Component {
   }
 
   render() {
-    const { relateds, isFinish, isFetching, currentPage, handleClick } = this.props
+    const { relateds, isFinish, isFetching, currentPage, handleClick, totalResults } = this.props
 
-    const titleText = AUTHOR_COLLECTION
+    const titleText = AUTHOR_COLLECTION +`（${totalResults}）`
     let listItems = relateds
 
     if (!get(relateds, '0')) {
