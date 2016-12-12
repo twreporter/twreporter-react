@@ -1,8 +1,8 @@
 'use strict'
 
-import { AUTHOR_COLLECTION, CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_PAGE_START_FROM } from '../constants/author-page'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 
-import { LOAD_MORE_ARTICLES } from '../constants/index'
 import Link from './Link'
 import React from 'react'
 import classNames from 'classnames'

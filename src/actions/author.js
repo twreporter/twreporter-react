@@ -3,12 +3,13 @@
 import * as ALGOLIA from '../constants/algolia'
 import * as CONSTANTS from '../constants/index'
 
+import { MAX_ARTICLES_PER_FETCH, REQUEST_PAGE_START_FROM } from '../constants/author-page'
 import { arrayOf, normalize } from 'normalizr'
 
 import algoliasearch from 'algoliasearch'
+import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import get from 'lodash/get'
-import { article as articleSchema } from '../schemas/index'
 
 const _ = {
   get
@@ -46,11 +47,10 @@ export function receiveAuthorCollection(authorId, items, collectIndexList, curre
   return receiveAuthorCollection
 }
 
-export function fetchAuthorCollection(targetPage = 1, authorId='') {
-  const maxResults = 3
+export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, authorId='') {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
-      hitsPerPage: maxResults,
+      hitsPerPage: MAX_ARTICLES_PER_FETCH,
       page: targetPage
     }
     let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
@@ -79,7 +79,7 @@ export function fetchAuthorIfNeeded(authorId) {
     const state = getState()
     const isFetching = _.get(state, [ 'author', authorId, 'isFetching' ], false)
     const isFinish = _.get(state, [ 'author', authorId, 'isFinish' ], false)
-    let targetPage = _.get(state, [ 'author', authorId, 'currentPage' ], 0) + 1
+    let targetPage = _.get(state, [ 'author', authorId, 'currentPage' ], REQUEST_PAGE_START_FROM -1) + 1
     if(!isFetching && !isFinish) {
       return dispatch(fetchAuthorCollection(targetPage,authorId))
     }
