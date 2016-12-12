@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import React, { Component } from 'react'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { getImageSrc } from '../utils/index'
+import { getArticleImageSrc } from '../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -30,7 +30,7 @@ export default class Daily extends Component {
           <ul className="daily-itemlist">
           { map(dailyTop, (a, idx) => {
             const pubDate = date2yyyymmdd(a.publishedDate, '.')
-            let thumbnail = getImageSrc(a, 'mobile')
+            let thumbnail = getArticleImageSrc(a, 'mobile')
             let url = '/a/' + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
