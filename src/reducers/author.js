@@ -1,8 +1,10 @@
 'use strict'
+
 import * as types from '../constants/action-types'
+
+import get from 'lodash/get'
 import isArray from 'lodash/isArray'
 import mergeWith from 'lodash/mergeWith'
-import get from 'lodash/get'
 
 const _ = {
   isArray,
@@ -14,9 +16,9 @@ const initialStates = {
   isFetching: false
 }
 
-function customizer(objValue, srcValue) {
-  if (_.isArray(objValue)) {
-    return objValue.concat(srcValue)
+function concatIfIsArray(previousValue, toAddValue, key) {
+  if (key==='collectIndexList' && _.isArray(previousValue)) {
+    return previousValue.concat(toAddValue)
   }
 }
 
@@ -27,9 +29,10 @@ export const author = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
-      let addToStore = action
-      addToStore.isFetching = false
-      return _.mergeWith({}, state, addToStore, customizer)
+      //
+      let actionObjToAdd = action
+      actionObjToAdd.isFetching = false
+      return _.mergeWith({}, state, actionObjToAdd, concatIfIsArray)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
