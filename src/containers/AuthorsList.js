@@ -71,14 +71,9 @@ class AuthorsList extends React.Component {
     let loaderDisply = false
 
     loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM) ? true : false
-    console.log(`loadmoreBtnDisplay: ${loadmoreBtnDisplay}`)
     sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && !isFinish) ? true : false
     loaderDisply = isFetching ? true : false
 
-    // function handleClickLoadmore() {
-    //   ReactDOM.findDOMNode(this.bt)
-    //   fetchAuthorsIfNeeded()
-    // }
     return (
       <div className={styles['author-list-container']}>
         <input className={styles['filter-input']} placeholder={SEARCHING_AUTHOR_NAME} ></input>
