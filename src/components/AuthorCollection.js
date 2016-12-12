@@ -5,6 +5,7 @@ import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 
 import Link from './Link'
 import React from 'react'
+import VisibilitySensor from 'react-visibility-sensor'
 import classNames from 'classnames'
 import commonStyles from './article/Common.scss'
 import get from 'lodash/get'
@@ -27,6 +28,26 @@ export class AuthorCollection extends React.Component {
 
     if (!get(relateds, '0')) {
       return null
+    }
+
+    // Page bottom display options
+
+    let loadmoreBtnDisplay = false
+    let sensorDisplay = false
+    let loaderDisply = false
+
+    loadmoreBtnDisplay = (currentPage <= (REQUEST_PAGE_START_FROM)) ? true : false
+    sensorDisplay = (currentPage > (REQUEST_PAGE_START_FROM) && !isFinish) ? true : false
+    loaderDisply = isFetching ? true : false
+
+    // const loadmoreBtn = isFinish || isFetching || currentPage<-1 ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
+
+    // Callback for sensor is triggered to seen
+    let handleSeen = (isVisible) => {
+      if (currentPage>REQUEST_PAGE_START_FROM && isVisible === true) {
+        handleClick()
+      }
+      return
     }
 
     const relatedRows = map(listItems, (related, index) => {
@@ -53,8 +74,6 @@ export class AuthorCollection extends React.Component {
       )
     })
 
-    const loadmoreBtn = isFinish || isFetching || !currentPage ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
-
     return (
       <div className={classNames(commonStyles['component'], 'center-block')}>
         <div className={classNames(styles['bottom-relateds-wrapper'], commonStyles['inner-block'])}>
@@ -64,7 +83,12 @@ export class AuthorCollection extends React.Component {
           <ul>
             {relatedRows}
           </ul>
-          {loadmoreBtn}
+          {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_ARTICLES}</div>}
+          {!loadmoreBtnDisplay ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>}
+          {!sensorDisplay ? null :
+          <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
+            <div className={styles['sensor']}></div>
+          </VisibilitySensor>}
         </div>
       </div>
     )
