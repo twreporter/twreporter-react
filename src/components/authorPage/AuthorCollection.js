@@ -32,13 +32,9 @@ export class AuthorCollection extends React.Component {
 
     // Page bottom display options
 
-    let loadmoreBtnDisplay = false
-    let sensorDisplay = false
-    let loaderDisply = false
-
-    loadmoreBtnDisplay = (currentPage <= (REQUEST_PAGE_START_FROM)) ? true : false
-    sensorDisplay = (currentPage > (REQUEST_PAGE_START_FROM) && !isFinish) ? true : false
-    loaderDisply = isFetching ? true : false
+    let loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish) ? true : false
+    let sensorDisplay = (currentPage > REQUEST_PAGE_START_FROM && !isFinish) ? true : false
+    let loaderDisply = isFetching ? true : false
 
     // const loadmoreBtn = isFinish || isFetching || currentPage<-1 ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClick}>{LOAD_MORE_ARTICLES}</div>
 
