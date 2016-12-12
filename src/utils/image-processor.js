@@ -36,7 +36,7 @@ export const getImageSrcSet = (imgObj) => {
   return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
 }
 
-export const getArticlelImageSrc = (article, device='desktop') => {
+export const getArticleImageSrc = (article, device='desktop') => {
   let heroImage = get(article, 'heroImage')
   let ogImage = get(article, 'ogImage')
   return replaceStorageUrlPrefix(get(heroImage, `image.resizedTargets.${device}.url`) || get(ogImage, `image.resizedTargets.${device}.url`) || defaultImage)
