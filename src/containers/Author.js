@@ -22,6 +22,9 @@ const _ = {
 }
 
 class Author extends React.Component {
+  static fetchData({ store }) {
+    return store.dispatch(fetchAuthorCollectionIfNeeded())
+  }
   constructor(props) {
     super(props)
   }
