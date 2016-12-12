@@ -1,7 +1,7 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
-@import '../themes/common-variables';
-@import '../themes/font-mixins';
-@import '../themes/media-queries';
+@import '../../themes/common-variables';
+@import '../../themes/font-mixins';
+@import '../../themes/media-queries';
 
 $authorbox-width-mobile: 100%;
 $authorbox-width-tablet: $tablet-small-width;

@@ -1,17 +1,17 @@
 'use strict'
 
-import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_PAGE_START_FROM } from '../constants/author-page'
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_PAGE_START_FROM } from '../../constants/author-page'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
-import Link from './Link'
+import Link from '../Link'
 import React from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import classNames from 'classnames'
-import commonStyles from './article/Common.scss'
+import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import { replaceStorageUrlPrefix } from '../utils/index'
-import { shortenString } from '../lib/string-processor'
+import { replaceStorageUrlPrefix } from '../../utils/index'
+import { shortenString } from '../../lib/string-processor'
 import styles from './AuthorCollection.scss'
 
 export class AuthorCollection extends React.Component {

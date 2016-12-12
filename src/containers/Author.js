@@ -1,7 +1,7 @@
 'use strict'
 
-import { AuthorCollection } from '../components/AuthorCollection'
-import AuthorData from '../components/AuthorData'
+import { AuthorCollection } from '../components/authorPage/AuthorCollection'
+import AuthorData from '../components/authorPage/AuthorData'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
 import classNames from 'classnames'
