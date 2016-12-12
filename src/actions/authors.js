@@ -83,7 +83,7 @@ export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay 
       .then(function searchSuccess(content) {
         const response = hitsToEntities(content.hits, 'authors')
         const currentPage = content.page
-        const isFinish = ( currentPage >= content.nbPages )
+        const isFinish = ( currentPage >= content.nbPages - 1 )
         const receivedAt = Date.now()
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars

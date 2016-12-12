@@ -64,7 +64,7 @@ export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, auth
         let items = normalize(camelizedJson, arrayOf(articleSchema))
         const collectIndexList = items.result
         const currentPage = content.page
-        const isFinish = ( currentPage >= content.nbPages )
+        const isFinish = ( currentPage >= content.nbPages-1 )
         const receivedAt = Date.now()
         const totalResults = content.nbHits
         return dispatch(receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt))
