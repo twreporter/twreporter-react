@@ -94,18 +94,19 @@ $image-container-width-tablet: 190px;
   .author-data-container {
     float: right;
     box-sizing: border-box;
+    word-break: keep-all;
   }
 
   .author-name {
     vertical-align: middle;
-    display: inline;
+    display: inline-block;
   }
 
   .author-mail::before {
     content: '|';
     font-weight: $font-weight-normal;
     vertical-align: middle;
-    display: inline;
+    display: inline-block;
     margin-left: 20px;
     margin-right: 20px;
     position: relative;
@@ -114,10 +115,11 @@ $image-container-width-tablet: 190px;
 
   .author-mail {
     vertical-align: middle;
-    display: inline;
+    display: inline-block;
   }
 
   .author-bio {
+    word-break: normal;
     margin-top: 20px;
   }
 
