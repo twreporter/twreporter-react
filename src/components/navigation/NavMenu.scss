@@ -208,6 +208,14 @@
     }
 }
 
+.search {
+  position: absolute;
+  right: 2.6rem;
+  @media (max-width: $screen-xs-max) {
+    right: rem(24px);
+  }
+}
+
 .navLogo {
     img {
         width: rem(119px);

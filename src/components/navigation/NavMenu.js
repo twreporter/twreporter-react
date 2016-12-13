@@ -125,7 +125,9 @@ export default class NavMenu extends Component {
         </div>
         <div className={styles.navRight}>
           {/*<Link className={styles.logoRight} to="/"><img src={smallLogo} /></Link>*/}
-          <SearchBox />
+          <div className={styles.search}>
+            <SearchBox />
+          </div>
         </div>
         {subNavBar}
       </div>
@@ -205,7 +207,9 @@ export default class NavMenu extends Component {
           </div>
         </div>
         <div className={classNames(styles.navRight, styles.fadeLeft)}>
-          <SearchBox />
+          <div className={styles.search}>
+            <SearchBox />
+          </div>
         </div>
       </div>
     )
