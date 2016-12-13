@@ -1,6 +1,7 @@
 'use strict'
 
-import { AuthorCollection } from '../components/authorPage/AuthorCollection'
+import { AUTHOR_PAGE_STYLE } from '../constants/article-styles'
+import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
@@ -13,7 +14,6 @@ import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { setPageType } from '../actions/header'
 import uniq from 'lodash/uniq'
-import { AUTHOR_PAGE_STYLE } from '../constants/article-styles'
 
 const _ = {
   get,
@@ -22,15 +22,13 @@ const _ = {
 }
 
 class Author extends React.Component {
-  static fetchData({ store }) {
-    return store.dispatch(fetchAuthorCollectionIfNeeded())
+  static fetchData({ params, store }) {
+    const authorId = _.get(params, 'authorId', '')
+    return store.dispatch(fetchAuthorCollectionIfNeeded(authorId))
   }
-  constructor(props) {
-    super(props)
-  }
-  componentWillMount() {
+  componentDidMount() {
     const authorId = this.props.params['authorId']
-    let { setPageType, fetchAuthorCollectionIfNeeded, authorPage } = this.props
+    let { setPageType, authorPage, fetchAuthorCollectionIfNeeded } = this.props
     const currentPage = _.get(authorPage, [ authorId, 'currentPage' ], -1)
     if (currentPage < 0) {
       fetchAuthorCollectionIfNeeded(authorId)
@@ -51,8 +49,8 @@ class Author extends React.Component {
       authorMail: _.get(thisAuthorInEntities, 'email'),
       authorBio: _.get(thisAuthorInEntities, 'bio.md')
     }
-    let handleClick = () => {
-      this.props.fetchAuthorCollectionIfNeeded(authorId)
+    let handleLoadmore = () => {
+      return this.props.fetchAuthorCollectionIfNeeded(authorId)
     }
     return (
     <div>
@@ -64,7 +62,7 @@ class Author extends React.Component {
           isFinish={isFinish}
           isFetching={isFetching}
           currentPage={currentPage}
-          handleClick={handleClick}
+          handleLoadmore={handleLoadmore}
           totalResults={totalResults}
         />
       </div>

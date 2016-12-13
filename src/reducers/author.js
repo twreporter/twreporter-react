@@ -5,11 +5,13 @@ import * as types from '../constants/action-types'
 import get from 'lodash/get'
 import isArray from 'lodash/isArray'
 import mergeWith from 'lodash/mergeWith'
+import omit from 'lodash/omit'
 
 const _ = {
+  get,
   isArray,
   mergeWith,
-  get
+  omit
 }
 
 const initialStates = {
@@ -29,8 +31,7 @@ export const author = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
-      //
-      let actionObjToAdd = action
+      let actionObjToAdd = _.omit(action, [ 'type', 'authorId' ])
       actionObjToAdd.isFetching = false
       return _.mergeWith({}, state, actionObjToAdd, concatIfIsArray)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
