@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 'use strict'
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
-import { LeadingVideo } from '../components/article/LeadingVideo'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
@@ -9,14 +8,15 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setHeaderInfo, setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
 import DocumentMeta from 'react-document-meta'
+import LeadingVideo from '../components/shared/LeadingVideo'
 import Footer from '../components/Footer'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import SystemError from '../components/SystemError'
 import async from 'async'
-import classNames from 'classnames'
+import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import fbIcon from '../../static/asset/fb.svg'
 import lineIcon from '../../static/asset/line.svg'
@@ -54,16 +54,16 @@ let articlePostition = {
 
 const ArticlePlaceholder = () => {
   return (
-    <div className={classNames(styles['placeholder'])}>
-      <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+    <div className={cx(styles['placeholder'])}>
+      <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
         <div className={styles['ph-title-1']}></div>
         <div className={styles['ph-title-2']}></div>
         <div className={styles['ph-author']}></div>
       </div>
-      <div className={classNames(styles['leading-img'], leadingImgStyles['leading-img'])}>
+      <div className={cx(styles['leading-img'], leadingImgStyles['leading-img'])}>
         <div className={styles['ph-image']}></div>
       </div>
-      <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+      <div className={cx(styles.introduction, commonStyles['inner-block'])}>
         <div className={styles['ph-content']}></div>
         <div className={styles['ph-content']}></div>
         <div className={styles['ph-content-last']}></div>
@@ -399,17 +399,16 @@ class Article extends Component {
 
     let authors = this._composeAuthors(article)
     let bodyData = _.get(article, [ 'content', 'apiData' ], [])
-    let leadingVideo = _.get(article, 'leadingVideo.video.url', '')
-    let leadingVideoTitle = _.get(article, 'leadingVideo.video.title', '')
+    let leadingVideo = _.get(article, 'leadingVideo', null)
     let heroImage = _.get(article, [ 'heroImage' ], null)
     let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     let introData = _.get(article, [ 'brief', 'apiData' ], [])
     let copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 classNames(styles['article-container'], styles['photo-container']) : styles['article-container']
+                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
     const contentClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 classNames(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
+                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
     let topicName = _.get(article, 'topics.name')
@@ -439,9 +438,17 @@ class Article extends Component {
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
           <div className={outerClass}>
-            { leadingVideo ? <LeadingVideo title={leadingVideoTitle} src={leadingVideo} poster={_.get(heroImage, [ 'image', 'resizedTargets' ])} /> : null }
-            <article className={contentClass}>
-              <div className={classNames(styles['title-row'], commonStyles['inner-block'])}>
+            {
+              leadingVideo ?
+                <LeadingVideo
+                  filetype={_.get(leadingVideo, 'video.filetype')}
+                  title={_.get(leadingVideo, 'title')}
+                  src={_.get(leadingVideo, 'video.url')}
+                  poster={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                /> : null
+            }
+              <article className={contentClass}>
+              <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
                   <h3>{topicBlock}{subtitleBlock}</h3>
                   <h1 itemProp="headline">{article.title}</h1>
@@ -456,7 +463,7 @@ class Article extends Component {
                 <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
-              <div ref="progressBegin" className={classNames(styles['article-meta'], commonStyles['inner-block'])}>
+              <div ref="progressBegin" className={cx(styles['article-meta'], commonStyles['inner-block'])}>
                 <ArticleComponents.HeadingAuthor
                   authors={authors}
                   extendByline={_.get(article, 'extendByline')}
@@ -489,7 +496,7 @@ class Article extends Component {
                   </div> : null
               }
 
-              <div className={classNames(styles.introduction, commonStyles['inner-block'])}>
+              <div className={cx(styles.introduction, commonStyles['inner-block'])}>
                 <ArticleComponents.Introduction
                   data={introData}
                 />
@@ -501,8 +508,8 @@ class Article extends Component {
             </article>
 
             <div ref="progressEnding"
-                className={classNames('inner-max', 'center-block', commonStyles['components'])}>
-              <div className={classNames('inner-max', commonStyles['component'])}>
+                className={cx('inner-max', 'center-block', commonStyles['components'])}>
+              <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
                   data={article.tags}
                 />
