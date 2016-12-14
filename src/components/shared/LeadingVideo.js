@@ -1,8 +1,9 @@
 /* eslint no-unused-vars:0 */
 'use strict'
 import MobileDetect from 'mobile-detect'
-import React, { Component } from 'react' // eslint-disable-line
+import React, { Component, PropTypes } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
+import VisibilitySensor from 'react-visibility-sensor'
 import cx from 'classnames'
 import soundOnIcon from '../../../static/asset/sound-on.svg'
 import soundMuteIcon from '../../../static/asset/sound-mute.svg'
@@ -26,6 +27,7 @@ class LeadingVideo extends React.Component {
       isMuted: props.mute
     }
     this.handleMuteChange = this._handleMuteChange.bind(this)
+    this.handleScrolledOver = this._handleScrolledOver.bind(this)
   }
 
   componentDidMount() {
@@ -56,10 +58,23 @@ class LeadingVideo extends React.Component {
   }
 
   _handleMuteChange() {
-    this._player.muted = !this._player.muted
-    this.setState({
-      isMuted: !this.state.isMuted
-    })
+    if (this._player) {
+      this._player.muted = !this._player.muted
+      this.setState({
+        isMuted: !this.state.isMuted
+      })
+    }
+  }
+
+  _handleScrolledOver(isVisible) {
+    // if video is not in the viewport,
+    // turn off the audio.
+    if (!isVisible && this._isMounted && this._player) {
+      this.setState({
+        isMuted: true
+      })
+      this._player.muted = true
+    }
   }
 
   render() {
@@ -103,6 +118,7 @@ class LeadingVideo extends React.Component {
           >
             <source src={src} type={filetype} />
           </video>
+          <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
           <img
             className={_.get(classNames, 'audioBt', style['audio-bt'])}
             src={isMuted ? soundMuteIcon : soundOnIcon}
@@ -113,39 +129,45 @@ class LeadingVideo extends React.Component {
     }
 
     return (
-      <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
-        <link itemProp="url" href={src} />
-        <meta itemProp="name" content={title}/>
-        {placeHolderJsx}
-        {videoJsx}
-      </div>
+      <VisibilitySensor
+        onChange={this.handleScrolledOver}
+        partialVisibility={true}
+      >
+        <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
+          <link itemProp="url" href={src} />
+          <meta itemProp="name" content={title}/>
+          {placeHolderJsx}
+          {videoJsx}
+        </div>
+      </VisibilitySensor>
     )
   }
 }
 
 LeadingVideo.propTypes = {
-  classNames: React.PropTypes.shape({
-    container: React.PropTypes.string,
-    poster: React.PropTypes.string,
-    video: React.PropTypes.string,
-    audioBt: React.PropTypes.string
+  classNames: PropTypes.shape({
+    audioBt: PropTypes.string,
+    container: PropTypes.string,
+    poster: PropTypes.string,
+    video: PropTypes.string,
+    videoMask: PropTypes.string
   }),
-  filetype: React.PropTypes.string,
-  loop: React.PropTypes.bool,
-  mute: React.PropTypes.bool,
-  poster: React.PropTypes.shape({
-    desktop: {
-      url: React.PropTypes.string
-    },
-    mobile: {
-      url: React.PropTypes.string
-    },
-    tablet: {
-      url: React.PropTypes.string
-    }
+  filetype: PropTypes.string,
+  loop: PropTypes.bool,
+  mute: PropTypes.bool,
+  poster: PropTypes.shape({
+    desktop: PropTypes.shape({
+      url: PropTypes.string
+    }),
+    mobile: PropTypes.shape({
+      url: PropTypes.string
+    }),
+    tablet: PropTypes.shape({
+      url: PropTypes.string
+    })
   }),
-  src: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string
+  src: PropTypes.string.isRequired,
+  title: PropTypes.string
 }
 
 LeadingVideo.defaultProps = {

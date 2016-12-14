@@ -160,6 +160,7 @@
     "react-swipeable": "^3.5.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
+    "react-visibility-sensor": "^3.5.0",
     "react-youtube": "^7.0.1",
     "redis": "^2.6.2",
     "redux": "^3.5.2",
