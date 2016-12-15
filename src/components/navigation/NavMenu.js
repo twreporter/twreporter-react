@@ -1,4 +1,4 @@
-import { ARTICLE_STYLE, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE_STYLE, BACK_TO_TOPIC, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import { isArticlePageType } from '../../utils/index'
@@ -13,9 +13,10 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import SearchBox from './SearchBox'
+import SubNavBar from './SubNavBar'
+import backToTopicIcon from '../../../static/asset/back-to-topic.svg'
 import smallLogo from '../../../static/asset/navbar-fixed-top-logo.svg'
 import styles from './NavMenu.scss'
-import SubNavBar from './SubNavBar'
 import tocIcon from '../../../static/asset/icon-navbar-toc.svg'
 import TopicPopup from './TopicPopup'
 
@@ -137,15 +138,28 @@ export default class NavMenu extends Component {
   _renderAritcleSecond(burgerMenu) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
-    const { pageTopic, pageTheme, topicArr } = this.props
+    const { pageTopic, pageTheme, showBackToTopicIcon, topicArr, topicSlug } = this.props
     const topicLength = _.get(topicArr, 'length', 0)
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
     let topicCnt = (topicLength > 0) ? <div className={styles['topic-count']}> {topicLength} </div> : null
-    let topicButton = pageTopic ? <div className={classNames(navItemClass, styles['topic-dots'])} onClick={this._onTopicBtnClick}>
-            <img src={tocIcon} /> {topicCnt}
-          </div> : null
-
+    let topicButton = null
+    if (showBackToTopicIcon) {
+      topicButton = (
+        <Link to={`/topics/${topicSlug}`}>
+          <div className={styles['back-to-topic']}>
+            <img src={backToTopicIcon} />
+            <span>{BACK_TO_TOPIC}</span>
+          </div>
+        </Link>
+      )
+    } else if (pageTopic) {
+      topicButton = (
+        <div className={classNames(navItemClass, styles['topic-dots'])} onClick={this._onTopicBtnClick}>
+          <img src={tocIcon} /> {topicCnt}
+        </div>
+      )
+    }
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
@@ -357,6 +371,7 @@ NavMenu.contextTypes = {
 
 NavMenu.propTypes = {
   articleId: React.PropTypes.string,
+  showBackToTopicIcon: React.PropTypes.bool,
   bookmarks: PropTypes.arrayOf(PropTypes.shape({
     style: PropTypes.string,
     slug: PropTypes.string,
@@ -371,16 +386,19 @@ NavMenu.propTypes = {
   pageTitle: PropTypes.string,
   pageTopic: PropTypes.string,
   pathname: PropTypes.string,
-  topicArr: PropTypes.arrayOf(PropTypes.object)
+  topicArr: PropTypes.arrayOf(PropTypes.object),
+  topicSlug: PropTypes.string
 }
 
 NavMenu.defaultProps = {
   articleId: '',
+  showBackToTopicIcon: false,
   bookmarks: [],
   isScrolledOver: false,
   pageTheme: BRIGHT,
   pageTopic: '',
   pageType: '',
   pathname: '',
-  topicArr: []
+  topicArr: [],
+  topicSlug: ''
 }

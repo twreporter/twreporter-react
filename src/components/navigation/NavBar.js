@@ -108,12 +108,14 @@ class NavBar extends Component {
 NavBar.propTypes = {
   header: PropTypes.shape({
     articleId: PropTypes.string,
+    showBackToTopicIcon: PropTypes.bool,
     bookmarks: PropTypes.array,
     readPercent: PropTypes.number,
     pageTheme: PropTypes.string,
     pageTopic: PropTypes.string,
     pageType: PropTypes.string,
-    topicArr: PropTypes.array
+    topicArr: PropTypes.array,
+    topicSlug: PropTypes.string
   }),
   pathname: PropTypes.string.isRequired
 }
@@ -121,12 +123,14 @@ NavBar.propTypes = {
 NavBar.defaultProps = {
   header: {
     articleId: '',
+    showBackToTopicIcon: false,
     bookmarks: [],
     readPercent: 0,
     pageTheme: BRIGHT,
     pageType: '',
     pageTopic: '',
-    topicArr: []
+    topicArr: [],
+    topicSlug: ''
   },
   pathname: ''
 }

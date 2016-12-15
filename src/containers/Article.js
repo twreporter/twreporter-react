@@ -246,30 +246,33 @@ class Article extends Component {
       bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
     }
 
+    const topicSlug = _.get(topic, 'slug', '')
+
     // WORKAROUND
     // Use title of topic to check if the topic is the new data structure or old one.
     // If topic is the new data structure, we show the backToTopic icon on the header,
     // otherwise show the toc(table of content) icon
     // TBD consolidate the topic data structure
     let topicArr
-    let backToTopic
+    let showBackToTopicIcon
     if (_.get(topic, 'title')) {
-      backToTopic = true
+      showBackToTopicIcon = true
     } else {
       topicArr = this._getTopicArticles(_.get(article, 'topics'))
-      backToTopic = false
+      showBackToTopicIcon = false
     }
 
     setHeaderInfo({
       articleId: article.id,
-      backToTopic,
+      showBackToTopicIcon,
       bookmarks,
       pageTitle: article.title,
       pageTheme: theme,
       pageTopic: topicName,
       pageType: style,
       readPercent: 0,
-      topicArr
+      topicArr,
+      topicSlug
     })
   }
 

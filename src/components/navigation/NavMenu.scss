@@ -292,6 +292,23 @@
     padding-bottom: 0.2rem;
 }
 
+.back-to-topic {
+  display: inline-block;
+  >img {
+    width: 22px;
+    margin-right: 10px;
+  }
+  >span {
+    font-size: $font-size-medium;
+  }
+
+  @media (max-width: $screen-tablet) {
+    >span {
+      display: none;
+    }
+  }
+}
+
 .navButton {
     @extend .nav-item-algin;
     width: 32px;
