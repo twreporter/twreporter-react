@@ -115,12 +115,12 @@ class Photography extends Component {
         <TopNews topnews={topNewsItems} />
         <ArticleList
           articles={articles}
-          bgStyle="dark"
+          bgStyle={DARK}
           hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer theme="dark"/>
+        <Footer theme={DARK} />
       </div>
     )
   }
