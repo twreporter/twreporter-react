@@ -1,11 +1,12 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, REQUEST_PAGE_START_FROM, SEARCHING_AUTHOR_NAME } from '../constants/authors-list'
+import { LOADING_MORE_AUTHORS, REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 
 import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
+import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
 import { connect } from 'react-redux'
@@ -76,7 +77,8 @@ class AuthorsList extends React.Component {
 
     return (
       <div className={styles['author-list-container']}>
-        <input className={styles['filter-input']} placeholder={SEARCHING_AUTHOR_NAME} ></input>
+        {/* <input className={styles['filter-input']} placeholder={SEARCHING_AUTHOR_NAME} ></input> */}
+        <AuthorSearchBox />
         <ShownAuthors filteredAuthors={authorsArray} />
         {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div>}
         {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
