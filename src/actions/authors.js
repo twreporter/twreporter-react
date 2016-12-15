@@ -5,43 +5,14 @@ import * as CONSTANTS from '../constants/index'
 
 import { arrayOf, normalize } from 'normalizr'
 
-import { InternalServerError } from '../lib/custom-error'
 import { REQUEST_PAGE_START_FROM, MAX_RESULTS_PER_FETCH, RETURN_DELAY } from '../constants/authors-list'
 import algoliasearch from 'algoliasearch'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import fetch from 'isomorphic-fetch'
-import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
-import { hitsToEntities } from '../utils/algolia'
 
 const _ = {
   get
-}
-
-export function requestAuthors() {
-  return {
-    type: CONSTANTS.FETCH_AUTHORS_REQUEST
-  }
-}
-
-export function failToReceiveAuthors(error, failedAt) {
-  return {
-    type: CONSTANTS.FETCH_AUTHORS_FAILURE,
-    error,
-    failedAt
-  }
-}
-
-export function receiveAuthors(items, currentPage, isFinish, receivedAt) {
-  return {
-    type: CONSTANTS.FETCH_AUTHORS_SUCCESS,
-    response: items,
-    authorsInList: items.result,
-    currentPage,
-    isFinish,
-    receivedAt
-  }
 }
 
 export function requestSearchAuthors(keyWords) {
@@ -59,9 +30,10 @@ export function failToSearchAuthors(error, failedAt) {
   }
 }
 
-export function receiveSearchAuthors(response, currentPage, isFinish, receivedAt) {
+export function receiveSearchAuthors(keyWords, response, currentPage, isFinish, receivedAt) {
   return {
     type: CONSTANTS.SEARCH_AUTHORS_SUCCESS,
+    keyWords,
     response: response,
     authorsInList: response.result,
     currentPage,
@@ -81,7 +53,9 @@ export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay 
     dispatch(requestSearchAuthors(keyWords))
     return index.search(keyWords, searchParas)
       .then(function searchSuccess(content) {
-        const response = hitsToEntities(content.hits, 'authors')
+        const hits = _.get(content, 'hits', {})
+        const camelizedJson = camelizeKeys(hits)
+        let response = normalize(camelizedJson, arrayOf(authorSchema))
         const currentPage = content.page
         const isFinish = ( currentPage >= content.nbPages - 1 )
         const receivedAt = Date.now()
@@ -93,7 +67,7 @@ export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay 
           })
         }
         return delayDispatch().then(()=>{
-          return dispatch(receiveSearchAuthors(response, currentPage, isFinish, receivedAt))
+          return dispatch(receiveSearchAuthors(keyWords, response, currentPage, isFinish, receivedAt))
         })
       }
       )
@@ -103,47 +77,6 @@ export function searchAuthors(targetPage = REQUEST_PAGE_START_FROM, returnDelay 
       })
   }
 }
-
-export function fetchAuthors(targetPage, returnDelay = 0, maxResults = 12) {
-  return (dispatch, getState) => { // eslint-disable-line no-unused-vars
-    let url = formatUrl(`authors?max_results=${maxResults}&page=${targetPage}`)
-    dispatch(requestAuthors(url))
-    return fetch(url)
-      .then((response) => {
-        if (response.status >= 400) {
-          throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
-        }
-        return response.json()
-      })
-      .then(
-        (response) => {
-          const camelizedJson = camelizeKeys(response)
-          let items = normalize(camelizedJson.items, arrayOf(authorSchema))
-          let meta = camelizedJson.meta
-          let currentPage = _.get(meta, 'page', 1)
-          let maxResultsPerPage = meta.maxResults
-          let totalResults = meta.total
-          let finalPage = Math.ceil(totalResults/maxResultsPerPage)
-          let isFinish = currentPage >= finalPage ? true : false
-          let receivedAt = Date.now()
-          function delayDispatch() {
-            return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
-              setTimeout(() => {
-                resolve()
-              }, returnDelay)
-            })
-          }
-          return delayDispatch().then(()=>{
-            return dispatch(receiveAuthors(items, currentPage, isFinish, receivedAt))
-          })
-        },
-        (error) => {
-          let failedAt = Date.now()
-          return dispatch(failToReceiveAuthors(error, failedAt))
-        })
-  }
-}
-
 
 export function fetchAuthorsIfNeeded() {
   return (dispatch, getState) => {
