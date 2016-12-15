@@ -46,7 +46,7 @@ export default class Cards extends Component {
       )
     })
     return (
-      <div className={cx(style.cards, 'center-block')}>
+      <div className={cx(style.cards)}>
         {cardsJsx}
       </div>
     )
