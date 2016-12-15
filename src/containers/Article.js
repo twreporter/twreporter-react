@@ -1,5 +1,6 @@
 /* eslint no-console:0 */
 'use strict'
+import { Link } from 'react-router'
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
@@ -9,6 +10,7 @@ import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticles
 import { setHeaderInfo, setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 import DocumentMeta from 'react-document-meta'
+import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import Footer from '../components/Footer'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
@@ -16,6 +18,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import SystemError from '../components/SystemError'
 import async from 'async'
+import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import fbIcon from '../../static/asset/fb.svg'
@@ -219,7 +222,8 @@ class Article extends Component {
     let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
 
     // in normalized article, article.topics is an id
-    let topicName = _.get(entities, [ 'topics', _.get(article, 'topics'), 'name' ])
+    let topic = _.get(entities, [ 'topics', _.get(article, 'topics') ])
+    let topicName = _.get(topic, 'topicName', _.get(topic, 'name'))
 
     let style = _.get(article, 'style')
     let theme = BRIGHT
@@ -242,10 +246,23 @@ class Article extends Component {
       bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
     }
 
-    let topicArr = this._getTopicArticles(_.get(article, 'topics'))
+    // WORKAROUND
+    // Use title of topic to check if the topic is the new data structure or old one.
+    // If topic is the new data structure, we show the backToTopic icon on the header,
+    // otherwise show the toc(table of content) icon
+    // TBD consolidate the topic data structure
+    let topicArr
+    let backToTopic
+    if (_.get(topic, 'title')) {
+      backToTopic = true
+    } else {
+      topicArr = this._getTopicArticles(_.get(article, 'topics'))
+      backToTopic = false
+    }
 
     setHeaderInfo({
       articleId: article.id,
+      backToTopic,
       bookmarks,
       pageTitle: article.title,
       pageTheme: theme,
@@ -397,13 +414,13 @@ class Article extends Component {
       relatedArticles = this._getFeatureArticles()
     }
 
-    let authors = this._composeAuthors(article)
-    let bodyData = _.get(article, [ 'content', 'apiData' ], [])
-    let leadingVideo = _.get(article, 'leadingVideo', null)
-    let heroImage = _.get(article, [ 'heroImage' ], null)
-    let heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
-    let introData = _.get(article, [ 'brief', 'apiData' ], [])
-    let copyright = _.get(article, [ 'copyright' ], [])
+    const authors = this._composeAuthors(article)
+    const bodyData = _.get(article, [ 'content', 'apiData' ], [])
+    const leadingVideo = _.get(article, 'leadingVideo', null)
+    const heroImage = _.get(article, [ 'heroImage' ], null)
+    const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
+    const introData = _.get(article, [ 'brief', 'apiData' ], [])
+    const copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-container'], styles['photo-container']) : styles['article-container']
@@ -411,14 +428,16 @@ class Article extends Component {
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
 
-    let topicName = _.get(article, 'topics.name')
-    let topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
-    let topicArr = this._getTopicArticles(_.get(article, 'topics.id'))
+    const topic = _.get(article, 'topics')
+    const topicName = _.get(topic, 'topicName', _.get(topic, 'name'))
+    const topicTitle = _.get(topic, 'title')
+    const topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    const topicArr = this._getTopicArticles(_.get(topic, 'id'))
 
-    let subtitle = _.get(article, 'subtitle', '')
-    let subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
+    const subtitle = _.get(article, 'subtitle', '')
+    const subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
 
-    let updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
+    const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
 
     const meta = {
       title: _.get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
@@ -514,6 +533,17 @@ class Article extends Component {
                   data={article.tags}
                 />
               </div>
+              { topicTitle ?
+                <Link to={`/topics/${_.get(topic,'slug')}`}>
+                  <PromotionBanner
+                    bgImgSrc={_.get(topic, 'leadingImage.image.resizedTargets.tablet.url')}
+                    headline={_.get(topic, 'headline')}
+                    iconImgSrc={backToTopicIcon}
+                    title={topicTitle}
+                    subtitle={_.get(topic, 'subtitle')}
+                  />
+                </Link>
+                : null }
               <ArticleComponents.BottomRelateds
                 relateds={relatedArticles}
                 currentId={article.id}
