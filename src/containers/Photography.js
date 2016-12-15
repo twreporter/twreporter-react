@@ -14,10 +14,6 @@ import TopNews from '../components/TopNews'
 // lodash
 import get from 'lodash/get'
 
-if (process.env.BROWSER) {
-  require('./Home.css')
-}
-
 const MAXRESULT = 10
 const PAGE = 1
 const PHOTOGRAPHY_CH_STR = '影像'

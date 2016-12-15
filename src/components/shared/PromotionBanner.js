@@ -9,12 +9,14 @@ export default function PromotionBanner({ headline, iconImgSrc, bgImgSrc, subtit
   }
   return (
     <div className={styles.container} style={bgStyle}>
-      { headline ? <div className={styles.headline}>{headline}</div> : null}
-      <div className={styles['title-block']}>
-        { iconImgSrc ? <img src={iconImgSrc} /> : null }
-        <span>{title}</span>
+      <div>
+        { headline ? <div className={styles.headline}>{headline}</div> : null}
+        <div className={styles['title-block']}>
+          { iconImgSrc ? <img src={iconImgSrc} /> : null }
+          <span>{title}</span>
+        </div>
+        <div>{subtitle}</div>
       </div>
-      <div>{subtitle}</div>
     </div>
   )
 }

@@ -12,6 +12,18 @@ $red: $harley-davidson-orange;
   padding-bottom: 27px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   color: white;
+
+  &::before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+  }
+
+  >div {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .headline {
@@ -36,7 +48,6 @@ $red: $harley-davidson-orange;
 @include mq($max-width: $screen-xs-max) {
   .title-block {
     margin: 10px auto;
-    max-width: 226px;
     font-size: 30px;
   }
 }
