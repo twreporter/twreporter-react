@@ -1,0 +1,43 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import "../../themes/common-variables.scss";
+@import '../../themes/media-queries.scss';
+
+$red: $harley-davidson-orange;
+
+.container {
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  text-align: center;
+  padding-top: 22px;
+  padding-bottom: 27px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.headline {
+  font-size: $font-size-base;
+  background-color: $red;
+  padding: 5px;
+  display: inline-block;
+}
+
+.title-block {
+  font-size: 45px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+
+  >img {
+    width: 22px;
+    margin-right: 20px;
+  } 
+}
+
+// === Mobile ===
+@include mq($max-width: $screen-xs-max) {
+  .title-block {
+    margin: 10px auto;
+    max-width: 226px;
+    font-size: 30px;
+  }
+}
