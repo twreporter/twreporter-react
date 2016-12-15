@@ -50,11 +50,11 @@ class LeadingVideo extends React.Component {
     })
 
     this._isMounted = true
-    this._player = ReactDOM.findDOMNode(this.refs.player)
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     this._isMounted = false
+    this._player = null
   }
 
   _handleMuteChange() {
@@ -109,7 +109,7 @@ class LeadingVideo extends React.Component {
         <div>
           <video
             className={_.get(classNames, 'video', style['video'])}
-            ref="player"
+            ref={(input) => { this._player = input }}
             playsInline
             poster={imgSrc}
             autoPlay
