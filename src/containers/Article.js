@@ -530,7 +530,7 @@ class Article extends Component {
             </article>
 
             <div ref="progressEnding"
-                className={cx('inner-max', 'center-block', commonStyles['components'])}>
+                className={commonStyles['components']}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
                   data={article.tags}
@@ -538,13 +538,15 @@ class Article extends Component {
               </div>
               { topicTitle ?
                 <Link to={`/topics/${_.get(topic,'slug')}`}>
-                  <PromotionBanner
-                    bgImgSrc={_.get(topic, 'leadingImage.image.resizedTargets.tablet.url')}
-                    headline={_.get(topic, 'headline')}
-                    iconImgSrc={backToTopicIcon}
-                    title={topicTitle}
-                    subtitle={_.get(topic, 'subtitle')}
-                  />
+                  <div className={cx(styles['promotion'], 'center-block')}>
+                    <PromotionBanner
+                      bgImgSrc={_.get(topic, 'leadingImage.image.resizedTargets.tablet.url')}
+                      headline={_.get(topic, 'headline')}
+                      iconImgSrc={backToTopicIcon}
+                      title={topicTitle}
+                      subtitle={_.get(topic, 'subtitle')}
+                    />
+                  </div>
                 </Link>
                 : null }
               <ArticleComponents.BottomRelateds

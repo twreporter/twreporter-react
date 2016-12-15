@@ -93,7 +93,7 @@ class LeadingVideo extends React.Component {
 
     // there is no easy way to autoplay inline video on the devices whose iOS is below 10,
     // so just render the leading image
-    if (isIOS10Below) {
+    if (isIOS10Below || !src) {
       videoJsx = (
         <img
           className={_.get(classNames, 'poster', style['poster'])}
@@ -110,8 +110,8 @@ class LeadingVideo extends React.Component {
           <video
             className={_.get(classNames, 'video', style['video'])}
             ref="player"
-            poster={imgSrc}
             playsInline
+            poster={imgSrc}
             autoPlay
             muted={isMuted}
             loop={loop}
@@ -166,7 +166,7 @@ LeadingVideo.propTypes = {
       url: PropTypes.string
     })
   }),
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   title: PropTypes.string
 }
 
@@ -176,6 +176,7 @@ LeadingVideo.defaultProps = {
   loop: true,
   mute: true,
   poster: {},
+  src: '',
   title: ''
 }
 
