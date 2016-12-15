@@ -1,7 +1,7 @@
 'use strict'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
+import { formatUrl } from '../utils/index'
 import { normalize } from 'normalizr'
 import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import * as types from '../constants/action-types'
@@ -10,6 +10,10 @@ import qs from 'qs'
 
 // lodash
 import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 function requestArticle(slug, url) {
   return {
@@ -37,10 +41,15 @@ function receiveArticle(response, slug) {
   }
 }
 
-function fetchArticle(slug) {
+/**
+ * Fetch article from posts endpoint on the FE server
+ * @param {string} slug - Article slug
+ * @param {string} query - Query string for the url
+ * @return {object} A Promise
+ */
+function fetchArticle(slug, query) {
   return dispatch => {
-    let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
-    let url = formatUrl(`posts/${slug}?${query}`)
+    let url = query ? formatUrl(`posts/${slug}?${query}`) : formatUrl(`posts/${slug}`)
     dispatch(requestArticle(slug, url))
     return fetch(url)
     .then((response) => {
@@ -61,23 +70,60 @@ function fetchArticle(slug) {
   }
 }
 
-function shouldFetchArticle(state, slug) {
-  const slugToId = get(state, 'articleSlugToId', {})
-  const articles = get(state, [ 'entities', 'articles' ], {})
-  if (get(articles, [ slugToId[slug], 'content' ])) {
+
+/**
+ * Given article slug, return article id of that slug
+ * @param {object} state
+ * @param {object} state.articleSlugToId - A mapping table storing article slug to article id
+ * @param {string} slug - Article slug
+ * @return {string} Article id
+ */
+function getArticleId(state, slug) {
+  return _.get(state, [ 'articleSlugToId', slug ], '')
+}
+
+/**
+ * Check if we should load article from Remote endpoint
+ * @param {object} state
+ * @param {object} state.entities
+ * @param {object} state.entities.articles - articles already fetched
+ * @param {string} id - Article id
+ * @return {bool}
+ */
+function shouldFetchArticle(state, id) {
+  const articles = _.get(state, [ 'entities', 'articles' ])
+  if (_.get(articles, [ id, 'content' ])) {
     return false
   }
   return true
 }
 
+/**
+ * @param {object} state
+ * @param {object} state.entities
+ * @param {object} state.entities.articles - articles already fetched
+ * @param {string} id - Article id
+ * @return {string} Query string for the url
+ */
+function getQueryParam(state, id) {
+  const topicId = _.get(state, [ 'entities', 'articles', id, 'topics' ])
+  if (!_.get(state, [ 'entities', 'topics', topicId ])) {
+    // fetch article embedded with topic
+    return qs.stringify({ embedded: JSON.stringify({ topics: 1 }) })
+  }
+  return ''
+}
+
 export function fetchArticleIfNeeded(slug) {
   return (dispatch, getState) => {
-    if (shouldFetchArticle(getState(), slug)) {
-      return dispatch(fetchArticle(slug))
+    const state = getState()
+    const id = getArticleId(state, slug)
+    if (shouldFetchArticle(state, id)) {
+      const query = getQueryParam(state, id)
+      return dispatch(fetchArticle(slug, query))
     }
-    let state = getState()
-    let response = {
-      result: get(state, [ 'articleSlugToId', slug ])
+    const response = {
+      result: _.get(state, [ 'articleSlugToId', slug ])
     }
     return dispatch(receiveArticle(response, slug))
   }
