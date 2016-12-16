@@ -18,9 +18,9 @@ const initialStates = {
   authorsInList: []
 }
 
-function customizer(objValue, srcValue) {
-  if (_.isArray(objValue)) {
-    return objValue.concat(srcValue)
+function concatIfIsArray(previousArray, inputValue) {
+  if (_.isArray(previousArray)) {
+    return previousArray.concat(inputValue)
   }
 }
 
@@ -31,12 +31,19 @@ export const authorsList = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.SEARCH_AUTHORS_SUCCESS:
-      return _.mergeWith({}, state, {
+      const { keywords, replaceAll, currentPage, isFinish, authorsInList } = action
+      const actionObjToAdd = {
+        keywords,
+        replaceAll,
         isFetching: false,
-        currentPage: action.currentPage,
-        isFinish: action.isFinish,
-        authorsInList: action.authorsInList
-      }, customizer)
+        currentPage,
+        isFinish,
+        authorsInList
+      }
+      if (action.replaceAll === true) {
+        return Object.assign({}, state, actionObjToAdd)
+      }
+      return _.mergeWith({}, state, actionObjToAdd, concatIfIsArray)
     case types.SEARCH_AUTHORS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,

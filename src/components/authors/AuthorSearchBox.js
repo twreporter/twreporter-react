@@ -12,6 +12,7 @@ class AuthorSearchBox extends React.Component {
     this._handleClickButton = this._handleClickButton.bind(this)
     this._handleSubmit = this._handleSubmit.bind(this)
     this._handleChange = this._handleChange.bind(this)
+    this.sendSearchAuthors = this.props.sendSearchAuthors.bind(this)
   }
 
   _handleChange(event) {
@@ -19,25 +20,21 @@ class AuthorSearchBox extends React.Component {
     const input = event.target.value
     if (!input) return this.setState(this.initialState)
     this.setState({ keywords: input })
-    console.log('change')// eslint-disable-line
   }
 
   _handleSubmit(event) {
     event.preventDefault()
-    console.log('submit')// eslint-disable-line
-    console.log(this.state.keywords)// eslint-disable-line
+    const keywords = this.state.keywords
+    const replaceAll = true
+    this.sendSearchAuthors(keywords, replaceAll)
   }
 
   _handleClickButton(event) {
     event.preventDefault()
-    console.log('click') // eslint-disable-line
-    console.log(this.state.keywords)// eslint-disable-line
+    const keywords = this.state.keywords
+    const replaceAll = true
+    this.sendSearchAuthors(keywords, replaceAll)
   }
-
-  // _refCallback(input) {
-  //   console.log(this)
-  //   console.log(input)
-  // }
 
   render() {
     return (<div>
