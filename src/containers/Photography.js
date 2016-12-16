@@ -1,4 +1,5 @@
-/* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
+/* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
+
 import { CATEGORY, DARK, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
@@ -12,10 +13,6 @@ import TopNews from '../components/TopNews'
 
 // lodash
 import get from 'lodash/get'
-
-if (process.env.BROWSER) {
-  require('./Home.css')
-}
 
 const MAXRESULT = 10
 const PAGE = 1

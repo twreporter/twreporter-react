@@ -52,7 +52,7 @@ export function loadArticles(req, params = []) {
 /**
  * Get single article from RESTful webservice
  * @param {object} req - request object of express
- * @param {array} slug - slug of the article
+ * @param {string} slug - slug of the article
  * @return Promise which has the article object
  */
 function loadArticle(req, slug) {

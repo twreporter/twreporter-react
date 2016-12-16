@@ -53,8 +53,7 @@ class Category extends Component {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, setHeaderInfo } = this.props
     setHeaderInfo({
       pageTheme: BRIGHT,
-      pageType: CATEGORY,
-      readPercent: 0
+      pageType: CATEGORY
     })
 
     let catId = this.state.catId

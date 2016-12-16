@@ -1,8 +1,8 @@
 'use strict'
 import singleItem from './single-item'
 
-function article(state = {}, action) {
+function topic(state = {}, action) {
   return singleItem(state, action)
 }
 
-export default article
+export default topic
