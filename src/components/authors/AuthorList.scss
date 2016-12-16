@@ -3,12 +3,7 @@
 @import '../../themes/media-queries';
 @import '../../themes/font-mixins';
 @import '../../themes/animation'; // ## authors list
-$authors-filter-input-width: 250px;
-$authors-filter-input-height: 30px;
-$authors-filter-margin-top: 60px;
-$authors-filter-margin-bottom: 40px;
-$authors-filter-margin-top-mobile: 30px;
-$authors-filter-margin-bottom-mobile: 30px;
+
 $authors-img-size: 114px;
 $authors-img-mobile-size: 95px;
 $authors-item-width: $authors-img-size;
@@ -111,17 +106,13 @@ $authors-list-name-fontweight: $font-weight-medium;
   font-size: $font-size-base;
 }
 
-.filter-input {
-  border: initial;
-  border: solid 1px $input-border-gray;
-  padding-left: 15px;
-  font-weight: $font-weight-normal;
-  font-size: $font-size-xsmall;
+.no-result {
+  font-size: $font-size-base;
   color: $gray-50;
-  width: $authors-filter-input-width;
-  height: $authors-filter-input-height;
-  margin: $authors-filter-margin-top-mobile auto $authors-filter-margin-bottom-mobile;
-  border-radius: $authors-filter-input-height / 2;
+  word-wrap: break-word;
+  padding: 0 15px 0 15px;
+  margin: 40px auto 70px auto;
+  display: block;
 }
 
 .shown-authors {
@@ -206,11 +197,9 @@ $authors-list-name-fontweight: $font-weight-medium;
   }
 }
 //==== TABLET, DESKTOP & HD ====
-@include mq($min-width: $screen-sm-min) {
-  .filter-input {
-    margin: $authors-filter-margin-top auto $authors-filter-margin-bottom;
-  }
-}
+// @include mq($min-width: $screen-sm-min) {
+//
+// }
 //==== TABLET ====
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .shown-authors {
