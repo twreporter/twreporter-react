@@ -7,6 +7,11 @@ $searchbox-height: 30px;
 $searchbox-width: 250px;
 $font-size: 15px;
 
+$searchbox-margin-top: 60px;
+$searchbox-margin-bottom: 40px;
+$searchbox-margin-top-mobile: 30px;
+$searchbox-margin-bottom-mobile: 30px;
+
 .searchbox {
   display: inline-block;
   position: relative;
@@ -15,9 +20,10 @@ $font-size: 15px;
   white-space: nowrap;
   box-sizing: border-box;
   font-size: $font-size;
+  font-weight: $font-weight-normal;
   letter-spacing: $general-letter-space;
-  margin-top: 63px;
-  margin-bottom: 40px;
+  margin-top: $searchbox-margin-top;
+  margin-bottom: $searchbox-margin-bottom;
 }
 
 .searchbox-wrapper {
