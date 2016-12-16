@@ -1,12 +1,12 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, REQUEST_PAGE_START_FROM, NO_RESULT } from '../constants/authors-list'
+import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 
+import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
 import LoadMore from '../components/authors/LoadMore'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
-import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
 import { connect } from 'react-redux'
@@ -40,7 +40,7 @@ class AuthorsList extends React.Component {
   render() {
     const { keywords, entities, authorsInList, isFinish, isFetching, currentPage, fetchAuthorsIfNeeded, sendSearchAuthors } = this.props
 
-    //Tran entities.authors to the format: [{ id, authorName, authorImg, authorUrl },{...},...]
+    // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
     const authorsEntities = entities.authors
     function iteratee(id) {
       const authorName = _.get(authorsEntities, `${id}.name`, '')
@@ -65,17 +65,16 @@ class AuthorsList extends React.Component {
       return
     }
 
-    // Page bottom display options
-
+    // Page elements display options
     const loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish)
     const sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && !isFinish)
     const loaderDisply = isFetching
-    const isResultEmpty = (authorsArray.length <= 0)
+    const isSearchResultEmpty = (authorsArray.length <= 0)
 
     return (
       <div className={styles['author-list-container']}>
         <AuthorSearchBox sendSearchAuthors={sendSearchAuthors}/>
-        {isResultEmpty ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
+        {isSearchResultEmpty ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
         {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div>}
         {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
         {!sensorDisplay ? null :

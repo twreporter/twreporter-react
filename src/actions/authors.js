@@ -3,9 +3,9 @@
 import * as ALGOLIA from '../constants/algolia'
 import * as CONSTANTS from '../constants/index'
 
+import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, REQUEST_PAGE_START_FROM, RETURN_DELAY } from '../constants/authors-list'
 import { arrayOf, normalize } from 'normalizr'
 
-import { REQUEST_PAGE_START_FROM, MAX_RESULTS_PER_FETCH, RETURN_DELAY, MAX_RESULTS_PER_SEARCH } from '../constants/authors-list'
 import algoliasearch from 'algoliasearch'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
@@ -61,11 +61,12 @@ export function searchAuthors(keywords='', replaceAll=false, targetPage = REQUES
         const currentPage = content.page
         const isFinish = ( currentPage >= content.nbPages - 1 )
         const receivedAt = Date.now()
+        // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
             setTimeout(() => {
               resolve()
-            }, 1000)
+            }, returnDelay)
           })
         }
         return delayDispatch().then(()=>{
@@ -81,6 +82,7 @@ export function searchAuthors(keywords='', replaceAll=false, targetPage = REQUES
 }
 
 export function fetchAuthorsIfNeeded(keywords='', replaceAll=false) {
+// Fetching data if is not fetching or is not finish
   return (dispatch, getState) => {
     const state = getState()
     const isFetching  = _.get(state, 'authorsList.isFetching', false)

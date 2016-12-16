@@ -15,6 +15,7 @@ class AuthorSearchBox extends React.Component {
     this.sendSearchAuthors = this.props.sendSearchAuthors.bind(this)
   }
 
+  // Save user input keywords to this.state when typing
   _handleChange(event) {
     event.preventDefault()
     const input = event.target.value
@@ -22,6 +23,7 @@ class AuthorSearchBox extends React.Component {
     this.setState({ keywords: input })
   }
 
+  // Send search request when submit the form (press enter) or click the button
   _handleSubmit(event) {
     event.preventDefault()
     const keywords = this.state.keywords
