@@ -1,17 +1,19 @@
 /*eslint no-console: 0*/
 
-import { NotFoundError } from '../../src/lib/custom-error'
+import { InternalServerError, NotFoundError } from '../../src/lib/custom-error'
 
 import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
-import querystring from 'qs'
 
 // lodash
-import filter from 'lodash/filter'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
-import uniq from 'lodash/uniq'
+
+const _ = {
+  get,
+  merge
+}
 
 export function loadMetaOfArticles(req) {
   return new Promise((resolve, reject) => {
@@ -31,81 +33,52 @@ export function loadMetaOfArticles(req) {
   })
 }
 
+
+/**
+ * NOTICE: THERE IS NO WAY TO GET FULL ARTICLES RIGTH NOW,
+ * ONLY TO GET SINGLE FULL ARTICLE.
+ * @param {object} req - request object of express
+ * @param {array} params
+ * @return a Promise
+ */
 export function loadArticles(req, params = []) {
+  const slug = _.get(params, 0, '')
+  if (slug) {
+    return loadArticle(req, slug)
+  }
+  return Promise.reject(new InternalServerError('Load articles per request is not implemented yet'))
+}
+
+/**
+ * Get single article from RESTful webservice
+ * @param {object} req - request object of express
+ * @param {string} slug - slug of the article
+ * @return Promise which has the article object
+ */
+function loadArticle(req, slug) {
   return new Promise((resolve, reject) => {
     const query = req.query
     const { API_PROTOCOL, API_PORT, API_HOST } = config
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
-    let slug = typeof params[0] === 'string' ? params[0] : null
+
     if (slug) {
-      merge(query, { where: JSON.stringify({ slug: slug }) })
+      _.merge(query, { where: JSON.stringify({ slug: slug }) })
+    } else {
+      return reject(new NotFoundError('Article is not found by slug: ' + slug))
     }
+
     superAgent['get'](url).timeout(constants.timeout)
     .query(query)
     .end(function (err, res) {
       if (err) {
         reject(err)
       } else {
-        let embedded
-        try {
-          embedded = JSON.parse(get(query, 'embedded', null))
-        } catch (error) {
-          console.warning('Parse embedded error:', error)
+        const article = _.get(res, [ 'body', '_items', 0 ])
+        if (!article) {
+          return reject(new NotFoundError('Article is not found by query :' +  JSON.stringify(query)))
         }
-
-        if (slug && get(res.body, '_items.length', 0) === 0) {
-          return reject(new NotFoundError('Articles are not found by query :' +  JSON.stringify(query)))
-        }
-
-        let articleRes = get(res.body, '_items.0')
-
-        let writers =  []
-        const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
-        list.forEach((item) => {
-          let aArr = get(articleRes, item, [])
-          aArr.forEach((author) => {
-            let authorImg = get(author, 'image', null)
-            if(authorImg) {
-              writers.push(authorImg)
-            }
-          })
-        })
-
-        // combine author images data if the query contains 'authorImages'
-        if(get(embedded, 'authorImages')) {
-          const imgIds = uniq(writers)
-          const imgQuery = querystring.stringify({ where: JSON.stringify({ _id: { '$in': imgIds } } ) })
-          const imgUrl = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/images?${imgQuery}`
-
-          superAgent['get'](imgUrl).timeout(constants.timeout)
-          .end(function (err, res) {
-            if (err) {
-              console.warning('AUTHOR IMAGE LOADING FAILED:', err)
-            } else {
-              const imgItems = get(res.body, '_items')
-
-              list.forEach((item) => {
-                let authors = get(articleRes, item, [])
-                addImage(authors, imgItems)
-              })
-            }
-            resolve(articleRes)
-          })
-        } else {
-          resolve(articleRes)
-        }
+        return resolve(article)
       }
     })
-  })
-}
-
-function addImage(authors, imgItems) {
-  authors.forEach((author) => {
-    let authorImg = get(author, 'image', null)
-    if(authorImg) {
-      let match = filter(imgItems, '_id', authorImg)
-      const wImg = get(match, [ 0, 'image' ])
-      author.image = wImg
-    }
   })
 }

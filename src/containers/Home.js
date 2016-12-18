@@ -1,28 +1,28 @@
 /*eslint no-unused-vars:0, no-console:0 */
 'use strict'
-import { HOME, CATEGORY, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
+import { Link } from 'react-router'
+import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId } from '../utils/index'
+import { denormalizeArticles, getCatId, replaceStorageUrlPrefix } from '../utils/index'
 import { devCatListId, prodCatListId } from '../conf/list-id'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import Daily from '../components/Daily'
 import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
 import Footer from '../components/Footer'
+import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { Component } from 'react'
 import TopNews from '../components/TopNews'
 import async from 'async'
+import backToTopicIcon from '../../static/asset/back-to-topic.svg'
+import styles from './Home.scss'
 
 // lodash
 import get from 'lodash/get'
 
 const MAXRESULT = 10
 const PAGE = 1
-
-if (process.env.BROWSER) {
-  require('./Home.css')
-}
 
 class Home extends Component {
   static fetchData({
@@ -69,12 +69,14 @@ class Home extends Component {
     this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
   }
 
-  componentDidMount() {
-    this.props.setPageType(HOME)
-  }
-
   componentWillMount() {
-    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT,
+      pageType: HOME,
+      readPercent: 0
+    })
+
     let params = {
       page: PAGE,
       max_results: MAXRESULT
@@ -88,6 +90,7 @@ class Home extends Component {
     if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
       fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
     }
+
   }
 
   _loadMoreArticles(catId) {
@@ -250,10 +253,25 @@ class Home extends Component {
         }]
       }
     `
+    const promotionImg = 'https://storage.googleapis.com/twreporter-multimedia/images/20161215200511-da77d3f0a5e206aee6415d989c73b4bf-desktop.png'
 
     return (
       <DocumentMeta {...meta}>
         <TopNews topnews={topnewsItems} />
+        {/* Hard code promotion bannder*/}
+        <div className={styles['annual-report']}>
+          <span>年度調查報導</span>
+        </div>
+        <Link to="/topics/far-sea-fishing-investigative-report">
+          <div className={styles['index-promotion']}>
+            <PromotionBanner
+              bgImgSrc={replaceStorageUrlPrefix(promotionImg)}
+              iconImgSrc={backToTopicIcon}
+              title="造假·剝削·血淚漁場"
+              subtitle="跨國直擊台灣遠洋漁業真相"
+            />
+          </div>
+        </Link>
         <Daily daily={reviewItems}
         />
         <Features
@@ -287,5 +305,5 @@ export { Home }
 export default connect(mapStateToProps, {
   fetchArticlesByUuidIfNeeded,
   fetchFeatureArticles,
-  setPageType
+  setHeaderInfo
 })(Home)

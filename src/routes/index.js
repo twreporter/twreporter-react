@@ -10,10 +10,12 @@ import Photography from '../containers/Photography'
 import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
+import TopicLandingPage from '../containers/TopicLandingPage'
 
 export default function (history = browserHistory) {
   return (
     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+      <Route path="/topics/:slug" component={TopicLandingPage} />
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category}/>
@@ -22,10 +24,6 @@ export default function (history = browserHistory) {
         <Route path="photography" component={Photography}/>
         <Route path="search" component={Search}/>
         <Route path="check" component={Blank}/>
-        <Route path="a/:slug" component={Article}/>
-      </Route>
-      <Route path="/keystone/preview" component={App}>
-        <IndexRoute component={Home} />
         <Route path="a/:slug" component={Article}/>
       </Route>
     </Router>

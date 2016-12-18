@@ -22,6 +22,13 @@ export function setPageType(pageType) {
   }
 }
 
+export function setPageTheme(theme) {
+  return {
+    type: types.SET_PAGE_THEME,
+    pageTheme: theme
+  }
+}
+
 export function setPageTitle(articleId, pageTitle, pageTopic=null) {
   return {
     type: types.SET_PAGE_TITLE,
@@ -42,5 +49,23 @@ export function setBookmarksOfLongformArticle(bookmarks) {
   return {
     type: types.SET_BOOKMARKS_OF_LONGFORM_ARTICLE,
     bookmarks
+  }
+}
+
+/**
+ * @param {object} info - information for header
+ * @param {string} info.articleId - id of article
+ * @param {array} info.bookmarks - bookmarks of longform article
+ * @param {number} info.readPercent - reading progress
+ * @param {string} info.pageTitle - title of article
+ * @param {string} info.pageTheme - theme of page
+ * @param {string} info.pagetTopic - topic of article
+ * @param {string} info.pageType - type of page
+ * @param {array} info.topicArr - related articles in the same topic
+ */
+export function setHeaderInfo(info) {
+  return {
+    type: types.SET_HEADER_INFO,
+    info
   }
 }

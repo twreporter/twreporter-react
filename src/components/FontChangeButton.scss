@@ -1,0 +1,28 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/animation';
+@import '../themes/common-variables';
+@import '../themes/font-mixins.scss';
+@import '../themes/media-queries.scss';
+
+.button-appearance > button{
+  vertical-align: middle;
+  border-radius:rem(2px);
+  border:none;
+  height:rem(24px);
+  width:rem(24px);
+  text-align: center;
+  margin-right: rem(15px);
+  display:inline-block;
+  font-size:rem(10px);
+  box-sizing:border-box;
+  background-color:#757575;
+  color:$light-gray;
+}
+
+.animaStyle-hide{
+  display:none !important;
+}
+
+.animaStyle-show{
+  display:inline-block;
+}

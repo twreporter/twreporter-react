@@ -95,6 +95,10 @@
     }
 }
 
+.promotion {
+  max-width: $desktop-large-width;
+}
+
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
     .article-container {
