@@ -262,7 +262,7 @@ class Home extends Component {
         <div className={styles['annual-report']}>
           <span>年度調查報導</span>
         </div>
-        <Link to="/topics/ocean-fishing">
+        <Link to="/topics/far-sea-fishing-investigative-report">
           <div className={styles['index-promotion']}>
             <PromotionBanner
               bgImgSrc={replaceStorageUrlPrefix(promotionImg)}

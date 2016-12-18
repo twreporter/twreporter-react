@@ -34,7 +34,7 @@ export default class Cards extends Component {
       cardsJsx.push(
         <Link
           key={index}
-          to={`/a/${slug}`}
+          to={ style === INTERACTIVE_ARTICLE_STYLE ? `/infographics/${slug}` : `/a/${slug}` }
           target={ style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined }
         >
           <Card
