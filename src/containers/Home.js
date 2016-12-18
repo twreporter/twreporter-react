@@ -259,6 +259,7 @@ class Home extends Component {
       <DocumentMeta {...meta}>
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
+        {/*
         <div className={styles['annual-report']}>
           <span>年度調查報導</span>
         </div>
@@ -272,6 +273,7 @@ class Home extends Component {
             />
           </div>
         </Link>
+        */}
         <Daily daily={reviewItems}
         />
         <Features
