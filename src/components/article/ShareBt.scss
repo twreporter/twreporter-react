@@ -5,6 +5,7 @@
 @import '../../themes/media-queries.scss';
 
 .share-bt-container {
+  display: inline-block;
   .bt {
     width: rem(24px);
     border: none;

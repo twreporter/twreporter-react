@@ -1,9 +1,10 @@
-/* eslint no-console: 1, no-unused-vars: [1, { "args": "all" }]*/
-import { CATEGORY, PHOTOGRAPHY, colors } from '../constants/index'
+/* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
+
+import { CATEGORY, DARK, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import async from 'async'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -12,10 +13,6 @@ import TopNews from '../components/TopNews'
 
 // lodash
 import get from 'lodash/get'
-
-if (process.env.BROWSER) {
-  require('./Home.css')
-}
 
 const MAXRESULT = 10
 const PAGE = 1
@@ -63,7 +60,7 @@ class Photography extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } = this.props
+    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
     let catId = getCatId(PHOTOGRAPHY_CH_STR)
     fetchFeatureArticles({
       where: {
@@ -80,10 +77,12 @@ class Photography extends Component {
         isFeatured: false
       }
     })
-  }
 
-  componentDidMount() {
-    this.props.setPageType(PHOTOGRAPHY)
+    setHeaderInfo({
+      pageTheme: DARK,
+      pageType: PHOTOGRAPHY_PAGE,
+      readPercent: 0
+    })
   }
 
   _loadMoreArticles() {
@@ -116,12 +115,12 @@ class Photography extends Component {
         <TopNews topnews={topNewsItems} />
         <ArticleList
           articles={articles}
-          bgStyle="dark"
+          bgStyle={DARK}
           hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer theme={PHOTOGRAPHY}/>
+        <Footer theme={DARK} />
       </div>
     )
   }
@@ -136,4 +135,4 @@ function mapStateToProps(state) {
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setPageType })(Photography)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo })(Photography)

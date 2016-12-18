@@ -1,8 +1,8 @@
-import { CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
+import { BRIGHT, CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
@@ -50,7 +50,12 @@ class Category extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT,
+      pageType: CATEGORY
+    })
+
     let catId = this.state.catId
 
     // if fetched before, do nothing
@@ -66,7 +71,6 @@ class Category extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageType(CATEGORY)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -161,4 +165,4 @@ Category.contextTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Category)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Category)

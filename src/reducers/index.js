@@ -7,6 +7,7 @@ import * as types from '../constants/action-types'
 import device from './device'
 import header from './header'
 import selectedArticle from './article'
+import selectedTopic from './topic'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -21,12 +22,13 @@ function entities(state = {}, action) {
   return state
 }
 
-function slugToId(state = {}, action) {
+function articleSlugToId(state = {}, action) {
   switch (action.type) {
     case types.FETCH_ARTICLE_SUCCESS:
       return merge({}, state, {
         [action.slug]: get(action, 'response.result' )
       })
+    case types.FETCH_TOPIC_SUCCESS:
     case types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS:
     case types.FETCH_FEATURE_ARTICLES_SUCCESS:
     case types.FETCH_RELATED_ARTICLES_SUCCESS:
@@ -41,6 +43,17 @@ function slugToId(state = {}, action) {
   }
 }
 
+function topicSlugToId(state = {}, action) {
+  switch (action.type) {
+    case types.FETCH_TOPIC_SUCCESS:
+      return merge({}, state, {
+        [action.slug]: get(action, 'response.result' )
+      })
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   articlesByUuids,
   featureArticles,
@@ -48,10 +61,12 @@ const rootReducer = combineReducers({
   categories,
   device,
   selectedArticle,
+  selectedTopic,
   tags,
   routing: routerReducer,
   header,
-  slugToId,
+  articleSlugToId,
+  topicSlugToId,
   entities
 })
 
