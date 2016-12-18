@@ -35,7 +35,7 @@ export default class Cards extends Component {
         <Link
           key={index}
           to={ style === INTERACTIVE_ARTICLE_STYLE ? `/infographics/${slug}` : `/a/${slug}` }
-          target={ style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined }
+          target={ style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined }
         >
           <Card
             description={description}
