@@ -275,11 +275,15 @@ $text-card-height: 200px;
     padding-bottom: $red-line-distance;
     max-width: 100%; 
     margin-top: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .team-description {
     max-width: 100%;
     margin-top: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
     p {
       white-space: pre-line;
     }
