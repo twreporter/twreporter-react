@@ -134,50 +134,52 @@ class TopicLandingPage extends Component {
     return (
       <DocumentMeta {...meta}>
         <div className={style['container']}>
-          <Header
-            isFixedToTop={false}
-            title={title}
-          />
-          {/*
-          <VisibilitySensor
-            onChange={this.checkIfScrollOverLeadingVideo}
-            partialVisibility={true}
-            >
-          */}
-          <LeadingVideo
-            classNames={{
-              container: style['leading-block'],
-              video: style.video,
-              poster: style.video,
-              audioBt: style['audio-bt']
-            }}
-            filetype={_.get(leadingVideo, 'video.filetype')}
-            poster={_.get(leadingImage, 'image.resizedTargets')}
-            src={_.get(leadingVideo, 'video.url')}
-            title="polina"
-          />
-          {/*</VisibilitySensor>*/}
-          <div className={style['main-title-block']}>
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
-            <span>{date2yyyymmdd(publishedDate, '.')} 最新更新</span>
+          <div>
+            <Header
+              isFixedToTop={false}
+              title={title}
+            />
+            {/*
+            <VisibilitySensor
+              onChange={this.checkIfScrollOverLeadingVideo}
+              partialVisibility={true}
+              >
+            */}
+            <LeadingVideo
+              classNames={{
+                container: style['leading-block'],
+                video: style.video,
+                poster: style.video,
+                audioBt: style['audio-bt']
+              }}
+              filetype={_.get(leadingVideo, 'video.filetype')}
+              poster={_.get(leadingImage, 'image.resizedTargets')}
+              src={_.get(leadingVideo, 'video.url')}
+              title="polina"
+            />
+            {/*</VisibilitySensor>*/}
+            <div className={style['main-title-block']}>
+              <h1>{title}</h1>
+              <h2>{subtitle}</h2>
+              <span>{date2yyyymmdd(publishedDate, '.')} 最新更新</span>
+            </div>
+            <img className={style['arrow-down-icon']} src={arrowDownIcon} role="presentation" />
           </div>
-          <img className={style['arrow-down-icon']} src={arrowDownIcon} role="presentation" />
-        </div>
-        <div
-          className={cx(style.description, 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
-        <div
-          className={cx(style['team-description'], 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: teamDescription }}
-        />
-        <div className={style['cards-container']}>
-          <TopicCards
-            items={relatedArticles}
+          <div
+            className={cx(style.description, 'center-block', 'text-center')}
+            dangerouslySetInnerHTML={{ __html: description }}
           />
+          <div
+            className={cx(style['team-description'], 'center-block', 'text-center')}
+            dangerouslySetInnerHTML={{ __html: teamDescription }}
+          />
+          <div className={style['cards-container']}>
+            <TopicCards
+              items={relatedArticles}
+            />
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
       </DocumentMeta>
     )
   }

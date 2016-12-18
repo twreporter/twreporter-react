@@ -46,7 +46,6 @@ $text-card-height: 200px;
   @extend .ab-center-by-transform;
   text-align: center;
   width: 50%;
-  min-width: 434px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, .5);
 
   >h1 {
@@ -257,8 +256,6 @@ $text-card-height: 200px;
 
   .main-title-block {
     width: 100%;
-    padding-left: 17px;
-    padding-right: 17px;
     >h1 {
       font-size: 30px;
       line-height: 45px;
@@ -275,16 +272,12 @@ $text-card-height: 200px;
   }
 
   .description {
-    padding-left: 10px;
-    padding-right: 10px;
     padding-bottom: $red-line-distance;
     max-width: 100%; 
     margin-top: 40px;
   }
 
   .team-description {
-    padding-left: 10px;
-    padding-right: 10px;
     max-width: 100%;
     margin-top: 40px;
     p {
