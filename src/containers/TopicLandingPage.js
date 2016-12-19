@@ -118,7 +118,7 @@ class TopicLandingPage extends Component {
 
     const meta = {
       title: title ? title + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
-      description: description || SITE_META.DESC,
+      description: _.get(topic, 'ogDescription', description) || SITE_META.DESC,
       canonical,
       meta: {
         property: {
