@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import styles from './AuthorData.scss'
 
@@ -24,12 +24,12 @@ const AuthorData = (props) => {
 )}
 
 AuthorData.propTypes = {
-  authorData: React.PropTypes.shape({
-    authorId: React.PropTypes.string,
-    authorName: React.PropTypes.string,
-    authorImg: React.PropTypes.string,
-    authorMail: React.PropTypes.string,
-    authorBio: React.PropTypes.string
+  authorData: PropTypes.shape({
+    authorId: PropTypes.string.isRequired,
+    authorName: PropTypes.string.isRequired,
+    authorImg: PropTypes.string,
+    authorMail: PropTypes.string,
+    authorBio: PropTypes.string
   })
 }
 

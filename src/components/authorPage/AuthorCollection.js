@@ -4,7 +4,7 @@ import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_P
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
 import Link from '../Link'
-import React from 'react'
+import React, { PropTypes } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -82,6 +82,38 @@ const AuthorCollection = (props) => {
       </div>
     </div>
   )
+}
+
+AuthorCollection.propTypes = {
+  currentId: PropTypes.string,
+  currentPage: PropTypes.number,
+  handleLoadmore: PropTypes.func,
+  isFetching: PropTypes.bool,
+  isFinish: PropTypes.bool,
+  related: PropTypes.arrayOf(PropTypes.shape({
+    categories: PropTypes.array,
+    designers: PropTypes.array,
+    engineers: PropTypes.array,
+    extendByline: PropTypes.string,
+    heroImage: PropTypes.object,
+    hilightResult: PropTypes.object,
+    id: PropTypes.string,
+    isFeatured: PropTypes.bool,
+    objectID: PropTypes.string,
+    ogDescription: PropTypes.string,
+    ogTitle: PropTypes.string,
+    photographers: PropTypes.array,
+    publishDate: PropTypes.string,
+    related: PropTypes.array,
+    slug: PropTypes.string,
+    state: PropTypes.string,
+    style: PropTypes.string,
+    subtitle: PropTypes.string,
+    tags: PropTypes.array,
+    topics: PropTypes.array,
+    writters: PropTypes.array
+  })),
+  totalResults: PropTypes.number
 }
 
 export default AuthorCollection
