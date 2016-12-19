@@ -24,7 +24,8 @@ export const LINK_PREFIX = {
   ARTICLE: '/a/',
   CATEGORY: '/category/',
   TAG: '/tag/',
-  TOPIC: '/topic/'
+  TOPIC: '/topic/',
+  TOPICS: '/topics/'
 }
 
 export const groupEnum = {

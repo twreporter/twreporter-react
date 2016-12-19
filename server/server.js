@@ -15,6 +15,7 @@ import createLocation from 'history/lib/createLocation'
 import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import httpProxy from 'http-proxy'
+import includes from 'lodash/includes'
 import path from 'path'
 import { NotFoundError } from '../src/lib/custom-error'
 import { SITE_NAME, LINK_PREFIX, SITE_META } from '../src/constants/'
@@ -23,7 +24,8 @@ import { RouterContext, match, createMemoryHistory } from 'react-router'
 
 // lodash
 const _ = {
-  get: get
+  get,
+  includes
 }
 
 const server = new Express()
@@ -134,18 +136,33 @@ server.get('*', async function (req, res, next) {
             title: SITE_NAME.FULL
           }
 
+          if (_.includes(getCurrentUrl(), '/topics/')) {
+            let currentTopic = _.get(reduxState, [ 'entities', 'topics', _.get(reduxState, 'selectedTopic.id') ], null)
+            if (currentTopic) {
+              // current page is an article page
+              data.canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.TOPICS + _.get(currentTopic, 'slug')
+              data.title = _.get(currentTopic, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+              let ogDescription = _.get(currentTopic, 'ogDescription', data.description)
+              data.meta.ogDescription = ogDescription
+              data.description = ogDescription
+              let ogImage = _.get(currentTopic, 'ogImage.image.resizedTargets.tablet.url')
+              data.meta.ogImage = ogImage ? ogImage : _.get(currentTopic, 'leadingImage.image.resizedTargets.tablet.url', data.meta.ogImage)
+            }
+          }
 
-          let currentArticle = _.get(reduxState, [ 'entities', 'articles', _.get(reduxState, 'selectedArticle.id') ], null)
-          if (currentArticle) {
-            // current page is an article page
-            data.canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug')
-            data.title = _.get(currentArticle, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-            data.description = get(currentArticle, 'ogDescription') || data.description
-            data.meta.ogType = 'article'
-            if (currentArticle.ogImage) {
-              data.meta.ogImage = _.get(currentArticle, 'ogImage.image.resizedTargets.desktop.url', data.meta.ogImage)
-            } else if (currentArticle.heroImage) {
-              data.meta.ogImage = _.get(currentArticle, 'heroImage.image.resizedTargets.desktop.url', data.meta.ogImage)
+          if (_.includes(getCurrentUrl(), '/a/')) {
+            let currentArticle = _.get(reduxState, [ 'entities', 'articles', _.get(reduxState, 'selectedArticle.id') ], null)
+            if (currentArticle) {
+              // current page is an article page
+              data.canonical = SITE_META.URL_NO_SLASH + LINK_PREFIX.ARTICLE + _.get(currentArticle, 'slug')
+              data.title = _.get(currentArticle, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+              data.description = get(currentArticle, 'ogDescription') || data.description
+              data.meta.ogType = 'article'
+              if (currentArticle.ogImage) {
+                data.meta.ogImage = _.get(currentArticle, 'ogImage.image.resizedTargets.tablet.url', data.meta.ogImage)
+              } else if (currentArticle.heroImage) {
+                data.meta.ogImage = _.get(currentArticle, 'heroImage.image.resizedTargets.tablet.url', data.meta.ogImage)
+              }
             }
           }
 

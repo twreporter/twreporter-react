@@ -30,6 +30,7 @@ function Html({ canonical, children, description, meta, reduxState, styles, scri
         <meta property="og:title" content={title} />
         <meta property="og:site_name" content={SITE_NAME.FULL} />
         <meta property="og:image" content={_.get(meta, 'ogImage')} />
+        <meta property="og:description" content={_.get(meta, 'ogDescription')} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={_.get(meta, 'ogImage')} />
         <meta name="twitter:title" content={title} />
