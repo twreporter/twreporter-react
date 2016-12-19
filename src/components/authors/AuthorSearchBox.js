@@ -28,14 +28,14 @@ class AuthorSearchBox extends React.Component {
     event.preventDefault()
     const keywords = this.state.keywords
     const replaceAll = true
-    this.sendSearchAuthors(keywords, replaceAll)
+    this.sendSearchAuthors({ keywords, replaceAll })
   }
 
   _handleClickButton(event) {
     event.preventDefault()
     const keywords = this.state.keywords
     const replaceAll = true
-    this.sendSearchAuthors(keywords, replaceAll)
+    this.sendSearchAuthors({ keywords, replaceAll })
   }
 
   render() {

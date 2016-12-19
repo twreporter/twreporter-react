@@ -30,7 +30,7 @@ export function failToSearchAuthors(error, failedAt) {
   }
 }
 
-export function receiveSearchAuthors(keywords, replaceAll, response, currentPage, isFinish, receivedAt) {
+export function receiveSearchAuthors({ keywords, replaceAll, response, currentPage, isFinish, receivedAt }) {
   return {
     type: CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
@@ -43,11 +43,15 @@ export function receiveSearchAuthors(keywords, replaceAll, response, currentPage
   }
 }
 
-export function searchAuthors(keywords='', replaceAll=false, targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0, maxResults = MAX_RESULTS_PER_FETCH) {
+export function searchAuthors({
+  keywords = '',
+  replaceAll = false,
+  targetPage = REQUEST_PAGE_START_FROM,
+  returnDelay = 0 } = {}) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       filters: 'articlesCount>0',
-      hitsPerPage: maxResults,
+      hitsPerPage: (keywords === '') ? MAX_RESULTS_PER_FETCH : MAX_RESULTS_PER_SEARCH,
       page: targetPage
     }
     let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
@@ -70,7 +74,7 @@ export function searchAuthors(keywords='', replaceAll=false, targetPage = REQUES
           })
         }
         return delayDispatch().then(()=>{
-          return dispatch(receiveSearchAuthors(keywords, replaceAll, response, currentPage, isFinish, receivedAt))
+          return dispatch(receiveSearchAuthors({ keywords, replaceAll, response, currentPage, isFinish, receivedAt }))
         })
       }
       )
@@ -81,28 +85,30 @@ export function searchAuthors(keywords='', replaceAll=false, targetPage = REQUES
   }
 }
 
-export function fetchAuthorsIfNeeded(keywords='', replaceAll=false) {
+
+export function fetchAuthorsIfNeeded({ replaceAll=false } = {}) {
 // Fetching data if is not fetching or is not finish
   return (dispatch, getState) => {
-    const state = getState()
-    const isFetching  = _.get(state, 'authorsList.isFetching', false)
-    const isFinish    = _.get(state, 'authorsList.isFinish', false)
-    const currentPage = _.get(state, 'authorsList.currentPage', REQUEST_PAGE_START_FROM -1)
+    const authorsList = _.get(getState(), 'authorsList', {})
+    const keywords    = _.get(authorsList, 'keywords', '')
+    const isFetching  = _.get(authorsList, 'isFetching', false)
+    const isFinish    = _.get(authorsList, 'isFinish', false)
+    const currentPage = _.get(authorsList, 'currentPage', REQUEST_PAGE_START_FROM -1)
     const targetPage  = currentPage + 1
     const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : RETURN_DELAY
     if (!isFetching && !isFinish) {
-      return dispatch(searchAuthors(keywords, replaceAll, targetPage, returnDelay))
+      return dispatch(searchAuthors({ keywords, replaceAll, targetPage, returnDelay }))
     }
     return
   }
 }
 
-export function sendSearchAuthors(keywords='', replaceAll=true, targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0, maxResults = MAX_RESULTS_PER_SEARCH) {
+export function sendSearchAuthors({ keywords='', replaceAll=true, targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0 } = {}) {
   return (dispatch, getState) => {
     const state = getState()
     const isFetching  = _.get(state, 'authorsList.isFetching', false)
     if (!isFetching) {
-      return dispatch(searchAuthors(keywords, replaceAll, targetPage, returnDelay, maxResults))
+      return dispatch(searchAuthors({ keywords, replaceAll, targetPage, returnDelay }))
     }
     return
   }
