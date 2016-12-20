@@ -30,6 +30,21 @@ $red-line-distance: 40px;
   }
 }
 
+
+
+.font-enlarge{
+  font-size:rem(24px) !important
+}
+
+.font-shrink{
+  font-size:rem($font-size-large) !important
+}
+
+.font-default{
+  font-size:rem($font-size-larger) !important
+}
+
+
 // tablet
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
 }

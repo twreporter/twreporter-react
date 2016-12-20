@@ -4,25 +4,115 @@
 @import '../themes/font-mixins.scss';
 @import '../themes/media-queries.scss';
 
-.button-appearance > button{
-  vertical-align: middle;
+.button-appearance {
+  position:relative;
+  img{
+    width:100%;
+    height:auto;
+    position:absolute;
+    bottom:0;
+    opacity:0.3;
+  }
+
+  div{
+    border-radius:rem(2px);
+    display:none;
+    position:absolute;
+    bottom:0;
+  }
+
+  .image-container:hover{
+    cursor:pointer;
+  }
+  .image-container:active{
+    box-shadow:0px 1px 10px 2px #888888
+  }
+
+  .control-button{
+    @include fade-in-left(0.5s);
+    display:inline-block !important;
+    height:rem(24px);
+    width:rem(31px);
+  }
+
+  .control-image{
+    opacity:1.0 !important;
+  }
+
+  $widthSum:31;
+  .image-container-large{
+    height:rem(24px);
+    width:rem(39px);
+    left:rem($widthSum+12);
+  }
+  .image-large{
+    width:100%;
+    height:auto;
+  }
+
+  $widthSum:$widthSum+12+39;
+  .image-container-medium{
+    height:rem(24px);
+    width:rem(31px);
+    left:rem($widthSum+10);
+  }
+
+  .image-medium{
+    height:rem(16px);
+    width:rem(31px);
+  }
+
+  $widthSum:$widthSum+10+31;
+  .image-container-small{
+    height:rem(24px);
+    width:rem(27px);
+    left:rem($widthSum+10);
+  }
+
+  .image-small{
+    height:rem(13px);
+    width:rem(27px);
+  }
+}
+
+// 35 = 31+4
+.wrapper{
+  width:0px;
+  height:rem(35px);
+  position:absolute;
+  background: rgba(230, 230, 230, 1);
   border-radius:rem(2px);
-  border:none;
-  height:rem(24px);
-  width:rem(24px);
-  text-align: center;
-  margin-right: rem(15px);
-  display:inline-block;
-  font-size:rem(10px);
-  box-sizing:border-box;
-  background-color:#757575;
-  color:$light-gray;
+  bottom:-6px !important;
+  left:rem(35px);
 }
 
-.animaStyle-hide{
-  display:none !important;
+.anima-show{
+  display:inline-block !important;
+  @include fade-in(0.7s);
 }
 
-.animaStyle-show{
-  display:inline-block;
+.animaStyle-wrapper-show{
+  display:inline-block !important;
+  @include expand-right(0.4s,133px);
 }
+
+@keyframes local-fade-out { 0% {opacity: 1;} 100% {opacity: 0; visibility:hidden;} }
+
+.anima-hide{
+  display:inline-block !important;
+  animation-name:local-fade-out;
+  @include animated(0.3s);
+}
+
+.animaStyle-wrapper-hide{
+  display:inline-block !important;
+  @include collapse-left(0.4s,133px);
+}
+
+.font-status-active{
+  opacity:1 !important;
+}
+
+// .font-status-inactive{
+//   opacity:0.3;
+// }

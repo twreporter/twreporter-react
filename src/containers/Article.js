@@ -146,15 +146,18 @@ class Article extends Component {
     // for requestAnimationFrame
     this._ticking = false
     this.state = {
-      fontSize:'medium'
+      fontSize:'medium',
+      isFontSizeSet:false
     }
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   changeFontSize(fontSize) {
     this.setState({
-      fontSize:fontSize
+      fontSize:fontSize,
+      isFontSizeSet:true
     })
+    localStorage.setItem('fontSize',fontSize)
   }
 
   componentDidMount() {
@@ -163,6 +166,13 @@ class Article extends Component {
     window.addEventListener('resize', this._setArticleBounding)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
+    let storedfontSize = localStorage.getItem('fontSize')
+    if(storedfontSize !== null && !this.state.isFontSizeSet) {
+      this.setState({
+        fontSize:storedfontSize,
+        isFontSizeSet:true
+      })
+    }
   }
 
   componentDidUpdate() {
@@ -502,7 +512,7 @@ class Article extends Component {
                   twitterIcon={twitterIcon}
                   lineIcon={lineIcon}
                 />
-                <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}/>
+              <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)} fontSize={this.state.fontSize}/>
               </div>
 
 
@@ -521,6 +531,7 @@ class Article extends Component {
               <div className={cx(styles.introduction, commonStyles['inner-block'])}>
                 <ArticleComponents.Introduction
                   data={introData}
+                  fontSize={this.state.fontSize}
                 />
               </div>
 
