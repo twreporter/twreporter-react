@@ -9,6 +9,7 @@ import commonStyles from '../article/Common.scss'
 import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
+import logoIcon from '../../../static/asset/icon-placeholder.svg'
 
 // lodash
 import get from 'lodash/get'
@@ -60,6 +61,7 @@ export class BottomRelateds extends Component {
           <Link className={styles.relatedAnchor} to={'/a/' + related.slug} target={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
             <div className={styles.relatedImgWrapper}>
               <div className={styles.relatedImg}>
+                <img src={logoIcon} className={styles['logo-icon']}/>
                 <LazyLoad once={true}>
                   <img className={styles['crop']} src={imageUrl} />
                 </LazyLoad>
