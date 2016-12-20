@@ -28,24 +28,25 @@
 
 // === Mobile ===
 @include mq($max-width: $screen-xs-max) {
-  .annual-reporter {
+  .annual-report {
     font-size: $font-size-base;
+    margin-top: 55px;
   }
   .index-promotion {
     height: 150px;
-    margin: 40px auto;
+    margin: 55px auto;
     margin-bottom: 35px;
   }
 }
 
 // === tablet ===
 @include mq($min-width: $screen-tablet, $max-width: $screen-desktop) {
-  .annual-reporter {
+  .annual-report {
     font-size: $font-size-base;
   }
   .index-promotion {
     height: 150px;
-    margin: 40px auto;
+    margin: 55px auto;
     margin-bottom: 35px;
   }
 }
