@@ -6,7 +6,7 @@ import More from '../components/More'
 import { Link } from 'react-router'
 import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import { getArticleImageSrc, getImageSrcSet } from '../utils/index'
+import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -36,7 +36,7 @@ export default class ListArticleItem extends Component {
             <ul className={classNames('tag-listing', photoClass)}>
               { map(articles, (a) => {
                 let image = getArticleImageSrc(a)
-                let imageSrcSet = getImageSrcSet(a)
+                let imageSrcSet = getArticleImageSrcSet(a)
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
                 let url = '/a/' + a.slug
                 let excerpt =  get(a, 'ogDescription', '')
