@@ -75,7 +75,7 @@ class AuthorsList extends React.Component {
       <div className={styles['author-list-container']}>
         <AuthorSearchBox sendSearchAuthors={sendSearchAuthors}/>
         {isSearchResultEmpty ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div>}
+        {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
         {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
         {!sensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>

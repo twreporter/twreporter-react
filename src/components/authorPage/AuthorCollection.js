@@ -72,7 +72,7 @@ const AuthorCollection = (props) => {
         <ul>
           {relatedRows}
         </ul>
-        {!loaderDisply ? null : <div className={styles['loader']}>{LOADING_MORE_ARTICLES}</div>}
+        {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_ARTICLES}</div></div>}
         {!loadmoreBtnDisplay ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</div>}
         {!sensorDisplay ? null :
           <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
