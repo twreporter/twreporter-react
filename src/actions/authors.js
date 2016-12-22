@@ -100,9 +100,8 @@ export function searchAuthors({
   }
 }
 
-
-export function fetchAuthorsIfNeeded({ replaceAll=false } = {}) {
-// Fetching data if is not fetching or is not finish
+// If the results are not completely rendered, fetch next page
+export function fetchNextPageAuthors({ replaceAll=false } = {}) {
   return (dispatch, getState) => {
     const authorsList = _.get(getState(), 'authorsList', {})
     const keywords    = _.get(authorsList, 'keywords', '')

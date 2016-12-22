@@ -4,17 +4,19 @@ import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM } from '../con
 
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
-import LoadMore from '../components/authors/LoadMore'
+// import LoadMore from '../components/authors/LoadMore'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
 import { connect } from 'react-redux'
-import { fetchAuthorsIfNeeded, sendSearchAuthors } from '../actions/authors'
+import { fetchNextPageAuthors, sendSearchAuthors } from '../actions/authors'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
+import classNames from 'classnames'
+import { LOAD_MORE_AUTHORS_BTN } from '../constants/authors-list'
 
 const _ = {
   get: get,
@@ -24,7 +26,7 @@ const _ = {
 
 class AuthorsList extends React.Component {
   static fetchData({ store }) {
-    return store.dispatch(fetchAuthorsIfNeeded())
+    return store.dispatch(fetchNextPageAuthors())
   }
 
   constructor(props) {
@@ -33,12 +35,12 @@ class AuthorsList extends React.Component {
 
   componentWillMount() {
     if (this.props.currentPage === (REQUEST_PAGE_START_FROM -1) ) {
-      this.props.fetchAuthorsIfNeeded()
+      this.props.fetchNextPageAuthors()
     }
   }
 
   render() {
-    const { keywords, entities, authorsInList, isFinish, isFetching, currentPage, fetchAuthorsIfNeeded, sendSearchAuthors } = this.props
+    const { keywords, entities, authorsInList, isFinish, isFetching, currentPage, fetchNextPageAuthors, sendSearchAuthors } = this.props
 
     // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
     const authorsEntities = entities.authors
@@ -60,23 +62,24 @@ class AuthorsList extends React.Component {
     // Callback for sensor is triggered to seen
     let handleSeen = (isVisible) => {
       if (currentPage>REQUEST_PAGE_START_FROM && isVisible === true) {
-        fetchAuthorsIfNeeded()
+        fetchNextPageAuthors()
       }
       return
     }
 
     // Page elements display options
-    const loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish)
+    const loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish && !isFetching)
     const sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && !isFinish)
     const loaderDisply = isFetching
     const isSearchResultEmpty = (authorsArray.length <= 0)
+    const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={fetchNextPageAuthors}>{LOAD_MORE_AUTHORS_BTN}</div>
 
     return (
       <div className={styles['author-list-container']}>
         <AuthorSearchBox sendSearchAuthors={sendSearchAuthors}/>
         {isSearchResultEmpty ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
         {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
-        {!loadmoreBtnDisplay ? null : <LoadMore fetchAuthorsIfNeeded={fetchAuthorsIfNeeded}/>}
+        {!loadmoreBtnDisplay ? null : loadmoreBtn}
         {!sensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>
@@ -101,4 +104,4 @@ function mapStateToProps(state) {
 }
 
 export { AuthorsList }
-export default connect(mapStateToProps, { fetchAuthorsIfNeeded, sendSearchAuthors })(AuthorsList)
+export default connect(mapStateToProps, { fetchNextPageAuthors, sendSearchAuthors })(AuthorsList)
