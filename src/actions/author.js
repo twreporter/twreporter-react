@@ -1,15 +1,17 @@
 'use strict'
 
-import * as ALGOLIA from '../constants/algolia'
 import * as CONSTANTS from '../constants/index'
 
 import { MAX_ARTICLES_PER_FETCH, REQUEST_PAGE_START_FROM } from '../constants/author-page'
 import { arrayOf, normalize } from 'normalizr'
 
-import algoliasearch from 'algoliasearch'
+import { InternalServerError } from '../lib/custom-error'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
+import fetch from 'isomorphic-fetch'
+import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
+import { urlParasToString } from '../utils/url-paras-to-string'
 
 const _ = {
   get
@@ -51,14 +53,23 @@ export function receiveAuthorCollection({ authorId, items, collectIndexList, cur
 export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId='' }) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
+      keywords: authorId,
       hitsPerPage: MAX_ARTICLES_PER_FETCH,
       page: targetPage
     }
-    let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
-    let index = client.initIndex(ALGOLIA.POSTS_INDEX)
+    // Trans searchParas object to url parameters:
+    let urlParasString = urlParasToString(searchParas)
+    let url = formatUrl(`searchPosts?${urlParasString}`)
     dispatch(requestAuthorCollection(authorId))
-    return index.search(authorId, searchParas)
-      .then(function searchSuccess(content) {
+    // Call our API server to fetch the data
+    return fetch(url)
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
+        }
+        return response.json()
+      })
+      .then((content) => {
         const hits = _.get(content, 'hits', {})
         const camelizedJson = camelizeKeys(hits)
         let items = normalize(camelizedJson, arrayOf(articleSchema))
@@ -68,8 +79,8 @@ export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, au
         const receivedAt = Date.now()
         const totalResults = content.nbHits
         return dispatch(receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }))
-      })
-      .catch(function searchFailure(error) {
+      },
+      (error) => {
         let failedAt = Date.now()
         return dispatch(failToReceiveAuthorCollection(error, failedAt))
       })
