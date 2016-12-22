@@ -32,7 +32,7 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }) {
+export function receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt } = {}) {
   let receiveAuthorCollection = {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
@@ -50,7 +50,7 @@ export function receiveAuthorCollection({ authorId, items, collectIndexList, cur
   return receiveAuthorCollection
 }
 
-export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId='' }) {
+export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId='' } = {}) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       keywords: authorId,
