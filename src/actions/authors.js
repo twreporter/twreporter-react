@@ -9,15 +9,12 @@ import { InternalServerError } from '../lib/custom-error'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
-import forOwn from 'lodash/forOwn'
 import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
-import sortBy from 'lodash/sortBy'
+import { urlParasToString } from '..utils/url-paras-to-string'
 
 const _ = {
-  get,
-  forOwn,
-  sortBy
+  get
 }
 
 export function requestSearchAuthors(keywords) {
@@ -62,16 +59,9 @@ export function searchAuthors({
       page: targetPage
     }
     // Trans searchParas object to url parameters:
-    let searchParasArray = []
-    // * Iterates over own enumerable properties of the object
-    _.forOwn(searchParas, (value, key)=>{
-      searchParasArray.push([ key,value ])
-    })
-    // * Sort the parameters by their keys
-    let sortedArray = _.sortBy(searchParasArray, (item)=>(item[0]))
-    let stringArray = sortedArray.map((item)=>(item[0]+'='+item[1]))
-    let urlParasString = stringArray.join('&') // To "aa=A&ab=B&ac=C&ad=D&ae=E"
+    let urlParasString = urlParasToString(searchParas)
     let url = formatUrl(`searchAuthors?${urlParasString}`)
+    dispatch(requestSearchAuthors(keywords))
     // Call our API server to fetch the data
     return fetch(url)
       .then((response) => {
