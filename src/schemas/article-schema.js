@@ -5,7 +5,6 @@ const author = new Schema('authors')
 const category = new Schema('categories')
 const tag = new Schema('tags')
 const topic = new Schema('topics')
-
 const article = new Schema('articles')
 
 article.define({
@@ -18,4 +17,4 @@ article.define({
   topics: topic
 })
 
-export { article }
+export { article, author }
