@@ -2,7 +2,7 @@
 
 import * as CONSTANTS from '../constants/index'
 
-import { MAX_ARTICLES_PER_FETCH, REQUEST_PAGE_START_FROM } from '../constants/author-page'
+import { MAX_ARTICLES_PER_FETCH, REQUEST_PAGE_START_FROM, RETURN_DELAY } from '../constants/author-page'
 import { arrayOf, normalize } from 'normalizr'
 
 import { InternalServerError } from '../lib/custom-error'
@@ -50,7 +50,7 @@ export function receiveAuthorCollection({ authorId, items, collectIndexList, cur
   return receiveAuthorCollection
 }
 
-export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId='' } = {}) {
+export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId = '', returnDelay = 0 } = {}) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       keywords: authorId,
@@ -78,7 +78,21 @@ export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, au
         const isFinish = ( currentPage >= content.nbPages-1 )
         const receivedAt = Date.now()
         const totalResults = content.nbHits
-        return dispatch(receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }))
+        const returnParas = { authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }
+        // delay for displaying loading spinner
+        function delayDispatch() {
+          return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
+            setTimeout(() => {
+              resolve()
+            }, returnDelay)
+          })
+        }
+        if (returnDelay > 0) {
+          return delayDispatch().then(()=>{
+            return dispatch(receiveAuthorCollection(returnParas))
+          })
+        }
+        return dispatch(receiveAuthorCollection(returnParas))
       },
       (error) => {
         let failedAt = Date.now()
@@ -89,12 +103,14 @@ export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, au
 
 export function fetchAuthorCollectionIfNeeded(authorId) {
   return (dispatch, getState) => {
-    const state = getState()
-    const isFetching = _.get(state, [ 'author', authorId, 'isFetching' ], false)
-    const isFinish = _.get(state, [ 'author', authorId, 'isFinish' ], false)
-    let targetPage = _.get(state, [ 'author', authorId, 'currentPage' ], REQUEST_PAGE_START_FROM -1) + 1
+    const author = _.get(getState(), [ 'author', authorId ], {})
+    const isFetching = _.get(author, 'isFetching', false)
+    const isFinish = _.get(author, 'isFinish', false)
+    const currentPage = _.get(author, 'currentPage', REQUEST_PAGE_START_FROM - 1)
+    let targetPage = currentPage + 1
+    const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : RETURN_DELAY
     if(!isFetching && !isFinish) {
-      return dispatch(fetchAuthorCollection({ targetPage, authorId }))
+      return dispatch(fetchAuthorCollection({ targetPage, authorId, returnDelay }))
     }
   }
 }
