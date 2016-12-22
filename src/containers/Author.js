@@ -1,6 +1,7 @@
 'use strict'
 
 import { AUTHOR_PAGE } from '../constants/page-types'
+import { LIGHT } from '../constants/page-themes'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import React from 'react'
@@ -12,7 +13,7 @@ import { denormalizeArticles } from '../utils/denormalize-articles'
 import { fetchAuthorCollectionIfNeeded } from '../actions/author'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import uniq from 'lodash/uniq'
 
 const _ = {
@@ -28,12 +29,15 @@ class Author extends React.Component {
   }
   componentDidMount() {
     const authorId = this.props.params['authorId']
-    let { setPageType, authorPage, fetchAuthorCollectionIfNeeded } = this.props
+    let { setHeaderInfo, authorPage, fetchAuthorCollectionIfNeeded } = this.props
     const currentPage = _.get(authorPage, [ authorId, 'currentPage' ], -1)
     if (currentPage < 0) {
       fetchAuthorCollectionIfNeeded(authorId)
     }
-    setPageType(AUTHOR_PAGE)
+    setHeaderInfo({
+      pageTheme: LIGHT,
+      pageType: AUTHOR_PAGE
+    })
   }
   render() {
     const authorId = this.props.params['authorId']
@@ -79,4 +83,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, setPageType })(Author)
+export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, setHeaderInfo })(Author)

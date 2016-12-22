@@ -1,6 +1,7 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM } from '../constants/authors-list'
+import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM, PAGE_TITLE } from '../constants/authors-list'
+import { LIGHT } from '../constants/page-themes'
 import { fetchNextPageAuthors, sendSearchAuthors } from '../actions/authors'
 
 import { AUTHORS_LIST } from '../constants/page-types'
@@ -15,7 +16,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
 
@@ -34,11 +35,16 @@ class AuthorsList extends React.Component {
     super(props)
   }
 
-  componentDisMount() {
-    if (this.props.currentPage === (REQUEST_PAGE_START_FROM -1) ) {
-      this.props.fetchNextPageAuthors()
+  componentDidMount() {
+    const { currentPage, setHeaderInfo, fetchNextPageAuthors } = this.props
+    if (currentPage === (REQUEST_PAGE_START_FROM -1) ) {
+      fetchNextPageAuthors()
     }
-    setPageType(AUTHORS_LIST)
+    setHeaderInfo({
+      pageTheme: LIGHT,
+      pageType: AUTHORS_LIST,
+      pageTitle: PAGE_TITLE
+    })
   }
 
   render() {
@@ -106,4 +112,4 @@ function mapStateToProps(state) {
 }
 
 export { AuthorsList }
-export default connect(mapStateToProps, { fetchNextPageAuthors, sendSearchAuthors })(AuthorsList)
+export default connect(mapStateToProps, { fetchNextPageAuthors, sendSearchAuthors, setHeaderInfo })(AuthorsList)
