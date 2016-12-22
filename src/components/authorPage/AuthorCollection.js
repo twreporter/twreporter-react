@@ -26,7 +26,7 @@ const AuthorCollection = (props) => {
 
   // Page bottom display options
 
-  let loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish) ? true : false
+  let loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish &&!isFetching) ? true : false
   let sensorDisplay = (currentPage > REQUEST_PAGE_START_FROM && !isFinish) ? true : false
   let loaderDisply = isFetching ? true : false
 
@@ -68,10 +68,10 @@ const AuthorCollection = (props) => {
       <div className={classNames(styles['bottom-relateds-wrapper'], commonStyles['inner-block'])}>
         <div className={classNames(styles['topic-wrapper'], 'text-center')}>
           <h3 className={commonStyles['topic-box']}> {titleText} </h3>
+          <ul>
+            {relatedRows}
+          </ul>
         </div>
-        <ul>
-          {relatedRows}
-        </ul>
         {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_ARTICLES}</div></div>}
         {!loadmoreBtnDisplay ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</div>}
         {!sensorDisplay ? null :
