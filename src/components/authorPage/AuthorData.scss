@@ -15,7 +15,7 @@ $author-image-size-desktop: 150px;
 
 $image-container-width-desktop: 200px;
 $image-container-width-tablet: 190px;
-//==== OVERALL) ====
+//==== OVERALL ====
 
 .author-box {
   overflow : auto;
@@ -48,6 +48,10 @@ $image-container-width-tablet: 190px;
 //==== MOBILE ====
 
 @include mq($max-width: $screen-sm-min) {
+  .author-box {
+    width: $authorbox-width-mobile;
+  }
+  
   .author-img-container {
     width: 100%;
     text-align: center;
