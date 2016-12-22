@@ -1,6 +1,6 @@
 'use strict'
 
-import { AUTHOR_PAGE_STYLE } from '../constants/article-styles'
+import { AUTHOR_PAGE } from '../constants/page-types'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import React from 'react'
@@ -33,7 +33,7 @@ class Author extends React.Component {
     if (currentPage < 0) {
       fetchAuthorCollectionIfNeeded(authorId)
     }
-    setPageType(AUTHOR_PAGE_STYLE)
+    setPageType(AUTHOR_PAGE)
   }
   render() {
     const authorId = this.props.params['authorId']

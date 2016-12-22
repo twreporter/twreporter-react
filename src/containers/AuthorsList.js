@@ -1,22 +1,23 @@
 'use strict'
 
 import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM } from '../constants/authors-list'
+import { fetchNextPageAuthors, sendSearchAuthors } from '../actions/authors'
 
+import { AUTHORS_LIST } from '../constants/page-types'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
-// import LoadMore from '../components/authors/LoadMore'
+import { LOAD_MORE_AUTHORS_BTN } from '../constants/authors-list'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { fetchNextPageAuthors, sendSearchAuthors } from '../actions/authors'
 import get from 'lodash/get'
 import map from 'lodash/map'
+import { setPageType } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
-import classNames from 'classnames'
-import { LOAD_MORE_AUTHORS_BTN } from '../constants/authors-list'
 
 const _ = {
   get: get,
@@ -33,10 +34,11 @@ class AuthorsList extends React.Component {
     super(props)
   }
 
-  componentWillMount() {
+  componentDisMount() {
     if (this.props.currentPage === (REQUEST_PAGE_START_FROM -1) ) {
       this.props.fetchNextPageAuthors()
     }
+    setPageType(AUTHORS_LIST)
   }
 
   render() {

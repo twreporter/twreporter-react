@@ -10,7 +10,8 @@ const PHOTOGRAPHY_PAGE = 'PHOTOGRAPHY_PAGE'
 const REVIEW_ARTICLE_STYLE = 'review'
 const TAG = 'TAG'
 const TOPIC = 'TOPIC'
-const AUTHOR_PAGE_STYLE = 'author'
+const AUTHOR_PAGE = 'author'
+const AUTHORS_LIST = 'authors'
 
 export {
   ARTICLE_STYLE,
@@ -23,5 +24,6 @@ export {
   REVIEW_ARTICLE_STYLE,
   TAG,
   TOPIC,
-  AUTHOR_PAGE_STYLE
+  AUTHOR_PAGE,
+  AUTHORS_LIST
 }
