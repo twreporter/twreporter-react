@@ -1,18 +1,23 @@
 'use strict'
 
-import * as ALGOLIA from '../constants/algolia'
 import * as CONSTANTS from '../constants/index'
 
 import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, REQUEST_PAGE_START_FROM, RETURN_DELAY } from '../constants/authors-list'
 import { arrayOf, normalize } from 'normalizr'
 
-import algoliasearch from 'algoliasearch'
+import { InternalServerError } from '../lib/custom-error'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
+import fetch from 'isomorphic-fetch'
+import forOwn from 'lodash/forOwn'
+import { formatUrl } from '../utils/index'
 import get from 'lodash/get'
+import sortBy from 'lodash/sortBy'
 
 const _ = {
-  get
+  get,
+  forOwn,
+  sortBy
 }
 
 export function requestSearchAuthors(keywords) {
@@ -48,23 +53,41 @@ export function searchAuthors({
   replaceAll = false,
   targetPage = REQUEST_PAGE_START_FROM,
   returnDelay = 0 } = {}) {
+
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
+      keywords,
       filters: 'articlesCount>0',
       hitsPerPage: (keywords === '') ? MAX_RESULTS_PER_FETCH : MAX_RESULTS_PER_SEARCH,
       page: targetPage
     }
-    let client = algoliasearch(ALGOLIA.APP_ID, ALGOLIA.SEARCH_API_KEY)
-    let index = client.initIndex(ALGOLIA.CONTACTS_INDEX)
-    dispatch(requestSearchAuthors(keywords))
-    return index.search(keywords, searchParas)
-      .then(function searchSuccess(content) {
+    // Trans searchParas object to url parameters:
+    let searchParasArray = []
+    // * Iterates over own enumerable properties of the object
+    _.forOwn(searchParas, (value, key)=>{
+      searchParasArray.push([ key,value ])
+    })
+    // * Sort the parameters by their keys
+    let sortedArray = _.sortBy(searchParasArray, (item)=>(item[0]))
+    let stringArray = sortedArray.map((item)=>(item[0]+'='+item[1]))
+    let urlParasString = stringArray.join('&') // To "aa=A&ab=B&ac=C&ad=D&ae=E"
+    let url = formatUrl(`searchAuthors?${urlParasString}`)
+    // Call our API server to fetch the data
+    return fetch(url)
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
+        }
+        return response.json()
+      })
+      .then((content) => {
         const hits = _.get(content, 'hits', {})
         const camelizedJson = camelizeKeys(hits)
         let response = normalize(camelizedJson, arrayOf(authorSchema))
         const currentPage = content.page
         const isFinish = ( currentPage >= content.nbPages - 1 )
         const receivedAt = Date.now()
+        const returnParas = { keywords, replaceAll, response, currentPage, isFinish, receivedAt }
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -73,12 +96,14 @@ export function searchAuthors({
             }, returnDelay)
           })
         }
-        return delayDispatch().then(()=>{
-          return dispatch(receiveSearchAuthors({ keywords, replaceAll, response, currentPage, isFinish, receivedAt }))
-        })
-      }
-      )
-      .catch(function searchFailure(error) {
+        if (returnDelay > 0) {
+          return delayDispatch().then(()=>{
+            return dispatch(receiveSearchAuthors(returnParas))
+          })
+        }
+        return dispatch(receiveSearchAuthors(returnParas))
+      },
+      (error) => {
         let failedAt = Date.now()
         return dispatch(failToSearchAuthors(error, failedAt))
       })
