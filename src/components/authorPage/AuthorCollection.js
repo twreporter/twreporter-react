@@ -1,7 +1,7 @@
 'use strict'
 
 import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_PAGE_START_FROM } from '../../constants/author-page'
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { CHARACTERS_LIMIT } from '../../constants/index'
 
 import { Link } from 'react-router'
 import React, { PropTypes } from 'react'
@@ -45,10 +45,9 @@ const AuthorCollection = (props) => {
     const title = get(related, 'title', '')
     let description = get(related, 'ogDescription', '')
     description = shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
-    const disableReactRouter = (get(related, 'style') === INTERACTIVE_ARTICLE_STYLE)
     return (
       <li className={classNames(styles['related-item'])} key={'related-' + (index++)}>
-        <Link className={styles['related-anchor']} to={'/a/' + slug} disableReactRouter={disableReactRouter}>
+        <Link className={styles['related-anchor']} to={'/a/' + slug} >
           <div className={styles['related-img-wrapper']}>
             <div className={styles['related-img']}>
               <img className={styles['crop']} src={imageUrl} />
