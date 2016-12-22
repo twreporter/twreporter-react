@@ -30,7 +30,7 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt) {
+export function receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }) {
   let receiveAuthorCollection = {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
@@ -48,7 +48,7 @@ export function receiveAuthorCollection(authorId, items, collectIndexList, curre
   return receiveAuthorCollection
 }
 
-export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, authorId='') {
+export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId='' }) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       hitsPerPage: MAX_ARTICLES_PER_FETCH,
@@ -67,7 +67,7 @@ export function fetchAuthorCollection(targetPage = REQUEST_PAGE_START_FROM, auth
         const isFinish = ( currentPage >= content.nbPages-1 )
         const receivedAt = Date.now()
         const totalResults = content.nbHits
-        return dispatch(receiveAuthorCollection(authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt))
+        return dispatch(receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }))
       })
       .catch(function searchFailure(error) {
         let failedAt = Date.now()
@@ -83,7 +83,7 @@ export function fetchAuthorCollectionIfNeeded(authorId) {
     const isFinish = _.get(state, [ 'author', authorId, 'isFinish' ], false)
     let targetPage = _.get(state, [ 'author', authorId, 'currentPage' ], REQUEST_PAGE_START_FROM -1) + 1
     if(!isFetching && !isFinish) {
-      return dispatch(fetchAuthorCollection(targetPage,authorId))
+      return dispatch(fetchAuthorCollection({ targetPage, authorId }))
     }
   }
 }
