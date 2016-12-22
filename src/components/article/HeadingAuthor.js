@@ -54,7 +54,7 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   return (
     <div className={styles['author-container']}>
       { authorRows }
-      <span style={{ paddingRight: '8px' }}>{extendByline}</span>
+      <span itemProp="author" style={{ paddingRight: '8px' }}>{extendByline}</span>
       { children }
     </div>
   )

@@ -1,7 +1,7 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { LINK_PREFIX } from '../../constants/index'
-import Link from '../Link'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
 import styles from './BottomTags.scss'
 
@@ -20,7 +20,7 @@ export class BottomTags extends Component {
     const tags = uniq(data, 'id')
     const tagList = map(tags, tag =>
       <Link key={tag.id} to={`${LINK_PREFIX.TAG}${tag.id}`}>
-        <li itemProp="keywords">
+        <li itemProp="about">
           {tag.name}
         </li>
       </Link>

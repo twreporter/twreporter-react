@@ -1,4 +1,4 @@
-import Link from '../Link'
+import { Link } from 'react-router'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import { shortenString } from '../../lib/string-processor'
@@ -8,6 +8,7 @@ import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 import LazyLoad from 'react-lazyload'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
+import logoIcon from '../../../static/asset/icon-placeholder.svg'
 
 // lodash
 import get from 'lodash/get'
@@ -23,6 +24,7 @@ const Topic = (props) => {
   const topic = <div className={classNames(styles['topic'], currentClass)}>
           <div className={styles['img-outer']}>
             <div className={styles['img-box']}>
+              <img src={logoIcon} className={styles['logo-icon']}/>
               <LazyLoad once={true}>
                 <img className={styles['crop']} src={heroImgUrl}/>
               </LazyLoad>
@@ -33,7 +35,7 @@ const Topic = (props) => {
             <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
           </div>
         </div>
-  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} disableReactRouter={get(data, 'style') === INTERACTIVE_ARTICLE_STYLE}> { topic } </Link>
+  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} target={get(data, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}> { topic } </Link>
 
   return (
     <div className="col-md-12 col-lg-6">

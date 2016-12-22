@@ -18,6 +18,16 @@ export class Body extends Component {
     const { data } = this.props
     let sectionCnt = 0
 
+    // -----------fontChanging-----------//
+    const fontSize = this.props.fontSize
+
+    let fontSizeStyle = classNames({
+      'font-shrink': fontSize === 'small',
+      'font-default': fontSize === 'medium',
+      'font-enlarge': fontSize === 'large'
+    })
+    fontSizeStyle = styles[fontSizeStyle]
+
     if (Array.isArray(data)) {
       let Blocks = data.map((ele) => {
         let anchor = null
@@ -33,7 +43,7 @@ export class Body extends Component {
           let width = get(embeddedContent, 'width')
           let height = get(embeddedContent, 'height')
           if (width) {
-            styles.maxWidth = width
+            styles.width = width
           }
           if (height) {
             styles.minHeight = height
@@ -47,7 +57,7 @@ export class Body extends Component {
         return (
           <div
             key={ele.id}
-            className={classNames(commonStyles['component'], commonStyles[type])}
+            className={classNames(commonStyles['component'], commonStyles[type], fontSizeStyle)}
             style={styles}
           >
             {anchor}
@@ -56,6 +66,7 @@ export class Body extends Component {
               content={ele.content}
               id={ele.id}
               styles={ele.styles}
+              fontIndex={this.props.fontIndex}
             />
           </div>
         )

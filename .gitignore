@@ -8,6 +8,7 @@ static/dist
 .jshintrc
 npm-debug.log
 err.log
+api-err.log
 
 .idea/
 .vscode/

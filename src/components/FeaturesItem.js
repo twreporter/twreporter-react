@@ -1,7 +1,7 @@
-import { INTERACTIVE_ARTICLE_STYLE, SITE_META } from '../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
-import Category from './Category'
-import Link from './Link'
+import Hexagon from './Hexagon'
+import { Link } from 'react-router'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -130,9 +130,8 @@ export default class FeaturesItem extends Component {
     let excerpt = get(article, 'ogDescription', '')
 
     return (
-      <li itemScope itemType="http://schema.org/Article" className="listing-item" key={article.id}>
-        <meta itemProp="url" content={`${SITE_META.URL_NO_SLASH}${url}`} />
-        <Link to={url} disableReactRouter={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE }>
+      <li className="listing-item" key={article.id}>
+        <Link to={url} target={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"
@@ -144,7 +143,6 @@ export default class FeaturesItem extends Component {
               className="img"
               src={image}
               srcSet={imageSrcSet}
-              itemProp="image"
             />
           <div className="img-overlay" />
           </div>
@@ -152,14 +150,13 @@ export default class FeaturesItem extends Component {
             <div className="border clearfix">
               <div className="featurebox">
                 <div className="cat-container">
-                  <Category>{catDisplay}</Category>
-                  <meta itemProp="articleSection" content={catDisplay}/>
+                  <Hexagon>{catDisplay}</Hexagon>
                 </div>
                 <div className="infobox">
                   <div className="subtitle">{article.subtitle}</div>
-                  <div itemProp="headline" className="title">{article.title}</div>
-                  <div itemProp="description" className="excerpt">{excerpt}</div>
-                  <time itemProp="datePublished" dateTime={date2yyyymmdd(article.publishedDate, '-')} className="published">
+                  <div className="title">{article.title}</div>
+                  <div className="excerpt">{excerpt}</div>
+                  <time dateTime={date2yyyymmdd(article.publishedDate, '-')} className="published">
                     {pubDate}
                   </time>
                 </div>

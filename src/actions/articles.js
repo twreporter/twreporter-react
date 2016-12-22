@@ -4,7 +4,7 @@ import { InternalServerError, NotFoundError } from '../lib/custom-error'
 import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
-import { formatUrl, getArticleEmbeddedQuery } from '../utils/index'
+import { formatUrl } from '../utils/index'
 import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 import qs from 'qs'
@@ -188,11 +188,6 @@ export function fetchRelatedArticlesIfNeeded(articleId, relatedIds, params = {},
 
     params = _setupWhereInParam('_id', idsToFetch, params)
 
-    if (!isOnlyMeta) {
-      // add default embedded
-      params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
-    }
-
     let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')
     dispatch(requestRelatedArticles(articleId, idsToFetch, url))
     return _fetchArticles(url)
@@ -235,11 +230,6 @@ export function fetchArticlesByUuidIfNeeded(uuid = '', type = '', params = {}, i
         break
       default:
         return Promise.resolve()
-    }
-
-    if (!isOnlyMeta) {
-      // add default embedded
-      params.embedded = params.embedded ? params.embedded : getArticleEmbeddedQuery()
     }
 
     let url = _buildUrl(params, isOnlyMeta ? 'meta' : 'article')

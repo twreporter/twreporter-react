@@ -1,16 +1,21 @@
 'use strict'
-import { HOME_CH_STR, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
+import { BRIGHT, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType, setPageTitle } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import SystemError from '../components/SystemError'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
+
+const _  = {
+  get
+}
 
 class Topic extends Component {
   static fetchData({ params, store }) {
@@ -21,24 +26,17 @@ class Topic extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.setPageType(TOPIC)
-    this._sendPageLevelAction()
-  }
-
-  componentDidUpdate() {
-    this._sendPageLevelAction()
-  }
-
   componentWillMount() {
     const { fetchArticlesByUuidIfNeeded, params } = this.props
-    let topicId = get(params, 'topicId')
+    let topicId = _.get(params, 'topicId')
+
+    this._sendPageLevelAction()
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchArticlesByUuidIfNeeded, params } = nextProps
-    let topicId = get(params, 'topicId')
+    let topicId = _.get(params, 'topicId')
     fetchArticlesByUuidIfNeeded(topicId, TOPIC)
     this.setState({
       topicId: nextProps.params.topicId
@@ -47,21 +45,37 @@ class Topic extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, setPageTitle, params } = this.props
-    const topicId = get(params, 'topicId')
-    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
+    const { entities, setHeaderInfo, params } = this.props
+    const topicId = _.get(params, 'topicId')
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
 
-    // set navbar title for this topic
-    setPageTitle(null, topicName, TOPIC_TEXT)
+    setHeaderInfo({
+      pageTitle: topicName,
+      pageTopic: TOPIC_TEXT,
+      pageTheme: BRIGHT,
+      pageType: TOPIC,
+      readPercent: 0
+    })
   }
 
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const topicId = get(params, 'topicId')
-    const topicName = get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicId = _.get(params, 'topicId')
+    const error = _.get(articlesByUuids, [ topicId, 'error' ], null)
 
-    let articles = denormalizeArticles(get(articlesByUuids, [ topicId, 'items' ], []), entities)
+    if (error !== null) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
     const meta = {
       title: topicName ? topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
@@ -76,21 +90,10 @@ class Topic extends Component {
         <div style={{
           backgroundColor: '#FDFFFA'
         }}>
-          <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
-            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-              <div itemProp="item">
-                <meta itemProp="name" content={HOME_CH_STR} />
-                <meta itemProp="url" content={SITE_META.URL} />
-              </div>
-              <meta itemProp="position" content="1" />
-            </div>
-            <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-              {topicName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {topicName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
-              }
-              <meta itemProp="position" content="2"/>
-            </div>
+          <div className="container text-center">
+            {topicBox}
           </div>
-          <Tags
+          <ArticleList
             articles={articles}
             device={device}
             hasMore={false}
@@ -115,4 +118,4 @@ Topic.contextTypes = {
 }
 
 export { Topic }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType, setPageTitle })(Topic)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Topic)

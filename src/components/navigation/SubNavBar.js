@@ -1,19 +1,18 @@
-'use strict'
-import { SITE_META } from '../../constants/index'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import subNavPath from '../../conf/sub-nav-path'
-import Link from '../Link'
+import { DARK } from '../../constants/index'
+import { Link } from 'react-router'
 
 const styles = require('./SubNavBar.scss')
 
 class Items extends Component {
   render() {
-    const { children, path } = this.props
+    const { children, pathname } = this.props
     let _children = []
     children.map((child, i) => {
       let itemClassName
-      if (child.props.href === path) {
+      if (child.props.href === pathname) {
         itemClassName = styles.active
       }
       _children.push(
@@ -24,7 +23,7 @@ class Items extends Component {
 
     })
     return (
-      <ul itemScope itemType="http://www.schema.org/SiteNavigationElement" className={styles.items}>
+      <ul className={styles.items}>
         {_children}
       </ul>
     )
@@ -40,24 +39,21 @@ export default class SubNavBar extends Component {
   }
 
   render() {
-    const { bgStyle, path } = this.props
-    let subMenuClass
+    const { bgStyle, pathname } = this.props
+    const subMenuClass = {
+      [styles.dark]: bgStyle === DARK,
+      [styles.white]: bgStyle !== DARK
+    }
     let subMenuLinks = []
 
-    if (bgStyle === 'dark') {
-      subMenuClass = styles.dark
-    } else {
-      subMenuClass = styles.white
-    }
-
     for(let i in subNavPath) {
-      subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span itemProp="name" onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span><mata itemProp="url" content={`${SITE_META.URL_NO_SLASH}${subNavPath[i].path}`} /></Link>)
+      subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span></Link>)
     }
 
     return (
       <div className={ classNames(styles.subnav, subMenuClass) }>
         <div className={ styles.outer }>
-          <Items path={path} bgStyle={bgStyle}>
+          <Items pathname={pathname}>
             {subMenuLinks}
           </Items>
           <div className={ styles.links }>

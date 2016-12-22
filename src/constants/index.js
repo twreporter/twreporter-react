@@ -1,12 +1,13 @@
 'use strict'
 
-export * from './article-styles'
 export * from './action-types'
 export * from './footer'
 export * from './strings'
+export * from './page-themes'
+export * from './page-types'
 
 export const SITE_NAME = {
-  FULL: '報導者The Reporter',
+  FULL: '報導者 The Reporter',
   SHORT: '報導者',
   SEPARATOR: ' - '
 }
@@ -23,7 +24,8 @@ export const LINK_PREFIX = {
   ARTICLE: '/a/',
   CATEGORY: '/category/',
   TAG: '/tag/',
-  TOPIC: '/topic/'
+  TOPIC: '/topic/',
+  TOPICS: '/topics/'
 }
 
 export const groupEnum = {
@@ -81,20 +83,6 @@ export const CONTINUE_READING = '繼續閱讀'
 export const TOPIC_TEXT = '專題'
 
 export const SEARCH_RESULTS_TEXT = '搜尋結果'
-
-export const ARTICLE = 'ARTICLE'
-
-export const PHOTOGRAPHY = 'PHOTOGRAPHY'
-
-export const PHOTOGRAPHY_ARTICLE = 'PHOTOGRAPHY_ARTICLE'
-
-export const HOME = 'HOME'
-
-export const CATEGORY = 'CATEGORY'
-
-export const TAG = 'TAG'
-
-export const TOPIC = 'TOPIC'
 
 export const basePath = 'https://www.twreporter.org'
 

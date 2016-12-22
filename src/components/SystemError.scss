@@ -1,0 +1,31 @@
+@import '../themes/common-variables.scss';
+@import '../themes/font-mixins.scss';
+
+$red: $harley-davidson-orange;
+
+.message {
+  color: $text-color;
+  font-size: rem(24px);
+  line-height: 1.7;
+  font-weight: $font-weight-normal;
+  white-space: pre-wrap;
+}
+
+.refresh-bt {
+  margin-top: rem(50px);
+  font-size: rem($font-size-medium);
+  line-height: 1.8;
+  position: relative;
+
+  &::before {
+    content: "";
+    color: $red;
+    width: rem(24px);
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: rem(-24px);
+    border-top: 1px solid;
+    position: absolute;
+  }
+}

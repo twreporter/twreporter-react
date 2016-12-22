@@ -109,3 +109,23 @@
   @include animated($sec);
   animation-name: fade-out-right;
 }
+
+// Expand-right
+@mixin expand-right-keyframe($width){
+  @keyframes         expand-right { 0% {width: 0;} 100% {width: rem($width);} }
+  animation-name: expand-right;
+}
+@mixin expand-right($sec: 1s, $width: 10px){
+  @include animated($sec);
+  @include expand-right-keyframe($width);
+}
+
+// collapse-left
+@mixin collapse-left-keyframe($width){
+  @keyframes         collapse-left { 0% {width: rem($width);} 100% {width: 0;} }
+  animation-name: collapse-left;
+}
+@mixin collapse-left($sec: 1s, $width: 10px){
+  @include animated($sec);
+  @include collapse-left-keyframe($width);
+}

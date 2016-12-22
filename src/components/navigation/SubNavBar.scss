@@ -79,24 +79,6 @@ $red: $harley-davidson-orange;
     }
 
     position: relative;
-    &:before {
-    	position: absolute;
-    	content: "";
-    	top: 50%;
-    	-webkit-transform: translateY(-50%);
-    	-moz-transform: translateY(-50%);
-    	-o-transform: translateY(-50%);
-    	-ms-transform: translateY(-50%);
-    	transform: translateY(-50%);
-    	margin-left: -15px;
-    	width: 0;
-    	height: 0;
-    	border-top: 7px solid transparent;
-    	border-bottom: 7px solid transparent;
-    	border-left: 7px solid $red;
-      transition: opacity 0.5s ease-in;
-      opacity: 0;
-  	}
   }
 
   .active {
@@ -160,9 +142,9 @@ $red: $harley-davidson-orange;
 
 .white {
   @media (min-width: $screen-md-min) {
-    color: $white;
+    color: #101010;
     a {
-      color: $white;
+      color: #101010;
     }
   }
 }

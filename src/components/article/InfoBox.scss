@@ -24,7 +24,7 @@
   .infobox-text {
     padding: rem(36) rem(24) rem(24) rem(24);
     h4 {
-      font-size: rem(20px);
+      font-size: em(20px);
       color: $text-color;
       line-height: 1.2;
       font-weight: bold;
@@ -33,13 +33,17 @@
     }
 
     >div {
-      font-size: rem($font-size-medium);
+      font-size: em($font-size-medium);
       line-height: 1.8;
       color: $gray-50;
     }
 
     p {
       color: $gray-50;
+    }
+
+    a{
+      color:gray !important;
     }
   }
 

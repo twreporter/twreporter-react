@@ -1,15 +1,20 @@
-import { HOME_CH_STR, SITE_META, SITE_NAME, TAG } from '../constants/index'
+import { BRIGHT, SITE_META, SITE_NAME, TAG } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setPageType } from '../actions/header'
+import { setHeaderInfo } from '../actions/header'
 import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
-import Tags from '../components/Tags'
+import SystemError from '../components/SystemError'
+import ArticleList from '../components/ArticleList'
 
 // lodash
 import get from 'lodash/get'
+
+const _  = {
+  get
+}
 
 const MAXRESULT = 10
 const PAGE = 1
@@ -28,11 +33,17 @@ class Tag extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    let tagId = get(params, 'tagId')
+    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT,
+      pageType: TAG,
+      readPercent: 0
+    })
+
+    let tagId = _.get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -42,16 +53,12 @@ class Tag extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.setPageType(TAG)
-  }
-
   componentWillReceiveProps(nextProps) {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
-    let tagId = get(params, 'tagId')
+    let tagId = _.get(params, 'tagId')
 
     // if fetched before, do nothing
-    if (get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
@@ -63,13 +70,13 @@ class Tag extends Component {
 
   _loadMore() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
-    const tagId = get(params, 'tagId')
-    let articlesByTag = get(articlesByUuids, [ tagId ], {})
-    if (get(articlesByTag, 'hasMore') === false) {
+    const tagId = _.get(params, 'tagId')
+    let articlesByTag = _.get(articlesByUuids, [ tagId ], {})
+    if (_.get(articlesByTag, 'hasMore') === false) {
       return
     }
 
-    let itemSize = get(articlesByTag, 'items.length', 0)
+    let itemSize = _.get(articlesByTag, 'items.length', 0)
     let page = Math.floor(itemSize / MAXRESULT) + 1
 
     fetchArticlesByUuidIfNeeded(tagId, TAG, {
@@ -81,9 +88,22 @@ class Tag extends Component {
   render() {
     const { device } = this.context
     const { articlesByUuids, entities, params } = this.props
-    const tagId = get(params, 'tagId')
-    let articles = denormalizeArticles(get(articlesByUuids, [ tagId, 'items' ], []), entities)
-    let tagName = get(entities, [ 'tags', tagId, 'name' ], '')
+    const tagId = _.get(params, 'tagId')
+    const error = _.get(articlesByUuids, [ tagId, 'error' ], null)
+    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
+
+    // Error handling
+    if (error !== null && _.get(articles, 'length', 0) === 0) {
+      return (
+        <div>
+          <SystemError error={error} />
+          <Footer />
+        </div>
+      )
+    }
+
+    let tagName = _.get(entities, [ 'tags', tagId, 'name' ], '')
+    const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const meta = {
       title: tagName ? tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
       description: SITE_META.DESC,
@@ -94,26 +114,16 @@ class Tag extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <div itemScope itemType="http://schema.org/BreadcrumList" className="container text-center">
-          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-            <div itemProp="item">
-              <meta itemProp="name" content={HOME_CH_STR} />
-              <meta itemProp="url" content={SITE_META.URL} />
-            </div>
-            <meta itemProp="position" content="1" />
-          </div>
-          <div itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-            {tagName ? <div itemProp="item" className="top-title-outer"><h1 itemProp="name" className="top-title"> {tagName} </h1><meta itemProp="url" content={meta.canonical} /></div> : null
-            }
-            <meta itemProp="position" content="2"/>
-          </div>
+        <div className="container text-center">
+          { tagBox }
         </div>
         <div>
-          <Tags
+          <ArticleList
             articles={articles}
             device={device}
-            hasMore={ get(articlesByUuids, [ tagId, 'hasMore' ])}
+            hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
             loadMore={this.loadMore}
+            loadMoreError={error}
           />
           {this.props.children}
           <Footer/>
@@ -135,4 +145,4 @@ Tag.contextTypes = {
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setPageType })(Tag)
+export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Tag)

@@ -3,6 +3,7 @@
 @import '../../themes/common-variables.scss';
 @import '../../themes/font-mixins.scss';
 @import '../../themes/animation.scss';
+@import '../../themes/centering.scss';
 
 .bottomRelatedsWrapper {
   margin: 4rem 0;
@@ -102,13 +103,17 @@
   background-color: $gray-border-color;
   @include fade-in(0.2s);
 
+  .logo-icon{
+    @extend .ab-center-by-transform;
+  }
+
   .crop {
     position: absolute;
     left: -100%;
     right: -100%;
     top: -100%;
     bottom: -100%;
-    margin: auto; 
+    margin: auto;
     height: auto;
     width: auto;
     max-width: rem(150px);
