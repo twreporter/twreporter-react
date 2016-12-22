@@ -12,6 +12,7 @@ class AuthorSearchBox extends React.Component {
     this._handleClickButton = this._handleClickButton.bind(this)
     this._handleSubmit = this._handleSubmit.bind(this)
     this._handleChange = this._handleChange.bind(this)
+    this._handleClickReset = this._handleClickReset.bind(this)
     this.sendSearchAuthors = this.props.sendSearchAuthors.bind(this)
   }
 
@@ -34,6 +35,15 @@ class AuthorSearchBox extends React.Component {
   _handleClickButton(event) {
     event.preventDefault()
     const keywords = this.state.keywords
+    const replaceAll = true
+    this.sendSearchAuthors({ keywords, replaceAll })
+  }
+
+// Clear the search input and state and send blank search when click reset
+  _handleClickReset(event) {
+    event.preventDefault()
+    this.setState(this.initialState)
+    const keywords = ''
     const replaceAll = true
     this.sendSearchAuthors({ keywords, replaceAll })
   }
@@ -64,7 +74,7 @@ class AuthorSearchBox extends React.Component {
             type="reset"
             className={styles['reset-button']}
             title="Clear the search query."
-            onClick={this._handleChange}>
+            onClick={this._handleClickReset}>
             <img src={resetIcon}/>
           </button>
         </form>
