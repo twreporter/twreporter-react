@@ -50,9 +50,10 @@ $image-container-width-tablet: 190px;
 
 //==== MOBILE ====
 
-@include mq($max-width: $screen-sm-min) {
+@include mq($max-width: $screen-sm-min - 1px) {
   .author-box {
     width: $authorbox-width-mobile;
+    text-align: center;
   }
 
   .author-img-container {
@@ -82,8 +83,8 @@ $image-container-width-tablet: 190px;
 
   .author-bio {
     max-width: $screen-sm-min * .7;
-    width: 80%;
-    margin: 0 auto;
+    max-width: 80%;
+    display: inline-block;
   }
 }
 
