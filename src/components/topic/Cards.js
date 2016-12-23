@@ -5,7 +5,8 @@ import { Link } from 'react-router'
 import cx from 'classnames'
 import Card from './Card'
 import style from './Topic.scss'
-import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { replaceStorageUrlPrefix } from '../../utils/'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -26,16 +27,23 @@ export default class Cards extends Component {
     const { items } = this.props
     let cardsJsx = []
     _.forEach(items, (item, index) => {
-      let description = _.get(item, 'brief.apiData.0.content.0', _.get(item, 'ogDescription'))
-      let imgSrc = _.get(item, 'heroImage.image.resizedTargets.mobile.url')
-      let title = _.get(item, 'title')
-      let slug = _.get(item, 'slug')
-      let style = _.get(item, 'style')
+      const description = _.get(item, 'brief.apiData.0.content.0', _.get(item, 'ogDescription'))
+      const imgSrc = replaceStorageUrlPrefix(_.get(item, 'heroImage.image.resizedTargets.mobile.url'))
+      const title = _.get(item, 'title')
+      const slug = _.get(item, 'slug')
+      const style = _.get(item, 'style')
+      let prefix = LINK_PREFIX.ARTICLE
+      let target = undefined
+      if (style === INTERACTIVE_ARTICLE_STYLE) {
+        prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
+        target = '_blank'
+      }
+
       cardsJsx.push(
         <Link
           key={index}
-          to={`/a/${slug}`}
-          target={ style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined }
+          to={prefix + slug}
+          target={target}
         >
           <Card
             description={description}

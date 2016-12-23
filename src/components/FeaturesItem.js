@@ -1,4 +1,4 @@
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import Hexagon from './Hexagon'
 import { Link } from 'react-router'
@@ -118,7 +118,8 @@ export default class FeaturesItem extends Component {
   render() {
     const { article, image, imageSrcSet } = this.props
     const pubDate = date2yyyymmdd(article.publishedDate , '.')
-    let url = '/a/' + article.slug
+    const style = get(article, 'style')
+    let url = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + article.slug : LINK_PREFIX.ARTICLE + article.slug
     let catDisplay
     let cats = get(article, 'categories', [])
     for (let i = 0; i < cats.length; i++) {
@@ -131,7 +132,7 @@ export default class FeaturesItem extends Component {
 
     return (
       <li className="listing-item" key={article.id}>
-        <Link to={url} target={ get(article, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined }>
+        <Link to={url} target={ style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined }>
           <div
             id={ 'parallax-trigger' + this.props.article.id }
             className="img-wrap"

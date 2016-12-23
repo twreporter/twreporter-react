@@ -1,5 +1,5 @@
 'use strict'
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 import { Link } from 'react-router'
@@ -28,12 +28,18 @@ export default class TopNews extends Component {
       <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = date2yyyymmdd(a.publishedDate, '.')
-          let cats = get(a, 'categories', [])
-          let catDisplay = get(cats, [ 0, 'name' ], '專題')
-          let imageSet = getArticleImageSrcSet(a)
-          let image = getArticleImageSrc(a)
+          const cats = get(a, 'categories', [])
+          const catDisplay = get(cats, [ 0, 'name' ], '專題')
+          const imageSet = getArticleImageSrcSet(a)
+          const image = getArticleImageSrc(a)
+          let prefix = LINK_PREFIX.ARTICLE
+          let target = undefined
+          if (a.style === INTERACTIVE_ARTICLE_STYLE) {
+            prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
+            target = '_blank'
+          }
           return (
-            <Link key={a.id} to={'/a/' + a.slug} target={a.style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+            <Link key={a.id} to={prefix + a.slug} target={target}>
               <img src={image} alt={a.slug} srcSet={imageSet} />
               <div className="topnews_categorycontainer">
                 <Hexagon>{catDisplay}</Hexagon>

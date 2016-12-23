@@ -1,6 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
+import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
 import { shortenString } from '../../lib/string-processor'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import { Link } from 'react-router'
@@ -55,11 +55,12 @@ export class BottomRelateds extends Component {
       let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
       const description = get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
+      const style = get(related, 'style')
 
       return (
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
           <div>
-            <Link className={styles.relatedAnchor} to={'/a/' + related.slug} target={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+            <Link className={styles.relatedAnchor} to={style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + related.slug : LINK_PREFIX.ARTICLE + related.slug} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
               <div className={styles.relatedImgWrapper}>
                 <div className={styles.relatedImg}>
                   <img src={logoIcon} className={styles['logo-icon']}/>
