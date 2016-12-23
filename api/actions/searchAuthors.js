@@ -1,6 +1,8 @@
 'use strict'
-import { APP_ID, SEARCH_API_KEY, CONTACTS_INDEX } from '../constants'
+
+import { CONTACTS_INDEX } from '../constants'
 import algoliasearch from 'algoliasearch'
+import config from '../config'
 import omit from 'lodash/omit'
 
 const _ = {
@@ -8,7 +10,8 @@ const _ = {
 }
 
 export function searchAuthors(req, path) { // eslint-disable-line no-unused-vars
-  let client = algoliasearch(APP_ID, SEARCH_API_KEY)
+  const { ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY } = config
+  let client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY)
   let index = client.initIndex(CONTACTS_INDEX)
   return new Promise((resolve, reject) => {
     const query = req.query
