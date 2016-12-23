@@ -1,4 +1,4 @@
-import { ARTICLE_STYLE, BACK_TO_TOPIC, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
+import { ARTICLE_STYLE, BACK_TO_TOPIC, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
 import { shortenString } from '../../lib/string-processor'
 import { isArticlePageType } from '../../utils/index'
@@ -320,7 +320,7 @@ export default class NavMenu extends Component {
     let menuBar = this._renderAritcleFirst(burgerMenu, logo, navLinks)
 
     // if the page has been scrolled down, show another menu
-    if (isScrolledOver && (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE)) {
+    if (isScrolledOver && (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === REVIEW_ARTICLE_STYLE)) {
       menuBar = this._renderAritcleSecond(burgerMenu)
     } else if (isScrolledOver && pageType === TOPIC) {
       menuBar = this._renderTopicSecond(burgerMenu, navLinks)
