@@ -1,81 +1,67 @@
 @import '../../themes/common-variables';
 
-$placeholder-color: #A4A4A4;
-$input-bg-color: #F9F9F9;
-$input-text-color: #CBCBCB;
 $searchbox-height: 30px;
 $searchbox-width: 250px;
-$font-size: 15px;
-
 $searchbox-margin-top: 60px;
 $searchbox-margin-bottom: 40px;
 $searchbox-margin-top-mobile: 30px;
 $searchbox-margin-bottom-mobile: 30px;
 
+$search-icon-size: 15px;
+$reset-icon-size: 10px;
+$searchbox-border-width: .5px;
+
+.searchbox-wrapper {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .searchbox {
   display: inline-block;
-  position: relative;
+  position: relative; //For submit-button positioning
   width: $searchbox-width;
   height: $searchbox-height;
-  white-space: nowrap;
   box-sizing: border-box;
-  font-size: $font-size;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: $font-size-small;
   font-weight: $font-weight-normal;
   letter-spacing: $general-letter-space;
   margin-top: $searchbox-margin-top;
   margin-bottom: $searchbox-margin-bottom;
 }
 
-.searchbox-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
 .input-box {
   display: inline-block;
-  -webkit-transition: box-shadow .4s ease, background .4s ease;
-  transition: box-shadow .4s ease, background .4s ease;
-  border: 0;
+  transition: background .4s ease;
+  border: $searchbox-border-width solid $input-border-gray;
   border-radius: $searchbox-height / 2;
-  box-shadow: inset 0 0 0 0.5px $input-text-color;
-  background: $input-bg-color;
-  padding: 0;
-  padding-right: 48px;
-  padding-left: 20px;
+  box-sizing: border-box;
+  color: $text-color;
+  background: $input-bg-gray;
+  padding: 0 48px 0 20px;
   width: 100%;
   height: 100%;
-  vertical-align: middle;
-  white-space: normal;
+  vertical-align: inherit;
+  white-space: inherit;
   font-size: inherit;
+  font-weight: inherit;
   letter-spacing: inherit;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;  //remove platform specific styling of search input
 
-  &::-webkit-search-decoration,
-  &::-webkit-search-cancel-button,
-  &::-webkit-search-results-button,
-  &::-webkit-search-results-decoration {
-    display: none;
-  }
-
-  &:hover {
-    box-shadow: inset 0 0 0 0.5px #b2b2b2;
-  }
-
-  &:focus,
-  &:active,{
+  &:focus {
+    transition: background .4s ease;
     outline: 0;
-    box-shadow: inset 0 0 0 0.5px $input-text-color;
-    background: #FFFFFF;
+    background: $white;
   }
 
-  &::-webkit-input-placeholder,
-  &:-moz-placeholder,
-  &::-moz-placeholder,
-  &:-ms-input-placeholder,
+  &:active {
+    outline: 0;
+  }
+
   &:placeholder {
-    color: $placeholder-color;
+    color: $placeholder-gray;
   }
 }
 
@@ -83,32 +69,29 @@ $searchbox-margin-bottom-mobile: 30px;
   position: absolute;
   top: 0;
   right: 0;
-  left: inherit;
+  width: $searchbox-height;
+  height: 100%;
   margin: 0;
   border: 0;
-  border-radius: 0 20px 20px 0;
-  background-color: rgba(62, 130, 247, 0);
+  border-radius: 0 $searchbox-height/2 $searchbox-height/2 0;
   padding: 0;
-  width: 31px;
-  height: 100%;
-  vertical-align: middle;
-  text-align: center;
+  background-color: $transparent-bg;
+  vertical-align: inherit;
   font-size: inherit;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  user-select: none;
 
-  &::before {
+  &::before { //For position tuning
     display: inline-block;
-    margin-right: -4px;
+    margin-right: -5px;
     height: 100%;
     vertical-align: middle;
     content: '';
   }
 
-  &hover,
-  &active {
+  &:hover,
+  &:active {
     cursor: pointer;
   }
 
@@ -117,72 +100,66 @@ $searchbox-margin-bottom-mobile: 30px;
   }
 
   & img {
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    fill: #CBCBCB;
+    width: $search-icon-size;
+    height: $search-icon-size;
+    vertical-align: inherit;
   }
 }
 
 .reset-button {
   display: none;
   position: absolute;
-  top: 7px;
-  right: 31px;
+  top: 0;
+  right: $searchbox-height;
+  height: 100%;
   margin: 0;
   border: 0;
-  background: none;
-  cursor: pointer;
   padding: 0;
+  background: none;
+  vertical-align: inherit;
   font-size: inherit;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  fill: rgba(0, 0, 0, 0.5);
+  font-weight: inherit;
+  letter-spacing: inherit;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &:focus {
     outline: 0;
   }
 
+  &::before { //For position tuning
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: '';
+  }
+
   & img {
-    display: block;
+    display: inline-block;
     margin: 4px;
-    width: 9px;
-    height: 9px;
+    width: $reset-icon-size;
+    height: $reset-icon-size;
   }
 }
 
 .input-box:valid ~ .reset-button {
   display: block;
-  -webkit-animation-name: reset-in;
-          animation-name: reset-in;
-  -webkit-animation-duration: .15s;
-          animation-duration: .15s;
-}
-
-@-webkit-keyframes reset-in {
-  0% {
-    -webkit-transform: translate3d(-20%, 0, 0);
-            transform: translate3d(-20%, 0, 0);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: none;
-            transform: none;
-    opacity: 1;
-  }
+  animation-name: reset-in;
+  animation-duration: .15s;
 }
 
 @keyframes reset-in {
   0% {
-    -webkit-transform: translate3d(-20%, 0, 0);
-            transform: translate3d(-20%, 0, 0);
+    transform: translate3d(-20%, 0, 0);
     opacity: 0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
   }
   100% {
-    -webkit-transform: none;
-            transform: none;
+    transform: none;
     opacity: 1;
+    filter: alpha(opacity=1); /* For IE8 and earlier */
   }
 }

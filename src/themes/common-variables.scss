@@ -25,6 +25,7 @@ $font-size-larger: 22px;
 $font-size-large: 20px;
 $font-size-base: 18px;
 $font-size-medium: 16px;
+$font-size-small: 15px;
 $font-size-xsmall: 14px;
 $font-size-tiny: 12px;
 $font-weight-normal: 300;
@@ -34,6 +35,10 @@ $font-weight-superbold: 900;
 // caption of image
 $caption-color: #242423;
 $z-index-widget: 1000000010;
+
+// ## Letter Spacing
+$general-letter-space: 0.4px;
+
 
 // == Margin
 // ## Components
@@ -47,8 +52,10 @@ $gray-15: #262626;
 $gray-25: #404040;
 $gray-40: #666666;
 $gray-50: #808080;
+$gray-64: #A4A4A4;
 $gray-70: #B3B3B3;
 $gray-97: #F7F7F7;
+$gray-98: #F9F9F9;
 $input-border-gray: #CBCBCB;
 $light-gray: #F1F1F1;
 $blockquote-gray: rgba(74, 74, 74, 0.25);
@@ -58,6 +65,11 @@ $harley-davidson-orange: #c71b0a;
 $light-red: #D92616;
 // ## white
 $white: #FFF;
+// ## author search box
+$placeholder-gray: $gray-64;
+$input-bg-gray: $gray-98;
+$transparent-bg: rgba(179, 179, 179, 0);
+
 // ## Global color settings
 $text-color: $gray-25;
 $primary-color: $harley-davidson-orange;
@@ -67,8 +79,6 @@ $loading-placeholder: rgba(191,191,191,0.50);
 
 $material-box-shadow: 0px 4px 10px 0px rgba($gray-70, 0.7);
 $box-glow: 0px 0px 3px rgba($gray-40, 0.05);
-
-$general-letter-space: 0.4px;
 
 // == Layout
 // ## width

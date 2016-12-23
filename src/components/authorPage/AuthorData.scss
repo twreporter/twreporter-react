@@ -25,15 +25,18 @@ $image-container-width-tablet: 190px;
 }
 
 .author-name {
+  color: $gray-25;
   font-size: $font-size-large;
   font-weight: $font-weight-bold;
 }
 
 .author-mail {
+  color: $gray-25;
   font-size: 15px;
 }
 
 .author-bio {
+  color: $gray-15;
   font-size: $font-size-base;
   font-weight: $font-weight-normal;
   line-height: 1.7;
@@ -51,7 +54,7 @@ $image-container-width-tablet: 190px;
   .author-box {
     width: $authorbox-width-mobile;
   }
-  
+
   .author-img-container {
     width: 100%;
     text-align: center;
@@ -103,28 +106,15 @@ $image-container-width-tablet: 190px;
 
   .author-name {
     vertical-align: middle;
-    display: inline-block;
-  }
-
-  .author-mail::before {
-    content: '|';
-    font-weight: $font-weight-normal;
-    vertical-align: middle;
-    display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
-    position: relative;
-    top: -2px;
   }
 
   .author-mail {
     vertical-align: middle;
-    display: inline-block;
   }
 
   .author-bio {
     word-break: normal;
-    margin-top: 20px;
+    margin-top: 16px;
   }
 
 }

@@ -4,12 +4,6 @@
 @import '../themes/media-queries';
 @import '../themes/animation';
 
-
-// Add border for all elements to check the layout:
-// * {
-//   border: 1px solid $gray-70;
-// }
-
 $sponsor-button-width-mobile: 100%;
 $sponsor-button-width: 320px;
 $sponsor-button-height: 48px;
@@ -32,9 +26,7 @@ $sponsor-letter-space: .1px;
   // overall setting below:
   padding-top: $sponsor-inside-margin-vertical;
   background-color: $white;
-  // transition-property: box-shadow, display;
-  // transition-duration: .2s, .5s;
-  @include fade-in-down-wait(.5s, 1.5s);
+  @include fade-in-down-wait(.5s, 1s);
 
   &:hover {
     box-shadow: $material-box-shadow;

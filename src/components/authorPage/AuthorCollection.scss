@@ -6,7 +6,7 @@
 @import '../../themes/spinner';
 
 .bottom-relateds-wrapper {
-  margin-bottom: 50px;
+  margin-bottom: rem(30px);
   ul {
     list-style: none;
     padding-left: 0;
@@ -15,6 +15,14 @@
 
 .topic-wrapper {
   margin: 1.1rem 0;
+
+  .topic-box {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    border: 0;
+    color: $gray-15;
+    margin-bottom: rem(24px);
+  }
 }
 
 .related-item {
@@ -31,7 +39,7 @@
 
   @include mq($max-width: $screen-xs-max) {
     margin: rem(10px) 0;
-    padding: 0 15px;
+    padding: 0 rem(15px);
     width: 100%;
   }
 
@@ -67,7 +75,7 @@
 .related-description {
   vertical-align: middle;
   color: $gray-50;
-  font-size: $font-size-xsmall;
+  font-size: $font-size-small;
   @media (max-width: $screen-xs-max) {
     display: none;
   }
@@ -120,7 +128,7 @@
 }
 
 .sensor {
-  height: 50px;
+  height: rem(50px);
   width: 100%;
   margin-left: auto;
   margin-right: auto;
