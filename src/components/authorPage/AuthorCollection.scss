@@ -5,8 +5,13 @@
 @import '../../themes/animation';
 @import '../../themes/spinner';
 
+$box-padding: 24px;
+$img-size: 80px;
+
 .bottom-relateds-wrapper {
+  margin: 0;
   margin-bottom: rem(30px);
+  padding: 0;
   ul {
     list-style: none;
     padding-left: 0;
@@ -14,7 +19,8 @@
 }
 
 .topic-wrapper {
-  margin: 1.1rem 0;
+  margin: 0;
+  padding: 0;
 
   .topic-box {
     font-size: $font-size-base;
@@ -62,18 +68,20 @@
   display: table-cell;
   text-align: left;
   vertical-align: top;
-  padding: rem(15px) rem(10px) rem(15px) rem(5px);
+  padding: rem($box-padding - 3.5px) rem($box-padding) rem($box-padding) rem(16px);
 }
 
 .related-title {
-  vertical-align: middle;
+  vertical-align: text-top;
   display: inline-block;
   font-size: $font-size-large;
   font-weight: $font-weight-bold;
 }
 
 .related-description {
-  vertical-align: middle;
+  margin: 0;
+  text-align: justify;
+  vertical-align: text-bottom;
   color: $gray-50;
   font-size: $font-size-small;
   @media (max-width: $screen-xs-max) {
@@ -102,11 +110,12 @@
 }
 
 .related-img {
-  margin-top: rem(18px);
-  width: rem(80px);
-  height: rem(80px);
+  margin-top: rem($box-padding);
+  margin-left: rem($box-padding);
+  margin-bottom: rem($box-padding);
+  width: rem($img-size);
+  height: rem($img-size);
   overflow: hidden;
-  margin: rem(15px);
   position: relative;
   background-color: $gray-border-color;
   @include fade-in(.2s);

@@ -64,7 +64,7 @@ const AuthorCollection = (props) => {
 
   return (
     <div className={classNames(commonStyles['component'], 'center-block')}>
-      <div className={classNames(styles['bottom-relateds-wrapper'], commonStyles['inner-block'])}>
+      <div className={classNames(commonStyles['inner-block'], styles['bottom-relateds-wrapper'])}>
         <div className={classNames(styles['topic-wrapper'], 'text-center')}>
           <h3 className={classNames(styles['topic-box'])}> {titleText} </h3>
           <ul>
