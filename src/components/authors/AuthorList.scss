@@ -1,0 +1,190 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/common-variables';
+@import '../../themes/media-queries';
+@import '../../themes/font-mixins';
+@import '../../themes/animation';
+@import '../../themes/spinner';
+
+
+$authors-img-size: 114px;
+$authors-img-mobile-size: 95px;
+$authors-item-width: $authors-img-size;
+$authors-item-mobile-width: $authors-img-mobile-size;
+$authors-list-columns-distance: 44px;
+$authors-list-name-img-distance: 14px;
+$authors-list-rows-distance-mobile: 50px;
+$authors-list-rows-distance: 60px;
+$authors-list-mobile-width: ($authors-item-mobile-width + $authors-list-columns-distance + 2px) * 2;
+$authors-list-tablet-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 3;
+$authors-list-desktop-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
+$authors-list-desktop-hd-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
+$authors-list-name-fontsize: 18px;
+$authors-list-name-fontweight: $font-weight-medium;
+
+//==== MOBILE (& OVERALL) ====
+
+.author-img,
+.author-item,
+.author-name,
+.shown-authors {
+  box-sizing: border-box;
+}
+
+.author-list-container {
+  background-color: $light-gray;
+  text-align: center;
+  font-size: $font-size-base;
+}
+
+.no-result {
+  font-size: $font-size-base;
+  color: $gray-50;
+  word-wrap: break-word;
+  padding: 0 15px 0 15px;
+  margin: 40px auto 70px auto;
+  display: block;
+}
+
+.shown-authors {
+  width: $authors-list-mobile-width;
+  // overall setting below:
+  overflow-y: visible;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.author-item {
+  @include fade-in-down(.5s);
+  width: $authors-item-mobile-width;
+  // overall setting below:
+  margin-left: $authors-list-columns-distance / 2;
+  margin-right: $authors-list-columns-distance / 2;
+  margin-bottom: $authors-list-rows-distance-mobile - $font-size-base;
+  display: inline-block;
+  vertical-align: top;
+
+  .author-img {
+    height: $authors-img-mobile-size;
+    width: $authors-img-mobile-size;
+    // overall setting below:
+    border-radius: 50%;
+  }
+
+  .author-name {
+    height: $font-size-base * 2.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: $authors-list-name-img-distance;
+    color: $gray-25;
+    line-height: 1.2;
+    font-size: $font-size-base;
+    font-weight: $authors-list-name-fontweight;
+    text-align: center;
+  }
+}
+
+.load-more {
+  margin: 10px auto 40px;
+  width: 10em;
+  color: $primary-color;
+  font-weight: $font-weight-bold;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: $font-size-medium;
+
+  &:hover {
+    transform: translateY(10%);
+  }
+}
+
+.sensor {
+  height: 50px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+//==== TABLET, DESKTOP & HD ====
+// @include mq($min-width: $screen-sm-min) {
+//
+// }
+//==== TABLET ====
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .shown-authors {
+    width: $authors-list-tablet-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+  }
+}
+//==== DESKTOP & HD ====
+@include mq($min-width: $screen-md-min) {
+  .author-item:hover {
+    .author-img {
+      position: relative;
+      top: -4px;
+      left: -2px;
+      box-shadow: 0 2px 10px 1px rgba(#B3B3B3, .7);
+    }
+  }
+
+  .author-img {
+    transition: all 0.2s;
+  }
+}
+//==== DESKTOP ====
+@include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
+  .shown-authors {
+    width: $authors-list-desktop-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+  }
+}
+//==== DESKTOP HD ====
+@include mq($min-width: $screen-hd-min) {
+  .shown-authors {
+    width: $authors-list-desktop-hd-width;
+  }
+
+  .author-item {
+    width: $authors-item-width;
+    margin-bottom: $authors-list-rows-distance - $font-size-base;
+
+    .author-img {
+      height: $authors-img-size;
+      width: $authors-img-size;
+    }
+
+    .shown-authors {
+      width: $authors-list-tablet-width;
+    }
+  }
+}

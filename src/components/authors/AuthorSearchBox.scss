@@ -1,0 +1,165 @@
+@import '../../themes/common-variables';
+
+$searchbox-height: 30px;
+$searchbox-width: 250px;
+$searchbox-margin-top: 60px;
+$searchbox-margin-bottom: 40px;
+$searchbox-margin-top-mobile: 30px;
+$searchbox-margin-bottom-mobile: 30px;
+
+$search-icon-size: 15px;
+$reset-icon-size: 10px;
+$searchbox-border-width: .5px;
+
+.searchbox-wrapper {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.searchbox {
+  display: inline-block;
+  position: relative; //For submit-button positioning
+  width: $searchbox-width;
+  height: $searchbox-height;
+  box-sizing: border-box;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: $font-size-small;
+  font-weight: $font-weight-normal;
+  letter-spacing: $general-letter-space;
+  margin-top: $searchbox-margin-top;
+  margin-bottom: $searchbox-margin-bottom;
+}
+
+.input-box {
+  display: inline-block;
+  transition: background .4s ease;
+  border: $searchbox-border-width solid $input-border-gray;
+  border-radius: $searchbox-height / 2;
+  box-sizing: border-box;
+  color: $text-color;
+  background: $input-bg-gray;
+  padding: 0 48px 0 20px;
+  width: 100%;
+  height: 100%;
+  vertical-align: inherit;
+  white-space: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  appearance: none;  //remove platform specific styling of search input
+
+  &:focus {
+    transition: background .4s ease;
+    outline: 0;
+    background: $white;
+  }
+
+  &:active {
+    outline: 0;
+  }
+
+  &:placeholder {
+    color: $placeholder-gray;
+  }
+}
+
+.submit-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $searchbox-height;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0 $searchbox-height/2 $searchbox-height/2 0;
+  padding: 0;
+  background-color: $transparent-bg;
+  vertical-align: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  user-select: none;
+
+  &::before { //For position tuning
+    display: inline-block;
+    margin-right: -5px;
+    height: 100%;
+    vertical-align: middle;
+    content: '';
+  }
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  & img {
+    width: $search-icon-size;
+    height: $search-icon-size;
+    vertical-align: inherit;
+  }
+}
+
+.reset-button {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: $searchbox-height;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  vertical-align: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::before { //For position tuning
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: '';
+  }
+
+  & img {
+    display: inline-block;
+    margin: 4px;
+    width: $reset-icon-size;
+    height: $reset-icon-size;
+  }
+}
+
+.input-box:valid ~ .reset-button {
+  display: block;
+  animation-name: reset-in;
+  animation-duration: .15s;
+}
+
+@keyframes reset-in {
+  0% {
+    transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+    filter: alpha(opacity=1); /* For IE8 and earlier */
+  }
+}

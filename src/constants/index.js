@@ -80,8 +80,6 @@ export const RELATED_ARTICLES = '延伸閱讀'
 
 export const CONTINUE_READING = '繼續閱讀'
 
-export const LOAD_MORE_ARTICLES = '載入更多文章'
-
 export const TOPIC_TEXT = '專題'
 
 export const SEARCH_RESULTS_TEXT = '搜尋結果'
