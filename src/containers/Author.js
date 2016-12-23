@@ -1,11 +1,12 @@
 'use strict'
 
 import { AUTHOR_PAGE } from '../constants/page-types'
-import { LIGHT } from '../constants/page-themes'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
+import { LIGHT } from '../constants/page-themes'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
+import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import { connect } from 'react-redux'
@@ -49,7 +50,7 @@ class Author extends React.Component {
     const authorData = {
       authorId: authorId,
       authorName: _.get(thisAuthorInEntities, 'name'),
-      authorImg: _.get(thisAuthorInEntities, 'imageUrl', 'http://i.imgur.com/Clyp3sKb.jpg'),
+      authorImg: _.get(thisAuthorInEntities, 'imageUrl', authorDefaultImg),
       authorMail: _.get(thisAuthorInEntities, 'email'),
       authorBio: _.get(thisAuthorInEntities, 'bio.md')
     }

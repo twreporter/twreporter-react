@@ -1,17 +1,18 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, NO_RESULT, REQUEST_PAGE_START_FROM, PAGE_TITLE } from '../constants/authors-list'
-import { LIGHT } from '../constants/page-themes'
+import { LOADING_MORE_AUTHORS, NO_RESULT, PAGE_TITLE, REQUEST_PAGE_START_FROM } from '../constants/authors-list'
 import { fetchNextPageAuthors, sendSearchAuthors } from '../actions/authors'
 
 import { AUTHORS_LIST } from '../constants/page-types'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
+import { LIGHT } from '../constants/page-themes'
 import { LOAD_MORE_AUTHORS_BTN } from '../constants/authors-list'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
+import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
@@ -56,7 +57,7 @@ class AuthorsList extends React.Component {
       const authorName = _.get(authorsEntities, `${id}.name`, '')
       let authorImg = _.get(authorsEntities, `${id}.image`)
       // for some authors' api data 'image' may be null
-      authorImg = authorImg ? authorImg : 'http://i.imgur.com/Clyp3sKb.jpg'
+      authorImg = authorImg ? authorImg : authorDefaultImg
       let authorItemObject = {
         id,
         authorName,
