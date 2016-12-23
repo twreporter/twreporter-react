@@ -10,15 +10,14 @@ const boxClasses = classNames(
 )
 
 const AuthorData = (props) => {
-  const authorData = props.authorData
-  let gotAuthorMail = !(authorData.authorMail === undefined) ? true : false
+  const { authorImg, authorName, authorMail, authorBio } = props.authorData
   return (
   <div className={boxClasses}>
-    <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorData.authorImg}/></div>
+    <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImg}/></div>
     <div className={styles['author-data-container']}>
-      <div className={styles['author-name']}>{authorData.authorName}</div>
-      {!gotAuthorMail ? null : <div className={styles['author-mail']}>{authorData.authorMail}</div>}
-      <div className={styles['author-bio']}>{authorData.authorBio}</div>
+      <div className={styles['author-name']}>{authorName}</div>
+      {!authorMail ? null : <div className={styles['author-mail']}>{authorMail}</div>}
+      <div className={styles['author-bio']}>{authorBio}</div>
     </div>
   </div>
 )}
