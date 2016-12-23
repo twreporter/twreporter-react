@@ -116,7 +116,7 @@ class LeadingVideo extends React.Component {
             muted={isMuted}
             loop={loop}
           >
-            <source src={src} type={filetype} />
+            <source src={replaceStorageUrlPrefix(src)} type={filetype} />
           </video>
           <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
           <img
