@@ -58,20 +58,22 @@ export class BottomRelateds extends Component {
 
       return (
         <li className={classNames(styles.relatedItem, itemDisplayClass)} key={'related-' + (index++)}>
-          <Link className={styles.relatedAnchor} to={'/a/' + related.slug} target={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
-            <div className={styles.relatedImgWrapper}>
-              <div className={styles.relatedImg}>
-                <img src={logoIcon} className={styles['logo-icon']}/>
-                <LazyLoad once={true}>
-                  <img className={styles['crop']} src={imageUrl} />
-                </LazyLoad>
+          <div>
+            <Link className={styles.relatedAnchor} to={'/a/' + related.slug} target={get(related, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+              <div className={styles.relatedImgWrapper}>
+                <div className={styles.relatedImg}>
+                  <img src={logoIcon} className={styles['logo-icon']}/>
+                  <LazyLoad once={true}>
+                    <img className={styles['crop']} src={imageUrl} />
+                  </LazyLoad>
+                </div>
               </div>
-            </div>
-            <div className={styles.relatedContent}>
-              <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
-              <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
-            </div>
-          </Link>
+              <div className={styles.relatedContent}>
+                <p className={styles.relatedTitle} dangerouslySetInnerHTML={ this._setHtml(related.title) }></p>
+                <p className={styles.relatedDescription}>{shortenString(description, CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)}</p>
+              </div>
+            </Link>
+          </div>
         </li>
       )
     })
