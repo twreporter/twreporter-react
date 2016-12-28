@@ -188,7 +188,12 @@ class Home extends Component {
           "http://www.facebook.com/twreporter",
           "https://www.instagram.com/twreporter/",
           "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
-        ]
+        ],
+        "potentialAction" : {
+          "@type" : "SearchAction",
+          "target" : "https://www.twreporter.org/search?q={search_term}",
+          "query-input" : "required name=search_term"
+        }
       }
     `
     let webSiteJSONLD = `
@@ -284,8 +289,8 @@ class Home extends Component {
         }
         <Footer />
         { microData }
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
       </DocumentMeta>
     )
