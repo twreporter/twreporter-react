@@ -5,6 +5,7 @@ export * from './footer'
 export * from './strings'
 export * from './page-themes'
 export * from './page-types'
+export * from './author-page'
 
 export const SITE_NAME = {
   FULL: '報導者 The Reporter',
