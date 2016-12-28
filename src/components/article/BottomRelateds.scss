@@ -20,18 +20,31 @@
 .relatedItem {
   width: 100%;
   vertical-align: middle;
-  background-color: $white;
   margin: rem(16px) 0;
-  transition: all 0.2s;
   @include fade-in-down(0.5s);
 
-  &:hover {
-    box-shadow: $material-box-shadow;
+  > div {
+    width: 100%;
+    background-color: $white;
+    transition-property: box-shadow, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+
+    &:hover {
+      transform: translateY(-1%);
+      box-shadow: $material-box-shadow;
+      transition-property: box-shadow, transform;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+    }
+
+    @include mq($max-width: $screen-xs-max) {
+      padding: 0 15px;
+    }
   }
 
   @include mq($max-width: $screen-xs-max) {
     margin: rem(10px) 0;
-    padding: 0 15px;
     width: 100%;
   }
 
