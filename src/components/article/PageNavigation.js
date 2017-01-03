@@ -1,5 +1,5 @@
 'use strict'
-import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
 import { Link } from 'react-router'
@@ -87,11 +87,12 @@ class PageNavigation extends Component {
       return null
     }
 
-    let link = '/a/' + get(article, 'slug', '')
+    const style = get(article, 'style')
 
+    let link = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + slug : LINK_PREFIX.ARTICLE + slug
     return (
       <nav ref="container" className={classNames(styles['aside-page-navigation'], styles[navigate])}>
-        <Link to={link} target={get(article, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+        <Link to={link} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           {this._renderArticle(article)}
           {this._renderArrow(navigate)}
         </Link>

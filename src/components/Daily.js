@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import React, { Component } from 'react'
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getArticleImageSrc } from '../utils/index'
 
@@ -30,11 +30,12 @@ export default class Daily extends Component {
           <ul className="daily-itemlist">
           { map(dailyTop, (a, idx) => {
             const pubDate = date2yyyymmdd(a.publishedDate, '.')
-            let thumbnail = getArticleImageSrc(a, 'mobile')
-            let url = '/a/' + a.slug
+            const thumbnail = getArticleImageSrc(a, 'mobile')
+            const style = get(a, 'style')
+            const url = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + a.slug : LINK_PREFIX.ARTICLE + a.slug
             return (
               <li className="daily-item" key={a.id || idx}>
-                <Link to={url} target={get(a, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+                <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
                   <div className="daily-image">
                     <div style={{
                       backgroundImage: 'url(' + thumbnail + ')'

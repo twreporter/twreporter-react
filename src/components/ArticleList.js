@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import More from '../components/More'
 import { Link } from 'react-router'
-import { INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 
@@ -35,15 +35,16 @@ export default class ListArticleItem extends Component {
           <div className="container">
             <ul className={classNames('tag-listing', photoClass)}>
               { map(articles, (a) => {
-                let image = getArticleImageSrc(a)
-                let imageSrcSet = getArticleImageSrcSet(a)
+                const image = getArticleImageSrc(a)
+                const imageSrcSet = getArticleImageSrcSet(a)
                 const d_str = date2yyyymmdd(a.publishedDate , '.')
-                let url = '/a/' + a.slug
+                const style = get(a, 'style')
+                let url = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + a.slug : LINK_PREFIX.ARTICLE + a.slug
                 let excerpt =  get(a, 'ogDescription', '')
                 if (image) {
                   return (
                     <li className="tag-item" key={a.id} style={bgStyle}>
-                      <Link to={url} target={a.style === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}>
+                      <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
                         <div className="itemimage-wrap">
                           <img className="category-itemimage" src={image} srcSet={imageSrcSet}/>
                         </div>

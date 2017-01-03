@@ -11,7 +11,7 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 
 import { Link } from 'react-router'
-import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
 const RIGHT = 'right'
 const LEFT = 'left'
@@ -32,13 +32,14 @@ class Bookmark extends Component {
 
   render() {
     const { bookmark, isSelected, slug, style } = this.props
+    const path = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + slug : LINK_PREFIX.ARTICLE + slug
     let classNames = {
       [styles.selected]: isSelected
     }
 
     return (
       <li ref="bookmarkRef" className={cx(styles.bookmark, classNames)}>
-        <Link to={`/a/${slug}`} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
+        <Link to={path} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           <span>{bookmark}</span>
         </Link>
       </li>

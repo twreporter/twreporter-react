@@ -17,7 +17,9 @@ import uniq from 'lodash/uniq'
 const Topic = (props) => {
   const { data, articleId } = props
   const isCurrentViewing = get(data, 'id', '') === articleId
-  const link =  LINK_PREFIX.ARTICLE + get(data, 'slug', '')
+  const style = get(data, 'style')
+  const slug = get(data, 'slug', '')
+  const link = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + slug : LINK_PREFIX.ARTICLE + slug
   const heroImgUrl = replaceStorageUrlPrefix(get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null))
   const currentClass = isCurrentViewing ? styles['current'] : null
 
@@ -35,7 +37,7 @@ const Topic = (props) => {
             <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
           </div>
         </div>
-  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} target={get(data, 'style') === INTERACTIVE_ARTICLE_STYLE ? '_self' : undefined}> { topic } </Link>
+  const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}> { topic } </Link>
 
   return (
     <div className="col-md-12 col-lg-6">
