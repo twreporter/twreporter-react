@@ -6,20 +6,22 @@
 @import '../../themes/spinner';
 
 
-$authors-img-size: 114px;
-$authors-img-mobile-size: 95px;
-$authors-item-width: $authors-img-size;
-$authors-item-mobile-width: $authors-img-mobile-size;
-$authors-list-columns-distance: 44px;
-$authors-list-name-img-distance: 14px;
-$authors-list-rows-distance-mobile: 50px;
-$authors-list-rows-distance: 60px;
-$authors-list-mobile-width: ($authors-item-mobile-width + $authors-list-columns-distance + 2px) * 2;
-$authors-list-tablet-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 3;
-$authors-list-desktop-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
-$authors-list-desktop-hd-width: ($authors-item-width + $authors-list-columns-distance + 2px) * 4;
-$authors-list-name-fontsize: 18px;
-$authors-list-name-fontweight: $font-weight-medium;
+$img-size: 114px;
+$img-mobile-size: 95px;
+$item-width: $img-size;
+$item-mobile-width: $img-mobile-size;
+$list-columns-distance: 44px;
+$list-name-img-distance: 14px;
+$list-rows-distance-mobile: 50px;
+$list-rows-distance: 60px;
+$list-mobile-width: ($item-mobile-width + $list-columns-distance + 2px) * 2;
+$list-tablet-width: ($item-width + $list-columns-distance + 2px) * 3;
+$list-desktop-width: ($item-width + $list-columns-distance + 2px) * 4;
+$list-desktop-hd-width: ($item-width + $list-columns-distance + 2px) * 4;
+$list-name-fontsize: 18px;
+$list-name-fontweight: $font-weight-medium;
+$list-name-line-height: 1.2;
+$list-name-lines: 3;
 
 //==== MOBILE (& OVERALL) ====
 
@@ -27,16 +29,19 @@ $authors-list-name-fontweight: $font-weight-medium;
 .author-item,
 .author-name,
 .shown-authors {
+  // overall setting below:
   box-sizing: border-box;
 }
 
 .author-list-container {
+  // overall setting below:
   background-color: $light-gray;
   text-align: center;
   font-size: $font-size-base;
 }
 
 .no-result {
+  // overall setting below:
   font-size: $font-size-base;
   color: $gray-50;
   word-wrap: break-word;
@@ -46,7 +51,7 @@ $authors-list-name-fontweight: $font-weight-medium;
 }
 
 .shown-authors {
-  width: $authors-list-mobile-width;
+  width: $list-mobile-width;
   // overall setting below:
   overflow-y: visible;
   height: auto;
@@ -56,37 +61,40 @@ $authors-list-name-fontweight: $font-weight-medium;
 
 .author-item {
   @include fade-in-down(.5s);
-  width: $authors-item-mobile-width;
+  width: $item-mobile-width;
+  margin-bottom: $list-rows-distance-mobile - $font-size-base * $list-name-line-height * ($list-name-lines - 1);
   // overall setting below:
-  margin-left: $authors-list-columns-distance / 2;
-  margin-right: $authors-list-columns-distance / 2;
-  margin-bottom: $authors-list-rows-distance-mobile - $font-size-base;
+  margin-left: $list-columns-distance / 2;
+  margin-right: $list-columns-distance / 2;
   display: inline-block;
   vertical-align: top;
 
   .author-img {
-    height: $authors-img-mobile-size;
-    width: $authors-img-mobile-size;
+    height: $img-mobile-size;
+    width: $img-mobile-size;
     // overall setting below:
     border-radius: 50%;
   }
 
   .author-name {
-    height: $font-size-base * 2.4;
+    // overall setting below:
+    height: $font-size-base * $list-name-line-height * $list-name-lines;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
     box-sizing: border-box;
-    margin-top: $authors-list-name-img-distance;
+    margin-top: $list-name-img-distance;
     color: $gray-25;
     line-height: 1.2;
     font-size: $font-size-base;
-    font-weight: $authors-list-name-fontweight;
+    font-weight: $list-name-fontweight;
     text-align: center;
+    white-space: pre-line;
   }
 }
 
 .load-more {
+  // overall setting below:
   margin: 10px auto 40px;
   width: 10em;
   color: $primary-color;
@@ -102,6 +110,7 @@ $authors-list-name-fontweight: $font-weight-medium;
 }
 
 .sensor {
+  // overall setting below:
   height: 50px;
   width: 100%;
   margin-left: auto;
@@ -116,20 +125,20 @@ $authors-list-name-fontweight: $font-weight-medium;
 //==== TABLET ====
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .shown-authors {
-    width: $authors-list-tablet-width;
+    width: $list-tablet-width;
   }
 
   .author-item {
-    width: $authors-item-width;
-    margin-bottom: $authors-list-rows-distance - $font-size-base;
+    width: $item-width;
+    margin-bottom: $list-rows-distance - $font-size-base * $list-name-line-height * ($list-name-lines - 1);
 
     .author-img {
-      height: $authors-img-size;
-      width: $authors-img-size;
+      height: $img-size;
+      width: $img-size;
     }
 
     .shown-authors {
-      width: $authors-list-tablet-width;
+      width: $list-tablet-width;
     }
   }
 }
@@ -151,40 +160,40 @@ $authors-list-name-fontweight: $font-weight-medium;
 //==== DESKTOP ====
 @include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   .shown-authors {
-    width: $authors-list-desktop-width;
+    width: $list-desktop-width;
   }
 
   .author-item {
-    width: $authors-item-width;
-    margin-bottom: $authors-list-rows-distance - $font-size-base;
+    width: $item-width;
+    margin-bottom: $list-rows-distance - $font-size-base * $list-name-line-height * ($list-name-lines - 1);
 
     .author-img {
-      height: $authors-img-size;
-      width: $authors-img-size;
+      height: $img-size;
+      width: $img-size;
     }
 
     .shown-authors {
-      width: $authors-list-tablet-width;
+      width: $list-tablet-width;
     }
   }
 }
 //==== DESKTOP HD ====
 @include mq($min-width: $screen-hd-min) {
   .shown-authors {
-    width: $authors-list-desktop-hd-width;
+    width: $list-desktop-hd-width;
   }
 
   .author-item {
-    width: $authors-item-width;
-    margin-bottom: $authors-list-rows-distance - $font-size-base;
+    width: $item-width;
+    margin-bottom: $list-rows-distance - $font-size-base;
 
     .author-img {
-      height: $authors-img-size;
-      width: $authors-img-size;
+      height: $img-size;
+      width: $img-size;
     }
 
     .shown-authors {
-      width: $authors-list-tablet-width;
+      width: $list-tablet-width;
     }
   }
 }

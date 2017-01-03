@@ -54,7 +54,7 @@ class AuthorsList extends React.Component {
     // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
     const authorsEntities = entities.authors
     function iteratee(id) {
-      const authorName = _.get(authorsEntities, `${id}.name`, '')
+      const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
       let authorImg = _.get(authorsEntities, `${id}.image`)
       // for some authors' api data 'image' may be null
       authorImg = authorImg ? authorImg : authorDefaultImg
@@ -98,6 +98,19 @@ class AuthorsList extends React.Component {
       </div>
     )
   }
+}
+
+function wrapBeforeFirstFullwidthBracket(string) {
+  if (typeof string === 'string') {
+    const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
+    for (let i=0, length=leftBrackets.length; i<length; i++) {
+      let bracketLocation = string.indexOf(leftBrackets[i])
+      if (bracketLocation > 0) {
+        return string.slice(0, bracketLocation) + '\n' + string.slice(bracketLocation, string.length)
+      }
+    }
+  }
+  return string
 }
 
 function mapStateToProps(state) {
