@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: [ 'react-hot', 'babel-loader' ]
+        loaders: [ 'babel-loader' ]
       },
       { test:/\.json$/,
         loader: 'json-loader'
@@ -79,7 +79,8 @@ module.exports = {
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
       'process.env': {
-        BROWSER: true
+        BROWSER: true,
+        BABEL_ENV: '"DEV"'  // <-------- TO ENABLE react-hot-loader
       },
       __CLIENT__: true,
       __SERVER__: false,
