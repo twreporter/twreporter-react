@@ -49,12 +49,6 @@ server.use(function (req, res, next) {
 })
 
 
-// mock apis
-//server.get('/questions', (req, res)=> {
-//  let { questions } = require('./mock_api');
-//  res.send(questions);
-//});
-//
 server.get('/robots.txt', (req, res) => {
   res.format({
     'text/plain': function () {
@@ -62,6 +56,12 @@ server.get('/robots.txt', (req, res) => {
     }
   })
 })
+
+server.get('/check', (req, res) => {
+  res.status(200)
+  res.end('server is running')
+})
+
 // proxy to the API server
 server.use('/api', (req, res) => {
   proxy.web(req, res)
@@ -176,7 +176,7 @@ server.get('*', async function (req, res, next) {
 
           // set Cache-Control header for caching
           if (!res.headersSent) {
-            res.header('Cache-Control', 'public, max-age=900')
+            res.header('Cache-Control', 'public, max-age=3600')
           }
 
           const html = ReactDOMServer.renderToStaticMarkup(<Html {...data} />)
