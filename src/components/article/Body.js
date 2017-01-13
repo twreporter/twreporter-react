@@ -66,7 +66,6 @@ export class Body extends Component {
               content={ele.content}
               id={ele.id}
               styles={ele.styles}
-              fontIndex={this.props.fontIndex}
             />
           </div>
         )

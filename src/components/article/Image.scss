@@ -22,6 +22,12 @@
   }
 }
 
+.photoExclu {
+  figure > img {
+    background: $photography-dark !important;
+  }
+}
+
 .img-absolute {
   position: absolute;
   width: 100%;

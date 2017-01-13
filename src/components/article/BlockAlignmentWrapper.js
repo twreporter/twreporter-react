@@ -39,4 +39,3 @@ export default function WrapComponent(WrappedComponent) {
 
   return Wrapper
 }
-

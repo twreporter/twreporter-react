@@ -141,8 +141,10 @@ class Image extends FitwidthMixin(Component) {
       </div>
     )
 
+    const { isPhotography } = this.context
+
     return (
-      <div ref="imageBox" className={styles['image-box']}>
+      <div ref="imageBox" className={classNames(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
         <div style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
@@ -153,6 +155,10 @@ class Image extends FitwidthMixin(Component) {
       </div>
     )
   }
+}
+
+Image.contextTypes = {
+  isPhotography: React.PropTypes.bool
 }
 
 Image.propTypes = {

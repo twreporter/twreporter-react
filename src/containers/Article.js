@@ -155,6 +155,15 @@ class Article extends Component {
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
+  getChildContext() {
+    const { entities, selectedArticle } = this.props
+    let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
+    let style = _.get(article, 'style')
+    return {
+      isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE
+    }
+  }
+
   changeFontSize(fontSize) {
     this.setState({
       fontSize:fontSize,
@@ -597,6 +606,10 @@ function mapStateToProps(state) {
     selectedArticle: state.selectedArticle,
     slugToId: state.articleSlugToId
   }
+}
+
+Article.childContextTypes = {
+  isPhotography: React.PropTypes.bool
 }
 
 Article.contextTypes = {
