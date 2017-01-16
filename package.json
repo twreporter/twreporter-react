@@ -20,7 +20,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "forever -e err.log ./bin/server.js",
+      "command": "pm2 start ./bin/server.js --node-args='--max_old_space_size=2048'",
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
@@ -32,7 +32,7 @@
       }
     },
     "start-prod-api": {
-      "command": "forever -e api-err.log ./bin/api.js",
+      "command": "pm2 start ./bin/api.js --node-args='--max_old_space_size=2048'",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
@@ -124,7 +124,6 @@
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.9.0",
-    "forever": "^0.15.1",
     "history": "^2.1.2",
     "http-proxy": "^1.12.0",
     "humps": "^0.6.0",
@@ -136,6 +135,7 @@
     "node-sass": "^3.7.0",
     "normalizr": "^1.0.0",
     "piping": "^0.3.0",
+    "pm2": "^2.2.3",
     "postcss-loader": "^0.9.1",
     "pretty-error": "^2.0.0",
     "qs": "^5.2.0",
