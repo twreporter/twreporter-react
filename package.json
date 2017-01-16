@@ -20,7 +20,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "pm2 start ./bin/server.js --node-args='--max_old_space_size=2048'",
+      "command": "pm2 start ./bin/server.js --node-args='--max_old_space_size=2048' --no-daemon",
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
@@ -32,7 +32,7 @@
       }
     },
     "start-prod-api": {
-      "command": "pm2 start ./bin/api.js --node-args='--max_old_space_size=2048'",
+      "command": "pm2 start ./bin/api.js --node-args='--max_old_space_size=2048' --no-daemon",
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
