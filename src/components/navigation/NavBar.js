@@ -1,4 +1,4 @@
-import { ARTICLE_STYLE, BRIGHT, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE } from '../../constants/index'
+import { ARTICLE_STYLE, BRIGHT, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE } from '../../constants/index'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import NavMenu from './NavMenu'
 import HeaderProgress from './HeaderProgress'
@@ -91,9 +91,7 @@ class NavBar extends Component {
     const { height, isScrolledOver } = this.state
     const readPercent = _.get(this.props, 'header.readPercent', 0)
     const pageType = _.get(this.props, 'header.pageType', '')
-
-    let progressBar = (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={readPercent}/> : null
-
+    let progressBar = (pageType === ARTICLE_STYLE || pageType === REVIEW_ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={readPercent}/> : null
     return (
       <div style={{ height: height+'px' }}>
         <div ref="headerbox" className={styles.fixTop}>
