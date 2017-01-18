@@ -3,6 +3,9 @@
     "name"        : "server",
     "script"      : "bin/server.js",
     "max_memory_restart": "4G",
+    "merge_logs"  : true,
+    "out_file"    : "pm2-server-out.log",
+    "error_file"  : "pm2-server-err.log",
     "env"         : {
       "NODE_PATH": "./server",
       "NODE_ENV": "production",
@@ -17,6 +20,9 @@
     "name"        : "api",
     "script"      : "bin/api.js",
     "max_memory_restart": "300M",
+    "merge_logs"  : true,
+    "out_file"    : "pm2-api-out.log",
+    "error_file"  : "pm2-api-err.log",
     "env"         : {
       "NODE_PATH": "./api",
       "NODE_ENV": "production",
