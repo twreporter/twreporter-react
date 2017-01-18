@@ -7,7 +7,7 @@ export default [ {
 },
 {
   title: '一例一休吵什麼？',
-  path: '/a/taiwan-labor-day-off-dispute'
+  path: '/a/opinion-refine-labour-law-dispute'
 },
 {
   title: '台灣空汙紫爆怎麼辦',
