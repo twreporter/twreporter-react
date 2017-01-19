@@ -11,6 +11,9 @@
           }
         ]
       ]
+    },
+    "DEV": {
+      "plugins": ["react-hot-loader/babel"]
     }
   }
 }
