@@ -1,16 +1,16 @@
 /*eslint no-unused-vars:0, no-console:0 */
 'use strict'
 import { Link } from 'react-router'
-import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SPECIAL_TOPIC_CH_STR } from '../constants/index'
+import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SITE_NAME, SITE_META, SPECIAL_TOPIC_CH_STR } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId, replaceStorageUrlPrefix } from '../utils/index'
 import { devCatListId, prodCatListId } from '../conf/list-id'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
 import { setHeaderInfo } from '../actions/header'
 import Daily from '../components/Daily'
-import DocumentMeta from 'react-document-meta'
 import Features from '../components/Features'
 import Footer from '../components/Footer'
+import Helmet from 'react-helmet'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { Component } from 'react'
 import TopNews from '../components/TopNews'
@@ -114,13 +114,6 @@ class Home extends Component {
     let topnewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
     let specialTopicItems = denormalizeArticles(get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
     let reviewItems = denormalizeArticles(get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
-    const meta = {
-      title: '報導者 The Reporter',
-      description: '《報導者》是由「財團法人報導者文化基金會」成立的非營利網路媒體，致力於公共領域的深度報導及調查報導，為讀者持續追蹤各項重要議題。我們秉持開放參與的精神，結合各種進步價值與公民力量，共同打造多元進步的社會與媒體環境。',
-      canonical: 'https://www.twreporter.org/',
-      meta: { property: {} },
-      auto: { ograph: true }
-    }
 
     let microData = (
       <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
@@ -261,7 +254,24 @@ class Home extends Component {
     const promotionImg = 'https://storage.googleapis.com/twreporter-multimedia/images/20161215200511-da77d3f0a5e206aee6415d989c73b4bf-desktop.png'
 
     return (
-      <DocumentMeta {...meta}>
+      <div>
+        <Helmet
+          title={SITE_NAME.FULL}
+          link={[
+            { rel: 'canonical', href: SITE_META.URL }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: SITE_NAME.FULL },
+            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { property: 'og:title', content: SITE_NAME.FULL },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: SITE_META.URL }
+          ]}
+        />
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
         <div className={styles['annual-report']}>
@@ -292,7 +302,7 @@ class Home extends Component {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
-      </DocumentMeta>
+      </div>
     )
   }
 }
