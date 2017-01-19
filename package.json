@@ -52,7 +52,7 @@
         "APIHOST": "localhost",
         "APIPORT": 3030,
         "APIPROTOCOL": "http",
-        "REDIS_ENABLE": false
+        "REDIS_ENABLE": false 
       }
     },
     "start-dev-api": {
@@ -124,6 +124,7 @@
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.9.0",
+    "heapdump": "^0.3.7",
     "history": "^2.1.2",
     "http-proxy": "^1.12.0",
     "humps": "^0.6.0",
