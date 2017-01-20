@@ -1,8 +1,6 @@
 'use strict'
 import { connect } from 'react-redux'
-import { SITE_META, SITE_NAME, SEARCH_RESULTS_TEXT } from '../constants/index'
 import { googleSearchId } from '../conf/service'
-import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import styles from './Search.scss'
@@ -26,16 +24,8 @@ class Search extends Component {
   }
 
   render() {
-    const meta = {
-      title: SEARCH_RESULTS_TEXT + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
-      description: SITE_META.DESC,
-      canonical: `${SITE_META.URL}search/`,
-      meta: { property: {} },
-      auto: { ograph: true }
-    }
-
     return (
-      <DocumentMeta {...meta}>
+      <div>
         <div className={styles['container']}>
           <div className="container">
             <div dangerouslySetInnerHTML={{ __html: '<gcse:searchbox-only></gcse:searchbox-only>' }} />
@@ -43,7 +33,7 @@ class Search extends Component {
           </div>
         </div>
         <Footer/>
-      </DocumentMeta>
+      </div>
     )
   }
 }
