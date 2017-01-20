@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setHeaderInfo } from '../actions/header'
-import DocumentMeta from 'react-document-meta'
+import Helmet from 'react-helmet'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
@@ -126,16 +126,26 @@ class Category extends Component {
     const category = _.get(params, 'category', null)
     const catName = catENtoCH[category]
     const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
-    const meta = {
-      title: catName ? catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
-      description: SITE_META.DESC,
-      canonical: `${SITE_META.URL}category/${category}`,
-      meta: { property: {} },
-      auto: { ograph: true }
-    }
+    const title = catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL}category/${category}`
 
     return (
-      <DocumentMeta {...meta}>
+      <div>
+        <Helmet
+          title={title}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical }
+          ]}
+        />
         <div className="container text-center">
           {catBox}
         </div>
@@ -148,7 +158,7 @@ class Category extends Component {
         />
         {this.props.children}
         <Footer/>
-      </DocumentMeta>
+      </div>
     )
   }
 }

@@ -1,22 +1,22 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
-import { CATEGORY, DARK, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
+import { CATEGORY, DARK, PHOTOGRAPHY_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setHeaderInfo } from '../actions/header'
-import async from 'async'
 import Footer from '../components/Footer'
+import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import ArticleList from '../components/ArticleList'
 import TopNews from '../components/TopNews'
+import async from 'async'
 
 // lodash
 import get from 'lodash/get'
 
 const MAXRESULT = 10
 const PAGE = 1
-const PHOTOGRAPHY_CH_STR = '影像'
 
 class Photography extends Component {
   static fetchData({ store }) {
@@ -110,8 +110,25 @@ class Photography extends Component {
     let topNewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
     let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
 
+    const canonical = SITE_META.URL + categoryPath.photographyPath
+    const title = PHOTOGRAPHY_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
       <div style={style}>
+        <Helmet
+          title={title}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical }
+          ]}
+        />
         <TopNews topnews={topNewsItems} />
         <ArticleList
           articles={articles}

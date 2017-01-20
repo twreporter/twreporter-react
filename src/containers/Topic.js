@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/index'
 import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setHeaderInfo } from '../actions/header'
-import DocumentMeta from 'react-document-meta'
 import Footer from '../components/Footer'
+import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
@@ -77,31 +77,38 @@ class Topic extends Component {
     const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
     let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
 
-    const meta = {
-      title: topicName ? topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL : SITE_NAME.FULL,
-      description: SITE_META.DESC,
-      canonical: `${SITE_META.URL}topic/${topicId}`,
-      meta: { property: {} },
-      auto: { ograph: true }
-    }
-
+    const canonical = `${SITE_META.URL}tag/${topicId}`
+    const title = topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
-      <DocumentMeta {...meta}>
-        <div style={{
-          backgroundColor: '#FDFFFA'
-        }}>
-          <div className="container text-center">
-            {topicBox}
-          </div>
-          <ArticleList
-            articles={articles}
-            device={device}
-            hasMore={false}
-          />
-          {this.props.children}
-          <Footer/>
+      <div style={{
+        backgroundColor: '#FDFFFA'
+      }}>
+        <Helmet
+          title={title}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical }
+          ]}
+        />
+        <div className="container text-center">
+          {topicBox}
         </div>
-      </DocumentMeta>
+        <ArticleList
+          articles={articles}
+          device={device}
+          hasMore={false}
+        />
+        {this.props.children}
+        <Footer/>
+      </div>
     )
   }
 }

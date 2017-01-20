@@ -52,7 +52,7 @@
         "APIHOST": "localhost",
         "APIPORT": 3030,
         "APIPROTOCOL": "http",
-        "REDIS_ENABLE": false 
+        "REDIS_ENABLE": false
       }
     },
     "start-dev-api": {
@@ -147,10 +147,10 @@
     "react-addons-pure-render-mixin": "15.3.2",
     "react-addons-test-utils": "15.3.2",
     "react-burger-menu": "^1.4.4",
-    "react-document-meta": "^2.0.3",
     "react-dom": "^15.4.1",
     "react-flex-carousel": "^0.1.7",
     "react-ga": "^2.1.2",
+    "react-helmet": "^4.0.0",
     "react-howler": "^3.0.1",
     "react-inline-css": "^2.0.0",
     "react-intl": "^2.1.2",

@@ -9,7 +9,7 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setHeaderInfo, setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
-import DocumentMeta from 'react-document-meta'
+import Helmet from 'react-helmet'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import Footer from '../components/Footer'
@@ -464,20 +464,33 @@ class Article extends Component {
 
     const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
 
-    const meta = {
-      title: _.get(article, [ 'title' ], SITE_NAME.FULL) + SITE_NAME.SEPARATOR + SITE_NAME.FULL,
-      description: _.get(article, [ 'ogDescription' ], SITE_META.DESC),
-      canonical: SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], ''),
-      meta: { property: {} },
-      auto: { ograph: true }
-    }
-
-    if (_.get(article, [ 'ogImage' ], null)) {
-      _.set(meta, [ 'meta', 'property', 'og:image' ], _.get(article, 'ogImage.image.resizedTargets.desktop.url', ''))
-    }
+    // for head tag
+    const canonical = SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], '')
+    const articleTitle = _.get(article, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
+    const articleImg = _.get(article, 'ogImage.image.resizedTargets.desktop.url', SITE_META.LOGO)
 
     return (
-      <DocumentMeta {...meta}>
+      <div>
+        <Helmet
+          title={articleTitle}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: articleDes },
+            { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
+            { name: 'twitter:image', content: articleImg },
+            { name: 'twitter:description', content: articleDes },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
+            { property: 'og:description', content: articleDes },
+            { property: 'og:image', content: articleImg },
+            { property: 'og:type', content: 'article' },
+            { property: 'og:url', content: canonical },
+            { property: 'og:rich_attachment', content: 'true' }
+          ]}
+        />
         <div itemScope itemType="http://schema.org/Article">
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
 
@@ -503,7 +516,7 @@ class Article extends Component {
                   <link itemProp="logo" href="https://www.twreporter.org/storage/images/logo.png" />
                   <link itemProp="url" href="https://www.twreporter.org/" />
                 </div>
-                <link itemProp="mainEntityOfPage" href={meta.canonical} />
+                <link itemProp="mainEntityOfPage" href={canonical} />
                 <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
@@ -593,7 +606,7 @@ class Article extends Component {
             theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
             copyright={copyright}/>
         </div>
-      </DocumentMeta>
+      </div>
     )
   }
 }
