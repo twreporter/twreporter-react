@@ -2,8 +2,6 @@
 require('../server.babel'); // babel registration (runtime transpilation for node)
 var path = require('path');
 var rootDir = path.resolve(__dirname, '..');
-var heapdump = require('heapdump');
-heapdump.writeSnapshot(Date.now() + '.heapsnapshot')
 
 /**
  * Define isomorphic constants.
