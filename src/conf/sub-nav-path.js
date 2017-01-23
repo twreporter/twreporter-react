@@ -10,8 +10,8 @@ export default [ {
   path: '/a/opinion-refine-labour-law-dispute'
 },
 {
-  title: '台灣空汙紫爆怎麼辦',
-  path: '/tag/5773c909c107b51000e9beb4'
+  title: '年金改革',
+  path: '/tag/57b1561d4310e41200a0dd6c'
 },
 {
   title: '走入同志家庭',
