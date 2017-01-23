@@ -131,7 +131,7 @@ server.get('*', async function (req, res, next) {
 
           // set Cache-Control header for caching
           if (!res.headersSent) {
-            res.header('Cache-Control', 'public, max-age=3600')
+            res.header('Cache-Control', 'public, max-age=300')
           }
 
           const html = ReactDOMServer.renderToStaticMarkup(
