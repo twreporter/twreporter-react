@@ -2,7 +2,7 @@
   "apps" : [{
     "name"        : "server",
     "script"      : "bin/server.js",
-    "max_memory_restart": "1.5G",
+    "max_memory_restart": "1500M",
     "merge_logs"  : true,
     "out_file"    : "pm2-server-out.log",
     "error_file"  : "pm2-server-err.log",
