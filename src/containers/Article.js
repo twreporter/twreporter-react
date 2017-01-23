@@ -529,15 +529,17 @@ class Article extends Component {
                     date={article.publishedDate}
                   />
                 </ArticleComponents.HeadingAuthor>
-                <ArticleComponents.ShareBt
-                  appId={appId}
-                  url={cUrl}
-                  title={article.title}
-                  fbIcon={fbIcon}
-                  twitterIcon={twitterIcon}
-                  lineIcon={lineIcon}
-                />
-              <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)} fontSize={this.state.fontSize}/>
+                <div className="hidden-print">
+                  <ArticleComponents.ShareBt
+                    appId={appId}
+                    url={cUrl}
+                    title={article.title}
+                    fbIcon={fbIcon}
+                    twitterIcon={twitterIcon}
+                    lineIcon={lineIcon}
+                  />
+                  <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)} fontSize={this.state.fontSize}/>
+                </div>
               </div>
 
 
@@ -566,7 +568,7 @@ class Article extends Component {
             </article>
 
             <div ref="progressEnding"
-                className={commonStyles['components']}>
+                className={cx(commonStyles['components'], 'hidden-print')}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
                   data={article.tags}
@@ -602,9 +604,11 @@ class Article extends Component {
             article={get(article, [ 'relateds', 1 ])}
             navigate="previous"
           />*/}
-          <Footer
-            theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
-            copyright={copyright}/>
+          <div className="hidden-print">
+            <Footer
+              theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
+              copyright={copyright}/>
+          </div>
         </div>
       </div>
     )

@@ -26,7 +26,7 @@ function Html({ children, head, reduxState, styles, script }) {
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
         <link href="/asset/favicon.png"  rel="shortcut icon" />
         { _.map(styles, (style, key) => {
-          return <link async href={style} key={key} media="screen, projection" rel="stylesheet" type="text/css" charSet="UTF-8"/>
+          return <link async href={style} key={key} media="all" rel="stylesheet" type="text/css" charSet="UTF-8"/>
         }) }
         {head.title.toComponent()}
         {head.meta.toComponent()}

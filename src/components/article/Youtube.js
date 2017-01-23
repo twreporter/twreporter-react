@@ -2,7 +2,7 @@
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
 import YoutubePlayer from 'react-youtube'
-import classNames from 'classnames'
+import cx from 'classnames'
 import commonStyles from './Common.scss'
 import styles from './Youtube.scss'
 
@@ -24,11 +24,11 @@ class Youtube extends React.Component {
     }
 
     return (
-      <div className={styles['youtube-container']}>
+      <div className={cx(styles['youtube-container'], 'hidden-print')}>
         <div className={styles['youtube-iframe-container']}>
           <YoutubePlayer videoId={youtubeId} />
         </div>
-        <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{description}</div>
+        <div className={cx(commonStyles['desc-text-block'], 'text-justify')}>{description}</div>
       </div>
     )
   }
