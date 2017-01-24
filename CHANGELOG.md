@@ -1,3 +1,16 @@
+### 1.1.0
+- [Feature] Author page
+- [Feature] Author list page
+- [Feature] Agolia for author search
+- [Feature] Font size change button
+- [Feature] Topic landing page
+- [Feature] Long form article page
+- [Update] Add redis to improve performance
+- [Update] Add mircodata for SEO enhancement
+- [Update] Replace forever by pm2
+- [Add] Add AdobeTypeKit
+- [Add] Add Hotjar tracking code
+
 ### 1.0.15
 - Show all the articles of the same topic in Popup and related section
 - Replace url prefix in the Popup section
