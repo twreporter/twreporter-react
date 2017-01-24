@@ -1,7 +1,7 @@
 /*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import classNames from 'classnames'
+import cx from 'classnames'
 import commonStyles from './Common.scss'
 import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../utils/index'
@@ -54,7 +54,7 @@ class Image extends FitwidthMixin(Component) {
         <div className={styles['img-placeholder-outer']}
             style={ { ...imgStyle } }>
           <LazyLoad offset={UI_SETTING.image.loadingOffset.placeholder} height={imgStyle.height} once={true}>
-            <img src={ replaceStorageUrlPrefix(imageUrl) } className={classNames(styles['img-placeholder'])} style={imgStyle} />
+            <img src={ replaceStorageUrlPrefix(imageUrl) } className={styles['img-placeholder']} style={imgStyle} />
           </LazyLoad>
         </div>
       )
@@ -69,7 +69,7 @@ class Image extends FitwidthMixin(Component) {
           <LazyLoad offset={UI_SETTING.image.loadingOffset.image} height={imgStyle.height} once={true}>
             <img src={ replaceStorageUrlPrefix(imageObj.url) }
               style={ { ...imgStyle } }
-              className={classNames(styles['img-absolute'])}
+              className={styles['img-absolute']}
             />
           </LazyLoad>
         </figure>
@@ -123,7 +123,7 @@ class Image extends FitwidthMixin(Component) {
     if(imageDescription && isToShowDescription) {
       descriptionBox =
         <div
-          className={classNames(commonStyles['desc-text-block'], 'text-justify')}
+          className={cx(commonStyles['desc-text-block'], 'text-justify')}
           style={{ marginTop: '16px' }}
         >
           {imageDescription}
@@ -144,14 +144,17 @@ class Image extends FitwidthMixin(Component) {
     const { isPhotography } = this.context
 
     return (
-      <div ref="imageBox" className={classNames(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
-        <div style={outerStyle}>
+      <div ref="imageBox" className={cx(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
+        <div className="hidden-print" style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
           <noscript dangerouslySetInnerHTML={this._getNoscript(imgUrl, imageDescription)} />
         </div>
         {descriptionBox}
         {microData}
+        <div className="visible-print">
+          <img src={imgUrl} alt={imageDescription} />
+        </div>
       </div>
     )
   }

@@ -261,7 +261,7 @@ class Audio extends React.Component {
 
     // render Audio with cover photo
     return (
-      <div itemScope itemType="http://schema.org/AudioObject" className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
+      <div itemScope itemType="http://schema.org/AudioObject" className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false }, 'hidden-print')}>
         <div className={styles['audio-coverphoto']} onClick={this.handleMouseClick} onMouseEnter={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseOut}>
           <div className={styles['audio-img-filter']} style={ isOncePlayed ? {
             opacity: 1

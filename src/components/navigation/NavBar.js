@@ -93,7 +93,7 @@ class NavBar extends Component {
     const pageType = _.get(this.props, 'header.pageType', '')
     let progressBar = (pageType === ARTICLE_STYLE || pageType === REVIEW_ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE || pageType === LONGFORM_ARTICLE_STYLE) && isScrolledOver ? <HeaderProgress percent={readPercent}/> : null
     return (
-      <div style={{ height: height+'px' }}>
+      <div className="hidden-print" style={{ height: height+'px' }}>
         <div ref="headerbox" className={styles.fixTop}>
           {this._renderMenu()}
           {progressBar}
