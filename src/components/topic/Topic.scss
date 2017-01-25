@@ -85,6 +85,7 @@ $text-card-height: 200px;
   position: relative;
   padding-bottom: $red-line-distance;
   margin-top: 70px;
+  white-space: pre-wrap;
 
   &::after {
     content: "";
