@@ -1,6 +1,7 @@
 ### Unreleased
 
 ### 1.1.1
+- [Update] Change promotion banner on index page
 - [Update] Update src/components/topic/Topic.scss
 
 ### 1.1.0
