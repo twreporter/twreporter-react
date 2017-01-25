@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.1
+- [Update] Update src/components/topic/Topic.scss
+
 ### 1.1.0
 - [Feature] Author page
 - [Feature] Author list page
