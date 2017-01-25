@@ -251,7 +251,7 @@ class Home extends Component {
         }]
       }
     `
-    const promotionImg = 'https://storage.googleapis.com/twreporter-multimedia/images/20161215200511-da77d3f0a5e206aee6415d989c73b4bf-desktop.png'
+    const promotionImg = 'https://storage.googleapis.com/twreporter-multimedia/images/20170125175140-d30f92e5587c4a594420b10f8851ce30-desktop.png'
 
     return (
       <div>
@@ -275,15 +275,15 @@ class Home extends Component {
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
         <div className={styles['annual-report']}>
-          <span>年度調查報導</span>
+          <span>新春特輯</span>
         </div>
-        <Link to="/topics/far-sea-fishing-investigative-report">
+        <Link to="/topics/reunion-dinner">
           <div className={styles['index-promotion']}>
             <PromotionBanner
               bgImgSrc={replaceStorageUrlPrefix(promotionImg)}
               iconImgSrc={backToTopicIcon}
-              title="造假·剝削·血淚漁場"
-              subtitle="跨國直擊台灣遠洋漁業真相"
+              title="他鄉的團圓菜"
+              subtitle=""
             />
           </div>
         </Link>
