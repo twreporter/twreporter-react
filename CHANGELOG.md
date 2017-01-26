@@ -1,4 +1,5 @@
 ### Unreleased
+- [Update] Update src/utils/image-processor.js. Add handling for empty or wrong parameter.
 
 ### 1.1.2
 - [Bug] Photography page is not displaying any article
