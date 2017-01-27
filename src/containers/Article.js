@@ -466,7 +466,7 @@ class Article extends Component {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], '')
-    const articleTitle = _.get(article, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
     const articleImg = _.get(article, 'ogImage.image.resizedTargets.desktop.url', SITE_META.LOGO)
 
