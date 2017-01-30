@@ -1,4 +1,5 @@
 ### Unreleased
+- [Bug] Photography page is not displaying any article
 
 ### 1.1.1
 - [Update] Change promotion banner on index page
@@ -22,8 +23,8 @@
 - Replace url prefix in the Popup section
 - Replace global.__DEVELOPMENT__ by __DEVELOPMENT__
 - Hide log on production
-- global css styles tuning 
-- Use lodash to get author image, Add article SEO tag 
+- global css styles tuning
+- Use lodash to get author image, Add article SEO tag
 - Use <a> tag rather than Link of react-router when the style of article is interactive
 - fix topic item overflow
 - refine top spacing as page switches
@@ -35,55 +36,55 @@
 - Fix the version of bootstrap-loader
 
 ### 1.0.13
-- set maxwidth for the lazy-loaded images 
-- Fix OrderedList and UnorderedList component 
+- set maxwidth for the lazy-loaded images
+- Fix OrderedList and UnorderedList component
 - Style change for HD Desktop and update BlockAlignmentWrapper.scss
-- Add align style on desktop screen 
-- fix LazyLoad images alignment 
+- Add align style on desktop screen
+- fix LazyLoad images alignment
 - Only one default export allowed per module
 - Replace storage link prefix
 - fix Photography topic popup
-- Add a class to take out unwanted article link hover effects 
+- Add a class to take out unwanted article link hover effects
 - Fix publishedDate
 - refine css of the navbar
-- adjust characters limits of the article header 
-- fix top margin of the footer 
-- fix styles of the 'more article' button 
-- fix the display problem of indicator on the Home slider 
+- adjust characters limits of the article header
+- fix top margin of the footer
+- fix styles of the 'more article' button
+- fix the display problem of indicator on the Home slider
 - Leave enough padding for header when page changed   
 
 ### 1.0.12
 - Refine padding and margin of Navbar
 - Change letter spacing
-- Update link style 
-- fix ul and ol list alignment 
+- Update link style
+- fix ul and ol list alignment
 - Add google search page to display the user queried results
 
 ### 1.0.11
 - Make Embedded align center even if it is too small
 - Show the reading progress bar and box shadow for the header of Photography
-- Render HTML in ordered and unordered list 
+- Render HTML in ordered and unordered list
 - Add dark theme for photography channel
 - Use feature articles as fallback when there is no related articles
 - Add subtitle and change style of topic name
-- Show placeholders when loading articles 
-- Fix photography list item styling 
+- Show placeholders when loading articles
+- Fix photography list item styling
 - Fix content placeholder align
 
 ### 1.0.10
 - Fix QuoteBy Component style
 
 ### 1.0.9
-- Show topic title on navbar when scrolled down 
+- Show topic title on navbar when scrolled down
 - Fix photography NavBar style  
 - change the way getting topicId
 
 ### 1.0.7
 - Show url to fetch in the redux log
-- Do not fetch related articles while articleId is not provided 
+- Do not fetch related articles while articleId is not provided
 - New line in text inside the QuoteBy component
-- Show categories when user scrolls down on desktop 
-- fix tags listing page alignment problem 
+- Show categories when user scrolls down on desktop
+- fix tags listing page alignment problem
 - Refine tag listing style, replace footer div with html5 tag
 - Add topic title in index page of topic
 - Fix bug. ReferenceError occurs on server/views/500.ejs
