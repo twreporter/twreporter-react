@@ -1,6 +1,4 @@
 ### Unreleased
-
-### 1.1.2
 - [Update] Update src/utils/image-processor.js. Add handling for empty or wrong parameter.
 - [Update] Given empty string as a fallback for article title
 - [Update] Decrease redis expire time from 1 hour to 5 mins
