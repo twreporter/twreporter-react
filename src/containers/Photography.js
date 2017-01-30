@@ -1,6 +1,6 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
-import { CATEGORY, DARK, PHOTOGRAPHY_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
+import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
 import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
@@ -27,7 +27,7 @@ class Photography extends Component {
           store.dispatch(fetchFeatureArticles({
             where: {
               categories: {
-                '$in': [ getCatId(PHOTOGRAPHY_CH_STR) ]
+                '$in': [ getCatId(PHOTOGRAPH_CH_STR) ]
               }
             }
           })).then(() => {
@@ -35,7 +35,7 @@ class Photography extends Component {
           })
         },
         function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(PHOTOGRAPHY_CH_STR), CATEGORY, {
+          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(PHOTOGRAPH_CH_STR), CATEGORY, {
             page: PAGE,
             max_result: MAXRESULT,
             where: {
@@ -61,7 +61,7 @@ class Photography extends Component {
 
   componentWillMount() {
     const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
-    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    let catId = getCatId(PHOTOGRAPH_CH_STR)
     fetchFeatureArticles({
       where: {
         categories: {
@@ -87,7 +87,7 @@ class Photography extends Component {
 
   _loadMoreArticles() {
     const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    let catId = getCatId(PHOTOGRAPH_CH_STR)
     const articles = articlesByUuids[catId]
     let page = Math.floor(get(articles, 'items.length', 0) / MAXRESULT)  + 1
     fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
@@ -105,13 +105,13 @@ class Photography extends Component {
       backgroundColor: colors.darkBg,
       color: '#FFFFEB'
     }
-    let catId = getCatId(PHOTOGRAPHY_CH_STR)
+    let catId = getCatId(PHOTOGRAPH_CH_STR)
 
     let topNewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
     let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
 
     const canonical = SITE_META.URL + categoryPath.photographyPath
-    const title = PHOTOGRAPHY_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const title = PHOTOGRAPH_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
       <div style={style}>
         <Helmet

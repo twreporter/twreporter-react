@@ -25,8 +25,7 @@ export default class ListArticleItem extends Component {
     const { articles, hasMore, loadMore, loadMoreError } = this.props
     const bgStyle = {}
     let photoClass
-
-    if (this.props.bgStyle === 'dark') {
+    if (this.props.bgStyle === 'DARK') {
       photoClass = 'tag-photography'
     }
     if (articles && articles.length > 0) {
