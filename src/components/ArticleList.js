@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import More from '../components/More'
 import { Link } from 'react-router'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 
@@ -25,7 +25,7 @@ export default class ListArticleItem extends Component {
     const { articles, hasMore, loadMore, loadMoreError } = this.props
     const bgStyle = {}
     let photoClass
-    if (this.props.bgStyle === 'DARK') {
+    if (this.props.bgStyle === DARK) {
       photoClass = 'tag-photography'
     }
     if (articles && articles.length > 0) {
