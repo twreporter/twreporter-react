@@ -1,4 +1,6 @@
 ### Unreleased
+
+### 1.1.2
 - [Bug] Photography page is not displaying any article
 
 ### 1.1.1
