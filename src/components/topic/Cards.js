@@ -27,7 +27,10 @@ export default class Cards extends Component {
     const { items } = this.props
     let cardsJsx = []
     _.forEach(items, (item, index) => {
-      const description = _.get(item, 'brief.apiData.0.content.0', _.get(item, 'ogDescription'))
+      let description = _.get(item, 'brief.apiData.0.content.0', '')
+      if(description.trim().length === 0) {
+        description = _.get(item, 'ogDescription', '')
+      }
       const imgSrc = replaceStorageUrlPrefix(_.get(item, 'heroImage.image.resizedTargets.mobile.url'))
       const title = _.get(item, 'title')
       const slug = _.get(item, 'slug')
