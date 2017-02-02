@@ -1,4 +1,5 @@
 ### Unreleased
+- [Bug] Top description cannot be displayed properly if the content brief has been edited
 
 ### 1.1.2
 - [Bug] Photography page is not displaying any article
