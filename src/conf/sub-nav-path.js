@@ -3,7 +3,7 @@ export default [ {
   path: '/topics/far-sea-fishing-investigative-report'
 },{
   title: '零安樂死真相',
-  path: '/a/protect-animal-no-killing-ch1'
+  path: '/topics/no-killing-policy'
 },
 {
   title: '一例一休吵什麼？',
