@@ -30,6 +30,9 @@ export const getArticleImageSrcSet = (article) => {
  * @return {string} srcSet
  */
 export const getImageSrcSet = (imgObj) => {
+  if (!imgObj) {
+    return
+  }
   let desktopSrc = replaceStorageUrlPrefix(get(imgObj, 'desktop.url'))
   let tabletSrc = replaceStorageUrlPrefix(get(imgObj, 'tablet.url'))
   let mobileSrc = replaceStorageUrlPrefix(get(imgObj, 'mobile.url'))

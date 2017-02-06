@@ -29,7 +29,6 @@
   }
 
   .control-button{
-    @include fade-in-left(0.5s);
     display:inline-block !important;
     height:rem(24px);
     width:rem(31px);

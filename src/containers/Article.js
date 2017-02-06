@@ -9,7 +9,9 @@ import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
 import { setHeaderInfo, setReadProgress } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
+import FontChangeButton from '../components/FontChangeButton'
 import Helmet from 'react-helmet'
+import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import Footer from '../components/Footer'
@@ -22,14 +24,13 @@ import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import fbIcon from '../../static/asset/fb.svg'
-import lineIcon from '../../static/asset/line.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
+import lineIcon from '../../static/asset/line.svg'
+import logoIcon from '../../static/asset/icon-placeholder.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
-import FontChangeButton from '../components/FontChangeButton'
-import logoIcon from '../../static/asset/icon-placeholder.svg'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -466,7 +467,7 @@ class Article extends Component {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], '')
-    const articleTitle = _.get(article, 'title') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
     const articleImg = _.get(article, 'ogImage.image.resizedTargets.desktop.url', SITE_META.LOGO)
 
@@ -529,7 +530,7 @@ class Article extends Component {
                     date={article.publishedDate}
                   />
                 </ArticleComponents.HeadingAuthor>
-                <div className="hidden-print">
+                <div className={cx(styles['icons'], 'hidden-print')}>
                   <ArticleComponents.ShareBt
                     appId={appId}
                     url={cUrl}
@@ -538,6 +539,7 @@ class Article extends Component {
                     twitterIcon={twitterIcon}
                     lineIcon={lineIcon}
                   />
+                  <PrintButton />
                   <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)} fontSize={this.state.fontSize}/>
                 </div>
               </div>

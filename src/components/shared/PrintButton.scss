@@ -1,17 +1,11 @@
 @import '../../themes/font-mixins.scss';
 
-.share-bt-container {
-  display: inline-block;
-  .bt {
-    width: rem(24px);
+.bt {
     border: none;
     background: none;
-    padding: 0;
     margin-right: rem(15px);
-    display: inline-block;
     img {
       width: 100%;
       height: auto;
     }
-  }
 }

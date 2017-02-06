@@ -8,7 +8,7 @@ import express from 'express'
 import redis from 'redis'
 import serverConfig from '../server/config'
 
-const EXPIRE = 3600 // 1 hour
+const EXPIRE = 300 // 5 mins
 const pretty = new PrettyError()
 const app = express()
 
