@@ -1,0 +1,11 @@
+@import '../../themes/font-mixins.scss';
+
+.bt {
+    border: none;
+    background: none;
+    margin-right: rem(15px);
+    img {
+      width: 100%;
+      height: auto;
+    }
+}

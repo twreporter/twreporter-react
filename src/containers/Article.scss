@@ -1,4 +1,5 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../themes/animation.scss';
 @import '../themes/common-variables.scss';
 @import '../themes/media-queries.scss';
 @import '../themes/font-mixins.scss';
@@ -195,6 +196,10 @@
     }
 }
 
-.logo-icon{
+.logo-icon {
   @extend .ab-center-by-transform;
+}
+
+.icons {
+  @include fade-in-left(0.5s);
 }

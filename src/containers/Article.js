@@ -530,7 +530,7 @@ class Article extends Component {
                     date={article.publishedDate}
                   />
                 </ArticleComponents.HeadingAuthor>
-                <div className="hidden-print">
+                <div className={cx(styles['icons'], 'hidden-print')}>
                   <ArticleComponents.ShareBt
                     appId={appId}
                     url={cUrl}
