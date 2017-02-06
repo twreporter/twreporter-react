@@ -1,4 +1,6 @@
-### Unreleased
+### Unreleased 
+
+### 1.1.3
 - [Update] Change link of the animal protection project
 - [Bug] Top description cannot be displayed properly if the content brief has been edited
 
