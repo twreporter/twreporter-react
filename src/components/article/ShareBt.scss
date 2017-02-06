@@ -1,8 +1,4 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
-@import '../../themes/animation';
-@import '../../themes/common-variables';
 @import '../../themes/font-mixins.scss';
-@import '../../themes/media-queries.scss';
 
 .share-bt-container {
   display: inline-block;
@@ -16,14 +12,6 @@
     img {
       width: 100%;
       height: auto;
-      transition: all 0.3s ease-in-out;
-    }
-    @include fade-in-left(0.5s);
-  }
-
-  .line {
-    @media (min-width: $screen-md-max) {
-      display: none;
     }
   }
 }
