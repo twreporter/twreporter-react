@@ -71,17 +71,27 @@ gulp.task('build-packages', function (done) {
  * Release Tasks
  */
 gulp.task('publish:tag', function (done) {
-	var pkg = JSON.parse(require('fs').readFileSync('./package.json'));
-	var v = 'v' + pkg.version;
-	var message = 'Release ' + v;
+  require('fs').readFile(__dirname + '/CHANGELOG.md', 'utf-8', function(err, changelogFile) {
+    if (err) {
+      throw err;
+    }
+    if (typeof changelogFile !== 'string') {
+      throw new Error('Please check the content of CHANGELOG.md');
+    }
+    var match = changelogFile.match(/((?:\d+\.)(?:\d+\.)(?:\d+))/i);
+    var pkg = match[0];
 
-	git.tag(v, message, function (err) {
-		if (err) throw err;
-		git.push('upstream', v, function (err) {
-			if (err) throw err;
-			done();
-		});
-	});
+    var v = 'v' + pkg;
+    var message = 'Release ' + v;
+
+    git.tag(v, message, function (err) {
+      if (err) throw err;
+      git.push('origin', v, function (err) {
+        if (err) throw err;
+        done();
+      });
+    });
+  });
 });
 
 gulp.task('publish:npm', function (done) {
@@ -90,4 +100,4 @@ gulp.task('publish:npm', function (done) {
 		.on('close', done);
 });
 
-gulp.task('release', ['publish:tag', 'publish:npm']);
+gulp.task('release', ['publish:tag']);
