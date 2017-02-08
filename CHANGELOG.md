@@ -1,5 +1,6 @@
 ### Unreleased
 
+
 ### 1.1.4
 - [Update] Update src/utils/image-processor.js. Add handling for empty or wrong parameter.
 - [Update] Given empty string as a fallback for article title.
