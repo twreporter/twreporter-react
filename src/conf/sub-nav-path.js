@@ -1,7 +1,8 @@
 export default [ {
   title: 'UBER爭議與共享經濟',
   path: 'tag/57ac420a42152d10002fa1a8'
-},{
+},
+{
   title: '零安樂死真相',
   path: '/topics/no-killing-policy'
 },
