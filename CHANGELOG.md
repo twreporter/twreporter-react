@@ -5,6 +5,7 @@
 - [Update] Given empty string as a fallback for article title.
 - [Update] Decrease redis expire time from 1 hour to 5 mins.
 - [Feature] Add print icon for friendly printing.
+- [Update] Update the way to load bootstrap
 
 ### 1.1.3 
 - [Update] Change link of the animal protection project
