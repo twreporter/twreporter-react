@@ -1,7 +1,7 @@
 /* eslint no-console:0 */
 'use strict'
 import { Link } from 'react-router'
-import { ABOUT_US_FOOTER, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../lib/date-transformer'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
@@ -85,23 +85,33 @@ class Article extends Component {
   // we get not only the article itself but also get related articles and
   // other articles in the same topic for BETTER SEO
   static fetchData({ params, store }) {
-    let slug = params.slug
+    const slug = params.slug
     if (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) {
+      store.dispatch(setHeaderInfo({
+        pageTheme: BRIGHT,
+        pageType: ARTICLE_STYLE
+      }))
       return store.dispatch(fetchArticleIfNeeded(slug))
     }
     // get article itself first
     return store.dispatch(fetchArticleIfNeeded(slug)).then(() => {
-      let state = store.getState()
-      let error = _.get(state, 'selectedArticle.error')
+      const state = store.getState()
+      const error = _.get(state, 'selectedArticle.error')
 
       if (error !== null) {
         return Promise.reject(error)
       }
 
-      let articleId = _.get(state, 'selectedArticle.id')
-      let article = _.get(state, [ 'entities', 'articles', articleId ])
-      let topicId = _.get(article, 'topics')
-      let relateds = _.get(article, 'relateds', [])
+      const articleId = _.get(state, 'selectedArticle.id')
+      const article = _.get(state, [ 'entities', 'articles', articleId ])
+      const topicId = _.get(article, 'topics')
+      const relateds = _.get(article, 'relateds', [])
+      const style = _.get(article, 'style', ARTICLE_STYLE)
+
+      store.dispatch(setHeaderInfo({
+        pageTheme: style !== PHOTOGRAPHY_ARTICLE_STYLE ? BRIGHT : DARK,
+        pageType: style
+      }))
 
       // fetch related articles and other articles in the same topic
       return new Promise((resolve, reject) => { // eslint-disable-line
@@ -175,7 +185,6 @@ class Article extends Component {
 
   componentDidMount() {
     this._setArticleBounding()
-    this._sendPageLevelAction()
     window.addEventListener('resize', this._setArticleBounding)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
@@ -202,6 +211,7 @@ class Article extends Component {
       // fetch data we need to render the whole article page
       this._fetchData()
     }
+    this._sendPageLevelAction()
   }
 
   componentWillUnmount() {
