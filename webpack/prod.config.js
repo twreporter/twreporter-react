@@ -20,8 +20,8 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
+      'bootstrap-sass!./src/themes/bootstrap.config.prod.js',
       './src/index.js',
-      'bootstrap-loader/extractStyles'
     ]
   },
   output: {

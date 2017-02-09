@@ -70,3 +70,9 @@ a:hover {
         display: none;
     }
 }
+
+@media print {
+  a[href]:after {
+    content: '';
+  }
+}
