@@ -71,3 +71,8 @@ a:hover {
     }
 }
 
+@media print {
+  a[href]:after {
+    content: '';
+  }
+}
