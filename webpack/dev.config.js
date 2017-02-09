@@ -21,7 +21,7 @@ module.exports = {
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      'bootstrap-loader/extractStyles',
+      'bootstrap-sass!./src/themes/bootstrap.config.js',
       './src/index.js'
     ]
   },
