@@ -1,5 +1,6 @@
 ### Unreleased
-
+- [Update] content of sub-nav-path
+- [Update] move test files from spec to where they belong
 
 ### 1.1.4
 - [Update] Update src/utils/image-processor.js. Add handling for empty or wrong parameter.
@@ -8,7 +9,7 @@
 - [Feature] Add print icon for friendly printing.
 - [Update] Update the way to load bootstrap
 
-### 1.1.3 
+### 1.1.3
 - [Update] Change link of the animal protection project
 - [Bug] Top description cannot be displayed properly if the content brief has been edited
 
