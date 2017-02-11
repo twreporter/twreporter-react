@@ -11,8 +11,9 @@ import serverConfig from '../server/config'
 const EXPIRE = 300 // 5 mins
 const pretty = new PrettyError()
 const app = express()
+let isRedisConnected = false
 
-let redisClient = redis.createClient({
+const redisClient = redis.createClient({
   host: upstreamConfig.REDIS_HOST || 'localhost',
   port: upstreamConfig.REDIS_PORT || 6379,
   retry_strategy: function (options) {
@@ -32,6 +33,26 @@ let redisClient = redis.createClient({
     return Math.max(options.attempt * 100, 3000)
   }
 })
+
+redisClient.on('ready', () => {
+  console.log('redis is ready')
+  isRedisConnected = true
+})
+
+redisClient.on('connect', () => {
+  console.log('redis is connected')
+  isRedisConnected = true
+})
+
+redisClient.on('reconnecting', () => {
+  console.log('redis is reconnecting')
+  isRedisConnected = false
+})
+
+redisClient.on('error', (error) => {
+  console.warn('redis occurs error:', error)
+})
+
 
 function getDataFromRedis(url) {
   return new Promise((resolve, reject) => {
@@ -80,7 +101,7 @@ function getDataFromAPI(req, res) {
 }
 
 app.use((req, res) => {
-  if (serverConfig.isRedisEnabled) {
+  if (serverConfig.isRedisEnabled && isRedisConnected) {
     getDataFromRedis(req.url).then((cacheData) => {
       res.json(cacheData)
     }, (reason) => { // eslint-disable-line
