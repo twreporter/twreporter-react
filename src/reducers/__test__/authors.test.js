@@ -1,12 +1,11 @@
 /*global describe, it*/
 'use strict'
 import { expect } from 'chai'
-import { author as reducer } from '../../../src/reducers/author'
-import { mockActions, mockStates, MOCKID1, MOCKID2, SEC_AUTHOR } from './mocks/author'
-import omit from 'lodash/omit'
-const _ = { omit }
+import { authorsList as reducer } from '../../../src/reducers/authors'
+// import * as types from '../../../src/constants/action-types'
+import { mockStates, mockActions, MOCK_KEYWORDS } from './mocks/authors'
 
-describe('Author Reducer Testing', function () {
+describe('Authors Reducer Testing', function () {
   describe('The Action: undefinied || Initialize App', function () {
     it('should return the initial state when previous state is undefined', function () {
       const initialState = mockStates.Initial_State
@@ -15,75 +14,72 @@ describe('Author Reducer Testing', function () {
       ).to.deep.equal(initialState)
     })
     it('should return the previous state when previous state exist', function () {
-      const preStaet = mockStates.Exp_State_Suc_withInit
       const expectedState = mockStates.Exp_State_Suc_withInit
       expect(
-        reducer(preStaet, {})
+        reducer(mockStates.Exp_State_Suc_withInit, {})
       ).to.deep.equal(expectedState)
     })
   })
 
-  describe('The Action: FETCH_AUTHOR_COLLECTION_REQUEST', function () {
+  describe('The Action: SEARCH_AUTHORS_REQUEST', function () {
     it('should return expected state when previous state is initial state', function () {
       const initialState = mockStates.Initial_State
       const expectedState = { ...mockStates.Initial_State, isFetching: true }
       expect(
-        reducer(initialState, mockActions.FETCH_AUTHOR_COLLECTION_REQUEST)
+        reducer(initialState, mockActions.SEARCH_AUTHORS_REQUEST)
       ).to.deep.equal(expectedState)
     })
     it('should return the expected state when previous state exist', function () {
       const preState = mockStates.Exp_State_Suc_withInit
       const expectedState = { ...mockStates.Exp_State_Suc_withInit, isFetching: true }
       expect(
-        reducer(preState, mockActions.FETCH_AUTHOR_COLLECTION_REQUEST)
+        reducer(preState, mockActions.SEARCH_AUTHORS_REQUEST)
       ).to.deep.equal(expectedState)
     })
   })
 
-  describe('The Action: FETCH_AUTHOR_COLLECTION_SUCCESS', function () {
-    describe('Previous State: Initial State. One Case', function () {
-      it('should return expected state when previous state is initial state', function () {
-        const initialState = mockStates.Initial_State
+  describe('The Action: SEARCH_AUTHORS_SUCCESS', function () {
+    describe('Previous State: Initial State. One Case: replaceAll is false', function () {
+      it('should return expected state when previous state is initialState and replaceAll is false', function () {
+        const initialState = { ...mockStates.Initial_State, isFetching: true }
         const expectedState = mockStates.Exp_State_Suc_withInit
         expect(
-          reducer(initialState, mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS)
+          reducer(initialState, mockActions.SEARCH_AUTHORS_SUCCESS)
         ).to.deep.equal(expectedState)
       })
     })
-    describe('Previous State: Exist. Two Cases: Same Author || Different Authors', function () {
-      it('should return expected state when previous state exist and on condition SAME', function () {
-        const preState = mockStates.Exp_State_Suc_withInit
-        const expectedState = mockStates.Exp_State_Suc_withPre_Same
+    describe('Previous State: Exist. Two Cases: replaceAll is true || false', function () {
+      it('should return expected state when previous state exist and replaceAll is false', function () {
+        const preState = { ...mockStates.Exp_State_Suc_withInit, isFetching: true }
+        const expectedState = mockStates.Exp_State_Suc_withPre_false
         expect(
-          reducer(preState, mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS)
+          reducer(preState, { ...mockActions.SEARCH_AUTHORS_SUCCESS, keywords: MOCK_KEYWORDS })
         ).to.deep.equal(expectedState)
       })
-      it('should return expected state when previous state exist and on condition Diff', function () {
-        const preState = mockStates.Exp_State_Suc_withInit
-        const expectedState = mockStates.Exp_State_Suc_withPre_Diff
-        const theMockAction = _.omit(mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS, MOCKID1)
-        theMockAction[MOCKID2] = SEC_AUTHOR
+      it('should return expected state when previous state exist and replaceAll is true', function () {
+        const preState = { ...mockStates.Exp_State_Suc_withInit, isFetching: true }
+        const expectedState = mockStates.Exp_State_Suc_withPre_true
         expect(
-          reducer(preState, theMockAction)
+          reducer(preState, { ...mockActions.SEARCH_AUTHORS_SUCCESS, replaceAll: true, keywords: MOCK_KEYWORDS })
         ).to.deep.equal(expectedState)
       })
     })
   })
-
-  describe('The Action: FETCH_AUTHOR_COLLECTION_FAILURE', function () {
+  describe('The Action: SEARCH_AUTHORS_FAILURE', function () {
     it('should return expected state when previous state is initial state', function () {
       const initialState = { ...mockStates.Initial_State, isFetching: true }
       const expectedState = mockStates.Exp_State_Fail_withInit
       expect(
-        reducer(initialState, mockActions.FETCH_AUTHOR_COLLECTION_FAILURE)
+        reducer(initialState, mockActions.SEARCH_AUTHORS_FAILURE)
       ).to.deep.equal(expectedState)
     })
     it('should return expected state when previous state exist', function () {
       const preState = { ...mockStates.Exp_State_Suc_withInit, isFetching: true }
       const expectedState = mockStates.Exp_State_Fail_withPre
       expect(
-        reducer(preState, mockActions.FETCH_AUTHOR_COLLECTION_FAILURE)
+        reducer(preState, mockActions.SEARCH_AUTHORS_FAILURE)
       ).to.deep.equal(expectedState)
     })
   })
+
 })

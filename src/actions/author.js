@@ -44,6 +44,8 @@ export function receiveAuthorCollection({ authorId, items, currentPage, totalRes
   }
 }
 
+// fetchAuthorCollection reconstrcut the fetched data
+// return params is used for sub func to creatae a author prop inside redux store
 export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId = '', returnDelay = 0 } = {}) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
@@ -94,6 +96,8 @@ export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, au
   }
 }
 
+// user now browsing https://www.twreporter.org/authors
+// use clicks on single authoer icon, dispatch following func
 export function fetchAuthorCollectionIfNeeded(authorId) {
   return (dispatch, getState) => {
     const author = _.get(getState(), [ 'author', authorId ], {})

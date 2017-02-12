@@ -47,7 +47,8 @@ export const authorsList = (state = initialStates, action = {}) => {
     case types.SEARCH_AUTHORS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.error
+        error: action.error,
+        failedAt: action.failedAt
       })
     default:
       return state

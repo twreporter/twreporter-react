@@ -48,7 +48,8 @@ export const author = (state = initialStates, action = {}) => {
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.error
+        error: action.error,
+        failedAt: action.failedAt
       })
     default:
       return state
