@@ -17,14 +17,14 @@ import get from 'lodash/get'
 import merge from 'lodash/merge'
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = {}, action) {
+export function entities(state = {}, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
   return state
 }
 
-function articleSlugToId(state = {}, action) {
+export function articleSlugToId(state = {}, action) {
   switch (action.type) {
     case types.FETCH_ARTICLE_SUCCESS:
       return merge({}, state, {
@@ -45,7 +45,7 @@ function articleSlugToId(state = {}, action) {
   }
 }
 
-function topicSlugToId(state = {}, action) {
+export function topicSlugToId(state = {}, action) {
   switch (action.type) {
     case types.FETCH_TOPIC_SUCCESS:
       return merge({}, state, {
