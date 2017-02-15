@@ -4,11 +4,12 @@ const ERROR_MSG = new Error('mock fetch collection failure')
 export const MOCKID1 = 'mock requested author Id 1'
 export const MOCKID2 = 'mock requested author Id 2'
 export const SEC_AUTHOR = {
-  collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3' ],
+  collectIndexList: [ 'articleId1', 'articleId2', 'articleId3' ],
   currentPage: 0,
   isFinish: false,
   totalResults: 30,
-  receivedAt: CURRENT_DATE
+  receivedAt: CURRENT_DATE,
+  totalPages: 13
 }
 
 export const mockActions = {
@@ -19,20 +20,18 @@ export const mockActions = {
 
   [types.FETCH_AUTHOR_COLLECTION_SUCCESS]: {
     type: types.FETCH_AUTHOR_COLLECTION_SUCCESS,
-    [MOCKID1]: {
-      collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3' ],
-      currentPage: 0,
-      isFinish: false,
-      totalResults: 10,
-      receivedAt: CURRENT_DATE
-    },
     authorId: MOCKID1,
+    collectIndexList: [ 'articleId1', 'articleId2', 'articleId3' ],
+    currentPage: 0,
+    totalResults: 10,
+    receivedAt: CURRENT_DATE,
+    totalPages: 15,
     response: {
       entities: {
-        articles: { 'article_Id1': {}, 'article_Id2': {}, 'article_Id3': {} },
-        authors: { 'author_Id1': {}, 'author_Id2': {}, 'author_Id3': {} }
+        articles: { 'articleId1': {}, 'articleId2': {}, 'articleId3': {} },
+        authors: { 'authorId1': {}, 'authorId2': {}, 'authorId3': {} }
       },
-      result: [ 'article_Id1', 'article_Id2', 'article_Id3' ]
+      result: [ 'articleId1', 'articleId2', 'articleId3' ]
     }
   },
 
@@ -44,88 +43,64 @@ export const mockActions = {
 }
 
 export const mockStates = {
-  Initial_State: {
+  InitialState: {
     isFetching: false
   },
 
-  Exp_State_Suc_withInit: {
+  ExpStateSucwithInit: {
     isFetching: false,
     [MOCKID1]: {
-      collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3' ],
+      collectIndexList: [ 'articleId1', 'articleId2', 'articleId3' ],
       currentPage: 0,
       isFinish: false,
       totalResults: 10,
-      receivedAt: CURRENT_DATE
-    },
-    response: {
-      entities: {
-        articles: { 'article_Id1': {}, 'article_Id2': {}, 'article_Id3': {} },
-        authors: { 'author_Id1': {}, 'author_Id2': {}, 'author_Id3': {} }
-      },
-      result: [ 'article_Id1', 'article_Id2', 'article_Id3' ]
+      receivedAt: CURRENT_DATE,
+      totalPages: 15
     }
   },
 
-  Exp_State_Suc_withPre_Same: {
+  ExpStateSucwithPreSame: {
     isFetching: false,
     [MOCKID1]: {
-      collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3', 'article_Id1', 'article_Id2', 'article_Id3' ],
+      collectIndexList: [ 'articleId1', 'articleId2', 'articleId3', 'articleId1', 'articleId2', 'articleId3' ],
       currentPage: 0,
       isFinish: false,
       totalResults: 10,
-      receivedAt: CURRENT_DATE
-    },
-    response: {
-      entities: {
-        articles: { 'article_Id1': {}, 'article_Id2': {}, 'article_Id3': {} },
-        authors: { 'author_Id1': {}, 'author_Id2': {}, 'author_Id3': {} }
-      },
-      result: [ 'article_Id1', 'article_Id2', 'article_Id3' ]
+      receivedAt: CURRENT_DATE,
+      totalPages: 15
     }
   },
 
-  Exp_State_Suc_withPre_Diff: {
+  ExpStateSucwithPreDiff: {
     isFetching: false,
     [MOCKID1]: {
-      collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3' ],
+      collectIndexList: [ 'articleId1', 'articleId2', 'articleId3' ],
       currentPage: 0,
       isFinish: false,
       totalResults: 10,
-      receivedAt: CURRENT_DATE
+      receivedAt: CURRENT_DATE,
+      totalPages: 15
     },
-    [MOCKID2]: SEC_AUTHOR,
-    response: {
-      entities: {
-        articles: { 'article_Id1': {}, 'article_Id2': {}, 'article_Id3': {} },
-        authors: { 'author_Id1': {}, 'author_Id2': {}, 'author_Id3': {} }
-      },
-      result: [ 'article_Id1', 'article_Id2', 'article_Id3' ]
-    }
+    [MOCKID2]: SEC_AUTHOR
   },
 
-  Exp_State_Fail_withInit: {
+  ExpStateFailwithInit: {
     isFetching: false,
     error: ERROR_MSG,
     failedAt: CURRENT_DATE
   },
 
-  Exp_State_Fail_withPre: {
+  ExpStateFailwithPre: {
     isFetching: false,
     error: ERROR_MSG,
     failedAt: CURRENT_DATE,
     [MOCKID1]: {
-      collectIndexList: [ 'article_Id1', 'article_Id2', 'article_Id3' ],
+      collectIndexList: [ 'articleId1', 'articleId2', 'articleId3' ],
       currentPage: 0,
       isFinish: false,
       totalResults: 10,
-      receivedAt: CURRENT_DATE
-    },
-    response: {
-      entities: {
-        articles: { 'article_Id1': {}, 'article_Id2': {}, 'article_Id3': {} },
-        authors: { 'author_Id1': {}, 'author_Id2': {}, 'author_Id3': {} }
-      },
-      result: [ 'article_Id1', 'article_Id2', 'article_Id3' ]
+      receivedAt: CURRENT_DATE,
+      totalPages: 15
     }
   }
 }

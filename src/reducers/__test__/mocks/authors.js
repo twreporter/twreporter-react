@@ -39,14 +39,14 @@ export const mockActions = {
 }
 
 export const mockStates = {
-  Initial_State: {
+  InitialState: {
     isFetching: false,
     currentPage: REQUEST_PAGE_START_FROM - 1,
     isFinish: false,
     authorsInList: []
   },
 
-  Exp_State_Suc_withInit: {
+  ExpStateSucwithInit: {
     keywords:'',
     replaceAll: false,
     authorsInList: [
@@ -58,7 +58,7 @@ export const mockStates = {
     isFinish: false
   },
 
-  Exp_State_Suc_withPre_false: {
+  ExpStateSucwithPrefalse: {
     keywords: MOCK_KEYWORDS,
     replaceAll: false,
     authorsInList: [
@@ -72,7 +72,7 @@ export const mockStates = {
     isFinish: false
   },
 
-  Exp_State_Suc_withPre_true: {
+  ExpStateSucwithPretrue: {
     keywords: MOCK_KEYWORDS,
     replaceAll: true,
     authorsInList: [
@@ -84,7 +84,7 @@ export const mockStates = {
     isFinish: false
   },
 
-  Exp_State_Fail_withInit: {
+  ExpStateFailwithInit: {
     currentPage: REQUEST_PAGE_START_FROM - 1,
     isFinish: false,
     authorsInList: [],
@@ -93,7 +93,7 @@ export const mockStates = {
     failedAt: CURRENT_DATE
   },
 
-  Exp_State_Fail_withPre: {
+  ExpStateFailwithPre: {
     keywords:'',
     replaceAll: false,
     authorsInList: [
