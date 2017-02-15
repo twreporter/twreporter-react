@@ -15,11 +15,9 @@ import { fetchAuthorCollectionIfNeeded } from '../actions/author'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { setHeaderInfo } from '../actions/header'
-import uniq from 'lodash/uniq'
 
 const _ = {
   get,
-  uniq,
   omit
 }
 
@@ -42,9 +40,9 @@ class Author extends React.Component {
   }
   render() {
     const authorId = this.props.params['authorId']
-    const { entities, isFetching, authorPage } = this.props
+    const { entities, authorPage } = this.props
+    const isFetching = _.get(authorPage, 'isFetching', false)
     let { isFinish, currentPage, collectIndexList, totalResults } = _.get(authorPage, authorId, {})
-    collectIndexList = _.uniq(collectIndexList) //remove duplicated
     let authorCollection = denormalizeArticles(collectIndexList, entities)
     const thisAuthorInEntities = _.get(entities, [ 'authors', authorId ], {})
     const authorData = {
@@ -78,9 +76,8 @@ class Author extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    entities: state.entities || {},
-    isFetching: state.author.isFetching,
-    authorPage: _.omit(state.author, 'response') || {}
+    entities: _.get(state, 'entities', {}),
+    authorPage: _.get(state, 'author', {})
   }
 }
 

@@ -32,22 +32,16 @@ export function failToReceiveAuthorCollection(error, failedAt) {
   }
 }
 
-export function receiveAuthorCollection({ authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt } = {}) {
-  let receiveAuthorCollection = {
+export function receiveAuthorCollection({ authorId, items, currentPage, totalResults, receivedAt, totalPages } = {}) {
+  return {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
+    response: items,
     authorId,
-    response: items // objects {entities:{},result:[]}
+    currentPage,
+    totalResults,
+    totalPages,
+    receivedAt
   }
-  if (typeof authorId === 'string') {
-    receiveAuthorCollection[authorId] = {
-      collectIndexList, //array
-      currentPage,
-      isFinish,
-      totalResults,
-      receivedAt
-    }
-  }
-  return receiveAuthorCollection
 }
 
 export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, authorId = '', returnDelay = 0 } = {}) {
@@ -70,15 +64,14 @@ export function fetchAuthorCollection({ targetPage = REQUEST_PAGE_START_FROM, au
         return response.json()
       })
       .then((content) => {
-        const hits = _.get(content, 'hits', {})
-        const camelizedJson = camelizeKeys(hits)
-        let items = normalize(camelizedJson, arrayOf(articleSchema))
-        const collectIndexList = items.result
-        const currentPage = content.page
-        const isFinish = ( currentPage >= content.nbPages-1 )
+        const currentPage = _.get(content, 'page', 0)
+        const totalResults = _.get(content, 'nbHits', 0)
+        const totalPages = _.get(content, 'nbPages', 0)
+        const searchResultItems = _.get(content, 'hits', {})
+        const camelizedJson = camelizeKeys(searchResultItems)
+        const items = normalize(camelizedJson, arrayOf(articleSchema))
         const receivedAt = Date.now()
-        const totalResults = content.nbHits
-        const returnParas = { authorId, items, collectIndexList, currentPage, isFinish, totalResults, receivedAt }
+        const returnParas = { authorId, items, currentPage, totalResults, receivedAt, totalPages }
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
