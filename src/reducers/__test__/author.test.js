@@ -2,9 +2,10 @@
 'use strict'
 import { expect } from 'chai'
 import { author as reducer } from '../../../src/reducers/author'
-import { mockActions, mockStates, MOCKID1, MOCKID2, SEC_AUTHOR } from './mocks/author'
+import { mockActions, mockStates, FETCH_SEC_AUTHOR_COLLECTION_SUCCESS, FETCH_FIRST_AUTHOR_SEC_TIMES } from './mocks/author'
 import omit from 'lodash/omit'
-const _ = { omit }
+import merge from 'lodash/merge'
+const _ = { omit, merge }
 
 describe('Author Reducer Testing', function () {
   describe('The Action: undefinied || Initialize App', function () {
@@ -54,15 +55,16 @@ describe('Author Reducer Testing', function () {
       it('should return expected state when previous state exist and on condition SAME', function () {
         const preState = mockStates.ExpStateSucwithInit
         const expectedState = mockStates.ExpStateSucwithPreSame
+        const theMockAction = _.merge( mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS, FETCH_FIRST_AUTHOR_SEC_TIMES )
+        // console.log(theMockAction)
         expect(
-          reducer(preState, mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS)
+          reducer(preState, theMockAction)
         ).to.deep.equal(expectedState)
       })
       it('should return expected state when previous state exist and on condition Diff', function () {
         const preState = mockStates.ExpStateSucwithInit
         const expectedState = mockStates.ExpStateSucwithPreDiff
-        const theMockAction = _.omit(mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS, MOCKID1)
-        theMockAction[MOCKID2] = SEC_AUTHOR
+        const theMockAction = _.merge(mockActions.FETCH_AUTHOR_COLLECTION_SUCCESS, FETCH_SEC_AUTHOR_COLLECTION_SUCCESS)
         expect(
           reducer(preState, theMockAction)
         ).to.deep.equal(expectedState)
