@@ -5,13 +5,11 @@ import { REQUEST_PAGE_START_FROM } from '../constants/author-page'
 
 import get from 'lodash/get'
 import isArray from 'lodash/isArray'
-import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 
 const _ = {
   get,
   isArray,
-  merge,
   uniq
 }
 
@@ -44,7 +42,7 @@ export const author = (state = initialStates, action = {}) => {
           isFinish: (currentPage - REQUEST_PAGE_START_FROM + 1 >= totalPages)
         }
       }
-      return _.merge({}, state, saveToState)
+      return Object.assign({}, state, saveToState)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
