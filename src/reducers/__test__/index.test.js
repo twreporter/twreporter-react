@@ -103,7 +103,7 @@ const mockDataToBeMerged = {
   }
 }
 
-const mockPreviousEntitiesState = { // Whole store
+const mockPreviousState_entities = { // Whole store
   mockAuthorData: {
     authorId001: {
       name: 'Mock Author Name',
@@ -120,7 +120,7 @@ const mockPreviousEntitiesState = { // Whole store
   }
 }
 
-const expectedEntitiesState = {
+const mockExpectedState_entities = {
   mockAuthorData: {
     authorId001: {
       name: 'Mock Author Name',
@@ -159,25 +159,25 @@ const mockActionWithEntities = {
   }
 }
 
-const mockPreviousTopicSlugToIdState = {
+const mockPreviousState_topicSlugToId = {
   'pre-topic-slug-01': 'pre_topic_id_01',
   'pre-topic-slug-02': 'pre_topic_id_02',
   'test-overwritten-topic-slug': 'pre_topic_id' // to test will it be overwritten
 }
 
-const mockExpectedTopicSlugToIdState = {
+const mockExpectedState_topicSlugToId = {
   'pre-topic-slug-01': 'pre_topic_id_01',
   'pre-topic-slug-02': 'pre_topic_id_02',
   'test-overwritten-topic-slug': 'act_topic_id'
 }
 
-const mockPreviousArticleSlugToIdState = {
+const mockPreviousState_articleSlugToId = {
   'pre-article-slug-01': 'pre_article_id_01',
   'pre-article-slug-02': 'pre_article_id_02',
   'test-overwritten-article-slug': 'pre_article_id' // to test will it be overwritten
 }
 
-const mockExpectedArticleSlugToIdState = {
+const mockExpectedState_articleSlugToId = {
   'pre-article-slug-01': 'pre_article_id_01',
   'pre-article-slug-02': 'pre_article_id_02',
   'test-overwritten-article-slug': 'act_article_id'
@@ -245,8 +245,8 @@ describe('Testing entities reducer:', () => {
     describe('AND IF previous state exist', () => {
       it('SHOULD return the previous state', () => {
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActions.notReconized)
-        ).to.deep.equal(mockPreviousEntitiesState)
+          reducers.entities(mockPreviousState_entities, mockActions.notReconized)
+        ).to.deep.equal(mockPreviousState_entities)
       })
     })
   })
@@ -264,36 +264,36 @@ describe('Testing entities reducer:', () => {
       it('SHOULD replace the value with new one IF target value is primitive', () => {
         // Check if target value is a number
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .numberValue
         ).to.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .numberValue
           )
         // Check if target value is a string
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .stringValue
         ).to.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .stringValue
           )
         // Check if target value is a boolean
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .booleanValue
         ).to.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .booleanValue
@@ -301,12 +301,12 @@ describe('Testing entities reducer:', () => {
       })
       it('SHOULD replace the array items with new ones WHEN the target values are primitives', () => {
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .arrayWithPrimitives
         ).to.deep.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .arrayWithPrimitives
@@ -314,23 +314,23 @@ describe('Testing entities reducer:', () => {
       })
       it('SHOULD merge the values WHEN target array items are plain objects or arrays', () => {
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .arrayWithArrays
         ).to.deep.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .arrayWithArrays
           )
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .arrayWithObjects
         ).to.deep.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .arrayWithObjects
@@ -338,12 +338,12 @@ describe('Testing entities reducer:', () => {
       })
       it('SHOULD replace the object items with new ones WHEN the target values are primitives', () => {
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .articlesObjectList01
         ).to.deep.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .articlesObjectList01
@@ -351,12 +351,12 @@ describe('Testing entities reducer:', () => {
       })
       it('SHOULD merge the values WHEN target object items are plain objects or arrays', () => {
         expect(
-          reducers.entities(mockPreviousEntitiesState, mockActionWithEntities)
+          reducers.entities(mockPreviousState_entities, mockActionWithEntities)
             .mockAuthorData
             .authorId001
             .articlesObjectList02
         ).to.deep.equal(
-          expectedEntitiesState
+          mockExpectedState_entities
             .mockAuthorData
             .authorId001
             .articlesObjectList02
@@ -380,8 +380,8 @@ describe('Testing articleSlugToId reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articleSlugToId(mockPreviousArticleSlugToIdState, action)
-      ).to.deep.equal(mockExpectedArticleSlugToIdState)
+        reducers.articleSlugToId(mockPreviousState_articleSlugToId, action)
+      ).to.deep.equal(mockExpectedState_articleSlugToId)
     })
   })
 
@@ -400,8 +400,8 @@ describe('Testing articleSlugToId reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articleSlugToId(mockPreviousArticleSlugToIdState, action)
-      ).to.deep.equal(mockExpectedArticleSlugToIdState)
+        reducers.articleSlugToId(mockPreviousState_articleSlugToId, action)
+      ).to.deep.equal(mockExpectedState_articleSlugToId)
     })
   })
 
@@ -420,8 +420,8 @@ describe('Testing articleSlugToId reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articleSlugToId(mockPreviousArticleSlugToIdState, action)
-      ).to.deep.equal(mockExpectedArticleSlugToIdState)
+        reducers.articleSlugToId(mockPreviousState_articleSlugToId, action)
+      ).to.deep.equal(mockExpectedState_articleSlugToId)
     })
   })
 
@@ -440,8 +440,8 @@ describe('Testing articleSlugToId reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articleSlugToId(mockPreviousArticleSlugToIdState, action)
-      ).to.deep.equal(mockExpectedArticleSlugToIdState)
+        reducers.articleSlugToId(mockPreviousState_articleSlugToId, action)
+      ).to.deep.equal(mockExpectedState_articleSlugToId)
     })
   })
 })
@@ -458,8 +458,8 @@ describe('Testing topicSlugToId reducer:', () => {
 
     it('SHOULD return previous state WHEN previous state exsist', () => {
       expect(
-        reducers.topicSlugToId(mockPreviousTopicSlugToIdState, mockActions.notReconized)
-      ).to.deep.equal(mockPreviousTopicSlugToIdState)
+        reducers.topicSlugToId(mockPreviousState_topicSlugToId, mockActions.notReconized)
+      ).to.deep.equal(mockPreviousState_topicSlugToId)
     })
   })
   describe(`If action type is ${types.FETCH_TOPIC_SUCCESS}`, () => {
@@ -474,8 +474,8 @@ describe('Testing topicSlugToId reducer:', () => {
 
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.topicSlugToId(mockPreviousTopicSlugToIdState, action)
-      ).to.deep.equal(mockExpectedTopicSlugToIdState)
+        reducers.topicSlugToId(mockPreviousState_topicSlugToId, action)
+      ).to.deep.equal(mockExpectedState_topicSlugToId)
     })
   })
 })
