@@ -1,27 +1,20 @@
 'use strict'
 
 import * as types from '../constants/action-types'
+import { REQUEST_PAGE_START_FROM } from '../constants/author-page'
 
 import get from 'lodash/get'
 import isArray from 'lodash/isArray'
-import mergeWith from 'lodash/mergeWith'
-import omit from 'lodash/omit'
+import uniq from 'lodash/uniq'
 
 const _ = {
   get,
   isArray,
-  mergeWith,
-  omit
+  uniq
 }
 
 const initialStates = {
   isFetching: false
-}
-
-function concatIfIsArray(previousValue, toAddValue, key) {
-  if (key==='collectIndexList' && _.isArray(previousValue)) {
-    return previousValue.concat(toAddValue)
-  }
 }
 
 export const author = (state = initialStates, action = {}) => {
@@ -31,9 +24,25 @@ export const author = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
-      let actionObjToAdd = _.omit(action, [ 'type', 'authorId' ])
-      actionObjToAdd.isFetching = false
-      return _.mergeWith({}, state, actionObjToAdd, concatIfIsArray)
+      const {
+        authorId,
+        response,
+        currentPage,
+        totalResults,
+        totalPages,
+        receivedAt } = action
+      const previousCollectionIdList = _.get(state, [ authorId, 'collectIndexList' ], [])
+      const saveToState = {
+        isFetching: false,
+        [authorId]: {
+          collectIndexList: _.uniq(previousCollectionIdList.concat(_.get(response, 'result', []))),
+          currentPage,
+          totalResults,
+          receivedAt,
+          isFinish: (currentPage - REQUEST_PAGE_START_FROM + 1 >= totalPages)
+        }
+      }
+      return Object.assign({}, state, saveToState)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
