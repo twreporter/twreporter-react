@@ -5,26 +5,18 @@ import { REQUEST_PAGE_START_FROM } from '../constants/author-page'
 
 import get from 'lodash/get'
 import isArray from 'lodash/isArray'
-import mergeWith from 'lodash/mergeWith'
+import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 
 const _ = {
   get,
   isArray,
-  mergeWith,
+  merge,
   uniq
 }
 
 const initialStates = {
   isFetching: false
-}
-
-function concatCollectIndexList(previousValue, toAddValue, keyName) {
-  if (keyName==='collectIndexList' && _.isArray(previousValue)) {
-    const combinedArray = previousValue.concat(toAddValue)
-    const collectIndexList = _.uniq(combinedArray) //remove duplicated
-    return collectIndexList
-  }
 }
 
 export const author = (state = initialStates, action = {}) => {
@@ -41,18 +33,18 @@ export const author = (state = initialStates, action = {}) => {
         totalResults,
         totalPages,
         receivedAt } = action
+      const previousCollectionIdList = _.get(state, [ authorId, 'collectIndexList' ], [])
       const saveToState = {
-        authorId,
         isFetching: false,
         [authorId]: {
-          collectIndexList: _.get(response, 'result', []),
+          collectIndexList: _.uniq(previousCollectionIdList.concat(_.get(response, 'result', []))),
           currentPage,
           totalResults,
           receivedAt,
           isFinish: (currentPage - REQUEST_PAGE_START_FROM + 1 >= totalPages)
         }
       }
-      return _.mergeWith({}, state, saveToState, concatCollectIndexList)
+      return _.merge({}, state, saveToState)
     case types.FETCH_AUTHOR_COLLECTION_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
