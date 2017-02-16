@@ -1,5 +1,7 @@
 ### Unreleased
 
+- [Update] Move author state formatting from action to reducer
+
 ### 1.1.5 
 - [Update] content of sub-nav-path
 - [Update] move test files from spec to where they belong
