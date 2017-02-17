@@ -4,7 +4,7 @@ import { AUTHOR_PAGE } from '../constants/page-types'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import { LIGHT } from '../constants/page-themes'
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Sponsor from '../components/Sponsor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
@@ -68,6 +68,11 @@ class Author extends React.Component {
       <Sponsor />
     </div>)
   }
+}
+
+Author.propTypes = {
+  entities: PropTypes.object.isRequired,
+  articlesByAuthor: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
