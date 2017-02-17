@@ -40,9 +40,9 @@ export function receiveAuthorCollection({ authorId, items, responseContext }) {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
     response: items, // responseObject.hit
-    currentPage: _.get(responseContext, 'page'),
-    totalPages: _.get(responseContext, 'nbPages'),
-    totalResults: _.get(responseContext, 'nbHits'),
+    currentPage: _.get(responseContext, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
+    totalPages: _.get(responseContext, 'nbPages', 0),
+    totalResults: _.get(responseContext, 'nbHits', 0),
     receivedAt: Date.now()
   }
 }
