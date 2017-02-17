@@ -34,14 +34,13 @@ export const articlesByAuthor = (state = {}, action = {}) => {
       })
     case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
       const previousCollectionIdList = _.get(state, [ authorId, 'collectIndexList' ], [])
-      const { responseContext, receivedAt } = action
-      const { page, nbHits, nbPages } = responseContext
+      const { currentPage, totalPages, totalResults,  receivedAt } = action
       nextSubState = _.assign({}, initialSubState, {
         isFetching: false,
         collectIndexList: _.uniq(previousCollectionIdList.concat(_.get(action, 'response.result', []))),
-        currentPage: page,
-        totalResults: nbHits,
-        isFinish: (page - NUMBER_OF_FIRST_RESPONSE_PAGE + 1) >= nbPages,
+        currentPage,
+        totalResults,
+        hasMore: (currentPage - NUMBER_OF_FIRST_RESPONSE_PAGE + 1) < totalPages,
         lastUpdated: receivedAt
       })
       return _.assign({}, state, {

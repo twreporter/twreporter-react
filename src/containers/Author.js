@@ -38,7 +38,7 @@ class Author extends React.Component {
   render() {
     const authorId = this.props.params['authorId']
     const { entities, articlesByAuthor } = this.props
-    let { isFinish, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
+    let { hasMore, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
     let authorCollection = denormalizeArticles(collectIndexList, entities)
     const authorEntity = _.get(entities, [ 'authors', authorId ], {})
     const authorData = {
@@ -58,7 +58,7 @@ class Author extends React.Component {
         <AuthorCollection
           relateds={authorCollection}
           currentId={authorId}
-          isFinish={isFinish}
+          hasMore={hasMore}
           isFetching={isFetching}
           currentPage={currentPage}
           handleLoadmore={handleLoadmore}

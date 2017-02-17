@@ -15,7 +15,7 @@ import { shortenString } from '../../lib/string-processor'
 import styles from './AuthorCollection.scss'
 
 const AuthorCollection = (props) => {
-  const { relateds, isFinish, isFetching, currentPage, handleLoadmore, totalResults } = props
+  const { relateds, hasMore, isFetching, currentPage, handleLoadmore, totalResults } = props
 
   const titleText = AUTHOR_COLLECTION +`（${totalResults}）`
   let listItems = relateds
@@ -26,11 +26,9 @@ const AuthorCollection = (props) => {
 
   // Page bottom display options
 
-  let loadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && !isFinish &&!isFetching) ? true : false
-  let sensorDisplay = (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE && !isFinish) ? true : false
+  let loadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore &&!isFetching) ? true : false
+  let sensorDisplay = (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore) ? true : false
   let loaderDisply = isFetching ? true : false
-
-  // const loadmoreBtn = isFinish || isFetching || currentPage<-1 ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</div>
 
   // Callback for sensor is triggered to seen
   let handleSeen = (isVisible) => {
@@ -88,30 +86,8 @@ AuthorCollection.propTypes = {
   currentPage: PropTypes.number,
   handleLoadmore: PropTypes.func,
   isFetching: PropTypes.bool,
-  isFinish: PropTypes.bool,
-  related: PropTypes.arrayOf(PropTypes.shape({
-    categories: PropTypes.array,
-    designers: PropTypes.array,
-    engineers: PropTypes.array,
-    extendByline: PropTypes.string,
-    heroImage: PropTypes.object,
-    hilightResult: PropTypes.object,
-    id: PropTypes.string,
-    isFeatured: PropTypes.bool,
-    objectID: PropTypes.string,
-    ogDescription: PropTypes.string,
-    ogTitle: PropTypes.string,
-    photographers: PropTypes.array,
-    publishDate: PropTypes.string,
-    related: PropTypes.array,
-    slug: PropTypes.string,
-    state: PropTypes.string,
-    style: PropTypes.string,
-    subtitle: PropTypes.string,
-    tags: PropTypes.array,
-    topics: PropTypes.array,
-    writters: PropTypes.array
-  })),
+  hasMore: PropTypes.bool,
+  related: PropTypes.array,
   totalResults: PropTypes.number
 }
 

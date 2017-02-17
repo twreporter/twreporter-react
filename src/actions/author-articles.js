@@ -40,7 +40,9 @@ export function receiveAuthorCollection({ authorId, items, responseContext }) {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
     response: items, // responseObject.hit
-    responseContext, // All the other things in responseObject except responseObject.hit
+    currentPage: _.get(responseContext, 'page'),
+    totalPages: _.get(responseContext, 'nbPages'),
+    totalResults: _.get(responseContext, 'nbHits'),
     receivedAt: Date.now()
   }
 }
