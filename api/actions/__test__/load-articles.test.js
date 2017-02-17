@@ -35,23 +35,20 @@ describe('Test loadArticles(posts endpoint) and loadMetaOfArticles(meta endpoint
   })
 
   describe('Test loadArticles(posts endpoint)', () => {
-    let getRequest
+    let getStub
     let queryStub
-    let timeoutStub
     before(() => {
       // stub get
-      getRequest = sinon.stub(superAgent, 'get')
+      getStub = sinon.stub(superAgent, 'get')
       // create stub
-      timeoutStub = sinon.stub()
       queryStub = sinon.stub()
 
-      // set stub returns
-      timeoutStub.returns({
-        query: queryStub
-      })
-
-      getRequest.returns({
-        timeout: timeoutStub
+      getStub.returns({
+        timeout: () => {
+          return {
+            query: queryStub
+          }
+        }
       })
     })
     after(() => {
@@ -93,24 +90,21 @@ describe('Test loadArticles(posts endpoint) and loadMetaOfArticles(meta endpoint
   })
 
   describe('Test loadMetaOfArticles(meta endpoint)', () => {
-    let getRequest
+    let getStub
     let queryStub
-    let timeoutStub
     const mockReq2 = {}
     before(() => {
       // stub get
-      getRequest = sinon.stub(superAgent, 'get')
+      getStub = sinon.stub(superAgent, 'get')
       // create stub
-      timeoutStub = sinon.stub()
       queryStub = sinon.stub()
 
-      // set stub returns
-      timeoutStub.returns({
-        query: queryStub
-      })
-
-      getRequest.returns({
-        timeout: timeoutStub
+      getStub.returns({
+        timeout: () => {
+          return {
+            query: queryStub
+          }
+        }
       })
 
       queryStub.withArgs(mockReq.query).returns({
