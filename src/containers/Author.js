@@ -11,14 +11,12 @@ import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
-import { fetchAuthorCollectionIfNeeded } from '../actions/author'
+import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
 import get from 'lodash/get'
-import omit from 'lodash/omit'
 import { setHeaderInfo } from '../actions/header'
 
 const _ = {
-  get,
-  omit
+  get
 }
 
 class Author extends React.Component {
@@ -28,9 +26,8 @@ class Author extends React.Component {
   }
   componentDidMount() {
     const authorId = this.props.params['authorId']
-    let { setHeaderInfo, authorPage, fetchAuthorCollectionIfNeeded } = this.props
-    const currentPage = _.get(authorPage, [ authorId, 'currentPage' ], -1)
-    if (currentPage < 0) {
+    let { setHeaderInfo, articlesByAuthor, fetchAuthorCollectionIfNeeded } = this.props
+    if (!articlesByAuthor[authorId]) {
       fetchAuthorCollectionIfNeeded(authorId)
     }
     setHeaderInfo({
@@ -40,17 +37,16 @@ class Author extends React.Component {
   }
   render() {
     const authorId = this.props.params['authorId']
-    const { entities, authorPage } = this.props
-    const isFetching = _.get(authorPage, 'isFetching', false)
-    let { isFinish, currentPage, collectIndexList, totalResults } = _.get(authorPage, authorId, {})
+    const { entities, articlesByAuthor } = this.props
+    let { isFinish, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
     let authorCollection = denormalizeArticles(collectIndexList, entities)
-    const thisAuthorInEntities = _.get(entities, [ 'authors', authorId ], {})
+    const authorEntity = _.get(entities, [ 'authors', authorId ], {})
     const authorData = {
       authorId: authorId,
-      authorName: _.get(thisAuthorInEntities, 'name'),
-      authorImg: _.get(thisAuthorInEntities, 'imageUrl', authorDefaultImg),
-      authorMail: _.get(thisAuthorInEntities, 'email'),
-      authorBio: _.get(thisAuthorInEntities, 'bio.md')
+      authorName: _.get(authorEntity, 'name'),
+      authorImg: _.get(authorEntity, 'imageUrl', authorDefaultImg),
+      authorMail: _.get(authorEntity, 'email'),
+      authorBio: _.get(authorEntity, 'bio.md')
     }
     let handleLoadmore = () => {
       return this.props.fetchAuthorCollectionIfNeeded(authorId)
@@ -77,7 +73,7 @@ class Author extends React.Component {
 function mapStateToProps(state) {
   return {
     entities: _.get(state, 'entities', {}),
-    authorPage: _.get(state, 'author', {})
+    articlesByAuthor: _.get(state, 'articlesByAuthor', {})
   }
 }
 

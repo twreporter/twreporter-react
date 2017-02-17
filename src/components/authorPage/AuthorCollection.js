@@ -1,6 +1,6 @@
 'use strict'
 
-import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, REQUEST_PAGE_START_FROM } from '../../constants/author-page'
+import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
 import { CHARACTERS_LIMIT } from '../../constants/index'
 
 import { Link } from 'react-router'
@@ -26,15 +26,15 @@ const AuthorCollection = (props) => {
 
   // Page bottom display options
 
-  let loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish &&!isFetching) ? true : false
-  let sensorDisplay = (currentPage > REQUEST_PAGE_START_FROM && !isFinish) ? true : false
+  let loadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && !isFinish &&!isFetching) ? true : false
+  let sensorDisplay = (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE && !isFinish) ? true : false
   let loaderDisply = isFetching ? true : false
 
   // const loadmoreBtn = isFinish || isFetching || currentPage<-1 ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</div>
 
   // Callback for sensor is triggered to seen
   let handleSeen = (isVisible) => {
-    if (currentPage>REQUEST_PAGE_START_FROM && isVisible === true) {
+    if (currentPage>NUMBER_OF_FIRST_RESPONSE_PAGE && isVisible === true) {
       return handleLoadmore()
     }
   }

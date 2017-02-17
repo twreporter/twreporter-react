@@ -35,12 +35,12 @@ export function failToReceiveAuthorCollection(authorId, error) {
   }
 }
 
-export function receiveAuthorCollection(authorId, items, responseContext) {
+export function receiveAuthorCollection({ authorId, items, responseContext }) {
   return {
     type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
     authorId,
-    response: items,
-    responseContext,
+    response: items, // responseObject.hit
+    responseContext, // All the other things in responseObject except responseObject.hit
     receivedAt: Date.now()
   }
 }
@@ -66,8 +66,8 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
       })
       .then(
         (responseObject) => {
-          const responseItems = _.get(responseObject, 'hits', {})
-          const responseContext = _.omit(responseObject, 'hits', {})
+          const responseItems = _.get(responseObject, 'hits', {})    // responseObject.hit
+          const responseContext = _.omit(responseObject, 'hits', {}) // All the other things in responseObject except responseObject.hit
           const camelizedJson = camelizeKeys(responseItems)
           const items = normalize(camelizedJson, arrayOf(articleSchema))
           const returnParas = { authorId, items, responseContext }
