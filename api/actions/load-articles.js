@@ -17,7 +17,7 @@ const _ = {
 
 export function loadMetaOfArticles(req) {
   return new Promise((resolve, reject) => {
-    const query = req.query
+    const query = _.get(req, 'query', {})
     const { API_PROTOCOL, API_PORT, API_HOST } = config
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/meta`
     superAgent['get'](url)
@@ -57,12 +57,12 @@ export function loadArticles(req, params = []) {
  */
 function loadArticle(req, slug) {
   return new Promise((resolve, reject) => {
-    const query = req.query
     const { API_PROTOCOL, API_PORT, API_HOST } = config
     let url = `${API_PROTOCOL}://${API_HOST}:${API_PORT}/posts`
+    let query = _.get(req, 'query', {})
 
     if (slug) {
-      _.merge(query, { where: JSON.stringify({ slug: slug }) })
+      query = _.merge({}, query, { where: JSON.stringify({ slug: slug }) })
     } else {
       return reject(new NotFoundError('Article is not found by slug: ' + slug))
     }
