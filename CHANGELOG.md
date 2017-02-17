@@ -5,6 +5,7 @@
 - [Update] move test files from spec to where they belong
 - [Update] Update api/api.js. Handle redis connection
 - [Update] Show categories on navbar when device is not mobile
+- [Add] Add unit test for api actions
 
 ### 1.1.4
 - [Update] Update src/utils/image-processor.js. Add handling for empty or wrong parameter.
