@@ -106,8 +106,8 @@ export function fetchAuthorCollectionIfNeeded(authorId) {
       }))
     }
     //  If state.articlesByAuthor[authorId] exists:
-    const { currentPage, isFetching, isFinish } = articlesDataOfAnAuthor
-    if(!isFetching && !isFinish) {
+    const { currentPage, isFetching, hasMore } = articlesDataOfAnAuthor
+    if(!isFetching && hasMore) {
       return dispatch(fetchAuthorCollection({
         authorId,
         targetPage: currentPage + 1,
