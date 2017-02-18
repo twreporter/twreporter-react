@@ -1,6 +1,6 @@
 'use strict'
 import { articlesByUuids, featureArticles, relatedArticles } from './articles'
-import { authorsList } from './authors'
+import { searchedAuthors, allAuthors, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { categories, tags } from './groups'
 import { combineReducers } from 'redux'
@@ -69,8 +69,10 @@ const rootReducer = combineReducers({
   header,
   articleSlugToId,
   topicSlugToId,
-  authorsList,
+  searchedAuthors,
+  allAuthors,
   articlesByAuthor,
+  authorsList,
   entities
 })
 

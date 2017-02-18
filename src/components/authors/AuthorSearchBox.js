@@ -14,6 +14,7 @@ class AuthorSearchBox extends React.Component {
     this._handleChange = this._handleChange.bind(this)
     this._handleClickReset = this._handleClickReset.bind(this)
     this.sendSearchAuthors = this.props.sendSearchAuthors.bind(this)
+    this.setAuthorsListType = this.props.setAuthorsListType.bind(this)
   }
 
   // Save user input keywords to this.state when typing
@@ -28,24 +29,26 @@ class AuthorSearchBox extends React.Component {
   _handleSubmit(event) {
     event.preventDefault()
     const keywords = this.state.keywords
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    if (keywords === '') {
+      return this.setAuthorsListType('allAuthors')
+    }
+    return this.sendSearchAuthors(keywords)
   }
 
   _handleClickButton(event) {
     event.preventDefault()
     const keywords = this.state.keywords
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    if (keywords === '') {
+      return this.setAuthorsListType('allAuthors')
+    }
+    return this.sendSearchAuthors(keywords)
   }
 
 // Clear the search input and state and send blank search when click reset
   _handleClickReset(event) {
     event.preventDefault()
     this.setState(this.initialState)
-    const keywords = ''
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    return this.setAuthorsListType('allAuthors')
   }
 
   render() {

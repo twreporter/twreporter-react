@@ -1,9 +1,9 @@
 'use strict'
 
-export const REQUEST_PAGE_START_FROM = 0
+export const NUMBER_OF_FIRST_RESPONSE_PAGE = 0
 export const MAX_RESULTS_PER_FETCH = 24 // for authors list
 export const RETURN_DELAY = 1000 //ms
-export const MAX_RESULTS_PER_SEARCH = 3 // for searching
+export const MAX_RESULTS_PER_SEARCH = 48 // for searching
 
 export const LOAD_MORE_AUTHORS_BTN = '載入更多作者'
 export const LOADING_MORE_AUTHORS = '載入更多作者'
