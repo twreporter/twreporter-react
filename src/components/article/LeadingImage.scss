@@ -4,6 +4,10 @@
 
 .extended-leading-img, .leading-img, .small-leading-img {
   width: 100%;
+  overflow: hidden;
+  >img {
+    width: 100%;
+  }
 }
 
 // tablet

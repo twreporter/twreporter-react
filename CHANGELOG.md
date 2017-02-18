@@ -1,5 +1,5 @@
 ### Unreleased
-
+- [Bug] Fix LeadImage leaning on left side.
 - [Update] Move author state formatting from action to reducer
 
 ### 1.1.5 
