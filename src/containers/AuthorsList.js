@@ -49,7 +49,7 @@ class AuthorsList extends React.Component {
   }
 
   render() {
-    const { keywords, entities, authorsInList, isFinish, isFetching, currentPage, fetchNextPageAuthors, sendSearchAuthors } = this.props
+    const { keywords, entities, authorsInList, hasMore, isFetching, currentPage, fetchNextPageAuthors, sendSearchAuthors } = this.props
 
     // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
     const authorsEntities = entities.authors
@@ -77,8 +77,8 @@ class AuthorsList extends React.Component {
     }
 
     // Page elements display options
-    const loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && !isFinish && !isFetching)
-    const sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && !isFinish)
+    const loadmoreBtnDisplay = (currentPage <= REQUEST_PAGE_START_FROM && hasMore && !isFetching)
+    const sensorDisplay = ((currentPage > REQUEST_PAGE_START_FROM) && hasMore)
     const loaderDisply = isFetching
     const isSearchResultEmpty = (authorsArray.length <= 0)
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={fetchNextPageAuthors}>{LOAD_MORE_AUTHORS_BTN}</div>
@@ -118,7 +118,7 @@ function mapStateToProps(state) {
   return {
     entities: state.entities || {},
     authorsInList: authorsList.authorsInList,
-    isFinish: authorsList.isFinish,
+    hasMore: authorsList.hasMore,
     isFetching: authorsList.isFetching,
     currentPage: authorsList.currentPage,
     keywords: authorsList.keywords

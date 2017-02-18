@@ -32,7 +32,7 @@ export function failToSearchAuthors(error, failedAt) {
   }
 }
 
-export function receiveSearchAuthors({ keywords, replaceAll, response, currentPage, isFinish, receivedAt }) {
+export function receiveSearchAuthors({ keywords, replaceAll, response, currentPage, hasMore, receivedAt }) {
   return {
     type: CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
@@ -40,7 +40,7 @@ export function receiveSearchAuthors({ keywords, replaceAll, response, currentPa
     response: response,
     authorsInList: response.result,
     currentPage,
-    isFinish,
+    hasMore,
     receivedAt
   }
 }
@@ -75,9 +75,9 @@ export function searchAuthors({
         const camelizedJson = camelizeKeys(hits)
         let response = normalize(camelizedJson, arrayOf(authorSchema))
         const currentPage = content.page
-        const isFinish = ( currentPage >= content.nbPages - 1 )
+        const hasMore = ( currentPage - REQUEST_PAGE_START_FROM + 1 < content.nbPages )
         const receivedAt = Date.now()
-        const returnParas = { keywords, replaceAll, response, currentPage, isFinish, receivedAt }
+        const returnParas = { keywords, replaceAll, response, currentPage, hasMore, receivedAt }
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -106,11 +106,11 @@ export function fetchNextPageAuthors({ replaceAll=false } = {}) {
     const authorsList = _.get(getState(), 'authorsList', {})
     const keywords    = _.get(authorsList, 'keywords', '')
     const isFetching  = _.get(authorsList, 'isFetching', false)
-    const isFinish    = _.get(authorsList, 'isFinish', false)
+    const hasMore    = _.get(authorsList, 'hasMore', true)
     const currentPage = _.get(authorsList, 'currentPage', REQUEST_PAGE_START_FROM -1)
     const targetPage  = currentPage + 1
     const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : RETURN_DELAY
-    if (!isFetching && !isFinish) {
+    if (!isFetching && hasMore) {
       return dispatch(searchAuthors({ keywords, replaceAll, targetPage, returnDelay }))
     }
     return

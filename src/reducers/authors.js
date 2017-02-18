@@ -14,7 +14,7 @@ const _ = {
 const initialStates = {
   isFetching: false,
   currentPage: REQUEST_PAGE_START_FROM - 1,
-  isFinish: false,
+  hasMore: true,
   authorsInList: []
 }
 
@@ -31,13 +31,13 @@ export const authorsList = (state = initialStates, action = {}) => {
         isFetching: true
       })
     case types.SEARCH_AUTHORS_SUCCESS:
-      const { keywords, replaceAll, currentPage, isFinish, authorsInList } = action
+      const { keywords, replaceAll, currentPage, hasMore, authorsInList } = action
       const actionObjToAdd = {
         keywords,
         replaceAll,
         isFetching: false,
         currentPage,
-        isFinish,
+        hasMore,
         authorsInList
       }
       if (action.replaceAll === true) {
