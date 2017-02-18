@@ -9,7 +9,7 @@ const _ = {
   omit
 }
 
-export function searchAuthors(req, path) { // eslint-disable-line no-unused-vars
+export function searchAuthors(req) {
   const { ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY } = config
   let client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY)
   let index = client.initIndex(CONTACTS_INDEX)
