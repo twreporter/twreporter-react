@@ -19,13 +19,6 @@ const _ = {
   omit
 }
 
-// export function setAuthorsListType(typeOfAuthorsListToRender) {
-//   return {
-//     type: CONSTANTS.SET_AUTHORS_LIST_TYPE,
-//     typeOfAuthorsListToRender
-//   }
-// }
-
 export function requestSearchAuthors(keywords = '') {
   return {
     type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_REQUEST : CONSTANTS.SEARCH_AUTHORS_REQUEST,
