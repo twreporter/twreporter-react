@@ -3,6 +3,11 @@ import { SEARCHING_AUTHOR_NAME } from '../../constants/authors-list'
 import resetIcon from '../../../static/asset/reset.svg'
 import searchIcon from '../../../static/asset/search.svg'
 import styles from './AuthorSearchBox.scss'
+import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 class AuthorSearchBox extends React.Component {
 
@@ -19,10 +24,7 @@ class AuthorSearchBox extends React.Component {
   // Save user input keywords to this.state when typing
   _handleChange(event) {
     event.preventDefault()
-    const input = event.target.value
-    if (!input) {
-      return this.setState(this.initialState)
-    }
+    const input = _.get(event, 'target.value', '')
     return this.setState({ keywords: input })
   }
 
