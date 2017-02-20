@@ -2,7 +2,7 @@
 
 import * as CONSTANTS from '../constants/index'
 
-import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY } from '../constants/authors-list'
+import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/authors-list'
 import { arrayOf, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
@@ -119,7 +119,7 @@ export function searchAuthorsIfNeeded(keywords = '') {
       return dispatch(searchAuthors({
         keywords,
         targetPage: authorsList.currentPage + 1,
-        returnDelay: authorsList.currentPage + 1 > NUMBER_OF_FIRST_RESPONSE_PAGE ? RETURN_DELAY : 0
+        returnDelay: authorsList.currentPage + 1 > NUMBER_OF_FIRST_RESPONSE_PAGE ? RETURN_DELAY_TIME : 0
       }))
     }
   }
