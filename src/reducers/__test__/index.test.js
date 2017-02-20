@@ -297,6 +297,9 @@ describe('Testing entities reducer:', () => {
 /* ========== TESTING of `articleSlugToId` reducer ========== */
 
 describe('Testing articleSlugToId reducer:', () => {
+
+  const initialState = {}
+
   const mockPreviousState_articleSlugToId = {
     'pre-article-slug-01': 'pre_article_id_01',
     'pre-article-slug-02': 'pre_article_id_02',
@@ -346,6 +349,20 @@ describe('Testing articleSlugToId reducer:', () => {
       ...mockResponse
     }
   }
+
+  describe('IF action cannot be recognized, ', () => {
+    it('SHOULD return initial state WHEN previous state is undefined', () => {
+      expect(
+        reducers.articleSlugToId(undefined, mockActions.notReconized)
+      ).to.deep.equal(initialState)
+    })
+
+    it('SHOULD return previous state WHEN previous state exsist', () => {
+      expect(
+        reducers.articleSlugToId(mockPreviousState_articleSlugToId, mockActions.notReconized)
+      ).to.deep.equal(mockPreviousState_articleSlugToId)
+    })
+  })
 
   describe(`If action type is ${types.FETCH_ARTICLE_SUCCESS}`, () => {
     const action = mockActions[types.FETCH_ARTICLE_SUCCESS]
