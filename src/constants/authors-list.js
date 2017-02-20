@@ -17,3 +17,6 @@ export function NO_RESULT(keywords) {
 
 export const SEARCH_AUTHORS_FAILURE_MESSAGE = 'ERROR：資料伺服器錯誤'
 export const LIST_ALL_AUTHORS_FAILURE_MESSAGE = 'ERROR：資料伺服器錯誤'
+
+export const AUTHORS_LIST = 'authorsList'
+export const SEARCHED_AUTHORS_LIST = 'searchedAuthorsList'
