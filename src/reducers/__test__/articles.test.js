@@ -13,8 +13,7 @@ import { expect } from 'chai'
 import * as reducers from '../articles'
 import * as types from '../../constants/action-types'
 
-/* -------- MOCK DATA -------- */
-const initialState = {}
+/* ========== MOCK DATA ========== */
 
 const mockActions = {
   notReconized: {
@@ -99,139 +98,57 @@ const mockActions = {
   }
 }
 
-const mockPreviousState_relatedArticles = {
-  'pre_article_id_01': {
-    isFetching: false,
-    hasMore: false,
-    error: null,
-    items: [ 'pre_related_article_id_01' ],
-    total: 1,
-    lastUpdated: 'pre_date'
-  },
-  'act_article_id_01': { // Named 'act' To test whether its values will be updated with action
-    isFetching: false,
-    error: 'pre_error_01',
-    lastUpdated: 'pre_date'
-  }
-}
+/* ========== TESTING of `relatedArticles` reducer ========== */
 
-const mockExpectedStateOnPre_relatedArticles = {
-  request: {
-    'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
-    'act_article_id_01': {
-      isFetching: true,
-      error: mockPreviousState_relatedArticles.act_article_id_01.error,
-      lastUpdated: mockPreviousState_relatedArticles.act_article_id_01.lastUpdated
-    }
-  },
-  failure: {
-    'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
-    'act_article_id_01': {
-      isFetching: false,
-      error: mockActions[types.FETCH_RELATED_ARTICLES_FAILURE].error,
-      lastUpdated: mockActions[types.FETCH_RELATED_ARTICLES_FAILURE].failedAt
-    }
-  },
-  success: {
-    'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
-    'act_article_id_01': {
+describe('Testing relatedArticles reducer:', () => {
+  /* ---------- MOCK DATA ---------- */
+  const initialState = {}
+  const mockPreviousState_relatedArticles = {
+    'pre_article_id_01': {
       isFetching: false,
       hasMore: false,
       error: null,
-      items: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].relatedIds,
-      total: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].relatedIds.length,
-      lastUpdated: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].receivedAt
-    }
-  }
-}
-
-const mockPreviousState_featureArticles = {
-  isFetching: false,
-  error: null,
-  lastUpdated: 'pre_date',
-  items: [ 'pre_feature_article_id_01', 'pre_feature_article_id_02' ]
-}
-
-const mockExpectedStateOnPre_featureArticles = {
-  request: {
-    isFetching: true,
-    error: null,
-    lastUpdated: mockPreviousState_featureArticles.lastUpdated,
-    items: mockPreviousState_featureArticles.items
-  },
-  failure: {
-    isFetching: false,
-    error: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].error,
-    lastUpdated: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].failedAt,
-    items: mockPreviousState_featureArticles.items
-  },
-  success: {
-    isFetching: false,
-    error: null,
-    lastUpdated: mockActions[types.FETCH_FEATURE_ARTICLES_SUCCESS].receivedAt,
-    items: mockActions[types.FETCH_FEATURE_ARTICLES_SUCCESS].response.result
-  }
-}
-
-const mockPreviousState_articlesByUuids = {
-  'pre_article_id_01': {
-    isFetching: false,
-    error: 'pre_error_01',
-    lastUpdated: 'pre_date'
-  },
-  'act_article_id_01': { // Named 'act' To test whether its values will be updated with action
-    error: null,
-    hasMore: false,
-    isFetching: false,
-    items: [ 'pre_group_article_id_01' ],
-    lastUpdated: 'pre_date',
-    total: 1
-  }
-}
-
-const mockExpectedStateOnPre_articlesByUuids = {
-  request: {
-    'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
-    'act_article_id_01': {
-      isFetching: true,
-      error: mockPreviousState_articlesByUuids.act_article_id_01.error,
-      hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
-      items: mockPreviousState_articlesByUuids.act_article_id_01.items,
-      total: mockPreviousState_articlesByUuids.act_article_id_01.total,
-      lastUpdated: mockPreviousState_articlesByUuids.act_article_id_01.lastUpdated
-    }
-  },
-  failure: {
-    'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
-    'act_article_id_01': {
+      items: [ 'pre_related_article_id_01' ],
+      total: 1,
+      lastUpdated: 'pre_date'
+    },
+    'act_article_id_01': { // Named 'act' To test whether its values will be updated with action
       isFetching: false,
-      error: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].error,
-      hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
-      items: mockPreviousState_articlesByUuids.act_article_id_01.items,
-      total: mockPreviousState_articlesByUuids.act_article_id_01.total,
-      lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].failedAt
-    }
-  },
-  success: {
-    'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
-    'act_article_id_01': {
-      isFetching: false,
-      error: null,
-      hasMore: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
-          mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
-        ).length < mockPreviousState_articlesByUuids.act_article_id_01.total,
-      items: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
-        mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
-      ),
-      total: mockPreviousState_articlesByUuids.act_article_id_01.total,
-      lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].receivedAt
+      error: 'pre_error_01',
+      lastUpdated: 'pre_date'
     }
   }
-}
 
-/* -------- TESTING of `relatedArticles` reducer -------- */
+  const mockExpectedStateOnPre_relatedArticles = {
+    request: {
+      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: true,
+        error: mockPreviousState_relatedArticles.act_article_id_01.error,
+        lastUpdated: mockPreviousState_relatedArticles.act_article_id_01.lastUpdated
+      }
+    },
+    failure: {
+      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: false,
+        error: mockActions[types.FETCH_RELATED_ARTICLES_FAILURE].error,
+        lastUpdated: mockActions[types.FETCH_RELATED_ARTICLES_FAILURE].failedAt
+      }
+    },
+    success: {
+      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: false,
+        hasMore: false,
+        error: null,
+        items: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].relatedIds,
+        total: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].relatedIds.length,
+        lastUpdated: mockActions[types.FETCH_RELATED_ARTICLES_SUCCESS].receivedAt
+      }
+    }
+  }
 
-describe('Testing relatedArticles reducer:', () => {
   describe('IF action cannot be recognized, ', () => {
     it('SHOULD return initial state WHEN previous state is undefined', () => {
       expect(
@@ -310,9 +227,67 @@ describe('Testing relatedArticles reducer:', () => {
   })
 })
 
-/* -------- TESTING of `articlesByUuids` reducer -------- */
+/* ========== TESTING of `articlesByUuids` reducer ========== */
 
 describe('Testing articlesByUuids reducer:', () => {
+
+  /* ---------- MOCK DATA ---------- */
+  const initialState = {}
+  const mockPreviousState_articlesByUuids = {
+    'pre_article_id_01': {
+      isFetching: false,
+      error: 'pre_error_01',
+      lastUpdated: 'pre_date'
+    },
+    'act_article_id_01': { // Named 'act' To test whether its values will be updated with action
+      error: null,
+      hasMore: false,
+      isFetching: false,
+      items: [ 'pre_group_article_id_01' ],
+      lastUpdated: 'pre_date',
+      total: 1
+    }
+  }
+  const mockExpectedStateOnPre_articlesByUuids = {
+    request: {
+      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: true,
+        error: mockPreviousState_articlesByUuids.act_article_id_01.error,
+        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
+        items: mockPreviousState_articlesByUuids.act_article_id_01.items,
+        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
+        lastUpdated: mockPreviousState_articlesByUuids.act_article_id_01.lastUpdated
+      }
+    },
+    failure: {
+      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: false,
+        error: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].error,
+        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
+        items: mockPreviousState_articlesByUuids.act_article_id_01.items,
+        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
+        lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].failedAt
+      }
+    },
+    success: {
+      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'act_article_id_01': {
+        isFetching: false,
+        error: null,
+        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
+            mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
+          ).length < mockPreviousState_articlesByUuids.act_article_id_01.total,
+        items: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
+          mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
+        ),
+        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
+        lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].receivedAt
+      }
+    }
+  }
+
   describe('IF action cannot be recognized, ', () => {
     it('SHOULD return initial state WHEN previous state is undefined', () => {
       expect(
@@ -391,9 +366,37 @@ describe('Testing articlesByUuids reducer:', () => {
   })
 })
 
-/* -------- TESTING of `featureArticles` reducer -------- */
+/* ========== TESTING of `featureArticles` reducer ========== */
 
 describe('Testing featureArticles reducer:', () => {
+  /* ---------- MOCK DATA ---------- */
+  const initialState = {}
+  const mockPreviousState_featureArticles = {
+    isFetching: false,
+    error: null,
+    lastUpdated: 'pre_date',
+    items: [ 'pre_feature_article_id_01', 'pre_feature_article_id_02' ]
+  }
+  const mockExpectedStateOnPre_featureArticles = {
+    request: {
+      isFetching: true,
+      error: null,
+      lastUpdated: mockPreviousState_featureArticles.lastUpdated,
+      items: mockPreviousState_featureArticles.items
+    },
+    failure: {
+      isFetching: false,
+      error: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].error,
+      lastUpdated: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].failedAt,
+      items: mockPreviousState_featureArticles.items
+    },
+    success: {
+      isFetching: false,
+      error: null,
+      lastUpdated: mockActions[types.FETCH_FEATURE_ARTICLES_SUCCESS].receivedAt,
+      items: mockActions[types.FETCH_FEATURE_ARTICLES_SUCCESS].response.result
+    }
+  }
   describe('IF action cannot be recognized, ', () => {
     it('SHOULD return initial state WHEN previous state is undefined', () => {
       expect(
