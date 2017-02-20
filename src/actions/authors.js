@@ -34,7 +34,7 @@ export function failToSearchAuthors(keywords = '', error) {
   }
 }
 
-export function receiveSearchAuthors({ keywords, responseItems, responseContext }) {
+export function receiveSearchAuthors(keywords, responseItems, responseContext) {
   return {
     type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
@@ -70,7 +70,6 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
         const responseContext = _.omit(responseObject, 'hits', {})  // All the other things in responseObject except responseObject.hit
         const camelizedJson = camelizeKeys(items)
         const responseItems = normalize(camelizedJson, arrayOf(authorSchema))
-        const returnParas = { keywords, responseItems, responseContext }
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -81,10 +80,10 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
         }
         if (returnDelay > 0) {
           return delayDispatch().then(()=>{
-            return dispatch(receiveSearchAuthors(returnParas))
+            return dispatch(receiveSearchAuthors(keywords, responseItems, responseContext))
           })
         }
-        return dispatch(receiveSearchAuthors(returnParas))
+        return dispatch(receiveSearchAuthors(keywords, responseItems, responseContext))
       },
       (error) => {
         return dispatch(failToSearchAuthors(keywords, error))
