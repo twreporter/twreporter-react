@@ -1,7 +1,7 @@
 'use strict'
 
 import { LOADING_MORE_AUTHORS, NO_RESULT, PAGE_TITLE, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../constants/authors-list'
-import { searchAuthorsIfNeeded, setAuthorsListType } from '../actions/authors'
+import { searchAuthorsIfNeeded } from '../actions/authors'
 
 import { AUTHORS_LIST } from '../constants/page-types'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
@@ -34,27 +34,38 @@ class AuthorsList extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      whichAuthorsListToRender: 'authorsList'
+    }
   }
 
   componentDidMount() {
-    const { setHeaderInfo } = this.props
+    const { setHeaderInfo, authorsList, searchAuthorsIfNeeded } = this.props
     setHeaderInfo({
       pageTheme: LIGHT,
       pageType: AUTHORS_LIST,
       pageTitle: PAGE_TITLE
     })
+    if ((this.state.whichAuthorsListToRender==='authorsList') && !authorsList.isFetching && authorsList.currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE) {
+      searchAuthorsIfNeeded('')
+    }
   }
 
   render() {
-    const { keywords, entities, authorsInList, hasMore, isFetching, currentPage, searchAuthorsIfNeeded, setAuthorsListType } = this.props
-
+    const searchAuthorsIfNeeded = this.props.searchAuthorsIfNeeded
+    const whichAuthorsListToRender = _.get(this.state, 'whichAuthorsListToRender', 'authorsList')
+    const authorsListData = _.get(this.props, `${whichAuthorsListToRender}`, {})
+    const currentPage = _.get(authorsListData, 'currentPage', 0),
+      keywords = _.get(authorsListData, 'keywords', ''),
+      hasMore = _.get(authorsListData, 'hasMore', false),
+      isFetching = _.get(authorsListData, 'isFetching', false)
+    const authorsIdList = _.get(authorsListData, 'items', [])
+    const authorsEntities = _.get(this.props, 'authorsEntities', {})
     // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
-    const authorsEntities = entities.authors
     function iteratee(id) {
       const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
-      let authorImg = _.get(authorsEntities, `${id}.image`)
-      // for some authors' api data 'image' may be null
-      authorImg = authorImg ? authorImg : authorDefaultImg
+      let authorImg = _.get(authorsEntities, `${id}.image`, '')
+      authorImg = authorImg ? authorImg : authorDefaultImg // for some authors' api data 'image' may be null
       let authorItemObject = {
         id,
         authorName,
@@ -63,29 +74,35 @@ class AuthorsList extends React.Component {
       }
       return authorItemObject
     }
-    const authorsArray = _.map(authorsInList, iteratee)
+    const authorsArray = _.map(authorsIdList, iteratee)
 
-    // Callback for sensor is triggered to seen
+    // Callback for sensor being seen
     let handleSeen = (isVisible) => {
       if (currentPage>NUMBER_OF_FIRST_RESPONSE_PAGE && isVisible === true) {
-        return searchAuthorsIfNeeded(keywords)
+        return searchAuthorsIfNeeded('')
+      }
+    }
+    // Callback for loadmore button being clicked
+    let handleClickLoadmore = () => {
+      return searchAuthorsIfNeeded('')
+    }
+    
+    let changeListTo = (listType) => {
+      if (listType === 'authorsList' || listType === 'searchedAuthorsList') {
+        this.setState({ whichAuthorsListToRender: listType })
       }
     }
 
-    let handleClickLoadmore = () => {
-      return searchAuthorsIfNeeded(keywords)
-    }
-
     // Page elements display options
-    const shouldLoadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore && !isFetching)
-    const shouldSensorDisplay = ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE) && hasMore)
-    const shouldLoaderDisplay = isFetching
-    const shouldNoSearchResultDisplay = (authorsArray.length <= 0) && isFetching === false
+    const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === 'authorsList') && hasMore && !isFetching && (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE)
+    const shouldSensorDisplay         = (whichAuthorsListToRender === 'authorsList') && hasMore && !isFetching && (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE)
+    const shouldLoaderDisplay         = isFetching
+    const shouldNoSearchResultDisplay = (whichAuthorsListToRender === 'searchedAuthorsList') && (authorsArray.length <= 0) && !isFetching
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClickLoadmore}>{LOAD_MORE_AUTHORS_BTN}</div>
 
     return (
       <div className={styles['author-list-container']}>
-        <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} setAuthorsListType={setAuthorsListType}/>
+        <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} changeListTo={changeListTo} />
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
         {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
@@ -113,28 +130,18 @@ function wrapBeforeFirstFullwidthBracket(string) {
   return string
 }
 
+AuthorsList.propTypes = {
+  authorsList: PropTypes.object.isRequired,
+  searchedAuthorsList: PropTypes.object.isRequired
+}
+
 function mapStateToProps(state) {
-  const typeOfAuthorsListToRender = _.get(state, 'authorsList.typeOfAuthorsListToRender', 'allAuthors')
-  const authorsList = _.get(state, [ typeOfAuthorsListToRender ], {})
   return {
-    entities: state.entities || {},
-    authorsInList: _.get(authorsList, 'authorsInList'),
-    hasMore: _.get(authorsList, 'hasMore'),
-    isFetching: _.get(authorsList, 'isFetching'),
-    currentPage: _.get(authorsList, 'currentPage'),
-    keywords: _.get(authorsList, 'keywords'),
-    typeOfAuthorsListToRender
+    authorsEntities: _.get(state, 'entities.authors', {}),
+    authorsList: _.get(state, 'authorsList', {}),
+    searchedAuthorsList: _.get(state, 'searchedAuthorsList', {})
   }
 }
 
-AuthorsList.propTypes = {
-  entities: PropTypes.object.isRequired,
-  authorsInList: PropTypes.array.isRequired,
-  hasMore: PropTypes.bool.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  keywords: PropTypes.string.isRequired
-}
-
 export { AuthorsList }
-export default connect(mapStateToProps, { searchAuthorsIfNeeded, setHeaderInfo, setAuthorsListType })(AuthorsList)
+export default connect(mapStateToProps, { searchAuthorsIfNeeded, setHeaderInfo })(AuthorsList)

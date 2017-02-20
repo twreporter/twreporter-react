@@ -19,12 +19,12 @@ const _ = {
   omit
 }
 
-export function setAuthorsListType(typeOfAuthorsListToRender) {
-  return {
-    type: CONSTANTS.SET_AUTHORS_LIST_TYPE,
-    typeOfAuthorsListToRender
-  }
-}
+// export function setAuthorsListType(typeOfAuthorsListToRender) {
+//   return {
+//     type: CONSTANTS.SET_AUTHORS_LIST_TYPE,
+//     typeOfAuthorsListToRender
+//   }
+// }
 
 export function requestSearchAuthors(keywords = '') {
   return {
@@ -99,28 +99,42 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
   }
 }
 
-export function searchAuthorsIfNeeded(keywords = '') {
-  const typeOfAuthorsListToRender = (keywords === '') ? 'allAuthors' : 'searchedAuthors'
+export function searchAuthorsIfNeeded(currentKeywords = '') {
+  /* --------- list all authors --------- */ 
+  if (currentKeywords === '') {
+    return (dispatch, getState) => {
+      const currentState = getState()
+      const authorsList = _.get(currentState, 'authorsList', {})
+      const { isFetching, currentPage, hasMore } = authorsList
+      if (currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE) {
+        return dispatch(searchAuthors({
+          keywords: '',
+          targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
+          returnDelay: 0
+        }))
+      }
+      if (!isFetching && hasMore) {
+        return dispatch(searchAuthors({
+          keywords: '',
+          targetPage: currentPage + 1,
+          returnDelay: RETURN_DELAY_TIME
+        }))
+      }
+      return Promise.resolve()
+    }
+  }
+  /* --------- searching authors --------- */ 
   return (dispatch, getState) => {
     const currentState = getState()
-    const authorsList = _.get(currentState, [ typeOfAuthorsListToRender ], {})
-    const hasMore = (authorsList.currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE ) ? true : authorsList.hasMore
-    if (typeOfAuthorsListToRender === 'searchedAuthors') {
-      if(keywords === authorsList.keywords) {
-        return dispatch(setAuthorsListType(typeOfAuthorsListToRender))
-      }
+    const authorsList = _.get(currentState, 'searchedAuthorsList', {})
+    const previousKeywords = _.get(authorsList, 'keywords')
+    if ( currentKeywords !== previousKeywords) {
       return dispatch(searchAuthors({
-        keywords,
+        keywords: currentKeywords,
         targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
         returnDelay: 0
       })) 
     }
-    if(!authorsList.isFetching && hasMore) {
-      return dispatch(searchAuthors({
-        keywords,
-        targetPage: authorsList.currentPage + 1,
-        returnDelay: authorsList.currentPage + 1 > NUMBER_OF_FIRST_RESPONSE_PAGE ? RETURN_DELAY_TIME : 0
-      }))
-    }
+    return Promise.resolve()
   }
 }
