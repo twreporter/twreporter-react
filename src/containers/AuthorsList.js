@@ -77,19 +77,19 @@ class AuthorsList extends React.Component {
     }
 
     // Page elements display options
-    const loadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore && !isFetching)
-    const sensorDisplay = ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE) && hasMore)
-    const loaderDisply = isFetching
-    const isSearchResultEmpty = (authorsArray.length <= 0)
+    const shouldLoadmoreBtnDisplay = (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore && !isFetching)
+    const shouldSensorDisplay = ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE) && hasMore)
+    const shouldLoaderDisplay = isFetching
+    const shouldNoSearchResultDisplay = (authorsArray.length <= 0) && isFetching === false
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClickLoadmore}>{LOAD_MORE_AUTHORS_BTN}</div>
 
     return (
       <div className={styles['author-list-container']}>
         <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} setAuthorsListType={setAuthorsListType}/>
-        {isSearchResultEmpty ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
-        {!loadmoreBtnDisplay ? null : loadmoreBtn}
-        {!sensorDisplay ? null :
+        {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
+        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
+        {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
+        {!shouldSensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
           <div className={styles['sensor']}></div>
         </VisibilitySensor>}
