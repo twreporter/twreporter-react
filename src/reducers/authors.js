@@ -17,10 +17,15 @@ const initSearchedAuthorsListStates = {
   keywords: '',
   isFetching: false,
   currentPage: NUMBER_OF_FIRST_RESPONSE_PAGE - 1,
-  hasMore: false,
   items: [],
   lastUpdated: 0
 }
+
+/*  
+  Algolia set hitsPerPage limit up to 1000 items per search.
+  So if number of authors grows over 1000,
+  it will need to save hasMore in state to add loadmore function as case LIST_ALL_AUTHORS_SUCCESS.
+*/
 
 export const searchedAuthorsList = (state = initSearchedAuthorsListStates, action = {}) => {
   const keywords = _.get(action, 'keywords', '')
@@ -31,15 +36,11 @@ export const searchedAuthorsList = (state = initSearchedAuthorsListStates, actio
         isFetching: true
       })
     case types.SEARCH_AUTHORS_SUCCESS:
-      const currentPage = _.get(action, 'currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
-      const totalPages = _.get(action, 'totalPages', 0)
-      const nextAuthorsInList = _.get(action, 'response.result', [])
       return _.assign({}, state, {
         keywords,
         isFetching: false,
-        currentPage,
-        hasMore: currentPage - NUMBER_OF_FIRST_RESPONSE_PAGE + 1 < totalPages,
-        items: nextAuthorsInList,
+        currentPage: _.get(action, 'currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
+        items: _.get(action, 'response.result', []),
         lastUpdated: action.receivedAt
       })
     case types.SEARCH_AUTHORS_FAILURE:
