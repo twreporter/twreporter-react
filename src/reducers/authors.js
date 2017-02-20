@@ -26,6 +26,10 @@ const authors = (state = initAuthorsStates, action = {}) => {
   const keywords = _.get(action, 'keywords', '')
   switch (action.type) {
     case types.SEARCH_AUTHORS_REQUEST:
+      return _.assign({}, initAuthorsStates, {
+        keywords,
+        isFetching: true
+      })
     case types.LIST_ALL_AUTHORS_REQUEST:
       return _.assign({}, state, {
         keywords,
