@@ -44,8 +44,8 @@ class AuthorsList extends React.Component {
       pageType: AUTHORS_LIST,
       pageTitle: constants.PAGE_TITLE
     })
-    if (!authorsList.isFetching) {
-      searchAuthorsIfNeeded('')
+    if (!authorsList.isFetching && authorsList.currentPage < constants.NUMBER_OF_FIRST_RESPONSE_PAGE) {
+      searchAuthorsIfNeeded('') // Fetch first page of authors list if server rendering was not trigger or didn't get the data
     }
   }
 
@@ -89,28 +89,26 @@ class AuthorsList extends React.Component {
     // Callback for sensor being seen
     let handleSeen = (isVisible) => {
       if (currentPage>constants.NUMBER_OF_FIRST_RESPONSE_PAGE && isVisible === true) {
-        return searchAuthorsIfNeeded('')
+        return handleLoadmore()
       }
     }
     // Callback for loadmore button being clicked
-    let handleClickLoadmore = () => {
+    let handleLoadmore = () => {
       return searchAuthorsIfNeeded('')
     }
-    
+
     let changeListTo = (listType) => {
-      if (listType === constants.AUTHORS_LIST || listType === constants.SEARCHED_AUTHORS_LIST) {
-        this.setState({ whichAuthorsListToRender: listType })
-      }
+      this.setState({ whichAuthorsListToRender: listType })
     }
 
     // Page elements display options
     const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldSensorDisplay         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
-    const shouldLoaderDisplay         = isFetching
+    const shouldLoaderDisplay         = isFetching  // For displaying the loading spinner (loader)
     const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error') 
     const isListAllError = (whichAuthorsListToRender === constants.AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const shouldNoSearchResultDisplay = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
-    const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClickLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
+    const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
 
     return (
       <div className={styles['author-list-container']}>
@@ -118,7 +116,7 @@ class AuthorsList extends React.Component {
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}
+        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}  
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
         {!shouldSensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
