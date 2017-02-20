@@ -14,3 +14,6 @@ export function NO_RESULT(keywords) {
   }
   return '找不到相關的結果'
 }
+
+export const SEARCH_AUTHORS_FAILURE_MESSAGE = 'ERROR：資料伺服器錯誤'
+export const LIST_ALL_AUTHORS_FAILURE_MESSAGE = 'ERROR：資料伺服器錯誤'

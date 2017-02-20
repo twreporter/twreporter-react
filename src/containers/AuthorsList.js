@@ -1,6 +1,6 @@
 'use strict'
 
-import { LOADING_MORE_AUTHORS, NO_RESULT, PAGE_TITLE, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../constants/authors-list'
+import { LOADING_MORE_AUTHORS, NO_RESULT, PAGE_TITLE, NUMBER_OF_FIRST_RESPONSE_PAGE, SEARCH_AUTHORS_FAILURE_MESSAGE, LIST_ALL_AUTHORS_FAILURE_MESSAGE } from '../constants/authors-list'
 import { searchAuthorsIfNeeded } from '../actions/authors'
 
 import { AUTHORS_LIST } from '../constants/page-types'
@@ -54,14 +54,26 @@ class AuthorsList extends React.Component {
   render() {
     const searchAuthorsIfNeeded = this.props.searchAuthorsIfNeeded
     const whichAuthorsListToRender = _.get(this.state, 'whichAuthorsListToRender', 'authorsList')
-    const authorsListData = _.get(this.props, `${whichAuthorsListToRender}`, {})
-    const currentPage = _.get(authorsListData, 'currentPage', 0),
-      keywords = _.get(authorsListData, 'keywords', ''),
-      hasMore = _.get(authorsListData, 'hasMore', false),
-      isFetching = _.get(authorsListData, 'isFetching', false)
-    const authorsIdList = _.get(authorsListData, 'items', [])
+    const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
+    const currentPage = _.get(authorsListDataToRender, 'currentPage', 0),
+      keywords = _.get(authorsListDataToRender, 'keywords', ''),
+      hasMore = _.get(authorsListDataToRender, 'hasMore', false),
+      isFetching = _.get(authorsListDataToRender, 'isFetching', false),
+      authorsIdList = _.get(authorsListDataToRender, 'items', [])
     const authorsEntities = _.get(this.props, 'authorsEntities', {})
     // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
+    function wrapBeforeFirstFullwidthBracket(string) {
+      if (typeof string === 'string') {
+        const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
+        for (let i=0, length=leftBrackets.length; i<length; i++) {
+          let bracketLocation = string.indexOf(leftBrackets[i])
+          if (bracketLocation > 0) {
+            return string.slice(0, bracketLocation) + '\n' + string.slice(bracketLocation, string.length)
+          }
+        }
+      }
+      return string
+    }
     function iteratee(id) {
       const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
       let authorImg = _.get(authorsEntities, `${id}.image`, '')
@@ -97,12 +109,16 @@ class AuthorsList extends React.Component {
     const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === 'authorsList') && hasMore && !isFetching && (currentPage <= NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldSensorDisplay         = (whichAuthorsListToRender === 'authorsList') && hasMore && !isFetching && (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldLoaderDisplay         = isFetching
-    const shouldNoSearchResultDisplay = (whichAuthorsListToRender === 'searchedAuthorsList') && (authorsArray.length <= 0) && !isFetching
+    const isSearchError = (whichAuthorsListToRender === 'searchedAuthorsList') && _.get(authorsListDataToRender, 'error') 
+    const isListAllError = (whichAuthorsListToRender === 'authorsList') && _.get(authorsListDataToRender, 'error')
+    const shouldNoSearchResultDisplay = (whichAuthorsListToRender === 'searchedAuthorsList') && (authorsArray.length <= 0) && !isFetching && !isSearchError
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleClickLoadmore}>{LOAD_MORE_AUTHORS_BTN}</div>
 
     return (
       <div className={styles['author-list-container']}>
         <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} changeListTo={changeListTo} />
+        {!isSearchError ? null : <div className={styles['no-result']}>{SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
+        {!isListAllError ? null : <div className={styles['no-result']}>{LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
         {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_AUTHORS}</div></div>}
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
@@ -115,19 +131,6 @@ class AuthorsList extends React.Component {
       </div>
     )
   }
-}
-
-function wrapBeforeFirstFullwidthBracket(string) {
-  if (typeof string === 'string') {
-    const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
-    for (let i=0, length=leftBrackets.length; i<length; i++) {
-      let bracketLocation = string.indexOf(leftBrackets[i])
-      if (bracketLocation > 0) {
-        return string.slice(0, bracketLocation) + '\n' + string.slice(bracketLocation, string.length)
-      }
-    }
-  }
-  return string
 }
 
 AuthorsList.propTypes = {
