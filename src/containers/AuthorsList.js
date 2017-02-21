@@ -5,7 +5,7 @@ import { searchAuthorsIfNeeded } from '../actions/authors'
 import { AUTHORS_LIST } from '../constants/page-types'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
-import { LIGHT } from '../constants/page-themes'
+import { BRIGHT } from '../constants/page-themes'
 import React, { PropTypes } from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
@@ -37,15 +37,18 @@ class AuthorsList extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const { setHeaderInfo, authorsList, searchAuthorsIfNeeded } = this.props
-    setHeaderInfo({
-      pageTheme: LIGHT,
+  componentWillMount() {
+    return this.props.setHeaderInfo({
+      pageTheme: BRIGHT,
       pageType: AUTHORS_LIST,
       pageTitle: constants.PAGE_TITLE
     })
+  }
+
+  componentDidMount() {
+    const { authorsList, searchAuthorsIfNeeded } = this.props
     if (!authorsList.isFetching && authorsList.currentPage < constants.NUMBER_OF_FIRST_RESPONSE_PAGE) {
-      searchAuthorsIfNeeded('') // Fetch first page of authors list if server rendering was not trigger or didn't get the data
+      return searchAuthorsIfNeeded('') // Fetch first page of authors list if server rendering was not trigger or didn't get the data
     }
   }
 

@@ -18,6 +18,7 @@ const initSearchedAuthorsListStates = {
   isFetching: false,
   currentPage: NUMBER_OF_FIRST_RESPONSE_PAGE - 1,
   items: [],
+  error: null,
   lastUpdated: 0
 }
 
@@ -41,6 +42,7 @@ export const searchedAuthorsList = (state = initSearchedAuthorsListStates, actio
         isFetching: false,
         currentPage: _.get(action, 'currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
         items: _.get(action, 'response.result', []),
+        error: null,
         lastUpdated: action.receivedAt
       })
     case types.SEARCH_AUTHORS_FAILURE:
@@ -60,6 +62,7 @@ const initAuthorsListStates = {
   currentPage: NUMBER_OF_FIRST_RESPONSE_PAGE - 1,
   hasMore: false,
   items: [],
+  error: null,
   lastUpdated: 0
 }
 
@@ -79,6 +82,7 @@ export const authorsList = (state = initAuthorsListStates, action = {}) => {
         currentPage,
         hasMore: currentPage - NUMBER_OF_FIRST_RESPONSE_PAGE + 1 < totalPages,
         items: nextAuthorsInList,
+        error: null,
         lastUpdated: action.receivedAt
       })
     case types.LIST_ALL_AUTHORS_FAILURE:

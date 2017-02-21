@@ -91,6 +91,12 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
   }
 }
 
+/*  
+  Algolia set hitsPerPage limit up to 1000 items per search.
+  So if number of authors grows over 1000,
+  it will need to check hasMore  as case lsat all authors.
+*/
+
 export function searchAuthorsIfNeeded(currentKeywords = '') {
   /* --------- list all authors --------- */ 
   if (currentKeywords === '') {
@@ -98,21 +104,22 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
       const currentState = getState()
       const authorsList = _.get(currentState, 'authorsList', {})
       const { isFetching, currentPage, hasMore } = authorsList
-      if (currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE) {
+      if (currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE) { // Situation 1/3: If no data exists => fetch first page immediately
         return dispatch(searchAuthors({
           keywords: '',
           targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
           returnDelay: 0
         }))
       }
-      if (!isFetching && hasMore) {
+      // If current page >= NUMBER_OF_FIRST_RESPONSE_PAGE:
+      if (!isFetching && hasMore) { // Situation 2/3: If already have data AND not fetching AND has more => delay && next page
         return dispatch(searchAuthors({
           keywords: '',
           targetPage: currentPage + 1,
           returnDelay: RETURN_DELAY_TIME
         }))
       }
-      return Promise.resolve()
+      return Promise.resolve() // Situation 3/3: If already have all data (not has more) OR is fetching => do nothing
     }
   }
   /* --------- searching authors --------- */ 
@@ -120,13 +127,13 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
     const currentState = getState()
     const authorsList = _.get(currentState, 'searchedAuthorsList', {})
     const previousKeywords = _.get(authorsList, 'keywords')
-    if ( currentKeywords !== previousKeywords) {
+    if ( currentKeywords !== previousKeywords) { // Situation 1/2:If keywords are new => search
       return dispatch(searchAuthors({
         keywords: currentKeywords,
         targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
         returnDelay: 0
       })) 
     }
-    return Promise.resolve()
+    return Promise.resolve() // Situation 2/2:If keywords are the same => do nothing
   }
 }
