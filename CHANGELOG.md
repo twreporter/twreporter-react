@@ -1,6 +1,7 @@
 ### Unreleased
 
 - [Update] Move author state formatting from action to reducer
+- [Update] Seperate authors state into searched authors and all authors
 
 ### 1.1.5 
 - [Update] content of sub-nav-path
