@@ -103,7 +103,7 @@ const mockActions = {
 describe('Testing relatedArticles reducer:', () => {
   /* ---------- MOCK DATA ---------- */
   const initialState = {}
-  const mockPreviousState_relatedArticles = {
+  const mockPreviousState = {
     'pre_article_id_01': {
       isFetching: false,
       hasMore: false,
@@ -119,17 +119,17 @@ describe('Testing relatedArticles reducer:', () => {
     }
   }
 
-  const mockExpectedStateOnPre_relatedArticles = {
+  const mockExpectedStateOnPre = {
     request: {
-      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: true,
-        error: mockPreviousState_relatedArticles.act_article_id_01.error,
-        lastUpdated: mockPreviousState_relatedArticles.act_article_id_01.lastUpdated
+        error: mockPreviousState.act_article_id_01.error,
+        lastUpdated: mockPreviousState.act_article_id_01.lastUpdated
       }
     },
     failure: {
-      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: false,
         error: mockActions[types.FETCH_RELATED_ARTICLES_FAILURE].error,
@@ -137,7 +137,7 @@ describe('Testing relatedArticles reducer:', () => {
       }
     },
     success: {
-      'pre_article_id_01': mockPreviousState_relatedArticles.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: false,
         hasMore: false,
@@ -157,8 +157,8 @@ describe('Testing relatedArticles reducer:', () => {
     })
     it('SHOULD return previous state WHEN previous state exsist', () => {
       expect(
-        reducers.relatedArticles(mockPreviousState_relatedArticles, mockActions.notReconized)
-      ).to.deep.equal(mockPreviousState_relatedArticles)
+        reducers.relatedArticles(mockPreviousState, mockActions.notReconized)
+      ).to.deep.equal(mockPreviousState)
     })
   })
 
@@ -178,8 +178,8 @@ describe('Testing relatedArticles reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.relatedArticles(mockPreviousState_relatedArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_relatedArticles.request)
+        reducers.relatedArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.request)
     })
   })
 
@@ -198,8 +198,8 @@ describe('Testing relatedArticles reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.relatedArticles(mockPreviousState_relatedArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_relatedArticles.failure)
+        reducers.relatedArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.failure)
     })
   })
 
@@ -221,8 +221,8 @@ describe('Testing relatedArticles reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.relatedArticles(mockPreviousState_relatedArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_relatedArticles.success)
+        reducers.relatedArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.success)
     })
   })
 })
@@ -233,7 +233,7 @@ describe('Testing articlesByUuids reducer:', () => {
 
   /* ---------- MOCK DATA ---------- */
   const initialState = {}
-  const mockPreviousState_articlesByUuids = {
+  const mockPreviousState = {
     'pre_article_id_01': {
       isFetching: false,
       error: 'pre_error_01',
@@ -248,41 +248,41 @@ describe('Testing articlesByUuids reducer:', () => {
       total: 1
     }
   }
-  const mockExpectedStateOnPre_articlesByUuids = {
+  const mockExpectedStateOnPre = {
     request: {
-      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: true,
-        error: mockPreviousState_articlesByUuids.act_article_id_01.error,
-        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
-        items: mockPreviousState_articlesByUuids.act_article_id_01.items,
-        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
-        lastUpdated: mockPreviousState_articlesByUuids.act_article_id_01.lastUpdated
+        error: mockPreviousState.act_article_id_01.error,
+        hasMore: mockPreviousState.act_article_id_01.hasMore,
+        items: mockPreviousState.act_article_id_01.items,
+        total: mockPreviousState.act_article_id_01.total,
+        lastUpdated: mockPreviousState.act_article_id_01.lastUpdated
       }
     },
     failure: {
-      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: false,
         error: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].error,
-        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.hasMore,
-        items: mockPreviousState_articlesByUuids.act_article_id_01.items,
-        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
+        hasMore: mockPreviousState.act_article_id_01.hasMore,
+        items: mockPreviousState.act_article_id_01.items,
+        total: mockPreviousState.act_article_id_01.total,
         lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE].failedAt
       }
     },
     success: {
-      'pre_article_id_01': mockPreviousState_articlesByUuids.pre_article_id_01,
+      'pre_article_id_01': mockPreviousState.pre_article_id_01,
       'act_article_id_01': {
         isFetching: false,
         error: null,
-        hasMore: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
+        hasMore: mockPreviousState.act_article_id_01.items.concat(
             mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
-          ).length < mockPreviousState_articlesByUuids.act_article_id_01.total,
-        items: mockPreviousState_articlesByUuids.act_article_id_01.items.concat(
+          ).length < mockPreviousState.act_article_id_01.total,
+        items: mockPreviousState.act_article_id_01.items.concat(
           mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].response.result
         ),
-        total: mockPreviousState_articlesByUuids.act_article_id_01.total,
+        total: mockPreviousState.act_article_id_01.total,
         lastUpdated: mockActions[types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS].receivedAt
       }
     }
@@ -296,8 +296,8 @@ describe('Testing articlesByUuids reducer:', () => {
     })
     it('SHOULD return previous state WHEN previous state exsist', () => {
       expect(
-        reducers.articlesByUuids(mockPreviousState_articlesByUuids, mockActions.notReconized)
-      ).to.deep.equal(mockPreviousState_articlesByUuids)
+        reducers.articlesByUuids(mockPreviousState, mockActions.notReconized)
+      ).to.deep.equal(mockPreviousState)
     })
   })
 
@@ -317,8 +317,8 @@ describe('Testing articlesByUuids reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articlesByUuids(mockPreviousState_articlesByUuids, action)
-      ).to.deep.equal(mockExpectedStateOnPre_articlesByUuids.request)
+        reducers.articlesByUuids(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.request)
     })
   })
 
@@ -337,8 +337,8 @@ describe('Testing articlesByUuids reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articlesByUuids(mockPreviousState_articlesByUuids, action)
-      ).to.deep.equal(mockExpectedStateOnPre_articlesByUuids.failure)
+        reducers.articlesByUuids(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.failure)
     })
   })
 
@@ -360,8 +360,8 @@ describe('Testing articlesByUuids reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.articlesByUuids(mockPreviousState_articlesByUuids, action)
-      ).to.deep.equal(mockExpectedStateOnPre_articlesByUuids.success)
+        reducers.articlesByUuids(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.success)
     })
   })
 })
@@ -371,24 +371,24 @@ describe('Testing articlesByUuids reducer:', () => {
 describe('Testing featureArticles reducer:', () => {
   /* ---------- MOCK DATA ---------- */
   const initialState = {}
-  const mockPreviousState_featureArticles = {
+  const mockPreviousState = {
     isFetching: false,
     error: null,
     lastUpdated: 'pre_date',
     items: [ 'pre_feature_article_id_01', 'pre_feature_article_id_02' ]
   }
-  const mockExpectedStateOnPre_featureArticles = {
+  const mockExpectedStateOnPre = {
     request: {
       isFetching: true,
       error: null,
-      lastUpdated: mockPreviousState_featureArticles.lastUpdated,
-      items: mockPreviousState_featureArticles.items
+      lastUpdated: mockPreviousState.lastUpdated,
+      items: mockPreviousState.items
     },
     failure: {
       isFetching: false,
       error: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].error,
       lastUpdated: mockActions[types.FETCH_FEATURE_ARTICLES_FAILURE].failedAt,
-      items: mockPreviousState_featureArticles.items
+      items: mockPreviousState.items
     },
     success: {
       isFetching: false,
@@ -405,8 +405,8 @@ describe('Testing featureArticles reducer:', () => {
     })
     it('SHOULD return previous state WHEN previous state exsist', () => {
       expect(
-        reducers.featureArticles(mockPreviousState_featureArticles, mockActions.notReconized)
-      ).to.deep.equal(mockPreviousState_featureArticles)
+        reducers.featureArticles(mockPreviousState, mockActions.notReconized)
+      ).to.deep.equal(mockPreviousState)
     })
   })
 
@@ -422,8 +422,8 @@ describe('Testing featureArticles reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.featureArticles(mockPreviousState_featureArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_featureArticles.request)
+        reducers.featureArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.request)
     })
   })
 
@@ -440,8 +440,8 @@ describe('Testing featureArticles reducer:', () => {
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.featureArticles(mockPreviousState_featureArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_featureArticles.failure)
+        reducers.featureArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.failure)
     })
   })
 
@@ -450,12 +450,12 @@ describe('Testing featureArticles reducer:', () => {
     it('SHOULD return expected state(on initial state) WHEN previous state is undefined', () => {
       expect(
         reducers.featureArticles(undefined, action)
-      ).to.deep.equal(mockExpectedStateOnPre_featureArticles.success)
+      ).to.deep.equal(mockExpectedStateOnPre.success)
     })
     it('SHOULD return expected state(on previous state) WHEN previous state exist', () => {
       expect(
-        reducers.featureArticles(mockPreviousState_featureArticles, action)
-      ).to.deep.equal(mockExpectedStateOnPre_featureArticles.success)
+        reducers.featureArticles(mockPreviousState, action)
+      ).to.deep.equal(mockExpectedStateOnPre.success)
     })
   })
 })
