@@ -3,7 +3,6 @@
   "version": "1.0.15",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
-    "build-pkg": "gulp build-packages",
     "release": "gulp release",
     "clean": "./node_modules/.bin/rimraf dist",
     "build": "better-npm-run build",

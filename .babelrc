@@ -1,17 +1,6 @@
 {
   "presets": ["es2015", "react", "stage-0"],
   "env": {
-    "BUILDPKG": {
-      "plugins": [
-        [
-          "babel-plugin-webpack-loaders",
-          {
-            "config": "${WEBPACK_CONFIG}",
-            "verbose": true
-          }
-        ]
-      ]
-    },
     "DEV": {
       "plugins": ["react-hot-loader/babel"]
     }
