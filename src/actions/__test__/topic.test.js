@@ -34,7 +34,9 @@ describe('Testing fetchTopicIfNeeded: ', () => {
       it('Should dispatch FETCH_TOPIC_REQUEST and FETCH_TOPIC_SUCCESS', () => {
         const slug = 'mock-slug'
         const url = formatUrl(`topics/${slug}`) // http://localhost:3030/api/topics/mock-slug
-        const path = url.slice(21)
+        const indexOfSlash = url.indexOf('/', 7)
+        const mockHost = url.slice(0, indexOfSlash) // example: 'http://localhost:3030'
+        const mockPath = url.slice(indexOfSlash) // example: '/mata?where=.....'
         const mockApiRespnse = {
           slug,
           _id: '585235c3e7c6090d0080f757',
@@ -70,8 +72,8 @@ describe('Testing fetchTopicIfNeeded: ', () => {
           slug,
           response: expectedResponse
         }
-        nock(url)
-          .get(path)
+        nock(mockHost)
+          .get(mockPath)
           .reply(200, mockApiRespnse)
         const store = mockStore({})
         return store.dispatch(actions.fetchTopicIfNeeded(slug))
@@ -84,6 +86,9 @@ describe('Testing fetchTopicIfNeeded: ', () => {
       it('Should dispatch FETCH_TOPIC_REQUEST and FETCH_TOPIC_FAILURE', () => {
         const slug = 'mock-slug'
         const url = formatUrl(`topics/${slug}`) // http://localhost:3030/api/topics/mock-slug
+        const indexOfSlash = url.indexOf('/', 7)
+        const mockHost = url.slice(0, indexOfSlash) // example: 'http://localhost:3030'
+        const mockPath = url.slice(indexOfSlash) // example: '/mata?where=.....'
         const expectedRequestAction = {
           type: types.FETCH_TOPIC_REQUEST,
           slug,
@@ -96,8 +101,8 @@ describe('Testing fetchTopicIfNeeded: ', () => {
             status: 500
           }
         }
-        nock(url)
-          .get('')
+        nock(mockHost)
+          .get(mockPath)
           .reply(500, {})
         const store = mockStore({})
         return store.dispatch(actions.fetchTopicIfNeeded(slug))
