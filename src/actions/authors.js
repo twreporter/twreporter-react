@@ -34,13 +34,11 @@ export function failToSearchAuthors(keywords = '', error) {
   }
 }
 
-export function receiveSearchAuthors(keywords, responseItems, responseContext) {
+export function receiveSearchAuthors(keywords, response) {
   return {
     type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
-    response: responseItems,
-    currentPage: _.get(responseContext, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
-    totalPages: _.get(responseContext, 'nbPages', 0),
+    response, // {object} contains entities{object}, result{array}, currentPage{number}, totalPages{number} 
     receivedAt: Date.now()
   }
 }
@@ -67,9 +65,18 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
       })
       .then((responseObject) => {
         const items = _.get(responseObject, 'hits', {}) // responseObject.hit
-        const responseContext = _.omit(responseObject, 'hits', {})  // All the other things in responseObject except responseObject.hit
         const camelizedJson = camelizeKeys(items)
         const responseItems = normalize(camelizedJson, arrayOf(authorSchema))
+
+        const currentPage = _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
+        const totalPages = _.get(responseObject, 'nbPages', 0)
+
+        const response = {
+          ...responseItems,
+          currentPage,
+          totalPages
+        }
+        
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -80,10 +87,10 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
         }
         if (returnDelay > 0) {
           return delayDispatch().then(()=>{
-            return dispatch(receiveSearchAuthors(keywords, responseItems, responseContext))
+            return dispatch(receiveSearchAuthors(keywords, response))
           })
         }
-        return dispatch(receiveSearchAuthors(keywords, responseItems, responseContext))
+        return dispatch(receiveSearchAuthors(keywords, response))
       },
       (error) => {
         return dispatch(failToSearchAuthors(keywords, error))
