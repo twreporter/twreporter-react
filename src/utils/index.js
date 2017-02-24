@@ -1,6 +1,5 @@
 export * from './date-processor'
 export * from './denormalize-articles'
-export * from './detect-device'
 export * from './get-embedded-query-param'
 export * from './get-list-id'
 export * from './get-screen-type'
