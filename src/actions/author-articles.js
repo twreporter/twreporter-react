@@ -5,14 +5,13 @@ import * as CONSTANTS from '../constants/index'
 import { MAX_ARTICLES_PER_FETCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/author-page'
 import { arrayOf, normalize } from 'normalizr'
 
-import { InternalServerError } from '../lib/custom-error'
+import { InternalServerError } from '../custom-error'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
-import { formatUrl } from '../utils/index'
-import { urlParasToString } from '../utils/url-paras-to-string'
+import { formatUrl, urlParasToString } from '../utils/index'
 
 const _ = {
   get,

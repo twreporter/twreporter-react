@@ -3,7 +3,7 @@ import { topic as topicSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import { formatUrl } from '../utils/index'
 import { normalize } from 'normalizr'
-import { InternalServerError, NotFoundError } from '../lib/custom-error'
+import { InternalServerError, NotFoundError } from '../custom-error'
 import * as types from '../constants/action-types'
 import fetch from 'isomorphic-fetch'
 

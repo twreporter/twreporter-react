@@ -1,5 +1,5 @@
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../utils/index'
 import Hexagon from './Hexagon'
 import { Link } from 'react-router'
 import React, { Component } from 'react'

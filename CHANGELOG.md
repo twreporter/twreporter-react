@@ -2,8 +2,10 @@
 
 - [Update] Move author state formatting from action to reducer
 - [Update] Seperate authors state into searched authors and all authors
+- [Testing] API testing fully completed 
 
-### 1.1.5 
+
+### 1.1.5
 - [Update] content of sub-nav-path
 - [Update] move test files from spec to where they belong
 - [Update] Update api/api.js. Handle redis connection

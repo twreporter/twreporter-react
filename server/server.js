@@ -17,7 +17,7 @@ import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import httpProxy from 'http-proxy'
 import path from 'path'
-import { NotFoundError } from '../src/lib/custom-error'
+import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 

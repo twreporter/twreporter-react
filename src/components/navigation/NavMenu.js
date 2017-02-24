@@ -1,6 +1,6 @@
 import { ARTICLE_STYLE, BACK_TO_TOPIC, BRIGHT, DARK, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE, CHARACTERS_LIMIT, TOPIC,  donatePath, navPath, colors } from '../../constants/index'
 import { Link } from 'react-router'
-import { shortenString } from '../../lib/string-processor'
+import { shortenString } from '../../utils/index'
 import { isArticlePageType } from '../../utils/index'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'

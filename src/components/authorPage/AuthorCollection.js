@@ -11,7 +11,7 @@ import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import { shortenString } from '../../lib/string-processor'
+import { shortenString } from '../../utils/index'
 import styles from './AuthorCollection.scss'
 
 const AuthorCollection = (props) => {

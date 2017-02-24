@@ -11,7 +11,7 @@ import arrowDownIcon from '../../static/asset/arrow-down.svg'
 import cx from 'classnames'
 import style from '../components/topic/Topic.scss'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../utils/index'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { fetchTopicIfNeeded } from '../actions/topic'
 

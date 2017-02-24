@@ -2,7 +2,7 @@
 import superAgent from 'superagent'
 import config from '../config'
 import constants from '../constants'
-import { InternalServerError, NotFoundError } from '../../src/lib/custom-error'
+import { InternalServerError, NotFoundError } from '../../src/custom-error'
 
 // lodash
 import get from 'lodash/get'
