@@ -3,7 +3,7 @@
 
 import sinon from 'sinon'
 import superAgent from 'superagent'
-import { InternalServerError } from '../../../src/lib/custom-error'
+import { InternalServerError } from '../../../src/custom-error'
 import { expect } from 'chai'
 import { posts, meta } from '../index'
 

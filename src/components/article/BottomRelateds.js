@@ -1,7 +1,7 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
-import { shortenString } from '../../lib/string-processor'
+import { shortenString } from '../../utils/index'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import { Link } from 'react-router'
 import classNames from 'classnames'

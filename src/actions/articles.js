@@ -1,6 +1,6 @@
 'use strict'
 import { CATEGORY, TAG, TOPIC } from '../constants/index'
-import { InternalServerError, NotFoundError } from '../lib/custom-error'
+import { InternalServerError, NotFoundError } from '../custom-error'
 import { arrayOf, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
