@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceStorageUrlPrefix } from '../../utils/index'
-import { shortenString } from '../../lib/string-processor'
+import { shortenString } from '../../utils/index'
 import classNames from 'classnames'
 //import commonStyles from '../article/Common.scss'
 import closeIcon from '../../../static/asset/icon-navbar-close.svg'

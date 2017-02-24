@@ -3,7 +3,7 @@
 import { Link } from 'react-router'
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../utils/index'
 import { denormalizeArticles, getAbsPath } from '../utils/index'
 import { fetchArticleIfNeeded } from '../actions/article'
 import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'

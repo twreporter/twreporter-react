@@ -1,6 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import { date2yyyymmdd } from '../../lib/date-transformer'
+import { date2yyyymmdd } from '../../utils/index'
 import { FormattedDate } from 'react-intl'
 import React, { Component } from 'react'
 import commonStyles from './Common.scss'

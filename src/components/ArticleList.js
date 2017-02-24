@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import More from '../components/More'
 import { Link } from 'react-router'
 import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../lib/date-transformer'
+import { date2yyyymmdd } from '../utils/index'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 
 // lodash
