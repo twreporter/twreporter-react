@@ -2,8 +2,12 @@
 
 import * as CONSTANTS from '../constants/index'
 
-import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, REQUEST_PAGE_START_FROM, RETURN_DELAY } from '../constants/authors-list'
+import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/authors-list'
 import { arrayOf, normalize } from 'normalizr'
+import { camelizeKeys } from 'humps'
+import fetch from 'isomorphic-fetch'
+import get from 'lodash/get'
+import omit from 'lodash/omit'
 
 import { InternalServerError } from '../custom-error'
 import { author as authorSchema } from '../schemas/index'
@@ -13,43 +17,35 @@ import { formatUrl, urlParasToString } from '../utils/index'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
+  omit
 }
 
-export function requestSearchAuthors(keywords) {
+export function requestSearchAuthors(keywords = '') {
   return {
-    type: CONSTANTS.SEARCH_AUTHORS_REQUEST,
+    type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_REQUEST : CONSTANTS.SEARCH_AUTHORS_REQUEST,
     keywords: keywords
   }
 }
 
-export function failToSearchAuthors(error, failedAt) {
+export function failToSearchAuthors(keywords = '', error) {
   return {
-    type: CONSTANTS.SEARCH_AUTHORS_FAILURE,
+    type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_FAILURE : CONSTANTS.SEARCH_AUTHORS_FAILURE,
     error,
-    failedAt
+    failedAt: Date.now()
   }
 }
 
-export function receiveSearchAuthors({ keywords, replaceAll, response, currentPage, isFinish, receivedAt }) {
+export function receiveSearchAuthors(keywords, response) {
   return {
-    type: CONSTANTS.SEARCH_AUTHORS_SUCCESS,
+    type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
-    replaceAll,
-    response: response,
-    authorsInList: response.result,
-    currentPage,
-    isFinish,
-    receivedAt
+    response, // {object} contains entities{object}, result{array}, currentPage{number}, totalPages{number} 
+    receivedAt: Date.now()
   }
 }
 
-export function searchAuthors({
-  keywords = '',
-  replaceAll = false,
-  targetPage = REQUEST_PAGE_START_FROM,
-  returnDelay = 0 } = {}) {
-
+export function searchAuthors({ keywords, targetPage, returnDelay }) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
     const searchParas = {
       keywords,
@@ -69,14 +65,20 @@ export function searchAuthors({
         }
         return response.json()
       })
-      .then((content) => {
-        const hits = _.get(content, 'hits', {})
-        const camelizedJson = camelizeKeys(hits)
-        let response = normalize(camelizedJson, arrayOf(authorSchema))
-        const currentPage = content.page
-        const isFinish = ( currentPage >= content.nbPages - 1 )
-        const receivedAt = Date.now()
-        const returnParas = { keywords, replaceAll, response, currentPage, isFinish, receivedAt }
+      .then((responseObject) => {
+        const items = _.get(responseObject, 'hits', {}) // responseObject.hit
+        const camelizedJson = camelizeKeys(items)
+        const responseItems = normalize(camelizedJson, arrayOf(authorSchema))
+
+        const currentPage = _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
+        const totalPages = _.get(responseObject, 'nbPages', 0)
+
+        const response = {
+          ...responseItems,
+          currentPage,
+          totalPages
+        }
+        
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -87,42 +89,60 @@ export function searchAuthors({
         }
         if (returnDelay > 0) {
           return delayDispatch().then(()=>{
-            return dispatch(receiveSearchAuthors(returnParas))
+            return dispatch(receiveSearchAuthors(keywords, response))
           })
         }
-        return dispatch(receiveSearchAuthors(returnParas))
+        return dispatch(receiveSearchAuthors(keywords, response))
       },
       (error) => {
-        let failedAt = Date.now()
-        return dispatch(failToSearchAuthors(error, failedAt))
+        return dispatch(failToSearchAuthors(keywords, error))
       })
   }
 }
 
-// If the results are not completely rendered, fetch next page
-export function fetchNextPageAuthors({ replaceAll=false } = {}) {
-  return (dispatch, getState) => {
-    const authorsList = _.get(getState(), 'authorsList', {})
-    const keywords    = _.get(authorsList, 'keywords', '')
-    const isFetching  = _.get(authorsList, 'isFetching', false)
-    const isFinish    = _.get(authorsList, 'isFinish', false)
-    const currentPage = _.get(authorsList, 'currentPage', REQUEST_PAGE_START_FROM -1)
-    const targetPage  = currentPage + 1
-    const returnDelay = currentPage < REQUEST_PAGE_START_FROM ? 0 : RETURN_DELAY
-    if (!isFetching && !isFinish) {
-      return dispatch(searchAuthors({ keywords, replaceAll, targetPage, returnDelay }))
-    }
-    return
-  }
-}
+/*  
+  Algolia set hitsPerPage limit up to 1000 items per search.
+  So if number of authors grows over 1000,
+  it will need to check hasMore  as case lsat all authors.
+*/
 
-export function sendSearchAuthors({ keywords='', replaceAll=true, targetPage = REQUEST_PAGE_START_FROM, returnDelay = 0 } = {}) {
-  return (dispatch, getState) => {
-    const state = getState()
-    const isFetching  = _.get(state, 'authorsList.isFetching', false)
-    if (!isFetching) {
-      return dispatch(searchAuthors({ keywords, replaceAll, targetPage, returnDelay }))
+export function searchAuthorsIfNeeded(currentKeywords = '') {
+  /* --------- list all authors --------- */ 
+  if (currentKeywords === '') {
+    return (dispatch, getState) => {
+      const currentState = getState()
+      const authorsList = _.get(currentState, 'authorsList', {})
+      const { isFetching, currentPage, hasMore } = authorsList
+      if (currentPage < NUMBER_OF_FIRST_RESPONSE_PAGE) { // Situation 1/3: If no data exists => fetch first page immediately
+        return dispatch(searchAuthors({
+          keywords: '',
+          targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
+          returnDelay: 0
+        }))
+      }
+      // If current page >= NUMBER_OF_FIRST_RESPONSE_PAGE:
+      if (!isFetching && hasMore) { // Situation 2/3: If already have data AND not fetching AND has more => delay && next page
+        return dispatch(searchAuthors({
+          keywords: '',
+          targetPage: currentPage + 1,
+          returnDelay: RETURN_DELAY_TIME
+        }))
+      }
+      return Promise.resolve() // Situation 3/3: If already have all data (not has more) OR is fetching => do nothing
     }
-    return
+  }
+  /* --------- searching authors --------- */ 
+  return (dispatch, getState) => {
+    const currentState = getState()
+    const authorsList = _.get(currentState, 'searchedAuthorsList', {})
+    const previousKeywords = _.get(authorsList, 'keywords')
+    if ( currentKeywords !== previousKeywords) { // Situation 1/2:If keywords are new => search
+      return dispatch(searchAuthors({
+        keywords: currentKeywords,
+        targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
+        returnDelay: 0
+      })) 
+    }
+    return Promise.resolve() // Situation 2/2:If keywords are the same => do nothing
   }
 }

@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { SEARCHING_AUTHOR_NAME } from '../../constants/authors-list'
 import resetIcon from '../../../static/asset/reset.svg'
 import searchIcon from '../../../static/asset/search.svg'
 import styles from './AuthorSearchBox.scss'
+import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 class AuthorSearchBox extends React.Component {
 
@@ -19,33 +24,36 @@ class AuthorSearchBox extends React.Component {
   // Save user input keywords to this.state when typing
   _handleChange(event) {
     event.preventDefault()
-    const input = event.target.value
-    if (!input) return this.setState(this.initialState)
-    this.setState({ keywords: input })
+    const input = _.get(event, 'target.value', '')
+    return this.setState({ keywords: input })
   }
 
   // Send search request when submit the form (press enter) or click the button
   _handleSubmit(event) {
     event.preventDefault()
     const keywords = this.state.keywords
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    this.sendSearchAuthors(keywords)
+    if (keywords === '') {
+      return this.props.changeListTo('authorsList')
+    }
+    return this.props.changeListTo('searchedAuthorsList')
   }
 
   _handleClickButton(event) {
     event.preventDefault()
     const keywords = this.state.keywords
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    this.sendSearchAuthors(keywords)
+    if (keywords === '') {
+      return this.props.changeListTo('authorsList')
+    }
+    return this.props.changeListTo('searchedAuthorsList')
   }
 
 // Clear the search input and state and send blank search when click reset
   _handleClickReset(event) {
     event.preventDefault()
     this.setState(this.initialState)
-    const keywords = ''
-    const replaceAll = true
-    this.sendSearchAuthors({ keywords, replaceAll })
+    return this.props.changeListTo('authorsList')
   }
 
   render() {
@@ -81,6 +89,11 @@ class AuthorSearchBox extends React.Component {
       </div>
     </div>)
   }
+}
+
+AuthorSearchBox.propTypes = {
+  sendSearchAuthors: PropTypes.func.isRequired,
+  changeListTo: PropTypes.func.isRequired
 }
 
 export default AuthorSearchBox
