@@ -1,3 +1,4 @@
+export * from './date-processor'
 export * from './denormalize-articles'
 export * from './detect-device'
 export * from './get-embedded-query-param'
