@@ -9,11 +9,11 @@ const _ = {
   omit
 }
 
-export function searchPosts(req, path) { // eslint-disable-line no-unused-vars
-  const { ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY } = config
-  let client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY)
-  let index = client.initIndex(POSTS_INDEX)
+export function searchPosts(req) {
   return new Promise((resolve, reject) => {
+    const { ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY } = config
+    let client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY)
+    let index = client.initIndex(POSTS_INDEX)
     const query = req.query
     const keywords = query.keywords
     // If searchOptions contain unknown parameter, algolia will return an error
