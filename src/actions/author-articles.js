@@ -11,8 +11,7 @@ import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
-import { formatUrl } from '../utils/index'
-import { urlParasToString } from '../utils/url-paras-to-string'
+import { formatUrl, urlParasToString } from '../utils/index'
 
 const _ = {
   get,

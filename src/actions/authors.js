@@ -9,9 +9,8 @@ import { InternalServerError } from '../custom-error'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
-import { formatUrl } from '../utils/index'
+import { formatUrl, urlParasToString } from '../utils/index'
 import get from 'lodash/get'
-import { urlParasToString } from '../utils/url-paras-to-string'
 
 const _ = {
   get
