@@ -1,6 +1,6 @@
 /*eslint no-console: 0*/
 
-import { InternalServerError, NotFoundError } from '../../src/lib/custom-error'
+import { InternalServerError, NotFoundError } from '../../src/custom-error'
 
 import superAgent from 'superagent'
 import config from '../config'

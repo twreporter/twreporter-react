@@ -5,7 +5,7 @@ import * as CONSTANTS from '../constants/index'
 import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, REQUEST_PAGE_START_FROM, RETURN_DELAY } from '../constants/authors-list'
 import { arrayOf, normalize } from 'normalizr'
 
-import { InternalServerError } from '../lib/custom-error'
+import { InternalServerError } from '../custom-error'
 import { author as authorSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
