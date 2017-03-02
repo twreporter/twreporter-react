@@ -22,7 +22,7 @@ const initSearchedAuthorsListStates = {
   lastUpdated: 0
 }
 
-/*  
+/*
   Algolia set hitsPerPage limit up to 1000 items per search.
   So if number of authors grows over 1000,
   it will need to save hasMore in state to add loadmore function as case LIST_ALL_AUTHORS_SUCCESS.
