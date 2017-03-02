@@ -2,8 +2,7 @@
 
 - [Update] Move author state formatting from action to reducer
 - [Update] Seperate authors state into searched authors and all authors
-- [Testing] API testing fully completed 
-
+- [Testing] API testing fully completed
 
 ### 1.1.5
 - [Update] content of sub-nav-path
