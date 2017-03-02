@@ -87,7 +87,7 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
           }
           return dispatch(receiveAuthorCollection(returnParas))
         },
-      (error) => dispatch(failToReceiveAuthorCollection(error))
+      (error) => dispatch(failToReceiveAuthorCollection(authorId, error))
     )
   }
 }

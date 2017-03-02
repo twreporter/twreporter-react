@@ -12,7 +12,6 @@ import { InternalServerError } from '../custom-error'
 import { author as authorSchema } from '../schemas/index'
 import { formatUrl, urlParasToString } from '../utils/index'
 
-
 const _ = {
   get,
   omit
@@ -58,6 +57,7 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
     return fetch(url)
       .then((response) => {
         if (response.status >= 400) {
+          // console.log(response)
           throw new InternalServerError('Bad response from API, response:' + JSON.stringify(response))
         }
         return response.json()
@@ -125,7 +125,7 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
           returnDelay: RETURN_DELAY_TIME
         }))
       }
-      return Promise.resolve() // Situation 3/3: If already have all data (not has more) OR is fetching => do nothing
+      return Promise.resolve('Promise Resolved') // Situation 3/3: If already have all data (not has more) OR is fetching => do nothing
     }
   }
   /* --------- searching authors --------- */
@@ -140,6 +140,6 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
         returnDelay: 0
       }))
     }
-    return Promise.resolve() // Situation 2/2:If keywords are the same => do nothing
+    return Promise.resolve('Promise Resolved') // Situation 2/2:If keywords are the same => do nothing
   }
 }

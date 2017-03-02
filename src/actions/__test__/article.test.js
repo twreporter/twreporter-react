@@ -1,7 +1,6 @@
 /*global describe, afterEach, it*/
 'use strict'
 import { expect } from 'chai'
-import { getArticleEmbeddedQuery } from '../../../src/utils/index'
 import { merge } from 'lodash'
 import * as actions from '../../../src/actions/article'
 import * as types from '../../../src/constants/action-types'
@@ -24,7 +23,8 @@ const mockDefaultStore = {
     articles: {}
   }
 }
-let query = qs.stringify({ embedded: JSON.stringify(getArticleEmbeddedQuery()) })
+const query = qs.stringify({ embedded: JSON.stringify({ topics: 1 }) })
+const mockURL = `http://localhost:3030/posts/post-slug-1?${query}`
 
 describe('article action', () => {
   afterEach(() => {
@@ -37,7 +37,7 @@ describe('article action', () => {
       .reply(200, mockArticle)
 
     const expectedActions = [
-      { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug },
+      { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug, url: mockURL },
       { type: types.FETCH_ARTICLE_SUCCESS, slug: mockSlug, article: mockArticle }
     ]
     const store = mockStore(mockDefaultStore)
@@ -65,7 +65,7 @@ describe('article action', () => {
       .reply(404, {})
 
     const expectedActions = [
-      { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug },
+      { type: types.FETCH_ARTICLE_REQUEST, slug: mockSlug, url: mockURL },
       { type: types.FETCH_ARTICLE_FAILURE, slug: mockSlug }
     ]
     const store = mockStore(mockDefaultStore)
