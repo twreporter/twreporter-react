@@ -8,13 +8,10 @@ import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
-
 import { InternalServerError } from '../custom-error'
 import { author as authorSchema } from '../schemas/index'
-import { camelizeKeys } from 'humps'
-import fetch from 'isomorphic-fetch'
 import { formatUrl, urlParasToString } from '../utils/index'
-import get from 'lodash/get'
+
 
 const _ = {
   get,
@@ -40,7 +37,7 @@ export function receiveSearchAuthors(keywords, response) {
   return {
     type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
     keywords,
-    response, // {object} contains entities{object}, result{array}, currentPage{number}, totalPages{number} 
+    response, // {object} contains entities{object}, result{array}, currentPage{number}, totalPages{number}
     receivedAt: Date.now()
   }
 }
@@ -78,7 +75,7 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
           currentPage,
           totalPages
         }
-        
+
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -100,14 +97,14 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
   }
 }
 
-/*  
+/*
   Algolia set hitsPerPage limit up to 1000 items per search.
   So if number of authors grows over 1000,
   it will need to check hasMore  as case lsat all authors.
 */
 
 export function searchAuthorsIfNeeded(currentKeywords = '') {
-  /* --------- list all authors --------- */ 
+  /* --------- list all authors --------- */
   if (currentKeywords === '') {
     return (dispatch, getState) => {
       const currentState = getState()
@@ -131,7 +128,7 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
       return Promise.resolve() // Situation 3/3: If already have all data (not has more) OR is fetching => do nothing
     }
   }
-  /* --------- searching authors --------- */ 
+  /* --------- searching authors --------- */
   return (dispatch, getState) => {
     const currentState = getState()
     const authorsList = _.get(currentState, 'searchedAuthorsList', {})
@@ -141,7 +138,7 @@ export function searchAuthorsIfNeeded(currentKeywords = '') {
         keywords: currentKeywords,
         targetPage: NUMBER_OF_FIRST_RESPONSE_PAGE,
         returnDelay: 0
-      })) 
+      }))
     }
     return Promise.resolve() // Situation 2/2:If keywords are the same => do nothing
   }
