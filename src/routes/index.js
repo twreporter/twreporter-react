@@ -13,6 +13,7 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
+import TopicPage from '../containers/TopicPage'
 
 
 if (typeof window !== 'undefined') {
@@ -34,6 +35,7 @@ export default function (history = browserHistory) {
   return (
     <Router history={history} onUpdate={scrollAndFireTracking} >
       <Route path="/topics/:slug" component={TopicLandingPage} />
+      <Route path="/topicpage/:slug" component={TopicPage} />
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category} />
@@ -44,7 +46,6 @@ export default function (history = browserHistory) {
         <Route path="a/:slug" component={Article} />
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
-
       </Route>
     </Router>
   )
