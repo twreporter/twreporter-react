@@ -1,5 +1,5 @@
 ### Unreleased
-
+- [Bug] Fix LeadImage leaning on left side.
 - [Update] Move author state formatting from action to reducer
 - [Update] Seperate authors state into searched authors and all authors
 - [Testing] API testing fully completed

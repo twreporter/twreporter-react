@@ -1,16 +1,31 @@
 /* eslint no-unused-vars:0 */
 'use strict'
+import React from 'react' // eslint-disable-line
+import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import styles from './LeadingImage.scss'
 import { Image } from './Image'
-import React from 'react' // eslint-disable-line
+import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
 
 // lodash
-import assign from 'lodash/assign'
+import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 class LeadingImage extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isMount: false
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      isMount: true
+    })
   }
 
   render() {
@@ -34,12 +49,17 @@ class LeadingImage extends React.Component {
         break
     }
 
+    const defaultImgUrl = replaceStorageUrlPrefix(_.get(image, 'tiny.url'))
+
+    const imgJsx = this.state.isMount ? (
+      <img src={defaultImgUrl} alt={description} srcSet={getImageSrcSet(image)} />
+    ) : (
+      <img src={defaultImgUrl} alt={description} />
+    )
+
     return (
       <div className={styles[leadingImgClass]}>
-        <Image
-          content={ [ assign({}, image, { id: id, description: description }) ] }
-          isToShowDescription={false}
-        />
+        {imgJsx}
       </div>
     )
   }
