@@ -1,6 +1,6 @@
 /* global describe, it, before, after */
 'use strict'
-import { InternalServerError } from '../../../src/lib/custom-error'
+import { InternalServerError } from '../../../src/custom-error'
 import sinon from 'sinon'
 import superAgent from 'superagent'
 import { topics } from '../index'

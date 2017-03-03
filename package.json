@@ -14,7 +14,7 @@
     "start-prod": "better-npm-run start-prod",
     "start-prod-api": "better-npm-run start-prod-api",
     "lint": "eslint -c .eslintrc src server api spec",
-    "test": "./node_modules/mocha/bin/mocha $(find spec -name '*.test.js') --compilers js:babel-core/register",
+    "test": "./node_modules/mocha/bin/mocha $(find src api -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
   },
   "betterScripts": {
@@ -221,6 +221,7 @@
     "webpack-stream": "^3.2.0"
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "test"
   ]
 }
