@@ -7,22 +7,20 @@ import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 
 function articles(state = {}, action = {}) {
-  let _state = {}
+  let _state = {
+    isFetching: false,
+    error: null,
+    hasMore: false,
+    items: []
+  }
   let id = action.id
   switch (action.type) {
     case types.FETCH_ARTICLES_BY_GROUP_UUID_REQUEST:
     case types.FETCH_RELATED_ARTICLES_REQUEST:
       if (state.hasOwnProperty(id)) {
-        merge(_state, {
-          isFetching: true
-        })
+        _state = { isFetching: true }
       } else {
-        merge(_state, {
-          isFetching: true,
-          error: null,
-          hasMore: false,
-          items: []
-        })
+        merge(_state, { isFetching: true })
       }
       return merge({}, state, {
         [ id ]: _state
@@ -30,11 +28,11 @@ function articles(state = {}, action = {}) {
 
     case types.FETCH_ARTICLES_BY_GROUP_UUID_FAILURE:
     case types.FETCH_RELATED_ARTICLES_FAILURE:
-      merge(_state, {
+      _state = {
         isFetching: false,
         error: action.error,
         lastUpdated: action.failedAt
-      })
+      }
       return merge({}, state, {
         [ id ]: _state
       })
@@ -52,7 +50,7 @@ function articles(state = {}, action = {}) {
       })
 
     case types.FETCH_ARTICLES_BY_GROUP_UUID_SUCCESS:
-      _state = get(state, id)
+      merge(_state, get(state, id))
       let total = get(_state, 'total') || get(action, 'response.meta.total')
       let items = get(_state, 'items')
       let hasMore = get(_state, 'hasMore')
