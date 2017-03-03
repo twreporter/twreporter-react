@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import { authorsList as reducer, searchedAuthorsList as searchedReducer } from '../../../src/reducers/authors'
 // import * as types from '../../../src/constants/action-types'
-import { mockStatesSet, mockActionsSet, searchedMockStatesSet, MOCK_KEYWORDS } from './mocks/authorsV2'
+import { mockStatesSet, mockActionsSet, searchedMockStatesSet, MOCK_KEYWORDS } from './mocks/authors'
 
 describe('Authors Reducer Testing', function () {
   context('authors list page and load more', function () {
