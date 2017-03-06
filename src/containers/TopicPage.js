@@ -2,36 +2,44 @@
 
 'use strict'
 // import VisibilitySensor from 'react-visibility-sensor';
-// import Header from '../components/topic/Header'
-// import Helmet from 'react-helmet'
-// import LeadingVideo from '../components/shared/LeadingVideo'
-// import Footer from '../components/Footer'
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import SystemError from '../components/SystemError'
-// import Cards from '../components/topic/Cards'
-// import arrowDownIcon from '../../static/asset/arrow-down.svg'
-import classNames from 'classnames'
-import styles from './TopicPage.scss'
 import { connect } from 'react-redux'
-import { SITE_META, SITE_NAME, CHARACTERS_LIMIT } from '../constants/index'
-import { fetchTopicIfNeeded } from '../actions/topic'
+import classNames from 'classnames'
+// import Helmet from 'react-helmet'
 import get from 'lodash/get'
-import map from 'lodash/map'
-import { denormalizeArticles, replaceStorageUrlPrefix, shortenString, date2yyyymmdd } from '../utils/index'
+import Banner from '../components/topicPage/Banner'
+import Cards from '../components/topicPage/Cards'
+// import Footer from '../components/Footer'
+// import Header from '../components/topic/Header'
+import LeadingVideo from '../components/shared/LeadingVideo'
+import SystemError from '../components/SystemError'
+import styles from './TopicPage.scss'
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { fetchTopicIfNeeded } from '../actions/topic'
+import { denormalizeArticles } from '../utils/index'
 
 const _ = {
-  get,
-  map
+  get
 }
-
 
 class TopicPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isCollapse: false
+      isCollapse: false,
+      bannerTheme: 'center-center',
+      cardsTheme: 'small-cards'
     }
+    this._changeBannerTheme = this._changeBannerTheme.bind(this)
+    this._changeCardsTheme = this._changeCardsTheme.bind(this)
+  }
+
+  _changeBannerTheme(event) {
+    return this.setState({ bannerTheme: event.target.innerHTML })
+  }
+
+  _changeCardsTheme(event) {
+    return this.setState({ cardsTheme: event.target.innerHTML })
   }
 
   componentWillMount() {
@@ -74,7 +82,7 @@ class TopicPage extends Component {
       subtitle,     // subtitle {string} - Topic subtitle
       title         // title {string} - Topic title
     } = topic
-    const bannerTheme = _.get(topic, 'bannerTheme', 'center-center') // bannerTheme {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
+    const bannerTheme = _.get(topic, 'bannerTheme', 'center-bottom') // bannerTheme {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
     const cardsTheme = _.get(topic, 'cardsTheme', 'small-cards') // bannerTheme {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
@@ -88,26 +96,41 @@ class TopicPage extends Component {
     const relatedArticles = denormalizeArticles(relateds, entities)
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-
-    // const bannerTheme = _.get(selectedTopic, 'bannerTheme')
-    // const cardsTheme = _.get(selectedTopic, 'cardsTheme')
+    
     return (
-      <div>
+      <div className={styles['topic-page-conainer']}>
         {/*<Helmet />*/}
         {/*<Header />*/}
+        <div className={styles['theme-changer']}>
+          <p><span onClick={this._changeBannerTheme}>{'center-center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'center-bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'left-bottom'}</span></p>
+          <p></p>
+        </div>
+        <LeadingVideo
+          classNames={{
+            container: styles['leading-block'],
+            video: styles.video,
+            poster: styles.video,
+            audioBt: styles['audio-bt']
+          }}
+          filetype={_.get(leadingVideo, 'video.filetype')}
+          poster={_.get(leadingImage, 'image.resizedTargets')}
+          src={_.get(leadingVideo, 'video.url')}
+          title={title}
+        />
         <Banner
           headline={headline}
           title={title}
           subtitle={subtitle}
           publishedDate={publishedDate}
+          bannerTheme={this.state.bannerTheme}
         />
-        {/*<LeadingVideo />*/}
         <Description
           topicDescription={description}
           teamDescription={teamDescription}
         />
         <Cards
           items={relatedArticles}
+          cardsTheme={this.state.cardsTheme}
         />
         {/*<Footer />*/}
       </div>
@@ -129,38 +152,12 @@ TopicPage.propTypes = {
   })
 }
 
-const Banner = (props) => {
-  const { headline, title, subtitle, publishedDate, bannerTheme } = props
-  // const combineClassWithTheme = (className) => classNames(styles[className], bannerTheme?styles[className+'-'+bannerTheme]:false)
-  // const _cnTitleBlock = combineClassWithTheme('title-box')
-  // const _cnHeadline = combineClassWithTheme('headline')
-  // const _cnTitle = combineClassWithTheme('title')
-  // const _cnSubtitle = combineClassWithTheme('subtitle')
-  // const _cnPublishedDate = combineClassWithTheme('published-date')
-  return (
-    <div>
-      <div>{headline}</div>
-      <h1>{title}</h1>
-      <h2>{subtitle}</h2>
-      <div>{publishedDate}</div>
-    </div>
-  )
-}
-
-Banner.propTypes = {
-  headline: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-  publishedDate: PropTypes.string.isRequired,
-  bannerTheme: PropTypes.string.isRequired
-}
-
 const Description = (props) => {
   const { topicDescription, teamDescription } = props
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: topicDescription }} />
-      <div dangerouslySetInnerHTML={{ __html: teamDescription }} />
+      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
+      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
     </div>
   )
 }
@@ -168,51 +165,6 @@ const Description = (props) => {
 Description.propTypes = {
   topicDescription: PropTypes.string.isRequired,
   teamDescription: PropTypes.string.isRequired
-}
-
-const Cards = (props) => {
-  const { items, cardsTheme } = props
-  const relatedRows = _.map(items, (related, index) => {
-    const imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
-    const slug = get(related, 'slug', '')
-    const title = get(related, 'title', '')
-    const publishedDate = date2yyyymmdd(get(related, 'publishedDate', ''), '.')
-    const description = shortenString(get(related, 'ogDescription', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
-    return (
-      <li key={'related-' + (index++)}>
-        <Link to={'/a/' + slug} >
-          <div>
-            <div>
-              <img src={imageUrl} />
-            </div>
-          </div>
-          <div>
-            <p>{title}</p>
-            <p>{description}</p>
-            <p>{publishedDate}</p>
-          </div>
-        </Link>
-      </li>
-    )
-  })
-  return (
-    <div>
-      <ul>
-        {relatedRows}
-      </ul>
-    </div>
-  )
-}
-
-Cards.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    publishedDate: PropTypes.string.isRequired,
-    ogDescription: PropTypes.string.isRequired,
-    heroImage: PropTypes.object.isRequired
-  })),
-  cardsTheme: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state) {

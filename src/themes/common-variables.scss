@@ -19,7 +19,7 @@ $screen-lg-max: $screen-hd-min - 1px;
 // == Typography
 // ## Font
 $font-date-serif: "Times New Roman",serif;
-$font-size-base: 18px;
+$font-topic-title: 45px;
 $font-size-xlarger: 34px;
 $font-size-larger: 22px;
 $font-size-large: 20px;
@@ -38,8 +38,13 @@ $z-index-widget: 1000000010;
 
 // ## Letter Spacing
 $general-letter-space: 0.4px;
+$topic-letter-space-wide: 2px;
+$topic-letter-space-medium: 1px;
+$topic-letter-space-tight: 0.1px;
 
-
+// ## Line Height
+$line-height-medium: 1.4;
+$line-height-large: 1.8;
 // == Margin
 // ## Components
 $component-margin-bottom: 40px;
@@ -60,9 +65,11 @@ $input-border-gray: #CBCBCB;
 $light-gray: #F1F1F1;
 $blockquote-gray: rgba(74, 74, 74, 0.25);
 $pinkish-grey: #BFBFBF;
+$grey-d8: #d8d8d8;
 // ## orange
 $harley-davidson-orange: #c71b0a;
 $light-red: #D92616;
+$rusty-red: #c71b0a;
 // ## white
 $white: #FFF;
 // ## author search box
@@ -77,6 +84,7 @@ $photography-dark: #08192d;
 $underline-marker-color: rgba(199, 26, 10, 0.25);
 $loading-placeholder: rgba(191,191,191,0.50);
 
+$topic-text-shadow: 0 2px 10px rgba(0, 0, 0, .5);
 $material-box-shadow: 0px 4px 10px 0px rgba($gray-70, 0.7);
 $box-glow: 0px 0px 3px rgba($gray-40, 0.05);
 
