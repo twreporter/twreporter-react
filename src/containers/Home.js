@@ -251,7 +251,7 @@ class Home extends Component {
         }]
       }
     `
-    const promotionImg = 'https://storage.googleapis.com/twreporter-multimedia/images/20170125175140-d30f92e5587c4a594420b10f8851ce30-desktop.png'
+    const promotionImg = 'https://www.twreporter.org/images/20170306232901-7b800e0104d93ee7c2756491803b8644-tablet.jpg'
 
     return (
       <div>
@@ -275,14 +275,14 @@ class Home extends Component {
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
         <div className={styles['annual-report']}>
-          <span>新春特輯</span>
+          <span>解密花蓮王朝</span>
         </div>
-        <Link to="/topics/reunion-dinner">
+        <Link to="/topics/hualien-fu-kun-chi-two-face">
           <div className={styles['index-promotion']}>
             <PromotionBanner
               bgImgSrc={replaceStorageUrlPrefix(promotionImg)}
               iconImgSrc={backToTopicIcon}
-              title="他鄉的團圓菜"
+              title="雙面傅崐萁"
               subtitle=""
             />
           </div>
