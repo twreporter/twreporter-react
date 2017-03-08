@@ -1,16 +1,12 @@
-/* global describe, it, before, after */
+/* global describe, it, before */
 'use strict'
-import sinon from 'sinon'
 import { expect } from 'chai'
-import { searchAuthors } from '../index'
-import  Index from '../../../node_modules/algoliasearch/src/Index'
-import sinonStubPromise from 'sinon-stub-promise'
-sinonStubPromise(sinon)
+import proxyquire from 'proxyquire'
 
 describe('Search Authors Testing: set up config', function () {
 
   // coder define the query in src/actions/authors.js
-  let mockQuery, mockReq, stubbedIndex, mockResponse, error
+  let mockQuery, mockReq, mockResponse, error, mockSearchAuthors, mockClient
 
   before(function () {
     mockQuery = {
@@ -33,26 +29,36 @@ describe('Search Authors Testing: set up config', function () {
       query: '',
       params: 'query=&filters=articlesCount%3E0&hitsPerPage=24&page=0'
     }
-    error = new Error('This testing error')
-    stubbedIndex = sinon.stub(Index.prototype, 'search')
-  })
+    error = new Error('The testing error')
 
-  after(function () {
-    Index.prototype.search.restore()
+    mockClient = (thePromise) => {
+      return {
+        initIndex: () => {
+          return {
+            search: ()=> {
+              return thePromise === 'resolved' ? Promise.resolve(mockResponse) : Promise.reject(error)
+            }
+          }
+        }
+      }
+    }
+
+    mockSearchAuthors = (thePromise) => {
+      return proxyquire('../search-authors', { 'algoliasearch': () => mockClient(thePromise) })
+    }
+
   })
 
   describe('Search Authors Testing: start', function () {
     it('should return content which is same as the expected one. Resolved case', function () {
-      stubbedIndex.returnsPromise().resolves(mockResponse)
-      return searchAuthors(mockReq)
+      return mockSearchAuthors('resolved').searchAuthors(mockReq)
               .then((response) => {
                 expect(response).to.deep.equal(mockResponse)
               })
     })
 
     it('should return content which is same as the expected one. Rejected case', function () {
-      stubbedIndex.returnsPromise().rejects(error)
-      return searchAuthors(mockReq)
+      return mockSearchAuthors('rejected').searchAuthors(mockReq)
               .catch((response) => {
                 expect(response).to.deep.equal(error)
               })
