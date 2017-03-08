@@ -1,15 +1,17 @@
 /*global __DEVELOPMENT__ */
 'use strict'
-
+import classNames from 'classnames'
 import forOwn from 'lodash/forOwn'
 import screenSize from '../constants/screen-size'
 import sortBy from 'lodash/sortBy'
+import startsWith from 'lodash/startsWith'
 import { ARTICLE_STYLE, INTERACTIVE_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE } from '../constants/index'
 import { devCatListId, prodCatListId } from '../conf/list-id'
 
 const _ = {
   forOwn,
-  sortBy
+  sortBy,
+  startsWith
 }
 
 export function isArticlePageType(pageType) {
@@ -76,6 +78,41 @@ export function date2yyyymmdd(time, separator) {
   const mon = date.getMonth() + 1
   const day = date.getDate()
   return [ year, mon, day ].join(separator)
+}
+
+
+/**
+ * Add tail space when head is a fullwidth bracket for visually centering
+ * 
+ * @param {string} text
+ * @returns {string}
+ */
+export function addTailSpaceIfHeadIsFullwidthBracket(text) {
+  if (typeof text === 'string') {
+    const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
+    for (let i=0, length=leftBrackets.length; i<length; i++) {
+      if (_.startsWith(text, leftBrackets[i])) {
+        return (text + '  ')
+      }
+    }
+  }
+  return text
+}
+
+
+/**
+ * Add a class name with theme name postfix
+ * 
+ * @param {object} styles - imported scss or css module
+ * @param {string} className  - name of the element class
+ * @param {string} themeName - name of the theme
+ * @returns {string} class names like 'card-title card-title-small-card'
+ */
+export function addClassNameWithThemePostfix(styles={}, themeName, className) {
+  return classNames(
+    styles[className],
+    themeName ? styles[themeName+'-'+className] : false
+  )
 }
 
 export * from './denormalize-articles'
