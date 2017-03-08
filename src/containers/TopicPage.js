@@ -1,16 +1,14 @@
 /* eslint no-unused-vars:0 */
-
 'use strict'
-// import VisibilitySensor from 'react-visibility-sensor';
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-// import Helmet from 'react-helmet'
+import Helmet from 'react-helmet'
 import get from 'lodash/get'
 import Banner from '../components/topicPage/Banner'
 import Cards from '../components/topicPage/Cards'
-// import Footer from '../components/Footer'
-// import Header from '../components/topic/Header'
+import Footer from '../components/Footer'
+import Header from '../components/topic/Header'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import SystemError from '../components/SystemError'
 import styles from './TopicPage.scss'
@@ -23,15 +21,20 @@ const _ = {
 }
 
 class TopicPage extends Component {
+  static fetchData({ params, store }) {
+    return store.dispatch(fetchTopicIfNeeded(params.slug))
+  }
+  
   constructor(props) {
     super(props)
     this.state = {
-      isCollapse: false,
       bannerTheme: 'center-center',
-      cardsTheme: 'small-cards'
+      cardsTheme: 'wide-cards',
+      cardsContainerBgColor: '#d8d8d8'
     }
     this._changeBannerTheme = this._changeBannerTheme.bind(this)
     this._changeCardsTheme = this._changeCardsTheme.bind(this)
+    this._changeCardsBgColor = this._changeCardsBgColor.bind(this)
   }
 
   _changeBannerTheme(event) {
@@ -40,6 +43,10 @@ class TopicPage extends Component {
 
   _changeCardsTheme(event) {
     return this.setState({ cardsTheme: event.target.innerHTML })
+  }
+
+  _changeCardsBgColor(event) {
+    return this.setState({ cardsContainerBgColor: event.target.innerHTML })
   }
 
   componentWillMount() {
@@ -82,8 +89,9 @@ class TopicPage extends Component {
       subtitle,     // subtitle {string} - Topic subtitle
       title         // title {string} - Topic title
     } = topic
-    const bannerTheme = _.get(topic, 'bannerTheme', 'center-bottom') // bannerTheme {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
-    const cardsTheme = _.get(topic, 'cardsTheme', 'small-cards') // bannerTheme {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
+    const bannerTheme = _.get(topic, 'bannerTheme', 'center-bottom') // {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
+    const cardsTheme = _.get(topic, 'cardsTheme', 'small-cards') // {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
+    const cardsContainerBgColor = _.get(topic, 'cardsContainerBgColor', '#d8d8d8') // {string} - HEX value of cards container bg-color
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC) // {string}
@@ -99,11 +107,33 @@ class TopicPage extends Component {
     
     return (
       <div className={styles['topic-page-conainer']}>
-        {/*<Helmet />*/}
-        {/*<Header />*/}
+        <Helmet
+          title={fullTitle}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: ogDescription },
+            { name: 'twitter:title', content: fullTitle },
+            { name: 'twitter:description', content: ogDescription },
+            { name: 'twitter:image', content: image },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { property: 'og:title', content: fullTitle },
+            { property: 'og:description', content: ogDescription },
+            { property: 'og:image', content: image },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical },
+            { property: 'og:rich_attachment', content: 'true' }
+          ]}
+        />
+        <Header
+            isFixedToTop={false}
+            title={title}
+        />
         <div className={styles['theme-changer']}>
           <p><span onClick={this._changeBannerTheme}>{'center-center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'center-bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'left-bottom'}</span></p>
-          <p></p>
+          <p><span onClick={this._changeCardsTheme}>{'small-cards'}</span>{' / '}<span onClick={this._changeCardsTheme}>{'wide-cards'}</span></p>
+          <p><span onClick={this._changeCardsBgColor}>{'#d8d8d8'}</span>{' / '}<span onClick={this._changeCardsBgColor}>{'#738498'}</span></p>
         </div>
         <LeadingVideo
           classNames={{
@@ -123,16 +153,18 @@ class TopicPage extends Component {
           subtitle={subtitle}
           publishedDate={publishedDate}
           bannerTheme={this.state.bannerTheme}
+          descriptionNode={this.descriptionNode}
         />
-        <Description
+        <Description 
           topicDescription={description}
           teamDescription={teamDescription}
         />
         <Cards
           items={relatedArticles}
           cardsTheme={this.state.cardsTheme}
+          containerBgColor={this.state.cardsContainerBgColor}
         />
-        {/*<Footer />*/}
+        <Footer />
       </div>
     )
   }
@@ -176,16 +208,3 @@ function mapStateToProps(state) {
 
 export { TopicPage }
 export default connect(mapStateToProps, { fetchTopicIfNeeded })(TopicPage)
-
-// const 
-// function applyWithTheme(WrappedComponent, theme) {
-//   class SelectTopicCardsTheme extends React.Component {
-//     constructor(props) {
-//       super(props)
-//     }
-//     render() {
-//       return <WrappedComponent {...this.props} theme={theme}/>
-//     }
-//   }
-//   return SelectTopicCardsTheme
-// }

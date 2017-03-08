@@ -1,5 +1,4 @@
-/* eslint no-unused-vars:0 */
-
+'use strict'
 /*
   If you want to add a new theme to banner, it's NO need to modify this component.
 
@@ -10,47 +9,44 @@
   If (bannerTheme === 'bottom-left'),
   the selector of `title` in Banner.scss should be '.title-bottom-left'
 */
-
 import React, { PropTypes } from 'react'
-import classNames from 'classnames'
+import smoothScroll from 'smoothscroll'
+import partial from 'lodash/partial'
 import styles from './Banner.scss'
-import startsWith from 'lodash/startsWith'
 import arrowDownIcon from '../../../static/asset/arrow-down.svg'
-import { date2yyyymmdd } from '../../utils/index'
+import { date2yyyymmdd, addTailSpaceIfHeadIsFullwidthBracket, addClassNameWithThemePostfix } from '../../utils/index'
 
+const _ = {
+  partial
+}
 
 const Banner = (props) => {
   const { headline, title, subtitle, publishedDate, bannerTheme } = props
-  const combineClassWithTheme = (className) => classNames(styles[className], bannerTheme?styles[bannerTheme+'-'+className]:false)
-  const addSpaceIfStartWithFullwidthBracket = (text) => {
-    if (typeof text === 'string') {
-      const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
-      for (let i=0, length=leftBrackets.length; i<length; i++) {
-        if (startsWith(text, leftBrackets[i])) {
-          return (text + '  ')
-        }
-      }
-    }
-    return text
+  const _handleScroll = function (e) {
+    e.preventDefault()
+    if (typeof window !== 'object') return
+    return smoothScroll(window.innerHeight)
   }
-  const _cnBannerContainer = combineClassWithTheme('banner-container')
-  const _cnInfosFlexContainer= combineClassWithTheme('infos-flex-container')
-  const _cnHeadline = combineClassWithTheme('headline')
-  const _cnTitle = combineClassWithTheme('title')
-  const _cnSubtitle = combineClassWithTheme('subtitle')
-  const _cnDash = combineClassWithTheme('dash')
-  const _cnPublishedDate = combineClassWithTheme('published-date')
-  const _cnArrowDownIcon = combineClassWithTheme('arrow-down-icon')
+  /* _cn - className */
+  const _addCnBannerthemepostfix = _.partial(addClassNameWithThemePostfix, styles, bannerTheme)
+  const _cnBannerContainer = _addCnBannerthemepostfix('banner-container')
+  const _cnInfosFlexContainer= _addCnBannerthemepostfix('infos-flex-container')
+  const _cnHeadline = _addCnBannerthemepostfix('headline')
+  const _cnTitle = _addCnBannerthemepostfix('title')
+  const _cnSubtitle = _addCnBannerthemepostfix('subtitle')
+  const _cnDash = _addCnBannerthemepostfix('dash')
+  const _cnPublishedDate = _addCnBannerthemepostfix('published-date')
+  const _cnArrowDownIcon = _addCnBannerthemepostfix('arrow-down-icon')
   return (
     <div className={_cnBannerContainer}>
       <div className={_cnInfosFlexContainer} >
-        <div className={_cnHeadline} >{addSpaceIfStartWithFullwidthBracket(headline)}</div>
+        {!headline ? null : <div className={_cnHeadline} >{addTailSpaceIfHeadIsFullwidthBracket(headline)}</div>}
         <h1 className={_cnTitle} >{title}</h1>
-        <h2 className={_cnSubtitle} >{subtitle}</h2>
+        {!subtitle ? null : <h2 className={_cnSubtitle} >{subtitle}</h2>}
         <div className={_cnDash} ></div>
-        <div className={_cnPublishedDate} >{date2yyyymmdd(publishedDate, '.')+' 最後更新'}</div>
+        {!publishedDate ? null : <div className={_cnPublishedDate} >{date2yyyymmdd(publishedDate, '.')+' 最後更新'}</div>}
       </div>
-      <img className={_cnArrowDownIcon} src={arrowDownIcon} role="presentation" />
+      <img className={_cnArrowDownIcon} src={arrowDownIcon} onClick={_handleScroll} role="presentation" />
     </div>
   )
 }
@@ -60,7 +56,8 @@ Banner.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   publishedDate: PropTypes.string.isRequired,
-  bannerTheme: PropTypes.string.isRequired
+  bannerTheme: PropTypes.string.isRequired,
+  descriptionNode: PropTypes.element
 }
 
 export default Banner

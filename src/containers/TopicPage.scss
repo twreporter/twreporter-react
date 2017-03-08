@@ -15,9 +15,10 @@ $text-card-height: 200px;
 
 .theme-changer {
   z-index: 20;
-  position: absolute;
+  position: fixed;
   display: inline-block;
-  left: 50%;
+  top: 30%;
+  left: 70%;
 }
 
 .leading-block {

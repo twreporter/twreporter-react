@@ -28,9 +28,6 @@ $text-card-height: 200px;
 
 .video {
   @extend .ab-center-by-transform;
-  // width: 100%;
-  // height: 100vh;
-  // object-fit: cover;
   width: 100%;
   height: 100%;
   object-fit: cover;

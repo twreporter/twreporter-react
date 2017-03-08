@@ -1,0 +1,391 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/animation.scss';
+@import '../../themes/media-queries';
+@import '../../themes/common-variables.scss';
+@import '../../themes/centering.scss';
+@import '../../themes/truncate-text.scss';
+
+$sml-card-width: 300px;
+$sml-card-img-height: 200px;
+$sml-card-sides-margin: 10px;
+$sml-card-btm-margin: 50px;
+$sml-cards-container-max-width: $sml-card-width * 3 + $sml-card-sides-margin * 4;
+$sml-cards-container-min-width: $sml-card-width * 2 + $sml-card-sides-margin * 3;
+
+$wd-card-max-width: 780px;
+$wd-card-height: 200px;
+$wd-card-img-width: 300px;
+$wd-card-text-max-width: 436px;
+
+$dark-shadow-wd-card: 0 8px 12px 0 rgba(0, 0, 0, 0.25);
+$light-shadow-wd-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+$dark-shadow-sml-card: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+$light-shadow-sml-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+$light-shadow-mb-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+$dark-shadow-loadmore-btn: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+$light-shadow-loadmore-btn: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+
+$wd-card-title-max-lines: 2;
+$wd-card-descript-max-lines: 3; 
+
+$mb-card-width: 100%;
+$mb-card-min-height: 110px;
+$mb-card-img-size: 80px;
+$mb-card-img-card-width: 110px; 
+
+/* OVERALL */
+
+p {
+  margin: 0;
+}
+
+.card {
+  @include fade-in-down(.5s);
+}
+
+.cards-container {
+  position: relative;
+  background-color: $grey-d8;
+  width: 100%;
+}
+
+.image-card {
+  width: 100%;
+  background-color: $white;
+  img {
+    object-fit: cover;
+  }
+}
+
+.text-card {
+  background-color: $white;
+  .card-title {
+    line-height: $line-height-medium;
+    font-size: $font-size-large;
+    color: $gray-15;
+    letter-spacing: $topic-letter-space-small;
+    font-weight: $font-weight-bold;
+    h2 {
+      display: inline;
+      font-size: inherit;
+      color: inherit;
+      letter-spacing: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  .card-description {
+    line-height: $line-height-base;
+    font-size: $font-size-small;
+    color: $gray-50;
+    letter-spacing: $topic-letter-space-tight;
+  }
+
+  .card-date {
+    font-size: $font-size-small;
+    color: $gray-60;
+    letter-spacing: $topic-letter-space-tight;
+  }
+}
+
+.loadmore-btn {
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: $gray-15; 
+  margin-top: 60px;
+  margin-bottom: 50px;
+  box-shadow: $light-shadow-loadmore-btn;
+  transition-property: top,box-shadow;
+  transition-timing-function: ease;
+  transition-duration: .2s;
+  
+  &>div {
+    width: 100%;
+    @extend .ab-center-by-transform;
+    color: $white;
+    font-size: 17px;
+    font-weight: $font-weight-bold;
+    letter-spacing: $topic-letter-space-medium;
+  }
+
+  // Add loadmomre button hover effect if mq is desktop or hd
+  @include mq($min-width: $screen-md-min) {
+    &:hover {
+      top: -5px;
+      box-shadow: $dark-shadow-loadmore-btn;
+    }
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: $screen-xs-max) {
+  .cards-container {
+    width: $mb-card-width;
+    padding: 30px 0 40px 0;
+  }
+  .card {
+    position: relative;
+    width: $mb-card-width;
+    min-height: $mb-card-min-height;
+    margin: 10px 0 10px 0;
+    background-color: $white;
+    box-shadow: $light-shadow-mb-card;
+  }
+  .image-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $mb-card-img-card-width;
+    min-height: $mb-card-min-height;
+    img {
+      width: $mb-card-img-size;
+      height: $mb-card-img-size;
+      // horizontally and vertically centering
+      margin: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+  .text-card {
+    margin-left: $mb-card-img-card-width;
+    min-height: $mb-card-min-height;
+    padding: 11px 2rem 14px 1rem;
+    .card-title {
+      @include truncate-text($line-height-base, $wd-card-descript-max-lines);
+    }
+    .card-description {
+      display: none;
+    }
+    .card-date {
+      display: none;
+    }
+  }
+}
+
+/* TABLET, DESKTOP & HD */
+
+// THEME: small-cards
+
+$small-cards: small-cards;
+
+@include mq($min-width: $screen-sm-min) {
+  .#{$small-cards} {
+    &-cards-container {
+      width: 100%;
+      padding: 60px 0 50px 0;
+      position: relative;
+    }
+
+    &-cards-flex-container {
+      display: flex;
+      margin: 0 auto;
+      background-color: inherit;
+      width: 90%;
+      /* flexbox setting */
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center; // horizontal align (center - center)
+      align-items: flex-start; // vertical align (flex-start - top)
+    }
+
+    &-card {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: $sml-card-width;
+      margin-left: $sml-card-sides-margin;
+      margin-right: $sml-card-sides-margin;
+      margin-bottom: $sml-card-btm-margin;
+      transition-property: top, box-shadow;
+      transition-timing-function: ease;
+      transition-duration: .1s;
+
+      // triangle on the upper left corner
+      &::before {
+        transition: border-width .1s ease-out;
+        content: '';
+        width: 0;
+        height: 0;
+        top: -2px;
+        left: -2px;
+        position: absolute;
+        z-index: 5;
+        border-style: solid;
+        border-width: 25px 25px 0 0;
+        border-color: $white transparent transparent transparent;
+      }
+    }
+
+    &-image-card {
+      position: relative;
+      width: $sml-card-width;
+      height: $sml-card-img-height;
+      box-shadow: $light-shadow-sml-card;
+      transition: box-shadow ease 0.1s;
+
+      .card-img-border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $sml-card-width;
+        height: $sml-card-img-height;
+        transition: border ease 0.1s;
+      }
+
+      img {
+        width: $sml-card-width;
+        height: $sml-card-img-height;
+      }
+
+    }
+
+    &-text-card {
+      width: 100%;
+      position: relative;
+      top: 5px;
+      padding: 17px 15px 2.5em 15px;
+      box-shadow: $light-shadow-sml-card;
+      transition: box-shadow ease 0.2s;
+      
+      .card-title {
+        overflow-wrap: break-word;
+        margin-bottom: 20px;
+        transition: color ease .1s;
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 90%;
+          height: 10px;
+          margin: auto;
+          border-bottom: 1px solid $gray-50;
+        }
+      }
+
+      .card-description {
+        text-align: justify;
+      }
+
+      .card-date {
+        font-size: $font-size-xsmaller;
+        position: absolute;
+        right: 15px;
+        bottom: 18px;
+      }
+    }
+  }
+}
+
+// Add card hover effect if mq is desktop or hd
+@include mq($min-width: $screen-md-min) {
+  .small-cards-card:hover {
+    @include mq($min-width: $screen-md-min) {
+      top: -5px;
+      box-shadow: $dark-shadow-sml-card;
+      &::before {
+        border-width: 0 0 0 0;
+      }
+      .image-card {
+        box-shadow: none;
+        .card-img-border {
+          border: 5px solid $white;
+        }
+      }
+      .text-card {
+        top: 0;
+        box-shadow: none;
+        .card-title {
+          color: $rusty-red
+        }
+      }
+    }
+  }
+}
+      
+// THEME: wide-cards
+
+$wide-cards: wide-cards;
+
+@include mq($min-width: $screen-sm-min) {
+  .#{$wide-cards} {
+    &-cards-container {
+      width: 100%;
+      padding: 60px 0 50px 0;
+    }
+    &-card {
+      margin: 0 auto 50px auto;
+      position: relative;
+      width: 92%;
+      max-width: $wd-card-max-width;
+      height: $wd-card-height;
+      box-shadow: $light-shadow-wd-card;
+      top: 0;
+      left: 0;
+      transition-property: top,left,box-shadow;
+      transition-timing-function: ease;
+      transition-duration: .2s;
+    }
+    &-image-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $wd-card-img-width;
+      height: $wd-card-height;
+      img {
+        width: $wd-card-img-width;
+        height: $wd-card-height;
+      }
+    }
+    &-text-card {
+      margin-left: $wd-card-img-width;
+      position: relative;
+      max-width: $wd-card-max-width - $wd-card-img-width;
+      height: $wd-card-height;
+      padding: 25px 10px 0 20px;
+      
+      .card-title {
+        width: 98%;
+        max-width: $wd-card-text-max-width;
+        transition: color ease .2s;
+        @include mq($min-width: $screen-sm-min) {
+          @include truncate-text($line-height-medium, $wd-card-title-max-lines);
+        }
+      }
+
+      .card-description {
+        width: 98%;
+        max-width: $wd-card-text-max-width;
+        margin-top: 10px;
+        @include truncate-text($line-height-base, $wd-card-descript-max-lines);
+      }
+
+      .card-date {
+        font-size: $font-size-xsmaller;
+        position: absolute;
+        right: 25px;
+        bottom: 10px;
+      }
+    }
+  }
+}
+
+// Add card hover effect if mq is desktop or hd
+@include mq($min-width: $screen-md-min) {
+  .wide-cards-card:hover {
+    top: -5px;
+    left: -5px;
+    box-shadow: $dark-shadow-wd-card;
+    .card-title {
+      color: $rusty-red;
+    }
+  }
+}

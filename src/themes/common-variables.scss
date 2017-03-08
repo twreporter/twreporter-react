@@ -19,7 +19,8 @@ $screen-lg-max: $screen-hd-min - 1px;
 // == Typography
 // ## Font
 $font-date-serif: "Times New Roman",serif;
-$font-topic-title: 45px;
+$font-topic-title-large: 45px;
+$font-topic-title-small: 30px;
 $font-size-xlarger: 34px;
 $font-size-larger: 22px;
 $font-size-large: 20px;
@@ -27,6 +28,7 @@ $font-size-base: 18px;
 $font-size-medium: 16px;
 $font-size-small: 15px;
 $font-size-xsmall: 14px;
+$font-size-xsmaller: 13px;
 $font-size-tiny: 12px;
 $font-weight-normal: 300;
 $font-weight-medium: 500;
@@ -40,10 +42,12 @@ $z-index-widget: 1000000010;
 $general-letter-space: 0.4px;
 $topic-letter-space-wide: 2px;
 $topic-letter-space-medium: 1px;
+$topic-letter-space-small: 0.3px;
 $topic-letter-space-tight: 0.1px;
 
 // ## Line Height
 $line-height-medium: 1.4;
+$line-height-base: 1.5;
 $line-height-large: 1.8;
 // == Margin
 // ## Components
@@ -58,6 +62,7 @@ $gray-25: #404040;
 $gray-40: #666666;
 $gray-50: #808080;
 $gray-64: #A4A4A4;
+$gray-60: rgba(0, 0, 0, 0.6);
 $gray-70: #B3B3B3;
 $gray-97: #F7F7F7;
 $gray-98: #F9F9F9;
@@ -84,7 +89,6 @@ $photography-dark: #08192d;
 $underline-marker-color: rgba(199, 26, 10, 0.25);
 $loading-placeholder: rgba(191,191,191,0.50);
 
-$topic-text-shadow: 0 2px 10px rgba(0, 0, 0, .5);
 $material-box-shadow: 0px 4px 10px 0px rgba($gray-70, 0.7);
 $box-glow: 0px 0px 3px rgba($gray-40, 0.05);
 
