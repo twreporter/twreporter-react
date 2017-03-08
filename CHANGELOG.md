@@ -1,4 +1,5 @@
 ### Unreleased
+- [Testing] Add actions testing of articles, topic, and header
 - [Update] Move author state formatting from action to reducer
 - [Update] Seperate authors state into searched authors and all authors
 - [Testing] API testing fully completed
