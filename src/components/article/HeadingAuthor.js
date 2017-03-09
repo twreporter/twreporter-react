@@ -1,8 +1,9 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import { authorTypes } from '../../constants/index'
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import { Link } from 'react-router'
+import { authorTypes } from '../../constants/index'
 import commonStyles from './Common.scss'
 import styles from './HeadingAuthor.scss'
 
@@ -18,20 +19,13 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   }
 
   function _renderAuthor(author, key) {
-    // TBD After we have author page,
-    // we can add link onto each author
-    /*
     return (
-      <a href="">
-        <span className={commonStyles['text-link']}>
+      <span itemProp="author" key={key} className={styles['author-name-link']}>
+        <Link to={`author/${author.id}`}>
           {author.name}
-        </span>
-      </a>
+        </Link>
+      </span>
       )
-      */
-    return (
-      <span itemProp="author" key={key}>{author.name}</span>
-    )
   }
 
   function _renderAuthors(authors) {
