@@ -173,12 +173,12 @@ p {
 
 /* TABLET, DESKTOP & HD */
 
-// THEME: small-cards
+// THEME 01: in-row (small-cards)
 
-$small-cards: small-cards;
+$theme-name-01: in-row;
 
 @include mq($min-width: $screen-sm-min) {
-  .#{$small-cards} {
+  .#{$theme-name-01} {
     &-cards-container {
       width: 100%;
       padding: 60px 0 50px 0;
@@ -287,7 +287,7 @@ $small-cards: small-cards;
 
 // Add card hover effect if mq is desktop or hd
 @include mq($min-width: $screen-md-min) {
-  .small-cards-card:hover {
+  .#{$theme-name-01}-card:hover {
     @include mq($min-width: $screen-md-min) {
       top: -5px;
       box-shadow: $dark-shadow-sml-card;
@@ -311,12 +311,12 @@ $small-cards: small-cards;
   }
 }
       
-// THEME: wide-cards
+// THEME 02: in-column (wide-cards)
 
-$wide-cards: wide-cards;
+$theme-name-02: in-column;
 
 @include mq($min-width: $screen-sm-min) {
-  .#{$wide-cards} {
+  .#{$theme-name-02} {
     &-cards-container {
       width: 100%;
       padding: 60px 0 50px 0;
@@ -380,7 +380,7 @@ $wide-cards: wide-cards;
 
 // Add card hover effect if mq is desktop or hd
 @include mq($min-width: $screen-md-min) {
-  .wide-cards-card:hover {
+  .#{$theme-name-02}-card:hover {
     top: -5px;
     left: -5px;
     box-shadow: $dark-shadow-wd-card;

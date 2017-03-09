@@ -28,8 +28,8 @@ class TopicPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bannerTheme: 'center-center',
-      cardsTheme: 'wide-cards',
+      bannerTheme: 'center',
+      cardsTheme: 'in-row',
       cardsContainerBgColor: '#d8d8d8'
     }
     this._changeBannerTheme = this._changeBannerTheme.bind(this)
@@ -89,9 +89,9 @@ class TopicPage extends Component {
       subtitle,     // subtitle {string} - Topic subtitle
       title         // title {string} - Topic title
     } = topic
-    const bannerTheme = _.get(topic, 'bannerTheme', 'center-bottom') // {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
-    const cardsTheme = _.get(topic, 'cardsTheme', 'small-cards') // {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
-    const cardsContainerBgColor = _.get(topic, 'cardsContainerBgColor', '#d8d8d8') // {string} - HEX value of cards container bg-color
+    const bannerTheme = _.get(topic, 'titlePosition', 'center') // {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
+    const cardsTheme = _.get(topic, 'relatedsFormat', 'in-row') // {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
+    const cardsContainerBgColor = _.get(topic, 'relatedsBackground', '#d8d8d8') // {string} - HEX value of cards container bg-color
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC) // {string}
@@ -99,7 +99,7 @@ class TopicPage extends Component {
     const logo = 'https://www.twreporter.org/asset/logo.png'
     const image = _.get(leadingImage, 'image.resizedTargets.tablet.url', logo) // {string}
 
-    const slug = _.get(selectedTopic, 'slug')
+    const slug = _.get(selectedTopic, 'slug') // {string}
 
     const relatedArticles = denormalizeArticles(relateds, entities)
     const canonical = `${SITE_META.URL}topics/${slug}`
@@ -131,8 +131,8 @@ class TopicPage extends Component {
             title={title}
         />
         <div className={styles['theme-changer']}>
-          <p><span onClick={this._changeBannerTheme}>{'center-center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'center-bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'left-bottom'}</span></p>
-          <p><span onClick={this._changeCardsTheme}>{'small-cards'}</span>{' / '}<span onClick={this._changeCardsTheme}>{'wide-cards'}</span></p>
+          <p><span onClick={this._changeBannerTheme}>{'center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom-left'}</span></p>
+          <p><span onClick={this._changeCardsTheme}>{'in-row'}</span>{' / '}<span onClick={this._changeCardsTheme}>{'in-column'}</span></p>
           <p><span onClick={this._changeCardsBgColor}>{'#d8d8d8'}</span>{' / '}<span onClick={this._changeCardsBgColor}>{'#738498'}</span></p>
         </div>
         <LeadingVideo
