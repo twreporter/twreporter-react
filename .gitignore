@@ -19,3 +19,5 @@ api/config.js
 
 # Ignore transpiled files
 dist/
+
+yarn-error.log
