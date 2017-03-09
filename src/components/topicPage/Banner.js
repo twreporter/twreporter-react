@@ -36,7 +36,7 @@ const Banner = (props) => {
   const _cnSubtitle = _addCnBannerthemepostfix('subtitle')
   const _cnDash = _addCnBannerthemepostfix('dash')
   const _cnPublishedDate = _addCnBannerthemepostfix('published-date')
-  const _cnArrowDownIcon = _addCnBannerthemepostfix('arrow-down-icon')
+  const _cnArrowDownIconWrapper = _addCnBannerthemepostfix('arrow-down-icon-wrapper')
   return (
     <div className={_cnBannerContainer}>
       <div className={_cnInfosFlexContainer} >
@@ -46,7 +46,9 @@ const Banner = (props) => {
         <div className={_cnDash} ></div>
         {!publishedDate ? null : <div className={_cnPublishedDate} >{date2yyyymmdd(publishedDate, '.')+' 最後更新'}</div>}
       </div>
-      <img className={_cnArrowDownIcon} src={arrowDownIcon} onClick={_handleScroll} role="presentation" />
+      <div className={_cnArrowDownIconWrapper} onClick={_handleScroll} >
+        <img src={arrowDownIcon} role="presentation" />
+      </div>
     </div>
   )
 }

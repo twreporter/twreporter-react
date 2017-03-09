@@ -10,6 +10,22 @@ $text-shadow: 0 2px 10px rgba(0, 0, 0, .5);
 $arrow-dark-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
 $arrow-light-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
 
+$arrow-width: 25px;
+$arrow-height: 15px;
+$arrow-extension: 7px;
+$arrow-wrapper-width: $arrow-width + $arrow-extension * 2;
+$arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
+$arrow-bottom-center-center-desktop: 60px - $arrow-extension;
+$arrow-bottom-center-center-tablet: $arrow-bottom-center-center-desktop + 20px;
+$arrow-bottom-center-center-mobile: $arrow-bottom-center-center-desktop - 30px;
+$arrow-bottom-left-bottom-desktop: 53px - $arrow-extension;
+$arrow-bottom-left-bottom-tablet: $arrow-bottom-left-bottom-desktop + 40px;
+$arrow-bottom-left-bottom-mobile: $arrow-bottom-left-bottom-desktop - 20px;
+$arrow-bottom-center-bottom-desktop: 50px - $arrow-extension;
+$arrow-bottom-center-bottom-tablet: $arrow-bottom-center-bottom-desktop + 20px;
+$arrow-bottom-center-bottom-mobile: $arrow-bottom-center-bottom-desktop - 20px;
+$arrow-hover-move-length: 5px;
+
 /* ALL THEME GENERAL STYLING */
 // Mobile & Overall
 
@@ -78,9 +94,16 @@ h1, h2 {
   text-shadow: $text-shadow;
 }
 
-.arrow-down-icon {
-  width: 25px;
+.arrow-down-icon-wrapper {
   cursor: pointer;
+  width: $arrow-wrapper-width;
+  height: $arrow-wrapper-height;
+  img {
+    @extend .ab-center-by-transform;
+    width: $arrow-width;
+    height: $arrow-height;
+    object-fit: contain;
+  }
 }
 
 // TABLET, DESKTOP, & DESKTOP HD
@@ -132,21 +155,13 @@ $center-center: center-center;
     order: 5;
   }
 
-  &-arrow-down-icon{
-    @extend .ab-horiz-center-by-transform;
-    bottom: 30px;
+  &-arrow-down-icon-wrapper{
+    @extend .ab-horizontal-center;
+    bottom: $arrow-bottom-center-center-mobile;
     box-shadow: $arrow-light-shadow;
     transition-property: bottom,box-shadow;
     transition-timing-function: ease;
     transition-duration: .2s;
-
-    // Add arrow down icon hover effect if mq is desktop or hd
-    @include mq($min-width: $screen-md-min) {
-      &:hover {
-        bottom: 33px;
-        box-shadow: $arrow-dark-shadow;
-      }
-    }
   }
 
   // Tablet
@@ -163,8 +178,8 @@ $center-center: center-center;
     &-dash {
       margin-bottom: 25px;
     }
-    &-arrow-down-icon{
-      bottom: 80px;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-center-center-tablet;
     }
   }
 
@@ -182,14 +197,14 @@ $center-center: center-center;
     &-dash {
       margin-bottom: 25px;
     }
-    &-arrow-down-icon{
-      bottom: 60px;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-center-center-desktop;
       box-shadow: $arrow-light-shadow;
       transition-property: bottom,box-shadow;
       transition-timing-function: ease;
       transition-duration: .2s;
       &:hover {
-        bottom: 55px;
+        bottom: $arrow-bottom-center-center-desktop - $arrow-hover-move-length;
         box-shadow: $arrow-dark-shadow;
       }
     }
@@ -233,10 +248,10 @@ $left-bottom: left-bottom;
     order: 5;
   }
 
-  &-arrow-down-icon{
+  &-arrow-down-icon-wrapper{
     position: absolute;
-    bottom: 32px;
-    left: 7.7rem;
+    bottom: $arrow-bottom-left-bottom-mobile;
+    left: 7.2rem;
   }
 
   // Tablet
@@ -244,9 +259,9 @@ $left-bottom: left-bottom;
     &-infos-flex-container {
       padding: 0 0 90px 34px;
     }
-    &-arrow-down-icon{
-      bottom: 93px;
-      left: 10rem;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-left-bottom-tablet;
+      left: 9.5rem;
     }
   }
 
@@ -255,15 +270,15 @@ $left-bottom: left-bottom;
     &-infos-flex-container {
       padding:  0 0 50px 50px;
     }
-    &-arrow-down-icon{
-      bottom: 53px;
-      left: 11.5rem;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-left-bottom-desktop;
+      left: 11rem;
       box-shadow: $arrow-light-shadow;
       transition-property: bottom,box-shadow;
       transition-timing-function: ease;
       transition-duration: .2s;
       &:hover {
-        bottom: 48px;
+        bottom: $arrow-bottom-left-bottom-desktop - $arrow-hover-move-length;
         box-shadow: $arrow-dark-shadow;
       }
     }
@@ -310,9 +325,9 @@ $center-bottom: center-bottom;
     text-align: center;
   }
 
-  &-arrow-down-icon{
-    @extend .ab-horiz-center-by-transform;
-    bottom: 30px;
+  &-arrow-down-icon-wrapper{
+    @extend .ab-horizontal-center;
+    bottom: $arrow-bottom-center-bottom-mobile;
   }
 
   // Tablet
@@ -332,8 +347,8 @@ $center-bottom: center-bottom;
     &-title {
       margin-bottom: 5px;
     }
-    &-arrow-down-icon{
-      bottom: 70px;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-center-bottom-tablet;
     }
   }
 
@@ -354,14 +369,14 @@ $center-bottom: center-bottom;
     &-title {
       margin-bottom: 5px;
     }
-    &-arrow-down-icon{
-      bottom: 50px;
+    &-arrow-down-icon-wrapper{
+      bottom: $arrow-bottom-center-bottom-desktop;
       box-shadow: $arrow-light-shadow;
       transition-property: bottom,box-shadow;
       transition-timing-function: ease;
       transition-duration: .2s;
       &:hover {
-        bottom: 45px;
+        bottom: $arrow-bottom-center-bottom-desktop - $arrow-hover-move-length;
         box-shadow: $arrow-dark-shadow;
       }
     }
