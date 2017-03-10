@@ -10,6 +10,7 @@ import logoRss from '../../static/asset/icon-rss.svg'
 import logoCC from '../../static/asset/icon-cc.svg'
 import whiteLogIcon from '../../static/asset/logo-white.svg'
 import React, { Component } from 'react'
+import ReactGA from 'react-ga'
 import styles from './Footer.scss'
 
 export default class Footer extends Component {
@@ -18,6 +19,7 @@ export default class Footer extends Component {
   }
   render() {
     const { copyright, theme } = this.props
+    const { pathname } = this.context.location
     let copyrightObj = copyrightTypes.default
 
     if (copyright === 'Copyrighted') {
@@ -76,7 +78,15 @@ export default class Footer extends Component {
               </Link>
             </div>
             <div className={styles['support']}>
-              <a href={donatePath} target="_blank">
+              <a href={donatePath} target="_blank"
+                onClick={()=>{
+                  ReactGA.event({
+                    category: 'FooterDonateButton',
+                    action: 'Click',
+                    label: pathname
+                  })
+                }}
+              >
                   贊助我們
               </a>
             </div>
@@ -129,4 +139,8 @@ export default class Footer extends Component {
       </footer>
     )
   }
+}
+
+Footer.contextTypes = {
+  location: React.PropTypes.object
 }

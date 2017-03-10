@@ -11,6 +11,7 @@ import navCommonStyles from './NavCommon.scss'
 import Bookmarks from './Bookmarks'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component, PropTypes } from 'react'
+import ReactGA from 'react-ga'
 import ReactDOM from 'react-dom'
 import SearchBox from './SearchBox'
 import SubNavBar from './SubNavBar'
@@ -118,7 +119,7 @@ export default class NavMenu extends Component {
       <div className={classNames(styles.navContainer, animateClass)}>
         <div className={styles.navLeft}>
           {burgerMenu}
-          <DonateButton isSlidedUp={false}/>
+          <DonateButton isSlidedUp={false} url={pathname}/>
         </div>
         <div className={styles.navCenter}>
           <Link className={styles.navLogo} to="/"><img src={logo} /></Link>
@@ -138,7 +139,7 @@ export default class NavMenu extends Component {
   _renderAritcleSecond(burgerMenu) {
     const navItemClass = styles.navButton
     const { trimmedTitle } = this.state   // trimmed title
-    const { pageTopic, pageTheme, showBackToTopicIcon, topicArr, topicSlug } = this.props
+    const { pageTopic, pageTheme, showBackToTopicIcon, topicArr, topicSlug, pathname } = this.props
     const topicLength = _.get(topicArr, 'length', 0)
     const titleClass= pageTopic ? styles['topicTitleText'] : styles['articleTitleText']
     let topicRedBox = pageTopic ? <span className={commonStyles['topic-box']}>{pageTopic}</span> : null
@@ -165,7 +166,7 @@ export default class NavMenu extends Component {
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.slideUp)}>
           {burgerMenu}
-          <DonateButton isSlidedUp={true}/>
+          <DonateButton isSlidedUp={true} url={pathname}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight)}>
           <div className={classNames(titleClass, { [styles.photography]: pageTheme === DARK })} ref="title">
@@ -183,12 +184,13 @@ export default class NavMenu extends Component {
 
   _renderGeneralSecond(burgerMenu, navLinks) { // eslint-disable-line
     const isCatHidden = this.state.open ? styles['hide-category'] : null
+    const { pathname } = this.props
 
     return (
       <div className={classNames(styles.navContainer, styles.slidedUpNav)}>
         <div className={classNames(styles.navLeft, styles.slideUp)}>
           {burgerMenu}
-          <DonateButton isSlidedUp={true}/>
+          <DonateButton isSlidedUp={true} url={pathname}/>
         </div>
         <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], 'hidden-xs', isCatHidden)}>
           <div className={styles['nav-category']}>
@@ -358,7 +360,15 @@ const DonateButton = (props) => {
   const { isSlidedUp } = props
   const dClass = isSlidedUp ? styles['up'] : null
   return (
-    <Link target="_blank" title="贊助我們" className={classNames(styles.donateButton, dClass)} href={donatePath}>
+    <Link target="_blank" title="贊助我們" className={classNames(styles.donateButton, dClass)} href={donatePath}
+      onClick={()=>{
+        ReactGA.event({
+          category: 'HeaderDonateButton',
+          action: 'Click',
+          label: props.url
+        })
+      }}
+    >
       <img src={donateIcon} />
       <span>贊助我們</span>
     </Link>
