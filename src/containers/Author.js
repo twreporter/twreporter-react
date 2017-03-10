@@ -44,7 +44,7 @@ class Author extends React.Component {
     const authorData = {
       authorId: authorId,
       authorName: _.get(authorEntity, 'name'),
-      authorImg: _.get(authorEntity, 'imageUrl', authorDefaultImg),
+      authorImgUrl: _.get(authorEntity, 'image.image.resizedTargets.mobile.url', authorDefaultImg),
       authorMail: _.get(authorEntity, 'email'),
       authorBio: _.get(authorEntity, 'bio.md')
     }
