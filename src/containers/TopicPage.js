@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import Helmet from 'react-helmet'
 import get from 'lodash/get'
-import Banner from '../components/topicPage/Banner'
+import BannerFactory from '../components/topicPage/Banner'
 import Cards from '../components/topicPage/Cards'
 import Footer from '../components/Footer'
 import Header from '../components/topic/Header'
@@ -14,7 +14,7 @@ import SystemError from '../components/SystemError'
 import styles from './TopicPage.scss'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { fetchTopicIfNeeded } from '../actions/topic'
-import { denormalizeArticles } from '../utils/index'
+import { denormalizeArticles, changeBgColor } from '../utils/index'
 
 const _ = {
   get
@@ -25,8 +25,10 @@ class TopicPage extends Component {
     return store.dispatch(fetchTopicIfNeeded(params.slug))
   }
   
+  /* --↓↓ For UI testing, should be remove before deployed ↓↓-- */
   constructor(props) {
     super(props)
+
     this.state = {
       bannerTheme: 'center',
       cardsTheme: 'in-row',
@@ -48,6 +50,7 @@ class TopicPage extends Component {
   _changeCardsBgColor(event) {
     return this.setState({ cardsContainerBgColor: event.target.innerHTML })
   }
+  /* --↑↑ For UI testing, should be remove before deployed ↑↑-- */
 
   componentWillMount() {
     const { fetchTopicIfNeeded, params } = this.props
@@ -89,12 +92,19 @@ class TopicPage extends Component {
       subtitle,     // subtitle {string} - Topic subtitle
       title         // title {string} - Topic title
     } = topic
-    const bannerTheme = _.get(topic, 'titlePosition', 'center') // {string} - Theme of banner, should be one of ['left-bottom', 'center-center', 'center-bottom' ]
-    const cardsTheme = _.get(topic, 'relatedsFormat', 'in-row') // {string} - Theme of cards, should be one of ['wide-cards', 'small-cards' ]
+    const bannerTheme = _.get(topic, 'titlePosition', 'center') // {string} - Theme of banner, should be one of ['bottom-left', 'center', 'bottom' ]
+    const cardsTheme = _.get(topic, 'relatedsFormat', 'in-row') // {string} - Theme of cards, should be one of ['in-rows', 'in-column' ]
     const cardsContainerBgColor = _.get(topic, 'relatedsBackground', '#d8d8d8') // {string} - HEX value of cards container bg-color
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC) // {string}
+
+    const topicInfosData = {
+      headline,
+      title,
+      subtitle,
+      publishedDate
+    }
 
     const logo = 'https://www.twreporter.org/asset/logo.png'
     const image = _.get(leadingImage, 'image.resizedTargets.tablet.url', logo) // {string}
@@ -104,7 +114,14 @@ class TopicPage extends Component {
     const relatedArticles = denormalizeArticles(relateds, entities)
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    
+    /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
+    const bannerFactory = new BannerFactory
+    const Banner = bannerFactory.buildWithTheme(this.state.bannerTheme)
+    /*
+      Shold move buildBanner to componentWillMount to prevent create elements?
+    */
+    /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
+
     return (
       <div className={styles['topic-page-conainer']}>
         <Helmet
@@ -127,14 +144,16 @@ class TopicPage extends Component {
           ]}
         />
         <Header
-            isFixedToTop={false}
-            title={title}
+          isFixedToTop={false}
+          title={title}
         />
+        {/* --↓↓ For UI testing, should be modified before deployed ↓↓-- */}
         <div className={styles['theme-changer']}>
           <p><span onClick={this._changeBannerTheme}>{'center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom-left'}</span></p>
           <p><span onClick={this._changeCardsTheme}>{'in-row'}</span>{' / '}<span onClick={this._changeCardsTheme}>{'in-column'}</span></p>
           <p><span onClick={this._changeCardsBgColor}>{'#d8d8d8'}</span>{' / '}<span onClick={this._changeCardsBgColor}>{'#738498'}</span></p>
         </div>
+        {/* --↑↑ For UI testing, should be modified before deployed ↑↑-- */}
         <LeadingVideo
           classNames={{
             container: styles['leading-block'],
@@ -152,17 +171,17 @@ class TopicPage extends Component {
           title={title}
           subtitle={subtitle}
           publishedDate={publishedDate}
-          bannerTheme={this.state.bannerTheme}
-          descriptionNode={this.descriptionNode}
         />
-        <Description 
+        <Description
           topicDescription={description}
           teamDescription={teamDescription}
         />
         <Cards
           items={relatedArticles}
+          /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
           cardsTheme={this.state.cardsTheme}
           containerBgColor={this.state.cardsContainerBgColor}
+          /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
         />
         <Footer />
       </div>

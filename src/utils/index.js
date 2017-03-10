@@ -2,6 +2,7 @@
 'use strict'
 import classNames from 'classnames'
 import forOwn from 'lodash/forOwn'
+import map from 'lodash/map'
 import screenSize from '../constants/screen-size'
 import sortBy from 'lodash/sortBy'
 import startsWith from 'lodash/startsWith'
@@ -10,6 +11,7 @@ import { devCatListId, prodCatListId } from '../conf/list-id'
 
 const _ = {
   forOwn,
+  map,
   sortBy,
   startsWith
 }
@@ -115,7 +117,29 @@ export function addClassNameWithThemePostfix(styles={}, themeName, className) {
   )
 }
 
+
+/**
+ * Return a curried funciton.(Partially applied function)
+ * 
+ * @param {function} fn - The target function you want to curry.
+ * @param {any} curryArgs - The arguments you want to set.
+ * @returns 
+ */
+export function partialApply(fn, ...partOfArgs) {
+  if (typeof fn !== 'function') throw Error('The first argument should be a function.')
+  return function (...elseArgs) {
+    const patchedArgs = _.map(partOfArgs, function (arg) {
+      if (arg === undefined) {
+        return elseArgs.shift()
+      }
+      return arg
+    })
+    const args = patchedArgs.concat(elseArgs)
+    return fn.apply(null, args)
+  }
+}
+
 export * from './denormalize-articles'
 export * from './image-processor'
 export * from './url-processor'
-
+export * from './higher-order-components'
