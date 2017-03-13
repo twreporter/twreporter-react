@@ -15,6 +15,7 @@ import partial from 'lodash/partial'
 import styles from './Banner.scss'
 import arrowDownIcon from '../../../static/asset/arrow-down.svg'
 import { date2yyyymmdd, addTailSpaceIfHeadIsFullwidthBracket, addClassNameWithThemePostfix } from '../../utils/index'
+import { TOPIC_LAST_UPDATED } from '../../constants/index'
 
 const _ = {
   partial
@@ -44,7 +45,7 @@ const Banner = (props) => {
         <h1 className={_cnTitle} >{title}</h1>
         {!subtitle ? null : <h2 className={_cnSubtitle} >{subtitle}</h2>}
         <div className={_cnDash} ></div>
-        {!publishedDate ? null : <div className={_cnPublishedDate} >{date2yyyymmdd(publishedDate, '.')+' 最後更新'}</div>}
+        {!publishedDate ? null : <div className={_cnPublishedDate} >{date2yyyymmdd(publishedDate, '.')+' '+TOPIC_LAST_UPDATED}</div>}
       </div>
       <div className={_cnArrowDownIconWrapper} onClick={_handleScroll} >
         <img src={arrowDownIcon} role="presentation" />
