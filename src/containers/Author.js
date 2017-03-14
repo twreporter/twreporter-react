@@ -4,6 +4,7 @@ import { AUTHOR_PAGE, LIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import Helmet from 'react-helmet'
+import Footer from '../components/Footer'
 import React, { PropTypes } from 'react'
 import Sponsor from '../components/Sponsor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
@@ -89,6 +90,7 @@ class Author extends React.Component {
         />
       </div>
       <Sponsor />
+      <Footer />
     </div>)
   }
 }
