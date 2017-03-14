@@ -1,14 +1,15 @@
 ### Unreleased
 - [Update] Add GA tracking for donation button
-- [Testing] Add actions testing of articles, topic, and header
 - [Update] Move author state formatting from action to reducer
-- [Update] Seperate authors state into searched authors and all authors
-- [Testing] API testing fully completed
+- [Update] Separate authors state into searched authors and all authors
 - [Update] Add initial sub-state of articles reducer
+- [Testing] Add actions testing of articles, topic, and header
+- [Testing] API testing fully completed
+- [Testing] Actions testing for article, author-articles and authors
+- [Testing] Reducer testing for author-articles, authors
 - [Update] Update img url and default img of AuthorsList and Author
 - [Bug] Missing slash of author link in articles
 - [Update] Add Footer component to Author
-
 
 ### 1.1.5
 - [Update] content of sub-nav-path
