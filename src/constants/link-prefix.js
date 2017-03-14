@@ -4,5 +4,6 @@ export const LINK_PREFIX = {
   CATEGORY: '/category/',
   TAG: '/tag/',
   TOPIC: '/topic/',
-  TOPICS: '/topics/'
+  TOPICS: '/topics/',
+  AUTHOR: '/author/'
 }
