@@ -1,4 +1,6 @@
 ### Unreleased
+
+### 1.1.6
 - [Update] Add GA tracking for donation button
 - [Update] Move author state formatting from action to reducer
 - [Update] Separate authors state into searched authors and all authors
@@ -10,6 +12,7 @@
 - [Update] Update img url and default img of AuthorsList and Author
 - [Bug] Missing slash of author link in articles
 - [Update] Add Footer component to Author
+- [Update] Add AuthorsList and Author helmet
 
 ### 1.1.5
 - [Update] content of sub-nav-path
