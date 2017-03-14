@@ -1,9 +1,10 @@
 'use strict'
 
-import { AUTHOR_PAGE } from '../constants/page-types'
+import { AUTHOR_PAGE, LIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
-import { LIGHT } from '../constants/page-themes'
+import Helmet from 'react-helmet'
+import Footer from '../components/Footer'
 import React, { PropTypes } from 'react'
 import Sponsor from '../components/Sponsor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
@@ -44,15 +45,38 @@ class Author extends React.Component {
     const authorData = {
       authorId: authorId,
       authorName: _.get(authorEntity, 'name'),
-      authorImg: _.get(authorEntity, 'imageUrl', authorDefaultImg),
+      authorImgUrl: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url', authorDefaultImg),
       authorMail: _.get(authorEntity, 'email'),
       authorBio: _.get(authorEntity, 'bio.md')
     }
     let handleLoadmore = () => {
       return this.props.fetchAuthorCollectionIfNeeded(authorId)
     }
+
+    const fullTitle = authorData.authorName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHOR}${authorData.authorId}`
+
     return (
     <div>
+      <Helmet
+        title={fullTitle}
+        link={[
+          { rel: 'canonical', href: canonical }
+        ]}
+        meta={[
+          { name: 'description', content: authorData.authorBio },
+          { name: 'twitter:title', content: fullTitle },
+          { name: 'twitter:description', content: authorData.authorBio },
+          { name: 'twitter:image', content: authorData.authorImgUrl },
+          { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
+          { property: 'og:title', content: fullTitle },
+          { property: 'og:description', content: authorData.authorBio },
+          { property: 'og:image', content: authorData.authorImgUrl },
+          { property: 'og:type', content: OG_TYPE.PROFILE },
+          { property: 'og:url', content: canonical },
+          { property: 'og:rich_attachment', content: 'true' }
+        ]}
+      />
       <AuthorData authorData={authorData} />
       <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
         <AuthorCollection
@@ -66,6 +90,7 @@ class Author extends React.Component {
         />
       </div>
       <Sponsor />
+      <Footer />
     </div>)
   }
 }

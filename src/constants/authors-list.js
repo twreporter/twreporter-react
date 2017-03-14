@@ -15,7 +15,7 @@ export function NO_RESULT(keywords) {
   return '找不到相關的結果'
 }
 
-export const PAGE_TITLE = '作者列表 - 報導者 The Reporter'
+export const PAGE_TITLE = '作者列表'
 export const SEARCH_AUTHORS_FAILURE_MESSAGE = '抱歉，資料伺服器錯誤，請稍後再嘗試'
 export const LIST_ALL_AUTHORS_FAILURE_MESSAGE = '抱歉，資料伺服器錯誤，請稍後再嘗試'
 

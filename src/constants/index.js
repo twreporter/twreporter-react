@@ -108,3 +108,13 @@ export const colors = {
   darkBg: '#08192d',
   darkText: '#262626'
 }
+
+export const TWITTER_CARD = {
+  SUMMARY_LARGE_IMAGE: 'summary_large_image',
+  SUMMARY: 'summary'
+}
+
+export const OG_TYPE = {
+  PROFILE: 'profile',
+  WEBSITE: 'website'
+}

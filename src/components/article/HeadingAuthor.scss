@@ -19,6 +19,10 @@
     &>span:first-child {
       font-weight: $font-weight-bold;
     }
+
+    .author-name-link a {
+      border-bottom: 0;
+    }
   }
 }
 
