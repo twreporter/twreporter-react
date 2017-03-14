@@ -10,10 +10,10 @@ const boxClasses = classNames(
 )
 
 const AuthorData = (props) => {
-  const { authorImg, authorName, authorMail, authorBio } = props.authorData
+  const { authorImgUrl, authorName, authorMail, authorBio } = props.authorData
   return (
   <div className={boxClasses}>
-    <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImg}/></div>
+    <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImgUrl}/></div>
     <div className={styles['author-data-container']}>
       <div className={styles['author-name']}>{authorName}</div>
       {!authorMail ? null : <div className={styles['author-mail']}>{authorMail}</div>}
@@ -26,7 +26,7 @@ AuthorData.propTypes = {
   authorData: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
     authorName: PropTypes.string.isRequired,
-    authorImg: PropTypes.string,
+    authorImgUrl: PropTypes.string,
     authorMail: PropTypes.string,
     authorBio: PropTypes.string
   })

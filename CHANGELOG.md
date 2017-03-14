@@ -5,6 +5,7 @@
 - [Update] Seperate authors state into searched authors and all authors
 - [Testing] API testing fully completed
 - [Update] Add initial sub-state of articles reducer
+- [Update] Update img url and default img of AuthorsList and Author
 
 ### 1.1.5
 - [Update] content of sub-nav-path

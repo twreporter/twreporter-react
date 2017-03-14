@@ -62,7 +62,7 @@ class AuthorsList extends React.Component {
       isFetching = _.get(authorsListDataToRender, 'isFetching', false),
       authorsIdList = _.get(authorsListDataToRender, 'items', [])
     const authorsEntities = _.get(this.props, 'authorsEntities', {})
-    // Transform entities.authors into the format: [{ id, authorName, authorImg, authorUrl },{...},...]
+    // Transform entities.authors into the format: [{ id, authorName, authorImgUrl, authorUrl },{...},...]
     function wrapBeforeFirstFullwidthBracket(string) {
       if (typeof string === 'string') {
         const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
@@ -77,12 +77,12 @@ class AuthorsList extends React.Component {
     }
     function iteratee(id) {
       const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
-      let authorImg = _.get(authorsEntities, `${id}.image`, '')
-      authorImg = authorImg ? authorImg : authorDefaultImg // for some authors' api data 'image' may be null
+      let authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`, '')
+      authorImgUrl = authorImgUrl ? authorImgUrl : authorDefaultImg // For some authors' 'image' may be null
       let authorItemObject = {
         id,
         authorName,
-        authorImg,
+        authorImgUrl,
         authorUrl: id ? `/author/${id}` : ''
       }
       return authorItemObject

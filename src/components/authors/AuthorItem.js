@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react'
 import styles from './AuthorList.scss'
 import { Link } from 'react-router'
 
-const AuthorItem = ({ authorName, authorImg, authorUrl }) => (
+const AuthorItem = ({ authorName, authorImgUrl, authorUrl }) => (
   <div className={styles['author-item']}>
     <Link to={authorUrl}>
-      <img src={authorImg} className={styles['author-img']} />
+      <img src={authorImgUrl} className={styles['author-img']} />
       <div className={styles['author-name']} >{authorName}</div>
     </Link>
   </div>
@@ -13,7 +13,7 @@ const AuthorItem = ({ authorName, authorImg, authorUrl }) => (
 
 AuthorItem.propTypes = {
   authorName: PropTypes.string.isRequired,
-  authorImg: PropTypes.string.isRequired,
+  authorImgUrl: PropTypes.string.isRequired,
   authorUrl: PropTypes.string.isRequired
 }
 
