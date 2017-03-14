@@ -1,4 +1,6 @@
 ### Unreleased
+
+### 1.1.6
 - [Update] Add GA tracking for donation button
 - [Testing] Add actions testing of articles, topic, and header
 - [Update] Move author state formatting from action to reducer
