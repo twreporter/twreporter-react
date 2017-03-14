@@ -77,7 +77,7 @@ class AuthorsList extends React.Component {
     }
     function iteratee(id) {
       const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
-      let authorImgUrl = _.get(authorsEntities, `${id}.image.image.resizedTargets.mobile.url`, '')
+      let authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`, '')
       authorImgUrl = authorImgUrl ? authorImgUrl : authorDefaultImg // For some authors' 'image' may be null
       let authorItemObject = {
         id,
