@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { Link } from 'react-router'
-import { authorTypes } from '../../constants/index'
+import { authorTypes, LINK_PREFIX } from '../../constants/index'
 import commonStyles from './Common.scss'
 import styles from './HeadingAuthor.scss'
 
@@ -21,7 +21,7 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   function _renderAuthor(author, key) {
     return (
       <span itemProp="author" key={key} className={styles['author-name-link']}>
-        <Link to={`author/${author.id}`}>
+        <Link to={`${LINK_PREFIX.AUTHOR}${author.id}`}>
           {author.name}
         </Link>
       </span>

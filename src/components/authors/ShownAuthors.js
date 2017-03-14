@@ -25,7 +25,7 @@ ShownAuthors.propTypes = {
   filteredAuthors: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     authorName: PropTypes.string.isRequired,
-    authorImg: PropTypes.string.isRequired,
+    authorImgUrl: PropTypes.string.isRequired,
     authorUrl: PropTypes.string.isRequired
   }).isRequired).isRequired
 }

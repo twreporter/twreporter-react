@@ -7,6 +7,9 @@
 - [Testing] API testing fully completed
 - [Testing] Actions testing for article, author-articles and authors
 - [Testing] Reducer testing for author-articles, authors
+- [Update] Update img url and default img of AuthorsList and Author
+- [Bug] Missing slash of author link in articles
+- [Update] Add Footer component to Author
 
 ### 1.1.5
 - [Update] content of sub-nav-path
