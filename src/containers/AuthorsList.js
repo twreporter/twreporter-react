@@ -2,10 +2,10 @@
 
 import * as constants from '../constants/authors-list'
 import { searchAuthorsIfNeeded } from '../actions/authors'
-import { AUTHORS_LIST } from '../constants/page-types'
+import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
-import { BRIGHT } from '../constants/page-themes'
+import Helmet from 'react-helmet'
 import React, { PropTypes } from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
@@ -113,8 +113,30 @@ class AuthorsList extends React.Component {
     const shouldNoSearchResultDisplay = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
 
+    const fullTitle = constants.PAGE_TITLE + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
+
     return (
       <div className={styles['author-list-container']}>
+        <Helmet
+          title={fullTitle}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: fullTitle },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
+            { property: 'og:title', content: fullTitle },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:type', content: OG_TYPE.WEBSITE },
+            { property: 'og:url', content: canonical },
+            { property: 'og:rich_attachment', content: 'true' }
+          ]}
+        />
         <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} changeListTo={changeListTo} />
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
