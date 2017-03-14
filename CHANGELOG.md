@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 1.1.7
+
+- [Update] Change author name link styling
+
 ### 1.1.6
 - [Update] Add GA tracking for donation button
 - [Update] Move author state formatting from action to reducer
