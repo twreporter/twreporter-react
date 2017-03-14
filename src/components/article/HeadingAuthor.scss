@@ -10,19 +10,22 @@
   span::after {
     content: " ";
   }
+}
 
-  .author-item {
-    display: inline;
-    padding-right: rem(8px);
-
-    // author types
-    &>span:first-child {
-      font-weight: $font-weight-bold;
+.author-item {
+  display: inline;
+  padding-right: rem(8px);
+  &>span a {
+    transition-duration: .2s;
+    &:after {
+      content: none;
+      display: none;
     }
+  }
 
-    .author-name-link a {
-      border-bottom: 0;
-    }
+  // author types
+  &>span:first-child {
+    font-weight: $font-weight-bold;
   }
 }
 
