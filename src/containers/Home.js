@@ -142,6 +142,10 @@ class Home extends Component {
           <link itemProp="url" href="https://www.twreporter.org/category/review" />
         </div>
         <div>
+          <meta itemProp="name" content="作者列表" />
+          <link itemProp="url" href="https://www.twreporter.org/authors" />
+        </div>
+        <div>
           <meta itemProp="name" content="轉型正義" />
           <link itemProp="url" href="https://www.twreporter.org/topic/57ac8151363d1610007ef656" />
         </div>
@@ -247,6 +251,13 @@ class Home extends Component {
           "item": {
             "@id": "https://www.twreporter.org/photography",
             "name": "影像"
+          }
+        }, {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/authors",
+            "name": "作者列表"
           }
         }]
       }
