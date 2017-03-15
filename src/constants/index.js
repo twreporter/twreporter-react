@@ -100,6 +100,9 @@ export const navPath = [ {
 }, {
   title: '評論',
   path: '/category/review'
+}, {
+  title: '作者群',
+  path: '/authors'
 } ]
 
 export const colors = {
