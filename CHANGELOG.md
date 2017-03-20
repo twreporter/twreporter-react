@@ -1,9 +1,9 @@
 ### Unreleased
 
+### 1.1.8
 - [Update] Add AuthorsList link to NavMenu
 
 ### 1.1.7
-
 - [Update] Change author name link styling
 
 ### 1.1.6
