@@ -21,3 +21,23 @@ export function addStylesToProps(WrappedComponent, styles) {
     }
   }
 }
+
+
+/**
+ * Wrap a componet with a div with specific styles
+ * 
+ * @param {object} WrappedComponent - The React component to be wrapped
+ * @param {object} wrappertStyles  - The styles assined to wrapper div
+ * @returns 
+ */
+export function wrapWithStyledDiv(WrappedComponent, wrappertStyles) {
+  return class WrapWithStyledDiv extends React.Component {
+    static displayName = `wrapWithStyledDiv(${getWrappedComponetDisplayName(WrappedComponent)})`
+    render() {
+      return (
+      <div style={wrappertStyles}>
+        <WrappedComponent {...this.props} />
+      </div>)
+    }
+  }
+}

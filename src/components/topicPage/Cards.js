@@ -25,7 +25,7 @@ class Cards extends React.PureComponent {
     }
   }
   render() {
-    const { items, cardsTheme, containerBgColor } = this.props
+    const { items, cardsTheme } = this.props
     const { isCollapse } = this.state
 
     /* _cn - className */
@@ -77,7 +77,7 @@ class Cards extends React.PureComponent {
             </div>
 
     return (
-      <div className={_cnCardsContainer} style={{ backgroundColor: containerBgColor }} >
+      <div className={_cnCardsContainer}>
         <div className={_cnCardsFlexContainer}>
           {relatedArticlesJSX}
         </div>
@@ -95,8 +95,7 @@ Cards.propTypes = {
     ogDescription: PropTypes.string.isRequired,
     heroImage: PropTypes.object.isRequired
   })),
-  cardsTheme: PropTypes.string.isRequired,
-  containerBgColor: PropTypes.string.isRequired
+  cardsTheme: PropTypes.string.isRequired
 }
 
 export default Cards

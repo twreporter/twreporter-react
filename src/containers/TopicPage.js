@@ -14,7 +14,7 @@ import SystemError from '../components/SystemError'
 import styles from './TopicPage.scss'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { fetchTopicIfNeeded } from '../actions/topic'
-import { denormalizeArticles, changeBgColor } from '../utils/index'
+import { denormalizeArticles, wrapWithStyledDiv } from '../utils/index'
 
 const _ = {
   get
@@ -117,6 +117,7 @@ class TopicPage extends Component {
     /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
     const bannerFactory = new BannerFactory
     const Banner = bannerFactory.buildWithTheme(this.state.bannerTheme)
+    const ColoredCards = wrapWithStyledDiv(Cards, { backgroundColor: this.state.cardsContainerBgColor })
     /*
       Shold move buildBanner to componentWillMount to prevent create elements?
     */
@@ -176,11 +177,10 @@ class TopicPage extends Component {
           topicDescription={description}
           teamDescription={teamDescription}
         />
-        <Cards
+        <ColoredCards
           items={relatedArticles}
           /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
           cardsTheme={this.state.cardsTheme}
-          containerBgColor={this.state.cardsContainerBgColor}
           /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
         />
         <Footer />
