@@ -1,6 +1,4 @@
-import React from 'react'
-import ReactGA from 'react-ga'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { IndexRoute, Route, Router, browserHistory } from 'react-router'
 
 import App from '../containers/App'
 import Article from '../containers/Article'
@@ -9,12 +7,12 @@ import AuthorsList from '../containers/AuthorsList'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
 import Photography from '../containers/Photography'
+import React from 'react'
+import ReactGA from 'react-ga'
 import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
-import TopicPage from '../containers/TopicPage'
-
 
 if (typeof window !== 'undefined') {
   // add Google Analytics
@@ -35,7 +33,6 @@ export default function (history = browserHistory) {
   return (
     <Router history={history} onUpdate={scrollAndFireTracking} >
       <Route path="/topics/:slug" component={TopicLandingPage} />
-      <Route path="/topicpage/:slug" component={TopicPage} />
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="category/:category" component={Category} />
