@@ -142,4 +142,3 @@ export function partialApply(fn, ...partOfArgs) {
 export * from './denormalize-articles'
 export * from './image-processor'
 export * from './url-processor'
-export * from './higher-order-components'
