@@ -1,13 +1,14 @@
 /*global __DEVELOPMENT__ */
 'use strict'
-import classNames from 'classnames'
+
+import { ARTICLE_STYLE, INTERACTIVE_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE } from '../constants/index'
+import { devCatListId, prodCatListId } from '../conf/list-id'
+
 import forOwn from 'lodash/forOwn'
 import map from 'lodash/map'
 import screenSize from '../constants/screen-size'
 import sortBy from 'lodash/sortBy'
 import startsWith from 'lodash/startsWith'
-import { ARTICLE_STYLE, INTERACTIVE_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE } from '../constants/index'
-import { devCatListId, prodCatListId } from '../conf/list-id'
 
 const _ = {
   forOwn,
@@ -99,44 +100,6 @@ export function addTailSpaceIfHeadIsFullwidthBracket(text) {
     }
   }
   return text
-}
-
-
-/**
- * Add a class name with theme name postfix
- * 
- * @param {object} styles - imported scss or css module
- * @param {string} className  - name of the element class
- * @param {string} themeName - name of the theme
- * @returns {string} class names like 'card-title card-title-small-card'
- */
-export function addClassNameWithThemePostfix(styles={}, themeName, className) {
-  return classNames(
-    styles[className],
-    themeName ? styles[themeName+'-'+className] : false
-  )
-}
-
-
-/**
- * Return a curried funciton.(Partially applied function)
- * 
- * @param {function} fn - The target function you want to curry.
- * @param {any} curryArgs - The arguments you want to set.
- * @returns 
- */
-export function partialApply(fn, ...partOfArgs) {
-  if (typeof fn !== 'function') throw Error('The first argument should be a function.')
-  return function (...elseArgs) {
-    const patchedArgs = _.map(partOfArgs, function (arg) {
-      if (arg === undefined) {
-        return elseArgs.shift()
-      }
-      return arg
-    })
-    const args = patchedArgs.concat(elseArgs)
-    return fn.apply(null, args)
-  }
 }
 
 export * from './denormalize-articles'
