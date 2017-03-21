@@ -1,86 +1,91 @@
 'use strict'
-import React, { Component, PropTypes } from 'react' // eslint-disable-next-line
-import style from './Topic.scss'
 
-function ImageCard({ alt, imgSrc }) {
-  return (
-    <div className={style['image-card']}>
-      <img
-        src={imgSrc}
-        alt={alt}
-      />
-      <div className={style['image-border']} />
+import React, { PropTypes } from 'react'
+
+import { Link } from 'react-router'
+import classNames from 'classnames'
+
+const ImageCard = ({ imageUrl, imageAlt, styles }) => (
+    <div className={styles['image-card']}>
+      <div className={styles['card-img-border']} />
+      <img src={imageUrl} alt={imageAlt} />
     </div>
   )
-}
 
 ImageCard.propTypes = {
-  alt: PropTypes.string,
-  imgSrc: PropTypes.string
+  imageUrl: PropTypes.string,
+  imageAlt: PropTypes.string,
+  styles: PropTypes.object
 }
 
 ImageCard.defaultProps = {
-  alt: '',
-  imgSrc: ''
+  imgSrc: '',
+  imageAlt: '',
+  styles: {}
 }
 
-function TextCard({ description,  title }) {
-  return (
-    <div className={style['text-card']}>
-      <div className={style['title-block']}>
-        <h2>
-          {title}
-        </h2>
-      </div>
-      <div>
-        <p>
-          { description }
-        </p>
-      </div>
+const TextCard =({ title, description, publishedDate, styles }) => (
+    <div className={styles['text-card']}>
+      <div className={styles['card-title']}><h2>{title}</h2></div>
+      <div className={styles['card-description']}>{description}</div>
+      <p className={styles['card-date']}>{publishedDate}</p>
     </div>
   )
-}
 
 TextCard.propTypes = {
+  title: PropTypes.string,
   description: PropTypes.string,
-  title: PropTypes.string
+  publishedDate: PropTypes.string,
+  styles: PropTypes.object
 }
 
 TextCard.defaultProps = {
+  title: '',
   description: '',
-  title: ''
+  publishedDate: '',
+  styles: {}
 }
 
-export default class Card extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    const { description, imgSrc, title } = this.props
-    return (
-      <div className={style.card}>
+const Card = ({ linkTo, linkTarget, title, description, publishedDate, imageUrl, styles, itemDisplayClass }) => (
+    <div className={classNames(styles['card'], itemDisplayClass)}>
+      <Link
+        to={linkTo}
+        target={linkTarget}>
         <ImageCard
-          imgSrc={imgSrc}
-          alt={title}
+          imageUrl={imageUrl}
+          imageAlt={title}
+          styles={styles}
         />
         <TextCard
           title={title}
           description={description}
+          publishedDate={publishedDate}
+          styles={styles}
         />
-      </div>
-    )
-  }
-}
+      </Link>
+    </div>
+  )
 
-Card.propTypes = {
-  description: PropTypes.string,
-  imgSrc: PropTypes.string,
-  title: React.PropTypes.string
+Card.prototype = {
+  linkTo: PropTypes.string.isRequired,
+  linkTarget: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  publishedDate: PropTypes.string.isRequired,
+  styles: PropTypes.object.isRequired,
+  itemDisplayClass: PropTypes.object.isRequired
 }
 
 Card.defaultProps = {
+  linkTo: '',
+  linkTarget: '',
+  imageUrl: '',
+  title: '',
   description: '',
-  imgSrc: '',
-  title: ''
+  publishedDate: '',
+  styles: {},
+  itemDisplayClass: {}
 }
+
+export default Card
