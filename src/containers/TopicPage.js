@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import Helmet from 'react-helmet'
 import get from 'lodash/get'
 import BannerFactory from '../components/topicPage/Banner'
-import Cards from '../components/topicPage/Cards'
+import CardsFactory, { CardsWithLoadmore } from '../components/topicPage/Cards'
 import Footer from '../components/Footer'
 import Header from '../components/topic/Header'
 import LeadingVideo from '../components/shared/LeadingVideo'
@@ -56,6 +56,8 @@ class TopicPage extends Component {
     const { fetchTopicIfNeeded, params } = this.props
     const slug = _.get(params, 'slug')
     fetchTopicIfNeeded(slug)
+    this.bannerFactory = new BannerFactory
+    this.cardsFactory = new CardsFactory(CardsWithLoadmore)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -115,12 +117,9 @@ class TopicPage extends Component {
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
-    const bannerFactory = new BannerFactory
-    const Banner = bannerFactory.buildWithTheme(this.state.bannerTheme)
-    const ColoredCards = wrapWithStyledDiv(Cards, { backgroundColor: this.state.cardsContainerBgColor })
-    /*
-      Shold move buildBanner to componentWillMount to prevent create elements?
-    */
+    const Banner = this.bannerFactory.buildWithTheme(this.state.bannerTheme)
+    const Cards = this.cardsFactory.buildCardsWithTheme(this.state.cardsTheme)
+    const BgColoredCards = wrapWithStyledDiv(Cards, { backgroundColor: this.state.cardsContainerBgColor })
     /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
 
     return (
@@ -177,7 +176,7 @@ class TopicPage extends Component {
           topicDescription={description}
           teamDescription={teamDescription}
         />
-        <ColoredCards
+        <BgColoredCards
           items={relatedArticles}
           /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
           cardsTheme={this.state.cardsTheme}
