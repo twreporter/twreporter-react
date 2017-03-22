@@ -1,0 +1,19 @@
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+language: node_js
+node_js:
+  - "4"
+  - "6"
+  - "7"
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+script: npm run test
