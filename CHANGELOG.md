@@ -1,4 +1,5 @@
 ### Unreleased
+- [Update] Enable timeout for getting data from Redis
 
 ### 1.1.8
 - [Update] Add AuthorsList link to NavMenu
