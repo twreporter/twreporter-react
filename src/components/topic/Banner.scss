@@ -106,12 +106,8 @@ h1, h2 {
     font-size: $font-size-small;
   }
   .arrow-down-icon-wrapper{
-    box-shadow: $arrow-light-shadow;
-    transition-property: bottom,box-shadow;
-    transition-timing-function: ease;
-    transition-duration: .2s;
-    &:hover {
-      box-shadow: $arrow-dark-shadow;
-    }
+    transition-property: bottom;
+    transition-timing-function: ease-in-out;
+    transition-duration: .1s;
   }
 }
