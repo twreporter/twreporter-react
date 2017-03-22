@@ -231,7 +231,7 @@ class TopicLandingPage extends Component {
 const Description = (props) => {
   const { topicDescription, teamDescription } = props
   return (
-    <div>
+    <div className={styles['description']}>
       <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
       <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
     </div>

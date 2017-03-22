@@ -35,12 +35,18 @@ $text-card-height: 200px;
   object-fit: cover;
 }
 
+.description {
+  position: relative;
+  width: 100%;
+  padding-top: 72px;
+  padding-bottom: 40px; 
+}
+
 .topic-description {
   position: relative;
   width: 38rem;
   max-width: 90%;
   
-  margin-top: 65px;
   padding-bottom: $red-line-distance;
   
   font-size: $font-size-base;
