@@ -1,4 +1,6 @@
 ### Unreleased
+
+### 1.1.9
 - [Update] Enable timeout for getting data from Redis
 
 ### 1.1.8
