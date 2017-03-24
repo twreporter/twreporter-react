@@ -8,10 +8,10 @@ addons:
       - google-chrome-stable
 language: node_js
 node_js:
-  - "4"
   - "6"
   - "7"
 cache:
+  yarn: true
   directories:
     - node_modules
 before_script: cp api/config.example.js api/config.js
