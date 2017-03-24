@@ -4,6 +4,14 @@
 
 .extended-leading-img, .leading-img, .small-leading-img {
   width: 100%;
+  overflow: hidden;
+  >img {
+    width: 100%;
+  }
+}
+
+.img-placeholder {
+  filter: blur(50px);
 }
 
 // tablet
