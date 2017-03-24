@@ -185,7 +185,6 @@
     "babel": "^6.5.2",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^5.0.0-beta6",
-    "babel-preset-es2015": "^6.13.2",
     "browser-sync": "^2.10.1",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
