@@ -1,5 +1,7 @@
 ### Unreleased
 
+- [Feature] Add function of setting topics landing page with different themes or bg-color
+
 ### 1.1.9
 - [Update] Enable timeout for getting data from Redis
 
