@@ -1,5 +1,7 @@
 ### Unreleased
 
+- [Update] Update versions of algoliasearch and babel-preset-es2015 in package.json
+
 ### 1.1.10
 - [Update] Code updates according to pagespeed advice
 - [Feature] Add function of setting topics landing page with different themes or bg-color
