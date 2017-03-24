@@ -1,5 +1,3 @@
-/* eslint no-unused-vars:0 */
-/* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
 'use strict'
 
 import React, { Component, PropTypes } from 'react'
@@ -29,6 +27,9 @@ const _  = {
   get
 }
 
+const bannerFactory = new BannerFactory
+const cardsFactory = new CardsFactory
+
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
     return store.dispatch(fetchTopicIfNeeded(params.slug))
@@ -37,42 +38,15 @@ class TopicLandingPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      /* --↓↓ For UI testing, should be remove before deployed ↓↓-- */
-      bannerTheme: 'center',
-      cardsTheme: 'in-row',
-      cardsContainerBgColor: '#d8d8d8',
-      /* --↑↑ For UI testing, should be remove before deployed ↑↑-- */
       isLeadingVideoScrolledOver: false
     }
-    /* --↓↓ For UI testing, should be remove before deployed ↓↓-- */
-    this._changeBannerTheme = this._changeBannerTheme.bind(this)
-    this._changeCardsTheme = this._changeCardsTheme.bind(this)
-    this._changeCardsBgColor = this._changeCardsBgColor.bind(this)
-    /* --↑↑ For UI testing, should be remove before deployed ↑↑-- */
-
     // this.checkIfScrollOverLeadingVideo = this._checkIfScrollOverLeadingVideo.bind(this)
   }
-
-  /* --↓↓ For UI testing, should be remove before deployed ↓↓-- */
-  _changeBannerTheme(event) {
-    return this.setState({ bannerTheme: event.target.innerHTML })
-  }
-
-  _changeCardsTheme(event) {
-    return this.setState({ cardsTheme: event.target.innerHTML })
-  }
-
-  _changeCardsBgColor(event) {
-    return this.setState({ cardsContainerBgColor: event.target.innerHTML })
-  }
-  /* --↑↑ For UI testing, should be remove before deployed ↑↑-- */
 
   componentWillMount() {
     const { fetchTopicIfNeeded, params } = this.props
     let slug = _.get(params, 'slug')
     fetchTopicIfNeeded(slug)
-    this.bannerFactory = new BannerFactory
-    this.cardsFactory = new CardsFactory
   }
 
   componentDidMount() {
@@ -136,24 +110,22 @@ class TopicLandingPage extends Component {
       subtitle,     // subtitle {string} - Topic subtitle
       title         // title {string} - Topic title
     } = topic
-    const bannerTheme = _.get(topic, 'titlePosition', 'center') // {string} - Theme of banner, should be one of ['bottom-left', 'center', 'bottom' ]
-    const cardsTheme = _.get(topic, 'relatedsFormat', 'in-row') // {string} - Theme of cards, should be one of ['in-rows', 'in-column' ]
-    const cardsContainerBgColor = _.get(topic, 'relatedsBackground', '#d8d8d8') // {string} - HEX value of cards container bg-color
+    const bannerTheme = _.get(topic, 'titlePosition') || 'center' // {string} - Theme of banner
+    const cardsTheme = _.get(topic, 'relatedsFormat') || 'in-row' // {string} - Theme of cards
+    const cardsContainerBgColor = _.get(topic, 'relatedsBackground') || '#d8d8d8' // {string} - HEX value of cards container bg-color
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
-    const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC) // {string}
+    const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
 
-    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url', logo) // {string}
+    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url') || logo // {string}
     
     const relatedArticles = denormalizeArticles(relateds, entities)
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
 
-    /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
-    const Banner = this.bannerFactory.buildWithTheme(this.state.bannerTheme)
-    const Cards = this.cardsFactory.buildWithTheme(this.state.cardsTheme)
-    const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: this.state.cardsContainerBgColor })
-    /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
+    const Banner = bannerFactory.buildWithTheme(bannerTheme)
+    const Cards = cardsFactory.buildWithTheme(cardsTheme)
+    const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: cardsContainerBgColor })
 
     return (
       <div className={styles['topic-page-conainer']}>
@@ -186,13 +158,6 @@ class TopicLandingPage extends Component {
           partialVisibility={true}
           >
         */}
-        {/* --↓↓ For UI testing, should be modified before deployed ↓↓-- */}
-        <div className={styles['theme-changer']}>
-          <p><span onClick={this._changeBannerTheme}>{'center'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom'}</span>{' / '}<span onClick={this._changeBannerTheme}>{'bottom-left'}</span></p>
-          <p><span onClick={this._changeCardsTheme}>{'in-row'}</span>{' / '}<span onClick={this._changeCardsTheme}>{'in-column'}</span></p>
-          <p><span onClick={this._changeCardsBgColor}>{'#d8d8d8'}</span>{' / '}<span onClick={this._changeCardsBgColor}>{'#738498'}</span></p>
-        </div>
-        {/* --↑↑ For UI testing, should be modified before deployed ↑↑-- */}
         <LeadingVideo
           classNames={{
             container: styles['leading-block'],
@@ -218,9 +183,6 @@ class TopicLandingPage extends Component {
         />
         <BgColoredCards
           items={relatedArticles}
-          /* --↓↓ For UI testing, should be modified before deployed ↓↓-- */
-          cardsTheme={this.state.cardsTheme}
-          /* --↑↑ For UI testing, should be modified before deployed ↑↑-- */
         />
         <Footer />
       </div>
