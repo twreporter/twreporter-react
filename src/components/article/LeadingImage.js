@@ -5,7 +5,6 @@ import React from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import styles from './LeadingImage.scss'
-import { Image } from './Image'
 import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
 
 // lodash
@@ -55,7 +54,7 @@ class LeadingImage extends React.Component {
     const imgJsx = this.state.isMount ? (
       <img src={defaultImgUrl} alt={description} srcSet={getImageSrcSet(image)} />
     ) : (
-      <img src={defaultImgUrl} alt={description} />
+      <img src={defaultImgUrl} alt={description} className={styles['img-placeholder']} />
     )
 
     return (
