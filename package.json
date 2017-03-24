@@ -92,7 +92,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "algoliasearch": "^3.19.2",
+    "algoliasearch": "^3.20.2",
     "async": "^1.5.2",
     "autoprefixer": "^6.2.1",
     "autoprefixer-loader": "^3.1.0",
@@ -182,7 +182,6 @@
     "webpack-isomorphic-tools": "^2.3.0"
   },
   "devDependencies": {
-    "algoliasearch": "^3.20.2",
     "babel": "^6.5.2",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^5.0.0-beta6",
