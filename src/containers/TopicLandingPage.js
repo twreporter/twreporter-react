@@ -1,23 +1,24 @@
 'use strict'
+
+import React, { Component, PropTypes } from 'react'
+import { SITE_META, SITE_NAME } from '../constants/index'
+
+import BannerFactory from '../components/topic/Banner'
+import CardsFactory from '../components/topic/Cards'
+import Footer from '../components/Footer'
 // import VisibilitySensor from 'react-visibility-sensor';
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import Footer from '../components/Footer'
-import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import TopicCards from '../components/topic/Cards'
-import arrowDownIcon from '../../static/asset/arrow-down.svg'
-import cx from 'classnames'
-import style from '../components/topic/Topic.scss'
+import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { SITE_META, SITE_NAME } from '../constants/index'
+import { denormalizeArticles } from '../utils/index'
 import { fetchTopicIfNeeded } from '../actions/topic'
-
-// lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+import styles from './TopicLandingPage.scss'
 
 const logo = 'https://www.twreporter.org/asset/logo.png'
 
@@ -25,6 +26,9 @@ const _  = {
   forEach,
   get
 }
+
+const bannerFactory = new BannerFactory
+const cardsFactory = new CardsFactory
 
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
@@ -61,18 +65,6 @@ class TopicLandingPage extends Component {
     }
   }
 
-  _denormalizeArticles(ids) {
-    const articles = _.get(this.props, 'entities.articles')
-    let rtn = []
-    _.forEach(ids, (id) => {
-      const article = _.get(articles, id)
-      if (article) {
-        rtn.push(article)
-      }
-    })
-
-    return rtn
-  }
   /*
   _checkIfScrollOverLeadingVideo(isVisible) {
     if (!isVisible && this._isMounted) {
@@ -105,23 +97,38 @@ class TopicLandingPage extends Component {
     if (!topicId) {
       return null
     }
+    
+    const slug = _.get(selectedTopic, 'slug') // {string}
 
     const topic = _.get(entities, [ 'topics', topicId ], {})
-    // const { leadingImagePortrait, LeadingVideo
-    const { leadingImage, leadingVideo, publishedDate, relateds, subtitle, title } = topic
-    const description = _.get(topic, 'description.html', '')
-    const teamDescription = _.get(topic, 'teamDescription.html', '')
+    const {
+      leadingImage, // leadingImage {object} - Topic leading image infos
+      leadingVideo, // leadingVideo {object} - Topic leading video infos
+      publishedDate,// publishedDate {string} -  Date format as "Mon, 19 Dec 2016 00:00:00 GMT"
+      relateds,     // relateds {array} - Array of the ids of related articles
+      headline,     // headline {string} - Topic headine
+      subtitle,     // subtitle {string} - Topic subtitle
+      title         // title {string} - Topic title
+    } = topic
+    const bannerTheme = _.get(topic, 'titlePosition') || 'center' // {string} - Theme of banner
+    const cardsTheme = _.get(topic, 'relatedsFormat') || 'in-row' // {string} - Theme of cards
+    const cardsContainerBgColor = _.get(topic, 'relatedsBackground') || '#d8d8d8' // {string} - HEX value of cards container bg-color
+    const description = _.get(topic, 'description.html', '') // {string}
+    const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
+    const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
 
-    const relatedArticles = this._denormalizeArticles(relateds)
-    const slug = _.get(selectedTopic, 'slug')
+    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url') || logo // {string}
+    
+    const relatedArticles = denormalizeArticles(relateds, entities)
     const canonical = `${SITE_META.URL}topics/${slug}`
-
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC)
-    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url', logo)
+
+    const Banner = bannerFactory.buildWithTheme(bannerTheme)
+    const Cards = cardsFactory.buildWithTheme(cardsTheme)
+    const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: cardsContainerBgColor })
 
     return (
-      <div className={style['container']}>
+      <div className={styles['topic-page-conainer']}>
         <Helmet
           title={fullTitle}
           link={[
@@ -141,54 +148,61 @@ class TopicLandingPage extends Component {
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
-        <div>
-          <Header
-            isFixedToTop={false}
-            title={title}
-          />
-          {/*
-          <VisibilitySensor
-            onChange={this.checkIfScrollOverLeadingVideo}
-            partialVisibility={true}
-            >
-          */}
-          <LeadingVideo
-            classNames={{
-              container: style['leading-block'],
-              video: style.video,
-              poster: style.video,
-              audioBt: style['audio-bt']
-            }}
-            filetype={_.get(leadingVideo, 'video.filetype')}
-            poster={_.get(leadingImage, 'image.resizedTargets')}
-            src={_.get(leadingVideo, 'video.url')}
-            title={title}
-          />
-          {/*</VisibilitySensor>*/}
-          <div className={style['main-title-block']}>
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
-            <span>{date2yyyymmdd(publishedDate, '.')} 最新更新</span>
-          </div>
-          <img className={style['arrow-down-icon']} src={arrowDownIcon} role="presentation" />
-        </div>
-        <div
-          className={cx(style.description, 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: description }}
+        <Header
+          isFixedToTop={false}
+          title={title}
         />
-        <div
-          className={cx(style['team-description'], 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: teamDescription }}
+        {/*
+        <VisibilitySensor
+          onChange={this.checkIfScrollOverLeadingVideo}
+          partialVisibility={true}
+          >
+        */}
+        <LeadingVideo
+          classNames={{
+            container: styles['leading-block'],
+            video: styles.video,
+            poster: styles.video,
+            audioBt: styles['audio-bt']
+          }}
+          filetype={_.get(leadingVideo, 'video.filetype')}
+          poster={_.get(leadingImage, 'image.resizedTargets')}
+          src={_.get(leadingVideo, 'video.url')}
+          title={title}
         />
-        <div className={style['cards-container']}>
-          <TopicCards
-            items={relatedArticles}
-          />
-        </div>
-        <Footer/>
+        {/*</VisibilitySensor>*/}
+        <Banner
+          headline={headline}
+          title={title}
+          subtitle={subtitle}
+          publishedDate={publishedDate}
+        />
+        <Description
+          topicDescription={description}
+          teamDescription={teamDescription}
+        />
+        <BgColoredCards
+          items={relatedArticles}
+        />
+        <Footer />
       </div>
     )
   }
+}
+
+const Description = (props) => {
+  const { topicDescription, teamDescription } = props
+  return (
+    <div className={styles['description']}>
+      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
+      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
+    </div>
+  )
+}
+
+Description.propTypes = {
+  topicDescription: PropTypes.string.isRequired,
+  teamDescription: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state) {

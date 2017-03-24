@@ -1,0 +1,76 @@
+@import './Banner.scss';
+
+$arrow-bottom-desktop: 53px - $arrow-extension;
+$arrow-bottom-tablet: $arrow-bottom-desktop + 40px;
+$arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
+
+/* THEME 2/3: left-bottom */
+/* Set Elements Postioning */
+
+// Overall & Mobile
+
+.infos-flex-container {
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 0 0 30px 10px; // mobile
+}
+
+.headline {
+  order: 1;
+  margin-bottom: 10px;
+}
+
+.title {
+  order: 2;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  order: 3;
+}
+
+.dash {
+  position: relative;
+  left: 10px;
+  margin-top: 20px;
+  order: 4;
+  margin-bottom: 25px;
+}
+
+.published-date {
+  order: 5;
+}
+
+.arrow-down-icon-wrapper{
+  position: absolute;
+  bottom: $arrow-bottom-mobile;
+  left: 7.2rem;
+}
+
+// Tablet
+
+@include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+  .infos-flex-container {
+    padding: 0 0 90px 34px;
+  }
+  .arrow-down-icon-wrapper{
+    bottom: $arrow-bottom-tablet;
+    left: 9.5rem;
+  }
+}
+
+// Desktop
+
+@include mq($min-width: $screen-md-min) {
+  .infos-flex-container {
+    padding:  0 0 50px 50px;
+  }
+  .arrow-down-icon-wrapper{
+    bottom: $arrow-bottom-desktop;
+    left: 11rem;
+    &:hover {
+      bottom: $arrow-bottom-desktop - $arrow-hover-move-length;
+    }
+  }
+}
