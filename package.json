@@ -172,6 +172,7 @@
     "rewire-webpack": "^1.0.0",
     "sass-loader": "^3.2.0",
     "scrollmagic": "^2.0.5",
+    "smoothscroll": "^0.3.0",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.1",
     "superagent": "^1.4.0",
