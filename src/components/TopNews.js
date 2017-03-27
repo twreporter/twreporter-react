@@ -31,7 +31,7 @@ export default class TopNews extends Component {
           const cats = get(a, 'categories', [])
           const catDisplay = get(cats, [ 0, 'name' ], '專題')
           const imageSet = getArticleImageSrcSet(a)
-          const image = getArticleImageSrc(a)
+          const image = getArticleImageSrc(a, 'mobile')
           let prefix = LINK_PREFIX.ARTICLE
           let target = undefined
           if (a.style === INTERACTIVE_ARTICLE_STYLE) {
