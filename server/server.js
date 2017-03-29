@@ -19,6 +19,8 @@ import path from 'path'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
+import { types } from 'twreporter-registration'
+import cookieParser from 'cookie-parser'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -31,11 +33,13 @@ server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
 
+server.use(cookieParser())
+
 const oneDay = 86400000
 server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
 server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay * 7 }))
 server.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
+  res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
@@ -84,6 +88,16 @@ server.get('*', async function (req, res, next) {
   let routes = createRoutes(history)
 
   let location = createLocation(req.url)
+
+  if (req.query.login) {
+    let oAuthType = req.query.login
+    let cookies = req.cookies
+    let token = cookies.token
+    store.dispatch({
+      type: types.OAUTH_USER,
+      payload: { oAuthType, token }
+    })
+  }
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {

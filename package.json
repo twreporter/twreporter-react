@@ -116,6 +116,7 @@
     "classnames": "^2.2.1",
     "clean-webpack-plugin": "^0.1.4",
     "concurrently": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "css-loader": "^0.23.1",
     "ejs": "^2.3.4",
     "es6-error": "^2.1.1",

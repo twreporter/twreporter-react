@@ -13,7 +13,8 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
-import { SignupForm, Features, ActivePage, AuthenticationScreen } from 'twreporter-registration'
+import { SignupForm, SigninForm, ActivePage, AuthenticationScreen, Features } from 'twreporter-registration'
+// Signout
 
 
 if (typeof window !== 'undefined') {
@@ -45,10 +46,13 @@ export default function (history = browserHistory) {
         <Route path="a/:slug" component={Article} />
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
-        <Route path="registration" component={SignupForm} />
+        <Route path="signup" component={SignupForm} />
+        <Route path="signin" component={SigninForm} />
         <Route path="activate" component={ActivePage} />
         <Route path="features" component={AuthenticationScreen(Features)} />
       </Route>
     </Router>
   )
 }
+
+// <Route path="signout" component={Signout} />

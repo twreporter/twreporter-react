@@ -7,6 +7,7 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
 import Layout from '../components/Layout'
+import { types } from 'twreporter-registration'
 
 // lodash
 import get from 'lodash/get'
@@ -38,6 +39,16 @@ class App extends Component {
         parentLocale: navigator.language.split('-')[0]
       })
     }
+
+    // Check OAuth and store token
+    const { oauth, deleteToken } = this.props
+    if( typeof localStorage !== 'undefined' ) {
+      if(oauth.authenticated) {
+        const token = oauth.token
+        localStorage.setItem('token', token)
+        deleteToken()
+      }
+    }
   }
 
   render() {
@@ -62,8 +73,15 @@ App.childContextTypes = {
 
 function mapStateToProps(state) {
   return {
-    header: state.header
+    header: state.header,
+    oauth: state.oauth
   }
 }
 
-export default connect(mapStateToProps)(App)
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteToken: () => { dispatch({ type: types.DELETE_OTOKEN }) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
