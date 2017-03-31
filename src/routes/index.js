@@ -13,8 +13,7 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
-import { SignupForm, SigninForm, ActivePage, AuthenticationScreen, Features } from 'twreporter-registration'
-// Signout
+import { SignupForm, SigninForm, ActivePage, AuthenticationScreen, Features, Signout } from 'twreporter-registration'
 
 
 if (typeof window !== 'undefined') {
@@ -50,9 +49,8 @@ export default function (history = browserHistory) {
         <Route path="signin" component={SigninForm} />
         <Route path="activate" component={ActivePage} />
         <Route path="features" component={AuthenticationScreen(Features)} />
+        <Route path="signout" component={Signout} />
       </Route>
     </Router>
   )
 }
-
-// <Route path="signout" component={Signout} />
