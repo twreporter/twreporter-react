@@ -10,6 +10,7 @@ import device from './device'
 import header from './header'
 import selectedArticle from './article'
 import selectedTopic from './topic'
+import { authReducer } from 'twreporter-registration'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -57,6 +58,7 @@ export function topicSlugToId(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   articlesByUuids,
   featureArticles,
   relatedArticles,
