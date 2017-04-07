@@ -45,7 +45,9 @@ class App extends Component {
     if( typeof localStorage !== 'undefined' ) {
       if(oauth.authenticated) {
         const token = oauth.token
+        const now = new Date().getTime()
         localStorage.setItem('token', token)
+        localStorage.setItem('setupTime', now)
         deleteToken()
       }
     }
