@@ -19,8 +19,9 @@ import path from 'path'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
-import { types } from 'twreporter-registration'
+import { types, configureAction } from 'twreporter-registration'
 import cookieParser from 'cookie-parser'
+
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -126,38 +127,55 @@ server.get('*', async function (req, res, next) {
 
       getReduxPromise().then(()=> {
         if ( getCurrentUrl() === reqUrl ) {
-          const assets = webpackIsomorphicTools.assets()
-          const reduxState = escape(JSON.stringify(store.getState()))
-          const script = assets.javascript
-          const styles = assets.styles
-          const children = ReactDOMServer.renderToString(
-              <Provider store={store} >
-                <DeviceProvider device={get(store.getState(), 'device')}>
-                  { <RouterContext {...renderProps} /> }
-                </DeviceProvider>
-              </Provider>
-          )
-
-          // rewinding is necessaray on the server:
-          //  https://github.com/nfl/react-helmet#server-usage
-          let head = Helmet.rewind()
-
-          // set Cache-Control header for caching
-          if (!res.headersSent) {
-            res.header('Cache-Control', 'public, max-age=300')
+          const registrationConfigure = {
+            apiUrl: 'http://testtest.twreporter.org:8080',
+            signUp: '/v1/signup',
+            signIn: '/v1/login',
+            activate: '/v1/activate',
+            bookmarkUpdate: '',
+            bookmarkDelete: '',
+            bookmarkGet: '',
+            ping: '',
+            oAuthProviders: {
+              google: '/v1/auth/google',
+              facebook: '/v1/auth/facebook'
+            }
           }
+          store.dispatch(configureAction(registrationConfigure)).then(() => {
+            const assets = webpackIsomorphicTools.assets()
+            const reduxState = escape(JSON.stringify(store.getState()))
+            const script = assets.javascript
+            const styles = assets.styles
+            const children = ReactDOMServer.renderToString(
+                <Provider store={store} >
+                  <DeviceProvider device={get(store.getState(), 'device')}>
+                    { <RouterContext {...renderProps} /> }
+                  </DeviceProvider>
+                </Provider>
+            )
+            // rewinding is necessaray on the server:
+            //  https://github.com/nfl/react-helmet#server-usage
+            let head = Helmet.rewind()
 
-          const html = ReactDOMServer.renderToStaticMarkup(
-            <Html
-              children={children}
-              reduxState={reduxState}
-              styles={styles}
-              script={script}
-              head={head}
-            />
-          )
-          res.status(200)
-          res.send(`<!doctype html>${html}`)
+            // set Cache-Control header for caching
+            if (!res.headersSent) {
+              res.header('Cache-Control', 'public, max-age=300')
+            }
+
+            const html = ReactDOMServer.renderToStaticMarkup(
+              <Html
+                children={children}
+                reduxState={reduxState}
+                styles={styles}
+                script={script}
+                head={head}
+              />
+            )
+            res.status(200)
+            res.send(`<!doctype html>${html}`)
+          }).catch((err) => {
+            throw err
+          })
         } else {
           res.redirect(302, getCurrentUrl())
         }
