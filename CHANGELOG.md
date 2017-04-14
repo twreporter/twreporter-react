@@ -1,5 +1,5 @@
 ### Unreleased
-
+- [Update] Add text truncating of small cards and make height fixed
 ### 1.1.11
 - [Update] Improve pagespeed by rendering small image at first
 - [Update] Update versions of algoliasearch and babel-preset-es2015 in package.json
