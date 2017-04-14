@@ -1,16 +1,17 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import React, { Component } from 'react'
-import classNames from 'classnames'
-import { Link } from 'react-router'
-import { authorTypes, LINK_PREFIX } from '../../constants/index'
-import commonStyles from './Common.scss'
-import styles from './HeadingAuthor.scss'
 
+import { LINK_PREFIX, authorTypes } from '../../constants/index'
+import React, { Component } from 'react'
+
+import { Link } from 'react-router'
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
 // lodash
 import forIn from 'lodash/forIn'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
+import styles from './HeadingAuthor.scss'
 
 export const HeadingAuthor = ({ authors, children, extendByline }) => {
 
@@ -19,10 +20,11 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
   }
 
   function _renderAuthor(author, key) {
+    const title = author.jobTitle ? `（${author.jobTitle}）` : ''
     return (
       <span itemProp="author" key={key} className={styles['author-name-link']}>
         <Link to={`${LINK_PREFIX.AUTHOR}${author.id}`}>
-          {author.name}
+          {author.name+title}
         </Link>
       </span>
       )
