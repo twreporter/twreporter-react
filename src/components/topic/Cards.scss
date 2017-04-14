@@ -5,6 +5,9 @@
 @import '../../themes/centering.scss';
 @import '../../themes/truncate-text.scss';
 
+$title-line-height: $line-height-medium;
+$description-line-height: $line-height-base;
+
 $light-shadow-mb-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
 $dark-shadow-loadmore-btn: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
 $light-shadow-loadmore-btn: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -42,7 +45,7 @@ p {
 .text-card {
   background-color: $white;
   .card-title {
-    line-height: $line-height-medium;
+    line-height: $title-line-height;
     font-size: $font-size-large;
     color: $gray-15;
     letter-spacing: $topic-letter-space-small;
@@ -57,7 +60,7 @@ p {
   }
 
   .card-description {
-    line-height: $line-height-base;
+    line-height: $description-line-height;
     font-size: $font-size-small;
     color: $gray-50;
     letter-spacing: $topic-letter-space-tight;
@@ -142,7 +145,7 @@ p {
     min-height: $mb-card-min-height;
     padding: 11px 2rem 14px 1rem;
     .card-title {
-      @include truncate-text($line-height-base, $mb-card-descript-max-lines);
+      @include truncate-text($title-line-height, $mb-card-descript-max-lines);
     }
     .card-description {
       display: none;

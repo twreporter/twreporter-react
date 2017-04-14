@@ -7,6 +7,7 @@
 
 $sml-card-width: 300px;
 $sml-card-img-height: 200px;
+$sml-card-text-height: 222px;
 $sml-card-sides-margin: 10px;
 $sml-card-btm-margin: 50px;
 $sml-cards-container-max-width: $sml-card-width * 3 + $sml-card-sides-margin * 4;
@@ -14,6 +15,9 @@ $sml-cards-container-min-width: $sml-card-width * 2 + $sml-card-sides-margin * 3
 
 $dark-shadow-sml-card: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
 $light-shadow-sml-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+
+$sml-card-title-max-lines: 2;
+$sml-card-descript-max-lines: 4; 
 
 @include mq($min-width: $screen-sm-min) {
   .cards-container {
@@ -87,29 +91,24 @@ $light-shadow-sml-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
 
   .text-card {
     width: 100%;
+    height: $sml-card-text-height;
     position: relative;
     top: 5px;
-    padding: 17px 15px 2.5em 15px;
+    padding: 17px 12px 2.5em 20px;
     box-shadow: $light-shadow-sml-card;
     transition: box-shadow ease 0.2s;
     
     .card-title {
+      width: 98%;
       overflow-wrap: break-word;
       margin-bottom: 20px;
       transition: color ease .1s;
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 90%;
-        height: 10px;
-        margin: auto;
-        border-bottom: 1px solid $gray-50;
-      }
+      @include truncate-text($title-line-height, $sml-card-title-max-lines);
     }
 
     .card-description {
-      text-align: justify;
+      width: 98%;
+      @include truncate-text($description-line-height, $sml-card-descript-max-lines);
     }
 
     .card-date {
