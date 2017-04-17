@@ -1,16 +1,37 @@
 ### Unreleased
+- [Update] Add text truncating of small cards and make height fixed
+- [Update] Add author title in author pages and heading of articles
+
+### 1.1.11
+- [Update] Improve pagespeed by rendering small image at first
+- [Update] Update versions of algoliasearch and babel-preset-es2015 in package.json
+
+### 1.1.10
+- [Update] Code updates according to pagespeed advice
+- [Feature] Add function of setting topics landing page with different themes or bg-color
+
+### 1.1.9
+- [Update] Enable timeout for getting data from Redis
+
+### 1.1.8
+- [Update] Add AuthorsList link to NavMenu
+
+### 1.1.7
+- [Update] Change author name link styling
 
 ### 1.1.6
 - [Update] Add GA tracking for donation button
-- [Testing] Add actions testing of articles, topic, and header
 - [Update] Move author state formatting from action to reducer
-- [Update] Seperate authors state into searched authors and all authors
-- [Testing] API testing fully completed
+- [Update] Separate authors state into searched authors and all authors
 - [Update] Add initial sub-state of articles reducer
+- [Testing] Add actions testing of articles, topic, and header
+- [Testing] API testing fully completed
+- [Testing] Actions testing for article, author-articles and authors
+- [Testing] Reducer testing for author-articles, authors
 - [Update] Update img url and default img of AuthorsList and Author
 - [Bug] Missing slash of author link in articles
 - [Update] Add Footer component to Author
-
+- [Update] Add AuthorsList and Author helmet
 
 ### 1.1.5
 - [Update] content of sub-nav-path

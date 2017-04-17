@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/twreporter/twreporter-react.svg?branch=master)](https://travis-ci.org/twreporter/twreporter-react)
+
 # TW Reporter
 New Media foundation in Taiwan.
 

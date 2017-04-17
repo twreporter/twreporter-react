@@ -1,64 +1,80 @@
 'use strict'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component, PropTypes } from 'react' // eslint-disable-next-line
-import { Link } from 'react-router'
-import cx from 'classnames'
-import Card from './Card'
-import style from './Topic.scss'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
-import { replaceStorageUrlPrefix } from '../../utils/'
 
-// lodash
-import forEach from 'lodash/forEach'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX, TOPIC_ITEMS_LIMIT, TOPIC_LOAD_MORE_ARTICLES } from '../../constants/index'
+import React, { PropTypes, PureComponent } from 'react'
+import { date2yyyymmdd, replaceStorageUrlPrefix, shortenString } from '../../utils/'
+
+import Card from './Card'
+import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
+import classNames from 'classnames'
+import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
+import map from 'lodash/map'
+import stylesInColumn from './CardsInColumn.scss'
+import stylesInRows from './CardsInRows.scss'
 
 const _ = {
-  forEach,
-  get
+  get,
+  map
 }
 
-export default class Cards extends Component {
+class Cards extends PureComponent {
   constructor(props) {
     super(props)
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+    this.state = {
+      isExpanded: false
+    }
+    this._handleLoadmoreClicked = this._handleLoadmoreClicked.bind(this)
+  }
+
+  _handleLoadmoreClicked() {
+    return this.setState({ isExpanded: true })
   }
 
   render() {
-    const { items } = this.props
-    let cardsJsx = []
-    _.forEach(items, (item, index) => {
-      let description = _.get(item, 'brief.apiData.0.content.0', '')
-      if(description.trim().length === 0) {
-        description = _.get(item, 'ogDescription', '')
-      }
-      const imgSrc = replaceStorageUrlPrefix(_.get(item, 'heroImage.image.resizedTargets.mobile.url'))
-      const title = _.get(item, 'title')
-      const slug = _.get(item, 'slug')
-      const style = _.get(item, 'style')
+    const { items, styles } = this.props
+    const { isExpanded } = this.state
+    
+    const _itemToCardJsx =  (item, index) => {
+      const imageUrl = replaceStorageUrlPrefix(get(item, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')),
+        slug = get(item, 'slug', ''),
+        title = get(item, 'title', ''),
+        publishedDate = date2yyyymmdd(get(item, 'publishedDate', ''), '.'),
+        style = _.get(item, 'style'),
+        description = shortenString(get(item, 'ogDescription', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
+      const itemDisplayClass = (index >= TOPIC_ITEMS_LIMIT && !isExpanded)? commonStyles['hide'] : null
       let prefix = LINK_PREFIX.ARTICLE
       let target = undefined
       if (style === INTERACTIVE_ARTICLE_STYLE) {
         prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
         target = '_blank'
       }
-
-      cardsJsx.push(
-        <Link
+      return ( 
+        <Card
           key={index}
-          to={prefix + slug}
-          target={target}
-        >
-          <Card
-            description={description}
-            imgSrc={imgSrc}
-            title={title}
-          />
-        </Link>
+          linkTo={prefix + slug}
+          linkTarget={target}
+          imageUrl={imageUrl}
+          title={title}
+          description={description}
+          publishedDate={publishedDate}
+          styles={styles}
+          itemDisplayClass={itemDisplayClass}
+        />  
       )
-    })
+    }
+    const cardsJsx = _.map(items, _itemToCardJsx)
+    const loadMoreBtn = isExpanded || (items.length <= TOPIC_ITEMS_LIMIT) ? null : (
+      <div className={classNames(styles['loadmore-btn'], 'text-center')} onClick={this._handleLoadmoreClicked}>
+        <div>{TOPIC_LOAD_MORE_ARTICLES}</div>
+      </div>
+    )
     return (
-      <div className={cx(style.cards)}>
-        {cardsJsx}
+      <div className={styles['cards-container']}>
+        <div className={styles['cards-flex-container']}>
+          {cardsJsx}
+        </div>
+        {loadMoreBtn}
       </div>
     )
   }
@@ -66,10 +82,29 @@ export default class Cards extends Component {
 
 Cards.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
-    brief: PropTypes.object,
     title: PropTypes.string,
     heroImage: PropTypes.object,
     slug: PropTypes.string,
-    style: PropTypes.string
-  })).isRequired
+    style: PropTypes.string,
+    publishedDate: PropTypes.string,
+    ogDescription: PropTypes.string
+  })).isRequired,
+  styles: PropTypes.object.isRequired
+}
+
+export default class CardsFactory {
+  constructor() {
+    this.InRowsCards = addStylesToPropsDecorator(Cards, stylesInRows)
+    this.InColumnCards = addStylesToPropsDecorator(Cards, stylesInColumn)
+  }
+  buildWithTheme(themeName) {
+    switch (themeName) {
+      case 'in-rows':
+        return this.InRowsCards
+      case 'in-column':
+        return this.InColumnCards
+      default:
+        return this.InRowsCards
+    }
+  }
 }

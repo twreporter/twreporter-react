@@ -15,3 +15,11 @@
   left: 50%;
   transform: translate(-50%,-50%);
 }
+
+// absolute horizontally center by using transform
+.ab-horiz-center-by-transform {
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

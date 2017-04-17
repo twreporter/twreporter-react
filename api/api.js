@@ -53,6 +53,14 @@ redisClient.on('error', (error) => {
   console.warn('redis occurs error:', error)
 })
 
+function timeout(ms, promise) {
+  return new Promise((resolve, reject) => {
+    promise.then(resolve, reject)
+    setTimeout(() => {
+      reject(new Error('Timeout after ' + ms + ' ms'))
+    }, ms)
+  })
+}
 
 function getDataFromRedis(url) {
   return new Promise((resolve, reject) => {
@@ -61,12 +69,12 @@ function getDataFromRedis(url) {
         reply = JSON.parse(reply)
         // url is not cached
         if (reply === null) {
-          return reject()
+          return reject('reply is null')
         }
         // cached
         return resolve(reply)
       } catch(e) {
-        console.warn('Getting cache from REDIS occurs error: ', e)
+        console.warn('api_api_getDataFromRedis, getting cache from REDIS occurs error: ', e)
         return reject(e)
       }
     })
@@ -102,9 +110,10 @@ function getDataFromAPI(req, res) {
 
 app.use((req, res) => {
   if (serverConfig.isRedisEnabled && isRedisConnected) {
-    getDataFromRedis(req.url).then((cacheData) => {
+    timeout(1500, getDataFromRedis(req.url)).then((cacheData) => {
       res.json(cacheData)
     }, (reason) => { // eslint-disable-line
+      console.warn('api_api_GetDataFromRedis, promise rejection: ', reason)
       getDataFromAPI(req, res)
     })
   } else {

@@ -1,0 +1,145 @@
+@import './Cards.scss';
+ 
+/* 
+  THEME 01: in-row (small-cards)
+  TABLET, DESKTOP & HD
+*/
+
+$sml-card-width: 300px;
+$sml-card-img-height: 200px;
+$sml-card-text-height: 222px;
+$sml-card-sides-margin: 10px;
+$sml-card-btm-margin: 50px;
+$sml-cards-container-max-width: $sml-card-width * 3 + $sml-card-sides-margin * 4;
+$sml-cards-container-min-width: $sml-card-width * 2 + $sml-card-sides-margin * 3;
+
+$dark-shadow-sml-card: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+$light-shadow-sml-card: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+
+$sml-card-title-max-lines: 2;
+$sml-card-descript-max-lines: 4; 
+
+@include mq($min-width: $screen-sm-min) {
+  .cards-container {
+    width: 100%;
+    padding: 60px 0 50px 0;
+    position: relative;
+  }
+
+  .cards-flex-container {
+    display: flex;
+    margin: 0 auto;
+    background-color: inherit;
+    width: 90%;
+    /* flexbox setting */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; // horizontal align (center - center)
+    align-items: flex-start; // vertical align (flex-start - top)
+  }
+
+  .card {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: $sml-card-width;
+    margin-left: $sml-card-sides-margin;
+    margin-right: $sml-card-sides-margin;
+    margin-bottom: $sml-card-btm-margin;
+    transition-property: top, box-shadow;
+    transition-timing-function: ease;
+    transition-duration: .1s;
+
+    // triangle on the upper left corner
+    &::before {
+      transition: border-width .1s ease-out;
+      content: '';
+      width: 0;
+      height: 0;
+      top: -2px;
+      left: -2px;
+      position: absolute;
+      z-index: 5;
+      border-style: solid;
+      border-width: 25px 25px 0 0;
+      border-color: $white transparent transparent transparent;
+    }
+  }
+
+  .image-card {
+    position: relative;
+    width: $sml-card-width;
+    height: $sml-card-img-height;
+    box-shadow: $light-shadow-sml-card;
+    transition: box-shadow ease 0.1s;
+
+    .card-img-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $sml-card-width;
+      height: $sml-card-img-height;
+      transition: border ease 0.1s;
+    }
+
+    img {
+      width: $sml-card-width;
+      height: $sml-card-img-height;
+    }
+
+  }
+
+  .text-card {
+    width: 100%;
+    height: $sml-card-text-height;
+    position: relative;
+    top: 5px;
+    padding: 17px 12px 2.5em 20px;
+    box-shadow: $light-shadow-sml-card;
+    transition: box-shadow ease 0.2s;
+    
+    .card-title {
+      width: 98%;
+      overflow-wrap: break-word;
+      margin-bottom: 20px;
+      transition: color ease .1s;
+      @include truncate-text($title-line-height, $sml-card-title-max-lines);
+    }
+
+    .card-description {
+      width: 98%;
+      @include truncate-text($description-line-height, $sml-card-descript-max-lines);
+    }
+
+    .card-date {
+      font-size: $font-size-xsmaller;
+      position: absolute;
+      right: 15px;
+      bottom: 18px;
+    }
+  }
+}
+
+// Add card hover effect if mq is desktop or hd
+@include mq($min-width: $screen-md-min) {
+  .card:hover {
+    top: -5px;
+    box-shadow: $dark-shadow-sml-card;
+    &::before {
+      border-width: 0 0 0 0;
+    }
+    .image-card {
+      box-shadow: none;
+      .card-img-border {
+        border: 5px solid $white;
+      }
+    }
+    .text-card {
+      top: 0;
+      box-shadow: none;
+      .card-title {
+        color: $rusty-red
+      }
+    }
+  }
+}
