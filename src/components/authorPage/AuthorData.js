@@ -1,6 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
+
 import classNames from 'classnames'
 import styles from './AuthorData.scss'
 
@@ -10,12 +11,13 @@ const boxClasses = classNames(
 )
 
 const AuthorData = (props) => {
-  const { authorImgUrl, authorName, authorMail, authorBio } = props.authorData
+  const { authorImgUrl, authorName, authorTitle, authorMail, authorBio } = props.authorData
+  const displayedTitle = authorTitle ? `（${authorTitle}）` : ''
   return (
   <div className={boxClasses}>
     <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImgUrl}/></div>
     <div className={styles['author-data-container']}>
-      <div className={styles['author-name']}>{authorName}</div>
+      <div className={styles['author-name']}>{ authorName + displayedTitle }</div>
       {!authorMail ? null : <div className={styles['author-mail']}>{authorMail}</div>}
       <div className={styles['author-bio']}>{authorBio}</div>
     </div>
