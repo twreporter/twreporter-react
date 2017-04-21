@@ -8,7 +8,7 @@ import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { types, authUserAction } from 'twreporter-registration'
+import { types, authUserAction, setupToken, tokenExpirationChecker } from 'twreporter-registration'
 
 /* global __REDUX_STATE__ */
 let reduxState
@@ -32,34 +32,16 @@ const store = configureStore(reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-// setup token expiration mechanism and verify token
-function authTokenChecker() {
-  if(localStorage.getItem('setupTime')) {
-    const setupTime = localStorage.getItem('setupTime')
-    const now = new Date().getTime()
-    let days = 3
-    if(now-setupTime > days*24*60*60*1000) {
-      localStorage.clear()
-    }
-  }
-  if(localStorage.getItem('token')) {
-    store.dispatch(authUserAction('verified token', ''))
-  }
+// Check OAuth and store token
+const { auth } = store.getState()
+if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
+  const authInfo = auth.authInfo
+  setupToken(authInfo)
+  store.dispatch({ type: types.DELETE_AUTHINFO })
 }
-const browserLocalStorage = (typeof localStorage === 'undefined') ? null : localStorage
-if(browserLocalStorage) {
-  // Check OAuth and store token
-  const { auth } = store.getState()
-  if( typeof localStorage !== 'undefined' ) {
-    if(auth.authenticated && auth.token) {
-      const token = auth.token
-      const now = new Date().getTime()
-      localStorage.setItem('token', token)
-      localStorage.setItem('setupTime', now)
-      store.dispatch({ type: types.DELETE_OTOKEN })
-    }
-    authTokenChecker()
-  }
+if(!tokenExpirationChecker(7)) {
+  const authType = auth.authType + ' verified token'
+  store.dispatch(authUserAction(authType, {}))
 }
 
 const device = store.getState().device

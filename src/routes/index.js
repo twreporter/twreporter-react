@@ -46,7 +46,16 @@ export default function (history = browserHistory) {
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
         <Route path="signup" component={SignUpForm} />
-        <Route path="signin" component={SignInForm} google={true} facebook={true} />
+        <Route path="signin" component={SignInForm}
+                             title={'Sign In to TWReporter'}
+                             browserHistory={browserHistory}
+                             signInRedirectPath = {'/features'}
+                             location={'http://testtest.twreporter.org:3000/features'}
+                             domain={'twreporter.org'}
+                             account={true}
+                             google={true}
+                             facebook={true}
+                             defaultStyle={true}/>
         <Route path="activate" component={ActivePage} />
         <Route path="features" component={AuthenticationScreen(Features)} redirectPath={'/signin'} />
         <Route path="signout" component={SignOut} />

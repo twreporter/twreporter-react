@@ -21,7 +21,7 @@ import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { configureAction, authUserAction } from 'twreporter-registration'
 import cookieParser from 'cookie-parser'
-
+import { authInfoStringToObj } from 'twreporter-registration'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -94,8 +94,9 @@ server.get('*', async function (req, res, next) {
   if (req.query.login) {
     let authType = req.query.login
     let cookies = req.cookies
-    let token = cookies.token
-    store.dispatch(authUserAction(authType, token))
+    let auth_info_string = cookies.auth_info
+    let authInfoObj = authInfoStringToObj(auth_info_string)
+    store.dispatch(authUserAction(authType, authInfoObj))
   }
 
   // setup authentication api server url and endpoints
