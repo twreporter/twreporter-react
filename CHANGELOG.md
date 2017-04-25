@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.13
+- [Update] Update the promotion banner and sub navigation
+
 ### 1.1.12
 - [Update] Add text truncating of small cards and make height fixed
 - [Update] Add author title in author pages and heading of articles
