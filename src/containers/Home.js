@@ -262,7 +262,7 @@ class Home extends Component {
         }]
       }
     `
-    const promotionImg = 'https://www.twreporter.org/images/20170306232901-7b800e0104d93ee7c2756491803b8644-tablet.jpg'
+    const promotionImg = 'https://www.twreporter.org/images/20170423001655-79fe4a0d1490af88db7ffc53ac3547f1-tablet.jpg'
 
     return (
       <div>
@@ -286,14 +286,14 @@ class Home extends Component {
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
         <div className={styles['annual-report']}>
-          <span>解密花蓮王朝</span>
+          <span>自己的善終，自己爭</span>
         </div>
-        <Link to="/topics/hualien-fu-kun-chi-two-face">
+        <Link to="/topics/euthanasia-patient-right-good-death">
           <div className={styles['index-promotion']}>
             <PromotionBanner
-              bgImgSrc={replaceStorageUrlPrefix(promotionImg)}
+              bgImgSrc={promotionImg}
               iconImgSrc={backToTopicIcon}
-              title="雙面傅崐萁"
+              title="好死，好難？"
               subtitle=""
             />
           </div>

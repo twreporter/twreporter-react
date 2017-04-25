@@ -7,6 +7,10 @@ export default [ {
   path: '/topics/no-killing-policy'
 },
 {
+  title: '好死，好難？',
+  path: '/topics/euthanasia-patient-right-good-death'
+},
+{
   title: '一例一休吵什麼？',
   path: '/a/opinion-refine-labour-law-dispute'
 },
@@ -17,8 +21,4 @@ export default [ {
 {
   title: '年金改革',
   path: '/tag/57b1561d4310e41200a0dd6c'
-},
-{
-  title: '轉型正義',
-  path: '/topic/57ac8151363d1610007ef656'
 } ]
