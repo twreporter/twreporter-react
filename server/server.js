@@ -92,10 +92,10 @@ server.get('*', async function (req, res, next) {
 
   // setup token to store state from cookies
   if (req.query.login) {
-    let authType = req.query.login
-    let cookies = req.cookies
-    let auth_info_string = cookies.auth_info
-    let authInfoObj = authInfoStringToObj(auth_info_string)
+    const authType = req.query.login
+    const cookies = req.cookies
+    const auth_info_string = cookies.auth_info
+    const authInfoObj = authInfoStringToObj(auth_info_string)
     store.dispatch(authUserAction(authType, authInfoObj))
   }
 

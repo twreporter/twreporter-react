@@ -8,7 +8,7 @@ import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { types, authUserAction, setupToken, tokenExpirationChecker } from 'twreporter-registration'
+import { setupToken, deletAuthInfoAction, authUserByTokenAction } from 'twreporter-registration'
 
 /* global __REDUX_STATE__ */
 let reduxState
@@ -35,14 +35,11 @@ const history = syncHistoryWithStore(browserHistory, store)
 // Check OAuth and store token
 const { auth } = store.getState()
 if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  const authInfo = auth.authInfo
-  setupToken(authInfo)
-  store.dispatch({ type: types.DELETE_AUTHINFO })
+  setupToken(auth.authInfo)
+  store.dispatch(deletAuthInfoAction())
 }
-if(!tokenExpirationChecker(7)) {
-  const authType = auth.authType + ' verified token'
-  store.dispatch(authUserAction(authType, {}))
-}
+
+store.dispatch(authUserByTokenAction(7, auth.authType))
 
 const device = store.getState().device
 ReactDOM.render((
