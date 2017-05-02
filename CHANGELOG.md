@@ -1,4 +1,5 @@
 ### Unreleased
+- [Update] Update the navigation bar
 
 ### 1.1.13
 - [Update] Update the promotion banner and sub navigation
