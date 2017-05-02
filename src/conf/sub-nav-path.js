@@ -1,24 +1,35 @@
 export default [ {
-  title: '同性婚姻論戰',
-  path: 'tag/5734115d8c0c261000b3f70e'
+  title: '勞動政策追蹤',
+  path: 'https://tsai-tracker.twreporter.org/',
+  isExternal: true
+},
+{
+  title: '婚姻平權',
+  path: 'tag/5734115d8c0c261000b3f70e',
+  isExternal: false
 },
 {
   title: '零安樂死真相',
-  path: '/topics/no-killing-policy'
+  path: '/topics/no-killing-policy',
+  isExternal: false
 },
 {
   title: '好死，好難？',
-  path: '/topics/euthanasia-patient-right-good-death'
+  path: '/topics/euthanasia-patient-right-good-death',
+  isExternal: false
 },
 {
-  title: '一例一休吵什麼？',
-  path: '/a/opinion-refine-labour-law-dispute'
+  title: '工作貧窮',
+  path: '/topics/taiwan-temporary-workers',
+  isExternal: false
 },
 {
   title: '血淚漁場',
-  path: '/topics/far-sea-fishing-investigative-report'
+  path: '/topics/far-sea-fishing-investigative-report',
+  isExternal: false
 },
 {
   title: '年金改革',
-  path: '/tag/57b1561d4310e41200a0dd6c'
+  path: '/tag/57b1561d4310e41200a0dd6c',
+  isExternal: false
 } ]
