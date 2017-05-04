@@ -1,4 +1,5 @@
 ### Unreleased
+- [Update] Add promotional banners
 
 ### 1.1.14
 - [Update] Update the navigation bar

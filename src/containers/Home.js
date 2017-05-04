@@ -263,6 +263,8 @@ class Home extends Component {
       }
     `
     const promotionImg = 'https://www.twreporter.org/images/20170423001655-79fe4a0d1490af88db7ffc53ac3547f1-tablet.jpg'
+    const promotionImg2 = 'https://www.twreporter.org/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg'
+    const promotionImg3 = 'https://www.twreporter.org/images/20170504155912-6ec3adfb924dd24ec111298bd4c867e9.png'
 
     return (
       <div>
@@ -298,6 +300,29 @@ class Home extends Component {
             />
           </div>
         </Link>
+        <div className={styles['index-promotion']}>
+          <div className="row">
+            <div className="col-md-6">
+              <Link to="/topics/taiwan-temporary-workers">
+                <PromotionBanner
+                  bgImgSrc={promotionImg2}
+                  iconImgSrc={backToTopicIcon}
+                  title="工作貧窮"
+                  subtitle="年資中斷、欠薪頻傳的派遣大軍們"
+                />
+              </Link>
+            </div>
+            <div className="col-md-6">
+              <a href="https://tsai-tracker.twreporter.org/" target="_blank">
+                <PromotionBanner
+                  bgImgSrc={promotionImg3}
+                  title=" &nbsp;"
+                  subtitle="蔡英文勞動政策追蹤大平台"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
         <Daily daily={reviewItems}
         />
         <Features
