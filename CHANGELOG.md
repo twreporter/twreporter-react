@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.16
+- Add icon images for apple/andriod mobile device
+
 ### 1.1.15
 - [Update] Add promotional banners
 

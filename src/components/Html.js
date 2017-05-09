@@ -24,6 +24,12 @@ function Html({ children, head, reduxState, styles, script }) {
         <meta name="keywords" content={SITE_META.KEYWORDS} />
         <meta name="theme-color" content="#E30B20" />
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
+        <link href="https://www.twreporter.org/images/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="https://www.twreporter.org/images/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+        <link href="https://www.twreporter.org/images/apple-touch-icon-167x167.png" rel="apple-touch-icon" sizes="167x167" />
+        <link href="https://www.twreporter.org/images/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+        <link href="https://www.twreporter.org/images/icon-hires.png-hires.png" rel="icon" sizes="192x192" />
+        <link href="https://www.twreporter.org/images/icon-normal.png" rel="icon" sizes="128x128" />
         <link href="/asset/favicon.png"  rel="shortcut icon" />
         { _.map(styles, (style, key) => {
           return <link async href={style} key={key} media="all" rel="stylesheet" type="text/css" charSet="UTF-8"/>
