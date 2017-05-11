@@ -13,6 +13,7 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
+import Subscribe from '../containers/subscribe'
 
 if (typeof window !== 'undefined') {
   // add Google Analytics
@@ -43,6 +44,7 @@ export default function (history = browserHistory) {
         <Route path="a/:slug" component={Article} />
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
+        <Route path="subscribe" component={Subscribe} />
       </Route>
     </Router>
   )
