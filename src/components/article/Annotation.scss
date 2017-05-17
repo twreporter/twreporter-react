@@ -15,7 +15,13 @@ $letter-spacing: .5px;
   > abbr {
     margin: 0;
     cursor: pointer !important;
+    text-decoration: none;
     border-bottom: 0;
+
+    a:link,
+    a:visited {
+        color: $gray-50;
+    }
   }
 
   span {
