@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.17
+- [Bug] Showing unexpected dotted lines in the annotaion box
+
 ### 1.1.16
 - Add icon images for apple/andriod mobile device
 
