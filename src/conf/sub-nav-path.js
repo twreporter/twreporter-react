@@ -29,7 +29,7 @@ export default [ {
   isExternal: false
 },
 {
-  title: '年金改革',
-  path: '/tag/57b1561d4310e41200a0dd6c',
+  title: '農藥減量行不行？',
+  path: '/topics/taiwan-pesticide',
   isExternal: false
 } ]

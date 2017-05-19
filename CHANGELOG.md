@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.18
+- [Update] Update the navigation bar
+
 ### 1.1.17
 - [Bug] Showing unexpected dotted lines in the annotaion box
 
