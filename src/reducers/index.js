@@ -7,6 +7,9 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import * as types from '../constants/action-types'
 import device from './device'
+import fieldNames from 'twreporter-react-index-page-components/lib/constants/redux-state-fields'
+import indexPage from 'twreporter-react-index-page-components/lib/reducers/index-page'
+import entitiesOfIndexPage from 'twreporter-react-index-page-components/lib/reducers/entities'
 import header from './header'
 import selectedArticle from './article'
 import selectedTopic from './topic'
@@ -21,6 +24,9 @@ export function entities(state = {}, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
+
+  state = entitiesOfIndexPage(state, action)
+
   return state
 }
 
@@ -57,6 +63,7 @@ export function topicSlugToId(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
+  [fieldNames.indexPage]: indexPage,
   articlesByUuids,
   featureArticles,
   relatedArticles,

@@ -1,121 +1,86 @@
 /*eslint no-unused-vars:0, no-console:0 */
-'use strict'
-import { Link } from 'react-router'
-import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SITE_NAME, SITE_META, SPECIAL_TOPIC_CH_STR } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId, replaceStorageUrlPrefix } from '../utils/index'
-import { devCatListId, prodCatListId } from '../conf/list-id'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
-import Daily from '../components/Daily'
-import Features from '../components/Features'
-import Footer from '../components/Footer'
+import EditorPicks from 'twreporter-react-index-page-components/lib/components/editor-picks'
 import Helmet from 'react-helmet'
-import PromotionBanner from '../components/shared/PromotionBanner'
-import React, { Component } from 'react'
-import TopNews from '../components/TopNews'
-import async from 'async'
-import backToTopicIcon from '../../static/asset/back-to-topic.svg'
-import styles from './Home.scss'
-
-// lodash
+import InfographicSection from 'twreporter-react-index-page-components/lib/components/infographic-section'
+import Latest from 'twreporter-react-index-page-components/lib/components/latest'
+import LatestTopic from 'twreporter-react-index-page-components/lib/components/latest-topic'
+import React from 'react'
+import Reviews from 'twreporter-react-index-page-components/lib/components/reviews'
+import PhotographySection from 'twreporter-react-index-page-components/lib/components/photography-section'
+import ReporterIntro from 'twreporter-react-index-page-components/lib/components/reporter-intro'
+import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
+import TopicsSection from 'twreporter-react-index-page-components/lib/components/topics-section'
+import clone from 'lodash/clone'
+import fieldNames from 'twreporter-react-index-page-components/lib/constants/redux-state-fields'
 import get from 'lodash/get'
+import set from 'lodash/set'
+import styled from 'styled-components'
+import { SITE_NAME, SITE_META } from '../constants/index'
+import { connect } from 'react-redux'
+import { fetchIndexPageContent } from 'twreporter-react-index-page-components/lib/actions/index-page'
+import { fetchTopicsOnIndexPage } from 'twreporter-react-index-page-components/lib/actions/topics'
+import { fetchPhotographyPostsOnIndexPage, fetchInfographicPostsOnIndexPage } from 'twreporter-react-index-page-components/lib/actions/posts'
 
-const MAXRESULT = 10
-const PAGE = 1
+const _ = {
+  clone,
+  get,
+  set
+}
 
-class Home extends Component {
-  static fetchData({
-    store
-  }) {
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
-    }
-    return new Promise((resolve, reject) => {
-      // load tagged articles in parallel
-      async.parallel([
-        function (callback) {
-          store.dispatch(fetchFeatureArticles())
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(REVIEW_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(SPECIAL_TOPIC_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        }
-      ], (err, results) => {
-        if (err) {
-          console.warn('fetchData occurs error:', err)
-        }
-        resolve()
-      })
-    })
+const Container = styled.div`
+  width 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  background-color: white;
+  overflow: hidden;
+`
+
+const FirstModuleWrapper = styled.div`
+  hegight: auto;
+`
+
+const denormalizePosts = (slugs, entities) => {
+  const posts = slugs.map((slug) => {
+    return _.clone(entities[slug])
+  })
+
+  return posts
+}
+
+const denormalizeTopics = (topicSlugs, topicEntities, postEntities) => {
+  let slugs = topicSlugs
+  if (!Array.isArray(topicSlugs)) {
+    slugs = [ topicSlugs ]
+  }
+  const topics = slugs.map((slug) => {
+    const topic = _.clone(topicEntities[slug])
+    const relatedSlugs = _.get(topic, fieldNames.relateds, [])
+    const relateds = denormalizePosts(relatedSlugs, postEntities)
+    _.set(topic, fieldNames.relateds, relateds)
+    return topic
+  })
+
+  return topics
+}
+
+class Homepage extends React.Component {
+  static async fetchData({ store }) {
+    await fetchIndexPageContent()(store.dispatch, store.getState)
+    await fetchTopicsOnIndexPage()(store.dispatch, store.getState)
+    await fetchPhotographyPostsOnIndexPage()(store.dispatch, store.getState)
+    await fetchInfographicPostsOnIndexPage()(store.dispatch, store.getState)
   }
 
-  constructor(props, context) {
-    super(props, context)
-    this.specialTopicListId = getCatId(SPECIAL_TOPIC_CH_STR)
-    this.reviewListId = getCatId(REVIEW_CH_STR)
-    this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
-  }
-
-  componentWillMount() {
-    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: HOME,
-      readPercent: 0
-    })
-
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
-    }
-    if (get(featureArticles, 'items.length', 0) === 0) {
-      fetchFeatureArticles()
-    }
-    if (get(articlesByUuids, [ this.reviewListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
-    }
-    if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
-    }
-
-  }
-
-  _loadMoreArticles(catId) {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-
-    if (get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
-      return
-    }
-
-    let itemSize = get(articlesByUuids, [ catId, 'items', 'length' ], 0)
-    let page = Math.floor(itemSize / MAXRESULT) + 1
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: page,
-      max_results: MAXRESULT
-    })
+  async componentWillMount() {
+    await this.props.fetchIndexPageContent()
+    await this.props.fetchTopicsOnIndexPage()
+    await this.props.fetchPhotographyPostsOnIndexPage()
+    await this.props.fetchInfographicPostsOnIndexPage()
   }
 
   render() {
-    const { articlesByUuids, entities, featureArticles } = this.props
-    const topnews_num = 5
-    let topnewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
-    let specialTopicItems = denormalizeArticles(get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
-    let reviewItems = denormalizeArticles(get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
-
-    let microData = (
+    // TODO Need to change categories
+    const microData = (
       <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
         <div>
           <meta itemProp="name" content="首頁" />
@@ -141,39 +106,10 @@ class Home extends Component {
           <meta itemProp="name" content="評論" />
           <link itemProp="url" href="https://www.twreporter.org/category/review" />
         </div>
-        <div>
-          <meta itemProp="name" content="作者列表" />
-          <link itemProp="url" href="https://www.twreporter.org/authors" />
-        </div>
-        <div>
-          <meta itemProp="name" content="轉型正義" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8151363d1610007ef656" />
-        </div>
-        <div>
-          <meta itemProp="name" content="美國總統大選" />
-          <link itemProp="url" href="https://www.twreporter.org/tag/57b065e5360b651200848d76" />
-        </div>
-        <div>
-          <meta itemProp="name" content="亞洲森林浩劫" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac816f363d1610007ef658" />
-        </div>
-        <div>
-          <meta itemProp="name" content="走入同志家庭" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8177363d1610007ef659" />
-        </div>
-        <div>
-          <meta itemProp="name" content="急診人生" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8180363d1610007ef65aa" />
-        </div>
-        <div>
-          <meta itemProp="name" content="五輕關廠" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8192363d1610007ef65b" />
-        </div>
       </div>
-
     )
 
-    let organizationJSONLD = `
+    const organizationJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "Organization",
@@ -193,7 +129,8 @@ class Home extends Component {
         }
       }
     `
-    let webSiteJSONLD = `
+
+    const webSiteJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "WebSite",
@@ -206,7 +143,9 @@ class Home extends Component {
         }
       }
     `
-    let breadcrumbListJSONLD = `
+
+    // TODO Need to change categories
+    const breadcrumbListJSONLD = `
     {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
@@ -252,22 +191,11 @@ class Home extends Component {
             "@id": "https://www.twreporter.org/photography",
             "name": "影像"
           }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/authors",
-            "name": "作者列表"
-          }
         }]
       }
     `
-    const promotionImg = 'https://www.twreporter.org/images/20170423001655-79fe4a0d1490af88db7ffc53ac3547f1-tablet.jpg'
-    const promotionImg2 = 'https://www.twreporter.org/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg'
-    const promotionImg3 = 'https://www.twreporter.org/images/20170504155912-6ec3adfb924dd24ec111298bd4c867e9.png'
-
     return (
-      <div>
+      <Container>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -285,76 +213,78 @@ class Home extends Component {
             { property: 'og:url', content: SITE_META.URL }
           ]}
         />
-        <TopNews topnews={topnewsItems} />
-        {/* Hard code promotion bannder*/}
-        <div className={styles['annual-report']}>
-          <span>自己的善終，自己爭</span>
-        </div>
-        <Link to="/topics/euthanasia-patient-right-good-death">
-          <div className={styles['index-promotion']}>
-            <PromotionBanner
-              bgImgSrc={promotionImg}
-              iconImgSrc={backToTopicIcon}
-              title="好死，好難？"
-              subtitle=""
-            />
-          </div>
-        </Link>
-        <div className={styles['index-promotion']}>
-          <div className="row">
-            <div className="col-md-6">
-              <Link to="/topics/taiwan-temporary-workers">
-                <PromotionBanner
-                  bgImgSrc={promotionImg2}
-                  iconImgSrc={backToTopicIcon}
-                  title="工作貧窮"
-                  subtitle="年資中斷、欠薪頻傳的派遣大軍們"
-                />
-              </Link>
-            </div>
-            <div className="col-md-6">
-              <a href="https://tsai-tracker.twreporter.org/" target="_blank">
-                <PromotionBanner
-                  bgImgSrc={promotionImg3}
-                  title=" &nbsp;"
-                  subtitle="蔡英文勞動政策追蹤大平台"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-        <Daily daily={reviewItems}
-        />
-        <Features
-          features={specialTopicItems}
-          hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
-          loadMore={this.loadMoreArticles}
-        />
-        {
-          this.props.children
-        }
-        <Footer />
+        <SideBar>
+          <FirstModuleWrapper
+            moduleId={moduleIdObj.editorPick}
+          >
+            <Latest data={this.props[fieldNames.latest]} />
+            <EditorPicks data={this.props[fieldNames.editorPicks]} />
+          </FirstModuleWrapper>
+          <LatestTopic
+            data={this.props[fieldNames.latestTopic]}
+            moduleId={moduleIdObj.latestTopic}
+          />
+          <Reviews
+            data={this.props[fieldNames.reviews]}
+            moduleId={moduleIdObj.review}
+          />
+          <TopicsSection
+            moduleId={moduleIdObj.topic}
+            items={this.props[fieldNames.topics]}
+          />
+          <PhotographySection
+            moduleId={moduleIdObj.photography}
+            items={this.props[fieldNames.photographies]}
+          />
+          <InfographicSection
+            moduleId={moduleIdObj.infographic}
+            items={this.props[fieldNames.infographics]}
+          />
+          <ReporterIntro
+            moduleId={moduleIdObj.donation}
+          />
+        </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
-      </div>
+      </Container>
     )
   }
 }
 
 function mapStateToProps(state) {
+  const entities = _.get(state, fieldNames.entities, {})
+  const indexPageState = _.get(state, fieldNames.indexPage, {})
+
+  // get post entities
+  const postEntities = _.get(entities, fieldNames.posts, {})
+
+  // get topic entities
+  const topicEntities = _.get(entities, fieldNames.topics, {})
+
+  // restore the posts
+  const latest = denormalizePosts(_.get(indexPageState, fieldNames.latest, []), postEntities)
+  const editorPicks = denormalizePosts(_.get(indexPageState, fieldNames.editorPicks, []), postEntities)
+  const reviews = denormalizePosts(_.get(indexPageState, fieldNames.reviews, []), postEntities)
+  const photoPosts = denormalizePosts(_.get(indexPageState, fieldNames.photographies, []), postEntities)
+  const infoPosts = denormalizePosts(_.get(indexPageState, fieldNames.infographics, []), postEntities)
+
+  // restore the topics
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic, []), topicEntities, postEntities), 0, {})
+  const topics = denormalizeTopics(_.get(indexPageState, fieldNames.topics, []), topicEntities, postEntities)
+
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {},
-    featureArticles: state.featureArticles || {}
+    [fieldNames.latest]: latest,
+    [fieldNames.editorPicks]: editorPicks,
+    [fieldNames.latestTopic]: latestTopic,
+    [fieldNames.reviews]: reviews,
+    [fieldNames.topics]: topics,
+    [fieldNames.photographies]: photoPosts,
+    [fieldNames.infographics]: infoPosts
   }
 }
 
-export { Home }
-
-export default connect(mapStateToProps, {
-  fetchArticlesByUuidIfNeeded,
-  fetchFeatureArticles,
-  setHeaderInfo
-})(Home)
+export { Homepage }
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchTopicsOnIndexPage,
+  fetchInfographicPostsOnIndexPage, fetchPhotographyPostsOnIndexPage })(Homepage)

@@ -19,6 +19,7 @@ import path from 'path'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -116,10 +117,13 @@ server.get('*', async function (req, res, next) {
           const reduxState = escape(JSON.stringify(store.getState()))
           const script = assets.javascript
           const styles = assets.styles
+          const sheet = new ServerStyleSheet()
           const children = ReactDOMServer.renderToString(
               <Provider store={store} >
                 <DeviceProvider device={get(store.getState(), 'device')}>
-                  { <RouterContext {...renderProps} /> }
+                  <StyleSheetManager sheet={sheet.instance}>
+                    { <RouterContext {...renderProps} /> }
+                  </StyleSheetManager>
                 </DeviceProvider>
               </Provider>
           )
@@ -138,6 +142,7 @@ server.get('*', async function (req, res, next) {
               children={children}
               reduxState={reduxState}
               styles={styles}
+              styleTags={sheet.getStyleTags()}
               script={script}
               head={head}
             />

@@ -11,7 +11,7 @@ const _ = {
   map
 }
 
-function Html({ children, head, reduxState, styles, script }) {
+function Html({ children, head, reduxState, styleTags, styles, script }) {
   return (
     <html lang="zh-TW">
       <head>
@@ -34,6 +34,7 @@ function Html({ children, head, reduxState, styles, script }) {
         { _.map(styles, (style, key) => {
           return <link async href={style} key={key} media="all" rel="stylesheet" type="text/css" charSet="UTF-8"/>
         }) }
+        <style dangerouslySetInnerHTML={{ __html: styleTags }} />
         {head.title.toComponent()}
         {head.meta.toComponent()}
         {head.link.toComponent()}
