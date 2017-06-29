@@ -13,6 +13,8 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
+import { SignUpForm, SignInForm, ActivePage, AuthenticationScreen, Features, SignOut } from 'twreporter-registration'
+
 
 if (typeof window !== 'undefined') {
   // add Google Analytics
@@ -43,6 +45,20 @@ export default function (history = browserHistory) {
         <Route path="a/:slug" component={Article} />
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
+        <Route path="signup" component={SignUpForm} />
+        <Route path="signin" component={SignInForm}
+                             title={'Sign In to TWReporter'}
+                             browserHistory={browserHistory}
+                             signInRedirectPath = {'/features'}
+                             location={'http://testtest.twreporter.org:3000/features'}
+                             domain={'twreporter.org'}
+                             account={true}
+                             google={true}
+                             facebook={true}
+                             defaultStyle={true}/>
+        <Route path="activate" component={ActivePage} />
+        <Route path="features" component={AuthenticationScreen(Features)} redirectPath={'/signin'} />
+        <Route path="signout" component={SignOut} />
       </Route>
     </Router>
   )

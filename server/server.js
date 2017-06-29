@@ -19,6 +19,9 @@ import path from 'path'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
+import { configureAction, authUserAction } from 'twreporter-registration'
+import cookieParser from 'cookie-parser'
+import { authInfoStringToObj } from 'twreporter-registration'
 
 const server = new Express()
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
@@ -31,11 +34,13 @@ server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
 
+server.use(cookieParser())
+
 const oneDay = 86400000
 server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
 server.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay * 7 }))
 server.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
+  res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
@@ -85,6 +90,32 @@ server.get('*', async function (req, res, next) {
 
   let location = createLocation(req.url)
 
+  // setup token to store state from cookies
+  if (req.query.login) {
+    const authType = req.query.login
+    const cookies = req.cookies
+    const auth_info_string = cookies.auth_info
+    const authInfoObj = authInfoStringToObj(auth_info_string)
+    store.dispatch(authUserAction(authType, authInfoObj))
+  }
+
+  // setup authentication api server url and endpoints
+  const registrationConfigure = {
+    apiUrl: 'http://testtest.twreporter.org:8080',
+    signUp: '/v1/signup',
+    signIn: '/v1/login',
+    activate: '/v1/activate',
+    bookmarkUpdate: '',
+    bookmarkDelete: '',
+    bookmarkGet: '',
+    ping: '',
+    oAuthProviders: {
+      google: '/v1/auth/google',
+      facebook: '/v1/auth/facebook'
+    }
+  }
+  store.dispatch(configureAction(registrationConfigure))
+
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -123,7 +154,6 @@ server.get('*', async function (req, res, next) {
                 </DeviceProvider>
               </Provider>
           )
-
           // rewinding is necessaray on the server:
           //  https://github.com/nfl/react-helmet#server-usage
           let head = Helmet.rewind()
