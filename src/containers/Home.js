@@ -262,7 +262,7 @@ class Home extends Component {
         }]
       }
     `
-    const promotionImg = 'https://www.twreporter.org/images/20170423001655-79fe4a0d1490af88db7ffc53ac3547f1-tablet.jpg'
+    const promotionImg = 'https://www.twreporter.org/images/20170628161533-67fae5e08b65d9ae0f5c713a09888e31-tablet.jpg'
     const promotionImg2 = 'https://www.twreporter.org/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg'
     const promotionImg3 = 'https://www.twreporter.org/images/20170504155912-6ec3adfb924dd24ec111298bd4c867e9.png'
 
@@ -288,14 +288,14 @@ class Home extends Component {
         <TopNews topnews={topnewsItems} />
         {/* Hard code promotion bannder*/}
         <div className={styles['annual-report']}>
-          <span>自己的善終，自己爭</span>
+          <span>香港主權移交20年</span>
         </div>
-        <Link to="/topics/euthanasia-patient-right-good-death">
+        <Link to="/topics/transfer-of-sovereignty-over-hong-kong-20years">
           <div className={styles['index-promotion']}>
             <PromotionBanner
               bgImgSrc={promotionImg}
               iconImgSrc={backToTopicIcon}
-              title="好死，好難？"
+              title="香港，你好嗎？"
               subtitle=""
             />
           </div>

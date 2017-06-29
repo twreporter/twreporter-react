@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.1.20
+- [Update] Change the homepage banner
+
 ### 1.1.19
 - [Update] Update the navigation bar
 
