@@ -11,15 +11,16 @@ import ReporterIntro from 'twreporter-react-index-page-components/lib/components
 import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
 import TopicsSection from 'twreporter-react-index-page-components/lib/components/topics-section'
 import clone from 'lodash/clone'
-import fieldNames from 'twreporter-react-index-page-components/lib/constants/redux-state-fields'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import styled from 'styled-components'
+import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { fetchIndexPageContent } from 'twreporter-react-index-page-components/lib/actions/index-page'
-import { fetchTopicsOnIndexPage } from 'twreporter-react-index-page-components/lib/actions/topics'
-import { fetchPhotographyPostsOnIndexPage, fetchInfographicPostsOnIndexPage } from 'twreporter-react-index-page-components/lib/actions/posts'
+
+const { fetchIndexPageContent } =  twreporterRedux.actions
+const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const fieldNames = twreporterRedux.reduxStateFields
 
 const _ = {
   clone,
@@ -39,43 +40,17 @@ const FirstModuleWrapper = styled.div`
   hegight: auto;
 `
 
-const denormalizePosts = (slugs, entities) => {
-  const posts = slugs.map((slug) => {
-    return _.clone(entities[slug])
-  })
-
-  return posts
-}
-
-const denormalizeTopics = (topicSlugs, topicEntities, postEntities) => {
-  let slugs = topicSlugs
-  if (!Array.isArray(topicSlugs)) {
-    slugs = [ topicSlugs ]
-  }
-  const topics = slugs.map((slug) => {
-    const topic = _.clone(topicEntities[slug])
-    const relatedSlugs = _.get(topic, fieldNames.relateds, [])
-    const relateds = denormalizePosts(relatedSlugs, postEntities)
-    _.set(topic, fieldNames.relateds, relateds)
-    return topic
-  })
-
-  return topics
-}
-
 class Homepage extends React.Component {
   static async fetchData({ store }) {
     await fetchIndexPageContent()(store.dispatch, store.getState)
-    await fetchTopicsOnIndexPage()(store.dispatch, store.getState)
-    await fetchPhotographyPostsOnIndexPage()(store.dispatch, store.getState)
-    await fetchInfographicPostsOnIndexPage()(store.dispatch, store.getState)
+    const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
+    if (error !== null) {
+      return Promise.reject(error)
+    }
   }
 
   async componentWillMount() {
     await this.props.fetchIndexPageContent()
-    await this.props.fetchTopicsOnIndexPage()
-    await this.props.fetchPhotographyPostsOnIndexPage()
-    await this.props.fetchInfographicPostsOnIndexPage()
   }
 
   render() {
@@ -234,7 +209,7 @@ class Homepage extends React.Component {
           />
           <PhotographySection
             moduleId={moduleIdObj.photography}
-            items={this.props[fieldNames.photographies]}
+            items={this.props[fieldNames.photos]}
           />
           <InfographicSection
             moduleId={moduleIdObj.infographic}
@@ -267,11 +242,11 @@ function mapStateToProps(state) {
   const latest = denormalizePosts(_.get(indexPageState, fieldNames.latest, []), postEntities)
   const editorPicks = denormalizePosts(_.get(indexPageState, fieldNames.editorPicks, []), postEntities)
   const reviews = denormalizePosts(_.get(indexPageState, fieldNames.reviews, []), postEntities)
-  const photoPosts = denormalizePosts(_.get(indexPageState, fieldNames.photographies, []), postEntities)
+  const photoPosts = denormalizePosts(_.get(indexPageState, fieldNames.photos, []), postEntities)
   const infoPosts = denormalizePosts(_.get(indexPageState, fieldNames.infographics, []), postEntities)
 
   // restore the topics
-  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic, []), topicEntities, postEntities), 0, {})
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic), topicEntities, postEntities), 0, {})
   const topics = denormalizeTopics(_.get(indexPageState, fieldNames.topics, []), topicEntities, postEntities)
 
   return {
@@ -280,11 +255,10 @@ function mapStateToProps(state) {
     [fieldNames.latestTopic]: latestTopic,
     [fieldNames.reviews]: reviews,
     [fieldNames.topics]: topics,
-    [fieldNames.photographies]: photoPosts,
+    [fieldNames.photos]: photoPosts,
     [fieldNames.infographics]: infoPosts
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchTopicsOnIndexPage,
-  fetchInfographicPostsOnIndexPage, fetchPhotographyPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent })(Homepage)

@@ -1,13 +1,15 @@
-import { BRIGHT, CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
 import Helmet from 'react-helmet'
 import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
+import twreporterRedux from 'twreporter-redux'
+
+import { BRIGHT, CATEGORY, CULTURE_CH_STR, INTL_CH_STR, MEDIA_CH_STR, REVIEW_CH_STR, SITE_META, SITE_NAME, TAIWAN_CH_STR } from '../constants/index'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { getCatId } from '../utils/index'
+import { setHeaderInfo } from '../actions/header'
 
 // lodash
 import get from 'lodash/get'
@@ -16,12 +18,15 @@ const _  = {
   get
 }
 
+const { actions, reduxStateFields, utils } = twreporterRedux
+const { fetchListedPosts } = actions
+
 if (process.env.BROWSER) {
   require('./Category.css')
 }
 
 const MAXRESULT = 10
-const PAGE = 1
+const categories = 'categories'
 
 // english to chinese of category
 const catENtoCH = {
@@ -34,10 +39,7 @@ const catENtoCH = {
 
 class Category extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(catENtoCH[params.category]), CATEGORY, {
-      page: PAGE,
-      max_results: MAXRESULT
-    }))
+    return store.dispatch(fetchListedPosts(getCatId(catENtoCH[params.category]), categories, MAXRESULT))
   }
 
   constructor(props) {
@@ -50,7 +52,7 @@ class Category extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, setHeaderInfo } = this.props
+    const { lists, fetchListedPosts, setHeaderInfo } = this.props
     setHeaderInfo({
       pageTheme: BRIGHT,
       pageType: CATEGORY
@@ -59,62 +61,43 @@ class Category extends Component {
     let catId = this.state.catId
 
     // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+    if (_.get(lists, [ catId, 'items', 'length' ], 0) > 0) {
       return
     }
 
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: PAGE,
-      max_results: MAXRESULT
-    })
+    fetchListedPosts(catId, categories, MAXRESULT)
 
-  }
-
-  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
+    const { lists, fetchListedPosts, params } = nextProps
     let catId = getCatId(catENtoCH[_.get(params, 'category')])
 
     // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ catId, 'items', 'length' ], 0) > 0) {
+    if (_.get(lists, [ catId, 'items', 'length' ], 0) > 0) {
       return
     }
 
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: PAGE,
-      max_results: MAXRESULT
-    })
+    fetchListedPosts(catId, categories, MAXRESULT)
   }
 
   _loadMore() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { fetchListedPosts, params } = this.props
     let catId = getCatId(catENtoCH[_.get(params, 'category')])
-
-    let articlesByCat = _.get(articlesByUuids, [ catId ], {})
-    if (_.get(articlesByCat, 'hasMore') === false) {
-      return
-    }
-
-    let itemSize = _.get(articlesByCat, 'items.length', 0)
-    let page = Math.floor(itemSize / MAXRESULT) + 1
-
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: page,
-      max_results: MAXRESULT
-    })
+    fetchListedPosts(catId, categories, MAXRESULT)
   }
 
   render() {
     const { device } = this.context
-    const { articlesByUuids, entities, params } = this.props
+    const { lists, entities, params } = this.props
+    const postEntities = _.get(entities, reduxStateFields.posts, {})
     const catId = getCatId(catENtoCH[_.get(params, 'category')])
-    const error = _.get(articlesByUuids, [ catId, 'error' ], null)
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ catId, 'items' ], []), entities)
+    const error = _.get(lists, [ catId, 'error' ], null)
+    const total = _.get(lists, [ catId, 'total' ], 0)
+    const posts = camelizeKeys(utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []), postEntities))
 
     // Error handling
-    if (error !== null && _.get(articles, 'length', 0) === 0) {
+    if (error !== null && _.get(posts, 'length', 0) === 0) {
       return (
         <div>
           <SystemError error={error} />
@@ -150,9 +133,9 @@ class Category extends Component {
           {catBox}
         </div>
         <ArticleList
-          articles={articles}
+          articles={posts}
           device={device}
-          hasMore={ _.get(articlesByUuids, [ catId, 'hasMore' ])}
+          hasMore={total > posts.length}
           loadMore={this.loadMore}
           loadMoreError={error}
         />
@@ -165,8 +148,8 @@ class Category extends Component {
 
 function mapStateToProps(state) {
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {}
+    lists: state[reduxStateFields.lists],
+    entities: state[reduxStateFields.entities]
   }
 }
 
@@ -174,5 +157,15 @@ Category.contextTypes = {
   device: React.PropTypes.string
 }
 
+Category.defaultProps = {
+  lists: {},
+  entities: {}
+}
+
+Category.propTypes = {
+  lists: React.PropTypes.object,
+  entities: React.PropTypes.object
+}
+
 export { Category }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Category)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Category)

@@ -184,7 +184,7 @@ pe.skipPackage('express')
 
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)) // eslint-disable-line no-console
-  if (err instanceof NotFoundError) {
+  if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
     res.status(404)
     res.render('404')
     return

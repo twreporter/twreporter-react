@@ -52,7 +52,7 @@ class PageNavigation extends Component {
   }
 
   _renderArticle(article) {
-    let imgUrl = get(article, [ 'heroImage', 'image', 'resizeTargets', 'mobile', 'url' ], null)
+    let imgUrl = get(article, [ 'heroImage',  'resizeTargets', 'mobile', 'url' ], null)
     let title = get(article, 'title', get(article, 'og_title'))
 
     return (
