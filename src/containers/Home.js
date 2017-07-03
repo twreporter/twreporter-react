@@ -1,4 +1,5 @@
 /*eslint no-unused-vars:0, no-console:0 */
+import Header from 'twreporter-react-index-page-components/lib/components/header'
 import EditorPicks from 'twreporter-react-index-page-components/lib/components/editor-picks'
 import Helmet from 'react-helmet'
 import InfographicSection from 'twreporter-react-index-page-components/lib/components/infographic-section'
@@ -6,6 +7,7 @@ import Latest from 'twreporter-react-index-page-components/lib/components/latest
 import LatestTopic from 'twreporter-react-index-page-components/lib/components/latest-topic'
 import React from 'react'
 import Reviews from 'twreporter-react-index-page-components/lib/components/reviews'
+import Category from 'twreporter-react-index-page-components/lib/components/category'
 import PhotographySection from 'twreporter-react-index-page-components/lib/components/photography-section'
 import ReporterIntro from 'twreporter-react-index-page-components/lib/components/reporter-intro'
 import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
@@ -22,6 +24,58 @@ const { fetchIndexPageContent } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
 
+const category = [
+  {
+    id: '0',
+    name: 'Human Right',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '1',
+    name: 'Environment',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '2',
+    name: 'Transitional Justice',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '3',
+    name: 'Culture & Movie',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '4',
+    name: 'Video & Audio',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '5',
+    name: '國際 • 兩岸',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '6',
+    name: 'Person',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  },
+  {
+    id: '7',
+    name: 'Political Economy',
+    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
+    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
+  }
+]
+
+
 const _ = {
   clone,
   get,
@@ -30,7 +84,6 @@ const _ = {
 
 const Container = styled.div`
   width 100%;
-  max-width: 1024px;
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
@@ -192,6 +245,7 @@ class Homepage extends React.Component {
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
+            <Header />
             <Latest data={this.props[fieldNames.latest]} />
             <EditorPicks data={this.props[fieldNames.editorPicks]} />
           </FirstModuleWrapper>
@@ -202,6 +256,10 @@ class Homepage extends React.Component {
           <Reviews
             data={this.props[fieldNames.reviews]}
             moduleId={moduleIdObj.review}
+          />
+          <Category
+              data={this.props.category}
+              moduleId={moduleIdObj.category}
           />
           <TopicsSection
             moduleId={moduleIdObj.topic}
@@ -256,7 +314,8 @@ function mapStateToProps(state) {
     [fieldNames.reviews]: reviews,
     [fieldNames.topics]: topics,
     [fieldNames.photos]: photoPosts,
-    [fieldNames.infographics]: infoPosts
+    [fieldNames.infographics]: infoPosts,
+    category
   }
 }
 
