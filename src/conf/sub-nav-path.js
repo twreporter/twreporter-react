@@ -14,8 +14,8 @@ export default [ {
   isExternal: false
 },
 {
-  title: '好死，好難？',
-  path: '/topics/euthanasia-patient-right-good-death',
+  title: '2017威尼斯雙年展',
+  path: '/topics/2017-venice-biennale',
   isExternal: false
 },
 {
