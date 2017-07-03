@@ -15,6 +15,7 @@ import TopicsSection from 'twreporter-react-index-page-components/lib/components
 import clone from 'lodash/clone'
 import get from 'lodash/get'
 import set from 'lodash/set'
+import isEqual from 'lodash/isEqual'
 import styled from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
@@ -79,7 +80,8 @@ const category = [
 const _ = {
   clone,
   get,
-  set
+  set,
+  isEqual
 }
 
 const Container = styled.div`
@@ -104,6 +106,17 @@ class Homepage extends React.Component {
 
   async componentWillMount() {
     await this.props.fetchIndexPageContent()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    for (let property in this.props) {
+      if (Object.prototype.hasOwnProperty.call(nextProps, property) && !_.isEqual(this.props[property], nextProps[property])) {
+        if (property === 'location') {
+          return false
+        }
+      }
+    }
+    return false
   }
 
   render() {
