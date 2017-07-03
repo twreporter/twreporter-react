@@ -48,9 +48,9 @@ export default class SubNavBar extends Component {
 
     for(let i in subNavPath) {
       if(subNavPath[i].isExternal) {
-        subMenuLinks.push(<a href={subNavPath[i].path} target="_blank"><span>{subNavPath[i].title}</span></a>)
+        subMenuLinks.push(<a key={subNavPath[i].path} href={subNavPath[i].path} target="_blank"><span>{subNavPath[i].title}</span></a>)
       } else {
-        subMenuLinks.push(<Link key={i} to={subNavPath[i].path}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span></Link>)
+        subMenuLinks.push(<Link key={subNavPath[i]} to={subNavPath[i].path}><span onClick={() => {if(this.props.onClick) {this.props.onClick()}}}>{subNavPath[i].title}</span></Link>)
       }
     }
 

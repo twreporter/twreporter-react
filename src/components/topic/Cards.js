@@ -34,9 +34,9 @@ class Cards extends PureComponent {
   render() {
     const { items, styles } = this.props
     const { isExpanded } = this.state
-    
+
     const _itemToCardJsx =  (item, index) => {
-      const imageUrl = replaceStorageUrlPrefix(get(item, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png')),
+      const imageUrl = replaceStorageUrlPrefix(get(item, 'heroImage.resizedTargets.mobile.url', '/asset/review.png')),
         slug = get(item, 'slug', ''),
         title = get(item, 'title', ''),
         publishedDate = date2yyyymmdd(get(item, 'publishedDate', ''), '.'),
@@ -49,7 +49,7 @@ class Cards extends PureComponent {
         prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
         target = '_blank'
       }
-      return ( 
+      return (
         <Card
           key={index}
           linkTo={prefix + slug}
@@ -60,7 +60,7 @@ class Cards extends PureComponent {
           publishedDate={publishedDate}
           styles={styles}
           itemDisplayClass={itemDisplayClass}
-        />  
+        />
       )
     }
     const cardsJsx = _.map(items, _itemToCardJsx)

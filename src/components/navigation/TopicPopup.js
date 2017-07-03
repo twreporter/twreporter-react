@@ -20,7 +20,7 @@ const Topic = (props) => {
   const style = get(data, 'style')
   const slug = get(data, 'slug', '')
   const link = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + slug : LINK_PREFIX.ARTICLE + slug
-  const heroImgUrl = replaceStorageUrlPrefix(get(data, [ 'heroImage', 'image', 'resizedTargets', 'mobile', 'url' ], null))
+  const heroImgUrl = replaceStorageUrlPrefix(get(data, [ 'heroImage', 'resizedTargets', 'mobile', 'url' ], null))
   const currentClass = isCurrentViewing ? styles['current'] : null
 
   const topic = <div className={classNames(styles['topic'], currentClass)}>
