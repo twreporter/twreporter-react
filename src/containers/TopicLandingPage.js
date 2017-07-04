@@ -156,7 +156,7 @@ class TopicLandingPage extends Component {
             audioBt: styles['audio-bt']
           }}
           filetype={_.get(leadingVideo, 'filetype')}
-          poster={_.get(leadingImage, 'image.resizedTargets')}
+          poster={_.get(leadingImage, 'resizedTargets')}
           src={_.get(leadingVideo, 'url')}
           title={title}
         />

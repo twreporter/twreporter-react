@@ -7,11 +7,14 @@ import Latest from 'twreporter-react-index-page-components/lib/components/latest
 import LatestTopic from 'twreporter-react-index-page-components/lib/components/latest-topic'
 import React from 'react'
 import Reviews from 'twreporter-react-index-page-components/lib/components/reviews'
-import Category from 'twreporter-react-index-page-components/lib/components/category'
+import CategorySection from 'twreporter-react-index-page-components/lib/components/category-section'
 import PhotographySection from 'twreporter-react-index-page-components/lib/components/photography-section'
 import ReporterIntro from 'twreporter-react-index-page-components/lib/components/reporter-intro'
 import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
 import TopicsSection from 'twreporter-react-index-page-components/lib/components/topics-section'
+import categoryListID from '../conf/category-list-id'
+import categoryString from '../constants/category-strings'
+import categoryURI from '../conf/category-uri'
 import clone from 'lodash/clone'
 import get from 'lodash/get'
 import set from 'lodash/set'
@@ -21,61 +24,9 @@ import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 
-const { fetchIndexPageContent } =  twreporterRedux.actions
+const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
-
-const category = [
-  {
-    id: '0',
-    name: 'Human Right',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '1',
-    name: 'Environment',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '2',
-    name: 'Transitional Justice',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '3',
-    name: 'Culture & Movie',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '4',
-    name: 'Video & Audio',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '5',
-    name: '國際 • 兩岸',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '6',
-    name: 'Person',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  },
-  {
-    id: '7',
-    name: 'Political Economy',
-    img: 'https://storage.googleapis.com/twreporter-multimedia/images/20160818074021-6ed577fa740506198015f228c7c8d0e6-mobile.jpg',
-    title: '張永翰／走過歧視的年代，在「性別平權」道路上的皮克斯'
-  }
-]
-
 
 const _ = {
   clone,
@@ -104,19 +55,12 @@ class Homepage extends React.Component {
     }
   }
 
-  async componentWillMount() {
-    await this.props.fetchIndexPageContent()
+  componentWillMount() {
+    this.props.fetchIndexPageContent()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    for (let property in this.props) {
-      if (Object.prototype.hasOwnProperty.call(nextProps, property) && !_.isEqual(this.props[property], nextProps[property])) {
-        if (property === 'location') {
-          return false
-        }
-      }
-    }
-    return false
+  componentDidMount() {
+    this.props.fetchCategoriesPostsOnIndexPage()
   }
 
   render() {
@@ -270,9 +214,9 @@ class Homepage extends React.Component {
             data={this.props[fieldNames.reviews]}
             moduleId={moduleIdObj.review}
           />
-          <Category
-              data={this.props.category}
-              moduleId={moduleIdObj.category}
+          <CategorySection
+            data={this.props.category}
+            moduleId={moduleIdObj.category}
           />
           <TopicsSection
             moduleId={moduleIdObj.topic}
@@ -299,6 +243,51 @@ class Homepage extends React.Component {
   }
 }
 
+function buildCategorySectionData(state) {
+  console.log('state', state)
+  const buildData = (post) => {
+    return {
+      id: _.get(post, 'id', ''),
+      slug: _.get(post, 'slug', ''),
+      title: _.get(post, 'title', ''),
+      img: {
+        src: _.get(post, 'hero_image.resized_targets.tablet.url',''),
+        description: _.get(post, 'hero_image.description','')
+      }
+    }
+  }
+
+  const catFields = [ 'humanRights', 'landEnvironment', 'politicalSociety', 'cultureMovie'
+    , 'photoAudio', 'international', 'character', 'transformedJustice' ]
+  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.posts ], {})
+  const selected = []
+  const data = []
+
+  catFields.forEach((field) => {
+    let post
+    const slugs = _.get(state, [ fieldNames.indexPage, categoryURI[field] ], [])
+    if (Array.isArray(slugs)) {
+      for (let i = 0; i < slugs.length; i+=1) {
+        const slug = slugs[i]
+        if (selected.indexOf(slug) === -1) {
+          post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
+          post.listName = categoryString[field]
+          post.moreURL = `/categories/${categoryURI[field]}`
+          data.push(post)
+          break
+        }
+      }
+      if (typeof post !== 'object' && slugs.length > 0) {
+        post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
+        post.listName = categoryString[field]
+        post.moreURL = `/categories/${categoryURI[field]}`
+        data.push(post)
+      }
+    }
+  })
+  return data
+}
+
 function mapStateToProps(state) {
   const entities = _.get(state, fieldNames.entities, {})
   const indexPageState = _.get(state, fieldNames.indexPage, {})
@@ -320,6 +309,8 @@ function mapStateToProps(state) {
   const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic), topicEntities, postEntities), 0, {})
   const topics = denormalizeTopics(_.get(indexPageState, fieldNames.topics, []), topicEntities, postEntities)
 
+  // restore
+
   return {
     [fieldNames.latest]: latest,
     [fieldNames.editorPicks]: editorPicks,
@@ -328,9 +319,9 @@ function mapStateToProps(state) {
     [fieldNames.topics]: topics,
     [fieldNames.photos]: photoPosts,
     [fieldNames.infographics]: infoPosts,
-    category
+    category: buildCategorySectionData(state)
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)

@@ -36,6 +36,7 @@ export default function (history = browserHistory) {
       <Route path="/" component={Home} />
       <Route path="/" component={App}>
         <Route path="category/:category" component={Category} />
+        <Route path="categories/:category" component={Category} />
         <Route path="topic/:topicId" component={Topic} />
         <Route path="tag/:tagId" component={Tag} />
         <Route path="photography" component={Photography} />
