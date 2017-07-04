@@ -272,7 +272,7 @@ function buildCategorySectionData(state) {
         if (selected.indexOf(slug) === -1) {
           post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
           post.listName = categoryString[field]
-          post.moreURL = `/categories/${categoryURI[field]}`
+          post.moreURL = `categories/${categoryURI[field]}`
           data.push(post)
           break
         }
@@ -280,7 +280,7 @@ function buildCategorySectionData(state) {
       if (typeof post !== 'object' && slugs.length > 0) {
         post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
         post.listName = categoryString[field]
-        post.moreURL = `/categories/${categoryURI[field]}`
+        post.moreURL = `categories/${categoryURI[field]}`
         data.push(post)
       }
     }
