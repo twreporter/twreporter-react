@@ -6,5 +6,6 @@ export default {
   photoAudio: 'photo_audio',
   international: 'international',
   character: 'character',
-  politicalSociety: 'political_society'
+  politicalSociety: 'political_society',
+  reviews: 'reviews'
 }
