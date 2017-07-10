@@ -1,57 +1,47 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
-import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
 import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import ArticleList from '../components/ArticleList'
 import TopNews from '../components/TopNews'
-import async from 'async'
+import categoryListID from '../conf/category-list-id'
+import twreporterRedux from 'twreporter-redux'
+
+import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { denormalizeArticles, getCatId } from '../utils/index'
+import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
+import { setHeaderInfo } from '../actions/header'
 
 // lodash
+import filter from 'lodash/filter'
 import get from 'lodash/get'
 
+const _ = {
+  filter,
+  get
+}
+
+const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } =  twreporterRedux.actions
+const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const reduxStateFields = twreporterRedux.reduxStateFields
+
 const MAXRESULT = 10
-const PAGE = 1
+const categories = 'categories'
+const listID = _.get(categoryListID, 'photography', '')
 
 class Photography extends Component {
-  static fetchData({ store }) {
-    return new Promise((resolve, reject) => {
-      // load tagged articles in parallel
-      async.parallel([
-        function (callback) {
-          store.dispatch(fetchFeatureArticles({
-            where: {
-              categories: {
-                '$in': [ getCatId(PHOTOGRAPH_CH_STR) ]
-              }
-            }
-          })).then(() => {
-            callback(null)
-          })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(PHOTOGRAPH_CH_STR), CATEGORY, {
-            page: PAGE,
-            max_result: MAXRESULT,
-            where: {
-              isFeatured: false
-            }
-          })).then(() => {
-            callback(null)
-          })
-        }
-      ], (err, results) => {
-        if (err) {
-          console.warn('fetchData occurs error:', err)
-        }
-        resolve()
-      })
-    })
+  static async fetchData({ store }) {
+    try {
+      await Promise.all([
+        store.dispatch(fetchPhotographyPostsOnIndexPage()),
+        store.dispatch(fetchListedPosts(listID, categories, MAXRESULT))
+      ])
+    } catch (err) {
+      console.warn('Fetch posts of photography page occurs server side error:', err)
+    }
   }
 
   constructor(props, context) {
@@ -60,23 +50,9 @@ class Photography extends Component {
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
-    let catId = getCatId(PHOTOGRAPH_CH_STR)
-    fetchFeatureArticles({
-      where: {
-        categories: {
-          '$in': [ catId ]
-        }
-      }
-    })
-
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: PAGE,
-      max_result: MAXRESULT,
-      where: {
-        isFeatured: false
-      }
-    })
+    const { fetchListedPosts, fetchPhotographyPostsOnIndexPage, setHeaderInfo } = this.props
+    fetchPhotographyPostsOnIndexPage()
+    fetchListedPosts(listID, categories, MAXRESULT)
 
     setHeaderInfo({
       pageTheme: DARK,
@@ -86,31 +62,30 @@ class Photography extends Component {
   }
 
   _loadMoreArticles() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-    let catId = getCatId(PHOTOGRAPH_CH_STR)
-    const articles = articlesByUuids[catId]
-    let page = Math.floor(get(articles, 'items.length', 0) / MAXRESULT)  + 1
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page,
-      max_result: MAXRESULT,
-      where: {
-        isFeatured: false
-      }
-    })
+    const { fetchListedPosts } = this.props
+    fetchListedPosts(listID, categories, MAXRESULT)
   }
 
   render() {
-    const { articlesByUuids, featureArticles, entities } = this.props
+    const { lists, featuredPosts, entities } = this.props
+    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const total = _.get(lists, [ listID, 'total' ], 0)
+
     const style = {
       backgroundColor: colors.darkBg,
       color: '#FFFFEB'
     }
-    let catId = getCatId(PHOTOGRAPH_CH_STR)
 
-    let topNewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
-    let articles = denormalizeArticles(get(articlesByUuids, [ catId, 'items' ], []), entities)
+    const topNewsItems = camelizeKeys(denormalizePosts(featuredPosts, postEntities))
+    const slugs = _.filter(_.get(lists, [ listID, 'items' ], []), (slug) => {
+      if (featuredPosts.indexOf(slug) > -1) {
+        return false
+      }
+      return true
+    })
+    const posts = camelizeKeys(denormalizePosts(slugs, postEntities))
 
-    const canonical = SITE_META.URL + categoryPath.photographyPath
+    const canonical = SITE_META.URL_NO_SLASH + categoryPath.photographyPath
     const title = PHOTOGRAPH_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
       <div style={style}>
@@ -131,9 +106,9 @@ class Photography extends Component {
         />
         <TopNews topnews={topNewsItems} />
         <ArticleList
-          articles={articles}
+          articles={posts}
           bgStyle={DARK}
-          hasMore={ get(articlesByUuids, [ catId, 'hasMore' ])}
+          hasMore={total > _.get(lists, [ listID, 'items', 'length' ], 0)}
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
@@ -143,13 +118,25 @@ class Photography extends Component {
   }
 }
 
+Photography.defaultProps = {
+  lists: {},
+  entities: {},
+  featuredPosts: []
+}
+
+Photography.propTypes = {
+  lists: React.PropTypes.object,
+  entities: React.PropTypes.object,
+  featuredPosts: React.PropTypes.array
+}
+
 function mapStateToProps(state) {
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {},
-    featureArticles: state.featureArticles || {}
+    lists: state[reduxStateFields.lists],
+    entities: state[reduxStateFields.entities],
+    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.photos ])
   }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo })(Photography)
+export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage, setHeaderInfo })(Photography)
