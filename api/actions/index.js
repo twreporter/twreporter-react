@@ -1,7 +1,0 @@
-'use strict'
-export { loadTags as tags, loadCategories as postcategories } from './load-groups'
-export { loadMetaOfArticles as meta, loadArticles as posts } from './load-articles'
-export { loadTopics as topics } from './load-topics'
-export { loadAuthors as authors } from './load-authors'
-export { searchAuthors } from './search-authors'
-export { searchPosts } from './search-posts'

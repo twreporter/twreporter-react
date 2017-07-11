@@ -6,15 +6,13 @@
     "release": "gulp release",
     "clean": "./node_modules/.bin/rimraf dist",
     "build": "better-npm-run build",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev-api\" \"npm run start-dev\" ",
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
     "start-dev": "better-npm-run start-dev",
-    "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
-    "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
+    "start": "concurrent --kill-others \"npm run start-prod\"",
     "start-prod": "better-npm-run start-prod",
-    "start-prod-api": "better-npm-run start-prod-api",
-    "lint": "eslint -c .eslintrc src server api spec",
-    "test": "./node_modules/mocha/bin/mocha $(find src api -name '*.test.js') --compilers js:babel-core/register",
+    "lint": "eslint -c .eslintrc src server spec",
+    "test": "./node_modules/mocha/bin/mocha $(find src -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
   },
   "betterScripts": {
@@ -23,23 +21,7 @@
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
-        "PORT": 3000,
-        "APIHOST": "localhost",
-        "APIPORT": 3030,
-        "APIPROTOCOL": "http",
-        "REDIS_ENABLE": true
-      }
-    },
-    "start-prod-api": {
-      "command": "node ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "production",
-        "PORT": 3000,
-        "APIHOST": "localhost",
-        "APIPORT": 3030,
-        "APIPROTOCOL": "http",
-        "REDIS_ENABLE": true
+        "PORT": 3000
       }
     },
     "start-dev": {
@@ -47,23 +29,7 @@
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIHOST": "localhost",
-        "APIPORT": 3030,
-        "APIPROTOCOL": "http",
-        "REDIS_ENABLE": false
-      }
-    },
-    "start-dev-api": {
-      "command": "node ./bin/api.js",
-      "env": {
-        "NODE_PATH": "./api",
-        "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIHOST": "localhost",
-        "APIPORT": 3030,
-        "APIPROTOCOL": "http",
-        "REDIS_ENABLE": false
+        "PORT": 3000
       }
     },
     "watch-client": {
@@ -177,7 +143,7 @@
     "style-loader": "^0.13.1",
     "superagent": "^1.4.0",
     "twreporter-react-index-page-components": "^1.0.9",
-    "twreporter-redux": "^1.0.5",
+    "twreporter-redux": "^1.0.7",
     "url-loader": "^0.5.7",
     "video.js": "5.12.1",
     "webpack": "^1.9.11",

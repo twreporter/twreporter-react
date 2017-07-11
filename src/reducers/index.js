@@ -4,8 +4,9 @@ import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import device from './device'
-import twreporterRedux from 'twreporter-redux'
 import header from './header'
+import merge from 'lodash/merge'
+import twreporterRedux from 'twreporter-redux'
 
 const { reducers, reduxStateFields } = twreporterRedux
 
@@ -21,7 +22,13 @@ const rootReducer = combineReducers({
   header,
   searchedAuthorsList,
   authorsList,
-  articlesByAuthor
+  articlesByAuthor,
+  entitiesForAuthors: (state = {}, action) => {
+    if (action.response && action.response.entities) {
+      return merge({}, state, action.response.entities)
+    }
+    return state
+  }
 })
 
 export default rootReducer
