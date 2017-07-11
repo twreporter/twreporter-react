@@ -12,7 +12,6 @@ import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NA
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import { fetchFeatureArticles, fetchArticlesByUuidIfNeeded } from '../actions/articles'
 import { setHeaderInfo } from '../actions/header'
 
 // lodash
