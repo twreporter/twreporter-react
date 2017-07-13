@@ -142,7 +142,7 @@
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.1",
     "superagent": "^1.4.0",
-    "twreporter-react-index-page-components": "^1.0.9",
+    "twreporter-react-index-page-components": "^1.0.13",
     "twreporter-redux": "^1.0.7",
     "url-loader": "^0.5.7",
     "video.js": "5.12.1",
