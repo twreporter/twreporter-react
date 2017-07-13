@@ -16,8 +16,7 @@ import { NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/authors-list'
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-// for formatURl function in src/utils/index.js
-global.__SERVER__ = true
+process.env.NODE_ENV = 'development'
 
 function checker({ mockDefaultState, keywords, mockResponse, typeReq, typeSuc }) {
   const store = mockStore(mockDefaultState)
@@ -91,8 +90,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
           const mockDefaultState = mockDefaultStates.initialState
           const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
           const mockResponse = mockResponseSet.keyNullResponse
-          nock('http://localhost:3030')
-            .get('/searchAuthors')
+          nock('http://localhost:8080')
+            .get('/v1/search/authors')
             .query(searchParas)
             .reply(200, responseObjSet.keyNullResponse)
 
@@ -113,8 +112,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
           const mockDefaultState = mockDefaultStates.afterFirstPageState
           const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: mockDefaultState.authorsList.currentPage + 1 }
           const mockResponse = mockResponseSet.keyNullResponse
-          nock('http://localhost:3030')
-            .get('/searchAuthors')
+          nock('http://localhost:8080')
+            .get('/v1/search/authors')
             .query(searchParas)
             .reply(200, responseObjSet.keyNullResponse)
 
@@ -146,8 +145,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
         const keywords = ''
         const mockDefaultState = mockDefaultStates.initialState
         const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
-        nock('http://localhost:3030')
-          .get('/searchAuthors')
+        nock('http://localhost:8080')
+          .get('/v1/search/authors')
           .query(searchParas)
           .replyWithError({ 'message': 'this is error message for testing', 'code': true })
 
@@ -172,8 +171,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
           const searchParas = { ...mockSearchParasSet.keyWithValueParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
           const mockResponse = mockResponseSet.keyWithValueResponse
           // console.log(searchParas)
-          nock('http://localhost:3030')
-            .get('/searchAuthors')
+          nock('http://localhost:8080')
+            .get('/v1/search/authors')
             .query(searchParas)
             .reply(200, responseObjSet.keyWithVlaueResponse)
 
@@ -206,8 +205,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
         const keywords = constKeywords
         const mockDefaultState = mockDefaultStates.hasNoPreviousKeywords
         const searchParas = { ...mockSearchParasSet.keyWithValueParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
-        nock('http://localhost:3030')
-          .get('/searchAuthors')
+        nock('http://localhost:8080')
+          .get('/v1/search/authors')
           .query(searchParas)
           .replyWithError({ 'message': 'this is error message for testing', 'code': true })
 
@@ -228,8 +227,8 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
       const keywords = ''
       const mockDefaultState = mockDefaultStates.initialState
       const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
-      nock('http://localhost:3030')
-        .get(`/searchAuthors`)
+      nock('http://localhost:8080')
+        .get(`/v1/search/authors`)
         .query(searchParas)
         .reply(404)
 

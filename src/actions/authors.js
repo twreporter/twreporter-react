@@ -1,16 +1,18 @@
 'use strict'
 
-import * as CONSTANTS from '../constants/index'
-
-import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/authors-list'
-import { arrayOf, normalize } from 'normalizr'
-import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
+import qs from 'qs'
+import twreporterRedux from 'twreporter-redux'
 import { InternalServerError } from '../custom-error'
+import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/authors-list'
 import { author as authorSchema } from '../schemas/index'
-import { formatUrl, urlParasToString } from '../utils/index'
+import { arrayOf, normalize } from 'normalizr'
+import { camelizeKeys } from 'humps'
+import * as CONSTANTS from '../constants/index'
+
+const formAPIURL = twreporterRedux.utils.formAPIURL
 
 const _ = {
   get,
@@ -50,8 +52,8 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
       page: targetPage
     }
     // Trans searchParas object to url parameters:
-    let urlParasString = urlParasToString(searchParas)
-    let url = formatUrl(`searchAuthors?${urlParasString}`)
+    let urlParasString = qs.stringify(searchParas)
+    let url = formAPIURL(`search/authors?${urlParasString}`, false)
     dispatch(requestSearchAuthors(keywords))
     // Call our API server to fetch the data
     return fetch(url)

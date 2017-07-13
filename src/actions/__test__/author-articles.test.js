@@ -1,7 +1,6 @@
 /*global describe, afterEach, it*/
 'use strict'
 import { expect } from 'chai'
-import { urlParasToString } from '../../utils'
 import * as actions from '../../../src/actions/author-articles'
 import * as types from '../../constants/index'
 import { mockResponse, items } from './mocks/author-articles'
@@ -28,11 +27,8 @@ const searchParas = {
   hitsPerPage: types.MAX_ARTICLES_PER_FETCH,
   page: 0
 }
-const query = urlParasToString(searchParas)
 
-// for formatURl function in src/utils/index.js
-global.__SERVER__ = true
-
+process.env.NODE_ENV = 'development'
 
 const failChecker = (store, error) => {
   const actionReq = store.getActions()[0]
@@ -65,8 +61,9 @@ describe('Atuhor Action Testing', function () {
   })
 
   it('API server response Error directly: web status code is greater than 400', function () {
-    nock('http://localhost:3030/')
-      .get(`/searchPosts?${query}`)
+    nock('http://localhost:8080/')
+      .get(`/v1/search/posts`)
+      .query(searchParas)
       .reply(404, mockResponse)
 
     const store = mockStore(mockDefaultState)
@@ -77,8 +74,9 @@ describe('Atuhor Action Testing', function () {
   })
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_SUCCESS', function () {
-    nock('http://localhost:3030/')
-      .get(`/searchPosts?${query}`)
+    nock('http://localhost:8080/')
+      .get(`/v1/search/posts`)
+      .query(searchParas)
       .reply(200, mockResponse)
 
     const store = mockStore(mockDefaultState)
@@ -117,8 +115,9 @@ describe('Atuhor Action Testing', function () {
   })
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_FAILURE', function () {
-    nock('http://localhost:3030/')
-      .get(`/searchPosts?${query}`)
+    nock('http://localhost:8080/')
+      .get(`/v1/search/posts`)
+      .query(searchParas)
       .replyWithError('this is error message')
 
     const store = mockStore(mockDefaultState)

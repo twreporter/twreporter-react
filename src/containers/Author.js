@@ -104,7 +104,7 @@ Author.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    entities: _.get(state, 'entities', {}),
+    entities: _.get(state, 'entitiesForAuthors', {}),
     articlesByAuthor: _.get(state, 'articlesByAuthor', {})
   }
 }

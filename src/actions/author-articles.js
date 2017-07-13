@@ -1,17 +1,18 @@
 'use strict'
 
-import * as CONSTANTS from '../constants/index'
-
-import { MAX_ARTICLES_PER_FETCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/author-page'
-import { arrayOf, normalize } from 'normalizr'
-
-import { InternalServerError } from '../custom-error'
-import { article as articleSchema } from '../schemas/index'
-import { camelizeKeys } from 'humps'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
-import { formatUrl, urlParasToString } from '../utils/index'
+import qs from 'qs'
+import twreporterRedux from 'twreporter-redux'
+import { InternalServerError } from '../custom-error'
+import { MAX_ARTICLES_PER_FETCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/author-page'
+import { arrayOf, normalize } from 'normalizr'
+import { article as articleSchema } from '../schemas/index'
+import { camelizeKeys } from 'humps'
+import * as CONSTANTS from '../constants/index'
+
+const formAPIURL = twreporterRedux.utils.formAPIURL
 
 const _ = {
   get,
@@ -54,8 +55,8 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
       page: targetPage
     }
     // Trans searchParas object to url parameters:
-    let urlParasString = urlParasToString(searchParas)
-    let url = formatUrl(`searchPosts?${urlParasString}`)
+    let urlParasString = qs.stringify(searchParas)
+    let url = formAPIURL(`search/posts?${urlParasString}`, false)
     dispatch(requestAuthorCollection(authorId))
     // Call our API server to fetch the data
     return fetch(url)

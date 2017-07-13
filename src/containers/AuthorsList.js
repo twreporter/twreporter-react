@@ -64,7 +64,7 @@ class AuthorsList extends React.Component {
       isFetching = _.get(authorsListDataToRender, 'isFetching', false),
       authorsIdList = _.get(authorsListDataToRender, 'items', [])
     const authorsEntities = _.get(this.props, 'authorsEntities', {})
-    
+
     function authorIdToDataObj(id) {
       const authorName = _.get(authorsEntities, `${id}.name`, '')
       const authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`) || authorDefaultImg
@@ -97,7 +97,7 @@ class AuthorsList extends React.Component {
     const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldSensorDisplay         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldLoaderDisplay         = isFetching  // For displaying the loading spinner (loader)
-    const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error') 
+    const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const isListAllError = (whichAuthorsListToRender === constants.AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const shouldNoSearchResultDisplay = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
@@ -130,7 +130,7 @@ class AuthorsList extends React.Component {
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}  
+        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
         {!shouldSensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
@@ -150,7 +150,7 @@ AuthorsList.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    authorsEntities: _.get(state, 'entities.authors', {}),
+    authorsEntities: _.get(state, 'entitiesForAuthors.authors', {}),
     authorsList: _.get(state, constants.AUTHORS_LIST, {}),
     searchedAuthorsList: _.get(state, constants.SEARCHED_AUTHORS_LIST, {})
   }

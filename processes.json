@@ -9,29 +9,8 @@
     "env"         : {
       "NODE_PATH": "./server",
       "NODE_ENV": "production",
-      "PORT": 3000,
-      "APIHOST": "localhost",
-      "APIPORT": 3030,
-      "APIPROTOCOL": "http",
-      "REDIS_ENABLE": true
+      "PORT": 3000
     },
     "node_args": "--max_old_space_size=2048"
-  },{
-    "name"        : "api",
-    "script"      : "bin/api.js",
-    "max_memory_restart": "300M",
-    "merge_logs"  : true,
-    "out_file"    : "pm2-api-out.log",
-    "error_file"  : "pm2-api-err.log",
-    "env"         : {
-      "NODE_PATH": "./api",
-      "NODE_ENV": "production",
-      "PORT": 3000,
-      "APIHOST": "localhost",
-      "APIPORT": 3030,
-      "APIPROTOCOL": "http",
-      "REDIS_ENABLE": true
-    },
-    "node_args": "--max_old_space_size=500"
   }]
 }

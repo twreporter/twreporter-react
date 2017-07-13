@@ -79,6 +79,7 @@ module.exports = {
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
       'process.env': {
+        NODE_ENV: '"development"',
         BROWSER: true,
         BABEL_ENV: '"DEV"'  // <-------- TO ENABLE react-hot-loader
       },
