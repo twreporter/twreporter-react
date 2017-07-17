@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.0.1
+- add moreURI in different sections(photography and infographic) of index page.
+- remove organization JSON-LD
+
 ### 2.0.0
 - replace actions and reducers by `twreporter-redux` pkg
 - remove proxy server. call api server directly
