@@ -36,7 +36,7 @@ function getListID(paramCategory) {
 
 class Category extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchListedPosts(getListID(params.category)), categories, MAXRESULT)
+    return store.dispatch(fetchListedPosts(getListID(params.category), categories, MAXRESULT))
   }
 
   constructor(props) {
