@@ -14,7 +14,7 @@ import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, HeaderSection, LatestTopicSection } = IndexPageComposite.components
 const { moduleIdObj } = IndexPageComposite.utility
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
@@ -173,8 +173,7 @@ class Homepage extends React.Component {
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
-            <Header />
-            <LatestSection data={this.props[fieldNames.latest]} />
+            <HeaderSection data={this.props[fieldNames.latest]} />
             <EditorPicks data={this.props[fieldNames.editorPicks]} />
           </FirstModuleWrapper>
           <LatestTopicSection
