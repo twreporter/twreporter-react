@@ -8,5 +8,6 @@ export default {
   character: '5951dbb5507c6a0d00ab063f',
   politicalSociety: '5951dbc2507c6a0d00ab0640',
   reviews: '573177cb8c0c261000b3f6d2',
-  photography: '574d028748fa171000c45d48'
+  photography: '574d028748fa171000c45d48',
+  infographic: '59671cd2507c6a0d00ab06ba'
 }

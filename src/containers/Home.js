@@ -94,27 +94,6 @@ class Homepage extends React.Component {
       </div>
     )
 
-    const organizationJSONLD = `
-      {
-        "@context" : "http://schema.org",
-        "@type" : "Organization",
-        "legalName" : "財團法人報導者文化基金會",
-        "alternateName": "報導者 The Reporter",
-        "url": "https://www.twreporter.org/",
-        "logo": "https://www.twreporter.org/storage/images/logo.png",
-        "sameAs": [
-          "http://www.facebook.com/twreporter",
-          "https://www.instagram.com/twreporter/",
-          "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
-        ],
-        "potentialAction" : {
-          "@type" : "SearchAction",
-          "target" : "https://www.twreporter.org/search?q={search_term}",
-          "query-input" : "required name=search_term"
-        }
-      }
-    `
-
     const webSiteJSONLD = `
       {
         "@context" : "http://schema.org",
@@ -213,6 +192,7 @@ class Homepage extends React.Component {
           <Reviews
             data={this.props[fieldNames.reviews]}
             moduleId={moduleIdObj.review}
+            moreURI={`categories/${categoryURI.reviews}`}
           />
           <CategorySection
             data={this.props.category}
@@ -225,10 +205,12 @@ class Homepage extends React.Component {
           <PhotographySection
             moduleId={moduleIdObj.photography}
             items={this.props[fieldNames.photos]}
+            moreURI="photography"
           />
           <InfographicSection
             moduleId={moduleIdObj.infographic}
             items={this.props[fieldNames.infographics]}
+            moreURI={`categories/${categoryURI.infographic}`}
           />
           <ReporterIntro
             moduleId={moduleIdObj.donation}
@@ -236,7 +218,6 @@ class Homepage extends React.Component {
         </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
       </Container>
     )
@@ -272,7 +253,7 @@ function buildCategorySectionData(state) {
         if (selected.indexOf(slug) === -1) {
           post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
           post.listName = categoryString[field]
-          post.moreURL = `categories/${categoryURI[field]}`
+          post.moreURI = `categories/${categoryURI[field]}`
           data.push(post)
           break
         }
@@ -280,7 +261,7 @@ function buildCategorySectionData(state) {
       if (typeof post !== 'object' && slugs.length > 0) {
         post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
         post.listName = categoryString[field]
-        post.moreURL = `categories/${categoryURI[field]}`
+        post.moreURI = `categories/${categoryURI[field]}`
         data.push(post)
       }
     }

@@ -7,5 +7,6 @@ export default {
   international: 'international',
   character: 'character',
   politicalSociety: 'political_society',
-  reviews: 'reviews'
+  reviews: 'reviews',
+  infographic: 'infographic'
 }

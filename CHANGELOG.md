@@ -1,4 +1,17 @@
 ### Unreleased
+### 2.0.1
+- add moreURI in different sections(photography and infographic) of index page.
+- remove organization JSON-LD
+
+### 2.0.0
+- replace actions and reducers by `twreporter-redux` pkg
+- remove proxy server. call api server directly
+- add entitiesForAuthors field in redux state to store entities of
+author and author-articles reducers.
+- add process.env.NODE_ENV in dev webpack config
+- remove /api folders
+- update unit test
+- remove bin/api.js
 
 ### 1.1.19
 - [Update] Update the navigation bar

@@ -7,5 +7,6 @@ export default {
   international: '國際．兩岸',
   character: '人物．身影',
   transformedJustice: '轉型．正義',
-  reviews: '觀點'
+  reviews: '觀點',
+  infographic: '多媒體'
 }
