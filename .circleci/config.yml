@@ -1,0 +1,60 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: yarn test
+
+      # Start to build docker image and deployment
+      - setup_remote_docker:
+          version: 17.05.0-ce
+      - run:
+          name: Decode Google Cloud Credentials
+          command: echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
+      - run:
+          name: Google Cloud Settings
+          commnad:
+            gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+      - run:
+          name: Build/Push docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "index-page-revamp" ]; then
+              TAG=2.0.$CIRCLE_BUILD_NUM
+              docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$TAG .
+              gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$TAG
+              kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$TAG"'"}]}}}}'
+            fi

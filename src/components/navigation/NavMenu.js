@@ -168,7 +168,7 @@ export default class NavMenu extends Component {
           {burgerMenu}
           <DonateButton isSlidedUp={true} url={pathname}/>
         </div>
-        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+        <div className={classNames(styles.articleTitle)}>
           <div className={classNames(titleClass, { [styles.photography]: pageTheme === DARK })} ref="title">
             {topicRedBox}
             {trimmedTitle}
@@ -192,7 +192,7 @@ export default class NavMenu extends Component {
           {burgerMenu}
           <DonateButton isSlidedUp={true} url={pathname}/>
         </div>
-        <div className={classNames(styles.articleTitle, styles.fadeRight, styles['slided-down-category'], 'hidden-xs', isCatHidden)}>
+        <div className={classNames(styles.articleTitle, 'hidden-xs', isCatHidden)}>
           <div className={styles['nav-category']}>
             {navLinks}
           </div>
@@ -216,7 +216,7 @@ export default class NavMenu extends Component {
           {burgerMenu}
           <DonateButton isSlidedUp={true}/>
         </div>
-        <div className={classNames(styles.articleTitle, styles.fadeRight)}>
+        <div className={classNames(styles.articleTitle)}>
           <div className={titleClass} ref="title">
             {topicRedBox}
             {pageTitle}

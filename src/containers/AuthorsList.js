@@ -1,12 +1,13 @@
 'use strict'
 
 import * as constants from '../constants/authors-list'
-import { searchAuthorsIfNeeded } from '../actions/authors'
+
 import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
+import React, { PropTypes } from 'react'
+
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
-import React, { PropTypes } from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -15,6 +16,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
 import map from 'lodash/map'
+import { searchAuthorsIfNeeded } from '../actions/authors'
 import { setHeaderInfo } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
@@ -62,32 +64,19 @@ class AuthorsList extends React.Component {
       isFetching = _.get(authorsListDataToRender, 'isFetching', false),
       authorsIdList = _.get(authorsListDataToRender, 'items', [])
     const authorsEntities = _.get(this.props, 'authorsEntities', {})
-    // Transform entities.authors into the format: [{ id, authorName, authorImgUrl, authorUrl },{...},...]
-    function wrapBeforeFirstFullwidthBracket(string) {
-      if (typeof string === 'string') {
-        const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
-        for (let i=0, length=leftBrackets.length; i<length; i++) {
-          let bracketLocation = string.indexOf(leftBrackets[i])
-          if (bracketLocation > 0) {
-            return string.slice(0, bracketLocation) + '\n' + string.slice(bracketLocation, string.length)
-          }
-        }
-      }
-      return string
-    }
-    function iteratee(id) {
-      const authorName = wrapBeforeFirstFullwidthBracket(_.get(authorsEntities, `${id}.name`, ''))
-      let authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`, '')
-      authorImgUrl = authorImgUrl ? authorImgUrl : authorDefaultImg // For some authors' 'image' may be null
-      let authorItemObject = {
+
+    function authorIdToDataObj(id) {
+      const authorName = _.get(authorsEntities, `${id}.name`, '')
+      const authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`) || authorDefaultImg
+      const authorItemObject = {
         id,
         authorName,
         authorImgUrl,
-        authorUrl: id ? `/author/${id}` : ''
+        authorUrl: `/author/${id}`
       }
       return authorItemObject
     }
-    const authorsArray = _.map(authorsIdList, iteratee)
+    const authorsArray = _.map(authorsIdList, authorIdToDataObj)
 
     // Callback for sensor being seen
     let handleSeen = (isVisible) => {
@@ -108,7 +97,7 @@ class AuthorsList extends React.Component {
     const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldSensorDisplay         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const shouldLoaderDisplay         = isFetching  // For displaying the loading spinner (loader)
-    const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error') 
+    const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const isListAllError = (whichAuthorsListToRender === constants.AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const shouldNoSearchResultDisplay = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
     const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
@@ -141,7 +130,7 @@ class AuthorsList extends React.Component {
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}  
+        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
         {!shouldSensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
@@ -161,7 +150,7 @@ AuthorsList.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    authorsEntities: _.get(state, 'entities.authors', {}),
+    authorsEntities: _.get(state, 'entitiesForAuthors.authors', {}),
     authorsList: _.get(state, constants.AUTHORS_LIST, {}),
     searchedAuthorsList: _.get(state, constants.SEARCHED_AUTHORS_LIST, {})
   }

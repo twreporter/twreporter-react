@@ -8,6 +8,7 @@ export * from './strings'
 export * from './page-themes'
 export * from './page-types'
 export * from './author-page'
+export * from './topic-page'
 
 export const SITE_NAME = {
   FULL: '報導者 The Reporter',
@@ -100,6 +101,9 @@ export const navPath = [ {
 }, {
   title: '評論',
   path: '/category/review'
+}, {
+  title: '作者群',
+  path: '/authors'
 } ]
 
 export const colors = {

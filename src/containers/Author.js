@@ -1,11 +1,12 @@
 'use strict'
 
 import { AUTHOR_PAGE, LIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
+import React, { PropTypes } from 'react'
+
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
-import Helmet from 'react-helmet'
 import Footer from '../components/Footer'
-import React, { PropTypes } from 'react'
+import Helmet from 'react-helmet'
 import Sponsor from '../components/Sponsor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
@@ -44,10 +45,11 @@ class Author extends React.Component {
     const authorEntity = _.get(entities, [ 'authors', authorId ], {})
     const authorData = {
       authorId: authorId,
-      authorName: _.get(authorEntity, 'name'),
-      authorImgUrl: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url', authorDefaultImg),
-      authorMail: _.get(authorEntity, 'email'),
-      authorBio: _.get(authorEntity, 'bio.md')
+      authorName: _.get(authorEntity, 'name') || '',
+      authorTitle: _.get(authorEntity, 'jobTitle') || '',
+      authorImgUrl: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url') || authorDefaultImg,
+      authorMail: _.get(authorEntity, 'email') || '',
+      authorBio: _.get(authorEntity, 'bio.md' || '')
     }
     let handleLoadmore = () => {
       return this.props.fetchAuthorCollectionIfNeeded(authorId)
@@ -102,7 +104,7 @@ Author.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    entities: _.get(state, 'entities', {}),
+    entities: _.get(state, 'entitiesForAuthors', {}),
     articlesByAuthor: _.get(state, 'articlesByAuthor', {})
   }
 }

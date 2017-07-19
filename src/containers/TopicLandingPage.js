@@ -1,23 +1,27 @@
 'use strict'
-// import VisibilitySensor from 'react-visibility-sensor';
+
+import React, { Component, PropTypes } from 'react'
+import BannerFactory from '../components/topic/Banner'
+import CardsFactory from '../components/topic/Cards'
+import Footer from '../components/Footer'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import Footer from '../components/Footer'
-import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import TopicCards from '../components/topic/Cards'
-import arrowDownIcon from '../../static/asset/arrow-down.svg'
-import cx from 'classnames'
-import style from '../components/topic/Topic.scss'
-import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { fetchTopicIfNeeded } from '../actions/topic'
+import classNames from 'classnames'
+import styles from './TopicLandingPage.scss'
+import twreporterRedux from 'twreporter-redux'
 
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+
+const { actions, reduxStateFields, utils } = twreporterRedux
 
 const logo = 'https://www.twreporter.org/asset/logo.png'
 
@@ -26,71 +30,54 @@ const _  = {
   get
 }
 
+const bannerFactory = new BannerFactory()
+const cardsFactory = new CardsFactory()
+
+const Description = (props) => {
+  const { topicDescription, teamDescription } = props
+  return (
+    <div className={styles['description']}>
+      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
+      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
+    </div>
+  )
+}
+
+Description.propTypes = {
+  topicDescription: PropTypes.string.isRequired,
+  teamDescription: PropTypes.string.isRequired
+}
+
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchTopicIfNeeded(params.slug))
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLeadingVideoScrolledOver: false
-    }
-    // this.checkIfScrollOverLeadingVideo = this._checkIfScrollOverLeadingVideo.bind(this)
+    const slug = params.slug
+    return store.dispatch(actions.fetchAFullTopic(slug))
+      .then(() => {
+        const state = store.getState()
+        const selectedTopic = _.get(state, reduxStateFields.selectedTopic, {})
+        if (_.get(selectedTopic, 'error')) {
+          return Promise.reject(_.get(selectedTopic, 'error'))
+        }
+      })
   }
 
   componentWillMount() {
-    const { fetchTopicIfNeeded, params } = this.props
-    let slug = _.get(params, 'slug')
-    fetchTopicIfNeeded(slug)
-  }
-
-  componentDidMount() {
-    this._isMounted = true
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false
+    const { fetchAFullTopic, params } = this.props
+    const slug = _.get(params, 'slug')
+    fetchAFullTopic(slug)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchTopicIfNeeded, params, selectedTopic } = nextProps
-    let slug = _.get(params, 'slug')
-    if (_.get(selectedTopic, 'slug') !== slug) {
-      fetchTopicIfNeeded(slug)
+    const { fetchAFullTopic, params } = nextProps
+    const { selectedTopic } = this.props
+
+    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
+      fetchAFullTopic(_.get(params, 'slug'))
     }
   }
-
-  _denormalizeArticles(ids) {
-    const articles = _.get(this.props, 'entities.articles')
-    let rtn = []
-    _.forEach(ids, (id) => {
-      const article = _.get(articles, id)
-      if (article) {
-        rtn.push(article)
-      }
-    })
-
-    return rtn
-  }
-  /*
-  _checkIfScrollOverLeadingVideo(isVisible) {
-    if (!isVisible && this._isMounted) {
-      this.setState({
-        isLeadingVideoScrolledOver: true
-      });
-    } else {
-      this.setState({
-        isLeadingVideoScrolledOver: false
-      })
-    }
-    }
-  */
 
   render() {
-    // const { isLeadingVideoScrolledOver } = this.state
-    const { selectedTopic, entities } = this.props
-    const topicId = _.get(selectedTopic, 'id')
+    const { entities, params, selectedTopic } = this.props
     const error = _.get(selectedTopic, 'error', null)
 
     if (error !== null) {
@@ -102,26 +89,42 @@ class TopicLandingPage extends Component {
       )
     }
 
-    if (!topicId) {
+    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
       return null
     }
 
-    const topic = _.get(entities, [ 'topics', topicId ], {})
-    // const { leadingImagePortrait, LeadingVideo
-    const { leadingImage, leadingVideo, publishedDate, relateds, subtitle, title } = topic
-    const description = _.get(topic, 'description.html', '')
-    const teamDescription = _.get(topic, 'teamDescription.html', '')
+    const slug = _.get(selectedTopic, 'slug') // {string}
 
-    const relatedArticles = this._denormalizeArticles(relateds)
-    const slug = _.get(selectedTopic, 'slug')
+    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const topicEntities = _.get(entities, reduxStateFields.topics, {})
+    const topic = camelizeKeys(utils.denormalizeTopics(slug, topicEntities, postEntities)[0])
+    const {
+      leadingImage, // leadingImage {object} - Topic leading image infos
+      leadingVideo, // leadingVideo {object} - Topic leading video infos
+      publishedDate,// publishedDate {string} -  Date format as "Mon, 19 Dec 2016 00:00:00 GMT"
+      relateds,     // relateds {array} - Array of the ids of related articles
+      headline,     // headline {string} - Topic headine
+      subtitle,     // subtitle {string} - Topic subtitle
+      title         // title {string} - Topic title
+    } = topic
+    const bannerTheme = _.get(topic, 'titlePosition') || 'center' // {string} - Theme of banner
+    const cardsTheme = _.get(topic, 'relatedsFormat') || 'in-row' // {string} - Theme of cards
+    const cardsContainerBgColor = _.get(topic, 'relatedsBackground') || '#d8d8d8' // {string} - HEX value of cards container bg-color
+    const description = _.get(topic, 'description.html', '') // {string}
+    const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
+    const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
+
+    const image = _.get(leadingImage, 'resizedTargets.tablet.url') || logo // {string}
+
     const canonical = `${SITE_META.URL}topics/${slug}`
-
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const ogDescription =  _.get(topic, 'ogDescription', SITE_META.DESC)
-    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url', logo)
+
+    const Banner = bannerFactory.buildWithTheme(bannerTheme)
+    const Cards = cardsFactory.buildWithTheme(cardsTheme)
+    const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: cardsContainerBgColor })
 
     return (
-      <div className={style['container']}>
+      <div className={styles['topic-page-conainer']}>
         <Helmet
           title={fullTitle}
           link={[
@@ -141,51 +144,36 @@ class TopicLandingPage extends Component {
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
-        <div>
-          <Header
-            isFixedToTop={false}
-            title={title}
-          />
-          {/*
-          <VisibilitySensor
-            onChange={this.checkIfScrollOverLeadingVideo}
-            partialVisibility={true}
-            >
-          */}
-          <LeadingVideo
-            classNames={{
-              container: style['leading-block'],
-              video: style.video,
-              poster: style.video,
-              audioBt: style['audio-bt']
-            }}
-            filetype={_.get(leadingVideo, 'video.filetype')}
-            poster={_.get(leadingImage, 'image.resizedTargets')}
-            src={_.get(leadingVideo, 'video.url')}
-            title={title}
-          />
-          {/*</VisibilitySensor>*/}
-          <div className={style['main-title-block']}>
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
-            <span>{date2yyyymmdd(publishedDate, '.')} 最新更新</span>
-          </div>
-          <img className={style['arrow-down-icon']} src={arrowDownIcon} role="presentation" />
-        </div>
-        <div
-          className={cx(style.description, 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: description }}
+        <Header
+          isFixedToTop={false}
+          title={title}
         />
-        <div
-          className={cx(style['team-description'], 'center-block', 'text-center')}
-          dangerouslySetInnerHTML={{ __html: teamDescription }}
+        <LeadingVideo
+          classNames={{
+            container: styles['leading-block'],
+            video: styles.video,
+            poster: styles.video,
+            audioBt: styles['audio-bt']
+          }}
+          filetype={_.get(leadingVideo, 'filetype')}
+          poster={_.get(leadingImage, 'resizedTargets')}
+          src={_.get(leadingVideo, 'url')}
+          title={title}
         />
-        <div className={style['cards-container']}>
-          <TopicCards
-            items={relatedArticles}
-          />
-        </div>
-        <Footer/>
+        <Banner
+          headline={headline}
+          title={title}
+          subtitle={subtitle}
+          publishedDate={publishedDate}
+        />
+        <Description
+          topicDescription={description}
+          teamDescription={teamDescription}
+        />
+        <BgColoredCards
+          items={relateds}
+        />
+        <Footer />
       </div>
     )
   }
@@ -193,10 +181,20 @@ class TopicLandingPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    entities: state.entities || {},
-    selectedTopic: state.selectedTopic || {}
+    entities: state[reduxStateFields.entities] || {},
+    selectedTopic: state[reduxStateFields.selectedTopic] || {}
   }
 }
 
+TopicLandingPage.defaultProps = {
+  entities: {},
+  selectedTopic: {}
+}
+
+TopicLandingPage.propTypes = {
+  entities: PropTypes.object,
+  selectedTopic: PropTypes.object
+}
+
 export { TopicLandingPage }
-export default connect(mapStateToProps, { fetchTopicIfNeeded })(TopicLandingPage)
+export default connect(mapStateToProps, { fetchAFullTopic: actions.fetchAFullTopic })(TopicLandingPage)

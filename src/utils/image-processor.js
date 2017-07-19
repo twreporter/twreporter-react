@@ -14,7 +14,7 @@ const defaultImage = '/asset/review.png'
  * @return {string} srcSet
  */
 export const getArticleImageSrcSet = (article) => {
-  let imgObj = get(article, 'heroImage.image.resizedTargets') || get(article, 'ogImage.image.resizedTargets')
+  let imgObj = get(article, 'heroImage.resizedTargets') || get(article, 'ogImage.resizedTargets')
   return getImageSrcSet(imgObj)
 }
 
@@ -42,5 +42,5 @@ export const getImageSrcSet = (imgObj) => {
 export const getArticleImageSrc = (article, device='desktop') => {
   let heroImage = get(article, 'heroImage')
   let ogImage = get(article, 'ogImage')
-  return replaceStorageUrlPrefix(get(heroImage, `image.resizedTargets.${device}.url`) || get(ogImage, `image.resizedTargets.${device}.url`) || defaultImage)
+  return replaceStorageUrlPrefix(get(heroImage, `resizedTargets.${device}.url`) || get(ogImage, `resizedTargets.${device}.url`) || defaultImage)
 }

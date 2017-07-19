@@ -1,24 +1,35 @@
 export default [ {
-  title: 'UBER爭議與共享經濟',
-  path: 'tag/57ac420a42152d10002fa1a8'
+  title: '勞動政策追蹤',
+  path: 'https://tsai-tracker.twreporter.org/',
+  isExternal: true
+},
+{
+  title: '婚姻平權',
+  path: 'tag/5734115d8c0c261000b3f70e',
+  isExternal: false
 },
 {
   title: '零安樂死真相',
-  path: '/topics/no-killing-policy'
+  path: '/topics/no-killing-policy',
+  isExternal: false
 },
 {
-  title: '一例一休吵什麼？',
-  path: '/a/opinion-refine-labour-law-dispute'
+  title: '2017威尼斯雙年展',
+  path: '/topics/2017-venice-biennale',
+  isExternal: false
+},
+{
+  title: '工作貧窮',
+  path: '/topics/taiwan-temporary-workers',
+  isExternal: false
 },
 {
   title: '血淚漁場',
-  path: '/topics/far-sea-fishing-investigative-report'
+  path: '/topics/far-sea-fishing-investigative-report',
+  isExternal: false
 },
 {
-  title: '年金改革',
-  path: '/tag/57b1561d4310e41200a0dd6c'
-},
-{
-  title: '轉型正義',
-  path: '/topic/57ac8151363d1610007ef656'
+  title: '農藥減量行不行？',
+  path: '/topics/taiwan-pesticide',
+  isExternal: false
 } ]

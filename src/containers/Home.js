@@ -1,121 +1,71 @@
 /*eslint no-unused-vars:0, no-console:0 */
-'use strict'
-import { Link } from 'react-router'
-import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SITE_NAME, SITE_META, SPECIAL_TOPIC_CH_STR } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId, replaceStorageUrlPrefix } from '../utils/index'
-import { devCatListId, prodCatListId } from '../conf/list-id'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
-import Daily from '../components/Daily'
-import Features from '../components/Features'
-import Footer from '../components/Footer'
+import Header from 'twreporter-react-index-page-components/lib/components/header'
+import EditorPicks from 'twreporter-react-index-page-components/lib/components/editor-picks'
 import Helmet from 'react-helmet'
-import PromotionBanner from '../components/shared/PromotionBanner'
-import React, { Component } from 'react'
-import TopNews from '../components/TopNews'
-import async from 'async'
-import backToTopicIcon from '../../static/asset/back-to-topic.svg'
-import styles from './Home.scss'
-
-// lodash
+import InfographicSection from 'twreporter-react-index-page-components/lib/components/infographic-section'
+import Latest from 'twreporter-react-index-page-components/lib/components/latest'
+import LatestTopic from 'twreporter-react-index-page-components/lib/components/latest-topic'
+import React from 'react'
+import Reviews from 'twreporter-react-index-page-components/lib/components/reviews'
+import CategorySection from 'twreporter-react-index-page-components/lib/components/category-section'
+import PhotographySection from 'twreporter-react-index-page-components/lib/components/photography-section'
+import ReporterIntro from 'twreporter-react-index-page-components/lib/components/reporter-intro'
+import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
+import TopicsSection from 'twreporter-react-index-page-components/lib/components/topics-section'
+import categoryListID from '../conf/category-list-id'
+import categoryString from '../constants/category-strings'
+import categoryURI from '../conf/category-uri'
+import clone from 'lodash/clone'
 import get from 'lodash/get'
+import set from 'lodash/set'
+import isEqual from 'lodash/isEqual'
+import styled from 'styled-components'
+import twreporterRedux from 'twreporter-redux'
+import { SITE_NAME, SITE_META } from '../constants/index'
+import { connect } from 'react-redux'
 
-const MAXRESULT = 10
-const PAGE = 1
+const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
+const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const fieldNames = twreporterRedux.reduxStateFields
 
-class Home extends Component {
-  static fetchData({
-    store
-  }) {
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
+const _ = {
+  clone,
+  get,
+  set,
+  isEqual
+}
+
+const Container = styled.div`
+  width 100%;
+  margin: 0 auto;
+  background-color: white;
+  overflow: hidden;
+`
+
+const FirstModuleWrapper = styled.div`
+  hegight: auto;
+`
+
+class Homepage extends React.Component {
+  static async fetchData({ store }) {
+    await fetchIndexPageContent()(store.dispatch, store.getState)
+    const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
+    if (error !== null) {
+      return Promise.reject(error)
     }
-    return new Promise((resolve, reject) => {
-      // load tagged articles in parallel
-      async.parallel([
-        function (callback) {
-          store.dispatch(fetchFeatureArticles())
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(REVIEW_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(SPECIAL_TOPIC_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        }
-      ], (err, results) => {
-        if (err) {
-          console.warn('fetchData occurs error:', err)
-        }
-        resolve()
-      })
-    })
-  }
-
-  constructor(props, context) {
-    super(props, context)
-    this.specialTopicListId = getCatId(SPECIAL_TOPIC_CH_STR)
-    this.reviewListId = getCatId(REVIEW_CH_STR)
-    this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
   }
 
   componentWillMount() {
-    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: HOME,
-      readPercent: 0
-    })
-
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
-    }
-    if (get(featureArticles, 'items.length', 0) === 0) {
-      fetchFeatureArticles()
-    }
-    if (get(articlesByUuids, [ this.reviewListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
-    }
-    if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
-    }
-
+    this.props.fetchIndexPageContent()
   }
 
-  _loadMoreArticles(catId) {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-
-    if (get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
-      return
-    }
-
-    let itemSize = get(articlesByUuids, [ catId, 'items', 'length' ], 0)
-    let page = Math.floor(itemSize / MAXRESULT) + 1
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: page,
-      max_results: MAXRESULT
-    })
+  componentDidMount() {
+    this.props.fetchCategoriesPostsOnIndexPage()
   }
 
   render() {
-    const { articlesByUuids, entities, featureArticles } = this.props
-    const topnews_num = 5
-    let topnewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
-    let specialTopicItems = denormalizeArticles(get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
-    let reviewItems = denormalizeArticles(get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
-
-    let microData = (
+    // TODO Need to change categories
+    const microData = (
       <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
         <div>
           <meta itemProp="name" content="首頁" />
@@ -141,59 +91,10 @@ class Home extends Component {
           <meta itemProp="name" content="評論" />
           <link itemProp="url" href="https://www.twreporter.org/category/review" />
         </div>
-        <div>
-          <meta itemProp="name" content="作者列表" />
-          <link itemProp="url" href="https://www.twreporter.org/authors" />
-        </div>
-        <div>
-          <meta itemProp="name" content="轉型正義" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8151363d1610007ef656" />
-        </div>
-        <div>
-          <meta itemProp="name" content="美國總統大選" />
-          <link itemProp="url" href="https://www.twreporter.org/tag/57b065e5360b651200848d76" />
-        </div>
-        <div>
-          <meta itemProp="name" content="亞洲森林浩劫" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac816f363d1610007ef658" />
-        </div>
-        <div>
-          <meta itemProp="name" content="走入同志家庭" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8177363d1610007ef659" />
-        </div>
-        <div>
-          <meta itemProp="name" content="急診人生" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8180363d1610007ef65aa" />
-        </div>
-        <div>
-          <meta itemProp="name" content="五輕關廠" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8192363d1610007ef65b" />
-        </div>
       </div>
-
     )
 
-    let organizationJSONLD = `
-      {
-        "@context" : "http://schema.org",
-        "@type" : "Organization",
-        "legalName" : "財團法人報導者文化基金會",
-        "alternateName": "報導者 The Reporter",
-        "url": "https://www.twreporter.org/",
-        "logo": "https://www.twreporter.org/storage/images/logo.png",
-        "sameAs": [
-          "http://www.facebook.com/twreporter",
-          "https://www.instagram.com/twreporter/",
-          "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
-        ],
-        "potentialAction" : {
-          "@type" : "SearchAction",
-          "target" : "https://www.twreporter.org/search?q={search_term}",
-          "query-input" : "required name=search_term"
-        }
-      }
-    `
-    let webSiteJSONLD = `
+    const webSiteJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "WebSite",
@@ -206,7 +107,9 @@ class Home extends Component {
         }
       }
     `
-    let breadcrumbListJSONLD = `
+
+    // TODO Need to change categories
+    const breadcrumbListJSONLD = `
     {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
@@ -252,20 +155,11 @@ class Home extends Component {
             "@id": "https://www.twreporter.org/photography",
             "name": "影像"
           }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/authors",
-            "name": "作者列表"
-          }
         }]
       }
     `
-    const promotionImg = 'https://www.twreporter.org/images/20170306232901-7b800e0104d93ee7c2756491803b8644-tablet.jpg'
-
     return (
-      <div>
+      <Container>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -283,53 +177,132 @@ class Home extends Component {
             { property: 'og:url', content: SITE_META.URL }
           ]}
         />
-        <TopNews topnews={topnewsItems} />
-        {/* Hard code promotion bannder*/}
-        <div className={styles['annual-report']}>
-          <span>解密花蓮王朝</span>
-        </div>
-        <Link to="/topics/hualien-fu-kun-chi-two-face">
-          <div className={styles['index-promotion']}>
-            <PromotionBanner
-              bgImgSrc={replaceStorageUrlPrefix(promotionImg)}
-              iconImgSrc={backToTopicIcon}
-              title="雙面傅崐萁"
-              subtitle=""
-            />
-          </div>
-        </Link>
-        <Daily daily={reviewItems}
-        />
-        <Features
-          features={specialTopicItems}
-          hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
-          loadMore={this.loadMoreArticles}
-        />
-        {
-          this.props.children
-        }
-        <Footer />
+        <SideBar>
+          <FirstModuleWrapper
+            moduleId={moduleIdObj.editorPick}
+          >
+            <Header />
+            <Latest data={this.props[fieldNames.latest]} />
+            <EditorPicks data={this.props[fieldNames.editorPicks]} />
+          </FirstModuleWrapper>
+          <LatestTopic
+            data={this.props[fieldNames.latestTopic]}
+            moduleId={moduleIdObj.latestTopic}
+          />
+          <Reviews
+            data={this.props[fieldNames.reviews]}
+            moduleId={moduleIdObj.review}
+            moreURI={`categories/${categoryURI.reviews}`}
+          />
+          <CategorySection
+            data={this.props.category}
+            moduleId={moduleIdObj.category}
+          />
+          <TopicsSection
+            moduleId={moduleIdObj.topic}
+            items={this.props[fieldNames.topics]}
+          />
+          <PhotographySection
+            moduleId={moduleIdObj.photography}
+            items={this.props[fieldNames.photos]}
+            moreURI="photography"
+          />
+          <InfographicSection
+            moduleId={moduleIdObj.infographic}
+            items={this.props[fieldNames.infographics]}
+            moreURI={`categories/${categoryURI.infographic}`}
+          />
+          <ReporterIntro
+            moduleId={moduleIdObj.donation}
+          />
+        </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
-      </div>
+      </Container>
     )
   }
 }
 
+function buildCategorySectionData(state) {
+  console.log('state', state)
+  const buildData = (post) => {
+    return {
+      id: _.get(post, 'id', ''),
+      slug: _.get(post, 'slug', ''),
+      title: _.get(post, 'title', ''),
+      img: {
+        src: _.get(post, 'hero_image.resized_targets.tablet.url',''),
+        description: _.get(post, 'hero_image.description','')
+      }
+    }
+  }
+
+  const catFields = [ 'humanRights', 'landEnvironment', 'politicalSociety', 'cultureMovie'
+    , 'photoAudio', 'international', 'character', 'transformedJustice' ]
+  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.posts ], {})
+  const selected = []
+  const data = []
+
+  catFields.forEach((field) => {
+    let post
+    const slugs = _.get(state, [ fieldNames.indexPage, categoryURI[field] ], [])
+    if (Array.isArray(slugs)) {
+      for (let i = 0; i < slugs.length; i+=1) {
+        const slug = slugs[i]
+        if (selected.indexOf(slug) === -1) {
+          post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
+          post.listName = categoryString[field]
+          post.moreURI = `categories/${categoryURI[field]}`
+          data.push(post)
+          break
+        }
+      }
+      if (typeof post !== 'object' && slugs.length > 0) {
+        post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
+        post.listName = categoryString[field]
+        post.moreURI = `categories/${categoryURI[field]}`
+        data.push(post)
+      }
+    }
+  })
+  return data
+}
+
 function mapStateToProps(state) {
+  const entities = _.get(state, fieldNames.entities, {})
+  const indexPageState = _.get(state, fieldNames.indexPage, {})
+
+  // get post entities
+  const postEntities = _.get(entities, fieldNames.posts, {})
+
+  // get topic entities
+  const topicEntities = _.get(entities, fieldNames.topics, {})
+
+  // restore the posts
+  const latest = denormalizePosts(_.get(indexPageState, fieldNames.latest, []), postEntities)
+  const editorPicks = denormalizePosts(_.get(indexPageState, fieldNames.editorPicks, []), postEntities)
+  const reviews = denormalizePosts(_.get(indexPageState, fieldNames.reviews, []), postEntities)
+  const photoPosts = denormalizePosts(_.get(indexPageState, fieldNames.photos, []), postEntities)
+  const infoPosts = denormalizePosts(_.get(indexPageState, fieldNames.infographics, []), postEntities)
+
+  // restore the topics
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic), topicEntities, postEntities), 0, {})
+  const topics = denormalizeTopics(_.get(indexPageState, fieldNames.topics, []), topicEntities, postEntities)
+
+  // restore
+
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {},
-    featureArticles: state.featureArticles || {}
+    [fieldNames.latest]: latest,
+    [fieldNames.editorPicks]: editorPicks,
+    [fieldNames.latestTopic]: latestTopic,
+    [fieldNames.reviews]: reviews,
+    [fieldNames.topics]: topics,
+    [fieldNames.photos]: photoPosts,
+    [fieldNames.infographics]: infoPosts,
+    category: buildCategorySectionData(state)
   }
 }
 
-export { Home }
-
-export default connect(mapStateToProps, {
-  fetchArticlesByUuidIfNeeded,
-  fetchFeatureArticles,
-  setHeaderInfo
-})(Home)
+export { Homepage }
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
