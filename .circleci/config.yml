@@ -58,4 +58,3 @@ jobs:
               gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$TAG
               kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$TAG"'"}]}}}}'
             fi
-
