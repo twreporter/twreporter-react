@@ -6,7 +6,7 @@ import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import clone from 'lodash/clone'
 import get from 'lodash/get'
-import IndexPageComposite from 'twreporter-react-index-page-components/lib'
+import IndexPageComposite from 'twreporter-react-index-page-components'
 import set from 'lodash/set'
 import isEqual from 'lodash/isEqual'
 import styled from 'styled-components'
@@ -14,7 +14,7 @@ import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, HeaderSection, LatestTopicSection } = IndexPageComposite.components
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
 const { moduleIdObj } = IndexPageComposite.utility
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
@@ -173,7 +173,7 @@ class Homepage extends React.Component {
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
-            <HeaderSection data={this.props[fieldNames.latest]} />
+            <LatestSection data={this.props[fieldNames.latest]} />
             <EditorPicks data={this.props[fieldNames.editorPicks]} />
           </FirstModuleWrapper>
           <LatestTopicSection
