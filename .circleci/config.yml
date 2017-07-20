@@ -72,7 +72,7 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "index-page-revamp" ]; then
               docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_SHA1 .
               gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_SHA1
               kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$CIRCLE_SHA1"'"}]}}}}'
