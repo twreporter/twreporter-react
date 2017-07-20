@@ -1,22 +1,12 @@
 /*eslint no-unused-vars:0, no-console:0 */
-import Header from 'twreporter-react-index-page-components/lib/components/header'
-import EditorPicks from 'twreporter-react-index-page-components/lib/components/editor-picks'
 import Helmet from 'react-helmet'
-import InfographicSection from 'twreporter-react-index-page-components/lib/components/infographic-section'
-import Latest from 'twreporter-react-index-page-components/lib/components/latest'
-import LatestTopic from 'twreporter-react-index-page-components/lib/components/latest-topic'
 import React from 'react'
-import Reviews from 'twreporter-react-index-page-components/lib/components/reviews'
-import CategorySection from 'twreporter-react-index-page-components/lib/components/category-section'
-import PhotographySection from 'twreporter-react-index-page-components/lib/components/photography-section'
-import ReporterIntro from 'twreporter-react-index-page-components/lib/components/reporter-intro'
-import SideBar, { moduleIdObj } from 'twreporter-react-index-page-components/lib/components/side-bar'
-import TopicsSection from 'twreporter-react-index-page-components/lib/components/topics-section'
 import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import clone from 'lodash/clone'
 import get from 'lodash/get'
+import IndexPageComposite from 'twreporter-react-index-page-components'
 import set from 'lodash/set'
 import isEqual from 'lodash/isEqual'
 import styled from 'styled-components'
@@ -24,6 +14,8 @@ import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
+const { moduleIdObj } = IndexPageComposite.utility
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -181,15 +173,14 @@ class Homepage extends React.Component {
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
-            <Header />
-            <Latest data={this.props[fieldNames.latest]} />
+            <LatestSection data={this.props[fieldNames.latest]} />
             <EditorPicks data={this.props[fieldNames.editorPicks]} />
           </FirstModuleWrapper>
-          <LatestTopic
+          <LatestTopicSection
             data={this.props[fieldNames.latestTopic]}
             moduleId={moduleIdObj.latestTopic}
           />
-          <Reviews
+          <ReviewsSection
             data={this.props[fieldNames.reviews]}
             moduleId={moduleIdObj.review}
             moreURI={`categories/${categoryURI.reviews}`}
@@ -207,7 +198,7 @@ class Homepage extends React.Component {
             items={this.props[fieldNames.photos]}
             moreURI="photography"
           />
-          <InfographicSection
+          <InforgraphicSection
             moduleId={moduleIdObj.infographic}
             items={this.props[fieldNames.infographics]}
             moreURI={`categories/${categoryURI.infographic}`}
