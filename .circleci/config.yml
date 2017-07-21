@@ -88,4 +88,5 @@ workflows:
             - build
           filters:
             branches:
-              only: index-page-revamp
+              only:
+                - /release-.*/
