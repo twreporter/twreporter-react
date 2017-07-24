@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.0.2
+- Upgrade twreporter-react-index-page-components to 1.0.15
+
 ### 2.0.1
 - add moreURI in different sections(photography and infographic) of index page.
 - remove organization JSON-LD
