@@ -80,19 +80,28 @@ jobs:
       - image: circleci/node:7.10
     working_directory: ~/repo
     steps:
-      - checkout
-
-      # Download and cache dependencies
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: yarn install
+            - v1-build-{{ checksum ".circle-sha" }}
 
       # Update the release tag on git
-      - run: npm run release
+      - run:
+          name: Echo pkg version
+          command: |
+            export PKG_VER="$(cat .pkg-version)"
+            echo $PKG_VER
+            echo $CIRCLE_TAG
+
+      - run:
+          name: Update git release tag
+          command: |
+            git config --global user.email "twreporter25363030@gmail.com"
+            git conifg --global user.name "reporterdev"
+            git tag -a -m "Release v$PKG_VER"
+
 
 workflows:
   version: 2
