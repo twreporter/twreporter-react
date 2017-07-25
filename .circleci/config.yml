@@ -93,13 +93,12 @@ jobs:
           command: |
             export PKG_VER="$(cat .pkg-version)"
             echo $PKG_VER
-            echo $CIRCLE_TAG
 
       - run:
           name: Update git release tag
           command: |
             git config --global user.email "twreporter25363030@gmail.com"
-            git conifg --global user.name "reporterdev"
+            git config --global user.name "reporterdev"
             git tag -a -m "Release v$PKG_VER"
 
 
