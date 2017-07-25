@@ -8,14 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
     working_directory: ~/repo
-
     steps:
       - checkout
 
@@ -38,8 +31,13 @@ jobs:
       - run: yarn build
 
       - run:
-          name: save SHA to a file
+          name: Save pkg version to a file
+          command: node ./.circleci/scripts/read-changelog.js > .pkg-version
+
+      - run:
+          name: Save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
+
       - save_cache:
           key: v1-build-{{ checksum ".circle-sha" }}
           paths:
@@ -72,9 +70,13 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_SHA1 .
-            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_SHA1
-            kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$CIRCLE_SHA1"'"}]}}}}'
+            export PKG_VER="$(cat .pkg-version)"
+            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER .
+            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
+            kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
+            kubectl rollout status deployment/twreporter-website-v2
+            #kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$PKG_VER"'"}]}}}}'
+
 
 workflows:
   version: 2
@@ -88,3 +90,4 @@ workflows:
             branches:
               only:
                 - /release-.*/
+                - index-page-revamp
