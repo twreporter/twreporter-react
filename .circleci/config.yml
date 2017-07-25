@@ -99,7 +99,7 @@ jobs:
           command: |
             git config --global user.email "twreporter25363030@gmail.com"
             git config --global user.name "reporterdev"
-            git tag -a -m "Release v$PKG_VER"
+            git tag -a $PKG_VER -m "Release v$PKG_VER"
 
 
 workflows:
