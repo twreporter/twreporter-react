@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: Save pkg version to a file
-          command: node ./circleci/read-changelog.js > .pkg-version
+          command: node ./.circleci/scripts/read-changelog.js > .pkg-version
 
       - run:
           name: Save SHA to a file
@@ -89,6 +89,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: yarn install
+
       # Update the release tag on git
       - run: npm run release
 
@@ -99,7 +101,7 @@ workflows:
       - build
       - deploy:
           requires:
-            - build
+            - release
           filters:
             branches:
               only:
@@ -107,7 +109,7 @@ workflows:
                 - index-page-revamp
       - release:
           requires:
-            - deploy
+            - build
           filters:
             branches:
               only:
