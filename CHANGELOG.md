@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.0.3
+- Fix duplicate react key issue in categories section of index page.
+
 ### 2.0.2
 - Upgrade twreporter-react-index-page-components to 1.0.15
 

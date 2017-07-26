@@ -216,7 +216,6 @@ class Homepage extends React.Component {
 }
 
 function buildCategorySectionData(state) {
-  console.log('state', state)
   const buildData = (post) => {
     return {
       id: _.get(post, 'id', ''),
@@ -243,6 +242,7 @@ function buildCategorySectionData(state) {
         const slug = slugs[i]
         if (selected.indexOf(slug) === -1) {
           post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
+          post.id = field + '-' + post.id
           post.listName = categoryString[field]
           post.moreURI = `categories/${categoryURI[field]}`
           data.push(post)
@@ -251,6 +251,7 @@ function buildCategorySectionData(state) {
       }
       if (typeof post !== 'object' && slugs.length > 0) {
         post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
+        post.id = field + '-' + post.id
         post.listName = categoryString[field]
         post.moreURI = `categories/${categoryURI[field]}`
         data.push(post)
