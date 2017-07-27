@@ -13,6 +13,7 @@ import styled from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
+import { getImageSrcSet } from '../utils/image-processor.js'
 
 const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
 const { moduleIdObj } = IndexPageComposite.utility
@@ -222,8 +223,9 @@ function buildCategorySectionData(state) {
       slug: _.get(post, 'slug', ''),
       title: _.get(post, 'title', ''),
       img: {
-        src: _.get(post, 'hero_image.resized_targets.tablet.url',''),
-        description: _.get(post, 'hero_image.description','')
+        src: _.get(post, 'hero_image.resized_targets.tiny.url',''),
+        description: _.get(post, 'hero_image.description',''),
+        srcset: getImageSrcSet(_.get(post, 'hero_image.resized_targets'))
       }
     }
   }
