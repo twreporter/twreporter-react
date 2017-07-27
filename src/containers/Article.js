@@ -101,7 +101,7 @@ class Article extends Component {
       const state = store.getState()
       const entities = _.get(state, reduxStateFields.entities, {})
       const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
-      const style = _.get(entities, [ reduxStateFields.posts, slug, 'style' ])
+      const style = _.get(entities, [ reduxStateFields.postsInEntities, slug, 'style' ])
 
       if (_.get(selectedPost, 'error')) {
         return Promise.reject(_.get(selectedPost, 'error'))
@@ -133,7 +133,7 @@ class Article extends Component {
   getChildContext() {
     const { entities, selectedPost } = this.props
     const slug = _.get(selectedPost, 'slug', '')
-    let post = _.get(entities, [ reduxStateFields.posts, slug ], {})
+    let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
     let style = _.get(post, 'style')
     return {
       isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE
@@ -212,9 +212,9 @@ class Article extends Component {
       return
     }
 
-    const post = _.get(entities, [ reduxStateFields.posts, slug ], {})
+    const post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
 
-    const topic = _.get(entities, [ reduxStateFields.topics, _.get(post, 'topics') ])
+    const topic = _.get(entities, [ reduxStateFields.topicsInEntities, _.get(post, 'topics') ])
     const topicName = _.get(topic, 'topic_name')
     const topicSlug = _.get(topic, 'slug')
 
@@ -314,8 +314,8 @@ class Article extends Component {
       )
     }
 
-    const postEntities = _.get(entities, reduxStateFields.posts)
-    const topicEntities = _.get(entities, reduxStateFields.topics)
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities)
+    const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))

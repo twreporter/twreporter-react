@@ -143,7 +143,7 @@
     "style-loader": "^0.13.1",
     "superagent": "^1.4.0",
     "twreporter-react-index-page-components": "^1.0.15",
-    "twreporter-redux": "^1.0.7",
+    "twreporter-redux": "^2.0.0",
     "url-loader": "^0.5.7",
     "video.js": "5.12.1",
     "webpack": "^1.9.11",

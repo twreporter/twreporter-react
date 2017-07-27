@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   [reduxStateFields.entities]: reducers.entities,
   [reduxStateFields.indexPage]: reducers.indexPage,
   [reduxStateFields.lists]: reducers.posts,
-  [reduxStateFields.topics]: reducers.topics,
+  [reduxStateFields.topicList]: reducers.topics,
   device,
   [reduxStateFields.selectedPost]: reducers.post,
   [reduxStateFields.selectedTopic]: reducers.topic,

@@ -1,19 +1,19 @@
 /*eslint no-unused-vars:0, no-console:0 */
 import Helmet from 'react-helmet'
 import React from 'react'
-import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
-import clone from 'lodash/clone'
-import get from 'lodash/get'
 import IndexPageComposite from 'twreporter-react-index-page-components'
-import set from 'lodash/set'
-import isEqual from 'lodash/isEqual'
 import styled from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { getImageSrcSet } from '../utils/image-processor.js'
+
+// lodash
+import get from 'lodash/get'
+import keys from 'lodash/keys'
+import set from 'lodash/set'
 
 const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
 const { moduleIdObj } = IndexPageComposite.utility
@@ -22,10 +22,9 @@ const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
 
 const _ = {
-  clone,
   get,
+  keys,
   set,
-  isEqual
 }
 
 const Container = styled.div`
@@ -174,34 +173,34 @@ class Homepage extends React.Component {
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
-            <LatestSection data={this.props[fieldNames.latest]} />
-            <EditorPicks data={this.props[fieldNames.editorPicks]} />
+            <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+            <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
           <LatestTopicSection
-            data={this.props[fieldNames.latestTopic]}
+            data={this.props[fieldNames.sections.latestTopicSection]}
             moduleId={moduleIdObj.latestTopic}
           />
           <ReviewsSection
-            data={this.props[fieldNames.reviews]}
+            data={this.props[fieldNames.sections.reviewsSection]}
             moduleId={moduleIdObj.review}
             moreURI={`categories/${categoryURI.reviews}`}
           />
           <CategorySection
-            data={this.props.category}
+            data={this.props.categories}
             moduleId={moduleIdObj.category}
           />
           <TopicsSection
             moduleId={moduleIdObj.topic}
-            items={this.props[fieldNames.topics]}
+            items={this.props[fieldNames.sections.topicsSection]}
           />
           <PhotographySection
             moduleId={moduleIdObj.photography}
-            items={this.props[fieldNames.photos]}
+            items={this.props[fieldNames.sections.photosSection]}
             moreURI="photography"
           />
           <InforgraphicSection
             moduleId={moduleIdObj.infographic}
-            items={this.props[fieldNames.infographics]}
+            items={this.props[fieldNames.sections.infographicsSection]}
             moreURI={`categories/${categoryURI.infographic}`}
           />
           <ReporterIntro
@@ -230,15 +229,14 @@ function buildCategorySectionData(state) {
     }
   }
 
-  const catFields = [ 'humanRights', 'landEnvironment', 'politicalSociety', 'cultureMovie'
-    , 'photoAudio', 'international', 'character', 'transformedJustice' ]
-  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.posts ], {})
+  const catFields = _.keys(fieldNames.categories)
+  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.postsInEntities ], {})
   const selected = []
   const data = []
 
   catFields.forEach((field) => {
     let post
-    const slugs = _.get(state, [ fieldNames.indexPage, categoryURI[field] ], [])
+    const slugs = _.get(state, [ fieldNames.indexPage, fieldNames.categories[field] ], [])
     if (Array.isArray(slugs)) {
       for (let i = 0; i < slugs.length; i+=1) {
         const slug = slugs[i]
@@ -268,33 +266,34 @@ function mapStateToProps(state) {
   const indexPageState = _.get(state, fieldNames.indexPage, {})
 
   // get post entities
-  const postEntities = _.get(entities, fieldNames.posts, {})
+  const postEntities = _.get(entities, fieldNames.postsInEntities, {})
 
   // get topic entities
-  const topicEntities = _.get(entities, fieldNames.topics, {})
+  const topicEntities = _.get(entities, fieldNames.topicsInEntities, {})
 
   // restore the posts
-  const latest = denormalizePosts(_.get(indexPageState, fieldNames.latest, []), postEntities)
-  const editorPicks = denormalizePosts(_.get(indexPageState, fieldNames.editorPicks, []), postEntities)
-  const reviews = denormalizePosts(_.get(indexPageState, fieldNames.reviews, []), postEntities)
-  const photoPosts = denormalizePosts(_.get(indexPageState, fieldNames.photos, []), postEntities)
-  const infoPosts = denormalizePosts(_.get(indexPageState, fieldNames.infographics, []), postEntities)
+  const sections = fieldNames.sections
+  const latest = denormalizePosts(_.get(indexPageState, sections.latestSection, []), postEntities)
+  const editorPicks = denormalizePosts(_.get(indexPageState, sections.editorPicksSection, []), postEntities)
+  const reviews = denormalizePosts(_.get(indexPageState, sections.reviewsSection, []), postEntities)
+  const photoPosts = denormalizePosts(_.get(indexPageState, sections.photosSection, []), postEntities)
+  const infoPosts = denormalizePosts(_.get(indexPageState, sections.infographicsSection, []), postEntities)
 
   // restore the topics
-  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, fieldNames.latestTopic), topicEntities, postEntities), 0, {})
-  const topics = denormalizeTopics(_.get(indexPageState, fieldNames.topics, []), topicEntities, postEntities)
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, {})
+  const topics = denormalizeTopics(_.get(indexPageState, sections.topicsSection, []), topicEntities, postEntities)
 
   // restore
 
   return {
-    [fieldNames.latest]: latest,
-    [fieldNames.editorPicks]: editorPicks,
-    [fieldNames.latestTopic]: latestTopic,
-    [fieldNames.reviews]: reviews,
-    [fieldNames.topics]: topics,
-    [fieldNames.photos]: photoPosts,
-    [fieldNames.infographics]: infoPosts,
-    category: buildCategorySectionData(state)
+    [fieldNames.sections.latestSection]: latest,
+    [fieldNames.sections.editorPicksSection]: editorPicks,
+    [fieldNames.sections.latestTopicSection]: latestTopic,
+    [fieldNames.sections.reviewsSection]: reviews,
+    [fieldNames.sections.topicsSection]: topics,
+    [fieldNames.sections.photosSection]: photoPosts,
+    [fieldNames.sections.infographicsSection]: infoPosts,
+    categories: buildCategorySectionData(state)
   }
 }
 

@@ -82,7 +82,7 @@ class Tag extends Component {
   render() {
     const { device } = this.context
     const { lists, entities, params } = this.props
-    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const tagId = _.get(params, 'tagId')
     const error = _.get(lists, [ tagId, 'error' ], null)
     const total = _.get(lists, [ tagId, 'total' ], 0)

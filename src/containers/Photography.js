@@ -67,7 +67,7 @@ class Photography extends Component {
 
   render() {
     const { lists, featuredPosts, entities } = this.props
-    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const total = _.get(lists, [ listID, 'total' ], 0)
 
     const style = {
@@ -133,7 +133,7 @@ function mapStateToProps(state) {
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
-    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.photos ])
+    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ])
   }
 }
 

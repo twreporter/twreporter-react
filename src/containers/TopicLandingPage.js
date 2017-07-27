@@ -95,8 +95,8 @@ class TopicLandingPage extends Component {
 
     const slug = _.get(selectedTopic, 'slug') // {string}
 
-    const postEntities = _.get(entities, reduxStateFields.posts, {})
-    const topicEntities = _.get(entities, reduxStateFields.topics, {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
+    const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
     const topic = camelizeKeys(utils.denormalizeTopics(slug, topicEntities, postEntities)[0])
     const {
       leadingImage, // leadingImage {object} - Topic leading image infos
