@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.0.4
+- Update categories, including category list ids, category chinese name and category uri. 
+
 ### 2.0.3
 - Fix duplicate react key issue in categories section of index page.
 - Provide srcset in image object for each category in category_section.
