@@ -4,5 +4,7 @@ export default {
   politicsAndEconomy: 'politics_and_economy',
   cultureAndArt: 'culture_and_art',
   international: 'international',
-  livingAndMedicalCare: 'living_and_medical_care'
+  livingAndMedicalCare: 'living_and_medical_care',
+  reviews: 'reviews',
+  infographic: 'infographic'
 }
