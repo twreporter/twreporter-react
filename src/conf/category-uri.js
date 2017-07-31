@@ -1,12 +1,8 @@
 export default {
-  humanRights: 'human_rights',
-  landEnvironment: 'land_environment',
-  transformedJustice: 'transformed_justice',
-  cultureMovie: 'culture_movie',
-  photoAudio: 'photo_audio',
+  humanRightsAndSociety: 'human_rights_and_society',
+  environmentAndEducation: 'environment_and_education',
+  politicsAndEconomy: 'politics_and_economy',
+  cultureAndArt: 'culture_and_art',
   international: 'international',
-  character: 'character',
-  politicalSociety: 'political_society',
-  reviews: 'reviews',
-  infographic: 'infographic'
+  livingAndMedicalCare: 'living_and_medical_care'
 }

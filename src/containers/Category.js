@@ -88,7 +88,7 @@ class Category extends Component {
     const { device } = this.context
     const { lists, entities, params } = this.props
     const category = _.get(params, 'category', '')
-    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const catId = getListID(category)
     const error = _.get(lists, [ catId, 'error' ], null)
     const total = _.get(lists, [ catId, 'total' ], 0)

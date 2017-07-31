@@ -67,7 +67,7 @@ class Topic extends Component {
   render() {
     const { device } = this.context
     const { lists, entities, params } = this.props
-    const postEntities = _.get(entities, reduxStateFields.posts, {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicId = _.get(params, 'topicId')
     const error = _.get(lists, [ topicId, 'error' ], null)
     const total = _.get(lists, [ topicId, 'total' ], 0)

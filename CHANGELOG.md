@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.0.3
+- Fix duplicate react key issue in categories section of index page.
+- Provide srcset in image object for each category in category_section.
+
 ### 2.0.2
 - Upgrade twreporter-react-index-page-components to 1.0.15
 
