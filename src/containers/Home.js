@@ -24,7 +24,7 @@ const fieldNames = twreporterRedux.reduxStateFields
 const _ = {
   get,
   keys,
-  set,
+  set
 }
 
 const Container = styled.div`
