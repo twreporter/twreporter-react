@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.0.5
+- Delete package we do not need anymore
+- Delete files we do not need anymore
+
 ### 2.0.4
 - Update categories, including category list ids, category chinese name and category uri. 
 

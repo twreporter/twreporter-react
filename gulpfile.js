@@ -1,4 +1,3 @@
-var async = require('async');
 var spawn = require('child_process').spawn;
 var git = require('gulp-git');
 var gulp = require('gulp');
