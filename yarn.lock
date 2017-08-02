@@ -6781,9 +6781,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-twreporter-react-footer-components@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.1.tgz#fb22769d5f1def528b18783e4b1552255590006a"
+twreporter-react-footer-components@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.3.tgz#57a4f297028397ee74ef25bb4429e46a193a9c92"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
@@ -6793,6 +6793,16 @@ twreporter-react-footer-components@^1.0.1:
 twreporter-react-header-components@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/twreporter-react-header-components/-/twreporter-react-header-components-1.0.2.tgz#3e312220d9f016ed863576b68173d50825a7e7eb"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.5.10"
+    react-router "^2.5.1"
+    react-transition-group "1.x"
+    styled-components "^2.1.1"
+
+twreporter-react-header-components@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/twreporter-react-header-components/-/twreporter-react-header-components-1.0.5.tgz#34468ec6450da879a8b9cf8ddd204b9d067bacf4"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
