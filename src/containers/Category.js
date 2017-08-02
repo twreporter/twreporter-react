@@ -1,5 +1,4 @@
 import Helmet from 'react-helmet'
-import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
@@ -99,7 +98,6 @@ class Category extends Component {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
@@ -137,7 +135,6 @@ class Category extends Component {
           loadMoreError={error}
         />
         {this.props.children}
-        <Footer/>
       </div>
     )
   }

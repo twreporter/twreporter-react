@@ -6790,16 +6790,6 @@ twreporter-react-footer-components@^1.0.3:
     react-router "^2.5.1"
     styled-components "^2.1.1"
 
-twreporter-react-header-components@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/twreporter-react-header-components/-/twreporter-react-header-components-1.0.2.tgz#3e312220d9f016ed863576b68173d50825a7e7eb"
-  dependencies:
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    react-router "^2.5.1"
-    react-transition-group "1.x"
-    styled-components "^2.1.1"
-
 twreporter-react-header-components@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/twreporter-react-header-components/-/twreporter-react-header-components-1.0.5.tgz#34468ec6450da879a8b9cf8ddd204b9d067bacf4"
@@ -6810,9 +6800,9 @@ twreporter-react-header-components@^1.0.5:
     react-transition-group "1.x"
     styled-components "^2.1.1"
 
-twreporter-react-index-page-components@1.0.19:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.0.19.tgz#31ff56e25ff448399bff66118164772bc12ccf0e"
+twreporter-react-index-page-components@1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.0.20.tgz#fd1599eebeca44158dfab2c4ae15f598a59b304e"
   dependencies:
     autoprefixer "^7.1.1"
     axios "^0.16.1"
@@ -6826,7 +6816,7 @@ twreporter-react-index-page-components@1.0.19:
     react-waypoint "^7.0.3"
     smoothscroll "^0.3.0"
     styled-components "^2.0.0"
-    twreporter-react-header-components "^1.0.2"
+    twreporter-react-header-components "^1.0.5"
     velocity-react "^1.3.3"
 
 twreporter-redux@2.0.1:

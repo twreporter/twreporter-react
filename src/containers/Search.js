@@ -1,7 +1,6 @@
 'use strict'
 import { connect } from 'react-redux'
 import { googleSearchId } from '../conf/service'
-import Footer from '../components/Footer'
 import React, { Component } from 'react'
 import styles from './Search.scss'
 
@@ -32,7 +31,6 @@ class Search extends Component {
             <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults-only></gcse:searchresults-only>' }} />
           </div>
         </div>
-        <Footer/>
       </div>
     )
   }

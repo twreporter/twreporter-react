@@ -1,5 +1,4 @@
 'use strict'
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
@@ -78,7 +77,6 @@ class Topic extends Component {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
@@ -116,7 +114,6 @@ class Topic extends Component {
           loadMoreError={error}
         />
         {this.props.children}
-        <Footer/>
       </div>
     )
   }
