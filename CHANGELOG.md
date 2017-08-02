@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.0.7
+- Use Footer and Header from twreporter-react-components
 
 ### 2.0.6
 - Remove scrollmagic when bundling by webpack
