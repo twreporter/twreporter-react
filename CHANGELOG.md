@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.0.8
+- Upgrade twreporter-react-index-page-components to 1.0.19 
+
 ### 2.0.7
 - Use Footer and Header from twreporter-react-components
 
