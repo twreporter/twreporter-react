@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.0.10
+- Bug fix. Open post with interactive style by on another tab of browser.
+
 ### 2.0.9
 - Update yarn.lock
 

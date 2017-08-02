@@ -268,7 +268,8 @@ function buildCategorySectionData(state) {
         src: _.get(post, 'hero_image.resized_targets.tiny.url',''),
         description: _.get(post, 'hero_image.description',''),
         srcset: getImageSrcSet(_.get(post, 'hero_image.resized_targets'))
-      }
+      },
+      style: _.get(post, 'style', '')
     }
   }
 
