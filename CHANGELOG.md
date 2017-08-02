@@ -1,4 +1,10 @@
 ### Unreleased
+
+### 2.0.11
+
+- Update dependencies
+- Remove old Footer
+
 ### 2.0.10
 - Bug fix. Open post with interactive style by on another tab of browser.
 

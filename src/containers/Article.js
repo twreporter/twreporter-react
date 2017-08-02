@@ -5,7 +5,6 @@ import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import Footer from '../components/Footer'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -298,7 +297,6 @@ class Article extends Component {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
@@ -327,7 +325,6 @@ class Article extends Component {
     const heroImage = _.get(article, [ 'heroImage' ], null)
     const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
-    const copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-container'], styles['photo-container']) : styles['article-container']
@@ -487,9 +484,6 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <div className="hidden-print">
-            <Footer
-              theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
-              copyright={copyright}/>
           </div>
         </div>
       </div>

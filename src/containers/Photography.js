@@ -1,6 +1,5 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import ArticleList from '../components/ArticleList'
@@ -111,7 +110,6 @@ class Photography extends Component {
           loadMore={this.loadMoreArticles}
         />
         {this.props.children}
-        <Footer theme={DARK} />
       </div>
     )
   }

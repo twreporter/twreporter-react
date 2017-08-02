@@ -6,7 +6,6 @@ import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITT
 import React, { PropTypes } from 'react'
 
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
@@ -137,7 +136,6 @@ class AuthorsList extends React.Component {
           <div className={styles['sensor']}></div>
         </VisibilitySensor>}
       <Sponsor />
-      <Footer />
       </div>
     )
   }
