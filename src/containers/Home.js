@@ -56,7 +56,6 @@ class Homepage extends React.Component {
   }
 
   render() {
-    // TODO Need to change categories
     const microData = (
       <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
         <div>
@@ -64,24 +63,40 @@ class Homepage extends React.Component {
           <link itemProp="url" href="https://www.twreporter.org/" />
         </div>
         <div>
-          <meta itemProp="name" content="台灣" />
-          <link itemProp="url" href="https://www.twreporter.org/category/taiwan" />
+          <meta itemProp="name" content="人權．社會" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/human_rights_and_society" />
         </div>
         <div>
-          <meta itemProp="name" content="文化" />
-          <link itemProp="url" href="https://www.twreporter.org/category/culture" />
+          <meta itemProp="name" content="環境．教育" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/environment_and_education" />
         </div>
         <div>
-          <meta itemProp="name" content="國際" />
-          <link itemProp="url" href="https://www.twreporter.org/category/intl" />
+          <meta itemProp="name" content="政治．經濟" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/politics_and_economy" />
+        </div>
+        <div>
+          <meta itemProp="name" content="生活．醫療" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/living_and_medical_care" />
+        </div>
+        <div>
+          <meta itemProp="name" content="文化．藝術" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/culture_and_art" />
+        </div>
+        <div>
+          <meta itemProp="name" content="國際．兩岸" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/international" />
+        </div>
+        <div>
+          <meta itemProp="name" content="觀點" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/reviews" />
+        </div>
+        <div>
+          <meta itemProp="name" content="多媒體" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/infographic" />
         </div>
         <div>
           <meta itemProp="name" content="影像" />
           <link itemProp="url" href="https://www.twreporter.org/photography" />
-        </div>
-        <div>
-          <meta itemProp="name" content="評論" />
-          <link itemProp="url" href="https://www.twreporter.org/category/review" />
         </div>
       </div>
     )
@@ -99,8 +114,6 @@ class Homepage extends React.Component {
         }
       }
     `
-
-    // TODO Need to change categories
     const breadcrumbListJSONLD = `
     {
         "@context": "http://schema.org",
@@ -116,29 +129,57 @@ class Homepage extends React.Component {
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/taiwan",
-            "name": "台灣"
+            "@id": "https://www.twreporter.org/categories/human_rights_and_society",
+            "name": "人權．社會"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/intl",
-            "name": "國際"
+            "@id": "https://www.twreporter.org/categories/environment_and_education",
+            "name": "環境．教育"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/culture",
-            "name": "文化"
+            "@id": "https://www.twreporter.org/categories/politics_and_economy",
+            "name": "政治．經濟"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/review",
+            "@id": "https://www.twreporter.org/categories/living_and_medical_care",
+            "name": "生活．醫療"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/culture_and_art",
+            "name": "文化．藝術"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/international",
+            "name": "國際．兩岸"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/reviews",
             "name": "評論"
+          }
+        }, {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/infographic",
+            "name": "多媒體"
           }
         }, {
           "@type": "ListItem",
