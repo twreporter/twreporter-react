@@ -96,6 +96,8 @@
     "redux-mock-store": "^1.0.2",
     "redux-thunk": "^0.1.0",
     "smoothscroll": "^0.3.0",
+    "twreporter-react-footer-components": "^1.0.1",
+    "twreporter-react-header-components": "^1.0.2",
     "twreporter-react-index-page-components": "^1.0.15",
     "twreporter-redux": "2.0.1",
     "video.js": "5.12.1"

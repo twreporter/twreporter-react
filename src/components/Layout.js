@@ -2,9 +2,10 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-import NavBar from './navigation/NavBar'
 import styles from './Layout.scss'
 import { DARK } from '../constants/index'
+import Header from 'twreporter-react-header-components'
+import Footer from 'twreporter-react-footer-components'
 
 // lodash
 import get from 'lodash/get'
@@ -20,14 +21,13 @@ class Layout extends Component {
   }
 
   render() {
-    let pageTheme = _.get(this.props, 'header.pageTheme')
+    const pageTheme = _.get(this.props, 'header.pageTheme')
 
     return (
       <div className={classNames(styles.theme, { [styles.photography]: pageTheme === DARK })}>
-        <NavBar
-          {...this.props}
-        />
+        <Header isIndex={false} pageTheme={pageTheme} pathName={this.props.pathname}/>
         {this.props.children}
+        <Footer pageTheme={pageTheme} />
       </div>
     )
   }
