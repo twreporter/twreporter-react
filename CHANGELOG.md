@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 2.0.6
+- Remove scrollmagic when bundling by webpack
+
 ### 2.0.5
 - Delete package we do not need anymore
 - Delete files we do not need anymore
