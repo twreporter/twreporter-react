@@ -16,8 +16,8 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
-const { moduleIdObj } = IndexPageComposite.utility
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection, ScrollFadein } = IndexPageComposite.components
+const { moduleIdObj, moduleLabelObj, moduleBackgounds } = IndexPageComposite.utility
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -211,43 +211,60 @@ class Homepage extends React.Component {
             { property: 'og:url', content: SITE_META.URL }
           ]}
         />
-        <SideBar>
+        <SideBar
+          moduleLabelObj={moduleLabelObj}
+        >
           <FirstModuleWrapper
             moduleId={moduleIdObj.editorPick}
           >
             <LatestSection data={this.props[fieldNames.sections.latestSection]} />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
-          <LatestTopicSection
-            data={this.props[fieldNames.sections.latestTopicSection]}
-            moduleId={moduleIdObj.latestTopic}
-          />
-          <ReviewsSection
-            data={this.props[fieldNames.sections.reviewsSection]}
-            moduleId={moduleIdObj.review}
-            moreURI={`categories/${categoryURI.reviews}`}
-          />
-          <CategorySection
-            data={this.props.categories}
-            moduleId={moduleIdObj.category}
-          />
-          <TopicsSection
+          <ScrollFadein moduleId={moduleIdObj.latestTopic}>
+            <LatestTopicSection
+              data={this.props[fieldNames.sections.latestTopicSection]}
+            />
+          </ScrollFadein>
+          <ScrollFadein moduleId={moduleIdObj.review}>
+            <ReviewsSection
+              data={this.props[fieldNames.sections.reviewsSection]}
+              moreURI={`categories/${categoryURI.reviews}`}
+            />
+          </ScrollFadein>
+          <ScrollFadein moduleId={moduleIdObj.category}>
+            <CategorySection
+              data={this.props.categories}
+            />
+          </ScrollFadein>
+          <ScrollFadein
             moduleId={moduleIdObj.topic}
-            items={this.props[fieldNames.sections.topicsSection]}
-          />
-          <PhotographySection
+            backgroundColor={moduleBackgounds.topic}
+          >
+            <TopicsSection
+              items={this.props[fieldNames.sections.topicsSection]}
+            />
+          </ScrollFadein>
+          <ScrollFadein
+            backgroundColor={moduleBackgounds.photography}
             moduleId={moduleIdObj.photography}
-            items={this.props[fieldNames.sections.photosSection]}
-            moreURI="photography"
-          />
-          <InforgraphicSection
+          >
+            <PhotographySection
+              items={this.props[fieldNames.sections.photosSection]}
+              moreURI="photography"
+            />
+          </ScrollFadein>
+          <ScrollFadein
             moduleId={moduleIdObj.infographic}
-            items={this.props[fieldNames.sections.infographicsSection]}
-            moreURI={`categories/${categoryURI.infographic}`}
-          />
-          <ReporterIntro
-            moduleId={moduleIdObj.donation}
-          />
+            backgroundColor={moduleBackgounds.infographic}
+          >
+            <InforgraphicSection
+              items={this.props[fieldNames.sections.infographicsSection]}
+              moreURI={`categories/${categoryURI.infographic}`}
+            />
+          </ScrollFadein>
+          <ScrollFadein moduleId={moduleIdObj.donation}>
+            <ReporterIntro />
+          </ScrollFadein>
         </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
