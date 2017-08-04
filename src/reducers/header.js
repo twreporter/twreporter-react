@@ -1,8 +1,20 @@
 'use strict'
 import * as types from '../constants/action-types'
 
-function header(state = {}, action) {
+const initState = {
+  articleTools: {
+    isDesktopToolsDisplayed: false,
+    isMobileToolsDisplayed: false
+  }
+}
+
+function header(state = initState, action) {
   switch (action.type) {
+    case types.SET_ARTICLE_TOOLS:
+      return {
+        ...state,
+        articleTools: Object.assign({}, state.articleTools, action.toolsConfig)
+      }
     case types.SET_HEADER_INFO:
       return {
         ...state,

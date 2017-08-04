@@ -5,7 +5,12 @@ import { expect } from 'chai'
 import reducer from '../header'
 import * as types from '../../constants/action-types'
 
-const initialState = {}
+const initialState = {
+  articleTools: {
+    isDesktopToolsDisplayed: false,
+    isMobileToolsDisplayed: false
+  }
+}
 
 const mockPreviousState = {
   mockPropertyA: 'mock property A',

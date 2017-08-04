@@ -89,6 +89,7 @@
     "react-router-redux": "^4.0.5",
     "react-social": "^1.4.2",
     "react-swipeable": "^3.5.1",
+    "react-transition-group": "1.x",
     "react-visibility-sensor": "^3.5.0",
     "react-youtube": "^7.0.1",
     "redux": "^3.5.2",
