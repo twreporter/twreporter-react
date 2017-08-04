@@ -32,16 +32,29 @@
                 font-size: 42px;
             }
         }
-        .topic-name {
-          color: $primary-color;
-          font-size: $font-size-medium;
-          margin-right: 6px;
 
-          > img {
-            margin-top: -3px;
-            margin-left: 3px;
-          }
+        .topic-block {
+
+            &, &:link, &:hover, &:visited, &:active {
+                text-decoration: none;
+                color: $primary-color;
+                font-size: $font-size-medium;
+                border: 0;
+                font-weight: $font-weight-bold;
+                transition: all 0s ease 0s;
+            }
+            &:after {
+                content: normal;
+            }
+            .topic-name {
+                margin-right: 6px;
+                > img {
+                    margin-top: -3px;
+                    margin-left: 3px;
+                }
+            }
         }
+
 
         .subtitle {
           color: $gray-50;

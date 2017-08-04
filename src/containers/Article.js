@@ -24,7 +24,7 @@ import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from 'twreporter-redux'
 
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -404,7 +404,7 @@ class Article extends Component {
     const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
     const topicSlug = _.get(topic, 'slug')
-    const topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    const topicBlock = topicName ? <Link className={styles['topic-block']} to={`${LINK_PREFIX.TOPICS}${topicSlug}`}><span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span></Link> : null
     const topicArr = _.get(topic, 'relateds')
 
     const subtitle = _.get(article, 'subtitle', '')
@@ -524,7 +524,7 @@ class Article extends Component {
                 />
               </div>
               { topicTitle ?
-                <Link to={`/topics/${_.get(topic,'slug')}`}>
+                <Link to={`${LINK_PREFIX.TOPICS}${topicSlug}`}>
                   <div className={cx(styles['promotion'], 'center-block')}>
                     <PromotionBanner
                       bgImgSrc={_.get(topic, 'leadingImage.resizedTargets.tablet.url')}
