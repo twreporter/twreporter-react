@@ -1,7 +1,9 @@
 ### Unreleased
 
-### 2.0.11
+### 2.1.0
+- [Feature] Add tool bar in Article page
 
+### 2.0.11
 - Update dependencies
 - Remove old Footer
 
