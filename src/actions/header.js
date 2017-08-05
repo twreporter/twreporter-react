@@ -1,6 +1,13 @@
 'use strict'
 import * as types from '../constants/action-types'
 
+export function setArticleTools(toolsConfig) {
+  return {
+    type: types.SET_ARTICLE_TOOLS,
+    toolsConfig
+  }
+}
+
 export function setReadProgress(percent) {
   if(!percent || percent < 0) {
     percent = 0

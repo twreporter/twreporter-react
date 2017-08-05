@@ -1,5 +1,7 @@
 /* eslint no-console:0 */
 'use strict'
+import MobileArticleTools from '../components/article/tools/MobileArticleTools'
+import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
 import FontChangeButton from '../components/FontChangeButton'
 import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
@@ -22,13 +24,13 @@ import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from 'twreporter-redux'
 
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId } from '../constants/index'
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../utils/index'
 import { getAbsPath } from '../utils/index'
-import { setHeaderInfo, setReadProgress } from '../actions/header'
+import { setHeaderInfo, setReadProgress, setArticleTools } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 
 // lodash
@@ -39,8 +41,10 @@ import map from 'lodash/map'
 import merge from 'lodash/merge'
 import set from 'lodash/set'
 import sortBy from 'lodash/sortBy'
+import throttle from 'lodash/throttle'
 
 const _ = {
+  throttle,
   forEach,
   get,
   has,
@@ -53,11 +57,18 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
+/* Issue need to be solved: _setArticleBounding doesn't get right endY if there are lazyload imgs or embedded items */
 let articlePostition = {
   beginY: 120,
   endY: 200,
   percent: 0
 }
+
+let scrollPosition = {
+  y: 0
+}
+
+let viewportHeight = 0
 
 const ArticlePlaceholder = () => {
   return (
@@ -117,8 +128,9 @@ class Article extends Component {
     super(props, context)
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
-    this._onScroll = this._onScroll.bind(this)
+    this._onScroll = _.throttle(this._onScroll, 200).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    this._onResize = this._onResize.bind(this)
 
     // for requestAnimationFrame
     this._ticking = false
@@ -148,8 +160,9 @@ class Article extends Component {
   }
 
   componentDidMount() {
+    viewportHeight = window.innerHeight
     this._setArticleBounding()
-    window.addEventListener('resize', this._setArticleBounding)
+    window.addEventListener('resize', this._onResize)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
     let storedfontSize = localStorage.getItem('fontSize')
@@ -174,8 +187,9 @@ class Article extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._setArticleBounding)
+    window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
+    scrollPosition.y = 0
     this._ticking = false
     this.clearRAF()
     this._sendPageLevelAction()
@@ -246,6 +260,11 @@ class Article extends Component {
     return top
   }
 
+  _onResize() {
+    this._setArticleBounding()
+    viewportHeight = window.innerHeight
+  }
+
   _setArticleBounding() {
     const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
     const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
@@ -254,9 +273,13 @@ class Article extends Component {
   }
 
   _handleScroll() {
+    const currentTopY = window.scrollY
+    const currentBottomY = currentTopY + viewportHeight
     const { beginY, endY, percent } = articlePostition
-    let scrollRatio = Math.abs((window.scrollY-beginY) / (endY-beginY))
-    if(window.scrollY < beginY) {
+
+    /* Calculate reading progress */
+    let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
+    if(currentTopY < beginY) {
       scrollRatio = 0
     } else if (scrollRatio > 1) {
       scrollRatio = 1
@@ -268,6 +291,48 @@ class Article extends Component {
       this.props.setReadProgress(curPercent)
     }
 
+    /* Handle Article Tools */
+    const { articleTools, setArticleTools } = this.props
+    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+
+    const isInTopRegion = currentTopY < beginY + 600
+    const isInBottomRegion = currentBottomY > endY + 150
+  
+    if (isInTopRegion || isInBottomRegion) {
+      if (isMobileToolsDisplayed || isDesktopToolsDisplayed) {
+        setArticleTools({
+          isMobileToolsDisplayed: false,
+          isDesktopToolsDisplayed: false
+        })
+      }
+    } else {
+      if (!isDesktopToolsDisplayed) {
+        setArticleTools({
+          isDesktopToolsDisplayed: true
+        })
+      }
+    }
+    // Calculate scrolling distance to determine whether tools are displayed
+    const lastY = scrollPosition.y
+    const distance = currentTopY - lastY
+    if (distance > 30) {
+      scrollPosition.y = currentTopY
+      if (isMobileToolsDisplayed) {
+        setArticleTools({
+          isMobileToolsDisplayed: false
+        })
+      }
+    } else {
+      if (Math.abs(distance) > 180) {
+        scrollPosition.y = currentTopY
+        if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+          setArticleTools({
+            isMobileToolsDisplayed: true
+          })
+        }
+      }
+    }
+    
     // reset the tick so we can
     // capture the next onScroll
     this._ticking = false
@@ -290,7 +355,8 @@ class Article extends Component {
   }
 
   render() {
-    const { entities, params, selectedPost } = this.props
+    const { entities, params, selectedPost, articleTools } = this.props
+    
     const error = _.get(selectedPost, 'error')
 
     if (error) {
@@ -312,13 +378,16 @@ class Article extends Component {
       )
     }
 
+    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+
     const postEntities = _.get(entities, reduxStateFields.postsInEntities)
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
+    // const topicSlugOfSelectedPost = _.get(postEntities, [ selectedPost.slug, 'topics' ], '')
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
-    const topic = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topic', []), topicEntities, postEntities))
-
+    const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
+    const topic = topics[0]
     const authors = this._composeAuthors(article)
     const bodyData = _.get(article, [ 'content', 'apiData' ], [])
     const leadingVideo = _.get(article, 'leadingVideo', null)
@@ -331,10 +400,11 @@ class Article extends Component {
     const contentClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
-
+    
     const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
-    const topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
+    const topicSlug = _.get(topic, 'slug')
+    const topicBlock = topicName ? <Link className={styles['topic-block']} to={`${LINK_PREFIX.TOPICS}${topicSlug}`}><span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span></Link> : null
     const topicArr = _.get(topic, 'relateds')
 
     const subtitle = _.get(article, 'subtitle', '')
@@ -454,7 +524,7 @@ class Article extends Component {
                 />
               </div>
               { topicTitle ?
-                <Link to={`/topics/${_.get(topic,'slug')}`}>
+                <Link to={`${LINK_PREFIX.TOPICS}${topicSlug}`}>
                   <div className={cx(styles['promotion'], 'center-block')}>
                     <PromotionBanner
                       bgImgSrc={_.get(topic, 'leadingImage.resizedTargets.tablet.url')}
@@ -486,15 +556,20 @@ class Article extends Component {
           <div className="hidden-print">
           </div>
         </div>
+        <MobileArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isMobileToolsDisplayed={isMobileToolsDisplayed}/>
+        <DesktopArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isDesktopToolsDisplayed={isDesktopToolsDisplayed} />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
+  const entities = state[reduxStateFields.entities]
+  const selectedPost = state[reduxStateFields.selectedPost]
   return {
-    entities: state[reduxStateFields.entities],
-    selectedPost: state[reduxStateFields.selectedPost]
+    entities,
+    selectedPost,
+    articleTools: state.header.articleTools
   }
 }
 
@@ -510,7 +585,11 @@ Article.contextTypes = {
 Article.propTypes = {
   entities: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  articleTools: React.PropTypes.shape({
+    isDesktopToolsDisplayed: React.PropTypes.bool,
+    isMobileToolsDisplayed: React.PropTypes.bool
+  })
 }
 
 Article.defaultProps = {
@@ -520,4 +599,4 @@ Article.defaultProps = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo, setReadProgress })(Article)
+export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo, setReadProgress, setArticleTools })(Article)

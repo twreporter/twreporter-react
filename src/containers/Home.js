@@ -9,6 +9,7 @@ import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { getImageSrcSet } from '../utils/image-processor.js'
+import Footer from 'twreporter-react-footer-components'
 
 // lodash
 import get from 'lodash/get'
@@ -251,6 +252,7 @@ class Homepage extends React.Component {
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
+        <Footer />
       </Container>
     )
   }
