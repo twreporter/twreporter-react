@@ -98,8 +98,8 @@
     "redux-thunk": "^0.1.0",
     "smoothscroll": "^0.3.0",
     "twreporter-react-footer-components": "^1.0.3",
-    "twreporter-react-header-components": "^1.0.5",
-    "twreporter-react-index-page-components": "^1.0.22",
+    "twreporter-react-header-components": "^1.0.7",
+    "twreporter-react-index-page-components": "^1.0.23",
     "twreporter-redux": "2.0.1",
     "video.js": "5.12.1"
   },

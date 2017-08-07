@@ -192,13 +192,13 @@ class Article extends Component {
     scrollPosition.y = 0
     this._ticking = false
     this.clearRAF()
-    this._sendPageLevelAction()
   }
 
   componentWillReceiveProps(nextProps) {
     const { params } = nextProps
     const slug = _.get(params, 'slug')
-    if (slug !== _.get(this.props, 'selectedPost.slug')) {
+    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching') 
+    if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
     }
   }
@@ -371,20 +371,28 @@ class Article extends Component {
       return null
     }
 
-    const isFetching = _.get(selectedPost, 'isFetching')
-    if (isFetching) {
-      return (
-        <div className={outerClass}><ArticlePlaceholder /></div>
-      )
-    }
-
     const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
 
     const postEntities = _.get(entities, reduxStateFields.postsInEntities)
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
-    // const topicSlugOfSelectedPost = _.get(postEntities, [ selectedPost.slug, 'topics' ], '')
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
+    const articleStyle = article.style
+    const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
+                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
+    const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
+                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
+    const isFetching = _.get(selectedPost, 'isFetching')
+    if (isFetching) {
+      return (
+        <div className={outerClass}>
+          <div className={contentClass}>
+            <ArticlePlaceholder />
+          </div>
+        </div>
+      )
+    }
+
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
@@ -395,11 +403,6 @@ class Article extends Component {
     const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-    const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
-    const contentClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
-
     
     const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
