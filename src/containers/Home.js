@@ -16,8 +16,7 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
-const { moduleIdObj } = IndexPageComposite.utility
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection, ScrollFadein } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -26,6 +25,40 @@ const _ = {
   get,
   keys,
   set
+}
+
+const moduleIdMap = {
+  editorPick: 'editorPick',
+  latestTopic: 'latestTopic',
+  review: 'review',
+  category: 'category',
+  topic: 'topic',
+  photography: 'photography',
+  infographic: 'infographic',
+  donation: 'donation'
+}
+
+const moduleLabelMap = {
+  editorPick: '編輯精選',
+  latestTopic: '最新專題',
+  review: '觀點',
+  category: '分類',
+  topic: '專題',
+  photography: '攝影',
+  infographic: '多媒體',
+  donation: '關於我們'
+}
+
+const moduleBackgounds = {
+  latest: '#f2f2f2',
+  editorPick: 'white',
+  latestTopic: '#f2f2f2',
+  review: 'white',
+  category: '#e2e2e2',
+  topic: '#f2f2f2',
+  photography: '#08192d',
+  infographic: '#f2f2f2',
+  donation: 'white'
 }
 
 const Container = styled.div`
@@ -37,6 +70,10 @@ const Container = styled.div`
 
 const FirstModuleWrapper = styled.div`
   hegight: auto;
+`
+
+const Background = styled.div`
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : '')};
 `
 
 class Homepage extends React.Component {
@@ -213,41 +250,80 @@ class Homepage extends React.Component {
         />
         <SideBar>
           <FirstModuleWrapper
-            moduleId={moduleIdObj.editorPick}
+            moduleId={moduleIdMap.editorPick}
+            moduleLabel={moduleLabelMap.editorPick}
           >
             <LatestSection data={this.props[fieldNames.sections.latestSection]} />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
-          <LatestTopicSection
-            data={this.props[fieldNames.sections.latestTopicSection]}
-            moduleId={moduleIdObj.latestTopic}
-          />
-          <ReviewsSection
-            data={this.props[fieldNames.sections.reviewsSection]}
-            moduleId={moduleIdObj.review}
-            moreURI={`categories/${categoryURI.reviews}`}
-          />
-          <CategorySection
-            data={this.props.categories}
-            moduleId={moduleIdObj.category}
-          />
-          <TopicsSection
-            moduleId={moduleIdObj.topic}
-            items={this.props[fieldNames.sections.topicsSection]}
-          />
-          <PhotographySection
-            moduleId={moduleIdObj.photography}
-            items={this.props[fieldNames.sections.photosSection]}
-            moreURI="photography"
-          />
-          <InforgraphicSection
-            moduleId={moduleIdObj.infographic}
-            items={this.props[fieldNames.sections.infographicsSection]}
-            moreURI={`categories/${categoryURI.infographic}`}
-          />
-          <ReporterIntro
-            moduleId={moduleIdObj.donation}
-          />
+          <ScrollFadein
+            moduleId={moduleIdMap.latestTopic}
+            moduleLabel={moduleLabelMap.latestTopic}
+          >
+            <LatestTopicSection
+              data={this.props[fieldNames.sections.latestTopicSection]}
+            />
+          </ScrollFadein>
+          <ScrollFadein
+            moduleId={moduleIdMap.review}
+            moduleLabel={moduleLabelMap.review}
+          >
+            <ReviewsSection
+              data={this.props[fieldNames.sections.reviewsSection]}
+              moreURI={`categories/${categoryURI.reviews}`}
+            />
+          </ScrollFadein>
+          <ScrollFadein
+            moduleId={moduleIdMap.category}
+            moduleLabel={moduleLabelMap.category}
+          >
+            <CategorySection
+              data={this.props.categories}
+            />
+          </ScrollFadein>
+          <Background
+            backgroundColor={moduleBackgounds.topic}
+            moduleId={moduleIdMap.topic}
+            moduleLabel={moduleLabelMap.topic}
+          >
+            <ScrollFadein
+              backgroundColor={moduleBackgounds.topic}
+            >
+              <TopicsSection
+                items={this.props[fieldNames.sections.topicsSection]}
+              />
+            </ScrollFadein>
+          </Background>
+          <Background
+            backgroundColor={moduleBackgounds.photography}
+            moduleId={moduleIdMap.photography}
+            moduleLabel={moduleLabelMap.photography}
+          >
+            <ScrollFadein>
+              <PhotographySection
+                items={this.props[fieldNames.sections.photosSection]}
+                moreURI="photography"
+              />
+            </ScrollFadein>
+          </Background>
+          <Background
+            backgroundColor={moduleBackgounds.infographic}
+            moduleId={moduleIdMap.infographic}
+            moduleLabel={moduleLabelMap.infographic}
+          >
+            <ScrollFadein>
+              <InforgraphicSection
+                items={this.props[fieldNames.sections.infographicsSection]}
+                moreURI={`categories/${categoryURI.infographic}`}
+              />
+            </ScrollFadein>
+          </Background>
+          <ScrollFadein
+            moduleId={moduleIdMap.donation}
+            moduleLabel={moduleLabelMap.donation}
+          >
+            <ReporterIntro />
+          </ScrollFadein>
         </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
