@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.1.1
+- Modification for refactored scroll fadein at Home.js
+- Add non-animated background div at Home.js
+- Upgrade twreporter-react-index-page-components to 1.0.22
+
 ### 2.1.0
 - [Feature] Add tool bar in Article page
 
@@ -14,7 +19,7 @@
 - Update yarn.lock
 
 ### 2.0.8
-- Upgrade twreporter-react-index-page-components to 1.0.19 
+- Upgrade twreporter-react-index-page-components to 1.0.19
 
 ### 2.0.7
 - Use Footer and Header from twreporter-react-components
@@ -27,7 +32,7 @@
 - Delete files we do not need anymore
 
 ### 2.0.4
-- Update categories, including category list ids, category chinese name and category uri. 
+- Update categories, including category list ids, category chinese name and category uri.
 
 ### 2.0.3
 - Fix duplicate react key issue in categories section of index page.
