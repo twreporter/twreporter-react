@@ -192,7 +192,6 @@ class Article extends Component {
     scrollPosition.y = 0
     this._ticking = false
     this.clearRAF()
-    this._sendPageLevelAction()
   }
 
   componentWillReceiveProps(nextProps) {
