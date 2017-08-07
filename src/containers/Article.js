@@ -197,7 +197,8 @@ class Article extends Component {
   componentWillReceiveProps(nextProps) {
     const { params } = nextProps
     const slug = _.get(params, 'slug')
-    if (slug !== _.get(this.props, 'selectedPost.slug')) {
+    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching') 
+    if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
     }
   }
