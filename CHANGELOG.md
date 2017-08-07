@@ -4,6 +4,10 @@
 - Modification for refactored scroll fadein at Home.js
 - Add non-animated background div at Home.js
 - Upgrade twreporter-react-index-page-components to 1.0.22
+- Remove _sendPageLevelAction when Article unmount
+- Prevent fetch full post if is already fetching
+- Fix ArticlePlaceholder
+- Update twreporter-react-header-components to 1.0.7
 
 ### 2.1.0
 - [Feature] Add tool bar in Article page
