@@ -22,6 +22,9 @@
     }
     .title-row {
         margin-bottom: rem(24px);
+        h3 {
+            margin-top: 0;
+        }
         h1 {
             font-weight: $font-weight-bold;
             line-height: 1.4;
