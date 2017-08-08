@@ -17,7 +17,6 @@ import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import lineIcon from '../../static/asset/line.svg'
 import logoIcon from '../../static/asset/icon-placeholder.svg'
-import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
@@ -127,9 +126,9 @@ class Article extends Component {
     super(props, context)
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
-    this._onScroll = _.throttle(this._onScroll, 200).bind(this)
+    this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this._onResize = this._onResize.bind(this)
+    this._onResize =  _.throttle(this._onResize, 500).bind(this)
 
     // for requestAnimationFrame
     this._ticking = false
@@ -189,8 +188,6 @@ class Article extends Component {
     window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
     scrollPosition.y = 0
-    this._ticking = false
-    this.clearRAF()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -202,19 +199,8 @@ class Article extends Component {
     }
   }
 
-  _requestTick() {
-    if (!this._ticking) {
-      this._raf = raf(this._handleScroll)
-      this._ticking = true
-    }
-  }
-
   _onScroll() {
-    this._requestTick()
-  }
-
-  clearRAF() {
-    raf.cancel(this._raf)
+    this._handleScroll()
   }
 
   _sendPageLevelAction() {
@@ -329,10 +315,6 @@ class Article extends Component {
         }
       }
     }
-
-    // reset the tick so we can
-    // capture the next onScroll
-    this._ticking = false
   }
 
   _composeAuthors(article) {
