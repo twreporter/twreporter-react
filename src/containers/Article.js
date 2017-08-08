@@ -26,8 +26,7 @@ import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRA
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { getAbsPath } from '../utils/index'
+import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
 import { setHeaderInfo, setReadProgress, setArticleTools } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 
@@ -55,18 +54,20 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
-/* Issue need to be solved: _setArticleBounding doesn't get right endY if there are lazyload imgs or embedded items */
 let articlePostition = {
   beginY: 120,
   endY: 200,
   percent: 0
 }
 
-let scrollPosition = {
+const scrollPosition = {
   y: 0
 }
 
-let viewportHeight = 0
+const viewport = {
+  height: 0,
+  screenType: 'DESKTOP'
+}
 
 const ArticlePlaceholder = () => {
   return (
@@ -130,8 +131,6 @@ class Article extends Component {
     this._handleScroll = this._handleScroll.bind(this)
     this._onResize =  _.throttle(this._onResize, 500).bind(this)
 
-    // for requestAnimationFrame
-    this._ticking = false
     this.state = {
       fontSize:'medium',
       isFontSizeSet:false
@@ -158,7 +157,8 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    viewportHeight = window.innerHeight
+    viewport.height = window.innerHeight
+    viewport.screenType = getScreenType(window.innerWidth)
     this._setArticleBounding()
     window.addEventListener('resize', this._onResize)
     // detect sroll position
@@ -247,7 +247,8 @@ class Article extends Component {
 
   _onResize() {
     this._setArticleBounding()
-    viewportHeight = window.innerHeight
+    viewport.height = window.innerHeight
+    viewport.screenType = getScreenType(window.innerWidth)
   }
 
   _setArticleBounding() {
@@ -257,7 +258,7 @@ class Article extends Component {
 
   _handleScroll() {
     const currentTopY = window.scrollY
-    const currentBottomY = currentTopY + viewportHeight
+    const currentBottomY = currentTopY + viewport.height
     const { beginY, endY, percent } = articlePostition
 
     /* Calculate reading progress */
@@ -277,6 +278,7 @@ class Article extends Component {
     /* Handle Article Tools */
     const { articleTools, setArticleTools } = this.props
     const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+    const screenType = viewport.screenType
 
     const isInTopRegion = currentTopY < beginY + 600
     const isInBottomRegion = currentBottomY > endY + 150
@@ -289,29 +291,31 @@ class Article extends Component {
         })
       }
     } else {
-      if (!isDesktopToolsDisplayed) {
+      if (screenType === 'DESKTOP' && !isDesktopToolsDisplayed) {
         setArticleTools({
           isDesktopToolsDisplayed: true
         })
       }
     }
     // Calculate scrolling distance to determine whether tools are displayed
-    const lastY = scrollPosition.y
-    const distance = currentTopY - lastY
-    if (distance > 30) {
-      scrollPosition.y = currentTopY
-      if (isMobileToolsDisplayed) {
-        setArticleTools({
-          isMobileToolsDisplayed: false
-        })
-      }
-    } else {
-      if (Math.abs(distance) > 180) {
+    if (screenType !== 'DESKTOP') {
+      const lastY = scrollPosition.y
+      const distance = currentTopY - lastY
+      if (distance > 30) {
         scrollPosition.y = currentTopY
-        if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+        if (isMobileToolsDisplayed) {
           setArticleTools({
-            isMobileToolsDisplayed: true
+            isMobileToolsDisplayed: false
           })
+        }
+      } else {
+        if (Math.abs(distance) > 180) {
+          scrollPosition.y = currentTopY
+          if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+            setArticleTools({
+              isMobileToolsDisplayed: true
+            })
+          }
         }
       }
     }
