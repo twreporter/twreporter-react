@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.3
+- Bug fix. Fix og:image missing
+
 ### 2.1.2
 - Upgrade twreporter-redux to 2.1.0
 
