@@ -1,6 +1,5 @@
 'use strict'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import classNames from 'classnames'
 import styles from './Layout.scss'
 import { DARK } from '../constants/index'
@@ -14,12 +13,7 @@ const _ = {
   get
 }
 
-class Layout extends Component {
-  constructor(props) {
-    super(props)
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-  }
-
+class Layout extends PureComponent {
   render() {
     const pageTheme = _.get(this.props, 'header.pageTheme')
 
