@@ -76,7 +76,6 @@
     "rc-slider": "^3.7.2",
     "react": "15.4.1",
     "react-addons-css-transition-group": "15.3.2",
-    "react-addons-pure-render-mixin": "15.3.2",
     "react-dom": "15.4.1",
     "react-flex-carousel": "^0.1.7",
     "react-ga": "^2.1.2",

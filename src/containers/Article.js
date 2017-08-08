@@ -7,8 +7,7 @@ import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
@@ -91,7 +90,7 @@ const ArticlePlaceholder = () => {
   )
 }
 
-class Article extends Component {
+class Article extends PureComponent {
 
   // for server side rendering,
   // we get not only the article itself but also get related articles and
@@ -135,7 +134,6 @@ class Article extends Component {
       fontSize:'medium',
       isFontSizeSet:false
     }
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   getChildContext() {
