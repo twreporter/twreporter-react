@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.1.2
+- Upgrade twreporter-redux to 2.1.0
 
 ### 2.1.1
 - Modification for refactored scroll fadein at Home.js
