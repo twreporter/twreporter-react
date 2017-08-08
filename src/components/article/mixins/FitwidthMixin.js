@@ -26,16 +26,16 @@ let FitwidthMixin = (superclass) => class extends superclass {
     }
   }
 
-  _renderByDevice(screenType, imageByDevice, imgStyle) {
+  _renderByDevice(screenType, imageByDevice, imgStyle, isLazyload=true) {
     switch(screenType) {
       case 'MOBILE':
-        return this._renderFigure(imageByDevice.mobile, imgStyle)
+        return this._renderFigure(imageByDevice.mobile, imgStyle, isLazyload)
       case 'TABLET':
-        return this._renderFigure(imageByDevice.tablet, imgStyle)
+        return this._renderFigure(imageByDevice.tablet, imgStyle, isLazyload)
       case 'DESKTOP':
-        return this._renderFigure(imageByDevice.desktop, imgStyle)
+        return this._renderFigure(imageByDevice.desktop, imgStyle, isLazyload)
       default:
-        return this._renderFigure(imageByDevice.mobile, imgStyle)
+        return this._renderFigure(imageByDevice.mobile, imgStyle, isLazyload)
     }
   }
 
