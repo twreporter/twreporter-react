@@ -9,7 +9,6 @@ import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
@@ -266,10 +265,8 @@ class Article extends Component {
   }
 
   _setArticleBounding() {
-    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
-    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
-    articlePostition.beginY = _.get(beginEl, 'offsetTop', articlePostition.beginY)
-    articlePostition.endY = _.get(endEl, 'offsetTop', articlePostition.endY)
+    articlePostition.beginY = _.get(this.progressBegin, 'offsetTop', articlePostition.beginY)
+    articlePostition.endY = _.get(this.progressEnding, 'offsetTop', articlePostition.endY)
   }
 
   _handleScroll() {
@@ -471,7 +468,7 @@ class Article extends Component {
                 <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
-              <div ref="progressBegin" className={cx(styles['article-meta'], commonStyles['inner-block'])}>
+              <div ref={div => {this.progressBegin = div}} className={cx(styles['article-meta'], commonStyles['inner-block'])}>
                 <ArticleComponents.HeadingAuthor
                   authors={authors}
                   extendByline={_.get(article, 'extendByline')}
@@ -519,7 +516,7 @@ class Article extends Component {
               />
             </article>
 
-            <div ref="progressEnding"
+            <div ref={div => {this.progressEnding = div}}
                 className={cx(commonStyles['components'], 'hidden-print')}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags

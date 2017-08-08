@@ -1,23 +1,21 @@
-import ReactDOM from 'react-dom'
-
 // lodash
 import get from 'lodash/get'
 
 let FitwidthMixin = (superclass) => class extends superclass {
   componentDidMount() {
     // set state for the width of the images and listen to window resize event
-    if (ReactDOM.findDOMNode(this)) {
+    if (this.node) {
       this.fitToParentWidth()
       window.addEventListener('resize', this.fitToParentWidth)
     }
   }
 
   componentWillUnmount() {
-    ReactDOM.findDOMNode(this) && window.removeEventListener('resize', this.fitToParentWidth)
+    this.node && window.removeEventListener('resize', this.fitToParentWidth)
   }
 
   fitToParentWidth() {
-    const elem = ReactDOM.findDOMNode(this).parentNode
+    const elem = this.node.parentNode
     const width = elem.clientWidth
     if (width !== this.state.width) {
       this.setState({

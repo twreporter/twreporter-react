@@ -7,7 +7,6 @@ import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import LazyLoad, { forceCheck } from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
@@ -44,7 +43,7 @@ class Image extends FitwidthMixin(Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (ReactDOM.findDOMNode(this)) {
+    if (this.node) {
       this.fitToParentWidth()
     }
   }
@@ -169,7 +168,7 @@ class Image extends FitwidthMixin(Component) {
     }
 
     return (
-      <div ref="imageBox" className={cx(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
+      <div ref={div => {this.node = div}} className={cx(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
         <div className="hidden-print" style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}
