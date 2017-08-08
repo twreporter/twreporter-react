@@ -197,7 +197,7 @@ class Article extends Component {
   componentWillReceiveProps(nextProps) {
     const { params } = nextProps
     const slug = _.get(params, 'slug')
-    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching') 
+    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
     if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
     }
@@ -297,7 +297,7 @@ class Article extends Component {
 
     const isInTopRegion = currentTopY < beginY + 600
     const isInBottomRegion = currentBottomY > endY + 150
-  
+
     if (isInTopRegion || isInBottomRegion) {
       if (isMobileToolsDisplayed || isDesktopToolsDisplayed) {
         setArticleTools({
@@ -332,7 +332,7 @@ class Article extends Component {
         }
       }
     }
-    
+
     // reset the tick so we can
     // capture the next onScroll
     this._ticking = false
@@ -356,7 +356,7 @@ class Article extends Component {
 
   render() {
     const { entities, params, selectedPost, articleTools } = this.props
-    
+
     const error = _.get(selectedPost, 'error')
 
     if (error) {
@@ -403,7 +403,7 @@ class Article extends Component {
     const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-    
+
     const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
     const topicSlug = _.get(topic, 'slug')
@@ -419,7 +419,7 @@ class Article extends Component {
     const canonical = SITE_META.URL + 'a/' + slug
     const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
-    const articleImg = _.get(article, 'ogImage.image.resizedTargets.desktop.url', SITE_META.LOGO)
+    const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
 
     return (
       <div>
