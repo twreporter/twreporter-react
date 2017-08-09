@@ -1,4 +1,4 @@
-import { IndexRoute, Route, Router, browserHistory } from 'react-router'
+import { Route, Router, browserHistory } from 'react-router'
 
 import App from '../containers/App'
 import Article from '../containers/Article'
@@ -33,9 +33,10 @@ export default function (history = browserHistory) {
   return (
     <Router history={history} onUpdate={scrollAndFireTracking} >
       <Route path="/topics/:slug" component={TopicLandingPage} />
+      <Route path="/" component={Home} />
       <Route path="/" component={App}>
-        <IndexRoute component={Home} />
         <Route path="category/:category" component={Category} />
+        <Route path="categories/:category" component={Category} />
         <Route path="topic/:topicId" component={Topic} />
         <Route path="tag/:tagId" component={Tag} />
         <Route path="photography" component={Photography} />

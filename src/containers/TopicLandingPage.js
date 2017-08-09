@@ -1,24 +1,27 @@
 'use strict'
 
 import React, { Component, PropTypes } from 'react'
-import { SITE_META, SITE_NAME } from '../constants/index'
-
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
-import Footer from '../components/Footer'
-// import VisibilitySensor from 'react-visibility-sensor';
+import Footer from 'twreporter-react-footer-components'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import SystemError from '../components/SystemError'
-import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
 import classNames from 'classnames'
-import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/index'
-import { fetchTopicIfNeeded } from '../actions/topic'
+import styles from './TopicLandingPage.scss'
+import twreporterRedux from 'twreporter-redux'
+
+// lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import styles from './TopicLandingPage.scss'
+
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+
+const { actions, reduxStateFields, utils } = twreporterRedux
 
 const logo = 'https://www.twreporter.org/asset/logo.png'
 
@@ -27,62 +30,54 @@ const _  = {
   get
 }
 
-const bannerFactory = new BannerFactory
-const cardsFactory = new CardsFactory
+const bannerFactory = new BannerFactory()
+const cardsFactory = new CardsFactory()
+
+const Description = (props) => {
+  const { topicDescription, teamDescription } = props
+  return (
+    <div className={styles['description']}>
+      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
+      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
+    </div>
+  )
+}
+
+Description.propTypes = {
+  topicDescription: PropTypes.string.isRequired,
+  teamDescription: PropTypes.string.isRequired
+}
 
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchTopicIfNeeded(params.slug))
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLeadingVideoScrolledOver: false
-    }
-    // this.checkIfScrollOverLeadingVideo = this._checkIfScrollOverLeadingVideo.bind(this)
+    const slug = params.slug
+    return store.dispatch(actions.fetchAFullTopic(slug))
+      .then(() => {
+        const state = store.getState()
+        const selectedTopic = _.get(state, reduxStateFields.selectedTopic, {})
+        if (_.get(selectedTopic, 'error')) {
+          return Promise.reject(_.get(selectedTopic, 'error'))
+        }
+      })
   }
 
   componentWillMount() {
-    const { fetchTopicIfNeeded, params } = this.props
-    let slug = _.get(params, 'slug')
-    fetchTopicIfNeeded(slug)
-  }
-
-  componentDidMount() {
-    this._isMounted = true
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false
+    const { fetchAFullTopic, params } = this.props
+    const slug = _.get(params, 'slug')
+    fetchAFullTopic(slug)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchTopicIfNeeded, params, selectedTopic } = nextProps
-    let slug = _.get(params, 'slug')
-    if (_.get(selectedTopic, 'slug') !== slug) {
-      fetchTopicIfNeeded(slug)
+    const { fetchAFullTopic, params } = nextProps
+    const { selectedTopic } = this.props
+
+    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
+      fetchAFullTopic(_.get(params, 'slug'))
     }
   }
 
-  /*
-  _checkIfScrollOverLeadingVideo(isVisible) {
-    if (!isVisible && this._isMounted) {
-      this.setState({
-        isLeadingVideoScrolledOver: true
-      });
-    } else {
-      this.setState({
-        isLeadingVideoScrolledOver: false
-      })
-    }
-    }
-  */
-
   render() {
-    // const { isLeadingVideoScrolledOver } = this.state
-    const { selectedTopic, entities } = this.props
-    const topicId = _.get(selectedTopic, 'id')
+    const { entities, params, selectedTopic } = this.props
     const error = _.get(selectedTopic, 'error', null)
 
     if (error !== null) {
@@ -94,13 +89,15 @@ class TopicLandingPage extends Component {
       )
     }
 
-    if (!topicId) {
+    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
       return null
     }
-    
+
     const slug = _.get(selectedTopic, 'slug') // {string}
 
-    const topic = _.get(entities, [ 'topics', topicId ], {})
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
+    const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
+    const topic = camelizeKeys(utils.denormalizeTopics(slug, topicEntities, postEntities)[0])
     const {
       leadingImage, // leadingImage {object} - Topic leading image infos
       leadingVideo, // leadingVideo {object} - Topic leading video infos
@@ -117,9 +114,8 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
 
-    const image = _.get(leadingImage, 'image.resizedTargets.tablet.url') || logo // {string}
-    
-    const relatedArticles = denormalizeArticles(relateds, entities)
+    const image = _.get(leadingImage, 'resizedTargets.tablet.url') || logo // {string}
+
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
 
@@ -152,12 +148,6 @@ class TopicLandingPage extends Component {
           isFixedToTop={false}
           title={title}
         />
-        {/*
-        <VisibilitySensor
-          onChange={this.checkIfScrollOverLeadingVideo}
-          partialVisibility={true}
-          >
-        */}
         <LeadingVideo
           classNames={{
             container: styles['leading-block'],
@@ -165,12 +155,11 @@ class TopicLandingPage extends Component {
             poster: styles.video,
             audioBt: styles['audio-bt']
           }}
-          filetype={_.get(leadingVideo, 'video.filetype')}
-          poster={_.get(leadingImage, 'image.resizedTargets')}
-          src={_.get(leadingVideo, 'video.url')}
+          filetype={_.get(leadingVideo, 'filetype')}
+          poster={_.get(leadingImage, 'resizedTargets')}
+          src={_.get(leadingVideo, 'url')}
           title={title}
         />
-        {/*</VisibilitySensor>*/}
         <Banner
           headline={headline}
           title={title}
@@ -182,7 +171,7 @@ class TopicLandingPage extends Component {
           teamDescription={teamDescription}
         />
         <BgColoredCards
-          items={relatedArticles}
+          items={relateds}
         />
         <Footer />
       </div>
@@ -190,27 +179,22 @@ class TopicLandingPage extends Component {
   }
 }
 
-const Description = (props) => {
-  const { topicDescription, teamDescription } = props
-  return (
-    <div className={styles['description']}>
-      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
-      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
-    </div>
-  )
-}
-
-Description.propTypes = {
-  topicDescription: PropTypes.string.isRequired,
-  teamDescription: PropTypes.string.isRequired
-}
-
 function mapStateToProps(state) {
   return {
-    entities: state.entities || {},
-    selectedTopic: state.selectedTopic || {}
+    entities: state[reduxStateFields.entities] || {},
+    selectedTopic: state[reduxStateFields.selectedTopic] || {}
   }
 }
 
+TopicLandingPage.defaultProps = {
+  entities: {},
+  selectedTopic: {}
+}
+
+TopicLandingPage.propTypes = {
+  entities: PropTypes.object,
+  selectedTopic: PropTypes.object
+}
+
 export { TopicLandingPage }
-export default connect(mapStateToProps, { fetchTopicIfNeeded })(TopicLandingPage)
+export default connect(mapStateToProps, { fetchAFullTopic: actions.fetchAFullTopic })(TopicLandingPage)

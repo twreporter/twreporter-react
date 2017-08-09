@@ -1,4 +1,71 @@
 ### Unreleased
+### 2.1.3
+- Bug fix. Fix og:image missing
+
+### 2.1.2
+- Upgrade twreporter-redux to 2.1.0
+
+### 2.1.1
+- Modification for refactored scroll fadein at Home.js
+- Add non-animated background div at Home.js
+- Upgrade twreporter-react-index-page-components to 1.0.22
+- Remove _sendPageLevelAction when Article unmount
+- Prevent fetch full post if is already fetching
+- Fix ArticlePlaceholder
+- Update twreporter-react-header-components to 1.0.7
+
+### 2.1.0
+- [Feature] Add tool bar in Article page
+
+### 2.0.11
+- Update dependencies
+- Remove old Footer
+
+### 2.0.10
+- Bug fix. Open post with interactive style by on another tab of browser.
+
+### 2.0.9
+- Update yarn.lock
+
+### 2.0.8
+- Upgrade twreporter-react-index-page-components to 1.0.19
+
+### 2.0.7
+- Use Footer and Header from twreporter-react-components
+
+### 2.0.6
+- Remove scrollmagic when bundling by webpack
+
+### 2.0.5
+- Delete package we do not need anymore
+- Delete files we do not need anymore
+
+### 2.0.4
+- Update categories, including category list ids, category chinese name and category uri.
+
+### 2.0.3
+- Fix duplicate react key issue in categories section of index page.
+- Provide srcset in image object for each category in category_section.
+
+### 2.0.2
+- Upgrade twreporter-react-index-page-components to 1.0.15
+
+### 2.0.1
+- add moreURI in different sections(photography and infographic) of index page.
+- remove organization JSON-LD
+
+### 2.0.0
+- replace actions and reducers by `twreporter-redux` pkg
+- remove proxy server. call api server directly
+- add entitiesForAuthors field in redux state to store entities of
+author and author-articles reducers.
+- add process.env.NODE_ENV in dev webpack config
+- remove /api folders
+- update unit test
+- remove bin/api.js
+
+### 1.1.19
+- [Update] Update the navigation bar
 
 ### 1.1.20
 - [Update] Change the homepage banner

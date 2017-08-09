@@ -1,0 +1,58 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../../themes/common-variables.scss';
+@import '../../../themes/media-queries.scss';
+
+$button-width: 52px;
+$button-height: 52px;
+
+.article-tools-container {
+  display: inline-block;
+  position: fixed;
+  right: 5%;
+  bottom: 3%;
+}
+
+// desktop
+@include mq($min-width: $screen-md-min) {
+  .article-tools-container {
+    display: none;
+  }
+}
+
+.back-to-top-btn, .back-to-topic-btn {
+  position: relative;
+  border-radius: 50%;
+  width: $button-width;
+  height: $button-height;
+  background-color: rgba(255, 255, 255, .8);
+  overflow: hidden;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.back-to-topic-btn {
+  margin-bottom: 20px;
+}
+
+
+.effect-enter {
+  opacity: 0.01;
+}
+
+.effect-enter.effect-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease;
+}
+
+.effect-leave {
+  opacity: 1;
+}
+
+.effect-leave.effect-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease;
+}

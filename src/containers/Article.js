@@ -1,25 +1,16 @@
 /* eslint no-console:0 */
 'use strict'
-import { Link } from 'react-router'
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK, LONGFORM_ARTICLE_STYLE,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, TOPIC, appId } from '../constants/index'
-import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { denormalizeArticles, getAbsPath } from '../utils/index'
-import { fetchArticleIfNeeded } from '../actions/article'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded } from '../actions/articles'
-import { setHeaderInfo, setReadProgress } from '../actions/header'
-import * as ArticleComponents from '../components/article/index'
+import MobileArticleTools from '../components/article/tools/MobileArticleTools'
+import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
 import FontChangeButton from '../components/FontChangeButton'
 import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import Footer from '../components/Footer'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import SystemError from '../components/SystemError'
-import async from 'async'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
@@ -31,6 +22,16 @@ import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
+import twreporterRedux from 'twreporter-redux'
+
+import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
+import { Link } from 'react-router'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { date2yyyymmdd } from '../utils/index'
+import { getAbsPath } from '../utils/index'
+import { setHeaderInfo, setReadProgress, setArticleTools } from '../actions/header'
+import * as ArticleComponents from '../components/article/index'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -40,8 +41,10 @@ import map from 'lodash/map'
 import merge from 'lodash/merge'
 import set from 'lodash/set'
 import sortBy from 'lodash/sortBy'
+import throttle from 'lodash/throttle'
 
 const _ = {
+  throttle,
   forEach,
   get,
   has,
@@ -51,11 +54,21 @@ const _ = {
   sortBy
 }
 
+const { actions, reduxStateFields, utils } = twreporterRedux
+const { fetchAFullPost } = actions
+
+/* Issue need to be solved: _setArticleBounding doesn't get right endY if there are lazyload imgs or embedded items */
 let articlePostition = {
   beginY: 120,
   endY: 200,
   percent: 0
 }
+
+let scrollPosition = {
+  y: 0
+}
+
+let viewportHeight = 0
 
 const ArticlePlaceholder = () => {
   return (
@@ -91,71 +104,33 @@ class Article extends Component {
         pageTheme: BRIGHT,
         pageType: ARTICLE_STYLE
       }))
-      return store.dispatch(fetchArticleIfNeeded(slug))
+      return store.dispatch(fetchAFullPost(slug))
     }
     // get article itself first
-    return store.dispatch(fetchArticleIfNeeded(slug)).then(() => {
+    return store.dispatch(fetchAFullPost(slug)).then(() => {
       const state = store.getState()
-      const error = _.get(state, 'selectedArticle.error')
+      const entities = _.get(state, reduxStateFields.entities, {})
+      const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
+      const style = _.get(entities, [ reduxStateFields.postsInEntities, slug, 'style' ])
 
-      if (error !== null) {
-        return Promise.reject(error)
+      if (_.get(selectedPost, 'error')) {
+        return Promise.reject(_.get(selectedPost, 'error'))
       }
-
-      const articleId = _.get(state, 'selectedArticle.id')
-      const article = _.get(state, [ 'entities', 'articles', articleId ])
-      const topicId = _.get(article, 'topics')
-      const relateds = _.get(article, 'relateds', [])
-      const style = _.get(article, 'style', ARTICLE_STYLE)
 
       store.dispatch(setHeaderInfo({
         pageTheme: style !== PHOTOGRAPHY_ARTICLE_STYLE ? BRIGHT : DARK,
         pageType: style
       }))
-
-      // fetch related articles and other articles in the same topic
-      return new Promise((resolve, reject) => { // eslint-disable-line
-        // load in parallel
-        async.parallel([
-          function (callback) {
-            if (_.get(relateds, 'length', 0) > 0) {
-              // fetch related articles
-              store.dispatch(fetchRelatedArticlesIfNeeded(articleId, relateds))
-                .then(() => {
-                  callback(null)
-                })
-            } else {
-              // fallback - fetch feature articles
-              store.dispatch(fetchFeatureArticles())
-                .then(() => {
-                  callback(null)
-                })
-            }
-          },
-          function (callback) {
-            // TODO Add loading-more functionality
-            store.dispatch(fetchArticlesByUuidIfNeeded(topicId, TOPIC, { max_results: 30 }))
-              .then(() => {
-                callback(null)
-              })
-          }
-        ], (err, results) => { // eslint-disable-line
-          if (err) {
-            console.warn('fetchData occurs error:', err)
-          }
-          resolve()
-        })
-      })
     })
   }
 
   constructor(props, context) {
     super(props, context)
-    this._isFeatureArticlesFetched = false
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
-    this._onScroll = this._onScroll.bind(this)
+    this._onScroll = _.throttle(this._onScroll, 200).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    this._onResize = this._onResize.bind(this)
 
     // for requestAnimationFrame
     this._ticking = false
@@ -167,9 +142,10 @@ class Article extends Component {
   }
 
   getChildContext() {
-    const { entities, selectedArticle } = this.props
-    let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
-    let style = _.get(article, 'style')
+    const { entities, selectedPost } = this.props
+    const slug = _.get(selectedPost, 'slug', '')
+    let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
+    let style = _.get(post, 'style')
     return {
       isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE
     }
@@ -184,8 +160,9 @@ class Article extends Component {
   }
 
   componentDidMount() {
+    viewportHeight = window.innerHeight
     this._setArticleBounding()
-    window.addEventListener('resize', this._setArticleBounding)
+    window.addEventListener('resize', this._onResize)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
     let storedfontSize = localStorage.getItem('fontSize')
@@ -203,33 +180,26 @@ class Article extends Component {
   }
 
   componentWillMount() {
-    const { params, selectedArticle } = this.props
+    const { params } = this.props
     let slug = _.get(params, 'slug')
 
-    // Check if selectedArticle is up to date
-    if (_.get(selectedArticle, 'slug') !== slug) {
-      // fetch data we need to render the whole article page
-      this._fetchData()
-    }
-    this._sendPageLevelAction()
+    this.props.fetchAFullPost(slug)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._setArticleBounding)
+    window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
-    this._isFeatureArticlesFetched = false
+    scrollPosition.y = 0
     this._ticking = false
     this.clearRAF()
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params, selectedArticle } = nextProps
+    const { params } = nextProps
     const slug = _.get(params, 'slug')
-
-    // Check if selectedArticle is up to date
-    if (selectedArticle.slug !== slug) {
-      // fetch data we need to render the whole article page
-      this._fetchData()
+    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
+    if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
+      this.props.fetchAFullPost(slug)
     }
   }
 
@@ -249,94 +219,35 @@ class Article extends Component {
   }
 
   _sendPageLevelAction() {
-    const { entities, selectedArticle, setHeaderInfo } = this.props
+    const { entities, selectedPost, setHeaderInfo } = this.props
+    const slug = _.get(selectedPost, 'slug')
+    if (!slug) {
+      return
+    }
 
-    // normalized article
-    let article = _.get(entities, [ 'articles', selectedArticle.id ], {})
+    const post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
 
-    // in normalized article, article.topics is an id
-    let topic = _.get(entities, [ 'topics', _.get(article, 'topics') ])
-    let topicName = _.get(topic, 'topicName', _.get(topic, 'name'))
+    const topic = _.get(entities, [ reduxStateFields.topicsInEntities, _.get(post, 'topics') ])
+    const topicName = _.get(topic, 'topic_name')
+    const topicSlug = _.get(topic, 'slug')
 
-    let style = _.get(article, 'style')
+    let style = _.get(post, 'style')
     let theme = BRIGHT
-    let bookmarks = []
 
     if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
       theme = DARK
-    } else if (style === LONGFORM_ARTICLE_STYLE) {
-      let relatedBookmarks = _.get(article, 'relatedBookmarks', [])
-      const { bookmark, bookmarkOrder, publishedDate, slug } = article
-      let curBookMark = {
-        style,
-        slug,
-        bookmark,
-        bookmarkOrder,
-        publishedDate,
-        isSelected: true
-      }
-      bookmarks = relatedBookmarks.concat(curBookMark)
-      bookmarks = _.sortBy(bookmarks, 'bookmarkOrder')
-    }
-
-    const topicSlug = _.get(topic, 'slug', '')
-
-    // WORKAROUND
-    // Use title of topic to check if the topic is the new data structure or old one.
-    // If topic is the new data structure, we show the backToTopic icon on the header,
-    // otherwise show the toc(table of content) icon
-    // TBD consolidate the topic data structure
-    let topicArr
-    let showBackToTopicIcon
-    if (_.get(topic, 'title')) {
-      showBackToTopicIcon = true
-    } else {
-      topicArr = this._getTopicArticles(_.get(article, 'topics'))
-      showBackToTopicIcon = false
     }
 
     setHeaderInfo({
-      articleId: article.id,
-      showBackToTopicIcon,
-      bookmarks,
-      pageTitle: article.title,
+      articleId: post.id,
+      showBackToTopicIcon: topicSlug ? true : false,
+      pageTitle: post.title,
       pageTheme: theme,
       pageTopic: topicName,
       pageType: style,
       readPercent: 0,
-      topicArr,
       topicSlug
     })
-  }
-
-  // fetch article whole data, including body, related articls and other articles in the same topic
-  _fetchData() {
-    const { entities, fetchArticleIfNeeded, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, fetchRelatedArticlesIfNeeded, params, slugToId } = this.props
-    let slug = _.get(params, 'slug')
-
-    // fetch article
-    fetchArticleIfNeeded(slug)
-
-    // normalized article
-    let article = _.get(entities, [ 'articles', slugToId[slug] ])
-
-    // in normalized article, article.topics is not an object, just an id.
-    let topicId = _.get(article, 'topics')
-    // in normalized article, article.relateds is an array of objects, just an array of ids
-    let relateds = _.get(article, 'relateds', [])
-
-    //  fetch other articles in the same topic
-    // TODO Add loading-more functionality
-    fetchArticlesByUuidIfNeeded(topicId, TOPIC, { max_results: 30 })
-
-    // fetch related articles
-    fetchRelatedArticlesIfNeeded(_.get(article, 'id'), relateds)
-
-    if (!this._isFeatureArticlesFetched) {
-      // fallback - fetch feature articles
-      fetchFeatureArticles()
-      this._isFeatureArticlesFetched = true
-    }
   }
 
   _getCumulativeOffset(element) {
@@ -349,6 +260,11 @@ class Article extends Component {
     return top
   }
 
+  _onResize() {
+    this._setArticleBounding()
+    viewportHeight = window.innerHeight
+  }
+
   _setArticleBounding() {
     const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
     const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
@@ -357,9 +273,13 @@ class Article extends Component {
   }
 
   _handleScroll() {
+    const currentTopY = window.scrollY
+    const currentBottomY = currentTopY + viewportHeight
     const { beginY, endY, percent } = articlePostition
-    let scrollRatio = Math.abs((window.scrollY-beginY) / (endY-beginY))
-    if(window.scrollY < beginY) {
+
+    /* Calculate reading progress */
+    let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
+    if(currentTopY < beginY) {
       scrollRatio = 0
     } else if (scrollRatio > 1) {
       scrollRatio = 1
@@ -369,6 +289,48 @@ class Article extends Component {
       articlePostition.percent = curPercent
       // update the header progress bar
       this.props.setReadProgress(curPercent)
+    }
+
+    /* Handle Article Tools */
+    const { articleTools, setArticleTools } = this.props
+    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+
+    const isInTopRegion = currentTopY < beginY + 600
+    const isInBottomRegion = currentBottomY > endY + 150
+
+    if (isInTopRegion || isInBottomRegion) {
+      if (isMobileToolsDisplayed || isDesktopToolsDisplayed) {
+        setArticleTools({
+          isMobileToolsDisplayed: false,
+          isDesktopToolsDisplayed: false
+        })
+      }
+    } else {
+      if (!isDesktopToolsDisplayed) {
+        setArticleTools({
+          isDesktopToolsDisplayed: true
+        })
+      }
+    }
+    // Calculate scrolling distance to determine whether tools are displayed
+    const lastY = scrollPosition.y
+    const distance = currentTopY - lastY
+    if (distance > 30) {
+      scrollPosition.y = currentTopY
+      if (isMobileToolsDisplayed) {
+        setArticleTools({
+          isMobileToolsDisplayed: false
+        })
+      }
+    } else {
+      if (Math.abs(distance) > 180) {
+        scrollPosition.y = currentTopY
+        if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+          setArticleTools({
+            isMobileToolsDisplayed: true
+          })
+        }
+      }
     }
 
     // reset the tick so we can
@@ -392,83 +354,61 @@ class Article extends Component {
     return authors
   }
 
-  _getTopicArticles(topicId) {
-    const { articlesByUuids, entities } = this.props
-    let articleIds = _.get(articlesByUuids, [ topicId, 'items' ], [])
-    return _.map(articleIds, (id) => _.merge({}, _.get(entities, [ 'articles', id ])))
-  }
-
-  _getFeatureArticles() {
-    const { entities, featureArticles } = this.props
-    let rtn = []
-
-    if (featureArticles.isFetching) {
-      return rtn
-    } else if (featureArticles.error !== null) {
-      this._isFeatureArticlesFetched = false
-      return rtn
-    }
-
-    let articles = _.get(entities, 'articles', {})
-    let articleIds = _.get(featureArticles, 'items', [])
-    _.forEach(articleIds, (id) => {
-      if (_.has(articles, id)) {
-        rtn.push(_.merge({}, articles[id]))
-      }
-    })
-    return rtn
-  }
-
   render() {
-    const { entities, params, selectedArticle } = this.props
-    const error = _.get(selectedArticle, 'error', null)
+    const { entities, params, selectedPost, articleTools } = this.props
 
-    if (error !== null) {
+    const error = _.get(selectedPost, 'error')
+
+    if (error) {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
 
-    const isFetching = _.get(selectedArticle, 'isFetching')
-
-    if (_.get(selectedArticle, 'slug') !== _.get(params, 'slug')) {
+    if (_.get(selectedPost, 'slug') !== _.get(params, 'slug')) {
       return null
     }
 
-    // unnormalized article
-    let article = denormalizeArticles(_.get(selectedArticle, 'id'), entities)[0] || {}
-    let relatedArticles = _.get(article, 'relateds')
+    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
 
-    let slug = _.get(params, 'slug')
-    let useFallback = (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) ? false : true
-
-    // fallback - use feature article
-    if (_.get(relatedArticles, 'length', 0) === 0 && useFallback) {
-      relatedArticles = this._getFeatureArticles()
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities)
+    const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
+    const slug = _.get(selectedPost, 'slug', '')
+    const article = camelizeKeys(_.get(postEntities, slug))
+    const articleStyle = article.style
+    const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
+                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
+    const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
+                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
+    const isFetching = _.get(selectedPost, 'isFetching')
+    if (isFetching) {
+      return (
+        <div className={outerClass}>
+          <div className={contentClass}>
+            <ArticlePlaceholder />
+          </div>
+        </div>
+      )
     }
 
+    const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
+    const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
+    const topic = topics[0]
     const authors = this._composeAuthors(article)
     const bodyData = _.get(article, [ 'content', 'apiData' ], [])
     const leadingVideo = _.get(article, 'leadingVideo', null)
     const heroImage = _.get(article, [ 'heroImage' ], null)
     const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
-    const copyright = _.get(article, [ 'copyright' ], [])
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-    const outerClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
-    const contentClass = (article.style===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
 
-
-    const topic = _.get(article, 'topics')
-    const topicName = _.get(topic, 'topicName', _.get(topic, 'name'))
+    const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
-    const topicBlock = topicName ? <span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span> : null
-    const topicArr = this._getTopicArticles(_.get(topic, 'id'))
+    const topicSlug = _.get(topic, 'slug')
+    const topicBlock = topicName ? <Link className={styles['topic-block']} to={`${LINK_PREFIX.TOPICS}${topicSlug}`}><span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span></Link> : null
+    const topicArr = _.get(topic, 'relateds')
 
     const subtitle = _.get(article, 'subtitle', '')
     const subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
@@ -476,10 +416,10 @@ class Article extends Component {
     const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
 
     // for head tag
-    const canonical = SITE_META.URL + 'a/' + _.get(article, [ 'slug' ], '')
+    const canonical = SITE_META.URL + 'a/' + slug
     const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
-    const articleImg = _.get(article, 'ogImage.image.resizedTargets.desktop.url', SITE_META.LOGO)
+    const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
 
     return (
       <div>
@@ -509,10 +449,10 @@ class Article extends Component {
             {
               leadingVideo ?
                 <LeadingVideo
-                  filetype={_.get(leadingVideo, 'video.filetype')}
+                  filetype={_.get(leadingVideo, 'filetype')}
                   title={_.get(leadingVideo, 'title')}
-                  src={_.get(leadingVideo, 'video.url')}
-                  poster={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                  src={_.get(leadingVideo, 'url')}
+                  poster={_.get(heroImage, 'resizedTargets')}
                 /> : null
             }
               <article className={contentClass}>
@@ -560,7 +500,7 @@ class Article extends Component {
                   <div className={styles['leading-img']}>
                     <ArticleComponents.LeadingImage
                       size={heroImageSize}
-                      image={_.get(heroImage, [ 'image', 'resizedTargets' ])}
+                      image={_.get(heroImage, 'resizedTargets')}
                       id={_.get(heroImage, 'id')}
                       description={_.get(heroImage, 'description' )}
                     />
@@ -587,10 +527,10 @@ class Article extends Component {
                 />
               </div>
               { topicTitle ?
-                <Link to={`/topics/${_.get(topic,'slug')}`}>
+                <Link to={`${LINK_PREFIX.TOPICS}${topicSlug}`}>
                   <div className={cx(styles['promotion'], 'center-block')}>
                     <PromotionBanner
-                      bgImgSrc={_.get(topic, 'leadingImage.image.resizedTargets.tablet.url')}
+                      bgImgSrc={_.get(topic, 'leadingImage.resizedTargets.tablet.url')}
                       headline={_.get(topic, 'headline')}
                       iconImgSrc={backToTopicIcon}
                       title={topicTitle}
@@ -600,7 +540,7 @@ class Article extends Component {
                 </Link>
                 : null }
               <ArticleComponents.BottomRelateds
-                relateds={relatedArticles}
+                relateds={relateds}
                 currentId={article.id}
                 topicName={topicName}
                 topicArr={topicArr}
@@ -617,23 +557,22 @@ class Article extends Component {
             navigate="previous"
           />*/}
           <div className="hidden-print">
-            <Footer
-              theme={_.get(article, 'style') === PHOTOGRAPHY_ARTICLE_STYLE ? DARK : BRIGHT}
-              copyright={copyright}/>
           </div>
         </div>
+        <MobileArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isMobileToolsDisplayed={isMobileToolsDisplayed}/>
+        <DesktopArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isDesktopToolsDisplayed={isDesktopToolsDisplayed} />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
+  const entities = state[reduxStateFields.entities]
+  const selectedPost = state[reduxStateFields.selectedPost]
   return {
-    articlesByUuids: state.articlesByUuids,
-    entities: state.entities,
-    featureArticles: state.featureArticles,
-    selectedArticle: state.selectedArticle,
-    slugToId: state.articleSlugToId
+    entities,
+    selectedPost,
+    articleTools: state.header.articleTools
   }
 }
 
@@ -647,23 +586,20 @@ Article.contextTypes = {
 }
 
 Article.propTypes = {
-  articlesByUuids: React.PropTypes.object,
   entities: React.PropTypes.object,
-  featureArticles: React.PropTypes.object,
+  selectedPost: React.PropTypes.object,
   params: React.PropTypes.object,
-  selectedArticle: React.PropTypes.object,
-  slugToId: React.PropTypes.object
+  articleTools: React.PropTypes.shape({
+    isDesktopToolsDisplayed: React.PropTypes.bool,
+    isMobileToolsDisplayed: React.PropTypes.bool
+  })
 }
 
 Article.defaultProps = {
-  articlesByUuids: {},
   entities: {},
-  featureArticles: {},
-  params: {},
-  selectedArticle: {},
-  slugToId: {}
+  selectedPost: {},
+  params: {}
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchArticleIfNeeded, fetchRelatedArticlesIfNeeded, fetchFeatureArticles,
-  fetchArticlesByUuidIfNeeded, setHeaderInfo, setReadProgress })(Article)
+export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo, setReadProgress, setArticleTools })(Article)

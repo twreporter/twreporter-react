@@ -1,14 +1,13 @@
-import { BRIGHT, SITE_META, SITE_NAME, TAG } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/index'
-import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
+import twreporterRedux from 'twreporter-redux'
 
+import { BRIGHT, SITE_META, SITE_NAME, TAG } from '../constants/index'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { setHeaderInfo } from '../actions/header'
 // lodash
 import get from 'lodash/get'
 
@@ -16,15 +15,15 @@ const _  = {
   get
 }
 
+const { actions, reduxStateFields, utils } = twreporterRedux
+const { fetchListedPosts } = actions
+
 const MAXRESULT = 10
-const PAGE = 1
+const tags = 'tags'
 
 class Tag extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(params.tagId, TAG, {
-      page: PAGE,
-      max_results: MAXRESULT
-    }))
+    return store.dispatch(fetchListedPosts(params.tagId, tags, MAXRESULT))
   }
 
   constructor(props) {
@@ -33,7 +32,7 @@ class Tag extends Component {
   }
 
   componentWillMount() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params, setHeaderInfo } = this.props
+    const { fetchListedPosts, lists, params, setHeaderInfo } = this.props
     setHeaderInfo({
       pageTheme: BRIGHT,
       pageType: TAG,
@@ -42,67 +41,62 @@ class Tag extends Component {
 
     let tagId = _.get(params, 'tagId')
 
-    // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(lists, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
-    fetchArticlesByUuidIfNeeded(tagId, TAG, {
-      page: PAGE,
-      max_results: MAXRESULT
-    })
+    fetchListedPosts(tagId, tags, MAXRESULT)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = nextProps
+    const { fetchListedPosts, lists, params } = nextProps
     let tagId = _.get(params, 'tagId')
 
-    // if fetched before, do nothing
-    if (_.get(articlesByUuids, [ tagId, 'items', 'length' ], 0) > 0) {
+    if (_.get(lists, [ tagId, 'items', 'length' ], 0) > 0) {
       return
     }
 
-    fetchArticlesByUuidIfNeeded(tagId, TAG, {
-      page: PAGE,
-      max_results: MAXRESULT
-    })
+    fetchListedPosts(tagId, tags, MAXRESULT)
   }
 
   _loadMore() {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded, params } = this.props
+    const { fetchListedPosts, params } = this.props
     const tagId = _.get(params, 'tagId')
-    let articlesByTag = _.get(articlesByUuids, [ tagId ], {})
-    if (_.get(articlesByTag, 'hasMore') === false) {
-      return
+    fetchListedPosts(tagId, tags, MAXRESULT)
+  }
+
+  _findTagName(tags, tagId) {
+    if (!Array.isArray(tags)) {
+      return ''
     }
-
-    let itemSize = _.get(articlesByTag, 'items.length', 0)
-    let page = Math.floor(itemSize / MAXRESULT) + 1
-
-    fetchArticlesByUuidIfNeeded(tagId, TAG, {
-      page: page,
-      max_results: MAXRESULT
+    const tag = tags.find((_tag) => {
+      if (_.get(_tag, 'id') === tagId) {
+        return true
+      }
+      return false
     })
+    return _.get(tag, 'name', '')
   }
 
   render() {
     const { device } = this.context
-    const { articlesByUuids, entities, params } = this.props
+    const { lists, entities, params } = this.props
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const tagId = _.get(params, 'tagId')
-    const error = _.get(articlesByUuids, [ tagId, 'error' ], null)
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ tagId, 'items' ], []), entities)
+    const error = _.get(lists, [ tagId, 'error' ], null)
+    const total = _.get(lists, [ tagId, 'total' ], 0)
+    const posts = camelizeKeys(utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []), postEntities))
 
     // Error handling
-    if (error !== null && _.get(articles, 'length', 0) === 0) {
+    if (error !== null && _.get(posts, 'length', 0) === 0) {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
 
-    let tagName = _.get(entities, [ 'tags', tagId, 'name' ], '')
+    let tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
     const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
     const canonical = `${SITE_META.URL}tag/${tagId}`
     const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
@@ -128,14 +122,13 @@ class Tag extends Component {
         </div>
         <div>
           <ArticleList
-            articles={articles}
+            articles={posts}
             device={device}
-            hasMore={ _.get(articlesByUuids, [ tagId, 'hasMore' ])}
+            hasMore={total > posts.length}
             loadMore={this.loadMore}
             loadMoreError={error}
           />
           {this.props.children}
-          <Footer/>
         </div>
       </div>
     )
@@ -144,8 +137,8 @@ class Tag extends Component {
 
 function mapStateToProps(state) {
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {}
+    lists: state[reduxStateFields.lists],
+    entities: state[reduxStateFields.entities]
   }
 }
 
@@ -153,5 +146,15 @@ Tag.contextTypes = {
   device: React.PropTypes.string
 }
 
+Tag.defaultProps = {
+  lists: {},
+  entities: {}
+}
+
+Tag.propTypes = {
+  lists: React.PropTypes.object,
+  entities: React.PropTypes.object
+}
+
 export { Tag }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Tag)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Tag)

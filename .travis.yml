@@ -1,7 +1,0 @@
-dist: trusty
-language: node_js
-node_js:
-  - "6"
-  - "7"
-before_script: cp api/config.example.js api/config.js
-script: npm run test

@@ -52,7 +52,7 @@ export class BottomRelateds extends Component {
     listItems = filter(listItems, (related) => { return related.id!==currentId })
 
     const relatedRows = map(listItems, (related, index) => {
-      let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
+      let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.resizedTargets.mobile.url', '/asset/review.png'))
       const description = get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
       const style = get(related, 'style')

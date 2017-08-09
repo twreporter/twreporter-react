@@ -14,19 +14,13 @@ import configureStore from '../src/store/configureStore'
 import createLocation from 'history/lib/createLocation'
 import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
-import httpProxy from 'http-proxy'
 import path from 'path'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 const server = new Express()
-const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort
-// create a proxy server to serve the API requests
-const proxy = httpProxy.createProxyServer({
-  target: targetUrl
-})
-
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
@@ -52,24 +46,6 @@ server.get('/robots.txt', (req, res) => {
 server.get('/check', (req, res) => {
   res.status(200)
   res.end('server is running')
-})
-
-// proxy to the API server
-server.use('/api', (req, res) => {
-  proxy.web(req, res)
-})
-
-// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
-proxy.on('error', (error, req, res) => {
-  let json
-  if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error)
-  }
-  if (!res.headersSent) {
-    res.writeHead(500, { 'content-type': 'application/json' })
-  }
-  json = { error: 'proxy_error', reason: error.message }
-  res.end(JSON.stringify(json))
 })
 
 server.get('*', async function (req, res, next) {
@@ -116,10 +92,13 @@ server.get('*', async function (req, res, next) {
           const reduxState = escape(JSON.stringify(store.getState()))
           const script = assets.javascript
           const styles = assets.styles
+          const sheet = new ServerStyleSheet()
           const children = ReactDOMServer.renderToString(
               <Provider store={store} >
                 <DeviceProvider device={get(store.getState(), 'device')}>
-                  { <RouterContext {...renderProps} /> }
+                  <StyleSheetManager sheet={sheet.instance}>
+                    { <RouterContext {...renderProps} /> }
+                  </StyleSheetManager>
                 </DeviceProvider>
               </Provider>
           )
@@ -138,6 +117,7 @@ server.get('*', async function (req, res, next) {
               children={children}
               reduxState={reduxState}
               styles={styles}
+              styleTags={sheet.getStyleTags()}
               script={script}
               head={head}
             />
@@ -179,7 +159,7 @@ pe.skipPackage('express')
 
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)) // eslint-disable-line no-console
-  if (err instanceof NotFoundError) {
+  if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
     res.status(404)
     res.render('404')
     return

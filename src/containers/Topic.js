@@ -1,14 +1,14 @@
 'use strict'
-import { BRIGHT, SITE_META, SITE_NAME, TOPIC, TOPIC_TEXT } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/index'
-import { fetchArticlesByUuidIfNeeded } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
+import twreporterRedux from 'twreporter-redux'
+
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { setHeaderInfo } from '../actions/header'
 
 // lodash
 import get from 'lodash/get'
@@ -17,72 +17,77 @@ const _  = {
   get
 }
 
+const { actions, reduxStateFields, utils } = twreporterRedux
+const { fetchListedPosts } = actions
+
+const MAXRESULT = 10
+const topics = 'topics'
+
 class Topic extends Component {
   static fetchData({ params, store }) {
-    return store.dispatch(fetchArticlesByUuidIfNeeded(params.topicId, TOPIC))
+    return store.dispatch(fetchListedPosts(params.topicId, topics, MAXRESULT))
   }
 
   constructor(props) {
     super(props)
+    this.loadMore = this._loadMore.bind(this)
   }
 
   componentWillMount() {
-    const { fetchArticlesByUuidIfNeeded, params } = this.props
-    let topicId = _.get(params, 'topicId')
+    const { lists, fetchListedPosts, params } = this.props
+    const topicId = _.get(params, 'topicId')
 
-    this._sendPageLevelAction()
-    fetchArticlesByUuidIfNeeded(topicId, TOPIC)
+    // if fetched before, do nothing
+    if (_.get(lists, [ topicId, 'items', 'length' ], 0) > 0) {
+      return
+    }
+
+    fetchListedPosts(topicId, topics, MAXRESULT)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchArticlesByUuidIfNeeded, params } = nextProps
-    let topicId = _.get(params, 'topicId')
-    fetchArticlesByUuidIfNeeded(topicId, TOPIC)
-    this.setState({
-      topicId: nextProps.params.topicId
-    })
-    this._sendPageLevelAction()
+    const { lists, fetchListedPosts, params } = nextProps
+    const topicId = _.get(params, 'topicId')
+
+    // if fetched before, do nothing
+    if (_.get(lists, [ topicId, 'items', 'length' ], 0) > 0) {
+      return
+    }
+
+    fetchListedPosts(topicId, topics, MAXRESULT)
   }
 
-  _sendPageLevelAction() {
-    const { entities, setHeaderInfo, params } = this.props
-    const topicId = _.get(params, 'topicId')
-    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
-
-    setHeaderInfo({
-      pageTitle: topicName,
-      pageTopic: TOPIC_TEXT,
-      pageTheme: BRIGHT,
-      pageType: TOPIC,
-      readPercent: 0
-    })
+  _loadMore() {
+    const { fetchListedPosts, params } = this.props
+    const  topicId = _.get(params, 'topicId')
+    fetchListedPosts(topicId, topics, MAXRESULT)
   }
 
   render() {
     const { device } = this.context
-    const { articlesByUuids, entities, params } = this.props
+    const { lists, entities, params } = this.props
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicId = _.get(params, 'topicId')
-    const error = _.get(articlesByUuids, [ topicId, 'error' ], null)
+    const error = _.get(lists, [ topicId, 'error' ], null)
+    const total = _.get(lists, [ topicId, 'total' ], 0)
+    const posts = camelizeKeys(utils.denormalizePosts(_.get(lists, [ topicId, 'items' ], []), postEntities))
 
-    if (error !== null) {
+    // Error handling
+    if (error !== null && _.get(posts, 'length', 0) === 0) {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
 
-    const topicName = _.get(entities, [ 'topics', topicId, 'name' ], null)
+    const topicName = _.get(posts, [ 0, 'topics', 'name' ], '')
     const topicBox = topicName ? <div className="top-title-outer"><h1 className="top-title"> {topicName} </h1></div> : null
-    let articles = denormalizeArticles(_.get(articlesByUuids, [ topicId, 'items' ], []), entities)
-
-    const canonical = `${SITE_META.URL}tag/${topicId}`
     const title = topicName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL}topic/${topicId}`
+
     return (
-      <div style={{
-        backgroundColor: '#FDFFFA'
-      }}>
+      <div>
         <Helmet
           title={title}
           link={[
@@ -102,12 +107,13 @@ class Topic extends Component {
           {topicBox}
         </div>
         <ArticleList
-          articles={articles}
+          articles={posts}
           device={device}
-          hasMore={false}
+          hasMore={total > posts.length}
+          loadMore={this.loadMore}
+          loadMoreError={error}
         />
         {this.props.children}
-        <Footer/>
       </div>
     )
   }
@@ -115,8 +121,8 @@ class Topic extends Component {
 
 function mapStateToProps(state) {
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {}
+    lists: state[reduxStateFields.lists],
+    entities: state[reduxStateFields.entities]
   }
 }
 
@@ -124,5 +130,15 @@ Topic.contextTypes = {
   device: React.PropTypes.string
 }
 
+Topic.defaultProps = {
+  lists: {},
+  entities: {}
+}
+
+Topic.propTypes = {
+  lists: React.PropTypes.object,
+  entities: React.PropTypes.object
+}
+
 export { Topic }
-export default connect(mapStateToProps, { fetchArticlesByUuidIfNeeded, setHeaderInfo })(Topic)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Topic)

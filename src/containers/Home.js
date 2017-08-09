@@ -1,199 +1,145 @@
 /*eslint no-unused-vars:0, no-console:0 */
-'use strict'
-import { Link } from 'react-router'
-import { BRIGHT, CATEGORY, HOME, REVIEW_CH_STR, SITE_NAME, SITE_META, SPECIAL_TOPIC_CH_STR } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId, replaceStorageUrlPrefix } from '../utils/index'
-import { devCatListId, prodCatListId } from '../conf/list-id'
-import { fetchArticlesByUuidIfNeeded, fetchFeatureArticles } from '../actions/articles'
-import { setHeaderInfo } from '../actions/header'
-import Daily from '../components/Daily'
-import Features from '../components/Features'
-import Footer from '../components/Footer'
 import Helmet from 'react-helmet'
-import PromotionBanner from '../components/shared/PromotionBanner'
-import React, { Component } from 'react'
-import TopNews from '../components/TopNews'
-import async from 'async'
-import backToTopicIcon from '../../static/asset/back-to-topic.svg'
-import styles from './Home.scss'
+import React from 'react'
+import categoryString from '../constants/category-strings'
+import categoryURI from '../conf/category-uri'
+import IndexPageComposite from 'twreporter-react-index-page-components'
+import styled from 'styled-components'
+import twreporterRedux from 'twreporter-redux'
+import { SITE_NAME, SITE_META } from '../constants/index'
+import { connect } from 'react-redux'
+import { getImageSrcSet } from '../utils/image-processor.js'
+import Footer from 'twreporter-react-footer-components'
 
 // lodash
 import get from 'lodash/get'
+import keys from 'lodash/keys'
+import set from 'lodash/set'
 
-const MAXRESULT = 10
-const PAGE = 1
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection, ScrollFadein } = IndexPageComposite.components
+const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
+const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const fieldNames = twreporterRedux.reduxStateFields
 
-class Home extends Component {
-  static fetchData({
-    store
-  }) {
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
+const _ = {
+  get,
+  keys,
+  set
+}
+
+const moduleIdMap = {
+  editorPick: 'editorPick',
+  latestTopic: 'latestTopic',
+  review: 'review',
+  category: 'category',
+  topic: 'topic',
+  photography: 'photography',
+  infographic: 'infographic',
+  donation: 'donation'
+}
+
+const moduleLabelMap = {
+  editorPick: '編輯精選',
+  latestTopic: '最新專題',
+  review: '觀點',
+  category: '分類',
+  topic: '專題',
+  photography: '攝影',
+  infographic: '多媒體',
+  donation: '關於我們'
+}
+
+const moduleBackgounds = {
+  latest: '#f2f2f2',
+  editorPick: 'white',
+  latestTopic: '#f2f2f2',
+  review: 'white',
+  category: '#e2e2e2',
+  topic: '#f2f2f2',
+  photography: '#08192d',
+  infographic: '#f2f2f2',
+  donation: 'white'
+}
+
+const Container = styled.div`
+  width 100%;
+  margin: 0 auto;
+  background-color: white;
+  overflow: hidden;
+`
+
+const FirstModuleWrapper = styled.div`
+  hegight: auto;
+`
+
+const Background = styled.div`
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : '')};
+`
+
+class Homepage extends React.Component {
+  static async fetchData({ store }) {
+    await fetchIndexPageContent()(store.dispatch, store.getState)
+    const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
+    if (error !== null) {
+      return Promise.reject(error)
     }
-    return new Promise((resolve, reject) => {
-      // load tagged articles in parallel
-      async.parallel([
-        function (callback) {
-          store.dispatch(fetchFeatureArticles())
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(REVIEW_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        },
-        function (callback) {
-          store.dispatch(fetchArticlesByUuidIfNeeded(getCatId(SPECIAL_TOPIC_CH_STR), CATEGORY, params))
-            .then(() => {
-              callback(null)
-            })
-        }
-      ], (err, results) => {
-        if (err) {
-          console.warn('fetchData occurs error:', err)
-        }
-        resolve()
-      })
-    })
-  }
-
-  constructor(props, context) {
-    super(props, context)
-    this.specialTopicListId = getCatId(SPECIAL_TOPIC_CH_STR)
-    this.reviewListId = getCatId(REVIEW_CH_STR)
-    this.loadMoreArticles = this._loadMoreArticles.bind(this, this.specialTopicListId)
   }
 
   componentWillMount() {
-    const { articlesByUuids, featureArticles, fetchArticlesByUuidIfNeeded, fetchFeatureArticles, setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: HOME,
-      readPercent: 0
-    })
-
-    let params = {
-      page: PAGE,
-      max_results: MAXRESULT
-    }
-    if (get(featureArticles, 'items.length', 0) === 0) {
-      fetchFeatureArticles()
-    }
-    if (get(articlesByUuids, [ this.reviewListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.reviewListId, CATEGORY, params)
-    }
-    if (get(articlesByUuids, [ this.specialTopicListId, 'items', 'length' ], 0) < MAXRESULT) {
-      fetchArticlesByUuidIfNeeded(this.specialTopicListId, CATEGORY, params)
-    }
-
+    this.props.fetchIndexPageContent()
   }
 
-  _loadMoreArticles(catId) {
-    const { articlesByUuids, fetchArticlesByUuidIfNeeded } = this.props
-
-    if (get(articlesByUuids, [ catId, 'hasMore' ]) === false) {
-      return
-    }
-
-    let itemSize = get(articlesByUuids, [ catId, 'items', 'length' ], 0)
-    let page = Math.floor(itemSize / MAXRESULT) + 1
-    fetchArticlesByUuidIfNeeded(catId, CATEGORY, {
-      page: page,
-      max_results: MAXRESULT
-    })
+  componentDidMount() {
+    this.props.fetchCategoriesPostsOnIndexPage()
   }
 
   render() {
-    const { articlesByUuids, entities, featureArticles } = this.props
-    const topnews_num = 5
-    let topnewsItems = denormalizeArticles(get(featureArticles, 'items', []), entities)
-    let specialTopicItems = denormalizeArticles(get(articlesByUuids, [ this.specialTopicListId, 'items' ], []), entities)
-    let reviewItems = denormalizeArticles(get(articlesByUuids, [ this.reviewListId, 'items' ], []), entities)
-
-    let microData = (
+    const microData = (
       <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
         <div>
           <meta itemProp="name" content="首頁" />
           <link itemProp="url" href="https://www.twreporter.org/" />
         </div>
         <div>
-          <meta itemProp="name" content="台灣" />
-          <link itemProp="url" href="https://www.twreporter.org/category/taiwan" />
+          <meta itemProp="name" content="人權．社會" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/human_rights_and_society" />
         </div>
         <div>
-          <meta itemProp="name" content="文化" />
-          <link itemProp="url" href="https://www.twreporter.org/category/culture" />
+          <meta itemProp="name" content="環境．教育" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/environment_and_education" />
         </div>
         <div>
-          <meta itemProp="name" content="國際" />
-          <link itemProp="url" href="https://www.twreporter.org/category/intl" />
+          <meta itemProp="name" content="政治．經濟" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/politics_and_economy" />
+        </div>
+        <div>
+          <meta itemProp="name" content="生活．醫療" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/living_and_medical_care" />
+        </div>
+        <div>
+          <meta itemProp="name" content="文化．藝術" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/culture_and_art" />
+        </div>
+        <div>
+          <meta itemProp="name" content="國際．兩岸" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/international" />
+        </div>
+        <div>
+          <meta itemProp="name" content="觀點" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/reviews" />
+        </div>
+        <div>
+          <meta itemProp="name" content="多媒體" />
+          <link itemProp="url" href="https://www.twreporter.org/categories/infographic" />
         </div>
         <div>
           <meta itemProp="name" content="影像" />
           <link itemProp="url" href="https://www.twreporter.org/photography" />
         </div>
-        <div>
-          <meta itemProp="name" content="評論" />
-          <link itemProp="url" href="https://www.twreporter.org/category/review" />
-        </div>
-        <div>
-          <meta itemProp="name" content="作者列表" />
-          <link itemProp="url" href="https://www.twreporter.org/authors" />
-        </div>
-        <div>
-          <meta itemProp="name" content="轉型正義" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8151363d1610007ef656" />
-        </div>
-        <div>
-          <meta itemProp="name" content="美國總統大選" />
-          <link itemProp="url" href="https://www.twreporter.org/tag/57b065e5360b651200848d76" />
-        </div>
-        <div>
-          <meta itemProp="name" content="亞洲森林浩劫" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac816f363d1610007ef658" />
-        </div>
-        <div>
-          <meta itemProp="name" content="走入同志家庭" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8177363d1610007ef659" />
-        </div>
-        <div>
-          <meta itemProp="name" content="急診人生" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8180363d1610007ef65aa" />
-        </div>
-        <div>
-          <meta itemProp="name" content="五輕關廠" />
-          <link itemProp="url" href="https://www.twreporter.org/topic/57ac8192363d1610007ef65b" />
-        </div>
       </div>
-
     )
 
-    let organizationJSONLD = `
-      {
-        "@context" : "http://schema.org",
-        "@type" : "Organization",
-        "legalName" : "財團法人報導者文化基金會",
-        "alternateName": "報導者 The Reporter",
-        "url": "https://www.twreporter.org/",
-        "logo": "https://www.twreporter.org/storage/images/logo.png",
-        "sameAs": [
-          "http://www.facebook.com/twreporter",
-          "https://www.instagram.com/twreporter/",
-          "https://www.youtube.com/channel/UCbWm0FTcQgRyc--ZsAzGcRA"
-        ],
-        "potentialAction" : {
-          "@type" : "SearchAction",
-          "target" : "https://www.twreporter.org/search?q={search_term}",
-          "query-input" : "required name=search_term"
-        }
-      }
-    `
-    let webSiteJSONLD = `
+    const webSiteJSONLD = `
       {
         "@context" : "http://schema.org",
         "@type" : "WebSite",
@@ -206,7 +152,7 @@ class Home extends Component {
         }
       }
     `
-    let breadcrumbListJSONLD = `
+    const breadcrumbListJSONLD = `
     {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
@@ -221,29 +167,57 @@ class Home extends Component {
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/taiwan",
-            "name": "台灣"
+            "@id": "https://www.twreporter.org/categories/human_rights_and_society",
+            "name": "人權．社會"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/intl",
-            "name": "國際"
+            "@id": "https://www.twreporter.org/categories/environment_and_education",
+            "name": "環境．教育"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/culture",
-            "name": "文化"
+            "@id": "https://www.twreporter.org/categories/politics_and_economy",
+            "name": "政治．經濟"
           }
         },{
           "@type": "ListItem",
           "position": 2,
           "item": {
-            "@id": "https://www.twreporter.org/category/review",
+            "@id": "https://www.twreporter.org/categories/living_and_medical_care",
+            "name": "生活．醫療"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/culture_and_art",
+            "name": "文化．藝術"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/international",
+            "name": "國際．兩岸"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/reviews",
             "name": "評論"
+          }
+        }, {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://www.twreporter.org/categories/infographic",
+            "name": "多媒體"
           }
         }, {
           "@type": "ListItem",
@@ -252,22 +226,12 @@ class Home extends Component {
             "@id": "https://www.twreporter.org/photography",
             "name": "影像"
           }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/authors",
-            "name": "作者列表"
-          }
         }]
       }
     `
-    const promotionImg = 'https://www.twreporter.org/images/20170628161533-67fae5e08b65d9ae0f5c713a09888e31-tablet.jpg'
-    const promotionImg2 = 'https://www.twreporter.org/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg'
-    const promotionImg3 = 'https://www.twreporter.org/images/20170504155912-6ec3adfb924dd24ec111298bd4c867e9.png'
 
     return (
-      <div>
+      <Container>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -285,76 +249,174 @@ class Home extends Component {
             { property: 'og:url', content: SITE_META.URL }
           ]}
         />
-        <TopNews topnews={topnewsItems} />
-        {/* Hard code promotion bannder*/}
-        <div className={styles['annual-report']}>
-          <span>香港主權移交20年</span>
-        </div>
-        <Link to="/topics/transfer-of-sovereignty-over-hong-kong-20years">
-          <div className={styles['index-promotion']}>
-            <PromotionBanner
-              bgImgSrc={promotionImg}
-              iconImgSrc={backToTopicIcon}
-              title="香港，你好嗎？"
-              subtitle=""
+        <SideBar>
+          <FirstModuleWrapper
+            moduleId={moduleIdMap.editorPick}
+            moduleLabel={moduleLabelMap.editorPick}
+          >
+            <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+            <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
+          </FirstModuleWrapper>
+          <ScrollFadein
+            moduleId={moduleIdMap.latestTopic}
+            moduleLabel={moduleLabelMap.latestTopic}
+          >
+            <LatestTopicSection
+              data={this.props[fieldNames.sections.latestTopicSection]}
             />
-          </div>
-        </Link>
-        <div className={styles['index-promotion']}>
-          <div className="row">
-            <div className="col-md-6">
-              <Link to="/topics/taiwan-temporary-workers">
-                <PromotionBanner
-                  bgImgSrc={promotionImg2}
-                  iconImgSrc={backToTopicIcon}
-                  title="工作貧窮"
-                  subtitle="年資中斷、欠薪頻傳的派遣大軍們"
-                />
-              </Link>
-            </div>
-            <div className="col-md-6">
-              <a href="https://tsai-tracker.twreporter.org/" target="_blank">
-                <PromotionBanner
-                  bgImgSrc={promotionImg3}
-                  title=" &nbsp;"
-                  subtitle="蔡英文勞動政策追蹤大平台"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-        <Daily daily={reviewItems}
-        />
-        <Features
-          features={specialTopicItems}
-          hasMore={ get(articlesByUuids, [ this.specialTopicListId, 'hasMore' ])}
-          loadMore={this.loadMoreArticles}
-        />
-        {
-          this.props.children
-        }
-        <Footer />
+          </ScrollFadein>
+          <ScrollFadein
+            moduleId={moduleIdMap.review}
+            moduleLabel={moduleLabelMap.review}
+          >
+            <ReviewsSection
+              data={this.props[fieldNames.sections.reviewsSection]}
+              moreURI={`categories/${categoryURI.reviews}`}
+            />
+          </ScrollFadein>
+          <ScrollFadein
+            moduleId={moduleIdMap.category}
+            moduleLabel={moduleLabelMap.category}
+          >
+            <CategorySection
+              data={this.props.categories}
+            />
+          </ScrollFadein>
+          <Background
+            backgroundColor={moduleBackgounds.topic}
+            moduleId={moduleIdMap.topic}
+            moduleLabel={moduleLabelMap.topic}
+          >
+            <ScrollFadein
+              backgroundColor={moduleBackgounds.topic}
+            >
+              <TopicsSection
+                items={this.props[fieldNames.sections.topicsSection]}
+              />
+            </ScrollFadein>
+          </Background>
+          <Background
+            backgroundColor={moduleBackgounds.photography}
+            moduleId={moduleIdMap.photography}
+            moduleLabel={moduleLabelMap.photography}
+          >
+            <ScrollFadein>
+              <PhotographySection
+                items={this.props[fieldNames.sections.photosSection]}
+                moreURI="photography"
+              />
+            </ScrollFadein>
+          </Background>
+          <Background
+            backgroundColor={moduleBackgounds.infographic}
+            moduleId={moduleIdMap.infographic}
+            moduleLabel={moduleLabelMap.infographic}
+          >
+            <ScrollFadein>
+              <InforgraphicSection
+                items={this.props[fieldNames.sections.infographicsSection]}
+                moreURI={`categories/${categoryURI.infographic}`}
+              />
+            </ScrollFadein>
+          </Background>
+          <ScrollFadein
+            moduleId={moduleIdMap.donation}
+            moduleLabel={moduleLabelMap.donation}
+          >
+            <ReporterIntro />
+          </ScrollFadein>
+        </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJSONLD }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
-      </div>
+        <Footer />
+      </Container>
     )
   }
 }
 
+function buildCategorySectionData(state) {
+  const buildData = (post) => {
+    return {
+      id: _.get(post, 'id', ''),
+      slug: _.get(post, 'slug', ''),
+      title: _.get(post, 'title', ''),
+      img: {
+        src: _.get(post, 'hero_image.resized_targets.tiny.url',''),
+        description: _.get(post, 'hero_image.description',''),
+        srcset: getImageSrcSet(_.get(post, 'hero_image.resized_targets'))
+      },
+      style: _.get(post, 'style', '')
+    }
+  }
+
+  const catFields = _.keys(fieldNames.categories)
+  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.postsInEntities ], {})
+  const selected = []
+  const data = []
+
+  catFields.forEach((field) => {
+    let post
+    const slugs = _.get(state, [ fieldNames.indexPage, fieldNames.categories[field] ], [])
+    if (Array.isArray(slugs)) {
+      for (let i = 0; i < slugs.length; i+=1) {
+        const slug = slugs[i]
+        if (selected.indexOf(slug) === -1) {
+          post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
+          post.id = field + '-' + post.id
+          post.listName = categoryString[field]
+          post.moreURI = `categories/${categoryURI[field]}`
+          data.push(post)
+          break
+        }
+      }
+      if (typeof post !== 'object' && slugs.length > 0) {
+        post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
+        post.id = field + '-' + post.id
+        post.listName = categoryString[field]
+        post.moreURI = `categories/${categoryURI[field]}`
+        data.push(post)
+      }
+    }
+  })
+  return data
+}
+
 function mapStateToProps(state) {
+  const entities = _.get(state, fieldNames.entities, {})
+  const indexPageState = _.get(state, fieldNames.indexPage, {})
+
+  // get post entities
+  const postEntities = _.get(entities, fieldNames.postsInEntities, {})
+
+  // get topic entities
+  const topicEntities = _.get(entities, fieldNames.topicsInEntities, {})
+
+  // restore the posts
+  const sections = fieldNames.sections
+  const latest = denormalizePosts(_.get(indexPageState, sections.latestSection, []), postEntities)
+  const editorPicks = denormalizePosts(_.get(indexPageState, sections.editorPicksSection, []), postEntities)
+  const reviews = denormalizePosts(_.get(indexPageState, sections.reviewsSection, []), postEntities)
+  const photoPosts = denormalizePosts(_.get(indexPageState, sections.photosSection, []), postEntities)
+  const infoPosts = denormalizePosts(_.get(indexPageState, sections.infographicsSection, []), postEntities)
+
+  // restore the topics
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, {})
+  const topics = denormalizeTopics(_.get(indexPageState, sections.topicsSection, []), topicEntities, postEntities)
+
+  // restore
+
   return {
-    articlesByUuids: state.articlesByUuids || {},
-    entities: state.entities || {},
-    featureArticles: state.featureArticles || {}
+    [fieldNames.sections.latestSection]: latest,
+    [fieldNames.sections.editorPicksSection]: editorPicks,
+    [fieldNames.sections.latestTopicSection]: latestTopic,
+    [fieldNames.sections.reviewsSection]: reviews,
+    [fieldNames.sections.topicsSection]: topics,
+    [fieldNames.sections.photosSection]: photoPosts,
+    [fieldNames.sections.infographicsSection]: infoPosts,
+    categories: buildCategorySectionData(state)
   }
 }
 
-export { Home }
-
-export default connect(mapStateToProps, {
-  fetchArticlesByUuidIfNeeded,
-  fetchFeatureArticles,
-  setHeaderInfo
-})(Home)
+export { Homepage }
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)

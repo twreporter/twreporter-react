@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/twreporter/twreporter-react.svg?branch=master)](https://travis-ci.org/twreporter/twreporter-react)
+[![CircleCI](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp.svg?style=svg)](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp)
 
 # TW Reporter
 New Media foundation in Taiwan.

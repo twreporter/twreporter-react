@@ -122,7 +122,7 @@ export default class Bookmarks extends Component {
   render() {
     const { bookmarks } = this.props
     let _Bookmarks = map(bookmarks, (ele, index) => {
-      const { bookmarkOrder, publishedDate, ...rest } = ele
+      const { ...rest } = ele
       return (
         <Bookmark
           ref={`bookmarkRef-${index}`}
