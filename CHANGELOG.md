@@ -1,4 +1,10 @@
 ### Unreleased
+
+- Update tool styles, remove raf, and check screen type in Article
+- Remove lazyload on photograph articles
+- Update ref to callback function
+- Replace pure-render-mixin with PureComponent
+
 ### 2.1.3
 - Bug fix. Fix og:image missing
 
