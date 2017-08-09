@@ -229,6 +229,7 @@ class Homepage extends React.Component {
         }]
       }
     `
+
     return (
       <Container>
         <Helmet
