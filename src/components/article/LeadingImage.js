@@ -1,8 +1,6 @@
-
 /* eslint no-unused-vars:0 */
 'use strict'
 import React from 'react' // eslint-disable-line
-import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import styles from './LeadingImage.scss'
 import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
