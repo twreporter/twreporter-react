@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react'
 
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Helmet from 'react-helmet'
+import LoadingSpinner from '../components/Spinner'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -19,6 +20,7 @@ import { searchAuthorsIfNeeded } from '../actions/authors'
 import { setHeaderInfo } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
+
 
 const _ = {
   get: get,
@@ -129,7 +131,7 @@ class AuthorsList extends React.Component {
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
         {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}
+        {!shouldLoaderDisplay ? null : <LoadingSpinner className={styles['loading-spinner']} alt={constants.LOADING_MORE_AUTHORS} />}
         {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
         {!shouldSensorDisplay ? null :
         <VisibilitySensor onChange={handleSeen} partialVisibility={true}>

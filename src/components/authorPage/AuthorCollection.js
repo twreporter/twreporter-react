@@ -10,8 +10,8 @@ import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import { replaceStorageUrlPrefix } from '../../utils/index'
-import { shortenString } from '../../utils/index'
+import LoadingSpinner from '../Spinner'
+import { replaceStorageUrlPrefix, shortenString } from '../../utils/index'
 import styles from './AuthorCollection.scss'
 
 const AuthorCollection = (props) => {
@@ -75,7 +75,7 @@ const AuthorCollection = (props) => {
             <div className={styles['sensor']}></div>
           </VisibilitySensor>
         }
-        {!loaderDisply ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{LOADING_MORE_ARTICLES}</div></div>}
+        {!loaderDisply ? null : <LoadingSpinner className={styles['loading-spinner']} alt={LOADING_MORE_ARTICLES} />}
       </div>
     </div>
   )
