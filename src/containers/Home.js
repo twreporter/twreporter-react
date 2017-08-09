@@ -257,74 +257,55 @@ class Homepage extends React.Component {
             <LatestSection data={this.props[fieldNames.sections.latestSection]} />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
-          <ScrollFadein
+          <LatestTopicSection
             moduleId={moduleIdMap.latestTopic}
             moduleLabel={moduleLabelMap.latestTopic}
-          >
-            <LatestTopicSection
-              data={this.props[fieldNames.sections.latestTopicSection]}
-            />
-          </ScrollFadein>
-          <ScrollFadein
+            data={this.props[fieldNames.sections.latestTopicSection]}
+          />
+          <ReviewsSection
+            data={this.props[fieldNames.sections.reviewsSection]}
+            moreURI={`categories/${categoryURI.reviews}`}
             moduleId={moduleIdMap.review}
             moduleLabel={moduleLabelMap.review}
-          >
-            <ReviewsSection
-              data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${categoryURI.reviews}`}
-            />
-          </ScrollFadein>
-          <ScrollFadein
+          />
+          <CategorySection
+            data={this.props.categories}
             moduleId={moduleIdMap.category}
             moduleLabel={moduleLabelMap.category}
-          >
-            <CategorySection
-              data={this.props.categories}
-            />
-          </ScrollFadein>
+          />
           <Background
             backgroundColor={moduleBackgounds.topic}
             moduleId={moduleIdMap.topic}
             moduleLabel={moduleLabelMap.topic}
           >
-            <ScrollFadein
-              backgroundColor={moduleBackgounds.topic}
-            >
-              <TopicsSection
-                items={this.props[fieldNames.sections.topicsSection]}
-              />
-            </ScrollFadein>
+            <TopicsSection
+              data={this.props[fieldNames.sections.topicsSection]}
+            />
           </Background>
           <Background
             backgroundColor={moduleBackgounds.photography}
             moduleId={moduleIdMap.photography}
             moduleLabel={moduleLabelMap.photography}
           >
-            <ScrollFadein>
-              <PhotographySection
-                items={this.props[fieldNames.sections.photosSection]}
-                moreURI="photography"
-              />
-            </ScrollFadein>
+            <PhotographySection
+              data={this.props[fieldNames.sections.photosSection]}
+              moreURI="photography"
+            />
           </Background>
           <Background
             backgroundColor={moduleBackgounds.infographic}
             moduleId={moduleIdMap.infographic}
             moduleLabel={moduleLabelMap.infographic}
           >
-            <ScrollFadein>
-              <InforgraphicSection
-                items={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`categories/${categoryURI.infographic}`}
-              />
-            </ScrollFadein>
+            <InforgraphicSection
+              data={this.props[fieldNames.sections.infographicsSection]}
+              moreURI={`categories/${categoryURI.infographic}`}
+            />
           </Background>
-          <ScrollFadein
+          <ReporterIntro
             moduleId={moduleIdMap.donation}
             moduleLabel={moduleLabelMap.donation}
-          >
-            <ReporterIntro />
-          </ScrollFadein>
+          />
         </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
@@ -341,11 +322,7 @@ function buildCategorySectionData(state) {
       id: _.get(post, 'id', ''),
       slug: _.get(post, 'slug', ''),
       title: _.get(post, 'title', ''),
-      img: {
-        src: _.get(post, 'hero_image.resized_targets.tiny.url',''),
-        description: _.get(post, 'hero_image.description',''),
-        srcset: getImageSrcSet(_.get(post, 'hero_image.resized_targets'))
-      },
+      hero_image: _.get(post, 'hero_image'),
       style: _.get(post, 'style', '')
     }
   }
