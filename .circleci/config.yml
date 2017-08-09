@@ -68,14 +68,22 @@ jobs:
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-            export PKG_VER="$(cat .pkg-version)"
-            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER .
-            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
-            kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
-            kubectl rollout status deployment/twreporter-website-v2
-            #kubectl patch deployment twreporter-website-v2 -p '{"spec":{"template":{"spec":{"containers":[{"name":"twreporter-website-v2","image":"gcr.io/coastal-run-106202/twreporter-website-v2:'"$PKG_VER"'"}]}}}}'
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              gcloud --quiet container clusters get-credentials ${GOOGLE_STAGING_CLUSTER_NAME}
+              export PKG_VER="$(cat .pkg-version)"
+              docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER .
+              gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
+              kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
+              kubectl rollout status deployment/twreporter-website-v2
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "release"]; then
+              gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+              export PKG_VER="$(cat .pkg-version)"
+              kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
+              kubectl rollout status deployment/twreporter-website-v2
+            fi
 
 
 workflows:
@@ -89,5 +97,5 @@ workflows:
           filters:
             branches:
               only:
-                - /release-.*/
-                - index-page-revamp
+                - release
+                - staging
