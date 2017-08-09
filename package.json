@@ -21,7 +21,10 @@
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
-        "PORT": 3000
+        "PORT": 3000,
+        "API_HOST": "staging-go-api.twreporter.org",
+        "API_PROTOCOL": "https",
+        "API_PORT": "443"
       }
     },
     "start-dev": {
