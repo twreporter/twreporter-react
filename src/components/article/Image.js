@@ -7,7 +7,6 @@ import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import LazyLoad, { forceCheck } from 'react-lazyload'
 import styles from './Image.scss'
 import UI_SETTING from '../../constants/ui-settings'
@@ -38,12 +37,13 @@ class Image extends FitwidthMixin(Component) {
     })
 
     if (super.componentDidMount) super.componentDidMount()
-
-    forceCheck()
+    if (!this.context.isPhotography) {
+      forceCheck()
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (ReactDOM.findDOMNode(this)) {
+    if (this.node) {
       this.fitToParentWidth()
     }
   }
@@ -62,8 +62,18 @@ class Image extends FitwidthMixin(Component) {
     return null
   }
 
-  _renderFigure(imageObj, imgStyle) {
+  _renderFigure(imageObj, imgStyle, isLazyload=true) {
     if (get(imageObj, 'url')) {
+      if (!isLazyload) {
+        return (
+          <figure>
+            <img src={ replaceStorageUrlPrefix(imageObj.url) }
+              style={ { ...imgStyle } }
+              className={styles['img-absolute']}
+            />
+          </figure>
+        )
+      }
       return (
         <figure>
           <LazyLoad offset={UI_SETTING.image.loadingOffset.image} height={imgStyle.height} once={true}>
@@ -86,41 +96,44 @@ class Image extends FitwidthMixin(Component) {
   }
 
   render() {
-    let imageByDevice = get(this.props, [ 'content', 0 ], {})
+    const imageByDevice = get(this.props, [ 'content', 0 ], {})
     if (imageByDevice===null) {
       return null
     }
-    let { desktop, tiny } = imageByDevice
-    let { isMounted, screenType, width } = this.state
-    let { isToShowDescription, outerWidth, outerHeight } = this.props
-    let boxWidth = outerWidth || width
-    let maxWidth = get(desktop, 'width', DEFAULT_WIDTH)
-    if(maxWidth < boxWidth) {
-      boxWidth = maxWidth
-    }
-    let boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
+    const { desktop, tiny } = imageByDevice
+    const { isMounted, screenType, width } = this.state
+    const { isToShowDescription, outerWidth, outerHeight } = this.props
+    const maxWidth = get(desktop, 'width', DEFAULT_WIDTH)
+    const contentWidth = outerWidth || width
+    const boxWidth = (contentWidth > maxWidth) ? maxWidth : contentWidth
+    const boxHeight = outerHeight || this._getHeight(boxWidth, desktop, DEFAULT_WIDTH, DEFAULT_HEIGHT)
+    const imageDescription = get(imageByDevice, 'description', null)
+
     let renderedPlaceHoderImage = null
     let renderedFigure = null
-    let imageDescription = get(imageByDevice, 'description', null)
-    let descriptionBox
+    let descriptionBox = null
 
-    let outerStyle = {
+    const outerStyle = {
       width: boxWidth,
       minHeight: boxHeight
     }
-    let imgStyle = {
+    const imgStyle = {
       ...outerStyle,
       height: boxHeight
     }
 
-    // if the Image is being mounted, select image to render
-    // according to the device of the client
-    if (isMounted) {
-      renderedPlaceHoderImage = this._renderPlaceHoderImage(get(tiny, [ 'url' ]), imgStyle)
-      renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
-    }
+    const imgUrl = replaceStorageUrlPrefix(get(desktop, 'url', ''))
 
-    if(imageDescription && isToShowDescription) {
+    const microData = (
+      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
+        <meta itemProp="url" content={imgUrl} />
+        <meta itemProp="description" content={imageDescription} />
+        <meta itemProp="height" content={get(desktop, 'height')} />
+        <meta itemProp="width" content={get(desktop, 'width')} />
+      </div>
+    )
+
+    if (imageDescription && isToShowDescription) {
       descriptionBox =
         <div
           className={cx(commonStyles['desc-text-block'], 'text-justify')}
@@ -130,21 +143,32 @@ class Image extends FitwidthMixin(Component) {
         </div>
     }
 
-    let imgUrl = replaceStorageUrlPrefix(get(desktop, 'url', ''))
-
-    let microData = (
-      <div itemProp="image" itemScope itemType="http://schema.org/ImageObject">
-        <meta itemProp="url" content={imgUrl} />
-        <meta itemProp="description" content={imageDescription} />
-        <meta itemProp="height" content={get(desktop, 'height')} />
-        <meta itemProp="width" content={get(desktop, 'width')} />
-      </div>
-    )
-
     const { isPhotography } = this.context
+    if (isPhotography) {
+      renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle, false)
+      return (
+        <div ref={div => {this.node = div}} className={cx(styles['image-box'], styles['photoExclu'])}>
+          <div className="hidden-print" style={outerStyle}>
+            {renderedPlaceHoderImage}
+            {renderedFigure}
+          </div>
+          {descriptionBox}
+          {microData}
+          <div className="visible-print">
+            <img src={imgUrl} alt={imageDescription} />
+          </div>
+        </div>
+      )
+    }
+    // if the Image is being mounted, select image to render
+    // according to the device of the client
+    if (isMounted) {
+      renderedPlaceHoderImage = this._renderPlaceHoderImage(get(tiny, [ 'url' ]), imgStyle)
+      renderedFigure = this._renderByDevice(screenType, imageByDevice, imgStyle)
+    }
 
     return (
-      <div ref="imageBox" className={cx(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
+      <div ref={div => {this.node = div}} className={cx(styles['image-box'], isPhotography ? styles['photoExclu'] : null)}>
         <div className="hidden-print" style={outerStyle}>
           {renderedPlaceHoderImage}
           {renderedFigure}

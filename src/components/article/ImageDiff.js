@@ -6,7 +6,6 @@ import classNames from 'classnames'
 import FitwidthMixin from './mixins/FitwidthMixin'
 import { getScreenType } from '../../utils/index'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import Slider from 'rc-slider'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
@@ -42,7 +41,7 @@ class ImageDiff extends FitwidthMixin(Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (ReactDOM.findDOMNode(this)) {
+    if (this.node) {
       this.fitToParentWidth()
     }
   }
@@ -106,7 +105,7 @@ class ImageDiff extends FitwidthMixin(Component) {
     }
 
     return (
-      <div ref="imgDiff" className={styles.diffContainer}>
+      <div ref={div => {this.node = div}} className={styles.diffContainer}>
         <div style={outerStyle}>
           <figure className={styles.wrapper}>
             <div className={styles.imgContainer}>

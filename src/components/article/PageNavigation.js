@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import styles from './PageNavigation.scss'
 import { Link } from 'react-router'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 
 // lodash
 import get from 'lodash/get'
@@ -32,21 +31,21 @@ class PageNavigation extends Component {
   }
 
   _handleTitleTextOverflow() {
-    let containerHeight = get(ReactDOM.findDOMNode(this.refs.container), 'clientHeight', 75)
-    let thumbWidth = get(ReactDOM.findDOMNode(this.refs.thumb), 'width', 0)
-    let titleNode = ReactDOM.findDOMNode(this.refs.title)
+    const containerHeight = get(this.container, 'clientHeight', 75)
+    const thumbWidth = get(this.thumb, 'width', 0)
+    const titleNode = this.title
     if (!titleNode) {
       return
     }
-    let { clientWidth, clientHeight, innerText } = titleNode
+    const { clientWidth, clientHeight, innerText } = titleNode
     if (!innerText) {
       return
     }
     if (clientHeight > containerHeight) {
-      let wordArea = Math.floor(clientHeight * clientWidth / innerText.length)
+      const wordArea = Math.floor(clientHeight * clientWidth / innerText.length)
       // 0.67, which means we only want to use 2/3 area to display.
       // Otherwise, the text may overflow due to padding or margin.
-      let words = Math.floor((clientWidth - thumbWidth) * (containerHeight * 0.67 ) / wordArea)
+      const words = Math.floor((clientWidth - thumbWidth) * (containerHeight * 0.67 ) / wordArea)
       titleNode.innerText = innerText.slice(0, words) + '...'
     }
   }
@@ -59,12 +58,12 @@ class PageNavigation extends Component {
       <article className={classNames(styles['article'], imgUrl ? '' : styles['no-thumbnail'], 'clearfix')}>
         { imgUrl ?
           <div className={styles['thumbnail']}>
-            <img ref="thumb" src={ imgUrl } width={ 65 } height={ 65 } />
+            <img ref={img => {this.thumb = img}} src={ imgUrl } width={ 65 } height={ 65 } />
           </div>
           : null
         }
         <div className={styles['title']}>
-          <h3 ref="title" title={ title }>
+          <h3 ref={h3 => {this.title = h3}} title={ title }>
             {title}
           </h3>
         </div>
@@ -91,7 +90,7 @@ class PageNavigation extends Component {
 
     let link = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + slug : LINK_PREFIX.ARTICLE + slug
     return (
-      <nav ref="container" className={classNames(styles['aside-page-navigation'], styles[navigate])}>
+      <nav ref={nav => {this.container = nav}} className={classNames(styles['aside-page-navigation'], styles[navigate])}>
         <Link to={link} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           {this._renderArticle(article)}
           {this._renderArrow(navigate)}
