@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.6 
+- Update .circleci/config.yml. Separate staging and prod docker build.
+
 ### 2.1.5
 - Update yarn.lock
 - Update spinners of Authors and Author
