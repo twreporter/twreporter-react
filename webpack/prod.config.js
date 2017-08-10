@@ -72,7 +72,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        BROWSER: true
+        BROWSER: true,
+        API_HOST: '"staging-go-api.twreporter.org"',
+        API_PROTOCOL: '"https"',
+        API_PORT: '"443"'
       },
       __CLIENT__: true,
       __SERVER__: false,
