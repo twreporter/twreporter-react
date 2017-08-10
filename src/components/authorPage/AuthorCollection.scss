@@ -3,7 +3,6 @@
 @import '../../themes/common-variables';
 @import '../../themes/font-mixins';
 @import '../../themes/animation';
-@import '../../themes/spinner';
 
 $box-padding: 24px;
 $img-size: 80px;
@@ -137,8 +136,22 @@ $img-size: 80px;
 }
 
 .sensor {
-  height: rem(50px);
+  height: 0;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.loading-spinner {
+  padding-top: 20px;
+  text-align: center;
+  width: 100%;
+  @include fade-in(.5s);
+  img {
+    width: 46px;
+    height: auto;
+    @include mq($min-width: $screen-sm-min) {
+      width: 66px;
+    }
+  }
 }

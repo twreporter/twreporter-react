@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react'
 
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Helmet from 'react-helmet'
+import LoadingSpinner from '../components/Spinner'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -19,6 +20,7 @@ import { searchAuthorsIfNeeded } from '../actions/authors'
 import { setHeaderInfo } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
+
 
 const _ = {
   get: get,
@@ -36,6 +38,9 @@ class AuthorsList extends React.Component {
     this.state = {
       whichAuthorsListToRender: constants.AUTHORS_LIST
     }
+    this._changeListTo = this._changeListTo.bind(this)
+    this._handleLoadmore = this._handleLoadmore.bind(this)
+    this._handleSeen = this._handleSeen.bind(this)
   }
 
   componentWillMount() {
@@ -53,8 +58,26 @@ class AuthorsList extends React.Component {
     }
   }
 
+  // Callback for sensor being seen
+  _handleSeen(isVisible) {
+    const whichAuthorsListToRender = this.state.whichAuthorsListToRender
+    const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
+    const currentPage = _.get(authorsListDataToRender, 'currentPage', 0)
+    if ((currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE) && isVisible) {
+      return this._handleLoadmore()
+    }
+  }
+
+  // Callback for loadmore button being clicked
+  _handleLoadmore() {
+    return this.props.searchAuthorsIfNeeded('')
+  }
+
+  _changeListTo(listType) {
+    this.setState({ whichAuthorsListToRender: listType })
+  }
+
   render() {
-    const searchAuthorsIfNeeded = this.props.searchAuthorsIfNeeded
     const whichAuthorsListToRender = _.get(this.state, 'whichAuthorsListToRender', constants.AUTHORS_LIST)
     const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
     const currentPage = _.get(authorsListDataToRender, 'currentPage', 0),
@@ -77,29 +100,13 @@ class AuthorsList extends React.Component {
     }
     const authorsArray = _.map(authorsIdList, authorIdToDataObj)
 
-    // Callback for sensor being seen
-    let handleSeen = (isVisible) => {
-      if (currentPage>constants.NUMBER_OF_FIRST_RESPONSE_PAGE && isVisible === true) {
-        return handleLoadmore()
-      }
-    }
-    // Callback for loadmore button being clicked
-    let handleLoadmore = () => {
-      return searchAuthorsIfNeeded('')
-    }
-
-    let changeListTo = (listType) => {
-      this.setState({ whichAuthorsListToRender: listType })
-    }
-
     // Page elements display options
-    const shouldLoadmoreBtnDisplay    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
-    const shouldSensorDisplay         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
-    const shouldLoaderDisplay         = isFetching  // For displaying the loading spinner (loader)
+    const isLoadmoreBtnDisplayed    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
+    const isSensorActive         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
     const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
     const isListAllError = (whichAuthorsListToRender === constants.AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
-    const shouldNoSearchResultDisplay = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
-    const loadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
+    const isNoSearchResultDisplayed = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
+    const LoadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={this._handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
 
     const fullTitle = constants.PAGE_TITLE + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
@@ -125,16 +132,13 @@ class AuthorsList extends React.Component {
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
-        <AuthorSearchBox sendSearchAuthors={searchAuthorsIfNeeded} changeListTo={changeListTo} />
+        <AuthorSearchBox sendSearchAuthors={this.props.searchAuthorsIfNeeded} changeListTo={this._changeListTo} />
         {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
         {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
-        {shouldNoSearchResultDisplay ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!shouldLoaderDisplay ? null : <div className={styles['loader-container']}><div className={styles['loader']}>{constants.LOADING_MORE_AUTHORS}</div></div>}
-        {!shouldLoadmoreBtnDisplay ? null : loadmoreBtn}
-        {!shouldSensorDisplay ? null :
-        <VisibilitySensor onChange={handleSeen} partialVisibility={true}>
-          <div className={styles['sensor']}></div>
-        </VisibilitySensor>}
+        {isNoSearchResultDisplayed ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
+        {!isFetching ? null : <LoadingSpinner className={styles['loading-spinner']} alt={constants.LOADING_MORE_AUTHORS} />}
+        {!isLoadmoreBtnDisplayed ? null : LoadmoreBtn}
+        <VisibilitySensor className={styles['sensor']} onChange={this._handleSeen} partialVisibility={true} active={isSensorActive} />
       <Sponsor />
       </div>
     )

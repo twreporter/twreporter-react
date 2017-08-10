@@ -1,8 +1,7 @@
 /*global __SERVER__, __DEVELOPMENT__*/
 'use strict'
 import config from '../../server/config'
-import { SITE_META } from '../constants/index'
-import { basePath } from '../constants/index'
+import { basePath, SITE_META, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { google as storageConfig } from '../conf/storage'
 
 export function formatUrl(path) {
@@ -28,3 +27,11 @@ export function replaceStorageUrlPrefix(url='', isDev = __DEVELOPMENT__) {
 
   return url.replace(toBeReplaced, toReplace)
 }
+
+export const formatPostLinkTo = (targetPostSlug = '', targetPostStyle = '') => (
+  (targetPostStyle === INTERACTIVE_ARTICLE_STYLE) ? `${LINK_PREFIX.INTERACTIVE_ARTICLE}${targetPostSlug}` : `${LINK_PREFIX.ARTICLE}${targetPostSlug}`
+)
+
+export const formatPostLinkTarget = (targetPostStyle = '') => (
+  targetPostStyle === INTERACTIVE_ARTICLE_STYLE ? '_blank' : null
+)
