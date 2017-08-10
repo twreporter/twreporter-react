@@ -1,5 +1,13 @@
 ### Unreleased
 
+### 2.1.5
+
+- Update spinners of Authors and Author
+- Fix Links of Author Collections to interactive post
+- Replace let with const
+- Rename functions and variables for clearness
+- Update Category title style
+
 ### 2.1.4
 - Upgrade twreporter-react-index-page-components to 1.1.0
 - Update tool styles, remove raf, and check screen type in Article
