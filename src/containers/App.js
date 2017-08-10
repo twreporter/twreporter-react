@@ -1,6 +1,5 @@
 'use strict'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import enLocaleData from 'react-intl/locale-data/en'
 import zhLocaleData from 'react-intl/locale-data/zh'
 // import locale data
@@ -19,14 +18,9 @@ addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
 let currentLocale = 'zh-Hant'
 
-class App extends Component {
+class App extends PureComponent {
   getChildContext() {
     return { location: this.props.location }
-  }
-
-  constructor(props) {
-    super(props)
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   componentWillMount() {

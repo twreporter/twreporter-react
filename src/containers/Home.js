@@ -16,7 +16,7 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection, ScrollFadein } = IndexPageComposite.components
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -139,96 +139,94 @@ class Homepage extends React.Component {
       </div>
     )
 
-    const webSiteJSONLD = `
-      {
-        "@context" : "http://schema.org",
-        "@type" : "WebSite",
-        "name" : "報導者 The Reporter",
-        "url" : "https://www.twreporter.org/",
-        "potentialAction" : {
-          "@type" : "SearchAction",
-          "target" : "https://www.twreporter.org/search?q={search_term}",
-          "query-input" : "required name=search_term"
+    const webSiteJSONLD = {
+      '@context' : 'http://schema.org',
+      '@type' : 'WebSite',
+      'name' : '報導者 The Reporter',
+      'url' : 'https://www.twreporter.org/',
+      'potentialAction' : {
+        '@type' : 'SearchAction',
+        'target' : 'https://www.twreporter.org/search?q={search_term}',
+        'query-input' : 'required name=search_term'
+      }
+    }
+
+    const breadcrumbListJSONLD = {
+      '@context': 'http://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [ {
+        '@type': 'ListItem',
+        'position': 1,
+        'item': {
+          '@id': 'https://www.twreporter.org/',
+          'name': '首頁'
         }
-      }
-    `
-    const breadcrumbListJSONLD = `
-    {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@id": "https://www.twreporter.org/",
-            "name": "首頁"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/human_rights_and_society",
-            "name": "人權．社會"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/environment_and_education",
-            "name": "環境．教育"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/politics_and_economy",
-            "name": "政治．經濟"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/living_and_medical_care",
-            "name": "生活．醫療"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/culture_and_art",
-            "name": "文化．藝術"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/international",
-            "name": "國際．兩岸"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/reviews",
-            "name": "評論"
-          }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/infographic",
-            "name": "多媒體"
-          }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/photography",
-            "name": "影像"
-          }
-        }]
-      }
-    `
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/human_rights_and_society',
+          'name': '人權．社會'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/environment_and_education',
+          'name': '環境．教育'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/politics_and_economy',
+          'name': '政治．經濟'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/living_and_medical_care',
+          'name': '生活．醫療'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/culture_and_art',
+          'name': '文化．藝術'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/international',
+          'name': '國際．兩岸'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/reviews',
+          'name': '評論'
+        }
+      }, {
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/infographic',
+          'name': '多媒體'
+        }
+      }, {
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/photography',
+          'name': '影像'
+        }
+      } ]
+    }
+
     return (
       <Container>
         <Helmet
@@ -256,78 +254,59 @@ class Homepage extends React.Component {
             <LatestSection data={this.props[fieldNames.sections.latestSection]} />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
-          <ScrollFadein
+          <LatestTopicSection
             moduleId={moduleIdMap.latestTopic}
             moduleLabel={moduleLabelMap.latestTopic}
-          >
-            <LatestTopicSection
-              data={this.props[fieldNames.sections.latestTopicSection]}
-            />
-          </ScrollFadein>
-          <ScrollFadein
+            data={this.props[fieldNames.sections.latestTopicSection]}
+          />
+          <ReviewsSection
+            data={this.props[fieldNames.sections.reviewsSection]}
+            moreURI={`categories/${categoryURI.reviews}`}
             moduleId={moduleIdMap.review}
             moduleLabel={moduleLabelMap.review}
-          >
-            <ReviewsSection
-              data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${categoryURI.reviews}`}
-            />
-          </ScrollFadein>
-          <ScrollFadein
+          />
+          <CategorySection
+            data={this.props.categories}
             moduleId={moduleIdMap.category}
             moduleLabel={moduleLabelMap.category}
-          >
-            <CategorySection
-              data={this.props.categories}
-            />
-          </ScrollFadein>
+          />
           <Background
             backgroundColor={moduleBackgounds.topic}
             moduleId={moduleIdMap.topic}
             moduleLabel={moduleLabelMap.topic}
           >
-            <ScrollFadein
-              backgroundColor={moduleBackgounds.topic}
-            >
-              <TopicsSection
-                items={this.props[fieldNames.sections.topicsSection]}
-              />
-            </ScrollFadein>
+            <TopicsSection
+              data={this.props[fieldNames.sections.topicsSection]}
+            />
           </Background>
           <Background
             backgroundColor={moduleBackgounds.photography}
             moduleId={moduleIdMap.photography}
             moduleLabel={moduleLabelMap.photography}
           >
-            <ScrollFadein>
-              <PhotographySection
-                items={this.props[fieldNames.sections.photosSection]}
-                moreURI="photography"
-              />
-            </ScrollFadein>
+            <PhotographySection
+              data={this.props[fieldNames.sections.photosSection]}
+              moreURI="photography"
+            />
           </Background>
           <Background
             backgroundColor={moduleBackgounds.infographic}
             moduleId={moduleIdMap.infographic}
             moduleLabel={moduleLabelMap.infographic}
           >
-            <ScrollFadein>
-              <InforgraphicSection
-                items={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`categories/${categoryURI.infographic}`}
-              />
-            </ScrollFadein>
+            <InforgraphicSection
+              data={this.props[fieldNames.sections.infographicsSection]}
+              moreURI={`categories/${categoryURI.infographic}`}
+            />
           </Background>
-          <ScrollFadein
+          <ReporterIntro
             moduleId={moduleIdMap.donation}
             moduleLabel={moduleLabelMap.donation}
-          >
-            <ReporterIntro />
-          </ScrollFadein>
+          />
         </SideBar>
         { microData }
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListJSONLD) }} />
         <Footer />
       </Container>
     )
@@ -340,11 +319,7 @@ function buildCategorySectionData(state) {
       id: _.get(post, 'id', ''),
       slug: _.get(post, 'slug', ''),
       title: _.get(post, 'title', ''),
-      img: {
-        src: _.get(post, 'hero_image.resized_targets.tiny.url',''),
-        description: _.get(post, 'hero_image.description',''),
-        srcset: getImageSrcSet(_.get(post, 'hero_image.resized_targets'))
-      },
+      hero_image: _.get(post, 'hero_image'),
       style: _.get(post, 'style', '')
     }
   }

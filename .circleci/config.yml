@@ -78,7 +78,7 @@ jobs:
               kubectl rollout status deployment/twreporter-website-v2
             fi
 
-            if [ "${CIRCLE_BRANCH}" == "release"]; then
+            if [ "${CIRCLE_BRANCH}" == "release" ]; then
               gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
               export PKG_VER="$(cat .pkg-version)"
               kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER

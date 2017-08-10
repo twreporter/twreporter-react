@@ -25,14 +25,18 @@
   position: fixed;
   left: 50%;
   top: 30%;
-  transform: translate(-487px, -50%); 
   color: $article-tools-text;
   font-size: $font-size-xsmall;
+  z-index: 999;
+  transform: translate(-487px, -50%); 
+  // hd
+  @include mq($min-width: $screen-hd-min) {
+    transform: translate(-522px, -50%); 
+  }
   a, a:visited, a:link, a:active {
     color: $article-tools-text;
     font-size: $font-size-xsmall;
   }
-  
 }
 
 // desktop

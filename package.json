@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.1.3",
+  "version": "2.1.5",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "release": "gulp release",
@@ -21,7 +21,10 @@
       "env": {
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
-        "PORT": 3000
+        "PORT": 3000,
+        "API_HOST": "staging-go-api.twreporter.org",
+        "API_PROTOCOL": "https",
+        "API_PORT": "443"
       }
     },
     "start-dev": {
@@ -76,7 +79,6 @@
     "rc-slider": "^3.7.2",
     "react": "15.4.1",
     "react-addons-css-transition-group": "15.3.2",
-    "react-addons-pure-render-mixin": "15.3.2",
     "react-dom": "15.4.1",
     "react-flex-carousel": "^0.1.7",
     "react-ga": "^2.1.2",
@@ -99,7 +101,7 @@
     "smoothscroll": "^0.3.0",
     "twreporter-react-footer-components": "^1.0.3",
     "twreporter-react-header-components": "^1.0.7",
-    "twreporter-react-index-page-components": "^1.0.23",
+    "twreporter-react-index-page-components": "^1.1.0",
     "twreporter-redux": "2.1.0",
     "video.js": "5.12.1"
   },

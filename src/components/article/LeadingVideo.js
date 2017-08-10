@@ -3,7 +3,6 @@
 import screenSize from '../../constants/screen-size'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import React, { Component } from 'react' // eslint-disable-line
-import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import styles from './LeadingVideo.scss'
 import vjs from 'video.js'
@@ -49,7 +48,7 @@ class LeadingVideo extends React.Component {
   }
 
   getVideoPlayerEl() {
-    return ReactDOM.findDOMNode(this.refs.videoPlayer)
+    return this.videoPlayer
   }
 
   getVideoPlayerOptions() {
@@ -117,7 +116,7 @@ class LeadingVideo extends React.Component {
       <div itemScope itemType="http://schema.org/VideoObject">
         <link itemProp="url" href={this.props.src} />
         <meta itemProp="name" content={this.props.title}/>
-        <video ref="videoPlayer" className={videoPlayerClasses}>
+        <video ref={video => {this.videoPlayer = video}} className={videoPlayerClasses}>
         </video>
         <img itemProp="thumbnailUrl"
           className={styles['leading-poster']}

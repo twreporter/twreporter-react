@@ -3,8 +3,6 @@
 @import '../../themes/media-queries';
 @import '../../themes/font-mixins';
 @import '../../themes/animation';
-@import '../../themes/spinner';
-
 
 $img-size: 114px;
 $img-mobile-size: 95px;
@@ -117,6 +115,19 @@ $list-name-lines: 3;
   margin-right: auto;
 }
 
+.loading-spinner {
+  text-align: center;
+  width: 100%;
+  padding-bottom: 30px;
+  @include fade-in(.5s);
+  img {
+    width: 40px;
+    height: auto;
+    @include mq($min-width: $screen-sm-min) {
+      width: 66px;
+    }
+  }
+}
 
 //==== TABLET, DESKTOP & HD ====
 // @include mq($min-width: $screen-sm-min) {
