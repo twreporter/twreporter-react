@@ -7,9 +7,7 @@ import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
@@ -18,7 +16,6 @@ import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import lineIcon from '../../static/asset/line.svg'
 import logoIcon from '../../static/asset/icon-placeholder.svg'
-import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
@@ -28,8 +25,7 @@ import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRA
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { getAbsPath } from '../utils/index'
+import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
 import { setHeaderInfo, setReadProgress, setArticleTools } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 
@@ -57,18 +53,20 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
-/* Issue need to be solved: _setArticleBounding doesn't get right endY if there are lazyload imgs or embedded items */
 let articlePostition = {
   beginY: 120,
   endY: 200,
   percent: 0
 }
 
-let scrollPosition = {
+const scrollPosition = {
   y: 0
 }
 
-let viewportHeight = 0
+const viewport = {
+  height: 0,
+  screenType: 'DESKTOP'
+}
 
 const ArticlePlaceholder = () => {
   return (
@@ -92,7 +90,7 @@ const ArticlePlaceholder = () => {
   )
 }
 
-class Article extends Component {
+class Article extends PureComponent {
 
   // for server side rendering,
   // we get not only the article itself but also get related articles and
@@ -128,17 +126,14 @@ class Article extends Component {
     super(props, context)
 
     this._setArticleBounding = this._setArticleBounding.bind(this)
-    this._onScroll = _.throttle(this._onScroll, 200).bind(this)
+    this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this._onResize = this._onResize.bind(this)
+    this._onResize =  _.throttle(this._onResize, 500).bind(this)
 
-    // for requestAnimationFrame
-    this._ticking = false
     this.state = {
       fontSize:'medium',
       isFontSizeSet:false
     }
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   getChildContext() {
@@ -160,7 +155,8 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    viewportHeight = window.innerHeight
+    viewport.height = window.innerHeight
+    viewport.screenType = getScreenType(window.innerWidth)
     this._setArticleBounding()
     window.addEventListener('resize', this._onResize)
     // detect sroll position
@@ -190,8 +186,6 @@ class Article extends Component {
     window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
     scrollPosition.y = 0
-    this._ticking = false
-    this.clearRAF()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -203,19 +197,8 @@ class Article extends Component {
     }
   }
 
-  _requestTick() {
-    if (!this._ticking) {
-      this._raf = raf(this._handleScroll)
-      this._ticking = true
-    }
-  }
-
   _onScroll() {
-    this._requestTick()
-  }
-
-  clearRAF() {
-    raf.cancel(this._raf)
+    this._handleScroll()
   }
 
   _sendPageLevelAction() {
@@ -262,19 +245,18 @@ class Article extends Component {
 
   _onResize() {
     this._setArticleBounding()
-    viewportHeight = window.innerHeight
+    viewport.height = window.innerHeight
+    viewport.screenType = getScreenType(window.innerWidth)
   }
 
   _setArticleBounding() {
-    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
-    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
-    articlePostition.beginY = _.get(beginEl, 'offsetTop', articlePostition.beginY)
-    articlePostition.endY = _.get(endEl, 'offsetTop', articlePostition.endY)
+    articlePostition.beginY = _.get(this.progressBegin, 'offsetTop', articlePostition.beginY)
+    articlePostition.endY = _.get(this.progressEnding, 'offsetTop', articlePostition.endY)
   }
 
   _handleScroll() {
     const currentTopY = window.scrollY
-    const currentBottomY = currentTopY + viewportHeight
+    const currentBottomY = currentTopY + viewport.height
     const { beginY, endY, percent } = articlePostition
 
     /* Calculate reading progress */
@@ -294,6 +276,7 @@ class Article extends Component {
     /* Handle Article Tools */
     const { articleTools, setArticleTools } = this.props
     const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+    const screenType = viewport.screenType
 
     const isInTopRegion = currentTopY < beginY + 600
     const isInBottomRegion = currentBottomY > endY + 150
@@ -306,36 +289,34 @@ class Article extends Component {
         })
       }
     } else {
-      if (!isDesktopToolsDisplayed) {
+      if (screenType === 'DESKTOP' && !isDesktopToolsDisplayed) {
         setArticleTools({
           isDesktopToolsDisplayed: true
         })
       }
     }
     // Calculate scrolling distance to determine whether tools are displayed
-    const lastY = scrollPosition.y
-    const distance = currentTopY - lastY
-    if (distance > 30) {
-      scrollPosition.y = currentTopY
-      if (isMobileToolsDisplayed) {
-        setArticleTools({
-          isMobileToolsDisplayed: false
-        })
-      }
-    } else {
-      if (Math.abs(distance) > 180) {
+    if (screenType !== 'DESKTOP') {
+      const lastY = scrollPosition.y
+      const distance = currentTopY - lastY
+      if (distance > 30) {
         scrollPosition.y = currentTopY
-        if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+        if (isMobileToolsDisplayed) {
           setArticleTools({
-            isMobileToolsDisplayed: true
+            isMobileToolsDisplayed: false
           })
+        }
+      } else {
+        if (Math.abs(distance) > 180) {
+          scrollPosition.y = currentTopY
+          if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
+            setArticleTools({
+              isMobileToolsDisplayed: true
+            })
+          }
         }
       }
     }
-
-    // reset the tick so we can
-    // capture the next onScroll
-    this._ticking = false
   }
 
   _composeAuthors(article) {
@@ -471,7 +452,7 @@ class Article extends Component {
                 <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
-              <div ref="progressBegin" className={cx(styles['article-meta'], commonStyles['inner-block'])}>
+              <div ref={div => {this.progressBegin = div}} className={cx(styles['article-meta'], commonStyles['inner-block'])}>
                 <ArticleComponents.HeadingAuthor
                   authors={authors}
                   extendByline={_.get(article, 'extendByline')}
@@ -519,7 +500,7 @@ class Article extends Component {
               />
             </article>
 
-            <div ref="progressEnding"
+            <div ref={div => {this.progressEnding = div}}
                 className={cx(commonStyles['components'], 'hidden-print')}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags

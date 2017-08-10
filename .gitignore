@@ -8,7 +8,7 @@ static/dist
 
 .jshintignore
 .jshintrc
-npm-debug.log
+npm-debug.log*
 err.log
 api-err.log
 
@@ -23,3 +23,5 @@ api/config.js
 dist/
 
 yarn-error.log
+
+pm2-*.log
