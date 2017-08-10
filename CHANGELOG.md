@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.1.4
+- Upgrade twreporter-react-index-page-components to 1.1.0
 - Update tool styles, remove raf, and check screen type in Article
 - Remove lazyload on photograph articles
 - Update ref to callback function
