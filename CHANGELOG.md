@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.1.5
+- Update yarn.lock
 
 ### 2.1.5
 
