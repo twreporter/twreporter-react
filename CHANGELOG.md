@@ -1,9 +1,6 @@
 ### Unreleased
 ### 2.1.5
 - Update yarn.lock
-
-### 2.1.5
-
 - Update spinners of Authors and Author
 - Fix Links of Author Collections to interactive post
 - Replace let with const
