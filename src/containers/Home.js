@@ -16,7 +16,7 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection, ScrollFadein } = IndexPageComposite.components
+const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -139,96 +139,93 @@ class Homepage extends React.Component {
       </div>
     )
 
-    const webSiteJSONLD = `
-      {
-        "@context" : "http://schema.org",
-        "@type" : "WebSite",
-        "name" : "報導者 The Reporter",
-        "url" : "https://www.twreporter.org/",
-        "potentialAction" : {
-          "@type" : "SearchAction",
-          "target" : "https://www.twreporter.org/search?q={search_term}",
-          "query-input" : "required name=search_term"
+    const webSiteJSONLD = {
+      '@context' : 'http://schema.org',
+      '@type' : 'WebSite',
+      'name' : '報導者 The Reporter',
+      'url' : 'https://www.twreporter.org/',
+      'potentialAction' : {
+        '@type' : 'SearchAction',
+        'target' : 'https://www.twreporter.org/search?q={search_term}',
+        'query-input' : 'required name=search_term'
+      }
+    }
+
+    const breadcrumbListJSONLD = {
+      '@context': 'http://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [ {
+        '@type': 'ListItem',
+        'position': 1,
+        'item': {
+          '@id': 'https://www.twreporter.org/',
+          'name': '首頁'
         }
-      }
-    `
-    const breadcrumbListJSONLD = `
-    {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@id": "https://www.twreporter.org/",
-            "name": "首頁"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/human_rights_and_society",
-            "name": "人權．社會"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/environment_and_education",
-            "name": "環境．教育"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/politics_and_economy",
-            "name": "政治．經濟"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/living_and_medical_care",
-            "name": "生活．醫療"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/culture_and_art",
-            "name": "文化．藝術"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/international",
-            "name": "國際．兩岸"
-          }
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/reviews",
-            "name": "評論"
-          }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/categories/infographic",
-            "name": "多媒體"
-          }
-        }, {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@id": "https://www.twreporter.org/photography",
-            "name": "影像"
-          }
-        }]
-      }
-    `
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/human_rights_and_society',
+          'name': '人權．社會'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/environment_and_education',
+          'name': '環境．教育'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/politics_and_economy',
+          'name': '政治．經濟'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/living_and_medical_care',
+          'name': '生活．醫療'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/culture_and_art',
+          'name': '文化．藝術'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/international',
+          'name': '國際．兩岸'
+        }
+      },{
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/reviews',
+          'name': '評論'
+        }
+      }, {
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/categories/infographic',
+          'name': '多媒體'
+        }
+      }, {
+        '@type': 'ListItem',
+        'position': 2,
+        'item': {
+          '@id': 'https://www.twreporter.org/photography',
+          'name': '影像'
+        }
+      } ]
+    }
 
     return (
       <Container>
@@ -308,8 +305,8 @@ class Homepage extends React.Component {
           />
         </SideBar>
         { microData }
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: webSiteJSONLD }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbListJSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListJSONLD) }} />
         <Footer />
       </Container>
     )
