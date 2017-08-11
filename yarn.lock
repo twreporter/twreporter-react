@@ -6814,9 +6814,9 @@ twreporter-react-index-page-components@^1.1.0:
     styled-components "^2.0.0"
     velocity-react "^1.3.3"
 
-twreporter-redux@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.1.0.tgz#2374e5bc73c9c51d10c92fd33e826c5d2e2872c8"
+twreporter-redux@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.1.1.tgz#b5140fb93483fcdd5add44926ca2e817bfe3c304"
   dependencies:
     axios "^0.16.1"
     es6-error "^4.0.2"
