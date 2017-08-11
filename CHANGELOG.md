@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.1.7
+- Bug fix. Can not link to /categories/reviews from index page on client side
+- Add loading spinner on index page
+
 ### 2.1.6 
 - Update .circleci/config.yml. Separate staging and prod docker build.
 
