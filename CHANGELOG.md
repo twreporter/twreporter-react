@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 2.1.6
+- Bug fix. Can not link to /categories/reviews from index page on client side
+
 ### 2.1.5
 - Update yarn.lock
 - Update spinners of Authors and Author
