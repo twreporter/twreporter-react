@@ -276,11 +276,11 @@ class Homepage extends React.Component {
           meta={[
             { name: 'description', content: SITE_META.DESC },
             { name: 'twitter:title', content: SITE_NAME.FULL },
-            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
             { name: 'twitter:description', content: SITE_META.DESC },
             { property: 'og:title', content: SITE_NAME.FULL },
             { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: SITE_META.URL }
           ]}

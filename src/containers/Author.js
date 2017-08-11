@@ -72,7 +72,7 @@ class Author extends React.Component {
           { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
           { property: 'og:title', content: fullTitle },
           { property: 'og:description', content: authorData.authorBio },
-          { property: 'og:image', content: authorData.authorImgUrl },
+          { property: 'og:image', content: authorData.authorImgUrl || SITE_META.OG_IMAGE },
           { property: 'og:type', content: OG_TYPE.PROFILE },
           { property: 'og:url', content: canonical },
           { property: 'og:rich_attachment', content: 'true' }
