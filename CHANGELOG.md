@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.8
+- Upgrade twreporter-react-index-page-components and twreporter-react-footer-components
+
 ### 2.1.7
 - Bug fix. Can not link to /categories/reviews from index page on client side
 - Add loading spinner on index page
