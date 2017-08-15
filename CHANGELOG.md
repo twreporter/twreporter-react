@@ -1,6 +1,10 @@
 ### Unreleased
 - Fix Google structure data errors
 
+### 2.3.0-beta.1.0.0
+- Create registration system
+- Implement bookmark feature
+
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
 - Fix inconsistent line-heights of paragraphs containing annotations [#664](https://github.com/twreporter/twreporter-react/pull/664)

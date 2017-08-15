@@ -2,6 +2,7 @@
 /*global __DEVELOPMENT__ webpackIsomorphicTools */
 import 'babel-polyfill'
 import Compression from 'compression'
+import cookieParser from 'cookie-parser'
 import DeviceProvider from '../src/components/DeviceProvider'
 import Express from 'express'
 import Html from '../src/helpers/Html'
@@ -14,6 +15,7 @@ import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
+import { configureAction, authUserAction, authInfoStringToObj } from 'twreporter-registration'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
@@ -25,6 +27,7 @@ const server = new http.Server(app)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(Compression())
+app.use(cookieParser())
 
 const oneDay = 86400000
 app.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
@@ -60,6 +63,16 @@ app.get('*', async function (req, res, next) {
   const history = syncHistoryWithStore(memoryHistory, store)
   let routes = createRoutes(history)
 
+  // The following procedure is for OAuth (Google/Facebook)
+  // setup token to redux state from cookies
+  const authInfoString = get(req, 'cookies.auth_info', '')
+  const authType = get(req, 'query.login', '')
+  if (authType && authInfoString) {
+    const authInfoObj = authInfoStringToObj(authInfoString)
+    store.dispatch(authUserAction(authType, authInfoObj))
+  }
+  // setup authentication api server url and endpoints
+  store.dispatch(configureAction(config.registrationConfigure))
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -76,7 +89,8 @@ app.get('*', async function (req, res, next) {
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
         const params = get(renderProps, 'params', {})
-        const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
+        let comp = renderProps.components[renderProps.components.length - 1]
+        comp = comp.WrappedComponent || comp
         const promise = comp.fetchData ?
           comp.fetchData({ query, params, store, history }) :
           Promise.resolve()

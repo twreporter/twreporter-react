@@ -6,6 +6,7 @@ import categoryURI from '../conf/category-uri'
 import { IndexPageComposite } from 'twreporter-react-components'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
+import { signOutAction } from 'twreporter-registration'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { CSSTransitionGroup } from 'react-transition-group'
@@ -73,7 +74,7 @@ const anchors = [
     label: ''
   }, {
     id: 'category',
-    label: '分類'
+    label: '議題'
   }, {
     id: 'topic',
     label: '專題'
@@ -246,7 +247,11 @@ class Homepage extends React.Component {
         <SideBar
           anchors={anchors}
         >
-          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+          <LatestSection
+            data={this.props[fieldNames.sections.latestSection]}
+            signOutAction={this.props.signOutAction}
+            ifAuthenticated={this.props.ifAuthenticated}
+          />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           {latestTopicJSX}
           <ReviewsSection
@@ -374,9 +379,11 @@ function mapStateToProps(state) {
     [fieldNames.sections.photosSection]: photoPosts,
     [fieldNames.sections.infographicsSection]: infoPosts,
     categories: buildCategorySectionData(state),
-    isSpinnerDisplayed
+    isSpinnerDisplayed,
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)

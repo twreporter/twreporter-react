@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.2.1",
+  "version": "2.3.0-beta.1.0.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "release": "gulp release",
@@ -19,6 +19,10 @@
     "start-prod": {
       "command": "node ./bin/server.js",
       "env": {
+        "APIHOST": "go-api.twreporter.org",
+        "DOMAIN": "twreporter.org",
+        "HOST": "www.twreporter.org",
+        "PROTOCOL": "https",
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
         "PORT": 3000,
@@ -61,6 +65,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.1",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "es6-error": "^2.1.1",
     "express": "^4.13.3",
@@ -100,8 +105,9 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
-    "twreporter-react-components": "^1.0.10",
-    "twreporter-redux": "^2.1.5",
+    "twreporter-react-components": "^1.1.0-beta.1.0.2",
+    "twreporter-redux": "^2.2.0-beta.1.0.0",
+    "twreporter-registration": "^1.0.0-beta.0.0.6",
     "video.js": "5.12.1"
   },
   "devDependencies": {

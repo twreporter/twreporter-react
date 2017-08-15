@@ -2,9 +2,6 @@
 @import '../../../themes/common-variables.scss';
 @import '../../../themes/media-queries.scss';
 
-$button-width: 52px;
-$button-height: 52px;
-
 .article-tools-container {
   display: inline-block;
   position: fixed;
@@ -19,26 +16,6 @@ $button-height: 52px;
     display: none;
   }
 }
-
-.back-to-top-btn, .back-to-topic-btn {
-  position: relative;
-  border-radius: 50%;
-  width: $button-width;
-  height: $button-height;
-  background-color: rgba(255, 255, 255, .8);
-  overflow: hidden;
-  img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.back-to-topic-btn {
-  margin-bottom: 20px;
-}
-
 
 .effect-enter {
   opacity: 0.01;

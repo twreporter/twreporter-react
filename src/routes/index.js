@@ -138,6 +138,44 @@ export default function (history = browserHistory) {
             })
           }}
         />
+        <Route
+          path="activate"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/Activation')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="signin(/:type/:slug)"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/SignIn')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="signup"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/SignUp')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="bookmarks(/:pageNumber)"
+          redirectPath="/signin"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const subModule = require('../containers/BookmarkList')
+              const AuthScreen = require('twreporter-registration').AuthenticationScreen
+              cb(null, AuthScreen(subModule.default))
+            })
+          }}
+        />
       </Route>
     </Router>
   )
