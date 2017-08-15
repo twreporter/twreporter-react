@@ -2,6 +2,7 @@
 /*global __DEVELOPMENT__ webpackIsomorphicTools */
 import 'babel-polyfill'
 import Compression from 'compression'
+import cookieParser from 'cookie-parser'
 import DeviceProvider from '../src/components/DeviceProvider'
 import Express from 'express'
 import Helmet from 'react-helmet'
@@ -15,6 +16,7 @@ import createLocation from 'history/lib/createLocation'
 import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import path from 'path'
+import { configureAction, authUserAction, authInfoStringToObj } from 'twreporter-registration'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
@@ -24,6 +26,7 @@ const server = new Express()
 server.set('views', path.join(__dirname, 'views'))
 server.set('view engine', 'ejs')
 server.use(Compression())
+server.use(cookieParser())
 
 const oneDay = 86400000
 server.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
@@ -61,6 +64,30 @@ server.get('*', async function (req, res, next) {
 
   let location = createLocation(req.url)
 
+  // The following procedure is for OAuth (Google/Facebook)
+  // setup token to redux state from cookies
+  if (req.query.login && req.cookies) {
+    const authType = req.query.login
+    const authInfoString = req.cookies.auth_info
+    const authInfoObj = authInfoStringToObj(authInfoString)
+    store.dispatch(authUserAction(authType, authInfoObj))
+  }
+  // setup authentication api server url and endpoints
+  const registrationConfigure = {
+    apiUrl: 'http://localhost:8080',
+    signUp: '/v1/signup',
+    signIn: '/v1/login',
+    activate: '/v1/activate',
+    bookmarkUpdate: '',
+    bookmarkDelete: '',
+    bookmarkGet: '',
+    ping: '',
+    oAuthProviders: {
+      google: '/v1/auth/google',
+      facebook: '/v1/auth/facebook'
+    }
+  }
+  store.dispatch(configureAction(registrationConfigure))
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
