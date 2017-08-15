@@ -138,6 +138,33 @@ export default function (history = browserHistory) {
             })
           }}
         />
+        <Route
+          path="activate"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/Activation')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="signin"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/SignIn')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="signup"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/SignUp')
+              cb(null, module.default || module)
+            })
+          }}
+        />
       </Route>
     </Router>
   )

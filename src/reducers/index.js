@@ -1,4 +1,5 @@
 'use strict'
+import { authReducer, configureReducer } from 'twreporter-registration'
 import { searchedAuthorsList, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
@@ -9,6 +10,23 @@ import merge from 'lodash/merge'
 import twreporterRedux from 'twreporter-redux'
 
 const { reducers, reduxStateFields } = twreporterRedux
+
+const registrationInitialState = {
+  apiUrl: '',
+  signUp: '',
+  signIn: '',
+  activate: '',
+  bookmarkUpdate: '',
+  bookmarkDelete: '',
+  bookmarkGet: '',
+  ping: '',
+  oAuthProviders: {
+    google: '',
+    facebook: ''
+  }
+}
+
+const ConfigureReducer = configureReducer(registrationInitialState)
 
 const rootReducer = combineReducers({
   [reduxStateFields.entities]: reducers.entities,
@@ -23,6 +41,8 @@ const rootReducer = combineReducers({
   searchedAuthorsList,
   authorsList,
   articlesByAuthor,
+  authConfigure: ConfigureReducer,
+  auth: authReducer,
   entitiesForAuthors: (state = {}, action) => {
     if (action.response && action.response.entities) {
       return merge({}, state, action.response.entities)
