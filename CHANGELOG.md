@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.9
+- Update src/containers/Home.js. Add news-letter-section
+
 ### 2.1.8
 - Upgrade twreporter-react-index-page-components and twreporter-react-footer-components
 
