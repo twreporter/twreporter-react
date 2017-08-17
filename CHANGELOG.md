@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.1.10
+- Update spinner of homepage and og_image of site
+- Bug fix. Reading progress is back
+
 ### 2.1.9
 - Update src/containers/Home.js. Add news-letter-section
 
