@@ -30,7 +30,7 @@ class MobileArticleTools extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      toShow: props.isMobileToolsDisplayed
+      toShow: props.toShow
     }
 
     this.showTools = this._updateToShowState.bind(this, true)
@@ -71,7 +71,7 @@ class MobileArticleTools extends React.PureComponent {
 MobileArticleTools.propTypes = {
   topicTitle: React.PropTypes.string,
   topicSlug: React.PropTypes.string,
-  isMobileToolsDisplayed: React.PropTypes.bool.isRequired
+  toShow: React.PropTypes.bool.isRequired
 }
 
 MobileArticleTools.defaultProps = {

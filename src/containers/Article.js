@@ -13,6 +13,7 @@ import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
+import deviceConst from '../constants/device'
 import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import lineIcon from '../../static/asset/line.svg'
@@ -58,11 +59,10 @@ const scrollPosition = {
   y: 0
 }
 
-const DESKTOP = 'DESKTOP'
-const MOBILE = 'MOBILE'
+const DESKTOP = deviceConst.type.desktop
+const MOBILE = deviceConst.type.MOBILE
 
 const viewport = {
-  height: 0,
   screenType: DESKTOP
 }
 
@@ -162,7 +162,6 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
-    viewport.height = window.innerHeight
     viewport.screenType = getScreenType(window.innerWidth)
     window.addEventListener('resize', this._onResize)
     // detect sroll position
@@ -199,7 +198,6 @@ class Article extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps')
     const { params } = nextProps
     const slug = _.get(params, 'slug')
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
@@ -247,7 +245,6 @@ class Article extends PureComponent {
   }
 
   _onResize() {
-    viewport.height = window.innerHeight
     viewport.screenType = getScreenType(window.innerWidth)
   }
 
@@ -416,7 +413,7 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          { isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
+          {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
           <div className={outerClass}>
             {
               leadingVideo ?
@@ -532,8 +529,8 @@ class Article extends PureComponent {
           <div className="hidden-print">
           </div>
         </div>
-        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} isMobileToolsDisplayed={false}/>
-        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} isDesktopToolsDisplayed={false} />
+        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} toShow={false}/>
+        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} toShow={false} />
       </div>
     )
   }

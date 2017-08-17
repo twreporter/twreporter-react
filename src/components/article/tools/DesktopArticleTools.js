@@ -32,7 +32,7 @@ class DesktopArticleTools extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      toShow: props.isDesktopToolsDisplayed
+      toShow: props.toShow
     }
 
     this.showTools = this._updateToShowState.bind(this, true)
@@ -72,7 +72,7 @@ class DesktopArticleTools extends React.PureComponent {
 DesktopArticleTools.propTypes = {
   topicTitle: React.PropTypes.string,
   topicSlug: React.PropTypes.string,
-  isDesktopToolsDisplayed: React.PropTypes.bool.isRequired
+  toShow: React.PropTypes.bool.isRequired
 }
 
 DesktopArticleTools.defaultProps = {
