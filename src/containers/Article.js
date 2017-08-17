@@ -412,12 +412,12 @@ class Article extends PureComponent {
           meta={[
             { name: 'description', content: articleDes },
             { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
-            { name: 'twitter:image', content: articleImg },
+            { name: 'twitter:image', content: articleImg || SITE_META.OG_IMAGE },
             { name: 'twitter:description', content: articleDes },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
             { property: 'og:description', content: articleDes },
-            { property: 'og:image', content: articleImg },
+            { property: 'og:image', content: articleImg || SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
