@@ -30,12 +30,14 @@ const _ = {
   set
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
+const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
+  .spinner-leave {
     opacity: 1;
+  }
+
+  .spinner-leave.spinner-leave-active {
+    opacity: 0;
+    transition: opacity 400ms linear 1600ms;
   }
 `
 
@@ -50,9 +52,6 @@ const LoadingCover = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  img {
-    animation: ${fadeIn} .4s ease-in;
   }
 `
 
@@ -100,7 +99,7 @@ const moduleBackgounds = {
 }
 
 const Container = styled.div`
-  width 100%;
+  width: 100%;
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
@@ -268,13 +267,17 @@ class Homepage extends React.Component {
     const { isSpinnerDisplayed } = this.props
     return (
       <Container>
-        <CSSTransitionGroup
+        <StyledCSSTransitionGroup
           transitionName="spinner"
           transitionEnter={false}
-          transitionLeaveTimeout={1400}
+          transitionLeaveTimeout={2000}
         >
-        {!isSpinnerDisplayed ? null : (<LoadingCover key="loader"><LoadingSpinner alt="首頁載入中" /></LoadingCover>)}
-        </CSSTransitionGroup>
+        {!isSpinnerDisplayed ? null : (
+          <LoadingCover key="loader">
+            <LoadingSpinner alt="首頁載入中" />
+          </LoadingCover>
+        )}
+        </StyledCSSTransitionGroup>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -283,11 +286,11 @@ class Homepage extends React.Component {
           meta={[
             { name: 'description', content: SITE_META.DESC },
             { name: 'twitter:title', content: SITE_NAME.FULL },
-            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
             { name: 'twitter:description', content: SITE_META.DESC },
             { property: 'og:title', content: SITE_NAME.FULL },
             { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: SITE_META.URL }
           ]}

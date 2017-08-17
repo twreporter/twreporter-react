@@ -4,6 +4,7 @@
 import { ARTICLE_STYLE, INTERACTIVE_ARTICLE_STYLE, LONGFORM_ARTICLE_STYLE, PHOTOGRAPHY_ARTICLE_STYLE, REVIEW_ARTICLE_STYLE } from '../constants/index'
 import { devCatListId, prodCatListId } from '../conf/list-id'
 
+import deviceConst from '../constants/device'
 import forOwn from 'lodash/forOwn'
 import map from 'lodash/map'
 import screenSize from '../constants/screen-size'
@@ -39,11 +40,11 @@ export function getCatId(catName) {
 
 export function getScreenType(width) {
   if(width <= screenSize.smallScreenMaxWidth) {
-    return 'MOBILE'
+    return deviceConst.type.mobile
   } else if (width >= screenSize.mediumScreenMinWidth  && width <= screenSize.mediumScreenMaxWidth) {
-    return 'TABLET'
+    return deviceConst.type.tablet
   } else {
-    return 'DESKTOP'
+    return deviceConst.type.desktop
   }
 }
 
@@ -86,7 +87,7 @@ export function date2yyyymmdd(time, separator) {
 
 /**
  * Add tail space when head is a fullwidth bracket for visually centering
- * 
+ *
  * @param {string} text
  * @returns {string}
  */
