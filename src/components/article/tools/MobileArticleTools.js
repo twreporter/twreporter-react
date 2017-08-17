@@ -27,8 +27,25 @@ BackToTopicBtn.propTypes = {
 }
 
 class MobileArticleTools extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      toShow: props.toShow
+    }
+
+    this.showTools = this._updateToShowState.bind(this, true)
+    this.hideTools = this._updateToShowState.bind(this, false)
+  }
+
+  _updateToShowState(toShow) {
+    this.setState({
+      toShow
+    })
+  }
+
   render() {
-    const { isMobileToolsDisplayed, topicTitle, topicSlug } = this.props
+    const { topicTitle, topicSlug } = this.props
+    const { toShow } = this.state
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -40,7 +57,7 @@ class MobileArticleTools extends React.PureComponent {
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
       >
-        {!isMobileToolsDisplayed ? null : (
+        {!toShow ? null : (
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
             <BackToTopBtn />
@@ -54,7 +71,7 @@ class MobileArticleTools extends React.PureComponent {
 MobileArticleTools.propTypes = {
   topicTitle: React.PropTypes.string,
   topicSlug: React.PropTypes.string,
-  isMobileToolsDisplayed: React.PropTypes.bool.isRequired
+  toShow: React.PropTypes.bool.isRequired
 }
 
 MobileArticleTools.defaultProps = {

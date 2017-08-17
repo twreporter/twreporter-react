@@ -1,6 +1,23 @@
 ### Unreleased
+### 2.1.11
+- Upgrade twreporter-react-index-page-components to 1.1.5 
 
-### 2.1.6
+### 2.1.10
+- Update spinner of homepage and og_image of site
+- Bug fix. Reading progress is back
+
+### 2.1.9
+- Update src/containers/Home.js. Add news-letter-section
+
+### 2.1.8
+- Upgrade twreporter-react-index-page-components and twreporter-react-footer-components
+
+### 2.1.7
+- Bug fix. Can not link to /categories/reviews from index page on client side
+- Add loading spinner on index page
+
+### 2.1.6 
+- Update .circleci/config.yml. Separate staging and prod docker build.
 - Bug fix. Can not link to /categories/reviews from index page on client side
 
 ### 2.1.5
