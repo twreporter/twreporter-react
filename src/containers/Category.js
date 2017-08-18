@@ -118,8 +118,10 @@ class Category extends Component {
             { name: 'description', content: SITE_META.DESC },
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: SITE_META.DESC },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
             { property: 'og:title', content: title },
             { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}

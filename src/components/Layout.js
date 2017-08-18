@@ -5,7 +5,6 @@ import styles from './Layout.scss'
 import { DARK } from '../constants/index'
 import Header from 'twreporter-react-header-components'
 import Footer from 'twreporter-react-footer-components'
-import LoadingSpinner from './Spinner'
 
 // lodash
 import get from 'lodash/get'
@@ -23,8 +22,6 @@ class Layout extends PureComponent {
         <Header isIndex={false} pageTheme={pageTheme} pathName={this.props.pathname}/>
         {this.props.children}
         <Footer pageTheme={pageTheme} />
-        {/* Preload loading spinner */}
-        <span style={{ display: 'none' }}><LoadingSpinner /></span>
       </div>
     )
   }

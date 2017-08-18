@@ -3,6 +3,6 @@ export const SITE_META = {
   URL: 'https://www.twreporter.org/',
   URL_NO_SLASH: 'https://www.twreporter.org',
   LOGO: 'https://www.twreporter.org/asset/logo.png',
-  KEYWORDS: '報導者,twreporter,新聞,調查報道,原創報道,深度報道,環境,議題,評論,媒體,新媒體,台灣,兩岸,文化'
+  KEYWORDS: '報導者,twreporter,新聞,調查報道,原創報道,深度報道,環境,議題,評論,媒體,新媒體,台灣,兩岸,文化',
+  OG_IMAGE: 'https://www.twreporter.org/images/og-image-large.jpg'
 }
-
