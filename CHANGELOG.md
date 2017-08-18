@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.13
+- Use environent variable to hide news-letter section
+
 ### 2.1.12
 - Hide news-letter section and its functionality
 

@@ -18,7 +18,7 @@ import keys from 'lodash/keys'
 import set from 'lodash/set'
 
 const { CategorySection, EditorPicks, Header, InforgraphicSection,
-  LatestSection, LatestTopicSection,  PhotographySection,
+  LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
   ReporterIntro,  ReviewsSection, SideBar, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
@@ -66,6 +66,9 @@ const anchors = [
     id: 'review',
     label: '評論'
   }, {
+    id: 'news-letter',
+    label: ''
+  }, {
     id: 'category',
     label: '分類'
   }, {
@@ -82,6 +85,10 @@ const anchors = [
     label: '關於我們'
   }
 ]
+
+if (process.env.RELEASE_BRANCH === 'production') {
+  anchors.splice(3, 1)
+}
 
 const moduleBackgounds = {
   latest: '#f2f2f2',
@@ -306,6 +313,7 @@ class Homepage extends React.Component {
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
           />
+          { process.env.RELEASE_BRANCH === 'production' ? null : <NewsLetterSection /> }
           <CategorySection
             data={this.props.categories}
           />
