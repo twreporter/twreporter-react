@@ -99,8 +99,8 @@
     "redux-thunk": "^0.1.0",
     "smoothscroll": "^0.3.0",
     "twreporter-react-footer-components": "^1.0.4",
-    "twreporter-react-header-components": "^1.0.7",
-    "twreporter-react-index-page-components": "1.1.6",
+    "twreporter-react-header-components": "^1.0.8",
+    "twreporter-react-index-page-components": "^1.1.7",
     "twreporter-react-listing-components": "^1.0.0",
     "twreporter-redux": "^2.1.2",
     "video.js": "5.12.1"
