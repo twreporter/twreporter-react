@@ -22,7 +22,7 @@
         "NODE_PATH": "./server",
         "NODE_ENV": "production",
         "PORT": 3000,
-        "RELEASE_BRANCH": "dev"
+        "RELEASE_BRANCH": "production"
       }
     },
     "start-dev": {
@@ -31,7 +31,7 @@
         "NODE_PATH": "./server",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "RELEASE_BRANCH": "dev"
+        "RELEASE_BRANCH": "production"
       }
     },
     "watch-client": {

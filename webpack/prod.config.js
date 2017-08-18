@@ -73,7 +73,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"production"',
         BROWSER: true,
-        RELEASE_BRANCH: '"dev"'
+        RELEASE_BRANCH: '"production"'
       },
       __CLIENT__: true,
       __SERVER__: false,
