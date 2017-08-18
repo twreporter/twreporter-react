@@ -1,4 +1,3 @@
-import { camelizeKeys } from 'humps'
 import React, { Component } from 'react'
 import { TopicsComponents } from 'twreporter-react-listing-components'
 import twreporterRedux from 'twreporter-redux'
@@ -71,7 +70,7 @@ class Topics extends Component {
         <PostItem
           key={`topic-post-${_.get(post, 'id', index)}`}
           title={_.get(post, 'title')}
-          imgUrl={_.get(post, 'heroImage.resizedTargets.mobile.url')}
+          imgUrl={_.get(post, 'hero_image.resized_targets.mobile.url')}
           linkTo={formatPostLinkTo(slug, style)}
           linkTarget={formatPostLinkTarget(style)}
         />
@@ -85,10 +84,10 @@ class Topics extends Component {
       <TopicItem
         key={`topic-item-${_.get(item, 'id', index)}`}
         title={_.get(item, 'title', '')}
-        updatedAt={date2yyyymmdd(_.get(item, 'updatedAt'), '.') || ''}
-        description={_.get(item, 'ogDescription', '')}
-        imgUrl={_.get(item, 'ogImage.resizedTargets.mobile.url', '') || _.get(item, 'leadingImage.resizedTargets.mobile.url', '') }
-        imgAlt={_.get(item, 'ogImage.description', '') || _.get(item, 'leadingImage.description', '')}
+        updatedAt={date2yyyymmdd(_.get(item, 'updated_at'), '.') || ''}
+        description={_.get(item, 'og_description', '')}
+        imgUrl={_.get(item, 'og_image.resized_targets.mobile.url', '') || _.get(item, 'leading_image.resized_targets.mobile.url', '') }
+        imgAlt={_.get(item, 'og_image.description', '') || _.get(item, 'leading_image.description', '')}
         isFull={index === 0}
         url={`${LINK_PREFIX.TOPICS}${_.get(item, 'slug')}`}
       />
@@ -98,7 +97,7 @@ class Topics extends Component {
 
   render() {
     const { items, total, topicEntities, postEntities, topicListError, topicError } = this.props
-    const topics = camelizeKeys(denormalizeTopics(items, topicEntities, postEntities))
+    const topics = denormalizeTopics(items, topicEntities, postEntities)
     const topicsLength = topics.length
     if (topicsLength <= 0) {
       if (topicListError) {
@@ -110,7 +109,7 @@ class Topics extends Component {
     const topTopicJSX = topicsJSX[0]
     const otherTopicsJSX = !topicError ? topicsJSX.slice(1) : topTopicJSX
     const topRelatedPosts = _.get(topics, [ 0, 'relateds' ], []).slice(0, 3)
-    const topTopicName = _.get(topics, [ 0, 'topicName' ], '')
+    const topTopicName = _.get(topics, [ 0, 'topic_name' ], '')
     const topTopicSlug = _.get(topics, [ 0, 'slug' ], '')
     const hasMore = topicsLength < total
     return (
