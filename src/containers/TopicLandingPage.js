@@ -23,8 +23,6 @@ import { connect } from 'react-redux'
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 
-const logo = 'https://www.twreporter.org/asset/logo.png'
-
 const _  = {
   forEach,
   get
@@ -114,7 +112,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
 
-    const image = _.get(leadingImage, 'resizedTargets.tablet.url') || logo // {string}
+    const ogImage = _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
 
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
@@ -134,11 +132,11 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: image },
+            { name: 'twitter:image', content: ogImage },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },
-            { property: 'og:image', content: image },
+            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }

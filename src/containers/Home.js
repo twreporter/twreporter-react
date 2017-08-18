@@ -8,7 +8,6 @@ import styled, { keyframes } from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { getImageSrcSet } from '../utils/image-processor.js'
 import { CSSTransitionGroup } from 'react-transition-group'
 import Footer from 'twreporter-react-footer-components'
 import LoadingSpinner from '../components/Spinner'
@@ -18,7 +17,9 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { ReviewsSection, CategorySection, PhotographySection, ReporterIntro, SideBar, TopicsSection, Header, EditorPicks, InforgraphicSection, LatestSection, LatestTopicSection } = IndexPageComposite.components
+const { CategorySection, EditorPicks, Header, InforgraphicSection,
+  LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
+  ReporterIntro,  ReviewsSection, SideBar, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -29,12 +30,14 @@ const _ = {
   set
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
+const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
+  .spinner-leave {
     opacity: 1;
+  }
+
+  .spinner-leave.spinner-leave-active {
+    opacity: 0;
+    transition: opacity 400ms linear 1600ms;
   }
 `
 
@@ -50,31 +53,41 @@ const LoadingCover = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  img {
-    animation: ${fadeIn} .4s ease-in;
-  }
 `
 
-const moduleIdMap = {
-  editorPick: 'editorPick',
-  latestTopic: 'latestTopic',
-  review: 'review',
-  category: 'category',
-  topic: 'topic',
-  photography: 'photography',
-  infographic: 'infographic',
-  donation: 'donation'
-}
+const anchors = [
+  {
+    id: 'editorPick',
+    label: '編輯精選'
+  }, {
+    id: 'latestTopic',
+    label: '最新專題'
+  }, {
+    id: 'review',
+    label: '評論'
+  }, {
+    id: 'news-letter',
+    label: ''
+  }, {
+    id: 'category',
+    label: '分類'
+  }, {
+    id: 'topic',
+    label: '專題'
+  }, {
+    id: 'photography',
+    label: '攝影'
+  }, {
+    id: 'infographic',
+    label: '多媒體'
+  }, {
+    id: 'aboutus',
+    label: '關於我們'
+  }
+]
 
-const moduleLabelMap = {
-  editorPick: '編輯精選',
-  latestTopic: '最新專題',
-  review: '觀點',
-  category: '分類',
-  topic: '專題',
-  photography: '攝影',
-  infographic: '多媒體',
-  donation: '關於我們'
+if (process.env.RELEASE_BRANCH === 'production') {
+  anchors.splice(3, 1)
 }
 
 const moduleBackgounds = {
@@ -90,7 +103,7 @@ const moduleBackgounds = {
 }
 
 const Container = styled.div`
-  width 100%;
+  width: 100%;
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
@@ -258,13 +271,17 @@ class Homepage extends React.Component {
     const { isSpinnerDisplayed } = this.props
     return (
       <Container>
-        <CSSTransitionGroup
+        <StyledCSSTransitionGroup
           transitionName="spinner"
           transitionEnter={false}
-          transitionLeaveTimeout={1400}
+          transitionLeaveTimeout={2000}
         >
-        {!isSpinnerDisplayed ? null : (<LoadingCover key="loader"><LoadingSpinner alt="首頁載入中" /></LoadingCover>)}
-        </CSSTransitionGroup>
+        {!isSpinnerDisplayed ? null : (
+          <LoadingCover key="loader">
+            <LoadingSpinner alt="首頁載入中" />
+          </LoadingCover>
+        )}
+        </StyledCSSTransitionGroup>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -273,43 +290,35 @@ class Homepage extends React.Component {
           meta={[
             { name: 'description', content: SITE_META.DESC },
             { name: 'twitter:title', content: SITE_NAME.FULL },
-            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
             { name: 'twitter:description', content: SITE_META.DESC },
             { property: 'og:title', content: SITE_NAME.FULL },
             { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: SITE_META.URL }
           ]}
         />
-        <SideBar>
-          <FirstModuleWrapper
-            moduleId={moduleIdMap.editorPick}
-            moduleLabel={moduleLabelMap.editorPick}
-          >
+        <SideBar
+          anchors={anchors}
+        >
+          <FirstModuleWrapper>
             <LatestSection data={this.props[fieldNames.sections.latestSection]} />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
           <LatestTopicSection
-            moduleId={moduleIdMap.latestTopic}
-            moduleLabel={moduleLabelMap.latestTopic}
             data={this.props[fieldNames.sections.latestTopicSection]}
           />
           <ReviewsSection
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
-            moduleId={moduleIdMap.review}
-            moduleLabel={moduleLabelMap.review}
           />
+          { process.env.RELEASE_BRANCH === 'production' ? null : <NewsLetterSection /> }
           <CategorySection
             data={this.props.categories}
-            moduleId={moduleIdMap.category}
-            moduleLabel={moduleLabelMap.category}
           />
           <Background
             backgroundColor={moduleBackgounds.topic}
-            moduleId={moduleIdMap.topic}
-            moduleLabel={moduleLabelMap.topic}
           >
             <TopicsSection
               data={this.props[fieldNames.sections.topicsSection]}
@@ -317,8 +326,6 @@ class Homepage extends React.Component {
           </Background>
           <Background
             backgroundColor={moduleBackgounds.photography}
-            moduleId={moduleIdMap.photography}
-            moduleLabel={moduleLabelMap.photography}
           >
             <PhotographySection
               data={this.props[fieldNames.sections.photosSection]}
@@ -327,18 +334,13 @@ class Homepage extends React.Component {
           </Background>
           <Background
             backgroundColor={moduleBackgounds.infographic}
-            moduleId={moduleIdMap.infographic}
-            moduleLabel={moduleLabelMap.infographic}
           >
             <InforgraphicSection
               data={this.props[fieldNames.sections.infographicsSection]}
               moreURI={`categories/${categoryURI.infographic}`}
             />
           </Background>
-          <ReporterIntro
-            moduleId={moduleIdMap.donation}
-            moduleLabel={moduleLabelMap.donation}
-          />
+          <ReporterIntro />
         </SideBar>
         { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />

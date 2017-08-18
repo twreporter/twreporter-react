@@ -6777,9 +6777,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-twreporter-react-footer-components@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.3.tgz#57a4f297028397ee74ef25bb4429e46a193a9c92"
+twreporter-react-footer-components@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.5.tgz#6f87545e8a1e46516b61fd55e9a01b83ce9c1214"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
@@ -6796,9 +6796,9 @@ twreporter-react-header-components@^1.0.7:
     react-transition-group "1.x"
     styled-components "^2.1.1"
 
-twreporter-react-index-page-components@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.1.1.tgz#70fd74c7806a73ef77d10f34b845dad9e854ab67"
+twreporter-react-index-page-components@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.1.6.tgz#e5c110b71d16dd5d872b81240dce461ca052619c"
   dependencies:
     autoprefixer "^7.1.1"
     axios "^0.16.1"

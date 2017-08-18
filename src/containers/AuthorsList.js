@@ -122,11 +122,11 @@ class AuthorsList extends React.Component {
             { name: 'description', content: SITE_META.DESC },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.LOGO },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
             { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.LOGO },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
             { property: 'og:type', content: OG_TYPE.WEBSITE },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
