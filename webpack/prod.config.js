@@ -75,7 +75,8 @@ module.exports = {
         BROWSER: true,
         API_HOST: '"staging-go-api.twreporter.org"',
         API_PROTOCOL: '"https"',
-        API_PORT: '"443"'
+        API_PORT: '"443"',
+        RELEASE_BRANCH: '"staging"'
       },
       __CLIENT__: true,
       __SERVER__: false,
