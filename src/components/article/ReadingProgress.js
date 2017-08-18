@@ -9,7 +9,8 @@ const Bar = styled.div`
   z-index: 999;
   background-color: rgba(198, 0, 11, 0.35);
   height: 2px;
-  width: ${(props) => { return props.percent + '%'}}
+  width: ${(props) => { return props.percent + '%'}};
+  transition: .2s width linear;
 `
 
 class ReadingProgress extends React.PureComponent {
