@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.1.14
+- Add topics from twreporter-react-listing-components
+
 ### 2.1.13
 - Use environent variable to hide news-letter section
 
