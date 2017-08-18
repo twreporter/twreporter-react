@@ -1,6 +1,9 @@
 ### Unreleased
+### 2.1.12
+- Hide news-letter section and its functionality
+
 ### 2.1.11
-- Upgrade twreporter-react-index-page-components to 1.1.5 
+- Upgrade twreporter-react-index-page-components to 1.1.5
 
 ### 2.1.10
 - Update spinner of homepage and og_image of site
