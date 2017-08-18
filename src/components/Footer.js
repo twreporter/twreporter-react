@@ -68,6 +68,11 @@ export default class Footer extends Component {
               </Link>
             </div>
             <div>
+              <Link to={`/subscribe`}>
+                  訂閱電子報
+              </Link>
+            </div>
+            <div>
               <Link to={`/a/${CONTACT_FOOTER}`}>
                   聯絡我們
               </Link>
