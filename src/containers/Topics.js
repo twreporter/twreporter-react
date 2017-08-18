@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 import { TopicsComponents } from 'twreporter-react-listing-components'
 import twreporterRedux from 'twreporter-redux'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { date2yyyymmdd, formatPostLinkTo, formatPostLinkTarget } from '../utils'
-import { LINK_PREFIX } from '../constants/'
+import { LINK_PREFIX, BRIGHT, SITE_META, SITE_NAME } from '../constants/'
 import More from '../components/More'
+import { setHeaderInfo } from '../actions/header'
 
 import map from 'lodash/map'
 import get from 'lodash/get'
@@ -34,7 +36,10 @@ class Topics extends Component {
     this._loadMore = this._loadMore.bind(this)
   }
   componentWillMount() {
-    const { items, topicEntities } = this.props
+    const { items, topicEntities, setHeaderInfo } = this.props
+    setHeaderInfo({
+      pageTheme: BRIGHT
+    })
     if (items.length <= 0) {
       return this.props.fetchTopics(N_OF_FIRSTPAGE)
     } else {
@@ -112,8 +117,27 @@ class Topics extends Component {
     const topTopicName = _.get(topics, [ 0, 'topic_name' ], '')
     const topTopicSlug = _.get(topics, [ 0, 'slug' ], '')
     const hasMore = topicsLength < total
+    const canonical = `${SITE_META.URL}topics`
+    const title = '專題' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
       <PageContainer>
+        <Helmet
+          title={title}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical }
+          ]}
+        />
         <PageContent>
           {topicError ? null : (
             <TopSection topicName={topTopicName} topicUrl={`${LINK_PREFIX.TOPICS}${topTopicSlug}`}>
@@ -156,4 +180,4 @@ function mapStateToProps(state) {
   })
 }
 
-export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(Topics)
+export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic, setHeaderInfo })(Topics)
