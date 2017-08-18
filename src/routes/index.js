@@ -13,6 +13,7 @@ import Search from '../containers/Search'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
+import Topics from '../containers/Topics'
 
 if (typeof window !== 'undefined') {
   // add Google Analytics
@@ -35,6 +36,7 @@ export default function (history = browserHistory) {
       <Route path="/topics/:slug" component={TopicLandingPage} />
       <Route path="/" component={Home} />
       <Route path="/" component={App}>
+        <Route path="topics" component={Topics} />
         <Route path="category/:category" component={Category} />
         <Route path="categories/:category" component={Category} />
         <Route path="topic/:topicId" component={Topic} />
