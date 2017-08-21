@@ -5,6 +5,7 @@
 - Update twreporter-redux
 - Update topics: compose data in mapStateToProps instead
 - Update topics: fix fetch data requests
+- Show news-letter section.
 
 ### 2.1.14
 - Add topics from twreporter-react-listing-components
