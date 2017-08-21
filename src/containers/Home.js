@@ -86,10 +86,6 @@ const anchors = [
   }
 ]
 
-if (process.env.RELEASE_BRANCH === 'production') {
-  anchors.splice(3, 1)
-}
-
 const moduleBackgounds = {
   latest: '#f2f2f2',
   editorPick: 'white',
@@ -313,7 +309,7 @@ class Homepage extends React.Component {
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
           />
-          { process.env.RELEASE_BRANCH === 'production' ? null : <NewsLetterSection /> }
+          <NewsLetterSection />
           <CategorySection
             data={this.props.categories}
           />
