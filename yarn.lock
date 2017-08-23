@@ -6796,9 +6796,9 @@ twreporter-react-header-components@^1.0.8:
     react-transition-group "1.x"
     styled-components "^2.1.1"
 
-twreporter-react-index-page-components@1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.1.9.tgz#4452b8ec95c7d9ea18e42a59b079593472c9d436"
+twreporter-react-index-page-components@1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/twreporter-react-index-page-components/-/twreporter-react-index-page-components-1.1.11.tgz#416b87e2dfec0fc63e97502658ee07f91504474d"
   dependencies:
     autoprefixer "^7.1.1"
     axios "^0.16.1"
