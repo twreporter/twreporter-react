@@ -104,6 +104,7 @@
     "twreporter-react-index-page-components": "1.1.11",
     "twreporter-react-listing-components": "^1.0.0",
     "twreporter-redux": "^2.1.3",
+    "twreporter-registration": "^1.0.0-alpha.2.0.7",
     "video.js": "5.12.1"
   },
   "devDependencies": {
