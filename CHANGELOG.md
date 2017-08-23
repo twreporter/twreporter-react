@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.1.16
+- Upgrade twreporter-react-index-page-components to 1.1.11
 
 ### 2.1.15
 - Remove no-used initState in header reducer
