@@ -8,7 +8,7 @@ import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { setupToken, deletAuthInfoAction, authUserByTokenAction } from 'twreporter-registration'
+import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction } from 'twreporter-registration'
 
 /* global __REDUX_STATE__ */
 let reduxState
@@ -38,7 +38,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 // 2. TWReporter account sign in
 const { auth } = store.getState()
 if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  setupToken(auth.authInfo)
+  setupTokenInLocalStorage(auth.authInfo)
   store.dispatch(deletAuthInfoAction())
 }
 

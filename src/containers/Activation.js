@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 const Activation = (props) => (
   <div>
     <ActivePage
-      component={ActivePage}
       activateRedirectPath={'/'}
       browserHistory={browserHistory}
       {...props}

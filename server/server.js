@@ -77,14 +77,12 @@ server.get('*', async function (req, res, next) {
     signUp: '/v1/signup',
     signIn: '/v1/login',
     activate: '/v1/activate',
-    bookmarkUpdate: '',
-    bookmarkDelete: '',
-    bookmarkGet: '',
-    ping: '',
     oAuthProviders: {
       google: '/v1/auth/google',
       facebook: '/v1/auth/facebook'
-    }
+    },
+    location: 'http://testtest.twreporter.org:3000',
+    domain: 'twreporter.org'
   }
   store.dispatch(configureAction(registrationConfigure))
   match({ routes, location }, (error, redirectLocation, renderProps) => {
