@@ -32,16 +32,20 @@ const store = configureStore(reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-// Check if token existed in localStorage and expired
 // token can be stored in localStorage in two scenario
-// 1. oAuth
-// 2. TWReporter account sign in
+// 1. TWReporter account sign in
+// 2. oAuth
+// Acount: store auth info during signin action
+// oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
+// The following procedure is only for oAuth
 const { auth } = store.getState()
 if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
   setupTokenInLocalStorage(auth.authInfo)
   store.dispatch(deletAuthInfoAction())
 }
 
+// Check if token existed in localStorage and expired
+// following preocedure is for both accoutn and oAuth SignIn
 // 7 = 7 days
 store.dispatch(authUserByTokenAction(7, auth.authType))
   .then(() => {})

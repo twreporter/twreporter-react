@@ -72,19 +72,7 @@ server.get('*', async function (req, res, next) {
     store.dispatch(authUserAction(authType, authInfoObj))
   }
   // setup authentication api server url and endpoints
-  const registrationConfigure = {
-    apiUrl: 'http://localhost:8080',
-    signUp: '/v1/signup',
-    signIn: '/v1/login',
-    activate: '/v1/activate',
-    oAuthProviders: {
-      google: '/v1/auth/google',
-      facebook: '/v1/auth/facebook'
-    },
-    location: 'http://testtest.twreporter.org:3000',
-    domain: 'twreporter.org'
-  }
-  store.dispatch(configureAction(registrationConfigure))
+  store.dispatch(configureAction(config.registrationConfigure))
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)

@@ -1,28 +1,31 @@
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { SignInForm, FacebookButton, GoogleButton } from 'twreporter-registration'
-import styles from './SignIn.scss'
+
+const Container = styled.div`
+  margin: 20px 0;
+  display:flex;
+  justify-content: center;
+`
 
 const TITLE = '登入報導者'
 const REDIRECT_PATH = '/'
 
 const SignIn = (props) => (
-  <div className={styles['form-container']}>
+  <Container>
     <SignInForm
       title={TITLE}
       historyManager={browserHistory}
-      signInRedirectPath = {REDIRECT_PATH}
-      account={true}
-      google={true}
-      facebook={true}
+      signInRedirectPath={REDIRECT_PATH}
       defaultStyle={true}
       {...props}
     >
       <FacebookButton />
       <GoogleButton />
     </SignInForm>
-  </div>
+  </Container>
 )
 
 export default connect()(SignIn)
