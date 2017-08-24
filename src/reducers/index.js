@@ -16,14 +16,12 @@ const registrationInitialState = {
   signUp: '',
   signIn: '',
   activate: '',
-  bookmarkUpdate: '',
-  bookmarkDelete: '',
-  bookmarkGet: '',
-  ping: '',
   oAuthProviders: {
     google: '',
     facebook: ''
-  }
+  },
+  location: 'http://testtest.twreporter.org:3000',
+  domain: 'twreporter.org'
 }
 
 const ConfigureReducer = configureReducer(registrationInitialState)

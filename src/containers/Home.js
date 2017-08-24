@@ -6,6 +6,7 @@ import categoryURI from '../conf/category-uri'
 import IndexPageComposite from 'twreporter-react-index-page-components'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
+import { signOutAction } from 'twreporter-registration'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { CSSTransitionGroup } from 'react-transition-group'
@@ -299,7 +300,11 @@ class Homepage extends React.Component {
           anchors={anchors}
         >
           <FirstModuleWrapper>
-            <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+            <LatestSection
+              data={this.props[fieldNames.sections.latestSection]}
+              signOutAction={this.props.signOutAction}
+              ifAuthenticated={this.props.ifAuthenticated}
+            />
             <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           </FirstModuleWrapper>
           <LatestTopicSection
@@ -427,9 +432,13 @@ function mapStateToProps(state) {
     [fieldNames.sections.photosSection]: photoPosts,
     [fieldNames.sections.infographicsSection]: infoPosts,
     categories: buildCategorySectionData(state),
+<<<<<<< HEAD
     isSpinnerDisplayed
+=======
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+>>>>>>> after review
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)

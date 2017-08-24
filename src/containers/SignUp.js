@@ -1,19 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { SignUpForm } from 'twreporter-registration'
-import styles from './SignUp.scss'
+
+const Container = styled.div`
+  margin: 20px 0;
+  display:flex;
+  justify-content: center;
+`
 
 const TITLE = '申請帳號'
 const SIGNUP_MESSAGE = '你將於信箱收到確認信，請開啟信箱啟用帳戶'
 
 const SignUp = (props) => (
-  <div className={styles['form-container']}>
+  <Container>
     <SignUpForm
       title={TITLE}
       signUpMessage={SIGNUP_MESSAGE}
       {...props}
     />
-  </div>
+  </Container>
 )
 
 
