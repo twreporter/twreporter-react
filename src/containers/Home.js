@@ -433,11 +433,9 @@ function mapStateToProps(state) {
     [fieldNames.sections.photosSection]: photoPosts,
     [fieldNames.sections.infographicsSection]: infoPosts,
     categories: buildCategorySectionData(state),
-<<<<<<< HEAD
-    isSpinnerDisplayed
-=======
+    isSpinnerDisplayed,
     ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
->>>>>>> after review
+
   }
 }
 
