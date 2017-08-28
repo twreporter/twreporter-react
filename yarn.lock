@@ -6777,9 +6777,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-twreporter-react-footer-components@^1.0.4:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.5.tgz#6f87545e8a1e46516b61fd55e9a01b83ce9c1214"
+twreporter-react-footer-components@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/twreporter-react-footer-components/-/twreporter-react-footer-components-1.0.6.tgz#3dbce567a1e58a1378587c5f5e6c1e433714823e"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
