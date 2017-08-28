@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.1.17
+- Add paragraph style in Introduction of article page 
+- Upgrade twreporter-react-footer-components to 1.0.6
+
 ### 2.1.16
 - Upgrade twreporter-react-index-page-components to 1.1.11
 
