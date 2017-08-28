@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import { SignInForm, FacebookButton, GoogleButton } from 'twreporter-registration'
 
 const Container = styled.div`
@@ -17,7 +16,6 @@ const SignIn = (props) => (
   <Container>
     <SignInForm
       title={TITLE}
-      historyManager={browserHistory}
       signInRedirectPath={REDIRECT_PATH}
       defaultStyle={true}
       {...props}
