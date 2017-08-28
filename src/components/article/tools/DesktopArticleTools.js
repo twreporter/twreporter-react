@@ -29,8 +29,25 @@ BackToTopic.propTypes = {
 
 
 class DesktopArticleTools extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      toShow: props.toShow
+    }
+
+    this.showTools = this._updateToShowState.bind(this, true)
+    this.hideTools = this._updateToShowState.bind(this, false)
+  }
+
+  _updateToShowState(toShow) {
+    this.setState({
+      toShow
+    })
+  }
+
   render() {
-    const { isDesktopToolsDisplayed, topicTitle, topicSlug } = this.props
+    const { topicTitle, topicSlug } = this.props
+    const { toShow } = this.state
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -42,7 +59,7 @@ class DesktopArticleTools extends React.PureComponent {
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
       >
-      {!isDesktopToolsDisplayed ? null : (
+      {!toShow ? null : (
         <div className={styles['article-tools-container']}>
           {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
         </div>
@@ -55,7 +72,7 @@ class DesktopArticleTools extends React.PureComponent {
 DesktopArticleTools.propTypes = {
   topicTitle: React.PropTypes.string,
   topicSlug: React.PropTypes.string,
-  isDesktopToolsDisplayed: React.PropTypes.bool.isRequired
+  toShow: React.PropTypes.bool.isRequired
 }
 
 DesktopArticleTools.defaultProps = {

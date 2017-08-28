@@ -1,6 +1,5 @@
 'use strict'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import classNames from 'classnames'
 import styles from './Layout.scss'
 import { DARK } from '../constants/index'
@@ -14,18 +13,20 @@ const _ = {
   get
 }
 
-class Layout extends Component {
-  constructor(props) {
-    super(props)
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-  }
-
+class Layout extends PureComponent {
   render() {
     const pageTheme = _.get(this.props, 'header.pageTheme')
 
+
     return (
       <div className={classNames(styles.theme, { [styles.photography]: pageTheme === DARK })}>
-        <Header isIndex={false} pageTheme={pageTheme} pathName={this.props.pathname}/>
+        <Header
+          isIndex={false}
+          pageTheme={pageTheme}
+          pathName={this.props.pathname}
+          signOutAction={this.props.signOutAction}
+          ifAuthenticated={this.props.ifAuthenticated}
+        />
         {this.props.children}
         <Footer pageTheme={pageTheme} />
       </div>
@@ -33,9 +34,12 @@ class Layout extends Component {
   }
 }
 
+// ifAuthenticate and SignOutAction are required for Header component
 Layout.propTypes = {
   header: PropTypes.object,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  ifAuthenticated: PropTypes.bool.isRequired,
+  signOutAction: PropTypes.func.isRequired
 }
 
 Layout.defaultProps = {

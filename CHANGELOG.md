@@ -1,4 +1,62 @@
 ### Unreleased
+### 2.1.17
+- Add paragraph style in Introduction of article page 
+- Upgrade twreporter-react-footer-components to 1.0.6
+
+### 2.1.16
+- Upgrade twreporter-react-index-page-components to 1.1.11
+
+### 2.1.15
+- Remove no-used initState in header reducer
+- Update twreporter-redux
+- Update topics: compose data in mapStateToProps instead
+- Update topics: fix fetch data requests
+- Show news-letter section.
+
+### 2.1.14
+- Add topics from twreporter-react-listing-components
+
+### 2.1.13
+- Use environent variable to hide news-letter section
+
+### 2.1.12
+- Hide news-letter section and its functionality
+
+### 2.1.11
+- Upgrade twreporter-react-index-page-components to 1.1.5
+
+### 2.1.10
+- Update spinner of homepage and og_image of site
+- Bug fix. Reading progress is back
+
+### 2.1.9
+- Update src/containers/Home.js. Add news-letter-section
+
+### 2.1.8
+- Upgrade twreporter-react-index-page-components and twreporter-react-footer-components
+
+### 2.1.7
+- Bug fix. Can not link to /categories/reviews from index page on client side
+- Add loading spinner on index page
+
+### 2.1.6 
+- Update .circleci/config.yml. Separate staging and prod docker build.
+
+### 2.1.5
+- Update yarn.lock
+- Update spinners of Authors and Author
+- Fix Links of Author Collections to interactive post
+- Replace let with const
+- Rename functions and variables for clearness
+- Update Category title style
+
+### 2.1.4
+- Upgrade twreporter-react-index-page-components to 1.1.0
+- Update tool styles, remove raf, and check screen type in Article
+- Remove lazyload on photograph articles
+- Update ref to callback function
+- Replace pure-render-mixin with PureComponent
+
 ### 2.1.3
 - Bug fix. Fix og:image missing
 

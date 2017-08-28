@@ -7,18 +7,17 @@ import Helmet from 'react-helmet'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { PureComponent } from 'react'
+import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
+import deviceConst from '../constants/device'
 import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import lineIcon from '../../static/asset/line.svg'
 import logoIcon from '../../static/asset/icon-placeholder.svg'
-import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
@@ -28,9 +27,8 @@ import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRA
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/index'
-import { getAbsPath } from '../utils/index'
-import { setHeaderInfo, setReadProgress, setArticleTools } from '../actions/header'
+import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
+import { setHeaderInfo } from '../actions/header'
 import * as ArticleComponents from '../components/article/index'
 
 // lodash
@@ -57,18 +55,16 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
-/* Issue need to be solved: _setArticleBounding doesn't get right endY if there are lazyload imgs or embedded items */
-let articlePostition = {
-  beginY: 120,
-  endY: 200,
-  percent: 0
-}
-
-let scrollPosition = {
+const scrollPosition = {
   y: 0
 }
 
-let viewportHeight = 0
+const DESKTOP = deviceConst.type.desktop
+const MOBILE = deviceConst.type.MOBILE
+
+const viewport = {
+  screenType: DESKTOP
+}
 
 const ArticlePlaceholder = () => {
   return (
@@ -92,7 +88,7 @@ const ArticlePlaceholder = () => {
   )
 }
 
-class Article extends Component {
+class Article extends PureComponent {
 
   // for server side rendering,
   // we get not only the article itself but also get related articles and
@@ -127,18 +123,24 @@ class Article extends Component {
   constructor(props, context) {
     super(props, context)
 
-    this._setArticleBounding = this._setArticleBounding.bind(this)
-    this._onScroll = _.throttle(this._onScroll, 200).bind(this)
+    this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this._onResize = this._onResize.bind(this)
+    this._onResize =  _.throttle(this._onResize, 500).bind(this)
+    this.toggleTools = this._toggleTools.bind(this)
 
-    // for requestAnimationFrame
-    this._ticking = false
     this.state = {
       fontSize:'medium',
       isFontSizeSet:false
     }
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+
+    // reading progress component
+    this.rp = null
+
+    // desktop article tools
+    this.dat = null
+
+    // mobile article tools
+    this.mat = null
   }
 
   getChildContext() {
@@ -160,8 +162,7 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    viewportHeight = window.innerHeight
-    this._setArticleBounding()
+    viewport.screenType = getScreenType(window.innerWidth)
     window.addEventListener('resize', this._onResize)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
@@ -175,7 +176,6 @@ class Article extends Component {
   }
 
   componentDidUpdate() {
-    this._setArticleBounding()
     this._sendPageLevelAction()
   }
 
@@ -190,8 +190,11 @@ class Article extends Component {
     window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
     scrollPosition.y = 0
-    this._ticking = false
-    this.clearRAF()
+
+    // unset components
+    this.rp = null
+    this.dat = null
+    this.mat = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -200,22 +203,16 @@ class Article extends Component {
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
     if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
-    }
-  }
 
-  _requestTick() {
-    if (!this._ticking) {
-      this._raf = raf(this._handleScroll)
-      this._ticking = true
+      // unset components
+      this.rp = null
+      this.dat = null
+      this.mat = null
     }
   }
 
   _onScroll() {
-    this._requestTick()
-  }
-
-  clearRAF() {
-    raf.cancel(this._raf)
+    this._handleScroll()
   }
 
   _sendPageLevelAction() {
@@ -224,13 +221,7 @@ class Article extends Component {
     if (!slug) {
       return
     }
-
     const post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
-
-    const topic = _.get(entities, [ reduxStateFields.topicsInEntities, _.get(post, 'topics') ])
-    const topicName = _.get(topic, 'topic_name')
-    const topicSlug = _.get(topic, 'slug')
-
     let style = _.get(post, 'style')
     let theme = BRIGHT
 
@@ -239,14 +230,7 @@ class Article extends Component {
     }
 
     setHeaderInfo({
-      articleId: post.id,
-      showBackToTopicIcon: topicSlug ? true : false,
-      pageTitle: post.title,
-      pageTheme: theme,
-      pageTopic: topicName,
-      pageType: style,
-      readPercent: 0,
-      topicSlug
+      pageTheme: theme
     })
   }
 
@@ -261,21 +245,29 @@ class Article extends Component {
   }
 
   _onResize() {
-    this._setArticleBounding()
-    viewportHeight = window.innerHeight
+    viewport.screenType = getScreenType(window.innerWidth)
   }
 
-  _setArticleBounding() {
-    const beginEl = ReactDOM.findDOMNode(this.refs.progressBegin)
-    const endEl = ReactDOM.findDOMNode(this.refs.progressEnding)
-    articlePostition.beginY = _.get(beginEl, 'offsetTop', articlePostition.beginY)
-    articlePostition.endY = _.get(endEl, 'offsetTop', articlePostition.endY)
+  _toggleTools(device, toShow) {
+    if (device === MOBILE) {
+      if (this.mat) {
+        if (toShow) {
+          return this.mat.showTools()
+        }
+        this.mat.hideTools()
+      }
+    } else if (this.dat) {
+      if (toShow) {
+        return this.dat.showTools()
+      }
+      this.dat.hideTools()
+    }
   }
 
   _handleScroll() {
     const currentTopY = window.scrollY
-    const currentBottomY = currentTopY + viewportHeight
-    const { beginY, endY, percent } = articlePostition
+    const beginY = _.get(this.progressBegin, 'offsetTop', 0)
+    const endY = _.get(this.progressEnding, 'offsetTop', 0)
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -285,57 +277,37 @@ class Article extends Component {
       scrollRatio = 1
     }
     let curPercent = Math.round(scrollRatio*100)
-    if(percent !== curPercent) {
-      articlePostition.percent = curPercent
+
+    if (this.rp) {
       // update the header progress bar
-      this.props.setReadProgress(curPercent)
+      this.rp.updatePercentage(curPercent)
     }
 
     /* Handle Article Tools */
-    const { articleTools, setArticleTools } = this.props
-    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
+    const screenType = viewport.screenType
 
     const isInTopRegion = currentTopY < beginY + 600
-    const isInBottomRegion = currentBottomY > endY + 150
 
-    if (isInTopRegion || isInBottomRegion) {
-      if (isMobileToolsDisplayed || isDesktopToolsDisplayed) {
-        setArticleTools({
-          isMobileToolsDisplayed: false,
-          isDesktopToolsDisplayed: false
-        })
-      }
-    } else {
-      if (!isDesktopToolsDisplayed) {
-        setArticleTools({
-          isDesktopToolsDisplayed: true
-        })
-      }
+    if (screenType === DESKTOP) {
+      this.toggleTools(DESKTOP, true)
     }
+
     // Calculate scrolling distance to determine whether tools are displayed
-    const lastY = scrollPosition.y
-    const distance = currentTopY - lastY
-    if (distance > 30) {
-      scrollPosition.y = currentTopY
-      if (isMobileToolsDisplayed) {
-        setArticleTools({
-          isMobileToolsDisplayed: false
-        })
-      }
-    } else {
-      if (Math.abs(distance) > 180) {
+    if (screenType !== DESKTOP) {
+      const lastY = scrollPosition.y
+      const distance = currentTopY - lastY
+      if (distance > 30) {
         scrollPosition.y = currentTopY
-        if (!isMobileToolsDisplayed && !isInTopRegion && !isInBottomRegion) {
-          setArticleTools({
-            isMobileToolsDisplayed: true
-          })
+        this.toggleTools(MOBILE, false)
+      } else {
+        if (Math.abs(distance) > 150) {
+          scrollPosition.y = currentTopY
+          if (!isInTopRegion) {
+            this.toggleTools(MOBILE, true)
+          }
         }
       }
     }
-
-    // reset the tick so we can
-    // capture the next onScroll
-    this._ticking = false
   }
 
   _composeAuthors(article) {
@@ -355,7 +327,7 @@ class Article extends Component {
   }
 
   render() {
-    const { entities, params, selectedPost, articleTools } = this.props
+    const { entities, params, selectedPost } = this.props
 
     const error = _.get(selectedPost, 'error')
 
@@ -370,8 +342,6 @@ class Article extends Component {
     if (_.get(selectedPost, 'slug') !== _.get(params, 'slug')) {
       return null
     }
-
-    const { isMobileToolsDisplayed, isDesktopToolsDisplayed } = articleTools
 
     const postEntities = _.get(entities, reduxStateFields.postsInEntities)
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
@@ -431,12 +401,12 @@ class Article extends Component {
           meta={[
             { name: 'description', content: articleDes },
             { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
-            { name: 'twitter:image', content: articleImg },
+            { name: 'twitter:image', content: articleImg || SITE_META.OG_IMAGE },
             { name: 'twitter:description', content: articleDes },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
             { property: 'og:description', content: articleDes },
-            { property: 'og:image', content: articleImg },
+            { property: 'og:image', content: articleImg || SITE_META.OG_IMAGE },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
@@ -444,7 +414,6 @@ class Article extends Component {
         />
         <div itemScope itemType="http://schema.org/Article">
           {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
-
           <div className={outerClass}>
             {
               leadingVideo ?
@@ -455,7 +424,8 @@ class Article extends Component {
                   poster={_.get(heroImage, 'resizedTargets')}
                 /> : null
             }
-              <article className={contentClass}>
+            <ReadingProgress ref={ele => this.rp = ele}/>
+            <article ref={div => {this.progressBegin = div}} className={contentClass}>
               <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
                 <hgroup>
                   <h3>{topicBlock}{subtitleBlock}</h3>
@@ -471,7 +441,7 @@ class Article extends Component {
                 <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
               </div>
 
-              <div ref="progressBegin" className={cx(styles['article-meta'], commonStyles['inner-block'])}>
+              <div className={cx(styles['article-meta'], commonStyles['inner-block'])}>
                 <ArticleComponents.HeadingAuthor
                   authors={authors}
                   extendByline={_.get(article, 'extendByline')}
@@ -519,7 +489,7 @@ class Article extends Component {
               />
             </article>
 
-            <div ref="progressEnding"
+            <div ref={div => {this.progressEnding = div}}
                 className={cx(commonStyles['components'], 'hidden-print')}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
@@ -559,8 +529,8 @@ class Article extends Component {
           <div className="hidden-print">
           </div>
         </div>
-        <MobileArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isMobileToolsDisplayed={isMobileToolsDisplayed}/>
-        <DesktopArticleTools topicTitle={topicTitle} topicSlug={topicSlug} isDesktopToolsDisplayed={isDesktopToolsDisplayed} />
+        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} toShow={false}/>
+        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} toShow={false} />
       </div>
     )
   }
@@ -571,8 +541,7 @@ function mapStateToProps(state) {
   const selectedPost = state[reduxStateFields.selectedPost]
   return {
     entities,
-    selectedPost,
-    articleTools: state.header.articleTools
+    selectedPost
   }
 }
 
@@ -588,11 +557,7 @@ Article.contextTypes = {
 Article.propTypes = {
   entities: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
-  params: React.PropTypes.object,
-  articleTools: React.PropTypes.shape({
-    isDesktopToolsDisplayed: React.PropTypes.bool,
-    isMobileToolsDisplayed: React.PropTypes.bool
-  })
+  params: React.PropTypes.object
 }
 
 Article.defaultProps = {
@@ -602,4 +567,4 @@ Article.defaultProps = {
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo, setReadProgress, setArticleTools })(Article)
+export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo })(Article)
