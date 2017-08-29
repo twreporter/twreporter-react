@@ -310,9 +310,13 @@ class Homepage extends React.Component {
             moreURI={`categories/${categoryURI.reviews}`}
           />
           <NewsLetterSection />
-          <CategorySection
-            data={this.props.categories}
-          />
+          <Background
+            backgroundColor={moduleBackgounds.category}
+          >
+            <CategorySection
+              data={this.props.categories}
+            />
+          </Background>
           <Background
             backgroundColor={moduleBackgounds.topic}
           >
