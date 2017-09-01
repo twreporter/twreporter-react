@@ -1,11 +1,12 @@
 ### Unreleased
-- Update the image slideshow to let it fit the height of every image
-- Change components package to twreporter-react-components
-- Bug fix. Slideshow will switch to the correct one on Android
 
 ### 2.1.17
 - Add paragraph style in Introduction of article page
 - Upgrade twreporter-react-footer-components to 1.0.6
+- Update the image slideshow to let it fit the height of every image
+- Change components package to twreporter-react-components
+- Bug fix. Slideshow will switch to the correct one on Android
+- Category/Tag listing page code refactor and re-design
 
 ### 2.1.16
 - Upgrade twreporter-react-index-page-components to 1.1.11

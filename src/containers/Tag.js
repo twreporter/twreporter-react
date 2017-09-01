@@ -1,15 +1,14 @@
 import Helmet from 'react-helmet'
+import More from '../components/More'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import ArticleList from '../components/ArticleList'
+import { List } from 'twreporter-react-components'
+import get from 'lodash/get'
 import twreporterRedux from 'twreporter-redux'
 
-import { BRIGHT, SITE_META, SITE_NAME, TAG } from '../constants/index'
-import { camelizeKeys } from 'humps'
+import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
 import { connect } from 'react-redux'
 import { setHeaderInfo } from '../actions/header'
-// lodash
-import get from 'lodash/get'
 
 const _  = {
   get
@@ -34,9 +33,7 @@ class Tag extends Component {
   componentWillMount() {
     const { fetchListedPosts, lists, params, setHeaderInfo } = this.props
     setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: TAG,
-      readPercent: 0
+      pageTheme: BRIGHT
     })
 
     let tagId = _.get(params, 'tagId')
@@ -79,27 +76,34 @@ class Tag extends Component {
   }
 
   render() {
-    const { device } = this.context
     const { lists, entities, params } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const tagId = _.get(params, 'tagId')
     const error = _.get(lists, [ tagId, 'error' ], null)
     const total = _.get(lists, [ tagId, 'total' ], 0)
-    const posts = camelizeKeys(utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []), postEntities))
+    const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []), postEntities)
+    const postsLen = _.get(posts, 'length', 0)
+    let isFetching = false
 
     // Error handling
-    if (error !== null && _.get(posts, 'length', 0) === 0) {
+    if (error !== null && postsLen === 0) {
       return (
-        <div>
-          <SystemError error={error} />
-        </div>
+        <SystemError error={error} />
       )
+    } else if (postsLen === 0) {
+      isFetching = true
     }
 
-    let tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
-    const tagBox = tagName ? <div className="top-title-outer"><h1 className="top-title"> {tagName} </h1></div> : null
+    const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
     const canonical = `${SITE_META.URL}tag/${tagId}`
     const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+
+    const MoreJSX = total > postsLen ? (
+      <More loadMore={this.loadMore}>
+        <span style={{ color: error ? 'red' : 'white' }}>{error ? '更多文章（請重試）' : '更多文章'}</span>
+      </More>
+    ) : null
+
     return (
       <div>
         <Helmet
@@ -119,19 +123,12 @@ class Tag extends Component {
             { property: 'og:url', content: canonical }
           ]}
         />
-        <div className="container text-center">
-          { tagBox }
-        </div>
-        <div>
-          <ArticleList
-            articles={posts}
-            device={device}
-            hasMore={total > posts.length}
-            loadMore={this.loadMore}
-            loadMoreError={error}
-          />
-          {this.props.children}
-        </div>
+        <List
+          data={posts}
+          tagName={tagName}
+          isFetching={isFetching}
+        />
+        {MoreJSX}
       </div>
     )
   }
@@ -142,10 +139,6 @@ function mapStateToProps(state) {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities]
   }
-}
-
-Tag.contextTypes = {
-  device: React.PropTypes.string
 }
 
 Tag.defaultProps = {
