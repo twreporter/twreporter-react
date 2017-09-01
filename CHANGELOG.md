@@ -1,8 +1,9 @@
 ### Unreleased
 - Change components package to twreporter-react-components
+- Bug fix. Slideshow will switch to the correct one on Android
 
 ### 2.1.17
-- Add paragraph style in Introduction of article page 
+- Add paragraph style in Introduction of article page
 - Upgrade twreporter-react-footer-components to 1.0.6
 
 ### 2.1.16
@@ -41,7 +42,7 @@
 - Bug fix. Can not link to /categories/reviews from index page on client side
 - Add loading spinner on index page
 
-### 2.1.6 
+### 2.1.6
 - Update .circleci/config.yml. Separate staging and prod docker build.
 
 ### 2.1.5
