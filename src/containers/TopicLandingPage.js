@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
-import Footer from 'twreporter-react-footer-components'
+import { Footer } from 'twreporter-react-components'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
