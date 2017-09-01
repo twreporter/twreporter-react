@@ -1,4 +1,5 @@
 ### Unreleased
+- Update the image slideshow to let it fit the height of every image
 - Change components package to twreporter-react-components
 - Bug fix. Slideshow will switch to the correct one on Android
 

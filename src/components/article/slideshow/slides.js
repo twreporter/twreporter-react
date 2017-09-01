@@ -5,14 +5,46 @@ import React, { Component } from 'react'
 import Swipeable from 'react-swipeable'
 
 // lodash
-import map from 'lodash/map'
+import forEach from 'lodash/forEach'
 import merge from 'lodash/merge'
+import get from 'lodash/get'
 
 class Slides extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      offsetPercentage: 0
+      offsetPercentage: 0,
+      maxHeight: -1
+    }
+    this.slideContainers = []
+    this._setSlideHeight = this._setSlideHeight.bind(this)
+  }
+
+  componentDidMount() {
+    this._setSlideHeight(0)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { slideStart } = nextProps
+    if (slideStart !== this.props.slideStart) {
+      this._setSlideHeight(slideStart)
+    }
+  }
+
+  _setSlideHeight(sIndex) {
+    const { images } = this.props
+    const container = this.outerContainer
+    const winHeight = document.documentElement.clientHeight || window.innerHeight
+    const hLimit = winHeight * 0.72   // the height of the slideshow cannot exceed 72% of screen height
+    if (container && images) {
+      const { clientWidth } = container
+      const width = get(images, `${sIndex}.tablet.width`, 500)
+      const height = get(images, `${sIndex}.tablet.height`, 500)
+      let maxHeight = Math.ceil(clientWidth * height / width)
+      if (maxHeight > hLimit) {
+        maxHeight = hLimit
+      }
+      this.setState({ maxHeight })
     }
   }
 
@@ -37,23 +69,26 @@ class Slides extends Component {
   }
 
   render() {
-    const { isSwipeable, onImageError, onImageLoad, slides, slideStart } = this.props
-    const { offsetPercentage } = this.state
+    const { isSwipeable, onImageError, slides, slideStart } = this.props
+    const { offsetPercentage, maxHeight } = this.state
+    let slideComponents = []
 
-    let slideComponents = map(slides, (slide) => {
-      return (
+    forEach(slides, (slide, i) => {
+      slideComponents.push(
         <li
           key={slide.id}
+          ref={(slide) => {this.slideContainers[i] = slide }}
           className={styles['slide']}
         >
-          <img
-            src={slide.src}
-            alt={slide.alt}
-            srcSet={slide.srcSet}
-            sizes={slide.sizes}
-            onLoad={onImageLoad}
-            onError={onImageError}
-          />
+          <div style={{ height: maxHeight }} className={styles['img-container']}>
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              srcSet={slide.srcSet}
+              sizes={slide.sizes}
+              onError={onImageError}
+            />
+          </div>
         </li>
       )
     })
@@ -76,6 +111,19 @@ class Slides extends Component {
       })
     }
 
+    if (maxHeight > 0) {
+      merge(slidesStyle, { height: maxHeight })
+    }
+
+    const InnerSlides = (
+      <ul className={styles['slides']}
+        style={slidesStyle}
+        ref={(ul) => { this.outerContainer = ul }}
+      >
+        {slideComponents}
+      </ul>
+    )
+
     if (isSwipeable) {
       return (
         <Swipeable
@@ -88,16 +136,12 @@ class Slides extends Component {
           onSwipedLeft={this._handleSwipedTo.bind(this, 1)}
           onSwipedRight={this._handleSwipedTo.bind(this, -1)}
         >
-          <ul className={styles['slides']} style={slidesStyle}>
-            {slideComponents}
-          </ul>
+          { InnerSlides }
         </Swipeable>
       )
     }
     return (
-      <ul className={styles['slides']} style={slidesStyle}>
-        {slideComponents}
-      </ul>
+      { InnerSlides }
     )
   }
 }

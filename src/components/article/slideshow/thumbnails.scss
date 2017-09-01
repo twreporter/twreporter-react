@@ -18,6 +18,7 @@
     flex-shrink: 0;
     flex-basis: auto;
     margin-right: rem(8px);
+    transition: opacity 0.5s ease-in-out;
 
     &:last-child {
       margin-right: 0;
@@ -29,11 +30,14 @@
       background-color: $black;
     }
 
+    &:hover {
+      opacity: 0.75;
+      filter: alpha(opacity=75); /* msie*/
+    }
+
     > img {
       width: 100%;
       object-fit: cover;
     }
   }
 }
-
-
