@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { TopicsComponents } from 'twreporter-react-listing-components'
+import { TopicsList } from 'twreporter-react-components'
 import twreporterRedux from 'twreporter-redux'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -24,7 +24,7 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchTopics, fetchAFullTopic } = actions
 const { denormalizeTopics } = utils
-const { PageContent, TopSection, ListSection, PostsContainer, PostItem, TopicItem } = TopicsComponents
+const { PageContent, TopSection, ListSection, PostsContainer, PostItem, TopicItem } = TopicsList
 const N_OF_FIRSTPAGE = 5
 const N_PER_PAGE = 5
 

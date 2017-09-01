@@ -15,14 +15,12 @@ const navigation = (props) => {
     <span key="navigation">
       <img
         className={classNames(styles['ss-left-nav'], { [styles['disabled']]: isLeftNavDisabled })}
-        onTouchStart={onSlideLeft}
         onClick={onSlideLeft}
         src={ isLeftNavDisabled ? disabledLeftNav : leftNav }
       />
 
       <img
         className={classNames(styles['ss-right-nav'], { [styles['disabled']]: isRightNavDisabled })}
-        onTouchStart={onSlideRight}
         onClick={onSlideRight}
         src={ isRightNavDisabled ? disabledRightNav : rightNav }
       />
