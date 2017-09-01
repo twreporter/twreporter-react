@@ -1,8 +1,9 @@
 ### Unreleased
+- Update the image slideshow to let it fit the height of every image
 - Change components package to twreporter-react-components
 
 ### 2.1.17
-- Add paragraph style in Introduction of article page 
+- Add paragraph style in Introduction of article page
 - Upgrade twreporter-react-footer-components to 1.0.6
 
 ### 2.1.16
@@ -41,7 +42,7 @@
 - Bug fix. Can not link to /categories/reviews from index page on client side
 - Add loading spinner on index page
 
-### 2.1.6 
+### 2.1.6
 - Update .circleci/config.yml. Separate staging and prod docker build.
 
 ### 2.1.5
