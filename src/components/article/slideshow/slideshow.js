@@ -23,6 +23,7 @@ class Slideshow extends Component {
       currentIndex: 0,
       slideshowWidth: 0
     }
+    this.isSliding =  false   // users are not able to switch slides if isSliding is true
     this.handleResize = this._handleResize.bind(this)
     this.onImageLoad = this._onImageLoad.bind(this)
     this.onImageError = this._onImageError.bind(this)
@@ -97,19 +98,23 @@ class Slideshow extends Component {
     if (event) {
       event.preventDefault()
     }
-    let slideCount = this.props.content.length - 1
-    let currentIndex = index
+    if (!this.isSliding) {
+      this.isSliding = true
+      let slideCount = this.props.content.length - 1
+      let currentIndex = index
 
-    if (index < 0) {
-      currentIndex = 0
-    } else if (index > slideCount) {
-      currentIndex = slideCount
+      if (index < 0) {
+        currentIndex = 0
+      } else if (index > slideCount) {
+        currentIndex = slideCount
+      }
+
+      this.setState({
+        currentIndex: currentIndex,
+        previousIndex: this.state.currentIndex
+      })
+      this.isSliding = false
     }
-
-    this.setState({
-      currentIndex: currentIndex,
-      previousIndex: this.state.currentIndex
-    })
   }
 
 
