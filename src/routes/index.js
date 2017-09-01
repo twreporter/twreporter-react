@@ -4,12 +4,15 @@ import App from '../containers/App'
 import Article from '../containers/Article'
 import Author from '../containers/Author'
 import AuthorsList from '../containers/AuthorsList'
+import Activation from '../containers/Activation'
 import Category from '../containers/Category'
 import Home from '../containers/Home'
 import Photography from '../containers/Photography'
 import React from 'react'
 import ReactGA from 'react-ga'
 import Search from '../containers/Search'
+import SignIn from '../containers/SignIn'
+import SignUp from '../containers/SignUp'
 import Tag from '../containers/Tag'
 import Topic from '../containers/Topic'
 import TopicLandingPage from '../containers/TopicLandingPage'
@@ -46,6 +49,9 @@ export default function (history = browserHistory) {
         <Route path="a/:slug" component={Article} />
         <Route path="author/:authorId" component={Author} />
         <Route path="authors" component={AuthorsList} />
+        <Route path="signup" component={SignUp} />
+        <Route path="signin" component={SignIn} />
+        <Route path="activate" component={Activation} />
       </Route>
     </Router>
   )
