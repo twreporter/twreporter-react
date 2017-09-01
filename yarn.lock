@@ -6743,9 +6743,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-twreporter-react-components@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/twreporter-react-components/-/twreporter-react-components-1.0.2.tgz#87fbc58c4be88ed93518121b884fd1f8457229e4"
+twreporter-react-components@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/twreporter-react-components/-/twreporter-react-components-1.0.7.tgz#d76b52d49066a465b88cd2cdadaad6554e107667"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
@@ -6755,9 +6755,9 @@ twreporter-react-components@^1.0.2:
     styled-components "^2.1.1"
     velocity-react "^1.3.3"
 
-twreporter-redux@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.1.3.tgz#5cae082b98fe60e58872b050d3569186674d57bc"
+twreporter-redux@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.1.4.tgz#b4fd20770423385908c19e81bd158536ea204276"
   dependencies:
     axios "^0.16.1"
     es6-error "^4.0.2"

@@ -1,18 +1,17 @@
 import Helmet from 'react-helmet'
+import More from '../components/More'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import ArticleList from '../components/ArticleList'
+import { List } from 'twreporter-react-components'
 import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
+import get from 'lodash/get'
 import twreporterRedux from 'twreporter-redux'
 
-import { BRIGHT, CATEGORY, SITE_META, SITE_NAME } from '../constants/index'
-import { camelize, camelizeKeys } from 'humps'
+import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
+import { camelize } from 'humps'
 import { connect } from 'react-redux'
 import { setHeaderInfo } from '../actions/header'
-
-// lodash
-import get from 'lodash/get'
 
 const _  = {
   get
@@ -50,8 +49,7 @@ class Category extends Component {
   componentWillMount() {
     const { lists, fetchListedPosts, setHeaderInfo } = this.props
     setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: CATEGORY
+      pageTheme: BRIGHT
     })
 
     let catId = this.state.catId
@@ -84,28 +82,34 @@ class Category extends Component {
   }
 
   render() {
-    const { device } = this.context
     const { lists, entities, params } = this.props
     const category = _.get(params, 'category', '')
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const catId = getListID(category)
     const error = _.get(lists, [ catId, 'error' ], null)
     const total = _.get(lists, [ catId, 'total' ], 0)
-    const posts = camelizeKeys(utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []), postEntities))
+    const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []), postEntities)
+    const postsLen = _.get(posts, 'length', 0)
+    let isFetching = false
 
     // Error handling
-    if (error !== null && _.get(posts, 'length', 0) === 0) {
+    if (error !== null && postsLen === 0) {
       return (
-        <div>
-          <SystemError error={error} />
-        </div>
+        <SystemError error={error} />
       )
+    } else if (postsLen === 0) {
+      isFetching = true
     }
 
     const catName = categoryString[camelize(category)]
-    const catBox = catName ? <div className="top-title-outer"><h1 className="top-title"> {catName} </h1></div> : null
     const title = catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const canonical = `${SITE_META.URL}category/${category}`
+
+    const MoreJSX = total > posts.length ? (
+      <More loadMore={this.loadMore}>
+        <span style={{ color: error ? 'red' : 'white' }}>{error ? '更多文章（請重試）' : '更多文章'}</span>
+      </More>
+    ) : null
 
     return (
       <div>
@@ -126,17 +130,12 @@ class Category extends Component {
             { property: 'og:url', content: canonical }
           ]}
         />
-        <div className="container text-center">
-          {catBox}
-        </div>
-        <ArticleList
-          articles={posts}
-          device={device}
-          hasMore={total > posts.length}
-          loadMore={this.loadMore}
-          loadMoreError={error}
+        <List
+          data={posts}
+          catName={catName}
+          isFetching={isFetching}
         />
-        {this.props.children}
+        {MoreJSX}
       </div>
     )
   }
@@ -147,10 +146,6 @@ function mapStateToProps(state) {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities]
   }
-}
-
-Category.contextTypes = {
-  device: React.PropTypes.string
 }
 
 Category.defaultProps = {

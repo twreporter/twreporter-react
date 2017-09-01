@@ -57,6 +57,9 @@ const LoadingCover = styled.div`
 
 const anchors = [
   {
+    id: 'latest',
+    label: ''
+  }, {
     id: 'editorPick',
     label: '編輯精選'
   }, {
@@ -103,10 +106,6 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
-`
-
-const FirstModuleWrapper = styled.div`
-  hegight: auto;
 `
 
 const Background = styled.div`
@@ -298,10 +297,8 @@ class Homepage extends React.Component {
         <SideBar
           anchors={anchors}
         >
-          <FirstModuleWrapper>
-            <LatestSection data={this.props[fieldNames.sections.latestSection]} />
-            <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
-          </FirstModuleWrapper>
+          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+          <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           <LatestTopicSection
             data={this.props[fieldNames.sections.latestTopicSection]}
           />
