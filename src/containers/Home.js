@@ -3,13 +3,13 @@ import Helmet from 'react-helmet'
 import React from 'react'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
-import IndexPageComposite from 'twreporter-react-index-page-components'
+import { IndexPageComposite } from 'twreporter-react-components'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { CSSTransitionGroup } from 'react-transition-group'
-import Footer from 'twreporter-react-footer-components'
+import { Footer } from 'twreporter-react-components'
 import LoadingSpinner from '../components/Spinner'
 
 // lodash
@@ -57,6 +57,9 @@ const LoadingCover = styled.div`
 
 const anchors = [
   {
+    id: 'latest',
+    label: ''
+  }, {
     id: 'editorPick',
     label: '編輯精選'
   }, {
@@ -103,10 +106,6 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
-`
-
-const FirstModuleWrapper = styled.div`
-  hegight: auto;
 `
 
 const Background = styled.div`
@@ -298,10 +297,8 @@ class Homepage extends React.Component {
         <SideBar
           anchors={anchors}
         >
-          <FirstModuleWrapper>
-            <LatestSection data={this.props[fieldNames.sections.latestSection]} />
-            <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
-          </FirstModuleWrapper>
+          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+          <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           <LatestTopicSection
             data={this.props[fieldNames.sections.latestTopicSection]}
           />
@@ -310,9 +307,13 @@ class Homepage extends React.Component {
             moreURI={`categories/${categoryURI.reviews}`}
           />
           <NewsLetterSection />
-          <CategorySection
-            data={this.props.categories}
-          />
+          <Background
+            backgroundColor={moduleBackgounds.category}
+          >
+            <CategorySection
+              data={this.props.categories}
+            />
+          </Background>
           <Background
             backgroundColor={moduleBackgounds.topic}
           >

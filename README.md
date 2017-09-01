@@ -16,7 +16,6 @@ New Media foundation in Taiwan.
 This project is built on Redux framework and rendered by React.
 It uses server-side(universal) rendering, and also integrate ```Webpack Hot Middleware``` in Dev environment.
 
-```
 # Reference
 [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example)
 [Redux](https://github.com/reactjs/redux)
