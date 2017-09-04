@@ -108,7 +108,7 @@ class Topics extends Component {
   _loadMore() {
     this.props.fetchTopics(N_PER_PAGE)
   }
-  
+
   _buildRelatedPosts(posts) {
     const _buildPostJSX = (post, index) => {
       const slug = _.get(post, 'slug')
@@ -127,24 +127,34 @@ class Topics extends Component {
   }
 
   _buildTopicBoxes(topics) {
-    const _buildTopicBox = (item, index='') => (
-      <TopicItem
-        key={`topic-item-${_.get(item, 'id', index)}`}
-        title={_.get(item, 'title', '')}
-        updatedAt={date2yyyymmdd(_.get(item, 'published_date'), '.') || ''}
-        description={_.get(item, 'og_description', '')}
-        imgUrl={_.get(item, 'og_image.resized_targets.mobile.url', '') || _.get(item, 'leading_image.resized_targets.mobile.url', '') }
-        imgAlt={_.get(item, 'og_image.description', '') || _.get(item, 'leading_image.description', '')}
-        isFull={index === 0}
-        url={`${LINK_PREFIX.TOPICS}${_.get(item, 'slug')}`}
-      />
-    )
+    const _buildTopicBox = (item, index='') => {
+      const img = _.get(item, 'leading_image_portrait.resized_targets.mobile.url') ||
+        _.get(item, 'leading_image.resized_targets.mobile.url') ||
+        _.get(item, 'og_image.resized_targets.mobile.url')
+
+      const desc = _.get(item, 'leading_image_portrait.description') ||
+        _.get(item, 'leading_image.description') ||
+        _.get(item, 'og_image.description')
+
+      return (
+        <TopicItem
+          key={`topic-item-${_.get(item, 'id', index)}`}
+          title={_.get(item, 'title', '')}
+          updatedAt={date2yyyymmdd(_.get(item, 'published_date'), '.') || ''}
+          description={_.get(item, 'og_description', '')}
+          imgUrl={img}
+          imgAlt={desc}
+          isFull={index === 0}
+          url={`${LINK_PREFIX.TOPICS}${_.get(item, 'slug')}`}
+        />
+      )
+    }
     return _.map(topics, _buildTopicBox)
   }
 
   render() {
     const { topics, total, topicListError, topicError, isTopicsFetching } = this.props
-    
+
     const canonical = `${SITE_META.URL}topics`
     const title = '專題' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const topicsLength = _.get(topics, 'length')
@@ -154,7 +164,7 @@ class Topics extends Component {
         return (<div><SystemError error={topicListError} /></div>)
       }
     }
-  
+
     /* Render blank page if data is not all-prepared */
     /* wait for implement loading spinner */
     if (!isFirstTopicFull || topicsLength <= 0 || isTopicsFetching) {
@@ -192,7 +202,7 @@ class Topics extends Component {
     const topTopicName = _.get(topics, [ 0, 'topic_name' ], '')
     const topTopicSlug = _.get(topics, [ 0, 'slug' ], '')
     const hasMore = topicsLength < total
-    
+
     return (
       <PageContainer>
         <Helmet
@@ -256,7 +266,7 @@ function mapStateToProps(state) {
   const entities = _.get(state, reduxStateFields.entities, {})
   const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
   const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-  
+
   const topics = denormalizeTopics(items, topicEntities, postEntities)
 
   const isTopicFetching = _.get(selectedTopic, 'isFetching', false)
@@ -267,7 +277,7 @@ function mapStateToProps(state) {
   const topicError = _.get(selectedTopic, 'error', null)
 
   const pageTheme = _.get(state, 'header.pageTheme', BRIGHT)
-  
+
   return ({
     topics,
     total,

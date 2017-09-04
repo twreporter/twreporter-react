@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.1.18
+- Show portrait image when mobile with portrait orientation.
+- Show portrait thumbnail on Topic listing page
+- Add decription for leading image on Article page.
+
 ### 2.1.17
 - Add paragraph style in Introduction of article page
 - Update the image slideshow to let it fit the height of every image
