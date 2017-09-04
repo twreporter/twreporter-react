@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.1.18
+- Add decription for leading image on Article page.
+
 ### 2.1.17
 - Add paragraph style in Introduction of article page
 - Update the image slideshow to let it fit the height of every image

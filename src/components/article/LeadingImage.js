@@ -3,6 +3,7 @@
 import React from 'react' // eslint-disable-line
 import classNames from 'classnames'
 import styles from './LeadingImage.scss'
+import commonStyles from './Common.scss'
 import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
 
 // lodash
@@ -58,6 +59,7 @@ class LeadingImage extends React.Component {
     return (
       <div className={styles[leadingImgClass]}>
         {imgJsx}
+        { description ? <div className={commonStyles['desc-text-block']}>{description}</div> : null }
       </div>
     )
   }
