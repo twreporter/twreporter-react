@@ -78,15 +78,24 @@ class LeadingVideo extends React.Component {
   }
 
   render() {
-    const { classNames, filetype, loop, poster, src, title } = this.props
+    const { classNames, filetype, loop, poster, portraitPoster, src, title } = this.props
     const { isIOS10Below, isMobile, isMuted } = this.state
     const imgSrcSet = getImageSrcSet(poster)
-    const imgSrc = replaceStorageUrlPrefix(get(poster, 'tablet.url', ''))
-    let placeHolderJsx
-    let videoJsx
+    const imgSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
+    let portraitImgSrcSet = imgSrcSet
+    let portraitImgSrc = imgSrc
+    if (portraitPoster) {
+      portraitImgSrcSet = getImageSrcSet(portraitPoster)
+      portraitImgSrc = replaceStorageUrlPrefix(get(portraitPoster, 'mobile.url', ''))
+    }
+    let placeHolderJSX = null
+    let videoJSX = null
+    let posterJSX = null
+    let portraitPosterJSX = null
+
     if (!this._isMounted) {
       // avoid the layout from flashing, render the empty div with 100vh height
-      placeHolderJsx = (
+      placeHolderJSX = (
         <div style={{ height: '120vh' }} />
       )
     }
@@ -94,18 +103,26 @@ class LeadingVideo extends React.Component {
     // there is no easy way to autoplay inline video on the devices whose iOS is below 10,
     // so just render the leading image
     if (isIOS10Below || !src) {
-      videoJsx = (
+      posterJSX = (
         <img
-          className={_.get(classNames, 'poster', style['poster'])}
+          className={cx(_.get(classNames, 'poster', style['poster']), style['poster'])}
           src={imgSrc}
           srcSet={imgSrcSet}
+          alt={title}
+        />
+      )
+      portraitPosterJSX = (
+        <img
+          className={cx(_.get(classNames, 'poster', style['poster']), style['portrait-poster'])}
+          src={portraitImgSrc}
+          srcSet={portraitImgSrcSet}
           alt={title}
         />
       )
     } else {
       // On the mobile devices (iOS 10 above),
       // we can only autoplay the video without audio
-      videoJsx = (
+      videoJSX = (
         <div>
           <video
             className={_.get(classNames, 'video', style['video'])}
@@ -136,8 +153,10 @@ class LeadingVideo extends React.Component {
         <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title}/>
-          {placeHolderJsx}
-          {videoJsx}
+          {placeHolderJSX}
+          {videoJSX}
+          {posterJSX}
+          {portraitPosterJSX}
         </div>
       </VisibilitySensor>
     )

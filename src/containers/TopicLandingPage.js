@@ -155,6 +155,7 @@ class TopicLandingPage extends Component {
           }}
           filetype={_.get(leadingVideo, 'filetype')}
           poster={_.get(leadingImage, 'resizedTargets')}
+          portraitPoster={_.get(topic, 'leadingImagePortrait.resizedTargets')}
           src={_.get(leadingVideo, 'url')}
           title={title}
         />
