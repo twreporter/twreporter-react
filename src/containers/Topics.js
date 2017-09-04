@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import { date2yyyymmdd, formatPostLinkTo, formatPostLinkTarget } from '../utils'
 import { LINK_PREFIX, BRIGHT, SITE_META, SITE_NAME } from '../constants/'
 import { setHeaderInfo } from '../actions/header'
-import { CSSTransitionGroup } from 'react-transition-group'
+
 import concat from 'lodash/concat'
 import get from 'lodash/get'
 import isInteger from 'lodash/isInteger'
@@ -27,20 +27,8 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchTopics, fetchAFullTopic } = actions
 const { denormalizeTopics } = utils
-const { PageContent, TopSection, ListSection, PostsContainer, PostItem, TopicItem } = TopicsList
 
 const N_PER_PAGE = 5
-
-const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
-  .topics-container-effect-enter {
-    opacity: 0;
-  }
-
-  .topics-container-effect-enter.topics-container-effect-enter-active {
-    opacity: 1;
-    transition: opacity 300ms linear;
-  }
-`
 
 const PageContainer = styled.div`
   position: relative;
@@ -81,14 +69,6 @@ class Topics extends Component {
     return this._clientFetchData(nextProps)
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   /* wait for implement loading spinner */
-  //   /* Only re-render when first topic is full and topics.length > 0 (aka. all data is prepared) */
-  //   const locationPage = _.get(nextProps, 'location.query.page', 1)
-  //   const { topics, isTopicsFetching } = nextProps
-  //   return ((locationPage != 1 || _.get(topics, [ 0, 'full' ], false)) && (_.get(topics, 'length', 0) > 0) && !isTopicsFetching)
-  // }
-
   _clientFetchData(props) {
     const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
     if (!_.isInteger(page) || page <= 0 || page > totalPages) {
@@ -108,42 +88,11 @@ class Topics extends Component {
     }
   }
   
-  _buildRelatedPosts(posts) {
-    const _buildPostJSX = (post, index) => {
-      const slug = _.get(post, 'slug')
-      const style = _.get(post, 'style')
-      return (
-        <PostItem
-          key={`topic-post-${_.get(post, 'id', index)}`}
-          title={_.get(post, 'title')}
-          imgUrl={_.get(post, 'hero_image.resized_targets.mobile.url')}
-          linkTo={formatPostLinkTo(slug, style)}
-          linkTarget={formatPostLinkTarget(style)}
-        />
-      )
-    }
-    return _.map(posts, _buildPostJSX)
-  }
-
-  _buildTopicBoxes(topics) {
-    const _buildTopicBox = (item, index='') => (
-      <TopicItem
-        key={`topic-item-${_.get(item, 'id', index)}`}
-        title={_.get(item, 'title', '')}
-        updatedAt={date2yyyymmdd(_.get(item, 'published_date'), '.') || ''}
-        description={_.get(item, 'og_description', '')}
-        imgUrl={_.get(item, 'og_image.resized_targets.mobile.url', '') || _.get(item, 'leading_image.resized_targets.mobile.url', '') }
-        imgAlt={_.get(item, 'og_image.description', '') || _.get(item, 'leading_image.description', '')}
-        isFull={index === 0}
-        url={`${LINK_PREFIX.TOPICS}${_.get(item, 'slug')}`}
-      />
-    )
-    return _.map(topics, _buildTopicBox)
-  }
-
-
   render() {
-    const { topics, page, totalPages, topicListError, topicError, pathname } = this.props
+    const { topics, page, totalPages, topicError, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
+
+    const isFirstTopicWaitToFetchFull = _.get(topics, [ 1, 'full' ], false) && !topicError
+    const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
     const topicsLength = _.get(topics, 'length')
 
     /* If page value is invalid, render error 404 */
@@ -175,49 +124,35 @@ class Topics extends Component {
         </div>
       )
     }
-    
-    const isFirstPage = page === 1
-    const isFirstTopicFull = _.get(topics, [ 0, 'full' ], false)
 
-    /* Render blank page if data is not all-prepared */
-    /* wait for implement loading spinner */
-    if ((isFirstPage && !isFirstTopicFull) || (!topicsLength || topicsLength < 0)) {
-      return (
-        <PageContainer>
-          <StyledCSSTransitionGroup
-            transitionName="topics-container-effect"
-            transitionEnterTimeout={300}
-            transitionLeave={false}
-          />
-        </PageContainer>
-      )
-    }
+    const topicsProps = _.map(topics, (topic, index) => {
+      const imgUrl = _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
+        _.get(topic, 'leading_image.resized_targets.mobile.url') ||
+        _.get(topic, 'og_image.resized_targets.mobile.url') || ''
 
-    /* Build PageContent */
-    const topicsJSX = this._buildTopicBoxes(topics)
-    let topTopicJSX = null
-    let listedTopicsJSX = null
-    let topRelatedPosts = null
-    let topTopicName = null
-    let topTopicSlug = null
-    if (isFirstPage) {
-      topTopicJSX = topicsJSX[0]
-      listedTopicsJSX = topicsJSX.slice(1)
-      topRelatedPosts = _.get(topics, [ 0, 'relateds' ], []).slice(0, 3)
-      topTopicName = _.get(topics, [ 0, 'topic_name' ], '')
-      topTopicSlug = _.get(topics, [ 0, 'slug' ], '')
-    } else {
-      listedTopicsJSX = topicsJSX
-    }
+      const imgAlt = _.get(topic, 'leading_image_portrait.description') ||
+        _.get(topic, 'leading_image.description') ||
+        _.get(topic, 'og_image.description') || ''
 
-    const TopSectionJSX = (!isFirstPage || topicError) ? null : (
-      <TopSection topicName={topTopicName} topicUrl={`${LINK_PREFIX.TOPICS}${topTopicSlug}`}>
-        {topTopicJSX}
-        <PostsContainer>
-          {this._buildRelatedPosts(topRelatedPosts)}
-        </PostsContainer>
-      </TopSection>
-    )
+      return ({
+        full: _.get(topic, 'full', false),
+        id: _.get(topic, 'id', index),
+        linkTo: `${LINK_PREFIX.TOPICS}${_.get(topic, 'slug')}`,
+        title: _.get(topic, 'title', ''),
+        topic_name: _.get(topic, 'topic_name', ''),
+        updatedAt: date2yyyymmdd(_.get(topic, 'published_date'), '.') || '',
+        description: _.get(topic, 'og_description', ''),
+        imgUrl,
+        imgAlt,
+        relateds: index > 0 ? null : _.map(_.get(topic, 'relateds', []), post => ({
+          id: _.get(post, 'id', index),
+          title: _.get(post, 'title', ''),
+          imgUrl: _.get(post, 'hero_image.resized_targets.mobile.url'),
+          linkTo: formatPostLinkTo(_.get(post, 'slug', ''), _.get(post, 'style', '')),
+          linkTarget: formatPostLinkTarget(_.get(post, 'style', ''))
+        }))
+      })
+    })
 
     /* For helmet */
     const canonical = `${SITE_META.URL}topics`
@@ -241,23 +176,16 @@ class Topics extends Component {
             { property: 'og:url', content: canonical }
           ]}
         />
-        <StyledCSSTransitionGroup
-          transitionName="topics-container-effect"
-          transitionEnterTimeout={300}
-          transitionLeave={false}
-        >
-        <PageContent>
-          {TopSectionJSX}
-          <ListSection>
-            {listedTopicsJSX}
-          </ListSection>
-        </PageContent>
+        <TopicsList
+          currentPage={page}
+          topics={topicsProps}
+          isFetching={isFetching}
+        />
         <Pagination
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
         />
-        </StyledCSSTransitionGroup>
       </PageContainer>
     )
   }
@@ -281,7 +209,7 @@ function mapStateToProps(state, ownProps) {
   const nPerPage = _.get(topicList, 'nPerPage', 5)
   const totalPages = _.get(topicList, 'totalPages', NaN)
 
-  const pageItems = _.uniq(_.get(topicList, [ 'items', locationPage || page ], []))
+  const pageItems = _.uniq(_.get(topicList, [ 'items', page ], []))
   const entities = _.get(state, reduxStateFields.entities, {})
   const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
   const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
