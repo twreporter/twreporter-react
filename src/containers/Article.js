@@ -472,7 +472,7 @@ class Article extends PureComponent {
                       size={heroImageSize}
                       image={_.get(heroImage, 'resizedTargets')}
                       id={_.get(heroImage, 'id')}
-                      description={_.get(heroImage, 'description' )}
+                      description={_.get(article, 'leadingImageDescription', '')}
                     />
                   </div> : null
               }
