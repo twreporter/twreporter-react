@@ -1,14 +1,17 @@
+import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { InternalServerError } from '../custom-error'
 import React, { Component } from 'react'
+import { date2yyyymmdd, formatPostLinkTarget, formatPostLinkTo } from '../utils'
+
 import Helmet from 'react-helmet'
-import { TopicsList } from 'twreporter-react-components'
 import Pagination from '../components/Pagination'
+import PropTypes from 'prop-types'
 import SystemError from '../components/SystemError'
-import twreporterRedux from 'twreporter-redux'
+import { TopicsList } from 'twreporter-react-components'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
-import { date2yyyymmdd, formatPostLinkTo, formatPostLinkTarget } from '../utils'
-import { LINK_PREFIX, BRIGHT, SITE_META, SITE_NAME } from '../constants/'
 import { setHeaderInfo } from '../actions/header'
+import styled from 'styled-components'
+import twreporterRedux from 'twreporter-redux'
 
 import concat from 'lodash/concat'
 import get from 'lodash/get'
@@ -39,13 +42,17 @@ const PageContainer = styled.div`
 
 class Topics extends Component {
   static fetchData({ store, query }) {
-    const page = parseInt(_.get(query, 'page', 1), 10)
+    /* fetch page 1 if page is invalid */
+    let page = parseInt(_.get(query, 'page', 1), 10)
+    if (!_.isInteger(page) || page < 0) {
+      page = 1
+    }
     return store.dispatch(fetchTopics(page, N_PER_PAGE))
       .then(() => {
         /* fetch full topic if is at first page */
         if (page === 1) {
           const state = store.getState()
-          const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', page, 0 ], '')
+          const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', 1, 0 ], '')
           if (firstTopicSlug) {
             return store.dispatch(fetchAFullTopic(firstTopicSlug))
           }
@@ -53,9 +60,21 @@ class Topics extends Component {
         }
         return Promise.resolve()
       })
+      .catch((e) => {
+        return Promise.resolve(e)
+      })
   }
 
   componentWillMount() {
+    const page = _.get(this.props, 'page')
+    if (!_.isInteger(page) || page < 0) {
+      return this.context.router.push({
+        pathname: _.get(this.props, 'pathname'),
+        query: {
+          page: 1
+        }
+      })
+    }
     const pageTheme = _.get(this.props, 'pageTheme')
     if (pageTheme !== BRIGHT) {
       this.props.setHeaderInfo({
@@ -95,32 +114,15 @@ class Topics extends Component {
     const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
     const topicsLength = _.get(topics, 'length')
 
-    /* If page value is invalid, render error 404 */
-    if (!_.isInteger(page) || page <= 0 || page > totalPages) {
-      return (
-        <div>
-          <SystemError
-            error={{
-              status: 404,
-              message: `Page value should be and integer between 1 and ${totalPages}, but is ${page}`
-            }}
-          />
-        </div>)
-    }
-
     /* 
       If fetching list data failed and there's no topics data in the store,
       render error 500
     */
     if (topicListError && topicsLength <= 0) {
+      const err = new InternalServerError(topicListError.message || topicListError || '')
       return (
         <div>
-          <SystemError
-            error={{
-              status: 500,
-              message: topicListError
-            }}
-          />
+          <SystemError error={err} />
         </div>
       )
     }
@@ -205,11 +207,10 @@ function mapStateToProps(state, ownProps) {
   const topicList = _.get(state, reduxStateFields.topicList)
   const selectedTopic = _.get(state, reduxStateFields.selectedTopic)
 
-  const page = locationPage || _.get(topicList, 'page', 1) 
   const nPerPage = _.get(topicList, 'nPerPage', 5)
   const totalPages = _.get(topicList, 'totalPages', NaN)
 
-  const pageItems = _.uniq(_.get(topicList, [ 'items', page ], []))
+  const pageItems = _.uniq(_.get(topicList, [ 'items', locationPage ], []))
   const entities = _.get(state, reduxStateFields.entities, {})
   const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
   const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
@@ -224,7 +225,7 @@ function mapStateToProps(state, ownProps) {
   const pageTheme = _.get(state, 'header.pageTheme', BRIGHT)
 
   return ({
-    page,
+    page: locationPage,
     nPerPage,
     totalPages,
     topics,
@@ -235,6 +236,10 @@ function mapStateToProps(state, ownProps) {
     pathname,
     pageTheme
   })
+}
+
+Topics.contextTypes = {
+  router: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic, setHeaderInfo })(Topics)
