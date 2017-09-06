@@ -11,7 +11,6 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import config from './config'
 import configureStore from '../src/store/configureStore'
-import createLocation from 'history/lib/createLocation'
 import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import path from 'path'
@@ -59,7 +58,7 @@ server.get('*', async function (req, res, next) {
 
   let routes = createRoutes(history)
 
-  let location = createLocation(req.url)
+  const location = history.createLocation(req.url)
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
@@ -77,9 +76,10 @@ server.get('*', async function (req, res, next) {
       })
 
       const getReduxPromise = function () {
-        let { query, params } = renderProps
-        let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
-        let promise = comp.fetchData ?
+        const query = get(renderProps, 'location.query', {})
+        const params = get(renderProps, 'params', {})
+        const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
+        const promise = comp.fetchData ?
           comp.fetchData({ query, params, store, history }) :
           Promise.resolve()
 
