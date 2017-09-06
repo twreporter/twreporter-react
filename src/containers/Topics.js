@@ -1,17 +1,21 @@
+import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { InternalServerError } from '../custom-error'
 import React, { Component } from 'react'
+import { date2yyyymmdd, formatPostLinkTarget, formatPostLinkTo } from '../utils'
+
 import Helmet from 'react-helmet'
+import Pagination from '../components/Pagination'
+import PropTypes from 'prop-types'
+import SystemError from '../components/SystemError'
 import { TopicsList } from 'twreporter-react-components'
-import twreporterRedux from 'twreporter-redux'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
-import { date2yyyymmdd, formatPostLinkTo, formatPostLinkTarget } from '../utils'
-import { LINK_PREFIX, BRIGHT, SITE_META, SITE_NAME } from '../constants/'
-import More from '../components/More'
 import { setHeaderInfo } from '../actions/header'
-import { CSSTransitionGroup } from 'react-transition-group'
+import styled from 'styled-components'
+import twreporterRedux from 'twreporter-redux'
+
 import concat from 'lodash/concat'
-import map from 'lodash/map'
 import get from 'lodash/get'
+import map from 'lodash/map'
 import uniq from 'lodash/uniq'
 
 const _ = {
@@ -24,20 +28,8 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchTopics, fetchAFullTopic } = actions
 const { denormalizeTopics } = utils
-const { PageContent, TopSection, ListSection, PostsContainer, PostItem, TopicItem } = TopicsList
-const N_OF_FIRSTPAGE = 5
+
 const N_PER_PAGE = 5
-
-const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
-  .topics-container-effect-enter {
-    opacity: 0;
-  }
-
-  .topics-container-effect-enter.topics-container-effect-enter-active {
-    opacity: 1;
-    transition: opacity 300ms linear;
-  }
-`
 
 const PageContainer = styled.div`
   position: relative;
@@ -47,25 +39,40 @@ const PageContainer = styled.div`
 `
 
 class Topics extends Component {
-  static fetchData({ store }) {
-    return store.dispatch(fetchTopics(N_OF_FIRSTPAGE))
+  static fetchData({ store, query }) {
+    /* fetch page 1 if page is invalid */
+    let page = parseInt(_.get(query, 'page', 1), 10)
+    if (isNaN(page) || page < 0) {
+      page = 1
+    }
+    return store.dispatch(fetchTopics(page, N_PER_PAGE))
       .then(() => {
-        const state = store.getState()
-        const topicList = _.get(state, reduxStateFields.topicList)
-        const items = _.get(topicList, 'items', [])
-        const firstTopicSlug = _.get(items, 0, '')
-        if (firstTopicSlug) {
-          return store.dispatch(fetchAFullTopic(firstTopicSlug))
+        /* fetch full topic if is at first page */
+        if (page === 1) {
+          const state = store.getState()
+          const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', 1, 0 ], '')
+          if (firstTopicSlug) {
+            return store.dispatch(fetchAFullTopic(firstTopicSlug))
+          }
+          return Promise.resolve('At first page but there is no firstTopicSlug')
         }
-        return Promise.resolve('No firstTopicSlug')
+        return Promise.resolve()
       })
-  }
-  constructor(props) {
-    super(props)
-    this._loadMore = this._loadMore.bind(this)
+      .catch((e) => {
+        return Promise.resolve(e)
+      })
   }
 
   componentWillMount() {
+    const page = _.get(this.props, 'page')
+    if (isNaN(page) || page < 0) {
+      return this.context.router.push({
+        pathname: _.get(this.props, 'pathname'),
+        query: {
+          page: 1
+        }
+      })
+    }
     const pageTheme = _.get(this.props, 'pageTheme')
     if (pageTheme !== BRIGHT) {
       this.props.setHeaderInfo({
@@ -79,130 +86,77 @@ class Topics extends Component {
     return this._clientFetchData(nextProps)
   }
 
-  shouldComponentUpdate(nextProps) {
-    /* wait for implement loading spinner */
-    /* Only re-render when first topic is full and topics.length > 0 (aka. all data is prepared) */
-    const { topics, isTopicsFetching } = nextProps
-    return (_.get(topics, [ 0, 'full' ], false) && (_.get(topics, 'length', 0) > 0) && !isTopicsFetching)
-  }
-
   _clientFetchData(props) {
-    const { topics, isTopicFetching, isTopicsFetching } = props
+    const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
+    if (isNaN(page) || page <= 0 || page > totalPages) {
+      return
+    }
     const topicsLength = _.get(topics, 'length', 0)
-    if (topicsLength <= 0) {
-      if (!isTopicsFetching) {
-        return this.props.fetchTopics(N_OF_FIRSTPAGE)
-      }
-    } else {
-      if (!isTopicFetching) {
-        const firstTopic = topics[0]
-        const isFirstTopicFull = _.get(firstTopic, 'full', false)
-        if (!isFirstTopicFull) {
-          const firstTopicSlug = _.get(firstTopic, 'slug', '')
-          this.props.fetchAFullTopic(firstTopicSlug)
-        }
+    if (topicsLength <= 0 && !isTopicsFetching) {
+      return props.fetchTopics(page, N_PER_PAGE)
+    }
+    if (page === 1 && !isTopicFetching) {
+      const firstTopic = topics[0]
+      const firstTopicSlug = _.get(firstTopic, 'slug', '')
+      const isFirstTopicFull = _.get(firstTopic, 'full', false)
+      if (firstTopicSlug && !isFirstTopicFull) {
+        props.fetchAFullTopic(firstTopicSlug)
       }
     }
   }
-
-  _loadMore() {
-    this.props.fetchTopics(N_PER_PAGE)
-  }
-
-  _buildRelatedPosts(posts) {
-    const _buildPostJSX = (post, index) => {
-      const slug = _.get(post, 'slug')
-      const style = _.get(post, 'style')
-      return (
-        <PostItem
-          key={`topic-post-${_.get(post, 'id', index)}`}
-          title={_.get(post, 'title')}
-          imgUrl={_.get(post, 'hero_image.resized_targets.mobile.url')}
-          linkTo={formatPostLinkTo(slug, style)}
-          linkTarget={formatPostLinkTarget(style)}
-        />
-      )
-    }
-    return _.map(posts, _buildPostJSX)
-  }
-
-  _buildTopicBoxes(topics) {
-    const _buildTopicBox = (item, index='') => {
-      const img = _.get(item, 'leading_image_portrait.resized_targets.mobile.url') ||
-        _.get(item, 'leading_image.resized_targets.mobile.url') ||
-        _.get(item, 'og_image.resized_targets.mobile.url')
-
-      const desc = _.get(item, 'leading_image_portrait.description') ||
-        _.get(item, 'leading_image.description') ||
-        _.get(item, 'og_image.description')
-
-      return (
-        <TopicItem
-          key={`topic-item-${_.get(item, 'id', index)}`}
-          title={_.get(item, 'title', '')}
-          updatedAt={date2yyyymmdd(_.get(item, 'published_date'), '.') || ''}
-          description={_.get(item, 'og_description', '')}
-          imgUrl={img}
-          imgAlt={desc}
-          isFull={index === 0}
-          url={`${LINK_PREFIX.TOPICS}${_.get(item, 'slug')}`}
-        />
-      )
-    }
-    return _.map(topics, _buildTopicBox)
-  }
-
+  
   render() {
-    const { topics, total, topicListError, topicError, isTopicsFetching } = this.props
+    const { topics, page, totalPages, topicError, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
 
+    const isFirstTopicWaitToFetchFull = _.get(topics, [ 1, 'full' ], false) && !topicError
+    const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
+    const topicsLength = _.get(topics, 'length')
+
+    /* 
+      If fetching list data failed and there's no topics data in the store,
+      render error 500
+    */
+    if (topicListError && topicsLength <= 0) {
+      const err = new InternalServerError(topicListError.message || topicListError || '')
+      return (
+        <div>
+          <SystemError error={err} />
+        </div>
+      )
+    }
+
+    const topicsProps = _.map(topics, (topic, index) => {
+      const imgUrl = _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
+        _.get(topic, 'leading_image.resized_targets.mobile.url') ||
+        _.get(topic, 'og_image.resized_targets.mobile.url') || ''
+
+      const imgAlt = _.get(topic, 'leading_image_portrait.description') ||
+        _.get(topic, 'leading_image.description') ||
+        _.get(topic, 'og_image.description') || ''
+
+      return ({
+        full: _.get(topic, 'full', false),
+        id: _.get(topic, 'id', index),
+        linkTo: `${LINK_PREFIX.TOPICS}${_.get(topic, 'slug')}`,
+        title: _.get(topic, 'title', ''),
+        topic_name: _.get(topic, 'topic_name', ''),
+        updatedAt: date2yyyymmdd(_.get(topic, 'published_date'), '.') || '',
+        description: _.get(topic, 'og_description', ''),
+        imgUrl,
+        imgAlt,
+        relateds: index > 0 ? null : _.map(_.get(topic, 'relateds', []), post => ({
+          id: _.get(post, 'id', index),
+          title: _.get(post, 'title', ''),
+          imgUrl: _.get(post, 'hero_image.resized_targets.mobile.url'),
+          linkTo: formatPostLinkTo(_.get(post, 'slug', ''), _.get(post, 'style', '')),
+          linkTarget: formatPostLinkTarget(_.get(post, 'style', ''))
+        }))
+      })
+    })
+
+    /* For helmet */
     const canonical = `${SITE_META.URL}topics`
     const title = '專題' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const topicsLength = _.get(topics, 'length')
-    const isFirstTopicFull = _.get(topics, [ 0, 'full' ], false)
-    if (topicsLength <= 0) {
-      if (topicListError) {
-        return (<div><SystemError error={topicListError} /></div>)
-      }
-    }
-
-    /* Render blank page if data is not all-prepared */
-    /* wait for implement loading spinner */
-    if (!isFirstTopicFull || topicsLength <= 0 || isTopicsFetching) {
-      return (
-        <PageContainer>
-          <Helmet
-            title={title}
-            link={[
-              { rel: 'canonical', href: canonical }
-            ]}
-            meta={[
-              { name: 'description', content: SITE_META.DESC },
-              { name: 'twitter:title', content: title },
-              { name: 'twitter:description', content: SITE_META.DESC },
-              { name: 'twitter:image', content: SITE_META.OG_IMAGE },
-              { property: 'og:title', content: title },
-              { property: 'og:description', content: SITE_META.DESC },
-              { property: 'og:image', content: SITE_META.OG_IMAGE },
-              { property: 'og:type', content: 'website' },
-              { property: 'og:url', content: canonical }
-            ]}
-          />
-          <StyledCSSTransitionGroup
-            transitionName="topics-container-effect"
-            transitionEnterTimeout={300}
-            transitionLeave={false}
-          />
-        </PageContainer>
-      )
-    }
-    const topicsJSX = this._buildTopicBoxes(topics)
-    const topTopicJSX = topicsJSX[0]
-    const otherTopicsJSX = !topicError ? topicsJSX.slice(1) : topTopicJSX
-    const topRelatedPosts = _.get(topics, [ 0, 'relateds' ], []).slice(0, 3)
-    const topTopicName = _.get(topics, [ 0, 'topic_name' ], '')
-    const topTopicSlug = _.get(topics, [ 0, 'slug' ], '')
-    const hasMore = topicsLength < total
-
     return (
       <PageContainer>
         <Helmet
@@ -222,31 +176,16 @@ class Topics extends Component {
             { property: 'og:url', content: canonical }
           ]}
         />
-        <StyledCSSTransitionGroup
-          transitionName="topics-container-effect"
-          transitionEnterTimeout={300}
-          transitionLeave={false}
-        >
-        <PageContent>
-          {topicError ? null : (
-            <TopSection topicName={topTopicName} topicUrl={`${LINK_PREFIX.TOPICS}${topTopicSlug}`}>
-              {topTopicJSX}
-              <PostsContainer>
-                {this._buildRelatedPosts(topRelatedPosts)}
-              </PostsContainer>
-            </TopSection>)}
-          <ListSection>
-            {otherTopicsJSX}
-          </ListSection>
-        </PageContent>
-        {!hasMore ? null : (
-          <div>
-            <More loadMore={this._loadMore}>
-              <span style={{ color: topicListError ? 'red' : 'white' }}>{topicListError ? '載入更多（請重試）' : '載入更多'}</span>
-            </More>
-          </div>
-        )}
-        </StyledCSSTransitionGroup>
+        <TopicsList
+          currentPage={page}
+          topics={topicsProps}
+          isFetching={isFetching}
+        />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          pathname={pathname}
+        />
       </PageContainer>
     )
   }
@@ -259,34 +198,46 @@ Topics.propTypes = {
   topicError: React.PropTypes.object
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const location = _.get(ownProps, 'location')
+  const pathname = _.get(location, 'pathname', '/topics')
+  const locationPage = parseInt(_.get(location, 'query.page', 1), 10)
   const topicList = _.get(state, reduxStateFields.topicList)
   const selectedTopic = _.get(state, reduxStateFields.selectedTopic)
-  const items = _.uniq(_.get(topicList, 'items', []))
+
+  const nPerPage = _.get(topicList, 'nPerPage', 5)
+  const totalPages = _.get(topicList, 'totalPages', NaN)
+
+  const pageItems = _.uniq(_.get(topicList, [ 'items', locationPage ], []))
   const entities = _.get(state, reduxStateFields.entities, {})
   const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
   const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-
-  const topics = denormalizeTopics(items, topicEntities, postEntities)
+  const topics = denormalizeTopics(pageItems, topicEntities, postEntities)
 
   const isTopicFetching = _.get(selectedTopic, 'isFetching', false)
   const isTopicsFetching = _.get(topicList, 'isFetching', false)
 
-  const total = _.get(topicList, 'total')
   const topicListError = _.get(topicList, 'error', null)
   const topicError = _.get(selectedTopic, 'error', null)
 
   const pageTheme = _.get(state, 'header.pageTheme', BRIGHT)
 
   return ({
+    page: locationPage,
+    nPerPage,
+    totalPages,
     topics,
-    total,
-    topicListError,
-    topicError,
     isTopicFetching,
     isTopicsFetching,
+    topicListError,
+    topicError,
+    pathname,
     pageTheme
   })
+}
+
+Topics.contextTypes = {
+  router: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic, setHeaderInfo })(Topics)
