@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.1.20
+- Fix isFetching bug in Topics
+
 ### 2.1.19
 - Add Pagination
 - Update Topics and move Topics compositing to react-components
