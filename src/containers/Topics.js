@@ -15,14 +15,12 @@ import twreporterRedux from 'twreporter-redux'
 
 import concat from 'lodash/concat'
 import get from 'lodash/get'
-import isInteger from 'lodash/isInteger'
 import map from 'lodash/map'
 import uniq from 'lodash/uniq'
 
 const _ = {
   concat,
   get,
-  isInteger,
   map,
   uniq
 }
@@ -44,7 +42,7 @@ class Topics extends Component {
   static fetchData({ store, query }) {
     /* fetch page 1 if page is invalid */
     let page = parseInt(_.get(query, 'page', 1), 10)
-    if (!_.isInteger(page) || page < 0) {
+    if (isNaN(page) || page < 0) {
       page = 1
     }
     return store.dispatch(fetchTopics(page, N_PER_PAGE))
@@ -67,7 +65,7 @@ class Topics extends Component {
 
   componentWillMount() {
     const page = _.get(this.props, 'page')
-    if (!_.isInteger(page) || page < 0) {
+    if (isNaN(page) || page < 0) {
       return this.context.router.push({
         pathname: _.get(this.props, 'pathname'),
         query: {
@@ -90,7 +88,7 @@ class Topics extends Component {
 
   _clientFetchData(props) {
     const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
-    if (!_.isInteger(page) || page <= 0 || page > totalPages) {
+    if (isNaN(page) || page <= 0 || page > totalPages) {
       return
     }
     const topicsLength = _.get(topics, 'length', 0)
