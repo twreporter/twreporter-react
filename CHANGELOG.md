@@ -1,5 +1,11 @@
 ### Unreleased
 
+### 2.1.19
+- Add Pagination
+- Update Topics and move Topics compositing to react-components
+- Update package twreporter-react-components@^1.0.9
+- Update package twreporter-redux@^2.1.5:
+
 ### 2.1.18
 - Show portrait image when mobile with portrait orientation.
 - Show portrait thumbnail on Topic listing page
