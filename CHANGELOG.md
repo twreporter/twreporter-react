@@ -1,4 +1,5 @@
 ### Unreleased
+- Add search by Algolia
 
 ### 2.1.20
 - Fix isFetching bug in Topics
