@@ -28,7 +28,7 @@ module.exports = {
   output: {
     path: assetsPath,
     filename: '[name]-[hash].js',
-    chunkFilename: '[name]-[chunkhash].js',
+    chunkFilename: '[id].chunk.js',
     publicPath: 'http://' + host + ':' + port + '/dist/'
   },
   module: {
@@ -71,6 +71,8 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
