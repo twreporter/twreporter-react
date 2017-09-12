@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { SEARCHING_AUTHOR_NAME } from '../../constants/authors-list'
+import SearchByAlgolia from '../powered/Algolia'
 import resetIcon from '../../../static/asset/reset.svg'
 import searchIcon from '../../../static/asset/search.svg'
 import styles from './AuthorSearchBox.scss'
@@ -57,7 +58,7 @@ class AuthorSearchBox extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (
       <div className={styles['searchbox-wrapper']}>
         <form noValidate="novalidate"
           className={styles['searchbox']}
@@ -86,8 +87,9 @@ class AuthorSearchBox extends React.Component {
             <img src={resetIcon}/>
           </button>
         </form>
+        <SearchByAlgolia />
       </div>
-    </div>)
+    )
   }
 }
 

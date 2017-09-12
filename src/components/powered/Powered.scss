@@ -1,0 +1,16 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../themes/media-queries';
+
+$powered-height: 14px;
+
+.algolia-logo {
+  display: block;
+  margin: 0 auto;
+  @include mq($min-width: $screen-md-min) {
+    /* above desktop */
+    padding: 3px 0;
+  }
+  img {
+    height: $powered-height;
+  }
+}

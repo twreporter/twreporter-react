@@ -20,12 +20,21 @@ class ReadingProgress extends React.PureComponent {
       percent: props.percent
     }
     this.updatePercentage = this._updatePercentage.bind(this)
+    this._isMount = false
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       percent: nextProps.percent
     })
+  }
+
+  componentDidMount() {
+    this._isMount = true
+  }
+
+  componentWillUnMount() {
+    this._isMount = false
   }
 
   _updatePercentage(percent) {
@@ -38,9 +47,9 @@ class ReadingProgress extends React.PureComponent {
 
   render() {
     const { percent } = this.state
-    return (
+    return this._isMount ? (
       <Bar percent={percent} />
-    )
+    ) : null
   }
 }
 

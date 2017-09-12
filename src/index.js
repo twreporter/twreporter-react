@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
-import { browserHistory } from 'react-router'
+import { match, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
@@ -32,10 +32,20 @@ const store = configureStore(reduxState)
 const history = syncHistoryWithStore(browserHistory, store)
 
 const device = store.getState().device
-ReactDOM.render((
-  <Provider store={store}>
-    <DeviceProvider device={device}>
-      { createRoutes(history) }
-    </DeviceProvider>
-  </Provider>
-), document.getElementById('root'))
+
+const routes = createRoutes(history)
+
+const { pathname, search, hash } = window.location
+const location = `${pathname}${search}${hash}`
+
+// calling `match` is simply for side effects of
+// loading route/component code for the initial location
+match({ routes, location }, () => {
+  ReactDOM.render((
+    <Provider store={store}>
+      <DeviceProvider device={device}>
+        { routes }
+      </DeviceProvider>
+    </Provider>
+  ), document.getElementById('root'))
+})
