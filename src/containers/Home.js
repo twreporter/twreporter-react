@@ -17,7 +17,7 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { CategorySection, EditorPicks, Header, InforgraphicSection,
+const { CategorySection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
   ReporterIntro,  ReviewsSection, SideBar, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions

@@ -1,11 +1,13 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables';
+@import '../../themes/media-queries';
 
 $searchbox-height: 30px;
 $searchbox-width: 250px;
 $searchbox-margin-top: 60px;
-$searchbox-margin-bottom: 40px;
+$searchbox-margin-bottom: 20px;
 $searchbox-margin-top-mobile: 30px;
-$searchbox-margin-bottom-mobile: 30px;
+$searchbox-margin-bottom-mobile: 23px;
 
 $search-icon-size: 15px;
 $reset-icon-size: 10px;
@@ -13,23 +15,28 @@ $searchbox-border-width: .5px;
 
 .searchbox-wrapper {
   width: 100%;
-  height: 100%;
+  height: auto;
   text-align: center;
+  margin-top: $searchbox-margin-top-mobile;
+  margin-bottom: $searchbox-margin-bottom-mobile;
+  @include mq($min-width: $screen-md-min) {
+    /* above desktop */
+    margin-top: $searchbox-margin-top;
+    margin-bottom: $searchbox-margin-bottom;
+  }
 }
 
 .searchbox {
-  display: inline-block;
+  display: block;
   position: relative; //For submit-button positioning
   width: $searchbox-width;
   height: $searchbox-height;
   box-sizing: border-box;
-  vertical-align: middle;
+  margin: 0 auto;
   white-space: nowrap;
   font-size: $font-size-small;
   font-weight: $font-weight-normal;
   letter-spacing: $general-letter-space;
-  margin-top: $searchbox-margin-top;
-  margin-bottom: $searchbox-margin-bottom;
 }
 
 .input-box {
@@ -102,7 +109,7 @@ $searchbox-border-width: .5px;
   & img {
     width: $search-icon-size;
     height: $search-icon-size;
-    vertical-align: inherit;
+    vertical-align: middle;
   }
 }
 

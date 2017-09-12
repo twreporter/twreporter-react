@@ -26,8 +26,8 @@ module.exports = {
   },
   output: {
     path: assetsPath,
-    filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name]-[chunkhash].js',
+    filename: '[name]-[hash].js',
+    chunkFilename: '[id]-chunk-[chunkhash].js',
     publicPath: '/dist/'
   },
   module: {

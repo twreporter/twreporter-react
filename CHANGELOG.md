@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.2.0
+- Code splitting and dynamic bundle loading by webpack
+- Add search by Algolia
+
 ### 2.1.20
 - Fix isFetching bug in Topics
 
