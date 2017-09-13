@@ -17,7 +17,7 @@ export default function configureStore(history, initialState) {
     const DevTools = require('../containers/DevTools').default
     finalCreateStore = compose(
       applyMiddleware(...middlewares),
-      window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(_createStore)
   } else {

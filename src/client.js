@@ -47,7 +47,7 @@ match({ routes, location }, () => {
 })
 
 /* global __DEVTOOLS__ */
-if (__DEVTOOLS__ && !window.devToolsExtension) {
+if (__DEVTOOLS__ && !window.__REDUX_DEVTOOLS_EXTENSION__) {
   match({ routes, location }, () => {
     const DevTools = require('./containers/DevTools').default
     ReactDOM.render((
