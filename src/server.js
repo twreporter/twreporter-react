@@ -97,10 +97,7 @@ app.get('*', async function (req, res, next) {
             </Provider>
           )
 
-          // rewinding is necessaray on the server:
-          //  https://github.com/nfl/react-helmet#server-usage
-
-          // set Cache-Control header for caching
+        // set Cache-Control header for caching
         if (!res.headersSent) {
           res.header('Cache-Control', 'public, max-age=300')
         }
