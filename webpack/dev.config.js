@@ -22,7 +22,7 @@ module.exports = {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       'bootstrap-sass!./src/themes/bootstrap.config.js',
-      './src/index.js'
+      './src/client.js'
     ]
   },
   output: {

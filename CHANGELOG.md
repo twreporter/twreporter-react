@@ -1,5 +1,6 @@
 ### Unreleased
 - Fix inconsistent line-heights of paragraphs containing annotations
+- Code refactors and add DevTools
 
 ### 2.2.0
 - Code splitting and dynamic bundle loading by webpack

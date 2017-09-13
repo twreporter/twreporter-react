@@ -9,14 +9,10 @@ import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-/* global __REDUX_STATE__ */
 let reduxState
 if (window.__REDUX_STATE__) {
-  try {
-    reduxState = JSON.parse(unescape(__REDUX_STATE__))
-  } catch (e) {
-    reduxState = {}
-  }
+  reduxState = window.__REDUX_STATE__
+
   let md = new MobileDetect(window.navigator.userAgent)
   if (md.tablet()) {
     reduxState.device = 'tablet'
@@ -27,7 +23,7 @@ if (window.__REDUX_STATE__) {
   }
 }
 
-const store = configureStore(reduxState)
+const store = configureStore(browserHistory, reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -49,3 +45,20 @@ match({ routes, location }, () => {
     </Provider>
   ), document.getElementById('root'))
 })
+
+/* global __DEVTOOLS__ */
+if (__DEVTOOLS__ && !window.devToolsExtension) {
+  match({ routes, location }, () => {
+    const DevTools = require('./containers/DevTools').default
+    ReactDOM.render((
+      <Provider store={store}>
+        <DeviceProvider device={device}>
+          <div>
+            { routes }
+            <DevTools />
+          </div>
+        </DeviceProvider>
+      </Provider>
+    ), document.getElementById('root'))
+  })
+}
