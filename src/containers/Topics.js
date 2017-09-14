@@ -104,7 +104,7 @@ class Topics extends Component {
       }
     }
   }
-  
+
   render() {
     const { topics, page, totalPages, topicError, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
 
@@ -112,7 +112,7 @@ class Topics extends Component {
     const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
     const topicsLength = _.get(topics, 'length')
 
-    /* 
+    /*
       If fetching list data failed and there's no topics data in the store,
       render error 500
     */

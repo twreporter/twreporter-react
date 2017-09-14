@@ -17,9 +17,16 @@ class Layout extends PureComponent {
   render() {
     const pageTheme = _.get(this.props, 'header.pageTheme')
 
+
     return (
       <div className={classNames(styles.theme, { [styles.photography]: pageTheme === DARK })}>
-        <Header isIndex={false} pageTheme={pageTheme} pathName={this.props.pathname}/>
+        <Header
+          isIndex={false}
+          pageTheme={pageTheme}
+          pathName={this.props.pathname}
+          signOutAction={this.props.signOutAction}
+          ifAuthenticated={this.props.ifAuthenticated}
+        />
         {this.props.children}
         <Footer pageTheme={pageTheme} />
       </div>
@@ -27,9 +34,12 @@ class Layout extends PureComponent {
   }
 }
 
+// ifAuthenticate and SignOutAction are required for Header component
 Layout.propTypes = {
   header: PropTypes.object,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  ifAuthenticated: PropTypes.bool.isRequired,
+  signOutAction: PropTypes.func.isRequired
 }
 
 Layout.defaultProps = {

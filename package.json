@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.1",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "es6-error": "^2.1.1",
     "express": "^4.13.3",
@@ -101,6 +102,7 @@
     "styled-components": "^2.1.1",
     "twreporter-react-components": "^1.0.9",
     "twreporter-redux": "^2.1.5",
+    "twreporter-registration": "^1.0.0-beta.0.0.1",
     "video.js": "5.12.1"
   },
   "devDependencies": {
