@@ -1,4 +1,5 @@
 ### Unreleased
+- Update the schema of homepage
 - Fix inconsistent line-heights of paragraphs containing annotations
 
 ### 2.2.0
