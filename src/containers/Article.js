@@ -24,7 +24,7 @@ import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from 'twreporter-redux'
 
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
@@ -53,7 +53,7 @@ const _ = {
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
-const { fetchAFullPost } = actions
+const { fetchAFullPost, createBookmark, deleteBookmark, getCurrentBookmark } = actions
 
 const scrollPosition = {
   y: 0
@@ -61,6 +61,9 @@ const scrollPosition = {
 
 const DESKTOP = deviceConst.type.desktop
 const MOBILE = deviceConst.type.MOBILE
+
+const HOST = 'http://testtest.twreporter.org/'
+const DEFAULT_INVALID_BOOKMARK_ID = 0
 
 const viewport = {
   screenType: DESKTOP
@@ -127,10 +130,13 @@ class Article extends PureComponent {
     this._handleScroll = this._handleScroll.bind(this)
     this._onResize =  _.throttle(this._onResize, 500).bind(this)
     this.toggleTools = this._toggleTools.bind(this)
+    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
 
     this.state = {
       fontSize:'medium',
-      isFontSizeSet:false
+      isFontSizeSet:false,
+      bookmarkListed: false,
+      bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
     }
 
     // reading progress component
@@ -141,6 +147,24 @@ class Article extends PureComponent {
 
     // mobile article tools
     this.mat = null
+  }
+
+  _checkIfBookmarkListed() {
+    const { selectedPost } = this.props
+    const slug = _.get(selectedPost, 'slug')
+    this.props.getCurrentBookmark(slug, HOST)
+      .then((id) => {
+        this.setState({
+          bookmarkListed: true,
+          bookmarkId: id
+        })
+      })
+      .catch(() => {
+        this.setState({
+          bookmarkListed: false,
+          bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
+        })
+      })
   }
 
   getChildContext() {
@@ -173,6 +197,7 @@ class Article extends PureComponent {
         isFontSizeSet:true
       })
     }
+
   }
 
   componentDidUpdate() {
@@ -209,6 +234,8 @@ class Article extends PureComponent {
       this.dat = null
       this.mat = null
     }
+
+    this._checkIfBookmarkListed()
   }
 
   _onScroll() {
@@ -326,9 +353,41 @@ class Article extends PureComponent {
     return authors
   }
 
+  _handleOnClickBookmark(bookmarkData) {
+    const { bookmarkListed } = this.state
+    if (!bookmarkListed) {
+      this.props.createBookmark({
+        ...bookmarkData,
+        host: HOST
+      })
+      .then((bookmarkId) => {
+        this.setState({
+          bookmarkListed: true,
+          bookmarkId
+        })
+      })
+      .catch((errorInfo) => {
+        const { selectedPost, entities } = this.props
+        const slug = _.get(selectedPost, 'slug')
+        const type = _.get(entities, `posts.${slug}.style`) === 'interactive' ? 'i' : 'a'
+        if (errorInfo.status === 401) {
+          browserHistory.push(`/signin/${type}/${slug}`)
+        }
+      })
+    } else {
+      const { bookmarkId } = this.state
+      this.props.deleteBookmark(bookmarkId)
+        .then(() => {
+          this.setState({
+            bookmarkListed: false,
+            bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
+          })
+        })
+    }
+  }
+
   render() {
     const { entities, params, selectedPost } = this.props
-
     const error = _.get(selectedPost, 'error')
 
     if (error) {
@@ -390,6 +449,25 @@ class Article extends PureComponent {
     const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
     const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
+
+    const createBookmarkData = () => {
+      const slug = _.get(selectedPost, 'slug', '')
+      return {
+        slug,
+        is_external: _.get(entities, `posts.${slug}.style`) === 'interactive',
+        title: _.get(entities, `posts.${slug}.title`),
+        desc: _.get(entities, `posts.${slug}.og_description`),
+        thumbnail: _.get(entities, `posts.${slug}.hero_image.resized_targets.mobile.url`),
+        category: _.get(entities, `posts.${slug}.categories[0].name`),
+        published_date: _.get(entities, `posts.${slug}.published_date`),
+        authors: JSON.stringify({
+          writers: _.get(entities, `posts.${slug}.writters`),
+          photographers: _.get(entities, `posts.${slug}.photographers`),
+          designers: _.get(entities, `posts.${slug}.designers`),
+          engineers: _.get(entities, `posts.${slug}.engineers`)
+        })
+      }
+    }
 
     return (
       <div>
@@ -529,8 +607,22 @@ class Article extends PureComponent {
           <div className="hidden-print">
           </div>
         </div>
-        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} toShow={false}/>
-        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} toShow={false} />
+        <MobileArticleTools
+          ref={ ele => this.mat = ele }
+          topicTitle={topicTitle}
+          topicSlug={topicSlug}
+          toShow={false}
+          onClickBookmark={() => {this.handleOnClickBookmark(createBookmarkData())}}
+          bookmarkListed={this.state.bookmarkListed}
+        />
+        <DesktopArticleTools
+          ref={ ele => this.dat = ele}
+          topicTitle={topicTitle}
+          topicSlug={topicSlug}
+          toShow={false}
+          onClickBookmark={() => {this.handleOnClickBookmark(createBookmarkData())}}
+          bookmarkListed={this.state.bookmarkListed}
+        />
       </div>
     )
   }
@@ -557,14 +649,20 @@ Article.contextTypes = {
 Article.propTypes = {
   entities: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  createBookmark: React.PropTypes.func,
+  getCurrentBookmark: React.PropTypes.func,
+  deleteBookmark: React.PropTypes.func
 }
 
 Article.defaultProps = {
   entities: {},
   selectedPost: {},
-  params: {}
+  params: {},
+  createBookmark: () => {},
+  getCurrentBookmark: () => {},
+  deleteBookmark: () => {}
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo })(Article)
+export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo, createBookmark, deleteBookmark, getCurrentBookmark })(Article)

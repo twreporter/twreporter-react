@@ -34,6 +34,7 @@ const rootReducer = combineReducers({
   device,
   [reduxStateFields.selectedPost]: reducers.post,
   [reduxStateFields.selectedTopic]: reducers.topic,
+  [reduxStateFields.bookmarks]: reducers.bookmarks,
   routing: routerReducer,
   header,
   searchedAuthorsList,

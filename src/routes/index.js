@@ -148,7 +148,7 @@ export default function (history = browserHistory) {
           }}
         />
         <Route
-          path="signin"
+          path="signin(/:type/:slug)"
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
               const module = require('../containers/SignIn')
@@ -162,6 +162,17 @@ export default function (history = browserHistory) {
             require.ensure([], (require) => {
               const module = require('../containers/SignUp')
               cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="bookmarks(/:pageNumber)"
+          redirectPath="/signin"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const subModule = require('../containers/BookmarkList')
+              const AuthScreen = require('twreporter-registration').AuthenticationScreen
+              cb(null, AuthScreen(subModule.default))
             })
           }}
         />
