@@ -6,7 +6,7 @@
 .paragraph {
   font-size: em($font-size-base);
   font-weight: $font-weight-normal;
-  line-height: 1.95;
+  line-height: $line-height-paragraph;
   letter-spacing: $general-letter-space;
   white-space: pre-wrap;
 }

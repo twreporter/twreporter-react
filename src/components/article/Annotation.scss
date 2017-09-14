@@ -26,7 +26,7 @@ $letter-spacing: .5px;
 
   span {
     font-size: em($font-size-base);
-    line-height: 1.8;
+    line-height: $line-height-paragraph;
     letter-spacing: $letter-spacing;
     font-weight: $font-weight-normal;
   }
