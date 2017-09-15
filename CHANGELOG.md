@@ -1,8 +1,10 @@
 ### Unreleased
-- Update the schema of homepage
-- Fix inconsistent line-heights of paragraphs containing annotations
-- Code refactors and add DevTools
-- Fix index page react proptypes check warning
+### 2.2.1
+- Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
+- Fix inconsistent line-heights of paragraphs containing annotations [#664](https://github.com/twreporter/twreporter-react/pull/664)
+- Code refactors and add DevTools [#661](https://github.com/twreporter/twreporter-react/pull/661)
+- Fix index page react proptypes check warning [#661](https://github.com/twreporter/twreporter-react/pull/661)
+- Upgrade twreporter-react-components to 1.0.10
 
 ### 2.2.0
 - Code splitting and dynamic bundle loading by webpack
