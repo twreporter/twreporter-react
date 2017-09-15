@@ -1,27 +1,32 @@
-/* global __DEVELOPMENT__ */
+/* global __DEVELOPMENT__, __CLIENT__, __DEVTOOLS__ */
 'use strict'
-import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
+import { createStore as _createStore, applyMiddleware, compose } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
 
-/*
-const logger = createLogger({
-  level: 'info',
-  collapsed: false,
-  logger: console,
-  predicate: (getState, action) => true
-})
-*/
+export default function configureStore(history, initialState) {
+  // Sync dispatched route actions to the history
+  const reduxRouterMiddleware = routerMiddleware(history)
+  const middlewares = [ reduxRouterMiddleware, thunkMiddleware ]
 
-export default function configureStore(initialState) {
-  const middlewares = [ thunkMiddleware ]
-  if (__DEVELOPMENT__) {
-    middlewares.push(createLogger())
+  let finalCreateStore
+
+  if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
+    const { persistState } = require('redux-devtools')
+    const DevTools = require('../containers/DevTools').default
+    finalCreateStore = compose(
+      applyMiddleware(...middlewares),
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : DevTools.instrument(),
+      persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+    )(_createStore)
+  } else {
+    finalCreateStore = applyMiddleware(...middlewares)(_createStore)
   }
-  const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
 
-  if (module.hot) {
+  const store = finalCreateStore(rootReducer, initialState)
+
+  if (__DEVELOPMENT__ && module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {
       const nextRootReducer = require('../reducers')

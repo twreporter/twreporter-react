@@ -1,5 +1,7 @@
 ### Unreleased
 - Fix inconsistent line-heights of paragraphs containing annotations
+- Code refactors and add DevTools
+- Fix index page react proptypes check warning
 
 ### 2.2.0
 - Code splitting and dynamic bundle loading by webpack
