@@ -21,7 +21,7 @@ module.exports = {
   entry: {
     'main': [
       'bootstrap-sass!./src/themes/bootstrap.config.prod.js',
-      './src/index.js',
+      './src/client.js',
     ]
   },
   output: {
