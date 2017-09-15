@@ -1,7 +1,7 @@
 var Express = require('express');
 var webpack = require('webpack');
 
-var config = require('../server/config');
+var config = require('../src/config');
 var webpackConfig = require('./dev.config');
 var compiler = webpack(webpackConfig);
 
