@@ -264,6 +264,13 @@ class Homepage extends React.Component {
 
   render() {
     const { isSpinnerDisplayed } = this.props
+    const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
+    const latestTopicJSX = latestTopicData ? (
+      <LatestTopicSection
+        data={latestTopicData}
+      />
+    ) : null
+
     return (
       <Container>
         <StyledCSSTransitionGroup
@@ -299,9 +306,7 @@ class Homepage extends React.Component {
         >
           <LatestSection data={this.props[fieldNames.sections.latestSection]} />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
-          <LatestTopicSection
-            data={this.props[fieldNames.sections.latestTopicSection]}
-          />
+          {latestTopicJSX}
           <ReviewsSection
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
@@ -409,7 +414,7 @@ function mapStateToProps(state) {
   const infoPosts = denormalizePosts(_.get(indexPageState, sections.infographicsSection, []), postEntities)
 
   // restore the topics
-  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, {})
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, null)
   const topics = denormalizeTopics(_.get(indexPageState, sections.topicsSection, []), topicEntities, postEntities)
 
   // check if spinner should be displayed
