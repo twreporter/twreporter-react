@@ -434,7 +434,7 @@ class Article extends PureComponent {
                 <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
                   <meta itemProp="name" content="報導者" />
                   <meta itemProp="email" content="contact@twreporter.org" />
-                  <link itemProp="logo" href="https://www.twreporter.org/storage/images/logo.png" />
+                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
                   <link itemProp="url" href="https://www.twreporter.org/" />
                 </div>
                 <link itemProp="mainEntityOfPage" href={canonical} />

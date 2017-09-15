@@ -1,4 +1,5 @@
 ### Unreleased
+- Update the schema of homepage
 - Fix inconsistent line-heights of paragraphs containing annotations
 - Code refactors and add DevTools
 - Fix index page react proptypes check warning

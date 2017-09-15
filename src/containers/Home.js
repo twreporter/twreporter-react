@@ -112,56 +112,12 @@ const Background = styled.div`
   background-color: ${props => (props.backgroundColor ? props.backgroundColor : '')};
 `
 
-const microData = (
-  <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
-    <div>
-      <meta itemProp="name" content="首頁" />
-      <link itemProp="url" href="https://www.twreporter.org/" />
-    </div>
-    <div>
-      <meta itemProp="name" content="人權．社會" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/human_rights_and_society" />
-    </div>
-    <div>
-      <meta itemProp="name" content="環境．教育" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/environment_and_education" />
-    </div>
-    <div>
-      <meta itemProp="name" content="政治．經濟" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/politics_and_economy" />
-    </div>
-    <div>
-      <meta itemProp="name" content="生活．醫療" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/living_and_medical_care" />
-    </div>
-    <div>
-      <meta itemProp="name" content="文化．藝術" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/culture_and_art" />
-    </div>
-    <div>
-      <meta itemProp="name" content="國際．兩岸" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/international" />
-    </div>
-    <div>
-      <meta itemProp="name" content="觀點" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/reviews" />
-    </div>
-    <div>
-      <meta itemProp="name" content="多媒體" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/infographic" />
-    </div>
-    <div>
-      <meta itemProp="name" content="影像" />
-      <link itemProp="url" href="https://www.twreporter.org/photography" />
-    </div>
-  </div>
-)
-
 const webSiteJSONLD = {
   '@context' : 'http://schema.org',
   '@type' : 'WebSite',
   'name' : '報導者 The Reporter',
   'url' : 'https://www.twreporter.org/',
+  'logo': 'https://www.twreporter.org/asset/logo-large.png',
   'potentialAction' : {
     '@type' : 'SearchAction',
     'target' : 'https://www.twreporter.org/search?q={search_term}',
@@ -169,74 +125,81 @@ const webSiteJSONLD = {
   }
 }
 
-const breadcrumbListJSONLD = {
+const siteNavigationJSONLD = {
   '@context': 'http://schema.org',
-  '@type': 'BreadcrumbList',
+  '@type': 'ItemList',
   'itemListElement': [ {
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 1,
     'item': {
       '@id': 'https://www.twreporter.org/',
       'name': '首頁'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
+    'position': 2,
+    'item': {
+      '@id': 'https://www.twreporter.org/topics',
+      'name': '最新專題'
+    }
+  },{
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/human_rights_and_society',
       'name': '人權．社會'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/environment_and_education',
       'name': '環境．教育'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/politics_and_economy',
       'name': '政治．經濟'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/living_and_medical_care',
       'name': '生活．醫療'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/culture_and_art',
       'name': '文化．藝術'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/international',
       'name': '國際．兩岸'
     }
   },{
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/reviews',
       'name': '評論'
     }
   }, {
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/categories/infographic',
       'name': '多媒體'
     }
   }, {
-    '@type': 'ListItem',
+    '@type': 'SiteNavigationElement',
     'position': 2,
     'item': {
       '@id': 'https://www.twreporter.org/photography',
@@ -344,9 +307,8 @@ class Homepage extends React.Component {
           </Background>
           <ReporterIntro />
         </SideBar>
-        { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListJSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
         <Footer />
       </Container>
     )
