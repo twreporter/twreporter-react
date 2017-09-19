@@ -138,6 +138,15 @@ export default function (history = browserHistory) {
             })
           }}
         />
+        <Route
+          path="slides"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/Slides')
+              cb(null, module.default || module)
+            })
+          }}
+        />
       </Route>
     </Router>
   )
