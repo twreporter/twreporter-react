@@ -1,4 +1,6 @@
 ### Unreleased
+- Fix Google structure data errors
+
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
 - Fix inconsistent line-heights of paragraphs containing annotations [#664](https://github.com/twreporter/twreporter-react/pull/664)
