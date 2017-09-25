@@ -12,7 +12,6 @@ if (typeof window !== 'undefined') {
   ReactGA.set({ page: window.location.pathname })
 }
 
-
 function scrollAndFireTracking() {
   if(window) {
     window.scrollTo(0, 0)
@@ -21,123 +20,101 @@ function scrollAndFireTracking() {
   }
 }
 
-/* Code splitting and dynamic loading bundles by webpack require.ensure.
- * require.ensure is defined only in webpack, so the first line is a polyfill for node environment.
- * Due to webpack limitation, the following code is kind of duplicated.
- * Currently, I have no way to reduce the codes.
- * If you know how to reduce the duplicated codes, PR is welcome.
+function loadRoute(cb) {
+  return (module) => {
+    cb(null, module.default || module)
+  }
+}
+
+function errorLoading(err) {
+  console.error('Err to load module:', err) //eslint-disable-line
+}
+
+/**
+ * createRoutes
+ * Code splitting and dynamic loading bundles by webpack require.ensure.
+ * require.ensure is defined only in webpack, so the first line in this file is a polyfill for node environment.
+ *
+ * The following `import` in the `getComponent` function will be transpiled to `require.ensure` by babel
+ * through `babel-plugin-system-import-transformer` plugin.
+ *
+ * @param {object} history default is react-router.browserHistory
+ * @returns {object} React Router component
  */
 export default function createRoutes(history = browserHistory) {
   return (
     <Router history={history} onUpdate={scrollAndFireTracking} >
       <Route
         path="/topics/:slug"
-        getComponent={(nextStateWithLocation, cb) => {
-          require.ensure([], (require) => {
-            const module = require('../containers/TopicLandingPage')
-            cb(null, module.default || module)
-          })
+        getComponent={(location, cb) => {
+          import('../containers/TopicLandingPage').then(loadRoute(cb)).catch(errorLoading)
         }}
       />
       <Route
         path="/"
-        getComponent={(nextStateWithLocation, cb) => {
-          require.ensure([], (require) => {
-            const module = require('../containers/Home')
-            cb(null, module.default || module)
-          })
+        getComponent={(location, cb) => {
+          import('../containers/Home').then(loadRoute(cb)).catch(errorLoading)
         }}
       />
       <Route path="/" component={App}>
         <Route
           path="topics"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Topics')
-              cb(null, module.default || module)
-            })
-          }}
-        />
-        <Route
-          path="category/:category"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Category')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Topics').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="categories/:category"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Category')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Category').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="category/:category"
+          getComponent={(location, cb) => {
+            import('../containers/Category').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="topic/:topicId"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Topic')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Topic').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="tag/:tagId"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Tag')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Tag').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="photography"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Photography')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Photography').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="search"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Search')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Search').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="a/:slug"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Article')
-              cb(null, module.default || module)
-            })
+          getComponent={(location, cb) => {
+            import('../containers/Article').then(loadRoute(cb)).catch(errorLoading)
           }} />
         <Route
           path="author/:authorId"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/Author')
-              cb(null, module.default || module)
-            })
-          }}
+          getComponent={(location, cb) => {
+            import('../containers/Author').then(loadRoute(cb)).catch(errorLoading)
+          }} />
         />
         <Route
           path="authors"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/AuthorsList')
-              cb(null, module.default || module)
-            })
-          }}
-        />
+          getComponent={(location, cb) => {
+            import('../containers/AuthorsList').then(loadRoute(cb)).catch(errorLoading)
+          }} />
       </Route>
     </Router>
   )

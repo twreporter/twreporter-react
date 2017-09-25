@@ -1,5 +1,7 @@
 ### Unreleased
 - Fix Google structure data errors
+- Fix Webpack hot loadig problem on dev
+- Transform import to require.ensure by babel plugin
 - Remove react-hot-loader package since we don't use it at all
 
 ### 2.2.1
