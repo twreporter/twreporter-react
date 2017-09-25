@@ -27,7 +27,7 @@ function scrollAndFireTracking() {
  * Currently, I have no way to reduce the codes.
  * If you know how to reduce the duplicated codes, PR is welcome.
  */
-export default function (history = browserHistory) {
+export default function createRoutes(history = browserHistory) {
   return (
     <Router history={history} onUpdate={scrollAndFireTracking} >
       <Route

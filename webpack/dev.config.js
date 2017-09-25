@@ -78,8 +78,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"development"',
         BROWSER: true,
-        RELEASE_BRANCH: '"dev"',
-        BABEL_ENV: '"DEV"'  // <-------- TO ENABLE react-hot-loader
+        RELEASE_BRANCH: '"dev"'
       },
       __CLIENT__: true,
       __SERVER__: false,

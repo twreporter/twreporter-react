@@ -1,5 +1,6 @@
 ### Unreleased
 - Fix Google structure data errors
+- Remove react-hot-loader package since we don't use it at all
 
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)

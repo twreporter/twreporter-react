@@ -1,13 +1,13 @@
 import 'babel-polyfill'
-import { Provider } from 'react-redux'
-import configureStore from './store/configureStore'
-import { match, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import configureStore from './store/configureStore'
+import createRoutes from './routes'
+import { Provider } from 'react-redux'
+import { match, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 let reduxState
 if (window.__REDUX_STATE__) {
