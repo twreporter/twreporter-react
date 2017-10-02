@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.2.2
+- Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux
 - Fix Google structure data errors
 - Fix Webpack hot loadig problem on dev
 - Transform import to require.ensure by babel plugin

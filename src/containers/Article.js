@@ -21,7 +21,7 @@ import logoIcon from '../../static/asset/icon-placeholder.svg'
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link } from 'react-router'

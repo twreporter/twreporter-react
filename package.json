@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "release": "gulp release",
@@ -60,6 +60,8 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@twreporter/react-components": "^1.0.11",
+    "@twreporter/redux": "2.1.5",
     "babel-plugin-system-import-transformer": "^3.1.0",
     "classnames": "^2.2.1",
     "ejs": "^2.3.4",
@@ -101,8 +103,6 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
-    "twreporter-react-components": "^1.0.10",
-    "twreporter-redux": "^2.1.5",
     "video.js": "5.12.1"
   },
   "devDependencies": {
