@@ -76,7 +76,8 @@ app.get('*', async function (req, res, next) {
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
         const params = get(renderProps, 'params', {})
-        const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
+        let comp = renderProps.components[renderProps.components.length - 1]
+        comp = comp.WrappedComponent || comp
         const promise = comp.fetchData ?
           comp.fetchData({ query, params, store, history }) :
           Promise.resolve()

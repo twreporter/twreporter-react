@@ -1,35 +1,35 @@
 /* eslint no-console:0 */
 'use strict'
-import MobileArticleTools from '../components/article/tools/MobileArticleTools'
+
+import * as ArticleComponents from '../components/article/index'
 import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
 import FontChangeButton from '../components/FontChangeButton'
 import Helmet from 'react-helmet'
+import LeadingVideo from '../components/shared/LeadingVideo'
+import MobileArticleTools from '../components/article/tools/MobileArticleTools'
 import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
-import LeadingVideo from '../components/shared/LeadingVideo'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
-import cx from 'classnames'
 import commonStyles from '../components/article/Common.scss'
+import cx from 'classnames'
 import deviceConst from '../constants/device'
 import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import lineIcon from '../../static/asset/line.svg'
 import logoIcon from '../../static/asset/icon-placeholder.svg'
+import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
-
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
-import { setHeaderInfo } from '../actions/header'
-import * as ArticleComponents from '../components/article/index'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -96,10 +96,6 @@ class Article extends PureComponent {
   static fetchData({ params, store }) {
     const slug = params.slug
     if (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) {
-      store.dispatch(setHeaderInfo({
-        pageTheme: BRIGHT,
-        pageType: ARTICLE_STYLE
-      }))
       return store.dispatch(fetchAFullPost(slug))
     }
     // get article itself first
@@ -112,11 +108,6 @@ class Article extends PureComponent {
       if (_.get(selectedPost, 'error')) {
         return Promise.reject(_.get(selectedPost, 'error'))
       }
-
-      store.dispatch(setHeaderInfo({
-        pageTheme: style !== PHOTOGRAPHY_ARTICLE_STYLE ? BRIGHT : DARK,
-        pageType: style
-      }))
     })
   }
 
@@ -216,7 +207,7 @@ class Article extends PureComponent {
   }
 
   _sendPageLevelAction() {
-    const { entities, selectedPost, setHeaderInfo } = this.props
+    const { entities, selectedPost } = this.props
     const slug = _.get(selectedPost, 'slug')
     if (!slug) {
       return
@@ -228,10 +219,6 @@ class Article extends PureComponent {
     if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
       theme = DARK
     }
-
-    setHeaderInfo({
-      pageTheme: theme
-    })
   }
 
   _getCumulativeOffset(element) {
@@ -347,7 +334,7 @@ class Article extends PureComponent {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
-    const articleStyle = article.style
+    const articleStyle = _.get(article, 'style')
     const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-container'], styles['photo-container']) : styles['article-container']
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
@@ -539,9 +526,20 @@ class Article extends PureComponent {
 function mapStateToProps(state) {
   const entities = state[reduxStateFields.entities]
   const selectedPost = state[reduxStateFields.selectedPost]
+  const post = _.get(entities, [reduxStateFields.postsInEntities, selectedPost.slug], {})
+  const style = post.style
+  let theme = defaultTheme
+
+  // backwards compatible for photo articles
+  if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
+    theme = photoTheme
+  }
+
+  theme = post.theme || theme
   return {
     entities,
-    selectedPost
+    selectedPost,
+    theme
   }
 }
 
@@ -557,14 +555,16 @@ Article.contextTypes = {
 Article.propTypes = {
   entities: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
+  theme: React.PropTypes.object,
   params: React.PropTypes.object
 }
 
 Article.defaultProps = {
   entities: {},
   selectedPost: {},
+  theme: defaultTheme,
   params: {}
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, setHeaderInfo })(Article)
+export default connect(mapStateToProps, { fetchAFullPost })(withLayout(Article))

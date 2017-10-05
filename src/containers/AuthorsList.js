@@ -1,26 +1,23 @@
 'use strict'
 
 import * as constants from '../constants/authors-list'
-
-import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
-import React, { PropTypes } from 'react'
-
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
+import React, { PropTypes } from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
-import { connect } from 'react-redux'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import { searchAuthorsIfNeeded } from '../actions/authors'
-import { setHeaderInfo } from '../actions/header'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
-
+import withLayout from '../helpers/with-layout'
+import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
+import { connect } from 'react-redux'
+import { searchAuthorsIfNeeded } from '../actions/authors'
 
 const _ = {
   get: get,
@@ -41,14 +38,6 @@ class AuthorsList extends React.Component {
     this._changeListTo = this._changeListTo.bind(this)
     this._handleLoadmore = this._handleLoadmore.bind(this)
     this._handleSeen = this._handleSeen.bind(this)
-  }
-
-  componentWillMount() {
-    return this.props.setHeaderInfo({
-      pageTheme: BRIGHT,
-      pageType: AUTHORS_LIST,
-      pageTitle: constants.PAGE_TITLE
-    })
   }
 
   componentDidMount() {
@@ -159,4 +148,4 @@ function mapStateToProps(state) {
 }
 
 export { AuthorsList }
-export default connect(mapStateToProps, { searchAuthorsIfNeeded, setHeaderInfo })(AuthorsList)
+export default connect(mapStateToProps, { searchAuthorsIfNeeded })(withLayout(AuthorsList))

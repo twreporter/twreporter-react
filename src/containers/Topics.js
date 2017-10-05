@@ -1,22 +1,20 @@
-import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
-import { InternalServerError } from '../custom-error'
-import React, { Component } from 'react'
-import { date2yyyymmdd, formatPostLinkTarget, formatPostLinkTo } from '../utils'
-
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import { TopicsList } from '@twreporter/react-components'
-import { connect } from 'react-redux'
-import { setHeaderInfo } from '../actions/header'
-import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-
 import concat from 'lodash/concat'
 import get from 'lodash/get'
 import map from 'lodash/map'
+import styled from 'styled-components'
+import withLayout from '../helpers/with-layout'
+import twreporterRedux from '@twreporter/redux'
 import uniq from 'lodash/uniq'
+import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { InternalServerError } from '../custom-error'
+import { TopicsList } from '@twreporter/react-components'
+import { connect } from 'react-redux'
+import { date2yyyymmdd, formatPostLinkTarget, formatPostLinkTo } from '../utils'
 
 const _ = {
   concat,
@@ -73,12 +71,6 @@ class Topics extends Component {
         }
       })
     }
-    const pageTheme = _.get(this.props, 'pageTheme')
-    if (pageTheme !== BRIGHT) {
-      this.props.setHeaderInfo({
-        pageTheme: BRIGHT
-      })
-    }
     return this._clientFetchData(this.props)
   }
 
@@ -104,7 +96,7 @@ class Topics extends Component {
       }
     }
   }
-  
+
   render() {
     const { topics, page, totalPages, topicError, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
 
@@ -112,7 +104,7 @@ class Topics extends Component {
     const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
     const topicsLength = _.get(topics, 'length')
 
-    /* 
+    /*
       If fetching list data failed and there's no topics data in the store,
       render error 500
     */
@@ -240,4 +232,4 @@ Topics.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic, setHeaderInfo })(Topics)
+export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(withLayout(Topics))

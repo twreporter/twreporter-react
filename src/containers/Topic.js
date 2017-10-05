@@ -1,14 +1,14 @@
 'use strict'
+
+import ArticleList from '../components/ArticleList'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import ArticleList from '../components/ArticleList'
 import twreporterRedux from '@twreporter/redux'
-
+import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { setHeaderInfo } from '../actions/header'
 
 // lodash
 import get from 'lodash/get'
@@ -141,4 +141,4 @@ Topic.propTypes = {
 }
 
 export { Topic }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Topic)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Topic))
