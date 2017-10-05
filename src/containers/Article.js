@@ -167,7 +167,8 @@ class Article extends PureComponent {
   }
 
   componentDidUpdate() {
-    this._sendPageLevelAction()
+    // Make sure any change like clicking related article will scroll to top
+    window.scrollTo(0, 0)
   }
 
   componentWillMount() {
@@ -204,21 +205,6 @@ class Article extends PureComponent {
 
   _onScroll() {
     this._handleScroll()
-  }
-
-  _sendPageLevelAction() {
-    const { entities, selectedPost } = this.props
-    const slug = _.get(selectedPost, 'slug')
-    if (!slug) {
-      return
-    }
-    const post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
-    let style = _.get(post, 'style')
-    let theme = BRIGHT
-
-    if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-      theme = DARK
-    }
   }
 
   _getCumulativeOffset(element) {
