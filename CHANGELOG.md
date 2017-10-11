@@ -1,4 +1,8 @@
 ### Unreleased
+### 2.2.2
+- Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Bug fix. Follow the docs to render React Router [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Add theme for listing, article and photography, ...etc pages [#673](https://github.com/twreporter/twreporter-react/pull/673)
 - Fix Google structure data errors
 - Fix Webpack hot loadig problem on dev
 - Transform import to require.ensure by babel plugin

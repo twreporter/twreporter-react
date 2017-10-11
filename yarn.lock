@@ -2,6 +2,27 @@
 # yarn lockfile v1
 
 
+"@twreporter/react-components@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-1.1.0.tgz#4f696b27747a3b08c3dd61cbdc6abd97f377c1c7"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.5.10"
+    react-swipeable "^4.0.1"
+    react-waypoint "^7.0.3"
+    smoothscroll "^0.3.0"
+    styled-components "^2.1.1"
+    velocity-react "^1.3.3"
+
+"@twreporter/redux@2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-2.1.5.tgz#7b45b28924d31b27ad12ce1412868b72ceaa17fe"
+  dependencies:
+    axios "^0.16.1"
+    es6-error "^4.0.2"
+    lodash "^4.17.4"
+    redux "^3.6.0"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -6795,27 +6816,6 @@ tv4@^1.2:
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
-
-twreporter-react-components@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/twreporter-react-components/-/twreporter-react-components-1.0.10.tgz#909f3f9819257a95ba29f1ea3aca7e67ab018bd7"
-  dependencies:
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    react-swipeable "^4.0.1"
-    react-waypoint "^7.0.3"
-    smoothscroll "^0.3.0"
-    styled-components "^2.1.1"
-    velocity-react "^1.3.3"
-
-twreporter-redux@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.1.5.tgz#2fac92de0b75b932f6c2bd9b154662bfc8124f1b"
-  dependencies:
-    axios "^0.16.1"
-    es6-error "^4.0.2"
-    lodash "^4.17.4"
-    redux "^3.6.0"
 
 type-check@~0.3.1:
   version "0.3.2"

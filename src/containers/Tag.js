@@ -2,13 +2,12 @@ import Helmet from 'react-helmet'
 import More from '../components/More'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import { List } from 'twreporter-react-components'
 import get from 'lodash/get'
-import twreporterRedux from 'twreporter-redux'
-
-import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
+import twreporterRedux from '@twreporter/redux'
+import withLayout from '../helpers/with-layout'
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { List } from '@twreporter/react-components'
 import { connect } from 'react-redux'
-import { setHeaderInfo } from '../actions/header'
 
 const _  = {
   get
@@ -31,10 +30,7 @@ class Tag extends Component {
   }
 
   componentWillMount() {
-    const { fetchListedPosts, lists, params, setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: BRIGHT
-    })
+    const { fetchListedPosts, lists, params } = this.props
 
     let tagId = _.get(params, 'tagId')
 
@@ -152,4 +148,4 @@ Tag.propTypes = {
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Tag)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Tag))

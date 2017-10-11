@@ -3,14 +3,14 @@
 import React, { Component, PropTypes } from 'react'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
-import { Footer } from 'twreporter-react-components'
+import { Footer } from '@twreporter/react-components'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import SystemError from '../components/SystemError'
 import classNames from 'classnames'
 import styles from './TopicLandingPage.scss'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 // lodash
 import forEach from 'lodash/forEach'

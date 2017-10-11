@@ -1,20 +1,19 @@
 'use strict'
 
-import { AUTHOR_PAGE, LIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
-import React, { PropTypes } from 'react'
-
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import Helmet from 'react-helmet'
+import React, { PropTypes } from 'react'
 import Sponsor from '../components/Sponsor'
 import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
+import get from 'lodash/get'
+import withLayout from '../helpers/with-layout'
+import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
 import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
-import get from 'lodash/get'
-import { setHeaderInfo } from '../actions/header'
 
 const _ = {
   get
@@ -27,14 +26,10 @@ class Author extends React.Component {
   }
   componentDidMount() {
     const authorId = this.props.params['authorId']
-    let { setHeaderInfo, articlesByAuthor, fetchAuthorCollectionIfNeeded } = this.props
+    let { articlesByAuthor, fetchAuthorCollectionIfNeeded } = this.props
     if (!articlesByAuthor[authorId]) {
       fetchAuthorCollectionIfNeeded(authorId)
     }
-    setHeaderInfo({
-      pageTheme: LIGHT,
-      pageType: AUTHOR_PAGE
-    })
   }
   render() {
     const authorId = this.props.params['authorId']
@@ -107,4 +102,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, setHeaderInfo })(Author)
+export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded })(withLayout(Author))
