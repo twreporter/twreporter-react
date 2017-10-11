@@ -1,8 +1,7 @@
 'use strict'
 import React, { Component } from 'react'
 import styles from './Search.scss'
-import withLayout, { defaultTheme as theme } from '../helpers/with-layout'
-import { connect } from 'react-redux'
+import withLayout from '../helpers/with-layout'
 import { googleSearchId } from '../conf/service'
 
 class Search extends Component {

@@ -7,7 +7,7 @@ import categoryString from '../constants/category-strings'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
-import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
+import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components'
 import { camelize } from 'humps'
 import { connect } from 'react-redux'
@@ -140,7 +140,7 @@ class Category extends Component {
 function mapStateToProps(state) {
   return {
     lists: state[reduxStateFields.lists],
-    entities: state[reduxStateFields.entities],
+    entities: state[reduxStateFields.entities]
   }
 }
 

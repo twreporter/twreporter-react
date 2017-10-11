@@ -24,33 +24,32 @@ const DEFAULT_VALUES = {
   PHOTO_FONT_COLOR: '#FFFFFF',
   PHOTO_FOOTER_BG_COLOR: '#08192d',
   PHOTO_LOGO_COLOR: Header.logoColor.dark,
-  POSITION: 'above'
+  POSITION: 'above',
+  TOPIC_COLOR: '#c71b0a'
 }
 
 const defaultTheme = {
   bgColor: DEFAULT_VALUES.BG_COLOR,
   fontColor: DEFAULT_VALUES.FONT_COLOR,
   footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  h1FontColor: DEFAULT_VALUES.FONT_COLOR,
-  h2FontColor: DEFAULT_VALUES.FONT_COLOR,
   headerPosition: DEFAULT_VALUES.POSITION,
   logoColor: Header.logoColor.dark,
   subtitleColor: DEFAULT_VALUES.FONT_COLOR,
   titleColor: DEFAULT_VALUES.FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.POSITION
+  titlePosition: DEFAULT_VALUES.POSITION,
+  topicColor: DEFAULT_VALUES.TOPIC_COLOR
 }
 
 const photoTheme = {
   bgColor: DEFAULT_VALUES.PHOTO_BG_COLOR,
   fontColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
   footerBgColor: DEFAULT_VALUES.PHOTO_FOOTER_BG_COLOR,
-  h1FontColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  h2FontColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
   headerPosition: DEFAULT_VALUES.POSITION,
   logoColor: Header.logoColor.bright,
   subtitleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
   titleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.POSITION
+  titlePosition: DEFAULT_VALUES.POSITION,
+  topicColor: DEFAULT_VALUES.TOPIC_COLOR
 }
 
 class Layout extends React.Component {
@@ -81,22 +80,22 @@ class Layout extends React.Component {
 }
 
 Layout.propTypes = {
-  isIndex: PropTypes.bool,
-  headerPosition: PropTypes.string,
+  bgColor: PropTypes.string,
   fontColor: PropTypes.string,
   footerBgColor: PropTypes.string,
-  bgColor: PropTypes.string,
+  headerPosition: PropTypes.string,
+  isIndex: PropTypes.bool,
   logoColor: PropTypes.string,
   pathname: PropTypes.string.isRequired
 }
 
 Layout.defaultProps = {
-  isIndex: false,
-  headerPosition: DEFAULT_VALUES.POSITION,
+  bgColor: DEFAULT_VALUES.BG_COLOR,
   fontColor: DEFAULT_VALUES.FONT_COLOR,
   footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  logoColor: Header.logoColor.dark,
-  bgColor: DEFAULT_VALUES.BG_COLOR
+  headerPosition: DEFAULT_VALUES.POSITION,
+  isIndex: false,
+  logoColor: Header.logoColor.dark
 }
 
 /**
@@ -120,16 +119,15 @@ export default function withLayout(WrappedComponent) {
     static displayName = `WithLayout(${getDisplayName(WrappedComponent)})`
     static propTypes = {
       theme: PropTypes.shape({
-        titlePosition: PropTypes.string,
-        headerPosition: PropTypes.string,
-        titleColor: PropTypes.string,
-        subtitleColor: PropTypes.string,
+        bgColor: PropTypes.string,
         fontColor: PropTypes.string,
         footerBgColor: PropTypes.string,
-        h1FontColor: PropTypes.string,
-        h2FontColor: PropTypes.string,
-        bgColor: PropTypes.string,
-        logoColor: PropTypes.string
+        headerPosition: PropTypes.string,
+        logoColor: PropTypes.string,
+        subtitleColor: PropTypes.string,
+        titleColor: PropTypes.string,
+        titlePosition: PropTypes.string,
+        topicColor: PropTypes.string
       }),
       isIndex: PropTypes.bool
     }

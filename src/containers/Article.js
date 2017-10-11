@@ -25,7 +25,7 @@ import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
-import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
+import { ABOUT_US_FOOTER,  CONTACT_FOOTER, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -101,9 +101,7 @@ class Article extends PureComponent {
     // get article itself first
     return store.dispatch(fetchAFullPost(slug)).then(() => {
       const state = store.getState()
-      const entities = _.get(state, reduxStateFields.entities, {})
       const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
-      const style = _.get(entities, [ reduxStateFields.postsInEntities, slug, 'style' ])
 
       if (_.get(selectedPost, 'error')) {
         return Promise.reject(_.get(selectedPost, 'error'))
@@ -512,7 +510,7 @@ class Article extends PureComponent {
 function mapStateToProps(state) {
   const entities = state[reduxStateFields.entities]
   const selectedPost = state[reduxStateFields.selectedPost]
-  const post = _.get(entities, [reduxStateFields.postsInEntities, selectedPost.slug], {})
+  const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
   let theme = defaultTheme
 

@@ -5,7 +5,7 @@ import SystemError from '../components/SystemError'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
-import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
+import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components'
 import { connect } from 'react-redux'
 

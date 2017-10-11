@@ -15,7 +15,7 @@ import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
 import withLayout from '../helpers/with-layout'
-import { AUTHORS_LIST, BRIGHT, LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
+import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { connect } from 'react-redux'
 import { searchAuthorsIfNeeded } from '../actions/authors'
 

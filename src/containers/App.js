@@ -6,13 +6,6 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
 
-// lodash
-import get from 'lodash/get'
-
-const _ = {
-  get
-}
-
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
 let currentLocale = 'zh-Hant'
@@ -34,8 +27,6 @@ class App extends PureComponent {
   }
 
   render() {
-    const pathname = _.get(this.props, 'location.pathname')
-
     return (
       <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
         {this.props.children}
