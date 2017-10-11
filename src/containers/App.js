@@ -36,12 +36,14 @@ class App extends PureComponent {
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object
+  location: React.PropTypes.object,
+  device: React.PropTypes.string
 }
 
 function mapStateToProps(state) {
   return {
-    header: state.header
+    header: state.header,
+    device: state.device
   }
 }
 

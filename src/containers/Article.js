@@ -1,17 +1,19 @@
 /* eslint no-console:0 */
 'use strict'
 
+import ArticleMeta from '../components/article/article-meta'
 import * as ArticleComponents from '../components/article/index'
 import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
-import FontChangeButton from '../components/FontChangeButton'
+import { Header } from '@twreporter/react-components'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import MobileArticleTools from '../components/article/tools/MobileArticleTools'
-import PrintButton from '../components/shared/PrintButton'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
+import TitleRowUpon from '../components/article/title-row-upon'
+import TitleRowAbove from '../components/article/title-row-above'
 import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import commonStyles from '../components/article/Common.scss'
 import cx from 'classnames'
@@ -22,14 +24,19 @@ import lineIcon from '../../static/asset/line.svg'
 import logoIcon from '../../static/asset/icon-placeholder.svg'
 import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
 import styles from './Article.scss'
-import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
+import styled from 'styled-components'
+import { screen } from '../themes/screen'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
 import { ABOUT_US_FOOTER,  CONTACT_FOOTER, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
+import { Global_Color, COLORS, COMPONENT_MARGIN, LAYOUT, LETTER_SPACE } from '../themes/common-variables'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { date2yyyymmdd, getAbsPath, getScreenType } from '../utils/index'
+import { getAbsPath, getScreenType } from '../utils/index'
+
+//testing
+import { TITLE_POSITION_ABOVE, TITLE_POSITION_UPON_LEFT,  NAVBAR_POSITION_UPON } from '../constants/page-themes'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -55,6 +62,63 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
+const ArticleContainer = styled.div`
+  background-color: ${ props => (props.bgColor ? props.bgColor : COLORS.gray.lightGray) };
+  min-height: 20em;
+  padding-top: ${ props => (props.titlePosition === TITLE_POSITION_UPON_LEFT ? '0' : '20px') };
+`
+
+const Content = styled.div`
+  color: ${ props => (props.fontColor ? props.fontColor : Global_Color.textColor)};
+  a {
+      border-bottom: 1px ${Global_Color.primaryColor} solid;
+      cursor: pointer;
+      transition: 0.5s all ease;
+      position: relative;
+      color: ${ props => (props.fontColor ? props.fontColor : Global_Color.textColor)};
+      letter-spacing: ${LETTER_SPACE.generalLetterSpace};
+      &:hover {
+        color: ${Global_Color.primaryColor};
+      }
+      &:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        bottom: -0.13em;
+        height: 0.11rem;
+        width: 0;
+        background: ${Global_Color.primaryColor};
+        transition: 0.5s all ease;
+      }
+      &:hover:after {
+        width: 100%;
+      }
+  }
+`
+
+const IntroductionContainer = styled.div`
+  display: block;
+  margin: 0 auto ${COMPONENT_MARGIN.doubleMarginBottom} auto;
+  ${screen.desktopAbove`
+    width: ${LAYOUT.desktop.small};
+  `}
+  ${screen.tablet`
+    width: ${LAYOUT.tablet.small};
+  `}
+  ${screen.mobile`
+    margin: 0 ${COMPONENT_MARGIN.horizontalMargin} ${COMPONENT_MARGIN.doubleMarginBottom} ${COMPONENT_MARGIN.horizontalMargin};
+  `}
+`
+
+const HeaderContainer = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  @media (max-width: 1023px) {
+    display: none;
+  }
+`
+
 const scrollPosition = {
   y: 0
 }
@@ -79,11 +143,11 @@ const ArticlePlaceholder = () => {
           <img src={logoIcon} className={styles['logo-icon']}/>
         </div>
       </div>
-      <div className={cx(styles.introduction, commonStyles['inner-block'])}>
+      <IntroductionContainer>
         <div className={styles['ph-content']}></div>
         <div className={styles['ph-content']}></div>
         <div className={styles['ph-content-last']}></div>
-      </div>
+      </IntroductionContainer>
     </div>
   )
 }
@@ -130,6 +194,8 @@ class Article extends PureComponent {
 
     // mobile article tools
     this.mat = null
+
+    this.articleMeta = null
   }
 
   getChildContext() {
@@ -164,15 +230,17 @@ class Article extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     // Make sure any change like clicking related article will scroll to top
+    if (prevState.fontSize !== this.state.fontSize) {
+      return
+    }
     window.scrollTo(0, 0)
   }
 
   componentWillMount() {
     const { params } = this.props
     let slug = _.get(params, 'slug')
-
     this.props.fetchAFullPost(slug)
   }
 
@@ -239,6 +307,8 @@ class Article extends PureComponent {
     const currentTopY = window.scrollY
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
+    const { theme } = this.props
+    const titlePosition = _.get(theme, 'title_position')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -260,7 +330,16 @@ class Article extends PureComponent {
     const isInTopRegion = currentTopY < beginY + 600
 
     if (screenType === DESKTOP) {
-      this.toggleTools(DESKTOP, true)
+      if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        if ( currentScrollTop >= this.articleMeta.offsetTop) {
+          this.toggleTools(DESKTOP, true)
+        } else {
+          this.toggleTools(DESKTOP, false)
+        }
+      } else {
+        this.toggleTools(DESKTOP, true)
+      }
     }
 
     // Calculate scrolling distance to determine whether tools are displayed
@@ -298,7 +377,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { entities, params, selectedPost } = this.props
+    const { entities, params, selectedPost, theme } = this.props
 
     const error = _.get(selectedPost, 'error')
 
@@ -319,18 +398,18 @@ class Article extends PureComponent {
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
     const articleStyle = _.get(article, 'style')
-    const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-container'], styles['photo-container']) : styles['article-container']
+    // const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
+                //  cx(styles['article-container'], styles['photo-container']) : styles['article-container']
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
     if (isFetching) {
       return (
-        <div className={outerClass}>
+        <ArticleContainer>
           <div className={contentClass}>
             <ArticlePlaceholder />
           </div>
-        </div>
+        </ArticleContainer>
       )
     }
 
@@ -348,13 +427,9 @@ class Article extends PureComponent {
     const topicName = _.get(topic, 'topicName')
     const topicTitle = _.get(topic, 'title')
     const topicSlug = _.get(topic, 'slug')
-    const topicBlock = topicName ? <Link className={styles['topic-block']} to={`${LINK_PREFIX.TOPICS}${topicSlug}`}><span className={styles['topic-name']}>{topicName} <img src={topicRightArrow} /></span></Link> : null
     const topicArr = _.get(topic, 'relateds')
 
-    const subtitle = _.get(article, 'subtitle', '')
-    const subtitleBlock = subtitle ? <span itemProp="alternativeHeadline" className={styles['subtitle']}>{subtitle}</span> : null
-
-    const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
+    // const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
@@ -362,6 +437,23 @@ class Article extends PureComponent {
     const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
     const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
 
+    const pathname = _.get(this.props, 'location.pathname')
+
+    // theme
+    const bgColor = _.get(theme, 'bg_color')
+    // const footerBgColor = _.get(theme, 'footer_bg_color')
+    const fontColor = _.get(theme, 'font_color')
+    const titlePosition = _.get(theme, 'title_position')
+    const headerPosition = _.get(theme, 'header_position')
+    const titleColor = _.get(theme, 'title_color')
+    const subTitleColor = _.get(theme, 'subtitle_color')
+    const topicColor = _.get(theme, 'topic_color')
+    const logoColor =  _.get(theme, 'logo_color')
+    const fontColorSet = {
+      topicFontColor: topicColor,
+      titleFontColor: titleColor,
+      subtitleFontColor: subTitleColor
+    }
     return (
       <div>
         <Helmet
@@ -384,8 +476,11 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <div className={outerClass}><ArticlePlaceholder /></div> :
-          <div className={outerClass}>
+          {isFetching ? <ArticleContainer><ArticlePlaceholder /></ArticleContainer> :
+          <ArticleContainer
+            bgColor={bgColor}
+            titlePosition={titlePosition}
+          >
             {
               leadingVideo ?
                 <LeadingVideo
@@ -396,72 +491,107 @@ class Article extends PureComponent {
                 /> : null
             }
             <ReadingProgress ref={ele => this.rp = ele}/>
-            <article ref={div => {this.progressBegin = div}} className={contentClass}>
-              <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
-                <hgroup>
-                  <h3>{topicBlock}{subtitleBlock}</h3>
-                  <h1 itemProp="headline">{article.title}</h1>
-                </hgroup>
-                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-                  <meta itemProp="name" content="報導者" />
-                  <meta itemProp="email" content="contact@twreporter.org" />
-                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-                  <link itemProp="url" href="https://www.twreporter.org/" />
-                </div>
-                <link itemProp="mainEntityOfPage" href={canonical} />
-                <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
-              </div>
-
-              <div className={cx(styles['article-meta'], commonStyles['inner-block'])}>
-                <ArticleComponents.HeadingAuthor
-                  authors={authors}
-                  extendByline={_.get(article, 'extendByline')}
-                >
-                  <ArticleComponents.PublishDate
-                    date={article.publishedDate}
-                  />
-                </ArticleComponents.HeadingAuthor>
-                <div className={cx(styles['icons'], 'hidden-print')}>
-                  <ArticleComponents.ShareBt
-                    appId={appId}
-                    url={cUrl}
-                    title={article.title}
-                    fbIcon={fbIcon}
-                    twitterIcon={twitterIcon}
-                    lineIcon={lineIcon}
-                  />
-                  <PrintButton />
-                  <FontChangeButton changeFontSize={(fontSize)=>this.changeFontSize(fontSize)} fontSize={this.state.fontSize}/>
-                </div>
-              </div>
-
-
-              {
-                !leadingVideo ?
-                  <div className={styles['leading-img']}>
-                    <ArticleComponents.LeadingImage
-                      size={heroImageSize}
-                      image={_.get(heroImage, 'resizedTargets')}
-                      id={_.get(heroImage, 'id')}
-                      description={_.get(article, 'leadingImageDescription', '')}
+            <Content
+              fontColor={fontColor}
+            >
+              <article ref={div => {this.progressBegin = div}} className={contentClass}>
+                {
+                  titlePosition === TITLE_POSITION_ABOVE ?
+                  <div>
+                    <TitleRowAbove
+                      article={article}
+                      topic={topic}
+                      canonical={canonical}
+                      fontColorSet={fontColorSet}
                     />
-                  </div> : null
-              }
+                    <ArticleMeta
+                      authors={authors}
+                      extendByline={_.get(article, 'extendByline')}
+                      publishedDate={article.publishedDate}
+                      appId={appId}
+                      url={cUrl}
+                      title={article.title}
+                      fbIcon={fbIcon}
+                      twitterIcon={twitterIcon}
+                      lineIcon={lineIcon}
+                      changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
+                      fontSize={this.state.fontSize}
+                    />
+                  </div>
+                : null
+                }
 
-              <div className={cx(styles.introduction, commonStyles['inner-block'])}>
-                <ArticleComponents.Introduction
-                  data={introData}
-                  fontSize={this.state.fontSize}
+                {
+                  !leadingVideo && !this.props.ifDelegateImage ?
+                    <div className={styles['leading-img']}>
+                      <ArticleComponents.LeadingImage
+                        size={heroImageSize}
+                        image={_.get(heroImage, 'resizedTargets')}
+                        id={_.get(heroImage, 'id')}
+                        description={_.get(article, 'leadingImageDescription', '')}
+                        titlePosition={titlePosition}
+                      >
+                        {
+                          headerPosition === NAVBAR_POSITION_UPON ?
+                            <HeaderContainer>
+                              <Header
+                                isIndex={false}
+                                pathName={pathname}
+                                fontColor={fontColor}
+                                bgColor={''}
+                                logoColor={logoColor}
+                                headerPosition={headerPosition}
+                              />
+                            </HeaderContainer>
+                          : null
+                        }
+                        {
+                          titlePosition === TITLE_POSITION_UPON_LEFT ?
+                            <TitleRowUpon
+                              article={article}
+                              topic={topic}
+                              canonical={canonical}
+                              fontColorSet={fontColorSet}
+                            />
+                          : null
+                        }
+                      </ArticleComponents.LeadingImage>
+                    </div> : null
+                }
+
+                {
+                  titlePosition === TITLE_POSITION_UPON_LEFT ?
+                  <div ref={(node) => { this.articleMeta = node }}>
+                    <ArticleMeta
+                      authors={authors}
+                      extendByline={_.get(article, 'extendByline')}
+                      publishedDate={article.publishedDate}
+                      appId={appId}
+                      url={cUrl}
+                      title={article.title}
+                      fbIcon={fbIcon}
+                      twitterIcon={twitterIcon}
+                      lineIcon={lineIcon}
+                      changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
+                      fontSize={this.state.fontSize}
+                    />
+                  </div>
+                  : null
+                }
+                <IntroductionContainer>
+                  <ArticleComponents.Introduction
+                    data={introData}
+                    fontSize={this.state.fontSize}
+                  />
+                </IntroductionContainer>
+
+                <ArticleComponents.Body
+                  data={bodyData} fontSize={this.state.fontSize}
                 />
-              </div>
-
-              <ArticleComponents.Body
-                data={bodyData} fontSize={this.state.fontSize}
-              />
-            </article>
-
+              </article>
+            </Content>
             <div ref={div => {this.progressEnding = div}}
-                className={cx(commonStyles['components'], 'hidden-print')}>
+                className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
                   data={article.tags}
@@ -487,7 +617,7 @@ class Article extends PureComponent {
                 topicArr={topicArr}
               />
             </div>
-          </div>
+          </ArticleContainer>
           }
           {/*<ArticleComponents.PageNavigation
             article={ get(article, [ 'relateds', 0 ])}
@@ -507,7 +637,7 @@ class Article extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const entities = state[reduxStateFields.entities]
   const selectedPost = state[reduxStateFields.selectedPost]
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
@@ -520,6 +650,7 @@ function mapStateToProps(state) {
   }
 
   theme = post.theme || theme
+
   return {
     entities,
     selectedPost,
@@ -540,14 +671,16 @@ Article.propTypes = {
   entities: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
   theme: React.PropTypes.object,
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  ifDelegateImage: React.PropTypes.bool
 }
 
 Article.defaultProps = {
   entities: {},
   selectedPost: {},
   theme: defaultTheme,
-  params: {}
+  params: {},
+  ifDelegateImage: false
 }
 
 export { Article }

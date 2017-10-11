@@ -5,6 +5,8 @@ import classNames from 'classnames'
 import styles from './LeadingImage.scss'
 import commonStyles from './Common.scss'
 import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
+import cx from 'classnames'
+import { TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
 
 // lodash
 import get from 'lodash/get'
@@ -28,7 +30,7 @@ class LeadingImage extends React.Component {
   }
 
   render() {
-    const { size, image, id, description } = this.props
+    const { size, image, id, description, children, titlePosition } = this.props
     let leadingImgClass
     if (!image) {
       return null
@@ -56,10 +58,13 @@ class LeadingImage extends React.Component {
       <img src={defaultImgUrl} alt={description} className={styles['img-placeholder']} />
     )
 
+    const containerClass = titlePosition === TITLE_POSITION_UPON_LEFT ? cx(styles[leadingImgClass], styles['title-upon-left']) : styles[leadingImgClass]
+
     return (
-      <div className={styles[leadingImgClass]}>
+      <div className={containerClass}>
         {imgJsx}
         { description ? <div className={commonStyles['desc-text-block']}>{description}</div> : null }
+        {children}
       </div>
     )
   }

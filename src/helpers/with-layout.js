@@ -16,40 +16,48 @@ const Container = styled.div`
   overflow-x: hidden;
 `
 
+const HeaderContainer = styled.div`
+  @media (min-width: 1024px) {
+    display: none;
+  }
+`
+
 const DEFAULT_VALUES = {
   BG_COLOR: '#f1f1f1',
   FONT_COLOR: '#404040',
+  SUBTITLE_FONT_COLOR: 'gray',
   FOOTER_BG_COLOR: '#cdcdcd',
   PHOTO_BG_COLOR: '#08192d',
   PHOTO_FONT_COLOR: '#FFFFFF',
   PHOTO_FOOTER_BG_COLOR: '#08192d',
   PHOTO_LOGO_COLOR: Header.logoColor.dark,
-  POSITION: 'above',
+  HEADER_POSITION: 'header-above',
+  TITLE_POSITION: 'title-above',
   TOPIC_COLOR: '#c71b0a'
 }
 
 const defaultTheme = {
-  bgColor: DEFAULT_VALUES.BG_COLOR,
-  fontColor: DEFAULT_VALUES.FONT_COLOR,
-  footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.POSITION,
-  logoColor: Header.logoColor.dark,
-  subtitleColor: DEFAULT_VALUES.FONT_COLOR,
-  titleColor: DEFAULT_VALUES.FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.POSITION,
-  topicColor: DEFAULT_VALUES.TOPIC_COLOR
+  bg_color: DEFAULT_VALUES.BG_COLOR,
+  font_color: DEFAULT_VALUES.FONT_COLOR,
+  footer_bg_color: DEFAULT_VALUES.FOOTER_BG_COLOR,
+  header_position: DEFAULT_VALUES.HEADER_POSITION,
+  logo_color: Header.logoColor.dark,
+  subtitle_color: DEFAULT_VALUES.SUBTITLE_FONT_COLOR,
+  title_color: DEFAULT_VALUES.FONT_COLOR,
+  title_position: DEFAULT_VALUES.TITLE_POSITION,
+  topic_color: DEFAULT_VALUES.TOPIC_COLOR
 }
 
 const photoTheme = {
-  bgColor: DEFAULT_VALUES.PHOTO_BG_COLOR,
-  fontColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  footerBgColor: DEFAULT_VALUES.PHOTO_FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.POSITION,
-  logoColor: Header.logoColor.bright,
-  subtitleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  titleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.POSITION,
-  topicColor: DEFAULT_VALUES.TOPIC_COLOR
+  bg_color: DEFAULT_VALUES.PHOTO_BG_COLOR,
+  font_color: DEFAULT_VALUES.PHOTO_FONT_COLOR,
+  footer_bg_color: DEFAULT_VALUES.PHOTO_FOOTER_BG_COLOR,
+  header_position: DEFAULT_VALUES.HEADER_POSITION,
+  logo_color: Header.logoColor.bright,
+  subtitle_color: DEFAULT_VALUES.PHOTO_FONT_COLOR,
+  title_color: DEFAULT_VALUES.PHOTO_FONT_COLOR,
+  title_position: DEFAULT_VALUES.TITLE_POSITION,
+  topic_color: DEFAULT_VALUES.TOPIC_COLOR
 }
 
 class Layout extends React.Component {
@@ -58,16 +66,31 @@ class Layout extends React.Component {
     return (
       <Container
         bgColor={bgColor}
+        id="pageContainer"
       >
-        { headerPosition === DEFAULT_VALUES.POSITION ? (
+        { headerPosition === DEFAULT_VALUES.HEADER_POSITION ? (
           <Header
             isIndex={this.props.isIndex}
             bgColor={bgColor}
             fontColor={fontColor}
             logoColor={logoColor}
             pathName={this.props.pathname}
+            headerPosition={headerPosition}
+            footerBgColor={footerBgColor}
           />
-        ) : null
+        ) : (
+          <HeaderContainer>
+            <Header
+              isIndex={this.props.isIndex}
+              bgColor={bgColor}
+              fontColor={fontColor}
+              logoColor={logoColor}
+              pathName={this.props.pathname}
+              headerPosition={headerPosition}
+              footerBgColor={footerBgColor}
+            />
+          </HeaderContainer>
+        )
         }
         {this.props.children}
         <Footer
@@ -93,7 +116,7 @@ Layout.defaultProps = {
   bgColor: DEFAULT_VALUES.BG_COLOR,
   fontColor: DEFAULT_VALUES.FONT_COLOR,
   footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.POSITION,
+  headerPosition: DEFAULT_VALUES.HEADER_POSITION,
   isIndex: false,
   logoColor: Header.logoColor.dark
 }
@@ -144,18 +167,21 @@ export default function withLayout(WrappedComponent) {
       return Promise.resolve()
     }
 
+    componentDidUpdate() {
+      window.scrollTo(0, 0)
+    }
+
     render() {
       const { theme, isIndex, ...passThroughProps } = this.props
       const pathname = _.get(this.props, 'location.pathname')
-
       return (
         <Layout
           isIndex={isIndex}
-          headerPosition={theme.headerPosition}
-          fontColor={theme.fontColor}
-          footerBgColor={theme.footerBgColor}
-          bgColor={theme.bgColor}
-          logoColor={theme.logoColor}
+          headerPosition={theme.header_position}
+          fontColor={theme.font_color}
+          footerBgColor={theme.footer_bg_color}
+          bgColor={theme.bg_color}
+          logoColor={theme.logo_color}
           pathname={pathname}
         >
           <WrappedComponent

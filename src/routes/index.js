@@ -5,6 +5,7 @@ import App from '../containers/App'
 import React from 'react'
 import ReactGA from 'react-ga'
 import { Route, Router, browserHistory } from 'react-router'
+import customizedPath from '../constants/customized-article-path'
 
 if (typeof window !== 'undefined') {
   // add Google Analytics
@@ -99,6 +100,11 @@ export default function createRoutes(history = browserHistory) {
             import('../containers/Search').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
+        <Route
+          path={`a/${customizedPath.SHERRY_MAIN_PAGE}`}
+          getComponent={(location, cb) => {
+            import('../containers/SherrySpecial').then(loadRoute(cb)).catch(errorLoading)
+          }} />
         <Route
           path="a/:slug"
           getComponent={(location, cb) => {
