@@ -14,6 +14,7 @@ import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
+import recognizer, { twrSubstring } from './helpers/url-recognizer'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
@@ -59,7 +60,7 @@ app.get('*', async function (req, res, next) {
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
   let routes = createRoutes(history)
-
+  const pathname = twrSubstring(get(req, [ 'originalUrl' ]))
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -75,7 +76,8 @@ app.get('*', async function (req, res, next) {
 
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
-        const params = get(renderProps, 'params', {})
+        let params = get(renderProps, 'params', {}, '')
+        params = recognizer(params, pathname)
         let comp = renderProps.components[renderProps.components.length - 1]
         comp = comp.WrappedComponent || comp
         const promise = comp.fetchData ?
