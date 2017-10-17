@@ -71,8 +71,6 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
@@ -80,8 +78,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"development"',
         BROWSER: true,
-        RELEASE_BRANCH: '"staging"',
-        BABEL_ENV: '"DEV"'  // <-------- TO ENABLE react-hot-loader
+        RELEASE_BRANCH: '"dev"'
       },
       __CLIENT__: true,
       __SERVER__: false,

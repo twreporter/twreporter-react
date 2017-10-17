@@ -1,4 +1,17 @@
-### Unreleased
+### 2.2.3
+- Update article to be compatible with dynamic themes
+- Create customized article.
+- Create zoom in leading image.
+
+### 2.2.2
+- Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Bug fix. Follow the docs to render React Router [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Add theme for listing, article and photography, ...etc pages [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Fix Google structure data errors
+- Fix Webpack hot loadig problem on dev
+- Transform import to require.ensure by babel plugin
+- Remove react-hot-loader package since we don't use it at all
+
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
 - Fix inconsistent line-heights of paragraphs containing annotations [#664](https://github.com/twreporter/twreporter-react/pull/664)

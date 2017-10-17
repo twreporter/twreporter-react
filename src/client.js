@@ -1,13 +1,14 @@
 import 'babel-polyfill'
-import { Provider } from 'react-redux'
-import configureStore from './store/configureStore'
-import { match, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import createRoutes from './routes'
 import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import configureStore from './store/configureStore'
+import createRoutes from './routes'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
+import { match, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 let reduxState
 if (window.__REDUX_STATE__) {
@@ -31,16 +32,14 @@ const device = store.getState().device
 
 const routes = createRoutes(history)
 
-const { pathname, search, hash } = window.location
-const location = `${pathname}${search}${hash}`
-
 // calling `match` is simply for side effects of
 // loading route/component code for the initial location
-match({ routes, location }, () => {
+// https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
+match({ history, routes }, (error, redirectLocation, renderProps) => {
   ReactDOM.render((
     <Provider store={store}>
       <DeviceProvider device={device}>
-        { routes }
+        <Router {...renderProps} />
       </DeviceProvider>
     </Provider>
   ), document.getElementById('root'))
@@ -48,13 +47,13 @@ match({ routes, location }, () => {
 
 /* global __DEVTOOLS__ */
 if (__DEVTOOLS__ && !window.__REDUX_DEVTOOLS_EXTENSION__) {
-  match({ routes, location }, () => {
+  match({ history, routes  }, (error, redirectLocation, renderProps) => {
     const DevTools = require('./containers/DevTools').default
     ReactDOM.render((
       <Provider store={store}>
         <DeviceProvider device={device}>
           <div>
-            { routes }
+            <Router {...renderProps} />
             <DevTools />
           </div>
         </DeviceProvider>
