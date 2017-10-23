@@ -166,6 +166,24 @@ export default function (history = browserHistory) {
           }}
         />
         <Route
+          path="forgetpw"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/ForgetPassword')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
+          path="changepw"
+          getComponent={(nextStateWithLocation, cb) => {
+            require.ensure([], (require) => {
+              const module = require('../containers/ChangePassword')
+              cb(null, module.default || module)
+            })
+          }}
+        />
+        <Route
           path="bookmarks(/:pageNumber)"
           redirectPath="/signin"
           getComponent={(nextStateWithLocation, cb) => {

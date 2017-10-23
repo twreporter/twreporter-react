@@ -26,6 +26,8 @@ module.exports = Object.assign({
   },
   registrationConfigure: {
     apiUrl: environment.isProduction ? `${process.env.APIPROTOCOL}://${process.env.APIHOST}` : `${DEV_PROTOCOL}://${DEV_HOST}:${DEV_API_PORT}`,
+    forgetPassword: '/v1/forget-password',
+    changePassword: '/v1/change-password',
     signUp: '/v1/signup',
     signIn: '/v1/login',
     activate: '/v1/activate',

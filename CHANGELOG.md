@@ -2,8 +2,10 @@
 - Fix Google structure data errors
 
 ### 2.3.0-beta.1.0.0
-- Create registration system
+- Create registration system (RS)
+- RS: SignIn, SignUp, ChangePW, ForgetPW
 - Implement bookmark feature
+- Mobile Navbar
 
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)

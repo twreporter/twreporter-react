@@ -13,6 +13,8 @@ const { reducers, reduxStateFields } = twreporterRedux
 
 const registrationInitialState = {
   apiUrl: '',
+  forgetPassword: '',
+  changePassword: '',
   signUp: '',
   signIn: '',
   activate: '',
