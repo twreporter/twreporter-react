@@ -1,4 +1,6 @@
+### Unreleased
 ### 2.2.3
+- Add center-small alignment style in src/components/article/BlockAlignmentWrapper.scss. 
 - Update article to be compatible with dynamic themes
 - Create customized article.
 - Create zoom in leading image.
