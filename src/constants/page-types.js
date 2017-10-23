@@ -12,6 +12,8 @@ const TAG = 'TAG'
 const TOPIC = 'TOPIC'
 const AUTHOR_PAGE = 'author'
 const AUTHORS_LIST = 'authors'
+const BOOKMARK_LIST = 'BOOKMARKS'
+const REGISTRATION = 'registration'
 
 export {
   ARTICLE_STYLE,
@@ -25,5 +27,7 @@ export {
   TAG,
   TOPIC,
   AUTHOR_PAGE,
-  AUTHORS_LIST
+  AUTHORS_LIST,
+  BOOKMARK_LIST,
+  REGISTRATION
 }

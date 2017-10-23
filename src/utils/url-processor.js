@@ -1,6 +1,6 @@
 /*global __SERVER__, __DEVELOPMENT__*/
 'use strict'
-import config from '../../server/config'
+import config from '../config'
 import { basePath, SITE_META, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { google as storageConfig } from '../conf/storage'
 

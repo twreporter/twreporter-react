@@ -6,6 +6,7 @@ import categoryURI from '../conf/category-uri'
 import { IndexPageComposite } from 'twreporter-react-components'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from 'twreporter-redux'
+import { signOutAction } from 'twreporter-registration'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { CSSTransitionGroup } from 'react-transition-group'
@@ -73,7 +74,7 @@ const anchors = [
     label: ''
   }, {
     id: 'category',
-    label: '分類'
+    label: '議題'
   }, {
     id: 'topic',
     label: '專題'
@@ -112,51 +113,6 @@ const Background = styled.div`
   background-color: ${props => (props.backgroundColor ? props.backgroundColor : '')};
 `
 
-const microData = (
-  <div itemScope itemType="http://www.schema.org/SiteNavigationElement">
-    <div>
-      <meta itemProp="name" content="首頁" />
-      <link itemProp="url" href="https://www.twreporter.org/" />
-    </div>
-    <div>
-      <meta itemProp="name" content="人權．社會" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/human_rights_and_society" />
-    </div>
-    <div>
-      <meta itemProp="name" content="環境．教育" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/environment_and_education" />
-    </div>
-    <div>
-      <meta itemProp="name" content="政治．經濟" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/politics_and_economy" />
-    </div>
-    <div>
-      <meta itemProp="name" content="生活．醫療" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/living_and_medical_care" />
-    </div>
-    <div>
-      <meta itemProp="name" content="文化．藝術" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/culture_and_art" />
-    </div>
-    <div>
-      <meta itemProp="name" content="國際．兩岸" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/international" />
-    </div>
-    <div>
-      <meta itemProp="name" content="觀點" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/reviews" />
-    </div>
-    <div>
-      <meta itemProp="name" content="多媒體" />
-      <link itemProp="url" href="https://www.twreporter.org/categories/infographic" />
-    </div>
-    <div>
-      <meta itemProp="name" content="影像" />
-      <link itemProp="url" href="https://www.twreporter.org/photography" />
-    </div>
-  </div>
-)
-
 const webSiteJSONLD = {
   '@context' : 'http://schema.org',
   '@type' : 'WebSite',
@@ -169,81 +125,68 @@ const webSiteJSONLD = {
   }
 }
 
-const breadcrumbListJSONLD = {
-  '@context': 'http://schema.org',
-  '@type': 'BreadcrumbList',
-  'itemListElement': [ {
-    '@type': 'ListItem',
-    'position': 1,
-    'item': {
-      '@id': 'https://www.twreporter.org/',
-      'name': '首頁'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/human_rights_and_society',
-      'name': '人權．社會'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/environment_and_education',
-      'name': '環境．教育'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/politics_and_economy',
-      'name': '政治．經濟'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/living_and_medical_care',
-      'name': '生活．醫療'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/culture_and_art',
-      'name': '文化．藝術'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/international',
-      'name': '國際．兩岸'
-    }
-  },{
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/reviews',
-      'name': '評論'
-    }
-  }, {
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/infographic',
-      'name': '多媒體'
-    }
-  }, {
-    '@type': 'ListItem',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/photography',
-      'name': '影像'
-    }
-  } ]
+const siteNavigationJSONLD = {
+  '@context': 'https://schema.org',
+  '@graph':
+    [
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/',
+        'name':'首頁'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/topics',
+        'name':'最新專題'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/human_rights_and_society',
+        'name':'人權．社會'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/environment_and_education',
+        'name':'環境．教育'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/politics_and_economy',
+        'name':'政治．經濟'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/living_and_medical_care',
+        'name':'生活．醫療'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/culture_and_art',
+        'name':'文化．藝術'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/international',
+        'name':'國際．兩岸'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/infographic',
+        'name':'多媒體'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/photography',
+        'name':'影像'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/reviews',
+        'name':'評論'
+      }
+    ]
 }
+
 
 class Homepage extends React.Component {
   static async fetchData({ store }) {
@@ -264,6 +207,13 @@ class Homepage extends React.Component {
 
   render() {
     const { isSpinnerDisplayed } = this.props
+    const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
+    const latestTopicJSX = latestTopicData ? (
+      <LatestTopicSection
+        data={latestTopicData}
+      />
+    ) : null
+
     return (
       <Container>
         <StyledCSSTransitionGroup
@@ -297,11 +247,13 @@ class Homepage extends React.Component {
         <SideBar
           anchors={anchors}
         >
-          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
-          <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
-          <LatestTopicSection
-            data={this.props[fieldNames.sections.latestTopicSection]}
+          <LatestSection
+            data={this.props[fieldNames.sections.latestSection]}
+            signOutAction={this.props.signOutAction}
+            ifAuthenticated={this.props.ifAuthenticated}
           />
+          <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
+          {latestTopicJSX}
           <ReviewsSection
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
@@ -339,9 +291,8 @@ class Homepage extends React.Component {
           </Background>
           <ReporterIntro />
         </SideBar>
-        { microData }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListJSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
         <Footer />
       </Container>
     )
@@ -409,7 +360,7 @@ function mapStateToProps(state) {
   const infoPosts = denormalizePosts(_.get(indexPageState, sections.infographicsSection, []), postEntities)
 
   // restore the topics
-  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, {})
+  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, null)
   const topics = denormalizeTopics(_.get(indexPageState, sections.topicsSection, []), topicEntities, postEntities)
 
   // check if spinner should be displayed
@@ -428,9 +379,11 @@ function mapStateToProps(state) {
     [fieldNames.sections.photosSection]: photoPosts,
     [fieldNames.sections.infographicsSection]: infoPosts,
     categories: buildCategorySectionData(state),
-    isSpinnerDisplayed
+    isSpinnerDisplayed,
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)
