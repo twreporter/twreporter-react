@@ -1,4 +1,4 @@
-import { TYPOGRAPHY, Global_Color, COLORS } from '../../themes/common-variables'
+import { typography, globalColor, colors } from '../../themes/common-variables'
 
 import { LINK_PREFIX } from '../../constants/index'
 import React from 'react'
@@ -14,7 +14,7 @@ const _ = {
   get
 }
 
-const colorSelector = (props, defaultColor) => {
+const colorselector = (props, defaultColor) => {
   if (props.color) {
     return props.color
   }
@@ -67,9 +67,9 @@ const HeaderElementBlock = styled.div`
 
 const Title = HeaderElementBlock.extend`
   margin: 0;
-  font-weight: ${TYPOGRAPHY.font.weight.bold};
+  font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
-  color: ${props => (colorSelector(props, Global_Color.textColor))};
+  color: ${props => (colorselector(props, globalColor.textColor))};
   font-size: 60px;
   ${screen.mobile`
     font-size: 36px;
@@ -77,10 +77,9 @@ const Title = HeaderElementBlock.extend`
 `
 
 const Subtitle = HeaderElementBlock.extend`
-  color: ${props => (colorSelector(props, COLORS.gray.gray50))};
-  font-size: ${TYPOGRAPHY.font.size.medium};
-  font-weight: 200;
-  opacity: 0.8;
+  color: ${props => (colorselector(props, colors.gray.gray50))};
+  font-size: ${typography.font.size.medium};
+  font-weight: 100;
   ${screen.tabletAbove`
     font-size: 50px;
   `}
@@ -101,14 +100,14 @@ const Topic = HeaderElementBlock.extend`
 `
 
 const TopicContent = styled.span`
-  color: ${props => (colorSelector(props, COLORS.red.rustyRed))};
-  font-size: ${TYPOGRAPHY.font.size.medium};
-  font-weight: ${TYPOGRAPHY.font.weight.bold};
+  color: ${props => (colorselector(props, colors.red.rustyRed))};
+  font-size: ${typography.font.size.medium};
+  font-weight: ${typography.font.weight.bold};
   padding-left: 3px;
 `
 
 const RightArrow = styled.div`
-  border: solid ${props => (props.color ? props.color : COLORS.red.rustyRed)};
+  border: solid ${props => (props.color ? props.color : colors.red.rustyRed)};
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 4px;
@@ -175,8 +174,8 @@ SubtitleBlock.propTypes = {
 
 
 const HeaderGroup = ({ fontColorSet, article, topic }) => {
-  const title = truncate(_.get(article, 'title', ''), 17)
-  const subtitle = truncate(_.get(article, 'subtitle', ''), 9)
+  const title = truncate(_.get(article, 'title', ''), 15)
+  const subtitle = truncate(_.get(article, 'subtitle', ''), 18)
   const { topicFontColor, titleFontColor, subtitleFontColor } = fontColorSet
   return (
     <HeaderContainer>

@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@twreporter/react-components@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-1.1.1.tgz#d038a41ca0d3296e0fea57561a5cae94777fdf75"
+"@twreporter/react-components@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-1.1.2.tgz#87ced876a88833e067225e2ddeccb0721a654f74"
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"

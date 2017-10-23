@@ -2,6 +2,7 @@
 - Update article to be compatible with dynamic themes
 - Create customized article.
 - Create zoom in leading image.
+- Fix scroll to top problem.
 
 ### 2.2.2
 - Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux [#673](https://github.com/twreporter/twreporter-react/pull/673)

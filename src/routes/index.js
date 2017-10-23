@@ -3,23 +3,8 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 import App from '../containers/App'
 import React from 'react'
-import ReactGA from 'react-ga'
 import { Route, Router, browserHistory } from 'react-router'
 import customizedPath from '../constants/customized-article-path'
-
-if (typeof window !== 'undefined') {
-  // add Google Analytics
-  ReactGA.initialize('UA-69336956-1')
-  ReactGA.set({ page: window.location.pathname })
-}
-
-function scrollAndFireTracking() {
-  if(window) {
-    window.scrollTo(0, 0)
-    // send Google Analytics Pageview event on router changed
-    ReactGA.pageview(window.location.pathname)
-  }
-}
 
 function loadRoute(cb) {
   return (module) => {
@@ -44,7 +29,7 @@ function errorLoading(err) {
  */
 export default function createRoutes(history = browserHistory) {
   return (
-    <Router history={history} onUpdate={scrollAndFireTracking} >
+    <Router history={history}>
       <Route
         path="/topics/:slug"
         getComponent={(location, cb) => {
@@ -101,7 +86,7 @@ export default function createRoutes(history = browserHistory) {
           }}
         />
         <Route
-          path={`a/${customizedPath.SHERRY_MAIN_PAGE}`}
+          path={`a/${customizedPath.HIGH_RISK_YOUTH}`}
           getComponent={(location, cb) => {
             import('../containers/SherrySpecial').then(loadRoute(cb)).catch(errorLoading)
           }} />
