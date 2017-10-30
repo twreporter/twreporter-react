@@ -1,4 +1,4 @@
-import { COLORS, COMPONENT_MARGIN, Global_Color, LAYOUT, TYPOGRAPHY } from '../../themes/common-variables'
+import { colors, componentMargin, globalColor, layout, typography } from '../../themes/common-variables'
 
 import { LINK_PREFIX } from '../../constants/index'
 import { Link } from 'react-router'
@@ -28,13 +28,13 @@ const Container = styled.div`
   display: block;
   margin: 0 auto 24px auto;
   ${screen.desktopAbove`
-    width: ${LAYOUT.desktop.small};
+    width: ${layout.desktop.small};
   `}
   ${screen.tablet`
-    width: ${LAYOUT.tablet.small};
+    width: ${layout.tablet.small};
   `}
   ${screen.mobile`
-    margin: 0 ${COMPONENT_MARGIN.horizontalMargin} 24px ${COMPONENT_MARGIN.horizontalMargin};
+    margin: 0 ${componentMargin.horizontalMargin} 24px ${componentMargin.horizontalMargin};
   `}
 `
 
@@ -55,10 +55,10 @@ const HeaderElementBlock = styled.div`
 
 const Title = HeaderElementBlock.extend`
   margin: 0;
-  font-weight: ${TYPOGRAPHY.font.weight.bold};
+  font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
   font-size: 42px;
-  color: ${props => (colorSelector(props, Global_Color.textColor))};
+  color: ${props => (colorSelector(props, globalColor.textColor))};
   ${screen.desktop`
     font-size: 38px;
   `}
@@ -66,14 +66,14 @@ const Title = HeaderElementBlock.extend`
     font-size: 38px;
   `}
   ${screen.mobile`
-    font-size: ${TYPOGRAPHY.font.size.xLarger};
+    font-size: ${typography.font.size.xLarger};
   `}
 `
 
 const Subtitle = HeaderElementBlock.extend`
-  color: ${props => (colorSelector(props, COLORS.gray.gray50))};
-  font-size: ${TYPOGRAPHY.font.size.medium};
-  font-size: ${TYPOGRAPHY.font.size.medium};
+  color: ${props => (colorSelector(props, colors.gray.gray50))};
+  font-size: ${typography.font.size.medium};
+  font-size: ${typography.font.size.medium};
 `
 
 const Topic = HeaderElementBlock.extend`
@@ -88,13 +88,13 @@ const Topic = HeaderElementBlock.extend`
 `
 
 const TopicContent = styled.span`
-  color: ${props => (colorSelector(props, COLORS.red.rustyRed))};
-  font-size: ${TYPOGRAPHY.font.size.medium};
-  font-weight: ${TYPOGRAPHY.font.weight.bold};
+  color: ${props => (colorSelector(props, colors.red.rustyRed))};
+  font-size: ${typography.font.size.medium};
+  font-weight: ${typography.font.weight.bold};
 `
 
 const RightArrow = styled.div`
-  border: solid ${props => (props.color ? props.color : COLORS.red.rustyRed)};
+  border: solid ${props => (props.color ? props.color : colors.red.rustyRed)};
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 4px;

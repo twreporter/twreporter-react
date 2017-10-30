@@ -2,10 +2,8 @@
 // 1. Declare your own variables
 // 2. Add them to both exported array "paths" and default object
 
-const SHERRY_MAIN_PAGE = 'sherry-main-page'
-
-export const paths = [ SHERRY_MAIN_PAGE ]
+const HIGH_RISK_YOUTH = 'high-risk-youth-left-in-relic'
 
 export default {
-  SHERRY_MAIN_PAGE
+  HIGH_RISK_YOUTH
 }

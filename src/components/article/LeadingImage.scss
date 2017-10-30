@@ -22,7 +22,7 @@
 @include mq($max-width: $screen-xs-max) {
   .title-upon-left {
     > img {
-      height: 76vh;
+      height: calc(100vh - 151px);
       object-fit: cover;
     }
   }

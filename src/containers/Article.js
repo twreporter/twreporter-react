@@ -29,7 +29,7 @@ import { screen } from '../themes/screen'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
 import { ABOUT_US_FOOTER,  CONTACT_FOOTER, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
-import { Global_Color, COLORS, COMPONENT_MARGIN, LAYOUT, LETTER_SPACE } from '../themes/common-variables'
+import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -63,22 +63,22 @@ const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
 const ArticleContainer = styled.div`
-  background-color: ${ props => (props.bgColor ? props.bgColor : COLORS.gray.lightGray) };
+  background-color: ${ props => (props.bgColor ? props.bgColor : colors.gray.lightGray) };
   min-height: 20em;
   padding-top: ${ props => (props.titlePosition === TITLE_POSITION_UPON_LEFT ? '0' : '20px') };
 `
 
 const Content = styled.div`
-  color: ${ props => (props.fontColor ? props.fontColor : Global_Color.textColor)};
+  color: ${ props => (props.fontColor ? props.fontColor : globalColor.textColor)};
   a {
-      border-bottom: 1px ${Global_Color.primaryColor} solid;
+      border-bottom: 1px ${globalColor.primaryColor} solid;
       cursor: pointer;
       transition: 0.5s all ease;
       position: relative;
-      color: ${ props => (props.fontColor ? props.fontColor : Global_Color.textColor)};
-      letter-spacing: ${LETTER_SPACE.generalLetterSpace};
+      color: ${ props => (props.fontColor ? props.fontColor : globalColor.textColor)};
+      letter-spacing: ${letterSpace.generalLetterSpace};
       &:hover {
-        color: ${Global_Color.primaryColor};
+        color: ${globalColor.primaryColor};
       }
       &:after {
         position: absolute;
@@ -87,7 +87,7 @@ const Content = styled.div`
         bottom: -0.13em;
         height: 0.11rem;
         width: 0;
-        background: ${Global_Color.primaryColor};
+        background: ${globalColor.primaryColor};
         transition: 0.5s all ease;
       }
       &:hover:after {
@@ -98,15 +98,15 @@ const Content = styled.div`
 
 const IntroductionContainer = styled.div`
   display: block;
-  margin: 0 auto ${COMPONENT_MARGIN.doubleMarginBottom} auto;
+  margin: 0 auto ${componentMargin.doubleMarginBottom} auto;
   ${screen.desktopAbove`
-    width: ${LAYOUT.desktop.small};
+    width: ${layout.desktop.small};
   `}
   ${screen.tablet`
-    width: ${LAYOUT.tablet.small};
+    width: ${layout.tablet.small};
   `}
   ${screen.mobile`
-    margin: 0 ${COMPONENT_MARGIN.horizontalMargin} ${COMPONENT_MARGIN.doubleMarginBottom} ${COMPONENT_MARGIN.horizontalMargin};
+    margin: 0 ${componentMargin.horizontalMargin} ${componentMargin.doubleMarginBottom} ${componentMargin.horizontalMargin};
   `}
 `
 
@@ -166,7 +166,6 @@ class Article extends PureComponent {
     return store.dispatch(fetchAFullPost(slug)).then(() => {
       const state = store.getState()
       const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
-
       if (_.get(selectedPost, 'error')) {
         return Promise.reject(_.get(selectedPost, 'error'))
       }
@@ -308,7 +307,7 @@ class Article extends PureComponent {
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
     const { theme } = this.props
-    const titlePosition = _.get(theme, 'title_position')
+    const titlePosition = _.get(theme, 'titlePosition')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -378,9 +377,7 @@ class Article extends PureComponent {
 
   render() {
     const { entities, params, selectedPost, theme } = this.props
-
     const error = _.get(selectedPost, 'error')
-
     if (error) {
       return (
         <div>
@@ -438,17 +435,16 @@ class Article extends PureComponent {
     const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
 
     const pathname = _.get(this.props, 'location.pathname')
-
     // theme
-    const bgColor = _.get(theme, 'bg_color')
+    const bgColor = _.get(theme, 'bgColor')
     // const footerBgColor = _.get(theme, 'footer_bg_color')
-    const fontColor = _.get(theme, 'font_color')
-    const titlePosition = _.get(theme, 'title_position')
-    const headerPosition = _.get(theme, 'header_position')
-    const titleColor = _.get(theme, 'title_color')
-    const subTitleColor = _.get(theme, 'subtitle_color')
-    const topicColor = _.get(theme, 'topic_color')
-    const logoColor =  _.get(theme, 'logo_color')
+    const fontColor = _.get(theme, 'fontColor')
+    const titlePosition = _.get(theme, 'titlePosition')
+    const headerPosition = _.get(theme, 'headerPosition')
+    const titleColor = _.get(theme, 'titleColor')
+    const subTitleColor = _.get(theme, 'subtitleColor')
+    const topicColor = _.get(theme, 'topicColor')
+    const logoColor =  _.get(theme, 'logoColor')
     const fontColorSet = {
       topicFontColor: topicColor,
       titleFontColor: titleColor,
@@ -654,7 +650,7 @@ export function mapStateToProps(state) {
   return {
     entities,
     selectedPost,
-    theme
+    theme: camelizeKeys(theme)
   }
 }
 
