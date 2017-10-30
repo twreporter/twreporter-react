@@ -4,6 +4,7 @@
 - Create zoom in leading image.
 - Fix scroll to top problem.
 - @twreporter/react-components version number to 1.1.3
+- Add TopicLandingPage topic description iframe max-width 100% for youtube player or other embedded items.
 
 ### 2.2.2
 - Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux [#673](https://github.com/twreporter/twreporter-react/pull/673)
