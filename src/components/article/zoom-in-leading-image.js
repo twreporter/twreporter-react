@@ -12,7 +12,6 @@ import styled, { keyframes } from 'styled-components'
 import TitleRowUpon from './title-row-upon'
 import twreporterRedux from '@twreporter/redux'
 
-const elemId = 'pageContainer'
 const { unlockAfterAnimation, childAnimationStoper } = FadeText.scrollManager
 const topNavbarHeight = 151
 
@@ -68,6 +67,17 @@ const TitleRowContainer = styled.div`
   animation-fill-mode: forwards;
   animation-delay: ${props => `${props.delay}s`};
 `
+
+const elemId = 'pageContainer'
+const lockMobileScroll = (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
+const afterAnimation = () => {
+  const elem = document.getElementById(elemId)
+  elem.removeEventListener('touchmove', lockMobileScroll)
+}
+
 class ZoomInImage extends React.Component {
   constructor(props) {
     super(props)
@@ -81,6 +91,13 @@ class ZoomInImage extends React.Component {
     this.setState({
       clientHeight: document.documentElement.clientHeight
     })
+    const elem = document.getElementById(elemId)
+    elem.addEventListener('touchmove', lockMobileScroll)
+  }
+
+  componentWillUnmount() {
+    const elem = document.getElementById(elemId)
+    elem.removeEventListener('touchmove', lockMobileScroll)
   }
 
   render() {
@@ -140,7 +157,7 @@ class ZoomInImage extends React.Component {
             <TitleRowContainer
               delay={totalDelay + textDelay}
               duration={textDuration}
-              innerRef={(node) => {unlockAfterAnimation(node, elemId)}}
+              innerRef={(node) => {unlockAfterAnimation(node, afterAnimation)}}
             >
               <TitleRowUpon
                 article={article}

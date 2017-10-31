@@ -73,6 +73,9 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"production"',
         BROWSER: true,
+        API_HOST: '"localhost"',
+        API_PORT: '"8080"',
+        API_PROTOCOL: '"http"',
         RELEASE_BRANCH: '"dev"'
       },
       __CLIENT__: true,
