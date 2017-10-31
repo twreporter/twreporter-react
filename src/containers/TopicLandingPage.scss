@@ -58,6 +58,10 @@ $text-card-height: 200px;
     margin-bottom: 1.5em;
   }
 
+  iframe {
+    max-width: 100%;
+  }
+
   /* horizontal rule */
   &::after { 
     content: "";

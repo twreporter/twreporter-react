@@ -1,14 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
+import { componentMargin, layout } from '../../themes/common-variables'
 import { HeadingAuthor } from './HeadingAuthor'
 import { PublishDate } from './PublishDate'
-import { ShareBt } from './ShareBt'
-import PrintButton from '../shared/PrintButton'
-import FontChangeButton from '../FontChangeButton'
 import { screen } from '../../themes/screen'
-
-import { LAYOUT, COMPONENT_MARGIN } from '../../themes/common-variables'
-
+import { ShareBt } from './ShareBt'
+import FontChangeButton from '../FontChangeButton'
+import PrintButton from '../shared/PrintButton'
+import React from 'react'
+import styled from 'styled-components'
 
 const Container = styled.div`
   display: block;
@@ -17,14 +15,14 @@ const Container = styled.div`
     margin-bottom: 24px;
   }
   ${screen.desktopAbove`
-    width: ${LAYOUT.desktop.small};
-    margin-bottom: ${COMPONENT_MARGIN.marginBottom};
+    width: ${layout.desktop.small};
+    margin-bottom: ${componentMargin.marginBottom};
   `}
   ${screen.tablet`
-    width: ${LAYOUT.tablet.small};
+    width: ${layout.tablet.small};
   `}
   ${screen.mobile`
-    margin: 0 ${COMPONENT_MARGIN.horizontalMargin} 24px ${COMPONENT_MARGIN.horizontalMargin};
+    margin: 0 ${componentMargin.horizontalMargin} 24px ${componentMargin.horizontalMargin};
   `}
 `
 

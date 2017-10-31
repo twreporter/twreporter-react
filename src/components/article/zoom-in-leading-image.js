@@ -1,16 +1,19 @@
-import { NAVBAR_POSITION_UPON, TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
-import React from 'react'
-
+import { camelizeKeys } from 'humps'
+import { FadeText } from '@twreporter/react-components'
 import { Header } from '@twreporter/react-components'
 import { LeadingImage } from './LeadingImage'
-import { SITE_META } from '../../constants/index'
-import TitleRowUpon from './title-row-upon'
-import { camelizeKeys } from 'humps'
-import get from 'lodash/get'
-import styled, { keyframes } from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-import PropTypes from 'prop-types'
+import { NAVBAR_POSITION_UPON, TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
 import { screen } from '../../themes/screen'
+import { SITE_META } from '../../constants/index'
+import get from 'lodash/get'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
+import TitleRowUpon from './title-row-upon'
+import twreporterRedux from '@twreporter/redux'
+
+const { unlockAfterAnimation, childAnimationStoper } = FadeText.scrollManager
+const topNavbarHeight = 151
 
 const _ = {
   get
@@ -45,14 +48,15 @@ const ImageContainer = styled.div`
     height: 100vh;
     width: 100%;
   }
-  ${screen.tablet`
+  ${screen.tabletBelow`
     img {
-      height: 85vh;
-    }
-  `}
-  ${screen.mobile`
-    img {
-      height: 79vh;
+      height: ${(props) => {
+        if (props.clientHeight) {
+          return `${props.clientHeight - topNavbarHeight}px`
+        } else {
+          return `calc(100vh - ${topNavbarHeight}px)`
+        }
+      }
     }
   `}
 `
@@ -64,23 +68,36 @@ const TitleRowContainer = styled.div`
   animation-delay: ${props => `${props.delay}s`};
 `
 
-const animEndHandler = () => {
-  const elem = document.getElementById('pageContainer')
-  elem.style.overflowY = 'visible'
-  elem.style.height = 'auto'
+const elemId = 'pageContainer'
+const lockMobileScroll = (e) => {
+  e.preventDefault()
+  e.stopPropagation()
 }
-
-const addAnimatedListener = (node) => {
-  if (node) {
-    node.addEventListener('webkitAnimationEnd', animEndHandler)
-    node.addEventListener('animationend', animEndHandler)
-  }
+const afterAnimation = () => {
+  const elem = document.getElementById(elemId)
+  elem.removeEventListener('touchmove', lockMobileScroll)
 }
 
 class ZoomInImage extends React.Component {
   constructor(props) {
     super(props)
     this.titelRowNode = {}
+    this.state = {
+      clientHeight: 0
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      clientHeight: document.documentElement.clientHeight
+    })
+    const elem = document.getElementById(elemId)
+    elem.addEventListener('touchmove', lockMobileScroll)
+  }
+
+  componentWillUnmount() {
+    const elem = document.getElementById(elemId)
+    elem.removeEventListener('touchmove', lockMobileScroll)
   }
 
   render() {
@@ -94,13 +111,13 @@ class ZoomInImage extends React.Component {
     const topic = topics[0]
     const heroImage = _.get(article, [ 'heroImage' ], null)
     const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
-    const fontColor = _.get(theme, 'font_color')
-    const titlePosition = _.get(theme, 'title_position')
-    const headerPosition = _.get(theme, 'header_position')
-    const titleColor = _.get(theme, 'title_color')
-    const subTitleColor = _.get(theme, 'subtitle_color')
-    const topicColor = _.get(theme, 'topic_color')
-    const logoColor =  _.get(theme, 'logo_color')
+    const fontColor = _.get(theme, 'fontColor')
+    const titlePosition = _.get(theme, 'titlePosition')
+    const headerPosition = _.get(theme, 'headerPosition')
+    const titleColor = _.get(theme, 'titleColor')
+    const subTitleColor = _.get(theme, 'subtitleColor')
+    const topicColor = _.get(theme, 'topicColor')
+    const logoColor =  _.get(theme, 'logoColor')
     const fontColorSet = {
       topicFontColor: topicColor,
       titleFontColor: titleColor,
@@ -112,6 +129,7 @@ class ZoomInImage extends React.Component {
       <ImageContainer
         delay={totalDelay}
         duration={imageDuration}
+        clientHeight={this.state.clientHeight}
       >
         <LeadingImage
           size={heroImageSize}
@@ -139,13 +157,14 @@ class ZoomInImage extends React.Component {
             <TitleRowContainer
               delay={totalDelay + textDelay}
               duration={textDuration}
-              innerRef={addAnimatedListener}
+              innerRef={(node) => {unlockAfterAnimation(node, afterAnimation)}}
             >
               <TitleRowUpon
                 article={article}
                 topic={topic}
                 canonical={canonical}
                 fontColorSet={fontColorSet}
+                innerRef={childAnimationStoper}
               />
             </TitleRowContainer>
           : null
