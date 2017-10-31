@@ -73,10 +73,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"production"',
         BROWSER: true,
-        API_HOST: '"localhost"',
-        API_PORT: '"8080"',
-        API_PROTOCOL: '"http"',
-        RELEASE_BRANCH: '"dev"'
+        API_HOST: '"staging-go-api.twreporter.org"',
+        API_PROTOCOL: '"https"',
+        API_PORT: '"443"',
+        RELEASE_BRANCH: '"staging"'
       },
       __CLIENT__: true,
       __SERVER__: false,
