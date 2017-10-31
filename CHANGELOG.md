@@ -1,6 +1,8 @@
 ### Unreleased
+### 2.2.4
+- @twreporter/react-components version number to 1.1.4
 ### 2.2.3
-- Add center-small alignment style in src/components/article/BlockAlignmentWrapper.scss. 
+- Add center-small alignment style in src/components/article/BlockAlignmentWrapper.scss.
 - Update article to be compatible with dynamic themes
 - Create customized article.
 - Create zoom in leading image.

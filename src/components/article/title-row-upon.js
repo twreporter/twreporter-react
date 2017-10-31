@@ -1,14 +1,13 @@
-import { typography, globalColor, colors } from '../../themes/common-variables'
-
-import { LINK_PREFIX } from '../../constants/index'
-import React from 'react'
-import { date2yyyymmdd } from '../../utils/index'
-import get from 'lodash/get'
-import { screen } from '../../themes/screen'
-import styled from 'styled-components'
 // import topicRightArrow from '../../../static/asset/icon-topic-arrow-right.svg'
+import { date2yyyymmdd } from '../../utils/index'
 import { Link } from 'react-router'
+import { LINK_PREFIX } from '../../constants/index'
+import { screen } from '../../themes/screen'
+import { typography, globalColor, colors } from '../../themes/common-variables'
+import get from 'lodash/get'
 import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
 
 const _ = {
   get
@@ -19,13 +18,6 @@ const colorselector = (props, defaultColor) => {
     return props.color
   }
   return defaultColor
-}
-
-const truncate = (text, limit) => {
-  if (text.length > limit) {
-    return `${text.slice(0, limit)}`
-  }
-  return text
 }
 
 // #############################
@@ -174,8 +166,8 @@ SubtitleBlock.propTypes = {
 
 
 const HeaderGroup = ({ fontColorSet, article, topic }) => {
-  const title = truncate(_.get(article, 'title', ''), 15)
-  const subtitle = truncate(_.get(article, 'subtitle', ''), 18)
+  const title = _.get(article, 'title', '')
+  const subtitle = _.get(article, 'subtitle', '')
   const { topicFontColor, titleFontColor, subtitleFontColor } = fontColorSet
   return (
     <HeaderContainer>
