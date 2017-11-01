@@ -49,6 +49,10 @@
 @include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   .extended-leading-img {
     max-width: 100%;
+    > img {
+      object-fit: cover;
+      height: 100vh;
+    }
   }
 
   .leading-img {
@@ -67,6 +71,10 @@
   .extended-leading-img {
     max-width: 100%;
     margin: 0 auto;
+    > img {
+      object-fit: cover;
+      height: 100vh;
+    }
   }
 
   .leading-img {
