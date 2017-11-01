@@ -50,7 +50,7 @@ class LeadingImage extends React.Component {
         break
     }
 
-    const defaultImgUrl = replaceStorageUrlPrefix(_.get(image, 'tiny.url'))
+    const defaultImgUrl = replaceStorageUrlPrefix(_.get(image, 'mobile.url'))
 
     const imgJsx = this.state.isMount ? (
       <img src={defaultImgUrl} alt={description} srcSet={getImageSrcSet(image)} />
