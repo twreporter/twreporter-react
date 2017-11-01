@@ -99,6 +99,7 @@
 
 ### 2.1.6
 - Update .circleci/config.yml. Separate staging and prod docker build.
+- Bug fix. Can not link to /categories/reviews from index page on client side
 
 ### 2.1.5
 - Update yarn.lock
