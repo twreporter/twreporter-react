@@ -14,12 +14,6 @@
 }
 
 .article-inner {
-    p,
-    a:link,
-    a:visited {
-        color: $text-color;
-        letter-spacing: $general-letter-space;
-    }
     .title-row {
         margin-bottom: rem(24px);
         h3 {
@@ -71,6 +65,14 @@
     }
     .leading-img {
         margin-bottom: $component-margin-bottom;
+        a {
+          border-bottom: none;
+          &:after {
+              position: initial;
+              background: none;
+              content: initial;
+          }
+        }
     }
     .introduction {
         margin-bottom: $component-margin-bottom * 2;
@@ -84,28 +86,6 @@
         font-weight: $font-weight-bold;
         line-height: 1.5;
         padding-top: 1.5rem;
-    }
-    a {
-        border-bottom: 1px $primary-color solid;
-        cursor: pointer;
-        transition: 0.5s all ease;
-        position: relative;
-        &:hover {
-            color: $primary-color;
-        }
-        &:after {
-            position: absolute;
-            content: "";
-            left: 0;
-            bottom: -0.13em;
-            height: 0.11rem;
-            width: 0;
-            background: $primary-color;
-            transition: 0.5s all ease;
-        }
-        &:hover:after {
-            width: 100%;
-        }
     }
     u {
         text-decoration: none;
@@ -218,4 +198,12 @@
 
 .icons {
   @include fade-in-left(0.5s);
+}
+
+// The bottomRelated component extends component style of common.scss file.
+// margin-bottom of component style extends the inner div. However, in this circumstance,
+// without padding-bottom value, the background color of outter div will not be extended,
+// which will create a blank margin.
+.padding-patch {
+  padding-bottom: 1px;
 }

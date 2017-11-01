@@ -5,13 +5,12 @@ import SystemError from '../components/SystemError'
 import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
 import get from 'lodash/get'
-import twreporterRedux from 'twreporter-redux'
-
-import { BRIGHT, SITE_META, SITE_NAME } from '../constants/index'
-import { List } from 'twreporter-react-components'
+import twreporterRedux from '@twreporter/redux'
+import withLayout from '../helpers/with-layout'
+import { SITE_META, SITE_NAME } from '../constants/index'
+import { List } from '@twreporter/react-components'
 import { camelize } from 'humps'
 import { connect } from 'react-redux'
-import { setHeaderInfo } from '../actions/header'
 
 const _  = {
   get
@@ -47,10 +46,7 @@ class Category extends Component {
   }
 
   componentWillMount() {
-    const { lists, fetchListedPosts, setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: BRIGHT
-    })
+    const { lists, fetchListedPosts } = this.props
 
     let catId = this.state.catId
 
@@ -149,14 +145,14 @@ function mapStateToProps(state) {
 }
 
 Category.defaultProps = {
-  lists: {},
-  entities: {}
+  entities: {},
+  lists: {}
 }
 
 Category.propTypes = {
-  lists: React.PropTypes.object,
-  entities: React.PropTypes.object
+  entities: React.PropTypes.object,
+  lists: React.PropTypes.object
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts, setHeaderInfo })(Category)
+export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Category))

@@ -59,7 +59,6 @@ app.get('*', async function (req, res, next) {
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
   let routes = createRoutes(history)
-
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -75,10 +74,12 @@ app.get('*', async function (req, res, next) {
 
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
-        const params = get(renderProps, 'params', {})
-        const comp = renderProps.components[renderProps.components.length - 1].WrappedComponent
+        const pathname = get(renderProps, 'location.pathname', '')
+        const params = get(renderProps, 'params', {}, '')
+        let comp = renderProps.components[renderProps.components.length - 1]
+        comp = comp.WrappedComponent || comp
         const promise = comp.fetchData ?
-          comp.fetchData({ query, params, store, history }) :
+          comp.fetchData({ query, params, store, history, pathname }) :
           Promise.resolve()
 
         return promise

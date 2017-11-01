@@ -1,17 +1,16 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
+import ArticleList from '../components/ArticleList'
 import Helmet from 'react-helmet'
 import React, { Component } from 'react'
-import ArticleList from '../components/ArticleList'
 import TopNews from '../components/TopNews'
 import categoryListID from '../conf/category-list-id'
-import twreporterRedux from 'twreporter-redux'
-
+import twreporterRedux from '@twreporter/redux'
+import withLayout, { photoTheme as theme } from '../helpers/with-layout'
 import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles, getCatId } from '../utils/index'
-import { setHeaderInfo } from '../actions/header'
 
 // lodash
 import filter from 'lodash/filter'
@@ -48,15 +47,9 @@ class Photography extends Component {
   }
 
   componentWillMount() {
-    const { fetchListedPosts, fetchPhotographyPostsOnIndexPage, setHeaderInfo } = this.props
+    const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } = this.props
     fetchPhotographyPostsOnIndexPage()
     fetchListedPosts(listID, categories, MAXRESULT)
-
-    setHeaderInfo({
-      pageTheme: DARK,
-      pageType: PHOTOGRAPHY_PAGE,
-      readPercent: 0
-    })
   }
 
   _loadMoreArticles() {
@@ -116,24 +109,27 @@ class Photography extends Component {
 }
 
 Photography.defaultProps = {
-  lists: {},
   entities: {},
-  featuredPosts: []
+  featuredPosts: [],
+  lists: {}
 }
 
 Photography.propTypes = {
-  lists: React.PropTypes.object,
   entities: React.PropTypes.object,
-  featuredPosts: React.PropTypes.array
+  featuredPosts: React.PropTypes.array,
+  lists: React.PropTypes.object
 }
 
 function mapStateToProps(state) {
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
-    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ])
+    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ]),
+
+    // theme is used by `withLayout` function
+    theme
   }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage, setHeaderInfo })(Photography)
+export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage })(withLayout(Photography))

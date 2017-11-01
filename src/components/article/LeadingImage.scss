@@ -2,6 +2,10 @@
 @import '../../themes/common-variables';
 @import "../../themes/media-queries.scss";
 
+.title-upon-left{
+  position: relative;
+}
+
 .extended-leading-img, .leading-img, .small-leading-img {
   width: 100%;
   overflow: hidden;
@@ -12,6 +16,16 @@
 
 .img-placeholder {
   filter: blur(50px);
+}
+
+// mobile
+@include mq($max-width: $screen-xs-max) {
+  .title-upon-left {
+    > img {
+      height: calc(100vh - 151px);
+      object-fit: cover;
+    }
+  }
 }
 
 // tablet
@@ -35,6 +49,10 @@
 @include mq($min-width: $screen-md-min, $max-width: $screen-lg-max) {
   .extended-leading-img {
     max-width: 100%;
+    > img {
+      object-fit: cover;
+      height: 100vh;
+    }
   }
 
   .leading-img {
@@ -51,8 +69,12 @@
 // desktop HD
 @include mq($min-width: $screen-hd-min) {
   .extended-leading-img {
-    max-width: 1060px;
+    max-width: 100%;
     margin: 0 auto;
+    > img {
+      object-fit: cover;
+      height: 100vh;
+    }
   }
 
   .leading-img {

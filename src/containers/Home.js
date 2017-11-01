@@ -1,16 +1,16 @@
 /*eslint no-unused-vars:0, no-console:0 */
 import Helmet from 'react-helmet'
+import LoadingSpinner from '../components/Spinner'
 import React from 'react'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
-import { IndexPageComposite } from 'twreporter-react-components'
 import styled, { keyframes } from 'styled-components'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
+import { CSSTransitionGroup } from 'react-transition-group'
+import { Footer } from '@twreporter/react-components'
+import { IndexPageComposite } from '@twreporter/react-components'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { CSSTransitionGroup } from 'react-transition-group'
-import { Footer } from 'twreporter-react-components'
-import LoadingSpinner from '../components/Spinner'
 
 // lodash
 import get from 'lodash/get'
@@ -117,7 +117,6 @@ const webSiteJSONLD = {
   '@type' : 'WebSite',
   'name' : '報導者 The Reporter',
   'url' : 'https://www.twreporter.org/',
-  'logo': 'https://www.twreporter.org/asset/logo-large.png',
   'potentialAction' : {
     '@type' : 'SearchAction',
     'target' : 'https://www.twreporter.org/search?q={search_term}',
@@ -126,87 +125,67 @@ const webSiteJSONLD = {
 }
 
 const siteNavigationJSONLD = {
-  '@context': 'http://schema.org',
-  '@type': 'ItemList',
-  'itemListElement': [ {
-    '@type': 'SiteNavigationElement',
-    'position': 1,
-    'item': {
-      '@id': 'https://www.twreporter.org/',
-      'name': '首頁'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/topics',
-      'name': '最新專題'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/human_rights_and_society',
-      'name': '人權．社會'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/environment_and_education',
-      'name': '環境．教育'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/politics_and_economy',
-      'name': '政治．經濟'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/living_and_medical_care',
-      'name': '生活．醫療'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/culture_and_art',
-      'name': '文化．藝術'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/international',
-      'name': '國際．兩岸'
-    }
-  },{
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/reviews',
-      'name': '評論'
-    }
-  }, {
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/categories/infographic',
-      'name': '多媒體'
-    }
-  }, {
-    '@type': 'SiteNavigationElement',
-    'position': 2,
-    'item': {
-      '@id': 'https://www.twreporter.org/photography',
-      'name': '影像'
-    }
-  } ]
+  '@context': 'https://schema.org',
+  '@graph':
+    [
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/',
+        'name':'首頁'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/topics',
+        'name':'最新專題'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/human_rights_and_society',
+        'name':'人權．社會'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/environment_and_education',
+        'name':'環境．教育'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/politics_and_economy',
+        'name':'政治．經濟'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/living_and_medical_care',
+        'name':'生活．醫療'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/culture_and_art',
+        'name':'文化．藝術'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/international',
+        'name':'國際．兩岸'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/infographic',
+        'name':'多媒體'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/photography',
+        'name':'影像'
+      },
+      {
+        '@type':'SiteNavigationElement',
+        'url':'https://www.twreporter.org/categories/reviews',
+        'name':'評論'
+      }
+    ]
 }
+
 
 class Homepage extends React.Component {
   static async fetchData({ store }) {

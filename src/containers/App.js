@@ -5,14 +5,6 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import Layout from '../components/Layout'
-
-// lodash
-import get from 'lodash/get'
-
-const _ = {
-  get
-}
 
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
@@ -35,28 +27,23 @@ class App extends PureComponent {
   }
 
   render() {
-    const pathname = _.get(this.props, 'location.pathname')
-
     return (
       <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-        <Layout
-          header={this.props.header}
-          pathname={pathname}
-        >
-          {this.props.children}
-        </Layout>
+        {this.props.children}
       </IntlProvider>
     )
   }
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object
+  location: React.PropTypes.object,
+  device: React.PropTypes.string
 }
 
 function mapStateToProps(state) {
   return {
-    header: state.header
+    header: state.header,
+    device: state.device
   }
 }
 
