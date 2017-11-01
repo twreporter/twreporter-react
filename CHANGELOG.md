@@ -1,4 +1,6 @@
 ### Unreleased
+### 2.2.6
+- Change LeadingImage defaultImgUrl from tiny to mobile
 ### 2.2.5
 - @twreporter/react-components version number to 1.1.5
 - fix sherry-special scroll locking problem
