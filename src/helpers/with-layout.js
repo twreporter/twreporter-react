@@ -11,6 +11,14 @@ const _ = {
   get
 }
 
+const SpecialContainer = styled.div`
+  background-color: ${props => props.bgColor};
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+`
+
 const Container = styled.div`
   background-color: ${props => props.bgColor};
   min-height: 100vh;
@@ -63,7 +71,7 @@ const photoTheme = {
 
 class Layout extends React.Component {
   render() {
-    const { bgColor, footerBgColor, fontColor, logoColor, headerPosition } = this.props
+    const { bgColor, footerBgColor, fontColor, logoColor, headerPosition, special } = this.props
     const JSXheader = <Header
       isIndex={this.props.isIndex}
       bgColor={bgColor}
@@ -73,27 +81,43 @@ class Layout extends React.Component {
       headerPosition={headerPosition}
       footerBgColor={footerBgColor}
     />
+    const content = (() => {
+      return (
+        <div>
+          { headerPosition === DEFAULT_VALUES.HEADER_POSITION ? (
+            <div>
+              { JSXheader }
+            </div>
+          )
+           : (
+            <HeaderContainer>
+              { JSXheader }
+            </HeaderContainer>
+          )
+          }
+          {this.props.children}
+          <Footer
+            fontColor={fontColor}
+            bgColor={footerBgColor}
+          />
+        </div>
+      )
+    })()
+    if (special) {
+      return (
+        <SpecialContainer
+          bgColor={bgColor}
+          id="pageContainer"
+        >
+          {content}
+        </SpecialContainer>
+      )
+    }
     return (
       <Container
         bgColor={bgColor}
-        id="pageContainer"
       >
-        { headerPosition === DEFAULT_VALUES.HEADER_POSITION ? (
-          <div>
-            { JSXheader }
-          </div>
-        )
-         : (
-          <HeaderContainer>
-            { JSXheader }
-          </HeaderContainer>
-        )
-        }
-        {this.props.children}
-        <Footer
-          fontColor={fontColor}
-          bgColor={footerBgColor}
-        />
+        {content}
       </Container>
     )
   }
@@ -106,7 +130,8 @@ Layout.propTypes = {
   headerPosition: PropTypes.string,
   isIndex: PropTypes.bool,
   logoColor: PropTypes.string,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  special: PropTypes.bool
 }
 
 Layout.defaultProps = {
@@ -115,7 +140,8 @@ Layout.defaultProps = {
   footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
   headerPosition: DEFAULT_VALUES.HEADER_POSITION,
   isIndex: false,
-  logoColor: Header.logoColor.dark
+  logoColor: Header.logoColor.dark,
+  special: false
 }
 
 /**
@@ -134,7 +160,7 @@ function getDisplayName(WrappedComponent) {
  * @param {object} WrappedComponent react component to be wrapped
  * @returns {object} React component wrapped with Layout component
  */
-export default function withLayout(WrappedComponent) {
+export default function withLayout(WrappedComponent, special) {
   return class WithLayout extends React.Component {
     static displayName = `WithLayout(${getDisplayName(WrappedComponent)})`
     static propTypes = {
@@ -175,6 +201,7 @@ export default function withLayout(WrappedComponent) {
           bgColor={theme.bgColor}
           logoColor={theme.logoColor}
           pathname={pathname}
+          special={special}
         >
           <WrappedComponent
             theme={theme}

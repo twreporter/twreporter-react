@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.2.5
+- @twreporter/react-components version number to 1.1.5
+- fix sherry-special scroll locking problem
 ### 2.2.4
 - @twreporter/react-components version number to 1.1.4
 ### 2.2.3
