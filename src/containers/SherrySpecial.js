@@ -72,7 +72,7 @@ class SherrySpecial extends Article {
           fontColor={fadeText.style.fontColor}
           duration={fadeText.duration.textInOut}
           bgOutDuration={fadeText.duration.bgOut}
-          ifLock={true}
+          ifLock={false}
           ifUnlock={false}
         />
         {
@@ -116,4 +116,7 @@ SherrySpecial.defaultProps = {
   ifDelegateImage: false
 }
 
-export default connect(enhancedMapStateToProps, { fetchAFullPost })(withLayout(SherrySpecial))
+// if special true => lock scroll
+const special = true
+
+export default connect(enhancedMapStateToProps, { fetchAFullPost })(withLayout(SherrySpecial, special))

@@ -12,7 +12,7 @@ import styled, { keyframes } from 'styled-components'
 import TitleRowUpon from './title-row-upon'
 import twreporterRedux from '@twreporter/redux'
 
-const { unlockAfterAnimation, childAnimationStoper } = FadeText.scrollManager
+const { childAnimationStoper, unlockAfterAnimation } = FadeText.scrollManager
 const topNavbarHeight = 151
 
 const _ = {
@@ -73,9 +73,16 @@ const lockMobileScroll = (e) => {
   e.preventDefault()
   e.stopPropagation()
 }
-const afterAnimation = () => {
+
+
+const scrollUnlocker = (e) => {
+  if (e) {
+    e.stopPropagation()
+  }
   const elem = document.getElementById(elemId)
   elem.removeEventListener('touchmove', lockMobileScroll)
+  elem.style.height = 'auto'
+  elem.style.overflowY = 'visible'
 }
 
 class ZoomInImage extends React.Component {
@@ -96,8 +103,7 @@ class ZoomInImage extends React.Component {
   }
 
   componentWillUnmount() {
-    const elem = document.getElementById(elemId)
-    elem.removeEventListener('touchmove', lockMobileScroll)
+    scrollUnlocker()
   }
 
   render() {
@@ -157,7 +163,7 @@ class ZoomInImage extends React.Component {
             <TitleRowContainer
               delay={totalDelay + textDelay}
               duration={textDuration}
-              innerRef={(node) => {unlockAfterAnimation(node, afterAnimation)}}
+              innerRef={(node) => {unlockAfterAnimation(node, scrollUnlocker)}}
             >
               <TitleRowUpon
                 article={article}
