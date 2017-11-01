@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 2.2.7
+- Fix topic isFetching Bug
+
 ### 2.2.6
 - Change LeadingImage defaultImgUrl from tiny to mobile
 ### 2.2.5
