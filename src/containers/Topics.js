@@ -98,10 +98,9 @@ class Topics extends Component {
   }
 
   render() {
-    const { topics, page, totalPages, topicError, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
+    const { topics, page, totalPages, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
 
-    const isFirstTopicWaitToFetchFull = (page === 1) && (_.get(topics, [ 1, 'full' ], false) && !topicError)
-    const isFetching = isTopicFetching || isTopicsFetching || isFirstTopicWaitToFetchFull
+    const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
 
     /*
