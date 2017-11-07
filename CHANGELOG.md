@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.2.8
+- Remove Sherryspecial route
+
 ### 2.2.7
 - Fix topic isFetching Bug
 

@@ -4,7 +4,6 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 import App from '../containers/App'
 import React from 'react'
 import { Route, Router, browserHistory } from 'react-router'
-import customizedPath from '../constants/customized-article-path'
 
 function loadRoute(cb) {
   return (module) => {
@@ -85,11 +84,6 @@ export default function createRoutes(history = browserHistory) {
             import('../containers/Search').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
-        <Route
-          path={`a/${customizedPath.HIGH_RISK_YOUTH}`}
-          getComponent={(location, cb) => {
-            import('../containers/SherrySpecial').then(loadRoute(cb)).catch(errorLoading)
-          }} />
         <Route
           path="a/:slug"
           getComponent={(location, cb) => {
