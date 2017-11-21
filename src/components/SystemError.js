@@ -25,7 +25,7 @@ function SystemError({ error }) {
     marginTop: 35
   }
 
-  let errorMessageJsx = _.get(error, 'status', 500) === 404 ? (
+  let errorMessageJsx = _.get(error, 'status', 500) === 404  || _.get(error, 'response.status', 500) === 404 ? (
     <h1 style={style}>{ERROR_MESSAGE_404}</h1>
   ) : (
     <div className={commonStyles['inner-block']}>
