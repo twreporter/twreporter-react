@@ -1,15 +1,24 @@
 ### Unreleased
 
+### 2.2.9
+- Bump @twreporter/react-components version to 1.3.0
+
+### 2.2.8
+- Remove Sherryspecial route
+
 ### 2.2.7
 - Fix topic isFetching Bug
 
 ### 2.2.6
 - Change LeadingImage defaultImgUrl from tiny to mobile
+
 ### 2.2.5
 - @twreporter/react-components version number to 1.1.5
 - fix sherry-special scroll locking problem
+
 ### 2.2.4
 - @twreporter/react-components version number to 1.1.4
+
 ### 2.2.3
 - Add center-small alignment style in src/components/article/BlockAlignmentWrapper.scss.
 - Update article to be compatible with dynamic themes
@@ -99,6 +108,7 @@
 
 ### 2.1.6
 - Update .circleci/config.yml. Separate staging and prod docker build.
+- Bug fix. Can not link to /categories/reviews from index page on client side
 
 ### 2.1.5
 - Update yarn.lock

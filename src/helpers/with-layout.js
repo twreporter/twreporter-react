@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { Footer } from '@twreporter/react-components'
-import { Header } from '@twreporter/react-components'
+import Footer from '@twreporter/react-components/lib/footer'
+import Header from '@twreporter/react-components/lib/header'
 import { layout } from '../themes/common-variables'
 
 // lodash

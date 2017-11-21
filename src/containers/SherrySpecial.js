@@ -1,6 +1,6 @@
 import { Article, mapStateToProps } from './Article'
 import { connect } from 'react-redux'
-import { FadeText } from '@twreporter/react-components'
+import FadeText from '@twreporter/react-components/lib/fade-text'
 import customizedPathSet from '../constants/customized-article-path'
 import get from 'lodash/get'
 import React from 'react'
