@@ -8,7 +8,7 @@ import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
-import { List } from '@twreporter/react-components'
+import { List } from '@twreporter/react-components/lib/listing-page'
 import { camelize } from 'humps'
 import { connect } from 'react-redux'
 
