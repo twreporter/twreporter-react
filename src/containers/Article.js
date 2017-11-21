@@ -4,7 +4,7 @@
 import ArticleMeta from '../components/article/article-meta'
 import * as ArticleComponents from '../components/article/index'
 import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
-import { Header } from '@twreporter/react-components'
+import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import MobileArticleTools from '../components/article/tools/MobileArticleTools'
@@ -28,7 +28,7 @@ import styled from 'styled-components'
 import { screen } from '../themes/screen'
 import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
-import { ABOUT_US_FOOTER,  CONTACT_FOOTER, PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
+import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
 import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
@@ -154,15 +154,8 @@ const ArticlePlaceholder = () => {
 
 class Article extends PureComponent {
 
-  // for server side rendering,
-  // we get not only the article itself but also get related articles and
-  // other articles in the same topic for BETTER SEO
   static fetchData({ params, store }) {
     const slug = params.slug
-    if (slug === ABOUT_US_FOOTER || slug === CONTACT_FOOTER || slug === PRIVACY_FOOTER) {
-      return store.dispatch(fetchAFullPost(slug))
-    }
-    // get article itself first
     return store.dispatch(fetchAFullPost(slug)).then(() => {
       const state = store.getState()
       const selectedPost = _.get(state, reduxStateFields.selectedPost, {})

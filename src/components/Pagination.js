@@ -1,4 +1,4 @@
-import { Pagination } from '@twreporter/react-components'
+import Pagination from '@twreporter/react-components/lib/pagination'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
