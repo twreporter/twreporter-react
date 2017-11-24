@@ -30,8 +30,8 @@ export const QuoteBy = ({ content, device }) => { // eslint-disable-line
   )
 }
 
-export const BlockQuote = ({ content, device }) => { // eslint-disable-line
+const BlockQuote = ({ content, device }) => { // eslint-disable-line
   return <blockquote className={classNames(commonStyles['inner-block'], styles['blockquote'], 'text-justify')} dangerouslySetInnerHTML={{ __html: get(content, [ 0 ], '') }}></blockquote>
 }
 
-export const AlignedQuoteBy = BlockAlignmentWrapper(QuoteBy)
+export default BlockAlignmentWrapper(QuoteBy)

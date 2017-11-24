@@ -4,10 +4,43 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import getArticleComponent from './getArticleComponent'
+import styled from 'styled-components'
+import commons from './commons'
 import styles from './Body.scss'
+import Annotation from './annotation'
+import { ComponentContainer } from './commons'
+import { layout, screen } from '../../themes/screen'
 
 // lodash
 import get from 'lodash/get'
+
+const CustomComponentContainer = ComponentContainer.extend`
+  ${screen.tablet`
+    max-width: ${layout.tabletMediumWidth};
+  `}
+
+  ${screen.desktop`
+    max-width: ${layout.desktopMediumWidth};
+  `}
+
+  ${screen.overDesktop`
+    max-width: ${layout.hdDesktopMediumWidth};
+  `}
+`
+
+const getComponentContainer = (type) => {
+  switch(type) {
+    case 'image':
+    case 'imagediff':
+    case 'slideshow':
+    case 'youtube': {
+      return CustomComponentContainer
+    }
+    default: {
+      return ComponentContainer
+    }
+  }
+}
 
 export class Body extends Component {
   constructor(props) {
@@ -29,51 +62,46 @@ export class Body extends Component {
     fontSizeStyle = styles[fontSizeStyle]
 
     if (Array.isArray(data)) {
-      let Blocks = data.map((ele) => {
+      const Blocks = data.map((ele) => {
+        const type = ele.type
+        const ArticleComponent = getArticleComponent(type)
+        const ArticleComponentContainer = getComponentContainer(type)
         let anchor = null
-        let styles = {}
-        let type = ele.type
-        let Component = getArticleComponent(type)
+        let minHeight = 'auto'
+        let width = 'auto'
 
         if(type === 'header-one') {
           sectionCnt++
-          anchor = <div id={`section-${sectionCnt}`} className={styles['anchor']}></div>
+          anchor = <div id={`section-${sectionCnt}`}></div>
         } else if (type === 'embeddedcode') {
-          let embeddedContent = get(ele, [ 'content', 0 ], {})
-          let width = get(embeddedContent, 'width')
-          let height = get(embeddedContent, 'height')
-          if (width) {
-            styles.width = width
-          }
-          if (height) {
-            styles.minHeight = height
-          }
+          const embeddedContent = get(ele, [ 'content', 0 ], {})
+          width = get(embeddedContent, 'width', 'auto')
+          minHeight = get(embeddedContent, 'height', 'auto')
         }
 
-        if (!Component) {
+        if (!ArticleComponent || !ArticleComponentContainer) {
           return null
         }
 
         return (
-          <div
+          <ArticleComponentContainer
             key={ele.id}
-            className={classNames(commonStyles['component'], commonStyles[type], fontSizeStyle)}
-            style={styles}
+            width={width}
+            minHeight={minHeight}
           >
             {anchor}
-            <Component
+            <ArticleComponent
               alignment={ele.alignment}
               content={ele.content}
               id={ele.id}
               styles={ele.styles}
             />
-          </div>
+          </ArticleComponentContainer>
         )
       })
       return (
         <div
           itemProp="articleBody"
-          className={commonStyles['components']}
         >
           {Blocks}
         </div>

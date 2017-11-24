@@ -304,4 +304,4 @@ Audio.defaultProps = {
   styles: {}
 }
 
-export { Audio }
+export default Audio

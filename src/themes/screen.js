@@ -18,6 +18,18 @@ export const breakPoints = {
   overDesktopMinWidth: `${DEKTOP_HD_MIN}px`
 }
 
+export const layout = {
+  tabletSmallWidth: '556px',
+  tabletMediumWidth: '672px',
+  tabletLargeWidth: `${TABLET_MIN}px`,
+  desktopSmallWidth: '664px',
+  desktopMediumWidth: '833px',
+  desktopLargeWidth: '1024px',
+  hdDesktopSmallWidth: '700px',
+  hdDesktopMediumWidth: '880px',
+  hdDesktopLargeWidth: '1440px'
+}
+
 export const screen = {
   mobile: (...args) => css`
     @media (max-width: ${breakPoints.mobileMaxWidth}) {

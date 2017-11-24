@@ -7,7 +7,7 @@ import React from 'react' // eslint-disable-next-line
 // lodash
 import get from 'lodash/get'
 
-export class AnnotationBlock extends React.Component {
+class AnnotationBlock extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -63,7 +63,7 @@ AnnotationBlock.defaultProps = {
   text: ''
 }
 
-export const Annotation = ({ content }) => {
+const Annotation = ({ content }) => {
   let html = get(content, 0, '')
 
   // annotation data will be in the comment with prefix __ANNOTATION__=
@@ -108,3 +108,4 @@ export const Annotation = ({ content }) => {
   )
 }
 
+export default Annotation
