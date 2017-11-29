@@ -1,5 +1,5 @@
 'use strict'
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const tag = new Schema('tags')
+const tag = new schema.Entity('tags')
 export { tag }

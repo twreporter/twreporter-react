@@ -7,7 +7,7 @@ import qs from 'qs'
 import twreporterRedux from '@twreporter/redux'
 import { InternalServerError } from '../custom-error'
 import { MAX_ARTICLES_PER_FETCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/author-page'
-import { arrayOf, normalize } from 'normalizr'
+import { schema, normalize } from 'normalizr'
 import { article as articleSchema } from '../schemas/index'
 import { camelizeKeys } from 'humps'
 import * as CONSTANTS from '../constants/index'
@@ -71,7 +71,7 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
           const responseItems = _.get(responseObject, 'hits', {})    // responseObject.hit
           const responseContext = _.omit(responseObject, 'hits', {}) // All the other things in responseObject except responseObject.hit
           const camelizedJson = camelizeKeys(responseItems)
-          const items = normalize(camelizedJson, arrayOf(articleSchema))
+          const items = normalize(camelizedJson, new schema.Array(articleSchema))
           const returnParas = { authorId, items, responseContext }
           // delay for displaying loading spinner
           function delayDispatch() {

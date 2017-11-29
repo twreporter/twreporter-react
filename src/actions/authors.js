@@ -8,7 +8,7 @@ import twreporterRedux from '@twreporter/redux'
 import { InternalServerError } from '../custom-error'
 import { MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/authors-list'
 import { author as authorSchema } from '../schemas/index'
-import { arrayOf, normalize } from 'normalizr'
+import { schema, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import * as CONSTANTS from '../constants/index'
 
@@ -67,7 +67,7 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
       .then((responseObject) => {
         const items = _.get(responseObject, 'hits', {}) // responseObject.hit
         const camelizedJson = camelizeKeys(items)
-        const responseItems = normalize(camelizedJson, arrayOf(authorSchema))
+        const responseItems = normalize(camelizedJson, new schema.Array(authorSchema))
 
         const currentPage = _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
         const totalPages = _.get(responseObject, 'nbPages', 0)

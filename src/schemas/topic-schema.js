@@ -1,11 +1,13 @@
 'use strict'
-import { Schema, arrayOf } from 'normalizr'
+import { schema } from 'normalizr'
 
-const article = new Schema('articles')
-const topic = new Schema('topics')
+const { Array, Entity } = schema
+
+const article = new Entity('articles')
+const topic = new Entity('topics')
 
 topic.define({
-  relateds: arrayOf(article)
+  relateds: new Array(article)
 })
 
 export { topic }

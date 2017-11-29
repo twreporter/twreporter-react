@@ -1,4 +1,4 @@
-import { arrayOf, normalize } from 'normalizr'
+import { schema, normalize } from 'normalizr'
 import { article as articleSchema } from '../../../schemas/index'
 import { camelizeKeys } from 'humps'
 
@@ -94,4 +94,4 @@ export const mockResponse = {
 
 // mock properties of action after normalize
 const camelizedJson = camelizeKeys(mockResponse.hits)
-export const items = normalize(camelizedJson, arrayOf(articleSchema))
+export const items = normalize(camelizedJson, new schema.Array(articleSchema))

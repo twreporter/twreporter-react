@@ -1,4 +1,4 @@
-import { arrayOf, normalize } from 'normalizr'
+import { schema, normalize } from 'normalizr'
 import { author as authorSchema } from '../../../schemas/index'
 import { camelizeKeys } from 'humps'
 import { NUMBER_OF_FIRST_RESPONSE_PAGE, MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH } from '../../../constants/authors-list'
@@ -8,7 +8,7 @@ export const constKeywords = 'testKeywords'
 
 function theNormalize(hits) {
   const camelizedJson = camelizeKeys(hits)
-  return  normalize(camelizedJson, arrayOf(authorSchema))
+  return normalize(camelizedJson, new schema.Array(authorSchema))
 }
 
 const mockResponseHits = [ '1', '2', '3', '4', '5' ].map(function (v) {

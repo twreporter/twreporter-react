@@ -1,19 +1,21 @@
 'use strict'
-import { Schema, arrayOf } from 'normalizr'
+import { schema } from 'normalizr'
 
-const author = new Schema('authors')
-const category = new Schema('categories')
-const tag = new Schema('tags')
-const topic = new Schema('topics')
-const article = new Schema('articles')
+const { Array, Entity } = schema
+
+const author = new Entity('authors')
+const category = new Entity('categories')
+const tag = new Entity('tags')
+const topic = new Entity('topics')
+const article = new Entity('articles')
 
 article.define({
-  categories: arrayOf(category),
-  designers: arrayOf(author),
-  engineers: arrayOf(author),
-  photographers: arrayOf(author),
-  writters: arrayOf(author),
-  tags: arrayOf(tag),
+  categories: new Array(category),
+  designers: new Array(author),
+  engineers: new Array(author),
+  photographers: new Array(author),
+  writters: new Array(author),
+  tags: new Array(tag),
   topics: topic
 })
 

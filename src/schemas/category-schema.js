@@ -1,5 +1,5 @@
 'use strict'
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const category = new Schema('categories')
+const category = new schema.Entity('categories')
 export { category }
