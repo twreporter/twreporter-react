@@ -1,9 +1,9 @@
 ### Unreleased
 - Fix Google structure data errors
 
-### 2.3.0-beta.1.0.0
+### 3.0.0
 - Create registration system (RS)
-- RS: SignIn, SignUp, ChangePW, ForgetPW
+- RS: SignIn, SignUp, Activation...
 - Implement bookmark feature
 - Mobile Navbar
 

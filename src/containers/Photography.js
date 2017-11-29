@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import ArticleList from '../components/ArticleList'
 import TopNews from '../components/TopNews'
 import categoryListID from '../conf/category-list-id'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'

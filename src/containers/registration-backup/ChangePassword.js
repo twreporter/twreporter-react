@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChangePassword, PageContainer } from 'twreporter-registration'
+import { ChangePassword, PageContainer } from '@twreporter/registration'
 
 const TITLE = '更改密碼'
 const TEXT_AFTER_CHANGE = '密碼更改成功'

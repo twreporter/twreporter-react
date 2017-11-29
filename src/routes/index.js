@@ -12,6 +12,8 @@ if (typeof window !== 'undefined') {
   ReactGA.set({ page: window.location.pathname })
 }
 
+// The variable host is declared for @twreporter/registration
+export const ACTIVATE_PAGE_PATH = 'activate'
 
 function scrollAndFireTracking() {
   if(window) {
@@ -139,7 +141,7 @@ export default function (history = browserHistory) {
           }}
         />
         <Route
-          path="activate"
+          path={ACTIVATE_PAGE_PATH}
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
               const module = require('../containers/Activation')
@@ -148,10 +150,10 @@ export default function (history = browserHistory) {
           }}
         />
         <Route
-          path="signin(/:type/:slug)"
+          path="signin"
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
-              const module = require('../containers/SignIn')
+              const module = require('../containers/sign-in')
               cb(null, module.default || module)
             })
           }}
@@ -160,25 +162,16 @@ export default function (history = browserHistory) {
           path="signup"
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
-              const module = require('../containers/SignUp')
+              const module = require('../containers/sign-up')
               cb(null, module.default || module)
             })
           }}
         />
         <Route
-          path="forgetpw"
+          path="confirm"
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
-              const module = require('../containers/ForgetPassword')
-              cb(null, module.default || module)
-            })
-          }}
-        />
-        <Route
-          path="changepw"
-          getComponent={(nextStateWithLocation, cb) => {
-            require.ensure([], (require) => {
-              const module = require('../containers/ChangePassword')
+              const module = require('../containers/confirm-after-sign')
               cb(null, module.default || module)
             })
           }}
@@ -189,7 +182,7 @@ export default function (history = browserHistory) {
           getComponent={(nextStateWithLocation, cb) => {
             require.ensure([], (require) => {
               const subModule = require('../containers/BookmarkList')
-              const AuthScreen = require('twreporter-registration').AuthenticationScreen
+              const AuthScreen = require('@twreporter/registration').AuthenticationScreen
               cb(null, AuthScreen(subModule.default))
             })
           }}

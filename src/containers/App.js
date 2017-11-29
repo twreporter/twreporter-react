@@ -5,7 +5,7 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import { signOutAction } from 'twreporter-registration'
+import { signOutAction } from '@twreporter/registration'
 import Layout from '../components/Layout'
 
 // lodash

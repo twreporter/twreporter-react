@@ -22,7 +22,7 @@ import logoIcon from '../../static/asset/icon-placeholder.svg'
 import styles from './Article.scss'
 import topicRightArrow from '../../static/asset/icon-topic-arrow-right.svg'
 import twitterIcon from '../../static/asset/twitter.svg'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 import { ABOUT_US_FOOTER, ARTICLE_STYLE, BRIGHT, CONTACT_FOOTER, DARK,  PHOTOGRAPHY_ARTICLE_STYLE, PRIVACY_FOOTER, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { Link, browserHistory } from 'react-router'
@@ -165,9 +165,7 @@ class Article extends PureComponent {
     }
   }
 
-  _checkIfBookmarkListed() {
-    const { selectedPost } = this.props
-    const slug = _.get(selectedPost, 'slug')
+  _checkIfBookmarkListed(slug) {
     this._toGetCurrentBookmark(slug, config.host)
   }
 
@@ -211,8 +209,8 @@ class Article extends PureComponent {
   componentWillMount() {
     const { params } = this.props
     let slug = _.get(params, 'slug')
-
     this.props.fetchAFullPost(slug)
+    this._checkIfBookmarkListed(slug)
   }
 
   componentWillUnmount() {
@@ -237,9 +235,8 @@ class Article extends PureComponent {
       this.rp = null
       this.dat = null
       this.mat = null
+      this._checkIfBookmarkListed(slug)
     }
-
-    this._checkIfBookmarkListed()
   }
 
   _onScroll() {
@@ -387,7 +384,7 @@ class Article extends PureComponent {
       const type = _.get(entities, `posts.${slug}.style`) === 'interactive' ? 'i' : 'a'
       const webStatus = _.get(error, 'response.status')
       if (webStatus === 401) {
-        browserHistory.push(`/signin/${type}/${slug}`)
+        browserHistory.push(`/signin/?path=${type}/${slug}`)
       }
     }
   }
@@ -475,13 +472,7 @@ class Article extends PureComponent {
         desc: _.get(entities, `posts.${slug}.og_description`),
         thumbnail: _.get(entities, `posts.${slug}.hero_image.resized_targets.mobile.url`),
         category: _.get(entities, `posts.${slug}.categories[0].name`),
-        published_date: _.get(entities, `posts.${slug}.published_date`),
-        authors: JSON.stringify({
-          writers: _.get(entities, `posts.${slug}.writters`),
-          photographers: _.get(entities, `posts.${slug}.photographers`),
-          designers: _.get(entities, `posts.${slug}.designers`),
-          engineers: _.get(entities, `posts.${slug}.engineers`)
-        })
+        published_date: _.get(entities, `posts.${slug}.published_date`)
       }
     }
 

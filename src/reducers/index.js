@@ -1,5 +1,5 @@
 'use strict'
-import { authReducer, configureReducer } from 'twreporter-registration'
+import { authReducer, configureReducer } from '@twreporter/registration'
 import { searchedAuthorsList, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
@@ -7,7 +7,7 @@ import { routerReducer } from 'react-router-redux'
 import device from './device'
 import header from './header'
 import merge from 'lodash/merge'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 const { reducers, reduxStateFields } = twreporterRedux
 
