@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.3.0-beta.1.0.0",
+  "version": "3.0.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "release": "gulp release",
@@ -64,6 +64,9 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@twreporter/react-components": "^2.0.0",
+    "@twreporter/redux": "^3.0.0",
+    "@twreporter/registration": "^2.0.0",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
@@ -105,9 +108,6 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
-    "twreporter-react-components": "^1.1.0-beta.1.0.2",
-    "twreporter-redux": "^2.2.0-beta.1.0.0",
-    "twreporter-registration": "^1.0.0-beta.0.0.6",
     "video.js": "5.12.1"
   },
   "devDependencies": {

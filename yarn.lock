@@ -2,6 +2,48 @@
 # yarn lockfile v1
 
 
+"@twreporter/react-components@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.0.0.tgz#c250d4d4420e9995df3127f8e505629a2c3e0ef0"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.5.10"
+    react-swipeable "^4.0.1"
+    react-waypoint "^7.0.3"
+    smoothscroll "^0.3.0"
+    styled-components "^2.1.1"
+    velocity-react "^1.3.3"
+
+"@twreporter/redux@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-3.0.0.tgz#c3d76c3ca98bb3603f33ce4cd22a1bfd8ae116fc"
+  dependencies:
+    axios "^0.16.1"
+    es6-error "^4.0.2"
+    lodash "^4.17.4"
+    redux "^3.6.0"
+
+"@twreporter/registration@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.0.0.tgz#be054034c60bc1f614c1767033638f24223ab8a7"
+  dependencies:
+    axios "^0.16.2"
+    babel-polyfill "^6.23.0"
+    chai "^3.3.0"
+    history "^4.6.1"
+    lodash "^4.17.4"
+    mocha "^3.2.0"
+    nock "^9.1.0"
+    path "^0.12.7"
+    prop-types "^15.5.10"
+    react "^15.4.2"
+    react-redux "^4.4.5"
+    react-router "^3.0.5"
+    redux "^3.5.2"
+    redux-mock-store "^1.0.2"
+    redux-thunk "^2.2.0"
+    styled-components "^2.1.1"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -3894,7 +3936,7 @@ json-stable-stringify@^1.0.0, json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@^5.0, json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0, json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -4380,7 +4422,7 @@ lodash@^3.10.0, lodash@^3.10.1, lodash@^3.3.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.4:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.2, lodash@~4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4686,6 +4728,20 @@ nock@^2.17.0:
     lodash "2.4.1"
     mkdirp "^0.5.0"
     propagate "0.3.x"
+
+nock@^9.1.0:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-9.1.3.tgz#1ab95a973a876c9ae2a844241844e29dbb5a1d89"
+  dependencies:
+    chai ">=1.9.2 <4.0.0"
+    debug "^2.2.0"
+    deep-equal "^1.0.0"
+    json-stringify-safe "^5.0.1"
+    lodash "~4.17.2"
+    mkdirp "^0.5.0"
+    propagate "0.4.0"
+    qs "^6.5.1"
+    semver "^5.3.0"
 
 node-fetch@^1.0.1:
   version "1.7.1"
@@ -5575,6 +5631,10 @@ propagate@0.3.x:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/propagate/-/propagate-0.3.1.tgz#e3a84404a7ece820dd6bbea9f6d924e3135ae09c"
 
+propagate@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/propagate/-/propagate-0.4.0.tgz#f3fcca0a6fe06736a7ba572966069617c130b481"
+
 proxy-addr@~1.1.4:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-1.1.5.tgz#71c0ee3b102de3f202f3b64f608d173fcba1a918"
@@ -5613,6 +5673,10 @@ qs@6.4.0, qs@^6.1.0, qs@~6.4.0:
 qs@^5.2.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-5.2.1.tgz#801fee030e0b9450d6385adc48a4cc55b44aedfc"
+
+qs@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
 query-string@^3.0.0:
   version "3.0.3"
@@ -6718,20 +6782,6 @@ styled-components@^2.1.1:
     stylis "^3.2.1"
     supports-color "^3.2.3"
 
-styled-components@^2.1.2:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.2.0.tgz#23823d305b1929723f927837735fdc2431545956"
-  dependencies:
-    buffer "^5.0.3"
-    css-to-react-native "^2.0.3"
-    fbjs "^0.8.9"
-    hoist-non-react-statics "^1.2.0"
-    is-function "^1.0.1"
-    is-plain-object "^2.0.1"
-    prop-types "^15.5.4"
-    stylis "^3.2.1"
-    supports-color "^3.2.3"
-
 stylis@^3.2.1:
   version "3.2.8"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.2.8.tgz#9b23a3e06597f7944a3d9ae880d5796248b8784f"
@@ -6980,48 +7030,6 @@ tv4@^1.2:
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
-
-twreporter-react-components@^1.1.0-beta.1.0.2:
-  version "1.1.0-beta.1.0.2"
-  resolved "https://registry.yarnpkg.com/twreporter-react-components/-/twreporter-react-components-1.1.0-beta.1.0.2.tgz#793d09d556ea13309b468b26a5ce120578573705"
-  dependencies:
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    react-swipeable "^4.0.1"
-    react-waypoint "^7.0.3"
-    smoothscroll "^0.3.0"
-    styled-components "^2.1.1"
-    velocity-react "^1.3.3"
-
-twreporter-redux@^2.2.0-beta.1.0.0:
-  version "2.2.0-beta.1.0.0"
-  resolved "https://registry.yarnpkg.com/twreporter-redux/-/twreporter-redux-2.2.0-beta.1.0.0.tgz#10de0115c3384f4562b657c06743978fe429ae1e"
-  dependencies:
-    axios "^0.16.1"
-    es6-error "^4.0.2"
-    lodash "^4.17.4"
-    redux "^3.6.0"
-
-twreporter-registration@^1.0.0-beta.0.0.6:
-  version "1.0.0-beta.0.0.6"
-  resolved "https://registry.yarnpkg.com/twreporter-registration/-/twreporter-registration-1.0.0-beta.0.0.6.tgz#4bb40512db3a78392a7c1846d8241cec16dc074c"
-  dependencies:
-    axios "^0.16.2"
-    babel-polyfill "^6.23.0"
-    chai "^3.3.0"
-    history "^4.6.1"
-    lodash "^4.17.4"
-    mocha "^3.2.0"
-    nock "^2.17.0"
-    path "^0.12.7"
-    prop-types "^15.5.10"
-    react "^15.4.2"
-    react-redux "^4.4.5"
-    react-router "^3.0.5"
-    redux "^3.5.2"
-    redux-mock-store "^1.0.2"
-    redux-thunk "^2.2.0"
-    styled-components "^2.1.2"
 
 type-check@~0.3.1:
   version "0.3.2"

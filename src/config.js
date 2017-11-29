@@ -8,9 +8,8 @@ const environment = {
 }[process.env.NODE_ENV || 'development']
 
 const DEV_PORT = 3000
-const DEV_HOST = 'localhost'
 const DEV_API_PORT = 8080
-const DEV_DOMAIN = 'testtest.twreporter.org'
+const DEV_HOST = 'testtest.twreporter.org'
 const DEV_PROTOCOL = 'http'
 
 module.exports = Object.assign({
@@ -26,14 +25,15 @@ module.exports = Object.assign({
   },
   registrationConfigure: {
     apiUrl: environment.isProduction ? `${process.env.APIPROTOCOL}://${process.env.APIHOST}` : `${DEV_PROTOCOL}://${DEV_HOST}:${DEV_API_PORT}`,
+    forgetPassword: '/v1/forget-password',
+    changePassword: '/v1/change-password',
     signUp: '/v1/signup',
-    signIn: '/v1/login',
+    signIn: '/v1/signin',
     activate: '/v1/activate',
     oAuthProviders: {
       google: '/v1/auth/google',
       facebook: '/v1/auth/facebook'
     },
-    location: environment.isProduction ? `${process.env.PROTOCOL}://${process.env.HOST}` : `${DEV_PROTOCOL}://${DEV_DOMAIN}:${DEV_PORT}`,
-    domain: environment.isProduction ? process.env.DOMAIN : DEV_DOMAIN
+    host: environment.isProduction ? `${process.env.PROTOCOL}://${process.env.HOST}` : `${DEV_PROTOCOL}://${DEV_HOST}:${DEV_PORT}`
   }
 }, environment)

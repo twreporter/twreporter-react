@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import ArticleList from '../components/ArticleList'
-import twreporterRedux from 'twreporter-redux'
+import twreporterRedux from '@twreporter/redux'
 
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { camelizeKeys } from 'humps'

@@ -1,17 +1,16 @@
 /*eslint no-unused-vars:0, no-console:0 */
-import Helmet from 'react-helmet'
-import React from 'react'
-import categoryString from '../constants/category-strings'
-import categoryURI from '../conf/category-uri'
-import { IndexPageComposite } from 'twreporter-react-components'
-import styled, { keyframes } from 'styled-components'
-import twreporterRedux from 'twreporter-redux'
-import { signOutAction } from 'twreporter-registration'
-import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { CSSTransitionGroup } from 'react-transition-group'
-import { Footer } from 'twreporter-react-components'
+import { IndexPageComposite, Footer } from '@twreporter/react-components'
+import { signOutAction } from '@twreporter/registration'
+import { SITE_NAME, SITE_META } from '../constants/index'
+import categoryString from '../constants/category-strings'
+import categoryURI from '../conf/category-uri'
+import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
+import twreporterRedux from '@twreporter/redux'
 
 // lodash
 import get from 'lodash/get'
@@ -56,6 +55,8 @@ const LoadingCover = styled.div`
   }
 `
 
+const CATEGORY = 'category'
+
 const anchors = [
   {
     id: 'latest',
@@ -73,7 +74,7 @@ const anchors = [
     id: 'news-letter',
     label: ''
   }, {
-    id: 'category',
+    id: CATEGORY,
     label: '議題'
   }, {
     id: 'topic',
@@ -197,12 +198,28 @@ class Homepage extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.categorySection = {}
+  }
+
   componentWillMount() {
     this.props.fetchIndexPageContent()
   }
 
-  componentDidMount() {
-    this.props.fetchCategoriesPostsOnIndexPage()
+  async componentDidMount() {
+    await this.props.fetchCategoriesPostsOnIndexPage()
+    // The following statement implement the mobile header redirection work flow.
+    // Case: user open mobile header slide in menu at article page.
+    // click on category section (議題), the website will direct user to home page
+    // and show the user category section simultaneouslly.
+    if (this.props.location.query.section === CATEGORY && typeof window !== 'undefined' && this.categorySection) {
+      const e = document.getElementById(CATEGORY)
+      if (e) {
+        e.scrollIntoView()
+        this.categorySection.startScrollAnimation()
+      }
+    }
   }
 
   render() {
@@ -251,6 +268,7 @@ class Homepage extends React.Component {
             data={this.props[fieldNames.sections.latestSection]}
             signOutAction={this.props.signOutAction}
             ifAuthenticated={this.props.ifAuthenticated}
+            categoryId={CATEGORY}
           />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           {latestTopicJSX}
@@ -264,6 +282,7 @@ class Homepage extends React.Component {
           >
             <CategorySection
               data={this.props.categories}
+              ref={(node) => {this.categorySection = node}}
             />
           </Background>
           <Background

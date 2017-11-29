@@ -8,7 +8,7 @@ import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction } from 'twreporter-registration'
+import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys } from '@twreporter/registration'
 
 let reduxState
 if (window.__REDUX_STATE__) {
@@ -36,14 +36,14 @@ const history = syncHistoryWithStore(browserHistory, store)
 // The following procedure is only for oAuth
 const { auth } = store.getState()
 if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  setupTokenInLocalStorage(auth.authInfo)
+  setupTokenInLocalStorage(auth.authInfo, keys.LOCALSTORAGE_KEY_AUTH)
   store.dispatch(deletAuthInfoAction())
 }
 
 // Check if token existed in localStorage and expired
 // following preocedure is for both accoutn and oAuth SignIn
-// 7 = 7 days
-store.dispatch(authUserByTokenAction(7, auth.authType))
+// 30 = 30 days
+store.dispatch(authUserByTokenAction(30, auth.authType))
 
 const device = store.getState().device
 

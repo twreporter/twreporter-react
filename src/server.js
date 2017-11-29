@@ -15,12 +15,14 @@ import createRoutes from '../src/routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
-import { configureAction, authUserAction, authInfoStringToObj } from 'twreporter-registration'
+import { ACTIVATE_PAGE_PATH } from './routes/index'
+import { configureAction, authUserAction, authInfoStringToObj } from '@twreporter/registration'
 import { NotFoundError } from '../src/custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { syncHistoryWithStore } from 'react-router-redux'
+
 
 const app = new Express()
 const server = new http.Server(app)
@@ -63,13 +65,19 @@ app.get('*', async function (req, res, next) {
   const history = syncHistoryWithStore(memoryHistory, store)
   let routes = createRoutes(history)
 
-  // The following procedure is for OAuth (Google/Facebook)
-  // setup token to redux state from cookies
-  const authInfoString = get(req, 'cookies.auth_info', '')
-  const authType = get(req, 'query.login', '')
-  if (authType && authInfoString) {
-    const authInfoObj = authInfoStringToObj(authInfoString)
-    store.dispatch(authUserAction(authType, authInfoObj))
+  const path = get(req, 'path' , '')
+  if (path === `/${ACTIVATE_PAGE_PATH}`) {
+    // The following procedure is for OAuth (Google/Facebook)
+    // setup token to redux state from cookies
+    const authInfoString = get(req, 'cookies.auth_info', '')
+    const authType = get(req, 'query.login', 'email signin')
+    if (authInfoString) {
+      const authInfoObj = authInfoStringToObj(authInfoString)
+      const jwt = get(authInfoObj, 'jwt', '')
+      if (jwt) {
+        store.dispatch(authUserAction(authType, authInfoObj))
+      }
+    }
   }
   // setup authentication api server url and endpoints
   store.dispatch(configureAction(config.registrationConfigure))
