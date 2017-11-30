@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.2.11
+- Bump @twreporter/react-components version to 1.3.5
+- Bump normalizr version to ^3.2.4
+
 ### 2.2.10
 - Bump @twreporter/react-components version to 1.3.1
 
