@@ -1,6 +1,6 @@
 import { schema, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
-import { author as authorSchema } from '../../../schemas/index'
+import { author as authorSchema } from '../../../schemas/article-schema'
 import * as types from '../../../constants/action-types'
 import { NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../../constants/authors-list'
 

@@ -1,5 +1,5 @@
 import { schema, normalize } from 'normalizr'
-import { article as articleSchema } from '../../../schemas/index'
+import { article as articleSchema } from '../../../schemas/article-schema'
 import { camelizeKeys } from 'humps'
 
 const authorId = 'theAurhtorId'

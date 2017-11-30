@@ -8,7 +8,7 @@ import twreporterRedux from '@twreporter/redux'
 import { InternalServerError } from '../custom-error'
 import { MAX_ARTICLES_PER_FETCH, NUMBER_OF_FIRST_RESPONSE_PAGE, RETURN_DELAY_TIME } from '../constants/author-page'
 import { schema, normalize } from 'normalizr'
-import { article as articleSchema } from '../schemas/index'
+import { article as articleSchema } from '../schemas/article-schema'
 import { camelizeKeys } from 'humps'
 import * as CONSTANTS from '../constants/index'
 

@@ -1,5 +1,5 @@
 import { schema, normalize } from 'normalizr'
-import { author as authorSchema } from '../../../schemas/index'
+import { author as authorSchema } from '../../../schemas/article-schema'
 import { camelizeKeys } from 'humps'
 import { NUMBER_OF_FIRST_RESPONSE_PAGE, MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_SEARCH } from '../../../constants/authors-list'
 
