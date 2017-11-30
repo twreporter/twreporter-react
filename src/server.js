@@ -2,23 +2,30 @@
 /*global __DEVELOPMENT__ webpackIsomorphicTools */
 import 'babel-polyfill'
 import Compression from 'compression'
-import DeviceProvider from '../src/components/DeviceProvider'
+import DeviceProvider from './components/DeviceProvider'
 import Express from 'express'
-import Html from '../src/helpers/Html'
+import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import config from './config'
-import configureStore from '../src/store/configureStore'
-import createRoutes from '../src/routes/index'
+import configureStore from './store/configureStore'
+import createRoutes from './routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
-import { NotFoundError } from '../src/custom-error'
+import { NotFoundError } from './custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { syncHistoryWithStore } from 'react-router-redux'
+
+/**
+ * Define isomorphic constants.
+ */
+global.__CLIENT__ = false
+global.__SERVER__ = true
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production'
 
 const app = new Express()
 const server = new http.Server(app)
@@ -28,9 +35,9 @@ app.use(Compression())
 
 const oneDay = 86400000
 app.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
-app.use('/dist', Express.static(path.join(__dirname, '../static/dist'), { maxAge: oneDay * 30 }))
+app.use('/dist', Express.static(path.join(__dirname, '../dist'), { maxAge: oneDay * 30 }))
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://www.twreporter.org/')
+  res.header('Access-Control-Allow-Origin', 'https://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
@@ -146,7 +153,6 @@ if (config.port) {
     if (err) {
       console.error(err)
     }
-    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort)
     console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port)
   })
 } else {
