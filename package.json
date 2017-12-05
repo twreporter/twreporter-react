@@ -90,7 +90,7 @@
     "chai-as-promised": "^5.1.0",
     "clean-webpack-plugin": "^0.1.4",
     "compression": "^1.6.0",
-    "concurrently": "^0.1.1",
+    "concurrently": "3.5.1",
     "css-loader": "^0.23.1",
     "eslint": "1.10.3",
     "eslint-config-rackt": "^1.1.1",

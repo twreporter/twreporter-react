@@ -194,11 +194,7 @@ if (isProduction) {
       disable: false,
       allChunks: true
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
+    new webpack.optimize.UglifyJsPlugin()
   )
 } else {
   webpackConfig.plugins.push(
