@@ -1,5 +1,13 @@
 ### Unreleased
 
+### 2.3.0 
+- Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
+  - Remove webpack-isormorphic-tools
+  - Remove bootstrap and inject global styles by styled-components
+  - Run transipled js files on production, discard babel-node
+  - Upgrade webpack to ^3.0.0 and corresponding dependencies
+  - Replace piping by nodemon
+
 ### 2.2.10
 - Bump @twreporter/react-components version to 1.3.1
 

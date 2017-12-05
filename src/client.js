@@ -1,4 +1,5 @@
 import 'babel-polyfill'
+import 'normalize.css'
 import DeviceProvider from './components/DeviceProvider'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
@@ -8,8 +9,102 @@ import configureStore from './store/configureStore'
 import createRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
+import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
+import { injectGlobal } from 'styled-components'
 import { match, browserHistory } from 'react-router'
+import { screen as mq } from './themes/screen'
 import { syncHistoryWithStore } from 'react-router-redux'
+
+// inject global styles into html
+injectGlobal`
+  html {
+    font-size: ${typography.font.size.base};
+    ::selection {
+      background-color: ${colors.red.lightRed};
+      color: $FFF;
+    }
+  }
+  body {
+    letter-spacing: ${letterSpace.generalLetterSpace};
+
+    line-height: ${lineHeight.lineHeightMedium};
+
+    font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+
+    abbr[title], abbr[data-original-title] {
+      border-bottom: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .container {
+      line-height: ${lineHeight.linHeightLarge};
+    }
+
+    .inner-max {
+      ${mq.desktopAbove`
+        max-width: ${layout.article.innerWidth};
+      `}
+    }
+
+    .outer-max {
+      ${mq.desktopAbove`
+        max-width: ${layout.article.outerWidth};
+      `}
+    }
+
+    .no-hover {
+        border-bottom: 0 !important;
+        &:after {
+            display: none;
+        }
+        &:hover:after {
+            width: 0;
+            display: none;
+        }
+    }
+
+    .text-justify {
+      text-align: justify;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .center-block {
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .visible-print {
+      display: none;
+    }
+
+    figure, p {
+      margin: 0;
+    }
+
+    @media print {
+      .hidden-print {
+        display: none !important;
+      }
+      .visible-print {
+        display: block !important;
+      }
+      a[href]:after {
+        content: '';
+      }
+    }
+  }
+`
 
 let reduxState
 if (window.__REDUX_STATE__) {

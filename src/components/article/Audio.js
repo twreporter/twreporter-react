@@ -3,7 +3,7 @@
 import { Image } from './Image'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 import CircleProgressButton from './CircleProgressButton'
-import CSSTransitionGroup from 'react-addons-css-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group'
 import Player from 'react-howler'
 import React from 'react' // eslint-disable-line
 import Slider from 'rc-slider'
