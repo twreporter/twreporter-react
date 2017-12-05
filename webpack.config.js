@@ -1,13 +1,49 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const autoprefixer = require('autoprefixer');
+const config = require('./config')
+const fs = require('fs')
 const path = require('path');
 const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV === 'production'
+const webpackDevServerHost = config.webpackDevServerHost
+const webpackDevServerPort = config.webpackDevServerPort
+const webpackPublicPath = config.webpackPublicPath
+const webpackOutputFilename = config.webpackOutputFilename
 
-const webpackDevServerHost = 'localhost'
-const webpackDevServerPort = 5000
+const defaulAssets = {
+  javascripts: {
+    chunks: []
+  },
+  stylesheets: []
+}
+
+function BundleListPlugin(options) {}
+
+// BundleListPlugin is used to write the paths of files compiled by webpack
+// such as javascript files transpiled by babel,
+// and scss files handled by sass, postcss and css loader,
+// into webpack-assets.json
+BundleListPlugin.prototype.apply = function(compiler) {
+  compiler.plugin('emit', function(compilation, callback) {
+    let assets
+    try {
+      assets = require('./webpack-assets.json')
+    } catch (e) {
+      assets = defaulAssets
+    }
+    for (const filename in compilation.assets) {
+      if (filename.startsWith('main')) {
+        assets.javascripts.main = `/dist/${filename}`
+      } else if (filename.indexOf('-chunk-') > -1) {
+        assets.javascripts.chunks.push(`/dist/${filename}`)
+      }
+    }
+
+    fs.writeFileSync('./webpack-assets.json', JSON.stringify(assets))
+    callback();
+  });
+};
 
 const webpackConfig = {
   context: path.resolve(__dirname),
@@ -16,9 +52,9 @@ const webpackConfig = {
   },
   output: {
     chunkFilename: '[id]-chunk-[chunkhash].js',
-    filename: isProduction ? '[name].[hash].bundle.js' : '[name].dev.bundle.js',
+    filename: webpackOutputFilename,
     path: path.join(__dirname, 'dist'),
-    publicPath: isProduction ? '/dist/' : 'http://' + webpackDevServerHost + ':' + webpackDevServerPort + '/dist/'
+    publicPath: webpackPublicPath
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -48,6 +84,7 @@ const webpackConfig = {
                 importLoaders: 2,
                 modules: true,
                 sourceMap: true,
+                // Make sure this setting is equal to settings in .bablerc
                 localIdentName: '[name]__[local]___[hash:base64:5]'
               }
             }, {
@@ -137,12 +174,23 @@ const webpackConfig = {
 
 
 if (isProduction) {
-	const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools-configuration'))
-
   webpackConfig.plugins.push(
+    new BundleListPlugin(),
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin({
-      filename: '[chunkhash].[name].css',
+      // write css filenames into webpack-assets.json
+      filename: function(getPath) {
+        const filename = getPath('[chunkhash].[name].css')
+        let assets
+        try {
+          assets = require('./webpack-assets.json')
+        } catch (e) {
+          assets = defaulAssets
+        }
+        assets.stylesheets.push(webpackConfig.output.publicPath + filename)
+        fs.writeFileSync('./webpack-assets.json', JSON.stringify(assets))
+        return filename
+      },
       disable: false,
       allChunks: true
     }),
@@ -150,17 +198,10 @@ if (isProduction) {
       compress: {
         warnings: false
       }
-    }),
-    webpackIsomorphicToolsPlugin
+    })
   )
 } else {
-  const webpackIsomorphicToolsPlugin =
-    new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools-configuration'))
-	  // also enter development mode
-		.development()
-
   webpackConfig.plugins.push(
-		webpackIsomorphicToolsPlugin,
     new webpack.HotModuleReplacementPlugin()
   )
 }

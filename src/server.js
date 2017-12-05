@@ -1,5 +1,5 @@
 /*eslint no-console: 0*/
-/*global __DEVELOPMENT__ webpackIsomorphicTools */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import Compression from 'compression'
 import DeviceProvider from './components/DeviceProvider'
@@ -8,7 +8,7 @@ import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import config from './config'
+import config from '../config'
 import configureStore from './store/configureStore'
 import createRoutes from './routes/index'
 import get from 'lodash/get'
@@ -42,7 +42,6 @@ app.use(function (req, res, next) {
   next()
 })
 
-
 app.get('/robots.txt', (req, res) => {
   res.format({
     'text/plain': function () {
@@ -57,11 +56,6 @@ app.get('/check', (req, res) => {
 })
 
 app.get('*', async function (req, res, next) {
-  if (__DEVELOPMENT__) {
-    // Do not cache webpack stats: the script file would change since
-    // hot module replacement is enabled in the development env
-    webpackIsomorphicTools.refresh()
-  }
   const memoryHistory = createMemoryHistory(req.originalUrl)
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
@@ -93,7 +87,13 @@ app.get('*', async function (req, res, next) {
       }
 
       getReduxPromise().then(()=> {
-        const assets = webpackIsomorphicTools.assets()
+        const assets = __DEVELOPMENT__ ? {
+          javascripts: {
+            main: `${config.webpackPublicPath}${config.webpackOutputFilename}`,
+            chunks: []
+          },
+          stylesheets: []
+        } : require('../webpack-assets.json')
         const sheet = new ServerStyleSheet()
         const content = ReactDOMServer.renderToString(
             <Provider store={store} >

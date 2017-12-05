@@ -88,7 +88,7 @@ injectGlobal`
       display: none;
     }
 
-    figure {
+    figure, p {
       margin: 0;
     }
 
