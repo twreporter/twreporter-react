@@ -131,7 +131,7 @@ export default function createRoutes(history = browserHistory) {
           redirectPath="/signin"
           getComponent={(location, cb) => {
             Promise.all([
-              import('twreporter/registration'),
+              import('@twreporter/registration'),
               import('../containers/BookmarkList')
             ]).then(([ regModule, bookmarkModule ]) => {
               const AuthScreen = regModule.AuthenticationScreen
