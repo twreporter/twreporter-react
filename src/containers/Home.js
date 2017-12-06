@@ -11,6 +11,7 @@ import twreporterRedux from '@twreporter/redux'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
+import { signOutAction } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
@@ -55,6 +56,8 @@ const LoadingCover = styled.div`
   }
 `
 
+const CATEGORY = 'category'
+
 const anchors = [
   {
     id: 'latest',
@@ -72,8 +75,8 @@ const anchors = [
     id: 'news-letter',
     label: ''
   }, {
-    id: 'category',
-    label: '分類'
+    id: CATEGORY,
+    label: '議題'
   }, {
     id: 'topic',
     label: '專題'
@@ -196,12 +199,28 @@ class Homepage extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.categorySection = {}
+  }
+
   componentWillMount() {
     this.props.fetchIndexPageContent()
   }
 
-  componentDidMount() {
-    this.props.fetchCategoriesPostsOnIndexPage()
+  async componentDidMount() {
+    await this.props.fetchCategoriesPostsOnIndexPage()
+    // The following statement implement the mobile header redirection work flow.
+    // Case: user open mobile header slide in menu at article page.
+    // click on category section (議題), the website will direct user to home page
+    // and show the user category section simultaneouslly.
+    if (this.props.location.query.section === CATEGORY && typeof window !== 'undefined' && this.categorySection) {
+      const e = document.getElementById(CATEGORY)
+      if (e) {
+        e.scrollIntoView()
+        this.categorySection.startScrollAnimation()
+      }
+    }
   }
 
   render() {
@@ -246,7 +265,12 @@ class Homepage extends React.Component {
         <SideBar
           anchors={anchors}
         >
-          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
+          <LatestSection
+            data={this.props[fieldNames.sections.latestSection]}
+            signOutAction={this.props.signOutAction}
+            ifAuthenticated={this.props.ifAuthenticated}
+            categoryId={CATEGORY}
+          />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           {latestTopicJSX}
           <ReviewsSection
@@ -259,6 +283,7 @@ class Homepage extends React.Component {
           >
             <CategorySection
               data={this.props.categories}
+              ref={(node) => {this.categorySection = node}}
             />
           </Background>
           <Background
@@ -374,9 +399,11 @@ function mapStateToProps(state) {
     [fieldNames.sections.photosSection]: photoPosts,
     [fieldNames.sections.infographicsSection]: infoPosts,
     categories: buildCategorySectionData(state),
-    isSpinnerDisplayed
+    isSpinnerDisplayed,
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+
   }
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)

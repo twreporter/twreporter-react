@@ -13,6 +13,7 @@ import { colors, layout, letterSpace, lineHeight, typography } from './themes/co
 import { injectGlobal } from 'styled-components'
 import { match, browserHistory } from 'react-router'
 import { screen as mq } from './themes/screen'
+import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -123,6 +124,23 @@ if (window.__REDUX_STATE__) {
 const store = configureStore(browserHistory, reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
+
+// token can be stored in localStorage in two scenario
+// 1. TWReporter account sign in
+// 2. oAuth
+// Acount: store auth info during signin action
+// oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
+// The following procedure is only for oAuth
+const { auth } = store.getState()
+if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
+  setupTokenInLocalStorage(auth.authInfo, keys.LOCALSTORAGE_KEY_AUTH)
+  store.dispatch(deletAuthInfoAction())
+}
+
+// Check if token existed in localStorage and expired
+// following preocedure is for both accoutn and oAuth SignIn
+// 30 = 30 days
+store.dispatch(authUserByTokenAction(30, auth.authType))
 
 const device = store.getState().device
 

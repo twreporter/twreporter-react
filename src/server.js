@@ -10,14 +10,17 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import config from '../config'
 import configureStore from './store/configureStore'
+import cookieParser from 'cookie-parser'
 import createRoutes from './routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
+import { ACTIVATE_PAGE_PATH } from './routes/index'
 import { NotFoundError } from './custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { configureAction, authUserAction, authInfoStringToObj } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 /**
@@ -32,6 +35,7 @@ const server = new http.Server(app)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(Compression())
+app.use(cookieParser())
 
 const oneDay = 86400000
 app.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
@@ -59,7 +63,24 @@ app.get('*', async function (req, res, next) {
   const memoryHistory = createMemoryHistory(req.originalUrl)
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
-  let routes = createRoutes(history)
+  const path = get(req, 'path' , '')
+  const routes = createRoutes(history)
+
+  if (path === `/${ACTIVATE_PAGE_PATH}`) {
+    // The following procedure is for OAuth (Google/Facebook)
+    // setup token to redux state from cookies
+    const authInfoString = get(req, 'cookies.auth_info', '')
+    const authType = get(req, 'query.login', 'email signin')
+    if (authInfoString) {
+      const authInfoObj = authInfoStringToObj(authInfoString)
+      const jwt = get(authInfoObj, 'jwt', '')
+      if (jwt) {
+        store.dispatch(authUserAction(authType, authInfoObj))
+      }
+    }
+  }
+  // setup authentication api server url and endpoints
+  store.dispatch(configureAction(config.registrationConfigure))
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
@@ -75,8 +96,9 @@ app.get('*', async function (req, res, next) {
 
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
+        const params = get(renderProps, 'params', {})
         const pathname = get(renderProps, 'location.pathname', '')
-        const params = get(renderProps, 'params', {}, '')
+
         let comp = renderProps.components[renderProps.components.length - 1]
         comp = comp.WrappedComponent || comp
         const promise = comp.fetchData ?

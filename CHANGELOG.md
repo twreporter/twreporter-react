@@ -48,6 +48,12 @@
 - Transform import to require.ensure by babel plugin
 - Remove react-hot-loader package since we don't use it at all
 
+### 3.0.0
+- Create registration system (RS)
+- RS: SignIn, SignUp, Activation...
+- Implement bookmark feature
+- Mobile Navbar
+
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
 - Fix inconsistent line-heights of paragraphs containing annotations [#664](https://github.com/twreporter/twreporter-react/pull/664)
