@@ -53,7 +53,8 @@ class App extends PureComponent {
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object
+  location: React.PropTypes.object,
+  device: React.PropTypes.string
 }
 
 App.defaultProps = {

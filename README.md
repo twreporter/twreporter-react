@@ -16,6 +16,18 @@ New Media foundation in Taiwan.
 This project is built on Redux framework and rendered by React.
 It uses server-side(universal) rendering, and also integrate ```Webpack Hot Middleware``` in Dev environment.
 
+# Development
+### Customized Article and Route Setting
+
+You should go through following steps
+
+• ```cd twreporter-react/src```
+
+• ```vim ./routes/index.js```
+
+• ```vim ./constants/customized-article-path```
+
+
 # Reference
 [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example)
 [Redux](https://github.com/reactjs/redux)
@@ -24,4 +36,3 @@ It uses server-side(universal) rendering, and also integrate ```Webpack Hot Midd
 # License
 * Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
 * Distributed under the GNU AGPL v3.0
-

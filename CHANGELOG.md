@@ -1,5 +1,52 @@
 ### Unreleased
+
+### 2.3.0 
+- Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
+  - Remove webpack-isormorphic-tools
+  - Remove bootstrap and inject global styles by styled-components
+  - Run transipled js files on production, discard babel-node
+  - Upgrade webpack to ^3.0.0 and corresponding dependencies
+  - Replace piping by nodemon
+
+### 2.2.10
+- Bump @twreporter/react-components version to 1.3.1
+
+### 2.2.9
+- Bump @twreporter/react-components version to 1.3.0
+
+### 2.2.8
+- Remove Sherryspecial route
+
+### 2.2.7
+- Fix topic isFetching Bug
+
+### 2.2.6
+- Change LeadingImage defaultImgUrl from tiny to mobile
+
+### 2.2.5
+- @twreporter/react-components version number to 1.1.5
+- fix sherry-special scroll locking problem
+
+### 2.2.4
+- @twreporter/react-components version number to 1.1.4
+
+### 2.2.3
+- Add center-small alignment style in src/components/article/BlockAlignmentWrapper.scss.
+- Update article to be compatible with dynamic themes
+- Create customized article.
+- Create zoom in leading image.
+- Fix scroll to top problem.
+- @twreporter/react-components version number to 1.1.3
+- Add TopicLandingPage topic description iframe max-width 100% for youtube player or other embedded items.
+
+### 2.2.2
+- Use npm-scope. Update twreporter-react-components to @twreporter/react-components and twreporter-redux to @twreporter/redux [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Bug fix. Follow the docs to render React Router [#673](https://github.com/twreporter/twreporter-react/pull/673)
+- Add theme for listing, article and photography, ...etc pages [#673](https://github.com/twreporter/twreporter-react/pull/673)
 - Fix Google structure data errors
+- Fix Webpack hot loadig problem on dev
+- Transform import to require.ensure by babel plugin
+- Remove react-hot-loader package since we don't use it at all
 
 ### 3.0.0
 - Create registration system (RS)
@@ -78,6 +125,7 @@
 
 ### 2.1.6
 - Update .circleci/config.yml. Separate staging and prod docker build.
+- Bug fix. Can not link to /categories/reviews from index page on client side
 
 ### 2.1.5
 - Update yarn.lock

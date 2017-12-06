@@ -1,8 +1,34 @@
 {
-  "presets": ["es2015", "react", "stage-0"],
+  "presets": [
+    "es2015",
+    "react",
+    "stage-0"
+  ],
   "env": {
-    "DEV": {
-      "plugins": ["react-hot-loader/babel"]
+    "ssr": {
+      "plugins": [
+        [
+          "css-modules-transform",
+          {
+            "extensions": [
+              ".css",
+              ".scss"
+            ],
+            "generateScopedName": "[name]__[local]___[hash:base64:5]"
+          }
+        ]
+      ]
     }
-  }
+  },
+  "plugins": [
+    [
+      "system-import-transformer",
+      {
+        "commonJS": {
+          "useRequireEnsure": true
+        }
+      }
+    ],
+    "inline-import-data-uri"
+  ]
 }

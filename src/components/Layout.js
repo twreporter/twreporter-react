@@ -1,10 +1,10 @@
 'use strict'
+import Footer from '@twreporter/react-components/lib/footer'
+import Header from '@twreporter/react-components/lib/header'
 import React, { PureComponent, PropTypes } from 'react'
 import classNames from 'classnames'
 import styles from './Layout.scss'
 import { DARK } from '../constants/index'
-import { Header } from '@twreporter/react-components'
-import { Footer } from '@twreporter/react-components'
 
 // lodash
 import get from 'lodash/get'

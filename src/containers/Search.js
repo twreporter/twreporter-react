@@ -1,16 +1,10 @@
 'use strict'
-import { connect } from 'react-redux'
-import { googleSearchId } from '../conf/service'
 import React, { Component } from 'react'
 import styles from './Search.scss'
+import withLayout from '../helpers/with-layout'
+import { googleSearchId } from '../conf/service'
 
 class Search extends Component {
-  static fetchData() {
-    return new Promise((resolve) => {
-      resolve()
-    })
-  }
-
   componentDidMount() {
     // display search results
     let cx = googleSearchId
@@ -37,4 +31,4 @@ class Search extends Component {
 }
 
 export { Search }
-export default connect()(Search)
+export default withLayout(Search)
