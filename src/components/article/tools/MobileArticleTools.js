@@ -1,23 +1,54 @@
-import React from 'react'
-import soothScroll from 'smoothscroll'
+import { CSSTransitionGroup } from 'react-transition-group'
 import { Link } from 'react-router'
-import styles from './MobileArticleTools.scss'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
-import { CSSTransitionGroup } from 'react-transition-group'
+import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-mobile.svg'
+import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-mobile.svg'
+import React from 'react'
+import soothScroll from 'smoothscroll'
+import styled from 'styled-components'
+import styles from './MobileArticleTools.scss'
+
+const buttonWidth = 52
+const buttonHeight = 52
+
+const IconContainer = styled.div`
+  position: relative;
+  border-radius: 50%;
+  width: ${buttonWidth}px;
+  height: ${buttonHeight}px;
+  background-color: rgba(255, 255, 255, .8);
+  overflow: hidden;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  cursor: pointer;
+`
+
+const SubsequentIconContainer = IconContainer.extend`
+  margin-bottom: 20px;
+`
+
+const BookmarkImg = styled.img`
+  opacity: ${props => (props.showUp ? 1 : 0 )};
+  transition: opacity 200ms linear;
+`
 
 const BackToTopBtn = () => (
-  <div className={styles['back-to-top-btn']} onClick={() => soothScroll(0)}>
+  <IconContainer onClick={() => soothScroll(0)}>
     <img src={BackToTopIcon} />
-  </div>
+  </IconContainer>
 )
 
 const BackToTopicBtn = (props) => (
   <Link to={`${LINK_PREFIX.TOPICS}${props.topicSlug}`} title={props.topicTitle}>
-    <div className={styles['back-to-topic-btn']}>
+    <SubsequentIconContainer>
       <img src={BackToTopicIcon} />
-    </div>
+    </SubsequentIconContainer>
   </Link>
 )
 
@@ -35,6 +66,7 @@ class MobileArticleTools extends React.PureComponent {
 
     this.showTools = this._updateToShowState.bind(this, true)
     this.hideTools = this._updateToShowState.bind(this, false)
+    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
   }
 
   _updateToShowState(toShow) {
@@ -43,8 +75,12 @@ class MobileArticleTools extends React.PureComponent {
     })
   }
 
+  _handleOnClickBookmark() {
+    this.props.onClickBookmark()
+  }
+
   render() {
-    const { topicTitle, topicSlug } = this.props
+    const { topicTitle, topicSlug, isBookmarkListed } = this.props
     const { toShow } = this.state
     return (
       <CSSTransitionGroup
@@ -60,6 +96,10 @@ class MobileArticleTools extends React.PureComponent {
         {!toShow ? null : (
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
+            <SubsequentIconContainer onClick={this.handleOnClickBookmark}>
+              <BookmarkImg showUp={!isBookmarkListed} src={BookmarkUnaddedIcon} />
+              <BookmarkImg showUp={isBookmarkListed} src={BookmarkAddedIcon} />
+            </SubsequentIconContainer>
             <BackToTopBtn />
           </div>
         )}

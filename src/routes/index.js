@@ -11,6 +11,9 @@ function loadRoute(cb) {
   }
 }
 
+// The variable is declared for @twreporter/registration
+export const ACTIVATE_PAGE_PATH = 'activate'
+
 function errorLoading(err) {
   console.error('Err to load module:', err) //eslint-disable-line
 }
@@ -94,12 +97,48 @@ export default function createRoutes(history = browserHistory) {
           getComponent={(location, cb) => {
             import('../containers/Author').then(loadRoute(cb)).catch(errorLoading)
           }} />
-        />
         <Route
           path="authors"
           getComponent={(location, cb) => {
             import('../containers/AuthorsList').then(loadRoute(cb)).catch(errorLoading)
           }} />
+        <Route
+          path={ACTIVATE_PAGE_PATH}
+          getComponent={(location, cb) => {
+            import('../containers/Activation').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="signin"
+          getComponent={(location, cb) => {
+            import('../containers/sign-in').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="signup"
+          getComponent={(location, cb) => {
+            import('../containers/sign-up').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="confirm"
+          getComponent={(location, cb) => {
+            import('../containers/confirm-after-sign').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="bookmarks(/:pageNumber)"
+          redirectPath="/signin"
+          getComponent={(location, cb) => {
+            Promise.all([
+              import('@twreporter/registration'),
+              import('../containers/BookmarkList')
+            ]).then(([ regModule, bookmarkModule ]) => {
+              const AuthScreen = regModule.AuthenticationScreen
+              cb(null, AuthScreen(bookmarkModule.default))
+            }).catch(errorLoading)
+          }}
+        />
       </Route>
     </Router>
   )

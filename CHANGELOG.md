@@ -1,5 +1,16 @@
 ### Unreleased
 
+### 2.3.0 
+- Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
+  - Remove webpack-isormorphic-tools
+  - Remove bootstrap and inject global styles by styled-components
+  - Run transipled js files on production, discard babel-node
+  - Upgrade webpack to ^3.0.0 and corresponding dependencies
+  - Replace piping by nodemon
+
+### 2.2.10
+- Bump @twreporter/react-components version to 1.3.1
+
 ### 2.2.9
 - Bump @twreporter/react-components version to 1.3.0
 
@@ -36,6 +47,12 @@
 - Fix Webpack hot loadig problem on dev
 - Transform import to require.ensure by babel plugin
 - Remove react-hot-loader package since we don't use it at all
+
+### 3.0.0
+- Create registration system (RS)
+- RS: SignIn, SignUp, Activation...
+- Implement bookmark feature
+- Mobile Navbar
 
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
