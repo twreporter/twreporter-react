@@ -81,6 +81,7 @@ app.get('*', async function (req, res, next) {
   }
   // setup authentication api server url and endpoints
   store.dispatch(configureAction(config.registrationConfigure))
+
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
