@@ -1,13 +1,35 @@
+const regConfig = {
+  apiUrl: 'http://testtest.twreporter.org:8080',
+  signIn: '/v1/signin',
+  activate: '/v1/activate',
+  oAuthProviders: {
+    google: '/v1/auth/google',
+    facebook: '/v1/auth/facebook'
+  },
+  host: 'http://testtest.twreporter.org:3000'
+}
+
 const environment = {
   development: {
-    isProduction: false,
     webpackOutputFilename: 'main.dev.bundle.js',
-    webpackPublicPath: 'http://localhost:5000/dist/'
+    webpackPublicPath: 'http://localhost:5000/dist/',
+    registrationConfigure: regConfig
+  },
+  staging: {
+    webpackOutputFilename: 'main.[hash].bundle.js',
+    webpackPublicPath: '/dist/',
+    registrationConfigure: Object.assign({}, regConfig, {
+      apiUrl: 'https://staging-go-api.twreporter.org',
+      host: 'https://staging.twreporter.org'
+    })
   },
   production: {
-    isProduction: true,
     webpackOutputFilename: 'main.[hash].bundle.js',
-    webpackPublicPath: '/dist/'
+    webpackPublicPath: '/dist/',
+    registrationConfigure: Object.assign({}, regConfig, {
+      apiUrl: 'https://go-api.twreporter.org',
+      host: 'https://www.twreporter.org'
+    })
   }
 }[process.env.NODE_ENV || 'development']
 
