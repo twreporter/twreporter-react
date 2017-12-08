@@ -1,10 +1,11 @@
-import { ActivePage, PageContainer } from '@twreporter/registration'
-import { withRouter } from 'react-router'
-import { CSSTransitionGroup } from 'react-transition-group'
-import React from 'react'
-import styled from 'styled-components'
 import LoadingSpinner from '../components/Spinner'
+import React from 'react'
 import get from 'lodash/get'
+import styled from 'styled-components'
+import withLayout from '../helpers/with-layout'
+import { ActivePage, PageContainer } from '@twreporter/registration'
+import { CSSTransitionGroup } from 'react-transition-group'
+import { withRouter } from 'react-router'
 
 const _ = {
   get
@@ -84,4 +85,4 @@ class Activation extends React.PureComponent {
   }
 }
 
-export default withRouter(Activation)
+export default withRouter(withLayout(Activation))
