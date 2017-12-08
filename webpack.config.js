@@ -162,7 +162,10 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: true,
-        NODE_ENV: isProduction ? '"production"' : '"development"'
+        NODE_ENV: '"staging"',
+        API_HOST: '"staging-go-api.twreporter.org"',
+        API_PORT: '443',
+        API_PROTOCOL: '"https"'
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
