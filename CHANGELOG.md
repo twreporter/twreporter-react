@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.4.0
+- [Feature] Registration integration
+  - Users can sign in by email or through Google and Facebook OAuth 
+  - Users can CRUD bookmarks
+
 ### 2.3.0 
 - Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
   - Remove webpack-isormorphic-tools

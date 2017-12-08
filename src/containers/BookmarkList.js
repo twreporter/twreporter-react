@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
+import Bookmark  from '@twreporter/react-components/lib/bookmarks'
+import Confirmation from '@twreporter/react-components/lib/confirmation'
 import More from '../components/More'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './BookmarkList.scss'
 import twreporterRedux from '@twreporter/redux'
-import { Bookmark, Confirmation } from '@twreporter/react-components'
+import withLayout from '../helpers/with-layout'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { setHeaderInfo } from '../actions/header'
-import { BOOKMARK_LIST, LIGHT } from '../constants/index'
 
 // lodash
 import get from 'lodash/get'
@@ -48,15 +48,11 @@ class BookmarkList extends React.Component {
   }
 
   componentWillMount() {
-    const { setHeaderInfo, bookmarkData, initialized } = this.props
+    const { bookmarkData, initialized } = this.props
     const offset = bookmarkData.length
     if ( !initialized ) {
       this._toGetBookmarks(offset, DEFAULT_LIMIT - offset, SORT)
     }
-    setHeaderInfo({
-      pageTheme: LIGHT,
-      pageType: BOOKMARK_LIST
-    })
   }
 
   _toGetBookmarks(offset, defaultLimit, sort) {
@@ -158,8 +154,7 @@ class BookmarkList extends React.Component {
 
 
 BookmarkList.propTypes = {
-  getBookmarks: React.PropTypes.func.isRequired,
-  setHeaderInfo: React.PropTypes.func.isRequired
+  getBookmarks: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -170,4 +165,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getBookmarks, setHeaderInfo, deleteBookmark })(BookmarkList)
+export default connect(mapStateToProps, { getBookmarks, deleteBookmark })(withLayout(BookmarkList))

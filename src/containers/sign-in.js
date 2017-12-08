@@ -1,10 +1,8 @@
+import React, { Component } from 'react'
+import withLayout from '../helpers/with-layout'
 import { ACTIVATE_PAGE_PATH } from '../routes'
-import { connect } from 'react-redux'
-import { REGISTRATION, LIGHT } from '../constants/index'
-import { setHeaderInfo } from '../actions/header'
 import { SignInForm, FacebookButton, GoogleButton, PageContainer } from '@twreporter/registration'
 import { withRouter } from 'react-router'
-import React, { Component } from 'react'
 
 import  get from 'lodash/get'
 
@@ -16,14 +14,6 @@ const TITLE = '登入報導者'
 const REDIRECT_PATH = 'confirm'
 
 class SignIn extends Component {
-  componentWillMount() {
-    const { setHeaderInfo } = this.props
-    setHeaderInfo({
-      pageTheme: LIGHT,
-      pageType: REGISTRATION
-    })
-  }
-
   render() {
     const { location } = this.props
     const path = _.get(location, 'query.path', '')
@@ -47,4 +37,4 @@ class SignIn extends Component {
   }
 }
 
-export default connect(null, { setHeaderInfo })(withRouter(SignIn))
+export default withRouter(withLayout(SignIn))

@@ -5,15 +5,6 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
-import { signOutAction } from '@twreporter/registration'
-import Layout from '../components/Layout'
-
-// lodash
-import get from 'lodash/get'
-
-const _ = {
-  get
-}
 
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
@@ -36,42 +27,22 @@ class App extends PureComponent {
   }
 
   render() {
-    const pathname = _.get(this.props, 'location.pathname')
     return (
       <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-        <Layout
-          header={this.props.header}
-          pathname={pathname}
-          signOutAction={this.props.signOutAction}
-          ifAuthenticated={this.props.ifAuthenticated}
-        >
-          {this.props.children}
-        </Layout>
+        {this.props.children}
       </IntlProvider>
     )
   }
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object,
-  device: React.PropTypes.string
-}
-
-App.defaultProps = {
-  signOutAction: () => {},
-  ifAuthenticated: false
-}
-
-App.propTypes = {
-  signOutAction: React.PropTypes.func,
-  ifAuthenticated: React.PropTypes.bool
+  location: React.PropTypes.object
 }
 
 function mapStateToProps(state) {
   return {
-    header: state.header,
-    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+    header: state.header
   }
 }
 
-export default connect(mapStateToProps, { signOutAction })(App)
+export default connect(mapStateToProps)(App)

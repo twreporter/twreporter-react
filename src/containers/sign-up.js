@@ -1,4 +1,5 @@
 import React from 'react'
+import withLayout from '../helpers/with-layout'
 import { SignUpForm, PageContainer } from '@twreporter/registration'
 import { withRouter } from 'react-router'
 
@@ -15,4 +16,4 @@ const SignUp = (props) => (
   </PageContainer>
 )
 
-export default withRouter(SignUp)
+export default withRouter(withLayout(SignUp))
