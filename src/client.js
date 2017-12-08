@@ -36,8 +36,16 @@ injectGlobal`
       border-bottom: 0;
     }
 
+    *, :before, :after {
+      box-sizing: border-box;
+    }
+
     a {
       text-decoration: none;
+    }
+
+    img {
+      vertical-align: middle;
     }
 
     .hidden {

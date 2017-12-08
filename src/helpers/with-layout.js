@@ -3,7 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/react-components/lib/header'
+import { connect } from 'react-redux'
 import { layout } from '../themes/common-variables'
+import { signOutAction } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
@@ -69,10 +71,19 @@ const photoTheme = {
   topicColor: DEFAULT_VALUES.TOPIC_COLOR
 }
 
+function mapStateToProps(state) {
+  return {
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+  }
+}
+
+const ReduxConnectedHeader = connect(mapStateToProps, { signOutAction })(Header)
+
 class Layout extends React.Component {
   render() {
-    const { bgColor, footerBgColor, fontColor, logoColor, headerPosition, special } = this.props
-    const JSXheader = <Header
+    const { bgColor, footerBgColor, fontColor,
+      logoColor, headerPosition, special } = this.props
+    const JSXheader = <ReduxConnectedHeader
       isIndex={this.props.isIndex}
       bgColor={bgColor}
       fontColor={fontColor}
