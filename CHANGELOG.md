@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.4.1
+- Set up different configuration for different environemt
+  - `RELEASE_BRANCH` could be `development`, `staging` or `production`
+
 ### 2.4.0
 - [Feature] Registration integration
   - Users can sign in by email or through Google and Facebook OAuth 
