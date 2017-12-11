@@ -31,7 +31,7 @@ const environment = {
       host: 'https://www.twreporter.org'
     })
   }
-}[process.env.NODE_ENV || 'development']
+}[process.env.RELEASE_BRANCH || 'development']
 
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',

@@ -7,10 +7,11 @@
     "out_file"    : "pm2-server-out.log",
     "error_file"  : "pm2-server-err.log",
     "env"         : {
-      "NODE_ENV": "staging",
+      "NODE_ENV": "production",
       "API_HOST": "staging-go-api.twreporter.org",
       "API_PROTOCOL": "https",
-      "API_PORT": 443
+      "API_PORT": 443,
+      "RELEASE_BRANCH": "staging"
     },
     "node_args": "--max_old_space_size=2048"
   }]
