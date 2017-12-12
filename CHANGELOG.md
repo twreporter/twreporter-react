@@ -3,6 +3,9 @@
 ### 2.4.1
 - Set up different configuration for different environemt
   - `RELEASE_BRANCH` could be `development`, `staging` or `production`
+- Code refactor src/containers/Article.js
+  - Add src/containers/ArticleTools.js. It will listen to redux store change, and do the corresponding actions.
+  - Make [MobileArticleTools|DesktopArticleTools] React.PureComponent, which won't own theirs state, all they need is passed from their Parent component.
 
 ### 2.4.0
 - [Feature] Registration integration
