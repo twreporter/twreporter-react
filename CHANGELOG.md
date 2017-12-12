@@ -1,11 +1,12 @@
 ### Unreleased
 
 ### 2.4.1
-- Set up different configuration for different environemt
+- Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
   - `RELEASE_BRANCH` could be `development`, `staging` or `production`
-- Code refactor src/containers/Article.js
+- Code refactor src/containers/Article.js [#711](https://github.com/twreporter/twreporter-react/pull/711)
   - Add src/containers/ArticleTools.js. It will listen to redux store change, and do the corresponding actions.
   - Make [MobileArticleTools|DesktopArticleTools] React.PureComponent, which won't own theirs state, all they need is passed from their Parent component.
+- Upgrade to @twreporter/registration@2.0.1 @twreporter/react-components@2.0.3 [#711](https://github.com/twreporter/twreporter-react/pull/711)
 
 ### 2.4.0
 - [Feature] Registration integration
