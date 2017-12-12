@@ -162,7 +162,11 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: true,
-        NODE_ENV: isProduction ? '"production"' : '"development"'
+        NODE_ENV: isProduction ? '"production"' : '"development"',
+        RELEASE_BRANCH: '"development"',
+        API_HOST: '"localhost"',
+        API_PORT: '8080',
+        API_PROTOCOL: '"http"'
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,

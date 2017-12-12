@@ -5,6 +5,7 @@ import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobi
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
 import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-mobile.svg'
 import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-mobile.svg'
+import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
 import styled from 'styled-components'
@@ -58,30 +59,8 @@ BackToTopicBtn.propTypes = {
 }
 
 class MobileArticleTools extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      toShow: props.toShow
-    }
-
-    this.showTools = this._updateToShowState.bind(this, true)
-    this.hideTools = this._updateToShowState.bind(this, false)
-    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
-  }
-
-  _updateToShowState(toShow) {
-    this.setState({
-      toShow
-    })
-  }
-
-  _handleOnClickBookmark() {
-    this.props.onClickBookmark()
-  }
-
   render() {
-    const { topicTitle, topicSlug, isBookmarkListed } = this.props
-    const { toShow } = this.state
+    const { topicTitle, topicSlug, toShow, isBookmarked } = this.props
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -96,9 +75,9 @@ class MobileArticleTools extends React.PureComponent {
         {!toShow ? null : (
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
-            <SubsequentIconContainer onClick={this.handleOnClickBookmark}>
-              <BookmarkImg showUp={!isBookmarkListed} src={BookmarkUnaddedIcon} />
-              <BookmarkImg showUp={isBookmarkListed} src={BookmarkAddedIcon} />
+            <SubsequentIconContainer onClick={this.props.handleOnClickBookmark}>
+              <BookmarkImg showUp={!isBookmarked} src={BookmarkUnaddedIcon} />
+              <BookmarkImg showUp={isBookmarked} src={BookmarkAddedIcon} />
             </SubsequentIconContainer>
             <BackToTopBtn />
           </div>
@@ -109,9 +88,10 @@ class MobileArticleTools extends React.PureComponent {
 }
 
 MobileArticleTools.propTypes = {
-  topicTitle: React.PropTypes.string,
-  topicSlug: React.PropTypes.string,
-  toShow: React.PropTypes.bool.isRequired
+  isBookmarked: PropTypes.bool.isRequired,
+  toShow: PropTypes.bool.isRequired,
+  topicTitle: PropTypes.string,
+  topicSlug: PropTypes.string
 }
 
 MobileArticleTools.defaultProps = {

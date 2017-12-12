@@ -1,13 +1,12 @@
 /* eslint no-console:0 */
 'use strict'
 
-import ArticleMeta from '../components/article/article-meta'
 import * as ArticleComponents from '../components/article/index'
-import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
+import ArticleMeta from '../components/article/article-meta'
+import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import MobileArticleTools from '../components/article/tools/MobileArticleTools'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
@@ -30,7 +29,7 @@ import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
 import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
-import { Link, browserHistory } from 'react-router'
+import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { getAbsPath, getScreenType } from '../utils/index'
@@ -60,7 +59,7 @@ const _ = {
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
-const { fetchAFullPost, createBookmark, deleteBookmark, getCurrentBookmark } = actions
+const { fetchAFullPost } = actions
 
 const ArticleContainer = styled.div`
   background-color: ${ props => (props.bgColor ? props.bgColor : colors.gray.lightGray) };
@@ -124,9 +123,7 @@ const scrollPosition = {
 }
 
 const DESKTOP = deviceConst.type.desktop
-const MOBILE = deviceConst.type.MOBILE
-const DEFAULT_INVALID_BOOKMARK_ID = 0
-const DEFAULT_BOOKMARK_HOST = 'https://www.twreporter.org'
+const MOBILE = deviceConst.type.mobile
 
 const viewport = {
   screenType: DESKTOP
@@ -173,47 +170,19 @@ class Article extends PureComponent {
     this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
     this._onResize =  _.throttle(this._onResize, 500).bind(this)
-    this.toggleTools = this._toggleTools.bind(this)
-    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
 
     this.state = {
       fontSize:'medium',
-      isFontSizeSet:false,
-      isBookmarkListed: false,
-      bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
+      isFontSizeSet:false
     }
 
     // reading progress component
     this.rp = null
 
-    // desktop article tools
-    this.dat = null
-
-    // mobile article tools
-    this.mat = null
+    // article tools
+    this.tools = null
 
     this.articleMeta = null
-  }
-
-  async _toGetCurrentBookmark(slug, host) {
-    try {
-      const id = await this.props.getCurrentBookmark(slug, host)
-      if (id) {
-        this.setState({
-          isBookmarkListed: true,
-          bookmarkId: id
-        })
-      }
-    } catch (error) {
-      this.setState({
-        isBookmarkListed: false,
-        bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
-      })
-    }
-  }
-
-  _checkIfBookmarkListed(slug) {
-    this._toGetCurrentBookmark(slug, DEFAULT_BOOKMARK_HOST)
   }
 
   getChildContext() {
@@ -246,7 +215,6 @@ class Article extends PureComponent {
         isFontSizeSet:true
       })
     }
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -261,7 +229,6 @@ class Article extends PureComponent {
     const { params } = this.props
     let slug = _.get(params, 'slug')
     this.props.fetchAFullPost(slug)
-    this._checkIfBookmarkListed(slug)
   }
 
   componentWillUnmount() {
@@ -271,8 +238,7 @@ class Article extends PureComponent {
 
     // unset components
     this.rp = null
-    this.dat = null
-    this.mat = null
+    this.tools = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -284,11 +250,10 @@ class Article extends PureComponent {
 
       // unset components
       this.rp = null
-      this.dat = null
-      this.mat = null
-      this._checkIfBookmarkListed(slug)
+      this.tools = null
     }
   }
+
 
   _onScroll() {
     this._handleScroll()
@@ -308,28 +273,12 @@ class Article extends PureComponent {
     viewport.screenType = getScreenType(window.innerWidth)
   }
 
-  _toggleTools(device, toShow) {
-    if (device === MOBILE) {
-      if (this.mat) {
-        if (toShow) {
-          return this.mat.showTools()
-        }
-        this.mat.hideTools()
-      }
-    } else if (this.dat) {
-      if (toShow) {
-        return this.dat.showTools()
-      }
-      this.dat.hideTools()
-    }
-  }
-
   _handleScroll() {
     const currentTopY = window.scrollY
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
-    const { theme } = this.props
-    const titlePosition = _.get(theme, 'titlePosition')
+    const { _theme } = this.props
+    const titlePosition = _.get(_theme, 'title_position')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -350,16 +299,19 @@ class Article extends PureComponent {
 
     const isInTopRegion = currentTopY < beginY + 600
 
+    // get tools React element
+    const tools = this.tools.getWrappedInstance()
+
     if (screenType === DESKTOP) {
       if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
         const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
         if ( currentScrollTop >= this.articleMeta.offsetTop) {
-          this.toggleTools(DESKTOP, true)
+          tools.toggleTools(DESKTOP, true)
         } else {
-          this.toggleTools(DESKTOP, false)
+          tools.toggleTools(DESKTOP, false)
         }
       } else {
-        this.toggleTools(DESKTOP, true)
+        tools.toggleTools(DESKTOP, true)
       }
     }
 
@@ -369,12 +321,12 @@ class Article extends PureComponent {
       const distance = currentTopY - lastY
       if (distance > 30) {
         scrollPosition.y = currentTopY
-        this.toggleTools(MOBILE, false)
+        tools.toggleTools(MOBILE, false)
       } else {
         if (Math.abs(distance) > 150) {
           scrollPosition.y = currentTopY
           if (!isInTopRegion) {
-            this.toggleTools(MOBILE, true)
+            tools.toggleTools(MOBILE, true)
           }
         }
       }
@@ -397,53 +349,9 @@ class Article extends PureComponent {
     return authors
   }
 
-  async _toDeleteBookmark(bookmarkId) {
-    try {
-      await this.props.deleteBookmark(bookmarkId)
-      this.setState({
-        isBookmarkListed: false,
-        bookmarkId: DEFAULT_INVALID_BOOKMARK_ID
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async _toCreateBookmark(bookmarkData) {
-    try {
-      const bookmarkId = await this.props.createBookmark({
-        ...bookmarkData,
-        host: DEFAULT_BOOKMARK_HOST
-      })
-      if(bookmarkId) {
-        this.setState({
-          isBookmarkListed: true,
-          bookmarkId
-        })
-      }
-    } catch(error) {
-      const { selectedPost, entities } = this.props
-      const slug = _.get(selectedPost, 'slug')
-      const type = _.get(entities, `posts.${slug}.style`) === 'interactive' ? 'i' : 'a'
-      const webStatus = _.get(error, 'response.status')
-      if (webStatus === 401) {
-        browserHistory.push(`/signin/?path=${type}/${slug}`)
-      }
-    }
-  }
-
-  _handleOnClickBookmark(bookmarkData) {
-    const { isBookmarkListed } = this.state
-    if (!isBookmarkListed) {
-      this._toCreateBookmark(bookmarkData)
-    } else {
-      const { bookmarkId } = this.state
-      this._toDeleteBookmark(bookmarkId)
-    }
-  }
 
   render() {
-    const { entities, params, selectedPost, theme } = this.props
+    const { entities, params, selectedPost, _theme } = this.props
     const error = _.get(selectedPost, 'error')
     if (error) {
       return (
@@ -497,25 +405,15 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
-    const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
-
-    const createBookmarkData = () => {
-      const slug = _.get(selectedPost, 'slug', '')
-      return {
-        slug,
-        is_external: _.get(entities, `posts.${slug}.style`) === 'interactive',
-        title: _.get(entities, `posts.${slug}.title`),
-        desc: _.get(entities, `posts.${slug}.og_description`),
-        thumbnail: _.get(entities, `posts.${slug}.hero_image.resized_targets.mobile.url`),
-        category: _.get(entities, `posts.${slug}.categories[0].name`),
-        published_date: _.get(entities, `posts.${slug}.published_date`)
-      }
-    }
+    const articleTitle = _.get(article, 'title', '')
+    const ogTitle = articleTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
+    const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
     const pathname = _.get(this.props, 'location.pathname')
+
     // theme
+    const theme = camelizeKeys(_theme)
     const bgColor = _.get(theme, 'bgColor')
     // const footerBgColor = _.get(theme, 'footer_bg_color')
     const fontColor = _.get(theme, 'fontColor')
@@ -533,19 +431,19 @@ class Article extends PureComponent {
     return (
       <div>
         <Helmet
-          title={articleTitle}
+          title={ogTitle}
           link={[
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: articleDes },
-            { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
-            { name: 'twitter:image', content: articleImg || SITE_META.OG_IMAGE },
-            { name: 'twitter:description', content: articleDes },
+            { name: 'description', content: ogDesc },
+            { name: 'twitter:title', content: ogTitle },
+            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
-            { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
-            { property: 'og:description', content: articleDes },
-            { property: 'og:image', content: articleImg || SITE_META.OG_IMAGE },
+            { property: 'og:title', content: ogTitle },
+            { property: 'og:description', content: ogDesc },
+            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
@@ -705,23 +603,10 @@ class Article extends PureComponent {
           />*/}
           <div className="hidden-print">
           </div>
+          <ArticleTools
+            ref={ ele => this.tools = ele }
+          />
         </div>
-        <MobileArticleTools
-          ref={ ele => this.mat = ele }
-          topicTitle={topicTitle}
-          topicSlug={topicSlug}
-          toShow={false}
-          onClickBookmark={() => {this.handleOnClickBookmark(createBookmarkData())}}
-          isBookmarkListed={this.state.isBookmarkListed}
-        />
-        <DesktopArticleTools
-          ref={ ele => this.dat = ele}
-          topicTitle={topicTitle}
-          topicSlug={topicSlug}
-          toShow={false}
-          onClickBookmark={() => {this.handleOnClickBookmark(createBookmarkData())}}
-          isBookmarkListed={this.state.isBookmarkListed}
-        />
       </div>
     )
   }
@@ -744,7 +629,7 @@ export function mapStateToProps(state) {
   return {
     entities,
     selectedPost,
-    theme: camelizeKeys(theme)
+    _theme: theme
   }
 }
 
@@ -758,26 +643,20 @@ Article.contextTypes = {
 }
 
 Article.propTypes = {
-  createBookmark: React.PropTypes.func,
-  deleteBookmark: React.PropTypes.func,
   entities: React.PropTypes.object,
-  getCurrentBookmark: React.PropTypes.func,
   ifDelegateImage: React.PropTypes.bool,
   params: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object
+  _theme: React.PropTypes.object
 }
 
 Article.defaultProps = {
-  createBookmark: () => {},
-  deleteBookmark: () => {},
   entities: {},
-  getCurrentBookmark: () => {},
   ifDelegateImage: false,
   params: {},
   selectedPost: {},
-  theme: defaultTheme
+  _theme: defaultTheme
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, createBookmark, deleteBookmark, getCurrentBookmark })(withLayout(Article))
+export default connect(mapStateToProps, { fetchAFullPost })(withLayout(Article))

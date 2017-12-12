@@ -4,6 +4,7 @@ import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic.svg'
 import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-desktop.svg'
 import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-desktop.svg'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './DesktopArticleTools.scss'
@@ -44,34 +45,13 @@ const BackToTopic = (props) => (
 )
 
 BackToTopic.propTypes = {
-  topicSlug: React.PropTypes.string.isRequired,
-  topicTitle: React.PropTypes.string.isRequired
+  topicSlug: PropTypes.string.isRequired,
+  topicTitle: PropTypes.string.isRequired
 }
 
 class DesktopArticleTools extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      toShow: props.toShow
-    }
-    this.showTools = this._updateToShowState.bind(this, true)
-    this.hideTools = this._updateToShowState.bind(this, false)
-    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
-  }
-
-  _updateToShowState(toShow) {
-    this.setState({
-      toShow
-    })
-  }
-
-  _handleOnClickBookmark() {
-    this.props.onClickBookmark()
-  }
-
   render() {
-    const { topicTitle, topicSlug, isBookmarkListed } = this.props
-    const { toShow } = this.state
+    const { topicTitle, topicSlug, isBookmarked, toShow } = this.props
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -86,9 +66,9 @@ class DesktopArticleTools extends React.PureComponent {
       {!toShow ? null : (
         <div className={styles['article-tools-container']}>
           {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
-          <BookmarkFrame onClick={this.handleOnClickBookmark}>
-            <BookmarkImg showUp={!isBookmarkListed} src={BookmarkUnaddedIcon} />
-            <BookmarkImg showUp={isBookmarkListed} src={BookmarkAddedIcon} />
+          <BookmarkFrame onClick={this.props.handleOnClickBookmark}>
+            <BookmarkImg showUp={!isBookmarked} src={BookmarkUnaddedIcon} />
+            <BookmarkImg showUp={isBookmarked} src={BookmarkAddedIcon} />
           </BookmarkFrame>
         </div>
       )}
@@ -96,17 +76,17 @@ class DesktopArticleTools extends React.PureComponent {
     )
   }
 }
+
 DesktopArticleTools.propTypes = {
-  topicTitle: React.PropTypes.string,
-  topicSlug: React.PropTypes.string,
-  toShow: React.PropTypes.bool.isRequired,
-  onClickBookmark: React.PropTypes.func.isRequired,
-  isBookmarkListed: React.PropTypes.bool.isRequired
+  isBookmarked: PropTypes.bool.isRequired,
+  toShow: PropTypes.bool.isRequired,
+  topicSlug: PropTypes.string,
+  topicTitle: PropTypes.string
 }
 
 DesktopArticleTools.defaultProps = {
-  topicTitle: '',
-  topicSlug: ''
+  topicSlug: '',
+  topicTitle: ''
 }
 
 export default DesktopArticleTools
