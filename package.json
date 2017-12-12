@@ -4,7 +4,7 @@
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "npm run clean && npm run build-webpack && npm run build-server",
-    "build-server": "NODE_ENV=production RELEASE_BRANCH=development BABEL_ENV=ssr babel src --out-dir dist --copy-files",
+    "build-server": "NODE_ENV=production RELEASE_BRANCH=staging BABEL_ENV=ssr babel src --out-dir dist --copy-files",
     "build-webpack": "NODE_ENV=production webpack --config webpack.config.js --progress --colors",
     "clean": "./node_modules/.bin/rimraf dist webpack-assets.json",
     "dev": "concurrently --kill-others \"npm run start-webpack-dev-server\" \"npm run start-dev-server\"",
