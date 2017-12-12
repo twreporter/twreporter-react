@@ -1,134 +1,118 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/react-components/lib/header'
-import { connect } from 'react-redux'
 import { layout } from '../themes/common-variables'
-import { signOutAction } from '@twreporter/registration'
 
-// lodash
-import get from 'lodash/get'
-const _ = {
-  get
+const STYLE_VARIABLES = {
+  BG_COLOR: {
+    DEFAULT: '#f1f1f1',
+    PHOTO: '#08192d'
+  },
+  FONT_COLOR: {
+    DEFAULT: '#404040',
+    PHOTO: '#FFFFFF'
+  },
+  SUBTITLE_FONT_COLOR: {
+    DEFAULT: 'gray'
+  },
+  FOOTER_BG_COLOR:{
+    DEFAULT: '#cdcdcd',
+    PHOTO: '#08192d'
+  },
+  HEADER_POSITION:{
+    DEFAULT: 'header-above'
+  },
+  TITLE_POSITION: {
+    DEFAULT: 'title-above'
+  },
+  TOPIC_COLOR: {
+    DEFAULT: '#c71b0a'
+  },
+  LOGO_COLOR: {
+    PHOTO: Header.logoColor.dark
+  }
 }
 
-const SpecialContainer = styled.div`
-  background-color: ${props => props.bgColor};
-  min-height: 100vh;
-  height: 100vh;
-  overflow-y: hidden;
-  overflow-x: hidden;
-`
+const defaultTheme = {
+  bgColor: STYLE_VARIABLES.BG_COLOR.DEFAULT,
+  fontColor: STYLE_VARIABLES.FONT_COLOR.DEFAULT,
+  footerBgColor: STYLE_VARIABLES.FOOTER_BG_COLOR.DEFAULT,
+  headerPosition: STYLE_VARIABLES.HEADER_POSITION.DEFAULT,
+  logoColor: Header.logoColor.dark.DEFAULT,
+  subtitleColor: STYLE_VARIABLES.SUBTITLE_FONT_COLOR.DEFAULT,
+  titleColor: STYLE_VARIABLES.FONT_COLOR.DEFAULT,
+  titlePosition: STYLE_VARIABLES.TITLE_POSITION.DEFAULT,
+  topicColor: STYLE_VARIABLES.TOPIC_COLOR.DEFAULT
+}
+
+const photoTheme = {
+  bgColor: STYLE_VARIABLES.BG_COLOR.PHOTO,
+  fontColor: STYLE_VARIABLES.FONT_COLOR.PHOTO,
+  footerBgColor: STYLE_VARIABLES.FOOTER_BG_COLOR.PHOTO,
+  headerPosition: STYLE_VARIABLES.HEADER_POSITION.DEFAULT,
+  logoColor: Header.logoColor.bright,
+  subtitleColor: STYLE_VARIABLES.FONT_COLOR.PHOTO,
+  titleColor: STYLE_VARIABLES.FONT_COLOR.PHOTO,
+  titlePosition: STYLE_VARIABLES.TITLE_POSITION.DEFAULT,
+  topicColor: STYLE_VARIABLES.TOPIC_COLOR.DEFAULT
+}
 
 const Container = styled.div`
   background-color: ${props => props.bgColor};
   min-height: 100vh;
   overflow-x: hidden;
+  ${props => !props.special ? '' : css`
+    height: 100vh;
+    overflow-y: hidden;
+  `}
 `
 
 const HeaderContainer = styled.div`
-  @media (min-width: ${layout.desktop.large}) {
-    display: none;
-  }
+  ${props => {
+    switch (props.headerPosition) {
+      case 'header-above':
+        return ''
+      default:
+        return css`
+          @media (min-width: ${layout.desktop.large}) {
+            display: none;
+          }
+        `
+    }
+  }}
 `
 
-const DEFAULT_VALUES = {
-  BG_COLOR: '#f1f1f1',
-  FONT_COLOR: '#404040',
-  SUBTITLE_FONT_COLOR: 'gray',
-  FOOTER_BG_COLOR: '#cdcdcd',
-  PHOTO_BG_COLOR: '#08192d',
-  PHOTO_FONT_COLOR: '#FFFFFF',
-  PHOTO_FOOTER_BG_COLOR: '#08192d',
-  PHOTO_LOGO_COLOR: Header.logoColor.dark,
-  HEADER_POSITION: 'header-above',
-  TITLE_POSITION: 'title-above',
-  TOPIC_COLOR: '#c71b0a'
-}
-
-const defaultTheme = {
-  bgColor: DEFAULT_VALUES.BG_COLOR,
-  fontColor: DEFAULT_VALUES.FONT_COLOR,
-  footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.HEADER_POSITION,
-  logoColor: Header.logoColor.dark,
-  subtitleColor: DEFAULT_VALUES.SUBTITLE_FONT_COLOR,
-  titleColor: DEFAULT_VALUES.FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.TITLE_POSITION,
-  topicColor: DEFAULT_VALUES.TOPIC_COLOR
-}
-
-const photoTheme = {
-  bgColor: DEFAULT_VALUES.PHOTO_BG_COLOR,
-  fontColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  footerBgColor: DEFAULT_VALUES.PHOTO_FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.HEADER_POSITION,
-  logoColor: Header.logoColor.bright,
-  subtitleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  titleColor: DEFAULT_VALUES.PHOTO_FONT_COLOR,
-  titlePosition: DEFAULT_VALUES.TITLE_POSITION,
-  topicColor: DEFAULT_VALUES.TOPIC_COLOR
-}
-
-function mapStateToProps(state) {
-  return {
-    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
-  }
-}
-
-const ReduxConnectedHeader = connect(mapStateToProps, { signOutAction })(Header)
-
 class Layout extends React.Component {
+  static contextTypes = {
+    ifAuthenticated: PropTypes.bool.isRequired,
+    signOutAction: PropTypes.func.isRequired
+  }
   render() {
-    const { bgColor, footerBgColor, fontColor,
-      logoColor, headerPosition, special } = this.props
-    const JSXheader = <ReduxConnectedHeader
-      isIndex={this.props.isIndex}
-      bgColor={bgColor}
-      fontColor={fontColor}
-      logoColor={logoColor}
-      pathName={this.props.pathname}
-      headerPosition={headerPosition}
-      footerBgColor={footerBgColor}
-    />
-    const content = (() => {
-      return (
-        <div>
-          { headerPosition === DEFAULT_VALUES.HEADER_POSITION ? (
-            <div>
-              { JSXheader }
-            </div>
-          )
-           : (
-            <HeaderContainer>
-              { JSXheader }
-            </HeaderContainer>
-          )
-          }
-          {this.props.children}
-          <Footer
-            fontColor={fontColor}
-            bgColor={footerBgColor}
-          />
-        </div>
-      )
-    })()
-    if (special) {
-      return (
-        <SpecialContainer
-          bgColor={bgColor}
-          id="pageContainer"
-        >
-          {content}
-        </SpecialContainer>
-      )
-    }
+    const { bgColor, footerBgColor, fontColor, logoColor, headerPosition, isIndex, pathname, lockScrollY } = this.props
+    const { ifAuthenticated, signOutAction } = this.context
     return (
-      <Container
-        bgColor={bgColor}
-      >
-        {content}
+      <Container bgColor={bgColor} id="page-container" lockScrollY={lockScrollY}>
+        {/* `id="page-container"` is for `components/zoom-in-leading-image.js` to enable scrollY after animation end */}
+        <HeaderContainer headerPosition={headerPosition}>
+          <Header
+            isIndex={isIndex}
+            bgColor={bgColor}
+            fontColor={fontColor}
+            logoColor={logoColor}
+            pathName={pathname}
+            headerPosition={headerPosition}
+            footerBgColor={footerBgColor}
+            ifAuthenticated={ifAuthenticated}
+            signOutAction={signOutAction}
+          />
+        </HeaderContainer>
+        {this.props.children}
+        <Footer
+          fontColor={fontColor}
+          bgColor={footerBgColor}
+        />
       </Container>
     )
   }
@@ -146,10 +130,10 @@ Layout.propTypes = {
 }
 
 Layout.defaultProps = {
-  bgColor: DEFAULT_VALUES.BG_COLOR,
-  fontColor: DEFAULT_VALUES.FONT_COLOR,
-  footerBgColor: DEFAULT_VALUES.FOOTER_BG_COLOR,
-  headerPosition: DEFAULT_VALUES.HEADER_POSITION,
+  bgColor: STYLE_VARIABLES.BG_COLOR,
+  fontColor: STYLE_VARIABLES.FONT_COLOR,
+  footerBgColor: STYLE_VARIABLES.FOOTER_BG_COLOR,
+  headerPosition: STYLE_VARIABLES.HEADER_POSITION,
   isIndex: false,
   logoColor: Header.logoColor.dark,
   special: false
@@ -171,7 +155,8 @@ function getDisplayName(WrappedComponent) {
  * @param {object} WrappedComponent react component to be wrapped
  * @returns {object} React component wrapped with Layout component
  */
-export default function withLayout(WrappedComponent, special) {
+export default function withLayout(WrappedComponent, options = {}) {
+  const { lockScrollY } = options
   return class WithLayout extends React.Component {
     static displayName = `WithLayout(${getDisplayName(WrappedComponent)})`
     static propTypes = {
@@ -201,18 +186,14 @@ export default function withLayout(WrappedComponent, special) {
     }
 
     render() {
-      const { theme, isIndex, ...passThroughProps } = this.props
-      const pathname = _.get(this.props, 'location.pathname')
+      const { theme, isIndex, location, ...passThroughProps } = this.props
+      const { pathname } = location
       return (
         <Layout
           isIndex={isIndex}
-          headerPosition={theme.headerPosition}
-          fontColor={theme.fontColor}
-          footerBgColor={theme.footerBgColor}
-          bgColor={theme.bgColor}
-          logoColor={theme.logoColor}
           pathname={pathname}
-          special={special}
+          lockScrollY={lockScrollY}
+          {...theme}
         >
           <WrappedComponent
             theme={theme}
@@ -220,7 +201,6 @@ export default function withLayout(WrappedComponent, special) {
           />
         </Layout>
       )
-
     }
   }
 }
