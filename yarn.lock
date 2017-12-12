@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@twreporter/react-components@^2.0.0":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.0.2.tgz#e7a5c99a5e7ed4079930121d56e40b8d79b48e2b"
+"@twreporter/react-components@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.0.3.tgz#3e3174dc334eff204501d2e55fe7cf7e41060fc2"
   dependencies:
     "@twreporter/velocity-react" "^1.3.4"
     lodash "^4.17.4"
@@ -23,9 +23,9 @@
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/registration@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.0.0.tgz#be054034c60bc1f614c1767033638f24223ab8a7"
+"@twreporter/registration@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.0.1.tgz#c409f56dc6ac0555b9e83897155972d23d82792b"
   dependencies:
     axios "^0.16.2"
     babel-polyfill "^6.23.0"
@@ -4738,11 +4738,7 @@ miller-rabin@^4.0.0:
     bn.js "^4.0.0"
     brorand "^1.0.1"
 
-"mime-db@>= 1.30.0 < 2":
-  version "1.32.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.32.0.tgz#485b3848b01a3cda5f968b4882c0771e58e09414"
-
-mime-db@~1.30.0:
+"mime-db@>= 1.30.0 < 2", mime-db@~1.30.0:
   version "1.30.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.30.0.tgz#74c643da2dd9d6a45399963465b26d5ca7d71f01"
 
