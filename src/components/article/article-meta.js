@@ -26,35 +26,36 @@ const Container = styled.div`
   `}
 `
 
-const ArticleMeta = (props) => {
-  const { authors, extendByline, publishedDate, appId, url, title, fbIcon, twitterIcon, lineIcon, changeFontSize, fontSize } = props
-
-  return (
-    <Container>
-      <HeadingAuthor
-        authors={authors}
-        extendByline={extendByline}
-      >
-        <PublishDate
-          date={publishedDate}
-        />
-      </HeadingAuthor>
-      <div className={'hidden-print'}>
-        <ShareBt
-          appId={appId}
-          url={url}
-          title={title}
-          fbIcon={fbIcon}
-          twitterIcon={twitterIcon}
-          lineIcon={lineIcon}
-        />
-        <PrintButton />
-        <FontChangeButton
-          changeFontSize={changeFontSize}
-          fontSize={fontSize}/>
-      </div>
-    </Container>
-  )
+class ArticleMeta extends React.Component {
+  render() {
+    const { authors, extendByline, publishedDate, appId, url, title, fbIcon, twitterIcon, lineIcon, changeFontSize, fontSize } = this.props
+    return (
+      <Container>
+        <HeadingAuthor
+          authors={authors}
+          extendByline={extendByline}
+        >
+          <PublishDate
+            date={publishedDate}
+          />
+        </HeadingAuthor>
+        <div className={'hidden-print'}>
+          <ShareBt
+            appId={appId}
+            url={url}
+            title={title}
+            fbIcon={fbIcon}
+            twitterIcon={twitterIcon}
+            lineIcon={lineIcon}
+          />
+          <PrintButton />
+          <FontChangeButton
+            changeFontSize={changeFontSize}
+            fontSize={fontSize}/>
+        </div>
+      </Container>
+    )
+  }
 }
 
 export default ArticleMeta
