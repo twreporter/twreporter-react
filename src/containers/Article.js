@@ -376,16 +376,6 @@ class Article extends PureComponent {
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
-    if (isFetching) {
-      return (
-        <ArticleContainer>
-          <div className={contentClass}>
-            <ArticlePlaceholder />
-          </div>
-        </ArticleContainer>
-      )
-    }
-
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
@@ -451,7 +441,7 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <ArticleContainer><ArticlePlaceholder /></ArticleContainer> :
+          {isFetching ? <ArticleContainer bgColor="transparent"><ArticlePlaceholder /></ArticleContainer> :
           <ArticleContainer
             bgColor={bgColor}
             titlePosition={titlePosition}
