@@ -1,5 +1,6 @@
 .topnews {
 	height: calc(100vh - 80px + 135px);
+	overflow: hidden;
 }
 
 .topnews ul {
@@ -101,7 +102,7 @@
     position: absolute;
     top: 50px;
     left: 50px;
-		font-size: 16px;
+	font-size: 16px;
 }
 
 .carousel-item {

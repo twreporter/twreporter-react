@@ -13,13 +13,11 @@ import { colors, layout, letterSpace, lineHeight, typography } from './themes/co
 import { injectGlobal } from 'styled-components'
 import { match, browserHistory } from 'react-router'
 import { screen as mq } from './themes/screen'
-import cssReset from './themes/css-reset'
 import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
 injectGlobal`
-  ${cssReset};
   html {
     font-size: ${typography.font.size.base};
     ::selection {
