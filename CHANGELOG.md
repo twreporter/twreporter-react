@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.4.2
+- Bump @twreporter/react-components version to 1.3.5
+- Bump normalizr version to ^3.2.4
+
 ### 2.4.1
 - Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
   - `RELEASE_BRANCH` could be `development`, `staging` or `production`
