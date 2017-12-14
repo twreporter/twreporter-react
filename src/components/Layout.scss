@@ -1,6 +1,6 @@
 @import '../themes/common-variables.scss';
 .theme {
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: $light-gray;
     min-height:100vh;
     &.photography {

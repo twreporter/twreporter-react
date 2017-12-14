@@ -1,10 +1,34 @@
 {
-    "presets": ["es2015", "react", "stage-0"],
-    "plugins": [
-        ["system-import-transformer", {
-            "commonJS": {
-                "useRequireEnsure": true
-            }
-        }]
-    ]
+  "presets": [
+    "es2015",
+    "react",
+    "stage-0"
+  ],
+  "env": {
+    "ssr": {
+      "plugins": [
+        [
+          "css-modules-transform",
+          {
+            "extensions": [
+              ".css",
+              ".scss"
+            ],
+            "generateScopedName": "[name]__[local]___[hash:base64:5]"
+          }
+        ]
+      ]
+    }
+  },
+  "plugins": [
+    [
+      "system-import-transformer",
+      {
+        "commonJS": {
+          "useRequireEnsure": true
+        }
+      }
+    ],
+    "inline-import-data-uri"
+  ]
 }

@@ -1,13 +1,12 @@
 /* eslint no-console:0 */
 'use strict'
 
-import ArticleMeta from '../components/article/article-meta'
 import * as ArticleComponents from '../components/article/index'
-import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
+import ArticleMeta from '../components/article/article-meta'
+import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import MobileArticleTools from '../components/article/tools/MobileArticleTools'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
@@ -124,7 +123,7 @@ const scrollPosition = {
 }
 
 const DESKTOP = deviceConst.type.desktop
-const MOBILE = deviceConst.type.MOBILE
+const MOBILE = deviceConst.type.mobile
 
 const viewport = {
   screenType: DESKTOP
@@ -171,7 +170,6 @@ class Article extends PureComponent {
     this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
     this._onResize =  _.throttle(this._onResize, 500).bind(this)
-    this.toggleTools = this._toggleTools.bind(this)
 
     this.state = {
       fontSize:'medium',
@@ -181,11 +179,8 @@ class Article extends PureComponent {
     // reading progress component
     this.rp = null
 
-    // desktop article tools
-    this.dat = null
-
-    // mobile article tools
-    this.mat = null
+    // article tools
+    this.tools = null
 
     this.articleMeta = null
   }
@@ -243,8 +238,7 @@ class Article extends PureComponent {
 
     // unset components
     this.rp = null
-    this.dat = null
-    this.mat = null
+    this.tools = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -256,10 +250,10 @@ class Article extends PureComponent {
 
       // unset components
       this.rp = null
-      this.dat = null
-      this.mat = null
+      this.tools = null
     }
   }
+
 
   _onScroll() {
     this._handleScroll()
@@ -279,28 +273,12 @@ class Article extends PureComponent {
     viewport.screenType = getScreenType(window.innerWidth)
   }
 
-  _toggleTools(device, toShow) {
-    if (device === MOBILE) {
-      if (this.mat) {
-        if (toShow) {
-          return this.mat.showTools()
-        }
-        this.mat.hideTools()
-      }
-    } else if (this.dat) {
-      if (toShow) {
-        return this.dat.showTools()
-      }
-      this.dat.hideTools()
-    }
-  }
-
   _handleScroll() {
     const currentTopY = window.scrollY
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
-    const { theme } = this.props
-    const titlePosition = _.get(theme, 'titlePosition')
+    const { _theme } = this.props
+    const titlePosition = _.get(_theme, 'title_position')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -321,16 +299,19 @@ class Article extends PureComponent {
 
     const isInTopRegion = currentTopY < beginY + 600
 
+    // get tools React element
+    const tools = this.tools.getWrappedInstance()
+
     if (screenType === DESKTOP) {
       if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
         const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
         if ( currentScrollTop >= this.articleMeta.offsetTop) {
-          this.toggleTools(DESKTOP, true)
+          tools.toggleTools(DESKTOP, true)
         } else {
-          this.toggleTools(DESKTOP, false)
+          tools.toggleTools(DESKTOP, false)
         }
       } else {
-        this.toggleTools(DESKTOP, true)
+        tools.toggleTools(DESKTOP, true)
       }
     }
 
@@ -340,12 +321,12 @@ class Article extends PureComponent {
       const distance = currentTopY - lastY
       if (distance > 30) {
         scrollPosition.y = currentTopY
-        this.toggleTools(MOBILE, false)
+        tools.toggleTools(MOBILE, false)
       } else {
         if (Math.abs(distance) > 150) {
           scrollPosition.y = currentTopY
           if (!isInTopRegion) {
-            this.toggleTools(MOBILE, true)
+            tools.toggleTools(MOBILE, true)
           }
         }
       }
@@ -368,8 +349,9 @@ class Article extends PureComponent {
     return authors
   }
 
+
   render() {
-    const { entities, params, selectedPost, theme } = this.props
+    const { entities, params, selectedPost, _theme } = this.props
     const error = _.get(selectedPost, 'error')
     if (error) {
       return (
@@ -423,12 +405,15 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
-    const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
+    const articleTitle = _.get(article, 'title', '')
+    const ogTitle = articleTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
+    const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
     const pathname = _.get(this.props, 'location.pathname')
+
     // theme
+    const theme = camelizeKeys(_theme)
     const bgColor = _.get(theme, 'bgColor')
     // const footerBgColor = _.get(theme, 'footer_bg_color')
     const fontColor = _.get(theme, 'fontColor')
@@ -446,19 +431,19 @@ class Article extends PureComponent {
     return (
       <div>
         <Helmet
-          title={articleTitle}
+          title={ogTitle}
           link={[
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: articleDes },
-            { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
-            { name: 'twitter:image', content: articleImg || SITE_META.OG_IMAGE },
-            { name: 'twitter:description', content: articleDes },
+            { name: 'description', content: ogDesc },
+            { name: 'twitter:title', content: ogTitle },
+            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
-            { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
-            { property: 'og:description', content: articleDes },
-            { property: 'og:image', content: articleImg || SITE_META.OG_IMAGE },
+            { property: 'og:title', content: ogTitle },
+            { property: 'og:description', content: ogDesc },
+            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
@@ -618,9 +603,10 @@ class Article extends PureComponent {
           />*/}
           <div className="hidden-print">
           </div>
+          <ArticleTools
+            ref={ ele => this.tools = ele }
+          />
         </div>
-        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} toShow={false}/>
-        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} toShow={false} />
       </div>
     )
   }
@@ -643,7 +629,7 @@ export function mapStateToProps(state) {
   return {
     entities,
     selectedPost,
-    theme: camelizeKeys(theme)
+    _theme: theme
   }
 }
 
@@ -658,18 +644,18 @@ Article.contextTypes = {
 
 Article.propTypes = {
   entities: React.PropTypes.object,
-  selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object,
+  ifDelegateImage: React.PropTypes.bool,
   params: React.PropTypes.object,
-  ifDelegateImage: React.PropTypes.bool
+  selectedPost: React.PropTypes.object,
+  _theme: React.PropTypes.object
 }
 
 Article.defaultProps = {
   entities: {},
-  selectedPost: {},
-  theme: defaultTheme,
+  ifDelegateImage: false,
   params: {},
-  ifDelegateImage: false
+  selectedPost: {},
+  _theme: defaultTheme
 }
 
 export { Article }

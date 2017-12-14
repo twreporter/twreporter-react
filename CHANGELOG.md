@@ -1,8 +1,29 @@
 ### Unreleased
 
-### 2.2.11
+### 2.4.2
 - Bump @twreporter/react-components version to 1.3.5
 - Bump normalizr version to ^3.2.4
+
+### 2.4.1
+- Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
+  - `RELEASE_BRANCH` could be `development`, `staging` or `production`
+- Code refactor src/containers/Article.js [#711](https://github.com/twreporter/twreporter-react/pull/711)
+  - Add src/containers/ArticleTools.js. It will listen to redux store change, and do the corresponding actions.
+  - Make [MobileArticleTools|DesktopArticleTools] React.PureComponent, which won't own theirs state, all they need is passed from their Parent component.
+- Upgrade to @twreporter/registration@2.0.1 @twreporter/react-components@2.0.3 [#711](https://github.com/twreporter/twreporter-react/pull/711)
+
+### 2.4.0
+- [Feature] Registration integration
+  - Users can sign in by email or through Google and Facebook OAuth 
+  - Users can CRUD bookmarks
+
+### 2.3.0 
+- Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
+  - Remove webpack-isormorphic-tools
+  - Remove bootstrap and inject global styles by styled-components
+  - Run transipled js files on production, discard babel-node
+  - Upgrade webpack to ^3.0.0 and corresponding dependencies
+  - Replace piping by nodemon
 
 ### 2.2.10
 - Bump @twreporter/react-components version to 1.3.1
@@ -43,6 +64,12 @@
 - Fix Webpack hot loadig problem on dev
 - Transform import to require.ensure by babel plugin
 - Remove react-hot-loader package since we don't use it at all
+
+### 3.0.0
+- Create registration system (RS)
+- RS: SignIn, SignUp, Activation...
+- Implement bookmark feature
+- Mobile Navbar
 
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
