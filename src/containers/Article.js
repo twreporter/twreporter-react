@@ -300,33 +300,34 @@ class Article extends PureComponent {
     const isInTopRegion = currentTopY < beginY + 600
 
     // get tools React element
-    const tools = this.tools.getWrappedInstance()
-
-    if (screenType === DESKTOP) {
-      if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
-        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-        if ( currentScrollTop >= this.articleMeta.offsetTop) {
-          tools.toggleTools(DESKTOP, true)
+    if (this.tools) {
+      const tools = this.tools.getWrappedInstance()
+      if (screenType === DESKTOP) {
+        if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
+          const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+          if ( currentScrollTop >= this.articleMeta.offsetTop) {
+            tools.toggleTools(DESKTOP, true)
+          } else {
+            tools.toggleTools(DESKTOP, false)
+          }
         } else {
-          tools.toggleTools(DESKTOP, false)
+          tools.toggleTools(DESKTOP, true)
         }
-      } else {
-        tools.toggleTools(DESKTOP, true)
       }
-    }
-
-    // Calculate scrolling distance to determine whether tools are displayed
-    if (screenType !== DESKTOP) {
-      const lastY = scrollPosition.y
-      const distance = currentTopY - lastY
-      if (distance > 30) {
-        scrollPosition.y = currentTopY
-        tools.toggleTools(MOBILE, false)
-      } else {
-        if (Math.abs(distance) > 150) {
+  
+      // Calculate scrolling distance to determine whether tools are displayed
+      if (screenType !== DESKTOP) {
+        const lastY = scrollPosition.y
+        const distance = currentTopY - lastY
+        if (distance > 30) {
           scrollPosition.y = currentTopY
-          if (!isInTopRegion) {
-            tools.toggleTools(MOBILE, true)
+          tools.toggleTools(MOBILE, false)
+        } else {
+          if (Math.abs(distance) > 150) {
+            scrollPosition.y = currentTopY
+            if (!isInTopRegion) {
+              tools.toggleTools(MOBILE, true)
+            }
           }
         }
       }
