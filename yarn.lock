@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@twreporter/react-components@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.0.3.tgz#3e3174dc334eff204501d2e55fe7cf7e41060fc2"
+"@twreporter/react-components@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.0.4.tgz#32ac58eefc0cba2a3dad4c7131704896dd601258"
   dependencies:
     "@twreporter/velocity-react" "^1.3.4"
     lodash "^4.17.4"
@@ -4599,7 +4599,7 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@^3.10.0, lodash@^3.3.1:
+lodash@^3.3.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
@@ -5122,11 +5122,9 @@ normalize.css@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-7.0.0.tgz#abfb1dd82470674e0322b53ceb1aaf412938e4bf"
 
-normalizr@^1.0.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-1.4.1.tgz#aa387c2465f13611caf3aae42baf98f705e8a2ce"
-  dependencies:
-    lodash "^3.10.0"
+normalizr@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.2.4.tgz#16aafc540ca99dc1060ceaa1933556322eac4429"
 
 npm-run-path@^2.0.0:
   version "2.0.2"
