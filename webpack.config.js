@@ -168,7 +168,7 @@ const webpackConfig = {
         RELEASE_BRANCH: '"staging"',
         API_HOST: '"staging-go-api.twreporter.org"',
         API_PORT: '443',
-        API_PROTOCOL: '"http"'
+        API_PROTOCOL: '"https"'
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
