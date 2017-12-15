@@ -1,4 +1,6 @@
 ### Unreleased
+- Fix css class missing bug
+- Add css minimize
 
 ### 2.4.3
 - Remove unused Layout in components
