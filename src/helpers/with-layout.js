@@ -197,6 +197,7 @@ export default function withLayout(WrappedComponent, options = {}) {
         >
           <WrappedComponent
             theme={theme}
+            location={location}
             {...passThroughProps}
           />
         </Layout>
