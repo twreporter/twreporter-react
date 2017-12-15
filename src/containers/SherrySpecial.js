@@ -116,7 +116,4 @@ SherrySpecial.defaultProps = {
   ifDelegateImage: false
 }
 
-// if special true => lock scroll
-const special = true
-
-export default connect(enhancedMapStateToProps, { fetchAFullPost })(withLayout(SherrySpecial, special))
+export default connect(enhancedMapStateToProps, { fetchAFullPost })(withLayout(SherrySpecial, { lockSrcollY: true }))

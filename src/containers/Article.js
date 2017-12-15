@@ -277,8 +277,8 @@ class Article extends PureComponent {
     const currentTopY = window.scrollY
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
-    const { _theme } = this.props
-    const titlePosition = _.get(_theme, 'title_position')
+    const { theme } = this.props
+    const titlePosition = _.get(theme, 'title_position')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -300,33 +300,34 @@ class Article extends PureComponent {
     const isInTopRegion = currentTopY < beginY + 600
 
     // get tools React element
-    const tools = this.tools.getWrappedInstance()
-
-    if (screenType === DESKTOP) {
-      if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
-        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-        if ( currentScrollTop >= this.articleMeta.offsetTop) {
-          tools.toggleTools(DESKTOP, true)
+    if (this.tools) {
+      const tools = this.tools.getWrappedInstance()
+      if (screenType === DESKTOP) {
+        if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
+          const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+          if ( currentScrollTop >= this.articleMeta.offsetTop) {
+            tools.toggleTools(DESKTOP, true)
+          } else {
+            tools.toggleTools(DESKTOP, false)
+          }
         } else {
-          tools.toggleTools(DESKTOP, false)
+          tools.toggleTools(DESKTOP, true)
         }
-      } else {
-        tools.toggleTools(DESKTOP, true)
       }
-    }
-
-    // Calculate scrolling distance to determine whether tools are displayed
-    if (screenType !== DESKTOP) {
-      const lastY = scrollPosition.y
-      const distance = currentTopY - lastY
-      if (distance > 30) {
-        scrollPosition.y = currentTopY
-        tools.toggleTools(MOBILE, false)
-      } else {
-        if (Math.abs(distance) > 150) {
+  
+      // Calculate scrolling distance to determine whether tools are displayed
+      if (screenType !== DESKTOP) {
+        const lastY = scrollPosition.y
+        const distance = currentTopY - lastY
+        if (distance > 30) {
           scrollPosition.y = currentTopY
-          if (!isInTopRegion) {
-            tools.toggleTools(MOBILE, true)
+          tools.toggleTools(MOBILE, false)
+        } else {
+          if (Math.abs(distance) > 150) {
+            scrollPosition.y = currentTopY
+            if (!isInTopRegion) {
+              tools.toggleTools(MOBILE, true)
+            }
           }
         }
       }
@@ -351,7 +352,7 @@ class Article extends PureComponent {
 
 
   render() {
-    const { entities, params, selectedPost, _theme } = this.props
+    const { entities, params, selectedPost, theme } = this.props
     const error = _.get(selectedPost, 'error')
     if (error) {
       return (
@@ -375,16 +376,6 @@ class Article extends PureComponent {
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
-    if (isFetching) {
-      return (
-        <ArticleContainer>
-          <div className={contentClass}>
-            <ArticlePlaceholder />
-          </div>
-        </ArticleContainer>
-      )
-    }
-
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
@@ -413,16 +404,16 @@ class Article extends PureComponent {
     const pathname = _.get(this.props, 'location.pathname')
 
     // theme
-    const theme = camelizeKeys(_theme)
-    const bgColor = _.get(theme, 'bgColor')
-    // const footerBgColor = _.get(theme, 'footer_bg_color')
-    const fontColor = _.get(theme, 'fontColor')
-    const titlePosition = _.get(theme, 'titlePosition')
-    const headerPosition = _.get(theme, 'headerPosition')
-    const titleColor = _.get(theme, 'titleColor')
-    const subTitleColor = _.get(theme, 'subtitleColor')
-    const topicColor = _.get(theme, 'topicColor')
-    const logoColor =  _.get(theme, 'logoColor')
+    const _theme = camelizeKeys(theme)
+    const bgColor = _.get(_theme, 'bgColor')
+    // const footerBgColor = _.get(_theme, 'footer_bg_color')
+    const fontColor = _.get(_theme, 'fontColor')
+    const titlePosition = _.get(_theme, 'titlePosition')
+    const headerPosition = _.get(_theme, 'headerPosition')
+    const titleColor = _.get(_theme, 'titleColor')
+    const subTitleColor = _.get(_theme, 'subtitleColor')
+    const topicColor = _.get(_theme, 'topicColor')
+    const logoColor =  _.get(_theme, 'logoColor')
     const fontColorSet = {
       topicFontColor: topicColor,
       titleFontColor: titleColor,
@@ -450,7 +441,7 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <ArticleContainer><ArticlePlaceholder /></ArticleContainer> :
+          {isFetching ? <ArticleContainer bgColor="transparent"><ArticlePlaceholder /></ArticleContainer> :
           <ArticleContainer
             bgColor={bgColor}
             titlePosition={titlePosition}
@@ -618,18 +609,15 @@ export function mapStateToProps(state) {
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
   let theme = defaultTheme
-
   // backwards compatible for photo articles
   if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
     theme = photoTheme
   }
-
   theme = post.theme || theme
-
   return {
     entities,
     selectedPost,
-    _theme: theme
+    theme
   }
 }
 
@@ -647,7 +635,7 @@ Article.propTypes = {
   ifDelegateImage: React.PropTypes.bool,
   params: React.PropTypes.object,
   selectedPost: React.PropTypes.object,
-  _theme: React.PropTypes.object
+  theme: React.PropTypes.object
 }
 
 Article.defaultProps = {
@@ -655,7 +643,7 @@ Article.defaultProps = {
   ifDelegateImage: false,
   params: {},
   selectedPost: {},
-  _theme: defaultTheme
+  theme: defaultTheme
 }
 
 export { Article }

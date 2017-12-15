@@ -1,5 +1,0 @@
-'use strict'
-export * from './article-schema'
-export * from './topic-schema'
-export * from './tag-schema'
-export * from './category-schema'

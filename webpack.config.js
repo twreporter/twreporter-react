@@ -81,6 +81,7 @@ const webpackConfig = {
             {
               loader: 'css-loader',
               options: {
+                minimize: isProduction,
                 importLoaders: 2,
                 modules: true,
                 sourceMap: true,
@@ -99,6 +100,7 @@ const webpackConfig = {
           {
             loader: 'css-loader',
             options: {
+              minimize: isProduction,
               importLoaders: 2,
               modules: true,
               sourceMap: true,
@@ -163,10 +165,10 @@ const webpackConfig = {
       'process.env': {
         BROWSER: true,
         NODE_ENV: isProduction ? '"production"' : '"development"',
-        API_HOST: '"staging-go-api.twreporter.org"',
-        API_PORT: '443',
-        API_PROTOCOL: '"https"',
-        RELEASE_BRANCH: '"staging"'
+        RELEASE_BRANCH: '"development"',
+        API_HOST: '"localhost"',
+        API_PORT: '8080',
+        API_PROTOCOL: '"http"'
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,

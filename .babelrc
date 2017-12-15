@@ -22,6 +22,12 @@
   },
   "plugins": [
     [
+      "babel-plugin-styled-components", {
+        "ssr": true,
+        "displayName": false
+      }
+    ],
+    [
       "system-import-transformer",
       {
         "commonJS": {

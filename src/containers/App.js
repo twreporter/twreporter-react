@@ -5,6 +5,15 @@ import zhLocaleData from 'react-intl/locale-data/zh'
 // import locale data
 import { addLocaleData, IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { signOutAction } from '@twreporter/registration'
+
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 addLocaleData(enLocaleData)
 addLocaleData(zhLocaleData)
@@ -12,7 +21,12 @@ let currentLocale = 'zh-Hant'
 
 class App extends PureComponent {
   getChildContext() {
-    return { location: this.props.location }
+    const { location, ifAuthenticated, signOutAction } = this.props
+    return {
+      location,
+      ifAuthenticated,
+      signOutAction
+    }
   }
 
   componentWillMount() {
@@ -36,13 +50,16 @@ class App extends PureComponent {
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object
+  location: PropTypes.object,
+  ifAuthenticated: PropTypes.bool.isRequired,
+  signOutAction: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    header: state.header
+    header: _.get(state, 'header'),
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { signOutAction })(App)

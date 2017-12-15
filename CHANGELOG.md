@@ -1,4 +1,25 @@
 ### Unreleased
+- Fix css class missing bug
+- Add css minimize
+
+### 2.4.3
+- Remove unused Layout in components
+- Apply code refactor to `withLayout`
+- Fix nesting and re-assigned variable in scss of `FontChangeButton.scss`
+- Replace functional component with class in `ArticleMeta`
+- Add `babel-plugin-styled-components`
+- Update global styles
+- Fix photography article list page styles and code refactor
+- Fix photography channel font color
+- Only invoke `getWrappedInstance` if the element exists
+- Fix placeholder styles error
+- Fix duplicated imports
+- Upgrade react-router to ^3.0.0
+- Upgrade @twreporter/registration to ^2.0.2
+
+### 2.4.2
+- Bump @twreporter/react-components version to 1.3.5
+- Bump normalizr version to ^3.2.4
 
 ### 2.4.1
 - Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)

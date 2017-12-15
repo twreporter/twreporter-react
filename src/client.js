@@ -8,10 +8,9 @@ import ReactGA from 'react-ga'
 import configureStore from './store/configureStore'
 import createRoutes from './routes'
 import { Provider } from 'react-redux'
-import { Router } from 'react-router'
+import { Router, match, browserHistory } from 'react-router'
 import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
-import { match, browserHistory } from 'react-router'
 import { screen as mq } from './themes/screen'
 import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -27,20 +26,16 @@ injectGlobal`
   }
   body {
     letter-spacing: ${letterSpace.generalLetterSpace};
-
     line-height: ${lineHeight.lineHeightMedium};
-
     font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-
     abbr[title], abbr[data-original-title] {
       border-bottom: 0;
     }
-
     *, :before, :after {
       box-sizing: border-box;
     }
 
-    a {
+    a, a:link, a:visited {
       text-decoration: none;
     }
 
@@ -69,14 +64,14 @@ injectGlobal`
     }
 
     .no-hover {
-        border-bottom: 0 !important;
-        &:after {
-            display: none;
-        }
-        &:hover:after {
-            width: 0;
-            display: none;
-        }
+      border-bottom: 0 !important;
+      &:after {
+          display: none;
+      }
+      &:hover:after {
+          width: 0;
+          display: none;
+      }
     }
 
     .text-justify {
