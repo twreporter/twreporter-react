@@ -11,11 +11,10 @@ import ReactDOMServer from 'react-dom/server'
 import config from '../config'
 import configureStore from './store/configureStore'
 import cookieParser from 'cookie-parser'
-import createRoutes from './routes/index'
+import createRoutes, { ACTIVATE_PAGE_PATH, NO_CACHE_PAGES } from './routes/index'
 import get from 'lodash/get'
 import http from 'http'
 import path from 'path'
-import { ACTIVATE_PAGE_PATH } from './routes/index'
 import { NotFoundError } from './custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
@@ -130,7 +129,15 @@ app.get('*', async function (req, res, next) {
 
         // set Cache-Control header for caching
         if (!res.headersSent) {
-          res.header('Cache-Control', 'public, max-age=300')
+          const pathname = get(renderProps, 'location.pathname', '')
+          // set Cache-Control directive in response header
+          NO_CACHE_PAGES.forEach((noCachePage) => {
+            if (pathname.indexOf(noCachePage) > -1) {
+              res.header('Cache-Control', 'no-store')
+            } else {
+              res.header('Cache-Control', 'public, max-age=300')
+            }
+          })
         }
 
         const html = ReactDOMServer.renderToStaticMarkup(
