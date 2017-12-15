@@ -81,6 +81,7 @@ const webpackConfig = {
             {
               loader: 'css-loader',
               options: {
+                minimize: isProduction,
                 importLoaders: 2,
                 modules: true,
                 sourceMap: true,
@@ -99,6 +100,7 @@ const webpackConfig = {
           {
             loader: 'css-loader',
             options: {
+              minimize: isProduction,
               importLoaders: 2,
               modules: true,
               sourceMap: true,

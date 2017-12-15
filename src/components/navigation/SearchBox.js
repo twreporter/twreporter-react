@@ -92,17 +92,17 @@ export default class SearchBox extends Component {
     const imgSrc = theme === BRIGHT ? searchIcon : whiteSearchIcon
 
     return (
-      <label className={cx(styles['search-box-container'], expandClass)}>
-        <div className="visible-xs">
+      <div className={cx(styles['search-box-container'], expandClass)}>
+        <div className={styles['visible-xs']}>
           <a href={`/${SEARCH_PATH}`}>
             <img src={imgSrc}/>
           </a>
         </div>
-        <div className="hidden-xs">
+        <div className={styles['hidden-xs']}>
           <img src={imgSrc} onClick={this._handleToggle.bind(this, true)}/>
           <SearchInput handleToggle={this._handleToggle.bind(this)} isToggled={isToggled} theme={theme}/>
         </div>
-      </label>
+      </div>
     )
   }
 }
