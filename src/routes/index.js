@@ -11,8 +11,11 @@ function loadRoute(cb) {
   }
 }
 
+const BOOKMAKRS_PAGE_PATH = 'bookmarks'
+
 // The variable is declared for @twreporter/registration
 export const ACTIVATE_PAGE_PATH = 'activate'
+export const NO_CACHE_PAGES = [ `/${ACTIVATE_PAGE_PATH}`, `/${BOOKMAKRS_PAGE_PATH}` ]
 
 function errorLoading(err) {
   console.error('Err to load module:', err) //eslint-disable-line
@@ -127,7 +130,7 @@ export default function createRoutes(history = browserHistory) {
           }}
         />
         <Route
-          path="bookmarks(/:pageNumber)"
+          path={`${BOOKMAKRS_PAGE_PATH}(/:pageNumber)`}
           redirectPath="/signin"
           getComponent={(location, cb) => {
             Promise.all([

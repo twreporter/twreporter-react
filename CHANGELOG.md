@@ -2,6 +2,9 @@
 - Fix css class missing bug
 - Add css minimize
 
+### 2.4.4
+- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
+
 ### 2.4.3
 - Remove unused Layout in components
 - Apply code refactor to `withLayout`
