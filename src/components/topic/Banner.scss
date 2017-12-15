@@ -49,6 +49,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 }
 
 .title {
+  margin: 0;
   font-size: $font-topic-title-small; // mobile
   font-weight: $font-weight-bold;
   line-height: $line-height-medium;
@@ -57,6 +58,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 }
 
 .subtitle {
+  margin: 0;
   font-size: $font-size-base;
   font-weight: $font-weight-medium;
   line-height: $line-height-large;
