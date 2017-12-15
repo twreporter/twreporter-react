@@ -14,6 +14,8 @@
 - Only invoke `getWrappedInstance` if the element exists
 - Fix placeholder styles error
 - Fix duplicated imports
+- Upgrade react-router to ^3.0.0
+- Upgrade @twreporter/registration to ^2.0.2
 
 ### 2.4.2
 - Bump @twreporter/react-components version to 1.3.5
