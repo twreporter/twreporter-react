@@ -1,5 +1,18 @@
 ### Unreleased
 
+### 2.4.3
+- Remove unused Layout in components
+- Apply code refactor to `withLayout`
+- Fix nesting and re-assigned variable in scss of `FontChangeButton.scss`
+- Replace functional component with class in `ArticleMeta`
+- Add `babel-plugin-styled-components`
+- Update global styles
+- Fix photography article list page styles and code refactor
+- Fix photography channel font color
+- Only invoke `getWrappedInstance` if the element exists
+- Fix placeholder styles error
+- Fix duplicated imports
+
 ### 2.4.2
 - Bump @twreporter/react-components version to 1.3.5
 - Bump normalizr version to ^3.2.4

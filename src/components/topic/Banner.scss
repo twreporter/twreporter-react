@@ -18,10 +18,6 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 /* ALL THEME GENERAL STYLING */
 // Mobile & Overall
 
-h1, h2 {
-  margin: 0;
-}
-
 .banner-container {
   position: relative;
 }
@@ -53,6 +49,7 @@ h1, h2 {
 }
 
 .title {
+  margin: 0;
   font-size: $font-topic-title-small; // mobile
   font-weight: $font-weight-bold;
   line-height: $line-height-medium;
@@ -61,6 +58,7 @@ h1, h2 {
 }
 
 .subtitle {
+  margin: 0;
   font-size: $font-size-base;
   font-weight: $font-weight-medium;
   line-height: $line-height-large;

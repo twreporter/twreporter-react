@@ -98,7 +98,7 @@ class ZoomInImage extends React.Component {
     this.setState({
       clientHeight: document.documentElement.clientHeight
     })
-    const elem = document.getElementById(elemId)
+    const elem = document.getElementById('page-container')
     elem.addEventListener('touchmove', lockMobileScroll)
   }
 
