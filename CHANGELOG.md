@@ -1,12 +1,12 @@
 ### Unreleased
-- Fix `babel-plugin-css-modules-transform` transpiling failed problems
+### 2.4.4
+- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
 - Fix css class missing bug
 - Add css minimize
 - Turn off css source map with webpack in production
 - Bump twreporter-react-component version to 2.0.6
-
-### 2.4.4
-- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
+- npm run start will start the server by pm2
+- Fix `babel-plugin-css-modules-transform` transpiling failed problems
 
 ### 2.4.3
 - Remove unused Layout in components
