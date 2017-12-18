@@ -1,4 +1,5 @@
 ### Unreleased
+- Fix `babel-plugin-css-modules-transform` transpiling failed problems
 - Fix css class missing bug
 - Add css minimize
 - Turn off css source map with webpack in production
