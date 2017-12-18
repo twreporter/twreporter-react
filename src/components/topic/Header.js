@@ -1,5 +1,6 @@
 'use strict'
-import React, { PropTypes } from 'react' // eslint-disable-next-line
+import PropTypes from 'prop-types'
+import React from 'react' // eslint-disable-next-line
 import cx from 'classnames'
 import { Link } from 'react-router'
 import SearchBox from '../navigation/SearchBox'

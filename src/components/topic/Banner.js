@@ -1,6 +1,7 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { addTailSpaceIfHeadIsFullwidthBracket, date2yyyymmdd } from '../../utils/index'
 
 import { TOPIC_LAST_UPDATED } from '../../constants/index'

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 if (process.env.BROWSER) {
   require('./More.css')
@@ -35,12 +36,12 @@ export default class More extends Component {
 }
 
 More.propTypes = {
-  loadMore: React.PropTypes.func.isRequired
+  loadMore: PropTypes.func.isRequired
 }
 
 More.contextTypes = {
-  // store: React.PropTypes.object,
-  device: React.PropTypes.string
+  // store: PropTypes.object,
+  device: PropTypes.string
 }
 
 export { More }

@@ -1,7 +1,8 @@
 'use strict'
 
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX, TOPIC_ITEMS_LIMIT, TOPIC_LOAD_MORE_ARTICLES } from '../../constants/index'
-import React, { PropTypes, PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 import { date2yyyymmdd, replaceStorageUrlPrefix, shortenString } from '../../utils/'
 
 import Card from './Card'

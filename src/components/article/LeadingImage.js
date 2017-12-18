@@ -1,12 +1,13 @@
 /* eslint no-unused-vars:0 */
 'use strict'
+import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
 import classNames from 'classnames'
-import styles from './LeadingImage.scss'
 import commonStyles from './Common.scss'
-import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
 import cx from 'classnames'
+import styles from './LeadingImage.scss'
 import { TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
+import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
 
 // lodash
 import get from 'lodash/get'
@@ -71,10 +72,10 @@ class LeadingImage extends React.Component {
 }
 
 LeadingImage.propTypes = {
-  size: React.PropTypes.string,
-  image: React.PropTypes.object,
-  description: React.PropTypes.string,
-  id: React.PropTypes.string
+  size: PropTypes.string,
+  image: PropTypes.object,
+  description: PropTypes.string,
+  id: PropTypes.string
 }
 
 LeadingImage.defaultProps = {

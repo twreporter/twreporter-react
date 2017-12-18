@@ -9,6 +9,7 @@ import logoLine from '../../static/asset/icon-line.svg'
 import logoRss from '../../static/asset/icon-rss.svg'
 import logoCC from '../../static/asset/icon-cc.svg'
 import whiteLogIcon from '../../static/asset/logo-white.svg'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactGA from 'react-ga'
 import styles from './Footer.scss'
@@ -142,5 +143,5 @@ export default class Footer extends Component {
 }
 
 Footer.contextTypes = {
-  location: React.PropTypes.object
+  location: PropTypes.object
 }

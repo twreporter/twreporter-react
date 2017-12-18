@@ -1,7 +1,8 @@
 'use strict'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './BlockAlignmentWrapper.scss'
-import React, { Component } from 'react'
 
 const getDisplayName = (WrappedComponent) => (
   WrappedComponent.displayName || WrappedComponent.name || 'Component'
@@ -31,7 +32,7 @@ export default function WrapComponent(WrappedComponent) {
   }
   Wrapper.displayName = `Aligned(${getDisplayName(WrappedComponent)})`
   Wrapper.PropTypes = {
-    alignment: React.PropTypes.string
+    alignment: PropTypes.string
   }
   Wrapper.defaultProps = {
     alignment: 'center'

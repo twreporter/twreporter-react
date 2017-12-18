@@ -2,6 +2,7 @@
 import Bookmark  from '@twreporter/react-components/lib/bookmarks'
 import Confirmation from '@twreporter/react-components/lib/confirmation'
 import More from '../components/More'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './BookmarkList.scss'
@@ -154,7 +155,7 @@ class BookmarkList extends React.Component {
 
 
 BookmarkList.propTypes = {
-  getBookmarks: React.PropTypes.func.isRequired
+  getBookmarks: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {

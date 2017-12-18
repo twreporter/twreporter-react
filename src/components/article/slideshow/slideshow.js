@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 'use strict'
-import { replaceStorageUrlPrefix } from '../../../utils/index'
+import Navigation from  './navigation'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react' // eslint-disable-line
+import Slides from './slides'
+import Thumbnails from './thumbnails'
 import classNames from 'classnames'
 import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
-import Navigation from  './navigation'
-import Slides from './slides'
-import Thumbnails from './thumbnails'
-import React, { Component } from 'react' // eslint-disable-line
+import { replaceStorageUrlPrefix } from '../../../utils/index'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -170,9 +171,9 @@ class Slideshow extends Component {
 }
 
 Slideshow.propTypes = {
-  content: React.PropTypes.array.isRequired,
-  device: React.PropTypes.string,
-  styles: React.PropTypes.object
+  content: PropTypes.array.isRequired,
+  device: PropTypes.string,
+  styles: PropTypes.object
 }
 
 Slideshow.defaultProps = {
