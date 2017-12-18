@@ -2,6 +2,7 @@
 - Fix css class missing bug
 - Add css minimize
 - Turn off css source map with webpack in production
+- Bump twreporter-react-component version to 2.0.6
 
 ### 2.4.4
 - Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
