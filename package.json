@@ -11,7 +11,7 @@
     "lint": "eslint -c .eslintrc src",
     "start": "npm run build && npm run start-server",
     "start-dev-server": "NODE_ENV=development RELEASE_BRANCH=development BABEL_ENV=ssr nodemon ./src/server --exec babel-node",
-    "start-server": "NODE_ENV=production node ./dist/server",
+    "start-server": "NODE_ENV=production pm2 start processes.json",
     "start-webpack-dev-server": "NODE_ENV=development node ./webpack-dev-server.js",
     "test": "./node_modules/mocha/bin/mocha $(find src -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
@@ -28,7 +28,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "2.0.5",
+    "@twreporter/react-components": "2.0.6",
     "@twreporter/redux": "^3.0.0",
     "@twreporter/registration": "^2.0.2",
     "babel-plugin-system-import-transformer": "^3.1.0",

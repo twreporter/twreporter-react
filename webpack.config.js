@@ -82,9 +82,9 @@ const webpackConfig = {
               loader: 'css-loader',
               options: {
                 minimize: isProduction,
+                sourceMap: !isProduction,
                 importLoaders: 2,
                 modules: true,
-                sourceMap: true,
                 // Make sure this setting is equal to settings in .bablerc
                 localIdentName: '[name]__[local]___[hash:base64:5]'
               }
@@ -101,9 +101,9 @@ const webpackConfig = {
             loader: 'css-loader',
             options: {
               minimize: isProduction,
+              sourceMap: !isProduction,
               importLoaders: 2,
               modules: true,
-              sourceMap: true,
               localIdentName: '[name]__[local]___[hash:base64:5]'
             }
           },

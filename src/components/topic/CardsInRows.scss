@@ -1,5 +1,7 @@
 @import './Cards.scss';
- 
+
+.loadmore-btn {}
+
 /* 
   THEME 01: in-row (small-cards)
   TABLET, DESKTOP & HD
@@ -34,8 +36,8 @@ $sml-card-descript-max-lines: 4;
     /* flexbox setting */
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center; // horizontal align (center - center)
-    align-items: flex-start; // vertical align (flex-start - top)
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .card {
