@@ -12,7 +12,7 @@ import { Router, match, browserHistory } from 'react-router'
 import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
 import { screen as mq } from './themes/screen'
-import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys } from '@twreporter/registration'
+import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys, renewToken, getItem, scheduleRenewToken } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -140,10 +140,28 @@ if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.a
   store.dispatch(deletAuthInfoAction())
 }
 
+// 1. Renew token when user brows our website
+// 2. ScheduleRenewToken if user keep the tab open forever
+const authInfoString = getItem(keys.LOCALSTORAGE_KEY_AUTH)
+if(authInfoString) {
+  const authObj = JSON.parse(authInfoString)
+  const { authConfigure } = store.getState()
+  const { apiUrl, renew } = authConfigure
+  store.dispatch(renewToken(apiUrl, renew, authObj))
+  scheduleRenewToken(
+    6,
+    () => {
+      if (getItem(keys.LOCALSTORAGE_KEY_AUTH)) {
+        store.dispatch(renewToken(apiUrl, renew, JSON.parse(getItem(keys.LOCALSTORAGE_KEY_AUTH))))
+      }
+    }
+  )
+}
+
 // Check if token existed in localStorage and expired
 // following preocedure is for both accoutn and oAuth SignIn
-// 30 = 30 days
-store.dispatch(authUserByTokenAction(30, auth.authType))
+// 7 = 7 days
+store.dispatch(authUserByTokenAction(7, auth.authType))
 
 const device = store.getState().device
 

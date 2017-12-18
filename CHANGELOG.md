@@ -27,6 +27,9 @@
 - Bump @twreporter/react-components version to 1.3.5
 - Bump normalizr version to ^3.2.4
 
+### 2.4.2
+- Update version of @twreporter/registration to 2.1.4
+
 ### 2.4.1
 - Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
   - `RELEASE_BRANCH` could be `development`, `staging` or `production`
@@ -37,10 +40,10 @@
 
 ### 2.4.0
 - [Feature] Registration integration
-  - Users can sign in by email or through Google and Facebook OAuth 
+  - Users can sign in by email or through Google and Facebook OAuth
   - Users can CRUD bookmarks
 
-### 2.3.0 
+### 2.3.0
 - Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
   - Remove webpack-isormorphic-tools
   - Remove bootstrap and inject global styles by styled-components
