@@ -26,19 +26,16 @@ $list-name-lines: 3;
 .author-item,
 .author-name,
 .shown-authors {
-  // overall setting below:
   box-sizing: border-box;
 }
 
 .author-list-container {
-  // overall setting below:
   background-color: $light-gray;
   text-align: center;
   font-size: $font-size-base;
 }
 
 .no-result {
-  // overall setting below:
   font-size: $font-size-base;
   color: $gray-50;
   word-wrap: break-word;
@@ -49,7 +46,6 @@ $list-name-lines: 3;
 
 .shown-authors {
   width: $list-mobile-width;
-  // overall setting below:
   overflow-y: visible;
   height: auto;
   margin-left: auto;
@@ -60,7 +56,6 @@ $list-name-lines: 3;
   @include fade-in-down(.5s);
   width: $item-mobile-width;
   margin-bottom: $list-rows-distance-mobile - $font-size-base * $list-name-line-height * ($list-name-lines - 1);
-  // overall setting below:
   margin-left: $list-columns-distance / 2;
   margin-right: $list-columns-distance / 2;
   display: inline-block;
@@ -69,12 +64,12 @@ $list-name-lines: 3;
   .author-img {
     height: $img-mobile-size;
     width: $img-mobile-size;
-    // overall setting below:
+
     border-radius: 50%;
   }
 
   .author-name {
-    // overall setting below:
+
     height: $font-size-base * $list-name-line-height * $list-name-lines;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -91,7 +86,6 @@ $list-name-lines: 3;
 }
 
 .load-more {
-  // overall setting below:
   margin: 10px auto 40px;
   width: 10em;
   color: $primary-color;
@@ -107,7 +101,6 @@ $list-name-lines: 3;
 }
 
 .sensor {
-  // overall setting below:
   height: 50px;
   width: 100%;
   margin-left: auto;
@@ -128,10 +121,6 @@ $list-name-lines: 3;
   }
 }
 
-//==== TABLET, DESKTOP & HD ====
-// @include mq($min-width: $screen-sm-min) {
-//
-// }
 //==== TABLET ====
 @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
   .shown-authors {

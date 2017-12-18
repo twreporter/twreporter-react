@@ -50,7 +50,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 
 .title {
   margin: 0;
-  font-size: $font-topic-title-small; // mobile
+  font-size: $font-topic-title-small;
   font-weight: $font-weight-bold;
   line-height: $line-height-medium;
   letter-spacing: $topic-letter-space-wide;
@@ -75,7 +75,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 }
 
 .published-date {
-  font-size: $font-size-xsmaller; // mobile
+  font-size: $font-size-xsmaller;
   font-weight: $font-weight-medium;
   letter-spacing: $topic-letter-space-tight;
   text-shadow: $text-shadow;
