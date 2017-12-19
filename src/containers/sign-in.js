@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import withLayout from '../helpers/with-layout'
+import withRouter from 'react-router/lib/withRouter'
 import { ACTIVATE_PAGE_PATH } from '../routes'
 import { SignInForm, FacebookButton, GoogleButton, PageContainer } from '@twreporter/registration'
-import { withRouter } from 'react-router'
 
 import  get from 'lodash/get'
 

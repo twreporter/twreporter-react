@@ -18,6 +18,7 @@ const registrationInitialState = {
   signUp: '',
   signIn: '',
   activate: '',
+  renew: '',
   oAuthProviders: {
     google: '',
     facebook: ''

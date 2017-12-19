@@ -1,3 +1,4 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const config = require('./config')
@@ -204,6 +205,7 @@ if (isProduction) {
   )
 } else {
   webpackConfig.plugins.push(
+    new BundleAnalyzerPlugin(),
     new webpack.HotModuleReplacementPlugin()
   )
 }

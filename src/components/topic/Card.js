@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react'
 
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import classNames from 'classnames'
 
 const ImageCard = ({ imageUrl, imageAlt, styles }) => (

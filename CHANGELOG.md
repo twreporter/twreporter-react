@@ -1,4 +1,10 @@
 ### Unreleased
+
+### 2.4.5
+- Use @twreporter/registration@2.1.5 and @twreporter/react-components@2.1.1
+- Visualize the webpack bundles by webpack-bundle-analyzer in development mode
+- Reduce bundle size by only importing the modules we need
+
 ### 2.4.4
 - Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
 - Fix css class missing bug
@@ -37,10 +43,10 @@
 
 ### 2.4.0
 - [Feature] Registration integration
-  - Users can sign in by email or through Google and Facebook OAuth 
+  - Users can sign in by email or through Google and Facebook OAuth
   - Users can CRUD bookmarks
 
-### 2.3.0 
+### 2.3.0
 - Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
   - Remove webpack-isormorphic-tools
   - Remove bootstrap and inject global styles by styled-components

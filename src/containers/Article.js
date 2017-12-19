@@ -7,6 +7,7 @@ import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
+import Link from 'react-router/lib/Link'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
@@ -29,7 +30,6 @@ import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
 import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
-import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { getAbsPath, getScreenType } from '../utils/index'
@@ -314,7 +314,7 @@ class Article extends PureComponent {
           tools.toggleTools(DESKTOP, true)
         }
       }
-  
+
       // Calculate scrolling distance to determine whether tools are displayed
       if (screenType !== DESKTOP) {
         const lastY = scrollPosition.y

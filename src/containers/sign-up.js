@@ -1,7 +1,7 @@
 import React from 'react'
 import withLayout from '../helpers/with-layout'
+import withRouter from 'react-router/lib/withRouter'
 import { SignUpForm, PageContainer } from '@twreporter/registration'
-import { withRouter } from 'react-router'
 
 const TITLE = '註冊'
 const redirectPath = 'confirm'
