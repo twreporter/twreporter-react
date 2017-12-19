@@ -1,6 +1,6 @@
 // import topicRightArrow from '../../../static/asset/icon-topic-arrow-right.svg'
 import { date2yyyymmdd } from '../../utils/index'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import { LINK_PREFIX } from '../../constants/index'
 import { screen } from '../../themes/screen'
 import { typography, globalColor, colors } from '../../themes/common-variables'

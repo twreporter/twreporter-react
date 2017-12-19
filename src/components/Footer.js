@@ -1,5 +1,5 @@
 import { ABOUT_US_FOOTER, CONTACT_FOOTER, DARK, PRIVACY_FOOTER, copyrightTypes, donatePath } from '../constants/index'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import classNames from 'classnames'
 import logoFB from '../../static/asset/icon-facebook.svg'
 import logoGithub from '../../static/asset/icon-github.svg'

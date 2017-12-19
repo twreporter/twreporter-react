@@ -1,4 +1,5 @@
 /*eslint no-unused-vars:0, no-console:0 */
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/react-components/lib/index-page'
@@ -8,7 +9,6 @@ import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { CSSTransitionGroup } from 'react-transition-group'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { signOutAction } from '@twreporter/registration'

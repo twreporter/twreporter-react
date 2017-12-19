@@ -1,7 +1,7 @@
 'use strict'
 import React, { PropTypes } from 'react' // eslint-disable-next-line
 import cx from 'classnames'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import SearchBox from '../navigation/SearchBox'
 import backToTopicIcon from '../../../static/asset/back-to-topic.svg'
 import donationIcon from '../../../static/asset/donate.svg'

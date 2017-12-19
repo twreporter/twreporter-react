@@ -2,7 +2,7 @@
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import React, { Component } from 'react'
 
 // lodash

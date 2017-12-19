@@ -1,7 +1,7 @@
 import { colors, componentMargin, globalColor, layout, typography } from '../../themes/common-variables'
 
 import { LINK_PREFIX } from '../../constants/index'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import React from 'react'
 import { date2yyyymmdd } from '../../utils/index'
 import get from 'lodash/get'
