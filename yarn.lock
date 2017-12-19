@@ -23,9 +23,9 @@
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/registration@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.1.4.tgz#cce7d86ee6fb83e6cd48142fb945e73014d384dc"
+"@twreporter/registration@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.1.5.tgz#6c24bb8d9cb2348a768ac4ac8b947bb3f50ab4dd"
   dependencies:
     axios "^0.16.2"
     lodash "^4.17.4"
@@ -3395,6 +3395,15 @@ history@^2.1.2:
     query-string "^3.0.0"
     warning "^2.0.0"
 
+history@^3.0.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-3.3.0.tgz#fcedcce8f12975371545d735461033579a6dae9c"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    query-string "^4.2.2"
+    warning "^3.0.0"
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -5898,7 +5907,7 @@ query-string@^3.0.0:
   dependencies:
     strict-uri-encode "^1.0.0"
 
-query-string@^4.1.0:
+query-string@^4.1.0, query-string@^4.2.2:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   dependencies:
@@ -6120,7 +6129,7 @@ react-router-redux@^4.0.5:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-4.0.8.tgz#227403596b5151e182377dab835b5d45f0f8054e"
 
-react-router@^3.0.0, react-router@^3.0.5:
+react-router@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.0.tgz#62b6279d589b70b34e265113e4c0a9261a02ed36"
   dependencies:

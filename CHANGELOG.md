@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.4.6
+- Update version of @twreporter/registration to 2.1.5
+
 ### 2.4.5
 - Update version of @twreporter/registration to 2.1.4
 
