@@ -1,7 +1,7 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { LINK_PREFIX } from '../../constants/index'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import React, { Component } from 'react'
 import styles from './BottomTags.scss'
 

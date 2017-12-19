@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import Bookmark  from '@twreporter/react-components/lib/bookmarks'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Confirmation from '@twreporter/react-components/lib/confirmation'
 import More from '../components/More'
 import React from 'react'
@@ -7,7 +8,6 @@ import styled from 'styled-components'
 import styles from './BookmarkList.scss'
 import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
-import { CSSTransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
 
 // lodash

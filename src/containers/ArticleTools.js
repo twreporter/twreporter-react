@@ -3,10 +3,10 @@ import DesktopArticleTools from '../components/article/tools/DesktopArticleTools
 import MobileArticleTools from '../components/article/tools/MobileArticleTools'
 import PropTypes from 'prop-types'
 import React from 'react'
+import browserHistory from 'react-router/lib/browserHistory'
 import deviceConst from '../constants/device'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
 const DEFAULT_BOOKMARK_HOST = 'https://www.twreporter.org'
