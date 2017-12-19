@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 2.4.5
+- Update version of @twreporter/registration to 2.1.4
+
 ### 2.4.4
 - Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
 - Fix css class missing bug
@@ -26,9 +30,6 @@
 ### 2.4.2
 - Bump @twreporter/react-components version to 1.3.5
 - Bump normalizr version to ^3.2.4
-
-### 2.4.2
-- Update version of @twreporter/registration to 2.1.4
 
 ### 2.4.1
 - Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
