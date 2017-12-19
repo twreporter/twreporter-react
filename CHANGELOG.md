@@ -1,10 +1,7 @@
 ### Unreleased
 
-### 2.4.6
-- Update version of @twreporter/registration to 2.1.5
-
 ### 2.4.5
-- Use @twreporter/registration@2.1.4 and @twreporter/react-components@2.1.1
+- Use @twreporter/registration@2.1.5 and @twreporter/react-components@2.1.1
 - Visualize the webpack bundles by webpack-bundle-analyzer in development mode
 - Reduce bundle size by only importing the modules we need
 
