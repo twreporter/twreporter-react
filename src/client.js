@@ -196,20 +196,3 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
     </Provider>
   ), document.getElementById('root'))
 })
-
-/* global __DEVTOOLS__ */
-if (__DEVTOOLS__ && !window.__REDUX_DEVTOOLS_EXTENSION__) {
-  match({ history, routes  }, (error, redirectLocation, renderProps) => {
-    const DevTools = require('./containers/DevTools').default
-    ReactDOM.render((
-      <Provider store={store}>
-        <DeviceProvider device={device}>
-          <div>
-            <Router {...renderProps}/>
-            <DevTools />
-          </div>
-        </DeviceProvider>
-      </Provider>
-    ), document.getElementById('root'))
-  })
-}
