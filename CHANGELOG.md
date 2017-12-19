@@ -4,7 +4,9 @@
 - Update version of @twreporter/registration to 2.1.5
 
 ### 2.4.5
-- Update version of @twreporter/registration to 2.1.4
+- Use @twreporter/registration@2.1.4 and @twreporter/react-components@2.1.1
+- Visualize the webpack bundles by webpack-bundle-analyzer in development mode
+- Reduce bundle size by only importing the modules we need
 
 ### 2.4.4
 - Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
