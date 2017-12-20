@@ -205,7 +205,6 @@ if (isProduction) {
   )
 } else {
   webpackConfig.plugins.push(
-    new BundleAnalyzerPlugin(),
     new webpack.HotModuleReplacementPlugin()
   )
 }

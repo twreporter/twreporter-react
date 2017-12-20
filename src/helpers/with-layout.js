@@ -85,13 +85,8 @@ const HeaderContainer = styled.div`
 `
 
 class Layout extends React.Component {
-  static contextTypes = {
-    ifAuthenticated: PropTypes.bool.isRequired,
-    signOutAction: PropTypes.func.isRequired
-  }
   render() {
     const { bgColor, footerBgColor, fontColor, logoColor, headerPosition, isIndex, pathname, lockScrollY } = this.props
-    const { ifAuthenticated, signOutAction } = this.context
     return (
       <Container bgColor={bgColor} id="page-container" lockScrollY={lockScrollY}>
         {/* `id="page-container"` is for `components/zoom-in-leading-image.js` to enable scrollY after animation end */}
@@ -104,8 +99,6 @@ class Layout extends React.Component {
             pathName={pathname}
             headerPosition={headerPosition}
             footerBgColor={footerBgColor}
-            ifAuthenticated={ifAuthenticated}
-            signOutAction={signOutAction}
           />
         </HeaderContainer>
         {this.props.children}
