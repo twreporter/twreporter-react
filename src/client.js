@@ -14,7 +14,7 @@ import { Provider } from 'react-redux'
 import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
 import { screen as mq } from './themes/screen'
-import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys, renewToken, getItem, scheduleRenewToken } from '@twreporter/registration'
+import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, localStorageKeys, renewToken, getItem, scheduleRenewToken } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -138,13 +138,13 @@ const history = syncHistoryWithStore(browserHistory, store)
 // The following procedure is only for oAuth
 const { auth } = store.getState()
 if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  setupTokenInLocalStorage(auth.authInfo, keys.LOCALSTORAGE_KEY_AUTH)
+  setupTokenInLocalStorage(auth.authInfo, localStorageKeys.authInfo)
   store.dispatch(deletAuthInfoAction())
 }
 
 // 1. Renew token when user brows our website
 // 2. ScheduleRenewToken if user keep the tab open forever
-const authInfoString = getItem(keys.LOCALSTORAGE_KEY_AUTH)
+const authInfoString = getItem(localStorageKeys.authInfo)
 if(authInfoString) {
   const authObj = JSON.parse(authInfoString)
   const { authConfigure } = store.getState()
@@ -153,8 +153,8 @@ if(authInfoString) {
   scheduleRenewToken(
     6,
     () => {
-      if (getItem(keys.LOCALSTORAGE_KEY_AUTH)) {
-        store.dispatch(renewToken(apiUrl, renew, JSON.parse(getItem(keys.LOCALSTORAGE_KEY_AUTH))))
+      if (getItem(localStorageKeys.authInfo)) {
+        store.dispatch(renewToken(apiUrl, renew, JSON.parse(getItem(localStorageKeys.authInfo))))
       }
     }
   )
