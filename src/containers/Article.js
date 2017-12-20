@@ -9,6 +9,7 @@ import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import Link from 'react-router/lib/Link'
 import PromotionBanner from '../components/shared/PromotionBanner'
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
@@ -622,20 +623,20 @@ export function mapStateToProps(state) {
 }
 
 Article.childContextTypes = {
-  isPhotography: React.PropTypes.bool
+  isPhotography: PropTypes.bool
 }
 
 Article.contextTypes = {
-  device: React.PropTypes.string,
-  location: React.PropTypes.object
+  device: PropTypes.string,
+  location: PropTypes.object
 }
 
 Article.propTypes = {
-  entities: React.PropTypes.object,
-  ifDelegateImage: React.PropTypes.bool,
-  params: React.PropTypes.object,
-  selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object
+  entities: PropTypes.object,
+  ifDelegateImage: PropTypes.bool,
+  params: PropTypes.object,
+  selectedPost: PropTypes.object,
+  theme: PropTypes.object
 }
 
 Article.defaultProps = {

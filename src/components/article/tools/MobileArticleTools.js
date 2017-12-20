@@ -54,8 +54,8 @@ const BackToTopicBtn = (props) => (
 )
 
 BackToTopicBtn.propTypes = {
-  topicSlug: React.PropTypes.string.isRequired,
-  topicTitle: React.PropTypes.string.isRequired
+  topicSlug: PropTypes.string.isRequired,
+  topicTitle: PropTypes.string.isRequired
 }
 
 class MobileArticleTools extends React.PureComponent {

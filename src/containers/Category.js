@@ -1,5 +1,6 @@
 import Helmet from 'react-helmet'
 import More from '../components/More'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import categoryListID from '../conf/category-list-id'
@@ -150,8 +151,8 @@ Category.defaultProps = {
 }
 
 Category.propTypes = {
-  entities: React.PropTypes.object,
-  lists: React.PropTypes.object
+  entities: PropTypes.object,
+  lists: PropTypes.object
 }
 
 export { Category }

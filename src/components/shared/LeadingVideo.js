@@ -1,7 +1,8 @@
 /* eslint no-unused-vars:0 */
 'use strict'
 import MobileDetect from 'mobile-detect'
-import React, { Component, PropTypes } from 'react' // eslint-disable-line
+import PropTypes from 'prop-types'
+import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import VisibilitySensor from 'react-visibility-sensor'
 import cx from 'classnames'
