@@ -2,7 +2,7 @@
 
 ### 2.4.6 
 - Scroll to the target section on homepage if section parameter is existed
-- Use @twreporter/react-components@2.1.2
+- Use @twreporter/react-components@2.1.3
 
 ### 2.4.5
 - Use @twreporter/registration@2.1.5 and @twreporter/react-components@2.1.1
