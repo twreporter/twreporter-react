@@ -2,30 +2,11 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Link from 'react-router/lib/Link'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic.svg'
-import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-desktop.svg'
-import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-desktop.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 import styles from './DesktopArticleTools.scss'
+import { BookmarkWidget } from '@twreporter/registration'
 
-const ToolFrame = styled.div`
-  box-sizing: border-box;
-  margin-top: 10px;
-`
-
-const BookmarkFrame = ToolFrame.extend`
-  cursor: pointer;
-  position: relative;
-`
-
-const BookmarkImg = styled.div`
-  opacity: ${props => (props.showUp ? 1 : 0 )};
-  transition: opacity 200ms linear;
-  position: absolute;
-  transform: translateX(-50%);
-  left: 50%;
-`
 
 const IconContainer = (props) => (
   <div className={styles['icon-container']}>
@@ -51,7 +32,7 @@ BackToTopic.propTypes = {
 
 class DesktopArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, isBookmarked, toShow } = this.props
+    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -66,14 +47,10 @@ class DesktopArticleTools extends React.PureComponent {
       {!toShow ? null : (
         <div className={styles['article-tools-container']}>
           {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
-          <BookmarkFrame onClick={this.props.handleOnClickBookmark}>
-            <BookmarkImg showUp={!isBookmarked}>
-              <BookmarkUnaddedIcon />
-            </BookmarkImg>
-            <BookmarkImg showUp={isBookmarked}>
-              <BookmarkAddedIcon />
-            </BookmarkImg>
-          </BookmarkFrame>
+          <BookmarkWidget
+            bookmarkData={bookmarkData}
+            slug={slug}
+          />
         </div>
       )}
       </CSSTransitionGroup>
@@ -82,10 +59,11 @@ class DesktopArticleTools extends React.PureComponent {
 }
 
 DesktopArticleTools.propTypes = {
-  isBookmarked: PropTypes.bool.isRequired,
   toShow: PropTypes.bool.isRequired,
   topicSlug: PropTypes.string,
-  topicTitle: PropTypes.string
+  topicTitle: PropTypes.string,
+  bookmarkData: PropTypes.object.isRequired,
+  slug: PropTypes.string.isRequired
 }
 
 DesktopArticleTools.defaultProps = {

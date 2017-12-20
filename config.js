@@ -10,6 +10,8 @@ const defaultRegConfig = {
   signIn: '/v1/signin',
   activate: '/v1/activate',
   renew: '/v1/token',
+  bookmark: '/bookmarks',
+  user: '/v1/users',
   oAuthProviders: {
     google: '/v1/auth/google',
     facebook: '/v1/auth/facebook'

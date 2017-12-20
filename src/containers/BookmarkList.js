@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './BookmarkList.scss'
-import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
 import { connect } from 'react-redux'
+import { getBookmarks, deleteBookmark } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
@@ -25,9 +25,6 @@ const SORT = 'created_at'
 const DIALOG_CONTENT = '您確定要刪除這篇文章書籤？'
 const DIALOG_CONFIRM = '確定'
 const DIALOG_CANCEL = '取消'
-
-const { actions } = twreporterRedux
-const { getBookmarks, deleteBookmark } = actions
 
 const MoreContainer = styled.div`
   display: ${props => (props.hasMore ? 'inline' : 'none')}
@@ -57,8 +54,9 @@ class BookmarkList extends React.Component {
   }
 
   _toGetBookmarks(offset, defaultLimit, sort) {
+    const { apiUrl, userPath, bookmarkPath } = this.props
     try {
-      this.props.getBookmarks(offset, defaultLimit, sort)
+      this.props.getBookmarks(apiUrl, userPath, bookmarkPath, offset, defaultLimit, sort)
     } catch(err) {
       console.log(err)
     }
@@ -84,9 +82,10 @@ class BookmarkList extends React.Component {
     this._afterClick()
   }
 
-  async _toDeleteBookmark(bookmarkId, target_index) {
+  async _toDeleteBookmark(bookmarkId) {
+    const { apiUrl, userPath, bookmarkPath } = this.props
     try {
-      await this.props.deleteBookmark(bookmarkId, target_index)
+      await this.props.deleteBookmark(apiUrl, userPath, bookmarkPath, bookmarkId)
     } catch (error) {
       console.error(error)
     }
@@ -162,7 +161,10 @@ const mapStateToProps = (state) => {
   return {
     bookmarkData: _.get(state, 'bookmarks.data', []),
     total: _.get(state, 'bookmarks.total', 0),
-    initialized: _.get(state, 'bookmarks.initialized')
+    initialized: _.get(state, 'bookmarks.initialized'),
+    apiUrl: _.get(state, 'authConfigure.apiUrl', ''),
+    userPath: _.get(state, 'authConfigure.user', ''),
+    bookmarkPath: _.get(state, 'authConfigure.bookmark', '')
   }
 }
 
