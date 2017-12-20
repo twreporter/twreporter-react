@@ -3,7 +3,7 @@
 import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
 import { CHARACTERS_LIMIT } from '../../constants/index'
 
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import React, { PropTypes } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import classNames from 'classnames'

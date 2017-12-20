@@ -1,4 +1,3 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
 @import '../../themes/centering.scss';
 @import '../../themes/media-queries';
@@ -18,10 +17,6 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 
 /* ALL THEME GENERAL STYLING */
 // Mobile & Overall
-
-h1, h2 {
-  margin: 0;
-}
 
 .banner-container {
   position: relative;
@@ -54,7 +49,8 @@ h1, h2 {
 }
 
 .title {
-  font-size: $font-topic-title-small; // mobile
+  margin: 0;
+  font-size: $font-topic-title-small;
   font-weight: $font-weight-bold;
   line-height: $line-height-medium;
   letter-spacing: $topic-letter-space-wide;
@@ -62,6 +58,7 @@ h1, h2 {
 }
 
 .subtitle {
+  margin: 0;
   font-size: $font-size-base;
   font-weight: $font-weight-medium;
   line-height: $line-height-large;
@@ -78,7 +75,7 @@ h1, h2 {
 }
 
 .published-date {
-  font-size: $font-size-xsmaller; // mobile
+  font-size: $font-size-xsmaller;
   font-weight: $font-weight-medium;
   letter-spacing: $topic-letter-space-tight;
   text-shadow: $text-shadow;

@@ -1,9 +1,0 @@
-@import '../themes/common-variables.scss';
-.theme {
-    overflow-x: hidden;
-    background-color: $light-gray;
-    min-height:100vh;
-    &.photography {
-      background-color: $photography-dark;
-    }
-}

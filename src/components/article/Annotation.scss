@@ -1,4 +1,3 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
@@ -66,7 +65,7 @@ $letter-spacing: .5px;
       font-size: em(20px);
       line-height: 1.5;
       color: $text-color;
-      margin-top: 0;
+      margin: 0;
     }
 
     .body {

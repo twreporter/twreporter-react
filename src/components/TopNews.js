@@ -2,7 +2,7 @@
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../utils/index'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 import Hexagon from './Hexagon'
 import Slider from 'react-flex-carousel'
 import React, { Component } from 'react'

@@ -3,13 +3,21 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 import App from '../containers/App'
 import React from 'react'
-import { Route, Router, browserHistory } from 'react-router'
+import Route from 'react-router/lib/Route'
+import Router from 'react-router/lib/Router'
+import browserHistory from 'react-router/lib/browserHistory'
 
 function loadRoute(cb) {
   return (module) => {
     cb(null, module.default || module)
   }
 }
+
+const BOOKMAKRS_PAGE_PATH = 'bookmarks'
+
+// The variable is declared for @twreporter/registration
+export const ACTIVATE_PAGE_PATH = 'activate'
+export const NO_CACHE_PAGES = [ `/${ACTIVATE_PAGE_PATH}`, `/${BOOKMAKRS_PAGE_PATH}` ]
 
 function errorLoading(err) {
   console.error('Err to load module:', err) //eslint-disable-line
@@ -94,12 +102,48 @@ export default function createRoutes(history = browserHistory) {
           getComponent={(location, cb) => {
             import('../containers/Author').then(loadRoute(cb)).catch(errorLoading)
           }} />
-        />
         <Route
           path="authors"
           getComponent={(location, cb) => {
             import('../containers/AuthorsList').then(loadRoute(cb)).catch(errorLoading)
           }} />
+        <Route
+          path={ACTIVATE_PAGE_PATH}
+          getComponent={(location, cb) => {
+            import('../containers/Activation').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="signin"
+          getComponent={(location, cb) => {
+            import('../containers/sign-in').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="signup"
+          getComponent={(location, cb) => {
+            import('../containers/sign-up').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="confirm"
+          getComponent={(location, cb) => {
+            import('../containers/confirm-after-sign').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path={`${BOOKMAKRS_PAGE_PATH}(/:pageNumber)`}
+          redirectPath="/signin"
+          getComponent={(location, cb) => {
+            Promise.all([
+              import('@twreporter/registration'),
+              import('../containers/BookmarkList')
+            ]).then(([ regModule, bookmarkModule ]) => {
+              const AuthScreen = regModule.AuthenticationScreen
+              cb(null, AuthScreen(bookmarkModule.default))
+            }).catch(errorLoading)
+          }}
+        />
       </Route>
     </Router>
   )

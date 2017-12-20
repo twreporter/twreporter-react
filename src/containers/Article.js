@@ -1,13 +1,13 @@
 /* eslint no-console:0 */
 'use strict'
 
-import ArticleMeta from '../components/article/article-meta'
 import * as ArticleComponents from '../components/article/index'
-import DesktopArticleTools from '../components/article/tools/DesktopArticleTools'
+import ArticleMeta from '../components/article/article-meta'
+import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import MobileArticleTools from '../components/article/tools/MobileArticleTools'
+import Link from 'react-router/lib/Link'
 import PromotionBanner from '../components/shared/PromotionBanner'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
@@ -30,7 +30,6 @@ import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
 import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
 import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
-import { Link } from 'react-router'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { getAbsPath, getScreenType } from '../utils/index'
@@ -124,7 +123,7 @@ const scrollPosition = {
 }
 
 const DESKTOP = deviceConst.type.desktop
-const MOBILE = deviceConst.type.MOBILE
+const MOBILE = deviceConst.type.mobile
 
 const viewport = {
   screenType: DESKTOP
@@ -171,7 +170,6 @@ class Article extends PureComponent {
     this._onScroll = _.throttle(this._onScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
     this._onResize =  _.throttle(this._onResize, 500).bind(this)
-    this.toggleTools = this._toggleTools.bind(this)
 
     this.state = {
       fontSize:'medium',
@@ -181,11 +179,8 @@ class Article extends PureComponent {
     // reading progress component
     this.rp = null
 
-    // desktop article tools
-    this.dat = null
-
-    // mobile article tools
-    this.mat = null
+    // article tools
+    this.tools = null
 
     this.articleMeta = null
   }
@@ -243,8 +238,7 @@ class Article extends PureComponent {
 
     // unset components
     this.rp = null
-    this.dat = null
-    this.mat = null
+    this.tools = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -256,10 +250,10 @@ class Article extends PureComponent {
 
       // unset components
       this.rp = null
-      this.dat = null
-      this.mat = null
+      this.tools = null
     }
   }
+
 
   _onScroll() {
     this._handleScroll()
@@ -279,28 +273,12 @@ class Article extends PureComponent {
     viewport.screenType = getScreenType(window.innerWidth)
   }
 
-  _toggleTools(device, toShow) {
-    if (device === MOBILE) {
-      if (this.mat) {
-        if (toShow) {
-          return this.mat.showTools()
-        }
-        this.mat.hideTools()
-      }
-    } else if (this.dat) {
-      if (toShow) {
-        return this.dat.showTools()
-      }
-      this.dat.hideTools()
-    }
-  }
-
   _handleScroll() {
     const currentTopY = window.scrollY
     const beginY = _.get(this.progressBegin, 'offsetTop', 0)
     const endY = _.get(this.progressEnding, 'offsetTop', 0)
     const { theme } = this.props
-    const titlePosition = _.get(theme, 'titlePosition')
+    const titlePosition = _.get(theme, 'title_position')
 
     /* Calculate reading progress */
     let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
@@ -321,31 +299,35 @@ class Article extends PureComponent {
 
     const isInTopRegion = currentTopY < beginY + 600
 
-    if (screenType === DESKTOP) {
-      if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
-        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-        if ( currentScrollTop >= this.articleMeta.offsetTop) {
-          this.toggleTools(DESKTOP, true)
+    // get tools React element
+    if (this.tools) {
+      const tools = this.tools.getWrappedInstance()
+      if (screenType === DESKTOP) {
+        if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
+          const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+          if ( currentScrollTop >= this.articleMeta.offsetTop) {
+            tools.toggleTools(DESKTOP, true)
+          } else {
+            tools.toggleTools(DESKTOP, false)
+          }
         } else {
-          this.toggleTools(DESKTOP, false)
+          tools.toggleTools(DESKTOP, true)
         }
-      } else {
-        this.toggleTools(DESKTOP, true)
       }
-    }
 
-    // Calculate scrolling distance to determine whether tools are displayed
-    if (screenType !== DESKTOP) {
-      const lastY = scrollPosition.y
-      const distance = currentTopY - lastY
-      if (distance > 30) {
-        scrollPosition.y = currentTopY
-        this.toggleTools(MOBILE, false)
-      } else {
-        if (Math.abs(distance) > 150) {
+      // Calculate scrolling distance to determine whether tools are displayed
+      if (screenType !== DESKTOP) {
+        const lastY = scrollPosition.y
+        const distance = currentTopY - lastY
+        if (distance > 30) {
           scrollPosition.y = currentTopY
-          if (!isInTopRegion) {
-            this.toggleTools(MOBILE, true)
+          tools.toggleTools(MOBILE, false)
+        } else {
+          if (Math.abs(distance) > 150) {
+            scrollPosition.y = currentTopY
+            if (!isInTopRegion) {
+              tools.toggleTools(MOBILE, true)
+            }
           }
         }
       }
@@ -367,6 +349,7 @@ class Article extends PureComponent {
     })
     return authors
   }
+
 
   render() {
     const { entities, params, selectedPost, theme } = this.props
@@ -393,16 +376,6 @@ class Article extends PureComponent {
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
-    if (isFetching) {
-      return (
-        <ArticleContainer>
-          <div className={contentClass}>
-            <ArticlePlaceholder />
-          </div>
-        </ArticleContainer>
-      )
-    }
-
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
@@ -423,21 +396,24 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const articleTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const articleDes = _.get(article, 'ogDescription', SITE_META.DESC)
-    const articleImg = _.get(article, 'ogImage.resizedTargets.desktop.url', SITE_META.LOGO)
+    const articleTitle = _.get(article, 'title', '')
+    const ogTitle = articleTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
+    const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
     const pathname = _.get(this.props, 'location.pathname')
+
     // theme
-    const bgColor = _.get(theme, 'bgColor')
-    // const footerBgColor = _.get(theme, 'footer_bg_color')
-    const fontColor = _.get(theme, 'fontColor')
-    const titlePosition = _.get(theme, 'titlePosition')
-    const headerPosition = _.get(theme, 'headerPosition')
-    const titleColor = _.get(theme, 'titleColor')
-    const subTitleColor = _.get(theme, 'subtitleColor')
-    const topicColor = _.get(theme, 'topicColor')
-    const logoColor =  _.get(theme, 'logoColor')
+    const _theme = camelizeKeys(theme)
+    const bgColor = _.get(_theme, 'bgColor')
+    // const footerBgColor = _.get(_theme, 'footer_bg_color')
+    const fontColor = _.get(_theme, 'fontColor')
+    const titlePosition = _.get(_theme, 'titlePosition')
+    const headerPosition = _.get(_theme, 'headerPosition')
+    const titleColor = _.get(_theme, 'titleColor')
+    const subTitleColor = _.get(_theme, 'subtitleColor')
+    const topicColor = _.get(_theme, 'topicColor')
+    const logoColor =  _.get(_theme, 'logoColor')
     const fontColorSet = {
       topicFontColor: topicColor,
       titleFontColor: titleColor,
@@ -446,26 +422,26 @@ class Article extends PureComponent {
     return (
       <div>
         <Helmet
-          title={articleTitle}
+          title={ogTitle}
           link={[
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: articleDes },
-            { name: 'twitter:title', content: articleTitle || SITE_NAME.FULL },
-            { name: 'twitter:image', content: articleImg || SITE_META.OG_IMAGE },
-            { name: 'twitter:description', content: articleDes },
+            { name: 'description', content: ogDesc },
+            { name: 'twitter:title', content: ogTitle },
+            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
-            { property: 'og:title', content: articleTitle || SITE_NAME.FULL },
-            { property: 'og:description', content: articleDes },
-            { property: 'og:image', content: articleImg || SITE_META.OG_IMAGE },
+            { property: 'og:title', content: ogTitle },
+            { property: 'og:description', content: ogDesc },
+            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <ArticleContainer><ArticlePlaceholder /></ArticleContainer> :
+          {isFetching ? <ArticleContainer bgColor="transparent"><ArticlePlaceholder /></ArticleContainer> :
           <ArticleContainer
             bgColor={bgColor}
             titlePosition={titlePosition}
@@ -618,9 +594,10 @@ class Article extends PureComponent {
           />*/}
           <div className="hidden-print">
           </div>
+          <ArticleTools
+            ref={ ele => this.tools = ele }
+          />
         </div>
-        <MobileArticleTools ref={ ele => this.mat = ele } topicTitle={topicTitle} topicSlug={topicSlug} toShow={false}/>
-        <DesktopArticleTools ref={ ele => this.dat = ele} topicTitle={topicTitle} topicSlug={topicSlug} toShow={false} />
       </div>
     )
   }
@@ -632,18 +609,15 @@ export function mapStateToProps(state) {
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
   let theme = defaultTheme
-
   // backwards compatible for photo articles
   if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
     theme = photoTheme
   }
-
   theme = post.theme || theme
-
   return {
     entities,
     selectedPost,
-    theme: camelizeKeys(theme)
+    theme
   }
 }
 
@@ -658,18 +632,18 @@ Article.contextTypes = {
 
 Article.propTypes = {
   entities: React.PropTypes.object,
-  selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object,
+  ifDelegateImage: React.PropTypes.bool,
   params: React.PropTypes.object,
-  ifDelegateImage: React.PropTypes.bool
+  selectedPost: React.PropTypes.object,
+  theme: React.PropTypes.object
 }
 
 Article.defaultProps = {
   entities: {},
-  selectedPost: {},
-  theme: defaultTheme,
+  ifDelegateImage: false,
   params: {},
-  ifDelegateImage: false
+  selectedPost: {},
+  theme: defaultTheme
 }
 
 export { Article }

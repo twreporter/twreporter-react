@@ -1,4 +1,3 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../themes/common-variables.scss';
 @import '../../themes/media-queries.scss';
 @import '../../themes/font-mixins.scss';
@@ -84,7 +83,7 @@
       color: $text-color;
       line-height: 1.5;
       font-weight: $font-weight-bold;
-      margin-bottom: rem(24px);
+      margin: 0 0 rem(24px) 0;
     }
 
     .html {

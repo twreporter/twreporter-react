@@ -1,16 +1,17 @@
 {
   "apps" : [{
     "name"        : "server",
-    "script"      : "bin/server.js",
+    "script"      : "dist/server.js",
     "max_memory_restart": "1500M",
     "merge_logs"  : true,
     "out_file"    : "pm2-server-out.log",
     "error_file"  : "pm2-server-err.log",
     "env"         : {
-      "NODE_PATH": "./server",
       "NODE_ENV": "production",
-      "PORT": 3000,
-      "RELEASE_BRANCH": "production"
+      "RELEASE_BRANCH": "development",
+      "API_HOST": "localhost",
+      "API_PROTOCOL": "http",
+      "API_PORT": 8080
     },
     "node_args": "--max_old_space_size=2048"
   }]

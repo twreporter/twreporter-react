@@ -1,50 +1,42 @@
 'use strict'
-import React, { PureComponent } from 'react'
-import enLocaleData from 'react-intl/locale-data/en'
-import zhLocaleData from 'react-intl/locale-data/zh'
-// import locale data
-import { addLocaleData, IntlProvider } from 'react-intl'
+import PropTypes from 'prop-types'
+import { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { signOutAction } from '@twreporter/registration'
 
-addLocaleData(enLocaleData)
-addLocaleData(zhLocaleData)
-let currentLocale = 'zh-Hant'
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get
+}
 
 class App extends PureComponent {
   getChildContext() {
-    return { location: this.props.location }
-  }
-
-  componentWillMount() {
-    // set current locale
-    if (process.env.BROWSER) {
-      currentLocale = navigator.language
-      addLocaleData({
-        locale: navigator.language,
-        parentLocale: navigator.language.split('-')[0]
-      })
+    const { location, ifAuthenticated, signOutAction } = this.props
+    return {
+      location,
+      ifAuthenticated,
+      signOutAction
     }
   }
 
   render() {
-    return (
-      <IntlProvider locale={currentLocale} defaultLocale="zh-Hant">
-        {this.props.children}
-      </IntlProvider>
-    )
+    return this.props.children
   }
 }
 
 App.childContextTypes = {
-  location: React.PropTypes.object,
-  device: React.PropTypes.string
+  location: PropTypes.object,
+  ifAuthenticated: PropTypes.bool.isRequired,
+  signOutAction: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    header: state.header,
-    device: state.device
+    header: _.get(state, 'header'),
+    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { signOutAction })(App)

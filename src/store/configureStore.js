@@ -13,12 +13,9 @@ export default function configureStore(history, initialState) {
   let finalCreateStore
 
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
-    const { persistState } = require('redux-devtools')
-    const DevTools = require('../containers/DevTools').default
     finalCreateStore = compose(
       applyMiddleware(...middlewares),
-      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : DevTools.instrument(),
-      persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )(_createStore)
   } else {
     finalCreateStore = applyMiddleware(...middlewares)(_createStore)

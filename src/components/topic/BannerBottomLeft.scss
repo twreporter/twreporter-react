@@ -9,11 +9,13 @@ $arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
 
 // Overall & Mobile
 
+.banner-container {}
+
 .infos-flex-container {
   align-items: flex-start;
   justify-content: flex-end;
   flex-wrap: wrap;
-  padding: 0 0 30px 10px; // mobile
+  padding: 0 0 30px 10px;
 }
 
 .headline {

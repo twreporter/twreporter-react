@@ -1,4 +1,3 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../themes/animation.scss';
 @import '../themes/common-variables.scss';
 @import '../themes/media-queries.scss';
@@ -6,12 +5,7 @@
 @import '../themes/centering.scss';
 // mobile
 
-.article-container {
-    background-color: $light-gray;
-    min-height: 20em;
-    padding-top: rem(20px);
-    color: $text-color;
-}
+// Deprecated
 
 .article-inner {
     .title-row {
@@ -20,6 +14,7 @@
             margin-top: 0;
         }
         h1 {
+            margin-top: 0;
             font-weight: $font-weight-bold;
             line-height: 1.4;
             @include mq($max-width: $screen-sm-min) {
@@ -172,6 +167,19 @@
         height: 1rem;
         width: 70%;
         margin-bottom: 1rem;
+    }
+
+    @include mq($min-width: $screen-sm-min, $max-width: $screen-sm-max) {
+        .title-row {
+            width: $tablet-small-width;
+        }
+    }
+    
+    // desktop. wait for spec
+    @include mq($min-width: $screen-md-min) {
+        .title-row {
+            width: $desktop-small-width;
+        }
     }
 }
 

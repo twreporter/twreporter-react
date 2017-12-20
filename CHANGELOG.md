@@ -1,5 +1,63 @@
 ### Unreleased
 
+### 2.4.6 
+- Scroll to the target section on homepage if section parameter is existed
+- Use @twreporter/react-components@2.1.3
+
+### 2.4.5
+- Use @twreporter/registration@2.1.5 and @twreporter/react-components@2.1.1
+- Visualize the webpack bundles by webpack-bundle-analyzer in development mode
+- Reduce bundle size by only importing the modules we need
+
+### 2.4.4
+- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
+- Fix css class missing bug
+- Add css minimize
+- Turn off css source map with webpack in production
+- Bump twreporter-react-component version to 2.0.6
+- npm run start will start the server by pm2
+- Fix `babel-plugin-css-modules-transform` transpiling failed problems
+
+### 2.4.3
+- Remove unused Layout in components
+- Apply code refactor to `withLayout`
+- Fix nesting and re-assigned variable in scss of `FontChangeButton.scss`
+- Replace functional component with class in `ArticleMeta`
+- Add `babel-plugin-styled-components`
+- Update global styles
+- Fix photography article list page styles and code refactor
+- Fix photography channel font color
+- Only invoke `getWrappedInstance` if the element exists
+- Fix placeholder styles error
+- Fix duplicated imports
+- Upgrade react-router to ^3.0.0
+- Upgrade @twreporter/registration to ^2.0.2
+
+### 2.4.2
+- Bump @twreporter/react-components version to 1.3.5
+- Bump normalizr version to ^3.2.4
+
+### 2.4.1
+- Set up different configuration for different environemt [#711](https://github.com/twreporter/twreporter-react/pull/711)
+  - `RELEASE_BRANCH` could be `development`, `staging` or `production`
+- Code refactor src/containers/Article.js [#711](https://github.com/twreporter/twreporter-react/pull/711)
+  - Add src/containers/ArticleTools.js. It will listen to redux store change, and do the corresponding actions.
+  - Make [MobileArticleTools|DesktopArticleTools] React.PureComponent, which won't own theirs state, all they need is passed from their Parent component.
+- Upgrade to @twreporter/registration@2.0.1 @twreporter/react-components@2.0.3 [#711](https://github.com/twreporter/twreporter-react/pull/711)
+
+### 2.4.0
+- [Feature] Registration integration
+  - Users can sign in by email or through Google and Facebook OAuth
+  - Users can CRUD bookmarks
+
+### 2.3.0
+- Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
+  - Remove webpack-isormorphic-tools
+  - Remove bootstrap and inject global styles by styled-components
+  - Run transipled js files on production, discard babel-node
+  - Upgrade webpack to ^3.0.0 and corresponding dependencies
+  - Replace piping by nodemon
+
 ### 2.2.10
 - Bump @twreporter/react-components version to 1.3.1
 
@@ -39,6 +97,12 @@
 - Fix Webpack hot loadig problem on dev
 - Transform import to require.ensure by babel plugin
 - Remove react-hot-loader package since we don't use it at all
+
+### 3.0.0
+- Create registration system (RS)
+- RS: SignIn, SignUp, Activation...
+- Implement bookmark feature
+- Mobile Navbar
 
 ### 2.2.1
 - Update the schema of homepage [#665](https://github.com/twreporter/twreporter-react/pull/665)
