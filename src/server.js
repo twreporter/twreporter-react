@@ -131,13 +131,14 @@ app.get('*', async function (req, res, next) {
         if (!res.headersSent) {
           const pathname = get(renderProps, 'location.pathname', '')
           // set Cache-Control directive in response header
-          NO_CACHE_PAGES.forEach((noCachePage) => {
+          for(const noCachePage of NO_CACHE_PAGES) {
             if (pathname.indexOf(noCachePage) > -1) {
               res.header('Cache-Control', 'no-store')
+              break
             } else {
               res.header('Cache-Control', 'public, max-age=300')
             }
-          })
+          }
         }
 
         const html = ReactDOMServer.renderToStaticMarkup(
