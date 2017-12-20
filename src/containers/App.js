@@ -1,8 +1,10 @@
 'use strict'
-import PropTypes from 'prop-types'
-import { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { PureComponent } from 'react'
 import { signOutAction } from '@twreporter/registration'
+import ErrorBoundary from '../components/ErrorBoundary'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 // lodash
 import get from 'lodash/get'
@@ -20,9 +22,8 @@ class App extends PureComponent {
       signOutAction
     }
   }
-
   render() {
-    return this.props.children
+    return <ErrorBoundary>{this.props.children}</ErrorBoundary>
   }
 }
 
