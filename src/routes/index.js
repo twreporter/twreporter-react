@@ -132,6 +132,12 @@ export default function createRoutes(history = browserHistory) {
           }}
         />
         <Route
+          path="error/:errorType"
+          getComponent={(location, cb) => {
+            import('@twreporter/react-components/lib/error').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
           path={`${BOOKMAKRS_PAGE_PATH}(/:pageNumber)`}
           redirectPath="/signin"
           getComponent={(location, cb) => {
