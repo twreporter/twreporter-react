@@ -10,3 +10,8 @@
   border: 0px;
   background-color: #C6000B;
 }
+
+.rc-slider {
+  height: 4px;
+  padding: 0;
+}

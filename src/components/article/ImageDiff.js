@@ -129,7 +129,7 @@ class ImageDiff extends FitwidthMixin(Component) {
                 min={0}
                 max={100}
                 tipFormatter={null}
-                />
+              />
             </div>
           </figure>
         </div>

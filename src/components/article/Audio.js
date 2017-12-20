@@ -14,15 +14,12 @@ import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import { Image } from './Image'
 import { replaceStorageUrlPrefix } from '../../utils/index'
+import 'rc-slider/assets/index.css'
+import './rcslider-overwrite.css'
 
 // lodash
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
-
-if (process.env.BROWSER) {
-  require('rc-slider/assets/index.css')
-  require('./rcslider-overwrite.css')
-}
 
 function getMinSecStr(time) {
   time = Math.round(time)
