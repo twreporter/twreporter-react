@@ -1,14 +1,15 @@
 /*eslint no-unused-vars:0, no-console:0 */
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/react-components/lib/index-page'
 import LoadingSpinner from '../components/Spinner'
+import PropTypes from 'prop-types'
 import React from 'react'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { CSSTransitionGroup } from 'react-transition-group'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { signOutAction } from '@twreporter/registration'
@@ -56,8 +57,6 @@ const LoadingCover = styled.div`
   }
 `
 
-const CATEGORY = 'category'
-
 const anchors = [
   {
     id: 'latest',
@@ -75,7 +74,7 @@ const anchors = [
     id: 'news-letter',
     label: ''
   }, {
-    id: CATEGORY,
+    id: 'categories',
     label: '議題'
   }, {
     id: 'topic',
@@ -199,9 +198,21 @@ class Homepage extends React.Component {
     }
   }
 
+  static childContextTypes = {
+    ifAuthenticated: PropTypes.bool.isRequired,
+    signOutAction: PropTypes.func.isRequired
+  }
+
+  getChildContext() {
+    return {
+      ifAuthenticated: this.props.ifAuthenticated,
+      signOutAction: this.props.signOutAction
+    }
+  }
+
   constructor(props) {
     super(props)
-    this.categorySection = {}
+    this.sidebar = null
   }
 
   componentWillMount() {
@@ -210,17 +221,18 @@ class Homepage extends React.Component {
 
   async componentDidMount() {
     await this.props.fetchCategoriesPostsOnIndexPage()
-    // The following statement implement the mobile header redirection work flow.
-    // Case: user open mobile header slide in menu at article page.
-    // click on category section (議題), the website will direct user to home page
-    // and show the user category section simultaneouslly.
-    if (this.props.location.query.section === CATEGORY && typeof window !== 'undefined' && this.categorySection) {
-      const e = document.getElementById(CATEGORY)
-      if (e) {
-        e.scrollIntoView()
-        this.categorySection.startScrollAnimation()
-      }
+
+    // EX: if the url path is /?section=categories
+    // after this component mounted and rendered,
+    // the browser will smoothly scroll to categories section
+    const sectionQuery = _.get(this.props, 'location.query.section', '')
+    if (this.sidebar && sectionQuery) {
+      this.sidebar.scrollTo(sectionQuery)
     }
+  }
+
+  componentWillUnmount() {
+    this.sidebar = null
   }
 
   render() {
@@ -264,12 +276,10 @@ class Homepage extends React.Component {
         />
         <SideBar
           anchors={anchors}
+          ref={(node) => this.sidebar = node}
         >
           <LatestSection
             data={this.props[fieldNames.sections.latestSection]}
-            signOutAction={this.props.signOutAction}
-            ifAuthenticated={this.props.ifAuthenticated}
-            categoryId={CATEGORY}
           />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           {latestTopicJSX}
@@ -283,7 +293,6 @@ class Homepage extends React.Component {
           >
             <CategorySection
               data={this.props.categories}
-              ref={(node) => {this.categorySection = node}}
             />
           </Background>
           <Background

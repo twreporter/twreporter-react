@@ -9,6 +9,7 @@ const defaultRegConfig = {
   apiUrl: 'http://testtest.twreporter.org:8080',
   signIn: '/v1/signin',
   activate: '/v1/activate',
+  renew: '/v1/token',
   oAuthProviders: {
     google: '/v1/auth/google',
     facebook: '/v1/auth/facebook'

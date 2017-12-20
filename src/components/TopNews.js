@@ -1,10 +1,10 @@
 'use strict'
+import Link from 'react-router/lib/Link'
 import Hexagon from './Hexagon'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Slider from 'react-flex-carousel'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { Link } from 'react-router'
 import { date2yyyymmdd } from '../utils/index'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 

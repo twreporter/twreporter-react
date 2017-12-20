@@ -1,5 +1,5 @@
-import { CSSTransitionGroup } from 'react-transition-group'
-import { Link } from 'react-router'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import Link from 'react-router/lib/Link'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'

@@ -1,11 +1,22 @@
 ### Unreleased
+
+### 2.4.6 
+- Scroll to the target section on homepage if section parameter is existed
+- Use @twreporter/react-components@2.1.3
+
+### 2.4.5
+- Use @twreporter/registration@2.1.5 and @twreporter/react-components@2.1.1
+- Visualize the webpack bundles by webpack-bundle-analyzer in development mode
+- Reduce bundle size by only importing the modules we need
+
+### 2.4.4
+- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
 - Fix css class missing bug
 - Add css minimize
 - Turn off css source map with webpack in production
 - Bump twreporter-react-component version to 2.0.6
-
-### 2.4.4
-- Set Cache-Control: no-store in those endpoints related to users, such as /activate and /bookmarks.
+- npm run start will start the server by pm2
+- Fix `babel-plugin-css-modules-transform` transpiling failed problems
 
 ### 2.4.3
 - Remove unused Layout in components
@@ -36,10 +47,10 @@
 
 ### 2.4.0
 - [Feature] Registration integration
-  - Users can sign in by email or through Google and Facebook OAuth 
+  - Users can sign in by email or through Google and Facebook OAuth
   - Users can CRUD bookmarks
 
-### 2.3.0 
+### 2.3.0
 - Code refactors[#699](https://github.com/twreporter/twreporter-react/pull/699)
   - Remove webpack-isormorphic-tools
   - Remove bootstrap and inject global styles by styled-components

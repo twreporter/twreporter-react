@@ -1,11 +1,11 @@
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import LoadingSpinner from '../components/Spinner'
 import React from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
 import withLayout from '../helpers/with-layout'
+import withRouter from 'react-router/lib/withRouter'
 import { ActivePage, PageContainer } from '@twreporter/registration'
-import { CSSTransitionGroup } from 'react-transition-group'
-import { withRouter } from 'react-router'
 
 const _ = {
   get

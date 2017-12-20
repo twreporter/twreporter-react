@@ -1,10 +1,10 @@
 'use strict'
+import Link from 'react-router/lib/Link'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
-import { Link } from 'react-router'
 
 // lodash
 import get from 'lodash/get'

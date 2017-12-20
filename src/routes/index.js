@@ -3,7 +3,9 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 import App from '../containers/App'
 import React from 'react'
-import { Route, Router, browserHistory } from 'react-router'
+import Route from 'react-router/lib/Route'
+import Router from 'react-router/lib/Router'
+import browserHistory from 'react-router/lib/browserHistory'
 
 function loadRoute(cb) {
   return (module) => {

@@ -1,6 +1,7 @@
 /* eslint no-unused-vars:0 */
 'use strict'
 import CircleProgressButton from './CircleProgressButton'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Player from 'react-howler'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
@@ -11,7 +12,6 @@ import pauseIcon from '../../../static/asset/audio-pause.svg'
 import playIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
-import { CSSTransitionGroup } from 'react-transition-group'
 import { Image } from './Image'
 import { replaceStorageUrlPrefix } from '../../utils/index'
 
