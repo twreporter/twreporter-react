@@ -1,9 +1,10 @@
 'use strict'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import Link from 'react-router/lib/Link'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './PageNavigation.scss'
-import Link from 'react-router/lib/Link'
-import React, { Component } from 'react'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 
 // lodash
 import get from 'lodash/get'
@@ -101,8 +102,8 @@ class PageNavigation extends Component {
 }
 
 PageNavigation.propTypes = {
-  navigate: React.PropTypes.string,
-  article: React.PropTypes.object
+  navigate: PropTypes.string,
+  article: PropTypes.object
 }
 
 PageNavigation.defaultProps = {

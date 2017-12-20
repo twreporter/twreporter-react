@@ -1,6 +1,7 @@
 'use strict'
 import styles from './PromotionBanner.scss'
-import React, { PropTypes } from 'react' // eslint-disable-next-line
+import PropTypes from 'prop-types'
+import React from 'react' // eslint-disable-next-line
 
 export default function PromotionBanner({ headline, iconImgSrc, bgImgSrc, subtitle, title }) {
   const bgStyle = {

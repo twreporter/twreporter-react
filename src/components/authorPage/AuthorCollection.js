@@ -4,7 +4,8 @@ import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF
 import { CHARACTERS_LIMIT } from '../../constants/index'
 
 import Link from 'react-router/lib/Link'
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'

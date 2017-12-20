@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { google } from '../conf/storage'
 import { replaceStorageUrlPrefix } from '../utils/url-processor'
 
@@ -11,8 +12,8 @@ const LoadingSpinner = (props) => (
 )
 
 LoadingSpinner.propTypes = {
-  alt: React.PropTypes.string,
-  className: React.PropTypes.string
+  alt: PropTypes.string,
+  className: PropTypes.string
 }
 
 LoadingSpinner.defaultProps = {

@@ -2,6 +2,7 @@
 
 import ArticleList from '../components/ArticleList'
 import Helmet from 'react-helmet'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import twreporterRedux from '@twreporter/redux'
@@ -127,7 +128,7 @@ function mapStateToProps(state) {
 }
 
 Topic.contextTypes = {
-  device: React.PropTypes.string
+  device: PropTypes.string
 }
 
 Topic.defaultProps = {
@@ -136,8 +137,8 @@ Topic.defaultProps = {
 }
 
 Topic.propTypes = {
-  lists: React.PropTypes.object,
-  entities: React.PropTypes.object
+  lists: PropTypes.object,
+  entities: PropTypes.object
 }
 
 export { Topic }

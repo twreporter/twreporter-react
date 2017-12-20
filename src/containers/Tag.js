@@ -1,5 +1,6 @@
 import Helmet from 'react-helmet'
 import More from '../components/More'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
@@ -143,8 +144,8 @@ Tag.defaultProps = {
 }
 
 Tag.propTypes = {
-  lists: React.PropTypes.object,
-  entities: React.PropTypes.object
+  lists: PropTypes.object,
+  entities: PropTypes.object
 }
 
 export { Tag }

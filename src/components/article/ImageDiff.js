@@ -1,15 +1,16 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import { replaceStorageUrlPrefix } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
-import classNames from 'classnames'
 import FitwidthMixin from './mixins/FitwidthMixin'
-import { getScreenType } from '../../utils/index'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Slider from 'rc-slider'
+import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
+import { getScreenType } from '../../utils/index'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -139,9 +140,9 @@ class ImageDiff extends FitwidthMixin(Component) {
 }
 
 ImageDiff.propTypes = {
-  content: React.PropTypes.array,
-  customeStyles: React.PropTypes.array,
-  id: React.PropTypes.string
+  content: PropTypes.array,
+  customeStyles: PropTypes.array,
+  id: PropTypes.string
 }
 
 ImageDiff.defaultProps = {

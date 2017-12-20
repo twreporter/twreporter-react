@@ -1,4 +1,5 @@
 'use strict'
+import PropTypes from 'prop-types'
 import React from 'react'
 import commonStyles from './article/Common.scss'
 import cx from 'classnames'
@@ -45,7 +46,7 @@ function SystemError({ error }) {
 }
 
 SystemError.propTypes = {
-  error: React.PropTypes.object.isRequired
+  error: PropTypes.object.isRequired
 }
 
 export default SystemError

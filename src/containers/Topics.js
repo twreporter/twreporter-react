@@ -183,10 +183,10 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
-  topics: React.PropTypes.array,
-  total: React.PropTypes.number,
-  topicListError: React.PropTypes.object,
-  topicError: React.PropTypes.object
+  topics: PropTypes.array,
+  total: PropTypes.number,
+  topicListError: PropTypes.object,
+  topicError: PropTypes.object
 }
 
 function mapStateToProps(state, ownProps) {
