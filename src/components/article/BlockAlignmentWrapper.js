@@ -31,7 +31,7 @@ export default function WrapComponent(WrappedComponent) {
     }
   }
   Wrapper.displayName = `Aligned(${getDisplayName(WrappedComponent)})`
-  Wrapper.PropTypes = {
+  Wrapper.propTypes = {
     alignment: PropTypes.string
   }
   Wrapper.defaultProps = {
