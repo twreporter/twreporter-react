@@ -3,17 +3,14 @@ import Link from 'react-router/lib/Link'
 import Hexagon from './Hexagon'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import Slider from 'react-flex-carousel'
+import Slider from '@twreporter/react-flex-carousel'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../utils/index'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
+import './TopNews.css'
 
 // lodash
 import get from 'lodash/get'
-
-if (process.env.BROWSER) {
-  require('./TopNews.css')
-}
 
 export default class TopNews extends Component {
   constructor(props, context) {
@@ -26,7 +23,7 @@ export default class TopNews extends Component {
   render() {
     const { topnews } = this.props
     return Array.isArray(topnews) && topnews.length > 0 ? (
-      <Slider className="topnews" autoplayInteval={4500} indicator={true} switcher={true}>
+      <Slider className="topnews" autoPlayInterval={4500} indicator={true} switcher={true}>
         {topnews.map((a) => {
           const pubDate = date2yyyymmdd(a.publishedDate, '.')
           const cats = get(a, 'categories', [])
