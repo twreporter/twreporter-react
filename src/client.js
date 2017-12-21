@@ -188,7 +188,7 @@ function scrollAndFireTracking() {
 // loading route/component code for the initial location
 // https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
 match({ history, routes }, (error, redirectLocation, renderProps) => {
-  ReactDOM.render((
+  ReactDOM.hydrate((
     <Provider store={store}>
       <DeviceProvider device={device}>
         <Router {...renderProps} onUpdate={scrollAndFireTracking}/>
