@@ -1,6 +1,12 @@
 ### Unreleased
 
-### 2.4.6 
+### 2.4.8
+- @twreporter/react-components@2.1.4
+
+### 2.4.7
+- [Bug fix] avoid to set response header Cache-Control=public,max-age=300 in certain endpoints like /bookmarks, /activate
+
+### 2.4.6
 - Scroll to the target section on homepage if section parameter is existed
 - Use @twreporter/react-components@2.1.3
 
