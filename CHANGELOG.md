@@ -4,6 +4,8 @@
 - Be compatible with @twreporter/redux which drop bookmarks related stuffs
 - Import bookmarks related statement (mainly redux actions/reducers) from @twreporter/registration
 - Move Functional Bookmark Icons (add/Remove) back to @twreporter/registration.
+- Remove BundleAnalyzerPlugin (webpack config.js)
+- Import bookmark frame from @twreporter/registration rather than react-components.
 
 ### 2.5.2
 - Bump @twreporter/react-components version to 2.1.11

@@ -13,6 +13,7 @@ import twreporterRedux from '@twreporter/redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { signOutAction } from '@twreporter/registration'
+import PropTypes from 'prop-types'
 
 // lodash
 import get from 'lodash/get'
@@ -195,6 +196,18 @@ class Homepage extends React.Component {
     const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
     if (error !== null) {
       return Promise.reject(error)
+    }
+  }
+
+  static childContextTypes = {
+    ifAuthenticated: PropTypes.bool.isRequired,
+    signOutAction: PropTypes.func.isRequired
+  }
+
+  getChildContext() {
+    return {
+      ifAuthenticated: this.props.ifAuthenticated,
+      signOutAction: this.props.signOutAction
     }
   }
 

@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
-import Bookmark  from '@twreporter/react-components/lib/bookmarks'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import { Bookmark }  from '@twreporter/registration'
+import { connect } from 'react-redux'
+import { getBookmarks, deleteBookmark } from '@twreporter/registration'
 import Confirmation from '@twreporter/react-components/lib/confirmation'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import More from '../components/More'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './BookmarkList.scss'
 import withLayout from '../helpers/with-layout'
-import { connect } from 'react-redux'
-import { getBookmarks, deleteBookmark } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
