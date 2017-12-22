@@ -122,6 +122,8 @@ const webpackConfig = {
           use: [{
             loader: 'css-loader',
             options: {
+              minimize: isProduction,
+              sourceMap: !isProduction,
               importLoaders: 1
             }
           }, {
