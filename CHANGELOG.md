@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.5.0
+- Update to react@^16
+- Update to @twreporter/react-components@2.1.6 for Error handling of site
+- Minimize css files on production
+
 ### 2.4.8
 - @twreporter/react-components@2.1.4
 

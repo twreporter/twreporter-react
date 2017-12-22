@@ -3,20 +3,19 @@
 	overflow: hidden;
 }
 
-.topnews ul {
-	margin-bottom: 135px;
+.topnews>ul {
+	margin-bottom: 135px !important;
 	list-style: none;
-    padding-left: 0;
 }
 
-.topnews ul li {
+.topnews>ul li {
 	width: 100vw;
 	height: calc(100vh - 80px);
 	position: relative;
 	overflow: hidden;
 }
 
-.topnews ul li img {
+.topnews>ul li img {
 	display: block;
 	max-width: 100%;
 	object-fit: cover;
@@ -25,7 +24,7 @@
 	height: 100%;
 }
 
-.topnews menu {
+.topnews>div {
 	position: absolute;
 	width: 100%;
 	margin-top: -1em;
@@ -33,7 +32,7 @@
 	font-size: 1.2em;
 }
 
-.topnews menu button {
+.topnews>div button {
 	position: absolute;
 	font-size: inherit;
 	background-size: cover;
@@ -49,7 +48,7 @@
 	margin: 0 1em;
 }
 
-.topnews menu .prev {
+.topnews>div .prev {
 	left: 0;
 	/* encodeURIComponent() for Fx and IE
 	background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><mask id="mask"><circle id="circle" cx="100" cy="100" r="100" fill="white" /><polyline points="130,45 65,100 130,155" stroke="black" stroke-width="25" fill="none" /></mask></defs><use xlink:href="#circle" mask="url(#mask)" /></svg>');
@@ -57,7 +56,7 @@
 	background-image: url('data:image/svg+xml;utf8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cmask%20id%3D%22mask%22%3E%3Ccircle%20id%3D%22circle%22%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22white%22%20%2F%3E%3Cpolyline%20points%3D%22130%2C45%2065%2C100%20130%2C155%22%20stroke%3D%22black%22%20stroke-width%3D%2225%22%20fill%3D%22none%22%20%2F%3E%3C%2Fmask%3E%3C%2Fdefs%3E%3Cuse%20xlink%3Ahref%3D%22%23circle%22%20mask%3D%22url(%23mask)%22%20%2F%3E%3C%2Fsvg%3E');
 }
 
-.topnews menu .next {
+.topnews>div .next {
 	right: 0;
 	/* encodeURIComponent() for Fx and IE
 	background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><mask id="mask"><circle id="circle" cx="100" cy="100" r="100" fill="white" /><polyline points="70,45 135,100 70,155" stroke="black" stroke-width="25" fill="none" /></mask></defs><use xlink:href="#circle" mask="url(#mask)" /></svg>');
@@ -65,35 +64,33 @@
 	background-image: url('data:image/svg+xml;utf8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cmask%20id%3D%22mask%22%3E%3Ccircle%20id%3D%22circle%22%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22white%22%20%2F%3E%3Cpolyline%20points%3D%2270%2C45%20135%2C100%2070%2C155%22%20stroke%3D%22black%22%20stroke-width%3D%2225%22%20fill%3D%22none%22%20%2F%3E%3C%2Fmask%3E%3C%2Fdefs%3E%3Cuse%20xlink%3Ahref%3D%22%23circle%22%20mask%3D%22url(%23mask)%22%20%2F%3E%3C%2Fsvg%3E');
 }
 
-.topnews ol {
-	transform: translateY(-90px);
+.topnews>ol {
 	position: absolute;
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
 	text-align: center;
 	width: 100%;
+	transform: translateY(-90px);
 }
 
-.topnews ol li {
+.topnews>ol li {
 	display: inline-block;
 	min-width: 10px;
 	min-height: 10px;
 	width: .6em;
 	height: .6em;
 	background-color: #BEC0BC;
+	margin: 0 .8em;
 	border-radius: 50%;
 	overflow: hidden;
-	margin: 0 .8em;
-}
-
-.topnews ol button {
-	opacity: 0;
 	cursor: pointer;
+	text-indent: 100%;
 }
 
-.topnews ol .active {
+.topnews>ol [aria-current="true"] {
 	pointer-events: none;
+	cursor: pointer;
 	background-color: black;
 }
 
@@ -178,14 +175,14 @@ and (max-width : 767px) {
       height: 600px;
 			overflow: hidden;
     }
-		.topnews ul li {
+		.topnews>ul li {
 			height: 400px;
 			padding-bottom: 100px;
 		}
-		.topnews menu {
+		.topnews>div {
 			top: 50%;
 		}
-		.topnews ol {
+		.topnews>ol {
 			transform: translateY(-150px);
 		}
     .carousel-item {
@@ -215,12 +212,15 @@ only screen
 and (max-width : 667px) {
     .topnews {
         height: 310px;
-    }
-    .topnews ul li {
+	}
+	.topnews>ul {
+		margin-bottom: 117px !important;
+	}
+    .topnews>ul li {
 			height: 300px;
 			padding-bottom: 100px;
 		}
-    .topnews menu {
+    .topnews>div {
 			display: none;
 		}
 		.topnews_categorycontainer {

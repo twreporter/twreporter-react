@@ -2,6 +2,7 @@
 
 import ArticleList from '../components/ArticleList'
 import Helmet from 'react-helmet'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/TopNews'
 import categoryListID from '../conf/category-list-id'
@@ -115,9 +116,9 @@ Photography.defaultProps = {
 }
 
 Photography.propTypes = {
-  entities: React.PropTypes.object,
-  featuredPosts: React.PropTypes.array,
-  lists: React.PropTypes.object
+  entities: PropTypes.object,
+  featuredPosts: PropTypes.array,
+  lists: PropTypes.object
 }
 
 function mapStateToProps(state) {
