@@ -1,11 +1,12 @@
 /*eslint no-console:0*/
 'use strict'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 import defaultIcon from '../../../static/asset/play-icon.svg'
-import playIcon from '../../../static/asset/audio-play.svg'
 import pauseIcon from '../../../static/asset/audio-pause.svg'
+import playIcon from '../../../static/asset/audio-play.svg'
 import styles from './CircleProgressButton.scss'
-import React, { Component } from 'react'
 
 class CircleProgressButton extends Component {
   constructor(props) {
@@ -97,12 +98,12 @@ class CircleProgressButton extends Component {
 
 CircleProgressButton.propTypes = {
   // react element
-  icon: React.PropTypes.element,
-  duration: React.PropTypes.number,
-  onToggle: React.PropTypes.func.isRequired,
-  isPlaying: React.PropTypes.bool,
-  radius: React.PropTypes.number,
-  seek: React.PropTypes.number
+  icon: PropTypes.element,
+  duration: PropTypes.number,
+  onToggle: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool,
+  radius: PropTypes.number,
+  seek: PropTypes.number
 }
 
 CircleProgressButton.defaultProps = {

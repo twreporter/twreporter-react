@@ -169,14 +169,7 @@ const device = store.getState().device
 
 const routes = createRoutes(history)
 
-if (typeof window !== 'undefined') {
-  // add Google Analytics
-  ReactGA.initialize('UA-69336956-1')
-  ReactGA.set({ page: window.location.pathname })
-}
-
-
-function scrollAndFireTracking() {
+function scrollToTopAndFirePageview() {
   if(window) {
     window.scrollTo(0, 0)
     // send Google Analytics Pageview event on router changed
@@ -188,10 +181,15 @@ function scrollAndFireTracking() {
 // loading route/component code for the initial location
 // https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
 match({ history, routes }, (error, redirectLocation, renderProps) => {
-  ReactDOM.render((
+  if (typeof window !== 'undefined') {
+    // add Google Analytics
+    ReactGA.initialize('UA-69336956-1')
+    ReactGA.set({ page: window.location.pathname })
+  }
+  ReactDOM.hydrate((
     <Provider store={store}>
       <DeviceProvider device={device}>
-        <Router {...renderProps} onUpdate={scrollAndFireTracking}/>
+        <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
       </DeviceProvider>
     </Provider>
   ), document.getElementById('root'))

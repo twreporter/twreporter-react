@@ -58,7 +58,18 @@ app.get('/check', (req, res) => {
   res.end('server is running')
 })
 
-app.get('*', async function (req, res, next) {
+const selectResponseStatus = (errorType) => {
+  switch(errorType) {
+    case '404':
+      return 404
+    case '500':
+      return 500
+    default:
+      return 200
+  }
+}
+
+app.get('*', function (req, res, next) {
   const memoryHistory = createMemoryHistory(req.originalUrl)
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
@@ -82,12 +93,19 @@ app.get('*', async function (req, res, next) {
   store.dispatch(configureAction(config.registrationConfigure))
 
   match({ history, routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
+    /*
+      What's in renderProps: {
+        matchContext,
+        router,
+        ...routerState
+      } https://github.com/ReactTraining/react-router/blob/v3/docs/Glossary.md#routerstate
+    */
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      res.status(500).render('500', error)
-    } else if (renderProps == null) {
-      res.status(404).render('404')
+      throw new Error(error)
+    } else if (!renderProps) {
+      throw new NotFoundError()
     } else {
       store.dispatch({
         type: 'DETECT_DEVICE',
@@ -149,11 +167,10 @@ app.get('*', async function (req, res, next) {
               styleTags={sheet.getStyleTags()}
             />
           )
-        res.status(200)
+        res.status(selectResponseStatus(get(renderProps, 'params.errorType')))
         res.send(`<!doctype html>${html}`)
-      }, (err) => {
-        throw err
-      }).catch((err) => {
+      })
+      .catch((err) => {
         next(err)
       })
     }
@@ -170,13 +187,10 @@ pe.skipPackage('express')
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)) // eslint-disable-line no-console
   if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
-    res.status(404)
-    res.render('404')
-    return
+    res.redirect('/error/404')
+  } else {
+    res.redirect('/error/500')
   }
-  res.status(500)
-  let errStack = err.stack.split('\n')
-  res.render('500', { error: errStack })
 })
 
 if (config.port) {

@@ -2,6 +2,7 @@
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 import App from '../containers/App'
+import IndexRoute from 'react-router/lib/IndexRoute'
 import React from 'react'
 import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
@@ -37,19 +38,18 @@ function errorLoading(err) {
 export default function createRoutes(history = browserHistory) {
   return (
     <Router history={history}>
-      <Route
-        path="/topics/:slug"
-        getComponent={(location, cb) => {
-          import('../containers/TopicLandingPage').then(loadRoute(cb)).catch(errorLoading)
-        }}
-      />
-      <Route
-        path="/"
-        getComponent={(location, cb) => {
-          import('../containers/Home').then(loadRoute(cb)).catch(errorLoading)
-        }}
-      />
       <Route path="/" component={App}>
+        <IndexRoute
+          getComponent={(location, cb) => {
+            import('../containers/Home').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="/topics/:slug"
+          getComponent={(location, cb) => {
+            import('../containers/TopicLandingPage').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
         <Route
           path="topics"
           getComponent={(location, cb) => {
@@ -129,6 +129,12 @@ export default function createRoutes(history = browserHistory) {
           path="confirm"
           getComponent={(location, cb) => {
             import('../containers/confirm-after-sign').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="error/:errorType"
+          getComponent={(location, cb) => {
+            import('@twreporter/react-components/lib/error').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route

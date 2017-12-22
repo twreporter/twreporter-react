@@ -1,5 +1,6 @@
 'use strict'
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import map from 'lodash/map'
 import AuthorItem from './AuthorItem'
 import styles from './AuthorList.scss'

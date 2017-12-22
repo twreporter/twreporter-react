@@ -6,6 +6,7 @@ import classNames from 'classnames'
 //import commonStyles from '../article/Common.scss'
 import closeIcon from '../../../static/asset/icon-navbar-close.svg'
 import LazyLoad from 'react-lazyload'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import styles from './TopicPopup.scss'
 import logoIcon from '../../../static/asset/icon-placeholder.svg'
@@ -82,10 +83,10 @@ export default class TopicPopup extends Component {
 }
 
 TopicPopup.propTypes = {
-  isOpen: React.PropTypes.bool,
-  onTopicBtnClick: React.PropTypes.func,
-  pageTopic: React.PropTypes.string,
-  topicArr: React.PropTypes.array
+  isOpen: PropTypes.bool,
+  onTopicBtnClick: PropTypes.func,
+  pageTopic: PropTypes.string,
+  topicArr: PropTypes.array
 }
 
 TopicPopup.defaultProps = {

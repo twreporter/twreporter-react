@@ -198,18 +198,6 @@ class Homepage extends React.Component {
     }
   }
 
-  static childContextTypes = {
-    ifAuthenticated: PropTypes.bool.isRequired,
-    signOutAction: PropTypes.func.isRequired
-  }
-
-  getChildContext() {
-    return {
-      ifAuthenticated: this.props.ifAuthenticated,
-      signOutAction: this.props.signOutAction
-    }
-  }
-
   constructor(props) {
     super(props)
     this.sidebar = null

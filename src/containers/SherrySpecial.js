@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import FadeText from '@twreporter/react-components/lib/fade-text'
 import customizedPathSet from '../constants/customized-article-path'
 import get from 'lodash/get'
+import PropTypes from 'prop-types'
 import React from 'react'
 import twreporterRedux from '@twreporter/redux'
 import withLayout, { defaultTheme } from '../helpers/with-layout'
@@ -101,11 +102,11 @@ const enhancedMapStateToProps = (state) => {
 }
 
 SherrySpecial.propTypes = {
-  entities: React.PropTypes.object,
-  selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object,
-  params: React.PropTypes.object,
-  ifDelegateImage: React.PropTypes.bool
+  entities: PropTypes.object,
+  selectedPost: PropTypes.object,
+  theme: PropTypes.object,
+  params: PropTypes.object,
+  ifDelegateImage: PropTypes.bool
 }
 
 SherrySpecial.defaultProps = {
