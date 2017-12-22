@@ -12,6 +12,7 @@
     "start": "npm run build && npm run start-server",
     "start-dev-server": "NODE_ENV=development RELEASE_BRANCH=development BABEL_ENV=ssr nodemon ./src/server --exec babel-node",
     "start-server": "NODE_ENV=production pm2 start processes.json",
+    "close-server": "pm2 kill",
     "start-webpack-dev-server": "NODE_ENV=development node ./webpack-dev-server.js",
     "test": "./node_modules/mocha/bin/mocha $(find src -name '*.test.js') --compilers js:babel-core/register",
     "validate": "npm ls"
@@ -28,8 +29,8 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@twreporter/react-components": "2.1.6",
     "@twreporter/react-flex-carousel": "^1.1.1",
-    "@twreporter/react-components": "2.1.4",
     "@twreporter/redux": "^3.0.0",
     "@twreporter/registration": "^2.1.5",
     "babel-plugin-system-import-transformer": "^3.1.0",
