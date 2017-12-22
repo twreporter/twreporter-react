@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { SEARCHING_AUTHOR_NAME } from '../../constants/authors-list'
 import SearchByAlgolia from '../powered/Algolia'
 import resetIcon from '../../../static/asset/reset.svg'

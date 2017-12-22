@@ -1,4 +1,5 @@
 'use strict'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import cx from 'classnames'
 import searchIcon from '../../../static/asset/search.svg'
@@ -59,8 +60,8 @@ class SearchInput extends Component {
 }
 
 SearchInput.propTypes = {
-  handleToggle: React.PropTypes.func,
-  theme: React.PropTypes.string
+  handleToggle: PropTypes.func,
+  theme: PropTypes.string
 }
 
 SearchInput.defaultProps = {
@@ -108,7 +109,7 @@ export default class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  theme: React.PropTypes.string
+  theme: PropTypes.string
 }
 
 SearchBox.defaultProps = {

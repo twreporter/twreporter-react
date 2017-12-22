@@ -1,27 +1,25 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import { Image } from './Image'
-import { replaceStorageUrlPrefix } from '../../utils/index'
 import CircleProgressButton from './CircleProgressButton'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Player from 'react-howler'
+import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
 import Slider from 'rc-slider'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
-import playIcon from '../../../static/asset/audio-play.svg'
 import pauseIcon from '../../../static/asset/audio-pause.svg'
+import playIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
+import { Image } from './Image'
+import { replaceStorageUrlPrefix } from '../../utils/index'
+import 'rc-slider/assets/index.css'
+import './rcslider-overwrite.css'
 
 // lodash
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
-
-if (process.env.BROWSER) {
-  require('rc-slider/assets/index.css')
-  require('./rcslider-overwrite.css')
-}
 
 function getMinSecStr(time) {
   time = Math.round(time)
@@ -293,9 +291,9 @@ class Audio extends React.Component {
 }
 
 Audio.propTypes = {
-  content: React.PropTypes.array.isRequired,
-  device: React.PropTypes.string,
-  styles: React.PropTypes.object
+  content: PropTypes.array.isRequired,
+  device: PropTypes.string,
+  styles: PropTypes.object
 }
 
 Audio.defaultProps = {

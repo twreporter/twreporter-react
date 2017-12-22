@@ -10,7 +10,8 @@ import logoIconDark from '../../../static/asset/logo-white-s.svg'
 import navCommonStyles from './NavCommon.scss'
 import Bookmarks from './Bookmarks'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import React, { Component, PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import ReactGA from 'react-ga'
 import ReactDOM from 'react-dom'
 import SearchBox from './SearchBox'
@@ -376,12 +377,12 @@ const DonateButton = (props) => {
 }
 
 NavMenu.contextTypes = {
-  location: React.PropTypes.object
+  location: PropTypes.object
 }
 
 NavMenu.propTypes = {
-  articleId: React.PropTypes.string,
-  showBackToTopicIcon: React.PropTypes.bool,
+  articleId: PropTypes.string,
+  showBackToTopicIcon: PropTypes.bool,
   bookmarks: PropTypes.arrayOf(PropTypes.shape({
     style: PropTypes.string,
     slug: PropTypes.string,

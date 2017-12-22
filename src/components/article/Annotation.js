@@ -1,8 +1,9 @@
 'use strict'
-import commonStyles from './Common.scss'
-import classNames from 'classnames'
-import styles from './Annotation.scss'
+import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-next-line
+import classNames from 'classnames'
+import commonStyles from './Common.scss'
+import styles from './Annotation.scss'
 
 // lodash
 import get from 'lodash/get'
@@ -50,10 +51,10 @@ export class AnnotationBlock extends React.Component {
 }
 
 AnnotationBlock.propTypes = {
-  annotation: React.PropTypes.string,
-  device: React.PropTypes.string,
-  pureAnnotationText: React.PropTypes.string,
-  text: React.PropTypes.string
+  annotation: PropTypes.string,
+  device: PropTypes.string,
+  pureAnnotationText: PropTypes.string,
+  text: PropTypes.string
 }
 
 AnnotationBlock.defaultProps = {

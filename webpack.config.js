@@ -71,10 +71,6 @@ const webpackConfig = {
         use: 'babel-loader'
       },
       {
-        test: /node_modules\/react-flex-carousel\/index.js/,
-        use: 'babel-loader'
-      },
-      {
         test: /\.(scss|sass)$/,
         use: isProduction ? ExtractTextPlugin.extract({
           fallback: 'style-loader',

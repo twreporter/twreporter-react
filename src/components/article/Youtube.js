@@ -1,9 +1,10 @@
 'use strict'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
+import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-next-line
 import YoutubePlayer from 'react-youtube'
-import cx from 'classnames'
 import commonStyles from './Common.scss'
+import cx from 'classnames'
 import styles from './Youtube.scss'
 
 // lodash
@@ -35,9 +36,9 @@ class Youtube extends React.Component {
 }
 
 Youtube.propTypes = {
-  content: React.PropTypes.array.isRequired,
-  device: React.PropTypes.string,
-  styles: React.PropTypes.object
+  content: PropTypes.array.isRequired,
+  device: PropTypes.string,
+  styles: PropTypes.object
 }
 
 Youtube.defaultProps = {

@@ -2,7 +2,8 @@ import { ARTICLE_STYLE, BRIGHT, DEFAULT_HEADER_HEIGHT, PHOTOGRAPHY_ARTICLE_STYLE
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import NavMenu from './NavMenu'
 import HeaderProgress from './HeaderProgress'
-import React, { Component, PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './NavBar.scss'
 
