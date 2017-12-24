@@ -2,8 +2,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import cx from 'classnames'
-import searchIcon from '../../../static/asset/search.svg'
-import whiteSearchIcon from '../../../static/asset/white-search-icon.svg'
+import SearchIcon from '../../../static/asset/search.svg'
+import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
 import styles from './SearchBox.scss'
 import { BRIGHT, DARK } from '../../constants/index'
 
@@ -90,17 +90,17 @@ export default class SearchBox extends Component {
     const expandClass = {
       [styles.expand]: isToggled
     }
-    const imgSrc = theme === BRIGHT ? searchIcon : whiteSearchIcon
+    const Icon = theme === BRIGHT ? SearchIcon : WhiteSearchIcon
 
     return (
       <div className={cx(styles['search-box-container'], expandClass)}>
         <div className={styles['visible-xs']}>
           <a href={`/${SEARCH_PATH}`}>
-            <img src={imgSrc}/>
+            <Icon />
           </a>
         </div>
         <div className={styles['hidden-xs']}>
-          <img src={imgSrc} onClick={this._handleToggle.bind(this, true)}/>
+          <Icon onClick={this._handleToggle.bind(this, true)} />
           <SearchInput handleToggle={this._handleToggle.bind(this)} isToggled={isToggled} theme={theme}/>
         </div>
       </div>

@@ -8,8 +8,9 @@ $width-sum-02: $width-sum-01 + 12 + 39;
 $width-sum-03: $width-sum-02 + 10 + 31;
 
 .button-appearance {
+  display: inline-block;
   position: relative;
-  img {
+  svg {
     width: 100%;
     height: auto;
     position: absolute;

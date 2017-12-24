@@ -1,9 +1,8 @@
 'use strict'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
-import printIcon from '../../../static/asset/print.svg'
+import PrintIcon from '../../../static/asset/Print.svg'
 import styles from './PrintButton.scss'
-import { PRINT_CH_STR } from '../../constants/'
 
 class PrintButton extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class PrintButton extends React.Component {
     if (isDesktop) {
       return (
         <button className={styles.bt} onClick={this._print}>
-          <img src={printIcon} alt={PRINT_CH_STR} />
+          <PrintIcon />
         </button>
       )
     } else {
