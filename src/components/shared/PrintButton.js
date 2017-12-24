@@ -1,7 +1,7 @@
 'use strict'
 import MobileDetect from 'mobile-detect'
 import React from 'react'
-import PrintIcon from '../../../static/asset/Print.svg'
+import PrintIcon from '../../../static/asset/print.svg'
 import styles from './PrintButton.scss'
 
 class PrintButton extends React.Component {

@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="29px" viewBox="0 0 19 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-    <title>addbm_mobile</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Tool-bar_phase1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M0,1.77635684e-14 L0,28.662 L9.346,21.11 L18.693,28.662 L18.693,1.77635684e-14 L0,1.77635684e-14 Z M2.2,2.2 L16.493,2.2 L16.493,24.056 L10.729,19.4 L9.346,18.282 L7.964,19.4 L2.2,24.056 L2.2,2.2 Z" id="addbm_mobile" fill="#A67A44"></path>
-    </g>
-</svg>
+<svg width="19" height="29" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v28.662l9.346-7.552 9.347 7.552V0H0zm2.2 2.2h14.293v21.856L10.729 19.4l-1.383-1.118L7.964 19.4 2.2 24.056V2.2z" fill="#A67A44" fill-rule="evenodd"/></svg>

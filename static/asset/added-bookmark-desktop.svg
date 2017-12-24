@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="15px" height="23px" viewBox="0 0 15 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-    <title>bm_gold</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Page-1-Copy">
-            <polygon id="Fill-1" fill="#D6AF83" points="0 0 8 0 8 16.536 0 23"></polygon>
-            <polygon id="Fill-2" fill="#A67A44" points="0 0 0 23 8 16.537719 8 0"></polygon>
-            <polygon id="Fill-3" fill="#A67A44" points="15 0 7 0 7 16.536 15 23"></polygon>
-            <polygon id="Fill-4" fill="#A67A44" points="7 0 7 16.537719 15 23 15 0"></polygon>
-        </g>
-    </g>
-</svg>
+<svg width="15" height="23" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#D6AF83" d="M0 0h8v16.536L0 23z"/><path fill="#A67A44" d="M0 0v23l8-6.462V0z"/><path fill="#A67A44" d="M15 0H7v16.536L15 23z"/><path fill="#A67A44" d="M7 0v16.538L15 23V0z"/></g></svg>
