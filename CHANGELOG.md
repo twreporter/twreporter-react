@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.5.1
+- Use inline react svg, stop using data uri
+- Optimize svg files.
+- [Bub] Fix Audio component, which display abnormally 
+
 ### 2.5.0
 - Update to react@^16
 - Update to @twreporter/react-components@2.1.7
