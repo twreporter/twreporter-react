@@ -150,6 +150,18 @@ export default function createRoutes(history = browserHistory) {
             }).catch(errorLoading)
           }}
         />
+        <Route
+          path="twreporter-service-widgets"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/twrr-service-widgets').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="twreporter-bookmark-widget"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/twrr-bookmark-widget').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
       </Route>
     </Router>
   )

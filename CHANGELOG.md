@@ -6,6 +6,7 @@
 - Move Functional Bookmark Icons (add/Remove) back to @twreporter/registration.
 - Remove BundleAnalyzerPlugin (webpack config.js)
 - Import bookmark frame from @twreporter/registration rather than react-components.
+- Create widget service provider from @twreporter/registration
 
 ### 2.5.2
 - Bump @twreporter/react-components version to 2.1.11

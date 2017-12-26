@@ -34,6 +34,10 @@ const SubsequentIconContainer = IconContainer.extend`
   margin-bottom: 20px;
 `
 
+const WidgetWrapper = styled.div`
+  margin-bottom: 20px;
+`
+
 const BackToTopBtn = () => (
   <IconContainer onClick={() => soothScroll(0)}>
     <BackToTopIcon />
@@ -70,11 +74,13 @@ class MobileArticleTools extends React.PureComponent {
         {!toShow ? null : (
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
-            <BookmarkWidget
-              bookmarkData={bookmarkData}
-              slug={slug}
-              mobile
-            />
+            <WidgetWrapper>
+              <BookmarkWidget
+                bookmarkData={bookmarkData}
+                slug={slug}
+                mobile
+              />
+            </WidgetWrapper>
             <BackToTopBtn />
           </div>
         )}

@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-import { Bookmark }  from '@twreporter/registration'
+import { Bookmark, getBookmarks, deleteBookmark } from '@twreporter/registration'
 import { connect } from 'react-redux'
-import { getBookmarks, deleteBookmark } from '@twreporter/registration'
 import Confirmation from '@twreporter/react-components/lib/confirmation'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import More from '../components/More'

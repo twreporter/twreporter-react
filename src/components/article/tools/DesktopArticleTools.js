@@ -6,7 +6,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './DesktopArticleTools.scss'
 import { BookmarkWidget } from '@twreporter/registration'
+import styled from 'styled-components'
 
+const WidgetContainer = styled.div`
+  box-sizing: border-box;
+  margin-top: 10px;
+  text-align: center;
+`
 
 const IconContainer = (props) => (
   <div className={styles['icon-container']}>
@@ -47,10 +53,12 @@ class DesktopArticleTools extends React.PureComponent {
       {!toShow ? null : (
         <div className={styles['article-tools-container']}>
           {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
-          <BookmarkWidget
-            bookmarkData={bookmarkData}
-            slug={slug}
-          />
+          <WidgetContainer>
+            <BookmarkWidget
+              bookmarkData={bookmarkData}
+              slug={slug}
+            />
+          </WidgetContainer>
         </div>
       )}
       </CSSTransitionGroup>
