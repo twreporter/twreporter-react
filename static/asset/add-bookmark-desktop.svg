@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="15px" height="23px" viewBox="0 0 15 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-    <title>addbm_desktop</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M0,0.001 L0,23 L7.501,16.941 L15,23 L15,0.001 L0,0.001 Z M2.2,2.201 L12.8,2.201 L12.8,18.395 L8.882,15.229 L7.501,14.112 L6.117,15.229 L2.2,18.395 L2.2,2.201 Z" id="addbm_desktop" fill="#A67A44"></path>
-    </g>
-</svg>
+<svg width="15" height="23" xmlns="http://www.w3.org/2000/svg"><path d="M0 .001V23l7.501-6.059L15 23V.001H0zm2.2 2.2h10.6v16.194l-3.918-3.166-1.381-1.117-1.384 1.117L2.2 18.395V2.201z" fill="#A67A44" fill-rule="evenodd"/></svg>

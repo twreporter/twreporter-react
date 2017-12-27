@@ -28,7 +28,7 @@ const Container = styled.div`
 
 class ArticleMeta extends React.Component {
   render() {
-    const { authors, extendByline, publishedDate, appId, url, title, fbIcon, twitterIcon, lineIcon, changeFontSize, fontSize } = this.props
+    const { authors, extendByline, publishedDate, appId, url, title, changeFontSize, fontSize } = this.props
     return (
       <Container>
         <HeadingAuthor
@@ -44,9 +44,6 @@ class ArticleMeta extends React.Component {
             appId={appId}
             url={url}
             title={title}
-            fbIcon={fbIcon}
-            twitterIcon={twitterIcon}
-            lineIcon={lineIcon}
           />
           <PrintButton />
           <FontChangeButton

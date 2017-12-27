@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "npm run clean && npm run build-webpack && npm run build-server",
@@ -29,10 +29,11 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "2.1.7",
+    "@twreporter/react-components": "^2.1.8",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "^3.0.0",
     "@twreporter/registration": "^2.1.5",
+    "babel-plugin-inline-react-svg": "^0.4.0",
     "babel-plugin-system-import-transformer": "^3.1.0",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",

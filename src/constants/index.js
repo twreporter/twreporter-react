@@ -76,7 +76,7 @@ export const basePath = 'https://www.twreporter.org'
 
 export const appId = 962589903815787
 
-export const donatePath = 'https://twreporter.backme.tw/cashflow/checkout?project_id=175&reward_id=718'
+export const donatePath = 'https://twreporter.org/donation/period'
 
 export const categoryPath = {
   taiwanPath: '/category/taiwan',
