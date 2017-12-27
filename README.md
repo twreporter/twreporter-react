@@ -3,6 +3,16 @@
 # TW Reporter
 New Media foundation in Taiwan.
 
+# Contains
+- [x] [Webpack](https://webpack.github.io)
+- [x] [Babel](https://babeljs.io/)
+- [x] [React](https://facebook.github.io/react/)
+- [x] [Redux](https://github.com/reactjs/redux)
+- [x] Isomorphic/Universal rendering
+- [x] [Express](https://github.com/expressjs/express.git)
+- [x] Hot Module Replacement
+- [x] Code splitting
+
 # Environment
   Install node(https://nodejs.org/en/) @7.9.0 above.
 
@@ -10,11 +20,7 @@ New Media foundation in Taiwan.
 `yarn install`
 
 # Start
-`npm run build; npm run start`
-
-## React & Redux
-This project is built on Redux framework and rendered by React.
-It uses server-side(universal) rendering, and also integrate ```Webpack Hot Middleware``` in Dev environment.
+`npm run start`
 
 # Development
 ### Customized Article and Route Setting
@@ -29,9 +35,9 @@ You should go through following steps
 
 
 # Reference
-[react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example)
-[Redux](https://github.com/reactjs/redux)
-[React](https://github.com/facebook/react)
+* [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example)
+* [Redux](https://github.com/reactjs/redux)
+* [React](https://github.com/facebook/react)
 
 # License
 * Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
