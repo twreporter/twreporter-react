@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.5.1
+- Update donation link href
+
 ### 2.5.0
 - Update to react@^16
 - Update to @twreporter/react-components@2.1.7
