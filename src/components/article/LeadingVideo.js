@@ -1,11 +1,12 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import screenSize from '../../constants/screen-size'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react' // eslint-disable-line
 import cx from 'classnames'
+import screenSize from '../../constants/screen-size'
 import styles from './LeadingVideo.scss'
 import vjs from 'video.js'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import defaults from 'lodash/defaults'
@@ -129,9 +130,9 @@ class LeadingVideo extends React.Component {
 }
 
 LeadingVideo.propTypes = {
-  options: React.PropTypes.object,
-  poster: React.PropTypes.object,
-  src: React.PropTypes.string.isRequired
+  options: PropTypes.object,
+  poster: PropTypes.object,
+  src: PropTypes.string.isRequired
 }
 
 LeadingVideo.defaultProps = {

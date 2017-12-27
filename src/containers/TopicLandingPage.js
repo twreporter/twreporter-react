@@ -1,6 +1,7 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
 import Footer from '@twreporter/react-components/lib/footer'

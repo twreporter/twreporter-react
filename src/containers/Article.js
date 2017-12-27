@@ -7,28 +7,23 @@ import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import Link from 'react-router/lib/Link'
-import PromotionBanner from '../components/shared/PromotionBanner'
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
 import TitleRowUpon from '../components/article/title-row-upon'
 import TitleRowAbove from '../components/article/title-row-above'
-import backToTopicIcon from '../../static/asset/back-to-topic.svg'
 import commonStyles from '../components/article/Common.scss'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
-import fbIcon from '../../static/asset/fb.svg'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
-import lineIcon from '../../static/asset/line.svg'
-import logoIcon from '../../static/asset/icon-placeholder.svg'
+import LogoIcon from '../../static/asset/icon-placeholder.svg'
 import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
 import styles from './Article.scss'
 import styled from 'styled-components'
 import { screen } from '../themes/screen'
-import twitterIcon from '../../static/asset/twitter.svg'
 import twreporterRedux from '@twreporter/redux'
-import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId, LINK_PREFIX } from '../constants/index'
+import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
 import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -139,7 +134,7 @@ const ArticlePlaceholder = () => {
       </div>
       <div className={cx(styles['leading-img'], leadingImgStyles['leading-img'])}>
         <div className={styles['ph-image']}>
-          <img src={logoIcon} className={styles['logo-icon']}/>
+          <LogoIcon className={styles['logo-icon']} />
         </div>
       </div>
       <IntroductionContainer>
@@ -376,6 +371,7 @@ class Article extends PureComponent {
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
+
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
@@ -388,8 +384,6 @@ class Article extends PureComponent {
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
 
     const topicName = _.get(topic, 'topicName')
-    const topicTitle = _.get(topic, 'title')
-    const topicSlug = _.get(topic, 'slug')
     const topicArr = _.get(topic, 'relateds')
 
     // const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
@@ -476,9 +470,6 @@ class Article extends PureComponent {
                       appId={appId}
                       url={cUrl}
                       title={article.title}
-                      fbIcon={fbIcon}
-                      twitterIcon={twitterIcon}
-                      lineIcon={lineIcon}
                       changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
                       fontSize={this.state.fontSize}
                     />
@@ -534,9 +525,6 @@ class Article extends PureComponent {
                       appId={appId}
                       url={cUrl}
                       title={article.title}
-                      fbIcon={fbIcon}
-                      twitterIcon={twitterIcon}
-                      lineIcon={lineIcon}
                       changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
                       fontSize={this.state.fontSize}
                     />
@@ -562,19 +550,6 @@ class Article extends PureComponent {
                   data={article.tags}
                 />
               </div>
-              { topicTitle ?
-                <Link to={`${LINK_PREFIX.TOPICS}${topicSlug}`}>
-                  <div className={cx(styles['promotion'], 'center-block')}>
-                    <PromotionBanner
-                      bgImgSrc={_.get(topic, 'leadingImage.resizedTargets.tablet.url')}
-                      headline={_.get(topic, 'headline')}
-                      iconImgSrc={backToTopicIcon}
-                      title={topicTitle}
-                      subtitle={_.get(topic, 'subtitle')}
-                    />
-                  </div>
-                </Link>
-                : null }
               <ArticleComponents.BottomRelateds
                 relateds={relateds}
                 currentId={article.id}
@@ -622,20 +597,20 @@ export function mapStateToProps(state) {
 }
 
 Article.childContextTypes = {
-  isPhotography: React.PropTypes.bool
+  isPhotography: PropTypes.bool
 }
 
 Article.contextTypes = {
-  device: React.PropTypes.string,
-  location: React.PropTypes.object
+  device: PropTypes.string,
+  location: PropTypes.object
 }
 
 Article.propTypes = {
-  entities: React.PropTypes.object,
-  ifDelegateImage: React.PropTypes.bool,
-  params: React.PropTypes.object,
-  selectedPost: React.PropTypes.object,
-  theme: React.PropTypes.object
+  entities: PropTypes.object,
+  ifDelegateImage: PropTypes.bool,
+  params: PropTypes.object,
+  selectedPost: PropTypes.object,
+  theme: PropTypes.object
 }
 
 Article.defaultProps = {

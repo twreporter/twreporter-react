@@ -1,4 +1,5 @@
 'use strict'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
@@ -48,9 +49,9 @@ class Bookmark extends Component {
 }
 
 Bookmark.propTypes = {
-  bookmark: React.PropTypes.string.isRequired,
-  isSelected: React.PropTypes.bool,
-  slug: React.PropTypes.string.isRequired
+  bookmark: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool,
+  slug: PropTypes.string.isRequired
 }
 
 Bookmark.defaultProps = {
@@ -159,14 +160,14 @@ export default class Bookmarks extends Component {
 }
 
 Bookmarks.propTypes = {
-  bookmarks: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      bookmark: React.PropTypes.string.isRequired,
-      bookmarkOrder: React.PropTypes.number,
-      publishedDate: React.PropTypes.string,
-      isSelected: React.PropTypes.bool,
-      slug: React.PropTypes.string.isRequired,
-      style: React.PropTypes.string.isRequired
+  bookmarks: PropTypes.arrayOf(
+    PropTypes.shape({
+      bookmark: PropTypes.string.isRequired,
+      bookmarkOrder: PropTypes.number,
+      publishedDate: PropTypes.string,
+      isSelected: PropTypes.bool,
+      slug: PropTypes.string.isRequired,
+      style: PropTypes.string.isRequired
     })
   ).isRequired
 }

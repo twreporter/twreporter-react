@@ -35,6 +35,17 @@
         }
       }
     ],
-    "inline-import-data-uri"
+    "inline-import-data-uri",
+    [
+      "inline-react-svg", {
+        "svgo": {
+          "plugins": [
+          {
+            "cleanupIDs": false
+          }
+          ]
+        }
+      }
+    ]
   ]
 }

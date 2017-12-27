@@ -19,43 +19,45 @@ const IconContainer = styled.div`
   border-radius: 50%;
   width: ${buttonWidth}px;
   height: ${buttonHeight}px;
+  display: block;
   background-color: rgba(255, 255, 255, .8);
   overflow: hidden;
-  img {
+  cursor: pointer;
+  svg {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  cursor: pointer;
 `
 
 const SubsequentIconContainer = IconContainer.extend`
   margin-bottom: 20px;
 `
 
-const BookmarkImg = styled.img`
+const BookmarkImg = styled.div`
+  line-height: 0;
   opacity: ${props => (props.showUp ? 1 : 0 )};
   transition: opacity 200ms linear;
 `
 
 const BackToTopBtn = () => (
   <IconContainer onClick={() => soothScroll(0)}>
-    <img src={BackToTopIcon} />
+    <BackToTopIcon />
   </IconContainer>
 )
 
 const BackToTopicBtn = (props) => (
   <Link to={`${LINK_PREFIX.TOPICS}${props.topicSlug}`} title={props.topicTitle}>
     <SubsequentIconContainer>
-      <img src={BackToTopicIcon} />
+      <BackToTopicIcon />
     </SubsequentIconContainer>
   </Link>
 )
 
 BackToTopicBtn.propTypes = {
-  topicSlug: React.PropTypes.string.isRequired,
-  topicTitle: React.PropTypes.string.isRequired
+  topicSlug: PropTypes.string.isRequired,
+  topicTitle: PropTypes.string.isRequired
 }
 
 class MobileArticleTools extends React.PureComponent {
@@ -76,8 +78,12 @@ class MobileArticleTools extends React.PureComponent {
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
             <SubsequentIconContainer onClick={this.props.handleOnClickBookmark}>
-              <BookmarkImg showUp={!isBookmarked} src={BookmarkUnaddedIcon} />
-              <BookmarkImg showUp={isBookmarked} src={BookmarkAddedIcon} />
+              <BookmarkImg showUp={!isBookmarked}>
+                <BookmarkUnaddedIcon />
+              </BookmarkImg>
+              <BookmarkImg showUp={isBookmarked}>
+                <BookmarkAddedIcon />
+              </BookmarkImg>
             </SubsequentIconContainer>
             <BackToTopBtn />
           </div>

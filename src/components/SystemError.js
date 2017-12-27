@@ -1,11 +1,7 @@
 'use strict'
+import PropTypes from 'prop-types'
 import React from 'react'
-import commonStyles from './article/Common.scss'
-import cx from 'classnames'
-import refreshBt from '../../static/asset/refresh_bt.svg'
-import styles from './SystemError.scss'
-import { ERROR_MESSAGE_404, ERROR_MESSAGE_500 } from '../constants/index'
-
+import { ErrorMessage } from '@twreporter/react-components/lib/error'
 // lodash
 import get from 'lodash/get'
 
@@ -14,38 +10,17 @@ const _ = {
 }
 
 function SystemError({ error }) {
-  const refreshPage = () => {
-    // on client side
-    if (window) {
-      window.location.reload()
-    }
+  let errorType = '500'
+  if (_.get(error, 'status') === 404 || _.get(error, 'response.status') === 404) {
+    errorType = '404'
   }
-
-  let style = {
-    marginTop: 35
-  }
-
-  let errorMessageJsx = _.get(error, 'status', 500) === 404  || _.get(error, 'response.status', 500) === 404 ? (
-    <h1 style={style}>{ERROR_MESSAGE_404}</h1>
-  ) : (
-    <div className={commonStyles['inner-block']}>
-      <div className={cx('center-block', 'text-center', styles.message)}>
-        {ERROR_MESSAGE_500}
-      </div>
-        <div className={cx(styles['refresh-bt'], 'text-center')}>
-          <img src={refreshBt} width="30px" height="30px" onClick={refreshPage} style={{ cursor: 'pointer' }}/>
-        </div>
-    </div>
-  )
   return (
-    <div className="container" style={{ height: 300, marginTop: 50 }}>
-      {errorMessageJsx}
-    </div>
+    <ErrorMessage errorType={errorType} />
   )
 }
 
 SystemError.propTypes = {
-  error: React.PropTypes.object.isRequired
+  error: PropTypes.object.isRequired
 }
 
 export default SystemError

@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { SEARCHING_AUTHOR_NAME } from '../../constants/authors-list'
 import SearchByAlgolia from '../powered/Algolia'
-import resetIcon from '../../../static/asset/reset.svg'
-import searchIcon from '../../../static/asset/search.svg'
+import ResetIcon from '../../../static/asset/reset.svg'
+import SearchIcon from '../../../static/asset/search.svg'
 import styles from './AuthorSearchBox.scss'
 import get from 'lodash/get'
 
@@ -77,14 +78,14 @@ class AuthorSearchBox extends React.Component {
             type="button"
             className={styles['submit-button']}
             onClick={this._handleClickButton}>
-            <img src={searchIcon}/>
+            <SearchIcon />
           </button>
           <button
             type="reset"
             className={styles['reset-button']}
             title="Clear the search query."
             onClick={this._handleClickReset}>
-            <img src={resetIcon}/>
+            <ResetIcon />
           </button>
         </form>
         <SearchByAlgolia />

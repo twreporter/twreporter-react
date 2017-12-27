@@ -1,9 +1,9 @@
 'use strict'
 import classNames from 'classnames'
-import disabledLeftNav from '../../../../static/asset/disabled-left-arrow.svg'
-import disabledRightNav from '../../../../static/asset/disabled-right-arrow.svg'
-import leftNav from '../../../../static/asset/left-arrow.svg'
-import rightNav from '../../../../static/asset/right-arrow.svg'
+import DisabledLeftNav from '../../../../static/asset/disabled-left-arrow.svg'
+import DisabledRightNav from '../../../../static/asset/disabled-right-arrow.svg'
+import LeftNav from '../../../../static/asset/left-arrow.svg'
+import RightNav from '../../../../static/asset/right-arrow.svg'
 import styles from './navigation.scss'
 import React from 'react'
 
@@ -13,17 +13,28 @@ const navigation = (props) => {
 
   return (
     <span key="navigation">
-      <img
-        className={classNames(styles['ss-left-nav'], { [styles['disabled']]: isLeftNavDisabled })}
-        onClick={onSlideLeft}
-        src={ isLeftNavDisabled ? disabledLeftNav : leftNav }
-      />
-
-      <img
-        className={classNames(styles['ss-right-nav'], { [styles['disabled']]: isRightNavDisabled })}
-        onClick={onSlideRight}
-        src={ isRightNavDisabled ? disabledRightNav : rightNav }
-      />
+      {
+        isLeftNavDisabled ?
+          <DisabledLeftNav
+            className={classNames(styles['ss-left-nav'], styles['disabled'])}
+            onClick={onSlideLeft}
+          /> :
+          <LeftNav
+            className={styles['ss-left-nav']}
+            onClick={onSlideLeft}
+          />
+      }
+      {
+        isRightNavDisabled ?
+          <DisabledRightNav
+            className={classNames(styles['ss-right-nav'], styles['disabled'])}
+            onClick={onSlideRight}
+          /> :
+          <RightNav
+            className={styles['ss-right-nav']}
+            onClick={onSlideRight}
+          />
+      }
     </span>
   )
 }

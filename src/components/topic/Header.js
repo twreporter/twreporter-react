@@ -1,13 +1,14 @@
 'use strict'
-import React, { PropTypes } from 'react' // eslint-disable-next-line
+import PropTypes from 'prop-types'
+import React from 'react' // eslint-disable-next-line
 import cx from 'classnames'
 import Link from 'react-router/lib/Link'
 import SearchBox from '../navigation/SearchBox'
-import backToTopicIcon from '../../../static/asset/back-to-topic.svg'
-import donationIcon from '../../../static/asset/donate.svg'
-import logoIcon from '../../../static/asset/navbar-fixed-top-logo.svg'
-import whiteDonationIcon from '../../../static/asset/white-donation-icon.svg'
-import whiteLogoIcon from '../../../static/asset/logo-white-s.svg'
+import BackToTopicIcon from '../../../static/asset/back-to-topic.svg'
+import DonationIcon from '../../../static/asset/donate.svg'
+import LogoIcon from '../../../static/asset/navbar-fixed-top-logo.svg'
+import WhiteDonationIcon from '../../../static/asset/white-donation-icon.svg'
+import WhiteLogoIcon from '../../../static/asset/logo-white-s.svg'
 import style from './Header.scss'
 import { BRIGHT, DARK, donatePath } from '../../constants/index'
 
@@ -19,20 +20,20 @@ export default function Header({ isFixedToTop, title }) {
   }
   const centerJsx = isFixedToTop ? (
     <div>
-      <img src={backToTopicIcon} role="presentation" />
+      <BackToTopicIcon />
       <span>{title}</span>
     </div>
   ) : (
     <Link to="/">
       <div>
-        <img src={whiteLogoIcon} />
+        <WhiteLogoIcon />
       </div>
     </Link>
   )
 
   const rightJsx = isFixedToTop ? (
     <div className={style.search}>
-      <img src={logoIcon} alt="報導者首頁" />
+      <LogoIcon />
     </div>
   ) : (
     <div className={style.search}>
@@ -47,7 +48,9 @@ export default function Header({ isFixedToTop, title }) {
     <div className={cx(style.container, fixedStyle)}>
       <Link to={donatePath} target="_blank" title="贊助我們">
         <div className={style.donation}>
-          <img src={isFixedToTop ? donationIcon : whiteDonationIcon} role="presentation" />
+          <div>
+            { isFixedToTop ? <DonationIcon /> : <WhiteDonationIcon /> }
+          </div>
           <span>贊助我們</span>
         </div>
       </Link>

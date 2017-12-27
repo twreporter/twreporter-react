@@ -1,15 +1,16 @@
 /*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
-import { replaceStorageUrlPrefix } from '../../utils/index'
-import cx from 'classnames'
-import commonStyles from './Common.scss'
-import FitwidthMixin from './mixins/FitwidthMixin'
-import { getScreenType } from '../../utils/index'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
-import React, { Component } from 'react'
+import FitwidthMixin from './mixins/FitwidthMixin'
 import LazyLoad, { forceCheck } from 'react-lazyload'
-import styles from './Image.scss'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import UI_SETTING from '../../constants/ui-settings'
+import commonStyles from './Common.scss'
+import cx from 'classnames'
+import styles from './Image.scss'
+import { getScreenType } from '../../utils/index'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -185,15 +186,15 @@ class Image extends FitwidthMixin(Component) {
 }
 
 Image.contextTypes = {
-  isPhotography: React.PropTypes.bool
+  isPhotography: PropTypes.bool
 }
 
 Image.propTypes = {
-  content: React.PropTypes.array,
-  customeStyles: React.PropTypes.array,
-  isToShowDescription: React.PropTypes.bool,
-  outerHeight: React.PropTypes.number,
-  outerWidth: React.PropTypes.number
+  content: PropTypes.array,
+  customeStyles: PropTypes.array,
+  isToShowDescription: PropTypes.bool,
+  outerHeight: PropTypes.number,
+  outerWidth: PropTypes.number
 }
 
 Image.defaultProps = {
