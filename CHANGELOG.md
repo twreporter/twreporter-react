@@ -1,9 +1,11 @@
 ### Unreleased
 
 ### 2.5.1
+
 - Use inline react svg, stop using data uri
 - Optimize svg files.
 - [Bub] Fix Audio component, which display abnormally 
+- Update donation link href
 
 ### 2.5.0
 - Update to react@^16
