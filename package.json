@@ -29,7 +29,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "^2.1.8",
+    "@twreporter/react-components": "2.1.9",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "^3.0.0",
     "@twreporter/registration": "^2.1.5",
