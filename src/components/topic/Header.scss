@@ -30,8 +30,11 @@
   position: absolute;
   top: 50%;
   left: 34px;
-  >img {
+  >div {
     margin-right: 8px;
+    display: inline-block;
+    height: 24px;
+    vertical-align: middle;
   }
 
   >span {

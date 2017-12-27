@@ -5,6 +5,7 @@ import FitwidthMixin from './mixins/FitwidthMixin'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Slider from 'rc-slider'
+import SliderButton from '../../../static/asset/slider-button.svg'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
@@ -115,8 +116,7 @@ class ImageDiff extends FitwidthMixin(Component) {
             <div className={styles.overlayContainer} style={{ width: percentage+'%' }}>
               {renderedFigure1}
             </div>
-            <img src="/asset/slider-button.svg"
-              className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
+            <SliderButton className={classNames(styles.sliderButton, buttonClass)} style={{ left: percentage+'%' }} />
             <div style={rangeStyle}>
               <Slider
                 className={styles.rangeInput}

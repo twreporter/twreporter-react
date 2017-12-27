@@ -1,15 +1,13 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import CircleProgressButton from './CircleProgressButton'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Player from 'react-howler'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
 import Slider from 'rc-slider'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
-import pauseIcon from '../../../static/asset/audio-pause.svg'
-import playIcon from '../../../static/asset/audio-play.svg'
+import PauseIcon from '../../../static/asset/audio-pause.svg'
+import PlayIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import { Image } from './Image'
@@ -49,52 +47,6 @@ const AudioSlider = ({ duration, onSeekChange, seek }) => {
       />
       <div className={styles['audio-time-display']}>{getMinSecStr(duration)}</div>
     </div>
-  )
-}
-
-const AudioController = (props) => {
-
-  const { duration, isOncePlayed, isPlaying, isFocused, onSeekChange, onToggle, seek } = props
-
-  return (
-    <CSSTransitionGroup
-      transitionName={styles}
-      transitionAppear={true}
-      transitionAppearTimeout={1000}
-      transitionEnterTimeout={1000}
-      transitionLeaveTimeout={1000}
-      >
-      {
-        !isOncePlayed ?
-          <div key="notPlayedYet">
-            <CircleProgressButton
-              duration={duration}
-              isOncePlayed={isOncePlayed}
-              isPlaying={isPlaying}
-              onToggle={onToggle}
-              seek={seek}
-            />
-            <div className={styles['audio-duration-block']}>{getMinSecStr(duration)}</div>
-          </div>
-        : null
-      }
-      { isOncePlayed && !isPlaying || (isPlaying && isFocused) ?
-        <div key="oncePlayed">
-          <CircleProgressButton
-            duration={duration}
-            isOncePlayed={isOncePlayed}
-            isPlaying={isPlaying}
-            onToggle={onToggle}
-            seek={seek}
-          />
-          <AudioSlider
-            duration={duration}
-            onSeekChange={onSeekChange}
-            seek={seek}
-          />
-        </div>
-      : null }
-    </CSSTransitionGroup>
   )
 }
 
@@ -231,10 +183,13 @@ class Audio extends React.Component {
     )
 
     // render Audio without cover photo
-    if (isEmpty(coverPhoto)) {
-      let btRadius = 24
-      return (
+    let btRadius = 24
+    return (
         <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
+          { isEmpty(coverPhoto) ? null : <Image
+            content = { [ coverPhoto ] }
+            isToShowDescription={false}
+          /> }
           <Slider
             tipFormatter={null}
             onChange={this.handleSeekChange}
@@ -242,12 +197,12 @@ class Audio extends React.Component {
             max={duration}
           />
           <div className={classNames(styles['audio-info-container'], styles['without-cp'])}>
-            <div className={styles['progress-bt']} style={{ width: btRadius * 2, height: btRadius * 2 }}>
-              { isPlaying ? <img onClick={this.handleToggle} src={pauseIcon} /> : <img onClick={this.handleToggle} src={playIcon} /> }
-            </div>
-            <div style={{ display: 'inline-block' }}>
-              <h4>{title}</h4>
+            <div className={styles['progress-bt']}>
+              { isPlaying ? <PauseIcon onClick={this.handleToggle}/> : <PlayIcon onClick={this.handleToggle} /> }
               <span className={styles['audio-time-block']}>{getMinSecStr(seek)} / {getMinSecStr(duration)}</span>
+            </div>
+            <div style={{ display: 'table-cell' }}>
+              <h4>{title}</h4>
             </div>
             <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
           </div>
@@ -255,38 +210,6 @@ class Audio extends React.Component {
           { microData }
         </div>
       )
-    }
-
-    // render Audio with cover photo
-    return (
-      <div itemScope itemType="http://schema.org/AudioObject" className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false }, 'hidden-print')}>
-        <div className={styles['audio-coverphoto']} onClick={this.handleMouseClick} onMouseEnter={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseOut}>
-          <div className={styles['audio-img-filter']} style={ isOncePlayed ? {
-            opacity: 1
-          }: {}}>
-            <Image
-              content = { [ coverPhoto ] }
-              isToShowDescription={false}
-            />
-          </div>
-          <AudioController
-            duration={duration}
-            isFocused={isFocused}
-            isOncePlayed={isOncePlayed}
-            isPlaying={isPlaying}
-            onToggle={this.handleToggle}
-            onSeekChange={this.handleSeekChange}
-            seek={seek}
-          />
-        </div>
-        <div className={styles['audio-info-container']}>
-          <h4 className={'text-center'}>{title}</h4>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </div>
-        { player }
-        { microData }
-      </div>
-    )
   }
 }
 

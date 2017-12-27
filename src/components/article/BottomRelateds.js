@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload'
 import Link from 'react-router/lib/Link'
 import React, { Component } from 'react'
 import styles from './BottomRelateds.scss'
-import logoIcon from '../../../static/asset/icon-placeholder.svg'
+import LogoIcon from '../../../static/asset/icon-placeholder.svg'
 
 // lodash
 import get from 'lodash/get'
@@ -63,10 +63,12 @@ export class BottomRelateds extends Component {
             <Link className={styles.relatedAnchor} to={style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE + related.slug : LINK_PREFIX.ARTICLE + related.slug} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
               <div className={styles.relatedImgWrapper}>
                 <div className={styles.relatedImg}>
-                  <img src={logoIcon} className={styles['logo-icon']}/>
-                  <LazyLoad once={true}>
-                    <img className={styles['crop']} src={imageUrl} />
-                  </LazyLoad>
+                  <div className={styles['logo-icon']}>
+                    <LogoIcon />
+                    <LazyLoad once={true}>
+                      <img className={styles['crop']} src={imageUrl} />
+                    </LazyLoad>
+                  </div>
                 </div>
               </div>
               <div className={styles.relatedContent}>
