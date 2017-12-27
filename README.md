@@ -19,8 +19,11 @@ New Media foundation in Taiwan.
 # Installation
 `yarn install`
 
-# Start
+# Production start
 `npm run start`
+
+# Development start
+`npm run dev`
 
 # Development
 ### Customized Article and Route Setting
@@ -33,11 +36,6 @@ You should go through following steps
 
 • ```vim ./constants/customized-article-path```
 
-
-# Reference
-* [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example)
-* [Redux](https://github.com/reactjs/redux)
-* [React](https://github.com/facebook/react)
 
 # License
 * Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
