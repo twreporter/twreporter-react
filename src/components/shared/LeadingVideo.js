@@ -6,8 +6,8 @@ import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import VisibilitySensor from 'react-visibility-sensor'
 import cx from 'classnames'
-import soundOnIcon from '../../../static/asset/sound-on.svg'
-import soundMuteIcon from '../../../static/asset/sound-mute.svg'
+import SoundOnIcon from '../../../static/asset/sound-on.svg'
+import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
 import style from './LeadingVideo.scss'
 import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/index'
 
@@ -137,11 +137,16 @@ class LeadingVideo extends React.Component {
             <source src={replaceStorageUrlPrefix(src)} type={filetype} />
           </video>
           <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
-          <img
-            className={_.get(classNames, 'audioBt', style['audio-bt'])}
-            src={isMuted ? soundMuteIcon : soundOnIcon}
-            onClick={this.handleMuteChange}
-          />
+          { isMuted ?
+              <SoundMuteIcon
+                className={_.get(classNames, 'audioBt', style['audio-bt'])}
+                onClick={this.handleMuteChange}
+              /> :
+              <SoundOnIcon
+                className={_.get(classNames, 'audioBt', style['audio-bt'])}
+                onClick={this.handleMuteChange}
+              />
+          }
         </div>
       )
     }

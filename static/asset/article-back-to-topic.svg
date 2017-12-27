@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="23px" viewBox="0 0 19 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch Beta 46 (44423) - http://www.bohemiancoding.com/sketch -->
-    <title>topic</title>
-    <desc>Created with Sketch Beta.</desc>
-    <defs></defs>
-    <g id="Tool-bar_phase1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M0,23 L19,23 L19,0 L0,0 L0,23 Z M4,7 L14,7 L14,5 L4,5 L4,7 Z M4,12.5 L14,12.5 L14,10.5 L4,10.5 L4,12.5 Z M4,18 L10,18 L10,16 L4,16 L4,18 Z" id="topic" fill="#A67A44"></path>
-    </g>
-</svg>
+<svg width="19" height="23" xmlns="http://www.w3.org/2000/svg"><path d="M0 23h19V0H0v23zM4 7h10V5H4v2zm0 5.5h10v-2H4v2zM4 18h6v-2H4v2z" fill="#A67A44" fill-rule="evenodd"/></svg>

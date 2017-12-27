@@ -1,6 +1,6 @@
 'use strict'
 import classNames from 'classnames'
-import boxSvg from '../../../static/asset/infobox-logo.svg'
+import BoxSvg from '../../../static/asset/infobox-logo.svg'
 import styles from './InfoBox.scss'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
 import React from 'react' // eslint-disable-next-line
@@ -15,7 +15,7 @@ export const InfoBox = ({ content, device }) => {
     <div className={classNames(styles['infobox-container'],
       { [styles['mobile']]: device === 'mobile' ? true : false }
     )}>
-      <img src={boxSvg} />
+      <BoxSvg />
       <div className={styles['infobox-text']}>
         <h4 className={'text-center'}>
           {infoBox.title}

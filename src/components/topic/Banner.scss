@@ -83,6 +83,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 
 .arrow-down-icon-wrapper {
   cursor: pointer;
+  text-align: center;
   width: $arrow-wrapper-width;
   height: $arrow-wrapper-height;
   img {

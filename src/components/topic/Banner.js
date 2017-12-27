@@ -6,7 +6,7 @@ import { addTailSpaceIfHeadIsFullwidthBracket, date2yyyymmdd } from '../../utils
 
 import { TOPIC_LAST_UPDATED } from '../../constants/index'
 import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
-import arrowDownIcon from '../../../static/asset/arrow-down.svg'
+import ArrowDownIcon from '../../../static/asset/arrow-down.svg'
 import smoothScroll from 'smoothscroll'
 import stylesBottom from './BannerBottom.scss'
 import stylesBottomLeft from './BannerBottomLeft.scss'
@@ -29,7 +29,7 @@ const Banner = (props) => {
         {!publishedDate ? null : <div className={styles['published-date']} >{date2yyyymmdd(publishedDate, '.')+' '+TOPIC_LAST_UPDATED}</div>}
       </div>
       <div className={styles['arrow-down-icon-wrapper']} onClick={_handleScroll} >
-        <img src={arrowDownIcon} role="presentation" />
+        <ArrowDownIcon />
       </div>
     </div>
   )

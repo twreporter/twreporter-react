@@ -98,8 +98,8 @@
     &.without-cp {
       .progress-bt {
         position: relative;
-        display: inline-block;
-        margin-right: rem(16px);
+        display: table-cell;
+        padding-right: rem(16px);
         vertical-align: top;
       }
 
@@ -114,6 +114,7 @@
   }
 
   .audio-time-block {
+    white-space: nowrap;
     color: $pinkish-grey;
   }
 }

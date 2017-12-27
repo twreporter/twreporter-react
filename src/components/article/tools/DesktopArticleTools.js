@@ -19,7 +19,7 @@ const BookmarkFrame = ToolFrame.extend`
   position: relative;
 `
 
-const BookmarkImg = styled.img`
+const BookmarkImg = styled.div`
   opacity: ${props => (props.showUp ? 1 : 0 )};
   transition: opacity 200ms linear;
   position: absolute;
@@ -38,7 +38,7 @@ const BackToTopic = (props) => (
     <div className={styles['back-to-topic']}>
       <span>回到專題</span>
       <IconContainer>
-        <img src={BackToTopicIcon} />
+        <BackToTopicIcon />
       </IconContainer>
     </div>
   </Link>
@@ -67,8 +67,12 @@ class DesktopArticleTools extends React.PureComponent {
         <div className={styles['article-tools-container']}>
           {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
           <BookmarkFrame onClick={this.props.handleOnClickBookmark}>
-            <BookmarkImg showUp={!isBookmarked} src={BookmarkUnaddedIcon} />
-            <BookmarkImg showUp={isBookmarked} src={BookmarkAddedIcon} />
+            <BookmarkImg showUp={!isBookmarked}>
+              <BookmarkUnaddedIcon />
+            </BookmarkImg>
+            <BookmarkImg showUp={isBookmarked}>
+              <BookmarkAddedIcon />
+            </BookmarkImg>
           </BookmarkFrame>
         </div>
       )}
