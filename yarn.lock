@@ -8,9 +8,9 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@2.1.9":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.1.9.tgz#9dbf9c972df43530fcd49bffb3e812ed6b483a51"
+"@twreporter/react-components@2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.1.11.tgz#78fd3ef87b3171605e0d858dc6792496acfde771"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     lodash "^4.17.4"
