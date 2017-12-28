@@ -1,7 +1,9 @@
 ### Unreleased
 
 ### 2.5.2
-- Bump @twreporter/react-components version to 2.1.10, which fix the header wrong style bug
+- Bump @twreporter/react-components version to 2.1.11
+    - which fixes the header wrong style bug
+    - which imports PropTypes from 'prop-types' directly, not uses React.PropTypes
 
 ### 2.5.1
 - Use inline react svg, stop using data uri
