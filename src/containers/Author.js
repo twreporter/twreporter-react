@@ -6,7 +6,6 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
-import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import get from 'lodash/get'
@@ -19,6 +18,8 @@ import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
 const _ = {
   get
 }
+
+const authorDefaultImg = '/asset/author-default-img.svg'
 
 class Author extends React.Component {
   static fetchData({ params, store }) {
@@ -42,7 +43,7 @@ class Author extends React.Component {
       authorId: authorId,
       authorName: _.get(authorEntity, 'name') || '',
       authorTitle: _.get(authorEntity, 'jobTitle') || '',
-      authorImgUrl: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url') || authorDefaultImg,
+      authorImgUrl: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url', authorDefaultImg),
       authorMail: _.get(authorEntity, 'email') || '',
       authorBio: _.get(authorEntity, 'bio.md' || '')
     }
