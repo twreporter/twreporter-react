@@ -9,7 +9,6 @@ import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
 import VisibilitySensor from 'react-visibility-sensor'
-import authorDefaultImg from '../../static/asset/author-default-img.svg'
 import classNames from 'classnames'
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -25,6 +24,8 @@ const _ = {
   map: map,
   values: values
 }
+
+const authorDefaultImg = '/asset/author-default-img.svg'
 
 class AuthorsList extends React.Component {
   static fetchData({ store }) {
@@ -79,7 +80,7 @@ class AuthorsList extends React.Component {
 
     function authorIdToDataObj(id) {
       const authorName = _.get(authorsEntities, `${id}.name`, '')
-      const authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`) || authorDefaultImg
+      const authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`, authorDefaultImg)
       const authorItemObject = {
         id,
         authorName,
