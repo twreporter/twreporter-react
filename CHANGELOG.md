@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.5.3
+- Fix [author list page](https://www.twreporter.org/authors) style
+  - search box icon 
+  - default author image 
+
 ### 2.5.2
 - Bump @twreporter/react-components version to 2.1.11
     - which fixes the header wrong style bug
