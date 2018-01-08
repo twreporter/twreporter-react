@@ -16,7 +16,7 @@
   padding-right: rem(8px);
   &>span a {
     transition-duration: .2s;
-    &:after {
+    &::after {
       content: none;
       display: none;
     }
