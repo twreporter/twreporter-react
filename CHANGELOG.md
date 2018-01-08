@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.5.4
+- [Bug] fix print image abnormally
+
 ### 2.5.3
 - Fix [author list page](https://www.twreporter.org/authors) style
   - search box icon 
