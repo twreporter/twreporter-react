@@ -2,6 +2,9 @@
 
 ### 2.5.4
 - [Bug] fix print image abnormally
+- Style change
+  - share/print button -> cursor: pointer
+  - remove a tag link underline animation
 
 ### 2.5.3
 - Fix [author list page](https://www.twreporter.org/authors) style
