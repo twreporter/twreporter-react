@@ -67,25 +67,12 @@ const Content = styled.div`
   a {
       border-bottom: 1px ${globalColor.primaryColor} solid;
       cursor: pointer;
-      transition: 0.5s all ease;
+      transition: 0.5s color ease;
       position: relative;
       color: ${ props => (props.fontColor ? props.fontColor : globalColor.textColor)};
       letter-spacing: ${letterSpace.generalLetterSpace};
       &:hover {
         color: ${globalColor.primaryColor};
-      }
-      &:after {
-        position: absolute;
-        content: "";
-        left: 0;
-        bottom: -0.13em;
-        height: 0.11rem;
-        width: 0;
-        background: ${globalColor.primaryColor};
-        transition: 0.5s all ease;
-      }
-      &:hover:after {
-        width: 100%;
       }
   }
 `
