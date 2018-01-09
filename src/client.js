@@ -98,6 +98,10 @@ injectGlobal`
       margin: 0;
     }
 
+    strong {
+      font-weight: ${typography.font.weight.bold};
+    }
+
     @media print {
       .hidden-print {
         display: none !important;
