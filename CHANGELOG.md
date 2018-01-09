@@ -7,6 +7,8 @@
 - Remove BundleAnalyzerPlugin (webpack config.js)
 - Import bookmark frame from @twreporter/registration rather than react-components.
 - Create widget service provider from @twreporter/registration
+- Move auth process from client.js to App.js (server/client side redux store render conflict)
+
 
 ### 2.5.2
 - Bump @twreporter/react-components version to 2.1.11
@@ -16,7 +18,7 @@
 ### 2.5.1
 - Use inline react svg, stop using data uri
 - Optimize svg files.
-- [Bub] Fix Audio component, which display abnormally 
+- [Bub] Fix Audio component, which display abnormally
 - Update donation link href
 - Bump @twreporter-react-components version to 2.1.9
 

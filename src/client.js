@@ -14,7 +14,6 @@ import { Provider } from 'react-redux'
 import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
 import { screen as mq } from './themes/screen'
-import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, localStorageKeys, renewToken, getItem, scheduleRenewToken } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -129,41 +128,6 @@ if (window.__REDUX_STATE__) {
 const store = configureStore(browserHistory, reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
-
-// token can be stored in localStorage in two scenario
-// 1. TWReporter account sign in
-// 2. oAuth
-// Acount: store auth info during signin action
-// oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
-// The following procedure is only for oAuth
-const { auth } = store.getState()
-if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  setupTokenInLocalStorage(auth.authInfo, localStorageKeys.authInfo)
-  store.dispatch(deletAuthInfoAction())
-}
-
-// 1. Renew token when user brows our website
-// 2. ScheduleRenewToken if user keep the tab open forever
-const authInfoString = getItem(localStorageKeys.authInfo)
-if(authInfoString) {
-  const authObj = JSON.parse(authInfoString)
-  const { authConfigure } = store.getState()
-  const { apiUrl, renew } = authConfigure
-  store.dispatch(renewToken(apiUrl, renew, authObj))
-  scheduleRenewToken(
-    6,
-    () => {
-      if (getItem(localStorageKeys.authInfo)) {
-        store.dispatch(renewToken(apiUrl, renew, JSON.parse(getItem(localStorageKeys.authInfo))))
-      }
-    }
-  )
-}
-
-// Check if token existed in localStorage and expired
-// following preocedure is for both accoutn and oAuth SignIn
-// 7 = 7 days
-store.dispatch(authUserByTokenAction(7, auth.authType))
 
 const device = store.getState().device
 

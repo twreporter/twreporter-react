@@ -151,15 +151,21 @@ export default function createRoutes(history = browserHistory) {
           }}
         />
         <Route
-          path="twreporter-service-widgets"
+          path="widgets-services"
           getComponent={(location, cb) => {
-            import('../containers/widgets/twrr-service-widgets').then(loadRoute(cb)).catch(errorLoading)
+            import('../containers/widgets/services').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
-          path="twreporter-bookmark-widget"
+          path="widgets-bookmark-desktop"
           getComponent={(location, cb) => {
-            import('../containers/widgets/twrr-bookmark-widget').then(loadRoute(cb)).catch(errorLoading)
+            import('../containers/widgets/bookmark-desktop').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="widgets-bookmark-mobile"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/bookmark-mobile').then(loadRoute(cb)).catch(errorLoading)
           }}
         />
       </Route>
