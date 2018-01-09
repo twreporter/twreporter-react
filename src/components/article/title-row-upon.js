@@ -71,7 +71,7 @@ const Title = HeaderElementBlock.extend`
 const Subtitle = HeaderElementBlock.extend`
   color: ${props => (colorselector(props, colors.gray.gray50))};
   font-size: ${typography.font.size.medium};
-  font-weight: 100;
+  font-weight: ${typography.font.weight.extraLight};
   ${screen.tabletAbove`
     font-size: 50px;
   `}
