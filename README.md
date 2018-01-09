@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp.svg?style=svg)](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp)
+[![CircleCI](https://circleci.com/gh/twreporter/twreporter-react/tree/master.svg?style=shield)](https://circleci.com/gh/twreporter/twreporter-react/tree/master)
 
 # TW Reporter
 New Media foundation in Taiwan.
