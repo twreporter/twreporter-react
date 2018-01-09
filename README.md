@@ -2,6 +2,8 @@
 [![Tag](https://img.shields.io/github/tag/twreporter/twreporter-react.svg)](https://github.com/twreporter/twreporter-react/tags)
 
 # TW Reporter
+
+[![Join the chat at https://gitter.im/twreporter-react/Lobby](https://badges.gitter.im/twreporter-react/Lobby.svg)](https://gitter.im/twreporter-react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 New Media foundation in Taiwan.
 
 # Contains
