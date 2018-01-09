@@ -34,9 +34,7 @@ export const typography = {
     },
     weight: {
       normal: '300',
-      medium: '500',
-      bold: '700',
-      superBold: '900'
+      bold: '700'
     }
   },
 
