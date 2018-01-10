@@ -42,7 +42,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
   padding: 5px;
 
   font-size: $font-size-base;
-  font-weight: $font-weight-medium;
+  font-weight: $font-weight-normal;
   letter-spacing: $topic-letter-space-tight;
   white-space: pre;
   text-align: center;
@@ -60,7 +60,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 .subtitle {
   margin: 0;
   font-size: $font-size-base;
-  font-weight: $font-weight-medium;
+  font-weight: $font-weight-normal;
   line-height: $line-height-large;
   letter-spacing: $topic-letter-space-tight;
   text-shadow: $text-shadow;
@@ -76,7 +76,7 @@ $arrow-wrapper-height: $arrow-height + $arrow-extension * 2;
 
 .published-date {
   font-size: $font-size-xsmaller;
-  font-weight: $font-weight-medium;
+  font-weight: $font-weight-normal;
   letter-spacing: $topic-letter-space-tight;
   text-shadow: $text-shadow;
 }

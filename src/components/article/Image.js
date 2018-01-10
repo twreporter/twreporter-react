@@ -156,7 +156,7 @@ class Image extends FitwidthMixin(Component) {
           {descriptionBox}
           {microData}
           <div className="visible-print">
-            <img src={imgUrl} alt={imageDescription} />
+            <img src={imgUrl} alt={imageDescription} style={{ width: '100%' }}/>
           </div>
         </div>
       )
@@ -178,7 +178,7 @@ class Image extends FitwidthMixin(Component) {
         {descriptionBox}
         {microData}
         <div className="visible-print">
-          <img src={imgUrl} alt={imageDescription} />
+          <img src={imgUrl} alt={imageDescription} style={{ width: '100%' }} />
         </div>
       </div>
     )

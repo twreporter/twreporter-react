@@ -1,4 +1,6 @@
-[![CircleCI](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp.svg?style=svg)](https://circleci.com/gh/twreporter/twreporter-react/tree/index-page-revamp)
+[![CircleCI](https://circleci.com/gh/twreporter/twreporter-react/tree/master.svg?style=shield)](https://circleci.com/gh/twreporter/twreporter-react/tree/master)
+[![Tag](https://img.shields.io/github/tag/twreporter/twreporter-react.svg)](https://github.com/twreporter/twreporter-react/tags)
+[![Join the chat at https://gitter.im/twreporter/twreporter-react](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/twreporter/twreporter-react?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # TW Reporter
 New Media foundation in Taiwan.
