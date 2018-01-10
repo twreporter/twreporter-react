@@ -33,10 +33,9 @@ export const typography = {
       tiny: '12px'
     },
     weight: {
+      extraLight: '100',
       normal: '300',
-      medium: '500',
-      bold: '700',
-      superBold: '900'
+      bold: '700'
     }
   },
 

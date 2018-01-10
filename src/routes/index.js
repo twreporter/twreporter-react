@@ -69,12 +69,6 @@ export default function createRoutes(history = browserHistory) {
           }}
         />
         <Route
-          path="topic/:topicId"
-          getComponent={(location, cb) => {
-            import('../containers/Topic').then(loadRoute(cb)).catch(errorLoading)
-          }}
-        />
-        <Route
           path="tag/:tagId"
           getComponent={(location, cb) => {
             import('../containers/Tag').then(loadRoute(cb)).catch(errorLoading)

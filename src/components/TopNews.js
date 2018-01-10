@@ -45,7 +45,6 @@ export default class TopNews extends Component {
               <div className="carousel-item">
                 <div className="carousel-itemsubtitle">{a.subtitle}</div>
                 <div className="carousel-itemtitle">{a.title}</div>
-                <div className="carousel-excerpt">{a.excerpt}</div>
                 <time dateTime={date2yyyymmdd(a.publishedDate, '-')} className="carousel-published">{pubDate}</time>
               </div>
             </Link>
