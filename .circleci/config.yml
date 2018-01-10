@@ -89,9 +89,9 @@ jobs:
             echo "PKG_VER: ${PKG_VER}"
 
             gcloud --quiet container clusters get-credentials $CLUSTER_NAME
-            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CLUSTER_NAME-$PKG_VER .
-            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CLUSTER_NAME-$PKG_VER
-            kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$CLUSTER_NAME-$PKG_VER
+            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER .
+            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER
+            kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER
             kubectl rollout status deployment/twreporter-website-v2
 
 workflows:
