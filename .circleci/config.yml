@@ -69,24 +69,30 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
+            CLUSTER_NAME=""
+
+            if [ "${CIRCLE_BRANCH}" == "preview" ]; then
+              CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
+            fi
+
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              gcloud --quiet container clusters get-credentials ${GOOGLE_STAGING_CLUSTER_NAME}
-              export PKG_VER="$(cat .pkg-version)"
-              docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:staging-$PKG_VER .
-              gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:staging-$PKG_VER
-              kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:staging-$PKG_VER
-              kubectl rollout status deployment/twreporter-website-v2
+              CLUSTER_NAME=${GOOGLE_STAGING_CLUSTER_NAME}
             fi
 
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
-              gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-              export PKG_VER="$(cat .pkg-version)"
-              docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER .
-              gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
-              kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$PKG_VER
-              kubectl rollout status deployment/twreporter-website-v2
+              CLUSTER_NAME=${GOOGLE_CLUSTER_NAME}
             fi
 
+            PKG_VER="$(cat .pkg-version)"
+
+            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
+            echo "PKG_VER: ${PKG_VER}"
+
+            gcloud --quiet container clusters get-credentials $CLUSTER_NAME
+            docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER .
+            gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER
+            kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER
+            kubectl rollout status deployment/twreporter-website-v2
 
 workflows:
   version: 2
@@ -101,3 +107,4 @@ workflows:
               only:
                 - release
                 - staging
+                - preview
