@@ -128,19 +128,12 @@
     padding-bottom: 8px;
 }
 .carousel-itemtitle {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 28px;
     color: black;
     line-height: 36px;
     word-spacing: 20px;
     padding-bottom: 20px;
-}
-.carousel-excerpt {
-    font-weight: lighter;
-    font-size: 17px;
-    line-height: 27px;
-    word-spacing: 27px;
-    padding-bottom: 24px;
 }
 
 @media

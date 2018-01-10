@@ -5,6 +5,7 @@ import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index
 import { date2yyyymmdd } from '../utils/index'
 import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
 import styled, { css } from 'styled-components'
+import { typography } from '../themes/common-variables'
 
 // lodash
 import get from 'lodash/get'
@@ -94,7 +95,7 @@ const ItemTitle = styled.h3`
   padding: 0;
   border: 0;
   font-size: 135%;
-  font-weight: 700;
+  font-weight: ${typography.font.weight.bold};
   line-height: 1.25em;
   @media only screen and (max-width: ${breakPoint}px) {
     margin-bottom: 1.5em;
@@ -104,7 +105,7 @@ const ItemTitle = styled.h3`
 const ItemExcerpt = styled.div`
   display: block;
   font-size: 14px;
-  font-weight: light;
+  font-weight: ${typography.font.weight.extraLight};
   line-height: 24px;
   text-align: justify;
   color: #808080;
