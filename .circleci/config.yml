@@ -69,7 +69,7 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-            let CLUSTER_NAME
+            CLUSTER_NAME=""
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
               CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
@@ -83,7 +83,10 @@ jobs:
               CLUSTER_NAME=${GOOGLE_CLUSTER_NAME}
             fi
 
-            let PKG_VER="$(cat .pkg-version)"
+            PKG_VER="$(cat .pkg-version)"
+
+            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
+            echo "PKG_VER: ${PKG_VER}"
 
             gcloud --quiet container clusters get-credentials $CLUSTER_NAME
             docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CLUSTER_NAME-$PKG_VER .
