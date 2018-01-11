@@ -12,7 +12,6 @@ import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { signOutAction } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
@@ -195,18 +194,6 @@ class Homepage extends React.Component {
     const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
     if (error !== null) {
       return Promise.reject(error)
-    }
-  }
-
-  static childContextTypes = {
-    ifAuthenticated: PropTypes.bool.isRequired,
-    signOutAction: PropTypes.func.isRequired
-  }
-
-  getChildContext() {
-    return {
-      ifAuthenticated: this.props.ifAuthenticated,
-      signOutAction: this.props.signOutAction
     }
   }
 
@@ -415,4 +402,4 @@ function mapStateToProps(state) {
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
