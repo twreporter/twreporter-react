@@ -5,6 +5,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, localStorageKeys, renewToken, getItem, scheduleRenewToken, signOutAction } from '@twreporter/registration'
+import HeaderComposite from '@twreporter/react-components/lib/header'
 
 // lodash
 import get from 'lodash/get'
@@ -13,20 +14,24 @@ const _ = {
   get
 }
 
+const { AuthenticationContext } = HeaderComposite
+
 class App extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      ifAuthenticated: false
+    this.authenticationContext = new AuthenticationContext(props.ifAuthenticated, props.signOutAction)
+  }
+  getChildContext() {
+    const { location } = this.props
+    return {
+      location,
+      authenticationContext: this.authenticationContext
     }
   }
 
-  getChildContext() {
-    const { location, ifAuthenticated, signOutAction } = this.props
-    return {
-      location,
-      ifAuthenticated,
-      signOutAction
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.ifAuthenticated !== this.props.ifAuthenticated) {
+      this.authenticationContext.setIfAuthenticated(nextProps.ifAuthenticated)
     }
   }
 
@@ -78,8 +83,7 @@ class App extends PureComponent {
 
 App.childContextTypes = {
   location: PropTypes.object,
-  ifAuthenticated: PropTypes.bool.isRequired,
-  signOutAction: PropTypes.func.isRequired
+  authenticationContext: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

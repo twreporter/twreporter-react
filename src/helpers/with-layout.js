@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/react-components/lib/header'
+import HeaderComposite from '@twreporter/react-components/lib/header'
 import { layout } from '../themes/common-variables'
+
+const { Header } = HeaderComposite
 
 const STYLE_VARIABLES = {
   BG_COLOR: {
