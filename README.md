@@ -27,17 +27,17 @@ New Media foundation in Taiwan.
 # Development start
 `npm run dev`
 
-# Development
-### Customized Article and Route Setting
+# Build docker image
+```
+// install dependencies first
+yarn install
 
-You should go through following steps
+// build the webpack bundles and transpile es6 to es5
+npm run build
 
-• ```cd twreporter-react/src```
-
-• ```vim ./routes/index.js```
-
-• ```vim ./constants/customized-article-path```
-
+// build docker image
+docker build -t twreporter-react:latest .
+```
 
 # License
 * Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
