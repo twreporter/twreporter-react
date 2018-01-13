@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.5.5",
+  "version": "2.5.6",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "npm run clean && npm run build-webpack && npm run build-server",
