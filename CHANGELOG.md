@@ -1,7 +1,10 @@
 ### Unreleased
 
+### 2.5.6
+- [Bug] fix image too big problem
+
 ### 2.5.5
-- Remove deprecated modules
+- Remove deprecated modules 
 - Refine font-weight settings
 - Bump @twreporter/react-components version to 2.1.12
 
