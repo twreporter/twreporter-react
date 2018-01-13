@@ -18,6 +18,8 @@ const BOOKMAKRS_PAGE_PATH = 'bookmarks'
 
 // The variable is declared for @twreporter/registration
 export const ACTIVATE_PAGE_PATH = 'activate'
+
+// NO_CACHE_PAGES are used by express server to set Cache-Control: no-store in the response header
 export const NO_CACHE_PAGES = [ `/${ACTIVATE_PAGE_PATH}`, `/${BOOKMAKRS_PAGE_PATH}` ]
 
 function errorLoading(err) {
