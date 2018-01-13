@@ -45,6 +45,12 @@ injectGlobal`
       vertical-align: middle;
     }
 
+    img.img-responsive {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .hidden {
       display: none !important;
     }
