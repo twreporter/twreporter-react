@@ -75,7 +75,7 @@ class Category extends Component {
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
 
-    const totalPages = total / MAXRESULT
+    const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
     let isFetching = false
 
