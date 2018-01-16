@@ -1,4 +1,7 @@
 ### Unreleased
+- Update HeadingAuthor.js. Move extendByLine to the front if it starts with `文 `
+- Show License at the end of posts 
+-  Enable pagination on tag/category listing page
 
 ### 2.5.6
 - [Bug] fix image too big problem
