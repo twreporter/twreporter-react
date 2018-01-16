@@ -31,7 +31,7 @@
   "dependencies": {
     "@twreporter/react-components": "2.1.12",
     "@twreporter/react-flex-carousel": "^1.1.1",
-    "@twreporter/redux": "4.0.1",
+    "@twreporter/redux": "4.0.0",
     "@twreporter/registration": "^2.1.5",
     "babel-plugin-inline-react-svg": "^0.4.0",
     "babel-plugin-system-import-transformer": "^3.1.0",
