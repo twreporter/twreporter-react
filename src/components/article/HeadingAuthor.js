@@ -47,10 +47,25 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
     )
   })
 
+  // Handle text starting with `文 `, such as `文 陳貞樺` in the extendByLine,
+  // which is a free text field.
+  // Move it to the front and bolden `文 ` text.
+  const escapeWord = '文 '
+  if (typeof extendByline === 'string' && extendByline.startsWith(escapeWord)) {
+    const _byline = extendByline.replace(escapeWord, '')
+    authorRows.unshift(
+      <div key="byline" className={classNames(styles['author-item'])}>
+        <span>文</span>
+        <span itemProp="author">{_byline}</span>
+      </div>
+    )
+  } else {
+    authorRows.push(<span key="extend_by_line" itemProp="author" style={{ paddingRight: '8px' }}>{extendByline}</span>)
+  }
+
   return (
     <div className={styles['author-container']}>
       { authorRows }
-      <span itemProp="author" style={{ paddingRight: '8px' }}>{extendByline}</span>
       { children }
     </div>
   )
