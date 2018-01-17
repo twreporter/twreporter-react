@@ -146,6 +146,24 @@ export default function createRoutes(history = browserHistory) {
             }).catch(errorLoading)
           }}
         />
+        <Route
+          path="widgets-services"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/services').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="widgets-bookmark-desktop"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/bookmark-desktop').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
+          path="widgets-bookmark-mobile"
+          getComponent={(location, cb) => {
+            import('../containers/widgets/bookmark-mobile').then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
       </Route>
     </Router>
   )

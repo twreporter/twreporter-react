@@ -3,13 +3,12 @@ import Link from 'react-router/lib/Link'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
-import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-mobile.svg'
-import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-mobile.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import styles from './MobileArticleTools.scss'
+import { BookmarkWidget } from '@twreporter/registration'
 
 const buttonWidth = 52
 const buttonHeight = 52
@@ -35,10 +34,8 @@ const SubsequentIconContainer = IconContainer.extend`
   margin-bottom: 20px;
 `
 
-const BookmarkImg = styled.div`
-  line-height: 0;
-  opacity: ${props => (props.showUp ? 1 : 0 )};
-  transition: opacity 200ms linear;
+const WidgetWrapper = styled.div`
+  margin-bottom: 20px;
 `
 
 const BackToTopBtn = () => (
@@ -62,7 +59,7 @@ BackToTopicBtn.propTypes = {
 
 class MobileArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, toShow, isBookmarked } = this.props
+    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
     return (
       <CSSTransitionGroup
         transitionName={{
@@ -77,14 +74,13 @@ class MobileArticleTools extends React.PureComponent {
         {!toShow ? null : (
           <div className={styles['article-tools-container']}>
             {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
-            <SubsequentIconContainer onClick={this.props.handleOnClickBookmark}>
-              <BookmarkImg showUp={!isBookmarked}>
-                <BookmarkUnaddedIcon />
-              </BookmarkImg>
-              <BookmarkImg showUp={isBookmarked}>
-                <BookmarkAddedIcon />
-              </BookmarkImg>
-            </SubsequentIconContainer>
+            <WidgetWrapper>
+              <BookmarkWidget
+                bookmarkData={bookmarkData}
+                slug={slug}
+                mobile
+              />
+            </WidgetWrapper>
             <BackToTopBtn />
           </div>
         )}
@@ -94,10 +90,11 @@ class MobileArticleTools extends React.PureComponent {
 }
 
 MobileArticleTools.propTypes = {
-  isBookmarked: PropTypes.bool.isRequired,
   toShow: PropTypes.bool.isRequired,
   topicTitle: PropTypes.string,
-  topicSlug: PropTypes.string
+  topicSlug: PropTypes.string,
+  bookmarkData: PropTypes.object.isRequired,
+  slug: PropTypes.string.isRequired
 }
 
 MobileArticleTools.defaultProps = {
