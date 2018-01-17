@@ -1,5 +1,5 @@
 import FadeText from '@twreporter/react-components/lib/fade-text'
-import HeaderComposite from '@twreporter/react-components/lib/header'
+import Header from '@twreporter/react-components/lib/header'
 import PropTypes from 'prop-types'
 import React from 'react'
 import TitleRowUpon from './title-row-upon'
@@ -13,7 +13,6 @@ import { camelizeKeys } from 'humps'
 import { screen } from '../../themes/screen'
 
 
-const { Header } = HeaderComposite
 const { childAnimationStoper, unlockAfterAnimation } = FadeText.scrollManager
 const topNavbarHeight = 151
 

@@ -5,7 +5,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, localStorageKeys, renewToken, getItem, scheduleRenewToken, signOutAction } from '@twreporter/registration'
-import HeaderComposite from '@twreporter/react-components/lib/header'
+import { AuthenticationContext } from '@twreporter/react-components/lib/header'
 
 // lodash
 import get from 'lodash/get'
@@ -13,8 +13,6 @@ import get from 'lodash/get'
 const _ = {
   get
 }
-
-const { AuthenticationContext } = HeaderComposite
 
 class App extends PureComponent {
   constructor(props) {

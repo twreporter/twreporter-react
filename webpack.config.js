@@ -200,6 +200,7 @@ if (isProduction) {
       allChunks: true
     }),
     new webpack.optimize.UglifyJsPlugin()
+    //   new BundleAnalyzerPlugin()
   )
 } else {
   webpackConfig.plugins.push(

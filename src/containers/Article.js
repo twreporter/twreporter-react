@@ -4,9 +4,10 @@
 import * as ArticleComponents from '../components/article/index'
 import ArticleMeta from '../components/article/article-meta'
 import ArticleTools from './ArticleTools'
-import HeaderComposite from '@twreporter/react-components/lib/header'
+import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
+import License from '../components/shared/License'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
@@ -53,7 +54,6 @@ const _ = {
   sortBy
 }
 
-const { Header } = HeaderComposite
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
@@ -401,6 +401,9 @@ class Article extends PureComponent {
       titleFontColor: titleColor,
       subtitleFontColor: subTitleColor
     }
+
+    const license = _.get(article, 'copyright', 'Creative-Commons')
+
     return (
       <div>
         <Helmet
@@ -531,6 +534,7 @@ class Article extends PureComponent {
                 />
               </article>
             </Content>
+            <License license={license} publishedDate={article.publishedDate}/>
             <div ref={div => {this.progressEnding = div}}
                 className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
               <div className={cx('inner-max', commonStyles['component'])}>
