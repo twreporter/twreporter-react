@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
@@ -28,7 +28,7 @@ function getListID(paramCategory) {
   return categoryListID[field]
 }
 
-class Category extends Component {
+class Category extends PureComponent {
   // params are passed from Route component of react-router
   static fetchData({ params, store, query }) {
     /* fetch page 1 if page is invalid */
@@ -54,6 +54,8 @@ class Category extends Component {
   }
 
   render() {
+    let isFetching = false
+
     const { lists, entities, catId, category, page, pathname } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ catId, 'error' ], null)
@@ -72,12 +74,17 @@ class Category extends Component {
     const pages = _.get(lists, [ catId, 'pages' ], {})
     const startPos = _.get(pages, [ page, 0 ], 0)
     const endPos = _.get(pages, [ page, 1 ], 0)
+
+    // page is provided, but not fecth yet
+    if (startPos === 0 && endPos === 0) {
+      isFetching = true
+    }
+
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
 
     const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
-    let isFetching = false
 
     // Error handling
     if (error !== null && postsLen === 0) {
