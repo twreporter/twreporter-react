@@ -34,7 +34,7 @@ export default class License extends React.PureComponent {
     const year = this._extractYear(publishedDate)
     let licenseJSX = ''
 
-    if (license.toLowerCase() === 'copyrighted') {
+    if (typeof license === 'string' && license.toLowerCase() === 'copyrighted') {
       licenseJSX = <Text>© { year } All rights Reserved</Text>
     } else {
       licenseJSX = <Text>本文依 CC 創用姓名標示-非商業性-禁止改作3.0台灣授權條款釋出</Text>
