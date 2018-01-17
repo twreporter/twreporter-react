@@ -12,6 +12,7 @@ import { SITE_META } from '../../constants/index'
 import { camelizeKeys } from 'humps'
 import { screen } from '../../themes/screen'
 
+
 const { childAnimationStoper, unlockAfterAnimation } = FadeText.scrollManager
 const topNavbarHeight = 151
 

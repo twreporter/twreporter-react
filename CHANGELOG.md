@@ -1,5 +1,31 @@
 ### Unreleased
 
+### 2.6.0
+#### Minor Change
+- Update @twreporter/react-components from 2.1.12 to 3.0.1
+- Update @twreporter/registration from 2.1.5 to 3.0.0
+- Update @twreporter/redux from 3.0.0 to 4.0.1
+For being compatiable with the above dependencies updates.
+Do the following things:
+1. @twreporter/redux which drop bookmarks related stuffs
+2. Import bookmarks related statement (mainly redux actions/reducers) from @twreporter/registration
+3. Move Functional Bookmark Icons (add/Remove) back to @twreporter/registration
+4. Import bookmark frame from @twreporter/registration rather than react-components
+5. Create widget service provider from @twreporter/registration
+6. Move auth process from client.js to App.js (server/client side redux store render conflict)
+
+#### Features
+- Enable pagination on tag/category listing page
+- Show License at the end of posts 
+- Standalone widgets for signin/signout and bookmark, endpoints are
+  - /widgets-services
+  - /widgets-bookmark-desktop
+  - /widgets-bookmark-mobile
+
+#### Patches
+- Update HeadingAuthor.js. Move extendByLine to the front if it starts with `文 `
+- Add more padding on Topic listing page
+
 ### 2.5.6
 - [Bug] fix image too big problem
 
@@ -27,7 +53,7 @@
 ### 2.5.1
 - Use inline react svg, stop using data uri
 - Optimize svg files.
-- [Bub] Fix Audio component, which display abnormally 
+- [Bub] Fix Audio component, which display abnormally
 - Update donation link href
 - Bump @twreporter-react-components version to 2.1.9
 
