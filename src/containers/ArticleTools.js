@@ -3,16 +3,13 @@ import DesktopArticleTools from '../components/article/tools/DesktopArticleTools
 import MobileArticleTools from '../components/article/tools/MobileArticleTools'
 import PropTypes from 'prop-types'
 import React from 'react'
-import browserHistory from 'react-router/lib/browserHistory'
 import deviceConst from '../constants/device'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import { connect } from 'react-redux'
 
-const DEFAULT_BOOKMARK_HOST = 'https://www.twreporter.org'
 const MOBILE = deviceConst.type.mobile
-const { actions, reduxStateFields } = twreporterRedux
-const { createBookmark, deleteBookmark, getCurrentBookmark } = actions
+const { reduxStateFields } = twreporterRedux
 
 const _ = {
   get
@@ -20,127 +17,15 @@ const _ = {
 
 class ArticleTools extends React.PureComponent {
 
-  /* TODO server side to prepare the bookmark value
-  static fetchData({ params, store }) {
-    const slug = params.slug
-    const reduxState = store.getState()
-    const authenticated = _.get(reduxState, 'auth.authenticated', false)
-    if (authenticated) {
-      const userID = _.get(reduxState, 'auth.id', '')
-      // user userID, slug and host to get the current bookmark
-    }
-  }
-  */
-
   constructor(props) {
     super(props)
     this.state = {
-      isBookmarked: false,
       toShowMAT: false,
       toShowDAT: false
     }
-    this.checkIsBookmarked = this._checkIsBookmarked.bind(this)
-    this.toCreateBookmark = this._toCreateBookmark.bind(this)
-    this.toDeleteBookmark = this._toDeleteBookmark.bind(this)
-    this.handleOnClickBookmark = this._handleOnClickBookmark.bind(this)
     this.toggleTools = this._toggleTools.bind(this)
   }
 
-  componentDidMount() {
-    const { slug } = this.props
-    this.checkIsBookmarked(slug)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.checkIsBookmarked(_.get(nextProps, 'slug'))
-  }
-
-  /**
-   * Check if the user already bookmarked this article,
-   * if do, mark the bookmark icon
-   *
-   * @param {string} slug slug of article
-   * @param {string} host=DEFAULT_BOOKMARK_HOST hostname
-   */
-  async _checkIsBookmarked(slug, host = DEFAULT_BOOKMARK_HOST) {
-    if (slug) {
-      try {
-        const id = await this.props.getCurrentBookmark(slug, host)
-        if (id) {
-          this.setState({
-            isBookmarked: true
-          })
-        } else {
-          throw new Error('bookmark id is not set')
-        }
-      } catch (error) {
-        if (this.state.isBookmarked) {
-          this.setState({
-            isBookmarked: false
-          })
-        }
-      }
-    }
-  }
-
-  /**
-   * Delete user/bookmark record in the database, and empty the bookmark icon.
-   */
-  async _toDeleteBookmark() {
-    const { slug } = this.props
-    try {
-      const id = await this.props.getCurrentBookmark(slug, DEFAULT_BOOKMARK_HOST)
-      await this.props.deleteBookmark(id)
-      this.setState({
-        isBookmarked: false
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  /**
-   * Create user/bookmark record in the database, and mark the bookmark icon.
-   * If user is not authenticated, it will lead user to sign in page
-   */
-  async _toCreateBookmark() {
-    const { slug, style, title, desc, thumbnail, category, published_date } = this.props
-    if (!slug) {
-      return
-    }
-
-    try {
-      const bookmarkId = await this.props.createBookmark({
-        slug,
-        is_external: style === 'interactive',
-        title,
-        desc,
-        thumbnail,
-        category,
-        published_date,
-        host: DEFAULT_BOOKMARK_HOST
-      })
-
-      if(bookmarkId) {
-        this.setState({
-          isBookmarked: true
-        })
-      }
-    } catch(error) {
-      const type = style === 'interactive' ? 'i' : 'a'
-      const webStatus = _.get(error, 'response.status')
-      if (webStatus === 401) {
-        browserHistory.push(`/signin/?path=${type}/${slug}`)
-      }
-    }
-  }
-
-  _handleOnClickBookmark() {
-    if (this.state.isBookmarked) {
-      return this.toDeleteBookmark()
-    }
-    this.toCreateBookmark()
-  }
 
   /**
    * Show tools according to clients' screen.
@@ -173,22 +58,32 @@ class ArticleTools extends React.PureComponent {
 
   render() {
     const { topicSlug, topicTitle } = this.props
-    const { toShowDAT, toShowMAT, isBookmarked } = this.state
+    const { slug, style, title, desc, thumbnail, category, published_date } = this.props
+    const { toShowDAT, toShowMAT } = this.state
+    const bookmarkData = {
+      slug,
+      style,
+      title,
+      desc,
+      thumbnail,
+      category,
+      published_date
+    }
     return (
       <div>
         <MobileArticleTools
           topicSlug={topicSlug}
           topicTitle={topicTitle}
           toShow={toShowMAT}
-          isBookmarked={isBookmarked}
-          handleOnClickBookmark={this.handleOnClickBookmark}
+          slug={slug}
+          bookmarkData={bookmarkData}
         />
         <DesktopArticleTools
           topicSlug={topicSlug}
           topicTitle={topicTitle}
           toShow={toShowDAT}
-          isBookmarked={isBookmarked}
-          handleOnClickBookmark={this.handleOnClickBookmark}
+          slug={slug}
+          bookmarkData={bookmarkData}
         />
       </div>
     )
@@ -204,11 +99,7 @@ ArticleTools.propTypes = {
   category: PropTypes.string,
   published_date: PropTypes.string,
   topicSlug: PropTypes.string,
-  topicTitle: PropTypes.string,
-
-  createBookmark: PropTypes.func.isRequired,
-  deleteBookmark: PropTypes.func.isRequired,
-  getCurrentBookmark: PropTypes.func.isRequired
+  topicTitle: PropTypes.string
 }
 
 ArticleTools.defaultProps = {
@@ -250,4 +141,4 @@ function mapStateToProps(state) {
 }
 
 // withRef:true is the way to add the ref on the React component which is connected to Redux store
-export default connect(mapStateToProps, { createBookmark, deleteBookmark, getCurrentBookmark }, null ,{ withRef: true })(ArticleTools)
+export default connect(mapStateToProps, null, null ,{ withRef: true })(ArticleTools)

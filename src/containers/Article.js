@@ -4,7 +4,7 @@
 import * as ArticleComponents from '../components/article/index'
 import ArticleMeta from '../components/article/article-meta'
 import ArticleTools from './ArticleTools'
-import Header from '@twreporter/react-components/lib/header'
+import HeaderComposite from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import PropTypes from 'prop-types'
@@ -53,6 +53,7 @@ const _ = {
   sortBy
 }
 
+const { Header } = HeaderComposite
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 

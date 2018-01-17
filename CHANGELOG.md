@@ -1,4 +1,14 @@
 ### Unreleased
+- Be compatiable with refactored @twreporter/registration package
+- Include client.js and Server.js
+- Be compatible with @twreporter/redux which drop bookmarks related stuffs
+- Import bookmarks related statement (mainly redux actions/reducers) from @twreporter/registration
+- Move Functional Bookmark Icons (add/Remove) back to @twreporter/registration.
+- Remove BundleAnalyzerPlugin (webpack config.js)
+- Import bookmark frame from @twreporter/registration rather than react-components.
+- Create widget service provider from @twreporter/registration
+- Move auth process from client.js to App.js (server/client side redux store render conflict)
+
 
 ### 2.5.6
 - [Bug] fix image too big problem
@@ -27,7 +37,7 @@
 ### 2.5.1
 - Use inline react svg, stop using data uri
 - Optimize svg files.
-- [Bub] Fix Audio component, which display abnormally 
+- [Bub] Fix Audio component, which display abnormally
 - Update donation link href
 - Bump @twreporter-react-components version to 2.1.9
 
