@@ -8,7 +8,6 @@ import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import { connect } from 'react-redux'
 
-const MOBILE = deviceConst.type.mobile
 const { reduxStateFields } = twreporterRedux
 
 const _ = {
@@ -20,46 +19,41 @@ class ArticleTools extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      toShowMAT: false,
-      toShowDAT: false
+      // condition to decide whether show(visible) the tools or not
+      toShow: false,
+
+      // screenType decides which tools to render on the page
+      // if screenType === desktop, use DesktopArticleTools.
+      // Otherwise, use MobileArticleTools
+      screenType: props.screenType || deviceConst.type.mobile
     }
     this.toggleTools = this._toggleTools.bind(this)
+    this.setScreenType = this._setScreenType.bind(this)
+    this.getScreenType = this._getScreenType.bind(this)
   }
 
-
-  /**
-   * Show tools according to clients' screen.
-   * Render MobileArticleTools if screen is smaller than tablet, otherwise, render DesktopArticleTools
-   *
-   * @param {string} device mobile, tablet or desktop
-   * @param {bool} toShow use this to decide if show tools or not
-   */
-  _toggleTools(device, toShow) {
-    if (device === MOBILE) {
-      if (toShow) {
-        return this.setState({
-          toShowMAT: true,
-          toShowDAT: false
-        })
-      }
-    } else {
-      if (toShow) {
-        return this.setState({
-          toShowMAT: false,
-          toShowDAT: true
-        })
-      }
+  _setScreenType(type) {
+    if (type !== this.state.screenType) {
+      this.setState({
+        screenType: type
+      })
     }
+  }
+
+  _getScreenType() {
+    return this.state.screenType
+  }
+
+  _toggleTools(toShow) {
     this.setState({
-      toShowMAT: false,
-      toShowDAT: false
+      toShow
     })
   }
 
   render() {
     const { topicSlug, topicTitle } = this.props
     const { slug, style, title, desc, thumbnail, category, published_date } = this.props
-    const { toShowDAT, toShowMAT } = this.state
+    const { toShow, screenType } = this.state
     const bookmarkData = {
       slug,
       style,
@@ -69,19 +63,14 @@ class ArticleTools extends React.PureComponent {
       category,
       published_date
     }
+    const Tools = screenType === deviceConst.type.desktop ? DesktopArticleTools : MobileArticleTools
+
     return (
       <div>
-        <MobileArticleTools
+        <Tools
           topicSlug={topicSlug}
           topicTitle={topicTitle}
-          toShow={toShowMAT}
-          slug={slug}
-          bookmarkData={bookmarkData}
-        />
-        <DesktopArticleTools
-          topicSlug={topicSlug}
-          topicTitle={topicTitle}
-          toShow={toShowDAT}
+          toShow={toShow}
           slug={slug}
           bookmarkData={bookmarkData}
         />
