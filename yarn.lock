@@ -8,9 +8,9 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@2.1.12":
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-2.1.12.tgz#505d3f5b68a5d751a3633aa526a51edd353e0e63"
+"@twreporter/react-components@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-3.0.1.tgz#7f7a255960d003fc09c8b4d3d0fa8b2e2e4e5a68"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     lodash "^4.17.4"
@@ -26,18 +26,18 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
 
-"@twreporter/redux@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-3.0.0.tgz#c3d76c3ca98bb3603f33ce4cd22a1bfd8ae116fc"
+"@twreporter/redux@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-4.0.1.tgz#2895e525d8292b8a500875feb929feb3fe18d97a"
   dependencies:
     axios "^0.16.1"
     es6-error "^4.0.2"
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/registration@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.1.5.tgz#6c24bb8d9cb2348a768ac4ac8b947bb3f50ab4dd"
+"@twreporter/registration@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.2.0.tgz#ea20e98a3bb6fd2845b23a0b6f3415297618f6ee"
   dependencies:
     axios "^0.16.2"
     lodash "^4.17.4"
