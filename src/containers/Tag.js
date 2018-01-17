@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
@@ -20,7 +20,7 @@ const { fetchListedPosts } = actions
 const MAXRESULT = 10
 const tags = 'tags'
 
-class Tag extends Component {
+class Tag extends PureComponent {
   // params are passed from Route component of react-router
   static fetchData({ params, store, query }) {
     /* fetch page 1 if page is invalid */
@@ -59,6 +59,8 @@ class Tag extends Component {
   }
 
   render() {
+    let isFetching = false
+
     const { lists, entities, page, pathname, tagId } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ tagId, 'error' ], null)
@@ -77,12 +79,17 @@ class Tag extends Component {
     const pages = _.get(lists, [ tagId, 'pages' ], {})
     const startPos = _.get(pages, [ page, 0 ], 0)
     const endPos = _.get(pages, [ page, 1 ], 0)
+
+    // page is provided, but not fecth yet
+    if (startPos === 0 && endPos === 0) {
+      isFetching = true
+    }
+
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
 
     const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
-    let isFetching = false
 
     // Error handling
     if (error !== null && postsLen === 0) {
