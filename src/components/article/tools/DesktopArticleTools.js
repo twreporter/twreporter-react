@@ -19,7 +19,7 @@ const Container = styled.div`
   transform: translate(-487px, -50%);
   visibility: ${(props) => props.toShow ? 'visible' : 'hidden'};
   opacity: ${(props) => props.toShow ? 1 : 0};
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: opacity 0.5s linear;
 
   a, a:visited, a:link, a:active {
     color: ${colors.articleToolsText};
