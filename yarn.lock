@@ -26,18 +26,18 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
 
-"@twreporter/redux@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-4.0.1.tgz#2895e525d8292b8a500875feb929feb3fe18d97a"
+"@twreporter/redux@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-4.0.2.tgz#b48cf915a821f77c95031f878cd0f754c3381fa4"
   dependencies:
     axios "^0.16.1"
     es6-error "^4.0.2"
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/registration@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.2.0.tgz#ea20e98a3bb6fd2845b23a0b6f3415297618f6ee"
+"@twreporter/registration@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-2.2.1.tgz#a2a053daf31c9b7285d19f2eedf4670cfce8a169"
   dependencies:
     axios "^0.16.2"
     lodash "^4.17.4"

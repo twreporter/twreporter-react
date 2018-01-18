@@ -3,8 +3,8 @@
 ### 2.6.0
 #### Minor Change
 - Update @twreporter/react-components from 2.1.12 to 3.0.1
-- Update @twreporter/registration from 2.1.5 to 3.0.0
-- Update @twreporter/redux from 3.0.0 to 4.0.1
+- Update @twreporter/registration from 2.1.5 to 2.2.1
+- Update @twreporter/redux from 3.0.0 to 4.0.2
 For being compatiable with the above dependencies updates.
 Do the following things:
 1. @twreporter/redux which drop bookmarks related stuffs
@@ -25,6 +25,11 @@ Do the following things:
 #### Patches
 - Update HeadingAuthor.js. Move extendByLine to the front if it starts with `文 `
 - Add more padding on Topic listing page
+- Refactor (Desktop|Mobile)ArticleTools 
+  - stop re-mount widget, which will re-send requests to check if the
+  post is bookmarked
+  - remove css-transition-group by simply using CSS visibility and opacity
+  - replace sass by `styled-components`
 
 ### 2.5.6
 - [Bug] fix image too big problem
