@@ -105,12 +105,6 @@ const scrollPosition = {
   y: 0
 }
 
-const DESKTOP = deviceConst.type.desktop
-const MOBILE = deviceConst.type.mobile
-
-const viewport = {
-  screenType: DESKTOP
-}
 
 const ArticlePlaceholder = () => {
   return (
@@ -144,6 +138,7 @@ class Article extends PureComponent {
       if (_.get(selectedPost, 'error')) {
         return Promise.reject(_.get(selectedPost, 'error'))
       }
+      return Promise.resolve()
     })
   }
 
@@ -187,7 +182,8 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
-    viewport.screenType = getScreenType(window.innerWidth)
+    this._setToolsScreenType(getScreenType(window.innerWidth))
+
     window.addEventListener('resize', this._onResize)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
@@ -198,14 +194,6 @@ class Article extends PureComponent {
         isFontSizeSet:true
       })
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // Make sure any change like clicking related article will scroll to top
-    if (prevState.fontSize !== this.state.fontSize) {
-      return
-    }
-    window.scrollTo(0, 0)
   }
 
   componentWillMount() {
@@ -230,30 +218,21 @@ class Article extends PureComponent {
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
     if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
-
-      // unset components
-      this.rp = null
-      this.tools = null
     }
   }
 
+  _setToolsScreenType(screenType) {
+    if (this.tools) {
+      this.tools.getWrappedInstance().setScreenType(screenType)
+    }
+  }
 
   _onScroll() {
     this._handleScroll()
   }
 
-  _getCumulativeOffset(element) {
-    let top = 0
-    do {
-      top += element.offsetTop  || 0
-      element = element.offsetParent
-    } while(element)
-
-    return top
-  }
-
   _onResize() {
-    viewport.screenType = getScreenType(window.innerWidth)
+    this._setToolsScreenType(getScreenType(window.innerWidth))
   }
 
   _handleScroll() {
@@ -277,39 +256,36 @@ class Article extends PureComponent {
       this.rp.updatePercentage(curPercent)
     }
 
-    /* Handle Article Tools */
-    const screenType = viewport.screenType
-
     const isInTopRegion = currentTopY < beginY + 600
+
+    this._setToolsScreenType(getScreenType(window.innerWidth))
 
     // get tools React element
     if (this.tools) {
       const tools = this.tools.getWrappedInstance()
-      if (screenType === DESKTOP) {
+      if (tools.getScreenType() === deviceConst.type.desktop) {
         if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
           const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
           if ( currentScrollTop >= this.articleMeta.offsetTop) {
-            tools.toggleTools(DESKTOP, true)
+            tools.toggleTools(true)
           } else {
-            tools.toggleTools(DESKTOP, false)
+            tools.toggleTools(false)
           }
         } else {
-          tools.toggleTools(DESKTOP, true)
+          tools.toggleTools(true)
         }
-      }
-
-      // Calculate scrolling distance to determine whether tools are displayed
-      if (screenType !== DESKTOP) {
+      } else {
+        // Calculate scrolling distance to determine whether tools are displayed
         const lastY = scrollPosition.y
         const distance = currentTopY - lastY
         if (distance > 30) {
           scrollPosition.y = currentTopY
-          tools.toggleTools(MOBILE, false)
+          tools.toggleTools(false)
         } else {
           if (Math.abs(distance) > 150) {
             scrollPosition.y = currentTopY
             if (!isInTopRegion) {
-              tools.toggleTools(MOBILE, true)
+              tools.toggleTools(true)
             }
           }
         }
@@ -581,6 +557,7 @@ export function mapStateToProps(state) {
     theme = photoTheme
   }
   theme = post.theme || theme
+
   return {
     entities,
     selectedPost,

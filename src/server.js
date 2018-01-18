@@ -126,7 +126,7 @@ app.get('*', function (req, res, next) {
         return promise
       }
 
-      getReduxPromise().then(()=> {
+      getReduxPromise().then(() => {
         const assets = __DEVELOPMENT__ ? {
           javascripts: {
             main: `${config.webpackPublicPath}${config.webpackOutputFilename}`,
