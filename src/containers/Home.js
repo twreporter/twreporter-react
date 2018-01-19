@@ -12,7 +12,6 @@ import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { signOutAction } from '@twreporter/registration'
 
 // lodash
 import get from 'lodash/get'
@@ -403,4 +402,4 @@ function mapStateToProps(state) {
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)

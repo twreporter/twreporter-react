@@ -33,7 +33,7 @@ const PageContainer = styled.div`
   position: relative;
   min-height: 100vh;
   width: 100%;
-  padding: 30px 0 0 0;
+  padding: 30px 24px 0 24px;
 `
 
 class Topics extends Component {

@@ -1,46 +1,66 @@
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import Link from 'react-router/lib/Link'
-import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic.svg'
-import BookmarkAddedIcon from '../../../../static/asset/added-bookmark-desktop.svg'
-import BookmarkUnaddedIcon from '../../../../static/asset/add-bookmark-desktop.svg'
+import Link from 'react-router/lib/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import styles from './DesktopArticleTools.scss'
+import { BookmarkWidget } from '@twreporter/registration'
+import { LINK_PREFIX } from '../../../constants/link-prefix'
+import { colors, typography }  from '../../../themes/common-variables'
+import { screen } from '../../../themes/screen'
 
-const ToolFrame = styled.div`
+const Container = styled.div`
+  display: inline-block;
+  position: fixed;
+  left: 50%;
+  top: 30%;
+  color: ${colors.articleToolsText};
+  font-size: ${typography.font.size.xSmall};
+  z-index: 999;
+  transform: translate(-487px, -50%);
+  visibility: ${(props) => props.toShow ? 'visible' : 'hidden'};
+  opacity: ${(props) => props.toShow ? 1 : 0};
+  transition: opacity 0.5s linear;
+
+  a, a:visited, a:link, a:active {
+    color: ${colors.articleToolsText};
+    font-size: ${typography.font.size.xSmall};
+  }
+
+  ${screen.overDesktop`
+    transform: translate(-522px, -50%);
+  `}
+`
+
+const WidgetContainer = styled.div`
   box-sizing: border-box;
   margin-top: 10px;
+  text-align: center;
 `
 
-const BookmarkFrame = ToolFrame.extend`
-  cursor: pointer;
-  position: relative;
+const IconContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  svg {
+    width: 20px;
+  }
 `
 
-const BookmarkImg = styled.div`
-  opacity: ${props => (props.showUp ? 1 : 0 )};
-  transition: opacity 200ms linear;
-  position: absolute;
-  transform: translateX(-50%);
-  left: 50%;
+const BackToTopicContainer = styled.div`
+  span {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: $font-weight-normal;
+  }
 `
-
-const IconContainer = (props) => (
-  <div className={styles['icon-container']}>
-    {props.children}
-  </div>
-)
 
 const BackToTopic = (props) => (
   <Link to={`${LINK_PREFIX.TOPICS}${props.topicSlug}`} title={props.topicTitle}>
-    <div className={styles['back-to-topic']}>
+    <BackToTopicContainer>
       <span>回到專題</span>
       <IconContainer>
         <BackToTopicIcon />
       </IconContainer>
-    </div>
+    </BackToTopicContainer>
   </Link>
 )
 
@@ -51,41 +71,29 @@ BackToTopic.propTypes = {
 
 class DesktopArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, isBookmarked, toShow } = this.props
+    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
     return (
-      <CSSTransitionGroup
-        transitionName={{
-          enter: styles['effect-enter'],
-          enterActive: styles['effect-enter-active'],
-          leave: styles['effect-leave'],
-          leaveActive: styles['effect-leave-active']
-        }}
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}
+      <Container
+        toShow={toShow}
       >
-      {!toShow ? null : (
-        <div className={styles['article-tools-container']}>
-          {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
-          <BookmarkFrame onClick={this.props.handleOnClickBookmark}>
-            <BookmarkImg showUp={!isBookmarked}>
-              <BookmarkUnaddedIcon />
-            </BookmarkImg>
-            <BookmarkImg showUp={isBookmarked}>
-              <BookmarkAddedIcon />
-            </BookmarkImg>
-          </BookmarkFrame>
-        </div>
-      )}
-      </CSSTransitionGroup>
+        {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
+        <WidgetContainer>
+          <BookmarkWidget
+            bookmarkData={bookmarkData}
+            slug={slug}
+          />
+        </WidgetContainer>
+      </Container>
     )
   }
 }
 
 DesktopArticleTools.propTypes = {
-  isBookmarked: PropTypes.bool.isRequired,
   toShow: PropTypes.bool.isRequired,
   topicSlug: PropTypes.string,
-  topicTitle: PropTypes.string
+  topicTitle: PropTypes.string,
+  bookmarkData: PropTypes.object.isRequired,
+  slug: PropTypes.string.isRequired
 }
 
 DesktopArticleTools.defaultProps = {

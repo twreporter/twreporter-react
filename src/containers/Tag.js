@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet'
-import More from '../components/More'
+import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
@@ -20,43 +20,29 @@ const { fetchListedPosts } = actions
 const MAXRESULT = 10
 const tags = 'tags'
 
-class Tag extends Component {
-  static fetchData({ params, store }) {
-    return store.dispatch(fetchListedPosts(params.tagId, tags, MAXRESULT))
-  }
-
-  constructor(props) {
-    super(props)
-    this.loadMore = this._loadMore.bind(this)
+class Tag extends PureComponent {
+  // params are passed from Route component of react-router
+  static fetchData({ params, store, query }) {
+    /* fetch page 1 if page is invalid */
+    let page = parseInt(_.get(query, 'page', 1), 10)
+    if (isNaN(page) || page < 0) {
+      page = 1
+    }
+    return store.dispatch(fetchListedPosts(params.tagId, tags, MAXRESULT, page))
   }
 
   componentWillMount() {
-    const { fetchListedPosts, lists, params } = this.props
+    const { fetchListedPosts, tagId } = this.props
+    const page = _.get(this.props, 'page', 1)
 
-    let tagId = _.get(params, 'tagId')
-
-    if (_.get(lists, [ tagId, 'items', 'length' ], 0) > 0) {
-      return
-    }
-
-    fetchListedPosts(tagId, tags, MAXRESULT)
+    fetchListedPosts(tagId, tags, MAXRESULT, page)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, lists, params } = nextProps
-    let tagId = _.get(params, 'tagId')
+    const { fetchListedPosts, tagId } = nextProps
+    const page = _.get(nextProps, 'page', 1)
 
-    if (_.get(lists, [ tagId, 'items', 'length' ], 0) > 0) {
-      return
-    }
-
-    fetchListedPosts(tagId, tags, MAXRESULT)
-  }
-
-  _loadMore() {
-    const { fetchListedPosts, params } = this.props
-    const tagId = _.get(params, 'tagId')
-    fetchListedPosts(tagId, tags, MAXRESULT)
+    fetchListedPosts(tagId, tags, MAXRESULT, page)
   }
 
   _findTagName(tags, tagId) {
@@ -73,14 +59,37 @@ class Tag extends Component {
   }
 
   render() {
-    const { lists, entities, params } = this.props
-    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const tagId = _.get(params, 'tagId')
-    const error = _.get(lists, [ tagId, 'error' ], null)
-    const total = _.get(lists, [ tagId, 'total' ], 0)
-    const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []), postEntities)
-    const postsLen = _.get(posts, 'length', 0)
     let isFetching = false
+
+    const { lists, entities, page, pathname, tagId } = this.props
+    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
+    const error = _.get(lists, [ tagId, 'error' ], null)
+
+    // total items will be in that tagId
+    const total = _.get(lists, [ tagId, 'total' ], 0)
+
+    // pages will be like
+    // {
+    //   1: [0, 9],
+    //   3: [10, 19],
+    // }
+    //
+    // which means the items of page 1 are in items[0] to items[9],
+    // the items of page 3 are in items[10] to item [19]
+    const pages = _.get(lists, [ tagId, 'pages' ], {})
+    const startPos = _.get(pages, [ page, 0 ], 0)
+    const endPos = _.get(pages, [ page, 1 ], 0)
+
+    // page is provided, but not fecth yet
+    if (startPos === 0 && endPos === 0) {
+      isFetching = true
+    }
+
+    // denormalize the items of current page
+    const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
+
+    const totalPages = Math.ceil(total / MAXRESULT)
+    const postsLen = _.get(posts, 'length', 0)
 
     // Error handling
     if (error !== null && postsLen === 0) {
@@ -94,12 +103,6 @@ class Tag extends Component {
     const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
     const canonical = `${SITE_META.URL}tag/${tagId}`
     const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-
-    const MoreJSX = total > postsLen ? (
-      <More loadMore={this.loadMore}>
-        <span style={{ color: error ? 'red' : 'white' }}>{error ? '更多文章（請重試）' : '更多文章'}</span>
-      </More>
-    ) : null
 
     return (
       <div>
@@ -125,16 +128,28 @@ class Tag extends Component {
           tagName={tagName}
           isFetching={isFetching}
         />
-        {MoreJSX}
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          pathname={pathname}
+        />
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const location = _.get(props, 'location')
+  const params = _.get(props, 'params')
+  const page = parseInt(_.get(location, 'query.page', 1), 10)
+  const tagId = _.get(params, 'tagId', '')
+  const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
-    entities: state[reduxStateFields.entities]
+    entities: state[reduxStateFields.entities],
+    page,
+    pathname,
+    tagId
   }
 }
 
@@ -145,7 +160,10 @@ Tag.defaultProps = {
 
 Tag.propTypes = {
   lists: PropTypes.object,
-  entities: PropTypes.object
+  entities: PropTypes.object,
+  tagId: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  pathname: PropTypes.string.isRequired
 }
 
 export { Tag }

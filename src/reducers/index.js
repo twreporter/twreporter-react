@@ -1,5 +1,5 @@
 'use strict'
-import { authReducer, configureReducer } from '@twreporter/registration'
+import { authReducer, configureReducer, bookmarkReducer } from '@twreporter/registration'
 import { searchedAuthorsList, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
@@ -19,6 +19,8 @@ const registrationInitialState = {
   signIn: '',
   activate: '',
   renew: '',
+  bookmark: '',
+  user: '',
   oAuthProviders: {
     google: '',
     facebook: ''
@@ -37,7 +39,7 @@ const rootReducer = combineReducers({
   device,
   [reduxStateFields.selectedPost]: reducers.post,
   [reduxStateFields.selectedTopic]: reducers.topic,
-  [reduxStateFields.bookmarks]: reducers.bookmarks,
+  bookmarks: bookmarkReducer,
   routing: routerReducer,
   header,
   searchedAuthorsList,

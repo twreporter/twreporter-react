@@ -19,7 +19,7 @@ import { NotFoundError } from './custom-error'
 import { Provider } from 'react-redux'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
-import { configureAction, authUserAction, authInfoStringToObj } from '@twreporter/registration'
+import { configureAction, authUserAction } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 /**
@@ -82,7 +82,7 @@ app.get('*', function (req, res, next) {
     const authInfoString = get(req, 'cookies.auth_info', '')
     const authType = get(req, 'query.login', 'email signin')
     if (authInfoString) {
-      const authInfoObj = authInfoStringToObj(authInfoString)
+      const authInfoObj = JSON.parse(authInfoString)
       const jwt = get(authInfoObj, 'jwt', '')
       if (jwt) {
         store.dispatch(authUserAction(authType, authInfoObj))
@@ -126,7 +126,7 @@ app.get('*', function (req, res, next) {
         return promise
       }
 
-      getReduxPromise().then(()=> {
+      getReduxPromise().then(() => {
         const assets = __DEVELOPMENT__ ? {
           javascripts: {
             main: `${config.webpackPublicPath}${config.webpackOutputFilename}`,
