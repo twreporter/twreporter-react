@@ -1,47 +1,47 @@
 'use strict'
 import FbIcon from '../../../static/asset/fb.svg'
 import LineIcon from '../../../static/asset/line.svg'
-import MobileDetect from 'mobile-detect'
 import React from 'react' // eslint-disable-next-line
 import TwitterIcon from '../../../static/asset/twitter.svg'
-import styles from './ShareBt.scss'
+import styled from 'styled-components'
 import { FacebookButton, TwitterButton } from 'react-social'
 
-class ShareBt extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isDesktop: true
+const Container = styled.div`
+  display: inline-block;
+  margin-right: 15px;
+  >button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    width: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+    margin-right: 15px;
+    display: inline-block;
+    img {
+      width: 100%;
+      height: auto;
     }
   }
+`
 
-  componentDidMount() {
-    let md = new MobileDetect(window.navigator.userAgent)
-    this.setState({
-      isDesktop: (!md.mobile() && !md.tablet())
-    })
-  }
-
-
+class ShareBt extends React.PureComponent {
   render() {
-    const { isDesktop } = this.state
     const { appId, url, title } = this.props
     const lineUrl = `http://line.naver.jp/R/msg/text/?${encodeURI(title + ' ' + url)}`
-    const lineJsx = isDesktop ? null : (
-      <a href={lineUrl} className={styles.bt}>
-        <LineIcon />
-      </a>
-    )
     return (
-      <div className={styles['share-bt-container']}>
-        <FacebookButton className={styles.bt} url={url} appId={appId}>
+      <Container>
+        <FacebookButton url={url} appId={appId}>
           <FbIcon />
         </FacebookButton>
-        <TwitterButton className={styles.bt} message={title} url={url}>
+        <TwitterButton message={title} url={url}>
           <TwitterIcon />
         </TwitterButton>
-        {lineJsx}
-      </div>
+        <a href={lineUrl} style={{ border: 'none' }}>
+          <LineIcon />
+        </a>
+      </Container>
     )
   }
 }

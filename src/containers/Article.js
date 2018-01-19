@@ -570,7 +570,6 @@ Article.childContextTypes = {
 }
 
 Article.contextTypes = {
-  device: PropTypes.string,
   location: PropTypes.object
 }
 

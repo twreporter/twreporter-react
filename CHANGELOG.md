@@ -1,4 +1,9 @@
 ### Unreleased
+- Remove `mobile-detect` pkg since it is big
+  - update the corresponding components
+  - remove pass device through react context
+  - remove corresponding files we do not need
+  - replace sass by `styled-components`
 
 ### 2.6.0
 #### Minor Change

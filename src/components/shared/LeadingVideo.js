@@ -1,6 +1,5 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import MobileDetect from 'mobile-detect'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
@@ -22,9 +21,6 @@ class LeadingVideo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // record if user agent is iOS 10 below or mobile device
-      isIOS10Below: false,
-      isMobile: false,
       isMuted: props.mute
     }
     this.handleMuteChange = this._handleMuteChange.bind(this)
@@ -32,35 +28,25 @@ class LeadingVideo extends React.Component {
   }
 
   componentDidMount() {
-    let md = new MobileDetect(window.navigator.userAgent)
-    let isIOS10Below = false
-    let isMobile = false
-    let isMuted = false
-    if (md.mobile() || md.tablet()) {
-      isMobile = true
-      isMuted = true
-    }
-    if (md.is('iOS') && md.version('iOS') < 10) {
-      isIOS10Below = true
-      isMuted = true
-    }
-    this.setState({
-      isIOS10Below,
-      isMobile,
-      isMuted
-    })
-
     this._isMounted = true
   }
 
   componentWillUnmount() {
     this._isMounted = false
     this._player = null
+    this._canPlaySound = false
   }
 
   _handleMuteChange() {
     if (this._player) {
       this._player.muted = !this._player.muted
+
+      if (this._player.muted) {
+        this._canPlaySound = false
+      } else {
+        this._canPlaySound = true
+      }
+
       this.setState({
         isMuted: !this.state.isMuted
       })
@@ -76,11 +62,21 @@ class LeadingVideo extends React.Component {
       })
       this._player.muted = true
     }
+
+    // if video is in the viewport,
+    // and it can play sound,
+    // turn on the audio again.
+    if (isVisible && this._canPlaySound && this._isMounted && this._player) {
+      this.setState({
+        isMuted: false
+      })
+      this._player.muted = false
+    }
   }
 
   render() {
     const { classNames, filetype, loop, poster, portraitPoster, src, title } = this.props
-    const { isIOS10Below, isMobile, isMuted } = this.state
+    const { isMuted } = this.state
     const imgSrcSet = getImageSrcSet(poster)
     const imgSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
     let portraitImgSrcSet = imgSrcSet
@@ -101,9 +97,7 @@ class LeadingVideo extends React.Component {
       )
     }
 
-    // there is no easy way to autoplay inline video on the devices whose iOS is below 10,
-    // so just render the leading image
-    if (isIOS10Below || !src) {
+    if (!src) {
       posterJSX = (
         <img
           className={cx(_.get(classNames, 'poster', style['poster']), style['poster'])}
