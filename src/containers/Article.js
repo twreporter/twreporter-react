@@ -506,7 +506,9 @@ class Article extends PureComponent {
                 </IntroductionContainer>
 
                 <ArticleComponents.Body
-                  data={bodyData} fontSize={this.state.fontSize}
+                  data={bodyData}
+                  fontSize={this.state.fontSize}
+                  articleStyle={articleStyle}
                 />
               </article>
             </Content>

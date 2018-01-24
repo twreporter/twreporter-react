@@ -3,6 +3,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/react-components/lib/index-page'
+import SideBarHOC from '@twreporter/react-components/lib/side-bar'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -12,7 +13,8 @@ import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-
+import { globalColor, typography } from '../themes/common-variables'
+import { screen } from '../themes/screen'
 // lodash
 import get from 'lodash/get'
 import keys from 'lodash/keys'
@@ -20,7 +22,7 @@ import set from 'lodash/set'
 
 const { CategorySection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
-  ReporterIntro,  ReviewsSection, SideBar, TopicsSection } = IndexPageComposite.components
+  ReporterIntro,  ReviewsSection, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -30,6 +32,8 @@ const _ = {
   keys,
   set
 }
+
+global.__DEVELOPMENT__ = true
 
 const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
   .spinner-leave {
@@ -187,6 +191,115 @@ const siteNavigationJSONLD = {
     ]
 }
 
+const SideBarContainer = styled.div`
+  position: fixed;
+  color: ${globalColor.primaryColor};
+  right: 16px;
+  top: 50%;
+  z-index: 100;
+  transform: translateY(-50%);
+  ${screen.tablet`
+    right: 3px;
+  `}
+  ${screen.mobile`
+    display: none;
+  `}
+`
+
+// writing-mode: vertical-rl;
+// letter-spacing: 2px;
+const Anchor = styled.div`
+  margin-bottom: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  &:hover {
+    cursor: pointer;
+  }
+  color: ${props => (props.highlight ? 'white' : `${globalColor.primaryColor}`)};
+  background: ${props => (props.highlight ? `${globalColor.primaryColor}` : 'none')};
+`
+
+const Label = styled.div`
+  font-size: ${typography.font.size.xSmall};
+  font-weight: ${typography.font.weight.normal};
+  line-height: 1;
+  margin: 2px 3px;
+`
+
+class Anchors extends React.PureComponent {
+  render() {
+    console.log('render Anchors')
+    const AssembleWord = (words) => {
+      return words.split('').map((word) => {
+        return (
+          <Label key={`anchor_label_${word}`}>
+            {word}
+          </Label>
+        )
+      })
+    }
+    const anchorBts = []
+    const { data, currentAnchorId, handleClickAnchor } = this.props
+    console.log('data:', data)
+    data.forEach((anchorObj) => {
+      const moduleID = _.get(anchorObj, 'id', '')
+      const moduleLabel = _.get(anchorObj, 'label', '')
+
+      // moduleID and moduleLable are not empty string
+      if (moduleID && moduleLabel) {
+        anchorBts.push(
+          <Anchor
+            highlight={moduleID === currentAnchorId}
+            onClick={(e) => { handleClickAnchor(moduleID, e) }}
+            key={`SectionButton_${moduleID}`}
+          >
+            {AssembleWord(moduleLabel)}
+          </Anchor>,
+        )
+      }
+    })
+    return (
+      <div>
+        { anchorBts }
+      </div>
+    )
+  }
+}
+
+Anchors.defaultProps = {
+  handleClickAnchor: () => {},
+  data: []
+}
+
+Anchors.propTypes = {
+  handleClickAnchor: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    label: PropTypes.string
+  }))
+}
+
+class HomePageSideBar extends React.PureComponent {
+  render() {
+    // currentAnchorId and handleClickAnchor are passed from `SideBarHOC`
+    const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
+    return (
+      <div>
+        <SideBarContainer>
+          <Anchors
+            ref={(node) => { this.anchorsNode = node }}
+            data={anchors}
+            handleClickAnchor={handleClickAnchor}
+            currentAnchorId={currentAnchorId}
+          />
+        </SideBarContainer>
+        {children}
+      </div>
+    )
+  }
+}
+
+const SideBar = SideBarHOC(HomePageSideBar)
 
 class Homepage extends React.Component {
   static async fetchData({ store }) {
@@ -214,7 +327,7 @@ class Homepage extends React.Component {
     // the browser will smoothly scroll to categories section
     const sectionQuery = _.get(this.props, 'location.query.section', '')
     if (this.sidebar && sectionQuery) {
-      this.sidebar.scrollTo(sectionQuery)
+      this.sidebar.handleClickAnchor(sectionQuery)
     }
   }
 
@@ -262,8 +375,8 @@ class Homepage extends React.Component {
           ]}
         />
         <SideBar
-          anchors={anchors}
           ref={(node) => this.sidebar = node}
+          anchors={anchors}
         >
           <LatestSection
             data={this.props[fieldNames.sections.latestSection]}
