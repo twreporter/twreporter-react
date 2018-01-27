@@ -72,6 +72,7 @@ Anchors.propTypes = {
 const SideBarContainer = styled.div`
   position: fixed;
   top: 50%;
+  z-index: 100;
   transform: translateY(-50%);
   color: ${globalColor.primaryColor};
   right: 16px;
@@ -109,10 +110,10 @@ HomePageSideBar.defaultProps = {
 }
 
 HomePageSideBar.propTypes = {
-  anchors: PropTypes.arrayOf({
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  }).isRequired,
+  anchors: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    label: PropTypes.string
+  })).isRequired,
   currentAnchorId: PropTypes.string,
   handleClickAnchor: PropTypes.func
 }
