@@ -3,7 +3,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/react-components/lib/index-page'
-import SideBarHOC from '@twreporter/react-components/lib/side-bar'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -11,6 +10,7 @@ import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
+import sideBarFactory from '../components/side-bar/side-bar-factory'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
 import { globalColor, typography } from '../themes/common-variables'
@@ -191,117 +191,7 @@ const siteNavigationJSONLD = {
     ]
 }
 
-const SideBarContainer = styled.div`
-  position: fixed;
-  color: ${globalColor.primaryColor};
-  right: 16px;
-  top: 50%;
-  z-index: 100;
-  transform: translateY(-50%);
-  ${screen.tablet`
-    right: 3px;
-  `}
-  ${screen.mobile`
-    display: none;
-  `}
-`
-
-// writing-mode: vertical-rl;
-// letter-spacing: 2px;
-const Anchor = styled.div`
-  margin-bottom: 18px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  &:hover {
-    cursor: pointer;
-  }
-  color: ${props => (props.highlight ? 'white' : `${globalColor.primaryColor}`)};
-  background: ${props => (props.highlight ? `${globalColor.primaryColor}` : 'none')};
-`
-
-const Label = styled.div`
-  font-size: ${typography.font.size.xSmall};
-  font-weight: ${typography.font.weight.normal};
-  line-height: 1;
-  margin: 2px 3px;
-`
-
-class Anchors extends React.PureComponent {
-  render() {
-    console.log('render Anchors')
-    const AssembleWord = (words) => {
-      return words.split('').map((word) => {
-        return (
-          <Label key={`anchor_label_${word}`}>
-            {word}
-          </Label>
-        )
-      })
-    }
-    const anchorBts = []
-    const { data, currentAnchorId, handleClickAnchor } = this.props
-    console.log('data:', data)
-    data.forEach((anchorObj) => {
-      const moduleID = _.get(anchorObj, 'id', '')
-      const moduleLabel = _.get(anchorObj, 'label', '')
-
-      // moduleID and moduleLable are not empty string
-      if (moduleID && moduleLabel) {
-        anchorBts.push(
-          <Anchor
-            highlight={moduleID === currentAnchorId}
-            onClick={(e) => { handleClickAnchor(moduleID, e) }}
-            key={`SectionButton_${moduleID}`}
-          >
-            {AssembleWord(moduleLabel)}
-          </Anchor>,
-        )
-      }
-    })
-    return (
-      <div>
-        { anchorBts }
-      </div>
-    )
-  }
-}
-
-Anchors.defaultProps = {
-  handleClickAnchor: () => {},
-  data: []
-}
-
-Anchors.propTypes = {
-  handleClickAnchor: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  }))
-}
-
-class HomePageSideBar extends React.PureComponent {
-  render() {
-    // currentAnchorId and handleClickAnchor are passed from `SideBarHOC`
-    const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
-    return (
-      <div>
-        <SideBarContainer>
-          <Anchors
-            ref={(node) => { this.anchorsNode = node }}
-            data={anchors}
-            handleClickAnchor={handleClickAnchor}
-            currentAnchorId={currentAnchorId}
-          />
-        </SideBarContainer>
-        {children}
-      </div>
-    )
-  }
-}
-
-const SideBar = SideBarHOC(HomePageSideBar)
-
-class Homepage extends React.Component {
+class Homepage extends React.PureComponent {
   static async fetchData({ store }) {
     await fetchIndexPageContent()(store.dispatch, store.getState)
     const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
@@ -343,6 +233,8 @@ class Homepage extends React.Component {
         data={latestTopicData}
       />
     ) : null
+
+    const SideBar = sideBarFactory.getIndexPageSideBar()
 
     return (
       <Container>
