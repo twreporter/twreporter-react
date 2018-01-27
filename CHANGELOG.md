@@ -1,9 +1,17 @@
 ### Unreleased
+### 2.6.1
+#### Features
+- Longform article with side bar
+
+#### Patches
 - Remove `mobile-detect` pkg since it is big
   - update the corresponding components
   - remove pass device through react context
   - remove corresponding files we do not need
   - replace sass by `styled-components`
+- Upgrade @twreporter/react-components to 4.0.0
+- DesktopArticleTools style change
+- Render ArticleTools gracefully without overlaying leading image
 
 ### 2.6.0
 #### Minor Change
