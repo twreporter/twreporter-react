@@ -6,7 +6,7 @@ import { CHARACTERS_LIMIT } from '../../constants/index'
 import Link from 'react-router/lib/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
-import VisibilitySensor from 'react-visibility-sensor'
+import Waypoint from 'react-waypoint'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
@@ -27,11 +27,21 @@ const AuthorCollection = (props) => {
   const isSensorActive = (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE && hasMore)
 
   // Callback for sensor is triggered to seen
-  const handleSeen = (isVisible) => {
-    if ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE) && isVisible) {
+  const handleSeen = () => {
+    if ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE)) {
       return handleLoadmore()
     }
   }
+
+  const sensorJSX = isSensorActive ? (
+    <Waypoint
+      onEnter={handleSeen}
+      fireOnRapidScroll
+      scrollableAncestor="window"
+    >
+      <div classname={styles['sensor']} />
+    </Waypoint>
+  ) : null
 
   const relatedRows = map(listItems, (related) => {
     const imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
@@ -66,7 +76,7 @@ const AuthorCollection = (props) => {
           </ul>
         </div>
         {!isLoadmoreBtnDisplayed ? null : <div className={classNames(styles['load-more'], 'text-center')} onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</div>}
-        <VisibilitySensor className={styles['sensor']} onChange={handleSeen} partialVisibility={true} active={isSensorActive} />
+        {sensorJSX}
         {!isFetching ? null : <LoadingSpinner className={styles['loading-spinner']} alt={LOADING_MORE_ARTICLES} />}
       </div>
     </div>

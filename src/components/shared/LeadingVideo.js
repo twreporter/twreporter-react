@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
-import VisibilitySensor from 'react-visibility-sensor'
+import Waypoint from 'react-waypoint'
 import cx from 'classnames'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
@@ -24,7 +24,8 @@ class LeadingVideo extends React.Component {
       isMuted: props.mute
     }
     this.handleMuteChange = this._handleMuteChange.bind(this)
-    this.handleScrolledOver = this._handleScrolledOver.bind(this)
+    this.onLeave = this._onLeave.bind(this)
+    this.onEnter = this._onEnter.bind(this)
   }
 
   componentDidMount() {
@@ -53,24 +54,26 @@ class LeadingVideo extends React.Component {
     }
   }
 
-  _handleScrolledOver(isVisible) {
-    // if video is not in the viewport,
-    // turn off the audio.
-    if (!isVisible && this._isMounted && this._player) {
-      this.setState({
-        isMuted: true
-      })
-      this._player.muted = true
-    }
-
+  _onEnter() {
     // if video is in the viewport,
     // and it can play sound,
     // turn on the audio again.
-    if (isVisible && this._canPlaySound && this._isMounted && this._player) {
+    if (this._canPlaySound && this._isMounted && this._player) {
       this.setState({
         isMuted: false
       })
       this._player.muted = false
+    }
+  }
+
+  _onLeave() {
+    // if video is not in the viewport,
+    // turn off the audio.
+    if (this._isMounted && this._player) {
+      this.setState({
+        isMuted: true
+      })
+      this._player.muted = true
     }
   }
 
@@ -146,9 +149,11 @@ class LeadingVideo extends React.Component {
     }
 
     return (
-      <VisibilitySensor
-        onChange={this.handleScrolledOver}
-        partialVisibility={true}
+      <Waypoint
+        onLeave={this.onLeave}
+        onEnter={this.onEnter}
+        fireOnRapidScroll
+        scrollableAncestor="window"
       >
         <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
           <link itemProp="url" href={src} />
@@ -158,7 +163,7 @@ class LeadingVideo extends React.Component {
           {posterJSX}
           {portraitPosterJSX}
         </div>
-      </VisibilitySensor>
+      </Waypoint>
     )
   }
 }

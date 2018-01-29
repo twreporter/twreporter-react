@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
-import VisibilitySensor from 'react-visibility-sensor'
+import Waypoint from 'react-waypoint'
 import classNames from 'classnames'
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -50,11 +50,11 @@ class AuthorsList extends React.Component {
   }
 
   // Callback for sensor being seen
-  _handleSeen(isVisible) {
+  _handleSeen() {
     const whichAuthorsListToRender = this.state.whichAuthorsListToRender
     const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
     const currentPage = _.get(authorsListDataToRender, 'currentPage', 0)
-    if ((currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE) && isVisible) {
+    if ((currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)) {
       return this._handleLoadmore()
     }
   }
@@ -102,6 +102,16 @@ class AuthorsList extends React.Component {
     const fullTitle = constants.PAGE_TITLE + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
 
+    const sensorJSX = isSensorActive ? (
+      <Waypoint
+        onEnter={this._handleSeen}
+        fireOnRapidScroll
+        scrollableAncestor="window"
+      >
+        <div classname={styles['sensor']} />
+      </Waypoint>
+    ) : null
+
     return (
       <div className={styles['author-list-container']}>
         <Helmet
@@ -129,7 +139,7 @@ class AuthorsList extends React.Component {
         {isNoSearchResultDisplayed ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
         {!isFetching ? null : <LoadingSpinner className={styles['loading-spinner']} alt={constants.LOADING_MORE_AUTHORS} />}
         {!isLoadmoreBtnDisplayed ? null : LoadmoreBtn}
-        <VisibilitySensor className={styles['sensor']} onChange={this._handleSeen} partialVisibility={true} active={isSensorActive} />
+        {sensorJSX}
       <Sponsor />
       </div>
     )
