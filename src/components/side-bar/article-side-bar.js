@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import baseComponents from './base-components'
-import get from 'lodash/get'
 import styled from 'styled-components'
 import { colors, globalColor, typography } from '../../themes/common-variables'
 import { screen } from '../../themes/screen'
 import { articleLayout } from '../../themes/layout'
 
-const _ = {
-  get
-}
-
-const Anchor = baseComponents.Anchor.extend`
+const StyledAnchor = baseComponents.StyledAnchor.extend`
   position: relative;
   height: 100%;
   color: ${props => props.highlight ? globalColor.textColor : colors.gray.gray50};
@@ -31,41 +26,23 @@ const Order = styled.div`
   transform: translateX(-50%);
 `
 
-class Anchors extends React.PureComponent {
-  render() {
-    const AssembleWord = (words) => {
-      return words.split('').map((word) => {
-        return (
-          <baseComponents.Label key={`anchor_label_${word}`}>
-            {word}
-          </baseComponents.Label>
-        )
-      })
-    }
-    const anchorBts = []
-    const { data, currentAnchorId, handleClickAnchor } = this.props
-    data.forEach((anchorObj, index) => {
-      const moduleID = _.get(anchorObj, 'id', '')
-      const moduleLabel = _.get(anchorObj, 'label', '')
+class Anchors extends baseComponents.Anchors {
+  constructor(props) {
+    super(props)
+    this.Anchor = StyledAnchor
+  }
 
-      // moduleID and moduleLable are not empty string
-      if (moduleID && moduleLabel) {
-        anchorBts.push(
-          <Anchor
-            highlight={moduleID === currentAnchorId}
-            onClick={(e) => { handleClickAnchor(moduleID, e) }}
-            key={`SectionButton_${moduleID}`}
-          >
-            <Order>{`0${index}`}</Order>
-            <div>{AssembleWord(moduleLabel)}</div>
-          </Anchor>,
-        )
-      }
-    })
+  _renderAnchor(anchorObj) {
+    const Anchor = this.Anchor
     return (
-      <div>
-        { anchorBts }
-      </div>
+      <Anchor
+        highlight={anchorObj.highlight}
+        onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
+        key={`SectionButton_${anchorObj.id}`}
+      >
+        <Order>{`0${anchorObj.index}`}</Order>
+        <div>{this._assembleWord(anchorObj.label)}</div>
+      </Anchor>
     )
   }
 }
