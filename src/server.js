@@ -2,7 +2,6 @@
 /* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import Compression from 'compression'
-import DeviceProvider from './components/DeviceProvider'
 import Express from 'express'
 import Html from './helpers/Html'
 import PrettyError from 'pretty-error'
@@ -107,11 +106,6 @@ app.get('*', function (req, res, next) {
     } else if (!renderProps) {
       throw new NotFoundError()
     } else {
-      store.dispatch({
-        type: 'DETECT_DEVICE',
-        headers: get(req, [ 'headers', 'user-agent' ])
-      })
-
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
         const params = get(renderProps, 'params', {})
@@ -136,13 +130,11 @@ app.get('*', function (req, res, next) {
         } : require('../webpack-assets.json')
         const sheet = new ServerStyleSheet()
         const content = ReactDOMServer.renderToString(
-            <Provider store={store} >
-              <DeviceProvider device={get(store.getState(), 'device')}>
-                <StyleSheetManager sheet={sheet.instance}>
-                  { <RouterContext {...renderProps} /> }
-                </StyleSheetManager>
-              </DeviceProvider>
-            </Provider>
+          <Provider store={store} >
+            <StyleSheetManager sheet={sheet.instance}>
+              { <RouterContext {...renderProps} /> }
+            </StyleSheetManager>
+          </Provider>
           )
 
         // set Cache-Control header for caching

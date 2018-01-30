@@ -20,8 +20,8 @@ import deviceConst from '../constants/device'
 import leadingImgStyles from '../components/article/LeadingImage.scss'
 import LogoIcon from '../../static/asset/icon-placeholder.svg'
 import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
-import styles from './Article.scss'
 import styled from 'styled-components'
+import styles from './Article.scss'
 import { screen } from '../themes/screen'
 import twreporterRedux from '@twreporter/redux'
 import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
@@ -144,23 +144,21 @@ class Article extends PureComponent {
 
   constructor(props, context) {
     super(props, context)
-
-    this._onScroll = _.throttle(this._onScroll, 300).bind(this)
-    this._handleScroll = this._handleScroll.bind(this)
-    this._onResize =  _.throttle(this._onResize, 500).bind(this)
-
     this.state = {
       fontSize:'medium',
       isFontSizeSet:false
     }
 
+    this._onScroll = _.throttle(this._handleScroll, 300).bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
+
     // reading progress component
     this.rp = null
 
     // article tools
-    this.tools = null
+    this._toolsRef = null
 
-    this.articleMeta = null
+    this.articleBody = null
   }
 
   getChildContext() {
@@ -182,11 +180,9 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
-    this._setToolsScreenType(getScreenType(window.innerWidth))
-
-    window.addEventListener('resize', this._onResize)
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
+
     let storedfontSize = localStorage.getItem('fontSize')
     if(storedfontSize !== null && !this.state.isFontSizeSet) {
       this.setState({
@@ -203,13 +199,14 @@ class Article extends PureComponent {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._onResize)
     window.removeEventListener('scroll', this._onScroll)
+
     scrollPosition.y = 0
 
-    // unset components
+    // unset global variables
     this.rp = null
-    this.tools = null
+    this._toolsRef = null
+    this.articleBody = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -221,73 +218,107 @@ class Article extends PureComponent {
     }
   }
 
-  _setToolsScreenType(screenType) {
-    if (this.tools) {
-      this.tools.getWrappedInstance().setScreenType(screenType)
-    }
-  }
-
-  _onScroll() {
-    this._handleScroll()
-  }
-
-  _onResize() {
-    this._setToolsScreenType(getScreenType(window.innerWidth))
-  }
-
-  _handleScroll() {
-    const currentTopY = window.scrollY
-    const beginY = _.get(this.progressBegin, 'offsetTop', 0)
-    const endY = _.get(this.progressEnding, 'offsetTop', 0)
-    const { theme } = this.props
-    const titlePosition = _.get(theme, 'title_position')
-
-    /* Calculate reading progress */
-    let scrollRatio = Math.abs((currentTopY-beginY) / (endY-beginY))
-    if(currentTopY < beginY) {
-      scrollRatio = 0
-    } else if (scrollRatio > 1) {
-      scrollRatio = 1
-    }
-    let curPercent = Math.round(scrollRatio*100)
-
+  /**
+   * Calculating the reading progress percentage.
+   *
+   * @param {number} top - the distance between the top of the element and the viewport top.
+   * @param {number} height - the element's height
+   */
+  _handleReadingPercentage(top, height) {
     if (this.rp) {
+      let scrollRatio = 0
+
+      // top is less than 0,
+      // which means the element is in the viewport now
+      if (top < 0) {
+        scrollRatio = Math.abs(top) / height
+      }
+      const curPercent = Math.round(scrollRatio * 100)
       // update the header progress bar
       this.rp.updatePercentage(curPercent)
     }
+  }
 
-    const isInTopRegion = currentTopY < beginY + 600
+  /**
+   * According to scroll behavior and viewport width, it will render ArticleTools differnetly.
+   * If viewport width is larger than desktop,
+   * `ArticleTools` will show up when the top of element(`elementTop`) is approaching the viewport top,
+   * and will be still there until the bottom of element(`elementBottom`) is approaching the viewport top.
+   *
+   * If viewport width is smaller than desktop,
+   * `ArticleTools` will show up if users scroll up, and the scrolling distance is more than a certain distance as well.
+   * Hides the `ArticleTools` if users scroll down.
+   *
+   * @param {number} elementTop - the distance between the top of the element and the viewport top.
+   * @param {number} elementBottom - the distance between the bottom of the element and the viewport top
+   * @param {Object} tools - instance of ArticleTools
+   *
+   * If elementTop/elementBottom is negative, which means element is already scrolled over the viewport top.
+   */
+  _handleDesktopToolBars(elementTop, elementBottom, tools) {
+    const viewportHeight = window.innerHeight
 
-    this._setToolsScreenType(getScreenType(window.innerWidth))
+    // set offset as 10%(refer to `topOffset` in the src/components/article/Body.js) of viewport height,
+    // element  will be in the viewport when elementTop approaches the offset
+    const offset = Math.round(viewportHeight * 0.1)
+    // the top of element is approaching the top of the viewport,
+    // render tools
+    if (elementTop < offset) {
+      tools.toggleTools(true)
+    } else {
+      // the top of element is far from the viewport top,
+      // not render tools
+      tools.toggleTools(false)
+    }
+    // the bottom of element is approaching the top of the viewport,
+    // which means the content is almost out of the viewport,
+    // no render tools
+    if (elementBottom < offset) {
+      tools.toggleTools(false)
+    }
+  }
 
-    // get tools React element
-    if (this.tools) {
-      const tools = this.tools.getWrappedInstance()
-      if (tools.getScreenType() === deviceConst.type.desktop) {
-        if (titlePosition === TITLE_POSITION_UPON_LEFT && this.articleMeta) {
-          const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-          if ( currentScrollTop >= this.articleMeta.offsetTop) {
-            tools.toggleTools(true)
-          } else {
-            tools.toggleTools(false)
-          }
+  _handleNonDesktopToolBars(tools) {
+    const currentTopY = window.scrollY
+
+    // Calculate scrolling distance to determine whether tools are displayed
+    const lastY = scrollPosition.y
+    const distance = currentTopY - lastY
+    if (distance > 30) {
+      scrollPosition.y = currentTopY
+      tools.toggleTools(false)
+    } else {
+      if (Math.abs(distance) > 150) {
+        scrollPosition.y = currentTopY
+        tools.toggleTools(true)
+      }
+    }
+  }
+
+  _handleScroll() {
+    if (this.articleBody) {
+      // top will be the distance between the top of body and the viewport top
+      // bottom will be the distance between the bottom of body and the viewport top
+      // height is the height of articleBody
+      const { top, bottom, height } = this.articleBody.getBoundingClientRect()
+
+      // render reading progress percentage
+      this._handleReadingPercentage(top, height)
+
+      // render tool bars
+      if (this._toolsRef) {
+        const screenType = getScreenType(window.innerWidth)
+
+        // get ArticleTools react component
+        const tools = this._toolsRef.getWrappedInstance()
+
+        // set screen type
+        tools.setScreenType(screenType)
+
+        if (screenType === deviceConst.type.desktop) {
+          this._handleDesktopToolBars(top, bottom, tools)
         } else {
-          tools.toggleTools(true)
-        }
-      } else {
-        // Calculate scrolling distance to determine whether tools are displayed
-        const lastY = scrollPosition.y
-        const distance = currentTopY - lastY
-        if (distance > 30) {
-          scrollPosition.y = currentTopY
-          tools.toggleTools(false)
-        } else {
-          if (Math.abs(distance) > 150) {
-            scrollPosition.y = currentTopY
-            if (!isInTopRegion) {
-              tools.toggleTools(true)
-            }
-          }
+          this._handleNonDesktopToolBars(tools)
         }
       }
     }
@@ -308,7 +339,6 @@ class Article extends PureComponent {
     })
     return authors
   }
-
 
   render() {
     const { entities, params, selectedPost, theme } = this.props
@@ -484,7 +514,6 @@ class Article extends PureComponent {
 
                 {
                   titlePosition === TITLE_POSITION_UPON_LEFT ?
-                  <div ref={(node) => { this.articleMeta = node }}>
                     <ArticleMeta
                       authors={authors}
                       extendByline={_.get(article, 'extendByline')}
@@ -495,24 +524,28 @@ class Article extends PureComponent {
                       changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
                       fontSize={this.state.fontSize}
                     />
-                  </div>
                   : null
                 }
-                <IntroductionContainer>
-                  <ArticleComponents.Introduction
-                    data={introData}
+                <div
+                  id="article-body"
+                  ref={node => this.articleBody = node}
+                >
+                  <IntroductionContainer>
+                    <ArticleComponents.Introduction
+                      data={introData}
+                      fontSize={this.state.fontSize}
+                    />
+                  </IntroductionContainer>
+                  <ArticleComponents.Body
+                    data={bodyData}
                     fontSize={this.state.fontSize}
+                    articleStyle={articleStyle}
                   />
-                </IntroductionContainer>
-
-                <ArticleComponents.Body
-                  data={bodyData} fontSize={this.state.fontSize}
-                />
+                </div>
               </article>
             </Content>
             <License license={license} publishedDate={article.publishedDate}/>
-            <div ref={div => {this.progressEnding = div}}
-                className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
+            <div className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
               <div className={cx('inner-max', commonStyles['component'])}>
                 <ArticleComponents.BottomTags
                   data={article.tags}
@@ -527,19 +560,11 @@ class Article extends PureComponent {
             </div>
           </ArticleContainer>
           }
-          {/*<ArticleComponents.PageNavigation
-            article={ get(article, [ 'relateds', 0 ])}
-            navigate="next"
-          />
-          <ArticleComponents.PageNavigation
-            article={get(article, [ 'relateds', 1 ])}
-            navigate="previous"
-          />*/}
           <div className="hidden-print">
+            <ArticleTools
+              ref={ ele => this._toolsRef = ele }
+            />
           </div>
-          <ArticleTools
-            ref={ ele => this.tools = ele }
-          />
         </div>
       </div>
     )
@@ -570,7 +595,6 @@ Article.childContextTypes = {
 }
 
 Article.contextTypes = {
-  device: PropTypes.string,
   location: PropTypes.object
 }
 

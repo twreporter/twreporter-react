@@ -1,39 +1,38 @@
 'use strict'
-import MobileDetect from 'mobile-detect'
 import React from 'react'
 import PrintIcon from '../../../static/asset/print.svg'
-import styles from './PrintButton.scss'
+import styled from 'styled-components'
+import { screen } from '../../themes/screen'
 
-class PrintButton extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isDesktop: false
-    }
+const PrintBt = styled.button`
+  border: none;
+  background: none;
+  margin-right: 15px;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  img {
+    width: 100%;
+    height: auto;
   }
 
-  componentDidMount() {
-    let md = new MobileDetect(window.navigator.userAgent)
-    this.setState({
-      isDesktop: (!md.mobile() && !md.tablet())
-    })
-  }
+  ${screen.mobile`
+    display: none;
+  `}
+`
 
+
+class PrintButton extends React.PureComponent {
   _print() {
     window.print()
   }
 
   render() {
-    const { isDesktop } = this.state
-    if (isDesktop) {
-      return (
-        <button className={styles.bt} onClick={this._print}>
-          <PrintIcon />
-        </button>
-      )
-    } else {
-      return null
-    }
+    return (
+      <PrintBt onClick={this._print}>
+        <PrintIcon />
+      </PrintBt>
+    )
   }
 }
 
