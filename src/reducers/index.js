@@ -1,10 +1,9 @@
 'use strict'
-import { authReducer, configureReducer } from '@twreporter/registration'
+import { authReducer, configureReducer, bookmarkReducer } from '@twreporter/registration'
 import { searchedAuthorsList, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import device from './device'
 import header from './header'
 import merge from 'lodash/merge'
 import twreporterRedux from '@twreporter/redux'
@@ -19,6 +18,8 @@ const registrationInitialState = {
   signIn: '',
   activate: '',
   renew: '',
+  bookmark: '',
+  user: '',
   oAuthProviders: {
     google: '',
     facebook: ''
@@ -34,10 +35,9 @@ const rootReducer = combineReducers({
   [reduxStateFields.indexPage]: reducers.indexPage,
   [reduxStateFields.lists]: reducers.posts,
   [reduxStateFields.topicList]: reducers.topics,
-  device,
   [reduxStateFields.selectedPost]: reducers.post,
   [reduxStateFields.selectedTopic]: reducers.topic,
-  [reduxStateFields.bookmarks]: reducers.bookmarks,
+  bookmarks: bookmarkReducer,
   routing: routerReducer,
   header,
   searchedAuthorsList,

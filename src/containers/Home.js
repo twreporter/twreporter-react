@@ -10,10 +10,11 @@ import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
+import sideBarFactory from '../components/side-bar/side-bar-factory'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { signOutAction } from '@twreporter/registration'
-
+import { globalColor, typography } from '../themes/common-variables'
+import { screen } from '../themes/screen'
 // lodash
 import get from 'lodash/get'
 import keys from 'lodash/keys'
@@ -21,7 +22,7 @@ import set from 'lodash/set'
 
 const { CategorySection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
-  ReporterIntro,  ReviewsSection, SideBar, TopicsSection } = IndexPageComposite.components
+  ReporterIntro,  ReviewsSection, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -31,6 +32,8 @@ const _ = {
   keys,
   set
 }
+
+global.__DEVELOPMENT__ = true
 
 const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
   .spinner-leave {
@@ -188,8 +191,7 @@ const siteNavigationJSONLD = {
     ]
 }
 
-
-class Homepage extends React.Component {
+class Homepage extends React.PureComponent {
   static async fetchData({ store }) {
     await fetchIndexPageContent()(store.dispatch, store.getState)
     const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
@@ -215,7 +217,7 @@ class Homepage extends React.Component {
     // the browser will smoothly scroll to categories section
     const sectionQuery = _.get(this.props, 'location.query.section', '')
     if (this.sidebar && sectionQuery) {
-      this.sidebar.scrollTo(sectionQuery)
+      this.sidebar.handleClickAnchor(sectionQuery)
     }
   }
 
@@ -231,6 +233,8 @@ class Homepage extends React.Component {
         data={latestTopicData}
       />
     ) : null
+
+    const SideBar = sideBarFactory.getIndexPageSideBar()
 
     return (
       <Container>
@@ -263,8 +267,8 @@ class Homepage extends React.Component {
           ]}
         />
         <SideBar
-          anchors={anchors}
           ref={(node) => this.sidebar = node}
+          anchors={anchors}
         >
           <LatestSection
             data={this.props[fieldNames.sections.latestSection]}
@@ -403,4 +407,4 @@ function mapStateToProps(state) {
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage, signOutAction })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)

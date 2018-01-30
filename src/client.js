@@ -1,7 +1,5 @@
 import 'babel-polyfill'
 import 'normalize.css'
-import DeviceProvider from './components/DeviceProvider'
-import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
@@ -14,7 +12,6 @@ import { Provider } from 'react-redux'
 import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
 import { screen as mq } from './themes/screen'
-import { setupTokenInLocalStorage, deletAuthInfoAction, authUserByTokenAction, keys, renewToken, getItem, scheduleRenewToken } from '@twreporter/registration'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -125,57 +122,11 @@ injectGlobal`
 let reduxState
 if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
-
-  let md = new MobileDetect(window.navigator.userAgent)
-  if (md.tablet()) {
-    reduxState.device = 'tablet'
-  } else if (md.mobile()) {
-    reduxState.device = 'mobile'
-  } else {
-    reduxState.device = 'desktop'
-  }
 }
 
 const store = configureStore(browserHistory, reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
-
-// token can be stored in localStorage in two scenario
-// 1. TWReporter account sign in
-// 2. oAuth
-// Acount: store auth info during signin action
-// oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
-// The following procedure is only for oAuth
-const { auth } = store.getState()
-if(auth.authenticated && auth.authInfo && (auth.authType=== 'facebook' || auth.authType==='google')) {
-  setupTokenInLocalStorage(auth.authInfo, keys.LOCALSTORAGE_KEY_AUTH)
-  store.dispatch(deletAuthInfoAction())
-}
-
-// 1. Renew token when user brows our website
-// 2. ScheduleRenewToken if user keep the tab open forever
-const authInfoString = getItem(keys.LOCALSTORAGE_KEY_AUTH)
-if(authInfoString) {
-  const authObj = JSON.parse(authInfoString)
-  const { authConfigure } = store.getState()
-  const { apiUrl, renew } = authConfigure
-  store.dispatch(renewToken(apiUrl, renew, authObj))
-  scheduleRenewToken(
-    6,
-    () => {
-      if (getItem(keys.LOCALSTORAGE_KEY_AUTH)) {
-        store.dispatch(renewToken(apiUrl, renew, JSON.parse(getItem(keys.LOCALSTORAGE_KEY_AUTH))))
-      }
-    }
-  )
-}
-
-// Check if token existed in localStorage and expired
-// following preocedure is for both accoutn and oAuth SignIn
-// 7 = 7 days
-store.dispatch(authUserByTokenAction(7, auth.authType))
-
-const device = store.getState().device
 
 const routes = createRoutes(history)
 
@@ -198,9 +149,7 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
   }
   ReactDOM.hydrate((
     <Provider store={store}>
-      <DeviceProvider device={device}>
-        <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
-      </DeviceProvider>
+      <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
     </Provider>
   ), document.getElementById('root'))
 })
