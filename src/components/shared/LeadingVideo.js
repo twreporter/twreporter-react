@@ -35,7 +35,7 @@ class LeadingVideo extends React.Component {
   componentWillUnmount() {
     this._isMounted = false
     this._player = null
-    this._canPlaySound = false
+    this._isSoundOn = false
   }
 
   _handleMuteChange() {
@@ -43,9 +43,9 @@ class LeadingVideo extends React.Component {
       this._player.muted = !this._player.muted
 
       if (this._player.muted) {
-        this._canPlaySound = false
+        this._isSoundOn = false
       } else {
-        this._canPlaySound = true
+        this._isSoundOn = true
       }
 
       this.setState({
@@ -58,7 +58,7 @@ class LeadingVideo extends React.Component {
     // if video is in the viewport,
     // and it can play sound,
     // turn on the audio again.
-    if (this._canPlaySound && this._isMounted && this._player) {
+    if (this._isSoundOn && this._isMounted && this._player) {
       this.setState({
         isMuted: false
       })

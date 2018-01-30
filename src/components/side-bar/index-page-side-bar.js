@@ -43,7 +43,6 @@ class HomePageSideBar extends React.PureComponent {
       <div>
         <SideBarContainer>
           <Anchors
-            ref={(node) => { this.anchorsNode = node }}
             data={anchors}
             handleClickAnchor={handleClickAnchor}
             currentAnchorId={currentAnchorId}
