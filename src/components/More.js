@@ -12,15 +12,9 @@ export default class More extends Component {
 
   render() {
     const { loadMore, children } = this.props
-    const { device } = this.context
     let points = '0,0 25,10 50,0'
     let width = 50
     let height = 11
-    if (device !== 'desktop') {
-      points = '0,0 15,5 30,0'
-      width = 30
-      height = 6
-    }
 
     return (
       <div className="more-articles arrow clearfix" onClick={loadMore}>
@@ -37,11 +31,6 @@ export default class More extends Component {
 
 More.propTypes = {
   loadMore: PropTypes.func.isRequired
-}
-
-More.contextTypes = {
-  // store: PropTypes.object,
-  device: PropTypes.string
 }
 
 export { More }

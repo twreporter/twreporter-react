@@ -1,7 +1,5 @@
 import 'babel-polyfill'
 import 'normalize.css'
-import DeviceProvider from './components/DeviceProvider'
-import MobileDetect from 'mobile-detect'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
@@ -124,22 +122,11 @@ injectGlobal`
 let reduxState
 if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
-
-  let md = new MobileDetect(window.navigator.userAgent)
-  if (md.tablet()) {
-    reduxState.device = 'tablet'
-  } else if (md.mobile()) {
-    reduxState.device = 'mobile'
-  } else {
-    reduxState.device = 'desktop'
-  }
 }
 
 const store = configureStore(browserHistory, reduxState)
 
 const history = syncHistoryWithStore(browserHistory, store)
-
-const device = store.getState().device
 
 const routes = createRoutes(history)
 
@@ -162,9 +149,7 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
   }
   ReactDOM.hydrate((
     <Provider store={store}>
-      <DeviceProvider device={device}>
-        <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
-      </DeviceProvider>
+      <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
     </Provider>
   ), document.getElementById('root'))
 })

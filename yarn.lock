@@ -8,11 +8,12 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-3.0.2.tgz#b151d0e28311fdf3041ab82685ccde8d821844d1"
+"@twreporter/react-components@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.0.tgz#fc6e21a6a90d168b8e455613b565b7c48b9554ba"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
+    hoist-non-react-statics "^2.3.1"
     lodash "^4.17.4"
     prop-types "^15.5.10"
     react-router "^3.0.0"
@@ -3631,6 +3632,10 @@ hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
+hoist-non-react-statics@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -5008,10 +5013,6 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
-
-mobile-detect@^1.3.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/mobile-detect/-/mobile-detect-1.4.0.tgz#a2ff482ca065abd21074b0516ca140c9d67a59bc"
 
 mocha@^2.3.3:
   version "2.5.3"
@@ -6415,13 +6416,6 @@ react-transition-group@^1.2.1:
     loose-envify "^1.3.1"
     prop-types "^15.5.6"
     warning "^3.0.0"
-
-react-visibility-sensor@^3.5.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/react-visibility-sensor/-/react-visibility-sensor-3.11.0.tgz#2da089ccb18b33ec3539914b300b120684aff2e0"
-  dependencies:
-    create-react-class "^15.5.1"
-    prop-types "^15.5.4"
 
 react-waypoint@^7.0.3:
   version "7.3.4"

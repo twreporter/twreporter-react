@@ -6,17 +6,17 @@ import styled from 'styled-components'
 import { BookmarkWidget } from '@twreporter/registration'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import { colors, typography }  from '../../../themes/common-variables'
-import { screen } from '../../../themes/screen'
+import { articleLayout } from '../../../themes/layout'
 
 const Container = styled.div`
   display: inline-block;
   position: fixed;
-  left: 50%;
-  top: 30%;
+  right: 50%;
+  bottom: 50%;
   color: ${colors.articleToolsText};
   font-size: ${typography.font.size.xSmall};
   z-index: 999;
-  transform: translate(-487px, -50%);
+  transform: translate(${(articleLayout.desktop.width.large - articleLayout.desktop.offset.tools)/2}px, -50%);
   visibility: ${(props) => props.toShow ? 'visible' : 'hidden'};
   opacity: ${(props) => props.toShow ? 1 : 0};
   transition: opacity 0.5s linear;
@@ -25,10 +25,6 @@ const Container = styled.div`
     color: ${colors.articleToolsText};
     font-size: ${typography.font.size.xSmall};
   }
-
-  ${screen.overDesktop`
-    transform: translate(-522px, -50%);
-  `}
 `
 
 const WidgetContainer = styled.div`

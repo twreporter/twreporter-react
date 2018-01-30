@@ -1,10 +1,9 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import MobileDetect from 'mobile-detect'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
-import VisibilitySensor from 'react-visibility-sensor'
+import Waypoint from 'react-waypoint'
 import cx from 'classnames'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
@@ -22,55 +21,55 @@ class LeadingVideo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // record if user agent is iOS 10 below or mobile device
-      isIOS10Below: false,
-      isMobile: false,
       isMuted: props.mute
     }
     this.handleMuteChange = this._handleMuteChange.bind(this)
-    this.handleScrolledOver = this._handleScrolledOver.bind(this)
+    this.onLeave = this._onLeave.bind(this)
+    this.onEnter = this._onEnter.bind(this)
   }
 
   componentDidMount() {
-    let md = new MobileDetect(window.navigator.userAgent)
-    let isIOS10Below = false
-    let isMobile = false
-    let isMuted = false
-    if (md.mobile() || md.tablet()) {
-      isMobile = true
-      isMuted = true
-    }
-    if (md.is('iOS') && md.version('iOS') < 10) {
-      isIOS10Below = true
-      isMuted = true
-    }
-    this.setState({
-      isIOS10Below,
-      isMobile,
-      isMuted
-    })
-
     this._isMounted = true
   }
 
   componentWillUnmount() {
     this._isMounted = false
     this._player = null
+    this._isSoundOn = false
   }
 
   _handleMuteChange() {
     if (this._player) {
       this._player.muted = !this._player.muted
+
+      if (this._player.muted) {
+        this._isSoundOn = false
+      } else {
+        this._isSoundOn = true
+      }
+
       this.setState({
         isMuted: !this.state.isMuted
       })
     }
   }
 
-  _handleScrolledOver(isVisible) {
+  _onEnter() {
+    // if video is in the viewport,
+    // and it can play sound,
+    // turn on the audio again.
+    if (this._isSoundOn && this._isMounted && this._player) {
+      this.setState({
+        isMuted: false
+      })
+      this._player.muted = false
+    }
+  }
+
+  _onLeave() {
     // if video is not in the viewport,
     // turn off the audio.
-    if (!isVisible && this._isMounted && this._player) {
+    if (this._isMounted && this._player) {
       this.setState({
         isMuted: true
       })
@@ -80,7 +79,7 @@ class LeadingVideo extends React.Component {
 
   render() {
     const { classNames, filetype, loop, poster, portraitPoster, src, title } = this.props
-    const { isIOS10Below, isMobile, isMuted } = this.state
+    const { isMuted } = this.state
     const imgSrcSet = getImageSrcSet(poster)
     const imgSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
     let portraitImgSrcSet = imgSrcSet
@@ -101,9 +100,7 @@ class LeadingVideo extends React.Component {
       )
     }
 
-    // there is no easy way to autoplay inline video on the devices whose iOS is below 10,
-    // so just render the leading image
-    if (isIOS10Below || !src) {
+    if (!src) {
       posterJSX = (
         <img
           className={cx(_.get(classNames, 'poster', style['poster']), style['poster'])}
@@ -152,9 +149,11 @@ class LeadingVideo extends React.Component {
     }
 
     return (
-      <VisibilitySensor
-        onChange={this.handleScrolledOver}
-        partialVisibility={true}
+      <Waypoint
+        onLeave={this.onLeave}
+        onEnter={this.onEnter}
+        fireOnRapidScroll
+        scrollableAncestor="window"
       >
         <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
           <link itemProp="url" href={src} />
@@ -164,7 +163,7 @@ class LeadingVideo extends React.Component {
           {posterJSX}
           {portraitPosterJSX}
         </div>
-      </VisibilitySensor>
+      </Waypoint>
     )
   }
 }
