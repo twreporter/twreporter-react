@@ -1,7 +1,6 @@
 'use strict'
 import Link from 'react-router/lib/Link'
 import Hexagon from './Hexagon'
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Slider from '@twreporter/react-flex-carousel'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
@@ -53,10 +52,5 @@ export default class TopNews extends Component {
       </Slider>
     ) : null
   }
-}
-
-TopNews.contextTypes = {
-  //  store: PropTypes.object,
-  device: PropTypes.string
 }
 export { TopNews }
