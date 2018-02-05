@@ -71,7 +71,8 @@ class Anchors extends React.PureComponent {
   render() {
     const anchorBts = []
     const { data, currentAnchorId, handleClickAnchor } = this.props
-    data.forEach((anchorObj, index) => {
+    let index = 1
+    data.forEach((anchorObj) => {
       const id = _.get(anchorObj, 'id', '')
       const label = _.get(anchorObj, 'label', '')
 
@@ -84,6 +85,7 @@ class Anchors extends React.PureComponent {
           index,
           label
         }))
+        index += 1
       }
     })
     return (
