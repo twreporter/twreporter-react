@@ -33,8 +33,6 @@ const _ = {
   set
 }
 
-global.__DEVELOPMENT__ = true
-
 const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
   .spinner-leave {
     opacity: 1;
