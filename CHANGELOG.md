@@ -1,4 +1,10 @@
 ### Unreleased
+
+### 2.6.2
+#### Patches
+- Decrease BlockQuote font-size to 20px
+- Add dynamic import with react-loadable
+
 ### 2.6.1
 #### Features
 - Longform article with side bar
