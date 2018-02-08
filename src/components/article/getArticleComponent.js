@@ -18,6 +18,7 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'audio':
       return Loadable({
         loader: () => import(
+          /* webpackChunkName: "audio" */
           './Audio'
         ),
         render(loaded, props) {
@@ -30,7 +31,10 @@ export default function getArticleComponent(type = 'unstyled') {
       })
     case 'blockquote':
       return Loadable({
-        loader: () => import('./BlockQuote'),
+        loader: () => import(
+          /* webpackChunkName: "blockquote" */
+          './BlockQuote'
+        ),
         render(loaded, props) {
           const { BlockQuote } = loaded
           return <BlockQuote {...props}/>
@@ -41,7 +45,10 @@ export default function getArticleComponent(type = 'unstyled') {
       })
     case 'quoteby':
       return Loadable({
-        loader: () => import('./BlockQuote'),
+        loader: () => import(
+          /* webpackChunkName: "quoteby" */
+          './BlockQuote'
+        ),
         render(loaded, props) {
           const { AlignedQuoteBy } = loaded
           return <AlignedQuoteBy {...props}/>
@@ -59,7 +66,10 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'embeddedCode':
     case 'embeddedcode':
       return Loadable({
-        loader: () => import('./Embedded'),
+        loader: () => import(
+          /* webpackChunkName: "embeddedcode" */
+          './Embedded'
+        ),
         render(loaded, props) {
           const { AlignedEmbedded } = loaded
           return <AlignedEmbedded {...props}/>
@@ -73,7 +83,10 @@ export default function getArticleComponent(type = 'unstyled') {
     case 'imageDiff':
     case 'imagediff':
       return Loadable({
-        loader: () => import('./ImageDiff'),
+        loader: () => import(
+          /* webpackChunkName: "imagediff" */
+          './ImageDiff'
+        ),
         render(loaded, props) {
           const { AlignedImageDiff } = loaded
           return <AlignedImageDiff {...props}/>
@@ -86,7 +99,10 @@ export default function getArticleComponent(type = 'unstyled') {
       return AlignedInfoBox
     case 'ordered-list-item':
       return Loadable({
-        loader: () => import('./OrderedList'),
+        loader: () => import(
+          /* webpackChunkName: "imagediff" */
+          './OrderedList'
+        ),
         render(loaded, props) {
           const { OrderedList } = loaded
           return <OrderedList {...props}/>
@@ -97,7 +113,10 @@ export default function getArticleComponent(type = 'unstyled') {
       })
     case 'unordered-list-item':
       return Loadable({
-        loader: () => import('./UnorderedList'),
+        loader: () => import(
+          /* webpackChunkName: "unorderedlist" */
+          './UnorderedList'
+        ),
         render(loaded, props) {
           const { UnorderedList } = loaded
           return <UnorderedList {...props}/>
@@ -110,7 +129,10 @@ export default function getArticleComponent(type = 'unstyled') {
       return Paragraph
     case 'slideshow':
       return Loadable({
-        loader: () => import('./slideshow/slideshow'),
+        loader: () => import(
+          /* webpackChunkName: "slideshow" */
+          './slideshow/slideshow'
+        ),
         render(loaded, props) {
           const { Slideshow } = loaded
           return <Slideshow {...props}/>
@@ -121,7 +143,10 @@ export default function getArticleComponent(type = 'unstyled') {
       })
     case 'youtube':
       return Loadable({
-        loader: () => import('./Youtube'),
+        loader: () => import(
+          /* webpackChunkName: "youtube" */
+          './Youtube'
+        ),
         render(loaded, props) {
           const { AlignedYoutube } = loaded
           return <AlignedYoutube {...props}/>
