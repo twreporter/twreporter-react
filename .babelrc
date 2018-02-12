@@ -16,6 +16,14 @@
             ],
             "generateScopedName": "[name]__[local]___[hash:base64:5]"
           }
+        ],
+        [
+          "system-import-transformer",
+          {
+            "commonJS": {
+              "useRequireEnsure": true
+            }
+          }
         ]
       ]
     }
@@ -25,14 +33,6 @@
       "babel-plugin-styled-components", {
         "ssr": true,
         "displayName": false
-      }
-    ],
-    [
-      "system-import-transformer",
-      {
-        "commonJS": {
-          "useRequireEnsure": true
-        }
       }
     ],
     "inline-import-data-uri",

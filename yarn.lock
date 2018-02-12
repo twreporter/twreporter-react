@@ -8,9 +8,9 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.0.tgz#fc6e21a6a90d168b8e455613b565b7c48b9554ba"
+"@twreporter/react-components@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.1.tgz#db4c25a252acc5e2af51731f88acd6ca839ba699"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
@@ -6125,7 +6125,7 @@ promptly@2.2.0:
   dependencies:
     read "^1.0.4"
 
-prop-types@15.x, prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.3, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@15.x, prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.3, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -6358,6 +6358,12 @@ react-howler@^3.0.1:
 react-lazyload@^2.1.4:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-2.3.0.tgz#ccb134223012447074a96543954f44b055dc6185"
+
+react-loadable@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-5.3.1.tgz#9699e9a08fed49bacd69caaa282034b62a76bcdd"
+  dependencies:
+    prop-types "^15.5.0"
 
 react-redux@^4.4.5:
   version "4.4.8"

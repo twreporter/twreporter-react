@@ -1,34 +1,38 @@
 /* eslint no-console:0 */
 'use strict'
 
-import * as ArticleComponents from '../components/article/index'
-import ArticleMeta from '../components/article/article-meta'
-import ArticleTools from './ArticleTools'
-import Header from '@twreporter/react-components/lib/header'
-import Helmet from 'react-helmet'
-import LeadingVideo from '../components/shared/LeadingVideo'
-import License from '../components/shared/License'
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
-import ReadingProgress from '../components/article/ReadingProgress'
-import SystemError from '../components/SystemError'
-import TitleRowUpon from '../components/article/title-row-upon'
-import TitleRowAbove from '../components/article/title-row-above'
-import commonStyles from '../components/article/Common.scss'
-import cx from 'classnames'
-import deviceConst from '../constants/device'
-import leadingImgStyles from '../components/article/LeadingImage.scss'
-import LogoIcon from '../../static/asset/icon-placeholder.svg'
-import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
-import styled from 'styled-components'
-import styles from './Article.scss'
-import { screen } from '../themes/screen'
-import twreporterRedux from '@twreporter/redux'
-import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
-import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
+import { Body } from '../components/article/Body'
+import { BottomRelateds } from '../components/article/BottomRelateds'
+import { BottomTags } from '../components/article/BottomTags'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { getAbsPath, getScreenType } from '../utils/index'
+import { globalColor, colors, componentMargin, layout, letterSpace } from '../themes/common-variables'
+import { Introduction } from '../components/article/Introduction'
+import { LeadingImage } from '../components/article/LeadingImage'
+import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
+import { screen } from '../themes/screen'
+import ArticleMeta from '../components/article/article-meta'
+import ArticleTools from './ArticleTools'
+import commonStyles from '../components/article/Common.scss'
+import cx from 'classnames'
+import deviceConst from '../constants/device'
+import Header from '@twreporter/react-components/lib/header'
+import Helmet from 'react-helmet'
+import leadingImgStyles from '../components/article/LeadingImage.scss'
+import LeadingVideo from '../components/shared/LeadingVideo'
+import License from '../components/shared/License'
+import LogoIcon from '../../static/asset/icon-placeholder.svg'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import ReadingProgress from '../components/article/ReadingProgress'
+import styled from 'styled-components'
+import styles from './Article.scss'
+import SystemError from '../components/SystemError'
+import TitleRowAbove from '../components/article/title-row-above'
+import TitleRowUpon from '../components/article/title-row-upon'
+import twreporterRedux from '@twreporter/redux'
+import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
 
 //testing
 import { TITLE_POSITION_ABOVE, TITLE_POSITION_UPON_LEFT,  NAVBAR_POSITION_UPON } from '../constants/page-themes'
@@ -477,7 +481,7 @@ class Article extends PureComponent {
                 {
                   !leadingVideo && !this.props.ifDelegateImage ?
                     <div className={styles['leading-img']}>
-                      <ArticleComponents.LeadingImage
+                      <LeadingImage
                         size={heroImageSize}
                         image={_.get(heroImage, 'resizedTargets')}
                         id={_.get(heroImage, 'id')}
@@ -508,7 +512,7 @@ class Article extends PureComponent {
                             />
                           : null
                         }
-                      </ArticleComponents.LeadingImage>
+                      </LeadingImage>
                     </div> : null
                 }
 
@@ -531,12 +535,12 @@ class Article extends PureComponent {
                   ref={node => this.articleBody = node}
                 >
                   <IntroductionContainer>
-                    <ArticleComponents.Introduction
+                    <Introduction
                       data={introData}
                       fontSize={this.state.fontSize}
                     />
                   </IntroductionContainer>
-                  <ArticleComponents.Body
+                  <Body
                     data={bodyData}
                     fontSize={this.state.fontSize}
                     articleStyle={articleStyle}
@@ -547,11 +551,11 @@ class Article extends PureComponent {
             <License license={license} publishedDate={article.publishedDate}/>
             <div className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
               <div className={cx('inner-max', commonStyles['component'])}>
-                <ArticleComponents.BottomTags
+                <BottomTags
                   data={article.tags}
                 />
               </div>
-              <ArticleComponents.BottomRelateds
+              <BottomRelateds
                 relateds={relateds}
                 currentId={article.id}
                 topicName={topicName}

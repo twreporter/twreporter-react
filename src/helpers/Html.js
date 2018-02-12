@@ -47,7 +47,7 @@ export default class Html extends PureComponent {
             <link href={stylesheet} key={'stylesheet' + key} media="all"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )}
-          <style dangerouslySetInnerHTML={{ __html: styleTags }} />
+          <div dangerouslySetInnerHTML={{ __html: styleTags }} />
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }} />

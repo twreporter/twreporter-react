@@ -1,4 +1,12 @@
 ### Unreleased
+
+### 2.6.2
+#### Patches
+- Decrease BlockQuote font-size to 20px
+- Add dynamic import with react-loadable
+- Add webpack chunk name for dynamic imported modules
+- Fix style tag over-wrapping inside head of html
+
 ### 2.6.1
 #### Features
 - Longform article with side bar
