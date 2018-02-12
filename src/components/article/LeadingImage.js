@@ -1,13 +1,13 @@
 /* eslint no-unused-vars:0 */
 'use strict'
+import SharedImage from '../shared/Image'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
-import classNames from 'classnames'
-import commonStyles from './Common.scss'
-import cx from 'classnames'
-import styles from './LeadingImage.scss'
+import styled from 'styled-components'
 import { TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
-import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/'
+import { articleLayout as layout } from '../../themes/layout'
+import { screen } from '../../themes/screen'
+import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -16,73 +16,104 @@ const _ = {
   get
 }
 
-class LeadingImage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMount: false
-    }
+const getMaxWidthBySize = (size, device) => {
+  const deviceLayout = _.get(layout, device, {})
+  switch(size) {
+    case 'normal':
+      return _.get(deviceLayout, 'width.medium') + 'px'
+    case 'small':
+      return _.get(deviceLayout, 'width.small') + 'px'
+    case 'extend':
+      return _.get(deviceLayout, 'width.large') + 'px'
+    default:
+      return '100%'
   }
+}
 
-  componentDidMount() {
-    this.setState({
-      isMount: true
-    })
-  }
+const LeadingImgContainer = styled.figure`
+  max-width: 100%;
+  margin: 0 auto;
 
+  ${screen.tablet`
+    max-width: ${props => getMaxWidthBySize(props.size, 'tablet')};
+  `}
+
+  ${screen.desktop`
+    max-width: ${props => getMaxWidthBySize(props.size, 'desktop')};
+  `}
+
+  ${screen.overDesktop`
+    max-width: ${props => getMaxWidthBySize(props.size, 'hd')};
+  `}
+`
+
+const ImgPlaceholder = styled.img`
+  width: 100%;
+  display: block;
+  filter: blur(5px);
+  position: absolute;
+  opacity: ${props => props.toShow ? '1' : '0'};
+  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
+  transition: opacity .5s linear, visibility .5s linear;
+`
+
+class LeadingImage extends SharedImage {
   render() {
-    const { size, image, id, description, children, titlePosition } = this.props
-    let leadingImgClass
-    if (!image) {
-      return null
+    const { isLoaded } = this.state
+    const { alt, imgObj, size } = this.props
+    const { ImgBox, ImgContainer, ImgPlaceholder }  = this._styledComponetns
+
+    const imgSet = {
+      ..._.get(imgObj, 'resizedTargets', {}),
+      original: {
+        url: _.get(imgObj, 'url'),
+        width: _.get(imgObj, 'width'),
+        height: _.get(imgObj, 'height')
+      }
     }
-    switch (size) {
-      case 'normal':
-        leadingImgClass = 'leading-img'
-        break
-      case 'extend':
-        leadingImgClass = 'extended-leading-img'
-        break
-      case 'small':
-        leadingImgClass = 'small-leading-img'
-        break
-      default:
-        leadingImgClass = 'leading-img'
-        break
+    const srcset = this._getSrcset(imgSet)
+
+    const imgSizes = {
+      mobile: '95vw',
+      tablet: getMaxWidthBySize(size, 'tablet'),
+      desktop: getMaxWidthBySize(size, 'desktop'),
+      hd: getMaxWidthBySize(size, 'hd')
     }
-
-    const defaultImgUrl = replaceStorageUrlPrefix(_.get(image, 'mobile.url'))
-
-    const imgJsx = this.state.isMount ? (
-      <img src={defaultImgUrl} alt={description} srcSet={getImageSrcSet(image)} />
-    ) : (
-      <img src={defaultImgUrl} alt={description} className={styles['img-placeholder']} />
-    )
-
-    const containerClass = titlePosition === TITLE_POSITION_UPON_LEFT ? cx(styles[leadingImgClass], styles['title-upon-left']) : styles[leadingImgClass]
+    const sizes = this._getSizes(imgSizes)
 
     return (
-      <div className={containerClass}>
-        {imgJsx}
-        { description ? <div className={commonStyles['desc-text-block']}>{description}</div> : null }
-        {children}
-      </div>
+      <LeadingImgContainer
+        size={size}
+      >
+        <ImgContainer
+          height={_.get(imgSet, 'tiny.height')}
+          width={_.get(imgSet, 'tiny.width')}
+        >
+          <ImgPlaceholder
+            src={_.get(imgSet, 'tiny.url')}
+            toShow={!isLoaded}
+          />
+          <ImgBox
+            toShow={isLoaded}
+          >
+            <img
+              alt={alt}
+              sizes={sizes}
+              onLoad={this.onLoad}
+              src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
+              srcSet={srcset}
+              ref={node => { this._imgNode = node }}
+            />
+          </ImgBox>
+        </ImgContainer>
+      </LeadingImgContainer>
     )
   }
 }
 
-LeadingImage.propTypes = {
-  size: PropTypes.string,
-  image: PropTypes.object,
-  description: PropTypes.string,
-  id: PropTypes.string
-}
+LeadingImage.propTypes.size = PropTypes.string
+LeadingImage.propTypes.imgObj = PropTypes.object.isRequired
 
-LeadingImage.defaultProps = {
-  size: 'normal',
-  image: null,
-  description: '',
-  id: ''
-}
+LeadingImage.defaultProps.size = 'normal'
 
-export { LeadingImage }
+export default LeadingImage
