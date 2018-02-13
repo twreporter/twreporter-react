@@ -1,4 +1,5 @@
-'use strict'
+// polyfill webpack require.ensure for node environment
+if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 import { AlignedImage } from './Image'
 import { AlignedInfoBox } from './InfoBox'
