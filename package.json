@@ -73,7 +73,6 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
-    "video.js": "5.12.1",
     "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {
