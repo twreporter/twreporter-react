@@ -8,7 +8,7 @@ import getArticleComponent from './getArticleComponent'
 import styled from 'styled-components'
 import { articleLayout } from '../../themes/layout'
 import { screen } from '../../themes/screen'
-import { globalColor, typography } from '../../themes/common-variables'
+import { typography } from '../../themes/common-variables'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -57,19 +57,19 @@ const StyledArticleComponent = styled.div`
   ${screen.tabletAbove`
     margin-left: auto;
     margin-right: auto;
-  `}
+  `};
 
   ${screen.tablet`
     max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'tablet')};
-  `}
+  `};
 
   ${screen.desktop`
     max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'desktop')};
-  `}
+  `};
 
   ${screen.overDesktop`
     max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'hd')};
-  `}
+  `};
 `
 
 const SideBar = sideBarFactory.getArticleSideBar()

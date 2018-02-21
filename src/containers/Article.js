@@ -27,12 +27,12 @@ import { BottomRelateds } from '../components/article/BottomRelateds'
 import { BottomTags } from '../components/article/BottomTags'
 import { Introduction } from '../components/article/Introduction'
 import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
+import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { getAbsPath, getScreenType } from '../utils/index'
-import { globalColor, colors, componentMargin, letterSpace } from '../themes/common-variables'
+import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
-import { articleLayout as layout } from '../themes/layout'
 //testing
 import { TITLE_POSITION_ABOVE, TITLE_POSITION_UPON_LEFT,  NAVBAR_POSITION_UPON } from '../constants/page-themes'
 
@@ -67,32 +67,31 @@ const ArticleContainer = styled.div`
 `
 
 const Content = styled.div`
-  color: ${ props => (props.fontColor ? props.fontColor : globalColor.textColor)};
+  color: ${ props => (props.fontColor ? props.fontColor : colors.gray.gray25)};
   a {
-      border-bottom: 1px ${globalColor.primaryColor} solid;
+      border-bottom: 1px ${colors.primaryColor} solid;
       cursor: pointer;
       transition: 0.5s color ease;
       position: relative;
-      color: ${ props => (props.fontColor ? props.fontColor : globalColor.textColor)};
-      letter-spacing: ${letterSpace.generalLetterSpace};
+      color: ${ props => (props.fontColor ? props.fontColor : colors.gray.gray25)};
       &:hover {
-        color: ${globalColor.primaryColor};
+        color: ${colors.primaryColor};
       }
   }
 `
 
 const IntroductionContainer = styled.div`
   display: block;
-  margin: 0 auto ${componentMargin.doubleMarginBottom} auto;
+  margin: 0 auto 80px auto;
   ${screen.desktopAbove`
     width: ${layout.desktop.width.small}px;
-  `}
+  `};
   ${screen.tablet`
     width: ${layout.tablet.width.small}px;
-  `}
+  `};
   ${screen.mobile`
-    margin: 0 ${componentMargin.horizontalMargin} ${componentMargin.doubleMarginBottom} ${componentMargin.horizontalMargin};
-  `}
+    margin: 0 24px 80px 24px;
+  `};
 `
 
 const HeaderContainer = styled.div`
@@ -548,7 +547,7 @@ class Article extends PureComponent {
             </Content>
             <License license={license} publishedDate={article.publishedDate}/>
             <div className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
-              <div className={cx('inner-max', commonStyles['component'])}>
+              <div className={commonStyles['component']}>
                 <BottomTags
                   data={article.tags}
                 />

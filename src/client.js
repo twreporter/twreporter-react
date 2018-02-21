@@ -9,9 +9,8 @@ import configureStore from './store/configureStore'
 import createRoutes from './routes'
 import match from 'react-router/lib/match'
 import { Provider } from 'react-redux'
-import { colors, layout, letterSpace, lineHeight, typography } from './themes/common-variables'
+import { colors, lineHeight, typography } from './themes/common-variables'
 import { injectGlobal } from 'styled-components'
-import { screen as mq } from './themes/screen'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // inject global styles into html
@@ -24,7 +23,7 @@ injectGlobal`
     }
   }
   body {
-    letter-spacing: ${letterSpace.generalLetterSpace};
+    letter-spacing: 0.4px;
     line-height: ${lineHeight.lineHeightMedium};
     font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     abbr[title], abbr[data-original-title] {
@@ -54,18 +53,6 @@ injectGlobal`
 
     .container {
       line-height: ${lineHeight.linHeightLarge};
-    }
-
-    .inner-max {
-      ${mq.desktopAbove`
-        max-width: ${layout.article.innerWidth};
-      `}
-    }
-
-    .outer-max {
-      ${mq.desktopAbove`
-        max-width: ${layout.article.outerWidth};
-      `}
     }
 
     .no-hover {

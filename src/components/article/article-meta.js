@@ -1,4 +1,4 @@
-import { componentMargin, layout } from '../../themes/common-variables'
+import { articleLayout as layout } from '../../themes/layout'
 import { HeadingAuthor } from './HeadingAuthor'
 import { PublishDate } from './PublishDate'
 import { screen } from '../../themes/screen'
@@ -15,14 +15,14 @@ const Container = styled.div`
     margin-bottom: 24px;
   }
   ${screen.desktopAbove`
-    width: ${layout.desktop.small};
-    margin-bottom: ${componentMargin.marginBottom};
+    width: ${layout.desktop.width.small}px;
+    margin-bottom: 40px;
   `}
   ${screen.tablet`
-    width: ${layout.tablet.small};
+    width: ${layout.tablet.width.small}px;
   `}
   ${screen.mobile`
-    margin: 0 ${componentMargin.horizontalMargin} 24px ${componentMargin.horizontalMargin};
+    margin: 0 24px 24px 24px;
   `}
 `
 

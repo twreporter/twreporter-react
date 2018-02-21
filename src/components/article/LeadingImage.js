@@ -11,9 +11,11 @@ import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 
 const _ = {
-  get
+  get,
+  merge
 }
 
 const getMaxWidthBySize = (size, device) => {
@@ -111,9 +113,13 @@ class LeadingImage extends SharedImage {
   }
 }
 
-LeadingImage.propTypes.size = PropTypes.string
-LeadingImage.propTypes.imgObj = PropTypes.object.isRequired
+LeadingImage.propTypes = _.merge({}, SharedImage.propTypes, {
+  size: PropTypes.string,
+  imgObj: PropTypes.object.isRequired
+})
 
-LeadingImage.defaultProps.size = 'normal'
+LeadingImage.defaultProps = _.merge({}, SharedImage.defaultProps, {
+  size: 'normal'
+})
 
 export default LeadingImage

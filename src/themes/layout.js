@@ -1,6 +1,9 @@
 import sz from '../constants/screen-size'
 
 export const articleLayout = {
+  mobile: {
+    width: '100%'
+  },
   tablet: {
     width: {
       large: sz.mediumScreenMinWidth,
@@ -13,10 +16,6 @@ export const articleLayout = {
       large: sz.largeScreenMinWidth,
       medium: 833,
       small: 664
-    },
-    offset: {
-      sidebar: 50,
-      tools: 20
     }
   },
   hd: {
@@ -24,10 +23,10 @@ export const articleLayout = {
       large: sz.xlargeScreenMinWidth,
       medium: 880,
       small: 700
-    },
-    offset: {
-      sidebar: 50,
-      tools: 20
     }
   }
+}
+
+export default {
+  article: articleLayout
 }

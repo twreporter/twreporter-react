@@ -3,7 +3,7 @@ import { date2yyyymmdd } from '../../utils/index'
 import Link from 'react-router/lib/Link'
 import { LINK_PREFIX } from '../../constants/index'
 import { screen } from '../../themes/screen'
-import { typography, globalColor, colors } from '../../themes/common-variables'
+import { typography, colors } from '../../themes/common-variables'
 import get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -61,7 +61,7 @@ const Title = HeaderElementBlock.extend`
   margin: 0;
   font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
-  color: ${props => (colorselector(props, globalColor.textColor))};
+  color: ${props => (colorselector(props, colors.gray.gray25))};
   font-size: 60px;
   ${screen.mobile`
     font-size: 36px;

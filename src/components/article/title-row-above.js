@@ -1,13 +1,13 @@
-import { colors, componentMargin, globalColor, layout, typography } from '../../themes/common-variables'
-
-import { LINK_PREFIX } from '../../constants/index'
 import Link from 'react-router/lib/Link'
-import React from 'react'
-import { date2yyyymmdd } from '../../utils/index'
-import get from 'lodash/get'
-import { screen } from '../../themes/screen'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import React from 'react'
+import get from 'lodash/get'
+import styled from 'styled-components'
+import { LINK_PREFIX } from '../../constants/index'
+import { articleLayout as layout } from '../../themes/layout'
+import { colors, typography } from '../../themes/common-variables'
+import { date2yyyymmdd } from '../../utils/index'
+import { screen } from '../../themes/screen'
 
 const _ = {
   get
@@ -28,13 +28,13 @@ const Container = styled.div`
   display: block;
   margin: 0 auto 24px auto;
   ${screen.desktopAbove`
-    width: ${layout.desktop.small};
+    width: ${layout.desktop.width.small}px;
   `}
   ${screen.tablet`
-    width: ${layout.tablet.small};
+    width: ${layout.tablet.width.small}px;
   `}
   ${screen.mobile`
-    margin: 0 ${componentMargin.horizontalMargin} 24px ${componentMargin.horizontalMargin};
+    margin: 0 24px 24px 24px;
   `}
 `
 
@@ -58,7 +58,7 @@ const Title = HeaderElementBlock.extend`
   font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
   font-size: 42px;
-  color: ${props => (colorSelector(props, globalColor.textColor))};
+  color: ${props => (colorSelector(props, colors.gray.gray25))};
   ${screen.desktop`
     font-size: 38px;
   `}

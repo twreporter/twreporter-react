@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import styled, { css } from 'styled-components'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/react-components/lib/header'
-import { layout } from '../themes/common-variables'
+import PropTypes from 'prop-types'
+import React from 'react'
+import hoistStatics from 'hoist-non-react-statics'
+import styled, { css } from 'styled-components'
+import { articleLayout as layout } from '../themes/layout'
 
 const STYLE_VARIABLES = {
   BG_COLOR: {
@@ -76,7 +77,7 @@ const HeaderContainer = styled.div`
         return ''
       default:
         return css`
-          @media (min-width: ${layout.desktop.large}) {
+          @media (min-width: ${layout.desktop.width.large}px) {
             display: none;
           }
         `
@@ -150,7 +151,7 @@ function getDisplayName(WrappedComponent) {
  */
 export default function withLayout(WrappedComponent, options = {}) {
   const { lockScrollY } = options
-  return class WithLayout extends React.Component {
+  class WithLayout extends React.Component {
     static displayName = `WithLayout(${getDisplayName(WrappedComponent)})`
     static propTypes = {
       theme: PropTypes.shape({
@@ -169,13 +170,6 @@ export default function withLayout(WrappedComponent, options = {}) {
     static defaultProps = {
       theme: defaultTheme,
       isIndex: false
-    }
-
-    static fetchData(props) {
-      if (WrappedComponent.fetchData) {
-        return WrappedComponent.fetchData(props)
-      }
-      return Promise.resolve()
     }
 
     render() {
@@ -197,6 +191,7 @@ export default function withLayout(WrappedComponent, options = {}) {
       )
     }
   }
+  return hoistStatics(WithLayout, WrappedComponent)
 }
 
 export {
