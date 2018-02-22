@@ -8,6 +8,7 @@ import Footer from '@twreporter/react-components/lib/footer'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
+import FullScreenImage from '../components/shared/FullScreenImage'
 import SystemError from '../components/SystemError'
 import classNames from 'classnames'
 import styles from './TopicLandingPage.scss'
@@ -122,6 +123,28 @@ class TopicLandingPage extends Component {
     const Cards = cardsFactory.buildWithTheme(cardsTheme)
     const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: cardsContainerBgColor })
 
+    const videoSrc = _.get(leadingVideo, 'url')
+
+    const LeadingComp = videoSrc ? (
+      <LeadingVideo
+        classNames={{
+          container: styles['leading-block'],
+          video: styles.video,
+          poster: styles.video,
+          audioBt: styles['audio-bt']
+        }}
+        filetype={_.get(leadingVideo, 'filetype')}
+        src={videoSrc}
+        title={title}
+        poster={ogImage}
+      />
+    ) : (
+      <FullScreenImage
+        imgSet={_.get(leadingImage, 'resizedTargets')}
+        portraitImgSet={_.get(topic, 'leadingImagePortrait.resizedTargets')}
+      />
+    )
+
     return (
       <div className={styles['topic-page-conainer']}>
         <Helmet
@@ -147,19 +170,7 @@ class TopicLandingPage extends Component {
           isFixedToTop={false}
           title={title}
         />
-        <LeadingVideo
-          classNames={{
-            container: styles['leading-block'],
-            video: styles.video,
-            poster: styles.video,
-            audioBt: styles['audio-bt']
-          }}
-          filetype={_.get(leadingVideo, 'filetype')}
-          poster={_.get(leadingImage, 'resizedTargets')}
-          portraitPoster={_.get(topic, 'leadingImagePortrait.resizedTargets')}
-          src={_.get(leadingVideo, 'url')}
-          title={title}
-        />
+        {LeadingComp}
         <Banner
           headline={headline}
           title={title}
