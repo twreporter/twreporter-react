@@ -15,6 +15,7 @@ const _ = {
 
 class Image extends React.PureComponent {
   render() {
+    const { toShowCaption } = this.props
     const { description, desktop, mobile, original, tablet, tiny } = _.get(this.props, 'content.0', {})
 
     return (
@@ -32,7 +33,7 @@ class Image extends React.PureComponent {
           desktop: layout.desktop.width.medium + 'px',
           hd: layout.hd.width.medium + 'px'
         }}
-        toShowCaption
+        toShowCaption={toShowCaption}
       />
     )
   }
