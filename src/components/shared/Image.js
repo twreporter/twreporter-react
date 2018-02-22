@@ -5,7 +5,8 @@ import get from 'lodash/get'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { colors, lineHeight, typography } from '../../themes/common-variables'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import { replaceStorageUrlPrefix } from '../../utils/url'
+import { getSrcSet } from '../../utils/img'
 
 const _ = {
   get
@@ -103,12 +104,6 @@ class Image extends React.PureComponent {
     })
   }
 
-  _getSrcset(imgSet) {
-    return `${replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))} ${_.get(imgSet, 'mobile.width')}w,` +
-      `${replaceStorageUrlPrefix(_.get(imgSet, 'tablet.url'))} ${_.get(imgSet, 'tablet.width')}w, ` +
-      `${replaceStorageUrlPrefix(_.get(imgSet, 'desktop.url'))} ${_.get(imgSet, 'desktop.width')}w`
-  }
-
   _getSizes(imgSizes) {
     if (!imgSizes) {
       return null
@@ -119,17 +114,17 @@ class Image extends React.PureComponent {
     const tabletSize = _.get(imgSizes, 'tablet')
     const mobileSize = _.get(imgSizes, 'mobile')
 
-    return `(min-width: 0px)  ${mobileSize}, ` +
-      `(min-width: ${layout.tablet.width.large}px) ${tabletSize}, ` +
+    return `(min-width: ${layout.hd.width.large}px) ${hdSize}, ` +
       `(min-width: ${layout.desktop.width.large}px) ${desktopSize}, ` +
-      `(min-width: ${layout.hd.width.large}px) ${hdSize}`
+      `(min-width: ${layout.tablet.width.large}px) ${tabletSize}, ` +
+      `(min-width: 0px)  ${mobileSize}`
   }
 
   render() {
     const { isLoaded } = this.state
     const { alt, imgSet, imgSizes } = this.props
     const { ImgBox, ImgContainer, ImgPlaceholder }  = this._styledComponetns
-    const srcset = this._getSrcset(imgSet)
+    const srcset = getSrcSet(imgSet)
     const sizes = this._getSizes(imgSizes)
 
     return (

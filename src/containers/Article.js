@@ -30,7 +30,8 @@ import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../const
 import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { getAbsPath, getScreenType } from '../utils/index'
+import { getScreenType } from '../utils/screen'
+import { getAbsPath } from '../utils/url'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
 //testing

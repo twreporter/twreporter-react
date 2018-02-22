@@ -1,8 +1,8 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
-import { shortenString } from '../../utils/index'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import { replaceStorageUrlPrefix } from '../../utils/url'
+import { shortenString } from '../../utils/string'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import LazyLoad from 'react-lazyload'

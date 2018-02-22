@@ -11,7 +11,7 @@ import withLayout, { photoTheme as theme } from '../helpers/with-layout'
 import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { denormalizeArticles, getCatId } from '../utils/index'
+import { denormalizeArticles } from '../utils/denormalize-articles'
 
 // lodash
 import filter from 'lodash/filter'

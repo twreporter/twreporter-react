@@ -9,5 +9,5 @@ export default {
   mediumScreenMinWidth: md,
   largeScreenMinWidth: lg,
   largeScreenMaxWidth: xl - 1,
-  xlargeScreenMinWidth: xl
+  xLargeScreenMinWidth: xl
 }

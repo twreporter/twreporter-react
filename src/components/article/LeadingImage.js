@@ -1,13 +1,14 @@
 /* eslint no-unused-vars:0 */
 'use strict'
-import SharedImage from '../shared/Image'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
+import SharedImage from '../shared/Image'
 import styled from 'styled-components'
 import { TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
 import { articleLayout as layout } from '../../themes/layout'
+import { getSrcSet } from '../../utils/img'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 import { screen } from '../../themes/screen'
-import { replaceStorageUrlPrefix } from '../../utils/index'
 
 // lodash
 import get from 'lodash/get'
@@ -73,7 +74,7 @@ class LeadingImage extends SharedImage {
         height: _.get(imgObj, 'height')
       }
     }
-    const srcset = this._getSrcset(imgSet)
+    const srcset = getSrcSet(imgSet)
 
     const imgSizes = {
       mobile: '95vw',

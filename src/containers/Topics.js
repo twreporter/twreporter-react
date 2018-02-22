@@ -14,7 +14,8 @@ import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
 import { InternalServerError } from '../custom-error'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
-import { date2yyyymmdd, formatPostLinkTarget, formatPostLinkTo } from '../utils'
+import { date2yyyymmdd } from '../utils/date'
+import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
 
 const _ = {
   concat,

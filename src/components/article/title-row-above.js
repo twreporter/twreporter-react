@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { LINK_PREFIX } from '../../constants/index'
 import { articleLayout as layout } from '../../themes/layout'
 import { colors, typography } from '../../themes/common-variables'
-import { date2yyyymmdd } from '../../utils/index'
+import { date2yyyymmdd } from '../../utils/date'
 import { screen } from '../../themes/screen'
 
 const _ = {

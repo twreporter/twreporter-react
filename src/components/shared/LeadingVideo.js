@@ -8,7 +8,9 @@ import cx from 'classnames'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
 import style from './LeadingVideo.scss'
-import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/index'
+import sz from '../../constants/screen-size'
+import { getSrcSet } from '../../utils/img'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 
 // lodash
 import get from 'lodash/get'
@@ -80,18 +82,11 @@ class LeadingVideo extends React.Component {
   render() {
     const { classNames, filetype, loop, poster, portraitPoster, src, title } = this.props
     const { isMuted } = this.state
-    const imgSrcSet = getImageSrcSet(poster)
     const imgSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
-    let portraitImgSrcSet = imgSrcSet
-    let portraitImgSrc = imgSrc
-    if (portraitPoster) {
-      portraitImgSrcSet = getImageSrcSet(portraitPoster)
-      portraitImgSrc = replaceStorageUrlPrefix(get(portraitPoster, 'mobile.url', ''))
-    }
+
     let placeHolderJSX = null
     let videoJSX = null
     let posterJSX = null
-    let portraitPosterJSX = null
 
     if (!this._isMounted) {
       // avoid the layout from flashing, render the empty div with 100vh height
@@ -102,20 +97,18 @@ class LeadingVideo extends React.Component {
 
     if (!src) {
       posterJSX = (
-        <img
-          className={cx(_.get(classNames, 'poster', style['poster']), style['poster'])}
-          src={imgSrc}
-          srcSet={imgSrcSet}
-          alt={title}
-        />
-      )
-      portraitPosterJSX = (
-        <img
-          className={cx(_.get(classNames, 'poster', style['poster']), style['portrait-poster'])}
-          src={portraitImgSrc}
-          srcSet={portraitImgSrcSet}
-          alt={title}
-        />
+        <picture
+          style={{
+            width: '100%',
+            height: '100%'
+          }}
+        >
+          <source media={`(orientation: portrait)`} srcSet={getSrcSet(portraitPoster)} />
+          <source srcSet={getSrcSet(poster)} />
+          <img
+            className={_.get(classNames, 'poster', style['poster'])}
+            src={imgSrc} />
+        </picture>
       )
     } else {
       // On the mobile devices (iOS 10 above),
@@ -161,7 +154,6 @@ class LeadingVideo extends React.Component {
           {placeHolderJSX}
           {videoJSX}
           {posterJSX}
-          {portraitPosterJSX}
         </div>
       </Waypoint>
     )

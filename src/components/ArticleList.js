@@ -1,10 +1,10 @@
-import React from 'react'
-import More from '../components/More'
 import Link from 'react-router/lib/Link'
-import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../utils/index'
-import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
+import More from '../components/More'
+import React from 'react'
 import styled, { css } from 'styled-components'
+import SharedImage from '../components/shared/Image'
+import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { date2yyyymmdd } from '../utils/date'
 import { typography } from '../themes/common-variables'
 
 // lodash
@@ -69,14 +69,14 @@ const ImageWrapper = styled.div`
   }
 `
 
-const ItemImage = styled.img`
-  width: 100%;
-  height: auto;
-  @media only screen and (max-width: ${breakPoint}px) {
-    width: 100%;
-    height: auto;
-  }
-`
+//const ItemImage = styled.img`
+//  width: 100%;
+//  height: auto;
+//  @media only screen and (max-width: ${breakPoint}px) {
+//    width: 100%;
+//    height: auto;
+//  }
+//`
 
 const ItemDescBox = styled.div`
   width: 100%;
@@ -164,27 +164,32 @@ const List = styled.ul`
 export default class ListArticleItem extends React.PureComponent {
   _buildItem(article) {
     const { id, publishedDate, style, slug, title } = article
-    const image = getArticleImageSrc(article)
-    const imageSrcSet = getArticleImageSrcSet(article)
     const dateString = date2yyyymmdd(publishedDate , '.')
     const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
     const excerpt =  _.get(article, 'ogDescription', '')
-    if (image) {
-      return (
-        <Item key={id}>
-          <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
-            <ImageWrapper>
-              <ItemImage src={image} srcSet={imageSrcSet}/>
-            </ImageWrapper>
-            <ItemDescBox>
-              <ItemTitle>{title}</ItemTitle>
-              <ItemExcerpt>{excerpt}</ItemExcerpt>
-              <Date dateTime={date2yyyymmdd(publishedDate, '-')}>{dateString}</Date>
-            </ItemDescBox>
-          </Link>
-        </Item>
-      )
-    }
+    return (
+      <Item key={id}>
+        <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
+          <ImageWrapper>
+            <SharedImage
+              imgSet={_.get(article, 'heroImage.resizedTargets') || _.get(article, 'ogImage.resizedTargets')}
+              imgSizes={{
+                mobile: '95vw',
+                tablet: '95vw',
+                desktop: '451px',
+                hd: '555px'
+              }}
+              toShowCaption={false}
+            />
+          </ImageWrapper>
+          <ItemDescBox>
+            <ItemTitle>{title}</ItemTitle>
+            <ItemExcerpt>{excerpt}</ItemExcerpt>
+            <Date dateTime={date2yyyymmdd(publishedDate, '-')}>{dateString}</Date>
+          </ItemDescBox>
+        </Link>
+      </Item>
+    )
   }
 
   _buildItemList(articles) {

@@ -11,7 +11,7 @@ import PlayIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import Image from './Image'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 import 'rc-slider/assets/index.css'
 import './rcslider-overwrite.css'
 

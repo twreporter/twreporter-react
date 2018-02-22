@@ -20,7 +20,7 @@ export const articleLayout = {
   },
   hd: {
     width: {
-      large: sz.xlargeScreenMinWidth,
+      large: sz.xLargeScreenMinWidth,
       medium: 880,
       small: 700
     }

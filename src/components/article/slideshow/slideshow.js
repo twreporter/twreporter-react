@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
-import { replaceStorageUrlPrefix } from '../../../utils/index'
+import { replaceStorageUrlPrefix } from '../../../utils/url'
 
 // lodash
 import forEach from 'lodash/forEach'
