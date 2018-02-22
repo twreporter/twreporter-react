@@ -41,7 +41,7 @@ const Caption = styled.figcaption`
   margin: 16px 24px 0 24px;
 `
 
-const _ImgContainer = styled.div`
+const ImgContainer = styled.div`
   position: relative;
   padding-bottom: ${(props) => {
     const height = props.height
@@ -50,7 +50,7 @@ const _ImgContainer = styled.div`
   }}
 `
 
-const _ImgPlaceholder = styled.div`
+const ImgPlaceholder = styled.div`
   display: block;
   position: absolute;
   top: 50%;
@@ -59,7 +59,7 @@ const _ImgPlaceholder = styled.div`
   visibility: ${props => props.toShow ? 'visible' : 'hidden'};
 `
 
-const _ImgBox = styled.div`
+const ImgBox = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -81,12 +81,6 @@ class Image extends React.PureComponent {
       isLoaded: false
     }
     this.onLoad = this._onLoad.bind(this)
-
-    this._styledComponetns = {
-      ImgContainer: _ImgContainer,
-      ImgBox: _ImgBox,
-      ImgPlaceholder: _ImgPlaceholder
-    }
   }
 
   componentDidMount() {
@@ -123,7 +117,6 @@ class Image extends React.PureComponent {
   render() {
     const { isLoaded } = this.state
     const { alt, imgSet, imgSizes } = this.props
-    const { ImgBox, ImgContainer, ImgPlaceholder }  = this._styledComponetns
     const srcset = getSrcSet(imgSet)
     const sizes = this._getSizes(imgSizes)
 
@@ -165,6 +158,10 @@ class Image extends React.PureComponent {
     )
   }
 }
+
+Image.ImgBox = ImgBox
+Image.ImgPlaceholder = ImgPlaceholder
+Image.ImgContainer = ImgContainer
 
 Image.propTypes = {
   alt: PropTypes.string,
