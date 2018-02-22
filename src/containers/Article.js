@@ -5,7 +5,7 @@ import ArticleMeta from '../components/article/article-meta'
 import ArticleTools from './ArticleTools'
 import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
-import LeadingImage from '../components/article/LeadingImage'
+import HeroImage from '../components/article/HeroImage'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import License from '../components/shared/License'
 import LogoIcon from '../../static/asset/icon-placeholder.svg'
@@ -480,7 +480,7 @@ class Article extends PureComponent {
                 {
                   !leadingVideo && !this.props.ifDelegateImage ?
                     <div className={styles['leading-img']}>
-                      <LeadingImage
+                      <HeroImage
                         size={heroImageSize}
                         description={_.get(article, 'leadingImageDescription', '')}
                         imgObj={heroImage}
@@ -510,7 +510,7 @@ class Article extends PureComponent {
                             />
                           : null
                         }
-                      </LeadingImage>
+                      </HeroImage>
                     </div> : null
                 }
 

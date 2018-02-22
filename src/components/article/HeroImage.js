@@ -33,7 +33,7 @@ const getMaxWidthBySize = (size, device) => {
   }
 }
 
-const LeadingImgContainer = styled.figure`
+const Container = styled.figure`
   max-width: 100%;
   margin: 0 auto;
 
@@ -60,11 +60,10 @@ const ImgPlaceholder = styled.img`
   transition: opacity .5s linear, visibility .5s linear;
 `
 
-class LeadingImage extends SharedImage {
+class HeroImage extends SharedImage {
   render() {
     const { isLoaded } = this.state
     const { alt, imgObj, size } = this.props
-    const { ImgBox, ImgContainer, ImgPlaceholder }  = this._styledComponetns
 
     const imgSet = {
       ..._.get(imgObj, 'resizedTargets', {}),
@@ -85,10 +84,10 @@ class LeadingImage extends SharedImage {
     const sizes = this._getSizes(imgSizes)
 
     return (
-      <LeadingImgContainer
+      <Container
         size={size}
       >
-        <ImgContainer
+        <SharedImage.ImgContainer
           height={_.get(imgSet, 'tiny.height')}
           width={_.get(imgSet, 'tiny.width')}
         >
@@ -96,7 +95,7 @@ class LeadingImage extends SharedImage {
             src={_.get(imgSet, 'tiny.url')}
             toShow={!isLoaded}
           />
-          <ImgBox
+          <SharedImage.ImgBox
             toShow={isLoaded}
           >
             <img
@@ -107,20 +106,20 @@ class LeadingImage extends SharedImage {
               srcSet={srcset}
               ref={node => { this._imgNode = node }}
             />
-          </ImgBox>
-        </ImgContainer>
-      </LeadingImgContainer>
+          </SharedImage.ImgBox>
+        </SharedImage.ImgContainer>
+      </Container>
     )
   }
 }
 
-LeadingImage.propTypes = _.merge({}, SharedImage.propTypes, {
+HeroImage.propTypes = _.merge({}, SharedImage.propTypes, {
   size: PropTypes.string,
   imgObj: PropTypes.object.isRequired
 })
 
-LeadingImage.defaultProps = _.merge({}, SharedImage.defaultProps, {
+HeroImage.defaultProps = _.merge({}, SharedImage.defaultProps, {
   size: 'normal'
 })
 
-export default LeadingImage
+export default HeroImage
