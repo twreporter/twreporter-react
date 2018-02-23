@@ -6,9 +6,10 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/TopNews'
 import categoryListID from '../conf/category-list-id'
+import pt from '../constants/page-themes'
 import twreporterRedux from '@twreporter/redux'
-import withLayout, { photoTheme as theme } from '../helpers/with-layout'
-import { CATEGORY, DARK, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
+import withLayout from '../helpers/with-layout'
+import { CATEGORY, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -99,7 +100,7 @@ class Photography extends Component {
         <TopNews topnews={topNewsItems} />
         <ArticleList
           articles={posts}
-          bgStyle={DARK}
+          bgStyle={pt.tone.dark}
           hasMore={total > _.get(lists, [ listID, 'items', 'length' ], 0)}
           loadMore={this.loadMoreArticles}
         />
@@ -128,7 +129,7 @@ function mapStateToProps(state) {
     featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ]),
 
     // theme is used by `withLayout` function
-    theme
+    theme: pt.photoTheme
   }
 }
 

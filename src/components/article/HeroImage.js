@@ -2,7 +2,7 @@
 'use strict'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
-import SharedImage from '../shared/Image'
+import ResolutionSwitchingImage from '../shared/Image'
 import constPt from '../../constants/prop-types'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
@@ -60,7 +60,7 @@ const ImgPlaceholder = styled.img`
   transition: visibility .5s linear 1s;
 `
 
-class ExtendingSharedImage extends SharedImage {
+class Image extends ResolutionSwitchingImage {
   constructor(props) {
     super(props)
     this._renderImgPlaceHolder = this._renderImgPlaceHolder.bind(this)
@@ -101,7 +101,7 @@ class HeroImage extends React.PureComponent {
       <Container
         size={size}
       >
-        <ExtendingSharedImage
+        <Image
           imgSizes={imgSizes}
           imgSet={imgSet}
           toShowCaption={!!alt}
@@ -112,14 +112,15 @@ class HeroImage extends React.PureComponent {
   }
 }
 
-HeroImage.propTypes = _.merge({}, SharedImage.propTypes, {
+HeroImage.propTypes = {
   alt: PropTypes.string,
   imgObj: constPt.imgObjPt.isRequired,
   size: PropTypes.string
-})
+}
 
-HeroImage.defaultProps = _.merge({}, SharedImage.defaultProps, {
+HeroImage.defaultProps =  {
+  alt: '',
   size: 'normal'
-})
+}
 
 export default HeroImage

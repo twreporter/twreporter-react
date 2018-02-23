@@ -1,9 +1,10 @@
 import Link from 'react-router/lib/Link'
 import More from '../components/More'
 import React from 'react'
+import ResolutionSwitchingImage from '../components/shared/Image'
+import pt from '../constants/page-themes'
 import styled, { css } from 'styled-components'
-import SharedImage from '../components/shared/Image'
-import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '../utils/date'
 import { typography } from '../themes/common-variables'
 
@@ -128,7 +129,7 @@ const Date = styled.time`
 
 const bgStyleSelector = bgStyle => {
   switch (bgStyle) {
-    case DARK:
+    case pt.tone.dark:
       return css`
         ${ItemTitle}, ${ItemExcerpt}, ${Date} {
           color: #F7F7F7;
@@ -171,7 +172,7 @@ export default class ListArticleItem extends React.PureComponent {
       <Item key={id}>
         <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           <ImageWrapper>
-            <SharedImage
+            <ResolutionSwitchingImage
               imgSet={_.get(article, 'heroImage.resizedTargets') || _.get(article, 'ogImage.resizedTargets')}
               imgSizes={{
                 mobile: '95vw',

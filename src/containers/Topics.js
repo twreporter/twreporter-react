@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import withLayout from '../helpers/with-layout'
 import twreporterRedux from '@twreporter/redux'
 import uniq from 'lodash/uniq'
-import { BRIGHT, LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
 import { InternalServerError } from '../custom-error'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
@@ -212,8 +212,6 @@ function mapStateToProps(state, ownProps) {
   const topicListError = _.get(topicList, 'error', null)
   const topicError = _.get(selectedTopic, 'error', null)
 
-  const pageTheme = _.get(state, 'header.pageTheme', BRIGHT)
-
   return ({
     page: locationPage,
     nPerPage,
@@ -223,8 +221,7 @@ function mapStateToProps(state, ownProps) {
     isTopicsFetching,
     topicListError,
     topicError,
-    pathname,
-    pageTheme
+    pathname
   })
 }
 
