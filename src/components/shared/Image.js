@@ -2,35 +2,16 @@ import PlaceholderSVG from '../../../static/asset/img-loading-placeholder.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash/get'
+import constPt from '../../constants/prop-types'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { colors, lineHeight, typography } from '../../themes/common-variables'
-import { replaceStorageUrlPrefix } from '../../utils/url'
 import { getSrcSet } from '../../utils/img'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 
 const _ = {
   get
 }
-
-const _imageProp = PropTypes.shape({
-  height: PropTypes.number,
-  width: PropTypes.number,
-  url: PropTypes.string
-})
-
-const _imgSetProp = PropTypes.shape({
-  tiny: _imageProp,
-  mobile: _imageProp,
-  desktop: _imageProp,
-  tablet: _imageProp,
-  original: _imageProp
-})
-
-const _imgSizesProp = PropTypes.shape({
-  tablet: PropTypes.string,
-  desktop: PropTypes.string,
-  hd: PropTypes.string
-})
 
 const Caption = styled.figcaption`
   display: ${props => props.toShow ? 'block': 'none' };
@@ -114,10 +95,20 @@ class Image extends React.PureComponent {
       `(min-width: 0px)  ${mobileSize}`
   }
 
+  _renderImgPlaceHolder(toShow) {
+    return (
+      <ImgPlaceholder
+        toShow={toShow}
+      >
+        <PlaceholderSVG />
+      </ImgPlaceholder>
+    )
+  }
+
   render() {
     const { isLoaded } = this.state
     const { alt, imgSet, imgSizes } = this.props
-    const srcset = getSrcSet(imgSet)
+    const srcSet = getSrcSet(imgSet)
     const sizes = this._getSizes(imgSizes)
 
     return (
@@ -130,11 +121,7 @@ class Image extends React.PureComponent {
           height={_.get(imgSet, 'tiny.height')}
           width={_.get(imgSet, 'tiny.width')}
         >
-          <ImgPlaceholder
-            toShow={!isLoaded}
-          >
-            <PlaceholderSVG />
-          </ImgPlaceholder>
+          {this._renderImgPlaceHolder(!isLoaded)}
           <ImgBox
             toShow={isLoaded}
           >
@@ -143,7 +130,7 @@ class Image extends React.PureComponent {
               sizes={sizes}
               onLoad={this.onLoad}
               src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
-              srcSet={srcset}
+              srcSet={srcSet}
               ref={node => { this._imgNode = node }}
             />
           </ImgBox>
@@ -159,14 +146,10 @@ class Image extends React.PureComponent {
   }
 }
 
-Image.ImgBox = ImgBox
-Image.ImgPlaceholder = ImgPlaceholder
-Image.ImgContainer = ImgContainer
-
 Image.propTypes = {
   alt: PropTypes.string,
-  imgSet: _imgSetProp,
-  imgSizes: _imgSizesProp,
+  imgSet: constPt.imgPt,
+  imgSizes: constPt.imgSizesPt,
   toShowCaption: PropTypes.bool
 }
 

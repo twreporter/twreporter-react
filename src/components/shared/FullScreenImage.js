@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import SharedImage from './Image'
+import constPt from '../../constants/prop-types'
 import styled from 'styled-components'
 import { replaceStorageUrlPrefix } from '../../utils/url'
 import { getSrcSet } from '../../utils/img'
@@ -27,18 +27,26 @@ const ImgPlaceholder = styled.img`
   display: block;
   filter: blur(5px);
   position: absolute;
-  opacity: ${props => props.toShow ? '1' : '0'};
+  opacity: 1;
   visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  transition: opacity .5s linear, visibility .5s linear;
+  transition: visibility .5s linear 1s;
 `
 
-const StyledPicture = SharedImage.ImgBox.extend`
+const StyledPicture = styled.picture`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
+  opacity: ${props => props.toShow ? '1' : '0.8' };
+  transition: opacity .5s linear 0s;
   > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-`.withComponent('picture')
+`
 
 const ImgFallback = styled.div`
   width: 100%;
@@ -50,12 +58,14 @@ const ImgFallback = styled.div`
   background-position: center center;
 `
 
-class FullScreenImage extends SharedImage {
+class FullScreenImage extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      isObjectFit: true
+      isObjectFit: true,
+      isLoaded: false
     }
+    this.onLoad = this._onLoad.bind(this)
   }
 
   componentWillMount() {
@@ -64,6 +74,21 @@ class FullScreenImage extends SharedImage {
         isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
       })
     }
+  }
+
+  componentDidMount() {
+    // Check if img is already loaded, and cached on the browser.
+    // If cached, React.img won't trigger onLoad event.
+    // Hence, we need to trigger re-rendering.
+    if (this._imgNode) {
+      this.onLoad()
+    }
+  }
+
+  _onLoad() {
+    this.setState({
+      isLoaded: true
+    })
   }
 
   render() {
@@ -108,9 +133,9 @@ FullScreenImage.defaultProps = {
 
 FullScreenImage.propTypes = {
   alt: PropTypes.string,
-  imgSet: SharedImage.propTypes.imgSet,
+  imgSet: constPt.imgSetPt,
   useBackgroundImage: PropTypes.bool,
-  portraitImgSet: SharedImage.propTypes.imgSet
+  portraitImgSet: constPt.imgSetPt
 }
 
 export default FullScreenImage

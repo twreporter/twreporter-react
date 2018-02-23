@@ -30,6 +30,7 @@ import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../const
 import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
+import { date2yyyymmdd } from '../utils/date'
 import { getScreenType } from '../utils/screen'
 import { getAbsPath } from '../utils/url'
 import { colors } from '../themes/common-variables'
@@ -454,6 +455,14 @@ class Article extends PureComponent {
               fontColor={fontColor}
             >
               <article ref={div => {this.progressBegin = div}} className={contentClass}>
+                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+                  <meta itemProp="name" content="報導者" />
+                  <meta itemProp="email" content="contact@twreporter.org" />
+                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
+                  <link itemProp="url" href="https://www.twreporter.org/" />
+                </div>
+                <link itemProp="mainEntityOfPage" href={canonical} />
+                <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
                 {
                   titlePosition === TITLE_POSITION_ABOVE ?
                   <div>
@@ -482,7 +491,7 @@ class Article extends PureComponent {
                     <div className={styles['leading-img']}>
                       <HeroImage
                         size={heroImageSize}
-                        description={_.get(article, 'leadingImageDescription', '')}
+                        alt={_.get(article, 'leadingImageDescription', '')}
                         imgObj={heroImage}
                         titlePosition={titlePosition}
                       >
@@ -493,7 +502,6 @@ class Article extends PureComponent {
                                 isIndex={false}
                                 pathName={pathname}
                                 fontColor={fontColor}
-                                bgColor={''}
                                 logoColor={logoColor}
                                 headerPosition={headerPosition}
                               />

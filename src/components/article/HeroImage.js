@@ -3,8 +3,8 @@
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
 import SharedImage from '../shared/Image'
+import constPt from '../../constants/prop-types'
 import styled from 'styled-components'
-import { TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
 import { articleLayout as layout } from '../../themes/layout'
 import { getSrcSet } from '../../utils/img'
 import { replaceStorageUrlPrefix } from '../../utils/url'
@@ -33,7 +33,7 @@ const getMaxWidthBySize = (size, device) => {
   }
 }
 
-const Container = styled.figure`
+const Container = styled.div`
   max-width: 100%;
   margin: 0 auto;
 
@@ -55,14 +55,30 @@ const ImgPlaceholder = styled.img`
   display: block;
   filter: blur(5px);
   position: absolute;
-  opacity: ${props => props.toShow ? '1' : '0'};
+  opacity: 1;
   visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  transition: opacity .5s linear, visibility .5s linear;
+  transition: visibility .5s linear 1s;
 `
 
-class HeroImage extends SharedImage {
+class ExtendingSharedImage extends SharedImage {
+  constructor(props) {
+    super(props)
+    this._renderImgPlaceHolder = this._renderImgPlaceHolder.bind(this)
+  }
+
+  _renderImgPlaceHolder(toShow) {
+    const src = replaceStorageUrlPrefix(_.get(this.props, 'imgSet.tiny.url'))
+    return (
+      <ImgPlaceholder
+        src={src}
+        toShow={toShow}
+      />
+    )
+  }
+}
+
+class HeroImage extends React.PureComponent {
   render() {
-    const { isLoaded } = this.state
     const { alt, imgObj, size } = this.props
 
     const imgSet = {
@@ -73,7 +89,6 @@ class HeroImage extends SharedImage {
         height: _.get(imgObj, 'height')
       }
     }
-    const srcset = getSrcSet(imgSet)
 
     const imgSizes = {
       mobile: '95vw',
@@ -81,41 +96,26 @@ class HeroImage extends SharedImage {
       desktop: getMaxWidthBySize(size, 'desktop'),
       hd: getMaxWidthBySize(size, 'hd')
     }
-    const sizes = this._getSizes(imgSizes)
 
     return (
       <Container
         size={size}
       >
-        <SharedImage.ImgContainer
-          height={_.get(imgSet, 'tiny.height')}
-          width={_.get(imgSet, 'tiny.width')}
-        >
-          <ImgPlaceholder
-            src={_.get(imgSet, 'tiny.url')}
-            toShow={!isLoaded}
-          />
-          <SharedImage.ImgBox
-            toShow={isLoaded}
-          >
-            <img
-              alt={alt}
-              sizes={sizes}
-              onLoad={this.onLoad}
-              src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
-              srcSet={srcset}
-              ref={node => { this._imgNode = node }}
-            />
-          </SharedImage.ImgBox>
-        </SharedImage.ImgContainer>
+        <ExtendingSharedImage
+          imgSizes={imgSizes}
+          imgSet={imgSet}
+          toShowCaption={!!alt}
+          alt={alt}
+        />
       </Container>
     )
   }
 }
 
 HeroImage.propTypes = _.merge({}, SharedImage.propTypes, {
-  size: PropTypes.string,
-  imgObj: PropTypes.object.isRequired
+  alt: PropTypes.string,
+  imgObj: constPt.imgObjPt.isRequired,
+  size: PropTypes.string
 })
 
 HeroImage.defaultProps = _.merge({}, SharedImage.defaultProps, {
