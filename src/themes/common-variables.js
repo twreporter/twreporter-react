@@ -26,6 +26,7 @@ export const lineHeight = {
 }
 
 export const colors = {
+  white: '#fff',
   gray: {
     gray15: '#262626',
     gray25: '#404040',
@@ -42,6 +43,7 @@ export const colors = {
     lightRed: '#D92616',
     rustyRed: '#c71b0a'
   },
+  photographyColor: '#08192d',
   primaryColor: '#c71b0a',
   secondaryColor: '#a67a44'
 }
