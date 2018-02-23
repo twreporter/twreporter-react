@@ -18,10 +18,11 @@ import TitleRowUpon from '../components/article/title-row-upon'
 import commonStyles from '../components/article/Common.scss'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
+import pt from '../constants/page-themes'
 import styled from 'styled-components'
 import styles from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
-import withLayout, { defaultTheme, photoTheme } from '../helpers/with-layout'
+import withLayout from '../helpers/with-layout'
 import { Body } from '../components/article/Body'
 import { BottomRelateds } from '../components/article/BottomRelateds'
 import { BottomTags } from '../components/article/BottomTags'
@@ -35,8 +36,6 @@ import { getScreenType } from '../utils/screen'
 import { getAbsPath } from '../utils/url'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
-//testing
-import { TITLE_POSITION_ABOVE, TITLE_POSITION_UPON_LEFT,  NAVBAR_POSITION_UPON } from '../constants/page-themes'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -65,10 +64,7 @@ const { fetchAFullPost } = actions
 const ArticleContainer = styled.div`
   background-color: ${ props => (props.bgColor ? props.bgColor : colors.gray.lightGray) };
   min-height: 20em;
-  padding-top: ${ props => (props.titlePosition === TITLE_POSITION_UPON_LEFT ? '0' : '20px') };
-`
-
-const Content = styled.div`
+  padding-top: ${ props => (props.titlePosition === pt.position.title.uponLeft ? '0' : '20px') };
   color: ${ props => (props.fontColor ? props.fontColor : colors.gray.gray25)};
   a {
       border-bottom: 1px ${colors.primaryColor} solid;
@@ -396,16 +392,15 @@ class Article extends PureComponent {
     const pathname = _.get(this.props, 'location.pathname')
 
     // theme
-    const _theme = camelizeKeys(theme)
-    const bgColor = _.get(_theme, 'bgColor')
+    const bgColor = theme.color.bg
     // const footerBgColor = _.get(_theme, 'footer_bg_color')
-    const fontColor = _.get(_theme, 'fontColor')
-    const titlePosition = _.get(_theme, 'titlePosition')
-    const headerPosition = _.get(_theme, 'headerPosition')
-    const titleColor = _.get(_theme, 'titleColor')
-    const subTitleColor = _.get(_theme, 'subtitleColor')
-    const topicColor = _.get(_theme, 'topicColor')
-    const logoColor =  _.get(_theme, 'logoColor')
+    const fontColor = theme.color.font
+    const titlePosition = theme.position.title
+    const headerPosition = theme.position.header
+    const titleColor = theme.color.title
+    const subTitleColor = theme.color.subTitleColor
+    const topicColor = theme.color.topic
+    const logoColor = theme.color.logo
     const fontColorSet = {
       topicFontColor: topicColor,
       titleFontColor: titleColor,
@@ -440,6 +435,7 @@ class Article extends PureComponent {
           <ArticleContainer
             bgColor={bgColor}
             titlePosition={titlePosition}
+            fontColor={fontColor}
           >
             {
               leadingVideo ?
@@ -451,9 +447,6 @@ class Article extends PureComponent {
                 /> : null
             }
             <ReadingProgress ref={ele => this.rp = ele}/>
-            <Content
-              fontColor={fontColor}
-            >
               <article ref={div => {this.progressBegin = div}} className={contentClass}>
                 <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
                   <meta itemProp="name" content="報導者" />
@@ -464,7 +457,7 @@ class Article extends PureComponent {
                 <link itemProp="mainEntityOfPage" href={canonical} />
                 <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
                 {
-                  titlePosition === TITLE_POSITION_ABOVE ?
+                  titlePosition === pt.position.title.above ?
                   <div>
                     <TitleRowAbove
                       article={article}
@@ -487,7 +480,7 @@ class Article extends PureComponent {
                 }
 
                 {
-                  !leadingVideo && !this.props.ifDelegateImage ?
+                  !leadingVideo ?
                     <div className={styles['leading-img']}>
                       <HeroImage
                         size={heroImageSize}
@@ -496,7 +489,7 @@ class Article extends PureComponent {
                         titlePosition={titlePosition}
                       >
                         {
-                          headerPosition === NAVBAR_POSITION_UPON ?
+                          headerPosition === pt.position.header.above ?
                             <HeaderContainer>
                               <Header
                                 isIndex={false}
@@ -509,7 +502,7 @@ class Article extends PureComponent {
                           : null
                         }
                         {
-                          titlePosition === TITLE_POSITION_UPON_LEFT ?
+                          titlePosition === pt.position.title.uponLeft ?
                             <TitleRowUpon
                               article={article}
                               topic={topic}
@@ -523,7 +516,7 @@ class Article extends PureComponent {
                 }
 
                 {
-                  titlePosition === TITLE_POSITION_UPON_LEFT ?
+                  titlePosition === pt.position.title.uponLeft ?
                     <ArticleMeta
                       authors={authors}
                       extendByline={_.get(article, 'extendByline')}
@@ -553,7 +546,6 @@ class Article extends PureComponent {
                   />
                 </div>
               </article>
-            </Content>
             <License license={license} publishedDate={article.publishedDate}/>
             <div className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
               <div className={commonStyles['component']}>
@@ -586,12 +578,12 @@ export function mapStateToProps(state) {
   const selectedPost = state[reduxStateFields.selectedPost]
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
-  let theme = defaultTheme
+  let theme = pt.defaultTheme
+
   // backwards compatible for photo articles
   if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-    theme = photoTheme
+    theme = pt.photoTheme
   }
-  theme = post.theme || theme
 
   return {
     entities,
@@ -610,18 +602,16 @@ Article.contextTypes = {
 
 Article.propTypes = {
   entities: PropTypes.object,
-  ifDelegateImage: PropTypes.bool,
   params: PropTypes.object,
   selectedPost: PropTypes.object,
-  theme: PropTypes.object
+  theme: pt.themePropTypes
 }
 
 Article.defaultProps = {
   entities: {},
-  ifDelegateImage: false,
   params: {},
   selectedPost: {},
-  theme: defaultTheme
+  theme: pt.defaultTheme
 }
 
 export { Article }
