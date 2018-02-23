@@ -67,10 +67,9 @@ class FullScreenImage extends SharedImage {
   }
 
   render() {
-    const { isLoaded } = this.state
-    const { alt, imgSet, portraitImgSet } = this.props
-    const imgSrc = replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))
-    const imgJSX = this.state.isObjectFit ? (
+    const { isLoaded, isObjectFit } = this.state
+    const { alt, imgSet, portraitImgSet, useBackgroundImage } = this.props
+    const imgJSX = isObjectFit && !useBackgroundImage ? (
       <StyledPicture
         toShow={isLoaded}
       >
@@ -80,12 +79,12 @@ class FullScreenImage extends SharedImage {
           alt={alt}
           ref={node => { this._imgNode = node }}
           onLoad={this.onLoad}
-          src={imgSrc}
+          src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
         />
       </StyledPicture>
     ) : (
       <ImgFallback
-        url={imgJSX}
+        url={replaceStorageUrlPrefix(_.get(imgSet, 'desktop.url'))}
       />
     )
     return (
@@ -103,12 +102,14 @@ class FullScreenImage extends SharedImage {
 FullScreenImage.defaultProps = {
   alt: '',
   imgSet: {},
+  useBackgroundImage: false,
   portraitImgSet: {}
 }
 
 FullScreenImage.propTypes = {
   alt: PropTypes.string,
   imgSet: SharedImage.propTypes.imgSet,
+  useBackgroundImage: PropTypes.bool,
   portraitImgSet: SharedImage.propTypes.imgSet
 }
 
