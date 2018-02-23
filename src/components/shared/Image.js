@@ -2,7 +2,7 @@ import PlaceholderSVG from '../../../static/asset/img-loading-placeholder.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash/get'
-import constPt from '../../constants/prop-types'
+import constPropTypes from '../../constants/prop-types'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { colors, lineHeight, typography } from '../../themes/common-variables'
@@ -148,8 +148,8 @@ class Image extends React.PureComponent {
 
 Image.propTypes = {
   alt: PropTypes.string,
-  imgSet: constPt.imgPt,
-  imgSizes: constPt.imgSizesPt,
+  imgSet: constPropTypes.img,
+  imgSizes: constPropTypes.imgSizes,
   toShowCaption: PropTypes.bool
 }
 

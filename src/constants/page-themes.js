@@ -1,5 +1,4 @@
 import { colors } from '../themes/common-variables'
-import PropTypes from 'prop-types'
 
 const bright = 'bright'
 const dark = 'dark'
@@ -7,22 +6,6 @@ const titlePositionAbove = 'title-above'
 const titlePositionUponLeft = 'title-upon-left'
 const headerPositionUpon = 'header-upon'
 const headerPositionAbove = 'header-above'
-
-const themePropTypes = PropTypes.shape({
-  color: PropTypes.shape({
-    bg: PropTypes.string,
-    font: PropTypes.string,
-    footerBg: PropTypes.string,
-    logo: PropTypes.string,
-    subtitle: PropTypes.string,
-    title: PropTypes.string,
-    topic: PropTypes.string
-  }),
-  position: PropTypes.shape({
-    header: PropTypes.string,
-    title: PropTypes.string
-  })
-})
 
 const defaultTheme = {
   color: {
@@ -69,5 +52,8 @@ export default {
       uponLeft: titlePositionUponLeft
     }
   },
-  themePropTypes
+  tone: {
+    bright,
+    dark
+  }
 }

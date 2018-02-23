@@ -1,7 +1,7 @@
 /*eslint no-unused-vars: [2, { "args": "none" }]*/
 'use strict'
 import BlockAlignmentWrapper from './BlockAlignmentWrapper'
-import SharedImage from '../shared/Image'
+import ResolutionSwitchingImage from '../shared/Image'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { articleLayout as layout } from '../../themes/layout'
@@ -19,7 +19,7 @@ class Image extends React.PureComponent {
     const { description, desktop, mobile, original, tablet, tiny } = _.get(this.props, 'content.0', {})
 
     return (
-      <SharedImage
+      <ResolutionSwitchingImage
         alt={description}
         imgSet={{
           desktop,

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import constPt from '../../constants/prop-types'
+import constPropTypes from '../../constants/prop-types'
 import styled from 'styled-components'
 import { replaceStorageUrlPrefix } from '../../utils/url'
 import { getSrcSet } from '../../utils/img'
@@ -133,9 +133,9 @@ FullScreenImage.defaultProps = {
 
 FullScreenImage.propTypes = {
   alt: PropTypes.string,
-  imgSet: constPt.imgSetPt,
+  imgSet: constPropTypes.imgSet,
   useBackgroundImage: PropTypes.bool,
-  portraitImgSet: constPt.imgSetPt
+  portraitImgSet: constPropTypes.imgSet
 }
 
 export default FullScreenImage
