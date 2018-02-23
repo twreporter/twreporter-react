@@ -33,7 +33,7 @@ export const getSrcSet = (imgSet) => {
   let srcset = ''
 
   if (desktopUrl) {
-    srcset += `${replaceStorageUrlPrefix(desktopUrl)} ${_.get(imgSet, 'desktop.width', sz.largeScreenMinWidth)}w`
+    srcset += `${replaceStorageUrlPrefix(desktopUrl)} ${_.get(imgSet, 'desktop.width', sz.largeScreenMinWidth)}w,`
   }
 
   if (tabletUrl) {
@@ -41,7 +41,7 @@ export const getSrcSet = (imgSet) => {
   }
 
   if (mobileUrl) {
-    srcset += `${replaceStorageUrlPrefix(mobileUrl)} ${_.get(imgSet, 'mobile.width', sz.smallScreenMinWidth)}w,`
+    srcset += `${replaceStorageUrlPrefix(mobileUrl)} ${_.get(imgSet, 'mobile.width', sz.smallScreenMinWidth)}w`
   }
 
   return srcset
