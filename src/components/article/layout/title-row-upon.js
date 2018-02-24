@@ -1,14 +1,13 @@
-// import topicRightArrow from '../../../static/asset/icon-topic-arrow-right.svg'
-import { date2yyyymmdd } from '../../utils/date'
 import Link from 'react-router/lib/Link'
-import { LINK_PREFIX } from '../../constants/index'
-import { screen } from '../../themes/screen'
-import { typography, colors } from '../../themes/common-variables'
-import get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
+import constPageThemes  from '../../../constants/page-themes'
+import constPropTypes from '../../../constants/prop-types'
+import get from 'lodash/get'
 import styled from 'styled-components'
-
+import { LINK_PREFIX } from '../../../constants/index'
+import { screen } from '../../../themes/screen'
+import { typography, colors } from '../../../themes/common-variables'
 const _ = {
   get
 }
@@ -25,6 +24,7 @@ const colorselector = (props, defaultColor) => {
 // #############################
 
 const Container = styled.div`
+  z-index: 100;
   position: absolute;
   left: 70px;
   ${screen.overDesktop`
@@ -107,133 +107,62 @@ const RightArrow = styled.div`
   margin: 0 10px 1px 3px;
 `
 
-const TopicBlock = ({ topic, color }) => {
-  const topicName = _.get(topic, 'topicName')
-  const topicSlug = _.get(topic, 'slug')
-  if (topicName) {
-    return (
+class TitleRowUpon extends React.PureComponent {
+  render() {
+    const { title, subtitle, topicName, topicSlug, theme } = this.props
+    const topicJSX = topicName ? (
       <Topic>
         <Link
           to={`${LINK_PREFIX.TOPICS}${topicSlug}`}
         >
           <TopicContent
-            color={color}
+            color={_.get(theme, 'color.topic')}
           >
             {topicName}
-            <RightArrow color={color}/>
+            <RightArrow color={_.get(theme, 'color.topic')}/>
           </TopicContent>
         </Link>
       </Topic>
-    )
-  }
-  return null
-}
+    ) : null
 
-TopicBlock.defaultProps = {
-  color: '',
-  topic: {}
-}
-
-TopicBlock.propTypes = {
-  color: PropTypes.string,
-  topic: PropTypes.object
-}
-
-
-const SubtitleBlock = ({ subtitle, color }) => {
-  if (subtitle) {
-    return (
+    const subtitleJSX = subtitle ? (
       <Subtitle
         itemProp="alternativeHeadline"
-        color={color}
+        color={_.get(theme, 'color.subtitle')}
       >
         {subtitle}
       </Subtitle>
+    ) : null
+
+    return (
+      <Container>
+        <HeaderContainer>
+          {topicJSX}
+          <Title
+            color={_.get(theme, 'color.title')}
+          >
+            {title}
+          </Title>
+          {subtitleJSX}
+        </HeaderContainer>
+      </Container>
     )
   }
-  return null
-}
-
-SubtitleBlock.defaultProps = {
-  color: '',
-  subtitle: ''
-}
-
-SubtitleBlock.propTypes = {
-  color: PropTypes.string,
-  subtitle: PropTypes.string
-}
-
-
-const HeaderGroup = ({ fontColorSet, article, topic }) => {
-  const title = _.get(article, 'title', '')
-  const subtitle = _.get(article, 'subtitle', '')
-  const { topicFontColor, titleFontColor, subtitleFontColor } = fontColorSet
-  return (
-    <HeaderContainer>
-      <TopicBlock
-        topic={topic}
-        color={topicFontColor}
-      />
-      <Title
-        color={titleFontColor}
-      >
-        {title}
-      </Title>
-      <SubtitleBlock
-        subtitle={subtitle}
-        color={subtitleFontColor}
-      />
-    </HeaderContainer>
-  )
-}
-
-HeaderGroup.defaultProps = {
-  fontColorSet: {},
-  topic: {},
-  article: {}
-}
-
-HeaderGroup.propTypes = {
-  fontColorSet: PropTypes.object,
-  topic: PropTypes.object,
-  article: PropTypes.object
-}
-
-
-const TitleRowUpon = ({ article, canonical, fontColorSet, topic }) => {
-  const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
-  return (
-    <Container>
-      <HeaderGroup
-        fontColorSet={fontColorSet}
-        topic={topic}
-        article={article}
-      />
-      <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-        <meta itemProp="name" content="報導者" />
-        <meta itemProp="email" content="contact@twreporter.org" />
-        <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-        <link itemProp="url" href="https://www.twreporter.org/" />
-      </div>
-      <link itemProp="mainEntityOfPage" href={canonical} />
-      <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
-    </Container>
-  )
 }
 
 TitleRowUpon.defaultProps = {
-  article: {},
-  topic: {},
-  canonical: '',
-  fontColorSet: {}
+  subtitle: '',
+  topicName: '',
+  topicSlug: '',
+  theme: constPageThemes.defaultTheme
 }
 
 TitleRowUpon.propTypes = {
-  article: PropTypes.object,
-  topic: PropTypes.object,
-  canonical: PropTypes.string,
-  fontColorSet: PropTypes.object
+  subtitle: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  topicName: PropTypes.string,
+  topicSlug: PropTypes.string,
+  theme: constPropTypes.theme
 }
 
 

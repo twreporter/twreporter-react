@@ -1,13 +1,14 @@
 import Link from 'react-router/lib/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
+import constPageThemes from '../../../constants/page-themes'
+import constPropTypes from '../../../constants/prop-types'
 import get from 'lodash/get'
 import styled from 'styled-components'
-import { LINK_PREFIX } from '../../constants/index'
-import { articleLayout as layout } from '../../themes/layout'
-import { colors, typography } from '../../themes/common-variables'
-import { date2yyyymmdd } from '../../utils/date'
-import { screen } from '../../themes/screen'
+import { LINK_PREFIX } from '../../../constants/index'
+import { articleLayout as layout } from '../../../themes/layout'
+import { colors, typography } from '../../../themes/common-variables'
+import { screen } from '../../../themes/screen'
 
 const _ = {
   get
@@ -102,134 +103,68 @@ const RightArrow = styled.div`
   margin: 0 10px 1px 3px;
 `
 
-const TopicBlock = ({ topic, color }) => {
-  const topicName = _.get(topic, 'topicName')
-  const topicSlug = _.get(topic, 'slug')
-  if (topicName) {
-    return (
+class TitleRowAbove extends React.PureComponent {
+  render() {
+    const { title, subtitle, topicName, topicSlug, theme } = this.props
+    const topicJSX = topicName ? (
       <Topic>
         <Link
           to={`${LINK_PREFIX.TOPICS}${topicSlug}`}
         >
           <TopicContent
-            color={color}
+            color={_.get(theme, 'color.topic')}
           >
             {topicName}
-            <RightArrow color={color}/>
+            <RightArrow color={_.get(theme, 'color.topic')}/>
           </TopicContent>
         </Link>
       </Topic>
-    )
-  }
-  return null
-}
+    ) : null
 
-TopicBlock.defaultProps = {
-  color: '',
-  topic: {}
-}
-
-TopicBlock.propTypes = {
-  color: PropTypes.string,
-  topic: PropTypes.object
-}
-
-
-const SubtitleBlock = ({ subtitle, color }) => {
-  if (subtitle) {
-    return (
+    const subtitleJSX = subtitle ? (
       <Subtitle
         itemProp="alternativeHeadline"
-        color={color}
+        color={_.get(theme, 'color.subtitle')}
       >
         {subtitle}
       </Subtitle>
+    ) : null
+
+    const firstRowJSX = topicJSX || subtitleJSX ? (
+      <FirstRow>
+        {topicJSX}
+        {subtitleJSX}
+      </FirstRow>
+    ) : null
+
+    return (
+      <Container>
+        <HeaderContainer>
+          {firstRowJSX}
+          <Title
+            color={_.get(theme, 'color.title')}
+          >
+            {title}
+          </Title>
+        </HeaderContainer>
+      </Container>
     )
   }
-  return null
-}
-
-SubtitleBlock.defaultProps = {
-  color: '',
-  subtitle: ''
-}
-
-SubtitleBlock.propTypes = {
-  color: PropTypes.string,
-  subtitle: PropTypes.string
-}
-
-const HeaderGroup = ({ fontColorSet, article, topic }) => {
-  const subtitle = _.get(article, 'subtitle', '')
-  const title = _.get(article, 'title', '')
-  const { topicFontColor, titleFontColor, subtitleFontColor } = fontColorSet
-  return (
-    <HeaderContainer>
-      <FirstRow>
-        <TopicBlock
-          topic={topic}
-          color={topicFontColor}
-        />
-        <SubtitleBlock
-          subtitle={subtitle}
-          color={subtitleFontColor}
-        />
-      </FirstRow>
-      <Title
-        color={titleFontColor}
-      >
-        {title}
-      </Title>
-    </HeaderContainer>
-  )
-}
-
-HeaderGroup.defaultProps = {
-  fontColorSet: {},
-  topic: {},
-  article: {}
-}
-
-HeaderGroup.propTypes = {
-  fontColorSet: PropTypes.object,
-  topic: PropTypes.object,
-  article: PropTypes.object
-}
-
-
-const TitleRowAbove = ({ article, canonical, fontColorSet, topic }) => {
-  const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
-  return (
-    <Container>
-      <HeaderGroup
-        fontColorSet={fontColorSet}
-        topic={topic}
-        article={article}
-      />
-      <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-        <meta itemProp="name" content="報導者" />
-        <meta itemProp="email" content="contact@twreporter.org" />
-        <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-        <link itemProp="url" href="https://www.twreporter.org/" />
-      </div>
-      <link itemProp="mainEntityOfPage" href={canonical} />
-      <meta itemProp="dateModified" content={date2yyyymmdd(updatedAt, '-')} />
-    </Container>
-  )
 }
 
 TitleRowAbove.defaultProps = {
-  article: {},
-  topic: {},
-  canonical: '',
-  fontColorSet: {}
+  subtitle: '',
+  topicName: '',
+  topicSlug: '',
+  theme: constPageThemes.defaultTheme
 }
 
 TitleRowAbove.propTypes = {
-  article: PropTypes.object,
-  topic: PropTypes.object,
-  canonical: PropTypes.string,
-  fontColorSet: PropTypes.object
+  subtitle: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  topicName: PropTypes.string,
+  topicSlug: PropTypes.string,
+  theme: constPropTypes.theme
 }
 
 export default TitleRowAbove

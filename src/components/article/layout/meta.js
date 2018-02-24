@@ -7,6 +7,7 @@ import { HeadingAuthor } from '../HeadingAuthor'
 import { PublishDate } from '../PublishDate'
 import { ShareBt } from '../ShareBt'
 import { articleLayout as layout } from '../../../themes/layout'
+import { appId } from '../../../constants/index'
 import { getAbsPath } from '../../../utils/url'
 import { screen } from '../../../themes/screen'
 
@@ -28,9 +29,9 @@ const Container = styled.div`
   `}
 `
 
-class ArticleMeta extends React.Component {
+class ArticleMeta extends React.PureComponent {
   render() {
-    const { authors, extendByline, publishedDate, appId, title, changeFontSize, fontSize } = this.props
+    const { authors, extendByline, publishedDate, title, changeFontSize, fontSize } = this.props
     const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
     return (
       <Container>
@@ -56,6 +57,27 @@ class ArticleMeta extends React.Component {
       </Container>
     )
   }
+}
+
+ArticleMeta.defaultProps = {
+  authors: [],
+  extendByline: '',
+  publishedDate: '',
+  title: '',
+  fontSize: '',
+  changeFontSize: () => {}
+}
+
+ArticleMeta.propTypes = {
+  authors: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    type: PropTypes.string
+  })),
+  extendByline: PropTypes.string,
+  publishedDate: PropTypes.string,
+  title: PropTypes.string,
+  fontSize: PropTypes.string,
+  changeFontSize: PropTypes.func
 }
 
 ArticleMeta.contextTypes = {

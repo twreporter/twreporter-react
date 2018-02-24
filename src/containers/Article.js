@@ -1,39 +1,34 @@
 /* eslint no-console:0 */
 'use strict'
 
-import ArticleMeta from '../components/article/article-meta'
 import ArticleTools from './ArticleTools'
-import Header from '@twreporter/react-components/lib/header'
 import Helmet from 'react-helmet'
-import HeroImage from '../components/article/HeroImage'
-import LeadingVideo from '../components/shared/LeadingVideo'
 import License from '../components/shared/License'
 import LogoIcon from '../../static/asset/icon-placeholder.svg'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
-import TitleRowAbove from '../components/article/title-row-above'
-import TitleRowUpon from '../components/article/title-row-upon'
 import commonStyles from '../components/article/Common.scss'
+import constPropTypes from '../constants/prop-types'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
-import pt from '../constants/page-themes'
+import constPageThemes from '../constants/page-themes'
 import styled from 'styled-components'
 import styles from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
 import withLayout from '../helpers/with-layout'
+import layoutMaker from '../components/article/layout/layout-maker'
 import { Body } from '../components/article/Body'
 import { BottomRelateds } from '../components/article/BottomRelateds'
 import { BottomTags } from '../components/article/BottomTags'
 import { Introduction } from '../components/article/Introduction'
-import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME, appId } from '../constants/index'
+import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME } from '../constants/index'
 import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '../utils/date'
 import { getScreenType } from '../utils/screen'
-import { getAbsPath } from '../utils/url'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
 
@@ -64,7 +59,7 @@ const { fetchAFullPost } = actions
 const ArticleContainer = styled.div`
   background-color: ${ props => (props.bgColor ? props.bgColor : colors.gray.lightGray) };
   min-height: 20em;
-  padding-top: ${ props => (props.titlePosition === pt.position.title.uponLeft ? '0' : '20px') };
+  padding-top: ${ props => (props.titlePosition === constPageThemes.position.title.uponLeft ? '0' : '20px') };
   color: ${ props => (props.fontColor ? props.fontColor : colors.gray.gray25)};
   a {
       border-bottom: 1px ${colors.primaryColor} solid;
@@ -90,15 +85,6 @@ const IntroductionContainer = styled.div`
   ${screen.mobile`
     margin: 0 24px 80px 24px;
   `};
-`
-
-const HeaderContainer = styled.div`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  @media (max-width: 1023px) {
-    display: none;
-  }
 `
 
 const scrollPosition = {
@@ -324,24 +310,9 @@ class Article extends PureComponent {
     }
   }
 
-  _composeAuthors(article) {
-    article = article || {}
-    let authors = []
-    const list = [ 'writters', 'photographers', 'designers', 'engineers' ]
-    list.forEach((item) => {
-      if (Array.isArray(article[item])) {
-        article[item].forEach((author) => {
-          // remove 's'. writters -> writter
-          let type = item.slice(0, -1)
-          authors.push(_.merge({}, author, { type: type }))
-        })
-      }
-    })
-    return authors
-  }
-
   render() {
     const { entities, params, selectedPost, theme } = this.props
+    const { fontSize } = this.state
     const error = _.get(selectedPost, 'error')
     if (error) {
       return (
@@ -360,8 +331,6 @@ class Article extends PureComponent {
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
     const articleStyle = _.get(article, 'style')
-    // const outerClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                //  cx(styles['article-container'], styles['photo-container']) : styles['article-container']
     const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
                  cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
@@ -369,45 +338,30 @@ class Article extends PureComponent {
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
     const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
     const topic = topics[0]
-    const authors = this._composeAuthors(article)
     const bodyData = _.get(article, [ 'content', 'apiData' ], [])
-    const leadingVideo = _.get(article, 'leadingVideo', null)
-    const heroImage = _.get(article, [ 'heroImage' ], null)
-    const heroImageSize = _.get(article, [ 'heroImageSize' ], 'normal')
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
-    const cUrl = getAbsPath(this.context.location.pathname, this.context.location.search)
-
     const topicName = _.get(topic, 'topicName')
     const topicArr = _.get(topic, 'relateds')
 
-    // const updatedAt = _.get(article, 'updatedAt') || _.get(article, 'publishedDate')
-
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const articleTitle = _.get(article, 'title', '')
-    const ogTitle = articleTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
     const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
-    const pathname = _.get(this.props, 'location.pathname')
-
-    // theme
-    const bgColor = theme.color.bg
-    // const footerBgColor = _.get(_theme, 'footer_bg_color')
-    const fontColor = theme.color.font
-    const titlePosition = theme.position.title
-    const headerPosition = theme.position.header
-    const titleColor = theme.color.title
-    const subTitleColor = theme.color.subTitleColor
-    const topicColor = theme.color.topic
-    const logoColor = theme.color.logo
-    const fontColorSet = {
-      topicFontColor: topicColor,
-      titleFontColor: titleColor,
-      subtitleFontColor: subTitleColor
-    }
-
     const license = _.get(article, 'copyright', 'Creative-Commons')
+
+
+    // render leading components, including
+    // title, subtitle, topic name, hero image, leading video, authors and share buttons.
+    // Those components will be rendered in different orders on demand
+    const layoutJSX = layoutMaker.renderLayout({
+      article,
+      topic,
+      theme,
+      fontSize,
+      changeFontSize: this.changeFontSize
+    })
 
     return (
       <div>
@@ -433,19 +387,10 @@ class Article extends PureComponent {
         <div itemScope itemType="http://schema.org/Article">
           {isFetching ? <ArticleContainer bgColor="transparent"><ArticlePlaceholder /></ArticleContainer> :
           <ArticleContainer
-            bgColor={bgColor}
-            titlePosition={titlePosition}
-            fontColor={fontColor}
+            bgColor={_.get(theme, 'color.bg')}
+            titlePosition={_.get(theme, 'position.title')}
+            fontColor={_.get(theme, 'color.font')}
           >
-            {
-              leadingVideo ?
-                <LeadingVideo
-                  filetype={_.get(leadingVideo, 'filetype')}
-                  title={_.get(leadingVideo, 'title')}
-                  src={_.get(leadingVideo, 'url')}
-                  poster={_.get(heroImage, 'resizedTargets')}
-                /> : null
-            }
             <ReadingProgress ref={ele => this.rp = ele}/>
               <article ref={div => {this.progressBegin = div}} className={contentClass}>
                 <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
@@ -456,79 +401,7 @@ class Article extends PureComponent {
                 </div>
                 <link itemProp="mainEntityOfPage" href={canonical} />
                 <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
-                {
-                  titlePosition === pt.position.title.above ?
-                  <div>
-                    <TitleRowAbove
-                      article={article}
-                      topic={topic}
-                      canonical={canonical}
-                      fontColorSet={fontColorSet}
-                    />
-                    <ArticleMeta
-                      authors={authors}
-                      extendByline={_.get(article, 'extendByline')}
-                      publishedDate={article.publishedDate}
-                      appId={appId}
-                      url={cUrl}
-                      title={article.title}
-                      changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
-                      fontSize={this.state.fontSize}
-                    />
-                  </div>
-                : null
-                }
-
-                {
-                  !leadingVideo ?
-                    <div className={styles['leading-img']}>
-                      <HeroImage
-                        size={heroImageSize}
-                        alt={_.get(article, 'leadingImageDescription', '')}
-                        imgObj={heroImage}
-                        titlePosition={titlePosition}
-                      >
-                        {
-                          headerPosition === pt.position.header.above ?
-                            <HeaderContainer>
-                              <Header
-                                isIndex={false}
-                                pathName={pathname}
-                                fontColor={fontColor}
-                                logoColor={logoColor}
-                                headerPosition={headerPosition}
-                              />
-                            </HeaderContainer>
-                          : null
-                        }
-                        {
-                          titlePosition === pt.position.title.uponLeft ?
-                            <TitleRowUpon
-                              article={article}
-                              topic={topic}
-                              canonical={canonical}
-                              fontColorSet={fontColorSet}
-                            />
-                          : null
-                        }
-                      </HeroImage>
-                    </div> : null
-                }
-
-                {
-                  titlePosition === pt.position.title.uponLeft ?
-                    <ArticleMeta
-                      authors={authors}
-                      extendByline={_.get(article, 'extendByline')}
-                      publishedDate={article.publishedDate}
-                      appId={appId}
-                      url={cUrl}
-                      title={article.title}
-                      changeFontSize={(fontSize)=>this.changeFontSize(fontSize)}
-                      fontSize={this.state.fontSize}
-                    />
-                  : null
-                }
+                {layoutJSX}
                 <div
                   id="article-body"
                   ref={node => this.articleBody = node}
@@ -536,12 +409,12 @@ class Article extends PureComponent {
                   <IntroductionContainer>
                     <Introduction
                       data={introData}
-                      fontSize={this.state.fontSize}
+                      fontSize={fontSize}
                     />
                   </IntroductionContainer>
                   <Body
                     data={bodyData}
-                    fontSize={this.state.fontSize}
+                    fontSize={fontSize}
                     articleStyle={articleStyle}
                   />
                 </div>
@@ -578,11 +451,32 @@ export function mapStateToProps(state) {
   const selectedPost = state[reduxStateFields.selectedPost]
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
-  let theme = pt.defaultTheme
+  let theme
 
-  // backwards compatible for photo articles
-  if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-    theme = pt.photoTheme
+  if (!_.get(post, 'theme')) {
+    // backwards compatible for photo articles
+    if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
+      theme = constPageThemes.photoTheme
+    } else {
+      theme = constPageThemes.defaultTheme
+    }
+  } else {
+    const rawTheme = post.theme
+    theme = {
+      color: {
+        bg: rawTheme.bg_color,
+        font: rawTheme.font_color,
+        footerBg: rawTheme.footer_bg_color,
+        logo: rawTheme.logo_color,
+        title: rawTheme.title_color,
+        subtitle: rawTheme.subtitle_color,
+        topic: rawTheme.topic_color
+      },
+      position: {
+        header: rawTheme.header_position,
+        title: rawTheme.title_position
+      }
+    }
   }
 
   return {
@@ -604,14 +498,14 @@ Article.propTypes = {
   entities: PropTypes.object,
   params: PropTypes.object,
   selectedPost: PropTypes.object,
-  theme: pt.themePropTypes
+  theme: constPropTypes.theme
 }
 
 Article.defaultProps = {
   entities: {},
   params: {},
   selectedPost: {},
-  theme: pt.defaultTheme
+  theme: constPageThemes.defaultTheme
 }
 
 export { Article }

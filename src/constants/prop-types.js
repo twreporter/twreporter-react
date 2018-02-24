@@ -34,6 +34,12 @@ const imgObj = PropTypes.shape({
   })
 })
 
+const videoObj = PropTypes.shape({
+  filetype: PropTypes.string,
+  title: PropTypes.title,
+  url: PropTypes.url
+})
+
 const theme = PropTypes.shape({
   color: PropTypes.shape({
     bg: PropTypes.string,
@@ -56,5 +62,6 @@ export default {
   imgSet,
   imgSizes,
   imgObj,
-  theme
+  theme,
+  videoObj
 }

@@ -2,10 +2,11 @@ import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/react-components/lib/header'
 import PropTypes from 'prop-types'
 import React from 'react'
+import constPageThemes from '../constants/page-themes'
+import constPropTypes from '../constants/prop-types'
 import hoistStatics from 'hoist-non-react-statics'
-import pt from '../constants/page-themes'
-import styled from 'styled-components'
 import merge from 'lodash/merge'
+import styled from 'styled-components'
 
 const  _  = {
   merge
@@ -17,18 +18,25 @@ const Container = styled.div`
   overflow-x: hidden;
 `
 
+const HeaderContainer = styled.div`
+  position: relative;
+  z-index: 100;
+`
+
 class Layout extends React.PureComponent {
   render() {
     const { theme, isIndex, pathname } = this.props
     return (
       <Container bgColor={theme.color.bg}>
-        <Header
-          isIndex={isIndex}
-          bgColor={theme.color.bg}
-          fontColor={theme.color.font}
-          logoColor={theme.color.logo}
-          pathName={pathname}
-        />
+        <HeaderContainer>
+          <Header
+            isIndex={isIndex}
+            fontColor={theme.color.font}
+            logoColor={theme.color.logo}
+            pathName={pathname}
+            headerPosition={theme.position.header}
+          />
+        </HeaderContainer>
         {this.props.children}
         <Footer
           fontColor={theme.color.font}
@@ -40,10 +48,10 @@ class Layout extends React.PureComponent {
 }
 
 Layout.propTypes = {
-  theme: pt.themePropTypes
+  theme: constPropTypes.theme
 }
 
-Layout.defaultProps = pt.defaultTheme
+Layout.defaultProps = constPageThemes.defaultTheme
 
 /**
  * Get react component display name
@@ -66,19 +74,19 @@ export default function withLayout(WrappedComponent) {
     static displayName = `WithLayout(${getDisplayName(WrappedComponent)})`
 
     static propTypes = {
-      theme: pt.themePropTypes,
+      theme: constPropTypes.theme,
       isIndex: PropTypes.bool
     }
 
     static defaultProps = {
-      theme: pt.defaultTheme,
+      theme: constPageThemes.defaultTheme,
       isIndex: false
     }
 
     render() {
       const { theme, isIndex, location, ...passThroughProps } = this.props
       const { pathname } = location
-      const _theme = _.merge({}, pt.defaultTheme, theme)
+      const _theme = _.merge({}, constPageThemes.defaultTheme, theme)
       return (
         <Layout
           isIndex={isIndex}
