@@ -29,6 +29,7 @@ class Image extends React.PureComponent {
           tiny
         }}
         imgSizes={{
+          mobile: '100vw',
           tablet: layout.tablet.width.medium + 'px',
           desktop: layout.desktop.width.medium + 'px',
           hd: layout.hd.width.medium + 'px'
