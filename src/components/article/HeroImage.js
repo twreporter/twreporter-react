@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-line
 import ResolutionSwitchingImage from '../shared/Image'
 import constPropTypes from '../../constants/prop-types'
+import constStyledComponents from '../../constants/styled-components'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { getSrcSet } from '../../utils/img'
@@ -32,23 +33,6 @@ const getMaxWidthBySize = (size, device) => {
       return '100%'
   }
 }
-
-const Container = styled.div`
-  max-width: 100%;
-  margin: 0 auto;
-
-  ${screen.tablet`
-    max-width: ${props => getMaxWidthBySize(props.size, 'tablet')};
-  `}
-
-  ${screen.desktop`
-    max-width: ${props => getMaxWidthBySize(props.size, 'desktop')};
-  `}
-
-  ${screen.overDesktop`
-    max-width: ${props => getMaxWidthBySize(props.size, 'hd')};
-  `}
-`
 
 const ImgPlaceholder = styled.img`
   width: 100%;
@@ -97,9 +81,21 @@ class HeroImage extends React.PureComponent {
       hd: getMaxWidthBySize(size, 'hd')
     }
 
+    let _size
+    switch(size) {
+      case 'normal':
+        _size = 'medium'
+        break
+      case 'extend':
+        _size = 'large'
+        break
+      default:
+        _size = 'small'
+    }
+
     return (
-      <Container
-        size={size}
+      <constStyledComponents.ResponsiveContainerForAritclePage
+        size={_size}
       >
         <Image
           imgSizes={imgSizes}
@@ -107,7 +103,7 @@ class HeroImage extends React.PureComponent {
           toShowCaption={!!alt}
           alt={alt}
         />
-      </Container>
+      </constStyledComponents.ResponsiveContainerForAritclePage>
     )
   }
 }

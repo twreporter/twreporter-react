@@ -6,10 +6,10 @@ import React from 'react'
 import TitleRowAbove from './title-row-above'
 import TitleRowUpon from './title-row-upon'
 import constPageThemes from '../../../constants/page-themes'
+import constStyledComponents from '../../../constants/styled-components'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
 import styled from 'styled-components'
-import { articleLayout } from '../../../themes/layout'
 import { screen } from '../../../themes/screen'
 
 
@@ -21,22 +21,6 @@ const _ = {
 const MetaContainer = styled.div`
   margin-top: ${props => props.titlePosition === constPageThemes.position.title.uponLeft ? '60px' : '24px'};
   margin-bottom: 40px;
-`
-
-const VideoContainer = styled.div`
-  margin: 0 auto;
-
-  ${screen.tablet`
-    max-width: ${articleLayout.tablet.width.medium}px;
-  `};
-
-  ${screen.desktop`
-    max-width: ${articleLayout.desktop.width.medium}px;
-  `};
-
-  ${screen.overDesktop`
-    max-width: ${articleLayout.hd.width.medium}px;
-  `};
 `
 
 const LayoutContainer = styled.div`
@@ -128,14 +112,16 @@ function renderLeadingMediaAssetOnDemand(position=constPageThemes.position.title
   const { heroImage, portraitHeroImage, alt, size, video } = props
   if (video) {
     return (
-      <VideoContainer>
+      <constStyledComponents.ResponsiveContainerForAritclePage
+        size="medium"
+      >
         <LeadingVideo
           filetype={_.get(video, 'filetype')}
           title={_.get(video, 'title')}
           src={_.get(video, 'url')}
           poster={_.get(heroImage, 'resizedTargets.desktop.url')}
         />
-      </VideoContainer>
+      </constStyledComponents.ResponsiveContainerForAritclePage>
     )
   }
 
