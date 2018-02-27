@@ -6293,10 +6293,6 @@ react-howler@^3.0.1:
     howler "2.0.5"
     prop-types "^15.5.6"
 
-react-lazyload@^2.1.4:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-2.3.0.tgz#ccb134223012447074a96543954f44b055dc6185"
-
 react-loadable@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-5.3.1.tgz#9699e9a08fed49bacd69caaa282034b62a76bcdd"
