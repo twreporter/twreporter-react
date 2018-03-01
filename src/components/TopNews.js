@@ -34,7 +34,7 @@ export default class TopNews extends React.PureComponent {
           return (
             <Link key={a.id} to={prefix + a.slug} target={target}>
               <img
-                alt={a.slug}
+                alt={_.get(a, 'heroImage.description') || _.get(a, 'ogImage.description')}
                 src={replaceStorageUrlPrefix(_.get(a, 'heroImage.resizedTargets.mobile.url') || _.get(a, 'ogImage.resizedTargets.mobile.url'))}
                 srcSet={getSrcSet(_.get(a, 'heroImage.resizedTargets') || _.get(a, 'ogImage.resizedTargets'))} />
               <div className="topnews_categorycontainer">

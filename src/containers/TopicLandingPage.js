@@ -17,6 +17,7 @@ import twreporterRedux from '@twreporter/redux'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
@@ -27,7 +28,8 @@ const { actions, reduxStateFields, utils } = twreporterRedux
 
 const _  = {
   forEach,
-  get
+  get,
+  merge
 }
 
 const bannerFactory = new BannerFactory()
@@ -140,7 +142,8 @@ class TopicLandingPage extends Component {
       />
     ) : (
       <FullScreenImage
-        imgSet={_.get(leadingImage, 'resizedTargets')}
+        alt={_.get(leadingImage, 'description')}
+        imgSet={_.get(topic, 'leadingImage.resizedTargets')}
         portraitImgSet={_.get(topic, 'leadingImagePortrait.resizedTargets')}
       />
     )

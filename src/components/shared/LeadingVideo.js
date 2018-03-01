@@ -78,7 +78,7 @@ class LeadingVideo extends React.PureComponent {
     // On the mobile devices (iOS 10 above),
     // we can only autoplay the video without audio
     const videoJSX = (
-      <div>
+      <React.Fragment>
         <video
           className={_.get(classNames, 'video', style['video'])}
           ref={(input) => { this._player = input }}
@@ -101,7 +101,7 @@ class LeadingVideo extends React.PureComponent {
               onClick={this.handleMuteChange}
             />
         }
-      </div>
+      </React.Fragment>
     )
 
     return (
@@ -111,9 +111,14 @@ class LeadingVideo extends React.PureComponent {
         fireOnRapidScroll
         scrollableAncestor="window"
       >
-        <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
+        <div
+          className={_.get(classNames, 'container', style.container)}
+          itemScope
+          itemType="http://schema.org/VideoObject"
+        >
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title}/>
+          <meta itemProp="thumbnail" content={poster} />
           {videoJSX}
         </div>
       </Waypoint>

@@ -11,10 +11,12 @@ import { typography } from '../themes/common-variables'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
+import merge from 'lodash/merge'
 
 const _ = {
   get,
-  map
+  map,
+  merge
 }
 
 const itemWidth = 451
@@ -168,12 +170,28 @@ export default class ListArticleItem extends React.PureComponent {
     const dateString = date2yyyymmdd(publishedDate , '.')
     const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
     const excerpt =  _.get(article, 'ogDescription', '')
+    const heroImageSet = _.get(article, 'heroImage.resizedTargets')
+    const ogImageSet = _.get(article, 'ogImage.resizedTargets')
+    const imgSet = heroImageSet ? _.merge({}, heroImageSet, {
+      original: {
+        url: _.get(article, 'heroImage.url'),
+        width: _.get(article, 'heroImage.width'),
+        height: _.get(article, 'heroImage.height')
+      }
+    }) : _.merge({}, ogImageSet, {
+      original: {
+        url: _.get(article, 'ogImage.url'),
+        width: _.get(article, 'ogImage.width'),
+        height: _.get(article, 'ogImage.height')
+      }
+    })
     return (
       <Item key={id}>
         <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           <ImageWrapper>
             <ResolutionSwitchingImage
-              imgSet={_.get(article, 'heroImage.resizedTargets') || _.get(article, 'ogImage.resizedTargets')}
+              alt={heroImageSet ? _.get(article, 'heroImage.description') : _.get(article, 'ogImage.description')}
+              imgSet={imgSet}
               imgSizes={{
                 mobile: '95vw',
                 tablet: '95vw',

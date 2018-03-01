@@ -113,7 +113,7 @@ class Image extends React.PureComponent {
 
     return (
       <figure
-        itemProp="associateMedia image"
+        itemProp="image"
         itemScope
         itemType="http://schema.org/ImageObject"
       >
@@ -132,12 +132,13 @@ class Image extends React.PureComponent {
               src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
               srcSet={srcSet}
               ref={node => { this._imgNode = node }}
+              itemProp="contentUrl"
             />
           </ImgBox>
         </ImgContainer>
         <Caption
-          itemProp="description"
           toShow={this.props.toShowCaption}
+          itemProp="description"
         >
           {alt}
         </Caption>

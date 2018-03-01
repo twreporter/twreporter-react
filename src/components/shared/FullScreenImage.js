@@ -7,11 +7,9 @@ import { getSrcSet } from '../../utils/img'
 
 // lodash
 import get from 'lodash/get'
-import merge from 'lodash/merge'
 
 const _ = {
-  get,
-  merge
+  get
 }
 
 const FullScreenContainer = styled.figure`
@@ -113,7 +111,13 @@ class FullScreenImage extends React.PureComponent {
       />
     )
     return (
-      <FullScreenContainer>
+      <FullScreenContainer
+        itemProp="image"
+        itemScop
+        itemType="http://schema.org/ImageObject"
+      >
+        <meta itemProp="url" content={_.get(imgSet, 'desktop.url')} />
+        <meta itemProp="description" content={alt} />
         <ImgPlaceholder
           src={_.get(imgSet, 'tiny.url')}
           toShow={!isLoaded}
