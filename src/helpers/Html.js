@@ -109,10 +109,10 @@ export default class Html extends PureComponent {
     assets: PropTypes.object.isRequired,
     component: PropTypes.node,
     store: PropTypes.object.isRequired,
-    styleTags: PropTypes.string.isRequired
+    styleElement: PropTypes.arrayOf(PropTypes.element).isRequired
   }
   render() {
-    const { assets, content, store, styleTags } = this.props
+    const { assets, content, store, styleElement } = this.props
     const head = Helmet.rewind()
     return (
       <html lang="zh-TW">
@@ -142,7 +142,7 @@ export default class Html extends PureComponent {
             <link href={stylesheet} key={'stylesheet' + key} media="all"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )}
-          <div dangerouslySetInnerHTML={{ __html: styleTags }} />
+          {styleElement}
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }} />

@@ -156,7 +156,7 @@ app.get('*', function (req, res, next) {
               content={content}
               store={store}
               assets={assets}
-              styleTags={sheet.getStyleTags()}
+              styleElement={sheet.getStyleElement()}
             />
           )
         res.status(selectResponseStatus(get(renderProps, 'params.errorType')))
