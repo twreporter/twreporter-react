@@ -14,6 +14,7 @@ import constPropTypes from '../constants/prop-types'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
 import constPageThemes from '../constants/page-themes'
+import constStyledComponents from '../constants/styled-components'
 import styled from 'styled-components'
 import styles from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
@@ -56,11 +57,8 @@ const _ = {
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
 
-const ArticleContainer = styled.div`
-  background-color: ${ props => (props.bgColor ? props.bgColor : colors.gray.lightGray) };
-  min-height: 20em;
-  padding-top: ${ props => (props.titlePosition === constPageThemes.position.title.uponLeft ? '0' : '20px') };
-  color: ${ props => (props.fontColor ? props.fontColor : colors.gray.gray25)};
+const ArticleContainer = styled.article`
+  color: ${props => props.fontColor ? props.fontColor : colors.gray.gray25};
   a {
       border-bottom: 1px ${colors.primaryColor} solid;
       cursor: pointer;
@@ -70,6 +68,10 @@ const ArticleContainer = styled.div`
       &:hover {
         color: ${colors.primaryColor};
       }
+  }
+
+  u {
+    text-decoration: none;
   }
 `
 
@@ -94,23 +96,25 @@ const scrollPosition = {
 
 const ArticlePlaceholder = () => {
   return (
-    <div className={cx(styles['placeholder'])}>
-      <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
-        <div className={styles['ph-title-1']}></div>
-        <div className={styles['ph-title-2']}></div>
-        <div className={styles['ph-author']}></div>
-      </div>
-      <div className={styles['leading-img']}>
-        <div className={styles['ph-image']}>
-          <LogoIcon className={styles['logo-icon']} />
+    <constStyledComponents.ResponsiveContainerForAritclePage>
+      <div className={cx(styles['placeholder'])}>
+        <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
+          <div className={styles['ph-title-1']}></div>
+          <div className={styles['ph-title-2']}></div>
+          <div className={styles['ph-author']}></div>
         </div>
+        <div className={styles['leading-img']}>
+          <div className={styles['ph-image']}>
+            <LogoIcon className={styles['logo-icon']} />
+          </div>
+        </div>
+        <IntroductionContainer>
+          <div className={styles['ph-content']}></div>
+          <div className={styles['ph-content']}></div>
+          <div className={styles['ph-content-last']}></div>
+        </IntroductionContainer>
       </div>
-      <IntroductionContainer>
-        <div className={styles['ph-content']}></div>
-        <div className={styles['ph-content']}></div>
-        <div className={styles['ph-content-last']}></div>
-      </IntroductionContainer>
-    </div>
+    </constStyledComponents.ResponsiveContainerForAritclePage>
   )
 }
 
@@ -331,8 +335,6 @@ class Article extends PureComponent {
     const slug = _.get(selectedPost, 'slug', '')
     const article = camelizeKeys(_.get(postEntities, slug))
     const articleStyle = _.get(article, 'style')
-    const contentClass = (articleStyle===PHOTOGRAPHY_ARTICLE_STYLE) ?
-                 cx(styles['article-inner'], styles['photo-page-inner']) : styles['article-inner']
     const isFetching = _.get(selectedPost, 'isFetching')
 
     const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
@@ -385,55 +387,54 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <ArticleContainer bgColor="transparent"><ArticlePlaceholder /></ArticleContainer> :
-          <ArticleContainer
-            bgColor={_.get(theme, 'color.bg')}
-            titlePosition={_.get(theme, 'position.title')}
-            fontColor={_.get(theme, 'color.font')}
-          >
-            <ReadingProgress ref={ele => this.rp = ele}/>
-              <article ref={div => {this.progressBegin = div}} className={contentClass}>
-                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-                  <meta itemProp="name" content="報導者" />
-                  <meta itemProp="email" content="contact@twreporter.org" />
-                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-                  <link itemProp="url" href="https://www.twreporter.org/" />
-                </div>
-                <link itemProp="mainEntityOfPage" href={canonical} />
-                <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
-                {layoutJSX}
-                <div
-                  id="article-body"
-                  ref={node => this.articleBody = node}
+          {isFetching ? <ArticlePlaceholder /> :
+              <React.Fragment>
+                <ReadingProgress ref={ele => this.rp = ele}/>
+                <ArticleContainer
+                  fontColor={theme.color.font}
+                  ref={div => {this.progressBegin = div}}
                 >
-                  <IntroductionContainer>
-                    <Introduction
-                      data={introData}
+                  <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+                    <meta itemProp="name" content="報導者" />
+                    <meta itemProp="email" content="contact@twreporter.org" />
+                    <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
+                    <link itemProp="url" href="https://www.twreporter.org/" />
+                  </div>
+                  <link itemProp="mainEntityOfPage" href={canonical} />
+                  <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
+                  {layoutJSX}
+                  <div
+                    id="article-body"
+                    ref={node => this.articleBody = node}
+                  >
+                    <IntroductionContainer>
+                      <Introduction
+                        data={introData}
+                        fontSize={fontSize}
+                      />
+                    </IntroductionContainer>
+                    <Body
+                      data={bodyData}
                       fontSize={fontSize}
+                      articleStyle={articleStyle}
                     />
-                  </IntroductionContainer>
-                  <Body
-                    data={bodyData}
-                    fontSize={fontSize}
-                    articleStyle={articleStyle}
+                  </div>
+                </ArticleContainer>
+                <License license={license} publishedDate={article.publishedDate}/>
+                <constStyledComponents.ResponsiveContainerForAritclePage
+                  size="small"
+                >
+                  <BottomTags
+                    data={article.tags}
                   />
-                </div>
-              </article>
-            <License license={license} publishedDate={article.publishedDate}/>
-            <div className={cx(commonStyles['components'], 'hidden-print', styles['padding-patch'])}>
-              <div className={commonStyles['component']}>
-                <BottomTags
-                  data={article.tags}
-                />
-              </div>
-              <BottomRelateds
-                relateds={relateds}
-                currentId={article.id}
-                topicName={topicName}
-                topicArr={topicArr}
-              />
-            </div>
-          </ArticleContainer>
+                  <BottomRelateds
+                    relateds={relateds}
+                    currentId={article.id}
+                    topicName={topicName}
+                    topicArr={topicArr}
+                  />
+                </constStyledComponents.ResponsiveContainerForAritclePage>
+              </React.Fragment>
           }
           <div className="hidden-print">
             <ArticleTools
