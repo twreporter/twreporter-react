@@ -1,16 +1,32 @@
 'use strict'
-
+import ArrowDownIcon from '../../../static/asset/arrow-down.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { addTailSpaceIfHeadIsFullwidthBracket, date2yyyymmdd } from '../../utils/index'
-
-import { TOPIC_LAST_UPDATED } from '../../constants/index'
-import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
-import ArrowDownIcon from '../../../static/asset/arrow-down.svg'
 import smoothScroll from 'smoothscroll'
 import stylesBottom from './BannerBottom.scss'
 import stylesBottomLeft from './BannerBottomLeft.scss'
 import stylesCenter from './BannerCenter.scss'
+import { TOPIC_LAST_UPDATED } from '../../constants/index'
+import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
+import { date2yyyymmdd } from '../../utils/date'
+
+/**
+ * Add tail space when head is a fullwidth bracket for visually centering
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+function addTailSpaceIfHeadIsFullwidthBracket(text) {
+  if (typeof text === 'string') {
+    const leftBrackets = [ '（', '【', '〔', '《', '〈', '｛', '『', '「' ]
+    for (let i=0, length=leftBrackets.length; i<length; i++) {
+      if (typeof text === 'string' && text.startsWith(leftBrackets[i])) {
+        return (text + '  ')
+      }
+    }
+  }
+  return text
+}
 
 const Banner = (props) => {
   const { headline, title, subtitle, publishedDate, styles } = props

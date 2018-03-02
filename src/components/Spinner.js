@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { google } from '../conf/storage'
-import { replaceStorageUrlPrefix } from '../utils/url-processor'
+import { replaceStorageUrlPrefix } from '../utils/url'
 
 const spinnerLogoUrl = `${google.schema}://${google.hostname}/${google.bucket}/images/spinner-logo.gif`
 

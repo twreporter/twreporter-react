@@ -43,94 +43,142 @@ export default function createRoutes(history = browserHistory) {
       <Route path="/" component={App}>
         <IndexRoute
           getComponent={(location, cb) => {
-            import('../containers/Home').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-home" */
+              '../containers/Home'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="/topics/:slug"
           getComponent={(location, cb) => {
-            import('../containers/TopicLandingPage').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-topic" */
+              '../containers/TopicLandingPage'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="topics"
           getComponent={(location, cb) => {
-            import('../containers/Topics').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-topics" */
+              '../containers/Topics'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="categories/:category"
           getComponent={(location, cb) => {
-            import('../containers/Category').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-category" */
+              '../containers/Category'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="category/:category"
           getComponent={(location, cb) => {
-            import('../containers/Category').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-category" */
+              '../containers/Category'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="tag/:tagId"
           getComponent={(location, cb) => {
-            import('../containers/Tag').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-tag" */
+              '../containers/Tag'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="photography"
           getComponent={(location, cb) => {
-            import('../containers/Photography').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-photography" */
+              '../containers/Photography'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="search"
           getComponent={(location, cb) => {
-            import('../containers/Search').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-search" */
+              '../containers/Search'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="a/:slug"
           getComponent={(location, cb) => {
-            import('../containers/Article').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-article" */
+              '../containers/Article'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }} />
         <Route
           path="author/:authorId"
           getComponent={(location, cb) => {
-            import('../containers/Author').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-author" */
+              '../containers/Author'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }} />
         <Route
           path="authors"
           getComponent={(location, cb) => {
-            import('../containers/AuthorsList').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-authors" */
+              '../containers/AuthorsList'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }} />
         <Route
           path={ACTIVATE_PAGE_PATH}
           getComponent={(location, cb) => {
-            import('../containers/Activation').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-activation" */
+              '../containers/Activation'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="signin"
           getComponent={(location, cb) => {
-            import('../containers/sign-in').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-singin" */
+              '../containers/sign-in'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="signup"
           getComponent={(location, cb) => {
-            import('../containers/sign-up').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-singup" */
+              '../containers/sign-up'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="confirm"
           getComponent={(location, cb) => {
-            import('../containers/confirm-after-sign').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-confirm" */
+              '../containers/confirm-after-sign'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="error/:errorType"
           getComponent={(location, cb) => {
-            import('@twreporter/react-components/lib/error').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "error" */
+              '@twreporter/react-components/lib/error'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
@@ -138,8 +186,14 @@ export default function createRoutes(history = browserHistory) {
           redirectPath="/signin"
           getComponent={(location, cb) => {
             Promise.all([
-              import('@twreporter/registration'),
-              import('../containers/BookmarkList')
+              import(
+                /* webpackChunkName: "registration" */
+                '@twreporter/registration'
+              ),
+              import(
+                /* webpackChunkName: "container-bookmarklist" */
+                '../containers/BookmarkList'
+              )
             ]).then(([ regModule, bookmarkModule ]) => {
               const AuthScreen = regModule.AuthenticationScreen
               cb(null, AuthScreen(bookmarkModule.default))
@@ -149,19 +203,28 @@ export default function createRoutes(history = browserHistory) {
         <Route
           path="widgets-services"
           getComponent={(location, cb) => {
-            import('../containers/widgets/services').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-services" */
+              '../containers/widgets/services'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="widgets-bookmark-desktop"
           getComponent={(location, cb) => {
-            import('../containers/widgets/bookmark-desktop').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-bookmarkdesktop" */
+              '../containers/widgets/bookmark-desktop'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
         <Route
           path="widgets-bookmark-mobile"
           getComponent={(location, cb) => {
-            import('../containers/widgets/bookmark-mobile').then(loadRoute(cb)).catch(errorLoading)
+            import(
+              /* webpackChunkName: "container-bookmarkmobile" */
+              '../containers/widgets/bookmark-mobile'
+            ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
       </Route>

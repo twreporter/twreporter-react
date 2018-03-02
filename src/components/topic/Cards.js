@@ -1,18 +1,19 @@
 'use strict'
 
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX, TOPIC_ITEMS_LIMIT, TOPIC_LOAD_MORE_ARTICLES } from '../../constants/index'
+import Card from './Card'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import { date2yyyymmdd, replaceStorageUrlPrefix, shortenString } from '../../utils/'
-
-import Card from './Card'
-import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import stylesInColumn from './CardsInColumn.scss'
 import stylesInRows from './CardsInRows.scss'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX, TOPIC_ITEMS_LIMIT, TOPIC_LOAD_MORE_ARTICLES } from '../../constants/index'
+import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
+import { date2yyyymmdd } from '../../utils/date'
+import { replaceStorageUrlPrefix } from '../../utils/url'
+import { shortenString } from '../../utils/string'
 
 const _ = {
   get,

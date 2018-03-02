@@ -1,31 +1,32 @@
+import sz from '../constants/screen-size'
+
 export const articleLayout = {
+  mobile: {
+    width: '100%'
+  },
   tablet: {
     width: {
-      large: 768,
+      large: sz.mediumScreenMinWidth,
       medium: 672,
       small: 556
     }
   },
   desktop: {
     width: {
-      large: 1024,
+      large: sz.largeScreenMinWidth,
       medium: 833,
       small: 664
-    },
-    offset: {
-      sidebar: 50,
-      tools: 20
     }
   },
   hd: {
     width: {
-      large: 1200,
+      large: sz.xLargeScreenMinWidth,
       medium: 880,
       small: 700
-    },
-    offset: {
-      sidebar: 50,
-      tools: 20
     }
   }
+}
+
+export default {
+  article: articleLayout
 }

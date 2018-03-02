@@ -1,12 +1,12 @@
 import FadeText from '@twreporter/react-components/lib/fade-text'
 import Header from '@twreporter/react-components/lib/header'
+import HeroImage from './HeroImage'
 import PropTypes from 'prop-types'
 import React from 'react'
 import TitleRowUpon from './title-row-upon'
 import get from 'lodash/get'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { LeadingImage } from './LeadingImage'
 import { NAVBAR_POSITION_UPON, TITLE_POSITION_UPON_LEFT } from '../../constants/page-themes'
 import { SITE_META } from '../../constants/index'
 import { camelizeKeys } from 'humps'
@@ -138,7 +138,7 @@ class ZoomInImage extends React.Component {
         duration={imageDuration}
         clientHeight={this.state.clientHeight}
       >
-        <LeadingImage
+        <HeroImage
           size={heroImageSize}
           image={_.get(heroImage, 'resizedTargets')}
           id={_.get(heroImage, 'id')}
@@ -176,7 +176,7 @@ class ZoomInImage extends React.Component {
             </TitleRowContainer>
           : null
         }
-        </LeadingImage>
+        </HeroImage>
       </ImageContainer>
     )
   }
