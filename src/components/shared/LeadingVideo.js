@@ -1,14 +1,13 @@
 /* eslint no-unused-vars:0 */
 'use strict'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react' // eslint-disable-line
-import ReactDOM from 'react-dom'
+import React from 'react'
 import Waypoint from 'react-waypoint'
-import cx from 'classnames'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
 import style from './LeadingVideo.scss'
-import { getImageSrcSet, replaceStorageUrlPrefix } from '../../utils/index'
+import { getSrcSet } from '../../utils/img'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 
 // lodash
 import get from 'lodash/get'
@@ -17,7 +16,7 @@ const _ = {
   get
 }
 
-class LeadingVideo extends React.Component {
+class LeadingVideo extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,12 +27,7 @@ class LeadingVideo extends React.Component {
     this.onEnter = this._onEnter.bind(this)
   }
 
-  componentDidMount() {
-    this._isMounted = true
-  }
-
   componentWillUnmount() {
-    this._isMounted = false
     this._player = null
     this._isSoundOn = false
   }
@@ -58,7 +52,7 @@ class LeadingVideo extends React.Component {
     // if video is in the viewport,
     // and it can play sound,
     // turn on the audio again.
-    if (this._isSoundOn && this._isMounted && this._player) {
+    if (this._isSoundOn && this._player) {
       this.setState({
         isMuted: false
       })
@@ -69,7 +63,7 @@ class LeadingVideo extends React.Component {
   _onLeave() {
     // if video is not in the viewport,
     // turn off the audio.
-    if (this._isMounted && this._player) {
+    if (this._player) {
       this.setState({
         isMuted: true
       })
@@ -78,75 +72,37 @@ class LeadingVideo extends React.Component {
   }
 
   render() {
-    const { classNames, filetype, loop, poster, portraitPoster, src, title } = this.props
+    const { classNames, filetype, loop, poster, src, title } = this.props
     const { isMuted } = this.state
-    const imgSrcSet = getImageSrcSet(poster)
-    const imgSrc = replaceStorageUrlPrefix(get(poster, 'mobile.url', ''))
-    let portraitImgSrcSet = imgSrcSet
-    let portraitImgSrc = imgSrc
-    if (portraitPoster) {
-      portraitImgSrcSet = getImageSrcSet(portraitPoster)
-      portraitImgSrc = replaceStorageUrlPrefix(get(portraitPoster, 'mobile.url', ''))
-    }
-    let placeHolderJSX = null
-    let videoJSX = null
-    let posterJSX = null
-    let portraitPosterJSX = null
 
-    if (!this._isMounted) {
-      // avoid the layout from flashing, render the empty div with 100vh height
-      placeHolderJSX = (
-        <div style={{ height: '120vh' }} />
-      )
-    }
-
-    if (!src) {
-      posterJSX = (
-        <img
-          className={cx(_.get(classNames, 'poster', style['poster']), style['poster'])}
-          src={imgSrc}
-          srcSet={imgSrcSet}
-          alt={title}
-        />
-      )
-      portraitPosterJSX = (
-        <img
-          className={cx(_.get(classNames, 'poster', style['poster']), style['portrait-poster'])}
-          src={portraitImgSrc}
-          srcSet={portraitImgSrcSet}
-          alt={title}
-        />
-      )
-    } else {
-      // On the mobile devices (iOS 10 above),
-      // we can only autoplay the video without audio
-      videoJSX = (
-        <div>
-          <video
-            className={_.get(classNames, 'video', style['video'])}
-            ref={(input) => { this._player = input }}
-            playsInline
-            poster={imgSrc}
-            autoPlay
-            muted={isMuted}
-            loop={loop}
-          >
-            <source src={replaceStorageUrlPrefix(src)} type={filetype} />
-          </video>
-          <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
-          { isMuted ?
-              <SoundMuteIcon
-                className={_.get(classNames, 'audioBt', style['audio-bt'])}
-                onClick={this.handleMuteChange}
-              /> :
-              <SoundOnIcon
-                className={_.get(classNames, 'audioBt', style['audio-bt'])}
-                onClick={this.handleMuteChange}
-              />
-          }
-        </div>
-      )
-    }
+    // On the mobile devices (iOS 10 above),
+    // we can only autoplay the video without audio
+    const videoJSX = (
+      <React.Fragment>
+        <video
+          className={_.get(classNames, 'video', style['video'])}
+          ref={(input) => { this._player = input }}
+          playsInline
+          poster={poster}
+          autoPlay
+          muted={isMuted}
+          loop={loop}
+        >
+          <source src={replaceStorageUrlPrefix(src)} type={filetype} />
+        </video>
+        <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
+        { isMuted ?
+            <SoundMuteIcon
+              className={_.get(classNames, 'audioBt', style['audio-bt'])}
+              onClick={this.handleMuteChange}
+            /> :
+            <SoundOnIcon
+              className={_.get(classNames, 'audioBt', style['audio-bt'])}
+              onClick={this.handleMuteChange}
+            />
+        }
+      </React.Fragment>
+    )
 
     return (
       <Waypoint
@@ -155,13 +111,15 @@ class LeadingVideo extends React.Component {
         fireOnRapidScroll
         scrollableAncestor="window"
       >
-        <div className={_.get(classNames, 'container', style.container)}itemScope itemType="http://schema.org/VideoObject">
+        <div
+          className={_.get(classNames, 'container', style.container)}
+          itemScope
+          itemType="http://schema.org/VideoObject"
+        >
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title}/>
-          {placeHolderJSX}
+          <meta itemProp="thumbnail" content={poster} />
           {videoJSX}
-          {posterJSX}
-          {portraitPosterJSX}
         </div>
       </Waypoint>
     )
@@ -179,17 +137,7 @@ LeadingVideo.propTypes = {
   filetype: PropTypes.string,
   loop: PropTypes.bool,
   mute: PropTypes.bool,
-  poster: PropTypes.shape({
-    desktop: PropTypes.shape({
-      url: PropTypes.string
-    }),
-    mobile: PropTypes.shape({
-      url: PropTypes.string
-    }),
-    tablet: PropTypes.shape({
-      url: PropTypes.string
-    })
-  }),
+  poster: PropTypes.string,
   src: PropTypes.string,
   title: PropTypes.string
 }
@@ -199,7 +147,7 @@ LeadingVideo.defaultProps = {
   filetype: '',
   loop: true,
   mute: true,
-  poster: {},
+  poster: '',
   src: '',
   title: ''
 }

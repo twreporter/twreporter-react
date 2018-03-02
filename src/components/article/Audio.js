@@ -10,8 +10,8 @@ import PauseIcon from '../../../static/asset/audio-pause.svg'
 import PlayIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
-import { Image } from './Image'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import Image from './Image'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 import 'rc-slider/assets/index.css'
 import './rcslider-overwrite.css'
 
@@ -188,7 +188,7 @@ class Audio extends React.Component {
         <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
           { isEmpty(coverPhoto) ? null : <Image
             content = { [ coverPhoto ] }
-            isToShowDescription={false}
+            toShowCaption={false}
           /> }
           <Slider
             tipFormatter={null}

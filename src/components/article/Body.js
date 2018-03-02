@@ -3,12 +3,13 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Waypoint from 'react-waypoint'
-import sideBarFactory from '../side-bar/side-bar-factory'
+import constStyledComponents from '../../constants/styled-components'
 import getArticleComponent from './getArticleComponent'
+import sideBarFactory from '../side-bar/side-bar-factory'
 import styled from 'styled-components'
 import { articleLayout } from '../../themes/layout'
 import { screen } from '../../themes/screen'
-import { globalColor, typography } from '../../themes/common-variables'
+import { typography } from '../../themes/common-variables'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -23,20 +24,7 @@ const _ = {
   throttle
 }
 
-function ChooseBlockMaxWidth(type, screen) {
-  const defaultMaxWidth = articleLayout.tablet.width.small
-  switch(type) {
-    case 'image':
-    case 'imagediff':
-    case 'slideshow':
-    case 'youtube':
-      return _.get(articleLayout, [ screen, 'width', 'medium' ], defaultMaxWidth) + 'px'
-    default:
-      return _.get(articleLayout, [ screen, 'width', 'small' ], defaultMaxWidth) + 'px'
-  }
-}
-
-const StyledArticleComponent = styled.div`
+const StyledArticleComponent = constStyledComponents.ResponsiveContainerForAritclePage.extend`
   font-size: ${(props) => {
     let fontSize = typography.font.size.base
     switch(props.fontSize) {
@@ -53,23 +41,6 @@ const StyledArticleComponent = styled.div`
   }};
 
   margin-bottom: 40px;
-
-  ${screen.tabletAbove`
-    margin-left: auto;
-    margin-right: auto;
-  `}
-
-  ${screen.tablet`
-    max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'tablet')};
-  `}
-
-  ${screen.desktop`
-    max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'desktop')};
-  `}
-
-  ${screen.overDesktop`
-    max-width: ${(props) => ChooseBlockMaxWidth(props.eleType, 'hd')};
-  `}
 `
 
 const SideBar = sideBarFactory.getArticleSideBar()
@@ -176,6 +147,10 @@ export class Body extends React.PureComponent {
         let type = ele.type
         const Component = getArticleComponent(type)
 
+        if (!Component) {
+          return null
+        }
+
         if (type === 'embeddedcode') {
           let embeddedContent = get(ele, [ 'content', 0 ], {})
           let width = get(embeddedContent, 'width')
@@ -188,8 +163,16 @@ export class Body extends React.PureComponent {
           }
         }
 
-        if (!Component) {
-          return null
+        let size = ''
+        switch(type) {
+          case 'image':
+          case 'imagediff':
+          case 'slideshow':
+          case 'youtube':
+            size = 'medium'
+            break
+          default:
+            size = 'small'
         }
 
         return (
@@ -198,7 +181,7 @@ export class Body extends React.PureComponent {
             fontSize={fontSize}
             style={styles}
             headerOneText={type === 'header-one' ? _.get(ele, 'content.0') : ''}
-            eleType={type}
+            size={size}
           >
             <Component
               alignment={ele.alignment}

@@ -8,21 +8,23 @@ import { LINK_PREFIX } from '../../../constants/link-prefix'
 import { colors, typography }  from '../../../themes/common-variables'
 import { articleLayout } from '../../../themes/layout'
 
+const toolsOffset = 20
+
 const Container = styled.div`
   display: inline-block;
   position: fixed;
   right: 50%;
   bottom: 50%;
-  color: ${colors.articleToolsText};
+  color: ${colors.secondaryColor};
   font-size: ${typography.font.size.xSmall};
   z-index: 999;
-  transform: translate(${(articleLayout.desktop.width.large - articleLayout.desktop.offset.tools)/2}px, -50%);
+  transform: translate(${(articleLayout.desktop.width.large - toolsOffset)/2}px, -50%);
   visibility: ${(props) => props.toShow ? 'visible' : 'hidden'};
   opacity: ${(props) => props.toShow ? 1 : 0};
   transition: opacity 0.5s linear;
 
   a, a:visited, a:link, a:active {
-    color: ${colors.articleToolsText};
+    color: ${colors.secondaryColor};
     font-size: ${typography.font.size.xSmall};
   }
 `
