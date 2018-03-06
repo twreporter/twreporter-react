@@ -35,13 +35,13 @@ const getMaxWidthBySize = (size, device) => {
 }
 
 const ImgPlaceholder = styled.img`
-  width: 100%;
+  width: calc(100% - 5px);
   display: block;
   filter: blur(5px);
   position: absolute;
-  opacity: 1;
-  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  transition: visibility .5s linear 1s;
+  top: 2.5px;
+  left: 2.5px;
+  display: ${props => props.toShow ? 'block' : 'none'};
 `
 
 class Image extends ResolutionSwitchingImage {
@@ -58,6 +58,27 @@ class Image extends ResolutionSwitchingImage {
         toShow={toShow}
       />
     )
+  }
+
+  _onLoad() {
+    // Progressive image
+    // Let user see the blur image,
+    // and slowly make the blur image clearer
+
+    // in order to make sure users see the blur image,
+    // delay the clear image rendering
+    setTimeout(() => {
+      this.setState({
+        isLoaded: true
+      })
+    }, 1500)
+
+    // after clear image rendered, not display placeholder anymore
+    setTimeout(() => {
+      this.setState({
+        toShowPlaceholder: false
+      })
+    }, 3000)
   }
 }
 
