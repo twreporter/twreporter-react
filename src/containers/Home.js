@@ -13,8 +13,6 @@ import twreporterRedux from '@twreporter/redux'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import { connect } from 'react-redux'
-import { globalColor, typography } from '../themes/common-variables'
-import { screen } from '../themes/screen'
 // lodash
 import get from 'lodash/get'
 import keys from 'lodash/keys'

@@ -1,4 +1,35 @@
 ### Unreleased
+
+### 2.6.2
+#### Refactoring
+**Reduce Bundle Size**:
+Adopt `react-loadable` pkg, which can split codes into different webpack bundles.
+
+**Responsive Image and Resolution Switching**
+Use `srcset` and `sizes` attribute of `<img>` tag to render images on different device resolution and media query.
+
+**Progressive Image**
+Make `src/components/article/HeroImage.js` and `src/components/shared/FullScreenImage.js` progressive rendering.
+
+**Render Custom Theme of Article Page**
+Move those rendering bussiness logics in `src/containers/Article.js` into `src/components/article/layout/layout-maker.js`.
+Hence, `src/containers/Article.js` and `src/helpers/with-layout.js`, which renders the whole page including header, body and footer, will be clean and fit.
+
+**Utilities Refactoring**
+Decentralize the utilities functions, move related functions into the same file, and delete `src/utilites/index.js`
+
+**Constants Refactoring**
+Clean the constants variables.
+In the Future, only those constant variables which are used by different files could be specified in `src/constants/*.js`
+
+#### Patches
+- Decrease BlockQuote font-size to 20px
+- Add webpack chunk name for dynamic imported modules
+- Fix style tag over-wrapping inside head of html
+- Remove react-lazyload and tiny image is enough for BottomRelateds
+- Polyfill for require.ensure on server side rendering
+- Inject global css on both client and server side
+
 ### 2.6.1
 #### Features
 - Longform article with side bar

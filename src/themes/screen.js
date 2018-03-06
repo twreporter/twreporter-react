@@ -1,61 +1,45 @@
 // For website consistent, this file is extentsion of bootstrap variables
 import { css } from 'styled-components'
-
-// const SCREEN_XS_MIN = 480
-const TABLET_MIN = 768
-const DESKTOP_MIN = 992
-const DEKTOP_HD_MIN = 1200
-const MOBILE_MAX = TABLET_MIN - 1
-const TABLET_MAX = DESKTOP_MIN - 1
-const DESKTOP_MAX = DEKTOP_HD_MIN - 1
-
-export const breakPoints = {
-  mobileMaxWidth: `${MOBILE_MAX}px`,
-  tabletMinWidth: `${TABLET_MIN}px`,
-  tabletMaxWidth: `${TABLET_MAX}px`,
-  desktopMinWidth: `${DESKTOP_MIN}px`,
-  desktopMaxWidth: `${DESKTOP_MAX}px`,
-  overDesktopMinWidth: `${DEKTOP_HD_MIN}px`
-}
+import sz from '../constants/screen-size'
 
 export const screen = {
   mobile: (...args) => css`
-    @media (max-width: ${breakPoints.mobileMaxWidth}) {
+    @media (max-width: ${sz.smallScreenMaxWidth}px) {
       ${css(...args)}
     }
   `,
   tabletAbove: (...args) => css`
-    @media (min-width: ${breakPoints.tabletMinWidth}) {
+    @media (min-width: ${sz.mediumScreenMinWidth}px) {
       ${css(...args)}
     }
   `,
   tablet: (...args) => css`
-    @media (min-width: ${breakPoints.tabletMinWidth}) and (max-width: ${breakPoints.tabletMaxWidth}) {
+    @media (min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px) {
       ${css(...args)}
     }
   `,
   tabletBelow: (...args) => css`
-    @media (max-width: ${breakPoints.tabletMaxWidth}) {
+    @media (max-width: ${sz.mediumScreenMaxWidth}px) {
       ${css(...args)}
     }
   `,
   desktopAbove: (...args) => css`
-    @media (min-width: ${breakPoints.desktopMinWidth}) {
+    @media (min-width: ${sz.largeScreenMinWidth}px) {
       ${css(...args)}
     }
   `,
   desktop: (...args) => css`
-    @media (min-width: ${breakPoints.desktopMinWidth}) and (max-width: ${breakPoints.desktopMaxWidth}) {
+    @media (min-width: ${sz.largeScreenMinWidth}px) and (max-width: ${sz.largeScreenMaxWidth}px) {
       ${css(...args)}
     }
   `,
   desktopBelow: (...args) => css`
-    @media (max-width: ${breakPoints.desktopMaxWidth}) {
+    @media (max-width: ${sz.largeScreenMaxWidth}px) {
       ${css(...args)}
     }
   `,
   overDesktop: (...args) => css`
-    @media (min-width: ${breakPoints.overDesktopMinWidth}) {
+    @media (min-width: ${sz.xLargeScreenMinWidth}px) {
       ${css(...args)}
     }
   `
