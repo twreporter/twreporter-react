@@ -8,6 +8,9 @@ Adopt `react-loadable` pkg, which can split codes into different webpack bundles
 **Responsive Image and Resolution Switching**
 Use `srcset` and `sizes` attribute of `<img>` tag to render images on different device resolution and media query.
 
+**Progressive Image**
+Make `src/components/article/HeroImage.js` and `src/components/shared/FullScreenImage.js` progressive rendering.
+
 **Render Custom Theme of Article Page**
 Move those rendering bussiness logics in `src/containers/Article.js` into `src/components/article/layout/layout-maker.js`.
 Hence, `src/containers/Article.js` and `src/helpers/with-layout.js`, which renders the whole page including header, body and footer, will be clean and fit.

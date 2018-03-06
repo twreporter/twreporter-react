@@ -13,37 +13,34 @@ const _ = {
 }
 
 const FullScreenContainer = styled.figure`
-  position: relative;
   width: 100vw;
   height: 100vh;
 `
 
 const ImgPlaceholder = styled.img`
+  display: ${props => props.toShow ? 'block' : 'none'};
+  filter: blur(30px);
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: blur(5px);
-  position: absolute;
-  opacity: 1;
-  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  transition: visibility .5s linear 1s;
 `
 
 const StyledPicture = styled.picture`
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
+  position: relative;
   width: 100%;
   height: 100%;
-  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  opacity: ${props => props.toShow ? '1' : '0.8' };
-  transition: opacity .5s linear 0s;
-  > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+`
+
+const StyledImg = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: ${props => props.toShow ? '1' : '0' };
+  transition: opacity 1s;
 `
 
 const ImgFallback = styled.div`
@@ -61,7 +58,8 @@ class FullScreenImage extends React.PureComponent {
     super(props)
     this.state = {
       isObjectFit: true,
-      isLoaded: false
+      isLoaded: false,
+      toShowPlaceholder: true
     }
     this.onLoad = this._onLoad.bind(this)
   }
@@ -84,44 +82,56 @@ class FullScreenImage extends React.PureComponent {
   }
 
   _onLoad() {
-    this.setState({
-      isLoaded: true
-    })
+    // Progressive image
+    // Let user see the blur image,
+    // and slowly make the blur image clearer
+
+    // in order to make sure users see the blur image,
+    // delay the clear image rendering
+    setTimeout(() => {
+      this.setState({
+        isLoaded: true
+      })
+    }, 1500)
+
+    setTimeout(() => {
+      this.setState({
+        toShowPlaceholder: false
+      })
+    }, 3000)
   }
 
   render() {
-    const { isLoaded, isObjectFit } = this.state
-    const { alt, imgSet, portraitImgSet, useBackgroundImage } = this.props
-    const imgJSX = isObjectFit && !useBackgroundImage ? (
-      <StyledPicture
-        toShow={isLoaded}
-      >
+    const { isLoaded, isObjectFit, toShowPlaceholder } = this.state
+    const { alt, imgSet, portraitImgSet } = this.props
+
+    const imgJSX = isObjectFit ? (
+      <StyledPicture>
+        <meta itemProp="url" content={_.get(imgSet, 'desktop.url')} />
+        <meta itemProp="description" content={alt} />
+        <ImgPlaceholder
+          src={_.get(imgSet, 'tiny.url')}
+          toShow={toShowPlaceholder}
+        />
         <source media={`(orientation: portrait)`} srcSet={getSrcSet(portraitImgSet)} />
         <source srcSet={getSrcSet(imgSet)} />
-        <img
+        <StyledImg
           alt={alt}
           ref={node => { this._imgNode = node }}
           onLoad={this.onLoad}
-          src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
+          src={replaceStorageUrlPrefix(_.get(imgSet, 'tablet.url'))}
+          toShow={isLoaded}
         />
       </StyledPicture>
-    ) : (
-      <ImgFallback
-        url={replaceStorageUrlPrefix(_.get(imgSet, 'desktop.url'))}
-      />
-    )
+    ) : <ImgFallback
+      url={replaceStorageUrlPrefix(_.get(imgSet, 'desktop.url'))}
+    />
     return (
       <FullScreenContainer
         itemProp="image"
         itemScop
         itemType="http://schema.org/ImageObject"
       >
-        <meta itemProp="url" content={_.get(imgSet, 'desktop.url')} />
-        <meta itemProp="description" content={alt} />
-        <ImgPlaceholder
-          src={_.get(imgSet, 'tiny.url')}
-          toShow={!isLoaded}
-        />
         {imgJSX}
       </FullScreenContainer>
     )
@@ -131,14 +141,12 @@ class FullScreenImage extends React.PureComponent {
 FullScreenImage.defaultProps = {
   alt: '',
   imgSet: {},
-  useBackgroundImage: false,
   portraitImgSet: {}
 }
 
 FullScreenImage.propTypes = {
   alt: PropTypes.string,
   imgSet: constPropTypes.imgSet,
-  useBackgroundImage: PropTypes.bool,
   portraitImgSet: constPropTypes.imgSet
 }
 

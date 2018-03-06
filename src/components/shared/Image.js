@@ -37,7 +37,7 @@ const ImgPlaceholder = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
+  display: ${props => props.toShow ? 'block' : 'none'};
 `
 
 const ImgBox = styled.div`
@@ -46,9 +46,8 @@ const ImgBox = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  visibility: ${props => props.toShow ? 'visible' : 'hidden'};
-  opacity: ${props => props.toShow ? '1' : '0.8' };
-  transition: visibility 0s linear 0s, opacity .5s linear 0s;
+  opacity: ${props => props.toShow ? '1' : '0' };
+  transition:  opacity .5s;
 
   > img {
     width: 100%;
@@ -59,7 +58,8 @@ class Image extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      isLoaded: false
+      isLoaded: false,
+      toShowPlaceholder: true
     }
     this.onLoad = this._onLoad.bind(this)
   }
@@ -77,6 +77,12 @@ class Image extends React.PureComponent {
     this.setState({
       isLoaded: true
     })
+
+    setTimeout(() => {
+      this.setState({
+        toShowPlaceholder: false
+      })
+    }, 1000)
   }
 
   _getSizes(imgSizes) {
@@ -106,7 +112,7 @@ class Image extends React.PureComponent {
   }
 
   render() {
-    const { isLoaded } = this.state
+    const { isLoaded, toShowPlaceholder } = this.state
     const { alt, imgSet, imgSizes } = this.props
     const srcSet = getSrcSet(imgSet)
     const sizes = this._getSizes(imgSizes)
@@ -121,7 +127,7 @@ class Image extends React.PureComponent {
           height={_.get(imgSet, 'tiny.height')}
           width={_.get(imgSet, 'tiny.width')}
         >
-          {this._renderImgPlaceHolder(!isLoaded)}
+          {this._renderImgPlaceHolder(toShowPlaceholder)}
           <ImgBox
             toShow={isLoaded}
           >
