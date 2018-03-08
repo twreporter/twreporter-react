@@ -15,7 +15,7 @@ export default function configureStore(history, initialState) {
   if (__DEVELOPMENT__ && __CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION__) {
     finalCreateStore = compose(
       applyMiddleware(...middlewares),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      window.__REDUX_DEVTOOLS_EXTENSION__()
     )(_createStore)
   } else {
     finalCreateStore = applyMiddleware(...middlewares)(_createStore)
