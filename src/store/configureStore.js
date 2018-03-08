@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__, __CLIENT__, __DEVTOOLS__ */
+/* global __DEVELOPMENT__, __CLIENT__*/
 'use strict'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers'
