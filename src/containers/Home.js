@@ -152,7 +152,7 @@ const siteNavigationJSONLD = {
       {
         '@type':'SiteNavigationElement',
         'url':'https://www.twreporter.org/categories/politics_and_economy',
-        'name':'政治．經濟'
+        'name':'政經．產業'
       },
       {
         '@type':'SiteNavigationElement',
