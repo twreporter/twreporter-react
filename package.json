@@ -7,10 +7,19 @@
     "clean": "make clean",
     "dev": "make dev",
     "lint": "eslint -c .eslintrc src",
+<<<<<<< HEAD
     "start": "make start",
     "stop": "make stop",
     "test": "make test",
     "ui-test": "make ui-test",
+=======
+    "start": "npm run build && npm run start-server",
+    "start-dev-server": "API_HOST=localhost API_PORT=8080 API_PROTOCOL=http NODE_ENV=development RELEASE_BRANCH=development BABEL_ENV=ssr nodemon ./src/server --exec babel-node",
+    "start-server": "NODE_ENV=production pm2 start processes.json",
+    "close-server": "pm2 kill",
+    "start-webpack-dev-server": "NODE_ENV=development node ./webpack-dev-server.js",
+    "test": "./node_modules/mocha/bin/mocha $(find src -name '*.test.js') --compilers js:babel-core/register",
+>>>>>>> Add opening section of about-us page
     "validate": "npm ls"
   },
   "repository": {
