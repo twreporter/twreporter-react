@@ -164,8 +164,8 @@ const webpackConfig = {
       'process.env': {
         BROWSER: true,
         NODE_ENV: isProduction ? '"production"' : '"development"',
-        RELEASE_BRANCH: '"staging"',
-        API_HOST: '"staging-go-api.twreporter.org"',
+        RELEASE_BRANCH: '"production"',
+        API_HOST: '"go-api.twreporter.org"',
         API_PORT: '443',
         API_PROTOCOL: '"https"'
       },
