@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__, __CLIENT__, __DEVTOOLS__ */
+/* global __DEVELOPMENT__, __CLIENT__*/
 'use strict'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers'
@@ -12,7 +12,7 @@ export default function configureStore(history, initialState) {
 
   let finalCreateStore
 
-  if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
+  if (__DEVELOPMENT__ && __CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION__) {
     finalCreateStore = compose(
       applyMiddleware(...middlewares),
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
