@@ -164,10 +164,10 @@ const webpackConfig = {
       'process.env': {
         BROWSER: true,
         NODE_ENV: isProduction ? '"production"' : '"development"',
-        RELEASE_BRANCH: '"production"',
-        API_HOST: '"go-api.twreporter.org"',
-        API_PORT: '443',
-        API_PROTOCOL: '"https"'
+        RELEASE_BRANCH: '"development"',
+        API_HOST: '"dev-go-api.twreporter.org"',
+        API_PORT: '8080',
+        API_PROTOCOL: '"http"'
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
