@@ -62,9 +62,13 @@ class Image extends React.PureComponent {
       toShowPlaceholder: true
     }
     this.onLoad = this._onLoad.bind(this)
+    this._imgNode = null
+    this._isMounted = false
   }
 
   componentDidMount() {
+    this._isMounted = true
+
     // Check if img is already loaded, and cached on the browser.
     // If cached, React.img won't trigger onLoad event.
     // Hence, we need to trigger re-rendering.
@@ -73,15 +77,22 @@ class Image extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+    this._imgNode = null
+  }
+
   _onLoad() {
     this.setState({
       isLoaded: true
     })
 
     setTimeout(() => {
-      this.setState({
-        toShowPlaceholder: false
-      })
+      if (this._isMounted) {
+        this.setState({
+          toShowPlaceholder: false
+        })
+      }
     }, 1000)
   }
 

@@ -62,6 +62,8 @@ class FullScreenImage extends React.PureComponent {
       toShowPlaceholder: true
     }
     this.onLoad = this._onLoad.bind(this)
+    this._imgNode = null
+    this._isMounted = false
   }
 
   componentWillMount() {
@@ -73,12 +75,19 @@ class FullScreenImage extends React.PureComponent {
   }
 
   componentDidMount() {
+    this._isMounted = true
+
     // Check if img is already loaded, and cached on the browser.
     // If cached, React.img won't trigger onLoad event.
     // Hence, we need to trigger re-rendering.
     if (this._imgNode) {
       this.onLoad()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+    this._imgNode = null
   }
 
   _onLoad() {
@@ -89,15 +98,19 @@ class FullScreenImage extends React.PureComponent {
     // in order to make sure users see the blur image,
     // delay the clear image rendering
     setTimeout(() => {
-      this.setState({
-        isLoaded: true
-      })
+      if (this._isMounted) {
+        this.setState({
+          isLoaded: true
+        })
+      }
     }, 1500)
 
     setTimeout(() => {
-      this.setState({
-        toShowPlaceholder: false
-      })
+      if (this._isMounted) {
+        this.setState({
+          toShowPlaceholder: false
+        })
+      }
     }, 3000)
   }
 
