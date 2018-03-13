@@ -13,6 +13,7 @@ In the future, the developer won't need to build the API web service.
 
 #### Patches
 - Avoid `setState` on unmounted or mounting components while rendering the Image or FullScreenImage component
+- Bind changeFontSize function to Article container instance.
  
 ### 2.6.3
 **Update @twreporter/react-components**
