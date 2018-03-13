@@ -141,6 +141,7 @@ class Article extends PureComponent {
 
     this._onScroll = _.throttle(this._handleScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
+    this.changeFontSize = this._changeFontSize.bind(this)
 
     // reading progress component
     this.rp = null
@@ -161,7 +162,7 @@ class Article extends PureComponent {
     }
   }
 
-  changeFontSize(fontSize) {
+  _changeFontSize(fontSize) {
     this.setState({
       fontSize:fontSize,
       isFontSizeSet:true
