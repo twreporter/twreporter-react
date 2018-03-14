@@ -8,7 +8,7 @@ const _ = {
   compact,
   isArray,
   isEmpty,
-  reduce,
+  reduce
 }
 
 export const absoluteCentering = css`
@@ -74,7 +74,7 @@ export const media = {
     @media (max-width: 768px) {
       ${css(...args)}
     }
-  `,
+  `
 }
 
 /**
