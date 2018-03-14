@@ -1,27 +1,49 @@
 ### Unreleased
+### 2.7.0
+#### Minor Change
+Performance Enhancement 
+Store redux state in the window.localStorage. 
+If the redux state is fresh and populated,
+the copy in the localStorage will be used instead, 
+Hence, the AJAX won't be sent to the API server.
 
+Easy to Develop
+Replace `localhost` by `dev-go-api.twreporter.org` API server.
+In the future, the developer won't need to build the API web service.
+
+#### Patches
+- Avoid `setState` on unmounted or mounting components while rendering the Image or FullScreenImage component
+- Bind changeFontSize function to Article container instance.
+ 
 ### 2.6.3
 **Update @twreporter/react-components**
 Update @twreporter/react-components package version from 4.0.1 to 4.0.3.
+
 ### 2.6.2
 #### Refactoring
 **Reduce Bundle Size**:
+
 Adopt `react-loadable` pkg, which can split codes into different webpack bundles.
 
 **Responsive Image and Resolution Switching**
+
 Use `srcset` and `sizes` attribute of `<img>` tag to render images on different device resolution and media query.
 
 **Progressive Image**
+
 Make `src/components/article/HeroImage.js` and `src/components/shared/FullScreenImage.js` progressive rendering.
 
 **Render Custom Theme of Article Page**
+
 Move those rendering bussiness logics in `src/containers/Article.js` into `src/components/article/layout/layout-maker.js`.
 Hence, `src/containers/Article.js` and `src/helpers/with-layout.js`, which renders the whole page including header, body and footer, will be clean and fit.
 
 **Utilities Refactoring**
+
 Decentralize the utilities functions, move related functions into the same file, and delete `src/utilites/index.js`
 
 **Constants Refactoring**
+
 Clean the constants variables.
 In the Future, only those constant variables which are used by different files could be specified in `src/constants/*.js`
 
