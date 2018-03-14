@@ -59,20 +59,31 @@ function isReduxStateExpired() {
  * However, it will refine the redux state before setting.
  *
  * @param {Object} reduxState - redux state
- * @param {number} maxAge - measure in seconds
  * @returns {Object} refined redux state
  */
-function setReduxState(reduxState, maxAge) {
+function setReduxState(reduxState) {
   let _state = reduxState
   if (window && window.localStorage) {
     const ls = window.localStorage
     _state = selectCacheablePropInReduxState(reduxState)
-    // expires at 15 mins later
-    const expires = Date.now() + (maxAge * 1000)
     ls.setItem(keys.state, JSON.stringify(_state))
-    ls.setItem(keys.expires, expires)
   }
   return _state
+}
+
+/**
+ * Set redux state expire time into localStoroage.
+ *
+ * @param {number} [maxAge=600] - measure in seconds
+ * @returns {Object} expire time - Date.now() + maxAge
+ */
+function setReduxStateExpires(maxAge=600) {
+  const expires = Date.now() + (maxAge * 1000)
+  if (window && window.localStorage) {
+    const ls = window.localStorage
+    ls.setItem(keys.expires, expires)
+  }
+  return expires
 }
 
 /**
@@ -103,15 +114,16 @@ function getReduxState() {
  */
 function syncReduxState(reduxState, maxAge=600) {
   if (isReduxStateExpired()) {
-    return setReduxState(reduxState, maxAge)
+    const _state = setReduxState(reduxState)
+    setReduxStateExpires(maxAge)
+    return _state
   }
 
-  return setReduxState(_.merge(getReduxState(), reduxState), maxAge)
+  return setReduxState(_.merge(getReduxState(), reduxState))
 }
 
 export default {
   getReduxState,
   isReduxStateExpired,
-  setReduxState,
   syncReduxState
 }
