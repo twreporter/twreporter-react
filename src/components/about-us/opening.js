@@ -18,18 +18,8 @@ const IntroEng = 'December 2015 "The reporter" is officially on the line, with t
 const HeaderContainer = styled.div`
   width: 100%;
   background-color: transparent;
-  ${(props) => {
-    if (props.ifPinned) {
-      return `
-        position: absolute;
-        bottom: 0;
-      `
-    }
-    return `
-      position: fixed;
-      top: 0;
-    `
-  }};
+  position: absolute;
+  top: 0;  
   z-index: 2;
 `
 
@@ -291,14 +281,18 @@ export class Opening extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      ifPinned: false
+      isIndex: false
     }
   }
-  
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
   render() {    
     return (
       <React.Fragment>
-        <HeaderContainer ifPinned={this.state.ifPinned}>
+        <HeaderContainer>
           <Header 
             isIndex
           />
