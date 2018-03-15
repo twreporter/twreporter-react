@@ -107,38 +107,6 @@ Hamburger.propTypes = {
 }
 
 class Header extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.handleOnHamburgerClick = this._handleOnHamburgerClick.bind(this)
-    this.panel = null
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // close categories when location change
-    if (this.state.categoriesIsOpen && this.props.pathName !== nextProps.pathName) {
-      this.setState({
-        categoriesIsOpen: false
-      })
-    }
-  }
-
-  componentWillUnmount() {
-    this.panel = null
-  }
-
-  _handleToggleCategoriesMenu(force = '') {
-    const result = force || (this.state.categoriesIsOpen ? 'close' : 'open')
-    this.setState({
-      categoriesIsOpen: (result === 'open')
-    })
-  }
-
-  _handleOnHamburgerClick() {
-    if (this.panel) {
-      this.panel.handlePanelOnClick()
-    }
-  }
-
   render() {
     const { bgColor, isIndex, headerPosition } = this.props
     return (
