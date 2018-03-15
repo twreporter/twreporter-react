@@ -23,6 +23,9 @@ const IconsContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  a{
+    height: 100%;
+  }
 `
 
 const IconContainer = styled.div`
@@ -104,13 +107,14 @@ class Icons extends React.PureComponent {
       <IconsContainer>
         <IconContainer>
         {/* <Link to={`/${searchConfigs.path}`}> */}
+          <a href={'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'} target="_blank">
           <SubscribeIcon />
-        {/* </Link> */}
+        </a>
         </IconContainer>
         <IconContainer>
-          {/* <Link to={`/${bookmarkConfigs.path}`}> */}
+          <a href={'https://twreporter.backme.tw/checkout/175/3788'} target="_blank">
             <DonateIcon />
-          {/* </Link> */}
+          </a>
         </IconContainer>
       </IconsContainer>
     )
