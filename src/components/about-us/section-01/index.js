@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import { screen } from './utils/screen'
-import sz from './constants/screen-size'
-import inDepth from '../../../static/asset/about-us/in-depth.png'
-import nonProfit from '../../../static/asset/about-us/non-profit.png'
-import openSource from '../../../static/asset/about-us/opensource.png'
+import { screen } from '../utils/screen'
+import sz from '../constants/screen-size'
+import inDepth from '../../../../static/asset/about-us/in-depth.png'
+import nonProfit from '../../../../static/asset/about-us/non-profit.png'
+import openSource from '../../../../static/asset/about-us/opensource.png'
 
 const content = [
   {
@@ -24,7 +24,7 @@ const content = [
       'OPEN SOURCE開放原始碼',
       '全民政策追蹤：蔡英文勞動政策追蹤平台',
       'CC授權（姓名標示／非商業性／禁止改作)'
-    ]      
+    ]
   },
   {
     imgSrc: nonProfit,
@@ -159,7 +159,7 @@ const Title = styled.div`
   `}  
 `
 
-export class Section1 extends PureComponent {  
+export class Section1 extends PureComponent {
   render() {
     const blocks = content.map((block) => {
       const otherInfo = () => {
@@ -171,7 +171,7 @@ export class Section1 extends PureComponent {
               <p key={index}><span>- </span>{words}</p>
             )
           })
-        )  
+        )
       }
       return (
         <Oneblock key={block.title}>
@@ -198,7 +198,7 @@ export class Section1 extends PureComponent {
               </div>
             </div>
             <h1>1</h1>
-          </Title>  
+          </Title>
           <SectionBlock>
             {blocks}
           </SectionBlock>

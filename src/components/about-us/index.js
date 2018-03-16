@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react'
 import Footer from '@twreporter/react-components/lib/footer'
-import WebFont from './web-font'
+import React, { PureComponent } from 'react'
 import Opening from './opening'
 import Section01 from './section-01'
+import WebFont from './web-font'
 
 export class AboutUs extends PureComponent {
   render() {

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Icons from './icons'
 import Link from 'react-router/lib/Link'
-import Logo from '../../../static/asset/about-us/twreporter-logo.svg'
+import Logo from '../../../../static/asset/about-us/twreporter-logo.svg'
 
-import { screen } from './utils/screen'
-import { arrayToCssShorthand } from './utils/style-utils'
-import { colors } from './constants/styles'
+import { screen } from '../utils/screen'
+import { arrayToCssShorthand } from '../utils/style-utils'
+import { colors } from '../constants/styles'
 
 const HEADER_POSITION_UPON = 'header-upon'
 const styles = {

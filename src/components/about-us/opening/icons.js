@@ -1,23 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 // import Link from 'react-router/lib/Link'
-import SubscribeIcon from '../../../static/asset/about-us/subscribe-icon.svg'
-import DonateIcon from '../../../static/asset/about-us/donate-icon.svg'
-import { screen } from './utils/screen'
-
-// import DonateIcon from '../../static/donate-icon.svg'
+import SubscribeIcon from '../../../../static/asset/about-us/subscribe-icon.svg'
+import DonateIcon from '../../../../static/asset/about-us/donate-icon.svg'
+import { screen } from '../utils/screen'
 
 const styles = {
   iconContainerSize: 3 // em
 }
-
-/* Icon alt text takes 2 fullwidth characters specifically */
-// const ICON_ALT_TEXT = {
-//   SEARCH: '搜尋',
-//   SIGN_OUT: '登出',
-//   MEMBER: '會員',
-//   BOOKMARK: '書籤'
-// }
 
 const IconsContainer = styled.div`
   position: relative;
