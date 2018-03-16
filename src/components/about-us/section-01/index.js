@@ -46,6 +46,9 @@ const ContainerWrapper = styled.div`
   ${screen.overDesktop`
     width: ${sz.xLargeScreenMinWidth}px;
   `}
+  ${screen.tablet`
+    padding: 10px;
+  `}  
 `
 
 const SectionBlock = styled.div`
@@ -62,6 +65,7 @@ const Oneblock = styled.div`
   text-align: center;
   width: 30%;
   padding: 10px;
+  min-height: 50vh;
   img{
     width: 100%;
     padding: 20px;
@@ -82,6 +86,12 @@ const Oneblock = styled.div`
     font-weight: bold;
     font-size: 14px;
   }
+  ${screen.tablet`
+    p{
+      font-size: 12px;
+    }
+  `}
+
   ${screen.mobile`
     width: 90%;
     height: 100vh;
@@ -104,11 +114,16 @@ const Info = styled.div`
     margin-bottom: 20px;
   }
   ${screen.desktopAbove`
-    font-size: 14px;
+    p{
+      line-height: 2.25;
+      font-size: 14px;
+    }
   `}  
   ${screen.mobile`
     text-align: center;
-    font-size: 13px;
+    p{
+      font-size: 13px;
+    }
   `}
 `
 

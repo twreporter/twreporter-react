@@ -66,7 +66,13 @@ const MobileTriangle = styled.div`
   border-bottom: solid calc(276px*5/8) transparent;
   &:before,&:after{
     box-sizing: border-box;
-  }  
+  }
+  ${screen.tablet`
+    width: 102px;
+    height: 661px;
+    border-top: solid calc(661px*3/8) transparent;
+    border-bottom: solid calc(661px*5/8) transparent;
+  `}      
 `
 
 const TriangleRight = MobileTriangle.extend`
@@ -74,6 +80,9 @@ const TriangleRight = MobileTriangle.extend`
   right: 0;
   top: calc(50% + 276px*1/8);
   transform: translateY(-50%) rotateY(180deg);
+  ${screen.tablet`
+    top: calc(50% + 661px*1/8);
+  `}      
 `
 
 const TriangleLeft = MobileTriangle.extend`
@@ -81,6 +90,9 @@ const TriangleLeft = MobileTriangle.extend`
   left: 0;
   top: calc(50% + 276px*1/8);
   transform: translateY(-50%);
+  ${screen.tablet`
+    top: calc(50% + 661px*1/8);
+  `}
 `
 
 const Divider = styled.div`

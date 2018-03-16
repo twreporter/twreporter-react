@@ -4,7 +4,6 @@ import { screen } from '../utils/screen'
 import aboutusTitle from '../../../../static/asset/about-us/opening_title_desktopHD.png'
 import aboutusTitleMobile from '../../../../static/asset/about-us/opening_title_mobile.png'
 import openingthereporter from '../../../../static/asset/about-us/opening_thereporter_desktopHD.png'
-import startbutton from '../../../../static/asset/about-us/opening_start.png'
 
 const OnlyDisplayOnDesktop = styled.div`
   ${screen.tabletBelow`
@@ -41,7 +40,7 @@ const Title = styled.div`
   ${screen.tablet`
     text-align: center;
     img{
-      width: 75%;
+      width: 80%;
     }
   `}
   ${screen.desktopAbove`
@@ -78,22 +77,9 @@ const Thereporter = styled.div`
   `}
 `
 
-const Startbutton = styled.div`
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  ${screen.tabletBelow`
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    margin-top: 20px;
-  `}  
-`
-
 export class CoverTitle extends PureComponent {
   render() {
+    const { startbtn } = this.props
     return(
       <TitleContainer>
         <Title>
@@ -106,9 +92,7 @@ export class CoverTitle extends PureComponent {
           <img src={openingthereporter} />
         </Thereporter>
         <OnlyDisplayOnDesktop>
-          <Startbutton>
-            <img src={startbutton} />
-          </Startbutton>
+          {startbtn}
         </OnlyDisplayOnDesktop>
       </TitleContainer>
     )

@@ -30,7 +30,8 @@ const IconContainer = styled.div`
   justify-content: center;
   transition: opacity 600ms ease;
   svg {
-    height: 50%;
+    height: 100%;
+    padding: 1em;
   }
   span {
     display: none;
@@ -46,8 +47,9 @@ const IconContainer = styled.div`
     svg {
       opacity: 1;
       transition: transform .3s ease-in-out, opacity .3s ease-in-out;
-      height: 50%;
+      height: 100%;
       z-index: 1;
+      padding: 1em;
     }
     span {
       display: inline;
@@ -77,26 +79,11 @@ const IconContainer = styled.div`
   `}
 `
 
-// const DisplayOnDesktop = IconContainer.extend`
-//   display: none;
-//   ${screen.desktopAbove`
-//     display: table-cell;
-//   `}
-// `
-
-// const HideOnDesktop = IconContainer.extend`
-//   display: table-cell;
-//   ${screen.desktopAbove`
-//     display: none;
-//   `}
-// `
-
 class Icons extends React.PureComponent {
   render() {
     return (
       <IconsContainer>
         <IconContainer>
-        {/* <Link to={`/${searchConfigs.path}`}> */}
           <a href={'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'} target="_blank">
           <SubscribeIcon />
         </a>

@@ -4,7 +4,10 @@ import { screen } from '../utils/screen'
 import Background from './background'
 import Header from './header'
 import CoverTitle from './cover-title'
+import MobileIntroContainer from './intro-container-mob'
 import sz from '../constants/screen-size'
+import startbutton from '../../../../static/asset/about-us/opening_start.png'
+import smoothScroll from 'smoothscroll'
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -46,29 +49,42 @@ const CoverWrapper = ContainerWrapper.extend`
   `}
 `
 
-const ContentContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+const Startbutton = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  ${screen.tabletBelow`
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    margin-top: 20px;
+  `}  
 `
 
-const MobileIntroContainer = ContentContainer.extend`
-  height: 100vh;
-  align-items: center;
-  ${screen.desktopAbove`
+const DesktopStartbutton = Startbutton.extend`
+  ${screen.tabletBelow`
     display: none;
-  `}  
-  ${screen.tablet`
-    align-items: center;
-    height: 50vh;
-  `}      
+  `}     
 `
 
 export class Opening extends PureComponent {
-
+  constructor(props) {
+    super(props)
+    this._handleClick = this._handleClick.bind(this)
+  }
+  
+  _handleClick(event) {
+    event.preventDefault()
+    if (typeof window === 'undefined') return
+    const coverBottom = this._cover.scrollHeight
+    return smoothScroll(coverBottom)
+  }
+    
   render() {
+    const Start = <Startbutton onClick={this._handleClick}><img src={startbutton} /></Startbutton>
+    const DesktopStart = <DesktopStartbutton onClick={this._handleClick}><img src={startbutton} /></DesktopStartbutton>
     return (
       <React.Fragment>
         <HeaderContainer>
@@ -76,10 +92,10 @@ export class Opening extends PureComponent {
             isIndex
           />
         </HeaderContainer>
-        <CoverWrapper>
+        <CoverWrapper innerRef={(ele) => {this._cover = ele}}>
           <Background />
-          <CoverTitle />
-          <MobileIntroContainer />
+          <CoverTitle startbtn={DesktopStart} />
+          <MobileIntroContainer startbtn={Start}/>
         </CoverWrapper>
       </React.Fragment>
     )

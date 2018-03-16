@@ -2,25 +2,9 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { screen } from '../utils/screen'
 import quote from '../../../../static/asset/about-us/opening_quote1.png'
-import startbutton from '../../../../static/asset/about-us/opening_start.png'
 
 const IntroChinese = '2015年12月《報導者》正式上線，稟持深度、開放、非營利的精神，致力於公共領域調查報導，為讀者持續追蹤各項重要議題，共同打造多元的社會與媒體環境。'
 const IntroEng = 'December 2015 "The reporter" is officially on the line, with the depth, open, non-profit spirit, committed to the public domain survey reports, for readers to continue to track the important issues, together to create a diverse social and media environment.'
-
-
-const Startbutton = styled.div`
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  ${screen.tabletBelow`
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    margin-top: 20px;
-  `}  
-`
 
 const Textblock = styled.div`
   position: absolute;
@@ -43,11 +27,17 @@ const Quote = styled.div`
   img{
     width: 100%;
   }
+  ${screen.tablet`
+    align-self: flex-start;
+  `}      
 `
 const EndQuote = Quote.extend`
   img{
     transform: rotateY(180deg);
   }
+  ${screen.tablet`
+    align-self: flex-end;
+  `}      
 `
 
 const ContentContainer = styled.div`
@@ -65,6 +55,8 @@ const IntroContainer = ContentContainer.extend`
     display: none;
   `}  
   ${screen.tablet`
+    width: 548px;
+    margin: 0 auto;
     align-items: center;
     height: 50vh;
   `}      
@@ -72,6 +64,7 @@ const IntroContainer = ContentContainer.extend`
 
 export class MobileIntroContainer extends PureComponent {
   render() {
+    const { startbtn } = this.props
     return(
       <IntroContainer>
         <Quote>
@@ -85,9 +78,7 @@ export class MobileIntroContainer extends PureComponent {
         <EndQuote>
           <img src={quote} />
         </EndQuote>
-        <Startbutton>
-          <img src={startbutton} />
-        </Startbutton>
+        {startbtn}
       </IntroContainer>
     )
   }

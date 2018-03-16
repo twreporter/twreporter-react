@@ -69,43 +69,6 @@ const TopRowContent = styled.div`
   margin: 0 auto;
 `
 
-const HamburgerContainer = styled.div`
-  position: absolute;
-  ${screen.mobile`
-    position: static;
-  `}
-`
-
-const HamburgerFrame = styled.div`
-  cursor: pointer;
-  display: none;
-  ${screen.mobile`
-    display: initial;
-  `}
-`
-
-const Storke = styled.div`
-  width: 25px;
-  height: 4px;
-  margin-bottom: 5px;
-  background-color: ${colors.primaryColor};
-  border-radius: 10px;
-`
-
-const Hamburger = ({ onClick }) => (
-  <HamburgerContainer>
-    <HamburgerFrame onClick={onClick}>
-      <Storke />
-      <Storke />
-      <Storke />
-    </HamburgerFrame>
-  </HamburgerContainer>
-)
-
-Hamburger.propTypes = {
-  onClick: PropTypes.func.isRequired
-}
-
 class Header extends React.PureComponent {
   render() {
     const { bgColor, isIndex, headerPosition } = this.props
