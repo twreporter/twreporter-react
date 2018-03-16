@@ -1,27 +1,19 @@
+import { screen } from '../utils/screen'
+import DonateIcon from '../../../../static/asset/about-us/donate-icon.svg'
 import React from 'react'
 import styled from 'styled-components'
-// import Link from 'react-router/lib/Link'
-import SubscribeIcon from '../../../static/asset/about-us/subscribe-icon.svg'
-import DonateIcon from '../../../static/asset/about-us/donate-icon.svg'
-import { screen } from './utils/screen'
-
-// import DonateIcon from '../../static/donate-icon.svg'
+import SubscribeIcon from '../../../../static/asset/about-us/subscribe-icon.svg'
 
 const styles = {
   iconContainerSize: 3 // em
 }
 
-/* Icon alt text takes 2 fullwidth characters specifically */
-// const ICON_ALT_TEXT = {
-//   SEARCH: '搜尋',
-//   SIGN_OUT: '登出',
-//   MEMBER: '會員',
-//   BOOKMARK: '書籤'
-// }
+const subscriptionUrl = 'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'
+const donateUrl = 'https://twreporter.backme.tw/checkout/175/3788'
 
 const IconsContainer = styled.div`
-  position: relative;
   display: flex;
+  justify-content: center;  
   align-items: center;
   a{
     height: 100%;
@@ -33,14 +25,10 @@ const IconContainer = styled.div`
   width: ${styles.iconContainerSize}em;
   height: ${styles.iconContainerSize}em;
   line-height: 1;
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: opacity 600ms ease;
   svg {
-    height: 50%;
+    height: 100%;
+    padding: 1em;
   }
   span {
     display: none;
@@ -56,7 +44,7 @@ const IconContainer = styled.div`
     svg {
       opacity: 1;
       transition: transform .3s ease-in-out, opacity .3s ease-in-out;
-      height: 50%;
+      height: 100%;
       z-index: 1;
     }
     span {
@@ -87,32 +75,17 @@ const IconContainer = styled.div`
   `}
 `
 
-// const DisplayOnDesktop = IconContainer.extend`
-//   display: none;
-//   ${screen.desktopAbove`
-//     display: table-cell;
-//   `}
-// `
-
-// const HideOnDesktop = IconContainer.extend`
-//   display: table-cell;
-//   ${screen.desktopAbove`
-//     display: none;
-//   `}
-// `
-
 class Icons extends React.PureComponent {
   render() {
     return (
       <IconsContainer>
         <IconContainer>
-        {/* <Link to={`/${searchConfigs.path}`}> */}
-          <a href={'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'} target="_blank">
+          <a href={subscriptionUrl} target="_blank">
           <SubscribeIcon />
         </a>
         </IconContainer>
         <IconContainer>
-          <a href={'https://twreporter.backme.tw/checkout/175/3788'} target="_blank">
+          <a href={donateUrl} target="_blank">
             <DonateIcon />
           </a>
         </IconContainer>
