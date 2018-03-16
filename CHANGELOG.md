@@ -1,4 +1,9 @@
 ### Unreleased
+
+### 2.7.1
+#### Bugs Fixed
+- Bookmarks listing page can not show bookmarks
+
 ### 2.7.0
 #### Minor Change
 Performance Enhancement 
