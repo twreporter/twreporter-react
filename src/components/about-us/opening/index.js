@@ -5,33 +5,48 @@ import Background from './background'
 import Header from './header'
 import CoverTitle from './cover-title'
 import MobileIntroContainer from './intro-container-mob'
-import sz from '../constants/screen-size'
 import startbutton from '../../../../static/asset/about-us/opening_start.png'
 import smoothScroll from 'smoothscroll'
+import { colors, marginBetweenSections } from '../constants/styles'
+
+const containerWidth = {
+  mobile: '100%',
+  tablet: '719px',
+  desktop: '1024px',
+  overDesktop: '1440px'
+}
 
 const HeaderContainer = styled.div`
-  width: 100%;
+  width: ${containerWidth.mobile};
   background-color: transparent;
   position: absolute;
   top: 0;  
   z-index: 2;
 `
 
-const ContainerWrapper = styled.div`
+const Container = styled.div`
   position: relative;
-  margin: 0 auto;
-  background-color: white;
-  overflow: hidden;  
-  ${screen.desktopAbove`
-    width: ${sz.largeScreenMinWidth}px;
+  overflow: hidden;
+  background-color: ${colors.white};
+  width: ${containerWidth.mobile};
+  ${screen.mobile`
+    margin: 0 auto ${marginBetweenSections.mobile} auto;
+    align-items: center;
+  `}
+  ${screen.tablet`
+    margin: 0 auto ${marginBetweenSections.tablet} auto;
+  `}
+  ${screen.desktop`
+    width: ${containerWidth.desktop};
+    margin: 0 auto ${marginBetweenSections.desktop} auto;
   `}
   ${screen.overDesktop`
-    width: ${sz.xLargeScreenMinWidth}px;
-  `}
+    width: ${containerWidth.overDesktop};
+    margin: 0 auto ${marginBetweenSections.overDesktop} auto;
+  `}  
 `
 
-const CoverWrapper = ContainerWrapper.extend`
-  position: relative;
+const Cover = Container.extend`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -39,7 +54,6 @@ const CoverWrapper = ContainerWrapper.extend`
   padding: 80px;
   ${screen.tablet`
     display: block;
-    height: 100vh;
     padding: 0;
   `}
   ${screen.mobile`
@@ -54,12 +68,13 @@ const Startbutton = styled.div`
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
+  cursor: pointer;
   ${screen.tabletBelow`
     position: relative;
     left: auto;
     bottom: auto;
     transform: none;
-    margin-top: 20px;
+    margin-top: 50px;
   `}  
 `
 
@@ -92,11 +107,11 @@ export class Opening extends PureComponent {
             isIndex
           />
         </HeaderContainer>
-        <CoverWrapper innerRef={(ele) => {this._cover = ele}}>
+        <Cover innerRef={(ele) => {this._cover = ele}}>
           <Background />
           <CoverTitle startbtn={DesktopStart} />
           <MobileIntroContainer startbtn={Start}/>
-        </CoverWrapper>
+        </Cover>
       </React.Fragment>
     )
   }
