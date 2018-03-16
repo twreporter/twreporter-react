@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.7.2
+**Update @twreporter/react-components package version from 4.0.3 to 4.0.4**
+- Add `srcSet` and `sizes` to `img-wrapper.js` so that images of different sizes on index-page will be rendered on resolution demand.
+
 ### 2.7.1
 #### Bugs Fixed
 - Bookmarks listing page can not show bookmarks
