@@ -9,7 +9,7 @@ export default {
   topicList: reduxStateFields.topicList,
   selectedPost: reduxStateFields.selectedPost,
   selectedTopic: reduxStateFields.selectedTopic,
-  bookmarks: 'bookmakrs',
+  bookmarks: 'bookmarks',
   routing: 'routing',
   header: 'header',
   searchedAuthorsList: 'searchedAuthorsList',
