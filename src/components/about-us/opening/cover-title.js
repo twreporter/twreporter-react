@@ -4,6 +4,7 @@ import { screen } from '../utils/screen'
 import aboutusTitle from '../../../../static/asset/about-us/opening_title_desktopHD.png'
 import aboutusTitleMobile from '../../../../static/asset/about-us/opening_title_mobile.png'
 import openingthereporter from '../../../../static/asset/about-us/opening_thereporter_desktopHD.png'
+import sz from '../constants/screen-size'
 
 const OnlyDisplayOnDesktop = styled.div`
   ${screen.tabletBelow`
@@ -84,7 +85,7 @@ export class CoverTitle extends PureComponent {
       <TitleContainer>
         <Title>
           <picture>
-            <source media="(max-width: 1023px)" srcSet={aboutusTitleMobile} />
+            <source media={`(max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={aboutusTitleMobile} />
             <img src={aboutusTitle} alt="關於我們" />
           </picture>
         </Title>

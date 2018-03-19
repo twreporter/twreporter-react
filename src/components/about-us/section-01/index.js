@@ -1,39 +1,15 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { screen } from '../utils/screen'
-import sz from '../constants/screen-size'
-import inDepth from '../../../../static/asset/about-us/in-depth.png'
-import nonProfit from '../../../../static/asset/about-us/non-profit.png'
-import openSource from '../../../../static/asset/about-us/opensource.png'
+import { content } from '../constants/data/section1Content'
+import Title from './title'
 
-const content = [
-  {
-    imgSrc: inDepth,
-    title: '深度',
-    engTitle: 'IN-DEPTH',
-    description: '貼近現場、持續追蹤',
-    engDescription: 'On-Scene/On the ground investigative reporting'
-  },
-  {
-    imgSrc: openSource,
-    title: '開放',
-    engTitle: 'OPEN SOURCE',
-    description: '屬於社會的《報導者》',
-    engDescription: 'Unrestricted, not exclusive',
-    others: [
-      'OPEN SOURCE開放原始碼',
-      '全民政策追蹤：蔡英文勞動政策追蹤平台',
-      'CC授權（姓名標示／非商業性／禁止改作)'
-    ]
-  },
-  {
-    imgSrc: nonProfit,
-    title: '非營利',
-    engTitle: 'NON-PROFIT',
-    description: '所有營運經費來自各界贊助',
-    engDescription: 'Funded by public donations'
-  }
-]
+const containerWidth = {
+  mobile: '100%',
+  tablet: '719px',
+  desktop: '1024px',
+  overDesktop: '1440px'
+}
 
 const ContainerWrapper = styled.div`
   position: relative;
@@ -41,13 +17,13 @@ const ContainerWrapper = styled.div`
   background-color: white;
   overflow: hidden;  
   ${screen.desktopAbove`
-    width: ${sz.largeScreenMinWidth}px;
+    width: ${containerWidth.desktop};
   `}
   ${screen.overDesktop`
-    width: ${sz.xLargeScreenMinWidth}px;
+    width: ${containerWidth.overDesktop};
   `}
   ${screen.tablet`
-    padding: 10px;
+    width: ${containerWidth.tablet}
   `}  
 `
 
@@ -127,53 +103,6 @@ const Info = styled.div`
   `}
 `
 
-const Title = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  h1{
-    font-family: Roboto;
-    font-size: 600px;
-    margin: 0.2em 0;
-  }
-  .subtitleWrapper{
-    display: none;
-  }
-  ${screen.tablet`
-    h1{
-      font-size: 300px;
-    }
-  `}
-  ${screen.mobile`
-    position: relative;
-    margin: 0 auto;
-    height: 60vh;
-    .subtitleWrapper{
-      display: flex;
-      width: 80%;      
-    }
-    .subtitle{
-      flex-direction: column;
-      transform: translateY(50%);
-    }
-    h1{
-      font-size: 300px;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateX(35%) translateY(-50%);
-      margin: 0;
-    }
-    h2{
-      margin: 0 0 0.2em 0;
-    }
-    h2:nth-child(1){
-      letter-spacing: 17px;
-    }
-  `}  
-`
-
 export class Section1 extends PureComponent {
   render() {
     const blocks = content.map((block) => {
@@ -205,15 +134,7 @@ export class Section1 extends PureComponent {
     return (
       <React.Fragment>
         <ContainerWrapper>
-          <Title>
-            <div className="subtitleWrapper">
-              <div className="subtitle">
-                <h2>FEATURE</h2>
-                <h2>特色</h2>
-              </div>
-            </div>
-            <h1>1</h1>
-          </Title>
+          <Title />
           <SectionBlock>
             {blocks}
           </SectionBlock>

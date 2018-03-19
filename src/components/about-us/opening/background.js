@@ -1,39 +1,32 @@
 import { screen } from '../utils/screen'
+import { intro } from '../constants/data/introduction'
 import billboard from '../../../../static/asset/about-us/billboard.png'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const IntroChinese = '2015年12月《報導者》正式上線，稟持深度、開放、非營利的精神，致力於公共領域調查報導，為讀者持續追蹤各項重要議題，共同打造多元的社會與媒體環境。'
-const IntroEng = 'December 2015 "The reporter" is officially on the line, with the depth, open, non-profit spirit, committed to the public domain survey reports, for readers to continue to track the important issues, together to create a diverse social and media environment.'
-
-const OnlyDisplayOnDesktop = styled.div`
-  ${screen.tabletBelow`
-    display: none;
-  `}  
-`
-
-const OnlyDisplayOnMobile = styled.div`
-  ${screen.desktopAbove`
-    display: none;
-  `}  
-`
+const TriangleSizes = {
+  desktop: {
+    width: '653px',
+    height: '112px'
+  },
+  mobile: {
+    width: '43px',
+    height: '276px'
+  },
+  tablet: {
+    width: '102px',
+    height: '661px'
+  }
+}
 
 const DesktopTriangles = styled.div`
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-`
-
-const Triangle = styled.div`
-  width: 653px;
-  height: 112px;
-  border-top: solid 80px #c7000a;
-  border-left: solid calc(653px*3/8) transparent;
-  border-right: solid calc(653px*5/8) transparent;
-  &:before,&:after{
-    box-sizing: border-box;
-  }  
+  ${screen.tabletBelow`
+    display: none;
+  `}  
 `
 
 const MobileTriangles = styled.div`
@@ -43,6 +36,19 @@ const MobileTriangles = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  ${screen.desktopAbove`
+    display: none;
+  `}
+`
+const Triangle = styled.div`
+  width: ${TriangleSizes.desktop.width};
+  height: ${TriangleSizes.desktop.height};
+  border-top: solid ${TriangleSizes.desktop.height} #c7000a;
+  border-left: solid calc(${TriangleSizes.desktop.width}*3/8) transparent;
+  border-right: solid calc(${TriangleSizes.desktop.width}*5/8) transparent;
+  &:before,&:after{
+    box-sizing: border-box;
+  }  
 `
 
 const TriangleRightTop = Triangle.extend`
@@ -59,39 +65,39 @@ const TriangleRightBottom = Triangle.extend`
 `
 
 const MobileTriangle = styled.div`
-  width: 43px;
-  height: 276px;
-  border-left: solid 43px #c7000a;
-  border-top: solid calc(276px*3/8) transparent;
-  border-bottom: solid calc(276px*5/8) transparent;
+  width: ${TriangleSizes.mobile.width};
+  height: ${TriangleSizes.mobile.height};
+  border-left: solid ${TriangleSizes.mobile.width} #c7000a;
+  border-top: solid calc(${TriangleSizes.mobile.height}*3/8) transparent;
+  border-bottom: solid calc(${TriangleSizes.mobile.height}*5/8) transparent;
   &:before,&:after{
     box-sizing: border-box;
   }
   ${screen.tablet`
-    width: 102px;
-    height: 661px;
-    border-top: solid calc(661px*3/8) transparent;
-    border-bottom: solid calc(661px*5/8) transparent;
+    width: ${TriangleSizes.tablet.width};
+    height: ${TriangleSizes.tablet.height};
+    border-top: solid calc(${TriangleSizes.tablet.height}*3/8) transparent;
+    border-bottom: solid calc(${TriangleSizes.tablet.height}*5/8) transparent;
   `}      
 `
 
 const TriangleRight = MobileTriangle.extend`
   position: absolute;
   right: 0;
-  top: calc(50% + 276px*1/8);
+  top: calc(50% + ${TriangleSizes.mobile.height}*1/8);
   transform: translateY(-50%) rotateY(180deg);
   ${screen.tablet`
-    top: calc(50% + 661px*1/8);
+    top: calc(50% + ${TriangleSizes.tablet.height}*1/8);
   `}      
 `
 
 const TriangleLeft = MobileTriangle.extend`
   position: absolute;
   left: 0;
-  top: calc(50% + 276px*1/8);
+  top: calc(50% + ${TriangleSizes.mobile.height}*1/8);
   transform: translateY(-50%);
   ${screen.tablet`
-    top: calc(50% + 661px*1/8);
+    top: calc(50% + ${TriangleSizes.tablet.height}*1/8);
   `}
 `
 
@@ -103,7 +109,7 @@ const Divider = styled.div`
   justify-content: flex-end;
   align-items: center;
   border-left: solid 1px #c7000a;
-  width: calc(653px*5/8);
+  width: calc(${TriangleSizes.desktop.width}*5/8);
   ${screen.tabletBelow`
     top: 0;
     width: 100%;
@@ -146,29 +152,25 @@ export class Opening extends PureComponent {
   render() {
     return (
       <React.Fragment>
-        <OnlyDisplayOnDesktop>
-          <DesktopTriangles>
-            <TriangleRightTop />
-            <TriangleRightBottom />
-            <Divider>
-              <Billboard>
-                <img src={billboard} />
-                <Textblock>
-                  <p>{IntroChinese}</p>
-                  <br />
-                  <p>{IntroEng}</p>
-                </Textblock>
-              </Billboard>
-            </Divider>
-          </DesktopTriangles>
-        </OnlyDisplayOnDesktop>
-        <OnlyDisplayOnMobile>
-          <MobileTriangles>
-            <TriangleLeft />
-            <TriangleRight />
-            <Divider />
-          </MobileTriangles>
-        </OnlyDisplayOnMobile>
+        <DesktopTriangles>
+          <TriangleRightTop />
+          <TriangleRightBottom />
+          <Divider>
+            <Billboard>
+              <img src={billboard} />
+              <Textblock>
+                <p>{intro.chinese}</p>
+                <br />
+                <p>{intro.english}</p>
+              </Textblock>
+            </Billboard>
+          </Divider>
+        </DesktopTriangles>
+        <MobileTriangles>
+          <TriangleLeft />
+          <TriangleRight />
+          <Divider />
+        </MobileTriangles>
       </React.Fragment>
     )  
   }

@@ -7,7 +7,7 @@ import CoverTitle from './cover-title'
 import MobileIntroContainer from './intro-container-mob'
 import startbutton from '../../../../static/asset/about-us/opening_start.png'
 import smoothScroll from 'smoothscroll'
-import { colors, marginBetweenSections } from '../constants/styles'
+import { colors } from '../constants/styles'
 
 const containerWidth = {
   mobile: '100%',
@@ -29,20 +29,15 @@ const Container = styled.div`
   overflow: hidden;
   background-color: ${colors.white};
   width: ${containerWidth.mobile};
+  margin: 0 auto;
   ${screen.mobile`
-    margin: 0 auto ${marginBetweenSections.mobile} auto;
     align-items: center;
-  `}
-  ${screen.tablet`
-    margin: 0 auto ${marginBetweenSections.tablet} auto;
   `}
   ${screen.desktop`
     width: ${containerWidth.desktop};
-    margin: 0 auto ${marginBetweenSections.desktop} auto;
   `}
   ${screen.overDesktop`
     width: ${containerWidth.overDesktop};
-    margin: 0 auto ${marginBetweenSections.overDesktop} auto;
   `}  
 `
 
