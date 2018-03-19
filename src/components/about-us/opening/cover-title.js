@@ -46,7 +46,7 @@ const Title = styled.div`
   `}
   ${screen.desktopAbove`
     img{ 
-      width: 50%; 
+      width: 70%; 
     }
   `}
 
@@ -67,7 +67,7 @@ const Thereporter = styled.div`
 
   ${screen.desktopAbove`
     img{ 
-      width: 50%; 
+      width: 75%; 
     }
   `}
 

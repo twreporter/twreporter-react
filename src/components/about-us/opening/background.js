@@ -5,9 +5,13 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 const TriangleSizes = {
-  desktop: {
+  hd: {
     width: '653px',
     height: '112px'
+  },
+  desktop: {
+    width: '464px',
+    height: '80px'
   },
   mobile: {
     width: '43px',
@@ -40,15 +44,25 @@ const MobileTriangles = styled.div`
     display: none;
   `}
 `
+
 const Triangle = styled.div`
-  width: ${TriangleSizes.desktop.width};
-  height: ${TriangleSizes.desktop.height};
-  border-top: solid ${TriangleSizes.desktop.height} #c7000a;
-  border-left: solid calc(${TriangleSizes.desktop.width}*3/8) transparent;
-  border-right: solid calc(${TriangleSizes.desktop.width}*5/8) transparent;
   &:before,&:after{
     box-sizing: border-box;
-  }  
+  }
+  ${screen.desktop`
+    width: ${TriangleSizes.desktop.width};
+    height: ${TriangleSizes.desktop.height};
+    border-top: solid ${TriangleSizes.desktop.height} #c7000a;
+    border-left: solid calc(${TriangleSizes.desktop.width}*3/8) transparent;
+    border-right: solid calc(${TriangleSizes.desktop.width}*5/8) transparent;  
+  `}
+  ${screen.overDesktop`
+    width: ${TriangleSizes.hd.width};
+    height: ${TriangleSizes.hd.height};
+    border-top: solid ${TriangleSizes.hd.height} #c7000a;
+    border-left: solid calc(${TriangleSizes.hd.width}*3/8) transparent;
+    border-right: solid calc(${TriangleSizes.hd.width}*5/8) transparent;
+  `}  
 `
 
 const TriangleRightTop = Triangle.extend`
@@ -110,6 +124,9 @@ const Divider = styled.div`
   align-items: center;
   border-left: solid 1px #c7000a;
   width: calc(${TriangleSizes.desktop.width}*5/8);
+  ${screen.overDesktop`
+    width: calc(${TriangleSizes.hd.width}*5/8);
+  `}  
   ${screen.tabletBelow`
     top: 0;
     width: 100%;
@@ -133,11 +150,13 @@ const Billboard = styled.div`
 
 const Textblock = styled.div`
   position: absolute;
-  padding: 25px 40px 25px 25px;
   word-wrap: break-word;
   p{
     font-size: 11px;
     color: #c7000a;
+  }
+  p:nth-child(1){
+    margin-bottom: 0.5em;
   }
   ${screen.tabletBelow`
     position: relative;
@@ -145,6 +164,16 @@ const Textblock = styled.div`
     p{
       font-size: 16px;
     }
+  `}
+  ${screen.desktop`
+    padding: 40px 25px 10px 25px;
+  `}
+  ${screen.overDesktop`
+    padding: 25px 40px 25px 25px;
+    p:nth-child(1){
+      margin-bottom: 1em;
+      line-height: 1.64;
+    }      
   `}
 `
 
@@ -160,7 +189,6 @@ export class Opening extends PureComponent {
               <img src={billboard} />
               <Textblock>
                 <p>{intro.chinese}</p>
-                <br />
                 <p>{intro.english}</p>
               </Textblock>
             </Billboard>
