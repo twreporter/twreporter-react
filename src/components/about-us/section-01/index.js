@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { screen } from '../utils/screen'
 import { content } from '../constants/data/section1Content'
-import Title from './title'
+import SectionTitle from './section-title.js' 
+import { marginBetweenSections } from '../constants/styles'
+
 
 const containerWidth = {
   mobile: '100%',
@@ -18,13 +20,19 @@ const ContainerWrapper = styled.div`
   overflow: hidden;  
   ${screen.desktopAbove`
     width: ${containerWidth.desktop};
+    margin: ${marginBetweenSections.desktop} auto;
   `}
   ${screen.overDesktop`
     width: ${containerWidth.overDesktop};
+    margin: ${marginBetweenSections.overDesktop} auto;    
   `}
   ${screen.tablet`
-    width: ${containerWidth.tablet}
+    width: ${containerWidth.tablet};
+    margin: ${marginBetweenSections.tablet} auto;    
   `}  
+  ${screen.mobile`
+    margin: ${marginBetweenSections.mobile} auto;    
+  `}    
 `
 
 const SectionBlock = styled.div`
@@ -35,6 +43,15 @@ const SectionBlock = styled.div`
     flex-direction: column;
     align-items: center;
   `}
+  ${screen.tablet`
+    margin-top: 100px;
+  `}
+  ${screen.desktop`
+    margin-top: 200px;
+  `}
+  ${screen.overDesktop`
+    margin-top: 200px;
+  `}  
 `
 
 const Oneblock = styled.div`
@@ -134,7 +151,7 @@ export class Section1 extends PureComponent {
     return (
       <React.Fragment>
         <ContainerWrapper>
-          <Title />
+          <SectionTitle />
           <SectionBlock>
             {blocks}
           </SectionBlock>
