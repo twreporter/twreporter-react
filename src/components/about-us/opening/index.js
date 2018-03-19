@@ -1,13 +1,13 @@
+import Background from './background'
+import { colors } from '../constants/styles'
+import CoverTitle from './cover-title'
+import Header from './header'
+import MobileIntroContainer from './intro-container-mob'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { screen } from '../utils/screen'
-import Background from './background'
-import Header from './header'
-import CoverTitle from './cover-title'
-import MobileIntroContainer from './intro-container-mob'
 import startbutton from '../../../../static/asset/about-us/opening_start.png'
 import smoothScroll from 'smoothscroll'
-import { colors } from '../constants/styles'
 
 const containerWidth = {
   mobile: '100%',
@@ -87,7 +87,6 @@ export class Opening extends PureComponent {
   
   _handleClick(event) {
     event.preventDefault()
-    if (typeof window === 'undefined') return
     const coverBottom = this._cover.scrollHeight
     return smoothScroll(coverBottom)
   }

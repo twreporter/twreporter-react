@@ -13,9 +13,6 @@ const TitleWrapper = styled.div`
     font-size: 600px;
     margin: 0.2em 0;
   }
-  .subtitleWrapper{
-    display: none;
-  }
   ${screen.tablet`
     h1{
       font-size: 300px;
@@ -25,14 +22,6 @@ const TitleWrapper = styled.div`
     position: relative;
     margin: 0 auto;
     height: 60vh;
-    .subtitleWrapper{
-      display: flex;
-      width: 80%;      
-    }
-    .subtitle{
-      flex-direction: column;
-      transform: translateY(50%);
-    }
     h1{
       font-size: 300px;
       position: absolute;
@@ -50,16 +39,31 @@ const TitleWrapper = styled.div`
   `}  
 `
 
+const SubtitleWrapper = styled.div`
+  display: none;
+  ${screen.mobile`
+    display: inline-block;
+    width: 80%;          
+  `}  
+`
+
+const Subtitle = styled.div`
+  ${screen.mobile`
+    flex-direction: column;
+    transform: translateY(50%);
+  `}  
+`
+
 class Icons extends React.PureComponent {
   render() {
     return (
       <TitleWrapper>
-        <div className="subtitleWrapper">
-          <div className="subtitle">
+        <SubtitleWrapper>
+          <Subtitle>
             <h2>FEATURE</h2>
             <h2>特色</h2>
-          </div>
-        </div>
+          </Subtitle>
+        </SubtitleWrapper>
         <h1>1</h1>
       </TitleWrapper>
     )

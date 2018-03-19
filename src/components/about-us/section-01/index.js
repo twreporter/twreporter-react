@@ -1,10 +1,9 @@
+import { content } from '../constants/data/section1Content'
+import { marginBetweenSections } from '../constants/styles'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { screen } from '../utils/screen'
-import { content } from '../constants/data/section1Content'
-import SectionTitle from './section-title.js' 
-import { marginBetweenSections } from '../constants/styles'
-
+import SectionTitle from './section-title' 
 
 const containerWidth = {
   mobile: '100%',
@@ -54,7 +53,7 @@ const SectionBlock = styled.div`
   `}  
 `
 
-const Oneblock = styled.div`
+const FeatureBlock = styled.div`
   text-align: center;
   width: 30%;
   padding: 10px;
@@ -122,7 +121,7 @@ const Info = styled.div`
 
 export class Section1 extends PureComponent {
   render() {
-    const blocks = content.map((block) => {
+    const FeatureBlocks = content.map((block) => {
       const otherInfo = () => {
         if (!block.others)
           return null
@@ -135,7 +134,7 @@ export class Section1 extends PureComponent {
         )
       }
       return (
-        <Oneblock key={block.title}>
+        <FeatureBlock key={block.title}>
           <h2>{block.title}</h2>
           <h3>{block.engTitle}</h3>
           <img src={block.imgSrc} />
@@ -144,19 +143,17 @@ export class Section1 extends PureComponent {
             <p className="engDescription">{block.engDescription}</p>
             {otherInfo()}
           </Info>
-        </Oneblock>
+        </FeatureBlock>
       )
     })
 
     return (
-      <React.Fragment>
-        <ContainerWrapper>
-          <SectionTitle />
-          <SectionBlock>
-            {blocks}
-          </SectionBlock>
-        </ContainerWrapper>
-      </React.Fragment>
+      <ContainerWrapper>
+        <SectionTitle />
+        <SectionBlock>
+          {FeatureBlocks}
+        </SectionBlock>
+      </ContainerWrapper>
     )
   }
 }

@@ -1,21 +1,21 @@
-import { getMobileSectionTitleStyle } from '../utils/get-section-title-style'
-import { screen } from '../utils/screen'
 import bigNumber from '../../../../static/asset/about-us/title-01.png'
+import { getMobileSectionTitleStyle } from '../utils/get-section-title-style'
 import mobileTitleImage from '../../../../static/asset/about-us/mobile-title-01.png'
 import React, { PureComponent } from 'react'
+import { screen } from '../utils/screen'
 import styled from 'styled-components'
 
 const numberHeight = {
   mobile: '276px',
-  tablet: '281px',
-  desktop: '404px',
-  hd: '404px'
+  tablet: '276px',
+  desktop: '399px',
+  hd: '399px'
 }
 
 const numberWidth = {
-  tablet: '168px',
-  desktop: '241px',
-  hd: '241px'
+  tablet: '106px',
+  desktop: '153px',
+  hd: '153px'
 }
 
 const Container = styled.div`

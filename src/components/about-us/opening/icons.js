@@ -1,13 +1,16 @@
+import DonateIcon from '../../../../static/asset/about-us/donate-icon.svg'
 import React from 'react'
+import { screen } from '../utils/screen'
 import styled from 'styled-components'
 // import Link from 'react-router/lib/Link'
 import SubscribeIcon from '../../../../static/asset/about-us/subscribe-icon.svg'
-import DonateIcon from '../../../../static/asset/about-us/donate-icon.svg'
-import { screen } from '../utils/screen'
 
 const styles = {
   iconContainerSize: 3 // em
 }
+
+const subscriptionUrl = 'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'
+const donateUrl = 'https://twreporter.backme.tw/checkout/175/3788'
 
 const IconsContainer = styled.div`
   position: relative;
@@ -84,12 +87,12 @@ class Icons extends React.PureComponent {
     return (
       <IconsContainer>
         <IconContainer>
-          <a href={'https://twreporter.us14.list-manage.com/subscribe/post?u=4da5a7d3b98dbc9fdad009e7e&id=e0eb0c8c32'} target="_blank">
+          <a href={subscriptionUrl} target="_blank">
           <SubscribeIcon />
         </a>
         </IconContainer>
         <IconContainer>
-          <a href={'https://twreporter.backme.tw/checkout/175/3788'} target="_blank">
+          <a href={donateUrl} target="_blank">
             <DonateIcon />
           </a>
         </IconContainer>

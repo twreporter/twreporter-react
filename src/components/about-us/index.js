@@ -1,6 +1,6 @@
 import Footer from '@twreporter/react-components/lib/footer'
-import React, { PureComponent } from 'react'
 import Opening from './opening'
+import React, { PureComponent } from 'react'
 import Section01 from './section-01'
 import WebFont from './web-font'
 
