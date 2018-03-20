@@ -12,8 +12,8 @@ const subscriptionUrl = 'https://twreporter.us14.list-manage.com/subscribe/post?
 const donateUrl = 'https://twreporter.backme.tw/checkout/175/3788'
 
 const IconsContainer = styled.div`
-  position: relative;
   display: flex;
+  justify-content: center;  
   align-items: center;
   a{
     height: 100%;
@@ -25,11 +25,6 @@ const IconContainer = styled.div`
   width: ${styles.iconContainerSize}em;
   height: ${styles.iconContainerSize}em;
   line-height: 1;
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: opacity 600ms ease;
   svg {
     height: 100%;
@@ -51,7 +46,6 @@ const IconContainer = styled.div`
       transition: transform .3s ease-in-out, opacity .3s ease-in-out;
       height: 100%;
       z-index: 1;
-      padding: 1em;
     }
     span {
       display: inline;

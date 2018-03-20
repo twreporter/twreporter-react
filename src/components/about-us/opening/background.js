@@ -131,19 +131,20 @@ const Divider = styled.div`
 `
 
 const Billboard = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
-  jusify-content: center;
+  justify-content: center;
   align-items: center;
-  right: 0;
+  background-image: url(${billboard});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
   margin: 10% 5%;
-  img{
-    width: 100%;
-  }
+  width: 100%;
+  height: 100%;
 `
 
-const Textblock = styled.div`
-  position: absolute;
+const Textblock = styled.div`  
   word-wrap: break-word;
   p{
     font-size: 11px;
@@ -180,7 +181,6 @@ export class Opening extends PureComponent {
           <TriangleRightBottom />
           <Divider>
             <Billboard>
-              <img src={billboard} />
               <Textblock>
                 <p>{intro.chinese}</p>
                 <p>{intro.english}</p>

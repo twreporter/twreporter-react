@@ -31,6 +31,7 @@ const styles = {
 const HeaderContainer = styled.div`
   position: relative;
   width: 100%;
+  overflow: hidden;
 `
 
 const TopRow = styled.div`
