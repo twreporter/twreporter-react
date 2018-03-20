@@ -8,9 +8,9 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.3.tgz#747198ea81cc28bfeb84c32285d42e4abc97d210"
+"@twreporter/react-components@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.5.tgz#a7feb61c99458e9158b11ea36a643843c0a30863"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
