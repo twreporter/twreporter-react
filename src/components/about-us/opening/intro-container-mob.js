@@ -1,9 +1,9 @@
 import { intro } from '../constants/data/introduction'
+import { screen } from '../utils/screen'
 import PropTypes from 'prop-types'
 import quote from '../../../../static/asset/about-us/opening_quote1.png'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import { screen } from '../utils/screen'
 
 const Textblock = styled.div`
   position: absolute;

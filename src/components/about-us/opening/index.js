@@ -1,13 +1,13 @@
-import Background from './background'
 import { colors } from '../constants/styles'
+import { screen } from '../utils/screen'
+import Background from './background'
 import CoverTitle from './cover-title'
 import Header from './header'
 import MobileIntroContainer from './intro-container-mob'
 import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import { screen } from '../utils/screen'
-import startbutton from '../../../../static/asset/about-us/opening_start.png'
 import smoothScroll from 'smoothscroll'
+import startbutton from '../../../../static/asset/about-us/opening_start.png'
+import styled from 'styled-components'
 
 const containerWidth = {
   mobile: '100%',

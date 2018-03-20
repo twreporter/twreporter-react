@@ -1,8 +1,7 @@
+import { screen } from '../utils/screen'
 import DonateIcon from '../../../../static/asset/about-us/donate-icon.svg'
 import React from 'react'
-import { screen } from '../utils/screen'
 import styled from 'styled-components'
-// import Link from 'react-router/lib/Link'
 import SubscribeIcon from '../../../../static/asset/about-us/subscribe-icon.svg'
 
 const styles = {

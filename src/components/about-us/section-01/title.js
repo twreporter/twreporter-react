@@ -1,7 +1,6 @@
+import { screen } from '../utils/screen'
 import React from 'react'
 import styled from 'styled-components'
-import { screen } from '../utils/screen'
-
 
 const TitleWrapper = styled.div`
   display: flex;

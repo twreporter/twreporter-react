@@ -1,8 +1,8 @@
-import bigNumber from '../../../../static/asset/about-us/title-01.png'
 import { getMobileSectionTitleStyle } from '../utils/get-section-title-style'
+import { screen } from '../utils/screen'
+import bigNumber from '../../../../static/asset/about-us/title-01.png'
 import mobileTitleImage from '../../../../static/asset/about-us/mobile-title-01.png'
 import React, { PureComponent } from 'react'
-import { screen } from '../utils/screen'
 import styled from 'styled-components'
 
 const numberHeight = {

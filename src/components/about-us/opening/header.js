@@ -1,11 +1,11 @@
 import { colors } from '../constants/styles'
+import { screen } from '../utils/screen'
 import Icons from './icons'
 import Link from 'react-router/lib/Link'
 import Logo from '../../../../static/asset/about-us/twreporter-logo.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { screen } from '../utils/screen'
 
 const HEADER_POSITION_UPON = 'header-upon'
 const styles = {

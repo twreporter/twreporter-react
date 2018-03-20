@@ -1,3 +1,4 @@
+import { screen } from '../utils/screen'
 import aboutusTitle from '../../../../static/asset/about-us/opening_title_desktopHD.png'
 import aboutusTitleMobile from '../../../../static/asset/about-us/opening_title_mobile.png'
 import openingthereporter from '../../../../static/asset/about-us/opening_thereporter_desktopHD.png'
@@ -5,7 +6,6 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
-import { screen } from '../utils/screen'
 
 const OnlyDisplayOnDesktop = styled.div`
   ${screen.tabletBelow`

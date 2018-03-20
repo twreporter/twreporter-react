@@ -1,8 +1,8 @@
-import billboard from '../../../../static/asset/about-us/billboard.png'
 import { intro } from '../constants/data/introduction'
+import { screen } from '../utils/screen'
+import billboard from '../../../../static/asset/about-us/billboard.png'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import { screen } from '../utils/screen'
 
 const triangleSizes = {
   hd: {

@@ -1,9 +1,9 @@
 import { content } from '../constants/data/section1Content'
 import { marginBetweenSections } from '../constants/styles'
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
 import { screen } from '../utils/screen'
+import React, { PureComponent } from 'react'
 import SectionTitle from './section-title' 
+import styled from 'styled-components'
 
 const containerWidth = {
   mobile: '100%',
