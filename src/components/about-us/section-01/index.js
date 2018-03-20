@@ -34,25 +34,6 @@ const ContainerWrapper = styled.div`
   `}    
 `
 
-// const SectionBlock = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   width: 100%;
-//   ${screen.mobile`
-//     flex-direction: column;
-//     align-items: center;
-//   `}
-//   ${screen.tablet`
-//     margin-top: 100px;
-//   `}
-//   ${screen.desktop`
-//     margin-top: 200px;
-//   `}
-//   ${screen.overDesktop`
-//     margin-top: 200px;
-//   `}  
-// `
-
 const SectionBlock = styled.div`
   text-align: center;
   width: 100%;
@@ -84,7 +65,7 @@ const FeatureBlock = styled.div`
   }
   h2{
     font-size: 28px;
-    margin-bottom: 0;
+    margin: 0;
   }
   h3{
     font-size: 20px;
@@ -112,12 +93,9 @@ const FeatureBlock = styled.div`
 
   ${screen.mobile`
     width: 90%;
-    height: 100vh;
     border-bottom: solid 0.5px #a67a44;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding-top: 70px;
+    padding-bottom: 70px;
     img{
       width: 80%;
       padding: 0;
