@@ -34,11 +34,30 @@ const ContainerWrapper = styled.div`
   `}    
 `
 
+// const SectionBlock = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   width: 100%;
+//   ${screen.mobile`
+//     flex-direction: column;
+//     align-items: center;
+//   `}
+//   ${screen.tablet`
+//     margin-top: 100px;
+//   `}
+//   ${screen.desktop`
+//     margin-top: 200px;
+//   `}
+//   ${screen.overDesktop`
+//     margin-top: 200px;
+//   `}  
+// `
+
 const SectionBlock = styled.div`
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
   width: 100%;
   ${screen.mobile`
+    display: flex;
     flex-direction: column;
     align-items: center;
   `}
@@ -54,6 +73,7 @@ const SectionBlock = styled.div`
 `
 
 const FeatureBlock = styled.div`
+  display: inline-block;
   text-align: center;
   width: 30%;
   padding: 10px;
@@ -77,6 +97,12 @@ const FeatureBlock = styled.div`
   p.engDescription{
     font-weight: bold;
     font-size: 14px;
+  }
+  :nth-child(1){
+    float: left;
+  }
+  :nth-child(3){
+    float: right;
   }
   ${screen.tablet`
     p{
