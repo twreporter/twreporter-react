@@ -21,7 +21,8 @@ const numberWidth = {
 
 const titleMarginLeft = {
   tablet: '300px',
-  desktop: '380px'
+  desktop: '340px',
+  hd: '538px'
 }
 
 const Container = styled.div`
@@ -80,7 +81,7 @@ const EnglishTitle = styled.div`
     letter-spacing: 19.8px;
   `}
   ${screen.overDesktop`
-    margin-left: ${titleMarginLeft.desktop};
+    margin-left: ${titleMarginLeft.hd};
     margin-bottom: 10px;
     letter-spacing: 19.8px;
   `}
@@ -103,7 +104,7 @@ const Title = styled.div`
     margin-top: 30px;
   `}
   ${screen.overDesktop`
-    margin-left: ${titleMarginLeft.desktop};
+    margin-left: ${titleMarginLeft.hd};
     margin-top: 30px;
   `}
 `
