@@ -17,7 +17,7 @@ injectGlobal`
     font-size: ${typography.font.size.base};
     ::selection {
       background-color: ${colors.red.lightRed};
-      color: $FFF;
+      color: #FFF;
     }
   }
   body {
