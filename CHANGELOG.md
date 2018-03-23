@@ -1,4 +1,5 @@
 ### Unreleased
+- Fix selection color typo in injectGlobal css
 
 ### 2.7.3
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.
