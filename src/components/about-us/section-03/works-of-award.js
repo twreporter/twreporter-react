@@ -167,7 +167,7 @@ export default class WorksOfAward extends PureComponent {
     })).isRequired
   }
   _transToRelativeLinkIfNeeded(link) {
-    const reg = /[http[s]*:\/\/]*www.twreporter.org/g
+    const reg = /(https?:\/\/)?www.twreporter.org/g
     if (typeof link === 'string') {
       return link.replace(reg, '')
     }

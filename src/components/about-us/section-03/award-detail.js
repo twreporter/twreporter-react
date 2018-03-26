@@ -26,8 +26,10 @@ export default class Award extends PureComponent {
       />
     )
   }
-  componentDidUpdate() {
-    this._worksByDate = _.groupBy(this.props.works, item => item.date)
+  componentWillReceiveProps(nextProps) {
+    if (!this._worksByDate || this.props.works !== nextProps.works) {
+      this._worksByDate = _.groupBy(this.props.works, item => item.date)
+    }
   }
   render() {
     return (

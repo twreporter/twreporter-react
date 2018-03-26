@@ -67,12 +67,10 @@ export default class AwardDetails extends PureComponent {
     this._awardDetailHeight = []
   }
   _setAwardDetailHeight = (index) => (ele) => {
-    if (index >= 0) {
-      if (ele) {
-        this._awardDetailHeight[index] = ele.offsetHeight
-      } else {
-        this._awardDetailHeight[index] = null
-      }
+    if (ele) {
+      this._awardDetailHeight[index] = ele.offsetHeight
+    } else {
+      this._awardDetailHeight[index] = null
     }
   }
   _getAwardDetailHeight = (index) => {
