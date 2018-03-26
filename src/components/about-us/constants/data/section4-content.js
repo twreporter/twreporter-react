@@ -1,3 +1,5 @@
+import logoTempo from '../../../../../static/asset/about-us/intl-co-tempo-logo.png'
+
 export const content = [
   {
     title: {
@@ -18,7 +20,8 @@ export const content = [
     },
     date: '2016.9.23',
     cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-nepal.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/nepal.jpg'
+    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/nepal.jpg',
+    link: 'https://www.facebook.com/photo.php?fbid=1488606891166286&set=a.328937367133250.100488.100000509688340&type=3&theater'
   },
   {
     title: {
@@ -39,7 +42,9 @@ export const content = [
     },
     date: '2016.12.18',
     cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-indonesia.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/indonesia.jpg'
+    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/indonesia.jpg',
+    logo: logoTempo,
+    link: 'https://www.twreporter.org/a/far-sea-fishing-media-international-cooperation'
   },
   {
     title: {
@@ -47,7 +52,7 @@ export const content = [
       english: 'Investigative Journalism in the Asia Region'
     },
     longerTitle: {
-      chinese: '亞洲區域調查報導：展望與機會」國際會議',
+      chinese: '「亞洲區域調查報導：展望與機會」國際會議',
       english: 'Investigative Journalism in the Asia Region: Perspectives and Prospects'
     },
     nation: {
@@ -60,7 +65,8 @@ export const content = [
     },
     date: '2017.6.4',
     cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-japan.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/japan.jpg'
+    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/japan.jpg',
+    link: 'http://gijn.org/2017/07/06/investigative-journalism-in-japan-tough-times-but-signs-of-hope/'
   },
   {
     title: {
@@ -81,7 +87,8 @@ export const content = [
     },
     date: '2017.6.28',
     cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-GIJN.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg'
+    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg',
+    link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },
   {
     title: {
@@ -102,6 +109,7 @@ export const content = [
     },
     date: '2018.3',
     cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-GIJN.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg'
+    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg',
+    link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   }
 ]

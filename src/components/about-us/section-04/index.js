@@ -10,7 +10,7 @@ import styled from 'styled-components'
 
 const containerWidth = {
   mobile: '100%',
-  tablet: '719px',
+  tablet: '706px',
   desktop: '1024px',
   overDesktop: '1440px'
 }
@@ -31,7 +31,7 @@ const Container = styled.div`
   position: relative;
   margin: 0 auto;
   background-color: white;
-  overflow: hidden;  
+  overflow: hidden;
   ${screen.desktopAbove`
     width: ${containerWidth.desktop};
     margin: ${marginBetweenSections.desktop} auto;
@@ -69,13 +69,17 @@ const ContentContainer = styled.div`
   position: relative;
   display: block;
   margin-top: 100px;
-  padding: 0 10px;
   ${screen.overDesktop`
     height: ${contentHeight.overDesktop};  
+    padding: 0 10px;
   `}
   ${screen.desktop`
-    height: ${contentHeight.desktop};  
-  `}  
+    height: ${contentHeight.desktop};
+    padding: 0 10px;  
+  `}
+  ${screen.tablet`
+    padding: 0 38px;  
+  `}
 `
 
 export class Section4 extends PureComponent {
@@ -88,33 +92,33 @@ export class Section4 extends PureComponent {
     }
   }
 
-  storySelector = (index) => {
+  _storySelector = (index) => {
     this.setState({
       currentStory: index,
       seeingMore: false
     })
   }  
   
-  showPhotoBlock = () => {
+  _showPhotoBlock = () => {
     this.setState({
       seeingMore: true
     })
   }
 
-  closePhotoBlock = () => {
+  _closePhotoBlock = () => {
     this.setState({
       seeingMore: false
     })
   }
 
-  showBillboard = (index) => {
-    this.storySelector(index)
+  _showBillboard = (index) => {
+    this._storySelector(index)
     this.setState({
       billboardIsOpened: true
     })
   }
 
-  closeBillboard = () => {
+  _closeBillboard = () => {
     this.setState({
       billboardIsOpened: false
     })
@@ -129,24 +133,24 @@ export class Section4 extends PureComponent {
           </TitleWrapper>  
           <ContentContainer>
             <InfoCardsList 
-              showBillboard={this.showBillboard}
+              showBillboard={this._showBillboard}
             />
             <InfoCard 
               story={this.state.currentStory} 
-              showPhoto={this.showPhotoBlock}
+              showPhoto={this._showPhotoBlock}
               seeingMore={this.state.seeingMore}
             />
             <Map
               seeingMore={this.state.seeingMore}
               story={this.state.currentStory}
-              storySelector={this.storySelector}
-              closePhotoBlock={this.closePhotoBlock}
+              storySelector={this._storySelector}
+              closePhotoBlock={this._closePhotoBlock}
             />
           </ContentContainer>
         </Container>
         <InfoBillboard 
           isOpened={this.state.billboardIsOpened} 
-          closeBillboard={this.closeBillboard} 
+          closeBillboard={this._closeBillboard} 
           story={this.state.currentStory}
         />
       </React.Fragment>

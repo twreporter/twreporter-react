@@ -20,7 +20,7 @@ const numberWidth = {
 }
 
 const titleMarginLeft = {
-  tablet: '300px',
+  tablet: '287px',
   desktop: '340px',
   hd: '538px'
 }
@@ -115,7 +115,7 @@ export default class SectionTitle extends PureComponent {
       <Container>
         <EnglishTitle>INTERNATIONAL</EnglishTitle>
         <EnglishTitle>COOPERATION</EnglishTitle>
-        <Title>國際合作</Title>
+        <Title>國際參與</Title>
       </Container>
     )
   }
