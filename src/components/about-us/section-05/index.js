@@ -74,6 +74,13 @@ const YearLabel = styled.div`
       line-height: 207px;
     }
   `}
+  ${screen.tabletBelow`
+    width: 207px;
+    height: 207px;
+    h1{
+      line-height: 207px;
+    }    
+  `}
 `
 
 export class Section5 extends PureComponent {

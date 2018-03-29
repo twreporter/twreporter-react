@@ -4,7 +4,7 @@ import Record, { recordStyle } from './record'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  height: 60vh;
+  height: 80vh;
   white-space: nowrap;
   overflow: hidden;
   margin: 272px auto 300px auto;
@@ -18,7 +18,7 @@ const ScrollingWrapper = styled.div.attrs({
   height: 100%;
 `
 
-const Month = styled.div`
+const Records = styled.div`
   display: inline-block;
   height: 100%;
   overflow: hidden;
@@ -32,7 +32,7 @@ export class Timeline extends PureComponent {
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
-      autoScrolling: true,
+      autoScrolling: false,
       mouseDown: false,
       prevClientX: null
     }
@@ -76,40 +76,56 @@ export class Timeline extends PureComponent {
   }
 
   _onMouseDown = () => {
-    // console.log('onMouseDown')
     this.setState({ mouseDown: true })
   }
 
   _onMouseMove = (event) => {
+    const clientX = event.clientX
     if (!this.state.mouseDown) return
-    if (!this.state.prevClientX) this.setState({ prevClientX: event.clientX })
-    const leftBound = 0
-    if(this.state.prevClientX) {
-      const shiftX = event.clientX - this.state.prevClientX 
-      this.setState({ prevClientX: event.clientX })
-      if (this.state.timelineHorizontalShift + shiftX >=leftBound) {
+    this._timelineShifting(clientX)
+  }
+
+  _onMouseLeave = () => {
+    this.setState({ mouseDown: false })    
+  }
+
+  _onMouseUp = () => {
+    this.setState({ mouseDown: false })
+    this.setState({ prevClientX: null })
+  } 
+
+  _onTouchStart = () => {
+    this._stopAutoScroll()
+  }
+
+  _onTouchMove = (event) => {
+    const clientX = event.touches[0].clientX
+    this._timelineShifting(clientX)
+  }
+
+  _onTouchEnd = () => {
+    this.setState({ prevClientX: null })
+    this._resumeAutoScroll()
+  }
+
+  _timelineShifting = (coordX) => {
+    if (!this.state.prevClientX) this.setState({ prevClientX: coordX })
+    if (this.state.prevClientX) {
+      const leftBound = 0
+      const shiftX = (coordX - this.state.prevClientX) * (-1)
+      this.setState({ prevClientX: coordX })
+      if (this.state.timelineHorizontalShift + shiftX >= leftBound) {
         this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + shiftX })
       }
     } 
   }
 
-  _onMouseLeave = () => {
-    // console.log('leave')
-    this.setState({ mouseDown: false })    
-  }
-
-  _onMouseUp = () => {
-    // console.log('onMouseUp')
-    this.setState({ mouseDown: false })
-    this.setState({ prevClientX: null })
-  } 
-
-  _timelineShifting = () => {
-    
-  }
-
   componentDidMount() {
     this._startLoop()
+    this.elem.addEventListener('touchstart', e => {
+      e.preventDefault()
+      this._onTouchStart()
+    })
   }
 
   componentWillUnmount() {
@@ -118,22 +134,24 @@ export class Timeline extends PureComponent {
 
   render() {
     return (
-      <React.Fragment>
+      <div ref={elem => this.elem = elem}>
         <Container>
-          <ScrollingWrapper 
+          <ScrollingWrapper
             horizontalShift={this.state.timelineHorizontalShift}
             onMouseDown={this._onMouseDown}
             onMouseUp={this._onMouseUp}
             onMouseMove={event => this._onMouseMove(event)}
             onMouseLeave={this._onMouseLeave}
+            onTouchMove={event => this._onTouchMove(event)}
+            onTouchEnd={this._onTouchEnd}
           >
-            <Month>
+            <Records>
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-            </Month>
-            <Month>
+            </Records>
+            <Records>
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
@@ -143,10 +161,10 @@ export class Timeline extends PureComponent {
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
               <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-            </Month>
+            </Records>
           </ScrollingWrapper>
         </Container>  
-      </React.Fragment>
+      </div>
     )
   }
 }
