@@ -1,13 +1,39 @@
-// import { screen } from '../utils/screen'
+import { content } from '../constants/data/section5-content'
+import { screen } from '../utils/screen'
+import MonthlyRecords from './monthly-records'
 import React, { PureComponent } from 'react'
-import Record, { recordStyle } from './record'
-import styled from 'styled-components'
+import { recordStyle } from './record'
+import styled, { keyframes } from 'styled-components'
+import filter from 'lodash/filter'
+// import orderBy from 'lodash/orderBy'
+// import groupBy from 'lodash/groupBy'
+
+const _ = {
+  filter
+}
+
+const InAndOut = keyframes`
+  0%,100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+`
 
 const Container = styled.div`
   height: 80vh;
   white-space: nowrap;
   overflow: hidden;
   margin: 272px auto 300px auto;
+  ${screen.overDesktop`
+    height: 60vh;
+  `}
+  ${screen.mobile`
+    height: 90vh;  
+  `}
+  animation: ${props => props.returnToStart ? `${InAndOut} 1s linear` : 'none'};
 `
 
 const ScrollingWrapper = styled.div.attrs({
@@ -18,23 +44,19 @@ const ScrollingWrapper = styled.div.attrs({
   height: 100%;
 `
 
-const Records = styled.div`
-  display: inline-block;
-  height: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  border: solid 2px black;
-`
-
 export class Timeline extends PureComponent {
   constructor(props) {
     super(props)
+    const contentLength = content.length
+    const monthNumber = 17 //should be modified
+    this.totalLength = (contentLength - monthNumber) * recordStyle.width + monthNumber * recordStyle.widthIncludesMonth
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
-      autoScrolling: false,
+      autoScrolling: true,
       mouseDown: false,
-      prevClientX: null
+      prevClientX: null,
+      returnToStart: false
     }
   }
 
@@ -54,11 +76,17 @@ export class Timeline extends PureComponent {
   }
 
   _setAutoScroll = () => {
-    if (this.state.autoScrolling) {
+    if (!this.state.autoScrolling) return
+    if (this._notReachTheEnd()) {
       this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + 0.5 })
       // use lodash get all of the data in each year
       this._setYear()
-    }
+    } else {
+      this.setState({ returnToStart: true })
+      setTimeout(() => {
+        this.setState({ timelineHorizontalShift: 0 })
+        this.setState({ returnToStart: false })
+      }, 500)}
   }
 
   _resumeAutoScroll = () => {
@@ -70,8 +98,14 @@ export class Timeline extends PureComponent {
   }
 
   _setYear = () => {
-    if (this.state.timelineHorizontalShift > recordStyle.width * 4) {     // get number of records in a year
+    if (this.state.timelineHorizontalShift < recordStyle.width * 2) {     // get number of MonthlyRecords in a year
+      this.props.getYear(2018)
+    } else if (this.state.timelineHorizontalShift > recordStyle.width * 2 && this.state.timelineHorizontalShift < recordStyle.width * 13) {
+      this.props.getYear(2017)
+    } else if (this.state.timelineHorizontalShift > recordStyle.width * 13 && this.state.timelineHorizontalShift < recordStyle.width * 18) {
       this.props.getYear(2016)
+    } else if (this.state.timelineHorizontalShift > recordStyle.width * 18 && this.state.timelineHorizontalShift < recordStyle.width * 20) {
+      this.props.getYear(2015)
     }
   }
 
@@ -114,10 +148,14 @@ export class Timeline extends PureComponent {
       const leftBound = 0
       const shiftX = (coordX - this.state.prevClientX) * (-1)
       this.setState({ prevClientX: coordX })
-      if (this.state.timelineHorizontalShift + shiftX >= leftBound) {
+      if (this.state.timelineHorizontalShift + shiftX >= leftBound && this.state.timelineHorizontalShift + shiftX < this.totalLength - window.innerWidth) {
         this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + shiftX })
       }
     } 
+  }
+
+  _notReachTheEnd = () => {
+    return this.state.timelineHorizontalShift < this.totalLength - window.innerWidth
   }
 
   componentDidMount() {
@@ -135,7 +173,7 @@ export class Timeline extends PureComponent {
   render() {
     return (
       <div ref={elem => this.elem = elem}>
-        <Container>
+        <Container returnToStart={this.state.returnToStart}>
           <ScrollingWrapper
             horizontalShift={this.state.timelineHorizontalShift}
             onMouseDown={this._onMouseDown}
@@ -145,23 +183,91 @@ export class Timeline extends PureComponent {
             onTouchMove={event => this._onTouchMove(event)}
             onTouchEnd={this._onTouchEnd}
           >
-            <Records>
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-            </Records>
-            <Records>
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-              <Record onHover={this._stopAutoScroll} onLeave={this._resumeAutoScroll} />
-            </Records>
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2018, month: 3 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2018, month: 1 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 11 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 10 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 7 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 6 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 5 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 4 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 3 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 2 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2017, month: 1 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2016, month: 12 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2016, month: 10 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2016, month: 8 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2016, month: 6 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2015, month: 12 })}
+            />
+            <MonthlyRecords
+              stopAutoScroll={this._stopAutoScroll}
+              resumeAutoScroll={this._resumeAutoScroll}
+              data={_.filter(content, { year: 2015, month: 9 })}
+            />
           </ScrollingWrapper>
         </Container>  
       </div>
