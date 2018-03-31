@@ -140,20 +140,28 @@ const Pole = styled.div`
   width: 100%;
 `
 
+const RandomPadding = styled.div`
+  width: 100%;
+  height: ${props => props.randheight}px;
+  ${Container}:nth-child(even) & {
+    display: none;
+  }
+`
+
 export class Record extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  onMouseOver = () => {
+  _onMouseOver = () => {
     this.props.onHover()
   }
 
-  onMouseOut = () => {
+  _onMouseOut = () => {
     this.props.onLeave()
   }
 
-  monthInEng = (number) => {
+  _monthInEng = (number) => {
     switch(number) {
       case 1:  
         return 'JAN'
@@ -182,21 +190,27 @@ export class Record extends PureComponent {
     }
   }
 
+  _getRandomPadding = () => {
+    const maxHeight = 213
+    return Math.floor(Math.random() * maxHeight)
+  }
+
   render() {
     const { month, date, imgSrc, text } = this.props
     return (
       <Container>
-        <LineWrapper onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} />
+        <LineWrapper onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} />
         <Date>
           <Month>
             <h2>{month}</h2>
-            <h3>{this.monthInEng(month)}</h3>
+            <h3>{this._monthInEng(month)}</h3>
           </Month>
           <p>{date}</p>
         </Date>
         <WrapperOverlayMask>
-          <Info onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+          <Info onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
             <InfoContainer>
+              <RandomPadding randheight={this._getRandomPadding}/>
               <img src={imgSrc}/>
               <h3>{text.chinese}</h3>
               <p>{text.english}</p>
