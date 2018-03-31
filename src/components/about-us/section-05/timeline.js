@@ -5,11 +5,10 @@ import React, { PureComponent } from 'react'
 import { recordStyle } from './record'
 import styled, { keyframes } from 'styled-components'
 import filter from 'lodash/filter'
-// import orderBy from 'lodash/orderBy'
-// import groupBy from 'lodash/groupBy'
+import orderBy from 'lodash/orderBy'
 
 const _ = {
-  filter
+  filter, orderBy
 }
 
 const restart = keyframes`
@@ -48,9 +47,9 @@ const ScrollingWrapper = styled.div.attrs({
 export class Timeline extends PureComponent {
   constructor(props) {
     super(props)
-    const contentLength = content.length
     const monthNumber = 17 //should be modified
-    this.totalLength = (contentLength - monthNumber) * recordStyle.width + monthNumber * recordStyle.widthIncludesMonth
+    this.content = content.slice()
+    this.totalLength = (this.content.length - monthNumber) * recordStyle.width + monthNumber * recordStyle.widthIncludesMonth
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
@@ -80,7 +79,6 @@ export class Timeline extends PureComponent {
     if (!this.state.autoScrolling) return
     if (this._notReachTheEnd()) {
       this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + 0.5 })
-      // use lodash get all of the data in each year
       this._setYear()
     } else {
       this.setState({ returnToStart: true })
@@ -159,6 +157,31 @@ export class Timeline extends PureComponent {
     return this.state.timelineHorizontalShift < this.totalLength - window.innerWidth
   }
 
+  /**
+ * Grouping elements in array by multiple properties
+ * @param {array} array - The array to process which has multiple properties
+ * @param {function} f - A function indicates what properties should be group together
+ * 
+ * Example:
+ *  If I would like to group the elements with same properties of name and age to form a new array,
+ *  just put them in an array as below.
+ * 
+ * _groupBy(data, function(d){
+ *  [d.name, d.age]
+ * })
+ */
+  _groupBy = (array, f) => {
+    let groups = {}
+    array.forEach(function (o) {
+      let group = JSON.stringify(f(o))
+      groups[group] = groups[group] || []
+      groups[group].push(o)
+    })
+    return Object.keys(groups).map(function (group) {
+      return groups[group]
+    })
+  }
+
   componentDidMount() {
     this._startLoop()
     this.elem.addEventListener('touchstart', e => {
@@ -172,6 +195,22 @@ export class Timeline extends PureComponent {
   }
 
   render() {
+    const sortedData = _.orderBy(this.content, [ 'year', 'month', 'date' ], [ 'desc', 'desc', 'desc' ])
+    const processedData = this._groupBy(sortedData, function (data) {
+      return [ data.year, data.month ]
+    })
+
+    const AllRecords = processedData.map((record, index) => {
+      return (
+        <MonthlyRecords
+          key={index}
+          stopAutoScroll={this._stopAutoScroll}
+          resumeAutoScroll={this._resumeAutoScroll}
+          data={record}
+        />
+      )
+    })
+
     return (
       <div ref={elem => this.elem = elem}>
         <Container returnToStart={this.state.returnToStart}>
@@ -184,108 +223,7 @@ export class Timeline extends PureComponent {
             onTouchMove={event => this._onTouchMove(event)}
             onTouchEnd={this._onTouchEnd}
           >
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2018, month: 3 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2018, month: 1 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 11 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 10 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 7 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 6 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 5 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 4 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 3 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 2 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2017, month: 1 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2016, month: 12 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2016, month: 10 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2016, month: 8 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2016, month: 6 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2015, month: 12 })}
-              returnToStart={this.state.returnToStart}
-            />
-            <MonthlyRecords
-              stopAutoScroll={this._stopAutoScroll}
-              resumeAutoScroll={this._resumeAutoScroll}
-              data={_.filter(content, { year: 2015, month: 9 })}
-              returnToStart={this.state.returnToStart}
-            />
+            {AllRecords}
           </ScrollingWrapper>
         </Container>  
       </div>
