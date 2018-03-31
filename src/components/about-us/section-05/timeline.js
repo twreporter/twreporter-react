@@ -12,7 +12,7 @@ const _ = {
   filter
 }
 
-const InAndOut = keyframes`
+const restart = keyframes`
   0%,100% {
     opacity: 1;
   }
@@ -23,17 +23,17 @@ const InAndOut = keyframes`
 `
 
 const Container = styled.div`
-  height: 80vh;
+  height: 633px;
   white-space: nowrap;
   overflow: hidden;
   margin: 272px auto 300px auto;
   ${screen.overDesktop`
-    height: 60vh;
+    height: 790px;
   `}
-  ${screen.mobile`
-    height: 90vh;  
+  ${screen.tabletBelow`
+    margin-top: -10px;
   `}
-  animation: ${props => props.returnToStart ? `${InAndOut} 1s linear` : 'none'};
+  animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
 `
 
 const ScrollingWrapper = styled.div.attrs({

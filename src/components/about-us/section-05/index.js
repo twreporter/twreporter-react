@@ -79,8 +79,12 @@ const YearLabel = styled.div`
     height: 207px;
     h1{
       line-height: 207px;
-    }    
+    }
   `}
+  ${screen.mobile`
+    transform: translateX(-20%);    
+  `}
+
 `
 
 export class Section5 extends PureComponent {
