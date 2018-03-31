@@ -75,16 +75,16 @@ const YearLabel = styled.div`
     }
   `}
   ${screen.tabletBelow`
-    width: 207px;
-    height: 207px;
+    width: 220px;
+    height: 220px;
     h1{
-      line-height: 207px;
+      font-size: 36px;
+      line-height: 220px;
     }
   `}
   ${screen.mobile`
     transform: translateX(-20%);    
-  `}
-
+  `}  
 `
 
 export class Section5 extends PureComponent {

@@ -27,13 +27,14 @@ const Container = styled.div`
   white-space: nowrap;
   overflow: hidden;
   margin: 272px auto 300px auto;
+  animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
   ${screen.overDesktop`
     height: 790px;
   `}
   ${screen.tabletBelow`
-    margin-top: -10px;
+    margin-top: -20px;
+    height: 600px;
   `}
-  animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
 `
 
 const ScrollingWrapper = styled.div.attrs({
@@ -187,86 +188,103 @@ export class Timeline extends PureComponent {
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2018, month: 3 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2018, month: 1 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 11 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 10 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 7 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 6 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 5 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 4 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 3 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 2 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2017, month: 1 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2016, month: 12 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2016, month: 10 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2016, month: 8 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2016, month: 6 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2015, month: 12 })}
+              returnToStart={this.state.returnToStart}
             />
             <MonthlyRecords
               stopAutoScroll={this._stopAutoScroll}
               resumeAutoScroll={this._resumeAutoScroll}
               data={_.filter(content, { year: 2015, month: 9 })}
+              returnToStart={this.state.returnToStart}
             />
           </ScrollingWrapper>
         </Container>  

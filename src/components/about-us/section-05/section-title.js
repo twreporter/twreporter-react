@@ -39,7 +39,7 @@ const Container = styled.div`
   margin: 0 auto;
   z-index: '5';
   ${screen.mobile`
-    ${getMobileSectionTitleStyle(mobileTitleImage, '101px')}
+    ${getMobileSectionTitleStyle(mobileTitleImage, '49px')}
   `}
   ${screen.tablet`
     background-image: url(${bigNumber});
