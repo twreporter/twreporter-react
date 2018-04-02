@@ -4,11 +4,10 @@ import MonthlyRecords from './monthly-records'
 import React, { PureComponent } from 'react'
 import { recordStyle } from './record'
 import styled, { keyframes } from 'styled-components'
-import filter from 'lodash/filter'
 import orderBy from 'lodash/orderBy'
 
 const _ = {
-  filter, orderBy
+  orderBy
 }
 
 const restart = keyframes`
@@ -47,9 +46,11 @@ const ScrollingWrapper = styled.div.attrs({
 export class Timeline extends PureComponent {
   constructor(props) {
     super(props)
-    const monthNumber = 17 //should be modified
-    this.content = content.slice()
-    this.totalLength = (this.content.length - monthNumber) * recordStyle.width + monthNumber * recordStyle.widthIncludesMonth
+    const data = content.slice()
+    this.sortedData = _.orderBy(data, [ 'year', 'month', 'date' ], [ 'desc', 'desc', 'desc' ])
+    this.dataSeperatedByMonth = this._groupBy(this.sortedData, (d) => { return [ d.year, d.month ] })
+    this.dataSeperatedByYear = this._groupBy(this.sortedData, (d) => { return [ d.year ] })
+    this.totalLength = (data.length - this.dataSeperatedByMonth.length) * recordStyle.width + this.dataSeperatedByMonth.length * recordStyle.widthIncludesMonth
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
@@ -77,7 +78,7 @@ export class Timeline extends PureComponent {
 
   _setAutoScroll = () => {
     if (!this.state.autoScrolling) return
-    if (this._notReachTheEnd()) {
+    if (!this._reachTheEnd()) {
       this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + 0.5 })
       this._setYear()
     } else {
@@ -97,15 +98,19 @@ export class Timeline extends PureComponent {
   }
 
   _setYear = () => {
-    if (this.state.timelineHorizontalShift < recordStyle.width * 2) {     // get number of MonthlyRecords in a year
-      this.props.getYear(2018)
-    } else if (this.state.timelineHorizontalShift > recordStyle.width * 2 && this.state.timelineHorizontalShift < recordStyle.width * 13) {
-      this.props.getYear(2017)
-    } else if (this.state.timelineHorizontalShift > recordStyle.width * 13 && this.state.timelineHorizontalShift < recordStyle.width * 18) {
-      this.props.getYear(2016)
-    } else if (this.state.timelineHorizontalShift > recordStyle.width * 18 && this.state.timelineHorizontalShift < recordStyle.width * 20) {
-      this.props.getYear(2015)
-    }
+    const progress = this.state.timelineHorizontalShift / this.totalLength
+    const segmentofYears = this.dataSeperatedByYear.map((d) => {
+      return d.length / this.sortedData.length
+    })
+    let cumulativeSegments = 0
+    let currentYear = 0
+    segmentofYears.forEach((segment, index)=>{
+      if(progress > cumulativeSegments) {
+        cumulativeSegments += segmentofYears[index]
+        currentYear = this.dataSeperatedByYear[index][0].year
+      }
+    })
+    this.props.getYear(currentYear)
   }
 
   _onMouseDown = () => {
@@ -153,8 +158,8 @@ export class Timeline extends PureComponent {
     } 
   }
 
-  _notReachTheEnd = () => {
-    return this.state.timelineHorizontalShift < this.totalLength - window.innerWidth
+  _reachTheEnd = () => {
+    return this.state.timelineHorizontalShift >= this.totalLength - window.innerWidth
   }
 
   /**
@@ -164,7 +169,7 @@ export class Timeline extends PureComponent {
  * 
  * Example:
  *  If I would like to group the elements with same properties of name and age to form a new array,
- *  just put them in an array as below.
+ *  just put them in a collection as below. ( e.g. An array consists of [name, age] )
  * 
  * _groupBy(data, function(d){
  *  [d.name, d.age]
@@ -172,12 +177,12 @@ export class Timeline extends PureComponent {
  */
   _groupBy = (array, f) => {
     let groups = {}
-    array.forEach(function (o) {
+    array.forEach((o) => {
       let group = JSON.stringify(f(o))
       groups[group] = groups[group] || []
       groups[group].push(o)
     })
-    return Object.keys(groups).map(function (group) {
+    return Object.keys(groups).map((group) => {
       return groups[group]
     })
   }
@@ -195,12 +200,7 @@ export class Timeline extends PureComponent {
   }
 
   render() {
-    const sortedData = _.orderBy(this.content, [ 'year', 'month', 'date' ], [ 'desc', 'desc', 'desc' ])
-    const processedData = this._groupBy(sortedData, function (data) {
-      return [ data.year, data.month ]
-    })
-
-    const AllRecords = processedData.map((record, index) => {
+    const AllRecords = this.dataSeperatedByMonth.map((record, index) => {
       return (
         <MonthlyRecords
           key={index}
