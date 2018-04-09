@@ -55,6 +55,8 @@ const Info = styled.div`
 `
 const InfoContainer = styled.div`
   flex: 1 1 auto;
+  opacity: ${({ isTriggered }) => isTriggered ? '1' : '0'};
+  transition: all 1s ease-in;
   img{
     width: 100%;
   }
@@ -121,8 +123,9 @@ const PoleBody = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 50%;
-  height: 100%;
+  height: ${({ isTriggered }) => isTriggered ? '100%' : '16px'};
   border-right: solid 1px #c7000a;
+  transition: all 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 `
 
 const PoleHead = styled.div`
@@ -142,7 +145,7 @@ const Pole = styled.div`
 
 const RandomPadding = styled.div`
   width: 100%;
-  height: ${props => props.randheight}px;
+  height: ${props => props.randheight};
   ${Container}:nth-child(even) & {
     display: none;
   }
@@ -151,6 +154,9 @@ const RandomPadding = styled.div`
 export class Record extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      paddingHeight: this._getRandomPadding()
+    }
   }
 
   _onMouseOver = () => {
@@ -192,11 +198,11 @@ export class Record extends PureComponent {
 
   _getRandomPadding = () => {
     const maxHeight = 213
-    return Math.floor(Math.random() * maxHeight)
+    return Math.floor(Math.random() * maxHeight) + 'px'
   }
 
   render() {
-    const { month, date, imgSrc, text } = this.props
+    const { month, date, imgSrc, text, isTriggered } = this.props
     return (
       <Container>
         <LineWrapper onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} />
@@ -209,14 +215,14 @@ export class Record extends PureComponent {
         </Date>
         <WrapperOverlayMask>
           <Info onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
-            <InfoContainer>
-              <RandomPadding randheight={this._getRandomPadding}/>
+            <InfoContainer isTriggered={isTriggered}>
+              <RandomPadding randheight={this.state.paddingHeight}/>
               <img src={imgSrc}/>
               <h3>{text.chinese}</h3>
               <p>{text.english}</p>
             </InfoContainer>
             <Pole>
-              <PoleBody>
+              <PoleBody isTriggered={isTriggered}>
                 <PoleHead />
               </PoleBody>              
             </Pole>

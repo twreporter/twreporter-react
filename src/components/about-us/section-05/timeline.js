@@ -11,7 +11,7 @@ const _ = {
 }
 
 const restart = keyframes`
-  0%,100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -26,6 +26,10 @@ const Container = styled.div`
   overflow: hidden;
   margin: 272px auto 300px auto;
   animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
+  cursor: col-resize; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
   ${screen.overDesktop`
     height: 790px;
   `}
@@ -51,13 +55,15 @@ export class Timeline extends PureComponent {
     this.dataSeperatedByMonth = this._groupBy(this.sortedData, (d) => { return [ d.year, d.month ] })
     this.dataSeperatedByYear = this._groupBy(this.sortedData, (d) => { return [ d.year ] })
     this.totalLength = (data.length - this.dataSeperatedByMonth.length) * recordStyle.width + this.dataSeperatedByMonth.length * recordStyle.widthIncludesMonth
+    const _recordHorizontalShift = this._getrecordHorizontalShift()
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
       autoScrolling: true,
       mouseDown: false,
       prevClientX: null,
-      returnToStart: false
+      returnToStart: false,
+      recordHorizontalShift: _recordHorizontalShift
     }
   }
 
@@ -80,6 +86,7 @@ export class Timeline extends PureComponent {
     if (!this.state.autoScrolling) return
     if (!this._reachTheEnd()) {
       this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + 0.5 })
+      this._popSetter()
       this._setYear()
     } else {
       this.setState({ returnToStart: true })
@@ -104,13 +111,29 @@ export class Timeline extends PureComponent {
     })
     let cumulativeSegments = 0
     let currentYear = 0
-    segmentofYears.forEach((segment, index)=>{
+    segmentofYears.forEach((segment, index) => {
       if(progress > cumulativeSegments) {
         cumulativeSegments += segmentofYears[index]
         currentYear = this.dataSeperatedByYear[index][0].year
       }
     })
     this.props.getYear(currentYear)
+  }
+
+  _popSetter = () => {
+    let stateChanged = false
+    let tempArray = this.state.recordHorizontalShift.slice()
+    tempArray.forEach((shiftArray) => {
+      shiftArray.forEach((shift) => {
+        if(this.state.timelineHorizontalShift > shift['shift'] - window.innerWidth && !shift.poped) {
+          shift.poped = true
+          stateChanged = true
+        }
+      })
+    })
+    if(stateChanged) {
+      this.setState({ recordHorizontalShift: tempArray })
+    }
   }
 
   _onMouseDown = () => {
@@ -175,6 +198,7 @@ export class Timeline extends PureComponent {
  *  [d.name, d.age]
  * })
  */
+
   _groupBy = (array, f) => {
     let groups = {}
     array.forEach((o) => {
@@ -185,6 +209,26 @@ export class Timeline extends PureComponent {
     return Object.keys(groups).map((group) => {
       return groups[group]
     })
+  }
+
+  _makeRecodsHorizontalShiftArray = (seq) => {     
+    return seq.map((d, index) => {
+      let month = 0
+      let cumulativeRecords = 0
+      this.dataSeperatedByMonth.forEach((el, j) => {
+        if (index >= cumulativeRecords) {
+          cumulativeRecords += el.length
+          month = j
+        }
+      })
+      const shift = (index - month - 1) * recordStyle.width + 0.6 * recordStyle.width + (month + 1) * recordStyle.widthIncludesMonth
+      return { month: month, shift : shift, poped : false }
+    })
+  }
+
+  _getrecordHorizontalShift = () => {
+    const shiftArray = this._groupBy(this._makeRecodsHorizontalShiftArray(this.sortedData), (d) => { return [ d.month ] })
+    return shiftArray
   }
 
   componentDidMount() {
@@ -200,17 +244,18 @@ export class Timeline extends PureComponent {
   }
 
   render() {
-    const AllRecords = this.dataSeperatedByMonth.map((record, index) => {
+    let AllRecords = this.dataSeperatedByMonth.map((record, index) => {
       return (
         <MonthlyRecords
           key={index}
+          monthlyNum={index}
           stopAutoScroll={this._stopAutoScroll}
           resumeAutoScroll={this._resumeAutoScroll}
           data={record}
+          isTriggered={this.state.recordHorizontalShift}
         />
       )
     })
-
     return (
       <div ref={elem => this.elem = elem}>
         <Container returnToStart={this.state.returnToStart}>

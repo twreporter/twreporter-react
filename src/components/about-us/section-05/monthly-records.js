@@ -16,7 +16,7 @@ export class MonthlyRecords extends PureComponent {
     super(props)
   }
   render() {
-    const { stopAutoScroll, resumeAutoScroll, data } = this.props
+    const { stopAutoScroll, resumeAutoScroll, data, isTriggered, monthlyNum } = this.props
     const Records = data.map((record, index) => {
       return (
         <Record
@@ -27,6 +27,7 @@ export class MonthlyRecords extends PureComponent {
           date={record.date}
           imgSrc={record.image}
           text={record.text}
+          isTriggered={isTriggered[monthlyNum][index].poped}
         />      
       )
     })
