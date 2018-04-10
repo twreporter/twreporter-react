@@ -1,4 +1,3 @@
-// import { screen } from '../utils/screen'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
@@ -12,7 +11,6 @@ const Container = styled.div`
   display: inline-block;
   width: ${recordStyle.width}px;
   height: 100%;
-  /* border: solid 1px black; */
   &:first-child {
     width: 435px;
   }
@@ -30,7 +28,6 @@ const WrapperOverlayMask = styled.div`
 const LineWrapper = styled.div`
   width: 100%;
   height: 80%;
-  /* background: #a67a44; */
   border-bottom: solid 13px #c7000a;
   z-index: 0;
   ${Container}:first-child & {
@@ -45,13 +42,9 @@ const Info = styled.div`
   min-height: 100%;
   height: 100%;
   margin: 0 20px;
-  /* border: solid 1px pink; */
   ${Container}:first-child & {
     margin-left: 80px;
   }
-  /* &:hover{
-    background: pink;
-  } */
 `
 const InfoContainer = styled.div`
   flex: 1 1 auto;
@@ -92,7 +85,6 @@ const Date = styled.div`
   position: relative;
   width: 100%;
   height: 20%;
-  /* border: solid 1px blue; */
   text-align: center;
   ${Container}:first-child & {
     padding-left: 80px;
@@ -201,8 +193,13 @@ export class Record extends PureComponent {
     return Math.floor(Math.random() * maxHeight) + 'px'
   }
 
+  _openLink = (href) => {
+    if (!href) return
+    window.open(href, '_blank')
+  }
+
   render() {
-    const { month, date, imgSrc, text, isTriggered } = this.props
+    const { month, date, imgSrc, text, link, isTriggered } = this.props
     return (
       <Container>
         <LineWrapper onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} />
@@ -214,12 +211,17 @@ export class Record extends PureComponent {
           <p>{date}</p>
         </Date>
         <WrapperOverlayMask>
-          <Info onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut}>
+          <Info 
+            onMouseOver={this._onMouseOver} 
+            onMouseOut={this._onMouseOut}
+          >
             <InfoContainer isTriggered={isTriggered}>
               <RandomPadding randheight={this.state.paddingHeight}/>
-              <img src={imgSrc}/>
-              <h3>{text.chinese}</h3>
-              <p>{text.english}</p>
+              <div onClick={() => this._openLink(link)}>
+                <img src={imgSrc} />
+                <h3>{text.chinese}</h3>
+                <p>{text.english}</p>
+              </div>
             </InfoContainer>
             <Pole>
               <PoleBody isTriggered={isTriggered}>

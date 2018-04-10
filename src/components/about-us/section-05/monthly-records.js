@@ -25,6 +25,7 @@ export class MonthlyRecords extends PureComponent {
           date={record.date}
           imgSrc={record.image}
           text={record.text}
+          link={record.link}
           isTriggered={isTriggered[monthlyNum][index].poped}
         />      
       )
