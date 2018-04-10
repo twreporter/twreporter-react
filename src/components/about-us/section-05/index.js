@@ -1,9 +1,10 @@
-import { colors, marginBetweenSections } from '../constants/styles'
+import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
-import Timeline from './timeline'
 import React, { PureComponent } from 'react'
 import SectionTitle from './section-title'
 import styled from 'styled-components'
+import Timeline from './timeline'
+import Year from './year'
 
 const containerWidth = {
   mobile: '100%',
@@ -62,41 +63,21 @@ const TitleWrapper = styled.div`
   `}      
 `
 
-const YearLabel = styled.div`
-  background: #c7000a;
-  color: ${colors.white};
-  border-radius: 50%;
-  text-align: center;
-  ${screen.desktopAbove`
-    width: 207px;
-    height: 207px;
-    h1{
-      line-height: 207px;
-    }
-  `}
-  ${screen.tabletBelow`
-    width: 220px;
-    height: 220px;
-    h1{
-      font-size: 36px;
-      line-height: 220px;
-    }
-  `}
-  ${screen.mobile`
-    transform: translateX(-20%);    
-  `}  
-`
-
 export class Section5 extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      year: 2018
+      year: 2018,
+      timelineScrolling: false
     }
   }
 
   _getYear = (currentYear) => {
     this.setState({ year: currentYear })    
+  }
+
+  _autoScrollStarter = () => {
+    this.setState({ timelineScrolling: true })
   }
 
   render() {
@@ -105,10 +86,10 @@ export class Section5 extends PureComponent {
         <Container>
           <TitleWrapper>
             <SectionTitle />
-            <YearLabel><h1>{this.state.year}</h1></YearLabel>
+            <Year year={this.state.year} _autoScrollStarter={this._autoScrollStarter}/>
           </TitleWrapper>
         </Container>
-        <Timeline getYear={this._getYear}/>
+        <Timeline getYear={this._getYear} timelineScrolling={this.state.timelineScrolling}/>
       </SectionWrapper>
     )
   }

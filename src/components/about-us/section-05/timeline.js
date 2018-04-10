@@ -59,7 +59,7 @@ export class Timeline extends PureComponent {
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
-      autoScrolling: true,
+      autoScrolling: this.props.timelineScrolling,
       mouseDown: false,
       prevClientX: null,
       returnToStart: false,
