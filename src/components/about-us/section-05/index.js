@@ -85,9 +85,8 @@ export class Section5 extends PureComponent {
   }
 
   _stopTimelineAutoScrolling = () => {
-    if (!this.state.firstHover) {
-      this.setState({ timelineScrolling: false })
-    }
+    if (this.state.firstHover) return
+    this.setState({ timelineScrolling: false })
   }
 
   render() {
@@ -96,10 +95,18 @@ export class Section5 extends PureComponent {
         <Container>
           <TitleWrapper>
             <SectionTitle />
-            <Year year={this.state.year} autoScrollStarter={this._startTimelineAutoScrolling}/>
+            <Year 
+              year={this.state.year} 
+              autoScrollStarter={this._startTimelineAutoScrolling}
+            />
           </TitleWrapper>
         </Container>
-        <Timeline getYear={this._getYear} autoScrolling={this.state.timelineScrolling} startAutoScroll={this._startTimelineAutoScrolling} stopAutoScroll={this._stopTimelineAutoScrolling} />
+        <Timeline 
+          getYear={this._getYear} 
+          autoScrolling={this.state.timelineScrolling} 
+          startAutoScroll={this._startTimelineAutoScrolling} 
+          stopAutoScroll={this._stopTimelineAutoScrolling} 
+        />
       </SectionWrapper>
     )
   }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
@@ -233,6 +234,24 @@ export class Record extends PureComponent {
       </Container>
     )
   }
+}
+
+Record.defaultProps = {
+  month: 12,
+  date: 0,
+  imgSrc: '',
+  text: {},
+  link: '',
+  isTriggered: false
+}
+
+Record.propTypes = {
+  month: PropTypes.number.isRequired,
+  date: PropTypes.number.isRequired,
+  imgSrc: PropTypes.string.isRequired,
+  text: PropTypes.object.isRequired,
+  link: PropTypes.string.isRequired,
+  isTriggered: PropTypes.bool.isRequired
 }
 
 export default Record

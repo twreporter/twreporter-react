@@ -1,5 +1,6 @@
 import { colors } from '../constants/styles'
 import { screen } from '../utils/screen'
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Waypoint from 'react-waypoint'
@@ -42,6 +43,15 @@ export class Year extends PureComponent {
       </Waypoint>
     )
   }
+}
+
+Year.defaultProps = {
+  year: 2018
+}
+
+Year.propTypes = {
+  year: PropTypes.number.isRequired,
+  autoScrollStarter: PropTypes.func.isRequired
 }
 
 export default Year

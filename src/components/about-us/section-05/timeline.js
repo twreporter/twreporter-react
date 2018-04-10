@@ -1,10 +1,11 @@
 import { content } from '../constants/data/section5-content'
+import { recordStyle } from './record'
 import { screen } from '../utils/screen'
 import MonthlyRecords from './monthly-records'
-import React, { PureComponent } from 'react'
-import { recordStyle } from './record'
-import styled, { keyframes } from 'styled-components'
 import orderBy from 'lodash/orderBy'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import styled, { keyframes } from 'styled-components'
 
 const _ = {
   orderBy
@@ -266,6 +267,17 @@ export class Timeline extends PureComponent {
       </div>
     )
   }
+}
+
+Timeline.defaultProps = {
+  autoScrolling: false 
+}
+
+Timeline.propTypes = {
+  getYear: PropTypes.func.isRequired,
+  autoScrolling: PropTypes.bool.isRequired,
+  startAutoScroll: PropTypes.func.isRequired,
+  stopAutoScroll: PropTypes.func.isRequired 
 }
 
 export default Timeline

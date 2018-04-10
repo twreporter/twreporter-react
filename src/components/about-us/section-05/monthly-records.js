@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Record from './record'
 import styled from 'styled-components'
@@ -10,9 +11,6 @@ const Container = styled.div`
 `
 
 export class MonthlyRecords extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const { stopAutoScroll, startAutoScroll, data, isTriggered, monthlyNum } = this.props
     const Records = data.map((record, index) => {
@@ -36,6 +34,20 @@ export class MonthlyRecords extends PureComponent {
       </Container>  
     )
   }
+}
+
+MonthlyRecords.defaultProps = {
+  monthlyNum: 0,
+  data: [],
+  isTriggered: []
+}
+
+MonthlyRecords.propTypes = {
+  monthlyNum: PropTypes.number.isRequired,
+  stopAutoScroll: PropTypes.func.isRequired,
+  startAutoScroll: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  isTriggered: PropTypes.array.isRequired
 }
 
 export default MonthlyRecords
