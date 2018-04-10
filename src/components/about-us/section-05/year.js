@@ -32,7 +32,7 @@ export class Year extends PureComponent {
   render() {
     return (
       <Waypoint
-        onEnter={this.props._autoScrollStarter}
+        onEnter={this.props.autoScrollStarter}
         bottomOffset="60%"
         fireOnRapidScroll
       >

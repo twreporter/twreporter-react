@@ -1,4 +1,3 @@
-// import { screen } from '../utils/screen'
 import React, { PureComponent } from 'react'
 import Record from './record'
 import styled from 'styled-components'
@@ -8,7 +7,6 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   white-space: nowrap;
-  /* border: solid 2px black; */
 `
 
 export class MonthlyRecords extends PureComponent {
@@ -16,13 +14,13 @@ export class MonthlyRecords extends PureComponent {
     super(props)
   }
   render() {
-    const { stopAutoScroll, resumeAutoScroll, data, isTriggered, monthlyNum } = this.props
+    const { stopAutoScroll, startAutoScroll, data, isTriggered, monthlyNum } = this.props
     const Records = data.map((record, index) => {
       return (
         <Record
           key={index}
           onHover={stopAutoScroll}
-          onLeave={resumeAutoScroll}
+          onLeave={startAutoScroll}
           month={record.month}
           date={record.date}
           imgSrc={record.image}

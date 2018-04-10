@@ -68,7 +68,8 @@ export class Section5 extends PureComponent {
     super(props)
     this.state = {
       year: 2018,
-      timelineScrolling: false
+      timelineScrolling: false,
+      firstHover: true
     }
   }
 
@@ -76,8 +77,17 @@ export class Section5 extends PureComponent {
     this.setState({ year: currentYear })    
   }
 
-  _autoScrollStarter = () => {
+  _startTimelineAutoScrolling = () => {
+    if (this.state.firstHover) {
+      this.setState({ firstHover: false })      
+    }
     this.setState({ timelineScrolling: true })
+  }
+
+  _stopTimelineAutoScrolling = () => {
+    if (!this.state.firstHover) {
+      this.setState({ timelineScrolling: false })
+    }
   }
 
   render() {
@@ -86,10 +96,10 @@ export class Section5 extends PureComponent {
         <Container>
           <TitleWrapper>
             <SectionTitle />
-            <Year year={this.state.year} _autoScrollStarter={this._autoScrollStarter}/>
+            <Year year={this.state.year} autoScrollStarter={this._startTimelineAutoScrolling}/>
           </TitleWrapper>
         </Container>
-        <Timeline getYear={this._getYear} timelineScrolling={this.state.timelineScrolling}/>
+        <Timeline getYear={this._getYear} autoScrolling={this.state.timelineScrolling} startAutoScroll={this._startTimelineAutoScrolling} stopAutoScroll={this._stopTimelineAutoScrolling} />
       </SectionWrapper>
     )
   }

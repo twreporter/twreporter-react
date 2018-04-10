@@ -59,7 +59,6 @@ export class Timeline extends PureComponent {
     this.state = {
       frameId: null,
       timelineHorizontalShift: 0,
-      autoScrolling: this.props.timelineScrolling,
       mouseDown: false,
       prevClientX: null,
       returnToStart: false,
@@ -83,7 +82,7 @@ export class Timeline extends PureComponent {
   }
 
   _setAutoScroll = () => {
-    if (!this.state.autoScrolling) return
+    if (!this.props.autoScrolling) return
     if (!this._reachTheEnd()) {
       this.setState({ timelineHorizontalShift: this.state.timelineHorizontalShift + 0.5 })
       this._popSetter()
@@ -94,14 +93,6 @@ export class Timeline extends PureComponent {
         this.setState({ timelineHorizontalShift: 0 })
         this.setState({ returnToStart: false })
       }, 500)}
-  }
-
-  _resumeAutoScroll = () => {
-    this.setState({ autoScrolling: true })    
-  }
-
-  _stopAutoScroll = () => {
-    this.setState({ autoScrolling: false })
   }
 
   _setYear = () => {
@@ -141,8 +132,8 @@ export class Timeline extends PureComponent {
   }
 
   _onMouseMove = (event) => {
-    const clientX = event.clientX
     if (!this.state.mouseDown) return
+    const clientX = event.clientX
     this._timelineShifting(clientX)
   }
 
@@ -156,7 +147,7 @@ export class Timeline extends PureComponent {
   } 
 
   _onTouchStart = () => {
-    this._stopAutoScroll()
+    this.props.stopAutoScroll()
   }
 
   _onTouchMove = (event) => {
@@ -166,7 +157,7 @@ export class Timeline extends PureComponent {
 
   _onTouchEnd = () => {
     this.setState({ prevClientX: null })
-    this._resumeAutoScroll()
+    this.props.startAutoScroll()
   }
 
   _timelineShifting = (coordX) => {
@@ -244,13 +235,14 @@ export class Timeline extends PureComponent {
   }
 
   render() {
-    let AllRecords = this.dataSeperatedByMonth.map((record, index) => {
+    const { stopAutoScroll, startAutoScroll } = this.props
+    const AllRecords = this.dataSeperatedByMonth.map((record, index) => {
       return (
         <MonthlyRecords
           key={index}
           monthlyNum={index}
-          stopAutoScroll={this._stopAutoScroll}
-          resumeAutoScroll={this._resumeAutoScroll}
+          stopAutoScroll={stopAutoScroll}
+          startAutoScroll={startAutoScroll}
           data={record}
           isTriggered={this.state.recordHorizontalShift}
         />
