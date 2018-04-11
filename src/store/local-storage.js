@@ -28,9 +28,14 @@ function selectCacheablePropInReduxState(reduxState) {
   const cacheableProps = [ reduxStatePropKey.entities, reduxStatePropKey.indexPage,
     reduxStatePropKey.lists, reduxStatePropKey.topicList,
     reduxStatePropKey.selectedPost, reduxStatePropKey.selectedTopic,
-    reduxStatePropKey.routing, reduxStatePropKey.searchedAuthorsList,
-    reduxStatePropKey.authorsList, reduxStatePropKey.articlesByAuthor,
+    reduxStatePropKey.routing,
     reduxStatePropKey.entitiesForAuthors
+
+    // TODO author list page and author page have some bugs
+    // after merging localStorage data. Hence, comment it just for now.
+    // reduxStatePropKey.searchedAuthorsList,
+    // reduxStatePropKey.authorsList,
+    // reduxStatePropKey.articlesByAuthor,
   ]
 
   return _.pick(reduxState, cacheableProps)
