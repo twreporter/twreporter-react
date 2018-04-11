@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.7.3
+- [Bug] Author page and author list page have abnormal behavior after using localStorage data.
+- Fix selection color typo in injectGlobal css
+
 ### 2.7.2
 **Update @twreporter/react-components package version from 4.0.3 to 4.0.4**
 
