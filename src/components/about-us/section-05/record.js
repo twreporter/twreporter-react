@@ -1,3 +1,4 @@
+import { colors } from '../constants/styles'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -29,7 +30,7 @@ const WrapperOverlayMask = styled.div`
 const LineWrapper = styled.div`
   width: 100%;
   height: 80%;
-  border-bottom: solid 13px #c7000a;
+  border-bottom: solid 13px ${colors.primary};
   z-index: 0;
   ${Container}:first-child & {
     padding-left: 80px;
@@ -55,7 +56,7 @@ const InfoContainer = styled.div`
     width: 100%;
   }
   h3,p{
-    color: #c7000a;
+    color: ${colors.primary};
     white-space: normal;
   }
   h3{
@@ -93,22 +94,23 @@ const Date = styled.div`
     ${Month} {
       display: block;
     }
-  }  
+  }
+
   h2{
     font-size: 61px;
-    color: #c7000a;
+    color: ${colors.primary};
     margin: 0;
   }
   h3{
     font-size: 20px;
-    color: #c7000a;
+    color: ${colors.primary};
     margin: 0;
     transform: translateX(50%) rotate(-90deg);    
   }
   p{
     font-size: 20px;
     font-weight: 500;
-    color: #c7000a;
+    color: ${colors.primary};
   }
 `
 
@@ -117,19 +119,28 @@ const PoleBody = styled.div`
   justify-content: flex-end;
   width: 50%;
   height: ${({ isTriggered }) => isTriggered ? '100%' : '16px'};
-  border-right: solid 1px #c7000a;
+  border-right: solid 1px ${colors.primary};
   transition: all 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+`
+
+const PoleOverlayMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(50% - 5px);
+  height: 100%;
 `
 
 const PoleHead = styled.div`
   width: 16px;
   height: 16px;
   transform: translateX(50%);
-  background: #c7000a;
+  background: ${colors.primary};
   border-radius: 50%;
 `
 
 const Pole = styled.div`
+  position: relative;
   display: flex;
   align-items: flex-end;
   flex: 4 1 50px;
@@ -212,20 +223,26 @@ export class Record extends PureComponent {
           <p>{date}</p>
         </Date>
         <WrapperOverlayMask>
-          <Info 
-            onMouseOver={this._onMouseOver} 
-            onMouseOut={this._onMouseOut}
-          >
+          <Info>
             <InfoContainer isTriggered={isTriggered}>
               <RandomPadding randheight={this.state.paddingHeight}/>
-              <div onClick={() => this._openLink(link)}>
+              <div 
+                onClick={() => this._openLink(link)}
+                onMouseOver={this._onMouseOver}
+                onMouseOut={this._onMouseOut}
+              >
                 <img src={imgSrc} />
                 <h3>{text.chinese}</h3>
                 <p>{text.english}</p>
               </div>
             </InfoContainer>
             <Pole>
-              <PoleBody isTriggered={isTriggered}>
+              <PoleOverlayMask />
+              <PoleBody
+                onMouseOver={this._onMouseOver}
+                onMouseOut={this._onMouseOut} 
+                isTriggered={isTriggered}
+              >
                 <PoleHead />
               </PoleBody>              
             </Pole>

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Waypoint from 'react-waypoint'
 
 const YearLabel = styled.div`
-  background: #c7000a;
+  background: ${colors.primary};
   color: ${colors.white};
   border-radius: 50%;
   text-align: center;
