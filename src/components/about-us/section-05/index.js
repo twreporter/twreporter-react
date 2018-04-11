@@ -73,6 +73,10 @@ export class Section5 extends PureComponent {
     }
   }
 
+  /**
+ * Set year which will be displayed on title according to parameter
+ * @param {number} currentYear
+ */
   _getYear = (currentYear) => {
     this.setState({ year: currentYear })    
   }

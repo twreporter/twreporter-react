@@ -161,6 +161,10 @@ export class Timeline extends PureComponent {
     this.props.startAutoScroll()
   }
 
+  /**
+ * Set shifting value of time refering to the x-coordinate of pointer (mouse or touch) at this moment
+ * @param {number} coordX
+ */
   _timelineShifting = (coordX) => {
     if (!this.state.prevClientX) this.setState({ prevClientX: coordX })
     if (this.state.prevClientX) {
@@ -190,7 +194,6 @@ export class Timeline extends PureComponent {
  *  [d.name, d.age]
  * })
  */
-
   _groupBy = (array, f) => {
     let groups = {}
     array.forEach((o) => {
@@ -203,6 +206,11 @@ export class Timeline extends PureComponent {
     })
   }
 
+  /**
+ * Compute the pop-up timing of every timestamp by using the distance from the beginning of timeline
+ * @param {array} seq - The data which has been sorted
+ * @return {array} [{ month: month, shift : shift, poped : false }...] - An array of objects which are composed by month, the pop-up timing (shift), and a flag to show whether it has poped or not (poped)
+ */
   _makeRecodsHorizontalShiftArray = (seq) => {     
     return seq.map((d, index) => {
       let month = 0

@@ -1,10 +1,12 @@
 import { colors } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '../../../utils/url'
+import ImgWrapper from '../utils/img-wrapper'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 export const recordStyle = {
-  width: 375, // 335px + 20*2 (marginLeft and marginRight),
+  width: 375, // 335px + 20 (marginLeft and marginRight) * 2,
   widthIncludesMonth: 435
 }
 
@@ -171,6 +173,11 @@ export class Record extends PureComponent {
     this.props.onLeave()
   }
 
+  /**
+ * Return the abbreviation of month in English
+ * @param {array} number
+ * @return {String} month
+ */
   _monthInEng = (number) => {
     switch(number) {
       case 1:  
@@ -204,7 +211,10 @@ export class Record extends PureComponent {
     const maxHeight = 213
     return Math.floor(Math.random() * maxHeight) + 'px'
   }
-
+  /**
+ * Opens the valid input link in a new window or tab
+ * @param {String} href
+ */
   _openLink = (href) => {
     if (!href) return
     window.open(href, '_blank')
@@ -215,7 +225,10 @@ export class Record extends PureComponent {
     return (
       <Container>
         <LineWrapper onMouseOver={this._onMouseOver} onMouseOut={this._onMouseOut} />
-        <Date>
+        <Date
+          onMouseOver={this._onMouseOver}
+          onMouseOut={this._onMouseOut}
+        >
           <Month>
             <h2>{month}</h2>
             <h3>{this._monthInEng(month)}</h3>
@@ -231,7 +244,9 @@ export class Record extends PureComponent {
                 onMouseOver={this._onMouseOver}
                 onMouseOut={this._onMouseOut}
               >
-                <img src={imgSrc} />
+                <ImgWrapper
+                  src={replaceStorageUrlPrefix(imgSrc)}
+                />
                 <h3>{text.chinese}</h3>
                 <p>{text.english}</p>
               </div>
