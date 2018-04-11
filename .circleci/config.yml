@@ -70,20 +70,23 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
             CLUSTER_NAME=""
+            PKG_VER=""
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
               CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
+              PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
               CLUSTER_NAME=${GOOGLE_STAGING_CLUSTER_NAME}
+              PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               CLUSTER_NAME=${GOOGLE_CLUSTER_NAME}
+              PKG_VER="$(cat .pkg-version)"
             fi
 
-            PKG_VER="$(cat .pkg-version)"
 
             echo "CLUSTER_NAME: ${CLUSTER_NAME}"
             echo "PKG_VER: ${PKG_VER}"
