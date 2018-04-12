@@ -1,13 +1,11 @@
 ### Unreleased
 
 ### 2.7.2
-**Update @twreporter/react-components package version from 4.0.3 to 4.0.4**
-
-Add `srcSet` and `sizes` to `img-wrapper.js` so that images of different sizes on index-page will be rendered on resolution demand.
-
-**Update @twreporter/react-components package version from 4.0.4 to 4.0.5**
-
-Replace url prefix of images resources in production state
+- [Bug] Author page and author list page have abnormal behavior after using localStorage data.
+- [Bug] Fix selection color typo in injectGlobal css
+- Update @twreporter/react-components package version from 4.0.4 to 4.0.5 
+- Add `srcSet` and `sizes` to `img-wrapper.js` so that images of different sizes on index-page will be rendered on resolution demand.
+- Replace url prefix of images resources in production state
 
 ### 2.7.1
 #### Bugs Fixed
