@@ -124,7 +124,7 @@ export class Body extends React.PureComponent {
       // current header-one element position
       const curPosition = headerOnePositions[index]
       // next header-one element position
-      const nextPosition = (index + 1) < headerOnePositions.length ? headerOnePositions[index+1] : (blocksJSX.length - 1)
+      const nextPosition = (index + 1) < headerOnePositions.length ? headerOnePositions[index+1] : blocksJSX.length
       // group header-one element and the other following elements
       headerOneGroups.push(
         <section key={anchors[index].id}>
