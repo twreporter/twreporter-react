@@ -1,4 +1,6 @@
 ### Unreleased
+- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
+localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
 ### 2.7.3
 - [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears

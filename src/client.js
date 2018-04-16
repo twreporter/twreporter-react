@@ -16,32 +16,34 @@ if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
 }
 
-const store = configureStore(browserHistory, reduxState)
+configureStore(browserHistory, reduxState)
+  .then((store) => {
+    const history = syncHistoryWithStore(browserHistory, store)
 
-const history = syncHistoryWithStore(browserHistory, store)
+    const routes = createRoutes(history)
 
-const routes = createRoutes(history)
+    function scrollToTopAndFirePageview() {
+      if(window) {
+        window.scrollTo(0, 0)
+        // send Google Analytics Pageview event on router changed
+        ReactGA.pageview(window.location.pathname)
+      }
+    }
 
-function scrollToTopAndFirePageview() {
-  if(window) {
-    window.scrollTo(0, 0)
-    // send Google Analytics Pageview event on router changed
-    ReactGA.pageview(window.location.pathname)
-  }
-}
+    // calling `match` is simply for side effects of
+    // loading route/component code for the initial location
+    // https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
+    match({ history, routes }, (error, redirectLocation, renderProps) => {
+      if (typeof window !== 'undefined') {
+        // add Google Analytics
+        ReactGA.initialize('UA-69336956-1')
+        ReactGA.set({ page: window.location.pathname })
+      }
+      ReactDOM.hydrate((
+        <Provider store={store}>
+          <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
+        </Provider>
+      ), document.getElementById('root'))
+    })
+  })
 
-// calling `match` is simply for side effects of
-// loading route/component code for the initial location
-// https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
-match({ history, routes }, (error, redirectLocation, renderProps) => {
-  if (typeof window !== 'undefined') {
-    // add Google Analytics
-    ReactGA.initialize('UA-69336956-1')
-    ReactGA.set({ page: window.location.pathname })
-  }
-  ReactDOM.hydrate((
-    <Provider store={store}>
-      <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
-    </Provider>
-  ), document.getElementById('root'))
-})
