@@ -16,19 +16,18 @@ if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
 }
 
+function scrollToTopAndFirePageview() {
+  if(window) {
+    window.scrollTo(0, 0)
+    // send Google Analytics Pageview event on router changed
+    ReactGA.pageview(window.location.pathname)
+  }
+}
+
 configureStore(browserHistory, reduxState)
   .then((store) => {
     const history = syncHistoryWithStore(browserHistory, store)
-
     const routes = createRoutes(history)
-
-    function scrollToTopAndFirePageview() {
-      if(window) {
-        window.scrollTo(0, 0)
-        // send Google Analytics Pageview event on router changed
-        ReactGA.pageview(window.location.pathname)
-      }
-    }
 
     // calling `match` is simply for side effects of
     // loading route/component code for the initial location
