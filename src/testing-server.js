@@ -19,7 +19,6 @@ import PrettyError from 'pretty-error'
 import qs from 'qs'
 import topics from '../static/mock-data/topics.json'
 
-
 const app = Express()
 const port = process.env.PORT || 8080 
 const router = Express.Router()
@@ -31,48 +30,74 @@ const _ = {
   find: find
 }
 
-const _getListedPosts = (listID, limit, offset = 0) => {
-  const filteredPosts = _.filter(_.get(posts, 'records'), (record) => {
-    if(typeof record['categories'] != 'undefined') {
-      return record.categories[0].id === listID
-    } 
-  })
-  const meta = {
-    total: filteredPosts.length,
-    offset: offset,
-    limit: limit
-  }
-  const records = filteredPosts.slice(offset, offset + limit)
-  const result = {
-    meta: meta,
+/**
+ * Make an object of listed posts
+ * @param {Number} total
+ * @param {Number} offset 
+ * @param {Number} limit 
+ * @param {Array} records
+ * @returns {Object}
+ */
+const _resultMaker = (total, offset, limit, records) => {
+  return {
+    meta: {
+      total: total,
+      offset: offset,
+      limit: limit
+    },
     records: records,
     status: 'ok'
   }
-  return result
 }
 
+/**
+ * Get filtered posts by arguments of categories or tags
+ * @param {String} id 
+ * @param {Number} limit 
+ * @param {Number} offset 
+ * @param {String} type
+ * @returns {Object}
+ */
+const _getListedPosts = (id, limit, offset = 0, type = 'categories') => {
+  const filteredPosts = _.filter(_.get(posts, 'records'), (record) => {
+    if(typeof record[type] != 'undefined') {
+      return record[type].some((o) => {
+        return o.id === id
+      })
+    }
+  })
+  const records = filteredPosts.slice(offset, offset + limit)
+  return _resultMaker(filteredPosts.length, offset, limit, records)
+}
+
+/**
+ * Get all of the posts in one topic to form the topic landing page
+ * @param {String} slug
+ * @returns {Array}
+ */
 const _getAFullTopic = (slug) => {
   return _.filter(_.get(topics, 'records'), (record) => {
     return record['slug'] === slug
   })
 }
 
+/**
+ * Get Listed topics in topic page
+ * @param {Number} limit 
+ * @param {Number} offset
+ * @returns {Object}
+ */
 const _getTopicPosts = (limit, offset = 0) => {
   const topicPosts = _.get(topics, 'records')
-  const meta = {
-    total: topicPosts.length,
-    offset: offset,
-    limit: limit
-  }
   const records = topicPosts.slice(offset, offset + limit)
-  const result = {
-    meta: meta,
-    records: records,
-    status: 'ok'
-  }
-  return result
+  return _resultMaker(topicPosts.length, offset, limit, records)
 }
 
+/**
+ * Get author's id and return the full mock data of the author
+ * @param {String} authorId
+ * @returns {Object} 
+ */
 const _selectAuthor = (authorId) => {
   switch (authorId) {
     case '591ac386507c6a0d00ab0490':
@@ -134,7 +159,10 @@ router.route(`/${apiEndpoints.posts}/`)
       } else if (typeof _where['style'] !== 'undefined') {
         const style = _where['style']
         res.json(_getListedPosts(categoryListID[style], _limit))
-      }
+      } else if (typeof _where['tags'] !== 'undefined') {
+        const tag = _where['tags']['in'][0]
+        res.json(_getListedPosts(tag, _limit, _offset, 'tags'))
+      } 
     } else {
       res.json(posts)   
     }
