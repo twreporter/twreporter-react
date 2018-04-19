@@ -19,6 +19,7 @@ import PrettyError from 'pretty-error'
 import qs from 'qs'
 import topics from '../static/mock-data/topics.json'
 
+
 const app = Express()
 const port = process.env.PORT || 8080 
 const router = Express.Router()
@@ -109,12 +110,14 @@ router.route(`/${apiEndpoints.posts}/:slug`)
       const post = _.find(fullposts['records'], (record) => {
         return record.slug === slug
       })
-      res.json({
-        record: post,
-        status: 'ok'
-      })
-    } else {
-      res.redirect('/error/404')      
+      if (typeof post !== 'undefined') {
+        res.json({
+          record: post,
+          status: 'ok'
+        })
+      } else {
+        throw new NotFoundError()
+      }
     }
   })
 
@@ -152,7 +155,7 @@ router.route(`/${apiEndpoints.topics}/:slug`)
           status: 'ok'
         })
       } else {
-        res.redirect('/error/404')
+        throw new NotFoundError()
       }
     }
   })
