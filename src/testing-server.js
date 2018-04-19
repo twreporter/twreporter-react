@@ -8,6 +8,8 @@ import authors from '../static/mock-data/authors.json'
 import categoryListID from './conf/category-list-id'
 import Express from 'express'
 import filter from 'lodash/filter'
+import find from 'lodash/find'
+import fullposts from '../static/mock-data/fullposts.json'
 import get from 'lodash/get'
 import indexPage from '../static/mock-data/index-page.json'
 import indexPageCategories from '../static/mock-data/index-page-categories.json'
@@ -24,7 +26,8 @@ const router = Express.Router()
 const _ = {
   get: get,
   filter: filter,
-  map: map
+  map: map,
+  find: find
 }
 
 const _getListedPosts = (listID, limit, offset = 0) => {
@@ -48,14 +51,9 @@ const _getListedPosts = (listID, limit, offset = 0) => {
 }
 
 const _getAFullTopic = (slug) => {
-  const records = _.filter(_.get(topics, 'records'), (record) => {
+  return _.filter(_.get(topics, 'records'), (record) => {
     return record['slug'] === slug
   })
-  const result = {
-    records: records,
-    status: 'ok'
-  }
-  return result
 }
 
 const _getTopicPosts = (limit, offset = 0) => {
@@ -98,27 +96,38 @@ router.use((req, res, next) => {
   next()
 })
 
-router.route(`/${apiEndpoints.posts}/`)
-  .get((req, res) => {
-    const { where, limit, offset } = req.query
-    const _where = JSON.parse(where)
-    const _limit = Number(limit)
-    const _offset = Number(offset)
-    if (_where['categories']) {
-      const listID = _where['categories']['in'][0]
-      res.json(_getListedPosts(listID, _limit, _offset))
-    } else if (_where['style']) {
-      const style = _where['style']
-      res.json(_getListedPosts(categoryListID[style], _limit))
-    } else {
-      res.json(posts)
-    }    
-  })
-
 router.param('slug', (req, res, next, slug) => {
   req.slug = slug
   next()
 })
+
+router.route(`/${apiEndpoints.posts}/:slug`)
+  .get((req, res) => {
+    const { where, limit, offset, full } = req.query
+    const _limit = Number(limit)
+    const _offset = Number(offset)
+    if (typeof where !== 'undefined' ) {
+      const _where = JSON.parse(where)
+      if (_where['categories']) {
+        const listID = _where['categories']['in'][0]
+        res.json(_getListedPosts(listID, _limit, _offset))
+      } else if (_where['style']) {
+        const style = _where['style']
+        res.json(_getListedPosts(categoryListID[style], _limit))
+      }
+    } else {
+      if (typeof full !== 'undefined' ) {
+        const slug = req.slug
+        const post = _.find(fullposts['records'], (record) => {
+          return record.slug === slug
+        })
+        res.json({
+          record: post,
+          status: 'ok'
+        })
+      }
+    }
+  })
 
 /**
  * Under development circumstance, fetch full topics data in list at once for not to create too many topics mock data files.
@@ -129,8 +138,11 @@ router.route(`/${apiEndpoints.topics}/:slug`)
   .get((req, res) => {
     if (req.query.full) {
       const fullTopic = _getAFullTopic(req.slug)
-      if (fullTopic.records.length > 0) {
-        res.json(_getAFullTopic(req.slug))
+      if (fullTopic.length > 0) {
+        res.json({
+          record: fullTopic[0],
+          status: 'ok'
+        })
       } else {
         res.redirect('/error/404')
       }
@@ -175,7 +187,7 @@ router.route(`/search/:searchParam/`)
     const result = {
       hits: paginatedList,
       hitsPerPage: hitsPerPage,
-      nbHits: authors['hits'].length,
+      nbHits: list['hits'].length,
       nbPages: Math.ceil(authors['hits'].length / hitsPerPage),
       page: _page,
       params: qs.stringify(queryStringParams),
