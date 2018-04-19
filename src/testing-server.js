@@ -32,7 +32,7 @@ const _ = {
 
 const _getListedPosts = (listID, limit, offset = 0) => {
   const filteredPosts = _.filter(_.get(posts, 'records'), (record) => {
-    if(record['categories']) {
+    if(typeof record['categories'] != 'undefined') {
       return record.categories[0].id === listID
     } 
   })
@@ -103,29 +103,37 @@ router.param('slug', (req, res, next, slug) => {
 
 router.route(`/${apiEndpoints.posts}/:slug`)
   .get((req, res) => {
-    const { where, limit, offset, full } = req.query
+    const { full } = req.query
+    if (typeof full !== 'undefined' ) {
+      const slug = req.slug
+      const post = _.find(fullposts['records'], (record) => {
+        return record.slug === slug
+      })
+      res.json({
+        record: post,
+        status: 'ok'
+      })
+    } else {
+      res.redirect('/error/404')      
+    }
+  })
+
+router.route(`/${apiEndpoints.posts}/`)
+  .get((req, res) => {
+    const { where, limit, offset } = req.query
     const _limit = Number(limit)
     const _offset = Number(offset)
-    if (typeof where !== 'undefined' ) {
+    if (typeof where !== 'undefined') {
       const _where = JSON.parse(where)
-      if (_where['categories']) {
+      if (typeof _where['categories'] !== 'undefined') {
         const listID = _where['categories']['in'][0]
         res.json(_getListedPosts(listID, _limit, _offset))
-      } else if (_where['style']) {
+      } else if (typeof _where['style'] !== 'undefined') {
         const style = _where['style']
         res.json(_getListedPosts(categoryListID[style], _limit))
       }
     } else {
-      if (typeof full !== 'undefined' ) {
-        const slug = req.slug
-        const post = _.find(fullposts['records'], (record) => {
-          return record.slug === slug
-        })
-        res.json({
-          record: post,
-          status: 'ok'
-        })
-      }
+      res.json(posts)   
     }
   })
 
