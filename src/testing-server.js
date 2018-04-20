@@ -169,7 +169,7 @@ router.route(`/${apiEndpoints.posts}/`)
   })
 
 /**
- * Under development circumstance, fetch full topics data in list at once for not to create too many topics mock data files.
+ * Under development circumstance, fetch full topics data in list at once for not to create too many mock data files.
  * However, the listing data of topics will be fetched only in simplified version under production circumstance. 
  * And the complete data of each topic (including `relates` and `leading-video` entries) would be fetched by this endpoint if user clicked to see more.
  */
