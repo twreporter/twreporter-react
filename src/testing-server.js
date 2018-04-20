@@ -117,7 +117,9 @@ const _selectAuthor = (authorId) => {
 const _checkIfPortIsTaken = (port) => new Promise((resolve, reject) => {
   const tester = net.createServer()
     .once('error', err => (err.code == 'EADDRINUSE' ? resolve(true) : reject(err)))
-    .once('listening', () => tester.once('close', () => resolve(false)).close())
+    .once('listening', function () { 
+      tester.once('close', function () { resolve(false) }).close() 
+    })
     .listen(port)
 })
 
