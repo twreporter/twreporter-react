@@ -14,13 +14,16 @@ import get from 'lodash/get'
 import indexPage from '../static/mock-data/index-page.json'
 import indexPageCategories from '../static/mock-data/index-page-categories.json'
 import map from 'lodash/map'
+import net from 'net'
 import posts from '../static/mock-data/posts.json'
 import PrettyError from 'pretty-error'
 import qs from 'qs'
 import topics from '../static/mock-data/topics.json'
 
 const app = Express()
-const port = process.env.PORT || 8080 
+const host = process.env.HOST || 'localhost'
+const port = process.env.PORT || 8080
+const APIVersion = 'v1'
 const router = Express.Router()
 
 const _ = {
@@ -38,7 +41,7 @@ const _ = {
  * @param {Array} records
  * @returns {Object}
  */
-const _resultMaker = (total, offset, limit, records) => {
+function _resultMaker(total, offset, limit, records) {
   return {
     meta: {
       total: total,
@@ -111,8 +114,15 @@ const _selectAuthor = (authorId) => {
   }
 }    
 
+const _checkIfPortIsTaken = (port) => new Promise((resolve, reject) => {
+  const tester = net.createServer()
+    .once('error', err => (err.code == 'EADDRINUSE' ? resolve(true) : reject(err)))
+    .once('listening', () => tester.once('close', () => resolve(false)).close())
+    .listen(port)
+})
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
@@ -262,7 +272,18 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   }
 })
 
-app.use('/v1/', router)
-app.listen(port, () => {
-  console.log('Started testing server at port', port)  // eslint-disable-line no-console
-})
+_checkIfPortIsTaken(port)
+  .then((thePortIsTaken) => {
+    if(!thePortIsTaken) {
+      app.use(`/${APIVersion}/`, router)
+      app.listen(port, (err) => {
+        if (err) throw new Error(err)
+        console.log('==> 💻  Started testing server at http://%s:%s', host, port) // eslint-disable-line no-console
+      })  
+    } else {
+      console.error('==>     WARNINIG: The port %s is being used', port) // eslint-disable-line no-console
+    }
+  })
+  .catch((err)=>{
+    console.error(err) // eslint-disable-line no-console
+  })
