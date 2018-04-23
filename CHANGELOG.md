@@ -1,4 +1,8 @@
 ### Unreleased
+- Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
+
+### 2.7.3
+- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
 ### 2.7.3
 - [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears

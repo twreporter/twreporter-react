@@ -165,7 +165,7 @@ const webpackConfig = {
         BROWSER: true,
         NODE_ENV: isProduction ? '"production"' : '"development"',
         RELEASE_BRANCH: '"development"',
-        API_HOST: '"dev-go-api.twreporter.org"',
+        API_HOST: '"localhost"',
         API_PORT: '8080',
         API_PROTOCOL: '"http"'
       },
