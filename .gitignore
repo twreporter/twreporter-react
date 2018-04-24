@@ -31,3 +31,6 @@ dist/
 yarn-error.log
 
 pm2-*.log
+
+#Ignore testing screenshots
+src/test/screenshots/testDir/
