@@ -4,9 +4,6 @@
 ### 2.7.3
 - [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
-### 2.7.3
-- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
-
 ### 2.7.2
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.
 - [Bug] Fix selection color typo in injectGlobal css
