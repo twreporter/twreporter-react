@@ -26,7 +26,9 @@ New Media foundation in Taiwan.
 
 # Development start
 `npm run dev`
+
 // start the mock go-api server for testing
+
 `npm run start-testing-server`
 
 # Build docker image
