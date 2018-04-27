@@ -2,51 +2,61 @@ BIN_DIR ?= node_modules/.bin
 RELEASE_BRANCH ?= $(ARGS)
 PROD_NODE_ENV ?= production
 
+P="\\033[32m[+]\\033[0m"
+
 help:
-	@echo "'make dev' to start dev servers"
-	#@echo "'make stop-dev' to stop dev servers"
-	@echo "'make build' to build production webpack assets and transiple es6 files to es5"
-	@echo "'make clean' to clean the old builds"
-	@echo "'make start' to start production server"
-	@echo "'make stop' to stop production server"
+	@echo "\033[33mmake dev\033[0m - start dev servers"
+	@echo "\033[33mmake build\033[0m - build production webpack assets and transiple es6 files to es5"
+	@echo "\033[33mmake clean\033[0m - clean the old builds"
+	@echo "\033[33mmake start\033[0m - start application server"
+	@echo "\033[33mmake stop\033[0m - stop application server"
 
 build: clean build-webpack build-server
 
-# build-webpack:
-#		NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack-service-worker.config.js --progress --colors
-build-webpack:
+# build webpacks client side needed
+build-webpack: 
+	@echo "\033[33m[webpack]\033[0m build client side bundles and write their filepaths into webpack-asset.json"
 	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
+	#@echo "\033[33m[webpack]\033[0m build service-worker"
+	#NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack-service-worker.config.js --progress --colors
 
+# transiple es6 files into es5 
 build-server:
+	@echo "\033[33m[babel]\033[0m transpile es6 files into es5"
 	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/babel src --out-dir dist --copy-files
 
 start-server:
+	@echo "\033[33m[PM2]\033[0m start application server"
 	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/pm2 start processes.json
 
 start: build start-server
 
 stop: 
+	@echo "\033[33m[PM2]\033[0m stop application server"
 	@$(BIN_DIR)/pm2 kill
 
 start-testing-server: 
-	@echo "start testing server by babel-node src/test-server.js"
+	@echo " $(P) start testing server by babel-node src/test-server.js\n"
 	@$(BIN_DIR)/babel-node src/testing-server.js
 
 start-dev-server: 
-	@echo "start dev server by nodemon src/server.js"
+	@echo " $(P) start dev server by nodemon src/server.js\n"
 	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
 
 start-webpack-dev-server:
-	@echo "start webpack dev server by node webpack-dev-server.js"
-	NODE_ENV=development node webpack-dev-server.js
-
-#stop-dev: 
-#	@$(BIN_DIR)/forever stopall
+	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
 
 dev:  
+	@echo "Setup development environment."
+	@echo "Development environment will contains three different servers."
+	@echo "One will be application server, hosted on 3000 port."
+	@echo "Another will be webpack dev server, hosted on 5000 port."
+	@echo "The other will be mocked api server, hosted on 8080 po1Grt."
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server" 
 
 clean: 
-	@$(BIN_DIR)/rimraf dist webpack-assets.json
+	@echo "delete sw.js, dist/ and webpack-assets.json\n"
+	@$(BIN_DIR)/rimraf sw.js dist webpack-assets.json
 
 .PHONY: help clean build start stop dev

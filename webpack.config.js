@@ -35,9 +35,9 @@ BundleListPlugin.prototype.apply = function(compiler) {
     }
     for (const filename in compilation.assets) {
       if (filename.startsWith('main')) {
-        assets.javascripts.main = `/dist/${filename}`
+        assets.javascripts.main = `${webpackPublicPath}${filename}`
       } else if (filename.indexOf('-chunk-') > -1) {
-        assets.javascripts.chunks.push(`/dist/${filename}`)
+        assets.javascripts.chunks.push(`${webpackPublicPath}${filename}`)
       }
     }
 
@@ -164,7 +164,7 @@ const webpackConfig = {
       'process.env': {
         BROWSER: true,
         NODE_ENV: isProduction ? '"production"' : '"development"',
-        RELEASE_BRANCH: '"development"',
+        RELEASE_BRANCH: '"master"',
         API_HOST: '"localhost"',
         API_PORT: '8080',
         API_PROTOCOL: '"http"'

@@ -20,7 +20,10 @@ const defaultRegConfig = {
 }
 
 const regConfig = {
-  development: {
+  master: {
+    registrationConfigure: defaultRegConfig
+  },
+  preview: {
     registrationConfigure: defaultRegConfig
   },
   staging: {
@@ -29,13 +32,13 @@ const regConfig = {
       host: 'https://staging.twreporter.org'
     })
   },
-  production: {
+  release: {
     registrationConfigure: Object.assign({}, defaultRegConfig, {
       apiUrl: 'https://go-api.twreporter.org',
       host: 'https://www.twreporter.org'
     })
   }
-}[process.env.RELEASE_BRANCH || 'development']
+}[process.env.RELEASE_BRANCH || 'master']
 
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
