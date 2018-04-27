@@ -1,16 +1,17 @@
 'use strict'
-import PropTypes from 'prop-types'
-import React from 'react' // eslint-disable-next-line
-import cx from 'classnames'
-import Link from 'react-router/lib/Link'
-import SearchBox from '../navigation/SearchBox'
 import BackToTopicIcon from '../../../static/asset/back-to-topic.svg'
 import DonationIcon from '../../../static/asset/donate.svg'
+import Link from 'react-router/lib/Link'
 import LogoIcon from '../../../static/asset/navbar-fixed-top-logo.svg'
+import PropTypes from 'prop-types'
+import React from 'react' // eslint-disable-next-line
+import SearchBox from '../navigation/SearchBox'
 import WhiteDonationIcon from '../../../static/asset/white-donation-icon.svg'
 import WhiteLogoIcon from '../../../static/asset/logo-white-s.svg'
+import cx from 'classnames'
+import constPageThemes from '../../constants/page-themes'
 import style from './Header.scss'
-import { BRIGHT, DARK, donatePath } from '../../constants/index'
+import { donatePath } from '../../constants/index'
 
 
 // TBD fixed on the top needs to be implement
@@ -38,7 +39,7 @@ export default function Header({ isFixedToTop, title }) {
   ) : (
     <div className={style.search}>
       <SearchBox
-        theme={isFixedToTop ? BRIGHT : DARK}
+        theme={isFixedToTop ? constPageThemes.tone.bright : constPageThemes.tone.dark}
       />
     </div>
   )

@@ -8,7 +8,7 @@ import PrettyError from 'pretty-error'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import config from '../config'
-import configureStore from './store/configureStore'
+import configureStore from './store/configure-store'
 import cookieParser from 'cookie-parser'
 import createRoutes, { ACTIVATE_PAGE_PATH, NO_CACHE_PAGES } from './routes/index'
 import get from 'lodash/get'
@@ -156,7 +156,7 @@ app.get('*', function (req, res, next) {
               content={content}
               store={store}
               assets={assets}
-              styleTags={sheet.getStyleTags()}
+              styleElement={sheet.getStyleElement()}
             />
           )
         res.status(selectResponseStatus(get(renderProps, 'params.errorType')))

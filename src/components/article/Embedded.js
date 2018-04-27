@@ -7,23 +7,51 @@ import commonStyles from './Common.scss'
 import styles from './Embedded.scss'
 
 // lodash
-import get from 'lodash/get'
 import forEach from 'lodash/forEach'
+import get from 'lodash/get'
 import merge from 'lodash/merge'
+
+const _ = {
+  forEach,
+  get,
+  merge
+}
 
 export class EmbeddedCode extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  /**
+   * Pick attributes that start with data and return them with a new object.
+   * Example: ({ dataWidth: 100, dataPicId: 'xn3K8s' }) => ({ width: 100, picId: 'xn3K8s' })
+   * Ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
+   * 
+   * @param {Object} attributes attributes object with camelcased keys
+   * @returns {Object} dataset object
+   * @memberof EmbeddedCode
+   */
+  _pickDatasetFromAttribs(attributes) {
+    const dataset = {}
+    _.forEach(attributes, (value, key) => {
+      const reg = /^data[^a-z]/
+      if (reg.test(key)) {
+        const newKeyInDataset = key.replace(reg, matched => matched.substr(-1, 1).toLowerCase())
+        dataset[newKeyInDataset] = value
+      }
+    })
+    return dataset
+  }
+
   componentDidMount() {
     const node = this.embedded
-    const scripts = get(this.props, [ 'content', 0, 'scripts' ])
+    const scripts = _.get(this.props, [ 'content', 0, 'scripts' ])
     if (node && Array.isArray(scripts)) {
-      forEach(scripts, (script) => {
+      _.forEach(scripts, (script) => {
         const scriptEle = document.createElement('script')
         const attribs = script.attribs
-        merge(scriptEle, attribs)
+        const dataset = this._pickDatasetFromAttribs(attribs)
+        _.merge(scriptEle, attribs, { dataset })
         scriptEle.text = script.text || ''
         node.appendChild(scriptEle)
       })
@@ -35,7 +63,7 @@ export class EmbeddedCode extends React.Component {
   }
 
   render() {
-    const content = get(this.props, [ 'content', 0 ], {})
+    const content = _.get(this.props, [ 'content', 0 ], {})
 
     return (
       <div className={classNames(commonStyles['inner-block'], 'hidden-print')}>

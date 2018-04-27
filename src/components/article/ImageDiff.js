@@ -10,8 +10,8 @@ import classNames from 'classnames'
 import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
-import { getScreenType } from '../../utils/index'
-import { replaceStorageUrlPrefix } from '../../utils/index'
+import { getScreenType } from '../../utils/screen'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 
 // lodash
 import get from 'lodash/get'

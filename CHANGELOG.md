@@ -1,4 +1,79 @@
 ### Unreleased
+
+### 2.7.4
+- Update embedded component to pack dataset before adding it to element.attributes
+- Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
+
+### 2.7.3
+- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
+
+### 2.7.2
+- [Bug] Author page and author list page have abnormal behavior after using localStorage data.
+- [Bug] Fix selection color typo in injectGlobal css
+- Update @twreporter/react-components package version from 4.0.4 to 4.0.5 
+- Add `srcSet` and `sizes` to `img-wrapper.js` so that images of different sizes on index-page will be rendered on resolution demand.
+- Replace url prefix of images resources in production state
+
+### 2.7.1
+#### Bugs Fixed
+- Bookmarks listing page can not show bookmarks
+
+### 2.7.0
+#### Minor Change
+Performance Enhancement 
+Store redux state in the window.localStorage. 
+If the redux state is fresh and populated,
+the copy in the localStorage will be used instead, 
+Hence, the AJAX won't be sent to the API server.
+
+Easy to Develop
+Replace `localhost` by `dev-go-api.twreporter.org` API server.
+In the future, the developer won't need to build the API web service.
+
+#### Patches
+- Avoid `setState` on unmounted or mounting components while rendering the Image or FullScreenImage component
+- Bind changeFontSize function to Article container instance.
+ 
+### 2.6.3
+**Update @twreporter/react-components**
+Update @twreporter/react-components package version from 4.0.1 to 4.0.3.
+
+### 2.6.2
+#### Refactoring
+**Reduce Bundle Size**:
+
+Adopt `react-loadable` pkg, which can split codes into different webpack bundles.
+
+**Responsive Image and Resolution Switching**
+
+Use `srcset` and `sizes` attribute of `<img>` tag to render images on different device resolution and media query.
+
+**Progressive Image**
+
+Make `src/components/article/HeroImage.js` and `src/components/shared/FullScreenImage.js` progressive rendering.
+
+**Render Custom Theme of Article Page**
+
+Move those rendering bussiness logics in `src/containers/Article.js` into `src/components/article/layout/layout-maker.js`.
+Hence, `src/containers/Article.js` and `src/helpers/with-layout.js`, which renders the whole page including header, body and footer, will be clean and fit.
+
+**Utilities Refactoring**
+
+Decentralize the utilities functions, move related functions into the same file, and delete `src/utilites/index.js`
+
+**Constants Refactoring**
+
+Clean the constants variables.
+In the Future, only those constant variables which are used by different files could be specified in `src/constants/*.js`
+
+#### Patches
+- Decrease BlockQuote font-size to 20px
+- Add webpack chunk name for dynamic imported modules
+- Fix style tag over-wrapping inside head of html
+- Remove react-lazyload and tiny image is enough for BottomRelateds
+- Polyfill for require.ensure on server side rendering
+- Inject global css on both client and server side
+
 ### 2.6.1
 #### Features
 - Longform article with side bar

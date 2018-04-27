@@ -52,7 +52,7 @@ const webpackConfig = {
     main: './src/client.js',
   },
   output: {
-    chunkFilename: '[id]-chunk-[chunkhash].js',
+    chunkFilename: '[name]-chunk-[chunkhash].js',
     filename: webpackOutputFilename,
     path: path.join(__dirname, 'dist'),
     publicPath: webpackPublicPath

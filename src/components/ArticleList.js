@@ -1,19 +1,22 @@
-import React from 'react'
-import More from '../components/More'
 import Link from 'react-router/lib/Link'
-import { DARK, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../utils/index'
-import { getArticleImageSrc, getArticleImageSrcSet } from '../utils/index'
+import More from '../components/More'
+import React from 'react'
+import ResolutionSwitchingImage from '../components/shared/Image'
+import constPageThemes from '../constants/page-themes'
 import styled, { css } from 'styled-components'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { date2yyyymmdd } from '../utils/date'
 import { typography } from '../themes/common-variables'
 
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
+import merge from 'lodash/merge'
 
 const _ = {
   get,
-  map
+  map,
+  merge
 }
 
 const itemWidth = 451
@@ -69,14 +72,14 @@ const ImageWrapper = styled.div`
   }
 `
 
-const ItemImage = styled.img`
-  width: 100%;
-  height: auto;
-  @media only screen and (max-width: ${breakPoint}px) {
-    width: 100%;
-    height: auto;
-  }
-`
+//const ItemImage = styled.img`
+//  width: 100%;
+//  height: auto;
+//  @media only screen and (max-width: ${breakPoint}px) {
+//    width: 100%;
+//    height: auto;
+//  }
+//`
 
 const ItemDescBox = styled.div`
   width: 100%;
@@ -128,7 +131,7 @@ const Date = styled.time`
 
 const bgStyleSelector = bgStyle => {
   switch (bgStyle) {
-    case DARK:
+    case constPageThemes.tone.dark:
       return css`
         ${ItemTitle}, ${ItemExcerpt}, ${Date} {
           color: #F7F7F7;
@@ -164,27 +167,48 @@ const List = styled.ul`
 export default class ListArticleItem extends React.PureComponent {
   _buildItem(article) {
     const { id, publishedDate, style, slug, title } = article
-    const image = getArticleImageSrc(article)
-    const imageSrcSet = getArticleImageSrcSet(article)
     const dateString = date2yyyymmdd(publishedDate , '.')
     const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
     const excerpt =  _.get(article, 'ogDescription', '')
-    if (image) {
-      return (
-        <Item key={id}>
-          <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
-            <ImageWrapper>
-              <ItemImage src={image} srcSet={imageSrcSet}/>
-            </ImageWrapper>
-            <ItemDescBox>
-              <ItemTitle>{title}</ItemTitle>
-              <ItemExcerpt>{excerpt}</ItemExcerpt>
-              <Date dateTime={date2yyyymmdd(publishedDate, '-')}>{dateString}</Date>
-            </ItemDescBox>
-          </Link>
-        </Item>
-      )
-    }
+    const heroImageSet = _.get(article, 'heroImage.resizedTargets')
+    const ogImageSet = _.get(article, 'ogImage.resizedTargets')
+    const imgSet = heroImageSet ? _.merge({}, heroImageSet, {
+      original: {
+        url: _.get(article, 'heroImage.url'),
+        width: _.get(article, 'heroImage.width'),
+        height: _.get(article, 'heroImage.height')
+      }
+    }) : _.merge({}, ogImageSet, {
+      original: {
+        url: _.get(article, 'ogImage.url'),
+        width: _.get(article, 'ogImage.width'),
+        height: _.get(article, 'ogImage.height')
+      }
+    })
+    return (
+      <Item key={id}>
+        <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
+          <ImageWrapper>
+            <ResolutionSwitchingImage
+              alt={heroImageSet ? _.get(article, 'heroImage.description') : _.get(article, 'ogImage.description')}
+              imgSet={imgSet}
+              imgSizes={{
+                mobile: '95vw',
+                tablet: '95vw',
+                desktop: '451px',
+                hd: '555px'
+              }}
+              toShowCaption={false}
+            />
+          </ImageWrapper>
+          <ItemDescBox>
+            <ItemTitle>{title}</ItemTitle>
+            <ItemExcerpt>{excerpt}</ItemExcerpt>
+            <Date dateTime={date2yyyymmdd(publishedDate, '-')}>{dateString}</Date>
+          </ItemDescBox>
+        </Link>
+      </Item>
+    )
   }
 
   _buildItemList(articles) {
