@@ -3,6 +3,7 @@
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
 - Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
+- Use Makefile to replace npm scripts
 
 ### 2.7.3
 - [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
