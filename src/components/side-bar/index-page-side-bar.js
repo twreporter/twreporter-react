@@ -2,15 +2,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import baseComponents from './base-components'
-import { globalColor } from '../../themes/common-variables'
+import { colors } from '../../themes/common-variables'
 import { screen } from '../../themes/screen'
 
 // writing-mode: vertical-rl;
 // letter-spacing: 2px;
 const StyledAnchor = baseComponents.StyledAnchor.extend`
   margin-bottom: 18px;
-  color: ${props => (props.highlight ? 'white' : `${globalColor.primaryColor}`)};
-  background: ${props => (props.highlight ? `${globalColor.primaryColor}` : 'none')};
+  color: ${props => (props.highlight ? 'white' : `${colors.primaryColor}`)};
+  background: ${props => (props.highlight ? `${colors.primaryColor}` : 'none')};
 `
 
 class Anchors extends baseComponents.Anchors {
@@ -25,7 +25,7 @@ const SideBarContainer = styled.div`
   top: 50%;
   z-index: 100;
   transform: translateY(-50%);
-  color: ${globalColor.primaryColor};
+  color: ${colors.primaryColor};
   right: 16px;
   ${screen.tablet`
     right: 3px;

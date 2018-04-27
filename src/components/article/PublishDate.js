@@ -1,6 +1,6 @@
 /*eslint no-unused-vars:0*/
 'use strict'
-import { date2yyyymmdd } from '../../utils/index'
+import { date2yyyymmdd } from '../../utils/date'
 import React, { Component } from 'react'
 import commonStyles from './Common.scss'
 import classNames from 'classnames'

@@ -2,15 +2,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import baseComponents from './base-components'
 import styled from 'styled-components'
-import { colors, globalColor, typography } from '../../themes/common-variables'
+import { colors, typography } from '../../themes/common-variables'
 import { screen } from '../../themes/screen'
 import { articleLayout } from '../../themes/layout'
 
 const StyledAnchor = baseComponents.StyledAnchor.extend`
   position: relative;
   height: 100%;
-  color: ${props => props.highlight ? globalColor.textColor : colors.gray.gray50};
-  border-right: 2px solid ${props => props.highlight ? globalColor.textColor : colors.gray.gray50};
+  color: ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
+  border-right: 2px solid ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
   opacity: ${props => props.highlight ? '1' : '0.6'};
   padding-right: 17px;
   padding-top: 18px;
@@ -60,7 +60,9 @@ Anchors.propTypes = {
   }))
 }
 
-const sideBarBgWidth = '145'
+const sideBarBgWidth = 145
+
+const sideBarOffset = 50
 
 const AnchorsContainer = styled.div`
   z-index: 200;
@@ -68,13 +70,13 @@ const AnchorsContainer = styled.div`
   color: ${colors.gray.gray50};
   left: 50%;
   top: 50%;
-  transform: translate(-${(articleLayout.hd.width.large - articleLayout.hd.offset.sidebar)/2}px, -50%);
+  transform: translate(-${(articleLayout.hd.width.large - sideBarOffset)/2}px, -50%);
   visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
   opacity: ${props => (props.toShow ? 1 : 0)};
   transition: opacity 0.5s linear;
 
   ${screen.desktop`
-    transform: translate(-${(articleLayout.desktop.width.large - articleLayout.desktop.offset.sidebar)/2}px, -50%);
+    transform: translate(-${(articleLayout.desktop.width.large - sideBarOffset)/2}px, -50%);
   `}
 
   ${screen.tabletBelow`

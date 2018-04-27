@@ -1,17 +1,18 @@
 {
   "name": "twreporter-react",
-  "version": "2.6.1",
+  "version": "2.7.4",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "npm run clean && npm run build-webpack && npm run build-server",
     "build-server": "NODE_ENV=production RELEASE_BRANCH=development BABEL_ENV=ssr babel src --out-dir dist --copy-files",
     "build-webpack": "NODE_ENV=production webpack --config webpack.config.js --progress --colors",
     "clean": "./node_modules/.bin/rimraf dist webpack-assets.json",
-    "dev": "concurrently --kill-others \"npm run start-webpack-dev-server\" \"npm run start-dev-server\"",
+    "dev": "concurrently --kill-others \"npm run start-webpack-dev-server\" \"npm run start-dev-server\" \"npm run start-testing-server\"",
     "lint": "eslint -c .eslintrc src",
     "start": "npm run build && npm run start-server",
     "start-dev-server": "NODE_ENV=development RELEASE_BRANCH=development BABEL_ENV=ssr nodemon ./src/server --exec babel-node",
     "start-server": "NODE_ENV=production pm2 start processes.json",
+    "start-testing-server": "nodemon ./src/testing-server --exec babel-node",
     "close-server": "pm2 kill",
     "start-webpack-dev-server": "NODE_ENV=development node ./webpack-dev-server.js",
     "test": "./node_modules/mocha/bin/mocha $(find src -name '*.test.js') --compilers js:babel-core/register",
@@ -29,7 +30,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "4.0.0",
+    "@twreporter/react-components": "^4.0.5",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
     "@twreporter/registration": "2.2.1",
@@ -40,6 +41,7 @@
     "ejs": "^2.3.4",
     "es6-error": "^2.1.1",
     "express": "^4.13.3",
+    "hoist-non-react-statics": "^2.5.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^4.0.0",
@@ -57,7 +59,7 @@
     "react-ga": "^2.1.2",
     "react-helmet": "^5.2.0",
     "react-howler": "^3.0.1",
-    "react-lazyload": "^2.1.4",
+    "react-loadable": "^5.3.1",
     "react-redux": "^4.4.5",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.5",
@@ -71,7 +73,6 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
-    "video.js": "5.12.1",
     "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {

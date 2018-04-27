@@ -1,9 +1,7 @@
 'use strict'
 
-import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
-import { CHARACTERS_LIMIT } from '../../constants/index'
-
 import Link from 'react-router/lib/Link'
+import LoadingSpinner from '../Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Waypoint from 'react-waypoint'
@@ -11,9 +9,11 @@ import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import LoadingSpinner from '../Spinner'
-import { replaceStorageUrlPrefix, shortenString, formatPostLinkTo, formatPostLinkTarget } from '../../utils/index'
 import styles from './AuthorCollection.scss'
+import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
+import { CHARACTERS_LIMIT } from '../../constants/index'
+import { formatPostLinkTarget, formatPostLinkTo, replaceStorageUrlPrefix } from '../../utils/url'
+import { shortenString } from '../../utils/string'
 
 const AuthorCollection = (props) => {
   const { relateds, hasMore, isFetching, currentPage, handleLoadmore, totalResults } = props

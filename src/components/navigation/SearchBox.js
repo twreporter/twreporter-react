@@ -1,11 +1,11 @@
 'use strict'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import cx from 'classnames'
 import SearchIcon from '../../../static/asset/search.svg'
 import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
+import cx from 'classnames'
+import constPageThemes from '../../constants/page-themes'
 import styles from './SearchBox.scss'
-import { BRIGHT, DARK } from '../../constants/index'
 
 const SEARCH_PATH = 'search'
 
@@ -39,7 +39,7 @@ class SearchInput extends Component {
   render() {
     const { theme } = this.props
     const themeStyle = {
-      [styles.dark]: theme === DARK
+      [styles.dark]: theme === constPageThemes.tone.dark
     }
     if (this.props.isToggled) {
       return (
@@ -66,7 +66,7 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   handleToggle: undefined,
-  theme: BRIGHT
+  theme: constPageThemes.tone.bright
 }
 
 
@@ -90,7 +90,7 @@ export default class SearchBox extends Component {
     const expandClass = {
       [styles.expand]: isToggled
     }
-    const Icon = theme === BRIGHT ? SearchIcon : WhiteSearchIcon
+    const Icon = theme === constPageThemes.tone.bright ? SearchIcon : WhiteSearchIcon
 
     return (
       <div className={cx(styles['search-box-container'], expandClass)}>
@@ -113,5 +113,5 @@ SearchBox.propTypes = {
 }
 
 SearchBox.defaultProps = {
-  theme: BRIGHT
+  theme: constPageThemes.tone.bright
 }
