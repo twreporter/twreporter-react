@@ -1,0 +1,399 @@
+{
+  "hits": [
+    {
+      "_highlightResult": {
+        "photographers": [
+          {
+            "_id": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "571de7b9dae62379576d7f3c"
+            }
+          }
+        ],
+        "writters": [
+          {
+            "_id": {
+              "fullyHighlighted": true,
+              "matchLevel": "full",
+              "matchedWords": [
+                "5757f8498e4c2b171bcaf7dc"
+              ],
+              "value": "<em>5757f8498e4c2b171bcaf7dc</em>"
+            }
+          }
+        ]
+      },
+      "_id": "57fc791cb328f30f00a74003",
+      "categories": [
+        "573177cb8c0c261000b3f6d2"
+      ],
+      "designers": [],
+      "engineers": [],
+      "extend_byline": "",
+      "heroImage": {
+        "__v": 0,
+        "_id": "57fdd25ec069910d0056bd2e",
+        "copyright": "Copyrighted",
+        "description": "能改變過勞運輸業嗎-- 陸客遊覽車",
+        "image": {
+          "filename": "20161012060515-1d6ff823324bb153c8e132be23a6a49d.jpg",
+          "filetype": "image/jpeg",
+          "gcsBucket": "twreporter-multimedia",
+          "gcsDir": "images/",
+          "height": 2470,
+          "iptc": {
+            "city": "0x00000000: 254700                                        -%",
+            "created_date": "20120407",
+            "created_time": "145202+0000",
+            "keywords": []
+          },
+          "resizedTargets": {
+            "desktop": {
+              "height": 1387,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161012060515-1d6ff823324bb153c8e132be23a6a49d-desktop.jpg",
+              "width": 2000
+            },
+            "mobile": {
+              "height": 555,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161012060515-1d6ff823324bb153c8e132be23a6a49d-mobile.jpg",
+              "width": 800
+            },
+            "tablet": {
+              "height": 832,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161012060515-1d6ff823324bb153c8e132be23a6a49d-tablet.jpg",
+              "width": 1200
+            },
+            "tiny": {
+              "height": 104,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161012060515-1d6ff823324bb153c8e132be23a6a49d-tiny.jpg",
+              "width": 150
+            }
+          },
+          "size": 3514563,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161012060515-1d6ff823324bb153c8e132be23a6a49d.jpg",
+          "width": 3562
+        },
+        "keywords": "陸客，評論，遊覽車",
+        "sale": false
+      },
+      "isFeatured": false,
+      "objectID": "57fc791cb328f30f00a74003",
+      "og_description": "誠然，若運輸業全面適用七休一規定，可能使民眾三節返鄉更形困難；但或許我們也該體認到，多年以來我們習以為常的便利，其實是以運輸安全和勞動條件作為代價。",
+      "og_title": "佘健源、劉玉皙／七休一新制 能改變過勞運輸業嗎？",
+      "photographers": [
+        {
+          "_id": "571de7b9dae62379576d7f3c",
+          "bio": {
+            "html": "<p>前進前進，快門按下去，然後繼續前進。攝影永遠會讓人看見。</p>",
+            "md": "前進前進，快門按下去，然後繼續前進。攝影永遠會讓人看見。"
+          },
+          "email": "jamesonwu@twreporter.org",
+          "job_title": "",
+          "name": "吳逸驊",
+          "thumbnail": {
+            "__v": 0,
+            "_id": "58b9418d78a8c00d00d32b37",
+            "copyright": "Copyrighted",
+            "description": "攝影作者，吳逸驊",
+            "image": {
+              "filename": "20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
+              "filetype": "image/png",
+              "gcsBucket": "twreporter-multimedia",
+              "gcsDir": "images/",
+              "height": 1250,
+              "iptc": {
+                "keywords": []
+              },
+              "resizedTargets": {
+                "desktop": {
+                  "height": 1250,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-desktop.png",
+                  "width": 1250
+                },
+                "mobile": {
+                  "height": 800,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-mobile.png",
+                  "width": 800
+                },
+                "tablet": {
+                  "height": 1200,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tablet.png",
+                  "width": 1200
+                },
+                "tiny": {
+                  "height": 150,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tiny.png",
+                  "width": 150
+                }
+              },
+              "size": 90788,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
+              "width": 1250
+            }
+          }
+        }
+      ],
+      "publishedDate": "2016-10-12T00:00:00.000Z",
+      "slug": "opinion-overwork-transportation-safety",
+      "state": "published",
+      "style": "review",
+      "subtitle": "",
+      "title": "佘健源、劉玉皙／七休一新制　能改變過勞運輸業嗎？",
+      "writters": [
+        {
+          "_id": "5757f8498e4c2b171bcaf7dc",
+          "bio": {
+            "html": "<p>佘健源為中山大學企管系專任助理教授、劉玉皙為中山大學及高雄應用科技大學兼任助理教授，兩人的研究領域涵蓋公共經濟學、文化經濟學與實證個體經濟學。</p>",
+            "md": "佘健源為中山大學企管系專任助理教授、劉玉皙為中山大學及高雄應用科技大學兼任助理教授，兩人的研究領域涵蓋公共經濟學、文化經濟學與實證個體經濟學。"
+          },
+          "email": "contact@twreporter.org",
+          "job_title": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授",
+          "name": "佘健源、劉玉皙",
+          "thumbnail": {
+            "__v": 0,
+            "_id": "58b65fae78a8c00d00d32b29",
+            "copyright": "Copyrighted",
+            "description": "作者，劉玉皙和佘健源",
+            "image": {
+              "filename": "20170301134414-850dcaac870553ee6292e89638229058.jpg",
+              "filetype": "image/jpeg",
+              "gcsBucket": "twreporter-multimedia",
+              "gcsDir": "images/",
+              "height": 300,
+              "iptc": {
+                "city": "0x00000000: 254700                                        -%",
+                "keywords": []
+              },
+              "resizedTargets": {
+                "desktop": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg",
+                  "width": 300
+                },
+                "mobile": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg",
+                  "width": 300
+                },
+                "tablet": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg",
+                  "width": 300
+                },
+                "tiny": {
+                  "height": 150,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg",
+                  "width": 150
+                }
+              },
+              "size": 130662,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg",
+              "width": 300
+            }
+          }
+        }
+      ]
+    },
+    {
+      "_highlightResult": {
+        "photographers": [
+          {
+            "_id": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "571de7bbdae62379576d7f42"
+            }
+          }
+        ],
+        "writters": [
+          {
+            "_id": {
+              "fullyHighlighted": true,
+              "matchLevel": "full",
+              "matchedWords": [
+                "5757f8498e4c2b171bcaf7dc"
+              ],
+              "value": "<em>5757f8498e4c2b171bcaf7dc</em>"
+            }
+          }
+        ]
+      },
+      "_id": "57bc58639abc120f007a4c3c",
+      "categories": [
+        "573177cb8c0c261000b3f6d2"
+      ],
+      "designers": [],
+      "engineers": [],
+      "extend_byline": "",
+      "heroImage": {
+        "_id": "57b51db188c3dd0e00c7ff9d",
+        "description": "劉玉皙、佘健源／轉型正義的經濟意義—一個實證的觀點_1_根據國際轉型正義中心的定義，轉型正義是一系列矯正大規模人權侵害的措施，透過究責與救濟受害者，讓受害者的權利獲得平反與承認。（攝影╱余志偉）",
+        "image": {
+          "_id": "57b51db188c3dd0e00c7ff9d",
+          "filename": "20160818023004-24815a3c19b0e22b42f6f78616739a09.jpg",
+          "filetype": "image/jpeg",
+          "gcsBucket": "twreporter-multimedia",
+          "gcsDir": "images/",
+          "height": 1914,
+          "iptc": {
+            "byline": "余志偉",
+            "caption": "劉玉皙、佘健源／轉型正義的經濟意義—一個實證的觀點_1_根據國際轉型正義中心的定義，轉型正義是一系列矯正大規模人權侵害的措施，透過究責與救濟受害者，讓受害者的權利獲得平反與承認。（攝影╱余志偉）",
+            "city": "0x00000000: 254700                                        -%",
+            "keywords": [
+              "2015台灣新聞攝影大賽",
+              "一般新聞類"
+            ]
+          },
+          "resizedTargets": {
+            "desktop": {
+              "height": 1367,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09-desktop.jpg",
+              "width": 2000
+            },
+            "mobile": {
+              "height": 547,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09-mobile.jpg",
+              "width": 800
+            },
+            "tablet": {
+              "height": 820,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09-tablet.jpg",
+              "width": 1200
+            },
+            "tiny": {
+              "height": 103,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09-tiny.jpg",
+              "width": 150
+            }
+          },
+          "size": 1039410,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09.jpg",
+          "width": 2800
+        },
+        "keywords": [
+          "2015台灣新聞攝影大賽",
+          "一般新聞類"
+        ]
+      },
+      "isFeatured": false,
+      "objectID": "57bc58639abc120f007a4c3c",
+      "og_description": "制度不能當飯吃，不過制度可以決定你是否有飯吃，並且確保你的飯不會被別人任意搶走；因為你不會惶惶終日、朝不保夕，所以會更願意從事長期對個人與社會都有利的事。一個「好的社會制度」對經濟成長有正面影響，這已經是經濟學家的共識。",
+      "og_title": "劉玉皙、佘健源／轉型正義的經濟意義──一個實證的觀點",
+      "photographers": [
+        {
+          "_id": "571de7bbdae62379576d7f42",
+          "bio": {
+            "html": "<p>來自高雄，靠攝影謀生，在生活中攝影，攝影即生活。</p>\n",
+            "md": "來自高雄，靠攝影謀生，在生活中攝影，攝影即生活。"
+          },
+          "email": "shakingwave@twreporter.org",
+          "job_title": "",
+          "name": "余志偉",
+          "thumbnail": {
+            "__v": 0,
+            "_id": "58b941c178a8c00d00d32b39",
+            "copyright": "Copyrighted",
+            "description": "攝影作者，余志偉",
+            "image": {
+              "filename": "20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
+              "filetype": "image/png",
+              "gcsBucket": "twreporter-multimedia",
+              "gcsDir": "images/",
+              "height": 1250,
+              "iptc": {
+                "keywords": []
+              },
+              "resizedTargets": {
+                "desktop": {
+                  "height": 1250,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png",
+                  "width": 1250
+                },
+                "mobile": {
+                  "height": 800,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png",
+                  "width": 800
+                },
+                "tablet": {
+                  "height": 1200,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png",
+                  "width": 1200
+                },
+                "tiny": {
+                  "height": 150,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png",
+                  "width": 150
+                }
+              },
+              "size": 76203,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
+              "width": 1250
+            }
+          }
+        }
+      ],
+      "publishedDate": "2016-05-14T00:00:00.000Z",
+      "slug": "opinion-transitional-justice-gdp",
+      "state": "published",
+      "style": "review",
+      "subtitle": "評論",
+      "title": "劉玉皙、佘健源／轉型正義的經濟意義──一個實證的觀點",
+      "updatedAt": "2017-09-15T06:36:20.315Z",
+      "writters": [
+        {
+          "_id": "5757f8498e4c2b171bcaf7dc",
+          "bio": {
+            "html": "<p>佘健源為中山大學企管系專任助理教授、劉玉皙為中山大學及高雄應用科技大學兼任助理教授，兩人的研究領域涵蓋公共經濟學、文化經濟學與實證個體經濟學。</p>",
+            "md": "佘健源為中山大學企管系專任助理教授、劉玉皙為中山大學及高雄應用科技大學兼任助理教授，兩人的研究領域涵蓋公共經濟學、文化經濟學與實證個體經濟學。"
+          },
+          "email": "contact@twreporter.org",
+          "job_title": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授",
+          "name": "佘健源、劉玉皙",
+          "thumbnail": {
+            "__v": 0,
+            "_id": "58b65fae78a8c00d00d32b29",
+            "copyright": "Copyrighted",
+            "description": "作者，劉玉皙和佘健源",
+            "image": {
+              "filename": "20170301134414-850dcaac870553ee6292e89638229058.jpg",
+              "filetype": "image/jpeg",
+              "gcsBucket": "twreporter-multimedia",
+              "gcsDir": "images/",
+              "height": 300,
+              "iptc": {
+                "city": "0x00000000: 254700                                        -%",
+                "keywords": []
+              },
+              "resizedTargets": {
+                "desktop": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg",
+                  "width": 300
+                },
+                "mobile": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg",
+                  "width": 300
+                },
+                "tablet": {
+                  "height": 300,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg",
+                  "width": 300
+                },
+                "tiny": {
+                  "height": 150,
+                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg",
+                  "width": 150
+                }
+              },
+              "size": 130662,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg",
+              "width": 300
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
