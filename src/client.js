@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
 import React from 'react'
@@ -46,3 +48,15 @@ configureStore(browserHistory, reduxState)
     })
   })
 
+// Setup service worker if browser supports
+// and not in the development enviroment
+if('serviceWorker' in navigator && !__DEVELOPMENT__) {
+  // register service worker
+  navigator.serviceWorker.register('/sw.js').then(function (registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ', registration.scope)
+  }, function (err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err)
+  })
+}
