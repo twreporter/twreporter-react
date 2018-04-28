@@ -11,7 +11,6 @@ help:
 	@echo "\033[33mmake start\033[0m - start application server"
 	@echo "\033[33mmake stop\033[0m - stop application server"
 
-build: clean build-webpack build-server
 
 # build webpacks client side needed
 build-webpack: 
@@ -24,6 +23,12 @@ build-webpack:
 build-server:
 	@echo "\033[33m[babel]\033[0m transpile es6 files into es5"
 	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/babel src --out-dir dist --copy-files
+
+build-pm2-config:
+	@echo "\033[33m[PM2]\033[0m generate processes.json"
+	RELEASE_BRANCH=$(RELEASE_BRANCH) node build-pm2-processes.js
+
+build: clean build-webpack build-server build-pm2-config
 
 start-server:
 	@echo "\033[33m[PM2]\033[0m start application server"
@@ -56,7 +61,7 @@ dev:
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server" 
 
 clean: 
-	@echo "delete sw.js, dist/ and webpack-assets.json\n"
-	@$(BIN_DIR)/rimraf sw.js dist webpack-assets.json
+	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"
+	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json
 
 .PHONY: help clean build start stop dev
