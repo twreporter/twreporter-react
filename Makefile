@@ -41,7 +41,7 @@ stop:
 	@$(BIN_DIR)/pm2 kill
 
 start-testing-server: 
-	@echo " $(P) start testing server by babel-node src/test-server.js\n"
+	@echo " $(P) start testing server by babel-node src/testing-server.js\n"
 	@$(BIN_DIR)/babel-node src/testing-server.js
 
 start-dev-server: 
@@ -57,7 +57,7 @@ dev:
 	@echo "Development environment will contains three different servers."
 	@echo "One will be application server, hosted on 3000 port."
 	@echo "Another will be webpack dev server, hosted on 5000 port."
-	@echo "The other will be mocked api server, hosted on 8080 po1Grt."
+	@echo "The other will be mocked api server, hosted on 8080 port."
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server" 
 
 clean: 
