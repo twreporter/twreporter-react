@@ -22,10 +22,10 @@ New Media foundation in Taiwan.
 `yarn install`
 
 # Production start
-`npm run start`
+`make start`
 
 # Development start
-`npm run dev`
+`make dev`
 
 # Build docker image
 ```
@@ -33,7 +33,7 @@ New Media foundation in Taiwan.
 yarn install
 
 // build the webpack bundles and transpile es6 to es5
-npm run build
+make build
 
 // build docker image
 docker build -t twreporter-react:latest .

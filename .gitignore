@@ -16,6 +16,12 @@ api-err.log
 .vscode/
 webpack-assets.json
 
+# Ignore generated pm2 config file
+processes.json
+
+# Ignore webpack generated service worker file
+sw.js
+
 # Ignore config files
 api/config.js
 
