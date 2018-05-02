@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
 import React from 'react'
@@ -16,12 +18,6 @@ if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
 }
 
-const store = configureStore(browserHistory, reduxState)
-
-const history = syncHistoryWithStore(browserHistory, store)
-
-const routes = createRoutes(history)
-
 function scrollToTopAndFirePageview() {
   if(window) {
     window.scrollTo(0, 0)
@@ -30,18 +26,37 @@ function scrollToTopAndFirePageview() {
   }
 }
 
-// calling `match` is simply for side effects of
-// loading route/component code for the initial location
-// https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
-match({ history, routes }, (error, redirectLocation, renderProps) => {
-  if (typeof window !== 'undefined') {
-    // add Google Analytics
-    ReactGA.initialize('UA-69336956-1')
-    ReactGA.set({ page: window.location.pathname })
-  }
-  ReactDOM.hydrate((
-    <Provider store={store}>
-      <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
-    </Provider>
-  ), document.getElementById('root'))
-})
+configureStore(browserHistory, reduxState)
+  .then((store) => {
+    const history = syncHistoryWithStore(browserHistory, store)
+    const routes = createRoutes(history)
+
+    // calling `match` is simply for side effects of
+    // loading route/component code for the initial location
+    // https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
+    match({ history, routes }, (error, redirectLocation, renderProps) => {
+      if (typeof window !== 'undefined') {
+        // add Google Analytics
+        ReactGA.initialize('UA-69336956-1')
+        ReactGA.set({ page: window.location.pathname })
+      }
+      ReactDOM.hydrate((
+        <Provider store={store}>
+          <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
+        </Provider>
+      ), document.getElementById('root'))
+    })
+  })
+
+// Setup service worker if browser supports
+// and not in the development enviroment
+if('serviceWorker' in navigator && !__DEVELOPMENT__) {
+  // register service worker
+  navigator.serviceWorker.register('/sw.js').then(function (registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ', registration.scope)
+  }, function (err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err)
+  })
+}

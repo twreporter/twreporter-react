@@ -1,6 +1,7 @@
+/* eslint no-console:0 */
 /* global __DEVELOPMENT__, __CLIENT__*/
 'use strict'
-import ls from './local-storage'
+import bs from './browser-storage'
 import merge from 'lodash/merge'
 import thunkMiddleware from 'redux-thunk'
 import throttle from 'lodash/throttle'
@@ -13,7 +14,7 @@ const _ = {
   throttle
 }
 
-export default function configureStore(history, initialState) {
+export default async function configureStore(history, initialState) {
   // Sync dispatched route actions to the history
   const reduxRouterMiddleware = routerMiddleware(history)
   const middlewares = [ reduxRouterMiddleware, thunkMiddleware ]
@@ -32,32 +33,39 @@ export default function configureStore(history, initialState) {
   let reduxState = initialState
 
   // check if redux state in localStorage is valid or not
-  if (__CLIENT__ && !ls.isReduxStateExpired()) {
-    // merge localStorage redux state copy with new redux state
-    reduxState = _.merge(ls.getReduxState(), reduxState)
-  }
-
-  const store = finalCreateStore(rootReducer, reduxState)
-
-  if (__DEVELOPMENT__ && module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default
-      store.replaceReducer(nextRootReducer)
-    })
-  }
-
   if (__CLIENT__) {
+    try {
+      const isExpired = await bs.isReduxStateExpired()
+      if(!isExpired) {
+        // merge localStorage redux state copy with new redux state
+        const _state = await bs.getReduxState()
+        reduxState = _.merge(_state, reduxState)
+        await bs.syncReduxState(reduxState)
+      } else {
+        // sync redux state with browser storage
+        await bs.syncReduxState(reduxState)
+      }
 
-    // sync redux state with localStorage
-    ls.syncReduxState(reduxState)
+      const store = finalCreateStore(rootReducer, reduxState)
 
-    // Subscribe the redux store changes.
-    // Sync the localStorage after redux state change.
-    store.subscribe(_.throttle(() => {
-      ls.syncReduxState(store.getState())
-    }, 1000))
+      if (__DEVELOPMENT__ && module.hot) {
+        // Enable Webpack hot module replacement for reducers
+        module.hot.accept('../reducers', () => {
+          const nextRootReducer = require('../reducers').default
+          store.replaceReducer(nextRootReducer)
+        })
+      }
+
+      // Subscribe the redux store changes.
+      // Sync the browser storage after redux state change.
+      store.subscribe(_.throttle(() => {
+        bs.syncReduxState(store.getState())
+      }, 1000))
+      return store
+    } catch(err) {
+      console.error('Sync-ing with browser storage occurs error:', err)
+      return finalCreateStore(rootReducer, reduxState)
+    }
   }
-
-  return store
+  return finalCreateStore(rootReducer, reduxState)
 }

@@ -1,8 +1,28 @@
 ### Unreleased
+### 2.8.0
+#### Features
+**Progressive Web App(PWA) Implementation** <br/>
+- [x] Progressive - render App Shell, like header and footer, first. And then render the content of the page.
+- [x] Responsive - Fits any form factor: desktop, mobile, tablet, or whatever is next.
+- [x] Connectivity independent - work offline or on low-quality networks
+- [x] Discoverable - Is identifiable as an "application" thanks to W3C manifest and service worker registration scope, allowing search engines to find it.
+- [x] Installable - Allows users to add apps they find most useful to their home screen without the hassle of an app store.
+- [x] Fresh - Always up-to-date thanks to the service worker update process.
+- [x] Safe - Served via HTTPS to prevent snooping and to ensure content hasn't been tampered with.
+
+Use `sw-precache` package to generate the service worker file, which is hosted on `/sw.js` by express server.<br/>
+The generated service worker is used to intercept the `fetch` event of the browser; hence, it can choose what response should be cached, <br/>
+and how the request should be handled by the browser.
+
+#### Patches
+- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
+localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
 - Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
+- Use Makefile to replace npm scripts
+- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
 
 ### 2.7.3
 - [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
