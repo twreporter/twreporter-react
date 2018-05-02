@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
 import React from 'react'

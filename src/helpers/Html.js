@@ -131,12 +131,16 @@ export default class Html extends PureComponent {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="theme-color" content="#E30B20" />
           <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://www.twreporter.org/rss2.xml" />
-          <link href="https://www.twreporter.org/images/apple-touch-icon.png" rel="apple-touch-icon" />
-          <link href="https://www.twreporter.org/images/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
-          <link href="https://www.twreporter.org/images/apple-touch-icon-167x167.png" rel="apple-touch-icon" sizes="167x167" />
-          <link href="https://www.twreporter.org/images/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
-          <link href="https://www.twreporter.org/images/icon-hires.png" rel="icon" sizes="192x192" />
-          <link href="https://www.twreporter.org/images/icon-normal.png" rel="icon" sizes="128x128" />
+          <link rel="manifest" href="/meta/manifest.json" />
+          {/* Add to home screen for Safari on iOS */}
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <meta name="apple-mobile-web-app-title" content="報導者 The Reporter" />
+          <link rel="apple-touch-icon" href="https://www.twreporter.org/images/apple-touch-icon-152x152.png" />
+          {/* Title icon for windows */}
+          <meta name="msapplication-TileImage" content="https://www.twreporter.org/images/icon-normal.png" />
+          <meta name="msapplication-TileColor" content="#2F3BA2" />
+
           <link href="/asset/favicon.png"  rel="shortcut icon" />
           {_.map(assets.stylesheets, (stylesheet, key) =>
             <link href={stylesheet} key={'stylesheet' + key} media="all"
