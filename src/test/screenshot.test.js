@@ -126,7 +126,7 @@ function _compareScreenshots(fileName) {
       const diff = new PNG({ width: img1.width, height: img1.height })
       const numDiffPixels = pixelmatch(
         img1.data, img2.data, diff.data, img1.width, img1.height,
-        { threshold: 0.6 })
+        { threshold: 0.9 })
       // Write out the difference
       if (numDiffPixels > 0) {
         diff.pack().pipe(fs.createWriteStream(`${testDir}/${fileName}-diff.png`))
