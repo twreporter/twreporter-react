@@ -10,6 +10,7 @@
     "start": "make start",
     "stop": "make stop",
     "test": "make test",
+    "ui-test": "make ui-test",
     "validate": "npm ls"
   },
   "repository": {
@@ -120,6 +121,7 @@
   },
   "pre-commit": [
     "lint",
-    "test"
+    "test",
+    "ui-test"
   ]
 }
