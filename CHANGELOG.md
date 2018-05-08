@@ -10,9 +10,11 @@
 - [x] Fresh - Always up-to-date thanks to the service worker update process.
 - [x] Safe - Served via HTTPS to prevent snooping and to ensure content hasn't been tampered with.
 
-Use `sw-precache` package to generate the service worker file, which is hosted on `/sw.js` by express server.<br/>
-The generated service worker is used to intercept the `fetch` event of the browser; hence, it can choose what response should be cached, <br/>
-and how the request should be handled by the browser.
+Generate service worker file by template(service-worker/service-worker.tmpl), and generated file is hosted on `/sw.js` by express server.<br/>
+The generated service worker file will do the following things:
+1) Cache static files, such as webpack bundles, while installing service worker.
+2) Delete old cache while activating service worker. Every time the webpack-assets.json changes, the service worker will delete old cached webpack bundles.
+3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
 
 #### Patches
 - Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>

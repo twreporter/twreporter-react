@@ -1,0 +1,93 @@
+var staticFilesToCache = <%= staticFilesToCache %>;
+var cacheName = '<%= cacheName %>' + (self.registration ? self.registration.scope : '');
+
+<% Object.keys(externalFunctions).sort().forEach(function(functionName) {%>
+var <%- functionName %> = <%= externalFunctions[functionName] %>;
+<% }); %>
+
+self.addEventListener('install', function(e) {
+  console.log('[ServiceWorker] Install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('[ServiceWorker] Caching app shell');
+      return cache.addAll(staticFilesToCache);
+    })
+  );
+});
+
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
+  e.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== cacheName) {
+          console.log('[ServiceWorker] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  /*
+   * Fixes a corner case in which the app wasn't returning the latest data.
+   */
+  return self.clients.claim();
+});
+
+
+self.addEventListener('fetch', function(e) {
+  console.log('[Service Worker] Fetch', e.request.url);
+  if (isPathWhitelisted(<%= pagePatternToCache %>, e.request.url)) {
+    e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return fetch(e.request)
+          .then(function(response) {
+            cache.put(e.request.url, response.clone());
+            return response;
+          })
+          .catch(function(err) {
+            return cache.match(e.request.url)
+            .then(function(response) {
+              if (response) {
+                return response
+              }
+              return clients.matchAll({type: 'window'})
+              .then(function(_clients) {
+                return _clients.filter(function(client) {
+                  return client.url === e.request.url;
+                });
+              })
+              .then(function(matchingClients) {
+                if (matchingClients[0]) {
+                  const redirectURL = new URL(e.request.url).origin + '<%= fallbackPage %>' + '?redirect=' + e.request.url
+                  return matchingClients[0]
+                    .navigate(redirectURL)
+                    .then(function(client) {
+                      client.focus();
+                    })
+                }
+              })
+            })
+          })
+      })
+    );
+  } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
+    var url = new URL(e.request.url)
+    console.log('url for fallback:', url)
+    e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(url.origin + url.pathname)
+      })
+    )
+  }
+});
+
+<% if (swToolBoxCode) { %>
+// *** Start of auto-included sw-toolbox code. ***
+<%= swToolBoxCode %>
+// *** End of auto-included sw-toolbox code. ***
+<% } %>
+
+<% if (runtimeCaching) { %>
+// Runtime cache configuration, using the sw-toolbox library.
+<%= runtimeCaching %>
+<% } %>
