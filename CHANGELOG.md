@@ -17,6 +17,9 @@ The generated service worker file will do the following things:
 3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
 
 #### Patches
+- Introduces screenshot testing only before commiting files.
+- Adds some space between channel bar and title in article page on tablet.
+- [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
 
 ### 2.7.5
 - Use Makefile to replace npm scripts
@@ -29,7 +32,7 @@ localForage improves the offline experience of your web app by using asynchronou
 - Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
 
 ### 2.7.3
-- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
+- [Bug] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
 ### 2.7.2
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.
