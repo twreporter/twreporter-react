@@ -18,8 +18,8 @@ build-webpack:
 	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
 
 build-service-worker: 
-	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node generate-service-worker.js"
-	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) $(BIN_DIR)/babel-node generate-service-worker.js
+	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
+	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) $(BIN_DIR)/babel-node service-worker/service-worker-generator.js
 
 # transiple es6 files into es5 
 build-server:

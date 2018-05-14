@@ -74,24 +74,6 @@ app.get('/check', (req, res) => {
   res.end('server is running')
 })
 
-// sw-fallback-page is a client side rendering page,
-// which is the fallback page for service worker.
-app.get('/sw-fallback-page', (req, res) => {
-  const html = ReactDOMServer.renderToStaticMarkup(
-    <Html
-      content=""
-      store={{
-        getState: () => {
-          return ''
-        }
-      }}
-      assets={webpackAssets}
-      styleElement=""
-    />
-  )
-  res.send(`<!doctype html>${html}`)
-})
-
 const selectResponseStatus = (errorType) => {
   switch(errorType) {
     case '404':

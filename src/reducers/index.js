@@ -12,21 +12,17 @@ import twreporterRedux from '@twreporter/redux'
 const { reducers } = twreporterRedux
 
 const registrationInitialState = {
-  apiUrl: '',
-  forgetPassword: '',
-  changePassword: '',
-  signUp: '',
-  signIn: '',
-  activate: '',
-  renew: '',
-  bookmark: '',
-  user: '',
+  apiUrl: 'https://go-api.twreporter.org',
+  signIn: '/v1/signin',
+  activate: '/v1/activate',
+  renew: '/v1/token',
+  bookmark: '/bookmarks',
+  user: '/v1/users',
   oAuthProviders: {
-    google: '',
-    facebook: ''
+    google: '/v1/auth/google',
+    facebook: '/v1/auth/facebook'
   },
-  location: '',
-  domain: ''
+  host: 'https://www.twreporter.org'
 }
 
 const ConfigureReducer = configureReducer(registrationInitialState)
