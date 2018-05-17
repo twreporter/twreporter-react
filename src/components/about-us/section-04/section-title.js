@@ -1,8 +1,8 @@
 import { font } from '../constants/styles'
 import { getMobileSectionTitleStyle } from '../utils/get-section-title-style'
 import { screen } from '../utils/screen'
-import bigNumber from '../../../../static/asset/about-us/title-04.png'
-import mobileTitleImage from '../../../../static/asset/about-us/mobile-title-04.png'
+import bigNumber from '../../../../static/asset/about-us/title-01.png'
+import mobileTitleImage from '../../../../static/asset/about-us/mobile-title-01.png'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
