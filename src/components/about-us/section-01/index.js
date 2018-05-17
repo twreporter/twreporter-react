@@ -1,9 +1,9 @@
-import { content } from '../constants/data/section1Content'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import React, { PureComponent } from 'react'
-import SectionTitle from './section-title' 
 import styled from 'styled-components'
+import LottieAnim from './lottie-animation.js'
+import titleImg from '../../../../static/asset/about-us/title-section1.png'
 
 const containerWidth = {
   mobile: '100%',
@@ -12,7 +12,7 @@ const containerWidth = {
   overDesktop: '1440px'
 }
 
-const ContainerWrapper = styled.div`
+const Container = styled.div`
   position: relative;
   margin: 0 auto;
   background-color: white;
@@ -35,129 +35,118 @@ const ContainerWrapper = styled.div`
 `
 
 const SectionBlock = styled.div`
-  text-align: center;
+  display: block;
   width: 100%;
-  ${screen.mobile`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `}
-  ${screen.tablet`
-    margin-top: 100px;
-  `}
-  ${screen.desktop`
-    margin-top: 200px;
-  `}
+  height: 820px;
+  border: solid 8px #c71b0c;
+  padding: 156px 179px 117px 131px;
   ${screen.overDesktop`
-    margin-top: 200px;
-  `}  
+    padding: 150px 262px 84px 172px;
+  `}
 `
 
-const FeatureBlock = styled.div`
-  display: inline-block;
+const Title = styled.div`
+  background-image: url(${titleImg});
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 283px;
+  height: calc(100% - 111px);
+  float: left;
+  border-bottom: solid 27px #a67a44;
+  width: 194px;
+  ${screen.overDesktop`
+    width: 283px;
+  `}
+`
+
+const Introduction = styled.div`
+  p{
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    line-height: 1.89;
+  }
+  margin-top: 65px;
+`
+
+const Content = styled.div`
+  width: 384px;
+  ${screen.overDesktop`
+    width: 400px;
+  `}
+  height: 100%;
+  float: right;
+  /* border: solid 1px green; */
   text-align: center;
-  width: 30%;
-  padding: 10px;
-  min-height: 50vh;
-  img{
-    width: 100%;
-    padding: 20px;
-  }
   h2{
-    font-size: 28px;
-    margin: 0;
-  }
-  h3{
-    font-size: 20px;
+    display: inline-block;
     margin-top: 0;
-  }
-  p.description{
+    margin-bottom: 107px;
+    font-size: 28px;
     font-weight: bold;
-    font-size: 16px;
+    letter-spacing: 6.6px;
   }
-  p.engDescription{
-    font-weight: bold;
-    font-size: 14px;
-  }
-  :nth-child(1){
-    float: left;
-  }
-  :nth-child(3){
-    float: right;
-  }
-  ${screen.tablet`
-    p{
-      font-size: 12px;
-    }
-  `}
-
-  ${screen.mobile`
-    width: 90%;
-    border-bottom: solid 0.5px #a67a44;
-    padding-top: 70px;
-    padding-bottom: 70px;
-    img{
-      width: 80%;
-      padding: 0;
-    }
-  `}
 `
 
-const Info = styled.div`
-  margin-top: 20px;
-  text-align: left;
-  p:nth-child(2) {
-    margin-bottom: 20px;
+const Caption = styled.div`
+  display: inline-block;
+  h2{
+    opacity: ${props => props.curCaption === props.index ? '1' : '0.2'};
   }
-  ${screen.desktopAbove`
-    p{
-      line-height: 2.25;
-      font-size: 14px;
-    }
-  `}  
-  ${screen.mobile`
-    text-align: center;
-    p{
-      font-size: 13px;
-    }
-  `}
 `
 
 export class Section1 extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.animCaptions = [ '深度', '開放', '非營利' ]
+    this.state = {
+      currentAnim: 0
+    }
+  }
+
+  _animUpdated = (updatedIndex) => {
+    this.setState({ currentAnim: updatedIndex })
+  }
+
   render() {
-    const FeatureBlocks = content.map((block) => {
-      const otherInfo = () => {
-        if (!block.others)
-          return null
-        return (
-          block.others.map((words, index) => {
-            return (
-              <p key={index}><span>- </span>{words}</p>
-            )
-          })
-        )
+    const Captions = this.animCaptions.map((caption, index) => {
+      const dot = () => {
+        if (index !== this.animCaptions.length - 1) {
+          return (
+            <h2>・</h2>
+          )
+        }
       }
       return (
-        <FeatureBlock key={block.title}>
-          <h2>{block.title}</h2>
-          <h3>{block.engTitle}</h3>
-          <img src={block.imgSrc} />
-          <Info>
-            <p className="description">{block.description}</p>
-            <p className="engDescription">{block.engDescription}</p>
-            {otherInfo()}
-          </Info>
-        </FeatureBlock>
+        <React.Fragment
+          key={index}>
+          <Caption
+            curCaption={this.state.currentAnim}
+            index={index}>
+            <h2>{this.animCaptions[index]}</h2>
+          </Caption>
+          {dot()}
+        </React.Fragment>
       )
     })
-
     return (
-      <ContainerWrapper>
-        <SectionTitle />
+      <Container>
         <SectionBlock>
-          {FeatureBlocks}
+          <Title />
+          <Content>
+            {Captions}
+            <LottieAnim 
+              animDidUpdate={this._animUpdated}
+            />
+            <Introduction>
+              <p>屬於社會的《報導者》</p>
+              <p>- CC授權（ 姓名標示／非商業性／禁止改作</p>
+              <p>- OPEN SOURCE開放原始碼</p>
+              <p>- 全民政策追蹤： 蔡英文勞動政策追蹤平台</p>
+            </Introduction>    
+          </Content>  
         </SectionBlock>
-      </ContainerWrapper>
+      </Container>
     )
   }
 }
