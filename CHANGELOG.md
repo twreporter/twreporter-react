@@ -1,7 +1,10 @@
 ### Unreleased
+
+### 2.7.6
 - Introduces screenshot testing only before commiting files.
 - Adds some space between channel bar and title in article page on tablet.
 - [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
+- Update @twreporter/react-components from 4.0.5 to 4.0.7
 
 ### 2.7.5
 - Use Makefile to replace npm scripts
