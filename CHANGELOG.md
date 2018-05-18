@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.8.1
+- Bump version to 2.8.1 to test new patches introduced in version 2.7.6
+
 ### 2.8.0
 #### Features
 **Progressive Web App(PWA) Implementation** <br/>
