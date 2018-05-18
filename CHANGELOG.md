@@ -1,4 +1,7 @@
 ### Unreleased
+### 2.8.1
+- Bump version to 2.8.1 to test new patches introduced in version 2.7.6
+
 ### 2.8.0
 #### Features
 **Progressive Web App(PWA) Implementation** <br/>
@@ -17,17 +20,25 @@ The generated service worker file will do the following things:
 3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
 
 #### Patches
+
+### 2.7.6
+- Introduces screenshot testing only before commiting files.
+- Adds some space between channel bar and title in article page on tablet.
+- [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
+- Update @twreporter/react-components from 4.0.5 to 4.0.7
+
+### 2.7.5
+- Use Makefile to replace npm scripts
+- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
 - Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
 localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
 - Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
-- Use Makefile to replace npm scripts
-- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
 
 ### 2.7.3
-- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
+- [Bug] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
 ### 2.7.2
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.
