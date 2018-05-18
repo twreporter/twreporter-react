@@ -1,6 +1,10 @@
 {
   "name": "twreporter-react",
+<<<<<<< HEAD
   "version": "2.8.0",
+=======
+  "version": "2.7.6",
+>>>>>>> Bump version to 2.7.6
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -25,7 +29,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "^4.0.5",
+    "@twreporter/react-components": "^4.0.7",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
     "@twreporter/registration": "2.2.1",

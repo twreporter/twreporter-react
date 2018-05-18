@@ -17,9 +17,12 @@ The generated service worker file will do the following things:
 3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
 
 #### Patches
+
+### 2.7.6
 - Introduces screenshot testing only before commiting files.
 - Adds some space between channel bar and title in article page on tablet.
 - [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
+- Update @twreporter/react-components from 4.0.5 to 4.0.7
 
 ### 2.7.5
 - Use Makefile to replace npm scripts
