@@ -81,6 +81,56 @@ self.addEventListener('fetch', function(e) {
   }
 });
 
+self.addEventListener('push', function(event) {
+  try {
+    console.log('[Service Worker] Push Received.');
+    console.log('[Service Worker] Push had this data: ' + event.data.text());
+    const data = event.data.text()
+    const body = JSON.parse(data).title
+    const title = '報導者The Reporter';
+    const options = {
+      body: body,
+      data: data,
+      badge: 'https://www.twreporter.org/images/launcher-icon-48x48.png',
+      icon: 'https://www.twreporter.org/images/launcher-icon-48x48.png'
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch(err) {
+    console.error('[Service Worker] Parsing push data occurs error:', err)
+  }
+});
+
+self.addEventListener('notificationclick', function(event) {
+
+  try {
+    console.log('[Service Worker] On notification click');
+
+    // Data can be attached to the notification so that you
+    // can process it in the notificationclick handler.
+    console.log('[Service Worker] Notification Tag:', event.notification.tag);
+    console.log('[Service Worker] Notification Data:', event.notification.data);
+    const href = JSON.parse(event.notification.data).href
+    event.notification.close();
+
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(clients.matchAll({
+      type: 'window'
+    }).then(function(clientList) {
+      for (var i = 0; i < clientList.length; i++) {
+        var client = clientList[i];
+        if (client.url == href && 'focus' in client)
+          return client.focus();
+      }
+      if (clients.openWindow)
+        return clients.openWindow(href);
+    }));
+  } catch(err) {
+    console.error('[Service Worker] Handling notification occurs error:', err)
+  }
+});
+
 <% if (swToolBoxCode) { %>
 // *** Start of auto-included sw-toolbox code. ***
 <%= swToolBoxCode %>
