@@ -1,20 +1,20 @@
 ### Unreleased
-### 2.8.0
+### 3.0.0
 #### Features
 **Progressive Web App(PWA) Implementation** <br/>
-- [x] Progressive - render App Shell, like header and footer, first. And then render the content of the page.
-- [x] Responsive - Fits any form factor: desktop, mobile, tablet, or whatever is next.
 - [x] Connectivity independent - work offline or on low-quality networks
-- [x] Discoverable - Is identifiable as an "application" thanks to W3C manifest and service worker registration scope, allowing search engines to find it.
 - [x] Installable - Allows users to add apps they find most useful to their home screen without the hassle of an app store.
-- [x] Fresh - Always up-to-date thanks to the service worker update process.
-- [x] Safe - Served via HTTPS to prevent snooping and to ensure content hasn't been tampered with.
+- [x] Re-engageable - Makes re-engagement easy through features like push notifications.
 
 Generate service worker file by template(service-worker/service-worker.tmpl), and generated file is hosted on `/sw.js` by express server.<br/>
 The generated service worker file will do the following things:
 1) Cache static files, such as webpack bundles, while installing service worker.
 2) Delete old cache while activating service worker. Every time the webpack-assets.json changes, the service worker will delete old cached webpack bundles.
 3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
+4) Handle web push notification and the corresponding behaviors after clicking the notification.
+
+Update `src/clients`, which is the entry of webpack bundles.
+Register service worker at first, and subscribe the web push if the browser could.
 
 #### Patches
 - Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
