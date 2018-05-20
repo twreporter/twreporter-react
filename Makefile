@@ -4,13 +4,17 @@ PROD_NODE_ENV ?= production
 
 P="\\033[32m[+]\\033[0m"
 
+TEST_SCRIPTS_FILES := $(shell find src -name '*.test.js' -not -path "src/test/screenshot.test.js")
+SCREENSHOT_TEST_SCRIPT := src/test/screenshot.test.js
+REPORTER = spec
+
 help:
 	@echo "\033[33mmake dev\033[0m - start dev servers"
 	@echo "\033[33mmake build\033[0m - build production webpack assets and transiple es6 files to es5"
 	@echo "\033[33mmake clean\033[0m - clean the old builds"
 	@echo "\033[33mmake start\033[0m - start application server"
 	@echo "\033[33mmake stop\033[0m - stop application server"
-
+	@echo "\033[33mmake test\033[0m - run unit tests and UI tests"
 
 # build webpacks client side needed
 build-webpack: 
@@ -60,10 +64,18 @@ dev:
 	@echo "One will be application server, hosted on 3000 port."
 	@echo "Another will be webpack dev server, hosted on 5000 port."
 	@echo "The other will be mocked api server, hosted on 8080 port."
-	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server" 
+	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server"
+
+test:
+	@echo "Run unit tests"
+	@$(BIN_DIR)/mocha $(TEST_SCRIPTS_FILES) --compilers js:babel-core/register --reporter $(REPORTER)
+
+ui-test:
+	@echo "Run UI-test"
+	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
 
 clean: 
 	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"
 	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json
 
-.PHONY: help clean build start stop dev 
+.PHONY: help clean build start stop dev test ui-test
