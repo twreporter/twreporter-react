@@ -1,4 +1,5 @@
 /* eslint no-console:0 */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
 import React from 'react'
@@ -96,7 +97,7 @@ function updateSubscriptionOnServer(subscription) {
       keys: JSON.stringify(_subscription.keys)
     }
 
-    if (_subscription.expirationTime !== null && typeof _subscription.expirationTime === 'function') {
+    if (_subscription.expirationTime !== null && typeof _subscription.expirationTime.toString === 'function') {
       data.expirationTime = _subscription.expirationTime.toString()
     }
 
@@ -161,7 +162,7 @@ configureStore(browserHistory, reduxState)
   })
 
 // Setup service worker if browser supports
-if('serviceWorker' in navigator) {
+if('serviceWorker' in navigator && !__DEVELOPMENT__) {
   // register service worker
   navigator.serviceWorker.register('/sw.js').then(function (registration) {
     // Registration was successful
