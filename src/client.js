@@ -161,7 +161,6 @@ configureStore(browserHistory, reduxState)
   })
 
 // Setup service worker if browser supports
-// and not in the development enviroment
 if('serviceWorker' in navigator) {
   // register service worker
   navigator.serviceWorker.register('/sw.js').then(function (registration) {
