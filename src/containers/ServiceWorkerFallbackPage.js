@@ -31,13 +31,6 @@ const P = styled.p`
 `
 
 class FallbackPage extends Component {
-  //componentDidMount() {
-  //  const pathname = _.get(this.props, 'location.pathname')
-  //  console.error('pathname:', pathname)
-  //  if (pathname !== '/sw-fallback-page') {
-  //    this.props.push(`/sw-fallback-page?redirect=${pathname}`)
-  //  }
-  //}
   render() {
     const redirect = _.get(this.props, 'location.query.redirect', '/')
     return (
