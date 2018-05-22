@@ -71,7 +71,14 @@ self.addEventListener('fetch', function(e) {
           })
       })
     );
-  } 
+  } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
+    console.log('[Service Worker] CacheFirst. Fetch fallback page', <%= fallbackPage %>);
+    return e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(e.request, {ignoreSearch: true});
+    )
+  }
+
   var url = new URL(e.request.url)
   if (staticFilesToCache.indexOf(url.pathname) > -1) {
     console.log('[Service Worker] CacheFirst. Fetch', e.request.url);
