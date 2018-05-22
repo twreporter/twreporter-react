@@ -1,8 +1,24 @@
-import Lottie from 'react-lottie'
-import React, { PureComponent } from 'react'
+import { screen } from '../utils/screen'
 import animationData1 from '../../../../static/asset/about-us/animation/section1-1.json'
 import animationData2 from '../../../../static/asset/about-us/animation/section1-2.json'
 import animationData3 from '../../../../static/asset/about-us/animation/section1-3.json'
+import Lottie from 'react-lottie'
+import React, { PureComponent } from 'react'
+import styled from 'styled-components'
+
+const LottieContainer = styled.div`
+  /* width: 400px; */
+  width: 100%;
+  height: 38.39%;
+  ${screen.tablet`
+    width: 440px;
+    height: 204px;
+  `}
+  ${screen.mobile`
+    width: 100%;
+    height: 136px;
+  `}
+`
 
 export class LottieAnim extends PureComponent {
   constructor(props) {
@@ -25,19 +41,19 @@ export class LottieAnim extends PureComponent {
       animationData: this.state.animationData
     }
     return (
-      <Lottie
-        options={options}
-        height={225}
-        width={400}
-        isStopped={false}
-        isPaused={false}
-        eventListeners = {
-          [ {
-            eventName: 'loopComplete',
-            callback: () => this._animationUpdate()
-          } ]
-        }
-        />
+      <LottieContainer>
+        <Lottie
+          options={options}
+          isStopped={false}
+          isPaused={false}
+          eventListeners = {
+            [ {
+              eventName: 'loopComplete',
+              callback: () => this._animationUpdate()
+            } ]
+          }
+          />
+      </LottieContainer>
     )
   }
 }
