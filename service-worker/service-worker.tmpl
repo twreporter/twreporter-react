@@ -35,8 +35,8 @@ self.addEventListener('activate', function(e) {
 
 
 self.addEventListener('fetch', function(e) {
-  console.log('[Service Worker] Fetch', e.request.url);
   if (isPathWhitelisted(<%= pagePatternToCache %>, e.request.url)) {
+    console.log('[Service Worker] NetworkFirst. Fetch', e.request.url);
     e.respondWith(
       caches.open(cacheName).then(function(cache) {
         return fetch(e.request)
@@ -48,6 +48,7 @@ self.addEventListener('fetch', function(e) {
             return cache.match(e.request.url)
             .then(function(response) {
               if (response) {
+                console.log('[Service Worker] Fetch', e.request.url , ' from Cache.')
                 return response
               }
               return clients.matchAll({type: 'window'})
@@ -71,13 +72,27 @@ self.addEventListener('fetch', function(e) {
       })
     );
   } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
-    var url = new URL(e.request.url)
-    console.log('url for fallback:', url)
+    console.log('[Service Worker] CacheFirst. Fetch fallback page', '<%= fallbackPage %>');
+    return e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(e.request, {ignoreSearch: true});
+      })
+    );
+  }
+
+  var url = new URL(e.request.url)
+  if (staticFilesToCache.indexOf(url.pathname) > -1) {
+    console.log('[Service Worker] CacheFirst. Fetch', e.request.url);
     e.respondWith(
       caches.open(cacheName).then(function(cache) {
-        return cache.match(url.origin + url.pathname)
+        return cache.match(e.request).then(function(cached) {
+          if (cached) {
+            console.log('[Service Worker] Fetch ', e.request.url, ' from Cache.');
+          }
+          return cached || fetch(e.request);
+        });
       })
-    )
+    );
   }
 });
 
@@ -85,8 +100,8 @@ self.addEventListener('push', function(event) {
   try {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data: ' + event.data.text());
-    const data = event.data.text()
-    const body = JSON.parse(data).title
+    const data = event.data.text();
+    const body = JSON.parse(data).title;
     const title = '報導者The Reporter';
     const options = {
       body: body,
@@ -97,7 +112,7 @@ self.addEventListener('push', function(event) {
 
     event.waitUntil(self.registration.showNotification(title, options));
   } catch(err) {
-    console.error('[Service Worker] Parsing push data occurs error:', err)
+    console.error('[Service Worker] Parsing push data occurs error:', err);
   }
 });
 
@@ -109,7 +124,7 @@ self.addEventListener('notificationclick', function(event) {
     // can process it in the notificationclick handler.
     console.log('[Service Worker] Notification Tag:', event.notification.tag);
     console.log('[Service Worker] Notification Data:', event.notification.data);
-    const href = JSON.parse(event.notification.data).href
+    const href = JSON.parse(event.notification.data).href;
     event.notification.close();
 
     // This looks to see if the current is already open and
