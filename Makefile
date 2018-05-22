@@ -78,4 +78,4 @@ clean:
 	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"
 	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json
 
-.PHONY: help clean build start stop dev 
+.PHONY: help clean build start stop dev test ui-test

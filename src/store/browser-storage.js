@@ -126,7 +126,6 @@ function getReduxState() {
 function syncReduxState(reduxState, maxAge=600) {
   return isReduxStateExpired()
     .then((isExpired) => {
-      console.log('isExpired:', isExpired)
       if(isExpired) {
         return setReduxState(reduxState)
           .then((_state) => {

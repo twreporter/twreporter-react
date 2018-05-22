@@ -35,8 +35,8 @@ self.addEventListener('activate', function(e) {
 
 
 self.addEventListener('fetch', function(e) {
-  console.log('[Service Worker] Fetch', e.request.url);
   if (isPathWhitelisted(<%= pagePatternToCache %>, e.request.url)) {
+    console.log('[Service Worker] NetworkFirst. Fetch', e.request.url);
     e.respondWith(
       caches.open(cacheName).then(function(cache) {
         return fetch(e.request)
@@ -48,6 +48,7 @@ self.addEventListener('fetch', function(e) {
             return cache.match(e.request.url)
             .then(function(response) {
               if (response) {
+                console.log('[Service Worker] Fetch', e.request.url , ' from Cache.')
                 return response
               }
               return clients.matchAll({type: 'window'})
@@ -70,12 +71,18 @@ self.addEventListener('fetch', function(e) {
           })
       })
     );
-  } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
-    var url = new URL(e.request.url)
-    console.log('url for fallback:', url)
+  } 
+  var url = new URL(e.request.url)
+  if (staticFilesToCache.indexOf(url.pathname) > -1) {
+    console.log('[Service Worker] CacheFirst. Fetch', e.request.url);
     e.respondWith(
       caches.open(cacheName).then(function(cache) {
-        return cache.match(url.origin + url.pathname)
+        return cache.match(e.request).then(function(cached) {
+          if (cached) {
+            console.log('[Service Worker] Fetch ', e.request.url, ' from Cache.')
+          }
+          return cached || fetch(e.request);
+        })
       })
     )
   }
@@ -102,7 +109,6 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-
   try {
     console.log('[Service Worker] On notification click');
 
