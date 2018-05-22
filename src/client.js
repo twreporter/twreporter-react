@@ -71,7 +71,7 @@ function urlB64ToUint8Array(base64String) {
 /**
  * Check if the web push endpoint is subscribed o not
  * @param {string} endpoint Web push subscription endpoint
- * @param {Promise} A Promise resolves to true if subscribed, otherwise, false.
+ * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
  */
 function isWebPushSubscribed(endpoint) {
   return axios.get(formAPIURL(`/web-push/subscriptions?endpoint=${endpoint}`))
