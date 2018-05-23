@@ -18,6 +18,9 @@ Register service worker at first, and subscribe the web push if the browser coul
 
 #### Patches
 
+### 2.7.7
+- Update @twreporter/react-components from 4.0.7 to 4.0.9
+
 ### 2.7.6
 - Introduces screenshot testing only before commiting files.
 - Adds some space between channel bar and title in article page on tablet.
@@ -29,16 +32,6 @@ Register service worker at first, and subscribe the web push if the browser coul
 - RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
 - Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
 localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
-
-### 2.7.6
-- Introduces screenshot testing only before commiting files.
-- Adds some space between channel bar and title in article page on tablet.
-- [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
-- Update @twreporter/react-components from 4.0.5 to 4.0.7
-
-### 2.7.5
-- Use Makefile to replace npm scripts
-- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
 
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
