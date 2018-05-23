@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.7.7
+- Update @twreporter/react-components from 4.0.7 to 4.0.9
+
 ### 2.7.6
 - Introduces screenshot testing only before commiting files.
 - Adds some space between channel bar and title in article page on tablet.
