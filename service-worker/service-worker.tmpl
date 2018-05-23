@@ -72,7 +72,7 @@ self.addEventListener('fetch', function(e) {
       })
     );
   } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
-    console.log('[Service Worker] CacheFirst. Fetch fallback page', <%= fallbackPage %>);
+    console.log('[Service Worker] CacheFirst. Fetch fallback page', '<%= fallbackPage %>');
     return e.respondWith(
       caches.open(cacheName).then(function(cache) {
         return cache.match(e.request, {ignoreSearch: true});
