@@ -19,27 +19,42 @@ const defaultRegConfig = {
   host: 'http://testtest.twreporter.org:3000'
 }
 
-const regConfig = {
-  development: {
-    registrationConfigure: defaultRegConfig
+const env = {
+  master: {
+    registrationConfigure: defaultRegConfig,
+    API_PORT: 8080,
+    API_HOST: 'localhost',
+    API_PROTOCOL: 'http'
+  },
+  preview: {
+    registrationConfigure: defaultRegConfig,
+    API_PORT: 443,
+    API_HOST: 'staging-go-api.twreporter.org',
+    API_PROTOCOL: 'https'
   },
   staging: {
     registrationConfigure: Object.assign({}, defaultRegConfig, {
       apiUrl: 'https://staging-go-api.twreporter.org',
       host: 'https://staging.twreporter.org'
-    })
+    }),
+    API_PORT: 443,
+    API_HOST: 'staging-go-api.twreporter.org',
+    API_PROTOCOL: 'https'
   },
-  production: {
+  release: {
     registrationConfigure: Object.assign({}, defaultRegConfig, {
       apiUrl: 'https://go-api.twreporter.org',
       host: 'https://www.twreporter.org'
-    })
+    }),
+    API_PORT: 443,
+    API_HOST: 'go-api.twreporter.org',
+    API_PROTOCOL: 'https'
   }
-}[process.env.RELEASE_BRANCH || 'development']
+}[process.env.RELEASE_BRANCH || 'master']
 
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: parseInt(process.env.PORT) || 3000,
   webpackDevServerHost: 'localhost',
   webpackDevServerPort: 5000,
-}, regConfig, webpackConfig)
+}, env, webpackConfig)

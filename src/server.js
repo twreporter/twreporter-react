@@ -68,9 +68,14 @@ const selectResponseStatus = (errorType) => {
   }
 }
 
-app.get('*', function (req, res, next) {
+app.get('*', async function (req, res, next) {
   const memoryHistory = createMemoryHistory(req.originalUrl)
-  const store = configureStore(memoryHistory)
+  let store
+  try {
+    store = await configureStore(memoryHistory)
+  } catch(err) {
+    next(err)
+  }
   const history = syncHistoryWithStore(memoryHistory, store)
   const path = get(req, 'path' , '')
   const routes = createRoutes(history)
