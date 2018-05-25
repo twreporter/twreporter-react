@@ -2,25 +2,33 @@ import { colors, font } from '../constants/styles'
 import { containerStyle, contentStyle } from './styles'
 import { screen } from '../utils/screen'
 import aboutusImg from '../../../../static/asset/about-us/aboutus-opening.png'
+import aboutusImgMobile from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
 import Header from './header'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
+import sz from '../constants/screen-size'
 import titleImg from '../../../../static/asset/about-us/title-opening.png'
 
 const Container = styled.div `
   position: relative;
-  height: 100vh;
   overflow-x: hidden;
+  height: 100vh;
 `
 
 const Footer = styled.div `
   position: absolute;
+  display: block;
   left: 0;
-  right: 0;
   bottom: 0;
   width: 100%;
-  background: #c71b0c;  
+  background: #c71b0c; 
+  ${screen.mobile`
+    height: 44px;
+  `} 
+  ${screen.tablet`
+    height: 100px;
+  `}
   ${screen.desktop`
     height: 75px;
   `}
@@ -48,22 +56,27 @@ const Navigator = styled.div`
     color: ${colors.white};
     cursor: pointer;    
   }
+  ${screen.mobile`
+    p{
+      transform: translateX(50%) translateY(-100%);
+    }
+  `}   
 `
 
 const Content = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
   ${screen.mobile`
-    display: block;
-    padding: 0;
+    width: ${containerStyle.width.mobile};
+    height: ${contentStyle.height.mobile};
+    padding: ${contentStyle.padding.mobile};
   `}
   ${screen.tablet`
-    display: block;
-    padding: 0;
-  `}
-  ${screen.desktopAbove`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    width: ${containerStyle.width.tablet};
+    height: ${contentStyle.height.tablet};
+    padding: ${contentStyle.padding.tablet};
   `}
   ${screen.desktop`
     width: ${containerStyle.width.desktop};
@@ -81,21 +94,42 @@ const ChineseIntro = styled.div`
   position: relative;
   text-align: center;
   display: block;
+  width: 100%;
+  h2 {
+    font-family: ${font.family.english.roboto};
+    margin: 0;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    transform: translateY(-100%) rotate(90deg);
+    transform-origin: bottom left;
+  }
   ${screen.desktopAbove`
-    width: 100%;
-    h2 {
-      font-family: ${font.family.english.roboto};
-      position: absolute;
-      top: 0;
+    h2{
       left: 0;
-      transform: translateY(-100%) rotate(90deg);
-      transform-origin: bottom left;
-      margin: 0;
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 11.9px;
     }
   `}
+  ${screen.tabletBelow`
+    h2{
+      right: 0;
+    }
+  `}
+  ${screen.mobile`
+    height: 335px;
+    h2{
+      font-size: 13px;
+      letter-spacing: 5.5px;
+      transform: translateY(-100%) translateX(40%) rotate(90deg);
+    }
+  `}
+  ${screen.tablet`
+    height: 582px;
+    h2{
+      font-size: 19px;
+      letter-spacing: 8.1px;
+      transform: translateY(-100%) translateX(30%) rotate(90deg);
+    }
+  `}  
   ${screen.desktop`
     height: 230px;
     h2{
@@ -105,6 +139,10 @@ const ChineseIntro = styled.div`
   `}
   ${screen.overDesktop`
     height: 322px;    
+    h2{
+      font-size: 28px;
+      letter-spacing: 11.9px;
+    }
   `}
 `
 
@@ -114,6 +152,19 @@ const Title = styled.div`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
+  ${screen.tabletBelow`
+    position: absolute;
+    left: 0;
+    top: 0;  
+  `}
+  ${screen.mobile`
+    width: 170.2px;
+    height: 153px;
+  `}
+  ${screen.tablet`
+    width: 342.2px;
+    height: 307px;
+  `}
   ${screen.desktop`
     width: 253.8px;
     height: 230px;
@@ -129,6 +180,19 @@ const AboutUS = styled.div`
   position: relative;
   display: block;
   float: right;
+  width: 100%;
+  ${screen.tabletBelow`
+    img{
+      float: right;
+      height: 100%;
+    }  
+  `}
+  ${screen.mobile`
+    height: 177px;
+  `}
+  ${screen.tablet`
+    height: 307px;
+  `}
   ${screen.desktop`
     width: 468px;
     height: 230px;
@@ -154,6 +218,16 @@ const SeperateLine = styled.div`
   h3{
     margin: 0;
   }
+  ${screen.tabletBelow`
+    h3{
+      text-align: left;
+    }
+    margin: 80px 0 55px 0;
+  `}
+  ${screen.mobile`
+    margin: 0;
+    transfrom: translateY(-50%);
+  `}    
   ${screen.desktop`
     width: 392px;
     margin: 24px 0 26px 0;
@@ -166,25 +240,59 @@ const SeperateLine = styled.div`
 
 const Words = styled.div`
   display: block;
-  float: right;
-  text-align: right;
   p{
-    display: inline-block;
+    font-family: ${font.family.english.roboto};
+    display: inline;
     font-weight: bold;
-    text-align: right;
-    background-color: #f1f1f1;
+    letter-spacing: 0.3px;
+    display: inline;
+    white-space: pre-wrap;
+  }
+  p>span{
+    background: #f1f1f1;
     box-shadow: -10px 0 0 #f1f1f1;
+    padding: 5px 0;
+    mark{
+      background: ${colors.white};
+    }
   }
-  span{
-    background-color: ${colors.white};    
-  }
+  ${screen.tabletBelow`
+    position: relative;
+    float: left;
+    text-align: left;
+    p > span{
+      background: ${colors.white};;
+      box-shadow: none;
+      mark{
+        background: ${colors.white};
+      }
+    }    
+  `}
   ${screen.desktopAbove`
     position: absolute;
     right: 0;
     bottom: 0;
+    text-align: right;
+    float: right;
+  `}
+  ${screen.mobile`
+    width: 248px;
+    p{
+      font-size: 14px;
+      line-height: 0.79;
+      letter-spacing: 0.3px;
+    }
+  `}
+  ${screen.tablet`
+    width: 525px;
+    p{
+      font-size: 18px;
+      line-height: 1.78;
+      letter-spacing: 0.4px;
+    } 
   `}
   ${screen.desktop`
-    width: 468px;
+    width: 404px;
     p{
       font-size: 16px;
       line-height: 2;
@@ -192,7 +300,7 @@ const Words = styled.div`
     }
   `}    
   ${screen.overDesktop`
-    width: 628px;
+    width: 481px;
     p{
       font-size: 19px;
       line-height: 2.32;
@@ -210,14 +318,10 @@ const EnglishIntro = styled.div`
     display: inline;
     font-weight: bold;
     letter-spacing: 0.3px;
-    position:relative;
-    line-height:1;
-    display:inline;
+    display: inline;
     white-space:pre-wrap;
   }
   p > span{
-    position:relative;
-    z-index:1;
     background: #d8d8d8;
     box-shadow: -10px 0 0 #d8d8d8;
     padding: 5px 0;
@@ -225,6 +329,33 @@ const EnglishIntro = styled.div`
       background: #f1f1f1;
     }
   }
+  ${screen.tabletBelow`
+    text-align: left;
+    p > span{
+      background: ${colors.white};
+      box-shadow: none;
+      mark{
+        background: ${colors.white};
+      } 
+    } 
+  `}
+  ${screen.mobile`
+    width: 248px;
+    p{
+      line-height: 0.79;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      padding: 0;
+    }
+  `}
+  ${screen.tablet`
+    width: 525px;
+    p{
+      font-size: 18px;
+      line-height: 1.44;
+      letter-spacing: 0.3px;
+    }    
+  `}
   ${screen.desktop`
     float: right;
     width: 468px;
@@ -266,14 +397,15 @@ export class Opening extends PureComponent {
             <Title />
             <AboutUS>
               <h2>ABOUT US</h2>
-              <img src={aboutusImg} />
+              <picture>
+                <source media={`(max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={aboutusImgMobile} />
+                <img src={aboutusImg} />
+              </picture>
               <SeperateLine>
                 <h3>・・・</h3>
               </SeperateLine>
               <Words>
-                <p>2015年12月《報導者》正式上線，稟持<span>深度</span>、<span>開放</span>、<span>非</span></p>
-                <p><span>營利</span>的精神，致力於公共領域<span>調查報導</span>，為讀者持續追</p>
-                <p>蹤各項重要議題，共同打造<span>多元的社會</span>與媒體環境。</p>
+                <p><span>2015年12月《報導者》正式上線，稟持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，為讀者持續追蹤各項重要議題，共同打造<mark>多元的社會</mark>與媒體環境。</span></p>
               </Words>
             </AboutUS>
           </ChineseIntro>
