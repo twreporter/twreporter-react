@@ -11,6 +11,12 @@ const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   z-index: 1;
+  ${screen.mobile`
+    max-width: ${containerStyle.width.mobile};
+  `}
+  ${screen.tablet`
+    max-width: ${containerStyle.width.tablet};
+  `}
   ${screen.desktop`
     max-width: ${containerStyle.width.desktop};
   `}
@@ -30,8 +36,12 @@ const TopRow = styled.div`
     vertical-align: middle;    
   }  
   ${screen.mobile`
+    height: ${headerStyle.height.mobile};
+    padding: ${headerStyle.padding.mobile};
   `}
   ${screen.tablet`
+    height: ${headerStyle.height.tablet};
+    padding: ${headerStyle.padding.tablet};
   `}
   ${screen.desktop`
     height: ${headerStyle.height.desktop};
