@@ -7,7 +7,6 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 const LottieContainer = styled.div`
-  /* width: 400px; */
   width: 100%;
   height: 38.39%;
   ${screen.tablet`
