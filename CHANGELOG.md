@@ -18,6 +18,9 @@ Register service worker at first, and subscribe the web push if the browser coul
 
 #### Patches
 
+### 2.7.8
+- Update @twreporter/react-components from 4.0.9 to 4.0.10
+
 ### 2.7.7
 - Update @twreporter/react-components from 4.0.7 to 4.0.9
 
