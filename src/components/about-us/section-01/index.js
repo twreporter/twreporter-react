@@ -1,6 +1,6 @@
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
-import LottieAnim from './lottie-animation.js'
+import LottieAnim from './lottie-animation'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section1.png'
@@ -190,7 +190,7 @@ const Caption = styled.div`
   }
 `
 
-export class Section1 extends PureComponent {
+export default class Section1 extends PureComponent {
   constructor(props) {
     super(props)
     this.animCaptions = [ '深度', '開放', '非營利' ]
@@ -198,11 +198,9 @@ export class Section1 extends PureComponent {
       currentAnim: 0
     }
   }
-
   _animUpdated = (updatedIndex) => {
     this.setState({ currentAnim: updatedIndex })
   }
-
   render() {
     const Captions = this.animCaptions.map((caption, index) => {
       const dot = () => {
@@ -247,5 +245,3 @@ export class Section1 extends PureComponent {
     )
   }
 }
-
-export default Section1
