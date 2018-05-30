@@ -1,10 +1,3 @@
-export const colors = {
-  black: '#000',
-  white: '#FFF',
-  primary: '#C7000A',
-  secondary: '#A67A44'
-}
-
 export const font = {
   weight: {
     regular: '400',

@@ -1,3 +1,4 @@
+import { colors } from '../../../themes/common-variables'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import LottieAnim from './lottie-animation'
@@ -9,25 +10,28 @@ import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.pn
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
-  background-color: white;
+  background-color: ${colors.white};
   overflow: hidden;
-  border: solid 8px #c71b0c;
   height: 100vh;  
-  ${screen.desktopAbove`
-    margin: ${marginBetweenSections.desktop} 0;
-  `}
   ${screen.overDesktop`
+    border: solid 8px ${colors.red.liverRed};
     margin: ${marginBetweenSections.overDesktop} 0;    
   `}
+  ${screen.desktop`
+    border: solid 6px ${colors.red.liverRed};
+    margin: ${marginBetweenSections.desktop} 0;
+  `}
   ${screen.tablet`
+    border: solid 7px ${colors.red.liverRed};
     margin: ${marginBetweenSections.tablet} 0;    
   `}  
   ${screen.mobile`
+    border: solid 6px ${colors.red.liverRed};
     margin: ${marginBetweenSections.mobile} 0;    
   `}    
 `
 
-const SectionWrapper = styled.div`
+const SectionWrapper = styled.section`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -53,13 +57,16 @@ const SectionWrapper = styled.div`
   `}
 `
 
-const Title = styled.div`
+const Title = styled.h1`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
   height: 60%;
   float: left;
-  border-bottom: solid 27px #a67a44;
+  border-bottom: solid 27px ${colors.secondaryColor};
+  span{
+    display: none;
+  }
   ${screen.desktop`
     width: 193.7px;
     height: 330.3px;
@@ -77,12 +84,12 @@ const Title = styled.div`
   ${screen.tablet`
     width: 134px;
     height: 300px;
-    border-bottom: solid 18.9px #a67a44;
+    border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
     width: 84px;
     height: 195px;
-    border-bottom: solid 18px #a67a44;
+    border-bottom: solid 18px ${colors.secondaryColor};
   `}
 `
 
@@ -111,17 +118,17 @@ const Introduction = styled.div`
   }
   ${screen.desktopAbove`
     p{
-      background-color: #f6f6f6;
+      background-color: ${colors.gray.gray96};
       padding: 5px;
     }  
     ul>li:before {
-      background-color: #f6f6f6;
+      background-color: ${colors.gray.gray96};
       padding: 5px 0 5px 10px;
     }
   `}
   ${screen.tabletBelow`
     ul{
-      background: #f6f6f6;
+      background: ${colors.gray.gray96};
     }
     ul>li:before {
       width: 0.5em;    
@@ -225,7 +232,9 @@ export default class Section1 extends PureComponent {
     return (
       <Container>
         <SectionWrapper>
-          <Title />
+          <Title>
+            <span>特色</span>
+          </Title>
           <Content>
             {Captions}
             <LottieAnim 

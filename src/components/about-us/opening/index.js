@@ -1,5 +1,6 @@
-import { colors, font } from '../constants/styles'
-import { containerStyle, contentStyle } from './styles'
+import { colors } from '../../../themes/common-variables'
+import { containerStyle, contentStyle } from './section-style'
+import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
 import aboutusImg from '../../../../static/asset/about-us/aboutus-opening.png'
 import aboutusImgMobile from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
@@ -10,19 +11,19 @@ import styled from 'styled-components'
 import sz from '../constants/screen-size'
 import titleImg from '../../../../static/asset/about-us/title-opening.png'
 
-const Container = styled.div `
+const Container = styled.section`
   position: relative;
   overflow-x: hidden;
   height: 100vh;
 `
 
-const Footer = styled.div `
+const Footer = styled.div`
   position: absolute;
   display: block;
   left: 0;
   bottom: 0;
   width: 100%;
-  background: #c71b0c; 
+  background: ${colors.red.liverRed}; 
   ${screen.mobile`
     height: 44px;
   `} 
@@ -96,7 +97,7 @@ const ChineseIntro = styled.div`
   display: block;
   width: 100%;
   h2 {
-    font-family: ${font.family.english.roboto};
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     margin: 0;
     font-weight: bold;
     position: absolute;
@@ -146,12 +147,15 @@ const ChineseIntro = styled.div`
   `}
 `
 
-const Title = styled.div`
+const Title = styled.h1`
   display: block;
   float: left;
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
+  span{
+    display: none;
+  }
   ${screen.tabletBelow`
     position: absolute;
     left: 0;
@@ -241,7 +245,7 @@ const SeperateLine = styled.div`
 const Words = styled.div`
   display: block;
   p{
-    font-family: ${font.family.english.roboto};
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     display: inline;
     font-weight: bold;
     letter-spacing: 0.3px;
@@ -249,8 +253,8 @@ const Words = styled.div`
     white-space: pre-wrap;
   }
   p>span{
-    background: #f1f1f1;
-    box-shadow: -10px 0 0 #f1f1f1;
+    background: ${colors.gray.lightGray};
+    box-shadow: -10px 0 0 ${colors.gray.lightGray};
     padding: 5px 0;
     mark{
       background: ${colors.white};
@@ -314,7 +318,7 @@ const EnglishIntro = styled.div`
   display: block;
   text-align: right;
   p{
-    font-family: ${font.family.english.roboto};
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     display: inline;
     font-weight: bold;
     letter-spacing: 0.3px;
@@ -326,7 +330,7 @@ const EnglishIntro = styled.div`
     box-shadow: -10px 0 0 #d8d8d8;
     padding: 5px 0;
     mark{
-      background: #f1f1f1;
+      background: ${colors.gray.lightGray};
     }
   }
   ${screen.tabletBelow`
@@ -394,7 +398,10 @@ export class Opening extends PureComponent {
         <Header />
         <Content>
           <ChineseIntro>          
-            <Title />
+            <Title>
+              <span>關於我們</span>
+              <span>ABOUT US</span>
+            </Title>
             <AboutUS>
               <h2>ABOUT US</h2>
               <picture>

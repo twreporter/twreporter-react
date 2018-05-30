@@ -1,4 +1,5 @@
-import { containerStyle, headerStyle } from './styles'
+import { colors } from '../../../themes/common-variables'
+import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
 import Link from 'react-router/lib/Link'
 import Logo from '../../../../static/asset/about-us/twreporter-logo.svg'
@@ -7,7 +8,6 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: block;
-  position: relative;
   width: 100%;
   margin: 0 auto;
   z-index: 1;
@@ -63,7 +63,7 @@ const Languages = styled.div`
       cursor: pointer;
       padding-left: 14px;
       padding-right: 14px;
-      color: #000;
+      color: ${colors.black};
       font-weight: bold;
     }
   }
