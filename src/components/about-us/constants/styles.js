@@ -2,7 +2,8 @@ export const font = {
   weight: {
     regular: '400',
     medium: '500',
-    bold: '700'
+    bold: '700',
+    extraBold: '900'
   },
   style: {
     italic: 'italic'

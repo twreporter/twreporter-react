@@ -1,17 +1,18 @@
-import { font } from '../constants/styles'
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import awardJsonData from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
+import Content from './content'
 import groupBy from 'lodash/groupBy'
 import React, { PureComponent } from 'react'
 import riceEarBlack from '../../../../static/asset/about-us/rice-ear-black.png'
 import riceEarGolden from '../../../../static/asset/about-us/rice-ear-golden.png'
 import styled from 'styled-components'
-import Timeline from './timeline'
 import titleImg from '../../../../static/asset/about-us/title-section3.png'
-import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.png'
+import titleImgMob from '../../../../static/asset/about-us/title-section3-mob.png'
+import Waypoint from 'react-waypoint'
 
 const _ = {
   groupBy
@@ -19,12 +20,14 @@ const _ = {
 
 const groupedAwards = _.groupBy(awardJsonData, award => award.awardId)
 const groupedNames = _.groupBy(awardsName, award => award.awardId)
-const awardsData = Object.values(groupedAwards).map(awardsArray => 
-  awardsArray.map(award => Object.assign(groupedNames[award.awardId][0], award))
+const awardsData = Object.values(groupedAwards).map(awardsArray =>
+  awardsArray.map(award => Object.assign(award, groupedNames[award.awardId][0]))
 )
 const awardsList = [].concat(...Object.values(awardsData))
+const awardsNumberInSinglePage = 4
+const pagesLength = Math.ceil( awardsList.length / awardsNumberInSinglePage )
+const waypointTriggerPointBottomOffset = '50%'
 
-const defaultZIndex = 0
 const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
@@ -53,11 +56,6 @@ const SectionWrapper = styled.div`
   position: relative;
   display: block;
   margin: 0 auto;
-  ${screen.desktop`
-    width: 1024px;
-    height: 820px;
-    padding: 119px 120px 125px 85px;
-  `}  
   ${screen.overDesktop`
     position: absolute;
     left: 50%;
@@ -67,21 +65,32 @@ const SectionWrapper = styled.div`
     height: 950px;
     padding: 97px 162px 145px 146px;
   `}
+  ${screen.desktop`
+    width: 1024px;
+    height: 820px;
+    padding: 119px 120px 125px 85px;
+  `}  
   ${screen.tablet`
-    width: 432px;
-    height: 849px;
+    width: 100%;
+    min-height: 1024px;
+    padding: 82px 101px 67px 101px;
   `}
   ${screen.mobile`
-    width: 291px;
-    height: 571px;
+    width: 100%;
+    min-height: 922px;
+    padding: 50px 47.2px 93px 43px
   `}
 `
 
-const Title = styled.div`
+const Title = styled.h1`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
+  margin: 0;
+  span{
+    display: none;
+  }
   ${screen.desktop`
     width: 259px;
     height: 182px;
@@ -99,86 +108,18 @@ const Title = styled.div`
   ${screen.tablet`
     width: 134px;
     height: 300px;
+    border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
     width: 84px;
     height: 195px;
+    border-bottom: solid 18px ${colors.secondaryColor};
   `}
-`
-
-const Content = styled.div`
-  position: relative;
-  height: 100%;
-  float: right;
-  text-align: center;
-  overflow-y: hidden;
-  z-index: ${defaultZIndex};
-  background: ${colors.gray.gray96};
-  background-clip: content-box;
-  padding: 54px 0 54px 24px;
-  ${screen.overDesktop`
-    width: 530px;
-  `}
-  ${screen.desktop`
-    width: 432px;
-  `}
-  ul{
-    text-align: left;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  a{
-    color: ${colors.black};
-  }
-  p, h2{
-    display: block;
-    margin: 0;
-  }
-  li{
-    margin: 10px;
-    p:first-child{
-      margin-left: -24px;
-      span{
-        font-size: 13px;
-        letter-spacing: 2.2px;
-        text-align: left;
-      }
-      span:first-child{
-        font-weight: bold;
-      }
-    }
-    h2{
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 0.8px;
-    }
-    p:last-child{
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 2.71;
-      letter-spacing: 1px;
-      color: ${colors.secondaryColor};
-    }
-  }
-
-`
-
-const SemiTransparentMask = styled.div`
-  position: absolute;
-  left: 0;
-  ${props => props.position === 'top' ? 'top: 0' : 'bottom: 0'};
-  width: 100%;
-  height: 20px;
-  background: ${props => props.position === 'top' ? 'linear-gradient(white, transparent)' : 'linear-gradient(transparent, white)'};
-  z-index: calc( ${defaultZIndex} + 1 );
 `
 
 const AwardsCount = styled.div`
   position: relative;
   display: block;
-  width: 100%;
-  height: 97px;
   float: left;
   img{
     position: absolute;
@@ -199,24 +140,18 @@ const AwardsCount = styled.div`
     line-height: 1;
   }
   h2{
-    font-family: ${font.family.english.roboto};    
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
     font-weight: bold;
   } 
   p{
-    font-weight: 900;
+    font-weight: ${font.weight.extraBold};
     margin: 0;
   }
-  ${screen.desktop`  
-    h2{
-      font-size: 48px;
-      margin: 0 0 10px 0;
-    }
-    p{
-      font-size: 12px;
-      letter-spacing: 0.2px;
-    }
+  ${screen.desktopAbove`
+    width: 100%;
   `}
   ${screen.overDesktop`
+    height: 97px;
     h2{
       font-size: 72px;
       margin: -10px 0 10px 0;
@@ -226,87 +161,175 @@ const AwardsCount = styled.div`
       letter-spacing: 0.4px;
     }
   `}
+  ${screen.desktop`
+    height: 65.3px;  
+    h2{
+      font-size: 48px;
+      margin: -7px 0 7px 0;
+    }
+    p{
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+  `}
+  ${screen.tablet`
+    width: 138px;
+    height: 65.3px;
+    h2{
+      font-size: 48px;
+      margin: 0 0 5px 0;
+    }
+    p{
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+  `}
+  ${screen.mobile`
+    width: 126.5px;
+    height: 56px;
+    h2{
+      font-size: 36px;
+      margin: 0 0 5px 0;
+    }
+    p{
+      font-size: 14px;      
+      letter-spacing: 0.3px;
+    }
+  `}
 `
 
 const Achievement = styled.div`
-  position: absolute;
   display: block;
-  left: 0;
-  bottom: 0;
-  width: 205px;
   ${AwardsCount}:last-child{
     h2, p{
       color: ${colors.secondaryColor};      
     }
   }
+  ${screen.desktopAbove`
+    left: 0;
+    bottom: 0;  
+  `}
+  ${screen.tabletAbove`
+    position: absolute;
+  `}
+  ${screen.overDesktop`
+    width: 205px;
+    margin: 0 0 145px 146px;
+    ${AwardsCount}:last-child{
+      margin-top: 57px;
+    }
+  `}
   ${screen.desktop`
+    width: 138px;
     margin: 0 0 125px 85px;
     ${AwardsCount}:last-child{
       margin-top: 47.7px;
     }
   `}
-  ${screen.overDesktop`
-    margin: 0 0 145px 146px;
+  ${screen.tablet`
+    top: 210.4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 202px);
     ${AwardsCount}:last-child{
-      margin-top: 57px;
+      float: right;
     }
+  `}
+  ${screen.mobile`
+    position: relative;
+    width: 100%;
+    margin-top: 42px;
+    ${AwardsCount}:last-child{
+      float: right;
+    }
+  `}
+`
+
+const Pagination = styled.div`
+  display: inline-block;
+  width: calc( 75px / ${pagesLength} );
+  height: 2px;
+  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
+  background: ${colors.black};
+  margin: 0 1px;
+`
+
+const Navigation = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 45px;
+  transform: translateX(-50%);
+  width: 50%;
+  display: block;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  ${screen.tabletAbove`
+    display: none;
   `}
 `
 
 export default class Section3 extends PureComponent {
   constructor(props) {
     super(props)
+    this.clickCtr = 0
     this.state = {
-      currentAnim: 0
+      timelineAutoScrolling: false,
+      page: 0
     }
   }
-  _animUpdated = (updatedIndex) => {
-    this.setState({ currentAnim: updatedIndex })
+  _gotoNextPage = () => {
+    this.setState({ page: ++this.clickCtr % pagesLength })
   }
-  componentDidMount() {
-    const scrollingHeight = this.refs.scrollingContent.getBoundingClientRect().height
-    this.setState({ scrollingHeight: scrollingHeight })
+  _autoScrollStarter = () => {
+    this.setState({ timelineAutoScrolling: true })
+  }
+  _createNavigation = () => {
+    let navigation = []
+    let pagination = []
+    for (let i = 0; i < pagesLength; i++) {
+      pagination.push(<Pagination key={i} isCurrentPage={i === this.state.page}/>)
+    }
+    navigation.push(<Navigation>{pagination}</Navigation>)
+    return navigation
   }
   render() {
-    const awardsItems = awardsList.map((item) => {
-      return (
-        <li>
-          <a href={item.titleLink} target="_blank">
-            <p><span>{item.ranking}</span>  <span>{item.group}</span></p>
-            <h2>{item.title}</h2>
-            <p>{item.award}</p>
-          </a>
-        </li>
-      )
-    })    
     return (
       <Container>
-        <SectionWrapper>
-          <Title />
-          <Achievement>
-            <AwardsCount>
-              <img src={riceEarBlack} />
-              <h2>{awardsList.length}</h2>
-              <p>作品</p>
-              <img src={riceEarBlack} />            
-            </AwardsCount>
-            <AwardsCount>
-              <img src={riceEarGolden} />
-              <h2>{Object.keys(groupedNames).length}</h2>
-              <p>獎項</p>
-              <img src={riceEarGolden} />            
-            </AwardsCount>
-          </Achievement>
-          <Content>
-            <Timeline childrenHeight={this.state.scrollingHeight}>
-              <ul ref="scrollingContent" >              
-                {awardsItems}
-              </ul>
-            </Timeline>
-            <SemiTransparentMask position={'top'}/>
-            <SemiTransparentMask position={'bottom'}/>
-          </Content>
-        </SectionWrapper>
+        <Waypoint
+          onEnter={this._autoScrollStarter}
+          bottomOffset={waypointTriggerPointBottomOffset}
+          fireOnRapidScroll
+        >
+          <SectionWrapper>
+            <Title>
+              <span>得獎</span>
+              <span>AWARD</span>
+            </Title>
+            <Achievement>
+              <AwardsCount>
+                <img src={riceEarBlack} />
+                <h2>{awardsList.length}</h2>
+                <p>作品</p>
+                <img src={riceEarBlack} />            
+              </AwardsCount>
+              <AwardsCount>
+                <img src={riceEarGolden} />
+                <h2>{Object.keys(groupedNames).length}</h2>
+                <p>獎項</p>
+                <img src={riceEarGolden} />            
+              </AwardsCount>
+            </Achievement>
+            <Content
+              page={this.state.page}
+              awardsNumberInSinglePage={awardsNumberInSinglePage}
+              timelineAutoScrolling={this.state.timelineAutoScrolling}
+              awardsList={awardsList}
+              gotoNextPage={this._gotoNextPage}
+            />
+            {this._createNavigation()}
+          </SectionWrapper>
+        </Waypoint>
       </Container>
     )
   }

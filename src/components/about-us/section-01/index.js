@@ -61,7 +61,6 @@ const Title = styled.h1`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
-  height: 60%;
   float: left;
   border-bottom: solid 27px ${colors.secondaryColor};
   span{

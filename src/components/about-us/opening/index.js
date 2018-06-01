@@ -13,7 +13,7 @@ import titleImg from '../../../../static/asset/about-us/title-opening.png'
 
 const Container = styled.section`
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100vh;
 `
 
@@ -153,6 +153,7 @@ const Title = styled.h1`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
+  margin: 0;
   span{
     display: none;
   }

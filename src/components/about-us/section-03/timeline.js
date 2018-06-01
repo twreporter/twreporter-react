@@ -60,7 +60,8 @@ export default class Timeline extends PureComponent {
       setTimeout(() => {
         this.setState({ timelineShiftY: 0 })
         this.setState({ returnToStart: false })
-      }, 500)}
+      }, 500)
+    }
   }
 
   _reachTheEnd = () => {
@@ -91,11 +92,11 @@ export default class Timeline extends PureComponent {
 }
 
 Timeline.defaultProps = {
-  autoScrolling: true
+  childrenHeight: 0,
+  autoScrolling: false
 }
 
 Timeline.propTypes = {
-  autoScrolling: PropTypes.bool.isRequired,
-  startAutoScroll: PropTypes.func.isRequired,
-  stopAutoScroll: PropTypes.func.isRequired 
+  childrenHeight: PropTypes.number.isRequired,
+  autoScrolling: PropTypes.bool.isRequired
 }

@@ -1,4 +1,6 @@
-  /**
+ // This file will be used in section 5, therefore comment out and can be ignored here
+ 
+ /**
    * Grouping elements in array by multiple properties
    * @param {array} array - The array to process which has multiple properties
    * @param {function} f - A function indicates what properties should be group together
@@ -12,15 +14,15 @@
    * })
    */
 
-export default function groupByMultiProps(array, fn) {
-  let groups = {}
-  array.forEach((o) => {
-    let group = JSON.stringify(fn(o))
-    groups[group] = groups[group] || []
-    groups[group].push(o)
-  })
-  return Object.keys(groups).map((group) => {
-    return groups[group]
-  })
-}
+// export default function groupByMultiProps(array, fn) {
+//   let groups = {}
+//   array.forEach((o) => {
+//     let group = JSON.stringify(fn(o))
+//     groups[group] = groups[group] || []
+//     groups[group].push(o)
+//   })
+//   return Object.keys(groups).map((group) => {
+//     return groups[group]
+//   })
+// }
 
