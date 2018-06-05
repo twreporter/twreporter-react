@@ -26,7 +26,7 @@ const awardsData = Object.values(groupedAwards).map(awardsArray =>
 const awardsList = [].concat(...Object.values(awardsData))
 const awardsNumberInSinglePage = 4
 const pagesLength = Math.ceil( awardsList.length / awardsNumberInSinglePage )
-const waypointTriggerPointBottomOffset = '50%'
+const defaultZIndex = 0
 
 const Container = styled.div`
   position: relative;
@@ -35,19 +35,15 @@ const Container = styled.div`
     min-height: 100vh;
   `}
   ${screen.overDesktop`
-    border: solid 8px ${colors.red.liverRed};
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
   ${screen.desktop`
-    border: solid 6px ${colors.red.liverRed};
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    border: solid 7px ${colors.red.liverRed};
     margin: ${marginBetweenSections.tablet} 0;    
   `}  
   ${screen.mobile`
-    border: solid 6px ${colors.red.liverRed};
     margin: ${marginBetweenSections.mobile} 0;    
   `}
 `
@@ -79,6 +75,31 @@ const SectionWrapper = styled.div`
     width: 100%;
     min-height: 922px;
     padding: 50px 47.2px 93px 43px
+  `}
+`
+const BorderBottom = styled.div`
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: calc( ${defaultZIndex} + 1 );
+  background: ${colors.red.liverRed};
+  ${screen.desktopAbove`
+    position: ${props => props.fixed ? 'fixed' : 'absolute'};  
+  `}
+  ${screen.tabletBelow`
+    position: absolute;
+  `}
+  ${screen.overDesktop`
+    height: 8px;
+  `}
+  ${screen.desktop`
+    height: 6px;
+  `}
+  ${screen.tablet`
+    height: 7px;
+  `}  
+  ${screen.mobile`
+    height: 6px;
   `}
 `
 
@@ -275,61 +296,70 @@ export default class Section3 extends PureComponent {
     this.clickCtr = 0
     this.state = {
       timelineAutoScrolling: false,
-      page: 0
+      page: 0,
+      isBorderBottomfixed: true
     }
   }
   _gotoNextPage = () => {
     this.setState({ page: ++this.clickCtr % pagesLength })
   }
-  _autoScrollStarter = () => {
-    this.setState({ timelineAutoScrolling: true })
+  _onPositionChange = (prevPos, currPos) => {
+    if (prevPos === 'inside' && currPos === 'above') {
+      this.setState({ isBorderBottomfixed: false })
+    } else if (prevPos === 'above' && currPos === 'inside') {
+      this.setState({ isBorderBottomfixed: true })
+    } else if (prevPos === 'below' && currPos === 'inside') {
+      this.setState({ timelineAutoScrolling: true })
+    }
   }
+
   _createNavigation = () => {
     let navigation = []
     let pagination = []
     for (let i = 0; i < pagesLength; i++) {
-      pagination.push(<Pagination key={i} isCurrentPage={i === this.state.page}/>)
+      pagination.push(<Pagination key={i} isCurrentPage={i === this.state.page} />)
     }
-    navigation.push(<Navigation>{pagination}</Navigation>)
+    navigation.push(<Navigation key="nav">{pagination}</Navigation>)
     return navigation
   }
   render() {
     return (
       <Container>
+        <SectionWrapper>
+          <Title>
+            <span>得獎</span>
+            <span>AWARD</span>
+          </Title>
+          <Achievement>
+            <AwardsCount>
+              <img src={riceEarBlack} />
+              <h2>{awardsList.length}</h2>
+              <p>作品</p>
+              <img src={riceEarBlack} />            
+            </AwardsCount>
+            <AwardsCount>
+              <img src={riceEarGolden} />
+              <h2>{Object.keys(groupedNames).length}</h2>
+              <p>獎項</p>
+              <img src={riceEarGolden} />            
+            </AwardsCount>
+          </Achievement>
+          <Content
+            page={this.state.page}
+            awardsNumberInSinglePage={awardsNumberInSinglePage}
+            timelineAutoScrolling={this.state.timelineAutoScrolling}
+            awardsList={awardsList}
+            gotoNextPage={this._gotoNextPage}
+          />
+          {this._createNavigation()}
+        </SectionWrapper>
+        <BorderBottom 
+          fixed={this.state.isBorderBottomfixed}
+        />
         <Waypoint
-          onEnter={this._autoScrollStarter}
-          bottomOffset={waypointTriggerPointBottomOffset}
+          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
           fireOnRapidScroll
-        >
-          <SectionWrapper>
-            <Title>
-              <span>得獎</span>
-              <span>AWARD</span>
-            </Title>
-            <Achievement>
-              <AwardsCount>
-                <img src={riceEarBlack} />
-                <h2>{awardsList.length}</h2>
-                <p>作品</p>
-                <img src={riceEarBlack} />            
-              </AwardsCount>
-              <AwardsCount>
-                <img src={riceEarGolden} />
-                <h2>{Object.keys(groupedNames).length}</h2>
-                <p>獎項</p>
-                <img src={riceEarGolden} />            
-              </AwardsCount>
-            </Achievement>
-            <Content
-              page={this.state.page}
-              awardsNumberInSinglePage={awardsNumberInSinglePage}
-              timelineAutoScrolling={this.state.timelineAutoScrolling}
-              awardsList={awardsList}
-              gotoNextPage={this._gotoNextPage}
-            />
-            {this._createNavigation()}
-          </SectionWrapper>
-        </Waypoint>
+        />
       </Container>
     )
   }

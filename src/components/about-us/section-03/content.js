@@ -27,7 +27,6 @@ const RightArrow = styled.div `
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 99;    
 `
 
 const Container = styled.div `

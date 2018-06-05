@@ -6,7 +6,9 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section1.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.png'
+import Waypoint from 'react-waypoint'
 
+const defaultZIndex = 0
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
@@ -14,21 +16,38 @@ const Container = styled.div`
   overflow: hidden;
   height: 100vh;  
   ${screen.overDesktop`
-    border: solid 8px ${colors.red.liverRed};
-    margin: ${marginBetweenSections.overDesktop} 0;    
+    margin: 0 0 ${marginBetweenSections.overDesktop} 0;    
   `}
   ${screen.desktop`
-    border: solid 6px ${colors.red.liverRed};
-    margin: ${marginBetweenSections.desktop} 0;
+    margin: 0 0 ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    border: solid 7px ${colors.red.liverRed};
-    margin: ${marginBetweenSections.tablet} 0;    
+    margin: 0 0 ${marginBetweenSections.tablet} 0;    
   `}  
   ${screen.mobile`
-    border: solid 6px ${colors.red.liverRed};
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: 0 0 ${marginBetweenSections.mobile} 0;    
   `}    
+`
+
+const BorderTop = styled.div`
+  position: ${props => props.fixed ? 'fixed' : 'absolute'};
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: calc( ${defaultZIndex} + 1 );
+  background: ${colors.red.liverRed};
+  ${screen.overDesktop`
+    height: 8px;
+  `}
+  ${screen.desktop`
+    height: 6px;
+  `}  
+  ${screen.tablet`
+    height: 7px;
+  `}  
+  ${screen.mobile`
+    height: 6px;
+  `}
 `
 
 const SectionWrapper = styled.section`
@@ -201,7 +220,15 @@ export default class Section1 extends PureComponent {
     super(props)
     this.animCaptions = [ '深度', '開放', '非營利' ]
     this.state = {
-      currentAnim: 0
+      currentAnim: 0,
+      isBorderTopfixed: false
+    }
+  }
+  _onPositionChange = (prevPos, currPos) => {
+    if (prevPos === 'inside' && currPos === 'above') {
+      this.setState({ isBorderTopfixed: true })
+    } else if (prevPos === 'above' && currPos === 'inside') {
+      this.setState({ isBorderTopfixed: false })
     }
   }
   _animUpdated = (updatedIndex) => {
@@ -230,25 +257,32 @@ export default class Section1 extends PureComponent {
     })
     return (
       <Container>
-        <SectionWrapper>
-          <Title>
-            <span>特色</span>
-          </Title>
-          <Content>
-            {Captions}
-            <LottieAnim 
-              animDidUpdate={this._animUpdated}
-            />
-            <Introduction>
-              <ul>
-                <p>屬於社會的《報導者》</p>
-                <li><p>CC授權（ 姓名標示／非商業性／禁止改作</p></li>
-                <li><p>OPEN SOURCE開放原始碼</p></li>
-                <li><p>全民政策追蹤： 蔡英文勞動政策追蹤平台</p></li>
-              </ul>
-            </Introduction>    
-          </Content>
-        </SectionWrapper>
+          <Waypoint
+            onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
+            fireOnRapidScroll
+          />      
+          <BorderTop
+            fixed={this.state.isBorderTopfixed} 
+          />
+          <SectionWrapper>
+            <Title>
+              <span>特色</span>
+            </Title>
+            <Content>
+              {Captions}
+              <LottieAnim 
+                animDidUpdate={this._animUpdated}
+              />
+              <Introduction>
+                <ul>
+                  <p>屬於社會的《報導者》</p>
+                  <li><p>CC授權（ 姓名標示／非商業性／禁止改作</p></li>
+                  <li><p>OPEN SOURCE開放原始碼</p></li>
+                  <li><p>全民政策追蹤： 蔡英文勞動政策追蹤平台</p></li>
+                </ul>
+              </Introduction>    
+            </Content>
+          </SectionWrapper>
       </Container>
     )
   }

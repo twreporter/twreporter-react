@@ -10,7 +10,6 @@ const Container = styled.div`
   display: block;
   width: 100%;
   margin: 0 auto;
-  z-index: 1;
   ${screen.mobile`
     max-width: ${containerStyle.width.mobile};
   `}
