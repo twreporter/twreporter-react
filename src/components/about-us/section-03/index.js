@@ -26,11 +26,11 @@ const awardsData = Object.values(groupedAwards).map(awardsArray =>
 const awardsList = [].concat(...Object.values(awardsData))
 const awardsNumberInSinglePage = 4
 const pagesLength = Math.ceil( awardsList.length / awardsNumberInSinglePage )
-const defaultZIndex = 0
 
 const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
+  overflow: hidden;
   ${screen.desktopAbove`
     min-height: 100vh;
   `}
@@ -48,7 +48,7 @@ const Container = styled.div`
   `}
 `
 
-const SectionWrapper = styled.div`
+const SectionWrapper = styled.section`
   position: relative;
   display: block;
   margin: 0 auto;
@@ -75,31 +75,6 @@ const SectionWrapper = styled.div`
     width: 100%;
     min-height: 922px;
     padding: 50px 47.2px 93px 43px
-  `}
-`
-const BorderBottom = styled.div`
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: calc( ${defaultZIndex} + 1 );
-  background: ${colors.red.liverRed};
-  ${screen.desktopAbove`
-    position: ${props => props.fixed ? 'fixed' : 'absolute'};  
-  `}
-  ${screen.tabletBelow`
-    position: absolute;
-  `}
-  ${screen.overDesktop`
-    height: 8px;
-  `}
-  ${screen.desktop`
-    height: 6px;
-  `}
-  ${screen.tablet`
-    height: 7px;
-  `}  
-  ${screen.mobile`
-    height: 6px;
   `}
 `
 
@@ -296,23 +271,17 @@ export default class Section3 extends PureComponent {
     this.clickCtr = 0
     this.state = {
       timelineAutoScrolling: false,
-      page: 0,
-      isBorderBottomfixed: true
+      page: 0
     }
   }
   _gotoNextPage = () => {
     this.setState({ page: ++this.clickCtr % pagesLength })
   }
   _onPositionChange = (prevPos, currPos) => {
-    if (prevPos === 'inside' && currPos === 'above') {
-      this.setState({ isBorderBottomfixed: false })
-    } else if (prevPos === 'above' && currPos === 'inside') {
-      this.setState({ isBorderBottomfixed: true })
-    } else if (prevPos === 'below' && currPos === 'inside') {
+    if (prevPos === 'below' && currPos === 'inside') {
       this.setState({ timelineAutoScrolling: true })
     }
   }
-
   _createNavigation = () => {
     let navigation = []
     let pagination = []
@@ -353,9 +322,6 @@ export default class Section3 extends PureComponent {
           />
           {this._createNavigation()}
         </SectionWrapper>
-        <BorderBottom 
-          fixed={this.state.isBorderBottomfixed}
-        />
         <Waypoint
           onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
           fireOnRapidScroll

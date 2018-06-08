@@ -34,7 +34,7 @@ const BorderTop = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: calc( ${defaultZIndex} + 1 );
+  z-index: ${props => props.zIndex};
   background: ${colors.red.liverRed};
   ${screen.overDesktop`
     height: 8px;
@@ -234,6 +234,9 @@ export default class Section1 extends PureComponent {
   _animUpdated = (updatedIndex) => {
     this.setState({ currentAnim: updatedIndex })
   }
+  _getBorderZIndex = () => {
+    return defaultZIndex + 1
+  }
   render() {
     const Captions = this.animCaptions.map((caption, index) => {
       const dot = () => {
@@ -262,7 +265,8 @@ export default class Section1 extends PureComponent {
             fireOnRapidScroll
           />      
           <BorderTop
-            fixed={this.state.isBorderTopfixed} 
+            fixed={this.state.isBorderTopfixed}
+            zIndex={this._getBorderZIndex()} 
           />
           <SectionWrapper>
             <Title>

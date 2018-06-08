@@ -5,10 +5,11 @@ import Opening from './opening'
 import React, { PureComponent } from 'react'
 import Section01 from './section-01'
 import Section03 from './section-03'
+import Section04 from './section-04'
 import styled from 'styled-components'
 import WebFont from './web-font'
 
-const Border = styled.div`
+const BorderLeftRight = styled.div`
   ${screen.overDesktop`
     border-left: solid 8px ${colors.red.liverRed};
     border-right: solid 8px ${colors.red.liverRed};
@@ -32,10 +33,11 @@ export class AboutUs extends PureComponent {
     return (
       <React.Fragment>        
         <Opening />
-        <Border>
+        <BorderLeftRight>
           <Section01 />
           <Section03 />
-        </Border>
+          <Section04 />
+        </BorderLeftRight>
         <Footer />
         <WebFont />
       </React.Fragment>        
