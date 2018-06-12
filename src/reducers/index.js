@@ -4,6 +4,7 @@ import { searchedAuthorsList, authorsList } from './authors'
 import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import * as types from '../constants/action-types'
 import header from './header'
 import merge from 'lodash/merge'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
@@ -45,6 +46,12 @@ const rootReducer = combineReducers({
   [reduxStatePropKey.entitiesForAuthors]: (state = {}, action) => {
     if (action.response && action.response.entities) {
       return merge({}, state, action.response.entities)
+    }
+    return state
+  },
+  [reduxStatePropKey.nextNotifyPopupTS]: (state=0, action) => {
+    if (action.type === types.SET_NEXT_POPUP_TIME_STAMP) {
+      return action.payload
     }
     return state
   }
