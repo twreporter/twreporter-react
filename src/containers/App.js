@@ -77,7 +77,7 @@ function updateSubscriptionOnServer(subscription) {
       keys: JSON.stringify(_subscription.keys)
     }
 
-    if (_subscription.expirationTime !== null && typeof _subscription.expirationTime.toString === 'function') {
+    if (_subscription.expirationTime && typeof _subscription.expirationTime.toString === 'function') {
       data.expirationTime = _subscription.expirationTime.toString()
     }
 
@@ -372,8 +372,8 @@ class App extends PureComponent {
   _renderAcceptanceBox() {
     return (
       <NoticePopup>
-        <p>點擊同意即刻開啟推播功能</p>
-        <p>最新文章、專題及其他報導者最新消息將在第一時間通知您！</p>
+        <p>點擊「同意」即刻開啟推播功能</p>
+        <p>您將在第一時間收到《報導者》最新消息（文章、專題、活動等訊息）</p>
         <span onClick={this.denyNotification}>不同意</span>
         <span onClick={this.acceptNotification}>同意</span>
       </NoticePopup>
@@ -383,7 +383,7 @@ class App extends PureComponent {
   _renderInstructionBox() {
     return (
       <NoticePopup>
-        <p>請將瀏覽器設定允許堆播通知</p>
+        <p>請將更改瀏覽器設定來啟動推播通知</p>
         <p>您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。</p>
         <span onClick={this.denyNotification}>略過</span>
         <a href="/a/help-notification-instruction" target="_blank"><span>如何操作？</span></a>
