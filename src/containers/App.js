@@ -54,7 +54,7 @@ function urlB64ToUint8Array(base64String) {
  * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
  */
 function isWebPushSubscribed(endpoint) {
-  return axios.get(formAPIURL(`/web-push/subscriptions?endpoint=${endpoint}`))
+  return axios.get(formAPIURL(`web-push/subscriptions?endpoint=${endpoint}`))
     .then(() => {
       return true
     })
@@ -242,6 +242,7 @@ const NoticePopup = styled.div`
     letter-spacing: 0.5px;
     font-size: ${typography.font.size.xSmall};
     font-weight: 500;
+    cursor: pointer;
   }
 
   span:last-of-type {
@@ -290,7 +291,7 @@ class App extends PureComponent {
               return isRegistrationSubscribed(reg)
                 .then((isSubscribed) => {
                   _this.setState({
-                    oShowNotify: !isSubscribed
+                    toShowNotify: !isSubscribed
                   })
                 })
             }
