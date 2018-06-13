@@ -91,7 +91,7 @@ function updateSubscriptionOnServer(subscription) {
       console.log('Getting authoInfo from localStorage and parsing it to JSON occurs error:', err)
     }
 
-    return axios.post(formAPIURL('/web-push/subscriptions'), data)
+    return axios.post(formAPIURL('web-push/subscriptions'), data)
       .catch((err) => {
         console.error('Sending web push subscription to server occurs error', err)
       })
