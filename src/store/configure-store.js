@@ -3,15 +3,24 @@
 'use strict'
 import bs from './browser-storage'
 import merge from 'lodash/merge'
+import pick from 'lodash/pick'
 import thunkMiddleware from 'redux-thunk'
 import throttle from 'lodash/throttle'
+import reduxStatePropKey from '../constants/redux-state-prop-key'
 import rootReducer from '../reducers'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 
 const _ = {
   merge,
+  pick,
   throttle
+}
+
+function selectCacheFirstProp(reduxState) {
+  const cacheableProps = [ reduxStatePropKey.nextNotifyPopupTS ]
+
+  return _.pick(reduxState, cacheableProps)
 }
 
 export default async function configureStore(history, initialState) {
@@ -35,16 +44,12 @@ export default async function configureStore(history, initialState) {
   // check if redux state in localStorage is valid or not
   if (__CLIENT__) {
     try {
-      const isExpired = await bs.isReduxStateExpired()
-      if(!isExpired) {
-        // merge localStorage redux state copy with new redux state
-        const _state = await bs.getReduxState()
-        reduxState = _.merge(_state, reduxState)
-        await bs.syncReduxState(reduxState)
-      } else {
-        // sync redux state with browser storage
-        await bs.syncReduxState(reduxState)
-      }
+      // TODO find a better wat to use old redux state value
+      const oldState = await bs.getReduxState()
+      const cacheFirstState = selectCacheFirstProp(oldState)
+
+      // sync redux state with browser storage
+      await bs.syncReduxState(_.merge(reduxState, cacheFirstState))
 
       const store = finalCreateStore(rootReducer, reduxState)
 
