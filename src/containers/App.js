@@ -211,7 +211,6 @@ const NoticePopup = styled.div`
   right: 40px;
   bottom: 40px;
   width: 320px;
-  height: 140px;
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
