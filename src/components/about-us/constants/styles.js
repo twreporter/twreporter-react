@@ -1,5 +1,6 @@
 export const font = {
   weight: {
+    thin: '200',
     regular: '400',
     medium: '500',
     bold: '700',
@@ -10,11 +11,10 @@ export const font = {
   },
   family: {
     english: {
-      roboto: `"roboto", "Roboto"`, // medium, bold-italic, bold
-      din: `"din-2014", "DIN"` // medium, bold-italic, bold
+      roboto: `"roboto-slab", "serif"` // thin, bold
     },
     chinese: `"source-han-sans-traditional"`, // medium, bold
-    sansSerifFallback: '"Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif'
+    sansSerifFallback: `"Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif`
   }
 }
 

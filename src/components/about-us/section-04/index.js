@@ -1,5 +1,4 @@
 import { chunk } from 'lodash'
-import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import data from '../constants/section-04/partners'
@@ -8,7 +7,6 @@ import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section4.png'
-import Waypoint from 'react-waypoint'
 
 const _ = {
   chunk, groupBy
@@ -17,7 +15,6 @@ const content = [ ...data ]
 const groupedContent = _.groupBy(content, partner => partner.partnerId)
 const logoBlockBorderColor = ' #e9e9e9'
 const logoBlockWidthOnDesktop = '39%'
-const defaultZIndex = 0
 const column = {
   desktop: 4,
   mobile: 2
@@ -203,32 +200,6 @@ const LogoContent = styled.div`
   `}
 `
 
-const BorderBottom = styled.div`
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: ${props => props.zIndex};
-  background: ${colors.red.liverRed};
-  ${screen.desktopAbove`
-    position: ${props => props.fixed ? 'fixed' : 'absolute'};  
-  `}
-  ${screen.tabletBelow`
-    position: absolute;
-  `}
-  ${screen.overDesktop`
-    height: 8px;
-  `}
-  ${screen.desktop`
-    height: 6px;
-  `}
-  ${screen.tablet`
-    height: 7px;
-  `}  
-  ${screen.mobile`
-    height: 6px;
-  `}
-`
-
 export default class Section4 extends PureComponent {
   constructor(props) {
     super(props)
@@ -268,16 +239,6 @@ export default class Section4 extends PureComponent {
     let { selectedLogo } = this.state
     if (selectedLogo === null ) return
     return groupedContent[content[selectedLogo].partnerId]
-  }
-  _onPositionChange = (prevPos, currPos) => {
-    if (prevPos === 'inside' && currPos === 'below') {
-      this.setState({ isBorderBottomfixed: true })
-    } else if (prevPos === 'below' && currPos === 'inside') {
-      this.setState({ isBorderBottomfixed: false })
-    }
-  }
-  _getBorderZIndex = () => {
-    return defaultZIndex + 1
   }
   render() {
     let { selectedLogo, selectedRow, infoPageNum } = this.state
@@ -321,14 +282,6 @@ export default class Section4 extends PureComponent {
             {LogoTable}
           </Content>
         </SectionWrapper>
-        <BorderBottom 
-          fixed={this.state.isBorderBottomfixed}
-          zIndex={this._getBorderZIndex()}
-        />
-        <Waypoint
-          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-          fireOnRapidScroll
-        />
       </Container>
     )
   }

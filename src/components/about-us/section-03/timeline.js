@@ -65,7 +65,7 @@ export default class Timeline extends PureComponent {
   }
 
   _reachTheEnd = () => {
-    return this.state.timelineShiftY >= this.props.childrenHeight
+    return this.state.timelineShiftY >= this.props.childrenHeight 
   }
 
   componentDidMount() {
