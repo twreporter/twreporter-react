@@ -35,7 +35,8 @@ function selectCacheablePropInReduxState(reduxState) {
     reduxStatePropKey.lists, reduxStatePropKey.topicList,
     reduxStatePropKey.selectedPost, reduxStatePropKey.selectedTopic,
     reduxStatePropKey.routing,
-    reduxStatePropKey.entitiesForAuthors
+    reduxStatePropKey.entitiesForAuthors,
+    reduxStatePropKey.nextNotifyPopupTS
 
     // TODO author list page and author page have some bugs
     // after merging browser storage data. Hence, comment it just for now.
