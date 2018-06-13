@@ -20,6 +20,12 @@ Register service worker at first, and subscribe the web push if the browser coul
 - Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
 localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
+### 2.7.8
+- Update @twreporter/react-components from 4.0.9 to 4.0.10
+
+### 2.7.7
+- Update @twreporter/react-components from 4.0.7 to 4.0.9
+
 ### 2.7.6
 - Introduces screenshot testing only before commiting files.
 - Adds some space between channel bar and title in article page on tablet.
