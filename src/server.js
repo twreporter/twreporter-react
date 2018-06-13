@@ -124,9 +124,9 @@ app.get('*', async function (req, res, next) {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      throw new Error(error)
+      return next(new Error(error))
     } else if (!renderProps) {
-      throw new NotFoundError()
+      return next(new NotFoundError())
     } else {
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
