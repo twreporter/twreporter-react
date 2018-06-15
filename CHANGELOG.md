@@ -1,4 +1,47 @@
 ### Unreleased
+### 3.0.0
+#### Features
+**Progressive Web App(PWA) Implementation** <br/>
+- [x] Connectivity independent - work offline or on low-quality networks
+- [x] Installable - Allows users to add apps they find most useful to their home screen without the hassle of an app store.
+- [x] Re-engageable - Makes re-engagement easy through features like push notifications.
+
+Generate service worker file by template(service-worker/service-worker.tmpl), and generated file is hosted on `/sw.js` by express server.<br/>
+The generated service worker file will do the following things:
+1) Cache static files, such as webpack bundles, while installing service worker.
+2) Delete old cache while activating service worker. Every time the webpack-assets.json changes, the service worker will delete old cached webpack bundles.
+3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
+4) Handle web push notification and the corresponding behaviors after clicking the notification.
+
+Update `src/clients`, which is the entry of webpack bundles.
+Register service worker at first, and subscribe the web push if the browser could.
+
+#### Patches
+- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
+localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
+
+### 2.7.8
+- Update @twreporter/react-components from 4.0.9 to 4.0.10
+
+### 2.7.7
+- Update @twreporter/react-components from 4.0.7 to 4.0.9
+
+### 2.7.6
+- Introduces screenshot testing only before commiting files.
+- Adds some space between channel bar and title in article page on tablet.
+- [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
+- Update @twreporter/react-components from 4.0.5 to 4.0.7
+
+### 2.7.5
+- Use Makefile to replace npm scripts
+- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
+
+### 2.7.4
+- Update embedded component to pack dataset before adding it to element.attributes
+- Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
+
+### 2.7.3
+- [Bug] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
 ### 2.7.2
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.

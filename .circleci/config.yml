@@ -28,7 +28,7 @@ jobs:
 
       # run tests!
       - run: yarn test
-      - run: yarn build
+      - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
 
       - run:
           name: Save pkg version to a file

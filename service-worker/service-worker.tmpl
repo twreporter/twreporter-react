@@ -1,0 +1,157 @@
+var staticFilesToCache = <%= staticFilesToCache %>;
+var cacheName = '<%= cacheName %>' + (self.registration ? self.registration.scope : '');
+
+<% Object.keys(externalFunctions).sort().forEach(function(functionName) {%>
+var <%- functionName %> = <%= externalFunctions[functionName] %>;
+<% }); %>
+
+self.addEventListener('install', function(e) {
+  console.log('[ServiceWorker] Install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('[ServiceWorker] Caching app shell');
+      return cache.addAll(staticFilesToCache);
+    })
+  );
+});
+
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
+  e.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== cacheName) {
+          console.log('[ServiceWorker] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  /*
+   * Fixes a corner case in which the app wasn't returning the latest data.
+   */
+  return self.clients.claim();
+});
+
+
+self.addEventListener('fetch', function(e) {
+  if (isPathWhitelisted(<%= pagePatternToCache %>, e.request.url)) {
+    console.log('[Service Worker] NetworkFirst. Fetch', e.request.url);
+    return e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return fetch(e.request)
+          .then(function(response) {
+            cache.put(e.request.url, response.clone());
+            return response;
+          })
+          .catch(function(err) {
+            return cache.match(e.request.url)
+            .then(function(response) {
+              if (response) {
+                console.log('[Service Worker] Fetch', e.request.url , ' from Cache.')
+                return response
+              }
+              return clients.matchAll({type: 'window'})
+              .then(function(_clients) {
+                return _clients.filter(function(client) {
+                  return client.url === e.request.url;
+                });
+              })
+              .then(function(matchingClients) {
+                if (matchingClients[0]) {
+                  const redirectURL = new URL(e.request.url).origin + '<%= fallbackPage %>' + '?redirect=' + e.request.url
+                  return matchingClients[0]
+                    .navigate(redirectURL)
+                    .then(function(client) {
+                      client.focus();
+                    })
+                }
+              })
+            })
+          })
+      })
+    );
+  } else if (e.request.url.indexOf('<%= fallbackPage %>') > -1) {
+    console.log('[Service Worker] CacheFirst. Fetch fallback page', '<%= fallbackPage %>');
+    return e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(e.request, {ignoreSearch: true});
+      })
+    );
+  }
+
+  var url = new URL(e.request.url)
+  if (staticFilesToCache.indexOf(url.pathname) > -1) {
+    console.log('[Service Worker] CacheFirst. Fetch', e.request.url);
+    return e.respondWith(
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(e.request).then(function(cached) {
+          if (cached) {
+            console.log('[Service Worker] Fetch ', e.request.url, ' from Cache.');
+          }
+          return cached || fetch(e.request);
+        });
+      })
+    );
+  }
+});
+
+self.addEventListener('push', function(event) {
+  try {
+    console.log('[Service Worker] Push Received.');
+    console.log('[Service Worker] Push had this data: ' + event.data.text());
+    const data = event.data.text();
+    const body = JSON.parse(data).title;
+    const title = '報導者The Reporter';
+    const options = {
+      body: body,
+      data: data,
+      badge: 'https://www.twreporter.org/images/launcher-icon-48x48.png',
+      icon: 'https://www.twreporter.org/images/launcher-icon-48x48.png'
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch(err) {
+    console.error('[Service Worker] Parsing push data occurs error:', err);
+  }
+});
+
+self.addEventListener('notificationclick', function(event) {
+  try {
+    console.log('[Service Worker] On notification click');
+
+    // Data can be attached to the notification so that you
+    // can process it in the notificationclick handler.
+    console.log('[Service Worker] Notification Tag:', event.notification.tag);
+    console.log('[Service Worker] Notification Data:', event.notification.data);
+    const href = JSON.parse(event.notification.data).href;
+    event.notification.close();
+
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(clients.matchAll({
+      type: 'window'
+    }).then(function(clientList) {
+      for (var i = 0; i < clientList.length; i++) {
+        var client = clientList[i];
+        if (client.url == href && 'focus' in client)
+          return client.focus();
+      }
+      if (clients.openWindow)
+        return clients.openWindow(href);
+    }));
+  } catch(err) {
+    console.error('[Service Worker] Handling notification occurs error:', err)
+  }
+});
+
+<% if (swToolBoxCode) { %>
+// *** Start of auto-included sw-toolbox code. ***
+<%= swToolBoxCode %>
+// *** End of auto-included sw-toolbox code. ***
+<% } %>
+
+<% if (runtimeCaching) { %>
+// Runtime cache configuration, using the sw-toolbox library.
+<%= runtimeCaching %>
+<% } %>
