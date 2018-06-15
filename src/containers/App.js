@@ -83,7 +83,7 @@ function updateSubscriptionOnServer(subscription) {
 
     const browserLocalStorage = (typeof localStorage === 'undefined') ? null : localStorage
     try {
-      const authInfo = JSON.parse(browserLocalStorage.getItem(localStorageKeys.authoInfo))
+      const authInfo = JSON.parse(browserLocalStorage.getItem(localStorageKeys.authInfo))
       if (authInfo.id) {
         data.userID = authInfo.id
       }
