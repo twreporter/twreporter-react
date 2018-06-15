@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.7.8",
+  "version": "3.0.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -69,6 +69,7 @@
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "^0.3.0",
     "styled-components": "^2.1.1",
+    "sw-toolbox": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {

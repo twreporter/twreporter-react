@@ -20,8 +20,10 @@ help:
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles and write their filepaths into webpack-asset.json"
 	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
-	#@echo "\033[33m[webpack]\033[0m build service-worker"
-	#NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack-service-worker.config.js --progress --colors
+
+build-service-worker: 
+	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
+	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) $(BIN_DIR)/babel-node service-worker/service-worker-generator.js
 
 # transiple es6 files into es5 
 build-server:
@@ -32,7 +34,7 @@ build-pm2-config:
 	@echo "\033[33m[PM2]\033[0m generate processes.json"
 	RELEASE_BRANCH=$(RELEASE_BRANCH) node build-pm2-processes.js
 
-build: clean build-webpack build-server build-pm2-config
+build: clean build-webpack build-service-worker build-server build-pm2-config
 
 start-server:
 	@echo "\033[33m[PM2]\033[0m start application server"
@@ -42,7 +44,7 @@ start: build start-server
 
 stop: 
 	@echo "\033[33m[PM2]\033[0m stop application server"
-	@$(BIN_DIR)/pm2 kill
+	@$(BIN_DIR)/pm2 delete server 
 
 start-testing-server: 
 	@echo " $(P) start testing server by babel-node src/testing-server.js\n"

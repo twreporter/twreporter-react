@@ -35,7 +35,8 @@ function selectCacheablePropInReduxState(reduxState) {
     reduxStatePropKey.lists, reduxStatePropKey.topicList,
     reduxStatePropKey.selectedPost, reduxStatePropKey.selectedTopic,
     reduxStatePropKey.routing,
-    reduxStatePropKey.entitiesForAuthors
+    reduxStatePropKey.entitiesForAuthors,
+    reduxStatePropKey.nextNotifyPopupTS
 
     // TODO author list page and author page have some bugs
     // after merging browser storage data. Hence, comment it just for now.
@@ -75,10 +76,8 @@ function isReduxStateExpired() {
  * @returns {Object} A Promise, resolve with redux state
  */
 function setReduxState(reduxState) {
-  let _state = reduxState
   if (__CLIENT__) {
-    _state = selectCacheablePropInReduxState(reduxState)
-    return localForage.setItem(keys.state, _state)
+    return localForage.setItem(keys.state, reduxState)
       .then(() => {
         return localForage.getItem(keys.state)
       })
@@ -123,12 +122,12 @@ function getReduxState() {
  * @param {number} [maxAge=600] - default value is 600 seconds. Date.now() + maxAge = expire time
  * @returns {Object} A Promise, resovle with redux state merged with the copy in the browser storage
  */
-function syncReduxState(reduxState, maxAge=600) {
+function syncReduxState(newReduxState, maxAge=600) {
+  const toCacheState = selectCacheablePropInReduxState(newReduxState)
   return isReduxStateExpired()
     .then((isExpired) => {
-      console.log('isExpired:', isExpired)
       if(isExpired) {
-        return setReduxState(reduxState)
+        return setReduxState(toCacheState)
           .then((_state) => {
             return setReduxStateExpires(maxAge)
               .then(() => {
@@ -136,7 +135,11 @@ function syncReduxState(reduxState, maxAge=600) {
               })
           })
       }
-      return setReduxState(_.merge(getReduxState(), reduxState))
+
+      return getReduxState()
+        .then((oldState) => {
+          return setReduxState(_.merge(oldState, toCacheState))
+        })
     })
     .catch((err) => {
       console.error('Operations by localForage library occurs error:', err)

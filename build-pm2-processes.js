@@ -1,5 +1,5 @@
-const config = require('./config')
 const fs = require('fs')
+const rb = process.env.RELEASE_BRANCH || 'master'
 
 fs.writeFileSync('processes.json', JSON.stringify({
   apps: [{
@@ -11,10 +11,10 @@ fs.writeFileSync('processes.json', JSON.stringify({
     error_file  : 'pm2-server-err.log',
     env         : {
       NODE_ENV: 'production',
-      RELEASE_BRANCH: process.env.RELEASE_BRANCH || 'master',
-      API_HOST: config.API_HOST,
-      API_PROTOCOL: config.API_PROTOCOL,
-      API_PORT: config.API_PORT
+      RELEASE_BRANCH: rb,
+      API_HOST: rb === 'master' ? 'localhost' : 'go-api',
+      API_PROTOCOL: 'http',
+      API_PORT: '8080'
     },
     node_args: '--max_old_space_size=2048'
   }]
