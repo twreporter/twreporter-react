@@ -40,5 +40,5 @@ docker build -t twreporter-react:latest .
 ```
 
 # License
-* Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
+* Copyright (C) 2015 - 2018 The Reporter 報導者. All rights reserved.
 * Distributed under the GNU AGPL v3.0

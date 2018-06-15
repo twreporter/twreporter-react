@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
 import React from 'react'
@@ -12,6 +14,7 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 let reduxState
+
 if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
 }
@@ -46,3 +49,16 @@ configureStore(browserHistory, reduxState)
     })
   })
 
+// Setup service worker if browser supports
+if('serviceWorker' in navigator && !__DEVELOPMENT__) {
+  // register service worker
+  navigator.serviceWorker.register('/sw.js').then(function (registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ', registration.scope)
+  }, function (err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err)
+  })
+} else {
+  console.log('Service worker is not registered.')
+}
