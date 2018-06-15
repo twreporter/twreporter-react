@@ -193,6 +193,7 @@ pe.skipPackage('express')
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)) // eslint-disable-line no-console
+  res.header('Cache-Control', 'no-store')
   if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
     res.redirect('/error/404')
   } else {
