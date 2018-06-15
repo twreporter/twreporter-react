@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.1
+- [HotFix] Update src/containers/App.js. Fix typo.
+
 ### 3.0.0
 #### Features
 **Progressive Web App(PWA) Implementation** <br/>
