@@ -1,4 +1,8 @@
 ### Unreleased
+### 3.0.2
+-  Improve the service worker boilerplate. Update src/client.js 
+- [Bug] Fix venngage infographic vendor not rendering iframe
+
 ### 3.0.1
 - [HotFix] Update src/containers/App.js. Fix typo.
 
