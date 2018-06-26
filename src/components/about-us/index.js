@@ -4,6 +4,7 @@ import Footer from '@twreporter/react-components/lib/footer'
 import Opening from './opening'
 import React, { PureComponent } from 'react'
 import Section01 from './section-01'
+import Section02 from './section-02'
 import Section03 from './section-03'
 import Section04 from './section-04'
 import Section05 from './section-05'
@@ -36,6 +37,7 @@ export class AboutUs extends PureComponent {
         <Opening />
         <BorderLeftRight>
           <Section01 />
+          <Section02 />
           <Section03 />
           <Section04 />
           <Section05 />
