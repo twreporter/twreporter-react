@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.4
+- Restore web push subscription service.
+
 ### 3.0.3
 - Temporarily stop web push subscription service. 
 
