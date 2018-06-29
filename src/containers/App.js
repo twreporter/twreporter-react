@@ -1,4 +1,3 @@
-/* global __CLIENT__ */
 /* eslint no-console: 0 */
 import * as types from '../constants/action-types'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -280,6 +279,7 @@ class App extends PureComponent {
     }
   }
 
+  /*
   componentWillMount() {
     const _this = this
     if (__CLIENT__) {
@@ -298,6 +298,7 @@ class App extends PureComponent {
       }
     }
   }
+  */
 
   componentDidMount() {
     // token can be stored in localStorage in two scenario
