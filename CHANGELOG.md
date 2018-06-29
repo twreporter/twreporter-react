@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.3
+- Temporarily stop web push subscription service. 
+
 ### 3.0.2
 - Improve the service worker boilerplate. Update src/client.js 
 - [Bug] Fix venngage infographic vendor not rendering iframe
