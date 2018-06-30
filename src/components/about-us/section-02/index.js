@@ -31,6 +31,7 @@ const categoriesAll = [ ...categories.media, ...categories.fundation ]
 const groupedMembers = _.groupBy( members, member => member.category )
 const membersNumberArray = Object.values(groupedMembers).map((membersArray) => { return membersArray.length })
 const transitionDuration = 500
+
 const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
@@ -46,6 +47,25 @@ const Container = styled.div`
   ${screen.mobile`
     margin: ${marginBetweenSections.mobile} 0;    
   `}
+`
+
+const Border = styled.div `
+  ${screen.overDesktop`
+    border-left: solid 8px ${colors.red.liverRed};
+    border-right: solid 8px ${colors.red.liverRed};
+  `}
+  ${screen.desktop`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}
+  ${screen.tablet`
+    border-left: solid 7px ${colors.red.liverRed};
+    border-right: solid 7px ${colors.red.liverRed};
+  `}  
+  ${screen.mobile`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}    
 `
 
 const SectionWrapper = styled.section`
@@ -519,46 +539,48 @@ export default class Section2 extends PureComponent {
     let cursor = (this.state.currentPagesArray[this.state.selectedDepartmentIndex] + 1) * numbersInfullPage.mobile
     let selectedMemberList = groupedMembers[Object.values(categoryIds)[this.state.selectedDepartmentIndex]]
     return (
-      <Container>
-        <SectionWrapper>
-          <Title>
-            <span>成員</span>
-            <span>MEMBERS</span>
-          </Title>
-          <IntroOnOverDesktop>
-            <p>{foundationIntro.chinese}</p>
-            <p>{mediaIntro.chinese}</p>
-          </IntroOnOverDesktop>
-          <Content>
-            <DisplayOnTabletAbove>
-              {Departments}
-            </DisplayOnTabletAbove>
-            <DisplayOnMobile>
-              <DepartmentsNameList 
-                categoriesAll = {categoriesAll}
-                selectDepartment = {this._selectDepartment}
-                selectedDepartmentIndex = {this.state.selectedDepartmentIndex} />
-              <PaginatedMemberList 
-                  selectedDepartmentIndex = {this.state.selectedDepartmentIndex}
-                  membersPageLengthArray = {this.membersPageLengthArray}
-                  isArrowVisible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
-                  changePage = {this._changePage}
-                  cursor = {cursor}
-                  selectedMemberList = {selectedMemberList} />
-              <Navigation
-                departmentIndex = {this.state.selectedDepartmentIndex}
-                device = {this.device}
-                pagesLength = {this.membersPageLengthArray[this.state.selectedDepartmentIndex]}
-                currentPage = {this.state.currentPagesArray[this.state.selectedDepartmentIndex]}
-              />
-            </DisplayOnMobile>
-          </Content>
-          <IntroOnDesktopBelow>
-            <p>{foundationIntro.chinese}</p>
-            <p>{mediaIntro.chinese}</p>
-          </IntroOnDesktopBelow>
-        </SectionWrapper>
-      </Container>
+      <Border>
+        <Container>
+          <SectionWrapper>
+            <Title>
+              <span>成員</span>
+              <span>MEMBERS</span>
+            </Title>
+            <IntroOnOverDesktop>
+              <p>{foundationIntro.chinese}</p>
+              <p>{mediaIntro.chinese}</p>
+            </IntroOnOverDesktop>
+            <Content>
+              <DisplayOnTabletAbove>
+                {Departments}
+              </DisplayOnTabletAbove>
+              <DisplayOnMobile>
+                <DepartmentsNameList 
+                  categoriesAll = {categoriesAll}
+                  selectDepartment = {this._selectDepartment}
+                  selectedDepartmentIndex = {this.state.selectedDepartmentIndex} />
+                <PaginatedMemberList 
+                    selectedDepartmentIndex = {this.state.selectedDepartmentIndex}
+                    membersPageLengthArray = {this.membersPageLengthArray}
+                    isArrowVisible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
+                    changePage = {this._changePage}
+                    cursor = {cursor}
+                    selectedMemberList = {selectedMemberList} />
+                <Navigation
+                  departmentIndex = {this.state.selectedDepartmentIndex}
+                  device = {this.device}
+                  pagesLength = {this.membersPageLengthArray[this.state.selectedDepartmentIndex]}
+                  currentPage = {this.state.currentPagesArray[this.state.selectedDepartmentIndex]}
+                />
+              </DisplayOnMobile>
+            </Content>
+            <IntroOnDesktopBelow>
+              <p>{foundationIntro.chinese}</p>
+              <p>{mediaIntro.chinese}</p>
+            </IntroOnDesktopBelow>
+          </SectionWrapper>
+        </Container>
+      </Border>
     )
   }
 }

@@ -51,6 +51,25 @@ const Container = styled.div`
   `}
 `
 
+const Border = styled.div `
+  ${screen.overDesktop`
+    border-left: solid 8px ${colors.red.liverRed};
+    border-right: solid 8px ${colors.red.liverRed};
+  `}
+  ${screen.desktop`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}
+  ${screen.tablet`
+    border-left: solid 7px ${colors.red.liverRed};
+    border-right: solid 7px ${colors.red.liverRed};
+  `}  
+  ${screen.mobile`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}    
+`
+
 const SectionWrapper = styled.section`
   position: relative;
   display: block;
@@ -423,63 +442,65 @@ export default class Section3 extends PureComponent {
   render() {
     const selectedDatalist = groupedAwards[this.state.activeAwardId]
     return (
-    <Container>
-      <SectionWrapper>
-        <LeftColumn>
-          <MobCircle />
-          <Title>
-            <span>得獎</span>
-            <span>AWARD</span>
-          </Title>
-          <ListSelector>
-            <AwardsNameList
-              awardsName={awardsName}
-              activeAwardId={this.state.activeAwardId}
-              selectAward={this._selectAward}
-            />
-            <Circle />
-          </ListSelector>
-          <Achievement>
-            <AwardsCount>
-              <img src={riceEarBlack} />
-              <h2>{awardsList.length}</h2>
-              <p>件</p>
-              <img src={riceEarBlack} />            
-            </AwardsCount>
-            <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
-          </Achievement>
-        </LeftColumn>
-        <CarouselSelector>
-          <LeftArrow
-            onClick={() => this._gotoNextAward('prev')}>
-            <ArrowNextIcon />
-          </LeftArrow>
-          <RightArrow
-            onClick={() => this._gotoNextAward('next')}>
-            <ArrowNextIcon />
-          </RightArrow>
-          <PageWrapper>
-            <AwardsSelector
-              transitionEffect={this.state.transitionEffect}
-              pageNumber={this.state.carouselPageIndex}
-              onTransitionEnd={this._onItemShifted}
-            >
+    <Border>
+      <Container>
+        <SectionWrapper>
+          <LeftColumn>
+            <MobCircle />
+            <Title>
+              <span>得獎</span>
+              <span>AWARD</span>
+            </Title>
+            <ListSelector>
               <AwardsNameList
-                awardsName={awardsNameForCarousel}
+                awardsName={awardsName}
                 activeAwardId={this.state.activeAwardId}
-                selectAward={() => {}}
+                selectAward={this._selectAward}
               />
-            </AwardsSelector>
-            <SemiTransparentMask position={'left'}/>
-            <SemiTransparentMask position={'right'}/>
-          </PageWrapper>
-        </CarouselSelector>
-        <Content
-          gotoNextPage={this._gotoNextPage}
-          selectedDatalist={selectedDatalist}
-        />
-      </SectionWrapper>
-    </Container>
+              <Circle />
+            </ListSelector>
+            <Achievement>
+              <AwardsCount>
+                <img src={riceEarBlack} />
+                <h2>{awardsList.length}</h2>
+                <p>件</p>
+                <img src={riceEarBlack} />            
+              </AwardsCount>
+              <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
+            </Achievement>
+          </LeftColumn>
+          <CarouselSelector>
+            <LeftArrow
+              onClick={() => this._gotoNextAward('prev')}>
+              <ArrowNextIcon />
+            </LeftArrow>
+            <RightArrow
+              onClick={() => this._gotoNextAward('next')}>
+              <ArrowNextIcon />
+            </RightArrow>
+            <PageWrapper>
+              <AwardsSelector
+                transitionEffect={this.state.transitionEffect}
+                pageNumber={this.state.carouselPageIndex}
+                onTransitionEnd={this._onItemShifted}
+              >
+                <AwardsNameList
+                  awardsName={awardsNameForCarousel}
+                  activeAwardId={this.state.activeAwardId}
+                  selectAward={() => {}}
+                />
+              </AwardsSelector>
+              <SemiTransparentMask position={'left'}/>
+              <SemiTransparentMask position={'right'}/>
+            </PageWrapper>
+          </CarouselSelector>
+          <Content
+            gotoNextPage={this._gotoNextPage}
+            selectedDatalist={selectedDatalist}
+          />
+        </SectionWrapper>
+      </Container>
+    </Border>
   )
   }
 }

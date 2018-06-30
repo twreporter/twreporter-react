@@ -19,10 +19,10 @@ export const font = {
 }
 
 export const marginBetweenSections = {
-  mobile: '100px',
-  tablet: '200px',
-  desktop: '200px',
-  overDesktop: '250px'
+  mobile: '0',
+  tablet: '0',
+  desktop: '0',
+  overDesktop: '0'
 }
 
 

@@ -9,6 +9,7 @@ import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.pn
 import Waypoint from 'react-waypoint'
 
 const defaultZIndex = 0
+
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
@@ -26,6 +27,25 @@ const Container = styled.div`
   `}  
   ${screen.mobile`
     margin: 0 0 ${marginBetweenSections.mobile} 0;    
+  `}    
+`
+
+const Border = styled.div`
+  ${screen.overDesktop`
+    border-left: solid 8px ${colors.red.liverRed};
+    border-right: solid 8px ${colors.red.liverRed};
+  `}
+  ${screen.desktop`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}
+  ${screen.tablet`
+    border-left: solid 7px ${colors.red.liverRed};
+    border-right: solid 7px ${colors.red.liverRed};
+  `}  
+  ${screen.mobile`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
   `}    
 `
 
@@ -259,35 +279,37 @@ export default class Section1 extends PureComponent {
       )
     })
     return (
-      <Container>
-          <Waypoint
-            onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-            fireOnRapidScroll
-          />      
-          <BorderTop
-            fixed={this.state.isBorderTopfixed}
-            zIndex={this._getBorderZIndex()} 
-          />
-          <SectionWrapper>
-            <Title>
-              <span>特色</span>
-            </Title>
-            <Content>
-              {Captions}
-              <LottieAnim 
-                animDidUpdate={this._animUpdated}
-              />
-              <Introduction>
-                <ul>
-                  <p>屬於社會的《報導者》</p>
-                  <li><p>CC授權（ 姓名標示／非商業性／禁止改作</p></li>
-                  <li><p>OPEN SOURCE開放原始碼</p></li>
-                  <li><p>全民政策追蹤： 蔡英文勞動政策追蹤平台</p></li>
-                </ul>
-              </Introduction>    
-            </Content>
-          </SectionWrapper>
-      </Container>
+      <Border>
+        <Container>
+            <Waypoint
+              onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
+              fireOnRapidScroll
+            />      
+            <BorderTop
+              fixed={this.state.isBorderTopfixed}
+              zIndex={this._getBorderZIndex()} 
+            />
+            <SectionWrapper>
+              <Title>
+                <span>特色</span>
+              </Title>
+              <Content>
+                {Captions}
+                <LottieAnim 
+                  animDidUpdate={this._animUpdated}
+                />
+                <Introduction>
+                  <ul>
+                    <p>屬於社會的《報導者》</p>
+                    <li><p>CC授權（ 姓名標示／非商業性／禁止改作</p></li>
+                    <li><p>OPEN SOURCE開放原始碼</p></li>
+                    <li><p>全民政策追蹤： 蔡英文勞動政策追蹤平台</p></li>
+                  </ul>
+                </Introduction>    
+              </Content>
+            </SectionWrapper>
+        </Container>
+      </Border>
     )
   }
 }

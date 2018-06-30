@@ -48,6 +48,25 @@ const Container = styled.div`
   `}
 `
 
+const Border = styled.div `
+  ${screen.overDesktop`
+    border-left: solid 8px ${colors.red.liverRed};
+    border-right: solid 8px ${colors.red.liverRed};
+  `}
+  ${screen.desktop`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}
+  ${screen.tablet`
+    border-left: solid 7px ${colors.red.liverRed};
+    border-right: solid 7px ${colors.red.liverRed};
+  `}  
+  ${screen.mobile`
+    border-left: solid 6px ${colors.red.liverRed};
+    border-right: solid 6px ${colors.red.liverRed};
+  `}    
+`
+
 const SectionWrapper = styled.section`
   position: relative;
   display: block;
@@ -404,39 +423,16 @@ export default class Section5 extends PureComponent {
   }
   render() {
     return (
-      <Container>
-        <SectionWrapper>
-          <Title><span>大事紀</span></Title>
-          <Circle color={`${colors.black}`}>
-            <Circle color={`${colors.gray.gray96}`}/>
-            <Rect color={`${colors.secondaryColor}`}/>
-          </Circle>
-          <Content>
-            <AccordionTimeline>
-              <List
-                unfoldArray={this.state.unfoldArray}
-                sortedData={sortedData}
-                sortedDataGroupByYear={sortedDataGroupByYear}
-                foldAndUnfold={this._foldAndUnfold}
-                getYearContentHeight={this._getYearContentHeight}  
-              />
-            </AccordionTimeline>
-            <YearRange>
-              <p><span>{yearList[yearList.length - 1]}</span></p>
-              <p>
-                <span>{yearList[0]}</span>
-                <img src={arrow} />
-              </p>
-            </YearRange>
-            <RunningTimeline>
-              <Timeline
-                ref={scrollingContent => this.scrollingContent = scrollingContent}
-                childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion} 
-                autoScrolling={this.state.timelineScrolling}
-                startAutoScroll={this._startTimelineAutoScrolling}
-                stopAutoScroll={this._stopTimelineAutoScrolling}
-                yearContentHeight={this.state.yearContentHeight}
-                getYear={this._getYear}>
+      <Border>
+        <Container>
+          <SectionWrapper>
+            <Title><span>大事紀</span></Title>
+            <Circle color={`${colors.black}`}>
+              <Circle color={`${colors.gray.gray96}`}/>
+              <Rect color={`${colors.secondaryColor}`}/>
+            </Circle>
+            <Content>
+              <AccordionTimeline>
                 <List
                   unfoldArray={this.state.unfoldArray}
                   sortedData={sortedData}
@@ -444,22 +440,47 @@ export default class Section5 extends PureComponent {
                   foldAndUnfold={this._foldAndUnfold}
                   getYearContentHeight={this._getYearContentHeight}  
                 />
-              </Timeline>
-            </RunningTimeline>
-            <YearTag>
-              <p>{this.state.currentYear}</p>
-            </YearTag>
-          </Content>
-        </SectionWrapper>
-        <BorderBottom 
-          fixed={this.state.isBorderBottomfixed}
-          zIndex={this._getBorderZIndex()}
-        />
-        <Waypoint
-          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-          fireOnRapidScroll
-        />
-      </Container>
+              </AccordionTimeline>
+              <YearRange>
+                <p><span>{yearList[yearList.length - 1]}</span></p>
+                <p>
+                  <span>{yearList[0]}</span>
+                  <img src={arrow} />
+                </p>
+              </YearRange>
+              <RunningTimeline>
+                <Timeline
+                  ref={scrollingContent => this.scrollingContent = scrollingContent}
+                  childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion} 
+                  autoScrolling={this.state.timelineScrolling}
+                  startAutoScroll={this._startTimelineAutoScrolling}
+                  stopAutoScroll={this._stopTimelineAutoScrolling}
+                  yearContentHeight={this.state.yearContentHeight}
+                  getYear={this._getYear}>
+                  <List
+                    unfoldArray={this.state.unfoldArray}
+                    sortedData={sortedData}
+                    sortedDataGroupByYear={sortedDataGroupByYear}
+                    foldAndUnfold={this._foldAndUnfold}
+                    getYearContentHeight={this._getYearContentHeight}  
+                  />
+                </Timeline>
+              </RunningTimeline>
+              <YearTag>
+                <p>{this.state.currentYear}</p>
+              </YearTag>
+            </Content>
+          </SectionWrapper>
+          <BorderBottom 
+            fixed={this.state.isBorderBottomfixed}
+            zIndex={this._getBorderZIndex()}
+          />
+          <Waypoint
+            onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
+            fireOnRapidScroll
+          />
+        </Container>
+      </Border>
     )
   }
 }
