@@ -1,32 +1,44 @@
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
 import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
-import AwardItems from './award-items'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import Timeline from './timeline'
 
-const RunningTimeline = styled.div `
-  ${screen.mobile`
-    display: none;
-  `}
-`
+const mockupString = '金獎'
+const awardsNumberInSinglePage = 3
 
-const PaginatedTimeline = styled.div `
-  ${screen.tabletAbove`
-    display: none;
-  `}
-`
-
-const RightArrow = styled.div `
+const Arrow = styled.div`
+  position: absolute;
+  right: -50px;
   width: 30px;
   height: 70px;
+`
+
+const TopArrow = Arrow.extend`
+  top: 0;
+  transform-origin: 50% 50%;
+  transform: translateX(-50%) rotate(-90deg);
+`
+
+const BottomArrow = Arrow.extend`
+  bottom: 0;
+  transform-origin: 50% 0;
+  transform: translateX(-50%) rotate(90deg);
+`
+
+const Arrows = styled.div`
   position: absolute;
+  top: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
+  transform: translateY(10%) scaleY(1.2);
+  cursor: pointer;
+  ${screen.tabletBelow`
+    display: none;
+  `}
 `
 
 const Container = styled.div `
@@ -35,101 +47,18 @@ const Container = styled.div `
   height: 100%;
   float: right;
   text-align: center;
-  overflow-y: hidden;
   background: ${colors.gray.gray96};
-  background-clip: content-box;
-  padding: 54px 0 54px 34px;
-  ul{
-    text-align: left;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  a{
-    color: ${colors.black};
-  }
-  p, h2{
-    display: block;
-    margin: 0;
-  }
-  li{
-    p:first-child{
-      margin-left: -20px;
-      span{
-        font-size: 13px;
-        letter-spacing: 2.2px;
-      }
-      span:first-child{
-        font-weight: bold;
-        margin-right: 13px;
-      }
-    }
-    h2{
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 0.8px;
-    }
-    p:last-child{
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 2.71;
-      letter-spacing: 1px;
-      color: ${colors.secondaryColor};
-    }
-  }
   ${screen.overDesktop`
     width: 530px;
-    li{
-      margin: 10px 0 0 -10px;
-      p:first-child{
-        margin-left: -20px;
-      }
-    }  
   `}
   ${screen.desktop`
-    padding: 54px 0 54px 34px;
     width: 432px;
-    li{
-      margin: 10px 0 0 -5px;
-      p:first-child{
-        margin-left: -25px;
-      }
-    }  
   `}
   ${screen.tablet`
-    height: 519px;
     margin-top: 60.1px;
   `}
   ${screen.mobile`
-    height: 456px;
-    margin-top: 42px;
-    padding: 0 0 0 35px;
-    li{
-      margin: 10px 0 30px -10px;
-      p:first-child{
-        margin-left: -25px;
-        span{
-          font-size: 14px;
-          letter-spacing: 2px;
-        }
-        span:first-child{
-          font-weight: bold;
-          margin-right: 5px;
-        }
-      }
-      h2{
-        font-size: 18px;
-        font-weight: bold;
-        letter-spacing: 1px;
-      }
-      p:last-child{
-        font-size: 13px;
-        font-weight: bold;
-        line-height: 2.92;
-        letter-spacing: 1px;
-        line-height: 1.71;
-      }
-    }    
+    margin-top: 37px;
   `}  
 `
 
@@ -140,46 +69,314 @@ const SemiTransparentMask = styled.div `
   width: 100%;
   height: 20px;
   background: ${props => `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const Pages = styled.div`
+  display: block;
+  width: 100%;
+  ${screen.desktopAbove`
+    height: 100%;
+    transform: translate3d(0, ${props => props.shiftY}, 0);
+    transition: all 500ms ease-in-out;  
+  `}
+`
+
+const SinglePage = styled.div`
+  position: relative;
+`
+
+const PageItems = styled.ul`
+  display: block;
+  width: 100%;
+  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  ${screen.tablet`
+    padding: 0 0 0 45px;
+  `}
+  ${screen.mobile`
+    padding: 0 0 0 17px;
+  `}
+  a{
+    color: ${colors.black};
+  }
+  ${screen.tablet`
+    li:last-child{
+      margin-bottom: -40px;
+    }
+  `}
+  ${screen.mobile`
+    li:last-child{
+      margin-bottom: -35px;
+    }
+  `}
+`
+
+const AwardItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 44px;
+  ${screen.tablet`
+    padding-bottom: 40px;
+  `}
+  ${screen.mobile`
+    padding-bottom: 35px;
+  `}
+`
+
+const Ranking = styled.p`
+  white-space: nowrap;
+  visibility: ${props => props.display ? 'visible' : 'hidden'};
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1.9px;
+  color: ${colors.secondaryColor};
+  margin-right: 10px;
+  text-align: right;
+`
+
+const MoreInfo = styled.div`
+  p:first-child{
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1.9px;
+    margin-bottom: 10px;
+    span:first-child{
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid ${colors.black};
+    }
+  }
+  p:nth-child(2){
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 10px;
+  }
+  p:last-child{
+    opacity: 0.65;
+    font-size: 14px;
+    line-height: 1.36;
+    padding-top: 6px;
+  }
+`
+
+const YearTag = styled.p`
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+  font-weight: ${font.weight.bold};
+`
+
+const YearTagOnDesktopAbove = YearTag.extend`
+  ${screen.desktopAbove`
+    transform: translateX(-100%);
+    color: ${colors.white};
+    background: ${colors.black};
+    padding: 2px;
+  `}
+  ${screen.overDesktop`
+    font-size: 15px;
+  `}
+  ${screen.desktop`
+    font-size: 13px;  
+  `}
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const YearTagOnTabletBelow = YearTag.extend`
+  position: relative;
+  text-align: left;
+  ${screen.tablet`
+    padding-bottom: 10px;
+  `}
+  ${screen.mobile`
+    font-size: 14px;
+    padding-bottom: 21px;
+  `}
+  ${screen.desktopAbove`
+    display: none;
+  `}
+`
+
+const PagesWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 40px 46px;
+  ${screen.desktopAbove`
+    height: 100%;
+    overflow-y: hidden;
+  `}
+  ${screen.tablet`
+    padding: 0 116px 20px 31px;
+  `}
+  ${screen.mobile`
+    padding: 0 7px 29px 0; 
+  `}
 `
 
 export default class Content extends PureComponent {
   constructor(props) {
     super(props)
+    this.singlePages = []
+    this.clickCtr = 0
     this.state = {
-      scrollingHeight: 0
+      page: 0,
+      pageContentHeight: []
     }
   }
+  /**
+   * This callback function is used to scroll the award items page when clicking arrows
+   * @param {String} direction
+   * @param {Number} pagesLength
+   */
+  _gotoNextPage = (direction, pagesLength) => {
+    let newPage
+    switch(direction) {
+      case 'next':
+        newPage = ++this.clickCtr % pagesLength
+        break
+      case 'prev':
+        if (this.clickCtr === 0) {
+          this.clickCtr = pagesLength - 1
+          newPage = this.clickCtr
+        } else {
+          newPage = --this.clickCtr % pagesLength
+        }
+        break
+      default:
+        newPage = 0
+    }
+    this.setState({
+      page: newPage
+    })
+  }
+  /**
+   * By using the state of current page, this function decides the translateY value of award items page
+   * @param {Number} currentPage
+   * @returns {String}
+   */
+  _getShiftY = (currentPage) => {
+    if (this.state.pageContentHeight) {
+      let scrollHeight = this.state.pageContentHeight.reduce((prev, height, index) => {
+        if (index < currentPage) {
+          return prev + height
+        }
+        return prev
+      }, 0)
+      return `-${scrollHeight}px` 
+    }
+    return 0
+  }
+  _getPagesHeight = () => {
+    let pagesHeight = this.singlePages.map((page) =>{
+      if (page) {
+        return ReactDOM.findDOMNode(page).getBoundingClientRect().height
+      }
+    })
+    this.setState({ pageContentHeight: pagesHeight })
+  }
   componentDidMount() {
-    const scrollingHeight = ReactDOM.findDOMNode(this.awardItems).getBoundingClientRect().height
-    this.setState({ scrollingHeight: scrollingHeight })
+    this._getPagesHeight()
+  }
+  componentDidUpdate() {
+    let newPagesHeight = this.singlePages.map((page) => {
+      if (page) {
+        return ReactDOM.findDOMNode(page).getBoundingClientRect().height
+      }
+    })
+    if (JSON.stringify(this.state.pageContentHeight) !== JSON.stringify(newPagesHeight)) {
+      this._getPagesHeight()
+      this.clickCtr = 0
+      this.setState({ page: 0 })
+    }
   }
   render() {
-    let { awardsList, page, awardsNumberInSinglePage } = this.props
-    let cursor = ( page + 1 ) * awardsNumberInSinglePage
-    let paginatedAwardsList = awardsList.slice(cursor - awardsNumberInSinglePage, cursor)
+    const { page } = this.state
+    const { selectedDatalist } = this.props
+    const pagesLength = Math.ceil(selectedDatalist.length / awardsNumberInSinglePage)
+    let paginatedAwardsList = []
+    for (let i = 0; i < pagesLength; i++) {
+      let cursor = (i + 1) * awardsNumberInSinglePage
+      paginatedAwardsList.push(selectedDatalist.slice(cursor - awardsNumberInSinglePage, cursor))
+    }
     return (
       <Container>
-        <RunningTimeline>
-          <Timeline 
-            childrenHeight={this.state.scrollingHeight} 
-            autoScrolling={this.props.timelineAutoScrolling} >
-            <AwardItems
-              ref={ items => this.awardItems = items } 
-              awardsList={this.props.awardsList} 
-            />
-          </Timeline>
-          <SemiTransparentMask position={"top"}/>
+        <YearTagOnDesktopAbove>
+          {
+            typeof paginatedAwardsList[page] !== 'undefined' ?
+            paginatedAwardsList[page][0].date.split('/')[0]
+            : null
+          }
+        </YearTagOnDesktopAbove>
+        <PagesWrapper>
+          <Pages shiftY={() => this._getShiftY(page)}>
+          {
+            paginatedAwardsList.map((list, listIndex) => {
+              return(
+                <SinglePage
+                  key={`${list[0].awardId}-${listIndex}`}
+                >
+                  <YearTagOnTabletBelow>
+                    {list[0].date.split('/')[0]}
+                  </YearTagOnTabletBelow>
+                  <PageItems
+                    ref={singlepage => this.singlePages[listIndex] = singlepage}
+                  >
+                    {
+                      list.map((item, itemIndex) => {
+                        let groupString = item.group.split('')
+                        return (
+                          <li
+                            key={listIndex + '-' + itemIndex}>
+                            <a href={item.titleLink} target="_blank">
+                            <AwardItem>
+                              <Ranking
+                                display={item.ranking}>
+                                {item.ranking || mockupString}
+                              </Ranking>
+                              <MoreInfo>
+                                <p>
+                                  {
+                                    groupString.map((char, index) => {
+                                      return(
+                                        <span key={index}>{char}</span>
+                                      )
+                                    })
+                                  }
+                                </p>
+                                <p>{item.title}</p>
+                                <p>{item.prizeman}</p>
+                              </MoreInfo>
+                            </AwardItem>
+                            </a>
+                          </li>
+                        )
+                      })
+                    }
+                  </PageItems>
+                </SinglePage>
+              )
+            })
+          }
+          </Pages>
           <SemiTransparentMask position={"bottom"}/>
-        </RunningTimeline>
-        <PaginatedTimeline>
-          <RightArrow
-            onClick={this.props.gotoNextPage}>
+        </PagesWrapper>
+        <Arrows>
+          <TopArrow
+            onClick={() => this._gotoNextPage('prev', pagesLength)}>
             <ArrowNextIcon />
-          </RightArrow>
-          <AwardItems
-            awardsList={paginatedAwardsList}
-          />
-        </PaginatedTimeline>
+          </TopArrow>
+          <BottomArrow
+            onClick={() => this._gotoNextPage('next', pagesLength)}>
+            <ArrowNextIcon />
+          </BottomArrow>
+        </Arrows>
       </Container>
     )
   }
@@ -188,15 +385,12 @@ export default class Content extends PureComponent {
 Content.defaultProps = {
   page: 0,
   awardsNumberInSinglePage: 0,
-  timelineAutoScrolling: false,
   awardsList: []
 }
 
 Content.propTypes = {
   page: PropTypes.number.isRequired,
   awardsNumberInSinglePage: PropTypes.number.isRequired,
-  timelineAutoScrolling: PropTypes.bool.isRequired,
-  awardsList: PropTypes.array.isRequired,
-  gotoNextPage: PropTypes.func.isRequired
+  awardsList: PropTypes.array.isRequired
 }
 

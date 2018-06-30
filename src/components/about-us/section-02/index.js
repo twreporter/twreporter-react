@@ -333,7 +333,6 @@ export default class Section2 extends PureComponent {
     this.numbersInOnePage = 0
     this.device = null
     this.carouselData = {}
-    this.clickCtrsArray = categoriesAll.map( () => { return 0 } )
     this.state = {
       transitionEffect: true,
       currentPagesArray: [],
@@ -351,10 +350,10 @@ export default class Section2 extends PureComponent {
     let newCurPagesArray = [].concat(currentPagesArray)
     switch (direction) {
       case 'next':
-        newPageNum = ++currentPagesArray[departmentIndex] %  this.membersPageLengthArray[departmentIndex]
+        newPageNum = ++currentPagesArray[departmentIndex] % this.membersPageLengthArray[departmentIndex]
         break
       case 'prev':
-        newPageNum = --currentPagesArray[departmentIndex] %  this.membersPageLengthArray[departmentIndex]
+        newPageNum = --currentPagesArray[departmentIndex] % this.membersPageLengthArray[departmentIndex]
         if (newPageNum < 0) {
           newPageNum =  this.membersPageLengthArray[departmentIndex] + newPageNum
         }
@@ -391,11 +390,10 @@ export default class Section2 extends PureComponent {
   /**
    *  A callback function of event transitionend, which is used to shift back to start when touch the end here
    *  @param {Number} categoryIndex
-   *  @returns {String} 
    */
   _onMemberListShifted = (event, categoryIndex) => {
     const pageLength =  this.membersPageLengthArray[categoryIndex]
-    const currentPage = this.state.currentPagesArray
+    let currentPage = this.state.currentPagesArray
     if (currentPage[categoryIndex] === pageLength - 1) {
       currentPage[categoryIndex] = 1
       this.setState({

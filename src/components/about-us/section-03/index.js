@@ -2,17 +2,17 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
+import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
 import awardJsonData from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
+import AwardsNameList from './awards-name-list'
 import Content from './content'
 import groupBy from 'lodash/groupBy'
 import React, { PureComponent } from 'react'
 import riceEarBlack from '../../../../static/asset/about-us/rice-ear-black.png'
-import riceEarGolden from '../../../../static/asset/about-us/rice-ear-golden.png'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section3.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section3-mob.png'
-import Waypoint from 'react-waypoint'
 
 const _ = {
   groupBy
@@ -24,8 +24,11 @@ const awardsData = Object.values(groupedAwards).map(awardsArray =>
   awardsArray.map(award => Object.assign(award, groupedNames[award.awardId][0]))
 )
 const awardsList = [].concat(...Object.values(awardsData))
-const awardsNumberInSinglePage = 4
-const pagesLength = Math.ceil( awardsList.length / awardsNumberInSinglePage )
+const awardsNameForCarousel = [ 
+  ...awardsName.slice(awardsName.length - 2, awardsName.length), 
+  ...awardsName, 
+  ...awardsName.slice(0, 2) 
+]
 
 const Container = styled.div`
   position: relative;
@@ -64,7 +67,7 @@ const SectionWrapper = styled.section`
   ${screen.desktop`
     width: 1024px;
     height: 820px;
-    padding: 119px 120px 125px 85px;
+    padding: 78px 120px 156.1px 76px;
   `}  
   ${screen.tablet`
     width: 100%;
@@ -78,11 +81,28 @@ const SectionWrapper = styled.section`
   `}
 `
 
+const LeftColumn = styled.div`
+  position: relative;
+  ${screen.desktopAbove`
+    display: inline-block;
+    height: 100%;  
+  `}
+  ${screen.desktop`
+    width: 345px;
+  `}
+  ${screen.overDesktop`
+    width: 423px;
+  `}
+  ${screen.tablet`
+    text-align: center;
+  `}
+`
+
 const Title = styled.h1`
   background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
-  float: left;
+  display: inline-block;
   margin: 0;
   span{
     display: none;
@@ -107,6 +127,8 @@ const Title = styled.h1`
     border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
+    display: block;
+    margin: 0;
     width: 84px;
     height: 195px;
     border-bottom: solid 18px ${colors.secondaryColor};
@@ -117,6 +139,7 @@ const AwardsCount = styled.div`
   position: relative;
   display: block;
   float: left;
+  height: 61px;
   img{
     position: absolute;
     height: 100%;
@@ -138,129 +161,181 @@ const AwardsCount = styled.div`
   h2{
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
     font-weight: bold;
+    font-size: 36px;
+    margin: 0 0 2px 0;
   } 
   p{
     font-weight: ${font.weight.extraBold};
     margin: 0;
+    font-size: 14px;
+    letter-spacing: 0.2px;
   }
+
   ${screen.desktopAbove`
     width: 100%;
   `}
-  ${screen.overDesktop`
-    height: 97px;
-    h2{
-      font-size: 72px;
-      margin: -10px 0 10px 0;
-    }
-    p{
-      font-size: 18px;
-      letter-spacing: 0.4px;
-    }
-  `}
-  ${screen.desktop`
-    height: 65.3px;  
-    h2{
-      font-size: 48px;
-      margin: -7px 0 7px 0;
-    }
-    p{
-      font-size: 12px;
-      letter-spacing: 0.2px;
-    }
-  `}
   ${screen.tablet`
     width: 138px;
-    height: 65.3px;
-    h2{
-      font-size: 48px;
-      margin: 0 0 5px 0;
-    }
-    p{
-      font-size: 12px;
-      letter-spacing: 0.2px;
-    }
   `}
   ${screen.mobile`
-    width: 126.5px;
-    height: 56px;
+    width: 92px;
     h2{
-      font-size: 36px;
-      margin: 0 0 5px 0;
-    }
-    p{
-      font-size: 14px;      
-      letter-spacing: 0.3px;
+      font-size: 24px;
+      margin: 3px 0 3px 0;
     }
   `}
 `
 
 const Achievement = styled.div`
   display: block;
-  ${AwardsCount}:last-child{
-    h2, p{
-      color: ${colors.secondaryColor};      
-    }
-  }
+  position: absolute;
   ${screen.desktopAbove`
     left: 0;
-    bottom: 0;  
-  `}
-  ${screen.tabletAbove`
-    position: absolute;
+    bottom: 0;
   `}
   ${screen.overDesktop`
-    width: 205px;
-    margin: 0 0 145px 146px;
-    ${AwardsCount}:last-child{
-      margin-top: 57px;
-    }
+    width: 108px;
   `}
   ${screen.desktop`
-    width: 138px;
-    margin: 0 0 125px 85px;
-    ${AwardsCount}:last-child{
-      margin-top: 47.7px;
-    }
+    width: 108px;
+    transform: translateX(-25%);
   `}
   ${screen.tablet`
-    top: 210.4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 202px);
-    ${AwardsCount}:last-child{
-      float: right;
-    }
+    left: 0;
+    bottom: 0;
   `}
   ${screen.mobile`
     position: relative;
-    width: 100%;
-    margin-top: 42px;
-    ${AwardsCount}:last-child{
-      float: right;
-    }
+    float: right;
   `}
 `
 
-const Pagination = styled.div`
-  display: inline-block;
-  width: calc( 75px / ${pagesLength} );
-  height: 2px;
-  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
-  background: ${colors.black};
-  margin: 0 1px;
+const CarouselSelector = styled.div`
+  position: relative;
+  width: 100%;
+  height: 45px;
+  display: block;
+  margin-top: 100px;
+  ${screen.desktopAbove`
+    display: none;
+  `}
 `
 
-const Navigation = styled.div`
+const PageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`
+
+const AwardsSelector = styled.div `
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  ${screen.tablet`
+    transition: all ${props => props.transitionEffect ? '250ms' : '1ms'} ease-in-out;
+    transform: translate3d(calc(-25% + ${props => props.pageNumber * -100 / 2}%), 0, 0);  
+  `}
+  ${screen.mobile`
+    position: relative;
+  `}
+`
+
+const Arrow = styled.div `
   position: absolute;
-  left: 50%;
-  bottom: 45px;
-  transform: translateX(-50%);
-  width: 50%;
+  top: 50%;
+  width: 30px;
+  height: 45px;
+`
+
+const LeftArrow = Arrow.extend `
+  left: 0;
+  transform: translateX(-200%) translateY(-50%) scaleX(-1);
+  ${screen.mobile`
+    transform: translateX(-100%) translateY(-50%) scaleX(-1);  
+  `}
+`
+
+const RightArrow = Arrow.extend `
+  right: 0;
+  transform: translateX(200%) translateY(-50%);
+  ${screen.mobile`
+    transform: translateX(100%) translateY(-50%);    
+  `}
+`
+
+const ListSelector = styled.div`
+  position: relative;
   display: block;
+  float: right;
+  ${screen.overDesktop`
+    width: 260px;
+    margin-top: 68px;
+  `}
+  ${screen.desktop`
+    width: 250px;
+    margin-top: 62px;
+  `}
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const Circle = styled.div`
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: ${colors.black};
+  ${screen.desktop`
+    left: -80px;  
+  `}
+  ${screen.overDesktop`
+    left: -124px;  
+  `}
+`
+
+const MobCircle = Circle.extend`
+  ${screen.tablet`
+    left: calc(138px / 2);
+    transform: translateX(-50%);
+  `}
+  ${screen.mobile`
+    right: calc(84px / 2);
+    transform: translateX(50%);
+  `}
+  ${screen.desktopAbove`
+    display: none;
+  `}
+`
+
+const YearRange = styled.p`
+  font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   text-align: center;
-  padding: 0;
-  margin: 0;
-  ${screen.tabletAbove`
+  transform: translateY(-160px) rotate(90deg);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 3.17;
+  ${screen.overDesktop`
+    transform: translateY(-220px) rotate(90deg);
+  `}
+  ${screen.mobile`
+    transform: translateY(-120px) rotate(90deg);
+  `}
+`
+
+const SemiTransparentMask = styled.div `
+  position: absolute;
+  top: 0;
+  ${props => props.position === 'left' ? 'left: 0' : 'right: 0'};
+  width: 50px;
+  height: 100%;
+  background: ${props => `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
+  ${screen.mobile`
     display: none;
   `}
 `
@@ -268,65 +343,143 @@ const Navigation = styled.div`
 export default class Section3 extends PureComponent {
   constructor(props) {
     super(props)
-    this.clickCtr = 0
+    this.minMaxYear = this._getYearRange(awardsList)
     this.state = {
-      timelineAutoScrolling: false,
-      page: 0
+      activeAwardId: awardsName[0].awardId,
+      carouselPageIndex: 1,
+      currentDataList: groupedAwards[awardsName[0].awardId],
+      transitionEffect: true
     }
   }
-  _gotoNextPage = () => {
-    this.setState({ page: ++this.clickCtr % pagesLength })
+  /**
+   *  Callback function when clicking carousel arrows for changing page index ( Only on tablet and mobile )
+   *  @param {String} direction
+   */
+  _gotoNextAward = (direction) => {
+    let newPageIndex = 0
+    let { carouselPageIndex } = this.state
+    switch(direction) {
+      case 'next':
+        newPageIndex = ++carouselPageIndex % awardsNameForCarousel.length
+        break
+      case 'prev':
+        newPageIndex = --carouselPageIndex % awardsNameForCarousel.length
+        break
+      default:
+        return
+    }
+    this.setState({ 
+      carouselPageIndex: newPageIndex,
+      activeAwardId: awardsNameForCarousel[newPageIndex + 1].awardId
+    })
   }
-  _onPositionChange = (prevPos, currPos) => {
-    if (prevPos === 'below' && currPos === 'inside') {
-      this.setState({ timelineAutoScrolling: true })
+  _selectAward = (awardId) => {
+    this.setState({
+      activeAwardId: awardId
+    })
+  }
+  /**
+   *  Given data list and return the max and min year of current data
+   *  @param {Array} list
+   *  @returns {Array} [maxYear, minYear]
+   */
+  _getYearRange = (list) => {
+    return list.map(item => Number(item.date.split('/')[0])).reduce((accumulator, currentValue) => {
+      return [
+        (!accumulator[0]) ? currentValue : Math.min(currentValue, accumulator[0]),
+        (!accumulator[1]) ? currentValue : Math.max(currentValue, accumulator[1])
+      ]
+    },[])
+  }
+  /**
+   *  A callback function of event transitionend, which is used to shift back to start when touch the end here
+   */
+  _onItemShifted = () => {
+    const itemLength = awardsNameForCarousel.length
+    let pageIndex = this.state.carouselPageIndex
+    if (pageIndex === itemLength - 2) {
+      pageIndex = 2
+      this.setState({
+        transitionEffect: false,
+        carouselPageIndex: pageIndex
+      })
+      this.forceUpdate()
+    } else if (pageIndex === 0) {
+      pageIndex = itemLength - 4
+      this.setState({
+        transitionEffect: false,
+        carouselPageIndex: pageIndex
+      })
+      this.forceUpdate()
+    } else {
+      if (!this.state.transitionEffect) {
+        this.setState({
+          transitionEffect: true
+        })
+      }
     }
   }
-  _createNavigation = () => {
-    let navigation = []
-    let pagination = []
-    for (let i = 0; i < pagesLength; i++) {
-      pagination.push(<Pagination key={i} isCurrentPage={i === this.state.page} />)
-    }
-    navigation.push(<Navigation key="nav">{pagination}</Navigation>)
-    return navigation
-  }
+
   render() {
+    const selectedDatalist = groupedAwards[this.state.activeAwardId]
     return (
-      <Container>
-        <SectionWrapper>
+    <Container>
+      <SectionWrapper>
+        <LeftColumn>
+          <MobCircle />
           <Title>
             <span>得獎</span>
             <span>AWARD</span>
           </Title>
+          <ListSelector>
+            <AwardsNameList
+              awardsName={awardsName}
+              activeAwardId={this.state.activeAwardId}
+              selectAward={this._selectAward}
+            />
+            <Circle />
+          </ListSelector>
           <Achievement>
             <AwardsCount>
               <img src={riceEarBlack} />
               <h2>{awardsList.length}</h2>
-              <p>作品</p>
+              <p>件</p>
               <img src={riceEarBlack} />            
             </AwardsCount>
-            <AwardsCount>
-              <img src={riceEarGolden} />
-              <h2>{Object.keys(groupedNames).length}</h2>
-              <p>獎項</p>
-              <img src={riceEarGolden} />            
-            </AwardsCount>
+            <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
           </Achievement>
-          <Content
-            page={this.state.page}
-            awardsNumberInSinglePage={awardsNumberInSinglePage}
-            timelineAutoScrolling={this.state.timelineAutoScrolling}
-            awardsList={awardsList}
-            gotoNextPage={this._gotoNextPage}
-          />
-          {this._createNavigation()}
-        </SectionWrapper>
-        <Waypoint
-          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-          fireOnRapidScroll
+        </LeftColumn>
+        <CarouselSelector>
+          <LeftArrow
+            onClick={() => this._gotoNextAward('prev')}>
+            <ArrowNextIcon />
+          </LeftArrow>
+          <RightArrow
+            onClick={() => this._gotoNextAward('next')}>
+            <ArrowNextIcon />
+          </RightArrow>
+          <PageWrapper>
+            <AwardsSelector
+              transitionEffect={this.state.transitionEffect}
+              pageNumber={this.state.carouselPageIndex}
+              onTransitionEnd={this._onItemShifted}
+            >
+              <AwardsNameList
+                awardsName={awardsNameForCarousel}
+                activeAwardId={this.state.activeAwardId}
+                selectAward={() => {}}
+              />
+            </AwardsSelector>
+            <SemiTransparentMask position={'left'}/>
+            <SemiTransparentMask position={'right'}/>
+          </PageWrapper>
+        </CarouselSelector>
+        <Content
+          gotoNextPage={this._gotoNextPage}
+          selectedDatalist={selectedDatalist}
         />
-      </Container>
-    )
+      </SectionWrapper>
+    </Container>
+  )
   }
 }
