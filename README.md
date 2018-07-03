@@ -39,6 +39,23 @@ make build
 docker build -t twreporter-react:latest .
 ```
 
+# Testing
+
+Run unit tests
+
+```
+make test
+```
+
+Run ui-test (It will take some time to compare screenshots)
+
+```
+// start dev servers for ui-test
+make dev
+// run ui-test
+make ui-test
+```
+
 # License
 * Copyright (C) 2015 - 2018 The Reporter 報導者. All rights reserved.
 * Distributed under the GNU AGPL v3.0
