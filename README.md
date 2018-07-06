@@ -16,7 +16,7 @@ New Media foundation in Taiwan.
 - [x] Code splitting
 
 # Environment
-  Install node(https://nodejs.org/en/) @7.9.0 above.
+Install node(https://nodejs.org/en/) @7.9.0 above.
 
 # Installation
 `yarn install`
