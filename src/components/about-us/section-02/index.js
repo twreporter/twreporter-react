@@ -10,6 +10,7 @@ import DepartmentsNameList from './departments-name-list'
 import find from 'lodash/find'
 import foundationMembers from '../constants/section-02/fundation-members'
 import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
 import mail from '../../../../static/asset/about-us/mail.png'
 import mediaMembers from '../constants/section-02/media-members'
 import Navigation from './navigation'
@@ -20,16 +21,17 @@ import sz from '../constants/screen-size'
 import testImg from '../../../../static/asset/about-us/NicoFang.png'
 import titleImg from '../../../../static/asset/about-us/title-section2.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section2-mob.png'
+import values from 'lodash/values'
 
 const _ = {
-  groupBy, find
+  groupBy, find, values, keys
 }
 
 const halfPageList = [ 2, 3 ] // index of 2, 3 in categoriesAll are rendered in half page
 const members = [ ...mediaMembers, ...foundationMembers ]
 const categoriesAll = [ ...categories.media, ...categories.fundation ]
 const groupedMembers = _.groupBy( members, member => member.category )
-const membersNumberArray = Object.values(groupedMembers).map((membersArray) => { return membersArray.length })
+const membersNumberArray = _.values(groupedMembers).map((membersArray) => { return membersArray.length })
 const transitionDuration = 500
 
 const Container = styled.div`
@@ -292,6 +294,7 @@ const Info = styled.div`
     letter-spacing: 0.4px;   
   }
   img{
+    visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
     width: 15px;
   }
   ${screen.overDesktop`
@@ -437,6 +440,13 @@ export default class Section2 extends PureComponent {
   _selectDepartment = (index) => {
     this.setState({ selectedDepartmentIndex: index })
   }
+  _sendEmail = (email) => {
+    if (typeof email !== 'undefined') {
+      let url = `mailto:${email}`
+      window.open(url, '_blank')
+    }
+    return
+  }
   componentDidMount() {
     let initialCurrentPages = []
     if (window.matchMedia(`(min-width: ${sz.xLargeScreenMinWidth}px)`).matches) {
@@ -483,7 +493,7 @@ export default class Section2 extends PureComponent {
     this.setState({ currentPagesArray: initialCurrentPages })
 
     // Making data for the usage of carousel
-    Object.keys(groupedMembers).forEach((categoryId, index) => {
+    _.keys(groupedMembers).forEach((categoryId, index) => {
       let members = groupedMembers[categoryId]
       let numbersInAPage = (halfPageList.includes(index)) ? numbersInHalfPage : this.numbersInOnePage
       let newMembers = (this.device !== devices.mobile)?[ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ] : [ ... members ]
@@ -491,7 +501,7 @@ export default class Section2 extends PureComponent {
     })
   }
   render() {
-    const Departments = Object.values(categoryIds).map((categoryId, categoryIndex) => {
+    const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
       let label = _.find(categoriesAll, { id: categoryId }).label
       return(
         <Department key={categoryId}>
@@ -514,10 +524,12 @@ export default class Section2 extends PureComponent {
                   return(
                     <Member key={index}>
                       <img src={testImg} />
-                      <Info>
+                      <Info
+                        isMailIconVisible={typeof member.email !== 'undefined'}
+                      >
                         <p>{member.job}</p>
                         <p>{member.name}</p>
-                        <img src={mail} />
+                        <img onClick={() => this._sendEmail(member.email)} src={mail} />
                       </Info>
                     </Member>
                   )
@@ -537,7 +549,7 @@ export default class Section2 extends PureComponent {
 
     // make cursor for paginated member list on mobile
     let cursor = (this.state.currentPagesArray[this.state.selectedDepartmentIndex] + 1) * numbersInfullPage.mobile
-    let selectedMemberList = groupedMembers[Object.values(categoryIds)[this.state.selectedDepartmentIndex]]
+    let selectedMemberList = groupedMembers[_.values(categoryIds)[this.state.selectedDepartmentIndex]]
     return (
       <Border>
         <Container>
@@ -565,7 +577,8 @@ export default class Section2 extends PureComponent {
                     isArrowVisible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
                     changePage = {this._changePage}
                     cursor = {cursor}
-                    selectedMemberList = {selectedMemberList} />
+                    selectedMemberList = {selectedMemberList} 
+                    sendEmail = {this._sendEmail} />
                 <Navigation
                   departmentIndex = {this.state.selectedDepartmentIndex}
                   device = {this.device}

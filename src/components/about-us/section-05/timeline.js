@@ -33,8 +33,8 @@ const Scroller = styled.div.attrs({
 export default class Timeline extends PureComponent {
   constructor(props) {
     super(props)
+    this.frameId = null
     this.state = {
-      frameId: null,
       timelineShiftY: 0,
       returnToStart: false,
       mouseDown: false,
@@ -43,18 +43,18 @@ export default class Timeline extends PureComponent {
   }
 
   _startLoop = () => {
-    const frameId = window.requestAnimationFrame(this._loop)
-    this.setState({ frameId: frameId })
+    const newframeId = window.requestAnimationFrame(this._loop)
+    this.freamId = newframeId
   }
 
   _loop = () => {
     this._setAutoScroll()
-    const frameId = window.requestAnimationFrame(this._loop)
-    this.setState({ frameId: frameId })    
+    const newframeId = window.requestAnimationFrame(this._loop)
+    this.freamId = newframeId
   }
 
   _stopLoop = () => {
-    window.cancelAnimationFrame(this.state.frameId)
+    window.cancelAnimationFrame(this.frameId)
   }
 
   _setAutoScroll = () => {
@@ -67,7 +67,7 @@ export default class Timeline extends PureComponent {
       setTimeout(() => {
         this.setState({ timelineShiftY: 0 })
         this.setState({ returnToStart: false })
-      }, 500)
+      }, 50)
     }
   }
 

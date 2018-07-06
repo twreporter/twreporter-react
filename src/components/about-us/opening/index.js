@@ -413,12 +413,12 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLine>
               <Words>
-                <p><span>2015年12月《報導者》正式上線，稟持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，為讀者持續追蹤各項重要議題，共同打造<mark>多元的社會</mark>與媒體環境。</span></p>
+                <p><span>《報導者》是台灣第一個由公益基金會成立的網路媒體。稟持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，共同打造<mark>多元進步的社會</mark>與媒體環境。</span></p>
               </Words>
             </AboutUS>
           </ChineseIntro>
           <EnglishIntro>
-            <p><span>December 2015 "The reporter" is officially on the line, with the <mark>depth</mark>, <mark>open</mark>, <mark>non-profit spirit</mark>, committed to the public domain <mark>survey reports</mark>, for readers to continue to track the importantissues, together to create a <mark>diverse social</mark> and media environment.</span></p>
+            <p><span>The Reporter is a <mark>non-profit</mark> media organization founded by The Reporter Cultural Foundation. We focus on <mark>in-depth</mark> reportage and <mark>investigative journalism</mark>, publishing our works on an <mark>open-source</mark> website. We are dedicated to probing issues at stake, and to building <mark>diverse modern society</mark> and media environment as a whole.</span></p>
           </EnglishIntro>
         </Content>
         <Footer>

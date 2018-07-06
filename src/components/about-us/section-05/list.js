@@ -1,14 +1,17 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
+import { months } from '../constants/section-05/months'
 import { screen } from '../utils/screen'
 import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
+import values from 'lodash/values'
 
 const _ = {
-  groupBy
+  groupBy, values, keys
 }
 
 const defaultZIndex = 0
@@ -110,7 +113,7 @@ const YearLabel = styled.div `
   `}
 `
 
-const Acomplishments = styled.div `
+const Accomplishments = styled.div `
   width: 100%;
   ${screen.mobile`
     transform-style: preserve-3d;
@@ -140,7 +143,7 @@ const MonthLabel = styled.div `
   `}  
 `
 
-const MonthlyAcomplishments = styled.div `
+const MonthlyAccomplishments = styled.div `
   margin-bottom: 2px;
   background: ${colors.gray.gray96};
   min-height: 76px;
@@ -199,35 +202,6 @@ export default class List extends PureComponent {
     super(props)
     this.yearContent = []
   }
-  _getMonth = (month) => {
-    switch(month) {
-      case 1:  
-        return '一月'
-      case 2:
-        return '二月'
-      case 3:
-        return '三月'
-      case 4:
-        return '四月'
-      case 5:
-        return '五月'
-      case 6:
-        return '六月'
-      case 7:
-        return '七月'
-      case 8:
-        return '八月'
-      case 9:
-        return '九月'
-      case 10:
-        return '十月'
-      case 11:
-        return '十一月'
-      case 12:
-        return '十二月'
-    }
-  }
-
   _getDate = (date) => {
     let dateString = date.toString()
     if (dateString.length < 2) {
@@ -236,15 +210,6 @@ export default class List extends PureComponent {
     return dateString
   }
   
-  /**
-  + * Opens the valid input link in a new window or tab
-  + * @param {String} href
-  + */
-  _openLink = (href) => {
-    if (!href) return
-    window.open(href, '_blank')
-  }
-
   componentDidMount() {
     const yearContentHeight = this.yearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
     this.props.getYearContentHeight(yearContentHeight)
@@ -252,8 +217,8 @@ export default class List extends PureComponent {
 
   render() {
     const { unfoldArray, sortedData, sortedDataGroupByYear, foldAndUnfold } = this.props
-    this.yearList = Object.keys(sortedDataGroupByYear)
-    const sortedDataGroupByYearMonth = Object.values(_.groupBy(sortedData, record => record.year)).map((dataEachYear) => {
+    this.yearList = _.keys(sortedDataGroupByYear)
+    const sortedDataGroupByYearMonth = _.values(_.groupBy(sortedData, record => record.year)).map((dataEachYear) => {
       return _.groupBy(dataEachYear, data => data.month)
     })
     const groupedData = this.yearList.reduce((previous, year, index) => {
@@ -263,7 +228,7 @@ export default class List extends PureComponent {
     const Records = (year, indexOfUnfoldArray) => {
       let isOdd = sortedDataGroupByYear[year].length % 2 === 1
       return (
-        <Acomplishments
+        <Accomplishments
           unfold={unfoldArray[indexOfUnfoldArray]}
         >
           <OnlyDisplayOnMobile>
@@ -276,13 +241,13 @@ export default class List extends PureComponent {
                       isOdd={isOdd}
                     >
                       <MonthLabel>
-                        <p>{this._getMonth(record.month)}</p>
+                        <p>{months[record.month - 1]}</p>
                       </MonthLabel>
                       <Record>
                         <p>
                           <span>{this._getDate(record.date)}</span>
                         </p>
-                        <p onClick={() => this._openLink(record.link)}>{record.text.chinese}</p>
+                        <p>{record.text.chinese}</p>
                       </Record>
                     </Acomplishment>
                 )            
@@ -291,34 +256,34 @@ export default class List extends PureComponent {
           </OnlyDisplayOnMobile>
           <DisplayOnTabletAbove>
             {
-              Object.values(groupedData[year]).map((yearRecords, index) => {
+              _.values(groupedData[year]).map((yearRecords, index) => {
                 return(
-                  <MonthlyAcomplishments key={index}>
+                  <MonthlyAccomplishments key={index}>
                     {
-                      Object.values(yearRecords).map((monthRecords, index) => {
+                      _.values(yearRecords).map((monthRecords, index) => {
                         return (
                           <Acomplishment
                             key={index}
                           >
                             <MonthLabel monthOrder={index}>
-                              <p>{this._getMonth(monthRecords.month)}</p>
+                              <p>{months[monthRecords.month - 1]}</p>
                             </MonthLabel>
                             <Record>
                               <p>
                                 <span>{this._getDate(monthRecords.date)}</span>
                               </p>
-                              <p onClick={() => this._openLink(monthRecords.link)}>{monthRecords.text.chinese}</p>
+                              <p>{monthRecords.text.chinese}</p>
                             </Record>
                           </Acomplishment>
                         )
                       })
                     }
-                  </MonthlyAcomplishments>
+                  </MonthlyAccomplishments>
                 )            
               })
             }
           </DisplayOnTabletAbove>
-        </Acomplishments>
+        </Accomplishments>
       )
     }
 

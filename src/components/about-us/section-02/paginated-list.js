@@ -46,6 +46,7 @@ const ProfileWrapper = styled.div `
   height: 100%;
   padding-left: 9px;
   img{
+    visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
     width: 26px;
     position: absolute;
     right: 0;
@@ -81,12 +82,14 @@ export default class PaginatedMemberList extends PureComponent {
           <MemberBorder>
             <span />
             <img src={testImg} />
-            <ProfileWrapper>
+            <ProfileWrapper
+              isMailIconVisible={typeof member.email !== 'undefined'}
+            >
               <Profile>
                 <p>{member.job}</p>
                 <p>{member.name}</p>
               </Profile>
-              <img src={mail} />
+              <img onClick={() => this.props.sendEmail(member.email)}src={mail} />
             </ProfileWrapper>
           </MemberBorder>          
         </MemberBlock>
@@ -120,5 +123,6 @@ PaginatedMemberList.propTypes = {
   isArrowVisible: PropTypes.bool.isRequired,
   changePage: PropTypes.func.isRequired,
   cursor: PropTypes.number.isRequired,
-  selectedMemberList: PropTypes.array.isRequired
+  selectedMemberList: PropTypes.array.isRequired,
+  sendEmail: PropTypes.func.isRequired
 }

@@ -23,7 +23,7 @@ const Container = styled.div `
       left: 0;
       bottom: 0;
       width: 39%;
-    }  
+    }
   `}
   ${screen.overDesktop`
     height: 278px;
@@ -33,62 +33,24 @@ const Container = styled.div `
   `}
   ${screen.tabletBelow`
     position: fixed;
-    display: ${props => props.selectedRow === props.rowNumber ? 'block' : 'none'};
-    top: 0;
     left: 0;
+    top: 0;
+    bottom: 0;
+    display: ${props => props.selectedRow === props.rowNumber && !props.initial ? 'block' : 'none'};
     z-index: calc( ${defaultZIndex} + 1 );
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     img{
       width: 100%;
     }
     background: ${colors.white};
+    overflow: scroll;
   `}
 `
 
-const InfoBoxMobileWrapper = styled.div`
-  ${screen.tabletBelow`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  `}
-  ${screen.tablet`
-    width: calc((610 / 768) * 100%);   
-  `}
-  ${screen.mobile`
-    width: calc((325 / 375) * 100%);   
-  `}
-`
-
-const Pagination = styled.div`
-  display: inline-block;
-  width: 11px;
-  height: 2px;
-  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
-  background: ${colors.black};
-  margin: 0 1px;
-`
-
-const Navigation = styled.div`
-  display: block;
-  float: right;
-  visibility: ${props => props.visible === 'true' ? 'visible' : 'hidden'};
-  ${screen.desktopAbove`
-    transform: translateY(-50%);
-  `}
-  ${screen.tabletBelow`
-    float: left;
-  `}
-`
-
-const OnlyDisplayOnDesktopAbove = styled.div `
-  ${screen.tabletBelow`
-    display: none;
-  `}
-`
-
-const OnlyDisplayOnTabletBelow = styled.div`
-  h2{
+const InfoBoxMobile = styled.div`
+  background: ${colors.gray.gray96};
+  h2, h4{
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
   }
   h3{
@@ -99,7 +61,13 @@ const OnlyDisplayOnTabletBelow = styled.div`
     display: none;
   `}
   ${screen.tablet`
-    padding-left: 100px;
+    position: relative;
+    width: calc(100% - 157px);
+    min-height: calc(100% - 103px);
+    margin-top: 103px;
+    h2, h3, h4 {
+      padding-left: 101px;
+    }
     h2{
       font-size: 26px;
       font-weight: bold;
@@ -110,9 +78,25 @@ const OnlyDisplayOnTabletBelow = styled.div`
       font-size: 24px;
       letter-spacing: 1.7px;      
     }
+    h4{
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      margin: 54.4px 0 15px 0;
+    }
+    p{
+      font-size: 18px;
+      line-height: 1.67;
+      padding: 0 39px 162px 100px;
+    }  
   `}
   ${screen.mobile`
-    padding-left: 50px;
+    position: relative;
+    width: calc(100% - 50px);
+    min-height: calc(100% - 61px);
+    margin-top: 61px;
+    h2, h3, h4 {
+      padding-left: 50px;      
+    }
     h2{
       font-size: 24px;
       font-weight: bold;
@@ -121,17 +105,60 @@ const OnlyDisplayOnTabletBelow = styled.div`
     }
     h3{
       font-size: 22px;
-      letter-spacing: 1.6px;      
+      letter-spacing: 1.6px;
+    }
+    h4{
+      font-size: 13px;
+      font-weight: ${font.weight.bold};
+      letter-spacing: 0.3px;
+      margin: 32px 0 20px 0;
+    }
+    p{
+      padding: 0 28px 30px 50px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.63;
     }
   `}
-  ${Navigation}{
-    ${screen.tablet`
-      margin-bottom: 46px;
-    `}
-    ${screen.mobile`
-      margin-bottom: 23px;
-    `}
-  }
+`
+
+const ItemName = styled.div`
+  background: ${colors.white};
+`
+
+const Pagination = styled.div`
+  display: inline-block;
+  width: 11px;
+  height: 2px;
+  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
+  background: ${colors.black};
+  margin: 0 1px;
+  visibility: ${props => props.visible === 'true' ? 'visible' : 'hidden'};
+`
+
+const Navigation = styled.div`
+  display: block;
+  float: right;
+  ${screen.desktopAbove`
+    transform: translateY(-50%);
+  `}
+  ${screen.tabletBelow`
+    background: ${colors.white};
+    width: 100%;
+    float: left;
+  `}
+  ${screen.tablet`
+    padding: 0 0 46px 101px;
+  `}
+  ${screen.mobile`
+    padding: 0 0 34px 50px;
+  `}
+`
+
+const InfoBoxDesktop = styled.div `
+  ${screen.tabletBelow`
+    display: none;
+  `}
 `
 
 const RightArrow = styled.div `
@@ -155,7 +182,7 @@ const RightArrow = styled.div `
   `}
 `
 
-const InfoBox = styled.div`
+const Info = styled.div`
   background: ${colors.gray.gray96};
   h4 {
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
@@ -198,33 +225,6 @@ const InfoBox = styled.div`
       margin: 0 0 8px 0;
     }
   `}
-  ${screen.tabletBelow`
-    position: relative;
-    h4 {
-      font-size: 13px;
-      letter-spacing: 0.3px;
-    }
-  `}
-  ${screen.tablet`
-    padding: 54px 39px 160px 100px;
-    height: 388.4px;
-    p {
-      font-size: 18px;
-      line-height: 1.67;
-    }  
-  `}
-  ${screen.mobile`
-    padding: 32px 28px 30px 50px;
-    height: 292px;
-    p {
-      font-size: 16px;
-      line-height: 1.63;
-    }
-    h4 {
-      margin-top: 0;
-      margin-bottom: 20px;
-    }   
-  `}
 `
 
 const CloseBtn = styled.div`
@@ -266,14 +266,13 @@ export default class MoreInfo extends PureComponent {
   constructor(props) {
     super(props)
   }
-
   _createNavigation = (pagesLength) => {
     let navigation = []
     let pagination = []
     for (let i = 0; i < pagesLength; i++) {
-      pagination.push(<Pagination key={i} isCurrentPage={i === this.props.infoPageNum % pagesLength} />)
+      pagination.push(<Pagination key={i} isCurrentPage={i === this.props.infoPageNum % pagesLength} visible={(pagesLength > 1).toString()}/>)
     }
-    navigation.push(<Navigation key="nav" visible={(pagesLength > 1).toString()}>{pagination}</Navigation>)
+    navigation.push(<Navigation key="nav">{pagination}</Navigation>)
     return navigation
   }
   _getInfoBox = () => {
@@ -282,34 +281,44 @@ export default class MoreInfo extends PureComponent {
     let page = infoPageNum % selectedContent.length
     let selectedItem = selectedContent[page]
     return (
-      <InfoBoxMobileWrapper>
-        <OnlyDisplayOnTabletBelow>
-          <h2>{selectedItem.name.english}</h2>
-          <h3>{selectedItem.name.chinese}</h3>
+      <React.Fragment>
+        <InfoBoxMobile>
+          <ItemName>
+            <h2>{selectedItem.name.english}</h2>
+            <h3>{selectedItem.name.chinese}</h3>
+          </ItemName>
           {this._createNavigation(selectedContent.length)}
-        </OnlyDisplayOnTabletBelow>
-        <img src={selectedItem.photo} />
-        <InfoBox>
-          <OnlyDisplayOnDesktopAbove>
-            {this._createNavigation(selectedContent.length)}
-          </OnlyDisplayOnDesktopAbove>
+          <img src={selectedItem.photo} />
           <h4>{selectedItem.date}</h4>
-          <p>{selectedItem.description.chinese}</p>
+          <p>
+            {selectedItem.description.chinese}
+          </p>
           <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
             <ArrowNextIcon />
           </RightArrow>
-        </InfoBox>
-      </InfoBoxMobileWrapper>      
+        </InfoBoxMobile>
+        <InfoBoxDesktop>
+          <img src={selectedItem.photo} />
+          <Info>
+            {this._createNavigation(selectedContent.length)}
+            <h4>{selectedItem.date}</h4>
+            <p>{selectedItem.description.chinese}</p>
+            <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+              <ArrowNextIcon />
+            </RightArrow>
+          </Info>
+        </InfoBoxDesktop>
+      </React.Fragment>      
     )    
   }
   render() {
-    let { rowNumber, selectedLogo, selectedRow, closeInfoBox } = this.props
+    let { rowNumber, selectedLogo, selectedRow, closeInfoBox, initial } = this.props
     return (
       <Container
         rowNumber={rowNumber} 
         selectedLogo={selectedLogo} 
         selectedRow={selectedRow}
-        onWheel={(e) => e.preventDefault()}
+        initial={initial}
       >
         {this._getInfoBox()}
         <CloseBtn onClick={closeInfoBox} />

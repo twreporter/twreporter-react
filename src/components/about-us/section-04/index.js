@@ -1,5 +1,6 @@
 import { chunk } from 'lodash'
 import { colors } from '../../../themes/common-variables'
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font, marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import data from '../constants/section-04/partners'
@@ -7,6 +8,7 @@ import groupBy from 'lodash/groupBy'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import sz from '../constants/screen-size'
 import titleImg from '../../../../static/asset/about-us/title-section4.png'
 
 const _ = {
@@ -30,7 +32,6 @@ const containerWidth = {
 
 const Container = styled.div`
   position: relative;
-  overflow: hidden;
   ${screen.overDesktop`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
@@ -129,6 +130,7 @@ const LogoBlock = styled.div`
   cursor: pointer;
   ${screen.desktopAbove`
     width: ${props => props.widthOnDesktop};
+    transition: width 100ms linear;
   `}
   ${screen.tabletBelow`
     width: calc(100% / ${column.mobile});
@@ -223,19 +225,24 @@ const LogoContent = styled.div`
 export default class Section4 extends PureComponent {
   constructor(props) {
     super(props)
+    this.isTabletBelow = false
     this.state = {
-      selectedLogo: null,
-      selectedRow: null,
+      selectedLogo: 0,
+      selectedRow: 0,
       infoPageNum: 0,
-      isBorderBottomfixed: true
+      initialState: true
     }
   }
   _select = (logoIndex) => {
     this.setState({ 
       selectedLogo: logoIndex,
       selectedRow: Math.floor(logoIndex / column.desktop),
-      infoPageNum: 0
+      infoPageNum: 0,
+      initialState: false
     })
+    if (this.isTabletBelow) {
+      disableBodyScroll(this.infoOverlay)
+    }
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
     let logoRow = Math.floor(logoIndex / column.desktop)
@@ -254,14 +261,26 @@ export default class Section4 extends PureComponent {
       selectedLogo: null,
       selectedRow: null
     })
+    if (this.isTabletBelow) {
+      enableBodyScroll(this.infoOverlay)
+    }
   }
   _getSelectedContent = () => {
     let { selectedLogo } = this.state
     if (selectedLogo === null ) return
     return groupedContent[content[selectedLogo].partnerId]
   }
+  componentDidMount() {
+    // Check if the device is tabletBelow
+    if (window.matchMedia(`(max-width: ${sz.mediumScreenMaxWidth}px)`).matches) {
+      this.isTabletBelow = true
+    }
+  }
+  componentWillUnmount() {
+    clearAllBodyScrollLocks()
+  }
   render() {
-    let { selectedLogo, selectedRow, infoPageNum } = this.state
+    let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
     const LogoBlockList = content.map((data, index) => {
       return (
         <LogoBlock 
@@ -283,6 +302,7 @@ export default class Section4 extends PureComponent {
         <React.Fragment key={index}>
           {row}
           <MoreInfo
+            ref={infoOverlay => this.infoOverlay = infoOverlay}
             rowNumber={index} 
             selectedContent={this._getSelectedContent()}
             infoPageNum={infoPageNum}
@@ -290,6 +310,7 @@ export default class Section4 extends PureComponent {
             selectedRow={selectedRow}
             closeInfoBox={this._closeInfoBox}
             nextPage={this._nextPage}
+            initial={initialState}
           />
         </React.Fragment>          
       )

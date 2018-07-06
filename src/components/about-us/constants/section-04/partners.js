@@ -65,37 +65,6 @@ const partners = [
     photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/indonesia.jpg',
     logo: logoTempo,
     link: 'https://www.twreporter.org/a/far-sea-fishing-media-international-cooperation'
-  },
-  {
-    partnerId: 'KAS',
-    name:{
-      chinese: '德國艾德諾基金會',
-      english: 'KAS'
-    },
-    description: {
-      chinese: 'Page2 -《報導者》受長期支持「國際調查記者聯盟」（GIJN）的組織「德國KAS基金會」（Konrad-Adenauer-Stiftung）邀請，與日本、韓國、香港、外蒙古、尼泊爾、巴基斯坦、印度、印尼等調查記者，在德國埃森討論跨國調查合作的議題與經驗。',
-      english: ''
-    },
-    date: '2018.3',
-    cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-GIJN.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg',
-    logo: logoKas,
-    link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
-  },  
-  {
-    partnerId: 'GIJN',
-    name:{
-      chinese: '國際調查記者聯盟',
-      english: 'GIJN'
-    },
-    description: {
-      chinese: 'Page2 - 參加尼泊爾加德滿都「國際調查記者聯盟」（Global Investigative Journalism Network,GIJN）第二屆「揭開亞洲」（Uncovering Asia）大會。',
-      english: 'Attended the Second Asian Investigative Journalism Conference "Uncovering Asia" in Kathmandu, Nepa, hosted by the Global Investigative Journalism Network, the Centre for Investigative Journalism, Nepal, and the Konrad-Adenauer-Stiftung.'
-    },
-    date: '2016.9.23',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/nepal.jpg',
-    logo: logoGijn,
-    link: 'https://www.facebook.com/photo.php?fbid=1488606891166286&set=a.328937367133250.100488.100000509688340&type=3&theater'
   }
 ]
 

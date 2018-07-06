@@ -3,7 +3,8 @@ import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
-import awardJsonData from '../constants/section-03/awards.json'
+import assign from 'lodash/assign'
+import awardsList from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
 import AwardsNameList from './awards-name-list'
 import Content from './content'
@@ -13,17 +14,13 @@ import riceEarBlack from '../../../../static/asset/about-us/rice-ear-black.png'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section3.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section3-mob.png'
+import values from 'lodash/values'
 
 const _ = {
-  groupBy
+  groupBy, assign, values
 }
 
-const groupedAwards = _.groupBy(awardJsonData, award => award.awardId)
-const groupedNames = _.groupBy(awardsName, award => award.awardId)
-const awardsData = Object.values(groupedAwards).map(awardsArray =>
-  awardsArray.map(award => Object.assign(award, groupedNames[award.awardId][0]))
-)
-const awardsList = [].concat(...Object.values(awardsData))
+const groupedAwards = _.groupBy(awardsList, award => award.awardId)
 const awardsNameForCarousel = [ 
   ...awardsName.slice(awardsName.length - 2, awardsName.length), 
   ...awardsName, 

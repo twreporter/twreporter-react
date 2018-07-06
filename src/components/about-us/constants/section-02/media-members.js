@@ -38,7 +38,7 @@ const members = [
     nameEng: 'Shih-Yun Chang',
     job: '編輯主任',
     jobEng: 'Managing Editor',
-    email: 'sherry@twreporter.org',
+    email: 'sychang@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -46,6 +46,7 @@ const members = [
     nameEng: 'Sylvie Wang',
     job: '資深編輯',
     jobEng: 'Senior Editor',
+    email: 'sylviewang@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -53,6 +54,7 @@ const members = [
     nameEng: 'Jennifer Cheng',
     job: '行政經理',
     jobEng: 'Administration Manager',
+    email: 'fenc@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -60,6 +62,7 @@ const members = [
     nameEng: 'Szu Hua Chen',
     job: '編輯',
     jobEng: 'Editor',
+    email: 'shchen@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -67,20 +70,15 @@ const members = [
     nameEng: 'Mimi Chen',
     job: '數位專案經理',
     jobEng: 'Digital Product Manager',
+    email: 'mimichen@twreporter.org',
     category: categoryIds.digital
-  },
-  {
-    name: '賴子歆',
-    nameEng: 'Ellie Lai',
-    job: '執行編輯',
-    jobEng: 'Coordinate Editor‭‬',
-    category: categoryIds.editor
   },
   {
     name: '余志偉',
     nameEng: 'Chih Wei Yu',
     job: '攝影主任',
     jobEng: 'Photo Department Director',
+    email: 'shakingwave@twreporter.org',
     category: categoryIds.photojournalist
   },
   {
@@ -88,6 +86,7 @@ const members = [
     nameEng: 'Jameson Wu',
     job: '資深攝影',
     jobEng: 'Senior‭ ‬Photojournalist',
+    email: 'jamesonwu@twreporter.org',
     category: categoryIds.photojournalist
   },
   {
@@ -95,6 +94,7 @@ const members = [
     nameEng: 'Yu En Lin',
     job: '攝影記者',
     jobEng: 'Photojournalist',
+    email: 'yushawn1201@twreporter.org',
     category: categoryIds.photojournalist
   },
   {
@@ -102,6 +102,7 @@ const members = [
     nameEng: 'Nick Li',
     job: '資深工程師',
     jobEng: 'Senior Coder',
+    email: 'nickhsine@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -109,6 +110,7 @@ const members = [
     nameEng: 'Yu Chung-Jen',
     job: '工程師',
     jobEng: 'Software Engineer‭‬',
+    email: 'yucj@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -116,6 +118,7 @@ const members = [
     nameEng: 'Taylor Fang',
     job: '工程師',
     jobEng: 'Software Engineer',
+    email: 'taylorfang@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -123,6 +126,7 @@ const members = [
     nameEng: 'Ching-Yang Tseng',
     job: '工程師',
     jobEng: 'Software Engineer',
+    email: 'babygoat@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -130,6 +134,7 @@ const members = [
     nameEng: 'Yu Chen Huang',
     job: '設計',
     jobEng: 'Art Designer‭‬',
+    email: 'hychen@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -137,6 +142,7 @@ const members = [
     nameEng: 'Lin Chen Na',
     job: '介面設計師',
     jobEng: 'UI Designer',
+    email: 'ginalin@twreporter.org',
     category: categoryIds.digital
   },
   {
@@ -144,6 +150,7 @@ const members = [
     nameEng: 'Tzewu Chang',
     job: '資深記者',
     jobEng: 'Senior Journalist',
+    email: 'tzewu@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -151,6 +158,7 @@ const members = [
     nameEng: 'Michelle Fang',
     job: '資深記者',
     jobEng: 'Senior Journalist',
+    email: 'bluemiau@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -158,6 +166,7 @@ const members = [
     nameEng: 'Rosa Wang',
     job: '記者',
     jobEng: 'Journalist',
+    email: 'irosarian@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -165,6 +174,7 @@ const members = [
     nameEng: 'Yu Chuan Yeh',
     job: '記者',
     jobEng: 'Journalist',
+    email: 'yuchuanyeh@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -172,6 +182,7 @@ const members = [
     nameEng: 'I Ting Chiang',
     job: '記者',
     jobEng: 'Journalist',
+    email: 'itingchiang@twreporter.org',
     category: categoryIds.editor
   },
   {
@@ -179,6 +190,7 @@ const members = [
     nameEng: 'Bo-Wei Wu',
     job: '記者',
     jobEng: 'Journalist',
+    email: 'capric.wu@twreporter.org',
     category: categoryIds.editor
   }
 ]
