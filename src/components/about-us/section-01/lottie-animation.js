@@ -14,6 +14,7 @@ const Container = styled.div`
   ${screen.tablet`
     width: 440px;
     height: 204px;
+    margin: 0 auto;
   `}
   ${screen.mobile`
     width: 100%;

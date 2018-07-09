@@ -9,13 +9,13 @@ import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.pn
 import Waypoint from 'react-waypoint'
 
 const defaultZIndex = 0
+const animCaptions = [ '深度', '開放', '非營利' ]
 
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
   background-color: ${colors.white};
   overflow: hidden;
-  height: 100vh;  
   ${screen.overDesktop`
     margin: 0 0 ${marginBetweenSections.overDesktop} 0;    
   `}
@@ -71,28 +71,25 @@ const BorderTop = styled.div`
 `
 
 const SectionWrapper = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
   display: block;
-  ${screen.desktop`
-    width: 1024px;
-    height: 547px;
-    padding: 0 179px 0 130px;
-  `}  
+  margin: 0 auto;
   ${screen.overDesktop`
     width: 1440px;
-    height: 586px;
-    padding: 0 262px 0 170px;
+    min-height: 1120px;
+    padding: 300px 115px 300px 101px;
   `}
+  ${screen.desktop`
+    width: 1024px;
+    min-height: 820px;
+    padding: 156px 85px 117px 79px;
+  `}  
   ${screen.tablet`
-    width: 432px;
-    height: 849px;
+    width: 100%;
+    padding: 100.9px 96px 67px 90px;
   `}
   ${screen.mobile`
-    width: 291px;
-    height: 571px;
+    width: 100%;
+    padding: 50.9px 40.5px 45px 41.5px;
   `}
 `
 
@@ -146,14 +143,17 @@ const Introduction = styled.div`
     margin: 0;
     padding-left: 1em;
   }
+  ul>li{
+    margin-left: 1em;
+  }
   ul>li:before {
     display: inline-block;
     content: "-";
     margin-left: -1em;
   }
-  ul>p:first-child{
-    margin-left: -1em;
-  }
+  ${screen.overDesktop`
+    margin-top: 120px;
+  `}
   ${screen.desktopAbove`
     p{
       background-color: ${colors.gray.gray96};
@@ -179,7 +179,7 @@ const Introduction = styled.div`
     text-align: left;
   `}
   ${screen.mobile`
-    margin: 0 20px;
+    margin: 37.2px 20px 0 20px;
     p{
       font-size: 16px;
       line-height: 1.44;
@@ -202,7 +202,7 @@ const Content = styled.div`
     letter-spacing: 6.6px;
   }
   ${screen.desktopAbove`
-    width: 384px;
+    width: 390px;
   `}
   ${screen.tabletBelow`
     width: 100%;
@@ -224,6 +224,7 @@ const Content = styled.div`
       margin: 0;
       font-size: 20px;
       letter-spacing: 4.7px;
+      margin-bottom: 45.7px;
     }  
   `}  
 `
@@ -238,7 +239,6 @@ const Caption = styled.div`
 export default class Section1 extends PureComponent {
   constructor(props) {
     super(props)
-    this.animCaptions = [ '深度', '開放', '非營利' ]
     this.state = {
       currentAnim: 0,
       isBorderTopfixed: false
@@ -251,6 +251,34 @@ export default class Section1 extends PureComponent {
       this.setState({ isBorderTopfixed: false })
     }
   }
+  _getIntroWords = (idx) => {
+    switch(idx) {
+      case 0:
+        return (
+          <ul>
+            <p>走進現場、持續追蹤</p>
+            <br />
+            <p>讓重要議題不被遺忘</p>
+          </ul>
+        )
+      case 1:
+        return (
+          <ul>
+            <p>屬於社會的《報導者》</p>
+            <li><p>報導CC授權：網站多數報導採創用CC授權</p></li>
+            <li><p>網站程式開源：官網程式碼皆開放於GitHub平台</p></li>
+          </ul>
+        )
+      case 2:
+        return (
+          <ul>
+            <p>追求公益價值</p>
+            <li><p>沒有廣告：不受廣告主影響</p></li>
+            <li><p>沒有點閱數字：不受點擊率左右</p></li>
+          </ul>
+        )
+    }
+  }
   _animUpdated = (updatedIndex) => {
     this.setState({ currentAnim: updatedIndex })
   }
@@ -258,9 +286,9 @@ export default class Section1 extends PureComponent {
     return defaultZIndex + 1
   }
   render() {
-    const Captions = this.animCaptions.map((caption, index) => {
+    const Captions = animCaptions.map((caption, index) => {
       const dot = () => {
-        if (index !== this.animCaptions.length - 1) {
+        if (index !== animCaptions.length - 1) {
           return (
             <h2>・</h2>
           )
@@ -272,7 +300,7 @@ export default class Section1 extends PureComponent {
           <Caption
             curCaption={this.state.currentAnim}
             index={index}>
-            <h2>{this.animCaptions[index]}</h2>
+            <h2>{animCaptions[index]}</h2>
           </Caption>
           {dot()}
         </React.Fragment>
@@ -299,12 +327,7 @@ export default class Section1 extends PureComponent {
                   animDidUpdate={this._animUpdated}
                 />
                 <Introduction>
-                  <ul>
-                    <p>屬於社會的《報導者》</p>
-                    <li><p>CC授權（ 姓名標示／非商業性／禁止改作</p></li>
-                    <li><p>OPEN SOURCE開放原始碼</p></li>
-                    <li><p>全民政策追蹤： 蔡英文勞動政策追蹤平台</p></li>
-                  </ul>
+                  {this._getIntroWords(this.state.currentAnim)}
                 </Introduction>    
               </Content>
             </SectionWrapper>
