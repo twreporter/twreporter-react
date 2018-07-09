@@ -1,5 +1,6 @@
-import { colors } from '../../themes/common-variables'
+import { colors, typography } from '../../themes/common-variables'
 import { screen } from '../about-us/utils/screen'
+import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
 import icon1 from '../../../static/asset/about-us/sidebar-icon1.png'
 import icon2 from '../../../static/asset/about-us/sidebar-icon2.png'
@@ -20,6 +21,18 @@ const StyledAnchor = baseComponents.StyledAnchor.extend`
   transition: all 200ms linear;
 `
 
+const Order = styled.div `
+  font-size: ${typography.font.size.xSmall};
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  text-align: right;
+  transform: translateX(-100%);
+  line-height: calc(170px / 6);
+  opacity: 0;
+`
+
 class Anchors extends baseComponents.Anchors {
   constructor(props) {
     super(props)
@@ -33,7 +46,9 @@ class Anchors extends baseComponents.Anchors {
         highlight={anchorObj.highlight}
         onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
         key={`SectionButton_${anchorObj.id}`}
-      />
+      >
+        <Order>{`${anchorlist[anchorObj.index - 1]}`}</Order>
+      </Anchor>
     )
   }
 }
@@ -61,7 +76,12 @@ const AnchorsContainer = styled.div`
   visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
   opacity: ${props => (props.toShow ? 1 : 0)};
   transition: opacity 0.5s linear;
-  
+  &:hover {
+    ${Order} {
+      opacity: 1;
+      transition: all 200ms linear;
+    }
+  }
   ${screen.desktop`
     transform: translate(-47px, -50%);
   `}
