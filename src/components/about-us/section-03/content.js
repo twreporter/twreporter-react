@@ -268,7 +268,7 @@ const AwardName = styled.div`
   background: ${props => props.unfold ? `${colors.black}` : `${colors.white}`};
   color: ${props => props.unfold ? `${colors.white}` : `${colors.black}`};
   p{
-    line-height: 76px;
+    line-height: ${props => props.unfold ? '53px' : '76px'};
     text-align: center;
     font-size: 20px;
     font-weight: bold;

@@ -3,13 +3,15 @@ import { containerStyle, contentStyle } from './section-style'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
 import aboutusImg from '../../../../static/asset/about-us/aboutus-opening.png'
-import aboutusImgMobile from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
+import aboutusImgTablet from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
+import aboutusImgMob from '../../../../static/asset/about-us/aboutus-opening-mob.png'
 import Header from './header'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
 import titleImg from '../../../../static/asset/about-us/title-opening.png'
+import titleImgMob from '../../../../static/asset/about-us/title-opening-mob.png'
 
 const Container = styled.section`
   position: relative;
@@ -71,7 +73,7 @@ const Content = styled.div`
   transform: translateX(-50%) translateY(-50%);
   ${screen.mobile`
     width: ${containerStyle.width.mobile};
-    height: ${contentStyle.height.mobile};
+    max-height: ${contentStyle.height.mobile};
     padding: ${contentStyle.padding.mobile};
   `}
   ${screen.tablet`
@@ -116,7 +118,6 @@ const ChineseIntro = styled.div`
     }
   `}
   ${screen.mobile`
-    height: 335px;
     h2{
       font-size: 13px;
       letter-spacing: 5.5px;
@@ -158,15 +159,17 @@ const Title = styled.h1`
     display: none;
   }
   ${screen.tabletBelow`
-    position: absolute;
-    left: 0;
-    top: 0;  
   `}
   ${screen.mobile`
-    width: 170.2px;
-    height: 153px;
+    background-image: url(${titleImgMob});
+    background-position: center center;
+    width: 100%;
+    height: 114px;
   `}
   ${screen.tablet`
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 342.2px;
     height: 307px;
   `}
@@ -186,17 +189,20 @@ const AboutUS = styled.div`
   display: block;
   float: right;
   width: 100%;
-  ${screen.tabletBelow`
-    img{
-      float: right;
-      height: 100%;
-    }  
-  `}
   ${screen.mobile`
-    height: 177px;
+    h2{
+      display: none;
+    }
+    img{
+      width: 100%;
+    }
   `}
   ${screen.tablet`
     height: 307px;
+    img {
+      float: right;
+      height: 100%;
+    }
   `}
   ${screen.desktop`
     width: 468px;
@@ -223,15 +229,18 @@ const SeperateLine = styled.div`
   h3{
     margin: 0;
   }
-  ${screen.tabletBelow`
-    h3{
-      text-align: left;
-    }
-    margin: 80px 0 55px 0;
-  `}
   ${screen.mobile`
     margin: 0;
     transfrom: translateY(-50%);
+    h3{
+      text-align: center;
+    }
+  `}
+  ${screen.tablet`
+    h3{
+      text-align: left;
+    }
+    margin: 80px 0 55px 0;  
   `}    
   ${screen.desktop`
     width: 392px;
@@ -241,6 +250,21 @@ const SeperateLine = styled.div`
     width: 538px;
     margin: 39.2px 0 50px 0;
   `}    
+`
+
+const SeperateLineOnMobile = SeperateLine.extend`
+  ${screen.tabletAbove`
+    display: none;
+  `}
+  h3{
+    margin: 72px 0;
+  }
+`
+
+const SeperateLineOnTabletAbove = SeperateLine.extend `
+  ${screen.mobile`
+    display: none;
+  `}
 `
 
 const Words = styled.div`
@@ -281,7 +305,8 @@ const Words = styled.div`
     float: right;
   `}
   ${screen.mobile`
-    width: 248px;
+    width: 100%;
+    margin-top: 24px;
     p{
       font-size: 14px;
       line-height: 0.79;
@@ -345,6 +370,7 @@ const EnglishIntro = styled.div`
     } 
   `}
   ${screen.mobile`
+    display: none;
     width: 248px;
     p{
       line-height: 0.79;
@@ -405,13 +431,17 @@ export class Opening extends PureComponent {
             </Title>
             <AboutUS>
               <h2>ABOUT US</h2>
+              <SeperateLineOnMobile>
+                <h3>・・・</h3>
+              </SeperateLineOnMobile>
               <picture>
-                <source media={`(max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={aboutusImgMobile} />
+                <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={aboutusImgTablet} />
+                <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={aboutusImgMob} />
                 <img src={aboutusImg} />
               </picture>
-              <SeperateLine>
+              <SeperateLineOnTabletAbove>
                 <h3>・・・</h3>
-              </SeperateLine>
+              </SeperateLineOnTabletAbove>
               <Words>
                 <p><span>《報導者》是台灣第一個由公益基金會成立的網路媒體。稟持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，共同打造<mark>多元進步的社會</mark>與媒體環境。</span></p>
               </Words>
