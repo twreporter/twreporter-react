@@ -14,7 +14,7 @@ You can submit your work as a pull request to our `master` branch if:
 - you have a nice solution to a problem or a bug in our code
 - you have any suggestion for the documentation or comments
 
-### Opening a issue
+### Opening an issue
 
 You can [open an issue](https://github.com/twreporter/twreporter-react/issues) if:
 
