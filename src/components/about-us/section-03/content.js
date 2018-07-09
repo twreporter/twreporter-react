@@ -7,8 +7,11 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
-const mockupString = '金獎'
 const awardsNumberInSinglePage = 3
+const defaultZIndex = 0
+const transitionDuration = '.3s'
+const borderBottomColor = '#dcdcdc'
+const mobileBorderColor = '#e9e9e9'
 
 const Arrow = styled.div`
   position: absolute;
@@ -21,12 +24,14 @@ const TopArrow = Arrow.extend`
   top: 0;
   transform-origin: 50% 50%;
   transform: translateX(-50%) rotate(-90deg);
+  visibility: ${props => props.visible ? 'visible' : 'hidden'};
 `
 
 const BottomArrow = Arrow.extend`
   bottom: 0;
   transform-origin: 50% 0;
   transform: translateX(-50%) rotate(90deg);
+  visibility: ${props => props.visible ? 'visible' : 'hidden'};
 `
 
 const Arrows = styled.div`
@@ -47,12 +52,14 @@ const Container = styled.div `
   height: 100%;
   float: right;
   text-align: center;
-  background: ${colors.gray.gray96};
   ${screen.overDesktop`
     width: 530px;
   `}
   ${screen.desktop`
     width: 432px;
+  `}
+  ${screen.desktopAbove`
+    background: ${colors.gray.gray96};  
   `}
   ${screen.tablet`
     margin-top: 60.1px;
@@ -74,13 +81,23 @@ const SemiTransparentMask = styled.div `
   `}
 `
 
-const Pages = styled.div`
+const PaginatedList = styled.div `
   display: block;
   width: 100%;
   ${screen.desktopAbove`
     height: 100%;
     transform: translate3d(0, ${props => props.shiftY}, 0);
-    transition: all 500ms ease-in-out;  
+    transition: all ${transitionDuration} ease-in-out;  
+  `}
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const AccordionList = styled.div`
+  display: block;
+  ${screen.desktopAbove`
+    display: none;
   `}
 `
 
@@ -117,26 +134,24 @@ const PageItems = styled.ul`
 `
 
 const AwardItem = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 44px;
+  ${screen.desktopAbove`
+    border-bottom: solid 1px ${borderBottomColor};
+    margin-bottom: 21px;
+    padding-bottom: 21px;
+  `}
   ${screen.tablet`
     padding-bottom: 40px;
-  `}
-  ${screen.mobile`
-    padding-bottom: 35px;
   `}
 `
 
 const Ranking = styled.p`
-  white-space: nowrap;
   visibility: ${props => props.display ? 'visible' : 'hidden'};
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 1.9px;
   color: ${colors.secondaryColor};
-  margin-right: 10px;
-  text-align: right;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
 `
 
 const MoreInfo = styled.div`
@@ -144,7 +159,7 @@ const MoreInfo = styled.div`
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 1.9px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     span:first-child{
       padding-bottom: 10px;
       border-bottom: 0.5px solid ${colors.black};
@@ -153,7 +168,6 @@ const MoreInfo = styled.div`
   p:nth-child(2){
     font-size: 16px;
     font-weight: 500;
-    padding-top: 10px;
   }
   p:last-child{
     opacity: 0.65;
@@ -163,60 +177,143 @@ const MoreInfo = styled.div`
   }
 `
 
-const YearTag = styled.p`
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
-  font-weight: ${font.weight.bold};
-`
-
-const YearTagOnDesktopAbove = YearTag.extend`
-  ${screen.desktopAbove`
-    transform: translateX(-100%);
-    color: ${colors.white};
-    background: ${colors.black};
-    padding: 2px;
-  `}
-  ${screen.overDesktop`
-    font-size: 15px;
-  `}
-  ${screen.desktop`
-    font-size: 13px;  
-  `}
-  ${screen.tabletBelow`
-    display: none;
-  `}
-`
-
-const YearTagOnTabletBelow = YearTag.extend`
-  position: relative;
-  text-align: left;
-  ${screen.tablet`
-    padding-bottom: 10px;
-  `}
-  ${screen.mobile`
-    font-size: 14px;
-    padding-bottom: 21px;
-  `}
-  ${screen.desktopAbove`
-    display: none;
-  `}
-`
-
-const PagesWrapper = styled.div`
+const PageWrapper = styled.div`
   position: relative;
   width: 100%;
-  padding: 40px 46px;
   ${screen.desktopAbove`
+    padding: 40px 46px;
     height: 100%;
     overflow-y: hidden;
   `}
+`
+
+const RecordsInaYear = styled.ul`
+  width: 100%;
+  transform-style: preserve-3d;
+  margin-top: 2px;
+  margin-bottom: ${props => props.unfold ? '9px' : '0'};
+  padding: 0;
+  list-style: none;
+`
+
+const Record = styled.li`
+  width: 100%;
+  margin: auto 0;
+  color: ${colors.black};
+  position: relative;
+  min-height: 204px;
+  height: ${props => props.unfold ? 'auto' : '204px'};
+  transition: all ${transitionDuration} linear;
+  border-bottom: solid 1px ${borderBottomColor};
+  text-align: left;
+  padding: 20px 21px 19px 15px;
+  background: ${colors.gray.gray96};
+  a{
+    color: ${colors.black};
+  }
+  &:nth-child(odd) {
+    transform-origin: 50% 0 0;
+    transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(-90deg)'};
+    will-change: transform;
+    &:before {
+      content: '';
+      background-image: linear-gradient(to top, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: ${props => props.unfold ? '0' : '100%'};
+      z-index: calc(${defaultZIndex} - 1);
+      transition: height .25s;      
+    }
+  }
+  &:nth-child(even) {
+    transform-origin: 50% 100% 0;
+    transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
+    margin-top: ${props => props.unfold ? '0' : 'calc(-204px * 2)'};
+    will-change: transform, margin-top;
+    &:before {
+      content: '';
+      background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: ${props => props.unfold ? '0' : '100%'};
+      z-index: calc(${defaultZIndex} - 1);
+      transition: height .25s;      
+    }
+  }
+`
+
+const MockRecord = styled.div`
+  width: 100%;
+  position: relative;
+  min-height: 204px;
+  height: ${props => props.unfold ? 'auto' : '204px'};
+  transition: all ${transitionDuration} linear;
+  padding: 20px 21px 19px 15px;
+  display: ${props => props.isOdd ? 'block' : 'none'};
+  visibility: ${props => props.isOdd ? 'visible' : 'none'};
+  margin-top: ${props => props.unfold ? '-204px' : 'calc(-204px * 2)'};
+  transform-origin: 50% 100% 0;
+  transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
+`
+
+const AwardName = styled.div`
+  width: 100%;
+  border: solid 1px ${mobileBorderColor};
+  min-height: ${props => props.unfold ? '53px' : '76px'};
+  margin-top: ${props => props.unfold ? '30px' : 0};
+  background: ${props => props.unfold ? `${colors.black}` : `${colors.white}`};
+  color: ${props => props.unfold ? `${colors.white}` : `${colors.black}`};
+  p{
+    line-height: 76px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1.8px;
+  }
+`
+
+const SeperatedLine = styled.div`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+  border-bottom: solid 0.5px ${colors.black};
   ${screen.tablet`
-    padding: 0 116px 20px 31px;
+    width: 65%;
   `}
   ${screen.mobile`
-    padding: 0 7px 29px 0; 
+    width: 80%;
+  `}
+`
+
+const YearTag = styled.div`
+  position: relative;
+  background: ${colors.white};
+  display: ${props => props.unfold ? 'block' : 'none'};
+  height: 65px;
+  p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: inline-block;
+    background: ${colors.white};
+    color: ${colors.black};
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
+    font-size: 18px;
+    font-weight: ${font.weight.bold};
+    z-index: calc(${defaultZIndex} + 1);
+    padding: 0 5px;
+  }
+  ${screen.tablet`
+    p{
+      padding: 0 10px;
+    }
   `}
 `
 
@@ -224,10 +321,12 @@ export default class Content extends PureComponent {
   constructor(props) {
     super(props)
     this.singlePages = []
+    this.pageContentHeight = []
     this.clickCtr = 0
     this.state = {
       page: 0,
-      pageContentHeight: []
+      unfold: true,
+      unfoldArray: this.props.awardNamelist.map(() => false)
     }
   }
   /**
@@ -262,8 +361,8 @@ export default class Content extends PureComponent {
    * @returns {String}
    */
   _getShiftY = (currentPage) => {
-    if (this.state.pageContentHeight) {
-      let scrollHeight = this.state.pageContentHeight.reduce((prev, height, index) => {
+    if (this.pageContentHeight) {
+      let scrollHeight = this.pageContentHeight.reduce((prev, height, index) => {
         if (index < currentPage) {
           return prev + height
         }
@@ -279,7 +378,14 @@ export default class Content extends PureComponent {
         return ReactDOM.findDOMNode(page).getBoundingClientRect().height
       }
     })
-    this.setState({ pageContentHeight: pagesHeight })
+    this.pageContentHeight = pagesHeight
+  }
+  _foldAndUnfold = (index) => {
+    let newUnfoldArray = [ ...this.state.unfoldArray ]
+    newUnfoldArray[index] = !newUnfoldArray[index]
+    this.setState({
+      unfoldArray: newUnfoldArray
+    })
   }
   componentDidMount() {
     this._getPagesHeight()
@@ -290,7 +396,7 @@ export default class Content extends PureComponent {
         return ReactDOM.findDOMNode(page).getBoundingClientRect().height
       }
     })
-    if (JSON.stringify(this.state.pageContentHeight) !== JSON.stringify(newPagesHeight)) {
+    if (JSON.stringify(this.pageContentHeight) !== JSON.stringify(newPagesHeight)) {
       this._getPagesHeight()
       this.clickCtr = 0
       this.setState({ page: 0 })
@@ -298,81 +404,140 @@ export default class Content extends PureComponent {
   }
   render() {
     const { page } = this.state
-    const { selectedDatalist } = this.props
-    const pagesLength = Math.ceil(selectedDatalist.length / awardsNumberInSinglePage)
+    const { selectedDataList, fulldatalist, awardNamelist, awardYearList } = this.props
+    const pagesLength = Math.ceil(selectedDataList.length / awardsNumberInSinglePage)
     let paginatedAwardsList = []
     for (let i = 0; i < pagesLength; i++) {
       let cursor = (i + 1) * awardsNumberInSinglePage
-      paginatedAwardsList.push(selectedDatalist.slice(cursor - awardsNumberInSinglePage, cursor))
+      paginatedAwardsList.push(selectedDataList.slice(cursor - awardsNumberInSinglePage, cursor))
     }
     return (
       <Container>
-        <YearTagOnDesktopAbove>
-          {
-            typeof paginatedAwardsList[page] !== 'undefined' ?
-            paginatedAwardsList[page][0].date.split('/')[0]
-            : null
-          }
-        </YearTagOnDesktopAbove>
-        <PagesWrapper>
-          <Pages shiftY={() => this._getShiftY(page)}>
-          {
-            paginatedAwardsList.map((list, listIndex) => {
-              return(
-                <SinglePage
-                  key={`${list[0].awardId}-${listIndex}`}
-                >
-                  <YearTagOnTabletBelow>
-                    {list[0].date.split('/')[0]}
-                  </YearTagOnTabletBelow>
-                  <PageItems
-                    ref={singlepage => this.singlePages[listIndex] = singlepage}
+        <PageWrapper>
+          <PaginatedList shiftY={() => this._getShiftY(page)}>
+            {
+              paginatedAwardsList.map((list, listIndex) => {
+                return(
+                  <SinglePage
+                    key={`${list[0].awardId}-${listIndex}`}
                   >
+                    <PageItems
+                      ref={singlepage => this.singlePages[listIndex] = singlepage}
+                    >
+                      {
+                        list.map((item, itemIndex) => {
+                          let groupString = item.group.split('')
+                          return (
+                            <li
+                              key={listIndex + '-' + itemIndex}>
+                              <a href={item.titleLink} target="_blank">
+                              <AwardItem>
+                                <Ranking
+                                  display={item.ranking}>
+                                  {item.ranking}
+                                </Ranking>
+                                <MoreInfo>
+                                  <p>
+                                    {
+                                      groupString.map((char, index) => {
+                                        return(
+                                          <span key={index}>{char}</span>
+                                        )
+                                      })
+                                    }
+                                  </p>
+                                  <p>{item.title}</p>
+                                  <p>{item.prizeman}</p>
+                                </MoreInfo>
+                              </AwardItem>
+                              </a>
+                            </li>
+                          )
+                        })
+                      }
+                    </PageItems>
+                  </SinglePage>
+                )
+              })
+            }
+          </PaginatedList>
+          <AccordionList>
+            {
+              awardNamelist.map((award, awardIdx) => {
+                return(
+                  <React.Fragment
+                    key={award.award}
+                  >
+                    <AwardName 
+                      onClick={() => this._foldAndUnfold(awardIdx)}
+                      unfold={this.state.unfoldArray[awardIdx]}
+                    >
+                      <p>{award.award}</p>
+                    </AwardName>
                     {
-                      list.map((item, itemIndex) => {
-                        let groupString = item.group.split('')
-                        return (
-                          <li
-                            key={listIndex + '-' + itemIndex}>
-                            <a href={item.titleLink} target="_blank">
-                            <AwardItem>
-                              <Ranking
-                                display={item.ranking}>
-                                {item.ranking || mockupString}
-                              </Ranking>
-                              <MoreInfo>
-                                <p>
-                                  {
-                                    groupString.map((char, index) => {
-                                      return(
-                                        <span key={index}>{char}</span>
-                                      )
-                                    })
-                                  }
-                                </p>
-                                <p>{item.title}</p>
-                                <p>{item.prizeman}</p>
-                              </MoreInfo>
-                            </AwardItem>
-                            </a>
-                          </li>
+                      awardYearList[awardIdx].map((year) => {
+                        let listLength = fulldatalist[awardIdx][year].length
+                        let isOdd = listLength % 2 === 1
+                        return(
+                          <React.Fragment
+                            key={`${award.award}-${year}`}
+                          >
+                            <YearTag
+                              unfold={this.state.unfoldArray[awardIdx]}>
+                              <p>{year}</p>
+                              <SeperatedLine />
+                            </YearTag>
+                            <RecordsInaYear
+                              unfold={this.state.unfoldArray[awardIdx]}
+                            >
+                              {
+                                fulldatalist[awardIdx][year].map((item, itemIndex) => {
+                                  return(
+                                    <Record
+                                      key={awardIdx + '-' + itemIndex}
+                                      unfold={this.state.unfoldArray[awardIdx]}
+                                    >
+                                      <a href={item.titleLink} target="_blank">
+                                        <AwardItem>
+                                          <Ranking
+                                            display={item.ranking}>
+                                            {item.ranking}
+                                          </Ranking>
+                                          <MoreInfo>
+                                            <p>{item.group}</p>
+                                            <p>{item.title}</p>
+                                            <p>{item.prizeman}</p>
+                                          </MoreInfo>
+                                        </AwardItem>
+                                      </a>
+                                    </Record>
+                                  )                              
+                                })
+                              }
+                              <MockRecord 
+                                isOdd={isOdd}
+                                unfold={this.state.unfoldArray[awardIdx]}
+                              />
+                            </RecordsInaYear>
+                          </React.Fragment>
                         )
                       })
                     }
-                  </PageItems>
-                </SinglePage>
-              )
-            })
-          }
-          </Pages>
+                  </React.Fragment>
+                )
+              })
+            }
+          </AccordionList>
           <SemiTransparentMask position={"bottom"}/>
-        </PagesWrapper>
+        </PageWrapper>
         <Arrows>
           <TopArrow
+            visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}>
             <ArrowNextIcon />
           </TopArrow>
           <BottomArrow
+            visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}>
             <ArrowNextIcon />
           </BottomArrow>

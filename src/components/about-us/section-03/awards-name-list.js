@@ -1,4 +1,5 @@
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -17,6 +18,20 @@ const AwardItem = styled.div`
       transition: all 200ms ease-in-out;
     }
     cursor: pointer;
+    ul{
+      display: ${props => props.currentIndex === 'true' ? 'block' : 'none'};
+      list-style: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 25px;
+      li>p{
+        font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
+        font-weight: ${font.weight.bold};
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        margin: 0;        
+      }
+    }
   `}
   ${screen.overDesktop`
     p{
@@ -31,29 +46,6 @@ const AwardItem = styled.div`
       letter-spacing: ${props => props.currentIndex === 'true' ? '0.7px' : '0.5px'};
       font-size: ${props => props.currentIndex === 'true' ? '22px' : '16px'};
     }  
-  `}
-  ${screen.tablet`
-    width: calc(100% / 2);
-    p{
-      text-align: center;
-      font-size: ${props => props.currentIndex === 'true' ? '24px' : '14px'};
-      font-weight: bold;
-      letter-spacing: ${props => props.currentIndex === 'true' ? '0.8px' : '0.4px'};
-      opacity: ${props => props.currentIndex === 'true' ? '1' : '0.39'};  
-    }
-  `}
-  ${screen.mobile`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    visibility: ${props => props.currentIndex === 'true' ? 'visible' : 'hidden'};
-    transition: visibility 1ms linear;
-    p{
-      font-size: 20px;
-      lettter-spacing: 0.6;  
-      font-weight: bold;
-    }
   `}
 `
 
@@ -71,12 +63,22 @@ const Bullet = styled.span `
   `}
 `
 
+const Cursor = styled.span`
+  display: inline-block;
+  visibility: ${props => props.isCurrentYear === 'true' ? 'visible' : 'hidden'};
+  width: 12px;
+  height: 4px;
+  background: ${colors.black};
+  vertical-align: middle;
+  margin-right: 5px;
+`
+
 export default class AwardNameList extends PureComponent {
   constructor(props) {
     super(props)
   }
   render() {
-    const { awardsName, activeAwardId, selectAward } = this.props
+    const { awardsName, activeAwardId, selectAward, awardYearList, selectYear, activeYearIndex } = this.props
     return (
       <React.Fragment>
         {
@@ -85,14 +87,27 @@ export default class AwardNameList extends PureComponent {
               <AwardItem
                 key={index}
                 currentIndex={(activeAwardId === name.awardId).toString()}
-                onClick={() => selectAward(name.awardId)}
               >
-                <p>
+                <p onClick={() => selectAward(name.awardId, index)}>
                   {name.award}
                   <span>
                     <Bullet display={(activeAwardId === name.awardId).toString()} />
                   </span>
                 </p>
+                <ul>
+                  { 
+                    typeof awardYearList[index] !== 'undefined' ?
+                    awardYearList[index].map((year, yearIndex) => {
+                      return(
+                        <li
+                          key={year}
+                          onClick={() => selectYear(yearIndex)}>
+                          <p><Cursor isCurrentYear={(activeYearIndex === yearIndex).toString()}/>{year}</p>
+                        </li>
+                      )
+                    }): null
+                  }
+                </ul>
               </AwardItem>
             )
           })
@@ -104,11 +119,16 @@ export default class AwardNameList extends PureComponent {
 
 AwardNameList.defaultProps = {
   awardsName: [],
-  activeAwardId: ''
+  activeAwardId: '',
+  awardYearList: [],
+  activeYearIndex: 0
 }
 
 AwardNameList.propTypes = {
   awardsName: PropTypes.array.isRequired,
   activeAwardId: PropTypes.string.isRequired,
-  selectAward: PropTypes.func
+  selectAward: PropTypes.func,
+  awardYearList: PropTypes.array.isRequired,
+  selectYear: PropTypes.func,
+  activeYearIndex: PropTypes.number.isRequired
 }

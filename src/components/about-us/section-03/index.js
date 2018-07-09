@@ -2,30 +2,31 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
-import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
-import assign from 'lodash/assign'
 import awardsList from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
 import AwardsNameList from './awards-name-list'
 import Content from './content'
 import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
 import React, { PureComponent } from 'react'
 import riceEarBlack from '../../../../static/asset/about-us/rice-ear-black.png'
 import styled from 'styled-components'
 import titleImg from '../../../../static/asset/about-us/title-section3.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section3-mob.png'
-import values from 'lodash/values'
 
 const _ = {
-  groupBy, assign, values
+  groupBy, keys
 }
 
 const groupedAwards = _.groupBy(awardsList, award => award.awardId)
-const awardsNameForCarousel = [ 
-  ...awardsName.slice(awardsName.length - 2, awardsName.length), 
-  ...awardsName, 
-  ...awardsName.slice(0, 2) 
-]
+
+const awardGroupByNameAndYear = awardsName.map(name =>
+  _.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])
+)
+
+const awardYearList = awardsName.map(name => 
+  _.keys(_.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])).reverse()
+)
 
 const Container = styled.div`
   position: relative;
@@ -97,7 +98,7 @@ const SectionWrapper = styled.section`
   `}
 `
 
-const LeftColumn = styled.div`
+const LeftColumnOnDesktopAbove = styled.div`
   position: relative;
   ${screen.desktopAbove`
     display: inline-block;
@@ -176,7 +177,7 @@ const AwardsCount = styled.div`
   }
   h2{
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
-    font-weight: bold;
+    font-weight: ${font.weight.bold};
     font-size: 36px;
     margin: 0 0 2px 0;
   } 
@@ -191,7 +192,7 @@ const AwardsCount = styled.div`
     width: 100%;
   `}
   ${screen.tablet`
-    width: 138px;
+    width: 105px;
   `}
   ${screen.mobile`
     width: 92px;
@@ -223,59 +224,6 @@ const Achievement = styled.div`
   ${screen.mobile`
     position: relative;
     float: right;
-  `}
-`
-
-const CarouselSelector = styled.div`
-  position: relative;
-  width: 100%;
-  height: 45px;
-  display: block;
-  margin-top: 100px;
-  ${screen.desktopAbove`
-    display: none;
-  `}
-`
-
-const PageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-`
-
-const AwardsSelector = styled.div `
-  width: 100%;
-  height: 100%;
-  white-space: nowrap;
-  ${screen.tablet`
-    transition: all ${props => props.transitionEffect ? '250ms' : '1ms'} ease-in-out;
-    transform: translate3d(calc(-25% + ${props => props.pageNumber * -100 / 2}%), 0, 0);  
-  `}
-  ${screen.mobile`
-    position: relative;
-  `}
-`
-
-const Arrow = styled.div `
-  position: absolute;
-  top: 50%;
-  width: 30px;
-  height: 45px;
-`
-
-const LeftArrow = Arrow.extend `
-  left: 0;
-  transform: translateX(-200%) translateY(-50%) scaleX(-1);
-  ${screen.mobile`
-    transform: translateX(-100%) translateY(-50%) scaleX(-1);  
-  `}
-`
-
-const RightArrow = Arrow.extend `
-  right: 0;
-  transform: translateX(200%) translateY(-50%);
-  ${screen.mobile`
-    transform: translateX(100%) translateY(-50%);    
   `}
 `
 
@@ -313,7 +261,7 @@ const Circle = styled.div`
 
 const MobCircle = Circle.extend`
   ${screen.tablet`
-    left: calc(138px / 2);
+    left: calc(105px / 2);
     transform: translateX(-50%);
   `}
   ${screen.mobile`
@@ -344,56 +292,34 @@ const YearRange = styled.p`
   `}
 `
 
-const SemiTransparentMask = styled.div `
-  position: absolute;
-  top: 0;
-  ${props => props.position === 'left' ? 'left: 0' : 'right: 0'};
-  width: 50px;
-  height: 100%;
-  background: ${props => `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
-  ${screen.mobile`
-    display: none;
-  `}
-`
-
 export default class Section3 extends PureComponent {
   constructor(props) {
     super(props)
     this.minMaxYear = this._getYearRange(awardsList)
     this.state = {
       activeAwardId: awardsName[0].awardId,
+      activeAwardIndex: 0,
+      activeYearIndex: 0,
       carouselPageIndex: 1,
       currentDataList: groupedAwards[awardsName[0].awardId],
       transitionEffect: true
     }
   }
-  /**
-   *  Callback function when clicking carousel arrows for changing page index ( Only on tablet and mobile )
-   *  @param {String} direction
-   */
-  _gotoNextAward = (direction) => {
-    let newPageIndex = 0
-    let { carouselPageIndex } = this.state
-    switch(direction) {
-      case 'next':
-        newPageIndex = ++carouselPageIndex % awardsNameForCarousel.length
-        break
-      case 'prev':
-        newPageIndex = --carouselPageIndex % awardsNameForCarousel.length
-        break
-      default:
-        return
-    }
-    this.setState({ 
-      carouselPageIndex: newPageIndex,
-      activeAwardId: awardsNameForCarousel[newPageIndex + 1].awardId
-    })
-  }
-  _selectAward = (awardId) => {
+
+  _selectAward = (awardId, awardIndex) => {
     this.setState({
-      activeAwardId: awardId
+      activeAwardId: awardId,
+      activeAwardIndex: awardIndex,
+      activeYearIndex: 0
     })
   }
+
+  _selectYear = (yearIndex) => {
+    this.setState({
+      activeYearIndex: yearIndex
+    })
+  }
+
   /**
    *  Given data list and return the max and min year of current data
    *  @param {Array} list
@@ -407,42 +333,16 @@ export default class Section3 extends PureComponent {
       ]
     },[])
   }
-  /**
-   *  A callback function of event transitionend, which is used to shift back to start when touch the end here
-   */
-  _onItemShifted = () => {
-    const itemLength = awardsNameForCarousel.length
-    let pageIndex = this.state.carouselPageIndex
-    if (pageIndex === itemLength - 2) {
-      pageIndex = 2
-      this.setState({
-        transitionEffect: false,
-        carouselPageIndex: pageIndex
-      })
-      this.forceUpdate()
-    } else if (pageIndex === 0) {
-      pageIndex = itemLength - 4
-      this.setState({
-        transitionEffect: false,
-        carouselPageIndex: pageIndex
-      })
-      this.forceUpdate()
-    } else {
-      if (!this.state.transitionEffect) {
-        this.setState({
-          transitionEffect: true
-        })
-      }
-    }
-  }
 
   render() {
-    const selectedDatalist = groupedAwards[this.state.activeAwardId]
+    const { activeYearIndex, activeAwardIndex } = this.state
+    const currentYear = awardYearList[activeAwardIndex][activeYearIndex]
+    const selectedDataList = awardGroupByNameAndYear[activeAwardIndex][currentYear]
     return (
     <Border>
       <Container>
         <SectionWrapper>
-          <LeftColumn>
+          <LeftColumnOnDesktopAbove>
             <MobCircle />
             <Title>
               <span>得獎</span>
@@ -453,6 +353,9 @@ export default class Section3 extends PureComponent {
                 awardsName={awardsName}
                 activeAwardId={this.state.activeAwardId}
                 selectAward={this._selectAward}
+                awardYearList={awardYearList}
+                selectYear={this._selectYear}
+                activeYearIndex={this.state.activeYearIndex}
               />
               <Circle />
             </ListSelector>
@@ -465,35 +368,13 @@ export default class Section3 extends PureComponent {
               </AwardsCount>
               <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
             </Achievement>
-          </LeftColumn>
-          <CarouselSelector>
-            <LeftArrow
-              onClick={() => this._gotoNextAward('prev')}>
-              <ArrowNextIcon />
-            </LeftArrow>
-            <RightArrow
-              onClick={() => this._gotoNextAward('next')}>
-              <ArrowNextIcon />
-            </RightArrow>
-            <PageWrapper>
-              <AwardsSelector
-                transitionEffect={this.state.transitionEffect}
-                pageNumber={this.state.carouselPageIndex}
-                onTransitionEnd={this._onItemShifted}
-              >
-                <AwardsNameList
-                  awardsName={awardsNameForCarousel}
-                  activeAwardId={this.state.activeAwardId}
-                  selectAward={() => {}}
-                />
-              </AwardsSelector>
-              <SemiTransparentMask position={'left'}/>
-              <SemiTransparentMask position={'right'}/>
-            </PageWrapper>
-          </CarouselSelector>
+          </LeftColumnOnDesktopAbove>
           <Content
             gotoNextPage={this._gotoNextPage}
-            selectedDatalist={selectedDatalist}
+            selectedDataList={selectedDataList}
+            fulldatalist={awardGroupByNameAndYear}
+            awardNamelist={awardsName}
+            awardYearList={awardYearList}
           />
         </SectionWrapper>
       </Container>

@@ -149,7 +149,7 @@ const MonthlyAccomplishments = styled.div `
   min-height: 76px;
 `
 
-const Acomplishment = styled.div `
+const Accomplishment = styled.div `
   width: 100%;
   margin: 0;
   color: ${colors.black};
@@ -191,10 +191,20 @@ const Acomplishment = styled.div `
         transition: height .25s;      
       }
     }
-    &:last-child {
-      display: ${props => !props.unfold && props.isOdd ? 'none' : 'block'};
-    }  
   `}
+`
+
+const MockAccomplishment = styled.div `
+  width: 100%;
+  position: relative;
+  min-height: 76px;
+  height: ${props => props.unfold ? 'auto' : '76px'};
+  transition: all ${transitionDuration} ease;
+  display: ${props => props.isOdd ? 'block' : 'none'};
+  visibility: ${props => props.isOdd ? 'visible' : 'none'};
+  margin-top: ${props => props.unfold ? '-76px' : 'calc(-76px * 2)'};
+  transform-origin: 50% 100% 0;
+  transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
 `
 
 export default class List extends PureComponent {
@@ -235,7 +245,7 @@ export default class List extends PureComponent {
             {
               sortedDataGroupByYear[year].map((record, index) => {
                 return(
-                    <Acomplishment
+                    <Accomplishment
                       key={index}
                       unfold={unfoldArray[indexOfUnfoldArray]}
                       isOdd={isOdd}
@@ -249,10 +259,14 @@ export default class List extends PureComponent {
                         </p>
                         <p>{record.text.chinese}</p>
                       </Record>
-                    </Acomplishment>
+                    </Accomplishment>
                 )            
               })
             }
+            <MockAccomplishment
+              unfold={unfoldArray[indexOfUnfoldArray]}
+              isOdd={isOdd}
+            />
           </OnlyDisplayOnMobile>
           <DisplayOnTabletAbove>
             {
@@ -262,7 +276,7 @@ export default class List extends PureComponent {
                     {
                       _.values(yearRecords).map((monthRecords, index) => {
                         return (
-                          <Acomplishment
+                          <Accomplishment
                             key={index}
                           >
                             <MonthLabel monthOrder={index}>
@@ -274,7 +288,7 @@ export default class List extends PureComponent {
                               </p>
                               <p>{monthRecords.text.chinese}</p>
                             </Record>
-                          </Acomplishment>
+                          </Accomplishment>
                         )
                       })
                     }
