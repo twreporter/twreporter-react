@@ -145,7 +145,6 @@ const AwardItem = styled.div`
 `
 
 const Ranking = styled.p`
-  visibility: ${props => props.display ? 'visible' : 'hidden'};
   color: ${colors.secondaryColor};
   text-align: left;
   font-size: 14px;
@@ -187,77 +186,33 @@ const PageWrapper = styled.div`
   `}
 `
 
-const RecordsInaYear = styled.ul`
+const RecordsInaYear = styled.div`
+  position: relative;
   width: 100%;
-  transform-style: preserve-3d;
   margin-top: 2px;
   margin-bottom: ${props => props.unfold ? '9px' : '0'};
   padding: 0;
   list-style: none;
 `
 
-const Record = styled.li`
-  width: 100%;
-  margin: auto 0;
-  color: ${colors.black};
+const Record = styled.div`
   position: relative;
-  min-height: 204px;
-  height: ${props => props.unfold ? 'auto' : '204px'};
-  transition: all ${transitionDuration} linear;
-  border-bottom: solid 1px ${borderBottomColor};
+  width: 100%;
+  height: ${props => props.unfold ? 'auto' : '0'};
+  margin: auto 0;
+  overflow: hidden;
+  color: ${colors.black};
   text-align: left;
-  padding: 20px 21px 19px 15px;
+  border-bottom: solid ${props => props.unfold ? '1px' : '0'} ${borderBottomColor};
+  padding: ${props => props.unfold ? '20px 21px 19px 15px' : '0 21px 0 15px'};
   background: ${colors.gray.gray96};
+  transition: all ${transitionDuration} linear;
+  p{
+    opacity: ${props => props.unfold ? '1' : '0'};
+  }
   a{
     color: ${colors.black};
   }
-  &:nth-child(odd) {
-    transform-origin: 50% 0 0;
-    transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(-90deg)'};
-    will-change: transform;
-    &:before {
-      content: '';
-      background-image: linear-gradient(to top, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: ${props => props.unfold ? '0' : '100%'};
-      z-index: calc(${defaultZIndex} - 1);
-      transition: height .25s;      
-    }
-  }
-  &:nth-child(even) {
-    transform-origin: 50% 100% 0;
-    transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
-    margin-top: ${props => props.unfold ? '0' : 'calc(-204px * 2)'};
-    will-change: transform, margin-top;
-    &:before {
-      content: '';
-      background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: ${props => props.unfold ? '0' : '100%'};
-      z-index: calc(${defaultZIndex} - 1);
-      transition: height .25s;      
-    }
-  }
-`
-
-const MockRecord = styled.div`
-  width: 100%;
-  position: relative;
-  min-height: 204px;
-  height: ${props => props.unfold ? 'auto' : '204px'};
-  transition: all ${transitionDuration} linear;
-  padding: 20px 21px 19px 15px;
-  display: ${props => props.isOdd ? 'block' : 'none'};
-  visibility: ${props => props.isOdd ? 'visible' : 'none'};
-  margin-top: ${props => props.unfold ? '-204px' : 'calc(-204px * 2)'};
-  transform-origin: 50% 100% 0;
-  transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
 `
 
 const AwardName = styled.div`
@@ -294,8 +249,9 @@ const SeperatedLine = styled.div`
 const YearTag = styled.div`
   position: relative;
   background: ${colors.white};
-  display: ${props => props.unfold ? 'block' : 'none'};
-  height: 65px;
+  overflow: hidden;
+  height: ${props => props.unfold ? '65px' : '0'};
+  transition: height ${transitionDuration} linear;
   p{
     position: absolute;
     top: 50%;
@@ -476,8 +432,6 @@ export default class Content extends PureComponent {
                     </AwardName>
                     {
                       awardYearList[awardIdx].map((year) => {
-                        let listLength = fulldatalist[awardIdx][year].length
-                        let isOdd = listLength % 2 === 1
                         return(
                           <React.Fragment
                             key={`${award.award}-${year}`}
@@ -514,10 +468,6 @@ export default class Content extends PureComponent {
                                   )                              
                                 })
                               }
-                              <MockRecord 
-                                isOdd={isOdd}
-                                unfold={this.state.unfoldArray[awardIdx]}
-                              />
                             </RecordsInaYear>
                           </React.Fragment>
                         )
