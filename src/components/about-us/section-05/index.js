@@ -9,6 +9,7 @@ import orderBy from 'lodash/orderBy'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
+import sz from '../constants/screen-size'
 import Timeline from './timeline'
 import titleImg from '../../../../static/asset/about-us/title-section5-mob.png'
 import titleImgDesktop from '../../../../static/asset/about-us/title-section5.png'
@@ -356,8 +357,9 @@ export default class Section5 extends PureComponent {
   constructor(props) {
     super(props)
     this.yearContent = []
+    this.isMobile = false
     this.state = {
-      timelineScrolling: true,
+      timelineScrolling: false,
       timelineScrollingHeight: 0,
       yearContentHeight: [],
       unfoldArray: yearList.map(() => false),
@@ -374,26 +376,26 @@ export default class Section5 extends PureComponent {
     newUnfoldArray[index] = !newUnfoldArray[index]
     this.setState({ unfoldArray: newUnfoldArray })
   }
-  /**
-   * The function is for Waypoint component which changes states according to client scrolling progress
-   * @param {String} prevPos
-   * @param {String} currPos
-   */
-  _onPositionChange = (prevPos, currPos) => {
-    if (prevPos === 'inside' && currPos === 'below') {
-      this.setState({ isBorderBottomfixed: true })
-    } else if (prevPos === 'below' && currPos === 'inside') {
-      // unfold the first year
-      let newUnfoldArray = [ ...this.state.unfoldArray ]
-      newUnfoldArray[0] = true
-      this.setState({ 
-        isBorderBottomfixed: false,
-        unfoldArray: newUnfoldArray
-      })
-    }
+  _onLeave = () => {
+    this.setState({ isBorderBottomfixed: true })
+    this._stopTimelineAutoScrolling()
+  }
+  _onEnter = () => {
+    // unfold the first year
+    let newUnfoldArray = [ ...this.state.unfoldArray ]
+    newUnfoldArray[0] = true
+    this.setState({
+      isBorderBottomfixed: false,
+      unfoldArray: newUnfoldArray
+    })
+
+    // to start or resume auto-scrolling
+    this._startTimelineAutoScrolling()
   }
   _startTimelineAutoScrolling = () => {
-    this.setState({ timelineScrolling: true })
+    if (!this.isMobile) {
+      this.setState({ timelineScrolling: true })
+    }
   }
   _stopTimelineAutoScrolling = () => {
     this.setState({ timelineScrolling: false })
@@ -420,6 +422,9 @@ export default class Section5 extends PureComponent {
   componentDidMount() {
     const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
+    if (window.matchMedia(`(max-width: ${sz.mediumScreenMinWidth - 1}px)`).matches) {
+      this.isMobile = true
+    }
   }
   render() {
     return (
@@ -475,11 +480,13 @@ export default class Section5 extends PureComponent {
             fixed={this.state.isBorderBottomfixed}
             zIndex={this._getBorderZIndex()}
           />
-          <Waypoint
-            onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-            fireOnRapidScroll
-          />
         </Container>
+        <Waypoint
+          onEnter={this._onEnter}
+          onLeave={this._onLeave}
+          scrollableAncestor="window"
+          fireOnRapidScroll
+        />
       </Border>
     )
   }
