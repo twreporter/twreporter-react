@@ -47,7 +47,7 @@ class Anchors extends baseComponents.Anchors {
         onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
         key={`SectionButton_${anchorObj.id}`}
       >
-        <Order>{`${anchorlist[anchorObj.index - 1]}`}</Order>
+        <Order>{`${anchorlist[anchorObj.index - 1].label}`}</Order>
       </Anchor>
     )
   }
@@ -73,8 +73,6 @@ const AnchorsContainer = styled.div`
   right: 0;
   top: 50%;
   transform: translate(-49px, -50%);
-  visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
-  opacity: ${props => (props.toShow ? 1 : 0)};
   transition: opacity 0.5s linear;
   &:hover {
     ${Order} {
@@ -85,7 +83,6 @@ const AnchorsContainer = styled.div`
   ${screen.desktop`
     transform: translate(-47px, -50%);
   `}
-
   ${screen.tabletBelow`
     display: none;
   `}
@@ -115,30 +112,14 @@ const Icons = styled.div`
 class AboutusPageSideBar extends React.PureComponent {
   constructor(props) {
     super(props)
-
-    this.state = {
-      isToggled: false
-    }
-
-    this.toggleMobileSideBar = this._toggleMobileSideBar.bind(this)
-  }
-
-  _toggleMobileSideBar() {
-    this.setState({
-      isToggled: !this.state.isToggled
-    })
   }
 
   render() {
     // currentAnchorId and handleClickAnchor are passed from `SideBarHOC`
-    const { anchors, children, currentAnchorId, handleClickAnchor, toShow } = this.props
-    const { isToggled } = this.state
+    const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
     return (
       <div>
-          <AnchorsContainer
-            toShow={isToggled || toShow}
-            isToggled={isToggled}
-          >
+          <AnchorsContainer>
             <Anchors
               data={anchors}
               handleClickAnchor={handleClickAnchor}
@@ -158,8 +139,7 @@ class AboutusPageSideBar extends React.PureComponent {
 
 AboutusPageSideBar.defaultProps = {
   currentAnchorId: '',
-  handleClickAnchor: () => {},
-  toShow: true
+  handleClickAnchor: () => {}
 }
 
 AboutusPageSideBar.propTypes = {
@@ -168,8 +148,7 @@ AboutusPageSideBar.propTypes = {
     label: PropTypes.string.isRequired
   })).isRequired,
   currentAnchorId: PropTypes.string,
-  handleClickAnchor: PropTypes.func,
-  toShow: PropTypes.bool
+  handleClickAnchor: PropTypes.func
 }
 
 export default AboutusPageSideBar

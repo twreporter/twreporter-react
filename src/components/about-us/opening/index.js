@@ -1,10 +1,12 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle } from './section-style'
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
 import aboutusImg from '../../../../static/asset/about-us/aboutus-opening.png'
-import aboutusImgTablet from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
 import aboutusImgMob from '../../../../static/asset/about-us/aboutus-opening-mob.png'
+import aboutusImgTablet from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
+import AnchorsPanel from './anchors-panel'
 import Header from './header'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
@@ -410,19 +412,48 @@ const EnglishIntro = styled.div`
 export class Opening extends PureComponent {
   constructor(props) {
     super(props)
-    this._handleClick = this._handleClick.bind(this)
+    this.state = {
+      isAnchorPanelOpen: false
+    }
   }
   
-  _handleClick(event) {
+  _handleClick = (event) => {
     event.preventDefault()
     const coverBottom = this._cover.scrollHeight
     return smoothScroll(coverBottom)
   }
-    
+  _closeAnchorPanel = () => {
+    this.setState({
+      isAnchorPanelOpen: false
+    })
+    enableBodyScroll(this.anchorsPanel)
+  }
+  _openAnchorPanel = () => {
+    this.setState({
+      isAnchorPanelOpen: true
+    })
+    disableBodyScroll(this.anchorsPanel)
+  }
+  _closePanelAndScrollToAnchor = (idx) => {
+    this._closeAnchorPanel()
+    this.props.handleClickAnchor(idx) 
+  }
+  componentWillUnmount() {
+    clearAllBodyScrollLocks()
+  }    
   render() {
     return (
       <Container innerRef={(ele) => {this._cover = ele}}>
-        <Header />
+        <AnchorsPanel
+          ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
+          sectionRefs={this.sectionRefs}
+          handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
+          isOpen={this.state.isAnchorPanelOpen}
+          closePanel={this._closeAnchorPanel}
+        />
+        <Header 
+          onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+        />
         <Content>
           <ChineseIntro>          
             <Title>

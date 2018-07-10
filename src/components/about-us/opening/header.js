@@ -52,7 +52,7 @@ const TopRow = styled.div`
   `}
 `
 
-const Languages = styled.div`
+const LanguageSwitcher = styled.div`
   display: table-cell;
   text-align: right;
   vertical-align: middle;
@@ -70,6 +70,28 @@ const Languages = styled.div`
     opacity: 0.26;
     padding-right: 0;
   }
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const Hamburger = styled.div`
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+  width: 24px;
+  span{
+    width: 100%;
+    height: 2px;
+    background: ${colors.black};
+    display: block;
+  }
+  span:first-child{
+    margin-bottom: 8px;
+  }
+  ${screen.desktopAbove`
+    display: none;
+  `}
 `
 
 class Header extends React.PureComponent {
@@ -80,15 +102,19 @@ class Header extends React.PureComponent {
           <Link to="/">
             <Logo />
           </Link>
-          <Languages>
+          <LanguageSwitcher>
             <span>
               <a href={'.'}>中</a>
             </span>
             <span>|</span>
             <span>
-              <a href={'.'}>EN</a>
+              <a href={"https://www.twreporter.org/a/about-us-english-version"} target="_blank">EN</a>
             </span>
-          </Languages>
+          </LanguageSwitcher>
+          <Hamburger onClick={this.props.onHamburgerClick}>
+            <span />
+            <span />
+          </Hamburger>
         </TopRow>
       </Container>
     )
