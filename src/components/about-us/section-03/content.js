@@ -140,7 +140,7 @@ const AwardItem = styled.div`
     padding-bottom: 21px;
   `}
   ${screen.tablet`
-    padding-bottom: 40px;
+    padding-bottom: 29px;
   `}
 `
 

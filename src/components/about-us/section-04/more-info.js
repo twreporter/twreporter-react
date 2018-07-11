@@ -1,5 +1,3 @@
-//TODO: Add transition animation to open info box
-
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'

@@ -5,7 +5,6 @@ import mail from '../../../../static/asset/about-us/mail.png'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import testImg from '../../../../static/asset/about-us/NicoFang.png'
 
 const Container = styled.div`
   position: relative;
@@ -82,7 +81,7 @@ export default class PaginatedMemberList extends PureComponent {
         <MemberBlock key={member.name}>
           <MemberBorder>
             <span />
-            <img src={testImg} />
+            <img src={member.profile} />
             <ProfileWrapper
               isMailIconVisible={typeof member.email !== 'undefined'}
             >

@@ -1,3 +1,4 @@
+import { membersImg } from './member-img-src'
 import categoryIds from './category-ids'
 
 const members = [
@@ -7,6 +8,7 @@ const members = [
     job: '總編輯',
     jobEng: 'Editor in chief',
     email: 'turtle@twreporter.org',
+    profile: membersImg.EditJungShinHo,
     category: categoryIds.editor
   },
   {
@@ -15,6 +17,7 @@ const members = [
     job: '副總編輯',
     jobEng: 'Deputy Editor in Chief',
     email: 'delin.fang@twreporter.org',
+    profile: membersImg.EditNicoFang,
     category: categoryIds.editor
   },
   {
@@ -23,6 +26,7 @@ const members = [
     job: '副總編輯',
     jobEng: 'Deputy Editor in Chief',
     email: 'jill718@twreporter.org',
+    profile: membersImg.EditJillYang,
     category: categoryIds.editor
   },
   {
@@ -31,6 +35,7 @@ const members = [
     job: '總主筆',
     jobEng: 'Editorial Managing Director',
     email: 'sherry@twreporter.org',
+    profile: membersImg.EditSherryLee,
     category: categoryIds.editor
   },
   {
@@ -39,6 +44,7 @@ const members = [
     job: '編輯主任',
     jobEng: 'Managing Editor',
     email: 'sychang@twreporter.org',
+    profile: membersImg.EditShihYunChang,
     category: categoryIds.editor
   },
   {
@@ -47,6 +53,7 @@ const members = [
     job: '資深編輯',
     jobEng: 'Senior Editor',
     email: 'sylviewang@twreporter.org',
+    profile: membersImg.EditSylvieWang,
     category: categoryIds.editor
   },
   {
@@ -55,6 +62,7 @@ const members = [
     job: '行政經理',
     jobEng: 'Administration Manager',
     email: 'fenc@twreporter.org',
+    profile: membersImg.EditJenniferCheng,
     category: categoryIds.editor
   },
   {
@@ -63,6 +71,7 @@ const members = [
     job: '編輯',
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
+    profile: membersImg.EditSzuHuaChen,
     category: categoryIds.editor
   },
   {
@@ -71,6 +80,7 @@ const members = [
     job: '數位專案經理',
     jobEng: 'Digital Product Manager',
     email: 'mimichen@twreporter.org',
+    profile: membersImg.DigiMimiChen,
     category: categoryIds.digital
   },
   {
@@ -79,6 +89,7 @@ const members = [
     job: '攝影主任',
     jobEng: 'Photo Department Director',
     email: 'shakingwave@twreporter.org',
+    profile: membersImg.PhotoChihWeiYu,
     category: categoryIds.photojournalist
   },
   {
@@ -87,6 +98,7 @@ const members = [
     job: '資深攝影',
     jobEng: 'Senior‭ ‬Photojournalist',
     email: 'jamesonwu@twreporter.org',
+    profile: membersImg.PhotoJamesonWu,
     category: categoryIds.photojournalist
   },
   {
@@ -95,6 +107,7 @@ const members = [
     job: '攝影記者',
     jobEng: 'Photojournalist',
     email: 'yushawn1201@twreporter.org',
+    profile: membersImg.PhotoYuEnLin,
     category: categoryIds.photojournalist
   },
   {
@@ -103,6 +116,7 @@ const members = [
     job: '資深工程師',
     jobEng: 'Senior Coder',
     email: 'nickhsine@twreporter.org',
+    profile: membersImg.DigiNickLi,
     category: categoryIds.digital
   },
   {
@@ -111,6 +125,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer‭‬',
     email: 'yucj@twreporter.org',
+    profile: membersImg.DigiYuChungJen,
     category: categoryIds.digital
   },
   {
@@ -119,6 +134,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer',
     email: 'taylorfang@twreporter.org',
+    profile: membersImg.DigiTalorFang,
     category: categoryIds.digital
   },
   {
@@ -127,6 +143,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer',
     email: 'babygoat@twreporter.org',
+    profile: membersImg.DigiChingYangTseng,
     category: categoryIds.digital
   },
   {
@@ -135,6 +152,7 @@ const members = [
     job: '設計',
     jobEng: 'Art Designer‭‬',
     email: 'hychen@twreporter.org',
+    profile: membersImg.DigiYuChenHuang,
     category: categoryIds.digital
   },
   {
@@ -143,6 +161,7 @@ const members = [
     job: '介面設計師',
     jobEng: 'UI Designer',
     email: 'ginalin@twreporter.org',
+    profile: membersImg.DigiChenNaLin,
     category: categoryIds.digital
   },
   {
@@ -151,6 +170,7 @@ const members = [
     job: '資深記者',
     jobEng: 'Senior Journalist',
     email: 'tzewu@twreporter.org',
+    profile: membersImg.EditTzewuChang,
     category: categoryIds.editor
   },
   {
@@ -159,6 +179,7 @@ const members = [
     job: '資深記者',
     jobEng: 'Senior Journalist',
     email: 'bluemiau@twreporter.org',
+    profile: membersImg.EditMichelleFang,
     category: categoryIds.editor
   },
   {
@@ -167,6 +188,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'irosarian@twreporter.org',
+    profile: membersImg.EditRosaWang,
     category: categoryIds.editor
   },
   {
@@ -175,6 +197,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'yuchuanyeh@twreporter.org',
+    profile: membersImg.EditYuChuanYeh,
     category: categoryIds.editor
   },
   {
@@ -183,6 +206,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'itingchiang@twreporter.org',
+    profile: membersImg.EditItingChiang,
     category: categoryIds.editor
   },
   {
@@ -191,6 +215,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'capric.wu@twreporter.org',
+    profile: membersImg.EditBoWeiWu,
     category: categoryIds.editor
   }
 ]

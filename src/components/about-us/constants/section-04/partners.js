@@ -1,3 +1,8 @@
+import eventGIJN from '../../../../../static/asset/about-us/Section04-Event-GIJN.png'
+import eventJapan from '../../../../../static/asset/about-us/Section04-Event-Japan.png'
+import eventKAS from '../../../../../static/asset/about-us/Section04-Event-KAS.png'
+import eventNipal from '../../../../../static/asset/about-us/Section04-Event-Nipal.png'
+import eventTempo from '../../../../../static/asset/about-us/Section04-Event-Tempo.png'
 import logoGijn from '../../../../../static/asset/about-us/intl-co-GIJN-logo.png'
 import logoKas from '../../../../../static/asset/about-us/intl-co-kas-logo.png'
 import logoTempo from '../../../../../static/asset/about-us/intl-co-tempo-logo.png'
@@ -15,8 +20,7 @@ const partners = [
       english: ''
     },
     date: '2018.3',
-    cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-GIJN.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/gijn.jpg',
+    photo: eventKAS,
     logo: logoKas,
     link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },  
@@ -31,7 +35,7 @@ const partners = [
       english: 'Attended the Second Asian Investigative Journalism Conference "Uncovering Asia" in Kathmandu, Nepa, hosted by the Global Investigative Journalism Network, the Centre for Investigative Journalism, Nepal, and the Konrad-Adenauer-Stiftung.'
     },
     date: '2016.9.23',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/nepal.jpg',
+    photo: eventNipal,
     logo: logoGijn,
     link: 'https://www.facebook.com/photo.php?fbid=1488606891166286&set=a.328937367133250.100488.100000509688340&type=3&theater'
   },
@@ -46,10 +50,24 @@ const partners = [
       english: 'Invited by Waseda University to join internation conference and seminars of Investigative Journalism in the Asia Region: Perspectives and Prospects'     
     },
     date: '2017.6.4',
-    cardPhoto: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/intl-co-japan.jpg',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/japan.jpg',
+    photo: eventJapan,
     logo: logoWaseda,
     link: 'http://gijn.org/2017/07/06/investigative-journalism-in-japan-tough-times-but-signs-of-hope/'
+  },
+  {
+    partnerId: 'GIJN',
+    name: {
+      chinese: '國際調查記者聯盟',
+      english: 'GIJN'
+    },
+    description: {
+      chinese: '《報導者》成為華文世界第一個參與「國際調查記者聯盟」的成員（GIJN是一個涵蓋68個國家、155個非營利新聞組織的協會），《報導者》將繼續為國際調查媒體社群貢獻更多力量。',
+      english: 'The Reporter becomes a member of GIJN(Global Investigative Journalism Network), first in Manderin speaking world. The Reporter will be an new force of the internation investigative jouralism network.'
+    },
+    date: '2017.6.28',
+    photo: eventGIJN,
+    logo: logoGijn,
+    link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },
   {
     partnerId: 'Tempo',
@@ -62,7 +80,7 @@ const partners = [
       english: 'Published Investigative Report of the Year "Fraud, Exploitation, Blood and Tears in Far Sea Fishery," a result of collaboration with Indonesia’s renowned investigative media Tempo magazine'    
     },
     date: '2016.12.18',
-    photo: 'https://storage.googleapis.com/twreporter-multimedia/images/about-us/indonesia.jpg',
+    photo: eventTempo,
     logo: logoTempo,
     link: 'https://www.twreporter.org/a/far-sea-fishing-media-international-cooperation'
   }

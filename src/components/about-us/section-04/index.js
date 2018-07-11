@@ -5,6 +5,7 @@ import { font, marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import data from '../constants/section-04/partners'
 import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ import sz from '../constants/screen-size'
 import titleImg from '../../../../static/asset/about-us/title-section4.png'
 
 const _ = {
-  chunk, groupBy
+  chunk, groupBy, keys
 }
 const content = [ ...data ]
 const groupedContent = _.groupBy(content, partner => partner.partnerId)
@@ -268,7 +269,7 @@ export default class Section4 extends PureComponent {
   _getSelectedContent = () => {
     let { selectedLogo } = this.state
     if (selectedLogo === null ) return
-    return groupedContent[content[selectedLogo].partnerId]
+    return groupedContent[_.keys(groupedContent)[selectedLogo]]
   }
   componentDidMount() {
     // Check if the device is tabletBelow
@@ -281,7 +282,8 @@ export default class Section4 extends PureComponent {
   }
   render() {
     let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
-    const LogoBlockList = content.map((data, index) => {
+    const LogoBlockList = _.keys(groupedContent).map((key, index) => {
+      let data = groupedContent[key][0]
       return (
         <LogoBlock 
           key={index} 

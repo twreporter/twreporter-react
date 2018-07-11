@@ -18,7 +18,6 @@ import PaginatedMemberList from './paginated-list'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
-import testImg from '../../../../static/asset/about-us/NicoFang.png'
 import titleImg from '../../../../static/asset/about-us/title-section2.png'
 import titleImgMob from '../../../../static/asset/about-us/title-section2-mob.png'
 import values from 'lodash/values'
@@ -523,7 +522,7 @@ export default class Section2 extends PureComponent {
                 this.carouselData[categoryId].map((member, index) => {
                   return(
                     <Member key={index}>
-                      <img src={testImg} />
+                      <img src={member.profile} />
                       <Info
                         isMailIconVisible={typeof member.email !== 'undefined'}
                       >

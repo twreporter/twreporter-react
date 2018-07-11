@@ -1,3 +1,4 @@
+import { foundationImg } from './member-img-src'
 import categoryIds from './category-ids'
 
 const members = [
@@ -6,6 +7,7 @@ const members = [
     nameEng: 'Shieu Chi Weng',
     job: '董事長',
     jobEng: 'Director',
+    profile: foundationImg.foundationSheuChiWong,
     category: categoryIds.fundation
   },
   {
@@ -13,6 +15,7 @@ const members = [
     nameEng: 'Richy Lee',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationYiZhiLi,
     category: categoryIds.fundation
   },
   {
@@ -20,6 +23,7 @@ const members = [
     nameEng: 'Sunny Lin',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationYiHanLin,
     category: categoryIds.fundation
   },
   {
@@ -27,6 +31,7 @@ const members = [
     nameEng: 'San Xiong Hong',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationSanShiungHong,
     category: categoryIds.fundation
   },
   {
@@ -34,6 +39,7 @@ const members = [
     nameEng: 'Jong Tsun Huang',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationRongTsunHuang,
     category: categoryIds.fundation
   },
   {
@@ -41,6 +47,7 @@ const members = [
     nameEng: 'Zhe Bin Huang',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationZeBinHuang,
     category: categoryIds.fundation
   },
   {
@@ -48,6 +55,7 @@ const members = [
     nameEng: 'Benla Kuagn',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationZhongShunKuan,
     category: categoryIds.fundation
   },
   {
@@ -55,6 +63,7 @@ const members = [
     nameEng: 'Wei Hsiung Chan',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationWeiShiungZhan,
     category: categoryIds.fundation
   },
   {
@@ -62,6 +71,7 @@ const members = [
     nameEng: 'Hsiao Wei Chiu',
     job: '董事',
     jobEng: 'Executive Director',
+    profile: foundationImg.foundationShiaoWeiChu,
     category: categoryIds.fundation
   },
   {
@@ -69,6 +79,7 @@ const members = [
     nameEng: 'Wei Wen Li',
     job: '監察人',
     jobEng: 'Supervisor',
+    profile: foundationImg.foundationWeiWanLi,
     category: categoryIds.fundation
   },
   {
@@ -76,6 +87,7 @@ const members = [
     nameEng: 'Yuan-Hui Hu',
     job: '監察人',
     jobEng: 'Supervisor',
+    profile: foundationImg.foundationYuanHueiHu,
     category: categoryIds.fundation
   },
   {
@@ -83,6 +95,7 @@ const members = [
     nameEng: 'Shun Xiao Chen',
     job: '監察人',
     jobEng: 'Supervisor',
+    profile: foundationImg.foundationSoonShiaoChen,
     category: categoryIds.fundation
   },
   {
@@ -90,6 +103,7 @@ const members = [
     nameEng: 'Jung Shin Ho',
     job: '執行長',
     jobEng: 'Chief Executive Officer',
+    profile: foundationImg.EditJungShinHo,
     category: categoryIds.fundation
   },
   {
@@ -97,6 +111,7 @@ const members = [
     nameEng: 'Nico Fang',
     job: '副執行長',
     jobEng: 'Deputy Chief Executive Officer',
+    profile: foundationImg.EditNicoFang,
     category: categoryIds.fundation
   },
   {
@@ -104,6 +119,7 @@ const members = [
     nameEng: 'Jennifer Cheng',
     job: '行政經理',
     jobEng: 'Administration Manager',
+    profile: foundationImg.EditJenniferCheng,
     category: categoryIds.fundation
   },
   {
@@ -111,6 +127,7 @@ const members = [
     nameEng: 'Sylvie Wang',
     job: '行銷經理',
     jobEng: 'Marketing Manager‭',
+    profile: foundationImg.EditSylvieWang,
     category: categoryIds.fundation
   },
   {
@@ -118,6 +135,7 @@ const members = [
     nameEng: 'Yi Ru Liu',
     job: '顧問',
     jobEng: 'Consultant',
+    profile: foundationImg.foundationYiRuLiu,
     category: categoryIds.fundation
   }
 ]
