@@ -141,14 +141,12 @@ const Title = styled.h1`
   ${screen.tablet`
     width: 134px;
     height: 300px;
-    border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
     display: block;
     margin: 0;
     width: 84px;
     height: 195px;
-    border-bottom: solid 18px ${colors.secondaryColor};
   `}
 `
 

@@ -1,3 +1,5 @@
+// TODO: Use velocity-react to change width of selected info box more smoothly  
+
 import { chunk } from 'lodash'
 import { colors } from '../../../themes/common-variables'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'

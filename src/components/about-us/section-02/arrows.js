@@ -1,3 +1,5 @@
+// TODO: This component should be standalone, which means it should be in style of position: relative, width: 100%, height: 100%;
+
 import { screen } from '../utils/screen'
 import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
 import PropTypes from 'prop-types'
@@ -17,7 +19,7 @@ const Arrow = styled.div `
   `}
 `
 
-const LeftArrow = Arrow.extend `
+const LeftArrow = Arrow.extend`
   left: 30px;
   transform: translateY(50%) scaleX(-1);
   ${screen.mobile`
@@ -35,13 +37,12 @@ const RightArrow = Arrow.extend `
   `}
 `
 
-
 export default class Arrows extends PureComponent {
   constructor(props) {
     super(props)
   }
   render() {
-    const { membersPageLengthArray, visible, changePage, departmentIndex } = this.props
+    const { membersPageLengthArray, visible, changePage } = this.props
     return (
       <React.Fragment>
       {
@@ -49,12 +50,12 @@ export default class Arrows extends PureComponent {
         <React.Fragment>
           <LeftArrow
             isvisible={visible}
-            onClick={() => changePage(departmentIndex, 'prev') }>
+            onClick={() => changePage('prev') }>
             <ArrowNextIcon />
           </LeftArrow>
           <RightArrow
             isvisible={visible}
-            onClick = {() => changePage(this.props.departmentIndex, 'next') }>
+            onClick = {() => changePage('next') }>
             <ArrowNextIcon />
           </RightArrow> 
         </React.Fragment> : null
@@ -73,6 +74,5 @@ Arrows.defaultProps = {
 Arrows.propTypes = {
   membersPageLengthArray: PropTypes.array.isRequired,
   visible: PropTypes.bool.isRequired,
-  changePage: PropTypes.func.isRequired,
-  departmentIndex: PropTypes.number.isRequired
+  changePage: PropTypes.func.isRequired
 }

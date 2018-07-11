@@ -98,7 +98,6 @@ const Title = styled.h1`
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
-  border-bottom: solid 27px ${colors.secondaryColor};
   span{
     display: none;
   }
@@ -119,12 +118,10 @@ const Title = styled.h1`
   ${screen.tablet`
     width: 134px;
     height: 300px;
-    border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
     width: 84px;
     height: 195px;
-    border-bottom: solid 18px ${colors.secondaryColor};
   `}
 `
 

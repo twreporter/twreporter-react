@@ -1,9 +1,14 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
+import map from 'lodash/map'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+
+const _ = {
+  map
+}
 
 const AwardItem = styled.div`
   display: inline-block;
@@ -96,8 +101,7 @@ export default class AwardNameList extends PureComponent {
                 </p>
                 <ul>
                   { 
-                    typeof awardYearList[index] !== 'undefined' ?
-                    awardYearList[index].map((year, yearIndex) => {
+                    _.map(awardYearList[index], (year, yearIndex) => {
                       return(
                         <li
                           key={year}
@@ -105,7 +109,7 @@ export default class AwardNameList extends PureComponent {
                           <p><Cursor isCurrentYear={(activeYearIndex === yearIndex).toString()}/>{year}</p>
                         </li>
                       )
-                    }): null
+                    })
                   }
                 </ul>
               </AwardItem>
@@ -121,7 +125,9 @@ AwardNameList.defaultProps = {
   awardsName: [],
   activeAwardId: '',
   awardYearList: [],
-  activeYearIndex: 0
+  activeYearIndex: 0,
+  selectAward: () => {},
+  selectYear: () => {}
 }
 
 AwardNameList.propTypes = {

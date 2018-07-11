@@ -1,3 +1,8 @@
+// TODO: The infinite carousel should be rewrite as a independent component which uses persentage of whole width 
+//      (MemberList width on one page/ total width of Members) as shifting length
+// TODO: [Bug] When resize the viewport, the pages number of carousel will miscount
+// TODO: Refine the Navigation component which could be reused by section4
+
 import { colors } from '../../../themes/common-variables'
 import { foundationIntro, mediaIntro } from '../constants/section-02/org-intro'
 import { gray, numbersInfullPage, numbersInHalfPage, devices } from './utils'
@@ -27,8 +32,8 @@ const _ = {
 }
 
 const halfPageList = [ 2, 3 ] // index of 2, 3 in categoriesAll are rendered in half page
-const members = [ ...mediaMembers, ...foundationMembers ]
-const categoriesAll = [ ...categories.media, ...categories.fundation ]
+const members = mediaMembers.concat(foundationMembers)
+const categoriesAll = categories.media.concat(categories.fundation)
 const groupedMembers = _.groupBy( members, member => member.category )
 const membersNumberArray = _.values(groupedMembers).map((membersArray) => { return membersArray.length })
 const transitionDuration = 500
@@ -116,12 +121,10 @@ const Title = styled.h1`
   ${screen.tablet`
     width: 134px;
     height: 300px;
-    border-bottom: solid 18.9px ${colors.secondaryColor};
   `}
   ${screen.mobile`
     width: 84px;
     height: 195px;
-    border-bottom: solid 18px ${colors.secondaryColor};
   `}
 `
 
@@ -422,14 +425,12 @@ export default class Section2 extends PureComponent {
         transitionEffect: false, 
         currentPagesArray: currentPage 
       })
-      this.forceUpdate()
     } else if (currentPage[categoryIndex] === 0) {
       currentPage[categoryIndex] = pageLength - 2
       this.setState({
         transitionEffect: false,
         currentPagesArray: currentPage
       })
-      this.forceUpdate()
     } else {
       if (!this.state.transitionEffect) {
         this.setState({ transitionEffect: true })
@@ -506,10 +507,9 @@ export default class Section2 extends PureComponent {
         <Department key={categoryId}>
           <Name><p>{label.chinese}</p></Name>
           <Arrows
-            departmentIndex = {categoryIndex}
             membersPageLengthArray = {this.membersPageLengthArray}
             visible = {this.membersPageLengthArray[categoryIndex] > 3}
-            changePage = {this._changePage}
+            changePage = {this._changePage.bind(null, categoryIndex)}
           />
           <PageWrapper>
             <MemberList
@@ -574,7 +574,7 @@ export default class Section2 extends PureComponent {
                     selectedDepartmentIndex = {this.state.selectedDepartmentIndex}
                     membersPageLengthArray = {this.membersPageLengthArray}
                     isArrowVisible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
-                    changePage = {this._changePage}
+                    changePage = {this._changePage.bind(null,this.state.selectedDepartmentIndex)}
                     cursor = {cursor}
                     selectedMemberList = {selectedMemberList} 
                     sendEmail = {this._sendEmail} />

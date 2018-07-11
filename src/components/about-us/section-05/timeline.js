@@ -1,3 +1,5 @@
+// TODO : Update the transitionY attribute directly(by requestAnimationFrame) instead of setState
+
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled, { keyframes } from 'styled-components'

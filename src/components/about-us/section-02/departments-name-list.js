@@ -9,8 +9,6 @@ const DepartmentName = styled.p `
   border-right: solid 1px rgba(0, 0, 0, 0.2);
   width: calc( 100% / ${props => props.categoriesLength});
   text-align: center;
-  -webkit-background-clip: padding-box; /* for Safari */
-  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 2px;

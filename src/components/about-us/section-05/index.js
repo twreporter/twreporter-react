@@ -4,6 +4,7 @@ import { font, marginBetweenSections } from '../constants/styles'
 import { screen } from '../utils/screen'
 import arrow from '../../../../static/asset/about-us/section5-arrow.png'
 import groupBy from 'lodash/groupBy'
+import keys from 'lodash'
 import List from './list'
 import orderBy from 'lodash/orderBy'
 import React, { PureComponent } from 'react'
@@ -16,12 +17,12 @@ import titleImgDesktop from '../../../../static/asset/about-us/title-section5.pn
 import Waypoint from 'react-waypoint'
 
 const _ = {
-  orderBy, groupBy
+  orderBy, groupBy, keys
 }
 
 const sortedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'asc', 'asc', 'asc' ])
 const sortedDataGroupByYear = _.groupBy(sortedData, record => record.year)
-const yearList = Object.keys(sortedDataGroupByYear)
+const yearList = _.keys(sortedDataGroupByYear)
 const yearRangebgColor = '#cacaca'
 const timelineScrollingPortion = 0.95
 const defaultZIndex = 0

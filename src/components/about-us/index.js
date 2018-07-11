@@ -1,3 +1,5 @@
+// TODO: Move Border component of each section here for one time declaration
+
 import anchors from './constants/data/sidebar-anchor'
 import Footer from '@twreporter/react-components/lib/footer'
 import Opening from './opening'
@@ -30,7 +32,7 @@ export class AboutUs extends PureComponent {
           ref={(node) => this.sidebar = node}
           anchors={anchors}
         >
-          <Opening 
+          <Opening
             ref={(node) => this.sectionRefs[0] = node}
             handleClickAnchor={this._handleClickAnchor}
           />
