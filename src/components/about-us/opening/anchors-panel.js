@@ -1,9 +1,11 @@
 import { colors } from '../../../themes/common-variables'
 import { screen } from '../utils/screen'
 import anchorlist from '../constants/data/sidebar-anchor'
-import icon1 from '../../../../static/asset/about-us/sidebar-icon1.png'
-import icon2 from '../../../../static/asset/about-us/sidebar-icon2.png'
-import icon3 from '../../../../static/asset/about-us/sidebar-icon3.png'
+import icon1 from '../../../../static/asset/about-us/sidebar-icon1-white.png'
+import icon2 from '../../../../static/asset/about-us/sidebar-icon2-white.png'
+import icon3 from '../../../../static/asset/about-us/sidebar-icon3-white.png'
+import Link from 'react-router/lib/Link'
+import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -23,6 +25,13 @@ const Panel = styled.div`
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   opacity: ${props => props.visible ? '1' : '0'};
   transition: all ${opacityTransitionDuration} linear;
+  a{
+    position: absolute;
+    top: 47px;
+    left: 33px;
+    height: 36.8px;
+    transform: translateY(-50%);
+  }
   ${screen.mobile`
     left: 0;  
   `}
@@ -116,6 +125,9 @@ class AnchorsPanel extends React.PureComponent {
       <Panel
         visible={this.props.isOpen}
         >
+        <Link to="/">
+          <img src={logo}/>
+        </Link>
         <AnchorsContainer
           visible={this.props.isOpen}        
         >

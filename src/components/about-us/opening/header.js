@@ -2,7 +2,7 @@ import { colors } from '../../../themes/common-variables'
 import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
 import Link from 'react-router/lib/Link'
-import Logo from '../../../../static/asset/about-us/twreporter-logo.svg'
+import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -100,7 +100,7 @@ class Header extends React.PureComponent {
       <Container>
         <TopRow>
           <Link to="/">
-            <Logo />
+            <img src={logo}/>
           </Link>
           <LanguageSwitcher>
             <span>

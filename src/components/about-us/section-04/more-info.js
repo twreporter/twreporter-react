@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
-import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
+import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -262,6 +262,13 @@ const CloseBtn = styled.div`
   }
 `
 
+const ArrowNextIcon = styled.div`
+  img{
+    width: auto;
+    height: 100%;
+  }
+`
+
 export default class MoreInfo extends PureComponent {
   constructor(props) {
     super(props)
@@ -294,7 +301,9 @@ export default class MoreInfo extends PureComponent {
             {selectedItem.description.chinese}
           </p>
           <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
-            <ArrowNextIcon />
+            <ArrowNextIcon>
+              <img src={arrowNextIcon} />
+            </ArrowNextIcon>
           </RightArrow>
         </InfoBoxMobile>
         <InfoBoxDesktop>
@@ -304,7 +313,9 @@ export default class MoreInfo extends PureComponent {
             <h4>{selectedItem.date}</h4>
             <p>{selectedItem.description.chinese}</p>
             <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
-              <ArrowNextIcon />
+              <ArrowNextIcon>
+                <img src={arrowNextIcon} />
+              </ArrowNextIcon>
             </RightArrow>
           </Info>
         </InfoBoxDesktop>

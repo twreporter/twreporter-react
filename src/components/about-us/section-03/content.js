@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { screen } from '../utils/screen'
 import AccordionList from './content-accordion-list'
-import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
+import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
 import PaginatedList from './content-paginated-list'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -12,23 +12,26 @@ const transitionDuration = '.3s'
 
 const Arrow = styled.div`
   position: absolute;
-  right: -50px;
   width: 30px;
   height: 70px;
 `
 
 const TopArrow = Arrow.extend`
   top: 0;
-  transform-origin: 50% 50%;
-  transform: translateX(-50%) rotate(-90deg);
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
+  img{
+    transform-origin: 50% 50%;
+    transform: translateY(75px) translateX(-50%) rotate(-90deg);
+  }
 `
 
 const BottomArrow = Arrow.extend`
   bottom: 0;
-  transform-origin: 50% 0;
-  transform: translateX(-50%) rotate(90deg);
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
+  img{
+    transform-origin: 50% 50%;
+    transform: translateY(40px) scaleY(-1) translateX(-50%) rotate(-90deg);
+  }
 `
 
 const Arrows = styled.div`
@@ -36,7 +39,6 @@ const Arrows = styled.div`
   top: 0;
   right: 0;
   height: 100%;
-  transform: translateY(10%) scaleY(1.2);
   cursor: pointer;
   ${screen.tabletBelow`
     display: none;
@@ -86,6 +88,12 @@ const PageWrapper = styled.div`
     height: 100%;
     overflow-y: hidden;
   `}
+`
+
+const ArrowNextIcon = styled.div`
+  img{
+    height: 100%;
+  }
 `
 
 export default class Content extends PureComponent {
@@ -159,12 +167,16 @@ export default class Content extends PureComponent {
           <TopArrow
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}>
-            <ArrowNextIcon />
+            <ArrowNextIcon>
+              <img src={arrowNextIcon} />
+            </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}>
-            <ArrowNextIcon />
+            <ArrowNextIcon>
+              <img src={arrowNextIcon} />
+            </ArrowNextIcon>
           </BottomArrow>
         </Arrows>
       </Container>

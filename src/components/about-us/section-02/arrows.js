@@ -1,12 +1,12 @@
 // TODO: This component should be standalone, which means it should be in style of position: relative, width: 100%, height: 100%;
 
 import { screen } from '../utils/screen'
-import ArrowNextIcon from '../../../../static/asset/about-us/arrow-next.svg'
+import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const Arrow = styled.div `
+const Arrow = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
@@ -37,6 +37,12 @@ const RightArrow = Arrow.extend `
   `}
 `
 
+const ArrowNextIcon = styled.div`
+  img{
+    height: 100%;
+  }
+`
+
 export default class Arrows extends PureComponent {
   constructor(props) {
     super(props)
@@ -51,12 +57,16 @@ export default class Arrows extends PureComponent {
           <LeftArrow
             isvisible={visible}
             onClick={() => changePage('prev') }>
-            <ArrowNextIcon />
+            <ArrowNextIcon>
+              <img src={arrowNextIcon} />
+            </ArrowNextIcon>
           </LeftArrow>
           <RightArrow
             isvisible={visible}
             onClick = {() => changePage('next') }>
-            <ArrowNextIcon />
+            <ArrowNextIcon>
+              <img src={arrowNextIcon} />
+            </ArrowNextIcon>
           </RightArrow> 
         </React.Fragment> : null
       }
