@@ -1,11 +1,11 @@
 import { colors } from '../../../themes/common-variables'
 import { marginBetweenSections } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import LottieAnim from './lottie-animation'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import titleImg from '../../../../static/asset/about-us/title-section1.png'
-import titleImgMob from '../../../../static/asset/about-us/title-section1-mob.png'
 import Waypoint from 'react-waypoint'
 
 const defaultZIndex = 0
@@ -94,7 +94,7 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${titleImg});
+  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section1.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
@@ -110,7 +110,7 @@ const Title = styled.h1`
     height: 475px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${titleImgMob});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section1-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;

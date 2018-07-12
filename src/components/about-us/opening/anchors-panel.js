@@ -1,9 +1,8 @@
 import { colors } from '../../../themes/common-variables'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
-import icon1 from '../../../../static/asset/about-us/sidebar-icon1-white.png'
-import icon2 from '../../../../static/asset/about-us/sidebar-icon2-white.png'
-import icon3 from '../../../../static/asset/about-us/sidebar-icon3-white.png'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
 import PropTypes from 'prop-types'
@@ -144,9 +143,9 @@ class AnchorsPanel extends React.PureComponent {
             })
           }
           <Icons>
-            <img src={icon1} />
-            <img src={icon2} />
-            <img src={icon3} />
+            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
           </Icons>
         </AnchorsContainer>
         <CloseBtn

@@ -1,7 +1,9 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import awardsList from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
 import AwardsNameList from './awards-name-list'
@@ -9,10 +11,7 @@ import Content from './content'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import React, { PureComponent } from 'react'
-import riceEarBlack from '../../../../static/asset/about-us/rice-ear-black.png'
 import styled from 'styled-components'
-import titleImg from '../../../../static/asset/about-us/title-section3.png'
-import titleImgMob from '../../../../static/asset/about-us/title-section3-mob.png'
 
 const _ = {
   groupBy, keys
@@ -116,7 +115,7 @@ const LeftColumnOnDesktopAbove = styled.div`
 `
 
 const Title = styled.h1`
-  background-image: url(${titleImg});
+  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section3.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
@@ -133,7 +132,7 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${titleImgMob});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section3-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -359,10 +358,10 @@ export default class Section3 extends PureComponent {
             </ListSelector>
             <Achievement>
               <AwardsCount>
-                <img src={riceEarBlack} />
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
                 <h2>{awardsList.length}</h2>
                 <p>件</p>
-                <img src={riceEarBlack} />            
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
               </AwardsCount>
               <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
             </Achievement>

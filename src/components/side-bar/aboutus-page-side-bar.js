@@ -1,10 +1,9 @@
 import { colors, typography } from '../../themes/common-variables'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../about-us/utils/screen'
+import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
-import icon1 from '../../../static/asset/about-us/sidebar-icon1.png'
-import icon2 from '../../../static/asset/about-us/sidebar-icon2.png'
-import icon3 from '../../../static/asset/about-us/sidebar-icon3.png'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -126,9 +125,9 @@ class AboutusPageSideBar extends React.PureComponent {
               currentAnchorId={currentAnchorId}
             />
             <Icons>
-              <img src={icon1} />
-              <img src={icon2} />
-              <img src={icon3} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
             </Icons>
           </AnchorsContainer>
         {children}

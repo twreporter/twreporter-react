@@ -1,7 +1,7 @@
 // TODO: This component should be standalone, which means it should be in style of position: relative, width: 100%, height: 100%;
-
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
-import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
+import { storageUrlPrefix } from '../utils/config'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -58,14 +58,14 @@ export default class Arrows extends PureComponent {
             isvisible={visible}
             onClick={() => changePage('prev') }>
             <ArrowNextIcon>
-              <img src={arrowNextIcon} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
             </ArrowNextIcon>
           </LeftArrow>
           <RightArrow
             isvisible={visible}
             onClick = {() => changePage('next') }>
             <ArrowNextIcon>
-              <img src={arrowNextIcon} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
             </ArrowNextIcon>
           </RightArrow> 
         </React.Fragment> : null

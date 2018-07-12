@@ -1,7 +1,8 @@
 import { colors } from '../../../themes/common-variables'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import AccordionList from './content-accordion-list'
-import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
 import PaginatedList from './content-paginated-list'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -168,14 +169,14 @@ export default class Content extends PureComponent {
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}>
             <ArrowNextIcon>
-              <img src={arrowNextIcon} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`}/>
             </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}>
             <ArrowNextIcon>
-              <img src={arrowNextIcon} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`}/>
             </ArrowNextIcon>
           </BottomArrow>
         </Arrows>

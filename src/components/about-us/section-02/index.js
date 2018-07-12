@@ -7,7 +7,9 @@ import { colors } from '../../../themes/common-variables'
 import { foundationIntro, mediaIntro } from '../constants/section-02/org-intro'
 import { gray, numbersInfullPage, numbersInHalfPage, devices } from './utils'
 import { marginBetweenSections } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
 import categories from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
@@ -16,15 +18,12 @@ import find from 'lodash/find'
 import foundationMembers from '../constants/section-02/fundation-members'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import mail from '../../../../static/asset/about-us/mail.png'
 import mediaMembers from '../constants/section-02/media-members'
 import Navigation from './navigation'
 import PaginatedMemberList from './paginated-list'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
-import titleImg from '../../../../static/asset/about-us/title-section2.png'
-import titleImgMob from '../../../../static/asset/about-us/title-section2-mob.png'
 import values from 'lodash/values'
 
 const _ = {
@@ -97,7 +96,7 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${titleImg});
+  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section2.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -113,7 +112,7 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${titleImgMob});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section2-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -522,13 +521,18 @@ export default class Section2 extends PureComponent {
                 this.carouselData[categoryId].map((member, index) => {
                   return(
                     <Member key={index}>
-                      <img src={member.profile} />
+                      <img 
+                        src={`${replaceStorageUrlPrefix(member.profile)}`}
+                      />
                       <Info
                         isMailIconVisible={typeof member.email !== 'undefined'}
                       >
                         <p>{member.job}</p>
                         <p>{member.name}</p>
-                        <img onClick={() => this._sendEmail(member.email)} src={mail} />
+                        <img 
+                          onClick={() => this._sendEmail(member.email)} 
+                          src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+                        />
                       </Info>
                     </Member>
                   )

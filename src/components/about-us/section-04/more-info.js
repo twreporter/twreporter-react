@@ -1,7 +1,8 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
-import arrowNextIcon from '../../../../static/asset/about-us/arrow-next.png'
+import { storageUrlPrefix } from '../utils/config'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -295,27 +296,27 @@ export default class MoreInfo extends PureComponent {
             <h3>{selectedItem.name.chinese}</h3>
           </ItemName>
           {this._createNavigation(selectedContent.length)}
-          <img src={selectedItem.photo} />
+          <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
           <h4>{selectedItem.date}</h4>
           <p>
             {selectedItem.description.chinese}
           </p>
           <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
             <ArrowNextIcon>
-              <img src={arrowNextIcon} />
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
             </ArrowNextIcon>
           </RightArrow>
         </InfoBoxMobile>
         <InfoBoxDesktop>
-          <img src={selectedItem.photo} />
+          <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
           <Info>
             {this._createNavigation(selectedContent.length)}
             <h4>{selectedItem.date}</h4>
             <p>{selectedItem.description.chinese}</p>
             <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
-              <ArrowNextIcon>
-                <img src={arrowNextIcon} />
-              </ArrowNextIcon>
+            <ArrowNextIcon>
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+            </ArrowNextIcon>
             </RightArrow>
           </Info>
         </InfoBoxDesktop>

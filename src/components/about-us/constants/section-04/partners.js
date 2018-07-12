@@ -1,12 +1,16 @@
-import eventGIJN from '../../../../../static/asset/about-us/Section04-Event-GIJN.png'
-import eventJapan from '../../../../../static/asset/about-us/Section04-Event-Japan.png'
-import eventKAS from '../../../../../static/asset/about-us/Section04-Event-KAS.png'
-import eventNipal from '../../../../../static/asset/about-us/Section04-Event-Nipal.png'
-import eventTempo from '../../../../../static/asset/about-us/Section04-Event-Tempo.png'
-import logoGijn from '../../../../../static/asset/about-us/intl-co-GIJN-logo.png'
-import logoKas from '../../../../../static/asset/about-us/intl-co-kas-logo.png'
-import logoTempo from '../../../../../static/asset/about-us/intl-co-tempo-logo.png'
-import logoWaseda from '../../../../../static/asset/about-us/intl-co-waseda-logo.png'
+import { storageUrlPrefix } from '../../utils/config'
+
+const fileName = {
+  eventGIJN:'Section04-Event-GIJN.png',
+  eventJapan: 'Section04-Event-Japan.png',
+  eventKAS: 'Section04-Event-KAS.png',
+  eventNipal: 'Section04-Event-Nipal.png',
+  eventTempo: 'Section04-Event-Tempo.png',
+  logoGijn: 'intl-co-GIJN-logo.png',
+  logoKas: 'intl-co-kas-logo.png',
+  logoTempo: 'intl-co-tempo-logo.png',
+  logoWaseda: 'intl-co-waseda-logo.png'
+}
 
 const partners = [
   {
@@ -20,8 +24,8 @@ const partners = [
       english: ''
     },
     date: '2018.3',
-    photo: eventKAS,
-    logo: logoKas,
+    photo: storageUrlPrefix + '/' + fileName.eventKAS,
+    logo: storageUrlPrefix + '/' + fileName.logoKas,
     link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },  
   {
@@ -35,8 +39,8 @@ const partners = [
       english: 'Attended the Second Asian Investigative Journalism Conference "Uncovering Asia" in Kathmandu, Nepa, hosted by the Global Investigative Journalism Network, the Centre for Investigative Journalism, Nepal, and the Konrad-Adenauer-Stiftung.'
     },
     date: '2016.9.23',
-    photo: eventNipal,
-    logo: logoGijn,
+    photo: storageUrlPrefix + '/' + fileName.eventNipal,
+    logo: storageUrlPrefix + '/' + fileName.logoGijn,
     link: 'https://www.facebook.com/photo.php?fbid=1488606891166286&set=a.328937367133250.100488.100000509688340&type=3&theater'
   },
   {
@@ -50,8 +54,8 @@ const partners = [
       english: 'Invited by Waseda University to join internation conference and seminars of Investigative Journalism in the Asia Region: Perspectives and Prospects'     
     },
     date: '2017.6.4',
-    photo: eventJapan,
-    logo: logoWaseda,
+    photo: storageUrlPrefix + '/' + fileName.eventJapan,
+    logo: storageUrlPrefix + '/' + fileName.logoWaseda,
     link: 'http://gijn.org/2017/07/06/investigative-journalism-in-japan-tough-times-but-signs-of-hope/'
   },
   {
@@ -65,8 +69,8 @@ const partners = [
       english: 'The Reporter becomes a member of GIJN(Global Investigative Journalism Network), first in Manderin speaking world. The Reporter will be an new force of the internation investigative jouralism network.'
     },
     date: '2017.6.28',
-    photo: eventGIJN,
-    logo: logoGijn,
+    photo: storageUrlPrefix + '/' + fileName.eventGIJN,
+    logo: storageUrlPrefix + '/' + fileName.logoGijn,
     link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },
   {
@@ -80,8 +84,8 @@ const partners = [
       english: 'Published Investigative Report of the Year "Fraud, Exploitation, Blood and Tears in Far Sea Fishery," a result of collaboration with Indonesia’s renowned investigative media Tempo magazine'    
     },
     date: '2016.12.18',
-    photo: eventTempo,
-    logo: logoTempo,
+    photo: storageUrlPrefix + '/' + fileName.eventTempo,
+    logo: storageUrlPrefix + '/' + fileName.logoTempo,
     link: 'https://www.twreporter.org/a/far-sea-fishing-media-international-cooperation'
   }
 ]

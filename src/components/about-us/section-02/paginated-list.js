@@ -1,7 +1,8 @@
 import { colors } from '../../../themes/common-variables'
 import { gray, numbersInfullPage } from './utils'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
-import mail from '../../../../static/asset/about-us/mail.png'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -89,7 +90,10 @@ export default class PaginatedMemberList extends PureComponent {
                 <p>{member.job}</p>
                 <p>{member.name}</p>
               </Profile>
-              <img onClick={() => this.props.sendEmail(member.email)}src={mail} />
+              <img 
+                onClick={() => this.props.sendEmail(member.email)} 
+                src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+              />
             </ProfileWrapper>
           </MemberBorder>          
         </MemberBlock>

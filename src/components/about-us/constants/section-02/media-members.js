@@ -1,5 +1,8 @@
 import { membersImg } from './member-img-src'
+import { storageUrlPrefix } from '../../utils/config'
 import categoryIds from './category-ids'
+
+const memberUrlPrefix = `${storageUrlPrefix}/members/`
 
 const members = [
   {
@@ -8,7 +11,7 @@ const members = [
     job: '總編輯',
     jobEng: 'Editor in chief',
     email: 'turtle@twreporter.org',
-    profile: membersImg.EditJungShinHo,
+    profile: memberUrlPrefix + membersImg.EditJungShinHo,
     category: categoryIds.editor
   },
   {
@@ -17,7 +20,7 @@ const members = [
     job: '副總編輯',
     jobEng: 'Deputy Editor in Chief',
     email: 'delin.fang@twreporter.org',
-    profile: membersImg.EditNicoFang,
+    profile: memberUrlPrefix + membersImg.EditNicoFang,
     category: categoryIds.editor
   },
   {
@@ -26,7 +29,7 @@ const members = [
     job: '副總編輯',
     jobEng: 'Deputy Editor in Chief',
     email: 'jill718@twreporter.org',
-    profile: membersImg.EditJillYang,
+    profile: memberUrlPrefix + membersImg.EditJillYang,
     category: categoryIds.editor
   },
   {
@@ -35,7 +38,7 @@ const members = [
     job: '總主筆',
     jobEng: 'Editorial Managing Director',
     email: 'sherry@twreporter.org',
-    profile: membersImg.EditSherryLee,
+    profile: memberUrlPrefix + membersImg.EditSherryLee,
     category: categoryIds.editor
   },
   {
@@ -44,7 +47,7 @@ const members = [
     job: '編輯主任',
     jobEng: 'Managing Editor',
     email: 'sychang@twreporter.org',
-    profile: membersImg.EditShihYunChang,
+    profile: memberUrlPrefix + membersImg.EditShihYunChang,
     category: categoryIds.editor
   },
   {
@@ -53,7 +56,7 @@ const members = [
     job: '資深編輯',
     jobEng: 'Senior Editor',
     email: 'sylviewang@twreporter.org',
-    profile: membersImg.EditSylvieWang,
+    profile: memberUrlPrefix + membersImg.EditSylvieWang,
     category: categoryIds.editor
   },
   {
@@ -62,7 +65,7 @@ const members = [
     job: '行政經理',
     jobEng: 'Administration Manager',
     email: 'fenc@twreporter.org',
-    profile: membersImg.EditJenniferCheng,
+    profile: memberUrlPrefix + membersImg.EditJenniferCheng,
     category: categoryIds.editor
   },
   {
@@ -71,7 +74,7 @@ const members = [
     job: '編輯',
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
-    profile: membersImg.EditSzuHuaChen,
+    profile: memberUrlPrefix + membersImg.EditSzuHuaChen,
     category: categoryIds.editor
   },
   {
@@ -80,7 +83,7 @@ const members = [
     job: '數位專案經理',
     jobEng: 'Digital Product Manager',
     email: 'mimichen@twreporter.org',
-    profile: membersImg.DigiMimiChen,
+    profile: memberUrlPrefix + membersImg.DigiMimiChen,
     category: categoryIds.digital
   },
   {
@@ -89,7 +92,7 @@ const members = [
     job: '攝影主任',
     jobEng: 'Photo Department Director',
     email: 'shakingwave@twreporter.org',
-    profile: membersImg.PhotoChihWeiYu,
+    profile: memberUrlPrefix + membersImg.PhotoChihWeiYu,
     category: categoryIds.photojournalist
   },
   {
@@ -98,7 +101,7 @@ const members = [
     job: '資深攝影',
     jobEng: 'Senior‭ ‬Photojournalist',
     email: 'jamesonwu@twreporter.org',
-    profile: membersImg.PhotoJamesonWu,
+    profile: memberUrlPrefix + membersImg.PhotoJamesonWu,
     category: categoryIds.photojournalist
   },
   {
@@ -107,7 +110,7 @@ const members = [
     job: '攝影記者',
     jobEng: 'Photojournalist',
     email: 'yushawn1201@twreporter.org',
-    profile: membersImg.PhotoYuEnLin,
+    profile: memberUrlPrefix + membersImg.PhotoYuEnLin,
     category: categoryIds.photojournalist
   },
   {
@@ -116,7 +119,7 @@ const members = [
     job: '資深工程師',
     jobEng: 'Senior Coder',
     email: 'nickhsine@twreporter.org',
-    profile: membersImg.DigiNickLi,
+    profile: memberUrlPrefix + membersImg.DigiNickLi,
     category: categoryIds.digital
   },
   {
@@ -125,7 +128,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer‭‬',
     email: 'yucj@twreporter.org',
-    profile: membersImg.DigiYuChungJen,
+    profile: memberUrlPrefix + membersImg.DigiYuChungJen,
     category: categoryIds.digital
   },
   {
@@ -134,7 +137,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer',
     email: 'taylorfang@twreporter.org',
-    profile: membersImg.DigiTalorFang,
+    profile: memberUrlPrefix + membersImg.DigiTalorFang,
     category: categoryIds.digital
   },
   {
@@ -143,7 +146,7 @@ const members = [
     job: '工程師',
     jobEng: 'Software Engineer',
     email: 'babygoat@twreporter.org',
-    profile: membersImg.DigiChingYangTseng,
+    profile: memberUrlPrefix + membersImg.DigiChingYangTseng,
     category: categoryIds.digital
   },
   {
@@ -152,7 +155,7 @@ const members = [
     job: '設計',
     jobEng: 'Art Designer‭‬',
     email: 'hychen@twreporter.org',
-    profile: membersImg.DigiYuChenHuang,
+    profile: memberUrlPrefix + membersImg.DigiYuChenHuang,
     category: categoryIds.digital
   },
   {
@@ -161,7 +164,7 @@ const members = [
     job: '介面設計師',
     jobEng: 'UI Designer',
     email: 'ginalin@twreporter.org',
-    profile: membersImg.DigiChenNaLin,
+    profile: memberUrlPrefix + membersImg.DigiChenNaLin,
     category: categoryIds.digital
   },
   {
@@ -170,7 +173,7 @@ const members = [
     job: '資深記者',
     jobEng: 'Senior Journalist',
     email: 'tzewu@twreporter.org',
-    profile: membersImg.EditTzewuChang,
+    profile: memberUrlPrefix + membersImg.EditTzewuChang,
     category: categoryIds.editor
   },
   {
@@ -179,7 +182,7 @@ const members = [
     job: '資深記者',
     jobEng: 'Senior Journalist',
     email: 'bluemiau@twreporter.org',
-    profile: membersImg.EditMichelleFang,
+    profile: memberUrlPrefix + membersImg.EditMichelleFang,
     category: categoryIds.editor
   },
   {
@@ -188,7 +191,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'irosarian@twreporter.org',
-    profile: membersImg.EditRosaWang,
+    profile: memberUrlPrefix + membersImg.EditRosaWang,
     category: categoryIds.editor
   },
   {
@@ -197,7 +200,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'yuchuanyeh@twreporter.org',
-    profile: membersImg.EditYuChuanYeh,
+    profile: memberUrlPrefix + membersImg.EditYuChuanYeh,
     category: categoryIds.editor
   },
   {
@@ -206,7 +209,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'itingchiang@twreporter.org',
-    profile: membersImg.EditItingChiang,
+    profile: memberUrlPrefix + membersImg.EditItingChiang,
     category: categoryIds.editor
   },
   {
@@ -215,7 +218,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'capric.wu@twreporter.org',
-    profile: membersImg.EditBoWeiWu,
+    profile: memberUrlPrefix + membersImg.EditBoWeiWu,
     category: categoryIds.editor
   }
 ]

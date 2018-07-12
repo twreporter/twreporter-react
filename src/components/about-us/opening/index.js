@@ -2,18 +2,15 @@ import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle } from './section-style'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
-import aboutusImg from '../../../../static/asset/about-us/aboutus-opening.png'
-import aboutusImgMob from '../../../../static/asset/about-us/aboutus-opening-mob.png'
-import aboutusImgTablet from '../../../../static/asset/about-us/aboutus-opening-tablet.png'
+import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
 import Header from './header'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
-import titleImg from '../../../../static/asset/about-us/title-opening.png'
-import titleImgMob from '../../../../static/asset/about-us/title-opening-mob.png'
 
 const Container = styled.section`
   position: relative;
@@ -153,7 +150,7 @@ const ChineseIntro = styled.div`
 const Title = styled.h1`
   display: block;
   float: left;
-  background-image: url(${titleImg});
+  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-opening.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -163,7 +160,7 @@ const Title = styled.h1`
   ${screen.tabletBelow`
   `}
   ${screen.mobile`
-    background-image: url(${titleImgMob});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-opening-mob.png`)});
     background-position: center center;
     width: 100%;
     height: 114px;
@@ -466,9 +463,9 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLineOnMobile>
               <picture>
-                <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={aboutusImgTablet} />
-                <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={aboutusImgMob} />
-                <img src={aboutusImg} />
+                <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
+                <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={"關於我們"}/>
               </picture>
               <SeperateLineOnTabletAbove>
                 <h3>・・・</h3>

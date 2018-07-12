@@ -4,7 +4,9 @@ import { chunk } from 'lodash'
 import { colors } from '../../../themes/common-variables'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font, marginBetweenSections } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { storageUrlPrefix } from '../utils/config'
 import data from '../constants/section-04/partners'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
@@ -12,7 +14,6 @@ import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
-import titleImg from '../../../../static/asset/about-us/title-section4.png'
 
 const _ = {
   chunk, groupBy, keys
@@ -94,7 +95,7 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${titleImg});
+  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section4.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -110,7 +111,6 @@ const Title = styled.h1`
     height: 194px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${titleImg});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -294,7 +294,7 @@ export default class Section4 extends PureComponent {
           widthOnDesktop={() => this._getLogoBlockWidthOnDesktop(index, selectedLogo, selectedRow)}
         >
           <LogoContent>
-            <img src={data.logo} />
+            <img src={replaceStorageUrlPrefix(data.logo)} />
             <h3>{data.name.english}</h3>
             <p>{data.name.chinese}</p>
           </LogoContent>

@@ -1,8 +1,9 @@
 import { colors } from '../../../themes/common-variables'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
-import arrow from '../../../../static/asset/about-us/section5-arrow.png'
+import { storageUrlPrefix } from '../utils/config'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import List from './list'
@@ -12,8 +13,6 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
 import Timeline from './timeline'
-import titleImg from '../../../../static/asset/about-us/title-section5-mob.png'
-import titleImgDesktop from '../../../../static/asset/about-us/title-section5.png'
 import Waypoint from 'react-waypoint'
 
 const _ = {
@@ -96,7 +95,6 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${titleImg});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -105,7 +103,7 @@ const Title = styled.h1`
   }
   ${screen.desktopAbove`
     float: left;
-    background-image: url(${titleImgDesktop});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5.png`)});
   `}
   ${screen.overDesktop`
     width: 327px;
@@ -116,7 +114,7 @@ const Title = styled.h1`
     height: 271px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${titleImg});
+    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5-mob.png`)});
   `}
   ${screen.tablet`
     width: 408px;
@@ -451,7 +449,9 @@ export default class Section5 extends PureComponent {
                 <p><span>{yearList[yearList.length - 1]}</span></p>
                 <p>
                   <span>{yearList[0]}</span>
-                  <img src={arrow} />
+                  <img 
+                    src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                  />
                 </p>
               </YearRange>
               <RunningTimeline>
