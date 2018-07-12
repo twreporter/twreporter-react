@@ -139,6 +139,15 @@ export default function createRoutes(history = browserHistory) {
             ).then(loadRoute(cb)).catch(errorLoading)
           }} />
         <Route
+          path="about-us"
+          getComponent={(location, cb) => {
+            import(
+              /* webpackChunkName: "about-us" */
+              '../components/about-us'
+            ).then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
+        <Route
           path={ACTIVATE_PAGE_PATH}
           getComponent={(location, cb) => {
             import(

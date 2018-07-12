@@ -16,7 +16,7 @@ New Media foundation in Taiwan.
 - [x] Code splitting
 
 # Environment
-  Install node(https://nodejs.org/en/) @7.9.0 above.
+Install node(https://nodejs.org/en/) @7.9.0 above.
 
 # Installation
 `yarn install`
@@ -37,6 +37,23 @@ make build
 
 // build docker image
 docker build -t twreporter-react:latest .
+```
+
+# Testing
+
+Run unit tests
+
+```
+make test
+```
+
+Run ui-test (It will take some time to compare screenshots)
+
+```
+// start dev servers for ui-test
+make dev
+// run ui-test
+make ui-test
 ```
 
 # License

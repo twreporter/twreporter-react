@@ -18,7 +18,7 @@ const Container = styled.div`
   color: ${colors.secondaryColor};
   font-size: ${typography.font.size.xSmall};
   z-index: 999;
-  transform: translate(${(articleLayout.desktop.width.large - toolsOffset)/2}px, -50%);
+  transform: translate(${(articleLayout.desktop.width.large - toolsOffset)/2 + 20}px, -50%);
   visibility: ${(props) => props.toShow ? 'visible' : 'hidden'};
   opacity: ${(props) => props.toShow ? 1 : 0};
   transition: opacity 0.5s linear;

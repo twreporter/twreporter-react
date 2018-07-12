@@ -1,0 +1,36 @@
+[{
+    "awardId": "sopa",
+    "award": "SOPA亞洲出版協會",
+    "awardEng": "The Society of Publishers in Asia"
+  },
+  {
+    "awardId": "taiHai",
+    "award": "台海新聞攝影大賽",
+    "awardEng": "Tai Hai Press Photo Contest"
+  },
+  {
+    "awardId": "humanRights",
+    "award": "人權新聞獎",
+    "awardEng": "Human Rights Press Awards"
+  },
+  {
+    "awardId": "excellence",
+    "award": "卓越新聞獎",
+    "awardEng": "Excellent Journalism Award"
+  },
+  {
+    "awardId": "queermosa",
+    "award": "酷摩沙獎",
+    "awardEng": "QUEERMOSA Award"
+  },
+  {
+    "awardId": "twInnocence",
+    "award": "平冤年度新聞獎",
+    "awardEng": "Taiwan Innocence Press Awards"
+  },
+  {
+    "awardId": "twPressPhoto",
+    "award": "台灣新聞攝影大賽",
+    "awardEng": "Taiwan Press Photo Contest"
+  }
+]
