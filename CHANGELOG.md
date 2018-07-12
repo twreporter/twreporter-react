@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.5
+- Add about-us page
+
 ### 3.0.4
 - Restore web push subscription service.
 
