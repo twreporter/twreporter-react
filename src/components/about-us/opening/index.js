@@ -450,6 +450,7 @@ export class Opening extends PureComponent {
         />
         <Header 
           onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+          isPanelOpen={this.state.isAnchorPanelOpen}
         />
         <Content>
           <ChineseIntro>          

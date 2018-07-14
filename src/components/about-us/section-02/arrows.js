@@ -1,4 +1,3 @@
-// TODO: This component should be standalone, which means it should be in style of position: relative, width: 100%, height: 100%;
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
@@ -6,41 +5,49 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-100%);
+  ${screen.mobile`
+    transform: none;
+  `}
+`
+
 const Arrow = styled.div`
-  width: 30px;
-  height: 30px;
   position: absolute;
-  bottom: calc(75% / 2);
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   visibility: ${props => props.isvisible ? 'visible' : 'hidden'};
-  ${screen.mobile`
-    position: absolute;
-    top: 50%;
-  `}
+  img{
+    height: 45px;
+  }
 `
 
 const LeftArrow = Arrow.extend`
-  left: 30px;
-  transform: translateY(50%) scaleX(-1);
-  ${screen.mobile`
-    left: 0;
-    transform: translateX(-100%) translateY(-50%) scaleX(-1);
-  `}
-`
-
-const RightArrow = Arrow.extend `
-  right: 30px;
-  transform: translateY(50%);
-  ${screen.mobile`
-    right: 0;
-    transform: translateX(100%) translateY(-50%);
-  `}
-`
-
-const ArrowNextIcon = styled.div`
+  left: 0;
   img{
-    height: 100%;
+    transform: translateX(-45px) scaleX(-1);
   }
+  ${screen.mobile`
+    img{
+      transform: translateX(-200%) scaleX(-1);
+    }
+  `}
+`
+
+const RightArrow = Arrow.extend`
+  right: 0;
+  img{
+    transform: translateX(36px);
+  }
+  ${screen.mobile`
+    img{
+      transform: translateX(200%);
+    }
+  `}
 `
 
 export default class Arrows extends PureComponent {
@@ -53,22 +60,18 @@ export default class Arrows extends PureComponent {
       <React.Fragment>
       {
         membersPageLengthArray.length > 0 ?
-        <React.Fragment>
+        <Container>
           <LeftArrow
             isvisible={visible}
             onClick={() => changePage('prev') }>
-            <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-            </ArrowNextIcon>
+            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
           </LeftArrow>
           <RightArrow
             isvisible={visible}
             onClick = {() => changePage('next') }>
-            <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-            </ArrowNextIcon>
+            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
           </RightArrow> 
-        </React.Fragment> : null
+        </Container> : null
       }
       </React.Fragment>
     )

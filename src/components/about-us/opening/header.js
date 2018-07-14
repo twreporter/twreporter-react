@@ -3,6 +3,7 @@ import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -12,6 +13,11 @@ const Container = styled.div`
   margin: 0 auto;
   ${screen.mobile`
     max-width: ${containerStyle.width.mobile};
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: ${props => props.isPanelOpen ? 0 : 9999};
   `}
   ${screen.tablet`
     max-width: ${containerStyle.width.tablet};
@@ -97,7 +103,9 @@ const Hamburger = styled.div`
 class Header extends React.PureComponent {
   render() {
     return (
-      <Container>
+      <Container
+        isPanelOpen={this.props.isPanelOpen}
+      >
         <TopRow>
           <Link to="/">
             <img src={logo}/>
@@ -119,6 +127,16 @@ class Header extends React.PureComponent {
       </Container>
     )
   }
+}
+
+Header.defaultProps = {
+  onHamburgerClick: () => {},
+  isPanelOpen: false
+}
+
+Header.propTypes = {
+  onHamburgerClick: PropTypes.func.isRequired,
+  isPanelOpen: PropTypes.bool.isRequired
 }
 
 export default Header

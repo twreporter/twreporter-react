@@ -26,13 +26,10 @@ export default class LottieAnim extends PureComponent {
   constructor(props) {
     super(props)
     this.currentData = 0
-    this.state = {
-      dataIndex: 0
-    }
   }
   _animationUpdate = () => {
+    this.currentData = this.props.currentAnimIndex
     let dataIndex = ++this.currentData % animationLength
-    this.setState({ dataIndex: dataIndex })
     this.props.animDidUpdate(dataIndex)
   }
   _getLottieComponent = () => {
@@ -90,7 +87,7 @@ export default class LottieAnim extends PureComponent {
               callback: () => this._animationUpdate()
             } ]
           }
-          dataIndex={this.state.dataIndex}
+          dataIndex={this.props.currentAnimIndex}
         />
       </Container>
     )

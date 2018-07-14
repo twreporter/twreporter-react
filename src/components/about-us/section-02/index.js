@@ -297,6 +297,7 @@ const Info = styled.div`
   img{
     visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
     width: 15px;
+    cursor: pointer;
   }
   ${screen.overDesktop`
     img{
@@ -337,6 +338,23 @@ const Name = styled.div`
   `}
 `
 
+const StyledArrows = styled.div`
+  ${screen.mobile`
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    height: calc(465px - 49px);
+  `}
+  ${screen.tabletAbove`
+    height: 116px;
+  `}
+  ${screen.overDesktop`
+    height: 148px;
+  `}  
+`
+
 const DisplayOnTabletAbove = styled.div`
   ${screen.mobile`
     display: none;
@@ -346,6 +364,9 @@ const DisplayOnTabletAbove = styled.div`
 const DisplayOnMobile = styled.div`
   ${screen.tabletAbove`
     display: none;
+  `}
+  ${screen.mobile`
+    position: relative;
   `}
 `
 
@@ -505,11 +526,6 @@ export default class Section2 extends PureComponent {
       return(
         <Department key={categoryId}>
           <Name><p>{label.chinese}</p></Name>
-          <Arrows
-            membersPageLengthArray = {this.membersPageLengthArray}
-            visible = {this.membersPageLengthArray[categoryIndex] > 3}
-            changePage = {this._changePage.bind(null, categoryIndex)}
-          />
           <PageWrapper>
             <MemberList
               ref={memberList => this.memberList[categoryIndex] = memberList}
@@ -539,7 +555,14 @@ export default class Section2 extends PureComponent {
                 }) : null  
               }
             </MemberList>
-          </PageWrapper>
+            </PageWrapper>
+            <StyledArrows>
+              <Arrows
+                membersPageLengthArray = {this.membersPageLengthArray}
+                visible = {this.membersPageLengthArray[categoryIndex] > 3}
+                changePage = {this._changePage.bind(null, categoryIndex)}
+              />
+            </StyledArrows>
           <Navigation
             departmentIndex = {categoryIndex}
             device = {this.device}
@@ -575,13 +598,17 @@ export default class Section2 extends PureComponent {
                   selectDepartment = {this._selectDepartment}
                   selectedDepartmentIndex = {this.state.selectedDepartmentIndex} />
                 <PaginatedMemberList 
-                    selectedDepartmentIndex = {this.state.selectedDepartmentIndex}
+                  cursor = {cursor}
+                  selectedMemberList = {selectedMemberList} 
+                  sendEmail = {this._sendEmail} />
+                <StyledArrows>
+                  <Arrows
+                    departmentIndex = {this.state.selectedDepartmentIndex}
                     membersPageLengthArray = {this.membersPageLengthArray}
-                    isArrowVisible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
+                    visible = {this.membersPageLengthArray[this.state.selectedDepartmentIndex] > 1}
                     changePage = {this._changePage.bind(null,this.state.selectedDepartmentIndex)}
-                    cursor = {cursor}
-                    selectedMemberList = {selectedMemberList} 
-                    sendEmail = {this._sendEmail} />
+                  />           
+                </StyledArrows>       
                 <Navigation
                   departmentIndex = {this.state.selectedDepartmentIndex}
                   device = {this.device}

@@ -26,10 +26,9 @@ const Panel = styled.div`
   transition: all ${opacityTransitionDuration} linear;
   a{
     position: absolute;
-    top: 47px;
-    left: 33px;
+    top: 20px;
+    left: 30px;
     height: 36.8px;
-    transform: translateY(-50%);
   }
   ${screen.mobile`
     left: 0;  
@@ -74,9 +73,11 @@ const Anchor = styled.div`
 
 const CloseBtn = styled.div `
   position: absolute;
-  right: 33px;
-  top: 47px; 
+  right: 30px;
+  top: 20px; 
   width: 24px;
+  height: 24px;
+  transform: translateY(50%);
   span{
     position: absolute;
     left: 0;
@@ -87,10 +88,10 @@ const CloseBtn = styled.div `
     transition: transform ${opacityTransitionDuration} linear;
   }
   span:first-child{
-    transform: rotate(-45deg);
+    transform: ${props => props.isOpen ? 'rotate(-45deg)' : 'none'};
   }
   span:last-child{
-    transform: rotate(45deg);
+    transform: ${props => props.isOpen ? 'rotate(45deg)' : 'none'};
   }
   ${screen.desktopAbove`
     display: none;
@@ -150,6 +151,7 @@ class AnchorsPanel extends React.PureComponent {
         </AnchorsContainer>
         <CloseBtn
           onClick={this.props.closePanel}
+          isOpen={this.props.isOpen}
         >
           <span/>
           <span/>

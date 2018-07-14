@@ -92,11 +92,12 @@ const AwardName = styled.div `
   width: 100%;
   border: solid 1px ${mobileBorderColor};
   min-height: ${props => props.unfold ? '53px' : '76px'};
+  min-height: 76px;
   margin-top: ${props => props.unfold ? '30px' : 0};
   background: ${props => props.unfold ? `${colors.black}` : `${colors.white}`};
   color: ${props => props.unfold ? `${colors.white}` : `${colors.black}`};
   p{
-    line-height: ${props => props.unfold ? '53px' : '76px'};
+    line-height: 76px;
     text-align: center;
     font-size: 20px;
     font-weight: bold;

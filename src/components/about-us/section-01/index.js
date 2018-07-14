@@ -142,6 +142,7 @@ const Introduction = styled.div`
   }
   ul>li{
     margin-left: 1em;
+    background-color: ${colors.gray.gray96};
   }
   ul>li:before {
     display: inline-block;
@@ -228,6 +229,7 @@ const Content = styled.div`
 
 const Caption = styled.div`
   display: inline-block;
+  cursor: pointer;
   h2{
     opacity: ${props => props.curCaption === props.index ? '1' : '0.2'};
   }
@@ -262,16 +264,20 @@ export default class Section1 extends PureComponent {
         return (
           <ul>
             <p>屬於社會的《報導者》</p>
-            <li><p>報導CC授權：網站多數報導採創用CC授權</p></li>
-            <li><p>網站程式開源：官網程式碼皆開放於GitHub平台</p></li>
+            <br/>
+            <p> - 報導CC授權：網站多數報導採創用CC授權</p>
+            <br/>
+            <p> - 網站程式開源：官網程式碼皆開放於GitHub平台</p>
           </ul>
         )
       case 2:
         return (
           <ul>
             <p>追求公益價值</p>
-            <li><p>沒有廣告：不受廣告主影響</p></li>
-            <li><p>沒有點閱數字：不受點擊率左右</p></li>
+            <br/>
+            <p> - 沒有廣告：不受廣告主影響</p>
+            <br/>
+            <p> - 沒有點閱數字：不受點擊率左右</p>
           </ul>
         )
     }
@@ -296,7 +302,8 @@ export default class Section1 extends PureComponent {
           key={index}>
           <Caption
             curCaption={this.state.currentAnim}
-            index={index}>
+            index={index}
+            onClick={() => this._animUpdated(index)} >
             <h2>{animCaptions[index]}</h2>
           </Caption>
           {dot()}
@@ -320,7 +327,8 @@ export default class Section1 extends PureComponent {
               </Title>
               <Content>
                 {Captions}
-                <LottieAnim 
+                <LottieAnim
+                  currentAnimIndex={this.state.currentAnim} 
                   animDidUpdate={this._animUpdated}
                 />
                 <Introduction>
