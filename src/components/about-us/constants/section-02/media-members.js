@@ -80,7 +80,7 @@ const members = [
   {
     name: '李法賢',
     nameEng: 'Nick Li',
-    job: '資深工程師',
+    job: '數位部主任',
     jobEng: 'Senior Coder',
     email: 'nickhsine@twreporter.org',
     profile: memberUrlPrefix + membersImg.DigiNickLi,
