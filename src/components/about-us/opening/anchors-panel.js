@@ -1,11 +1,14 @@
+import { buildFbShareLink } from '../utils/build-fb-share-link'
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
+import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import ogUrl from '../constants/data/matadata'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -25,12 +28,6 @@ const Panel = styled.div`
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   opacity: ${props => props.visible ? '1' : '0'};
   transition: all ${opacityTransitionDuration} linear;
-  a{
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    height: 36.8px;
-  }
   ${screen.mobile`
     left: 0;  
   `}
@@ -42,6 +39,15 @@ const Panel = styled.div`
   ${screen.desktopAbove`
     display: none;
   `}
+`
+
+const Logo = styled.div`
+  a{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    height: 36.8px;
+  }
 `
 
 const AnchorsContainer = styled.div`
@@ -97,8 +103,10 @@ const CloseBtn = styled.div `
 `
 
 const Icons = styled.div`
-  img{
-    width: 45px;
+  a{
+    img{
+      width: 45px;
+    }
     &:first-child{
       float: left;
     }
@@ -133,17 +141,25 @@ class AnchorsPanel extends React.PureComponent {
       <Panel
         visible={this.props.isOpen}
         >
-        <Link to="/">
-          <img src={logo}/>
-        </Link>
+        <Logo>
+          <Link to="/">
+            <img src={logo}/>
+          </Link>
+        </Logo>
         <AnchorsContainer
           visible={this.props.isOpen}        
         >
           {Anchors}
           <Icons>
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+            <a href={hrefs.donate} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+            </a>
+            <a href={hrefs.subscribe} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+            </a>
+            <a href={buildFbShareLink(ogUrl)} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+            </a>
           </Icons>
         </AnchorsContainer>
         <CloseBtn

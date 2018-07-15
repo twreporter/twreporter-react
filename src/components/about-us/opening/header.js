@@ -42,8 +42,12 @@ const TopRow = styled.div`
     height: 36.8px;
     display: table-cell;
     text-align: left;
-    vertical-align: middle;    
-  }  
+  }
+  ${screen.tabletBelow`
+    a{
+      vertical-align: middle;
+    }
+  `}
   ${screen.mobile`
     height: ${headerStyle.height.mobile};
     padding: ${headerStyle.padding.mobile};
@@ -63,9 +67,7 @@ const TopRow = styled.div`
 `
 
 const LanguageSwitcher = styled.div`
-  display: table-cell;
   text-align: right;
-  vertical-align: middle;
   span {
     line-height: 14px;
     a {
