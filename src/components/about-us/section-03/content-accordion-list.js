@@ -62,7 +62,7 @@ const MoreInfo = styled.div `
 const RecordsInaYear = styled.div `
   position: relative;
   width: 100%;
-  margin-top: 2px;
+  margin-top: 0;
   margin-bottom: ${props => props.unfold ? '9px' : '0'};
   padding: 0;
   list-style: none;
@@ -80,6 +80,9 @@ const Record = styled.div `
   padding: ${props => props.unfold ? '20px 21px 19px 15px' : '0 21px 0 15px'};
   background: ${colors.gray.gray96};
   transition: all ${props => props.transitionDuration} linear;
+  &:last-child {
+    border-bottom: none;
+  }
   p{
     opacity: ${props => props.unfold ? '1' : '0'};
   }

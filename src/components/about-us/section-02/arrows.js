@@ -9,10 +9,6 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  transform: translateY(-100%);
-  ${screen.mobile`
-    transform: none;
-  `}
 `
 
 const Arrow = styled.div`
@@ -29,7 +25,7 @@ const Arrow = styled.div`
 const LeftArrow = Arrow.extend`
   left: 0;
   img{
-    transform: translateX(-45px) scaleX(-1);
+    transform: translateX(45px) scaleX(-1);
   }
   ${screen.mobile`
     img{
@@ -41,7 +37,7 @@ const LeftArrow = Arrow.extend`
 const RightArrow = Arrow.extend`
   right: 0;
   img{
-    transform: translateX(36px);
+    transform: translateX(-36px);
   }
   ${screen.mobile`
     img{

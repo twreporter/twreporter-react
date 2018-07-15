@@ -127,11 +127,11 @@ const MonthLabel = styled.div `
   background: ${colors.white};
   width: 54px;
   height: 23px;
-  padding: 5px 0;
   text-align: center;
   p{
     font-size: 12px;
     font-weight: bold;
+    line-height: 23px;
   }
   ${screen.overDesktop`
     p{

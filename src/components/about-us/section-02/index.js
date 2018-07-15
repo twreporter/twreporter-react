@@ -4,6 +4,7 @@
 // TODO: Refine the Navigation component which could be reused by section4
 
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { foundationIntro, mediaIntro } from '../constants/section-02/org-intro'
 import { gray, numbersInfullPage, numbersInHalfPage, devices } from './utils'
 import { marginBetweenSections } from '../constants/styles'
@@ -131,7 +132,6 @@ const Intro = styled.div`
   display: block;
   p{
     font-size: 14px;
-    font-weight: normal;
     line-height: 1.36;    
   }
   ${screen.overDesktop`
@@ -144,6 +144,11 @@ const Intro = styled.div`
     line-height: 1.46;
     color: ${gray.lightgray};
     margin-top: 40px;
+  `}
+  ${screen.tabletBelow`
+    p:first-child{
+      margin-bottom: 1em;
+    }
   `}
   ${screen.tablet`
     p{
@@ -191,8 +196,8 @@ const Content = styled.div`
 
 const Department = styled.div`
   position: relative;
-  padding: 0 72px 0 90px;
-  background: linear-gradient(to bottom, ${colors.white} 25%, ${colors.gray.gray96} 25%);
+  padding: 0 72px 5px 90px;
+  background: linear-gradient(to bottom, ${colors.white} 30%, ${colors.gray.gray96} 30%);
   ${screen.desktopAbove`
     &:nth-child(3){
       display: inline-block;
@@ -209,7 +214,7 @@ const Department = styled.div`
   `}
   ${screen.overDesktop`
     margin-top: 102px;
-    height: calc(148px * 4/3);
+    height: calc(148px * 3/2);
     &:nth-child(3){
       width: 559px;
     }
@@ -220,7 +225,7 @@ const Department = styled.div`
   `}
   ${screen.desktop`
     margin-top: 35px;
-    height: calc(116px * 4/3);
+    height: calc(116px * 3/2);
     &:nth-child(3){
       padding: 0 34px 0 43.3px;
       width: 396px;
@@ -233,7 +238,7 @@ const Department = styled.div`
   ${screen.tablet`
     margin-top: 30px;
     width: 100%;
-    height: calc(116px * 4/3);
+    height: calc(116px * 3/2);
   `}
 `
 
@@ -262,19 +267,19 @@ const Member = styled.li`
   height: 100%;
   ${screen.overDesktop`
     img:first-child{
-      width: 76px;
+      width: calc(76px * 1.5);
     }
     width: calc(100% / ${numbersInfullPage.overDesktop});
   `}
   ${screen.desktop`
     img:first-child{
-      width: 62.6px;
+      width: calc(62.6px * 1.5);
     }
     width: calc(100% / ${numbersInfullPage.desktop});  
   `}
   ${screen.tablet`
     img:first-child{
-      width: 70.9px;
+      width: calc(62.6px * 1.5);
     }
     width: calc(100% / ${numbersInfullPage.tablet});  
   `}
@@ -289,9 +294,9 @@ const Info = styled.div`
     font-size: 13px;
     letter-spacing: 0.9px;
   }
-  p:last-child{
+  p:nth-child(2){
     font-size: 18px;
-    font-weight: bold;
+    font-weight: ${font.weight.bold};
     letter-spacing: 0.4px;   
   }
   img{
@@ -328,7 +333,7 @@ const Name = styled.div`
   p{
     color: ${gray.lightgray};
     font-size: 22px;
-    font-weight: bold;
+    font-weight: ${font.weight.medium};
   }
   ${screen.tablet`
     transform: translateX(-75%);
@@ -339,15 +344,16 @@ const Name = styled.div`
 `
 
 const StyledArrows = styled.div`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
   ${screen.mobile`
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
     height: calc(465px - 49px);
   `}
   ${screen.tabletAbove`
+    top: calc(50% + 50% / 3);
     height: 116px;
   `}
   ${screen.overDesktop`
@@ -526,6 +532,13 @@ export default class Section2 extends PureComponent {
       return(
         <Department key={categoryId}>
           <Name><p>{label.chinese}</p></Name>
+          <StyledArrows>
+            <Arrows
+              membersPageLengthArray = {this.membersPageLengthArray}
+              visible = {this.membersPageLengthArray[categoryIndex] > 3}
+              changePage = {this._changePage.bind(null, categoryIndex)}
+            />
+          </StyledArrows>
           <PageWrapper>
             <MemberList
               ref={memberList => this.memberList[categoryIndex] = memberList}
@@ -556,13 +569,6 @@ export default class Section2 extends PureComponent {
               }
             </MemberList>
             </PageWrapper>
-            <StyledArrows>
-              <Arrows
-                membersPageLengthArray = {this.membersPageLengthArray}
-                visible = {this.membersPageLengthArray[categoryIndex] > 3}
-                changePage = {this._changePage.bind(null, categoryIndex)}
-              />
-            </StyledArrows>
           <Navigation
             departmentIndex = {categoryIndex}
             device = {this.device}
@@ -597,10 +603,6 @@ export default class Section2 extends PureComponent {
                   categoriesAll = {categoriesAll}
                   selectDepartment = {this._selectDepartment}
                   selectedDepartmentIndex = {this.state.selectedDepartmentIndex} />
-                <PaginatedMemberList 
-                  cursor = {cursor}
-                  selectedMemberList = {selectedMemberList} 
-                  sendEmail = {this._sendEmail} />
                 <StyledArrows>
                   <Arrows
                     departmentIndex = {this.state.selectedDepartmentIndex}
@@ -609,6 +611,10 @@ export default class Section2 extends PureComponent {
                     changePage = {this._changePage.bind(null,this.state.selectedDepartmentIndex)}
                   />           
                 </StyledArrows>       
+                <PaginatedMemberList 
+                  cursor = {cursor}
+                  selectedMemberList = {selectedMemberList} 
+                  sendEmail = {this._sendEmail} />
                 <Navigation
                   departmentIndex = {this.state.selectedDepartmentIndex}
                   device = {this.device}

@@ -42,10 +42,10 @@ const Container = styled.div`
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    margin: ${marginBetweenSections.tablet} 0;    
+    margin: ${marginBetweenSections.tablet} 0;
   `}  
   ${screen.mobile`
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: ${marginBetweenSections.mobile} 0;
   `}
 `
 
@@ -74,27 +74,27 @@ const SectionWrapper = styled.section`
   margin: 0 auto;
   ${screen.overDesktop`
     width: ${containerWidth.overDesktop};
-    height: 910px;
-    padding: 98px 116px 93px 152px;
+    height: 1110px;
+    padding: 98px 116px 293px 152px;
   `}
   ${screen.desktop`
     width: ${containerWidth.desktop};
-    height: 820px;
-    padding: 119px 100px 128px 80px;
+    height: 920px;
+    padding: 119px 100px 228px 80px;
   `}  
   ${screen.tablet`
     width: ${containerWidth.tablet};
     min-height: 1024px;
-    padding: 80px 49px 81px 93px;
+    padding: 80px 49px 181px 93px;
   `}
   ${screen.mobile`
     width: ${containerWidth.mobile};
     min-height: 715px;
-    padding: 76px 37px 76px 37px
+    padding: 76px 37px 126px 37px
   `}
 `
 
-const Title = styled.h1`
+const Title = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -321,7 +321,8 @@ const Circle = styled.div`
   border-radius: 50%;
   background: ${props => props.color};
   margin-left: 80px;
-  margin-bottom: 128px;
+  margin-bottom: 228px;
+  z-index: calc(${defaultZIndex} - 1);
   &:first-child {
     margin: 0;
     transform: translateX(50%) translateY(-50%);
@@ -330,7 +331,7 @@ const Circle = styled.div`
     width: 277px;
     height: 277px;
     margin-left: 152px;
-    margin-bottom: 93px;    
+    margin-bottom: 293px;    
   `}
   ${screen.tabletBelow`
     display: none;

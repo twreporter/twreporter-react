@@ -7,20 +7,24 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+const defaultZIndex = 0
+
 const Container = styled.div`
   display: block;
   width: 100%;
   margin: 0 auto;
   ${screen.mobile`
     max-width: ${containerStyle.width.mobile};
+  `}
+  ${screen.tablet`
+    max-width: ${containerStyle.width.tablet};
+  `}
+  ${screen.tabletBelow`
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: ${props => props.isPanelOpen ? 0 : 9999};
-  `}
-  ${screen.tablet`
-    max-width: ${containerStyle.width.tablet};
+    z-index: ${props => props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};  
   `}
   ${screen.desktop`
     max-width: ${containerStyle.width.desktop};

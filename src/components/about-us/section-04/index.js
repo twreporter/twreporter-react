@@ -134,8 +134,9 @@ const LogoBlock = styled.div`
   ${screen.desktopAbove`
     width: ${props => props.widthOnDesktop};
     transition: width 100ms linear;
-  `}
+    `}
   ${screen.tabletBelow`
+    margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
   `}
   ${screen.mobile`

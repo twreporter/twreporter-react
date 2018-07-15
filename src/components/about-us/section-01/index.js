@@ -76,12 +76,12 @@ const SectionWrapper = styled.section`
   ${screen.overDesktop`
     width: 1440px;
     min-height: 1120px;
-    padding: 300px 115px 300px 101px;
+    padding: 200px 115px 200px 101px;
   `}
   ${screen.desktop`
     width: 1024px;
     min-height: 820px;
-    padding: 156px 85px 117px 79px;
+    padding: 118px 85px 118px 79px;
   `}  
   ${screen.tablet`
     width: 100%;
@@ -171,10 +171,14 @@ const Introduction = styled.div`
     } 
   `}
   ${screen.tablet`
+    width: 440px;
+    margin: 0 auto;
     font-size: 18px;
     font-weight: 500;
     line-height: 1.67;
-    text-align: left;
+    ul{
+      text-align: center;
+    }
   `}
   ${screen.mobile`
     margin: 37.2px 20px 0 20px;
@@ -182,7 +186,6 @@ const Introduction = styled.div`
       font-size: 16px;
       line-height: 1.44;
       letter-spacing: 0.5px;
-      text-align: left;
     }
   `}  
 `
@@ -207,7 +210,7 @@ const Content = styled.div`
     float: none;
   `}
   ${screen.tablet`
-    height: calc(100% - 134px);
+    height: 550px;
     h2{
       margin-top: 80px;
       margin-bottom: 45px;
@@ -216,7 +219,7 @@ const Content = styled.div`
     }  
   `}  
   ${screen.mobile`
-    height: calc(100% - 195px);
+    height: 380px;
     margin-top: 50px;
     h2{
       margin: 0;

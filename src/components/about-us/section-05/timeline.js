@@ -18,9 +18,9 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
+  cursor: ${props => props.grabbing ? 'grabbing' : 'grab'};
+  cursor: ${props => props.grabbing ? '-moz-grabbing' : '-moz-grab'};
+  cursor: ${props => props.grabbing ? '-webkit-grabbing' : '-webkit-grab'};
   user-select: none;
 `
 
@@ -144,7 +144,10 @@ export default class Timeline extends PureComponent {
   render() {
     return (
       <div ref={elem => this.elem = elem}>
-        <Container returnToStart={this.state.returnToStart}>
+        <Container 
+          returnToStart={this.state.returnToStart}
+          grabbing={this.state.mouseDown}
+        >
           <Scroller
             shiftY={this.state.timelineShiftY}
             onMouseDown={this._onMouseDown}

@@ -28,7 +28,7 @@ const MemberBlock = styled.div `
   }
   img{
     vertical-align: middle;
-    width: 60.5px;
+    width: calc(60.5px * 1.2);
   }
 `
 
@@ -43,7 +43,7 @@ const ProfileWrapper = styled.div `
   position: relative;
   display: table;
   float: right;
-  width: calc(100% - 60.5px);
+  width: calc(100% - ( 60.5px * 1.2));
   height: 100%;
   padding-left: 9px;
   img{

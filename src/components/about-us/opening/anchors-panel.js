@@ -1,4 +1,5 @@
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
@@ -51,6 +52,14 @@ const AnchorsContainer = styled.div`
   color: ${colors.white};
   text-align: center;
   transition: transform ${opacityTransitionDuration} ease-in-out;
+  p{
+    font-weight: ${font.weight.bold};
+    line-height: 86px;
+    border-bottom: solid ${colors.white} 0.1px;
+  }
+  p:nth-child(6){
+    border-bottom: none;
+  }
   ${screen.mobile`
     transform: ${props => props.visible ? 'translateY(0)' : 'translateY(-5%)'};
   `}
@@ -58,17 +67,6 @@ const AnchorsContainer = styled.div`
     padding: 170px 0 45px 0;
     transform: ${props => props.visible ? 'translateX(0)' : 'translateX(5%)'};
   `}
-`
-
-const Anchor = styled.div`
-  height: 86px;
-  border-bottom: solid ${colors.white} 0.2px;
-  p{
-    line-height: 86px;
-  }
-  &:last-child{
-    border-bottom: none;
-  }
 `
 
 const CloseBtn = styled.div `
@@ -121,6 +119,16 @@ class AnchorsPanel extends React.PureComponent {
     super(props)
   }
   render() {
+    const Anchors = anchorlist.map((anchor, anchorIdx) => {
+      return (
+        <p
+          key={anchorIdx}
+          onClick={() => this.props.handleClickAnchor(anchorIdx)}
+        >
+          {anchor.label}
+        </p>
+      )
+    })
     return (
       <Panel
         visible={this.props.isOpen}
@@ -131,18 +139,7 @@ class AnchorsPanel extends React.PureComponent {
         <AnchorsContainer
           visible={this.props.isOpen}        
         >
-          {
-            anchorlist.map((anchor, anchorIdx) => {
-              return (
-                <Anchor
-                  key={anchorIdx}
-                  onClick={() => this.props.handleClickAnchor(anchorIdx)}
-                >
-                  <p>{anchor.label}</p>
-                </Anchor>
-              )
-            })
-          }
+          {Anchors}
           <Icons>
             <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
             <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
