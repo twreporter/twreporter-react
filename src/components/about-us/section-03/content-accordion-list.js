@@ -93,8 +93,10 @@ const Record = styled.div `
 const AwardName = styled.div `
   width: 100%;
   border: solid 1px ${mobileBorderColor};
+  &:not(:first-child){
+    border-top: none;
+  }
   min-height: 76px;
-  margin-top: ${props => props.unfold ? '30px' : 0};
   background: ${props => props.unfold ? `${colors.black}` : `${colors.white}`};
   color: ${props => props.unfold ? `${colors.white}` : `${colors.black}`};
   p{

@@ -234,6 +234,8 @@ const YearRange = styled.div`
   width: 140px;
   height: 140px;
   margin-top: -61px;
+  border-top: solid 1px ${yearRangebgColor};
+  border-right: solid 1px ${yearRangebgColor};
   p{
     display: block;
     width: 100%;
@@ -272,7 +274,7 @@ const YearRange = styled.div`
       position: absolute;
       right: 0;
       top: 50%;
-      height: 46.9px;
+      height: 41px;
       margin-right: 13.25px;
     }
   }
@@ -299,11 +301,10 @@ const YearRange = styled.div`
     p{
       font-size: 34px;
       letter-spacing: 0.13px;
-      line-height: 1.35;
     }
     p:nth-child(2){
       img{
-        height: 50px;
+        height: 45px;
       }
     }
   `}

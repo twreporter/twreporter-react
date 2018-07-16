@@ -1,10 +1,10 @@
-import { chunk } from 'lodash'
 import { colors } from '../../../themes/common-variables'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
+import chunk from 'lodash/chunk'
 import data from '../constants/section-04/partners'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
@@ -134,6 +134,9 @@ const LogoBlock = styled.div`
   ${screen.tabletBelow`
     margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
+    &:nth-child(even) {
+      margin-left: -1px;
+    }
   `}
   ${screen.mobile`
     height: 160px;

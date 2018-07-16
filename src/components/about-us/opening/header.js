@@ -35,19 +35,18 @@ const Container = styled.div`
 `
 
 const TopRow = styled.div`
-  display: table;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0 auto;
   width: 100%;
   a{
-    height: 36.8px;
-    display: table-cell;
+    height: 30px;
     text-align: left;
-  }
-  ${screen.tabletBelow`
-    a{
-      vertical-align: middle;
+    img{
+      height: 100%;
     }
-  `}
+  }
   ${screen.mobile`
     height: ${headerStyle.height.mobile};
     padding: ${headerStyle.padding.mobile};
@@ -88,9 +87,6 @@ const LanguageSwitcher = styled.div`
 `
 
 const Hamburger = styled.div`
-  display: table-cell;
-  text-align: right;
-  vertical-align: middle;
   width: 24px;
   span{
     width: 100%;

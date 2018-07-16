@@ -47,7 +47,13 @@ const Logo = styled.div`
     top: 20px;
     left: 30px;
     height: 36.8px;
+    img{
+      height: 100%;
+    }
   }
+  ${screen.tablet`
+    visibility: hidden;
+  `}
 `
 
 const AnchorsContainer = styled.div`
