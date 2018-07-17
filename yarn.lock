@@ -8,9 +8,9 @@
   dependencies:
     ps-tree "^1.1.0"
 
-"@twreporter/react-components@^4.0.10":
-  version "4.0.10"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.10.tgz#9f112d4d108ce78d030715bf888431ca60ea44e3"
+"@twreporter/react-components@^4.0.11":
+  version "4.0.11"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.0.11.tgz#89481d54c55ca2e479966d6b44b757b6cf9c748f"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
@@ -1223,6 +1223,10 @@ body-parser@1.18.2:
     qs "6.5.1"
     raw-body "2.3.2"
     type-is "~1.6.15"
+
+body-scroll-lock@^2.4.6:
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-2.4.6.tgz#3ab8f6aff309cc5ce5ad7702f58308f755e262f3"
 
 bonjour@^3.5.0:
   version "3.5.0"
@@ -7100,7 +7104,7 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-smoothscroll@^0.3.0:
+smoothscroll@0.3.0, smoothscroll@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/smoothscroll/-/smoothscroll-0.3.0.tgz#6e79644d8449c51f29226a833a7440dae9162ed0"
 

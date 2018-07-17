@@ -1,4 +1,17 @@
 ### Unreleased
+### 3.0.7
+- Update config.yml. Use file to store local env variables
+- Update config.yml. Parse currentMasterVersion instead
+- Upgrade `@twreporter/react-components` to 4.0.11
+
+### 3.0.6
+- About-us page tunning
+- Fix circleci build failing. Install the corresponding kubectl pkg
+- Update README.md. Add PWA in #Contains
+
+### 3.0.5
+- Add about-us page
+
 ### 3.0.4
 - Restore web push subscription service.
 
