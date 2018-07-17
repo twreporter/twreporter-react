@@ -359,6 +359,7 @@ export default class Section5 extends PureComponent {
     super(props)
     this.yearContent = []
     this.isMobile = false
+    this.initalOpenUp = true
     this.state = {
       timelineScrolling: false,
       timelineScrollingHeight: 0,
@@ -384,7 +385,10 @@ export default class Section5 extends PureComponent {
   _onEnter = () => {
     // unfold the first year
     let newUnfoldArray = [ ...this.state.unfoldArray ]
-    newUnfoldArray[0] = true
+    if (this.initalOpenUp) {
+      newUnfoldArray[0] = true
+      this.initalOpenUp = !this.initalOpenUp
+    }
     this.setState({
       isBorderBottomfixed: false,
       unfoldArray: newUnfoldArray
