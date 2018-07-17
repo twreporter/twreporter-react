@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
+import Description from '../components/topic/Description'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
 import FullScreenImage from '../components/shared/FullScreenImage'
 import SystemError from '../components/SystemError'
-import classNames from 'classnames'
 import styles from './TopicLandingPage.scss'
 import twreporterRedux from '@twreporter/redux'
 
@@ -35,20 +35,6 @@ const _  = {
 const bannerFactory = new BannerFactory()
 const cardsFactory = new CardsFactory()
 
-const Description = (props) => {
-  const { topicDescription, teamDescription } = props
-  return (
-    <div className={styles['description']}>
-      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
-      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
-    </div>
-  )
-}
-
-Description.propTypes = {
-  topicDescription: PropTypes.string.isRequired,
-  teamDescription: PropTypes.string.isRequired
-}
 
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
