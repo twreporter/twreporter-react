@@ -1,10 +1,14 @@
+import { buildFbShareLink } from '../utils/build-fb-share-link'
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
+import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import ogUrl from '../constants/data/matadata'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -24,13 +28,6 @@ const Panel = styled.div`
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   opacity: ${props => props.visible ? '1' : '0'};
   transition: all ${opacityTransitionDuration} linear;
-  a{
-    position: absolute;
-    top: 47px;
-    left: 33px;
-    height: 36.8px;
-    transform: translateY(-50%);
-  }
   ${screen.mobile`
     left: 0;  
   `}
@@ -44,6 +41,21 @@ const Panel = styled.div`
   `}
 `
 
+const Logo = styled.div`
+  a{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    height: 36.8px;
+    img{
+      height: 100%;
+    }
+  }
+  ${screen.tablet`
+    visibility: hidden;
+  `}
+`
+
 const AnchorsContainer = styled.div`
   display: block;
   padding: 77px 0 52px 0;
@@ -52,6 +64,14 @@ const AnchorsContainer = styled.div`
   color: ${colors.white};
   text-align: center;
   transition: transform ${opacityTransitionDuration} ease-in-out;
+  p{
+    font-weight: ${font.weight.bold};
+    line-height: 86px;
+    border-bottom: solid ${colors.white} 0.1px;
+  }
+  p:nth-child(6){
+    border-bottom: none;
+  }
   ${screen.mobile`
     transform: ${props => props.visible ? 'translateY(0)' : 'translateY(-5%)'};
   `}
@@ -61,22 +81,13 @@ const AnchorsContainer = styled.div`
   `}
 `
 
-const Anchor = styled.div`
-  height: 86px;
-  border-bottom: solid ${colors.white} 0.2px;
-  p{
-    line-height: 86px;
-  }
-  &:last-child{
-    border-bottom: none;
-  }
-`
-
 const CloseBtn = styled.div `
   position: absolute;
-  right: 33px;
-  top: 47px; 
+  right: 30px;
+  top: 20px; 
   width: 24px;
+  height: 24px;
+  transform: translateY(50%);
   span{
     position: absolute;
     left: 0;
@@ -87,10 +98,10 @@ const CloseBtn = styled.div `
     transition: transform ${opacityTransitionDuration} linear;
   }
   span:first-child{
-    transform: rotate(-45deg);
+    transform: ${props => props.isOpen ? 'rotate(-45deg)' : 'none'};
   }
   span:last-child{
-    transform: rotate(45deg);
+    transform: ${props => props.isOpen ? 'rotate(45deg)' : 'none'};
   }
   ${screen.desktopAbove`
     display: none;
@@ -98,8 +109,10 @@ const CloseBtn = styled.div `
 `
 
 const Icons = styled.div`
-  img{
-    width: 45px;
+  a{
+    img{
+      width: 45px;
+    }
     &:first-child{
       float: left;
     }
@@ -120,36 +133,44 @@ class AnchorsPanel extends React.PureComponent {
     super(props)
   }
   render() {
+    const Anchors = anchorlist.map((anchor, anchorIdx) => {
+      return (
+        <p
+          key={anchorIdx}
+          onClick={() => this.props.handleClickAnchor(anchorIdx)}
+        >
+          {anchor.label}
+        </p>
+      )
+    })
     return (
       <Panel
         visible={this.props.isOpen}
         >
-        <Link to="/">
-          <img src={logo}/>
-        </Link>
+        <Logo>
+          <Link to="/">
+            <img src={logo}/>
+          </Link>
+        </Logo>
         <AnchorsContainer
           visible={this.props.isOpen}        
         >
-          {
-            anchorlist.map((anchor, anchorIdx) => {
-              return (
-                <Anchor
-                  key={anchorIdx}
-                  onClick={() => this.props.handleClickAnchor(anchorIdx)}
-                >
-                  <p>{anchor.label}</p>
-                </Anchor>
-              )
-            })
-          }
+          {Anchors}
           <Icons>
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+            <a href={hrefs.donate} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+            </a>
+            <a href={hrefs.subscribe} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+            </a>
+            <a href={buildFbShareLink(ogUrl)} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+            </a>
           </Icons>
         </AnchorsContainer>
         <CloseBtn
           onClick={this.props.closePanel}
+          isOpen={this.props.isOpen}
         >
           <span/>
           <span/>

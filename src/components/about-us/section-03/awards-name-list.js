@@ -54,20 +54,6 @@ const AwardItem = styled.div`
   `}
 `
 
-const Bullet = styled.span `
-  display: inline-block;
-  visibility: ${props => props.display === 'true' ? 'visible' : 'hidden'};
-  margin-left: 9px;
-  width: 0;
-  height: 0;
-	border-top: 9px solid transparent;
-	border-left: 10px solid ${colors.black};
-  border-bottom: 9px solid transparent;
-  ${screen.tabletBelow`
-    display: none;
-  `}
-`
-
 const Cursor = styled.span`
   display: inline-block;
   visibility: ${props => props.isCurrentYear === 'true' ? 'visible' : 'hidden'};
@@ -95,9 +81,6 @@ export default class AwardNameList extends PureComponent {
               >
                 <p onClick={() => selectAward(name.awardId, index)}>
                   {name.award}
-                  <span>
-                    <Bullet display={(activeAwardId === name.awardId).toString()} />
-                  </span>
                 </p>
                 <ul>
                   { 

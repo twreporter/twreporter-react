@@ -1,6 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { screen } from '../utils/screen'
+import { VelocityTransitionGroup } from '@twreporter/velocity-react'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -62,41 +63,44 @@ const MoreInfo = styled.div `
 const RecordsInaYear = styled.div `
   position: relative;
   width: 100%;
-  margin-top: 2px;
+  margin-top: 0;
   margin-bottom: ${props => props.unfold ? '9px' : '0'};
   padding: 0;
   list-style: none;
 `
 
+const StyledVelocityTransitionGroup = styled(VelocityTransitionGroup)`
+`
+
 const Record = styled.div `
   position: relative;
   width: 100%;
-  height: ${props => props.unfold ? 'auto' : '0'};
   margin: auto 0;
   overflow: hidden;
   color: ${colors.black};
   text-align: left;
   border-bottom: solid ${props => props.unfold ? '1px' : '0'} ${borderBottomColor};
-  padding: ${props => props.unfold ? '20px 21px 19px 15px' : '0 21px 0 15px'};
   background: ${colors.gray.gray96};
-  transition: all ${props => props.transitionDuration} linear;
-  p{
-    opacity: ${props => props.unfold ? '1' : '0'};
-  }
+  padding: 20px 21px 19px 15px;
   a{
     color: ${colors.black};
+  }
+  ${StyledVelocityTransitionGroup}:last-child & {
+    border-bottom: none;
   }
 `
 
 const AwardName = styled.div `
   width: 100%;
   border: solid 1px ${mobileBorderColor};
-  min-height: ${props => props.unfold ? '53px' : '76px'};
-  margin-top: ${props => props.unfold ? '30px' : 0};
+  &:not(:first-child){
+    border-top: none;
+  }
+  min-height: 76px;
   background: ${props => props.unfold ? `${colors.black}` : `${colors.white}`};
   color: ${props => props.unfold ? `${colors.white}` : `${colors.black}`};
   p{
-    line-height: ${props => props.unfold ? '53px' : '76px'};
+    line-height: 76px;
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -123,8 +127,7 @@ const YearTag = styled.div `
   position: relative;
   background: ${colors.white};
   overflow: hidden;
-  height: ${props => props.unfold ? '65px' : '0'};
-  transition: height ${props => props.transitionDuration} linear;
+  height: 65px;
   p{
     position: absolute;
     top: 50%;
@@ -179,42 +182,51 @@ export default class AccordionList extends PureComponent {
                 </AwardName>
                 {
                   awardYearList[awardIdx].map((year) => {
+                    let unfold = this.state.unfoldArray[awardIdx]
                     return(
                       <React.Fragment
                         key={`${award.award}-${year}`}
                       >
-                        <YearTag
-                          unfold={this.state.unfoldArray[awardIdx]}
-                          transitionDuration={transitionDuration}
-                        >
-                          <p>{year}</p>
-                          <SeperatedLine />
-                        </YearTag>
+                        <VelocityTransitionGroup component="div" enter="slideDown" leave="slideUp">
+                          { unfold ?
+                            <YearTag
+                              unfold={unfold}
+                              transitionDuration={transitionDuration}
+                            >
+                              <p>{year}</p>
+                              <SeperatedLine />
+                            </YearTag> : null
+                          }
+                        </VelocityTransitionGroup>
                         <RecordsInaYear
-                          unfold={this.state.unfoldArray[awardIdx]}
+                          unfold={unfold}
                         >
                           {
                             fulldatalist[awardIdx][year].map((item, itemIndex) => {
                               return(
-                                <Record
-                                  key={awardIdx + '-' + itemIndex}
-                                  unfold={this.state.unfoldArray[awardIdx]}
-                                  transitionDuration={transitionDuration}
-                                >
-                                  <a href={item.titleLink} target="_blank">
-                                    <AwardItem>
-                                      <Ranking
-                                        display={item.ranking}>
-                                        {item.ranking}
-                                      </Ranking>
-                                      <MoreInfo>
-                                        <p>{item.group}</p>
-                                        <p>{item.title}</p>
-                                        <p>{item.prizeman}</p>
-                                      </MoreInfo>
-                                    </AwardItem>
-                                  </a>
-                                </Record>
+                                <StyledVelocityTransitionGroup 
+                                  key={itemIndex}
+                                  component="div" enter="slideDown" leave="slideUp">
+                                  { unfold ? 
+                                    <Record
+                                      unfold={unfold}
+                                    >
+                                      <a href={item.titleLink} target="_blank">
+                                        <AwardItem>
+                                          <Ranking
+                                            display={item.ranking}>
+                                            {item.ranking}
+                                          </Ranking>
+                                          <MoreInfo>
+                                            <p>{item.group}</p>
+                                            <p>{item.title}</p>
+                                            <p>{item.prizeman}</p>
+                                          </MoreInfo>
+                                        </AwardItem>
+                                      </a>
+                                    </Record> : null
+                                  }
+                                </StyledVelocityTransitionGroup>
                               )                              
                             })
                           }
@@ -236,7 +248,7 @@ AccordionList.defaultProps = {
   fulldatalist: [],
   awardNamelist: [],
   awardYearList: [],
-  transitionDuration: '500ms'
+  transitionDuration: '100ms'
 }
 
 AccordionList.propTypes = {

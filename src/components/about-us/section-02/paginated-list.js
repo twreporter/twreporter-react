@@ -2,23 +2,24 @@ import { colors } from '../../../themes/common-variables'
 import { gray, numbersInfullPage } from './utils'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { storageUrlPrefix } from '../utils/config'
-import Arrows from './arrows'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
   position: relative;
+  display: block;
   width: 100%;
   height: 465px;
-  padding: 49px 13px 0 13px;
+  padding: 0 13px 0 13px;
+  margin-top: 49px;
+  background: ${colors.gray.gray96};
 `
 
 const MemberBlock = styled.div `
   position: relative;
   width: 100%;
   height: calc(100% / 4);
-  background: ${colors.gray.gray96};
   padding: 0 20px; 
   span{
     display: inline-block;
@@ -27,7 +28,7 @@ const MemberBlock = styled.div `
   }
   img{
     vertical-align: middle;
-    width: 60.5px;
+    width: calc(60.5px * 1.2);
   }
 `
 
@@ -42,7 +43,7 @@ const ProfileWrapper = styled.div `
   position: relative;
   display: table;
   float: right;
-  width: calc(100% - 60.5px);
+  width: calc(100% - ( 60.5px * 1.2));
   height: 100%;
   padding-left: 9px;
   img{
@@ -76,7 +77,7 @@ export default class PaginatedMemberList extends PureComponent {
     super(props)
   }
   render() {
-    const { selectedDepartmentIndex, membersPageLengthArray, isArrowVisible, changePage, cursor, selectedMemberList } = this.props
+    const { cursor, selectedMemberList } = this.props
     let MemberBlocks = selectedMemberList.slice(cursor - numbersInfullPage.mobile, cursor).map((member) => {
       return(
         <MemberBlock key={member.name}>
@@ -101,12 +102,6 @@ export default class PaginatedMemberList extends PureComponent {
     })    
     return (
       <Container>
-        <Arrows
-          departmentIndex = {selectedDepartmentIndex}
-          membersPageLengthArray = {membersPageLengthArray}
-          visible = {isArrowVisible}
-          changePage = {changePage}
-        />
         {MemberBlocks}
       </Container>
     )
@@ -114,18 +109,11 @@ export default class PaginatedMemberList extends PureComponent {
 }
 
 PaginatedMemberList.defaultProps = {
-  selectedDepartmentIndex: 0,
-  membersPageLengthArray: [],
-  isArrowVisible: true,
   cursor: 0,
   selectedMemberList: []
 }
 
 PaginatedMemberList.propTypes = {
-  selectedDepartmentIndex: PropTypes.number.isRequired,
-  membersPageLengthArray: PropTypes.array.isRequired,
-  isArrowVisible: PropTypes.bool.isRequired,
-  changePage: PropTypes.func.isRequired,
   cursor: PropTypes.number.isRequired,
   selectedMemberList: PropTypes.array.isRequired,
   sendEmail: PropTypes.func.isRequired

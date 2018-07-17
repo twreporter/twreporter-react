@@ -9,6 +9,7 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import values from 'lodash/values'
+import VelocityComponent from '@twreporter/velocity-react/velocity-component'
 
 const _ = {
   groupBy, values, keys
@@ -16,7 +17,7 @@ const _ = {
 
 const defaultZIndex = 0
 const dateBorderColor = '#d3d3d3'
-const transitionDuration = '.5s'
+const transitionDuration = 500
 
 const OnlyDisplayOnMobile = styled.div `
   ${screen.tabletAbove`
@@ -96,16 +97,16 @@ const Year = styled.div `
 const YearLabel = styled.div `
   display: table;
   width: 100%;
-  height: ${props => props.unfold ? '53px' : '76px'};
+  height: 76px;
   background: ${props => props.unfold ? `${colors.black}` : `${colors.gray.gray96}`};
   color:${props => props.unfold ? `${colors.white}` : `${colors.black}`};
-  transition: ease ${transitionDuration} height;
+  transition: ease ${transitionDuration}ms height;
   p{
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
-    font-size: ${props => props.unfold ? '24px' : '32px'};
+    font-size: 32px;
     font-weight: bold;
   }
   ${screen.tabletAbove`
@@ -118,7 +119,6 @@ const Accomplishments = styled.div `
   ${screen.mobile`
     transform-style: preserve-3d;
     margin-top: 2px;
-    margin-bottom: ${props => props.unfold ? '9px' : '0'};  
   `}
 `
 
@@ -127,11 +127,11 @@ const MonthLabel = styled.div `
   background: ${colors.white};
   width: 54px;
   height: 23px;
-  padding: 5px 0;
   text-align: center;
   p{
     font-size: 12px;
     font-weight: bold;
+    line-height: 23px;
   }
   ${screen.overDesktop`
     p{
@@ -155,14 +155,9 @@ const Accomplishment = styled.div `
   color: ${colors.black};
   ${screen.mobile`
     position: relative;
-    min-height: 76px;
-    height: ${props => props.unfold ? 'auto' : '76px'};
-    transition: ease ${transitionDuration} all;
     border-bottom: solid 1px ${colors.white};
     background: ${colors.gray.gray96};
     &:nth-child(odd) {
-      transform-origin: 50% 0 0;
-      transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(-90deg)'};
       &:before {
         content: '';
         background-image: linear-gradient(to top, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
@@ -170,15 +165,13 @@ const Accomplishment = styled.div `
         bottom: 0;
         left: 0;
         width: 100%;
-        height: ${props => props.unfold ? '0' : '100%'};
+        height: 100%;
+        opacity: ${props => props.unfold ? '0' : '1'};
         z-index: calc(${defaultZIndex} - 1);
-        transition: height .25s;      
+        transition: opacity ${transitionDuration}ms ease-in-out;      
       }
     }
     &:nth-child(even) {
-      transform-origin: 50% 100% 0;
-      transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
-      margin-top: ${props => props.unfold ? '0' : 'calc(-76px * 2)'};
       &:before {
         content: '';
         background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
@@ -186,25 +179,20 @@ const Accomplishment = styled.div `
         top: 0;
         left: 0;
         width: 100%;
-        height: ${props => props.unfold ? '0' : '100%'};
+        height: 100%;
+        opacity: ${props => props.unfold ? '0' : '1'};
         z-index: calc(${defaultZIndex} - 1);
-        transition: height .25s;      
+        transition: opacity ${transitionDuration}ms ease-in-out;     
       }
     }
   `}
 `
 
-const MockAccomplishment = styled.div `
+const MockAccomplishment = styled.div`
   width: 100%;
-  position: relative;
-  min-height: 76px;
-  height: ${props => props.unfold ? 'auto' : '76px'};
-  transition: all ${transitionDuration} ease;
-  display: ${props => props.isOdd ? 'block' : 'none'};
-  visibility: ${props => props.isOdd ? 'visible' : 'none'};
-  margin-top: ${props => props.unfold ? '-76px' : 'calc(-76px * 2)'};
   transform-origin: 50% 100% 0;
-  transform: perspective(300px) ${props => props.unfold ? 'rotateX(0deg)' : 'rotateX(90deg)'};
+  position: relative;
+  display: ${props => props.isOdd ? 'block' : 'none'};
 `
 
 export default class List extends PureComponent {
@@ -219,12 +207,42 @@ export default class List extends PureComponent {
     }
     return dateString
   }
-  
+  _foldAnimation = (isUnfold, index, mockItem = false) => {
+    let isOdd = index % 2 === 1
+    let animationObj = {}
+    if (isUnfold) {
+      animationObj = {
+        duration: transitionDuration,
+        animation: {
+          transformPerspective: 300,
+          transformOriginX: '50%',
+          transformOriginY: isOdd ? '100%' : 0,
+          rotateX: 0,
+          marginTop: 0,
+          maxHeight: '100%',
+          minHeight: mockItem ? 0 : 76
+        }
+      }
+    } else {
+      animationObj = {
+        duration: transitionDuration,
+        animation: {
+          transformPerspective: 300,
+          transformOriginX: '50%',
+          transformOriginY: isOdd ? '100%' : 0,
+          rotateX: isOdd ? 90 : -90,
+          marginTop: isOdd ? -152 : 0,
+          maxHeight: 76,
+          minHeight: 76
+        }
+      }
+    }
+    return animationObj
+  }
   componentDidMount() {
     const yearContentHeight = this.yearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
     this.props.getYearContentHeight(yearContentHeight)
   }
-
   render() {
     const { unfoldArray, sortedData, sortedDataGroupByYear, foldAndUnfold } = this.props
     this.yearList = _.keys(sortedDataGroupByYear)
@@ -244,11 +262,15 @@ export default class List extends PureComponent {
           <OnlyDisplayOnMobile>
             {
               sortedDataGroupByYear[year].map((record, index) => {
+                let unfold = unfoldArray[indexOfUnfoldArray]
+                let animationProps = this._foldAnimation(unfold, index)
                 return(
+                  <VelocityComponent 
+                    key={index + '-' + unfold.toString}
+                    {...animationProps}
+                  >
                     <Accomplishment
-                      key={index}
-                      unfold={unfoldArray[indexOfUnfoldArray]}
-                      isOdd={isOdd}
+                      unfold={unfold}
                     >
                       <MonthLabel>
                         <p>{months[record.month - 1]}</p>
@@ -260,13 +282,18 @@ export default class List extends PureComponent {
                         <p>{record.text.chinese}</p>
                       </Record>
                     </Accomplishment>
+                  </VelocityComponent>
                 )            
               })
             }
-            <MockAccomplishment
-              unfold={unfoldArray[indexOfUnfoldArray]}
-              isOdd={isOdd}
-            />
+            <VelocityComponent
+              {...this._foldAnimation(unfoldArray[indexOfUnfoldArray], 1, true)}
+            >
+              <MockAccomplishment
+                isOdd={isOdd}
+                unfold={unfoldArray[indexOfUnfoldArray]}
+              />
+            </VelocityComponent>
           </OnlyDisplayOnMobile>
           <DisplayOnTabletAbove>
             {

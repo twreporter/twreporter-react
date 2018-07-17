@@ -78,6 +78,19 @@ const members = [
     category: categoryIds.fundation
   },
   {
+    name: '黃旭田',
+    job: '董事',
+    jobEng: 'Executive Director',
+    profile: memberUrlPrefix + foundationImg.foundationShuTienHuang,
+    category: categoryIds.fundation
+  }, {
+    name: '簡志忠',
+    job: '董事',
+    jobEng: 'Executive Director',
+    profile: memberUrlPrefix + foundationImg.foundationZhiZhongChien,
+    category: categoryIds.fundation
+  },
+  {
     name: '李偉文',
     nameEng: 'Wei Wen Li',
     job: '監察人',

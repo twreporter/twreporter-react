@@ -13,8 +13,14 @@ const transitionDuration = '.3s'
 
 const Arrow = styled.div`
   position: absolute;
-  width: 30px;
-  height: 70px;
+  ${screen.desktop`
+    width: 12.3px;
+    height: 60px;
+  `}
+  ${screen.overDesktop`
+    width: 15px;
+    height: 73px;  
+  `}
 `
 
 const TopArrow = Arrow.extend`
@@ -92,6 +98,7 @@ const PageWrapper = styled.div`
 `
 
 const ArrowNextIcon = styled.div`
+  height: 100%;
   img{
     height: 100%;
   }

@@ -1,0 +1,5 @@
+export const title = '關於我們 - 報導者 The Reporter'
+export const ogDescription = ''
+export const ogImage = ''
+export const ogUrl = 'https://www.twreporter.org/about-us'
+export const fbAppId = '1296686743779808'

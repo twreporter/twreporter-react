@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const defaultZIndex = 0
+const defaultZIndex = 3
 const logoBlockWidthOnDesktop = '39%'
 
 const Container = styled.div `
@@ -176,9 +176,11 @@ const RightArrow = styled.div `
     transform: translateX(100%) translateY(-50%);    
   `}
   ${screen.tablet`
+    top: 170px;
     right: -69px;
   `}
   ${screen.mobile`
+    top: 105px;
     right: -18px;
   `}
 `
@@ -248,7 +250,7 @@ const CloseBtn = styled.div`
   &:before, &:after {
     content: '';
     position: absolute;
-    height: 1px;
+    height: 2px;
     width: 100%;
     top: 50%;
     left: 0;
@@ -263,7 +265,12 @@ const CloseBtn = styled.div`
   }
 `
 
+const InfoWrapper = styled.div`
+  position: relative;
+`
+
 const ArrowNextIcon = styled.div`
+  height: 100%;
   img{
     width: auto;
     height: 100%;
@@ -297,15 +304,17 @@ export default class MoreInfo extends PureComponent {
           </ItemName>
           {this._createNavigation(selectedContent.length)}
           <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
-          <h4>{selectedItem.date}</h4>
-          <p>
-            {selectedItem.description.chinese}
-          </p>
-          <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
-            <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-            </ArrowNextIcon>
-          </RightArrow>
+          <InfoWrapper>
+            <h4>{selectedItem.date}</h4>
+            <p>
+              {selectedItem.description.chinese}
+            </p>
+            <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+              <ArrowNextIcon>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+              </ArrowNextIcon>
+            </RightArrow>
+          </InfoWrapper>
         </InfoBoxMobile>
         <InfoBoxDesktop>
           <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
@@ -314,9 +323,9 @@ export default class MoreInfo extends PureComponent {
             <h4>{selectedItem.date}</h4>
             <p>{selectedItem.description.chinese}</p>
             <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
-            <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-            </ArrowNextIcon>
+              <ArrowNextIcon>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+              </ArrowNextIcon>
             </RightArrow>
           </Info>
         </InfoBoxDesktop>
