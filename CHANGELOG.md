@@ -1,4 +1,9 @@
 ### Unreleased
+### 3.0.6
+- About-us page tunning
+- Fix circleci build failing. Install the corresponding kubectl pkg
+- Update README.md. Add PWA in #Contains
+
 ### 3.0.5
 - Add about-us page
 
