@@ -80,11 +80,14 @@ jobs:
             fi
 
             echo "CLUSTER_NAME: ${CLUSTER_NAME}"
+            echo "CLUSTER_NAME=${CLUSTER_NAME}" > circle_ci_local_env
             gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 
       - run:
           name: Install kubectl
           command: |
+            source circle_ci_local_env
+            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
             KUBECTL_VERSION="$(gcloud container clusters describe ${CLUSTER_NAME} | sed -n 's/.*version:[ ]*\(.*\)-\(.*\)/\1/p')"
             curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
             chmod +x ./kubectl
