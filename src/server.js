@@ -28,6 +28,18 @@ global.__CLIENT__ = false
 global.__SERVER__ = true
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production'
 
+let webpackAssets = {
+  javascripts: {
+    main: config.webpackPublicPath + config.webpackOutputFilename,
+    chunks: []
+  },
+  stylesheets: []
+}
+
+if (!__DEVELOPMENT__) {
+  webpackAssets = require('../webpack-assets.json')
+}
+
 const app = new Express()
 const server = new http.Server(app)
 app.set('views', path.join(__dirname, 'views'))
@@ -38,11 +50,16 @@ app.use(cookieParser())
 const oneDay = 86400000
 app.use('/asset', Express.static(path.join(__dirname, '../static/asset'), { maxAge: oneDay * 7 }))
 app.use('/dist', Express.static(path.join(__dirname, '../dist'), { maxAge: oneDay * 30 }))
+app.use('/meta', Express.static(path.join(__dirname, '../static/meta'), { maxAge: oneDay }))
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://www.twreporter.org/')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   next()
 })
+
+// Add max-age: 900 on response header of /sw.js
+app.get('/sw.js', Express.static(path.join(__dirname, '..'), { maxAge: 900 }))
 
 app.get('/robots.txt', (req, res) => {
   res.format({
@@ -107,9 +124,9 @@ app.get('*', async function (req, res, next) {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (error) {
-      throw new Error(error)
+      return next(new Error(error))
     } else if (!renderProps) {
-      throw new NotFoundError()
+      return next(new NotFoundError())
     } else {
       const getReduxPromise = function () {
         const query = get(renderProps, 'location.query', {})
@@ -126,13 +143,6 @@ app.get('*', async function (req, res, next) {
       }
 
       getReduxPromise().then(() => {
-        const assets = __DEVELOPMENT__ ? {
-          javascripts: {
-            main: `${config.webpackPublicPath}${config.webpackOutputFilename}`,
-            chunks: []
-          },
-          stylesheets: []
-        } : require('../webpack-assets.json')
         const sheet = new ServerStyleSheet()
         const content = ReactDOMServer.renderToString(
           <Provider store={store} >
@@ -160,7 +170,7 @@ app.get('*', async function (req, res, next) {
             <Html
               content={content}
               store={store}
-              assets={assets}
+              assets={webpackAssets}
               styleElement={sheet.getStyleElement()}
             />
           )
@@ -183,6 +193,7 @@ pe.skipPackage('express')
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)) // eslint-disable-line no-console
+  res.header('Cache-Control', 'no-store')
   if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
     res.redirect('/error/404')
   } else {

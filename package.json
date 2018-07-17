@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "2.7.8",
+  "version": "3.0.7",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -19,18 +19,19 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=4.1.1"
+    "node": ">=7.9.0"
   },
   "bugs": {
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "^4.0.10",
+    "@twreporter/react-components": "^4.0.11",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
     "@twreporter/registration": "2.2.1",
     "babel-plugin-inline-react-svg": "^0.4.0",
     "babel-plugin-system-import-transformer": "^3.1.0",
+    "body-scroll-lock": "^2.4.6",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
@@ -67,8 +68,9 @@
     "redux": "^3.5.2",
     "redux-thunk": "^0.1.0",
     "serialize-javascript": "^1.4.0",
-    "smoothscroll": "^0.3.0",
+    "smoothscroll": "0.3.0",
     "styled-components": "^2.1.1",
+    "sw-toolbox": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {
