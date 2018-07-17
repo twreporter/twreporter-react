@@ -17,12 +17,16 @@ import WebFont from './web-font'
 export class AboutUs extends PureComponent {
   constructor(props) {
     super(props)
-    this.sectionRefs = []
+    this.sectionRefs = [],
+    this.sectionOffset = []
   }
   _handleClickAnchor = (anchorIdx) => {
-    const elem = this.sectionRefs[anchorIdx]
-    const offsetTop = ReactDOM.findDOMNode(elem).getBoundingClientRect().top
-    return smoothScroll(offsetTop)
+    return smoothScroll(this.sectionOffset[anchorIdx])
+  }
+  componentDidMount() {
+    this.sectionOffset = this.sectionRefs.map((elem) => {
+      return ReactDOM.findDOMNode(elem).getBoundingClientRect().top
+    })
   }
   render() {
     const SideBar = SideBarFactory.getAboutUSPageSideBar()

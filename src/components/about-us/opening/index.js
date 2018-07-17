@@ -26,7 +26,7 @@ const Footer = styled.div`
   width: 100%;
   background: ${colors.red.liverRed}; 
   ${screen.mobile`
-    height: 44px;
+    height: 54px;
   `} 
   ${screen.tablet`
     height: 100px;
@@ -256,7 +256,7 @@ const SeperateLineOnMobile = SeperateLine.extend`
     display: none;
   `}
   h3{
-    margin: 72px 0;
+    margin: 52px 0;
   }
 `
 
@@ -450,6 +450,7 @@ export class Opening extends PureComponent {
         />
         <Header 
           onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+          isPanelOpen={this.state.isAnchorPanelOpen}
         />
         <Content>
           <ChineseIntro>          
