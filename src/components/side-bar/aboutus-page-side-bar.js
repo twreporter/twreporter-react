@@ -1,8 +1,8 @@
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
-import { ogUrl } from '../about-us/constants/data/matadata'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../about-us/utils/screen'
+import { SITE_META } from '../about-us/constants/data/index'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
@@ -134,7 +134,7 @@ class AboutusPageSideBar extends React.PureComponent {
               <a href={hrefs.subscribe} target="_blank">
                 <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
               </a>
-              <a href={buildFbShareLink(ogUrl)} target="_blank">
+              <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
                 <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
               </a>
             </Icons>
