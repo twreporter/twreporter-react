@@ -1,4 +1,11 @@
 ### Unreleased
+### 3.0.8
+- [Bug] Fixed some bugs of section5 on about-us page
+- Add meta-data to about-us page
+- [Bug] Prevent body from scrolling when a fullscreen modal is opened on about-us page
+- [Bug] Add onResize eventListener to section2 on about-us page
+- [Bug] Section5 trigger point tunning on about-us page
+
 ### 3.0.7
 - Update config.yml. Use file to store local env variables
 - Update config.yml. Parse currentMasterVersion instead

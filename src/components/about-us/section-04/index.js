@@ -1,5 +1,4 @@
 import { colors } from '../../../themes/common-variables'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
@@ -256,7 +255,8 @@ export default class Section4 extends PureComponent {
       initialState: false
     })
     if (this.isTabletBelow) {
-      disableBodyScroll(this.infoOverlay)
+      document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+      document.getElementsByTagName('body')[0].style.overflow = 'hidden'
     }
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
@@ -285,7 +285,8 @@ export default class Section4 extends PureComponent {
       selectedRow: null
     })
     if (this.isTabletBelow) {
-      enableBodyScroll(this.infoOverlay)
+      document.getElementsByTagName('html')[0].style.overflow = 'auto'
+      document.getElementsByTagName('body')[0].style.overflow = 'auto'
     }
   }
   _getSelectedContent = () => {
@@ -298,9 +299,6 @@ export default class Section4 extends PureComponent {
     if (window.matchMedia(`(max-width: ${sz.mediumScreenMaxWidth}px)`).matches) {
       this.isTabletBelow = true
     }
-  }
-  componentWillUnmount() {
-    clearAllBodyScrollLocks()
   }
   render() {
     let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state

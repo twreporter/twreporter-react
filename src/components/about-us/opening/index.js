@@ -1,6 +1,5 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle } from './section-style'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
@@ -11,6 +10,8 @@ import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
+
+const duration = 200
 
 const Container = styled.section`
   position: relative;
@@ -423,21 +424,20 @@ export class Opening extends PureComponent {
     this.setState({
       isAnchorPanelOpen: false
     })
-    enableBodyScroll(this.anchorsPanel)
+    document.getElementsByTagName('html')[0].style.overflow = 'auto'
+    document.getElementsByTagName('body')[0].style.overflow = 'auto'
   }
   _openAnchorPanel = () => {
     this.setState({
       isAnchorPanelOpen: true
     })
-    disableBodyScroll(this.anchorsPanel)
+    document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
   }
   _closePanelAndScrollToAnchor = (idx) => {
     this._closeAnchorPanel()
-    this.props.handleClickAnchor(idx) 
+    setTimeout(() => this.props.handleClickAnchor(idx), duration + 100)
   }
-  componentWillUnmount() {
-    clearAllBodyScrollLocks()
-  }    
   render() {
     return (
       <Container innerRef={(ele) => {this._cover = ele}}>
