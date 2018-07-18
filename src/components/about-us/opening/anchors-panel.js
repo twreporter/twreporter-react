@@ -3,12 +3,12 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
-import ogUrl from '../constants/data/matadata'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -163,7 +163,7 @@ class AnchorsPanel extends React.PureComponent {
             <a href={hrefs.subscribe} target="_blank">
               <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
             </a>
-            <a href={buildFbShareLink(ogUrl)} target="_blank">
+            <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
               <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
             </a>
           </Icons>
