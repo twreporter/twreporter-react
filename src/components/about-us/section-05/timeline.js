@@ -18,6 +18,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
+  cursor: move; /* fallback if grab cursor is unsupported */
   cursor: ${props => props.grabbing ? 'grabbing' : 'grab'};
   cursor: ${props => props.grabbing ? '-moz-grabbing' : '-moz-grab'};
   cursor: ${props => props.grabbing ? '-webkit-grabbing' : '-webkit-grab'};

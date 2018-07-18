@@ -1,6 +1,5 @@
 // TODO: The infinite carousel should be rewrite as a independent component which uses persentage of whole width 
 //      (MemberList width on one page/ total width of Members) as shifting length
-// TODO: [Bug] When resize the viewport, the pages number of carousel will miscount
 // TODO: Refine the Navigation component which could be reused by section4
 
 import { colors } from '../../../themes/common-variables'
@@ -473,7 +472,7 @@ export default class Section2 extends PureComponent {
     }
     return
   }
-  componentDidMount() {
+  _getWindowWidthAndMakeMembersPage = () => {
     let initialCurrentPages = []
     if (window.matchMedia(`(min-width: ${sz.xLargeScreenMinWidth}px)`).matches) {
       // overDesktop
@@ -494,12 +493,12 @@ export default class Section2 extends PureComponent {
     }
 
     this.membersPageLengthArray = membersNumberArray.map((memberNumber, index) => {
-      switch(this.device) {
+      switch (this.device) {
         case devices.desktop:
           if (halfPageList.includes(index)) {
-            return Math.ceil( memberNumber / numbersInHalfPage ) + 2     
+            return Math.ceil(memberNumber / numbersInHalfPage) + 2
           }
-          return Math.ceil( memberNumber / this.numbersInOnePage ) + 2
+          return Math.ceil(memberNumber / this.numbersInOnePage) + 2
         case devices.tablet:
           return Math.ceil(memberNumber / this.numbersInOnePage) + 2
         case devices.mobile:
@@ -516,15 +515,21 @@ export default class Section2 extends PureComponent {
       }
       return 0
     })
-    this.setState({ currentPagesArray: initialCurrentPages })
+    this.setState({
+      currentPagesArray: initialCurrentPages
+    })
 
     // Making data for the usage of carousel
     _.keys(groupedMembers).forEach((categoryId, index) => {
       let members = groupedMembers[categoryId]
       let numbersInAPage = (halfPageList.includes(index)) ? numbersInHalfPage : this.numbersInOnePage
-      let newMembers = (this.device !== devices.mobile)?[ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ] : [ ... members ]
+      let newMembers = (this.device !== devices.mobile) ? [ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ] : [ ...members ]
       this.carouselData[categoryId] = newMembers
     })
+  }
+  componentDidMount() {
+    this._getWindowWidthAndMakeMembersPage()
+    window.addEventListener('resize', this._getWindowWidthAndMakeMembersPage)
   }
   render() {
     const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {

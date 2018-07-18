@@ -17,7 +17,7 @@ const _ = {
 
 const defaultZIndex = 0
 const dateBorderColor = '#d3d3d3'
-const transitionDuration = 500
+const transitionDuration = 300
 
 const OnlyDisplayOnMobile = styled.div `
   ${screen.tabletAbove`
