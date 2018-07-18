@@ -46,6 +46,7 @@ const Container = styled.div `
     }
     background: ${colors.white};
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   `}
 `
 
@@ -331,6 +332,10 @@ export default class MoreInfo extends PureComponent {
         </InfoBoxDesktop>
       </React.Fragment>      
     )    
+  }
+  componentWillUnmount() {
+    document.getElementsByTagName('html')[0].style.overflow = 'auto'
+    document.getElementsByTagName('body')[0].style.overflow = 'auto'
   }
   render() {
     let { rowNumber, selectedLogo, selectedRow, closeInfoBox, initial } = this.props

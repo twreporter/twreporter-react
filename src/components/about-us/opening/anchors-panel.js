@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const opacityTransitionDuration = '300ms'
+const opacityTransitionDuration = '200ms'
 const defaultZIndex = 1
 
 const Panel = styled.div`
@@ -24,6 +24,7 @@ const Panel = styled.div`
   width: 100vw;
   min-height: 100vh;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   background: ${colors.red.liverRed};
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   opacity: ${props => props.visible ? '1' : '0'};
@@ -131,6 +132,10 @@ const Icons = styled.div`
 class AnchorsPanel extends React.PureComponent {
   constructor(props) {
     super(props)
+  }
+  componentWillUnmount() {
+    document.getElementsByTagName('html')[0].style.overflow = 'auto'
+    document.getElementsByTagName('body')[0].style.overflow = 'auto'
   }
   render() {
     const Anchors = anchorlist.map((anchor, anchorIdx) => {
