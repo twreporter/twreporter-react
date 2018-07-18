@@ -3,17 +3,17 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
+import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
-import ogUrl from '../constants/data/matadata'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const opacityTransitionDuration = '300ms'
+const opacityTransitionDuration = '200ms'
 const defaultZIndex = 1
 
 const Panel = styled.div`
@@ -24,6 +24,7 @@ const Panel = styled.div`
   width: 100vw;
   min-height: 100vh;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   background: ${colors.red.liverRed};
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   opacity: ${props => props.visible ? '1' : '0'};
@@ -132,6 +133,10 @@ class AnchorsPanel extends React.PureComponent {
   constructor(props) {
     super(props)
   }
+  componentWillUnmount() {
+    document.getElementsByTagName('html')[0].style.overflow = 'auto'
+    document.getElementsByTagName('body')[0].style.overflow = 'auto'
+  }
   render() {
     const Anchors = anchorlist.map((anchor, anchorIdx) => {
       return (
@@ -163,7 +168,7 @@ class AnchorsPanel extends React.PureComponent {
             <a href={hrefs.subscribe} target="_blank">
               <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
             </a>
-            <a href={buildFbShareLink(ogUrl)} target="_blank">
+            <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
               <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
             </a>
           </Icons>
