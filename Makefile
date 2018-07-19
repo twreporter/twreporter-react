@@ -19,7 +19,7 @@ help:
 # build webpacks client side needed
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles and write their filepaths into webpack-asset.json"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
+	BABEL_ENV=csr-production NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
 
 build-service-worker: 
 	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
@@ -28,7 +28,7 @@ build-service-worker:
 # transiple es6 files into es5 
 build-server:
 	@echo "\033[33m[babel]\033[0m transpile es6 files into es5"
-	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/babel src --out-dir dist --copy-files
+	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr-production $(BIN_DIR)/babel src --out-dir dist --copy-files
 
 build-pm2-config:
 	@echo "\033[33m[PM2]\033[0m generate processes.json"
@@ -52,11 +52,11 @@ start-testing-server:
 
 start-dev-server: 
 	@echo " $(P) start dev server by nodemon src/server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr-dev $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
 
 start-webpack-dev-server:
 	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
+	BABEL_ENV=csr-dev NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
 
 dev:  
 	@echo "Setup development environment."
@@ -68,11 +68,11 @@ dev:
 
 test:
 	@echo "Run unit tests"
-	@$(BIN_DIR)/mocha $(TEST_SCRIPTS_FILES) --compilers js:babel-core/register --reporter $(REPORTER)
+	@BABEL_ENV=csr-production $(BIN_DIR)/mocha $(TEST_SCRIPTS_FILES) --compilers js:babel-core/register --reporter $(REPORTER)
 
 ui-test:
 	@echo "Run UI-test"
-	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
+	@BABEL_ENV=csr-production $(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
 
 clean: 
 	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"

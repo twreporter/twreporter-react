@@ -5,47 +5,75 @@
     "stage-0"
   ],
   "env": {
-    "ssr": {
+    "ssr-production": {
       "plugins": [
-        [
-          "css-modules-transform",
-          {
-            "extensions": [
-              ".css",
-              ".scss"
-            ],
-            "generateScopedName": "[name]__[local]___[hash:base64:5]"
-          }
-        ],
-        [
-          "system-import-transformer",
-          {
-            "commonJS": {
-              "useRequireEnsure": true
+        ["babel-plugin-styled-components", {
+            "ssr": true,
+            "displayName": false
+        }],
+        "inline-import-data-uri",
+        ["inline-react-svg", {
+            "svgo": {
+              "plugins": [{ "cleanupIDs": false }]
             }
-          }
-        ]
+        }],
+        ["css-modules-transform", {
+            "extensions": [".css", ".scss"],
+            "generateScopedName": "[name]__[local]___[hash:base64:5]"
+        }],
+        ["system-import-transformer", {
+            "commonJS": { "useRequireEnsure": true }
+        }]
+      ]
+    },
+    "csr-production": {
+      "plugins": [
+        ["babel-plugin-styled-components", {
+            "ssr": true,
+            "displayName": false
+        }],
+        "inline-import-data-uri",
+        ["inline-react-svg", {
+            "svgo": {
+              "plugins": [{ "cleanupIDs": false }]
+            }
+        }]
+      ]
+    },
+    "ssr-dev": {
+      "plugins": [
+        ["babel-plugin-styled-components", {
+            "ssr": true,
+            "displayName": true
+        }],
+        "inline-import-data-uri",
+        ["inline-react-svg", {
+            "svgo": {
+              "plugins": [{ "cleanupIDs": false }]
+            }
+        }],
+        ["css-modules-transform", {
+            "extensions": [".css", ".scss"],
+            "generateScopedName": "[name]__[local]___[hash:base64:5]"
+        }],
+        ["system-import-transformer", {
+            "commonJS": { "useRequireEnsure": true }
+        }]
+      ]
+    },
+    "csr-dev": {
+      "plugins": [
+        ["babel-plugin-styled-components", {
+            "ssr": true,
+            "displayName": true
+        }],
+        "inline-import-data-uri",
+        ["inline-react-svg", {
+            "svgo": {
+              "plugins": [{ "cleanupIDs": false }]
+            }
+        }]
       ]
     }
-  },
-  "plugins": [
-    [
-      "babel-plugin-styled-components", {
-        "ssr": true,
-        "displayName": false
-      }
-    ],
-    "inline-import-data-uri",
-    [
-      "inline-react-svg", {
-        "svgo": {
-          "plugins": [
-          {
-            "cleanupIDs": false
-          }
-          ]
-        }
-      }
-    ]
-  ]
+  }
 }
