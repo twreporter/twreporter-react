@@ -38,7 +38,7 @@ export const headerStyle = {
 
 export const contentStyle = {
   height: {
-    mobile: '492px',
+    mobile: '462px',
     tablet: '733px',
     desktop: '389px',
     overDesktop: '554px'

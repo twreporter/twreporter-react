@@ -1,6 +1,4 @@
 // TODO: Move Border component of each section here for one time declaration
-
-import { injectGlobal } from 'styled-components'
 import { SITE_NAME, SITE_META } from './constants/data/index'
 import anchors from './constants/data/sidebar-anchor'
 import Footer from '@twreporter/react-components/lib/footer'
@@ -16,22 +14,6 @@ import Section05 from './section-05'
 import SideBarFactory from '../side-bar/side-bar-factory'
 import smoothScroll from 'smoothscroll'
 import WebFont from './web-font'
-
-injectGlobal`
-  html {
-    // For scroll lock on iOS:
-    overflow: auto;
-    position: relative;
-    height: auto;
-  }
-
-  body {
-    // For scroll lock on iOS:
-    overflow: auto;
-    position: relative;
-    height: auto;
-  }  
-`
 
 export class AboutUs extends PureComponent {
   constructor(props) {

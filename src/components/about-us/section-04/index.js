@@ -10,7 +10,6 @@ import keys from 'lodash/keys'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import sz from '../constants/screen-size'
 import VelocityComponent from '@twreporter/velocity-react/velocity-component'
 
 const _ = {
@@ -239,7 +238,6 @@ const LogoContent = styled.div`
 export default class Section4 extends PureComponent {
   constructor(props) {
     super(props)
-    this.isTabletBelow = false
     this.state = {
       selectedLogo: 0,
       selectedRow: 0,
@@ -254,10 +252,6 @@ export default class Section4 extends PureComponent {
       infoPageNum: 0,
       initialState: false
     })
-    if (this.isTabletBelow) {
-      document.getElementsByTagName('html')[0].style.overflow = 'hidden'
-      document.getElementsByTagName('body')[0].style.overflow = 'hidden'
-    }
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
     let getWidth
@@ -284,21 +278,11 @@ export default class Section4 extends PureComponent {
       selectedLogo: null,
       selectedRow: null
     })
-    if (this.isTabletBelow) {
-      document.getElementsByTagName('html')[0].style.overflow = 'auto'
-      document.getElementsByTagName('body')[0].style.overflow = 'auto'
-    }
   }
   _getSelectedContent = () => {
     let { selectedLogo } = this.state
     if (selectedLogo === null ) return
     return groupedContent[_.keys(groupedContent)[selectedLogo]]
-  }
-  componentDidMount() {
-    // Check if the device is tabletBelow
-    if (window.matchMedia(`(max-width: ${sz.mediumScreenMaxWidth}px)`).matches) {
-      this.isTabletBelow = true
-    }
   }
   render() {
     let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
