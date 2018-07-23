@@ -1,4 +1,4 @@
-import { membersImg } from './member-img-src'
+import { membersImg, foundationImg } from './member-img-src'
 import { storageUrlPrefix } from '../../utils/config'
 import categoryIds from './category-ids'
 
@@ -75,6 +75,15 @@ const members = [
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditSzuHuaChen,
+    category: categoryIds.editor
+  },
+  {
+    name: '吳易真',
+    nameEng: 'Saffron Wu',
+    job: '執行經理',
+    jobEng: 'Executive Manager',
+    email: 'saffron@twreporter.org',
+    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
     category: categoryIds.editor
   },
   {
