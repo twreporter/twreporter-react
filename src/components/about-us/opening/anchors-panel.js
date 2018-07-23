@@ -1,6 +1,8 @@
 import { buildFbShareLink } from '../utils/build-fb-share-link'
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
+import { headerStyle } from './section-style'
+import { keyframes } from 'styled-components'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { SITE_META } from '../constants/data/index'
@@ -9,62 +11,83 @@ import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const opacityTransitionDuration = '200ms'
-const defaultZIndex = 1
+const transitionDuration = 300
 
-const Panel = styled.div`
-  z-index: calc(${defaultZIndex} + 1);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  min-height: 100vh;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-  background: ${colors.red.liverRed};
-  visibility: ${props => props.visible ? 'visible' : 'hidden'};
-  opacity: ${props => props.visible ? '1' : '0'};
-  transition: all ${opacityTransitionDuration} linear;
-  ${screen.mobile`
-    left: 0;  
-  `}
-  ${screen.tablet`
-    right: 0;
-    width: 375px;
-    transform: ${props => props.visible ? 'translateX(0)' : 'translateX(100%)'};
-  `}
+const fixedPanelStyle = {
+  mob: {
+    position: {
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    },
+    width: '100%'
+  },
+  tablet: {
+    position: {
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 'auto'
+    },
+    width: '375px'
+  }
+}
+
+const Container = styled.div`
   ${screen.desktopAbove`
     display: none;
   `}
 `
 
-const Logo = styled.div`
+const TopRow = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
   a{
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    height: 36.8px;
+    height: 30px;
+    text-align: left;
     img{
       height: 100%;
     }
   }
-  ${screen.tablet`
-    visibility: hidden;
+  ${screen.mobile`
+    height: ${headerStyle.height.mobile};
+    padding: ${headerStyle.padding.mobile};
   `}
+  ${screen.tablet`
+    a{
+      visibility: hidden;
+    }
+    height: ${headerStyle.height.tablet};
+    padding: 20px 30px;
+  `}
+`
+
+const contentShifting = keyframes `
+  from {
+    transform: translateY(-5%);
+  }
+  to {
+    transform: translateY(0);
+  }
 `
 
 const AnchorsContainer = styled.div`
   display: block;
-  padding: 77px 0 52px 0;
   width: 200px;
   margin: 0 auto;
   color: ${colors.white};
   text-align: center;
-  transition: transform ${opacityTransitionDuration} ease-in-out;
+  transform: translateY(-5%);
   p{
     font-weight: ${font.weight.bold};
     line-height: 86px;
@@ -74,18 +97,36 @@ const AnchorsContainer = styled.div`
     border-bottom: none;
   }
   ${screen.mobile`
-    transform: ${props => props.visible ? 'translateY(0)' : 'translateY(-5%)'};
+    animation: ${contentShifting} ${transitionDuration}ms linear;
+    animation-fill-mode: forwards;
+    padding: 17px 0 52px 0;
   `}
   ${screen.tablet`
-    padding: 170px 0 45px 0;
-    transform: ${props => props.visible ? 'translateX(0)' : 'translateX(5%)'};
+    transform: none;
+    padding: 77px 0 45px 0;
   `}
 `
 
+const rotate45deg = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(45deg);
+  }
+`
+
+const rotateCounterClock45deg = keyframes `
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-45deg);
+  }
+`
+
 const CloseBtn = styled.div `
-  position: absolute;
-  right: 30px;
-  top: 20px; 
+  position: relative;
   width: 24px;
   height: 24px;
   transform: translateY(50%);
@@ -96,13 +137,14 @@ const CloseBtn = styled.div `
     width: 100%;
     height: 3px;
     background: ${colors.white};
-    transition: transform ${opacityTransitionDuration} linear;
   }
   span:first-child{
-    transform: ${props => props.isOpen ? 'rotate(-45deg)' : 'none'};
+    animation: ${rotate45deg} ${transitionDuration}ms linear;
+    animation-fill-mode: forwards;
   }
   span:last-child{
-    transform: ${props => props.isOpen ? 'rotate(45deg)' : 'none'};
+    animation: ${rotateCounterClock45deg} ${transitionDuration}ms linear;
+    animation-fill-mode: forwards;
   }
   ${screen.desktopAbove`
     display: none;
@@ -133,66 +175,61 @@ class AnchorsPanel extends React.PureComponent {
   constructor(props) {
     super(props)
   }
-  componentWillUnmount() {
-    document.getElementsByTagName('html')[0].style.overflow = 'auto'
-    document.getElementsByTagName('body')[0].style.overflow = 'auto'
-  }
+
   render() {
+    const { handleClickAnchor, closePanel } = this.props
     const Anchors = anchorlist.map((anchor, anchorIdx) => {
       return (
         <p
           key={anchorIdx}
-          onClick={() => this.props.handleClickAnchor(anchorIdx)}
+          onClick={() => handleClickAnchor(anchorIdx)}
         >
           {anchor.label}
         </p>
       )
     })
     return (
-      <Panel
-        visible={this.props.isOpen}
-        >
-        <Logo>
-          <Link to="/">
-            <img src={logo}/>
-          </Link>
-        </Logo>
-        <AnchorsContainer
-          visible={this.props.isOpen}        
-        >
-          {Anchors}
-          <Icons>
-            <a href={hrefs.donate} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
-            </a>
-            <a href={hrefs.subscribe} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
-            </a>
-            <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
-            </a>
-          </Icons>
-        </AnchorsContainer>
-        <CloseBtn
-          onClick={this.props.closePanel}
-          isOpen={this.props.isOpen}
-        >
-          <span/>
-          <span/>
-        </CloseBtn>
-      </Panel>
+      <PopUpPanel
+        background={`${colors.red.liverRed}`}
+        fixedPanelStyle={fixedPanelStyle}
+      >
+        <Container>
+          <TopRow>
+            <Link to="/">
+              <img src={logo}/>
+            </Link>
+            <CloseBtn
+              onClick={closePanel}
+            >
+              <span/>
+              <span/>
+            </CloseBtn>
+          </TopRow>
+          <AnchorsContainer>
+            {Anchors}
+            <Icons>
+              <a href={hrefs.donate} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+              </a>
+              <a href={hrefs.subscribe} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+              </a>
+              <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+              </a>
+            </Icons>
+          </AnchorsContainer>
+        </Container>
+      </PopUpPanel>
     )
   }
 }
 
 AnchorsPanel.defaultProps = {
-  currentAnchorId: '',
   handleClickAnchor: () => {}
 }
 
 AnchorsPanel.propTypes = {
-  sectionRefs: PropTypes.array,
-  currentAnchorId: PropTypes.string,
   handleClickAnchor: PropTypes.func
 }
 
