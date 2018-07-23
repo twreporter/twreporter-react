@@ -1,9 +1,14 @@
 import { screen } from './screen'
+import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
 const defaultZIndex = 2
+
+const _ = {
+  debounce
+}
 
 const Panel = styled.div`
   z-index: calc(${defaultZIndex} + 1);
@@ -37,9 +42,14 @@ class PopUpBox extends React.PureComponent {
     this.handlePreventTouchstartWhenPanning = this._handlePreventTouchstartWhenPanning.bind(this)
     this.handlePreventTouchendWhenPanning = this._handlePreventTouchendWhenPanning.bind(this)
     this.handlePreventTouchmoveWhenPanning = this._handlePreventTouchmoveWhenPanning.bind(this)
+    // handle window resize
+    this._handleWindowHeight = this._handleWindowHeight.bind(this)
+    this.getDebouncedHeight = _.debounce(() => { this._handleWindowHeight() }, 100, { maxWait: 300 })
   }
 
   componentDidMount() {
+    this._handleWindowHeight()
+    window.addEventListener('resize', this.getDebouncedHeight)
     window.document.body.addEventListener('touchstart', this.handlePreventTouchstartWhenPanning, {
       passive: false
     })
@@ -62,6 +72,7 @@ class PopUpBox extends React.PureComponent {
     window.document.body.removeEventListener('touchmove', this.handlePreventTouchmoveWhenPanning, {
       passive: false
     })
+    window.removeEventListener('resize', this.getDebouncedHeight)
   }
 
   _handlePreventTouchstartWhenPanning(event) {
@@ -76,6 +87,10 @@ class PopUpBox extends React.PureComponent {
     event.preventDefault()
     this.panel.scrollTop = this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
     this.startY = event.changedTouches[0].screenY
+  }
+
+  _handleWindowHeight() {
+    this.panel.style.height = window.innerHeight
   }
 
   render() {
