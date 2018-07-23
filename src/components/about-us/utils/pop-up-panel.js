@@ -75,7 +75,7 @@ class PopUpBox extends React.PureComponent {
   _handlePreventTouchmoveWhenPanning = (event) => {
     event.preventDefault()
     this.panel.scrollTop = this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
-    this.startY = event.touches[0].screenY
+    this.startY = event.changedTouches[0].screenY
   }
 
   render() {
