@@ -198,7 +198,7 @@ const LogoContent = styled.div`
       padding-bottom: 19px;
     }
   `}
-  ${screen.desktop`
+  ${screen.desktop`    
     h3{
       font-size: 18px;
       letter-spacing: 0.4px;
@@ -208,17 +208,24 @@ const LogoContent = styled.div`
       padding-bottom: 14px; 
     }
   `}
+  ${screen.tabletBelow`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  `}
   ${screen.tablet`
+    min-height: 144px;
     h3{
       font-size: 24px;
       letter-spacing: 0.5px;
-      margin-top: 20px;
     }    
     img{
       padding-bottom: 19px;
     }
   `}
   ${screen.mobile`
+    min-height: 124px;
     img{
       width: 64px;
       border-bottom: none;
@@ -226,7 +233,6 @@ const LogoContent = styled.div`
     h3{
       font-size: 18px;
       letter-spacing: 0.6px;
-      margin-top: 17px;
     }
     p{
       font-size: 13px;
@@ -314,8 +320,10 @@ export default class Section4 extends PureComponent {
           >
             <LogoContent>
               <img src={replaceStorageUrlPrefix(data.logo)} />
-              <h3>{data.name.english}</h3>
-              <p>{data.name.chinese}</p>
+              <div>
+                <h3>{data.name.english}</h3>
+                <p>{data.name.chinese}</p>
+              </div>
             </LogoContent>
           </LogoBlockOnTabletAbove>
         </React.Fragment>
