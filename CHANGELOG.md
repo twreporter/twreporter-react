@@ -1,4 +1,8 @@
 ### Unreleased
+### 3.0.10
+- [Bug] Adjust window height of pop-up-panel dynamically on about-us page
+- [Bug] Fix the wrong positioned logo in section4 on about-us page
+
 ### 3.0.9
 - Prevent window from scrolling when an overlay modal opens up on about-us page
 - Add a new member to section2 on about-us page
