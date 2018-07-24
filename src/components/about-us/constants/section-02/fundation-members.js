@@ -153,6 +153,14 @@ const members = [
     jobEng: 'Consultant',
     profile: memberUrlPrefix + foundationImg.foundationYiRuLiu,
     category: categoryIds.fundation
+  },
+  {
+    name: '吳易真',
+    nameEng: 'Saffron Wu',
+    job: '執行經理',
+    jobEng: 'Executive Manager',
+    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
+    category: categoryIds.fundation
   }
 ]
 
