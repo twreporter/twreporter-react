@@ -256,7 +256,7 @@ const MemberList = styled.ul`
   margin-bottom: 0;
   white-space: nowrap;
   transform: translate3d(${props => props.shiftx} , 0px, 0px);
-  transition: ${props => props.transitionEffect ? `all ${transitionDuration}ms ease-in-out` : `all 1ms ease-in-out`};
+  transition: ${props => props.transitionEffect ? `all ${transitionDuration}ms ease-in-out` : 'all 1ms ease-in-out'};
 `
 
 const Member = styled.li`
@@ -552,28 +552,28 @@ export default class Section2 extends PureComponent {
               onTransitionEnd={() => this._onMemberListShifted(event, categoryIndex)}>
               {
                 typeof this.carouselData[categoryId] !== 'undefined' ?
-                this.carouselData[categoryId].map((member, index) => {
-                  return(
-                    <Member key={index}>
-                      <img 
-                        src={`${replaceStorageUrlPrefix(member.profile)}`}
-                      />
-                      <Info
-                        isMailIconVisible={typeof member.email !== 'undefined'}
-                      >
-                        <p>{member.job}</p>
-                        <p>{member.name}</p>
+                  this.carouselData[categoryId].map((member, index) => {
+                    return(
+                      <Member key={index}>
                         <img 
-                          onClick={() => this._sendEmail(member.email)} 
-                          src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+                          src={`${replaceStorageUrlPrefix(member.profile)}`}
                         />
-                      </Info>
-                    </Member>
-                  )
-                }) : null  
+                        <Info
+                          isMailIconVisible={typeof member.email !== 'undefined'}
+                        >
+                          <p>{member.job}</p>
+                          <p>{member.name}</p>
+                          <img 
+                            onClick={() => this._sendEmail(member.email)} 
+                            src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+                          />
+                        </Info>
+                      </Member>
+                    )
+                  }) : null  
               }
             </MemberList>
-            </PageWrapper>
+          </PageWrapper>
           <Navigation
             departmentIndex = {categoryIndex}
             device = {this.device}

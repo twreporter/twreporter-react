@@ -18,27 +18,27 @@ export default class MoreInfo extends PureComponent {
       <Container>
         { 
           selectedLogo === null ? null :
-          <React.Fragment>
-            <InfoBox
-              selectedContent={selectedContent}
-              infoPageNum={infoPageNum}
-              nextPage={nextPage}
-              closeInfoBox={closeInfoBox}
-            />
-            { 
-              initial ? null :
-              <InfoPanel
-                rowNumber={rowNumber}
-                selectedLogo={selectedLogo}
-                selectedRow={selectedRow}
-                closeInfoBox={closeInfoBox}
-                initial={initial}
+            <React.Fragment>
+              <InfoBox
                 selectedContent={selectedContent}
                 infoPageNum={infoPageNum}
                 nextPage={nextPage}
+                closeInfoBox={closeInfoBox}
               />
-            }
-          </React.Fragment>
+              { 
+                initial ? null :
+                  <InfoPanel
+                    rowNumber={rowNumber}
+                    selectedLogo={selectedLogo}
+                    selectedRow={selectedRow}
+                    closeInfoBox={closeInfoBox}
+                    initial={initial}
+                    selectedContent={selectedContent}
+                    infoPageNum={infoPageNum}
+                    nextPage={nextPage}
+                  />
+              }
+            </React.Fragment>
         }
       </Container>
     )

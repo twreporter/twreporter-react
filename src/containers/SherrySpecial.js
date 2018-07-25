@@ -78,15 +78,15 @@ class SherrySpecial extends Article {
         />
         {
           IF_DELEGATE_IMAGE ?
-          <ZoomInImage
-            theme={theme}
-            entities={entities}
-            params={params}
-            pathname={originalPathname}
-            totalDelay={fadeText.duration.textInOut * textArr.length + fadeText.duration.bgOut}
-            imageDuration={zoomInImage.duration.imageZommIn}
-            textDuration={zoomInImage.duration.textIn}
-          /> : null
+            <ZoomInImage
+              theme={theme}
+              entities={entities}
+              params={params}
+              pathname={originalPathname}
+              totalDelay={fadeText.duration.textInOut * textArr.length + fadeText.duration.bgOut}
+              imageDuration={zoomInImage.duration.imageZommIn}
+              textDuration={zoomInImage.duration.textIn}
+            /> : null
         }
         {super.render()}
       </div>

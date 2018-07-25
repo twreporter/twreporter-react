@@ -121,24 +121,24 @@ class AboutusPageSideBar extends React.PureComponent {
     const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
     return (
       <div>
-          <AnchorsContainer>
-            <Anchors
-              data={anchors}
-              handleClickAnchor={handleClickAnchor}
-              currentAnchorId={currentAnchorId}
-            />
-            <Icons>
-              <a href={hrefs.donate} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
-              </a>
-              <a href={hrefs.subscribe} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
-              </a>
-              <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
-              </a>
-            </Icons>
-          </AnchorsContainer>
+        <AnchorsContainer>
+          <Anchors
+            data={anchors}
+            handleClickAnchor={handleClickAnchor}
+            currentAnchorId={currentAnchorId}
+          />
+          <Icons>
+            <a href={hrefs.donate} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
+            </a>
+            <a href={hrefs.subscribe} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
+            </a>
+            <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
+            </a>
+          </Icons>
+        </AnchorsContainer>
         {children}
       </div>
     )

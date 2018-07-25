@@ -52,13 +52,13 @@ const ImageContainer = styled.div`
   ${screen.tabletBelow`
     img {
       height: ${(props) => {
-        if (props.clientHeight) {
-          return `${props.clientHeight - topNavbarHeight}px`
-        } else {
-          return `calc(100vh - ${topNavbarHeight}px)`
-        }
-      }
+    if (props.clientHeight) {
+      return `${props.clientHeight - topNavbarHeight}px`
+    } else {
+      return `calc(100vh - ${topNavbarHeight}px)`
     }
+  }
+}
   `}
 `
 
@@ -145,37 +145,37 @@ class ZoomInImage extends React.Component {
           description={_.get(article, 'leadingImageDescription', '')}
           titlePosition={titlePosition}
         >
-        {
-          headerPosition === NAVBAR_POSITION_UPON ?
-            <HeaderContainer>
-              <Header
-                isIndex={false}
-                pathName={pathname}
-                fontColor={fontColor}
-                bgColor={''}
-                logoColor={logoColor}
-                headerPosition={headerPosition}
-              />
-            </HeaderContainer>
-          : null
-        }
-        {
-          titlePosition === TITLE_POSITION_UPON_LEFT ?
-            <TitleRowContainer
-              delay={totalDelay + textDelay}
-              duration={textDuration}
-              innerRef={(node) => {unlockAfterAnimation(node, scrollUnlocker)}}
-            >
-              <TitleRowUpon
-                article={article}
-                topic={topic}
-                canonical={canonical}
-                fontColorSet={fontColorSet}
-                innerRef={childAnimationStoper}
-              />
-            </TitleRowContainer>
-          : null
-        }
+          {
+            headerPosition === NAVBAR_POSITION_UPON ?
+              <HeaderContainer>
+                <Header
+                  isIndex={false}
+                  pathName={pathname}
+                  fontColor={fontColor}
+                  bgColor={''}
+                  logoColor={logoColor}
+                  headerPosition={headerPosition}
+                />
+              </HeaderContainer>
+              : null
+          }
+          {
+            titlePosition === TITLE_POSITION_UPON_LEFT ?
+              <TitleRowContainer
+                delay={totalDelay + textDelay}
+                duration={textDuration}
+                innerRef={(node) => {unlockAfterAnimation(node, scrollUnlocker)}}
+              >
+                <TitleRowUpon
+                  article={article}
+                  topic={topic}
+                  canonical={canonical}
+                  fontColorSet={fontColorSet}
+                  innerRef={childAnimationStoper}
+                />
+              </TitleRowContainer>
+              : null
+          }
         </HeroImage>
       </ImageContainer>
     )

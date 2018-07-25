@@ -15,15 +15,15 @@ const AuthorData = (props) => {
   const { authorImgUrl, authorName, authorTitle, authorMail, authorBio } = props.authorData
   const displayedTitle = authorTitle ? `（${authorTitle}）` : ''
   return (
-  <div className={boxClasses}>
-    <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImgUrl}/></div>
-    <div className={styles['author-data-container']}>
-      <div className={styles['author-name']}>{ authorName + displayedTitle }</div>
-      {!authorMail ? null : <div className={styles['author-mail']}>{authorMail}</div>}
-      <div className={styles['author-bio']}>{authorBio}</div>
+    <div className={boxClasses}>
+      <div className={styles['author-img-container']}><img className={styles['author-img']} src={authorImgUrl}/></div>
+      <div className={styles['author-data-container']}>
+        <div className={styles['author-name']}>{ authorName + displayedTitle }</div>
+        {!authorMail ? null : <div className={styles['author-mail']}>{authorMail}</div>}
+        <div className={styles['author-bio']}>{authorBio}</div>
+      </div>
     </div>
-  </div>
-)}
+  )}
 
 AuthorData.propTypes = {
   authorData: PropTypes.shape({

@@ -126,7 +126,7 @@ class FullScreenImage extends React.PureComponent {
           src={_.get(imgSet, 'tiny.url')}
           toShow={toShowPlaceholder}
         />
-        <source media={`(orientation: portrait)`} srcSet={getSrcSet(portraitImgSet)} />
+        <source media={'(orientation: portrait)'} srcSet={getSrcSet(portraitImgSet)} />
         <source srcSet={getSrcSet(imgSet)} />
         <StyledImg
           alt={alt}
