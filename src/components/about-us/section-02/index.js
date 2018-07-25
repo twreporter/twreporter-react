@@ -1,6 +1,5 @@
 // TODO: The infinite carousel should be rewrite as a independent component which uses persentage of whole width 
 //      (MemberList width on one page/ total width of Members) as shifting length
-// TODO: Refine the Navigation component which could be reused by section4
 
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
@@ -19,7 +18,7 @@ import foundationMembers from '../constants/section-02/fundation-members'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import mediaMembers from '../constants/section-02/media-members'
-import Navigation from './navigation'
+import Navigation from '../utils/navigation'
 import PaginatedMemberList from './paginated-list'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -229,10 +228,10 @@ const Department = styled.div`
       padding: 0 34px 0 43.3px;
       width: 396px;
     }
-    &:last-child {
-      width: 444px;
+    &:last-child{
       margin-left: calc(100% - 396px - 444px);
-    }    
+      width: 444px;
+    }
   `}
   ${screen.tablet`
     margin-top: 30px;
@@ -372,6 +371,18 @@ const DisplayOnMobile = styled.div`
   `}
   ${screen.mobile`
     position: relative;
+  `}
+`
+
+const NavigationWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: -5px;
+  ${screen.mobile`
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
   `}
 `
 
@@ -535,23 +546,23 @@ export default class Section2 extends PureComponent {
     const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
       let label = _.find(categoriesAll, { id: categoryId }).label
       return(
-        <Department key={categoryId}>
-          <Name><p>{label.chinese}</p></Name>
-          <StyledArrows>
-            <Arrows
-              membersPageLengthArray = {this.membersPageLengthArray}
-              visible = {this.membersPageLengthArray[categoryIndex] > 3}
-              changePage = {this._changePage.bind(null, categoryIndex)}
-            />
-          </StyledArrows>
-          <PageWrapper>
-            <MemberList
-              ref={memberList => this.memberList[categoryIndex] = memberList}
-              shiftx = {this._getShiftX(categoryIndex)}
-              transitionEffect = {this.state.transitionEffect} 
-              onTransitionEnd={() => this._onMemberListShifted(event, categoryIndex)}>
-              {
-                typeof this.carouselData[categoryId] !== 'undefined' ?
+          <Department key={categoryId}>
+            <Name><p>{label.chinese}</p></Name>
+            <StyledArrows>
+              <Arrows
+                membersPageLengthArray = {this.membersPageLengthArray}
+                visible = {this.membersPageLengthArray[categoryIndex] > 3}
+                changePage = {this._changePage.bind(null, categoryIndex)}
+              />
+            </StyledArrows>
+            <PageWrapper>
+              <MemberList
+                ref={memberList => this.memberList[categoryIndex] = memberList}
+                shiftx = {this._getShiftX(categoryIndex)}
+                transitionEffect = {this.state.transitionEffect} 
+                onTransitionEnd={() => this._onMemberListShifted(event, categoryIndex)}>
+                {
+                  typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
                       <Member key={index}>
@@ -571,16 +582,19 @@ export default class Section2 extends PureComponent {
                       </Member>
                     )
                   }) : null  
-              }
-            </MemberList>
-          </PageWrapper>
-          <Navigation
-            departmentIndex = {categoryIndex}
-            device = {this.device}
-            pagesLength = {this.membersPageLengthArray[categoryIndex]}
-            currentPage = {this.state.currentPagesArray[categoryIndex]}
-          />
-        </Department>
+                }
+              </MemberList>
+              </PageWrapper>
+              <NavigationWrapper>
+                <Navigation
+                  pagesLength = {this.membersPageLengthArray[categoryIndex]}
+                  currentPage = {this.state.currentPagesArray[categoryIndex]}
+                  startPage = {1}
+                  endPage = {this.membersPageLengthArray[categoryIndex] - 1}
+                  navigationWidth = {65}
+                />
+              </NavigationWrapper>
+          </Department>
       )
     })
 
@@ -620,12 +634,15 @@ export default class Section2 extends PureComponent {
                   cursor = {cursor}
                   selectedMemberList = {selectedMemberList} 
                   sendEmail = {this._sendEmail} />
-                <Navigation
-                  departmentIndex = {this.state.selectedDepartmentIndex}
-                  device = {this.device}
-                  pagesLength = {this.membersPageLengthArray[this.state.selectedDepartmentIndex]}
-                  currentPage = {this.state.currentPagesArray[this.state.selectedDepartmentIndex]}
-                />
+                <NavigationWrapper>
+                  <Navigation
+                    pagesLength = {this.membersPageLengthArray[this.state.selectedDepartmentIndex]}
+                    currentPage = {this.state.currentPagesArray[this.state.selectedDepartmentIndex]}
+                    startPage = {0}
+                    endPage = {this.membersPageLengthArray[this.state.selectedDepartmentIndex]}
+                    navigationWidth = {65}
+                  />
+                </NavigationWrapper>
               </DisplayOnMobile>
             </Content>
             <IntroOnDesktopBelow>
