@@ -1,51 +1,5 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "stage-0"
-  ],
-  "env": {
-    "ssr": {
-      "plugins": [
-        [
-          "css-modules-transform",
-          {
-            "extensions": [
-              ".css",
-              ".scss"
-            ],
-            "generateScopedName": "[name]__[local]___[hash:base64:5]"
-          }
-        ],
-        [
-          "system-import-transformer",
-          {
-            "commonJS": {
-              "useRequireEnsure": true
-            }
-          }
-        ]
-      ]
-    }
-  },
-  "plugins": [
-    [
-      "babel-plugin-styled-components", {
-        "ssr": true,
-        "displayName": false
-      }
-    ],
-    "inline-import-data-uri",
-    [
-      "inline-react-svg", {
-        "svgo": {
-          "plugins": [
-          {
-            "cleanupIDs": false
-          }
-          ]
-        }
-      }
-    ]
+    "./build-babel-preset.js"
   ]
 }
