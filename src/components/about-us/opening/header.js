@@ -118,7 +118,7 @@ class Header extends React.PureComponent {
             </span>
             <span>|</span>
             <span>
-              <a href={"https://www.twreporter.org/a/about-us-english-version"} target="_blank">EN</a>
+              <a href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">EN</a>
             </span>
           </LanguageSwitcher>
           <Hamburger onClick={this.props.onHamburgerClick}>

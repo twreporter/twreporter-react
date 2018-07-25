@@ -9,6 +9,6 @@ import get from 'lodash/get'
 
 export const Paragraph = ({ content }) => {
   return <div className={classNames(styles.paragraph, commonStyles['inner-block'],
-          'text-justify')}
-          dangerouslySetInnerHTML={{ __html: get(content, [ 0 ], '') }} />
+    'text-justify')}
+  dangerouslySetInnerHTML={{ __html: get(content, [ 0 ], '') }} />
 }

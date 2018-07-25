@@ -51,9 +51,9 @@ class CircleProgressButton extends Component {
     }
 
     return (
-        <svg className={styles['progress-circle']} width={this.diameter} height={this.diameter}>
-          <circle cx={radius} cy={radius} r={radius-1} style={style} />
-        </svg>
+      <svg className={styles['progress-circle']} width={this.diameter} height={this.diameter}>
+        <circle cx={radius} cy={radius} r={radius-1} style={style} />
+      </svg>
     )
   }
 

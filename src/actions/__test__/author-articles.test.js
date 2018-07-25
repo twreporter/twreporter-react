@@ -62,7 +62,7 @@ describe('Atuhor Action Testing', function () {
 
   it('API server response Error directly: web status code is greater than 400', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .reply(404, mockResponse)
 
@@ -75,7 +75,7 @@ describe('Atuhor Action Testing', function () {
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_SUCCESS', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .reply(200, mockResponse)
 
@@ -116,7 +116,7 @@ describe('Atuhor Action Testing', function () {
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_FAILURE', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .replyWithError('this is error message')
 
