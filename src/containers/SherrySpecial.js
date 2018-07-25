@@ -51,7 +51,7 @@ const params = { slug: customizedPathSet.HIGH_RISK_YOUTH }
 class SherrySpecial extends Article {
   static fetchData(props) {
     const { store, pathname } = props
-    const regexp = /[^\/]+(?=\/$|$)/
+    const regexp = /[^\/]+(?=\/$|$)/ // eslint-disable-line no-useless-escape
     const slug = _.get(pathname.match(regexp), 0, '')
     const localProps = {
       store,
