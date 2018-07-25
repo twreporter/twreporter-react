@@ -228,7 +228,7 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
       const mockDefaultState = mockDefaultStates.initialState
       const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
       nock('http://localhost:8080')
-        .get(`/v1/search/authors`)
+        .get('/v1/search/authors')
         .query(searchParas)
         .reply(404)
 

@@ -140,7 +140,7 @@ class AuthorsList extends React.Component {
         {!isFetching ? null : <LoadingSpinner className={styles['loading-spinner']} alt={constants.LOADING_MORE_AUTHORS} />}
         {!isLoadmoreBtnDisplayed ? null : LoadmoreBtn}
         {sensorJSX}
-      <Sponsor />
+        <Sponsor />
       </div>
     )
   }

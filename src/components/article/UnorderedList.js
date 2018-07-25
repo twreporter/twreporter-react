@@ -22,12 +22,12 @@ export const UnorderedList = ({ content }) => {
   let bArr = []
   for(let i=0; i<cList.length; i++) {
     bArr.push(<li key={i} className={styles.item}>
-                <span dangerouslySetInnerHTML={{ __html: cList[i] }} />
-              </li>)
+      <span dangerouslySetInnerHTML={{ __html: cList[i] }} />
+    </li>)
   }
 
   return <ul className={classNames(styles.list, commonStyles['inner-block'],
-           'text-justify')}>
-          { bArr }
-          </ul>
+    'text-justify')}>
+    { bArr }
+  </ul>
 }

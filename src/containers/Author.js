@@ -55,40 +55,40 @@ class Author extends React.Component {
     const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHOR}${authorData.authorId}`
 
     return (
-    <div>
-      <Helmet
-        title={fullTitle}
-        link={[
-          { rel: 'canonical', href: canonical }
-        ]}
-        meta={[
-          { name: 'description', content: authorData.authorBio },
-          { name: 'twitter:title', content: fullTitle },
-          { name: 'twitter:description', content: authorData.authorBio },
-          { name: 'twitter:image', content: authorData.authorImgUrl },
-          { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
-          { property: 'og:title', content: fullTitle },
-          { property: 'og:description', content: authorData.authorBio },
-          { property: 'og:image', content: authorData.authorImgUrl || SITE_META.OG_IMAGE },
-          { property: 'og:type', content: OG_TYPE.PROFILE },
-          { property: 'og:url', content: canonical },
-          { property: 'og:rich_attachment', content: 'true' }
-        ]}
-      />
-      <AuthorData authorData={authorData} />
-      <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
-        <AuthorCollection
-          relateds={authorCollection}
-          currentId={authorId}
-          hasMore={hasMore}
-          isFetching={isFetching}
-          currentPage={currentPage}
-          handleLoadmore={handleLoadmore}
-          totalResults={totalResults}
+      <div>
+        <Helmet
+          title={fullTitle}
+          link={[
+            { rel: 'canonical', href: canonical }
+          ]}
+          meta={[
+            { name: 'description', content: authorData.authorBio },
+            { name: 'twitter:title', content: fullTitle },
+            { name: 'twitter:description', content: authorData.authorBio },
+            { name: 'twitter:image', content: authorData.authorImgUrl },
+            { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
+            { property: 'og:title', content: fullTitle },
+            { property: 'og:description', content: authorData.authorBio },
+            { property: 'og:image', content: authorData.authorImgUrl || SITE_META.OG_IMAGE },
+            { property: 'og:type', content: OG_TYPE.PROFILE },
+            { property: 'og:url', content: canonical },
+            { property: 'og:rich_attachment', content: 'true' }
+          ]}
         />
-      </div>
-      <Sponsor />
-    </div>)
+        <AuthorData authorData={authorData} />
+        <div className={classNames('inner-max', 'center-block', commonStyles['components'])}>
+          <AuthorCollection
+            relateds={authorCollection}
+            currentId={authorId}
+            hasMore={hasMore}
+            isFetching={isFetching}
+            currentPage={currentPage}
+            handleLoadmore={handleLoadmore}
+            totalResults={totalResults}
+          />
+        </div>
+        <Sponsor />
+      </div>)
   }
 }
 
