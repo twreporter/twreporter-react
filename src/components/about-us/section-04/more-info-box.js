@@ -195,7 +195,7 @@ export default class InfoBox extends PureComponent {
           <p>{selectedItem.description.chinese}</p>
           <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
             <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
             </ArrowNextIcon>
           </RightArrow>
         </Info>

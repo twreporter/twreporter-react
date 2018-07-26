@@ -306,11 +306,11 @@ export default class NavMenu extends Component {
     }
 
     let burgerMenu = <div className={burgerIconClass} onClick={()=> { this.setState( { open: !this.state.open } )}}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
     if (!this.state.open && (pageTheme === DARK)) {
       backgroundColor = colors.darkBg
@@ -339,10 +339,10 @@ export default class NavMenu extends Component {
 
     if ( (pageType === ARTICLE_STYLE || pageType === PHOTOGRAPHY_ARTICLE_STYLE) && pageTopic) {
       topicPopup = <TopicPopup isOpen={this.state.isTopicOpen}
-          topicArr={topicArr}
-          pageTopic={pageTopic}
-          articleId={articleId}
-          onTopicBtnClick={this._onTopicBtnClick}/>
+        topicArr={topicArr}
+        pageTopic={pageTopic}
+        articleId={articleId}
+        onTopicBtnClick={this._onTopicBtnClick}/>
     }
 
     return (
