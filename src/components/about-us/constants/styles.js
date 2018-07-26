@@ -11,10 +11,10 @@ export const font = {
   },
   family: {
     english: {
-      roboto: `"roboto-slab", "serif"` // thin, bold
+      roboto: '"roboto-slab", "serif"' // thin, bold
     },
-    chinese: `"source-han-sans-traditional"`, // medium, bold
-    sansSerifFallback: `"Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif`
+    chinese: '"source-han-sans-traditional"', // medium, bold
+    sansSerifFallback: '"Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif'
   }
 }
 

@@ -239,11 +239,11 @@ class Homepage extends React.PureComponent {
           transitionEnter={false}
           transitionLeaveTimeout={2000}
         >
-        {!isSpinnerDisplayed ? null : (
-          <LoadingCover key="loader">
-            <LoadingSpinner alt="首頁載入中" />
-          </LoadingCover>
-        )}
+          {!isSpinnerDisplayed ? null : (
+            <LoadingCover key="loader">
+              <LoadingSpinner alt="首頁載入中" />
+            </LoadingCover>
+          )}
         </StyledCSSTransitionGroup>
         <Helmet
           title={SITE_NAME.FULL}

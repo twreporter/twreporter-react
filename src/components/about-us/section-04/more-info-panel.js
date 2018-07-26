@@ -247,7 +247,7 @@ export default class MoreInfo extends PureComponent {
             </p>
             <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
               <ArrowNextIcon>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
               </ArrowNextIcon>
             </RightArrow>
           </InfoWrapper>

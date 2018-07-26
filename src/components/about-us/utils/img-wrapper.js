@@ -61,12 +61,12 @@ class ImgWrapper extends React.Component {
         {this.props.children}
       </ImgObjectFit>
     ) : (
-        <ImgFallback
-          url={src}
-        >
-          {this.props.children}
-        </ImgFallback>
-      )
+      <ImgFallback
+        url={src}
+      >
+        {this.props.children}
+      </ImgFallback>
+    )
   }
 }
 

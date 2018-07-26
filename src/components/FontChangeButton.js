@@ -39,8 +39,8 @@ class FontChangeButton extends React.Component {
     // font status + create font buttons set
     let fontSize = this.props.fontSize
     let buttonsSet = [ { type: 'large', Icon: FontIconLarge },
-    { type: 'medium', Icon: FontIconMedium },
-    { type: 'small', Icon: FontIconSmall } ].map(function (button,i) {
+      { type: 'medium', Icon: FontIconMedium },
+      { type: 'small', Icon: FontIconSmall } ].map(function (button,i) {
       return (
         <div key={i} onClick={()=>{this.changeFontSize(button.type)}} className={cx(styles['image-container'], animaButton, styles['image-container-' + button.type])}>
           <button.Icon className={cx(styles['image-' + button.type], fontSize === button.type ? styles['font-status-active'] : null)} />
@@ -50,14 +50,14 @@ class FontChangeButton extends React.Component {
 
     return(
       <span className={styles['button-appearance']}>
-       <div className={cx(styles['image-container'], styles['control-button'])} onClick={this.anima}>
-         <span className={styles['control-image']}>
-           <ControlButtonIcon style={{ opacity: 1 }}/>
-         </span>
-       </div>
-       <div className={cx(animaWrapper, styles['wrapper'])}></div>
-       {buttonsSet}
-     </span>
+        <div className={cx(styles['image-container'], styles['control-button'])} onClick={this.anima}>
+          <span className={styles['control-image']}>
+            <ControlButtonIcon style={{ opacity: 1 }}/>
+          </span>
+        </div>
+        <div className={cx(animaWrapper, styles['wrapper'])}></div>
+        {buttonsSet}
+      </span>
     )
   }
 }

@@ -92,14 +92,14 @@ class LeadingVideo extends React.PureComponent {
         </video>
         <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
         { isMuted ?
-            <SoundMuteIcon
-              className={_.get(classNames, 'audioBt', style['audio-bt'])}
-              onClick={this.handleMuteChange}
-            /> :
-            <SoundOnIcon
-              className={_.get(classNames, 'audioBt', style['audio-bt'])}
-              onClick={this.handleMuteChange}
-            />
+          <SoundMuteIcon
+            className={_.get(classNames, 'audioBt', style['audio-bt'])}
+            onClick={this.handleMuteChange}
+          /> :
+          <SoundOnIcon
+            className={_.get(classNames, 'audioBt', style['audio-bt'])}
+            onClick={this.handleMuteChange}
+          />
         }
       </React.Fragment>
     )
