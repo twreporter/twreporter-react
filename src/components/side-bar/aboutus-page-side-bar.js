@@ -1,9 +1,12 @@
+import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../about-us/utils/screen'
+import { SITE_META } from '../about-us/constants/data/index'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
+import hrefs from '../about-us/constants/data/sidebar-link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -92,7 +95,7 @@ const Icons = styled.div`
   right: 0;
   bottom: 0;
   ${screen.desktop`
-    transform: translate(50%, calc(100% + 95px));
+    transform: translateX(50%) translateY(226px);
     img{
       width: 30px;
       margin-bottom: 16.7px;
@@ -100,7 +103,7 @@ const Icons = styled.div`
   `}
 
   ${screen.overDesktop`
-    transform: translate(50%, calc(100% + 106px));
+    transform: translateX(50%) translateY(376px);
     img{
       width: 45px;
       margin-bottom: 25px;
@@ -125,9 +128,15 @@ class AboutusPageSideBar extends React.PureComponent {
               currentAnchorId={currentAnchorId}
             />
             <Icons>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
+              <a href={hrefs.donate} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
+              </a>
+              <a href={hrefs.subscribe} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
+              </a>
+              <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
+              </a>
             </Icons>
           </AnchorsContainer>
         {children}

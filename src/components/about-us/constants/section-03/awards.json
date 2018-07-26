@@ -61,7 +61,7 @@
     "prizemanEng": "Chih Wei Yu",
     "title": "兩岸生根",
     "titleEng": "Rooted In Cross-Strait",
-    "titleLink": "https://www.twreporter.org/topics/taiwanese-phd-in-china\n",
+    "titleLink": "https://www.twreporter.org/topics/taiwanese-phd-in-china",
     "comment": "原始報導「台灣人在中國：生錯時代的博士教授」",
     "commentLink": "http://www.thpp.org/Home/Article/detail/id/2368.html"
   },
@@ -102,7 +102,8 @@
     "rankingEng": "Sliver",
     "prizeman": "余志偉",
     "prizemanEng": "Chih Wei Yu",
-    "title": "勞工的突襲"
+    "title": "勞工的突襲",
+    "titleLink": "http://thpp.xmnn.cn/home/article/detail/id/2404.html"
   },
   {
     "awardId": "taiHai",
@@ -113,7 +114,8 @@
     "rankingEng": "Gold",
     "prizeman": "余志偉",
     "prizemanEng": "Chih Wei Yu",
-    "title": "15歲起我這樣養活自己"
+    "title": "15歲起我這樣養活自己",
+    "titleLink": "http://thpp.xmnn.cn/home/article/detail/id/2425.html"
   },
   {
     "awardId": "taiHai",
@@ -124,7 +126,8 @@
     "rankingEng": "Sliver",
     "prizeman": "余志偉",
     "prizemanEng": "Chih Wei Yu",
-    "title": "重障者的情慾身體"
+    "title": "重障者的情慾身體",
+    "titleLink": "http://thpp.xmnn.cn/home/article/detail/id/2420.html"
   },
   {
     "awardId": "humanRights",
@@ -178,6 +181,7 @@
     "date": "2016/10/31",
     "group": "酷兒新聞報導獎",
     "groupEng": "Queer News Report Award",
+    "prizeman": "葉瑜娟、林韋萱、林禹瑄、吳逸驊、黃禹禛、王洵沛",
     "title": "走入同志家庭",
     "titleEng": "Into the Homo-Families",
     "titleLink": "https://www.twreporter.org/topics/same-sex-parents-family"

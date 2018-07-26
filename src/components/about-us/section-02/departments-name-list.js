@@ -1,4 +1,5 @@
 import { colors } from '../../../themes/common-variables'
+import { font } from '../constants/styles'
 import { gray } from './utils'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -10,7 +11,7 @@ const DepartmentName = styled.p `
   width: calc( 100% / ${props => props.categoriesLength});
   text-align: center;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: ${font.weight.bold};
   letter-spacing: 2px;
   cursor: pointer;
   color: ${props => props.selected ? `${colors.black}` : `${gray.lightgray}`};

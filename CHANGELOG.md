@@ -1,6 +1,32 @@
 ### Unreleased
-### 3.0.6
+### 3.0.11
 - fix(ui print): workaround to fix image overlaying on text while printing
+
+### 3.0.10
+- [Bug] Adjust window height of pop-up-panel dynamically on about-us page
+- [Bug] Fix the wrong positioned logo in section4 on about-us page
+
+### 3.0.9
+- Prevent window from scrolling when an overlay modal opens up on about-us page
+- Add a new member to section2 on about-us page
+- Setting the height of opening section to auto instead of height: 100vh
+
+### 3.0.8
+- [Bug] Fixed some bugs of section5 on about-us page
+- Add meta-data to about-us page
+- [Bug] Prevent body from scrolling when a fullscreen modal is opened on about-us page
+- [Bug] Add onResize eventListener to section2 on about-us page
+- [Bug] Section5 trigger point tunning on about-us page
+
+### 3.0.7
+- Update config.yml. Use file to store local env variables
+- Update config.yml. Parse currentMasterVersion instead
+- Upgrade `@twreporter/react-components` to 4.0.11
+
+### 3.0.6
+- About-us page tunning
+- Fix circleci build failing. Install the corresponding kubectl pkg
+- Update README.md. Add PWA in #Contains
 
 ### 3.0.5
 - Add about-us page

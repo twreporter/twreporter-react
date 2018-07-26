@@ -78,6 +78,19 @@ const members = [
     category: categoryIds.fundation
   },
   {
+    name: '黃旭田',
+    job: '董事',
+    jobEng: 'Executive Director',
+    profile: memberUrlPrefix + foundationImg.foundationShuTienHuang,
+    category: categoryIds.fundation
+  }, {
+    name: '簡志忠',
+    job: '董事',
+    jobEng: 'Executive Director',
+    profile: memberUrlPrefix + foundationImg.foundationZhiZhongChien,
+    category: categoryIds.fundation
+  },
+  {
     name: '李偉文',
     nameEng: 'Wei Wen Li',
     job: '監察人',
@@ -139,6 +152,14 @@ const members = [
     job: '顧問',
     jobEng: 'Consultant',
     profile: memberUrlPrefix + foundationImg.foundationYiRuLiu,
+    category: categoryIds.fundation
+  },
+  {
+    name: '吳易真',
+    nameEng: 'Saffron Wu',
+    job: '執行經理',
+    jobEng: 'Executive Manager',
+    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
     category: categoryIds.fundation
   }
 ]

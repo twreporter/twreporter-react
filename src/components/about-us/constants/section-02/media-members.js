@@ -1,4 +1,4 @@
-import { membersImg } from './member-img-src'
+import { membersImg, foundationImg } from './member-img-src'
 import { storageUrlPrefix } from '../../utils/config'
 import categoryIds from './category-ids'
 
@@ -12,6 +12,15 @@ const members = [
     jobEng: 'Editor in chief',
     email: 'turtle@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditJungShinHo,
+    category: categoryIds.editor
+  },
+  {
+    name: '李雪莉',
+    nameEng: 'Sherry Lee',
+    job: '總主筆',
+    jobEng: 'Editorial Managing Director',
+    email: 'sherry@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditSherryLee,
     category: categoryIds.editor
   },
   {
@@ -30,15 +39,6 @@ const members = [
     jobEng: 'Deputy Editor in Chief',
     email: 'jill718@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditJillYang,
-    category: categoryIds.editor
-  },
-  {
-    name: '李雪莉',
-    nameEng: 'Sherry Lee',
-    job: '總主筆',
-    jobEng: 'Editorial Managing Director',
-    email: 'sherry@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditSherryLee,
     category: categoryIds.editor
   },
   {
@@ -78,12 +78,21 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '陳貞樺',
-    nameEng: 'Mimi Chen',
-    job: '數位專案經理',
-    jobEng: 'Digital Product Manager',
-    email: 'mimichen@twreporter.org',
-    profile: memberUrlPrefix + membersImg.DigiMimiChen,
+    name: '吳易真',
+    nameEng: 'Saffron Wu',
+    job: '執行經理',
+    jobEng: 'Executive Manager',
+    email: 'saffron@twreporter.org',
+    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
+    category: categoryIds.editor
+  },
+  {
+    name: '李法賢',
+    nameEng: 'Nick Li',
+    job: '數位部主任',
+    jobEng: 'Senior Coder',
+    email: 'nickhsine@twreporter.org',
+    profile: memberUrlPrefix + membersImg.DigiNickLi,
     category: categoryIds.digital
   },
   {
@@ -114,12 +123,12 @@ const members = [
     category: categoryIds.photojournalist
   },
   {
-    name: '李法賢',
-    nameEng: 'Nick Li',
-    job: '資深工程師',
-    jobEng: 'Senior Coder',
-    email: 'nickhsine@twreporter.org',
-    profile: memberUrlPrefix + membersImg.DigiNickLi,
+    name: '陳貞樺',
+    nameEng: 'Mimi Chen',
+    job: '數位專案經理',
+    jobEng: 'Digital Product Manager',
+    email: 'mimichen@twreporter.org',
+    profile: memberUrlPrefix + membersImg.DigiMimiChen,
     category: categoryIds.digital
   },
   {

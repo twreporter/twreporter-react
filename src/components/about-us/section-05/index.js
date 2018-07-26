@@ -42,10 +42,10 @@ const Container = styled.div`
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    margin: ${marginBetweenSections.tablet} 0;    
+    margin: ${marginBetweenSections.tablet} 0;
   `}  
   ${screen.mobile`
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: ${marginBetweenSections.mobile} 0;
   `}
 `
 
@@ -74,27 +74,27 @@ const SectionWrapper = styled.section`
   margin: 0 auto;
   ${screen.overDesktop`
     width: ${containerWidth.overDesktop};
-    height: 910px;
-    padding: 98px 116px 93px 152px;
+    height: 1110px;
+    padding: 98px 116px 293px 152px;
   `}
   ${screen.desktop`
     width: ${containerWidth.desktop};
-    height: 820px;
-    padding: 119px 100px 128px 80px;
+    height: 920px;
+    padding: 119px 100px 228px 80px;
   `}  
   ${screen.tablet`
     width: ${containerWidth.tablet};
     min-height: 1024px;
-    padding: 80px 49px 81px 93px;
+    padding: 80px 49px 181px 93px;
   `}
   ${screen.mobile`
     width: ${containerWidth.mobile};
     min-height: 715px;
-    padding: 76px 37px 76px 37px
+    padding: 76px 37px 126px 37px
   `}
 `
 
-const Title = styled.h1`
+const Title = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -234,6 +234,8 @@ const YearRange = styled.div`
   width: 140px;
   height: 140px;
   margin-top: -61px;
+  border-top: solid 1px ${yearRangebgColor};
+  border-right: solid 1px ${yearRangebgColor};
   p{
     display: block;
     width: 100%;
@@ -272,7 +274,6 @@ const YearRange = styled.div`
       position: absolute;
       right: 0;
       top: 50%;
-      height: 46.9px;
       margin-right: 13.25px;
     }
   }
@@ -292,6 +293,14 @@ const YearRange = styled.div`
       }
     }
   `}
+  ${screen.desktop`
+    border: none;
+    p:nth-child(2){
+      img{
+        height: 45px;
+      }
+    }
+  `}
   ${screen.tablet`
     width: 148px;
     height: 148px;
@@ -299,11 +308,13 @@ const YearRange = styled.div`
     p{
       font-size: 34px;
       letter-spacing: 0.13px;
-      line-height: 1.35;
+      span{
+        padding: 1px 2.5px;
+      }
     }
     p:nth-child(2){
       img{
-        height: 50px;
+        height: 48px;
       }
     }
   `}
@@ -321,7 +332,8 @@ const Circle = styled.div`
   border-radius: 50%;
   background: ${props => props.color};
   margin-left: 80px;
-  margin-bottom: 128px;
+  margin-bottom: 228px;
+  z-index: calc(${defaultZIndex} - 1);
   &:first-child {
     margin: 0;
     transform: translateX(50%) translateY(-50%);
@@ -330,7 +342,7 @@ const Circle = styled.div`
     width: 277px;
     height: 277px;
     margin-left: 152px;
-    margin-bottom: 93px;    
+    margin-bottom: 293px;    
   `}
   ${screen.tabletBelow`
     display: none;
@@ -357,6 +369,7 @@ export default class Section5 extends PureComponent {
     super(props)
     this.yearContent = []
     this.isMobile = false
+    this.initalOpenUp = true
     this.state = {
       timelineScrolling: false,
       timelineScrollingHeight: 0,
@@ -382,7 +395,10 @@ export default class Section5 extends PureComponent {
   _onEnter = () => {
     // unfold the first year
     let newUnfoldArray = [ ...this.state.unfoldArray ]
-    newUnfoldArray[0] = true
+    if (this.initalOpenUp) {
+      newUnfoldArray[0] = true
+      this.initalOpenUp = !this.initalOpenUp
+    }
     this.setState({
       isBorderBottomfixed: false,
       unfoldArray: newUnfoldArray
@@ -428,41 +444,21 @@ export default class Section5 extends PureComponent {
   render() {
     return (
       <Border>
-        <Container>
-          <SectionWrapper>
-            <Title><span>大事紀</span></Title>
-            <Circle color={`${colors.black}`}>
-              <Circle color={`${colors.gray.gray96}`}/>
-              <Rect color={`${colors.secondaryColor}`}/>
-            </Circle>
-            <Content>
-              <AccordionTimeline>
-                <List
-                  unfoldArray={this.state.unfoldArray}
-                  sortedData={sortedData}
-                  sortedDataGroupByYear={sortedDataGroupByYear}
-                  foldAndUnfold={this._foldAndUnfold}
-                  getYearContentHeight={this._getYearContentHeight}  
-                />
-              </AccordionTimeline>
-              <YearRange>
-                <p><span>{yearList[yearList.length - 1]}</span></p>
-                <p>
-                  <span>{yearList[0]}</span>
-                  <img 
-                    src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
-                  />
-                </p>
-              </YearRange>
-              <RunningTimeline>
-                <Timeline
-                  ref={scrollingContent => this.scrollingContent = scrollingContent}
-                  childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion} 
-                  autoScrolling={this.state.timelineScrolling}
-                  startAutoScroll={this._startTimelineAutoScrolling}
-                  stopAutoScroll={this._stopTimelineAutoScrolling}
-                  yearContentHeight={this.state.yearContentHeight}
-                  getYear={this._getYear}>
+        <Waypoint
+          onEnter={this._onEnter}
+          onLeave={this._onLeave}
+          scrollableAncestor="window"
+          fireOnRapidScroll
+        >
+          <Container>
+            <SectionWrapper>
+              <Title><span>大事紀</span></Title>
+              <Circle color={`${colors.black}`}>
+                <Circle color={`${colors.gray.gray96}`}/>
+                <Rect color={`${colors.secondaryColor}`}/>
+              </Circle>
+              <Content>
+                <AccordionTimeline>
                   <List
                     unfoldArray={this.state.unfoldArray}
                     sortedData={sortedData}
@@ -470,24 +466,45 @@ export default class Section5 extends PureComponent {
                     foldAndUnfold={this._foldAndUnfold}
                     getYearContentHeight={this._getYearContentHeight}  
                   />
-                </Timeline>
-              </RunningTimeline>
-              <YearTag>
-                <p>{this.state.currentYear}</p>
-              </YearTag>
-            </Content>
-          </SectionWrapper>
-          <BorderBottom 
-            fixed={this.state.isBorderBottomfixed}
-            zIndex={this._getBorderZIndex()}
-          />
-        </Container>
-        <Waypoint
-          onEnter={this._onEnter}
-          onLeave={this._onLeave}
-          scrollableAncestor="window"
-          fireOnRapidScroll
-        />
+                </AccordionTimeline>
+                <YearRange>
+                  <p><span>{yearList[yearList.length - 1]}</span></p>
+                  <p>
+                    <span>{yearList[0]}</span>
+                    <img 
+                      src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                    />
+                  </p>
+                </YearRange>
+                <RunningTimeline>
+                  <Timeline
+                    ref={scrollingContent => this.scrollingContent = scrollingContent}
+                    childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion} 
+                    autoScrolling={this.state.timelineScrolling}
+                    startAutoScroll={this._startTimelineAutoScrolling}
+                    stopAutoScroll={this._stopTimelineAutoScrolling}
+                    yearContentHeight={this.state.yearContentHeight}
+                    getYear={this._getYear}>
+                    <List
+                      unfoldArray={this.state.unfoldArray}
+                      sortedData={sortedData}
+                      sortedDataGroupByYear={sortedDataGroupByYear}
+                      foldAndUnfold={this._foldAndUnfold}
+                      getYearContentHeight={this._getYearContentHeight}  
+                    />
+                  </Timeline>
+                </RunningTimeline>
+                <YearTag>
+                  <p>{this.state.currentYear}</p>
+                </YearTag>
+              </Content>
+            </SectionWrapper>
+            <BorderBottom 
+              fixed={this.state.isBorderBottomfixed}
+              zIndex={this._getBorderZIndex()}
+            />
+          </Container>
+        </Waypoint>
       </Border>
     )
   }

@@ -3,8 +3,11 @@ import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+
+const defaultZIndex = 0
 
 const Container = styled.div`
   display: block;
@@ -16,6 +19,13 @@ const Container = styled.div`
   ${screen.tablet`
     max-width: ${containerStyle.width.tablet};
   `}
+  ${screen.tabletBelow`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: ${props => props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};  
+  `}
   ${screen.desktop`
     max-width: ${containerStyle.width.desktop};
   `}
@@ -25,15 +35,18 @@ const Container = styled.div`
 `
 
 const TopRow = styled.div`
-  display: table;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0 auto;
   width: 100%;
   a{
-    height: 36.8px;
-    display: table-cell;
+    height: 30px;
     text-align: left;
-    vertical-align: middle;    
-  }  
+    img{
+      height: 100%;
+    }
+  }
   ${screen.mobile`
     height: ${headerStyle.height.mobile};
     padding: ${headerStyle.padding.mobile};
@@ -53,9 +66,7 @@ const TopRow = styled.div`
 `
 
 const LanguageSwitcher = styled.div`
-  display: table-cell;
   text-align: right;
-  vertical-align: middle;
   span {
     line-height: 14px;
     a {
@@ -76,9 +87,6 @@ const LanguageSwitcher = styled.div`
 `
 
 const Hamburger = styled.div`
-  display: table-cell;
-  text-align: right;
-  vertical-align: middle;
   width: 24px;
   span{
     width: 100%;
@@ -97,7 +105,9 @@ const Hamburger = styled.div`
 class Header extends React.PureComponent {
   render() {
     return (
-      <Container>
+      <Container
+        isPanelOpen={this.props.isPanelOpen}
+      >
         <TopRow>
           <Link to="/">
             <img src={logo}/>
@@ -119,6 +129,16 @@ class Header extends React.PureComponent {
       </Container>
     )
   }
+}
+
+Header.defaultProps = {
+  onHamburgerClick: () => {},
+  isPanelOpen: false
+}
+
+Header.propTypes = {
+  onHamburgerClick: PropTypes.func.isRequired,
+  isPanelOpen: PropTypes.bool.isRequired
 }
 
 export default Header

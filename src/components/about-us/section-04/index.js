@@ -1,19 +1,16 @@
-// TODO: Use velocity-react to change width of selected info box more smoothly  
-
-import { chunk } from 'lodash'
 import { colors } from '../../../themes/common-variables'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
+import chunk from 'lodash/chunk'
 import data from '../constants/section-04/partners'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import sz from '../constants/screen-size'
+import VelocityComponent from '@twreporter/velocity-react/velocity-component'
 
 const _ = {
   chunk, groupBy, keys
@@ -21,7 +18,8 @@ const _ = {
 const content = [ ...data ]
 const groupedContent = _.groupBy(content, partner => partner.partnerId)
 const logoBlockBorderColor = ' #e9e9e9'
-const logoBlockWidthOnDesktop = '39%'
+const logoBlockWidthOnDesktop = '40%'
+const transitioinDuration = 100
 const column = {
   desktop: 4,
   mobile: 2
@@ -131,15 +129,27 @@ const LogoBlock = styled.div`
   border: solid 1px ${logoBlockBorderColor};
   height: 189px;
   cursor: pointer;
-  ${screen.desktopAbove`
-    width: ${props => props.widthOnDesktop};
-    transition: width 100ms linear;
-  `}
   ${screen.tabletBelow`
+    margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
+    &:nth-child(even) {
+      margin-left: -1px;
+    }
   `}
   ${screen.mobile`
     height: 160px;
+  `}
+`
+
+const LogoBlockOnDesktop = LogoBlock.extend`
+  ${screen.tabletBelow`
+    display: none;
+  `}
+`
+
+const LogoBlockOnTabletAbove = LogoBlock.extend`
+  ${screen.desktopAbove`
+    display: none;
   `}
 `
 
@@ -188,7 +198,7 @@ const LogoContent = styled.div`
       padding-bottom: 19px;
     }
   `}
-  ${screen.desktop`
+  ${screen.desktop`    
     h3{
       font-size: 18px;
       letter-spacing: 0.4px;
@@ -198,17 +208,24 @@ const LogoContent = styled.div`
       padding-bottom: 14px; 
     }
   `}
+  ${screen.tabletBelow`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  `}
   ${screen.tablet`
+    min-height: 144px;
     h3{
       font-size: 24px;
       letter-spacing: 0.5px;
-      margin-top: 20px;
     }    
     img{
       padding-bottom: 19px;
     }
   `}
   ${screen.mobile`
+    min-height: 124px;
     img{
       width: 64px;
       border-bottom: none;
@@ -216,7 +233,6 @@ const LogoContent = styled.div`
     h3{
       font-size: 18px;
       letter-spacing: 0.6px;
-      margin-top: 17px;
     }
     p{
       font-size: 13px;
@@ -228,7 +244,6 @@ const LogoContent = styled.div`
 export default class Section4 extends PureComponent {
   constructor(props) {
     super(props)
-    this.isTabletBelow = false
     this.state = {
       selectedLogo: 0,
       selectedRow: 0,
@@ -243,18 +258,23 @@ export default class Section4 extends PureComponent {
       infoPageNum: 0,
       initialState: false
     })
-    if (this.isTabletBelow) {
-      disableBodyScroll(this.infoOverlay)
-    }
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
+    let getWidth
     let logoRow = Math.floor(logoIndex / column.desktop)
     if (selectedLogo === logoIndex && selectedRow === logoRow) {
-      return logoBlockWidthOnDesktop
+      getWidth = logoBlockWidthOnDesktop
     } else if (selectedRow === logoRow) {
-      return `calc((100% - ${logoBlockWidthOnDesktop}) / ${column.desktop - 1})`
+      getWidth = '20%'
+    } else {
+      getWidth = '25%'
     }
-    return `calc(100% / ${column.desktop})`
+    return {
+      duration: transitioinDuration,
+      animation: {
+        width: getWidth
+      }
+    }
   }
   _nextPage = () => {
     this.setState({ infoPageNum: this.state.infoPageNum + 1 })
@@ -264,41 +284,49 @@ export default class Section4 extends PureComponent {
       selectedLogo: null,
       selectedRow: null
     })
-    if (this.isTabletBelow) {
-      enableBodyScroll(this.infoOverlay)
-    }
   }
   _getSelectedContent = () => {
     let { selectedLogo } = this.state
     if (selectedLogo === null ) return
     return groupedContent[_.keys(groupedContent)[selectedLogo]]
   }
-  componentDidMount() {
-    // Check if the device is tabletBelow
-    if (window.matchMedia(`(max-width: ${sz.mediumScreenMaxWidth}px)`).matches) {
-      this.isTabletBelow = true
-    }
-  }
-  componentWillUnmount() {
-    clearAllBodyScrollLocks()
-  }
   render() {
     let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
     const LogoBlockList = _.keys(groupedContent).map((key, index) => {
       let data = groupedContent[key][0]
+      let animationProps = this._getLogoBlockWidthOnDesktop(index, selectedLogo, selectedRow)
       return (
-        <LogoBlock 
-          key={index} 
-          selectedLogo={selectedLogo}
-          onClick={() => this._select(index)}
-          widthOnDesktop={() => this._getLogoBlockWidthOnDesktop(index, selectedLogo, selectedRow)}
+        <React.Fragment
+          key={'logo' + index}
         >
-          <LogoContent>
-            <img src={replaceStorageUrlPrefix(data.logo)} />
-            <h3>{data.name.english}</h3>
-            <p>{data.name.chinese}</p>
-          </LogoContent>
-        </LogoBlock>
+          <VelocityComponent 
+            key={index} 
+            {...animationProps}
+          >
+            <LogoBlockOnDesktop 
+              selectedLogo={selectedLogo}
+              onClick={() => this._select(index)}
+            >
+              <LogoContent>
+                <img src={replaceStorageUrlPrefix(data.logo)} />
+                <h3>{data.name.english}</h3>
+                <p>{data.name.chinese}</p>
+              </LogoContent>
+            </LogoBlockOnDesktop>
+          </VelocityComponent>
+          <LogoBlockOnTabletAbove 
+            selectedLogo={selectedLogo}
+            onClick={() => this._select(index)}
+          >
+            <LogoContent>
+              <img src={replaceStorageUrlPrefix(data.logo)} />
+              <div>
+                <h3>{data.name.english}</h3>
+                <p>{data.name.chinese}</p>
+              </div>
+            </LogoContent>
+          </LogoBlockOnTabletAbove>
+        </React.Fragment>
       )
     })
     const LogoTable = _.chunk(LogoBlockList, column.desktop).map((row, index) => {

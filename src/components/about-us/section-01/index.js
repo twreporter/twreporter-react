@@ -76,12 +76,12 @@ const SectionWrapper = styled.section`
   ${screen.overDesktop`
     width: 1440px;
     min-height: 1120px;
-    padding: 300px 115px 300px 101px;
+    padding: 200px 115px 200px 101px;
   `}
   ${screen.desktop`
     width: 1024px;
     min-height: 820px;
-    padding: 156px 85px 117px 79px;
+    padding: 118px 85px 118px 79px;
   `}  
   ${screen.tablet`
     width: 100%;
@@ -125,63 +125,54 @@ const Title = styled.h1`
   `}
 `
 
+const IntroWords = styled.div`
+  margin: 0;
+  padding: 15px;
+  ${screen.tabletBelow`
+    padding: 15px;
+    background: ${colors.gray.gray96};
+    br {
+      display: none;
+    } 
+  `}
+`
+
 const Introduction = styled.div`
-  margin-top: 65px;
   p{
     display: inline;
     font-size: 18px;
     font-weight: 500;
     line-height: 1.89;
-    text-align: left;
+    text-align: center;
   }
-  ul{
-    text-align: left;
-    list-style: none;
-    margin: 0;
-    padding-left: 1em;
-  }
-  ul>li{
-    margin-left: 1em;
-  }
-  ul>li:before {
-    display: inline-block;
-    content: "-";
-    margin-left: -1em;
-  }
-  ${screen.overDesktop`
-    margin-top: 120px;
-  `}
   ${screen.desktopAbove`
     p{
       background-color: ${colors.gray.gray96};
       padding: 5px;
     }  
-    ul>li:before {
-      background-color: ${colors.gray.gray96};
-      padding: 5px 0 5px 10px;
-    }
   `}
   ${screen.tabletBelow`
-    ul{
-      background: ${colors.gray.gray96};
+    p{
+      display: block;
+      line-height: 1.89;
     }
-    ul>li:before {
-      width: 0.5em;    
-    } 
   `}
   ${screen.tablet`
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.67;
-    text-align: left;
+    width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    p{
+      font-size: 18px;
+      line-height: 1.6;
+    }
   `}
   ${screen.mobile`
-    margin: 37.2px 20px 0 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     p{
       font-size: 16px;
       line-height: 1.44;
       letter-spacing: 0.5px;
-      text-align: left;
     }
   `}  
 `
@@ -193,7 +184,6 @@ const Content = styled.div`
   h2{
     display: inline-block;
     margin-top: 0;
-    margin-bottom: 90px;
     font-size: 28px;
     font-weight: bold;
     letter-spacing: 6.6px;
@@ -206,32 +196,46 @@ const Content = styled.div`
     float: none;
   `}
   ${screen.tablet`
-    height: calc(100% - 134px);
+    height: 650px;
     h2{
       margin-top: 80px;
-      margin-bottom: 45px;
       font-size: 20px;
       letter-spacing: 4.7px;
     }  
   `}  
   ${screen.mobile`
-    height: calc(100% - 195px);
+    height: 380px;
     margin-top: 50px;
     h2{
       margin: 0;
       font-size: 20px;
       letter-spacing: 4.7px;
-      margin-bottom: 45.7px;
     }  
   `}  
 `
 
 const Caption = styled.div`
   display: inline-block;
+  cursor: pointer;
   h2{
     opacity: ${props => props.curCaption === props.index ? '1' : '0.2'};
   }
 `
+
+const LottieWrapper = styled.div`
+  ${screen.overDesktop`
+    margin: 100px 0;
+  `}
+  ${screen.desktop`
+    margin: 50px 0;
+  `}
+  ${screen.tablet`
+    margin: 45px 0;
+  `}
+  ${screen.mobile`
+    margin: 30px 0;
+  `}
+` 
 
 export default class Section1 extends PureComponent {
   constructor(props) {
@@ -252,27 +256,31 @@ export default class Section1 extends PureComponent {
     switch(idx) {
       case 0:
         return (
-          <ul>
+          <IntroWords>
             <p>走進現場、持續追蹤</p>
             <br />
             <p>讓重要議題不被遺忘</p>
-          </ul>
+          </IntroWords>
         )
       case 1:
         return (
-          <ul>
-            <p>屬於社會的《報導者》</p>
-            <li><p>報導CC授權：網站多數報導採創用CC授權</p></li>
-            <li><p>網站程式開源：官網程式碼皆開放於GitHub平台</p></li>
-          </ul>
+          <IntroWords>
+            <p><b>屬於社會的《報導者》</b></p>
+            <br />
+            <p>報導CC授權：網站多數報導採創用CC授權</p>
+            <br />
+            <p>網站程式開源：官網程式碼皆開放於GitHub平台</p>
+          </IntroWords>
         )
       case 2:
         return (
-          <ul>
-            <p>追求公益價值</p>
-            <li><p>沒有廣告：不受廣告主影響</p></li>
-            <li><p>沒有點閱數字：不受點擊率左右</p></li>
-          </ul>
+          <IntroWords>
+            <p><b>追求公益價值</b></p>
+            <br />
+            <p>沒有廣告：不受廣告主影響</p>
+            <br />
+            <p>沒有點閱數字：不受點擊率左右</p>
+          </IntroWords>
         )
     }
   }
@@ -296,7 +304,8 @@ export default class Section1 extends PureComponent {
           key={index}>
           <Caption
             curCaption={this.state.currentAnim}
-            index={index}>
+            index={index}
+            onClick={() => this._animUpdated(index)} >
             <h2>{animCaptions[index]}</h2>
           </Caption>
           {dot()}
@@ -320,9 +329,12 @@ export default class Section1 extends PureComponent {
               </Title>
               <Content>
                 {Captions}
-                <LottieAnim 
-                  animDidUpdate={this._animUpdated}
-                />
+                <LottieWrapper>
+                  <LottieAnim
+                    currentAnimIndex={this.state.currentAnim} 
+                    animDidUpdate={this._animUpdated}
+                  />
+                </LottieWrapper>
                 <Introduction>
                   {this._getIntroWords(this.state.currentAnim)}
                 </Introduction>    

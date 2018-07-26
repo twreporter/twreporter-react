@@ -1,21 +1,63 @@
 import { colors } from '../../../themes/common-variables'
-import { containerStyle, contentStyle } from './section-style'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Header from './header'
+import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
 
+const transitionDuration = 200
+
+const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
+  ${screen.mobile`
+    .effect-enter {
+      opacity: 0;
+    }
+    .effect-enter.effect-enter-active {
+      opacity: 1;
+      transition: opacity ${transitionDuration}ms ease-in;
+    }
+    .effect-leave {
+      opacity: 1;
+    }
+    .effect-leave.effect-leave-active {
+      opacity: 0;
+      transition: opacity ${transitionDuration}ms ease-out;
+    }  
+  `}
+  ${screen.tablet`
+    .effect-enter {
+      transform: translateX(100%);
+    }
+    .effect-enter.effect-enter-active {
+      transform: translateX(0);
+      transition: transform ${transitionDuration}ms ease-in;
+    }
+    .effect-leave {
+      transform: translateX(0);
+    }
+    .effect-leave.effect-leave-active {
+      transform: translateX(100%);
+      transition: transform ${transitionDuration}ms ease-out;
+    }    
+  `}
+`
+
 const Container = styled.section`
   position: relative;
   overflow: hidden;
   height: 100vh;
+  ${screen.mobile`
+    overflow: auto;
+    height: auto;
+  `}
 `
 
 const Footer = styled.div`
@@ -26,7 +68,8 @@ const Footer = styled.div`
   width: 100%;
   background: ${colors.red.liverRed}; 
   ${screen.mobile`
-    height: 44px;
+    position: relative;
+    height: 54px;
   `} 
   ${screen.tablet`
     height: 100px;
@@ -71,9 +114,14 @@ const Content = styled.div`
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   ${screen.mobile`
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
     width: ${containerStyle.width.mobile};
-    max-height: ${contentStyle.height.mobile};
+    height: ${contentStyle.height.mobile};
     padding: ${contentStyle.padding.mobile};
+    margin-top: calc(${headerStyle.height.mobile} + 20px); 
   `}
   ${screen.tablet`
     width: ${containerStyle.width.tablet};
@@ -256,7 +304,7 @@ const SeperateLineOnMobile = SeperateLine.extend`
     display: none;
   `}
   h3{
-    margin: 72px 0;
+    margin: 52px 0;
   }
 `
 
@@ -423,33 +471,43 @@ export class Opening extends PureComponent {
     this.setState({
       isAnchorPanelOpen: false
     })
-    enableBodyScroll(this.anchorsPanel)
   }
   _openAnchorPanel = () => {
     this.setState({
       isAnchorPanelOpen: true
     })
-    disableBodyScroll(this.anchorsPanel)
   }
   _closePanelAndScrollToAnchor = (idx) => {
     this._closeAnchorPanel()
-    this.props.handleClickAnchor(idx) 
+    setTimeout(() => this.props.handleClickAnchor(idx), transitionDuration + 100)
   }
-  componentWillUnmount() {
-    clearAllBodyScrollLocks()
-  }    
   render() {
+    const { isAnchorPanelOpen } = this.state
     return (
       <Container innerRef={(ele) => {this._cover = ele}}>
-        <AnchorsPanel
-          ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
-          sectionRefs={this.sectionRefs}
-          handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
-          isOpen={this.state.isAnchorPanelOpen}
-          closePanel={this._closeAnchorPanel}
-        />
+        <StyledCSSTransitionGroup
+          transitionName={{
+            enter: 'effect-enter',
+            enterActive: 'effect-enter-active',
+            leave: 'effect-leave',
+            leaveActive: 'effect-leave-active'
+          }}
+          transitionEnterTimeout={transitionDuration}
+          transitionLeaveTimeout={transitionDuration}
+        >
+          {
+            isAnchorPanelOpen ?
+            <AnchorsPanel
+              ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
+              handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
+              isOpen={this.state.isAnchorPanelOpen}
+              closePanel={this._closeAnchorPanel}
+            /> : null
+          }
+        </StyledCSSTransitionGroup>
         <Header 
           onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+          isPanelOpen={this.state.isAnchorPanelOpen}
         />
         <Content>
           <ChineseIntro>          
@@ -471,7 +529,7 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLineOnTabletAbove>
               <Words>
-                <p><span>《報導者》是台灣第一個由公益基金會成立的網路媒體。稟持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，共同打造<mark>多元進步的社會</mark>與媒體環境。</span></p>
+                <p><span>《報導者》是台灣第一個由公益基金會成立的網路媒體。秉持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，共同打造<mark>多元進步的社會</mark>與媒體環境。</span></p>
               </Words>
             </AboutUS>
           </ChineseIntro>
@@ -490,3 +548,9 @@ export class Opening extends PureComponent {
 }
 
 export default Opening
+
+Opening.contextTypes = {
+  lockBackgroundScrolling: PropTypes.func,
+  unlockBackgroundScrolling: PropTypes.func
+}
+

@@ -1,7 +1,8 @@
 // TODO: Move Border component of each section here for one time declaration
-
+import { SITE_NAME, SITE_META } from './constants/data/index'
 import anchors from './constants/data/sidebar-anchor'
 import Footer from '@twreporter/react-components/lib/footer'
+import Helmet from 'react-helmet'
 import Opening from './opening'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -17,17 +18,38 @@ import WebFont from './web-font'
 export class AboutUs extends PureComponent {
   constructor(props) {
     super(props)
-    this.sectionRefs = []
+    this.sectionRefs = [],
+    this.sectionOffset = []
   }
   _handleClickAnchor = (anchorIdx) => {
-    const elem = this.sectionRefs[anchorIdx]
-    const offsetTop = ReactDOM.findDOMNode(elem).getBoundingClientRect().top
-    return smoothScroll(offsetTop)
+    return smoothScroll(this.sectionOffset[anchorIdx])
+  }
+  componentDidMount() {
+    this.sectionOffset = this.sectionRefs.map((elem) => {
+      return ReactDOM.findDOMNode(elem).getBoundingClientRect().top
+    })
   }
   render() {
     const SideBar = SideBarFactory.getAboutUSPageSideBar()
     return (
       <React.Fragment>
+        <Helmet
+          title={SITE_NAME.FULL}
+          link={[
+            { rel: 'canonical', href: SITE_META.URL }
+          ]}
+          meta={[
+            { name: 'description', content: SITE_META.DESC },
+            { name: 'twitter:title', content: SITE_NAME.FULL },
+            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: SITE_META.DESC },
+            { property: 'og:title', content: SITE_NAME.FULL },
+            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: SITE_META.URL }
+          ]}
+        />
         <SideBar
           ref={(node) => this.sidebar = node}
           anchors={anchors}
