@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.6
+- fix(ui print): workaround to fix image overlaying on text while printing
+
 ### 3.0.5
 - Add about-us page
 
