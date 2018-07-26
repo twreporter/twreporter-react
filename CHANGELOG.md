@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.0.11
+- fix(ui print): workaround to fix image overlaying on text while printing
+
 ### 3.0.10
 - [Bug] Adjust window height of pop-up-panel dynamically on about-us page
 - [Bug] Fix the wrong positioned logo in section4 on about-us page
