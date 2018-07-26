@@ -169,7 +169,7 @@ export default class Content extends PureComponent {
             awardYearList={awardYearList}
             transitionDuration={transitionDuration}
           />
-          <SemiTransparentMask position={"bottom"}/>
+          <SemiTransparentMask position={'bottom'}/>
         </PageWrapper>
         <Arrows>
           <TopArrow

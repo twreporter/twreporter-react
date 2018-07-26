@@ -79,8 +79,8 @@ export class BottomRelateds extends Component {
     })
 
     const loadMoreBtn = isCollapse || listItems.length <= ITEMS_LIMIT.ARTICLE_RELATED ? null : <div className={classNames(styles.loadMore, 'text-center')} onClick={()=>{this.setState({ isCollapse: true })}}>
-            {LOAD_MORE_ARTICLES}
-          </div>
+      {LOAD_MORE_ARTICLES}
+    </div>
 
     return (
       <div className={classNames(commonStyles['component'], 'center-block')}>

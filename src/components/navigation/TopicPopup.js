@@ -25,19 +25,19 @@ const Topic = (props) => {
   const currentClass = isCurrentViewing ? styles['current'] : null
 
   const topic = <div className={classNames(styles['topic'], currentClass)}>
-          <div className={styles['img-outer']}>
-            <div className={styles['img-box']}>
-              <img src={logoIcon} className={styles['logo-icon']}/>
-              <LazyLoad once={true}>
-                <img className={styles['crop']} src={heroImgUrl}/>
-              </LazyLoad>
-            </div>
-          </div>
-          <div className={styles['text-box']}>
-            <h3 className={styles['article-title']}>{data.title}</h3>
-            <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
-          </div>
-        </div>
+    <div className={styles['img-outer']}>
+      <div className={styles['img-box']}>
+        <img src={logoIcon} className={styles['logo-icon']}/>
+        <LazyLoad once={true}>
+          <img className={styles['crop']} src={heroImgUrl}/>
+        </LazyLoad>
+      </div>
+    </div>
+    <div className={styles['text-box']}>
+      <h3 className={styles['article-title']}>{data.title}</h3>
+      <p className={styles['article-desc']}>{shortenString(data.ogDescription, CHARACTERS_LIMIT.TOPIC_DESC)}</p>
+    </div>
+  </div>
   const topicBox = isCurrentViewing ? <div> { topic } </div> : <Link to={link} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}> { topic } </Link>
 
   return (

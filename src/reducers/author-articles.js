@@ -33,7 +33,7 @@ export const articlesByAuthor = (state = {}, action = {}) => {
       return _.assign({}, state, {
         [authorId]: nextSubState
       })
-    case types.FETCH_AUTHOR_COLLECTION_SUCCESS:
+    case types.FETCH_AUTHOR_COLLECTION_SUCCESS: {
       const previousCollectionIdList = _.get(state, [ authorId, 'collectIndexList' ], [])
       const { currentPage, totalPages, totalResults,  receivedAt } = action
       nextSubState = _.assign({}, initialSubState, {
@@ -47,7 +47,8 @@ export const articlesByAuthor = (state = {}, action = {}) => {
       return _.assign({}, state, {
         [authorId]: nextSubState
       })
-    case types.FETCH_AUTHOR_COLLECTION_FAILURE:
+    }
+    case types.FETCH_AUTHOR_COLLECTION_FAILURE: {
       nextSubState = _.assign({}, initialSubState, {
         isFetching: false,
         error: action.error,
@@ -56,6 +57,7 @@ export const articlesByAuthor = (state = {}, action = {}) => {
       return _.assign({}, state, {
         [authorId]: nextSubState
       })
+    }
     default:
       return state
   }
