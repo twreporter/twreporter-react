@@ -1,7 +1,7 @@
 BIN_DIR ?= node_modules/.bin
 RELEASE_BRANCH ?= $(ARGS)
 PROD_NODE_ENV ?= production
-
+SERVER_RENDER_ENV ?= server
 P="\\033[32m[+]\\033[0m"
 
 TEST_SCRIPTS_FILES := $(shell find src -name '*.test.js' -not -path "src/test/screenshot.test.js")
@@ -28,7 +28,7 @@ build-service-worker:
 # transiple es6 files into es5 
 build-server:
 	@echo "\033[33m[babel]\033[0m transpile es6 files into es5"
-	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/babel src --out-dir dist --copy-files
+	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) $(BIN_DIR)/babel src --out-dir dist --copy-files
 
 build-pm2-config:
 	@echo "\033[33m[PM2]\033[0m generate processes.json"
@@ -52,7 +52,7 @@ start-testing-server:
 
 start-dev-server: 
 	@echo " $(P) start dev server by nodemon src/server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) BABEL_ENV=ssr $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
 
 start-webpack-dev-server:
 	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
@@ -77,5 +77,8 @@ ui-test:
 clean: 
 	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"
 	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json
+
+build-babelrc:
+	@build .babelrc depends on the NODE_ENV and RENDER_ENV
 
 .PHONY: help clean build start stop dev test ui-test
