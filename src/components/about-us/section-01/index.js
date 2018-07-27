@@ -30,25 +30,6 @@ const Container = styled.div`
   `}    
 `
 
-const Border = styled.div`
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
-`
-
 const BorderTop = styled.div`
   position: ${props => props.fixed ? 'fixed' : 'absolute'};
   top: 0;
@@ -313,8 +294,7 @@ export default class Section1 extends PureComponent {
       )
     })
     return (
-      <Border>
-        <Container>
+      <Container>
           <Waypoint
             onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
             fireOnRapidScroll
@@ -340,8 +320,7 @@ export default class Section1 extends PureComponent {
               </Introduction>    
             </Content>
           </SectionWrapper>
-        </Container>
-      </Border>
+      </Container>
     )
   }
 }

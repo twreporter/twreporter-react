@@ -48,25 +48,6 @@ const Container = styled.div`
   `}
 `
 
-const Border = styled.div `
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
-`
-
 const SectionWrapper = styled.section`
   position: relative;
   display: block;
@@ -336,7 +317,6 @@ export default class Section3 extends PureComponent {
     const currentYear = awardYearList[activeAwardIndex][activeYearIndex]
     const selectedDataList = awardGroupByNameAndYear[activeAwardIndex][currentYear]
     return (
-    <Border>
       <Container>
         <SectionWrapper>
           <LeftColumnOnDesktopAbove>
@@ -377,7 +357,6 @@ export default class Section3 extends PureComponent {
           />
         </SectionWrapper>
       </Container>
-    </Border>
-  )
+    )
   }
 }

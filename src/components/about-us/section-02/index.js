@@ -42,25 +42,6 @@ const Container = styled.div`
   `}
 `
 
-const Border = styled.div `
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
-`
-
 const SectionWrapper = styled.section`
   position: relative;
   display: block;
@@ -194,36 +175,34 @@ export default class Section2 extends PureComponent {
   }
   render() {
     return (
-      <Border>
-        <Container>
-          <SectionWrapper>
-            <Title>
-              <span>成員</span>
-              <span>MEMBERS</span>
-            </Title>
-            <IntroOnOverDesktop>
-              <p>{foundationIntro.chinese}</p>
-              <p>{mediaIntro.chinese}</p>
-            </IntroOnOverDesktop>
-            <Content>
-              <CarouselMemberList 
-                membersNumberArray = {membersNumberArray}
-                groupedMembers = {groupedMembers}
-                sendEmail = {this._sendEmail} 
-              />
-              <PaginatedMemberList
-                membersNumberArray = {membersNumberArray}
-                groupedMembers = {groupedMembers}
-                sendEmail = {this._sendEmail} 
-              />              
-            </Content>
-            <IntroOnDesktopBelow>
-              <p>{foundationIntro.chinese}</p>
-              <p>{mediaIntro.chinese}</p>
-            </IntroOnDesktopBelow>
-          </SectionWrapper>
-        </Container>
-      </Border>
+      <Container>
+        <SectionWrapper>
+          <Title>
+            <span>成員</span>
+            <span>MEMBERS</span>
+          </Title>
+          <IntroOnOverDesktop>
+            <p>{foundationIntro.chinese}</p>
+            <p>{mediaIntro.chinese}</p>
+          </IntroOnOverDesktop>
+          <Content>
+            <CarouselMemberList 
+              membersNumberArray = {membersNumberArray}
+              groupedMembers = {groupedMembers}
+              sendEmail = {this._sendEmail} 
+            />
+            <PaginatedMemberList
+              membersNumberArray = {membersNumberArray}
+              groupedMembers = {groupedMembers}
+              sendEmail = {this._sendEmail} 
+            />              
+          </Content>
+          <IntroOnDesktopBelow>
+            <p>{foundationIntro.chinese}</p>
+            <p>{mediaIntro.chinese}</p>
+          </IntroOnDesktopBelow>
+        </SectionWrapper>
+      </Container>
     )
   }
 }

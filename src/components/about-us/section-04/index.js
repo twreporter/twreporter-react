@@ -48,25 +48,6 @@ const Container = styled.div`
   `}
 `
 
-const Border = styled.div `
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
-`
-
 const SectionWrapper = styled.section`
   display: block;
   margin: 0 auto;
@@ -348,16 +329,14 @@ export default class Section4 extends PureComponent {
       )
     })
     return (
-      <Border>
-        <Container>
-          <SectionWrapper>
-            <Title><span>國際參與</span></Title>
-            <Content>
-              {LogoTable}
-            </Content>
-          </SectionWrapper>
-        </Container>
-      </Border>
+      <Container>
+        <SectionWrapper>
+          <Title><span>國際參與</span></Title>
+          <Content>
+            {LogoTable}
+          </Content>
+        </SectionWrapper>
+      </Container>
     )
   }
 }
