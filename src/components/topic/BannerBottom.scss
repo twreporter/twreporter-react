@@ -9,9 +9,7 @@ $arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
 
 // Overall & Mobile
 
-.banner-container {}
-
-.infos-flex-container {
+.infos-flex-wrapper {
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 65px;

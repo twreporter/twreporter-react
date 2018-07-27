@@ -14,7 +14,7 @@ const _ = {
 
 const FullScreenContainer = styled.figure`
   width: 100vw;
-  height: 100vh;
+  height: ${props => props.viewportHeight};
 `
 
 const ImgPlaceholder = styled.img`
@@ -116,7 +116,7 @@ class FullScreenImage extends React.PureComponent {
 
   render() {
     const { isLoaded, isObjectFit, toShowPlaceholder } = this.state
-    const { alt, imgSet, portraitImgSet } = this.props
+    const { alt, imgSet, portraitImgSet, viewportHeight } = this.props
 
     const imgJSX = isObjectFit ? (
       <StyledPicture>
@@ -141,6 +141,7 @@ class FullScreenImage extends React.PureComponent {
     />
     return (
       <FullScreenContainer
+        viewportHeight={viewportHeight}
         itemProp="image"
         itemScop
         itemType="http://schema.org/ImageObject"
@@ -154,13 +155,15 @@ class FullScreenImage extends React.PureComponent {
 FullScreenImage.defaultProps = {
   alt: '',
   imgSet: {},
-  portraitImgSet: {}
+  portraitImgSet: {},
+  viewportHeight: '100vh'
 }
 
 FullScreenImage.propTypes = {
   alt: PropTypes.string,
   imgSet: constPropTypes.imgSet,
-  portraitImgSet: constPropTypes.imgSet
+  portraitImgSet: constPropTypes.imgSet,
+  viewportHeight: PropTypes.string
 }
 
 export default FullScreenImage

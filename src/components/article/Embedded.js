@@ -17,11 +17,16 @@ const _ = {
   merge
 }
 
-export class EmbeddedCode extends React.Component {
+function emitLoadEvent() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('load'))
+  }
+}
+
+export class EmbeddedCode extends React.PureComponent {
   constructor(props) {
     super(props)
   }
-
   /**
    * Pick attributes that start with data and return them with a new object.
    * Example: ({ dataWidth: 100, dataPicId: 'xn3K8s' }) => ({ width: 100, picId: 'xn3K8s' })
@@ -43,16 +48,13 @@ export class EmbeddedCode extends React.Component {
     return dataset
   }
 
+
   componentDidMount() {
     // workaround for rendering venngage embedded infographics
     // In the script(https://infograph.venngage.com/js/embed/v1/embed.js) venngage provided,
     // it addEventListener on 'load' event.
     // After 'load' event emits, it renders the iframe.
     // Hence, we emit the 'load' event after the script downloaded and executed.
-    const onLoad = function () {
-      const event = new Event('load')
-      window.dispatchEvent(event)
-    }
     const node = this.embedded
     const scripts = _.get(this.props, [ 'content', 0, 'scripts' ])
     if (node && Array.isArray(scripts)) {
@@ -62,7 +64,7 @@ export class EmbeddedCode extends React.Component {
         const dataset = this._pickDatasetFromAttribs(attribs)
         _.merge(scriptEle, attribs, { dataset })
         scriptEle.text = script.text || ''
-        scriptEle.onload = onLoad
+        scriptEle.onload = emitLoadEvent
         node.appendChild(scriptEle)
       })
     }

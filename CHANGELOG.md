@@ -1,4 +1,15 @@
 ### Unreleased
+
+### 3.0.12
+- Bump the versions of `mocha`, `node-sass`, `nodemon`, and `sass-loader` to prevent vulnerabilities
+- remove unused gulp and package-lock.json
+- Change leading video and topic to styled-components
+- Refactor the structure of topic page
+- Fix that Banner height not fits with viewport height
+- Update React-Loadable and EmbeddedCode
+- Bump `eslint` to "4.x", `babel-eslint` to "8"
+- Fix babel plugin order causing ssr error and modify .babelrc to make it more readible
+
 ### 3.0.11
 - fix(ui print): workaround to fix image overlaying on text while printing
 
