@@ -1,4 +1,3 @@
-import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
@@ -110,6 +109,9 @@ const LogoBlock = styled.div`
   border: solid 1px ${logoBlockBorderColor};
   height: 189px;
   cursor: pointer;
+  ${screen.desktopAbove`
+    width: calc(100% / ${column.desktop});
+  `}
   ${screen.tabletBelow`
     margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
