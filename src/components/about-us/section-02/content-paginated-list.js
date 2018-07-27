@@ -68,10 +68,10 @@ const ProfileWrapper = styled.div `
   float: right;
   width: calc(100% - ( 60.5px * 1.2));
   height: 100%;
-  padding-left: 9px;
+  padding-left: 3.9%;
   img{
     visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
-    width: 26px;
+    width: 16.9% ;
     position: absolute;
     right: 0;
     top: 50%;
