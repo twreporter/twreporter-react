@@ -74,8 +74,6 @@ Update `src/clients`, which is the entry of webpack bundles.
 Register service worker at first, and subscribe the web push if the browser could.
 
 #### Patches
-- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
-localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
 ### 2.7.8
 - Update @twreporter/react-components from 4.0.9 to 4.0.10
@@ -92,6 +90,8 @@ localForage improves the offline experience of your web app by using asynchronou
 ### 2.7.5
 - Use Makefile to replace npm scripts
 - RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
+- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
+localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
 
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
