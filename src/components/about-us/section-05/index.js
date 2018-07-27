@@ -449,6 +449,7 @@ export default class Section5 extends PureComponent {
           onLeave={this._onLeave}
           scrollableAncestor="window"
           fireOnRapidScroll
+          bottomOffset="80%"
         >
           <Container>
             <SectionWrapper>
