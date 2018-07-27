@@ -15,10 +15,6 @@ const _ = {
 injectGlobal`
   html {
     font-size: ${typography.font.size.base};
-    ::selection {
-      background-color: ${colors.red.lightRed};
-      color: #FFF;
-    }
   }
   body {
     letter-spacing: 0.4px;
@@ -101,6 +97,11 @@ injectGlobal`
         content: '';
       }
     }
+  }
+
+  ::selection {
+    background-color: ${colors.secondaryColor};
+    color: ${colors.white};
   }
 `
 
