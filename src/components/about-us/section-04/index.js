@@ -1,4 +1,3 @@
-import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
@@ -46,25 +45,6 @@ const Container = styled.div`
   ${screen.mobile`
     margin: ${marginBetweenSections.mobile} 0;    
   `}
-`
-
-const Border = styled.div `
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
 `
 
 const SectionWrapper = styled.section`
@@ -129,6 +109,9 @@ const LogoBlock = styled.div`
   border: solid 1px ${logoBlockBorderColor};
   height: 189px;
   cursor: pointer;
+  ${screen.desktopAbove`
+    width: calc(100% / ${column.desktop});
+  `}
   ${screen.tabletBelow`
     margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
@@ -348,16 +331,14 @@ export default class Section4 extends PureComponent {
       )
     })
     return (
-      <Border>
-        <Container>
-          <SectionWrapper>
-            <Title><span>國際參與</span></Title>
-            <Content>
-              {LogoTable}
-            </Content>
-          </SectionWrapper>
-        </Container>
-      </Border>
+      <Container>
+        <SectionWrapper>
+          <Title><span>國際參與</span></Title>
+          <Content>
+            {LogoTable}
+          </Content>
+        </SectionWrapper>
+      </Container>
     )
   }
 }

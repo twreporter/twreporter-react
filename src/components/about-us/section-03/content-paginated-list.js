@@ -129,15 +129,11 @@ export default class PaginatedList extends PureComponent {
   componentDidMount() {
     this._getPagesHeight()
   }
-  componentDidUpdate() {
-    let newPagesHeight = this.singlePages.map((page) => {
-      if (page) {
-        return ReactDOM.findDOMNode(page).getBoundingClientRect().height
-      }
-    })
-    if (JSON.stringify(this.pageContentHeight) !== JSON.stringify(newPagesHeight)) {
+  componentDidUpdate(prevProps) {
+    const { activeAwardId, backToTop, activeYearIndex } = this.props
+    if (prevProps.activeAwardId !== activeAwardId || prevProps.activeYearIndex !== activeYearIndex) {
       this._getPagesHeight()
-      this.props.backToTop()
+      backToTop()
     }
   }
   render() {
@@ -201,12 +197,16 @@ PaginatedList.defaultProps = {
   currentPage: 0,
   paginatedAwardsList: [],
   transitionDuration: '500ms',
-  backToTop: () => {}
+  backToTop: () => {},
+  activeAwardId: '',
+  activeYearIndex: 0
 }
 
 PaginatedList.propTypes = {
   currentPage: PropTypes.number.isRequired,
   paginatedAwardsList: PropTypes.array.isRequired,
   transitionDuration: PropTypes.string,
-  backToTop: PropTypes.func.isRequired
+  backToTop: PropTypes.func.isRequired,
+  activeAwardId: PropTypes.string.isRequired,
+  activeYearIndex: PropTypes.number.isRequired
 }
