@@ -295,31 +295,31 @@ export default class Section1 extends PureComponent {
     })
     return (
       <Container>
-          <Waypoint
-            onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
-            fireOnRapidScroll
-          />      
-          <BorderTop
-            fixed={this.state.isBorderTopfixed}
-            zIndex={this._getBorderZIndex()} 
-          />
-          <SectionWrapper>
-            <Title>
-              <span>特色</span>
-            </Title>
-            <Content>
-              {Captions}
-              <LottieWrapper>
-                <LottieAnim
-                  currentAnimIndex={this.state.currentAnim} 
-                  animDidUpdate={this._animUpdated}
-                />
-              </LottieWrapper>
-              <Introduction>
-                {this._getIntroWords(this.state.currentAnim)}
-              </Introduction>    
-            </Content>
-          </SectionWrapper>
+        <Waypoint
+          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
+          fireOnRapidScroll
+        />      
+        <BorderTop
+          fixed={this.state.isBorderTopfixed}
+          zIndex={this._getBorderZIndex()} 
+        />
+        <SectionWrapper>
+          <Title>
+            <span>特色</span>
+          </Title>
+          <Content>
+            {Captions}
+            <LottieWrapper>
+              <LottieAnim
+                currentAnimIndex={this.state.currentAnim} 
+                animDidUpdate={this._animUpdated}
+              />
+            </LottieWrapper>
+            <Introduction>
+              {this._getIntroWords(this.state.currentAnim)}
+            </Introduction>    
+          </Content>
+        </SectionWrapper>
       </Container>
     )
   }

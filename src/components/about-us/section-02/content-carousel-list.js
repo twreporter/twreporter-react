@@ -92,7 +92,7 @@ const MemberList = styled.ul`
   margin-bottom: 0;
   white-space: nowrap;
   transform: translate3d(${props => props.shiftx} , 0px, 0px);
-  transition: ${props => props.transitionEffect ? `all ${transitionDuration}ms ease-in-out` : `all 1ms ease-in-out`};
+  transition: ${props => props.transitionEffect ? `all ${transitionDuration}ms ease-in-out` : 'all 1ms ease-in-out'};
 `
 
 const Member = styled.li`
@@ -349,25 +349,25 @@ export default class CarouselMemberList extends PureComponent {
     const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
       let label = _.find(categoriesAll, { id: categoryId }).label
       return(
-          <Department key={categoryId}>
-            <Name><p>{label.chinese}</p></Name>
-            <StyledArrows>
-              <Arrows
-                membersPageLengthArray = {this.membersPageLengthArray}
-                visible = {this.membersPageLengthArray[categoryIndex] > 3}
-                changePage = {this._changePage.bind(null, categoryIndex)}
-              />
-            </StyledArrows>
-            <PageWrapper
-              innerRef={(node) => { this.pageWrapper = node }}
-            >
-              <MemberList
-                innerRef={memberList => this.memberList[categoryIndex] = memberList}
-                shiftx = {this._getShiftX(categoryIndex)}
-                transitionEffect = {this.state.transitionEffect} 
-                onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
-                {
-                  typeof this.carouselData[categoryId] !== 'undefined' ?
+        <Department key={categoryId}>
+          <Name><p>{label.chinese}</p></Name>
+          <StyledArrows>
+            <Arrows
+              membersPageLengthArray = {this.membersPageLengthArray}
+              visible = {this.membersPageLengthArray[categoryIndex] > 3}
+              changePage = {this._changePage.bind(null, categoryIndex)}
+            />
+          </StyledArrows>
+          <PageWrapper
+            innerRef={(node) => { this.pageWrapper = node }}
+          >
+            <MemberList
+              innerRef={memberList => this.memberList[categoryIndex] = memberList}
+              shiftx = {this._getShiftX(categoryIndex)}
+              transitionEffect = {this.state.transitionEffect} 
+              onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
+              {
+                typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
                       <Member key={index}>
@@ -387,19 +387,19 @@ export default class CarouselMemberList extends PureComponent {
                       </Member>
                     )
                   }) : null  
-                }
-              </MemberList>
-            </PageWrapper>
-            <NavigationWrapper>
-              <Navigation
-                pagesLength = {this.membersPageLengthArray[categoryIndex]}
-                currentPage = {currentPagesArray[categoryIndex]}
-                startPage = {1}
-                endPage = {this.membersPageLengthArray[categoryIndex] - 1}
-                navigationWidth = {65}
-              />
-            </NavigationWrapper>
-          </Department>
+              }
+            </MemberList>
+          </PageWrapper>
+          <NavigationWrapper>
+            <Navigation
+              pagesLength = {this.membersPageLengthArray[categoryIndex]}
+              currentPage = {currentPagesArray[categoryIndex]}
+              startPage = {1}
+              endPage = {this.membersPageLengthArray[categoryIndex] - 1}
+              navigationWidth = {65}
+            />
+          </NavigationWrapper>
+        </Department>
       )
     })
     return (
