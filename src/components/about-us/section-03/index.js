@@ -48,25 +48,6 @@ const Container = styled.div`
   `}
 `
 
-const Border = styled.div `
-  ${screen.overDesktop`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
-  `}
-  ${screen.desktop`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}
-  ${screen.tablet`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
-  `}  
-  ${screen.mobile`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
-  `}    
-`
-
 const SectionWrapper = styled.section`
   position: relative;
   display: block;
@@ -332,50 +313,50 @@ export default class Section3 extends PureComponent {
   }
 
   render() {
-    const { activeYearIndex, activeAwardIndex } = this.state
+    const { activeYearIndex, activeAwardIndex, activeAwardId } = this.state
     const currentYear = awardYearList[activeAwardIndex][activeYearIndex]
     const selectedDataList = awardGroupByNameAndYear[activeAwardIndex][currentYear]
     return (
-      <Border>
-        <Container>
-          <SectionWrapper>
-            <LeftColumnOnDesktopAbove>
-              <MobCircle />
-              <Title>
-                <span>得獎</span>
-                <span>AWARD</span>
-              </Title>
-              <ListSelector>
-                <AwardsNameList
-                  awardsName={awardsName}
-                  activeAwardId={this.state.activeAwardId}
-                  selectAward={this._selectAward}
-                  awardYearList={awardYearList}
-                  selectYear={this._selectYear}
-                  activeYearIndex={this.state.activeYearIndex}
-                />
-                <Circle />
-              </ListSelector>
-              <Achievement>
-                <AwardsCount>
-                  <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
-                  <h2>{awardsList.length}</h2>
-                  <p>件</p>
-                  <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
-                </AwardsCount>
-                <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
-              </Achievement>
-            </LeftColumnOnDesktopAbove>
-            <Content
-              gotoNextPage={this._gotoNextPage}
-              selectedDataList={selectedDataList}
-              fulldatalist={awardGroupByNameAndYear}
-              awardNamelist={awardsName}
-              awardYearList={awardYearList}
-            />
-          </SectionWrapper>
-        </Container>
-      </Border>
+      <Container>
+        <SectionWrapper>
+          <LeftColumnOnDesktopAbove>
+            <MobCircle />
+            <Title>
+              <span>得獎</span>
+              <span>AWARD</span>
+            </Title>
+            <ListSelector>
+              <AwardsNameList
+                awardsName={awardsName}
+                activeAwardId={activeAwardId}
+                selectAward={this._selectAward}
+                awardYearList={awardYearList}
+                selectYear={this._selectYear}
+                activeYearIndex={activeYearIndex}
+              />
+              <Circle />
+            </ListSelector>
+            <Achievement>
+              <AwardsCount>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <h2>{awardsList.length}</h2>
+                <p>件</p>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+              </AwardsCount>
+              <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
+            </Achievement>
+          </LeftColumnOnDesktopAbove>
+          <Content
+            gotoNextPage={this._gotoNextPage}
+            activeAwardId={activeAwardId}
+            selectedDataList={selectedDataList}
+            fulldatalist={awardGroupByNameAndYear}
+            awardNamelist={awardsName}
+            awardYearList={awardYearList}
+            activeYearIndex={activeYearIndex}
+          />
+        </SectionWrapper>
+      </Container>
     )
   }
 }

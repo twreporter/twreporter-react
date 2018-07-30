@@ -1,7 +1,7 @@
 const sm = 576
 const md = 768
 const lg = 1024
-const xl = 1440
+const xl = 1630
 export default {
   smallScreenMinWidth: sm,
   smallScreenMaxWidth: md - 1,

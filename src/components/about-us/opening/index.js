@@ -54,12 +54,22 @@ const Container = styled.section`
   position: relative;
   overflow: hidden;
   height: 100vh;
+  background: ${colors.white};
+  ${screen.overDesktop`
+    margin: 0 -8px;
+  `}
+  ${screen.desktop`
+    margin: 0 -6px;
+  `}
+  ${screen.tablet`
+    margin: 0 -7px;
+  `}  
   ${screen.mobile`
     overflow: auto;
     height: auto;
+    margin: 0 -6px;
   `}
 `
-
 const Footer = styled.div`
   position: absolute;
   display: block;

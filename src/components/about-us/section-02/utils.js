@@ -7,13 +7,7 @@ export const numbersInfullPage = {
   overDesktop: 7,
   desktop: 5,
   tablet: 3,
-  mobile: 4
+  mobile: 4 
 }
 
 export const numbersInHalfPage = 3
-
-export const devices = {
-  mobile: 'mobile',
-  tablet: 'tablet',
-  desktop: 'desktopAbove'
-}
