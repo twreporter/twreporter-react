@@ -229,6 +229,15 @@ const members = [
     email: 'capric.wu@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditBoWeiWu,
     category: categoryIds.editor
+  },
+  {
+    name: '孔德廉',
+    nameEng: 'Kung Te Lien',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'williamkung13578@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditKungTeLien,
+    category: categoryIds.editor
   }
 ]
 
