@@ -121,12 +121,12 @@ export default class Content extends PureComponent {
    * @param {Number} pagesLength
    */
   _gotoNextPage = (direction, pagesLength) => {
+    let newPage
     switch(direction) {
       case 'next':
         this.setState({ page: ++this.clickCtr % pagesLength })
         break
       case 'prev':
-        let newPage
         if (this.clickCtr === 0) {
           this.clickCtr = pagesLength - 1
           newPage = this.clickCtr
