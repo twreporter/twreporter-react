@@ -1,5 +1,17 @@
 ### Unreleased
 
+### 3.0.13
+- Change media query breakpoint of overDesktop on about-us page
+- Refine the `Navigation` component to be reused by others on about-us page
+- In section5 timeline component, update the transitionY attribute directly instead of setState on about-us page
+- Remove device constants in section2 on about-us page
+- [Bug] Fix pagination bug in section3 on about-us page
+- Section5 waypoint trigger point tunning on about-us page
+- Fix section2 on about-us page for small devices (e.g. iphone5)
+- Move out Border component of each section for one time declaration on about-us page
+- Setting inital width for logo blocks in section4 on about-us page
+- Add new member to section2 on about-us page
+
 ### 3.0.12
 - Bump the versions of `mocha`, `node-sass`, `nodemon`, and `sass-loader` to prevent vulnerabilities
 - remove unused gulp and package-lock.json
