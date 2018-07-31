@@ -136,7 +136,7 @@ export const mockStatesSet = {
   }
 }
 
-  // search specific author
+// search specific author
 export const searchedMockStatesSet = {
   initialState: {
     keywords: '',

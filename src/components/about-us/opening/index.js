@@ -54,12 +54,22 @@ const Container = styled.section`
   position: relative;
   overflow: hidden;
   height: 100vh;
+  background: ${colors.white};
+  ${screen.overDesktop`
+    margin: 0 -8px;
+  `}
+  ${screen.desktop`
+    margin: 0 -6px;
+  `}
+  ${screen.tablet`
+    margin: 0 -7px;
+  `}  
   ${screen.mobile`
     overflow: auto;
     height: auto;
+    margin: 0 -6px;
   `}
 `
-
 const Footer = styled.div`
   position: absolute;
   display: block;
@@ -497,12 +507,12 @@ export class Opening extends PureComponent {
         >
           {
             isAnchorPanelOpen ?
-            <AnchorsPanel
-              ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
-              handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
-              isOpen={this.state.isAnchorPanelOpen}
-              closePanel={this._closeAnchorPanel}
-            /> : null
+              <AnchorsPanel
+                ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
+                handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
+                isOpen={this.state.isAnchorPanelOpen}
+                closePanel={this._closeAnchorPanel}
+              /> : null
           }
         </StyledCSSTransitionGroup>
         <Header 
@@ -523,7 +533,7 @@ export class Opening extends PureComponent {
               <picture>
                 <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
                 <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={"關於我們"}/>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
               </picture>
               <SeperateLineOnTabletAbove>
                 <h3>・・・</h3>

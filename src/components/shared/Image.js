@@ -28,7 +28,11 @@ const ImgContainer = styled.div`
     const height = props.height
     const width = props.width
     return ((height / width) * 100 ) + '%'
-  }}
+  }};
+
+  @media print {
+    margin-bottom: ${(props) => `${(props.height / props.width) * 100}%`};
+  }
 `
 
 const ImgPlaceholder = styled.div`

@@ -27,7 +27,7 @@ export const HeadingAuthor = ({ authors, children, extendByline }) => {
           {author.name+title}
         </Link>
       </span>
-      )
+    )
   }
 
   function _renderAuthors(authors) {

@@ -150,7 +150,7 @@ app.get('*', async function (req, res, next) {
               { <RouterContext {...renderProps} /> }
             </StyleSheetManager>
           </Provider>
-          )
+        )
 
         // set Cache-Control header for caching
         if (!res.headersSent) {
@@ -167,19 +167,19 @@ app.get('*', async function (req, res, next) {
         }
 
         const html = ReactDOMServer.renderToStaticMarkup(
-            <Html
-              content={content}
-              store={store}
-              assets={webpackAssets}
-              styleElement={sheet.getStyleElement()}
-            />
-          )
+          <Html
+            content={content}
+            store={store}
+            assets={webpackAssets}
+            styleElement={sheet.getStyleElement()}
+          />
+        )
         res.status(selectResponseStatus(get(renderProps, 'params.errorType')))
         res.send(`<!doctype html>${html}`)
       })
-      .catch((err) => {
-        next(err)
-      })
+        .catch((err) => {
+          next(err)
+        })
     }
   })
 })

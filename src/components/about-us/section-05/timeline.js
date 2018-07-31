@@ -1,8 +1,8 @@
-// TODO : Update the transitionY attribute directly(by requestAnimationFrame) instead of setState
-
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled, { keyframes } from 'styled-components'
+
+const returnToStartDuration = 1000
 
 const restart = keyframes`
   0%, 100% {
@@ -10,14 +10,13 @@ const restart = keyframes`
   }
   50% {
     opacity: 0;
-    transform: translate3d(0, 0, 0);
   }
 `
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  animation: ${props => props.returnToStart ? `${restart} 1s linear` : 'none'};
+  animation: ${props => props.returnToStart ? `${restart} ${returnToStartDuration}ms linear` : 'none'};
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: ${props => props.grabbing ? 'grabbing' : 'grab'};
   cursor: ${props => props.grabbing ? '-moz-grabbing' : '-moz-grab'};
@@ -25,11 +24,7 @@ const Container = styled.div`
   user-select: none;
 `
 
-const Scroller = styled.div.attrs({
-  style: ({ shiftY }) => ({
-    transform: `translate3d(0, -${shiftY}px, 0)`
-  })
-}) `
+const Scroller = styled.div`
   width: 100%;
 `
 
@@ -37,11 +32,11 @@ export default class Timeline extends PureComponent {
   constructor(props) {
     super(props)
     this.frameId = null
+    this.timelineShiftY = 0
+    this.prevClientY = null
     this.state = {
-      timelineShiftY: 0,
-      returnToStart: false,
       mouseDown: false,
-      prevClientY: null
+      returnToStart: false
     }
   }
 
@@ -63,19 +58,21 @@ export default class Timeline extends PureComponent {
   _setAutoScroll = () => {
     if (!this.props.autoScrolling) return
     if (!this._reachTheEnd()) {
-      this.setState({ timelineShiftY: this.state.timelineShiftY + 0.5 })
+      this.timelineShiftY = this.timelineShiftY + 0.5
+      this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
       this._setYear()
     } else {
       this.setState({ returnToStart: true })
       setTimeout(() => {
-        this.setState({ timelineShiftY: 0 })
+        this.timelineShiftY = 0
+        this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
         this.setState({ returnToStart: false })
-      }, 50)
+      }, returnToStartDuration / 2)
     }
   }
 
   _reachTheEnd = () => {
-    return this.state.timelineShiftY >= this.props.childrenHeight
+    return this.timelineShiftY >= this.props.childrenHeight
   }
 
   _onMouseDown = () => {
@@ -89,12 +86,12 @@ export default class Timeline extends PureComponent {
   }
 
   _onMouseLeave = () => {
-    this.setState({ mouseDown: false })    
+    this.setState({ mouseDown: false })
   }
 
   _onMouseUp = () => {
     this.setState({ mouseDown: false })
-    this.setState({ prevClientY: null })
+    this.prevClientY = 0
   } 
 
   _onMouseOver = () => {
@@ -110,13 +107,14 @@ export default class Timeline extends PureComponent {
  * @param {number} coordY
  */
   _timelineShifting = (coordY) => {
-    if (!this.state.prevClientY) this.setState({ prevClientY: coordY })
-    if (this.state.prevClientY) {
+    if (!this.prevClientY) this.prevClientY = coordY
+    if (this.prevClientY) {
       const leftBound = 0
-      const shiftY = this.state.prevClientY - coordY
-      this.setState({ prevClientY: coordY })
-      if (this.state.timelineShiftY + shiftY >= leftBound && this.state.timelineShiftY + shiftY < this.props.childrenHeight) {
-        this.setState({ timelineShiftY: this.state.timelineShiftY + shiftY })
+      const shiftY = this.prevClientY - coordY
+      this.prevClientY = coordY
+      if (this.timelineShiftY + shiftY >= leftBound && this.timelineShiftY + shiftY < this.props.childrenHeight) {
+        this.timelineShiftY = this.timelineShiftY + shiftY
+        this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
         this._setYear()
       }
     } 
@@ -126,7 +124,7 @@ export default class Timeline extends PureComponent {
     const { yearContentHeight, getYear } = this.props
     let currentYearIndex = 0
     yearContentHeight.reduce((prev, curr, curIndex) => {
-      if (this.state.timelineShiftY > prev) {
+      if (this.timelineShiftY > prev) {
         currentYearIndex = curIndex
         return prev + curr
       }
@@ -144,13 +142,13 @@ export default class Timeline extends PureComponent {
 
   render() {
     return (
-      <div ref={elem => this.elem = elem}>
+      <div>
         <Container 
           returnToStart={this.state.returnToStart}
           grabbing={this.state.mouseDown}
         >
           <Scroller
-            shiftY={this.state.timelineShiftY}
+            innerRef={(node) => { this.scroller = node }}
             onMouseDown={this._onMouseDown}
             onMouseUp={this._onMouseUp}
             onMouseMove={event => this._onMouseMove(event)}

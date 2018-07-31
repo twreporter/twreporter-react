@@ -54,21 +54,21 @@ export default class Arrows extends PureComponent {
     const { membersPageLengthArray, visible, changePage } = this.props
     return (
       <React.Fragment>
-      {
-        membersPageLengthArray.length > 0 ?
-        <Container>
-          <LeftArrow
-            isvisible={visible}
-            onClick={() => changePage('prev') }>
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-          </LeftArrow>
-          <RightArrow
-            isvisible={visible}
-            onClick = {() => changePage('next') }>
-            <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
-          </RightArrow> 
-        </Container> : null
-      }
+        {
+          membersPageLengthArray.length > 0 ?
+            <Container>
+              <LeftArrow
+                isvisible={visible}
+                onClick={() => changePage('prev') }>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+              </LeftArrow>
+              <RightArrow
+                isvisible={visible}
+                onClick = {() => changePage('next') }>
+                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+              </RightArrow> 
+            </Container> : null
+        }
       </React.Fragment>
     )
   }

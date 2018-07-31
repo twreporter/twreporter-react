@@ -88,7 +88,7 @@ const AnchorsContainer = styled.div`
     display: block;
     left: 0;
     transform: translate(${props => (props.isToggled ? (sideBarBgWidth / 2) + 'px, -50%' :
-      '-' + (sideBarBgWidth/2) + 'px, -50%')});
+    '-' + (sideBarBgWidth/2) + 'px, -50%')});
     transition: transform 0.3s ease-in;
   `}
 `
@@ -152,27 +152,27 @@ class ArticleSideBar extends React.PureComponent {
     const backButton = 'https://storage.googleapis.com/twreporter-infographics/walk-with-survivor-of-suicide-gcs/static/sidebar_button_back.png'
     return (
       <div>
-          <AnchorsContainer
-            toShow={isToggled || toShow}
-            isToggled={isToggled}
-          >
-            <Anchors
-              data={anchors}
-              handleClickAnchor={handleClickAnchor}
-              currentAnchorId={currentAnchorId}
-            />
-          </AnchorsContainer>
-          <MobileSideBarController
-						isToggled={isToggled}
-						onClick={this.toggleMobileSideBar}
-            src={isToggled ? backButton : button}
-            toShow={isToggled || toShow}
-					/>
-          <MobileBackground
-            isToggled={isToggled}
-            toShow={isToggled || toShow}
-          >
-          </MobileBackground>
+        <AnchorsContainer
+          toShow={isToggled || toShow}
+          isToggled={isToggled}
+        >
+          <Anchors
+            data={anchors}
+            handleClickAnchor={handleClickAnchor}
+            currentAnchorId={currentAnchorId}
+          />
+        </AnchorsContainer>
+        <MobileSideBarController
+          isToggled={isToggled}
+          onClick={this.toggleMobileSideBar}
+          src={isToggled ? backButton : button}
+          toShow={isToggled || toShow}
+        />
+        <MobileBackground
+          isToggled={isToggled}
+          toShow={isToggled || toShow}
+        >
+        </MobileBackground>
         {children}
       </div>
     )

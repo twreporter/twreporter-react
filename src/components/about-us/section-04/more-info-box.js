@@ -3,6 +3,7 @@ import { font } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
+import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -36,32 +37,11 @@ const Container = styled.div `
   `}
 `
 
-const Pagination = styled.div`
-  display: inline-block;
-  width: 11px;
-  height: 2px;
-  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
-  background: ${colors.black};
-  margin: 0 1px;
-  visibility: ${props => props.visible === 'true' ? 'visible' : 'hidden'};
-`
-
-const Navigation = styled.div`
+const NavigationWrapper = styled.div`
   display: block;
   float: right;
   ${screen.desktopAbove`
     transform: translateY(-50%);
-  `}
-  ${screen.tabletBelow`
-    background: ${colors.white};
-    width: 100%;
-    float: left;
-  `}
-  ${screen.tablet`
-    padding: 0 0 46px 101px;
-  `}
-  ${screen.mobile`
-    padding: 0 0 34px 50px;
   `}
 `
 
@@ -172,15 +152,6 @@ export default class InfoBox extends PureComponent {
   constructor(props) {
     super(props)
   }
-  _createNavigation = (pagesLength) => {
-    let navigation = []
-    let pagination = []
-    for (let i = 0; i < pagesLength; i++) {
-      pagination.push(<Pagination key={i} isCurrentPage={i === this.props.infoPageNum % pagesLength} visible={(pagesLength > 1).toString()}/>)
-    }
-    navigation.push(<Navigation key="nav">{pagination}</Navigation>)
-    return navigation
-  }
   render() {
     const { selectedContent, infoPageNum, nextPage, closeInfoBox } = this.props
     if (selectedContent.length === 0 ) return
@@ -190,12 +161,20 @@ export default class InfoBox extends PureComponent {
       <Container>
         <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
         <Info>
-          {this._createNavigation(selectedContent.length)}
+          <NavigationWrapper>
+            <Navigation
+              pagesLength = {selectedContent.length}
+              currentPage = {page}
+              startPage = {0}
+              endPage = {selectedContent.length}
+              navigationWidth = {22}                          
+            />
+          </NavigationWrapper>
           <h4>{selectedItem.date}</h4>
           <p>{selectedItem.description.chinese}</p>
           <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
             <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={">"}/>
+              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
             </ArrowNextIcon>
           </RightArrow>
         </Info>

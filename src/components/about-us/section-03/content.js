@@ -114,6 +114,7 @@ export default class Content extends PureComponent {
       page: 0
     }
   }
+
   /**
    * This callback function is used to scroll the award items page when clicking arrows
    * @param {String} direction
@@ -123,7 +124,7 @@ export default class Content extends PureComponent {
     let newPage
     switch(direction) {
       case 'next':
-        newPage = ++this.clickCtr % pagesLength
+        this.setState({ page: ++this.clickCtr % pagesLength })
         break
       case 'prev':
         if (this.clickCtr === 0) {
@@ -132,13 +133,12 @@ export default class Content extends PureComponent {
         } else {
           newPage = --this.clickCtr % pagesLength
         }
+        this.setState({ page: newPage })
         break
       default:
-        newPage = 0
+        return
     }
-    this.setState({
-      page: newPage
-    })
+
   }
 
   _backToTop = () => {
@@ -147,7 +147,7 @@ export default class Content extends PureComponent {
   }
   render() {
     const { page } = this.state
-    const { selectedDataList, fulldatalist, awardNamelist, awardYearList } = this.props
+    const { selectedDataList, fulldatalist, awardNamelist, awardYearList, activeAwardId, activeYearIndex } = this.props
     const pagesLength = Math.ceil(selectedDataList.length / awardsNumberInSinglePage)
     let paginatedAwardsList = []
     for (let i = 0; i < pagesLength; i++) {
@@ -162,6 +162,8 @@ export default class Content extends PureComponent {
             paginatedAwardsList={paginatedAwardsList}
             transitionDuration={transitionDuration}
             backToTop={this._backToTop}
+            activeAwardId={activeAwardId}
+            activeYearIndex={activeYearIndex}
           />
           <AccordionList 
             awardNamelist={awardNamelist}
@@ -169,7 +171,7 @@ export default class Content extends PureComponent {
             awardYearList={awardYearList}
             transitionDuration={transitionDuration}
           />
-          <SemiTransparentMask position={"bottom"}/>
+          <SemiTransparentMask position={'bottom'}/>
         </PageWrapper>
         <Arrows>
           <TopArrow
@@ -196,13 +198,17 @@ Content.defaultProps = {
   selectedDataList: [],
   fulldatalist: [],
   awardNamelist: [],
-  awardYearlist: []
+  awardYearlist: [],
+  activeAwardId: '',
+  activeYearIndex: 0
 }
 
 Content.propTypes = {
   selectedDataList: PropTypes.array.isRequired,
   fulldatalist: PropTypes.array.isRequired,
   awardNamelist: PropTypes.array.isRequired,
-  awardYearlist: PropTypes.array.isRequired
+  awardYearlist: PropTypes.array.isRequired,
+  activeAwardId: PropTypes.string.isRequired,
+  activeYearIndex: PropTypes.number.isRequired
 }
 
