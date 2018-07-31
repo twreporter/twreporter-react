@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 3.0.14
+- [Bug] Prevent from changing original data object in section2 on about-us page
+
 ### 3.0.13
 - Change media query breakpoint of overDesktop on about-us page
 - Refine the `Navigation` component to be reused by others on about-us page
