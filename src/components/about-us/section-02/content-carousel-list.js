@@ -5,6 +5,7 @@ import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
+import assign from 'lodash/assign'
 import categories from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
 import find from 'lodash/find'
@@ -17,7 +18,7 @@ import styled from 'styled-components'
 import values from 'lodash/values'
 
 const _ = {
-  groupBy, find, values, keys
+  groupBy, find, values, keys, assign
 }
 
 const categoriesAll = categories.media.concat(categories.fundation)
@@ -215,10 +216,10 @@ export default class CarouselMemberList extends PureComponent {
     this.membersPageLengthArray = []
     this.membersResidueArray = []
     this.membersNumInAFullPageArray = []
-    this.carouselData = this.props.groupedMembers
+    this.carouselData = _.assign({},this.props.groupedMembers)
     this.state = {
       transitionEffect: true,
-      currentPagesArray: [] 
+      currentPagesArray: []
     }
   }
   componentDidMount() {
@@ -280,8 +281,6 @@ export default class CarouselMemberList extends PureComponent {
   _membersPageMaker = () => {
     const { groupedMembers, membersNumberArray } = this.props
     let initialCurrentPages = []
-
-    
     this.membersPageLengthArray = this.memberList.map((list) => {
       return Math.ceil(list.scrollWidth / list.offsetWidth) + 2
     })
