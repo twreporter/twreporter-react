@@ -215,10 +215,10 @@ export default class CarouselMemberList extends PureComponent {
     this.membersPageLengthArray = []
     this.membersResidueArray = []
     this.membersNumInAFullPageArray = []
-    this.carouselData = this.props.groupedMembers
     this.state = {
       transitionEffect: true,
-      currentPagesArray: [] 
+      currentPagesArray: [],
+      carouselData: this.props.groupedMembers 
     }
   }
   componentDidMount() {
@@ -280,8 +280,8 @@ export default class CarouselMemberList extends PureComponent {
   _membersPageMaker = () => {
     const { groupedMembers, membersNumberArray } = this.props
     let initialCurrentPages = []
+    let newCarouselData = {}
 
-    
     this.membersPageLengthArray = this.memberList.map((list) => {
       return Math.ceil(list.scrollWidth / list.offsetWidth) + 2
     })
@@ -308,8 +308,11 @@ export default class CarouselMemberList extends PureComponent {
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumInAFullPageArray[index]
       const newMembers = [ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ]
-      this.carouselData[categoryId] = newMembers
+      newCarouselData[categoryId] = newMembers
     })
+
+    this.setState({ carouselData: newCarouselData })
+
   }
 
   _setCurrentPages = (newCurPagesArray) => {
@@ -345,7 +348,7 @@ export default class CarouselMemberList extends PureComponent {
   }
   render() {
     const { sendEmail } = this.props
-    const { currentPagesArray } = this.state
+    const { currentPagesArray, carouselData } = this.state
     const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
       let label = _.find(categoriesAll, { id: categoryId }).label
       return(
@@ -367,8 +370,8 @@ export default class CarouselMemberList extends PureComponent {
               transitionEffect = {this.state.transitionEffect} 
               onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
               {
-                typeof this.carouselData[categoryId] !== 'undefined' ?
-                  this.carouselData[categoryId].map((member, index) => {
+                typeof carouselData[categoryId] !== 'undefined' ?
+                  carouselData[categoryId].map((member, index) => {
                     return(
                       <Member key={index}>
                         <img 
