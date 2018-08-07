@@ -84,9 +84,6 @@ const anchors = [
   }, {
     id: 'infographic',
     label: '多媒體'
-  }, {
-    id: 'aboutus',
-    label: '關於我們'
   }
 ]
 
@@ -306,7 +303,6 @@ class Homepage extends React.PureComponent {
               moreURI={`categories/${categoryURI.infographic}`}
             />
           </Background>
-          <ReporterIntro />
         </SideBar>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
