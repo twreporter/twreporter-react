@@ -55,6 +55,23 @@ self.addEventListener('fetch', function(e) {
                 console.log('[Service Worker] Fetch', e.request.url , ' from Cache.')
                 return response
               }
+              
+              // Bug title: Chrome devtools on Mac
+              // Bug description: Once user click the inspection to utilize the 
+              //                  chrome devtools, the devtools automatically emit  
+              //                  a fetch request. This request then cause an
+              //                  unexpected error as follow. 
+              //                  (TypeError: Failed to execute 'fetch' on 
+              //                  'ServiceWorkerGlobalScope': 'only-if-cached' can be 
+              //                  set only with 'same-origin' mode")
+
+              // Walk-around solution: Detect this specific error and simply ignore 
+              //                       this request. The browser will load smoothly  //                       as the situation that user do not open the
+              //                       chrome devtools
+              if (err.name === 'TypeError' && err.message.includes('only-if-cache')) {
+                return;
+              }
+
               return clients.matchAll({type: 'window'})
               .then(function(_clients) {
                 return _clients.filter(function(client) {

@@ -1,5 +1,5 @@
-var staticFilesToCache = ["/dist/main.6721abd63f75bcfa09a1.bundle.js","/dist/container-category-chunk-7ffe1865b843486006cc.js","/dist/container-article-chunk-3f0b314e23fca69f93ae.js","/dist/about-us-chunk-0b15ed7ce9dd6196d139.js","/dist/container-home-chunk-daa3d539609c0e4383ba.js","/dist/container-author-chunk-55c624d2193c3d0059b8.js","/dist/container-authors-chunk-e9f1e81b0cd306fbb78d.js","/dist/container-topic-chunk-99b493e99e4406806909.js","/dist/container-topics-chunk-4fef71e5fd0b8a1e8128.js","/dist/container-tag-chunk-95a6aa6cf0c8540d5470.js","/dist/container-photography-chunk-0d8ef46ebe561aee3a5c.js","/dist/container-activation-chunk-4dd4d65b9ee9522165e0.js","/dist/container-bookmarklist-chunk-c9d1259625b970add7b9.js","/dist/container-search-chunk-0f0f3ba87f15d0481b17.js","/dist/container-services-chunk-2d3559bfc8ffbc1a119f.js","/dist/container-bookmarkmobile-chunk-6e4634a1d614bbf90df0.js","/dist/container-bookmarkdesktop-chunk-036ebf14fc39b4aedeb9.js","/dist/container-singup-chunk-78514285dbe492ef634a.js","/dist/container-singin-chunk-c1a429d42db2ef4a42fa.js","/dist/container-confirm-chunk-8ff1d0f47e29655171b8.js","/dist/imagediff-chunk-71f21cb3898b41bc5a89.js","/dist/blockquote-chunk-a6dada93e3c280d11331.js","/dist/audio-chunk-293e66eb117f5c415777.js","/dist/youtube-chunk-b391081391a9986f47cf.js","/dist/slideshow-chunk-ddafb4a6105ccbe15b8b.js","/dist/unorderedlist-chunk-d145fc95fab7660d015b.js","/dist/embeddedcode-chunk-c09af2197e31c97449f6.js","/dist/lottie-chunk-41a47c52ace96c3fc153.js","/dist/aboutus-section1-anim3-chunk-e97ef3f3769c9497dd36.js","/dist/aboutus-section1-anim2-chunk-d632cb5faaa696b6999e.js","/dist/aboutus-section1-anim1-chunk-af7bcd486facf5de44c5.js","/dist/80e6c18c0ebe9f4408b4.main.css","/","/sw-fallback-page"];
-var cacheName = 'sw-precache-twreporter-8c1278bddc2cd6011558e6e35fafbbcf5a710327' + (self.registration ? self.registration.scope : '');
+var staticFilesToCache = ["/dist/main.3a7b4b3192fc0a48a9bb.bundle.js","/dist/container-category-chunk-7ffe1865b843486006cc.js","/dist/container-article-chunk-3f0b314e23fca69f93ae.js","/dist/about-us-chunk-0b15ed7ce9dd6196d139.js","/dist/container-home-chunk-daa3d539609c0e4383ba.js","/dist/container-author-chunk-55c624d2193c3d0059b8.js","/dist/container-authors-chunk-e9f1e81b0cd306fbb78d.js","/dist/container-topic-chunk-99b493e99e4406806909.js","/dist/container-topics-chunk-4fef71e5fd0b8a1e8128.js","/dist/container-tag-chunk-95a6aa6cf0c8540d5470.js","/dist/container-photography-chunk-0d8ef46ebe561aee3a5c.js","/dist/container-activation-chunk-4dd4d65b9ee9522165e0.js","/dist/container-bookmarklist-chunk-c9d1259625b970add7b9.js","/dist/container-search-chunk-0f0f3ba87f15d0481b17.js","/dist/container-services-chunk-2d3559bfc8ffbc1a119f.js","/dist/container-bookmarkmobile-chunk-6e4634a1d614bbf90df0.js","/dist/container-bookmarkdesktop-chunk-036ebf14fc39b4aedeb9.js","/dist/container-singup-chunk-78514285dbe492ef634a.js","/dist/container-singin-chunk-c1a429d42db2ef4a42fa.js","/dist/container-confirm-chunk-8ff1d0f47e29655171b8.js","/dist/imagediff-chunk-71f21cb3898b41bc5a89.js","/dist/blockquote-chunk-a6dada93e3c280d11331.js","/dist/audio-chunk-293e66eb117f5c415777.js","/dist/youtube-chunk-b391081391a9986f47cf.js","/dist/slideshow-chunk-ddafb4a6105ccbe15b8b.js","/dist/unorderedlist-chunk-d145fc95fab7660d015b.js","/dist/embeddedcode-chunk-c09af2197e31c97449f6.js","/dist/lottie-chunk-41a47c52ace96c3fc153.js","/dist/aboutus-section1-anim3-chunk-e97ef3f3769c9497dd36.js","/dist/aboutus-section1-anim2-chunk-d632cb5faaa696b6999e.js","/dist/aboutus-section1-anim1-chunk-af7bcd486facf5de44c5.js","/dist/1f61122c15991ae17b81.main.css","/","/sw-fallback-page"];
+var cacheName = 'sw-precache-twreporter-c516371480798fcc1adde5c8b705b8c199a78bc8' + (self.registration ? self.registration.scope : '');
 
 
 var isPathWhitelisted = function isPathWhitelisted(whitelist, absoluteUrlString) {
@@ -66,6 +66,23 @@ self.addEventListener('fetch', function(e) {
                 console.log('[Service Worker] Fetch', e.request.url , ' from Cache.')
                 return response
               }
+              
+              // Bug title: Chrome devtools on Mac
+              // Bug description: Once user click the inspection to utilize the 
+              //                  chrome devtools, the devtools automatically emit  
+              //                  a fetch request. This request then cause an
+              //                  unexpected error as follow. 
+              //                  (TypeError: Failed to execute 'fetch' on 
+              //                  'ServiceWorkerGlobalScope': 'only-if-cached' can be 
+              //                  set only with 'same-origin' mode")
+
+              // Walk-around solution: Detect this specific error and simply ignore 
+              //                       this request. The browser will load smoothly  //                       as the situation that user do not open the
+              //                       chrome devtools
+              if (err.name === 'TypeError' && err.message.includes('only-if-cache')) {
+                return;
+              }
+
               return clients.matchAll({type: 'window'})
               .then(function(_clients) {
                 return _clients.filter(function(client) {
