@@ -1,7 +1,8 @@
 'use strict'
-
+import assign from 'lodash/assign'
 import fetch from 'isomorphic-fetch'
 import get from 'lodash/get'
+import map from 'lodash/map'
 import omit from 'lodash/omit'
 import qs from 'qs'
 import twreporterRedux from '@twreporter/redux'
@@ -15,7 +16,9 @@ import * as CONSTANTS from '../constants/index'
 const formAPIURL = twreporterRedux.utils.formAPIURL
 
 const _ = {
+  assign,
   get,
+  map,
   omit
 }
 
@@ -34,14 +37,23 @@ export function failToSearchAuthors(keywords = '', error) {
   }
 }
 
-export function receiveSearchAuthors(keywords, response) {
-  return {
-    type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
-    keywords,
-    response, // {object} contains entities{object}, result{array}, currentPage{number}, totalPages{number}
-    receivedAt: Date.now()
-  }
-}
+/**
+ * NormalizedData
+ * @typedef {Object} NormalizedData
+ * @property {Object} entities
+ * @property {string[]} result
+ */
+
+/**
+ * ReceiveSearchAuthorsAction
+ *
+ * @typedef {Object} ReceiveSearchAuthorsAction
+ * @property {string} keywords
+ * @property {NormalizedData} normalizedData
+ * @property {number} currentPage
+ * @property {number} totalPages
+ * @property {number} receivedAt
+ */
 
 export function searchAuthors({ keywords, targetPage, returnDelay }) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
@@ -65,19 +77,15 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
         return response.json()
       })
       .then((responseObject) => {
-        const items = _.get(responseObject, 'hits', {}) // responseObject.hit
-        const camelizedJson = camelizeKeys(items)
-        const responseItems = normalize(camelizedJson, new schema.Array(authorSchema))
-
-        const currentPage = _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
-        const totalPages = _.get(responseObject, 'nbPages', 0)
-
-        const response = {
-          ...responseItems,
-          currentPage,
-          totalPages
+        const authors = _.get(responseObject, 'hits', {})
+        const receiveSearchAuthorsAction = {
+          type: (keywords === '') ? CONSTANTS.LIST_ALL_AUTHORS_SUCCESS : CONSTANTS.SEARCH_AUTHORS_SUCCESS,
+          keywords,
+          normalizedData: Array.isArray(authors) ? normalize(camelizeKeys(authors), new schema.Array(authorSchema)) : normalize(camelizeKeys(authors), authorSchema),
+          currentPage: _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
+          totalPages: _.get(responseObject, 'nbPages', 0),
+          receivedAt: Date.now()
         }
-
         // delay for displaying loading spinner
         function delayDispatch() {
           return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
@@ -88,10 +96,10 @@ export function searchAuthors({ keywords, targetPage, returnDelay }) {
         }
         if (returnDelay > 0) {
           return delayDispatch().then(()=>{
-            return dispatch(receiveSearchAuthors(keywords, response))
+            return dispatch(receiveSearchAuthorsAction)
           })
         }
-        return dispatch(receiveSearchAuthors(keywords, response))
+        return dispatch(receiveSearchAuthorsAction)
       },
       (error) => {
         return dispatch(failToSearchAuthors(keywords, error))
