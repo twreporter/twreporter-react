@@ -14,6 +14,7 @@ import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../con
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
 import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
+import { fetchAuthorDetails } from '../actions/author-details'
 
 const _ = {
   get
@@ -24,13 +25,22 @@ const authorDefaultImg = '/asset/author-default-img.svg'
 class Author extends React.Component {
   static fetchData({ params, store }) {
     const authorId = _.get(params, 'authorId', '')
-    return store.dispatch(fetchAuthorCollectionIfNeeded(authorId))
+    return Promise.all([ store.dispatch(fetchAuthorCollectionIfNeeded(authorId)), store.dispatch(fetchAuthorDetails(authorId)) ])
+      .catch(error => {
+        console.error(error) // eslint-disable-line no-console
+      })
   }
   componentDidMount() {
-    const authorId = this.props.params['authorId']
-    let { articlesByAuthor, fetchAuthorCollectionIfNeeded } = this.props
-    if (!articlesByAuthor[authorId]) {
-      fetchAuthorCollectionIfNeeded(authorId)
+    const { articlesByAuthor } = this.props
+    const authorId = _.get(this.props, 'params.authorId')
+    if (authorId) {
+      if (!articlesByAuthor[authorId]) {
+        this.props.fetchAuthorCollectionIfNeeded(authorId)
+      }
+      const authorIsFull = _.get(this.props, [ 'entities', authorId, 'full' ], false)
+      if (!authorIsFull) {
+        this.props.fetchAuthorDetails(authorId)
+      }
     }
   }
   render() {
@@ -104,4 +114,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded })(withLayout(Author))
+export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, fetchAuthorDetails })(withLayout(Author))
