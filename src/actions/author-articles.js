@@ -87,22 +87,14 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
             receivedAt: Date.now()
           }
           // delay for displaying loading spinner
-          function delayDispatch() {
-            return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
-              setTimeout(() => {
-                resolve()
-              }, returnDelay)
-            })
-          }
           if (returnDelay > 0) {
-            return delayDispatch().then(()=>{
-              return dispatch(receiveAuthorCollectionAction)
+            return new Promise(function (resolve) {
+              setTimeout(function () { resolve(dispatch(receiveAuthorCollectionAction)) }, returnDelay)
             })
           }
           return dispatch(receiveAuthorCollectionAction)
-        },
-        (error) => dispatch(failToReceiveAuthorCollection(authorId, error))
-      )
+        })
+      .catch(error => dispatch(failToReceiveAuthorCollection(authorId, error)))
   }
 }
 
