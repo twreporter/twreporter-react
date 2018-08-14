@@ -1,4 +1,5 @@
 ### Unreleased
+- Rename author related actions properties and add fetch-author-details
 
 ### 3.0.14
 - [Bug] Prevent from changing original data object in section2 on about-us page

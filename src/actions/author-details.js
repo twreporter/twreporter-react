@@ -53,8 +53,8 @@ export function fetchAuthorDetails(authorId) {
       })
       .then(response => {
         const { hits } = response
-        if (!Array.isArray(hits) || hits.length !== 1) {
-          throw new Error(`There should be ONE record matched the given id. But returned ${hits.length}.`)
+        if (!Array.isArray(hits) || hits.length < 1) {
+          throw new Error(`There should be at least one record matched the given id. But returned ${hits.length}.`)
         }
         const author = _.assign({}, hits[0])
         delete author._highlightResult

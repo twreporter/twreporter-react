@@ -31,12 +31,9 @@ class Author extends React.Component {
       })
   }
   componentDidMount() {
-    const { articlesByAuthor } = this.props
     const authorId = _.get(this.props, 'params.authorId')
     if (authorId) {
-      if (!articlesByAuthor[authorId]) {
-        this.props.fetchAuthorCollectionIfNeeded(authorId)
-      }
+      this.props.fetchAuthorCollectionIfNeeded(authorId)
       const authorIsFull = _.get(this.props, [ 'entities', authorId, 'full' ], false)
       if (!authorIsFull) {
         this.props.fetchAuthorDetails(authorId)
