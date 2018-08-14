@@ -12,7 +12,7 @@ export const FETCH_SEC_AUTHOR_COLLECTION_SUCCESS = {
   totalResults: 65,
   lastUpdated: CURRENT_DATE,
   totalPages: 13,
-  response: {
+  normalizedData: {
     entities: {
       articles: { 'articleId1': {}, 'articleId2': {}, 'articleId3': {} },
       authors: { 'authorId1': {}, 'authorId2': {}, 'authorId3': {} }
@@ -23,7 +23,7 @@ export const FETCH_SEC_AUTHOR_COLLECTION_SUCCESS = {
 export const FETCH_FIRST_AUTHOR_SEC_TIMES = {
   currentPage:1,
   collectIndexList: [ 'articleId4', 'articleId5', 'articleId6' ],
-  response: {
+  normalizedData: {
     entities: {
       articles: { 'articleId4': {}, 'articleId5': {}, 'articleId6': {} },
       authors: { 'authorId1': {}, 'authorId2': {}, 'authorId3': {} }
@@ -46,7 +46,7 @@ export const mockActions = {
     totalResults: 75,
     receivedAt: CURRENT_DATE,
     totalPages: 15,
-    response: {
+    normalizedData: {
       entities: {
         articles: { 'articleId1': {}, 'articleId2': {}, 'articleId3': {} },
         authors: { 'authorId1': {}, 'authorId2': {}, 'authorId3': {} }
