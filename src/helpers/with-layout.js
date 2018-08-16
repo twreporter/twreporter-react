@@ -39,7 +39,6 @@ class Layout extends React.PureComponent {
         </HeaderContainer>
         {this.props.children}
         <Footer
-          fontColor={theme.color.font}
           bgColor={theme.color.footerBg}
         />
       </Container>
