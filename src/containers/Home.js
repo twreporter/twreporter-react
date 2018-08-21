@@ -18,7 +18,7 @@ import get from 'lodash/get'
 import keys from 'lodash/keys'
 import set from 'lodash/set'
 
-const { CategorySection, EditorPicks, InforgraphicSection,
+const { CategorySection, DonationBoxSection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
   ReporterIntro,  ReviewsSection, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
@@ -84,9 +84,6 @@ const anchors = [
   }, {
     id: 'infographic',
     label: '多媒體'
-  }, {
-    id: 'aboutus',
-    label: '關於我們'
   }
 ]
 
@@ -271,6 +268,7 @@ class Homepage extends React.PureComponent {
           />
           <EditorPicks data={this.props[fieldNames.sections.editorPicksSection]} />
           {latestTopicJSX}
+          <DonationBoxSection />
           <ReviewsSection
             data={this.props[fieldNames.sections.reviewsSection]}
             moreURI={`categories/${categoryURI.reviews}`}
@@ -306,7 +304,6 @@ class Homepage extends React.PureComponent {
               moreURI={`categories/${categoryURI.infographic}`}
             />
           </Background>
-          <ReporterIntro />
         </SideBar>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />

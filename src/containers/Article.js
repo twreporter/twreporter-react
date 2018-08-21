@@ -13,6 +13,7 @@ import commonStyles from '../components/article/Common.scss'
 import constPropTypes from '../constants/prop-types'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
+import DonationBox from '../components/shared/DonationBox'
 import constPageThemes from '../constants/page-themes'
 import constStyledComponents from '../constants/styled-components'
 import styled from 'styled-components'
@@ -421,6 +422,7 @@ class Article extends PureComponent {
                   />
                 </div>
               </ArticleContainer>
+              <DonationBox />
               <License license={license} publishedDate={article.publishedDate}/>
               <constStyledComponents.ResponsiveContainerForAritclePage
                 size="small"
