@@ -1,5 +1,11 @@
 ### Unreleased
+### 3.1.0
 - Rename author related actions properties and add fetch-author-details
+- Debug: chrome devtools on Mac
+- Add new footer to our website
+- Add donation box to article pages
+- Upgrade `@twreporter/react-components` to 4.1.0
+- Add donation box section to homepage
 
 ### 3.0.14
 - [Bug] Prevent from changing original data object in section2 on about-us page
