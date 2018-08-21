@@ -1,4 +1,9 @@
 /*eslint no-unused-vars:0, no-console:0 */
+import { connect } from 'react-redux'
+import { SITE_NAME, SITE_META } from '../constants/index'
+import { storageUrlPrefix } from '../constants/static-file-prefix'
+import categoryString from '../constants/category-strings'
+import categoryURI from '../conf/category-uri'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
@@ -6,13 +11,9 @@ import IndexPageComposite from '@twreporter/react-components/lib/index-page'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
-import categoryString from '../constants/category-strings'
-import categoryURI from '../conf/category-uri'
+import sideBarFactory from '../components/side-bar/side-bar-factory'
 import styled, { keyframes } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import sideBarFactory from '../components/side-bar/side-bar-factory'
-import { SITE_NAME, SITE_META } from '../constants/index'
-import { connect } from 'react-redux'
 // lodash
 import get from 'lodash/get'
 import keys from 'lodash/keys'
@@ -96,7 +97,7 @@ const moduleBackgounds = {
   topic: '#f2f2f2',
   photography: '#08192d',
   infographic: '#f2f2f2',
-  donation: 'white'
+  footer: 'white'
 }
 
 const Container = styled.div`
@@ -307,7 +308,10 @@ class Homepage extends React.PureComponent {
         </SideBar>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
-        <Footer />
+        <Footer 
+          bgColor={moduleBackgounds.footer}
+          staticFilePrefix={storageUrlPrefix('footer')}
+        />
       </Container>
     )
   }
