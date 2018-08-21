@@ -1,9 +1,8 @@
-import { google } from '../conf/storage'
-import { replaceStorageUrlPrefix } from '../utils/url'
+import { SITE_META } from '../constants/site-meta'
 
 const IMAGES_FOLDER = 'images'
-const googleStorageURLTemplate = `${google.schema}://${google.hostname}/${google.bucket}/${IMAGES_FOLDER}/`
+const storageURLTemplate = `${SITE_META.URL_NO_SLASH}/${IMAGES_FOLDER}/`
 
 export function storageUrlPrefix(SUBFOLDER_OF_IMAGES) {
-  return replaceStorageUrlPrefix(`${googleStorageURLTemplate}${SUBFOLDER_OF_IMAGES}/`)
+  return `${storageURLTemplate}${SUBFOLDER_OF_IMAGES}/`
 }
