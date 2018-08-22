@@ -1,11 +1,12 @@
-import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/react-components/lib/header'
-import PropTypes from 'prop-types'
-import React from 'react'
+import { storageUrlPrefix } from '../constants/static-file-prefix'
 import constPageThemes from '../constants/page-themes'
 import constPropTypes from '../constants/prop-types'
+import Footer from '@twreporter/react-components/lib/footer'
+import Header from '@twreporter/react-components/lib/header'
 import hoistStatics from 'hoist-non-react-statics'
 import merge from 'lodash/merge'
+import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
 
 const  _  = {
@@ -39,7 +40,8 @@ class Layout extends React.PureComponent {
         </HeaderContainer>
         {this.props.children}
         <Footer
-          bgColor={theme.color.footerBg}
+          bgColor={constPageThemes.defaultTheme.color.footerBg}
+          staticFilePrefix={storageUrlPrefix('footer')}
         />
       </Container>
     )
