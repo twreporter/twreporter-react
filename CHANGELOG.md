@@ -1,4 +1,8 @@
 ### Unreleased
+### 3.1.1
+- Upgrade `@twreporter/react-components` to 4.1.1
+- Move static files of footer to gcs 
+
 ### 3.1.0
 - Rename author related actions properties and add fetch-author-details
 - Debug: chrome devtools on Mac
