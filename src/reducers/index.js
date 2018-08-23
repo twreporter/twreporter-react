@@ -5,10 +5,16 @@ import { articlesByAuthor } from './author-articles'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import * as types from '../constants/action-types'
+import get from 'lodash/get'
 import header from './header'
 import merge from 'lodash/merge'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
 import twreporterRedux from '@twreporter/redux'
+
+const _ = {
+  get,
+  merge
+}
 
 const { reducers } = twreporterRedux
 
@@ -44,8 +50,9 @@ const rootReducer = combineReducers({
   [reduxStatePropKey.authConfigure]: ConfigureReducer,
   [reduxStatePropKey.auth]: authReducer,
   [reduxStatePropKey.entitiesForAuthors]: (state = {}, action) => {
-    if (action.response && action.response.entities) {
-      return merge({}, state, action.response.entities)
+    const entities = _.get(action, 'normalizedData.entities')
+    if (entities) {
+      return _.merge({}, state, entities)
     }
     return state
   },
