@@ -1,4 +1,3 @@
-import { storageUrlPrefix } from '../constants/static-file-prefix'
 import constPageThemes from '../constants/page-themes'
 import constPropTypes from '../constants/prop-types'
 import Footer from '@twreporter/react-components/lib/footer'
@@ -41,7 +40,6 @@ class Layout extends React.PureComponent {
         {this.props.children}
         <Footer
           bgColor={constPageThemes.defaultTheme.color.footerBg}
-          staticFilePrefix={storageUrlPrefix('footer')}
         />
       </Container>
     )
