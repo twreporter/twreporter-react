@@ -1,7 +1,6 @@
 /*eslint no-unused-vars:0, no-console:0 */
 import { connect } from 'react-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
-import { storageUrlPrefix } from '../constants/static-file-prefix'
 import categoryString from '../constants/category-strings'
 import categoryURI from '../conf/category-uri'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
@@ -310,7 +309,6 @@ class Homepage extends React.PureComponent {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
         <Footer 
           bgColor={moduleBackgounds.footer}
-          staticFilePrefix={storageUrlPrefix('footer')}
         />
       </Container>
     )

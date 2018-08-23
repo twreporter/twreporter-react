@@ -1,4 +1,8 @@
 ### Unreleased
+### 3.1.2
+- Upgrade `@twreporter/react-components` to 4.1.2
+- [Bug] Fix background color of footer in article pages and remove static file path from props of Footer component
+
 ### 3.1.1
 - Upgrade `@twreporter/react-components` to 4.1.1
 - Move static files of footer to gcs 
