@@ -78,9 +78,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@twreporter/react-components@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.1.2.tgz#09efe45102d67bbc3048a5b17c1ee3dd01d5eb7c"
+"@twreporter/react-components@^4.1.3":
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-4.1.3.tgz#d6d274b2099d6fa9e9f3bcfbd7c03a3898ded0d1"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
