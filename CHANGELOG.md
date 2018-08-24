@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.1.3
+- Upgrade `@twreporter/react-components` to 4.1.3 to fix a bug which causes unexpected scrolling block in article pages
+
 ### 3.1.2
 - Upgrade `@twreporter/react-components` to 4.1.2
 - [Bug] Fix background color of footer in article pages and remove static file path from props of Footer component
