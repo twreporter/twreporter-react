@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.1.4
+- Modify data of section5 in about-us page
+
 ### 3.1.3
 - Upgrade `@twreporter/react-components` to 4.1.3 to fix a bug which causes unexpected scrolling block in article pages
 
