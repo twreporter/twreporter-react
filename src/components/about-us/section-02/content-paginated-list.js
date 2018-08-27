@@ -18,7 +18,7 @@ const _ = {
 }
 
 const numbersInOnePage = numbersInfullPage.mobile
-const categoriesAll = categories.media.concat(categories.fundation)
+const categoriesAll = categories.fundation.concat(categories.media)
 
 const Container = styled.div`
   position: relative;

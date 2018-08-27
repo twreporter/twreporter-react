@@ -21,7 +21,7 @@ const _ = {
   groupBy, find, values, keys, assign
 }
 
-const categoriesAll = categories.media.concat(categories.fundation)
+const categoriesAll = categories.fundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`

@@ -9,17 +9,17 @@ const media = [
     }
   },
   {
-    id: categoryIds.digital,
-    label: {
-      english: 'Digital Design and Development',
-      chinese: '數位部'
-    }
-  },
-  {
     id: categoryIds.photojournalist,
     label: {
       english: 'Photography Department',
       chinese: '攝影部'
+    }
+  },
+  {
+    id: categoryIds.digital,
+    label: {
+      english: 'Digital Design and Development',
+      chinese: '數位部'
     }
   }
 ]
@@ -35,6 +35,6 @@ const fundation = [
 ]
 
 export default {
-  media,
-  fundation
+  fundation,
+  media
 }
