@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
-import Link from 'react-router/lib/Link'
+import { SITE_META } from '../../../constants/site-meta'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -109,9 +109,9 @@ class Header extends React.PureComponent {
         isPanelOpen={this.props.isPanelOpen}
       >
         <TopRow>
-          <Link to="/">
+          <a href={SITE_META.URL}>
             <img src={logo}/>
-          </Link>
+          </a>
           <LanguageSwitcher>
             <span>
               <a href={'.'}>中</a>
