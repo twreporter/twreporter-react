@@ -175,6 +175,7 @@ export default class PaginatedMemberList extends PureComponent {
     window.addEventListener('resize', this._pageMaker)
   }
   componentWillUnmount() {
+    window.removeEventListener('resize', this._pageMaker)
     this.membersPageLengthArray = null
   }
   render() {
