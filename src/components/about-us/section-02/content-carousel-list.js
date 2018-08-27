@@ -227,7 +227,7 @@ export default class CarouselMemberList extends PureComponent {
     window.addEventListener('resize', this._membersPageMaker)
   }
   componentWillUnmount() {
-    this.memberList = null
+    window.removeEventListener('resize', this._membersPageMaker)
     this.membersPageLengthArray = null
     this.membersResidueArray = null
     this.membersNumInAFullPageArray = null
