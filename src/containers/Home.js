@@ -67,6 +67,9 @@ const anchors = [
     id: 'latestTopic',
     label: '最新專題'
   }, {
+    id: 'donation-box',
+    label: ''
+  },{
     id: 'review',
     label: '評論'
   }, {
