@@ -21,7 +21,7 @@ const _ = {
   groupBy, find, values, keys, assign
 }
 
-const categoriesAll = categories.media.concat(categories.fundation)
+const categoriesAll = categories.fundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`
@@ -227,7 +227,7 @@ export default class CarouselMemberList extends PureComponent {
     window.addEventListener('resize', this._membersPageMaker)
   }
   componentWillUnmount() {
-    this.memberList = null
+    window.removeEventListener('resize', this._membersPageMaker)
     this.membersPageLengthArray = null
     this.membersResidueArray = null
     this.membersNumInAFullPageArray = null
@@ -357,9 +357,7 @@ export default class CarouselMemberList extends PureComponent {
               changePage = {this._changePage.bind(null, categoryIndex)}
             />
           </StyledArrows>
-          <PageWrapper
-            innerRef={(node) => { this.pageWrapper = node }}
-          >
+          <PageWrapper>
             <MemberList
               innerRef={memberList => this.memberList[categoryIndex] = memberList}
               shiftx = {this._getShiftX(categoryIndex)}

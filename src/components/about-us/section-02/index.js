@@ -15,15 +15,15 @@ import mediaMembers from '../constants/section-02/media-members'
 import PaginatedMemberList from './content-paginated-list'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import values from 'lodash/values'
+import categories from '../constants/section-02/categories'
 
 const _ = {
-  groupBy, find, values, keys
+  groupBy, find, keys
 }
 
-const members = mediaMembers.concat(foundationMembers)
+const members = foundationMembers.concat(mediaMembers)
 const groupedMembers = _.groupBy( members, member => member.category )
-const membersNumberArray = _.values(groupedMembers).map((membersArray) => { return membersArray.length })
+const membersNumberArray = [ ...categories.fundation, ...categories.media ].map((category) => { return groupedMembers[category.id].length})
 
 const Container = styled.div`
   position: relative;
