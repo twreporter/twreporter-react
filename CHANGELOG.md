@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.1.6
+- [Bug] Fix the wrong sidebar waypoint position on homepage
+
 ### 3.1.5
 - [Bug] Fix bug which causes error when clicking logo on the header of about-us page
 - Changes the order of departments in section2 of about-us page
