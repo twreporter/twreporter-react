@@ -1,6 +1,6 @@
 
 import { colors } from '../../../themes/common-variables'
-import { foundationIntro, mediaIntro } from '../constants/section-02/org-intro'
+import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
@@ -98,48 +98,27 @@ const Title = styled.h1`
 
 const Intro = styled.div`
   display: block;
+  margin-top: 40px;
   p{
     font-size: 14px;
     line-height: 1.36;    
+    color: ${gray.lightgray};
   }
-  ${screen.overDesktop`
-    float: right;
-    transform: translateY(-100%);  
-  `}
   ${screen.desktopBelow`
-    float: left;
     font-size: 13px;
     line-height: 1.46;
-    color: ${gray.lightgray};
-    margin-top: 40px;
-  `}
-  ${screen.tabletBelow`
-    p:first-child{
-      margin-bottom: 1em;
-    }
   `}
   ${screen.tablet`
     p{
-      text-align: center;
       font-size: 12px;
-      line-height: 1.46;
     }
     margin-top: 25px;
   `}
   ${screen.mobile`
     float: none;
-  `}
-`
-
-const IntroOnOverDesktop = Intro.extend`
-  ${screen.desktopBelow`
-    display: none;
-  `}
-`
-
-const IntroOnDesktopBelow = Intro.extend `
-  ${screen.overDesktop`
-    display: none;
+    p{
+      margin-bottom: 1em;
+    }
   `}
 `
 
@@ -181,10 +160,6 @@ export default class Section2 extends PureComponent {
             <span>成員</span>
             <span>MEMBERS</span>
           </Title>
-          <IntroOnOverDesktop>
-            <p>{foundationIntro.chinese}</p>
-            <p>{mediaIntro.chinese}</p>
-          </IntroOnOverDesktop>
           <Content>
             <CarouselMemberList 
               membersNumberArray = {membersNumberArray}
@@ -197,10 +172,15 @@ export default class Section2 extends PureComponent {
               sendEmail = {this._sendEmail} 
             />              
           </Content>
-          <IntroOnDesktopBelow>
+          <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
-          </IntroOnDesktopBelow>
+            {
+              rules.chinese.map((rule, index) => {
+                return <p key={'rule' + index}>{rule}</p>
+              })
+            }
+          </Intro>
         </SectionWrapper>
       </Container>
     )

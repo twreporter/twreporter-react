@@ -1,41 +1,23 @@
-import { membersImg, foundationImg } from './member-img-src'
+import { membersImg } from './member-img-src'
 import { storageUrlPrefix } from '../../utils/config'
 import categoryIds from './category-ids'
 
-const memberUrlPrefix = `${storageUrlPrefix}/members/`
+const memberUrlPrefix = `${storageUrlPrefix}/member/`
 
 const members = [
   {
-    name: '何榮幸',
-    nameEng: 'Jung Shin Ho',
-    job: '總編輯',
-    jobEng: 'Editor in chief',
-    email: 'turtle@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditJungShinHo,
-    category: categoryIds.editor
-  },
-  {
     name: '李雪莉',
     nameEng: 'Sherry Lee',
-    job: '總主筆',
-    jobEng: 'Editorial Managing Director',
+    job: '總編輯',
+    jobEng: 'Editor in chief',
     email: 'sherry@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditSherryLee,
     category: categoryIds.editor
   },
   {
-    name: '方德琳',
-    nameEng: 'Nico Fang',
-    job: '副總編輯',
-    jobEng: 'Deputy Editor in Chief',
-    email: 'delin.fang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditNicoFang,
-    category: categoryIds.editor
-  },
-  {
     name: '楊惠君',
     nameEng: 'Hui Chun Yang',
-    job: '副總編輯',
+    job: '副總編輯兼採訪主任',
     jobEng: 'Deputy Editor in Chief',
     email: 'jill718@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditJillYang,
@@ -60,15 +42,6 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '鄭淑芬',
-    nameEng: 'Jennifer Cheng',
-    job: '行政經理',
-    jobEng: 'Administration Manager',
-    email: 'fenc@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditJenniferCheng,
-    category: categoryIds.editor
-  },
-  {
     name: '陳思樺',
     nameEng: 'Szu Hua Chen',
     job: '編輯',
@@ -78,14 +51,23 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '吳易真',
-    nameEng: 'Saffron Wu',
-    job: '執行經理',
-    jobEng: 'Executive Manager',
-    email: 'saffron@twreporter.org',
-    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
+    name: '房慧真',
+    nameEng: 'Michelle Fang',
+    job: '資深記者',
+    jobEng: 'Senior Journalist',
+    email: 'bluemiau@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditMichelleFang,
     category: categoryIds.editor
   },
+  {
+    name: '張子午',
+    nameEng: 'Tzewu Chang',
+    job: '資深記者',
+    jobEng: 'Senior Journalist',
+    email: 'tzewu@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditTzewuChang,
+    category: categoryIds.editor
+  }, 
   {
     name: '李法賢',
     nameEng: 'Nick Li',
@@ -177,24 +159,6 @@ const members = [
     category: categoryIds.digital
   },
   {
-    name: '張子午',
-    nameEng: 'Tzewu Chang',
-    job: '資深記者',
-    jobEng: 'Senior Journalist',
-    email: 'tzewu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditTzewuChang,
-    category: categoryIds.editor
-  },
-  {
-    name: '房慧真',
-    nameEng: 'Michelle Fang',
-    job: '資深記者',
-    jobEng: 'Senior Journalist',
-    email: 'bluemiau@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditMichelleFang,
-    category: categoryIds.editor
-  },
-  {
     name: '王立柔',
     nameEng: 'Rosa Wang',
     job: '記者',
@@ -237,6 +201,14 @@ const members = [
     jobEng: 'Journalist',
     email: 'williamkung13578@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditKungTeLien,
+    category: categoryIds.editor
+  },
+  {
+    name: '何榮幸',
+    nameEng: 'Jung Shin Ho',
+    job: '編輯部顧問',
+    email: 'turtle@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditJungShinHo,
     category: categoryIds.editor
   }
 ]

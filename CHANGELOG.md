@@ -1,4 +1,10 @@
 ### Unreleased
+### 3.1.8
+- Update a member picture in about-us page
+
+### 3.1.7
+- Update information in about-us page
+
 ### 3.1.6
 - [Bug] Fix the wrong sidebar waypoint position on homepage
 
