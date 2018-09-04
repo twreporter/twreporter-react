@@ -24,33 +24,6 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '張詩芸',
-    nameEng: 'Shih-Yun Chang',
-    job: '編輯主任',
-    jobEng: 'Managing Editor',
-    email: 'sychang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditShihYunChang,
-    category: categoryIds.editor
-  },
-  {
-    name: '王儀君',
-    nameEng: 'Sylvie Wang',
-    job: '資深編輯',
-    jobEng: 'Senior Editor',
-    email: 'sylviewang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditSylvieWang,
-    category: categoryIds.editor
-  },
-  {
-    name: '陳思樺',
-    nameEng: 'Szu Hua Chen',
-    job: '編輯',
-    jobEng: 'Editor',
-    email: 'shchen@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditSzuHuaChen,
-    category: categoryIds.editor
-  },
-  {
     name: '房慧真',
     nameEng: 'Michelle Fang',
     job: '資深記者',
@@ -80,7 +53,7 @@ const members = [
   {
     name: '余志偉',
     nameEng: 'Chih Wei Yu',
-    job: '攝影主任',
+    job: '攝影部主任',
     jobEng: 'Photo Department Director',
     email: 'shakingwave@twreporter.org',
     profile: memberUrlPrefix + membersImg.PhotoChihWeiYu,
@@ -159,15 +132,6 @@ const members = [
     category: categoryIds.digital
   },
   {
-    name: '王立柔',
-    nameEng: 'Rosa Wang',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'irosarian@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditRosaWang,
-    category: categoryIds.editor
-  },
-  {
     name: '葉瑜娟',
     nameEng: 'Yu Chuan Yeh',
     job: '記者',
@@ -201,6 +165,50 @@ const members = [
     jobEng: 'Journalist',
     email: 'williamkung13578@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditKungTeLien,
+    category: categoryIds.editor
+  },
+  {
+    name: '王立柔',
+    nameEng: 'Rosa Wang',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'irosarian@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditRosaWang,
+    category: categoryIds.editor
+  },
+  {
+    name: '林雨佑',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'limuiu@twreporter.org',
+    profile: memberUrlPrefix + membersImg.BlankFace,
+    category: categoryIds.editor
+  },
+  {
+    name: '張詩芸',
+    nameEng: 'Shih-Yun Chang',
+    job: '編輯部主任',
+    jobEng: 'Managing Editor',
+    email: 'sychang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditShihYunChang,
+    category: categoryIds.editor
+  },
+  {
+    name: '陳思樺',
+    nameEng: 'Szu Hua Chen',
+    job: '社群編輯',
+    jobEng: 'Editor',
+    email: 'shchen@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditSzuHuaChen,
+    category: categoryIds.editor
+  },
+  {
+    name: '王儀君',
+    nameEng: 'Sylvie Wang',
+    job: '資深編輯',
+    jobEng: 'Senior Editor',
+    email: 'sylviewang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditSylvieWang,
     category: categoryIds.editor
   },
   {
