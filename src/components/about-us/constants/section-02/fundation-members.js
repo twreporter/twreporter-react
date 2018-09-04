@@ -22,14 +22,6 @@ const members = [
     category: categoryIds.fundation
   },
   {
-    name: '李怡志',
-    nameEng: 'Richy Lee',
-    job: '董事',
-    jobEng: 'Executive Director',
-    profile: memberUrlPrefix + foundationImg.BlankFace,
-    category: categoryIds.fundation
-  },
-  {
     name: '林以涵',
     nameEng: 'Sunny Lin',
     job: '董事',
@@ -93,6 +85,14 @@ const members = [
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationShiaoWeiChu,
+    category: categoryIds.fundation
+  },
+  {
+    name: '李怡志',
+    nameEng: 'Richy Lee',
+    job: '董事',
+    jobEng: 'Executive Director',
+    profile: memberUrlPrefix + foundationImg.BlankFace,
     category: categoryIds.fundation
   },
   {
