@@ -176,8 +176,8 @@ export default class Section2 extends PureComponent {
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
             {
-              rules.chinese.map((rule) => {
-                return <p>{rule}</p>
+              rules.chinese.map((rule, index) => {
+                return <p key={'rule' + index}>{rule}</p>
               })
             }
           </Intro>

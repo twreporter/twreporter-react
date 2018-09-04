@@ -26,7 +26,7 @@ const members = [
     nameEng: 'Richy Lee',
     job: '董事',
     jobEng: 'Executive Director',
-    profile: memberUrlPrefix + foundationImg.foundationYiZhiLi,
+    profile: memberUrlPrefix + foundationImg.BlankFace,
     category: categoryIds.fundation
   },
   {
