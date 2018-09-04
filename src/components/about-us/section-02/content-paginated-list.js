@@ -84,8 +84,8 @@ const Profile = styled.div `
   display: table-cell; 
   vertical-align: middle; 
   text-align: left;
-  padding-right: 60px;
   p:first-child{
+    padding-right: 30%;
     font-size: 14px;
     letter-spacing: 1px;
   }
