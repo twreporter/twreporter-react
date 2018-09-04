@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.1.9
+- Change the order of members in about-us page
+
 ### 3.1.8
 - Update a member picture in about-us page
 
