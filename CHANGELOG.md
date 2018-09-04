@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.1.10
+- [Bug] Fix the wrong layout of section2 on small mobile devices in about-us page
+
 ### 3.1.9
 - Change the order of members in about-us page
 
