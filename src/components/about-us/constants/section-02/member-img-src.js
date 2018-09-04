@@ -25,7 +25,8 @@ export const membersImg = {
   EditYuChuanYeh: 'Edit-YuChuanYeh.png',
   PhotoChihWeiYu: 'Photo-ChihWeiYu.png',
   PhotoJamesonWu: 'Photo-JamesonWu.png',
-  PhotoYuEnLin: 'Photo-YuEnLin.png'
+  PhotoYuEnLin: 'Photo-YuEnLin.png',
+  BlankFace: 'blankface.png'
 }
 
 export const foundationImg = {
