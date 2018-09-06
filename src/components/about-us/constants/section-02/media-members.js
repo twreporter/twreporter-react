@@ -181,7 +181,7 @@ const members = [
     job: '記者',
     jobEng: 'Journalist',
     email: 'limuiu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.BlankFace,
+    profile: memberUrlPrefix + membersImg.EditUyo,
     category: categoryIds.editor
   },
   {

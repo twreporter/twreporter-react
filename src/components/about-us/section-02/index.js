@@ -101,12 +101,12 @@ const Intro = styled.div`
   margin-top: 40px;
   p{
     font-size: 14px;
-    line-height: 1.36;    
+    line-height: 1.6;
     color: ${gray.lightgray};
   }
   ${screen.desktopBelow`
-    font-size: 13px;
     line-height: 1.46;
+    font-size: 13px;
   `}
   ${screen.tablet`
     p{
