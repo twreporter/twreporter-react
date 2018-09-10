@@ -120,6 +120,7 @@ function renderLeadingMediaAssetOnDemand(position=constPageThemes.position.title
           title={_.get(video, 'title')}
           src={_.get(video, 'url')}
           poster={_.get(heroImage, 'resizedTargets.desktop.url')}
+          viewportHeight="auto"
         />
       </constStyledComponents.ResponsiveContainerForAritclePage>
     )
