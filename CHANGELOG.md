@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 3.1.13
+- Fix leadingimage height in article
+
 ### 3.1.12
 - Change member photo and modify line height of introduction words in about-us page section2
 - Update @twreporter/react-components to 4.1.4
