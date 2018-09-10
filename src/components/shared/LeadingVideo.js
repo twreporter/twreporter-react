@@ -12,15 +12,19 @@ const Container = styled.div`
   height: ${props => props.viewportHeight};
 `
 
-const Video = styled.video`
-  display: block;
-  width: 100%;
+const topicVideoStyle = `
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  height: 100%;
   object-fit: cover;
+  height: 100%;
+`
+
+const Video = styled.video`
+  display: block;
+  width: 100%;
+  ${props => props.topicLeadingVideo ? topicVideoStyle : ''}
 `
 
 const VideoMask = styled.div`
@@ -103,7 +107,7 @@ class LeadingVideo extends React.PureComponent {
   }
 
   render() {
-    const { filetype, loop, poster, src, title, viewportHeight } = this.props
+    const { filetype, loop, poster, src, title, viewportHeight, topicLeadingVideo } = this.props
     const { isMuted } = this.state
 
     // On the mobile devices (iOS 10 above),
@@ -130,6 +134,7 @@ class LeadingVideo extends React.PureComponent {
             autoPlay
             muted={isMuted}
             loop={loop}
+            topicLeadingVideo={topicLeadingVideo}
           >
             <source src={replaceStorageUrlPrefix(src)} type={filetype} />
           </Video>
@@ -155,7 +160,8 @@ LeadingVideo.propTypes = {
   poster: PropTypes.string,
   src: PropTypes.string,
   title: PropTypes.string,
-  viewportHeight: PropTypes.string
+  viewportHeight: PropTypes.string,
+  topicLeadingVideo: PropTypes.boolean
 }
 
 LeadingVideo.defaultProps = {
@@ -165,7 +171,8 @@ LeadingVideo.defaultProps = {
   poster: '',
   src: '',
   title: '',
-  viewportHeight: '100vh'
+  viewportHeight: '100vh',
+  topicLeadingVideo: false
 }
 
 export default LeadingVideo
