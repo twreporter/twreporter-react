@@ -13,6 +13,7 @@ import commonStyles from '../components/article/Common.scss'
 import constPropTypes from '../constants/prop-types'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
+import DonationBox from '../components/shared/DonationBox'
 import constPageThemes from '../constants/page-themes'
 import constStyledComponents from '../constants/styled-components'
 import styled from 'styled-components'
@@ -389,53 +390,54 @@ class Article extends PureComponent {
         />
         <div itemScope itemType="http://schema.org/Article">
           {isFetching ? <ArticlePlaceholder /> :
-              <React.Fragment>
-                <ReadingProgress ref={ele => this.rp = ele}/>
-                <ArticleContainer
-                  fontColor={theme.color.font}
-                  ref={div => {this.progressBegin = div}}
+            <React.Fragment>
+              <ReadingProgress ref={ele => this.rp = ele}/>
+              <ArticleContainer
+                fontColor={theme.color.font}
+                ref={div => {this.progressBegin = div}}
+              >
+                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+                  <meta itemProp="name" content="報導者" />
+                  <meta itemProp="email" content="contact@twreporter.org" />
+                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
+                  <link itemProp="url" href="https://www.twreporter.org/" />
+                </div>
+                <link itemProp="mainEntityOfPage" href={canonical} />
+                <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
+                {layoutJSX}
+                <div
+                  id="article-body"
+                  ref={node => this.articleBody = node}
                 >
-                  <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-                    <meta itemProp="name" content="報導者" />
-                    <meta itemProp="email" content="contact@twreporter.org" />
-                    <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-                    <link itemProp="url" href="https://www.twreporter.org/" />
-                  </div>
-                  <link itemProp="mainEntityOfPage" href={canonical} />
-                  <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
-                  {layoutJSX}
-                  <div
-                    id="article-body"
-                    ref={node => this.articleBody = node}
-                  >
-                    <IntroductionContainer>
-                      <Introduction
-                        data={introData}
-                        fontSize={fontSize}
-                      />
-                    </IntroductionContainer>
-                    <Body
-                      data={bodyData}
+                  <IntroductionContainer>
+                    <Introduction
+                      data={introData}
                       fontSize={fontSize}
-                      articleStyle={articleStyle}
                     />
-                  </div>
-                </ArticleContainer>
-                <License license={license} publishedDate={article.publishedDate}/>
-                <constStyledComponents.ResponsiveContainerForAritclePage
-                  size="small"
-                >
-                  <BottomTags
-                    data={article.tags}
+                  </IntroductionContainer>
+                  <Body
+                    data={bodyData}
+                    fontSize={fontSize}
+                    articleStyle={articleStyle}
                   />
-                  <BottomRelateds
-                    relateds={relateds}
-                    currentId={article.id}
-                    topicName={topicName}
-                    topicArr={topicArr}
-                  />
-                </constStyledComponents.ResponsiveContainerForAritclePage>
-              </React.Fragment>
+                </div>
+              </ArticleContainer>
+              <DonationBox />
+              <License license={license} publishedDate={article.publishedDate}/>
+              <constStyledComponents.ResponsiveContainerForAritclePage
+                size="small"
+              >
+                <BottomTags
+                  data={article.tags}
+                />
+                <BottomRelateds
+                  relateds={relateds}
+                  currentId={article.id}
+                  topicName={topicName}
+                  topicArr={topicArr}
+                />
+              </constStyledComponents.ResponsiveContainerForAritclePage>
+            </React.Fragment>
           }
           <div className="hidden-print">
             <ArticleTools

@@ -13,7 +13,6 @@ function theNormalize(hits) {
   return normalize(camelizedJson, new schema.Array(authorSchema))
 }
 
-
 const mockResponseHits = [ '1', '2', '3', '4', '5' ].map(function (v) {
   return {
     _id: 'id_' + v,
@@ -24,8 +23,6 @@ const mockResponseHits = [ '1', '2', '3', '4', '5' ].map(function (v) {
     _highlightResult: []
   }
 })
-
-// console.log(theNormalize(mockResponseHits).entities.authors.id_1)
 
 const singleAuthorHits = [
   {
@@ -51,11 +48,9 @@ export const mockActionsSet = {
   [types.SEARCH_AUTHORS_SUCCESS]: {
     type: types.SEARCH_AUTHORS_SUCCESS,
     keywords: MOCK_KEYWORDS,
-    response: {
-      ...theNormalize(singleAuthorHits),
-      totalPages: 1,
-      currentPage: 0
-    },
+    normalizedData: theNormalize(singleAuthorHits),
+    totalPages: 1,
+    currentPage: 0,
     receivedAt: CURRENT_DATE
   },
 
@@ -73,11 +68,9 @@ export const mockActionsSet = {
   [types.LIST_ALL_AUTHORS_SUCCESS]: {
     type: types.LIST_ALL_AUTHORS_SUCCESS,
     keywords: '',
-    response: {
-      ...theNormalize(mockResponseHits),
-      totalPages: 8,
-      currentPage: 0
-    },
+    normalizedData: theNormalize(mockResponseHits),
+    totalPages: 8,
+    currentPage: 0,
     receivedAt: CURRENT_DATE
   },
 
@@ -136,7 +129,7 @@ export const mockStatesSet = {
   }
 }
 
-  // search specific author
+// search specific author
 export const searchedMockStatesSet = {
   initialState: {
     keywords: '',

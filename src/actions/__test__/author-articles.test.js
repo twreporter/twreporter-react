@@ -62,7 +62,7 @@ describe('Atuhor Action Testing', function () {
 
   it('API server response Error directly: web status code is greater than 400', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .reply(404, mockResponse)
 
@@ -75,7 +75,7 @@ describe('Atuhor Action Testing', function () {
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_SUCCESS', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .reply(200, mockResponse)
 
@@ -92,7 +92,7 @@ describe('Atuhor Action Testing', function () {
           },
           {
             type: types.FETCH_AUTHOR_COLLECTION_SUCCESS,
-            response: items,
+            normalizedData: items,
             authorId,
             currentPage: 0,
             totalPages: 28,
@@ -104,7 +104,7 @@ describe('Atuhor Action Testing', function () {
         expect(actionSuc).to.contain.all.keys(expectedActions[1])
         expect(expectedActions[1]).to.contain.all.keys(actionSuc)
         expect(actionSuc.type).to.deep.equal(expectedActions[1].type)
-        expect(actionSuc.response).to.deep.equal(expectedActions[1].response)
+        expect(actionSuc.normalizedData).to.deep.equal(expectedActions[1].normalizedData)
         expect(actionSuc.authorId).to.deep.equal(expectedActions[1].authorId)
         expect(actionSuc.currentPage).to.deep.equal(expectedActions[1].currentPage)
         expect(actionSuc.totalPages).to.deep.equal(expectedActions[1].totalPages)
@@ -116,7 +116,7 @@ describe('Atuhor Action Testing', function () {
 
   it('The Actions: FETCH_AUTHOR_COLLECTION_REQUEST && FETCH_AUTHOR_COLLECTION_FAILURE', function () {
     nock('http://localhost:8080/')
-      .get(`/v1/search/posts`)
+      .get('/v1/search/posts')
       .query(searchParas)
       .replyWithError('this is error message')
 

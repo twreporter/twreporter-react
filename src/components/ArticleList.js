@@ -233,7 +233,7 @@ export default class ListArticleItem extends React.PureComponent {
               </More>
             </div>
           )
-          : null
+            : null
         }
       </section>
     )

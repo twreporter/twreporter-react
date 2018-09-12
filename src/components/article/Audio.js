@@ -185,31 +185,31 @@ class Audio extends React.Component {
     // render Audio without cover photo
     let btRadius = 24
     return (
-        <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
-          { isEmpty(coverPhoto) ? null : <Image
-            content = { [ coverPhoto ] }
-            toShowCaption={false}
-          /> }
-          <Slider
-            tipFormatter={null}
-            onChange={this.handleSeekChange}
-            value={seek}
-            max={duration}
-          />
-          <div className={classNames(styles['audio-info-container'], styles['without-cp'])}>
-            <div className={styles['progress-bt']}>
-              { isPlaying ? <PauseIcon onClick={this.handleToggle}/> : <PlayIcon onClick={this.handleToggle} /> }
-              <span className={styles['audio-time-block']}>{getMinSecStr(seek)} / {getMinSecStr(duration)}</span>
-            </div>
-            <div style={{ display: 'table-cell' }}>
-              <h4>{title}</h4>
-            </div>
-            <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
+      <div className={classNames(styles['audio-container'], { [styles['mobile']]: device === 'mobile' ? true : false })}>
+        { isEmpty(coverPhoto) ? null : <Image
+          content = { [ coverPhoto ] }
+          toShowCaption={false}
+        /> }
+        <Slider
+          tipFormatter={null}
+          onChange={this.handleSeekChange}
+          value={seek}
+          max={duration}
+        />
+        <div className={classNames(styles['audio-info-container'], styles['without-cp'])}>
+          <div className={styles['progress-bt']}>
+            { isPlaying ? <PauseIcon onClick={this.handleToggle}/> : <PlayIcon onClick={this.handleToggle} /> }
+            <span className={styles['audio-time-block']}>{getMinSecStr(seek)} / {getMinSecStr(duration)}</span>
           </div>
-          { player }
-          { microData }
+          <div style={{ display: 'table-cell' }}>
+            <h4>{title}</h4>
+          </div>
+          <div className={styles['html']} dangerouslySetInnerHTML={{ __html: description }} style={{ marginTop: '16px' }}/>
         </div>
-      )
+        { player }
+        { microData }
+      </div>
+    )
   }
 }
 
