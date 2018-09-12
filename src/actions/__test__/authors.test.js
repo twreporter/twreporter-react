@@ -33,7 +33,9 @@ function checker({ mockDefaultState, keywords, mockResponse, typeReq, typeSuc })
         {
           type: typeSuc,
           keywords,
-          response: mockResponse,
+          normalizedData: mockResponse.normalizedData,
+          totalPages: mockResponse.totalPages,
+          currentPage: mockResponse.currentPage,
           receivedAt: currentDate
         }
       ]
@@ -43,7 +45,7 @@ function checker({ mockDefaultState, keywords, mockResponse, typeReq, typeSuc })
       expect(expectedActions[1]).to.contain.all.keys(actionSuc)
       expect(actionSuc.type).to.deep.equal(expectedActions[1].type)
       expect(actionSuc.keywords).to.deep.equal(expectedActions[1].keywords)
-      expect(actionSuc.response).to.deep.equal(expectedActions[1].response)
+      expect(actionSuc.normalizedData).to.deep.equal(expectedActions[1].normalizedData)
       expect(actionSuc.receivedAt).to.be.an('number')
     })
 }
@@ -228,7 +230,7 @@ describe('Two main situations in authors.js file: 1) Keywords is null and list a
       const mockDefaultState = mockDefaultStates.initialState
       const searchParas = { ...mockSearchParasSet.keyNullSearchParas, page: NUMBER_OF_FIRST_RESPONSE_PAGE }
       nock('http://localhost:8080')
-        .get(`/v1/search/authors`)
+        .get('/v1/search/authors')
         .query(searchParas)
         .reply(404)
 

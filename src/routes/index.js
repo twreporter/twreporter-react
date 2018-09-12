@@ -6,6 +6,7 @@ import IndexRoute from 'react-router/lib/IndexRoute'
 import React from 'react'
 import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
+import FallbackPage from '../containers/ServiceWorkerFallbackPage'
 import browserHistory from 'react-router/lib/browserHistory'
 
 function loadRoute(cb) {
@@ -49,6 +50,7 @@ export default function createRoutes(history = browserHistory) {
             ).then(loadRoute(cb)).catch(errorLoading)
           }}
         />
+        <Route path="/sw-fallback-page" component={FallbackPage}/>
         <Route
           path="/topics/:slug"
           getComponent={(location, cb) => {
@@ -136,6 +138,15 @@ export default function createRoutes(history = browserHistory) {
               '../containers/AuthorsList'
             ).then(loadRoute(cb)).catch(errorLoading)
           }} />
+        <Route
+          path="about-us"
+          getComponent={(location, cb) => {
+            import(
+              /* webpackChunkName: "about-us" */
+              '../components/about-us'
+            ).then(loadRoute(cb)).catch(errorLoading)
+          }}
+        />
         <Route
           path={ACTIVATE_PAGE_PATH}
           getComponent={(location, cb) => {

@@ -6,6 +6,7 @@
 New Media foundation in Taiwan.
 
 # Contains
+- [x] [PWA](https://developers.google.com/web/progressive-web-apps/)
 - [x] [Webpack](https://webpack.github.io)
 - [x] [Babel](https://babeljs.io/)
 - [x] [React](https://facebook.github.io/react/)
@@ -16,16 +17,16 @@ New Media foundation in Taiwan.
 - [x] Code splitting
 
 # Environment
-  Install node(https://nodejs.org/en/) @7.9.0 above.
+Install node(https://nodejs.org/en/) @7.9.0 above.
 
 # Installation
 `yarn install`
 
 # Production start
-`npm run start`
+`make start`
 
 # Development start
-`npm run dev`
+`make dev`
 
 # Build docker image
 ```
@@ -33,12 +34,29 @@ New Media foundation in Taiwan.
 yarn install
 
 // build the webpack bundles and transpile es6 to es5
-npm run build
+make build
 
 // build docker image
 docker build -t twreporter-react:latest .
 ```
 
+# Testing
+
+Run unit tests
+
+```
+make test
+```
+
+Run ui-test (It will take some time to compare screenshots)
+
+```
+// start dev servers for ui-test
+make dev
+// run ui-test
+make ui-test
+```
+
 # License
-* Copyright (C) 2015 - 2016 The Reporter 報導者. All rights reserved.
+* Copyright (C) 2015 - 2018 The Reporter 報導者. All rights reserved.
 * Distributed under the GNU AGPL v3.0

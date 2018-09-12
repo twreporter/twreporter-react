@@ -32,6 +32,7 @@ const Container = styled.div`
     width: ${layout.desktop.width.small}px;
   `}
   ${screen.tablet`
+    margin: 24px auto;
     width: ${layout.tablet.width.small}px;
   `}
   ${screen.mobile`

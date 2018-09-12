@@ -40,8 +40,8 @@ export const searchedAuthorsList = (state = initSearchedAuthorsListStates, actio
       return _.assign({}, state, {
         keywords,
         isFetching: false,
-        currentPage: _.get(action, 'response.currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
-        items: _.get(action, 'response.result', []),
+        currentPage: _.get(action, 'currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
+        items: _.get(action, 'normalizedData.result', []),
         error: null,
         lastUpdated: action.receivedAt
       })
@@ -72,11 +72,11 @@ export const authorsList = (state = initAuthorsListStates, action = {}) => {
       return _.assign({}, state, {
         isFetching: true
       })
-    case types.LIST_ALL_AUTHORS_SUCCESS:
-      const currentPage = _.get(action, 'response.currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
-      const totalPages = _.get(action, 'response.totalPages', 0)
+    case types.LIST_ALL_AUTHORS_SUCCESS: {
+      const currentPage = _.get(action, 'currentPage', NUMBER_OF_FIRST_RESPONSE_PAGE - 1)
+      const totalPages = _.get(action, 'totalPages', 0)
       const previousAuthorsInList = _.get(state, 'items', [])
-      const nextAuthorsInList = previousAuthorsInList.concat(_.get(action, 'response.result', []))  // Concat array if list all
+      const nextAuthorsInList = previousAuthorsInList.concat(_.get(action, 'normalizedData.result', []))  // Concat array if list all
       return _.assign({}, state, {
         isFetching: false,
         currentPage,
@@ -85,6 +85,7 @@ export const authorsList = (state = initAuthorsListStates, action = {}) => {
         error: null,
         lastUpdated: action.receivedAt
       })
+    }
     case types.LIST_ALL_AUTHORS_FAILURE:
       return _.assign({}, state, {
         isFetching: false,

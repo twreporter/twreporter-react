@@ -17,5 +17,7 @@ export default {
   articlesByAuthor: 'articlesByAuthor',
   authConfigure: 'authConfigure',
   auth: 'auth',
-  entitiesForAuthors: 'entitiesForAuthors'
+  entitiesForAuthors: 'entitiesForAuthors',
+  // time stamp for next popup
+  nextNotifyPopupTS: 'nextNotifyPopupTS'
 }

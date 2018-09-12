@@ -60,19 +60,19 @@ class Activation extends React.PureComponent {
     return (
       <PageContainer>
         <div>
-        {
-        this.state.authError ?
-        null
-        :
-          <StyledCSSTransitionGroup
-            transitionName="spinner"
-            transitionEnter={false}
-            transitionLeaveTimeout={2000}
-          >
-            <LoadingCover key="loader">
-              <LoadingSpinner alt="首頁載入中" />
-            </LoadingCover>
-          </StyledCSSTransitionGroup>
+          {
+            this.state.authError ?
+              null
+              :
+              <StyledCSSTransitionGroup
+                transitionName="spinner"
+                transitionEnter={false}
+                transitionLeaveTimeout={2000}
+              >
+                <LoadingCover key="loader">
+                  <LoadingSpinner alt="首頁載入中" />
+                </LoadingCover>
+              </StyledCSSTransitionGroup>
           }
           <ActivePage
             destination={destination}

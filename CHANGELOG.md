@@ -1,11 +1,170 @@
 ### Unreleased
 
+### 3.1.13
+- Fix leadingimage height in article
+
+### 3.1.12
+- Change member photo and modify line height of introduction words in about-us page section2
+- Update @twreporter/react-components to 4.1.4
+
+### 3.1.11
+- Change the order of member list in about-us page
+
+### 3.1.10
+- [Bug] Fix the wrong layout of section2 on small mobile devices in about-us page
+
+### 3.1.9
+- Change the order of members in about-us page
+
+### 3.1.8
+- Update a member picture in about-us page
+
+### 3.1.7
+- Update information in about-us page
+
+### 3.1.6
+- [Bug] Fix the wrong sidebar waypoint position on homepage
+
+### 3.1.5
+- [Bug] Fix bug which causes error when clicking logo on the header of about-us page
+- Changes the order of departments in section2 of about-us page
+
+### 3.1.4
+- Modify data of section5 in about-us page
+
+### 3.1.3
+- Upgrade `@twreporter/react-components` to 4.1.3 to fix a bug which causes unexpected scrolling block in article pages
+
+### 3.1.2
+- Upgrade `@twreporter/react-components` to 4.1.2
+- [Bug] Fix background color of footer in article pages and remove static file path from props of Footer component
+
+### 3.1.1
+- Upgrade `@twreporter/react-components` to 4.1.1
+- Move static files of footer to gcs 
+
+### 3.1.0
+- Rename author related actions properties and add fetch-author-details
+- Debug: chrome devtools on Mac
+- Add new footer to our website
+- Add donation box to article pages
+- Upgrade `@twreporter/react-components` to 4.1.0
+- Add donation box section to homepage
+
+### 3.0.14
+- [Bug] Prevent from changing original data object in section2 on about-us page
+
+### 3.0.13
+- Change media query breakpoint of overDesktop on about-us page
+- Refine the `Navigation` component to be reused by others on about-us page
+- In section5 timeline component, update the transitionY attribute directly instead of setState on about-us page
+- Remove device constants in section2 on about-us page
+- [Bug] Fix pagination bug in section3 on about-us page
+- Section5 waypoint trigger point tunning on about-us page
+- Fix section2 on about-us page for small devices (e.g. iphone5)
+- Move out Border component of each section for one time declaration on about-us page
+- Setting inital width for logo blocks in section4 on about-us page
+- Add new member to section2 on about-us page
+
+### 3.0.12
+- Bump the versions of `mocha`, `node-sass`, `nodemon`, and `sass-loader` to prevent vulnerabilities
+- remove unused gulp and package-lock.json
+- Change leading video and topic to styled-components
+- Refactor the structure of topic page
+- Fix that Banner height not fits with viewport height
+- Update React-Loadable and EmbeddedCode
+- Bump `eslint` to "4.x", `babel-eslint` to "8"
+- Fix babel plugin order causing ssr error and modify .babelrc to make it more readible
+
+### 3.0.11
+- fix(ui print): workaround to fix image overlaying on text while printing
+
+### 3.0.10
+- [Bug] Adjust window height of pop-up-panel dynamically on about-us page
+- [Bug] Fix the wrong positioned logo in section4 on about-us page
+
+### 3.0.9
+- Prevent window from scrolling when an overlay modal opens up on about-us page
+- Add a new member to section2 on about-us page
+- Setting the height of opening section to auto instead of height: 100vh
+
+### 3.0.8
+- [Bug] Fixed some bugs of section5 on about-us page
+- Add meta-data to about-us page
+- [Bug] Prevent body from scrolling when a fullscreen modal is opened on about-us page
+- [Bug] Add onResize eventListener to section2 on about-us page
+- [Bug] Section5 trigger point tunning on about-us page
+
+### 3.0.7
+- Update config.yml. Use file to store local env variables
+- Update config.yml. Parse currentMasterVersion instead
+- Upgrade `@twreporter/react-components` to 4.0.11
+
+### 3.0.6
+- About-us page tunning
+- Fix circleci build failing. Install the corresponding kubectl pkg
+- Update README.md. Add PWA in #Contains
+
+### 3.0.5
+- Add about-us page
+
+### 3.0.4
+- Restore web push subscription service.
+
+### 3.0.3
+- Temporarily stop web push subscription service. 
+
+### 3.0.2
+- Improve the service worker boilerplate. Update src/client.js 
+- [Bug] Fix venngage infographic vendor not rendering iframe
+- Forces the waiting service worker to become the active service worker
+
+### 3.0.1
+- [HotFix] Update src/containers/App.js. Fix typo.
+
+### 3.0.0
+#### Features
+**Progressive Web App(PWA) Implementation** <br/>
+- [x] Connectivity independent - work offline or on low-quality networks
+- [x] Installable - Allows users to add apps they find most useful to their home screen without the hassle of an app store.
+- [x] Re-engageable - Makes re-engagement easy through features like push notifications.
+
+Generate service worker file by template(service-worker/service-worker.tmpl), and generated file is hosted on `/sw.js` by express server.<br/>
+The generated service worker file will do the following things:
+1) Cache static files, such as webpack bundles, while installing service worker.
+2) Delete old cache while activating service worker. Every time the webpack-assets.json changes, the service worker will delete old cached webpack bundles.
+3) Intercept the fetch event listener. Service worker will cache the HTTP responses it needs and return HTTP cached response if needed. 
+4) Handle web push notification and the corresponding behaviors after clicking the notification.
+
+Update `src/clients`, which is the entry of webpack bundles.
+Register service worker at first, and subscribe the web push if the browser could.
+
+#### Patches
+
+### 2.7.8
+- Update @twreporter/react-components from 4.0.9 to 4.0.10
+
+### 2.7.7
+- Update @twreporter/react-components from 4.0.7 to 4.0.9
+
+### 2.7.6
+- Introduces screenshot testing only before commiting files.
+- Adds some space between channel bar and title in article page on tablet.
+- [Bug] Removes the test of checking if groundtruth and screenshot images have same height.
+- Update @twreporter/react-components from 4.0.5 to 4.0.7
+
+### 2.7.5
+- Use Makefile to replace npm scripts
+- RELEASE_BRACH variable re-define. Its value could be master, staging, release and preview.
+- Adopt `localforage` which is a fast and simple storage library for JavaScript.<br/>
+localForage improves the offline experience of your web app by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
+
 ### 2.7.4
 - Update embedded component to pack dataset before adding it to element.attributes
 - Create a mock go-api server to serve mock data in development environment by running npm script `npm run start-testing-server`. 
 
 ### 2.7.3
-- [BUG] Fix sidebar bug: the last paragraph in the post with longform style disapears
+- [Bug] Fix sidebar bug: the last paragraph in the post with longform style disapears
 
 ### 2.7.2
 - [Bug] Author page and author list page have abnormal behavior after using localStorage data.

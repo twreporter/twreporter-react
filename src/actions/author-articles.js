@@ -35,17 +35,25 @@ export function failToReceiveAuthorCollection(authorId, error) {
   }
 }
 
-export function receiveAuthorCollection({ authorId, items, responseContext }) {
-  return {
-    type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
-    authorId,
-    response: items, // responseObject.hit
-    currentPage: _.get(responseContext, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
-    totalPages: _.get(responseContext, 'nbPages', 0),
-    totalResults: _.get(responseContext, 'nbHits', 0),
-    receivedAt: Date.now()
-  }
-}
+/**
+ * NormalizedData
+ * @typedef {Object} NormalizedData
+ * @property {Object} entities - flatten entity objects
+ * @property {string[]} result - an array of top entity ids
+ */
+
+/**
+ * ReceiveAuthorCollectionAction
+ * 
+ * @typedef {Object} ReceiveAuthorCollectionAction
+ * @property {string} type - CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS
+ * @property {string} authorId
+ * @property {NormalizedData} normalizedData
+ * @property {number} currentPage
+ * @property {number} totalPages
+ * @property {number} totalResults
+ * @property {number} receivedAt
+ */
 
 export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
   return (dispatch, getState) => { // eslint-disable-line no-unused-vars
@@ -55,8 +63,8 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
       page: targetPage
     }
     // Trans searchParas object to url parameters:
-    let urlParasString = qs.stringify(searchParas)
-    let url = formAPIURL(`search/posts?${urlParasString}`, false)
+    const urlParasString = qs.stringify(searchParas)
+    const url = formAPIURL(`search/posts?${urlParasString}`, false)
     dispatch(requestAuthorCollection(authorId))
     // Call our API server to fetch the data
     return fetch(url)
@@ -69,27 +77,24 @@ export function fetchAuthorCollection({ targetPage, authorId, returnDelay }) {
       .then(
         (responseObject) => {
           const responseItems = _.get(responseObject, 'hits', {})    // responseObject.hit
-          const responseContext = _.omit(responseObject, 'hits', {}) // All the other things in responseObject except responseObject.hit
-          const camelizedJson = camelizeKeys(responseItems)
-          const items = normalize(camelizedJson, new schema.Array(articleSchema))
-          const returnParas = { authorId, items, responseContext }
+          const receiveAuthorCollectionAction = {
+            type: CONSTANTS.FETCH_AUTHOR_COLLECTION_SUCCESS,
+            authorId,
+            normalizedData: normalize(camelizeKeys(responseItems), new schema.Array(articleSchema)),
+            currentPage: _.get(responseObject, 'page', NUMBER_OF_FIRST_RESPONSE_PAGE - 1),
+            totalPages: _.get(responseObject, 'nbPages', 0),
+            totalResults: _.get(responseObject, 'nbHits', 0),
+            receivedAt: Date.now()
+          }
           // delay for displaying loading spinner
-          function delayDispatch() {
-            return new Promise((resolve, reject)=> { // eslint-disable-line no-unused-vars
-              setTimeout(() => {
-                resolve()
-              }, returnDelay)
-            })
-          }
           if (returnDelay > 0) {
-            return delayDispatch().then(()=>{
-              return dispatch(receiveAuthorCollection(returnParas))
+            return new Promise(function (resolve) {
+              setTimeout(function () { resolve(dispatch(receiveAuthorCollectionAction)) }, returnDelay)
             })
           }
-          return dispatch(receiveAuthorCollection(returnParas))
-        },
-      (error) => dispatch(failToReceiveAuthorCollection(authorId, error))
-    )
+          return dispatch(receiveAuthorCollectionAction)
+        })
+      .catch(error => dispatch(failToReceiveAuthorCollection(authorId, error)))
   }
 }
 

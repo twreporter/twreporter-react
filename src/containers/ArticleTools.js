@@ -122,7 +122,7 @@ function mapStateToProps(state) {
     title: _.get(post, 'title', ''),
     desc: _.get(post, 'og_description', ''),
     thumbnail: _.get(post, 'hero_image.resized_targets.mobile.url') || _.get(post, 'og_image.resized_targets.mobile.url', ''),
-    category: _.get(post, `categories[0].name`, ''),
+    category: _.get(post, 'categories[0].name', ''),
     published_date: _.get(post, 'published_date', ''),
     topicSlug: _.get(topic, 'slug', ''),
     topicTitle: _.get(topic, 'title', '')

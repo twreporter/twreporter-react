@@ -35,9 +35,9 @@ export function addStyledWrapperDecorator(WrappedComponent, wrappertStyles) {
     static displayName = `wrapWithStyledDiv(${getWrappedComponetDisplayName(WrappedComponent)})`
     render() {
       return (
-      <div style={wrappertStyles}>
-        <WrappedComponent {...this.props} />
-      </div>)
+        <div style={wrappertStyles}>
+          <WrappedComponent {...this.props} />
+        </div>)
     }
   }
 }
