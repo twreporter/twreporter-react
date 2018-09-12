@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 3.1.14
+- Fix scroll lock bug on android and remove extra border of topic
+
 ### 3.1.13
 - Fix leadingimage height in article
 

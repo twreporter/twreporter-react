@@ -33,7 +33,6 @@ const cardsFactory = new CardsFactory()
 
 const Container = styled.div`
   position: relative;
-  border: 1px solid black;
 `
 
 class TopicLandingPage extends Component {
