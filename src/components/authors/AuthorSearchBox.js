@@ -51,7 +51,7 @@ class AuthorSearchBox extends React.Component {
     return this.props.changeListTo('searchedAuthorsList')
   }
 
-// Clear the search input and state and send blank search when click reset
+  // Clear the search input and state and send blank search when click reset
   _handleClickReset(event) {
     event.preventDefault()
     this.setState(this.initialState)

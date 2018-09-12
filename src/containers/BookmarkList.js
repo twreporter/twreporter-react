@@ -135,15 +135,15 @@ class BookmarkList extends React.Component {
         >
           { this.state.showConfirmation
             ?
-              <Confirmation
-                onCancel={this.onCancel}
-                onConfirm={this.onConfirm}
-                content={DIALOG_CONTENT}
-                confirm={DIALOG_CONFIRM}
-                cancel={DIALOG_CANCEL}
-              />
+            <Confirmation
+              onCancel={this.onCancel}
+              onConfirm={this.onConfirm}
+              content={DIALOG_CONTENT}
+              confirm={DIALOG_CONFIRM}
+              cancel={DIALOG_CANCEL}
+            />
             :
-              null
+            null
           }
         </CSSTransitionGroup>
       </div>

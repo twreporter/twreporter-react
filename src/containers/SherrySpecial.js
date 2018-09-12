@@ -51,7 +51,7 @@ const params = { slug: customizedPathSet.HIGH_RISK_YOUTH }
 class SherrySpecial extends Article {
   static fetchData(props) {
     const { store, pathname } = props
-    const regexp = /[^\/]+(?=\/$|$)/
+    const regexp = /[^\/]+(?=\/$|$)/ // eslint-disable-line no-useless-escape
     const slug = _.get(pathname.match(regexp), 0, '')
     const localProps = {
       store,
@@ -78,15 +78,15 @@ class SherrySpecial extends Article {
         />
         {
           IF_DELEGATE_IMAGE ?
-          <ZoomInImage
-            theme={theme}
-            entities={entities}
-            params={params}
-            pathname={originalPathname}
-            totalDelay={fadeText.duration.textInOut * textArr.length + fadeText.duration.bgOut}
-            imageDuration={zoomInImage.duration.imageZommIn}
-            textDuration={zoomInImage.duration.textIn}
-          /> : null
+            <ZoomInImage
+              theme={theme}
+              entities={entities}
+              params={params}
+              pathname={originalPathname}
+              totalDelay={fadeText.duration.textInOut * textArr.length + fadeText.duration.bgOut}
+              imageDuration={zoomInImage.duration.imageZommIn}
+              textDuration={zoomInImage.duration.textIn}
+            /> : null
         }
         {super.render()}
       </div>

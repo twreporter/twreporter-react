@@ -12,9 +12,10 @@ const webpackDevServerPort = config.webpackDevServerPort
 const webpackPublicPath = config.webpackPublicPath
 const webpackOutputFilename = config.webpackOutputFilename
 
-const defaulAssets = {
+const webpackAssets =  {
   javascripts: {
-    chunks: []
+    chunks: [],
+    main: ''
   },
   stylesheets: []
 }
@@ -27,21 +28,15 @@ function BundleListPlugin(options) {}
 // into webpack-assets.json
 BundleListPlugin.prototype.apply = function(compiler) {
   compiler.plugin('emit', function(compilation, callback) {
-    let assets
-    try {
-      assets = require('./webpack-assets.json')
-    } catch (e) {
-      assets = defaulAssets
-    }
     for (const filename in compilation.assets) {
       if (filename.startsWith('main')) {
-        assets.javascripts.main = `/dist/${filename}`
+        webpackAssets.javascripts.main = `${webpackPublicPath}${filename}`
       } else if (filename.indexOf('-chunk-') > -1) {
-        assets.javascripts.chunks.push(`/dist/${filename}`)
+        webpackAssets.javascripts.chunks.push(`${webpackPublicPath}${filename}`)
       }
     }
 
-    fs.writeFileSync('./webpack-assets.json', JSON.stringify(assets))
+    fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
     callback();
   });
 };
@@ -146,16 +141,6 @@ const webpackConfig = {
             }
           }
         ]
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            mimetype: 'image/svg+xml'
-          }
-        }]
       }
     ]
   },
@@ -186,14 +171,8 @@ if (isProduction) {
       // write css filenames into webpack-assets.json
       filename: function(getPath) {
         const filename = getPath('[chunkhash].[name].css')
-        let assets
-        try {
-          assets = require('./webpack-assets.json')
-        } catch (e) {
-          assets = defaulAssets
-        }
-        assets.stylesheets.push(webpackConfig.output.publicPath + filename)
-        fs.writeFileSync('./webpack-assets.json', JSON.stringify(assets))
+        webpackAssets.stylesheets.push(webpackPublicPath + filename)
+        fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
         return filename
       },
       disable: false,
