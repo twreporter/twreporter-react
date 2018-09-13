@@ -14,8 +14,6 @@ const  _  = {
 
 const Container = styled.div`
   background-color: ${props => props.bgColor};
-  min-height: 100vh;
-  overflow-x: hidden;
 `
 
 const HeaderContainer = styled.div`
