@@ -91,7 +91,10 @@ app.get('/BingSiteAuth.xml', function (req, res, next) {
 app.get('/robots.txt', (req, res) => {
   res.format({
     'text/plain': function () {
-      res.status(200).render('robots')
+      res.status(200).send('User-agent: * \n' +
+        'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
+        'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+      )
     }
   })
 })
