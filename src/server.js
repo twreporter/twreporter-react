@@ -58,8 +58,35 @@ app.use(function (req, res, next) {
   next()
 })
 
-// Add max-age: 900 on response header of /sw.js
-app.get('/sw.js', Express.static(path.join(__dirname, '..'), { maxAge: 900 }))
+app.get('/sw.js', function (req, res, next) {
+  const options = {
+    headers:{
+      'Cache-Control': 'public, max-age=900, must-revalidate'
+    },
+    root: path.resolve(__dirname + '/../')
+  }
+
+  res.sendFile('sw.js', options, function (err) {
+    if (err) {
+      next(err)
+    }
+  })
+})
+
+app.get('/BingSiteAuth.xml', function (req, res, next) {
+  const options = {
+    headers: {
+      'Cache-Control': 'public, max-age=2419200, must-revalidate'
+    },
+    root: path.resolve(__dirname + '/../static/')
+  }
+
+  res.sendFile('BingSiteAuth.xml', options, function (err) {
+    if (err) {
+      next(err)
+    }
+  })
+})
 
 app.get('/robots.txt', (req, res) => {
   res.format({

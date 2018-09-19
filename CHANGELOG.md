@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 3.1.15
+- add /BingSiteAuth.xml for bing search engine.
+
 ### 3.1.14
 - Fix scroll lock bug on android and remove extra border of topic
 
