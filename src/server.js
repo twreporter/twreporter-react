@@ -61,7 +61,7 @@ app.get('/sw.js', function (req, res, next) {
     headers:{
       'Cache-Control': 'public, max-age=900, must-revalidate'
     },
-    root: path.resolve(__dirname + '/../')
+    root: path.resolve(__dirname, '../')
   }
 
   res.sendFile('sw.js', options, function (err) {
@@ -76,7 +76,7 @@ app.get('/BingSiteAuth.xml', function (req, res, next) {
     headers: {
       'Cache-Control': 'public, max-age=2419200, must-revalidate'
     },
-    root: path.resolve(__dirname + '/../static/')
+    root: path.resolve(__dirname, '../static/')
   }
 
   res.sendFile('BingSiteAuth.xml', options, function (err) {
