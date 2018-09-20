@@ -42,8 +42,6 @@ if (!__DEVELOPMENT__) {
 
 const app = new Express()
 const server = new http.Server(app)
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
 app.use(Compression())
 app.use(cookieParser())
 
