@@ -1,8 +1,8 @@
 const categoryIds = {
+  fundation: 'fundation',
   editor: 'editor',
-  digital: 'digital',
   photojournalist: 'photojournalist',
-  fundation: 'fundation'
+  digital: 'digital'
 }
 
 export default categoryIds

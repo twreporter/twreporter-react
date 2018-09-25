@@ -1,4 +1,87 @@
 ### Unreleased
+
+### 3.1.15
+- add /BingSiteAuth.xml for bing search engine.
+
+### 3.1.14
+- Fix scroll lock bug on android and remove extra border of topic
+
+### 3.1.13
+- Fix leadingimage height in article
+
+### 3.1.12
+- Change member photo and modify line height of introduction words in about-us page section2
+- Update @twreporter/react-components to 4.1.4
+
+### 3.1.11
+- Change the order of member list in about-us page
+
+### 3.1.10
+- [Bug] Fix the wrong layout of section2 on small mobile devices in about-us page
+
+### 3.1.9
+- Change the order of members in about-us page
+
+### 3.1.8
+- Update a member picture in about-us page
+
+### 3.1.7
+- Update information in about-us page
+
+### 3.1.6
+- [Bug] Fix the wrong sidebar waypoint position on homepage
+
+### 3.1.5
+- [Bug] Fix bug which causes error when clicking logo on the header of about-us page
+- Changes the order of departments in section2 of about-us page
+
+### 3.1.4
+- Modify data of section5 in about-us page
+
+### 3.1.3
+- Upgrade `@twreporter/react-components` to 4.1.3 to fix a bug which causes unexpected scrolling block in article pages
+
+### 3.1.2
+- Upgrade `@twreporter/react-components` to 4.1.2
+- [Bug] Fix background color of footer in article pages and remove static file path from props of Footer component
+
+### 3.1.1
+- Upgrade `@twreporter/react-components` to 4.1.1
+- Move static files of footer to gcs 
+
+### 3.1.0
+- Rename author related actions properties and add fetch-author-details
+- Debug: chrome devtools on Mac
+- Add new footer to our website
+- Add donation box to article pages
+- Upgrade `@twreporter/react-components` to 4.1.0
+- Add donation box section to homepage
+
+### 3.0.14
+- [Bug] Prevent from changing original data object in section2 on about-us page
+
+### 3.0.13
+- Change media query breakpoint of overDesktop on about-us page
+- Refine the `Navigation` component to be reused by others on about-us page
+- In section5 timeline component, update the transitionY attribute directly instead of setState on about-us page
+- Remove device constants in section2 on about-us page
+- [Bug] Fix pagination bug in section3 on about-us page
+- Section5 waypoint trigger point tunning on about-us page
+- Fix section2 on about-us page for small devices (e.g. iphone5)
+- Move out Border component of each section for one time declaration on about-us page
+- Setting inital width for logo blocks in section4 on about-us page
+- Add new member to section2 on about-us page
+
+### 3.0.12
+- Bump the versions of `mocha`, `node-sass`, `nodemon`, and `sass-loader` to prevent vulnerabilities
+- remove unused gulp and package-lock.json
+- Change leading video and topic to styled-components
+- Refactor the structure of topic page
+- Fix that Banner height not fits with viewport height
+- Update React-Loadable and EmbeddedCode
+- Bump `eslint` to "4.x", `babel-eslint` to "8"
+- Fix babel plugin order causing ssr error and modify .babelrc to make it more readible
+
 ### 3.0.11
 - fix(ui print): workaround to fix image overlaying on text while printing
 

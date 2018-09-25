@@ -4,6 +4,7 @@ import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import InfoPanel from './more-info-panel'
+import Navigation from '../utils/navigation'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -111,27 +112,11 @@ const ItemName = styled.div`
   background: ${colors.white};
 `
 
-const Pagination = styled.div`
-  display: inline-block;
-  width: 11px;
-  height: 2px;
-  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
-  background: ${colors.black};
-  margin: 0 1px;
-  visibility: ${props => props.visible === 'true' ? 'visible' : 'hidden'};
-`
-
-const Navigation = styled.div`
+const NavigationWrapper = styled.div`
   display: block;
-  float: right;
-  ${screen.desktopAbove`
-    transform: translateY(-50%);
-  `}
-  ${screen.tabletBelow`
-    background: ${colors.white};
-    width: 100%;
-    float: left;
-  `}
+  text-align: left;
+  background: ${colors.white};
+  margin: 0;
   ${screen.tablet`
     padding: 0 0 46px 101px;
   `}
@@ -214,15 +199,6 @@ export default class MoreInfo extends PureComponent {
   constructor(props) {
     super(props)
   }
-  _createNavigation = (pagesLength) => {
-    let navigation = []
-    let pagination = []
-    for (let i = 0; i < pagesLength; i++) {
-      pagination.push(<Pagination key={i} isCurrentPage={i === this.props.infoPageNum % pagesLength} visible={(pagesLength > 1).toString()}/>)
-    }
-    navigation.push(<Navigation key="nav">{pagination}</Navigation>)
-    return navigation
-  }
   render() {
     let { selectedContent, infoPageNum, nextPage, closeInfoBox } = this.props
     if (selectedContent.length === 0 ) return
@@ -238,7 +214,15 @@ export default class MoreInfo extends PureComponent {
             <h2>{selectedItem.name.english}</h2>
             <h3>{selectedItem.name.chinese}</h3>
           </ItemName>
-          {this._createNavigation(selectedContent.length)}
+          <NavigationWrapper>
+            <Navigation
+              pagesLength = {selectedContent.length}
+              currentPage = {page}
+              startPage = {0}
+              endPage = {selectedContent.length}
+              navigationWidth = {22}                          
+            />
+          </NavigationWrapper>
           <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
           <InfoWrapper>
             <h4>{selectedItem.date}</h4>

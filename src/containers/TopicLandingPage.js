@@ -1,28 +1,24 @@
-'use strict'
-
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
+import { camelizeKeys } from 'humps'
+import { connect } from 'react-redux'
+import { SITE_META, SITE_NAME } from '../constants/index'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
+import Description from '../components/topic/Description'
 import Footer from '@twreporter/react-components/lib/footer'
+import FullScreenImage from '../components/shared/FullScreenImage'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
 import LeadingVideo from '../components/shared/LeadingVideo'
-import FullScreenImage from '../components/shared/FullScreenImage'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import styled from 'styled-components'
 import SystemError from '../components/SystemError'
-import classNames from 'classnames'
-import styles from './TopicLandingPage.scss'
 import twreporterRedux from '@twreporter/redux'
-
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
-
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
-import { camelizeKeys } from 'humps'
-import { connect } from 'react-redux'
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 
@@ -35,20 +31,9 @@ const _  = {
 const bannerFactory = new BannerFactory()
 const cardsFactory = new CardsFactory()
 
-const Description = (props) => {
-  const { topicDescription, teamDescription } = props
-  return (
-    <div className={styles['description']}>
-      <div className={classNames(styles['topic-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: topicDescription }} />
-      <div className={classNames(styles['team-description'], 'center-block', 'text-center')} dangerouslySetInnerHTML={{ __html: teamDescription }} />
-    </div>
-  )
-}
-
-Description.propTypes = {
-  topicDescription: PropTypes.string.isRequired,
-  teamDescription: PropTypes.string.isRequired
-}
+const Container = styled.div`
+  position: relative;
+`
 
 class TopicLandingPage extends Component {
   static fetchData({ params, store }) {
@@ -63,25 +48,59 @@ class TopicLandingPage extends Component {
       })
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      viewportHeight: '100vh'
+    }
+  }
+
   componentWillMount() {
     const { fetchAFullTopic, params } = this.props
     const slug = _.get(params, 'slug')
     fetchAFullTopic(slug)
   }
+  
+  componentDidMount() {
+    this._updateViewportHeight()
+  }
+
+  componentDidUpdate() {
+    this._updateViewportHeight()
+  }
 
   componentWillReceiveProps(nextProps) {
     const { fetchAFullTopic, params } = nextProps
     const { selectedTopic } = this.props
-
     if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
       fetchAFullTopic(_.get(params, 'slug'))
     }
   }
 
+  _updateViewportHeight() {
+    if (typeof window === 'object') {
+      /*
+        The height we want is which of the viewport that actually be seen by users.
+        But the common used DOM properties have several problems:
+          `documentElement.clientHeight` -> In iOS, the return value pretends that the URL and tab bars are visible, even if they are not.
+          `window.innerHeight` -> It includes the area covered by scroll bars (user cannot see the area actually)
+        The best way to get the value may be: (window.innerHeight - scroll bar height)
+        Since this page should not have horizontal scroll bar, we can use `window.innerHeight` directly.
+        Reference: https://stackoverflow.com/a/31655549
+      */
+      const heightString = window.innerHeight ? `${window.innerHeight}px` : '100vh'
+      if (this.state.viewportHeight !== heightString) {
+        this.setState({
+          viewportHeight: heightString
+        })
+      }
+    }
+  }
+
   render() {
     const { entities, params, selectedTopic } = this.props
+    const { viewportHeight } = this.state
     const error = _.get(selectedTopic, 'error', null)
-
     if (error !== null) {
       return (
         <div>
@@ -127,18 +146,13 @@ class TopicLandingPage extends Component {
 
     const videoSrc = _.get(leadingVideo, 'url')
 
-    const LeadingComp = videoSrc ? (
+    const leadingBackgroundElement = videoSrc ? (
       <LeadingVideo
-        classNames={{
-          container: styles['leading-block'],
-          video: styles.video,
-          poster: styles.video,
-          audioBt: styles['audio-bt']
-        }}
         filetype={_.get(leadingVideo, 'filetype')}
         src={videoSrc}
         title={title}
         poster={ogImage}
+        topicLeadingVideo
       />
     ) : (
       <FullScreenImage
@@ -149,7 +163,7 @@ class TopicLandingPage extends Component {
     )
 
     return (
-      <div className={styles['topic-page-conainer']}>
+      <Container>
         <Helmet
           title={fullTitle}
           link={[
@@ -173,12 +187,13 @@ class TopicLandingPage extends Component {
           isFixedToTop={false}
           title={title}
         />
-        {LeadingComp}
         <Banner
           headline={headline}
           title={title}
           subtitle={subtitle}
           publishedDate={publishedDate}
+          viewportHeight={viewportHeight}
+          backgroundElement={leadingBackgroundElement}
         />
         <Description
           topicDescription={description}
@@ -188,7 +203,7 @@ class TopicLandingPage extends Component {
           items={relateds}
         />
         <Footer />
-      </div>
+      </Container>
     )
   }
 }

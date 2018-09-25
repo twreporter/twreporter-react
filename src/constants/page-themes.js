@@ -11,7 +11,7 @@ const defaultTheme = {
   color: {
     bg: colors.gray.lightGray,
     font: colors.gray.gray25,
-    footerBg: '#cdcdcd',
+    footerBg: colors.white,
     logo: dark,
     subtitle: 'gray',
     title: colors.gray.gray25,
@@ -27,7 +27,7 @@ const photoTheme = {
   color: {
     bg: colors.photographyColor,
     font: colors.white,
-    footerBg: colors.photographyColor,
+    footerBg: colors.white,
     logo: bright,
     subtitle: 'gray',
     title: colors.white,

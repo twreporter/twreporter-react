@@ -25,28 +25,31 @@ export const membersImg = {
   EditYuChuanYeh: 'Edit-YuChuanYeh.png',
   PhotoChihWeiYu: 'Photo-ChihWeiYu.png',
   PhotoJamesonWu: 'Photo-JamesonWu.png',
-  PhotoYuEnLin: 'Photo-YuEnLin.png'
+  PhotoYuEnLin: 'Photo-YuEnLin.png',
+  BlankFace: 'blankface.png'
 }
 
 export const foundationImg = {
   foundationRongTsunHuang: 'foundation-RongTsunHuang.png',
-  foundationSanShiungHong: 'foundation-SanShiungHong.png',
   foundationSheuChiWong: 'foundation-SheuChiWong.png',
   foundationShiaoWeiChu: 'foundation-ShiaoWeiChu.png',
   foundationShuTienHuang: 'foundation-ShuTienHuang.png',
   foundationSoonShiaoChen: 'foundation-SoonShiaoChen.png',
-  foundationWeiShiungZhan: 'foundation-WeiShiungZhan.png',
   foundationWeiWanLi: 'foundation-WeiWanLi.png',
   foundationYiHanLin: 'foundation-YiHanLin.png',
   foundationYiRuLiu: 'foundation-YiRuLiu.png',
   foundationYiZhanWu: 'foundation-YiZhanWu.png',
   foundationYiZhiLi: 'foundation-YiZhiLi.png',
-  foundationYuanHueiHu: 'foundation-YuanHueiHu.png',
-  foundationZeBinHuang: 'foundation-ZeBinHuang.png',
-  foundationZhiZhongChien: 'foundation-ZhiZhongChien.png',
-  foundationZhongShunKuan: 'foundation-ZhongShunKuan.png',
+  foundationWenYongHo: 'foundation-WenYongHo.png',
+  foundationPoRuKo: 'foundation-PoRuKo.png',
+  foundationZhiChang: 'foundation-ZhiChang.png',
+  foundationChuShengHsu: 'foundation-ChuShengHsu.png',
+  foundationChangDerLiu: 'foundation-ChangDerLiu.png',
+  foundationYuChingTsai: 'foundation-YuChingTsai.png',
+  BlankFace: 'blankface.png',
   EditJungShinHo: membersImg.EditJungShinHo,
-  EditNicoFang: membersImg.EditNicoFang,
+  EditSherryLee: membersImg.EditSherryLee,
   EditJenniferCheng: membersImg.EditJenniferCheng,
-  EditSylvieWang: membersImg.EditSylvieWang
+  EditSylvieWang: membersImg.EditSylvieWang,
+  EditYuChuanYeh: membersImg.EditYuChuanYeh
 }

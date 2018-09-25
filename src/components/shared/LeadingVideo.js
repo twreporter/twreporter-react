@@ -1,20 +1,55 @@
-/* eslint no-unused-vars:0 */
-'use strict'
+import { replaceStorageUrlPrefix } from '../../utils/url'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Waypoint from 'react-waypoint'
-import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
-import style from './LeadingVideo.scss'
-import { getSrcSet } from '../../utils/img'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import SoundOnIcon from '../../../static/asset/sound-on.svg'
+import styled, { css } from 'styled-components'
+import Waypoint from 'react-waypoint'
 
-// lodash
-import get from 'lodash/get'
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: ${props => props.viewportHeight};
+`
 
-const _ = {
-  get
-}
+const topicVideoStyle = `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  object-fit: cover;
+  height: 100%;
+`
+
+const Video = styled.video`
+  display: block;
+  width: 100%;
+  ${props => props.topicLeadingVideo ? topicVideoStyle : ''}
+`
+
+const VideoMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .1);
+`
+
+const audioBtnStyle = css`
+  width: 30px;
+  height: auto;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  cursor: pointer;
+  background-color: black;
+  border-radius: 30px;
+  z-index: 50;
+`
+
+const StyledSoundMuteIcon = styled(SoundMuteIcon)`${audioBtnStyle}`
+const StyledSoundOnIcon = styled(SoundOnIcon)`${audioBtnStyle}`
 
 class LeadingVideo extends React.PureComponent {
   constructor(props) {
@@ -72,38 +107,11 @@ class LeadingVideo extends React.PureComponent {
   }
 
   render() {
-    const { classNames, filetype, loop, poster, src, title } = this.props
+    const { filetype, loop, poster, src, title, viewportHeight, topicLeadingVideo } = this.props
     const { isMuted } = this.state
 
     // On the mobile devices (iOS 10 above),
     // we can only autoplay the video without audio
-    const videoJSX = (
-      <React.Fragment>
-        <video
-          className={_.get(classNames, 'video', style['video'])}
-          ref={(input) => { this._player = input }}
-          playsInline
-          poster={poster}
-          autoPlay
-          muted={isMuted}
-          loop={loop}
-        >
-          <source src={replaceStorageUrlPrefix(src)} type={filetype} />
-        </video>
-        <div className={_.get(classNames, 'videoMask', style['video-overlay'])} />
-        { isMuted ?
-          <SoundMuteIcon
-            className={_.get(classNames, 'audioBt', style['audio-bt'])}
-            onClick={this.handleMuteChange}
-          /> :
-          <SoundOnIcon
-            className={_.get(classNames, 'audioBt', style['audio-bt'])}
-            onClick={this.handleMuteChange}
-          />
-        }
-      </React.Fragment>
-    )
-
     return (
       <Waypoint
         onLeave={this.onLeave}
@@ -111,45 +119,60 @@ class LeadingVideo extends React.PureComponent {
         fireOnRapidScroll
         scrollableAncestor="window"
       >
-        <div
-          className={_.get(classNames, 'container', style.container)}
+        <Container
           itemScope
           itemType="http://schema.org/VideoObject"
+          viewportHeight={viewportHeight}
         >
           <link itemProp="url" href={src} />
-          <meta itemProp="name" content={title}/>
+          <meta itemProp="name" content={title} />
           <meta itemProp="thumbnail" content={poster} />
-          {videoJSX}
-        </div>
+          <Video
+            ref={(input) => { this._player = input }}
+            playsInline
+            poster={poster}
+            autoPlay
+            muted={isMuted}
+            loop={loop}
+            topicLeadingVideo={topicLeadingVideo}
+          >
+            <source src={replaceStorageUrlPrefix(src)} type={filetype} />
+          </Video>
+          <VideoMask />
+          {isMuted ?
+            <StyledSoundMuteIcon
+              onClick={this.handleMuteChange}
+            /> :
+            <StyledSoundOnIcon
+              onClick={this.handleMuteChange}
+            />
+          }
+        </Container>
       </Waypoint>
     )
   }
 }
 
 LeadingVideo.propTypes = {
-  classNames: PropTypes.shape({
-    audioBt: PropTypes.string,
-    container: PropTypes.string,
-    poster: PropTypes.string,
-    video: PropTypes.string,
-    videoMask: PropTypes.string
-  }),
   filetype: PropTypes.string,
   loop: PropTypes.bool,
   mute: PropTypes.bool,
   poster: PropTypes.string,
   src: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  viewportHeight: PropTypes.string,
+  topicLeadingVideo: PropTypes.boolean
 }
 
 LeadingVideo.defaultProps = {
-  className: {},
   filetype: '',
   loop: true,
   mute: true,
   poster: '',
   src: '',
-  title: ''
+  title: '',
+  viewportHeight: '100vh',
+  topicLeadingVideo: false
 }
 
 export default LeadingVideo
