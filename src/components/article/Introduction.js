@@ -40,7 +40,7 @@ export const Introduction = ({ data, fontSize }) => {
   if (block) {
     return (
       <div itemProp="description" className={classNames(styles['intro-container'], 'text-justify', fontSizeStyle)}>
-      {introArr}
+        {introArr}
       </div>
     )
   } else {

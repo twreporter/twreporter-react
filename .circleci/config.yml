@@ -55,43 +55,55 @@ jobs:
           keys:
             - v1-build-{{ checksum ".circle-sha" }}
       - run:
-          name: Install kubectl
+          name: Connect to container cluster
           command: |
-            curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-            chmod +x ./kubectl
-            sudo mv ./kubectl /usr/local/bin/kubectl
-
-      - run:
-          name: Build, push and deploy Docker image
-          command: |
+            # GeOGLE_AUTH, GOOGLE_PROJECT_ID, GOOGLE_COMPUTE_ZONE,
+            # GOOGLE_PREVIEW_CLUSTER_NAME, GOOGLE_STAGING_CLUSTER_NAME
+            # and GOOGLE_CLUSTER_NAME is defined in Environment Variables of circleci project
             echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
             CLUSTER_NAME=""
-            PKG_VER=""
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
               CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
-              PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
               CLUSTER_NAME=${GOOGLE_STAGING_CLUSTER_NAME}
-              PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               CLUSTER_NAME=${GOOGLE_CLUSTER_NAME}
+            fi
+
+            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
+            echo "CLUSTER_NAME=${CLUSTER_NAME}" > circle_ci_local_env
+            gcloud --quiet container clusters get-credentials $CLUSTER_NAME
+
+      - run:
+          name: Install kubectl
+          command: |
+            source circle_ci_local_env
+            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
+            KUBECTL_VERSION="$(gcloud container clusters describe ${CLUSTER_NAME} | sed -n 's/.*currentMasterVersion:[ ]*\(.*\)-\(.*\)/\1/p')"
+            curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
+
+      - run:
+          name: Build, push and deploy Docker image
+          command: |
+            PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
+
+            if [ "${CIRCLE_BRANCH}" == "release" ]; then
               PKG_VER="$(cat .pkg-version)"
             fi
 
-
-            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
             echo "PKG_VER: ${PKG_VER}"
 
-            gcloud --quiet container clusters get-credentials $CLUSTER_NAME
             docker build -t gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER .
             gcloud docker -- push gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER
             kubectl set image deployment/twreporter-website-v2 twreporter-website-v2=gcr.io/coastal-run-106202/twreporter-website-v2:$CIRCLE_BRANCH-$PKG_VER

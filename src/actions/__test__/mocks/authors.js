@@ -6,11 +6,6 @@ import { NUMBER_OF_FIRST_RESPONSE_PAGE, MAX_RESULTS_PER_FETCH, MAX_RESULTS_PER_S
 export const currentDate = Date.now()
 export const constKeywords = 'testKeywords'
 
-function theNormalize(hits) {
-  const camelizedJson = camelizeKeys(hits)
-  return normalize(camelizedJson, new schema.Array(authorSchema))
-}
-
 const mockResponseHits = [ '1', '2', '3', '4', '5' ].map(function (v) {
   return {
     _id: 'id_' + v,
@@ -51,13 +46,13 @@ export const responseObjSet = {
 // this is for property of action which is response
 export const mockResponseSet = {
   keyNullResponse: {
-    ...theNormalize(mockResponseHits),
+    normalizedData: normalize(camelizeKeys(mockResponseHits), new schema.Array(authorSchema)),
     totalPages: 8,
     currentPage: 0
   },
 
   keyWithValueResponse: {
-    ...theNormalize(responseObjSet.keyWithVlaueResponse.hits),
+    normalizedData: normalize(camelizeKeys(responseObjSet.keyWithVlaueResponse.hits), authorSchema),
     totalPages: 1,
     currentPage: 0
   }

@@ -222,7 +222,7 @@ router.param('searchParam', (req, res, next, searchParam) => {
   next()
 })
 
-router.route(`/search/:searchParam/`)
+router.route('/search/:searchParam/')
   .get((req, res) => {
     const { keywords, filters, hitsPerPage, page } = req.query
     const _hitsPerPage = Number(hitsPerPage)
