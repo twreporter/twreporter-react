@@ -42,8 +42,6 @@ if (!__DEVELOPMENT__) {
 
 const app = new Express()
 const server = new http.Server(app)
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
 app.use(Compression())
 app.use(cookieParser())
 
@@ -58,13 +56,43 @@ app.use(function (req, res, next) {
   next()
 })
 
-// Add max-age: 900 on response header of /sw.js
-app.get('/sw.js', Express.static(path.join(__dirname, '..'), { maxAge: 900 }))
+app.get('/sw.js', function (req, res, next) {
+  const options = {
+    headers:{
+      'Cache-Control': 'public, max-age=900, must-revalidate'
+    },
+    root: path.resolve(__dirname, '../')
+  }
+
+  res.sendFile('sw.js', options, function (err) {
+    if (err) {
+      next(err)
+    }
+  })
+})
+
+app.get('/BingSiteAuth.xml', function (req, res, next) {
+  const options = {
+    headers: {
+      'Cache-Control': 'public, max-age=2419200, must-revalidate'
+    },
+    root: path.resolve(__dirname, '../static/')
+  }
+
+  res.sendFile('BingSiteAuth.xml', options, function (err) {
+    if (err) {
+      next(err)
+    }
+  })
+})
 
 app.get('/robots.txt', (req, res) => {
   res.format({
     'text/plain': function () {
-      res.status(200).render('robots')
+      res.status(200).send('User-agent: * \n' +
+        'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
+        'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+      )
     }
   })
 })
