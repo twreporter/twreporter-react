@@ -78,9 +78,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@twreporter/react-components@5.0.0-beta-1":
-  version "5.0.0-beta-1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-5.0.0-beta-1.tgz#77af5b9721c3ee21d7a9179c8253e10f808e9b29"
+"@twreporter/react-components@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-5.0.0.tgz#915af20a4c364001f496f6f09be3cf443126c28e"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
@@ -106,9 +106,9 @@
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/registration@3.0.0-beta-1":
-  version "3.0.0-beta-1"
-  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-3.0.0-beta-1.tgz#0f7e4c1681d64b1dbaa140cecca43605f66bbe4a"
+"@twreporter/registration@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/registration/-/registration-3.0.0.tgz#38c314aaf4c4930f11d592e6491c4a4cb3d6eeef"
   dependencies:
     axios "^0.16.2"
     lodash "^4.17.4"
