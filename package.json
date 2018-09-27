@@ -25,10 +25,10 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "5.0.0-beta-1",
+    "@twreporter/react-components": "^5.0.0",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
-    "@twreporter/registration": "3.0.0-beta-1",
+    "@twreporter/registration": "^3.0.0",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
