@@ -1,5 +1,11 @@
 ### Unreleased
 
+### 3.2.0 
+- update styled-components@^3.0.0 
+- update @twreporter/registration@3.0.0 which contains styled-components@^3.0.0
+- update @twreporter/react-components@5.0.0 which contains styled-components@^3.0.0
+- Render instructions instead of error 500 page if an error is catched by ErrorBoundary
+
 ### 3.1.15
 - add /BingSiteAuth.xml for bing search engine.
 
