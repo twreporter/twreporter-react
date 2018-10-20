@@ -17,6 +17,8 @@ injectGlobal`
     font-size: ${typography.font.size.base};
   }
   body {
+    overflow-x: hidden;
+    overflow-y: auto;
     letter-spacing: 0.4px;
     line-height: ${lineHeight.lineHeightMedium};
     font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;

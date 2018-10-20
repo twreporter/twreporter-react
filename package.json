@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "3.1.13",
+  "version": "3.2.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -25,15 +25,15 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/react-components": "^4.1.4",
+    "@twreporter/react-components": "^5.0.0",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
-    "@twreporter/registration": "2.2.1",
+    "@twreporter/registration": "^3.0.0",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "es6-error": "^2.1.1",
-    "express": "^4.13.3",
+    "express": "^4.16.3",
     "hoist-non-react-statics": "^2.5.0",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
@@ -47,6 +47,7 @@
     "raf": "^3.2.0",
     "rc-slider": "^8.5.0",
     "react": "^16.0.0",
+    "react-click-outside": "tj/react-click-outside",
     "react-dom": "^16.0.0",
     "react-ga": "^2.1.2",
     "react-helmet": "^5.2.0",
@@ -64,7 +65,7 @@
     "redux-thunk": "^0.1.0",
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "0.3.0",
-    "styled-components": "^2.1.1",
+    "styled-components": "^3.0.0",
     "sw-toolbox": "^3.6.0"
   },
   "devDependencies": {
