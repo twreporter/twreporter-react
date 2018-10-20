@@ -42,5 +42,10 @@ export const screen = {
     @media (min-width: ${sz.xLargeScreenMinWidth}px) {
       ${css(...args)}
     }
+  `,
+  overHD: (...args) => css`
+    @media (min-width: 1440px) {
+      ${css(...args)}
+    }
   `
 }
