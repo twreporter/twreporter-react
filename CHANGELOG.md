@@ -1,4 +1,6 @@
 ### Unreleased
+### 3.2.1
+- Long form article side bar UI changes
 
 ### 3.2.0 
 - update styled-components@^3.0.0 

@@ -1,48 +1,136 @@
+import ClickOutside from 'react-click-outside'
 import PropTypes from 'prop-types'
 import React from 'react'
-import baseComponents from './base-components'
+import get from 'lodash/get'
 import styled from 'styled-components'
+import { articleLayout } from '../../themes/layout'
 import { colors, typography } from '../../themes/common-variables'
 import { screen } from '../../themes/screen'
-import { articleLayout } from '../../themes/layout'
 
-const StyledAnchor = baseComponents.StyledAnchor.extend`
-  position: relative;
-  height: 100%;
-  color: ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
+const _ = {
+  get
+}
+
+const longFormArticleClassNames = {
+  toggleButton: 'long-form-article-toggle-button',
+  anchorsBox: 'long-form-article-anchors-box',
+  anchorOrder: 'long-form-article-anchor-order'
+}
+
+const mockup = {
+  anchorMaxWidth: 85 //px
+}
+
+const AnchorsBox = styled.div`
+  margin: auto;
+`
+
+const StyledAnchor = styled.div`
   border-right: 2px solid ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
-  opacity: ${props => props.highlight ? '1' : '0.6'};
-  padding-right: 17px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  transition: all 200ms linear;
-`
-
-const Order = styled.div`
+  color: ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
+  display: flex;
   font-size: ${typography.font.size.xSmall};
-  position: absolute;
-  top: 18px;
-  left: -18px;
-  transform: translateX(-50%);
-`
+  margin: auto;
+  max-height: 175px;
+  max-width: ${mockup.anchorMaxWidth}px;
+  opacity: ${props => props.highlight ? '1' : '0.6'};
+  padding-bottom: 20px;
+  padding-top: 20px;
+  position: relative;
+  transition: color .2s linear, border-right .2s linear, opacity .2s linear;
 
-class Anchors extends baseComponents.Anchors {
-  constructor(props) {
-    super(props)
-    this.Anchor = StyledAnchor
+  &:hover {
+    cusor: pointer;
   }
 
+  > div {
+    max-width: 1rem;
+  }
+
+  > div.${longFormArticleClassNames.anchorOrder} {
+    margin-right: 10px;
+  }
+
+  > div:last-of-type{
+    margin-right: 20px;
+  }
+`
+
+class Anchors extends React.PureComponent {
   _renderAnchor(anchorObj) {
-    const Anchor = this.Anchor
+    //  The following codes are do the following things:
+    //  1.
+    //  if label is '01健康檢查成空話',
+    //  it will display like
+    //
+    //    01 健成 | (this vertical line is the border)
+    //       康空 |
+    //       檢話 |
+    //       查   |
+    //
+    //  2.
+    //  if label is '健康檢查成空話',
+    //  it will display like
+    //
+    //    健成 |
+    //    康空 |
+    //    檢話 |
+    //    查   |
+    //
+    //  3.
+    //  if label length is smaller than 7, e.g. '01轉診交通亂象'
+    //  it will display like
+    //
+    //    01 轉 |
+    //       診 |
+    //       交 |
+    //       通 |
+    //       亂 |
+    //       象 |
+    //
+    //
+    const maxTextLengthInColumn = 6
+    let label = _.get(anchorObj, 'label', '')
+    const matches = label.match(/^([0-9]{2})?(.+)/)
+    const order = matches[1]
+    label = matches[2]
+    const firstColumnLabel = label.length > maxTextLengthInColumn ? label.substring(0, maxTextLengthInColumn) : label
+    const secondColumnLabel = label !== firstColumnLabel ? label.substring(maxTextLengthInColumn) : ''
+
     return (
-      <Anchor
+      <StyledAnchor
         highlight={anchorObj.highlight}
         onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
         key={`SectionButton_${anchorObj.id}`}
       >
-        <Order>{`0${anchorObj.index}`}</Order>
-        <div>{this._assembleWord(anchorObj.label)}</div>
-      </Anchor>
+        { order ? <div className={longFormArticleClassNames.anchorOrder}>{order}</div> : null }
+        <div>{firstColumnLabel}</div>
+        { secondColumnLabel ? <div>{secondColumnLabel}</div> : null}
+      </StyledAnchor>
+    )
+  }
+
+  render() {
+    const anchorBts = []
+    const { data, currentAnchorId, handleClickAnchor } = this.props
+    data.forEach((anchorObj) => {
+      const id = _.get(anchorObj, 'id', '')
+      const label = _.get(anchorObj, 'label', '')
+
+      // id and label are not empty string
+      if (id && label) {
+        anchorBts.push(this._renderAnchor({
+          handleClick: handleClickAnchor,
+          highlight: id === currentAnchorId,
+          id,
+          label
+        }))
+      }
+    })
+    return (
+      <AnchorsBox className={longFormArticleClassNames.anchorsBox}>
+        { anchorBts }
+      </AnchorsBox>
     )
   }
 }
@@ -60,70 +148,58 @@ Anchors.propTypes = {
   }))
 }
 
-const sideBarBgWidth = 145
-
-const sideBarOffset = 50
-
-const AnchorsContainer = styled.div`
-  z-index: 200;
-  position: fixed;
+const SizeBarBox = styled.div`
   color: ${colors.gray.gray50};
+  display: flex;
   left: 50%;
-  top: 50%;
-  transform: translate(-${(articleLayout.hd.width.large - sideBarOffset)/2}px, -50%);
-  visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
+  width: ${mockup.anchorMaxWidth}px;
   opacity: ${props => (props.toShow ? 1 : 0)};
+  position: fixed;
+  top: 50%;
+  transform: translate(calc(${-(articleLayout.hd.width.medium/2)}px - 100%), -50%);
   transition: opacity 0.5s linear;
+  visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
+  z-index: 200;
 
-  ${screen.desktop`
-    transform: translate(-${(articleLayout.desktop.width.large - sideBarOffset)/2}px, -50%);
+  ${screen.overDesktop`
+    transform: translate(calc(${-(articleLayout.hd.width.medium/2)}px - 150%), -50%);
   `}
+
+  ${screen.overHD`
+    transform: translate(calc(${-(articleLayout.hd.width.medium/2)}px - 200%), -50%);
+  `}
+
+  > img.${longFormArticleClassNames.toggleButton} {
+    display: none;
+  }
 
   ${screen.tabletBelow`
-    left: 3%;
-    transform: translate(-50%, -50%);
-  `}
-
-  ${screen.mobile`
-    display: block;
+    display: flex;
     left: 0;
-    transform: translate(${props => (props.isToggled ? (sideBarBgWidth / 2) + 'px, -50%' :
-    '-' + (sideBarBgWidth/2) + 'px, -50%')});
-    transition: transform 0.3s ease-in;
-  `}
-`
-
-const MobileSideBarController = styled.img`
-  display: none;
-  ${screen.mobile`
-    z-index: 200;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 43px;
-    cursor: pointer;
-    display: ${props => props.toShow ? 'block' : 'none'};
-    transform: translateX(${props => (props.isToggled ? sideBarBgWidth : '0')}px);
-    transition: transform 300ms linear;
-  `};
-`
-
-const MobileBackground = styled.div`
-  ${screen.mobile`
-    display: ${props => props.toShow ? 'block' : 'none'};
-    z-index: 199;
-    position: fixed;
-    top: 50%;
-    left: -${sideBarBgWidth}px;
-    width: ${sideBarBgWidth}px;
-    height: 100%;
-    top: 0%;
-    background-color: white;
+    transform: translate(${props => props.isToggled ? '0' : '-100'}%, -50%);
+    transition: transform .3s ease-in-out;
+    background-color: ${colors.white};
     border-right: 1px solid #f2f2f2;
-    transform: translateX(${props => props.isToggled ? '145px' : '0px'});
-    transition: transform 300ms linear;
+    width: 40vw;
+    height: 100vh;
+
+    > div.${longFormArticleClassNames.anchorsBox} {
+      margin: auto;
+      max-width: 40vw;
+    }
+
+    > img.${longFormArticleClassNames.toggleButton} {
+      display: initial;
+    }
   `}
+`
+
+const ToggleButton = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  width: 35px;
 `
 
 class ArticleSideBar extends React.PureComponent {
@@ -151,30 +227,26 @@ class ArticleSideBar extends React.PureComponent {
     const button = 'https://storage.googleapis.com/twreporter-infographics/walk-with-survivor-of-suicide-gcs/static/sidebar_button.png'
     const backButton = 'https://storage.googleapis.com/twreporter-infographics/walk-with-survivor-of-suicide-gcs/static/sidebar_button_back.png'
     return (
-      <div>
-        <AnchorsContainer
-          toShow={isToggled || toShow}
-          isToggled={isToggled}
-        >
-          <Anchors
-            data={anchors}
-            handleClickAnchor={handleClickAnchor}
-            currentAnchorId={currentAnchorId}
-          />
-        </AnchorsContainer>
-        <MobileSideBarController
-          isToggled={isToggled}
-          onClick={this.toggleMobileSideBar}
-          src={isToggled ? backButton : button}
-          toShow={isToggled || toShow}
-        />
-        <MobileBackground
-          isToggled={isToggled}
-          toShow={isToggled || toShow}
-        >
-        </MobileBackground>
+      <React.Fragment>
+        <ClickOutside onClickOutside={isToggled ? this.toggleMobileSideBar : () => {}}>
+          <SizeBarBox
+            toShow={isToggled || toShow}
+            isToggled={isToggled}
+          >
+            <ToggleButton
+              className={longFormArticleClassNames.toggleButton}
+              onClick={this.toggleMobileSideBar}
+              src={isToggled ? backButton : button }
+            />
+            <Anchors
+              data={anchors}
+              handleClickAnchor={handleClickAnchor}
+              currentAnchorId={currentAnchorId}
+            />
+          </SizeBarBox>
+        </ClickOutside>
         {children}
-      </div>
+      </React.Fragment>
     )
   }
 }
