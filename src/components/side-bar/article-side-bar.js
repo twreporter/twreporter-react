@@ -90,12 +90,13 @@ class Anchors extends React.PureComponent {
     //
     //
     const maxTextLengthInColumn = 6
+    const textLengthInSecondColumn = 3
     let label = _.get(anchorObj, 'label', '')
     const matches = label.match(/^([0-9]{2})?(.+)/)
     const order = matches[1]
     label = matches[2]
-    const firstColumnLabel = label.length > maxTextLengthInColumn ? label.substring(0, maxTextLengthInColumn) : label
-    const secondColumnLabel = label !== firstColumnLabel ? label.substring(maxTextLengthInColumn) : ''
+    const firstColumnLabel = label.length > maxTextLengthInColumn ? label.slice(0, -textLengthInSecondColumn) : label
+    const secondColumnLabel = label.length > maxTextLengthInColumn ?  label.slice(-textLengthInSecondColumn) : ''
 
     return (
       <StyledAnchor
