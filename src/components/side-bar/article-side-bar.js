@@ -40,7 +40,7 @@ const StyledAnchor = styled.div`
   transition: color .2s linear, border-right .2s linear, opacity .2s linear;
 
   &:hover {
-    cusor: pointer;
+    cursor: pointer;
   }
 
   > div {
