@@ -1,4 +1,7 @@
 ### Unreleased
+### 3.2.3
+- Add url to event label in google analysis click event
+- Update @twreporter/react-components@5.1.3
 
 ### 3.2.2
 - Update the ground truth screenshots for UI-tests
