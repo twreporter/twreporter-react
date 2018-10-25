@@ -1,6 +1,9 @@
 ### Unreleased
 - Update the ground truth screenshots for UI-tests
 
+### 3.2.1
+- Long form article side bar UI changes
+
 ### 3.2.0 
 - update styled-components@^3.0.0 
 - update @twreporter/registration@3.0.0 which contains styled-components@^3.0.0
