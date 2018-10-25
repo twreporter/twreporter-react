@@ -1,4 +1,6 @@
 ### Unreleased
+- Update the ground truth screenshots for UI-tests
+
 ### 3.2.1
 - Long form article side bar UI changes
 
