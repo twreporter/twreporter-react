@@ -74,6 +74,10 @@ const Donate = styled.div`
 
 export default class DonationBox extends PureComponent {
   render() {
+    let url = null
+    if (typeof window !== 'undefined') {
+      url = window.location.href
+    }
     return (
       <Container>
         <Title>
@@ -84,7 +88,7 @@ export default class DonationBox extends PureComponent {
         </Text>
         <Donate>
           <ReactGA.OutboundLink
-            eventLabel="article_donation_button_click"
+            eventLabel={`[article_donation_button_click]: ${url}`}
             to={donatePath}
             target="_blank">
             <p>{DONATEBUTTONTEXT}</p>
