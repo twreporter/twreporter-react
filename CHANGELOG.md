@@ -1,4 +1,10 @@
 ### Unreleased
+
+### 3.2.2
+- Update the ground truth screenshots for UI-tests
+- Add GA events to donation button in article pages
+- Update @twreporter/react-components@^5.1.1
+
 ### 3.2.1
 - Long form article side bar UI changes
 
