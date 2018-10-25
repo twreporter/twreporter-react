@@ -2,6 +2,7 @@ import { colors, typography } from '../../themes/common-variables'
 import { donatePath } from '../../constants/index'
 import { screen } from '../../themes/screen'
 import React, { PureComponent } from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 const TITLE = '用行動支持報導者'
@@ -49,26 +50,25 @@ const Donate = styled.div`
   ${screen.mobile`
     margin-top: 40px;
   `}
-`
-
-const DonateButton = styled.a`
-  width: 140px;
-  height: 55px;
-  background: ${colors.black};
-  display: table;
-  float: right;
-  cursor: pointer;
-  p{
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    font-size: ${typography.font.size.xSmall};
-    color: ${colors.white};
-    font-weight: 500;
-    letter-spacing: 1.3px;
-  }
-  &:hover{
-    background: ${colors.secondaryColor};
+  a{
+    width: 140px;
+    height: 55px;
+    background: ${colors.black};
+    display: table;
+    float: right;
+    cursor: pointer;
+    p{
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      font-size: ${typography.font.size.xSmall};
+      color: ${colors.white};
+      font-weight: 500;
+      letter-spacing: 1.3px;
+    }
+    &:hover{
+      background: ${colors.secondaryColor};
+    }
   }
 `
 
@@ -83,12 +83,12 @@ export default class DonationBox extends PureComponent {
           {TEXT}
         </Text>
         <Donate>
-          <DonateButton
-            href={donatePath}
-            target={'_target'}
-          >
+          <ReactGA.OutboundLink
+            eventLabel="article_donation_button_click"
+            to={donatePath}
+            target="_blank">
             <p>{DONATEBUTTONTEXT}</p>
-          </DonateButton>
+          </ReactGA.OutboundLink>
         </Donate>
       </Container>
     )

@@ -78,14 +78,15 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@twreporter/react-components@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-5.0.0.tgz#915af20a4c364001f496f6f09be3cf443126c28e"
+"@twreporter/react-components@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-5.1.1.tgz#4d9c009723c15a6ccc865297de85346499e977dd"
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.17.4"
     prop-types "^15.5.10"
+    react-ga "^2.5.3"
     react-router "^3.0.0"
     react-swipeable "^4.0.1"
     react-transition-group "^1.2.1"
@@ -6034,6 +6035,13 @@ react-ga@^2.1.2:
   dependencies:
     object-assign "^4.1.1"
 
+react-ga@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.3.tgz#0f447c73664c069a5fc341f6f431262e3d4c23c4"
+  optionalDependencies:
+    prop-types "^15.6.0"
+    react "^15.6.2 || ^16.0"
+
 react-helmet@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.0.tgz#a81811df21313a6d55c5f058c4aeba5d6f3d97a7"
@@ -6132,6 +6140,15 @@ react-youtube@^7.0.1:
     lodash "^4.17.4"
     prop-types "^15.5.3"
     youtube-player "^5.4.0"
+
+"react@^15.6.2 || ^16.0":
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.6.0.tgz#b34761cfaf3e30f5508bc732fb4736730b7da246"
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.10.0"
 
 react@^16.0.0:
   version "16.2.0"
@@ -6562,6 +6579,13 @@ sass-loader@^7.0.3:
 sax@^1.2.4, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+scheduler@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 schema-utils@^0.3.0:
   version "0.3.0"
