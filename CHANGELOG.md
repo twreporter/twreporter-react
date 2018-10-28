@@ -1,4 +1,9 @@
 ### Unreleased
+### 3.2.4
+- Handle hash link scroll. When url contains hash link like #section_1, browser will
+scroll to that anchor(id) properly.
+- fix(UI) position of annotation indicator on FireFox.
+
 ### 3.2.3
 - Add url to event label in google analysis click event
 - Update @twreporter/react-components@5.1.3
