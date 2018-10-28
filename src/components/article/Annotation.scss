@@ -108,6 +108,7 @@ $letter-spacing: .5px;
           &::after {
             top: 5px;
             border-width: 0 6px 6px;
+            height: 0;
           }
         }
       }
