@@ -21,6 +21,22 @@ if (window.__REDUX_STATE__) {
 
 function scrollToTopAndFirePageview() {
   if(window) {
+    // handle hash link scroll
+    // scroll to the anchor after DOM rendered
+    const { hash } = window.location
+    if (hash !== '') {
+      // Push onto callback queue so it runs after the DOM is updated,
+      // this is required when navigating from a different page so that
+      // the element is rendered on the page before trying to getElementById.
+      setTimeout(() => {
+        const id = hash.replace('#', '')
+        const element = document.getElementById(id)
+        if (element) {
+          element.scrollIntoView()
+        }
+      }, 0)
+      return
+    }
     window.scrollTo(0, 0)
     // send Google Analytics Pageview event on router changed
     ReactGA.pageview(window.location.pathname)
