@@ -1,4 +1,8 @@
 ### Unreleased
+
+### 3.2.5
+- [Bug] Use og_title to build `og:title` by default
+
 ### 3.2.4
 - Handle hash link scroll. When url contains hash link like #section_1, browser will
 scroll to that anchor(id) properly.

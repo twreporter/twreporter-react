@@ -134,11 +134,11 @@ class TopicLandingPage extends Component {
     const description = _.get(topic, 'description.html', '') // {string}
     const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
-
+    const ogTitle = _.get(topic, 'ogTitle', '') || _.get(topic, 'title', '')
     const ogImage = _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
 
     const canonical = `${SITE_META.URL}topics/${slug}`
-    const fullTitle = title + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
 
     const Banner = bannerFactory.buildWithTheme(bannerTheme)
     const Cards = cardsFactory.buildWithTheme(cardsTheme)

@@ -1,12 +1,12 @@
 {
   "name": "twreporter-react",
-  "version": "3.2.3",
+  "version": "3.2.5",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
     "clean": "make clean",
     "dev": "make dev",
-    "lint": "eslint -c .eslintrc src",
+    "lint": "lint-staged",
     "start": "make start",
     "stop": "make stop",
     "test": "make test",
@@ -96,6 +96,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.3",
+    "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
     "nock": "^2.17.0",
     "node-sass": "^4.9.2",
@@ -115,9 +116,14 @@
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.5"
   },
+  "lint-staged": {
+    "*.js": "eslint -c .eslintrc"
+  },
   "pre-commit": [
     "lint",
-    "test",
+    "test"
+  ],
+  "pre-push": [
     "ui-test"
   ]
 }
