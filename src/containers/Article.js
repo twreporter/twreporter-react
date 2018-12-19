@@ -349,7 +349,7 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const ogTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogTitle = (_.get(article, 'ogTitle', '') || _.get(article, 'title', '')) + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
     const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
