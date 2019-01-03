@@ -58,11 +58,10 @@ const members = [
     category: categoryIds.fundation
   },
   {
-    name: '葉瑜娟',
-    nameEng: 'Yu Chuan Yeh',
+    name: '林雨佑',
     job: '董事',
     jobEng: 'Executive Director',
-    profile: memberUrlPrefix + foundationImg.EditYuChuanYeh,
+    profile: memberUrlPrefix + foundationImg.EditUyo,
     category: categoryIds.fundation
   },
   {
@@ -164,14 +163,6 @@ const members = [
     job: '行銷部經理',
     jobEng: 'Marketing Manager‭',
     profile: memberUrlPrefix + foundationImg.EditSylvieWang,
-    category: categoryIds.fundation
-  },
-  {
-    name: '吳易真',
-    nameEng: 'Saffron Wu',
-    job: '行銷部執行經理',
-    jobEng: 'Executive Manager',
-    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
     category: categoryIds.fundation
   },
   {

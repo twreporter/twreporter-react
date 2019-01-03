@@ -7,6 +7,7 @@ export const membersImg = {
   DigiTalorFang: 'Digi-TalorFang.png',
   DigiYuChenHuang: 'Digi-YuChenHuang.png',
   DigiYuChungJen: 'Digi-YuChungJen.png',
+  DigiChenDaLin: 'Digi-ChenNaLin.png',
   EditBoWeiWu: 'Edit-BoWeiWu.png',
   EditItingChiang: 'Edit-ItingChiang.png',
   EditJenniferCheng: 'Edit-JenniferCheng.png',
@@ -22,10 +23,12 @@ export const membersImg = {
   EditSzuHuaChen: 'Edit-SzuHuaChen.png',
   EditTzewuChang: 'Edit-TzewuChang.png',
   EditUyo: 'Edit-Uyo.png',
-  EditYuChuanYeh: 'Edit-YuChuanYeh.png',
+  EditWenTingYen: 'Edit-TzewuChang.png',
+  EditFuNienTsao: 'Edit-TzewuChang.png',
+  EditPiChi: 'Edit-TzewuChang.png',
   PhotoChihWeiYu: 'Photo-ChihWeiYu.png',
   PhotoJamesonWu: 'Photo-JamesonWu.png',
-  PhotoYuEnLin: 'Photo-YuEnLin.png',
+  PhotoWeiMinSu: 'Photo-YuEnLin.png',
   BlankFace: 'blankface.png'
 }
 
@@ -38,7 +41,6 @@ export const foundationImg = {
   foundationWeiWanLi: 'foundation-WeiWanLi.png',
   foundationYiHanLin: 'foundation-YiHanLin.png',
   foundationYiRuLiu: 'foundation-YiRuLiu.png',
-  foundationYiZhanWu: 'foundation-YiZhanWu.png',
   foundationYiZhiLi: 'foundation-YiZhiLi.png',
   foundationWenYongHo: 'foundation-WenYongHo.png',
   foundationPoRuKo: 'foundation-PoRuKo.png',
@@ -51,5 +53,5 @@ export const foundationImg = {
   EditSherryLee: membersImg.EditSherryLee,
   EditJenniferCheng: membersImg.EditJenniferCheng,
   EditSylvieWang: membersImg.EditSylvieWang,
-  EditYuChuanYeh: membersImg.EditYuChuanYeh
+  EditUyo: membersImg.EditUyo
 }

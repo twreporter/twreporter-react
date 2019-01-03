@@ -63,18 +63,18 @@ const members = [
     name: '吳逸驊',
     nameEng: 'Jameson Wu',
     job: '資深攝影',
-    jobEng: 'Senior‭ ‬Photojournalist',
+    jobEng: 'Senior Photojournalist',
     email: 'jamesonwu@twreporter.org',
     profile: memberUrlPrefix + membersImg.PhotoJamesonWu,
     category: categoryIds.photojournalist
   },
   {
-    name: '林佑恩',
-    nameEng: 'Yu En Lin',
+    name: '蘇威銘',
+    nameEng: 'Wei Min Su',
     job: '攝影記者',
     jobEng: 'Photojournalist',
-    email: 'yushawn1201@twreporter.org',
-    profile: memberUrlPrefix + membersImg.PhotoYuEnLin,
+    email: 'tim2468012@twreporter.org',
+    profile: memberUrlPrefix + membersImg.PhotoWeiMinSu,
     category: categoryIds.photojournalist
   },
   {
@@ -90,7 +90,7 @@ const members = [
     name: '余崇任',
     nameEng: 'Yu Chung-Jen',
     job: '工程師',
-    jobEng: 'Software Engineer‭‬',
+    jobEng: 'Software Engineer',
     email: 'yucj@twreporter.org',
     profile: memberUrlPrefix + membersImg.DigiYuChungJen,
     category: categoryIds.digital
@@ -117,14 +117,14 @@ const members = [
     name: '黃禹禛',
     nameEng: 'Yu Chen Huang',
     job: '設計',
-    jobEng: 'Art Designer‭‬',
+    jobEng: 'Art Designer',
     email: 'hychen@twreporter.org',
     profile: memberUrlPrefix + membersImg.DigiYuChenHuang,
     category: categoryIds.digital
   },
   {
     name: '林珍娜',
-    nameEng: 'Lin Chen Na',
+    nameEng: 'Chen Na Lin ',
     job: '介面設計師',
     jobEng: 'UI Designer',
     email: 'ginalin@twreporter.org',
@@ -132,13 +132,13 @@ const members = [
     category: categoryIds.digital
   },
   {
-    name: '葉瑜娟',
-    nameEng: 'Yu Chuan Yeh',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'yuchuanyeh@twreporter.org',
-    profile: memberUrlPrefix + membersImg.EditYuChuanYeh,
-    category: categoryIds.editor
+    name: '吳政達',
+    nameEng: 'Chen Da Wu',
+    job: '設計師',
+    jobEng: 'Art Designer',
+    email: 'dadawu@twreporter.org',
+    profile: memberUrlPrefix + membersImg.DigiChenDaLin,
+    category: categoryIds.digital
   },
   {
     name: '蔣宜婷',
@@ -185,9 +185,25 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '嚴文廷',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'roger@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditWenTingYen,
+    category: categoryIds.editor
+  },
+  {
+    name: '曹馥年',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'funientsao@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditFuNienTsao,
+    category: categoryIds.editor
+  },
+  {
     name: '張詩芸',
     nameEng: 'Shih-Yun Chang',
-    job: '編輯部主任',
+    job: '社群部主任',
     jobEng: 'Managing Editor',
     email: 'sychang@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditShihYunChang,
@@ -200,6 +216,15 @@ const members = [
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
     profile: memberUrlPrefix + membersImg.EditSzuHuaChen,
+    category: categoryIds.editor
+  },
+  {
+    name: '莊璧綺',
+    nameEng: 'Pi-Chi Chuang',
+    job: '執行編輯',
+    jobEng: 'Editor',
+    email: 'pichi@twreporter.org',
+    profile: memberUrlPrefix + membersImg.EditPiChi,
     category: categoryIds.editor
   },
   {
