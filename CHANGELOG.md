@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 3.2.6
+- Slide down anchor panel layout change in about-us page
+- Update information and photos in about-us page
+
 ### 3.2.5
 - [Bug] Use og_title to build `og:title` by default
 

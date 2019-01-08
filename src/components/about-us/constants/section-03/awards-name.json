@@ -32,5 +32,15 @@
     "awardId": "twPressPhoto",
     "award": "台灣新聞攝影大賽",
     "awardEng": "Taiwan Press Photo Contest"
+  },
+  {
+    "awardId": "vivianwu",
+    "award": "吳舜文新聞獎",
+    "awardEng": "Vivianwu Journalism Award"
+  },
+  {
+    "awardId": "zheng",
+    "award": "曾虛白新聞獎",
+    "awardEng": "Zheng Journalism Award"
   }
 ]
