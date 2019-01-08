@@ -8,6 +8,7 @@ export const membersImg = {
   DigiYuChenHuang: 'Digi-YuChenHuang.png',
   DigiYuChungJen: 'Digi-YuChungJen.png',
   DigiChenDaLin: 'Digi-ChenNaLin.png',
+  DigiDaDaWu: 'Digi-DadaWu.png',
   EditBoWeiWu: 'Edit-BoWeiWu.png',
   EditItingChiang: 'Edit-ItingChiang.png',
   EditJenniferCheng: 'Edit-JenniferCheng.png',
@@ -23,12 +24,12 @@ export const membersImg = {
   EditSzuHuaChen: 'Edit-SzuHuaChen.png',
   EditTzewuChang: 'Edit-TzewuChang.png',
   EditUyo: 'Edit-Uyo.png',
-  EditWenTingYen: 'Edit-TzewuChang.png',
-  EditFuNienTsao: 'Edit-TzewuChang.png',
-  EditPiChi: 'Edit-TzewuChang.png',
+  EditWenTingYen: 'Edit-WenTing.png',
+  EditFuNienTsao: 'Edit-FuNienTsao.png',
+  EditPiChi: 'Edit-Pichi.png',
   PhotoChihWeiYu: 'Photo-ChihWeiYu.png',
   PhotoJamesonWu: 'Photo-JamesonWu.png',
-  PhotoWeiMinSu: 'Photo-YuEnLin.png',
+  PhotoWeiMinSu: 'Photo-WeiMingSu.png',
   BlankFace: 'blankface.png'
 }
 

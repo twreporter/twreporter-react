@@ -11,6 +11,7 @@ import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router/lib/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.png'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -177,22 +178,29 @@ const Icons = styled.div`
 `
 
 const EnglishVersionLink = styled.a`
+  position: absolute;
+  top: 0;
+  right: ${allPaddingRight.mobile};
+  color: ${colors.white};
+  padding-left: 17px;
+  transform-origin: 0 0;
+  transform: translate(100%, 100%) rotate(90deg);
   p {
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
 		font-size: 18px;
   	font-weight: bold;
-  	letter-spacing: 0.7px;
+    letter-spacing: 0.7px;
+    span {
+      padding-left: 15px;
+    }
   }
-  position: absolute;
-  top: 0;
-  right: ${allPaddingRight.mobile};
-  padding-left: 17px;
-  transform-origin: 0 0;
-  transform: translate(100%, 100%) rotate(90deg);
-  color: ${colors.white};
   ${screen.tablet`
     padding-left: 45px;
   `}
+`
+
+const IconEnLink = styled.img`
+  width: 13.9px; 
 `
 
 class AnchorsPanel extends React.PureComponent {
@@ -245,7 +253,7 @@ class AnchorsPanel extends React.PureComponent {
               </a>
             </Icons>
             <EnglishVersionLink href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">
-              <p>English Version</p>
+              <p>English Version<span><IconEnLink src={iconEnglishLink} /></span></p>
             </EnglishVersionLink>
           </ContentWrapper>
         </Container>

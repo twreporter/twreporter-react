@@ -6,6 +6,7 @@ const fileName = {
   eventKAS: 'Section04-Event-KAS.png',
   eventNipal: 'Section04-Event-Nipal.png',
   eventTempo: 'Section04-Event-Tempo.png',
+  eventGIJN03: 'Section04-Event-GIJN-03.png',
   logoGijn: 'intl-co-GIJN-logo.png',
   logoKas: 'intl-co-kas-logo.png',
   logoTempo: 'intl-co-tempo-logo.png',
@@ -24,7 +25,7 @@ const partners = [
       english: ''
     },
     date: '2018.10.5',
-    photo: storageUrlPrefix + '/' + fileName.eventNipal,
+    photo: storageUrlPrefix + '/' + fileName.eventGIJN03,
     logo: storageUrlPrefix + '/' + fileName.logoGijn,
     link: 'http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47'
   },  

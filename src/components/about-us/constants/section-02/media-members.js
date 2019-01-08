@@ -137,7 +137,7 @@ const members = [
     job: '設計師',
     jobEng: 'Art Designer',
     email: 'dadawu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.DigiChenDaLin,
+    profile: memberUrlPrefix + membersImg.DigiDaDaWu,
     category: categoryIds.digital
   },
   {
