@@ -63,7 +63,7 @@ const TopRow = styled.div`
   }
   ${screen.mobile`
     height: ${headerStyle.height.mobile};
-		padding-left: 40px;
+    padding-left: 40px;
   `}
   ${screen.tablet`
     a{
