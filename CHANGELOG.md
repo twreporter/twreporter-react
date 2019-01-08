@@ -1,6 +1,6 @@
 ### Unreleased
 
-### 3.2.6
+### 3.2.7
 - Slide down anchor panel layout change in about-us page
 - Update information and photos in about-us page
 
