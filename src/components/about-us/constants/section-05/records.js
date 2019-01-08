@@ -1,6 +1,33 @@
 export const content = [
   {
     year: 2018,
+    month: 10,
+    date: 6,
+    text: {
+      chinese: '於韓國首爾舉行的第三屆「揭開亞洲」（Uncovering Asia）大會，推出繁體中文版「調查新聞手冊——當人民的記者」。該調查手冊由「德國KAS基金會」（KAS）創建，中文版由《報導者》翻譯，提供讀者線上版下載，並於2019年印製限量紙本版，提供新聞相關系所師生，以及對調查報導有熱情的記者，期待有助於調查新聞經驗的傳承。'
+    },
+    link: ''
+  },
+  {
+    year: 2018,
+    month: 10,
+    date: 6,
+    text: {
+      chinese: '主編李雪莉於韓國首爾舉行的第三屆「揭開亞洲」（Uncovering Asia）大會上，與兩屆普立茲新聞獎獎得主美聯社新聞記者Martha Mendoza、尼泊爾調查新聞中心記者Pramod Acharya、印尼媒體《Tempo Magazine》調查團隊的負責人Wahyu Dhyatmika，發表了「跨境調查報導」（cross-border investigations）演講。'
+    },
+    link: ''
+  },
+  {
+    year: 2018,
+    month: 9,
+    date: 12,
+    text: {
+      chinese: '出版「廢墟少年：被遺忘的高風險家庭孩子們」專書。'
+    },
+    link: ''
+  },
+  {
+    year: 2018,
     month: 9,
     date: 1,
     text: {
