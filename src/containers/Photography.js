@@ -5,10 +5,9 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/TopNews'
-import categoryListID from '../conf/category-list-id'
+import categoryConst from '../constants/category'
 import pt from '../constants/page-themes'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import { CATEGORY, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -29,20 +28,9 @@ const reduxStateFields = twreporterRedux.reduxStateFields
 
 const MAXRESULT = 10
 const categories = 'categories'
-const listID = _.get(categoryListID, 'photography', '')
+const listID = _.get(categoryConst, 'ids.photography', '')
 
 class Photography extends Component {
-  static async fetchData({ store }) {
-    try {
-      await Promise.all([
-        store.dispatch(fetchPhotographyPostsOnIndexPage()),
-        store.dispatch(fetchListedPosts(listID, categories, MAXRESULT))
-      ])
-    } catch (err) {
-      console.warn('Fetch posts of photography page occurs server side error:', err)
-    }
-  }
-
   constructor(props, context) {
     super(props, context)
     this.loadMoreArticles = this._loadMoreArticles.bind(this)
@@ -126,12 +114,9 @@ function mapStateToProps(state) {
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
-    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ]),
-
-    // theme is used by `withLayout` function
-    theme: pt.photoTheme
+    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ])
   }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage })(withLayout(Photography))
+export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage })(Photography)

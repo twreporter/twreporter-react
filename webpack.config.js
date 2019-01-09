@@ -1,12 +1,13 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 const config = require('./config')
 const fs = require('fs')
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
+const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
 
-const isProduction = process.env.NODE_ENV !== 'development'
+const isProduction = config.nodeEnv !== 'development'
 const webpackDevServerHost = config.webpackDevServerHost
 const webpackDevServerPort = config.webpackDevServerPort
 const webpackPublicPath = config.webpackPublicPath
@@ -15,36 +16,39 @@ const webpackOutputFilename = config.webpackOutputFilename
 const webpackAssets =  {
   javascripts: {
     chunks: [],
-    main: ''
+    main: '',
+    manifest: ''
   },
   stylesheets: []
 }
 
-function BundleListPlugin(options) {}
+function BundleListPlugin() {}
 
 // BundleListPlugin is used to write the paths of files compiled by webpack
 // such as javascript files transpiled by babel,
 // and scss files handled by sass, postcss and css loader,
 // into webpack-assets.json
-BundleListPlugin.prototype.apply = function(compiler) {
-  compiler.plugin('emit', function(compilation, callback) {
+BundleListPlugin.prototype.apply = function (compiler) {
+  compiler.plugin('emit', function (compilation, callback) {
     for (const filename in compilation.assets) {
       if (filename.startsWith('main')) {
         webpackAssets.javascripts.main = `${webpackPublicPath}${filename}`
+      } else if (filename.startsWith('manifest')) {
+        webpackAssets.javascripts.manifest = `${webpackPublicPath}${filename}`
       } else if (filename.indexOf('-chunk-') > -1) {
         webpackAssets.javascripts.chunks.push(`${webpackPublicPath}${filename}`)
       }
     }
 
     fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
-    callback();
-  });
-};
+    callback()
+  })
+}
 
 const webpackConfig = {
   context: path.resolve(__dirname),
   entry: {
-    main: './src/client.js',
+    main: './src/client.js'
   },
   output: {
     chunkFilename: '[name]-chunk-[chunkhash].js',
@@ -83,10 +87,10 @@ const webpackConfig = {
             }, {
               loader: 'postcss-loader',
               options: {
-                plugins: function (loader) {
+                plugins: function () {
                   return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
                 }
-              }}, 'sass-loader']
+              } }, 'sass-loader' ]
         }) : [
           'style-loader',
           {
@@ -102,7 +106,7 @@ const webpackConfig = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: function (loader) {
+              plugins: function () {
                 return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
               }
             }
@@ -114,7 +118,7 @@ const webpackConfig = {
         test: /\.css$/,
         use: isProduction ? ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
+          use: [ {
             loader: 'css-loader',
             options: {
               minimize: isProduction,
@@ -124,18 +128,18 @@ const webpackConfig = {
           }, {
             loader: 'postcss-loader',
             options: {
-              plugins: function (loader) {
+              plugins: function () {
                 return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
               }
             }
-          }]
+          } ]
         }) : [
           'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
-              plugins: function (loader) {
+              plugins: function () {
                 return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
               }
             }
@@ -148,27 +152,34 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: true,
-        NODE_ENV: isProduction ? '"production"' : '"development"',
-        API_HOST: `"${config.API_HOST || 'localhost'}"`,
-        API_PORT: `${config.API_PORT || '8080'}`,
-        API_PROTOCOL: `"${config.API_PROTOCOL || 'http'}"`
+        NODE_ENV: JSON.stringify(config.nodeEnv),
+        RELEASE_BRANCH: JSON.stringify(config.releaseBranch),
+        API_HOST: JSON.stringify(config.API_HOST),
+        API_PORT: JSON.stringify(config.API_PORT),
+        API_PROTOCOL: JSON.stringify(config.API_PROTOCOL)
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
-      __DEVTOOLS__: true,  // <-------- DISABLE redux-devtools HERE
-      __SERVER__: false
-    })
+      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
+    }),
+    new ReactLoadablePlugin({
+      filename: './react-loadable.json'
+    }),
+    new BundleListPlugin()
   ]
 }
 
 
 if (isProduction) {
   webpackConfig.plugins.push(
-    new BundleListPlugin(),
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin({
       // write css filenames into webpack-assets.json
-      filename: function(getPath) {
+      filename: function (getPath) {
         const filename = getPath('[chunkhash].[name].css')
         webpackAssets.stylesheets.push(webpackPublicPath + filename)
         fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
@@ -186,4 +197,4 @@ if (isProduction) {
   )
 }
 
-module.exports = webpackConfig;
+module.exports = webpackConfig

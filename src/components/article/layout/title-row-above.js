@@ -1,4 +1,4 @@
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import constPageThemes from '../../../constants/page-themes'
@@ -55,7 +55,7 @@ const HeaderElementBlock = styled.div`
   display: inline-block;
 `
 
-const Title = HeaderElementBlock.extend`
+const Title = styled(HeaderElementBlock)`
   margin: 0;
   font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
@@ -72,13 +72,13 @@ const Title = HeaderElementBlock.extend`
   `}
 `
 
-const Subtitle = HeaderElementBlock.extend`
+const Subtitle = styled(HeaderElementBlock)`
   color: ${props => (colorSelector(props, colors.gray.gray50))};
   font-size: ${typography.font.size.medium};
   font-size: ${typography.font.size.medium};
 `
 
-const Topic = HeaderElementBlock.extend`
+const Topic = styled(HeaderElementBlock)`
   > a {
     text-decoration: none !important;
     border: 0 !important;

@@ -7,7 +7,6 @@ import categoryListID from '../conf/category-list-id'
 import categoryString from '../constants/category-strings'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { camelize } from 'humps'
@@ -29,16 +28,6 @@ function getListID(paramCategory) {
 }
 
 class Category extends PureComponent {
-  // params are passed from Route component of react-router
-  static fetchData({ params, store, query }) {
-    /* fetch page 1 if page is invalid */
-    let page = parseInt(_.get(query, 'page', 1), 10)
-    if (isNaN(page) || page < 0) {
-      page = 1
-    }
-    return store.dispatch(fetchListedPosts(getListID(params.category), categories, MAXRESULT, page))
-  }
-
   componentWillMount() {
     const { fetchListedPosts, catId } = this.props
     const page = _.get(this.props, 'page', 1)
@@ -135,11 +124,11 @@ class Category extends PureComponent {
 
 function mapStateToProps(state, props) {
   const location = _.get(props, 'location')
-  const params = _.get(props, 'params')
   const page = parseInt(_.get(location, 'query.page', 1), 10)
-  const category = _.get(params, 'category')
-  const catId = getListID(category)
-  const pathname = _.get(location, 'pathname', `/categories/${category}`)
+  const pathSegment = _.get(props, 'match.params.category')
+  const catId = categoryConst.ids[pathSegment]
+  const catLabel = categoryConst.labels[pathSegment]
+  const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
@@ -166,4 +155,4 @@ Category.propTypes = {
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Category))
+export default connect(mapStateToProps, { fetchListedPosts })(Category)

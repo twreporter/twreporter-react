@@ -30,7 +30,7 @@ const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
     .effect-leave.effect-leave-active {
       opacity: 0;
       transition: opacity ${transitionDuration}ms ease-out;
-    }  
+    }
   `}
   ${screen.tablet`
     .effect-enter {
@@ -46,7 +46,7 @@ const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
     .effect-leave.effect-leave-active {
       transform: translateX(100%);
       transition: transform ${transitionDuration}ms ease-out;
-    }    
+    }
   `}
 `
 
@@ -63,7 +63,7 @@ const Container = styled.section`
   `}
   ${screen.tablet`
     margin: 0 -7px;
-  `}  
+  `}
   ${screen.mobile`
     overflow: auto;
     height: auto;
@@ -76,11 +76,11 @@ const Footer = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  background: ${colors.red.liverRed}; 
+  background: ${colors.red.liverRed};
   ${screen.mobile`
     position: relative;
     height: 54px;
-  `} 
+  `}
   ${screen.tablet`
     height: 100px;
   `}
@@ -109,13 +109,13 @@ const Navigator = styled.div`
     line-height: 1.54;
     letter-spacing: 1.4px;
     color: ${colors.white};
-    cursor: pointer;    
+    cursor: pointer;
   }
   ${screen.mobile`
     p{
       transform: translateX(50%) translateY(-100%);
     }
-  `}   
+  `}
 `
 
 const Content = styled.div`
@@ -131,7 +131,7 @@ const Content = styled.div`
     width: ${containerStyle.width.mobile};
     height: ${contentStyle.height.mobile};
     padding: ${contentStyle.padding.mobile};
-    margin-top: calc(${headerStyle.height.mobile} + 20px); 
+    margin-top: calc(${headerStyle.height.mobile} + 20px);
   `}
   ${screen.tablet`
     width: ${containerStyle.width.tablet};
@@ -188,7 +188,7 @@ const ChineseIntro = styled.div`
       letter-spacing: 8.1px;
       transform: translateY(-100%) translateX(30%) rotate(90deg);
     }
-  `}  
+  `}
   ${screen.desktop`
     height: 230px;
     h2{
@@ -197,7 +197,7 @@ const ChineseIntro = styled.div`
     }
   `}
   ${screen.overDesktop`
-    height: 322px;    
+    height: 322px;
     h2{
       font-size: 28px;
       letter-spacing: 11.9px;
@@ -297,19 +297,19 @@ const SeperateLine = styled.div`
     h3{
       text-align: left;
     }
-    margin: 80px 0 55px 0;  
-  `}    
+    margin: 80px 0 55px 0;
+  `}
   ${screen.desktop`
     width: 392px;
     margin: 24px 0 26px 0;
-  `}    
+  `}
   ${screen.overDesktop`
     width: 538px;
     margin: 39.2px 0 50px 0;
-  `}    
+  `}
 `
 
-const SeperateLineOnMobile = SeperateLine.extend`
+const SeperateLineOnMobile = styled(SeperateLine)`
   ${screen.tabletAbove`
     display: none;
   `}
@@ -318,7 +318,7 @@ const SeperateLineOnMobile = SeperateLine.extend`
   }
 `
 
-const SeperateLineOnTabletAbove = SeperateLine.extend `
+const SeperateLineOnTabletAbove = styled(SeperateLine) `
   ${screen.mobile`
     display: none;
   `}
@@ -352,7 +352,7 @@ const Words = styled.div`
       mark{
         background: ${colors.white};
       }
-    }    
+    }
   `}
   ${screen.desktopAbove`
     position: absolute;
@@ -376,7 +376,7 @@ const Words = styled.div`
       font-size: 18px;
       line-height: 1.78;
       letter-spacing: 0.4px;
-    } 
+    }
   `}
   ${screen.desktop`
     width: 404px;
@@ -385,7 +385,7 @@ const Words = styled.div`
       line-height: 2;
       letter-spacing: 0.3px;
     }
-  `}    
+  `}
   ${screen.overDesktop`
     width: 481px;
     p{
@@ -393,7 +393,7 @@ const Words = styled.div`
       line-height: 2.32;
       letter-spacing: 0.4px;
     }
-  `}    
+  `}
 `
 
 const EnglishIntro = styled.div`
@@ -423,8 +423,8 @@ const EnglishIntro = styled.div`
       box-shadow: none;
       mark{
         background: ${colors.white};
-      } 
-    } 
+      }
+    }
   `}
   ${screen.mobile`
     display: none;
@@ -442,7 +442,7 @@ const EnglishIntro = styled.div`
       font-size: 18px;
       line-height: 1.44;
       letter-spacing: 0.3px;
-    }    
+    }
   `}
   ${screen.desktop`
     float: right;
@@ -452,7 +452,7 @@ const EnglishIntro = styled.div`
       font-size: 15px;
       line-height: 26px;
     }
-  `}    
+  `}
   ${screen.overDesktop`
     float: right;
     width: 628px;
@@ -461,7 +461,7 @@ const EnglishIntro = styled.div`
       font-size: 18px;
       line-height: 2.06;
     }
-  `}    
+  `}
 `
 
 export class Opening extends PureComponent {
@@ -471,7 +471,7 @@ export class Opening extends PureComponent {
       isAnchorPanelOpen: false
     }
   }
-  
+
   _handleClick = (event) => {
     event.preventDefault()
     const coverBottom = this._cover.scrollHeight
@@ -494,7 +494,7 @@ export class Opening extends PureComponent {
   render() {
     const { isAnchorPanelOpen } = this.state
     return (
-      <Container innerRef={(ele) => {this._cover = ele}}>
+      <Container ref={(ele) => {this._cover = ele}}>
         <StyledCSSTransitionGroup
           transitionName={{
             enter: 'effect-enter',
@@ -508,19 +508,19 @@ export class Opening extends PureComponent {
           {
             isAnchorPanelOpen ?
               <AnchorsPanel
-                ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel} 
+                ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel}
                 handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
                 isOpen={this.state.isAnchorPanelOpen}
                 closePanel={this._closeAnchorPanel}
               /> : null
           }
         </StyledCSSTransitionGroup>
-        <Header 
+        <Header
           onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
           isPanelOpen={this.state.isAnchorPanelOpen}
         />
         <Content>
-          <ChineseIntro>          
+          <ChineseIntro>
             <Title>
               <span>關於我們</span>
               <span>ABOUT US</span>

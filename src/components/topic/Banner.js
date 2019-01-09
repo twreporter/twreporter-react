@@ -59,7 +59,7 @@ class Banner extends React.PureComponent {
   render() {
     const { headline, title, subtitle, publishedDate, styles, viewportHeight, backgroundElement } = this.props
     return (
-      <Container innerRef={this._refContainer} viewportHeight={viewportHeight} >
+      <Container ref={this._refContainer} viewportHeight={viewportHeight} >
         {backgroundElement}
         <div className={styles['infos-flex-wrapper']} >
           {!headline ? null : <div className={styles['headline']} >{this._addTailSpaceIfHeadIsFullwidthBracket(headline)}</div>}

@@ -13,6 +13,7 @@
 
 err.log
 webpack-assets.json
+react-loadable.json
 README.md
 CHANGELOG.md
 

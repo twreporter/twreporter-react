@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
+import qs from 'qs'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
@@ -21,16 +21,6 @@ const MAXRESULT = 10
 const tags = 'tags'
 
 class Tag extends PureComponent {
-  // params are passed from Route component of react-router
-  static fetchData({ params, store, query }) {
-    /* fetch page 1 if page is invalid */
-    let page = parseInt(_.get(query, 'page', 1), 10)
-    if (isNaN(page) || page < 0) {
-      page = 1
-    }
-    return store.dispatch(fetchListedPosts(params.tagId, tags, MAXRESULT, page))
-  }
-
   componentWillMount() {
     const { fetchListedPosts, tagId } = this.props
     const page = _.get(this.props, 'page', 1)
@@ -139,10 +129,14 @@ class Tag extends PureComponent {
 }
 
 function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const params = _.get(props, 'params')
-  const page = parseInt(_.get(location, 'query.page', 1), 10)
-  const tagId = _.get(params, 'tagId', '')
+  const tagId = _.get(props, 'match.params.tagId', '')
+  const search = _.get(props, 'location.search', '')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  /* fetch page 1 if query is invalid */
+  let page = parseInt(_.get(query, 'page', 1), 10)
+  if (isNaN(page) || page < 0) {
+    page = 1
+  }
   const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
@@ -159,12 +153,12 @@ Tag.defaultProps = {
 }
 
 Tag.propTypes = {
-  lists: PropTypes.object,
   entities: PropTypes.object,
-  tagId: PropTypes.string.isRequired,
+  lists: PropTypes.object,
   page: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  tagId: PropTypes.string.isRequired
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Tag))
+export default connect(mapStateToProps, { fetchListedPosts })(Tag)

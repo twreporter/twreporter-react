@@ -22,7 +22,7 @@ const Arrow = styled.div`
   }
 `
 
-const LeftArrow = Arrow.extend`
+const LeftArrow = styled(Arrow)`
   left: 0;
   img{
     transform: translateX(45px) scaleX(-1);
@@ -34,7 +34,7 @@ const LeftArrow = Arrow.extend`
   `}
 `
 
-const RightArrow = Arrow.extend`
+const RightArrow = styled(Arrow)`
   right: 0;
   img{
     transform: translateX(-36px);
@@ -66,7 +66,7 @@ export default class Arrows extends PureComponent {
                 isvisible={visible}
                 onClick = {() => changePage('next') }>
                 <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
-              </RightArrow> 
+              </RightArrow>
             </Container> : null
         }
       </React.Fragment>

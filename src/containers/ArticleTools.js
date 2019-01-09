@@ -129,5 +129,5 @@ function mapStateToProps(state) {
   }
 }
 
-// withRef:true is the way to add the ref on the React component which is connected to Redux store
-export default connect(mapStateToProps, null, null ,{ withRef: true })(ArticleTools)
+// forwardRef:true is the way to add the ref on the React component which is connected to Redux store
+export default connect(mapStateToProps, null, null ,{ forwardRef: true })(ArticleTools)

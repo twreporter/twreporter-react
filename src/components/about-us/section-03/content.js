@@ -19,11 +19,11 @@ const Arrow = styled.div`
   `}
   ${screen.overDesktop`
     width: 15px;
-    height: 73px;  
+    height: 73px;
   `}
 `
 
-const TopArrow = Arrow.extend`
+const TopArrow = styled(Arrow)`
   top: 0;
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   img{
@@ -32,7 +32,7 @@ const TopArrow = Arrow.extend`
   }
 `
 
-const BottomArrow = Arrow.extend`
+const BottomArrow = styled(Arrow)`
   bottom: 0;
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   img{
@@ -65,14 +65,14 @@ const Container = styled.div `
     width: 432px;
   `}
   ${screen.desktopAbove`
-    background: ${colors.gray.gray96};  
+    background: ${colors.gray.gray96};
   `}
   ${screen.tablet`
     margin-top: 60.1px;
   `}
   ${screen.mobile`
     margin-top: 37px;
-  `}  
+  `}
 `
 
 const SemiTransparentMask = styled.div `
@@ -143,7 +143,7 @@ export default class Content extends PureComponent {
 
   _backToTop = () => {
     this.clickCtr = 0
-    this.setState({ page: 0 })    
+    this.setState({ page: 0 })
   }
   render() {
     const { page } = this.state
@@ -165,7 +165,7 @@ export default class Content extends PureComponent {
             activeAwardId={activeAwardId}
             activeYearIndex={activeYearIndex}
           />
-          <AccordionList 
+          <AccordionList
             awardNamelist={awardNamelist}
             fulldatalist={fulldatalist}
             awardYearList={awardYearList}

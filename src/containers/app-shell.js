@@ -5,12 +5,11 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import PropTypes from 'prop-types'
 import React from 'react'
 import axios from 'axios'
+import LayoutManager from '../managers/layout-manager'
+import ThemeManager from '../managers/theme-manager'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { AuthenticationContext } from '@twreporter/react-components/lib/header'
-import { PureComponent } from 'react'
-import { authUserByTokenAction, deletAuthInfoAction, localStorageKeys, renewToken, getItem, scheduleRenewToken, setupTokenInLocalStorage, signOutAction } from '@twreporter/registration'
 import { colors, typography } from '../themes/common-variables'
 import { connect } from 'react-redux'
 import { screen } from '../themes/screen'
@@ -22,7 +21,8 @@ const _ = {
   get
 }
 
-const formAPIURL = twreporterRedux.utils.formAPIURL
+const { utils } = twreporterRedux
+const formAPIURL = utils.formAPIURL
 
 // TODO move applicationServerPublicKey to config
 const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
@@ -67,9 +67,10 @@ function isWebPushSubscribed(endpoint) {
  * Send request to API server to subscribe the web push.
  * @param {Object} subscription A instance of `PushSubscription`
  * See MDN doc about PushSubscription (https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription)
+ * @param {number} userID - id of user
  * @return {Promise}
  */
-function updateSubscriptionOnServer(subscription) {
+function updateSubscriptionOnServer(subscription, userID) {
   if (subscription !== null) {
     const _subscription = subscription.toJSON()
     const data = {
@@ -81,15 +82,7 @@ function updateSubscriptionOnServer(subscription) {
       data.expirationTime = _subscription.expirationTime.toString()
     }
 
-    const browserLocalStorage = (typeof localStorage === 'undefined') ? null : localStorage
-    try {
-      const authInfo = JSON.parse(browserLocalStorage.getItem(localStorageKeys.authInfo))
-      if (authInfo.id) {
-        data.userID = authInfo.id
-      }
-    } catch(err) {
-      console.log('Getting authoInfo from localStorage and parsing it to JSON occurs error:', err)
-    }
+    data.userID = userID
 
     return axios.post(formAPIURL('web-push/subscriptions'), data)
       .catch((err) => {
@@ -101,8 +94,9 @@ function updateSubscriptionOnServer(subscription) {
 /**
  * Use service worker to subscribe the web push.
  * @param {Object} registration - Service worker registration
+ * @param {number} userID - id of user
  */
-function subscribeUser(registration) {
+function subscribeUser(registration, userID) {
   const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
   return registration.pushManager.subscribe({
     userVisibleOnly: true,
@@ -112,7 +106,7 @@ function subscribeUser(registration) {
       console.log('Received PushSubscription: ', JSON.stringify(subscription))
       console.log('User is subscribed.')
 
-      return updateSubscriptionOnServer(subscription)
+      return updateSubscriptionOnServer(subscription, userID)
     })
     .catch(function (err) {
       console.log('Failed to subscribe the user: ', err)
@@ -156,9 +150,10 @@ function isRegistrationSubscribed(reg) {
 
 /**
  * Subscribe to receive notifications
+ * @param {number} userID - id of user
  * @return {Object} Promise
  */
-function subscribeNotification() {
+function subscribeNotification(userID) {
   if (isPushSupported() && isServiceWorkerSupported()) {
     return navigator.serviceWorker.getRegistration()
       .then((reg) => {
@@ -166,7 +161,7 @@ function subscribeNotification() {
           return isRegistrationSubscribed(reg)
             .then((isSubscribed) => {
               if (!isSubscribed) {
-                return subscribeUser(reg)
+                return subscribeUser(reg, userID)
               }
             })
         }
@@ -176,16 +171,17 @@ function subscribeNotification() {
 
 /**
  * request permission of sending notifications
+ * @param {number} userID - id of user
  * @return {Object} Promise
  */
-function requestNotificationPermission() {
+function requestNotificationPermission(userID) {
   return new Promise((resolve, reject) => {
     if (isNotificationSupported()) {
       if (Notification.permission === 'denied') {
         Notification.requestPermission((permission) => {
           if (permission === 'grant') {
             console.log('User grant the notification request')
-            return subscribeNotification()
+            return subscribeNotification(userID)
               .then(resolve)
               .catch(reject)
           }
@@ -194,7 +190,7 @@ function requestNotificationPermission() {
           return reject()
         })
       } else {
-        return subscribeNotification()
+        return subscribeNotification(userID)
           .then(resolve)
           .catch(reject)
       }
@@ -204,6 +200,10 @@ function requestNotificationPermission() {
     }
   })
 }
+
+const AppShellBox = styled.div`
+  background-color: ${props => props.backgroundColor};
+`
 
 const NoticePopup = styled.div`
   z-index: 1000;
@@ -254,30 +254,21 @@ const NoticePopup = styled.div`
   `}
 `
 
-class App extends PureComponent {
+class App extends React.PureComponent {
+  static propTypes = {
+    theme: PropTypes.string.isRequired,
+    toShowNotifyPopup: PropTypes.bool.isRequired,
+    userID: PropTypes.number
+  }
+
   constructor(props) {
     super(props)
-    this.authenticationContext = new AuthenticationContext(props.ifAuthenticated, props.signOutAction)
     this.state = {
       toShowNotify: false,
       toShowInstruction: false
     }
     this.acceptNotification = this._acceptNotification.bind(this)
     this.denyNotification = this._denyNotification.bind(this)
-  }
-
-  getChildContext() {
-    const { location } = this.props
-    return {
-      location,
-      authenticationContext: this.authenticationContext
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.ifAuthenticated !== this.props.ifAuthenticated) {
-      this.authenticationContext.setIfAuthenticated(nextProps.ifAuthenticated)
-    }
   }
 
   componentWillMount() {
@@ -299,60 +290,10 @@ class App extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    // token can be stored in localStorage in two scenario
-    // 1. TWReporter account sign in
-    // 2. oAuth
-    // Acount: store auth info during signin action
-    // oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
-    // The following procedure is only for oAuth
-    // const { auth } = store.getState()
-    const { ifAuthenticated, authInfo, authType, deletAuthInfoAction } = this.props
-    if(ifAuthenticated && authInfo && (authType === 'facebook' || authType === 'google')) {
-      setupTokenInLocalStorage(authInfo, localStorageKeys.authInfo)
-      deletAuthInfoAction()
-      // store.dispatch(deletAuthInfoAction())
-    }
-
-    // 1. Renew token when user brows our website
-    // 2. ScheduleRenewToken if user keep the tab open forever
-    const { authConfigure, renewToken } = this.props
-    const authInfoString = getItem(localStorageKeys.authInfo)
-    if(authInfoString) {
-      const authObj = JSON.parse(authInfoString)
-      // const { authConfigure } = store.getState()
-      const { apiUrl, renew } = authConfigure
-      renewToken(apiUrl, renew, authObj)
-      scheduleRenewToken(
-        6,
-        () => {
-          if (getItem(localStorageKeys.authInfo)) {
-            renewToken(apiUrl, renew, JSON.parse(getItem(localStorageKeys.authInfo)))
-          }
-        }
-      )
-    }
-
-    // Check if token existed in localStorage and expired
-    // following preocedure is for both accoutn and oAuth SignIn
-    // 7 = 7 days
-    const { authUserByTokenAction } = this.props
-    authUserByTokenAction(7, authType)
-  }
-
-  _setNextPopupToNextMonth() {
-    // In order to reduce the interference,
-    // if the user deny accepting notification,
-    // and then we ask them next month.
-    // 1000 * 60 * 60 * 24 * 30 is one month in ms format
-    const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
-    const oneMonthLater = Date.now() + oneMonthInterval
-    this.props.setNextPopupTS(oneMonthLater)
-  }
-
   _acceptNotification() {
+    const { userID } = this.props
     const _this = this
-    requestNotificationPermission()
+    requestNotificationPermission(userID)
       .then(() => {
         _this.setState({
           toShowNotify: false
@@ -399,7 +340,12 @@ class App extends PureComponent {
   }
 
   render() {
-    const { toShowNotifyPopup } = this.props
+    const {
+      releaseBranch,
+      theme,
+      toShowNotifyPopup
+    } = this.props
+
     let boxJSX = null
     if (toShowNotifyPopup) {
       if (this.state.toShowInstruction) {
@@ -408,23 +354,41 @@ class App extends PureComponent {
         boxJSX = this._renderAcceptanceBox()
       }
     }
-    return <ErrorBoundary>{boxJSX}{this.props.children}</ErrorBoundary>
+
+    const layoutManager = new LayoutManager({
+      releaseBranch,
+      theme
+    })
+    const header = layoutManager.getHeader()
+    const backgroundColor = layoutManager.getBackgroundColor()
+    const footer = layoutManager.getFooter()
+
+    return (
+      <ErrorBoundary>
+        <AppShellBox
+          backgroundColor={backgroundColor}
+        >
+          {header}
+          {boxJSX}
+          {this.props.children}
+          {footer}
+        </AppShellBox>
+      </ErrorBoundary>
+    )
   }
 }
 
-App.childContextTypes = {
-  location: PropTypes.object,
-  authenticationContext: PropTypes.object.isRequired
-}
-
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const { releaseBranch='master' } = props
   const ts = _.get(state, reduxStatePropKey.nextNotifyPopupTS, 0)
+  const pathname = _.get(props, 'location.pathname', '')
+  const themeManager = new ThemeManager()
+  themeManager.prepareThemePathArrForAppShell(state)
+  const theme = themeManager.getThemeByParsingPathname(pathname)
   return {
-    header: _.get(state, 'header'),
-    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false),
-    authInfo: _.get(state, [ 'auth', 'authInfo' ], {}),
-    authType: _.get(state, [ 'auth', 'authType' ], ''),
-    authConfigure: _.get(state, 'authConfigure', {}),
+    theme,
+    releaseBranch,
+    userID: _.get(state, [ 'auth', 'userInfo.id' ]),
     toShowNotifyPopup: ts < Date.now()
   }
 }
@@ -436,6 +400,6 @@ function setNextPopupTS(ts) {
   }
 }
 
-const actions = { signOutAction, deletAuthInfoAction, renewToken, authUserByTokenAction, setNextPopupTS }
+const actions = { setNextPopupTS }
 
 export default connect(mapStateToProps, actions)(App)

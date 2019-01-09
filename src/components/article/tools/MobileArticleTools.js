@@ -1,11 +1,12 @@
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
 import styled from 'styled-components'
-import { BookmarkWidget } from '@twreporter/registration'
+// TODO Add Bookmark widget back with refined modules
+// import { BookmarkWidget } from '@twreporter/registration'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 
 const buttonWidth = 52
@@ -39,7 +40,7 @@ const IconContainer = styled.div`
   }
 `
 
-const SubsequentIconContainer = IconContainer.extend`
+const SubsequentIconContainer = styled(IconContainer)`
   margin-bottom: 20px;
 `
 
@@ -68,18 +69,24 @@ BackToTopicBtn.propTypes = {
 
 class MobileArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
+    const {
+      topicTitle,
+      topicSlug,
+      toShow
+      //bookmarkData,
+      //slug
+    } = this.props
     return (
       <Container
         toShow={toShow}
       >
         {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
         <WidgetWrapper key="bookmark_widget">
-          <BookmarkWidget
+          {/*<BookmarkWidget
             bookmarkData={bookmarkData}
             slug={slug}
             mobile
-          />
+          />*/}
         </WidgetWrapper>
         <BackToTopBtn key="back_to_top" />
       </Container>
