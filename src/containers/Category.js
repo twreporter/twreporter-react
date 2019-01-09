@@ -3,13 +3,11 @@ import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import categoryListID from '../conf/category-list-id'
-import categoryString from '../constants/category-strings'
+import categoryConst from '../constants/category'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
-import { camelize } from 'humps'
 import { connect } from 'react-redux'
 
 const _  = {
@@ -21,11 +19,6 @@ const { fetchListedPosts } = actions
 
 const MAXRESULT = 10
 const categories = 'categories'
-
-function getListID(paramCategory) {
-  const field = camelize(paramCategory)
-  return categoryListID[field]
-}
 
 class Category extends PureComponent {
   componentWillMount() {
@@ -45,7 +38,7 @@ class Category extends PureComponent {
   render() {
     let isFetching = false
 
-    const { lists, entities, catId, category, page, pathname } = this.props
+    const { lists, entities, catId, catLabel, page, pathname } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ catId, 'error' ], null)
 
@@ -84,9 +77,8 @@ class Category extends PureComponent {
       isFetching = true
     }
 
-    const catName = categoryString[camelize(category)]
-    const title = catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL}category/${category}`
+    const title = catLabel + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL_NO_SLASH}${pathname}`
 
     return (
       <div>
@@ -109,7 +101,7 @@ class Category extends PureComponent {
         />
         <List
           data={posts}
-          catName={catName}
+          catName={catLabel}
           isFetching={isFetching}
         />
         <Pagination
@@ -133,7 +125,7 @@ function mapStateToProps(state, props) {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
     catId,
-    category,
+    catLabel,
     page,
     pathname
   }
@@ -149,7 +141,7 @@ Category.propTypes = {
   entities: PropTypes.object,
   lists: PropTypes.object,
   catId: PropTypes.string,
-  category: PropTypes.string.isRequired,
+  catLabel: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired
 }
