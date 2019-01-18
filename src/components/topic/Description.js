@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
+import { Body } from '../article/Body'
 import { lineHeight, typography, colors } from '../../themes/common-variables'
 
 const redLineDistance = '40px'
@@ -13,22 +14,11 @@ const Container = styled.div`
 `
 
 const TopicDescription = styled.div`
-  position: relative;
-  width: 38rem;
-  max-width: 90%;
-  
+  position: relative; 
   padding-bottom: ${redLineDistance};
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
-  font-size: ${typography.font.size.base};
-  white-space: pre-wrap;
-  line-height: ${lineHeight.linHeightLarge};
   color: ${colors.gray.gray15};
-
-  p {
-    margin-bottom: 1.5em;
-  }
 
   a {
       border-bottom: 1px ${colors.primaryColor} solid;
@@ -56,21 +46,25 @@ const TopicDescription = styled.div`
     margin: auto;
     border-top: 2px solid ${colors.red.rustyRed};
   }
+
+  /* Since the component corresponding to unstyled type uses a className to address text-align as justify. 
+   * Boost the specificity of the override style by && instead of & here. 
+   */
+  && * {
+    font-size: ${typography.font.size.base};
+    line-height: ${lineHeight.lineHeightLarge};
+    margin-bottom: 1.5em;
+    text-align: center;
+  }
 `
 
-const TeamDescriptiton = styled.div`
-  text-align: center;
+const TeamDescription = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 38rem;
   max-width: 90%;
-  font-size: ${typography.font.size.small};
-  color: ${colors.gray.gray50};
-  line-height: ${lineHeight.linHeightLarge};
   margin-top: 40px;
-  p {
-    white-space: pre-wrap;
-  }
+
   a {
     border-bottom: 1px ${colors.primaryColor} solid;
     cursor: pointer;
@@ -81,21 +75,36 @@ const TeamDescriptiton = styled.div`
       color: ${colors.primaryColor};
     }
   }
+
+  /* Since the component corresponding to unstyled type uses a className to address text-align as justify. 
+   * Boost the specificity of the override style by && instead of & here. 
+   */
+  && * {
+    font-size: ${typography.font.size.small};
+    color: ${colors.gray.gray50};
+    line-height: ${lineHeight.lineHeightLarge};
+    text-align: center;
+    margin-bottom: 0; 
+  }
 `
 
 const Description = (props) => {
   const { topicDescription, teamDescription } = props
   return (
     <Container>
-      <TopicDescription dangerouslySetInnerHTML={{ __html: topicDescription }} />
-      <TeamDescriptiton  dangerouslySetInnerHTML={{ __html: teamDescription }} />
+      <TopicDescription>
+        <Body data={topicDescription} />
+      </TopicDescription>
+      <TeamDescription>
+        <Body data={teamDescription} />
+      </TeamDescription>
     </Container>
-  )
+  ) 
 }
 
 Description.propTypes = {
-  topicDescription: PropTypes.string.isRequired,
-  teamDescription: PropTypes.string.isRequired
+  topicDescription: PropTypes.array.isRequired,
+  teamDescription: PropTypes.array.isRequired
 }
 
 export default Description
