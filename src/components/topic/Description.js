@@ -48,10 +48,11 @@ const TopicDescription = styled.div`
   }
 
   /* Since the component corresponding to unstyled type uses a className to address text-align as justify. 
-   * Boost the specificity of the override style here */
+   * Boost the specificity of the override style by && instead of & here. 
+   */
   && * {
     font-size: ${typography.font.size.base};
-    line-height: ${lineHeight.linHeightLarge};
+    line-height: ${lineHeight.lineHeightLarge};
     margin-bottom: 1.5em;
     text-align: center;
   }
@@ -76,11 +77,12 @@ const TeamDescription = styled.div`
   }
 
   /* Since the component corresponding to unstyled type uses a className to address text-align as justify. 
-   * Boost the specificity of the override style here */
+   * Boost the specificity of the override style by && instead of & here. 
+   */
   && * {
     font-size: ${typography.font.size.small};
     color: ${colors.gray.gray50};
-    line-height: ${lineHeight.linHeightLarge};
+    line-height: ${lineHeight.lineHeightLarge};
     text-align: center;
     margin-bottom: 0; 
   }

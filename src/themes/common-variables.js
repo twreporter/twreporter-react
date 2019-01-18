@@ -21,7 +21,7 @@ export const typography = {
 export const lineHeight = {
   lineHeightMedium: '1.4',
   lineHeightBase: '1.5',
-  linHeightLarge: '1.8',
+  lineHeightLarge: '1.8',
   lineHeightParagraph: '1.95'
 }
 

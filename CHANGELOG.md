@@ -1,4 +1,5 @@
 ### Unreleased
+- Tweak TopicLandingPage since the next version api will remove plain html  
 
 ### 3.2.8
 - Slide down anchor panel layout change in about-us page
