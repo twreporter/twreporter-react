@@ -340,6 +340,16 @@ class App extends PureComponent {
     authUserByTokenAction(7, authType)
   }
 
+  _setNextPopupToNextMonth() {
+    // In order to reduce the interference,
+    // if the user deny accepting notification,
+    // and then we ask them next month.
+    // 1000 * 60 * 60 * 24 * 30 is one month in ms format
+    const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
+    const oneMonthLater = Date.now() + oneMonthInterval
+    this.props.setNextPopupTS(oneMonthLater)
+  }
+
   _acceptNotification() {
     const _this = this
     requestNotificationPermission()
@@ -353,6 +363,8 @@ class App extends PureComponent {
           toShowInstruction: true
         })
       })
+
+    this._setNextPopupToNextMonth()
   }
 
   _denyNotification() {
@@ -361,11 +373,7 @@ class App extends PureComponent {
       toShowInstruction: false
     })
 
-    // In order to reduce the interference,
-    // if the user deny accepting notification,
-    // and then we ask them next day.
-    // 86400000 is one day in ms format
-    this.props.setNextPopupTS(Date.now() + 86400000)
+    this._setNextPopupToNextMonth()
   }
 
   _renderAcceptanceBox() {
