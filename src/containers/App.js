@@ -363,9 +363,11 @@ class App extends PureComponent {
 
     // In order to reduce the interference,
     // if the user deny accepting notification,
-    // and then we ask them next day.
-    // 86400000 is one day in ms format
-    this.props.setNextPopupTS(Date.now() + 86400000)
+    // and then we ask them next week.
+    // 1000 * 60 * 60 * 24 * 7 is one week in ms format
+    const oneWeekInterval = 1000 * 60 * 60 * 24 * 7
+    const oneWeekLater = Date.now() + oneWeekInterval
+    this.props.setNextPopupTS(oneWeekLater)
   }
 
   _renderAcceptanceBox() {
