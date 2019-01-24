@@ -1,8 +1,7 @@
 ### Unreleased
 
 ### 3.2.9
-- Tweak TopicLandingPage since the next version api will remove plain html  
-- Update the internal of showing web push confirmation check box from one day to one week.
+- Update the internal of showing web push confirmation check box from one day to one month.
 
 ### Release
 ### 3.2.8
