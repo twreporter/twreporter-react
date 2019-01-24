@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 3.2.9
+- Tweak TopicLandingPage since the next version api will remove plain html  
+- Update the internal of showing web push confirmation check box from one day to one week.
+
+### Release
 ### 3.2.8
 - Slide down anchor panel layout change in about-us page
 - Update information and photos in about-us page
