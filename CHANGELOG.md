@@ -1,9 +1,9 @@
 ### Unreleased
 
+### Release
 ### 3.2.9
 - Update the internal of showing web push confirmation check box from one day to one month.
 
-### Release
 ### 3.2.8
 - Slide down anchor panel layout change in about-us page
 - Update information and photos in about-us page
