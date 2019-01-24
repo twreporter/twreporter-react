@@ -131,8 +131,8 @@ class TopicLandingPage extends Component {
     const bannerTheme = _.get(topic, 'titlePosition') || 'center' // {string} - Theme of banner
     const cardsTheme = _.get(topic, 'relatedsFormat') || 'in-row' // {string} - Theme of cards
     const cardsContainerBgColor = _.get(topic, 'relatedsBackground') || '#d8d8d8' // {string} - HEX value of cards container bg-color
-    const description = _.get(topic, 'description.apiData', []) // {array}
-    const teamDescription = _.get(topic, 'teamDescription.apiData', []) // {array}
+    const description = _.get(topic, 'description.html', '') // {string}
+    const teamDescription = _.get(topic, 'teamDescription.html', '') // {string}
     const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
     const ogTitle = _.get(topic, 'ogTitle', '') || _.get(topic, 'title', '')
     const ogImage = _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
