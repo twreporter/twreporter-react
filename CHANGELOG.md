@@ -1,6 +1,9 @@
 ### Unreleased
 
 ### Release
+### 3.2.10
+- Tweak TopicLandingPage container due to api changes (remove plain html) 
+
 ### 3.2.9
 - Update the internal of showing web push confirmation check box from one day to one month.
 
