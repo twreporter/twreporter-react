@@ -1,37 +1,23 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import YoutubePlayer from 'react-youtube'
-import constStyledComponents from '../../constants/styled-components'
 import getArticleComponent from '../article/getArticleComponent'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import { lineHeight, typography, colors } from '../../themes/common-variables'
+import { screen } from '../../themes/screen' 
 // lodash
 import get from 'lodash/get'
 
-const fontSize = 'medium'
+const mediumFontSize = 'medium'
 const redLineDistance = '40px'
-const contentSize = 'small'
+const smallContentSize = 'small'
 
 const _ = {
   get
 }
 
-const StyledTopicComponent = constStyledComponents.ResponsiveContainerForAritclePage.extend`
-  font-size: ${(props) => {
-    let fontSize = typography.font.size.base
-    switch(props.fontSize) {
-      case 'small':
-        fontSize = typography.font.size.xSmall
-        break
-      case 'large':
-        fontSize = typography.font.size.larger
-        break
-      default:
-        break
-    }
-    return fontSize
-  }};
-
+const StyledTopicComponent = styled.div`
+  font-size: ${props => props.fontSize};   
   margin-bottom: 40px;
 `
 
@@ -44,6 +30,8 @@ const Container = styled.div`
 
 const TopicDescription = styled.div`
   position: relative;
+  width: 38rem;
+  max-width: 90%;
   padding-bottom: ${redLineDistance};
   text-align: center;
   margin-left: auto;
@@ -52,7 +40,6 @@ const TopicDescription = styled.div`
   white-space: pre-wrap;
   line-height: ${lineHeight.linHeightLarge};
   color: ${colors.gray.gray15};
-
   p {
     margin-bottom: 1.5em;
   }
@@ -66,10 +53,6 @@ const TopicDescription = styled.div`
       &:hover {
         color: ${colors.primaryColor};
       }
-  }
-
-  iframe {
-    max-width: 100%;
   }
 
   /* horizontal rule */
@@ -89,8 +72,8 @@ const TopicDescription = styled.div`
   && * {
     font-size: ${typography.font.size.base};
     line-height: ${lineHeight.lineHeightLarge};
-    margin-bottom: 1.5em;
     text-align: center;
+    margin: 0 auto 1.5em auto;
   }
 `
 
@@ -141,15 +124,16 @@ const YoutubeContainer = styled.div`
   &&& * {
     margin-bottom: 0;
   }
-`
-
-const YoutubeIframeContainer = styled.div`
-  max-width: 100%;
-  margin-bottom: 0;
-  iframe,object,embed {
-    width: 560px;
-    height: 315px;
+  iframe {
+    max-width: 100%;
   }
+  ${screen.tabletAbove`
+    margin: 0 auto;
+    iframe {
+      width: 560px;
+      height: 315px;
+    }
+  `}
 `
 
 const DescTextBlock = styled.div`
@@ -160,68 +144,55 @@ const DescTextBlock = styled.div`
 }
 `
 
-const TopicDescriptionJSX = {
-  BlockQuote: (content) => {
+const TopicJSX = {
+  BlockQuote: (props) => {
     return (
-      <BlockQuote dangerouslySetInnerHTML={{ __html: _.get(content, [ 0 ], '') }}></BlockQuote>
+      <BlockQuote dangerouslySetInnerHTML={{ __html: _.get(props, [ 'content', 0 ], '') }}></BlockQuote>
     )
   },
-  Youtube: (content) => {
-    let { description, youtubeId } = _.get(content, [ 0 ], {})
+  Youtube: (props) => {
+    let { description, youtubeId } = _.get(props, [ 'content', 0 ], {})
     if (!youtubeId) {
       return null
     }
     return (
       <YoutubeContainer>
-        <YoutubeIframeContainer>
-          <YoutubePlayer videoId={youtubeId} />
-        </YoutubeIframeContainer>
+        <YoutubePlayer videoId={youtubeId} />
         <DescTextBlock>
           {description}
         </DescTextBlock>
       </YoutubeContainer>
     )
-  }
-}
-
-const TopicTeamJSX = {
-  Image: (content) => {
-    const imgSrc = _.get(content, [ 0, 'tablet', 'url' ], '')
+  },
+  Image: (props) => {
+    const imgSrc = _.get(props, [ 'content', 0, 'tablet', 'url' ], '')
     return (
       <img src={imgSrc} />
     )
   }
 }
 
-const getTopicContent = (data, contentType) => {
+const getTopicContent = (data) => {
   if (Array.isArray(data)) {
     return data.map((ele) => {
       let styles = {}
       let type = ele.type
-      let ArticleComponent = null
-      let TopicComponent = null
-      if (contentType === 'description') {
-        switch(type) {
-          case 'blockquote':
-            TopicComponent = TopicDescriptionJSX.BlockQuote
-            break
-          case 'youtube':
-            TopicComponent = TopicDescriptionJSX.Youtube
-            break
-          default:
-            ArticleComponent = getArticleComponent(type)
-        }
-      } else if (contentType === 'team') {
-        switch(type) {
-          case 'image':
-            TopicComponent = TopicTeamJSX.Image
-            break
-          default:
-            ArticleComponent = getArticleComponent(type)
-        }
+      let Component = null
+      switch(type) {
+        case 'blockquote':
+          Component = TopicJSX.BlockQuote
+          break
+        case 'youtube':
+          Component = TopicJSX.Youtube
+          break
+        case 'image':
+          Component = TopicJSX.Image
+          break
+        default:
+          Component = getArticleComponent(type)
       }
 
-      if (!ArticleComponent && !TopicComponent) {
+      if (!Component) {
         return null
       }
 
@@ -239,20 +210,16 @@ const getTopicContent = (data, contentType) => {
       return (
         <StyledTopicComponent
           key={ele.id}
-          fontSize={fontSize}
+          fontSize={mediumFontSize}
           style={styles}
-          headerOneText={type === 'header-one' ? _.get(ele, 'content.0') : ''}
-          size={contentSize}
+          size={smallContentSize}
         >
-          {
-            ArticleComponent ?
-              <ArticleComponent
-                alignment={ele.alignment}
-                content={ele.content}
-                id={ele.id}
-                styles={ele.styles}
-              />:TopicComponent(_.get(ele, 'content', []))
-          }
+          <Component
+            alignment={ele.alignment}
+            content={ele.content}
+            id={ele.id}
+            styles={ele.styles}
+          />
         </StyledTopicComponent>
       )
     })
@@ -264,10 +231,10 @@ const Description = (props) => {
   return (
     <Container>
       <TopicDescription>
-        {getTopicContent(topicDescription, 'description')}
+        {getTopicContent(topicDescription)}
       </TopicDescription>
       <TeamDescription>
-        {getTopicContent(teamDescription, 'team')}
+        {getTopicContent(teamDescription)}
       </TeamDescription>
     </Container>
   )
