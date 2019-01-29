@@ -48,7 +48,7 @@ injectGlobal`
     }
 
     .container {
-      line-height: ${lineHeight.linHeightLarge};
+      line-height: ${lineHeight.lineHeightLarge};
     }
 
     .no-hover {
