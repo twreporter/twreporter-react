@@ -1,4 +1,3 @@
-/* global __CLIENT__ */
 /* eslint no-console: 0 */
 import * as types from '../constants/action-types'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -8,6 +7,7 @@ import axios from 'axios'
 import LayoutManager from '../managers/layout-manager'
 import ThemeManager from '../managers/theme-manager'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
+import statusCodeConst from '../constants/status-code'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import { colors, typography } from '../themes/common-variables'
@@ -50,43 +50,49 @@ function urlB64ToUint8Array(base64String) {
 
 /**
  * Check if the web push endpoint is subscribed o not
- * @param {string} endpoint Web push subscription endpoint
+ * @param {string} endpoint - Web push subscription endpoint
  * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
  */
-function isWebPushSubscribed(endpoint) {
+function isSubscriptionExisted(endpoint) {
   return axios.get(formAPIURL(`web-push/subscriptions?endpoint=${endpoint}`))
     .then(() => {
       return true
     })
-    .catch(() => {
-      return false
+    .catch((err) => {
+      const statusCode = _.get(err, 'response.status', statusCodeConst.internalServerError)
+      if (statusCode === statusCodeConst.notFound) {
+        console.log('Web push subscription is not existed')
+        return false
+      }
+      console.warn('Sending GET request to /wep-push endpoint occurs error')
+      return Promise.reject(err)
     })
 }
 
 /**
  * Send request to API server to subscribe the web push.
- * @param {Object} subscription A instance of `PushSubscription`
+ * @param {Object} subscription - A instance of `PushSubscription`
  * See MDN doc about PushSubscription (https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription)
- * @param {number} userID - id of user
+ * @parma {number} userID - id of user
  * @return {Promise}
  */
-function updateSubscriptionOnServer(subscription, userID) {
-  if (subscription !== null) {
+function updateSubscription(subscription, userID) {
+  if (subscription && typeof subscription.toJSON === 'function') {
     const _subscription = subscription.toJSON()
     const data = {
       endpoint: _subscription.endpoint,
-      keys: JSON.stringify(_subscription.keys)
+      keys: JSON.stringify(_subscription.keys),
+      userID
     }
 
     if (_subscription.expirationTime && typeof _subscription.expirationTime.toString === 'function') {
       data.expirationTime = _subscription.expirationTime.toString()
     }
 
-    data.userID = userID
-
     return axios.post(formAPIURL('web-push/subscriptions'), data)
       .catch((err) => {
-        console.error('Sending web push subscription to server occurs error', err)
+        console.warn('Sending POST request to /web-push endpoint occurs error')
+        return Promise.reject(err)
       })
   }
 }
@@ -94,22 +100,21 @@ function updateSubscriptionOnServer(subscription, userID) {
 /**
  * Use service worker to subscribe the web push.
  * @param {Object} registration - Service worker registration
- * @param {number} userID - id of user
  */
-function subscribeUser(registration, userID) {
+function createSubscription(registration) {
   const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
   return registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: applicationServerKey
   })
     .then(function (subscription) {
-      console.log('Received PushSubscription: ', JSON.stringify(subscription))
+      console.log('Received web push subscription: ', JSON.stringify(subscription))
       console.log('User is subscribed.')
-
-      return updateSubscriptionOnServer(subscription, userID)
+      return subscription
     })
     .catch(function (err) {
-      console.log('Failed to subscribe the user: ', err)
+      console.warn('Failed to subscribe web push by service worker registration')
+      return Promise.reject(err)
     })
 }
 
@@ -136,13 +141,14 @@ function isServiceWorkerSupported() {
 
 /**
  * Check if service worker registration is already subscribed
+ * @param {Object} reg - Service worker registration
  * @return {Object} Promise resovles to true
  */
-function isRegistrationSubscribed(reg) {
+function isNotificationSubscribed(reg) {
   return reg.pushManager.getSubscription()
-    .then(function (subscription) {
+    .then((subscription) => {
       if (subscription !== null) {
-        return isWebPushSubscribed(subscription.endpoint)
+        return isSubscriptionExisted(subscription.endpoint)
       }
       return false
     })
@@ -157,15 +163,13 @@ function subscribeNotification(userID) {
   if (isPushSupported() && isServiceWorkerSupported()) {
     return navigator.serviceWorker.getRegistration()
       .then((reg) => {
-        if (reg !== undefined) {
-          return isRegistrationSubscribed(reg)
-            .then((isSubscribed) => {
-              if (!isSubscribed) {
-                return subscribeUser(reg, userID)
-              }
-            })
-        }
+        return createSubscription(reg)
       })
+      .then((subscription) => {
+        return updateSubscription(subscription, userID)
+      })
+  } else {
+    console.log('Browser does not support web push or service worker')
   }
 }
 
@@ -183,7 +187,10 @@ function requestNotificationPermission(userID) {
             console.log('User grant the notification request')
             return subscribeNotification(userID)
               .then(resolve)
-              .catch(reject)
+              .catch((err) => {
+                console.warn('Subscribing web push notification fails')
+                reject(err)
+              })
           }
 
           console.log('User deny the notification request')
@@ -192,7 +199,10 @@ function requestNotificationPermission(userID) {
       } else {
         return subscribeNotification(userID)
           .then(resolve)
-          .catch(reject)
+          .catch((err) => {
+            console.warn('Subscribing web push notification fails')
+            reject(err)
+          })
       }
     } else {
       console.log('Notification is not support')
@@ -271,21 +281,28 @@ class App extends React.PureComponent {
     this.denyNotification = this._denyNotification.bind(this)
   }
 
-  componentWillMount() {
-    const _this = this
-    if (__CLIENT__) {
-      if (isPushSupported() && isServiceWorkerSupported()) {
+  componentDidMount() {
+    if (this.props.toShowNotifyPopup) {
+      // push manager and service worker only existed on client side
+      if (isServiceWorkerSupported() && isPushSupported())  {
+        // check if service worker registered web push notification or not
         return navigator.serviceWorker.getRegistration()
           .then((reg) => {
-            if (reg !== undefined) {
-              return isRegistrationSubscribed(reg)
-                .then((isSubscribed) => {
-                  _this.setState({
-                    toShowNotify: !isSubscribed
-                  })
-                })
+            return isNotificationSubscribed(reg)
+          })
+          .then((isSubscribed) => {
+            this.setState({
+              toShowNotify: !isSubscribed
+            })
+          })
+          .catch((err) => {
+            console.warn('Something went wrong during checking web push subscription is existed or not')
+            if (err) {
+              console.warn(err)
             }
           })
+      } else {
+        console.log('Browser does not support web push or service worker')
       }
     }
   }
@@ -295,11 +312,16 @@ class App extends React.PureComponent {
     const _this = this
     requestNotificationPermission(userID)
       .then(() => {
+        console.log('Accept web push notification successfully')
         _this.setState({
           toShowNotify: false
         })
       })
-      .catch(() => {
+      .catch((err) => {
+        console.warn('Fail to accept web push notification')
+        if (err) {
+          console.warn(err)
+        }
         _this.setState({
           toShowInstruction: true
         })
