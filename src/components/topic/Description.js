@@ -105,7 +105,7 @@ const TeamDescription = styled.div`
     color: ${colors.gray.gray50};
     line-height: ${lineHeight.lineHeightLarge};
     text-align: center;
-    margin-bottom: 0;
+    margin: 0 auto;
   }
 `
 
