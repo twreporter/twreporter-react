@@ -10,6 +10,7 @@ import ReactGA from 'react-ga'
 import configureStore from './store/configure-store'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { createBrowserHistory } from 'history'
 
 let reduxState
 
@@ -51,10 +52,12 @@ configureStore(reduxState)
       ReactGA.set({ page: window.location.pathname })
     }
 
+    const history = createBrowserHistory()
+
     const releaseBranch = process.env.RELEASE_BRANCH || 'master'
     const jsx = (
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter history={history}>
           <React.Fragment>
             <Route path="/" component={scrollToTopAndFirePageview} />
             <App releaseBranch={releaseBranch}/>

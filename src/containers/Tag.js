@@ -51,7 +51,15 @@ class Tag extends PureComponent {
   render() {
     let isFetching = false
 
-    const { lists, entities, page, pathname, tagId } = this.props
+    const {
+      entities,
+      history,
+      lists,
+      page,
+      pathname,
+      tagId
+    } = this.props
+
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ tagId, 'error' ], null)
 
@@ -122,6 +130,7 @@ class Tag extends PureComponent {
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </div>
     )
@@ -157,7 +166,9 @@ Tag.propTypes = {
   lists: PropTypes.object,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
-  tagId: PropTypes.string.isRequired
+  tagId: PropTypes.string.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired
 }
 
 export { Tag }

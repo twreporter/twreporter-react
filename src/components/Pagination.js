@@ -17,7 +17,7 @@ class EnhancedPagination extends PureComponent {
   }
   _pushLocation(to) {
     /* work with react-router */
-    const routerPush = _.get(this.context, 'router.push')
+    const routerPush = _.get(this.props, 'history.push')
     if (typeof routerPush === 'function') {
       return routerPush(to)
     }
@@ -63,14 +63,12 @@ class EnhancedPagination extends PureComponent {
   }
 }
 
-EnhancedPagination.contextTypes = {
-  router: PropTypes.object.isRequired
-}
-
 EnhancedPagination.propTypes = {
   pathname: PropTypes.string.isRequired,
   currentPage: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired
+  totalPages: PropTypes.number.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired
 }
 
 export default EnhancedPagination

@@ -65,7 +65,16 @@ class Topics extends Component {
   }
 
   render() {
-    const { topics, page, totalPages, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
+    const {
+      isTopicFetching,
+      isTopicsFetching,
+      history,
+      page,
+      pathname,
+      topicListError,
+      topics,
+      totalPages
+    } = this.props
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
@@ -143,6 +152,7 @@ class Topics extends Component {
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </PageContainer>
     )
@@ -154,8 +164,10 @@ Topics.propTypes = {
   total: PropTypes.number,
   topicListError: PropTypes.object,
   topicError: PropTypes.object,
-  // react-route `location` object
-  location: PropTypes.object.isRequired
+  // react-router `location` object
+  location: PropTypes.object.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
@@ -192,10 +204,6 @@ function mapStateToProps(state, ownProps) {
     topicError,
     pathname
   })
-}
-
-Topics.contextTypes = {
-  router: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(Topics)

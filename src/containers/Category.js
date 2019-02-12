@@ -38,7 +38,15 @@ class Category extends PureComponent {
   render() {
     let isFetching = false
 
-    const { lists, entities, catId, catLabel, page, pathname } = this.props
+    const {
+      catId,
+      catLabel,
+      entities,
+      history,
+      lists,
+      page,
+      pathname
+    } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ catId, 'error' ], null)
 
@@ -108,6 +116,7 @@ class Category extends PureComponent {
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </div>
     )
@@ -142,6 +151,8 @@ Category.propTypes = {
   lists: PropTypes.object,
   catId: PropTypes.string,
   catLabel: PropTypes.string.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired
 }
