@@ -14,7 +14,6 @@ import get from 'lodash/get'
 import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
 import values from 'lodash/values'
-import withLayout from '../helpers/with-layout'
 import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { connect } from 'react-redux'
 import { searchAuthorsIfNeeded } from '../actions/authors'
@@ -28,10 +27,6 @@ const _ = {
 const authorDefaultImg = '/asset/author-default-img.svg'
 
 class AuthorsList extends React.Component {
-  static fetchData({ store }) {
-    return store.dispatch(searchAuthorsIfNeeded(''))
-  }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -160,4 +155,4 @@ function mapStateToProps(state) {
 }
 
 export { AuthorsList }
-export default connect(mapStateToProps, { searchAuthorsIfNeeded })(withLayout(AuthorsList))
+export default connect(mapStateToProps, { searchAuthorsIfNeeded })(AuthorsList)

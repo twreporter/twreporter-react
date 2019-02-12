@@ -164,14 +164,14 @@ class ZoomInImage extends React.Component {
               <TitleRowContainer
                 delay={totalDelay + textDelay}
                 duration={textDuration}
-                innerRef={(node) => {unlockAfterAnimation(node, scrollUnlocker)}}
+                ref={(node) => {unlockAfterAnimation(node, scrollUnlocker)}}
               >
                 <TitleRowUpon
                   article={article}
                   topic={topic}
                   canonical={canonical}
                   fontColorSet={fontColorSet}
-                  innerRef={childAnimationStoper}
+                  ref={childAnimationStoper}
                 />
               </TitleRowContainer>
               : null

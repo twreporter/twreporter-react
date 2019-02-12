@@ -1,5 +1,5 @@
 'use strict'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import Hexagon from './Hexagon'
 import React from 'react'
 import Slider from '@twreporter/react-flex-carousel'

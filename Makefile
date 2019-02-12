@@ -18,7 +18,7 @@ help:
 
 # build webpacks client side needed
 build-webpack: 
-	@echo "\033[33m[webpack]\033[0m build client side bundles and write their filepaths into webpack-asset.json"
+	@echo "\033[33m[webpack]\033[0m build client side bundles"
 	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
 
 build-service-worker: 
@@ -58,7 +58,7 @@ start-webpack-dev-server:
 	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
 	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
 
-dev:  
+dev: clean 
 	@echo "Setup development environment."
 	@echo "Development environment will contains three different servers."
 	@echo "One will be application server, hosted on 3000 port."
@@ -75,8 +75,8 @@ ui-test:
 	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
 
 clean: 
-	@echo "delete auto generated files, including processes.json, sw.js, dist/ and webpack-assets.json\n"
-	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json
+	@echo "delete auto generated files, including processes.json, sw.js, dist/, webpack-assets.json and react-loadabel.json\n"
+	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json react-loadable.json
 
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV

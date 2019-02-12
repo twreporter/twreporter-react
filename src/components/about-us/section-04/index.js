@@ -40,10 +40,10 @@ const Container = styled.div`
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    margin: ${marginBetweenSections.tablet} 0;    
-  `}  
+    margin: ${marginBetweenSections.tablet} 0;
+  `}
   ${screen.mobile`
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: ${marginBetweenSections.mobile} 0;
   `}
 `
 
@@ -59,7 +59,7 @@ const SectionWrapper = styled.section`
     width: ${containerWidth.desktop};
     min-height: 820px;
     padding: 142px 86px 98px 86px;
-  `}  
+  `}
   ${screen.tablet`
     width: ${containerWidth.tablet};
     min-height: 1024px;
@@ -124,13 +124,13 @@ const LogoBlock = styled.div`
   `}
 `
 
-const LogoBlockOnDesktop = LogoBlock.extend`
+const LogoBlockOnDesktop = styled(LogoBlock)`
   ${screen.tabletBelow`
     display: none;
   `}
 `
 
-const LogoBlockOnTabletAbove = LogoBlock.extend`
+const LogoBlockOnTabletAbove = styled(LogoBlock)`
   ${screen.desktopAbove`
     display: none;
   `}
@@ -166,7 +166,7 @@ const LogoContent = styled.div`
   p{
     font-size: 16px;
     letter-spacing: 1.1px;
-  }    
+  }
   img{
     width: 49px;
     border-bottom: solid 1px ${logoBlockBorderColor};
@@ -181,14 +181,14 @@ const LogoContent = styled.div`
       padding-bottom: 19px;
     }
   `}
-  ${screen.desktop`    
+  ${screen.desktop`
     h3{
       font-size: 18px;
       letter-spacing: 0.4px;
       margin-top: 20px;
     }
     img{
-      padding-bottom: 14px; 
+      padding-bottom: 14px;
     }
   `}
   ${screen.tabletBelow`
@@ -202,7 +202,7 @@ const LogoContent = styled.div`
     h3{
       font-size: 24px;
       letter-spacing: 0.5px;
-    }    
+    }
     img{
       padding-bottom: 19px;
     }
@@ -220,7 +220,7 @@ const LogoContent = styled.div`
     p{
       font-size: 13px;
       letter-spacing: 0.9px;
-    }        
+    }
   `}
 `
 
@@ -235,7 +235,7 @@ export default class Section4 extends PureComponent {
     }
   }
   _select = (logoIndex) => {
-    this.setState({ 
+    this.setState({
       selectedLogo: logoIndex,
       selectedRow: Math.floor(logoIndex / column.desktop),
       infoPageNum: 0,
@@ -261,9 +261,9 @@ export default class Section4 extends PureComponent {
   }
   _nextPage = () => {
     this.setState({ infoPageNum: this.state.infoPageNum + 1 })
-  }  
+  }
   _closeInfoBox = () => {
-    this.setState({ 
+    this.setState({
       selectedLogo: null,
       selectedRow: null
     })
@@ -282,11 +282,11 @@ export default class Section4 extends PureComponent {
         <React.Fragment
           key={'logo' + index}
         >
-          <VelocityComponent 
-            key={index} 
+          <VelocityComponent
+            key={index}
             {...animationProps}
           >
-            <LogoBlockOnDesktop 
+            <LogoBlockOnDesktop
               selectedLogo={selectedLogo}
               onClick={() => this._select(index)}
             >
@@ -297,7 +297,7 @@ export default class Section4 extends PureComponent {
               </LogoContent>
             </LogoBlockOnDesktop>
           </VelocityComponent>
-          <LogoBlockOnTabletAbove 
+          <LogoBlockOnTabletAbove
             selectedLogo={selectedLogo}
             onClick={() => this._select(index)}
           >
@@ -318,16 +318,16 @@ export default class Section4 extends PureComponent {
           {row}
           <MoreInfo
             ref={infoOverlay => this.infoOverlay = infoOverlay}
-            rowNumber={index} 
+            rowNumber={index}
             selectedContent={this._getSelectedContent()}
             infoPageNum={infoPageNum}
-            selectedLogo={selectedLogo} 
+            selectedLogo={selectedLogo}
             selectedRow={selectedRow}
             closeInfoBox={this._closeInfoBox}
             nextPage={this._nextPage}
             initial={initialState}
           />
-        </React.Fragment>          
+        </React.Fragment>
       )
     })
     return (

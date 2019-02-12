@@ -1,16 +1,15 @@
-/* global __CLIENT__ */
 /* eslint no-console: 0 */
 import * as types from '../constants/action-types'
 import ErrorBoundary from '../components/ErrorBoundary'
 import PropTypes from 'prop-types'
 import React from 'react'
 import axios from 'axios'
+import LayoutManager from '../managers/layout-manager'
+import ThemeManager from '../managers/theme-manager'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
+import statusCodeConst from '../constants/status-code'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { AuthenticationContext } from '@twreporter/react-components/lib/header'
-import { PureComponent } from 'react'
-import { authUserByTokenAction, deletAuthInfoAction, localStorageKeys, renewToken, getItem, scheduleRenewToken, setupTokenInLocalStorage, signOutAction } from '@twreporter/registration'
 import { colors, typography } from '../themes/common-variables'
 import { connect } from 'react-redux'
 import { screen } from '../themes/screen'
@@ -22,7 +21,8 @@ const _ = {
   get
 }
 
-const formAPIURL = twreporterRedux.utils.formAPIURL
+const { utils } = twreporterRedux
+const formAPIURL = utils.formAPIURL
 
 // TODO move applicationServerPublicKey to config
 const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
@@ -50,50 +50,49 @@ function urlB64ToUint8Array(base64String) {
 
 /**
  * Check if the web push endpoint is subscribed o not
- * @param {string} endpoint Web push subscription endpoint
+ * @param {string} endpoint - Web push subscription endpoint
  * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
  */
-function isWebPushSubscribed(endpoint) {
+function isSubscriptionExisted(endpoint) {
   return axios.get(formAPIURL(`web-push/subscriptions?endpoint=${endpoint}`))
     .then(() => {
       return true
     })
-    .catch(() => {
-      return false
+    .catch((err) => {
+      const statusCode = _.get(err, 'response.status', statusCodeConst.internalServerError)
+      if (statusCode === statusCodeConst.notFound) {
+        console.log('Web push subscription is not existed')
+        return false
+      }
+      console.warn('Sending GET request to /wep-push endpoint occurs error')
+      return Promise.reject(err)
     })
 }
 
 /**
  * Send request to API server to subscribe the web push.
- * @param {Object} subscription A instance of `PushSubscription`
+ * @param {Object} subscription - A instance of `PushSubscription`
  * See MDN doc about PushSubscription (https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription)
+ * @parma {number} userID - id of user
  * @return {Promise}
  */
-function updateSubscriptionOnServer(subscription) {
-  if (subscription !== null) {
+function updateSubscription(subscription, userID) {
+  if (subscription && typeof subscription.toJSON === 'function') {
     const _subscription = subscription.toJSON()
     const data = {
       endpoint: _subscription.endpoint,
-      keys: JSON.stringify(_subscription.keys)
+      keys: JSON.stringify(_subscription.keys),
+      userID
     }
 
     if (_subscription.expirationTime && typeof _subscription.expirationTime.toString === 'function') {
       data.expirationTime = _subscription.expirationTime.toString()
     }
 
-    const browserLocalStorage = (typeof localStorage === 'undefined') ? null : localStorage
-    try {
-      const authInfo = JSON.parse(browserLocalStorage.getItem(localStorageKeys.authInfo))
-      if (authInfo.id) {
-        data.userID = authInfo.id
-      }
-    } catch(err) {
-      console.log('Getting authoInfo from localStorage and parsing it to JSON occurs error:', err)
-    }
-
     return axios.post(formAPIURL('web-push/subscriptions'), data)
       .catch((err) => {
-        console.error('Sending web push subscription to server occurs error', err)
+        console.warn('Sending POST request to /web-push endpoint occurs error')
+        return Promise.reject(err)
       })
   }
 }
@@ -102,20 +101,20 @@ function updateSubscriptionOnServer(subscription) {
  * Use service worker to subscribe the web push.
  * @param {Object} registration - Service worker registration
  */
-function subscribeUser(registration) {
+function createSubscription(registration) {
   const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
   return registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: applicationServerKey
   })
     .then(function (subscription) {
-      console.log('Received PushSubscription: ', JSON.stringify(subscription))
+      console.log('Received web push subscription: ', JSON.stringify(subscription))
       console.log('User is subscribed.')
-
-      return updateSubscriptionOnServer(subscription)
+      return subscription
     })
     .catch(function (err) {
-      console.log('Failed to subscribe the user: ', err)
+      console.warn('Failed to subscribe web push by service worker registration')
+      return Promise.reject(err)
     })
 }
 
@@ -142,13 +141,14 @@ function isServiceWorkerSupported() {
 
 /**
  * Check if service worker registration is already subscribed
+ * @param {Object} reg - Service worker registration
  * @return {Object} Promise resovles to true
  */
-function isRegistrationSubscribed(reg) {
+function isNotificationSubscribed(reg) {
   return reg.pushManager.getSubscription()
-    .then(function (subscription) {
+    .then((subscription) => {
       if (subscription !== null) {
-        return isWebPushSubscribed(subscription.endpoint)
+        return isSubscriptionExisted(subscription.endpoint)
       }
       return false
     })
@@ -156,47 +156,53 @@ function isRegistrationSubscribed(reg) {
 
 /**
  * Subscribe to receive notifications
+ * @param {number} userID - id of user
  * @return {Object} Promise
  */
-function subscribeNotification() {
+function subscribeNotification(userID) {
   if (isPushSupported() && isServiceWorkerSupported()) {
     return navigator.serviceWorker.getRegistration()
       .then((reg) => {
-        if (reg !== undefined) {
-          return isRegistrationSubscribed(reg)
-            .then((isSubscribed) => {
-              if (!isSubscribed) {
-                return subscribeUser(reg)
-              }
-            })
-        }
+        return createSubscription(reg)
       })
+      .then((subscription) => {
+        return updateSubscription(subscription, userID)
+      })
+  } else {
+    console.log('Browser does not support web push or service worker')
   }
 }
 
 /**
  * request permission of sending notifications
+ * @param {number} userID - id of user
  * @return {Object} Promise
  */
-function requestNotificationPermission() {
+function requestNotificationPermission(userID) {
   return new Promise((resolve, reject) => {
     if (isNotificationSupported()) {
       if (Notification.permission === 'denied') {
         Notification.requestPermission((permission) => {
           if (permission === 'grant') {
             console.log('User grant the notification request')
-            return subscribeNotification()
+            return subscribeNotification(userID)
               .then(resolve)
-              .catch(reject)
+              .catch((err) => {
+                console.warn('Subscribing web push notification fails')
+                reject(err)
+              })
           }
 
           console.log('User deny the notification request')
           return reject()
         })
       } else {
-        return subscribeNotification()
+        return subscribeNotification(userID)
           .then(resolve)
-          .catch(reject)
+          .catch((err) => {
+            console.warn('Subscribing web push notification fails')
+            reject(err)
+          })
       }
     } else {
       console.log('Notification is not support')
@@ -204,6 +210,10 @@ function requestNotificationPermission() {
     }
   })
 }
+
+const AppShellBox = styled.div`
+  background-color: ${props => props.backgroundColor};
+`
 
 const NoticePopup = styled.div`
   z-index: 1000;
@@ -254,10 +264,15 @@ const NoticePopup = styled.div`
   `}
 `
 
-class App extends PureComponent {
+class App extends React.PureComponent {
+  static propTypes = {
+    theme: PropTypes.string.isRequired,
+    toShowNotifyPopup: PropTypes.bool.isRequired,
+    userID: PropTypes.number
+  }
+
   constructor(props) {
     super(props)
-    this.authenticationContext = new AuthenticationContext(props.ifAuthenticated, props.signOutAction)
     this.state = {
       toShowNotify: false,
       toShowInstruction: false
@@ -266,99 +281,47 @@ class App extends PureComponent {
     this.denyNotification = this._denyNotification.bind(this)
   }
 
-  getChildContext() {
-    const { location } = this.props
-    return {
-      location,
-      authenticationContext: this.authenticationContext
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.ifAuthenticated !== this.props.ifAuthenticated) {
-      this.authenticationContext.setIfAuthenticated(nextProps.ifAuthenticated)
-    }
-  }
-
-  componentWillMount() {
-    const _this = this
-    if (__CLIENT__) {
-      if (isPushSupported() && isServiceWorkerSupported()) {
+  componentDidMount() {
+    if (this.props.toShowNotifyPopup) {
+      // push manager and service worker only existed on client side
+      if (isServiceWorkerSupported() && isPushSupported())  {
+        // check if service worker registered web push notification or not
         return navigator.serviceWorker.getRegistration()
           .then((reg) => {
-            if (reg !== undefined) {
-              return isRegistrationSubscribed(reg)
-                .then((isSubscribed) => {
-                  _this.setState({
-                    toShowNotify: !isSubscribed
-                  })
-                })
+            return isNotificationSubscribed(reg)
+          })
+          .then((isSubscribed) => {
+            this.setState({
+              toShowNotify: !isSubscribed
+            })
+          })
+          .catch((err) => {
+            console.warn('Something went wrong during checking web push subscription is existed or not')
+            if (err) {
+              console.warn(err)
             }
           })
+      } else {
+        console.log('Browser does not support web push or service worker')
       }
     }
   }
 
-  componentDidMount() {
-    // token can be stored in localStorage in two scenario
-    // 1. TWReporter account sign in
-    // 2. oAuth
-    // Acount: store auth info during signin action
-    // oAuth: cookie -> redux state -> localStorage -> delete authinfo in redux state
-    // The following procedure is only for oAuth
-    // const { auth } = store.getState()
-    const { ifAuthenticated, authInfo, authType, deletAuthInfoAction } = this.props
-    if(ifAuthenticated && authInfo && (authType === 'facebook' || authType === 'google')) {
-      setupTokenInLocalStorage(authInfo, localStorageKeys.authInfo)
-      deletAuthInfoAction()
-      // store.dispatch(deletAuthInfoAction())
-    }
-
-    // 1. Renew token when user brows our website
-    // 2. ScheduleRenewToken if user keep the tab open forever
-    const { authConfigure, renewToken } = this.props
-    const authInfoString = getItem(localStorageKeys.authInfo)
-    if(authInfoString) {
-      const authObj = JSON.parse(authInfoString)
-      // const { authConfigure } = store.getState()
-      const { apiUrl, renew } = authConfigure
-      renewToken(apiUrl, renew, authObj)
-      scheduleRenewToken(
-        6,
-        () => {
-          if (getItem(localStorageKeys.authInfo)) {
-            renewToken(apiUrl, renew, JSON.parse(getItem(localStorageKeys.authInfo)))
-          }
-        }
-      )
-    }
-
-    // Check if token existed in localStorage and expired
-    // following preocedure is for both accoutn and oAuth SignIn
-    // 7 = 7 days
-    const { authUserByTokenAction } = this.props
-    authUserByTokenAction(7, authType)
-  }
-
-  _setNextPopupToNextMonth() {
-    // In order to reduce the interference,
-    // if the user deny accepting notification,
-    // and then we ask them next month.
-    // 1000 * 60 * 60 * 24 * 30 is one month in ms format
-    const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
-    const oneMonthLater = Date.now() + oneMonthInterval
-    this.props.setNextPopupTS(oneMonthLater)
-  }
-
   _acceptNotification() {
+    const { userID } = this.props
     const _this = this
-    requestNotificationPermission()
+    requestNotificationPermission(userID)
       .then(() => {
+        console.log('Accept web push notification successfully')
         _this.setState({
           toShowNotify: false
         })
       })
-      .catch(() => {
+      .catch((err) => {
+        console.warn('Fail to accept web push notification')
+        if (err) {
+          console.warn(err)
+        }
         _this.setState({
           toShowInstruction: true
         })
@@ -399,7 +362,12 @@ class App extends PureComponent {
   }
 
   render() {
-    const { toShowNotifyPopup } = this.props
+    const {
+      releaseBranch,
+      theme,
+      toShowNotifyPopup
+    } = this.props
+
     let boxJSX = null
     if (toShowNotifyPopup) {
       if (this.state.toShowInstruction) {
@@ -408,23 +376,41 @@ class App extends PureComponent {
         boxJSX = this._renderAcceptanceBox()
       }
     }
-    return <ErrorBoundary>{boxJSX}{this.props.children}</ErrorBoundary>
+
+    const layoutManager = new LayoutManager({
+      releaseBranch,
+      theme
+    })
+    const header = layoutManager.getHeader()
+    const backgroundColor = layoutManager.getBackgroundColor()
+    const footer = layoutManager.getFooter()
+
+    return (
+      <ErrorBoundary>
+        <AppShellBox
+          backgroundColor={backgroundColor}
+        >
+          {header}
+          {boxJSX}
+          {this.props.children}
+          {footer}
+        </AppShellBox>
+      </ErrorBoundary>
+    )
   }
 }
 
-App.childContextTypes = {
-  location: PropTypes.object,
-  authenticationContext: PropTypes.object.isRequired
-}
-
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const { releaseBranch='master' } = props
   const ts = _.get(state, reduxStatePropKey.nextNotifyPopupTS, 0)
+  const pathname = _.get(props, 'location.pathname', '')
+  const themeManager = new ThemeManager()
+  themeManager.prepareThemePathArrForAppShell(state)
+  const theme = themeManager.getThemeByParsingPathname(pathname)
   return {
-    header: _.get(state, 'header'),
-    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false),
-    authInfo: _.get(state, [ 'auth', 'authInfo' ], {}),
-    authType: _.get(state, [ 'auth', 'authType' ], ''),
-    authConfigure: _.get(state, 'authConfigure', {}),
+    theme,
+    releaseBranch,
+    userID: _.get(state, [ 'auth', 'userInfo.id' ]),
     toShowNotifyPopup: ts < Date.now()
   }
 }
@@ -436,6 +422,6 @@ function setNextPopupTS(ts) {
   }
 }
 
-const actions = { signOutAction, deletAuthInfoAction, renewToken, authUserByTokenAction, setNextPopupTS }
+const actions = { setNextPopupTS }
 
 export default connect(mapStateToProps, actions)(App)

@@ -9,7 +9,6 @@ import throttle from 'lodash/throttle'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
 import rootReducer from '../reducers'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 
 const _ = {
   merge,
@@ -23,10 +22,8 @@ function selectCacheFirstProp(reduxState) {
   return _.pick(reduxState, cacheableProps)
 }
 
-export default async function configureStore(history, initialState) {
-  // Sync dispatched route actions to the history
-  const reduxRouterMiddleware = routerMiddleware(history)
-  const middlewares = [ reduxRouterMiddleware, thunkMiddleware ]
+export default async function configureStore(initialState) {
+  const middlewares = [ thunkMiddleware ]
 
   let finalCreateStore
 

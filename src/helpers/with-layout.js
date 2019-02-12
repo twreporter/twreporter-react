@@ -1,7 +1,7 @@
 import constPageThemes from '../constants/page-themes'
 import constPropTypes from '../constants/prop-types'
 import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/react-components/lib/header'
+// import Header from '@twreporter/react-components/lib/header'
 import hoistStatics from 'hoist-non-react-statics'
 import merge from 'lodash/merge'
 import PropTypes from 'prop-types'
@@ -23,10 +23,11 @@ const HeaderContainer = styled.div`
 
 class Layout extends React.PureComponent {
   render() {
-    const { theme, isIndex, pathname } = this.props
+    const { theme/*, isIndex, pathname*/ } = this.props
     return (
       <Container bgColor={theme.color.bg}>
         <HeaderContainer>
+          {/*
           <Header
             isIndex={isIndex}
             fontColor={theme.color.font}
@@ -34,6 +35,7 @@ class Layout extends React.PureComponent {
             pathName={pathname}
             headerPosition={theme.position.header}
           />
+          */}
         </HeaderContainer>
         {this.props.children}
         <Footer

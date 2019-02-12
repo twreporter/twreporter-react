@@ -2,16 +2,15 @@
 /* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
+import App from './app'
+import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
-import Router from 'react-router/lib/Router'
-import browserHistory from 'react-router/lib/browserHistory'
 import configureStore from './store/configure-store'
-import createRoutes from './routes'
-import match from 'react-router/lib/match'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { syncHistoryWithStore } from 'react-router-redux'
+import { createBrowserHistory } from 'history'
 
 let reduxState
 
@@ -38,33 +37,43 @@ function scrollToTopAndFirePageview() {
       return
     }
     window.scrollTo(0, 0)
-    // send Google Analytics Pageview event on router changed
+    // send Google Analytics Pageview event on route changed
     ReactGA.pageview(window.location.pathname)
   }
+
+  return null
 }
 
-configureStore(browserHistory, reduxState)
+configureStore(reduxState)
   .then((store) => {
-    const history = syncHistoryWithStore(browserHistory, store)
-    const routes = createRoutes(history)
+    if (typeof window !== 'undefined') {
+      // add Google Analytics
+      ReactGA.initialize('UA-69336956-1')
+      ReactGA.set({ page: window.location.pathname })
+    }
 
-    // calling `match` is simply for side effects of
-    // loading route/component code for the initial location
-    // https://github.com/ReactTraining/react-router/blob/v3/docs/guides/ServerRendering.md#async-routes
-    match({ history, routes }, (error, redirectLocation, renderProps) => {
-      if (typeof window !== 'undefined') {
-        // add Google Analytics
-        ReactGA.initialize('UA-69336956-1')
-        ReactGA.set({ page: window.location.pathname })
+    const history = createBrowserHistory()
+
+    const releaseBranch = process.env.RELEASE_BRANCH || 'master'
+    const jsx = (
+      <Provider store={store}>
+        <BrowserRouter history={history}>
+          <React.Fragment>
+            <Route path="/" component={scrollToTopAndFirePageview} />
+            <App releaseBranch={releaseBranch}/>
+          </React.Fragment>
+        </BrowserRouter>
+      </Provider>
+    )
+
+    Loadable.preloadReady().then(() => {
+      if (__DEVELOPMENT__) {
+        ReactDOM.render(jsx, document.getElementById('root'))
+        return
       }
-      ReactDOM.hydrate((
-        <Provider store={store}>
-          <Router {...renderProps} onUpdate={scrollToTopAndFirePageview}/>
-        </Provider>
-      ), document.getElementById('root'))
+      ReactDOM.hydrate(jsx, document.getElementById('root'))
     })
   })
-
 
 /**
  * Copyright 2015 Google Inc. All rights reserved.

@@ -19,7 +19,6 @@ import constStyledComponents from '../constants/styled-components'
 import styled from 'styled-components'
 import styles from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import layoutMaker from '../components/article/layout/layout-maker'
 import { Body } from '../components/article/Body'
 import { BottomRelateds } from '../components/article/BottomRelateds'
@@ -120,19 +119,6 @@ const ArticlePlaceholder = () => {
 }
 
 class Article extends PureComponent {
-
-  static fetchData({ params, store }) {
-    const slug = params.slug
-    return store.dispatch(fetchAFullPost(slug)).then(() => {
-      const state = store.getState()
-      const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
-      if (_.get(selectedPost, 'error')) {
-        return Promise.reject(_.get(selectedPost, 'error'))
-      }
-      return Promise.resolve()
-    })
-  }
-
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -154,12 +140,13 @@ class Article extends PureComponent {
   }
 
   getChildContext() {
-    const { entities, selectedPost } = this.props
+    const { location, entities, selectedPost } = this.props
     const slug = _.get(selectedPost, 'slug', '')
     let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
     let style = _.get(post, 'style')
     return {
-      isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE
+      isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE,
+      location
     }
   }
 
@@ -185,8 +172,8 @@ class Article extends PureComponent {
   }
 
   componentWillMount() {
-    const { params } = this.props
-    let slug = _.get(params, 'slug')
+    const { match } = this.props
+    const slug = _.get(match, 'params.slug')
     this.props.fetchAFullPost(slug)
   }
 
@@ -202,8 +189,8 @@ class Article extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params } = nextProps
-    const slug = _.get(params, 'slug')
+    const { match } = nextProps
+    const slug = _.get(match, 'params.slug')
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
     if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
@@ -302,7 +289,7 @@ class Article extends PureComponent {
         const screenType = getScreenType(window.innerWidth)
 
         // get ArticleTools react component
-        const tools = this._toolsRef.getWrappedInstance()
+        const tools = this._toolsRef
 
         // set screen type
         tools.setScreenType(screenType)
@@ -317,7 +304,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { entities, params, selectedPost, theme } = this.props
+    const { entities, match, selectedPost, theme } = this.props
     const { fontSize } = this.state
     const error = _.get(selectedPost, 'error')
     if (error) {
@@ -328,7 +315,7 @@ class Article extends PureComponent {
       )
     }
 
-    if (_.get(selectedPost, 'slug') !== _.get(params, 'slug')) {
+    if (_.get(selectedPost, 'slug') !== _.get(match, 'params.slug')) {
       return null
     }
 
@@ -491,26 +478,24 @@ export function mapStateToProps(state) {
 }
 
 Article.childContextTypes = {
+  location: PropTypes.object,
   isPhotography: PropTypes.bool
-}
-
-Article.contextTypes = {
-  location: PropTypes.object
 }
 
 Article.propTypes = {
   entities: PropTypes.object,
-  params: PropTypes.object,
+  match: PropTypes.object,
   selectedPost: PropTypes.object,
   theme: constPropTypes.theme
 }
 
 Article.defaultProps = {
   entities: {},
-  params: {},
+  // react-router `match` object
+  match: {},
   selectedPost: {},
   theme: constPageThemes.defaultTheme
 }
 
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost })(withLayout(Article))
+export default connect(mapStateToProps, { fetchAFullPost })(Article)

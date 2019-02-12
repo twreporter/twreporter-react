@@ -1,4 +1,4 @@
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import More from '../components/More'
 import React from 'react'
 import ResolutionSwitchingImage from '../components/shared/Image'
