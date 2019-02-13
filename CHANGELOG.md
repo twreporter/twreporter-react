@@ -1,6 +1,37 @@
-### Unreleased
+## Unreleased
+### 4.0.0
+#### Major change
+##### Dependencies Upgrade
+- react, react-dom to ^16.3.0
+- styled-components to ^4.0.0
+- react-router-dom to ^4.0.0
+- react-redux to ^6.0.0
+- @twreporter/react-components to ^6.1.0
+- @twreporter/universal-header to ^2.0.0
+- drop @twreporter/registration
 
-### Release
+##### Introduce new Authentication/Authorization API
+- check/grant auth on server side through express auth middleware
+- store auth info into redux store
+- enable server side rendering for personal requests
+
+##### Render Universal Header with @twreporter/universal-header
+- universal header for personal requests with server side rendering
+
+##### Render react-router-dom v4 routes on server side with react-loadable
+- add `src/data-loaders` folder, which lists data loading functions for different pages.
+- implement react-loadabel server side rendering since react-router-dom v4 doesn't support
+`getComponent` callback function anymore.
+
+##### Introduce layout and theme manager to render page layout and theme
+- deal with page layout and theme in `src/containers/app-shell.js`
+- drop HOC layout helper(`src/helpers/with-layout.js`)
+
+##### Miscellaneous
+- Move category related constants into src/constants/category.js
+- Update src/containers/app-shell.js. Refactor web push registration promise chain
+
+## Release
 ### 3.2.10
 - Tweak TopicLandingPage container due to api changes (remove plain html) 
 
