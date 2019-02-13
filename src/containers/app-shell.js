@@ -307,6 +307,16 @@ class App extends React.PureComponent {
     }
   }
 
+  _setNextPopupToNextMonth() {
+    // In order to reduce the interference,
+    // if the user deny accepting notification,
+    // and then we ask them next month.
+    // 1000 * 60 * 60 * 24 * 30 is one month in ms format
+    const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
+    const oneMonthLater = Date.now() + oneMonthInterval
+    this.props.setNextPopupTS(oneMonthLater)
+  }
+
   _acceptNotification() {
     const { userID } = this.props
     const _this = this
