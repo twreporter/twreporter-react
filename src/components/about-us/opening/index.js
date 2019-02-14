@@ -61,12 +61,14 @@ const Container = styled.section`
   ${screen.desktop`
     margin: 0 -6px;
   `}
+  ${screen.tabletBelow`
+    overflow: auto;
+    height: auto;
+  `}
   ${screen.tablet`
     margin: 0 -7px;
   `}  
   ${screen.mobile`
-    overflow: auto;
-    height: auto;
     margin: 0 -6px;
   `}
 `
@@ -78,11 +80,13 @@ const Footer = styled.div`
   width: 100%;
   background: ${colors.red.liverRed}; 
   ${screen.mobile`
-    position: relative;
     height: 54px;
   `} 
   ${screen.tablet`
     height: 100px;
+  `}
+  ${screen.tabletBelow`
+    position: relative;
   `}
   ${screen.desktop`
     height: 75px;
@@ -124,19 +128,22 @@ const Content = styled.div`
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   ${screen.mobile`
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
     width: ${containerStyle.width.mobile};
     height: ${contentStyle.height.mobile};
     padding: ${contentStyle.padding.mobile};
     margin-top: calc(${headerStyle.height.mobile} + 20px); 
   `}
   ${screen.tablet`
+    margin: calc(${headerStyle.height.tablet} + 20px) auto calc(${headerStyle.height.tablet} + 20px) auto;
     width: ${containerStyle.width.tablet};
     height: ${contentStyle.height.tablet};
     padding: ${contentStyle.padding.tablet};
+  `}
+  ${screen.tabletBelow`
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
   `}
   ${screen.desktop`
     width: ${containerStyle.width.desktop};
