@@ -24,6 +24,15 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '劉致昕',
+    nameEng: 'Jason Liu',
+    job: '主筆',
+    jobEng: 'editor',
+    email: 'chihhsin@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editJasonLiu,
+    category: categoryIds.editor
+  },
+  {
     name: '房慧真',
     nameEng: 'Michelle Fang',
     job: '資深記者',
