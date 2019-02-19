@@ -9,6 +9,8 @@ import merge from 'lodash/merge'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
 import twreporterRedux from '@twreporter/redux'
 import uh from '@twreporter/universal-header'
+import bookmarks from './bookmarks'
+import bookmarkWidget from './bookmark-widget'
 
 const _ = {
   get,
@@ -43,7 +45,9 @@ const rootReducer = combineReducers({
       return action.payload
     }
     return state
-  }
+  },
+  bookmarks,
+  bookmarkWidget
 })
 
 export default rootReducer

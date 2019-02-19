@@ -14,7 +14,6 @@ export default {
   searchedAuthorsList: 'searchedAuthorsList',
   authorsList: 'authorsList',
   articlesByAuthor: 'articlesByAuthor',
-  authConfigure: 'authConfigure',
   auth: 'auth',
   entitiesForAuthors: 'entitiesForAuthors',
   // time stamp for next popup

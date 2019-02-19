@@ -54,3 +54,30 @@ export const SET_PROGRESS_PRECENTAGE = 'SET_PROGRESS_PRECENTAGE'
 export const SET_ARTICLE_TOOLS = 'SET_ARTICLE_TOOLS'
 
 export const SET_NEXT_POPUP_TIME_STAMP = 'SET_NEXT_POPUP_TIME_STAMP'
+
+// actions on bookmarks
+export const singleBookmark = {
+  read: {
+    request: 'request to fetch single bookmark',
+    success: 'succes to fetch single bookmark',
+    failure: 'fail to fetch single bookmark'
+  },
+  create: {
+    request: 'request to  create single bookmark',
+    success: 'succes to create single bookmark',
+    failure: 'fail to create single bookmark'
+  },
+  delete: {
+    request: 'request to  delete single bookmark',
+    success: 'succes to delete single bookmark',
+    failure: 'fail to delete single bookmark'
+  }
+}
+
+export const multipleBookMarks = {
+  read: {
+    request: 'request to fetch multiple bookmarks',
+    success: 'succes to fetch multiple bookmarks',
+    failure: 'fail to fetch multiple bookmarks'
+  }
+}
