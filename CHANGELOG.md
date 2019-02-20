@@ -1,4 +1,9 @@
 ## Unreleased
+
+## Release
+### 4.0.1
+- Remove props `history` from `BrowserRouter`.
+
 ### 4.0.0
 #### Major change
 ##### Dependencies Upgrade
@@ -31,7 +36,6 @@
 - Move category related constants into src/constants/category.js
 - Update src/containers/app-shell.js. Refactor web push registration promise chain
 
-## Release
 ### 3.2.10
 - Tweak TopicLandingPage container due to api changes (remove plain html) 
 
