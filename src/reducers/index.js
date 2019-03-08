@@ -52,6 +52,13 @@ const rootReducer = combineReducers({
   [reduxStatePropKey.entitiesForAuthors]: (state = {}, action) => {
     const entities = _.get(action, 'normalizedData.entities')
     if (entities) {
+      // WORKAROUND:
+      // When the data of an author is updated, we have not build the function to synchronize the author data saved in old post records on Algolia.
+      // So the author data in post records that already existed will be outdated.
+      // The temporarily solution is that we do not update authors in entities when fetching articles of an author.
+      if (action.type === types.FETCH_AUTHOR_COLLECTION_SUCCESS) {
+        return _.merge({}, state, { articles: entities.articles })
+      }
       return _.merge({}, state, entities)
     }
     return state

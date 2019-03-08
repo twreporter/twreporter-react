@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 3.2.13
+- [Bug] Add a workaround to author data problem
+
 ### Release
 ### 3.2.12
 - [Bug] Fix about-us page opening layout which got wrong height (100 viewport height) when client width is smaller than desktop and larger than tablet breakpoint
