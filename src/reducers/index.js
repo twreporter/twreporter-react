@@ -46,8 +46,8 @@ const rootReducer = combineReducers({
     }
     return state
   },
-  bookmarks,
-  bookmarkWidget
+  [reduxStatePropKey.bookmarks]: bookmarks,
+  [reduxStatePropKey.bookmarkWidget]: bookmarkWidget
 })
 
 export default rootReducer

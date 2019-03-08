@@ -2,14 +2,17 @@
 /* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import 'normalize.css'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import App from './app'
+import config from '../config'
+import configureStore from './store/configure-store'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
-import configureStore from './store/configure-store'
-import { BrowserRouter, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
+
+const releaseBranch = config.releaseBranch
 
 let reduxState
 
@@ -50,8 +53,6 @@ configureStore(reduxState)
       ReactGA.initialize('UA-69336956-1')
       ReactGA.set({ page: window.location.pathname })
     }
-
-    const releaseBranch = process.env.RELEASE_BRANCH || 'master'
     const jsx = (
       <Provider store={store}>
         <BrowserRouter>

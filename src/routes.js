@@ -99,6 +99,13 @@ const loadablePages = {
       './components/about-us'
     ),
     loading: LoadingComponent
+  }),
+  bookmarkList: Loadable({
+    loader: () => import(
+      /* webpackChunkName: "bookmark-list" */
+      './containers/BookmarkList'
+    ),
+    loading: LoadingComponent
   })
 }
 
@@ -153,7 +160,7 @@ export default function getRoutes() {
     },
     {
       component: loadablePages.article,
-      loadData: dataLoaders.loadArticlePageData,
+      loadData: () => Promise.all([ dataLoaders.loadArticlePageData, dataLoaders.loadBookmarkWidgetData ]),
       path: routesConst.articlePage.path
     },
     {
@@ -169,6 +176,11 @@ export default function getRoutes() {
     {
       component: loadablePages.aboutUs,
       path: routesConst.aboutUsPage.path
+    },
+    {
+      component: loadablePages.bookmarkList,
+      loadData: dataLoaders.loadBookmarkListData,
+      path: routesConst.bookmarkListPage.path
     },
     // error  page
     {
