@@ -1,4 +1,7 @@
+import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
+import getRoutes from '../../routes'
+import getSignInHref from '../../constants/bookmarks/sign-in-href'
 import uh from '@twreporter/universal-header'
 
 const _ = {
@@ -41,27 +44,33 @@ function authMiddleware(namespace, options) {
   return function middleware(req, res, next) {
     const store = _.get(req, [ namespace, 'reduxStore' ])
     if (!store) {
-      next(new Error(`req.${namespace}.reduxStore is not existed`))
-      return
+      return next(new Error(`req.${namespace}.reduxStore is not existed`))
     }
 
+    /*
+      Host: "tobi.ferrets.example.com"
+        => req.subdomains = ["ferrets", "tobi"]
+      Ref: https://expressjs.com/en/api.html#req.subdomains
+     */
     const subdomainsArr = _.get(req, 'subdomains', [])
 
+    const routes = getRoutes()
+    const authorizationRequired = routes.some(route => matchPath(req.path, route) && route.authorizationRequired)// Use `Array.prototype.some` to imitate `<Switch>` behavior of selecting only the first to match
+    const currentHref = `${req.protocol}://${req.get('host')}${req.originalUrl}` // Ref: https://stackoverflow.com/questions/10183291/how-to-get-the-full-url-in-express
+    const signInHref = getSignInHref(currentHref)
+    // Check if the user is authenticated.
+    // If the user is authenticated, handle user authorization:
     const idToken = _.get(req, 'cookies.id_token')
-
-    // user is authenticated
+    const userInfoInIdToken = decodePayload(idToken)
     if (idToken) {
-      const userInfo = decodePayload(idToken)
       const accessTokenKeyName = subdomainsArr.join('_') + '_access_token'
       const accessToken = _.get(req, [ 'signedCookies', accessTokenKeyName ])
-
-      // and authorized
+      // Check If the user is also authorized.
+      // If the user is authenticated and authorized, dispatch AUTH_SUCCESS action directly:
       if (accessToken) {
-        // check accessToken and idToken payload.
-        // If those tokens refer to the same person,
-        // skip requesting api to get accessToken.
         const userInfoInAccessToken = decodePayload(accessToken)
-        if (_.get(userInfoInAccessToken, 'user_id') === _.get(userInfo, 'user_id')) {
+        // Make sure both tokens refer to the same person
+        if (_.get(userInfoInAccessToken, 'user_id') === _.get(userInfoInIdToken, 'user_id')) {
           store.dispatch({
             type: actionTypes.AUTH_SUCCESS,
             payload: {
@@ -70,21 +79,19 @@ function authMiddleware(namespace, options) {
               }
             }
           })
-          next()
-          return
+          return next()
         }
       }
-
+      // If the user is authenticated but not authorized, try to get access token:
       const { nodeEnv=developmentEnv, releaseBranch=masterBranch } = options
       const cookieList = req.get('cookie')
-      // try to get authorization token
       return store.dispatch(authActions.getAccessToken(cookieList, releaseBranch))
         .then(() => {
           const reduxState = store.getState()
           const jwt = _.get(reduxState, 'auth.accessToken', '')
           const isAuthed = _.get(reduxState, 'auth.isAuthed', false)
           if (jwt && isAuthed) {
-            // add `Set-Cookie` response header
+            // Add `Set-Cookie` to response header
             res.cookie(accessTokenKeyName, jwt, {
               maxAge: 60 * 60 * 24 * 14 * 1000, // 2 weeks
               httpOnly: nodeEnv !== developmentEnv,
@@ -92,14 +99,40 @@ function authMiddleware(namespace, options) {
               domain: _.get(req, 'hostname', subdomainsArr.join('.') + '.twreporter.org'),
               signed: true
             })
+            next()
+          } else {
+            // The user should always get access token (authorized successfully) if she/he is authenticated.
+            // If the user is authenticated but failed to get access token, log out the error and skip authorization if authorization is not requred.
+            // If the page requires authorization, throw an error to express.
+            const errorMessage = `The user ${_.get(userInfoInIdToken, 'user_id')} has id token but failed to get access token.`
+            if (authorizationRequired) {
+              next(new Error(errorMessage))
+            } else {
+              console.error(errorMessage) // eslint-disable-line
+              next()
+            }
           }
         })
-        .catch(err => console.warn(err)) // eslint-disable-line
-        .then(() => {
-          next()
+        .catch(err => {
+          // The action `getAccessToken()` should return a Promise always resolved. 
+          // If an unexpected error occoured, log out the error and skip authorization if authorization is not requred.
+          // If the page requires authorization, throw an error to express.
+          const errorMessage = 'An unexpected error occoured when the server try to get access token. Skip authorization.'
+          if (authorizationRequired) {
+            console.error(err) // eslint-disable-line no-console
+            next(new Error(errorMessage))
+          } else {
+            console.error(errorMessage, err) // eslint-disable-line no-console
+            next()
+          }
         })
     }
-    next()
+    // If the user is not authenticated, redirect to sign-in page if the requested page requires authorization:
+    if (authorizationRequired) {
+      res.redirect(302, signInHref)
+    } else {
+      next()
+    }
   }
 }
 

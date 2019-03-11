@@ -180,7 +180,8 @@ export default function getRoutes() {
     {
       component: loadablePages.bookmarkList,
       loadData: dataLoaders.loadBookmarkListData,
-      path: routesConst.bookmarkListPage.path
+      path: routesConst.bookmarkListPage.path,
+      authorizationRequired: true
     },
     // error  page
     {
