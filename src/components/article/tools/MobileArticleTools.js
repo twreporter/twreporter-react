@@ -3,7 +3,7 @@ import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobi
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
 import BookmarkWidget from '../../../containers/BookmarkWidget'
 import Link from 'react-router-dom/Link'
-import predefinedPropTypes from '../../../constants/prop-types'
+import predefinedPropTypes from '../../../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
@@ -83,7 +83,7 @@ class MobileArticleTools extends React.PureComponent {
         <WidgetWrapper key="bookmark_widget">
           <BookmarkWidget
             articleMeta={articleMetaForBookmark}
-            mobile
+            isMobile
           />
         </WidgetWrapper>
         <BackToTopBtn key="back_to_top" />

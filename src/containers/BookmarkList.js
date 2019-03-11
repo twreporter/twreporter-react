@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RedirectToSignIn from '../components/bookmark-list/RedirectToSignIn'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
-import signInHref from '../constants/bookmarks/sign-in-href'
+import getSignInHref from '../constants/bookmarks/sign-in-href'
 import styled from 'styled-components'
 // lodash
 import findIndex from 'lodash/findIndex'
@@ -81,16 +81,23 @@ class BookmarkList extends React.Component {
   }
 
   componentDidMount() {
-    // Redirect to singin page if user has not been authenticated
-    if (!this.props.isAuthed) {
-      const currentHref = window.location.href
-      return window.location.replace(`${signInHref.protocal}://${signInHref.host}${signInHref.pathname}?${signInHref.searchKeys.destination}=${currentHref}`)
-    }
+    this.checkAuthorization()
     this._defaultBodyOverflow = _.get(document, 'body.style.overflow', this._defaultBodyOverflow)
-    const { bookmarks, jwt, userID, getMultipleBookmarks } = this.props
-    const offset = 0
-    if (bookmarks.length > 0) return
-    getMultipleBookmarks(jwt, userID, offset, defaultLimit, defaultSort)
+    const { bookmarks } = this.props
+    if (!bookmarks.length) {
+      const { jwt, userID, getMultipleBookmarks } = this.props
+      const offset = 0
+      getMultipleBookmarks(jwt, userID, offset, defaultLimit, defaultSort)
+    }
+  }
+
+  // Redirect to singin page if user has not been authorized
+  checkAuthorization() {
+    const { isAuthed, jwt } = this.props
+    if (!isAuthed || !jwt) {
+      const currentHref = typeof window === 'undefined' ? '' : _.get(window, 'location.href', '')
+      window.location.href = getSignInHref(currentHref)
+    }
   }
 
   loadMoreBookmarks() {
@@ -112,18 +119,14 @@ class BookmarkList extends React.Component {
     })
   }
 
-  deleteSingleBookmark(bookmarkID) {
-    const { jwt, userID, deleteSingleBookmark } = this.props
-    deleteSingleBookmark(jwt, userID, bookmarkID)
-  }
-
   handleDeletingConfirmed() {
     this.hideComfirmation()
     const { idToBeDeleted } = this.state
     if (typeof idToBeDeleted === 'number') {
-      this.props.deleteSingleBookmark(this.state.idToBeDeleted)
+      const { jwt, userID, deleteSingleBookmark } = this.props
+      deleteSingleBookmark(jwt, userID, idToBeDeleted)
     } else {
-      console.warn(`Deleting bookmark failed. Bookmark id should be a number, but is ${idToBeDeleted}`) // eslint-disable-line no-console
+      console.error(`Deleting bookmark failed. Bookmark id should be a number, but is ${idToBeDeleted}`) // eslint-disable-line no-console
     }
     this.setRecordToBeDeleted(null)
   }
@@ -145,7 +148,8 @@ class BookmarkList extends React.Component {
   }
 
   render() {
-    if (!this.props.isAuthed) return (
+    const { isAuthed, jwt } = this.props
+    if (!isAuthed || !jwt) return (
       <RedirectToSignIn>
         您尚未登入，將跳轉至登入頁
       </RedirectToSignIn>
@@ -154,7 +158,7 @@ class BookmarkList extends React.Component {
     return (
       <div>
         <Bookmarks
-          bookmarkData={bookmarks}
+          bookmarks={bookmarks}
           handleDelete={this.handleDeleteButtonClicked}
           total={total}
         />
@@ -200,8 +204,8 @@ BookmarkList.propTypes = {
 
 const mapStateToProps = (state) => {
   const bookmarkIDList = _.get(state, [ reduxStatePropKey.bookmarks, 'bookmarkIDList' ], [])
-  const bookmarkEntities = _.get(state, [ reduxStatePropKey.bookmarks, 'entities' ], new Map())
-  const bookmarks = _.map(bookmarkIDList, id => bookmarkEntities.get(id))
+  const bookmarkEntities = _.get(state, [ reduxStatePropKey.bookmarks, 'entities' ], {})
+  const bookmarks = _.map(bookmarkIDList, id => _.get(bookmarkEntities, id))
   const total = _.get(state, [ reduxStatePropKey.bookmarks, 'total' ], 0)
   const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
   const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])

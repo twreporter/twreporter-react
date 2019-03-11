@@ -8,29 +8,34 @@ const signInSearchKeys = {
 const signInPathname = '/signin'
 const signInHref = {
   master: {
-    protocal: 'http',
-    host: 'localhost:3000',
+    protocol: 'http',
+    host: 'localhost:3030',
     pathname: signInPathname,
     searchKeys: signInSearchKeys
   },
   preview: {
-    protocal: 'https',
+    protocol: 'https',
     host: 'staging-accounts.twreporter.org',
     pathname: signInPathname,
     searchKeys: signInSearchKeys
   },
   staging: {
-    protocal: 'https',
+    protocol: 'https',
     host: 'staging-accounts.twreporter.org',
     pathname: signInPathname,
     searchKeys: signInSearchKeys
   },
   release: {
-    protocal: 'https',
+    protocol: 'https',
     host: 'accounts.twreporter.org',
     pathname: signInPathname,
     searchKeys: signInSearchKeys
   }
 }[releaseBranch]
 
-export default signInHref
+function getSignInHref(destination = '') {
+  const currentHrefSearch = destination ? '' : `?${signInHref.searchKeys.destination}=${destination}`
+  return `${signInHref.protocol}://${signInHref.host}${signInHref.pathname}${currentHrefSearch}`
+}
+
+export default getSignInHref

@@ -4,11 +4,11 @@ import BookmarkAddedIconDesktop from '../../static/asset/bookmarks/added-bookmar
 import BookmarkAddedIconMobile from '../../static/asset/bookmarks/added-bookmark-mobile.svg'
 import BookmarkUnaddedIconDesktop from '../../static/asset/bookmarks/add-bookmark-desktop.svg'
 import BookmarkUnaddedIconMobile from '../../static/asset/bookmarks/add-bookmark-mobile.svg'
+import getSignInHref from '../constants/bookmarks/sign-in-href'
 import predefinedPropTypes from '../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
-import signInHref from '../constants/bookmarks/sign-in-href'
 import styled from 'styled-components'
 // lodash
 import get from 'lodash/get'
@@ -82,21 +82,24 @@ class BookmarkWidget extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { jwt, userID, getSingleBookmark } = this.props
-    getSingleBookmark(jwt, userID, this.getArticleSlug(), this.getArticleHost())
+    const { bookmark } = this.props
+    if (!bookmark || bookmark.slug !== this.getCurrentSlug() || !bookmark.host === this.getCurrentHost()) {
+      const { jwt, userID, getSingleBookmark } = this.props
+      getSingleBookmark(jwt, userID, this.getCurrentSlug(), this.getCurrentHost())
+    }
   }
 
-  getArticleHost() {
+  getCurrentHost() {
     const hostFromProps = _.get(this.props, 'articleMeta.host')
     if (hostFromProps) return hostFromProps
     if (typeof window !== 'undefined') {
       const location = _.get(window, 'location') || {}
-      const { host = '', protocal = '' } = location
-      return (host && protocal) ? `${protocal}//${host}` : 'https://www.twreporter.org'
+      const { host = '', protocol = '' } = location
+      return (host && protocol) ? `${protocol}//${host}` : 'https://www.twreporter.org'
     }
   }
 
-  getArticleSlug() {
+  getCurrentSlug() {
     const slugFromProps = _.get(this.props, 'articleMeta.slug')
     if (slugFromProps) return slugFromProps
     if (typeof window !== 'undefined') {
@@ -106,19 +109,29 @@ class BookmarkWidget extends React.PureComponent {
     }
   }
 
-  addCurrentPageToBookmarks() {
-    // Redirect to singin page if user has not been authenticated
-    if (!this.props.isAuthed) {
-      const currentHref = window.location.href
-      window.location.href(`${signInHref.protocal}://${signInHref.host}${signInHref.pathname}?${signInHref.searchKeys.destination}=${currentHref}`)
+  // Redirect to singin page if user has not been authorized
+  checkAuthorization() {
+    const { isAuthed, jwt } = this.props
+    if (!isAuthed || !jwt) {
+      const currentHref = typeof window === 'undefined' ? '' : _.get(window, 'location.href', '')
+      window.location.href = getSignInHref(currentHref)
     }
+  }
+
+  addCurrentPageToBookmarks() {
+    this.checkAuthorization()
     const { jwt, userID, createSingleBookmark, articleMeta } = this.props
-    return createSingleBookmark(jwt, userID, articleMeta)
+    const bookmarkToBeCreated = {
+      host: this.getCurrentHost(),
+      ...articleMeta
+    }
+    return createSingleBookmark(jwt, userID, bookmarkToBeCreated)
   }
 
   removeCurrentPageFromBookmarks() {
+    this.checkAuthorization()
     const { jwt, userID, deleteSingleBookmark, articleMeta, bookmark } = this.props
-    if ((bookmark.slug === articleMeta.slug) && (bookmark.host === articleMeta.host)) {
+    if (bookmark.slug === this.getCurrentSlug() && bookmark.host === this.getCurrentHost()) {
       return deleteSingleBookmark(jwt, userID, bookmark.id)
     } else {
       // eslint-disable-next-line no-console
@@ -127,8 +140,8 @@ class BookmarkWidget extends React.PureComponent {
   }
 
   render() {
-    const { bookmark, articleMeta, isMobile, svgColor } = this.props
-    const isBookmarked = bookmark && (bookmark.slug === articleMeta.slug) && (bookmark.host === articleMeta.host)
+    const { bookmark, isMobile, svgColor } = this.props
+    const isBookmarked = Boolean(bookmark) && (bookmark.slug === this.getCurrentSlug()) && (bookmark.host === this.getCurrentHost())
     return isMobile ? (
       <MobileIconContainer onClick={isBookmarked ? this.removeCurrentPageFromBookmarks : this.addCurrentPageToBookmarks}>
         <BookmarkImg show={!isBookmarked}>
