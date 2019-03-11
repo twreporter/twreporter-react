@@ -16,7 +16,7 @@ const apiConfig = {
 
 const apiEndpoints = {
   getBookmarks: (userID) => `users/${userID}/bookmarks`,
-  getSingleBookmark: (userID, bookmarkSlug) => `users/${userID}/bookmarks/${bookmarkSlug}`,
+  getSingleBookmark: (userID, bookmarkSlug, bookmarkHost) => `users/${userID}/bookmarks/${bookmarkSlug}?host=${bookmarkHost}`,
   createSingleBookmark: (userID) => `users/${userID}/bookmarks`,
   deleteSingleBookmark: (userID, bookmarkID) => `users/${userID}/bookmarks/${bookmarkID}`
 }
@@ -114,6 +114,8 @@ function buildSuccessActionFromRes(axiosResponse, actionType) {
  * @returns
  */
 export function createSingleBookmark(jwt, uesrID, bookmarkToBeCreated) {
+  /* go-api takes `published_date` as an unix timestamp (in secs) int */
+  const { published_date, ...passedBookmarkProperties } = bookmarkToBeCreated
   return function (dispatch, getState, axiosInstanceWithUserCookie) {
     const url = formAPIURL(apiEndpoints.createSingleBookmark(uesrID), false)
     const axiosConfig = {
@@ -137,10 +139,12 @@ export function createSingleBookmark(jwt, uesrID, bookmarkToBeCreated) {
       axiosInstanceWithUserCookie.interceptors.request.eject(interceptor)
       return config
     })
-    return axiosInstanceWithUserCookie.post(url, bookmarkToBeCreated, axiosConfig)
+    return axiosInstanceWithUserCookie.post(url, {
+      published_date: Math.ceil(new Date(published_date).getTime() / 1000),
+      ...passedBookmarkProperties
+    }, axiosConfig)
       .then((res) => {
         const successAction = buildSuccessActionFromRes(res, types.singleBookmark.create.success)
-        successAction.payload.createdBookmark = bookmarkToBeCreated
         dispatch(successAction)
       })
       .catch((error) => {
@@ -168,7 +172,6 @@ export function getMultipleBookmarks(jwt, userID, offset, limit, sort) {
     const axiosConfig = {
       timeout: apiConfig.timeout,
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`
       }
     }
@@ -211,12 +214,10 @@ export function getMultipleBookmarks(jwt, userID, offset, limit, sort) {
  */
 export function getSingleBookmark(jwt, userID, bookmarkSlug, bookmarkHost) {
   return function (dispatch, getState, axiosInstanceWithUserCookie) {
-    let url = formAPIURL(`${apiEndpoints.getSingleBookmark(userID, bookmarkSlug)}`, false)
-    if (bookmarkHost) url += `&host=${bookmarkHost}`
+    let url = formAPIURL(`${apiEndpoints.getSingleBookmark(userID, bookmarkSlug, bookmarkHost)}`, false)
     const axiosConfig = {
       timeout: apiConfig.timeout,
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`
       }
     }
@@ -262,7 +263,6 @@ export function deleteSingleBookmark(jwt, userID, bookmarkID) {
     const axiosConfig = {
       timeout: apiConfig.timeout,
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`
       }
     }

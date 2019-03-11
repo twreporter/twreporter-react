@@ -28,7 +28,7 @@ export default function bookmarkWidget(state = initState, action) {
       return {
         actionType: action.type,
         isRequesting: false,
-        bookmark: _.get(action, 'payload.record'),
+        bookmark: _.get(action, 'payload.data.record'),
         errorMessage: null
       }
     }
@@ -44,7 +44,7 @@ export default function bookmarkWidget(state = initState, action) {
       return {
         actionType: action.type,
         isRequesting: false,
-        bookmark: _.get(action, 'payload.createdBookmark'),
+        bookmark: _.get(action, 'payload.data.record'),
         errorMessage: null
       }
     }

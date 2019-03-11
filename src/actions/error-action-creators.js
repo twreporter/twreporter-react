@@ -40,7 +40,6 @@ function handleValidationFailureBeforeRequest(invalidFields, failActionType) {
  *  @returns {ErrorAction}
  */
 function handleAxiosError(err = {}, failActionType) {
-  console.log('An axios error occured:', err) // eslint-disable-line
   if (err.response) {
     if (err.response.status === statusCode.badRequest) {
       return {
@@ -63,6 +62,7 @@ function handleAxiosError(err = {}, failActionType) {
       }
     }
   } else if (err.request) {
+    console.log('An axios error occured:', err) // eslint-disable-line
     return {
       type: failActionType,
       payload: {
@@ -70,6 +70,7 @@ function handleAxiosError(err = {}, failActionType) {
       }
     }
   } else {
+    console.log('An axios error occured:', err) // eslint-disable-line
     return {
       type: failActionType,
       payload: {
