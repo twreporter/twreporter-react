@@ -13,9 +13,10 @@ const _ = {
  *  @property {string} type - Action error type
  *  @property {string} payload
  *  @property {string} payload.statusCode - Response status code
+ *  @property {string} payload.headers - Server response headers
  *  @property {string} payload.message - Error message
- *  @property {object} payload.error - Error object
- *  @property {Object} payload.config - details of response
+ *  @property {Object} payload.config - Axios config object
+ *  @property {Object} payload.request - An instance of `XMLHttpRequest` in the browser or an instance of `http.ClientRequest` in node.js
 */
 
 /**
@@ -27,7 +28,7 @@ function handleValidationFailureBeforeRequest(invalidFields, failActionType) {
   return {
     type: failActionType,
     payload: {
-      message: 'data validation failed before the http request was make',
+      message: 'Data validation failed before the http request was made.',
       data: invalidFields,
       statusCode: statusCode.badRequest
     }
@@ -41,40 +42,31 @@ function handleValidationFailureBeforeRequest(invalidFields, failActionType) {
  */
 function handleAxiosError(err = {}, failActionType) {
   if (err.response) {
-    if (err.response.status === statusCode.badRequest) {
-      return {
-        type: failActionType,
-        payload: {
-          message: 'response bad request due to data validation failures',
-          data: _.get(err, 'response.data'),
-          statusCode: err.response.status,
-          config: _.get(err, 'response.status')
-        }
-      }
-    }
     return {
       type: failActionType,
       payload: {
         data: _.get(err, 'response.data'),
         message: _.get(err, 'response.data.message'),
-        statusCode: err.response.status,
-        config: _.get(err, 'response.status')
+        statusCode: _.get(err, 'response.status'),
+        headers: _.get(err, 'response.headers'),
+        config: _.get(err, 'config')
       }
     }
   } else if (err.request) {
-    console.log('An axios error occured:', err) // eslint-disable-line
     return {
       type: failActionType,
       payload: {
-        message: 'request was made but no response was received'
+        message: 'A request was made but no response was received.',
+        request: _.get(err, 'request'),
+        config: _.get(err, 'config')
       }
     }
   } else {
-    console.log('An axios error occured:', err) // eslint-disable-line
     return {
       type: failActionType,
       payload: {
-        message: 'error happened in setting up the request that triggered an error'
+        message: 'An error occured when setting up the request: ' + _.get(err, 'message', ''),
+        config: _.get(err, 'config')
       }
     }
   }
