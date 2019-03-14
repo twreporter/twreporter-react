@@ -5,7 +5,6 @@ import { SITE_META, SITE_NAME } from '../constants/index'
 import BannerFactory from '../components/topic/Banner'
 import CardsFactory from '../components/topic/Cards'
 import Description from '../components/topic/Description'
-import Footer from '@twreporter/react-components/lib/footer'
 import FullScreenImage from '../components/shared/FullScreenImage'
 import Header from '../components/topic/Header'
 import Helmet from 'react-helmet'
@@ -36,18 +35,6 @@ const Container = styled.div`
 `
 
 class TopicLandingPage extends Component {
-  static fetchData({ params, store }) {
-    const slug = params.slug
-    return store.dispatch(actions.fetchAFullTopic(slug))
-      .then(() => {
-        const state = store.getState()
-        const selectedTopic = _.get(state, reduxStateFields.selectedTopic, {})
-        if (_.get(selectedTopic, 'error')) {
-          return Promise.reject(_.get(selectedTopic, 'error'))
-        }
-      })
-  }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -56,8 +43,8 @@ class TopicLandingPage extends Component {
   }
 
   componentWillMount() {
-    const { fetchAFullTopic, params } = this.props
-    const slug = _.get(params, 'slug')
+    const { fetchAFullTopic, match } = this.props
+    const slug = _.get(match, 'params.slug')
     fetchAFullTopic(slug)
   }
 
@@ -70,10 +57,10 @@ class TopicLandingPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchAFullTopic, params } = nextProps
+    const { fetchAFullTopic, match } = nextProps
     const { selectedTopic } = this.props
-    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
-      fetchAFullTopic(_.get(params, 'slug'))
+    if (_.get(selectedTopic, 'slug') !== _.get(match, 'params.slug')) {
+      fetchAFullTopic(_.get(match, 'params.slug'))
     }
   }
 
@@ -98,19 +85,18 @@ class TopicLandingPage extends Component {
   }
 
   render() {
-    const { entities, params, selectedTopic } = this.props
+    const { entities, match, selectedTopic } = this.props
     const { viewportHeight } = this.state
     const error = _.get(selectedTopic, 'error', null)
     if (error !== null) {
       return (
         <div>
           <SystemError error={error} />
-          <Footer />
         </div>
       )
     }
 
-    if (_.get(selectedTopic, 'slug') !== _.get(params, 'slug')) {
+    if (_.get(selectedTopic, 'slug') !== _.get(match, 'params.slug')) {
       return null
     }
 
@@ -202,7 +188,6 @@ class TopicLandingPage extends Component {
         <BgColoredCards
           items={relateds}
         />
-        <Footer />
       </Container>
     )
   }
@@ -222,7 +207,9 @@ TopicLandingPage.defaultProps = {
 
 TopicLandingPage.propTypes = {
   entities: PropTypes.object,
-  selectedTopic: PropTypes.object
+  selectedTopic: PropTypes.object,
+  // react-router `match` object
+  match: PropTypes.object.isRequired
 }
 
 export { TopicLandingPage }

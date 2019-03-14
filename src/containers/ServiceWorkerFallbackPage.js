@@ -2,10 +2,8 @@
 import React, { Component } from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
-import withLayout from '../helpers/with-layout'
-import { Link, withRouter } from 'react-router'
+import Link from 'react-router-dom/Link'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 
 const _ = {
   get
@@ -51,5 +49,5 @@ class FallbackPage extends Component {
 }
 
 
-export default withRouter(connect(null, { push })(withLayout(FallbackPage)))
+export default connect()(FallbackPage)
 // export default FallbackPage

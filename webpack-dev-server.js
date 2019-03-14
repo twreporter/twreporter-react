@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const webpackConfig = require('./webpack.config.js')
 
 const options = {
-  headers: {'Access-Control-Allow-Origin': '*'},
+  headers: { 'Access-Control-Allow-Origin': '*' },
   host: webpackConfig.devServer.host,
   port: webpackConfig.devServer.port,
   hot: true,
@@ -14,13 +14,13 @@ const options = {
   noInfo: false,
   publicPath: webpackConfig.output.publicPath,
   quiet: false,
-  stats: {colors: true}
+  stats: { colors: true }
 }
 
 webpackDevServer.addDevServerEntrypoints(webpackConfig, options)
 const compiler = webpack(webpackConfig)
 const server = new webpackDevServer(compiler, options)
 
-server.listen(5000, 'localhost', () => {
-    console.log('dev server listening on port 5000')
+server.listen(webpackConfig.devServer.port, 'localhost', () => {
+  console.log('dev server listening on port ', webpackConfig.devServer.port)
 })

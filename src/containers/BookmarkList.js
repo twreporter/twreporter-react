@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import styles from './BookmarkList.scss'
-import withLayout from '../helpers/with-layout'
 
 // lodash
 import get from 'lodash/get'
@@ -167,4 +166,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getBookmarks, deleteBookmark })(withLayout(BookmarkList))
+export default connect(mapStateToProps, { getBookmarks, deleteBookmark })(BookmarkList)

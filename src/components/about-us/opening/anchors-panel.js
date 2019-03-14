@@ -1,15 +1,15 @@
 import { buildFbShareLink } from '../utils/build-fb-share-link'
 import { colors } from '../../../themes/common-variables'
+import { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
-import { keyframes } from 'styled-components'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
 import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.png'
 import PopUpPanel from '../utils/pop-up-panel'
@@ -96,6 +96,10 @@ const ContentWrapper = styled.div`
   `}
 `
 
+const contentShiftingRule = css`
+  ${contentShifting} ${transitionDuration}ms linear;
+`
+
 const AnchorsContainer = styled.div`
   display: block;
   width: calc(100% - 185px + ${allPaddingRight.mobile});
@@ -110,7 +114,9 @@ const AnchorsContainer = styled.div`
     border-bottom: none;
   }
   ${screen.mobile`
-    padding: 17px 0 0 10px;
+    animation: ${contentShiftingRule};
+    animation-fill-mode: forwards;
+    padding: 17px 0 52px 0;
   `}
   ${screen.tablet`
     padding: 45px 0 0 0;
@@ -126,13 +132,21 @@ const rotate45deg = keyframes`
   }
 `
 
-const rotateCounterClock45deg = keyframes `
+const rotate45degRule = css`
+  ${rotate45deg} ${transitionDuration}ms linear;
+`
+
+const rotateCounterClock45deg = keyframes`
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(-45deg);
   }
+`
+
+const rotateCounterClock45degRule = css`
+  ${rotateCounterClock45deg} ${transitionDuration}ms linear;
 `
 
 const CloseBtn = styled.div `
@@ -149,11 +163,11 @@ const CloseBtn = styled.div `
     background: ${colors.white};
   }
   span:first-child{
-    animation: ${rotate45deg} ${transitionDuration}ms linear;
+    animation: ${rotate45degRule};
     animation-fill-mode: forwards;
   }
   span:last-child{
-    animation: ${rotateCounterClock45deg} ${transitionDuration}ms linear;
+    animation: ${rotateCounterClock45degRule};
     animation-fill-mode: forwards;
   }
   ${screen.desktopAbove`
@@ -200,7 +214,7 @@ const EnglishVersionLink = styled.a`
 `
 
 const IconEnLink = styled.img`
-  width: 13.9px; 
+  width: 13.9px;
 `
 
 class AnchorsPanel extends React.PureComponent {

@@ -1,9 +1,9 @@
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic.svg'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { BookmarkWidget } from '@twreporter/registration'
+// import { BookmarkWidget } from '@twreporter/registration'
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import { colors, typography }  from '../../../themes/common-variables'
 import { articleLayout } from '../../../themes/layout'
@@ -69,17 +69,24 @@ BackToTopic.propTypes = {
 
 class DesktopArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
+    const {
+      topicTitle,
+      topicSlug,
+      toShow
+      //bookmarkData,
+      //slug
+    } = this.props
+
     return (
       <Container
         toShow={toShow}
       >
         {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
         <WidgetContainer>
-          <BookmarkWidget
+          {/*<BookmarkWidget
             bookmarkData={bookmarkData}
             slug={slug}
-          />
+          />*/}
         </WidgetContainer>
       </Container>
     )
