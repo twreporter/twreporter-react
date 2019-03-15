@@ -1,6 +1,6 @@
-import config from '../../../config'
+import globalEnv from '../../global-env'
 
-const releaseBranch = config.releaseBranch
+const releaseBranch = globalEnv.releaseBranch
 
 const signInSearchKeys = {
   destination: 'destination'

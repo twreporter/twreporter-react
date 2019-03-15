@@ -5,14 +5,14 @@ import 'normalize.css'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './app'
-import config from '../config'
 import configureStore from './store/configure-store'
+import globalEnv from './global-env'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 
-const releaseBranch = config.releaseBranch
+const releaseBranch = globalEnv.releaseBranch
 
 let reduxState
 
