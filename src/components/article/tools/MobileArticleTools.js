@@ -1,13 +1,13 @@
-import Link from 'react-router-dom/Link'
-import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
+import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
+import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
+import BookmarkWidget from '../../../containers/BookmarkWidget'
+import Link from 'react-router-dom/Link'
+import predefinedPropTypes from '../../../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
 import styled from 'styled-components'
-// TODO Add Bookmark widget back with refined modules
-// import { BookmarkWidget } from '@twreporter/registration'
-import { LINK_PREFIX } from '../../../constants/link-prefix'
 
 const buttonWidth = 52
 const buttonHeight = 52
@@ -70,11 +70,10 @@ BackToTopicBtn.propTypes = {
 class MobileArticleTools extends React.PureComponent {
   render() {
     const {
+      articleMetaForBookmark,
       topicTitle,
       topicSlug,
       toShow
-      //bookmarkData,
-      //slug
     } = this.props
     return (
       <Container
@@ -82,11 +81,10 @@ class MobileArticleTools extends React.PureComponent {
       >
         {!topicSlug ? null : <BackToTopicBtn topicSlug={topicSlug} topicTitle={topicTitle} />}
         <WidgetWrapper key="bookmark_widget">
-          {/*<BookmarkWidget
-            bookmarkData={bookmarkData}
-            slug={slug}
-            mobile
-          />*/}
+          <BookmarkWidget
+            articleMeta={articleMetaForBookmark}
+            isMobile
+          />
         </WidgetWrapper>
         <BackToTopBtn key="back_to_top" />
       </Container>
@@ -98,7 +96,7 @@ MobileArticleTools.propTypes = {
   toShow: PropTypes.bool.isRequired,
   topicTitle: PropTypes.string,
   topicSlug: PropTypes.string,
-  bookmarkData: PropTypes.object.isRequired,
+  articleMetaForBookmark: predefinedPropTypes.articleMetaForBookmark,
   slug: PropTypes.string.isRequired
 }
 

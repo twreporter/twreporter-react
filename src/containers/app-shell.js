@@ -288,7 +288,10 @@ class App extends React.PureComponent {
         // check if service worker registered web push notification or not
         return navigator.serviceWorker.getRegistration()
           .then((reg) => {
-            return isNotificationSubscribed(reg)
+            if (reg) {
+              return isNotificationSubscribed(reg)
+            }
+            console.warn('No service worker registration was found')
           })
           .then((isSubscribed) => {
             this.setState({

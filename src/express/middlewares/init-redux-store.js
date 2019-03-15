@@ -13,7 +13,8 @@ const _ = {
 function initReduxStoreMiddleware(namespace) {
   return async function middleware(req, res, next) {
     try {
-      const reduxStore = await configureStore()
+      const cookieList = req.get('cookie')
+      const reduxStore = await configureStore({}, cookieList)
       _.set(req, [ namespace, 'reduxStore' ], reduxStore)
       next()
     } catch(err) {

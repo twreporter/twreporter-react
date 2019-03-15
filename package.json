@@ -62,7 +62,7 @@
     "react-waypoint": "^7.0.3",
     "react-youtube": "^7.0.1",
     "redux": "^3.5.2",
-    "redux-thunk": "^0.1.0",
+    "redux-thunk": "^2.3.0",
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "0.3.0",
     "styled-components": "^4.0.0",

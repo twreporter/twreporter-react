@@ -19,7 +19,7 @@ help:
 # build webpacks client side needed
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --progress --colors
+	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --colors
 
 build-service-worker: 
 	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
