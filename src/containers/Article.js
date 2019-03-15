@@ -487,6 +487,12 @@ function chooseStyles(articleStyle) {
   }
 
   switch(articleStyle) {
+    case themesConst.articlePage.fullscreen.normal: {
+      styles.title.fontColor = colors.white
+      styles.subtitle.fontColor = colors.white
+      styles.topic.fontColor = colors.white
+      break
+    }
     case themesConst.articlePage.fullscreen.dark: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
