@@ -13,7 +13,20 @@ export const themesConst = {
   normal: 'normal',
   photography: 'photography',
   withoutHeader: 'without-header',
-  withoutHeaderAndFooter: 'without-header-footer'
+  withoutHeaderAndFooter: 'without-header-footer',
+  articlePage: {
+    fullscreen: {
+      dark: 'article:fullscreen:dark',
+      normal: 'article:fullscreen:normal'
+    }
+  }
+  // TODO implement topic page theme
+  //topicPage: {
+  //  fullscreen: {
+  //    dark: 'topic:fullscreen:dark',
+  //    normal: 'topic:fullscreen:normal',
+  //  }
+  //}
 }
 
 export default class ThemeManager {
@@ -64,11 +77,16 @@ export default class ThemeManager {
         const selectedPost = reduxState[reduxStateFields.selectedPost]
         const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
         const style = post.style
-        // photographic article page
-        if (style === themesConst.photography) {
-          return themesConst.photography
+        switch(style) {
+          case themesConst.photography:
+          case themesConst.articlePage.fullscreen.dark:
+          case themesConst.articlePage.fullscreen.normal: {
+            return style
+          }
+          default: {
+            return themesConst.normal
+          }
         }
-        return themesConst.normal
       },
       params: reduxState
     } ]

@@ -1,8 +1,40 @@
 import Footer from '@twreporter/react-components/lib/footer'
 import React from 'react'
+import styled from 'styled-components'
 import uh from '@twreporter/universal-header'
-import { themesConst } from './theme-manager'
 import { colors } from '../themes/common-variables'
+import { screen } from '../themes/screen'
+import { themesConst } from './theme-manager'
+
+const HeaderContainerWithTransparentTheme = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  ${screen.desktopBelow`
+    position: relative;
+  `}
+`
+
+const styles = {
+  normal: {
+    backgroundColor: colors.lightGray
+  },
+  photography: {
+    backgroundColor: colors.photographyColor
+  },
+  articlePage: {
+    fullscreen: {
+      dark: {
+        backgroundColor: '#2c2c2c'
+      },
+      normal: {
+        backgroundColor: colors.lightGray
+      }
+    }
+  }
+}
 
 export default class LayoutManager {
   /**
@@ -24,25 +56,50 @@ export default class LayoutManager {
   }
 
   /**
-   *  @return {string} header html markup
+   *  @return {Object} Header JSX component
    */
   getHeader() {
-    // TODO Header of topic page should be modified
-    // after the header 2.0 releases
     if (this.theme === themesConst.withoutHeader
       || this.theme === themesConst.withoutHeaderAndFooter) {
       return null
     }
+    switch(this.theme) {
+      case themesConst.withoutHeader:
+      case themesConst.withoutHeaderAndFooter: {
+        return null
+      }
+      case themesConst.articlePage.fullscreen.dark:
+      case themesConst.articlePage.fullscreen.normal: {
+        return (
+          <HeaderContainerWithTransparentTheme>
+            <uh.Header
+              theme="transparent"
+              env={this.releaseBranch}
+              isLinkExternal={false}
+            />
+          </HeaderContainerWithTransparentTheme>
+        )
+      }
+      // TODO Header of topic page should be implmeneted here, rather than in topicLandingPage container
+      //case themesConst.topicPage.fullscreen.dark:
+      //case themesConst.topicPage.fullscreen.normal: {
+      //}
+      default: {
+        return (
+          <uh.Header
+            theme={this.theme}
+            env={this.releaseBranch}
+            isLinkExternal={false}
+          />
+        )
+      }
+    }
 
-    return (
-      <uh.Header
-        theme={this.theme}
-        env={this.releaseBranch}
-        isLinkExternal={false}
-      />
-    )
   }
 
+  /**
+   * @return {Object} JSX Footer Component
+   */
   getFooter() {
     if (this.theme === themesConst.withoutHeaderAndFooter) {
       return null
@@ -56,12 +113,16 @@ export default class LayoutManager {
   getBackgroundColor() {
     switch(this.theme) {
       case themesConst.photography: {
-        return colors.photographyColor
+        return styles.photography.backgroundColor
       }
-      case themesConst.normal:
-      case themesConst.withoutHeader:
+      case themesConst.articlePage.fullscreen.dark: {
+        return styles.articlePage.fullscreen.dark.backgroundColor
+      }
+      case themesConst.articlePage.fullscreen.normal: {
+        return styles.articlePage.fullscreen.normal.backgroundColor
+      }
       default: {
-        return colors.gray.lightGray
+        return styles.normal.backgroundColor
       }
     }
   }

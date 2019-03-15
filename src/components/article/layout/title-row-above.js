@@ -1,8 +1,6 @@
 import Link from 'react-router-dom/Link'
 import PropTypes from 'prop-types'
 import React from 'react'
-import constPageThemes from '../../../constants/page-themes'
-import constPropTypes from '../../../constants/prop-types'
 import get from 'lodash/get'
 import styled from 'styled-components'
 import { LINK_PREFIX } from '../../../constants/index'
@@ -106,17 +104,17 @@ const RightArrow = styled.div`
 
 class TitleRowAbove extends React.PureComponent {
   render() {
-    const { title, subtitle, topicName, topicSlug, theme } = this.props
+    const { title, subtitle, topicName, topicSlug, styles } = this.props
     const topicJSX = topicName ? (
       <Topic>
         <Link
           to={`${LINK_PREFIX.TOPICS}${topicSlug}`}
         >
           <TopicContent
-            color={_.get(theme, 'color.topic')}
+            color={_.get(styles, 'topic.fontColor')}
           >
             {topicName}
-            <RightArrow color={_.get(theme, 'color.topic')}/>
+            <RightArrow color={_.get(styles, 'topic.fontColor')}/>
           </TopicContent>
         </Link>
       </Topic>
@@ -125,7 +123,7 @@ class TitleRowAbove extends React.PureComponent {
     const subtitleJSX = subtitle ? (
       <Subtitle
         itemProp="alternativeHeadline"
-        color={_.get(theme, 'color.subtitle')}
+        color={_.get(styles, 'subtitle.fontColor')}
       >
         {subtitle}
       </Subtitle>
@@ -143,7 +141,7 @@ class TitleRowAbove extends React.PureComponent {
         <HeaderContainer>
           {firstRowJSX}
           <Title
-            color={_.get(theme, 'color.title')}
+            color={_.get(styles, 'title.fontColor')}
           >
             {title}
           </Title>
@@ -157,7 +155,7 @@ TitleRowAbove.defaultProps = {
   subtitle: '',
   topicName: '',
   topicSlug: '',
-  theme: constPageThemes.defaultTheme
+  styles: {}
 }
 
 TitleRowAbove.propTypes = {
@@ -165,7 +163,17 @@ TitleRowAbove.propTypes = {
   title: PropTypes.string.isRequired,
   topicName: PropTypes.string,
   topicSlug: PropTypes.string,
-  theme: constPropTypes.theme
+  styles: PropTypes.shape({
+    subtitle: PropTypes.shape({
+      fontColor: PropTypes.string
+    }),
+    title: PropTypes.shape({
+      fontColor: PropTypes.string
+    }),
+    topic: PropTypes.shape({
+      fontColor: PropTypes.string
+    })
+  })
 }
 
 export default TitleRowAbove
