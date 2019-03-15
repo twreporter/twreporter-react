@@ -1,5 +1,12 @@
 ## Unreleased
 
+### 4.0.2
+- Server side rendering and code refactoring of BookmarkList and BookmarkWidget
+- Turn off webpack progress display
+- Check if service worker registration exists before using it
+##### Dependencies Upgrade
+- redux-thunk to^2.3.0
+
 ## Release
 ### 4.0.1
 - Remove props `history` from `BrowserRouter`.
