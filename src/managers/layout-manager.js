@@ -19,7 +19,7 @@ const HeaderContainerWithTransparentTheme = styled.div`
 
 const styles = {
   normal: {
-    backgroundColor: colors.lightGray
+    backgroundColor: colors.gray.lightGray
   },
   photography: {
     backgroundColor: colors.photographyColor
@@ -30,7 +30,7 @@ const styles = {
         backgroundColor: '#2c2c2c'
       },
       normal: {
-        backgroundColor: colors.lightGray
+        backgroundColor: colors.gray.lightGray
       }
     }
   }
