@@ -18,7 +18,7 @@ export default {
     path: '/categor(y|ies)/:category'
   },
   tagListPage: {
-    path: '/tags?/:tagId'
+    path: '/(tag|tags)/:tagId'
   },
   photographyPage: {
     path: '/photography'
@@ -27,7 +27,7 @@ export default {
     path: '/search'
   },
   authorPage: {
-    path: '/authors?/:authorId'
+    path: '/(author|authors)/:authorId'
   },
   authorListPage: {
     path: '/authors'
