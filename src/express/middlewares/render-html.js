@@ -1,5 +1,5 @@
 import App from '../../app'
-import Html from '../../helpers/html'
+import Html from '../../helpers/Html'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
