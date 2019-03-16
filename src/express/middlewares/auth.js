@@ -61,8 +61,8 @@ function authMiddleware(namespace, options) {
     // Check if the user is authenticated.
     // If the user is authenticated, handle user authorization:
     const idToken = _.get(req, 'cookies.id_token')
-    const userInfoInIdToken = decodePayload(idToken)
     if (idToken) {
+      const userInfoInIdToken = decodePayload(idToken)
       const accessTokenKeyName = subdomainsArr.join('_') + '_access_token'
       const accessToken = _.get(req, [ 'signedCookies', accessTokenKeyName ])
       // Check If the user is also authorized.
@@ -114,7 +114,7 @@ function authMiddleware(namespace, options) {
           }
         })
         .catch(err => {
-          // The action `getAccessToken()` should return a Promise always resolved. 
+          // The action `getAccessToken()` should return a Promise always resolved.
           // If an unexpected error occoured, log out the error and skip authorization if authorization is not requred.
           // If the page requires authorization, throw an error to express.
           const errorMessage = 'An unexpected error occoured when the server try to get access token. Skip authorization.'

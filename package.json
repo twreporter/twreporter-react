@@ -124,7 +124,5 @@
     "lint",
     "test"
   ],
-  "pre-push": [
-    "ui-test"
-  ]
+  "pre-push": []
 }
