@@ -15,6 +15,7 @@ api-err.log
 .idea/
 .vscode/
 webpack-assets.json
+react-loadable.json
 
 # Ignore generated pm2 config file
 processes.json

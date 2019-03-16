@@ -4,7 +4,7 @@
 import { LINK_PREFIX, authorTypes } from '../../constants/index'
 import React, { Component } from 'react'
 
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
 // lodash

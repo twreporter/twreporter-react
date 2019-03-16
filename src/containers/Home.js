@@ -1,17 +1,15 @@
 /*eslint no-unused-vars:0, no-console:0 */
 import { connect } from 'react-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
-import categoryString from '../constants/category-strings'
-import categoryURI from '../conf/category-uri'
+import categoryConst from '../constants/category'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/react-components/lib/index-page'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -188,14 +186,6 @@ const siteNavigationJSONLD = {
 }
 
 class Homepage extends React.PureComponent {
-  static async fetchData({ store }) {
-    await fetchIndexPageContent()(store.dispatch, store.getState)
-    const error = _.get(store.getState(), [ fieldNames.indexPage, 'error' ])
-    if (error !== null) {
-      return Promise.reject(error)
-    }
-  }
-
   constructor(props) {
     super(props)
     this.sidebar = null
@@ -274,7 +264,7 @@ class Homepage extends React.PureComponent {
           <DonationBoxSection />
           <ReviewsSection
             data={this.props[fieldNames.sections.reviewsSection]}
-            moreURI={`categories/${categoryURI.reviews}`}
+            moreURI={`categories/${categoryConst.pathSegments.reviews}`}
           />
           <NewsLetterSection />
           <Background
@@ -304,15 +294,12 @@ class Homepage extends React.PureComponent {
           >
             <InforgraphicSection
               data={this.props[fieldNames.sections.infographicsSection]}
-              moreURI={`categories/${categoryURI.infographic}`}
+              moreURI={`categories/${categoryConst.pathSegments.infographic}`}
             />
           </Background>
         </SideBar>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationJSONLD) }} />
-        <Footer 
-          bgColor={moduleBackgounds.footer}
-        />
       </Container>
     )
   }
@@ -343,8 +330,8 @@ function buildCategorySectionData(state) {
         if (selected.indexOf(slug) === -1) {
           post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
           post.id = field + '-' + post.id
-          post.listName = categoryString[field]
-          post.moreURI = `categories/${categoryURI[field]}`
+          post.listName = categoryConst.labels[field]
+          post.moreURI = `categories/${categoryConst.pathSegments[field]}`
           data.push(post)
           break
         }
@@ -352,8 +339,8 @@ function buildCategorySectionData(state) {
       if (typeof post !== 'object' && slugs.length > 0) {
         post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
         post.id = field + '-' + post.id
-        post.listName = categoryString[field]
-        post.moreURI = `categories/${categoryURI[field]}`
+        post.listName = categoryConst.labels[field]
+        post.moreURI = `categories/${categoryConst.pathSegments[field]}`
         data.push(post)
       }
     }

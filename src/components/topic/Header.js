@@ -1,7 +1,7 @@
 'use strict'
 import BackToTopicIcon from '../../../static/asset/back-to-topic.svg'
 import DonationIcon from '../../../static/asset/donate.svg'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import LogoIcon from '../../../static/asset/navbar-fixed-top-logo.svg'
 import PropTypes from 'prop-types'
 import React from 'react' // eslint-disable-next-line
