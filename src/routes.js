@@ -160,7 +160,7 @@ export default function getRoutes() {
     },
     {
       component: loadablePages.article,
-      loadData: () => Promise.all([ dataLoaders.loadArticlePageData, dataLoaders.loadBookmarkWidgetData ]),
+      loadData: (props) => Promise.all([ dataLoaders.loadArticlePageData(props), dataLoaders.loadBookmarkWidgetData(props) ]),
       path: routesConst.articlePage.path
     },
     {

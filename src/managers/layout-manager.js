@@ -74,7 +74,7 @@ export default class LayoutManager {
           <HeaderContainerWithTransparentTheme>
             <uh.Header
               theme="transparent"
-              env={this.releaseBranch}
+              releaseBranch={this.releaseBranch}
               isLinkExternal={false}
             />
           </HeaderContainerWithTransparentTheme>
@@ -88,7 +88,7 @@ export default class LayoutManager {
         return (
           <uh.Header
             theme={this.theme}
-            env={this.releaseBranch}
+            releaseBranch={this.releaseBranch}
             isLinkExternal={false}
           />
         )
