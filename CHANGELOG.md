@@ -22,6 +22,9 @@
 - redux-thunk to^2.3.0
 - @twreporter/universal-header to ^2.0.3
 
+##### Bug fixed
+- Empty page rendered while url hash is existed but no such anchor id on DOM
+
 ##### Miscellaneous
 - Turn off webpack progress display
 - Check if service worker registration exists before using it

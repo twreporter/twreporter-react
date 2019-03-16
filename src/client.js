@@ -36,7 +36,7 @@ function scrollToTopAndFirePageview() {
           element.scrollIntoView()
         }
       }, 0)
-      return
+      return null
     }
     window.scrollTo(0, 0)
     // send Google Analytics Pageview event on route changed
