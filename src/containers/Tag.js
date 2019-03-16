@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
-import qs from 'qs'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
@@ -139,14 +138,8 @@ class Tag extends PureComponent {
 
 function mapStateToProps(state, props) {
   const tagId = _.get(props, 'match.params.tagId', '')
-  const search = _.get(props, 'location.search', '')
-  const query = qs.parse(search, { ignoreQueryPrefix: true })
-  /* fetch page 1 if query is invalid */
-  let page = parseInt(_.get(query, 'page', 1), 10)
-  if (isNaN(page) || page < 0) {
-    page = 1
-  }
-  const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
+  const page = parseInt(_.get(props, 'location.query.page', 1), 10)
+  const pathname = _.get(props, 'location.pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
