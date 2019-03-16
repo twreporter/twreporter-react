@@ -24,7 +24,7 @@ const _ = {
   throttle
 }
 
-const StyledArticleComponent = constStyledComponents.ResponsiveContainerForAritclePage.extend`
+const StyledArticleComponent = styled(constStyledComponents.ResponsiveContainerForAritclePage)`
   font-size: ${(props) => {
     let fontSize = typography.font.size.base
     switch(props.fontSize) {

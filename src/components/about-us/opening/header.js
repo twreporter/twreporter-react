@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, headerStyle } from './section-style'
 import { screen } from '../utils/screen'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
 import PropTypes from 'prop-types'
 import React from 'react'

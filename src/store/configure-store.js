@@ -1,15 +1,15 @@
 /* eslint no-console:0 */
 /* global __DEVELOPMENT__, __CLIENT__*/
 'use strict'
+import { createStore as _createStore, applyMiddleware, compose } from 'redux'
+import axios from 'axios'
 import bs from './browser-storage'
 import merge from 'lodash/merge'
 import pick from 'lodash/pick'
-import thunkMiddleware from 'redux-thunk'
-import throttle from 'lodash/throttle'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
 import rootReducer from '../reducers'
-import { createStore as _createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
+import throttle from 'lodash/throttle'
+import thunkMiddleware from 'redux-thunk'
 
 const _ = {
   merge,
@@ -23,11 +23,17 @@ function selectCacheFirstProp(reduxState) {
   return _.pick(reduxState, cacheableProps)
 }
 
-export default async function configureStore(history, initialState) {
-  // Sync dispatched route actions to the history
-  const reduxRouterMiddleware = routerMiddleware(history)
-  const middlewares = [ reduxRouterMiddleware, thunkMiddleware ]
-
+export default async function configureStore(initialState, cookie) {
+  const httpClientWithCookie = cookie ?
+    // server side instance
+    axios.create({
+      headers: { cookie }
+    }) :
+    // client side instance
+    axios.create({
+      withCredentials: true
+    })
+  const middlewares = [ thunkMiddleware.withExtraArgument(httpClientWithCookie) ]
   let finalCreateStore
 
   if (__DEVELOPMENT__ && __CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION__) {

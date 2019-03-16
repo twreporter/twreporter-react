@@ -1,12 +1,13 @@
+import { articleLayout } from '../../../themes/layout'
+import { colors, typography }  from '../../../themes/common-variables'
+import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic.svg'
-import Link from 'react-router/lib/Link'
+import BookmarkWidget from '../../../containers/BookmarkWidget'
+import Link from 'react-router-dom/Link'
+import predefinedPropTypes from '../../../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { BookmarkWidget } from '@twreporter/registration'
-import { LINK_PREFIX } from '../../../constants/link-prefix'
-import { colors, typography }  from '../../../themes/common-variables'
-import { articleLayout } from '../../../themes/layout'
 
 const toolsOffset = 20
 
@@ -69,7 +70,13 @@ BackToTopic.propTypes = {
 
 class DesktopArticleTools extends React.PureComponent {
   render() {
-    const { topicTitle, topicSlug, toShow, bookmarkData, slug } = this.props
+    const {
+      articleMetaForBookmark,
+      topicTitle,
+      topicSlug,
+      toShow
+    } = this.props
+
     return (
       <Container
         toShow={toShow}
@@ -77,8 +84,7 @@ class DesktopArticleTools extends React.PureComponent {
         {!topicSlug ? null : <BackToTopic topicSlug={topicSlug} topicTitle={topicTitle} />}
         <WidgetContainer>
           <BookmarkWidget
-            bookmarkData={bookmarkData}
-            slug={slug}
+            articleMeta={articleMetaForBookmark}
           />
         </WidgetContainer>
       </Container>
@@ -90,7 +96,7 @@ DesktopArticleTools.propTypes = {
   toShow: PropTypes.bool.isRequired,
   topicSlug: PropTypes.string,
   topicTitle: PropTypes.string,
-  bookmarkData: PropTypes.object.isRequired,
+  articleMetaForBookmark: predefinedPropTypes.articleMetaForBookmark,
   slug: PropTypes.string.isRequired
 }
 
