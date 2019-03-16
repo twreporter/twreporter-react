@@ -23,7 +23,7 @@ const awardGroupByNameAndYear = awardsName.map(name =>
   _.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])
 )
 
-const awardYearList = awardsName.map(name => 
+const awardYearList = awardsName.map(name =>
   _.keys(_.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])).reverse()
 )
 
@@ -41,10 +41,10 @@ const Container = styled.div`
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    margin: ${marginBetweenSections.tablet} 0;    
-  `}  
+    margin: ${marginBetweenSections.tablet} 0;
+  `}
   ${screen.mobile`
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: ${marginBetweenSections.mobile} 0;
   `}
 `
 
@@ -65,7 +65,7 @@ const SectionWrapper = styled.section`
     width: 1024px;
     height: 820px;
     padding: 78px 120px 156.1px 76px;
-  `}  
+  `}
   ${screen.tablet`
     width: 100%;
     min-height: 1024px;
@@ -82,7 +82,7 @@ const LeftColumnOnDesktopAbove = styled.div`
   position: relative;
   ${screen.desktopAbove`
     display: inline-block;
-    height: 100%;  
+    height: 100%;
   `}
   ${screen.desktop`
     width: 345px;
@@ -154,11 +154,11 @@ const AwardsCount = styled.div`
     line-height: 1;
   }
   h2{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-weight: ${font.weight.bold};
     font-size: 36px;
     margin: 0 0 2px 0;
-  } 
+  }
   p{
     font-weight: ${font.weight.extraBold};
     margin: 0;
@@ -230,14 +230,14 @@ const Circle = styled.div`
   border-radius: 50%;
   background: ${colors.black};
   ${screen.desktop`
-    left: -80px;  
+    left: -80px;
   `}
   ${screen.overDesktop`
-    left: -124px;  
+    left: -124px;
   `}
 `
 
-const MobCircle = Circle.extend`
+const MobCircle = styled(Circle)`
   ${screen.tablet`
     left: calc(105px / 2);
     transform: translateX(-50%);

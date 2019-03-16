@@ -1,7 +1,6 @@
 'use strict'
 import React, { Component } from 'react'
 import styles from './Search.scss'
-import withLayout from '../helpers/with-layout'
 import { googleSearchId } from '../conf/service'
 
 class Search extends Component {
@@ -31,4 +30,4 @@ class Search extends Component {
 }
 
 export { Search }
-export default withLayout(Search)
+export default Search

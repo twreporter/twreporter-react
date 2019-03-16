@@ -8,13 +8,13 @@ import util from 'util'
 import webpackAssets from '../webpack-assets.json'
 
 function generateRuntimeCaching(runtimeCaching) {
-  return runtimeCaching.reduce(function(prev, curr) {
-    var line
+  return runtimeCaching.reduce(function (prev, curr) {
+    let line
     if (curr.default) {
       line = util.format('\ntoolbox.router.default = toolbox.%s;',
         curr.default)
     } else {
-      var urlPattern = curr.urlPattern
+      let urlPattern = curr.urlPattern
       if (typeof urlPattern === 'string') {
         urlPattern = JSON.stringify(urlPattern)
       }
@@ -38,7 +38,7 @@ function generateRuntimeCaching(runtimeCaching) {
         (typeof curr.handler === 'string' ? 'toolbox.' : '') + curr.handler,
         // Default to no options.
         JSON.stringify(curr.options),
-			)
+      )
     }
 
     return prev + line
@@ -50,20 +50,21 @@ const hash = crypto.createHash('sha1').update(JSON.stringify(webpackAssets)).dig
 const cacheName = 'sw-precache-twreporter-' + hash
 const staticFilesToCache = [
   webpackAssets.javascripts.main,
+  webpackAssets.javascripts.manifest,
   ...webpackAssets.javascripts.chunks,
   ...webpackAssets.stylesheets,
   '/',
-  '/sw-fallback-page',
+  '/sw-fallback-page'
 ]
 const swFilePath = path.resolve(__dirname, '../sw.js')
 const swTemplatePath = './service-worker.tmpl'
 
 const fallback = '/sw-fallback-page'
-const pagePatternToCache = [/^\/(a|topics|tags|category|categories)\//, /^\/$/, /^\/photography/]
+const pagePatternToCache = [ /^\/(a|topics|tags|category|categories)\//, /^\/$/, /^\/photography/ ]
 
 const tmpl = fs.readFileSync(path.resolve(__dirname, swTemplatePath), 'utf8')
 const swToolBoxCode = fs.readFileSync(require.resolve('sw-toolbox/sw-toolbox.js'), 'utf8')
-  .replace('//# sourceMappingURL=sw-toolbox.js.map', '');
+  .replace('//# sourceMappingURL=sw-toolbox.js.map', '')
 const param = {
   cacheName,
   staticFilesToCache: JSON.stringify(staticFilesToCache),
@@ -73,33 +74,33 @@ const param = {
   })),
   externalFunctions,
   swToolBoxCode: swToolBoxCode,
-  runtimeCaching: generateRuntimeCaching([{
+  runtimeCaching: generateRuntimeCaching([ {
     urlPattern: new RegExp(apiURLPrefix + '/v1/posts'),
     handler: 'networkFirst',
     options: {
       cache: {
         name: 'posts-cache',
-        maxEntries: 50,
-      },
-    },
+        maxEntries: 50
+      }
+    }
   }, {
     urlPattern: new RegExp(apiURLPrefix + '/v1/topics'),
     handler: 'networkFirst',
     options: {
       cache: {
         name: 'topics-cache',
-        maxEntries: 10,
-      },
-    },
+        maxEntries: 10
+      }
+    }
   }, {
     urlPattern: new RegExp(apiURLPrefix + '/v1/index_page(_categories)?'),
     handler: 'networkFirst',
     options: {
       cache: {
         name: 'index-page-cache'
-      },
-    },
-  }]),
+      }
+    }
+  } ])
 }
 
 const populatedTmpl = template(tmpl)(param)

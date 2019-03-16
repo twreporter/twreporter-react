@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import styles from './AuthorList.scss'
 
 const AuthorItem = ({ authorName, authorImgUrl, authorUrl }) => (

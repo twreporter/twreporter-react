@@ -43,7 +43,7 @@ const Container = styled.div`
   `}
   ${screen.tablet`
     margin: ${marginBetweenSections.tablet} 0;
-  `}  
+  `}
   ${screen.mobile`
     margin: ${marginBetweenSections.mobile} 0;
   `}
@@ -62,7 +62,7 @@ const SectionWrapper = styled.section`
     width: ${containerWidth.desktop};
     height: 920px;
     padding: 119px 100px 228px 80px;
-  `}  
+  `}
   ${screen.tablet`
     width: ${containerWidth.tablet};
     min-height: 1024px;
@@ -149,7 +149,7 @@ const BorderBottom = styled.div `
   z-index: ${props => props.zIndex};
   background: ${colors.red.liverRed};
   ${screen.desktopAbove`
-    position: ${props => props.fixed ? 'fixed' : 'absolute'};  
+    position: ${props => props.fixed ? 'fixed' : 'absolute'};
   `}
   ${screen.tabletBelow`
     position: absolute;
@@ -162,7 +162,7 @@ const BorderBottom = styled.div `
   `}
   ${screen.tablet`
     height: 7px;
-  `}  
+  `}
   ${screen.mobile`
     height: 6px;
   `}
@@ -221,7 +221,7 @@ const YearRange = styled.div`
     display: block;
     width: 100%;
     font-size: 32px;
-    letter-spacing: 0.2px;    
+    letter-spacing: 0.2px;
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-weight: ${font.weight.thin};
     background: ${yearRangebgColor};
@@ -323,7 +323,7 @@ const Circle = styled.div`
     width: 277px;
     height: 277px;
     margin-left: 152px;
-    margin-bottom: 293px;    
+    margin-bottom: 293px;
   `}
   ${screen.tabletBelow`
     display: none;
@@ -431,60 +431,62 @@ export default class Section5 extends PureComponent {
         fireOnRapidScroll
         bottomOffset="80%"
       >
-        <Container>
-          <SectionWrapper>
-            <Title><span>大事紀</span></Title>
-            <Circle color={`${colors.black}`}>
-              <Circle color={`${colors.gray.gray96}`}/>
-              <Rect color={`${colors.secondaryColor}`}/>
-            </Circle>
-            <Content>
-              <AccordionTimeline>
-                <List
-                  unfoldArray={this.state.unfoldArray}
-                  sortedData={sortedData}
-                  sortedDataGroupByYear={sortedDataGroupByYear}
-                  foldAndUnfold={this._foldAndUnfold}
-                  getYearContentHeight={this._getYearContentHeight}  
-                />
-              </AccordionTimeline>
-              <YearRange>
-                <p><span>{yearList[yearList.length - 1]}</span></p>
-                <p>
-                  <span>{yearList[0]}</span>
-                  <img 
-                    src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
-                  />
-                </p>
-              </YearRange>
-              <RunningTimeline>
-                <Timeline
-                  ref={scrollingContent => this.scrollingContent = scrollingContent}
-                  childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion} 
-                  autoScrolling={this.state.timelineScrolling}
-                  startAutoScroll={this._startTimelineAutoScrolling}
-                  stopAutoScroll={this._stopTimelineAutoScrolling}
-                  yearContentHeight={this.state.yearContentHeight}
-                  getYear={this._getYear}>
+        <div>
+          <Container>
+            <SectionWrapper>
+              <Title><span>大事紀</span></Title>
+              <Circle color={`${colors.black}`}>
+                <Circle color={`${colors.gray.gray96}`}/>
+                <Rect color={`${colors.secondaryColor}`}/>
+              </Circle>
+              <Content>
+                <AccordionTimeline>
                   <List
                     unfoldArray={this.state.unfoldArray}
                     sortedData={sortedData}
                     sortedDataGroupByYear={sortedDataGroupByYear}
                     foldAndUnfold={this._foldAndUnfold}
-                    getYearContentHeight={this._getYearContentHeight}  
+                    getYearContentHeight={this._getYearContentHeight}
                   />
-                </Timeline>
-              </RunningTimeline>
-              <YearTag>
-                <p>{this.state.currentYear}</p>
-              </YearTag>
-            </Content>
-          </SectionWrapper>
-          <BorderBottom 
-            fixed={this.state.isBorderBottomfixed}
-            zIndex={this._getBorderZIndex()}
-          />
-        </Container>
+                </AccordionTimeline>
+                <YearRange>
+                  <p><span>{yearList[yearList.length - 1]}</span></p>
+                  <p>
+                    <span>{yearList[0]}</span>
+                    <img
+                      src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                    />
+                  </p>
+                </YearRange>
+                <RunningTimeline>
+                  <Timeline
+                    ref={scrollingContent => this.scrollingContent = scrollingContent}
+                    childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion}
+                    autoScrolling={this.state.timelineScrolling}
+                    startAutoScroll={this._startTimelineAutoScrolling}
+                    stopAutoScroll={this._stopTimelineAutoScrolling}
+                    yearContentHeight={this.state.yearContentHeight}
+                    getYear={this._getYear}>
+                    <List
+                      unfoldArray={this.state.unfoldArray}
+                      sortedData={sortedData}
+                      sortedDataGroupByYear={sortedDataGroupByYear}
+                      foldAndUnfold={this._foldAndUnfold}
+                      getYearContentHeight={this._getYearContentHeight}
+                    />
+                  </Timeline>
+                </RunningTimeline>
+                <YearTag>
+                  <p>{this.state.currentYear}</p>
+                </YearTag>
+              </Content>
+            </SectionWrapper>
+            <BorderBottom
+              fixed={this.state.isBorderBottomfixed}
+              zIndex={this._getBorderZIndex()}
+            />
+          </Container>
+        </div>
       </Waypoint>
     )
   }

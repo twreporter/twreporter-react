@@ -34,7 +34,6 @@ function selectCacheablePropInReduxState(reduxState) {
   const cacheableProps = [ reduxStatePropKey.entities, reduxStatePropKey.indexPage,
     reduxStatePropKey.lists, reduxStatePropKey.topicList,
     reduxStatePropKey.selectedPost, reduxStatePropKey.selectedTopic,
-    reduxStatePropKey.routing,
     reduxStatePropKey.entitiesForAuthors,
     reduxStatePropKey.nextNotifyPopupTS
 
