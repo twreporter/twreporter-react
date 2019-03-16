@@ -1,11 +1,30 @@
 ## Unreleased
 
-### 4.0.2
+### 4.1.0
+#### Minor Change
+##### Bookmark List and Bookmark Widget refactoring
 - Server side rendering and code refactoring of BookmarkList and BookmarkWidget
-- Turn off webpack progress display
-- Check if service worker registration exists before using it
+
+##### Article Full Screen Layout Adjustment
+- Update src/managers/layout-manager.js. Render different layout for `article:fullscreen:[normal|dark]` theme
+- Update src/containers/Article.js
+  - Stop using `post.theme` to  render article layout.
+  - Render different article layout according to `post.style`
+  - Add `isLeadingAssetFullScreen` and `styles` React Props
+- Update src/components/article/layout/title-row-[above|upon].js
+- Change prop `theme` to `styles` and do some design tuning
+- Update src/components/article/layout/layout-maker.js.
+  - Replace `position.title` and `position.header` by `isLeadingAssetFullScreen`
+  - Render full screen image with a gray mask
+  - Replace `theme` by `styles`
+
 ##### Dependencies Upgrade
 - redux-thunk to^2.3.0
+- @twreporter/universal-header to ^2.0.3
+
+##### Miscellaneous
+- Turn off webpack progress display
+- Check if service worker registration exists before using it
 
 ## Release
 ### 4.0.1
