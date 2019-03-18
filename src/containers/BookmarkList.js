@@ -95,7 +95,7 @@ class BookmarkList extends React.Component {
   checkAuthorization() {
     const { isAuthed, jwt } = this.props
     if (!isAuthed || !jwt) {
-      const currentHref = typeof window === 'undefined' ? '' : _.get(window, 'location.href', '')
+      const currentHref = typeof window === 'undefined' ? '' : window.location.href
       window.location.href = getSignInHref(currentHref)
     }
   }
