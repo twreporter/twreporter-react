@@ -1,6 +1,10 @@
 ## Unreleased
 
 ## Release
+### 4.1.2
+#### Style Fix
+- Set leading full-screen asset relative for mobile device
+
 ### 4.1.1
 ##### Bug Fix
 - Fix the bug of getSignInHref
@@ -8,7 +12,7 @@
 - Fix topic arrow position
 
 ##### Style Fix
-- set leading full-screen asset absolute for all devices
+- Set leading full-screen asset absolute for all devices
 
 ### 4.1.0
 #### Minor Change
