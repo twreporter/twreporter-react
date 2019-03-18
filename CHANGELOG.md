@@ -1,12 +1,14 @@
 ## Unreleased
 
+## Release
 ### 4.1.1
 ##### Bug Fix
 - Fix the bug of getSignInHref
 - Fix topic header external link
 - Fix topic arrow position
 
-## Release
+##### Style Fix
+- set leading full-screen asset absolute for all devices
 
 ### 4.1.0
 #### Minor Change
