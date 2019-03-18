@@ -47,14 +47,14 @@ export default function Header({ isFixedToTop, title }) {
 
   return (
     <div className={cx(style.container, fixedStyle)}>
-      <Link to={donatePath} target="_blank" title="贊助我們">
+      <a href={donatePath} target="_blank" title="贊助我們">
         <div className={style.donation}>
           <div>
             { isFixedToTop ? <DonationIcon /> : <WhiteDonationIcon /> }
           </div>
           <span>贊助我們</span>
         </div>
-      </Link>
+      </a>
       {centerJsx}
       {rightJsx}
     </div>

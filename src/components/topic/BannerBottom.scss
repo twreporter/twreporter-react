@@ -1,8 +1,6 @@
 @import './Banner.scss';
 
-$arrow-bottom-desktop: 50px - $arrow-extension;
-$arrow-bottom-tablet: $arrow-bottom-desktop + 20px;
-$arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
+$arrow-bottom: 30px - $arrow-extension;
 
 /* THEME 3/3: bottom */
 /* Set Elements Postioning */
@@ -45,7 +43,7 @@ $arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
 
 .arrow-down-icon-wrapper{
   @extend .ab-horizontal-center;
-  bottom: $arrow-bottom-mobile;
+  bottom: $arrow-bottom;
 }
 
 // Tablet
@@ -67,7 +65,7 @@ $arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
     margin-bottom: 5px;
   }
   .arrow-down-icon-wrapper{
-    bottom: $arrow-bottom-tablet;
+    bottom: $arrow-bottom;
   }
 }
 
@@ -90,9 +88,9 @@ $arrow-bottom-mobile: $arrow-bottom-desktop - 20px;
     margin-bottom: 5px;
   }
   .arrow-down-icon-wrapper{
-    bottom: $arrow-bottom-desktop;
+    bottom: $arrow-bottom;
     &:hover {
-      bottom: $arrow-bottom-desktop - $arrow-hover-move-length;
+      bottom: $arrow-bottom - $arrow-hover-move-length;
     }
   }
 }

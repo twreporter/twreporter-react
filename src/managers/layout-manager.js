@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 import uh from '@twreporter/universal-header'
 import { colors } from '../themes/common-variables'
-import { screen } from '../themes/screen'
 import { themesConst } from './theme-manager'
 
 const HeaderContainerWithTransparentTheme = styled.div`
@@ -12,9 +11,6 @@ const HeaderContainerWithTransparentTheme = styled.div`
   left: 0;
   width: 100%;
   z-index: 1;
-  ${screen.desktopBelow`
-    position: relative;
-  `}
 `
 
 const styles = {

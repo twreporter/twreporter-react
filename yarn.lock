@@ -161,10 +161,10 @@
     lodash "^4.17.4"
     redux "^3.6.0"
 
-"@twreporter/universal-header@2.0.3-beta-6":
-  version "2.0.3-beta-6"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.3-beta-6.tgz#bbf6a4559ee7a01cec0045b6818acc8cedfd7fb8"
-  integrity sha512-1y1UBKfonOHwkEK8dgRRoAM9j5i9CJXldfAoQR/4Le64PoGUg9CBltpmSgjvQrS9TKu+2+wKp0A7Ua1ZeFts/A==
+"@twreporter/universal-header@2.0.3-beta-7":
+  version "2.0.3-beta-7"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.3-beta-7.tgz#4b973bbb695cd8f1a49851a0a2d83c39bb8a72b6"
+  integrity sha512-B+EbgRI00kwRKUfO0U/dqsi6OWcIzQIhCbP4H3wGfF4sGMDyMzZUsGRG3HJH7hgYVxBiej9Oes/dhhzbTgE2Ng==
   dependencies:
     axios "^0.18.0"
     lodash "^4.17.11"
