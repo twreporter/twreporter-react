@@ -34,7 +34,7 @@ const signInHref = {
 }[releaseBranch]
 
 function getSignInHref(destination = '') {
-  const currentHrefSearch = destination ? '' : `?${signInHref.searchKeys.destination}=${destination}`
+  const currentHrefSearch = destination ? `?${signInHref.searchKeys.destination}=${destination}` : ''
   return `${signInHref.protocol}://${signInHref.host}${signInHref.pathname}${currentHrefSearch}`
 }
 
