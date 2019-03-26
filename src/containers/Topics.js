@@ -7,7 +7,6 @@ import concat from 'lodash/concat'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import styled from 'styled-components'
-import withLayout from '../helpers/with-layout'
 import twreporterRedux from '@twreporter/redux'
 import uniq from 'lodash/uniq'
 import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
@@ -38,40 +37,7 @@ const PageContainer = styled.div`
 `
 
 class Topics extends Component {
-  static fetchData({ store, query }) {
-    /* fetch page 1 if page is invalid */
-    let page = parseInt(_.get(query, 'page', 1), 10)
-    if (isNaN(page) || page < 0) {
-      page = 1
-    }
-    return store.dispatch(fetchTopics(page, N_PER_PAGE))
-      .then(() => {
-        /* fetch full topic if is at first page */
-        if (page === 1) {
-          const state = store.getState()
-          const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', 1, 0 ], '')
-          if (firstTopicSlug) {
-            return store.dispatch(fetchAFullTopic(firstTopicSlug))
-          }
-          return Promise.resolve('At first page but there is no firstTopicSlug')
-        }
-        return Promise.resolve()
-      })
-      .catch((e) => {
-        return Promise.resolve(e)
-      })
-  }
-
   componentWillMount() {
-    const page = _.get(this.props, 'page')
-    if (isNaN(page) || page < 0) {
-      return this.context.router.push({
-        pathname: _.get(this.props, 'pathname'),
-        query: {
-          page: 1
-        }
-      })
-    }
     return this._clientFetchData(this.props)
   }
 
@@ -99,7 +65,16 @@ class Topics extends Component {
   }
 
   render() {
-    const { topics, page, totalPages, topicListError, pathname, isTopicFetching, isTopicsFetching } = this.props
+    const {
+      isTopicFetching,
+      isTopicsFetching,
+      history,
+      page,
+      pathname,
+      topicListError,
+      topics,
+      totalPages
+    } = this.props
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
@@ -177,6 +152,7 @@ class Topics extends Component {
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </PageContainer>
     )
@@ -187,13 +163,18 @@ Topics.propTypes = {
   topics: PropTypes.array,
   total: PropTypes.number,
   topicListError: PropTypes.object,
-  topicError: PropTypes.object
+  topicError: PropTypes.object,
+  // react-router `location` object
+  location: PropTypes.object.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
+  const defaultStartPage = 1
   const location = _.get(ownProps, 'location')
   const pathname = _.get(location, 'pathname', '/topics')
-  const locationPage = parseInt(_.get(location, 'query.page', 1), 10)
+  const locationPage = parseInt(_.get(location, 'query.page', defaultStartPage), 10)
   const topicList = _.get(state, reduxStateFields.topicList)
   const selectedTopic = _.get(state, reduxStateFields.selectedTopic)
 
@@ -213,7 +194,7 @@ function mapStateToProps(state, ownProps) {
   const topicError = _.get(selectedTopic, 'error', null)
 
   return ({
-    page: locationPage,
+    page: locationPage >= defaultStartPage ? locationPage : defaultStartPage,
     nPerPage,
     totalPages,
     topics,
@@ -225,8 +206,4 @@ function mapStateToProps(state, ownProps) {
   })
 }
 
-Topics.contextTypes = {
-  router: PropTypes.object.isRequired
-}
-
-export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(withLayout(Topics))
+export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(Topics)

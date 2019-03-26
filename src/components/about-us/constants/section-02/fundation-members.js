@@ -18,7 +18,7 @@ const members = [
     nameEng: 'Jung Shin Ho',
     job: '執行長',
     jobEng: 'Chief Executive Officer',
-    profile: memberUrlPrefix + foundationImg.EditJungShinHo,
+    profile: memberUrlPrefix + foundationImg.editJungShinHo,
     category: categoryIds.fundation
   },
   {
@@ -58,11 +58,10 @@ const members = [
     category: categoryIds.fundation
   },
   {
-    name: '葉瑜娟',
-    nameEng: 'Yu Chuan Yeh',
+    name: '林雨佑',
     job: '董事',
     jobEng: 'Executive Director',
-    profile: memberUrlPrefix + foundationImg.EditYuChuanYeh,
+    profile: memberUrlPrefix + foundationImg.editUyo,
     category: categoryIds.fundation
   },
   {
@@ -92,7 +91,7 @@ const members = [
     nameEng: 'Richy Lee',
     job: '董事',
     jobEng: 'Executive Director',
-    profile: memberUrlPrefix + foundationImg.BlankFace,
+    profile: memberUrlPrefix + foundationImg.blankFace,
     category: categoryIds.fundation
   },
   {
@@ -135,19 +134,19 @@ const members = [
   {
     name: '侯宜秀',
     job: '法律顧問',
-    profile: memberUrlPrefix + foundationImg.BlankFace,
+    profile: memberUrlPrefix + foundationImg.blankFace,
     category: categoryIds.fundation
   },
   {
     name: '翁國彥',
     job: '法律顧問',
-    profile: memberUrlPrefix + foundationImg.BlankFace,
+    profile: memberUrlPrefix + foundationImg.blankFace,
     category: categoryIds.fundation
   },
   {
     name: '陳業鑫',
     job: '法律顧問',
-    profile: memberUrlPrefix + foundationImg.BlankFace,
+    profile: memberUrlPrefix + foundationImg.blankFace,
     category: categoryIds.fundation
   },
   {
@@ -155,7 +154,7 @@ const members = [
     nameEng: 'Nico Fang',
     job: '副執行長',
     jobEng: 'Deputy Chief Executive Officer',
-    profile: memberUrlPrefix + foundationImg.EditSherryLee,
+    profile: memberUrlPrefix + foundationImg.editSherryLee,
     category: categoryIds.fundation
   },
   {
@@ -163,15 +162,7 @@ const members = [
     nameEng: 'Sylvie Wang',
     job: '行銷部經理',
     jobEng: 'Marketing Manager‭',
-    profile: memberUrlPrefix + foundationImg.EditSylvieWang,
-    category: categoryIds.fundation
-  },
-  {
-    name: '吳易真',
-    nameEng: 'Saffron Wu',
-    job: '行銷部執行經理',
-    jobEng: 'Executive Manager',
-    profile: memberUrlPrefix + foundationImg.foundationYiZhanWu,
+    profile: memberUrlPrefix + foundationImg.editSylvieWang,
     category: categoryIds.fundation
   },
   {
@@ -179,7 +170,7 @@ const members = [
     nameEng: 'Jennifer Cheng',
     job: '行政部經理',
     jobEng: 'Administration Manager',
-    profile: memberUrlPrefix + foundationImg.EditJenniferCheng,
+    profile: memberUrlPrefix + foundationImg.editJenniferCheng,
     category: categoryIds.fundation
   }
 ]

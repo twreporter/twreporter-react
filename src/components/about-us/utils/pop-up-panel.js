@@ -19,16 +19,16 @@ const Panel = styled.div`
   ${screen.mobile`
     width: ${props => props.mobWidth};
     height: ${props => props.mobHeight};
-    top: ${props => props.mobPositionTop}; 
-    bottom: ${props => props.mobPositionBottom}; 
+    top: ${props => props.mobPositionTop};
+    bottom: ${props => props.mobPositionBottom};
     left: ${props => props.mobPositionLeft};
     right: ${props => props.mobPositionRight};
   `}
   ${screen.tablet`
     width: ${props => props.tabletWidth};
     height: ${props => props.tabletHeight};
-    top: ${props => props.tabletPositionTop}; 
-    bottom: ${props => props.tabletPositionBottom}; 
+    top: ${props => props.tabletPositionTop};
+    bottom: ${props => props.tabletPositionBottom};
     left: ${props => props.tabletPositionLeft};
     right: ${props => props.tabletPositionRight};
   `}
@@ -97,7 +97,7 @@ class PopUpBox extends React.PureComponent {
     const { background, fixedPanelStyle } = this.props
     return (
       <Panel
-        innerRef={(node) => { this.panel = node }}
+        ref={(node) => { this.panel = node }}
         background={background}
         mobWidth={fixedPanelStyle.mob.width || '100%'}
         mobHeight={fixedPanelStyle.mob.height || '100%'}

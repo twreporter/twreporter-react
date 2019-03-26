@@ -4,118 +4,21 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import map from 'lodash/map'
 import serialize from 'serialize-javascript'
-import { colors, lineHeight, typography } from '../themes/common-variables'
-import { injectGlobal } from 'styled-components'
 
 const _ = {
   map
 }
 
-// inject global styles into html
-injectGlobal`
-  html {
-    font-size: ${typography.font.size.base};
-  }
-  body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    letter-spacing: 0.4px;
-    line-height: ${lineHeight.lineHeightMedium};
-    font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-    abbr[title], abbr[data-original-title] {
-      border-bottom: 0;
-    }
-    *, :before, :after {
-      box-sizing: border-box;
-    }
-
-    a, a:link, a:visited {
-      text-decoration: none;
-    }
-
-    img {
-      vertical-align: middle;
-    }
-
-    img.img-responsive {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .container {
-      line-height: ${lineHeight.linHeightLarge};
-    }
-
-    .no-hover {
-      border-bottom: 0 !important;
-      &:after {
-          display: none;
-      }
-      &:hover:after {
-          width: 0;
-          display: none;
-      }
-    }
-
-    .text-justify {
-      text-align: justify;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .center-block {
-      display:block;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .visible-print {
-      display: none;
-    }
-
-    figure, p {
-      margin: 0;
-    }
-
-    strong {
-      font-weight: ${typography.font.weight.bold};
-    }
-
-    @media print {
-      .hidden-print {
-        display: none !important;
-      }
-      .visible-print {
-        display: block !important;
-      }
-      a[href]:after {
-        content: '';
-      }
-    }
-  }
-
-  ::selection {
-    background-color: ${colors.secondaryColor};
-    color: ${colors.white};
-  }
-`
-
 export default class Html extends PureComponent {
   static propTypes = {
-    assets: PropTypes.object.isRequired,
-    component: PropTypes.node,
+    scripts: PropTypes.array.isRequired,
+    styles: PropTypes.array.isRequired,
+    contentMarkup: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     styleElement: PropTypes.arrayOf(PropTypes.element).isRequired
   }
   render() {
-    const { assets, content, store, styleElement } = this.props
+    const { contentMarkup, scripts, store, styleElement, styles } = this.props
     const head = Helmet.rewind()
     return (
       <html lang="zh-TW">
@@ -145,17 +48,17 @@ export default class Html extends PureComponent {
           <meta name="msapplication-TileColor" content="#2F3BA2" />
 
           <link href="/asset/favicon.png"  rel="shortcut icon" />
-          {_.map(assets.stylesheets, (stylesheet, key) =>
+          {_.map(styles, (stylesheet, key) =>
             <link href={stylesheet} key={'stylesheet' + key} media="all"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )}
           {styleElement}
         </head>
         <body>
-          <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
+          <div id="root" dangerouslySetInnerHTML={{ __html: contentMarkup }} />
           <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW" />
           <script dangerouslySetInnerHTML={{ __html: `window.__REDUX_STATE__=${serialize(store.getState())};` }} charSet="UTF-8"/>
-          <script src={assets.javascripts.main} charSet="UTF-8"/>
+          {_.map(scripts, (script, key) => <script src={script} key={'scripts' + key} charSet="UTF-8"/>)}
 
           {/* <!-- Load typekit fonts for twreporter.org domain--> */}
           <script

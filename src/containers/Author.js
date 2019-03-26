@@ -9,7 +9,6 @@ import Sponsor from '../components/Sponsor'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
 import get from 'lodash/get'
-import withLayout from '../helpers/with-layout'
 import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -23,15 +22,8 @@ const _ = {
 const authorDefaultImg = '/asset/author-default-img.svg'
 
 class Author extends React.Component {
-  static fetchData({ params, store }) {
-    const authorId = _.get(params, 'authorId', '')
-    return Promise.all([ store.dispatch(fetchAuthorCollectionIfNeeded(authorId)), store.dispatch(fetchAuthorDetails(authorId)) ])
-      .catch(error => {
-        console.error(error) // eslint-disable-line no-console
-      })
-  }
   componentDidMount() {
-    const authorId = _.get(this.props, 'params.authorId')
+    const authorId = _.get(this.props, 'match.params.authorId')
     if (authorId) {
       this.props.fetchAuthorCollectionIfNeeded(authorId)
       const authorIsFull = _.get(this.props, [ 'entities', authorId, 'full' ], false)
@@ -41,7 +33,7 @@ class Author extends React.Component {
     }
   }
   render() {
-    const authorId = this.props.params['authorId']
+    const authorId = _.get(this.props, 'match.params.authorId')
     const { entities, articlesByAuthor } = this.props
     let { hasMore, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
     let authorCollection = denormalizeArticles(collectIndexList, entities)
@@ -100,8 +92,9 @@ class Author extends React.Component {
 }
 
 Author.propTypes = {
+  articlesByAuthor: PropTypes.object.isRequired,
   entities: PropTypes.object.isRequired,
-  articlesByAuthor: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
@@ -111,4 +104,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, fetchAuthorDetails })(withLayout(Author))
+export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, fetchAuthorDetails })(Author)

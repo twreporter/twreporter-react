@@ -5,7 +5,7 @@ import author2 from '../static/mock-data/author2.json'
 import author3 from '../static/mock-data/author3.json'
 import author4 from '../static/mock-data/author4.json'
 import authors from '../static/mock-data/authors.json'
-import categoryListID from './conf/category-list-id'
+import categoryConst from './constants/category'
 import Express from 'express'
 import filter from 'lodash/filter'
 import find from 'lodash/find'
@@ -36,8 +36,8 @@ const _ = {
 /**
  * Make an object of listed posts
  * @param {Number} total
- * @param {Number} offset 
- * @param {Number} limit 
+ * @param {Number} offset
+ * @param {Number} limit
  * @param {Array} records
  * @returns {Object}
  */
@@ -55,9 +55,9 @@ function _resultMaker(total, offset, limit, records) {
 
 /**
  * Get filtered posts by arguments of categories or tags
- * @param {String} id 
- * @param {Number} limit 
- * @param {Number} offset 
+ * @param {String} id
+ * @param {Number} limit
+ * @param {Number} offset
  * @param {String} type
  * @returns {Object}
  */
@@ -86,7 +86,7 @@ const _getAFullTopic = (slug) => {
 
 /**
  * Get Listed topics in topic page
- * @param {Number} limit 
+ * @param {Number} limit
  * @param {Number} offset
  * @returns {Object}
  */
@@ -99,7 +99,7 @@ const _getTopicPosts = (limit, offset = 0) => {
 /**
  * Get author's id and return the full mock data of the author
  * @param {String} authorId
- * @returns {Object} 
+ * @returns {Object}
  */
 const _selectAuthor = (authorId) => {
   switch (authorId) {
@@ -112,13 +112,13 @@ const _selectAuthor = (authorId) => {
     case '57b13f774310e41200a0dc01':
       return author4
   }
-}    
+}
 
 const _checkIfPortIsTaken = (port) => new Promise((resolve, reject) => {
   const tester = net.createServer()
     .once('error', err => (err.code == 'EADDRINUSE' ? resolve(true) : reject(err)))
-    .once('listening', function () { 
-      tester.once('close', function () { resolve(false) }).close() 
+    .once('listening', function () {
+      tester.once('close', function () { resolve(false) }).close()
     })
     .listen(port)
 })
@@ -170,19 +170,19 @@ router.route(`/${apiEndpoints.posts}/`)
         res.json(_getListedPosts(listID, _limit, _offset))
       } else if (typeof _where['style'] !== 'undefined') {
         const style = _where['style']
-        res.json(_getListedPosts(categoryListID[style], _limit))
+        res.json(_getListedPosts(categoryConst.ids[style], _limit))
       } else if (typeof _where['tags'] !== 'undefined') {
         const tag = _where['tags']['in'][0]
         res.json(_getListedPosts(tag, _limit, _offset, 'tags'))
-      } 
+      }
     } else {
-      res.json(posts)   
+      res.json(posts)
     }
   })
 
 /**
  * Under development circumstance, fetch full topics data in list at once for not to create too many mock data files.
- * However, the listing data of topics will be fetched only in simplified version under production circumstance. 
+ * However, the listing data of topics will be fetched only in simplified version under production circumstance.
  * And the complete data of each topic (including `relates` and `leading-video` entries) would be fetched by this endpoint if user clicked to see more.
  */
 router.route(`/${apiEndpoints.topics}/:slug`)
@@ -227,7 +227,7 @@ router.route('/search/:searchParam/')
     const { keywords, filters, hitsPerPage, page } = req.query
     const _hitsPerPage = Number(hitsPerPage)
     const _page = Number(page)
-    const list = _searchResult(req.searchParam, keywords)   
+    const list = _searchResult(req.searchParam, keywords)
     const paginatedList = list['hits'].slice(_hitsPerPage * _page, _hitsPerPage * (_page + 1))
     const queryStringParams = {
       filters: filters,
@@ -281,7 +281,7 @@ _checkIfPortIsTaken(port)
       app.listen(port, (err) => {
         if (err) throw new Error(err)
         console.log('==> 💻  Started testing server at http://%s:%s', host, port) // eslint-disable-line no-console
-      })  
+      })
     } else {
       console.error('==>     WARNINIG: The port %s is being used', port) // eslint-disable-line no-console
     }

@@ -28,6 +28,7 @@ const AnchorsBox = styled.div`
 const StyledAnchor = styled.div`
   border-right: 2px solid ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
   color: ${props => props.highlight ? colors.gray.gray25 : colors.gray.gray50};
+  cursor: pointer;
   display: flex;
   font-size: ${typography.font.size.xSmall};
   margin: auto;
@@ -39,9 +40,6 @@ const StyledAnchor = styled.div`
   position: relative;
   transition: color .2s linear, border-right .2s linear, opacity .2s linear;
 
-  &:hover {
-    cursor: pointer;
-  }
 
   > div {
     max-width: 1rem;
@@ -196,6 +194,7 @@ const SizeBarBox = styled.div`
 `
 
 const ToggleButton = styled.img`
+  cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;

@@ -32,7 +32,26 @@ Include your **environment information** in your issue if you want the problem t
 
 ### Testing
 
-See [#Testing](https://github.com/twreporter/twreporter-react#testing)
+Before a commit is made, several tests would take place automatically to ensure that UI and all of the functionalities on our website are working normally. There are:
+
+- unit tests
+- UI tests 
+  - It will take some time to compare current screenshots with the ground truth screenshot images 
+  - Note that the dev servers must be started up to host data which is required by UI tests:
+  ```
+  // start dev servers
+  make dev
+  ```
+
+These tests can also run manually:
+```
+// running unit tests
+make test
+
+// running ui-tests
+make ui-test
+```
+
 
 ### Dependencies
 

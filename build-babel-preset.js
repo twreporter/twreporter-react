@@ -10,6 +10,8 @@ const presets = [
 ]
 
 const plugins = [
+  'react-loadable/babel',
+  isServeSideRendering ? 'dynamic-import-node' : 'syntax-dynamic-import',
   [ 'babel-plugin-styled-components', {
     ssr: true,
     displayName: !isProduction
@@ -25,11 +27,6 @@ const plugins = [
   isServeSideRendering ? [ 'babel-plugin-css-modules-transform', {
     extensions: [ '.css', '.scss' ],
     generateScopedName: '[name]__[local]___[hash:base64:5]'
-  } ] : null,
-  isServeSideRendering ? [ 'babel-plugin-system-import-transformer', {
-    commonJS: {
-      'useRequireEnsure': true
-    }
   } ] : null
 ].filter(Boolean)
 

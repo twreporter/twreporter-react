@@ -7,7 +7,7 @@ import { screen } from '../../themes/screen'
 
 // writing-mode: vertical-rl;
 // letter-spacing: 2px;
-const StyledAnchor = baseComponents.StyledAnchor.extend`
+const StyledAnchor = styled(baseComponents.StyledAnchor)`
   margin-bottom: 18px;
   color: ${props => (props.highlight ? 'white' : `${colors.primaryColor}`)};
   background: ${props => (props.highlight ? `${colors.primaryColor}` : 'none')};

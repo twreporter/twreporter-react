@@ -9,23 +9,20 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/ReadingProgress'
 import SystemError from '../components/SystemError'
-import commonStyles from '../components/article/Common.scss'
-import constPropTypes from '../constants/prop-types'
+import commonClassNames from '../components/article/Common.scss'
 import cx from 'classnames'
 import deviceConst from '../constants/device'
 import DonationBox from '../components/shared/DonationBox'
-import constPageThemes from '../constants/page-themes'
 import constStyledComponents from '../constants/styled-components'
 import styled from 'styled-components'
-import styles from './Article.scss'
+import classNames from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import layoutMaker from '../components/article/layout/layout-maker'
 import { Body } from '../components/article/Body'
 import { BottomRelateds } from '../components/article/BottomRelateds'
 import { BottomTags } from '../components/article/BottomTags'
 import { Introduction } from '../components/article/Introduction'
-import { PHOTOGRAPHY_ARTICLE_STYLE, SITE_META, SITE_NAME } from '../constants/index'
+import { SITE_META, SITE_NAME } from '../constants/index'
 import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
@@ -33,6 +30,7 @@ import { date2yyyymmdd } from '../utils/date'
 import { getScreenType } from '../utils/screen'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
+import { themesConst } from '../managers/theme-manager'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -98,21 +96,21 @@ const scrollPosition = {
 const ArticlePlaceholder = () => {
   return (
     <constStyledComponents.ResponsiveContainerForAritclePage>
-      <div className={cx(styles['placeholder'])}>
-        <div className={cx(styles['title-row'], commonStyles['inner-block'])}>
-          <div className={styles['ph-title-1']}></div>
-          <div className={styles['ph-title-2']}></div>
-          <div className={styles['ph-author']}></div>
+      <div className={classNames['placeholder']}>
+        <div className={cx(classNames['title-row'], commonClassNames['inner-block'])}>
+          <div className={classNames['ph-title-1']}></div>
+          <div className={classNames['ph-title-2']}></div>
+          <div className={classNames['ph-author']}></div>
         </div>
-        <div className={styles['leading-img']}>
-          <div className={styles['ph-image']}>
-            <LogoIcon className={styles['logo-icon']} />
+        <div className={classNames['leading-img']}>
+          <div className={classNames['ph-image']}>
+            <LogoIcon className={classNames['logo-icon']} />
           </div>
         </div>
         <IntroductionContainer>
-          <div className={styles['ph-content']}></div>
-          <div className={styles['ph-content']}></div>
-          <div className={styles['ph-content-last']}></div>
+          <div className={classNames['ph-content']}></div>
+          <div className={classNames['ph-content']}></div>
+          <div className={classNames['ph-content-last']}></div>
         </IntroductionContainer>
       </div>
     </constStyledComponents.ResponsiveContainerForAritclePage>
@@ -120,19 +118,6 @@ const ArticlePlaceholder = () => {
 }
 
 class Article extends PureComponent {
-
-  static fetchData({ params, store }) {
-    const slug = params.slug
-    return store.dispatch(fetchAFullPost(slug)).then(() => {
-      const state = store.getState()
-      const selectedPost = _.get(state, reduxStateFields.selectedPost, {})
-      if (_.get(selectedPost, 'error')) {
-        return Promise.reject(_.get(selectedPost, 'error'))
-      }
-      return Promise.resolve()
-    })
-  }
-
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -154,12 +139,13 @@ class Article extends PureComponent {
   }
 
   getChildContext() {
-    const { entities, selectedPost } = this.props
+    const { location, entities, selectedPost } = this.props
     const slug = _.get(selectedPost, 'slug', '')
     let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
     let style = _.get(post, 'style')
     return {
-      isPhotography: style === PHOTOGRAPHY_ARTICLE_STYLE
+      isPhotography: style === themesConst.photography,
+      location
     }
   }
 
@@ -185,8 +171,8 @@ class Article extends PureComponent {
   }
 
   componentWillMount() {
-    const { params } = this.props
-    let slug = _.get(params, 'slug')
+    const { match } = this.props
+    const slug = _.get(match, 'params.slug')
     this.props.fetchAFullPost(slug)
   }
 
@@ -202,8 +188,8 @@ class Article extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params } = nextProps
-    const slug = _.get(params, 'slug')
+    const { match } = nextProps
+    const slug = _.get(match, 'params.slug')
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
     if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
       this.props.fetchAFullPost(slug)
@@ -302,7 +288,7 @@ class Article extends PureComponent {
         const screenType = getScreenType(window.innerWidth)
 
         // get ArticleTools react component
-        const tools = this._toolsRef.getWrappedInstance()
+        const tools = this._toolsRef
 
         // set screen type
         tools.setScreenType(screenType)
@@ -317,7 +303,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { entities, params, selectedPost, theme } = this.props
+    const { entities, match, selectedPost, isLeadingAssetFullScreen, styles } = this.props
     const { fontSize } = this.state
     const error = _.get(selectedPost, 'error')
     if (error) {
@@ -328,7 +314,7 @@ class Article extends PureComponent {
       )
     }
 
-    if (_.get(selectedPost, 'slug') !== _.get(params, 'slug')) {
+    if (_.get(selectedPost, 'slug') !== _.get(match, 'params.slug')) {
       return null
     }
 
@@ -349,7 +335,7 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
-    const ogTitle = _.get(article, 'title', '') + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const ogTitle = (_.get(article, 'ogTitle', '') || _.get(article, 'title', '')) + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const ogDesc = _.get(article, 'ogDescription', SITE_META.DESC)
     const ogImage = _.get(article, 'ogImage.resizedTargets.mobile.url', SITE_META.OG_IMAGE)
 
@@ -362,7 +348,8 @@ class Article extends PureComponent {
     const layoutJSX = layoutMaker.renderLayout({
       article,
       topic,
-      theme,
+      isLeadingAssetFullScreen,
+      styles,
       fontSize,
       changeFontSize: this.changeFontSize
     })
@@ -393,7 +380,7 @@ class Article extends PureComponent {
             <React.Fragment>
               <ReadingProgress ref={ele => this.rp = ele}/>
               <ArticleContainer
-                fontColor={theme.color.font}
+                fontColor={styles.text.fontColor}
                 ref={div => {this.progressBegin = div}}
               >
                 <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
@@ -450,67 +437,110 @@ class Article extends PureComponent {
   }
 }
 
+Article.childContextTypes = {
+  location: PropTypes.object,
+  isPhotography: PropTypes.bool
+}
+
+Article.propTypes = {
+  entities: PropTypes.object,
+  match: PropTypes.object,
+  selectedPost: PropTypes.object,
+  styles: PropTypes.shape({
+    text: PropTypes.shape({
+      fontColor: PropTypes.string
+    }),
+    title: PropTypes.shape({
+      fontColor: PropTypes.string
+    }),
+    subtitle: PropTypes.shape({
+      fontColor: PropTypes.string
+    }),
+    topic: PropTypes.shape({
+      fontColor: PropTypes.string
+    })
+  }).isRequired,
+  isLeadingAssetFullScreen: PropTypes.bool.isRequired
+}
+
+Article.defaultProps = {
+  entities: {},
+  // react-router `match` object
+  match: {},
+  selectedPost: {}
+}
+
+function chooseStyles(articleStyle) {
+  let styles = {
+    text: {
+      fontColor: colors.gray.gray25
+    },
+    title: {
+      fontColor: colors.gray.gray25
+    },
+    subtitle: {
+      fontColor: 'gray'
+    },
+    topic: {
+      fontColor: colors.primaryColor
+    }
+  }
+
+  switch(articleStyle) {
+    case themesConst.articlePage.fullscreen.normal: {
+      styles.title.fontColor = colors.white
+      styles.subtitle.fontColor = colors.white
+      styles.topic.fontColor = colors.white
+      break
+    }
+    case themesConst.articlePage.fullscreen.dark: {
+      styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
+      styles.title.fontColor = colors.white
+      styles.subtitle.fontColor = colors.white
+      styles.topic.fontColor = colors.white
+      break
+    }
+    case themesConst.photography: {
+      styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
+      styles.title.fontColor = colors.white
+      break
+    }
+    default: {
+      break
+    }
+  }
+  return styles
+}
+
+function isLeadingAssetFullScreen(articleStyle) {
+  let isLeadingAssetFullScreen = false
+
+  switch(articleStyle) {
+    case themesConst.articlePage.fullscreen.dark:
+    case themesConst.articlePage.fullscreen.normal: {
+      isLeadingAssetFullScreen = true
+      break
+    }
+    default: {
+      break
+    }
+  }
+  return isLeadingAssetFullScreen
+}
+
 export function mapStateToProps(state) {
   const entities = state[reduxStateFields.entities]
   const selectedPost = state[reduxStateFields.selectedPost]
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
-  let theme
-
-  if (!_.get(post, 'theme')) {
-    // backwards compatible for photo articles
-    if (style === PHOTOGRAPHY_ARTICLE_STYLE) {
-      theme = constPageThemes.photoTheme
-    } else {
-      theme = constPageThemes.defaultTheme
-    }
-  } else {
-    const rawTheme = post.theme
-    theme = {
-      color: {
-        bg: rawTheme.bg_color,
-        font: rawTheme.font_color,
-        footerBg: rawTheme.footer_bg_color,
-        logo: rawTheme.logo_color,
-        title: rawTheme.title_color,
-        subtitle: rawTheme.subtitle_color,
-        topic: rawTheme.topic_color
-      },
-      position: {
-        header: rawTheme.header_position,
-        title: rawTheme.title_position
-      }
-    }
-  }
 
   return {
     entities,
     selectedPost,
-    theme
+    styles: chooseStyles(style),
+    isLeadingAssetFullScreen: isLeadingAssetFullScreen(style)
   }
 }
 
-Article.childContextTypes = {
-  isPhotography: PropTypes.bool
-}
-
-Article.contextTypes = {
-  location: PropTypes.object
-}
-
-Article.propTypes = {
-  entities: PropTypes.object,
-  params: PropTypes.object,
-  selectedPost: PropTypes.object,
-  theme: constPropTypes.theme
-}
-
-Article.defaultProps = {
-  entities: {},
-  params: {},
-  selectedPost: {},
-  theme: constPageThemes.defaultTheme
-}
-
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost })(withLayout(Article))
+export default connect(mapStateToProps, { fetchAFullPost })(Article)

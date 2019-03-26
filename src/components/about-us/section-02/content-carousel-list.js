@@ -46,7 +46,7 @@ const Department = styled.div`
       li{
         width: calc(100% / ${numbersInHalfPage});
       }
-    }  
+    }
   `}
   ${screen.overDesktop`
     margin-top: 102px;
@@ -57,7 +57,7 @@ const Department = styled.div`
     &:last-child {
       width: 583px;
       margin-left: calc(100% - 559px - 583px);
-    }  
+    }
   `}
   ${screen.desktop`
     margin-top: 35px;
@@ -111,13 +111,13 @@ const Member = styled.li`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
-    width: calc(100% / ${numbersInfullPage.desktop});  
+    width: calc(100% / ${numbersInfullPage.desktop});
   `}
   ${screen.tablet`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
-    width: calc(100% / ${numbersInfullPage.tablet});  
+    width: calc(100% / ${numbersInfullPage.tablet});
   `}
 `
 
@@ -133,7 +133,7 @@ const Info = styled.div`
   p:nth-child(2){
     font-size: 18px;
     font-weight: ${font.weight.bold};
-    letter-spacing: 0.4px;   
+    letter-spacing: 0.4px;
   }
   img{
     visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
@@ -143,12 +143,12 @@ const Info = styled.div`
   ${screen.overDesktop`
     img{
       margin-top: 34px;
-    }  
+    }
   `}
   ${screen.desktop`
     img{
       margin-top: 15px;
-    }  
+    }
   `}
   ${screen.tablet`
     img{
@@ -194,7 +194,7 @@ const StyledArrows = styled.div`
   `}
   ${screen.overDesktop`
     height: 148px;
-  `}  
+  `}
 `
 
 const NavigationWrapper = styled.div`
@@ -235,7 +235,7 @@ export default class CarouselMemberList extends PureComponent {
   /**
    *  Get horizontal shift of member list carousel
    *  @param {Number} categoryIndex
-   *  @returns {String} 
+   *  @returns {String}
    */
   _getShiftX = (categoryIndex) => {
     const { currentPagesArray } = this.state
@@ -247,7 +247,7 @@ export default class CarouselMemberList extends PureComponent {
       let currentShiftNumbers = numbersInAPage
       if (pageLength > 3 && residueOfPages > 0) {
         // For not to have any blank in a page
-        currentShiftNumbers = (currentPage === pageLength - 2 || currentPage === pageLength - 1) ? residueOfPages : numbersInAPage 
+        currentShiftNumbers = (currentPage === pageLength - 2 || currentPage === pageLength - 1) ? residueOfPages : numbersInAPage
       }
       let shiftX = ((currentPage - 1) * numbersInAPage + currentShiftNumbers) / numbersInAPage * 100
       if (shiftX !== 0) {
@@ -287,7 +287,7 @@ export default class CarouselMemberList extends PureComponent {
 
     this.membersNumInAFullPageArray = this.memberList.map((list) => {
       return Math.round(list.offsetWidth / list.childNodes[0].offsetWidth * 10) / 10
-    })    
+    })
 
     this.membersResidueArray = this.memberList.map((list, departmentIndex) => {
       return  membersNumberArray[departmentIndex] % this.membersNumInAFullPageArray[departmentIndex]
@@ -314,7 +314,7 @@ export default class CarouselMemberList extends PureComponent {
   _setCurrentPages = (newCurPagesArray) => {
     this.setState({
       currentPagesArray: newCurPagesArray
-    })    
+    })
   }
   /**
    * Given the index of department and flip direction (next or prev), compute the new page number
@@ -335,7 +335,7 @@ export default class CarouselMemberList extends PureComponent {
           newPageNum =  this.membersPageLengthArray[departmentIndex] + newPageNum
         }
         break
-      default: 
+      default:
         return
     }
     newCurPagesArray = [].concat(currentPagesArray)
@@ -359,16 +359,16 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              innerRef={memberList => this.memberList[categoryIndex] = memberList}
+              ref={memberList => this.memberList[categoryIndex] = memberList}
               shiftx = {this._getShiftX(categoryIndex)}
-              transitionEffect = {this.state.transitionEffect} 
+              transitionEffect = {this.state.transitionEffect}
               onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
               {
                 typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
                       <Member key={index}>
-                        <img 
+                        <img
                           src={`${replaceStorageUrlPrefix(member.profile)}`}
                         />
                         <Info
@@ -376,14 +376,14 @@ export default class CarouselMemberList extends PureComponent {
                         >
                           <p>{member.job}</p>
                           <p>{member.name}</p>
-                          <img 
-                            onClick={() => sendEmail(member.email)} 
+                          <img
+                            onClick={() => sendEmail(member.email)}
                             src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
                           />
                         </Info>
                       </Member>
                     )
-                  }) : null  
+                  }) : null
               }
             </MemberList>
           </PageWrapper>
