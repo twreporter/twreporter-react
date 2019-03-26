@@ -1,4 +1,121 @@
-### Unreleased
+## Unreleased
+
+## Release
+### 4.1.2
+#### Style Fix
+- Set leading full-screen asset relative for mobile device
+
+### 4.1.1
+##### Bug Fix
+- Fix the bug of getSignInHref
+- Fix topic header external link
+- Fix topic arrow position
+
+##### Style Fix
+- Set leading full-screen asset absolute for all devices
+
+### 4.1.0
+#### Minor Change
+##### Bookmark List and Bookmark Widget refactoring
+- Server side rendering and code refactoring of BookmarkList and BookmarkWidget
+
+##### Article Full Screen Layout Adjustment
+- Update src/managers/layout-manager.js. Render different layout for `article:fullscreen:[normal|dark]` theme
+- Update src/containers/Article.js
+  - Stop using `post.theme` to  render article layout.
+  - Render different article layout according to `post.style`
+  - Add `isLeadingAssetFullScreen` and `styles` React Props
+- Update src/components/article/layout/title-row-[above|upon].js
+- Change prop `theme` to `styles` and do some design tuning
+- Update src/components/article/layout/layout-maker.js.
+  - Replace `position.title` and `position.header` by `isLeadingAssetFullScreen`
+  - Render full screen image with a gray mask
+  - Replace `theme` by `styles`
+
+##### Dependencies Upgrade
+- redux-thunk to^2.3.0
+- @twreporter/universal-header to ^2.0.3
+
+##### Bug Fix
+- Empty page rendered while url hash is existed but no such anchor id on DOM
+
+##### Miscellaneous
+- Turn off webpack progress display
+- Check if service worker registration exists before using it
+
+
+### 4.0.1
+- Remove props `history` from `BrowserRouter`.
+
+### 4.0.0
+#### Major change
+##### Dependencies Upgrade
+- react, react-dom to ^16.3.0
+- styled-components to ^4.0.0
+- react-router-dom to ^4.0.0
+- react-redux to ^6.0.0
+- @twreporter/react-components to ^6.1.0
+- @twreporter/universal-header to ^2.0.0
+- drop @twreporter/registration
+
+##### Introduce new Authentication/Authorization API
+- check/grant auth on server side through express auth middleware
+- store auth info into redux store
+- enable server side rendering for personal requests
+
+##### Render Universal Header with @twreporter/universal-header
+- universal header for personal requests with server side rendering
+
+##### Render react-router-dom v4 routes on server side with react-loadable
+- add `src/data-loaders` folder, which lists data loading functions for different pages.
+- implement react-loadabel server side rendering since react-router-dom v4 doesn't support
+`getComponent` callback function anymore.
+
+##### Introduce layout and theme manager to render page layout and theme
+- deal with page layout and theme in `src/containers/app-shell.js`
+- drop HOC layout helper(`src/helpers/with-layout.js`)
+
+##### Miscellaneous
+- Move category related constants into src/constants/category.js
+- Update src/containers/app-shell.js. Refactor web push registration promise chain
+
+### 3.2.13
+- [Bug] Add a workaround to author data problem
+
+### 3.2.12
+- [Bug] Fix about-us page opening layout which got wrong height (100 viewport height) when client width is smaller than desktop and larger than tablet breakpoint
+- Update member information (add a new member) in about-us page section2
+ 
+### 3.2.11
+- [Bug] Centerize images in teamDescription (topicLandingPage)
+
+### 3.2.10
+- Tweak TopicLandingPage container due to api changes (remove plain html) 
+
+### 3.2.9
+- Update the internal of showing web push confirmation check box from one day to one month.
+
+### 3.2.8
+- Slide down anchor panel layout change in about-us page
+- Update information and photos in about-us page
+
+### 3.2.5
+- [Bug] Use og_title to build `og:title` by default
+
+### 3.2.4
+- Handle hash link scroll. When url contains hash link like #section_1, browser will
+scroll to that anchor(id) properly.
+- fix(UI) position of annotation indicator on FireFox.
+
+### 3.2.3
+- Add url to event label in google analysis click event
+- Update @twreporter/react-components@5.1.3
+
+### 3.2.2
+- Update the ground truth screenshots for UI-tests
+- Add GA events to donation button in article pages
+- Update @twreporter/react-components@^5.1.1
+
 ### 3.2.1
 - Long form article side bar UI changes
 

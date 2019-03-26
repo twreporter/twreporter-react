@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const returnToStartDuration = 1000
 
@@ -13,10 +13,14 @@ const restart = keyframes`
   }
 `
 
+const restartRule = css`
+  ${restart} ${returnToStartDuration}ms linear;
+`
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  animation: ${props => props.returnToStart ? `${restart} ${returnToStartDuration}ms linear` : 'none'};
+  animation: ${props => props.returnToStart ? restartRule : 'none'};
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: ${props => props.grabbing ? 'grabbing' : 'grab'};
   cursor: ${props => props.grabbing ? '-moz-grabbing' : '-moz-grab'};
@@ -92,14 +96,14 @@ export default class Timeline extends PureComponent {
   _onMouseUp = () => {
     this.setState({ mouseDown: false })
     this.prevClientY = 0
-  } 
+  }
 
   _onMouseOver = () => {
-    this.props.stopAutoScroll()    
+    this.props.stopAutoScroll()
   }
 
   _onMouseOut = () => {
-    this.props.startAutoScroll()        
+    this.props.startAutoScroll()
   }
 
   /**
@@ -117,7 +121,7 @@ export default class Timeline extends PureComponent {
         this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
         this._setYear()
       }
-    } 
+    }
   }
 
   _setYear = () => {
@@ -143,12 +147,12 @@ export default class Timeline extends PureComponent {
   render() {
     return (
       <div>
-        <Container 
+        <Container
           returnToStart={this.state.returnToStart}
           grabbing={this.state.mouseDown}
         >
           <Scroller
-            innerRef={(node) => { this.scroller = node }}
+            ref={(node) => { this.scroller = node }}
             onMouseDown={this._onMouseDown}
             onMouseUp={this._onMouseUp}
             onMouseMove={event => this._onMouseMove(event)}
@@ -158,7 +162,7 @@ export default class Timeline extends PureComponent {
           >
             {this.props.children}
           </Scroller>
-        </Container>  
+        </Container>
       </div>
     )
   }

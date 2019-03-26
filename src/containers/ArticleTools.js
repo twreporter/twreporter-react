@@ -51,17 +51,27 @@ class ArticleTools extends React.PureComponent {
   }
 
   render() {
-    const { topicSlug, topicTitle } = this.props
-    const { slug, style, title, desc, thumbnail, category, published_date } = this.props
-    const { toShow, screenType } = this.state
-    const bookmarkData = {
-      slug,
-      style,
-      title,
+    const {
       desc,
+      is_external,
+      published_date,
+      slug,
       thumbnail,
-      category,
-      published_date
+      title,
+      topicSlug,
+      topicTitle
+    } = this.props
+    const {
+      toShow,
+      screenType
+    } = this.state
+    const articleMetaForBookmark = {
+      desc,
+      is_external,
+      published_date,
+      slug,
+      thumbnail,
+      title
     }
     const Tools = screenType === deviceConst.type.desktop ? DesktopArticleTools : MobileArticleTools
 
@@ -72,7 +82,7 @@ class ArticleTools extends React.PureComponent {
           topicTitle={topicTitle}
           toShow={toShow}
           slug={slug}
-          bookmarkData={bookmarkData}
+          articleMetaForBookmark={articleMetaForBookmark}
         />
       </div>
     )
@@ -81,24 +91,18 @@ class ArticleTools extends React.PureComponent {
 
 ArticleTools.propTypes = {
   slug: PropTypes.string,
-  style: PropTypes.string,
   title: PropTypes.string,
   desc: PropTypes.string,
   thumbnail: PropTypes.string,
-  category: PropTypes.string,
-  published_date: PropTypes.string,
   topicSlug: PropTypes.string,
   topicTitle: PropTypes.string
 }
 
 ArticleTools.defaultProps = {
   slug: '',
-  style: '',
   title: '',
   desc: '',
   thumbnail: '',
-  category: '',
-  published_date: '',
   topicSlug: '',
   topicTitle: ''
 }
@@ -118,16 +122,15 @@ function mapStateToProps(state) {
 
   return {
     slug: _.get(post, 'slug', ''),
-    style: _.get(post, 'style', ''),
     title: _.get(post, 'title', ''),
     desc: _.get(post, 'og_description', ''),
     thumbnail: _.get(post, 'hero_image.resized_targets.mobile.url') || _.get(post, 'og_image.resized_targets.mobile.url', ''),
-    category: _.get(post, 'categories[0].name', ''),
+    is_external: _.get(post, 'is_external', false),
     published_date: _.get(post, 'published_date', ''),
     topicSlug: _.get(topic, 'slug', ''),
     topicTitle: _.get(topic, 'title', '')
   }
 }
 
-// withRef:true is the way to add the ref on the React component which is connected to Redux store
-export default connect(mapStateToProps, null, null ,{ withRef: true })(ArticleTools)
+// forwardRef:true is the way to add the ref on the React component which is connected to Redux store
+export default connect(mapStateToProps, null, null ,{ forwardRef: true })(ArticleTools)

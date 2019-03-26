@@ -3,14 +3,11 @@ import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import categoryListID from '../conf/category-list-id'
-import categoryString from '../constants/category-strings'
+import categoryConst from '../constants/category'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
-import { camelize } from 'humps'
 import { connect } from 'react-redux'
 
 const _  = {
@@ -23,22 +20,7 @@ const { fetchListedPosts } = actions
 const MAXRESULT = 10
 const categories = 'categories'
 
-function getListID(paramCategory) {
-  const field = camelize(paramCategory)
-  return categoryListID[field]
-}
-
 class Category extends PureComponent {
-  // params are passed from Route component of react-router
-  static fetchData({ params, store, query }) {
-    /* fetch page 1 if page is invalid */
-    let page = parseInt(_.get(query, 'page', 1), 10)
-    if (isNaN(page) || page < 0) {
-      page = 1
-    }
-    return store.dispatch(fetchListedPosts(getListID(params.category), categories, MAXRESULT, page))
-  }
-
   componentWillMount() {
     const { fetchListedPosts, catId } = this.props
     const page = _.get(this.props, 'page', 1)
@@ -56,7 +38,15 @@ class Category extends PureComponent {
   render() {
     let isFetching = false
 
-    const { lists, entities, catId, category, page, pathname } = this.props
+    const {
+      catId,
+      catLabel,
+      entities,
+      history,
+      lists,
+      page,
+      pathname
+    } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ catId, 'error' ], null)
 
@@ -95,9 +85,8 @@ class Category extends PureComponent {
       isFetching = true
     }
 
-    const catName = categoryString[camelize(category)]
-    const title = catName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL}category/${category}`
+    const title = catLabel + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL_NO_SLASH}${pathname}`
 
     return (
       <div>
@@ -120,13 +109,14 @@ class Category extends PureComponent {
         />
         <List
           data={posts}
-          catName={catName}
+          catName={catLabel}
           isFetching={isFetching}
         />
         <Pagination
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </div>
     )
@@ -135,16 +125,16 @@ class Category extends PureComponent {
 
 function mapStateToProps(state, props) {
   const location = _.get(props, 'location')
-  const params = _.get(props, 'params')
   const page = parseInt(_.get(location, 'query.page', 1), 10)
-  const category = _.get(params, 'category')
-  const catId = getListID(category)
-  const pathname = _.get(location, 'pathname', `/categories/${category}`)
+  const pathSegment = _.get(props, 'match.params.category')
+  const catId = categoryConst.ids[pathSegment]
+  const catLabel = categoryConst.labels[pathSegment]
+  const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
     catId,
-    category,
+    catLabel,
     page,
     pathname
   }
@@ -160,10 +150,12 @@ Category.propTypes = {
   entities: PropTypes.object,
   lists: PropTypes.object,
   catId: PropTypes.string,
-  category: PropTypes.string.isRequired,
+  catLabel: PropTypes.string.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Category))
+export default connect(mapStateToProps, { fetchListedPosts })(Category)

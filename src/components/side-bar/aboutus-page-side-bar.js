@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledAnchor = baseComponents.StyledAnchor.extend`
+const StyledAnchor = styled(baseComponents.StyledAnchor)`
   position: relative;
   height: 100%;
   color: ${props => props.highlight ? colors.black : colors.gray.gray50};
@@ -107,7 +107,7 @@ const Icons = styled.div`
     img{
       width: 45px;
       margin-bottom: 25px;
-    }  
+    }
   `}
 `
 

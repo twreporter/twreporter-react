@@ -5,7 +5,6 @@ import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import withLayout from '../helpers/with-layout'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
@@ -21,16 +20,6 @@ const MAXRESULT = 10
 const tags = 'tags'
 
 class Tag extends PureComponent {
-  // params are passed from Route component of react-router
-  static fetchData({ params, store, query }) {
-    /* fetch page 1 if page is invalid */
-    let page = parseInt(_.get(query, 'page', 1), 10)
-    if (isNaN(page) || page < 0) {
-      page = 1
-    }
-    return store.dispatch(fetchListedPosts(params.tagId, tags, MAXRESULT, page))
-  }
-
   componentWillMount() {
     const { fetchListedPosts, tagId } = this.props
     const page = _.get(this.props, 'page', 1)
@@ -61,7 +50,15 @@ class Tag extends PureComponent {
   render() {
     let isFetching = false
 
-    const { lists, entities, page, pathname, tagId } = this.props
+    const {
+      entities,
+      history,
+      lists,
+      page,
+      pathname,
+      tagId
+    } = this.props
+
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const error = _.get(lists, [ tagId, 'error' ], null)
 
@@ -132,6 +129,7 @@ class Tag extends PureComponent {
           currentPage={page}
           totalPages={totalPages}
           pathname={pathname}
+          history={history}
         />
       </div>
     )
@@ -139,11 +137,9 @@ class Tag extends PureComponent {
 }
 
 function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const params = _.get(props, 'params')
-  const page = parseInt(_.get(location, 'query.page', 1), 10)
-  const tagId = _.get(params, 'tagId', '')
-  const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
+  const tagId = _.get(props, 'match.params.tagId', '')
+  const page = parseInt(_.get(props, 'location.query.page', 1), 10)
+  const pathname = _.get(props, 'location.pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
@@ -159,12 +155,14 @@ Tag.defaultProps = {
 }
 
 Tag.propTypes = {
-  lists: PropTypes.object,
   entities: PropTypes.object,
-  tagId: PropTypes.string.isRequired,
+  lists: PropTypes.object,
   page: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  tagId: PropTypes.string.isRequired,
+  // a history object for navigation
+  history: PropTypes.object.isRequired
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchListedPosts: actions.fetchListedPosts })(withLayout(Tag))
+export default connect(mapStateToProps, { fetchListedPosts })(Tag)

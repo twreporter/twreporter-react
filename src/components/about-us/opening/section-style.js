@@ -1,11 +1,11 @@
-const allPaddingLeft = {
+export const allPaddingLeft = {
   mobile: '30px',
   tablet: '70px',
   desktop: '70px',
   overDesktop: '96px'
 }
 
-const allPaddingRight = {
+export const allPaddingRight = {
   mobile: '30px',
   tablet: '70px',
   desktop: '112px',
@@ -29,8 +29,8 @@ export const headerStyle = {
     overDesktop: '157px'
   },
   padding: {
-    mobile: `20px ${allPaddingRight.mobile} 20px ${allPaddingLeft.mobile}`,
-    tablet: `31px ${allPaddingRight.tablet} 31px ${allPaddingLeft.tablet}`,
+    mobile: `40px ${allPaddingRight.mobile} 46px ${allPaddingLeft.mobile}`,
+    tablet: `40px ${allPaddingRight.tablet} 31px ${allPaddingLeft.tablet}`,
     desktop: `31px ${allPaddingRight.desktop} 31px ${allPaddingLeft.desktop}`,
     overDesktop: `51px ${allPaddingRight.overDesktop} 51px ${allPaddingLeft.overDesktop}`
   }

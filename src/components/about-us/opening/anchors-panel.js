@@ -1,16 +1,17 @@
 import { buildFbShareLink } from '../utils/build-fb-share-link'
 import { colors } from '../../../themes/common-variables'
+import { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
-import { headerStyle } from './section-style'
-import { keyframes } from 'styled-components'
+import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
 import hrefs from '../constants/data/sidebar-link'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.png'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -52,6 +53,7 @@ const TopRow = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  padding: ${headerStyle.padding.mobile};
   a{
     height: 30px;
     text-align: left;
@@ -61,14 +63,13 @@ const TopRow = styled.div`
   }
   ${screen.mobile`
     height: ${headerStyle.height.mobile};
-    padding: ${headerStyle.padding.mobile};
+    padding-left: 40px;
   `}
   ${screen.tablet`
     a{
       visibility: hidden;
     }
     height: ${headerStyle.height.tablet};
-    padding: 20px 30px;
   `}
 `
 
@@ -80,14 +81,30 @@ const contentShifting = keyframes `
     transform: translateY(0);
   }
 `
+const ContentWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 0 ${allPaddingRight.mobile} 0 ${allPaddingLeft.mobile};
+  ${screen.mobile`
+    transform: translateY(-5%);
+    animation: ${contentShifting} ${transitionDuration}ms linear;
+    animation-fill-mode: forwards;
+  `}
+  ${screen.tablet`
+    transform: none;
+    padding: 0 31px 0 40px;
+  `}
+`
+
+const contentShiftingRule = css`
+  ${contentShifting} ${transitionDuration}ms linear;
+`
 
 const AnchorsContainer = styled.div`
   display: block;
-  width: 200px;
-  margin: 0 auto;
+  width: calc(100% - 185px + ${allPaddingRight.mobile});
   color: ${colors.white};
-  text-align: center;
-  transform: translateY(-5%);
+  text-align: left;
   p{
     font-weight: ${font.weight.bold};
     line-height: 86px;
@@ -97,13 +114,12 @@ const AnchorsContainer = styled.div`
     border-bottom: none;
   }
   ${screen.mobile`
-    animation: ${contentShifting} ${transitionDuration}ms linear;
+    animation: ${contentShiftingRule};
     animation-fill-mode: forwards;
     padding: 17px 0 52px 0;
   `}
   ${screen.tablet`
-    transform: none;
-    padding: 77px 0 45px 0;
+    padding: 45px 0 0 0;
   `}
 `
 
@@ -116,13 +132,21 @@ const rotate45deg = keyframes`
   }
 `
 
-const rotateCounterClock45deg = keyframes `
+const rotate45degRule = css`
+  ${rotate45deg} ${transitionDuration}ms linear;
+`
+
+const rotateCounterClock45deg = keyframes`
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(-45deg);
   }
+`
+
+const rotateCounterClock45degRule = css`
+  ${rotateCounterClock45deg} ${transitionDuration}ms linear;
 `
 
 const CloseBtn = styled.div `
@@ -139,11 +163,11 @@ const CloseBtn = styled.div `
     background: ${colors.white};
   }
   span:first-child{
-    animation: ${rotate45deg} ${transitionDuration}ms linear;
+    animation: ${rotate45degRule};
     animation-fill-mode: forwards;
   }
   span:last-child{
-    animation: ${rotateCounterClock45deg} ${transitionDuration}ms linear;
+    animation: ${rotateCounterClock45degRule};
     animation-fill-mode: forwards;
   }
   ${screen.desktopAbove`
@@ -152,23 +176,45 @@ const CloseBtn = styled.div `
 `
 
 const Icons = styled.div`
+  position: absolute;
+  right: ${allPaddingRight.mobile};
+  bottom: 0;
   a{
+    display: block;
+    margin-bottom: 21px;
     img{
       width: 45px;
     }
-    &:first-child{
-      float: left;
-    }
-    &:last-child{
-      float: right;
-    }
   }
-  ${screen.mobile`
-    margin-top: 90px;
-  `}
   ${screen.tablet`
     margin-top: 236px;
   `}
+`
+
+const EnglishVersionLink = styled.a`
+  position: absolute;
+  top: 0;
+  right: ${allPaddingRight.mobile};
+  color: ${colors.white};
+  padding-left: 17px;
+  transform-origin: 0 0;
+  transform: translate(100%, 100%) rotate(90deg);
+  p {
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+		font-size: 18px;
+  	font-weight: bold;
+    letter-spacing: 0.7px;
+    span {
+      padding-left: 15px;
+    }
+  }
+  ${screen.tablet`
+    padding-left: 45px;
+  `}
+`
+
+const IconEnLink = styled.img`
+  width: 13.9px;
 `
 
 class AnchorsPanel extends React.PureComponent {
@@ -205,8 +251,10 @@ class AnchorsPanel extends React.PureComponent {
               <span/>
             </CloseBtn>
           </TopRow>
-          <AnchorsContainer>
-            {Anchors}
+          <ContentWrapper>
+            <AnchorsContainer>
+              {Anchors}
+            </AnchorsContainer>
             <Icons>
               <a href={hrefs.donate} target="_blank">
                 <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
@@ -218,7 +266,10 @@ class AnchorsPanel extends React.PureComponent {
                 <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
               </a>
             </Icons>
-          </AnchorsContainer>
+            <EnglishVersionLink href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">
+              <p>English Version<span><IconEnLink src={iconEnglishLink} /></span></p>
+            </EnglishVersionLink>
+          </ContentWrapper>
         </Container>
       </PopUpPanel>
     )
