@@ -1,6 +1,9 @@
 ## Unreleased
 
 ## Release
+### 4.1.3
+- Upgrade yarn.lock to fix GitHub security alters
+
 ### 4.1.2
 #### Style Fix
 - Set leading full-screen asset relative for mobile device
