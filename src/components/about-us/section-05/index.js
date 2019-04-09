@@ -34,6 +34,7 @@ const containerWidth = {
 
 const Container = styled.div`
   position: relative;
+  background-color: ${colors.white};
   overflow: hidden;
   ${screen.overDesktop`
     margin: ${marginBetweenSections.overDesktop} 0;
@@ -81,18 +82,22 @@ const Title = styled.div`
   margin: 0;
   span{
     display: none;
-  }
+  }  
   ${screen.desktopAbove`
-    float: left;
+    position: absolute;
+    left: 0;
+    top: 0;
     background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5.png`)});
   `}
   ${screen.overDesktop`
     width: 327px;
     height: 384px;
+    margin: 98px 0 0 152px;
   `}
   ${screen.desktop`
     width: 257px;
     height: 271px;
+    margin: 119px 0 0 80px;
   `}
   ${screen.tabletBelow`
     background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5-mob.png`)});
@@ -312,22 +317,28 @@ const Circle = styled.div`
   height: 218px;
   border-radius: 50%;
   background: ${props => props.color};
-  margin-left: 80px;
-  margin-bottom: 228px;
-  z-index: calc(${defaultZIndex} - 1);
-  &:first-child {
-    margin: 0;
-    transform: translateX(50%) translateY(-50%);
-  }
   ${screen.overDesktop`
     width: 277px;
     height: 277px;
-    margin-left: 152px;
-    margin-bottom: 293px;
   `}
   ${screen.tabletBelow`
     display: none;
   `}
+`
+
+const OuterCircle = styled(Circle)`
+  margin-left: 80px;
+  margin-bottom: 228px;
+  ${screen.overDesktop`
+    width: 277px;
+    margin-left: 152px;
+    margin-bottom: 293px;
+  `}
+`
+
+const InnerCircle = styled(Circle)`
+  margin: 0;
+  transform: translateX(50%) translateY(-50%);
 `
 
 const Rect = styled.div`
@@ -434,11 +445,11 @@ export default class Section5 extends PureComponent {
         <div>
           <Container>
             <SectionWrapper>
-              <Title><span>大事紀</span></Title>
-              <Circle color={`${colors.black}`}>
-                <Circle color={`${colors.gray.gray96}`}/>
+              <OuterCircle color={`${colors.black}`}>
+                <InnerCircle color={`${colors.gray.gray96}`}/>
                 <Rect color={`${colors.secondaryColor}`}/>
-              </Circle>
+              </OuterCircle>
+              <Title><span>大事紀</span></Title>
               <Content>
                 <AccordionTimeline>
                   <List
