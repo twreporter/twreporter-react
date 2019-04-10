@@ -1,15 +1,16 @@
+import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
+import MoreInfo from './more-info'
+import React, { PureComponent } from 'react'
+import VelocityComponent from '@twreporter/velocity-react/velocity-component'
 import chunk from 'lodash/chunk'
 import data from '../constants/section-04/partners'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import MoreInfo from './more-info'
-import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import VelocityComponent from '@twreporter/velocity-react/velocity-component'
 
 const _ = {
   chunk, groupBy, keys
@@ -33,6 +34,7 @@ const containerWidth = {
 
 const Container = styled.div`
   position: relative;
+  background-color: ${colors.white};
   ${screen.overDesktop`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
