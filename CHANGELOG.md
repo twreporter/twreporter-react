@@ -1,6 +1,9 @@
 ## Unreleased
 
 ## Release
+### 4.1.4
+- Fix about-us page layout in section4 and section5
+
 ### 4.1.3
 - Upgrade yarn.lock to fix GitHub security alters
 
