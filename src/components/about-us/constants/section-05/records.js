@@ -1,5 +1,23 @@
 export const content = [
   {
+    year: 2019,
+    month: 5,
+    date: 5,
+    text: {
+      chinese: '共9項作品入圍「SOPA卓越新聞獎」7個獎項。'
+    },
+    link: ''
+  },
+  {
+    year: 2019,
+    month: 4,
+    date: 2,
+    text: {
+      chinese: '出版第三本報導專書《煙囪之島：我們與石化共存的兩萬個日子》。'
+    },
+    link: ''
+  },
+  {
     year: 2018,
     month: 10,
     date: 6,

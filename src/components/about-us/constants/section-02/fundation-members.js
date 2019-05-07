@@ -161,8 +161,16 @@ const members = [
     name: '王儀君',
     nameEng: 'Sylvie Wang',
     job: '行銷部經理',
-    jobEng: 'Marketing Manager‭',
+    jobEng: 'Marketing Manager',
     profile: memberUrlPrefix + foundationImg.editSylvieWang,
+    category: categoryIds.fundation
+  },
+  {
+    name: '李盈臻',
+    nameEng: 'Jane Li',
+    job: '行銷部專員',
+    jobEng: 'Marketing Specialist',
+    profile: memberUrlPrefix + foundationImg.foundationJaneLi,
     category: categoryIds.fundation
   },
   {
