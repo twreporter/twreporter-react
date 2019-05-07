@@ -1,6 +1,13 @@
 ## Unreleased
 
 ## Release
+### 4.1.5
+- Update about us page
+  - Add new members and remove the resigned ones
+  - Modify the 3rd, 4th rules in section2
+  - Add new records to section5
+- Tweak the scrolling protion to make sure the year will be set properly in section5 scrolling timeline on about-us page 
+
 ### 4.1.4
 - Fix about-us page layout in section4 and section5
 
