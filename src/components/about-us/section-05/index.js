@@ -23,7 +23,7 @@ const sortedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'asc', 'asc
 const sortedDataGroupByYear = _.groupBy(sortedData, record => record.year)
 const yearList = _.keys(sortedDataGroupByYear)
 const yearRangebgColor = '#cacaca'
-const timelineScrollingPortion = 0.95
+const timelineScrollingPortion = 0.98
 const defaultZIndex = 0
 const containerWidth = {
   mobile: '100%',
