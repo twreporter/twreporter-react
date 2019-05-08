@@ -1,4 +1,5 @@
 ## Unreleased
+- Update job titles on about-us page
 
 ## Release
 ### 4.1.5
