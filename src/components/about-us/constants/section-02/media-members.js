@@ -134,7 +134,7 @@ const members = [
   {
     name: '黃禹禛',
     nameEng: 'Yu Chen Huang',
-    job: '設計',
+    job: '設計師',
     jobEng: 'Art Designer',
     email: 'hychen@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiYuChenHuang,
@@ -238,7 +238,7 @@ const members = [
   {
     name: '洪琴宣',
     nameEng: 'Chin Hsuan Hung',
-    job: '執行編輯',
+    job: '社群編輯',
     jobEng: 'Editor',
     email: 'chhung@twreporter.org',
     profile: memberUrlPrefix + membersImg.editChhung,
