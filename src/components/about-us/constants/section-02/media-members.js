@@ -24,6 +24,15 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '王曉玟',
+    nameEng: 'Sharon Wang',
+    job: '主編',
+    jobEng: 'editor',
+    email: 'sharonwang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editSharonWang,
+    category: categoryIds.editor
+  },
+  {
     name: '劉致昕',
     nameEng: 'Jason Liu',
     job: '主筆',
@@ -125,7 +134,7 @@ const members = [
   {
     name: '黃禹禛',
     nameEng: 'Yu Chen Huang',
-    job: '設計',
+    job: '設計師',
     jobEng: 'Art Designer',
     email: 'hychen@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiYuChenHuang,
@@ -177,15 +186,6 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '王立柔',
-    nameEng: 'Rosa Wang',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'irosarian@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editRosaWang,
-    category: categoryIds.editor
-  },
-  {
     name: '林雨佑',
     job: '記者',
     jobEng: 'Journalist',
@@ -210,6 +210,14 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '林慧貞',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'linhuichen@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editLinHuiChen,
+    category: categoryIds.editor
+  },
+  {
     name: '張詩芸',
     nameEng: 'Shih-Yun Chang',
     job: '社群部主任',
@@ -228,12 +236,12 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '莊璧綺',
-    nameEng: 'Pi-Chi Chuang',
-    job: '執行編輯',
+    name: '洪琴宣',
+    nameEng: 'Chin Hsuan Hung',
+    job: '社群編輯',
     jobEng: 'Editor',
-    email: 'pichi@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editPiChi,
+    email: 'chhung@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editChhung,
     category: categoryIds.editor
   },
   {
