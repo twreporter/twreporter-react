@@ -1,6 +1,8 @@
 ## Unreleased
-
 ## Release
+### 4.1.6
+- Update job titles on about-us page
+
 ### 4.1.5
 - Update about us page
   - Add new members and remove the resigned ones
