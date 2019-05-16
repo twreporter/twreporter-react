@@ -1,4 +1,6 @@
 ## Unreleased
+- Send Google Analytics pageview event by url instead of pathname
+
 ## Release
 ### 4.1.6
 - Update job titles on about-us page

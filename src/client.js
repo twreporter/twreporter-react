@@ -40,7 +40,7 @@ function scrollToTopAndFirePageview() {
     }
     window.scrollTo(0, 0)
     // send Google Analytics Pageview event on route changed
-    ReactGA.pageview(window.location.pathname)
+    ReactGA.pageview(window.location.href)
   }
 
   return null
@@ -51,7 +51,7 @@ configureStore(reduxState)
     if (typeof window !== 'undefined') {
       // add Google Analytics
       ReactGA.initialize('UA-69336956-1')
-      ReactGA.set({ page: window.location.pathname })
+      ReactGA.set({ page: window.location.href })
     }
     const jsx = (
       <Provider store={store}>
