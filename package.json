@@ -9,7 +9,7 @@
     "lint": "lint-staged",
     "start": "make start",
     "stop": "make stop",
-    "test": "make test",
+    "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
     "validate": "npm ls"
   },
