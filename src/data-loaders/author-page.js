@@ -1,10 +1,12 @@
+import twreporterRedux from '@twreporter/redux'
+// lodash
 import get from 'lodash/get'
-import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
-import { fetchAuthorDetails } from '../actions/author-details'
 
 const _ = {
   get
 }
+
+const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux
 
 /**
  *  loadData function is used for server side rendering.

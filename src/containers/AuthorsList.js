@@ -1,22 +1,24 @@
 'use strict'
 
+import { connect } from 'react-redux'
+import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import * as constants from '../constants/authors-list'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
+import classNames from 'classnames'
+import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
+import map from 'lodash/map'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
-import Waypoint from 'react-waypoint'
-import classNames from 'classnames'
-import get from 'lodash/get'
-import map from 'lodash/map'
 import styles from '../components/authors/AuthorList.scss'
+import twreporterRedux from '@twreporter/redux'
 import values from 'lodash/values'
-import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
-import { connect } from 'react-redux'
-import { searchAuthorsIfNeeded } from '../actions/authors'
+import Waypoint from 'react-waypoint'
+
+const { searchAuthorsIfNeeded } = twreporterRedux.actions
 
 const _ = {
   get: get,

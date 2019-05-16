@@ -1,10 +1,13 @@
-import get from 'lodash/get'
-import { getMultipleBookmarks } from '../actions/bookmarks'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
+import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
 
 const _ = {
   get
 }
+
+const { getMultipleBookmarks } = twreporterRedux.actions
 
 const defaultLimit = 5
 const defaultSort = 'created_at'

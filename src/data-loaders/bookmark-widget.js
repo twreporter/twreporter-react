@@ -1,10 +1,13 @@
-import { getSingleBookmark } from '../actions/bookmarks'
-import get from 'lodash/get'
 import reduxStatePropKey from '../constants/redux-state-prop-key'
+import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
 
 const _ = {
   get
 }
+
+const { getSingleBookmark } = twreporterRedux.actions
 
 const host = {
   master: 'http://testtest.twreporter.org:3000',
