@@ -1,4 +1,6 @@
 ## Unreleased
+- Revise donation page link
+
 ## Release
 ### 4.1.6
 - Update job titles on about-us page
