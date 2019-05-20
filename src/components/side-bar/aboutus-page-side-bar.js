@@ -1,8 +1,9 @@
+import { SITE_META } from '../about-us/constants/data/index'
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
+import { donatePath } from '../../constants/index'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../about-us/utils/screen'
-import { SITE_META } from '../about-us/constants/data/index'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
@@ -128,7 +129,7 @@ class AboutusPageSideBar extends React.PureComponent {
             currentAnchorId={currentAnchorId}
           />
           <Icons>
-            <a href={hrefs.donate} target="_blank">
+            <a href={donatePath} target="_blank">
               <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
             </a>
             <a href={hrefs.subscribe} target="_blank">

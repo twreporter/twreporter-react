@@ -75,7 +75,7 @@ export const basePath = 'https://www.twreporter.org'
 
 export const appId = 962589903815787
 
-export const donatePath = 'https://twreporter.org/donation/period'
+export const donatePath = 'https://twreporter.org/donation'
 
 export const categoryPath = {
   taiwanPath: '/category/taiwan',

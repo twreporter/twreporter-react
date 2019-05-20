@@ -141,22 +141,17 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/react-components@6.1.0-beta.7":
-  version "6.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-6.1.0-beta.7.tgz#e7c09947dd8939a60aa650b501a6e5eea295dadd"
-  integrity sha512-iy3sXq6hqgFWihCKu95kHMCFxbSj/vhATpN9rPtRyu6clOVtgZa3KBcpOnLyz7IVEo02P7lYXpLB7O5T7CzlLQ==
+"@twreporter/react-components@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-6.1.2.tgz#1d9f35eca6b890f9034b636fbb1081a4fadd24eb"
+  integrity sha512-GM9lmnl7TiBV9Hj1qYzVljOCNdxIaAWZVgzI2l7Gm5dN/1s0Y6TXCBBuhwcEH4Ie4M18pqffdki/FzUBvkcs3g==
   dependencies:
     "@twreporter/velocity-react" "^1.4.1"
     hoist-non-react-statics "^2.3.1"
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    react-ga "^2.5.3"
-    react-router-dom "^4.3.1"
     react-swipeable "^4.0.1"
     react-transition-group "^1.2.1"
     react-waypoint "^7.0.3"
     smoothscroll "^0.3.0"
-    styled-components "^4.0.0"
 
 "@twreporter/react-flex-carousel@^1.1.1":
   version "1.1.1"
@@ -7232,7 +7227,7 @@ react-dom@^16.3.0:
     prop-types "^15.6.2"
     scheduler "^0.13.4"
 
-react-ga@^2.1.2, react-ga@^2.5.3:
+react-ga@^2.1.2:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.7.tgz#1c80a289004bf84f84c26d46f3a6a6513081bf2e"
   integrity sha512-UmATFaZpEQDO96KFjB5FRLcT6hFcwaxOmAJZnjrSiFN/msTqylq9G+z5Z8TYzN/dbamDTiWf92m6MnXXJkAivQ==
