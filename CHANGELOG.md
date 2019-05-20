@@ -1,5 +1,9 @@
 ## Unreleased
 ## Release
+### 4.1.7
+- Revise donation page link
+- Upgrade @twreporter/react-components to v6.1.2
+
 ### 4.1.6
 - Update job titles on about-us page
 
