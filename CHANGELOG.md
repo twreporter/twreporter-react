@@ -1,4 +1,6 @@
 ## Unreleased
+- Set `embeddedCode` component to be printable by default and can be conditionally unprintable
+
 ## Release
 ### 4.1.7
 - Revise donation page link
