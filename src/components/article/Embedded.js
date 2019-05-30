@@ -78,7 +78,7 @@ export class EmbeddedCode extends React.PureComponent {
     const content = _.get(this.props, [ 'content', 0 ], {})
 
     return (
-      <div className={classNames(commonStyles['inner-block'], 'hidden-print')}>
+      <div className={classNames(commonStyles['inner-block'])}>
         <div ref={div => {this.embedded = div}} dangerouslySetInnerHTML={{ __html: content.embeddedCodeWithoutScript }}/>
         <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{content.caption}</div>
       </div>
