@@ -1,5 +1,8 @@
 ## Unreleased
 ## Release
+### 4.1.8
+- Set `embeddedCode` component to be printable by default and can be conditionally unprintable
+
 ### 4.1.7
 - Revise donation page link
 - Upgrade @twreporter/react-components to v6.1.2
