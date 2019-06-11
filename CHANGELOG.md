@@ -1,5 +1,8 @@
 ## Unreleased
 ## Release
+### 4.1.9
+- Adjust web push notify popup appearance
+
 ### 4.1.8
 - Set `embeddedCode` component to be printable by default and can be conditionally unprintable
 
