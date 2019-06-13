@@ -18,6 +18,9 @@ export const themesConst = {
     fullscreen: {
       dark: 'article:fullscreen:dark',
       normal: 'article:fullscreen:normal'
+    },
+    v2: {
+      pink: 'article:v2:pink'
     }
   }
   // TODO implement topic page theme
@@ -79,6 +82,7 @@ export default class ThemeManager {
         const style = post.style
         switch(style) {
           case themesConst.photography:
+          case themesConst.articlePage.v2.pink:
           case themesConst.articlePage.fullscreen.dark:
           case themesConst.articlePage.fullscreen.normal: {
             return style
