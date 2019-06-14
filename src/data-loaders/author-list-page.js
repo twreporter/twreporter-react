@@ -1,4 +1,6 @@
-import { searchAuthorsIfNeeded } from '../actions/authors'
+import twreporterRedux from '@twreporter/redux'
+
+const { searchAuthorsIfNeeded } = twreporterRedux.actions
 
 /**
  *  loadData function is used for server side rendering.

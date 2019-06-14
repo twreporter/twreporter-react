@@ -1,5 +1,21 @@
 ## Unreleased
+
+### 4.2.0
+- Move Redux actions, reducers, configureStore to @twreporter/redux
+- Bump @twreporter/redux version to 5.0.0
+
 ## Release
+
+### 4.1.9
+- Adjust web push notify popup appearance
+
+### 4.1.8
+- Set `embeddedCode` component to be printable by default and can be conditionally unprintable
+
+### 4.1.7
+- Revise donation page link
+- Upgrade @twreporter/react-components to v6.1.2
+
 ### 4.1.6
 - Update job titles on about-us page
 

@@ -76,10 +76,29 @@ export class EmbeddedCode extends React.PureComponent {
 
   render() {
     const content = _.get(this.props, [ 'content', 0 ], {})
-
+    const embeddedCode = content.embeddedCodeWithoutScript
+    /**
+     * The rendered embedded code component can be printed by default.
+     * If there is an embedded component which needs to be hidden on print,
+     * just add comment : `<!--Hidden on print-->` at the beginning of the embedded code.
+     * 
+     * For example:
+     *
+     * <!--Hidden on print-->
+     * <picture>
+     *   <source type="image/svg+xml" media="(orientation: landscape)" 
+     *     srcset="https://www.twreporter.org/images/responsive/20190509085144-ea45142ad3.svg" />
+     *   <source type="image/svg+xml" media="(orientation: portrait)" 
+     *     srcset="https://www.twreporter.org/images/responsive/20190509085144-27ed01574a.svg" />
+     *   <img alt="假資訊懶人包-8" src="https://www.twreporter.org/images/responsive/20190509085144-ea45142ad3.svg" style="width:100%;" />
+     * </picture>
+     *
+     */
+    const hiddenPrintReg = /^<!--Hidden on print-->/
+    
     return (
-      <div className={classNames(commonStyles['inner-block'], 'hidden-print')}>
-        <div ref={div => {this.embedded = div}} dangerouslySetInnerHTML={{ __html: content.embeddedCodeWithoutScript }}/>
+      <div className={classNames(commonStyles['inner-block'], { 'hidden-print': hiddenPrintReg.test(embeddedCode) })}>
+        <div ref={div => {this.embedded = div}} dangerouslySetInnerHTML={{ __html: embeddedCode }}/>
         <div className={classNames(commonStyles['desc-text-block'], 'text-justify')}>{content.caption}</div>
       </div>
     )

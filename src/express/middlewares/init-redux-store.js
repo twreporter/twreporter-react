@@ -1,5 +1,6 @@
-import configureStore from '../../store/configure-store'
+/* global __DEVELOPMENT__ */
 import set from 'lodash/set'
+import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   set
@@ -14,7 +15,7 @@ function initReduxStoreMiddleware(namespace) {
   return async function middleware(req, res, next) {
     try {
       const cookieList = req.get('cookie')
-      const reduxStore = await configureStore({}, cookieList)
+      const reduxStore = await twreporterRedux.createStore({}, cookieList, __DEVELOPMENT__)
       _.set(req, [ namespace, 'reduxStore' ], reduxStore)
       next()
     } catch(err) {

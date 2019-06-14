@@ -6,11 +6,9 @@ import React from 'react'
 import axios from 'axios'
 import LayoutManager from '../managers/layout-manager'
 import ThemeManager from '../managers/theme-manager'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import statusCodeConst from '../constants/status-code'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
-import { colors, typography } from '../themes/common-variables'
 import { connect } from 'react-redux'
 import { screen } from '../themes/screen'
 
@@ -21,8 +19,8 @@ const _ = {
   get
 }
 
-const { utils } = twreporterRedux
-const formAPIURL = utils.formAPIURL
+const formAPIURL = twreporterRedux.utils.formAPIURL
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 // TODO move applicationServerPublicKey to config
 const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
@@ -215,54 +213,156 @@ const AppShellBox = styled.div`
   background-color: ${props => props.backgroundColor};
 `
 
-const NoticePopup = styled.div`
-  z-index: 1000;
-  position: fixed;
-  right: 40px;
-  bottom: 40px;
-  width: 320px;
-  border-radius: 2px;
+const NotifyBackground = styled.div`
   background-color: #fff;
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
-  padding: 20px 24px 15px 24px;
-  text-align: right;
 
-  > p:first-child {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.2;
-    margin-bottom: 6px;
-    color: rgba(0, 0, 0, 0.87);
-  }
+  /* z-index and position are set for covering header */
+  z-index: 1;
+  position: relative;
+`
 
-  > p:last-of-type{
-    margin-bottom: 15px;
-  }
-
-  > p {
-    text-align: left;
-    font-size: ${typography.font.size.medium};
-    line-height: 1.38;
-    color: rgba(0, 0, 0, 0.54);
-  }
-
-  span {
-    color: ${colors.secondaryColor};
-    letter-spacing: 0.5px;
-    font-size: ${typography.font.size.xSmall};
-    font-weight: 500;
-    cursor: pointer;
-  }
-
-  span:last-of-type {
-    margin-left: 20px;
-  }
+const NotifyBox = styled.div`
+  position: relative;
+  color: #404040;
+  font-size: 14px;
 
   ${screen.mobile`
-    left: 50%;
-    transform: translateX(-50%);
+    padding: 20px 22px 45px 22px;
+  `}
+
+  ${screen.tablet`
+    padding: 20px 50px 50px 50px;
+  `}
+
+  ${screen.desktop`
+    width: calc(875/1024*100%);
+  `}
+
+  ${screen.desktopAbove`
+    padding: 20px 0;
+    margin: 0 auto;
+  `}
+
+  ${screen.overDesktop`
+    width: calc(992/1440*100%);
   `}
 `
+
+const MegaphoneEmoji = styled.div`
+  display: inline-block;
+
+  /* flip the emoji */
+  transform: scaleX(-1);
+  margin-right: 6px;
+  &:before {
+    content: '📣';
+    line-height: 1.5;
+  }
+`
+
+const NotifyTitle = styled.div`
+  font-size: 16px;
+  display: inline-block;
+  font-weight: bold;
+
+  ${screen.mobile`
+    margin-bottom: 12px;
+  `}
+
+  ${screen.tablet`
+    margin-bottom: 12px;
+  `}
+
+  ${screen.tabletAbove`
+    font-size: 14px;
+  `}
+`
+
+const CloseButton = styled.div`
+  position: absolute;
+  cursor: pointer;
+  top: 20px;
+  right: 22px;
+`
+
+const NotifyText = styled.p`
+  line-height: 1.43;
+  position: relative;
+
+  ${screen.mobile`
+    margin-bottom: 12px;
+  `}
+
+  ${screen.tablet`
+    margin-left: 15px;
+    margin-bottom: 20px;
+  `}
+
+  ${screen.tabletAbove`
+    display: inline-block;
+  `}
+`
+
+const NotifyHighLightRow = styled.div`
+  ${screen.desktopAbove`
+    display: inline-block;
+  `}
+`
+
+const NotifyHighLight = styled.span`
+  color: #a67a44;
+`
+
+const NotifyLink = styled.a`
+  font-weight: bold;
+  color: #a67a44;
+`
+
+const NotifyButton = styled.div`
+  background-color: #fff;
+  border: 1px solid #a67a44;
+  color: #a67a44;
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+
+  ${screen.mobile`
+    right: 20px;
+    bottom: 12px;
+    padding: 10px 20px;
+  `}
+
+  ${screen.tablet`
+    text-align: center;
+    width: calc(514/768*100%);
+    padding: 10px 0;
+    right: calc(52/768*100%);
+    bottom: 23px;
+  `}
+
+  ${screen.desktopAbove`
+    padding: 10px 20px;
+    bottom: 11px;
+    right: 60px;
+  `}
+
+  &:hover {
+    background-color: #a67a44;
+    color: #fff;
+    transition: background-color .2s linear;
+  }
+`
+
+const closeSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+  >
+    <path style={ { stroke: '#808080' } } d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+  </svg>
+)
 
 class App extends React.PureComponent {
   static propTypes = {
@@ -322,25 +422,24 @@ class App extends React.PureComponent {
 
   _acceptNotification() {
     const { userID } = this.props
-    const _this = this
     requestNotificationPermission(userID)
       .then(() => {
         console.log('Accept web push notification successfully')
-        _this.setState({
+        this.setState({
           toShowNotify: false
         })
+        this._setNextPopupToNextMonth()
       })
       .catch((err) => {
         console.warn('Fail to accept web push notification')
         if (err) {
           console.warn(err)
         }
-        _this.setState({
+        this.setState({
           toShowInstruction: true
         })
       })
 
-    this._setNextPopupToNextMonth()
   }
 
   _denyNotification() {
@@ -352,26 +451,50 @@ class App extends React.PureComponent {
     this._setNextPopupToNextMonth()
   }
 
-  _renderAcceptanceBox() {
+
+  /**
+   *  @param {string} title - notify box title
+   *  @param {string} desc - notify box description
+   *  @param {string} btText - notify box button text
+   *  @param {Function} btClickCallback - callback function of button click
+   *  @return {Object} React node containing notify box view
+   */
+  _renderNotifyBox(title, desc, btText, btClickCallback) {
     return (
-      <NoticePopup>
-        <p>點擊「同意」即刻開啟推播功能</p>
-        <p>您將在第一時間收到《報導者》最新消息（文章、專題、活動等訊息）</p>
-        <span onClick={this.denyNotification}>不同意</span>
-        <span onClick={this.acceptNotification}>同意</span>
-      </NoticePopup>
+      <NotifyBackground>
+        <NotifyBox>
+          <MegaphoneEmoji />
+          <NotifyTitle>
+            {title}
+          </NotifyTitle>
+          <CloseButton
+            onClick={this.denyNotification}
+          >
+            {closeSVG}
+          </CloseButton>
+          <NotifyText>
+            {desc}
+          </NotifyText>
+          <NotifyHighLightRow>
+            <NotifyHighLight>該如何操作？</NotifyHighLight>
+            <NotifyLink href="/a/help-notification-instruction" target="_blank">看教學</NotifyLink>
+          </NotifyHighLightRow>
+          <NotifyButton onClick={btClickCallback}>
+            {btText}
+          </NotifyButton>
+        </NotifyBox>
+      </NotifyBackground>
     )
   }
 
+  _renderAcceptanceBox() {
+    return this._renderNotifyBox('想即時追蹤最新報導？',
+      '開啟文章推播功能得到報導者第一手消息！', '開啟通知', this.acceptNotification)
+  }
+
   _renderInstructionBox() {
-    return (
-      <NoticePopup>
-        <p>請將更改瀏覽器設定來啟動推播通知</p>
-        <p>您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。</p>
-        <span onClick={this.denyNotification}>略過</span>
-        <a href="/a/help-notification-instruction" target="_blank"><span>如何操作？</span></a>
-      </NoticePopup>
-    )
+    return this._renderNotifyBox('請更改瀏覽器設定來啟動推播通知',
+      '您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。', '略過', this.denyNotification)
   }
 
   render() {
@@ -403,8 +526,8 @@ class App extends React.PureComponent {
         <AppShellBox
           backgroundColor={backgroundColor}
         >
-          {header}
           {boxJSX}
+          {header}
           {this.props.children}
           {footer}
         </AppShellBox>
