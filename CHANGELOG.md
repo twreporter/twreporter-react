@@ -1,5 +1,11 @@
 ## Unreleased
+
+### 4.2.0
+- Move Redux actions, reducers, configureStore to @twreporter/redux
+- Bump @twreporter/redux version to 5.0.0
+
 ## Release
+
 ### 4.1.9
 - Adjust web push notify popup appearance
 
