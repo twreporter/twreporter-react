@@ -1,16 +1,24 @@
 ## Unreleased
 
+### 4.3.0
+
+#### Update .circleci/config.yml
+- Use `yarn.lock` as the indicator of the change of dependencies
+- Run build only on certain branches
+- Remove test
+
+#### Move Redux actions, reducers, configureStore to @twreporter/redux
+- Remove actions, reducers, configureStore in this repo
+- Bump @twreporter/redux version to 5.0.0
+
+## Release
+
 ### 4.2.0
 #### Integration with @twreporter/react-article-components@1.0.0-beta.1
 - Render v2 article page if style is article:v2:pink
 - Update layout and theme manager to adopt article:v2:pink theme
 - Update dependencies: react, react-dom and react-waypoint
 - Render v2 article page on `theme` query demand
-#### Move Redux actions, reducers, configureStore to @twreporter/redux
-- Remove redux actions, reducers, and configureStore
-- Bump @twreporter/redux version to 5.0.0
-
-## Release
 
 ### 4.1.9
 - Adjust web push notify popup appearance
