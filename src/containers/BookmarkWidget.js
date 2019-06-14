@@ -7,7 +7,6 @@ import getSignInHref from '../constants/bookmarks/sign-in-href'
 import predefinedPropTypes from '../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
@@ -18,6 +17,7 @@ const _ = {
 }
 
 const { createSingleBookmark, deleteSingleBookmark, getSingleBookmark } = twreporterRedux.actions
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const buttonWidth = 52
 const buttonHeight = 52

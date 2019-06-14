@@ -8,7 +8,6 @@ import predefinedPropTypes from '../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RedirectToSignIn from '../components/bookmark-list/RedirectToSignIn'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
@@ -23,6 +22,7 @@ const _ = {
 }
 
 const { deleteSingleBookmark, getMultipleBookmarks } = twreporterRedux.actions
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const defaultLimit = 5
 const defaultSort = 'created_at'

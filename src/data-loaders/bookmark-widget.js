@@ -1,4 +1,3 @@
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -8,6 +7,7 @@ const _ = {
 }
 
 const { getSingleBookmark } = twreporterRedux.actions
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const host = {
   master: 'http://testtest.twreporter.org:3000',
