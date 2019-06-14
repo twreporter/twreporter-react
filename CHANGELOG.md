@@ -6,8 +6,9 @@
 - Update layout and theme manager to adopt article:v2:pink theme
 - Update dependencies: react, react-dom and react-waypoint
 - Render v2 article page on `theme` query demand
+
 #### Move Redux actions, reducers, configureStore to @twreporter/redux
-- Remove redux actions, reducers, and configureStore
+- Remove actions, reducers, configureStore in this repo
 - Bump @twreporter/redux version to 5.0.0
 
 ## Release
