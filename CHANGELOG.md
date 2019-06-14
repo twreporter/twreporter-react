@@ -10,6 +10,10 @@
 - Remove redux actions, reducers, and configureStore
 - Bump @twreporter/redux version to 5.0.0
 
+#### Move Redux actions, reducers, configureStore to @twreporter/redux
+- Remove actions, reducers, configureStore in this repo
+- Bump @twreporter/redux version to 5.0.0
+
 ## Release
 
 ### 4.1.9
