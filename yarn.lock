@@ -158,10 +158,10 @@
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
-"@twreporter/redux@5.0.0-beta.4":
-  version "5.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.0-beta.4.tgz#7129497d9f0350714aa7c96d7e9f3ddfab4dd763"
-  integrity sha512-cWI9G5G938ejntpmcg1J+h3gl9OT0vpyaw9vCTheyG7L08w6YiBvln0lTuxy6Ar7yTjoX3koSjAj0jwkzSRQLA==
+"@twreporter/redux@5.0.0-beta.6":
+  version "5.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.0-beta.6.tgz#ca51c586e80b760dddd6b38d8e9bf6a6493c4a9d"
+  integrity sha512-/+oIZdduztVo2YN2N/6T85qpIGTRINNCTMt3FnDInn2QIcGX/IoTwdw/eIRbNBEVsPkEq+Gt+ApId8syOPjzKA==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -5252,7 +5252,7 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^1.0.1"
 
-localforage@^1.7.1, localforage@^1.7.3:
+localforage@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.7.3.tgz#0082b3ca9734679e1bd534995bdd3b24cf10f204"
   integrity sha512-1TulyYfc4udS7ECSBT2vwJksWbkwwTX8BzeUIiq8Y07Riy7bDAAnxDaPU/tWyOVmQAcWJIEIFP9lPfBGqVoPgQ==
@@ -7525,7 +7525,7 @@ redux-thunk@^2.3.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
-redux@^3.5.2, redux@^3.6.0:
+redux@^3.6.0:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   integrity sha512-pNqnf9q1hI5HHZRBkj3bAngGZW/JMCmexDlOxw4XagXY2o1327nHH54LoTjiPJ0gizoqPDRqWyX/00g0hD6w+A==
