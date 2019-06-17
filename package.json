@@ -27,7 +27,7 @@
   "dependencies": {
     "@twreporter/react-components": "^6.1.2",
     "@twreporter/react-flex-carousel": "^1.1.1",
-    "@twreporter/redux": "5.0.0-beta.6",
+    "@twreporter/redux": "5.0.0-beta.7",
     "@twreporter/universal-header": "2.0.3-beta-7",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",
@@ -41,7 +41,7 @@
     "path-to-regexp": "^3.0.0",
     "pretty-error": "^2.0.0",
     "prop-types": "^15.0.0",
-    "qs": "^5.2.0",
+    "qs": "^6.0.0",
     "raf": "^3.2.0",
     "rc-slider": "^8.5.0",
     "react": "^16.3.0",
