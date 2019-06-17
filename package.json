@@ -25,6 +25,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@twreporter/react-article-components": "1.0.0-beta.1",
     "@twreporter/react-components": "^6.1.2",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
