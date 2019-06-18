@@ -1,13 +1,15 @@
+import { getBundles } from 'react-loadable/webpack'
+import { Provider } from 'react-redux'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { StaticRouter } from 'react-router-dom'
 import App from '../../app'
+import get from 'lodash/get'
 import Html from '../../helpers/Html'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import get from 'lodash/get'
-import { Provider } from 'react-redux'
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
-import { StaticRouter } from 'react-router-dom'
-import { getBundles } from 'react-loadable/webpack'
+import twreporterRedux from '@twreporter/redux'
+import requestOrigins from '../../constants/request-origins'
 
 const _ = {
   get
@@ -35,7 +37,10 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
       next(new Error(`req.${namespace}.reduxStore is not existed`))
       return
     }
-
+    store.dispatch({
+      type: twreporterRedux.actionTypes.origins.update,
+      payload: requestOrigins.fromClient[options.releaseBranch]
+    })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
     const contentMarkup = ReactDOMServer.renderToString(
