@@ -4,6 +4,7 @@
 import ArticleTools from './ArticleTools'
 import Helmet from 'react-helmet'
 import License from '../components/shared/License'
+import Loadable from 'react-loadable'
 import LogoIcon from '../../static/asset/icon-placeholder.svg'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -34,7 +35,6 @@ import { themesConst } from '../managers/theme-manager'
 
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
-import V2ArticleComponent from '@twreporter/react-article-components'
 
 // lodash
 import get from 'lodash/get'
@@ -108,6 +108,14 @@ const ArticlePlaceholder = () => {
     </constStyledComponents.ResponsiveContainerForAritclePage>
   )
 }
+
+const V2ArticleComponent = Loadable({
+  loader: () => import(
+    /* webpackChunkName: "v2-article" */
+    '@twreporter/react-article-components'
+  ),
+  loading: ArticlePlaceholder
+})
 
 class Article extends PureComponent {
   constructor(props, context) {
