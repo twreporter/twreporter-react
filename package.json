@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.1.9",
+  "version": "4.2.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -25,6 +25,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@twreporter/react-article-components": "1.0.0-beta.1",
     "@twreporter/react-components": "^6.1.2",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "4.0.2",
@@ -47,9 +48,9 @@
     "qs": "^5.2.0",
     "raf": "^3.2.0",
     "rc-slider": "^8.5.0",
-    "react": "^16.3.0",
+    "react": "16.8.4",
     "react-click-outside": "tj/react-click-outside",
-    "react-dom": "^16.3.0",
+    "react-dom": "16.8.4",
     "react-ga": "^2.1.2",
     "react-helmet": "^5.2.0",
     "react-howler": "^3.0.1",
@@ -59,7 +60,7 @@
     "react-social": "^1.4.2",
     "react-swipeable": "^4.2.0",
     "react-transition-group": "^1.2.1",
-    "react-waypoint": "^7.0.3",
+    "react-waypoint": "^9.0.2",
     "react-youtube": "^7.0.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.3.0",

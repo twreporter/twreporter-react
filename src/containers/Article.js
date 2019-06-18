@@ -32,25 +32,17 @@ import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
 import { themesConst } from '../managers/theme-manager'
 
+// dependencies of article component v2
+import Link from 'react-router-dom/Link'
+import V2ArticleComponent from '@twreporter/react-article-components'
+
 // lodash
-import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import has from 'lodash/has'
-import map from 'lodash/map'
-import merge from 'lodash/merge'
-import set from 'lodash/set'
-import sortBy from 'lodash/sortBy'
 import throttle from 'lodash/throttle'
 
 const _ = {
   throttle,
-  forEach,
-  get,
-  has,
-  map,
-  merge,
-  set,
-  sortBy
+  get
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
@@ -321,17 +313,25 @@ class Article extends PureComponent {
     const postEntities = _.get(entities, reduxStateFields.postsInEntities)
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
     const slug = _.get(selectedPost, 'slug', '')
-    const article = camelizeKeys(_.get(postEntities, slug))
-    const articleStyle = _.get(article, 'style')
     const isFetching = _.get(selectedPost, 'isFetching')
 
-    const relateds = camelizeKeys(utils.denormalizePosts(_.get(article, 'relateds', []), postEntities))
-    const topics = camelizeKeys(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities))
-    const topic = topics[0]
+    // prepare related posts and that topic which post belongs to
+    // for v2 article
+    const v2Article = _.get(postEntities, slug, {})
+    let v2RelatedPosts = utils.denormalizePosts(_.get(v2Article, 'relateds', []), postEntities)
+    const v2Topics = utils.denormalizeTopics(_.get(v2Article, 'topics', []), topicEntities, postEntities)
+    const v2Topic = _.get(v2Topics, '0', {})
+    v2RelatedPosts = v2RelatedPosts.concat(_.get(v2Topic, 'relateds', []))
+
+    // for v1 article
+    const article = camelizeKeys(v2Article)
+    const relateds = camelizeKeys(v2RelatedPosts)
+    const topic = camelizeKeys(v2Topic)
     const bodyData = _.get(article, [ 'content', 'apiData' ], [])
     const introData = _.get(article, [ 'brief', 'apiData' ], [])
     const topicName = _.get(topic, 'topicName')
     const topicArr = _.get(topic, 'relateds')
+    const articleStyle = _.get(article, 'style')
 
     // for head tag
     const canonical = SITE_META.URL + 'a/' + slug
@@ -341,18 +341,84 @@ class Article extends PureComponent {
 
     const license = _.get(article, 'copyright', 'Creative-Commons')
 
+    let articleComponentJSX = null
 
-    // render leading components, including
-    // title, subtitle, topic name, hero image, leading video, authors and share buttons.
-    // Those components will be rendered in different orders on demand
-    const layoutJSX = layoutMaker.renderLayout({
-      article,
-      topic,
-      isLeadingAssetFullScreen,
-      styles,
-      fontSize,
-      changeFontSize: this.changeFontSize
-    })
+    if (isFetching) {
+      articleComponentJSX = <ArticlePlaceholder />
+    } else if (articleStyle === themesConst.articlePage.v2.pink) {
+      articleComponentJSX = (
+        <div
+          id="article-body"
+          ref={node => this.articleBody = node}
+        >
+          <V2ArticleComponent
+            colors={styles.colors}
+            post={v2Article}
+            relatedTopic={v2Topic}
+            relatedPosts={v2RelatedPosts}
+            LinkComponent={Link}
+          />
+        </div>
+      )
+    } else {
+      // render leading components, including
+      // title, subtitle, topic name, hero image, leading video, authors and share buttons.
+      // Those components will be rendered in different orders on demand
+      const layoutJSX = layoutMaker.renderLayout({
+        article,
+        topic,
+        isLeadingAssetFullScreen,
+        styles,
+        fontSize,
+        changeFontSize: this.changeFontSize
+      })
+
+      articleComponentJSX = (
+        <React.Fragment>
+          <ArticleContainer
+            fontColor={styles.text.fontColor}
+            ref={div => {this.progressBegin = div}}
+          >
+            {layoutJSX}
+            <div
+              id="article-body"
+              ref={node => this.articleBody = node}
+            >
+              <IntroductionContainer>
+                <Introduction
+                  data={introData}
+                  fontSize={fontSize}
+                />
+              </IntroductionContainer>
+              <Body
+                data={bodyData}
+                fontSize={fontSize}
+                articleStyle={articleStyle}
+              />
+            </div>
+          </ArticleContainer>
+          <DonationBox />
+          <License license={license} publishedDate={article.publishedDate}/>
+          <constStyledComponents.ResponsiveContainerForAritclePage
+            size="small"
+          >
+            <BottomTags
+              data={article.tags}
+            />
+            <BottomRelateds
+              relateds={relateds}
+              currentId={article.id}
+              topicName={topicName}
+              topicArr={topicArr}
+            />
+          </constStyledComponents.ResponsiveContainerForAritclePage>
+          {/* TODO move ArticleTools into react-article-components */}
+          <ArticleTools
+            ref={ ele => this._toolsRef = ele }
+          />
+        </React.Fragment>
+      )
+    }
 
     return (
       <div>
@@ -376,61 +442,17 @@ class Article extends PureComponent {
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          {isFetching ? <ArticlePlaceholder /> :
-            <React.Fragment>
-              <ReadingProgress ref={ele => this.rp = ele}/>
-              <ArticleContainer
-                fontColor={styles.text.fontColor}
-                ref={div => {this.progressBegin = div}}
-              >
-                <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
-                  <meta itemProp="name" content="報導者" />
-                  <meta itemProp="email" content="contact@twreporter.org" />
-                  <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
-                  <link itemProp="url" href="https://www.twreporter.org/" />
-                </div>
-                <link itemProp="mainEntityOfPage" href={canonical} />
-                <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
-                {layoutJSX}
-                <div
-                  id="article-body"
-                  ref={node => this.articleBody = node}
-                >
-                  <IntroductionContainer>
-                    <Introduction
-                      data={introData}
-                      fontSize={fontSize}
-                    />
-                  </IntroductionContainer>
-                  <Body
-                    data={bodyData}
-                    fontSize={fontSize}
-                    articleStyle={articleStyle}
-                  />
-                </div>
-              </ArticleContainer>
-              <DonationBox />
-              <License license={license} publishedDate={article.publishedDate}/>
-              <constStyledComponents.ResponsiveContainerForAritclePage
-                size="small"
-              >
-                <BottomTags
-                  data={article.tags}
-                />
-                <BottomRelateds
-                  relateds={relateds}
-                  currentId={article.id}
-                  topicName={topicName}
-                  topicArr={topicArr}
-                />
-              </constStyledComponents.ResponsiveContainerForAritclePage>
-            </React.Fragment>
-          }
-          <div className="hidden-print">
-            <ArticleTools
-              ref={ ele => this._toolsRef = ele }
-            />
+          <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+            <meta itemProp="name" content="報導者" />
+            <meta itemProp="email" content="contact@twreporter.org" />
+            <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
+            <link itemProp="url" href="https://www.twreporter.org/" />
           </div>
+          <link itemProp="mainEntityOfPage" href={canonical} />
+          <meta itemProp="dateModified" content={date2yyyymmdd(_.get(article, 'updatedAt'))} />
+          <ReadingProgress ref={ele => this.rp = ele}/>
+          { articleComponentJSX }
+
         </div>
       </div>
     )
@@ -503,6 +525,30 @@ function chooseStyles(articleStyle) {
     case themesConst.photography: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
+      break
+    }
+    case themesConst.articlePage.v2.pink: {
+      styles.colors = {
+        primary: {
+          text: '#355ed3',
+          accent: '#ef7ede',
+          support: '#fbafef',
+          background: '#fadaf5'
+        },
+        secondary: {
+          text: '#a67a44',
+          accent: '#a67a44',
+          support: '#d0a67d',
+          background: '#c9af8e'
+        },
+        base: {
+          text: '#404040',
+          lightText: '#808080',
+          button: '#808080',
+          line: '#afafaf',
+          background: '#fff'
+        }
+      }
       break
     }
     default: {
