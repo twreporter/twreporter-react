@@ -2,6 +2,7 @@ import get from 'lodash/get'
 import pathToRegexp from 'path-to-regexp'
 import routesConst from '../constants/routes'
 import twreporterRedux from '@twreporter/redux'
+import globalEnv from '../global-env'
 
 const _ = {
   get
@@ -79,7 +80,16 @@ export default class ThemeManager {
         const entities = reduxState[reduxStateFields.entities]
         const selectedPost = reduxState[reduxStateFields.selectedPost]
         const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
+
+        // TODO remove this condition when staging test done
+        if (selectedPost.slug === 'drama-insight-the-world-between-us' &&
+          globalEnv.releaseBranch === 'release'
+        ) {
+          post.style = themesConst.articlePage.fullscreen.dark
+        }
+
         const style = post.style
+
         switch(style) {
           case themesConst.photography:
           case themesConst.articlePage.v2.pink:
