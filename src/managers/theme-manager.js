@@ -3,6 +3,8 @@ import pathToRegexp from 'path-to-regexp'
 import routesConst from '../constants/routes'
 import twreporterRedux from '@twreporter/redux'
 
+import querystring from 'querystring'
+
 const _ = {
   get
 }
@@ -18,6 +20,9 @@ export const themesConst = {
     fullscreen: {
       dark: 'article:fullscreen:dark',
       normal: 'article:fullscreen:normal'
+    },
+    v2: {
+      pink: 'article:v2:pink'
     }
   }
   // TODO implement topic page theme
@@ -72,13 +77,22 @@ export default class ThemeManager {
       theme: themesConst.withoutHeaderAndFooter
     }, {
       path: routesConst.articlePage.path,
-      theme: (reduxState={}) => {
+      theme: (reduxState={}, location) => {
         const entities = reduxState[reduxStateFields.entities]
         const selectedPost = reduxState[reduxStateFields.selectedPost]
         const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
+
+        // TODO remove testing condition after testing done
+        const searchObj = querystring.parse(_.get(location, 'search', '').slice(1))
+        if (searchObj.theme === themesConst.articlePage.v2.pink) {
+          post.style = themesConst.articlePage.v2.pink
+        }
+
         const style = post.style
+
         switch(style) {
           case themesConst.photography:
+          case themesConst.articlePage.v2.pink:
           case themesConst.articlePage.fullscreen.dark:
           case themesConst.articlePage.fullscreen.normal: {
             return style
@@ -96,12 +110,13 @@ export default class ThemeManager {
    *  @param {string} pathname
    *  @return {string} theme
    */
-  getThemeByParsingPathname(pathname) {
+  getThemeByParsingPathname(location) {
     let theme = this.fallbackTheme
     this.themePathArr.some(themePathMap => {
-      if (pathToRegexp(themePathMap.path).exec(pathname)) {
+      if (pathToRegexp(themePathMap.path).exec(location.pathname)) {
         if (typeof themePathMap.theme === 'function') {
-          theme = themePathMap.theme(themePathMap.params)
+          // TODO remove location after testing
+          theme = themePathMap.theme(themePathMap.params, location)
         } else {
           theme = themePathMap.theme
         }

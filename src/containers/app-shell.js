@@ -539,10 +539,12 @@ class App extends React.PureComponent {
 function mapStateToProps(state, props) {
   const { releaseBranch='master' } = props
   const ts = _.get(state, reduxStatePropKey.nextNotifyPopupTS, 0)
-  const pathname = _.get(props, 'location.pathname', '')
+  // const pathname = _.get(props, 'location.pathname', '')
   const themeManager = new ThemeManager()
   themeManager.prepareThemePathArrForAppShell(state)
-  const theme = themeManager.getThemeByParsingPathname(pathname)
+
+  // TODO replace location by pathname
+  const theme = themeManager.getThemeByParsingPathname(_.get(props, 'location', {}))
   return {
     theme,
     releaseBranch,
