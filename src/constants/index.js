@@ -1,6 +1,5 @@
 'use strict'
 
-export * from './action-types'
 export * from './footer'
 export * from './link-prefix'
 export * from './site-meta'
