@@ -3,8 +3,8 @@
 #### Integration with @twreporter/react-article-components@1.0.0-beta.1
 - Render v2 article page if style is article:v2:pink
 - Update layout and theme manager to adopt article:v2:pink theme
-- Update src/containers/ArticleTools.js: Remove DesktopArticleTools
 - Update dependencies: react, react-dom and react-waypoint
+- Render v2 article page on `theme` query demand
 
 ## Release
 ### 4.1.9
