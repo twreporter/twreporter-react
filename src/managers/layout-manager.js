@@ -6,7 +6,7 @@ import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
 import { themesConst } from './theme-manager'
 
-const HeaderContainerWithTransparentTheme = styled.div`
+const FullScreenHeader = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -15,6 +15,11 @@ const HeaderContainerWithTransparentTheme = styled.div`
   ${screen.mobile`
     position: relative;
   `}
+`
+
+const PinkBackgroundHeader = styled.div`
+  position: relative;
+  background-color: #fabcf0;
 `
 
 const styles = {
@@ -68,16 +73,27 @@ export default class LayoutManager {
       case themesConst.withoutHeaderAndFooter: {
         return null
       }
-      case themesConst.articlePage.fullscreen.dark:
-      case themesConst.articlePage.fullscreen.normal: {
+      case themesConst.articlePage.v2.pink: {
         return (
-          <HeaderContainerWithTransparentTheme>
+          <PinkBackgroundHeader>
             <uh.Header
               theme="transparent"
               releaseBranch={this.releaseBranch}
               isLinkExternal={false}
             />
-          </HeaderContainerWithTransparentTheme>
+          </PinkBackgroundHeader>
+        )
+      }
+      case themesConst.articlePage.fullscreen.dark:
+      case themesConst.articlePage.fullscreen.normal: {
+        return (
+          <FullScreenHeader>
+            <uh.Header
+              theme="transparent"
+              releaseBranch={this.releaseBranch}
+              isLinkExternal={false}
+            />
+          </FullScreenHeader>
         )
       }
       // TODO Header of topic page should be implmeneted here, rather than in topicLandingPage container
