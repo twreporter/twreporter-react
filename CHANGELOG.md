@@ -1,4 +1,12 @@
 ## Unreleased
+## Release
+### 4.2.1 
+#### Dependency Update 
+- @twreporter/react-components@^6.1.4
+
+#### Bug Fix
+- Use named import instead of default import. import Waypoint -> import { Waypoint }
+
 ### 4.2.0
 #### Integration with @twreporter/react-article-components@1.0.0-beta.1
 - Render v2 article page if style is article:v2:pink
@@ -6,7 +14,6 @@
 - Update dependencies: react, react-dom and react-waypoint
 - Render v2 article page on `theme` query demand
 
-## Release
 ### 4.1.9
 - Adjust web push notify popup appearance
 
