@@ -1,3 +1,4 @@
+import { Waypoint } from 'react-waypoint'
 import { colors } from '../../../themes/common-variables'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
@@ -6,7 +7,6 @@ import { storageUrlPrefix } from '../utils/config'
 import LottieAnim from './lottie-animation'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import Waypoint from 'react-waypoint'
 
 const defaultZIndex = 0
 const animCaptions = [ '深度', '開放', '非營利' ]
@@ -17,17 +17,17 @@ const Container = styled.div`
   background-color: ${colors.white};
   overflow: hidden;
   ${screen.overDesktop`
-    margin: 0 0 ${marginBetweenSections.overDesktop} 0;    
+    margin: 0 0 ${marginBetweenSections.overDesktop} 0;
   `}
   ${screen.desktop`
     margin: 0 0 ${marginBetweenSections.desktop} 0;
   `}
   ${screen.tablet`
-    margin: 0 0 ${marginBetweenSections.tablet} 0;    
-  `}  
+    margin: 0 0 ${marginBetweenSections.tablet} 0;
+  `}
   ${screen.mobile`
-    margin: 0 0 ${marginBetweenSections.mobile} 0;    
-  `}    
+    margin: 0 0 ${marginBetweenSections.mobile} 0;
+  `}
 `
 
 const BorderTop = styled.div`
@@ -42,10 +42,10 @@ const BorderTop = styled.div`
   `}
   ${screen.desktop`
     height: 6px;
-  `}  
+  `}
   ${screen.tablet`
     height: 7px;
-  `}  
+  `}
   ${screen.mobile`
     height: 6px;
   `}
@@ -63,7 +63,7 @@ const SectionWrapper = styled.section`
     width: 1024px;
     min-height: 820px;
     padding: 118px 85px 118px 79px;
-  `}  
+  `}
   ${screen.tablet`
     width: 100%;
     padding: 100.9px 96px 67px 90px;
@@ -114,7 +114,7 @@ const IntroWords = styled.div`
     background: ${colors.gray.gray96};
     br {
       display: none;
-    } 
+    }
   `}
 `
 
@@ -130,7 +130,7 @@ const Introduction = styled.div`
     p{
       background-color: ${colors.gray.gray96};
       padding: 5px;
-    }  
+    }
   `}
   ${screen.tabletBelow`
     p{
@@ -155,7 +155,7 @@ const Introduction = styled.div`
       line-height: 1.44;
       letter-spacing: 0.5px;
     }
-  `}  
+  `}
 `
 
 const Content = styled.div`
@@ -182,8 +182,8 @@ const Content = styled.div`
       margin-top: 80px;
       font-size: 20px;
       letter-spacing: 4.7px;
-    }  
-  `}  
+    }
+  `}
   ${screen.mobile`
     height: 380px;
     margin-top: 50px;
@@ -191,8 +191,8 @@ const Content = styled.div`
       margin: 0;
       font-size: 20px;
       letter-spacing: 4.7px;
-    }  
-  `}  
+    }
+  `}
 `
 
 const Caption = styled.div`
@@ -216,7 +216,7 @@ const LottieWrapper = styled.div`
   ${screen.mobile`
     margin: 30px 0;
   `}
-` 
+`
 
 export default class Section1 extends PureComponent {
   constructor(props) {
@@ -298,10 +298,10 @@ export default class Section1 extends PureComponent {
         <Waypoint
           onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
           fireOnRapidScroll
-        />      
+        />
         <BorderTop
           fixed={this.state.isBorderTopfixed}
-          zIndex={this._getBorderZIndex()} 
+          zIndex={this._getBorderZIndex()}
         />
         <SectionWrapper>
           <Title>
@@ -311,13 +311,13 @@ export default class Section1 extends PureComponent {
             {Captions}
             <LottieWrapper>
               <LottieAnim
-                currentAnimIndex={this.state.currentAnim} 
+                currentAnimIndex={this.state.currentAnim}
                 animDidUpdate={this._animUpdated}
               />
             </LottieWrapper>
             <Introduction>
               {this._getIntroWords(this.state.currentAnim)}
-            </Introduction>    
+            </Introduction>
           </Content>
         </SectionWrapper>
       </Container>
