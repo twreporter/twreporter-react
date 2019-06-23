@@ -1,3 +1,4 @@
+import { Waypoint } from 'react-waypoint'
 import { colors } from '../../../themes/common-variables'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
@@ -13,7 +14,6 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
 import Timeline from './timeline'
-import Waypoint from 'react-waypoint'
 
 const _ = {
   orderBy, groupBy, keys
@@ -82,7 +82,7 @@ const Title = styled.div`
   margin: 0;
   span{
     display: none;
-  }  
+  }
   ${screen.desktopAbove`
     position: absolute;
     left: 0;
