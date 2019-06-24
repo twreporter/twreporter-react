@@ -1,10 +1,10 @@
+import { Waypoint } from 'react-waypoint'
 import { replaceStorageUrlPrefix } from '../../utils/url'
 import PropTypes from 'prop-types'
 import React from 'react'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import styled, { css } from 'styled-components'
-import Waypoint from 'react-waypoint'
 
 const Container = styled.div`
   position: relative;
@@ -161,7 +161,7 @@ LeadingVideo.propTypes = {
   src: PropTypes.string,
   title: PropTypes.string,
   viewportHeight: PropTypes.string,
-  topicLeadingVideo: PropTypes.boolean
+  topicLeadingVideo: PropTypes.bool
 }
 
 LeadingVideo.defaultProps = {

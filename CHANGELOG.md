@@ -12,6 +12,12 @@
 - Bump @twreporter/redux version to 5.0.0
 
 ## Release
+### 4.2.1 
+#### Dependency Update 
+- @twreporter/react-components@^6.1.4
+
+#### Bug Fix
+- Use named import instead of default import. import Waypoint -> import { Waypoint }
 
 ### 4.2.0
 #### Integration with @twreporter/react-article-components@1.0.0-beta.1
