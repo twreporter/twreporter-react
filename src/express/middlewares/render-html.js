@@ -39,7 +39,7 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     }
     store.dispatch({
       type: twreporterRedux.actionTypes.origins.update,
-      payload: requestOrigins.fromClient[options.releaseBranch]
+      payload: requestOrigins.forClientSideRendering[options.releaseBranch]
     })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
