@@ -1,12 +1,10 @@
 /* eslint no-console: 0 */
-import * as types from '../constants/action-types'
 import ErrorBoundary from '../components/ErrorBoundary'
 import PropTypes from 'prop-types'
 import React from 'react'
 import axios from 'axios'
 import LayoutManager from '../managers/layout-manager'
 import ThemeManager from '../managers/theme-manager'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import statusCodeConst from '../constants/status-code'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
@@ -20,8 +18,9 @@ const _ = {
   get
 }
 
-const { utils } = twreporterRedux
-const formAPIURL = utils.formAPIURL
+const formAPIURL = twreporterRedux.utils.formAPIURL
+const reduxStatePropKey = twreporterRedux.reduxStateFields
+const actionTypes = twreporterRedux.actionTypes
 
 // TODO move applicationServerPublicKey to config
 const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
@@ -556,7 +555,7 @@ function mapStateToProps(state, props) {
 
 function setNextPopupTS(ts) {
   return {
-    type: types.SET_NEXT_POPUP_TIME_STAMP,
+    type: actionTypes.SET_NEXT_POPUP_TIME_STAMP,
     payload: ts
   }
 }

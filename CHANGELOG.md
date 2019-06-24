@@ -1,4 +1,16 @@
 ## Unreleased
+
+### 4.3.0
+
+#### Update .circleci/config.yml
+- Use `yarn.lock` as the indicator of the change of dependencies
+- Run build only on certain branches
+- Remove test
+
+#### Move Redux actions, reducers, configureStore to @twreporter/redux
+- Remove actions, reducers, configureStore in this repo
+- Bump @twreporter/redux version to 5.0.0
+
 ## Release
 ### 4.2.1 
 #### Dependency Update 

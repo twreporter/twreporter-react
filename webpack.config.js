@@ -153,10 +153,7 @@ const webpackConfig = {
       'process.env': {
         BROWSER: true,
         NODE_ENV: JSON.stringify(config.nodeEnv),
-        RELEASE_BRANCH: JSON.stringify(config.releaseBranch),
-        API_HOST: JSON.stringify(config.API_HOST),
-        API_PORT: JSON.stringify(config.API_PORT),
-        API_PROTOCOL: JSON.stringify(config.API_PROTOCOL)
+        RELEASE_BRANCH: JSON.stringify(config.releaseBranch)
       },
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,

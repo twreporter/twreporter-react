@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { createSingleBookmark, deleteSingleBookmark, getSingleBookmark } from '../actions/bookmarks'
 import BookmarkAddedIconDesktop from '../../static/asset/bookmarks/added-bookmark-desktop.svg'
 import BookmarkAddedIconMobile from '../../static/asset/bookmarks/added-bookmark-mobile.svg'
 import BookmarkUnaddedIconDesktop from '../../static/asset/bookmarks/add-bookmark-desktop.svg'
@@ -8,14 +7,17 @@ import getSignInHref from '../constants/bookmarks/sign-in-href'
 import predefinedPropTypes from '../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
 import styled from 'styled-components'
+import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
 
 const _ = {
   get
 }
+
+const { createSingleBookmark, deleteSingleBookmark, getSingleBookmark } = twreporterRedux.actions
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const buttonWidth = 52
 const buttonHeight = 52

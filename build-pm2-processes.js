@@ -2,7 +2,7 @@ const fs = require('fs')
 const rb = process.env.RELEASE_BRANCH || 'master'
 
 fs.writeFileSync('processes.json', JSON.stringify({
-  apps: [{
+  apps: [ {
     name       : 'server',
     script      : 'dist/server.js',
     max_memory_restart: '1500M',
@@ -11,11 +11,8 @@ fs.writeFileSync('processes.json', JSON.stringify({
     error_file  : 'pm2-server-err.log',
     env         : {
       NODE_ENV: 'production',
-      RELEASE_BRANCH: rb,
-      API_HOST: rb === 'master' ? 'localhost' : 'go-api',
-      API_PROTOCOL: 'http',
-      API_PORT: '8080'
+      RELEASE_BRANCH: rb
     },
     node_args: '--max_old_space_size=2048'
-  }]
+  } ]
 }))
