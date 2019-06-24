@@ -21,6 +21,8 @@ function initReduxStoreMiddleware(namespace, options) {
   return async function middleware(req, res, next) {
     try {
       const cookieList = req.get('cookie')
+      // The redux actions will take the `origins` in the store, and use them as the origins of request url.
+      // We set the initial origins for server side renedering. And we'll set them for client side rendering before we send the store to client.
       const initState = {
         [stateFields.origins]: requestOrigins.forServerSideRendering[options.releaseBranch]
       }

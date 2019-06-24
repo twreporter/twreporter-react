@@ -32,19 +32,21 @@ const _ = {
 function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) {
   return function middleware(req, res, next) {
     const modules = []
-    const store = _.get(req, [ namespace, 'reduxStore' ])
-    if (!store) {
+    const storeForClientSideRendering = _.get(req, [ namespace, 'reduxStore' ])
+    if (!storeForClientSideRendering) {
       next(new Error(`req.${namespace}.reduxStore is not existed`))
       return
     }
-    store.dispatch({
+    // The redux actions will take the `origins` in the store, and use them as the origins of request url.
+    // The initial origins are for server side renedering. So we need to set them for client side rendering before we send the store to client.
+    storeForClientSideRendering.dispatch({
       type: twreporterRedux.actionTypes.origins.update,
       payload: requestOrigins.forClientSideRendering[options.releaseBranch]
     })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
     const contentMarkup = ReactDOMServer.renderToString(
-      <Provider store={store} >
+      <Provider store={storeForClientSideRendering} >
         <StyleSheetManager sheet={sheet.instance}>
           <StaticRouter
             location={req.url}
@@ -71,7 +73,7 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     const html = ReactDOMServer.renderToString(
       <Html
         contentMarkup={contentMarkup}
-        store={store}
+        store={storeForClientSideRendering}
         scripts={scripts}
         styles={webpackAssets.stylesheets}
         styleElement={sheet.getStyleElement()}
