@@ -1,16 +1,15 @@
 import { connect } from 'react-redux'
-import { deleteSingleBookmark, getMultipleBookmarks } from '../actions/bookmarks'
 import Bookmarks from '../components/bookmark-list'
 import Confirmation from '@twreporter/react-components/lib/confirmation'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import getSignInHref from '../constants/bookmarks/sign-in-href'
 import More from '../components/More'
 import predefinedPropTypes from '../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RedirectToSignIn from '../components/bookmark-list/RedirectToSignIn'
-import reduxStatePropKey from '../constants/redux-state-prop-key'
-import getSignInHref from '../constants/bookmarks/sign-in-href'
 import styled from 'styled-components'
+import twreporterRedux from '@twreporter/redux'
 // lodash
 import findIndex from 'lodash/findIndex'
 import get from 'lodash/get'
@@ -21,6 +20,9 @@ const _ = {
   get,
   map
 }
+
+const { deleteSingleBookmark, getMultipleBookmarks } = twreporterRedux.actions
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const defaultLimit = 5
 const defaultSort = 'created_at'

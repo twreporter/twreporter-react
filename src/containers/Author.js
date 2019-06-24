@@ -1,19 +1,20 @@
 'use strict'
 
+import { connect } from 'react-redux'
+import { denormalizeArticles } from '../utils/denormalize-articles'
+import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
+import classNames from 'classnames'
+import commonStyles from '../components/article/Common.scss'
+import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
-import classNames from 'classnames'
-import commonStyles from '../components/article/Common.scss'
-import get from 'lodash/get'
-import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
-import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/denormalize-articles'
-import { fetchAuthorCollectionIfNeeded } from '../actions/author-articles'
-import { fetchAuthorDetails } from '../actions/author-details'
+import twreporterRedux from '@twreporter/redux'
+
+const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.actions
 
 const _ = {
   get

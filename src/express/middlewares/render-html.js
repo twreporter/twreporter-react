@@ -1,13 +1,15 @@
+import { getBundles } from 'react-loadable/webpack'
+import { Provider } from 'react-redux'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { StaticRouter } from 'react-router-dom'
 import App from '../../app'
+import get from 'lodash/get'
 import Html from '../../helpers/Html'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import get from 'lodash/get'
-import { Provider } from 'react-redux'
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
-import { StaticRouter } from 'react-router-dom'
-import { getBundles } from 'react-loadable/webpack'
+import twreporterRedux from '@twreporter/redux'
+import requestOrigins from '../../constants/request-origins'
 
 const _ = {
   get
@@ -30,16 +32,21 @@ const _ = {
 function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) {
   return function middleware(req, res, next) {
     const modules = []
-    const store = _.get(req, [ namespace, 'reduxStore' ])
-    if (!store) {
+    const storeForClientSideRendering = _.get(req, [ namespace, 'reduxStore' ])
+    if (!storeForClientSideRendering) {
       next(new Error(`req.${namespace}.reduxStore is not existed`))
       return
     }
-
+    // The redux actions will take the `origins` in the store, and use them as the origins of request url.
+    // The initial origins are for server side renedering. So we need to set them for client side rendering before we send the store to client.
+    storeForClientSideRendering.dispatch({
+      type: twreporterRedux.actionTypes.origins.update,
+      payload: requestOrigins.forClientSideRendering[options.releaseBranch]
+    })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
     const contentMarkup = ReactDOMServer.renderToString(
-      <Provider store={store} >
+      <Provider store={storeForClientSideRendering} >
         <StyleSheetManager sheet={sheet.instance}>
           <StaticRouter
             location={req.url}
@@ -66,7 +73,7 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     const html = ReactDOMServer.renderToString(
       <Html
         contentMarkup={contentMarkup}
-        store={store}
+        store={storeForClientSideRendering}
         scripts={scripts}
         styles={webpackAssets.stylesheets}
         styleElement={sheet.getStyleElement()}

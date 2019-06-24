@@ -5,12 +5,12 @@ import 'normalize.css'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './app'
-import configureStore from './store/configure-store'
 import globalEnv from './global-env'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
+import twreporterRedux from '@twreporter/redux'
 
 const releaseBranch = globalEnv.releaseBranch
 
@@ -46,7 +46,7 @@ function scrollToTopAndFirePageview() {
   return null
 }
 
-configureStore(reduxState)
+twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
   .then((store) => {
     if (typeof window !== 'undefined') {
       // add Google Analytics
