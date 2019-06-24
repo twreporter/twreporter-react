@@ -22,7 +22,7 @@ function initReduxStoreMiddleware(namespace, options) {
     try {
       const cookieList = req.get('cookie')
       const initState = {
-        [stateFields.origins]: requestOrigins.fromServer[options.releaseBranch]
+        [stateFields.origins]: requestOrigins.forServerSideRendering[options.releaseBranch]
       }
       const reduxStore = await twreporterRedux.createStore(initState, cookieList, __DEVELOPMENT__)
       _.set(req, [ namespace, 'reduxStore' ], reduxStore)
