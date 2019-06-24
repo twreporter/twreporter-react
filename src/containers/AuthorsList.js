@@ -2,6 +2,7 @@
 
 import { connect } from 'react-redux'
 import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
+import { Waypoint } from 'react-waypoint'
 import * as constants from '../constants/authors-list'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
 import classNames from 'classnames'
@@ -16,7 +17,6 @@ import Sponsor from '../components/Sponsor'
 import styles from '../components/authors/AuthorList.scss'
 import twreporterRedux from '@twreporter/redux'
 import values from 'lodash/values'
-import Waypoint from 'react-waypoint'
 
 const { searchAuthorsIfNeeded } = twreporterRedux.actions
 
