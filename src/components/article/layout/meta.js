@@ -8,7 +8,7 @@ import { PublishDate } from '../PublishDate'
 import { ShareBt } from '../ShareBt'
 import { articleLayout as layout } from '../../../themes/layout'
 import { appId } from '../../../constants/index'
-import { getAbsPath } from '../../../utils/url'
+import { getAbsPath } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../../../themes/screen'
 
 const Container = styled.div`

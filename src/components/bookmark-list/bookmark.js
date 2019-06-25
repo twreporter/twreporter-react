@@ -1,5 +1,5 @@
 import { colors, font } from './styles/common-variables'
-import { date2yyyymmdd } from '../../utils/date'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { media, truncate } from './styles/style-utils'
 import BookmarkIcon from '../../../static/asset/bookmarks/bookmark.svg'
 import CustomizedLink from './customized-link'

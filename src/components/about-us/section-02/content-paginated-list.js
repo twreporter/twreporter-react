@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { gray, numbersInfullPage } from './utils'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
@@ -199,7 +199,7 @@ export default class PaginatedMemberList extends PureComponent {
               </Profile>
               <img 
                 onClick={() => this.props.sendEmail(member.email)} 
-                src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+                src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
               />
             </ProfileWrapper>
           </MemberBorder>          
