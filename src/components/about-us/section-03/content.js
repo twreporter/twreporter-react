@@ -1,5 +1,5 @@
 import { colors } from '../../../themes/common-variables'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import AccordionList from './content-accordion-list'
@@ -178,14 +178,14 @@ export default class Content extends PureComponent {
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}>
             <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`}/>
+              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`}/>
             </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
             visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}>
             <ArrowNextIcon>
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`}/>
+              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`}/>
             </ArrowNextIcon>
           </BottomArrow>
         </Arrows>

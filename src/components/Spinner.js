@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { google } from '../conf/storage'
-import { replaceStorageUrlPrefix } from '../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 const spinnerLogoUrl = `${google.schema}://${google.hostname}/${google.bucket}/images/spinner-logo.gif`
 
 const LoadingSpinner = (props) => (
   <div className={props.className}>
-    <img src={replaceStorageUrlPrefix(spinnerLogoUrl)} alt={props.alt}/>
+    <img src={replaceGCSUrlOrigin(spinnerLogoUrl)} alt={props.alt}/>
   </div>
 )
 

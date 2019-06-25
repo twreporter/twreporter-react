@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import MoreInfo from './more-info'
@@ -75,7 +75,7 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section4.png`)});
+  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section4.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -293,7 +293,7 @@ export default class Section4 extends PureComponent {
               onClick={() => this._select(index)}
             >
               <LogoContent>
-                <img src={replaceStorageUrlPrefix(data.logo)} />
+                <img src={replaceGCSUrlOrigin(data.logo)} />
                 <h3>{data.name.english}</h3>
                 <p>{data.name.chinese}</p>
               </LogoContent>
@@ -304,7 +304,7 @@ export default class Section4 extends PureComponent {
             onClick={() => this._select(index)}
           >
             <LogoContent>
-              <img src={replaceStorageUrlPrefix(data.logo)} />
+              <img src={replaceGCSUrlOrigin(data.logo)} />
               <div>
                 <h3>{data.name.english}</h3>
                 <p>{data.name.chinese}</p>

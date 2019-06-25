@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
@@ -215,7 +215,7 @@ const ChineseIntro = styled.div`
 const Title = styled.h1`
   display: block;
   float: left;
-  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-opening.png`)});
+  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-opening.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -225,7 +225,7 @@ const Title = styled.h1`
   ${screen.tabletBelow`
   `}
   ${screen.mobile`
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-opening-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-opening-mob.png`)});
     background-position: center center;
     width: 100%;
     height: 114px;
@@ -540,7 +540,7 @@ export class Opening extends PureComponent {
               <picture>
                 <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
                 <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
               </picture>
               <SeperateLineOnTabletAbove>
                 <h3>・・・</h3>

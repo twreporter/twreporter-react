@@ -5,7 +5,7 @@ import ResolutionSwitchingImage from '../components/shared/Image'
 import constPageThemes from '../constants/page-themes'
 import styled, { css } from 'styled-components'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../utils/date'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { typography } from '../themes/common-variables'
 
 // lodash

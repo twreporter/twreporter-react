@@ -2,7 +2,7 @@ import { Waypoint } from 'react-waypoint'
 import { colors } from '../../../themes/common-variables'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import groupBy from 'lodash/groupBy'
@@ -87,7 +87,7 @@ const Title = styled.div`
     position: absolute;
     left: 0;
     top: 0;
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5.png`)});
   `}
   ${screen.overDesktop`
     width: 327px;
@@ -100,7 +100,7 @@ const Title = styled.div`
     margin: 119px 0 0 80px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5-mob.png`)});
   `}
   ${screen.tablet`
     width: 408px;
@@ -465,7 +465,7 @@ export default class Section5 extends PureComponent {
                   <p>
                     <span>{yearList[0]}</span>
                     <img
-                      src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                      src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/section5-arrow.png`)}`}
                     />
                   </p>
                 </YearRange>

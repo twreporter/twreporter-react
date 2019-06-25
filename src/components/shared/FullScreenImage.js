@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import constPropTypes from '../../constants/prop-types'
 import styled from 'styled-components'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { getSrcSet } from '../../utils/img'
 
 // lodash
@@ -132,12 +132,12 @@ class FullScreenImage extends React.PureComponent {
           alt={alt}
           ref={node => { this._imgNode = node }}
           onLoad={this.onLoad}
-          src={replaceStorageUrlPrefix(_.get(imgSet, 'tablet.url'))}
+          src={replaceGCSUrlOrigin(_.get(imgSet, 'tablet.url'))}
           toShow={isLoaded}
         />
       </StyledPicture>
     ) : <ImgFallback
-      url={replaceStorageUrlPrefix(_.get(imgSet, 'desktop.url'))}
+      url={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))}
     />
     return (
       <FullScreenContainer

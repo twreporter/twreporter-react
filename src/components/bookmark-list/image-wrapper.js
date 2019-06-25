@@ -1,4 +1,4 @@
-import { replaceStorageUrlPrefix } from './utils/storage-url-processor'
+import { replaceGCSUrlOrigin } from './utils/storage-url-processor'
 import get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -53,7 +53,7 @@ class ImgWrapper extends React.Component {
       <ImgObjectFit>
         <img
           alt={alt}
-          src={replaceStorageUrlPrefix(src)}
+          src={replaceGCSUrlOrigin(src)}
           srcSet={srcSet}
           style={{
             transform: 'translateZ(0)'
@@ -63,7 +63,7 @@ class ImgWrapper extends React.Component {
       </ImgObjectFit>
     ) : (
       <ImgFallback
-        url={replaceStorageUrlPrefix(src)}
+        url={replaceGCSUrlOrigin(src)}
       >
         {this.props.children}
       </ImgFallback>

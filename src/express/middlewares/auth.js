@@ -1,7 +1,7 @@
+import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
 import getRoutes from '../../routes'
-import getSignInHref from '../../constants/bookmarks/sign-in-href'
 import twreporterRedux from '@twreporter/redux'
 
 const _ = {

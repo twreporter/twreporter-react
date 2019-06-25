@@ -3,7 +3,7 @@ import { colors } from '../../../themes/common-variables'
 import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import CarouselMemberList from './content-carousel-list'
@@ -65,7 +65,7 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section2.png`)});
+  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section2.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -81,7 +81,7 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section2-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section2-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;

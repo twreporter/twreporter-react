@@ -12,7 +12,7 @@ const mainSite = {
   url: 'https://www.twreporter.org'
 }
 
-export function replaceStorageUrlPrefix(url = '', isDev = __DEVELOPMENT__) {
+export function replaceGCSUrlOrigin(url = '', isDev = __DEVELOPMENT__) {
   if (isDev || typeof url !== 'string') {
     return url
   }

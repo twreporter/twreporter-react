@@ -11,7 +11,7 @@ import PlayIcon from '../../../static/asset/audio-play.svg'
 import raf from 'raf' // requestAnimationFrame polyfill
 import styles from './Audio.scss'
 import Image from './Image'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import 'rc-slider/assets/index.css'
 import './rcslider-overwrite.css'
 
@@ -160,7 +160,7 @@ class Audio extends React.Component {
     const { duration, isFocused, isOncePlayed, isPlaying, seek } = this.state
     const { url, coverPhoto, title, description } = get(content, 0, {})
 
-    let vUrl = replaceStorageUrlPrefix(url)
+    let vUrl = replaceGCSUrlOrigin(url)
 
     const player = (
       <Player
