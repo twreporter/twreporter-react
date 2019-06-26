@@ -141,10 +141,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/react-article-components@1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.0-beta.3.tgz#a8f924928d41043d588cf67fdf0833f6bbca8a99"
-  integrity sha512-2COKIUDMdqawudy43H1Qb1dy/ohtBMS2FHpgDITwBtnkncQ4Otqog7pL8Xt+PvApbKSvbdUEFul2KPNKmflWVQ==
+"@twreporter/react-article-components@1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.0-beta.4.tgz#c7914ad1683063570c65948f38adfbbb2507156d"
+  integrity sha512-gWajg/rXYAyWkyb3rgt9xRaxxF1RUhuLjOY8YAT956ji9j+3Vsd4s3/j/+aa9DwRjII+FWUCCdvH+IK3XB2xig==
   dependencies:
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
