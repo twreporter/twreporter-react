@@ -1,4 +1,5 @@
 ## Unreleased
+- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
 
 ### 4.3.0
 
