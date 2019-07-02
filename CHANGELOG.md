@@ -2,6 +2,9 @@
 
 ### 4.3.0
 - Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
+- Move some utils and constants to new package `@twreporter/core`
+- Remove legacy code
+- Update Webpack `resolve.modules` to retrieve modules from the `node_modules` of this repo
 
 #### Update .circleci/config.yml
 - Use `yarn.lock` as the indicator of the change of dependencies
