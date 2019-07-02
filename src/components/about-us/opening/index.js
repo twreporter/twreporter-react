@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/core/lib/utils/storage-url-processor'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'

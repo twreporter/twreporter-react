@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/core/lib/utils/storage-url-processor'
+import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import Navigation from '../utils/navigation'

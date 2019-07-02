@@ -62,9 +62,6 @@ const webpackConfig = {
     host: webpackDevServerHost,
     port: webpackDevServerPort
   },
-  resolve: {
-    modules: [ path.resolve(__dirname, 'node_modules'), 'node_modules' ]
-  },
   module: {
     rules: [
       {
