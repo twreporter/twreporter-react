@@ -3,6 +3,15 @@
 ### 4.3.0
 - Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
 
+- Remove legacy code
+- Update Webpack `resolve.modules` to retrieve modules from the `node_modules` of this repo
+
+#### Adapt new packages
+- Add new dependencies `@twreporter/core` and `@twreporter/index-page`
+- Move some utils and constants to new package `@twreporter/core`
+- Move `BookmarkList` and `BookmarkWidget` to `@twreporter/react-components` 
+- Retrive index components from `@twreporter/index-page`
+
 #### Update .circleci/config.yml
 - Use `yarn.lock` as the indicator of the change of dependencies
 - Run build only on certain branches
@@ -10,7 +19,7 @@
 
 #### Move Redux actions, reducers, configureStore to @twreporter/redux
 - Remove actions, reducers, configureStore in this repo
-- Bump @twreporter/redux version to 5.0.0
+- Bump `@twreporter/redux` version to 5.0.1
 
 ## Release
 ### 4.2.1 
