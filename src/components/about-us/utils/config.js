@@ -1,4 +1,4 @@
-import { storage } from '@twreporter/react-components/lib/shared/configs'
+import * as storage from '@twreporter/core/lib/constants/storage'
 
 const IMAGES_FOLDER = 'images'
 const ABOUTUS_FOLDER = 'about-us'
