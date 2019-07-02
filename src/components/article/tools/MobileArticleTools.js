@@ -3,7 +3,7 @@ import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobi
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
 import BookmarkWidget from '@twreporter/react-components/lib/bookmark-widget'
 import Link from 'react-router-dom/Link'
-import predefinedPropTypes from '../../../constants/bookmarks/prop-types'
+import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'
 import soothScroll from 'smoothscroll'
