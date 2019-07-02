@@ -1,8 +1,8 @@
 ## Unreleased
-### 4.3.1
-- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
 
 ### 4.3.0
+- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
+
 #### Update .circleci/config.yml
 - Use `yarn.lock` as the indicator of the change of dependencies
 - Run build only on certain branches
