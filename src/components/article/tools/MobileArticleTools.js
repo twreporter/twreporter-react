@@ -1,7 +1,7 @@
 import { LINK_PREFIX } from '../../../constants/link-prefix'
 import BackToTopicIcon from '../../../../static/asset/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../../../static/asset/article-back-to-top-mobile.svg'
-import BookmarkWidget from '../../../containers/BookmarkWidget'
+import BookmarkWidget from '@twreporter/react-components/lib/bookmark-widget'
 import Link from 'react-router-dom/Link'
 import predefinedPropTypes from '../../../constants/bookmarks/prop-types'
 import PropTypes from 'prop-types'
