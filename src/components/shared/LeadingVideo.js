@@ -1,5 +1,5 @@
 import { Waypoint } from 'react-waypoint'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PropTypes from 'prop-types'
 import React from 'react'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
@@ -136,7 +136,7 @@ class LeadingVideo extends React.PureComponent {
             loop={loop}
             topicLeadingVideo={topicLeadingVideo}
           >
-            <source src={replaceStorageUrlPrefix(src)} type={filetype} />
+            <source src={replaceGCSUrlOrigin(src)} type={filetype} />
           </Video>
           <VideoMask />
           {isMuted ?

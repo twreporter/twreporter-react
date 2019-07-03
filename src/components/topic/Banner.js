@@ -1,5 +1,5 @@
 import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
-import { date2yyyymmdd } from '../../utils/date'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { TOPIC_LAST_UPDATED } from '../../constants/index'
 import ArrowDownIcon from '../../../static/asset/arrow-down.svg'
 import PropTypes from 'prop-types'

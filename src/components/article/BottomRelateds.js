@@ -1,7 +1,7 @@
 /*eslint no-unused-vars:0*/
 'use strict'
 import { CHARACTERS_LIMIT, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE, RELATED_ARTICLES, LOAD_MORE_ARTICLES, ITEMS_LIMIT } from '../../constants/index'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { shortenString } from '../../utils/string'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
@@ -51,7 +51,7 @@ export class BottomRelateds extends Component {
     listItems = filter(listItems, (related) => { return related.id!==currentId })
 
     const relatedRows = map(listItems, (related, index) => {
-      let imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.resizedTargets.tiny.url', '/asset/review.png'))
+      let imageUrl = replaceGCSUrlOrigin(get(related, 'heroImage.resizedTargets.tiny.url', '/asset/review.png'))
       const description = get(related, 'ogDescription', '')
       let itemDisplayClass = (index >= ITEMS_LIMIT.ARTICLE_RELATED && !isCollapse)? commonStyles['hide'] : null
       const style = get(related, 'style')

@@ -3,16 +3,16 @@
 import 'babel-polyfill'
 import 'normalize.css'
 import { BrowserRouter, Route } from 'react-router-dom'
+import { getGlobalEnv } from '@twreporter/core/lib/utils/global-env'
 import { Provider } from 'react-redux'
 import App from './app'
-import globalEnv from './global-env'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 import twreporterRedux from '@twreporter/redux'
 
-const releaseBranch = globalEnv.releaseBranch
+const releaseBranch = getGlobalEnv().releaseBranch
 
 let reduxState
 

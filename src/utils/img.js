@@ -1,5 +1,5 @@
 'use strict'
-import { replaceStorageUrlPrefix } from './url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import get from 'lodash/get'
 import sz from '../constants/screen-size'
 
@@ -33,15 +33,15 @@ export const getSrcSet = (imgSet) => {
   let srcset = ''
 
   if (desktopUrl) {
-    srcset += `${replaceStorageUrlPrefix(desktopUrl)} ${_.get(imgSet, 'desktop.width', sz.largeScreenMinWidth)}w,`
+    srcset += `${replaceGCSUrlOrigin(desktopUrl)} ${_.get(imgSet, 'desktop.width', sz.largeScreenMinWidth)}w,`
   }
 
   if (tabletUrl) {
-    srcset += `${replaceStorageUrlPrefix(tabletUrl)} ${_.get(imgSet, 'tablet.width', sz.mediumScreenMinWidth)}w,`
+    srcset += `${replaceGCSUrlOrigin(tabletUrl)} ${_.get(imgSet, 'tablet.width', sz.mediumScreenMinWidth)}w,`
   }
 
   if (mobileUrl) {
-    srcset += `${replaceStorageUrlPrefix(mobileUrl)} ${_.get(imgSet, 'mobile.width', sz.smallScreenMinWidth)}w`
+    srcset += `${replaceGCSUrlOrigin(mobileUrl)} ${_.get(imgSet, 'mobile.width', sz.smallScreenMinWidth)}w`
   }
 
   return srcset

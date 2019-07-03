@@ -1,4 +1,4 @@
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import PropTypes from 'prop-types'
@@ -60,12 +60,12 @@ export default class Arrows extends PureComponent {
               <LeftArrow
                 isvisible={visible}
                 onClick={() => changePage('prev') }>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
               </LeftArrow>
               <RightArrow
                 isvisible={visible}
                 onClick = {() => changePage('next') }>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
               </RightArrow>
             </Container> : null
         }
