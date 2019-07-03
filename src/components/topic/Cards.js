@@ -11,8 +11,8 @@ import stylesInColumn from './CardsInColumn.scss'
 import stylesInRows from './CardsInRows.scss'
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX, TOPIC_ITEMS_LIMIT, TOPIC_LOAD_MORE_ARTICLES } from '../../constants/index'
 import { addStylesToPropsDecorator } from '../shared/ComponentDecorators'
-import { date2yyyymmdd } from '../../utils/date'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { shortenString } from '../../utils/string'
 
 const _ = {
@@ -38,7 +38,7 @@ class Cards extends PureComponent {
     const { isExpanded } = this.state
 
     const _itemToCardJsx =  (item, index) => {
-      const imageUrl = replaceStorageUrlPrefix(get(item, 'heroImage.resizedTargets.mobile.url', '/asset/review.png')),
+      const imageUrl = replaceGCSUrlOrigin(get(item, 'heroImage.resizedTargets.mobile.url', '/asset/review.png')),
         slug = get(item, 'slug', ''),
         title = get(item, 'title', ''),
         publishedDate = date2yyyymmdd(get(item, 'publishedDate', ''), '.'),

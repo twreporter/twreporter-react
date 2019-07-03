@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { colors, lineHeight, typography } from '../../themes/common-variables'
 import { getSrcSet } from '../../utils/img'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 const _ = {
   get
@@ -150,7 +150,7 @@ class Image extends React.PureComponent {
               alt={alt}
               sizes={sizes}
               onLoad={this.onLoad}
-              src={replaceStorageUrlPrefix(_.get(imgSet, 'mobile.url'))}
+              src={replaceGCSUrlOrigin(_.get(imgSet, 'mobile.url'))}
               srcSet={srcSet}
               ref={node => { this._imgNode = node }}
               itemProp="contentUrl"

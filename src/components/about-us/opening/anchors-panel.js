@@ -3,7 +3,7 @@ import { colors } from '../../../themes/common-variables'
 import { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
@@ -257,13 +257,13 @@ class AnchorsPanel extends React.PureComponent {
             </AnchorsContainer>
             <Icons>
               <a href={hrefs.donate} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
               </a>
               <a href={hrefs.subscribe} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
               </a>
               <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
               </a>
             </Icons>
             <EnglishVersionLink href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">

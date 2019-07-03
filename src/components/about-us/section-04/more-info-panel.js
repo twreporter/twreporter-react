@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import InfoPanel from './more-info-panel'
@@ -223,7 +223,7 @@ export default class MoreInfo extends PureComponent {
               navigationWidth = {22}                          
             />
           </NavigationWrapper>
-          <img src={replaceStorageUrlPrefix(selectedItem.photo)} />
+          <img src={replaceGCSUrlOrigin(selectedItem.photo)} />
           <InfoWrapper>
             <h4>{selectedItem.date}</h4>
             <p>
@@ -231,7 +231,7 @@ export default class MoreInfo extends PureComponent {
             </p>
             <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
               <ArrowNextIcon>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
               </ArrowNextIcon>
             </RightArrow>
           </InfoWrapper>

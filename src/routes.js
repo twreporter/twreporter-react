@@ -103,7 +103,7 @@ const loadablePages = {
   bookmarkList: Loadable({
     loader: () => import(
       /* webpackChunkName: "bookmark-list" */
-      './containers/BookmarkList'
+      '@twreporter/react-components/lib/bookmark-list'
     ),
     loading: LoadingComponent
   })

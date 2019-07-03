@@ -4,8 +4,8 @@ import Hexagon from './Hexagon'
 import React from 'react'
 import Slider from '@twreporter/react-flex-carousel'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
-import { date2yyyymmdd } from '../utils/date'
-import { replaceStorageUrlPrefix } from '../utils/url'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { getSrcSet } from '../utils/img'
 import './TopNews.css'
 
@@ -35,7 +35,7 @@ export default class TopNews extends React.PureComponent {
             <Link key={a.id} to={prefix + a.slug} target={target}>
               <img
                 alt={_.get(a, 'heroImage.description') || _.get(a, 'ogImage.description')}
-                src={replaceStorageUrlPrefix(_.get(a, 'heroImage.resizedTargets.mobile.url') || _.get(a, 'ogImage.resizedTargets.mobile.url'))}
+                src={replaceGCSUrlOrigin(_.get(a, 'heroImage.resizedTargets.mobile.url') || _.get(a, 'ogImage.resizedTargets.mobile.url'))}
                 srcSet={getSrcSet(_.get(a, 'heroImage.resizedTargets') || _.get(a, 'ogImage.resizedTargets'))} />
               <div className="topnews_categorycontainer">
                 <Hexagon>{catDisplay}</Hexagon>

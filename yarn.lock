@@ -141,36 +141,68 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/react-article-components@1.0.0-beta.4":
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.0-beta.4.tgz#c7914ad1683063570c65948f38adfbbb2507156d"
-  integrity sha512-gWajg/rXYAyWkyb3rgt9xRaxxF1RUhuLjOY8YAT956ji9j+3Vsd4s3/j/+aa9DwRjII+FWUCCdvH+IK3XB2xig==
+"@twreporter/core@1.0.0", "@twreporter/core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.0.tgz#50741d713b3f6d499f480e65e8b502207780fb3e"
+  integrity sha512-XaJlPVbXQQv70KLD+TZKxWP8ErUlXO2sopd7NWYdPiLDG9m8iBoLk7s0Ik6O7thN4WvwehHuZMLZEOA7h+S9nQ==
+  dependencies:
+    lodash "^4.0.0"
+    styled-components "^4.0.0"
+
+"@twreporter/index-page@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.0.tgz#4ef1921c6a53765c949c21f053090e2435337da0"
+  integrity sha512-x8f30QEyicixyOx6nSEu7RXtkqsE6YtL+AN4h6f7fsJY/8xQeLeJifgtIOJiJEEVi8Q6PW/+V+/h6oBYTBC/Zw==
+  dependencies:
+    "@twreporter/core" "1.0.0"
+    "@twreporter/velocity-react" "^1.4.1"
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-dom "^16.3.0"
+    react-router-dom "^4.3.1"
+    react-swipeable "^4.0.1"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/react-article-components@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.2.tgz#b1a16f33306f2e9524a93c49a5328bb1a536c1b7"
+  integrity sha512-UJqVLTWYByV19/EHw4GqnO8UGs47sPRuShXxz6HVHzE71T1dQjbh0qLcKeLHd/Yikq5GWtWudwl2XiC9VXvpvg==
   dependencies:
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
     smoothscroll "^0.4.0"
 
-"@twreporter/react-components@6.1.4":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-6.1.4.tgz#1245ec209388a34630228b0402afef0b3df13a29"
-  integrity sha512-KnRN5RFrPyEA8TqCiTE8tbT5c8nNFwQTCbLJJ9Xt7q15GKpR/8l7CmuqwRsfqXXShgxGbzeyQvq9MAPIJYybjQ==
+"@twreporter/react-components@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.0.tgz#959dffd840f66af1c6e56e7baa030c8c0e918bee"
+  integrity sha512-8ZPPKrpZvR385lzLbDldutJebUu0jJkbqrCKU62dKkXjdx0NYiTjpa8/Pq56FekE+FJi87S+uQkJ+Ljoh83LBg==
   dependencies:
-    "@twreporter/velocity-react" "^1.4.1"
+    "@twreporter/core" "1.0.0"
+    "@twreporter/redux" "5.0.1"
     hoist-non-react-statics "^2.3.1"
-    react-swipeable "^4.0.1"
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-dom "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^4.3.1"
     react-transition-group "^1.2.1"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
 
 "@twreporter/react-flex-carousel@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
-"@twreporter/redux@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.0.tgz#68aee746bd0c3029393f0001325102031eb660fc"
-  integrity sha512-Qy+V3SEYu6QooDsSHeiueaI6bmxQR/2r6RMKhl1ZSrZY5a3urlr1uvJXCfua0ZGrCV+Na0sQiJtxZY9Oh5KfyA==
+"@twreporter/redux@5.0.1", "@twreporter/redux@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.1.tgz#6deb3221538691b2f31f58eb585817909dc77b22"
+  integrity sha512-JrhklJHAo2nWV8N6SwOo6L5T1/vZMffaFLAnxa9GkDUAFO+USEu3o6He6qfJJjZieDBMOjsQyQTeUeWoX7z1Cg==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -183,10 +215,10 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.0.3-beta-7":
-  version "2.0.3-beta-7"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.3-beta-7.tgz#4b973bbb695cd8f1a49851a0a2d83c39bb8a72b6"
-  integrity sha512-B+EbgRI00kwRKUfO0U/dqsi6OWcIzQIhCbP4H3wGfF4sGMDyMzZUsGRG3HJH7hgYVxBiej9Oes/dhhzbTgE2Ng==
+"@twreporter/universal-header@2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.5.tgz#18d13cabc164616d04410c32f3d41818c1ac0ed0"
+  integrity sha512-Oi0QLnd3VrLYG0ZEqJqQB+GCFQaytSOpV52UiPHb8SFnlODXX9PfaTAu2VxXZZVlwLkbIav4VrU17v05QGVYiQ==
   dependencies:
     axios "^0.18.0"
     lodash "^4.17.11"
@@ -196,7 +228,6 @@
     react "^16.3.0"
     react-dom "^16.3.0"
     react-redux "^6.0.0"
-    react-router "^3.0.0"
     react-router-dom "^4.3.1"
     react-transition-group "^1.2.1"
     redux "^4.0.1"
@@ -2430,7 +2461,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.1, create-react-class@^15.6.0:
+create-react-class@^15.6.0:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -4196,16 +4227,6 @@ he@1.1.1:
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
   integrity sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
 
-history@^3.0.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/history/-/history-3.3.0.tgz#fcedcce8f12975371545d735461033579a6dae9c"
-  integrity sha1-/O3M6PEpdTcVRdc1RhAzV5ptrpw=
-  dependencies:
-    invariant "^2.2.1"
-    loose-envify "^1.2.0"
-    query-string "^4.2.2"
-    warning "^3.0.0"
-
 history@^4.7.2:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/history/-/history-4.9.0.tgz#84587c2068039ead8af769e9d6a6860a14fa1bca"
@@ -4527,7 +4548,7 @@ interpret@^1.0.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.2.0.tgz#d5061a6224be58e8083985f5014d844359576296"
   integrity sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
 
-invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
+invariant@^2.2.0, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -7090,7 +7111,7 @@ qs@^6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-query-string@^4.1.0, query-string@^4.2.2:
+query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   integrity sha1-u7aTucqRXCMlFbIosaArYJBD2+s=
@@ -7317,19 +7338,6 @@ react-router-dom@^4.3.1:
     prop-types "^15.6.1"
     react-router "^4.3.1"
     warning "^4.0.1"
-
-react-router@^3.0.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
-  integrity sha512-SXkhC0nr3G0ltzVU07IN8jYl0bB6FsrDIqlLC9dK3SITXqyTJyM7yhXlUqs89w3Nqi5OkXsfRUeHX+P874HQrg==
-  dependencies:
-    create-react-class "^15.5.1"
-    history "^3.0.0"
-    hoist-non-react-statics "^2.3.1"
-    invariant "^2.2.1"
-    loose-envify "^1.2.0"
-    prop-types "^15.5.6"
-    warning "^3.0.0"
 
 react-router@^4.3.1:
   version "4.3.1"

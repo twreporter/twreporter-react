@@ -1,6 +1,4 @@
-/*eslint no-unused-vars:0*/
-'use strict'
-import { date2yyyymmdd } from '../../utils/date'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import React, { Component } from 'react'
 import commonStyles from './Common.scss'
 import classNames from 'classnames'
@@ -20,12 +18,9 @@ export class PublishDate extends Component {
 
   render() {
     const { date } = this.props
-    const dateTime = new Date(date)
-    let fDate = date2yyyymmdd(date, '.')
-
     return (
       <span itemProp="datePublished" className={classNames(styles['publish-date'], commonStyles['desc-text-color'])}>
-        {fDate}
+        {date2yyyymmdd(date, '.')}
       </span>
     )
   }

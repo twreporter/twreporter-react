@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import awardsList from '../constants/section-03/awards.json'
@@ -96,7 +96,7 @@ const LeftColumnOnDesktopAbove = styled.div`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section3.png`)});
+  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section3.png`)});
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
@@ -113,7 +113,7 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section3-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section3-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -338,10 +338,10 @@ export default class Section3 extends PureComponent {
             </ListSelector>
             <Achievement>
               <AwardsCount>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
                 <h2>{awardsList.length}</h2>
                 <p>件</p>
-                <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
               </AwardsCount>
               <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
             </Achievement>
