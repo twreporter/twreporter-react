@@ -1,4 +1,5 @@
 ## Unreleased
+- Update about-us page to include staffing change
 
 ### 4.3.0
 - Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
