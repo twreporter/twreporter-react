@@ -152,12 +152,14 @@ const webpackConfig = {
     ]
   },
   plugins: [
+    /*
+      Do not retreive the global value via code like `_.get(process, `env.NODE_ENV`)`.
+      Because the `process.env` is a empty object untouched by `webpack.DefinePlugin`.
+    */
     new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: true,
-        NODE_ENV: JSON.stringify(config.nodeEnv),
-        RELEASE_BRANCH: JSON.stringify(config.releaseBranch)
-      },
+      'process.env.BROWSER': true,
+      'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
+      'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch),
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE

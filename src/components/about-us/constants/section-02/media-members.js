@@ -96,15 +96,6 @@ const members = [
     category: categoryIds.photojournalist
   },
   {
-    name: '陳貞樺',
-    nameEng: 'Mimi Chen',
-    job: '數位專案經理',
-    jobEng: 'Digital Product Manager',
-    email: 'mimichen@twreporter.org',
-    profile: memberUrlPrefix + membersImg.digiMimiChen,
-    category: categoryIds.digital
-  },
-  {
     name: '余崇任',
     nameEng: 'Yu Chung-Jen',
     job: '工程師',
@@ -157,15 +148,6 @@ const members = [
     email: 'dadawu@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiDaDaWu,
     category: categoryIds.digital
-  },
-  {
-    name: '蔣宜婷',
-    nameEng: 'I Ting Chiang',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'itingchiang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editItingChiang,
-    category: categoryIds.editor
   },
   {
     name: '吳柏緯',
