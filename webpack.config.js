@@ -152,6 +152,10 @@ const webpackConfig = {
     ]
   },
   plugins: [
+    /*
+      Do not retreive the global value via code like `_.get(process, `env.NODE_ENV`)`.
+      Because the `process.env` is a empty object untouched by `webpack.DefinePlugin`.
+    */
     new webpack.DefinePlugin({
       'process.env.BROWSER': true,
       'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
