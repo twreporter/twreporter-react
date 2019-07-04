@@ -153,11 +153,9 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: true,
-        NODE_ENV: JSON.stringify(config.nodeEnv),
-        RELEASE_BRANCH: JSON.stringify(config.releaseBranch)
-      },
+      'process.env.BROWSER': true,
+      'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
+      'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch),
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
