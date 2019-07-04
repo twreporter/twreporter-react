@@ -1,9 +1,11 @@
 ## Unreleased
+
+## Release
+### 4.3.1
 - Update about-us page to include staffing change
 
 ### 4.3.0
 - Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
-
 - Remove legacy code
 - Update Webpack `resolve.modules` to retrieve modules from the `node_modules` of this repo
 
@@ -22,7 +24,6 @@
 - Remove actions, reducers, configureStore in this repo
 - Bump `@twreporter/redux` version to 5.0.1
 
-## Release
 ### 4.2.1 
 #### Dependency Update 
 - @twreporter/react-components@^6.1.4
