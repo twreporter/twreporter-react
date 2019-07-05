@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
@@ -369,7 +369,7 @@ export default class CarouselMemberList extends PureComponent {
                     return(
                       <Member key={index}>
                         <img
-                          src={`${replaceStorageUrlPrefix(member.profile)}`}
+                          src={`${replaceGCSUrlOrigin(member.profile)}`}
                         />
                         <Info
                           isMailIconVisible={typeof member.email !== 'undefined'}
@@ -378,7 +378,7 @@ export default class CarouselMemberList extends PureComponent {
                           <p>{member.name}</p>
                           <img
                             onClick={() => sendEmail(member.email)}
-                            src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/mail.png`)}`}
+                            src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
                           />
                         </Info>
                       </Member>

@@ -13,7 +13,7 @@ import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
 import { InternalServerError } from '../custom-error'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '../utils/date'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
 
 const _ = {

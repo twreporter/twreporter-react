@@ -106,6 +106,7 @@ class TopicLandingPage extends Component {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
     const topic = camelizeKeys(utils.denormalizeTopics(slug, topicEntities, postEntities)[0])
     const {
+      ogImage: ogImageInfos,      // ogImage {object} - Topic og image infos
       leadingImage, // leadingImage {object} - Topic leading image infos
       leadingVideo, // leadingVideo {object} - Topic leading video infos
       publishedDate,// publishedDate {string} -  Date format as "Mon, 19 Dec 2016 00:00:00 GMT"
@@ -121,7 +122,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'teamDescription.apiData', []) // {array}
     const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
     const ogTitle = _.get(topic, 'ogTitle', '') || _.get(topic, 'title', '')
-    const ogImage = _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
+    const ogImage = _.get(ogImageInfos, 'resizedTargets.tablet.url') || _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
 
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL

@@ -127,7 +127,7 @@ class ExpressServer {
         req[namespace] = middlewareContext
         next()
       },
-      initReduxStoreMiddleware(namespace),
+      initReduxStoreMiddleware(namespace, options),
       authMiddleware(namespace, options),
       dataLoaderMiddleware(namespace),
       renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options),

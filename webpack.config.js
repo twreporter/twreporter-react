@@ -62,6 +62,9 @@ const webpackConfig = {
     host: webpackDevServerHost,
     port: webpackDevServerPort
   },
+  resolve: {
+    modules: [ path.resolve(__dirname, 'node_modules'), 'node_modules' ]
+  },
   module: {
     rules: [
       {
@@ -149,15 +152,14 @@ const webpackConfig = {
     ]
   },
   plugins: [
+    /*
+      Do not retreive the global value via code like `_.get(process, `env.NODE_ENV`)`.
+      Because the `process.env` is a empty object untouched by `webpack.DefinePlugin`.
+    */
     new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: true,
-        NODE_ENV: JSON.stringify(config.nodeEnv),
-        RELEASE_BRANCH: JSON.stringify(config.releaseBranch),
-        API_HOST: JSON.stringify(config.API_HOST),
-        API_PORT: JSON.stringify(config.API_PORT),
-        API_PROTOCOL: JSON.stringify(config.API_PROTOCOL)
-      },
+      'process.env.BROWSER': true,
+      'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
+      'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch),
       __CLIENT__: true,
       __DEVELOPMENT__: !isProduction,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE

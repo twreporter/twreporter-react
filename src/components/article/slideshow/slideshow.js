@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import commonStyles from '../Common.scss'
 import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
-import { replaceStorageUrlPrefix } from '../../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -51,9 +51,9 @@ class Slideshow extends Component {
   }
 
   _composeSrcSet(imgObj) {
-    let desktopSrc = replaceStorageUrlPrefix(get(imgObj, [ 'desktop', 'url' ]))
-    let tabletSrc = replaceStorageUrlPrefix(get(imgObj, [ 'tablet', 'url' ]))
-    let mobileSrc = replaceStorageUrlPrefix(get(imgObj, [ 'mobile', 'url' ]))
+    let desktopSrc = replaceGCSUrlOrigin(get(imgObj, [ 'desktop', 'url' ]))
+    let tabletSrc = replaceGCSUrlOrigin(get(imgObj, [ 'tablet', 'url' ]))
+    let mobileSrc = replaceGCSUrlOrigin(get(imgObj, [ 'mobile', 'url' ]))
     return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
   }
 
@@ -65,11 +65,11 @@ class Slideshow extends Component {
       let thumbnail = {}
       let defaultImg = imgObj.url
       let id = get(imgObj, 'id')
-      slide.src = replaceStorageUrlPrefix(defaultImg || get(imgObj, [ 'desktop', 'url' ]))
+      slide.src = replaceGCSUrlOrigin(defaultImg || get(imgObj, [ 'desktop', 'url' ]))
       slide.id = id
       slide.description = imgObj.description
       slide.srcSet = this._composeSrcSet(imgObj)
-      thumbnail.src = replaceStorageUrlPrefix(get(imgObj, [ 'tiny', 'url' ], defaultImg))
+      thumbnail.src = replaceGCSUrlOrigin(get(imgObj, [ 'tiny', 'url' ], defaultImg))
       thumbnail.id = id
       slides.push(slide)
       thumbnails.push(thumbnail)

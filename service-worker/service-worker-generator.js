@@ -3,7 +3,9 @@ import crypto from 'crypto'
 import externalFunctions from './functions'
 import fs from 'fs'
 import path from 'path'
+import requestOrigins from '../src/constants/request-origins'
 import template from 'lodash/template'
+import url from 'url'
 import util from 'util'
 import webpackAssets from '../webpack-assets.json'
 
@@ -45,7 +47,10 @@ function generateRuntimeCaching(runtimeCaching) {
   }, '')
 }
 
-const apiURLPrefix = `${config.API_PROTOCOL}://${config.API_HOST}(:${config.API_PORT})?`
+const releaseBranch = config.releaseBranch
+const origin = url.parse(requestOrigins.forClientSideRendering[releaseBranch].api)
+
+const apiURLPrefix = `${origin.protocol}://${origin.hostname}(:${config.port})?`
 const hash = crypto.createHash('sha1').update(JSON.stringify(webpackAssets)).digest('hex')
 const cacheName = 'sw-precache-twreporter-' + hash
 const staticFilesToCache = [
