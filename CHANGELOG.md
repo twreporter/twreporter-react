@@ -1,8 +1,5 @@
 ## Unreleased
-
 ### 4.3.0
-- Update about-us page to include staffing change
-- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
 - Remove legacy code
 
 #### Update webpack.config.js
@@ -23,6 +20,13 @@
 #### Move Redux actions, reducers, configureStore to @twreporter/redux
 - Remove actions, reducers, configureStore in this repo
 - Bump `@twreporter/redux` version to 5.0.1
+
+#### Update about-us page
+- Update about-us page in include awards change
+- Update about-us page to include staffing change
+
+#### Bug Fix
+- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
 
 ## Release
 
