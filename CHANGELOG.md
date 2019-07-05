@@ -1,4 +1,5 @@
 ## Unreleased
+## Release
 ### 4.3.0
 - Remove legacy code
 
@@ -27,8 +28,6 @@
 
 #### Bug Fix
 - Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
-
-## Release
 
 ### 4.2.1 
 #### Dependency Update 
