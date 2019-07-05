@@ -1,6 +1,7 @@
 ## Unreleased
 
 ### 4.3.1
+- Revert "Resolve modules from the `node_modules` of this repo firstly" for Webpack
 - Not to import all modules from `@twreporter/universal-header`
 
 ## Release
