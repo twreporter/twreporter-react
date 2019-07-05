@@ -1,7 +1,7 @@
 import Footer from '@twreporter/react-components/lib/footer'
 import React from 'react'
 import styled from 'styled-components'
-import uh from '@twreporter/universal-header'
+import Header from '@twreporter/universal-header/dist/containers/header'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
 import { themesConst } from './theme-manager'
@@ -76,7 +76,7 @@ export default class LayoutManager {
       case themesConst.articlePage.v2.pink: {
         return (
           <PinkBackgroundHeader>
-            <uh.Header
+            <Header
               theme="transparent"
               releaseBranch={this.releaseBranch}
               isLinkExternal={false}
@@ -88,7 +88,7 @@ export default class LayoutManager {
       case themesConst.articlePage.fullscreen.normal: {
         return (
           <FullScreenHeader>
-            <uh.Header
+            <Header
               theme="transparent"
               releaseBranch={this.releaseBranch}
               isLinkExternal={false}
@@ -102,7 +102,7 @@ export default class LayoutManager {
       //}
       default: {
         return (
-          <uh.Header
+          <Header
             theme={this.theme}
             releaseBranch={this.releaseBranch}
             isLinkExternal={false}
