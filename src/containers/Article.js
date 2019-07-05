@@ -45,8 +45,12 @@ const _ = {
   get
 }
 
-const { actions, reduxStateFields, utils } = twreporterRedux
+const { actions, actionTypes, reduxStateFields, utils } = twreporterRedux
 const { fetchAFullPost } = actions
+
+const _fontLevel = {
+  small: 'small'
+}
 
 const ArticleContainer = styled.article`
   color: ${props => props.fontColor ? props.fontColor : colors.gray.gray25};
@@ -120,14 +124,9 @@ const V2ArticleComponent = Loadable({
 class Article extends PureComponent {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      fontSize:'medium',
-      isFontSizeSet:false
-    }
 
     this._onScroll = _.throttle(this._handleScroll, 300).bind(this)
     this._handleScroll = this._handleScroll.bind(this)
-    this.changeFontSize = this._changeFontSize.bind(this)
 
     // reading progress component
     this.rp = null
@@ -149,25 +148,9 @@ class Article extends PureComponent {
     }
   }
 
-  _changeFontSize(fontSize) {
-    this.setState({
-      fontSize:fontSize,
-      isFontSizeSet:true
-    })
-    localStorage.setItem('fontSize',fontSize)
-  }
-
   componentDidMount() {
     // detect sroll position
     window.addEventListener('scroll', this._onScroll)
-
-    let storedfontSize = localStorage.getItem('fontSize')
-    if(storedfontSize !== null && !this.state.isFontSizeSet) {
-      this.setState({
-        fontSize:storedfontSize,
-        isFontSizeSet:true
-      })
-    }
   }
 
   componentWillMount() {
@@ -303,8 +286,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { entities, match, selectedPost, isLeadingAssetFullScreen, styles } = this.props
-    const { fontSize } = this.state
+    const { fontLevel, changeFontLevel, entities, match, selectedPost, isLeadingAssetFullScreen, styles } = this.props
     const error = _.get(selectedPost, 'error')
     if (error) {
       return (
@@ -364,6 +346,8 @@ class Article extends PureComponent {
             post={v2Article}
             relatedTopic={v2Topic}
             relatedPosts={v2RelatedPosts}
+            fontLevel={fontLevel}
+            onFontLevelChange={changeFontLevel}
             LinkComponent={Link}
           />
         </div>
@@ -377,8 +361,8 @@ class Article extends PureComponent {
         topic,
         isLeadingAssetFullScreen,
         styles,
-        fontSize,
-        changeFontSize: this.changeFontSize
+        fontSize: fontLevel,
+        changeFontSize: changeFontLevel
       })
 
       articleComponentJSX = (
@@ -395,12 +379,12 @@ class Article extends PureComponent {
               <IntroductionContainer>
                 <Introduction
                   data={introData}
-                  fontSize={fontSize}
+                  fontSize={fontLevel}
                 />
               </IntroductionContainer>
               <Body
                 data={bodyData}
-                fontSize={fontSize}
+                fontSize={fontLevel}
                 articleStyle={articleStyle}
               />
             </div>
@@ -583,12 +567,14 @@ function isLeadingAssetFullScreen(articleStyle) {
 }
 
 export function mapStateToProps(state) {
+  const fontLevel = _.get(state, [ reduxStateFields.settings, 'fontLevel' ], _fontLevel.small)
   const entities = state[reduxStateFields.entities]
   const selectedPost = state[reduxStateFields.selectedPost]
   const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
   const style = post.style
 
   return {
+    fontLevel,
     entities,
     selectedPost,
     styles: chooseStyles(style),
@@ -596,5 +582,14 @@ export function mapStateToProps(state) {
   }
 }
 
+function changeFontLevel(fontLevel) {
+  return function (dispatch) {
+    dispatch({
+      type: actionTypes.settings.changeFontLevel,
+      payload: fontLevel
+    })
+  }
+}
+
 export { Article }
-export default connect(mapStateToProps, { fetchAFullPost })(Article)
+export default connect(mapStateToProps, { fetchAFullPost, changeFontLevel })(Article)
