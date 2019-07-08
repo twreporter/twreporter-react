@@ -166,10 +166,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.2.tgz#b1a16f33306f2e9524a93c49a5328bb1a536c1b7"
-  integrity sha512-UJqVLTWYByV19/EHw4GqnO8UGs47sPRuShXxz6HVHzE71T1dQjbh0qLcKeLHd/Yikq5GWtWudwl2XiC9VXvpvg==
+"@twreporter/react-article-components@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.3.tgz#8588df838dbb7f2bb948b2fdef8c131bda34fb01"
+  integrity sha512-LFTln+mPTXUCVazy1cZ+t2YzLP9wt1cTipEQ20ejYeLYpN6K45K92NVSJIrKItwGQc5jiB8XQ7QVWK3NukjqXg==
   dependencies:
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
@@ -198,6 +198,22 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
+
+"@twreporter/redux@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.2.tgz#687b54a9b7746c270f196f8f93c1637fee8231f6"
+  integrity sha512-fjRm8CT5fbkRpgWltzVxp5Nboh4wBLSKQAVxNf8/HuPUPFRhAuyNYgyToxVu62zOdV5PcLO3IOjJpQHarNNafg==
+  dependencies:
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    isomorphic-fetch "2.2.1"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    qs "^6.5.1"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
 
 "@twreporter/redux@^5.0.1":
   version "5.0.1"

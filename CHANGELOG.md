@@ -1,10 +1,17 @@
 ## Unreleased
 
+## Release
+
+### 4.3.2
+- Update dependencies:
+  - @twreporter/redux@5.0.2
+  - @twreporter/react-article-components@1.0.3
+- Use redux store to cache settings.fontLevel on browser
+
 ### 4.3.1
 - Revert "Resolve modules from the `node_modules` of this repo firstly" for Webpack
 - Not to import all modules from `@twreporter/universal-header`
 
-## Release
 ### 4.3.0
 - Remove legacy code
 
