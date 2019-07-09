@@ -26,15 +26,16 @@ const _ = {
 
 const StyledArticleComponent = styled(constStyledComponents.ResponsiveContainerForAritclePage)`
   font-size: ${(props) => {
-    let fontSize = typography.font.size.base
+    let fontSize
     switch(props.fontSize) {
-      case 'small':
-        fontSize = typography.font.size.xSmall
+      case 'medium':
+        fontSize = '20px'
         break
       case 'large':
-        fontSize = typography.font.size.larger
+        fontSize = '22px'
         break
       default:
+        fontSize = '18px'
         break
     }
     return fontSize
