@@ -149,6 +149,14 @@
     lodash "^4.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.2.tgz#840c760f3f6716a10f0c633ad72174d73feae571"
+  integrity sha512-0t+txxhJh0kug4qg2yVZjPICWFnUGrezHGvctqyo6HD+Anh/h/O3pm3ZVNzCB19JYPTJTlTE1NibPGroVrPd/w==
+  dependencies:
+    lodash "^4.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.2.tgz#cda80f82d17bb5df1bbf40189ce913a8d9cb5052"
@@ -166,22 +174,22 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.2.tgz#b1a16f33306f2e9524a93c49a5328bb1a536c1b7"
-  integrity sha512-UJqVLTWYByV19/EHw4GqnO8UGs47sPRuShXxz6HVHzE71T1dQjbh0qLcKeLHd/Yikq5GWtWudwl2XiC9VXvpvg==
+"@twreporter/react-article-components@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.5.tgz#9a273f0a126854917dc0bb7cac72864d3c74d8e5"
+  integrity sha512-MPg2hclySeoxvlIbwDBUKHkmvYn6MVLjw9Uzm7H7FzOeijGN35LVauNRG2pLTDdYs+Gvd+xX1fJgyzuuDuS1NQ==
   dependencies:
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
 
-"@twreporter/react-components@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.1.tgz#8ee56f6e66a23ce58fa40bbe52ebd207a8da04ff"
-  integrity sha512-PRmLvP1B1lB/oS8zy+AYKOLH6JMIAuOBrGwEz2/WFtj7GlE/GcMdMdiJLn1mu4d/RMgz0Jyw7hFGeKGcEa/wyQ==
+"@twreporter/react-components@^7.0.3":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.3.tgz#5fdb541ffc81e38d77b2467a2c25a81cd7b41bf2"
+  integrity sha512-lnOizm7U2NXarWBiqXcXLcrpcJ4UR/fje1yUpk1bhzIt32yRoC/HF5N/YuL88SJAl+V0k/rqw9R/hJB60m9UuQ==
   dependencies:
     "@twreporter/core" "^1.0.1"
-    "@twreporter/redux" "^5.0.1"
+    "@twreporter/redux" "^5.0.3"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     prop-types "^15.0.0"
@@ -199,10 +207,10 @@
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
-"@twreporter/redux@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.1.tgz#6deb3221538691b2f31f58eb585817909dc77b22"
-  integrity sha512-JrhklJHAo2nWV8N6SwOo6L5T1/vZMffaFLAnxa9GkDUAFO+USEu3o6He6qfJJjZieDBMOjsQyQTeUeWoX7z1Cg==
+"@twreporter/redux@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.3.tgz#8e1963671f2d91e131d3d528e0a116940629c38d"
+  integrity sha512-L/R4tfLo4OPSr0wOW+Pz6m6Ei17ezbTgiINQMP95VVT8CJGxrF+PpQbzXA8KunZjjREwpn7CM9ok3qw2XL3HxQ==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"

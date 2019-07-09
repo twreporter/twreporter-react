@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -25,12 +25,12 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/core": "^1.0.1",
+    "@twreporter/core": "^1.0.2",
     "@twreporter/index-page": "^1.0.2",
-    "@twreporter/react-article-components": "^1.0.2",
-    "@twreporter/react-components": "^7.0.1",
+    "@twreporter/react-article-components": "^1.0.5",
+    "@twreporter/react-components": "^7.0.3",
     "@twreporter/react-flex-carousel": "^1.1.1",
-    "@twreporter/redux": "^5.0.1",
+    "@twreporter/redux": "^5.0.3",
     "@twreporter/universal-header": "2.0.5",
     "classnames": "^2.2.1",
     "cookie-parser": "^1.4.3",

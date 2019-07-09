@@ -1,10 +1,26 @@
 ## Unreleased
 
+## Release
+
+### 4.3.2
+#### Update dependencies:
+  - @twreporter/redux@^5.0.3
+  - @twreporter/react-article-components@^1.0.4
+  - @twreporter/react-components@^7.0.3
+
+#### Update article page
+- Use redux store to cache settings.fontLevel on browser
+
+#### Update about-us page
+- Update members to include staffing change on about-us page
+
+#### Bug fix
+- Fix missing path to take redux action
+
 ### 4.3.1
 - Revert "Resolve modules from the `node_modules` of this repo firstly" for Webpack
 - Not to import all modules from `@twreporter/universal-header`
 
-## Release
 ### 4.3.0
 - Remove legacy code
 
