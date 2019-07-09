@@ -149,6 +149,14 @@
     lodash "^4.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.2.tgz#840c760f3f6716a10f0c633ad72174d73feae571"
+  integrity sha512-0t+txxhJh0kug4qg2yVZjPICWFnUGrezHGvctqyo6HD+Anh/h/O3pm3ZVNzCB19JYPTJTlTE1NibPGroVrPd/w==
+  dependencies:
+    lodash "^4.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.2.tgz#cda80f82d17bb5df1bbf40189ce913a8d9cb5052"
@@ -166,10 +174,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.4.tgz#718fc1cb581798a607715246a4be6a1453bbc254"
-  integrity sha512-BXjEP9V19cizRRdZHRpkEVIbChoni9Ov76L+OH77U6DhjXuMF2x8SLzr9Uymm8TSBJVN7S958hw5BuVgNf7pZQ==
+"@twreporter/react-article-components@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.5.tgz#9a273f0a126854917dc0bb7cac72864d3c74d8e5"
+  integrity sha512-MPg2hclySeoxvlIbwDBUKHkmvYn6MVLjw9Uzm7H7FzOeijGN35LVauNRG2pLTDdYs+Gvd+xX1fJgyzuuDuS1NQ==
   dependencies:
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
