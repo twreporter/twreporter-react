@@ -2,17 +2,20 @@
 
 ## Release
 
-### 4.3.4
-- [bug-fix] Fix missing path to take redux action
+### 4.3.2
+#### Update dependencies:
+  - @twreporter/redux@^5.0.3
+  - @twreporter/react-article-components@^1.0.4
+  - @twreporter/react-components@^7.0.3
 
-### 4.3.3
+#### Update article page
+- Use redux store to cache settings.fontLevel on browser
+
+#### Update about-us page
 - Update members to include staffing change on about-us page
 
-### 4.3.2
-- Update dependencies:
-  - @twreporter/redux@5.0.2
-  - @twreporter/react-article-components@1.0.3
-- Use redux store to cache settings.fontLevel on browser
+#### Bug fix
+- Fix missing path to take redux action
 
 ### 4.3.1
 - Revert "Resolve modules from the `node_modules` of this repo firstly" for Webpack
