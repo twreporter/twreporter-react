@@ -1,4 +1,5 @@
 ## Unreleased
+- Update members to include staffing change on about-us page
 
 ## Release
 
