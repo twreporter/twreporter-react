@@ -7,7 +7,6 @@ export const membersImg = {
   digiYuChenHuang: 'Digi-YuChenHuang.png',
   digiYuChungJen: 'Digi-YuChungJen.png',
   digiDaDaWu: 'Digi-DadaWu.png',
-  editBoWeiWu: 'Edit-BoWeiWu.png',
   editJenniferCheng: 'Edit-JenniferCheng.png',
   editJillYang: 'Edit-JillYang.png',
   editJungShinHo: 'Edit-JungShinHo.png',

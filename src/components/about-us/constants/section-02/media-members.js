@@ -150,15 +150,6 @@ const members = [
     category: categoryIds.digital
   },
   {
-    name: '吳柏緯',
-    nameEng: 'Bo-Wei Wu',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'capric.wu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editBoWeiWu,
-    category: categoryIds.editor
-  },
-  {
     name: '孔德廉',
     nameEng: 'Kung Te Lien',
     job: '記者',

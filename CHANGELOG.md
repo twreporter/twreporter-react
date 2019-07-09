@@ -1,6 +1,8 @@
 ## Unreleased
 
 ## Release
+### 4.3.3
+- Update members to include staffing change on about-us page
 
 ### 4.3.2
 - Update dependencies:
