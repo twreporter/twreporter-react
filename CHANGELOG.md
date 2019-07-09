@@ -6,6 +6,7 @@
 - Update dependencies:
   - @twreporter/redux@5.0.2
   - @twreporter/react-article-components@1.0.3
+  - @twreporter/react-components@7.0.2
 - Use redux store to cache settings.fontLevel on browser
 
 ### 4.3.1
