@@ -1,6 +1,10 @@
 ## Unreleased
 
 ## Release
+
+### 4.3.4
+- [bug-fix] Fix missing path to take redux action
+
 ### 4.3.3
 - Update members to include staffing change on about-us page
 

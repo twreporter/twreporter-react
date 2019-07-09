@@ -6,7 +6,7 @@ const _ = {
   get
 }
 
-const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux
+const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.actions
 
 /**
  *  loadData function is used for server side rendering.
