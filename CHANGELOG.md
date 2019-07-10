@@ -2,6 +2,10 @@
 
 ## Release
 
+### 4.3.3
+#### Workaround(should be deprecated in the future)
+- render right fontLevel on client side
+
 ### 4.3.2
 #### Update dependencies:
   - @twreporter/redux@^5.0.3
