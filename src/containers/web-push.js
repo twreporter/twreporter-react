@@ -217,7 +217,9 @@ const closeSVG = (
 
 class WebPush extends PureComponent {
   static propTypes = {
+    // Below props are provided by Redux
     apiOrigin: PropTypes.string.isRequired,
+    setNextPopupTS: PropTypes.func.isRequired,
     toShowNotifyPopup: PropTypes.bool.isRequired,
     userID: PropTypes.number
   }
@@ -289,7 +291,7 @@ class WebPush extends PureComponent {
   * @parma {number} userID - id of user
   * @return {Promise}
   */
-  updateSubscription(subscription, userID) {
+  _updateSubscription(subscription, userID) {
     if (subscription && typeof subscription.toJSON === 'function') {
       const _subscription = subscription.toJSON()
       const data = {
@@ -302,7 +304,7 @@ class WebPush extends PureComponent {
         data.expirationTime = _subscription.expirationTime.toString()
       }
 
-      return axios.post(formURL('web-push/subscriptions'), data)
+      return axios.post(formURL(this.props.apiOrigin, '/web-push/subscriptions'), data)
         .catch((err) => {
           console.warn('Sending POST request to /web-push endpoint occurs error')
           return Promise.reject(err)
@@ -314,7 +316,7 @@ class WebPush extends PureComponent {
   * Use service worker to subscribe the web push.
   * @param {Object} registration - Service worker registration
   */
-  createSubscription(registration) {
+  _createSubscription(registration) {
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
     return registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -336,11 +338,11 @@ class WebPush extends PureComponent {
   * @param {Object} reg - Service worker registration
   * @return {Object} Promise resovles to true
   */
-  isNotificationSubscribed(reg) {
+  _isNotificationSubscribed(reg) {
     return reg.pushManager.getSubscription()
       .then((subscription) => {
         if (subscription !== null) {
-          return isSubscriptionExisted(subscription.endpoint)
+          return this._isSubscriptionExisted(subscription.endpoint)
         }
         return false
       })
@@ -351,14 +353,14 @@ class WebPush extends PureComponent {
   * @param {number} userID - id of user
   * @return {Object} Promise
   */
-  subscribeNotification(userID) {
+  _subscribeNotification(userID) {
     if (isPushSupported() && isServiceWorkerSupported()) {
       return navigator.serviceWorker.getRegistration()
         .then((reg) => {
-          return createSubscription(reg)
+          return this._createSubscription(reg)
         })
         .then((subscription) => {
-          return updateSubscription(subscription, userID)
+          return this._updateSubscription(subscription, userID)
         })
     } else {
       console.log('Browser does not support web push or service worker')
@@ -370,14 +372,14 @@ class WebPush extends PureComponent {
   * @param {number} userID - id of user
   * @return {Object} Promise
   */
-  requestNotificationPermission(userID) {
+  _requestNotificationPermission(userID) {
     return new Promise((resolve, reject) => {
       if (isNotificationSupported()) {
         if (Notification.permission === 'denied') {
           Notification.requestPermission((permission) => {
             if (permission === 'grant') {
               console.log('User grant the notification request')
-              return subscribeNotification(userID)
+              return this._subscribeNotification(userID)
                 .then(resolve)
                 .catch((err) => {
                   console.warn('Subscribing web push notification fails')
@@ -389,7 +391,7 @@ class WebPush extends PureComponent {
             return reject()
           })
         } else {
-          return subscribeNotification(userID)
+          return this._subscribeNotification(userID)
             .then(resolve)
             .catch((err) => {
               console.warn('Subscribing web push notification fails')
@@ -415,7 +417,7 @@ class WebPush extends PureComponent {
 
   _acceptNotification() {
     const { userID } = this.props
-    requestNotificationPermission(userID)
+    this._requestNotificationPermission(userID)
       .then(() => {
         console.log('Accept web push notification successfully')
         this.setState({
