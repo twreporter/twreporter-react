@@ -269,7 +269,7 @@ class WebPush extends PureComponent {
   * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
   */
   _isSubscriptionExisted(endpoint) {
-    return axios.get(formURL(this.props.apiOrigin, '/web-push/subscriptions', { endpoint }, false))
+    return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
       .then(() => {
         return true
       })
@@ -304,12 +304,13 @@ class WebPush extends PureComponent {
         data.expirationTime = _subscription.expirationTime.toString()
       }
 
-      return axios.post(formURL(this.props.apiOrigin, '/web-push/subscriptions'), data)
+      return axios.post(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'), data)
         .catch((err) => {
-          console.warn('Sending POST request to /web-push endpoint occurs error')
+          console.warn('Sending POST request to /v1/web-push endpoint occurs error')
           return Promise.reject(err)
         })
     }
+    console.warn('Failed in _updateSubscription, expect `subscription.toJSON` to be a function', subscription)
   }
 
   /**
@@ -322,12 +323,12 @@ class WebPush extends PureComponent {
       userVisibleOnly: true,
       applicationServerKey: applicationServerKey
     })
-      .then(function (subscription) {
+      .then((subscription) => {
         console.log('Received web push subscription: ', JSON.stringify(subscription))
         console.log('User is subscribed.')
         return subscription
       })
-      .catch(function (err) {
+      .catch((err) => {
         console.warn('Failed to subscribe web push by service worker registration')
         return Promise.reject(err)
       })
