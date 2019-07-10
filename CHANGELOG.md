@@ -2,6 +2,10 @@
 
 ## Release
 
+### 4.3.4
+- Fix web-push bug
+- Abstract web-push to an isolated component
+
 ### 4.3.3
 #### Workaround(should be deprecated in the future)
 - render right fontLevel on client side
