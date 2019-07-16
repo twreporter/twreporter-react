@@ -1,6 +1,8 @@
 ## Unreleased
 
 ## Release
+### 4.3.5
+- Provide article page with v2 default theme
 
 ### 4.3.4
 - Fix web-push bug

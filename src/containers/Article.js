@@ -363,7 +363,9 @@ class Article extends PureComponent {
 
     if (isFetching) {
       articleComponentJSX = <ArticlePlaceholder />
-    } else if (articleStyle === themesConst.articlePage.v2.pink) {
+    } else if (articleStyle === themesConst.articlePage.v2.pink ||
+      articleStyle === themesConst.articlePage.v2.default
+    ) {
       articleComponentJSX = (
         <div
           id="article-body"
