@@ -84,6 +84,15 @@ export default class LayoutManager {
           </PinkBackgroundHeader>
         )
       }
+      case themesConst.articlePage.v2.photo: {
+        return (
+          <Header
+            theme={themesConst.photography}
+            releaseBranch={this.releaseBranch}
+            isLinkExternal={false}
+          />
+        )
+      }
       case themesConst.articlePage.fullscreen.dark:
       case themesConst.articlePage.fullscreen.normal: {
         return (
