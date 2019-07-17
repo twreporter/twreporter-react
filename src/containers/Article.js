@@ -364,7 +364,8 @@ class Article extends PureComponent {
     if (isFetching) {
       articleComponentJSX = <ArticlePlaceholder />
     } else if (articleStyle === themesConst.articlePage.v2.pink ||
-      articleStyle === themesConst.articlePage.v2.default
+      articleStyle === themesConst.articlePage.v2.default ||
+      articleStyle === themesConst.articlePage.v2.photo
     ) {
       articleComponentJSX = (
         <div
@@ -372,7 +373,6 @@ class Article extends PureComponent {
           ref={node => this.articleBody = node}
         >
           <V2ArticleComponent
-            colors={styles.colors}
             post={v2Article}
             relatedTopic={v2Topic}
             relatedPosts={v2RelatedPosts}
@@ -547,30 +547,6 @@ function chooseStyles(articleStyle) {
     case themesConst.photography: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
-      break
-    }
-    case themesConst.articlePage.v2.pink: {
-      styles.colors = {
-        primary: {
-          text: '#355ed3',
-          accent: '#ef7ede',
-          support: '#fbafef',
-          background: '#fadaf5'
-        },
-        secondary: {
-          text: '#a67a44',
-          accent: '#a67a44',
-          support: '#d0a67d',
-          background: '#c9af8e'
-        },
-        base: {
-          text: '#404040',
-          lightText: '#808080',
-          button: '#808080',
-          line: '#afafaf',
-          background: '#fff'
-        }
-      }
       break
     }
     default: {
