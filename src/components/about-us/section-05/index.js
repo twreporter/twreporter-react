@@ -1,7 +1,8 @@
+import { Waypoint } from 'react-waypoint'
 import { colors } from '../../../themes/common-variables'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../utils/screen'
 import { storageUrlPrefix } from '../utils/config'
 import groupBy from 'lodash/groupBy'
@@ -13,7 +14,6 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import sz from '../constants/screen-size'
 import Timeline from './timeline'
-import Waypoint from 'react-waypoint'
 
 const _ = {
   orderBy, groupBy, keys
@@ -23,7 +23,7 @@ const sortedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'asc', 'asc
 const sortedDataGroupByYear = _.groupBy(sortedData, record => record.year)
 const yearList = _.keys(sortedDataGroupByYear)
 const yearRangebgColor = '#cacaca'
-const timelineScrollingPortion = 0.95
+const timelineScrollingPortion = 0.98
 const defaultZIndex = 0
 const containerWidth = {
   mobile: '100%',
@@ -34,6 +34,7 @@ const containerWidth = {
 
 const Container = styled.div`
   position: relative;
+  background-color: ${colors.white};
   overflow: hidden;
   ${screen.overDesktop`
     margin: ${marginBetweenSections.overDesktop} 0;
@@ -83,19 +84,23 @@ const Title = styled.div`
     display: none;
   }
   ${screen.desktopAbove`
-    float: left;
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5.png`)});
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5.png`)});
   `}
   ${screen.overDesktop`
     width: 327px;
     height: 384px;
+    margin: 98px 0 0 152px;
   `}
   ${screen.desktop`
     width: 257px;
     height: 271px;
+    margin: 119px 0 0 80px;
   `}
   ${screen.tabletBelow`
-    background-image: url(${replaceStorageUrlPrefix(`${storageUrlPrefix}/title-section5-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5-mob.png`)});
   `}
   ${screen.tablet`
     width: 408px;
@@ -312,22 +317,28 @@ const Circle = styled.div`
   height: 218px;
   border-radius: 50%;
   background: ${props => props.color};
-  margin-left: 80px;
-  margin-bottom: 228px;
-  z-index: calc(${defaultZIndex} - 1);
-  &:first-child {
-    margin: 0;
-    transform: translateX(50%) translateY(-50%);
-  }
   ${screen.overDesktop`
     width: 277px;
     height: 277px;
-    margin-left: 152px;
-    margin-bottom: 293px;
   `}
   ${screen.tabletBelow`
     display: none;
   `}
+`
+
+const OuterCircle = styled(Circle)`
+  margin-left: 80px;
+  margin-bottom: 228px;
+  ${screen.overDesktop`
+    width: 277px;
+    margin-left: 152px;
+    margin-bottom: 293px;
+  `}
+`
+
+const InnerCircle = styled(Circle)`
+  margin: 0;
+  transform: translateX(50%) translateY(-50%);
 `
 
 const Rect = styled.div`
@@ -434,11 +445,11 @@ export default class Section5 extends PureComponent {
         <div>
           <Container>
             <SectionWrapper>
-              <Title><span>大事紀</span></Title>
-              <Circle color={`${colors.black}`}>
-                <Circle color={`${colors.gray.gray96}`}/>
+              <OuterCircle color={`${colors.black}`}>
+                <InnerCircle color={`${colors.gray.gray96}`}/>
                 <Rect color={`${colors.secondaryColor}`}/>
-              </Circle>
+              </OuterCircle>
+              <Title><span>大事紀</span></Title>
               <Content>
                 <AccordionTimeline>
                   <List
@@ -454,7 +465,7 @@ export default class Section5 extends PureComponent {
                   <p>
                     <span>{yearList[0]}</span>
                     <img
-                      src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                      src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/section5-arrow.png`)}`}
                     />
                   </p>
                 </YearRange>

@@ -8,7 +8,7 @@ import constStyledComponents from '../../constants/styled-components'
 import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { getSrcSet } from '../../utils/img'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../../themes/screen'
 
 // lodash
@@ -51,7 +51,7 @@ class Image extends ResolutionSwitchingImage {
   }
 
   _renderImgPlaceHolder(toShow) {
-    const src = replaceStorageUrlPrefix(_.get(this.props, 'imgSet.tiny.url'))
+    const src = replaceGCSUrlOrigin(_.get(this.props, 'imgSet.tiny.url'))
     return (
       <ImgPlaceholder
         src={src}

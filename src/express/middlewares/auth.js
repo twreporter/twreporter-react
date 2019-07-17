@@ -1,8 +1,8 @@
+import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
 import getRoutes from '../../routes'
-import getSignInHref from '../../constants/bookmarks/sign-in-href'
-import uh from '@twreporter/universal-header'
+import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   get
@@ -11,8 +11,8 @@ const _ = {
 const developmentEnv = 'development'
 const masterBranch = 'master'
 
-const { actionTypes, actions } = uh
-const authActions = actions.auth
+const { actions, actionTypes } = twreporterRedux
+const { getAccessToken } = actions
 
 /**
  *  Decode the payload of JWT from base64 string into JSON object
@@ -85,7 +85,7 @@ function authMiddleware(namespace, options) {
       // If the user is authenticated but not authorized, try to get access token:
       const { nodeEnv=developmentEnv, releaseBranch=masterBranch } = options
       const cookieList = req.get('cookie')
-      return store.dispatch(authActions.getAccessToken(cookieList, releaseBranch))
+      return store.dispatch(getAccessToken(cookieList, releaseBranch))
         .then(() => {
           const reduxState = store.getState()
           const jwt = _.get(reduxState, 'auth.accessToken', '')

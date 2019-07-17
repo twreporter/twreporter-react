@@ -4,7 +4,6 @@ import Link from 'react-router-dom/Link'
 import LoadingSpinner from '../Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Waypoint from 'react-waypoint'
 import classNames from 'classnames'
 import commonStyles from '../article/Common.scss'
 import get from 'lodash/get'
@@ -12,7 +11,9 @@ import map from 'lodash/map'
 import styles from './AuthorCollection.scss'
 import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
 import { CHARACTERS_LIMIT } from '../../constants/index'
-import { formatPostLinkTarget, formatPostLinkTo, replaceStorageUrlPrefix } from '../../utils/url'
+import { Waypoint } from 'react-waypoint'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { shortenString } from '../../utils/string'
 
 const AuthorCollection = (props) => {
@@ -44,7 +45,7 @@ const AuthorCollection = (props) => {
   ) : null
 
   const relatedRows = map(listItems, (related) => {
-    const imageUrl = replaceStorageUrlPrefix(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
+    const imageUrl = replaceGCSUrlOrigin(get(related, 'heroImage.image.resizedTargets.mobile.url', '/asset/review.png'))
     const slug = get(related, 'slug', '')
     const title = get(related, 'title', '')
     const style = get(related, 'style', '')

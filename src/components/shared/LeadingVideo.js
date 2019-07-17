@@ -1,10 +1,10 @@
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { Waypoint } from 'react-waypoint'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PropTypes from 'prop-types'
 import React from 'react'
 import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
 import SoundOnIcon from '../../../static/asset/sound-on.svg'
 import styled, { css } from 'styled-components'
-import Waypoint from 'react-waypoint'
 
 const Container = styled.div`
   position: relative;
@@ -136,7 +136,7 @@ class LeadingVideo extends React.PureComponent {
             loop={loop}
             topicLeadingVideo={topicLeadingVideo}
           >
-            <source src={replaceStorageUrlPrefix(src)} type={filetype} />
+            <source src={replaceGCSUrlOrigin(src)} type={filetype} />
           </Video>
           <VideoMask />
           {isMuted ?
@@ -161,7 +161,7 @@ LeadingVideo.propTypes = {
   src: PropTypes.string,
   title: PropTypes.string,
   viewportHeight: PropTypes.string,
-  topicLeadingVideo: PropTypes.boolean
+  topicLeadingVideo: PropTypes.bool
 }
 
 LeadingVideo.defaultProps = {

@@ -8,29 +8,6 @@ const webpackConfig = {
   webpackPublicPath: nodeEnv === 'production' ? '/dist/' : `http://localhost:${webpackDevServerPort}/dist/`
 }
 
-const env = {
-  master: {
-    API_PORT: 8080,
-    API_HOST: 'localhost',
-    API_PROTOCOL: 'http'
-  },
-  preview: {
-    API_PORT: 443,
-    API_HOST: 'staging-go-api.twreporter.org',
-    API_PROTOCOL: 'https'
-  },
-  staging: {
-    API_PORT: 443,
-    API_HOST: 'staging-go-api.twreporter.org',
-    API_PROTOCOL: 'https'
-  },
-  release: {
-    API_PORT: 443,
-    API_HOST: 'go-api.twreporter.org',
-    API_PROTOCOL: 'https'
-  }
-}[releaseBranch]
-
 module.exports = Object.assign({
   cookieSecret: process.env.COOKIE_SECRET || 'twreporter-cookie-secret',
   host: process.env.HOST || 'localhost',
@@ -39,4 +16,4 @@ module.exports = Object.assign({
   releaseBranch: releaseBranch,
   webpackDevServerHost: 'localhost',
   webpackDevServerPort: webpackDevServerPort
-}, env, webpackConfig)
+}, webpackConfig)

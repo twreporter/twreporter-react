@@ -1,8 +1,9 @@
+import { SITE_META } from '../about-us/constants/data/index'
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
-import { replaceStorageUrlPrefix } from '@twreporter/react-components/lib/shared/utils'
+import { donatePath } from '../../constants/index'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { screen } from '../about-us/utils/screen'
-import { SITE_META } from '../about-us/constants/data/index'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
@@ -128,14 +129,14 @@ class AboutusPageSideBar extends React.PureComponent {
             currentAnchorId={currentAnchorId}
           />
           <Icons>
-            <a href={hrefs.donate} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
+            <a href={donatePath} target="_blank">
+              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
             </a>
             <a href={hrefs.subscribe} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
+              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
             </a>
             <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
-              <img src={`${replaceStorageUrlPrefix(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
+              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
             </a>
           </Icons>
         </AnchorsContainer>

@@ -1,6 +1,105 @@
 ## Unreleased
 
 ## Release
+### 4.3.5
+- Provide article page with v2 default theme
+
+### 4.3.4
+- Fix web-push bug
+- Abstract web-push to an isolated component
+
+### 4.3.3
+#### Workaround(should be deprecated in the future)
+- render right fontLevel on client side
+
+### 4.3.2
+#### Update dependencies:
+  - @twreporter/redux@^5.0.3
+  - @twreporter/react-article-components@^1.0.4
+  - @twreporter/react-components@^7.0.3
+
+#### Update article page
+- Use redux store to cache settings.fontLevel on browser
+
+#### Update about-us page
+- Update members to include staffing change on about-us page
+
+#### Bug fix
+- Fix missing path to take redux action
+
+### 4.3.1
+- Revert "Resolve modules from the `node_modules` of this repo firstly" for Webpack
+- Not to import all modules from `@twreporter/universal-header`
+
+### 4.3.0
+- Remove legacy code
+
+#### Update webpack.config.js
+- Update `process.env` format for `webpack.DefinePlugin`
+- Update `resolve.modules` to retrieve modules from the `node_modules` of this repo firstly
+
+#### Adapt new packages
+- Add new dependencies `@twreporter/core` and `@twreporter/index-page`
+- Move some utils and constants to new package `@twreporter/core`
+- Move `BookmarkList` and `BookmarkWidget` to `@twreporter/react-components` 
+- Retrive index components from `@twreporter/index-page`
+
+#### Update .circleci/config.yml
+- Use `yarn.lock` as the indicator of the change of dependencies
+- Run build only on certain branches
+- Remove test
+
+#### Move Redux actions, reducers, configureStore to @twreporter/redux
+- Remove actions, reducers, configureStore in this repo
+- Bump `@twreporter/redux` version to 5.0.1
+
+#### Update about-us page
+- Update about-us page in include awards change
+- Update about-us page to include staffing change
+
+#### Bug Fix
+- Bug fix: Use `ogImage` rather than `leadingImage` as og image on topic landing page
+
+### 4.2.1 
+#### Dependency Update 
+- @twreporter/react-components@^6.1.4
+
+#### Bug Fix
+- Use named import instead of default import. import Waypoint -> import { Waypoint }
+
+### 4.2.0
+#### Integration with @twreporter/react-article-components@1.0.0-beta.1
+- Render v2 article page if style is article:v2:pink
+- Update layout and theme manager to adopt article:v2:pink theme
+- Update dependencies: react, react-dom and react-waypoint
+- Render v2 article page on `theme` query demand
+
+### 4.1.9
+- Adjust web push notify popup appearance
+
+### 4.1.8
+- Set `embeddedCode` component to be printable by default and can be conditionally unprintable
+
+### 4.1.7
+- Revise donation page link
+- Upgrade @twreporter/react-components to v6.1.2
+
+### 4.1.6
+- Update job titles on about-us page
+
+### 4.1.5
+- Update about us page
+  - Add new members and remove the resigned ones
+  - Modify the 3rd, 4th rules in section2
+  - Add new records to section5
+- Tweak the scrolling protion to make sure the year will be set properly in section5 scrolling timeline on about-us page 
+
+### 4.1.4
+- Fix about-us page layout in section4 and section5
+
+### 4.1.3
+- Upgrade yarn.lock to fix GitHub security alters
+
 ### 4.1.2
 #### Style Fix
 - Set leading full-screen asset relative for mobile device

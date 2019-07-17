@@ -24,6 +24,15 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '王曉玟',
+    nameEng: 'Sharon Wang',
+    job: '主編',
+    jobEng: 'editor',
+    email: 'sharonwang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editSharonWang,
+    category: categoryIds.editor
+  },
+  {
     name: '劉致昕',
     nameEng: 'Jason Liu',
     job: '主筆',
@@ -87,15 +96,6 @@ const members = [
     category: categoryIds.photojournalist
   },
   {
-    name: '陳貞樺',
-    nameEng: 'Mimi Chen',
-    job: '數位專案經理',
-    jobEng: 'Digital Product Manager',
-    email: 'mimichen@twreporter.org',
-    profile: memberUrlPrefix + membersImg.digiMimiChen,
-    category: categoryIds.digital
-  },
-  {
     name: '余崇任',
     nameEng: 'Yu Chung-Jen',
     job: '工程師',
@@ -125,7 +125,7 @@ const members = [
   {
     name: '黃禹禛',
     nameEng: 'Yu Chen Huang',
-    job: '設計',
+    job: '設計師',
     jobEng: 'Art Designer',
     email: 'hychen@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiYuChenHuang,
@@ -150,39 +150,12 @@ const members = [
     category: categoryIds.digital
   },
   {
-    name: '蔣宜婷',
-    nameEng: 'I Ting Chiang',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'itingchiang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editItingChiang,
-    category: categoryIds.editor
-  },
-  {
-    name: '吳柏緯',
-    nameEng: 'Bo-Wei Wu',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'capric.wu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editBoWeiWu,
-    category: categoryIds.editor
-  },
-  {
     name: '孔德廉',
     nameEng: 'Kung Te Lien',
     job: '記者',
     jobEng: 'Journalist',
     email: 'williamkung13578@twreporter.org',
     profile: memberUrlPrefix + membersImg.editKungTeLien,
-    category: categoryIds.editor
-  },
-  {
-    name: '王立柔',
-    nameEng: 'Rosa Wang',
-    job: '記者',
-    jobEng: 'Journalist',
-    email: 'irosarian@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editRosaWang,
     category: categoryIds.editor
   },
   {
@@ -210,6 +183,14 @@ const members = [
     category: categoryIds.editor
   },
   {
+    name: '林慧貞',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'linhuichen@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editLinHuiChen,
+    category: categoryIds.editor
+  },
+  {
     name: '張詩芸',
     nameEng: 'Shih-Yun Chang',
     job: '社群部主任',
@@ -228,12 +209,12 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '莊璧綺',
-    nameEng: 'Pi-Chi Chuang',
-    job: '執行編輯',
+    name: '洪琴宣',
+    nameEng: 'Chin Hsuan Hung',
+    job: '社群編輯',
     jobEng: 'Editor',
-    email: 'pichi@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editPiChi,
+    email: 'chhung@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editChhung,
     category: categoryIds.editor
   },
   {

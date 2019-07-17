@@ -66,10 +66,6 @@ dev: clean
 	@echo "The other will be mocked api server, hosted on 8080 port."
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server"
 
-test:
-	@echo "Run unit tests"
-	@$(BIN_DIR)/mocha $(TEST_SCRIPTS_FILES) --compilers js:babel-core/register --reporter $(REPORTER)
-
 ui-test:
 	@echo "Run UI-test"
 	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	

@@ -11,7 +11,7 @@ import commonStyles from './Common.scss'
 import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
 import { getScreenType } from '../../utils/screen'
-import { replaceStorageUrlPrefix } from '../../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 // lodash
 import get from 'lodash/get'
@@ -52,7 +52,7 @@ class ImageDiff extends FitwidthMixin(Component) {
     if (get(imageObj, 'url')) {
       return (
         <img
-          src={ replaceStorageUrlPrefix(imageObj.url) }
+          src={ replaceGCSUrlOrigin(imageObj.url) }
           style={ imgStyle }
           className={classNames('center-block', styles.imgAbsolute)}
         />
