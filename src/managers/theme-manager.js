@@ -22,6 +22,8 @@ export const themesConst = {
       normal: 'article:fullscreen:normal'
     },
     v2: {
+      default: 'article:v2:default',
+      photo: 'article:v2:photo',
       pink: 'article:v2:pink'
     }
   }
@@ -84,8 +86,11 @@ export default class ThemeManager {
 
         // TODO remove testing condition after testing done
         const searchObj = querystring.parse(_.get(location, 'search', '').slice(1))
-        if (searchObj.theme === themesConst.articlePage.v2.pink) {
-          post.style = themesConst.articlePage.v2.pink
+        if (searchObj.theme === themesConst.articlePage.v2.pink ||
+          searchObj.theme === themesConst.articlePage.v2.default ||
+          searchObj.theme === themesConst.articlePage.v2.photo
+        ) {
+          post.style = searchObj.theme
         }
 
         const style = post.style
@@ -93,6 +98,8 @@ export default class ThemeManager {
         switch(style) {
           case themesConst.photography:
           case themesConst.articlePage.v2.pink:
+          case themesConst.articlePage.v2.default:
+          case themesConst.articlePage.v2.photo:
           case themesConst.articlePage.fullscreen.dark:
           case themesConst.articlePage.fullscreen.normal: {
             return style
