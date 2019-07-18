@@ -2,7 +2,11 @@
 
 ## Release
 ### 4.3.5
+#### Article page
 - Provide article page with v2 default theme
+
+#### Bug fix
+- Bug fix: header(transparent theme) is overlaid with web push notify
 
 ### 4.3.4
 - Fix web-push bug
