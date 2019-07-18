@@ -17,6 +17,10 @@ const AppShellBox = styled.div`
   background-color: ${props => props.backgroundColor};
 `
 
+const ContentBlock = styled.div`
+  position: relative;
+`
+
 class App extends React.PureComponent {
   static propTypes = {
     // Below props are provided by Redux
@@ -44,9 +48,11 @@ class App extends React.PureComponent {
           backgroundColor={backgroundColor}
         >
           <WebPush />
-          {header}
-          {this.props.children}
-          {footer}
+          <ContentBlock>
+            {header}
+            {this.props.children}
+            {footer}
+          </ContentBlock>
         </AppShellBox>
       </ErrorBoundary>
     )
