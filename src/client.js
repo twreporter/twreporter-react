@@ -4,7 +4,6 @@ import 'babel-polyfill'
 import 'normalize.css'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { getGlobalEnv } from '@twreporter/core/lib/utils/global-env'
-import { Provider } from 'react-redux'
 import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
@@ -54,14 +53,12 @@ twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
       ReactGA.set({ page: window.location.pathname })
     }
     const jsx = (
-      <Provider store={store}>
-        <BrowserRouter>
-          <React.Fragment>
-            <Route path="/" component={scrollToTopAndFirePageview} />
-            <App releaseBranch={releaseBranch}/>
-          </React.Fragment>
-        </BrowserRouter>
-      </Provider>
+      <BrowserRouter>
+        <React.Fragment>
+          <Route path="/" component={scrollToTopAndFirePageview} />
+          <App reduxStore={store} releaseBranch={releaseBranch}/>
+        </React.Fragment>
+      </BrowserRouter>
     )
 
     Loadable.preloadReady().then(() => {

@@ -1,9 +1,61 @@
-import AppShell from './containers/app-shell'
+import ErrorBoundary from './components/ErrorBoundary'
+import LayoutManager from './managers/layout-manager'
+import PropTypes from 'prop-types'
 import React from 'react'
+import ThemeManager from './managers/theme-manager'
+import WebPush from './containers/web-push'
 import getRoutes from './routes'
+import styled from 'styled-components'
+import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { colors, lineHeight, typography } from './themes/common-variables'
 import { createGlobalStyle } from 'styled-components'
+
+const AppShellBox = styled.div`
+  background-color: ${props => props.backgroundColor};
+`
+
+const ContentBlock = styled.div`
+  position: relative;
+`
+
+class AppShell extends React.PureComponent {
+  static propTypes = {
+    releaseBranch: PropTypes.string.isRequired,
+    theme: PropTypes.string.isRequired
+  }
+
+  render() {
+    const {
+      children,
+      releaseBranch,
+      theme
+    } = this.props
+
+    const layoutManager = new LayoutManager({
+      releaseBranch,
+      theme
+    })
+    const header = layoutManager.getHeader()
+    const backgroundColor = layoutManager.getBackgroundColor()
+    const footer = layoutManager.getFooter()
+
+    return (
+      <ErrorBoundary>
+        <AppShellBox
+          backgroundColor={backgroundColor}
+        >
+          <WebPush />
+          <ContentBlock>
+            {header}
+            {children}
+            {footer}
+          </ContentBlock>
+        </AppShellBox>
+      </ErrorBoundary>
+    )
+  }
+}
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -106,11 +158,11 @@ export default class App extends React.Component {
     const { releaseBranch } = this.props
 
     return (
-      <React.Fragment>
+      <Provider store={reduxStore}>
         <Route render={props => {
           return (
             <AppShell
-              location={props.location}
+              theme={theme}
               releaseBranch={releaseBranch}
             >
               <Switch>
@@ -124,7 +176,7 @@ export default class App extends React.Component {
           )
         }} />
         <GlobalStyle/>
-      </React.Fragment>
+      </Provider>
     )
   }
 }
