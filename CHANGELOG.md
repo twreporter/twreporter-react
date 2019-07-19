@@ -1,6 +1,14 @@
 ## Unreleased
 
 ## Release
+
+### 4.3.6
+#### Dependency Upgrade
+- Upgrade @twreporter/react-article-components to 1.0.6-beta.8
+
+#### Miscellaneous
+- Add sub category: 戲裡戲外 in src/constants/category.js
+
 ### 4.3.5
 #### Article page
 - Provide article page with v2 default theme
