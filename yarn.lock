@@ -174,11 +174,12 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@1.0.6-beta.4":
-  version "1.0.6-beta.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.6-beta.4.tgz#8ed31c02dca2845546e176d953839825432110f6"
-  integrity sha512-aGrP4eQuzo5EAYaLgEMtWhqrxRq1RonGNdUpLkafZjc4LexIvZRWNfz+mh6OKRiNG/MhW9USAAAANafv8iOBLw==
+"@twreporter/react-article-components@1.0.6-beta.6":
+  version "1.0.6-beta.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.6-beta.6.tgz#bb06439a38a1a5d18c1e725f9f048eb22878ab7a"
+  integrity sha512-PR9Ut9hBpDAh9BlW0e6nGhZFdEdXy9mH51LVZM9Oz+WHLAUHrJqImr3QhPx+GGuy97HmpntgCdIxEMgCwqPXnw==
   dependencies:
+    "@twreporter/core" "^1.0.2"
     react-ga "^2.5.7"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
