@@ -1,6 +1,10 @@
 ## Unreleased
 
 ## Release
+
+### 4.3.6
+- Upgrade @twreporter/react-article-components to 1.0.6-beta.6
+
 ### 4.3.5
 #### Article page
 - Provide article page with v2 default theme
