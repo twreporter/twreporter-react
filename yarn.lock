@@ -157,6 +157,14 @@
     lodash "^4.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.3.tgz#0c65a51d64f231813c6cbc4bd74f838bc4fe6ee8"
+  integrity sha512-JwUVSLcvB0/pkfKiZEqusD2S/iDaEm2gVgfbAgfV15rLjxO7mhrvmY5wbCU0HTQhWI+m6ASvpunBM7lEQyBzfw==
+  dependencies:
+    lodash "^4.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.2.tgz#cda80f82d17bb5df1bbf40189ce913a8d9cb5052"
@@ -174,15 +182,35 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@1.0.6-beta.8":
-  version "1.0.6-beta.8"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.6-beta.8.tgz#5265e7c9422cb0a1038d5b8dc8677fd68b5490e2"
-  integrity sha512-B07oO+/0kRkJSSbIyWwvx6itXM8d+kHEBM1D717rI96RvdusJkw7mS94wacUejKDw1EovfhBTIMd+hnNEvMXPg==
+"@twreporter/react-article-components@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.6.tgz#a60f9274cdd27e18ed69f504c87d6840f18bc80a"
+  integrity sha512-eizavokE20Rz1h14okRs6KC6uEYpU3K5/Dm8EaCRZ1bcqYJ9BTwvZmBwstmlAaWM4/pBFhLhbaF+dxpXB410qg==
   dependencies:
-    "@twreporter/core" "^1.0.2"
-    react-ga "^2.5.7"
+    "@twreporter/core" "^1.0.3"
+    "@twreporter/react-components" "^7.0.0"
+    memoize-one "^5.0.5"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
+
+"@twreporter/react-components@^7.0.0":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.4.tgz#8a609521af84b9a71dfef6183e6a96fdb29559e0"
+  integrity sha512-Apod7tyN7C57MBHlk72yR3YhottCL8brZ4nFs7YGS3/n7qxN4Z6CSg0PRgBNKe4GLhmKE8I+3mdXHxO04Nz3lg==
+  dependencies:
+    "@twreporter/core" "^1.0.1"
+    "@twreporter/redux" "^5.0.3"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-dom "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^4.3.1"
+    react-transition-group "^1.2.1"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
 
 "@twreporter/react-components@^7.0.3":
   version "7.0.3"
@@ -5547,6 +5575,11 @@ memoize-one@^4.0.0:
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.1.0.tgz#a2387c58c03fff27ca390c31b764a79addf3f906"
   integrity sha512-2GApq0yI/b22J2j9rhbrAlsHb0Qcz+7yWxeLG8h+95sl1XPUgeLimQSOdur4Vw7cUhrBHwaUZxWFZueojqNRzA==
 
+memoize-one@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.0.5.tgz#8cd3809555723a07684afafcd6f756072ac75d7e"
+  integrity sha512-ey6EpYv0tEaIbM/nTDOpHciXUvd+ackQrJgEzBwemhZZIWZjcyodqEcrmqDy2BKRTM3a65kKBV4WtLXJDt26SQ==
+
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
@@ -7279,7 +7312,7 @@ react-dom@16.8.4, react-dom@^16.3.0:
     prop-types "^15.6.2"
     scheduler "^0.13.4"
 
-react-ga@^2.1.2, react-ga@^2.5.7:
+react-ga@^2.1.2:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.7.tgz#1c80a289004bf84f84c26d46f3a6a6513081bf2e"
   integrity sha512-UmATFaZpEQDO96KFjB5FRLcT6hFcwaxOmAJZnjrSiFN/msTqylq9G+z5Z8TYzN/dbamDTiWf92m6MnXXJkAivQ==
