@@ -55,7 +55,7 @@ class AppShell extends React.PureComponent {
       footer: PropTypes.oneOf(
         _.values(uiConst.footer)
       ),
-      backgroundColor: PropTypes.string,
+      backgroundColor: PropTypes.string
     })
   }
 
@@ -63,7 +63,7 @@ class AppShell extends React.PureComponent {
     layoutObj: {
       header: uiConst.header.default,
       footer: uiConst.footer.default,
-      backgroundColor: '#f1f1f1',
+      backgroundColor: '#f1f1f1'
     }
   }
 
