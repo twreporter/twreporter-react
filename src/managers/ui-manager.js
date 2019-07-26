@@ -11,9 +11,17 @@ const _ = {
 
 const { reduxStateFields } = twreporterRedux
 
+const colors = {
+  culturePink: '#fadaf5',
+  darkBlue: '#08192d',
+  darkEarth: '#2c2c2c',
+  lightGray: '#f1f1f1'
+}
+
 const defaultLayoutObj = {
   header: uiConst.header.default,
-  footer: uiConst.footer.default
+  footer: uiConst.footer.default,
+  backgroundColor: colors.lightGray
 }
 
 /**
@@ -21,6 +29,7 @@ const defaultLayoutObj = {
  *  @typedef {Object} LayoutObj
  *  @property {string} header - One of uiConst.header
  *  @property {string} footer - One of uiConst.footer
+ *  @property {string} backgroundColor - background color of page
  */
 
 /**
@@ -56,7 +65,8 @@ const _pathnameToLayoutArr = [ {
   getLayout: () => {
     return {
       header: uiConst.header.photo,
-      footer: uiConst.footer.default
+      footer: uiConst.footer.default,
+      backgroundColor: colors.darkBlue
     }
   }
 }, {
@@ -64,7 +74,8 @@ const _pathnameToLayoutArr = [ {
   getLayout: () => {
     return {
       header: uiConst.header.none,
-      footer: uiConst.footer.default
+      footer: uiConst.footer.default,
+      backgroundColor: colors.lightGray
     }
   }
 }, {
@@ -72,7 +83,8 @@ const _pathnameToLayoutArr = [ {
   getLayout: () => {
     return {
       header: uiConst.header.none,
-      footer: uiConst.footer.none
+      footer: uiConst.footer.none,
+      backgroundColor: colors.lightGray
     }
   }
 }, {
@@ -98,7 +110,8 @@ const _pathnameToLayoutArr = [ {
         if(post.hero_image_size === 'fullscreen') {
           return {
             header: uiConst.header.transparent,
-            footer: uiConst.footer.default
+            footer: uiConst.footer.default,
+            backgroundColor: colors.lightGray
           }
         }
         return defaultLayoutObj
@@ -107,31 +120,41 @@ const _pathnameToLayoutArr = [ {
         if(post.hero_image_size === 'fullscreen') {
           return {
             header: uiConst.header.transparent,
-            footer: uiConst.footer.default
+            footer: uiConst.footer.default,
+            backgroundColor: colors.darkBlue
           }
         }
         return {
           header: uiConst.header.photo,
-          footer: uiConst.footer.default
+          footer: uiConst.footer.default,
+          backgroundColor: colors.darkBlue
         }
       }
       case 'article:v2:pink': {
         return {
           header: uiConst.header.pink,
-          footer: uiConst.footer.default
+          footer: uiConst.footer.default,
+          backgroundColor: colors.culturePink
         }
       }
       case 'photography': {
         return {
           header: uiConst.header.photo,
-          footer: uiConst.footer.default
+          footer: uiConst.footer.default,
+          backgroundColor: colors.darkBlue
         }
       }
       case 'article:fullscreen:dark':
+        return {
+          header: uiConst.header.transparent,
+          footer: uiConst.footer.default,
+          backgroundColor: colors.darkEarth
+        }
       case 'article:fullscreen:normal': {
         return {
           header: uiConst.header.transparent,
-          footer: uiConst.footer.default
+          footer: uiConst.footer.default,
+          backgroundColor: colors.lightGray
         }
       }
       default: {

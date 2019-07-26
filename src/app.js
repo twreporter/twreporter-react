@@ -20,6 +20,10 @@ const _ = {
   values
 }
 
+const AppBox = styled.div`
+  background-color: ${props => props.backgroundColor};
+`
+
 const ContentBlock = styled.div`
   position: relative;
 `
@@ -50,14 +54,16 @@ class AppShell extends React.PureComponent {
       ),
       footer: PropTypes.oneOf(
         _.values(uiConst.footer)
-      )
+      ),
+      backgroundColor: PropTypes.string,
     })
   }
 
   static defaultProps = {
     layoutObj: {
       header: uiConst.header.default,
-      footer: uiConst.footer.default
+      footer: uiConst.footer.default,
+      backgroundColor: '#f1f1f1',
     }
   }
 
@@ -127,19 +133,22 @@ class AppShell extends React.PureComponent {
 
   render() {
     const {
+      layoutObj,
       children
     } = this.props
 
     return (
       <ErrorBoundary>
-        <div>
+        <AppBox
+          backgroundColor={layoutObj.backgroundColor}
+        >
           <WebPush />
           <ContentBlock>
             {this.renderHeader()}
             {children}
             {this.renderFooter()}
           </ContentBlock>
-        </div>
+        </AppBox>
       </ErrorBoundary>
     )
   }
@@ -241,9 +250,10 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default class App extends React.Component {
-  buildLayoutObjForAppShell = memoize((header, footer) => ({
+  buildLayoutObjForAppShell = memoize((header, footer, backgroundColor) => ({
     header,
-    footer
+    footer,
+    backgroundColor
   }))
 
   render() {
@@ -254,10 +264,10 @@ export default class App extends React.Component {
       <Provider store={reduxStore}>
         <Route render={props => {
           const reduxState = reduxStore.getState()
-          const { header, footer } = uiManager.getLayoutObj(reduxState, props.location)
+          const { header, footer, backgroundColor } = uiManager.getLayoutObj(reduxState, props.location)
           return (
             <AppShell
-              layoutObj={this.buildLayoutObjForAppShell(header, footer)}
+              layoutObj={this.buildLayoutObjForAppShell(header, footer, backgroundColor)}
               releaseBranch={releaseBranch}
             >
               <Switch>
