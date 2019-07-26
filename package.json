@@ -27,7 +27,7 @@
   "dependencies": {
     "@twreporter/core": "^1.0.2",
     "@twreporter/index-page": "^1.0.2",
-    "@twreporter/react-article-components": "^1.0.7",
+    "@twreporter/react-article-components": "1.0.8-beta.2",
     "@twreporter/react-components": "^7.0.3",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "^5.0.3",
@@ -41,6 +41,7 @@
     "hoist-non-react-statics": "^2.5.0",
     "humps": "^0.6.0",
     "lodash": "^4.0.0",
+    "memoize-one": "^5.0.5",
     "normalize.css": "^7.0.0",
     "path-to-regexp": "^3.0.0",
     "pretty-error": "^2.0.0",
