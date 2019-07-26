@@ -31,7 +31,6 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { getScreenType } from '../utils/screen'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
-import { themesConst } from '../managers/theme-manager'
 
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
@@ -39,6 +38,23 @@ import Link from 'react-router-dom/Link'
 // lodash
 import get from 'lodash/get'
 import throttle from 'lodash/throttle'
+
+// TODO delete codes used styleConst in this file
+// after article v2 version launch
+const styleConst = {
+  photography: 'photography',
+  articlePage: {
+    fullscreen: {
+      dark: 'article:fullscreen:dark',
+      normal: 'article:fullscreen:normal'
+    },
+    v2: {
+      default: 'article:v2:default',
+      photo: 'article:v2:photo',
+      pink: 'article:v2:pink'
+    }
+  }
+}
 
 const _ = {
   throttle,
@@ -154,7 +170,7 @@ class Article extends PureComponent {
     let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
     let style = _.get(post, 'style')
     return {
-      isPhotography: style === themesConst.photography,
+      isPhotography: style === styleConst.photography,
       location
     }
   }
@@ -363,9 +379,9 @@ class Article extends PureComponent {
 
     if (isFetching) {
       articleComponentJSX = <ArticlePlaceholder />
-    } else if (articleStyle === themesConst.articlePage.v2.pink ||
-      articleStyle === themesConst.articlePage.v2.default ||
-      articleStyle === themesConst.articlePage.v2.photo
+    } else if (articleStyle === styleConst.articlePage.v2.pink ||
+      articleStyle === styleConst.articlePage.v2.default ||
+      articleStyle === styleConst.articlePage.v2.photo
     ) {
       articleComponentJSX = (
         <div
@@ -531,20 +547,20 @@ function chooseStyles(articleStyle) {
   }
 
   switch(articleStyle) {
-    case themesConst.articlePage.fullscreen.normal: {
+    case styleConst.articlePage.fullscreen.normal: {
       styles.title.fontColor = colors.white
       styles.subtitle.fontColor = colors.white
       styles.topic.fontColor = colors.white
       break
     }
-    case themesConst.articlePage.fullscreen.dark: {
+    case styleConst.articlePage.fullscreen.dark: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
       styles.subtitle.fontColor = colors.white
       styles.topic.fontColor = colors.white
       break
     }
-    case themesConst.photography: {
+    case styleConst.photography: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
       break
@@ -560,8 +576,8 @@ function isLeadingAssetFullScreen(articleStyle) {
   let isLeadingAssetFullScreen = false
 
   switch(articleStyle) {
-    case themesConst.articlePage.fullscreen.dark:
-    case themesConst.articlePage.fullscreen.normal: {
+    case styleConst.articlePage.fullscreen.dark:
+    case styleConst.articlePage.fullscreen.normal: {
       isLeadingAssetFullScreen = true
       break
     }
