@@ -36,8 +36,10 @@ import { screen } from '../themes/screen'
 import Link from 'react-router-dom/Link'
 
 // lodash
+import filter from 'lodash/filter'
 import get from 'lodash/get'
 import throttle from 'lodash/throttle'
+import uniq from 'lodash/uniq'
 
 // TODO delete codes used styleConst in this file
 // after article v2 version launch
@@ -57,8 +59,10 @@ const styleConst = {
 }
 
 const _ = {
+  filter,
+  get,
   throttle,
-  get
+  uniq
 }
 
 const { actions, actionTypes, reduxStateFields, utils } = twreporterRedux
@@ -356,6 +360,10 @@ class Article extends PureComponent {
     const v2Topics = utils.denormalizeTopics(_.get(v2Article, 'topics', []), topicEntities, postEntities)
     const v2Topic = _.get(v2Topics, '0', {})
     v2RelatedPosts = v2RelatedPosts.concat(_.get(v2Topic, 'relateds', []))
+
+    // dedup related posts
+    v2RelatedPosts = _.uniq(v2RelatedPosts)
+    v2RelatedPosts = _.filter(v2RelatedPosts, (related) => { return related.id!== v2Article.id})
 
     // for v1 article
     const article = camelizeKeys(v2Article)
