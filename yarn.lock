@@ -178,10 +178,10 @@
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
 
-"@twreporter/react-components@7.0.5-beta.4":
-  version "7.0.5-beta.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.5-beta.4.tgz#65e5a67435266b431d2ff364b8286aff866785e9"
-  integrity sha512-ccnITjNeUKsbpeOuQ7Prurrg/6jmOf/+5PlSl7YsjFOi5qwze4tW4JCnrGHq03ffrF6mODLJUdi1WIr+0OdM5Q==
+"@twreporter/react-components@7.0.5-beta.5":
+  version "7.0.5-beta.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.5-beta.5.tgz#271aeb5adf1d3a579ffacf38c91b53251e260878"
+  integrity sha512-hKooD6EGE9sWOonFQjbGflNBdUVG9nu82RIm1vO4FL8dvNiJtrAI9//kQh2z357EmmPHTbe/zdM12zI3k/WpKQ==
   dependencies:
     "@twreporter/core" "^1.0.1"
     "@twreporter/redux" "^5.0.3"
