@@ -1,15 +1,16 @@
 import { connect } from 'react-redux'
-import mq from '@twreporter/core/lib/utils/media-query'
-import styled from 'styled-components'
-import uiConst from './constants/ui'
-import values from 'lodash/values'
-import ErrorBoundary from './components/ErrorBoundary'
+import ErrorBoundary from '../components/ErrorBoundary'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/universal-header/dist/containers/header'
+import mq from '@twreporter/core/lib/utils/media-query'
 import PropTypes from 'prop-types'
-import WebPush from './containers/web-push'
-import uiManager from './managers/ui-manager'
 import React from 'react'
+import styled from 'styled-components'
+import uiConst from '../constants/ui'
+import uiManager from '../managers/ui-manager'
+import WebPush from '../containers/web-push'
+// lodash
+import values from 'lodash/values'
 
 const _ = {
   values
@@ -40,105 +41,99 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
+const renderFooter = (footerType) => {
+  switch(footerType) {
+    case uiConst.footer.none: {
+      return null
+    }
+    case uiConst.footer.default:
+    default: {
+      return <Footer />
+    }
+  }
+}
+
+const renderHeader = (headerType, releaseBranch) => {
+  switch(headerType) {
+    case uiConst.header.none: {
+      return null
+    }
+    case uiConst.header.pink: {
+      return (
+        <PinkBackgroundHeader>
+          <Header
+            theme="transparent"
+            releaseBranch={releaseBranch}
+            isLinkExternal={false}
+          />
+        </PinkBackgroundHeader>
+      )
+    }
+    case uiConst.header.photo: {
+      return (
+        <Header
+          theme="photography"
+          releaseBranch={releaseBranch}
+          isLinkExternal={false}
+        />
+      )
+    }
+    case uiConst.header.transparent: {
+      return (
+        <TransparentHeader>
+          <Header
+            theme="transparent"
+            releaseBranch={releaseBranch}
+            isLinkExternal={false}
+          />
+        </TransparentHeader>
+      )
+    }
+    default: {
+      return (
+        <Header
+          theme="normal"
+          releaseBranch={releaseBranch}
+          isLinkExternal={false}
+        />
+      )
+    }
+  }
+}
 
 class AppShell extends React.PureComponent {
   static propTypes = {
-    releaseBranch: PropTypes.string.isRequired,
-    header: PropTypes.oneOf(
-      _.values(uiConst.header)
-    ),
-    footer: PropTypes.oneOf(
-      _.values(uiConst.footer)
-    ),
-    backgroundColor: PropTypes.string
+    backgroundColor: PropTypes.string,
+    footerType: PropTypes.oneOf(_.values(uiConst.footer)),
+    headerType: PropTypes.oneOf(_.values(uiConst.header)),
+    releaseBranch: PropTypes.string.isRequired
   }
 
   static defaultProps = {
-    header: uiConst.header.default,
-    footer: uiConst.footer.default,
+    headerType: uiConst.header.default,
+    footerType: uiConst.footer.default,
     backgroundColor: '#f1f1f1'
-  }
-
-  renderHeader() {
-    const { layoutObj, releaseBranch } = this.props
-
-    switch(layoutObj.header) {
-      case uiConst.header.none: {
-        return null
-      }
-      case uiConst.header.pink: {
-        return (
-          <PinkBackgroundHeader>
-            <Header
-              theme="transparent"
-              releaseBranch={releaseBranch}
-              isLinkExternal={false}
-            />
-          </PinkBackgroundHeader>
-        )
-      }
-      case uiConst.header.photo: {
-        return (
-          <Header
-            theme="photography"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        )
-      }
-      case uiConst.header.transparent: {
-        return (
-          <TransparentHeader>
-            <Header
-              theme="transparent"
-              releaseBranch={releaseBranch}
-              isLinkExternal={false}
-            />
-          </TransparentHeader>
-        )
-      }
-      default: {
-        return (
-          <Header
-            theme="normal"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        )
-      }
-    }
-  }
-
-  renderFooter() {
-    const { layoutObj } = this.props
-
-    switch(layoutObj.footer) {
-      case uiConst.footer.none: {
-        return null
-      }
-      case uiConst.footer.default:
-      default: {
-        return <Footer />
-      }
-    }
   }
 
   render() {
     const {
-      layoutObj,
+      headerType,
+      footerType,
+      backgroundColor,
+      releaseBranch,
       children
     } = this.props
 
     return (
       <ErrorBoundary>
         <AppBox
-          backgroundColor={layoutObj.backgroundColor}
+          backgroundColor={backgroundColor}
         >
           <WebPush />
           <ContentBlock>
-            {this.renderHeader()}
+            {renderHeader(headerType, releaseBranch)}
             {children}
-            {this.renderFooter()}
+            {renderFooter(footerType)}
           </ContentBlock>
         </AppBox>
       </ErrorBoundary>
@@ -148,12 +143,7 @@ class AppShell extends React.PureComponent {
 
 
 function mapStateToProps(state, ownProps) {
-  const { header, footer, backgroundColor } = uiManager.getLayoutObj(state, ownProps.location)
-  return {
-    header,
-    footer,
-    backgroundColor
-  }
+  return uiManager.getLayoutObj(state, ownProps.location)
 }
 
 export default connect(mapStateToProps)(AppShell)
