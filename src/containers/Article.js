@@ -38,8 +38,9 @@ import Link from 'react-router-dom/Link'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
+import reverse from 'lodash/reverse'
 import throttle from 'lodash/throttle'
-import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 
 // TODO delete codes used styleConst in this file
 // after article v2 version launch
@@ -61,8 +62,9 @@ const styleConst = {
 const _ = {
   filter,
   get,
+  reverse,
   throttle,
-  uniq
+  uniqBy
 }
 
 const { actions, actionTypes, reduxStateFields, utils } = twreporterRedux
@@ -359,10 +361,12 @@ class Article extends PureComponent {
     let v2RelatedPosts = utils.denormalizePosts(_.get(v2Article, 'relateds', []), postEntities)
     const v2Topics = utils.denormalizeTopics(_.get(v2Article, 'topics', []), topicEntities, postEntities)
     const v2Topic = _.get(v2Topics, '0', {})
-    v2RelatedPosts = v2RelatedPosts.concat(_.get(v2Topic, 'relateds', []))
+
+    // reverse topic.relateds since they are sorted by pushlish_date in ascending order
+    v2RelatedPosts = _.reverse(_.get(v2Topic, 'relateds', [])).concat(v2RelatedPosts)
 
     // dedup related posts
-    v2RelatedPosts = _.uniq(v2RelatedPosts)
+    v2RelatedPosts = _.uniqBy(v2RelatedPosts, 'id')
     v2RelatedPosts = _.filter(v2RelatedPosts, (related) => { return related.id!== v2Article.id})
 
     // for v1 article
