@@ -4,7 +4,15 @@
 
 ### 4.3.7
 #### Dependency Upgrade
-- Upgrade @twreporter/react-article-components to ^1.0.6
+- @twreporter/react-article-components@^1.0.9
+- @twreporter/react-components@^7.0.5
+
+#### V2 Article 
+- dedup related posts passed to v2 article components
+- introduce ui-manager to organize app layout(remove layout-manager and theme-manager)
+
+#### Refactoring
+- move src/containers/app-shell into src/app.js
 
 ### 4.3.6
 #### Dependency Upgrade
