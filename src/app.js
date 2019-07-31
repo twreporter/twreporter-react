@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import uiConst from './constants/ui'
 import uiManager from './managers/ui-manager'
 import values from 'lodash/values'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { colors, lineHeight, typography } from './themes/common-variables'
 import { createGlobalStyle } from 'styled-components'
@@ -154,6 +154,24 @@ class AppShell extends React.PureComponent {
   }
 }
 
+const buildLayoutObjForAppShell = memoize((header, footer, backgroundColor) => ({
+  header,
+  footer,
+  backgroundColor
+}))
+
+function mapStateToProps(state, props) {
+  const { location = {} } = props
+  const { header, footer, backgroundColor } = uiManager.getLayoutObj(state, location)
+  const layoutObj = buildLayoutObjForAppShell(header, footer, backgroundColor)
+
+  return {
+    layoutObj
+  }
+}
+
+const ConnectedAppShell = connect(mapStateToProps)(AppShell)
+
 const GlobalStyle = createGlobalStyle`
   html {
     font-size: ${typography.font.size.base};
@@ -250,12 +268,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default class App extends React.Component {
-  buildLayoutObjForAppShell = memoize((header, footer, backgroundColor) => ({
-    header,
-    footer,
-    backgroundColor
-  }))
-
   render() {
     const routes = getRoutes()
     const { reduxStore, releaseBranch } = this.props
@@ -263,11 +275,9 @@ export default class App extends React.Component {
     return (
       <Provider store={reduxStore}>
         <Route render={props => {
-          const reduxState = reduxStore.getState()
-          const { header, footer, backgroundColor } = uiManager.getLayoutObj(reduxState, props.location)
           return (
-            <AppShell
-              layoutObj={this.buildLayoutObjForAppShell(header, footer, backgroundColor)}
+            <ConnectedAppShell
+              location={props.location}
               releaseBranch={releaseBranch}
             >
               <Switch>
@@ -277,7 +287,7 @@ export default class App extends React.Component {
                   ))
                 }
               </Switch>
-            </AppShell>
+            </ConnectedAppShell>
           )
         }} />
         <GlobalStyle/>
