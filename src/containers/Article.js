@@ -31,18 +31,40 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { getScreenType } from '../utils/screen'
 import { colors } from '../themes/common-variables'
 import { screen } from '../themes/screen'
-import { themesConst } from '../managers/theme-manager'
 
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
 
 // lodash
+import filter from 'lodash/filter'
 import get from 'lodash/get'
+import reverse from 'lodash/reverse'
 import throttle from 'lodash/throttle'
+import uniqBy from 'lodash/uniqBy'
+
+// TODO delete codes used styleConst in this file
+// after article v2 version launch
+const styleConst = {
+  photography: 'photography',
+  articlePage: {
+    fullscreen: {
+      dark: 'article:fullscreen:dark',
+      normal: 'article:fullscreen:normal'
+    },
+    v2: {
+      default: 'article:v2:default',
+      photo: 'article:v2:photo',
+      pink: 'article:v2:pink'
+    }
+  }
+}
 
 const _ = {
+  filter,
+  get,
+  reverse,
   throttle,
-  get
+  uniqBy
 }
 
 const { actions, actionTypes, reduxStateFields, utils } = twreporterRedux
@@ -154,7 +176,7 @@ class Article extends PureComponent {
     let post = _.get(entities, [ reduxStateFields.postsInEntities, slug ], {})
     let style = _.get(post, 'style')
     return {
-      isPhotography: style === themesConst.photography,
+      isPhotography: style === styleConst.photography,
       location
     }
   }
@@ -339,7 +361,13 @@ class Article extends PureComponent {
     let v2RelatedPosts = utils.denormalizePosts(_.get(v2Article, 'relateds', []), postEntities)
     const v2Topics = utils.denormalizeTopics(_.get(v2Article, 'topics', []), topicEntities, postEntities)
     const v2Topic = _.get(v2Topics, '0', {})
-    v2RelatedPosts = v2RelatedPosts.concat(_.get(v2Topic, 'relateds', []))
+
+    // reverse topic.relateds since they are sorted by pushlish_date in ascending order
+    v2RelatedPosts = _.reverse(_.get(v2Topic, 'relateds', [])).concat(v2RelatedPosts)
+
+    // dedup related posts
+    v2RelatedPosts = _.uniqBy(v2RelatedPosts, 'id')
+    v2RelatedPosts = _.filter(v2RelatedPosts, (related) => { return related.id!== v2Article.id})
 
     // for v1 article
     const article = camelizeKeys(v2Article)
@@ -363,9 +391,9 @@ class Article extends PureComponent {
 
     if (isFetching) {
       articleComponentJSX = <ArticlePlaceholder />
-    } else if (articleStyle === themesConst.articlePage.v2.pink ||
-      articleStyle === themesConst.articlePage.v2.default ||
-      articleStyle === themesConst.articlePage.v2.photo
+    } else if (articleStyle === styleConst.articlePage.v2.pink ||
+      articleStyle === styleConst.articlePage.v2.default ||
+      articleStyle === styleConst.articlePage.v2.photo
     ) {
       articleComponentJSX = (
         <div
@@ -531,20 +559,20 @@ function chooseStyles(articleStyle) {
   }
 
   switch(articleStyle) {
-    case themesConst.articlePage.fullscreen.normal: {
+    case styleConst.articlePage.fullscreen.normal: {
       styles.title.fontColor = colors.white
       styles.subtitle.fontColor = colors.white
       styles.topic.fontColor = colors.white
       break
     }
-    case themesConst.articlePage.fullscreen.dark: {
+    case styleConst.articlePage.fullscreen.dark: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
       styles.subtitle.fontColor = colors.white
       styles.topic.fontColor = colors.white
       break
     }
-    case themesConst.photography: {
+    case styleConst.photography: {
       styles.text.fontColor = 'rgba(255, 255, 255, 0.8)'
       styles.title.fontColor = colors.white
       break
@@ -560,8 +588,8 @@ function isLeadingAssetFullScreen(articleStyle) {
   let isLeadingAssetFullScreen = false
 
   switch(articleStyle) {
-    case themesConst.articlePage.fullscreen.dark:
-    case themesConst.articlePage.fullscreen.normal: {
+    case styleConst.articlePage.fullscreen.dark:
+    case styleConst.articlePage.fullscreen.normal: {
       isLeadingAssetFullScreen = true
       break
     }

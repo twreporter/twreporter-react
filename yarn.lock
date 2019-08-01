@@ -141,26 +141,18 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.1.tgz#6ea64678e7619157625a079c076310e59966b6e1"
-  integrity sha512-jVspDSl+Jte2CJ1n0EFYw/778yPKtrUh/rkmQjoZ9Vv85yhQRv5AEC1ARB8JqJpHh0o8XbGg5Zy7XgGRzlfocQ==
-  dependencies:
-    lodash "^4.0.0"
-    styled-components "^4.0.0"
-
-"@twreporter/core@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.2.tgz#840c760f3f6716a10f0c633ad72174d73feae571"
-  integrity sha512-0t+txxhJh0kug4qg2yVZjPICWFnUGrezHGvctqyo6HD+Anh/h/O3pm3ZVNzCB19JYPTJTlTE1NibPGroVrPd/w==
+"@twreporter/core@^1.0.1", "@twreporter/core@^1.0.2", "@twreporter/core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.3.tgz#0c65a51d64f231813c6cbc4bd74f838bc4fe6ee8"
+  integrity sha512-JwUVSLcvB0/pkfKiZEqusD2S/iDaEm2gVgfbAgfV15rLjxO7mhrvmY5wbCU0HTQhWI+m6ASvpunBM7lEQyBzfw==
   dependencies:
     lodash "^4.0.0"
     styled-components "^4.0.0"
 
 "@twreporter/index-page@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.2.tgz#cda80f82d17bb5df1bbf40189ce913a8d9cb5052"
-  integrity sha512-GX0Jm5KPCOeFFuYdhxS13JHd/xNmWClP4vgTTQmeatxZBao/LBEOVLLrrgQ/gP3ywWEVtXpiEs1KPRm5RE/XFg==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.3.tgz#3b2a93cc129c9b896786a1c3c3b8b5c08178d397"
+  integrity sha512-j0TS3YQnvpgqQWEvzf1o3HANQ+1/f54SH4Xz9ND3DyLn538cclsQB9sjIPRL3iZvszScMV+/CdYUj7vxGpr87A==
   dependencies:
     "@twreporter/core" "^1.0.1"
     "@twreporter/velocity-react" "^1.4.1"
@@ -174,22 +166,31 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@1.0.6-beta.8":
-  version "1.0.6-beta.8"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.6-beta.8.tgz#5265e7c9422cb0a1038d5b8dc8677fd68b5490e2"
-  integrity sha512-B07oO+/0kRkJSSbIyWwvx6itXM8d+kHEBM1D717rI96RvdusJkw7mS94wacUejKDw1EovfhBTIMd+hnNEvMXPg==
+"@twreporter/react-article-components@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.11.tgz#bde48412c3421812e71b937c75f924c774a34eb7"
+  integrity sha512-EKNbmMe1xfXxeaUhL3WVk3GNeqx27sy8M7kpliVA0n5Ist6OYPoEHCNqMlRuHyts5no51g8jNx6VZN/kAVz2Rg==
   dependencies:
-    "@twreporter/core" "^1.0.2"
-    react-ga "^2.5.7"
+    "@twreporter/core" "^1.0.3"
+    "@twreporter/react-components" "^7.0.5"
+    "@twreporter/redux" "^5.0.3"
+    "@twreporter/universal-header" "^2.0.5"
+    howler "^2.1.1"
+    lodash "^4.17.11"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-dom "^16.3.0"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
 
-"@twreporter/react-components@^7.0.3":
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.3.tgz#5fdb541ffc81e38d77b2467a2c25a81cd7b41bf2"
-  integrity sha512-lnOizm7U2NXarWBiqXcXLcrpcJ4UR/fje1yUpk1bhzIt32yRoC/HF5N/YuL88SJAl+V0k/rqw9R/hJB60m9UuQ==
+"@twreporter/react-components@^7.0.5":
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.5.tgz#37a8a3d4f467bba51976bd6ef4bf19db483f3d67"
+  integrity sha512-+f4xpQXS+BizKQi+xaXhF8tefTmxm0q1758LeiAyONJxVLp26w+uAeA3rW3omC1m25nCxJMNfIvxapdACeCVAQ==
   dependencies:
-    "@twreporter/core" "^1.0.1"
+    "@twreporter/core" "^1.0.3"
     "@twreporter/redux" "^5.0.3"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
@@ -224,7 +225,7 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.0.5":
+"@twreporter/universal-header@2.0.5", "@twreporter/universal-header@^2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.5.tgz#18d13cabc164616d04410c32f3d41818c1ac0ed0"
   integrity sha512-Oi0QLnd3VrLYG0ZEqJqQB+GCFQaytSOpV52UiPHb8SFnlODXX9PfaTAu2VxXZZVlwLkbIav4VrU17v05QGVYiQ==
@@ -5547,6 +5548,11 @@ memoize-one@^4.0.0:
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.1.0.tgz#a2387c58c03fff27ca390c31b764a79addf3f906"
   integrity sha512-2GApq0yI/b22J2j9rhbrAlsHb0Qcz+7yWxeLG8h+95sl1XPUgeLimQSOdur4Vw7cUhrBHwaUZxWFZueojqNRzA==
 
+memoize-one@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.0.5.tgz#8cd3809555723a07684afafcd6f756072ac75d7e"
+  integrity sha512-ey6EpYv0tEaIbM/nTDOpHciXUvd+ackQrJgEzBwemhZZIWZjcyodqEcrmqDy2BKRTM3a65kKBV4WtLXJDt26SQ==
+
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
@@ -7269,17 +7275,17 @@ react-click-outside@tj/react-click-outside:
   version "1.1.1"
   resolved "https://codeload.github.com/tj/react-click-outside/tar.gz/a833ddc5be47490307f9fcc6ed09d8c353108510"
 
-react-dom@16.8.4, react-dom@^16.3.0:
-  version "16.8.4"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
-  integrity sha512-Ob2wK7XG2tUDt7ps7LtLzGYYB6DXMCLj0G5fO6WeEICtT4/HdpOi7W/xLzZnR6RCG1tYza60nMdqtxzA8FaPJQ==
+react-dom@^16.3.0, react-dom@^16.8.0:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
+  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.4"
+    scheduler "^0.13.6"
 
-react-ga@^2.1.2, react-ga@^2.5.7:
+react-ga@^2.1.2:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.7.tgz#1c80a289004bf84f84c26d46f3a6a6513081bf2e"
   integrity sha512-UmATFaZpEQDO96KFjB5FRLcT6hFcwaxOmAJZnjrSiFN/msTqylq9G+z5Z8TYzN/dbamDTiWf92m6MnXXJkAivQ==
@@ -7302,12 +7308,12 @@ react-howler@^3.0.1:
     howler "^2.1.1"
     prop-types "^15.5.6"
 
-react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.2:
+react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.2:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
   integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
 
-react-is@^16.6.3:
+react-is@^16.6.3, react-is@^16.8.1:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
@@ -7414,15 +7420,15 @@ react-youtube@^7.0.1:
     prop-types "^15.5.3"
     youtube-player "^5.5.1"
 
-react@16.8.4, react@^16.3.0:
-  version "16.8.4"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
-  integrity sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==
+react@^16.3.0, react@^16.8.0:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
+  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.4"
+    scheduler "^0.13.6"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -7889,10 +7895,10 @@ sax@^1.2.4, sax@~1.2.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.13.4:
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.4.tgz#8fef05e7a3580c76c0364d2df5e550e4c9140298"
-  integrity sha512-cvSOlRPxOHs5dAhP9yiS/6IDmVAVxmk33f0CtTJRkmUWcb1Us+t7b1wqdzoC0REw2muC9V5f1L/w5R5uKGaepA==
+scheduler@^0.13.6:
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
+  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
