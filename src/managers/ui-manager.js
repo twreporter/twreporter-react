@@ -19,16 +19,16 @@ const colors = {
 }
 
 const defaultLayoutObj = {
-  header: uiConst.header.default,
-  footer: uiConst.footer.default,
+  headerType: uiConst.header.default,
+  footerType: uiConst.footer.default,
   backgroundColor: colors.lightGray
 }
 
 /**
  *  Layout Object
  *  @typedef {Object} LayoutObj
- *  @property {string} header - One of uiConst.header
- *  @property {string} footer - One of uiConst.footer
+ *  @property {string} headerType - One of uiConst.header
+ *  @property {string} footerType - One of uiConst.footer
  *  @property {string} backgroundColor - background color of page
  */
 
@@ -64,8 +64,8 @@ const _pathnameToLayoutArr = [ {
   pathname: routesConst.photographyPage.path,
   getLayout: () => {
     return {
-      header: uiConst.header.photo,
-      footer: uiConst.footer.default,
+      headerType: uiConst.header.photo,
+      footerType: uiConst.footer.default,
       backgroundColor: colors.darkBlue
     }
   }
@@ -73,8 +73,8 @@ const _pathnameToLayoutArr = [ {
   pathname: routesConst.topicPage.path,
   getLayout: () => {
     return {
-      header: uiConst.header.none,
-      footer: uiConst.footer.default,
+      headerType: uiConst.header.none,
+      footerType: uiConst.footer.default,
       backgroundColor: colors.lightGray
     }
   }
@@ -82,8 +82,8 @@ const _pathnameToLayoutArr = [ {
   pathname: routesConst.aboutUsPage.path,
   getLayout: () => {
     return {
-      header: uiConst.header.none,
-      footer: uiConst.footer.none,
+      headerType: uiConst.header.none,
+      footerType: uiConst.footer.none,
       backgroundColor: colors.lightGray
     }
   }
@@ -109,8 +109,8 @@ const _pathnameToLayoutArr = [ {
       case 'article:v2:default': {
         if(post.hero_image_size === 'fullscreen') {
           return {
-            header: uiConst.header.transparent,
-            footer: uiConst.footer.default,
+            headerType: uiConst.header.transparent,
+            footerType: uiConst.footer.default,
             backgroundColor: colors.lightGray
           }
         }
@@ -119,41 +119,41 @@ const _pathnameToLayoutArr = [ {
       case 'article:v2:photo': {
         if(post.hero_image_size === 'fullscreen') {
           return {
-            header: uiConst.header.transparent,
-            footer: uiConst.footer.default,
+            headerType: uiConst.header.transparent,
+            footerType: uiConst.footer.default,
             backgroundColor: colors.darkBlue
           }
         }
         return {
-          header: uiConst.header.photo,
-          footer: uiConst.footer.default,
+          headerType: uiConst.header.photo,
+          footerType: uiConst.footer.default,
           backgroundColor: colors.darkBlue
         }
       }
       case 'article:v2:pink': {
         return {
-          header: uiConst.header.pink,
-          footer: uiConst.footer.default,
+          headerType: uiConst.header.pink,
+          footerType: uiConst.footer.default,
           backgroundColor: colors.culturePink
         }
       }
       case 'photography': {
         return {
-          header: uiConst.header.photo,
-          footer: uiConst.footer.default,
+          headerType: uiConst.header.photo,
+          footerType: uiConst.footer.default,
           backgroundColor: colors.darkBlue
         }
       }
       case 'article:fullscreen:dark':
         return {
-          header: uiConst.header.transparent,
-          footer: uiConst.footer.default,
+          headerType: uiConst.header.transparent,
+          footerType: uiConst.footer.default,
           backgroundColor: colors.darkEarth
         }
       case 'article:fullscreen:normal': {
         return {
-          header: uiConst.header.transparent,
-          footer: uiConst.footer.default,
+          headerType: uiConst.header.transparent,
+          footerType: uiConst.footer.default,
           backgroundColor: colors.lightGray
         }
       }
