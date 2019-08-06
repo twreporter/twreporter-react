@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@twreporter/core": "^1.0.2",
-    "@twreporter/index-page": "^1.0.2",
-    "@twreporter/react-article-components": "^1.0.11",
-    "@twreporter/react-components": "^7.0.5",
+    "@twreporter/index-page": "^1.0.4",
+    "@twreporter/react-article-components": "^1.0.12",
+    "@twreporter/react-components": "^7.0.6",
     "@twreporter/react-flex-carousel": "^1.1.1",
     "@twreporter/redux": "^5.0.3",
     "@twreporter/universal-header": "2.0.5",
