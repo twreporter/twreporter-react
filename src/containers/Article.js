@@ -38,7 +38,6 @@ import Link from 'react-router-dom/Link'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
-import reverse from 'lodash/reverse'
 import throttle from 'lodash/throttle'
 import uniqBy from 'lodash/uniqBy'
 
@@ -62,7 +61,6 @@ const styleConst = {
 const _ = {
   filter,
   get,
-  reverse,
   throttle,
   uniqBy
 }
@@ -362,9 +360,7 @@ class Article extends PureComponent {
     const v2Topics = utils.denormalizeTopics(_.get(v2Article, 'topics', []), topicEntities, postEntities)
     const v2Topic = _.get(v2Topics, '0', {})
 
-    // reverse topic.relateds since they are sorted by pushlish_date in ascending order
-    v2RelatedPosts = _.reverse(_.get(v2Topic, 'relateds', [])).concat(v2RelatedPosts)
-
+    v2RelatedPosts = [].concat(v2RelatedPosts, _.get(v2Topic, 'relateds', []))
     // dedup related posts
     v2RelatedPosts = _.uniqBy(v2RelatedPosts, 'id')
     v2RelatedPosts = _.filter(v2RelatedPosts, (related) => { return related.id!== v2Article.id})
