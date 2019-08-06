@@ -149,10 +149,10 @@
     lodash "^4.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.3.tgz#3b2a93cc129c9b896786a1c3c3b8b5c08178d397"
-  integrity sha512-j0TS3YQnvpgqQWEvzf1o3HANQ+1/f54SH4Xz9ND3DyLn538cclsQB9sjIPRL3iZvszScMV+/CdYUj7vxGpr87A==
+"@twreporter/index-page@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.4.tgz#96dd725e491c424f3fdc7f61c3937f8ac7b6cc0a"
+  integrity sha512-rkEgcr8G5dqE5Zh6l821g/wPLkpRZ2eWPwz33dDUsGebbld7ZdFATKeoWRn5qDBKG9SIi/y1BZOQ9BDS+sqg8Q==
   dependencies:
     "@twreporter/core" "^1.0.1"
     "@twreporter/velocity-react" "^1.4.1"
@@ -166,10 +166,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.11.tgz#bde48412c3421812e71b937c75f924c774a34eb7"
-  integrity sha512-EKNbmMe1xfXxeaUhL3WVk3GNeqx27sy8M7kpliVA0n5Ist6OYPoEHCNqMlRuHyts5no51g8jNx6VZN/kAVz2Rg==
+"@twreporter/react-article-components@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.12.tgz#e5ac1b5ddfc4b0a5822a7e93f019870c28d784fd"
+  integrity sha512-gqcp9Nr10GBeoOEduMgVUn7S0sixdk2dHhki7pjkkApNw8wsVr9zCUJILUA6thEkf8Pe7gXUHwP/Tp5lskdMqg==
   dependencies:
     "@twreporter/core" "^1.0.3"
     "@twreporter/react-components" "^7.0.5"
@@ -185,10 +185,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^7.0.5":
-  version "7.0.5"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.5.tgz#37a8a3d4f467bba51976bd6ef4bf19db483f3d67"
-  integrity sha512-+f4xpQXS+BizKQi+xaXhF8tefTmxm0q1758LeiAyONJxVLp26w+uAeA3rW3omC1m25nCxJMNfIvxapdACeCVAQ==
+"@twreporter/react-components@^7.0.5", "@twreporter/react-components@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.6.tgz#88700e93e02ad5c269fd909bb1fc03947ea6408a"
+  integrity sha512-7pbD27GP0cAEmL0qU0VhFmL/w//6WfNQRiUUeabWPMGATKBUj0rOWn8Y5i17Jr4mCcw81pblajrfKQVz7ufQaA==
   dependencies:
     "@twreporter/core" "^1.0.3"
     "@twreporter/redux" "^5.0.3"
@@ -1351,7 +1351,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-polyfill@^6.26.0, babel-polyfill@^6.3.14:
+babel-polyfill@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   integrity sha1-N5k3q8Z9eJWXCtxiHyhM2WbPIVM=
@@ -2273,7 +2273,7 @@ compressible@~2.0.16:
   dependencies:
     mime-db ">= 1.38.0 < 2"
 
-compression@^1.5.2, compression@^1.6.0:
+compression@^1.5.2, compression@^1.7.4:
   version "1.7.4"
   resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.4.tgz#95523eff170ca57c29a0ca41e6fe131f41e5bb8f"
   integrity sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==

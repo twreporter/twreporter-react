@@ -15,16 +15,30 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-build-{{ checksum "yarn.lock" }}
 
       - run: yarn install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-build-{{ checksum "yarn.lock" }}
 
       - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
+
+      - run: rm -rf node_modules
+      
+      # Download and cache dependencies for running
+      - restore_cache:
+          keys:
+            - v1-dependencies-runtime-{{ checksum "yarn.lock" }}
+      
+      - run: yarn install --production
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-runtime-{{ checksum "yarn.lock" }}
 
       - run:
           name: Save pkg version to a file
@@ -34,22 +48,25 @@ jobs:
           name: Save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
 
-      - save_cache:
-          key: v1-build-{{ checksum ".circle-sha" }}
+      - persist_to_workspace:
+          root: ~/repo
           paths:
-            - ~/repo
-
+            - ./* 
   deploy:
-    machine:
-      enabled: true
+    docker:
+      - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - attach_workspace:
+          at: .
+
       - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
-      - restore_cache:
-          keys:
-            - v1-build-{{ checksum ".circle-sha" }}
+
       - run:
           name: Connect to container cluster
           command: |
@@ -60,7 +77,6 @@ jobs:
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
             CLUSTER_NAME=""
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
@@ -76,19 +92,8 @@ jobs:
             fi
 
             echo "CLUSTER_NAME: ${CLUSTER_NAME}"
-            echo "CLUSTER_NAME=${CLUSTER_NAME}" > circle_ci_local_env
             gcloud --quiet container clusters get-credentials $CLUSTER_NAME
-
-      - run:
-          name: Install kubectl
-          command: |
-            source circle_ci_local_env
-            echo "CLUSTER_NAME: ${CLUSTER_NAME}"
-            KUBECTL_VERSION="$(gcloud container clusters describe ${CLUSTER_NAME} | sed -n 's/.*currentMasterVersion:[ ]*\(.*\)-\(.*\)/\1/p')"
-            curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
-            chmod +x ./kubectl
-            sudo mv ./kubectl /usr/local/bin/kubectl
-
+ 
       - run:
           name: Build, push and deploy Docker image
           command: |
