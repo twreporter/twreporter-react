@@ -2,6 +2,36 @@
 
 ## Release
 
+### 4.3.8
+#### Dependency Upgrade
+- @twreporter/index-page@^1.0.4
+- @twreporter/react-article-components@^1.0.12
+- @twreporter/react-components@^7.0.6
+- Update babel-polyfill and compression dependencies: 
+    this pathc updates the `babel-polyfill` and `compression` packages
+    dependencies from dev-dependencies to dependencies for runtime usage.
+
+#### CI/CD Improvement
+- Improve CI flow and docker image size:
+    This patch improves the Circle CI flows and reduce the docker image
+    size.
+
+    For Circl-CI flow,
+    * Use google/cloud-sdk instead of VM to speed up the start time
+    * Use persist_to_workspace/attach_workspace instead of cache
+    * Cache node_modules for build/runtime
+
+    For docker image,
+    * Remove unnecessary build libaries to speed up build time
+    * Add .dockerignore file to speed up context sending time
+    * Add the node_modules with yarn install --production version
+
+- Remove exec file permission:
+    this patch removes the exec permission of webpack-dev-server.js and webpack.config.js.
+
+#### Miscellaneous
+- Change order of related posts
+
 ### 4.3.7
 #### Dependency Upgrade
 - @twreporter/react-article-components@^1.0.9
