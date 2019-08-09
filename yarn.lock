@@ -166,10 +166,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.12.tgz#e5ac1b5ddfc4b0a5822a7e93f019870c28d784fd"
-  integrity sha512-gqcp9Nr10GBeoOEduMgVUn7S0sixdk2dHhki7pjkkApNw8wsVr9zCUJILUA6thEkf8Pe7gXUHwP/Tp5lskdMqg==
+"@twreporter/react-article-components@^1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.14.tgz#9d57b88ebe63b18dbd41db16765d175a632c143e"
+  integrity sha512-YadeHT5MHXLfOCzz1CdMGdWNhqX0+nEIreWCELWVQ8uHi/9eRGjPIqlFbuYwU5C0xXUHr2wdJfQMFm2p3Xnt6A==
   dependencies:
     "@twreporter/core" "^1.0.3"
     "@twreporter/react-components" "^7.0.5"
