@@ -6,6 +6,10 @@
 
 ## Release
 
+### 4.3.9
+#### Dependency Upgrade
+- @twreporter/react-article-components@^1.0.14
+
 ### 4.3.8
 #### Dependency Upgrade
 - @twreporter/index-page@^1.0.4
