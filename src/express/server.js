@@ -1,4 +1,4 @@
-/*eslint no-console: 0*/
+/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
@@ -192,7 +192,9 @@ class ExpressServer {
     this.__applyDefaultMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
-    this.__applyServiceWorkerRoutes()
+    if (!__DEVELOPMENT__) {
+      this.__applyServiceWorkerRoutes()
+    }
     this.__applySearchEngineRoutes()
     this.__applyHealthCheckRoutes()
     this.__applyAppRoutes(webpackAssets, loadableStats, options)
@@ -207,12 +209,12 @@ class ExpressServer {
     if (port) {
       this.server.listen(port, (err) => {
         if (err) {
-          console.error(err)
+          console.error(err) // eslint-disable-line no-console
         }
-        console.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port)
+        console.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port) // eslint-disable-line no-console
       })
     } else {
-      console.error('==>     ERROR: No PORT environment variable has been specified')
+      console.error('==>     ERROR: No PORT environment variable has been specified') // eslint-disable-line no-console
     }
   }
 }
