@@ -1,7 +1,6 @@
 # Directories
 service-worker
 src
-static
 .git
 
 # Files
