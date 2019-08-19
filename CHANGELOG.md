@@ -1,5 +1,6 @@
 ## Unreleased
 
+### 4.3.10
 #### Bug fix
 - Remove static folder from `.dockerignore` file
 
