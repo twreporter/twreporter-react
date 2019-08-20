@@ -8,6 +8,7 @@ import { screen } from '../utils/screen'
 import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import hrefs from '../constants/data/sidebar-link'
 import Link from 'react-router-dom/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
@@ -256,9 +257,11 @@ class AnchorsPanel extends React.PureComponent {
               {Anchors}
             </AnchorsContainer>
             <Icons>
-              <a href={hrefs.donate} target="_blank">
+              <DonationLink
+                utmMedium="about-us"
+              >
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
-              </a>
+              </DonationLink>
               <a href={hrefs.subscribe} target="_blank">
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
               </a>
