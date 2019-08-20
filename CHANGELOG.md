@@ -1,8 +1,15 @@
 ## Unreleased
 
-### 4.3.9
-#### Dependency Upgrade
-- @twreporter/react-article-components@1.0.13-beta.1
+### 4.3.10
+#### Donation Link with utm
+- `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
+
+#### Bug fix
+- Remove static folder from `.dockerignore` file
+
+#### Miscellaneous
+- Remove unused files in static folder
+- Move `mock-data` folder from `static` to `src` folder
 
 ## Release
 
