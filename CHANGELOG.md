@@ -1,6 +1,9 @@
 ## Unreleased
 
 ### 4.3.10
+#### Donation Link with utm
+- `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
+
 #### Bug fix
 - Remove static folder from `.dockerignore` file
 
