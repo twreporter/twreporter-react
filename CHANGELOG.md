@@ -1,5 +1,11 @@
 ## Unreleased
 
+## Release
+
+### 4.3.11
+#### Dependency Upgrade
+- @twreporter/react-components@^7.0.7-beta.2
+
 ### 4.3.10
 #### Donation Link with utm
 - `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
@@ -11,7 +17,6 @@
 - Remove unused files in static folder
 - Move `mock-data` folder from `static` to `src` folder
 
-## Release
 
 ### 4.3.9
 #### Dependency Upgrade
