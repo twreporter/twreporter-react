@@ -2,6 +2,10 @@
 
 ## Release
 
+### 4.3.11
+#### Dependency Upgrade
+- @twreporter/react-components@^7.0.7-beta.2
+
 ### 4.3.10
 #### Donation Link with utm
 - `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
