@@ -1,8 +1,7 @@
 import { colors, typography } from '../../themes/common-variables'
-import { donatePath } from '../../constants/index'
 import { screen } from '../../themes/screen'
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import React, { PureComponent } from 'react'
-import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 const TITLE = '用行動支持報導者'
@@ -40,7 +39,7 @@ const Title = styled.p`
 const Text = styled.p`
   font-size: ${typography.font.size.medium};
   line-height: 1.75;
-  color: ${colors.black};  
+  color: ${colors.black};
 `
 
 const Donate = styled.div`
@@ -74,10 +73,6 @@ const Donate = styled.div`
 
 export default class DonationBox extends PureComponent {
   render() {
-    let url = null
-    if (typeof window !== 'undefined') {
-      url = window.location.href
-    }
     return (
       <Container>
         <Title>
@@ -87,12 +82,11 @@ export default class DonationBox extends PureComponent {
           {TEXT}
         </Text>
         <Donate>
-          <ReactGA.OutboundLink
-            eventLabel={`[article_donation_button_click]: ${url}`}
-            to={donatePath}
-            target="_blank">
+          <DonationLink
+            utmMedium="article"
+          >
             <p>{DONATEBUTTONTEXT}</p>
-          </ReactGA.OutboundLink>
+          </DonationLink>
         </Donate>
       </Container>
     )

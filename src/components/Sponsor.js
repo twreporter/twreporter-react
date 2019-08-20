@@ -1,6 +1,6 @@
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import React from 'react'
 import { SPONSOR_TITLE, SPONSOR_TEXT, SPONSOR_BUTTON } from '../constants/sponsor'
-import { donatePath } from '../constants/index'
 import map from 'lodash/map'
 import classNames from 'classnames'
 import styles from './Sponsor.scss'
@@ -30,7 +30,7 @@ class Sponsor extends React.Component {
         <div className={boxClasses}>
           <div className={styles['sponsor-title']}>{SPONSOR_TITLE}</div>
           <div className={textClasses}>{_.map(SPONSOR_TEXT, (text,index) => <p key={index}>{text}</p>) }</div>
-          <a href={donatePath} target="_blank" className={buttonClasses}>{SPONSOR_BUTTON}</a>
+          <DonationLink utmMedium="author"><span className={buttonClasses}>{SPONSOR_BUTTON}</span></DonationLink>
         </div>
       </div>)
   }
