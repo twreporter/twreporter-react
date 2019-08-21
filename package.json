@@ -11,7 +11,8 @@
     "stop": "make stop",
     "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "yalc-check": "yalc check"
   },
   "repository": {
     "type": "git",
@@ -124,5 +125,7 @@
     "lint",
     "test"
   ],
-  "pre-push": []
+  "pre-push": [
+    "yalc-check"
+  ]
 }

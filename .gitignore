@@ -1,5 +1,8 @@
 .DS_Store
 
+# yalc
+.yalc
+
 bundle.js
 node_modules/
 static/main.js

@@ -77,4 +77,21 @@ clean:
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV
 
-.PHONY: help clean build start stop dev test ui-test
+# Use Yalc to manage packages linking
+# https://github.com/whitecolor/yalc#usage
+
+link-packages:
+	@echo "Yalc add all @twreporter packages"
+	yalc add @twreporter/react-components
+	yalc add @twreporter/react-article-components
+	yalc add @twreporter/redux
+	yalc add @twreporter/core
+	yalc add @twreporter/universal-header
+	yarn
+
+unlink-packages:
+	@echo "Yalc remove all @twreporter packages"
+	yalc remove --all
+	yarn install --force
+
+.PHONY: help clean build start stop dev test ui-test link-packages unlink-packages
