@@ -4,7 +4,14 @@
 
 ### 4.3.11
 #### Dependency Upgrade
-- @twreporter/react-components@^7.0.7-beta.2
+- @twreporter/react-components@^7.0.8
+- @twreporter/redux@^5.0.4
+- @twreporter/universal-header@^2.1.0
+- @twreporter/core@^1.1.0
+- @twreporter/react-article-components@^1.0.15
+- @twreporter/velocity-react@^1.4.2
+- react@16.8.6 -> react@16.9.0
+- react-dom@16.8.6 -> react@16.9.0
 
 ### 4.3.10
 #### Donation Link with utm
