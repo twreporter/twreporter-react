@@ -7,8 +7,8 @@ import Html from '../../helpers/Html'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
-import requestOrigins from '../../constants/request-origins'
 
 const _ = {
   get
