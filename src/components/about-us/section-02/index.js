@@ -4,7 +4,7 @@ import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import CarouselMemberList from './content-carousel-list'
 import find from 'lodash/find'
@@ -28,16 +28,16 @@ const membersNumberArray = [ ...categories.fundation, ...categories.media ].map(
 const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: ${marginBetweenSections.desktop} 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: ${marginBetweenSections.tablet} 0;    
   `}  
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: ${marginBetweenSections.mobile} 0;    
   `}
 `
@@ -46,19 +46,19 @@ const SectionWrapper = styled.section`
   position: relative;
   display: block;
   margin: 0 auto;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 1440px;
     padding: 101px 135px 115px 122px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 1024px;
     padding: 60px 85px 163px 79px;
   `}  
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 100%;
     padding: 45px 81px 94px 81px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 100%;
     padding: 50px 35px 64px 35px
   `}
@@ -72,25 +72,25 @@ const Title = styled.h1`
   span{
     display: none;
   }
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 259px;
     height: 182px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 361px;
     height: 231px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section2-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 134px;
     height: 300px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 84px;
     height: 195px;
   `}
@@ -104,17 +104,17 @@ const Intro = styled.div`
     line-height: 1.6;
     color: ${gray.lightgray};
   }
-  ${screen.desktopBelow`
+  ${mq.desktopAndBelow`
     line-height: 1.46;
     font-size: 13px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     p{
       font-size: 12px;
     }
     margin-top: 25px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     float: none;
     p{
       margin-bottom: 1em;
@@ -124,19 +124,19 @@ const Intro = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin-top: 160px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin-top: 75px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 110px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 44.3px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-top: 45px;
   `}
 `

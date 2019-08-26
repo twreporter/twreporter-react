@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { months } from '../constants/section-05/months'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import PropTypes from 'prop-types'
@@ -20,13 +20,13 @@ const dateBorderColor = '#d3d3d3'
 const transitionDuration = 300
 
 const OnlyDisplayOnMobile = styled.div `
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: none;
   `}
 `
 
 const DisplayOnTabletAbove = styled.div `
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
@@ -57,10 +57,10 @@ const Record = styled.div `
       text-align: left;
     }
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 10px 5px 10px 0;  
   `}
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     p{
       font-size: 14px;
       line-height: 1.57;
@@ -70,7 +70,7 @@ const Record = styled.div `
       padding: 15px 42px 20px 12px;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     p{
       font-size: 16px;
       line-height: 1.38;
@@ -109,14 +109,14 @@ const YearLabel = styled.div `
     font-size: 32px;
     font-weight: bold;
   }
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: none;
   `}
 `
 
 const Accomplishments = styled.div `
   width: 100%;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     transform-style: preserve-3d;
     margin-top: 2px;
   `}
@@ -133,12 +133,12 @@ const MonthLabel = styled.div `
     font-weight: bold;
     line-height: 23px;
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     p{
       font-size: 14px;
     }
   `}
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: ${props => props.monthOrder === 0 ? 'block' : 'none'};
   `}  
 `
@@ -153,7 +153,7 @@ const Accomplishment = styled.div `
   width: 100%;
   margin: 0;
   color: ${colors.black};
-  ${screen.mobile`
+  ${mq.mobileOnly`
     position: relative;
     border-bottom: solid 1px ${colors.white};
     background: ${colors.gray.gray96};

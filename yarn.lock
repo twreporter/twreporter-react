@@ -141,12 +141,22 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@^1.0.1", "@twreporter/core@^1.0.2", "@twreporter/core@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.3.tgz#0c65a51d64f231813c6cbc4bd74f838bc4fe6ee8"
-  integrity sha512-JwUVSLcvB0/pkfKiZEqusD2S/iDaEm2gVgfbAgfV15rLjxO7mhrvmY5wbCU0HTQhWI+m6ASvpunBM7lEQyBzfw==
+"@twreporter/core@^1.0.1", "@twreporter/core@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.0.tgz#d6b2045beb310f686a58dd0c78838503939a890d"
+  integrity sha512-7PuaM4jg5qE2T4mk/iJjud58UU2WAFoc3AJPSaK9lOn7GefnUIzpGbNq985CWrdzYkYHD6+jn59qATvHFGuwfw==
   dependencies:
     lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
+"@twreporter/core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.1.tgz#b6a75ae16ded67163cffd72d691b22e59d424c88"
+  integrity sha512-OA/oNAzkFYhcbdNaEYrSHhRTFaXWU8pUBVMqlBrCQtiyqIFuTq/HXyPiHUwoW2wR4NXRP7nop3H3upkjjFob2Q==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
     styled-components "^4.0.0"
 
 "@twreporter/index-page@^1.0.4":
@@ -166,56 +176,35 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.14.tgz#9d57b88ebe63b18dbd41db16765d175a632c143e"
-  integrity sha512-YadeHT5MHXLfOCzz1CdMGdWNhqX0+nEIreWCELWVQ8uHi/9eRGjPIqlFbuYwU5C0xXUHr2wdJfQMFm2p3Xnt6A==
+"@twreporter/react-article-components@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.15.tgz#36c103934288c293b15c4404c43f06fc35b241bd"
+  integrity sha512-decSFn0c6QwD0ZZmrj/vbNwa47MaicNWMG+kP+6cI0VJSekfJ7lmXa0E3sHZGJZ0mEuObs4qXfFym1ksBd8L7g==
   dependencies:
-    "@twreporter/core" "^1.0.3"
-    "@twreporter/react-components" "^7.0.5"
-    "@twreporter/redux" "^5.0.3"
-    "@twreporter/universal-header" "^2.0.5"
+    "@twreporter/core" "^1.1.0"
+    "@twreporter/react-components" "^7.0.7"
+    "@twreporter/redux" "^5.0.4"
+    "@twreporter/universal-header" "^2.1.0"
     howler "^2.1.1"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
     prop-types "^15.0.0"
     react "^16.3.0"
-    react-dom "^16.3.0"
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@7.0.7-beta.2":
-  version "7.0.7-beta.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.7-beta.2.tgz#87954fd1424965d43f3da8f0d14b7a8244b62013"
-  integrity sha512-0aczxo8wpk4VYKGzOdTJ7Zeuz3Ner6tQZfCBzdg5Q44zss0sg52vS30MvVo4ngpLJjW644A6UiO1YVDePMit3g==
+"@twreporter/react-components@^7.0.7", "@twreporter/react-components@^7.0.8":
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.8.tgz#658b29e797d6764882b75ed1eb20f298532f56bd"
+  integrity sha512-Q4kPg7l+0DYuYZaOYCjQhARcXbL4sEPOP6glpEHXL4Yic+XYVBSGfSs2sY+BWOM59EgCjOo2Mrix7fE759j9XQ==
   dependencies:
-    "@twreporter/core" "^1.0.3"
-    "@twreporter/redux" "^5.0.3"
+    "@twreporter/core" "^1.1.0"
+    "@twreporter/redux" "^5.0.4"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^16.3.0"
-    react-dom "^16.3.0"
-    react-redux "^6.0.0"
-    react-router-dom "^4.3.1"
-    react-transition-group "^1.2.1"
-    react-waypoint "^9.0.2"
-    smoothscroll "^0.3.0"
-    styled-components "^4.0.0"
-
-"@twreporter/react-components@^7.0.5":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.6.tgz#88700e93e02ad5c269fd909bb1fc03947ea6408a"
-  integrity sha512-7pbD27GP0cAEmL0qU0VhFmL/w//6WfNQRiUUeabWPMGATKBUj0rOWn8Y5i17Jr4mCcw81pblajrfKQVz7ufQaA==
-  dependencies:
-    "@twreporter/core" "^1.0.3"
-    "@twreporter/redux" "^5.0.3"
-    hoist-non-react-statics "^2.3.1"
-    lodash "^4.0.0"
-    prop-types "^15.0.0"
-    react "^16.3.0"
-    react-dom "^16.3.0"
     react-redux "^6.0.0"
     react-router-dom "^4.3.1"
     react-transition-group "^1.2.1"
@@ -228,10 +217,10 @@
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
-"@twreporter/redux@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.3.tgz#8e1963671f2d91e131d3d528e0a116940629c38d"
-  integrity sha512-L/R4tfLo4OPSr0wOW+Pz6m6Ei17ezbTgiINQMP95VVT8CJGxrF+PpQbzXA8KunZjjREwpn7CM9ok3qw2XL3HxQ==
+"@twreporter/redux@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.4.tgz#c7d65667916b3be666161f4206a27b881d369019"
+  integrity sha512-Gsgb+q29EFe1KVQup12pA04F0RYAxOYZhFBig0cP2sfguXf/Dp0i4GAdYEYfsiZIB7WLxsS8dCbt01qhahd9Kw==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -240,37 +229,34 @@
     localforage "^1.7.3"
     lodash "^4.17.4"
     normalizr "^3.2.4"
+    prop-types "^15.0.0"
     qs "^6.5.1"
+    react "^16.3.0"
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.0.5", "@twreporter/universal-header@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.0.5.tgz#18d13cabc164616d04410c32f3d41818c1ac0ed0"
-  integrity sha512-Oi0QLnd3VrLYG0ZEqJqQB+GCFQaytSOpV52UiPHb8SFnlODXX9PfaTAu2VxXZZVlwLkbIav4VrU17v05QGVYiQ==
+"@twreporter/universal-header@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.0.tgz#f602b37d427bde908e74cff220274882c53e6827"
+  integrity sha512-jZUL3UICRKJXwYvirrrPWA8KM/jCZx69biE8lLQvlU3N5UTyaDf7qJlRrWPvRo8845R7Z21/qdGaCDifWoDtug==
   dependencies:
-    axios "^0.18.0"
+    "@twreporter/core" "^1.1.0"
+    "@twreporter/redux" "^5.0.4"
     lodash "^4.17.11"
-    lodash.get "^4.4.2"
     prop-types "^15.6.2"
     querystring "^0.2.0"
     react "^16.3.0"
-    react-dom "^16.3.0"
     react-redux "^6.0.0"
     react-router-dom "^4.3.1"
     react-transition-group "^1.2.1"
-    redux "^4.0.1"
-    redux-devtools-extension "^2.13.7"
-    redux-thunk "^2.3.0"
-    smoothscroll "^0.4.0"
     styled-components "^4.0.0"
 
-"@twreporter/velocity-react@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/velocity-react/-/velocity-react-1.4.1.tgz#128fe356e3272d6dc7ad7bc8cca8bb7f6cde3d60"
-  integrity sha512-xYFuet07AtRyHSftU0LpMbbUUaDNq+2KnyqeESupKrt0128Vb/T+39ORGUWumekQaGOUPMIJjE0gWaVq30TJQA==
+"@twreporter/velocity-react@^1.4.1", "@twreporter/velocity-react@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/velocity-react/-/velocity-react-1.4.2.tgz#0e941fdc8e1d45ef84615d94fc6202c75bc303c2"
+  integrity sha512-FDHQ5WCES9AT9LHYJ6az+a+PL26RdkfJpNv/K+ulwjEh9m7/YQAtU+xD87fk23Tm5iLXtuOadnH81O4nMGuQYw==
   dependencies:
-    lodash "^4"
+    lodash "^4.0.0"
     prop-types "^15.5.8"
     react-transition-group "^1.2.1"
     velocity-animate "^1.4.0"
@@ -658,14 +644,6 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
-
-axios@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
-  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
-  dependencies:
-    follow-redirects "^1.3.0"
-    is-buffer "^1.1.5"
 
 axios@^0.19.0:
   version "0.19.0"
@@ -3835,7 +3813,7 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.3.0:
+follow-redirects@^1.0.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
   integrity sha512-m/pZQy4Gj287eNy94nivy5wchN3Kp+Q5WgUPNy5lJSZ3sgkVKSYV/ZChMAQVIgx1SqfZ2zBZtPA2YlXIWxxJOQ==
@@ -5441,7 +5419,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@^4, lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.17.10, lodash@~4.17.11:
+lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.17.10, lodash@~4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -6064,9 +6042,9 @@ normalize.css@^7.0.0:
   integrity sha1-q/sd2CRwZ04DIrU86xqvQSk45L8=
 
 normalizr@^3.2.4:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.3.0.tgz#6f44b95e8bf2201845a9e551920c4e5861166d27"
-  integrity sha512-u8Us8Ms5KpY0mmNwML4OBxNKvlmSKeXfPBIXU9XmcejrZUjhIvUOd8RYBq62UL4JHxrcO4wqo2sL4s8B74Hadw==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.4.1.tgz#cf4f8ac7a4a0dd7fe504b77cbe9dd533cb3e45b5"
+  integrity sha512-gei+tJucERU8vYN6TFQL2k5YMLX2Yh7nlylKMJC65+Uu/LS3xQCDJc8cies72aHouycKYyVgcnyLRbaJsigXKw==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
@@ -7294,15 +7272,15 @@ react-click-outside@tj/react-click-outside:
   version "1.1.1"
   resolved "https://codeload.github.com/tj/react-click-outside/tar.gz/a833ddc5be47490307f9fcc6ed09d8c353108510"
 
-react-dom@^16.3.0, react-dom@^16.8.0:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+react-dom@^16.3.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
+    scheduler "^0.15.0"
 
 react-ga@^2.1.2:
   version "2.5.7"
@@ -7327,15 +7305,10 @@ react-howler@^3.0.1:
     howler "^2.1.1"
     prop-types "^15.5.6"
 
-react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.2:
+react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.2:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
   integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
-
-react-is@^16.6.3, react-is@^16.8.1:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
-  integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -7439,15 +7412,14 @@ react-youtube@^7.0.1:
     prop-types "^15.5.3"
     youtube-player "^5.5.1"
 
-react@^16.3.0, react@^16.8.0:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
-  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
+react@^16.3.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -7562,11 +7534,6 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-devtools-extension@^2.13.7:
-  version "2.13.8"
-  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
-  integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
-
 redux-mock-store@^1.0.2:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.5.3.tgz#1f10528949b7ce8056c2532624f7cafa98576c6d"
@@ -7580,9 +7547,9 @@ redux-thunk@^2.3.0:
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
 redux@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
-  integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
@@ -7914,10 +7881,10 @@ sax@^1.2.4, sax@~1.2.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+scheduler@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -8154,11 +8121,6 @@ smoothscroll@0.3.0, smoothscroll@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/smoothscroll/-/smoothscroll-0.3.0.tgz#6e79644d8449c51f29226a833a7440dae9162ed0"
   integrity sha1-bnlkTYRJxR8pImqDOnRA2ukWLtA=
-
-smoothscroll@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/smoothscroll/-/smoothscroll-0.4.0.tgz#40e507b46461408ba1b787d0081e1e883c4124a5"
-  integrity sha512-sggQ3U2Un38b3+q/j1P4Y4fCboCtoUIaBYoge+Lb6Xg1H8RTIif/hugVr+ErMtIDpvBbhQfTjtiTeYAfbw1ZGQ==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

@@ -4,7 +4,7 @@ import { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../../../utils/media-query'
 import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
@@ -42,7 +42,7 @@ const fixedPanelStyle = {
 }
 
 const Container = styled.div`
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `
@@ -62,11 +62,11 @@ const TopRow = styled.div`
       height: 100%;
     }
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: ${headerStyle.height.mobile};
     padding-left: 40px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     a{
       visibility: hidden;
     }
@@ -86,12 +86,12 @@ const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
   padding: 0 ${allPaddingRight.mobile} 0 ${allPaddingLeft.mobile};
-  ${screen.mobile`
+  ${mq.mobileOnly`
     transform: translateY(-5%);
     animation: ${contentShifting} ${transitionDuration}ms linear;
     animation-fill-mode: forwards;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     transform: none;
     padding: 0 31px 0 40px;
   `}
@@ -114,12 +114,12 @@ const AnchorsContainer = styled.div`
   p:nth-child(6){
     border-bottom: none;
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     animation: ${contentShiftingRule};
     animation-fill-mode: forwards;
     padding: 17px 0 52px 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding: 45px 0 0 0;
   `}
 `
@@ -171,7 +171,7 @@ const CloseBtn = styled.div `
     animation: ${rotateCounterClock45degRule};
     animation-fill-mode: forwards;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `
@@ -187,7 +187,7 @@ const Icons = styled.div`
       width: 45px;
     }
   }
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 236px;
   `}
 `
@@ -209,7 +209,7 @@ const EnglishVersionLink = styled.a`
       padding-left: 15px;
     }
   }
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding-left: 45px;
   `}
 `

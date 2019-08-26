@@ -9,6 +9,7 @@ import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
+import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch.js'
 import twreporterRedux from '@twreporter/redux'
 
 const releaseBranch = getGlobalEnv().releaseBranch
@@ -89,7 +90,7 @@ twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
 /* eslint-env browser */
 'use strict'
 
-if ('serviceWorker' in navigator && !__DEVELOPMENT__) {
+if ('serviceWorker' in navigator && !__DEVELOPMENT__ && releaseBranch !== releaseBranchConsts.preview ) {
   // Delay registration until after the page has loaded, to ensure that our
   // precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/universal-header/dist/containers/header'
+import Header from '@twreporter/universal-header/lib/containers/header'
 import mq from '@twreporter/core/lib/utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'

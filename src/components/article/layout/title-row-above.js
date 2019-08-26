@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { LINK_PREFIX } from '../../../constants/index'
 import { articleLayout as layout } from '../../../themes/layout'
 import { colors, typography } from '../../../themes/common-variables'
-import { screen } from '../../../themes/screen'
+import mq from '../../../utils/media-query'
 
 const _ = {
   get
@@ -26,14 +26,14 @@ const colorSelector = (props, defaultColor) => {
 const Container = styled.div`
   display: block;
   margin: 0 auto 24px auto;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: ${layout.desktop.width.small}px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: 24px auto;
     width: ${layout.tablet.width.small}px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0 24px 24px 24px;
   `}
 `
@@ -59,13 +59,13 @@ const Title = styled(HeaderElementBlock)`
   line-height: 1.4;
   font-size: 42px;
   color: ${props => (colorSelector(props, colors.gray.gray25))};
-  ${screen.desktop`
+  ${mq.desktopOnly`
     font-size: 38px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     font-size: 38px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     font-size: ${typography.font.size.xLarger};
   `}
 `

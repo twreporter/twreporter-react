@@ -2,7 +2,7 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import awardsList from '../constants/section-03/awards.json'
 import awardsName from '../constants/section-03/awards-name.json'
@@ -31,19 +31,19 @@ const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
   overflow: hidden;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     min-height: 100vh;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: ${marginBetweenSections.desktop} 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: ${marginBetweenSections.tablet} 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: ${marginBetweenSections.mobile} 0;
   `}
 `
@@ -52,7 +52,7 @@ const SectionWrapper = styled.section`
   position: relative;
   display: block;
   margin: 0 auto;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     position: absolute;
     left: 50%;
     top: 50%;
@@ -61,17 +61,17 @@ const SectionWrapper = styled.section`
     height: 950px;
     padding: 97px 162px 145px 146px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 1024px;
     height: 820px;
     padding: 78px 120px 156.1px 76px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 100%;
     min-height: 1024px;
     padding: 82px 101px 67px 101px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 100%;
     min-height: 922px;
     padding: 50px 47.2px 93px 43px
@@ -80,17 +80,17 @@ const SectionWrapper = styled.section`
 
 const LeftColumnOnDesktopAbove = styled.div`
   position: relative;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: inline-block;
     height: 100%;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 345px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 423px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     text-align: center;
   `}
 `
@@ -104,25 +104,25 @@ const Title = styled.h1`
   span{
     display: none;
   }
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 259px;
     height: 182px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 361px;
     height: 231px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section3-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 134px;
     height: 300px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: block;
     margin: 0;
     width: 84px;
@@ -166,13 +166,13 @@ const AwardsCount = styled.div`
     letter-spacing: 0.2px;
   }
 
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: 100%;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 105px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 92px;
     h2{
       font-size: 24px;
@@ -184,22 +184,22 @@ const AwardsCount = styled.div`
 const Achievement = styled.div`
   display: block;
   position: absolute;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     left: 0;
     bottom: 0;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 108px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 108px;
     transform: translateX(-25%);
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     left: 0;
     bottom: 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     position: relative;
     float: right;
   `}
@@ -209,15 +209,15 @@ const ListSelector = styled.div`
   position: relative;
   display: block;
   float: right;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 260px;
     margin-top: 68px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 250px;
     margin-top: 62px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -229,24 +229,24 @@ const Circle = styled.div`
   height: 30px;
   border-radius: 50%;
   background: ${colors.black};
-  ${screen.desktop`
+  ${mq.desktopOnly`
     left: -80px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     left: -124px;
   `}
 `
 
 const MobCircle = styled(Circle)`
-  ${screen.tablet`
+  ${mq.tabletOnly`
     left: calc(105px / 2);
     transform: translateX(-50%);
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     right: calc(84px / 2);
     transform: translateX(50%);
   `}
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `
@@ -262,10 +262,10 @@ const YearRange = styled.p`
   font-size: 12px;
   font-weight: bold;
   line-height: 3.17;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     transform: translateY(-220px) rotate(90deg);
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     transform: translateY(-120px) rotate(90deg);
   `}
 `

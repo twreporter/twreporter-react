@@ -28,9 +28,9 @@ import { articleLayout as layout } from '../themes/layout'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { getScreenType } from '../utils/screen'
+import getScreenType from '../utils/screen-type'
 import { colors } from '../themes/common-variables'
-import { screen } from '../themes/screen'
+import mq from '../utils/media-query'
 
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
@@ -93,13 +93,13 @@ const ArticleContainer = styled.article`
 const IntroductionContainer = styled.div`
   display: block;
   margin: 0 auto 80px auto;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: ${layout.desktop.width.small}px;
   `};
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: ${layout.tablet.width.small}px;
   `};
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0 24px 80px 24px;
   `};
 `

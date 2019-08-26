@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import InfoPanel from './more-info-panel'
 import Navigation from '../utils/navigation'
@@ -43,10 +43,10 @@ const Container = styled.div`
   img{
     width: 100%;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     position: relative;
     width: calc(100% - 157px);
     min-height: calc(100% - 103px);
@@ -75,7 +75,7 @@ const Container = styled.div`
       padding: 0 39px 162px 100px;
     }  
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     position: relative;
     width: calc(100% - 50px);
     min-height: calc(100% - 61px);
@@ -117,10 +117,10 @@ const NavigationWrapper = styled.div`
   text-align: left;
   background: ${colors.white};
   margin: 0;
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding: 0 0 46px 101px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     padding: 0 0 34px 50px;
   `}
 `
@@ -139,14 +139,14 @@ const RightArrow = styled.div `
   transform: translateY(-50%);
   cursor: pointer;
   display: ${props => props.hasNext === 'true' ? 'block' : 'none'};
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     transform: translateX(100%) translateY(-50%);    
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     top: 170px;
     right: -69px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     top: 105px;
     right: -18px;
   `}
@@ -169,11 +169,11 @@ const CloseBtn = styled.div `
   height: 20px;
   overflow: hidden;
   cursor: pointer;
-  ${screen.tablet`
+  ${mq.tabletOnly`
     right: 49px;
     top: 42.2px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     right: 19px;
     top: 24px;
   `}

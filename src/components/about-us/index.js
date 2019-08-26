@@ -1,9 +1,9 @@
 import { colors } from '../../themes/common-variables'
-import { screen } from './utils/screen'
 import { SITE_NAME, SITE_META } from './constants/data/index'
 import anchors from './constants/data/sidebar-anchor'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
+import mq from './utils/media-query'
 import Opening from './opening'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -18,19 +18,19 @@ import styled from 'styled-components'
 import WebFont from './web-font'
 
 const Border = styled.div `
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     border-left: solid 8px ${colors.red.liverRed};
     border-right: solid 8px ${colors.red.liverRed};
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     border-left: solid 6px ${colors.red.liverRed};
     border-right: solid 6px ${colors.red.liverRed};
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     border-left: solid 7px ${colors.red.liverRed};
     border-right: solid 7px ${colors.red.liverRed};
   `}  
-  ${screen.mobile`
+  ${mq.mobileOnly`
     border-left: solid 6px ${colors.red.liverRed};
     border-right: solid 6px ${colors.red.liverRed};
   `}    
