@@ -1,7 +1,5 @@
 ## Unreleased
 
-## Release
-
 ### 4.3.11
 #### Dependency Upgrade
 - @twreporter/react-components@^7.0.8
@@ -12,6 +10,8 @@
 - @twreporter/velocity-react@^1.4.2
 - react@16.8.6 -> react@16.9.0
 - react-dom@16.8.6 -> react@16.9.0
+
+## Release
 
 ### 4.3.10
 #### Donation Link with utm
