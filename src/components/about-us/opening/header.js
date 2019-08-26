@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { containerStyle, headerStyle } from './section-style'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import Link from 'react-router-dom/Link'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
 import PropTypes from 'prop-types'
@@ -13,23 +13,23 @@ const Container = styled.div`
   display: block;
   width: 100%;
   margin: 0 auto;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     max-width: ${containerStyle.width.mobile};
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     max-width: ${containerStyle.width.tablet};
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: ${props => props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};  
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     max-width: ${containerStyle.width.desktop};
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     max-width: ${containerStyle.width.overDesktop};
   `}
 `
@@ -47,19 +47,19 @@ const TopRow = styled.div`
       height: 100%;
     }
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: ${headerStyle.height.mobile};
     padding: ${headerStyle.padding.mobile};
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: ${headerStyle.height.tablet};
     padding: ${headerStyle.padding.tablet};
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: ${headerStyle.height.desktop};
     padding: ${headerStyle.padding.desktop};
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: ${headerStyle.height.overDesktop};
     padding: ${headerStyle.padding.overDesktop};
   `}
@@ -81,7 +81,7 @@ const LanguageSwitcher = styled.div`
     opacity: 0.26;
     padding-right: 0;
   }
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -97,7 +97,7 @@ const Hamburger = styled.div`
   span:first-child{
     margin-bottom: 8px;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `

@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import map from 'lodash/map'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -12,7 +12,7 @@ const _ = {
 
 const AwardItem = styled.div`
   display: inline-block;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: block;
     width: 100%;
     p{
@@ -38,14 +38,14 @@ const AwardItem = styled.div`
       }
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     p{
       margin-bottom: ${props => props.currentIndex === 'true' ? '25px' : '11px'};
       letter-spacing: ${props => props.currentIndex === 'true' ? '0.8px' : '0.5px'};
       font-size: ${props => props.currentIndex === 'true' ? '24px' : '16px'};
     }  
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     p{
       margin-bottom: ${props => props.currentIndex === 'true' ? '25px' : '11px'};
       letter-spacing: ${props => props.currentIndex === 'true' ? '0.7px' : '0.5px'};

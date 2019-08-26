@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import AccordionList from './content-accordion-list'
 import PaginatedList from './content-paginated-list'
@@ -13,11 +13,11 @@ const transitionDuration = '.3s'
 
 const Arrow = styled.div`
   position: absolute;
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 12.3px;
     height: 60px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 15px;
     height: 73px;
   `}
@@ -47,7 +47,7 @@ const Arrows = styled.div`
   right: 0;
   height: 100%;
   cursor: pointer;
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -58,19 +58,19 @@ const Container = styled.div `
   height: 100%;
   float: right;
   text-align: center;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 530px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 432px;
   `}
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     background: ${colors.gray.gray96};
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 60.1px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-top: 37px;
   `}
 `
@@ -82,7 +82,7 @@ const SemiTransparentMask = styled.div `
   width: 100%;
   height: 20px;
   background: ${props => `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -90,7 +90,7 @@ const SemiTransparentMask = styled.div `
 const PageWrapper = styled.div`
   position: relative;
   width: 100%;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     padding: 40px 46px;
     height: 100%;
     overflow-y: hidden;

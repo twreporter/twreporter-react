@@ -1,5 +1,5 @@
-import { screen } from './screen'
 import debounce from 'lodash/debounce'
+import mq from './media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -16,7 +16,7 @@ const Panel = styled.div`
   overflow: scroll;
   background: ${props => props.background};
   -webkit-overflow-scrolling: touch;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: ${props => props.mobWidth};
     height: ${props => props.mobHeight};
     top: ${props => props.mobPositionTop};
@@ -24,7 +24,7 @@ const Panel = styled.div`
     left: ${props => props.mobPositionLeft};
     right: ${props => props.mobPositionRight};
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: ${props => props.tabletWidth};
     height: ${props => props.tabletHeight};
     top: ${props => props.tabletPositionTop};

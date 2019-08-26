@@ -1,6 +1,6 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { VelocityTransitionGroup } from '@twreporter/velocity-react'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -12,18 +12,18 @@ const defaultZIndex = 0
 
 const Container = styled.div `
   display: block;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `
 
 const AwardItem = styled.div `
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     border-bottom: solid 1px ${borderBottomColor};
     margin-bottom: 21px;
     padding-bottom: 21px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding-bottom: 29px;
   `}
 `
@@ -115,10 +115,10 @@ const SeperatedLine = styled.div `
   transform: translateX(-50%);
   height: 50%;
   border-bottom: solid 0.5px ${colors.black};
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 65%;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 80%;
   `}
 `
@@ -142,7 +142,7 @@ const YearTag = styled.div `
     z-index: calc(${defaultZIndex} + 1);
     padding: 0 5px;
   }
-  ${screen.tablet`
+  ${mq.tabletOnly`
     p{
       padding: 0 10px;
     }

@@ -2,7 +2,7 @@ import { Waypoint } from 'react-waypoint'
 import { colors } from '../../../themes/common-variables'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import LottieAnim from './lottie-animation'
 import React, { PureComponent } from 'react'
@@ -16,16 +16,16 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: ${colors.white};
   overflow: hidden;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: 0 0 ${marginBetweenSections.overDesktop} 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: 0 0 ${marginBetweenSections.desktop} 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: 0 0 ${marginBetweenSections.tablet} 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0 0 ${marginBetweenSections.mobile} 0;
   `}
 `
@@ -37,16 +37,16 @@ const BorderTop = styled.div`
   width: 100%;
   z-index: ${props => props.zIndex};
   background: ${colors.red.liverRed};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 8px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: 6px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 7px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: 6px;
   `}
 `
@@ -54,21 +54,21 @@ const BorderTop = styled.div`
 const SectionWrapper = styled.section`
   display: block;
   margin: 0 auto;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 1440px;
     min-height: 1120px;
     padding: 200px 115px 200px 101px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 1024px;
     min-height: 820px;
     padding: 118px 85px 118px 79px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 100%;
     padding: 100.9px 96px 67px 90px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 100%;
     padding: 50.9px 40.5px 45px 41.5px;
   `}
@@ -82,25 +82,25 @@ const Title = styled.h1`
   span{
     display: none;
   }
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 193.7px;
     height: 330.3px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 276px;
     height: 475px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section1-mob.png`)});
     background-position: center top;
     float: none;
     margin: 0 auto;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 134px;
     height: 300px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 84px;
     height: 195px;
   `}
@@ -109,7 +109,7 @@ const Title = styled.h1`
 const IntroWords = styled.div`
   margin: 0;
   padding: 15px;
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     padding: 15px;
     background: ${colors.gray.gray96};
     br {
@@ -126,19 +126,19 @@ const Introduction = styled.div`
     line-height: 1.89;
     text-align: center;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     p{
       background-color: ${colors.gray.gray96};
       padding: 5px;
     }
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     p{
       display: block;
       line-height: 1.89;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 440px;
     margin-left: auto;
     margin-right: auto;
@@ -147,7 +147,7 @@ const Introduction = styled.div`
       line-height: 1.6;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-left: 20px;
     margin-right: 20px;
     p{
@@ -169,14 +169,14 @@ const Content = styled.div`
     font-weight: bold;
     letter-spacing: 6.6px;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: 390px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     width: 100%;
     float: none;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 650px;
     h2{
       margin-top: 80px;
@@ -184,7 +184,7 @@ const Content = styled.div`
       letter-spacing: 4.7px;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: 380px;
     margin-top: 50px;
     h2{
@@ -204,16 +204,16 @@ const Caption = styled.div`
 `
 
 const LottieWrapper = styled.div`
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: 100px 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: 50px 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: 45px 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 30px 0;
   `}
 `

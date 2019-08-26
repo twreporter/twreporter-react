@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
@@ -35,16 +35,16 @@ const containerWidth = {
 const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: ${marginBetweenSections.desktop} 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: ${marginBetweenSections.tablet} 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: ${marginBetweenSections.mobile} 0;
   `}
 `
@@ -52,22 +52,22 @@ const Container = styled.div`
 const SectionWrapper = styled.section`
   display: block;
   margin: 0 auto;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: ${containerWidth.overDesktop};
     min-height: 1118px;
     padding: 132px 138px 88px 137px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: ${containerWidth.desktop};
     min-height: 820px;
     padding: 142px 86px 98px 86px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: ${containerWidth.tablet};
     min-height: 1024px;
     padding: 80px 93px 80px 93px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: ${containerWidth.mobile};
     min-height: 715px;
     padding: 76px 43px 76px 43px
@@ -82,24 +82,24 @@ const Title = styled.h1`
   span{
     display: none;
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 408px;
     height: 251px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 315px;
     height: 194px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     background-position: center top;
     float: none;
     margin: 0 auto;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 408px;
     height: 231px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 247px;
     height: 154px;
   `}
@@ -111,45 +111,45 @@ const LogoBlock = styled.div`
   border: solid 1px ${logoBlockBorderColor};
   height: 189px;
   cursor: pointer;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: calc(100% / ${column.desktop});
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     margin-bottom: -6px;
     width: calc(100% / ${column.mobile});
     &:nth-child(even) {
       margin-left: -1px;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: 160px;
   `}
 `
 
 const LogoBlockOnDesktop = styled(LogoBlock)`
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
 
 const LogoBlockOnTabletAbove = styled(LogoBlock)`
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: none;
   `}
 `
 
 const Content = styled.div`
   width: 100%;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin-top: 160px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin-top: 75px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 110px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-top: 67px;
   `}
 `
@@ -173,7 +173,7 @@ const LogoContent = styled.div`
     width: 49px;
     border-bottom: solid 1px ${logoBlockBorderColor};
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     h3{
       font-size: 24px;
       letter-spacing: 0.5px;
@@ -183,7 +183,7 @@ const LogoContent = styled.div`
       padding-bottom: 19px;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     h3{
       font-size: 18px;
       letter-spacing: 0.4px;
@@ -193,13 +193,13 @@ const LogoContent = styled.div`
       padding-bottom: 14px;
     }
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     min-height: 144px;
     h3{
       font-size: 24px;
@@ -209,7 +209,7 @@ const LogoContent = styled.div`
       padding-bottom: 19px;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     min-height: 124px;
     img{
       width: 64px;

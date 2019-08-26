@@ -1,7 +1,7 @@
 // polyfill webpack require.ensure for node environment
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import Loadable from 'react-loadable'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -11,12 +11,12 @@ const animationLength = 3
 const Container = styled.div`
   width: 100%;
   height: 38.39%;
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 528px;
     height: 245px;
     margin: 0 auto;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 100%;
     height: 136px;
   `}
