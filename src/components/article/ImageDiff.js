@@ -8,9 +8,8 @@ import Slider from 'rc-slider'
 import SliderButton from '../../../static/asset/slider-button.svg'
 import classNames from 'classnames'
 import commonStyles from './Common.scss'
-import screenSize from '../../constants/screen-size'
 import styles from './ImageDiff.scss'
-import { getScreenType } from '../../utils/screen'
+import getScreenType from '../../utils/screen-type'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 // lodash

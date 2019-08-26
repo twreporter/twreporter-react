@@ -9,7 +9,7 @@ import constStyledComponents from '../../../constants/styled-components'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
 import styled from 'styled-components'
-import { screen } from '../../../themes/screen'
+import mq from '../../../utils/media-query'
 
 const _ = {
   get,
@@ -22,7 +22,7 @@ const MetaContainer = styled.div`
 `
 
 const LayoutContainer = styled.div`
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-top: ${props => {
     // -110px is the header's height
     return props.isLeadingAssetFullScreen ? '-110px' : '0px'

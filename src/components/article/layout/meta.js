@@ -9,7 +9,7 @@ import { ShareBt } from '../ShareBt'
 import { articleLayout as layout } from '../../../themes/layout'
 import { appId } from '../../../constants/index'
 import { getAbsPath } from '../../../utils/url'
-import { screen } from '../../../themes/screen'
+import mq from '../../../utils/media-query'
 
 const Container = styled.div`
   display: block;
@@ -17,14 +17,14 @@ const Container = styled.div`
   > div {
     margin-bottom: 24px;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     width: ${layout.desktop.width.small}px;
     margin-bottom: 40px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: ${layout.tablet.width.small}px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0 24px 24px 24px;
   `}
 `

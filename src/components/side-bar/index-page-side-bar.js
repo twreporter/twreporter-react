@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import baseComponents from './base-components'
 import { colors } from '../../themes/common-variables'
-import { screen } from '../../themes/screen'
+import mq from '../../utils/media-query'
 
 // writing-mode: vertical-rl;
 // letter-spacing: 2px;
@@ -27,10 +27,10 @@ const SideBarContainer = styled.div`
   transform: translateY(-50%);
   color: ${colors.primaryColor};
   right: 16px;
-  ${screen.tablet`
+  ${mq.tabletOnly`
     right: 3px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
