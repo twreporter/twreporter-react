@@ -5,7 +5,7 @@ import get from 'lodash/get'
 import styled from 'styled-components'
 import { articleLayout } from '../../themes/layout'
 import { colors, typography } from '../../themes/common-variables'
-import { screen } from '../../themes/screen'
+import mq from '../../utils/media-query'
 
 const _ = {
   get
@@ -160,19 +160,19 @@ const SizeBarBox = styled.div`
   visibility: ${props => (props.toShow ? 'visible' : 'hidden')};
   z-index: 200;
 
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     transform: translate(calc(${-(articleLayout.hd.width.medium/2)}px - 150%), -50%);
   `}
 
-  ${screen.overHD`
+  @media (min-width: 1440px) {
     transform: translate(calc(${-(articleLayout.hd.width.medium/2)}px - 200%), -50%);
-  `}
+  }
 
   > img.${longFormArticleClassNames.toggleButton} {
     display: none;
   }
 
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: flex;
     left: 0;
     transform: translate(${props => props.isToggled ? '0' : '-100'}%, -50%);

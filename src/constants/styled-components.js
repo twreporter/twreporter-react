@@ -1,7 +1,7 @@
 import get from 'lodash/get'
 import styled from 'styled-components'
 import { articleLayout } from '../themes/layout'
-import { screen } from '../themes/screen'
+import mq from '../utils/media-query'
 
 const _ = {
   get
@@ -13,15 +13,15 @@ const ResponsiveContainerForAritclePage = styled.div`
   max-width: 100%;
   margin: 0 auto;
 
-  ${screen.tablet`
+  ${mq.tabletOnly`
     max-width: ${props => _.get(articleLayout, [ 'tablet', 'width', props.size ], defaultMaxWidth)}px;
   `}
 
-  ${screen.desktop`
+  ${mq.desktopOnly`
     max-width: ${props => _.get(articleLayout, [ 'desktop', 'width', props.size ], defaultMaxWidth)}px;
   `}
 
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     max-width: ${props => _.get(articleLayout, [ 'hd', 'width', props.size ], defaultMaxWidth)}px;
   `}
 `

@@ -7,9 +7,9 @@ import Slides from './slides'
 import Thumbnails from './thumbnails'
 import classNames from 'classnames'
 import commonStyles from '../Common.scss'
-import screenSize from '../../../constants/screen-size'
 import styles from './slideshow.scss'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { getSrcSet } from '../../../utils/img'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -50,12 +50,6 @@ class Slideshow extends Component {
     console.log(event.target.src)
   }
 
-  _composeSrcSet(imgObj) {
-    let desktopSrc = replaceGCSUrlOrigin(get(imgObj, [ 'desktop', 'url' ]))
-    let tabletSrc = replaceGCSUrlOrigin(get(imgObj, [ 'tablet', 'url' ]))
-    let mobileSrc = replaceGCSUrlOrigin(get(imgObj, [ 'mobile', 'url' ]))
-    return `${mobileSrc} ${screenSize.smallScreenMinWidth}w, ${tabletSrc} ${screenSize.mediumScreenMinWidth}w, ${desktopSrc} ${screenSize.largeScreenMinWidth}w`
-  }
 
   _parseContent(content) {
     let slides = []
@@ -68,7 +62,7 @@ class Slideshow extends Component {
       slide.src = replaceGCSUrlOrigin(defaultImg || get(imgObj, [ 'desktop', 'url' ]))
       slide.id = id
       slide.description = imgObj.description
-      slide.srcSet = this._composeSrcSet(imgObj)
+      slide.srcSet = getSrcSet(imgObj)
       thumbnail.src = replaceGCSUrlOrigin(get(imgObj, [ 'tiny', 'url' ], defaultImg))
       thumbnail.id = id
       slides.push(slide)

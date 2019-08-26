@@ -2,7 +2,7 @@ import { SITE_META } from '../about-us/constants/data/index'
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../about-us/utils/screen'
+import mq from '../../utils/media-query'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
@@ -83,10 +83,10 @@ const AnchorsContainer = styled.div`
       transition: all 200ms linear;
     }
   }
-  ${screen.desktop`
+  ${mq.desktopOnly`
     transform: translate(-47px, -50%);
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -95,7 +95,7 @@ const Icons = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
-  ${screen.desktop`
+  ${mq.desktopOnly`
     transform: translateX(50%) translateY(226px);
     img{
       width: 30px;
@@ -103,7 +103,7 @@ const Icons = styled.div`
     }
   `}
 
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     transform: translateX(50%) translateY(376px);
     img{
       width: 45px;

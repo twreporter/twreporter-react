@@ -8,7 +8,7 @@ import sideBarFactory from '../side-bar/side-bar-factory'
 import styled from 'styled-components'
 import { Waypoint } from 'react-waypoint'
 import { articleLayout } from '../../themes/layout'
-import { screen } from '../../themes/screen'
+import mq from '../../utils/media-query'
 import { typography } from '../../themes/common-variables'
 
 // lodash

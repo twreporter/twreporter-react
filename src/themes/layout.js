@@ -1,4 +1,4 @@
-import sz from '../constants/screen-size'
+import screen from '../constants/screen'
 
 export const articleLayout = {
   mobile: {
@@ -6,21 +6,21 @@ export const articleLayout = {
   },
   tablet: {
     width: {
-      large: sz.mediumScreenMinWidth,
+      large: screen.tablet.minWidth,
       medium: 672,
       small: 556
     }
   },
   desktop: {
     width: {
-      large: sz.largeScreenMinWidth,
+      large: screen.desktop.minWidth,
       medium: 833,
       small: 664
     }
   },
   hd: {
     width: {
-      large: sz.xLargeScreenMinWidth,
+      large: screen.hd.minWidth,
       medium: 880,
       small: 700
     }

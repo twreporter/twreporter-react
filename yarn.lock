@@ -150,6 +150,15 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.1.tgz#b6a75ae16ded67163cffd72d691b22e59d424c88"
+  integrity sha512-OA/oNAzkFYhcbdNaEYrSHhRTFaXWU8pUBVMqlBrCQtiyqIFuTq/HXyPiHUwoW2wR4NXRP7nop3H3upkjjFob2Q==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.4.tgz#96dd725e491c424f3fdc7f61c3937f8ac7b6cc0a"
@@ -7296,7 +7305,7 @@ react-howler@^3.0.1:
     howler "^2.1.1"
     prop-types "^15.5.6"
 
-react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.2, react-is@^16.6.3, react-is@^16.8.1:
+react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.2:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
   integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==

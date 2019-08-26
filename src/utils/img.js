@@ -1,10 +1,14 @@
-'use strict'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import get from 'lodash/get'
-import sz from '../constants/screen-size'
 
 const _ = {
   get
+}
+
+const assumedImageWidth = {
+  desktop: 992,
+  tablet: 768,
+  mobile: 576
 }
 
 /**
@@ -22,7 +26,7 @@ const _ = {
  * @return {string} srcset
  */
 export const getSrcSet = (imgSet) => {
-  if (typeof imgSet !== 'object') {
+  if (!imgSet || typeof imgSet !== 'object') {
     return ''
   }
 
@@ -33,15 +37,15 @@ export const getSrcSet = (imgSet) => {
   let srcset = ''
 
   if (desktopUrl) {
-    srcset += `${replaceGCSUrlOrigin(desktopUrl)} ${_.get(imgSet, 'desktop.width', sz.largeScreenMinWidth)}w,`
+    srcset += `${replaceGCSUrlOrigin(desktopUrl)} ${_.get(imgSet, 'desktop.width', assumedImageWidth.desktop)}w,`
   }
 
   if (tabletUrl) {
-    srcset += `${replaceGCSUrlOrigin(tabletUrl)} ${_.get(imgSet, 'tablet.width', sz.mediumScreenMinWidth)}w,`
+    srcset += `${replaceGCSUrlOrigin(tabletUrl)} ${_.get(imgSet, 'tablet.width', assumedImageWidth.tablet)}w,`
   }
 
   if (mobileUrl) {
-    srcset += `${replaceGCSUrlOrigin(mobileUrl)} ${_.get(imgSet, 'mobile.width', sz.smallScreenMinWidth)}w`
+    srcset += `${replaceGCSUrlOrigin(mobileUrl)} ${_.get(imgSet, 'mobile.width', assumedImageWidth.mobile)}w`
   }
 
   return srcset
