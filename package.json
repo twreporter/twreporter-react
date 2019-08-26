@@ -25,7 +25,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/core": "^1.1.0",
+    "@twreporter/core": "^1.1.1",
     "@twreporter/index-page": "^1.0.4",
     "@twreporter/react-article-components": "^1.0.15",
     "@twreporter/react-components": "^7.0.8",
