@@ -7,12 +7,14 @@ import AuthorCollection from '../components/authorPage/AuthorCollection'
 import AuthorData from '../components/authorPage/AuthorData'
 import classNames from 'classnames'
 import commonStyles from '../components/article/Common.scss'
-import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
+// @twreporter
 import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
 
 const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.actions
 
@@ -20,7 +22,11 @@ const _ = {
   get
 }
 
-const authorDefaultImg = '/asset/author-default-img.svg'
+const authorDefaultImg = {
+  url: '/asset/author-default-img.svg',
+  width: 500,
+  height: 500
+}
 
 class Author extends React.Component {
   static propTypes = {
@@ -44,7 +50,7 @@ class Author extends React.Component {
     const authorId = _.get(this.props, 'match.params.authorId')
     if (authorId) {
       this.props.fetchAuthorCollectionIfNeeded(authorId)
-      const authorIsFull = _.get(this.props, [ 'entities', authorId, 'full' ], false)
+      const { authorIsFull } = this.props
       if (!authorIsFull) {
         this.props.fetchAuthorDetails(authorId)
       }
@@ -60,7 +66,7 @@ class Author extends React.Component {
     const { author, collections, collectionMeta } = this.props
     const fullTitle = author.name + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHOR}${author.id}`
-    const pureTextBio = author.bio.replace(/<[^>]*>?/gm, '') // pure text only
+    const pureTextBio = author.bio ? author.bio.replace(/<[^>]*>?/gm, '') : '' // pure text only
     return (
       <React.Fragment>
         <Helmet
@@ -103,6 +109,7 @@ function mapStateToProps(state, ownProps) {
   const authorId = _.get(ownProps, 'match.params.authorId')
   const articlesByAuthor = _.get(state, 'articlesByAuthor', {})
   const entities = _.get(state, 'entitiesForAuthors', {})
+  const authorIsFull = _.get(entities, [ authorId, 'full' ], false)
   const { hasMore, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
   const collections = denormalizeArticles(collectIndexList, entities)
   const authorEntity = _.get(entities, [ 'authors', authorId ], {})
@@ -110,12 +117,13 @@ function mapStateToProps(state, ownProps) {
     id: authorId,
     name: _.get(authorEntity, 'name') || '',
     title: _.get(authorEntity, 'jobTitle') || '',
-    image: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile.url', authorDefaultImg),
+    image: _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile', authorDefaultImg),
     mail: _.get(authorEntity, 'email') || '',
     bio: _.get(authorEntity, 'bio.html' || '')
   }
   return {
     author,
+    authorIsFull,
     collections,
     collectionMeta: {
       hasMore,
