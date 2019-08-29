@@ -141,16 +141,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@^1.0.1", "@twreporter/core@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.0.tgz#d6b2045beb310f686a58dd0c78838503939a890d"
-  integrity sha512-7PuaM4jg5qE2T4mk/iJjud58UU2WAFoc3AJPSaK9lOn7GefnUIzpGbNq985CWrdzYkYHD6+jn59qATvHFGuwfw==
-  dependencies:
-    lodash "^4.0.0"
-    prop-types "^15.0.0"
-    styled-components "^4.0.0"
-
-"@twreporter/core@^1.1.1":
+"@twreporter/core@^1.0.1", "@twreporter/core@^1.1.0", "@twreporter/core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.1.tgz#b6a75ae16ded67163cffd72d691b22e59d424c88"
   integrity sha512-OA/oNAzkFYhcbdNaEYrSHhRTFaXWU8pUBVMqlBrCQtiyqIFuTq/HXyPiHUwoW2wR4NXRP7nop3H3upkjjFob2Q==
