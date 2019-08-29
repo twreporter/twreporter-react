@@ -1,5 +1,7 @@
 ## Unreleased
 
+## Release
+
 ### 4.3.11
 #### Dependency Upgrade
 - @twreporter/react-components@^7.0.8
@@ -14,7 +16,6 @@
 #### Disable service-worker on preview branch
 #### Take constants and utils from @twreporter/core
 
-## Release
 
 ### 4.3.10
 #### Donation Link with utm
