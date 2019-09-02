@@ -1,11 +1,21 @@
-import React from 'react'
 import AlgoliaLogo from '../../../static/asset/algolia-logo.svg'
-import styles from './Powered.scss'
+import React from 'react'
+import styled from 'styled-components'
+
+const LogoWrapper = styled.a`
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3px 0;
+  svg {
+    height: 14px;
+  }
+`
 
 const SearchByAlgolia = () => (
-  <a className={styles['algolia-logo']} href="https://www.algolia.com">
+  <LogoWrapper href="https://www.algolia.com">
     <AlgoliaLogo />
-  </a>
+  </LogoWrapper>
 )
 
 export default SearchByAlgolia

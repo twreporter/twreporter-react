@@ -1,116 +1,174 @@
-'use strict'
-
 import { connect } from 'react-redux'
 import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { Waypoint } from 'react-waypoint'
-import * as constants from '../constants/authors-list'
+import Authors from '../components/authors/Authors'
 import AuthorSearchBox from '../components/authors/AuthorSearchBox'
-import classNames from 'classnames'
-import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
-import map from 'lodash/map'
+import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import ShownAuthors from '../components/authors/ShownAuthors'
 import Sponsor from '../components/Sponsor'
-import styles from '../components/authors/AuthorList.scss'
+import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
 import values from 'lodash/values'
 
 const { searchAuthorsIfNeeded } = twreporterRedux.actions
+const reduxStateFields = twreporterRedux.reduxStateFields
 
 const _ = {
-  get: get,
-  map: map,
-  values: values
+  get,
+  map,
+  values
 }
 
-const authorDefaultImg = '/asset/author-default-img.svg'
+const defaultAuthorImage = {
+  url: '/asset/author-default-img.svg',
+  width: 500,
+  height: 500
+}
+
+const responsePageStartFrom = 0
+
+const ErrorMessage = styled.div`
+  font-size: 18px;
+  color: #808080;
+  padding: 0 15px 0 15px;
+  margin: 40px auto 70px auto;
+  text-align: center;
+`
+
+const LoadMoreButton = styled.div`
+  color: #c71b0a;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: ${fontWeight.bold};
+  margin: 20px auto 50px auto;
+  padding: 0.6rem 0;
+  text-align: center;
+  transition: transform 0.2s;
+  width: 10em;
+  &:hover {
+    transform: translateY(10%);
+  }
+`
+
+const StyledSpinner = styled(LoadingSpinner)`
+  margin: 30px auto;
+  width: 40px;
+  ${mq.desktopAndAbove`
+    width: 66px;
+  `}
+  img {
+    width: 100%;
+    height: auto;
+  }
+`
 
 class AuthorsList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      whichAuthorsListToRender: constants.AUTHORS_LIST
+      isSearching: false
     }
-    this._changeListTo = this._changeListTo.bind(this)
-    this._handleLoadmore = this._handleLoadmore.bind(this)
-    this._handleSeen = this._handleSeen.bind(this)
+    this.handleLoadmore = this.handleSensorSeen = this._fetchMoreAuthors.bind(this)
+    this.setSearching = this._setSearching.bind(this)
   }
 
   componentDidMount() {
-    const { authorsList, searchAuthorsIfNeeded } = this.props
-    if (!authorsList.isFetching && authorsList.currentPage < constants.NUMBER_OF_FIRST_RESPONSE_PAGE) {
-      return searchAuthorsIfNeeded('') // Fetch first page of authors list if server rendering was not trigger or didn't get the data
+    if (!_.get(this._getAuthorsList(), 'items.length')) {
+      this._fetchMoreAuthors()
     }
   }
 
-  // Callback for sensor being seen
-  _handleSeen() {
-    const whichAuthorsListToRender = this.state.whichAuthorsListToRender
-    const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
-    const currentPage = _.get(authorsListDataToRender, 'currentPage', 0)
-    if ((currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)) {
-      return this._handleLoadmore()
-    }
+  _getAuthorsList() {
+    const { isSearching } = this.state
+    return isSearching ? this.props.filteredAuthorsList : this.props.allAuthorsList
   }
 
-  // Callback for loadmore button being clicked
-  _handleLoadmore() {
+  _fetchMoreAuthors() {
     return this.props.searchAuthorsIfNeeded('')
   }
 
-  _changeListTo(listType) {
-    this.setState({ whichAuthorsListToRender: listType })
+  _setSearching(isSearching) {
+    this.setState({
+      isSearching
+    })
   }
 
-  render() {
-    const whichAuthorsListToRender = _.get(this.state, 'whichAuthorsListToRender', constants.AUTHORS_LIST)
-    const authorsListDataToRender = _.get(this.props, `${whichAuthorsListToRender}`, {})
-    const currentPage = _.get(authorsListDataToRender, 'currentPage', 0),
-      keywords = _.get(authorsListDataToRender, 'keywords', ''),
-      hasMore = _.get(authorsListDataToRender, 'hasMore', false),
-      isFetching = _.get(authorsListDataToRender, 'isFetching', false),
-      authorsIdList = _.get(authorsListDataToRender, 'items', [])
-    const authorsEntities = _.get(this.props, 'authorsEntities', {})
-
-    function authorIdToDataObj(id) {
-      const authorName = _.get(authorsEntities, `${id}.name`, '')
-      const authorImgUrl = _.get(authorsEntities, `${id}.thumbnail.image.resizedTargets.mobile.url`, authorDefaultImg)
-      const authorItemObject = {
-        id,
-        authorName,
-        authorImgUrl,
-        authorUrl: `/author/${id}`
-      }
-      return authorItemObject
+  _renderList() {
+    const { isSearching } = this.state
+    const authorsList = this._getAuthorsList()
+    if (!_.get(authorsList, 'items.length')) {
+      return (
+        <ErrorMessage>
+          {isSearching ? `找不到關鍵字為「${authorsList.keywords}」的結果` : '資料庫中無資料'}
+        </ErrorMessage>
+      )
     }
-    const authorsArray = _.map(authorsIdList, authorIdToDataObj)
+    return (
+      <React.Fragment>
+        {this._renderAuthors()}
+        {isSearching ? null : this._renderLoadMore()}
+      </React.Fragment>
+    )
+  }
 
-    // Page elements display options
-    const isLoadmoreBtnDisplayed    = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage <= constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
-    const isSensorActive         = (whichAuthorsListToRender === constants.AUTHORS_LIST) && hasMore && !isFetching && (currentPage > constants.NUMBER_OF_FIRST_RESPONSE_PAGE)
-    const isSearchError = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
-    const isListAllError = (whichAuthorsListToRender === constants.AUTHORS_LIST) && _.get(authorsListDataToRender, 'error')
-    const isNoSearchResultDisplayed = (whichAuthorsListToRender === constants.SEARCHED_AUTHORS_LIST) && (authorsArray.length <= 0) && !isFetching && !isSearchError
-    const LoadmoreBtn = <div className={classNames(styles['load-more'], 'text-center')} onClick={this._handleLoadmore}>{constants.LOAD_MORE_AUTHORS_BTN}</div>
+  _renderAuthors() {
+    const authorsList = this._getAuthorsList()
+    const authorIds = _.get(authorsList, 'items', [])
+    const { authorEntities } = this.props
+    const authors = _.map(authorIds, authorId => {
+      const sourceImage = _.get(authorEntities, [ authorId, 'thumbnail', 'image', 'resizedTargets', 'mobile' ])
+      const image = sourceImage ? { ...sourceImage, url: replaceGCSUrlOrigin(sourceImage.url) } : defaultAuthorImage
+      return {
+        id: authorId,
+        name: _.get(authorEntities, [ authorId, 'name' ], ''),
+        image,
+        url: `/author/${authorId}`
+      }
+    })
+    return (
+      <Authors authors={authors} />
+    )
+  }
 
-    const fullTitle = constants.PAGE_TITLE + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
+  _renderServerError() {
+    const errorMessage = _.get(this._getAuthorsList(), 'error.message')
+    if (errorMessage) { console.error(errorMessage) } // eslint-disable-line no-console
+    return (
+      <ErrorMessage>
+        抱歉，資料伺服器錯誤，請稍後再嘗試
+      </ErrorMessage>
+    )
+  }
 
-    const sensorJSX = isSensorActive ? (
+  _renderLoadMore() {
+    const { hasMore, currentPage, isFetching } = this._getAuthorsList()
+    if (isFetching || !hasMore) return null
+    return (currentPage <= responsePageStartFrom) ?
+      <LoadMoreButton onClick={this.handleLoadmore}>載入更多作者</LoadMoreButton> :
       <Waypoint
-        onEnter={this._handleSeen}
+        onEnter={this.handleSensorSeen}
         fireOnRapidScroll
         scrollableAncestor="window"
       >
-        <div classname={styles['sensor']} />
+        <div></div>
       </Waypoint>
-    ) : null
+  }
 
+  render() {
+    const authorsList = this._getAuthorsList()
+    const fullTitle = '作者列表' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
     return (
-      <div className={styles['author-list-container']}>
+      <React.Fragment>
         <Helmet
           title={fullTitle}
           link={[
@@ -130,29 +188,34 @@ class AuthorsList extends React.Component {
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
-        <AuthorSearchBox sendSearchAuthors={this.props.searchAuthorsIfNeeded} changeListTo={this._changeListTo} />
-        {!isSearchError ? null : <div className={styles['no-result']}>{constants.SEARCH_AUTHORS_FAILURE_MESSAGE}</div>}
-        {!isListAllError ? null : <div className={styles['no-result']}>{constants.LIST_ALL_AUTHORS_FAILURE_MESSAGE}</div>}
-        {isNoSearchResultDisplayed ? <div className={styles['no-result']}>{constants.NO_RESULT(keywords)}</div> : <ShownAuthors filteredAuthors={authorsArray} />}
-        {!isFetching ? null : <LoadingSpinner className={styles['loading-spinner']} alt={constants.LOADING_MORE_AUTHORS} />}
-        {!isLoadmoreBtnDisplayed ? null : LoadmoreBtn}
-        {sensorJSX}
+        <AuthorSearchBox
+          sendSearchAuthors={this.props.searchAuthorsIfNeeded}
+          setSearching={this.setSearching}
+        />
+        {this._renderList()}
+        {authorsList.error ? this._renderServerError() : null}
+        <StyledSpinner show={this._getAuthorsList().isFetching} alt="載入更多作者" />
         <Sponsor />
-      </div>
+      </React.Fragment>
     )
   }
 }
 
 AuthorsList.propTypes = {
-  authorsList: PropTypes.object.isRequired,
-  searchedAuthorsList: PropTypes.object.isRequired
+  // The props below are provided by redux
+  allAuthorsList: PropTypes.object.isRequired,
+  filteredAuthorsList: PropTypes.object.isRequired,
+  authorEntities: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
+  const authorEntities = _.get(state, [ reduxStateFields.entitiesForAuthors, 'authors' ], {})
+  const allAuthorsList = _.get(state, reduxStateFields.authorsList, {})
+  const filteredAuthorsList = _.get(state, reduxStateFields.searchedAuthorsList, {})
   return {
-    authorsEntities: _.get(state, 'entitiesForAuthors.authors', {}),
-    authorsList: _.get(state, constants.AUTHORS_LIST, {}),
-    searchedAuthorsList: _.get(state, constants.SEARCHED_AUTHORS_LIST, {})
+    authorEntities,
+    allAuthorsList,
+    filteredAuthorsList
   }
 }
 
