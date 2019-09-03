@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ import styled from 'styled-components'
 const logoBlockWidthOnDesktop = '39%'
 
 const Container = styled.div `
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     position: relative;
     display: ${props => props.selectedRow === props.rowNumber ? 'inline-block' : 'none'};
     width: 100%;
@@ -26,13 +26,13 @@ const Container = styled.div `
       width: 39%;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 278px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: 220px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -40,7 +40,7 @@ const Container = styled.div `
 const NavigationWrapper = styled.div`
   display: block;
   float: right;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     transform: translateY(-50%);
   `}
 `
@@ -55,14 +55,14 @@ const RightArrow = styled.div `
   transform: translateY(-50%);
   cursor: pointer;
   display: ${props => props.hasNext === 'true' ? 'block' : 'none'};
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     transform: translateX(100%) translateY(-50%);    
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     top: 170px;
     right: -69px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     top: 105px;
     right: -18px;
   `}
@@ -77,7 +77,7 @@ const Info = styled.div`
   p {
     font-weight: ${font.weight.medium};    
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     position: absolute;
     right: 0;
     bottom: 0;
@@ -93,7 +93,7 @@ const Info = styled.div`
       line-height: 1.63;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     min-height: 214px;
     max-height: 248px;
     padding-top: 46px;
@@ -102,7 +102,7 @@ const Info = styled.div`
       margin: 0 0 16px 0;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     min-height: 170px;
     max-height: 190px;    
     padding-top: 23px;

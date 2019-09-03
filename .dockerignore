@@ -1,0 +1,16 @@
+# Directories
+service-worker
+src
+.git
+
+# Files
+*.md
+*.txt
+*.png
+Makefile
+package.json
+build-babel-preset.js
+build-pm2-processes.js
+yarn.lock
+webpack-dev-server.js
+webpack.config.js

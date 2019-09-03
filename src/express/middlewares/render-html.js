@@ -1,5 +1,4 @@
 import { getBundles } from 'react-loadable/webpack'
-import { Provider } from 'react-redux'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { StaticRouter } from 'react-router-dom'
 import App from '../../app'
@@ -8,8 +7,8 @@ import Html from '../../helpers/Html'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
-import requestOrigins from '../../constants/request-origins'
 
 const _ = {
   get
@@ -46,18 +45,16 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
     const contentMarkup = ReactDOMServer.renderToString(
-      <Provider store={storeForClientSideRendering} >
-        <StyleSheetManager sheet={sheet.instance}>
-          <StaticRouter
-            location={req.url}
-            context={routerStaticContext}
-          >
-            <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-              <App releaseBranch={options.releaseBranch}/>
-            </Loadable.Capture>
-          </StaticRouter>
-        </StyleSheetManager>
-      </Provider>
+      <StyleSheetManager sheet={sheet.instance}>
+        <StaticRouter
+          location={req.url}
+          context={routerStaticContext}
+        >
+          <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+            <App reduxStore={storeForClientSideRendering} releaseBranch={options.releaseBranch}/>
+          </Loadable.Capture>
+        </StaticRouter>
+      </StyleSheetManager>
     )
 
     const bundles = getBundles(loadableStats, modules)

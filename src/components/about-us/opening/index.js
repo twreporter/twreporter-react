@@ -2,7 +2,7 @@ import { colors } from '../../../themes/common-variables'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq, { screen } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
@@ -11,12 +11,11 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
-import sz from '../constants/screen-size'
 
 const transitionDuration = 200
 
 const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
-  ${screen.mobile`
+  ${mq.mobileOnly`
     .effect-enter {
       opacity: 0;
     }
@@ -32,7 +31,7 @@ const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
       transition: opacity ${transitionDuration}ms ease-out;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     .effect-enter {
       transform: translateX(100%);
     }
@@ -55,20 +54,20 @@ const Container = styled.section`
   overflow: hidden;
   height: 100vh;
   background: ${colors.white};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: 0 -8px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: 0 -6px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     overflow: auto;
     height: auto;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: 0 -7px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0 -6px;
   `}
 `
@@ -79,19 +78,19 @@ const Footer = styled.div`
   bottom: 0;
   width: 100%;
   background: ${colors.red.liverRed};
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: 54px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 100px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     position: relative;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: 75px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 103px;
   `}
 `
@@ -115,7 +114,7 @@ const Navigator = styled.div`
     color: ${colors.white};
     cursor: pointer;
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     p{
       transform: translateX(50%) translateY(-100%);
     }
@@ -127,30 +126,30 @@ const Content = styled.div`
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: ${containerStyle.width.mobile};
     height: ${contentStyle.height.mobile};
     padding: ${contentStyle.padding.mobile};
     margin-top: calc(${headerStyle.height.mobile} + 20px);
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: calc(${headerStyle.height.tablet} + 20px) auto calc(${headerStyle.height.tablet} + 20px) auto;
     width: ${containerStyle.width.tablet};
     height: ${contentStyle.height.tablet};
     padding: ${contentStyle.padding.tablet};
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     position: relative;
     top: 0;
     left: 0;
     transform: none;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: ${containerStyle.width.desktop};
     height: ${contentStyle.height.desktop};
     padding: ${contentStyle.padding.desktop};
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: ${containerStyle.width.overDesktop};
     height: ${contentStyle.height.overDesktop};
     padding: ${contentStyle.padding.overDesktop};
@@ -171,24 +170,24 @@ const ChineseIntro = styled.div`
     transform: translateY(-100%) rotate(90deg);
     transform-origin: bottom left;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     h2{
       left: 0;
     }
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     h2{
       right: 0;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     h2{
       font-size: 13px;
       letter-spacing: 5.5px;
       transform: translateY(-100%) translateX(40%) rotate(90deg);
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 582px;
     h2{
       font-size: 19px;
@@ -196,14 +195,14 @@ const ChineseIntro = styled.div`
       transform: translateY(-100%) translateX(30%) rotate(90deg);
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: 230px;
     h2{
       font-size: 19px;
       letter-spacing: 8.1px;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 322px;
     h2{
       font-size: 28px;
@@ -222,26 +221,26 @@ const Title = styled.h1`
   span{
     display: none;
   }
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-opening-mob.png`)});
     background-position: center center;
     width: 100%;
     height: 114px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     position: absolute;
     left: 0;
     top: 0;
     width: 342.2px;
     height: 307px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 253.8px;
     height: 230px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin-left: 75px;
     width: 497px;
     height: 322px;
@@ -253,7 +252,7 @@ const AboutUS = styled.div`
   display: block;
   float: right;
   width: 100%;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     h2{
       display: none;
     }
@@ -261,14 +260,14 @@ const AboutUS = styled.div`
       width: 100%;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 307px;
     img {
       float: right;
       height: 100%;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 468px;
     height: 230px;
     img{
@@ -276,7 +275,7 @@ const AboutUS = styled.div`
       width: 392px;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 628px;
     height: 322px;
     img{
@@ -293,31 +292,31 @@ const SeperateLine = styled.div`
   h3{
     margin: 0;
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: 0;
     transfrom: translateY(-50%);
     h3{
       text-align: center;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     h3{
       text-align: left;
     }
     margin: 80px 0 55px 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 392px;
     margin: 24px 0 26px 0;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 538px;
     margin: 39.2px 0 50px 0;
   `}
 `
 
 const SeperateLineOnMobile = styled(SeperateLine)`
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: none;
   `}
   h3{
@@ -326,7 +325,7 @@ const SeperateLineOnMobile = styled(SeperateLine)`
 `
 
 const SeperateLineOnTabletAbove = styled(SeperateLine) `
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
@@ -349,7 +348,7 @@ const Words = styled.div`
       background: ${colors.white};
     }
   }
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     position: relative;
     float: left;
     text-align: left;
@@ -361,14 +360,14 @@ const Words = styled.div`
       }
     }
   `}
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     position: absolute;
     right: 0;
     bottom: 0;
     text-align: right;
     float: right;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 100%;
     margin-top: 24px;
     p{
@@ -377,7 +376,7 @@ const Words = styled.div`
       letter-spacing: 0.3px;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 525px;
     p{
       font-size: 18px;
@@ -385,7 +384,7 @@ const Words = styled.div`
       letter-spacing: 0.4px;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 404px;
     p{
       font-size: 16px;
@@ -393,7 +392,7 @@ const Words = styled.div`
       letter-spacing: 0.3px;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 481px;
     p{
       font-size: 19px;
@@ -423,7 +422,7 @@ const EnglishIntro = styled.div`
       background: ${colors.gray.lightGray};
     }
   }
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     text-align: left;
     p > span{
       background: ${colors.white};
@@ -433,7 +432,7 @@ const EnglishIntro = styled.div`
       }
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
     width: 248px;
     p{
@@ -443,7 +442,7 @@ const EnglishIntro = styled.div`
       padding: 0;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 525px;
     p{
       font-size: 18px;
@@ -451,7 +450,7 @@ const EnglishIntro = styled.div`
       letter-spacing: 0.3px;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     float: right;
     width: 468px;
     margin-top: 27px;
@@ -460,7 +459,7 @@ const EnglishIntro = styled.div`
       line-height: 26px;
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     float: right;
     width: 628px;
     margin-top: 40px;
@@ -538,8 +537,8 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLineOnMobile>
               <picture>
-                <source media={`(min-width: ${sz.mediumScreenMinWidth}px) and (max-width: ${sz.mediumScreenMaxWidth}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
-                <source media={`(max-width: ${sz.mediumScreenMinWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
+                <source media={`(min-width: ${screen.tablet.minWidth}px) and (max-width: ${screen.desktop.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
+                <source media={`(max-width: ${screen.tablet.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
               </picture>
               <SeperateLineOnTabletAbove>

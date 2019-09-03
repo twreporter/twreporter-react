@@ -3,7 +3,7 @@ import { colors } from '../../../themes/common-variables'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq, { screen } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
@@ -12,7 +12,6 @@ import orderBy from 'lodash/orderBy'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import sz from '../constants/screen-size'
 import Timeline from './timeline'
 
 const _ = {
@@ -36,16 +35,16 @@ const Container = styled.div`
   position: relative;
   background-color: ${colors.white};
   overflow: hidden;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin: ${marginBetweenSections.desktop} 0;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin: ${marginBetweenSections.tablet} 0;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin: ${marginBetweenSections.mobile} 0;
   `}
 `
@@ -54,22 +53,22 @@ const SectionWrapper = styled.section`
   position: relative;
   display: block;
   margin: 0 auto;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: ${containerWidth.overDesktop};
     height: 1110px;
     padding: 98px 116px 293px 152px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: ${containerWidth.desktop};
     height: 920px;
     padding: 119px 100px 228px 80px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: ${containerWidth.tablet};
     min-height: 1024px;
     padding: 80px 49px 181px 93px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: ${containerWidth.mobile};
     min-height: 715px;
     padding: 76px 37px 126px 37px
@@ -83,31 +82,31 @@ const Title = styled.div`
   span{
     display: none;
   }
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     position: absolute;
     left: 0;
     top: 0;
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5.png`)});
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 327px;
     height: 384px;
     margin: 98px 0 0 152px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 257px;
     height: 271px;
     margin: 119px 0 0 80px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5-mob.png`)});
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 408px;
     height: 231px;
     background-position: left top;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     background-position: center top;
     width: 247px;
     height: 154px;
@@ -118,31 +117,31 @@ const Title = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     height: 100%;
     float: right;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 616px;
     height: calc(100% - 98.7px);
     padding-right: 95px;
     margin-top: 98.7px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: 432px;
     height: calc(100% - 63px);
     padding-right: 61px;
     margin-top: 63px;
   `}
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     position: relative;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 572px;
     padding-right: 71px;
     margin-top: 71px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-top: 67px;
   `}
 `
@@ -153,22 +152,22 @@ const BorderBottom = styled.div `
   width: 100%;
   z-index: ${props => props.zIndex};
   background: ${colors.red.liverRed};
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     position: ${props => props.fixed ? 'fixed' : 'absolute'};
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     position: absolute;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 8px;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     height: 6px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     height: 7px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: 6px;
   `}
 `
@@ -179,13 +178,13 @@ const RunningTimeline = styled.div`
   height: 100%;
   overflow-y: hidden;
   background: ${colors.white};
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
 
 const AccordionTimeline = styled.div`
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: none;
   `}
 `
@@ -203,12 +202,12 @@ const YearTag = styled.div`
     color: ${colors.white};
     padding: 2px;
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     p{
       font-size: 15px;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
@@ -263,7 +262,7 @@ const YearRange = styled.div`
       margin-right: 13.25px;
     }
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 230px;
     height: 230px;
     margin-top: -95px;
@@ -279,7 +278,7 @@ const YearRange = styled.div`
       }
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     border: none;
     p:nth-child(2){
       img{
@@ -287,7 +286,7 @@ const YearRange = styled.div`
       }
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     width: 148px;
     height: 148px;
     margin-top: -71px;
@@ -304,7 +303,7 @@ const YearRange = styled.div`
       }
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
@@ -317,11 +316,11 @@ const Circle = styled.div`
   height: 218px;
   border-radius: 50%;
   background: ${props => props.color};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 277px;
     height: 277px;
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -329,7 +328,7 @@ const Circle = styled.div`
 const OuterCircle = styled(Circle)`
   margin-left: 80px;
   margin-bottom: 228px;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 277px;
     margin-left: 152px;
     margin-bottom: 293px;
@@ -349,7 +348,7 @@ const Rect = styled.div`
   height: 30px;
   margin: 0 -38px 0 0;
   background: ${props => props.color};
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: 45px;
     height: 45px;
     margin: 0 -51.5px 0 0;
@@ -429,7 +428,7 @@ export default class Section5 extends PureComponent {
   componentDidMount() {
     const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
-    if (window.matchMedia(`(max-width: ${sz.mediumScreenMinWidth - 1}px)`).matches) {
+    if (window.matchMedia(`(max-width: ${screen.tablet.minWidth - 1}px)`).matches) {
       this.isMobile = true
     }
   }

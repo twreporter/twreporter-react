@@ -1,8 +1,93 @@
 ## Unreleased
 
 ## Release
+
+### 4.3.11
+#### Dependency Upgrade
+- @twreporter/react-components@^7.1.0
+- @twreporter/redux@^5.0.4
+- @twreporter/universal-header@^2.1.0
+- @twreporter/core@^1.1.1
+- @twreporter/react-article-components@^1.0.16
+- @twreporter/velocity-react@^1.4.2
+- react@16.8.6 -> react@16.9.0
+- react-dom@16.8.6 -> react@16.9.0
+
+#### Disable service-worker on preview branch
+#### Take constants and utils from @twreporter/core
+
+
+### 4.3.10
+#### Donation Link with utm
+- `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
+
+#### Bug fix
+- Remove static folder from `.dockerignore` file
+
+#### Miscellaneous
+- Remove unused files in static folder
+- Move `mock-data` folder from `static` to `src` folder
+
+
+### 4.3.9
+#### Dependency Upgrade
+- @twreporter/react-article-components@^1.0.14
+
+### 4.3.8
+#### Dependency Upgrade
+- @twreporter/index-page@^1.0.4
+- @twreporter/react-article-components@^1.0.12
+- @twreporter/react-components@^7.0.6
+- Update babel-polyfill and compression dependencies: 
+    this pathc updates the `babel-polyfill` and `compression` packages
+    dependencies from dev-dependencies to dependencies for runtime usage.
+
+#### CI/CD Improvement
+- Improve CI flow and docker image size:
+    This patch improves the Circle CI flows and reduce the docker image
+    size.
+
+    For Circl-CI flow,
+    * Use google/cloud-sdk instead of VM to speed up the start time
+    * Use persist_to_workspace/attach_workspace instead of cache
+    * Cache node_modules for build/runtime
+
+    For docker image,
+    * Remove unnecessary build libaries to speed up build time
+    * Add .dockerignore file to speed up context sending time
+    * Add the node_modules with yarn install --production version
+
+- Remove exec file permission:
+    this patch removes the exec permission of webpack-dev-server.js and webpack.config.js.
+
+#### Miscellaneous
+- Change order of related posts
+
+### 4.3.7
+#### Dependency Upgrade
+- @twreporter/react-article-components@^1.0.9
+- @twreporter/react-components@^7.0.5
+
+#### V2 Article 
+- dedup related posts passed to v2 article components
+- introduce ui-manager to organize app layout(remove layout-manager and theme-manager)
+
+#### Refactoring
+- move src/containers/app-shell into src/app.js
+
+### 4.3.6
+#### Dependency Upgrade
+- Upgrade @twreporter/react-article-components to 1.0.6-beta.8
+
+#### Miscellaneous
+- Add sub category: 戲裡戲外 in src/constants/category.js
+
 ### 4.3.5
+#### Article page
 - Provide article page with v2 default theme
+
+#### Bug fix
+- Bug fix: header(transparent theme) is overlaid with web push notify
 
 ### 4.3.4
 - Fix web-push bug

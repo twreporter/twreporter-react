@@ -1,5 +1,5 @@
 /* global __DEVELOPMENT__ */
-import requestOrigins from '../../constants/request-origins'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import set from 'lodash/set'

@@ -7,7 +7,8 @@ const pathSegments = {
   livingAndMedicalCare: 'living_and_medical_care',
   photography: 'photography',
   politicsAndEconomy: 'politics_and_economy',
-  reviews: 'reviews'
+  reviews: 'reviews',
+  behindTheScenes: 'behind_the_scenes'
 }
 
 export default {
@@ -20,7 +21,8 @@ export default {
     [pathSegments.livingAndMedicalCare]: '59783ad89092de0d00b41691',
     [pathSegments.photography]: '574d028748fa171000c45d48',
     [pathSegments.politicsAndEconomy]: '5951dbc2507c6a0d00ab0640',
-    [pathSegments.reviews]: '573177cb8c0c261000b3f6d2'
+    [pathSegments.reviews]: '573177cb8c0c261000b3f6d2',
+    [pathSegments.behindTheScenes]: '5cb40f712203b617004ad35d'
   },
   labels: {
     cultureAndArt: '文化．藝術',
@@ -35,6 +37,8 @@ export default {
     [pathSegments.livingAndMedicalCare]: '生活．醫療',
     politicsAndEconomy: '政經．產業',
     [pathSegments.politicsAndEconomy]: '政經．產業',
+    behindTheScenes: '戲裡戲外',
+    [pathSegments.behindTheScenes]: '戲裡戲外',
     [pathSegments.reviews]: '評論',
     [pathSegments.photography]: '攝影'
   },

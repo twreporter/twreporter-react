@@ -1,5 +1,5 @@
 import { colors } from '../../../themes/common-variables'
-import { screen } from './screen'
+import mq from './media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ const Pagination = styled.div `
   opacity: ${props => props.isCurrentPage ? 1 : 0.25};
   background: ${colors.black};
   margin-left: 1px;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 11px;
     height: 3px;
   `}

@@ -1,6 +1,8 @@
+
 import AppShell from './containers/app-shell'
 import React from 'react'
 import getRoutes from './routes'
+import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { colors, lineHeight, typography } from './themes/common-variables'
 import { createGlobalStyle } from 'styled-components'
@@ -100,13 +102,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+
 export default class App extends React.Component {
+
+
   render() {
     const routes = getRoutes()
-    const { releaseBranch } = this.props
+    const { reduxStore, releaseBranch } = this.props
 
     return (
-      <React.Fragment>
+      <Provider store={reduxStore}>
         <Route render={props => {
           return (
             <AppShell
@@ -124,7 +129,7 @@ export default class App extends React.Component {
           )
         }} />
         <GlobalStyle/>
-      </React.Fragment>
+      </Provider>
     )
   }
 }

@@ -4,7 +4,7 @@ import YoutubePlayer from 'react-youtube'
 import getArticleComponent from '../article/getArticleComponent'
 import styled from 'styled-components'
 import { lineHeight, typography, colors } from '../../themes/common-variables'
-import { screen } from '../../themes/screen' 
+import mq from '../../utils/media-query' 
 // lodash
 import get from 'lodash/get'
 
@@ -127,7 +127,7 @@ const YoutubeContainer = styled.div`
   iframe {
     max-width: 100%;
   }
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     margin: 0 auto;
     iframe {
       width: 560px;

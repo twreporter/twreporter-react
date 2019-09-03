@@ -1,12 +1,12 @@
 import { SITE_META } from '../about-us/constants/data/index'
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { colors, typography } from '../../themes/common-variables'
-import { donatePath } from '../../constants/index'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../about-us/utils/screen'
+import mq from '../../utils/media-query'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import hrefs from '../about-us/constants/data/sidebar-link'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -83,10 +83,10 @@ const AnchorsContainer = styled.div`
       transition: all 200ms linear;
     }
   }
-  ${screen.desktop`
+  ${mq.desktopOnly`
     transform: translate(-47px, -50%);
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -95,7 +95,7 @@ const Icons = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
-  ${screen.desktop`
+  ${mq.desktopOnly`
     transform: translateX(50%) translateY(226px);
     img{
       width: 30px;
@@ -103,7 +103,7 @@ const Icons = styled.div`
     }
   `}
 
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     transform: translateX(50%) translateY(376px);
     img{
       width: 45px;
@@ -129,9 +129,11 @@ class AboutusPageSideBar extends React.PureComponent {
             currentAnchorId={currentAnchorId}
           />
           <Icons>
-            <a href={donatePath} target="_blank">
+            <DonationLink
+              utmMedium="about-us"
+            >
               <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
-            </a>
+            </DonationLink>
             <a href={hrefs.subscribe} target="_blank">
               <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
             </a>
