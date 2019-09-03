@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import { articleLayout as layout } from '../../themes/layout'
 import { getSrcSet } from '../../utils/img'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../../themes/screen'
+import mq from '../../utils/media-query'
 
 // lodash
 import get from 'lodash/get'

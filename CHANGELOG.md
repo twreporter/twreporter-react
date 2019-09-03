@@ -1,5 +1,22 @@
 ## Unreleased
 
+## Release
+
+### 4.3.11
+#### Dependency Upgrade
+- @twreporter/react-components@^7.1.0
+- @twreporter/redux@^5.0.4
+- @twreporter/universal-header@^2.1.0
+- @twreporter/core@^1.1.1
+- @twreporter/react-article-components@^1.0.16
+- @twreporter/velocity-react@^1.4.2
+- react@16.8.6 -> react@16.9.0
+- react-dom@16.8.6 -> react@16.9.0
+
+#### Disable service-worker on preview branch
+#### Take constants and utils from @twreporter/core
+
+
 ### 4.3.10
 #### Donation Link with utm
 - `ReactGA.OutboundLink` -> `@twreporter/react-components/lib/donation-link-with-utm` 
@@ -11,7 +28,6 @@
 - Remove unused files in static folder
 - Move `mock-data` folder from `static` to `src` folder
 
-## Release
 
 ### 4.3.9
 #### Dependency Upgrade

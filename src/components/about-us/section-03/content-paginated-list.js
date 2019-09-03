@@ -1,5 +1,5 @@
 import { colors } from '../../../themes/common-variables'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -10,12 +10,12 @@ const borderBottomColor = '#dcdcdc'
 const Container = styled.div `
   display: block;
   width: 100%;
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     height: 100%;
     transform: translate3d(0, ${props => props.shiftY}, 0);
     transition: all ${props => props.transitionDuration} ease-in-out;  
   `}
-  ${screen.tabletBelow`
+  ${mq.tabletAndBelow`
     display: none;
   `}
 `
@@ -31,21 +31,21 @@ const PageItems = styled.ul `
   list-style: none;
   margin: 0;
   padding: 0;
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding: 0 0 0 45px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     padding: 0 0 0 17px;
   `}
   a{
     color: ${colors.black};
   }
-  ${screen.tablet`
+  ${mq.tabletOnly`
     li:last-child{
       margin-bottom: -40px;
     }
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     li:last-child{
       margin-bottom: -35px;
     }
@@ -53,12 +53,12 @@ const PageItems = styled.ul `
 `
 
 const AwardItem = styled.div `
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     border-bottom: solid 1px ${borderBottomColor};
     margin-bottom: 21px;
     padding-bottom: 21px;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding-bottom: 29px;
   `}
 `

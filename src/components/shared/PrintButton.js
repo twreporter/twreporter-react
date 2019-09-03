@@ -2,7 +2,7 @@
 import React from 'react'
 import PrintIcon from '../../../static/asset/print.svg'
 import styled from 'styled-components'
-import { screen } from '../../themes/screen'
+import mq from '../../utils/media-query'
 
 const PrintBt = styled.button`
   border: none;
@@ -16,7 +16,7 @@ const PrintBt = styled.button`
     height: auto;
   }
 
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `

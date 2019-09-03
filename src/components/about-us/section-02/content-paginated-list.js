@@ -1,7 +1,7 @@
 import { colors } from '../../../themes/common-variables'
 import { gray, numbersInfullPage } from './utils'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
 import categories from '../constants/section-02/categories'
@@ -24,7 +24,7 @@ const Container = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: none;
   `}
 `
@@ -102,14 +102,14 @@ const StyledArrows = styled.div `
   top: 50%;
   width: 100%;
   transform: translateY(-50%);
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: calc(465px - 49px);
   `}
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
     height: 116px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 148px;
   `}  
 `
@@ -119,7 +119,7 @@ const NavigationWrapper = styled.div `
   right: 0;
   bottom: 0;
   margin-bottom: -5px;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     position: relative;
     text-align: center;
     margin: 0 auto;

@@ -4,7 +4,7 @@ import React from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
 import { LINK_PREFIX } from '../../../constants/index'
-import { screen } from '../../../themes/screen'
+import mq from '../../../utils/media-query'
 import { typography, colors } from '../../../themes/common-variables'
 const _ = {
   get
@@ -25,20 +25,20 @@ const Container = styled.div`
   z-index: 100;
   position: absolute;
   left: 65px;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     bottom: 100px;
     width: 45%;
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     bottom: 85px;
     width: 55%;
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     left: 35px;
     bottom: 37px;
     width: 70%;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     width: 60%;
     bottom: 60px;
     left: 30px;
@@ -69,7 +69,7 @@ const Title = styled(HeaderElementBlock)`
   color: ${props => (colorselector(props, colors.gray.gray25))};
   font-size: 50px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  ${screen.mobile`
+  ${mq.mobileOnly`
     font-size: 32px;
   `}
 `
@@ -79,10 +79,10 @@ const Subtitle = styled(HeaderElementBlock)`
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   font-size: ${typography.font.size.medium};
   font-weight: ${typography.font.weight.extraLight};
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     font-size: 40px;
   `}
-  ${screen.mobile`
+  ${mq.mobileOnly`
     font-size: 26px;
   `}
 `

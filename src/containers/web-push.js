@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 import { connect } from 'react-redux'
-import { screen } from '../themes/screen'
+import mq from '../utils/media-query'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -77,24 +77,24 @@ const NotifyBox = styled.div`
   color: #404040;
   font-size: 14px;
 
-  ${screen.mobile`
+  ${mq.mobileOnly`
     padding: 20px 22px 45px 22px;
   `}
 
-  ${screen.tablet`
+  ${mq.tabletOnly`
     padding: 20px 50px 50px 50px;
   `}
 
-  ${screen.desktop`
+  ${mq.desktopOnly`
     width: calc(875/1024*100%);
   `}
 
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     padding: 20px 0;
     margin: 0 auto;
   `}
 
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     width: calc(992/1440*100%);
   `}
 `
@@ -116,15 +116,15 @@ const NotifyTitle = styled.div`
   display: inline-block;
   font-weight: bold;
 
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-bottom: 12px;
   `}
 
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-bottom: 12px;
   `}
 
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     font-size: 14px;
   `}
 `
@@ -140,22 +140,22 @@ const NotifyText = styled.p`
   line-height: 1.43;
   position: relative;
 
-  ${screen.mobile`
+  ${mq.mobileOnly`
     margin-bottom: 12px;
   `}
 
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-left: 15px;
     margin-bottom: 20px;
   `}
 
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     display: inline-block;
   `}
 `
 
 const NotifyHighLightRow = styled.div`
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     display: inline-block;
   `}
 `
@@ -177,13 +177,13 @@ const NotifyButton = styled.div`
   font-size: 14px;
   position: absolute;
 
-  ${screen.mobile`
+  ${mq.mobileOnly`
     right: 20px;
     bottom: 12px;
     padding: 10px 20px;
   `}
 
-  ${screen.tablet`
+  ${mq.tabletOnly`
     text-align: center;
     width: calc(514/768*100%);
     padding: 10px 0;
@@ -191,7 +191,7 @@ const NotifyButton = styled.div`
     bottom: 23px;
   `}
 
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     padding: 10px 20px;
     bottom: 11px;
     right: 60px;

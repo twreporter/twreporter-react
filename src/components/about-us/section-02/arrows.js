@@ -1,5 +1,5 @@
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -27,7 +27,7 @@ const LeftArrow = styled(Arrow)`
   img{
     transform: translateX(45px) scaleX(-1);
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     img{
       transform: translateX(-200%) scaleX(-1);
     }
@@ -39,7 +39,7 @@ const RightArrow = styled(Arrow)`
   img{
     transform: translateX(-36px);
   }
-  ${screen.mobile`
+  ${mq.mobileOnly`
     img{
       transform: translateX(200%);
     }

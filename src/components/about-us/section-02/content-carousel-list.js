@@ -2,7 +2,7 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { screen } from '../utils/screen'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
 import assign from 'lodash/assign'
@@ -25,7 +25,7 @@ const categoriesAll = categories.fundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`
-  ${screen.mobile`
+  ${mq.mobileOnly`
     display: none;
   `}
 `
@@ -34,7 +34,7 @@ const Department = styled.div`
   position: relative;
   padding: 0 72px 5px 90px;
   background: linear-gradient(to bottom, ${colors.white} 30%, ${colors.gray.gray96} 30%);
-  ${screen.desktopAbove`
+  ${mq.desktopAndAbove`
     &:nth-child(3){
       display: inline-block;
       li{
@@ -48,7 +48,7 @@ const Department = styled.div`
       }
     }
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
     &:nth-child(3){
@@ -59,7 +59,7 @@ const Department = styled.div`
       margin-left: calc(100% - 559px - 583px);
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
     &:nth-child(3){
@@ -71,7 +71,7 @@ const Department = styled.div`
       width: 444px;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     margin-top: 30px;
     width: 100%;
     height: calc(116px * 3/2);
@@ -101,19 +101,19 @@ const Member = styled.li`
   display: inline-block;
   text-align: center;
   height: 100%;
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     img:first-child{
       width: calc(76px * 1.5);
     }
     width: calc(100% / ${numbersInfullPage.overDesktop});
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
     width: calc(100% / ${numbersInfullPage.desktop});
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
@@ -140,17 +140,17 @@ const Info = styled.div`
     width: 15px;
     cursor: pointer;
   }
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     img{
       margin-top: 34px;
     }
   `}
-  ${screen.desktop`
+  ${mq.desktopOnly`
     img{
       margin-top: 15px;
     }
   `}
-  ${screen.tablet`
+  ${mq.tabletOnly`
     img{
       width: 19px;
       margin-top: 11px;
@@ -171,7 +171,7 @@ const Name = styled.div`
     font-size: 22px;
     font-weight: ${font.weight.medium};
   }
-  ${screen.tablet`
+  ${mq.tabletOnly`
     transform: translateX(-75%);
     p{
       font-size: 20px;
@@ -185,14 +185,14 @@ const StyledArrows = styled.div`
   top: 50%;
   width: 100%;
   transform: translateY(-50%);
-  ${screen.mobile`
+  ${mq.mobileOnly`
     height: calc(465px - 49px);
   `}
-  ${screen.tabletAbove`
+  ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
     height: 116px;
   `}
-  ${screen.overDesktop`
+  ${mq.hdOnly`
     height: 148px;
   `}
 `
@@ -202,7 +202,7 @@ const NavigationWrapper = styled.div`
   right: 0;
   bottom: 0;
   margin-bottom: -5px;
-  ${screen.mobile`
+  ${mq.mobileOnly`
     position: relative;
     text-align: center;
     margin: 0 auto;
