@@ -2,6 +2,10 @@
 
 ## Release
 
+### 4.3.12
+#### Dependency Upgrade
+- @twreporter/react-article-components@^1.0.17
+
 ### 4.3.11
 #### Dependency Upgrade
 - @twreporter/react-components@^7.1.0
