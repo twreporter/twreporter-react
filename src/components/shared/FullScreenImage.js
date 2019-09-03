@@ -66,17 +66,13 @@ class FullScreenImage extends React.PureComponent {
     this._isMounted = false
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (typeof window !== 'undefined') {
       this.setState({
         isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
       })
     }
-  }
-
-  componentDidMount() {
     this._isMounted = true
-
     // Check if img is already loaded, and cached on the browser.
     // If cached, React.img won't trigger onLoad event.
     // Hence, we need to trigger re-rendering.

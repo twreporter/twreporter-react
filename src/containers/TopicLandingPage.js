@@ -1,18 +1,16 @@
-import { addStyledWrapperDecorator } from '../components/shared/ComponentDecorators'
-import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
-import BannerFactory from '../components/topic/Banner'
-import CardsFactory from '../components/topic/Cards'
-import Description from '../components/topic/Description'
-import FullScreenImage from '../components/shared/FullScreenImage'
-import Header from '../components/topic/Header'
+import Banner from '../components/topic/banner'
+import Related from '../components/topic/related'
+import Description from '../components/topic/description'
+import TopicHeader from '../components/topic/header'
 import Helmet from 'react-helmet'
-import LeadingVideo from '../components/shared/LeadingVideo'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
+// @twreporter
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import forEach from 'lodash/forEach'
@@ -27,128 +25,67 @@ const _  = {
   merge
 }
 
-const bannerFactory = new BannerFactory()
-const cardsFactory = new CardsFactory()
-
 const Container = styled.div`
   position: relative;
 `
 
 class TopicLandingPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      viewportHeight: '100vh'
-    }
+  static defaultProps = {
+    entities: {},
+    selectedTopic: {}
+  }
+  
+  static propTypes = {
+    // from redux store
+    entities: PropTypes.object,
+    selectedTopic: PropTypes.object,
+    // react-router `match` object
+    match: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchAFullTopic, match } = this.props
     const slug = _.get(match, 'params.slug')
     fetchAFullTopic(slug)
   }
 
-  componentDidMount() {
-    this._updateViewportHeight()
-  }
-
-  componentDidUpdate() {
-    this._updateViewportHeight()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchAFullTopic, match } = nextProps
-    const { selectedTopic } = this.props
-    if (_.get(selectedTopic, 'slug') !== _.get(match, 'params.slug')) {
-      fetchAFullTopic(_.get(match, 'params.slug'))
-    }
-  }
-
-  _updateViewportHeight() {
-    if (typeof window === 'object') {
-      /*
-        The height we want is which of the viewport that actually be seen by users.
-        But the common used DOM properties have several problems:
-          `documentElement.clientHeight` -> In iOS, the return value pretends that the URL and tab bars are visible, even if they are not.
-          `window.innerHeight` -> It includes the area covered by scroll bars (user cannot see the area actually)
-        The best way to get the value may be: (window.innerHeight - scroll bar height)
-        Since this page should not have horizontal scroll bar, we can use `window.innerHeight` directly.
-        Reference: https://stackoverflow.com/a/31655549
-      */
-      const heightString = window.innerHeight ? `${window.innerHeight}px` : '100vh'
-      if (this.state.viewportHeight !== heightString) {
-        this.setState({
-          viewportHeight: heightString
-        })
-      }
-    }
-  }
-
   render() {
     const { entities, match, selectedTopic } = this.props
-    const { viewportHeight } = this.state
-    const error = _.get(selectedTopic, 'error', null)
-    if (error !== null) {
+    const error = _.get(selectedTopic, 'error')
+    if (error) {
       return (
-        <div>
-          <SystemError error={error} />
-        </div>
+        <SystemError error={error} />
       )
     }
-
-    if (_.get(selectedTopic, 'slug') !== _.get(match, 'params.slug')) {
-      return null
-    }
-
     const slug = _.get(selectedTopic, 'slug') // {string}
+    if (slug !== _.get(match, 'params.slug')) {
+      console.warn('The `selectedTopic.slug` in redux store does not match the slug in url.') // eslint-disable-line no-console
+    }
 
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
-    const topic = camelizeKeys(utils.denormalizeTopics(slug, topicEntities, postEntities)[0])
+    const topic = utils.denormalizeTopics(slug, topicEntities, postEntities)[0]
     const {
-      ogImage: ogImageInfos,      // ogImage {object} - Topic og image infos
-      leadingImage, // leadingImage {object} - Topic leading image infos
-      leadingVideo, // leadingVideo {object} - Topic leading video infos
-      publishedDate,// publishedDate {string} -  Date format as "Mon, 19 Dec 2016 00:00:00 GMT"
-      relateds,     // relateds {array} - Array of the ids of related articles
-      headline,     // headline {string} - Topic headine
-      subtitle,     // subtitle {string} - Topic subtitle
-      title         // title {string} - Topic title
+      relateds_background,
+      relateds_format,
+      title_position,
+      og_image,
+      leading_image,
+      leading_video,
+      leading_image_portrait,
+      relateds,
+      headline,
+      subtitle,
+      title
     } = topic
-    const bannerTheme = _.get(topic, 'titlePosition') || 'center' // {string} - Theme of banner
-    const cardsTheme = _.get(topic, 'relatedsFormat') || 'in-row' // {string} - Theme of cards
-    const cardsContainerBgColor = _.get(topic, 'relatedsBackground') || '#d8d8d8' // {string} - HEX value of cards container bg-color
-    const description = _.get(topic, 'description.apiData', []) // {array}
-    const teamDescription = _.get(topic, 'teamDescription.apiData', []) // {array}
-    const ogDescription =  _.get(topic, 'ogDescription') || SITE_META.DESC // {string}
-    const ogTitle = _.get(topic, 'ogTitle', '') || _.get(topic, 'title', '')
-    const ogImage = _.get(ogImageInfos, 'resizedTargets.tablet.url') || _.get(leadingImage, 'resizedTargets.tablet.url') || SITE_META.OG_IMAGE // {string}
+    const topicDescription = _.get(topic, 'description.api_data', [])
+    const teamDescription = _.get(topic, 'team_description.api_data', [])
+    const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
+    const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
+    const publishedDate = date2yyyymmdd(_.get(topic, 'published_date'), '.')
 
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-
-    const Banner = bannerFactory.buildWithTheme(bannerTheme)
-    const Cards = cardsFactory.buildWithTheme(cardsTheme)
-    const BgColoredCards = addStyledWrapperDecorator(Cards, { backgroundColor: cardsContainerBgColor })
-
-    const videoSrc = _.get(leadingVideo, 'url')
-
-    const leadingBackgroundElement = videoSrc ? (
-      <LeadingVideo
-        filetype={_.get(leadingVideo, 'filetype')}
-        src={videoSrc}
-        title={title}
-        poster={ogImage}
-        topicLeadingVideo
-      />
-    ) : (
-      <FullScreenImage
-        alt={_.get(leadingImage, 'description')}
-        imgSet={_.get(topic, 'leadingImage.resizedTargets')}
-        portraitImgSet={_.get(topic, 'leadingImagePortrait.resizedTargets')}
-      />
-    )
-
     return (
       <Container>
         <Helmet
@@ -160,34 +97,36 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:image', content: og_image },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },
-            { property: 'og:image', content: ogImage },
+            { property: 'og:image', content: og_image },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
           ]}
         />
-        <Header
-          isFixedToTop={false}
-          title={title}
-        />
         <Banner
+          theme={title_position}
           headline={headline}
           title={title}
           subtitle={subtitle}
           publishedDate={publishedDate}
-          viewportHeight={viewportHeight}
-          backgroundElement={leadingBackgroundElement}
+          leadingVideo={leading_video}
+          leadingImage={leading_image}
+          leadingImagePortrait={leading_image_portrait}
+          ogImage={og_image}
         />
+        <TopicHeader />
         <Description
-          topicDescription={description}
+          topicDescription={topicDescription}
           teamDescription={teamDescription}
         />
-        <BgColoredCards
+        <Related
           items={relateds}
+          format={relateds_format}
+          backgorund={relateds_background}
         />
       </Container>
     )
@@ -199,18 +138,6 @@ function mapStateToProps(state) {
     entities: state[reduxStateFields.entities] || {},
     selectedTopic: state[reduxStateFields.selectedTopic] || {}
   }
-}
-
-TopicLandingPage.defaultProps = {
-  entities: {},
-  selectedTopic: {}
-}
-
-TopicLandingPage.propTypes = {
-  entities: PropTypes.object,
-  selectedTopic: PropTypes.object,
-  // react-router `match` object
-  match: PropTypes.object.isRequired
 }
 
 export { TopicLandingPage }
