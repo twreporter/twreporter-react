@@ -209,10 +209,10 @@
   resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
   integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
-"@twreporter/redux@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.4.tgz#c7d65667916b3be666161f4206a27b881d369019"
-  integrity sha512-Gsgb+q29EFe1KVQup12pA04F0RYAxOYZhFBig0cP2sfguXf/Dp0i4GAdYEYfsiZIB7WLxsS8dCbt01qhahd9Kw==
+"@twreporter/redux@^5.0.4", "@twreporter/redux@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.5.tgz#4ffcbc8722b1997b6980eb229fb37aadf3864f11"
+  integrity sha512-7BStSG9fRx2tuEEinbQEMesEdTArSUVNy4Z/1cvm7HPOI7ANerkFtIItb76o6099qycjS/lT0+j/Ld4/oxvY5Q==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
