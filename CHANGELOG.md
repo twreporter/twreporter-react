@@ -2,6 +2,13 @@
 
 ## Release
 
+### 4.3.13
+#### Dependency Upgrade
+- @twreporter/redux@^5.0.5
+
+#### Bug fix
+- [index-page] lacks of other categories except international category in categories section
+
 ### 4.3.12
 #### Dependency Upgrade
 - @twreporter/react-article-components@^1.0.17
