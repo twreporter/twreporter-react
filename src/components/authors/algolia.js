@@ -12,10 +12,10 @@ const LogoWrapper = styled.a`
   }
 `
 
-const SearchByAlgolia = () => (
+const PoweredByAlgolia = () => (
   <LogoWrapper href="https://www.algolia.com">
     <AlgoliaLogo />
   </LogoWrapper>
 )
 
-export default SearchByAlgolia
+export default PoweredByAlgolia

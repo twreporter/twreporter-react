@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import SearchByAlgoliaIcon from '../powered/Algolia'
+import PoweredByAlgolia from './algolia'
 import ResetIcon from '../../../static/asset/reset.svg'
 import SearchIcon from '../../../static/asset/search.svg'
 import styled, { keyframes } from 'styled-components'
@@ -192,7 +192,7 @@ class AuthorSearchBox extends React.Component {
             <ResetIcon />
           </ResetBtn>
         </Form>
-        <SearchByAlgoliaIcon />
+        <PoweredByAlgolia />
       </Container>
     )
   }
