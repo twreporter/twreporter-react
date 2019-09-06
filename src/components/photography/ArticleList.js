@@ -227,11 +227,9 @@ export default class ListArticleItem extends React.PureComponent {
         </Container>
         {
           hasMore ? (
-            <div>
-              <More loadMore={loadMore}>
-                <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
-              </More>
-            </div>
+            <More loadMore={loadMore}>
+              <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
+            </More>
           )
             : null
         }

@@ -1,30 +1,60 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import mq from '../../utils/media-query'
 
-if (process.env.BROWSER) {
-  require('./More.css')
-}
-
-export default class More extends Component {
-  constructor(props, context) {
-    super(props, context)
+const Container = styled.div`
+  cursor: pointer;
+  width: 100%;
+  height: 105px;
+  background-color: black;
+  text-align: center;
+  span {
+    color: white;
+    line-height: 70px;
+    font-size: 18px;
+    font-weight: 700;
   }
+  svg {
+    width: 50px;
+    height: 11px;
+    transform: scale(1);
+    transition: transform 200ms ease;
+  }
+  
+  &:hover, :focus {
+    polyline {
+      stroke-width: 3;
+    }
+  }
+  &:active {
+    svg {
+      transform: scale(1.1);
+    }
+  }
+  ${mq.mobileOnly`
+    height: 76px;
+    padding-top: 10px;
+    span {
+      line-height: 30px;
+      font-size: 16px;
+    }
+  `}
+`
 
+
+export default class More extends React.PureComponent {
   render() {
     const { loadMore, children } = this.props
-    let points = '0,0 25,10 50,0'
-    let width = 50
-    let height = 11
-
     return (
-      <div className="more-articles arrow clearfix" onClick={loadMore}>
-        { children ? React.Children.only(children) : <span>更多文章</span> }
+      <Container onClick={loadMore}>
+        {children}
         <div>
-          <svg width={width} height={height}>
-            <polyline points={points} fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg>
+            <polyline points="0,0 25,10 50,0" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
-      </div>
+      </Container>
     )
   }
 }
