@@ -1,12 +1,12 @@
 import Link from 'react-router-dom/Link'
-import More from '../components/More'
+import More from './More'
 import React from 'react'
-import ResolutionSwitchingImage from '../components/shared/Image'
-import constPageThemes from '../constants/page-themes'
+import ResolutionSwitchingImage from '../shared/Image'
+import constPageThemes from '../../constants/page-themes'
 import styled, { css } from 'styled-components'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { typography } from '../themes/common-variables'
+import { typography } from '../../themes/common-variables'
 
 // lodash
 import get from 'lodash/get'
