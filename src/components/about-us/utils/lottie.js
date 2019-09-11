@@ -1,8 +1,8 @@
 import lottie from '../utils/lottie-light-min'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React from 'react'
 
-export default class Lottie extends PureComponent {
+export default class Lottie extends React.Component {
   componentDidMount() {
     const {
       options: {
@@ -29,7 +29,7 @@ export default class Lottie extends PureComponent {
     this.registerEvents(eventListeners)
   }
 
-  componentWillUpdate(nextProps /* , nextState */) {
+  shouldComponentUpdate(nextProps /* , nextState */) {
     /* Recreate the animation handle if the data is changed */
     if (this.options.animationData !== nextProps.options.animationData) {
       this.deRegisterEvents(this.props.eventListeners)
@@ -37,7 +37,9 @@ export default class Lottie extends PureComponent {
       this.options = { ...this.options, ...nextProps.options }
       this.anim = lottie.loadAnimation(this.options)
       this.registerEvents(nextProps.eventListeners)
+      return true
     }
+    return false
   }
 
   componentDidUpdate() {
