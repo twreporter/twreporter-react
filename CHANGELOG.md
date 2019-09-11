@@ -1,4 +1,14 @@
 ## Unreleased
+#### Bug fix
+##### about-us page
+- Bugfix: member's carousel has wrong pagination on resize
+- Bugfix: side bar on about-us page
+
+#### Miscellaneous
+##### about-us page
+- `componentWillMount` -> `componentDidMount`, `componentWillUpdate` -> `shouldComponentUpdate`
+- Removes `shouldComponentUpdate` and `componentDidUpdate` in section1 since they are unused 
+  in current use case, which mounts a new component once animation get changed
 
 ### 4.3.18-rc.2
 
