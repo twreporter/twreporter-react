@@ -1,7 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import mq from '../../utils/media-query'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
 
 const Container = styled.div`
   cursor: pointer;
@@ -13,7 +14,7 @@ const Container = styled.div`
     color: white;
     line-height: 70px;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: ${fontWeight.bold};
   }
   svg {
     width: 50px;

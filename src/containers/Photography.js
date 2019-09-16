@@ -16,17 +16,19 @@ import { denormalizeArticles } from '../utils/denormalize-articles'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
+import uniq from 'lodash/uniq'
 
 const _ = {
   filter,
-  get
+  get,
+  uniq
 }
 
 const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const reduxStateFields = twreporterRedux.reduxStateFields
 
-const MAXRESULT = 10
+const maxResult = 10
 const categories = 'categories'
 const listID = _.get(categoryConst, 'ids.photography', '')
 
@@ -39,12 +41,12 @@ class Photography extends Component {
   componentWillMount() {
     const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } = this.props
     fetchPhotographyPostsOnIndexPage()
-    fetchListedPosts(listID, categories, MAXRESULT)
+    fetchListedPosts(listID, categories, maxResult)
   }
 
   _loadMoreArticles() {
     const { fetchListedPosts } = this.props
-    fetchListedPosts(listID, categories, MAXRESULT)
+    fetchListedPosts(listID, categories, maxResult)
   }
 
   render() {
@@ -58,7 +60,7 @@ class Photography extends Component {
     }
 
     const topNewsItems = camelizeKeys(denormalizePosts(featuredPosts, postEntities))
-    const slugs = _.filter(_.get(lists, [ listID, 'items' ], []), (slug) => {
+    const slugs = _.filter(_.uniq(_.get(lists, [ listID, 'items' ], [])), (slug) => {
       if (featuredPosts.indexOf(slug) > -1) {
         return false
       }
@@ -85,7 +87,7 @@ class Photography extends Component {
             { property: 'og:url', content: canonical }
           ]}
         />
-        <TopNews topnews={topNewsItems} />
+        <TopNews posts={topNewsItems} />
         <ArticleList
           articles={posts}
           bgStyle={pt.tone.dark}
