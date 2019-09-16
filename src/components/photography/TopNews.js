@@ -1,7 +1,7 @@
 import Link from 'react-router-dom/Link'
 import Hexagon from './Hexagon'
 import React from 'react'
-import Slider from '@twreporter/react-flex-carousel'
+import Slider from './slider'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
