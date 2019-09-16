@@ -1,5 +1,5 @@
 import Link from 'react-router-dom/Link'
-import More from './More'
+import More from './more'
 import React from 'react'
 import ResolutionSwitchingImage from '../shared/Image'
 import constPageThemes from '../../constants/page-themes'

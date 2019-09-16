@@ -1,10 +1,10 @@
 /* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
 
-import ArticleList from '../components/photography/ArticleList'
+import ArticleList from '../components/photography/article-list'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import TopNews from '../components/photography/TopNews'
+import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
 import pt from '../constants/page-themes'
 import twreporterRedux from '@twreporter/redux'
