@@ -1,5 +1,11 @@
 ## Unreleased
 
+### 4.3.16-rc.1
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.18
+
+## Release
+
 ### 4.3.15
 #### Dependency Upgrade
 - @twreporter/react-article-components@1.0.18-beta.4
@@ -7,7 +13,6 @@
 #### Typekit Update
 - use new typekit project
 
-## Release
 ### 4.3.14
 #### Dependency Upgrade
 - @twreporter/react-article-components@1.0.18-beta.2
