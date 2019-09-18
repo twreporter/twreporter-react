@@ -64,7 +64,7 @@ class TopicLandingPage extends Component {
 
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
-    const topic = utils.denormalizeTopics(slug, topicEntities, postEntities)[0]
+    const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0', {})
     const {
       relateds_background,
       relateds_format,

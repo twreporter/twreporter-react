@@ -116,7 +116,7 @@ function mapStateToProps(state, ownProps) {
     title: _.get(authorEntity, 'jobTitle') || '',
     image: authorImage,
     mail: _.get(authorEntity, 'email') || '',
-    bio: _.get(authorEntity, 'bio.html' || '')
+    bio: _.get(authorEntity, 'bio.md' || '')
   }
   return {
     author,
