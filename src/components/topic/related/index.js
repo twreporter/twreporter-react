@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX } from '../../../constants/index'
 import { shortenString } from '../../../utils/string'
-import RowComponents from './related-in-rows'
+import BarComponents from './related-as-bars'
 import CardComponents from './related-as-cards'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
@@ -25,11 +25,11 @@ const formatConsts = {
 function selectComponentsByFormat(format) {
   switch (format) {
     case 'in-rows':
-      return RowComponents
-    case 'in-column':
       return CardComponents
+    case 'in-column':
+      return BarComponents
     default:
-      return RowComponents
+      return BarComponents
   }
 }
 
@@ -65,7 +65,7 @@ export default class RelatedItems extends PureComponent {
     const publishedDate = date2yyyymmdd(_.get(item, 'published_date'), '.')
     const style = _.get(item, 'style')
     const description = shortenString(_.get(item, 'og_description', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
-    const prefix = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.ARTICLE : LINK_PREFIX.INTERACTIVE_ARTICLE
+    const prefix = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE
     const target = style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : '_self'
     return (
       <components.Item
