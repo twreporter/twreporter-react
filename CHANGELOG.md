@@ -9,6 +9,37 @@
 
 ## Release
 
+### 4.3.17
+
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.19
+
+### 4.3.16
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.18
+
+### 4.3.15
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.18-beta.4
+
+#### Typekit Update
+- use new typekit project
+
+### 4.3.14
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.18-beta.2
+
+### 4.3.13
+#### Dependency Upgrade
+- @twreporter/redux@^5.0.5
+
+#### Bug fix
+- [index-page] lacks of other categories except international category in categories section
+
+### 4.3.12
+#### Dependency Upgrade
+- @twreporter/react-article-components@^1.0.17
+
 ### 4.3.11
 #### Dependency Upgrade
 - @twreporter/react-components@^7.1.0

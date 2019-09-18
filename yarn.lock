@@ -167,10 +167,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.16.tgz#397ed8ad50d74eee8702054f52a328925fde71be"
-  integrity sha512-Rb9cBY6Xz+QIMmR9TMGGeiqdYmmkk6EVNaQ3j6kQWBCg+dSIVLb0Fx4pp8yioygh+rXUh40Mx8zXlxsfqc9c+w==
+"@twreporter/react-article-components@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.19.tgz#1331cd0ed4c95d34da04caa840cf346d9d2ccd9a"
+  integrity sha512-DRsH0afJn848UKFSpN313iGUoejb3Om3uMggHQ5YSCAlRxeHhf4KjSzsZSKI4pfvFkMEb1ZlrMtSQx8u9veBWg==
   dependencies:
     "@twreporter/core" "^1.1.0"
     "@twreporter/react-components" "^7.1.0"
@@ -204,10 +204,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.4.tgz#c7d65667916b3be666161f4206a27b881d369019"
-  integrity sha512-Gsgb+q29EFe1KVQup12pA04F0RYAxOYZhFBig0cP2sfguXf/Dp0i4GAdYEYfsiZIB7WLxsS8dCbt01qhahd9Kw==
+"@twreporter/redux@^5.0.4", "@twreporter/redux@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.5.tgz#4ffcbc8722b1997b6980eb229fb37aadf3864f11"
+  integrity sha512-7BStSG9fRx2tuEEinbQEMesEdTArSUVNy4Z/1cvm7HPOI7ANerkFtIItb76o6099qycjS/lT0+j/Ld4/oxvY5Q==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
