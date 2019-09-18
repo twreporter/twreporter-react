@@ -1,23 +1,32 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { google } from '../conf/storage'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
 
 const spinnerLogoUrl = `${google.schema}://${google.hostname}/${google.bucket}/images/spinner-logo.gif`
 
+const Container = styled.div`
+  display: ${props => props.show ? 'block' : 'none'};
+  opacity: ${props => props.show ? '1' : '0'};
+  transition: opacity .5s ease;
+`
+
 const LoadingSpinner = (props) => (
-  <div className={props.className}>
+  <Container show={props.show} className={props.className} >
     <img src={replaceGCSUrlOrigin(spinnerLogoUrl)} alt={props.alt}/>
-  </div>
+  </Container>
 )
 
 LoadingSpinner.propTypes = {
+  show: PropTypes.bool,
   alt: PropTypes.string,
   className: PropTypes.string
 }
 
 LoadingSpinner.defaultProps = {
-  alt: '資料載入中'
+  show: true,
+  alt: '載入中...'
 }
 
 export default LoadingSpinner

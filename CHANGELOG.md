@@ -1,11 +1,20 @@
 ## Unreleased
 
+### 4.3.18
+
+#### Dependency Upgrade
+- @twreporter/react-components@^7.1.1
+
+#### Rewrite components with scss with styled-components
+- Rewrite `AuthorsList`, `AuthorPage`, and `TopicLandingPage`
+- Rewrite `Photography`, and  `Search`
+
+## Release
+
 ### 4.3.17
 
 #### Dependency Upgrade
 - @twreporter/react-article-components@1.0.19
-
-## Release
 
 ### 4.3.16
 #### Dependency Upgrade
