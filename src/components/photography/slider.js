@@ -242,8 +242,8 @@ class Carousel extends Component {
           >
             {this._renderSlides()}
           </Slides>
-          <PrevBtn type="button" className="prev" onClick={goPrevSlide}></PrevBtn>
-          <NextBtn type="button" className="next" onClick={goNextSlide}></NextBtn>
+          <PrevBtn className="prev" onClick={goPrevSlide}></PrevBtn>
+          <NextBtn className="next" onClick={goNextSlide}></NextBtn>
         </SlidesContainer>
         <Indicators>
           {this._renderIndicators()}
