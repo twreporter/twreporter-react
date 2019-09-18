@@ -1,5 +1,10 @@
 ## Unreleased
 
+### 4.3.17
+
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.19
+
 ## Release
 
 ### 4.3.16
