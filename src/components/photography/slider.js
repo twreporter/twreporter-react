@@ -73,14 +73,14 @@ const Indicator = styled.li`
 `
 
 const Button = styled.div`
-	background-color: transparent;
-	border: 0;
-	cursor: pointer;
-	height: 43px;
-	opacity: .75;
-	outline: none;
-	padding: 0;
-	position: absolute;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  height: 43px;
+  opacity: .75;
+  outline: none;
+  padding: 0;
+  position: absolute;
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0 1em;
