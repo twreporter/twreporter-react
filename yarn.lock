@@ -185,26 +185,7 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.1.0.tgz#0381a05569dfbe6eb7a772bf30da457de61bb583"
-  integrity sha512-whcrTpBHvsrCU2srQK86Op/OTawUtkEKcy4RoLwwYMUjiG3jyHOxBb5JdjGttlCcsGBRNgE+pj54Ygf1kadcrw==
-  dependencies:
-    "@twreporter/core" "^1.1.0"
-    "@twreporter/redux" "^5.0.4"
-    hoist-non-react-statics "^2.3.1"
-    lodash "^4.0.0"
-    memoize-one "^5.0.5"
-    prop-types "^15.0.0"
-    react "^16.3.0"
-    react-redux "^6.0.0"
-    react-router-dom "^4.3.1"
-    react-transition-group "^1.2.1"
-    react-waypoint "^9.0.2"
-    smoothscroll "^0.3.0"
-    styled-components "^4.0.0"
-
-"@twreporter/react-components@^7.1.1":
+"@twreporter/react-components@^7.1.0", "@twreporter/react-components@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.1.1.tgz#8306b4a104a9f13897d0a533dd1e5f6cf70817d1"
   integrity sha512-jyUxeMszCEp6bljcJBSvMLnyZGGMMQMgGQeWE2ZkpGMVroUo52Rb2xJIR+qSWPNrPutzCoxR6PhAuw7Vr6YkAw==
