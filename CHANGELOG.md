@@ -5,6 +5,7 @@
 
 #### Rewrite components with scss with styled-components
 - Rewrite `AuthorsList`, `AuthorPage`, and `TopicLandingPage`
+- Rewrite `Photography`, and  `Search`
 
 ## Release
 

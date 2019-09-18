@@ -1,13 +1,13 @@
-import Link from 'react-router-dom/Link'
-import More from '../components/More'
-import React from 'react'
-import ResolutionSwitchingImage from '../components/shared/Image'
-import constPageThemes from '../constants/page-themes'
-import styled, { css } from 'styled-components'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { typography } from '../themes/common-variables'
-
+import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import constPageThemes from '../../constants/page-themes'
+import Link from 'react-router-dom/Link'
+import More from './more'
+import React from 'react'
+import styled, { css } from 'styled-components'
+import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -72,15 +72,6 @@ const ImageWrapper = styled.div`
   }
 `
 
-//const ItemImage = styled.img`
-//  width: 100%;
-//  height: auto;
-//  @media only screen and (max-width: ${breakPoint}px) {
-//    width: 100%;
-//    height: auto;
-//  }
-//`
-
 const ItemDescBox = styled.div`
   width: 100%;
   height: auto;
@@ -98,7 +89,7 @@ const ItemTitle = styled.h3`
   padding: 0;
   border: 0;
   font-size: 135%;
-  font-weight: ${typography.font.weight.bold};
+  font-weight: ${fontWeight.bold};
   line-height: 1.25em;
   @media only screen and (max-width: ${breakPoint}px) {
     margin-bottom: 1.5em;
@@ -108,7 +99,7 @@ const ItemTitle = styled.h3`
 const ItemExcerpt = styled.div`
   display: block;
   font-size: 14px;
-  font-weight: ${typography.font.weight.extraLight};
+  font-weight: ${fontWeight.extraLight};
   line-height: 24px;
   text-align: justify;
   color: #808080;
@@ -165,40 +156,28 @@ const List = styled.ul`
 `
 
 export default class ListArticleItem extends React.PureComponent {
-  _buildItem(article) {
-    const { id, publishedDate, style, slug, title } = article
+  _buildItem(post) {
+    const { id, publishedDate, style, slug, title } = post
     const dateString = date2yyyymmdd(publishedDate , '.')
     const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
-    const excerpt =  _.get(article, 'ogDescription', '')
-    const heroImageSet = _.get(article, 'heroImage.resizedTargets')
-    const ogImageSet = _.get(article, 'ogImage.resizedTargets')
-    const imgSet = heroImageSet ? _.merge({}, heroImageSet, {
-      original: {
-        url: _.get(article, 'heroImage.url'),
-        width: _.get(article, 'heroImage.width'),
-        height: _.get(article, 'heroImage.height')
-      }
-    }) : _.merge({}, ogImageSet, {
-      original: {
-        url: _.get(article, 'ogImage.url'),
-        width: _.get(article, 'ogImage.width'),
-        height: _.get(article, 'ogImage.height')
-      }
-    })
+    const excerpt =  _.get(post, 'ogDescription', '')
+    const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
+    const images = [
+      _.get(imageResizedTargets, 'tiny'),
+      _.get(imageResizedTargets, 'mobile'),
+      _.get(imageResizedTargets, 'tablet'),
+      _.get(imageResizedTargets, 'desktop'),
+      _.get(imageResizedTargets, 'original')
+    ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
     return (
       <Item key={id}>
         <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
           <ImageWrapper>
-            <ResolutionSwitchingImage
-              alt={heroImageSet ? _.get(article, 'heroImage.description') : _.get(article, 'ogImage.description')}
-              imgSet={imgSet}
-              imgSizes={{
-                mobile: '95vw',
-                tablet: '95vw',
-                desktop: '451px',
-                hd: '555px'
-              }}
-              toShowCaption={false}
+            <Image
+              alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
+              defaultImage={images[1]}
+              imgPlaceholderSrc={images[0].url}
+              imageSet={images}
             />
           </ImageWrapper>
           <ItemDescBox>
@@ -227,11 +206,9 @@ export default class ListArticleItem extends React.PureComponent {
         </Container>
         {
           hasMore ? (
-            <div>
-              <More loadMore={loadMore}>
-                <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
-              </More>
-            </div>
+            <More loadMore={loadMore}>
+              <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
+            </More>
           )
             : null
         }
