@@ -26,7 +26,7 @@ const ItemsContainer = styled(base.ItemsContainer)`
     width: 90%;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
   `}
 `
 
@@ -37,6 +37,8 @@ const ItemLink = styled(base.ItemLink)`
     margin: 0 10px 50px 10px;
     box-shadow: none;
     transition: top .1s ease, box-shadow .2s ease, transform .1s ease;
+    display: flex;
+    flex-direction: column;
     &::before {
       transition: border-width .1s ease-out;
       content: "";
@@ -74,6 +76,7 @@ const ItemImageSizing = styled(base.ItemImageSizing)`
   ${mq.tabletAndAbove`
     width: 100%;
     height: 200px;
+    flex: 0 0 200px;
     position: relative;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
     transition: box-shadow .1s ease, transform .2s ease;
@@ -83,7 +86,8 @@ const ItemImageSizing = styled(base.ItemImageSizing)`
 const ItemMeta = styled(base.ItemMeta)`
   ${mq.tabletAndAbove`
     width: 100%;
-    min-height: 222px;
+    height: 222px;
+    flex: 1 0 222px;
     position: relative;
     transform: translateY(5px);
     padding: 17px 12px 2.5em 20px;
