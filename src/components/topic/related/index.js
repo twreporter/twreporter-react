@@ -18,15 +18,15 @@ const _ = {
 }
 
 const formatConsts = {
-  row: 'in-rows',
+  row: 'in-row',
   column: 'in-column'
 }
 
 function selectComponentsByFormat(format) {
   switch (format) {
-    case 'in-rows':
+    case formatConsts.row:
       return CardComponents
-    case 'in-column':
+    case formatConsts.column:
       return BarComponents
     default:
       return BarComponents
