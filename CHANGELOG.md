@@ -1,9 +1,10 @@
 ## Unreleased
 
-### 4.3.18
+### 4.3.18-rc.1
 
 #### Dependency Upgrade
 - @twreporter/react-components@^7.1.1
+- @twreporter/react-article-components@1.0.20-beta.1
 
 #### Rewrite components with scss with styled-components
 - Rewrite `AuthorsList`, `AuthorPage`, and `TopicLandingPage`
