@@ -1,4 +1,4 @@
-import lottie from '../utils/lottie-light-min'
+import lottie from './lottie-light-min'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -24,36 +24,8 @@ export default class Lottie extends React.Component {
       animationData,
       rendererSettings
     }
-
     this.anim = lottie.loadAnimation(this.options)
     this.registerEvents(eventListeners)
-  }
-
-  shouldComponentUpdate(nextProps /* , nextState */) {
-    /* Recreate the animation handle if the data is changed */
-    if (this.options.animationData !== nextProps.options.animationData) {
-      this.deRegisterEvents(this.props.eventListeners)
-      this.destroy()
-      this.options = { ...this.options, ...nextProps.options }
-      this.anim = lottie.loadAnimation(this.options)
-      this.registerEvents(nextProps.eventListeners)
-      return true
-    }
-    return false
-  }
-
-  componentDidUpdate() {
-    if (this.props.isStopped) {
-      this.stop()
-    } else if (this.props.segments) {
-      this.playSegments()
-    } else {
-      this.play()
-    }
-
-    this.pause()
-    this.setSpeed()
-    this.setDirection()
   }
 
   componentWillUnmount() {
