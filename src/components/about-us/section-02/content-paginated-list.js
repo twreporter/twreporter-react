@@ -135,6 +135,17 @@ export default class PaginatedMemberList extends PureComponent {
       currentPagesArray: categoriesAll.map(() => 0)
     }
   }
+
+  componentDidMount() {
+    this._pageMaker()
+    window.addEventListener('resize', this._pageMaker)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._pageMaker)
+    this.membersPageLengthArray = null
+  }
+
   /**
    * Given the index of department and flip direction (next or prev), compute the new page number
    * @param {Number} departmentIndex
@@ -166,19 +177,11 @@ export default class PaginatedMemberList extends PureComponent {
     const { membersNumberArray } = this.props
     this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numbersInOnePage))
   }
+
   _selectDepartment = (index) => {
     this.setState({ selectedDepartmentIndex: index })
   }
-  componentWillMount() {
-    this._pageMaker()
-  }
-  componentDidMount() {
-    window.addEventListener('resize', this._pageMaker)
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._pageMaker)
-    this.membersPageLengthArray = null
-  }
+
   render() {
     const { selectedDepartmentIndex, currentPagesArray } = this.state
     const { groupedMembers } = this.props

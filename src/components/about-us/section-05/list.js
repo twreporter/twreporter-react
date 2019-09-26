@@ -200,6 +200,12 @@ export default class List extends PureComponent {
     super(props)
     this.yearContent = []
   }
+
+  componentDidMount() {
+    const yearContentHeight = this.yearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
+    this.props.getYearContentHeight(yearContentHeight)
+  }
+
   _getDate = (date) => {
     let dateString = date.toString()
     if (dateString.length < 2) {
@@ -239,10 +245,7 @@ export default class List extends PureComponent {
     }
     return animationObj
   }
-  componentDidMount() {
-    const yearContentHeight = this.yearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
-    this.props.getYearContentHeight(yearContentHeight)
-  }
+  
   render() {
     const { unfoldArray, sortedData, sortedDataGroupByYear, foldAndUnfold } = this.props
     this.yearList = _.keys(sortedDataGroupByYear)
