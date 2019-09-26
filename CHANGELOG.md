@@ -1,6 +1,6 @@
 ## Unreleased
 
-### 4.3.18-rc.2
+### 4.3.18-rc.3
 
 #### Dependency Upgrade
 - @twreporter/react-components@^7.1.1
@@ -9,6 +9,17 @@
 #### Rewrite components with scss with styled-components
 - Rewrite `AuthorsList`, `AuthorPage`, and `TopicLandingPage`
 - Rewrite `Photography`, and  `Search`
+
+#### Bug fix
+##### about-us page
+- Bugfix: member's carousel has wrong pagination on resize
+- Bugfix: side bar on about-us page
+
+#### Miscellaneous
+##### about-us page
+- `componentWillMount` -> `componentDidMount`, `componentWillUpdate` -> `shouldComponentUpdate`
+- Removes `shouldComponentUpdate` and `componentDidUpdate` in section1 since they are unused 
+  in current use case, which mounts a new component once animation get changed
 
 ## Release
 
