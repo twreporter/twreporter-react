@@ -1,6 +1,6 @@
 ## Unreleased
 
-### 4.3.18-rc.4
+### 4.3.18
 
 #### Dependency Upgrade
 - @twreporter/react-components@^7.1.1
