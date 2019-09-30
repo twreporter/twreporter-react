@@ -44,6 +44,14 @@ export default class Timeline extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    this._startLoop()
+  }
+
+  componentWillUnmount() {
+    this._stopLoop()
+  }
+
   _startLoop = () => {
     const newframeId = window.requestAnimationFrame(this._loop)
     this.freamId = newframeId
@@ -134,14 +142,6 @@ export default class Timeline extends PureComponent {
       }
     })
     getYear(currentYearIndex)
-  }
-
-  componentDidMount() {
-    this._startLoop()
-  }
-
-  componentWillUnmount() {
-    this._stopLoop()
   }
 
   render() {

@@ -1,0 +1,1 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><mask id="mask"><circle id="circle" cx="100" cy="100" r="100" fill="white" /><polyline points="130,45 65,100 130,155" stroke="black" stroke-width="25" fill="none" /></mask></defs><use xlink:href="#circle" mask="url(#mask)" /></svg>

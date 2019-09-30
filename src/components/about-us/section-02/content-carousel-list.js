@@ -2,23 +2,32 @@ import { colors } from '../../../themes/common-variables'
 import { font } from '../constants/styles'
 import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
-import assign from 'lodash/assign'
-import categories from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
-import find from 'lodash/find'
-import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import categories from '../constants/section-02/categories'
+import categoryIds from '../constants/section-02/category-ids'
+import mq from '../utils/media-query'
 import styled from 'styled-components'
+//lodash
+import assign from 'lodash/assign'
+import debounce from 'lodash/debounce'
+import find from 'lodash/find'
+import groupBy from 'lodash/groupBy'
+import isEqual from 'lodash/isEqual'
+import keys from 'lodash/keys'
 import values from 'lodash/values'
 
 const _ = {
-  groupBy, find, values, keys, assign
+  assign,
+  debounce,
+  find,
+  groupBy,
+  isEqual,
+  keys,
+  values
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -215,7 +224,7 @@ export default class CarouselMemberList extends PureComponent {
     this.memberList = []
     this.membersPageLengthArray = []
     this.membersResidueArray = []
-    this.membersNumInAFullPageArray = []
+    this.membersNumPerPageArray = []
     this.carouselData = _.assign({},this.props.groupedMembers)
     this.state = {
       transitionEffect: true,
@@ -224,13 +233,13 @@ export default class CarouselMemberList extends PureComponent {
   }
   componentDidMount() {
     this._membersPageMaker()
-    window.addEventListener('resize', this._membersPageMaker)
+    window.addEventListener('resize', _.debounce(this._membersPageMaker, 500))
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this._membersPageMaker)
+    window.removeEventListener('resize', _.debounce(this._membersPageMaker, 500))
     this.membersPageLengthArray = null
     this.membersResidueArray = null
-    this.membersNumInAFullPageArray = null
+    this.membersNumPerPageArray = null
   }
   /**
    *  Get horizontal shift of member list carousel
@@ -242,7 +251,7 @@ export default class CarouselMemberList extends PureComponent {
     if (typeof this.membersPageLengthArray !== 'undefined') {
       const pageLength =  this.membersPageLengthArray[categoryIndex]
       const currentPage = currentPagesArray[categoryIndex]
-      const numbersInAPage = this.membersNumInAFullPageArray[categoryIndex]
+      const numbersInAPage = this.membersNumPerPageArray[categoryIndex]
       const residueOfPages = this.membersResidueArray[categoryIndex]
       let currentShiftNumbers = numbersInAPage
       if (pageLength > 3 && residueOfPages > 0) {
@@ -281,16 +290,21 @@ export default class CarouselMemberList extends PureComponent {
   _membersPageMaker = () => {
     const { groupedMembers, membersNumberArray } = this.props
     let initialCurrentPages = []
-    this.membersPageLengthArray = this.memberList.map((list) => {
-      return Math.ceil(list.scrollWidth / list.offsetWidth) + 2
-    })
-
-    this.membersNumInAFullPageArray = this.memberList.map((list) => {
+    
+    const newMembersNumPerPageArray = this.memberList.map((list) => {
       return Math.round(list.offsetWidth / list.childNodes[0].offsetWidth * 10) / 10
     })
 
+    if (_.isEqual(this.membersNumPerPageArray, newMembersNumPerPageArray)) return
+
+    this.membersNumPerPageArray = newMembersNumPerPageArray
+    
+    this.membersPageLengthArray = this.memberList.map((list, departmentIndex) => {
+      return Math.ceil(list.childNodes[0].offsetWidth * membersNumberArray[departmentIndex] / list.offsetWidth) + 2
+    })
+
     this.membersResidueArray = this.memberList.map((list, departmentIndex) => {
-      return  membersNumberArray[departmentIndex] % this.membersNumInAFullPageArray[departmentIndex]
+      return membersNumberArray[departmentIndex] % this.membersNumPerPageArray[departmentIndex]
     })
 
     // Seting initial current pages
@@ -305,7 +319,7 @@ export default class CarouselMemberList extends PureComponent {
     // Making data for the usage of carousel
     _.keys(groupedMembers).forEach((categoryId, index) => {
       const members = groupedMembers[categoryId]
-      const numbersInAPage = this.membersNumInAFullPageArray[index]
+      const numbersInAPage = this.membersNumPerPageArray[index]
       const newMembers = [ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ]
       this.carouselData[categoryId] = newMembers
     })

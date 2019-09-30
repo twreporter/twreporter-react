@@ -167,10 +167,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.19.tgz#1331cd0ed4c95d34da04caa840cf346d9d2ccd9a"
-  integrity sha512-DRsH0afJn848UKFSpN313iGUoejb3Om3uMggHQ5YSCAlRxeHhf4KjSzsZSKI4pfvFkMEb1ZlrMtSQx8u9veBWg==
+"@twreporter/react-article-components@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.20.tgz#8a2425768bff8dde3c881f8b062252569057c283"
+  integrity sha512-yhr8Sw/J3P/yppSGJrmhaajJO6qCT7Fjlr6Q4tySLL3vNbYqH+N9tnfFw90KRb+uvcUOCsedb4ptPqoIVL7GYA==
   dependencies:
     "@twreporter/core" "^1.1.0"
     "@twreporter/react-components" "^7.1.0"
@@ -185,10 +185,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.1.0.tgz#0381a05569dfbe6eb7a772bf30da457de61bb583"
-  integrity sha512-whcrTpBHvsrCU2srQK86Op/OTawUtkEKcy4RoLwwYMUjiG3jyHOxBb5JdjGttlCcsGBRNgE+pj54Ygf1kadcrw==
+"@twreporter/react-components@^7.1.0", "@twreporter/react-components@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.1.1.tgz#8306b4a104a9f13897d0a533dd1e5f6cf70817d1"
+  integrity sha512-jyUxeMszCEp6bljcJBSvMLnyZGGMMQMgGQeWE2ZkpGMVroUo52Rb2xJIR+qSWPNrPutzCoxR6PhAuw7Vr6YkAw==
   dependencies:
     "@twreporter/core" "^1.1.0"
     "@twreporter/redux" "^5.0.4"
@@ -203,11 +203,6 @@
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
-
-"@twreporter/react-flex-carousel@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-flex-carousel/-/react-flex-carousel-1.1.1.tgz#36f36d2e3d31f95a8961e420a6e837608d064f2e"
-  integrity sha512-q8VR4xwV2VUiOzPxynB7kYHCfDEKZv42yPYzm3HUUK5gR8BGX2037SltHTyb5kxTT5BSMUqCMmVGpSPlO5QesA==
 
 "@twreporter/redux@^5.0.4", "@twreporter/redux@^5.0.5":
   version "5.0.5"
@@ -3012,7 +3007,7 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-ejs@^2.3.4, ejs@^2.5.7:
+ejs@^2.5.7:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
   integrity sha512-0xy4A/twfrRCnkhfk8ErDi5DqdAsAqeGxht4xkCUrsvhhbQNs7E+4jV0CN7+NKIY0aHE72+XvqtBIXzD31ZbXQ==
