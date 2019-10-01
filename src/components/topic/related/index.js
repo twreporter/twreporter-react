@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX } from '../../../constants/index'
 import { shortenString } from '../../../utils/string'
 import BarComponents from './related-as-bars'
+import base from './base'
 import CardComponents from './related-as-cards'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -41,19 +41,23 @@ const defaultPostImage = {
 
 export default class RelatedItems extends PureComponent {
   static propTypes = {
-    backgorund: PropTypes.string,
+    background: PropTypes.string,
     items: PropTypes.array,
     format: PropTypes.oneOf([ formatConsts.row, formatConsts.column ]).isRequired
   }
 
   static defaultProps = {
-    backgorund: '#d8d8d8',
+    background: '#d8d8d8',
     items: []
   }
 
   constructor(props) {
     super(props)
+    this.state = {
+      showAll: false
+    }
     this.renderItem = this._renderItem.bind(this)
+    this.showAll = this._showAll.bind(this)
   }
 
   _renderItem(item, index) {
@@ -76,17 +80,26 @@ export default class RelatedItems extends PureComponent {
         title={title}
         description={description}
         publishedDate={publishedDate}
+        hide={!this.state.showAll && index > firstShowedLimit - 1}
       />
     )
   }
 
+  _showAll() {
+    this.setState({
+      showAll: true
+    })
+  }
+
   render() {
-    const { backgorund, format, items } = this.props
+    const { background, format, items } = this.props
     const components = selectComponentsByFormat(format)
     return (
-      <components.ItemsContainer backgorund={backgorund}>
-        {_.map(items, this.renderItem)}
-      </components.ItemsContainer>
+      <base.Background background={background}>
+        <components.ItemsContainer>
+          {_.map(items, this.renderItem)}
+        </components.ItemsContainer>
+      </base.Background>
     )
   }
 }

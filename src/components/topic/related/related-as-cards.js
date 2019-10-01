@@ -19,11 +19,8 @@ const ImageBorder = styled.div`
 
 const ItemsContainer = styled(base.ItemsContainer)`
   ${mq.tabletAndAbove`
-    padding: 60px 0 50px 0;
+    padding: 0 5%;
     display: flex;
-    margin: 0 auto;
-    background-color: inherit;
-    width: 90%;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;

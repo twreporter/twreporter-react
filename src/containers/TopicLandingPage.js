@@ -126,7 +126,7 @@ class TopicLandingPage extends Component {
         <Related
           items={relateds}
           format={relateds_format}
-          backgorund={relateds_background}
+          background={relateds_background}
         />
       </Container>
     )

@@ -6,11 +6,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ItemsContainer = styled.div`
-  background: ${props => props.background || '#d8d8d8'};
   position: relative;
-  ${mq.mobileOnly`
-    padding: 30px 0 40px 0;
-  `}
 `
 
 const ItemLink = styled(Link)`
@@ -76,6 +72,16 @@ const ItemDate = styled.div`
   color: rgb(128, 128, 128);
 `
 
+const Background = styled.div`
+  background: ${props => props.background || '#d8d8d8'};
+  ${mq.mobileOnly`
+    padding: 30px 0 40px 0;
+  `}
+  ${mq.tabletAndAbove`
+    padding: 60px 0 50px 0;
+  `}
+`
+
 class Item extends React.PureComponent {
   static propTypes = {
     linkTo: PropTypes.string,
@@ -87,7 +93,16 @@ class Item extends React.PureComponent {
     }).isRequired,
     title: PropTypes.string,
     description: PropTypes.string,
-    publishedDate: PropTypes.string
+    publishedDate: PropTypes.string,
+    hide: PropTypes.bool
+  }
+  static defaultProps = {
+    linkTo: '',
+    linkTarget: '_self',
+    title: '',
+    description: '',
+    publishedDate: '',
+    hide: false
   }
 }
 
@@ -99,5 +114,6 @@ export default {
   ItemMeta,
   ItemTitle,
   ItemDescription,
-  ItemDate
+  ItemDate,
+  Background
 }
