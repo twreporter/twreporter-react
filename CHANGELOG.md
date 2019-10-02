@@ -1,11 +1,18 @@
 ## Unreleased
 
 ## Release
+### 4.3.20
+#### Dependency Upgrade
+- @twreporter/react-components@^8.0.1
+- @twreporter/react-article-components@^1.0.22
+
+#### Table of Contents:Anchor
+- provide id in the anchor, and jump to the anchor position if URI contains `#${anchorName}` 
 
 ### 4.3.19
 #### Dependency Upgrade
 - @twreporter/react-components@^8.0.0
-- @twreporter/react-article-components@1.0.21
+- @twreporter/react-article-components@^1.0.21
 
 ### 4.3.18
 
