@@ -22,6 +22,8 @@ const formatConsts = {
   column: 'in-column'
 }
 
+const firstShowedLimit = 12
+
 function selectComponentsByFormat(format) {
   switch (format) {
     case formatConsts.row:
@@ -99,6 +101,11 @@ export default class RelatedItems extends PureComponent {
         <components.ItemsContainer>
           {_.map(items, this.renderItem)}
         </components.ItemsContainer>
+        {_.get(items, 'length', 0) < firstShowedLimit || this.state.showAll ? null : (
+          <base.ShowAllButton onClick={this.showAll}>
+            <div>載入更多</div>
+          </base.ShowAllButton>
+        )}
       </base.Background>
     )
   }

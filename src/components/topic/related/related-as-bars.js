@@ -62,12 +62,14 @@ class Item extends base.Item {
       image,
       title,
       description,
-      publishedDate
+      publishedDate,
+      hide
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
+        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image

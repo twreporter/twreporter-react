@@ -34,7 +34,7 @@ const ItemLink = styled(base.ItemLink)`
     margin: 0 10px 50px 10px;
     box-shadow: none;
     transition: top .1s ease, box-shadow .2s ease, transform .1s ease;
-    display: flex;
+    display: ${props => props.hide ? 'none' : 'flex'};
     flex-direction: column;
     &::before {
       transition: border-width .1s ease-out;
@@ -111,12 +111,14 @@ class Item extends base.Item {
       image,
       title,
       description,
-      publishedDate
+      publishedDate,
+      hide
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
+        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image

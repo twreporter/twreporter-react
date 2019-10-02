@@ -3,14 +3,25 @@ import Link from 'react-router-dom/Link'
 import mq from '../../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes }  from 'styled-components'
 
+const fadeInSlideDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
 const ItemsContainer = styled.div`
   position: relative;
 `
 
 const ItemLink = styled(Link)`
-  display: block;
+  animation: ${fadeInSlideDown} 300ms ease-in-out;
+  display: ${props => props.hide ? 'none' : 'block'};
   position: relative;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
   ${mq.mobileOnly`
@@ -72,6 +83,35 @@ const ItemDate = styled.div`
   color: rgb(128, 128, 128);
 `
 
+const ShowAllButton = styled.div`
+	cursor: pointer;
+	position: relative;
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background-color: #262626;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+	transition-property: transform, box-shadow;
+	transition-timing-function: ease;
+	transition-duration: .2s;
+  &:hover {
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px);
+  }
+  &>div {
+    color: #fff;
+    font-size: 17px;
+    font-weight: ${fontWeight.bold};
+    letter-spacing: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+`
+
 const Background = styled.div`
   background: ${props => props.background || '#d8d8d8'};
   ${mq.mobileOnly`
@@ -115,5 +155,6 @@ export default {
   ItemTitle,
   ItemDescription,
   ItemDate,
+  ShowAllButton,
   Background
 }
