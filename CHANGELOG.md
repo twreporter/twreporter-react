@@ -1,10 +1,41 @@
 ## Unreleased
 
-### 4.3.16-rc.1
+## Release
+
+### 4.3.19
+#### Dependency Upgrade
+- @twreporter/react-components@^8.0.0
+- @twreporter/react-article-components@1.0.21
+
+### 4.3.18
+
+#### Dependency Upgrade
+- @twreporter/react-components@^7.1.1
+- @twreporter/react-article-components@1.0.20
+
+#### Rewrite components with scss with styled-components
+- Rewrite `AuthorsList`, `AuthorPage`, and `TopicLandingPage`
+- Rewrite `Photography`, and  `Search`
+
+#### Bug fix
+##### about-us page
+- Bugfix: member's carousel has wrong pagination on resize
+- Bugfix: side bar on about-us page
+
+#### Miscellaneous
+##### about-us page
+- `componentWillMount` -> `componentDidMount`, `componentWillUpdate` -> `shouldComponentUpdate`
+- Removes `shouldComponentUpdate` and `componentDidUpdate` in section1 since they are unused 
+  in current use case, which mounts a new component once animation get changed
+
+### 4.3.17
+
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.19
+
+### 4.3.16
 #### Dependency Upgrade
 - @twreporter/react-article-components@1.0.18
-
-## Release
 
 ### 4.3.15
 #### Dependency Upgrade

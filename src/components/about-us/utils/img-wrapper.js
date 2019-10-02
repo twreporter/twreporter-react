@@ -36,12 +36,10 @@ class ImgWrapper extends React.Component {
     }
   }
 
-  componentWillMount() {
-    if (typeof window !== 'undefined') {
-      this.setState({
-        isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
-      })
-    }
+  componentDidMount() {
+    this.setState({
+      isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
+    })
   }
 
   render() {

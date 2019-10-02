@@ -370,6 +370,15 @@ export default class Section5 extends PureComponent {
       isBorderBottomfixed: true
     }
   }
+  
+  componentDidMount() {
+    const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
+    this.setState({ timelineScrollingHeight: timelineScrollingHeight })
+    if (window.matchMedia(`(max-width: ${screen.tablet.minWidth - 1}px)`).matches) {
+      this.isMobile = true
+    }
+  }
+
   /**
    * Manages the unfoldArray which represents whether content in each year is folded
    * @param {number} index
@@ -424,13 +433,6 @@ export default class Section5 extends PureComponent {
    */
   _getYearContentHeight = (contentHeightArray) => {
     this.setState({ yearContentHeight: contentHeightArray })
-  }
-  componentDidMount() {
-    const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
-    this.setState({ timelineScrollingHeight: timelineScrollingHeight })
-    if (window.matchMedia(`(max-width: ${screen.tablet.minWidth - 1}px)`).matches) {
-      this.isMobile = true
-    }
   }
   render() {
     return (
