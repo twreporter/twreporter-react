@@ -27,8 +27,8 @@
   "dependencies": {
     "@twreporter/core": "^1.1.1",
     "@twreporter/index-page": "^1.0.4",
-    "@twreporter/react-article-components": "^1.0.21",
-    "@twreporter/react-components": "^8.0.0",
+    "@twreporter/react-article-components": "^1.0.22",
+    "@twreporter/react-components": "^8.0.1",
     "@twreporter/redux": "^5.0.5",
     "@twreporter/universal-header": "^2.1.0",
     "@twreporter/velocity-react": "^1.4.2",
