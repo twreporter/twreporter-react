@@ -31,7 +31,10 @@ function scrollToTopAndFirePageview() {
       // the element is rendered on the page before trying to getElementById.
       setTimeout(() => {
         const id = hash.replace('#', '')
-        const element = document.getElementById(id)
+        // since id will be encoded by browser,
+        // decode it back as a string
+        const decodedID = decodeURIComponent(id)
+        const element = document.getElementById(decodedID)
         if (element) {
           element.scrollIntoView()
         }
