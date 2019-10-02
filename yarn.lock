@@ -167,13 +167,13 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-article-components@^1.0.20":
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.20.tgz#8a2425768bff8dde3c881f8b062252569057c283"
-  integrity sha512-yhr8Sw/J3P/yppSGJrmhaajJO6qCT7Fjlr6Q4tySLL3vNbYqH+N9tnfFw90KRb+uvcUOCsedb4ptPqoIVL7GYA==
+"@twreporter/react-article-components@^1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.21.tgz#c4ca66f36340be8108661b59aed4cd1c29948603"
+  integrity sha512-F89WRHsFQyOiABYDJ/XSqDa8cN/CQLpan6NohLY7LUN/OdFS6cOsmbN/IiSt5rvoUkRgLZGgR9PZYSj2BMY4qw==
   dependencies:
     "@twreporter/core" "^1.1.0"
-    "@twreporter/react-components" "^7.1.0"
+    "@twreporter/react-components" "^8.0.0"
     "@twreporter/redux" "^5.0.4"
     "@twreporter/universal-header" "^2.1.0"
     howler "^2.1.1"
@@ -185,10 +185,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^7.1.0", "@twreporter/react-components@^7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.1.1.tgz#8306b4a104a9f13897d0a533dd1e5f6cf70817d1"
-  integrity sha512-jyUxeMszCEp6bljcJBSvMLnyZGGMMQMgGQeWE2ZkpGMVroUo52Rb2xJIR+qSWPNrPutzCoxR6PhAuw7Vr6YkAw==
+"@twreporter/react-components@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.0.0.tgz#9f949ae1dddabbb2fde0df2ba7f8f0fda588bbae"
+  integrity sha512-i8jSzRRq8bLSi169corPTqcmJvWdzPpV2QJLztXY0cC2OcxTX3rt290PmVhGFX7FlwitbkrJI+TQFVHgTbaLmw==
   dependencies:
     "@twreporter/core" "^1.1.0"
     "@twreporter/redux" "^5.0.4"

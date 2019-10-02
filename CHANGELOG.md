@@ -1,5 +1,12 @@
 ## Unreleased
 
+## Release
+
+### 4.3.19
+#### Dependency Upgrade
+- @twreporter/react-components@^8.0.0
+- @twreporter/react-article-components@1.0.21
+
 ### 4.3.18
 
 #### Dependency Upgrade
@@ -20,8 +27,6 @@
 - `componentWillMount` -> `componentDidMount`, `componentWillUpdate` -> `shouldComponentUpdate`
 - Removes `shouldComponentUpdate` and `componentDidUpdate` in section1 since they are unused 
   in current use case, which mounts a new component once animation get changed
-
-## Release
 
 ### 4.3.17
 
