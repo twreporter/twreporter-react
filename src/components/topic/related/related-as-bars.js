@@ -5,12 +5,6 @@ import mq from '../../../utils/media-query'
 import React from 'react'
 import styled from 'styled-components'
 
-const ItemsContainer = styled(base.ItemsContainer)`
-  ${mq.tabletAndAbove`
-    padding: 60px 0 50px 0;
-  `}
-`
-
 const ItemLink = styled(base.ItemLink)`
   ${mq.tabletAndAbove`
     width: 92%;
@@ -68,12 +62,14 @@ class Item extends base.Item {
       image,
       title,
       description,
-      publishedDate
+      publishedDate,
+      hide
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
+        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image
@@ -94,6 +90,6 @@ class Item extends base.Item {
 }
 
 export default {
-  ItemsContainer,
+  ItemsContainer: base.ItemsContainer,
   Item
 }
