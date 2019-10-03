@@ -31,6 +31,37 @@ const _fontLevel = {
   small: 'small'
 }
 
+const styleConst = {
+  v1: {
+    photography: 'photography'
+  },
+  v2: {
+    default: 'article:v2:default',
+    photo: 'article:v2:photo',
+    pink: 'article:v2:pink'
+  }
+}
+
+
+/**
+ *
+ *
+ * @param {string} postStyle
+ * @returns {string} One of `styleConst.v2`
+ */
+function styleToV2(postStyle) {
+  switch (postStyle) {
+    case styleConst.v1.photography:
+      return styleConst.v2.photo
+    case styleConst.v2.pink:
+    case styleConst.v2.default:
+    case styleConst.v2.photo:
+      return postStyle
+    default:
+      return styleConst.v2.default
+  }
+}
+
 class Article extends PureComponent {
   constructor(props) {
     super(props)
@@ -137,10 +168,11 @@ class Article extends PureComponent {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities)
     const slug = _.get(selectedPost, 'slug', '')
     const isFetching = _.get(selectedPost, 'isFetching')
-
+    const article = _.get(postEntities, slug, {})
+    article.style = styleToV2(article.style)
+    
     // prepare related posts and that topic which post belongs to
     // for v2 article
-    const article = _.get(postEntities, slug, {})
     const postRelateds = utils.denormalizePosts(_.get(article, 'relateds', []), postEntities)
     const postTopic = _.get(utils.denormalizeTopics(_.get(article, 'topics', []), topicEntities, postEntities), '0', {})
     const topicRelateds = _.get(postTopic, 'relateds', [])
