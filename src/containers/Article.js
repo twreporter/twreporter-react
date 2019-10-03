@@ -1,25 +1,16 @@
 import ArticleComponent from '@twreporter/react-article-components'
+import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
-import LogoIcon from '../../static/asset/icon-placeholder.svg'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import ReadingProgress from '../components/article/ReadingProgress'
+import ReadingProgress from '../components/article/reading-progress'
 import SystemError from '../components/SystemError'
-import commonClassNames from '../components/article/Common.scss'
-import cx from 'classnames'
-import constStyledComponents from '../constants/styled-components'
-import styled from 'styled-components'
-import classNames from './Article.scss'
 import twreporterRedux from '@twreporter/redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
-import { articleLayout as layout } from '../themes/layout'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import mq from '../utils/media-query'
-
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
-
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
@@ -40,48 +31,9 @@ const _fontLevel = {
   small: 'small'
 }
 
-const IntroductionContainer = styled.div`
-  display: block;
-  margin: 0 auto 80px auto;
-  ${mq.desktopAndAbove`
-    width: ${layout.desktop.width.small}px;
-  `};
-  ${mq.tabletOnly`
-    width: ${layout.tablet.width.small}px;
-  `};
-  ${mq.mobileOnly`
-    margin: 0 24px 80px 24px;
-  `};
-`
-
-const ArticlePlaceholder = () => {
-  return (
-    <constStyledComponents.ResponsiveContainerForAritclePage>
-      <div className={classNames['placeholder']}>
-        <div className={cx(classNames['title-row'], commonClassNames['inner-block'])}>
-          <div className={classNames['ph-title-1']}></div>
-          <div className={classNames['ph-title-2']}></div>
-          <div className={classNames['ph-author']}></div>
-        </div>
-        <div className={classNames['leading-img']}>
-          <div className={classNames['ph-image']}>
-            <LogoIcon className={classNames['logo-icon']} />
-          </div>
-        </div>
-        <IntroductionContainer>
-          <div className={classNames['ph-content']}></div>
-          <div className={classNames['ph-content']}></div>
-          <div className={classNames['ph-content-last']}></div>
-        </IntroductionContainer>
-      </div>
-    </constStyledComponents.ResponsiveContainerForAritclePage>
-  )
-}
-
 class Article extends PureComponent {
   constructor(props) {
     super(props)
-
     // WORKAROUND
     // In fact, `fontLevel` is already in this.props, which is passed by `mapStateToProps` function.
     // However, since in `src/client.js`, we use `ReactDOM.hydrate` to render HTML on production environment.
