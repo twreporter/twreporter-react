@@ -9,6 +9,7 @@ import twreporterRedux from '@twreporter/redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import uiManager from '../managers/ui-manager'
 // dependencies of article component v2
 import Link from 'react-router-dom/Link'
 // lodash
@@ -29,37 +30,6 @@ const { fetchAFullPost } = actions
 
 const _fontLevel = {
   small: 'small'
-}
-
-const styleConst = {
-  v1: {
-    photography: 'photography'
-  },
-  v2: {
-    default: 'article:v2:default',
-    photo: 'article:v2:photo',
-    pink: 'article:v2:pink'
-  }
-}
-
-
-/**
- *
- *
- * @param {string} postStyle
- * @returns {string} One of `styleConst.v2`
- */
-function styleToV2(postStyle) {
-  switch (postStyle) {
-    case styleConst.v1.photography:
-      return styleConst.v2.photo
-    case styleConst.v2.pink:
-    case styleConst.v2.default:
-    case styleConst.v2.photo:
-      return postStyle
-    default:
-      return styleConst.v2.default
-  }
 }
 
 class Article extends PureComponent {
@@ -169,7 +139,7 @@ class Article extends PureComponent {
     const slug = _.get(selectedPost, 'slug', '')
     const isFetching = _.get(selectedPost, 'isFetching')
     const article = _.get(postEntities, slug, {})
-    article.style = styleToV2(article.style)
+    article.style = uiManager.getArticleV2Style(article.style)
     
     // prepare related posts and that topic which post belongs to
     // for v2 article
