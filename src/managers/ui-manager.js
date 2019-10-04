@@ -3,7 +3,6 @@ import pathToRegexp from 'path-to-regexp'
 import routesConst from '../constants/routes'
 import uiConst from '../constants/ui'
 import twreporterRedux from '@twreporter/redux'
-import querystring from 'querystring'
 
 const _ = {
   get
@@ -44,7 +43,6 @@ const defaultLayoutObj = {
  *  @name getLayoutFunc
  *  @function
  *  @param {Object} reduxState - redux state
- *  @param {LocationOfReactRouter} location
  *  @return {LayoutObj}
  */
 
@@ -89,20 +87,10 @@ const _pathnameToLayoutArr = [ {
   }
 }, {
   pathname: routesConst.articlePage.path,
-  getLayout: (reduxState, location) => {
+  getLayout: (reduxState) => {
     const entities = reduxState[reduxStateFields.entities]
     const selectedPost = reduxState[reduxStateFields.selectedPost]
     const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
-
-    // TODO remove testing condition after testing done
-    const searchObj = querystring.parse(_.get(location, 'search', '').slice(1))
-    if (searchObj.theme === 'article:v2:pink' ||
-      searchObj.theme === 'article:v2:default' ||
-      searchObj.theme === 'article:v2:photo'
-    ) {
-      post.style = searchObj.theme
-    }
-
     const style = post.style
 
     switch(style) {
@@ -174,7 +162,7 @@ function getLayout(reduxState, location) {
   let layoutObj = defaultLayoutObj
   _pathnameToLayoutArr.some(pathnameToLayout => {
     if (pathToRegexp(pathnameToLayout.pathname).exec(location.pathname)) {
-      layoutObj = pathnameToLayout.getLayout(reduxState, location)
+      layoutObj = pathnameToLayout.getLayout(reduxState)
       return true
     }
     return false
