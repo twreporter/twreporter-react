@@ -1,11 +1,15 @@
 ## Unreleased
 
-### 4.3.21
+## Release
+
+### 4.4.0
+#### Release with new article styles ([@twreporter/react-article-components](https://github.com/twreporter/twreporter-npm-packages/tree/master/packages/react-article-components))
+
 #### Fix TopicLandingPage
 - Fix topic background color
 - Add showAll button to relateds
 
-## Release
+
 ### 4.3.20
 #### Dependency Upgrade
 - @twreporter/react-components@^8.0.1
