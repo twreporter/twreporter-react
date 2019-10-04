@@ -10,6 +10,22 @@ const _ = {
 
 const { reduxStateFields } = twreporterRedux
 
+const styleConst = {
+  v1: {
+    photo: 'photography',
+    fullscreenDark: 'article:fullscreen:dark',
+    fullscreenNormal: 'article:fullscreen:normal',
+    review: 'review',
+    longform: 'longform',
+    article: 'article'
+  },
+  v2: {
+    default: 'article:v2:default',
+    photo: 'article:v2:photo',
+    pink: 'article:v2:pink'
+  }
+}
+
 const colors = {
   culturePink: '#fadaf5',
   darkBlue: '#08192d',
@@ -91,20 +107,15 @@ const _pathnameToLayoutArr = [ {
     const entities = reduxState[reduxStateFields.entities]
     const selectedPost = reduxState[reduxStateFields.selectedPost]
     const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
-    const style = post.style
-
-    switch(style) {
-      case 'article:v2:default': {
-        if(post.hero_image_size === 'fullscreen') {
-          return {
-            headerType: uiConst.header.transparent,
-            footerType: uiConst.footer.default,
-            backgroundColor: colors.lightGray
-          }
+    switch(getArticleV2Style(post.style)) {
+      case styleConst.v2.pink: {
+        return {
+          headerType: uiConst.header.pink,
+          footerType: uiConst.footer.default,
+          backgroundColor: colors.culturePink
         }
-        return defaultLayoutObj
       }
-      case 'article:v2:photo': {
+      case styleConst.v2.photo: {
         if(post.hero_image_size === 'fullscreen') {
           return {
             headerType: uiConst.header.transparent,
@@ -118,34 +129,15 @@ const _pathnameToLayoutArr = [ {
           backgroundColor: colors.darkBlue
         }
       }
-      case 'article:v2:pink': {
-        return {
-          headerType: uiConst.header.pink,
-          footerType: uiConst.footer.default,
-          backgroundColor: colors.culturePink
-        }
-      }
-      case 'photography': {
-        return {
-          headerType: uiConst.header.photo,
-          footerType: uiConst.footer.default,
-          backgroundColor: colors.darkBlue
-        }
-      }
-      case 'article:fullscreen:dark':
-        return {
-          headerType: uiConst.header.transparent,
-          footerType: uiConst.footer.default,
-          backgroundColor: colors.darkEarth
-        }
-      case 'article:fullscreen:normal': {
-        return {
-          headerType: uiConst.header.transparent,
-          footerType: uiConst.footer.default,
-          backgroundColor: colors.lightGray
-        }
-      }
+      case styleConst.v2.default:
       default: {
+        if (post.hero_image_size === 'fullscreen') {
+          return {
+            headerType: uiConst.header.transparent,
+            footerType: uiConst.footer.default,
+            backgroundColor: colors.lightGray
+          }
+        }
         return defaultLayoutObj
       }
     }
@@ -173,9 +165,38 @@ function getLayout(reduxState, location) {
 
 
 /**
+ *
+ *
+ * @param {string} postStyle
+ * @returns {string} One of `styleConst.v2`
+ */
+function getArticleV2Style(postStyle) {
+  switch (postStyle) {
+    case styleConst.v2.pink:
+    case styleConst.v2.default:
+    case styleConst.v2.photo: {
+      return postStyle
+    }
+    case styleConst.v1.photo: {
+      return styleConst.v2.photo
+    }
+    case styleConst.v1.review:
+    case styleConst.v1.longform:
+    case styleConst.v1.article:
+    case styleConst.v1.fullscreenDark:
+    case styleConst.v1.fullscreenNormal:
+    default: {
+      return styleConst.v2.default
+    }
+  }
+}
+
+
+/**
  *  ui manager module
  *  @module managers/ui
  */
 export default {
-  getLayoutObj: getLayout
+  getLayoutObj: getLayout,
+  getArticleV2Style
 }
