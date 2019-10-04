@@ -19,11 +19,8 @@ const ImageBorder = styled.div`
 
 const ItemsContainer = styled(base.ItemsContainer)`
   ${mq.tabletAndAbove`
-    padding: 60px 0 50px 0;
+    padding: 0 5%;
     display: flex;
-    margin: 0 auto;
-    background-color: inherit;
-    width: 90%;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
@@ -37,7 +34,7 @@ const ItemLink = styled(base.ItemLink)`
     margin: 0 10px 50px 10px;
     box-shadow: none;
     transition: top .1s ease, box-shadow .2s ease, transform .1s ease;
-    display: flex;
+    display: ${props => props.hide ? 'none' : 'flex'};
     flex-direction: column;
     &::before {
       transition: border-width .1s ease-out;
@@ -114,12 +111,14 @@ class Item extends base.Item {
       image,
       title,
       description,
-      publishedDate
+      publishedDate,
+      hide
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
+        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image
