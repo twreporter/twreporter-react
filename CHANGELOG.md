@@ -2,7 +2,7 @@
 
 ## Release
 
-### 4.4.0-rc.1
+### 4.4.0
 #### Release with new article styles ([@twreporter/react-article-components](https://github.com/twreporter/twreporter-npm-packages/tree/master/packages/react-article-components))
 
 #### Fix TopicLandingPage
