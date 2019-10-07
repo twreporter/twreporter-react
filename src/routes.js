@@ -1,11 +1,12 @@
+import Article from './containers/Article'
+import dataLoaders from './data-loaders/index'
 import FallbackPage from './containers/ServiceWorkerFallbackPage'
+import get from 'lodash/get'
 import Loadable from 'react-loadable'
 import React from 'react'
-import SystemError from './components/SystemError'
-import dataLoaders from './data-loaders/index'
-import get from 'lodash/get'
 import routesConst from './constants/routes'
 import statusCodeConst from './constants/status-code'
+import SystemError from './components/SystemError'
 
 const _ = {
   get
@@ -55,13 +56,6 @@ const loadablePages = {
     loader: () => import(
       /* webpackChunkName: "tag-list-page" */
       './containers/Tag'
-    ),
-    loading: LoadingComponent
-  }),
-  article: Loadable({
-    loader: () => import(
-      /* webpackChunkName: "article-page" */
-      './containers/Article'
     ),
     loading: LoadingComponent
   }),
@@ -159,7 +153,7 @@ export default function getRoutes() {
       path: routesConst.searchPage.path
     },
     {
-      component: loadablePages.article,
+      component: Article,
       loadData: (props) => Promise.all([ dataLoaders.loadArticlePageData(props), dataLoaders.loadBookmarkWidgetData(props) ]),
       path: routesConst.articlePage.path
     },
