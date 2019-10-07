@@ -23,11 +23,7 @@ const plugins = [
         cleanupIDs: false
       } ]
     }
-  } ],
-  isServeSideRendering ? [ 'babel-plugin-css-modules-transform', {
-    extensions: [ '.css', '.scss' ],
-    generateScopedName: '[name]__[local]___[hash:base64:5]'
-  } ] : null
+  } ]
 ].filter(Boolean)
 
 module.exports = function buildTwreporterReactPreset() {
