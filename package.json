@@ -42,7 +42,6 @@
     "humps": "^0.6.0",
     "lodash": "^4.0.0",
     "memoize-one": "^5.0.5",
-    "normalize.css": "^7.0.0",
     "path-to-regexp": "^3.0.0",
     "pretty-error": "^2.0.0",
     "prop-types": "^15.0.0",
