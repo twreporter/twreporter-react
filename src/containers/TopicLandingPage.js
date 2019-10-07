@@ -1,14 +1,15 @@
 import { connect } from 'react-redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import Banner from '../components/topic/banner'
-import Related from '../components/topic/related'
 import Description from '../components/topic/description'
-import TopicHeader from '../components/topic/header'
 import Helmet from 'react-helmet'
+import memoizeOne from 'memoize-one'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import Related from '../components/topic/related'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
+import TopicHeader from '../components/topic/header'
 // @twreporter
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import twreporterRedux from '@twreporter/redux'
@@ -49,22 +50,15 @@ class TopicLandingPage extends Component {
     fetchAFullTopic(slug)
   }
 
-  render() {
-    const { entities, match, selectedTopic } = this.props
-    const error = _.get(selectedTopic, 'error')
-    if (error) {
-      return (
-        <SystemError error={error} />
-      )
-    }
-    const slug = _.get(selectedTopic, 'slug') // {string}
-    if (slug !== _.get(match, 'params.slug')) {
-      console.warn('The `selectedTopic.slug` in redux store does not match the slug in url.') // eslint-disable-line no-console
-    }
-
+  _renderTopic = memoizeOne((slug) => {
+    const { entities } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
-    const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0', {})
+    const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0')
+    if (!topic) {
+      console.error('There is no topic in store corresponding with the given slug:', slug) // eslint-disable-line no-console
+      return <SystemError error={{ status: 404 }} />
+    }
     const {
       relateds_background,
       relateds_format,
@@ -130,6 +124,18 @@ class TopicLandingPage extends Component {
         />
       </Container>
     )
+  })
+
+  render() {
+    const { selectedTopic } = this.props
+    const error = _.get(selectedTopic, 'error')
+    if (error) {
+      return (
+        <SystemError error={error} />
+      )
+    }
+    const slug = _.get(selectedTopic, 'slug') // {string}
+    return this._renderTopic(slug)
   }
 }
 
