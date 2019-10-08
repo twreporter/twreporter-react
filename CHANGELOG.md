@@ -1,8 +1,8 @@
 ## Unreleased
 
-### 4.4.1-rc.1
+### 4.4.1-rc.2
 #### Dependency Upgrade
-- @twreporter/react-article-components@1.0.24-beta.1
+- @twreporter/react-article-components@1.0.24
 
 ## Release
 
