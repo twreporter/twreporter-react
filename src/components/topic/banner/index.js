@@ -1,14 +1,14 @@
 import { SITE_META } from '../../../constants'
+import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import BottomComponents from './bottom'
 import BottomLeftComponents from './bottom-left'
 import CenterComponents from './center'
-import FullScreenImage from '../../shared/FullScreenImage'
-import LeadingVideo from '../../shared/LeadingVideo'
+import LeadingImage from './leading-image'
+import LeadingVideo from './leading-video'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import smoothScroll from 'smoothscroll'
+import styled from 'styled-components'
 // lodash
 import get from 'lodash/get'
 
@@ -112,10 +112,9 @@ export default class Banner extends PureComponent {
             title={title}
             poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || SITE_META.OG_IMAGE}
             viewportHeight={viewportHeight}
-            topicLeadingVideo
           />
         ) : (
-          <FullScreenImage
+          <LeadingImage
             alt={_.get(leadingImage, 'description')}
             imgSet={_.get(leadingImage, 'resized_targets')}
             portraitImgSet={_.get(leadingImagePortrait, 'resized_targets')}
