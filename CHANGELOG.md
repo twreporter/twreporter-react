@@ -1,6 +1,9 @@
 ## Unreleased
 
 ## Release
+### 4.4.1
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.24
 
 ### 4.4.0
 #### Release with new article styles ([@twreporter/react-article-components](https://github.com/twreporter/twreporter-npm-packages/tree/master/packages/react-article-components))
