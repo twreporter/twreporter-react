@@ -103,7 +103,7 @@ class LeadingVideo extends React.PureComponent {
   }
 
   render() {
-    const { filetype, loop, poster, src, title, viewportHeight } = this.props
+    const { filetype, loop, poster, src, title, viewportHeight, uploadDate, description } = this.props
     const { isMuted } = this.state
 
     // On the mobile devices (iOS 10 above),
@@ -122,7 +122,9 @@ class LeadingVideo extends React.PureComponent {
         >
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title} />
-          <meta itemProp="thumbnail" content={poster} />
+          <meta itemProp="thumbnailUrl" content={poster} />
+          <meta itemProp="description" content={description} />
+          <meta itemProp="uploadDate" content={uploadDate} />
           <Video
             ref={this._video}
             playsInline
@@ -149,22 +151,26 @@ class LeadingVideo extends React.PureComponent {
 }
 
 LeadingVideo.propTypes = {
+  description: PropTypes.string,
   filetype: PropTypes.string,
   loop: PropTypes.bool,
   mute: PropTypes.bool,
   poster: PropTypes.string,
   src: PropTypes.string,
   title: PropTypes.string,
+  uploadDate: PropTypes.string, // ISO 8601 date string
   viewportHeight: PropTypes.string
 }
 
 LeadingVideo.defaultProps = {
+  description: '',
   filetype: '',
   loop: true,
   mute: true,
   poster: '',
   src: '',
   title: '',
+  uploadDate: '',
   viewportHeight: '100vh'
 }
 

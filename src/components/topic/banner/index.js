@@ -5,10 +5,13 @@ import BottomLeftComponents from './bottom-left'
 import CenterComponents from './center'
 import LeadingImage from './leading-image'
 import LeadingVideo from './leading-video'
+import predefinedPropTypes from '../../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
+// @twreporter
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 // lodash
 import get from 'lodash/get'
 
@@ -44,7 +47,15 @@ const defaultViewportHeight = '100vh'
 
 export default class Banner extends PureComponent {
   static propTypes = {
-    theme: PropTypes.oneOf([ themeConsts.bottom, themeConsts.bottomLeft, themeConsts.center ]).isRequired
+    theme: PropTypes.oneOf([ themeConsts.bottom, themeConsts.bottomLeft, themeConsts.center ]).isRequired,
+    headline: PropTypes.string,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    publishedDate: PropTypes.string,
+    leadingVideo: predefinedPropTypes.videoObj,
+    leadingImage: predefinedPropTypes.imgObj,
+    leadingImagePortrait: predefinedPropTypes.imgObj,
+    ogImage: predefinedPropTypes.imgObj
   }
 
   constructor(props) {
@@ -110,6 +121,8 @@ export default class Banner extends PureComponent {
             filetype={_.get(leadingVideo, 'filetype')}
             src={videoSrc}
             title={title}
+            uploadDate={new Date(publishedDate).toISOString()}
+            description={`報導者專題《${title}》封面影片`}
             poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || SITE_META.OG_IMAGE}
             viewportHeight={viewportHeight}
           />
@@ -126,7 +139,7 @@ export default class Banner extends PureComponent {
           <components.Title>{title}</components.Title>
           {subtitle ? <components.Subtitle>{subtitle}</components.Subtitle> : null}
           <components.Dash />
-          <components.PublishDate>{`${publishedDate} 最後更新`}</components.PublishDate>
+          <components.PublishDate>{`${date2yyyymmdd(publishedDate, '.')} 最後更新`}</components.PublishDate>
         </components.Content>
         <components.ArrowDown onClick={this.scrollToNextSection} >
           <ArrowDownIcon />
