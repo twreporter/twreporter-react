@@ -3,7 +3,6 @@ import { SITE_META, SITE_NAME } from '../constants/index'
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
 import Helmet from 'react-helmet'
-import memoizeOne from 'memoize-one'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Related from '../components/topic/related'
@@ -49,7 +48,16 @@ class TopicLandingPage extends Component {
     fetchAFullTopic(slug)
   }
 
-  _renderTopic = memoizeOne((slug) => {
+  _renderLoadingElements() {
+    /* TODO: Add loading mockup or spinner */
+    return (
+      <Container>
+        <TopicHeader />
+      </Container>
+    )
+  }
+
+  _renderTopic(slug) {
     const { entities } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
@@ -123,7 +131,7 @@ class TopicLandingPage extends Component {
         />
       </Container>
     )
-  })
+  }
 
   render() {
     const { selectedTopic } = this.props
@@ -133,7 +141,11 @@ class TopicLandingPage extends Component {
         <SystemError error={error} />
       )
     }
-    const slug = _.get(selectedTopic, 'slug') // {string}
+    const isFetching = _.get(selectedTopic, 'isFetching', false)
+    const slug = _.get(selectedTopic, 'slug')
+    if (isFetching || !slug) {
+      return this._renderLoadingElements()
+    }
     return this._renderTopic(slug)
   }
 }
