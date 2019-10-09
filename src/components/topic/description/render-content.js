@@ -1,11 +1,11 @@
 import { renderElement as renderV2Element } from '@twreporter/react-article-components/lib/components/body'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import alignmentConsts from '@twreporter/react-article-components/lib/constants/element-alignment'
+import ArticleYoutube from '@twreporter/react-article-components/lib/components/body/youtube'
 import Img from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import mq from '../../../utils/media-query'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import YoutubePlayer from 'react-youtube'
 // lodash
 import get from 'lodash/get'
 
@@ -33,14 +33,14 @@ const BlockQuote = styled.blockquote`
   white-space: pre-wrap;
 `
 
-const YouTubeContainer = styled.div`
+const YouTube = styled(ArticleYoutube)`
   ${buildElementMarginCss('auto')}
+  max-width: 100%;
+  ${mq.tabletAndAbove`
+    width: 560px;
+  `}
   iframe {
-    max-width: 100%;
-    ${mq.tabletAndAbove`
-      width: 560px;
-      height: 315px;
-    `}
+    width: 100%;
   }
 `
 
@@ -87,10 +87,10 @@ const renderTopicContent = (data) => {
           return null
         }
         return (
-          <YouTubeContainer key={ele.id}>
-            <YoutubePlayer videoId={youtubeId} />
+          <React.Fragment key={ele.id}>
+            <YouTube videoId={youtubeId} />
             {description ? <ElementCaption>{description}</ElementCaption> : null}
-          </YouTubeContainer>
+          </React.Fragment>
         )
       }
       case 'image': {
