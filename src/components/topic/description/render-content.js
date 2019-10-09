@@ -70,8 +70,16 @@ const ElementCaption = styled.div`
   margin: .6em 1.33em 0 1.33em;
 `
 
-const renderTopicContent = (data) => {
-  if (!Array.isArray(data)) { return null }
+
+/**
+ *
+ *
+ * @export
+ * @param {Array} data - An array of element data
+ * @returns {Array} - An array of React elements
+ */
+export default function renderTopicContent(data) {
+  if (!Array.isArray(data)) { return [] }
   return data.map((ele) => {
     switch(ele.type) {
       case 'blockquote':
@@ -115,13 +123,16 @@ const renderTopicContent = (data) => {
           </ImageContainer>
         )
       }
-      case 'unstyled':
+      case 'unstyled': {
+        const innerHTML = _.get(ele, 'content.0', '')
+        if (!innerHTML) return null
         return (
           <Paragraph
             key={ele.id}
-            dangerouslySetInnerHTML={{ __html: get(ele, 'content.0', '') }}
+            dangerouslySetInnerHTML={{ __html: innerHTML }}
           />
         )
+      }
       default:
         // Force alignment to be `center-small`
         return renderV2Element({
@@ -129,7 +140,5 @@ const renderTopicContent = (data) => {
           alignment: alignmentConsts.centerSmall
         })
     }
-  })
+  }).filter(Boolean)
 }
-
-export default renderTopicContent
