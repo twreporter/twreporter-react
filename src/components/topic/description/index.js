@@ -2,12 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import renderTopicContent, { Paragraph } from './render-content'
 import styled from 'styled-components'
-// lodash
-import get from 'lodash/get'
-
-const _ = {
-  get
-}
 
 const Container = styled.div`
   position: relative;
@@ -62,20 +56,24 @@ const TeamDescription = styled(Section)`
 
 const Description = (props) => {
   const { topicDescription, teamDescription } = props
+  const topicDescElements = renderTopicContent(topicDescription)
+  const teamDescElements = renderTopicContent(teamDescription)
   if (
-    (_.get(topicDescription, 'length') > 0 ||
-    _.get(topicDescription, 'content.length') > 0) &&
-    (_.get(teamDescription, 'length') > 0 ||
-    _.get(teamDescription, 'content.length') > 0)
+    topicDescElements.length > 0 ||
+    teamDescElements.length > 0
   ) {
     return (
       <Container>
-        <TopicDescription>
-          {renderTopicContent(topicDescription)}
-        </TopicDescription>
-        <TeamDescription>
-          {renderTopicContent(teamDescription)}
-        </TeamDescription>
+        {topicDescElements.length > 0 ? (
+          <TopicDescription>
+            {topicDescElements}
+          </TopicDescription>
+        ) : null}
+        {teamDescElements.length > 0 ? (
+          <TeamDescription>
+            {teamDescElements}
+          </TeamDescription>
+        ): null}
       </Container>
     )
   }
@@ -83,8 +81,13 @@ const Description = (props) => {
 }
 
 Description.propTypes = {
-  topicDescription: PropTypes.array.isRequired,
-  teamDescription: PropTypes.array.isRequired
+  topicDescription: PropTypes.array,
+  teamDescription: PropTypes.array
+}
+
+Description.defaultProps = {
+  topicDescription: [],
+  teamDescription: []
 }
 
 export default Description
