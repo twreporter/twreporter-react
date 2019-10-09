@@ -30,7 +30,7 @@ const Container = styled.div`
 
 const BannerPlaceholder = styled.div`
   height: 100vh;
-  background: rgba(0, 0, 0, 0.48);
+  background: transparent;
 `
 
 class TopicLandingPage extends Component {
