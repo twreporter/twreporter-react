@@ -1,5 +1,4 @@
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./config')
 const fs = require('fs')
 const path = require('path')
@@ -97,18 +96,6 @@ const webpackConfig = {
 
 if (isProduction) {
   webpackConfig.plugins.push(
-    // css files from the extract-text-plugin loader
-    new ExtractTextPlugin({
-      // write css filenames into webpack-assets.json
-      filename: function (getPath) {
-        const filename = getPath('[chunkhash].[name].css')
-        webpackAssets.stylesheets.push(webpackPublicPath + filename)
-        fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
-        return filename
-      },
-      disable: false,
-      allChunks: true
-    }),
     new webpack.optimize.UglifyJsPlugin()
     //   new BundleAnalyzerPlugin()
   )
