@@ -88,7 +88,9 @@ const renderTopicContent = (data) => {
         }
         return (
           <React.Fragment key={ele.id}>
-            <YouTube videoId={youtubeId} />
+            <YouTube data={{
+              content: [ { youtubeId } ]
+            }} />
             {description ? <ElementCaption>{description}</ElementCaption> : null}
           </React.Fragment>
         )
