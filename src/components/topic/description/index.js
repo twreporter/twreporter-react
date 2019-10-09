@@ -62,19 +62,24 @@ const TeamDescription = styled(Section)`
 
 const Description = (props) => {
   const { topicDescription, teamDescription } = props
-  if (!_.get(topicDescription, 'length') && !_.get(teamDescription, 'length')) {
-    return null
+  if (
+    (_.get(topicDescription, 'length') > 0 ||
+    _.get(topicDescription, 'content.length') > 0) &&
+    (_.get(teamDescription, 'length') > 0 ||
+    _.get(teamDescription, 'content.length') > 0)
+  ) {
+    return (
+      <Container>
+        <TopicDescription>
+          {renderTopicContent(topicDescription)}
+        </TopicDescription>
+        <TeamDescription>
+          {renderTopicContent(teamDescription)}
+        </TeamDescription>
+      </Container>
+    )
   }
-  return (
-    <Container>
-      <TopicDescription>
-        {renderTopicContent(topicDescription)}
-      </TopicDescription>
-      <TeamDescription>
-        {renderTopicContent(teamDescription)}
-      </TeamDescription>
-    </Container>
-  )
+  return null
 }
 
 Description.propTypes = {
