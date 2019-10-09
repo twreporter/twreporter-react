@@ -1,5 +1,18 @@
 ## Unreleased
 
+### 4.4.2-rc.1
+#### Remove deprecated code
+- Refactor TopicLandingPage
+  - Remove warning and only re-render when slug changed
+  - Rewrite des of topic landing page with styled-components
+- Remove unused dependencies
+- Remove unused article-v1 components
+- Use normalize.css with static assets rather than package
+- Move article container to main chunk
+####  Fix meta data of video reported by Google Search Console #1425 
+- Add thumbnailUrl, description, and uploadDate to metadata of leading video of topic
+- Rename and move leading components to topic
+
 ## Release
 ### 4.4.1
 #### Dependency Upgrade
