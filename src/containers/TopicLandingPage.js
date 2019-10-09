@@ -28,6 +28,11 @@ const Container = styled.div`
   position: relative;
 `
 
+const BannerPlaceholder = styled.div`
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.48);
+`
+
 class TopicLandingPage extends Component {
   static defaultProps = {
     entities: {},
@@ -53,6 +58,7 @@ class TopicLandingPage extends Component {
     return (
       <Container>
         <TopicHeader />
+        <BannerPlaceholder />
       </Container>
     )
   }
