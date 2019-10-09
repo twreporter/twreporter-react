@@ -2,8 +2,8 @@ import { Waypoint } from 'react-waypoint'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PropTypes from 'prop-types'
 import React from 'react'
-import SoundMuteIcon from '../../../static/asset/sound-mute.svg'
-import SoundOnIcon from '../../../static/asset/sound-on.svg'
+import SoundMuteIcon from '../../../../static/asset/sound-mute.svg'
+import SoundOnIcon from '../../../../static/asset/sound-on.svg'
 import styled, { css } from 'styled-components'
 
 const Container = styled.div`
@@ -12,19 +12,15 @@ const Container = styled.div`
   height: ${props => props.viewportHeight};
 `
 
-const topicVideoStyle = `
+const Video = styled.video`
+  display: block;
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
   object-fit: cover;
-  height: 100%;
-`
-
-const Video = styled.video`
-  display: block;
-  width: 100%;
-  ${props => props.topicLeadingVideo ? topicVideoStyle : ''}
 `
 
 const VideoMask = styled.div`
@@ -60,18 +56,18 @@ class LeadingVideo extends React.PureComponent {
     this.handleMuteChange = this._handleMuteChange.bind(this)
     this.onLeave = this._onLeave.bind(this)
     this.onEnter = this._onEnter.bind(this)
+    this._video = React.createRef()
   }
 
   componentWillUnmount() {
-    this._player = null
     this._isSoundOn = false
   }
 
   _handleMuteChange() {
-    if (this._player) {
-      this._player.muted = !this._player.muted
+    if (this._video.current) {
+      this._video.current.muted = !this._video.current.muted
 
-      if (this._player.muted) {
+      if (this._video.current.muted) {
         this._isSoundOn = false
       } else {
         this._isSoundOn = true
@@ -87,27 +83,27 @@ class LeadingVideo extends React.PureComponent {
     // if video is in the viewport,
     // and it can play sound,
     // turn on the audio again.
-    if (this._isSoundOn && this._player) {
+    if (this._isSoundOn && this._video.current) {
       this.setState({
         isMuted: false
       })
-      this._player.muted = false
+      this._video.current.muted = false
     }
   }
 
   _onLeave() {
     // if video is not in the viewport,
     // turn off the audio.
-    if (this._player) {
+    if (this._video.current) {
       this.setState({
         isMuted: true
       })
-      this._player.muted = true
+      this._video.current.muted = true
     }
   }
 
   render() {
-    const { filetype, loop, poster, src, title, viewportHeight, topicLeadingVideo } = this.props
+    const { filetype, loop, poster, src, title, viewportHeight, uploadDate, description } = this.props
     const { isMuted } = this.state
 
     // On the mobile devices (iOS 10 above),
@@ -126,15 +122,16 @@ class LeadingVideo extends React.PureComponent {
         >
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title} />
-          <meta itemProp="thumbnail" content={poster} />
+          <meta itemProp="thumbnailUrl" content={poster} />
+          <meta itemProp="description" content={description} />
+          <meta itemProp="uploadDate" content={uploadDate} />
           <Video
-            ref={(input) => { this._player = input }}
+            ref={this._video}
             playsInline
             poster={poster}
             autoPlay
             muted={isMuted}
             loop={loop}
-            topicLeadingVideo={topicLeadingVideo}
           >
             <source src={replaceGCSUrlOrigin(src)} type={filetype} />
           </Video>
@@ -154,25 +151,27 @@ class LeadingVideo extends React.PureComponent {
 }
 
 LeadingVideo.propTypes = {
+  description: PropTypes.string,
   filetype: PropTypes.string,
   loop: PropTypes.bool,
   mute: PropTypes.bool,
   poster: PropTypes.string,
   src: PropTypes.string,
   title: PropTypes.string,
-  viewportHeight: PropTypes.string,
-  topicLeadingVideo: PropTypes.bool
+  uploadDate: PropTypes.string, // ISO 8601 date string
+  viewportHeight: PropTypes.string
 }
 
 LeadingVideo.defaultProps = {
+  description: '',
   filetype: '',
   loop: true,
   mute: true,
   poster: '',
   src: '',
   title: '',
-  viewportHeight: '100vh',
-  topicLeadingVideo: false
+  uploadDate: '',
+  viewportHeight: '100vh'
 }
 
 export default LeadingVideo

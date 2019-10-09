@@ -11,7 +11,6 @@ import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import TopicHeader from '../components/topic/header'
 // @twreporter
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import forEach from 'lodash/forEach'
@@ -76,7 +75,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'team_description.api_data', [])
     const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
-    const publishedDate = date2yyyymmdd(_.get(topic, 'published_date'), '.')
+    const publishedDate = _.get(topic, 'published_date', '')
 
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
