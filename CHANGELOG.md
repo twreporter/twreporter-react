@@ -1,5 +1,9 @@
 ## Unreleased
 
+### 4.4.3
+
+#### Style Update
+- Change `white-space` and `text-align` of the author page `Bio` component to preserve intentional wrappings.
 
 ## Release
 
