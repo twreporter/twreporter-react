@@ -1,6 +1,4 @@
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const autoprefixer = require('autoprefixer')
 const config = require('./config')
 const fs = require('fs')
 const path = require('path')
@@ -68,83 +66,6 @@ const webpackConfig = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: isProduction ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: isProduction,
-                sourceMap: !isProduction,
-                importLoaders: 2,
-                modules: true,
-                // Make sure this setting is equal to settings in .bablerc
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-              }
-            }, {
-              loader: 'postcss-loader',
-              options: {
-                plugins: function () {
-                  return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
-                }
-              } }, 'sass-loader' ]
-        }) : [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: isProduction,
-              sourceMap: !isProduction,
-              importLoaders: 2,
-              modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function () {
-                return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
-              }
-            }
-          },
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: isProduction ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [ {
-            loader: 'css-loader',
-            options: {
-              minimize: isProduction,
-              sourceMap: !isProduction,
-              importLoaders: 1
-            }
-          }, {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function () {
-                return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
-              }
-            }
-          } ]
-        }) : [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function () {
-                return [ autoprefixer({ browsers: [ '> 1%' ] }) ]
-              }
-            }
-          }
-        ]
       }
     ]
   },
@@ -175,18 +96,6 @@ const webpackConfig = {
 
 if (isProduction) {
   webpackConfig.plugins.push(
-    // css files from the extract-text-plugin loader
-    new ExtractTextPlugin({
-      // write css filenames into webpack-assets.json
-      filename: function (getPath) {
-        const filename = getPath('[chunkhash].[name].css')
-        webpackAssets.stylesheets.push(webpackPublicPath + filename)
-        fs.writeFileSync('./webpack-assets.json', JSON.stringify(webpackAssets))
-        return filename
-      },
-      disable: false,
-      allChunks: true
-    }),
     new webpack.optimize.UglifyJsPlugin()
     //   new BundleAnalyzerPlugin()
   )

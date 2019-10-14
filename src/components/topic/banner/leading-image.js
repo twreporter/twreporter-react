@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import constPropTypes from '../../constants/prop-types'
+import constPropTypes from '../../../constants/prop-types'
 import styled from 'styled-components'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { getSrcSet } from '../../utils/img'
+import { getSrcSet } from '../../../utils/img'
 
 // lodash
 import get from 'lodash/get'
@@ -53,7 +53,7 @@ const ImgFallback = styled.div`
   background-position: center center;
 `
 
-class FullScreenImage extends React.PureComponent {
+class LeadingImage extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -146,18 +146,18 @@ class FullScreenImage extends React.PureComponent {
   }
 }
 
-FullScreenImage.defaultProps = {
+LeadingImage.defaultProps = {
   alt: '',
   imgSet: {},
   portraitImgSet: {},
   viewportHeight: '100vh'
 }
 
-FullScreenImage.propTypes = {
+LeadingImage.propTypes = {
   alt: PropTypes.string,
   imgSet: constPropTypes.imgSet,
   portraitImgSet: constPropTypes.imgSet,
   viewportHeight: PropTypes.string
 }
 
-export default FullScreenImage
+export default LeadingImage

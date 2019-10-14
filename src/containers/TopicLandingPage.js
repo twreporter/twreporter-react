@@ -1,16 +1,15 @@
 import { connect } from 'react-redux'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import Banner from '../components/topic/banner'
-import Related from '../components/topic/related'
 import Description from '../components/topic/description'
-import TopicHeader from '../components/topic/header'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import Related from '../components/topic/related'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
+import TopicHeader from '../components/topic/header'
 // @twreporter
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import forEach from 'lodash/forEach'
@@ -27,6 +26,11 @@ const _  = {
 
 const Container = styled.div`
   position: relative;
+`
+
+const BannerPlaceholder = styled.div`
+  height: 100vh;
+  background: transparent;
 `
 
 class TopicLandingPage extends Component {
@@ -49,22 +53,25 @@ class TopicLandingPage extends Component {
     fetchAFullTopic(slug)
   }
 
-  render() {
-    const { entities, match, selectedTopic } = this.props
-    const error = _.get(selectedTopic, 'error')
-    if (error) {
-      return (
-        <SystemError error={error} />
-      )
-    }
-    const slug = _.get(selectedTopic, 'slug') // {string}
-    if (slug !== _.get(match, 'params.slug')) {
-      console.warn('The `selectedTopic.slug` in redux store does not match the slug in url.') // eslint-disable-line no-console
-    }
+  _renderLoadingElements() {
+    /* TODO: Add loading mockup or spinner */
+    return (
+      <Container>
+        <TopicHeader />
+        <BannerPlaceholder />
+      </Container>
+    )
+  }
 
+  _renderTopic(slug) {
+    const { entities } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
-    const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0', {})
+    const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0')
+    if (!topic) {
+      console.error('There is no topic in store corresponding with the given slug:', slug) // eslint-disable-line no-console
+      return <SystemError error={{ status: 404 }} />
+    }
     const {
       relateds_background,
       relateds_format,
@@ -82,7 +89,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'team_description.api_data', [])
     const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
-    const publishedDate = date2yyyymmdd(_.get(topic, 'published_date'), '.')
+    const publishedDate = _.get(topic, 'published_date', '')
 
     const canonical = `${SITE_META.URL}topics/${slug}`
     const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
@@ -130,6 +137,22 @@ class TopicLandingPage extends Component {
         />
       </Container>
     )
+  }
+
+  render() {
+    const { selectedTopic } = this.props
+    const error = _.get(selectedTopic, 'error')
+    if (error) {
+      return (
+        <SystemError error={error} />
+      )
+    }
+    const isFetching = _.get(selectedTopic, 'isFetching', false)
+    const slug = _.get(selectedTopic, 'slug')
+    if (isFetching || !slug) {
+      return this._renderLoadingElements()
+    }
+    return this._renderTopic(slug)
   }
 }
 

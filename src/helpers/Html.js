@@ -48,6 +48,7 @@ export default class Html extends PureComponent {
           <meta name="msapplication-TileColor" content="#2F3BA2" />
 
           <link href="/asset/favicon.png"  rel="shortcut icon" />
+          <link rel="stylesheet" href="/asset/normalize.css" />
           {_.map(styles, (stylesheet, key) =>
             <link href={stylesheet} key={'stylesheet' + key} media="all"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
