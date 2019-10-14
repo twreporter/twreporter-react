@@ -1,6 +1,9 @@
 ## Unreleased
 
-### 4.4.2-rc.1
+
+## Release
+
+### 4.4.2
 #### Remove deprecated code
 - Refactor TopicLandingPage
   - Remove warning and only re-render when slug changed
@@ -13,7 +16,6 @@
 - Add thumbnailUrl, description, and uploadDate to metadata of leading video of topic
 - Rename and move leading components to topic
 
-## Release
 ### 4.4.1
 #### Dependency Upgrade
 - @twreporter/react-article-components@1.0.24
