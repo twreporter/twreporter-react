@@ -17,9 +17,6 @@ api-err.log
 webpack-assets.json
 react-loadable.json
 
-# Ignore generated pm2 config file
-processes.json
-
 # Ignore webpack generated service worker file
 sw.js
 
@@ -30,8 +27,6 @@ api/config.js
 dist/
 
 yarn-error.log
-
-pm2-*.log
 
 #Ignore testing screenshots
 src/test/screenshots/testDir/

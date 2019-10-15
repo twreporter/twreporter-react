@@ -30,21 +30,13 @@ build-server:
 	@echo "\033[33m[babel]\033[0m transpile es6 files into es5"
 	NODE_ENV=$(PROD_NODE_ENV) RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) $(BIN_DIR)/babel src --out-dir dist --copy-files
 
-build-pm2-config:
-	@echo "\033[33m[PM2]\033[0m generate processes.json"
-	RELEASE_BRANCH=$(RELEASE_BRANCH) node build-pm2-processes.js
-
-build: clean build-webpack build-service-worker build-server build-pm2-config
+build: clean build-webpack build-service-worker build-server
 
 start-server:
 	@echo "\033[33m[PM2]\033[0m start application server"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/pm2 start processes.json
+	NODE_ENV=$(PROD_NODE_ENV) node dist/server.js
 
 start: build start-server
-
-stop: 
-	@echo "\033[33m[PM2]\033[0m stop application server"
-	@$(BIN_DIR)/pm2 delete server 
 
 start-testing-server: 
 	@echo " $(P) start testing server by babel-node src/testing-server.js\n"
@@ -77,4 +69,4 @@ clean:
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV
 
-.PHONY: help clean build start stop dev test ui-test
+.PHONY: help clean build start dev test ui-test
