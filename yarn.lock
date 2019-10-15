@@ -204,10 +204,28 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^5.0.4", "@twreporter/redux@^5.0.5":
+"@twreporter/redux@^5.0.4":
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.5.tgz#4ffcbc8722b1997b6980eb229fb37aadf3864f11"
   integrity sha512-7BStSG9fRx2tuEEinbQEMesEdTArSUVNy4Z/1cvm7HPOI7ANerkFtIItb76o6099qycjS/lT0+j/Ld4/oxvY5Q==
+  dependencies:
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    isomorphic-fetch "2.2.1"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    qs "^6.5.1"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
+"@twreporter/redux@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.6.tgz#8997ac533cddb20e4d2db23ff480672f6fa6d4ea"
+  integrity sha512-YdAfUXDALqkUjrC41Pz8/0etTSddsTV/ocdveQyyH0k92DvLPkexRfVO7t6fAcwXRaeio97C8FBjXUUqZjfr1Q==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
