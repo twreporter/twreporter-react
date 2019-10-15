@@ -77,9 +77,8 @@ const Bio = styled.div`
   font-weight: 300;
   line-height: 1.7;
   letter-spacing: .5px;
-  text-align: justify;
   margin-top: 16px;
-
+  white-space: pre-wrap;
 `
 
 const AuthorData = (props) => {
