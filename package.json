@@ -29,7 +29,7 @@
     "@twreporter/index-page": "^1.0.4",
     "@twreporter/react-article-components": "1.0.24",
     "@twreporter/react-components": "^8.0.1",
-    "@twreporter/redux": "^5.0.5",
+    "@twreporter/redux": "^5.0.6",
     "@twreporter/universal-header": "^2.1.0",
     "@twreporter/velocity-react": "^1.4.2",
     "axios": "^0.19.0",
