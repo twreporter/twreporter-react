@@ -191,20 +191,18 @@ class Homepage extends React.PureComponent {
     this.sidebar = null
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchIndexPageContent()
-  }
-
-  async componentDidMount() {
-    await this.props.fetchCategoriesPostsOnIndexPage()
-
-    // EX: if the url path is /?section=categories
-    // after this component mounted and rendered,
-    // the browser will smoothly scroll to categories section
-    const sectionQuery = _.get(this.props, 'location.query.section', '')
-    if (this.sidebar && sectionQuery) {
-      this.sidebar.handleClickAnchor(sectionQuery)
-    }
+    this.props.fetchCategoriesPostsOnIndexPage()
+      .then(() => {
+        // EX: if the url path is /?section=categories
+        // after this component mounted and rendered,
+        // the browser will smoothly scroll to categories section
+        const sectionQuery = _.get(this.props, 'location.query.section', '')
+        if (this.sidebar && sectionQuery) {
+          this.sidebar.handleClickAnchor(sectionQuery)
+        }
+      })
   }
 
   componentWillUnmount() {

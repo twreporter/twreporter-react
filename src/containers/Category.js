@@ -21,17 +21,17 @@ const MAXRESULT = 10
 const categories = 'categories'
 
 class Category extends PureComponent {
-  componentWillMount() {
-    const { fetchListedPosts, catId } = this.props
-    const page = _.get(this.props, 'page', 1)
-
-    fetchListedPosts(catId, categories, MAXRESULT, page)
+  componentDidMount() {
+    this._fetchListedPosts()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, catId } = nextProps
-    const page = _.get(nextProps, 'page', 1)
-
+  componentDidUpdate() {
+    this._fetchListedPosts()
+  }
+  
+  _fetchListedPosts() {
+    const { fetchListedPosts, catId } = this.props
+    const page = _.get(this.props, 'page', 1)
     fetchListedPosts(catId, categories, MAXRESULT, page)
   }
 

@@ -69,7 +69,7 @@ class Article extends PureComponent {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     const { match } = nextProps
     const slug = _.get(match, 'params.slug')
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')

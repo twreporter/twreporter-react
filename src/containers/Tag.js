@@ -20,17 +20,17 @@ const MAXRESULT = 10
 const tags = 'tags'
 
 class Tag extends PureComponent {
-  componentWillMount() {
-    const { fetchListedPosts, tagId } = this.props
-    const page = _.get(this.props, 'page', 1)
-
-    fetchListedPosts(tagId, tags, MAXRESULT, page)
+  componentDidMount() {
+    this._fetchListedPosts()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, tagId } = nextProps
-    const page = _.get(nextProps, 'page', 1)
+  componentDidUpdate() {
+    this._fetchListedPosts()
+  }
 
+  _fetchListedPosts() {
+    const { fetchListedPosts, tagId } = this.props
+    const page = _.get(this.props, 'page', 1)
     fetchListedPosts(tagId, tags, MAXRESULT, page)
   }
 
