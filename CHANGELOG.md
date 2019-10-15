@@ -1,5 +1,6 @@
 ## Unreleased
 
+## Release
 ### 4.4.3
 
 #### Update mock data
@@ -11,8 +12,6 @@
 
 #### Dependency Upgrade
 - Bump @twreporter/redux version to v5.0.6
-
-## Release
 
 ### 4.4.2
 #### Remove deprecated code
