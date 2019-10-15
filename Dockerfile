@@ -2,11 +2,13 @@ FROM node:10.15-slim
 
 ARG app_group=main_site_user
 ARG app_user=main_site_user
+ARG NODE_ENV
+ARG RELEASE_BRANCH
 
 RUN groupadd ${app_group} && useradd --create-home --home-dir /home/${app_user} -g ${app_group} ${app_user}
 
-ENV NODE_ENV=${NODE_ENV}
-ENV RELEASE_BRANCH=${RELEASE_BRANCH}
+ENV NODE_ENV ${NODE_ENV}
+ENV RELEASE_BRANCH ${RELEASE_BRANCH}
 
 USER ${app_user}
 
