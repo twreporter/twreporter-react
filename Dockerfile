@@ -5,6 +5,9 @@ ARG app_user=main_site_user
 
 RUN groupadd ${app_group} && useradd --create-home --home-dir /home/${app_user} -g ${app_group} ${app_user}
 
+ENV NODE_ENV=${NODE_ENV}
+ENV RELEASE_BRANCH=${RELEASE_BRANCH}
+
 USER ${app_user}
 
 RUN mkdir /home/${app_user}/src
