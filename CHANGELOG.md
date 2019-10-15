@@ -1,5 +1,16 @@
 ## Unreleased
 
+### 4.4.3
+
+#### Update mock data
+- Update all photo post style to v2 in mock data
+
+#### Style Update
+- Change `white-space` and `text-align` of the author page `Bio` component to preserve intentional wrappings.
+- Remove pm2 and use node directly to run server
+
+#### Dependency Upgrade
+- Bump @twreporter/redux version to v5.0.6
 
 ## Release
 
