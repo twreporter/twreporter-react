@@ -53,7 +53,7 @@
     "react-loadable": "^5.5.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-transition-group": "^1.2.1",
+    "react-transition-group": "^2.0.0",
     "react-waypoint": "^9.0.2",
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "0.3.0",
