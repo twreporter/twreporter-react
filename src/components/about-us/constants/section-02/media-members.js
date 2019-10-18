@@ -42,15 +42,6 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '房慧真',
-    nameEng: 'Michelle Fang',
-    job: '資深記者',
-    jobEng: 'Senior Journalist',
-    email: 'bluemiau@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editMichelleFang,
-    category: categoryIds.editor
-  },
-  {
     name: '張子午',
     nameEng: 'Tzewu Chang',
     job: '資深記者',
@@ -188,6 +179,30 @@ const members = [
     jobEng: 'Journalist',
     email: 'linhuichen@twreporter.org',
     profile: memberUrlPrefix + membersImg.editLinHuiChen,
+    category: categoryIds.editor
+  },
+  {
+    name: '陳潔',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'chieh@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editChenChieh,
+    category: categoryIds.editor
+  },
+  {
+    name: '楊智強',
+    job: '記者',
+    jobEng: 'Journalist',
+    email: 'willyang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editYangWill,
+    category: categoryIds.editor
+  },
+  {
+    name: '柯皓翔',
+    job: '數據記者兼策展編輯',
+    jobEng: 'Data Journalist',
+    email: 'hhk@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editKeHaoHsiang,
     category: categoryIds.editor
   },
   {
