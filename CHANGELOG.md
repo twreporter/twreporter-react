@@ -1,7 +1,7 @@
 ## Unreleased
 
 ## Release
-### 4.4.5
+### 4.4.4
 - Disable DLC and remove redundant steps
 - Update about-us page
 
