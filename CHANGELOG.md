@@ -1,4 +1,6 @@
 ## Unreleased
+### 4.4.4
+- Update about-us page
 
 ## Release
 ### 4.4.3
