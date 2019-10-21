@@ -1,4 +1,7 @@
 ## Unreleased
+### 4.4.5
+- Disable DLC and remove redundant steps
+
 ### 4.4.4
 - Update about-us page
 
