@@ -1,13 +1,11 @@
 ## Unreleased
-### 4.4.5
-- Disable DLC and remove redundant steps
-
-### 4.4.4
-- Update about-us page
 
 ## Release
-### 4.4.3
+### 4.4.5
+- Disable DLC and remove redundant steps
+- Update about-us page
 
+### 4.4.3
 #### Update mock data
 - Update all photo post style to v2 in mock data
 
