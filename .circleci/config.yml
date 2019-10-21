@@ -44,10 +44,6 @@ jobs:
           name: Save pkg version to a file
           command: node ./.circleci/scripts/read-changelog.js > .pkg-version
 
-      - run:
-          name: Save SHA to a file
-          command: echo $CIRCLE_SHA1 > .circle-sha
-
       - persist_to_workspace:
           root: ~/repo
           paths:
@@ -57,15 +53,10 @@ jobs:
       - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
+      - setup_remote_docker
 
       - attach_workspace:
           at: .
-
-      - run:
-          name: save SHA to a file
-          command: echo $CIRCLE_SHA1 > .circle-sha
 
       - run:
           name: Connect to container cluster
