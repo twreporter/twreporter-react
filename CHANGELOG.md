@@ -3,6 +3,12 @@
 ### 4.4.5-rc.2
 
 - Fix home spinner displayed logic
+- Fix wrong query retrieving with react-router. After this fix, the page being visited will be documented in url as `?page=<number>` for `Tag`, `Topics`, and `Categories`.
+- Prevent invalid search query page input
+
+#### Upgrade Dependencies
+
+- `@twreporter/react-article-components@1.0.25-beta.3` -> `^1.0.25-beta.4`
 
 ### 4.4.5-rc.1
 
