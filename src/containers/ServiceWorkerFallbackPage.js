@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const _ = {

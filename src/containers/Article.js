@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import uiManager from '../managers/ui-manager'
 // dependencies of article component v2
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
