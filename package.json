@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.4.4",
+  "version": "4.4.5-rc.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -26,12 +26,11 @@
   },
   "dependencies": {
     "@twreporter/core": "^1.1.1",
-    "@twreporter/index-page": "^1.0.4",
-    "@twreporter/react-article-components": "1.0.24",
-    "@twreporter/react-components": "^8.0.1",
+    "@twreporter/index-page": "^1.0.5-beta.3",
+    "@twreporter/react-article-components": "^1.0.25-beta.3",
+    "@twreporter/react-components": "^8.0.2-beta.2",
     "@twreporter/redux": "^5.0.6",
-    "@twreporter/universal-header": "^2.1.0",
-    "@twreporter/velocity-react": "^1.4.2",
+    "@twreporter/universal-header": "^2.1.1-beta.2",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "compression": "^1.7.4",
@@ -53,13 +52,14 @@
     "react-helmet": "^5.2.0",
     "react-loadable": "^5.5.0",
     "react-redux": "^6.0.0",
-    "react-router-dom": "^4.3.1",
-    "react-transition-group": "^1.2.1",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^2.0.0",
     "react-waypoint": "^9.0.2",
     "serialize-javascript": "^1.4.0",
     "smoothscroll": "0.3.0",
     "styled-components": "^4.0.0",
-    "sw-toolbox": "^3.6.0"
+    "sw-toolbox": "^3.6.0",
+    "velocity-react": "^1.4.3"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

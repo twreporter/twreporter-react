@@ -37,12 +37,12 @@ const PageContainer = styled.div`
 `
 
 class Topics extends Component {
-  componentWillMount() {
+  componentDidMount() {
     return this._clientFetchData(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    return this._clientFetchData(nextProps)
+  componentDidUpdate() {
+    return this._clientFetchData(this.props)
   }
 
   _clientFetchData(props) {

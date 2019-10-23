@@ -2,14 +2,14 @@
 import { connect } from 'react-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import categoryConst from '../constants/category'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/index-page'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -18,7 +18,7 @@ import set from 'lodash/set'
 
 const { CategorySection, DonationBoxSection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
-  ReporterIntro,  ReviewsSection, TopicsSection } = IndexPageComposite.components
+  ReviewsSection, TopicsSection } = IndexPageComposite.components
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
@@ -29,14 +29,13 @@ const _ = {
   set
 }
 
-const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
-  .spinner-leave {
+const reactTransitionCSS = css`
+  .spinner-exit {
     opacity: 1;
   }
-
-  .spinner-leave.spinner-leave-active {
+  .spinner-exit-active {
     opacity: 0;
-    transition: opacity 400ms linear 1600ms;
+    transition: opacity 400ms ease 1600ms;
   }
 `
 
@@ -105,6 +104,7 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
+  ${reactTransitionCSS}
 `
 
 const Background = styled.div`
@@ -189,26 +189,27 @@ class Homepage extends React.PureComponent {
   constructor(props) {
     super(props)
     this.sidebar = null
+    this._isMounted = false
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this._isMounted = true
     this.props.fetchIndexPageContent()
-  }
-
-  async componentDidMount() {
-    await this.props.fetchCategoriesPostsOnIndexPage()
-
-    // EX: if the url path is /?section=categories
-    // after this component mounted and rendered,
-    // the browser will smoothly scroll to categories section
-    const sectionQuery = _.get(this.props, 'location.query.section', '')
-    if (this.sidebar && sectionQuery) {
-      this.sidebar.handleClickAnchor(sectionQuery)
-    }
+    this.props.fetchCategoriesPostsOnIndexPage()
+      .then(() => {
+        // EX: if the url path is /?section=categories
+        // after this component mounted and rendered,
+        // the browser will smoothly scroll to categories section
+        const sectionQuery = _.get(this.props, 'location.query.section', '')
+        if (this.sidebar && sectionQuery) {
+          this.sidebar.handleClickAnchor(sectionQuery)
+        }
+      })
   }
 
   componentWillUnmount() {
     this.sidebar = null
+    this._isMounted = false
   }
 
   render() {
@@ -219,22 +220,20 @@ class Homepage extends React.PureComponent {
         data={latestTopicData}
       />
     ) : null
-
     const SideBar = sideBarFactory.getIndexPageSideBar()
-
     return (
       <Container>
-        <StyledCSSTransitionGroup
-          transitionName="spinner"
-          transitionEnter={false}
-          transitionLeaveTimeout={2000}
+        <CSSTransition
+          in={!this._isMounted || isSpinnerDisplayed}
+          classNames="spinner"
+          timeout={2000}
+          enter={false}
+          unmountOnExit
         >
-          {!isSpinnerDisplayed ? null : (
-            <LoadingCover key="loader">
-              <LoadingSpinner alt="首頁載入中" />
-            </LoadingCover>
-          )}
-        </StyledCSSTransitionGroup>
+          <LoadingCover>
+            <LoadingSpinner alt="首頁載入中" />
+          </LoadingCover>
+        </CSSTransition>
         <Helmet
           title={SITE_NAME.FULL}
           link={[
@@ -387,7 +386,6 @@ function mapStateToProps(state) {
     categories: buildCategorySectionData(state),
     isSpinnerDisplayed,
     ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
-
   }
 }
 

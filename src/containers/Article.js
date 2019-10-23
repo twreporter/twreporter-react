@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import uiManager from '../managers/ui-manager'
 // dependencies of article component v2
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
@@ -69,7 +69,7 @@ class Article extends PureComponent {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     const { match } = nextProps
     const slug = _.get(match, 'params.slug')
     const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')

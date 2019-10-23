@@ -1,5 +1,20 @@
 ## Unreleased
 
+### 4.4.5-rc.1
+
+- Remove deprecated `componentWillMount` and `componentWillReceiveProps`
+
+#### Upgrade Dependencies
+
+- `@twreporter/velocity-react@^1.4.2` -> `velocity-react@^1.4.3`
+- `react-transition-group@^1.2.1` -> `^2.0.0`
+- `react-router-dom@^4.3.1` -> `^5.1.2`
+  - Per file imports are deprecated for react-router-dom
+- `@twreporter/index-page@^1.0.4` -> `^1.0.5-beta.3`
+- `@twreporter/react-article-components@1.0.24` -> `^1.0.25-beta.3`
+- `@twreporter/react-components@^8.0.1` -> `^8.0.2-beta.2`
+- `@twreporter/universal-header@^2.1.0` -> `^2.1.1-beta.2`
+
 ## Release
 ### 4.4.4
 - Disable DLC and remove redundant steps
