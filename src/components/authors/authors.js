@@ -1,4 +1,4 @@
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'

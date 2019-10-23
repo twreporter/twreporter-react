@@ -9,7 +9,7 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import values from 'lodash/values'
-import VelocityComponent from '@twreporter/velocity-react/velocity-component'
+import VelocityComponent from 'velocity-react/velocity-component'
 
 const _ = {
   groupBy, values, keys
