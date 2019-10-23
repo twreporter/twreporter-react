@@ -188,12 +188,10 @@ const siteNavigationJSONLD = {
 class Homepage extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.sidebar = null
-    this._isMounted = false
+    this._sidebar = React.createRef()
   }
 
   componentDidMount() {
-    this._isMounted = true
     this.props.fetchIndexPageContent()
     this.props.fetchCategoriesPostsOnIndexPage()
       .then(() => {
@@ -201,15 +199,10 @@ class Homepage extends React.PureComponent {
         // after this component mounted and rendered,
         // the browser will smoothly scroll to categories section
         const sectionQuery = _.get(this.props, 'location.query.section', '')
-        if (this.sidebar && sectionQuery) {
-          this.sidebar.handleClickAnchor(sectionQuery)
+        if (this._sidebar.current && sectionQuery) {
+          this._sidebar.current.handleClickAnchor(sectionQuery)
         }
       })
-  }
-
-  componentWillUnmount() {
-    this.sidebar = null
-    this._isMounted = false
   }
 
   render() {
@@ -224,10 +217,11 @@ class Homepage extends React.PureComponent {
     return (
       <Container>
         <CSSTransition
-          in={!this._isMounted || isSpinnerDisplayed}
+          in={isSpinnerDisplayed}
           classNames="spinner"
           timeout={2000}
           enter={false}
+          mountOnEnter
           unmountOnExit
         >
           <LoadingCover>
@@ -252,7 +246,7 @@ class Homepage extends React.PureComponent {
           ]}
         />
         <SideBar
-          ref={(node) => this.sidebar = node}
+          ref={this._sidebar}
           anchors={anchors}
         >
           <LatestSection
@@ -371,10 +365,8 @@ function mapStateToProps(state) {
   // check if spinner should be displayed
   const err = _.get(indexPageState, 'error', null)
   const isFetching = _.get(indexPageState, 'isFetching', false)
-  const isSpinnerDisplayed = (latest.length <= 0) && isFetching && !err
-
-  // restore
-
+  const isFirstScreenReady = latest.length > 0 && editorPicks.length > 0
+  const isSpinnerDisplayed = isFetching && !err && !isFirstScreenReady
   return {
     [fieldNames.sections.latestSection]: latest,
     [fieldNames.sections.editorPicksSection]: editorPicks,

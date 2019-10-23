@@ -1,5 +1,9 @@
 ## Unreleased
 
+### 4.4.5-rc.2
+
+- Fix home spinner displayed logic
+
 ### 4.4.5-rc.1
 
 - Remove deprecated `componentWillMount` and `componentWillReceiveProps`
