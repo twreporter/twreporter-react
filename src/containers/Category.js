@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { SITE_META, SITE_NAME } from '../constants/index'
 import categoryConst from '../constants/category'
-import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
@@ -10,9 +9,13 @@ import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
 import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
 
 const _  = {
-  get
+  get,
+  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
@@ -48,10 +51,19 @@ class Category extends PureComponent {
       pathname
     } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const error = _.get(lists, [ catId, 'error' ], null)
 
     // total items will be in that catId
     const total = _.get(lists, [ catId, 'total' ], 0)
+    const totalPages = Math.ceil(total / MAXRESULT)
+    if (
+      !_.isInteger(page) ||
+      totalPages && (page > totalPages) ||
+      page < 1
+    ) {
+      return (
+        <SystemError error={{ status: 404 }} />
+      )
+    }
 
     // pages will be like
     // {
@@ -72,11 +84,9 @@ class Category extends PureComponent {
 
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
-
-    const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
-
     // Error handling
+    const error = _.get(lists, [ catId, 'error' ], null)
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />

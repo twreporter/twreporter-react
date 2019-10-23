@@ -4,10 +4,7 @@ import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
 import { InternalServerError } from '../custom-error'
 import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
-import concat from 'lodash/concat'
-import get from 'lodash/get'
 import Helmet from 'react-helmet'
-import map from 'lodash/map'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
@@ -15,11 +12,17 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import twreporterRedux from '@twreporter/redux'
+// lodash
+import concat from 'lodash/concat'
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
+import map from 'lodash/map'
 import uniq from 'lodash/uniq'
 
 const _ = {
   concat,
   get,
+  isInteger,
   map,
   uniq
 }
@@ -48,7 +51,11 @@ class Topics extends Component {
 
   _clientFetchData(props) {
     const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
-    if (isNaN(page) || page <= 0 || page > totalPages) {
+    if (
+      !_.isInteger(page) ||
+      page < 1 ||
+      totalPages && (page > totalPages)
+    ) {
       return
     }
     const topicsLength = _.get(topics, 'length', 0)
@@ -77,7 +84,15 @@ class Topics extends Component {
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
-
+    if (
+      !_.isInteger(page) ||
+      page < 1 ||
+      totalPages && (page > totalPages)
+    ) {
+      return (
+        <SystemError error={{ status: 404 }} />
+      )
+    }
     /*
       If fetching list data failed and there's no topics data in the store,
       render error 500
