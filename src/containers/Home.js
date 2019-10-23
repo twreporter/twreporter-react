@@ -1,4 +1,3 @@
-/*eslint no-unused-vars:0, no-console:0 */
 import { connect } from 'react-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import categoryConst from '../constants/category'
@@ -6,7 +5,7 @@ import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/index-page'
 import LoadingSpinner from '../components/Spinner'
-import PropTypes from 'prop-types'
+import qs from 'qs'
 import React from 'react'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
 import styled, { css } from 'styled-components'
@@ -198,9 +197,11 @@ class Homepage extends React.PureComponent {
         // EX: if the url path is /?section=categories
         // after this component mounted and rendered,
         // the browser will smoothly scroll to categories section
-        const sectionQuery = _.get(this.props, 'location.query.section', '')
-        if (this._sidebar.current && sectionQuery) {
-          this._sidebar.current.handleClickAnchor(sectionQuery)
+        const search = _.get(this.props, 'location.search', '')
+        const query = qs.parse(search, { ignoreQueryPrefix: true })
+        const section = _.get(query, 'section', '')
+        if (this._sidebar.current && section) {
+          this._sidebar.current.handleClickAnchor(section)
         }
       })
   }
