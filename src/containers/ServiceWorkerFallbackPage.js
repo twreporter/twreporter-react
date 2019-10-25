@@ -1,9 +1,9 @@
-'use strict'
-import React, { Component } from 'react'
-import get from 'lodash/get'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import get from 'lodash/get'
+import qs from 'qs'
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
 const _ = {
   get
@@ -30,7 +30,9 @@ const P = styled.p`
 
 class FallbackPage extends Component {
   render() {
-    const redirect = _.get(this.props, 'location.query.redirect', '/')
+    const search = _.get(this.props, 'location.search')
+    const query = qs.parse(search, { ignoreQueryPrefix: true })
+    const redirect = _.get(query, 'redirect', '/')
     return (
       <Container>
         <CenteredBox>
