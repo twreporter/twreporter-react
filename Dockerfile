@@ -1,18 +1,24 @@
 FROM node:10.15-slim
 
-RUN groupadd user && useradd --create-home --home-dir /home/user -g user user
+ARG app_group=main_site_user
+ARG app_user=main_site_user
+ARG NODE_ENV
+ARG RELEASE_BRANCH
 
-WORKDIR /usr/src/react
+RUN groupadd ${app_group} && useradd --create-home --home-dir /home/${app_user} -g ${app_group} ${app_user}
 
-# Install PM2
-RUN npm install -g pm2
-RUN pm2 install pm2-logrotate
-RUN pm2 set pm2-logrotate:retain 7
-RUN pm2 set pm2-logrotate:compress true
-RUN pm2 set pm2-logrotate:rotateInterval '0 3 * * *'
+ENV NODE_ENV ${NODE_ENV}
+ENV RELEASE_BRANCH ${RELEASE_BRANCH}
+
+USER ${app_user}
+
+RUN mkdir /home/${app_user}/src
+RUN chown ${app_user}:${app_group} /home/${app_user}/src
+
+WORKDIR /home/${app_user}/src
 
 # Add built source files
 COPY . ./
 
 EXPOSE 3000
-CMD pm2 start --no-daemon processes.json
+CMD node dist/server.js

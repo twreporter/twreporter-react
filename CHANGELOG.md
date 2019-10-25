@@ -1,11 +1,58 @@
 ## Unreleased
 
 ## Release
+### 4.4.4
+- Disable DLC and remove redundant steps
+- Update about-us page
+
+### 4.4.3
+#### Update mock data
+- Update all photo post style to v2 in mock data
+
+#### Style Update
+- Change `white-space` and `text-align` of the author page `Bio` component to preserve intentional wrappings.
+- Remove pm2 and use node directly to run server
+
+#### Dependency Upgrade
+- Bump @twreporter/redux version to v5.0.6
+
+### 4.4.2
+#### Remove deprecated code
+- Refactor TopicLandingPage
+  - Remove warning and only re-render when slug changed
+  - Rewrite des of topic landing page with styled-components
+- Remove unused dependencies
+- Remove unused article-v1 components
+- Use normalize.css with static assets rather than package
+- Move article container to main chunk
+####  Fix meta data of video reported by Google Search Console #1425 
+- Add thumbnailUrl, description, and uploadDate to metadata of leading video of topic
+- Rename and move leading components to topic
+
+### 4.4.1
+#### Dependency Upgrade
+- @twreporter/react-article-components@1.0.24
+
+### 4.4.0
+#### Release with new article styles ([@twreporter/react-article-components](https://github.com/twreporter/twreporter-npm-packages/tree/master/packages/react-article-components))
+
+#### Fix TopicLandingPage
+- Fix topic background color
+- Add showAll button to relateds
+
+
+### 4.3.20
+#### Dependency Upgrade
+- @twreporter/react-components@^8.0.1
+- @twreporter/react-article-components@^1.0.22
+
+#### Table of Contents:Anchor
+- provide id in the anchor, and jump to the anchor position if URI contains `#${anchorName}` 
 
 ### 4.3.19
 #### Dependency Upgrade
 - @twreporter/react-components@^8.0.0
-- @twreporter/react-article-components@1.0.21
+- @twreporter/react-article-components@^1.0.21
 
 ### 4.3.18
 
