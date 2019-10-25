@@ -1,16 +1,20 @@
+import { connect } from 'react-redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
+import { SITE_META, SITE_NAME } from '../constants/index'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import { connect } from 'react-redux'
+// lodash
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
 
 const _  = {
-  get
+  get,
+  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
@@ -52,10 +56,8 @@ class Tag extends PureComponent {
 
     const {
       entities,
-      history,
       lists,
       page,
-      pathname,
       tagId
     } = this.props
 
@@ -76,6 +78,16 @@ class Tag extends PureComponent {
     const pages = _.get(lists, [ tagId, 'pages' ], {})
     const startPos = _.get(pages, [ page, 0 ], 0)
     const endPos = _.get(pages, [ page, 1 ], 0)
+    const totalPages = Math.ceil(total / MAXRESULT)
+    if (
+      !_.isInteger(page) ||
+      totalPages && (page > totalPages) ||
+      page < 1
+    ) {
+      return (
+        <SystemError error={{ status: 404 }} />
+      )
+    }
 
     // page is provided, but not fecth yet
     if (startPos === 0 && endPos === 0) {
@@ -84,8 +96,6 @@ class Tag extends PureComponent {
 
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
-
-    const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
 
     // Error handling
@@ -128,8 +138,6 @@ class Tag extends PureComponent {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          pathname={pathname}
-          history={history}
         />
       </div>
     )
@@ -138,7 +146,9 @@ class Tag extends PureComponent {
 
 function mapStateToProps(state, props) {
   const tagId = _.get(props, 'match.params.tagId', '')
-  const page = parseInt(_.get(props, 'location.query.page', 1), 10)
+  const search = _.get(props, 'location.search')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  const page = parseInt(_.get(query, 'page', 1), 10)
   const pathname = _.get(props, 'location.pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
@@ -159,9 +169,7 @@ Tag.propTypes = {
   lists: PropTypes.object,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
-  tagId: PropTypes.string.isRequired,
-  // a history object for navigation
-  history: PropTypes.object.isRequired
+  tagId: PropTypes.string.isRequired
 }
 
 export { Tag }

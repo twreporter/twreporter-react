@@ -1,4 +1,3 @@
-/*eslint no-unused-vars:0, no-console:0 */
 import { connect } from 'react-redux'
 import { SITE_NAME, SITE_META } from '../constants/index'
 import categoryConst from '../constants/category'
@@ -6,7 +5,7 @@ import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
 import IndexPageComposite from '@twreporter/index-page'
 import LoadingSpinner from '../components/Spinner'
-import PropTypes from 'prop-types'
+import qs from 'qs'
 import React from 'react'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
 import styled, { css } from 'styled-components'
@@ -188,28 +187,23 @@ const siteNavigationJSONLD = {
 class Homepage extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.sidebar = null
-    this._isMounted = false
+    this._sidebar = React.createRef()
   }
 
   componentDidMount() {
-    this._isMounted = true
     this.props.fetchIndexPageContent()
     this.props.fetchCategoriesPostsOnIndexPage()
       .then(() => {
         // EX: if the url path is /?section=categories
         // after this component mounted and rendered,
         // the browser will smoothly scroll to categories section
-        const sectionQuery = _.get(this.props, 'location.query.section', '')
-        if (this.sidebar && sectionQuery) {
-          this.sidebar.handleClickAnchor(sectionQuery)
+        const search = _.get(this.props, 'location.search', '')
+        const query = qs.parse(search, { ignoreQueryPrefix: true })
+        const section = _.get(query, 'section', '')
+        if (this._sidebar.current && section) {
+          this._sidebar.current.handleClickAnchor(section)
         }
       })
-  }
-
-  componentWillUnmount() {
-    this.sidebar = null
-    this._isMounted = false
   }
 
   render() {
@@ -224,10 +218,11 @@ class Homepage extends React.PureComponent {
     return (
       <Container>
         <CSSTransition
-          in={!this._isMounted || isSpinnerDisplayed}
+          in={isSpinnerDisplayed}
           classNames="spinner"
           timeout={2000}
           enter={false}
+          mountOnEnter
           unmountOnExit
         >
           <LoadingCover>
@@ -252,7 +247,7 @@ class Homepage extends React.PureComponent {
           ]}
         />
         <SideBar
-          ref={(node) => this.sidebar = node}
+          ref={this._sidebar}
           anchors={anchors}
         >
           <LatestSection
@@ -371,10 +366,8 @@ function mapStateToProps(state) {
   // check if spinner should be displayed
   const err = _.get(indexPageState, 'error', null)
   const isFetching = _.get(indexPageState, 'isFetching', false)
-  const isSpinnerDisplayed = (latest.length <= 0) && isFetching && !err
-
-  // restore
-
+  const isFirstScreenReady = latest.length > 0 && editorPicks.length > 0
+  const isSpinnerDisplayed = isFetching && !err && !isFirstScreenReady
   return {
     [fieldNames.sections.latestSection]: latest,
     [fieldNames.sections.editorPicksSection]: editorPicks,
