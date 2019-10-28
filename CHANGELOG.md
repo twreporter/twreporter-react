@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix list isFethcing logic: If there’s only one item in a list, the previous code will regard the container as at `isFetching` status.
+
 ## Release
 
 ### 4.4.5

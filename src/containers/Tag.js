@@ -52,8 +52,6 @@ class Tag extends PureComponent {
   }
 
   render() {
-    let isFetching = false
-
     const {
       entities,
       lists,
@@ -89,24 +87,17 @@ class Tag extends PureComponent {
       )
     }
 
-    // page is provided, but not fecth yet
-    if (startPos === 0 && endPos === 0) {
-      isFetching = true
-    }
-
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
     const postsLen = _.get(posts, 'length', 0)
+    const isFetching = postsLen === 0
 
     // Error handling
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />
       )
-    } else if (postsLen === 0) {
-      isFetching = true
     }
-
     const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
     const canonical = `${SITE_META.URL}tag/${tagId}`
     const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
