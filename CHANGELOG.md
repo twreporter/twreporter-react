@@ -1,18 +1,14 @@
 ## Unreleased
 
-### 4.4.5-rc.2
+## Release
+
+### 4.4.5
+
+#### Bug Fixes
 
 - Fix home spinner displayed logic
 - Fix wrong query retrieving with react-router. After this fix, the page being visited will be documented in url as `?page=<number>` for `Tag`, `Topics`, and `Categories`.
-- Prevent invalid search query page input
-
-#### Upgrade Dependencies
-
-- `@twreporter/react-article-components@1.0.25-beta.3` -> `^1.0.25-beta.4`
-
-### 4.4.5-rc.1
-
-- Remove deprecated `componentWillMount` and `componentWillReceiveProps`
+  - Add query validator to prevent invalid search query page input
 
 #### Upgrade Dependencies
 
@@ -20,12 +16,11 @@
 - `react-transition-group@^1.2.1` -> `^2.0.0`
 - `react-router-dom@^4.3.1` -> `^5.1.2`
   - Per file imports are deprecated for react-router-dom
-- `@twreporter/index-page@^1.0.4` -> `^1.0.5-beta.3`
-- `@twreporter/react-article-components@1.0.24` -> `^1.0.25-beta.3`
-- `@twreporter/react-components@^8.0.1` -> `^8.0.2-beta.2`
-- `@twreporter/universal-header@^2.1.0` -> `^2.1.1-beta.2`
+- `@twreporter/index-page@^1.0.4` -> `^1.0.5`
+- `@twreporter/react-article-components@1.0.24` -> `^1.0.25`
+- `@twreporter/react-components@^8.0.1` -> `^8.0.2`
+- `@twreporter/universal-header@^2.1.0` -> `^2.1.1`
 
-## Release
 ### 4.4.4
 - Disable DLC and remove redundant steps
 - Update about-us page
@@ -64,7 +59,6 @@
 #### Fix TopicLandingPage
 - Fix topic background color
 - Add showAll button to relateds
-
 
 ### 4.3.20
 #### Dependency Upgrade
