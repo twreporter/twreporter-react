@@ -38,7 +38,7 @@ class Photography extends Component {
     this.loadMoreArticles = this._loadMoreArticles.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } = this.props
     fetchPhotographyPostsOnIndexPage()
     fetchListedPosts(listID, categories, maxResult)

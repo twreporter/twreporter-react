@@ -1,24 +1,28 @@
-import Helmet from 'react-helmet'
-import Pagination from '../components/Pagination'
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import SystemError from '../components/SystemError'
-import concat from 'lodash/concat'
-import get from 'lodash/get'
-import map from 'lodash/map'
-import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-import uniq from 'lodash/uniq'
-import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
-import { InternalServerError } from '../custom-error'
-import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
+import { InternalServerError } from '../custom-error'
+import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { TopicsList } from '@twreporter/react-components/lib/listing-page'
+import Helmet from 'react-helmet'
+import Pagination from '../components/Pagination'
+import PropTypes from 'prop-types'
+import qs from 'qs'
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import SystemError from '../components/SystemError'
+import twreporterRedux from '@twreporter/redux'
+// lodash
+import concat from 'lodash/concat'
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
+import map from 'lodash/map'
+import uniq from 'lodash/uniq'
 
 const _ = {
   concat,
   get,
+  isInteger,
   map,
   uniq
 }
@@ -37,17 +41,21 @@ const PageContainer = styled.div`
 `
 
 class Topics extends Component {
-  componentWillMount() {
+  componentDidMount() {
     return this._clientFetchData(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    return this._clientFetchData(nextProps)
+  componentDidUpdate() {
+    return this._clientFetchData(this.props)
   }
 
   _clientFetchData(props) {
     const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
-    if (isNaN(page) || page <= 0 || page > totalPages) {
+    if (
+      !_.isInteger(page) ||
+      page < 1 ||
+      totalPages && (page > totalPages)
+    ) {
       return
     }
     const topicsLength = _.get(topics, 'length', 0)
@@ -68,9 +76,7 @@ class Topics extends Component {
     const {
       isTopicFetching,
       isTopicsFetching,
-      history,
       page,
-      pathname,
       topicListError,
       topics,
       totalPages
@@ -78,7 +84,15 @@ class Topics extends Component {
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
-
+    if (
+      !_.isInteger(page) ||
+      page < 1 ||
+      totalPages && (page > totalPages)
+    ) {
+      return (
+        <SystemError error={{ status: 404 }} />
+      )
+    }
     /*
       If fetching list data failed and there's no topics data in the store,
       render error 500
@@ -151,8 +165,6 @@ class Topics extends Component {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          pathname={pathname}
-          history={history}
         />
       </PageContainer>
     )
@@ -165,23 +177,23 @@ Topics.propTypes = {
   topicListError: PropTypes.object,
   topicError: PropTypes.object,
   // react-router `location` object
-  location: PropTypes.object.isRequired,
-  // a history object for navigation
-  history: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
   const defaultStartPage = 1
   const location = _.get(ownProps, 'location')
   const pathname = _.get(location, 'pathname', '/topics')
-  const locationPage = parseInt(_.get(location, 'query.page', defaultStartPage), 10)
+  const search = _.get(location, 'search')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  const page = parseInt(_.get(query, 'page', defaultStartPage), 10)
   const topicList = _.get(state, reduxStateFields.topicList)
   const selectedTopic = _.get(state, reduxStateFields.selectedTopic)
 
   const nPerPage = _.get(topicList, 'nPerPage', 5)
   const totalPages = _.get(topicList, 'totalPages', NaN)
 
-  const pageItems = _.uniq(_.get(topicList, [ 'items', locationPage ], []))
+  const pageItems = _.uniq(_.get(topicList, [ 'items', page ], []))
   const entities = _.get(state, reduxStateFields.entities, {})
   const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
   const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
@@ -194,7 +206,7 @@ function mapStateToProps(state, ownProps) {
   const topicError = _.get(selectedTopic, 'error', null)
 
   return ({
-    page: locationPage >= defaultStartPage ? locationPage : defaultStartPage,
+    page,
     nPerPage,
     totalPages,
     topics,

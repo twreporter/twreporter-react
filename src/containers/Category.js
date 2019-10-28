@@ -1,17 +1,21 @@
+import { connect } from 'react-redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
+import { SITE_META, SITE_NAME } from '../constants/index'
+import categoryConst from '../constants/category'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import categoryConst from '../constants/category'
-import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import { connect } from 'react-redux'
+// lodash
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
 
 const _  = {
-  get
+  get,
+  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
@@ -21,17 +25,17 @@ const MAXRESULT = 10
 const categories = 'categories'
 
 class Category extends PureComponent {
-  componentWillMount() {
-    const { fetchListedPosts, catId } = this.props
-    const page = _.get(this.props, 'page', 1)
-
-    fetchListedPosts(catId, categories, MAXRESULT, page)
+  componentDidMount() {
+    this._fetchListedPosts()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, catId } = nextProps
-    const page = _.get(nextProps, 'page', 1)
-
+  componentDidUpdate() {
+    this._fetchListedPosts()
+  }
+  
+  _fetchListedPosts() {
+    const { fetchListedPosts, catId } = this.props
+    const page = _.get(this.props, 'page', 1)
     fetchListedPosts(catId, categories, MAXRESULT, page)
   }
 
@@ -42,16 +46,24 @@ class Category extends PureComponent {
       catId,
       catLabel,
       entities,
-      history,
       lists,
       page,
       pathname
     } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const error = _.get(lists, [ catId, 'error' ], null)
 
     // total items will be in that catId
     const total = _.get(lists, [ catId, 'total' ], 0)
+    const totalPages = Math.ceil(total / MAXRESULT)
+    if (
+      !_.isInteger(page) ||
+      totalPages && (page > totalPages) ||
+      page < 1
+    ) {
+      return (
+        <SystemError error={{ status: 404 }} />
+      )
+    }
 
     // pages will be like
     // {
@@ -72,11 +84,9 @@ class Category extends PureComponent {
 
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
-
-    const totalPages = Math.ceil(total / MAXRESULT)
     const postsLen = _.get(posts, 'length', 0)
-
     // Error handling
+    const error = _.get(lists, [ catId, 'error' ], null)
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />
@@ -115,8 +125,6 @@ class Category extends PureComponent {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          pathname={pathname}
-          history={history}
         />
       </div>
     )
@@ -124,12 +132,13 @@ class Category extends PureComponent {
 }
 
 function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const page = parseInt(_.get(location, 'query.page', 1), 10)
+  const search = _.get(props, 'location.search')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  const page = parseInt(_.get(query, 'page', 1), 10)
   const pathSegment = _.get(props, 'match.params.category')
   const catId = categoryConst.ids[pathSegment]
   const catLabel = categoryConst.labels[pathSegment]
-  const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
+  const pathname = _.get(props, 'location.pathname', `/categories/${pathSegment}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
@@ -151,8 +160,6 @@ Category.propTypes = {
   lists: PropTypes.object,
   catId: PropTypes.string,
   catLabel: PropTypes.string.isRequired,
-  // a history object for navigation
-  history: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired
 }
