@@ -21,6 +21,17 @@
 - `@twreporter/react-components@^8.0.1` -> `^8.0.2`
 - `@twreporter/universal-header@^2.1.0` -> `^2.1.1`
 
+#### Commits
+
+- 400c6d0e Prevent invalid search query page input
+- efccfe95 Fix wrong query retrieving with react-router
+- 66025c35 Fix home spinner displayed logic
+- 9052908c Fix mock post content
+- de3a1dd8 Per file imports are deprecated for react-router-dom
+- 1357d17e Upgrade react-transition-group to v2
+- b1ca418e Replace customized velocity-react with original one
+- dd71feec Remove deprecated `componentWillMount` and `componentWillReceiveProps`
+
 ### 4.4.4
 - Disable DLC and remove redundant steps
 - Update about-us page
