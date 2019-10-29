@@ -33,7 +33,7 @@ build-server:
 build: clean build-webpack build-service-worker build-server
 
 start-server:
-	@echo "\033[33m[PM2]\033[0m start application server"
+	@echo "\033[33m[NODE]\033[0m start application server"
 	NODE_ENV=$(PROD_NODE_ENV) node dist/server.js
 
 start: build start-server

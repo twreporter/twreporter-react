@@ -40,8 +40,6 @@ class Category extends PureComponent {
   }
 
   render() {
-    let isFetching = false
-
     const {
       catId,
       catLabel,
@@ -76,23 +74,17 @@ class Category extends PureComponent {
     const pages = _.get(lists, [ catId, 'pages' ], {})
     const startPos = _.get(pages, [ page, 0 ], 0)
     const endPos = _.get(pages, [ page, 1 ], 0)
-
-    // page is provided, but not fecth yet
-    if (startPos === 0 && endPos === 0) {
-      isFetching = true
-    }
-
+  
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
     const postsLen = _.get(posts, 'length', 0)
+    const isFetching = postsLen === 0
     // Error handling
     const error = _.get(lists, [ catId, 'error' ], null)
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />
       )
-    } else if (postsLen === 0) {
-      isFetching = true
     }
 
     const title = catLabel + SITE_NAME.SEPARATOR + SITE_NAME.FULL
