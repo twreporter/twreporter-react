@@ -1,8 +1,20 @@
 ## Unreleased
 
-- Fix list isFethcing logic: If there’s only one item in a list, the previous code will regard the container as at `isFetching` status.
-
 ## Release
+
+### 4.4.6
+
+#### Bug Fixes
+
+- Fix list isFethcing logic: If there’s only one item in a list, the previous code will regard the container as at `isFetching` status.
+- Fix wrong componentDidUpdate arguments: `nextProps` -> `prevProps`
+- Remove PM2 in comments
+
+#### Commits
+
+5e21c088 Remove PM2 in comments
+1b0b7e1e Fix wrong componentDidUpdate arguments
+ec45c064 Fix list isFethcing logic
 
 ### 4.4.5
 
