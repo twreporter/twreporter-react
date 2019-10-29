@@ -69,12 +69,12 @@ class Article extends PureComponent {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  componentDidUpdate(nextProps) {
-    const { match } = nextProps
-    const slug = _.get(match, 'params.slug')
-    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
-    if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
-      this.props.fetchAFullPost(slug)
+  componentDidUpdate(prevProps) {
+    const { match } = this.props
+    const slugInParams = _.get(match, 'params.slug')
+    const isFetching = _.get(this.props, 'selectedPost.isFetching')
+    if (slugInParams !== _.get(prevProps, 'selectedPost.slug') && !isFetching) {
+      this.props.fetchAFullPost(slugInParams)
     }
   }
 
