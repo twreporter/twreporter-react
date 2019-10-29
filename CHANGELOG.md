@@ -2,15 +2,33 @@
 
 ## Release
 
+### 4.4.6
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- Fix list isFethcing logic: If there’s only one item in a list, the previous code will regard the container as at `isFetching` status.
+- Fix wrong componentDidUpdate arguments: `nextProps` -> `prevProps`
+- Remove PM2 in comments
+
+#### Commits
+
+- [[5e21c088](https://github.com/twreporter/twreporter-react/commit/5e21c088)] Remove PM2 in comments (yucj)
+- [[1b0b7e1e](https://github.com/twreporter/twreporter-react/commit/1b0b7e1e)] Fix wrong componentDidUpdate arguments (yucj)
+- [[ec45c064](https://github.com/twreporter/twreporter-react/commit/ec45c064)] Fix list isFethcing logic (yucj)
+
 ### 4.4.5
 
-#### Bug Fixes
+#### Notable Changes
+
+##### Bug Fixes
 
 - Fix home spinner displayed logic
 - Fix wrong query retrieving with react-router. After this fix, the page being visited will be documented in url as `?page=<number>` for `Tag`, `Topics`, and `Categories`.
   - Add query validator to prevent invalid search query page input
 
-#### Upgrade Dependencies
+##### Upgrade Dependencies
 
 - `@twreporter/velocity-react@^1.4.2` -> `velocity-react@^1.4.3`
 - `react-transition-group@^1.2.1` -> `^2.0.0`
@@ -23,14 +41,14 @@
 
 #### Commits
 
-- 400c6d0e Prevent invalid search query page input
-- efccfe95 Fix wrong query retrieving with react-router
-- 66025c35 Fix home spinner displayed logic
-- 9052908c Fix mock post content
-- de3a1dd8 Per file imports are deprecated for react-router-dom
-- 1357d17e Upgrade react-transition-group to v2
-- b1ca418e Replace customized velocity-react with original one
-- dd71feec Remove deprecated `componentWillMount` and `componentWillReceiveProps`
+- [[400c6d0e](https://github.com/twreporter/twreporter-react/commit/400c6d0e)] Prevent invalid search query page input (yucj)
+- [[efccfe95](https://github.com/twreporter/twreporter-react/commit/efccfe95)] Fix wrong query retrieving with react-router (yucj)
+- [[66025c35](https://github.com/twreporter/twreporter-react/commit/66025c35)] Fix home spinner displayed logic (yucj)
+- [[9052908c](https://github.com/twreporter/twreporter-react/commit/9052908c)] Fix mock post content (yucj)
+- [[de3a1dd8](https://github.com/twreporter/twreporter-react/commit/de3a1dd8)] Per file imports are deprecated for react-router-dom (yucj)
+- [[1357d17e](https://github.com/twreporter/twreporter-react/commit/1357d17e)] Upgrade react-transition-group to v2 (yucj)
+- [[b1ca418e](https://github.com/twreporter/twreporter-react/commit/b1ca418e)] Replace customized velocity-react with original one (yucj)
+- [[dd71feec](https://github.com/twreporter/twreporter-react/commit/dd71feec)] Remove deprecated `componentWillMount` and `componentWillReceiveProps` (yucj)
 
 ### 4.4.4
 - Disable DLC and remove redundant steps
