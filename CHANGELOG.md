@@ -1,5 +1,22 @@
 ## Unreleased
 
+### 4.4.7-rc.2
+
+#### Notable Changes
+
+##### Bug Fixes
+  - Fix `mobile-slide-down-menu` where `議題` button doesn't scroll to right anchor 
+    - Add hash-link-scroll.js to handle url with hash string which stands for the element id that page should scroll to
+
+##### Upgrade Dependencies
+- `@twreporter/universal-header@^2.1.1` -> `^2.1.2-rc.2`
+
+#### Commits
+- [[476f673](https://github.com/twreporter/twreporter-react/pull/1476/commits/476f673f69628b6f095c8fe2a78b5f03d3680648)] - Add hash-link-scroll.js(taylrj)
+- [[7a9ab66](https://github.com/twreporter/twreporter-react/commit/32784f875a2d7efc466cd1438ab618200d563ba9)] - Bump @twreporter/universal-header to version 2.1.2-rc.2(taylrj)
+- [[b92a70c](https://github.com/twreporter/twreporter-react/pull/1476/commits/b92a70c6bec818aa30abe54fd9a31343d30b9f07)] - Bump version to v4.4.7-rc.2(taylrj)
+- [[67f8af6](https://github.com/twreporter/twreporter-react/pull/1476/commits/67f8af6acfb953d87ded0d05496561c9ccee89b7)] - Address review comments(taylrj)
+
 ### 4.4.7-rc.1
 
 #### Notable Changes
