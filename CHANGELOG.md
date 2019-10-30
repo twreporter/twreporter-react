@@ -1,5 +1,14 @@
 ## Unreleased
 
+### 4.4.7-rc.1
+
+#### Notable Changes
+- build:
+  - update circleci config due to new cluster
+
+#### Commits
+- [[290326b](https://github.com/twreporter/twreporter-react/commit/290326bb05bc5c668a7fe0644b8b85b810c5d049)] - update circleci config due to k8s cluster change(nickhsine)
+
 ## Release
 
 ### 4.4.6
