@@ -148,6 +148,15 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@twreporter/core@1.1.2-rc.1":
+  version "1.1.2-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.2-rc.1.tgz#2fabb5f2b869dcea12321b7542f18e7ed418498e"
+  integrity sha512-xe+4ssh19WJZcvg92ltO9R1reWs1HDzwoH4wCny2wyKqepzYTUP/YWNzUNNoiN0XNcOB+NAWDkHCVWaEyT3lug==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/core@^1.0.1", "@twreporter/core@^1.1.0", "@twreporter/core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.1.1.tgz#b6a75ae16ded67163cffd72d691b22e59d424c88"
@@ -253,6 +262,22 @@
   integrity sha512-3u9iSEi8xpUyLqEu/2Bh1cM43ONtW7dH5G9vE5eawNsa+egyX2JXhV9lBXw6yJRwdZIOWrr1NHh21VqyIaCdIQ==
   dependencies:
     "@twreporter/core" "^1.1.0"
+    "@twreporter/redux" "^5.0.4"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+    querystring "^0.2.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    styled-components "^4.0.0"
+
+"@twreporter/universal-header@^2.1.2-rc.2":
+  version "2.1.2-rc.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.2-rc.2.tgz#7576f04d63284d951a46e75c07dc24e6d7ae811f"
+  integrity sha512-QIfK8jq6I1s9gkIA6owxYfmta8/G9CeP8nkC17ppiT3mPUc5Wk64OP9uy8bWseksKCZL2WWpY+p5uqQJTZuy5g==
+  dependencies:
+    "@twreporter/core" "1.1.2-rc.1"
     "@twreporter/redux" "^5.0.4"
     lodash "^4.17.11"
     prop-types "^15.6.2"
