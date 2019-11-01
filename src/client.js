@@ -8,6 +8,7 @@ import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
+import hashLinkScroll from './utils/hash-link-scroll'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch.js'
 import twreporterRedux from '@twreporter/redux'
 
@@ -21,25 +22,6 @@ if (window.__REDUX_STATE__) {
 
 function scrollToTopAndFirePageview() {
   if(window) {
-    // handle hash link scroll
-    // scroll to the anchor after DOM rendered
-    const { hash } = window.location
-    if (hash !== '') {
-      // Push onto callback queue so it runs after the DOM is updated,
-      // this is required when navigating from a different page so that
-      // the element is rendered on the page before trying to getElementById.
-      setTimeout(() => {
-        const id = hash.replace('#', '')
-        // since id will be encoded by browser,
-        // decode it back as a string
-        const decodedID = decodeURIComponent(id)
-        const element = document.getElementById(decodedID)
-        if (element) {
-          element.scrollIntoView()
-        }
-      }, 0)
-      return null
-    }
     window.scrollTo(0, 0)
     // send Google Analytics Pageview event on route changed
     ReactGA.pageview(window.location.pathname)
@@ -59,6 +41,7 @@ twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
       <BrowserRouter>
         <React.Fragment>
           <Route path="/" component={scrollToTopAndFirePageview} />
+          <Route path="/" component={hashLinkScroll} />
           <App reduxStore={store} releaseBranch={releaseBranch}/>
         </React.Fragment>
       </BrowserRouter>
