@@ -13,13 +13,14 @@ function reset(observer, asyncTimerId) {
 }
 
 /*
- * @param {string} id - element id 
+ * @param {string} id - element id
+ * @param {number} delay - delay time to wait until other effect ends
  * @returns {boolean} - represents whether document can get element by id 
  */
-function scrollToElement(id) {
+function scrollToElement(id, delay) {
   const element = document.getElementById(id)
   if (element) {
-    element.scrollIntoView()
+    setTimeout(() => { element.scrollIntoView() }, delay)
     return true
   }
   return false
@@ -33,6 +34,7 @@ function hashLinkScroll() {
     if (hash !== '') {
       // Push onto callback queue so it runs after the DOM is updated
       setTimeout(() => {
+        const delay = 200
         let observer = null
         let asyncTimerId = null
         const id = hash.replace('#', '')
@@ -44,9 +46,9 @@ function hashLinkScroll() {
         // with hash `#categories` in url, `document.getElementById('categories')` returns null.
         // In such case, the `MutationObserver` instance keeps watching and will call it's callback 
         // when the DOM tree changes, page scrolls to the desired element as long as it can be gotten by id.
-        if (!scrollToElement(decodedId)) {
+        if (!scrollToElement(decodedId, delay)) {
           observer = new MutationObserver(() => {
-            if (scrollToElement(decodedId)) {
+            if (scrollToElement(decodedId, delay)) {
               reset(observer, asyncTimerId)
             }
           })
