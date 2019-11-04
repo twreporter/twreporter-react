@@ -1,5 +1,22 @@
 ## Unreleased
 
+### 4.4.7-rc.3
+
+#### Notable Changes
+
+##### Upgrade Dependencies
+  - Upgrade @twreporter/core to v1.1.2-rc.1
+  - Upgrade @twreporter/index-page to v1.0.6-rc.2
+  - Upgrade @twreporter/react-article-components to v1.0.26-rc.1
+  - Upgrade @twreporter/react-components to v8.0.3-rc.1
+  - Upgrade @twreporter/universal-header to v2.1.2-rc.1
+
+## Commits
+- [[837f4e9](https://github.com/twreporter/twreporter-react/commit/837f4e9735f86452f6530bffdaf6379050aa7eaa)] - Upgrade @twreporter npm packages(taylrj)
+- [[33f5c92](https://github.com/twreporter/twreporter-react/commit/33f5c920e3656fa80fcdea3e928af950ec1f86c6)] - Bump lodash from 4.17.11 to 4.17.13(dependabot)
+- [[3fb4222](https://github.com/twreporter/twreporter-react/commit/3fb42227b3b96ebaf1eacfe01f49333dae5f6ddf)] - Scroll to hash link after timeout(taylrj)
+- [[6a39b3d](https://github.com/twreporter/twreporter-react/commit/6a39b3d764be7578e66097e25480e461146354bb)] - Upgrade @twreporter/index-page to v1.0.6-rc.2(taylrj)
+
 ### 4.4.7-rc.2
 
 #### Notable Changes
@@ -12,10 +29,9 @@
 - `@twreporter/universal-header@^2.1.1` -> `^2.1.2-rc.2`
 
 #### Commits
-- [[476f673](https://github.com/twreporter/twreporter-react/pull/1476/commits/476f673f69628b6f095c8fe2a78b5f03d3680648)] - Add hash-link-scroll.js(taylrj)
+- [[476f673](https://github.com/twreporter/twreporter-react/commit/476f673f69628b6f095c8fe2a78b5f03d3680648)] - Add hash-link-scroll.js(taylrj)
 - [[7a9ab66](https://github.com/twreporter/twreporter-react/commit/32784f875a2d7efc466cd1438ab618200d563ba9)] - Bump @twreporter/universal-header to version 2.1.2-rc.2(taylrj)
-- [[b92a70c](https://github.com/twreporter/twreporter-react/pull/1476/commits/b92a70c6bec818aa30abe54fd9a31343d30b9f07)] - Bump version to v4.4.7-rc.2(taylrj)
-- [[67f8af6](https://github.com/twreporter/twreporter-react/pull/1476/commits/67f8af6acfb953d87ded0d05496561c9ccee89b7)] - Address review comments(taylrj)
+- [[67f8af6](https://github.com/twreporter/twreporter-react/commit/172143099c1cc462935ccb38640e2c5179d42980)] - Address review comments(taylrj)
 
 ### 4.4.7-rc.1
 
