@@ -79,7 +79,7 @@ jobs:
               CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
             fi
 
-            if [ "${CIRCLE_BRANCH}" == "staging" || "${CIRCLE_BRANCH}" == "next" ]; then
+            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "next" ]; then
               gcloud --quiet config set compute/region asia-east1
               CLUSTER_NAME=${K8S_CLUSTER_NAME}
             fi

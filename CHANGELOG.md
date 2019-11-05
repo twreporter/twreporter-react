@@ -1,5 +1,14 @@
 ## Unreleased
 
+### 4.4.7-rc.6
+
+#### Notable Changes
+
+  - Fix incorrect test operator 
+
+## Commits
+- [[c89a7d3](https://github.com/twreporter/twreporter-react/commit/c89a7d3175fcd199987515ca52be12e1713b4635)] - Fix incorrect test operator(babygoat)
+
 ### 4.4.7-rc.5
 
 #### Notable Changes
