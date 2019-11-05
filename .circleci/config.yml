@@ -79,8 +79,8 @@ jobs:
               CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
             fi
 
-            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              gcloud --quiet config set compute/zone asia-east1
+            if [ "${CIRCLE_BRANCH}" == "staging" || "{CIRCLE_BRANCH}" == "next" ]; then
+              gcloud --quiet config set compute/region asia-east1
               CLUSTER_NAME=${K8S_CLUSTER_NAME}
             fi
 
@@ -104,6 +104,10 @@ jobs:
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
               CLUSTER_NAMESPACE="staging"
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "next" ]; then
+              CLUSTER_NAMESPACE="production"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
@@ -130,6 +134,7 @@ workflows:
                 - release
                 - staging
                 - preview
+                - next
       - deploy:
           requires:
             - build
@@ -139,3 +144,4 @@ workflows:
                 - release
                 - staging
                 - preview
+                - next
