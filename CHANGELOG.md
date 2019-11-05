@@ -1,5 +1,14 @@
 ## Unreleased
 
+### 4.4.7-rc.4
+
+#### Notable Changes
+
+  - Add next branch config on circleci
+
+## Commits
+- [[9295ca1](https://github.com/twreporter/twreporter-react/commit/9295ca126539db0482b61b9e1d0d4a0557f5a6dd)] - Add next branch config on circleci(babygoat)
+
 ### 4.4.7-rc.3
 
 #### Notable Changes
