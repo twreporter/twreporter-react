@@ -1,5 +1,14 @@
 ## Unreleased
 
+### 4.4.7-rc.5
+
+#### Notable Changes
+
+  - Fix circle-ci `config.yml`
+
+## Commits
+- [[23a0bd8](https://github.com/twreporter/twreporter-react/commit/23a0bd8556d6c4f655b9f1b2520d171b0bfe499f)] - Fix circle-ci `config.yml`(taylrj)
+
 ### 4.4.7-rc.4
 
 #### Notable Changes
