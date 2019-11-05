@@ -1,5 +1,32 @@
 ## Unreleased
 
+### 4.4.7-rc.6
+
+#### Notable Changes
+
+  - Fix incorrect test operator 
+
+## Commits
+- [[c89a7d3](https://github.com/twreporter/twreporter-react/commit/c89a7d3175fcd199987515ca52be12e1713b4635)] - Fix incorrect test operator(babygoat)
+
+### 4.4.7-rc.5
+
+#### Notable Changes
+
+  - Fix circle-ci `config.yml`
+
+## Commits
+- [[23a0bd8](https://github.com/twreporter/twreporter-react/commit/23a0bd8556d6c4f655b9f1b2520d171b0bfe499f)] - Fix circle-ci `config.yml`(taylrj)
+
+### 4.4.7-rc.4
+
+#### Notable Changes
+
+  - Add next branch config on circleci
+
+## Commits
+- [[9295ca1](https://github.com/twreporter/twreporter-react/commit/9295ca126539db0482b61b9e1d0d4a0557f5a6dd)] - Add next branch config on circleci(babygoat)
+
 ### 4.4.7-rc.3
 
 #### Notable Changes
