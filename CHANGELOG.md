@@ -1,5 +1,7 @@
 ## Unreleased
 
+[Bug] Fix og-image type error on topic landing page
+
 ### 4.4.7-rc.6
 
 #### Notable Changes
