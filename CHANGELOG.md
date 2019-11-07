@@ -1,6 +1,6 @@
 ## Unreleased
 
-### 4.4.7-rc.6
+### 4.4.8-rc.6
 
 #### Notable Changes
 
@@ -9,7 +9,7 @@
 ## Commits
 - [[c89a7d3](https://github.com/twreporter/twreporter-react/commit/c89a7d3175fcd199987515ca52be12e1713b4635)] - Fix incorrect test operator(babygoat)
 
-### 4.4.7-rc.5
+### 4.4.8-rc.5
 
 #### Notable Changes
 
@@ -18,7 +18,7 @@
 ## Commits
 - [[23a0bd8](https://github.com/twreporter/twreporter-react/commit/23a0bd8556d6c4f655b9f1b2520d171b0bfe499f)] - Fix circle-ci `config.yml`(taylrj)
 
-### 4.4.7-rc.4
+### 4.4.8-rc.4
 
 #### Notable Changes
 
@@ -27,7 +27,7 @@
 ## Commits
 - [[9295ca1](https://github.com/twreporter/twreporter-react/commit/9295ca126539db0482b61b9e1d0d4a0557f5a6dd)] - Add next branch config on circleci(babygoat)
 
-### 4.4.7-rc.3
+### 4.4.8-rc.3
 
 #### Notable Changes
 
@@ -44,7 +44,7 @@
 - [[3fb4222](https://github.com/twreporter/twreporter-react/commit/3fb42227b3b96ebaf1eacfe01f49333dae5f6ddf)] - Scroll to hash link after timeout(taylrj)
 - [[6a39b3d](https://github.com/twreporter/twreporter-react/commit/6a39b3d764be7578e66097e25480e461146354bb)] - Upgrade @twreporter/index-page to v1.0.6-rc.2(taylrj)
 
-### 4.4.7-rc.2
+### 4.4.8-rc.2
 
 #### Notable Changes
 
@@ -60,7 +60,7 @@
 - [[7a9ab66](https://github.com/twreporter/twreporter-react/commit/32784f875a2d7efc466cd1438ab618200d563ba9)] - Bump @twreporter/universal-header to version 2.1.2-rc.2(taylrj)
 - [[67f8af6](https://github.com/twreporter/twreporter-react/commit/172143099c1cc462935ccb38640e2c5179d42980)] - Address review comments(taylrj)
 
-### 4.4.7-rc.1
+### 4.4.8-rc.1
 
 #### Notable Changes
 - build:
