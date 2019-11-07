@@ -89,7 +89,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'team_description.api_data', [])
     const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
-    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url')
+    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url') || _.get(topic, 'leading_image.resized_targets.tablet.url') 
     const publishedDate = _.get(topic, 'published_date', '')
 
     const canonical = `${SITE_META.URL}topics/${slug}`
