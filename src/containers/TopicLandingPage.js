@@ -89,6 +89,7 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'team_description.api_data', [])
     const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
+    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url') || _.get(topic, 'leading_image.resized_targets.tablet.url') 
     const publishedDate = _.get(topic, 'published_date', '')
 
     const canonical = `${SITE_META.URL}topics/${slug}`
@@ -104,11 +105,11 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: og_image },
+            { name: 'twitter:image', content: ogImageUrl },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },
-            { property: 'og:image', content: og_image },
+            { property: 'og:image', content: ogImageUrl },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
