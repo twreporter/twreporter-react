@@ -13,7 +13,9 @@ const host = {
   master: 'http://testtest.twreporter.org:3000',
   preview: 'http://testtest.twreporter.org:3000',
   staging: 'https://staging.twreporter.org',
-  release: 'https://www.twreporter.org'
+  release: 'https://www.twreporter.org',
+  // `next` release branch is reserved for online migration purpose 
+  next: 'https://next.twreporter.org'
 }[process.env.RELEASE_BRANCH || 'master']
 
 /**
