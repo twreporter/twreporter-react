@@ -1,5 +1,21 @@
 ## Unreleased
 
+### 4.4.8-rc.7
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - Upgrade @twreporter/core to v1.1.2-rc.2
+    - Upgrade @twreporter/index-page to v1.0.6-rc.3
+    - Upgrade @twreporter/react-article-components to v1.0.26-rc.2
+    - Upgrade @twreporter/react-components to v8.0.3-rc.2
+    - Upgrade @twreporter/universal-header to v2.1.2-rc.3
+  - Add host on `next` branch to `bookmark-widget.js`
+
+## Commits
+- [[ca7ff30](https://github.com/twreporter/twreporter-react/commit/ca7ff30)] - Upgrade @twreporter npm packages(taylrj)
+- [[41ca35b](https://github.com/twreporter/twreporter-react/commit/41ca35b)] - Add host on `next` branch to `bookmark-widget.js`(taylrj)
+
 ### 4.4.8-rc.6
 
 #### Notable Changes
