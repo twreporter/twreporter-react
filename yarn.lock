@@ -174,15 +174,15 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.0.26-rc.2":
-  version "1.0.26-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.26-rc.2.tgz#4291dd29ab492d1921f22641d187c12f73477fc4"
-  integrity sha512-WWtLoeqRzhnf+4Bx1xnhzw38LsiruM4FT7oNe8sTGPAxk8GWD+zCw1VJ6LpY9oxOBvMD9eUjx8Wc89ciup3S+Q==
+"@twreporter/react-article-components@^1.0.26-rc.5":
+  version "1.0.26-rc.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.0.26-rc.5.tgz#4af6d403a1d5af07977fac098b908bf806de3e61"
+  integrity sha512-qDVLohdz985SJ96br4hexHz5xOTyX7g2FdguB2yvV2YZoB1l5w6xX1PUZ8CUt8Yj2CHacNfQO6Gk57CVvml1rQ==
   dependencies:
     "@twreporter/core" "1.1.2-rc.2"
-    "@twreporter/react-components" "8.0.3-rc.2"
-    "@twreporter/redux" "^5.0.4"
-    "@twreporter/universal-header" "2.1.2-rc.3"
+    "@twreporter/react-components" "^8.0.3-rc.4"
+    "@twreporter/redux" "^5.0.7-rc.1"
+    "@twreporter/universal-header" "2.1.2-rc.6"
     howler "^2.1.1"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -192,13 +192,13 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.0.3-rc.2", "@twreporter/react-components@^8.0.3-rc.2":
-  version "8.0.3-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.0.3-rc.2.tgz#c7cb899c60fb76acde484b609d6b3ba18fe76e3b"
-  integrity sha512-BoLQIg17ZQ+80yzwPOpWeyGN34bVK3XBjMIYvoqqSGbDp4l5GvBXYf9p3kIGgfSJGweQpKabaeFb/BCR8h5bZw==
+"@twreporter/react-components@^8.0.3-rc.4":
+  version "8.0.3-rc.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.0.3-rc.4.tgz#3cea45c3ce5446ef2f41cabbdd566341a1846c21"
+  integrity sha512-x1kzc+IG4hFyNuSuc5VfogGNarzgo2JoevxXTmNfszWDslkSOinP0koiaQ2JcmKU6GEXQXxLhP3bsy7Z0PzT5A==
   dependencies:
     "@twreporter/core" "1.1.2-rc.2"
-    "@twreporter/redux" "^5.0.4"
+    "@twreporter/redux" "^5.0.7-rc.1"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     memoize-one "^5.0.5"
@@ -210,24 +210,6 @@
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
-
-"@twreporter/redux@^5.0.4":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.5.tgz#4ffcbc8722b1997b6980eb229fb37aadf3864f11"
-  integrity sha512-7BStSG9fRx2tuEEinbQEMesEdTArSUVNy4Z/1cvm7HPOI7ANerkFtIItb76o6099qycjS/lT0+j/Ld4/oxvY5Q==
-  dependencies:
-    axios "^0.19.0"
-    es6-error "^4.0.2"
-    humps "^0.6.0"
-    isomorphic-fetch "2.2.1"
-    localforage "^1.7.3"
-    lodash "^4.17.4"
-    normalizr "^3.2.4"
-    prop-types "^15.0.0"
-    qs "^6.5.1"
-    react "^16.3.0"
-    redux "^4.0.1"
-    redux-thunk "^2.3.0"
 
 "@twreporter/redux@^5.0.6":
   version "5.0.6"
@@ -247,13 +229,31 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.1.2-rc.3", "@twreporter/universal-header@^2.1.2-rc.3":
-  version "2.1.2-rc.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.2-rc.3.tgz#7f3409711b60a8ada52239c944992139038022fe"
-  integrity sha512-u7fB570GMiuYfoqOus6hyGR9FqW/FJoo9uCI3ynIJPRi+lUqzA55OdurGnk5ef6T+gEqq9LGFdHMtSeuFm+siw==
+"@twreporter/redux@^5.0.7-rc.1":
+  version "5.0.7-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.7-rc.1.tgz#08207984a818c922907216879e1d052be63f6062"
+  integrity sha512-2NC+yfFYYzYLkMa9XqwhVoyQXXJ2HVxYfGjj5KUuqR98XQJUGeZwywVMjiZzB/Kf6B2vvZ7pJeA+u65zE832Lw==
+  dependencies:
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    isomorphic-fetch "2.2.1"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    qs "^6.5.1"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
+"@twreporter/universal-header@2.1.2-rc.6", "@twreporter/universal-header@^2.1.2-rc.6":
+  version "2.1.2-rc.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.2-rc.6.tgz#08e3a1f7ff9f5e08be666c90cbbef284830cc70f"
+  integrity sha512-Lp0IF7Y4czVo11TAPiZxgI1+XUupEkLVW1lOGWByItlawruOdWSFBGhAv+lY3Arc8Sx/0Xp7FzTjvPm4MeCEaA==
   dependencies:
     "@twreporter/core" "1.1.2-rc.2"
-    "@twreporter/redux" "^5.0.4"
+    "@twreporter/redux" "^5.0.7-rc.1"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"

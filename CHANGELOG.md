@@ -1,5 +1,16 @@
 ## Unreleased
 
+### 4.4.8-rc.8
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - @twreporter/react-article-components: 1.0.26-rc.2 -> 1.0.26-rc.5
+    - @twreporter/react-components: 8.0.3-rc.2 -> 8.0.3-rc.4
+    - @twreporter/universal-header: 2.1.2-rc.3 -> 2.1.2-rc.6
+## Commits
+- [[2fa6aa5](https://github.com/twreporter/twreporter-react/commit/2fa6aa5)] - chore: update dependencies(taylrj)
+
 ### 4.4.8-rc.7
 
 #### Notable Changes
