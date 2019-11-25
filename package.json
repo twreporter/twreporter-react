@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.4.8-rc.8",
+  "version": "4.4.8-rc.9",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -11,7 +11,8 @@
     "stop": "make stop",
     "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -62,6 +63,8 @@
     "velocity-react": "^1.4.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.3.21",
     "babel-eslint": "8",
@@ -81,15 +84,16 @@
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
+    "husky": "^3.1.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
     "nock": "^10.0.4",
     "nodemon": "^1.18.3",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.0.0",
-    "precommit-hook": "^3.0.0",
     "puppeteer": "^1.3.0",
     "rimraf": "^2.5.2",
+    "standard-version": "^7.0.1",
     "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.5"
@@ -97,9 +101,10 @@
   "lint-staged": {
     "*.js": "eslint -c .eslintrc"
   },
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
-  "pre-push": []
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint && test",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
+  }
 }
