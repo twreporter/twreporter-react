@@ -1,4 +1,16 @@
-## Unreleased
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [4.4.8-rc.9](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8-rc.9) (2019-11-25)
+
+
+### Chores
+
+* add `commitlint` dep with `config-conventional` ([567f5eb](https://github.com/twreporter/twreporter-react/commit/567f5eb4f99c71397f4124e2b60824a99725bfbf))
+* add `husky` dep to replace `precommit-hook` ([86a9146](https://github.com/twreporter/twreporter-react/commit/86a914685fd364e0daeff21bbd3516ddb4a3365c))
+* add `standard-version` dep and npm script `release` ([c4bf481](https://github.com/twreporter/twreporter-react/commit/c4bf4812227272330835b1ab7720cc06d4b78416))
+* integrate kubernetes configs to deploy ([d915ac5](https://github.com/twreporter/twreporter-react/commit/d915ac5fea8636fe572e8e5dfaca7c10be53be69))
 
 ### 4.4.8-rc.8
 
@@ -95,8 +107,6 @@
 
 #### Commits
 - [[290326b](https://github.com/twreporter/twreporter-react/commit/290326bb05bc5c668a7fe0644b8b85b810c5d049)] - update circleci config due to k8s cluster change(nickhsine)
-
-## Release
 
 ### 4.4.7
 
