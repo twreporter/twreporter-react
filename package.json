@@ -62,6 +62,8 @@
     "velocity-react": "^1.4.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.3.21",
     "babel-eslint": "8",
