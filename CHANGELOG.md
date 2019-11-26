@@ -1,6 +1,139 @@
-## Unreleased
+# Changelog
 
-## Release
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [4.4.8](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8) (2019-11-26)
+
+
+### Chores
+
+* add `commitlint` dep with `config-conventional` ([567f5eb](https://github.com/twreporter/twreporter-react/commit/567f5eb4f99c71397f4124e2b60824a99725bfbf))
+* add `husky` dep to replace `precommit-hook` ([86a9146](https://github.com/twreporter/twreporter-react/commit/86a914685fd364e0daeff21bbd3516ddb4a3365c))
+* fix missing namespace ([#1515](https://github.com/twreporter/twreporter-react/issues/1515)) ([d44eb28](https://github.com/twreporter/twreporter-react/commit/d44eb282843eccd6a2866317eb9f63e0583eef82))
+* integrate kubernetes configs to deploy ([d915ac5](https://github.com/twreporter/twreporter-react/commit/d915ac5fea8636fe572e8e5dfaca7c10be53be69))
+* Update config for release environment ([#1513](https://github.com/twreporter/twreporter-react/issues/1513)) ([35f099d](https://github.com/twreporter/twreporter-react/commit/35f099d2cc37e115c6e87babb10877ad70d04721))
+* upgrade dependencies ([3030e22](https://github.com/twreporter/twreporter-react/commit/3030e22cdedd65a5b184792ee0cc0fa11db8a4f6))
+* **release:** 4.4.8-rc.9 ([fef4ad2](https://github.com/twreporter/twreporter-react/commit/fef4ad283e494bab69956c42b140a878135036ee))
+* add `standard-version` dep and npm script `release` ([c4bf481](https://github.com/twreporter/twreporter-react/commit/c4bf4812227272330835b1ab7720cc06d4b78416))
+
+### [4.4.8-rc.9](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8-rc.9) (2019-11-25)
+
+
+### Chores
+
+* add `commitlint` dep with `config-conventional` ([567f5eb](https://github.com/twreporter/twreporter-react/commit/567f5eb4f99c71397f4124e2b60824a99725bfbf))
+* add `husky` dep to replace `precommit-hook` ([86a9146](https://github.com/twreporter/twreporter-react/commit/86a914685fd364e0daeff21bbd3516ddb4a3365c))
+* add `standard-version` dep and npm script `release` ([c4bf481](https://github.com/twreporter/twreporter-react/commit/c4bf4812227272330835b1ab7720cc06d4b78416))
+* integrate kubernetes configs to deploy ([d915ac5](https://github.com/twreporter/twreporter-react/commit/d915ac5fea8636fe572e8e5dfaca7c10be53be69))
+
+### 4.4.8-rc.8
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - @twreporter/react-article-components: 1.0.26-rc.2 -> 1.0.26-rc.5
+    - @twreporter/react-components: 8.0.3-rc.2 -> 8.0.3-rc.4
+    - @twreporter/universal-header: 2.1.2-rc.3 -> 2.1.2-rc.6
+## Commits
+- [[2fa6aa5](https://github.com/twreporter/twreporter-react/commit/2fa6aa5)] - chore: update dependencies(taylrj)
+
+### 4.4.8-rc.7
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - Upgrade @twreporter/core to v1.1.2-rc.2
+    - Upgrade @twreporter/index-page to v1.0.6-rc.3
+    - Upgrade @twreporter/react-article-components to v1.0.26-rc.2
+    - Upgrade @twreporter/react-components to v8.0.3-rc.2
+    - Upgrade @twreporter/universal-header to v2.1.2-rc.3
+  - Add host on `next` branch to `bookmark-widget.js`
+
+## Commits
+- [[ca7ff30](https://github.com/twreporter/twreporter-react/commit/ca7ff30)] - Upgrade @twreporter npm packages(taylrj)
+- [[41ca35b](https://github.com/twreporter/twreporter-react/commit/41ca35b)] - Add host on `next` branch to `bookmark-widget.js`(taylrj)
+
+### 4.4.8-rc.6
+
+#### Notable Changes
+
+  - Fix incorrect test operator 
+
+## Commits
+- [[c89a7d3](https://github.com/twreporter/twreporter-react/commit/c89a7d3175fcd199987515ca52be12e1713b4635)] - Fix incorrect test operator(babygoat)
+
+### 4.4.8-rc.5
+
+#### Notable Changes
+
+  - Fix circle-ci `config.yml`
+
+## Commits
+- [[23a0bd8](https://github.com/twreporter/twreporter-react/commit/23a0bd8556d6c4f655b9f1b2520d171b0bfe499f)] - Fix circle-ci `config.yml`(taylrj)
+
+### 4.4.8-rc.4
+
+#### Notable Changes
+
+  - Add next branch config on circleci
+
+## Commits
+- [[9295ca1](https://github.com/twreporter/twreporter-react/commit/9295ca126539db0482b61b9e1d0d4a0557f5a6dd)] - Add next branch config on circleci(babygoat)
+
+### 4.4.8-rc.3
+
+#### Notable Changes
+
+##### Upgrade Dependencies
+  - Upgrade @twreporter/core to v1.1.2-rc.1
+  - Upgrade @twreporter/index-page to v1.0.6-rc.2
+  - Upgrade @twreporter/react-article-components to v1.0.26-rc.1
+  - Upgrade @twreporter/react-components to v8.0.3-rc.1
+  - Upgrade @twreporter/universal-header to v2.1.2-rc.1
+
+## Commits
+- [[837f4e9](https://github.com/twreporter/twreporter-react/commit/837f4e9735f86452f6530bffdaf6379050aa7eaa)] - Upgrade @twreporter npm packages(taylrj)
+- [[33f5c92](https://github.com/twreporter/twreporter-react/commit/33f5c920e3656fa80fcdea3e928af950ec1f86c6)] - Bump lodash from 4.17.11 to 4.17.13(dependabot)
+- [[3fb4222](https://github.com/twreporter/twreporter-react/commit/3fb42227b3b96ebaf1eacfe01f49333dae5f6ddf)] - Scroll to hash link after timeout(taylrj)
+- [[6a39b3d](https://github.com/twreporter/twreporter-react/commit/6a39b3d764be7578e66097e25480e461146354bb)] - Upgrade @twreporter/index-page to v1.0.6-rc.2(taylrj)
+
+### 4.4.8-rc.2
+
+#### Notable Changes
+
+##### Bug Fixes
+  - Fix `mobile-slide-down-menu` where `議題` button doesn't scroll to right anchor 
+    - Add hash-link-scroll.js to handle url with hash string which stands for the element id that page should scroll to
+
+##### Upgrade Dependencies
+- `@twreporter/universal-header@^2.1.1` -> `^2.1.2-rc.2`
+
+#### Commits
+- [[476f673](https://github.com/twreporter/twreporter-react/commit/476f673f69628b6f095c8fe2a78b5f03d3680648)] - Add hash-link-scroll.js(taylrj)
+- [[7a9ab66](https://github.com/twreporter/twreporter-react/commit/32784f875a2d7efc466cd1438ab618200d563ba9)] - Bump @twreporter/universal-header to version 2.1.2-rc.2(taylrj)
+- [[67f8af6](https://github.com/twreporter/twreporter-react/commit/172143099c1cc462935ccb38640e2c5179d42980)] - Address review comments(taylrj)
+
+### 4.4.8-rc.1
+
+#### Notable Changes
+- build:
+  - update circleci config due to new cluster
+
+#### Commits
+- [[290326b](https://github.com/twreporter/twreporter-react/commit/290326bb05bc5c668a7fe0644b8b85b810c5d049)] - update circleci config due to k8s cluster change(nickhsine)
+
+### 4.4.7
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- [Bug] Fix og-image type error on topic landing page
+
+#### Commits
+
+- [[802e69f](https://github.com/twreporter/twreporter-react/commit/802e69fa495e643dd4a03da9e43d690c2d9b3f4e)] - Fix og-image type error on topic landing page (taylrj)
+- [[a89fb28](https://github.com/twreporter/twreporter-react/commit/a89fb282afd7a47948d705b4d17dbf3ae401bb1f)] - Add `leading-image` as the fallback `og-image` on topic landing page (taylrj)
 
 ### 4.4.7
 
