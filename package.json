@@ -26,12 +26,12 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/core": "^1.1.2-rc.2",
-    "@twreporter/index-page": "^1.0.6-rc.3",
-    "@twreporter/react-article-components": "^1.0.26-rc.5",
-    "@twreporter/react-components": "^8.0.3-rc.4",
-    "@twreporter/redux": "^5.0.6",
-    "@twreporter/universal-header": "^2.1.2-rc.6",
+    "@twreporter/core": "^1.1.2",
+    "@twreporter/index-page": "^1.0.6",
+    "@twreporter/react-article-components": "^1.0.26",
+    "@twreporter/react-components": "^8.0.3",
+    "@twreporter/redux": "^5.0.7",
+    "@twreporter/universal-header": "^2.1.2",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "compression": "^1.7.4",
