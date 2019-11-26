@@ -61,7 +61,7 @@ jobs:
           name: Setup custom environment variables
           command: |
             APP="twreporter-website-v2"
-            CLUSTER_NAME=""
+            CLUSTER_NAME=${K8S_CLUSTER_NAME}
             CLUSTER_NAMESPACE="default"
             DEPLOYMENT="twreporter-website-v2"
             ENVIRONMENT=""
@@ -72,20 +72,18 @@ jobs:
             fi
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              CLUSTER_NAME=${K8S_CLUSTER_NAME}
               CLUSTER_NAMESPACE="staging"
               ENVIRONMENT="staging"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "next" ]; then
-              CLUSTER_NAME=${K8S_CLUSTER_NAME}
               CLUSTER_NAMESPACE="production"
               ENVIRONMENT="next"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
-              CLUSTER_NAME=${GOOGLE_CLUSTER_NAME}
               PKG_VER="$(cat .pkg-version)"
+              ENVIRONMENT="release"
             fi
 
             echo "export APP=${APP}" >> $BASH_ENV
@@ -106,24 +104,24 @@ jobs:
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
-            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "next" ]; then
+            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --region=asia-east1
             fi
 
-            if [ "${CIRCLE_BRANCH}" == "release" ] || [ "${CIRCLE_BRANCH}" == "preview" ]; then
+            if [ "${CIRCLE_BRANCH}" == "preview" ]; then
               # TODO
               # After new cluster settle down,
               # change asia-east1-a -> asia-east1
-              # change ${GOOGLE_CLUSTER_NAME} || ${GOOGLE_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
+              # change ${GOOGLE_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --zone=asia-east1-a
             fi
 
       - run:
           name: Build and push Docker image
           command: |
-            docker build -t gcr.io/coastal-run-106202/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} .
+            docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} .
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-            docker push gcr.io/coastal-run-106202/${APP}:$CIRCLE_BRANCH-$PKG_VER
+            docker push gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER
 
       - run:
           name: Fetch Kubernetes config source
@@ -150,7 +148,7 @@ jobs:
             # With kubernetes config build or not
             if [ ! -z "${ENVIRONMENT}" ]; then
               cd "${K8S_CONFIG_REPO}/${APP}/overlays/${ENVIRONMENT}"
-              kustomize edit set image "gcr.io/coastal-run-106202/${APP}:${CIRCLE_BRANCH}-${PKG_VER}"
+              kustomize edit set image "gcr.io/${GOOGLE_PROJECT_ID}/${APP}:${CIRCLE_BRANCH}-${PKG_VER}"
             fi
       - run:
           name: Deploy to Google Kubernetes Engine
@@ -161,7 +159,7 @@ jobs:
             then
               kustomize build "${K8S_CONFIG_REPO}/${APP}/overlays/${ENVIRONMENT}" | kubectl apply -f -
             else
-              kubectl set image deployment/${DEPLOYMENT} ${APP}=gcr.io/coastal-run-106202/${APP}:$CIRCLE_BRANCH-$PKG_VER -n $CLUSTER_NAMESPACE
+              kubectl set image deployment/${DEPLOYMENT} ${APP}=gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER -n $CLUSTER_NAMESPACE
             fi
             kubectl rollout status deployment/${DEPLOYMENT} -n $CLUSTER_NAMESPACE
 
