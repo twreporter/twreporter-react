@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
 /* global __DEVELOPMENT__ */
-import 'babel-polyfill'
+import "regenerator-runtime/runtime"
 import { BrowserRouter, Route } from 'react-router-dom'
 import { getGlobalEnv } from '@twreporter/core/lib/utils/global-env'
 import App from './app'
