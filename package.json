@@ -11,8 +11,7 @@
     "stop": "make stop",
     "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
-    "validate": "npm ls",
-    "release": "standard-version"
+    "validate": "npm ls"
   },
   "repository": {
     "type": "git",
@@ -94,7 +93,6 @@
     "pngjs": "^3.0.0",
     "puppeteer": "^1.3.0",
     "rimraf": "^2.5.2",
-    "standard-version": "^7.0.1",
     "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^2.9.5"
