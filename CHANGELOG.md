@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.4.9-rc.2
+## 4.4.9-rc.3
 
 ### Notable Changes
 - perf:
@@ -11,10 +11,10 @@
 - upgrade dependencies to solve GitHub security issues
 
 ### Commits
+* [[`848a3d8ad0`](https://github.com/twreporter/twreporter-react/commit/848a3d8ad0)] - **chore**: update static cache files in sw.js (nickhsine)
 * [[`c3ff7a922f`](https://github.com/twreporter/twreporter-react/commit/c3ff7a922f)] - **refactor**: babel-preset-es2015 -\> babel-preset-env (nickhsine)
 * [[`0874bb1592`](https://github.com/twreporter/twreporter-react/commit/0874bb1592)] - **perf**: build babel-polyfill webpack bundle (nickhsine)
 * [[`9cdbfc4fe7`](https://github.com/twreporter/twreporter-react/commit/9cdbfc4fe7)] - **fix**: import babel-polyfill (nickhsine)
-* [[`ff3acd0053`](https://github.com/twreporter/twreporter-react/commit/ff3acd0053)] - chore(relase): 4.4.9-rc.1 (nickhsine)
 * [[`50bdbe14fd`](https://github.com/twreporter/twreporter-react/commit/50bdbe14fd)] - **chore**: `npm run changelog-maker` to generate logs (nickhsine)
 * [[`433d974702`](https://github.com/twreporter/twreporter-react/commit/433d974702)] - **chore**: remove devDependency `standard-version` (nickhsine)
 * [[`e6d8d2f72f`](https://github.com/twreporter/twreporter-react/commit/e6d8d2f72f)] - **chore**: add devDependency `changelog-maker` (nickhsine)
