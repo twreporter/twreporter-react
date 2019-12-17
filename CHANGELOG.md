@@ -1,6 +1,27 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+## 4.4.9-rc.1
+
+### Notable Changes
+- perf:
+	- optimize webpack bundling process
+- deps: 
+	- remove `standard-version` 
+	- add `changelog-maker`
+- upgrade dependencies to solve GitHub security issues
+
+### Commits
+* [[`e34da4d639`](https://github.com/twreporter/twreporter-react/commit/e34da4d639)] - **chore**: `npm run changelog-maker` to generate logs (nickhsine)
+* [[`f82a3acbbc`](https://github.com/twreporter/twreporter-react/commit/f82a3acbbc)] - **chore**: remove devDependency `standard-version` (nickhsine)
+* [[`9cc3c56cb5`](https://github.com/twreporter/twreporter-react/commit/9cc3c56cb5)] - **chore**: add devDependency `changelog-maker` (nickhsine)
+* [[`86184b1cb9`](https://github.com/twreporter/twreporter-react/commit/86184b1cb9)] - **perf**: optimize webpack bundles (nickhsine)
+* [[`a71c902c59`](https://github.com/twreporter/twreporter-react/commit/a71c902c59)] - **chore**: upgrade js-yaml to v3.13.1 to fix github alert (nickhsine)
+* [[`493e69beb1`](https://github.com/twreporter/twreporter-react/commit/493e69beb1)] - **chore**: upgrade set-value to ^2.0.1 to remove github security alert (nickhsine)
+* [[`27d0550e1b`](https://github.com/twreporter/twreporter-react/commit/27d0550e1b)] - Merge pull request #1469 from twreporter/dependabot/npm\_and\_yarn/webpack-bundle-analyzer-3.3.2 (nick)
+* [[`8bedf0bb6a`](https://github.com/twreporter/twreporter-react/commit/8bedf0bb6a)] - Merge pull request #1470 from twreporter/dependabot/npm\_and\_yarn/mixin-deep-1.3.2 (nick)
+* [[`65528f92a2`](https://github.com/twreporter/twreporter-react/commit/65528f92a2)] - Merge pull request #1521 from twreporter/dependabot/npm\_and\_yarn/serialize-javascript-2.1.1 (nick)
+* [[`f8dd9c8f06`](https://github.com/twreporter/twreporter-react/commit/f8dd9c8f06)] - Bump serialize-javascript from 1.6.1 to 2.1.1 (dependabot[bot])
+
 
 ### [4.4.8](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8) (2019-11-26)
 
