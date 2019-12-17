@@ -56,6 +56,7 @@ const cacheName = 'sw-precache-twreporter-' + hash
 const staticFilesToCache = [
   webpackAssets.javascripts.main,
   webpackAssets.javascripts.manifest,
+  ...webpackAssets.javascripts.vendors,
   ...webpackAssets.javascripts.chunks,
   ...webpackAssets.stylesheets,
   '/',
