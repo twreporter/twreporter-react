@@ -98,6 +98,17 @@ const webpackConfig = {
     // Ref: https://webpack.js.org/plugins/hashed-module-ids-plugin/
     new webpack.HashedModuleIdsPlugin(),
 
+    // Move babel-polyfill and its dependecies into babel-polyfill bundle
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'babel-polyfill',
+      chunks: ['main'],
+      minChunks: function(module) {
+        return module.context && (
+          /node_modules\/(babel-polyfill|core-js|regenerator-runtime)/.test(module.context)
+        )
+      }
+    }),
+
     // Move react, react-dom, react-*, redux, history and styled-components into react bundle
     new webpack.optimize.CommonsChunkPlugin({
       name: 'react',
