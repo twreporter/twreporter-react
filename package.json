@@ -79,6 +79,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "changelog-maker": "^2.3.0",
     "concurrently": "3.5.1",
     "eslint": "4.x",
     "eslint-plugin-babel": "^5.1.0",
