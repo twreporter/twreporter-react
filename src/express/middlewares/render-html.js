@@ -58,12 +58,11 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     )
 
     const bundles = getBundles(loadableStats, modules)
-    const scripts = bundles.map((bundle) => {
-      return _.get(bundle, 'publicPath', '')
-    })
-    // manifest file should be loaded first
-    scripts.unshift(webpackAssets.javascripts.manifest)
 
+    const scripts = [webpackAssets.javascripts.manifest, ...webpackAssets.javascripts.vendors]
+    bundles.forEach((bundle) => {
+      scripts.push(_.get(bundle, 'publicPath', ''))
+    })
     // main bundle should be last
     scripts.push(webpackAssets.javascripts.main)
 
