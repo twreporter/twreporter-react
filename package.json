@@ -11,7 +11,8 @@
     "stop": "make stop",
     "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "changelog-maker": "changelog-maker"
   },
   "repository": {
     "type": "git",
