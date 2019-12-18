@@ -3,7 +3,6 @@
 export * from './footer'
 export * from './link-prefix'
 export * from './site-meta'
-export * from './strings'
 export * from './page-types'
 export * from './author-page'
 

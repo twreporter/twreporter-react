@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
 import twreporterRedux from '@twreporter/redux'
-import { CATEGORY, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -68,7 +68,7 @@ class Photography extends Component {
     const posts = camelizeKeys(denormalizePosts(slugs, postEntities))
 
     const canonical = SITE_META.URL_NO_SLASH + categoryPath.photographyPath
-    const title = PHOTOGRAPH_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const title = '影像' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
     return (
       <div style={style}>
         <Helmet
