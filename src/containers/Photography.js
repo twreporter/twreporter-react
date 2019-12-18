@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
-import pt from '../constants/page-themes'
 import twreporterRedux from '@twreporter/redux'
 import { CATEGORY, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
@@ -90,7 +89,6 @@ class Photography extends Component {
         <TopNews posts={topNewsItems} />
         <ArticleList
           articles={posts}
-          bgStyle={pt.tone.dark}
           hasMore={total > _.get(lists, [ listID, 'items', 'length' ], 0)}
           loadMore={this.loadMoreArticles}
         />

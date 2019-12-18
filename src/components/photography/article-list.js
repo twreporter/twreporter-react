@@ -2,7 +2,6 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import constPageThemes from '../../constants/page-themes'
 import { Link } from 'react-router-dom'
 import More from './more'
 import React from 'react'
@@ -120,27 +119,6 @@ const Date = styled.time`
   }
 `
 
-const bgStyleSelector = bgStyle => {
-  switch (bgStyle) {
-    case constPageThemes.tone.dark:
-      return css`
-        ${ItemTitle}, ${ItemExcerpt}, ${Date} {
-          color: #F7F7F7;
-        }
-        ${Item}:hover {
-          ${ItemTitle}, ${Date} {
-            color: black;
-          }
-          ${ItemExcerpt} {
-            color: #808080;
-          }
-        }
-      `
-    default:
-      return ''
-  }
-}
-
 const List = styled.ul`
   list-style: none;
   width: ${listingWidth}px;
@@ -152,7 +130,18 @@ const List = styled.ul`
     -webkit-column-count: 1;
     column-count: 1;
   }
-  ${props => bgStyleSelector(props.bgStyle)}
+
+  ${ItemTitle}, ${ItemExcerpt}, ${Date} {
+    color: #F7F7F7;
+  }
+  ${Item}:hover {
+    ${ItemTitle}, ${Date} {
+      color: black;
+    }
+    ${ItemExcerpt} {
+      color: #808080;
+    }
+  }
 `
 
 export default class ListArticleItem extends React.PureComponent {
@@ -195,12 +184,12 @@ export default class ListArticleItem extends React.PureComponent {
   }
 
   render() {
-    const { articles, bgStyle, hasMore, loadMore, loadMoreError } = this.props
+    const { articles, hasMore, loadMore, loadMoreError } = this.props
     if (!articles) return (<section />)
     return (
       <section>
         <Container>
-          <List bgStyle={bgStyle}>
+          <List>
             {this._buildItemList(articles)}
           </List>
         </Container>
