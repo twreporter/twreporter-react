@@ -1,4 +1,3 @@
-import { articleLayout as layout } from '../../themes/layout'
 import LogoIcon from '../../../static/asset/icon-placeholder.svg'
 import mq from '../../utils/media-query'
 import React from 'react'
@@ -19,11 +18,11 @@ const Container = styled.div`
   `}
 
   ${mq.desktopOnly`
-    max-width: 992px;
+    max-width: 1024px;
   `}
 
   ${mq.hdOnly`
-    max-width: 1200px;
+    max-width: 1440px;
   `}
 `
 
@@ -33,10 +32,10 @@ const IntroductionContainer = styled.div`
     margin: 0 24px 80px 24px;
   `};
   ${mq.tabletOnly`
-    width: ${layout.tablet.width.small}px;
+    width: 556px;
   `};
   ${mq.desktopAndAbove`
-    width: ${layout.desktop.width.small}px;
+    width: 664px;
   `};
 `
 
@@ -46,10 +45,10 @@ const TitleSection = styled.div`
     margin: 0 24px;
   `};
   ${mq.tabletOnly`
-    width: ${layout.tablet.width.small}px;
+    width: 556px;
   `};
   ${mq.desktopAndAbove`
-    width: ${layout.desktop.width.small}px;
+    width: 665px;
   `};
 `
 
