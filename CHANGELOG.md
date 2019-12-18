@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.4.9-rc.3
+## 4.4.9
 
 ### Notable Changes
 - perf:
