@@ -1,26 +1,24 @@
-import screen from '../constants/screen'
-
 export const articleLayout = {
   mobile: {
     width: '100%'
   },
   tablet: {
     width: {
-      large: screen.tablet.minWidth,
+      large: 768,
       medium: 672,
       small: 556
     }
   },
   desktop: {
     width: {
-      large: screen.desktop.minWidth,
+      large: 1024,
       medium: 833,
       small: 664
     }
   },
   hd: {
     width: {
-      large: screen.hd.minWidth,
+      large: 1440,
       medium: 880,
       small: 700
     }
