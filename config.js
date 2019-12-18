@@ -4,7 +4,7 @@ const releaseBranch = process.env.RELEASE_BRANCH || 'master'
 const webpackDevServerPort = 5000
 
 const webpackConfig = {
-  webpackOutputFilename: nodeEnv === 'production' ? '[name].[hash].bundle.js' : '[name].dev.bundle.js',
+  webpackOutputFilename: nodeEnv === 'production' ? '[name].[chunkhash].bundle.js' : '[name].dev.bundle.js',
   webpackPublicPath: nodeEnv === 'production' ? '/dist/' : `http://localhost:${webpackDevServerPort}/dist/`
 }
 

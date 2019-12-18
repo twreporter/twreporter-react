@@ -1,6 +1,30 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+## 4.4.9
+
+### Notable Changes
+- perf:
+	- optimize webpack bundling process
+- deps: 
+	- remove `standard-version` 
+	- add `changelog-maker`
+- upgrade dependencies to solve GitHub security issues
+
+### Commits
+* [[`848a3d8ad0`](https://github.com/twreporter/twreporter-react/commit/848a3d8ad0)] - **chore**: update static cache files in sw.js (nickhsine)
+* [[`c3ff7a922f`](https://github.com/twreporter/twreporter-react/commit/c3ff7a922f)] - **refactor**: babel-preset-es2015 -\> babel-preset-env (nickhsine)
+* [[`0874bb1592`](https://github.com/twreporter/twreporter-react/commit/0874bb1592)] - **perf**: build babel-polyfill webpack bundle (nickhsine)
+* [[`9cdbfc4fe7`](https://github.com/twreporter/twreporter-react/commit/9cdbfc4fe7)] - **fix**: import babel-polyfill (nickhsine)
+* [[`50bdbe14fd`](https://github.com/twreporter/twreporter-react/commit/50bdbe14fd)] - **chore**: `npm run changelog-maker` to generate logs (nickhsine)
+* [[`433d974702`](https://github.com/twreporter/twreporter-react/commit/433d974702)] - **chore**: remove devDependency `standard-version` (nickhsine)
+* [[`e6d8d2f72f`](https://github.com/twreporter/twreporter-react/commit/e6d8d2f72f)] - **chore**: add devDependency `changelog-maker` (nickhsine)
+* [[`eecfdc7a5c`](https://github.com/twreporter/twreporter-react/commit/eecfdc7a5c)] - **perf**: optimize webpack bundles (nickhsine)
+* [[`c0f7e3c7af`](https://github.com/twreporter/twreporter-react/commit/c0f7e3c7af)] - **chore**: upgrade js-yaml to v3.13.1 to fix github alert (nickhsine)
+* [[`d34ce06dfe`](https://github.com/twreporter/twreporter-react/commit/d34ce06dfe)] - **chore**: upgrade set-value to ^2.0.1 to remove github security alert (nickhsine)
+* [[`687341206e`](https://github.com/twreporter/twreporter-react/commit/687341206e)] - Bump webpack-bundle-analyzer from 2.13.1 to 3.3.2 (dependabot[bot])
+* [[`5fd556e18b`](https://github.com/twreporter/twreporter-react/commit/5fd556e18b)] - Bump mixin-deep from 1.3.1 to 1.3.2 (dependabot[bot])
+* [[`4007330477`](https://github.com/twreporter/twreporter-react/commit/4007330477)] - Bump serialize-javascript from 1.6.1 to 2.1.1 (dependabot[bot])
+
 
 ### [4.4.8](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8) (2019-11-26)
 
