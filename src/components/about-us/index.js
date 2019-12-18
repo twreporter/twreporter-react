@@ -1,6 +1,6 @@
-import { colors } from '../../themes/common-variables'
 import { SITE_NAME, SITE_META } from './constants/data/index'
 import anchors from './constants/data/sidebar-anchor'
+import colors from '../../constants/colors'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import mq from './utils/media-query'
@@ -29,11 +29,11 @@ const Border = styled.div `
   ${mq.tabletOnly`
     border-left: solid 7px ${colors.red.liverRed};
     border-right: solid 7px ${colors.red.liverRed};
-  `}  
+  `}
   ${mq.mobileOnly`
     border-left: solid 6px ${colors.red.liverRed};
     border-right: solid 6px ${colors.red.liverRed};
-  `}    
+  `}
 `
 
 export class AboutUs extends PureComponent {
@@ -89,7 +89,7 @@ export class AboutUs extends PureComponent {
         </Border>
         <Footer />
         <WebFont />
-      </React.Fragment>        
+      </React.Fragment>
     )
   }
 }

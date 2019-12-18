@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'

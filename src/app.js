@@ -1,10 +1,10 @@
-
 import AppShell from './containers/app-shell'
 import React from 'react'
 import getRoutes from './routes'
+import colors from './constants/colors'
+import typography from './constants/typography'
 import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
-import { colors, typography } from './themes/common-variables'
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`

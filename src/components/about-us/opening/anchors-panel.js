@@ -1,5 +1,5 @@
 import { buildFbShareLink } from '../utils/build-fb-share-link'
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'

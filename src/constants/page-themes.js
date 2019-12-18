@@ -1,4 +1,4 @@
-import { colors } from '../themes/common-variables'
+import colors from './colors'
 
 const bright = 'bright'
 const dark = 'dark'
