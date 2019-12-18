@@ -18,13 +18,6 @@ export const typography = {
   }
 }
 
-export const lineHeight = {
-  lineHeightMedium: '1.4',
-  lineHeightBase: '1.5',
-  lineHeightLarge: '1.8',
-  lineHeightParagraph: '1.95'
-}
-
 export const colors = {
   black: '#000',
   white: '#fff',
