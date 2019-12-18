@@ -1,5 +1,5 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import {  INTERACTIVE_ARTICLE_STYLE } from '../../constants'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
@@ -110,12 +110,6 @@ const CardDate = styled.time`
 function _buildSlideFromPost(post) {
   const cats = _.get(post, 'categories', [])
   const catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-  let prefix = '/a/'
-  let target = undefined
-  if (post.style === INTERACTIVE_ARTICLE_STYLE) {
-    prefix = '/i/'
-    target = '_blank'
-  }
   const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
   const images = [
     _.get(imageResizedTargets, 'tiny'),
@@ -125,7 +119,7 @@ function _buildSlideFromPost(post) {
     _.get(imageResizedTargets, 'original')
   ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
   return (
-    <StyledLink key={post.id} to={prefix + post.slug} target={target}>
+    <StyledLink key={post.id} to={formatPostLinkTo(post.slug)} target={formatPostLinkTarget(post.style)}>
       <Image
         alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
         defaultImage={images[1]}

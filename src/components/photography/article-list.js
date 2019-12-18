@@ -1,6 +1,6 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import { Link } from 'react-router-dom'
 import More from './more'
@@ -148,7 +148,7 @@ export default class ListArticleItem extends React.PureComponent {
   _buildItem(post) {
     const { id, publishedDate, style, slug, title } = post
     const dateString = date2yyyymmdd(publishedDate , '.')
-    const url = style === INTERACTIVE_ARTICLE_STYLE ? `/i/${slug}` : `/a/${slug}`
+    const url = formatPostLinkTo(slug, style)
     const excerpt =  _.get(post, 'ogDescription', '')
     const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
     const images = [
@@ -160,7 +160,7 @@ export default class ListArticleItem extends React.PureComponent {
     ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
     return (
       <Item key={id}>
-        <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
+        <Link to={url} target={formatPostLinkTarget(style)}>
           <ImageWrapper>
             <Image
               alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}

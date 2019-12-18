@@ -9,5 +9,5 @@ export const formatPostLinkTo = (targetPostSlug = '', targetPostStyle = '') => (
 )
 
 export const formatPostLinkTarget = (targetPostStyle = '') => (
-  targetPostStyle === 'interactive' ? '_blank' : null
+  targetPostStyle === 'interactive' ? '_blank' : undefined
 )
