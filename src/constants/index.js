@@ -2,15 +2,8 @@
 
 export * from './footer'
 export * from './link-prefix'
-export * from './site-meta'
 export * from './page-types'
 export * from './author-page'
-
-export const SITE_NAME = {
-  FULL: '報導者 The Reporter',
-  SHORT: '報導者',
-  SEPARATOR: ' - '
-}
 
 export const groupEnum = {
   CATEGORY: 'category',

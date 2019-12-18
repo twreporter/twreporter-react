@@ -6,8 +6,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { CATEGORY, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
+import { CATEGORY, PHOTOGRAPHY_PAGE, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -67,8 +68,8 @@ class Photography extends Component {
     })
     const posts = camelizeKeys(denormalizePosts(slugs, postEntities))
 
-    const canonical = SITE_META.URL_NO_SLASH + categoryPath.photographyPath
-    const title = '影像' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = siteMeta.urlOrigin + '/photography'
+    const title = '影像' + siteMeta.name.separator + siteMeta.name.full
     return (
       <div style={style}>
         <Helmet
@@ -77,11 +78,13 @@ class Photography extends Component {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { property: 'twitter:image', content: siteMeta.ogImage },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}

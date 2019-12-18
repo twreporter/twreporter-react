@@ -2,13 +2,14 @@ import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
 import { InternalServerError } from '../custom-error'
-import { LINK_PREFIX, SITE_META, SITE_NAME } from '../constants/'
+import { LINK_PREFIX } from '../constants/'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
 import React, { Component } from 'react'
+import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import twreporterRedux from '@twreporter/redux'
@@ -136,8 +137,8 @@ class Topics extends Component {
     })
 
     /* For helmet */
-    const canonical = `${SITE_META.URL}topics`
-    const title = '專題' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${siteMeta.urlOrigin}/topics`
+    const title = '專題' + siteMeta.name.separator + siteMeta.name.full
     return (
       <PageContainer>
         <Helmet
@@ -146,13 +147,13 @@ class Topics extends Component {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}

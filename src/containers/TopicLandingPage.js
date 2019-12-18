@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Related from '../components/topic/related'
+import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import TopicHeader from '../components/topic/header'
@@ -38,7 +38,7 @@ class TopicLandingPage extends Component {
     entities: {},
     selectedTopic: {}
   }
-  
+
   static propTypes = {
     // from redux store
     entities: PropTypes.object,
@@ -87,13 +87,13 @@ class TopicLandingPage extends Component {
     } = topic
     const topicDescription = _.get(topic, 'description.api_data', [])
     const teamDescription = _.get(topic, 'team_description.api_data', [])
-    const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
+    const ogDescription =  _.get(topic, 'og_description', '') || siteMeta.desc
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
-    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url') || _.get(topic, 'leading_image.resized_targets.tablet.url') 
+    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url') || _.get(topic, 'leading_image.resized_targets.tablet.url')
     const publishedDate = _.get(topic, 'published_date', '')
 
-    const canonical = `${SITE_META.URL}topics/${slug}`
-    const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${siteMeta.urlOrigin}/topics/${slug}`
+    const fullTitle = ogTitle + siteMeta.name.separator + siteMeta.name.full
     return (
       <Container>
         <Helmet

@@ -5,7 +5,6 @@ import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import mq from '../../../utils/media-query'
-import { SITE_META } from '../constants/data/index'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
 import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
@@ -16,6 +15,7 @@ import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
+import siteMeta from '../../../constants/site-meta'
 import styled from 'styled-components'
 
 const transitionDuration = 300
@@ -265,7 +265,7 @@ class AnchorsPanel extends React.PureComponent {
               <a href={hrefs.subscribe} target="_blank">
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
               </a>
-              <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
+              <a href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')} target="_blank">
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
               </a>
             </Icons>
