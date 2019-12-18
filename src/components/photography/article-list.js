@@ -1,5 +1,5 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
+import { INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import { Link } from 'react-router-dom'
@@ -148,7 +148,7 @@ export default class ListArticleItem extends React.PureComponent {
   _buildItem(post) {
     const { id, publishedDate, style, slug, title } = post
     const dateString = date2yyyymmdd(publishedDate , '.')
-    const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
+    const url = style === INTERACTIVE_ARTICLE_STYLE ? `/i/${slug}` : `/a/${slug}`
     const excerpt =  _.get(post, 'ogDescription', '')
     const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
     const images = [

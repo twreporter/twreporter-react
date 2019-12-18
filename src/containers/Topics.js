@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
 import { InternalServerError } from '../custom-error'
-import { LINK_PREFIX } from '../constants/'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
@@ -119,7 +118,7 @@ class Topics extends Component {
       return ({
         full: _.get(topic, 'full', false),
         id: _.get(topic, 'id', index),
-        linkTo: `${LINK_PREFIX.TOPICS}${_.get(topic, 'slug')}`,
+        linkTo: `/topics/${_.get(topic, 'slug')}`,
         title: _.get(topic, 'title', ''),
         topic_name: _.get(topic, 'topic_name', ''),
         updatedAt: date2yyyymmdd(_.get(topic, 'published_date'), '.') || '',

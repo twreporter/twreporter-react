@@ -1,8 +1,5 @@
 'use strict'
 
-export * from './footer'
-export * from './link-prefix'
-export * from './page-types'
 export * from './author-page'
 
 export const groupEnum = {

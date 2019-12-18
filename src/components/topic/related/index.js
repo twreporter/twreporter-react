@@ -1,4 +1,4 @@
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX } from '../../../constants/index'
+import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE } from '../../../constants/index'
 import { shortenString } from '../../../utils/string'
 import BarComponents from './related-as-bars'
 import base from './base'
@@ -71,7 +71,7 @@ export default class RelatedItems extends PureComponent {
     const publishedDate = date2yyyymmdd(_.get(item, 'published_date'), '.')
     const style = _.get(item, 'style')
     const description = shortenString(_.get(item, 'og_description', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
-    const prefix = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE
+    const prefix = style === INTERACTIVE_ARTICLE_STYLE ? '/i/' : '/a/'
     const target = style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : '_self'
     return (
       <components.Item

@@ -1,5 +1,5 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants'
+import {  INTERACTIVE_ARTICLE_STYLE } from '../../constants'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
@@ -110,10 +110,10 @@ const CardDate = styled.time`
 function _buildSlideFromPost(post) {
   const cats = _.get(post, 'categories', [])
   const catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-  let prefix = LINK_PREFIX.ARTICLE
+  let prefix = '/a/'
   let target = undefined
   if (post.style === INTERACTIVE_ARTICLE_STYLE) {
-    prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
+    prefix = '/i/'
     target = '_blank'
   }
   const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
