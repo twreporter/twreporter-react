@@ -1,5 +1,4 @@
 import { articleLayout as layout } from '../../themes/layout'
-import constStyledComponents from '../../constants/styled-components'
 import LogoIcon from '../../../static/asset/icon-placeholder.svg'
 import mq from '../../utils/media-query'
 import React from 'react'
@@ -9,6 +8,23 @@ const mockStyle = css`
   background-color: rgba(191, 191, 191, .5);
   box-shadow: 0px 0px 3px rgba(#666666, 0.05);
   opacity: 0.9;
+`
+
+const Container = styled.div`
+  max-width: 100%;
+  margin: 0 auto;
+
+  ${mq.tabletOnly`
+    max-width: 768px;
+  `}
+
+  ${mq.desktopOnly`
+    max-width: 992px;
+  `}
+
+  ${mq.hdOnly`
+    max-width: 1200px;
+  `}
 `
 
 const IntroductionContainer = styled.div`
@@ -79,7 +95,7 @@ const MockTextLine = styled.div`
 
 export default function ArticlePlaceholder() {
   return (
-    <constStyledComponents.ResponsiveContainerForAritclePage>
+    <Container>
       <TitleSection>
         <Title1 />
         <Title2 />
@@ -93,6 +109,6 @@ export default function ArticlePlaceholder() {
         <MockTextLine />
         <MockTextLine />
       </IntroductionContainer>
-    </constStyledComponents.ResponsiveContainerForAritclePage>
+    </Container>
   )
 }
