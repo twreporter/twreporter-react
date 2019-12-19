@@ -9,7 +9,7 @@ const presets = [
       node: 'current',
       browsers: ['last 2 versions'],
     },
-    debug: true,
+    debug: isProduction,
     useBuiltIns: true
   }],
   require('babel-preset-react'),
