@@ -1,7 +1,5 @@
 'use strict'
 
-export * from './author-page'
-
 export const groupEnum = {
   CATEGORY: 'category',
   TAG: 'tag',
