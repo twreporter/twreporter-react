@@ -1,14 +1,9 @@
 /* eslint no-console: 0 */
-/* global __DEVELOPMENT__ */
 const ExpressServer = require('./express/server')
 const Loadable = require('react-loadable')
 const config = require('../config')
 const path = require('path')
-/**
- * Define isomorphic constants.
- */
-global.__CLIENT__ = false
-global.__DEVELOPMENT__ = config.nodeEnv !== 'production'
+const globalEnv = require('./global-env')
 
 /**
  *  Loads file asynchrously and repeatedly if failing.
@@ -58,7 +53,7 @@ Promise.all([
     cookieSecret: config.cookieSecret
   }
   server.setup(files[0], files[1], options)
-  if (__DEVELOPMENT__) {
+  if (globalEnv.isDevelopment) {
     server.run(host, port)
   } else {
     return Loadable.preloadAll().then(() => {

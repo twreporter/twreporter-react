@@ -1,18 +1,18 @@
 /* eslint no-console:0 */
-/* global __DEVELOPMENT__ */
+/* eslint-env browser */
 import 'babel-polyfill'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { getGlobalEnv } from '@twreporter/core/lib/utils/global-env'
 import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
+import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch.js'
 import twreporterRedux from '@twreporter/redux'
 
-const releaseBranch = getGlobalEnv().releaseBranch
+const releaseBranch = globalEnv.releaseBranch
 
 let reduxState
 
@@ -21,22 +21,18 @@ if (window.__REDUX_STATE__) {
 }
 
 function scrollToTopAndFirePageview() {
-  if(window) {
-    window.scrollTo(0, 0)
-    // send Google Analytics Pageview event on route changed
-    ReactGA.pageview(window.location.pathname)
-  }
+  window.scrollTo(0, 0)
+  // send Google Analytics Pageview event on route changed
+  ReactGA.pageview(window.location.pathname)
 
   return null
 }
 
-twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
+twreporterRedux.createStore(reduxState, '', globalEnv.isDevelopment)
   .then((store) => {
-    if (typeof window !== 'undefined') {
-      // add Google Analytics
-      ReactGA.initialize('UA-69336956-1')
-      ReactGA.set({ page: window.location.pathname })
-    }
+    // add Google Analytics
+    ReactGA.initialize('UA-69336956-1')
+    ReactGA.set({ page: window.location.pathname })
     const jsx = (
       <BrowserRouter>
         <React.Fragment>
@@ -48,7 +44,7 @@ twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
     )
 
     Loadable.preloadReady().then(() => {
-      if (__DEVELOPMENT__) {
+      if (globalEnv.isDevelopment) {
         ReactDOM.render(jsx, document.getElementById('root'))
         return
       }
@@ -72,10 +68,10 @@ twreporterRedux.createStore(reduxState, '', __DEVELOPMENT__)
  * limitations under the License.
  */
 
-/* eslint-env browser */
-'use strict'
 
-if ('serviceWorker' in navigator && !__DEVELOPMENT__ && releaseBranch !== releaseBranchConsts.preview ) {
+if ( 'serviceWorker' in navigator &&
+  globalEnv.isProduction &&
+  releaseBranch !== releaseBranchConsts.preview ) {
   // Delay registration until after the page has loaded, to ensure that our
   // precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration

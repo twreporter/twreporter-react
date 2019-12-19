@@ -1,4 +1,3 @@
-/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
@@ -7,6 +6,7 @@ import authMiddleware from './middlewares/auth'
 import cookieParser from 'cookie-parser'
 import dataLoaderMiddleware from './middlewares/data-loader'
 import get from 'lodash/get'
+import globalEnv from '../global-env'
 import http from 'http'
 import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
@@ -192,7 +192,7 @@ class ExpressServer {
     this.__applyDefaultMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
-    if (!__DEVELOPMENT__) {
+    if (globalEnv.isProduction) {
       this.__applyServiceWorkerRoutes()
     }
     this.__applySearchEngineRoutes()
