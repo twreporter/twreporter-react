@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
+import colors from '../constants/colors'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -55,7 +55,7 @@ class Photography extends Component {
     const total = _.get(lists, [ listID, 'total' ], 0)
 
     const style = {
-      backgroundColor: colors.darkBg,
+      backgroundColor: colors.photographyColor,
       color: '#FFFFEB'
     }
 

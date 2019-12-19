@@ -1,4 +1,3 @@
-import { CHARACTERS_LIMIT } from '../../constants/index'
 import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 import { shortenString } from '../../utils/string'
 import { Waypoint } from 'react-waypoint'
@@ -135,12 +134,13 @@ const CenteredSpinner = styled(LoadingSpinner)`
 `
 
 function buildListItem(item) {
+  const charLimit = 120
   const image = _.get(item, 'heroImage.image.resizedTargets.mobile', {})
   image.url = replaceGCSUrlOrigin(image.url)
   const slug = _.get(item, 'slug', '')
   const title = _.get(item, 'title', '')
   const style = _.get(item, 'style', '')
-  const description = shortenString(get(item, 'ogDescription', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
+  const description = shortenString(get(item, 'ogDescription', ''), charLimit)
   return (
     <Item key={slug}>
       <Anchor to={formatPostLinkTo(slug, style)} target={formatPostLinkTarget(style)}>
