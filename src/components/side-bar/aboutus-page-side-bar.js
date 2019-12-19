@@ -1,6 +1,4 @@
-import { SITE_META } from '../about-us/constants/data/index'
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
-import { colors, typography } from '../../themes/common-variables'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../about-us/utils/config'
 import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
@@ -8,9 +6,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
 import baseComponents from './base-components'
+import colors from '../../constants/colors'
 import hrefs from '../about-us/constants/data/sidebar-link'
 import mq from '../about-us/utils/media-query'
+import siteMeta from '../../constants/site-meta'
 import styled from 'styled-components'
+import typography from '../../constants/typography'
 
 const StyledAnchor = styled(baseComponents.StyledAnchor)`
   position: relative;
@@ -137,7 +138,7 @@ class AboutusPageSideBar extends React.PureComponent {
             <a href={hrefs.subscribe} target="_blank">
               <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
             </a>
-            <a href={buildFbShareLink(SITE_META.URL)} target="_blank">
+            <a href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')} target="_blank">
               <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
             </a>
           </Icons>

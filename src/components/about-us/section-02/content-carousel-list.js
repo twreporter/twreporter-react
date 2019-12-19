@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { font } from '../constants/styles'
 import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'

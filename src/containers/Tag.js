@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
-import { SITE_META, SITE_NAME } from '../constants/index'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -99,8 +99,8 @@ class Tag extends PureComponent {
       )
     }
     const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
-    const canonical = `${SITE_META.URL}tag/${tagId}`
-    const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
+    const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
     return (
       <div>
@@ -110,13 +110,13 @@ class Tag extends PureComponent {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}

@@ -1,5 +1,5 @@
 
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
