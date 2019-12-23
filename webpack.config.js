@@ -80,6 +80,19 @@ const webpackConfig = {
       }
     ]
   },
+  resolve: {
+    alias: {
+      // import winston from 'winston'
+      // ->
+      // import winston from 'src/logger/noop.js'
+      winston: path.resolve(__dirname, 'src/logger/noop.js'),
+      // import lw from '@google-cloud/logging-winston'
+      // ->
+      // import lw from 'src/logger/noop.js'
+      '@google-cloud/logging-winston': path.resolve(__dirname, 'src/logger/noop.js')
+      // the above alias is used to not import node-specific module into webpack bundle
+    }
+  },
   plugins: [
     /*
       Do not retreive the global value via code like `_.get(process, `env.NODE_ENV`)`.
@@ -89,6 +102,7 @@ const webpackConfig = {
       'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
       'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch)
     }),
+
     // This plugin will cause hashes to be based on the relative path of the module,
     // generating a four character string as the module id
     // Ref: https://webpack.js.org/plugins/hashed-module-ids-plugin/
