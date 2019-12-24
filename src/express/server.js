@@ -12,10 +12,13 @@ import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
 import renderHTMLMiddleware from './middlewares/render-html'
 import { NotFoundError } from '../custom-error'
+import loggerFactory from '../logger'
 
 const _ = {
   get
 }
+
+const logger = loggerFactory.getLogger()
 
 class ExpressServer {
   constructor() {
@@ -161,16 +164,13 @@ class ExpressServer {
   }
 
   __applyCustomErrorHandler() {
-    const pe = new PrettyError()
-    pe.skipNodeFiles()
-    pe.skipPackage('express')
 
     this.app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       if (res.headersSent) {
         return next(err)
       }
 
-      console.log(pe.render(err)) // eslint-disable-line no-console
+      logger.error(err)
       res.header('Cache-Control', 'no-store')
       if (err instanceof NotFoundError || _.get(err, 'response.status') === 404) {
         res.redirect('/error/404')
@@ -178,6 +178,16 @@ class ExpressServer {
         res.redirect('/error/500')
       }
     })
+  }
+
+  async __applyLogger() {
+    try {
+      const mw = await loggerFactory.makeExpressMiddleware()
+      this.app.use(mw)
+    } catch(err) {
+      logger.error('Cannot apply logger express middleware')
+      logger.error(err)
+    }
   }
 
   /**
@@ -188,7 +198,8 @@ class ExpressServer {
    *  @param {string} options.nodeEnv - node environment, it could be 'development' or 'production'
    *  @param {string} options.cookieSecret - secret for cookie parser
    */
-  setup(webpackAssets, loadableStats, options) {
+  async setup(webpackAssets, loadableStats, options) {
+    await this.__applyLogger()
     this.__applyDefaultMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
@@ -209,14 +220,14 @@ class ExpressServer {
     if (port) {
       this.server.listen(port, (err) => {
         if (err) {
-          console.error(err) // eslint-disable-line no-console
+          logger.error(err)
         }
-        console.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port) // eslint-disable-line no-console
+        logger.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port)
       })
     } else {
-      console.error('==>     ERROR: No PORT environment variable has been specified') // eslint-disable-line no-console
+      logger.error('==>     ERROR: No PORT environment variable has been specified')
     }
   }
 }
 
-module.exports = ExpressServer
+export default ExpressServer
