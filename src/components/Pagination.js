@@ -2,10 +2,13 @@ import { withRouter } from 'react-router-dom'
 import Pagination from '@twreporter/react-components/lib/pagination'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import loggerFactory from '../logger'
 import qs from 'qs'
 // lodash
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get,
@@ -24,14 +27,7 @@ class EnhancedPagination extends PureComponent {
     try {
       this.props.history.push(to)
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(
-        'Error on `history.push(to)`.\n',
-        'to:\n',
-        to,
-        'error:\n',
-        err
-      )
+      logger.error(`Error on history.push(${to}), `, err)
     }
   }
 

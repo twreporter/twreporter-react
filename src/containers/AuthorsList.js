@@ -4,6 +4,7 @@ import Authors from '../components/authors/authors'
 import AuthorSearchBox from '../components/authors/author-search-box'
 import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
+import loggerFactory from '../logger'
 import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -18,6 +19,8 @@ import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/fo
 import get from 'lodash/get'
 import map from 'lodash/map'
 import values from 'lodash/values'
+
+const logger = loggerFactory.getLogger()
 
 const { searchAuthorsIfNeeded } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
@@ -141,7 +144,9 @@ class AuthorsList extends React.Component {
 
   _renderServerError() {
     const errorMessage = _.get(this._getAuthorsList(), 'error.message')
-    if (errorMessage) { console.error(errorMessage) } // eslint-disable-line no-console
+    if (errorMessage) {
+      logger.error(`Fail to render author list page due to server error: ${errorMessage}`)
+    }
     return (
       <ErrorMessage>
         抱歉，資料伺服器錯誤，請稍後再嘗試

@@ -1,9 +1,11 @@
-// import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
-import styled from 'styled-components'
+import loggerFactory from '../../logger'
 import mq from '../../utils/media-query'
+import styled from 'styled-components'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+
+const logger = loggerFactory.getLogger()
 
 const searchPath = '/search'
 
@@ -79,7 +81,9 @@ export default class SearchBox extends PureComponent {
       if (nextShow) {
         try {
           this._input.current.focus()
-        } catch (err) { console.error(err) } // eslint-disable-line no-console
+        } catch (err) {
+          logger.error(err)
+        }
       }
     })
   }
