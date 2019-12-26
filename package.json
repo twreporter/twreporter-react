@@ -45,7 +45,6 @@
     "lodash": "^4.0.0",
     "memoize-one": "^5.0.5",
     "path-to-regexp": "^3.0.0",
-    "pretty-error": "^2.0.0",
     "prop-types": "^15.0.0",
     "qs": "^6.5.2",
     "react": "^16.3.0",
