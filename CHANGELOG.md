@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.10-rc.3
+### Commits
+* [[`9f9796a722`](https://github.com/twreporter/twreporter-react/commit/9f9796a722)] - **fix**: import pretty-error not found (nickhsine)
+
 ## 4.4.10-rc.2
 ### Notable Changes
 - refactor:
