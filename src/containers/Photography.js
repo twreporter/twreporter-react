@@ -1,4 +1,4 @@
-/* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
+/* eslint no-unused-vars: [0, { "args": "all" }]*/
 
 import ArticleList from '../components/photography/article-list'
 import Helmet from 'react-helmet'

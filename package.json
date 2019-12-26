@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.4.10-rc.1",
+  "version": "4.4.10-rc.2",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -26,6 +26,7 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
+    "@google-cloud/logging-winston": "^3.0.2",
     "@twreporter/core": "^1.1.2",
     "@twreporter/index-page": "^1.0.6",
     "@twreporter/react-article-components": "^1.0.26",
@@ -44,7 +45,6 @@
     "lodash": "^4.0.0",
     "memoize-one": "^5.0.5",
     "path-to-regexp": "^3.0.0",
-    "pretty-error": "^2.0.0",
     "prop-types": "^15.0.0",
     "qs": "^6.5.2",
     "react": "^16.3.0",
@@ -61,7 +61,8 @@
     "smoothscroll": "0.3.0",
     "styled-components": "^4.0.0",
     "sw-toolbox": "^3.6.0",
-    "velocity-react": "^1.4.3"
+    "velocity-react": "^1.4.3",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",

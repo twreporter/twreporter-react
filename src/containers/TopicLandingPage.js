@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Related from '../components/topic/related'
@@ -15,6 +16,8 @@ import twreporterRedux from '@twreporter/redux'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+
+const logger = loggerFactory.getLogger()
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 
@@ -69,7 +72,7 @@ class TopicLandingPage extends Component {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
     const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0')
     if (!topic) {
-      console.error('There is no topic in store corresponding with the given slug:', slug) // eslint-disable-line no-console
+      logger.error(`There is no topic in store corresponding with the given slug: ${slug}`)
       return <SystemError error={{ status: 404 }} />
     }
     const {

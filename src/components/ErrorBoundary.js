@@ -1,4 +1,7 @@
 import React from 'react'
+import loggerFactory from '../logger'
+
+const logger = loggerFactory.getLogger()
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -10,7 +13,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    console.error('An error was catched in React ErrorBoundary:', error, info) // eslint-disable-line no-console
+    logger.error('An error was catched in React ErrorBoundary, ', error)
     this.setState({ hasError: true })
     this._error = error
     this._info = info
