@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
-import PrettyError from 'pretty-error'
 import authMiddleware from './middlewares/auth'
 import cookieParser from 'cookie-parser'
 import dataLoaderMiddleware from './middlewares/data-loader'
