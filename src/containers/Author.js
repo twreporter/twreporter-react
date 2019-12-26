@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
-import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import AuthorCollection from '../components/author-page/author-collection'
 import AuthorData from '../components/author-page/author-data'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
+import siteMeta from '../constants/site-meta'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import twreporterRedux from '@twreporter/redux'
@@ -61,8 +61,8 @@ class Author extends React.Component {
 
   render() {
     const { author, collections, collectionMeta } = this.props
-    const fullTitle = author.name + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHOR}${author.id}`
+    const fullTitle = author.name + siteMeta.name.separator + siteMeta.name.full
+    const canonical = `${siteMeta.urlOrigin}/authors/${author.id}`
     const pureTextBio = author.bio ? author.bio.replace(/<[^>]*>?/gm, '') : '' // pure text only
     return (
       <React.Fragment>
@@ -75,12 +75,12 @@ class Author extends React.Component {
             { name: 'description', content: pureTextBio },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: pureTextBio },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
-            { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
+            { name: 'twitter:image', content: siteMeta.ogImage },
+            { name: 'twitter:card', content: 'summary' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: pureTextBio },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
-            { property: 'og:type', content: OG_TYPE.PROFILE },
+            { property: 'og:image', content:  siteMeta.ogImage },
+            { property: 'og:type', content: 'profile' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
           ]}

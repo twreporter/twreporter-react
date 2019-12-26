@@ -1,5 +1,3 @@
-import { articleLayout as layout } from '../../themes/layout'
-import constStyledComponents from '../../constants/styled-components'
 import LogoIcon from '../../../static/asset/icon-placeholder.svg'
 import mq from '../../utils/media-query'
 import React from 'react'
@@ -11,16 +9,33 @@ const mockStyle = css`
   opacity: 0.9;
 `
 
+const Container = styled.div`
+  max-width: 100%;
+  margin: 0 auto;
+
+  ${mq.tabletOnly`
+    max-width: 768px;
+  `}
+
+  ${mq.desktopOnly`
+    max-width: 1024px;
+  `}
+
+  ${mq.hdOnly`
+    max-width: 1440px;
+  `}
+`
+
 const IntroductionContainer = styled.div`
   margin: 0 auto 80px auto;
   ${mq.mobileOnly`
     margin: 0 24px 80px 24px;
   `};
   ${mq.tabletOnly`
-    width: ${layout.tablet.width.small}px;
+    width: 556px;
   `};
   ${mq.desktopAndAbove`
-    width: ${layout.desktop.width.small}px;
+    width: 664px;
   `};
 `
 
@@ -30,10 +45,10 @@ const TitleSection = styled.div`
     margin: 0 24px;
   `};
   ${mq.tabletOnly`
-    width: ${layout.tablet.width.small}px;
+    width: 556px;
   `};
   ${mq.desktopAndAbove`
-    width: ${layout.desktop.width.small}px;
+    width: 665px;
   `};
 `
 
@@ -79,7 +94,7 @@ const MockTextLine = styled.div`
 
 export default function ArticlePlaceholder() {
   return (
-    <constStyledComponents.ResponsiveContainerForAritclePage>
+    <Container>
       <TitleSection>
         <Title1 />
         <Title2 />
@@ -93,6 +108,6 @@ export default function ArticlePlaceholder() {
         <MockTextLine />
         <MockTextLine />
       </IntroductionContainer>
-    </constStyledComponents.ResponsiveContainerForAritclePage>
+    </Container>
   )
 }

@@ -1,5 +1,5 @@
 import { Waypoint } from 'react-waypoint'
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'

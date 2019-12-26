@@ -1,4 +1,4 @@
-import { appId } from '../../../constants/index'
+const appId = '962589903815787'
 
 export function buildFbShareLink(url) {
   const display = 'page'

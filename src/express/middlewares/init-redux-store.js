@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__ */
+import globalEnv from '../../global-env'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
 // lodash
@@ -26,7 +26,7 @@ function initReduxStoreMiddleware(namespace, options) {
       const initState = {
         [stateFields.origins]: requestOrigins.forServerSideRendering[options.releaseBranch]
       }
-      const reduxStore = await twreporterRedux.createStore(initState, cookieList, __DEVELOPMENT__)
+      const reduxStore = await twreporterRedux.createStore(initState, cookieList, globalEnv.isDevelopment)
       _.set(req, [ namespace, 'reduxStore' ], reduxStore)
       next()
     } catch(err) {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
-import { typography } from '../../themes/common-variables'
+import typography from '../../constants/typography'
 
 const _ = {
   get

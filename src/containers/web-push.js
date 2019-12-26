@@ -1,7 +1,7 @@
-/* eslint no-console: 0 */
 import { connect } from 'react-redux'
-import mq from '../utils/media-query'
 import axios from 'axios'
+import loggerFactory from '../logger'
+import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import statusCodeConst from '../constants/status-code'
@@ -10,6 +10,8 @@ import twreporterRedux from '@twreporter/redux'
 
 // lodash
 import get from 'lodash/get'
+
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get
@@ -242,9 +244,30 @@ class WebPush extends PureComponent {
         return navigator.serviceWorker.getRegistration()
           .then((reg) => {
             if (reg) {
-              return this._isNotificationSubscribed(reg)
+              return reg.pushManager.getSubscription()
             }
-            console.warn('No service worker registration was found')
+            return null
+          })
+          .then((subscription) => {
+            if (subscription !== null) {
+              const endpoint = subscription.endpoint
+              return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
+                .catch((err) => {
+                  const statusCode = _.get(err, 'response.status')
+                  if (statusCode === statusCodeConst.notFound) {
+                    return err.response
+                  }
+                  return Promise.reject(err)
+                })
+            }
+            return null
+          })
+          .then((axiosRes) => {
+            let isSubscribed = false
+            if (_.get(axiosRes, 'status') == statusCodeConst.ok) {
+              isSubscribed = true
+            }
+            return isSubscribed
           })
           .then((isSubscribed) => {
             this.setState({
@@ -252,158 +275,15 @@ class WebPush extends PureComponent {
             })
           })
           .catch((err) => {
-            console.warn('Something went wrong during checking web push subscription is existed or not')
+            logger.error('Something went wrong during checking web push subscription is existed or not')
             if (err) {
-              console.warn(err)
+              logger.error(err)
             }
           })
       } else {
-        console.log('Browser does not support web push or service worker')
+        logger.info('Browser does not support web push or service worker')
       }
     }
-  }
-
-  /**
-  * Check if the web push endpoint is subscribed o not
-  * @param {string} endpoint - Web push subscription endpoint
-  * @return {Promise} A Promise resolves to true if subscribed, otherwise, false.
-  */
-  _isSubscriptionExisted(endpoint) {
-    return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
-      .then(() => {
-        return true
-      })
-      .catch((err) => {
-        const statusCode = _.get(err, 'response.status', statusCodeConst.internalServerError)
-        if (statusCode === statusCodeConst.notFound) {
-          console.log('Web push subscription is not existed')
-          return false
-        }
-        console.warn('Sending GET request to /wep-push endpoint occurs error')
-        return Promise.reject(err)
-      })
-  }
-
-  /**
-  * Send request to API server to subscribe the web push.
-  * @param {Object} subscription - A instance of `PushSubscription`
-  * See MDN doc about PushSubscription (https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription)
-  * @parma {number} userID - id of user
-  * @return {Promise}
-  */
-  _updateSubscription(subscription, userID) {
-    if (subscription && typeof subscription.toJSON === 'function') {
-      const _subscription = subscription.toJSON()
-      const data = {
-        endpoint: _subscription.endpoint,
-        keys: JSON.stringify(_subscription.keys),
-        userID
-      }
-
-      if (_subscription.expirationTime && typeof _subscription.expirationTime.toString === 'function') {
-        data.expirationTime = _subscription.expirationTime.toString()
-      }
-
-      return axios.post(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'), data)
-        .catch((err) => {
-          console.warn('Sending POST request to /v1/web-push endpoint occurs error')
-          return Promise.reject(err)
-        })
-    }
-    console.warn('Failed in _updateSubscription, expect `subscription.toJSON` to be a function', subscription)
-  }
-
-  /**
-  * Use service worker to subscribe the web push.
-  * @param {Object} registration - Service worker registration
-  */
-  _createSubscription(registration) {
-    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
-    return registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: applicationServerKey
-    })
-      .then((subscription) => {
-        console.log('Received web push subscription: ', JSON.stringify(subscription))
-        console.log('User is subscribed.')
-        return subscription
-      })
-      .catch((err) => {
-        console.warn('Failed to subscribe web push by service worker registration')
-        return Promise.reject(err)
-      })
-  }
-
-  /**
-  * Check if service worker registration is already subscribed
-  * @param {Object} reg - Service worker registration
-  * @return {Object} Promise resovles to true
-  */
-  _isNotificationSubscribed(reg) {
-    return reg.pushManager.getSubscription()
-      .then((subscription) => {
-        if (subscription !== null) {
-          return this._isSubscriptionExisted(subscription.endpoint)
-        }
-        return false
-      })
-  }
-
-  /**
-  * Subscribe to receive notifications
-  * @param {number} userID - id of user
-  * @return {Object} Promise
-  */
-  _subscribeNotification(userID) {
-    if (isPushSupported() && isServiceWorkerSupported()) {
-      return navigator.serviceWorker.getRegistration()
-        .then((reg) => {
-          return this._createSubscription(reg)
-        })
-        .then((subscription) => {
-          return this._updateSubscription(subscription, userID)
-        })
-    } else {
-      console.log('Browser does not support web push or service worker')
-    }
-  }
-
-  /**
-  * request permission of sending notifications
-  * @param {number} userID - id of user
-  * @return {Object} Promise
-  */
-  _requestNotificationPermission(userID) {
-    return new Promise((resolve, reject) => {
-      if (isNotificationSupported()) {
-        if (Notification.permission === 'denied') {
-          Notification.requestPermission((permission) => {
-            if (permission === 'grant') {
-              console.log('User grant the notification request')
-              return this._subscribeNotification(userID)
-                .then(resolve)
-                .catch((err) => {
-                  console.warn('Subscribing web push notification fails')
-                  reject(err)
-                })
-            }
-
-            console.log('User deny the notification request')
-            return reject()
-          })
-        } else {
-          return this._subscribeNotification(userID)
-            .then(resolve)
-            .catch((err) => {
-              console.warn('Subscribing web push notification fails')
-              reject(err)
-            })
-        }
-      } else {
-        console.log('Notification is not support')
-        return resolve()
-      }
-    })
   }
 
   _setNextPopupToNextMonth() {
@@ -418,24 +298,85 @@ class WebPush extends PureComponent {
 
   _acceptNotification() {
     const { userID } = this.props
-    this._requestNotificationPermission(userID)
-      .then(() => {
-        console.log('Accept web push notification successfully')
-        this.setState({
-          toShowNotify: false
-        })
-        this._setNextPopupToNextMonth()
-      })
-      .catch((err) => {
-        console.warn('Fail to accept web push notification')
-        if (err) {
-          console.warn(err)
+    if (isNotificationSupported() &&
+      isPushSupported() &&
+      isServiceWorkerSupported()) {
+      return new Promise((resolve, reject) => {
+        if (Notification.permission === 'denied') {
+          Notification.requestPermission((permission) => {
+            const isGrant = permission === 'grant'
+            if (isGrant) {
+              return resolve(isGrant)
+            }
+            return reject('User denies Notification request permission')
+          })
+        } else {
+          const isGrant = true
+          resolve(isGrant)
         }
-        this.setState({
-          toShowInstruction: true
-        })
       })
+        .then((isGrant) => {
+          if (isGrant) {
+            return navigator.serviceWorker.getRegistration()
+          }
 
+          return null
+        })
+        .then((reg) => {
+          if (reg) {
+            const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
+            return reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: applicationServerKey
+            })
+          }
+          return null
+        })
+        .then((subscription) => {
+          if (subscription && typeof subscription.toJSON === 'function') {
+            const _subscription = subscription.toJSON()
+            const data = {
+              endpoint: _subscription.endpoint,
+              keys: JSON.stringify(_subscription.keys),
+              userID
+            }
+
+            if (_subscription.expirationTime &&
+              typeof _subscription.expirationTime.toString === 'function') {
+              data.expirationTime = _subscription.expirationTime.toString()
+            }
+
+            return axios.post(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'), data)
+          }
+
+          return null
+        })
+        .then((axiosRes) => {
+          let toShowNotify = true
+          if (_.get(axiosRes, 'status') === statusCodeConst.created) {
+            toShowNotify = false
+          }
+          return toShowNotify
+        })
+        .then((toShowNotify) => {
+          this.setState({
+            toShowNotify
+          })
+          this._setNextPopupToNextMonth()
+          logger.info('Accept web push notification successfully.')
+        })
+        .catch((err) => {
+          logger.error('Fail to accept web push notification.')
+          if (err) {
+            logger.error(err)
+          }
+          this.setState({
+            toShowInstruction: true
+          })
+        })
+    } else {
+      logger.info('Browser does not support `Notification`, `PushManager` or `serviceWorker`.')
+    }
   }
 
   _denyNotification() {

@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { font } from '../constants/styles'
 import { months } from '../constants/section-05/months'
 import mq from '../utils/media-query'

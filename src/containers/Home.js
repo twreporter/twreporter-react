@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { SITE_NAME, SITE_META } from '../constants/index'
 import categoryConst from '../constants/category'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
@@ -8,6 +7,7 @@ import LoadingSpinner from '../components/Spinner'
 import qs from 'qs'
 import React from 'react'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
+import siteMeta from '../constants/site-meta'
 import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
@@ -230,20 +230,20 @@ class Homepage extends React.PureComponent {
           </LoadingCover>
         </CSSTransition>
         <Helmet
-          title={SITE_NAME.FULL}
+          title={siteMeta.name.full}
           link={[
-            { rel: 'canonical', href: SITE_META.URL }
+            { rel: 'canonical', href: siteMeta.urlOrigin + '/' }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
-            { name: 'twitter:title', content: SITE_NAME.FULL },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { property: 'og:title', content: SITE_NAME.FULL },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: siteMeta.name.full },
+            { name: 'twitter:image', content: siteMeta.ogImage },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { property: 'og:title', content: siteMeta.name.full },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: SITE_META.URL }
+            { property: 'og:url', content: siteMeta.urlOrigin + '/' }
           ]}
         />
         <SideBar

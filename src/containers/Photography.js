@@ -1,4 +1,4 @@
-/* eslint no-console: 0, no-unused-vars: [0, { "args": "all" }]*/
+/* eslint no-unused-vars: [0, { "args": "all" }]*/
 
 import ArticleList from '../components/photography/article-list'
 import Helmet from 'react-helmet'
@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
-import pt from '../constants/page-themes'
+import colors from '../constants/colors'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { CATEGORY, PHOTOGRAPH_CH_STR, PHOTOGRAPHY_PAGE, SITE_META, SITE_NAME, categoryPath, colors } from '../constants/index'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
@@ -55,7 +55,7 @@ class Photography extends Component {
     const total = _.get(lists, [ listID, 'total' ], 0)
 
     const style = {
-      backgroundColor: colors.darkBg,
+      backgroundColor: colors.photographyColor,
       color: '#FFFFEB'
     }
 
@@ -68,8 +68,8 @@ class Photography extends Component {
     })
     const posts = camelizeKeys(denormalizePosts(slugs, postEntities))
 
-    const canonical = SITE_META.URL_NO_SLASH + categoryPath.photographyPath
-    const title = PHOTOGRAPH_CH_STR + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = siteMeta.urlOrigin + '/photography'
+    const title = '影像' + siteMeta.name.separator + siteMeta.name.full
     return (
       <div style={style}>
         <Helmet
@@ -78,11 +78,13 @@ class Photography extends Component {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { property: 'twitter:image', content: siteMeta.ogImage },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}
@@ -90,7 +92,6 @@ class Photography extends Component {
         <TopNews posts={topNewsItems} />
         <ArticleList
           articles={posts}
-          bgStyle={pt.tone.dark}
           hasMore={total > _.get(lists, [ listID, 'items', 'length' ], 0)}
           loadMore={this.loadMoreArticles}
         />

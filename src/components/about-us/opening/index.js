@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'

@@ -1,4 +1,4 @@
-import { google } from '../conf/storage'
+import { google } from '@twreporter/core/lib/constants/storage'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PropTypes from 'prop-types'
 import React from 'react'

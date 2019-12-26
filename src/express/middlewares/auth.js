@@ -3,6 +3,7 @@ import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
 import getRoutes from '../../routes'
 import twreporterRedux from '@twreporter/redux'
+import loggerFactory from '../../logger'
 
 const _ = {
   get
@@ -13,6 +14,8 @@ const masterBranch = 'master'
 
 const { actions, actionTypes } = twreporterRedux
 const { getAccessToken } = actions
+
+const logger = loggerFactory.getLogger()
 
 /**
  *  Decode the payload of JWT from base64 string into JSON object
@@ -25,7 +28,7 @@ function decodePayload(jwt) {
     const payload = _.get(jwt.split('.'), 1)
     return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'))
   } catch (err) {
-    console.warn('extract payload from jwt error: ', err) // eslint-disable-line
+    logger.warn('Fail to extract payload from jwt, ', err)
     return null
   }
 }
@@ -108,7 +111,7 @@ function authMiddleware(namespace, options) {
             if (authorizationRequired) {
               next(new Error(errorMessage))
             } else {
-              console.error(errorMessage) // eslint-disable-line
+              logger.warn(errorMessage)
               next()
             }
           }
@@ -119,10 +122,10 @@ function authMiddleware(namespace, options) {
           // If the page requires authorization, throw an error to express.
           const errorMessage = 'An unexpected error occoured when the server try to get access token. Skip authorization.'
           if (authorizationRequired) {
-            console.error(err) // eslint-disable-line no-console
-            next(new Error(errorMessage))
+            next(err)
           } else {
-            console.error(errorMessage, err) // eslint-disable-line no-console
+            logger.warn(errorMessage)
+            logger.warn(err)
             next()
           }
         })

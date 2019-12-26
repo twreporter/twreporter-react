@@ -1,13 +1,13 @@
-import { basePath, LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../constants/index'
+import siteMeta from '../constants/site-meta'
 
 export function getAbsPath(pathname='', search='') {
-  return basePath + pathname + search
+  return siteMeta.urlOrigin + pathname + search
 }
 
 export const formatPostLinkTo = (targetPostSlug = '', targetPostStyle = '') => (
-  (targetPostStyle === INTERACTIVE_ARTICLE_STYLE) ? `${LINK_PREFIX.INTERACTIVE_ARTICLE}${targetPostSlug}` : `${LINK_PREFIX.ARTICLE}${targetPostSlug}`
+  (targetPostStyle === 'interactive') ? `/i/${targetPostSlug}` : `/a/${targetPostSlug}`
 )
 
 export const formatPostLinkTarget = (targetPostStyle = '') => (
-  targetPostStyle === INTERACTIVE_ARTICLE_STYLE ? '_blank' : null
+  targetPostStyle === 'interactive' ? '_blank' : undefined
 )
