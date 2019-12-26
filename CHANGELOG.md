@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.4.10-rc.2
+### Notable Changes
+- refactor:
+  - integration with stackdriver logging
+
+### Commits
+* [[`2b1dd23ab7`](https://github.com/twreporter/twreporter-react/commit/2b1dd23ab7)] - **refactor**: src/containers/web-push.js (nickhsine)
+* [[`4a2478c83c`](https://github.com/twreporter/twreporter-react/commit/4a2478c83c)] - **chore**: remove dependencies `pretty-error` (nickhsine)
+* [[`13deb19c4a`](https://github.com/twreporter/twreporter-react/commit/13deb19c4a)] - **refactor**: integrate src/logger/index.js with express middleware (nickhsine)
+* [[`5c5ed3b3cd`](https://github.com/twreporter/twreporter-react/commit/5c5ed3b3cd)] - **refactor**: integrate with src/logger/index.js (nickhsine)
+* [[`c8e6165903`](https://github.com/twreporter/twreporter-react/commit/c8e6165903)] - **refactor**: integration with stackdriver logging system (nickhsine)
+* [[`33e6f43a1f`](https://github.com/twreporter/twreporter-react/commit/33e6f43a1f)] - **chore**: add dependencies `winston` and `@google-cloud/logging-winston` (nickhsine)
+* [[`6fdfd6d46f`](https://github.com/twreporter/twreporter-react/commit/6fdfd6d46f)] - **chore**: update src/mock-data/index-page-categories.json (nickhsine)
+* [[`2e0bb300cf`](https://github.com/twreporter/twreporter-react/commit/2e0bb300cf)] - **refactor**: remove client/server side global variables (nickhsine)
+
+
 ## 4.4.10-rc.1
 ### Notable Changes
 - refactor: 
