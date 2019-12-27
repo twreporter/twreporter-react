@@ -169,7 +169,11 @@ class ExpressServer {
         return next(err)
       }
 
-      logger.error(err)
+      logger.errorReport({
+        report: err,
+        message: 'Express server handles unexpected error.'
+      })
+
       res.header('Cache-Control', 'no-store')
       if (err instanceof NotFoundError || _.get(err, 'response.status') === 404) {
         res.redirect('/error/404')
@@ -184,8 +188,10 @@ class ExpressServer {
       const mw = await loggerFactory.makeExpressMiddleware()
       this.app.use(mw)
     } catch(err) {
-      logger.error('Cannot apply logger express middleware')
-      logger.error(err)
+      logger.errorReport({
+        report: err,
+        message: 'Express cannot apply logger middleware.'
+      })
     }
   }
 
@@ -219,12 +225,18 @@ class ExpressServer {
     if (port) {
       this.server.listen(port, (err) => {
         if (err) {
-          logger.error(err)
+          logger.errorReport({
+            report: err,
+            message: `Express server cannot listen on host ${host} and port ${port}.`
+          })
+          return
         }
         logger.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port)
       })
     } else {
-      logger.error('==>     ERROR: No PORT environment variable has been specified')
+      logger.errorReport({
+        message: '==>     ERROR: No PORT environment variable has been specified.'
+      })
     }
   }
 }

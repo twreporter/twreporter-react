@@ -275,10 +275,10 @@ class WebPush extends PureComponent {
             })
           })
           .catch((err) => {
-            logger.error('Something went wrong during checking web push subscription is existed or not')
-            if (err) {
-              logger.error(err)
-            }
+            logger.errorReport({
+              report: err,
+              message: 'Something went wrong during checking web push subscription is existed or not'
+            })
           })
       } else {
         logger.info('Browser does not support web push or service worker')
@@ -366,10 +366,10 @@ class WebPush extends PureComponent {
           logger.info('Accept web push notification successfully.')
         })
         .catch((err) => {
-          logger.error('Fail to accept web push notification.')
-          if (err) {
-            logger.error(err)
-          }
+          logger.errorReport({
+            report: err,
+            message: 'Fail to accept web push notification'
+          })
           this.setState({
             toShowInstruction: true
           })

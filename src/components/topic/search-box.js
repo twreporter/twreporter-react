@@ -82,7 +82,9 @@ export default class SearchBox extends PureComponent {
         try {
           this._input.current.focus()
         } catch (err) {
-          logger.error(err)
+          logger.errorReport({
+            report: err
+          })
         }
       }
     })

@@ -105,13 +105,18 @@ if ( 'serviceWorker' in navigator &&
               break
 
             case 'redundant':
-              logger.error('The installing service worker became redundant.')
+              logger.errorReport({
+                message: 'The installing service worker became redundant'
+              })
               break
           }
         }
       }
     }).catch(function (e) {
-      logger.error('Error during service worker registration:', e)
+      logger.errorReport({
+        report: e,
+        message: 'Error during service worker registration.'
+      })
     })
   })
 }

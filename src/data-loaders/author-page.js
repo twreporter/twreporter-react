@@ -26,6 +26,9 @@ export default function loadData({ match, store }) {
   const authorId = _.get(match, 'params.authorId', '')
   return Promise.all([ store.dispatch(fetchAuthorCollectionIfNeeded(authorId)), store.dispatch(fetchAuthorDetails(authorId)) ])
     .catch(error => {
-      logger.error('Author page data loader can not load data, ', error)
+      logger.errorReport({
+        report: error,
+        message: 'Author page data loader can not load data.'
+      })
     })
 }
