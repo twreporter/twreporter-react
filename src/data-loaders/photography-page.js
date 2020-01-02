@@ -28,6 +28,9 @@ export default async function loadData({ store }) {
         dataLoaderConst.listType.categories, dataLoaderConst.maxResult))
     ])
   } catch (err) {
-    logger.error('Fetch posts of photography page occurs server side error, ', err)
+    logger.errorReport({
+      report: err,
+      message: 'Fetch posts of photography page occurs server side error.'
+    })
   }
 }

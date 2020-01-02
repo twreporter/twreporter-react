@@ -40,8 +40,11 @@ export default function loadData({ match, store }) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
     return store.dispatch(getSingleBookmark(jwt, userID, slug, host))
-      .catch(error => {
-        logger.error('Bookmark widget data loader can not load data, ', error)
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message: 'Bookmark widget data loader can not load data.'
+        })
       })
   }
   return Promise.resolve()

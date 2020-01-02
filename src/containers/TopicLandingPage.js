@@ -72,7 +72,9 @@ class TopicLandingPage extends Component {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
     const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0')
     if (!topic) {
-      logger.error(`There is no topic in store corresponding with the given slug: ${slug}`)
+      logger.errorReport({
+        message: `There is no topic in store corresponding with the given slug: ${slug}`
+      })
       return <SystemError error={{ status: 404 }} />
     }
     const {

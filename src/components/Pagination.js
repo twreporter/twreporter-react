@@ -27,7 +27,10 @@ class EnhancedPagination extends PureComponent {
     try {
       this.props.history.push(to)
     } catch (err) {
-      logger.error(`Error on history.push(${to}), `, err)
+      logger.errorReport({
+        report:err,
+        message: `Error on history.push(${to}).`
+      })
     }
   }
 
