@@ -145,7 +145,9 @@ class AuthorsList extends React.Component {
   _renderServerError() {
     const errorMessage = _.get(this._getAuthorsList(), 'error.message')
     if (errorMessage) {
-      logger.error(`Fail to render author list page due to server error: ${errorMessage}`)
+      logger.errorReport({
+        message: `Fail to render author list page due to server error: ${errorMessage}`
+      })
     }
     return (
       <ErrorMessage>

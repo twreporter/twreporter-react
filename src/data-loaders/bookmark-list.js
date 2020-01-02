@@ -29,8 +29,11 @@ export default function loadData({ store }) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
     return store.dispatch(getMultipleBookmarks(jwt, userID, 0, defaultLimit, defaultSort))
-      .catch(error => {
-        logger.error('Bookmark list data loader can not load data, ', error)
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message: 'Bookmark list data loader can not load data.'
+        })
       })
   }
   return Promise.resolve()

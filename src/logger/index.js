@@ -5,21 +5,50 @@ function loggerFactory() {
   let logger
 
   function create() {
-    // on server side,
-    // we use winston and logging-winston to log
-    if (!globalEnv.isBrowser) {
+    let logger
 
-      if (globalEnv.isProduction) {
-        return createProdLogger()
-      }
-      return createDevLogger()
+    if (globalEnv.isBrowser) {
+      // on client side,
+      // we use console directly
+      // TODO:
+      // send client side log to stackdriver logging
+      logger = console
+
+      // since we use the same logger both on client and server side,
+      // we mock `errorReport` function here.
+      logger.errorReport = console.error
+      return logger
     }
 
-    // on client side,
-    // we use console directly
-    // TODO:
-    // send client side log to stackdriver logging
-    return console
+
+    // on server side,
+    // we use winston and logging-winston to log
+    if (globalEnv.isProduction) {
+      logger = createProdLogger()
+    } else {
+      logger = createDevLogger()
+    }
+
+    // Integration with Stackdriver error reporting
+    // @param {Object} args
+    // @param {string} args.message - error message
+    // @param {*} args.report - anything you want to record in stackdriver logging
+    // @return {undefined}
+    logger.errorReport = ({message, report}) => {
+      if (report instanceof Error) {
+        if (message) {
+          report.message = message + ' ' + report.message
+        }
+        logger.error(report)
+        return
+      }
+      const err = new Error(message)
+      // `err.__errorReport` would be logged as `jsonPayload.metadata.__errorReport` in stackdriver logging
+      err.__errorReport = report
+      logger.error(err)
+    }
+
+    return logger
   }
 
   const factory = {

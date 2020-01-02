@@ -26,7 +26,7 @@ function readWebpackGeneratedFiles(filepath, retry=0) {
           readWebpackGeneratedFiles(filepath, retry + 1).then(resolve).catch(reject)
         }, 5000) // rest 5 secs
       }
-      return reject('can not load ' + filepath)
+      return reject(new Error(`Can not load  ${filepath}`))
     }
     logger.info('load ' + filepath)
   })
@@ -65,4 +65,9 @@ Promise.all([
         })
       }
     })
-}).catch(logger.error)
+}).catch((err) => {
+  logger.errorReport({
+    message: 'Set up twreporter-react server failure.',
+    report: err
+  })
+})
