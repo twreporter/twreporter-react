@@ -525,10 +525,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^5.0.7":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.7.tgz#bc8b1a69f1247d258fa1b2e11fa10803c398131e"
-  integrity sha512-EdiyZti9cLRpReZeNtcglSSBfgqBbgHI+b50oadC6nhIxwCduavtiB8p/uujBh7iKRC1JbnTZgtVjPuaUzBM0g==
+"@twreporter/redux@^5.0.7", "@twreporter/redux@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.8.tgz#5b7c9a1ccb50c4974e7de184949d0f10c750eeda"
+  integrity sha512-Idc1m9Cg6ckfJ+W3WPa8xJepgx9j/3RDaLhRLNgIyJHCsFAMa/qiunTNCwl1D+LgJBecc0KTNdhS1UWVhn5TsQ==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
