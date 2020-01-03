@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.4.10-rc.7
+### Commits
+* [[`9024ecf779`](https://github.com/twreporter/twreporter-react/commit/9024ecf779)] - **fix**: service worker runtimeCaching not working (ni
+* ckhsine)
+
 ## 4.4.10-rc.6
 ### Commits 
 [[`119894ad12`](https://github.com/twreporter/twreporter-react/commit/119894ad12)] - **chore**: update @twreporter/redux to 5.0.8 (nickhsin

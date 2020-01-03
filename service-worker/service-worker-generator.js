@@ -50,7 +50,7 @@ function generateRuntimeCaching(runtimeCaching) {
 const releaseBranch = config.releaseBranch
 const origin = url.parse(requestOrigins.forClientSideRendering[releaseBranch].api)
 
-const apiURLPrefix = `${origin.protocol}://${origin.hostname}(:${config.port})?`
+const apiURLPrefix = `${origin.protocol}//${origin.hostname}(:${origin.port})?`
 const hash = crypto.createHash('sha1').update(JSON.stringify(webpackAssets)).digest('hex')
 const cacheName = 'sw-precache-twreporter-' + hash
 const staticFilesToCache = [
