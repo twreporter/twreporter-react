@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.4.10-rc.6
+### Commits 
+[[`119894ad12`](https://github.com/twreporter/twreporter-react/commit/119894ad12)] - **chore**: update @twreporter/redux to 5.0.8 (nickhsin
+e)
+
 ## 4.4.10-rc.5
 ### Commits
 * [[`5c2d24b6b7`](https://github.com/twreporter/twreporter-react/commit/5c2d24b6b7)] - **fix**: disallow search engine cralwer on non release branch (nickhsine)
