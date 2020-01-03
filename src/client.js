@@ -9,7 +9,7 @@ import ReactGA from 'react-ga'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
-import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch.js'
+import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
 
 const logger = loggerFactory.getLogger()
