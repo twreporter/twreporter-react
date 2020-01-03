@@ -9,6 +9,7 @@ import globalEnv from '../global-env'
 import http from 'http'
 import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
+import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
 import { NotFoundError } from '../custom-error'
 import loggerFactory from '../logger'
@@ -74,11 +75,23 @@ class ExpressServer {
     })
 
     this.app.get('/robots.txt', (req, res) => {
+      if (globalEnv.releaseBranch === releaseBranchConsts.release) {
+        res.format({
+          'text/plain': function () {
+            res.status(200).send('User-agent: * \n' +
+              'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
+              'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+            )
+          }
+        })
+        return
+      }
+
+      // disallow search engine crawler
       res.format({
-        'text/plain': function () {
+        'text/plain': function() {
           res.status(200).send('User-agent: * \n' +
-            'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
-            'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+            'Disallow: /'
           )
         }
       })
