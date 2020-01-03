@@ -244,7 +244,7 @@ class ExpressServer {
           })
           return
         }
-        logger.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port)
+        logger.info(`==> 💻  Open http://${host}:${port} in a browser to view the app.`)
       })
     } else {
       logger.errorReport({
