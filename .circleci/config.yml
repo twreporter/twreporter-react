@@ -120,7 +120,7 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} .
+            docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} --build-arg PKG_VERSION=${PKG_VER} .
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
             docker push gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER
 

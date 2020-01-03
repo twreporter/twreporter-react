@@ -1,6 +1,9 @@
+import loggerFactory from '../logger'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
+
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get
@@ -14,7 +17,7 @@ const host = {
   preview: 'http://testtest.twreporter.org:3000',
   staging: 'https://staging.twreporter.org',
   release: 'https://www.twreporter.org',
-  // `next` release branch is reserved for online migration purpose 
+  // `next` release branch is reserved for online migration purpose
   next: 'https://next.twreporter.org'
 }[process.env.RELEASE_BRANCH || 'master']
 
@@ -37,8 +40,11 @@ export default function loadData({ match, store }) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
     return store.dispatch(getSingleBookmark(jwt, userID, slug, host))
-      .catch(error => {
-        console.error(error) // eslint-disable-line no-console
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message: 'Bookmark widget data loader can not load data.'
+        })
       })
   }
   return Promise.resolve()

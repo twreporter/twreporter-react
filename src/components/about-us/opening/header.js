@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { containerStyle, headerStyle } from './section-style'
 import mq from '../utils/media-query'
 import { Link } from 'react-router-dom'

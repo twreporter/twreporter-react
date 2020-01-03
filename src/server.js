@@ -1,14 +1,11 @@
-/* eslint no-console: 0 */
-/* global __DEVELOPMENT__ */
-const ExpressServer = require('./express/server')
-const Loadable = require('react-loadable')
-const config = require('../config')
-const path = require('path')
-/**
- * Define isomorphic constants.
- */
-global.__CLIENT__ = false
-global.__DEVELOPMENT__ = config.nodeEnv !== 'production'
+import ExpressServer from './express/server'
+import Loadable from 'react-loadable'
+import config from '../config'
+import path from 'path'
+import globalEnv from './global-env'
+import loggerFactory from './logger'
+
+const logger = loggerFactory.getLogger()
 
 /**
  *  Loads file asynchrously and repeatedly if failing.
@@ -29,14 +26,15 @@ function readWebpackGeneratedFiles(filepath, retry=0) {
           readWebpackGeneratedFiles(filepath, retry + 1).then(resolve).catch(reject)
         }, 5000) // rest 5 secs
       }
-      return reject('can not load ' + filepath)
+      return reject(new Error(`Can not load  ${filepath}`))
     }
-    console.log('load ' + filepath)
+    logger.info('load ' + filepath)
   })
 }
 
 const host = config.host || 'localhost'
 const port = config.port || 3000
+
 
 /**
  *  Loads webpack generated files, which are
@@ -58,11 +56,18 @@ Promise.all([
     cookieSecret: config.cookieSecret
   }
   server.setup(files[0], files[1], options)
-  if (__DEVELOPMENT__) {
-    server.run(host, port)
-  } else {
-    return Loadable.preloadAll().then(() => {
-      server.run(host, port)
+    .then(() => {
+      if (globalEnv.isDevelopment) {
+        server.run(host, port)
+      } else {
+        return Loadable.preloadAll().then(() => {
+          server.run(host, port)
+        })
+      }
     })
-  }
-}).catch(console.error)
+}).catch((err) => {
+  logger.errorReport({
+    message: 'Set up twreporter-react server failure.',
+    report: err
+  })
+})

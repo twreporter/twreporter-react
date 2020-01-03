@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/reading-progress'
 import SystemError from '../components/SystemError'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import uiManager from '../managers/ui-manager'
@@ -140,7 +140,7 @@ class Article extends PureComponent {
     const isFetching = _.get(selectedPost, 'isFetching')
     const article = _.get(postEntities, slug, {})
     article.style = uiManager.getArticleV2Style(article.style)
-    
+
     // prepare related posts and that topic which post belongs to
     // for v2 article
     const postRelateds = utils.denormalizePosts(_.get(article, 'relateds', []), postEntities)
@@ -150,10 +150,10 @@ class Article extends PureComponent {
       (related) => { return related.id !== article.id})
 
     // for head tag
-    const canonical = SITE_META.URL + 'a/' + slug
-    const ogTitle = (_.get(article, 'og_title', '') || _.get(article, 'title', '')) + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const ogDesc = _.get(article, 'og_description', SITE_META.DESC)
-    const ogImage = _.get(article, 'og_image.resized_targets.mobile.url', SITE_META.OG_IMAGE)
+    const canonical = siteMeta.urlOrigin + '/a/' + slug
+    const ogTitle = (_.get(article, 'og_title', '') || _.get(article, 'title', '')) + siteMeta.name.separator + siteMeta.name.full
+    const ogDesc = _.get(article, 'og_description', siteMeta.desc)
+    const ogImage = _.get(article, 'og_image.resized_targets.mobile.url', siteMeta.ogImage)
 
     return (
       <div>

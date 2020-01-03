@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
-import { SITE_META, SITE_NAME } from '../constants/index'
 import categoryConst from '../constants/category'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
@@ -8,6 +7,7 @@ import PropTypes from 'prop-types'
 import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -32,7 +32,7 @@ class Category extends PureComponent {
   componentDidUpdate() {
     this._fetchListedPosts()
   }
-  
+
   _fetchListedPosts() {
     const { fetchListedPosts, catId } = this.props
     const page = _.get(this.props, 'page', 1)
@@ -74,7 +74,7 @@ class Category extends PureComponent {
     const pages = _.get(lists, [ catId, 'pages' ], {})
     const startPos = _.get(pages, [ page, 0 ], 0)
     const endPos = _.get(pages, [ page, 1 ], 0)
-  
+
     // denormalize the items of current page
     const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
     const postsLen = _.get(posts, 'length', 0)
@@ -87,8 +87,8 @@ class Category extends PureComponent {
       )
     }
 
-    const title = catLabel + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL_NO_SLASH}${pathname}`
+    const title = catLabel + siteMeta.name.separator + siteMeta.name.full
+    const canonical = `${siteMeta.urlOrigin}${pathname}`
 
     return (
       <div>
@@ -98,13 +98,13 @@ class Category extends PureComponent {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}

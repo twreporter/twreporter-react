@@ -1,6 +1,9 @@
+import loggerFactory from '../logger'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
+
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get
@@ -26,8 +29,11 @@ export default function loadData({ store }) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
     return store.dispatch(getMultipleBookmarks(jwt, userID, 0, defaultLimit, defaultSort))
-      .catch(error => {
-        console.error(error) // eslint-disable-line no-console
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message: 'Bookmark list data loader can not load data.'
+        })
       })
   }
   return Promise.resolve()

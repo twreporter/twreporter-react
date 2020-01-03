@@ -1,7 +1,9 @@
 import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
+import loggerFactory from '../logger'
 import twreporterRedux from '@twreporter/redux'
 
+const logger = loggerFactory.getLogger()
 const listID = categoryConst.ids.photography
 
 const {
@@ -26,6 +28,9 @@ export default async function loadData({ store }) {
         dataLoaderConst.listType.categories, dataLoaderConst.maxResult))
     ])
   } catch (err) {
-    console.warn('Fetch posts of photography page occurs server side error:', err) // eslint-disable-line
+    logger.errorReport({
+      report: err,
+      message: 'Fetch posts of photography page occurs server side error.'
+    })
   }
 }

@@ -1,6 +1,7 @@
-import { googleSearchId } from '../conf/service'
 import React, { Component } from 'react'
 import styled from 'styled-components'
+
+const googleSearchId = '013371828254368986439:_ega685nikw'
 
 const Container = styled.div`
   min-height: 120vh;

@@ -1,6 +1,9 @@
+import loggerFactory from '../logger'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
+
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get
@@ -23,6 +26,9 @@ export default function loadData({ match, store }) {
   const authorId = _.get(match, 'params.authorId', '')
   return Promise.all([ store.dispatch(fetchAuthorCollectionIfNeeded(authorId)), store.dispatch(fetchAuthorDetails(authorId)) ])
     .catch(error => {
-      console.error(error) // eslint-disable-line no-console
+      logger.errorReport({
+        report: error,
+        message: 'Author page data loader can not load data.'
+      })
     })
 }

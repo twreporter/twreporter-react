@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { font } from '../constants/styles'
 import mq from '../utils/media-query'
 import map from 'lodash/map'

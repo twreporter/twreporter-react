@@ -1,21 +1,24 @@
-/* global __DEVELOPMENT__ */
 import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
-import PrettyError from 'pretty-error'
 import authMiddleware from './middlewares/auth'
 import cookieParser from 'cookie-parser'
 import dataLoaderMiddleware from './middlewares/data-loader'
 import get from 'lodash/get'
+import globalEnv from '../global-env'
 import http from 'http'
 import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
+import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
 import { NotFoundError } from '../custom-error'
+import loggerFactory from '../logger'
 
 const _ = {
   get
 }
+
+const logger = loggerFactory.getLogger()
 
 class ExpressServer {
   constructor() {
@@ -72,11 +75,23 @@ class ExpressServer {
     })
 
     this.app.get('/robots.txt', (req, res) => {
+      if (globalEnv.releaseBranch === releaseBranchConsts.release) {
+        res.format({
+          'text/plain': function () {
+            res.status(200).send('User-agent: * \n' +
+              'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
+              'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+            )
+          }
+        })
+        return
+      }
+
+      // disallow search engine crawler
       res.format({
-        'text/plain': function () {
+        'text/plain': function() {
           res.status(200).send('User-agent: * \n' +
-            'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
-            'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+            'Disallow: /'
           )
         }
       })
@@ -161,16 +176,17 @@ class ExpressServer {
   }
 
   __applyCustomErrorHandler() {
-    const pe = new PrettyError()
-    pe.skipNodeFiles()
-    pe.skipPackage('express')
 
     this.app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       if (res.headersSent) {
         return next(err)
       }
 
-      console.log(pe.render(err)) // eslint-disable-line no-console
+      logger.errorReport({
+        report: err,
+        message: 'Express server handles unexpected error.'
+      })
+
       res.header('Cache-Control', 'no-store')
       if (err instanceof NotFoundError || _.get(err, 'response.status') === 404) {
         res.redirect('/error/404')
@@ -178,6 +194,18 @@ class ExpressServer {
         res.redirect('/error/500')
       }
     })
+  }
+
+  async __applyLogger() {
+    try {
+      const mw = await loggerFactory.makeExpressMiddleware()
+      this.app.use(mw)
+    } catch(err) {
+      logger.errorReport({
+        report: err,
+        message: 'Express cannot apply logger middleware.'
+      })
+    }
   }
 
   /**
@@ -188,11 +216,12 @@ class ExpressServer {
    *  @param {string} options.nodeEnv - node environment, it could be 'development' or 'production'
    *  @param {string} options.cookieSecret - secret for cookie parser
    */
-  setup(webpackAssets, loadableStats, options) {
+  async setup(webpackAssets, loadableStats, options) {
+    await this.__applyLogger()
     this.__applyDefaultMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
-    if (!__DEVELOPMENT__) {
+    if (globalEnv.isProduction) {
       this.__applyServiceWorkerRoutes()
     }
     this.__applySearchEngineRoutes()
@@ -209,14 +238,20 @@ class ExpressServer {
     if (port) {
       this.server.listen(port, (err) => {
         if (err) {
-          console.error(err) // eslint-disable-line no-console
+          logger.errorReport({
+            report: err,
+            message: `Express server cannot listen on host ${host} and port ${port}.`
+          })
+          return
         }
-        console.info('==> 💻  Open http://%s:%s in a browser to view the app.', host, port) // eslint-disable-line no-console
+        logger.info(`==> 💻  Open http://${host}:${port} in a browser to view the app.`)
       })
     } else {
-      console.error('==>     ERROR: No PORT environment variable has been specified') // eslint-disable-line no-console
+      logger.errorReport({
+        message: '==>     ERROR: No PORT environment variable has been specified.'
+      })
     }
   }
 }
 
-module.exports = ExpressServer
+export default ExpressServer

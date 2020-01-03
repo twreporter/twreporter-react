@@ -1,4 +1,4 @@
-import { CHARACTERS_LIMIT, INTERACTIVE_ARTICLE_STYLE, LINK_PREFIX } from '../../../constants/index'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../../utils/url'
 import { shortenString } from '../../../utils/string'
 import BarComponents from './related-as-bars'
 import base from './base'
@@ -63,6 +63,7 @@ export default class RelatedItems extends PureComponent {
   }
 
   _renderItem(item, index) {
+    const charLimit = 120
     const components = selectComponentsByFormat(this.props.format)
     const image = replaceGCSUrlOrigin(_.get(item, 'hero_image.resized_targets.mobile', defaultPostImage))
     const id = _.get(item, 'id', `item-${index}`)
@@ -70,14 +71,12 @@ export default class RelatedItems extends PureComponent {
     const title = _.get(item, 'title', '')
     const publishedDate = date2yyyymmdd(_.get(item, 'published_date'), '.')
     const style = _.get(item, 'style')
-    const description = shortenString(_.get(item, 'og_description', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
-    const prefix = style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE
-    const target = style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : '_self'
+    const description = shortenString(_.get(item, 'og_description', ''), charLimit)
     return (
       <components.Item
         key={id}
-        linkTo={prefix + slug}
-        linkTarget={target}
+        linkTo={formatPostLinkTo(slug, style)}
+        linkTarget={formatPostLinkTarget(style)}
         image={image}
         title={title}
         description={description}

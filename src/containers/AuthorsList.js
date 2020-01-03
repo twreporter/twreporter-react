@@ -1,14 +1,15 @@
 import { connect } from 'react-redux'
-import { LINK_PREFIX, OG_TYPE, SITE_META, SITE_NAME, TWITTER_CARD } from '../constants/index'
 import { Waypoint } from 'react-waypoint'
 import Authors from '../components/authors/authors'
 import AuthorSearchBox from '../components/authors/author-search-box'
 import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
+import loggerFactory from '../logger'
 import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
+import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // @twreporter
@@ -18,6 +19,8 @@ import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/fo
 import get from 'lodash/get'
 import map from 'lodash/map'
 import values from 'lodash/values'
+
+const logger = loggerFactory.getLogger()
 
 const { searchAuthorsIfNeeded } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
@@ -141,7 +144,11 @@ class AuthorsList extends React.Component {
 
   _renderServerError() {
     const errorMessage = _.get(this._getAuthorsList(), 'error.message')
-    if (errorMessage) { console.error(errorMessage) } // eslint-disable-line no-console
+    if (errorMessage) {
+      logger.errorReport({
+        message: `Fail to render author list page due to server error: ${errorMessage}`
+      })
+    }
     return (
       <ErrorMessage>
         抱歉，資料伺服器錯誤，請稍後再嘗試
@@ -165,8 +172,8 @@ class AuthorsList extends React.Component {
 
   render() {
     const authorsList = this._getAuthorsList()
-    const fullTitle = '作者列表' + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL_NO_SLASH}${LINK_PREFIX.AUTHORS}`
+    const fullTitle = '作者列表' + siteMeta.name.separator + siteMeta.name.full
+    const canonical = `${siteMeta.urlOrigin}/authors`
     return (
       <React.Fragment>
         <Helmet
@@ -175,15 +182,15 @@ class AuthorsList extends React.Component {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: fullTitle },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
-            { name: 'twitter:card', content: TWITTER_CARD.SUMMARY },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage },
+            { name: 'twitter:card', content: 'summary' },
             { property: 'og:title', content: fullTitle },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
-            { property: 'og:type', content: OG_TYPE.WEBSITE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage },
+            { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' }
           ]}

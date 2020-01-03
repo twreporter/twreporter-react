@@ -1,5 +1,56 @@
 # Changelog
 
+## 4.4.10
+### Notable Changes
+- refactor: 
+	-	remove unused files and folders.
+	- clean up unused constants and move them to local scope if needed
+- feature:
+  - disallow search engine cralwer on staging and development environment
+  - integration with stackdriver logging
+- fix: 
+  - service worker runtimeCaching not working
+
+### Commits
+* [[`3950325d7b`](https://github.com/twreporter/twreporter-react/commit/3950325d7b)] - **chore**: print babel-preset-env debug info only on production (nickhsine)
+* [[`c145079712`](https://github.com/twreporter/twreporter-react/commit/c145079712)] - **refactor**: delete src/constants/index.js (nickhsine)
+* [[`03acd4f7da`](https://github.com/twreporter/twreporter-react/commit/03acd4f7da)] - **refactor**: delete src/constants/author-page.js (nickhsine)
+* [[`4c85687930`](https://github.com/twreporter/twreporter-react/commit/4c85687930)] - **refactor**: delete src/constants/footer.js (nickhsine)
+* [[`58053ceb62`](https://github.com/twreporter/twreporter-react/commit/58053ceb62)] - **refactor**: delete src/constants/page-types.js (nickhsine)
+* [[`572a1b7bed`](https://github.com/twreporter/twreporter-react/commit/572a1b7bed)] - **refactor**: use formatPostLinkTo and formatPostLinkTarget (nickhsine)
+* [[`2ca8bccc62`](https://github.com/twreporter/twreporter-react/commit/2ca8bccc62)] - **refactor**: delete src/constants/link-prefix.js (nickhsine)
+* [[`44f0745228`](https://github.com/twreporter/twreporter-react/commit/44f0745228)] - **refactor**: update src/contants/site-meta.js and related files (nickhsine)
+* [[`fb22c45d80`](https://github.com/twreporter/twreporter-react/commit/fb22c45d80)] - **refactor**: delete src/constants/strings.js (nickhsine)
+* [[`3c18bf4967`](https://github.com/twreporter/twreporter-react/commit/3c18bf4967)] - **refactor**: delete src/contants/topic-page.js (nickhsine)
+* [[`c0cca7765d`](https://github.com/twreporter/twreporter-react/commit/c0cca7765d)] - **refactor**: delete src/constants/ui-settings.js (nickhsine)
+* [[`7c4189bab0`](https://github.com/twreporter/twreporter-react/commit/7c4189bab0)] - **refactor**: delete src/constants/page-themes.js (nickhsine)
+* [[`daf52a1b74`](https://github.com/twreporter/twreporter-react/commit/daf52a1b74)] - **refactor**: delete src/themes/common-variables.js (nickhsine)
+* [[`7500cb4b9f`](https://github.com/twreporter/twreporter-react/commit/7500cb4b9f)] - **refactor**: delete lineHeight from src/themes/common-variables.js (nickhsine)
+* [[`1f08faa00f`](https://github.com/twreporter/twreporter-react/commit/1f08faa00f)] - **refactor**: delete src/themes/screen.js (nickhsine)
+* [[`378b998252`](https://github.com/twreporter/twreporter-react/commit/378b998252)] - **refactor**: delete src/themes/layout.js (nickhsine)
+* [[`dfcaac3c9f`](https://github.com/twreporter/twreporter-react/commit/dfcaac3c9f)] - **refactor**: delete src/constants/screen.js (nickhsine)
+* [[`aafaa3572a`](https://github.com/twreporter/twreporter-react/commit/aafaa3572a)] - **refactor**: delete src/constants/styled-components.js (nickhsine)
+* [[`3c6407f03f`](https://github.com/twreporter/twreporter-react/commit/3c6407f03f)] - **refactor**: delete src/constants/device.js (nickhsine)
+* [[`78ccb93e9c`](https://github.com/twreporter/twreporter-react/commit/78ccb93e9c)] - **refactor**: delete src/utils/screen-type.js (nickhsine)
+* [[`713d54ea35`](https://github.com/twreporter/twreporter-react/commit/713d54ea35)] - **refactor**: delete src/containers/ArticleTools.js (nickhsine)
+* [[`d17cf4bc92`](https://github.com/twreporter/twreporter-react/commit/d17cf4bc92)] - **refactor**: remove src/conf folder (nickhsine)
+* [[`45d50eb48e`](https://github.com/twreporter/twreporter-react/commit/45d50eb48e)] - **refactor**: remove src/helpers folder (nickhsine)
+* [[`66af1424d3`](https://github.com/twreporter/twreporter-react/commit/66af1424d3)] - **chore**: delete .versionrc.json (nickhsine)
+* [[`2b1dd23ab7`](https://github.com/twreporter/twreporter-react/commit/2b1dd23ab7)] - **refactor**: src/containers/web-push.js (nickhsine)
+* [[`4a2478c83c`](https://github.com/twreporter/twreporter-react/commit/4a2478c83c)] - **chore**: remove dependencies `pretty-error` (nickhsine)
+* [[`13deb19c4a`](https://github.com/twreporter/twreporter-react/commit/13deb19c4a)] - **refactor**: integrate src/logger/index.js with express middleware (nickhsine)
+* [[`5c5ed3b3cd`](https://github.com/twreporter/twreporter-react/commit/5c5ed3b3cd)] - **refactor**: integrate with src/logger/index.js (nickhsine)
+* [[`c8e6165903`](https://github.com/twreporter/twreporter-react/commit/c8e6165903)] - **refactor**: integration with stackdriver logging system (nickhsine)
+* [[`33e6f43a1f`](https://github.com/twreporter/twreporter-react/commit/33e6f43a1f)] - **chore**: add dependencies `winston` and `@google-cloud/logging-winston` (nickhsine)
+* [[`6fdfd6d46f`](https://github.com/twreporter/twreporter-react/commit/6fdfd6d46f)] - **chore**: update src/mock-data/index-page-categories.json (nickhsine)
+* [[`2e0bb300cf`](https://github.com/twreporter/twreporter-react/commit/2e0bb300cf)] - **refactor**: remove client/server side global variables (nickhsine)
+* [[`9f9796a722`](https://github.com/twreporter/twreporter-react/commit/9f9796a722)] - **fix**: import pretty-error not found (nickhsine)
+* [[`95410ee5d5`](https://github.com/twreporter/twreporter-react/commit/95410ee5d5)] - **refactor**: integrate with new Stackdriver Logging and Error Reporting (nickhsine)
+* [[`5c2d24b6b7`](https://github.com/twreporter/twreporter-react/commit/5c2d24b6b7)] - **fix**: disallow search engine cralwer on non release branch (nickhsine)
+[[`119894ad12`](https://github.com/twreporter/twreporter-react/commit/119894ad12)] - **chore**: update @twreporter/redux to 5.0.8 (nickhsine)
+* [[`9024ecf779`](https://github.com/twreporter/twreporter-react/commit/9024ecf779)] - **fix**: service worker runtimeCaching not working (ni
+* ckhsine)
+
 ## 4.4.9
 
 ### Notable Changes

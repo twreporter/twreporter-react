@@ -16,7 +16,6 @@ import indexPageCategories from './mock-data/index-page-categories.json'
 import map from 'lodash/map'
 import net from 'net'
 import posts from './mock-data/posts.json'
-import PrettyError from 'pretty-error'
 import qs from 'qs'
 import topics from './mock-data/topics.json'
 
@@ -258,15 +257,9 @@ router.route(`/${apiEndpoints.indexPageCategories}/`)
     res.json(indexPageCategories)
   })
 
-//
-// Error handling
-//
-const pe = new PrettyError()
-pe.skipNodeFiles()
-pe.skipPackage('express')
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  console.log(pe.render(err)) // eslint-disable-line no-console
+  console.log(err) // eslint-disable-line no-console
   if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
     res.redirect('/error/404')
   } else {
