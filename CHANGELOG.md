@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.10-rc.5
+### Commits
+* [[`5c2d24b6b7`](https://github.com/twreporter/twreporter-react/commit/5c2d24b6b7)] - **fix**: disallow search engine cralwer on non release branch (nickhsine)
+
 ## 4.4.10-rc.4
 ### Commits
 * [[`95410ee5d5`](https://github.com/twreporter/twreporter-react/commit/95410ee5d5)] - **refactor**: integrate with new Stackdriver Logging and Error Reporting (nickhsine)
