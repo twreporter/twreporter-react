@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.4.11
+
+### Natable Changes
+
+- bump dependencies for add annual-report links
+  - @twreporter/react-article-components@^1.0.26 -> ^1.1.1
+  - @twreporter/react-components@^8.0.3 -> ^8.1.0
+
+### Commits
+
+* [[`55cae84572`](https://github.com/twreporter/twreporter-react/commit/55cae84572)] - Merge pull request #1548 from YuCJ/annual-report (yucj)
+* [[`4c68901e2a`](https://github.com/twreporter/twreporter-react/commit/4c68901e2a)] - **chore**: bump dependencies for add annual-report links (yucj)
+
 ## 4.4.10
 ### Notable Changes
 - refactor: 
