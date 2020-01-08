@@ -1,4 +1,3 @@
-import { NotFoundError } from './custom-error'
 import apiEndpoints from '@twreporter/redux/lib/constants/api-endpoints'
 import author1 from './mock-data/author1.json'
 import author2 from './mock-data/author2.json'
@@ -139,7 +138,7 @@ router.param('slug', (req, res, next, slug) => {
 })
 
 router.route(`/${apiEndpoints.posts}/:slug`)
-  .get((req, res) => {
+  .get((req, res, next) => {
     const { full } = req.query
     if (typeof full !== 'undefined' ) {
       const slug = req.slug
@@ -152,7 +151,14 @@ router.route(`/${apiEndpoints.posts}/:slug`)
           status: 'ok'
         })
       } else {
-        throw new NotFoundError()
+        const err = {
+          statusCode: 404,
+          data: {
+            status: 'fail',
+            data: null
+          }
+        }
+        next(err)
       }
     }
   })
@@ -185,7 +191,7 @@ router.route(`/${apiEndpoints.posts}/`)
  * And the complete data of each topic (including `relates` and `leading-video` entries) would be fetched by this endpoint if user clicked to see more.
  */
 router.route(`/${apiEndpoints.topics}/:slug`)
-  .get((req, res) => {
+  .get((req, res, next) => {
     if (req.query.full) {
       const fullTopic = _getAFullTopic(req.slug)
       if (fullTopic.length > 0) {
@@ -194,7 +200,14 @@ router.route(`/${apiEndpoints.topics}/:slug`)
           status: 'ok'
         })
       } else {
-        throw new NotFoundError()
+        const err = {
+          statusCode: 404,
+          data: {
+            status: 'fail',
+            data: null
+          }
+        }
+        next(err)
       }
     }
   })
@@ -260,7 +273,7 @@ router.route(`/${apiEndpoints.indexPageCategories}/`)
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(err) // eslint-disable-line no-console
-  if (err instanceof NotFoundError || get(err, 'response.status') === 404) {
+  if (get(err, 'statusCode') === 404) {
     res.redirect('/error/404')
   } else {
     res.redirect('/error/500')

@@ -11,7 +11,6 @@ import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
-import { NotFoundError } from '../custom-error'
 import loggerFactory from '../logger'
 
 const _ = {
@@ -177,20 +176,23 @@ class ExpressServer {
 
   __applyCustomErrorHandler() {
 
-    this.app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    this.app.use((err, req, res, next) => {
       if (res.headersSent) {
+        logger.errorReport({
+          report: err,
+          message: 'Response header is already sent to the client. Error will be handled by Express default error handler.'
+        })
         return next(err)
       }
 
-      logger.errorReport({
-        report: err,
-        message: 'Express server handles unexpected error.'
-      })
-
       res.header('Cache-Control', 'no-store')
-      if (err instanceof NotFoundError || _.get(err, 'response.status') === 404) {
+      if (_.get(err, 'statusCode') === 404) {
         res.redirect('/error/404')
       } else {
+        logger.errorReport({
+          report: err,
+          message: 'Error was caught by Express custom error handler.'
+        })
         res.redirect('/error/500')
       }
     })

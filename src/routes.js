@@ -204,7 +204,7 @@ export default function getRoutes() {
         return (
           <SystemError
             error={{
-              status: statusCode
+              statusCode
             }}
           />
         )
@@ -222,7 +222,7 @@ export default function getRoutes() {
         return (
           <SystemError
             error={{
-              status: 404
+              statusCode: 404
             }}
           />
         )

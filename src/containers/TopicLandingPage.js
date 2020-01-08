@@ -75,7 +75,7 @@ class TopicLandingPage extends Component {
       logger.errorReport({
         message: `There is no topic in store corresponding with the given slug: ${slug}`
       })
-      return <SystemError error={{ status: 404 }} />
+      return <SystemError error={{ statusCode: 404 }} />
     }
     const {
       relateds_background,

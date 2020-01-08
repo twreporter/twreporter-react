@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
-import { InternalServerError } from '../custom-error'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
@@ -84,25 +83,22 @@ class Topics extends Component {
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
+
+    if (topicListError && topicsLength <= 0) {
+      return (
+        <div>
+          <SystemError error={topicListError} />
+        </div>
+      )
+    }
+
     if (
       !_.isInteger(page) ||
       page < 1 ||
       totalPages && (page > totalPages)
     ) {
       return (
-        <SystemError error={{ status: 404 }} />
-      )
-    }
-    /*
-      If fetching list data failed and there's no topics data in the store,
-      render error 500
-    */
-    if (topicListError && topicsLength <= 0) {
-      const err = new InternalServerError(topicListError.message || topicListError || '')
-      return (
-        <div>
-          <SystemError error={err} />
-        </div>
+        <SystemError error={{ statusCode: 404 }} />
       )
     }
 

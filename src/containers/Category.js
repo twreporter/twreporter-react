@@ -59,7 +59,7 @@ class Category extends PureComponent {
       page < 1
     ) {
       return (
-        <SystemError error={{ status: 404 }} />
+        <SystemError error={{ statusCode: 404 }} />
       )
     }
 
