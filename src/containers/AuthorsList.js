@@ -90,13 +90,25 @@ class AuthorsList extends React.Component {
     }
   }
 
+  searchAuthorsWithCatch = (keywords) => {
+    const { searchAuthorsIfNeeded } = this.props
+    return searchAuthorsIfNeeded(keywords)
+      .catch((failAction) => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to search authors with keywords: '${keywords}'.`
+        })
+      })
+  }
+
   _getAuthorsList() {
     const { isSearching } = this.state
     return isSearching ? this.props.filteredAuthorsList : this.props.allAuthorsList
   }
 
   _fetchMoreAuthors() {
-    return this.props.searchAuthorsIfNeeded('')
+    return this.searchAuthorsWithCatch('')
   }
 
   _setSearching(isSearching) {
@@ -196,7 +208,7 @@ class AuthorsList extends React.Component {
           ]}
         />
         <AuthorSearchBox
-          sendSearchAuthors={this.props.searchAuthorsIfNeeded}
+          sendSearchAuthors={this.searchAuthorsWithCatch}
           setSearching={this.setSearching}
         />
         {this._renderList()}

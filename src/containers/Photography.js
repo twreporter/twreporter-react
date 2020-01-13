@@ -7,6 +7,7 @@ import React, { Component } from 'react'
 import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
 import colors from '../constants/colors'
+import loggerFactory from '../logger'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 import { camelizeKeys } from 'humps'
@@ -24,12 +25,12 @@ const _ = {
   uniq
 }
 
+const logger = loggerFactory.getLogger()
+
 const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const reduxStateFields = twreporterRedux.reduxStateFields
 
-const maxResult = 10
-const categories = 'categories'
 const listID = _.get(categoryConst, 'ids.photography', '')
 
 class Photography extends Component {
@@ -39,14 +40,38 @@ class Photography extends Component {
   }
 
   componentDidMount() {
-    const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } = this.props
-    fetchPhotographyPostsOnIndexPage()
-    fetchListedPosts(listID, categories, maxResult)
+    this.fetchPhotographyPostsOnIndexPageWithCatch()
+    this.fetchPostsWithCatch()
+  }
+
+  fetchPhotographyPostsOnIndexPageWithCatch = () => {
+    const { fetchPhotographyPostsOnIndexPage } = this.props
+    return fetchPhotographyPostsOnIndexPage()
+      .catch((failAction) => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: 'Error to fetch posts with photography style and is_feature: true.'
+        })
+      })
+  }
+
+  fetchPostsWithCatch = () => {
+    const maxResult = 10
+    const listType = 'categories'
+    const { fetchListedPosts } = this.props
+    return fetchListedPosts(listID, listType, maxResult)
+      .catch((failAction) => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (category id: ${listID}).`
+        })
+      })
   }
 
   _loadMoreArticles() {
-    const { fetchListedPosts } = this.props
-    fetchListedPosts(listID, categories, maxResult)
+    this.fetchPostsWithCatch()
   }
 
   render() {

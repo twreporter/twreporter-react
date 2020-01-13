@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import categoryConst from '../constants/category'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
@@ -20,23 +21,29 @@ const _  = {
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchListedPosts } = actions
-
-const MAXRESULT = 10
-const categories = 'categories'
+const numberPerPage = 10
+const logger = loggerFactory.getLogger()
 
 class Category extends PureComponent {
   componentDidMount() {
-    this._fetchListedPosts()
+    this.fetchPostsWithCatch()
   }
 
   componentDidUpdate() {
-    this._fetchListedPosts()
+    this.fetchPostsWithCatch()
   }
 
-  _fetchListedPosts() {
-    const { fetchListedPosts, catId } = this.props
+  fetchPostsWithCatch() {
+    const listType = 'categories'
     const page = _.get(this.props, 'page', 1)
-    fetchListedPosts(catId, categories, MAXRESULT, page)
+    const { fetchListedPosts, catId } = this.props
+    fetchListedPosts(catId, listType, numberPerPage, page)
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (category id: '${catId}').`
+        })
+      })
   }
 
   render() {
@@ -52,7 +59,7 @@ class Category extends PureComponent {
 
     // total items will be in that catId
     const total = _.get(lists, [ catId, 'total' ], 0)
-    const totalPages = Math.ceil(total / MAXRESULT)
+    const totalPages = Math.ceil(total / numberPerPage)
     if (
       !_.isInteger(page) ||
       totalPages && (page > totalPages) ||
