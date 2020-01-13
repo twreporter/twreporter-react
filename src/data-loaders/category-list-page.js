@@ -2,19 +2,10 @@ import qs from 'qs'
 import get from 'lodash/get'
 import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
-import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   get
 }
-
-const {
-  actions
-} = twreporterRedux
-
-const {
-  fetchListedPosts
-} = actions
 
 /**
  *  loadData function is used for server side rendering.
@@ -40,6 +31,6 @@ export default function loadData({ location, match, store }) {
 
   const pathSegment = _.get(match, 'params.category', '')
   const catId = categoryConst.ids[pathSegment]
-  return store.dispatch(fetchListedPosts(catId, dataLoaderConst.listType.categories,
-    dataLoaderConst.maxResult, page))
+  return store.actions.fetchListedPosts(catId, dataLoaderConst.listType.categories,
+    dataLoaderConst.maxResult, page)
 }

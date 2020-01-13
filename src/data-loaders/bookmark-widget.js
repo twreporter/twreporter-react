@@ -1,4 +1,5 @@
 import loggerFactory from '../logger'
+import statusCodeConst from '../constants/status-code'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
@@ -9,7 +10,6 @@ const _ = {
   get
 }
 
-const { getSingleBookmark } = twreporterRedux.actions
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const host = {
@@ -39,12 +39,15 @@ export default function loadData({ match, store }) {
   if (isAuthed) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
-    return store.dispatch(getSingleBookmark(jwt, userID, slug, host))
-      .catch(err => {
-        logger.errorReport({
-          report: err,
-          message: 'Bookmark widget data loader can not load data.'
-        })
+    return store.actions.getSingleBookmark(jwt, userID, slug, host)
+      .catch(failAction => {
+        const err = _.get(failAction, 'payload.error')
+        if (_.get(err, 'statusCode') != statusCodeConst.notFound) {
+          logger.errorReport({
+            report: err,
+            message: 'Bookmark widget data loader can not load data.'
+          })
+        }
       })
   }
   return Promise.resolve()
