@@ -88,7 +88,7 @@ function authMiddleware(namespace, options) {
       // If the user is authenticated but not authorized, try to get access token:
       const { nodeEnv=developmentEnv, releaseBranch=masterBranch } = options
       const cookieList = req.get('cookie')
-      return store.dispatch(getAccessToken(cookieList, releaseBranch))
+      return store.actions.getAccessToken(cookieList, releaseBranch)
         .then(() => {
           const reduxState = store.getState()
           const jwt = _.get(reduxState, 'auth.accessToken', '')
@@ -107,16 +107,19 @@ function authMiddleware(namespace, options) {
             // The user should always get access token (authorized successfully) if she/he is authenticated.
             // If the user is authenticated but failed to get access token, log out the error and skip authorization if authorization is not requred.
             // If the page requires authorization, throw an error to express.
-            const errorMessage = `The user ${_.get(userInfoInIdToken, 'user_id')} has id token but failed to get access token.`
+            const err = new Error(`The user ${_.get(userInfoInIdToken, 'user_id')} has id token but failed to get access token.`)
             if (authorizationRequired) {
-              next(new Error(errorMessage))
+              next(err)
             } else {
-              logger.warn(errorMessage)
+              logger.errorReport({
+                report: err,
+              })
               next()
             }
           }
         })
-        .catch(err => {
+        .catch(failAction => {
+          const err = _.get(failAction, 'payload.error')
           // The action `getAccessToken()` should return a Promise always resolved.
           // If an unexpected error occoured, log out the error and skip authorization if authorization is not requred.
           // If the page requires authorization, throw an error to express.
@@ -124,8 +127,10 @@ function authMiddleware(namespace, options) {
           if (authorizationRequired) {
             next(err)
           } else {
-            logger.warn(errorMessage)
-            logger.warn(err)
+            logger.errorReport({
+              report: err,
+              message: errorMessage,
+            })
             next()
           }
         })
