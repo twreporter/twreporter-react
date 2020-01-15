@@ -1,15 +1,9 @@
-import loggerFactory from '../logger'
-import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
-
-const logger = loggerFactory.getLogger()
 
 const _ = {
   get
 }
-
-const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.actions
 
 /**
  *  loadData function is used for server side rendering.
@@ -20,15 +14,9 @@ const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.ac
  *  @param {Object} match.params - key/value pairs parsed from the URL corresponding to the dynamic segments of the path
  *  @param {string} match.params.authorId - dynamic path segment
  *  @param {Object} store - redux store instance
- *  @returns {Promise} which resolves when loading finishes
+ *  @returns {Promise} which resolves with two success actions, or reject with one fail action
  */
 export default function loadData({ match, store }) {
   const authorId = _.get(match, 'params.authorId', '')
-  return Promise.all([ store.dispatch(fetchAuthorCollectionIfNeeded(authorId)), store.dispatch(fetchAuthorDetails(authorId)) ])
-    .catch(error => {
-      logger.errorReport({
-        report: error,
-        message: 'Author page data loader can not load data.'
-      })
-    })
+  return Promise.all([ store.actions.fetchAuthorCollectionIfNeeded(authorId), store.actions.fetchAuthorDetails(authorId) ])
 }

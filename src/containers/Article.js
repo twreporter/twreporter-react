@@ -1,6 +1,7 @@
 import ArticleComponent from '@twreporter/react-article-components'
 import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/reading-progress'
@@ -32,6 +33,8 @@ const _fontLevel = {
   small: 'small'
 }
 
+const logger = loggerFactory.getLogger()
+
 class Article extends PureComponent {
   constructor(props) {
     super(props)
@@ -62,7 +65,7 @@ class Article extends PureComponent {
       fontLevel
     })
     const slug = _.get(match, 'params.slug')
-    this.props.fetchAFullPost(slug)
+    return this.fetchAFullPostWithCatch(slug)
   }
 
   componentWillUnmount() {
@@ -74,8 +77,19 @@ class Article extends PureComponent {
     const slugInParams = _.get(match, 'params.slug')
     const isFetching = _.get(this.props, 'selectedPost.isFetching')
     if (slugInParams !== _.get(prevProps, 'selectedPost.slug') && !isFetching) {
-      this.props.fetchAFullPost(slugInParams)
+      return this.fetchAFullPostWithCatch(slugInParams)
     }
+  }
+
+  fetchAFullPostWithCatch = (slug) => {
+    return this.props.fetchAFullPost(slug)
+    // TODO show alert message for users
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch a full post, post slug: '${slug}'.`
+        })
+      })
   }
 
   /**

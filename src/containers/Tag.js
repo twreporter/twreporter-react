@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
@@ -21,21 +22,31 @@ const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchListedPosts } = actions
 
 const MAXRESULT = 10
-const tags = 'tags'
+const logger = loggerFactory.getLogger()
 
 class Tag extends PureComponent {
   componentDidMount() {
-    this._fetchListedPosts()
+    const tagId = _.get(this.props, 'tagId')
+    const page = _.get(this.props, 'page', 1)
+    this.fetchPostsWithCatch(tagId, page)
   }
 
   componentDidUpdate() {
-    this._fetchListedPosts()
+    const tagId = _.get(this.props, 'tagId')
+    const page = _.get(this.props, 'page', 1)
+    this.fetchPostsWithCatch(tagId, page)
   }
 
-  _fetchListedPosts() {
-    const { fetchListedPosts, tagId } = this.props
-    const page = _.get(this.props, 'page', 1)
-    fetchListedPosts(tagId, tags, MAXRESULT, page)
+  fetchPostsWithCatch = (tagId, page) => {
+    const { fetchListedPosts } = this.props
+    return fetchListedPosts(tagId, 'tags', MAXRESULT, page)
+      .catch((failAction) => {
+        // TODO render alert message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (tag id: ${tagId}).`
+        })
+      })
   }
 
   _findTagName(tags, tagId) {
@@ -83,7 +94,7 @@ class Tag extends PureComponent {
       page < 1
     ) {
       return (
-        <SystemError error={{ status: 404 }} />
+        <SystemError error={{ statusCode: 404 }} />
       )
     }
 
