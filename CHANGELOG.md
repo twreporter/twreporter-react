@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.4.12-rc.0
+### Notable Changes
+- dependencies upgrade:
+  - @twreporter/react-article-components@^1.1.2
+  - @twreporter/react-components@^8.1.1
+  - @twreporter/redux@^6.0.0
+  - @twreporter/universal-header@^2.1.4
+- fix:
+  - make logging entry less than maximum size 250Kb
+  - catch promise rejection (with fail actions) in containers, data-loaders and auth middleware
+  - do not trigger error reporting if error is 404 status code
+
+### Commits
+* [[`a0ec98efe8`](https://github.com/twreporter/twreporter-react/commit/a0ec98efe8)] - **fix**: express/middlewares/auth: handle fail action (nickhsine)
+* [[`16362c67bd`](https://github.com/twreporter/twreporter-react/commit/16362c67bd)] - **fix**: containers: catch redux action errors (nickhsine)
+* [[`84c7503318`](https://github.com/twreporter/twreporter-react/commit/84c7503318)] - **fix**: data-loaders: reject with fail action (nickhsine)
+* [[`e760a2a978`](https://github.com/twreporter/twreporter-react/commit/e760a2a978)] - **refactor**: error report on demand (nickhsine)
+* [[`141726b559`](https://github.com/twreporter/twreporter-react/commit/141726b559)] - **chore**: bump dependencies version (nickhsine)
+
 ## 4.4.11
 
 ### Natable Changes

@@ -8,8 +8,7 @@ const _ = {
 }
 
 const firstPage = 1
-const { actions, reduxStateFields }  = twreporterRedux
-const { fetchAFullTopic, fetchTopics } = actions
+const { reduxStateFields }  = twreporterRedux
 
 export default function loadData({ store, location }) {
   const search = _.get(location, 'search', '')
@@ -19,20 +18,15 @@ export default function loadData({ store, location }) {
   if (isNaN(page) || page < 0) {
     page = firstPage
   }
-  return store.dispatch(fetchTopics(page, dataLoaderConst.numPerPage))
+  return store.actions.fetchTopics(page, dataLoaderConst.numPerPage)
     .then(() => {
       /* fetch full topic if is at first page */
       if (page === firstPage) {
         const state = store.getState()
         const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', firstPage, 0 ], '')
         if (firstTopicSlug) {
-          return store.dispatch(fetchAFullTopic(firstTopicSlug))
+          return store.actions.fetchAFullTopic(firstTopicSlug)
         }
-        return Promise.resolve('At first page but there is no firstTopicSlug')
       }
-      return Promise.resolve()
-    })
-    .catch((e) => {
-      return Promise.resolve(e)
     })
 }

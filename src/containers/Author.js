@@ -3,6 +3,7 @@ import { denormalizeArticles } from '../utils/denormalize-articles'
 import AuthorCollection from '../components/author-page/author-collection'
 import AuthorData from '../components/author-page/author-data'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Sponsor from '../components/Sponsor'
@@ -25,6 +26,8 @@ const authorDefaultImg = {
   height: 500
 }
 
+const logger = loggerFactory.getLogger()
+
 class Author extends React.Component {
   static propTypes = {
     author: PropTypes.object,
@@ -46,17 +49,39 @@ class Author extends React.Component {
   componentDidMount() {
     const authorId = _.get(this.props, 'match.params.authorId')
     if (authorId) {
-      this.props.fetchAuthorCollectionIfNeeded(authorId)
+      this.fetchAuthorCollectionIfNeededWithCatch(authorId)
       const { authorIsFull } = this.props
       if (!authorIsFull) {
-        this.props.fetchAuthorDetails(authorId)
+        return this.fetchAuthorDetailsWithCatch(authorId)
       }
     }
   }
 
+  fetchAuthorCollectionIfNeededWithCatch = (authorId) => {
+    return this.props.fetchAuthorCollectionIfNeeded(authorId)
+      // TODO render alter message
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch the posts of the author (id: '${authorId}').`
+        })
+      })
+  }
+
+  fetchAuthorDetailsWithCatch = (authorId) => {
+    return this.props.fetchAuthorDetails(authorId)
+    // TODO render alter message
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch description of the author (id: '${authorId}').`
+        })
+      })
+  }
+
   handleLoadmore = () => {
-    const { fetchAuthorCollectionIfNeeded, author } = this.props
-    fetchAuthorCollectionIfNeeded(author.id)
+    const authorId = _.get(this.props, 'author.id')
+    return this.fetchAuthorCollectionIfNeededWithCatch(authorId)
   }
 
   render() {

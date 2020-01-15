@@ -488,15 +488,15 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.1.1.tgz#f7c5d2fedd45f9e94730e4c73eeb551cdfeee4b7"
-  integrity sha512-QjuEKYJfa7JZKn4OmHLm5L/fPzFhDrFvSksHuU19CzB9spzfsGHMw1ClxvqnD9aPgokOsfJfvswsZYJSkTODGA==
+"@twreporter/react-article-components@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.1.2.tgz#fcebc2c84cfbddb90860b2d1210965c6b54aa2d4"
+  integrity sha512-NuEUR26itiz7BLACiYsoc5nyg9Y3OoYj15ayO9gYkSDv9slN6l77N0JJDoeHLrYm4FOgHHxSGGR4rKqqo0UVGA==
   dependencies:
     "@twreporter/core" "^1.1.2"
-    "@twreporter/react-components" "^8.1.0"
-    "@twreporter/redux" "^5.0.8"
-    "@twreporter/universal-header" "^2.1.3"
+    "@twreporter/react-components" "^8.1.1"
+    "@twreporter/redux" "^6.0.0"
+    "@twreporter/universal-header" "^2.1.4"
     howler "^2.1.1"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -506,13 +506,13 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^8.1.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.1.0.tgz#91997dc9e190c33d13a87fe8f55ff36dcd68756c"
-  integrity sha512-ovnspHt0/7r7Y4Y90PDCAlnmZrWz4WiAY/gtmSVCpc2u2MIWDNOmPeZ0LCM3N78aN/D7OtNR/z3gZ9s87oR6/A==
+"@twreporter/react-components@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.1.1.tgz#3c88fd302f3159fabab59f96883f66ab05caeaa0"
+  integrity sha512-5lwhKRwu0BpH8AYGi7RohzVVvMQ8YtyTFumgCKbvoTO2QNEC/3P8wA2qsVy5KAJ3lzGjThwK1BIIsEvlz34Fpg==
   dependencies:
     "@twreporter/core" "^1.1.2"
-    "@twreporter/redux" "^5.0.8"
+    "@twreporter/redux" "^6.0.0"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     memoize-one "^5.0.5"
@@ -525,10 +525,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.8.tgz#5b7c9a1ccb50c4974e7de184949d0f10c750eeda"
-  integrity sha512-Idc1m9Cg6ckfJ+W3WPa8xJepgx9j/3RDaLhRLNgIyJHCsFAMa/qiunTNCwl1D+LgJBecc0KTNdhS1UWVhn5TsQ==
+"@twreporter/redux@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-6.0.0.tgz#5f913f81541c8d77ca9a4ebcf496624425900667"
+  integrity sha512-Ga2cgWnXY147xIEL5Tc+sfofWR7ZymIERe9lJjbctwd0dxCdMjIvi0J2uPcpN0nLeFd9HKzwE4PDFeG7RG5Oig==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -543,13 +543,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.1.2", "@twreporter/universal-header@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.3.tgz#21d6e6d11866cecb59e869de88c77b937df73447"
-  integrity sha512-bkAYRh62O3zSiGMG2A0xm0xK7EzpFt+5m5WiARc9DqU+iLENbJGsrBdgsyxyKA4i8vb/7hAcRjLryhpTBnvnMA==
+"@twreporter/universal-header@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.4.tgz#1c800172a9a9d65893f8517b957eba97b2f0efa1"
+  integrity sha512-2EzGSMa+PW0IUBtCw2mv7jCQRn2gXXT4AymjSW4GqXMHuE0W+oyeY9qtkuMPZYmSB7oAjNkAv76aWkNPTwV+oQ==
   dependencies:
     "@twreporter/core" "^1.1.2"
-    "@twreporter/redux" "^5.0.8"
+    "@twreporter/redux" "^6.0.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
