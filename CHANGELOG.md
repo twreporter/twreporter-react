@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.12-rc.1
+### Commits
+* [[`41723c17a7`](https://github.com/twreporter/twreporter-react/commit/41723c17a7)] - **fix**: pass error object rather than whole action to express error handler (nickhsine)
+
 ## 4.4.12-rc.0
 ### Notable Changes
 - dependencies upgrade:
