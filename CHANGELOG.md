@@ -1,10 +1,6 @@
 # Changelog
 
-## 4.4.12-rc.1
-### Commits
-* [[`41723c17a7`](https://github.com/twreporter/twreporter-react/commit/41723c17a7)] - **fix**: pass error object rather than whole action to express error handler (nickhsine)
-
-## 4.4.12-rc.0
+## 4.4.12
 ### Notable Changes
 - dependencies upgrade:
   - @twreporter/react-article-components@^1.1.2
@@ -22,6 +18,7 @@
 * [[`84c7503318`](https://github.com/twreporter/twreporter-react/commit/84c7503318)] - **fix**: data-loaders: reject with fail action (nickhsine)
 * [[`e760a2a978`](https://github.com/twreporter/twreporter-react/commit/e760a2a978)] - **refactor**: error report on demand (nickhsine)
 * [[`141726b559`](https://github.com/twreporter/twreporter-react/commit/141726b559)] - **chore**: bump dependencies version (nickhsine)
+* [[`41723c17a7`](https://github.com/twreporter/twreporter-react/commit/41723c17a7)] - **fix**: pass error object rather than whole action to express error handler (nickhsine)
 
 ## 4.4.11
 
