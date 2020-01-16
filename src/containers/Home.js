@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import categoryConst from '../constants/category'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import IndexPageComposite from '@twreporter/index-page'
 import LoadingSpinner from '../components/Spinner'
 import qs from 'qs'
@@ -21,6 +22,7 @@ const { CategorySection, DonationBoxSection, EditorPicks, InforgraphicSection,
 const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
 const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
 const fieldNames = twreporterRedux.reduxStateFields
+const logger = loggerFactory.getLogger()
 
 const _ = {
   get,
@@ -191,8 +193,8 @@ class Homepage extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.fetchIndexPageContent()
-    this.props.fetchCategoriesPostsOnIndexPage()
+    this.fetchIndexPageContentWithCatch()
+    this.fetchCategoriesPostsOnIndexPageWithCatch()
       .then(() => {
         // EX: if the url path is /?section=categories
         // after this component mounted and rendered,
@@ -203,6 +205,28 @@ class Homepage extends React.PureComponent {
         if (this._sidebar.current && section) {
           this._sidebar.current.handleClickAnchor(section)
         }
+      })
+  }
+
+  fetchIndexPageContentWithCatch = () => {
+    return this.props.fetchIndexPageContent()
+      .catch((failAction) => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: 'Error to fetch posts in sections except for categories section on index page.'
+        })
+      })
+  }
+
+  fetchCategoriesPostsOnIndexPageWithCatch = () => {
+    return this.props.fetchCategoriesPostsOnIndexPage()
+      .catch((failAction) => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: 'Error to fetch posts in categories section on index page.'
+        })
       })
   }
 

@@ -1,13 +1,10 @@
 import qs from 'qs'
 import get from 'lodash/get'
 import dataLoaderConst from '../constants/data-loaders'
-import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   get
 }
-
-const { fetchListedPosts } = twreporterRedux.actions
 
 /**
  *  loadData function is used for server side rendering.
@@ -32,6 +29,6 @@ export default function loadData({ location, match, store }) {
   }
 
   const tagId = _.get(match, 'params.tagId', '')
-  return store.dispatch(fetchListedPosts(tagId, dataLoaderConst.listType.tags,
-    dataLoaderConst.maxResult, page))
+  return store.actions.fetchListedPosts(tagId, dataLoaderConst.listType.tags,
+    dataLoaderConst.maxResult, page)
 }

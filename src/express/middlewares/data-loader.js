@@ -46,7 +46,9 @@ function dataLoaderMiddleware(namespace) {
       .then(() => {
         next()
       })
-      .catch(next)
+      .catch((failAction) => {
+        next(_.get(failAction, 'payload.error'))
+      })
   }
 }
 

@@ -1,7 +1,3 @@
-import twreporterRedux from '@twreporter/redux'
-
-const { searchAuthorsIfNeeded } = twreporterRedux.actions
-
 /**
  *  loadData function is used for server side rendering.
  *  It depends on redux store to load data and dispatch loaded results.
@@ -11,5 +7,5 @@ const { searchAuthorsIfNeeded } = twreporterRedux.actions
  *  @returns {Promise} which resolves when loading is done
  */
 export default function loadData({ store }) {
-  return store.dispatch(searchAuthorsIfNeeded(''))
+  return store.actions.searchAuthorsIfNeeded('')
 }

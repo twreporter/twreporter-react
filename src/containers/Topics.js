@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
-import { InternalServerError } from '../custom-error'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import qs from 'qs'
@@ -31,7 +31,7 @@ const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchTopics, fetchAFullTopic } = actions
 const { denormalizeTopics } = utils
 
-const N_PER_PAGE = 5
+const logger = loggerFactory.getLogger()
 
 const PageContainer = styled.div`
   position: relative;
@@ -49,6 +49,29 @@ class Topics extends Component {
     return this._clientFetchData(this.props)
   }
 
+  fetchAFullTopicWithCatch = (slug) => {
+    return this.props.fetchAFullTopic(slug)
+      .catch((failAction) => {
+        // TODO render alert message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch a full topic (slug: '${slug}').`
+        })
+      })
+  }
+
+  fetchTopicsWithCatch = (page) => {
+    const numberPerPage = 5
+    return this.props.fetchTopics(page, numberPerPage)
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch topics ( page: ${page} )`
+        })
+      })
+
+  }
+
   _clientFetchData(props) {
     const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
     if (
@@ -60,14 +83,14 @@ class Topics extends Component {
     }
     const topicsLength = _.get(topics, 'length', 0)
     if (topicsLength <= 0 && !isTopicsFetching) {
-      return props.fetchTopics(page, N_PER_PAGE)
+      return this.fetchTopicsWithCatch(page)
     }
     if (page === 1 && !isTopicFetching) {
       const firstTopic = topics[0]
       const firstTopicSlug = _.get(firstTopic, 'slug', '')
       const isFirstTopicFull = _.get(firstTopic, 'full', false)
       if (firstTopicSlug && !isFirstTopicFull) {
-        props.fetchAFullTopic(firstTopicSlug)
+        this.fetchAFullTopicWithCatch(firstTopicSlug)
       }
     }
   }
@@ -84,25 +107,22 @@ class Topics extends Component {
 
     const isFetching = isTopicFetching || isTopicsFetching
     const topicsLength = _.get(topics, 'length')
+
+    if (topicListError && topicsLength <= 0) {
+      return (
+        <div>
+          <SystemError error={topicListError} />
+        </div>
+      )
+    }
+
     if (
       !_.isInteger(page) ||
       page < 1 ||
       totalPages && (page > totalPages)
     ) {
       return (
-        <SystemError error={{ status: 404 }} />
-      )
-    }
-    /*
-      If fetching list data failed and there's no topics data in the store,
-      render error 500
-    */
-    if (topicListError && topicsLength <= 0) {
-      const err = new InternalServerError(topicListError.message || topicListError || '')
-      return (
-        <div>
-          <SystemError error={err} />
-        </div>
+        <SystemError error={{ statusCode: 404 }} />
       )
     }
 

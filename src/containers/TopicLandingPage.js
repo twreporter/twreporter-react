@@ -51,9 +51,21 @@ class TopicLandingPage extends Component {
   }
 
   componentDidMount() {
-    const { fetchAFullTopic, match } = this.props
+    const { match } = this.props
     const slug = _.get(match, 'params.slug')
-    fetchAFullTopic(slug)
+    return this.fetchAFullTopicWithCatch(slug)
+  }
+
+  fetchAFullTopicWithCatch = (slug) => {
+    const { fetchAFullTopic } = this.props
+    return fetchAFullTopic(slug)
+      // TODO render alert message for users
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch a full topic, topic slug: '${slug}'. `
+        })
+      })
   }
 
   _renderLoadingElements() {
@@ -75,7 +87,7 @@ class TopicLandingPage extends Component {
       logger.errorReport({
         message: `There is no topic in store corresponding with the given slug: ${slug}`
       })
-      return <SystemError error={{ status: 404 }} />
+      return <SystemError error={{ statusCode: 404 }} />
     }
     const {
       relateds_background,
