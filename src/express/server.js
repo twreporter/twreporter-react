@@ -11,6 +11,7 @@ import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
+import statusCodeConst from '../constants/status-code'
 import loggerFactory from '../logger'
 
 const _ = {
@@ -77,7 +78,7 @@ class ExpressServer {
       if (globalEnv.releaseBranch === releaseBranchConsts.release) {
         res.format({
           'text/plain': function () {
-            res.status(200).send('User-agent: * \n' +
+            res.status(statusCodeConst.ok).send('User-agent: * \n' +
               'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
               'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
             )
@@ -89,7 +90,7 @@ class ExpressServer {
       // disallow search engine crawler
       res.format({
         'text/plain': function() {
-          res.status(200).send('User-agent: * \n' +
+          res.status(statusCodeConst.ok).send('User-agent: * \n' +
             'Disallow: /'
           )
         }
@@ -107,7 +108,7 @@ class ExpressServer {
 
   __applyHealthCheckRoutes() {
     this.app.get('/check', (req, res) => {
-      res.status(200)
+      res.status(statusCodeConst.ok)
       res.end('server is running')
     })
 
@@ -146,18 +147,16 @@ class ExpressServer {
       dataLoaderMiddleware(namespace),
       renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options),
       (req, res) => {
-        const statusOK = 200
-        const statusRedirect = 301
         const { html, routerStaticContext } = req[namespace]
 
         if ( routerStaticContext.url ) {
           // somewhere a `<Redirect>` was rendered
-          res.redirect(statusRedirect, routerStaticContext.url)
+          res.redirect(statusCodeConst.movedPermanently, routerStaticContext.url)
           return
         }
 
-        const statusCode = _.get(routerStaticContext, 'statusCode', statusOK)
-        if (!res.headersSent && statusCode < statusRedirect ) {
+        const statusCode = _.get(routerStaticContext, 'statusCode', statusCodeConst.ok)
+        if (!res.headersSent) {
           const idToken = _.get(req, 'cookies.id_token')
           if (idToken) {
             // not to cache personal response
@@ -168,7 +167,20 @@ class ExpressServer {
           }
         }
 
-        res.status(statusCode)
+        if (statusCode == statusCodeConst.notFound ||
+          statusCode == statusCode.internalServerError) {
+
+          res.status(statusCode).send(html)
+          return
+        }
+
+        // Do not set status code here.
+        // the status code would be set
+        // in `res.send()`
+        // For instance, if current request is conditional request,
+        // the request header will contains 'If-None-Match' directive;
+        // if `req.get('If-None_match')` equals to `res.get('Etag')`,
+        // the status code would be set to 304 automatically.
         res.send(html)
       }
     ])
@@ -211,6 +223,22 @@ class ExpressServer {
   }
 
   /**
+   *  This function would set
+   *  express application etag setting.
+   *  After setting it,
+   *  express will add `Etag` response header.
+   *  Etag response header will make the browser send
+   *  conditional requests afterwards.
+   *  If `If-None-Match` request header equals to `Etag` response header,
+   *  express will set the response status code to 304 Not Modified.
+   *  For more information,
+   *  see https://expressjs.com/zh-tw/api.html#etag.options.table
+   */
+  __applyConditionRequestHandler() {
+    this.app.set('etag', 'strong')
+  }
+
+  /**
    *  @param {Object} webpackAssets - it lists all the built webpack bundles we are going to use
    *  @param {Object} loadableStats - it presnets files, modules and webpack bundles relationship
    *  @param {Object} options
@@ -220,6 +248,7 @@ class ExpressServer {
    */
   async setup(webpackAssets, loadableStats, options) {
     await this.__applyLogger()
+    this.__applyConditionRequestHandler()
     this.__applyDefaultMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()

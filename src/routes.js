@@ -216,13 +216,13 @@ export default function getRoutes() {
         // there is no `staticContext` on the client,
         // so we need to guard against that here
         if (staticContext) {
-          staticContext.statusCode = 404
+          staticContext.statusCode = statusCodeConst.notFound
         }
 
         return (
           <SystemError
             error={{
-              statusCode: 404
+              statusCode: statusCodeConst.notFound
             }}
           />
         )
