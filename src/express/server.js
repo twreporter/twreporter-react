@@ -99,8 +99,8 @@ class ExpressServer {
 
   __applyResponseHeader() {
     this.app.use(function (req, res, next) {
-      res.header('Access-Control-Allow-Origin', 'https://www.twreporter.org/')
-      res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+      res.set('Access-Control-Allow-Origin', 'https://www.twreporter.org/')
+      res.set('Access-Control-Allow-Headers', 'X-Requested-With')
       next()
     })
   }
@@ -161,10 +161,10 @@ class ExpressServer {
           const idToken = _.get(req, 'cookies.id_token')
           if (idToken) {
             // not to cache personal response
-            res.header('Cache-Control', 'no-store')
+            res.set('Cache-Control', 'no-store')
           } else {
             // set Cache-Control header for caching
-            res.header('Cache-Control', 'public, max-age=300')
+            res.set('Cache-Control', 'public, max-age=300')
           }
         }
 
@@ -185,7 +185,7 @@ class ExpressServer {
         return next(err)
       }
 
-      res.header('Cache-Control', 'no-store')
+      res.set('Cache-Control', 'no-store')
       if (_.get(err, 'statusCode') === 404) {
         res.redirect('/error/404')
       } else {
