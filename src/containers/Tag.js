@@ -107,7 +107,17 @@ class Tag extends PureComponent {
         <SystemError error={error} />
       )
     }
-    const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
+
+    let postForGettingTagName = {}
+    if (posts.length > 0) {
+      postForGettingTagName = posts[0]
+    } else {
+      const samplePostId = _.get(lists, [ tagId, 'items' , 0 ], '')
+      if (samplePostId) {
+        postForGettingTagName = utils.denormalizePosts([ samplePostId ], postEntities)[0]
+      }
+    }
+    const tagName = this._findTagName(_.get(postForGettingTagName, 'tags'), tagId)
     const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
