@@ -12,8 +12,7 @@ const _ = {
 const developmentEnv = 'development'
 const masterBranch = 'master'
 
-const { actions, actionTypes } = twreporterRedux
-const { getAccessToken } = actions
+const { actionTypes } = twreporterRedux
 
 const logger = loggerFactory.getLogger()
 
@@ -112,7 +111,7 @@ function authMiddleware(namespace, options) {
               next(err)
             } else {
               logger.errorReport({
-                report: err,
+                report: err
               })
               next()
             }
@@ -129,7 +128,7 @@ function authMiddleware(namespace, options) {
           } else {
             logger.errorReport({
               report: err,
-              message: errorMessage,
+              message: errorMessage
             })
             next()
           }
