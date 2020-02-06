@@ -1,4 +1,5 @@
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
+import { getSignOutHref } from '@twreporter/core/lib/utils/sign-out-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
 import getRoutes from '../../routes'
@@ -60,6 +61,7 @@ function authMiddleware(namespace, options) {
     const authorizationRequired = routes.some(route => matchPath(req.path, route) && route.authorizationRequired)// Use `Array.prototype.some` to imitate `<Switch>` behavior of selecting only the first to match
     const currentHref = `${req.protocol}://${req.get('host')}${req.originalUrl}` // Ref: https://stackoverflow.com/questions/10183291/how-to-get-the-full-url-in-express
     const signInHref = getSignInHref(currentHref)
+    const signOutHref = getSignOutHref(currentHref)
     // Check if the user is authenticated.
     // If the user is authenticated, handle user authorization:
     const idToken = _.get(req, 'cookies.id_token')
@@ -104,17 +106,9 @@ function authMiddleware(namespace, options) {
             next()
           } else {
             // The user should always get access token (authorized successfully) if she/he is authenticated.
-            // If the user is authenticated but failed to get access token, log out the error and skip authorization if authorization is not requred.
-            // If the page requires authorization, throw an error to express.
-            const err = new Error(`The user ${_.get(userInfoInIdToken, 'user_id')} has id token but failed to get access token.`)
-            if (authorizationRequired) {
-              next(err)
-            } else {
-              logger.errorReport({
-                report: err
-              })
-              next()
-            }
+            // If the user is authenticated but failed to get access token, sign the user out (clear her/his id token).
+            const signOutHref = getSignOutHref(currentHref)
+            res.redirect(302, signOutHref)
           }
         })
         .catch(failAction => {
