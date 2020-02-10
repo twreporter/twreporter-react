@@ -29,7 +29,7 @@
     "@google-cloud/logging-winston": "^3.0.2",
     "@twreporter/core": "^1.1.3-rc.0",
     "@twreporter/index-page": "^1.0.7-rc.0",
-    "@twreporter/react-article-components": "^1.1.3-rc.0",
+    "@twreporter/react-article-components": "^1.1.3-rc.1",
     "@twreporter/react-components": "^8.2.0-rc.0",
     "@twreporter/redux": "^6.0.1-rc.0",
     "@twreporter/universal-header": "^2.1.5-rc.0",
