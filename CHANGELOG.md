@@ -1,17 +1,32 @@
 # Changelog
 
+## 4.4.13-rc.1
+
+### Notable Changes
+
+- dependencies upgrade:
+  - @twreporter/react-article-components@1.1.3-rc.1
+- Fix list bug ([#1561](https://github.com/twreporter/twreporter-react/pull/1561)) (yucj)
+
+### Commits
+
+* [[`3e3c8fe1b8`](https://github.com/twreporter/twreporter-react/commit/3e3c8fe1b8)] - Fix list bug ([#1561](https://github.com/twreporter/twreporter-react/pull/1561)) (yucj)
+* [[`1efd4fb850`](https://github.com/twreporter/twreporter-react/commit/1efd4fb850)] - **chore**: update twreporter-npm-packages (#1563) (Tai-Jiun Fang)
+
 ## 4.4.13-rc.0
 ### Notable Changes
 - dependencies upgrade:
- - @twreporter/core@1.1.3-rc.0
- - @twreporter/index-page@1.0.7-rc.0
- - @twreporter/react-article-components@1.1.3-rc.0
- - @twreporter/react-components@8.2.0-rc.0
- - @twreporter/redux@6.0.1-rc.0
- - @twreporter/universal-header@2.1.5-rc.0
+  - @twreporter/core@1.1.3-rc.0
+  - @twreporter/index-page@1.0.7-rc.0
+  - @twreporter/react-article-components@1.1.3-rc.0
+  - @twreporter/react-components@8.2.0-rc.0
+  - @twreporter/redux@6.0.1-rc.0
+  - @twreporter/universal-header@2.1.5-rc.0
+
 
 ### Commits
-* [[`1efd4fb850`](https://github.com/twreporter/twreporter-react/commit/1efd4fb850)] - **chore**: update twreporter-npm-packages (#1563) (Tai-Jiun Fang)
+* [[`a775c47a11`](https://github.com/twreporter/twreporter-react/commit/a775c47a11)] - **chore**: update @twreporter/react-article-components (yucj)
+
 
 ## 4.4.12
 ### Notable Changes
