@@ -79,11 +79,9 @@ class Category extends PureComponent {
     // which means the items of page 1 are in items[0] to items[9],
     // the items of page 3 are in items[10] to item [19]
     const pages = _.get(lists, [ catId, 'pages' ], {})
-    const startPos = _.get(pages, [ page, 0 ], 0)
-    const endPos = _.get(pages, [ page, 1 ], 0)
-
     // denormalize the items of current page
-    const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
+    const itemRangeIndices = _.get(pages, `${page}`)
+    const posts = itemRangeIndices ? utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(itemRangeIndices[0], itemRangeIndices[1] + 1), postEntities) : []
     const postsLen = _.get(posts, 'length', 0)
     const isFetching = postsLen === 0
     // Error handling

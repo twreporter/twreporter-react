@@ -85,8 +85,6 @@ class Tag extends PureComponent {
     // which means the items of page 1 are in items[0] to items[9],
     // the items of page 3 are in items[10] to item [19]
     const pages = _.get(lists, [ tagId, 'pages' ], {})
-    const startPos = _.get(pages, [ page, 0 ], 0)
-    const endPos = _.get(pages, [ page, 1 ], 0)
     const totalPages = Math.ceil(total / MAXRESULT)
     if (
       !_.isInteger(page) ||
@@ -97,9 +95,9 @@ class Tag extends PureComponent {
         <SystemError error={{ statusCode: 404 }} />
       )
     }
-
     // denormalize the items of current page
-    const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
+    const itemRangeIndices = _.get(pages, `${page}`)
+    const posts = itemRangeIndices ? utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(itemRangeIndices[0], itemRangeIndices[1] + 1), postEntities) : []
     const postsLen = _.get(posts, 'length', 0)
     const isFetching = postsLen === 0
 
@@ -109,7 +107,17 @@ class Tag extends PureComponent {
         <SystemError error={error} />
       )
     }
-    const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
+
+    let postForGettingTagName = {}
+    if (posts.length > 0) {
+      postForGettingTagName = posts[0]
+    } else {
+      const samplePostId = _.get(lists, [ tagId, 'items' , 0 ], '')
+      if (samplePostId) {
+        postForGettingTagName = utils.denormalizePosts([ samplePostId ], postEntities)[0]
+      }
+    }
+    const tagName = this._findTagName(_.get(postForGettingTagName, 'tags'), tagId)
     const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 

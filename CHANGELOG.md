@@ -1,5 +1,28 @@
 # Changelog
 
+## 4.4.13
+
+### Notable Changes
+
+- dependencies upgrade:
+  - @twreporter/core@1.1.3
+  - @twreporter/index-page@1.0.7
+  - @twreporter/react-article-components@1.1.3
+  - @twreporter/react-components@8.2.0
+  - @twreporter/redux@6.0.1
+  - @twreporter/universal-header@2.1.5
+- Fix list bug ([#1561](https://github.com/twreporter/twreporter-react/pull/1561)) (yucj)
+
+### Commits
+* [[`ba54db90b2`](https://github.com/twreporter/twreporter-react/commit/ba54db90b2)] - **chore**: update twreporter-npm-packages (#1569) (Tai-Jiun Fang)
+* [[`fb4f98bdba`](https://github.com/twreporter/twreporter-react/commit/fb4f98bdba)] - Merge pull request #1567 from YuCJ/fix (yucj)
+* [[`07d172bfd5`](https://github.com/twreporter/twreporter-react/commit/07d172bfd5)] - chore(prerelease): bump version to v4.4.13-rc.1 (yucj)
+* [[`a775c47a11`](https://github.com/twreporter/twreporter-react/commit/a775c47a11)] - **chore**: update @twreporter/react-article-components (yucj)
+* [[`3e3c8fe1b8`](https://github.com/twreporter/twreporter-react/commit/3e3c8fe1b8)] - Fix list bug (#1561) (yucj)
+* [[`54bebb9138`](https://github.com/twreporter/twreporter-react/commit/54bebb9138)] - Merge pull request #1565 from taylrj/master (Tai-Jiun Fang)
+* [[`3221fc2339`](https://github.com/twreporter/twreporter-react/commit/3221fc2339)] - **chore**: bump version to v4.4.13-rc.0 (Taylor Fang)
+* [[`1efd4fb850`](https://github.com/twreporter/twreporter-react/commit/1efd4fb850)] - **chore**: update twreporter-npm-packages (#1563) (Tai-Jiun Fang)
+
 ## 4.4.12
 ### Notable Changes
 - dependencies upgrade:
