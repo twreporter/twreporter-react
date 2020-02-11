@@ -22,7 +22,6 @@ const Hexagon = styled.div`
   width: 2.6em;
 	background-image: url('/asset/photography/polygon.svg');
   background-size: 100%;
-  background-repeat: repeat-y;
   text-align: center;
   line-height: 2.63em;
   padding: 0 0.4em;
@@ -128,7 +127,11 @@ function _buildSlideFromPost(post) {
         objectFit="cover"
       />
       <CategoryContainer>
-        <Hexagon>{catDisplay}</Hexagon>
+        {
+          catDisplay.split('').map((word, index) => (
+            <Hexagon key={`cat-${index}`}>{word}</Hexagon>
+          ))
+        }
       </CategoryContainer>
       <Card>
         {post.subtitle ? <CardSubtitle>{post.subtitle}</CardSubtitle> : null}
