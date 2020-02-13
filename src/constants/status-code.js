@@ -1,6 +1,7 @@
 export default {
   ok: 200,
   created: 201,
+  found: 302,
   badRequest: 400,
   unauthorized: 401,
   forbidden: 403,
