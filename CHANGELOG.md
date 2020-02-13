@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.4.15
+
+### Notable Changes
+
+- **chore**: dependencies dedupe
+- **chore**: update dependencies
+  - @twreporter/core@1.2.0
+  - @twreporter/index-page@1.0.8
+  - @twreporter/react-article-components@1.1.4
+  - @twreporter/react-components@8.2.1
+  - @twreporter/universal-header@2.1.6
+
+### Commits
+
+* [[`af07812975`](https://github.com/twreporter/twreporter-react/commit/af07812975)] - **chore**: dependencies dedupe (yucj)
+* [[`133a3db93c`](https://github.com/twreporter/twreporter-react/commit/133a3db93c)] - **chore**: update dependencies (yucj)
+
 ## 4.4.14
 
 ### Notable Changes
