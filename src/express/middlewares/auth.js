@@ -122,12 +122,12 @@ function authMiddleware(namespace, options) {
           }
         })
         .catch(failAction => {
-          if (failAction.statusCode === statusConsts.unauthorized) {
+          const err = _.get(failAction, 'payload.error')
+          if (err.statusCode === statusConsts.unauthorized) {
             // If the user is authenticated but failed to get access token with status 401,
             // sign the user out (clear her/his id token).
             res.redirect(statusConsts.found, signOutHref)
           } else {
-            const err = _.get(failAction, 'payload.error')
             // If an unexpected error occurred, log out the error and skip authorization if authorization is not required.
             // If the page requires authorization, throw an error to express.
             const errorMessage = 'An unexpected error occurred when the server try to get access token. Skip authorization.'
