@@ -4,10 +4,12 @@
 
 ### Notable Changes
 
-- update error handling of express/middlewares/auth
+- **fix**: update error handling of express/middlewares/auth
+- **chore**: update package version parser
 
 ### Commits
 
+* [[`d8ff4ccd46`](https://github.com/twreporter/twreporter-react/commit/d8ff4ccd46)] - **chore**: update package version parser (yucj)
 * [[`57c9cf556a`](https://github.com/twreporter/twreporter-react/commit/57c9cf556a)] - **fix**: fix wrong error path in express/middlewares/auth (yucj)
 * [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
 
