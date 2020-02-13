@@ -3,8 +3,9 @@ import { getSignOutHref } from '@twreporter/core/lib/utils/sign-out-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
 import getRoutes from '../../routes'
-import twreporterRedux from '@twreporter/redux'
 import loggerFactory from '../../logger'
+import statusConsts from '../../constants/status-code'
+import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   get
@@ -105,32 +106,46 @@ function authMiddleware(namespace, options) {
             })
             next()
           } else {
-            // The user should always get access token (authorized successfully) if she/he is authenticated.
-            // If the user is authenticated but failed to get access token, sign the user out (clear her/his id token).
-            const signOutHref = getSignOutHref(currentHref)
-            res.redirect(302, signOutHref)
+            // There should be authenticated data in the redux store after the auth api call succeeded.
+            // If not, sign the user out and log the error.
+            res.redirect(statusConsts.found, signOutHref)
+            if (!jwt) {
+              logger.errorReport({
+                message: 'auth api call succeeded, but no access token in the redux store.'
+              })
+            }
+            if (!isAuthed) {
+              logger.errorReport({
+                message: 'auth api call succeeded, but isAuthed state is not true in the redux store.'
+              })
+            }
           }
         })
         .catch(failAction => {
-          const err = _.get(failAction, 'payload.error')
-          // The action `getAccessToken()` should return a Promise always resolved.
-          // If an unexpected error occoured, log out the error and skip authorization if authorization is not requred.
-          // If the page requires authorization, throw an error to express.
-          const errorMessage = 'An unexpected error occoured when the server try to get access token. Skip authorization.'
-          if (authorizationRequired) {
-            next(err)
+          if (failAction.statusCode === statusConsts.unauthorized) {
+            // If the user is authenticated but failed to get access token with status 401,
+            // sign the user out (clear her/his id token).
+            res.redirect(statusConsts.found, signOutHref)
           } else {
-            logger.errorReport({
-              report: err,
-              message: errorMessage
-            })
-            next()
+            const err = _.get(failAction, 'payload.error')
+            // If an unexpected error occurred, log out the error and skip authorization if authorization is not required.
+            // If the page requires authorization, throw an error to express.
+            const errorMessage = 'An unexpected error occurred when the server try to get access token. Skip authorization.'
+            if (authorizationRequired) {
+              next(err)
+            } else {
+              logger.errorReport({
+                report: err,
+                message: errorMessage
+              })
+              next()
+            }
           }
         })
     }
     // If the user is not authenticated, redirect to sign-in page if the requested page requires authorization:
     if (authorizationRequired) {
-      res.redirect(302, signInHref)
+      res.redirect(statusConsts.found, signInHref)
     } else {
       next()
     }
