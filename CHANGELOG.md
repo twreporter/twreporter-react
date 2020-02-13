@@ -8,6 +8,7 @@
 
 ### Commits
 
+* [[`57c9cf556a`](https://github.com/twreporter/twreporter-react/commit/57c9cf556a)] - **fix**: fix wrong error path in express/middlewares/auth (yucj)
 * [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
 
 ## 4.4.14-rc.0
