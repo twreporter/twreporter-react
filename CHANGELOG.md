@@ -1,23 +1,12 @@
 # Changelog
 
-## 4.4.14-rc.1
+## 4.4.14
 
 ### Notable Changes
 
 - **fix**: update error handling of express/middlewares/auth
 - **chore**: update package version parser
-
-### Commits
-
-* [[`d8ff4ccd46`](https://github.com/twreporter/twreporter-react/commit/d8ff4ccd46)] - **chore**: update package version parser (yucj)
-* [[`57c9cf556a`](https://github.com/twreporter/twreporter-react/commit/57c9cf556a)] - **fix**: fix wrong error path in express/middlewares/auth (yucj)
-* [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
-
-## 4.4.14-rc.0
-
-### Notable Changes
-
-- dependencies upgrade:
+- **chore**: dependencies upgrade:
  - @twreporter/core@1.2.0-rc.0
  - @twreporter/index-page@1.0.8-rc.0
  - @twreporter/react-article-components@1.1.4-rc.0
@@ -28,6 +17,13 @@
 
 ### Commits
 
+* [[`7e1988bbd5`](https://github.com/twreporter/twreporter-react/commit/7e1988bbd5)] - **chore**: remove redundant ci build at master branch (yucj)
+* [[`de293e9486`](https://github.com/twreporter/twreporter-react/commit/de293e9486)] - **chore**: update changelog (yucj)
+* [[`d8ff4ccd46`](https://github.com/twreporter/twreporter-react/commit/d8ff4ccd46)] - **chore**: update package version parser (yucj)
+* [[`747d1adecb`](https://github.com/twreporter/twreporter-react/commit/747d1adecb)] - **chore**: update changelog (yucj)
+* [[`57c9cf556a`](https://github.com/twreporter/twreporter-react/commit/57c9cf556a)] - **fix**: fix wrong error path in express/middlewares/auth (yucj)
+* [[`4774887886`](https://github.com/twreporter/twreporter-react/commit/4774887886)] - **chore**: bump version to v4.4.14-rc.1 (yucj)
+* [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
 * [[`a4d0bddedf`](https://github.com/twreporter/twreporter-react/commit/a4d0bddedf)] - **chore**: update dependencies (yucj)
 * [[`717b5e1bec`](https://github.com/twreporter/twreporter-react/commit/717b5e1bec)] - **fix**: log out the user if fail to get access token (yucj)
 * [[`923aea2860`](https://github.com/twreporter/twreporter-react/commit/923aea2860)] - **fix**: remove unused vars (yucj)
