@@ -172,7 +172,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
                 - release
                 - staging
                 - preview
