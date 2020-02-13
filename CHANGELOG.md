@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.14-rc.1
+
+### Notable Changes
+
+- update error handling of express/middlewares/auth
+
+### Commits
+
+* [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
+
 ## 4.4.14-rc.0
 
 ### Notable Changes
