@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.4.14-rc.0
+
+### Notable Changes
+
+- dependencies upgrade:
+ - @twreporter/core@1.2.0-rc.0
+ - @twreporter/index-page@1.0.8-rc.0
+ - @twreporter/react-article-components@1.1.4-rc.0
+ - @twreporter/react-components@8.2.1-rc.0
+ - @twreporter/universal-header@2.1.6-rc.0
+- remove unused vars in express/middlewares/auth
+- fix category name on photography landing page
+
+### Commits
+
+* [[`a4d0bddedf`](https://github.com/twreporter/twreporter-react/commit/a4d0bddedf)] - **chore**: update dependencies (yucj)
+* [[`717b5e1bec`](https://github.com/twreporter/twreporter-react/commit/717b5e1bec)] - **fix**: log out the user if fail to get access token (yucj)
+* [[`923aea2860`](https://github.com/twreporter/twreporter-react/commit/923aea2860)] - **fix**: remove unused vars (yucj)
+* [[`0cc99eff33`](https://github.com/twreporter/twreporter-react/commit/0cc99eff33)] - **fix**: category name on photography landing page (Taylor Fang)
+
 ## 4.4.13
 
 ### Notable Changes
