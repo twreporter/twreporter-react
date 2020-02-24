@@ -129,8 +129,8 @@ class AppShell extends React.PureComponent {
         <AppBox
           backgroundColor={backgroundColor}
         >
-          <WebPush />
           <ContentBlock>
+            <WebPush />
             {renderHeader(headerType, releaseBranch)}
             {children}
             {renderFooter(footerType)}
