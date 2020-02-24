@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.16
+
+### Notable Changes
+
+- **fix**: anchors position on index page
+
+### Commits
+
+* [[`b6dfe56595`](https://github.com/twreporter/twreporter-react/commit/b6dfe56595)] - **fix**: anchors position on index page (#1594) (Tai-Jiun Fang)
+
 ## 4.4.15
 
 ### Notable Changes
