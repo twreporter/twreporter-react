@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.4.16
+
+### Notable Changes
+
+- **fix**: anchors position on index page
+- **chore**:
+  - update yarn.lock (yucj)
+  - add --frozen-lockfile to yarn install (yucj)
+
+### Commits
+* [[`b6dfe56595`](https://github.com/twreporter/twreporter-react/commit/b6dfe56595)] - **fix**: anchors position on index page (#1594) (Tai-Jiun Fang)
+* [[`66d7816376`](https://github.com/twreporter/twreporter-react/commit/66d7816376)] - **chore**: update yarn.lock (yucj)
+* [[`adfb135e29`](https://github.com/twreporter/twreporter-react/commit/adfb135e29)] - **chore**: add --frozen-lockfile to yarn install (yucj)
+
 ## 4.4.15
 
 ### Notable Changes

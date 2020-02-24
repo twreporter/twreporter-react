@@ -17,7 +17,7 @@ jobs:
           keys:
           - v1-dependencies-build-{{ checksum "yarn.lock" }}
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
 
       - save_cache:
           paths:
@@ -33,7 +33,7 @@ jobs:
           keys:
             - v1-dependencies-runtime-{{ checksum "yarn.lock" }}
 
-      - run: yarn install --production
+      - run: yarn install --production --frozen-lockfile
 
       - save_cache:
           paths:
