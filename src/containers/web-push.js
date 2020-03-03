@@ -414,7 +414,7 @@ class WebPush extends PureComponent {
           </NotifyText>
           <NotifyHighLightRow>
             <NotifyHighLight>該如何操作？</NotifyHighLight>
-            <NotifyLink href="/a/help-notification-instruction" target="_blank">看教學</NotifyLink>
+            <NotifyLink href="/a/how-to-follow-the-reporter" target="_blank">看教學</NotifyLink>
           </NotifyHighLightRow>
           <NotifyButton onClick={btClickCallback}>
             {btText}
