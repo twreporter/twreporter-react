@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.4.17
+
+### Commits
+* [[`fcfb74d6db`](https://github.com/twreporter/twreporter-react/commit/fcfb74d6db)] - **fix**: web push tutorial URL change (nickhsine)
+
 ## 4.4.16
 
 ### Notable Changes
