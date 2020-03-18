@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.4.18
+
+### Commits
+* [[`72d798a4e0`](https://github.com/twreporter/twreporter-react/commit/72d798a4e0)] - **chore**: upgrade to @twreporter/react-article-components@^1.1.7 (nickhsine)
+
 ## 4.4.17
 
 ### Commits
