@@ -207,11 +207,14 @@ export default class List extends PureComponent {
   }
 
   _getDate = (date) => {
-    let dateString = date.toString()
-    if (dateString.length < 2) {
-      return '0' + dateString
+    if (date) {
+      let dateString = date.toString()
+      if (dateString.length < 2) {
+        return '0' + dateString
+      }
+      return dateString 
     }
-    return dateString
+    return
   }
   _foldAnimation = (isUnfold, index, mockItem = false) => {
     let isOdd = index % 2 === 1
