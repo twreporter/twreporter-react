@@ -18,9 +18,14 @@ const _ = {
   orderBy, groupBy, keys
 }
 
-const sortedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'asc', 'asc', 'asc' ])
-const sortedDataGroupByYear = _.groupBy(sortedData, record => record.year)
-const yearList = _.keys(sortedDataGroupByYear)
+const orderedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'desc', 'asc', 'asc' ])
+const orderedDataGroupByYear = _.groupBy(orderedData, record => record.year)
+const orderedYearList = _.keys(orderedDataGroupByYear)
+  // sort by year in desc order
+  .sort(function(a, b) {
+    return Number(b) - Number(a)
+  })
+
 const yearRangebgColor = '#cacaca'
 const timelineScrollingPortion = 0.98
 const defaultZIndex = 0
@@ -365,8 +370,8 @@ export default class Section5 extends PureComponent {
       timelineScrolling: false,
       timelineScrollingHeight: 0,
       yearContentHeight: [],
-      unfoldArray: yearList.map(() => false),
-      currentYear: yearList[0],
+      unfoldArray: orderedYearList.map(() => false),
+      currentYear: orderedYearList[0],
       isBorderBottomfixed: true
     }
   }
@@ -424,7 +429,7 @@ export default class Section5 extends PureComponent {
    */
   _getYear = (currentYearIndex) => {
     this.setState({
-      currentYear: yearList[currentYearIndex]
+      currentYear: orderedYearList[currentYearIndex]
     })
   }
   /**
@@ -455,16 +460,17 @@ export default class Section5 extends PureComponent {
                 <AccordionTimeline>
                   <List
                     unfoldArray={this.state.unfoldArray}
-                    sortedData={sortedData}
-                    sortedDataGroupByYear={sortedDataGroupByYear}
+                    orderedData={orderedData}
+                    orderedDataGroupByYear={orderedDataGroupByYear}
                     foldAndUnfold={this._foldAndUnfold}
                     getYearContentHeight={this._getYearContentHeight}
+                    orderedYearList={orderedYearList}
                   />
                 </AccordionTimeline>
                 <YearRange>
-                  <p><span>{yearList[yearList.length - 1]}</span></p>
+                  <p><span>{orderedYearList[orderedYearList.length - 1]}</span></p>
                   <p>
-                    <span>{yearList[0]}</span>
+                    <span>{orderedYearList[0]}</span>
                     <img
                       src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/section5-arrow.png`)}`}
                     />
@@ -481,10 +487,11 @@ export default class Section5 extends PureComponent {
                     getYear={this._getYear}>
                     <List
                       unfoldArray={this.state.unfoldArray}
-                      sortedData={sortedData}
-                      sortedDataGroupByYear={sortedDataGroupByYear}
+                      orderedData={orderedData}
+                      orderedDataGroupByYear={orderedDataGroupByYear}
                       foldAndUnfold={this._foldAndUnfold}
                       getYearContentHeight={this._getYearContentHeight}
+                      orderedYearList={orderedYearList}
                     />
                   </Timeline>
                 </RunningTimeline>

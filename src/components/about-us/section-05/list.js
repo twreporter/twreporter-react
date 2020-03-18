@@ -1,15 +1,15 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { months } from '../constants/section-05/months'
-import mq from '../utils/media-query'
-import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
+import VelocityComponent from 'velocity-react/velocity-component'
+import colors from '../../../constants/colors'
+import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
+import mq from '../utils/media-query'
 import styled from 'styled-components'
 import values from 'lodash/values'
-import VelocityComponent from 'velocity-react/velocity-component'
+import { font } from '../constants/styles'
+import { months } from '../constants/section-05/months'
 
 const _ = {
   groupBy, values, keys
@@ -202,7 +202,7 @@ export default class List extends PureComponent {
   }
 
   componentDidMount() {
-    const yearContentHeight = this.yearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
+    const yearContentHeight = this.props.orderedYearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
     this.props.getYearContentHeight(yearContentHeight)
   }
 
@@ -247,24 +247,24 @@ export default class List extends PureComponent {
   }
   
   render() {
-    const { unfoldArray, sortedData, sortedDataGroupByYear, foldAndUnfold } = this.props
-    this.yearList = _.keys(sortedDataGroupByYear)
-    const sortedDataGroupByYearMonth = _.values(_.groupBy(sortedData, record => record.year)).map((dataEachYear) => {
-      return _.groupBy(dataEachYear, data => data.month)
+    const { unfoldArray, orderedData, orderedDataGroupByYear, foldAndUnfold, orderedYearList } = this.props
+    const data = orderedYearList.map((year) => {
+      return {
+        // order data by year respect to `orderedYearList`
+        // group data in year and month
+        [`${year}`]: _.groupBy(orderedDataGroupByYear[year], data => data.month)
+      }
     })
-    const groupedData = this.yearList.reduce((previous, year, index) => {
-      previous[year] = sortedDataGroupByYearMonth[index]
-      return previous
-    }, {})
-    const Records = (year, indexOfUnfoldArray) => {
-      let isOdd = sortedDataGroupByYear[year].length % 2 === 1
+    const getRecords = (content, year, indexOfUnfoldArray) => {
+      let isOdd = orderedDataGroupByYear[year].length % 2 === 1
+      const dataOfYear = content[year]
       return (
         <Accomplishments
           unfold={unfoldArray[indexOfUnfoldArray]}
         >
           <OnlyDisplayOnMobile>
             {
-              sortedDataGroupByYear[year].map((record, index) => {
+              orderedDataGroupByYear[year].map((record, index) => {
                 let unfold = unfoldArray[indexOfUnfoldArray]
                 let animationProps = this._foldAnimation(unfold, index)
                 return(
@@ -300,23 +300,23 @@ export default class List extends PureComponent {
           </OnlyDisplayOnMobile>
           <DisplayOnTabletAbove>
             {
-              _.values(groupedData[year]).map((yearRecords, index) => {
+              _.values(dataOfYear).map((dataOfMonth, index) => {
                 return(
                   <MonthlyAccomplishments key={index}>
                     {
-                      _.values(yearRecords).map((monthRecords, index) => {
+                      _.values(dataOfMonth).map((dataOfDay, index) => {
                         return (
                           <Accomplishment
                             key={index}
                           >
                             <MonthLabel monthOrder={index}>
-                              <p>{months[monthRecords.month - 1]}</p>
+                              <p>{months[dataOfDay.month - 1]}</p>
                             </MonthLabel>
                             <Record>
                               <p>
-                                <span>{this._getDate(monthRecords.date)}</span>
+                                <span>{this._getDate(dataOfDay.date)}</span>
                               </p>
-                              <p>{monthRecords.text.chinese}</p>
+                              <p>{dataOfDay.text.chinese}</p>
                             </Record>
                           </Accomplishment>
                         )
@@ -331,7 +331,9 @@ export default class List extends PureComponent {
       )
     }
 
-    const ListAll = this.yearList.map((year, index) => {
+    const ListAll = data.map((dataOfYear, index) => {
+      // since `orderedYearList` has the same year order with `data`
+      const year = orderedYearList[index]
       return (
         <Year 
           key={year} 
@@ -343,7 +345,7 @@ export default class List extends PureComponent {
             onClick={() => foldAndUnfold(index)}>
             <p>{year}</p>
           </YearLabel>
-          {Records(year, index)}
+          {getRecords(dataOfYear, year, index)}
         </Year>
       )
     })
@@ -356,18 +358,13 @@ export default class List extends PureComponent {
   }
 }
 
-List.defaultProps = {
-  unfoldArray: [],
-  sortedData: [],
-  sortedDataGroupByYear: {}
-}
-
 List.propTypes = {
   unfoldArray: PropTypes.array.isRequired,
-  sortedData: PropTypes.array.isRequired,
-  sortedDataGroupByYear: PropTypes.object.isRequired,
+  orderedData: PropTypes.array.isRequired,
+  orderedDataGroupByYear: PropTypes.object.isRequired,
   foldAndUnfold: PropTypes.func.isRequired,
-  getYearContentHeight: PropTypes.func
+  getYearContentHeight: PropTypes.func,
+  orderedYearList: PropTypes.array.isRequired,
 }
 
 
