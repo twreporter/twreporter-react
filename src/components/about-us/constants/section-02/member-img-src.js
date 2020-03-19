@@ -23,13 +23,15 @@ export const membersImg = {
   editJasonLiu: 'Edit-JasonLiu.png',
   editChhung:'Edit-chhung.png',
   editLinHuiChen: 'Edit-LinHuiChen.png',
-  editSharonWang: 'Edit-SharonWang.png',
   editChenChieh: 'Edit-ChenChieh.png',
   editKeHaoHsiang: 'Edit-KeHaoHsiang.png',
   editYangWill: 'Edit-YangWill.png',
+  editChiaYu: 'Edit-ChiaYu.png',
+  editLea: 'Edit-Lea.png',
   photoChihWeiYu: 'Photo-ChihWeiYu.png',
   photoJamesonWu: 'Photo-JamesonWu.png',
   photoWeiMinSu: 'Photo-WeiMingSu.png',
+  photoTzuLeiYang: 'Photo-TzuLeiYang.png',
   blankFace: 'blankface.png'
 }
 
