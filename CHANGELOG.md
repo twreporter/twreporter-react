@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.4.19
+
+### Notable Changes
+
+- update about-us page
+  - update members (section2)
+  - update section5 content as well as record order
+
+### Commits
+* [[`30d46cea16`](https://github.com/twreporter/twreporter-react/commit/30d46cea16)] - Merge pull request #1603 from taylrj/update-aboutus (Tai-Jiun Fang)
+* [[`8a9444bed8`](https://github.com/twreporter/twreporter-react/commit/8a9444bed8)] - **fix**: only return `date` if record has `date` (Taylor Fang)
+* [[`133a46f80f`](https://github.com/twreporter/twreporter-react/commit/133a46f80f)] - **fix**: update section5 content in about-us (Taylor Fang)
+* [[`565cae3919`](https://github.com/twreporter/twreporter-react/commit/565cae3919)] - **fix**: update members in about-us (Taylor Fang)
+* [[`1328b6a0d0`](https://github.com/twreporter/twreporter-react/commit/1328b6a0d0)] - **fix**: update the record order in about-us (Taylor Fang)
+
 ## 4.4.18
 
 ### Commits
