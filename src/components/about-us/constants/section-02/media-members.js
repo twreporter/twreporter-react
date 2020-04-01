@@ -141,8 +141,8 @@ const members = [
   {
     name: '林珍娜',
     nameEng: 'Chen Na Lin ',
-    job: '介面設計師',
-    jobEng: 'UI Designer',
+    job: '設計師',
+    jobEng: 'Art Designer',
     email: 'ginalin@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiChenNaLin,
     category: categoryIds.digital
