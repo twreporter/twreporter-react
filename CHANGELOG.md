@@ -1,12 +1,13 @@
 # Changelog
 
-## 4.4.20
+## 4.4.20-rc.0
 
 ### Notable Changes
 
 - fix: section 2 of about us
   - fix section2 where arrows of photography department can not click 
 
+### Commits
 * [[`334ea8e794`](https://github.com/twreporter/twreporter-react/commit/334ea8e794)] - **fix**: section 2 of about us (Taylor Fang)
 
 ## 4.4.19
