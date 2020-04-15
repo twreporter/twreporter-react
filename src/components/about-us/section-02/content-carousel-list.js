@@ -1,16 +1,17 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import categories from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
+import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
+import { font } from '../constants/styles'
+import { gray } from './utils'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { screen, headcountPerPage } from '../constants/section-02/headcount-per-page'
+import { storageUrlPrefix } from '../utils/config'
 //lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
@@ -43,40 +44,31 @@ const Department = styled.div`
   position: relative;
   padding: 0 72px 5px 90px;
   background: linear-gradient(to bottom, ${colors.white} 30%, ${colors.gray.gray96} 30%);
-  ${mq.desktopAndAbove`
-    &:nth-child(3){
-      display: inline-block;
-      li{
-        width: calc(100% / ${numbersInHalfPage});
-      }
-    }
-    &:last-child {
-      display: inline-block;
-      li{
-        width: calc(100% / ${numbersInHalfPage});
-      }
-    }
-  `}
+  display: inline-block;
   ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
-    &:nth-child(3){
+    &:nth-child(2n){
       width: 559px;
     }
-    &:last-child {
+    &:nth-child(2n+1) {
       width: 583px;
-      margin-left: calc(100% - 559px - 583px);
+    }
+    &:first-child {
+      width: 100%;
     }
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
-    &:nth-child(3){
+    &:nth-child(2n){
       width: 410px;
     }
-    &:last-child{
-      margin-left: calc(100% - 410px - 430px);
+    &:nth-child(2n+1) {
       width: 430px;
+    }
+    &:first-child {
+      width: 100%;
     }
   `}
   ${mq.tabletOnly`
@@ -113,19 +105,19 @@ const Member = styled.li`
     img:first-child{
       width: calc(76px * 1.5);
     }
-    width: calc(100% / ${numbersInfullPage.overDesktop});
+    width: calc(100% / ${props => props.numPerPage[screen.hd]});
   `}
   ${mq.desktopOnly`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
-    width: calc(100% / ${numbersInfullPage.desktop});
+    width: calc(100% / ${props => props.numPerPage[screen.desktop]});
   `}
   ${mq.tabletOnly`
     img:first-child{
       width: calc(62.6px * 1.5);
     }
-    width: calc(100% / ${numbersInfullPage.tablet});
+    width: calc(100% / ${props => props.numPerPage[screen.tablet]});
   `}
 `
 
@@ -358,8 +350,9 @@ export default class CarouselMemberList extends PureComponent {
   render() {
     const { sendEmail } = this.props
     const { currentPagesArray } = this.state
-    const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
-      let label = _.find(categoriesAll, { id: categoryId }).label
+    const departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
+      const label = _.find(categoriesAll, { id: categoryId }).label
+      const numPerPage = headcountPerPage[categoryId]
       return(
         <Department key={categoryId}>
           <Name><p>{label.chinese}</p></Name>
@@ -380,7 +373,7 @@ export default class CarouselMemberList extends PureComponent {
                 typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
-                      <Member key={index}>
+                      <Member key={index} numPerPage={numPerPage}>
                         <img
                           src={`${replaceGCSUrlOrigin(member.profile)}`}
                         />
@@ -414,7 +407,7 @@ export default class CarouselMemberList extends PureComponent {
     })
     return (
       <Container>
-        {Departments}
+        {departments}
       </Container>
     )
   }

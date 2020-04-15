@@ -1,23 +1,23 @@
-import colors from '../../../constants/colors'
-import { gray, numbersInfullPage } from './utils'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
-import categories from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
 import DepartmentsNameList from './departments-name-list'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import categories from '../constants/section-02/categories'
+import categoryIds from '../constants/section-02/category-ids'
+import colors from '../../../constants/colors'
+import mq from '../utils/media-query'
 import styled from 'styled-components'
 import values from 'lodash/values'
+import { gray } from './utils'
+import { headcountPerPage, screen } from '../constants/section-02/headcount-per-page'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
 
 const _ = {
   values
 }
 
-const numbersInOnePage = numbersInfullPage.mobile
 const categoriesAll = categories.fundation.concat(categories.media)
 
 const Container = styled.div`
@@ -175,7 +175,10 @@ export default class PaginatedMemberList extends PureComponent {
 
   _pageMaker = () => {
     const { membersNumberArray } = this.props
-    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numbersInOnePage))
+    const { selectedDepartmentIndex } = this.state
+    const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
+    const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
+    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numberPerPage))
   }
 
   _selectDepartment = (index) => {
@@ -185,9 +188,11 @@ export default class PaginatedMemberList extends PureComponent {
   render() {
     const { selectedDepartmentIndex, currentPagesArray } = this.state
     const { groupedMembers } = this.props
-    const cursor = (currentPagesArray[selectedDepartmentIndex] + 1) * numbersInOnePage
-    const selectedMemberList = groupedMembers[_.values(categoryIds)[selectedDepartmentIndex]]
-    const MemberBlocks = selectedMemberList.slice(cursor - numbersInOnePage, cursor).map((member) => {
+    const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
+    const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
+    const cursor = (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage 
+    const selectedMemberList = groupedMembers[selectedCategoryId]
+    const memberBlocks = selectedMemberList.slice(cursor - numberPerPage, cursor).map((member) => {
       return(
         <MemberBlock key={member.name}>
           <MemberBorder>
@@ -224,7 +229,7 @@ export default class PaginatedMemberList extends PureComponent {
           />           
         </StyledArrows>       
         <MemberBlockList>
-          {MemberBlocks}
+          {memberBlocks}
         </MemberBlockList>
         <NavigationWrapper>
           <Navigation
