@@ -114,10 +114,10 @@ class LeadingImage extends React.PureComponent {
 
     const imgJSX = isObjectFit ? (
       <StyledPicture>
-        <meta itemProp="url" content={_.get(imgSet, 'desktop.url')} />
+        <meta itemProp="url" content={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))} />
         <meta itemProp="description" content={alt} />
         <ImgPlaceholder
-          src={_.get(imgSet, 'tiny.url')}
+          src={replaceGCSUrlOrigin(_.get(imgSet, 'tiny.url'))}
           toShow={toShowPlaceholder}
         />
         <source media={'(orientation: portrait)'} srcSet={getSrcSet(portraitImgSet)} />

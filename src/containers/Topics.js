@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
 import loggerFactory from '../logger'
@@ -127,15 +128,18 @@ class Topics extends Component {
     }
 
     const topicsProps = _.map(topics, (topic, index) => {
-      const imgUrl = _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
+      const imgUrl = replaceGCSUrlOrigin(
+        _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
         _.get(topic, 'leading_image.resized_targets.mobile.url') ||
-        _.get(topic, 'og_image.resized_targets.mobile.url') || ''
+        _.get(topic, 'og_image.resized_targets.mobile.url') ||
+        siteMeta.ogImage.url
+      )
 
       const imgAlt = _.get(topic, 'leading_image_portrait.description') ||
         _.get(topic, 'leading_image.description') ||
         _.get(topic, 'og_image.description') || ''
 
-      return ({
+      return {
         full: _.get(topic, 'full', false),
         id: _.get(topic, 'id', index),
         linkTo: `/topics/${_.get(topic, 'slug')}`,
@@ -148,11 +152,11 @@ class Topics extends Component {
         relateds: index > 0 ? null : _.map(_.get(topic, 'relateds', []), post => ({
           id: _.get(post, 'id', index),
           title: _.get(post, 'title', ''),
-          imgUrl: _.get(post, 'hero_image.resized_targets.mobile.url'),
+          imgUrl: replaceGCSUrlOrigin(_.get(post, 'hero_image.resized_targets.mobile.url') || siteMeta.ogImage.url),
           linkTo: formatPostLinkTo(_.get(post, 'slug', ''), _.get(post, 'style', '')),
           linkTarget: formatPostLinkTarget(_.get(post, 'style', ''))
         }))
-      })
+      }
     })
 
     /* For helmet */
