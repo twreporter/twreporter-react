@@ -1,3 +1,4 @@
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import BottomComponents from './bottom'
 import BottomLeftComponents from './bottom-left'
@@ -123,7 +124,7 @@ export default class Banner extends PureComponent {
             title={title}
             uploadDate={new Date(publishedDate).toISOString()}
             description={`報導者專題《${title}》封面影片`}
-            poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage.url}
+            poster={replaceGCSUrlOrigin(_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage.url)}
             viewportHeight={viewportHeight}
           />
         ) : (
