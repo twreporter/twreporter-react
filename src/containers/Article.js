@@ -10,6 +10,7 @@ import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import uiManager from '../managers/ui-manager'
 // dependencies of article component v2
 import { Link } from 'react-router-dom'
@@ -169,7 +170,7 @@ class Article extends PureComponent {
     const ogDesc = _.get(article, 'og_description', siteMeta.desc)
     const ogImage = _.get(article, 'og_image.resized_targets.tablet.url') ? article.og_image.resized_targets.tablet : siteMeta.ogImage
     const metaOgImage = [
-      { property: 'og:image', content: ogImage.url }
+      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) }
     ]
     if (ogImage.height) {
       metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
@@ -187,7 +188,7 @@ class Article extends PureComponent {
           meta={[
             { name: 'description', content: ogDesc },
             { name: 'twitter:title', content: ogTitle },
-            { name: 'twitter:image', content: ogImage.url },
+            { name: 'twitter:image', content: replaceGCSUrlOrigin(ogImage.url) },
             { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: ogTitle },
