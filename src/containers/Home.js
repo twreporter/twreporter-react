@@ -261,11 +261,13 @@ class Homepage extends React.PureComponent {
           meta={[
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: siteMeta.name.full },
-            { name: 'twitter:image', content: siteMeta.ogImage },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
             { name: 'twitter:description', content: siteMeta.desc },
             { property: 'og:title', content: siteMeta.name.full },
             { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: siteMeta.urlOrigin + '/' }
           ]}

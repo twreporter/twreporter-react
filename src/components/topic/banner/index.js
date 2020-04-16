@@ -123,7 +123,7 @@ export default class Banner extends PureComponent {
             title={title}
             uploadDate={new Date(publishedDate).toISOString()}
             description={`報導者專題《${title}》封面影片`}
-            poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage}
+            poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage.url}
             viewportHeight={viewportHeight}
           />
         ) : (

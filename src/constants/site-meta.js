@@ -3,7 +3,11 @@ export default {
   urlOrigin: 'https://www.twreporter.org',
   logo: 'https://www.twreporter.org/asset/logo.png',
   keywords: '報導者,twreporter,新聞,調查報道,原創報道,深度報道,環境,議題,評論,媒體,新媒體,台灣,兩岸,文化',
-  ogImage: 'https://www.twreporter.org/images/og-image-large.jpg',
+  ogImage: {
+    url: 'https://www.twreporter.org/images/og-image-large.jpg',
+    width: 1200,
+    height: 628
+  },
   name: {
     full: '報導者 The Reporter',
     short: '報導者',
