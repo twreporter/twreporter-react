@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
 import Helmet from 'react-helmet'
@@ -120,7 +121,7 @@ class TopicLandingPage extends Component {
       ogImage = siteMeta.ogImage
     }
     const metaOgImage = [
-      { property: 'og:image', content: ogImage.url }
+      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) }
     ]
     if (ogImage.height) {
       metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
@@ -139,7 +140,7 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: ogImage.url },
+            { name: 'twitter:image', content: replaceGCSUrlOrigin(ogImage.url) },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },

@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.22
+
+### Notable Changes
+
+- replace gcs origin in url to cache og images
+
+### Commits
+
+* [[`6d79d8803c`](https://github.com/twreporter/twreporter-react/commit/6d79d8803c)] - **feat**: replace gcs origin to cache og image (yucj)
+* 
 ## 4.4.21
 
 ### Notable Changes
