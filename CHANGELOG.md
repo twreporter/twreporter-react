@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.21
+
+### Notable Changes
+
+- add og:image:width and og:image:height
+
+### Commit
+
+* [[`5d9bb4c851`](https://github.com/twreporter/twreporter-react/commit/5d9bb4c851)] - **feat**: add og:image:width and og:image:height (#1619) (yucj)
+
 ## 4.4.20
 
 ### Notable Changes
