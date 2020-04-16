@@ -106,11 +106,28 @@ class TopicLandingPage extends Component {
     const teamDescription = _.get(topic, 'team_description.api_data', [])
     const ogDescription =  _.get(topic, 'og_description', '') || siteMeta.desc
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
-    const ogImageUrl = _.get(topic, 'og_image.resized_targets.tablet.url') || _.get(topic, 'leading_image.resized_targets.tablet.url') || siteMeta.ogImage.url
     const publishedDate = _.get(topic, 'published_date', '')
 
     const canonical = `${siteMeta.urlOrigin}/topics/${slug}`
     const fullTitle = ogTitle + siteMeta.name.separator + siteMeta.name.full
+
+    let ogImage
+    if (_.get(topic, 'og_image.resized_targets.tablet.url')) {
+      ogImage = topic.og_image.resized_targets.tablet
+    } else if (_.get(topic, 'leading_image.resized_targets.tablet.url')) {
+      ogImage = topic.leading_image.resized_targets.tablet
+    } else {
+      ogImage = siteMeta.ogImage
+    }
+    const metaOgImage = [
+      { property: 'og:image', content: ogImage.url }
+    ]
+    if (ogImage.height) {
+      metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+    }
+    if (ogImage.width) {
+      metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+    }
     return (
       <Container>
         <Helmet
@@ -122,14 +139,14 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: ogImageUrl },
+            { name: 'twitter:image', content: ogImage.url },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },
-            { property: 'og:image', content: ogImageUrl },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
+            ...metaOgImage
           ]}
         />
         <Banner

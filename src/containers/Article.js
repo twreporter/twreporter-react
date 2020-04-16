@@ -167,8 +167,16 @@ class Article extends PureComponent {
     const canonical = siteMeta.urlOrigin + '/a/' + slug
     const ogTitle = (_.get(article, 'og_title', '') || _.get(article, 'title', '')) + siteMeta.name.separator + siteMeta.name.full
     const ogDesc = _.get(article, 'og_description', siteMeta.desc)
-    const ogImage = _.get(article, 'og_image.resized_targets.mobile.url', siteMeta.ogImage.url)
-
+    const ogImage = _.get(article, 'og_image.resized_targets.tablet.url') ? article.og_image.resized_targets.tablet : siteMeta.ogImage
+    const metaOgImage = [
+      { property: 'og:image', content: ogImage.url }
+    ]
+    if (ogImage.height) {
+      metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+    }
+    if (ogImage.width) {
+      metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+    }
     return (
       <div>
         <Helmet
@@ -179,15 +187,15 @@ class Article extends PureComponent {
           meta={[
             { name: 'description', content: ogDesc },
             { name: 'twitter:title', content: ogTitle },
-            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:image', content: ogImage.url },
             { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: ogTitle },
             { property: 'og:description', content: ogDesc },
-            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
+            ...metaOgImage
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
