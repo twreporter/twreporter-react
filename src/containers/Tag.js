@@ -132,10 +132,12 @@ class Tag extends PureComponent {
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: siteMeta.desc },
-            { name: 'twitter:image', content: siteMeta.ogImage },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
             { property: 'og:title', content: title },
             { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}
