@@ -1,4 +1,4 @@
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import mq from '../../utils/media-query'
 import React from 'react' // eslint-disable-next-line
 import SearchBox from './search-box'

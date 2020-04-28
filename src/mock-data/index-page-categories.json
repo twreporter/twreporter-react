@@ -1,6 +1,6 @@
 {
   "records": {
-    "culture_art": [
+    "culture_and_art": [
       {
         "id": "5ab788d58d9ce917004051ce",
         "slug": "interview-hocc",
@@ -600,7 +600,7 @@
         "full": false
       }
     ],
-    "environment_education": [
+    "environment_and_education": [
       {
         "id": "5abc87d834eb611b008e38e3",
         "slug": "earthquake-simulation",
@@ -1241,7 +1241,7 @@
         "full": false
       }
     ],
-    "human_rights_society": [
+    "human_rights_and_society": [
       {
         "id": "5ad4686434eb611b008e39a5",
         "slug": "migrant-workers-dangerous-island",
@@ -3213,7 +3213,7 @@
         "full": false
       }
     ],
-    "living_medical_care": [
+    "living_and_medical_care": [
       {
         "id": "5abc9ac434eb611b008e38e4",
         "slug": "child-health-care-save-their-lives",
@@ -4678,7 +4678,7 @@
         "full": false
       }
     ],
-    "politics_economy": [
+    "politics_and_economy": [
       {
         "id": "5ab0c1988d9ce917004051b7",
         "slug": "facebook-censorship-netzdg-bigbrother",

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 import baseComponents from './base-components'
-import { colors } from '../../themes/common-variables'
+import colors from '../../constants/colors'
 import mq from '../../utils/media-query'
+import styled from 'styled-components'
 
 // writing-mode: vertical-rl;
 // letter-spacing: 2px;

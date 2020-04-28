@@ -1,4 +1,4 @@
-'use strict'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react' // eslint-disable-line
 import styled from 'styled-components'
 
@@ -14,6 +14,10 @@ const Bar = styled.div`
 `
 
 class ReadingProgress extends React.PureComponent {
+  static propTypes = {
+    percent: PropTypes.number
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -21,12 +25,6 @@ class ReadingProgress extends React.PureComponent {
     }
     this.updatePercentage = this._updatePercentage.bind(this)
     this._isMount = false
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      percent: nextProps.percent
-    })
   }
 
   componentDidMount() {
@@ -46,9 +44,8 @@ class ReadingProgress extends React.PureComponent {
   }
 
   render() {
-    const { percent } = this.state
     return this._isMount ? (
-      <Bar percent={percent} />
+      <Bar percent={this.props.percent || this.state.percent} />
     ) : null
   }
 }

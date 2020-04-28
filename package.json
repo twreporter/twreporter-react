@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.4.4",
+  "version": "4.4.22",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -11,7 +11,8 @@
     "stop": "make stop",
     "test": "echo \"All unit tests are moved to dependencies.\"",
     "ui-test": "make ui-test",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "changelog-maker": "changelog-maker"
   },
   "repository": {
     "type": "git",
@@ -25,15 +26,16 @@
     "url": "https://github.com/twreporter/twreporter-react/issues"
   },
   "dependencies": {
-    "@twreporter/core": "^1.1.1",
-    "@twreporter/index-page": "^1.0.4",
-    "@twreporter/react-article-components": "1.0.24",
-    "@twreporter/react-components": "^8.0.1",
-    "@twreporter/redux": "^5.0.6",
-    "@twreporter/universal-header": "^2.1.0",
-    "@twreporter/velocity-react": "^1.4.2",
+    "@google-cloud/logging-winston": "^3.0.2",
+    "@twreporter/core": "^1.2.0",
+    "@twreporter/index-page": "^1.0.8",
+    "@twreporter/react-article-components": "^1.1.7",
+    "@twreporter/react-components": "^8.2.1",
+    "@twreporter/redux": "^6.0.1",
+    "@twreporter/universal-header": "^2.1.6",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.3",
     "es6-error": "^2.1.1",
@@ -43,7 +45,6 @@
     "lodash": "^4.0.0",
     "memoize-one": "^5.0.5",
     "path-to-regexp": "^3.0.0",
-    "pretty-error": "^2.0.0",
     "prop-types": "^15.0.0",
     "qs": "^6.5.2",
     "react": "^16.3.0",
@@ -53,15 +54,19 @@
     "react-helmet": "^5.2.0",
     "react-loadable": "^5.5.0",
     "react-redux": "^6.0.0",
-    "react-router-dom": "^4.3.1",
-    "react-transition-group": "^1.2.1",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^2.0.0",
     "react-waypoint": "^9.0.2",
-    "serialize-javascript": "^1.4.0",
+    "serialize-javascript": "^2.1.1",
     "smoothscroll": "0.3.0",
     "styled-components": "^4.0.0",
-    "sw-toolbox": "^3.6.0"
+    "sw-toolbox": "^3.6.0",
+    "velocity-react": "^1.4.3",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.3.21",
     "babel-eslint": "8",
@@ -71,35 +76,36 @@
     "babel-plugin-inline-react-svg": "^0.5.4",
     "babel-plugin-styled-components": "^1.3.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "changelog-maker": "^2.3.0",
     "concurrently": "3.5.1",
     "eslint": "4.x",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
+    "husky": "^3.1.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
     "nock": "^10.0.4",
     "nodemon": "^1.18.3",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.0.0",
-    "precommit-hook": "^3.0.0",
     "puppeteer": "^1.3.0",
     "rimraf": "^2.5.2",
     "webpack": "^3.8.1",
-    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^2.9.5"
   },
   "lint-staged": {
     "*.js": "eslint -c .eslintrc"
   },
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
-  "pre-push": []
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint && test",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
+  }
 }

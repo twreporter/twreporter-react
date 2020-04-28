@@ -1,6 +1,439 @@
-## Unreleased
+# Changelog
 
-## Release
+## 4.4.22
+
+### Notable Changes
+
+- replace gcs origin in url to cache og images
+
+### Commits
+
+* [[`6d79d8803c`](https://github.com/twreporter/twreporter-react/commit/6d79d8803c)] - **feat**: replace gcs origin to cache og image (yucj)
+* [[`c16accd669`](https://github.com/twreporter/twreporter-react/commit/c16accd669)] - **feat**: replace gcs origin to cache og image for topics (yucj)
+
+## 4.4.21
+
+### Notable Changes
+
+- add og:image:width and og:image:height
+
+### Commit
+
+* [[`5d9bb4c851`](https://github.com/twreporter/twreporter-react/commit/5d9bb4c851)] - **feat**: add og:image:width and og:image:height (#1619) (yucj)
+
+## 4.4.20
+
+### Notable Changes
+
+- fix: section 2 of about us
+  - fix section2 where arrows of photography department can not click
+  - update section2 content
+
+### Commits
+* [[`5dfed5971c`](https://github.com/twreporter/twreporter-react/commit/5dfed5971c)] - **fix**: update about-us content (Taylor Fang)
+* [[`7e519263c0`](https://github.com/twreporter/twreporter-react/commit/7e519263c0)] - **chore**: update version to v4.4.20-rc.0 (Taylor Fang)
+* [[`07f5db200d`](https://github.com/twreporter/twreporter-react/commit/07f5db200d)] - **chore**: bump version to v4.4.20 (Taylor Fang)
+* [[`334ea8e794`](https://github.com/twreporter/twreporter-react/commit/334ea8e794)] - **fix**: section 2 of about us (Taylor Fang)
+
+## 4.4.19
+
+### Notable Changes
+
+- update about-us page
+  - update members (section2)
+  - update section5 content as well as record order
+
+### Commits
+* [[`30d46cea16`](https://github.com/twreporter/twreporter-react/commit/30d46cea16)] - Merge pull request #1603 from taylrj/update-aboutus (Tai-Jiun Fang)
+* [[`8a9444bed8`](https://github.com/twreporter/twreporter-react/commit/8a9444bed8)] - **fix**: only return `date` if record has `date` (Taylor Fang)
+* [[`133a46f80f`](https://github.com/twreporter/twreporter-react/commit/133a46f80f)] - **fix**: update section5 content in about-us (Taylor Fang)
+* [[`565cae3919`](https://github.com/twreporter/twreporter-react/commit/565cae3919)] - **fix**: update members in about-us (Taylor Fang)
+* [[`1328b6a0d0`](https://github.com/twreporter/twreporter-react/commit/1328b6a0d0)] - **fix**: update the record order in about-us (Taylor Fang)
+
+## 4.4.18
+
+### Commits
+* [[`72d798a4e0`](https://github.com/twreporter/twreporter-react/commit/72d798a4e0)] - **chore**: upgrade to @twreporter/react-article-components@^1.1.7 (nickhsine)
+
+## 4.4.17
+
+### Commits
+* [[`fcfb74d6db`](https://github.com/twreporter/twreporter-react/commit/fcfb74d6db)] - **fix**: web push tutorial URL change (nickhsine)
+
+## 4.4.16
+
+### Notable Changes
+
+- **fix**: anchors position on index page
+- **chore**:
+  - update yarn.lock (yucj)
+  - add --frozen-lockfile to yarn install (yucj)
+
+### Commits
+* [[`b6dfe56595`](https://github.com/twreporter/twreporter-react/commit/b6dfe56595)] - **fix**: anchors position on index page (#1594) (Tai-Jiun Fang)
+* [[`66d7816376`](https://github.com/twreporter/twreporter-react/commit/66d7816376)] - **chore**: update yarn.lock (yucj)
+* [[`adfb135e29`](https://github.com/twreporter/twreporter-react/commit/adfb135e29)] - **chore**: add --frozen-lockfile to yarn install (yucj)
+
+## 4.4.15
+
+### Notable Changes
+
+- **chore**: dependencies dedupe
+- **chore**: update dependencies
+  - @twreporter/core@1.2.0
+  - @twreporter/index-page@1.0.8
+  - @twreporter/react-article-components@1.1.4
+  - @twreporter/react-components@8.2.1
+  - @twreporter/universal-header@2.1.6
+
+### Commits
+
+* [[`af07812975`](https://github.com/twreporter/twreporter-react/commit/af07812975)] - **chore**: dependencies dedupe (yucj)
+* [[`133a3db93c`](https://github.com/twreporter/twreporter-react/commit/133a3db93c)] - **chore**: update dependencies (yucj)
+
+## 4.4.14
+
+### Notable Changes
+
+- **fix**: update error handling of express/middlewares/auth
+- **chore**: update package version parser
+- **chore**: dependencies upgrade:
+ - @twreporter/core@1.2.0-rc.0
+ - @twreporter/index-page@1.0.8-rc.0
+ - @twreporter/react-article-components@1.1.4-rc.0
+ - @twreporter/react-components@8.2.1-rc.0
+ - @twreporter/universal-header@2.1.6-rc.0
+- remove unused vars in express/middlewares/auth
+- fix category name on photography landing page
+
+### Commits
+
+* [[`7e1988bbd5`](https://github.com/twreporter/twreporter-react/commit/7e1988bbd5)] - **chore**: remove redundant ci build at master branch (yucj)
+* [[`de293e9486`](https://github.com/twreporter/twreporter-react/commit/de293e9486)] - **chore**: update changelog (yucj)
+* [[`d8ff4ccd46`](https://github.com/twreporter/twreporter-react/commit/d8ff4ccd46)] - **chore**: update package version parser (yucj)
+* [[`747d1adecb`](https://github.com/twreporter/twreporter-react/commit/747d1adecb)] - **chore**: update changelog (yucj)
+* [[`57c9cf556a`](https://github.com/twreporter/twreporter-react/commit/57c9cf556a)] - **fix**: fix wrong error path in express/middlewares/auth (yucj)
+* [[`4774887886`](https://github.com/twreporter/twreporter-react/commit/4774887886)] - **chore**: bump version to v4.4.14-rc.1 (yucj)
+* [[`7b9b304bca`](https://github.com/twreporter/twreporter-react/commit/7b9b304bca)] - **fix**: update error handling of express/middlewares/auth (yucj)
+* [[`a4d0bddedf`](https://github.com/twreporter/twreporter-react/commit/a4d0bddedf)] - **chore**: update dependencies (yucj)
+* [[`717b5e1bec`](https://github.com/twreporter/twreporter-react/commit/717b5e1bec)] - **fix**: log out the user if fail to get access token (yucj)
+* [[`923aea2860`](https://github.com/twreporter/twreporter-react/commit/923aea2860)] - **fix**: remove unused vars (yucj)
+* [[`0cc99eff33`](https://github.com/twreporter/twreporter-react/commit/0cc99eff33)] - **fix**: category name on photography landing page (Taylor Fang)
+
+## 4.4.13
+
+### Notable Changes
+
+- dependencies upgrade:
+  - @twreporter/core@1.1.3
+  - @twreporter/index-page@1.0.7
+  - @twreporter/react-article-components@1.1.3
+  - @twreporter/react-components@8.2.0
+  - @twreporter/redux@6.0.1
+  - @twreporter/universal-header@2.1.5
+- Fix list bug ([#1561](https://github.com/twreporter/twreporter-react/pull/1561)) (yucj)
+
+### Commits
+* [[`ba54db90b2`](https://github.com/twreporter/twreporter-react/commit/ba54db90b2)] - **chore**: update twreporter-npm-packages (#1569) (Tai-Jiun Fang)
+* [[`fb4f98bdba`](https://github.com/twreporter/twreporter-react/commit/fb4f98bdba)] - Merge pull request #1567 from YuCJ/fix (yucj)
+* [[`07d172bfd5`](https://github.com/twreporter/twreporter-react/commit/07d172bfd5)] - chore(prerelease): bump version to v4.4.13-rc.1 (yucj)
+* [[`a775c47a11`](https://github.com/twreporter/twreporter-react/commit/a775c47a11)] - **chore**: update @twreporter/react-article-components (yucj)
+* [[`3e3c8fe1b8`](https://github.com/twreporter/twreporter-react/commit/3e3c8fe1b8)] - Fix list bug (#1561) (yucj)
+* [[`54bebb9138`](https://github.com/twreporter/twreporter-react/commit/54bebb9138)] - Merge pull request #1565 from taylrj/master (Tai-Jiun Fang)
+* [[`3221fc2339`](https://github.com/twreporter/twreporter-react/commit/3221fc2339)] - **chore**: bump version to v4.4.13-rc.0 (Taylor Fang)
+* [[`1efd4fb850`](https://github.com/twreporter/twreporter-react/commit/1efd4fb850)] - **chore**: update twreporter-npm-packages (#1563) (Tai-Jiun Fang)
+
+## 4.4.12
+### Notable Changes
+- dependencies upgrade:
+  - @twreporter/react-article-components@^1.1.2
+  - @twreporter/react-components@^8.1.1
+  - @twreporter/redux@^6.0.0
+  - @twreporter/universal-header@^2.1.4
+- fix:
+  - make logging entry less than maximum size 250Kb
+  - catch promise rejection (with fail actions) in containers, data-loaders and auth middleware
+  - do not trigger error reporting if error is 404 status code
+
+### Commits
+* [[`a0ec98efe8`](https://github.com/twreporter/twreporter-react/commit/a0ec98efe8)] - **fix**: express/middlewares/auth: handle fail action (nickhsine)
+* [[`16362c67bd`](https://github.com/twreporter/twreporter-react/commit/16362c67bd)] - **fix**: containers: catch redux action errors (nickhsine)
+* [[`84c7503318`](https://github.com/twreporter/twreporter-react/commit/84c7503318)] - **fix**: data-loaders: reject with fail action (nickhsine)
+* [[`e760a2a978`](https://github.com/twreporter/twreporter-react/commit/e760a2a978)] - **refactor**: error report on demand (nickhsine)
+* [[`141726b559`](https://github.com/twreporter/twreporter-react/commit/141726b559)] - **chore**: bump dependencies version (nickhsine)
+* [[`41723c17a7`](https://github.com/twreporter/twreporter-react/commit/41723c17a7)] - **fix**: pass error object rather than whole action to express error handler (nickhsine)
+
+## 4.4.11
+
+### Natable Changes
+
+- bump dependencies for add annual-report links
+  - @twreporter/react-article-components@^1.0.26 -> ^1.1.1
+  - @twreporter/react-components@^8.0.3 -> ^8.1.0
+
+### Commits
+
+* [[`55cae84572`](https://github.com/twreporter/twreporter-react/commit/55cae84572)] - Merge pull request #1548 from YuCJ/annual-report (yucj)
+* [[`4c68901e2a`](https://github.com/twreporter/twreporter-react/commit/4c68901e2a)] - **chore**: bump dependencies for add annual-report links (yucj)
+
+## 4.4.10
+### Notable Changes
+- refactor: 
+	-	remove unused files and folders.
+	- clean up unused constants and move them to local scope if needed
+- feature:
+  - disallow search engine cralwer on staging and development environment
+  - integration with stackdriver logging
+- fix: 
+  - service worker runtimeCaching not working
+
+### Commits
+* [[`3950325d7b`](https://github.com/twreporter/twreporter-react/commit/3950325d7b)] - **chore**: print babel-preset-env debug info only on production (nickhsine)
+* [[`c145079712`](https://github.com/twreporter/twreporter-react/commit/c145079712)] - **refactor**: delete src/constants/index.js (nickhsine)
+* [[`03acd4f7da`](https://github.com/twreporter/twreporter-react/commit/03acd4f7da)] - **refactor**: delete src/constants/author-page.js (nickhsine)
+* [[`4c85687930`](https://github.com/twreporter/twreporter-react/commit/4c85687930)] - **refactor**: delete src/constants/footer.js (nickhsine)
+* [[`58053ceb62`](https://github.com/twreporter/twreporter-react/commit/58053ceb62)] - **refactor**: delete src/constants/page-types.js (nickhsine)
+* [[`572a1b7bed`](https://github.com/twreporter/twreporter-react/commit/572a1b7bed)] - **refactor**: use formatPostLinkTo and formatPostLinkTarget (nickhsine)
+* [[`2ca8bccc62`](https://github.com/twreporter/twreporter-react/commit/2ca8bccc62)] - **refactor**: delete src/constants/link-prefix.js (nickhsine)
+* [[`44f0745228`](https://github.com/twreporter/twreporter-react/commit/44f0745228)] - **refactor**: update src/contants/site-meta.js and related files (nickhsine)
+* [[`fb22c45d80`](https://github.com/twreporter/twreporter-react/commit/fb22c45d80)] - **refactor**: delete src/constants/strings.js (nickhsine)
+* [[`3c18bf4967`](https://github.com/twreporter/twreporter-react/commit/3c18bf4967)] - **refactor**: delete src/contants/topic-page.js (nickhsine)
+* [[`c0cca7765d`](https://github.com/twreporter/twreporter-react/commit/c0cca7765d)] - **refactor**: delete src/constants/ui-settings.js (nickhsine)
+* [[`7c4189bab0`](https://github.com/twreporter/twreporter-react/commit/7c4189bab0)] - **refactor**: delete src/constants/page-themes.js (nickhsine)
+* [[`daf52a1b74`](https://github.com/twreporter/twreporter-react/commit/daf52a1b74)] - **refactor**: delete src/themes/common-variables.js (nickhsine)
+* [[`7500cb4b9f`](https://github.com/twreporter/twreporter-react/commit/7500cb4b9f)] - **refactor**: delete lineHeight from src/themes/common-variables.js (nickhsine)
+* [[`1f08faa00f`](https://github.com/twreporter/twreporter-react/commit/1f08faa00f)] - **refactor**: delete src/themes/screen.js (nickhsine)
+* [[`378b998252`](https://github.com/twreporter/twreporter-react/commit/378b998252)] - **refactor**: delete src/themes/layout.js (nickhsine)
+* [[`dfcaac3c9f`](https://github.com/twreporter/twreporter-react/commit/dfcaac3c9f)] - **refactor**: delete src/constants/screen.js (nickhsine)
+* [[`aafaa3572a`](https://github.com/twreporter/twreporter-react/commit/aafaa3572a)] - **refactor**: delete src/constants/styled-components.js (nickhsine)
+* [[`3c6407f03f`](https://github.com/twreporter/twreporter-react/commit/3c6407f03f)] - **refactor**: delete src/constants/device.js (nickhsine)
+* [[`78ccb93e9c`](https://github.com/twreporter/twreporter-react/commit/78ccb93e9c)] - **refactor**: delete src/utils/screen-type.js (nickhsine)
+* [[`713d54ea35`](https://github.com/twreporter/twreporter-react/commit/713d54ea35)] - **refactor**: delete src/containers/ArticleTools.js (nickhsine)
+* [[`d17cf4bc92`](https://github.com/twreporter/twreporter-react/commit/d17cf4bc92)] - **refactor**: remove src/conf folder (nickhsine)
+* [[`45d50eb48e`](https://github.com/twreporter/twreporter-react/commit/45d50eb48e)] - **refactor**: remove src/helpers folder (nickhsine)
+* [[`66af1424d3`](https://github.com/twreporter/twreporter-react/commit/66af1424d3)] - **chore**: delete .versionrc.json (nickhsine)
+* [[`2b1dd23ab7`](https://github.com/twreporter/twreporter-react/commit/2b1dd23ab7)] - **refactor**: src/containers/web-push.js (nickhsine)
+* [[`4a2478c83c`](https://github.com/twreporter/twreporter-react/commit/4a2478c83c)] - **chore**: remove dependencies `pretty-error` (nickhsine)
+* [[`13deb19c4a`](https://github.com/twreporter/twreporter-react/commit/13deb19c4a)] - **refactor**: integrate src/logger/index.js with express middleware (nickhsine)
+* [[`5c5ed3b3cd`](https://github.com/twreporter/twreporter-react/commit/5c5ed3b3cd)] - **refactor**: integrate with src/logger/index.js (nickhsine)
+* [[`c8e6165903`](https://github.com/twreporter/twreporter-react/commit/c8e6165903)] - **refactor**: integration with stackdriver logging system (nickhsine)
+* [[`33e6f43a1f`](https://github.com/twreporter/twreporter-react/commit/33e6f43a1f)] - **chore**: add dependencies `winston` and `@google-cloud/logging-winston` (nickhsine)
+* [[`6fdfd6d46f`](https://github.com/twreporter/twreporter-react/commit/6fdfd6d46f)] - **chore**: update src/mock-data/index-page-categories.json (nickhsine)
+* [[`2e0bb300cf`](https://github.com/twreporter/twreporter-react/commit/2e0bb300cf)] - **refactor**: remove client/server side global variables (nickhsine)
+* [[`9f9796a722`](https://github.com/twreporter/twreporter-react/commit/9f9796a722)] - **fix**: import pretty-error not found (nickhsine)
+* [[`95410ee5d5`](https://github.com/twreporter/twreporter-react/commit/95410ee5d5)] - **refactor**: integrate with new Stackdriver Logging and Error Reporting (nickhsine)
+* [[`5c2d24b6b7`](https://github.com/twreporter/twreporter-react/commit/5c2d24b6b7)] - **fix**: disallow search engine cralwer on non release branch (nickhsine)
+[[`119894ad12`](https://github.com/twreporter/twreporter-react/commit/119894ad12)] - **chore**: update @twreporter/redux to 5.0.8 (nickhsine)
+* [[`9024ecf779`](https://github.com/twreporter/twreporter-react/commit/9024ecf779)] - **fix**: service worker runtimeCaching not working (ni
+* ckhsine)
+
+## 4.4.9
+
+### Notable Changes
+- perf:
+	- optimize webpack bundling process
+- deps: 
+	- remove `standard-version` 
+	- add `changelog-maker`
+- upgrade dependencies to solve GitHub security issues
+
+### Commits
+* [[`848a3d8ad0`](https://github.com/twreporter/twreporter-react/commit/848a3d8ad0)] - **chore**: update static cache files in sw.js (nickhsine)
+* [[`c3ff7a922f`](https://github.com/twreporter/twreporter-react/commit/c3ff7a922f)] - **refactor**: babel-preset-es2015 -\> babel-preset-env (nickhsine)
+* [[`0874bb1592`](https://github.com/twreporter/twreporter-react/commit/0874bb1592)] - **perf**: build babel-polyfill webpack bundle (nickhsine)
+* [[`9cdbfc4fe7`](https://github.com/twreporter/twreporter-react/commit/9cdbfc4fe7)] - **fix**: import babel-polyfill (nickhsine)
+* [[`50bdbe14fd`](https://github.com/twreporter/twreporter-react/commit/50bdbe14fd)] - **chore**: `npm run changelog-maker` to generate logs (nickhsine)
+* [[`433d974702`](https://github.com/twreporter/twreporter-react/commit/433d974702)] - **chore**: remove devDependency `standard-version` (nickhsine)
+* [[`e6d8d2f72f`](https://github.com/twreporter/twreporter-react/commit/e6d8d2f72f)] - **chore**: add devDependency `changelog-maker` (nickhsine)
+* [[`eecfdc7a5c`](https://github.com/twreporter/twreporter-react/commit/eecfdc7a5c)] - **perf**: optimize webpack bundles (nickhsine)
+* [[`c0f7e3c7af`](https://github.com/twreporter/twreporter-react/commit/c0f7e3c7af)] - **chore**: upgrade js-yaml to v3.13.1 to fix github alert (nickhsine)
+* [[`d34ce06dfe`](https://github.com/twreporter/twreporter-react/commit/d34ce06dfe)] - **chore**: upgrade set-value to ^2.0.1 to remove github security alert (nickhsine)
+* [[`687341206e`](https://github.com/twreporter/twreporter-react/commit/687341206e)] - Bump webpack-bundle-analyzer from 2.13.1 to 3.3.2 (dependabot[bot])
+* [[`5fd556e18b`](https://github.com/twreporter/twreporter-react/commit/5fd556e18b)] - Bump mixin-deep from 1.3.1 to 1.3.2 (dependabot[bot])
+* [[`4007330477`](https://github.com/twreporter/twreporter-react/commit/4007330477)] - Bump serialize-javascript from 1.6.1 to 2.1.1 (dependabot[bot])
+
+
+### [4.4.8](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8) (2019-11-26)
+
+
+### Chores
+
+* add `commitlint` dep with `config-conventional` ([567f5eb](https://github.com/twreporter/twreporter-react/commit/567f5eb4f99c71397f4124e2b60824a99725bfbf))
+* add `husky` dep to replace `precommit-hook` ([86a9146](https://github.com/twreporter/twreporter-react/commit/86a914685fd364e0daeff21bbd3516ddb4a3365c))
+* fix missing namespace ([#1515](https://github.com/twreporter/twreporter-react/issues/1515)) ([d44eb28](https://github.com/twreporter/twreporter-react/commit/d44eb282843eccd6a2866317eb9f63e0583eef82))
+* integrate kubernetes configs to deploy ([d915ac5](https://github.com/twreporter/twreporter-react/commit/d915ac5fea8636fe572e8e5dfaca7c10be53be69))
+* Update config for release environment ([#1513](https://github.com/twreporter/twreporter-react/issues/1513)) ([35f099d](https://github.com/twreporter/twreporter-react/commit/35f099d2cc37e115c6e87babb10877ad70d04721))
+* upgrade dependencies ([3030e22](https://github.com/twreporter/twreporter-react/commit/3030e22cdedd65a5b184792ee0cc0fa11db8a4f6))
+* **release:** 4.4.8-rc.9 ([fef4ad2](https://github.com/twreporter/twreporter-react/commit/fef4ad283e494bab69956c42b140a878135036ee))
+* add `standard-version` dep and npm script `release` ([c4bf481](https://github.com/twreporter/twreporter-react/commit/c4bf4812227272330835b1ab7720cc06d4b78416))
+
+### [4.4.8-rc.9](https://github.com/twreporter/twreporter-react/compare/v4.4.8-rc.8...v4.4.8-rc.9) (2019-11-25)
+
+
+### Chores
+
+* add `commitlint` dep with `config-conventional` ([567f5eb](https://github.com/twreporter/twreporter-react/commit/567f5eb4f99c71397f4124e2b60824a99725bfbf))
+* add `husky` dep to replace `precommit-hook` ([86a9146](https://github.com/twreporter/twreporter-react/commit/86a914685fd364e0daeff21bbd3516ddb4a3365c))
+* add `standard-version` dep and npm script `release` ([c4bf481](https://github.com/twreporter/twreporter-react/commit/c4bf4812227272330835b1ab7720cc06d4b78416))
+* integrate kubernetes configs to deploy ([d915ac5](https://github.com/twreporter/twreporter-react/commit/d915ac5fea8636fe572e8e5dfaca7c10be53be69))
+
+### 4.4.8-rc.8
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - @twreporter/react-article-components: 1.0.26-rc.2 -> 1.0.26-rc.5
+    - @twreporter/react-components: 8.0.3-rc.2 -> 8.0.3-rc.4
+    - @twreporter/universal-header: 2.1.2-rc.3 -> 2.1.2-rc.6
+## Commits
+- [[2fa6aa5](https://github.com/twreporter/twreporter-react/commit/2fa6aa5)] - chore: update dependencies(taylrj)
+
+### 4.4.8-rc.7
+
+#### Notable Changes
+  
+  - Upgrade dependencies
+    - Upgrade @twreporter/core to v1.1.2-rc.2
+    - Upgrade @twreporter/index-page to v1.0.6-rc.3
+    - Upgrade @twreporter/react-article-components to v1.0.26-rc.2
+    - Upgrade @twreporter/react-components to v8.0.3-rc.2
+    - Upgrade @twreporter/universal-header to v2.1.2-rc.3
+  - Add host on `next` branch to `bookmark-widget.js`
+
+## Commits
+- [[ca7ff30](https://github.com/twreporter/twreporter-react/commit/ca7ff30)] - Upgrade @twreporter npm packages(taylrj)
+- [[41ca35b](https://github.com/twreporter/twreporter-react/commit/41ca35b)] - Add host on `next` branch to `bookmark-widget.js`(taylrj)
+
+### 4.4.8-rc.6
+
+#### Notable Changes
+
+  - Fix incorrect test operator 
+
+## Commits
+- [[c89a7d3](https://github.com/twreporter/twreporter-react/commit/c89a7d3175fcd199987515ca52be12e1713b4635)] - Fix incorrect test operator(babygoat)
+
+### 4.4.8-rc.5
+
+#### Notable Changes
+
+  - Fix circle-ci `config.yml`
+
+## Commits
+- [[23a0bd8](https://github.com/twreporter/twreporter-react/commit/23a0bd8556d6c4f655b9f1b2520d171b0bfe499f)] - Fix circle-ci `config.yml`(taylrj)
+
+### 4.4.8-rc.4
+
+#### Notable Changes
+
+  - Add next branch config on circleci
+
+## Commits
+- [[9295ca1](https://github.com/twreporter/twreporter-react/commit/9295ca126539db0482b61b9e1d0d4a0557f5a6dd)] - Add next branch config on circleci(babygoat)
+
+### 4.4.8-rc.3
+
+#### Notable Changes
+
+##### Upgrade Dependencies
+  - Upgrade @twreporter/core to v1.1.2-rc.1
+  - Upgrade @twreporter/index-page to v1.0.6-rc.2
+  - Upgrade @twreporter/react-article-components to v1.0.26-rc.1
+  - Upgrade @twreporter/react-components to v8.0.3-rc.1
+  - Upgrade @twreporter/universal-header to v2.1.2-rc.1
+
+## Commits
+- [[837f4e9](https://github.com/twreporter/twreporter-react/commit/837f4e9735f86452f6530bffdaf6379050aa7eaa)] - Upgrade @twreporter npm packages(taylrj)
+- [[33f5c92](https://github.com/twreporter/twreporter-react/commit/33f5c920e3656fa80fcdea3e928af950ec1f86c6)] - Bump lodash from 4.17.11 to 4.17.13(dependabot)
+- [[3fb4222](https://github.com/twreporter/twreporter-react/commit/3fb42227b3b96ebaf1eacfe01f49333dae5f6ddf)] - Scroll to hash link after timeout(taylrj)
+- [[6a39b3d](https://github.com/twreporter/twreporter-react/commit/6a39b3d764be7578e66097e25480e461146354bb)] - Upgrade @twreporter/index-page to v1.0.6-rc.2(taylrj)
+
+### 4.4.8-rc.2
+
+#### Notable Changes
+
+##### Bug Fixes
+  - Fix `mobile-slide-down-menu` where `議題` button doesn't scroll to right anchor 
+    - Add hash-link-scroll.js to handle url with hash string which stands for the element id that page should scroll to
+
+##### Upgrade Dependencies
+- `@twreporter/universal-header@^2.1.1` -> `^2.1.2-rc.2`
+
+#### Commits
+- [[476f673](https://github.com/twreporter/twreporter-react/commit/476f673f69628b6f095c8fe2a78b5f03d3680648)] - Add hash-link-scroll.js(taylrj)
+- [[7a9ab66](https://github.com/twreporter/twreporter-react/commit/32784f875a2d7efc466cd1438ab618200d563ba9)] - Bump @twreporter/universal-header to version 2.1.2-rc.2(taylrj)
+- [[67f8af6](https://github.com/twreporter/twreporter-react/commit/172143099c1cc462935ccb38640e2c5179d42980)] - Address review comments(taylrj)
+
+### 4.4.8-rc.1
+
+#### Notable Changes
+- build:
+  - update circleci config due to new cluster
+
+#### Commits
+- [[290326b](https://github.com/twreporter/twreporter-react/commit/290326bb05bc5c668a7fe0644b8b85b810c5d049)] - update circleci config due to k8s cluster change(nickhsine)
+
+### 4.4.7
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- [Bug] Fix og-image type error on topic landing page
+
+#### Commits
+
+- [[802e69f](https://github.com/twreporter/twreporter-react/commit/802e69fa495e643dd4a03da9e43d690c2d9b3f4e)] - Fix og-image type error on topic landing page (taylrj)
+- [[a89fb28](https://github.com/twreporter/twreporter-react/commit/a89fb282afd7a47948d705b4d17dbf3ae401bb1f)] - Add `leading-image` as the fallback `og-image` on topic landing page (taylrj)
+
+### 4.4.6
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- Fix list isFethcing logic: If there’s only one item in a list, the previous code will regard the container as at `isFetching` status.
+- Fix wrong componentDidUpdate arguments: `nextProps` -> `prevProps`
+- Remove PM2 in comments
+
+#### Commits
+
+- [[5e21c088](https://github.com/twreporter/twreporter-react/commit/5e21c088)] Remove PM2 in comments (yucj)
+- [[1b0b7e1e](https://github.com/twreporter/twreporter-react/commit/1b0b7e1e)] Fix wrong componentDidUpdate arguments (yucj)
+- [[ec45c064](https://github.com/twreporter/twreporter-react/commit/ec45c064)] Fix list isFethcing logic (yucj)
+
+### 4.4.5
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- Fix home spinner displayed logic
+- Fix wrong query retrieving with react-router. After this fix, the page being visited will be documented in url as `?page=<number>` for `Tag`, `Topics`, and `Categories`.
+  - Add query validator to prevent invalid search query page input
+
+##### Upgrade Dependencies
+
+- `@twreporter/velocity-react@^1.4.2` -> `velocity-react@^1.4.3`
+- `react-transition-group@^1.2.1` -> `^2.0.0`
+- `react-router-dom@^4.3.1` -> `^5.1.2`
+  - Per file imports are deprecated for react-router-dom
+- `@twreporter/index-page@^1.0.4` -> `^1.0.5`
+- `@twreporter/react-article-components@1.0.24` -> `^1.0.25`
+- `@twreporter/react-components@^8.0.1` -> `^8.0.2`
+- `@twreporter/universal-header@^2.1.0` -> `^2.1.1`
+
+#### Commits
+
+- [[400c6d0e](https://github.com/twreporter/twreporter-react/commit/400c6d0e)] Prevent invalid search query page input (yucj)
+- [[efccfe95](https://github.com/twreporter/twreporter-react/commit/efccfe95)] Fix wrong query retrieving with react-router (yucj)
+- [[66025c35](https://github.com/twreporter/twreporter-react/commit/66025c35)] Fix home spinner displayed logic (yucj)
+- [[9052908c](https://github.com/twreporter/twreporter-react/commit/9052908c)] Fix mock post content (yucj)
+- [[de3a1dd8](https://github.com/twreporter/twreporter-react/commit/de3a1dd8)] Per file imports are deprecated for react-router-dom (yucj)
+- [[1357d17e](https://github.com/twreporter/twreporter-react/commit/1357d17e)] Upgrade react-transition-group to v2 (yucj)
+- [[b1ca418e](https://github.com/twreporter/twreporter-react/commit/b1ca418e)] Replace customized velocity-react with original one (yucj)
+- [[dd71feec](https://github.com/twreporter/twreporter-react/commit/dd71feec)] Remove deprecated `componentWillMount` and `componentWillReceiveProps` (yucj)
+
 ### 4.4.4
 - Disable DLC and remove redundant steps
 - Update about-us page
@@ -39,7 +472,6 @@
 #### Fix TopicLandingPage
 - Fix topic background color
 - Add showAll button to relateds
-
 
 ### 4.3.20
 #### Dependency Upgrade

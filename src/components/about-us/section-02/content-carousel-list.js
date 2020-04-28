@@ -1,4 +1,4 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { font } from '../constants/styles'
 import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
@@ -72,12 +72,11 @@ const Department = styled.div`
     margin-top: 35px;
     height: calc(116px * 3/2);
     &:nth-child(3){
-      padding: 0 34px 0 43.3px;
-      width: 396px;
+      width: 410px;
     }
     &:last-child{
-      margin-left: calc(100% - 396px - 444px);
-      width: 444px;
+      margin-left: calc(100% - 410px - 430px);
+      width: 430px;
     }
   `}
   ${mq.tabletOnly`

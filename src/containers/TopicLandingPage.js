@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Related from '../components/topic/related'
+import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import TopicHeader from '../components/topic/header'
@@ -15,6 +17,8 @@ import twreporterRedux from '@twreporter/redux'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+
+const logger = loggerFactory.getLogger()
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 
@@ -38,7 +42,7 @@ class TopicLandingPage extends Component {
     entities: {},
     selectedTopic: {}
   }
-  
+
   static propTypes = {
     // from redux store
     entities: PropTypes.object,
@@ -48,9 +52,21 @@ class TopicLandingPage extends Component {
   }
 
   componentDidMount() {
-    const { fetchAFullTopic, match } = this.props
+    const { match } = this.props
     const slug = _.get(match, 'params.slug')
-    fetchAFullTopic(slug)
+    return this.fetchAFullTopicWithCatch(slug)
+  }
+
+  fetchAFullTopicWithCatch = (slug) => {
+    const { fetchAFullTopic } = this.props
+    return fetchAFullTopic(slug)
+      // TODO render alert message for users
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch a full topic, topic slug: '${slug}'. `
+        })
+      })
   }
 
   _renderLoadingElements() {
@@ -69,8 +85,10 @@ class TopicLandingPage extends Component {
     const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
     const topic = _.get(utils.denormalizeTopics(slug, topicEntities, postEntities), '0')
     if (!topic) {
-      console.error('There is no topic in store corresponding with the given slug:', slug) // eslint-disable-line no-console
-      return <SystemError error={{ status: 404 }} />
+      logger.errorReport({
+        message: `There is no topic in store corresponding with the given slug: ${slug}`
+      })
+      return <SystemError error={{ statusCode: 404 }} />
     }
     const {
       relateds_background,
@@ -87,12 +105,30 @@ class TopicLandingPage extends Component {
     } = topic
     const topicDescription = _.get(topic, 'description.api_data', [])
     const teamDescription = _.get(topic, 'team_description.api_data', [])
-    const ogDescription =  _.get(topic, 'og_description', '') || SITE_META.DESC
+    const ogDescription =  _.get(topic, 'og_description', '') || siteMeta.desc
     const ogTitle = _.get(topic, 'og_title', '') || _.get(topic, 'title', '')
     const publishedDate = _.get(topic, 'published_date', '')
 
-    const canonical = `${SITE_META.URL}topics/${slug}`
-    const fullTitle = ogTitle + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    const canonical = `${siteMeta.urlOrigin}/topics/${slug}`
+    const fullTitle = ogTitle + siteMeta.name.separator + siteMeta.name.full
+
+    let ogImage
+    if (_.get(topic, 'og_image.resized_targets.tablet.url')) {
+      ogImage = topic.og_image.resized_targets.tablet
+    } else if (_.get(topic, 'leading_image.resized_targets.tablet.url')) {
+      ogImage = topic.leading_image.resized_targets.tablet
+    } else {
+      ogImage = siteMeta.ogImage
+    }
+    const metaOgImage = [
+      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) }
+    ]
+    if (ogImage.height) {
+      metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+    }
+    if (ogImage.width) {
+      metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+    }
     return (
       <Container>
         <Helmet
@@ -104,14 +140,14 @@ class TopicLandingPage extends Component {
             { name: 'description', content: ogDescription },
             { name: 'twitter:title', content: fullTitle },
             { name: 'twitter:description', content: ogDescription },
-            { name: 'twitter:image', content: og_image },
+            { name: 'twitter:image', content: replaceGCSUrlOrigin(ogImage.url) },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: fullTitle },
             { property: 'og:description', content: ogDescription },
-            { property: 'og:image', content: og_image },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
+            ...metaOgImage
           ]}
         />
         <Banner

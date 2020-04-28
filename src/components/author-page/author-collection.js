@@ -1,9 +1,7 @@
-import { AUTHOR_COLLECTION, LOADING_MORE_ARTICLES, LOAD_MORE_ARTICLES, NUMBER_OF_FIRST_RESPONSE_PAGE } from '../../constants/author-page'
-import { CHARACTERS_LIMIT } from '../../constants/index'
 import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 import { shortenString } from '../../utils/string'
 import { Waypoint } from 'react-waypoint'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import LoadingSpinner from '../Spinner'
 import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
@@ -136,12 +134,13 @@ const CenteredSpinner = styled(LoadingSpinner)`
 `
 
 function buildListItem(item) {
+  const charLimit = 120
   const image = _.get(item, 'heroImage.image.resizedTargets.mobile', {})
   image.url = replaceGCSUrlOrigin(image.url)
   const slug = _.get(item, 'slug', '')
   const title = _.get(item, 'title', '')
   const style = _.get(item, 'style', '')
-  const description = shortenString(get(item, 'ogDescription', ''), CHARACTERS_LIMIT.BOTTOM_RELATED_DESC)
+  const description = shortenString(get(item, 'ogDescription', ''), charLimit)
   return (
     <Item key={slug}>
       <Anchor to={formatPostLinkTo(slug, style)} target={formatPostLinkTarget(style)}>
@@ -163,11 +162,12 @@ function buildListItem(item) {
 }
 
 const _renderLoadMore = (currentPage, handleLoadmore) => {
-  if (currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE) {
+  const numberOfFirstResponsePage = 0
+  if (currentPage > numberOfFirstResponsePage) {
     return (
       <Waypoint
         onEnter={() => {
-          if ((currentPage > NUMBER_OF_FIRST_RESPONSE_PAGE)) {
+          if ((currentPage > numberOfFirstResponsePage)) {
             return handleLoadmore()
           }
         }}
@@ -178,12 +178,12 @@ const _renderLoadMore = (currentPage, handleLoadmore) => {
       </Waypoint>
     )
   }
-  return <LoadMore onClick={handleLoadmore}>{LOAD_MORE_ARTICLES}</LoadMore>
+  return <LoadMore onClick={handleLoadmore}>載入更多文章</LoadMore>
 }
 
 const AuthorCollection = (props) => {
   const { collections, hasMore, isFetching, currentPage, handleLoadmore, totalResults } = props
-  const titleText = AUTHOR_COLLECTION + (totalResults ?  `（${totalResults}）`: '')
+  const titleText = '所有文章' + (totalResults ?  `（${totalResults}）`: '')
 
   return (
     <Sizing size="small">
@@ -192,7 +192,7 @@ const AuthorCollection = (props) => {
         {_.map(collections, buildListItem)}
       </Collections>
       {(hasMore && !isFetching) ? _renderLoadMore(currentPage, handleLoadmore) : null}
-      {isFetching ? <CenteredSpinner alt={LOADING_MORE_ARTICLES} /> : null}
+      {isFetching ? <CenteredSpinner alt="載入更多文章" /> : null}
     </Sizing>
   )
 }

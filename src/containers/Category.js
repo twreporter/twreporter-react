@@ -1,57 +1,74 @@
+import { connect } from 'react-redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
+import categoryConst from '../constants/category'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import categoryConst from '../constants/category'
-import get from 'lodash/get'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import { connect } from 'react-redux'
+// lodash
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
 
 const _  = {
-  get
+  get,
+  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchListedPosts } = actions
-
-const MAXRESULT = 10
-const categories = 'categories'
+const numberPerPage = 10
+const logger = loggerFactory.getLogger()
 
 class Category extends PureComponent {
-  componentWillMount() {
-    const { fetchListedPosts, catId } = this.props
-    const page = _.get(this.props, 'page', 1)
-
-    fetchListedPosts(catId, categories, MAXRESULT, page)
+  componentDidMount() {
+    this.fetchPostsWithCatch()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, catId } = nextProps
-    const page = _.get(nextProps, 'page', 1)
+  componentDidUpdate() {
+    this.fetchPostsWithCatch()
+  }
 
-    fetchListedPosts(catId, categories, MAXRESULT, page)
+  fetchPostsWithCatch() {
+    const listType = 'categories'
+    const page = _.get(this.props, 'page', 1)
+    const { fetchListedPosts, catId } = this.props
+    fetchListedPosts(catId, listType, numberPerPage, page)
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (category id: '${catId}').`
+        })
+      })
   }
 
   render() {
-    let isFetching = false
-
     const {
       catId,
       catLabel,
       entities,
-      history,
       lists,
       page,
       pathname
     } = this.props
     const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const error = _.get(lists, [ catId, 'error' ], null)
 
     // total items will be in that catId
     const total = _.get(lists, [ catId, 'total' ], 0)
+    const totalPages = Math.ceil(total / numberPerPage)
+    if (
+      !_.isInteger(page) ||
+      totalPages && (page > totalPages) ||
+      page < 1
+    ) {
+      return (
+        <SystemError error={{ statusCode: 404 }} />
+      )
+    }
 
     // pages will be like
     // {
@@ -62,31 +79,21 @@ class Category extends PureComponent {
     // which means the items of page 1 are in items[0] to items[9],
     // the items of page 3 are in items[10] to item [19]
     const pages = _.get(lists, [ catId, 'pages' ], {})
-    const startPos = _.get(pages, [ page, 0 ], 0)
-    const endPos = _.get(pages, [ page, 1 ], 0)
-
-    // page is provided, but not fecth yet
-    if (startPos === 0 && endPos === 0) {
-      isFetching = true
-    }
-
     // denormalize the items of current page
-    const posts = utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
-
-    const totalPages = Math.ceil(total / MAXRESULT)
+    const itemRangeIndices = _.get(pages, `${page}`)
+    const posts = itemRangeIndices ? utils.denormalizePosts(_.get(lists, [ catId, 'items' ], []).slice(itemRangeIndices[0], itemRangeIndices[1] + 1), postEntities) : []
     const postsLen = _.get(posts, 'length', 0)
-
+    const isFetching = postsLen === 0
     // Error handling
+    const error = _.get(lists, [ catId, 'error' ], null)
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />
       )
-    } else if (postsLen === 0) {
-      isFetching = true
     }
 
-    const title = catLabel + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const canonical = `${SITE_META.URL_NO_SLASH}${pathname}`
+    const title = catLabel + siteMeta.name.separator + siteMeta.name.full
+    const canonical = `${siteMeta.urlOrigin}${pathname}`
 
     return (
       <div>
@@ -96,13 +103,15 @@ class Category extends PureComponent {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}
@@ -115,8 +124,6 @@ class Category extends PureComponent {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          pathname={pathname}
-          history={history}
         />
       </div>
     )
@@ -124,12 +131,13 @@ class Category extends PureComponent {
 }
 
 function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const page = parseInt(_.get(location, 'query.page', 1), 10)
+  const search = _.get(props, 'location.search')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  const page = parseInt(_.get(query, 'page', 1), 10)
   const pathSegment = _.get(props, 'match.params.category')
   const catId = categoryConst.ids[pathSegment]
   const catLabel = categoryConst.labels[pathSegment]
-  const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
+  const pathname = _.get(props, 'location.pathname', `/categories/${pathSegment}`)
   return {
     lists: state[reduxStateFields.lists],
     entities: state[reduxStateFields.entities],
@@ -151,8 +159,6 @@ Category.propTypes = {
   lists: PropTypes.object,
   catId: PropTypes.string,
   catLabel: PropTypes.string.isRequired,
-  // a history object for navigation
-  history: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired
 }

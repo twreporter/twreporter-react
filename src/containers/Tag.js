@@ -1,37 +1,52 @@
+import { connect } from 'react-redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
-import get from 'lodash/get'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import { connect } from 'react-redux'
+// lodash
+import get from 'lodash/get'
+import isInteger from 'lodash/isInteger'
 
 const _  = {
-  get
+  get,
+  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchListedPosts } = actions
 
 const MAXRESULT = 10
-const tags = 'tags'
+const logger = loggerFactory.getLogger()
 
 class Tag extends PureComponent {
-  componentWillMount() {
-    const { fetchListedPosts, tagId } = this.props
+  componentDidMount() {
+    const tagId = _.get(this.props, 'tagId')
     const page = _.get(this.props, 'page', 1)
-
-    fetchListedPosts(tagId, tags, MAXRESULT, page)
+    this.fetchPostsWithCatch(tagId, page)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { fetchListedPosts, tagId } = nextProps
-    const page = _.get(nextProps, 'page', 1)
+  componentDidUpdate() {
+    const tagId = _.get(this.props, 'tagId')
+    const page = _.get(this.props, 'page', 1)
+    this.fetchPostsWithCatch(tagId, page)
+  }
 
-    fetchListedPosts(tagId, tags, MAXRESULT, page)
+  fetchPostsWithCatch = (tagId, page) => {
+    const { fetchListedPosts } = this.props
+    return fetchListedPosts(tagId, 'tags', MAXRESULT, page)
+      .catch((failAction) => {
+        // TODO render alert message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (tag id: ${tagId}).`
+        })
+      })
   }
 
   _findTagName(tags, tagId) {
@@ -48,14 +63,10 @@ class Tag extends PureComponent {
   }
 
   render() {
-    let isFetching = false
-
     const {
       entities,
-      history,
       lists,
       page,
-      pathname,
       tagId
     } = this.props
 
@@ -74,32 +85,41 @@ class Tag extends PureComponent {
     // which means the items of page 1 are in items[0] to items[9],
     // the items of page 3 are in items[10] to item [19]
     const pages = _.get(lists, [ tagId, 'pages' ], {})
-    const startPos = _.get(pages, [ page, 0 ], 0)
-    const endPos = _.get(pages, [ page, 1 ], 0)
-
-    // page is provided, but not fecth yet
-    if (startPos === 0 && endPos === 0) {
-      isFetching = true
-    }
-
-    // denormalize the items of current page
-    const posts = utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(startPos, endPos + 1), postEntities)
-
     const totalPages = Math.ceil(total / MAXRESULT)
+    if (
+      !_.isInteger(page) ||
+      totalPages && (page > totalPages) ||
+      page < 1
+    ) {
+      return (
+        <SystemError error={{ statusCode: 404 }} />
+      )
+    }
+    // denormalize the items of current page
+    const itemRangeIndices = _.get(pages, `${page}`)
+    const posts = itemRangeIndices ? utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(itemRangeIndices[0], itemRangeIndices[1] + 1), postEntities) : []
     const postsLen = _.get(posts, 'length', 0)
+    const isFetching = postsLen === 0
 
     // Error handling
     if (error !== null && postsLen === 0) {
       return (
         <SystemError error={error} />
       )
-    } else if (postsLen === 0) {
-      isFetching = true
     }
 
-    const tagName = this._findTagName(_.get(posts, [ 0, 'tags' ]), tagId)
-    const canonical = `${SITE_META.URL}tag/${tagId}`
-    const title = tagName + SITE_NAME.SEPARATOR + SITE_NAME.FULL
+    let postForGettingTagName = {}
+    if (posts.length > 0) {
+      postForGettingTagName = posts[0]
+    } else {
+      const samplePostId = _.get(lists, [ tagId, 'items' , 0 ], '')
+      if (samplePostId) {
+        postForGettingTagName = utils.denormalizePosts([ samplePostId ], postEntities)[0]
+      }
+    }
+    const tagName = this._findTagName(_.get(postForGettingTagName, 'tags'), tagId)
+    const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
+    const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
     return (
       <div>
@@ -109,13 +129,15 @@ class Tag extends PureComponent {
             { rel: 'canonical', href: canonical }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
+            { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
             { property: 'og:title', content: title },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical }
           ]}
@@ -128,8 +150,6 @@ class Tag extends PureComponent {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          pathname={pathname}
-          history={history}
         />
       </div>
     )
@@ -138,7 +158,9 @@ class Tag extends PureComponent {
 
 function mapStateToProps(state, props) {
   const tagId = _.get(props, 'match.params.tagId', '')
-  const page = parseInt(_.get(props, 'location.query.page', 1), 10)
+  const search = _.get(props, 'location.search')
+  const query = qs.parse(search, { ignoreQueryPrefix: true })
+  const page = parseInt(_.get(query, 'page', 1), 10)
   const pathname = _.get(props, 'location.pathname', `/tag/${tagId}`)
   return {
     lists: state[reduxStateFields.lists],
@@ -159,9 +181,7 @@ Tag.propTypes = {
   lists: PropTypes.object,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
-  tagId: PropTypes.string.isRequired,
-  // a history object for navigation
-  history: PropTypes.object.isRequired
+  tagId: PropTypes.string.isRequired
 }
 
 export { Tag }

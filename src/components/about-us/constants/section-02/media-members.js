@@ -17,19 +17,18 @@ const members = [
   {
     name: '楊惠君',
     nameEng: 'Hui Chun Yang',
-    job: '副總編輯兼採訪主任',
-    jobEng: 'Deputy Editor in Chief',
+    job: '總主筆兼採訪主任',
+    jobEng: 'Editor in Chief',
     email: 'jill718@twreporter.org',
     profile: memberUrlPrefix + membersImg.editJillYang,
     category: categoryIds.editor
   },
   {
-    name: '王曉玟',
-    nameEng: 'Sharon Wang',
-    job: '主編',
-    jobEng: 'editor',
-    email: 'sharonwang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editSharonWang,
+    name: '楊之瑜',
+    job: '副總編輯兼製作人',
+    jobEng: 'Deputy Editor in Chief',
+    email: 'leayang@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editLea,
     category: categoryIds.editor
   },
   {
@@ -53,7 +52,7 @@ const members = [
   {
     name: '李法賢',
     nameEng: 'Nick Li',
-    job: '數位部主任',
+    job: '工程部主任',
     jobEng: 'Senior Coder',
     email: 'nickhsine@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiNickLi,
@@ -87,6 +86,14 @@ const members = [
     category: categoryIds.photojournalist
   },
   {
+    name: '楊子磊',
+    job: '攝影記者',
+    jobEng: 'Photojournalist',
+    email: 'tzule@twreporter.org',
+    profile: memberUrlPrefix + membersImg.photoTzuLeiYang,
+    category: categoryIds.photojournalist
+  },
+  {
     name: '余崇任',
     nameEng: 'Yu Chung-Jen',
     job: '工程師',
@@ -114,6 +121,15 @@ const members = [
     category: categoryIds.digital
   },
   {
+    name: '吳政達',
+    nameEng: 'Chen Da Wu',
+    job: '設計部主任',
+    jobEng: 'Art Designer',
+    email: 'dadawu@twreporter.org',
+    profile: memberUrlPrefix + membersImg.digiDaDaWu,
+    category: categoryIds.digital
+  },
+  {
     name: '黃禹禛',
     nameEng: 'Yu Chen Huang',
     job: '設計師',
@@ -125,19 +141,10 @@ const members = [
   {
     name: '林珍娜',
     nameEng: 'Chen Na Lin ',
-    job: '介面設計師',
-    jobEng: 'UI Designer',
-    email: 'ginalin@twreporter.org',
-    profile: memberUrlPrefix + membersImg.digiChenNaLin,
-    category: categoryIds.digital
-  },
-  {
-    name: '吳政達',
-    nameEng: 'Chen Da Wu',
     job: '設計師',
     jobEng: 'Art Designer',
-    email: 'dadawu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.digiDaDaWu,
+    email: 'ginalin@twreporter.org',
+    profile: memberUrlPrefix + membersImg.digiChenNaLin,
     category: categoryIds.digital
   },
   {
@@ -203,6 +210,14 @@ const members = [
     jobEng: 'Data Journalist',
     email: 'hhk@twreporter.org',
     profile: memberUrlPrefix + membersImg.editKeHaoHsiang,
+    category: categoryIds.editor
+  },
+  {
+    name: '許家瑜',
+    job: 'PM兼數據記者',
+    jobEng: 'Journalist',
+    email: 'chiayuhsu@twreporter.org',
+    profile: memberUrlPrefix + membersImg.editChiaYu,
     category: categoryIds.editor
   },
   {

@@ -1,6 +1,5 @@
-import { colors } from '../../themes/common-variables'
-import { SITE_NAME, SITE_META } from './constants/data/index'
 import anchors from './constants/data/sidebar-anchor'
+import colors from '../../constants/colors'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import mq from './utils/media-query'
@@ -13,6 +12,7 @@ import Section03 from './section-03'
 import Section04 from './section-04'
 import Section05 from './section-05'
 import SideBarFactory from '../side-bar/side-bar-factory'
+import siteMeta from '../../constants/site-meta'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import WebFont from './web-font'
@@ -29,11 +29,11 @@ const Border = styled.div `
   ${mq.tabletOnly`
     border-left: solid 7px ${colors.red.liverRed};
     border-right: solid 7px ${colors.red.liverRed};
-  `}  
+  `}
   ${mq.mobileOnly`
     border-left: solid 6px ${colors.red.liverRed};
     border-right: solid 6px ${colors.red.liverRed};
-  `}    
+  `}
 `
 
 export class AboutUs extends PureComponent {
@@ -55,20 +55,22 @@ export class AboutUs extends PureComponent {
     return (
       <React.Fragment>
         <Helmet
-          title={SITE_NAME.FULL}
+          title={siteMeta.name.full}
           link={[
-            { rel: 'canonical', href: SITE_META.URL }
+            { rel: 'canonical', href: siteMeta.urlOrigin + '/about-us' }
           ]}
           meta={[
-            { name: 'description', content: SITE_META.DESC },
-            { name: 'twitter:title', content: SITE_NAME.FULL },
-            { name: 'twitter:image', content: SITE_META.OG_IMAGE },
-            { name: 'twitter:description', content: SITE_META.DESC },
-            { property: 'og:title', content: SITE_NAME.FULL },
-            { property: 'og:description', content: SITE_META.DESC },
-            { property: 'og:image', content: SITE_META.OG_IMAGE },
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: '關於我們 - 報導者 The Reporter' },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { property: 'og:title', content: '關於我們 - 報導者 The Reporter' },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: SITE_META.URL }
+            { property: 'og:url', content: siteMeta.urlOrigin + '/about-us' }
           ]}
         />
         <Border>
@@ -89,7 +91,7 @@ export class AboutUs extends PureComponent {
         </Border>
         <Footer />
         <WebFont />
-      </React.Fragment>        
+      </React.Fragment>
     )
   }
 }

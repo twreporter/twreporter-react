@@ -1,18 +1,8 @@
 import get from 'lodash/get'
-import twreporterRedux from '@twreporter/redux'
 
 const _ = {
   get
 }
-
-const {
-  actions,
-  reduxStateFields
-} = twreporterRedux
-
-const {
-  fetchAFullTopic
-} = actions
 
 /**
  *  loadData function is used for server side rendering.
@@ -27,12 +17,5 @@ const {
  */
 export default function loadData({ match, store }) {
   const slug = _.get(match, 'params.slug', '')
-  return store.dispatch(fetchAFullTopic(slug))
-    .then(() => {
-      const state = store.getState()
-      const selectedTopic = _.get(state, reduxStateFields.selectedTopic, {})
-      if (_.get(selectedTopic, 'error')) {
-        return Promise.reject(_.get(selectedTopic, 'error'))
-      }
-    })
+  return store.actions.fetchAFullTopic(slug)
 }

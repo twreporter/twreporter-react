@@ -1,9 +1,9 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -22,7 +22,6 @@ const Hexagon = styled.div`
   width: 2.6em;
 	background-image: url('/asset/photography/polygon.svg');
   background-size: 100%;
-  background-repeat: repeat-y;
   text-align: center;
   line-height: 2.63em;
   padding: 0 0.4em;
@@ -110,12 +109,6 @@ const CardDate = styled.time`
 function _buildSlideFromPost(post) {
   const cats = _.get(post, 'categories', [])
   const catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-  let prefix = LINK_PREFIX.ARTICLE
-  let target = undefined
-  if (post.style === INTERACTIVE_ARTICLE_STYLE) {
-    prefix = LINK_PREFIX.INTERACTIVE_ARTICLE
-    target = '_blank'
-  }
   const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
   const images = [
     _.get(imageResizedTargets, 'tiny'),
@@ -125,7 +118,7 @@ function _buildSlideFromPost(post) {
     _.get(imageResizedTargets, 'original')
   ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
   return (
-    <StyledLink key={post.id} to={prefix + post.slug} target={target}>
+    <StyledLink key={post.id} to={formatPostLinkTo(post.slug)} target={formatPostLinkTarget(post.style)}>
       <Image
         alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
         defaultImage={images[1]}
@@ -134,7 +127,11 @@ function _buildSlideFromPost(post) {
         objectFit="cover"
       />
       <CategoryContainer>
-        <Hexagon>{catDisplay}</Hexagon>
+        {
+          catDisplay.split('').map((word, index) => (
+            <Hexagon key={`cat-${index}`}>{word}</Hexagon>
+          ))
+        }
       </CategoryContainer>
       <Card>
         {post.subtitle ? <CardSubtitle>{post.subtitle}</CardSubtitle> : null}

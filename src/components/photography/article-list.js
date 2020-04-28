@@ -1,9 +1,8 @@
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { LINK_PREFIX, INTERACTIVE_ARTICLE_STYLE } from '../../constants/index'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import constPageThemes from '../../constants/page-themes'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import More from './more'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -120,27 +119,6 @@ const Date = styled.time`
   }
 `
 
-const bgStyleSelector = bgStyle => {
-  switch (bgStyle) {
-    case constPageThemes.tone.dark:
-      return css`
-        ${ItemTitle}, ${ItemExcerpt}, ${Date} {
-          color: #F7F7F7;
-        }
-        ${Item}:hover {
-          ${ItemTitle}, ${Date} {
-            color: black;
-          }
-          ${ItemExcerpt} {
-            color: #808080;
-          }
-        }
-      `
-    default:
-      return ''
-  }
-}
-
 const List = styled.ul`
   list-style: none;
   width: ${listingWidth}px;
@@ -152,14 +130,25 @@ const List = styled.ul`
     -webkit-column-count: 1;
     column-count: 1;
   }
-  ${props => bgStyleSelector(props.bgStyle)}
+
+  ${ItemTitle}, ${ItemExcerpt}, ${Date} {
+    color: #F7F7F7;
+  }
+  ${Item}:hover {
+    ${ItemTitle}, ${Date} {
+      color: black;
+    }
+    ${ItemExcerpt} {
+      color: #808080;
+    }
+  }
 `
 
 export default class ListArticleItem extends React.PureComponent {
   _buildItem(post) {
     const { id, publishedDate, style, slug, title } = post
     const dateString = date2yyyymmdd(publishedDate , '.')
-    const url = `${style === INTERACTIVE_ARTICLE_STYLE ? LINK_PREFIX.INTERACTIVE_ARTICLE : LINK_PREFIX.ARTICLE}${slug}`
+    const url = formatPostLinkTo(slug, style)
     const excerpt =  _.get(post, 'ogDescription', '')
     const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
     const images = [
@@ -171,7 +160,7 @@ export default class ListArticleItem extends React.PureComponent {
     ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
     return (
       <Item key={id}>
-        <Link to={url} target={style === INTERACTIVE_ARTICLE_STYLE ? '_blank' : undefined}>
+        <Link to={url} target={formatPostLinkTarget(style)}>
           <ImageWrapper>
             <Image
               alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
@@ -195,12 +184,12 @@ export default class ListArticleItem extends React.PureComponent {
   }
 
   render() {
-    const { articles, bgStyle, hasMore, loadMore, loadMoreError } = this.props
+    const { articles, hasMore, loadMore, loadMoreError } = this.props
     if (!articles) return (<section />)
     return (
       <section>
         <Container>
-          <List bgStyle={bgStyle}>
+          <List>
             {this._buildItemList(articles)}
           </List>
         </Container>

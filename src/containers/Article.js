@@ -1,17 +1,19 @@
 import ArticleComponent from '@twreporter/react-article-components'
 import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
+import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReadingProgress from '../components/article/reading-progress'
 import SystemError from '../components/SystemError'
+import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
-import { SITE_META, SITE_NAME } from '../constants/index'
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import uiManager from '../managers/ui-manager'
 // dependencies of article component v2
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 // lodash
 import filter from 'lodash/filter'
 import get from 'lodash/get'
@@ -31,6 +33,8 @@ const { fetchAFullPost } = actions
 const _fontLevel = {
   small: 'small'
 }
+
+const logger = loggerFactory.getLogger()
 
 class Article extends PureComponent {
   constructor(props) {
@@ -62,20 +66,31 @@ class Article extends PureComponent {
       fontLevel
     })
     const slug = _.get(match, 'params.slug')
-    this.props.fetchAFullPost(slug)
+    return this.fetchAFullPostWithCatch(slug)
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { match } = nextProps
-    const slug = _.get(match, 'params.slug')
-    const isFetching = _.get(nextProps, 'selectedPost.isFetching') || _.get(this.props, 'selectedPost.isFetching')
-    if (slug !== _.get(this.props, 'selectedPost.slug') && !isFetching) {
-      this.props.fetchAFullPost(slug)
+  componentDidUpdate(prevProps) {
+    const { match } = this.props
+    const slugInParams = _.get(match, 'params.slug')
+    const isFetching = _.get(this.props, 'selectedPost.isFetching')
+    if (slugInParams !== _.get(prevProps, 'selectedPost.slug') && !isFetching) {
+      return this.fetchAFullPostWithCatch(slugInParams)
     }
+  }
+
+  fetchAFullPostWithCatch = (slug) => {
+    return this.props.fetchAFullPost(slug)
+    // TODO show alert message for users
+      .catch((failAction) => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch a full post, post slug: '${slug}'.`
+        })
+      })
   }
 
   /**
@@ -140,7 +155,7 @@ class Article extends PureComponent {
     const isFetching = _.get(selectedPost, 'isFetching')
     const article = _.get(postEntities, slug, {})
     article.style = uiManager.getArticleV2Style(article.style)
-    
+
     // prepare related posts and that topic which post belongs to
     // for v2 article
     const postRelateds = utils.denormalizePosts(_.get(article, 'relateds', []), postEntities)
@@ -150,11 +165,19 @@ class Article extends PureComponent {
       (related) => { return related.id !== article.id})
 
     // for head tag
-    const canonical = SITE_META.URL + 'a/' + slug
-    const ogTitle = (_.get(article, 'og_title', '') || _.get(article, 'title', '')) + SITE_NAME.SEPARATOR + SITE_NAME.FULL
-    const ogDesc = _.get(article, 'og_description', SITE_META.DESC)
-    const ogImage = _.get(article, 'og_image.resized_targets.mobile.url', SITE_META.OG_IMAGE)
-
+    const canonical = siteMeta.urlOrigin + '/a/' + slug
+    const ogTitle = (_.get(article, 'og_title', '') || _.get(article, 'title', '')) + siteMeta.name.separator + siteMeta.name.full
+    const ogDesc = _.get(article, 'og_description', siteMeta.desc)
+    const ogImage = _.get(article, 'og_image.resized_targets.tablet.url') ? article.og_image.resized_targets.tablet : siteMeta.ogImage
+    const metaOgImage = [
+      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) }
+    ]
+    if (ogImage.height) {
+      metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+    }
+    if (ogImage.width) {
+      metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+    }
     return (
       <div>
         <Helmet
@@ -165,15 +188,15 @@ class Article extends PureComponent {
           meta={[
             { name: 'description', content: ogDesc },
             { name: 'twitter:title', content: ogTitle },
-            { name: 'twitter:image', content: ogImage },
+            { name: 'twitter:image', content: replaceGCSUrlOrigin(ogImage.url) },
             { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: ogTitle },
             { property: 'og:description', content: ogDesc },
-            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
+            ...metaOgImage
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">

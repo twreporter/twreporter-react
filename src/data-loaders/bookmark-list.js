@@ -6,7 +6,6 @@ const _ = {
   get
 }
 
-const { getMultipleBookmarks } = twreporterRedux.actions
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const defaultLimit = 5
@@ -25,10 +24,7 @@ export default function loadData({ store }) {
   if (isAuthed) {
     const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
     const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
-    return store.dispatch(getMultipleBookmarks(jwt, userID, 0, defaultLimit, defaultSort))
-      .catch(error => {
-        console.error(error) // eslint-disable-line no-console
-      })
+    return store.actions.getMultipleBookmarks(jwt, userID, 0, defaultLimit, defaultSort)
   }
   return Promise.resolve()
 }

@@ -1,4 +1,4 @@
-import { SITE_META } from '../../../constants'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import BottomComponents from './bottom'
 import BottomLeftComponents from './bottom-left'
@@ -8,6 +8,7 @@ import LeadingVideo from './leading-video'
 import predefinedPropTypes from '../../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import siteMeta from '../../../constants/site-meta'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 // @twreporter
@@ -123,7 +124,7 @@ export default class Banner extends PureComponent {
             title={title}
             uploadDate={new Date(publishedDate).toISOString()}
             description={`報導者專題《${title}》封面影片`}
-            poster={_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || SITE_META.OG_IMAGE}
+            poster={replaceGCSUrlOrigin(_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage.url)}
             viewportHeight={viewportHeight}
           />
         ) : (

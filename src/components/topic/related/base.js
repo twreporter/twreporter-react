@@ -1,5 +1,5 @@
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import mq from '../../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'

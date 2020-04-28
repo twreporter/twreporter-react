@@ -1,32 +1,32 @@
-import { colors } from '../../../themes/common-variables'
+import colors from '../../../constants/colors'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import mq, { screen } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import CSSTransition from 'react-transition-group/CSSTransition'
 import Header from './header'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import smoothScroll from 'smoothscroll'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const transitionDuration = 200
 
-const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
+const reactTransitionCSS = css`
   ${mq.mobileOnly`
     .effect-enter {
       opacity: 0;
     }
-    .effect-enter.effect-enter-active {
+    .effect-enter-active {
       opacity: 1;
       transition: opacity ${transitionDuration}ms ease-in;
     }
-    .effect-leave {
+    .effect-exit {
       opacity: 1;
     }
-    .effect-leave.effect-leave-active {
+    .effect-exit-active {
       opacity: 0;
       transition: opacity ${transitionDuration}ms ease-out;
     }
@@ -35,14 +35,14 @@ const StyledCSSTransitionGroup = styled(CSSTransitionGroup)`
     .effect-enter {
       transform: translateX(100%);
     }
-    .effect-enter.effect-enter-active {
+    .effect-enter-active {
       transform: translateX(0);
       transition: transform ${transitionDuration}ms ease-in;
     }
-    .effect-leave {
+    .effect-exit {
       transform: translateX(0);
     }
-    .effect-leave.effect-leave-active {
+    .effect-exit-active {
       transform: translateX(100%);
       transition: transform ${transitionDuration}ms ease-out;
     }
@@ -70,6 +70,7 @@ const Container = styled.section`
   ${mq.mobileOnly`
     margin: 0 -6px;
   `}
+  ${reactTransitionCSS}
 `
 const Footer = styled.div`
   position: absolute;
@@ -501,29 +502,23 @@ export class Opening extends PureComponent {
     const { isAnchorPanelOpen } = this.state
     return (
       <Container ref={(ele) => {this._cover = ele}}>
-        <StyledCSSTransitionGroup
-          transitionName={{
-            enter: 'effect-enter',
-            enterActive: 'effect-enter-active',
-            leave: 'effect-leave',
-            leaveActive: 'effect-leave-active'
-          }}
-          transitionEnterTimeout={transitionDuration}
-          transitionLeaveTimeout={transitionDuration}
+        <CSSTransition
+          in={isAnchorPanelOpen}
+          classNames="effect"
+          timeout={transitionDuration}
+          mountOnEnter
+          unmountOnExit
         >
-          {
-            isAnchorPanelOpen ?
-              <AnchorsPanel
-                ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel}
-                handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
-                isOpen={this.state.isAnchorPanelOpen}
-                closePanel={this._closeAnchorPanel}
-              /> : null
-          }
-        </StyledCSSTransitionGroup>
+          <AnchorsPanel
+            ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel}
+            handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
+            isOpen={isAnchorPanelOpen}
+            closePanel={this._closeAnchorPanel}
+          />
+        </CSSTransition>
         <Header
-          onHamburgerClick={this.state.isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
-          isPanelOpen={this.state.isAnchorPanelOpen}
+          onHamburgerClick={isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+          isPanelOpen={isAnchorPanelOpen}
         />
         <Content>
           <ChineseIntro>

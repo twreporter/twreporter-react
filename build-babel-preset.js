@@ -4,7 +4,14 @@ const isProduction = process.env.NODE_ENV === 'production'
 const isServeSideRendering = process.env.RENDER_ENV === 'server'
 
 const presets = [
-  require('babel-preset-es2015'),
+  ['env', {
+    targets: {
+      node: 'current',
+      browsers: ['last 2 versions'],
+    },
+    debug: isProduction,
+    useBuiltIns: true
+  }],
   require('babel-preset-react'),
   require('babel-preset-stage-0')
 ]

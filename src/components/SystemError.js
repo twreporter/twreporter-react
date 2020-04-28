@@ -11,7 +11,7 @@ const _ = {
 
 function SystemError({ error }) {
   let errorType = '500'
-  if (_.get(error, 'status') === 404 || _.get(error, 'response.status') === 404) {
+  if (_.get(error, 'statusCode') == 404) {
     errorType = '404'
   }
   return (
