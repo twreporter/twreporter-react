@@ -2,7 +2,7 @@ import colors from '../../../constants/colors'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq, { screen } from '../utils/media-query'
+import mq, { breakpoint } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
 import CSSTransition from 'react-transition-group/CSSTransition'
@@ -532,8 +532,8 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLineOnMobile>
               <picture>
-                <source media={`(min-width: ${screen.tablet.minWidth}px) and (max-width: ${screen.desktop.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
-                <source media={`(max-width: ${screen.tablet.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
+                <source media={`(min-width: ${breakpoint.tablet.minWidth}px) and (max-width: ${breakpoint.desktop.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
+                <source media={`(max-width: ${breakpoint.tablet.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
               </picture>
               <SeperateLineOnTabletAbove>

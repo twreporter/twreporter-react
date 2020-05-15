@@ -1,11 +1,5 @@
 import categoryIds from './category-ids'
-
-export const screen = {
-  hd: 'hd',
-  desktop: 'desktop',
-  tablet: 'tablet',
-  mobile: 'mobile'
-}
+import screen from '../../utils/screen'
 
 export const headcountPerPage = {
   [categoryIds.fundation]: {

@@ -1,11 +1,5 @@
 import categoryIds from './category-ids'
-
-const screen = {
-  hd: 'hd',
-  desktop: 'desktop',
-  tablet: 'tablet',
-  mobile: 'mobile'
-}
+import screen from '../../utils/screen'
 
 const carouselMarkup = {
   [categoryIds.fundation]: {
