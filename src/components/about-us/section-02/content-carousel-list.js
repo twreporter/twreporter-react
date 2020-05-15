@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import categories from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
+import carouselMarkup from '../constants/section-02/carousel-markup' 
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
@@ -28,7 +29,7 @@ const _ = {
   groupBy,
   isEqual,
   keys,
-  values
+  values,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -48,33 +49,17 @@ const Department = styled.div`
   ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
-    &:nth-child(2n){
-      width: 559px;
-    }
-    &:nth-child(2n+1) {
-      width: 583px;
-    }
-    &:first-child {
-      width: 100%;
-    }
+    ${props => props.markup[screen.hd]}
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
-    &:nth-child(2n){
-      width: 410px;
-    }
-    &:nth-child(2n+1) {
-      width: 430px;
-    }
-    &:first-child {
-      width: 100%;
-    }
+    ${props => props.markup[screen.desktop]}
   `}
   ${mq.tabletOnly`
     margin-top: 30px;
-    width: 100%;
     height: calc(116px * 3/2);
+    ${props => props.markup[screen.tablet]}
   `}
 `
 
@@ -185,9 +170,6 @@ const StyledArrows = styled.div`
   top: 50%;
   width: 100%;
   transform: translateY(-50%);
-  ${mq.mobileOnly`
-    height: calc(465px - 49px);
-  `}
   ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
     height: 116px;
@@ -202,11 +184,6 @@ const NavigationWrapper = styled.div`
   right: 0;
   bottom: 0;
   margin-bottom: -5px;
-  ${mq.mobileOnly`
-    position: relative;
-    text-align: center;
-    margin: 0 auto;
-  `}
 `
 
 export default class CarouselMemberList extends PureComponent {
@@ -352,9 +329,11 @@ export default class CarouselMemberList extends PureComponent {
     const { currentPagesArray } = this.state
     const departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
       const label = _.find(categoriesAll, { id: categoryId }).label
-      const numPerPage = headcountPerPage[categoryId]
       return(
-        <Department key={categoryId}>
+        <Department 
+          key={categoryId} 
+          markup={carouselMarkup[categoryId]}
+        >
           <Name><p>{label.chinese}</p></Name>
           <StyledArrows>
             <Arrows
@@ -373,7 +352,7 @@ export default class CarouselMemberList extends PureComponent {
                 typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
-                      <Member key={index} numPerPage={numPerPage}>
+                      <Member key={index} numPerPage={headcountPerPage[categoryId]}>
                         <img
                           src={`${replaceGCSUrlOrigin(member.profile)}`}
                         />
