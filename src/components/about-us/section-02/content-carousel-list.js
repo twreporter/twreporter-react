@@ -269,7 +269,7 @@ export default class CarouselMemberList extends PureComponent {
     this.membersNumPerPageArray = newMembersNumPerPageArray
     
     this.membersPageLengthArray = this.memberList.map((list, departmentIndex) => {
-      return Math.ceil(list.childNodes[0].offsetWidth * membersNumberArray[departmentIndex] / list.offsetWidth) + 2
+      return Math.ceil(membersNumberArray[departmentIndex] / this.membersNumPerPageArray[departmentIndex]) + 2
     })
 
     this.membersResidueArray = this.memberList.map((list, departmentIndex) => {
