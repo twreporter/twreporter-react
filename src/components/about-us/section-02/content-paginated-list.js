@@ -36,7 +36,7 @@ const MemberBlockList = styled.div`
   width: 100%;
   height: 465px;
   padding: 0 13px 0 13px;
-  margin-top: 49px;
+  margin-top: 10px;
   background: ${colors.gray.gray96};
 `
 
@@ -104,7 +104,7 @@ const StyledArrows = styled.div `
   width: 100%;
   transform: translateY(-50%);
   ${mq.mobileOnly`
-    height: calc(465px - 49px);
+    height: 465px;
   `}
   ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
@@ -221,6 +221,7 @@ export default class PaginatedMemberList extends PureComponent {
           categoriesAll = {categoriesAll}
           selectDepartment = {this._selectDepartment}
           selectedDepartmentIndex = {selectedDepartmentIndex} />
+        <MemberBlockList>
         <StyledArrows>
           <Arrows
             departmentIndex = {selectedDepartmentIndex}
@@ -229,7 +230,6 @@ export default class PaginatedMemberList extends PureComponent {
             changePage = {this._changePage.bind(null,selectedDepartmentIndex)}
           />           
         </StyledArrows>       
-        <MemberBlockList>
           {memberBlocks}
         </MemberBlockList>
         <NavigationWrapper>

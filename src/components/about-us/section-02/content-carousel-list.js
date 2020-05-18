@@ -44,22 +44,24 @@ const Container = styled.div`
 
 const Department = styled.div`
   position: relative;
-  padding: 0 72px 5px 90px;
   background: linear-gradient(to bottom, ${colors.white} 30%, ${colors.gray.gray96} 30%);
   display: inline-block;
   ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
+    padding: 0px 72px;
     ${props => props.markup[screen.hd]}
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
+    padding: 0 30px;
     ${props => props.markup[screen.desktop]}
   `}
   ${mq.tabletOnly`
     margin-top: 30px;
     height: calc(116px * 3/2);
+    padding: 0px 95px;
     ${props => props.markup[screen.tablet]}
   `}
 `
@@ -89,29 +91,27 @@ const Member = styled.li`
   height: 100%;
   ${mq.hdOnly`
     img:first-child{
-      width: calc(76px * 1.5);
+      width: 114px;
+      margin-bottom: 19px;
     }
     width: calc(100% / ${props => props.numPerPage[screen.hd]});
   `}
   ${mq.desktopOnly`
     img:first-child{
-      width: calc(62.6px * 1.5);
+      width: 85px;
+      margin-bottom: 15px;
     }
     width: calc(100% / ${props => props.numPerPage[screen.desktop]});
   `}
   ${mq.tabletOnly`
     img:first-child{
-      width: calc(62.6px * 1.5);
+      width: 94px;
     }
     width: calc(100% / ${props => props.numPerPage[screen.tablet]});
   `}
 `
 
 const Info = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   p:first-child{
     font-size: 13px;
     letter-spacing: 0.9px;
@@ -133,7 +133,7 @@ const Info = styled.div`
   `}
   ${mq.desktopOnly`
     img{
-      margin-top: 15px;
+      margin-top: 10px;
     }
   `}
   ${mq.tabletOnly`
@@ -154,14 +154,16 @@ const Name = styled.div`
   padding-top: 8px;
   p{
     color: ${gray.lightgray};
-    font-size: 22px;
+    font-size: 20px;
     font-weight: ${font.weight.medium};
   }
+  ${mq.hdOnly`
+    p{
+      font-size: 22px;
+    } 
+  `}
   ${mq.tabletOnly`
     transform: translateX(-75%);
-    p{
-      font-size: 20px;
-    }
   `}
 `
 

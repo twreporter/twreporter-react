@@ -5,25 +5,40 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const DepartmentName = styled.p `
+const DepartmentName = styled.div`
   display: inline-block;
-  border-right: solid 1px rgba(0, 0, 0, 0.2);
-  width: calc( 100% / ${props => props.categoriesLength});
-  text-align: center;
-  font-size: 16px;
-  font-weight: ${font.weight.bold};
-  letter-spacing: 2px;
+  width: calc(100% / ${props => props.categoriesLength});
   cursor: pointer;
-  color: ${props => props.selected ? `${colors.black}` : `${gray.lightgray}`};
-  span:first-child{
-    padding-bottom: 5px;
-    border-bottom: ${props => props.selected ? `solid 8px ${colors.black}` : 'none'};
+  text-align: center;
+  p {
+    font-size: 14px;
+    font-weight: ${font.weight.bold};
+    letter-spacing: 2px;
+    color: ${props => props.selected ? colors.black : gray.lightgray};
+    width: 14px;
+    margin: 6px 0 5px 0;
+    border-left: solid 1px rgba(0, 0, 0, 0.2);
+    padding-left: calc((100% - 14px) / 2);
+  }
+  span:first-child:before {
+    display: inline-block;
+    content: '';
+    height: 8px;
+    width: 14px;
+    background: ${colors.black};
+    visibility: ${props => props.selected ? 'visible' : 'hidden'};
+  }
+  span:last-child:after {
+    display: inline-block;
+    content: "\u25CF";
+    font-size: 14px;
+    visibility: ${props => props.selected ? 'visible' : 'hidden'};
   }
 `
 
 const Container = styled.div `
-  ${DepartmentName}:last-child{
-    border-right: none;
+  ${DepartmentName}:first-child > p {
+    border-left: none;
   }
 `
 
@@ -37,7 +52,6 @@ export default class DepartmentsNameList extends PureComponent {
       <Container>
         {
           categoriesAll.map((category, categoryIndex) => {
-            const categoryName = category.label.chinese.split('')
             return (
               <DepartmentName 
                 key={category.id} 
@@ -45,13 +59,9 @@ export default class DepartmentsNameList extends PureComponent {
                 selected={selectedDepartmentIndex === categoryIndex}
                 categoriesLength={categoriesAll.length}
               >
-                {
-                  categoryName.map((word, index) => {
-                    return (
-                      <span key={index}>{word}</span>
-                    )
-                  })
-                }
+                <span />
+                <p>{category.label.chinese}</p>
+                <span />
               </DepartmentName>
             )
           })
