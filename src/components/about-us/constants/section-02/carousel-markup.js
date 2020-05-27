@@ -26,7 +26,7 @@ const carouselMarkup = {
       'width': '100%', 
     },
   },
-  [categoryIds.socialMediaManager]: {
+  [categoryIds.socialMedia]: {
     [screen.hd]: {
       'width': '576px',
     },

@@ -9,7 +9,7 @@ const media = [
     }
   },
   {
-    id: categoryIds.socialMediaManager,
+    id: categoryIds.socialMedia,
     label: {
       english: 'Social Media Department',
       chinese: '社群部'

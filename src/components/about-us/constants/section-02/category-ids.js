@@ -1,7 +1,7 @@
 const categoryIds = {
   fundation: 'fundation',
   editor: 'editor',
-  socialMediaManager: 'socialMediaManager',
+  socialMedia: 'socialMedia',
   photojournalist: 'photojournalist',
   marketing: 'marketing',
   engineer: 'engineer',

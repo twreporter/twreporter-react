@@ -227,7 +227,7 @@ const members = [
     jobEng: 'Managing Editor',
     email: 'sychang@twreporter.org',
     profile: memberUrlPrefix + membersImg.editShihYunChang,
-    category: categoryIds.socialMediaManager
+    category: categoryIds.socialMedia
   },
   {
     name: '陳思樺',
@@ -236,7 +236,7 @@ const members = [
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
     profile: memberUrlPrefix + membersImg.editSzuHuaChen,
-    category: categoryIds.socialMediaManager
+    category: categoryIds.socialMedia
   },
   {
     name: '洪琴宣',
@@ -245,7 +245,7 @@ const members = [
     jobEng: 'Editor',
     email: 'chhung@twreporter.org',
     profile: memberUrlPrefix + membersImg.editChhung,
-    category: categoryIds.socialMediaManager
+    category: categoryIds.socialMedia
   },
   {
     name: '王儀君',
