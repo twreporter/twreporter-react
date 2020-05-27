@@ -5,7 +5,7 @@ const categoryIds = {
   photojournalist: 'photojournalist',
   marketing: 'marketing',
   engineer: 'engineer',
-  designer: 'designer',
+  designer: 'designer'
 }
 
 export default categoryIds

@@ -42,7 +42,7 @@ const media = [
       english: 'Design Department',
       chinese: '設計部'
     }
-  },
+  }
 ]
 
 const fundation = [
