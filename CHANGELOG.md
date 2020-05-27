@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.4.23
+
+### Notable Changes
+
+- update about-us page 
+
+### Commits
+
+* [[`6b46ff90b0`](https://github.com/twreporter/twreporter-react/commit/6b46ff90b0)] - **refactor**: eslint fixes (Taylor Fang)
+* [[`a2ccfbb967`](https://github.com/twreporter/twreporter-react/commit/a2ccfbb967)] - refactor(about-us): rename category (Taylor Fang)
+* [[`9d121481f7`](https://github.com/twreporter/twreporter-react/commit/9d121481f7)] - refactor(about-us): update style in section-02 due to design changes (Taylor Fang)
+* [[`602bf6e1b3`](https://github.com/twreporter/twreporter-react/commit/602bf6e1b3)] - refactor(about-us): refine the way to get member page length (Taylor Fang)
+* [[`a3b8a6aeea`](https://github.com/twreporter/twreporter-react/commit/a3b8a6aeea)] - refactor(about-us): extract `screen` out as a constant (Taylor Fang)
+* [[`a53f5785f8`](https://github.com/twreporter/twreporter-react/commit/a53f5785f8)] - refactor(about-us): add carousel markup as a constant (Taylor Fang)
+* [[`13ed196f79`](https://github.com/twreporter/twreporter-react/commit/13ed196f79)] - refactor(about-us): add headcount per page as constants (Taylor Fang)
+* [[`6a6f6019e2`](https://github.com/twreporter/twreporter-react/commit/6a6f6019e2)] - refactor(about-us): update constants (Taylor Fang)
+
 ## 4.4.22
 
 ### Notable Changes

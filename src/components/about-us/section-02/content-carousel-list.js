@@ -1,16 +1,19 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { gray, numbersInfullPage, numbersInHalfPage } from './utils'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import carouselMarkup from '../constants/section-02/carousel-markup' 
 import categories from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
+import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
+import screen from '../utils/screen'
 import styled from 'styled-components'
+import { font } from '../constants/styles'
+import { gray } from './utils'
+import { headcountPerPage } from '../constants/section-02/headcount-per-page'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
 //lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
@@ -27,7 +30,7 @@ const _ = {
   groupBy,
   isEqual,
   keys,
-  values
+  values,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -41,48 +44,25 @@ const Container = styled.div`
 
 const Department = styled.div`
   position: relative;
-  padding: 0 72px 5px 90px;
   background: linear-gradient(to bottom, ${colors.white} 30%, ${colors.gray.gray96} 30%);
-  ${mq.desktopAndAbove`
-    &:nth-child(3){
-      display: inline-block;
-      li{
-        width: calc(100% / ${numbersInHalfPage});
-      }
-    }
-    &:last-child {
-      display: inline-block;
-      li{
-        width: calc(100% / ${numbersInHalfPage});
-      }
-    }
-  `}
+  display: inline-block;
   ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
-    &:nth-child(3){
-      width: 559px;
-    }
-    &:last-child {
-      width: 583px;
-      margin-left: calc(100% - 559px - 583px);
-    }
+    padding: 0px 72px;
+    ${props => props.markup[screen.hd]}
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
-    &:nth-child(3){
-      width: 410px;
-    }
-    &:last-child{
-      margin-left: calc(100% - 410px - 430px);
-      width: 430px;
-    }
+    padding: 0 30px;
+    ${props => props.markup[screen.desktop]}
   `}
   ${mq.tabletOnly`
     margin-top: 30px;
-    width: 100%;
     height: calc(116px * 3/2);
+    padding: 0px 95px;
+    ${props => props.markup[screen.tablet]}
   `}
 `
 
@@ -111,29 +91,27 @@ const Member = styled.li`
   height: 100%;
   ${mq.hdOnly`
     img:first-child{
-      width: calc(76px * 1.5);
+      width: 114px;
+      margin-bottom: 19px;
     }
-    width: calc(100% / ${numbersInfullPage.overDesktop});
+    width: calc(100% / ${props => props.numPerPage[screen.hd]});
   `}
   ${mq.desktopOnly`
     img:first-child{
-      width: calc(62.6px * 1.5);
+      width: 85px;
+      margin-bottom: 15px;
     }
-    width: calc(100% / ${numbersInfullPage.desktop});
+    width: calc(100% / ${props => props.numPerPage[screen.desktop]});
   `}
   ${mq.tabletOnly`
     img:first-child{
-      width: calc(62.6px * 1.5);
+      width: 94px;
     }
-    width: calc(100% / ${numbersInfullPage.tablet});
+    width: calc(100% / ${props => props.numPerPage[screen.tablet]});
   `}
 `
 
 const Info = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   p:first-child{
     font-size: 13px;
     letter-spacing: 0.9px;
@@ -155,7 +133,7 @@ const Info = styled.div`
   `}
   ${mq.desktopOnly`
     img{
-      margin-top: 15px;
+      margin-top: 10px;
     }
   `}
   ${mq.tabletOnly`
@@ -176,14 +154,16 @@ const Name = styled.div`
   padding-top: 8px;
   p{
     color: ${gray.lightgray};
-    font-size: 22px;
+    font-size: 20px;
     font-weight: ${font.weight.medium};
   }
+  ${mq.hdOnly`
+    p{
+      font-size: 22px;
+    } 
+  `}
   ${mq.tabletOnly`
     transform: translateX(-75%);
-    p{
-      font-size: 20px;
-    }
   `}
 `
 
@@ -193,9 +173,6 @@ const StyledArrows = styled.div`
   top: 50%;
   width: 100%;
   transform: translateY(-50%);
-  ${mq.mobileOnly`
-    height: calc(465px - 49px);
-  `}
   ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
     height: 116px;
@@ -210,11 +187,6 @@ const NavigationWrapper = styled.div`
   right: 0;
   bottom: 0;
   margin-bottom: -5px;
-  ${mq.mobileOnly`
-    position: relative;
-    text-align: center;
-    margin: 0 auto;
-  `}
 `
 
 export default class CarouselMemberList extends PureComponent {
@@ -299,7 +271,7 @@ export default class CarouselMemberList extends PureComponent {
     this.membersNumPerPageArray = newMembersNumPerPageArray
     
     this.membersPageLengthArray = this.memberList.map((list, departmentIndex) => {
-      return Math.ceil(list.childNodes[0].offsetWidth * membersNumberArray[departmentIndex] / list.offsetWidth) + 2
+      return Math.ceil(membersNumberArray[departmentIndex] / this.membersNumPerPageArray[departmentIndex]) + 2
     })
 
     this.membersResidueArray = this.memberList.map((list, departmentIndex) => {
@@ -358,10 +330,13 @@ export default class CarouselMemberList extends PureComponent {
   render() {
     const { sendEmail } = this.props
     const { currentPagesArray } = this.state
-    const Departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
-      let label = _.find(categoriesAll, { id: categoryId }).label
+    const departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
+      const label = _.find(categoriesAll, { id: categoryId }).label
       return(
-        <Department key={categoryId}>
+        <Department 
+          key={categoryId} 
+          markup={carouselMarkup[categoryId]}
+        >
           <Name><p>{label.chinese}</p></Name>
           <StyledArrows>
             <Arrows
@@ -380,7 +355,7 @@ export default class CarouselMemberList extends PureComponent {
                 typeof this.carouselData[categoryId] !== 'undefined' ?
                   this.carouselData[categoryId].map((member, index) => {
                     return(
-                      <Member key={index}>
+                      <Member key={index} numPerPage={headcountPerPage[categoryId]}>
                         <img
                           src={`${replaceGCSUrlOrigin(member.profile)}`}
                         />
@@ -414,7 +389,7 @@ export default class CarouselMemberList extends PureComponent {
     })
     return (
       <Container>
-        {Departments}
+        {departments}
       </Container>
     )
   }
