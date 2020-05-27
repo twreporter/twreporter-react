@@ -25,11 +25,21 @@ const Arrow = styled.div`
 const LeftArrow = styled(Arrow)`
   left: 0;
   img{
-    transform: translateX(45px) scaleX(-1);
+    transform: translateX(13px) scaleX(-1);
   }
+  ${mq.hdOnly`
+    img{
+      transform: translateX(29px) scaleX(-1);
+    } 
+  `}
+  ${mq.tabletOnly`
+    img{
+      transform: translateX(40px) scaleX(-1);
+    }
+  `}
   ${mq.mobileOnly`
     img{
-      transform: translateX(-200%) scaleX(-1);
+      transform: translate(-200%, -50%) scaleX(-1);
     }
   `}
 `
@@ -37,11 +47,21 @@ const LeftArrow = styled(Arrow)`
 const RightArrow = styled(Arrow)`
   right: 0;
   img{
-    transform: translateX(-36px);
+    transform: translateX(-13px);
   }
+  ${mq.hdOnly`
+    img{
+      transform: translateX(-29px);
+    } 
+  `}
+  ${mq.tabletOnly`
+    img{
+      transform: translateX(-40px);
+    }
+  `}
   ${mq.mobileOnly`
     img{
-      transform: translateX(200%);
+      transform: translate(200%, -50%);
     }
   `}
 `
