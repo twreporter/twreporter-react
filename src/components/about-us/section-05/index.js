@@ -3,7 +3,7 @@ import colors from '../../../constants/colors'
 import { content } from '../constants/section-05/records'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq, { screen } from '../utils/media-query'
+import mq, { breakpoint } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
@@ -379,7 +379,7 @@ export default class Section5 extends PureComponent {
   componentDidMount() {
     const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
-    if (window.matchMedia(`(max-width: ${screen.tablet.minWidth - 1}px)`).matches) {
+    if (window.matchMedia(`(max-width: ${breakpoint.tablet.minWidth - 1}px)`).matches) {
       this.isMobile = true
     }
   }

@@ -1,23 +1,24 @@
-import colors from '../../../constants/colors'
-import { gray, numbersInfullPage } from './utils'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
 import Arrows from './arrows'
-import categories from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
 import DepartmentsNameList from './departments-name-list'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import categories from '../constants/section-02/categories'
+import categoryIds from '../constants/section-02/category-ids'
+import colors from '../../../constants/colors'
+import mq from '../utils/media-query'
+import screen from '../utils/screen'
 import styled from 'styled-components'
 import values from 'lodash/values'
+import { gray } from './utils'
+import { headcountPerPage } from '../constants/section-02/headcount-per-page'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
 
 const _ = {
   values
 }
 
-const numbersInOnePage = numbersInfullPage.mobile
 const categoriesAll = categories.fundation.concat(categories.media)
 
 const Container = styled.div`
@@ -35,7 +36,7 @@ const MemberBlockList = styled.div`
   width: 100%;
   height: 465px;
   padding: 0 13px 0 13px;
-  margin-top: 49px;
+  margin-top: 10px;
   background: ${colors.gray.gray96};
 `
 
@@ -103,7 +104,7 @@ const StyledArrows = styled.div `
   width: 100%;
   transform: translateY(-50%);
   ${mq.mobileOnly`
-    height: calc(465px - 49px);
+    height: 465px;
   `}
   ${mq.tabletAndAbove`
     top: calc(50% + 50% / 3);
@@ -175,7 +176,10 @@ export default class PaginatedMemberList extends PureComponent {
 
   _pageMaker = () => {
     const { membersNumberArray } = this.props
-    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numbersInOnePage))
+    const { selectedDepartmentIndex } = this.state
+    const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
+    const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
+    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numberPerPage))
   }
 
   _selectDepartment = (index) => {
@@ -185,9 +189,11 @@ export default class PaginatedMemberList extends PureComponent {
   render() {
     const { selectedDepartmentIndex, currentPagesArray } = this.state
     const { groupedMembers } = this.props
-    const cursor = (currentPagesArray[selectedDepartmentIndex] + 1) * numbersInOnePage
-    const selectedMemberList = groupedMembers[_.values(categoryIds)[selectedDepartmentIndex]]
-    const MemberBlocks = selectedMemberList.slice(cursor - numbersInOnePage, cursor).map((member) => {
+    const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
+    const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
+    const cursor = (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage 
+    const selectedMemberList = groupedMembers[selectedCategoryId]
+    const memberBlocks = selectedMemberList.slice(cursor - numberPerPage, cursor).map((member) => {
       return(
         <MemberBlock key={member.name}>
           <MemberBorder>
@@ -215,6 +221,7 @@ export default class PaginatedMemberList extends PureComponent {
           categoriesAll = {categoriesAll}
           selectDepartment = {this._selectDepartment}
           selectedDepartmentIndex = {selectedDepartmentIndex} />
+        <MemberBlockList>
         <StyledArrows>
           <Arrows
             departmentIndex = {selectedDepartmentIndex}
@@ -223,8 +230,7 @@ export default class PaginatedMemberList extends PureComponent {
             changePage = {this._changePage.bind(null,selectedDepartmentIndex)}
           />           
         </StyledArrows>       
-        <MemberBlockList>
-          {MemberBlocks}
+          {memberBlocks}
         </MemberBlockList>
         <NavigationWrapper>
           <Navigation
