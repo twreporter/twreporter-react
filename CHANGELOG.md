@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.24
+
+### Notable Changes
+
+- Update dependency:
+  - @twreporter/react-article-components@1.1.8
+
+### Commits
+
+* [[`c5ce8e8edd`](https://github.com/twreporter/twreporter-react/commit/c5ce8e8edd)] - **chore**: update dependency (yucj)
+
 ## 4.4.23
 
 ### Notable Changes
