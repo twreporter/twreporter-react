@@ -9,6 +9,13 @@ const media = [
     }
   },
   {
+    id: categoryIds.socialMedia,
+    label: {
+      english: 'Social Media Department',
+      chinese: '社群部'
+    }
+  },
+  {
     id: categoryIds.photojournalist,
     label: {
       english: 'Photography Department',
@@ -16,10 +23,24 @@ const media = [
     }
   },
   {
-    id: categoryIds.digital,
+    id: categoryIds.marketing,
     label: {
-      english: 'Digital Design and Development',
-      chinese: '數位部'
+      english: 'Marketing Department',
+      chinese: '行銷部'
+    }
+  },
+  {
+    id: categoryIds.engineer,
+    label: {
+      english: 'Engineering Department',
+      chinese: '工程部'
+    }
+  },
+  {
+    id: categoryIds.designer,
+    label: {
+      english: 'Design Department',
+      chinese: '設計部'
     }
   }
 ]

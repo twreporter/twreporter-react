@@ -1,15 +1,16 @@
+import screen from './screen'
 import { getMediaQueryUtil } from '@twreporter/core/lib/utils/media-query'
 
-export const screen = {
-  tablet: {
+export const breakpoint = {
+  [screen.tablet]: {
     minWidth: 768
   },
-  desktop: {
+  [screen.desktop]: {
     minWidth: 1024
   },
-  hd: {
+  [screen.hd]: {
     minWidth: 1630
   }
 }
 
-export default getMediaQueryUtil(screen)
+export default getMediaQueryUtil(breakpoint)
