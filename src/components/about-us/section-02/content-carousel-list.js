@@ -18,7 +18,6 @@ import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
 import groupBy from 'lodash/groupBy'
 import isEqual from 'lodash/isEqual'
-import keys from 'lodash/keys'
 import values from 'lodash/values'
 
 const _ = {
@@ -26,7 +25,6 @@ const _ = {
   debounce,
   groupBy,
   isEqual,
-  keys,
   values
 }
 
@@ -285,7 +283,8 @@ export default class CarouselMemberList extends PureComponent {
     this._setCurrentPages(initialCurrentPages)
 
     // Making data for the usage of carousel
-    _.keys(groupedMembers).forEach((categoryId, index) => {
+    categoriesAll.forEach((category, index) => {
+      const categoryId = category.id
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumPerPageArray[index]
       const newMembers = [ ...members.slice(members.length - numbersInAPage, members.length), ...members, ...members.slice(0, numbersInAPage) ]
