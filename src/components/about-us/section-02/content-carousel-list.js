@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import carouselMarkup from '../constants/section-02/carousel-markup' 
 import categories from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
@@ -17,7 +16,6 @@ import { storageUrlPrefix } from '../utils/config'
 //lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
-import find from 'lodash/find'
 import groupBy from 'lodash/groupBy'
 import isEqual from 'lodash/isEqual'
 import keys from 'lodash/keys'
@@ -26,11 +24,10 @@ import values from 'lodash/values'
 const _ = {
   assign,
   debounce,
-  find,
   groupBy,
   isEqual,
   keys,
-  values,
+  values
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -330,8 +327,9 @@ export default class CarouselMemberList extends PureComponent {
   render() {
     const { sendEmail } = this.props
     const { currentPagesArray } = this.state
-    const departments = _.values(categoryIds).map((categoryId, categoryIndex) => {
-      const label = _.find(categoriesAll, { id: categoryId }).label
+    const departments = categoriesAll.map((category, categoryIndex) => {
+      const categoryId = category.id
+      const label = category.label
       return(
         <Department 
           key={categoryId} 
