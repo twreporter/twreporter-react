@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.4.25-rc.0
+## 4.4.25
 
 ### Notable Changes
 
