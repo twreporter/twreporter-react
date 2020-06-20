@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.4.25-rc.0
+
+### Notable Changes
+
+- Update about us:
+  - update content (section2, section3)
+  - use ordered list to keep the departments in order (section2)
+
+### Commits
+
+* [[`87d5cac249`](https://github.com/twreporter/twreporter-react/commit/87d5cac249)] - fix(about-us): use ordered list instead of lodash/keys (Taylor Fang)
+* [[`f77cf012fe`](https://github.com/twreporter/twreporter-react/commit/f77cf012fe)] - refactor(about-us): remove lodash/find in section2 (Taylor Fang)
+* [[`0ce2227274`](https://github.com/twreporter/twreporter-react/commit/0ce2227274)] - refactor(about-us): update content (Taylor Fang)
+
 ## 4.4.24
 
 ### Notable Changes
