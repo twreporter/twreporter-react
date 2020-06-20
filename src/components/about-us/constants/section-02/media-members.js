@@ -24,14 +24,6 @@ const members = [
     category: categoryIds.editor
   },
   {
-    name: '楊之瑜',
-    job: '副總編輯兼製作人',
-    jobEng: 'Deputy Editor in Chief',
-    email: 'leayang@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editLea,
-    category: categoryIds.editor
-  },
-  {
     name: '劉致昕',
     nameEng: 'Jason Liu',
     job: '主筆',
@@ -210,14 +202,6 @@ const members = [
     jobEng: 'Data Journalist',
     email: 'hhk@twreporter.org',
     profile: memberUrlPrefix + membersImg.editKeHaoHsiang,
-    category: categoryIds.editor
-  },
-  {
-    name: '許家瑜',
-    job: 'PM兼數據記者',
-    jobEng: 'Journalist',
-    email: 'chiayuhsu@twreporter.org',
-    profile: memberUrlPrefix + membersImg.editChiaYu,
     category: categoryIds.editor
   },
   {
