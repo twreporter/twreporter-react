@@ -1,0 +1,42 @@
+{
+    "rows": [{
+        "award.zh-tw": "SOPA亞洲出版協會",
+        "award.en": "The Society of Publishers in Asia",
+        "date": "2017/6/15",
+        "group.zh-tw": "卓越人權報導獎",
+        "group.en": "Excellence in Human Rights Reporting/Group C",
+        "ranking.zh-tw": "首獎",
+        "ranking.en": "Award for Excellence",
+        "prizeman.zh-tw": "李雪莉、鄭涵文、蔣宜婷、林佑恩、盧昱瑞、吳逸驊、陳貞樺、吳政達、黃禹禛、李法賢、王珣沛",
+        "prizeman.en": "Sherry Lee, Han Wen Cheng, I Ting Chiang, Yu En Lin, Yu Jui Lu, Jameson Wu, Mimi Chen, Cheng Ta Wu, Yu Chen Huang, Nick Li, Hsun Pei Wang",
+        "title.zh-tw": "造假．剝削．血淚漁場",
+        "title-en": "Fraud, Exploitation, Bloods and Tears of Fishing",
+        "titlelink": "https://www.twreporter.org/topics/far-sea-fishing-investigative-report"
+    }, {
+        "award.zh-tw": "台海新聞攝影大賽",
+        "award.en": "Tai Hai Press Photo Contest",
+        "date": "2018/6/6",
+        "group.zh-tw": "台海人物新聞類",
+        "group.en": "Tai Hai Portrait News",
+        "ranking.zh-tw": "金獎",
+        "ranking.en": "Gold",
+        "prizeman.zh-tw": "余志偉",
+        "prizeman.en": "Chih Wei Yu",
+        "title.zh-tw": "15歲起我這樣養活自己",
+        "title-en": 0,
+        "titlelink": "http://thpp.xmnn.cn/home/article/detail/id/2425.html"
+    }, {
+        "award.zh-tw": "人權新聞獎",
+        "award.en": "Human Rights Press Awards",
+        "date": "2017/5/13",
+        "group.zh-tw": "中文多媒體新聞獎",
+        "group.en": "Chinese Multimedia Award",
+        "ranking.zh-tw": 0,
+        "ranking.en": 0,
+        "prizeman.zh-tw": "林佑恩、蔣宜婷、吳政達、王珣沛",
+        "prizeman.en": "Lin Yu En, I Ting Chiang, Cheng Ta Wu, Hsun Pei Wang",
+        "title.zh-tw": "離岸之前──印尼漁工的台灣夢",
+        "title-en": "Before Departure: Taiwanese Dream of Indonesian fishermen",
+        "titlelink": "https://www.twreporter.org/a/photoessay-far-sea-fishing/"
+    }]
+}

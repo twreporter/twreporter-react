@@ -1,0 +1,24 @@
+{
+    "rows": [{
+        "year": 2015,
+        "month": 9,
+        "date": 1,
+        "text.zh-tw": "成立「財團法人報導者文化基金會」，第一屆董事長由翁秀琪擔任，並由創辦人何榮幸擔任執行長暨《報導者》總編輯。",
+        "text.en": "The Reporter Foundation was founded.",
+        "link": 0
+    }, {
+        "year": 2016,
+        "month": 6,
+        "date": 1,
+        "text.zh-tw": "首度開放新聞室，舉辦「報導者讀者會」，邀請20位讀者與團隊成員面對面分享，並聆聽讀者聲音與建議。",
+        "text.en": "Hosted \"Meet-readers on Rooftop,\" inviting readers from all fields to talk to us face-to-face.",
+        "link": 0
+    }, {
+        "year": 2017,
+        "month": 2,
+        "date": 25,
+        "text.zh-tw": "舉辦「報導者攝影工作坊：在地影像扎根計畫第一期」，以為期四個月深度攝影課程進行人才培力。至2019年10月已有4位學員成為《報導者》特約攝影師。",
+        "text.en": "Held \"The Reporter\\'s Photography Workshop: Image Locally Rooted Project.",
+        "link": 0
+    }]
+}

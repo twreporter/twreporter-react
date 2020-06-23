@@ -1,0 +1,24 @@
+{
+    "rows": [{
+        "name.zh-tw": "黃榮村",
+        "name.en": "Jong Tsun Huang",
+        "job.zh-tw": "董事長",
+        "job.en": "Director",
+        "profile": "foundation-RongTsunHuang.png",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "何榮幸",
+        "name.en": "Jung Shin Ho",
+        "job.zh-tw": "執行長",
+        "job.en": "Chief Executive Officer",
+        "profile": "Edit-JungShinHo.png",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "林以涵",
+        "name.en": "Sunny Lin",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-YiHanLin.png",
+        "category": "fundation"
+    }]
+}
