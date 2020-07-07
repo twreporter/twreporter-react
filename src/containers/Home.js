@@ -13,21 +13,20 @@ import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
-import keys from 'lodash/keys'
-import set from 'lodash/set'
+import map from 'lodash/map'
+import merge from 'lodash/merge'
 
 const { CategorySection, DonationBoxSection, EditorPicks, InforgraphicSection,
   LatestSection, LatestTopicSection, NewsLetterSection, PhotographySection,
   ReviewsSection, TopicsSection } = IndexPageComposite.components
-const { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage } =  twreporterRedux.actions
-const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const { fetchIndexPageContent, fetchFeatureTopic } =  twreporterRedux.actions
 const fieldNames = twreporterRedux.reduxStateFields
 const logger = loggerFactory.getLogger()
 
 const _ = {
   get,
-  keys,
-  set
+  map,
+  merge,
 }
 
 const reactTransitionCSS = css`
@@ -194,7 +193,7 @@ class Homepage extends React.PureComponent {
 
   componentDidMount() {
     this.fetchIndexPageContentWithCatch()
-    this.fetchCategoriesPostsOnIndexPageWithCatch()
+    this.fetchFeatureTopicWithCatch()
       .then(() => {
         // EX: if the url path is /?section=categories
         // after this component mounted and rendered,
@@ -219,17 +218,16 @@ class Homepage extends React.PureComponent {
       })
   }
 
-  fetchCategoriesPostsOnIndexPageWithCatch = () => {
-    return this.props.fetchCategoriesPostsOnIndexPage()
+  fetchFeatureTopicWithCatch = () => {
+    return this.props.fetchFeatureTopic()
       .catch((failAction) => {
         // TODO render alter message
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: 'Error to fetch posts in categories section on index page.'
+          message: 'Error to fetch feature topic on index page.'
         })
       })
   }
-
   render() {
     const { isSpinnerDisplayed } = this.props
     const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
@@ -325,88 +323,283 @@ class Homepage extends React.PureComponent {
   }
 }
 
-function buildCategorySectionData(state) {
-  const buildData = (post) => {
-    return {
-      id: _.get(post, 'id', ''),
-      slug: _.get(post, 'slug', ''),
-      title: _.get(post, 'title', ''),
-      hero_image: _.get(post, 'hero_image'),
-      style: _.get(post, 'style', '')
-    }
-  }
+/**
+ *  ReduxState type definition
+ *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
+ */
 
-  const catFields = _.keys(fieldNames.categories)
-  const postEntities = _.get(state, [ fieldNames.entities, fieldNames.postsInEntities ], {})
-  const selected = []
-  const data = []
+/**
+ *  ObjectID type definition
+ *  @typedef {import('@twreporter/redux/lib/typedef').ObjectID} ObjectID
+ */
 
-  catFields.forEach((field) => {
-    let post
-    const slugs = _.get(state, [ fieldNames.indexPage, fieldNames.categories[field] ], [])
-    if (Array.isArray(slugs)) {
-      for (let i = 0; i < slugs.length; i+=1) {
-        const slug = slugs[i]
-        if (selected.indexOf(slug) === -1) {
-          post = buildData(_.get(denormalizePosts(slug, postEntities), 0))
-          post.id = field + '-' + post.id
-          post.listName = categoryConst.labels[field]
-          post.moreURI = `categories/${categoryConst.pathSegments[field]}`
-          data.push(post)
-          break
-        }
-      }
-      if (typeof post !== 'object' && slugs.length > 0) {
-        post = buildData(_.get(denormalizePosts(slugs[0], postEntities), 0))
-        post.id = field + '-' + post.id
-        post.listName = categoryConst.labels[field]
-        post.moreURI = `categories/${categoryConst.pathSegments[field]}`
-        data.push(post)
-      }
-    }
+/**
+ *  @param {string[]} fields
+ *  @param {Object} entities
+ *  @return {Object} cloned object with certain fields
+ */
+function cloneWithFields(fields, entities) {
+  const cloned = {}
+
+  fields.forEach(field => {
+    cloned[field] = _.get(entities, field)
   })
-  return data
+
+  return cloned
 }
 
+/**
+ *  ClonedPost type definition
+ *  @typedef {Object} ClonedPost
+ *  @property {import('@twreporter/redux/lib/typedef').Category[]} categories
+ *  @property {bool} full
+ *  @property {import('@twreporter/redux/lib/typedef').Image} hero_image
+ *  @property {string} id
+ *  @property {bool} is_external
+ *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image_portrait
+ *  @property {string} og_description
+ *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
+ *  @property {string} slug
+ *  @property {string} style
+ *  @property {string} subtitle
+ *  @property {string} title
+ */
+
+/**
+ *  @function clonePostWithNeededFields
+ *  @param {import('@twreporter/redux/lib/typedef').Post} post
+ *  @return {ClonedPost}
+ */
+function clonePostWithNeededFields(post) {
+  const fields = [
+    'categories',
+    'full',
+    'hero_image',
+    'id',
+    'is_external',
+    'leading_image_portrait',
+    'og_description',
+    'og_image',
+    'published_date',
+    'slug',
+    'style',
+    'subtitle',
+    'title',
+  ]
+
+  return cloneWithFields(fields, post)
+}
+
+/**
+ *  ClonedTopic type definition
+ *  @typedef {Object} ClonedTopic
+ *  @property {bool} full
+ *  @property {string} id
+ *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image
+ *  @property {string} og_description
+ *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
+ *  @property {string} short_title
+ *  @property {string} slug
+ *  @property {string} title
+ *  @property {ObjectID[]} relateds
+ */
+
+/**
+ *  @function cloneTopicWithNeededFields
+ *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
+ *  @return {ClonedTopic}
+ */
+function cloneTopicWithNeededFields(topic) {
+  const fields = [
+    'full',
+    'id',
+    'leading_image',
+    'og_description',
+    'og_image',
+    'published_date',
+    'relateds',
+    'short_title',
+    'slug',
+    'title',
+  ]
+
+  return cloneWithFields(fields, topic)
+}
+
+/**
+ *  @param {ObjectID[]} ids
+ *  @param {Object} entities
+ *  @param {Function} cloneFunc -
+ *  @return {ClonedPost[] | ClonedTopic[]}
+ */
+function cloneEntities(ids, entities, cloneFunc) {
+  return _.map(ids, id => {
+    return cloneFunc(entities[id])
+  })
+}
+
+/**
+ *  @param {ReduxState.index_page} indexPageState
+ *  @param {string} section
+ *  @param {Object} entities
+ *  @return {ClonedPost[]>}
+ */
+function restoreSectionWithPosts(indexPageState, section, entities) {
+  const ids = _.get(indexPageState, section, [])
+  return cloneEntities(ids, entities, clonePostWithNeededFields)
+}
+
+/**
+ *  @param {ReduxState.index_page} indexPageState
+ *  @param {string} section
+ *  @param {Object} entities
+ *  @return {ClonedTopic[]>}
+ */
+function restoreSectionWithTopics(indexPageState, section, entities) {
+  const ids = _.get(indexPageState, section, [])
+  return cloneEntities(ids, entities, cloneTopicWithNeededFields)
+}
+
+/**
+ *  This functions restore posts or topic(s) in
+ *  `ReduxState.index_page.latest_section`,
+ *  `ReduxState.index_page.editor_picks_section`,
+ *  `ReduxState.index_page.latest_topic_section`,
+ *  `ReduxState.index_page.reviews_section`,
+ *  `ReduxState.index_page.topics_section`,
+ *  `ReduxState.index_page.photos_section`.
+ *  `ReduxState.index_page.infgraphics_section`.
+ *
+ *  @param {ReduxState.index_page} indexPageState
+ *  @param {ReduxState.entities.posts.byId} postEntities
+ *  @param {ReduxState.entities.topics.byId} topicEntities
+ *  @return {Object.<string, ClonedPost[] | ClonedTopic[]>}
+ */
+function restoreSections(indexPageState, postEntities, topicEntities) {
+  const {latestTopicSection, topicsSection, ...otherSections} = fieldNames.sections
+
+  let rtn = {}
+  for(const key in otherSections) {
+    rtn[otherSections[key]] = restoreSectionWithPosts(indexPageState, otherSections[key], postEntities)
+  }
+
+  rtn[latestTopicSection] = _.get(restoreSectionWithTopics(indexPageState, latestTopicSection, topicEntities), 0)
+  rtn[topicsSection] = restoreSectionWithTopics(indexPageState, topicsSection, topicEntities)
+
+  return rtn
+}
+
+/**
+ *  ClonedCategoryPost type definition
+ *  @typedef {ClonedPost} ClonedCategoryPost
+ *  @property {string} listName
+ *  @property {string} moreURI
+ */
+
+/**
+ *  This functions restore posts in
+ *  `ReduxState.index_page.culture_and_art`,
+ *  `ReduxState.index_page.environment_and_education`,
+ *  `ReduxState.index_page.international`,
+ *  `ReduxState.index_page.living_and_medical_care`,
+ *  `ReduxState.index_page.politics_and_economy`,
+ *  `ReduxState.index_page.human_rights_and_society`.
+ *
+ *  @param {ReduxState.index_page} indexPageState
+ *  @param {ReduxState.entities.posts.byId} entities
+ *  @return {ClonedCategoryPost[]}
+ */
+function restoreCategories(indexPageState, entities) {
+  let rtn = []
+  const categories = fieldNames.categories
+  for(const key in categories) {
+    const ids = _.get(indexPageState, categories[key], [])
+    const clonedPosts = cloneEntities(ids, entities, clonePostWithNeededFields)
+    rtn = rtn.concat(_.map(clonedPosts, post => {
+      post.listName = categoryConst.labels[categories[key]]
+      post.moreURI = `categories/${categories[key]}`
+      return post
+    }))
+  }
+  return rtn
+}
+
+/**
+ *  ClonedFeatureTopic type definition
+ *  @typedef {ClonedTopic} ClonedFeatureTopic
+ *  @property {ClonedPost[]} relateds
+ */
+
+/**
+ *  This function restores feature topic with embedded posts
+ *  according to `ReduxState.featureTopic`.
+ *
+ *  @param {ReduxState.featureTopic} featureTopicState
+ *  @param {ReduxState.entities.posts.byId} postEntities
+ *  @param {ReduxState.entities.topics.byId} topicEntities
+ *  @return {{} | ClonedFeatureTopic}
+ */
+function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
+  const topicId = _.get(featureTopicState, 'id')
+
+  if (!topicId) {
+    return {}
+  }
+
+  const lastThreeRelatedPostIds = _.get(featureTopicState, 'lastThreeRelatedPostIds', [])
+  const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, clonePostWithNeededFields)
+  const clonedTopic = cloneTopicWithNeededFields(topicEntities[topicId])
+  clonedTopic.relateds = relatedPosts
+
+  return clonedTopic
+}
+
+/**
+ *  HomepageProps type definition
+ *  @typedef {Object} HomepageProps
+ *  @property {ClonedPost[]} latest_section
+ *  @property {ClonedPost[]} editor_picks_section
+ *  @property {ClonedTopic | ClonedFeatureTopic} latest_topic_section
+ *  @property {ClonedPost[]} reviews_section
+ *  @property {ClonedTopic[]} topics_section
+ *  @property {ClonedPost[]} photos_section
+ *  @property {ClonedPost[]} infgraphics_section
+ *  @property {ClonedCategoryPost[]} categories
+ *  @property {bool} isSpinnerDisplayed
+ *  @property {bool} ifAuthenticated
+ */
+
+/**
+ *  This function subscribes to redux store.
+ *  If redux store state changed,
+ *  this function will collect the latest state
+ *  and pass those changed state to `Homepage` React component
+ *  as component `props`.
+ *
+ *  @param {ReduxState} state
+ *  @return {HomepageProps}
+ */
 function mapStateToProps(state) {
   const entities = _.get(state, fieldNames.entities, {})
   const indexPageState = _.get(state, fieldNames.indexPage, {})
-  // get post entities
-  const postEntities = _.get(entities, fieldNames.postsInEntities, {})
+  const featureTopicState = _.get(state, fieldNames.featureTopic, {})
+  const postEntities = _.get(entities, [fieldNames.postsInEntities, 'byId'], {})
+  const topicEntities = _.get(entities, [fieldNames.topicsInEntities, 'byId'], {})
 
-  // get topic entities
-  const topicEntities = _.get(entities, fieldNames.topicsInEntities, {})
-
-  // restore the posts
-  const sections = fieldNames.sections
-  const latest = denormalizePosts(_.get(indexPageState, sections.latestSection, []), postEntities)
-  const editorPicks = denormalizePosts(_.get(indexPageState, sections.editorPicksSection, []), postEntities)
-  const reviews = denormalizePosts(_.get(indexPageState, sections.reviewsSection, []), postEntities)
-  const photoPosts = denormalizePosts(_.get(indexPageState, sections.photosSection, []), postEntities)
-  const infoPosts = denormalizePosts(_.get(indexPageState, sections.infographicsSection, []), postEntities)
-
-  // restore the topics
-  const latestTopic = _.get(denormalizeTopics(_.get(indexPageState, sections.latestTopicSection), topicEntities, postEntities), 0, null)
-  const topics = denormalizeTopics(_.get(indexPageState, sections.topicsSection, []), topicEntities, postEntities)
-
-  // check if spinner should be displayed
-  const err = _.get(indexPageState, 'error', null)
-  const isFetching = _.get(indexPageState, 'isFetching', false)
-  const isFirstScreenReady = latest.length > 0 && editorPicks.length > 0
-  const isSpinnerDisplayed = isFetching && !err && !isFirstScreenReady
-  return {
-    [fieldNames.sections.latestSection]: latest,
-    [fieldNames.sections.editorPicksSection]: editorPicks,
-    [fieldNames.sections.latestTopicSection]: latestTopic,
-    [fieldNames.sections.reviewsSection]: reviews,
-    [fieldNames.sections.topicsSection]: topics,
-    [fieldNames.sections.photosSection]: photoPosts,
-    [fieldNames.sections.infographicsSection]: infoPosts,
-    categories: buildCategorySectionData(state),
-    isSpinnerDisplayed,
-    ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
-  }
+  return _.merge({},
+    restoreSections(indexPageState, postEntities, topicEntities),
+    {
+      [fieldNames.sections.latestTopicSection]: restoreFeatureTopic(featureTopicState, postEntities, topicEntities)
+    },
+    {
+      categories: restoreCategories(indexPageState, postEntities),
+    },
+    {
+      isSpinnerDisplayed: !_.get(indexPageState, 'isReady', false),
+      ifAuthenticated: _.get(state, [ 'auth', 'authenticated' ], false)
+    }
+  )
 }
 
 export { Homepage }
-export default connect(mapStateToProps, { fetchIndexPageContent, fetchCategoriesPostsOnIndexPage })(Homepage)
+export default connect(mapStateToProps, { fetchIndexPageContent, fetchFeatureTopic })(Homepage)
