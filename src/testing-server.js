@@ -18,11 +18,17 @@ import posts from './mock-data/posts.json'
 import qs from 'qs'
 import topics from './mock-data/topics.json'
 
+// mock api response
+import mockIndexPageResponse from './mock-data/v2/index-page'
+import { mockPostsResponse } from './mock-data/v2/posts'
+import { mockTopicsResponse } from './mock-data/v2/topics'
+
 const app = Express()
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8080
 const APIVersion = 'v1'
 const router = Express.Router()
+const v2router = Express.Router()
 
 const _ = {
   get: get,
@@ -137,6 +143,7 @@ router.param('slug', (req, res, next, slug) => {
   next()
 })
 
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.posts}/:slug`)
   .get((req, res, next) => {
     const { full } = req.query
@@ -163,6 +170,7 @@ router.route(`/${apiEndpoints.posts}/:slug`)
     }
   })
 
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.posts}/`)
   .get((req, res) => {
     const { where, limit, offset } = req.query
@@ -185,11 +193,21 @@ router.route(`/${apiEndpoints.posts}/`)
     }
   })
 
+v2router.route(`/${apiEndpoints.posts}/`)
+  .get((req, res) => {
+    const { limit='10', offset='0', id, category_id, tag_id } = req.query
+    const _limit = Number(limit)
+    const _offset = Number(offset)
+
+    res.json(mockPostsResponse(limit, offset, id, category_id, tag_id))
+  })
+
 /**
  * Under development circumstance, fetch full topics data in list at once for not to create too many mock data files.
  * However, the listing data of topics will be fetched only in simplified version under production circumstance.
  * And the complete data of each topic (including `relates` and `leading-video` entries) would be fetched by this endpoint if user clicked to see more.
  */
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.topics}/:slug`)
   .get((req, res, next) => {
     if (req.query.full) {
@@ -212,12 +230,21 @@ router.route(`/${apiEndpoints.topics}/:slug`)
     }
   })
 
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.topics}/`)
   .get((req, res) => {
     const { limit, offset } = req.query
     const _limit = Number(limit)
     const _offset = Number(offset)
     res.json(_getTopicPosts(_limit, _offset))
+  })
+
+v2router.route(`/${apiEndpoints.topics}/`)
+  .get((req, res) => {
+    const { limit='10', offset='0' } = req.query
+    const _limit = Number(limit)
+    const _offset = Number(offset)
+    res.json(mockTopicsResponse(limit, offset))
   })
 
 const _searchResult = (param, authorId) => {
@@ -260,14 +287,21 @@ router.route('/search/:searchParam/')
     res.json(result)
   })
 
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.indexPage}/`)
   .get((req, res) => {
     res.json(indexPage)
   })
 
+// TODO: remove v1 endpoint after migration
 router.route(`/${apiEndpoints.indexPageCategories}/`)
   .get((req, res) => {
     res.json(indexPageCategories)
+  })
+
+v2router.route(`/${apiEndpoints.indexPage}/`)
+  .get((req, res) => {
+    res.json(mockIndexPageResponse())
   })
 
 
@@ -284,6 +318,7 @@ _checkIfPortIsTaken(port)
   .then((thePortIsTaken) => {
     if(!thePortIsTaken) {
       app.use(`/${APIVersion}/`, router)
+      app.use('/v2/', v2router)
       app.listen(port, (err) => {
         if (err) throw new Error(err)
         console.log('==> 💻  Started testing server at http://%s:%s', host, port) // eslint-disable-line no-console
