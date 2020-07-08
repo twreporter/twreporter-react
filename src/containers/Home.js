@@ -11,6 +11,10 @@ import sideBarFactory from '../components/side-bar/side-bar-factory'
 import siteMeta from '../constants/site-meta'
 import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
+
+// utils
+import cloneUtils from '../utils/clone-entity'
+
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -334,97 +338,12 @@ class Homepage extends React.PureComponent {
  */
 
 /**
- *  @param {string[]} fields
- *  @param {Object} entities
- *  @return {Object} cloned object with certain fields
- */
-function cloneWithFields(fields, entities) {
-  const cloned = {}
-
-  fields.forEach(field => {
-    cloned[field] = _.get(entities, field)
-  })
-
-  return cloned
-}
-
-/**
- *  ClonedPost type definition
- *  @typedef {Object} ClonedPost
- *  @property {import('@twreporter/redux/lib/typedef').Category[]} categories
- *  @property {bool} full
- *  @property {import('@twreporter/redux/lib/typedef').Image} hero_image
- *  @property {string} id
- *  @property {bool} is_external
- *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image_portrait
- *  @property {string} og_description
- *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
- *  @property {string} slug
- *  @property {string} style
- *  @property {string} subtitle
- *  @property {string} title
+ *  @typedef {import('../utils/clone-entity').ClonedPost} ClonedPost
  */
 
 /**
- *  @function clonePostWithNeededFields
- *  @param {import('@twreporter/redux/lib/typedef').Post} post
- *  @return {ClonedPost}
+ *  @typedef {import('../utils/clone-entity').ClonedTopic} ClonedTopic
  */
-function clonePostWithNeededFields(post) {
-  const fields = [
-    'categories',
-    'full',
-    'hero_image',
-    'id',
-    'is_external',
-    'leading_image_portrait',
-    'og_description',
-    'og_image',
-    'published_date',
-    'slug',
-    'style',
-    'subtitle',
-    'title',
-  ]
-
-  return cloneWithFields(fields, post)
-}
-
-/**
- *  ClonedTopic type definition
- *  @typedef {Object} ClonedTopic
- *  @property {bool} full
- *  @property {string} id
- *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image
- *  @property {string} og_description
- *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
- *  @property {string} short_title
- *  @property {string} slug
- *  @property {string} title
- *  @property {ObjectID[]} relateds
- */
-
-/**
- *  @function cloneTopicWithNeededFields
- *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
- *  @return {ClonedTopic}
- */
-function cloneTopicWithNeededFields(topic) {
-  const fields = [
-    'full',
-    'id',
-    'leading_image',
-    'og_description',
-    'og_image',
-    'published_date',
-    'relateds',
-    'short_title',
-    'slug',
-    'title',
-  ]
-
-  return cloneWithFields(fields, topic)
-}
 
 /**
  *  @param {ObjectID[]} ids
@@ -446,7 +365,7 @@ function cloneEntities(ids, entities, cloneFunc) {
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, clonePostWithNeededFields)
+  return cloneEntities(ids, entities, cloneUtils.cloneMetaOfPost)
 }
 
 /**
@@ -457,7 +376,7 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneTopicWithNeededFields)
+  return cloneEntities(ids, entities, cloneUtils.cloneMetaOfTopic)
 }
 
 /**
@@ -514,7 +433,7 @@ function restoreCategories(indexPageState, entities) {
   const categories = fieldNames.categories
   for(const key in categories) {
     const ids = _.get(indexPageState, categories[key], [])
-    const clonedPosts = cloneEntities(ids, entities, clonePostWithNeededFields)
+    const clonedPosts = cloneEntities(ids, entities, cloneUtils.cloneMetaOfPost)
     rtn = rtn.concat(_.map(clonedPosts, post => {
       post.listName = categoryConst.labels[categories[key]]
       post.moreURI = `categories/${categories[key]}`
@@ -547,8 +466,8 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   }
 
   const lastThreeRelatedPostIds = _.get(featureTopicState, 'lastThreeRelatedPostIds', [])
-  const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, clonePostWithNeededFields)
-  const clonedTopic = cloneTopicWithNeededFields(topicEntities[topicId])
+  const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, cloneUtils.cloneMetaOfPost)
+  const clonedTopic = cloneUtils.cloneMetaOfTopic(topicEntities[topicId])
   clonedTopic.relateds = relatedPosts
 
   return clonedTopic

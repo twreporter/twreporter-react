@@ -199,7 +199,7 @@ v2router.route(`/${apiEndpoints.posts}/`)
     const _limit = Number(limit)
     const _offset = Number(offset)
 
-    res.json(mockPostsResponse(limit, offset, id, category_id, tag_id))
+    res.json(mockPostsResponse(_limit, _offset, id, category_id, tag_id))
   })
 
 /**
