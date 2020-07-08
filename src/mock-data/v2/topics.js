@@ -1,5 +1,5 @@
 import topics from './topics.json'
-import { cloneMetaOfTopic } from './utils'
+import cloneUtils from '../../utils/clone-entity'
 
 const mocks = {
   topics,
@@ -24,7 +24,7 @@ export function mockTopicsResponse(limit=10, offset=0) {
         offset,
         total: mocks.topics.length,
       },
-      records: mocks.topics.slice(offset, offset + limit).map(cloneMetaOfTopic)
+      records: mocks.topics.slice(offset, offset + limit).map(cloneUtils.cloneMetaOfTopic)
     },
   }
 }

@@ -1,5 +1,5 @@
 import posts from './posts.json'
-import { cloneMetaOfPost } from './utils'
+import cloneUtils from '../../utils/clone-entity'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -107,7 +107,7 @@ export function mockPostsResponse(limit=10, offset=0, id, category_id, tag_id) {
         offset,
         total: posts.length,
       },
-      records: posts.slice(offset, offset + limit).map(cloneMetaOfPost)
+      records: posts.slice(offset, offset + limit).map(cloneUtils.cloneMetaOfPost)
     },
   }
 }
