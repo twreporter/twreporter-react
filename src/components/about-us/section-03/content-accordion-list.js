@@ -5,6 +5,12 @@ import { VelocityTransitionGroup } from 'velocity-react'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+//lodash
+import get from 'lodash/get'
+
+const _ = {
+  get 
+}
 
 const borderBottomColor = '#dcdcdc'
 const mobileBorderColor = '#e9e9e9'
@@ -154,7 +160,7 @@ export default class AccordionList extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      unfoldArray: this.props.awardNamelist.map(() => false),
+      unfoldArray: this.props.awardsName.map(() => false)
     }
   }
   _foldAndUnfold = index => {
@@ -165,97 +171,100 @@ export default class AccordionList extends PureComponent {
     })
   }
 
+  _renderRecords = (awardName, awardIdx) => {
+    const { fullRecords, awardYears, transitionDuration } = this.props
+    if (!awardYears[awardName]) return
+    return awardYears[awardName].map((year) => {
+      let unfold = this.state.unfoldArray[awardIdx]
+      return(
+        <React.Fragment
+          key={`${awardName}-${year}`}
+        >
+          <VelocityTransitionGroup component="div" enter="slideDown" leave="slideUp">
+            { unfold ?
+              <YearTag
+                unfold={unfold}
+                transitionDuration={transitionDuration}
+              >
+                <p>{year}</p>
+                <SeperatedLine />
+              </YearTag> : null
+            }
+          </VelocityTransitionGroup>
+          <RecordsInaYear
+            unfold={unfold}
+          >
+            {
+              fullRecords[awardName][year].map((item, itemIndex) => {
+                return(
+                  <StyledVelocityTransitionGroup 
+                    key={itemIndex}
+                    component="div" enter="slideDown" leave="slideUp">
+                    { unfold ? 
+                      <Record
+                        unfold={unfold}
+                      >
+                        <a href={_.get(item,'titlelink', '')} target="_blank">
+                          <AwardItem>
+                            <Ranking
+                              display={_.get(item,'ranking.zh-tw')}>
+                              {_.get(item,'ranking.zh-tw', '')}
+                            </Ranking>
+                            <MoreInfo>
+                              <p>{_.get(item,'group.zh-tw', '')}</p>
+                              <p>{_.get(item,'title.zh-tw', '')}</p>
+                              <p>{_.get(item,'prizeman.zh-tw', '')}</p>
+                            </MoreInfo>
+                          </AwardItem>
+                        </a>
+                      </Record> : null
+                    }
+                  </StyledVelocityTransitionGroup>
+                )                              
+              })
+            }
+          </RecordsInaYear>
+        </React.Fragment>
+      )
+    })
+  }
+
   render() {
-    const {
-      awardNamelist,
-      fulldatalist,
-      awardYearList,
-      transitionDuration,
-    } = this.props
+    const { awardsName, fullRecords, awardYears } = this.props
     return (
       <Container>
-        {awardNamelist.map((award, awardIdx) => {
-          return (
-            <React.Fragment key={award.award}>
-              <AwardName
-                onClick={() => this._foldAndUnfold(awardIdx)}
-                unfold={this.state.unfoldArray[awardIdx]}
+        {
+          awardsName.map((name, awardIdx) => {
+            return(
+              <React.Fragment
+                key={name.award}
               >
-                <p>{award.award}</p>
-              </AwardName>
-              {awardYearList[awardIdx].map(year => {
-                let unfold = this.state.unfoldArray[awardIdx]
-                return (
-                  <React.Fragment key={`${award.award}-${year}`}>
-                    <VelocityTransitionGroup
-                      component="div"
-                      enter="slideDown"
-                      leave="slideUp"
-                    >
-                      {unfold ? (
-                        <YearTag
-                          unfold={unfold}
-                          transitionDuration={transitionDuration}
-                        >
-                          <p>{year}</p>
-                          <SeperatedLine />
-                        </YearTag>
-                      ) : null}
-                    </VelocityTransitionGroup>
-                    <RecordsInaYear unfold={unfold}>
-                      {fulldatalist[awardIdx][year].map((item, itemIndex) => {
-                        return (
-                          <StyledVelocityTransitionGroup
-                            key={itemIndex}
-                            component="div"
-                            enter="slideDown"
-                            leave="slideUp"
-                          >
-                            {unfold ? (
-                              <Record unfold={unfold}>
-                                <a
-                                  href={item.titleLink}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <AwardItem>
-                                    <Ranking display={item.ranking}>
-                                      {item.ranking}
-                                    </Ranking>
-                                    <MoreInfo>
-                                      <p>{item.group}</p>
-                                      <p>{item.title}</p>
-                                      <p>{item.prizeman}</p>
-                                    </MoreInfo>
-                                  </AwardItem>
-                                </a>
-                              </Record>
-                            ) : null}
-                          </StyledVelocityTransitionGroup>
-                        )
-                      })}
-                    </RecordsInaYear>
-                  </React.Fragment>
-                )
-              })}
-            </React.Fragment>
-          )
-        })}
+                <AwardName 
+                  onClick={() => this._foldAndUnfold(awardIdx)}
+                  unfold={this.state.unfoldArray[awardIdx]}
+                >
+                  <p>{name.award}</p>
+                </AwardName>
+                {
+                  fullRecords && awardYears ? 
+                    this._renderRecords(name.award, awardIdx) : null
+                }
+              </React.Fragment>
+            )
+          })
+        }
       </Container>
     )
   }
 }
 
 AccordionList.defaultProps = {
-  fulldatalist: [],
-  awardNamelist: [],
-  awardYearList: [],
-  transitionDuration: '100ms',
+  transitionDuration: '100ms'
 }
 
 AccordionList.propTypes = {
-  fulldatalist: PropTypes.array.isRequired,
-  awardNamelist: PropTypes.array.isRequired,
-  awardYearList: PropTypes.array.isRequired,
-  transitionDuration: PropTypes.string.isRequired,
+  fullRecords: PropTypes.object.isRequired,
+  awardsName: PropTypes.array.isRequired,
+  awardYears: PropTypes.object.isRequired,
+  transitionDuration: PropTypes.string
 }
