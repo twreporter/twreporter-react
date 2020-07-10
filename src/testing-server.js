@@ -244,7 +244,7 @@ v2router.route(`/${apiEndpoints.topics}/`)
     const { limit='10', offset='0' } = req.query
     const _limit = Number(limit)
     const _offset = Number(offset)
-    res.json(mockTopicsResponse(limit, offset))
+    res.json(mockTopicsResponse(_limit, _offset))
   })
 
 const _searchResult = (param, authorId) => {
