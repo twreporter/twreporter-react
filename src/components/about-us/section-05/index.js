@@ -1,37 +1,30 @@
-/* eslint react/no-find-dom-node:1 */
-import { Waypoint } from 'react-waypoint'
-import colors from '../../../constants/colors'
-import { content } from '../constants/section-05/records'
-import { font, marginBetweenSections } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq, { breakpoint } from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
-import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
 import List from './list'
-import orderBy from 'lodash/orderBy'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
-import styled from 'styled-components'
 import Timeline from './timeline'
+import axios from 'axios'
+import colors from '../../../constants/colors'
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
+import styled from 'styled-components'
+import { Waypoint } from 'react-waypoint'
+import { font, marginBetweenSections } from '../constants/styles'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
+//lodash
+import get from 'lodash/get'
+import groupBy from 'lodash/groupBy'
+import keys from 'lodash/keys'
+import orderBy from 'lodash/orderBy'
+
+const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section5.master.json' 
 
 const _ = {
-  orderBy,
+  get,
   groupBy,
   keys,
+  orderBy
 }
-
-const orderedData = _.orderBy(
-  content,
-  ['year', 'month', 'date'],
-  ['desc', 'asc', 'asc']
-)
-const orderedDataGroupByYear = _.groupBy(orderedData, record => record.year)
-const orderedYearList = _.keys(orderedDataGroupByYear)
-  // sort by year in desc order
-  .sort(function(a, b) {
-    return Number(b) - Number(a)
-  })
 
 const yearRangebgColor = '#cacaca'
 const timelineScrollingPortion = 0.98
@@ -42,6 +35,8 @@ const containerWidth = {
   desktop: '1024px',
   overDesktop: '1440px',
 }
+
+const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
@@ -376,30 +371,59 @@ const Rect = styled.div`
 export default class Section5 extends PureComponent {
   constructor(props) {
     super(props)
-    this.yearContent = []
-    this.isMobile = false
     this.initalOpenUp = true
     this.state = {
       timelineScrolling: false,
       timelineScrollingHeight: 0,
       yearContentHeight: [],
-      unfoldArray: orderedYearList.map(() => false),
-      currentYear: orderedYearList[0],
+      unfoldArray: [],
+      currentYear: null,
       isBorderBottomfixed: true,
+      yearlyRecords: {},
+      orderedYears: []
     }
   }
 
   componentDidMount() {
-    const timelineScrollingHeight = ReactDOM.findDOMNode(
-      this.scrollingContent
-    ).getBoundingClientRect().height
-    this.setState({ timelineScrollingHeight: timelineScrollingHeight })
-    if (
-      window.matchMedia(`(max-width: ${breakpoint.tablet.minWidth - 1}px)`)
-        .matches
-    ) {
-      this.isMobile = true
-    }
+    this._getConfig()
+  }
+
+  _getConfig = () => {
+    return axios.get(configUrl)
+      .then(res => {
+        const config = _.get(res, 'data')
+        if (config) {
+          this._setStateByConfig(config)
+          this._setScrollingHeight()
+        }
+      })
+      .catch((err) => {
+        console.error(err) // eslint-disable-line no-console
+        logger.errorReport({
+          report: err,
+          message: 'Something went wrong during getting configs for about-us page section5'
+        })
+      })
+  }
+  
+  _setStateByConfig = (config) => {
+    const rows = _.get(config, 'rows')
+    const yearlyRecords = _.groupBy(rows, record => record.year)
+    const orderedYears = _.keys(yearlyRecords)
+      // sort by year in desc order
+      .sort((a, b) => Number(b) - Number(a))
+
+    this.setState({
+      yearlyRecords,
+      orderedYears,
+      unfoldArray: orderedYears.map(() => false),
+      currentYear: orderedYears[0]
+    })
+  }
+
+  _setScrollingHeight = () => {
+    const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
+    this.setState({ timelineScrollingHeight: timelineScrollingHeight }) 
   }
 
   /**
@@ -431,9 +455,7 @@ export default class Section5 extends PureComponent {
     this._startTimelineAutoScrolling()
   }
   _startTimelineAutoScrolling = () => {
-    if (!this.isMobile) {
-      this.setState({ timelineScrolling: true })
-    }
+    this.setState({ timelineScrolling: true })
   }
   _stopTimelineAutoScrolling = () => {
     this.setState({ timelineScrolling: false })
@@ -445,9 +467,10 @@ export default class Section5 extends PureComponent {
    * Set year which will be displayed on title according to parameter
    * @param {number} currentYear
    */
-  _getYear = currentYearIndex => {
+  _getYear = (currentYearIndex) => {
+    const { orderedYears } = this.state
     this.setState({
-      currentYear: orderedYearList[currentYearIndex],
+      currentYear: orderedYears[currentYearIndex]
     })
   }
   /**
@@ -458,6 +481,17 @@ export default class Section5 extends PureComponent {
     this.setState({ yearContentHeight: contentHeightArray })
   }
   render() {
+    const {
+      currentYear,
+      isBorderBottomfixed,
+      yearlyRecords,
+      orderedYears,
+      timelineScrolling,
+      timelineScrollingHeight,
+      unfoldArray,
+      yearContentHeight
+    } = this.state
+
     return (
       <Waypoint
         onEnter={this._onEnter}
@@ -479,20 +513,17 @@ export default class Section5 extends PureComponent {
               <Content>
                 <AccordionTimeline>
                   <List
-                    unfoldArray={this.state.unfoldArray}
-                    orderedData={orderedData}
-                    orderedDataGroupByYear={orderedDataGroupByYear}
+                    unfoldArray={unfoldArray}
+                    yearlyRecords={yearlyRecords}
                     foldAndUnfold={this._foldAndUnfold}
                     getYearContentHeight={this._getYearContentHeight}
-                    orderedYearList={orderedYearList}
+                    orderedYears={orderedYears}
                   />
                 </AccordionTimeline>
                 <YearRange>
+                  <p><span>{orderedYears[orderedYears.length - 1]}</span></p>
                   <p>
-                    <span>{orderedYearList[orderedYearList.length - 1]}</span>
-                  </p>
-                  <p>
-                    <span>{orderedYearList[0]}</span>
+                    <span>{orderedYears[0]}</span>
                     <img
                       src={`${replaceGCSUrlOrigin(
                         `${storageUrlPrefix}/section5-arrow.png`
@@ -502,36 +533,32 @@ export default class Section5 extends PureComponent {
                 </YearRange>
                 <RunningTimeline>
                   <Timeline
-                    ref={scrollingContent =>
-                      (this.scrollingContent = scrollingContent)
-                    }
-                    childrenHeight={
-                      this.state.timelineScrollingHeight *
-                      timelineScrollingPortion
-                    }
-                    autoScrolling={this.state.timelineScrolling}
+                    ref={scrollingContent => this.scrollingContent = scrollingContent}
+                    childrenHeight={timelineScrollingHeight * timelineScrollingPortion}
+                    autoScrolling={timelineScrolling}
                     startAutoScroll={this._startTimelineAutoScrolling}
                     stopAutoScroll={this._stopTimelineAutoScrolling}
-                    yearContentHeight={this.state.yearContentHeight}
-                    getYear={this._getYear}
-                  >
-                    <List
-                      unfoldArray={this.state.unfoldArray}
-                      orderedData={orderedData}
-                      orderedDataGroupByYear={orderedDataGroupByYear}
-                      foldAndUnfold={this._foldAndUnfold}
-                      getYearContentHeight={this._getYearContentHeight}
-                      orderedYearList={orderedYearList}
-                    />
+                    yearContentHeight={yearContentHeight}
+                    getYear={this._getYear}>
+                    { 
+                      orderedYears.length > 0 ?
+                        <List
+                          unfoldArray={unfoldArray}
+                          yearlyRecords={yearlyRecords}
+                          foldAndUnfold={this._foldAndUnfold}
+                          getYearContentHeight={this._getYearContentHeight}
+                          orderedYears={orderedYears}
+                        /> : null
+                    }
                   </Timeline>
                 </RunningTimeline>
                 <YearTag>
-                  <p>{this.state.currentYear}</p>
+                  <p>{currentYear}</p>
                 </YearTag>
               </Content>
             </SectionWrapper>
             <BorderBottom
-              fixed={this.state.isBorderBottomfixed}
+              fixed={isBorderBottomfixed}
               zIndex={this._getBorderZIndex()}
             />
           </Container>
