@@ -1,35 +1,30 @@
 import { connect } from 'react-redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { formatPostLinkTarget, formatPostLinkTo } from '../utils/url'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { TopicsList } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
 import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
-import qs from 'qs'
+import querystring from 'querystring'
 import React, { Component } from 'react'
 import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 import twreporterRedux from '@twreporter/redux'
 // lodash
-import concat from 'lodash/concat'
+import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import isInteger from 'lodash/isInteger'
 import map from 'lodash/map'
-import uniq from 'lodash/uniq'
 
 const _ = {
-  concat,
+  forEach,
   get,
-  isInteger,
   map,
-  uniq
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
-const { fetchTopics, fetchAFullTopic } = actions
+const { fetchTopics, fetchFeatureTopic } = actions
 const { denormalizeTopics } = utils
 
 const logger = loggerFactory.getLogger()
@@ -41,123 +36,70 @@ const PageContainer = styled.div`
   padding: 30px 24px 0 24px;
 `
 
+const firstPage = 1
+
 class Topics extends Component {
   componentDidMount() {
-    return this._clientFetchData(this.props)
+    this.fetchTopicsWithCatch()
+    this.featchFeatureTopicWithCatch()
   }
 
-  componentDidUpdate() {
-    return this._clientFetchData(this.props)
+  componentDidUpdate(prevProps) {
+    if (prevProps.page !== this.props.page) {
+      this.fetchTopicsWithCatch()
+      this.featchFeatureTopicWithCatch()
+    }
   }
 
-  fetchAFullTopicWithCatch = (slug) => {
-    return this.props.fetchAFullTopic(slug)
-      .catch((failAction) => {
-        // TODO render alert message
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a full topic (slug: '${slug}').`
-        })
-      })
-  }
+  fetchTopicsWithCatch() {
+    const  {
+      fetchTopics,
+      nPerPage,
+      page,
+    } = this.props
 
-  fetchTopicsWithCatch = (page) => {
-    const numberPerPage = 5
-    return this.props.fetchTopics(page, numberPerPage)
+    fetchTopics(page, nPerPage)
       .catch((failAction) => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
           message: `Error to fetch topics ( page: ${page} )`
         })
       })
-
   }
 
-  _clientFetchData(props) {
-    const { topics, isTopicFetching, isTopicsFetching, page, totalPages } = props
-    if (
-      !_.isInteger(page) ||
-      page < 1 ||
-      totalPages && (page > totalPages)
-    ) {
-      return
-    }
-    const topicsLength = _.get(topics, 'length', 0)
-    if (topicsLength <= 0 && !isTopicsFetching) {
-      return this.fetchTopicsWithCatch(page)
-    }
-    if (page === 1 && !isTopicFetching) {
-      const firstTopic = topics[0]
-      const firstTopicSlug = _.get(firstTopic, 'slug', '')
-      const isFirstTopicFull = _.get(firstTopic, 'full', false)
-      if (firstTopicSlug && !isFirstTopicFull) {
-        this.fetchAFullTopicWithCatch(firstTopicSlug)
-      }
+  featchFeatureTopicWithCatch() {
+    const  {
+      fetchFeatureTopic,
+      page,
+    } = this.props
+
+    if (page === firstPage) {
+      fetchFeatureTopic()
+        .catch((failAction) => {
+          logger.errorReport({
+            report: _.get(failAction, 'payload.error'),
+            message: `Error to fetch feature topic`
+          })
+        })
     }
   }
 
   render() {
     const {
-      isTopicFetching,
-      isTopicsFetching,
+      error,
+      isFetching,
       page,
-      topicListError,
+      pathname,
       topics,
-      totalPages
+      totalPages,
     } = this.props
 
-    const isFetching = isTopicFetching || isTopicsFetching
-    const topicsLength = _.get(topics, 'length')
-
-    if (topicListError && topicsLength <= 0) {
+    // Error handling
+    if (error) {
       return (
-        <div>
-          <SystemError error={topicListError} />
-        </div>
+        <SystemError error={error} />
       )
     }
-
-    if (
-      !_.isInteger(page) ||
-      page < 1 ||
-      totalPages && (page > totalPages)
-    ) {
-      return (
-        <SystemError error={{ statusCode: 404 }} />
-      )
-    }
-
-    const topicsProps = _.map(topics, (topic, index) => {
-      const imgUrl = replaceGCSUrlOrigin(
-        _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
-        _.get(topic, 'leading_image.resized_targets.mobile.url') ||
-        _.get(topic, 'og_image.resized_targets.mobile.url') ||
-        siteMeta.ogImage.url
-      )
-
-      const imgAlt = _.get(topic, 'leading_image_portrait.description') ||
-        _.get(topic, 'leading_image.description') ||
-        _.get(topic, 'og_image.description') || ''
-
-      return {
-        full: _.get(topic, 'full', false),
-        id: _.get(topic, 'id', index),
-        linkTo: `/topics/${_.get(topic, 'slug')}`,
-        title: _.get(topic, 'title', ''),
-        topic_name: _.get(topic, 'topic_name', ''),
-        updatedAt: date2yyyymmdd(_.get(topic, 'published_date'), '.') || '',
-        description: _.get(topic, 'og_description', ''),
-        imgUrl,
-        imgAlt,
-        relateds: index > 0 ? null : _.map(_.get(topic, 'relateds', []), post => ({
-          id: _.get(post, 'id', index),
-          title: _.get(post, 'title', ''),
-          imgUrl: replaceGCSUrlOrigin(_.get(post, 'hero_image.resized_targets.mobile.url') || siteMeta.ogImage.url),
-          linkTo: formatPostLinkTo(_.get(post, 'slug', ''), _.get(post, 'style', '')),
-          linkTarget: formatPostLinkTarget(_.get(post, 'style', ''))
-        }))
-      }
-    })
 
     /* For helmet */
     const canonical = `${siteMeta.urlOrigin}/topics`
@@ -185,8 +127,9 @@ class Topics extends Component {
         />
         <TopicsList
           currentPage={page}
-          topics={topicsProps}
+          topics={topics}
           isFetching={isFetching}
+          showSpinner={true}
         />
         <Pagination
           currentPage={page}
@@ -198,50 +141,241 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
+  error: PropTypes.Object,
+  isFetching: PropTypes.bool,
+  nPerPage: PropTypes.number,
+  page: PropTypes.number,
+  pathname: PropTypes.string,
   topics: PropTypes.array,
-  total: PropTypes.number,
-  topicListError: PropTypes.object,
-  topicError: PropTypes.object,
-  // react-router `location` object
-  location: PropTypes.object.isRequired
+  totalPages: PropTypes.number,
 }
 
-function mapStateToProps(state, ownProps) {
-  const defaultStartPage = 1
-  const location = _.get(ownProps, 'location')
-  const pathname = _.get(location, 'pathname', '/topics')
-  const search = _.get(location, 'search')
-  const query = qs.parse(search, { ignoreQueryPrefix: true })
-  const page = parseInt(_.get(query, 'page', defaultStartPage), 10)
-  const topicList = _.get(state, reduxStateFields.topicList)
-  const selectedTopic = _.get(state, reduxStateFields.selectedTopic)
+/**
+ *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
+ */
 
-  const nPerPage = _.get(topicList, 'nPerPage', 5)
-  const totalPages = _.get(topicList, 'totalPages', NaN)
+/**
+ *  @param {Object} [location={}] - react-router location object
+ *  @return {number} current page
+ */
+function pageProp(location={}) {
+  const search = _.get(location, 'search', '')
+  const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', `${firstPage}`)
+  let page = parseInt(pageStr, 10)
 
-  const pageItems = _.uniq(_.get(topicList, [ 'items', page ], []))
-  const entities = _.get(state, reduxStateFields.entities, {})
-  const topicEntities = _.get(entities, reduxStateFields.topicsInEntities, {})
-  const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-  const topics = denormalizeTopics(pageItems, topicEntities, postEntities)
+  if (isNaN(page) || page < firstPage) {
+    page = firstPage
+  }
 
-  const isTopicFetching = _.get(selectedTopic, 'isFetching', false)
-  const isTopicsFetching = _.get(topicList, 'isFetching', false)
+  return page
+}
 
-  const topicListError = _.get(topicList, 'error', null)
-  const topicError = _.get(selectedTopic, 'error', null)
+/**
+ *  @param {ReduxState} state
+ *  @return {number} how many topics to show per page
+ */
+function nPerPageProp(state) {
+  const defaultValue = 5
+  const nPerPage = parseInt(_.get(state, [reduxStateFields.topicList, 'nPerPage']), 10)
 
-  return ({
-    page,
-    nPerPage,
-    totalPages,
-    topics,
-    isTopicFetching,
-    isTopicsFetching,
-    topicListError,
-    topicError,
-    pathname
+  if (isNaN(nPerPage)) {
+    return defaultValue
+  }
+
+  return nPerPage
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @return {number} total pages
+ */
+function totalPagesProp(state) {
+  return _.get(state, [reduxStateFields.topicList, 'totalPages'], 0)
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @return {bool} indicate if it's requesting api or not
+ */
+function isFetchingProp(state, listId) {
+  return _.get(state, [reduxStateFields.topicList, 'isFetching'])
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @return {Object} error object
+ */
+function errorProp(state) {
+  return _.get(state, [reduxStateFields.topicList, 'error'])
+}
+
+/**
+ *  @typedef {Object} PostProp
+ *  @property {string} id - post id
+ *  @property {string} title - post title
+ *  @property {string} imgUrl - image url
+ *  @property {string} linkTo - hyperlink of the post
+ *  @property {string|undefined} linkTarget - target attribute of <a>
+ */
+
+/**
+ *  @typedef {Object} TopicProp
+ *  @property {bool} full - if the topic is full object or only contains metadata
+ *  @property {string} id - topic id
+ *  @property {string} linkTo - hyperlink of the topic
+ *  @property {string} title - topic title
+ *  @property {string} shortTitle - topic short title
+ *  @property {string} updatedAt - topic last updated time
+ *  @property {string} description - topic og description
+ *  @property {string} imgUrl - image url
+ *  @property {string} imgAlt - image alt
+ *  @property {PostProp[]} relateds
+ */
+
+
+/**
+ *  This function extracts neccessary fields to create a new object
+ *  for rendering.
+ *
+ *  @param {import('@twreporter/redux/lib/typedef').Topic)} topic
+ *  @return {TopicProp}
+ */
+function topicProp(topic={}) {
+  const imgUrl = _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
+    _.get(topic, 'leading_image.resized_targets.mobile.url') ||
+    _.get(topic, 'og_image.resized_targets.mobile.url')
+
+  const imgAlt = _.get(topic, 'leading_image_portrait.description') ||
+    _.get(topic, 'leading_image.description') ||
+    _.get(topic, 'og_image.description') || ''
+
+  return {
+    full: _.get(topic, 'full', false),
+    id: _.get(topic, 'id', ''),
+    linkTo: `/topics/${_.get(topic, 'slug', '')}`,
+    title: _.get(topic, 'title', ''),
+    shortTitle: _.get(topic, 'short_title', ''),
+    updatedAt: date2yyyymmdd(_.get(topic, 'published_date'), '.') || '',
+    description: _.get(topic, 'og_description', ''),
+    imgUrl,
+    imgAlt,
+    relateds: [],
+  }
+}
+
+/**
+ *  This function restores feature topic with embedded posts
+ *  according to `ReduxState.featureTopic`.
+ *
+ *  @param {ReduxState.featureTopic} featureTopicState
+ *  @param {ReduxState.entities.posts.byId} postEntities
+ *  @param {ReduxState.entities.topics.byId} topicEntities
+ *  @return {null|TopicProp}
+ */
+function restoreFeatureTopic(state) {
+  const {
+    entities,
+    featureTopic,
+    postsInEntities,
+    topicList,
+    topicsInEntities,
+  } = reduxStateFields
+
+  const topicId = _.get(state, [featureTopic, 'id'],
+    _.get(state, [topicList, 'items', `${firstPage}`, '0']))
+
+  if (!topicId) {
+    return null
+  }
+
+  const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
+  const topicEntities = _.get(state, [entities, topicsInEntities, 'byId'])
+
+  const lastThreeRelatedPostIds = _.get(state, [featureTopic, 'lastThreeRelatedPostIds'], [])
+  const relatedPosts = _.map(lastThreeRelatedPostIds, id => {
+    const post = postEntities[id]
+    const isExternal = _.get(post, 'is_external', false)
+    const slug = _.get(post, 'slug', '')
+    return {
+      id: _.get(post, 'id', ''),
+      title: _.get(post, 'title', ''),
+      imgUrl: _.get(post, 'hero_image.resized_targets.mobile.url'),
+      linkTo: isExternal ? `/i/${slug}` : `/a/${slug}`,
+      linkTarget: isExternal ? '_blank' : undefined,
+    }
   })
+  const topic = topicProp(topicEntities[topicId])
+  topic.relateds = relatedPosts
+
+  return topic
 }
 
-export default connect(mapStateToProps, { fetchTopics, fetchAFullTopic })(Topics)
+/**
+ *  This function is to create an array of TopicProp elements
+ *  for rendering.
+ *
+ *  @param {ReduxState} state
+ *  @param {number} page - current page
+ *  @return {TopicProp[]}
+ */
+function topicsProp(state, page) {
+  const { entities, topicsInEntities, topicList } = reduxStateFields
+  const topicEntities = _.get(state, [entities, topicsInEntities, 'byId'])
+  const listObj = _.get(state, topicList)
+  const ids = _.get(listObj, ['items', page], [])
+  const topics = []
+  _.forEach(ids, id => {
+    const topic = _.get(topicEntities, id)
+    if (topic) {
+      topics.push(topicProp(topic))
+    }
+  })
+
+  const featureTopic = restoreFeatureTopic(state)
+  if (page === firstPage && featureTopic !== null ) {
+    topics[0] = featureTopic
+  }
+
+  return topics
+}
+
+/**
+ *  @typedef {Object} TopicsProps
+ *  @property {Object} error - error object
+ *  @property {bool} isFetching - if it is requesting api or not
+ *  @property {bool} nPerPage - how many topics to show per page
+ *  @property {number} page - current page for pagination
+ *  @property {string} pathname - URL path
+ *  @property {TopicProp[]} topics - array of topics
+ *  @property {number} totalPages - total page for pagination
+ */
+
+/**
+ *  @param {ReduxState} state
+ *  @param {Object} props
+ *  @param {Object} props.location - react-router location object
+ *  @param {string} props.location.pathname
+ *  @param {Object} props.match - react-router match object
+ *  @param {Object} props.match.params
+ *  @param {string} props.match.params.tagId
+ *  @return {TopicsProps}
+ */
+function mapStateToProps(state, props) {
+  const location = _.get(props, 'location')
+  const pathname = _.get(location, 'pathname', `/topics`)
+
+  const page = pageProp(location)
+
+  return {
+    error: errorProp(state),
+    isFetching: isFetchingProp(state),
+    nPerPage: nPerPageProp(state),
+    page,
+    pathname,
+    topics: topicsProp(state, page),
+    totalPages: totalPagesProp(state),
+  }
+}
+
+export default connect(mapStateToProps, { fetchTopics, fetchFeatureTopic })(Topics)
