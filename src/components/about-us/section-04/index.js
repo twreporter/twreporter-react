@@ -1,31 +1,34 @@
-import colors from '../../../constants/colors'
-import { font, marginBetweenSections } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
 import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import VelocityComponent from 'velocity-react/velocity-component'
-import chunk from 'lodash/chunk'
-import data from '../constants/section-04/partners'
+import axios from 'axios'
+import colors from '../../../constants/colors'
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
+import styled from 'styled-components'
+import { font, marginBetweenSections } from '../constants/styles'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
+//lodash
+import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import styled from 'styled-components'
+import chunk from 'lodash/chunk'
+
+const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section4.master.json' 
 
 const _ = {
-  chunk,
-  groupBy,
-  keys,
+  chunk, groupBy, keys, get
 }
-const content = [...data]
-const groupedContent = _.groupBy(content, partner => partner.partnerId)
+
 const logoBlockBorderColor = ' #e9e9e9'
-const logoBlockWidthOnDesktop = '40%'
 const transitioinDuration = 100
 const column = {
   desktop: 4,
   mobile: 2,
 }
+
+const logger = loggerFactory.getLogger()
 
 const containerWidth = {
   mobile: '100%',
@@ -130,13 +133,13 @@ const LogoBlock = styled.div`
   `}
 `
 
-const LogoBlockOnDesktop = styled(LogoBlock)`
+const LogoBlockOnDesktopAbove = styled(LogoBlock)`
   ${mq.tabletAndBelow`
     display: none;
   `}
 `
 
-const LogoBlockOnTabletAbove = styled(LogoBlock)`
+const LogoBlockOnTabletAndBelow = styled(LogoBlock)`
   ${mq.desktopAndAbove`
     display: none;
   `}
@@ -240,9 +243,31 @@ export default class Section4 extends PureComponent {
       selectedRow: 0,
       infoPageNum: 0,
       initialState: true,
+      config: null
     }
   }
-  _select = logoIndex => {
+  componentDidMount() {
+    this._getConfig() 
+  }
+  _getConfig = () => {
+    return axios.get(configUrl)
+      .then(res => {
+        const content = _.get(res, 'data.rows')
+        if (Array.isArray(content)) {
+          this.setState({
+            config: _.groupBy(content, partner => _.get(partner, 'partner.zh-tw'))
+          }) 
+        }
+      })
+      .catch((err) => {
+        console.error(err) // eslint-disable-line no-console
+        logger.errorReport({
+          report: err,
+          message: 'Something went wrong during getting configs for about-us page section4'
+        })
+      })
+  }
+  _select = (logoIndex) => {
     this.setState({
       selectedLogo: logoIndex,
       selectedRow: Math.floor(logoIndex / column.desktop),
@@ -251,20 +276,18 @@ export default class Section4 extends PureComponent {
     })
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
-    let getWidth
-    let logoRow = Math.floor(logoIndex / column.desktop)
+    let width = '25%' 
+    const logoRow = Math.floor(logoIndex / column.desktop)
     if (selectedLogo === logoIndex && selectedRow === logoRow) {
-      getWidth = logoBlockWidthOnDesktop
+      width = '40%'
     } else if (selectedRow === logoRow) {
-      getWidth = '20%'
-    } else {
-      getWidth = '25%'
-    }
+      width = '20%'
+    } 
     return {
       duration: transitioinDuration,
       animation: {
-        width: getWidth,
-      },
+        width
+      }
     }
   }
   _nextPage = () => {
@@ -277,45 +300,46 @@ export default class Section4 extends PureComponent {
     })
   }
   _getSelectedContent = () => {
-    let { selectedLogo } = this.state
-    if (selectedLogo === null) return
-    return groupedContent[_.keys(groupedContent)[selectedLogo]]
+    let { selectedLogo, config } = this.state
+    if (selectedLogo === null ) return
+    return config[_.keys(config)[selectedLogo]]
   }
   render() {
-    let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
-    const LogoBlockList = _.keys(groupedContent).map((key, index) => {
-      let data = groupedContent[key][0]
-      let animationProps = this._getLogoBlockWidthOnDesktop(
-        index,
-        selectedLogo,
-        selectedRow
-      )
+    let { selectedLogo, selectedRow, infoPageNum, initialState, config } = this.state
+    const LogoBlockList = _.keys(config).map((partner, partnerIndex) => {
+      let data = _.get(config, `${partner}.0`)
+      let animationProps = this._getLogoBlockWidthOnDesktop(partnerIndex, selectedLogo, selectedRow)
       return (
-        <React.Fragment key={'logo' + index}>
-          <VelocityComponent key={index} {...animationProps}>
-            <LogoBlockOnDesktop
+        <React.Fragment
+          key={partner}
+        >
+          <VelocityComponent
+            key={partnerIndex}
+            {...animationProps}
+          >
+            <LogoBlockOnDesktopAbove
               selectedLogo={selectedLogo}
-              onClick={() => this._select(index)}
+              onClick={() => this._select(partnerIndex)}
             >
               <LogoContent>
-                <img src={replaceGCSUrlOrigin(data.logo)} />
-                <h3>{data.name.english}</h3>
-                <p>{data.name.chinese}</p>
+                <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${_.get(data, 'logo')}`)} />
+                <h3>{_.get(data, 'partner.en')}</h3>
+                <p>{_.get(data, 'partner.zh-tw')}</p>
               </LogoContent>
-            </LogoBlockOnDesktop>
+            </LogoBlockOnDesktopAbove>
           </VelocityComponent>
-          <LogoBlockOnTabletAbove
+          <LogoBlockOnTabletAndBelow
             selectedLogo={selectedLogo}
-            onClick={() => this._select(index)}
+            onClick={() => this._select(partnerIndex)}
           >
             <LogoContent>
-              <img src={replaceGCSUrlOrigin(data.logo)} />
+              <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${data.logo}`)} />
               <div>
-                <h3>{data.name.english}</h3>
-                <p>{data.name.chinese}</p>
+                <h3>{_.get(data, 'partner.en')}</h3>
+                <p>{_.get(data, 'partner.zh-tw')}</p>
               </div>
             </LogoContent>
-          </LogoBlockOnTabletAbove>
+          </LogoBlockOnTabletAndBelow>
         </React.Fragment>
       )
     })
