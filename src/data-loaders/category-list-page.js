@@ -27,7 +27,7 @@ export default function loadData({ location, match, store }) {
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
   let page = parseInt(pageStr, 10)
 
-  if (isNaN(page)) {
+  if (isNaN(page) || page < defaultPage) {
     page = defaultPage
   }
 
