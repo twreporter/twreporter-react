@@ -5,6 +5,7 @@
         "job.zh-tw": "董事長",
         "job.en": "Director",
         "profile": "foundation-RongTsunHuang.png",
+        "email": "",
         "category": "fundation"
     }, {
         "name.zh-tw": "何榮幸",
@@ -12,6 +13,7 @@
         "job.zh-tw": "執行長",
         "job.en": "Chief Executive Officer",
         "profile": "Edit-JungShinHo.png",
+        "email": "",
         "category": "fundation"
     }, {
         "name.zh-tw": "林以涵",
@@ -19,6 +21,407 @@
         "job.zh-tw": "董事",
         "job.en": "Executive Director",
         "profile": "foundation-YiHanLin.png",
+        "email": "",
         "category": "fundation"
+    }, {
+        "name.zh-tw": "侯文詠",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-WenYongHo.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "柯珀汝",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-PoRuKo.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "許朱勝",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-ChuShengHsu.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "黃旭田",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-ShuTienHuang.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "林雨佑",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "Edit-Uyo.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "劉昌德",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-ChangDerLiu.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "蔡裕慶",
+        "name.en": "",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-YuChingTsai.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "瞿筱葳",
+        "name.en": "Hsiao Wei Chiu",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-ShiaoWeiChu.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "李怡志",
+        "name.en": "Richy Lee",
+        "job.zh-tw": "董事",
+        "job.en": "Executive Director",
+        "profile": "foundation-YiZhiLi.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "李偉文",
+        "name.en": "Wei Wen Li",
+        "job.zh-tw": "監察人",
+        "job.en": "Supervisor",
+        "profile": "foundation-WeiWanLi.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "張芷",
+        "name.en": "",
+        "job.zh-tw": "監察人",
+        "job.en": "Supervisor",
+        "profile": "foundation-ZhiChang.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "陳順孝",
+        "name.en": "Shun Xiao Chen",
+        "job.zh-tw": "監察人",
+        "job.en": "Supervisor",
+        "profile": "foundation-SoonShiaoChen.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "翁秀琪",
+        "name.en": "Shieu Chi Weng",
+        "job.zh-tw": "基金會顧問",
+        "job.en": "",
+        "profile": "foundation-SheuChiWong.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "劉怡汝",
+        "name.en": "Yi Ru Liu",
+        "job.zh-tw": "基金會顧問",
+        "job.en": "",
+        "profile": "foundation-YiRuLiu.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "侯宜秀",
+        "name.en": "",
+        "job.zh-tw": "法律顧問",
+        "job.en": "",
+        "profile": "blankface.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "翁國彥",
+        "name.en": "",
+        "job.zh-tw": "法律顧問",
+        "job.en": "",
+        "profile": "blankface.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "陳業鑫",
+        "name.en": "",
+        "job.zh-tw": "法律顧問",
+        "job.en": "",
+        "profile": "blankface.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "李雪莉",
+        "name.en": "Sherry Lee",
+        "job.zh-tw": "副執行長",
+        "job.en": "Deputy Chief Executive Officer",
+        "profile": "Edit-SherryLee.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "王儀君",
+        "name.en": "Sylvie Wang",
+        "job.zh-tw": "行銷部經理",
+        "job.en": "Marketing Manager",
+        "profile": "Edit-SylvieWang.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "李盈臻",
+        "name.en": "Jane Li",
+        "job.zh-tw": "行銷部專員",
+        "job.en": "Marketing Specialist",
+        "profile": "foundation-JaneLi.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "鄭淑芬",
+        "name.en": "Jennifer Cheng",
+        "job.zh-tw": "行政部經理",
+        "job.en": "Administration Manager",
+        "profile": "Edit-JenniferCheng.png",
+        "email": "",
+        "category": "fundation"
+    }, {
+        "name.zh-tw": "李雪莉",
+        "name.en": "Sherry Lee",
+        "job.zh-tw": "總編輯",
+        "job.en": "Editor in chief",
+        "profile": "Edit-SherryLee.png",
+        "email": "sherry@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "楊惠君",
+        "name.en": "Hui Chun Yang",
+        "job.zh-tw": "總主筆兼採訪主任",
+        "job.en": "",
+        "profile": "Edit-JillYang.png",
+        "email": "jill718@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "劉致昕",
+        "name.en": "Jason Liu",
+        "job.zh-tw": "主筆",
+        "job.en": "",
+        "profile": "Edit-JasonLiu.png",
+        "email": "chihhsin@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "張子午",
+        "name.en": "Tzewu Chang",
+        "job.zh-tw": "資深記者",
+        "job.en": "Senior Journalist",
+        "profile": "Edit-TzewuChang.png",
+        "email": "tzewu@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "孔德廉",
+        "name.en": "Kung Te Lien",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-KungTeLien.png",
+        "email": "williamkung13578@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "林雨佑",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-Uyo.png",
+        "email": "limuiu@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "嚴文廷",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-WenTing.png",
+        "email": "roger@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "曹馥年",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-FuNienTsao.png",
+        "email": "funientsao@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "林慧貞",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-LinHuiChen.png",
+        "email": "linhuichen@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "陳潔",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-ChenChieh.png",
+        "email": "chieh@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "柯皓翔",
+        "name.en": "",
+        "job.zh-tw": "數據記者兼策展編輯",
+        "job.en": "",
+        "profile": "Edit-KeHaoHsiang.png",
+        "email": "hhk@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "楊智強",
+        "name.en": "",
+        "job.zh-tw": "記者",
+        "job.en": "Journalist",
+        "profile": "Edit-YangWill.png",
+        "email": "willyang@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "何榮幸",
+        "name.en": "Jung Shin Ho",
+        "job.zh-tw": "編輯部顧問",
+        "job.en": "",
+        "profile": "Edit-JungShinHo.png",
+        "email": "turtle@twreporter.org",
+        "category": "editor"
+    }, {
+        "name.zh-tw": "李法賢",
+        "name.en": "Nick Li",
+        "job.zh-tw": "工程部主任",
+        "job.en": "Senior Coder",
+        "profile": "Digi-NickLi.png",
+        "email": "nickhsine@twreporter.org",
+        "category": "engineer"
+    }, {
+        "name.zh-tw": "余崇任",
+        "name.en": "Yu Chung-Je",
+        "job.zh-tw": "工程師",
+        "job.en": "Software Engineer",
+        "profile": "Digi-YuChungJen.png",
+        "email": "yucj@twreporter.org",
+        "category": "engineer"
+    }, {
+        "name.zh-tw": "方泰鈞",
+        "name.en": "Taylor Fang",
+        "job.zh-tw": "工程師",
+        "job.en": "Software Engineer",
+        "profile": "Digi-TalorFang.png",
+        "email": "taylorfang@twreporter.org",
+        "category": "engineer"
+    }, {
+        "name.zh-tw": "曾清陽",
+        "name.en": "Ching-Yang Tseng",
+        "job.zh-tw": "工程師",
+        "job.en": "Software Engineer",
+        "profile": "Digi-ChingYangTseng.png",
+        "email": "babygoat@twreporter.org",
+        "category": "engineer"
+    }, {
+        "name.zh-tw": "余志偉",
+        "name.en": "Chih Wei Yu",
+        "job.zh-tw": "攝影部主任",
+        "job.en": "Photo Department Director",
+        "profile": "Photo-ChihWeiYu.png",
+        "email": "shakingwave@twreporter.org",
+        "category": "photojournalist"
+    }, {
+        "name.zh-tw": "吳逸驊",
+        "name.en": "Jameson Wu",
+        "job.zh-tw": "資深攝影",
+        "job.en": "Senior Photojournalist",
+        "profile": "Photo-JamesonWu.png",
+        "email": "jamesonwu@twreporter.org",
+        "category": "photojournalist"
+    }, {
+        "name.zh-tw": "蘇威銘",
+        "name.en": "Wei Min Su",
+        "job.zh-tw": "攝影記者",
+        "job.en": "Photojournalist",
+        "profile": "Photo-WeiMingSu.png",
+        "email": "tim2468012@twreporter.org",
+        "category": "photojournalist"
+    }, {
+        "name.zh-tw": "楊子磊",
+        "name.en": "",
+        "job.zh-tw": "攝影記者",
+        "job.en": "Photojournalist",
+        "profile": "Photo-TzuLeiYang.png",
+        "email": "tzule@twreporter.org",
+        "category": "photojournalist"
+    }, {
+        "name.zh-tw": "吳政達",
+        "name.en": "Chen Da Wu",
+        "job.zh-tw": "設計部主任",
+        "job.en": "",
+        "profile": "Digi-DadaWu.png",
+        "email": "dadawu@twreporter.org",
+        "category": "designer"
+    }, {
+        "name.zh-tw": "黃禹禛",
+        "name.en": "Yu Chen Huang",
+        "job.zh-tw": "設計師",
+        "job.en": "Art Designer",
+        "profile": "Digi-YuChenHuang.png",
+        "email": "hychen@twreporter.org",
+        "category": "designer"
+    }, {
+        "name.zh-tw": "林珍娜",
+        "name.en": "Chen Na Lin",
+        "job.zh-tw": "設計師",
+        "job.en": "Art Designer",
+        "profile": "Digi-ChenNaLin.png",
+        "email": "ginalin@twreporter.org",
+        "category": "designer"
+    }, {
+        "name.zh-tw": "張詩芸",
+        "name.en": "Shih-Yun Chang",
+        "job.zh-tw": "社群部主任",
+        "job.en": "Managing Editor",
+        "profile": "Edit-ShihYunChang.png",
+        "email": "sychang@twreporter.org",
+        "category": "socialMedia"
+    }, {
+        "name.zh-tw": "陳思樺",
+        "name.en": "Szu Hua Chen",
+        "job.zh-tw": "社群編輯",
+        "job.en": "",
+        "profile": "Edit-SzuHuaChen.png",
+        "email": "shchen@twreporter.org",
+        "category": "socialMedia"
+    }, {
+        "name.zh-tw": "洪琴宣",
+        "name.en": "Chin Hsuan Hung",
+        "job.zh-tw": "社群編輯",
+        "job.en": "",
+        "profile": "Edit-chhung.png",
+        "email": "chhung@twreporter.org",
+        "category": "socialMedia"
+    }, {
+        "name.zh-tw": "王儀君",
+        "name.en": "Sylvie Wang",
+        "job.zh-tw": "行銷部經理",
+        "job.en": "Marketing Manager",
+        "profile": "Edit-SylvieWang.png",
+        "email": "sylviewang@twreporter.org",
+        "category": "marketing"
+    }, {
+        "name.zh-tw": "李盈臻",
+        "name.en": "Jane Li",
+        "job.zh-tw": "行銷部專員",
+        "job.en": "Marketing Specialist",
+        "profile": "foundation-JaneLi.png",
+        "email": "janeli@twreporter.org",
+        "category": "marketing"
     }]
 }
