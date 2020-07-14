@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import categoryConst from '../constants/category'
+import dataLoaderConst from '../constants/data-loaders'
 import Helmet from 'react-helmet'
 import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
@@ -25,7 +26,6 @@ const _ = {
 
 const { actions, reduxStateFields, utils } = twreporterRedux
 const { fetchPostsByCategoryListId } = actions
-const numberPerPage = 10
 const logger = loggerFactory.getLogger()
 
 class Category extends PureComponent {
@@ -45,14 +45,15 @@ class Category extends PureComponent {
     const {
       catId,
       fetchPostsByCategoryListId,
+      nPerPage,
       page,
     } = this.props
 
-    fetchPostsByCategoryListId(catId, numberPerPage, page)
+    fetchPostsByCategoryListId(catId, nPerPage, page)
       .catch((failAction) => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: '${catId}').`
+          message: `Error to fetch posts (category id: '${catId}', page: ${page}, nPerPage: ${nPerPage}).`
         })
       })
   }
@@ -145,9 +146,9 @@ function pageProp(location={}) {
  *  @param {string} listId - category list id
  *  @return {number}
  */
-function totalPagesProp(state, listId) {
+function totalPagesProp(state, listId, nPerPage) {
   const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  return Math.ceil(total / numberPerPage)
+  return Math.ceil(total / nPerPage)
 }
 
 /**
@@ -223,16 +224,18 @@ function mapStateToProps(state, props) {
   const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
 
   const page = pageProp(location)
+  const nPerPage = dataLoaderConst.categoryListPage.nPerPage
 
   return {
     catId,
     catLabel,
     error: errorProp(state, catId),
     isFetching: isFetchingProp(state, catId),
+    nPerPage,
     page,
     pathname,
     posts: postsProp(state, catId, page),
-    totalPages: totalPagesProp(state, catId),
+    totalPages: totalPagesProp(state, catId, nPerPage),
   }
 }
 
@@ -243,6 +246,7 @@ Category.defaultProps = {
   isFetching: false,
   posts: [],
   totalPages: 0,
+  nPerPage: dataLoaderConst.categoryListPage.nPerPage,
 }
 
 Category.propTypes = {
@@ -251,6 +255,7 @@ Category.propTypes = {
   error: PropTypes.object,
   fetchPostsByCategoryListId: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
+  nPerPage: PropTypes.number,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
 

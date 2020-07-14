@@ -109,20 +109,19 @@ const CardDate = styled.time`
 function _buildSlideFromPost(post) {
   const cats = _.get(post, 'categories', [])
   const catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-  const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
+  const imageResizedTargets = _.get(post, 'hero_image.resized_targets') || _.get(post, 'og_image.resized_targets')
   const images = [
     _.get(imageResizedTargets, 'tiny'),
     _.get(imageResizedTargets, 'mobile'),
     _.get(imageResizedTargets, 'tablet'),
     _.get(imageResizedTargets, 'desktop'),
-    _.get(imageResizedTargets, 'original')
   ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
   return (
     <StyledLink key={post.id} to={formatPostLinkTo(post.slug)} target={formatPostLinkTarget(post.style)}>
       <Image
-        alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
-        defaultImage={images[1]}
-        imgPlaceholderSrc={images[0].url}
+        alt={_.get(post, 'hero_image.description') || _.get(post, 'og_image.description')}
+        defaultImage={_.get(images, '1')}
+        imgPlaceholderSrc={_.get(images, '0.url')}
         imageSet={images}
         objectFit="cover"
       />
@@ -136,7 +135,7 @@ function _buildSlideFromPost(post) {
       <Card>
         {post.subtitle ? <CardSubtitle>{post.subtitle}</CardSubtitle> : null}
         <CardTitle>{post.title}</CardTitle>
-        <CardDate dateTime={date2yyyymmdd(post.publishedDate, '-')}>{date2yyyymmdd(post.publishedDate, '.')}</CardDate>
+        <CardDate dateTime={date2yyyymmdd(post['published_date'], '-')}>{date2yyyymmdd(post['published_date'], '.')}</CardDate>
       </Card>
     </StyledLink>
   )

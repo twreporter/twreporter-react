@@ -34,5 +34,5 @@ export default function loadData({ location, match, store }) {
   const pathSegment = _.get(match, 'params.category', '')
   const catId = categoryConst.ids[pathSegment]
   return store.actions.fetchPostsByCategoryListId(catId,
-    dataLoaderConst.maxResult, page)
+    dataLoaderConst.categoryListPage.nPerPage, page)
 }
