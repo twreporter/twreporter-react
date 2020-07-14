@@ -20,6 +20,8 @@ import groupBy from 'lodash/groupBy'
 import isEqual from 'lodash/isEqual'
 import values from 'lodash/values'
 
+const profileUrlPrefix = `${storageUrlPrefix}/member/`
+
 const _ = {
   assign,
   debounce,
@@ -379,28 +381,23 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              ref={memberList => (this.memberList[categoryIndex] = memberList)}
-              shiftx={this._getShiftX(categoryIndex)}
-              transitionEffect={this.state.transitionEffect}
-              onTransitionEnd={event =>
-                this._onMemberListShifted(event, categoryIndex)
-              }
-            >
-              {typeof this.carouselData[categoryId] !== 'undefined'
-                ? this.carouselData[categoryId].map((member, index) => {
-                    return (
-                      <Member
-                        key={index}
-                        numPerPage={headcountPerPage[categoryId]}
-                      >
-                        <img src={`${replaceGCSUrlOrigin(member.profile)}`} />
+              ref={memberList => this.memberList[categoryIndex] = memberList}
+              shiftx = {this._getShiftX(categoryIndex)}
+              transitionEffect = {this.state.transitionEffect}
+              onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
+              {
+                typeof this.carouselData[categoryId] !== 'undefined' ?
+                  this.carouselData[categoryId].map((member, index) => {
+                    return(
+                      <Member key={index} numPerPage={headcountPerPage[categoryId]}>
+                        <img
+                          src={`${replaceGCSUrlOrigin(`${profileUrlPrefix}${member.profile}`)}`}
+                        />
                         <Info
-                          isMailIconVisible={
-                            typeof member.email !== 'undefined'
-                          }
+                          isMailIconVisible={Boolean(member.email)}
                         >
-                          <p>{member.job}</p>
-                          <p>{member.name}</p>
+                          <p>{member['job.zh-tw']}</p>
+                          <p>{member['name.zh-tw']}</p>
                           <img
                             onClick={() => sendEmail(member.email)}
                             src={`${replaceGCSUrlOrigin(
@@ -437,7 +434,7 @@ CarouselMemberList.defaultProps = {
 }
 
 CarouselMemberList.propTypes = {
-  sendEmail: PropTypes.func.isRequired,
-  membersNumberArray: PropTypes.array.isRequired,
-  groupedMembers: PropTypes.object.isRequired,
+  sendEmail: PropTypes.func,
+  membersNumberArray: PropTypes.array,
+  groupedMembers: PropTypes.object
 }

@@ -1,38 +1,33 @@
+import CarouselMemberList from './content-carousel-list'
+import PaginatedMemberList from './content-paginated-list'
+import React, { PureComponent } from 'react'
+import categories from '../constants/section-02/categories'
 import colors from '../../../constants/colors'
-import {
-  foundationIntro,
-  mediaIntro,
-  rules,
-} from '../constants/section-02/org-intro'
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
+import styled from 'styled-components'
+import axios from 'axios'
+import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
-import CarouselMemberList from './content-carousel-list'
+//lodash
 import find from 'lodash/find'
-import foundationMembers from '../constants/section-02/fundation-members'
+import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import mediaMembers from '../constants/section-02/media-members'
-import PaginatedMemberList from './content-paginated-list'
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import categories from '../constants/section-02/categories'
+
+const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section2.master.json' 
 
 const _ = {
-  groupBy,
   find,
-  keys,
+  get,
+  groupBy,
+  keys
 }
 
-const members = foundationMembers.concat(mediaMembers)
-const groupedMembers = _.groupBy(members, member => member.category)
-const membersNumberArray = [...categories.fundation, ...categories.media].map(
-  category => {
-    return groupedMembers[category.id].length
-  }
-)
+const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
@@ -155,13 +150,65 @@ const Content = styled.div`
 `
 
 export default class Section2 extends PureComponent {
-  _sendEmail = email => {
+  constructor(props) {
+    super(props)
+    this.state = {
+      groupedMembers: null
+    }
+  }
+  componentDidMount() {
+    this._getConfig()
+  }
+  _sendEmail = (email) => {
     if (typeof email !== 'undefined') {
-      let url = `mailto:${email}`
+      const url = `mailto:${email}`
       window.open(url, '_blank')
     }
   }
+  _setStateByConfig = (config) => {
+    this.setState({ groupedMembers : _.groupBy(config, member => member.category) })
+  }
+  _getConfig = () => {
+    return axios.get(configUrl)
+      .then(res => {
+        const config = _.get(res, 'data.rows')
+        if (config) {
+          this._setStateByConfig(config)
+        }
+      })
+      .catch((err) => {
+        console.error(err) // eslint-disable-line no-console
+        logger.errorReport({
+          report: err,
+          message: 'Something went wrong during getting configs for about-us page section2'
+        })
+      })
+  }
   render() {
+    const { groupedMembers } = this.state
+    let membersNumberArray = []
+    let content
+    if (groupedMembers) {
+      membersNumberArray = [ ...categories.fundation, ...categories.media ].map((category) => {
+        if (groupedMembers[category.id]) {
+          return groupedMembers[category.id].length 
+        }
+      })
+      content = (
+        <Content>
+          <CarouselMemberList 
+            membersNumberArray = {membersNumberArray}
+            groupedMembers = {groupedMembers}
+            sendEmail = {this._sendEmail} 
+          />
+          <PaginatedMemberList
+            membersNumberArray = {membersNumberArray}
+            groupedMembers = {groupedMembers}
+            sendEmail = {this._sendEmail} 
+          />              
+        </Content> 
+      ) 
+    }
     return (
       <Container>
         <SectionWrapper>
@@ -169,18 +216,7 @@ export default class Section2 extends PureComponent {
             <span>成員</span>
             <span>MEMBERS</span>
           </Title>
-          <Content>
-            <CarouselMemberList
-              membersNumberArray={membersNumberArray}
-              groupedMembers={groupedMembers}
-              sendEmail={this._sendEmail}
-            />
-            <PaginatedMemberList
-              membersNumberArray={membersNumberArray}
-              groupedMembers={groupedMembers}
-              sendEmail={this._sendEmail}
-            />
-          </Content>
+          {content}
           <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
