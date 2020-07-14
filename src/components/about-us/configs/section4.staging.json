@@ -3,17 +3,35 @@
         "partner.zh-tw": "國際調查記者聯盟",
         "partner.en": "GIJN",
         "description.zh-tw": "參加由「國際調查記者聯盟」（GIJN）、「韩国调查记者中心」（Korea Center for Investigative Journalism）與「德國KAS基金會」（Konrad-Adenauer-Stiftung）主辦的第三屆「揭開亞洲」（Uncovering Asia）大會",
-        "description.en": 0,
+        "description.en": "",
         "date": "2018.10.5",
         "photo": "Section04-Event-GIJN-03.png",
         "logo": "intl-co-GIJN-logo.png",
         "link": "http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47"
     }, {
+        "partner.zh-tw": "國際調查記者聯盟",
+        "partner.en": "GIJN",
+        "description.zh-tw": "《報導者》成為華文世界第一個參與「國際調查記者聯盟」的成員（GIJN是一個涵蓋68個國家、155個非營利新聞組織的協會），《報導者》將繼續為國際調查媒體社群貢獻更多力量。",
+        "description.en": "The Reporter becomes a member of GIJN(Global Investigative Journalism Network), first in Manderin speaking world. The Reporter will be an new force of the internation investigative jouralism network.",
+        "date": "2017.6.28",
+        "photo": "Section04-Event-GIJN.png",
+        "logo": "intl-co-GIJN-logo.png",
+        "link": "http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47"
+    }, {
+        "partner.zh-tw": "國際調查記者聯盟",
+        "partner.en": "GIJN",
+        "description.zh-tw": "參加尼泊爾加德滿都「國際調查記者聯盟」（Global Investigative Journalism Network,GIJN）第二屆「揭開亞洲」（Uncovering Asia）大會。",
+        "description.en": "Attended the Second Asian Investigative Journalism Conference \"Uncovering Asia\" in Kathmandu, Nepa, hosted by the Global Investigative Journalism Network, the Centre for Investigative Journalism, Nepal, and the Konrad-Adenauer-Stiftung.",
+        "date": "2016.9.23",
+        "photo": "Section04-Event-Nipal.png",
+        "logo": "intl-co-GIJN-logo.png",
+        "link": "https://www.facebook.com/photo.php?fbid=1488606891166286&set=a.328937367133250.100488.100000509688340&type=3&theater"
+    }, {
         "partner.zh-tw": "德國艾德諾基金會",
         "partner.en": "KAS",
         "description.zh-tw": "《報導者》受長期支持「國際調查記者聯盟」（GIJN）的組織「德國KAS基金會」（Konrad-Adenauer-Stiftung）邀請，與日本、韓國、香港、外蒙古、尼泊爾、巴基斯坦、印度、印尼等調查記者，在德國埃森討論跨國調查合作的議題與經驗。",
-        "description.en": 0,
-        "date": 2018.3,
+        "description.en": "",
+        "date": "2018.3",
         "photo": "Section04-Event-KAS.png",
         "logo": "intl-co-kas-logo.png",
         "link": "http://gijn.org/2017/06/29/gijn-adds-ten-new-members/?mc_cid=ae2b5d1553&mc_eid=235dec6d47"
