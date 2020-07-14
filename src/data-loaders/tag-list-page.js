@@ -32,5 +32,5 @@ export default function loadData({ location, match, store }) {
 
   const tagId = _.get(match, 'params.tagId', '')
   return store.actions.fetchPostsByTagListId(tagId,
-    dataLoaderConst.maxResult, page)
+    dataLoaderConst.tagListPage.nPerPage, page)
 }

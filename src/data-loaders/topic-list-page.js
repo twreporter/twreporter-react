@@ -19,7 +19,7 @@ export default function loadData({ store, location }) {
     page = firstPage
   }
 
-  return store.actions.fetchTopics(page, dataLoaderConst.numPerPage)
+  return store.actions.fetchTopics(page, dataLoaderConst.topicListPage.nPerPage)
     .then(() => {
       if (page === firstPage) {
         return store.actions.fetchFeatureTopic()

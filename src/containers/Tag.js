@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import querystring from 'querystring'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
+import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 
@@ -29,8 +30,6 @@ const { fetchPostsByTagListId } = actions
 
 const logger = loggerFactory.getLogger()
 
-const numberPerPage = 10
-
 class Tag extends PureComponent {
   componentDidMount() {
     this.fetchPostsWithCatch()
@@ -46,12 +45,13 @@ class Tag extends PureComponent {
 
   fetchPostsWithCatch() {
     const {
+      nPerPage,
       tagId,
       fetchPostsByTagListId,
       page,
     } = this.props
 
-    fetchPostsByTagListId(tagId, numberPerPage, page)
+    fetchPostsByTagListId(tagId, nPerPage, page)
       .catch((failAction) => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
@@ -155,11 +155,12 @@ function pageProp(location={}) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - tag list id
+ *  @param {number} nPerPage - number per page
  *  @return {number}
  */
-function totalPagesProp(state, listId) {
+function totalPagesProp(state, listId, nPerPage) {
   const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  return Math.ceil(total / numberPerPage)
+  return Math.ceil(total / nPerPage)
 }
 
 /**
@@ -232,6 +233,7 @@ function mapStateToProps(state, props) {
   const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
 
   const page = pageProp(location)
+  const nPerPage = dataLoaderConst.tagListPage.nPerPage
 
   return {
     tagId,
@@ -240,13 +242,14 @@ function mapStateToProps(state, props) {
     page,
     pathname,
     posts: postsProp(state, tagId, page),
-    totalPages: totalPagesProp(state, tagId),
+    totalPages: totalPagesProp(state, tagId, nPerPage),
   }
 }
 
 Tag.defaultProps = {
   error: null,
   isFetching: false,
+  nPerPage: dataLoaderConst.tagListPage.nPerPage,
   posts: [],
   totalPages: 0,
 }
@@ -255,6 +258,7 @@ Tag.propTypes = {
   error: PropTypes.object,
   fetchPostsByTagListId: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
+  nPerPage: PropTypes.number,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
 
