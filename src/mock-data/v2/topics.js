@@ -1,11 +1,32 @@
 import topics from './topics.json'
 import cloneUtils from '../../utils/clone-entity'
 
+// lodash
+import find from 'lodash/find'
+
+const _ = {
+  find,
+}
+
 const mocks = {
   topics,
 }
 
 export function mockATopicResponse(slug) {
+  const topic = _.find(topics, topic => topic.slug === slug)
+  if (topic) {
+    return {
+      status: 'success',
+      data: topic,
+    }
+  }
+
+  return {
+    status: 'fail',
+    data: {
+      slug: `there is no topic with slug '${slug}'`,
+    },
+  }
 }
 
 /**

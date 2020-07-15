@@ -45,21 +45,23 @@ export default class RelatedItems extends PureComponent {
   static propTypes = {
     background: PropTypes.string,
     items: PropTypes.array,
-    format: PropTypes.oneOf([ formatConsts.row, formatConsts.column ]).isRequired
+    format: PropTypes.oneOf([ formatConsts.row, formatConsts.column ]),
+    hasMore: PropTypes.bool,
+    isFetching: PropTypes.bool,
+    loadMore: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     background: '#d8d8d8',
-    items: []
+    items: [],
+    format: formatConsts.row,
+    hasMore: false,
+    isFetching: false,
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      showAll: false
-    }
     this.renderItem = this._renderItem.bind(this)
-    this.showAll = this._showAll.bind(this)
   }
 
   _renderItem(item, index) {
@@ -81,27 +83,27 @@ export default class RelatedItems extends PureComponent {
         title={title}
         description={description}
         publishedDate={publishedDate}
-        hide={!this.state.showAll && index > firstShowedLimit - 1}
       />
     )
   }
 
-  _showAll() {
-    this.setState({
-      showAll: true
-    })
-  }
-
   render() {
-    const { background, format, items } = this.props
+    const {
+      background,
+      format,
+      hasMore,
+      isFetching,
+      items,
+      loadMore,
+    } = this.props
     const components = selectComponentsByFormat(format)
     return (
       <base.Background background={background}>
         <components.ItemsContainer>
           {_.map(items, this.renderItem)}
         </components.ItemsContainer>
-        {_.get(items, 'length', 0) < firstShowedLimit || this.state.showAll ? null : (
-          <base.ShowAllButton onClick={this.showAll}>
+        {isFetching || !hasMore ? null : (
+          <base.ShowAllButton onClick={loadMore}>
             <div>載入更多</div>
           </base.ShowAllButton>
         )}

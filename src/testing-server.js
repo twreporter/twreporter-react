@@ -21,7 +21,7 @@ import topics from './mock-data/topics.json'
 // mock api response
 import mockIndexPageResponse from './mock-data/v2/index-page'
 import { mockPostsResponse } from './mock-data/v2/posts'
-import { mockTopicsResponse } from './mock-data/v2/topics'
+import { mockATopicResponse, mockTopicsResponse } from './mock-data/v2/topics'
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
@@ -245,6 +245,27 @@ v2router.route(`/${apiEndpoints.topics}/`)
     const _limit = Number(limit)
     const _offset = Number(offset)
     res.json(mockTopicsResponse(_limit, _offset))
+  })
+
+v2router.route(`/${apiEndpoints.topics}/:slug`)
+  .get((req, res) => {
+    const slug = req.params.slug
+    const apiResponse = mockATopicResponse(slug)
+    switch(apiResponse.status) {
+      case 'success': {
+        res.json(apiResponse)
+        return
+      }
+      case 'fail': {
+        res.status(404).json(apiResponse)
+        return
+      }
+      case 'error':
+      default: {
+        res.status(500).json(apiResponse)
+        return
+      }
+    }
   })
 
 const _searchResult = (param, authorId) => {
