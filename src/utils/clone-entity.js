@@ -73,15 +73,14 @@ function clonePostWithNeededFields(post) {
  *  @property {string} short_title
  *  @property {string} slug
  *  @property {string} title
- *  @property {import('@twreporter/redux/lib/typedef').ObjectID[]} relateds
  */
 
 /**
- *  @function cloneTopicWithNeededFields
+ *  @function cloneMetaOfTopic
  *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
  *  @return {ClonedTopic}
  */
-function cloneTopicWithNeededFields(topic) {
+function cloneMetaOfTopic(topic) {
   const fields = [
     'full',
     'id',
@@ -89,16 +88,52 @@ function cloneTopicWithNeededFields(topic) {
     'og_description',
     'og_image',
     'published_date',
-    'relateds',
     'short_title',
     'slug',
     'title',
+    'relateds',
   ]
 
   return cloneWithFields(fields, topic)
 }
 
+/**
+ *  ClonedFullTopic type definition
+ *  @typedef {ClonedTopic} ClonedFullTopic
+ *  @property {string} relateds_format
+ *  @property {string} title_position
+ *  @property {Object} leading_video
+ *  @property {string} headline
+ *  @property {string} subtitle
+ *  @property {Object} description
+ *  @property {Object} team_description
+ *  @property {string} og_title
+ */
+
+/**
+ *  @function cloneFullTopic
+ *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
+ *  @return {ClonedFullTopic}
+ */
+function cloneFullTopic(topic) {
+  const fields = [
+    'relateds_format',
+    'title_position',
+    'leading_video',
+    'headline',
+    'subtitle',
+    'description',
+    'team_description',
+    'og_title',
+  ]
+
+  const metaTopic = cloneMetaOfTopic(topic)
+  return Object.assign(metaTopic, cloneWithFields(fields, topic))
+}
+
+
 export default {
   cloneMetaOfPost: clonePostWithNeededFields,
-  cloneMetaOfTopic: cloneTopicWithNeededFields,
+  cloneMetaOfTopic,
+  cloneFullTopic,
 }
