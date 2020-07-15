@@ -133,13 +133,17 @@ const LogoBlock = styled.div`
   `}
 `
 
-const LogoBlockOnDesktopAbove = styled(LogoBlock)`
+const DisplayInline = styled.div`
+  display: inline;
+`
+
+const OnlyDisplayOnDesktopAbove = styled(DisplayInline)`
   ${mq.tabletAndBelow`
     display: none;
   `}
 `
 
-const LogoBlockOnTabletAndBelow = styled(LogoBlock)`
+const OnlyDisplayOnTabletAndBelow = styled(DisplayInline)`
   ${mq.desktopAndAbove`
     display: none;
   `}
@@ -313,33 +317,37 @@ export default class Section4 extends PureComponent {
         <React.Fragment
           key={partner}
         >
-          <VelocityComponent
-            key={partnerIndex}
-            {...animationProps}
-          >
-            <LogoBlockOnDesktopAbove
+          <OnlyDisplayOnDesktopAbove>
+            <VelocityComponent
+              key={partnerIndex}
+              {...animationProps}
+            >
+              <LogoBlock
+                selectedLogo={selectedLogo}
+                onClick={() => this._select(partnerIndex)}
+              >
+                <LogoContent>
+                  <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${_.get(data, 'logo')}`)} />
+                  <h3>{_.get(data, 'partner.en')}</h3>
+                  <p>{_.get(data, 'partner.zh-tw')}</p>
+                </LogoContent>
+              </LogoBlock>
+            </VelocityComponent>
+          </OnlyDisplayOnDesktopAbove>
+          <OnlyDisplayOnTabletAndBelow>
+            <LogoBlock
               selectedLogo={selectedLogo}
               onClick={() => this._select(partnerIndex)}
             >
               <LogoContent>
-                <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${_.get(data, 'logo')}`)} />
-                <h3>{_.get(data, 'partner.en')}</h3>
-                <p>{_.get(data, 'partner.zh-tw')}</p>
+                <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${data.logo}`)} />
+                <div>
+                  <h3>{_.get(data, 'partner.en')}</h3>
+                  <p>{_.get(data, 'partner.zh-tw')}</p>
+                </div>
               </LogoContent>
-            </LogoBlockOnDesktopAbove>
-          </VelocityComponent>
-          <LogoBlockOnTabletAndBelow
-            selectedLogo={selectedLogo}
-            onClick={() => this._select(partnerIndex)}
-          >
-            <LogoContent>
-              <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${data.logo}`)} />
-              <div>
-                <h3>{_.get(data, 'partner.en')}</h3>
-                <p>{_.get(data, 'partner.zh-tw')}</p>
-              </div>
-            </LogoContent>
-          </LogoBlockOnTabletAndBelow>
+            </LogoBlock>
+          </OnlyDisplayOnTabletAndBelow>
         </React.Fragment>
       )
     })
