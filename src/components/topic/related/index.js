@@ -3,8 +3,11 @@ import { shortenString } from '../../../utils/string'
 import BarComponents from './related-as-bars'
 import base from './base'
 import CardComponents from './related-as-cards'
+import LoadingSpinner from '../../Spinner'
+import mq from '../../../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import styled from 'styled-components'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
@@ -23,6 +26,18 @@ const formatConsts = {
 }
 
 const firstShowedLimit = 12
+
+const StyledSpinner = styled(LoadingSpinner)`
+  margin: 30px auto;
+  width: 40px;
+  ${mq.desktopAndAbove`
+    width: 66px;
+  `}
+  img {
+    width: 100%;
+    height: auto;
+  }
+`
 
 function selectComponentsByFormat(format) {
   switch (format) {
@@ -102,6 +117,7 @@ export default class RelatedItems extends PureComponent {
         <components.ItemsContainer>
           {_.map(items, this.renderItem)}
         </components.ItemsContainer>
+        {isFetching ? <StyledSpinner /> : null}
         {isFetching || !hasMore ? null : (
           <base.ShowAllButton onClick={loadMore}>
             <div>載入更多</div>
