@@ -248,7 +248,6 @@ class TopicLandingPage extends Component {
           items={relateds}
           format={_.get(topic, 'relateds_format')}
           background={_.get(topic ,'relateds_background')}
-          // TODO: show spinner while loading
           isFetching={isFetchingRelateds}
           hasMore={hasMoreRelateds}
           loadMore={this.loadMore}
