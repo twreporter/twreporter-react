@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react'
 import awardsName from '../constants/section-03/awards-name.json'
 import axios from 'axios'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
@@ -16,8 +17,6 @@ import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 import keys from 'lodash/keys'
-
-const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section3.master.json' 
 
 const _ = {
   groupBy, keys, get, orderBy 
@@ -304,7 +303,7 @@ export default class Section3 extends PureComponent {
   }
 
   _getConfig = () => {
-    return axios.get(configUrl)
+    return axios.get(configs[sections.section3])
       .then(res => {
         this.setState({ config: _.get(res, 'data.rows') })
       })

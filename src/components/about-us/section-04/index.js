@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import VelocityComponent from 'velocity-react/velocity-component'
 import axios from 'axios'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
@@ -14,8 +15,6 @@ import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import chunk from 'lodash/chunk'
-
-const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section4.master.json' 
 
 const _ = {
   chunk, groupBy, keys, get
@@ -254,7 +253,7 @@ export default class Section4 extends PureComponent {
     this._getConfig() 
   }
   _getConfig = () => {
-    return axios.get(configUrl)
+    return axios.get(configs[sections.section4])
       .then(res => {
         const content = _.get(res, 'data.rows')
         if (Array.isArray(content)) {

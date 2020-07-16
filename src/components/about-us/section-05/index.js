@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Timeline from './timeline'
 import axios from 'axios'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
@@ -16,8 +17,6 @@ import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import orderBy from 'lodash/orderBy'
-
-const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section5.master.json' 
 
 const _ = {
   get,
@@ -389,7 +388,7 @@ export default class Section5 extends PureComponent {
   }
 
   _getConfig = () => {
-    return axios.get(configUrl)
+    return axios.get(configs[sections.section5])
       .then(res => {
         const config = _.get(res, 'data')
         if (config) {

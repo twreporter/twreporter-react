@@ -1,12 +1,13 @@
 import CarouselMemberList from './content-carousel-list'
 import PaginatedMemberList from './content-paginated-list'
 import React, { PureComponent } from 'react'
+import axios from 'axios'
 import categories from '../constants/section-02/categories'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
-import axios from 'axios'
 import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
@@ -17,8 +18,6 @@ import find from 'lodash/find'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-
-const configUrl = 'https://raw.githubusercontent.com/taylrj/twreporter-react/extract-aboutus-config/src/components/about-us/configs/section2.master.json' 
 
 const _ = {
   find,
@@ -169,7 +168,7 @@ export default class Section2 extends PureComponent {
     this.setState({ groupedMembers : _.groupBy(config, member => member.category) })
   }
   _getConfig = () => {
-    return axios.get(configUrl)
+    return axios.get(configs[sections.section2])
       .then(res => {
         const config = _.get(res, 'data.rows')
         if (config) {
