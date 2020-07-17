@@ -20,31 +20,43 @@ const mocks = {
 
 const { reduxStateFields } = twreporterRedux
 
+function cloneDecorator(cloneFunc) {
+  return (full) => {
+    return (entity) => {
+      const e = cloneFunc(entity)
+      e.full = full
+      return e
+    }
+  }
+}
+
 /**
  *  This function mocks the response of go-api `/v2/index-page` endpoint.
  *  @return {Object} mocked api response
  */
 export default function mockGoApiResponse() {
+  const full = false
+
   const data = {
-    [reduxStateFields.sections.latestSection]: posts.slice(0, 6).map(cloneUtils.cloneMetaOfPost),
-    [reduxStateFields.sections.editorPicksSection]: posts.filter(post => post.is_featured).slice(0, 6).map(cloneUtils.cloneMetaOfPost),
-    [reduxStateFields.sections.latestTopicSection]: topics.slice(0, 1).map(cloneUtils.cloneMetaOfTopic),
+    [reduxStateFields.sections.latestSection]: posts.slice(0, 6).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full)),
+    [reduxStateFields.sections.editorPicksSection]: posts.filter(post => post.is_featured).slice(0, 6).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full)),
+    [reduxStateFields.sections.latestTopicSection]: topics.slice(0, 1).map(cloneDecorator(cloneUtils.cloneMetaOfTopic)(full)),
     [reduxStateFields.sections.reviewsSection]: posts.filter(post => {
       return _.get(post, 'categories.0.id') === categoryConsts.ids.reviews
-    }).slice(0, 4).map(cloneUtils.cloneMetaOfPost),
-    [reduxStateFields.sections.topicsSection]: topics.slice(1, 5).map(cloneUtils.cloneMetaOfTopic),
+    }).slice(0, 4).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full)),
+    [reduxStateFields.sections.topicsSection]: topics.slice(1, 5).map(cloneDecorator(cloneUtils.cloneMetaOfTopic)(full)),
     [reduxStateFields.sections.photosSection]: posts.filter(post => {
       return _.get(post, 'categories.0.id') === categoryConsts.ids.photography
-    }).slice(0, 4).map(cloneUtils.cloneMetaOfPost),
+    }).slice(0, 4).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full)),
     [reduxStateFields.sections.infographicsSection]: posts.filter(post => {
       return _.get(post, 'categories.0.id') === categoryConsts.ids.infographic
-    }).slice(0, 6).map(cloneUtils.cloneMetaOfPost),
+    }).slice(0, 6).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full)),
   }
 
   _.values(reduxStateFields.categories).forEach(cat => {
     data[cat] = posts.filter(post => {
       return _.get(post, 'categories.0.id') === categoryConsts.ids[cat]
-    }).slice(0, 1).map(cloneUtils.cloneMetaOfPost)
+    }).slice(0, 1).map(cloneDecorator(cloneUtils.cloneMetaOfPost)(full))
   })
 
   return {
