@@ -2,9 +2,11 @@ import posts from './posts.json'
 import cloneUtils from '../../utils/clone-entity'
 
 // lodash
+import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 
 const _ = {
+  find,
   forEach,
 }
 
@@ -58,6 +60,20 @@ function seekPostsByListIds(mockPosts, ids, listType) {
 }
 
 export function mockAPostResponse(slug) {
+  const post = _.find(posts, post => post.slug === slug)
+  if (post) {
+    return {
+      status: 'success',
+      data: post,
+    }
+  }
+
+  return {
+    status: 'fail',
+    data: {
+      slug: `there is no post with slug '${slug}'`,
+    },
+  }
 }
 
 /**
