@@ -12,8 +12,20 @@ const mocks = {
   topics,
 }
 
-export function mockATopicResponse(slug) {
-  const topic = _.find(topics, topic => topic.slug === slug)
+
+/**
+ *  This function mocks the response of go-api `/v2/topics/:slug?full=(true|false)` endpoint
+ *
+ *  @param {string} slug - topic slug
+ *  @param {bool} full - full property of topic object
+ *
+ *  @return {Object} mocked response
+ */
+export function mockATopicResponse(slug, full) {
+  let topic = _.find(topics, topic => topic.slug === slug)
+  topic = full ? cloneUtils.cloneFullTopic(topic) : cloneUtils.cloneMetaOfTopic(topic)
+  topic.full = full
+
   if (topic) {
     return {
       status: 'success',
@@ -45,7 +57,11 @@ export function mockTopicsResponse(limit=10, offset=0) {
         offset,
         total: mocks.topics.length,
       },
-      records: mocks.topics.slice(offset, offset + limit).map(cloneUtils.cloneMetaOfTopic)
+      records: mocks.topics.slice(offset, offset + limit).map((_topic) => {
+        const topic = cloneUtils.cloneMetaOfTopic(_topic)
+        topic.full = false
+        return topic
+      })
     },
   }
 }
