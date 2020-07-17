@@ -120,7 +120,7 @@ class Category extends PureComponent {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedPost} ClonedPost
+ *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -173,7 +173,7 @@ function errorProp(state, listId) {
  *  @param {ReduxState} state
  *  @param {string} listId - category list id
  *  @param {number} page - current page
- *  @return {ClonedPost[]}
+ *  @return {MetaOfPost[]}
  */
 function postsProp(state, listId, page) {
   const { entities, postsInEntities, lists } = reduxStateFields
@@ -202,7 +202,7 @@ function postsProp(state, listId, page) {
  *  @property {bool} isFetching - if it is requesting api or not
  *  @property {number} page - current page for pagination
  *  @property {string} pathname - URL path
- *  @property {ClonedPost[]} posts - array of posts
+ *  @property {MetaOfPost[]} posts - array of posts
  *  @property {number} totalPages - total page for pagination
  */
 

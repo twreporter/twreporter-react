@@ -272,18 +272,18 @@ const {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedFullTopic} ClonedFullTopic
+ *  @typedef {import('../utils/clone-entity').FullTopic} FullTopic
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedPost} ClonedPost
+ *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
  *  This function returns a topic which is cloned from entities state.
  *  @param {ReduxState} state
  *  @param {string} id - id of topic
- *  @return {ClonedFullTopic}
+ *  @return {FullTopic}
  */
 function topicProp(state, id) {
   const topic = _.get(state, [entities, topicsInEntities, 'byId', id], null)
@@ -294,7 +294,7 @@ function topicProp(state, id) {
  *  This function returns cloned related posts of the topic.
  *  @param {ReduxState} state
  *  @param {string} id - id of topic
- *  @return {ClonedPost[]}
+ *  @return {MetaOfPost[]}
  */
 function relatedsProp(state, id) {
   const relatedPostIds = _.get(state, [relatedPostsOf, 'byId', id, 'items'], [])
@@ -315,7 +315,7 @@ function relatedsProp(state, id) {
  *  @property {bool} isFetchingTopic
  *  @property {bool} isFetchingRelateds
  *  @property {Object} topic
- *  @property {ClonedPost[]} relateds
+ *  @property {MetaOfPost[]} relateds
  *  @property {bool} hasMoreRelateds
  *  @property {string} slugToFetch - topic slug to fetch due to no content in redux state
  */

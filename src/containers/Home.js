@@ -338,18 +338,18 @@ class Homepage extends React.PureComponent {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedPost} ClonedPost
+ *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedTopic} ClonedTopic
+ *  @typedef {import('../utils/clone-entity').MetaOfTopic} MetaOfTopic
  */
 
 /**
  *  @param {ObjectID[]} ids
  *  @param {Object} entities
  *  @param {Function} cloneFunc -
- *  @return {ClonedPost[] | ClonedTopic[]}
+ *  @return {MetaOfPost[] | MetaOfTopic[]}
  */
 function cloneEntities(ids, entities, cloneFunc) {
   return _.map(ids, id => {
@@ -361,7 +361,7 @@ function cloneEntities(ids, entities, cloneFunc) {
  *  @param {ReduxState.index_page} indexPageState
  *  @param {string} section
  *  @param {Object} entities
- *  @return {ClonedPost[]>}
+ *  @return {MetaOfPost[]>}
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
@@ -372,7 +372,7 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
  *  @param {ReduxState.index_page} indexPageState
  *  @param {string} section
  *  @param {Object} entities
- *  @return {ClonedTopic[]>}
+ *  @return {MetaOfTopic[]>}
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
@@ -387,12 +387,12 @@ function restoreSectionWithTopics(indexPageState, section, entities) {
  *  `ReduxState.index_page.reviews_section`,
  *  `ReduxState.index_page.topics_section`,
  *  `ReduxState.index_page.photos_section`.
- *  `ReduxState.index_page.infgraphics_section`.
+ *  `ReduxState.index_page.infographics_section`.
  *
  *  @param {ReduxState.index_page} indexPageState
  *  @param {ReduxState.entities.posts.byId} postEntities
  *  @param {ReduxState.entities.topics.byId} topicEntities
- *  @return {Object.<string, ClonedPost[] | ClonedTopic[]>}
+ *  @return {Object.<string, MetaOfPost[] | MetaOfTopic[]>}
  */
 function restoreSections(indexPageState, postEntities, topicEntities) {
   const {latestTopicSection, topicsSection, ...otherSections} = fieldNames.sections
@@ -409,8 +409,8 @@ function restoreSections(indexPageState, postEntities, topicEntities) {
 }
 
 /**
- *  ClonedCategoryPost type definition
- *  @typedef {ClonedPost} ClonedCategoryPost
+ *  CategoryPost type definition
+ *  @typedef {MetaOfPost} CategoryPost
  *  @property {string} listName
  *  @property {string} moreURI
  */
@@ -426,7 +426,7 @@ function restoreSections(indexPageState, postEntities, topicEntities) {
  *
  *  @param {ReduxState.index_page} indexPageState
  *  @param {ReduxState.entities.posts.byId} entities
- *  @return {ClonedCategoryPost[]}
+ *  @return {CategoryPost[]}
  */
 function restoreCategories(indexPageState, entities) {
   let rtn = []
@@ -444,9 +444,9 @@ function restoreCategories(indexPageState, entities) {
 }
 
 /**
- *  ClonedFeatureTopic type definition
- *  @typedef {ClonedTopic} ClonedFeatureTopic
- *  @property {ClonedPost[]} relateds
+ *  FeatureTopic type definition
+ *  @typedef {MetaOfTopic} FeatureTopic
+ *  @property {MetaOfPost[]} relateds
  */
 
 /**
@@ -456,7 +456,7 @@ function restoreCategories(indexPageState, entities) {
  *  @param {ReduxState.featureTopic} featureTopicState
  *  @param {ReduxState.entities.posts.byId} postEntities
  *  @param {ReduxState.entities.topics.byId} topicEntities
- *  @return {{} | ClonedFeatureTopic}
+ *  @return {{} | FeatureTopic}
  */
 function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   const topicId = _.get(featureTopicState, 'id')
@@ -476,14 +476,14 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
 /**
  *  HomepageProps type definition
  *  @typedef {Object} HomepageProps
- *  @property {ClonedPost[]} latest_section
- *  @property {ClonedPost[]} editor_picks_section
- *  @property {ClonedTopic | ClonedFeatureTopic} latest_topic_section
- *  @property {ClonedPost[]} reviews_section
- *  @property {ClonedTopic[]} topics_section
- *  @property {ClonedPost[]} photos_section
- *  @property {ClonedPost[]} infgraphics_section
- *  @property {ClonedCategoryPost[]} categories
+ *  @property {MetaOfPost[]} latest_section
+ *  @property {MetaOfPost[]} editor_picks_section
+ *  @property {MetaOfTopic | FeatureTopic} latest_topic_section
+ *  @property {MetaOfPost[]} reviews_section
+ *  @property {MetaOfTopic[]} topics_section
+ *  @property {MetaOfPost[]} photos_section
+ *  @property {MetaOfPost[]} infographics_section
+ *  @property {CategoryPost[]} categories
  *  @property {bool} isSpinnerDisplayed
  *  @property {bool} ifAuthenticated
  */

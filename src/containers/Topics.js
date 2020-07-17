@@ -271,7 +271,7 @@ function topicProp(topic={}) {
  *  @param {ReduxState.featureTopic} featureTopicState
  *  @param {ReduxState.entities.posts.byId} postEntities
  *  @param {ReduxState.entities.topics.byId} topicEntities
- *  @return {null|TopicProp}
+ *  @return {TopicProp}
  */
 function restoreFeatureTopic(state) {
   const {

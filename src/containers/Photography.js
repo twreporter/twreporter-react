@@ -142,7 +142,7 @@ Photography.propTypes = {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').ClonedPost} ClonedPost
+ *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -166,7 +166,7 @@ function isFetchingProp(state, listId) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - photography list id
- *  @return {ClonedPost[]}
+ *  @return {MetaOfPost[]}
  */
 function postsProp(state, listId) {
   const { entities, postsInEntities, lists } = reduxStateFields
@@ -205,7 +205,7 @@ function hasMoreProp(state, listId) {
  *  @property {bool} hasMore
  *  @property {bool} isFetching
  *  @property {string} listId
- *  @property {ClonedPost[]} posts
+ *  @property {MetaOfPost[]} posts
  *  @property {number} nPerPage
  */
 
