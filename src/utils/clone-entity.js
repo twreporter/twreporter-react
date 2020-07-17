@@ -20,28 +20,21 @@ function cloneWithFields(fields, entity) {
 }
 
 /**
- *  ClonedPost type definition
- *  @typedef {Object} ClonedPost
- *  @property {import('@twreporter/redux/lib/typedef').Category[]} categories
- *  @property {bool} full
- *  @property {import('@twreporter/redux/lib/typedef').Image} hero_image
- *  @property {string} id
- *  @property {bool} is_external
- *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image_portrait
- *  @property {string} og_description
- *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
- *  @property {string} slug
- *  @property {string} style
- *  @property {string} subtitle
- *  @property {string} title
+ *  MetaOfPost type definition
+ *  @typedef {import('@twreporter/redux/lib/typedef').Post} MetaOfPost
  */
 
 /**
- *  @function clonePostWithNeededFields
- *  @param {import('@twreporter/redux/lib/typedef').Post} post
- *  @return {ClonedPost}
+ *  FullPost type definition
+ *  @typedef {import('@rwreporter/redux/lib/typedef').FullPost} FullPost
  */
-function clonePostWithNeededFields(post) {
+
+/**
+ *  @function cloneMetaOfPost
+ *  @param {Object} post
+ *  @return {MetaOfPost}
+ */
+function cloneMetaOfPost(post) {
   const fields = [
     'categories',
     'full',
@@ -63,22 +56,19 @@ function clonePostWithNeededFields(post) {
 }
 
 /**
- *  ClonedTopic type definition
- *  @typedef {Object} ClonedTopic
- *  @property {bool} full
- *  @property {string} id
- *  @property {import('@twreporter/redux/lib/typedef').Image} leading_image
- *  @property {string} og_description
- *  @property {import('@twreporter/redux/lib/typedef').Image} og_image
- *  @property {string} short_title
- *  @property {string} slug
- *  @property {string} title
+ *  MetaOfTopic type definition
+ *  @typedef {import('@twreporter/redux/lib/typedef').Topic} MetaOfTopic
+ */
+
+/**
+ *  FullTopic type definition
+ *  @typedef {import('@twreporter/redux/lib/typedef').FullTopic} FullTopic
  */
 
 /**
  *  @function cloneMetaOfTopic
- *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
- *  @return {ClonedTopic}
+ *  @param {Object} topic
+ *  @return {MetaOfTopic}
  */
 function cloneMetaOfTopic(topic) {
   const fields = [
@@ -98,22 +88,9 @@ function cloneMetaOfTopic(topic) {
 }
 
 /**
- *  ClonedFullTopic type definition
- *  @typedef {ClonedTopic} ClonedFullTopic
- *  @property {string} relateds_format
- *  @property {string} title_position
- *  @property {Object} leading_video
- *  @property {string} headline
- *  @property {string} subtitle
- *  @property {Object} description
- *  @property {Object} team_description
- *  @property {string} og_title
- */
-
-/**
  *  @function cloneFullTopic
- *  @param {import('@twreporter/redux/lib/typedef').Topic} topic
- *  @return {ClonedFullTopic}
+ *  @param {Object} topic
+ *  @return {FullTopic}
  */
 function cloneFullTopic(topic) {
   const fields = [
@@ -133,7 +110,7 @@ function cloneFullTopic(topic) {
 
 
 export default {
-  cloneMetaOfPost: clonePostWithNeededFields,
+  cloneMetaOfPost,
   cloneMetaOfTopic,
   cloneFullTopic,
 }

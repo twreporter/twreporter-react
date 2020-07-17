@@ -38,7 +38,7 @@ function seekPostsByIds(mockPosts, ids) {
  *
  *  @param {Object[]} mockPosts - array of mocked posts
  *  @param {string[]} ids - array of ids
- *  @param {string} listType - category_id or tag_id
+ *  @param {string} listType - categories or tags
  *  @return {Object[]} - matched posts
  */
 function seekPostsByListIds(mockPosts, ids, listType) {
