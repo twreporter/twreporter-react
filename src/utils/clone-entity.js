@@ -56,6 +56,33 @@ function cloneMetaOfPost(post) {
 }
 
 /**
+ *  @function cloneFullPost
+ *  @param {Object} post
+ *  @return {FullPost}
+ */
+function cloneFullPost(post) {
+  const fields = [
+    'designers',
+    'engineers',
+    'photographers',
+    'writers',
+    'topic',
+    'brief',
+    'content',
+    'relateds',
+    'copyright',
+    'extend_byline',
+    'hero_image_size',
+    'leading_image_description',
+    'og_title',
+    'updated_at',
+  ]
+
+  const metaPost = cloneMetaOfPost(post)
+  return Object.assign(metaPost, cloneWithFields(fields, post))
+}
+
+/**
  *  MetaOfTopic type definition
  *  @typedef {import('@twreporter/redux/lib/typedef').Topic} MetaOfTopic
  */
@@ -110,6 +137,7 @@ function cloneFullTopic(topic) {
 
 
 export default {
+  cloneFullPost,
   cloneMetaOfPost,
   cloneMetaOfTopic,
   cloneFullTopic,

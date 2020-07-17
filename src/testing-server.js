@@ -20,7 +20,7 @@ import topics from './mock-data/topics.json'
 
 // mock api response
 import mockIndexPageResponse from './mock-data/v2/index-page'
-import { mockPostsResponse } from './mock-data/v2/posts'
+import { mockAPostResponse, mockPostsResponse } from './mock-data/v2/posts'
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/v2/topics'
 
 const app = Express()
@@ -190,6 +190,27 @@ router.route(`/${apiEndpoints.posts}/`)
       }
     } else {
       res.json(posts)
+    }
+  })
+
+v2router.route(`/${apiEndpoints.posts}/:slug`)
+  .get((req, res) => {
+    const slug = req.params.slug
+    const apiResponse = mockAPostResponse(slug)
+    switch(apiResponse.status) {
+      case 'success': {
+        res.json(apiResponse)
+        return
+      }
+      case 'fail': {
+        res.status(404).json(apiResponse)
+        return
+      }
+      case 'error':
+      default: {
+        res.status(500).json(apiResponse)
+        return
+      }
     }
   })
 
