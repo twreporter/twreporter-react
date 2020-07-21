@@ -78,7 +78,7 @@ class ExpressServer {
         res.format({
           'text/plain': function () {
             res.status(200).send('User-agent: * \n' +
-              'Sitemap: https://www.twreporter.org/sitemaps/twreporter-sitemap.xml\n' +
+              'Sitemap: https://public.twreporter.org/sitemaps/www-sitemap.xml\n' +
               'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
             )
           }
