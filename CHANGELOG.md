@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.4.26-rc.0
+## 4.4.26
 
 ### Commits
 * [[`99fdc5b576`](https://github.com/twreporter/twreporter-react/commit/99fdc5b576)] - **chore**: @twreporter/react-article-components@1.1.9-rc.0 (nickhsine)
