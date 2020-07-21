@@ -210,11 +210,21 @@ export default class Content extends PureComponent {
   }
 }
 
+Content.defaultProps = {
+  transitionDuration: '100ms',
+  selectedRecords: [],
+  fullRecords: {},
+  awardsName: [],
+  awardYears: {},
+  activeAward: '',
+  activeYearIndex:0 
+}
+
 Content.propTypes = {
-  selectedRecords: PropTypes.array.isRequired,
-  fullRecords: PropTypes.object.isRequired,
-  awardsName: PropTypes.array.isRequired,
-  awardYears: PropTypes.object.isRequired,
-  activeAward: PropTypes.string.isRequired,
-  activeYearIndex: PropTypes.number.isRequired
+  selectedRecords: PropTypes.array,
+  fullRecords: PropTypes.object,
+  awardsName: PropTypes.array,
+  awardYears: PropTypes.object,
+  activeAward: PropTypes.string,
+  activeYearIndex: PropTypes.number
 }

@@ -120,14 +120,15 @@ AwardNameList.defaultProps = {
   activeAward: '',
   selectAward: () => {},
   selectYear: () => {},
-  activeYearIndex: 0
+  activeYearIndex: 0,
+  awardYears: {}
 }
 
 AwardNameList.propTypes = {
-  awardsName: PropTypes.array.isRequired,
-  activeAward: PropTypes.string.isRequired,
+  awardsName: PropTypes.array,
+  activeAward: PropTypes.string,
   selectAward: PropTypes.func,
-  awardYears: PropTypes.object.isRequired,
+  awardYears: PropTypes.object,
   selectYear: PropTypes.func,
   activeYearIndex: PropTypes.number
 }

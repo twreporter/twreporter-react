@@ -15,11 +15,10 @@ import { storageUrlPrefix } from '../utils/config'
 //lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
-import orderBy from 'lodash/orderBy'
 import keys from 'lodash/keys'
 
 const _ = {
-  groupBy, keys, get, orderBy 
+  groupBy, keys, get 
 }
 
 const logger = loggerFactory.getLogger()
@@ -305,7 +304,7 @@ export default class Section3 extends PureComponent {
   _getConfig = () => {
     return axios.get(configs[sections.section3])
       .then(res => {
-        this.setState({ config: _.get(res, 'data.rows') })
+        this.setState({ config: _.get(res, 'data') })
       })
       .catch((err) => {
         logger.errorReport({
@@ -315,52 +314,15 @@ export default class Section3 extends PureComponent {
       })
   }
 
-  _getYearRange = (list) => {
-    if (list) {
-      const allYears = _.keys(
-        _.groupBy(list, award => {
-          if (award.date) {
-            return award.date.split('/')[0]
-          }
-        })
-      )
-      return (
-        <YearRange>
-          {Math.min(...allYears)}-{Math.max(...allYears)}
-        </YearRange>
-      ) 
-    }
-    return null
-  }
-
   render() {
     const { config, activeYearIndex, activeAward } = this.state
-    const groupedByAward = _.groupBy(config, award => award['award.zh-tw'])
-
-    // The `groupedByAwardAndYer` object will be like:
-    // {
-    //   "award1": {
-    //     "2017": [ {...} ]
-    //   },
-    // }
-    let groupedByAwardAndYear = {}
-
-    // The `awardYearInOrder` object will be like:
-    // {
-    //   "award1": [ "2019", "2018" ]  // list years in descending order
-    // }
-    let awardYears = {}
-
-    _.keys(groupedByAward).map((key) => {
-      groupedByAwardAndYear[key] = _.groupBy(
-        groupedByAward[key], 
-        record => record.date.split('/')[0]
-      )
-      awardYears[key] = _.orderBy(_.keys(groupedByAwardAndYear[key])).reverse()
-    })
-    
+    const groupedRecords = _.get(config, 'groupedRecords')
+    const awardYears = _.get(config, 'awardYears')
+    const maxYear = _.get(config, 'yearInterval.max')
+    const minYear = _.get(config, 'yearInterval.min')
+    const total = _.get(config, 'total', 0)
     const currentYear = _.get(awardYears, `${activeAward}.${activeYearIndex}`)
-    const selectedRecords = _.get(groupedByAwardAndYear, `${activeAward}.${currentYear}`, [])
+    const selectedRecords = _.get(groupedRecords, `${activeAward}.${currentYear}`, [])
 
     return (
       <Container>
@@ -385,7 +347,7 @@ export default class Section3 extends PureComponent {
             <Achievement>
               <AwardsCount>
                 <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
-                <h2>{config ? config.length : 0}</h2>
+                <h2>{total}</h2>
                 <p>件</p>
                 <img
                   src={`${replaceGCSUrlOrigin(
@@ -393,13 +355,15 @@ export default class Section3 extends PureComponent {
                   )}`}
                 />
               </AwardsCount>
-              {this._getYearRange(config)}
+              <YearRange>
+                {minYear}-{maxYear}
+              </YearRange>
             </Achievement>
           </LeftColumnOnDesktopAbove>
           <Content
             activeAward={activeAward}
             selectedRecords={selectedRecords}
-            fullRecords={groupedByAwardAndYear}
+            fullRecords={groupedRecords}
             awardsName={awardsName}
             awardYears={awardYears}
             activeYearIndex={activeYearIndex}

@@ -259,12 +259,15 @@ export default class AccordionList extends PureComponent {
 }
 
 AccordionList.defaultProps = {
-  transitionDuration: '100ms'
+  fullRecords: {},
+  transitionDuration: '100ms',
+  awardsName: [],
+  awardsYears: []
 }
 
 AccordionList.propTypes = {
-  fullRecords: PropTypes.object.isRequired,
-  awardsName: PropTypes.array.isRequired,
-  awardYears: PropTypes.object.isRequired,
+  fullRecords: PropTypes.object,
+  awardsName: PropTypes.array,
+  awardYears: PropTypes.object,
   transitionDuration: PropTypes.string
 }

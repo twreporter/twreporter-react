@@ -202,14 +202,18 @@ export default class PaginatedList extends PureComponent {
 }
 
 PaginatedList.defaultProps = {
-  transitionDuration: '500ms'
+  transitionDuration: '500ms',
+  currentPage: 0,
+  paginatedAwardsList: [],
+  activeAward: '',
+  activeYearIndex: 0 
 }
 
 PaginatedList.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  paginatedAwardsList: PropTypes.array.isRequired,
+  currentPage: PropTypes.number,
+  paginatedAwardsList: PropTypes.array,
   transitionDuration: PropTypes.string,
   backToTop: PropTypes.func.isRequired,
-  activeAward: PropTypes.string.isRequired,
-  activeYearIndex: PropTypes.number.isRequired
+  activeAward: PropTypes.string,
+  activeYearIndex: PropTypes.number
 }
