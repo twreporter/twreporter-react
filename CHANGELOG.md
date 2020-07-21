@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.4.26-rc.0
+
+### Commits
+* [[`99fdc5b576`](https://github.com/twreporter/twreporter-react/commit/99fdc5b576)] - **chore**: @twreporter/react-article-components@1.1.9-rc.0 (nickhsine)
+* [[`c656e56f2a`](https://github.com/twreporter/twreporter-react/commit/c656e56f2a)] - **fix**: update sitemap URL (nickhsine)
+* [[`869035cc8f`](https://github.com/twreporter/twreporter-react/commit/869035cc8f)] - **fix**: prevent dev env from error reorting (nickhsine)
+
 ## 4.4.25
 
 ### Notable Changes
