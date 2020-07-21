@@ -62,7 +62,14 @@ function loggerFactory() {
 
   factory.makeExpressMiddleware = () => {
     const logger = factory.getLogger()
-    return makeExpressMiddleware(logger)
+    if (globalEnv.isProduction) {
+      return makeExpressMiddleware(logger)
+    }
+
+    return Promise.resolve((req, res, next) => {
+      logger.info(req.url)
+      next()
+    })
   }
 
   return factory
