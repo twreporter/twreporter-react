@@ -397,7 +397,6 @@ export default class Section5 extends PureComponent {
         }
       })
       .catch((err) => {
-        console.error(err) // eslint-disable-line no-console
         logger.errorReport({
           report: err,
           message: 'Something went wrong during getting configs for about-us page section5'

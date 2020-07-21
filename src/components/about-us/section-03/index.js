@@ -308,7 +308,6 @@ export default class Section3 extends PureComponent {
         this.setState({ config: _.get(res, 'data.rows') })
       })
       .catch((err) => {
-        console.error(err) // eslint-disable-line no-console
         logger.errorReport({
           report: err,
           message: 'Something went wrong during getting configs for about-us page section3'
@@ -331,6 +330,7 @@ export default class Section3 extends PureComponent {
         </YearRange>
       ) 
     }
+    return null
   }
 
   render() {
