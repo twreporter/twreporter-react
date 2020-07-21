@@ -10,7 +10,7 @@ export const sections = {
   section5: 'section5'
 }
 
-const configUrlPrefix = 'https://raw.githubusercontent.com/twreporter/twreporter-react/master/src/components/about-us/configs'
+const configUrlPrefix = 'https://about-us.twreporter.org'
 
 const configs = {
   [releaseBranch.master]: {
