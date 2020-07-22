@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import axios from 'axios'
+import bsCosnt from '../constants/browser-storage'
+import localForage from 'localforage'
 import loggerFactory from '../logger'
 import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
@@ -18,8 +20,6 @@ const _ = {
 }
 
 const formURL = twreporterRedux.utils.formURL
-const actionTypes = twreporterRedux.actionTypes
-const reduxStateFields = twreporterRedux.reduxStateFields
 
 // TODO move applicationServerPublicKey to config
 const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
@@ -217,73 +217,97 @@ const closeSVG = (
   </svg>
 )
 
+const defaults = {
+  nextPopupTs: 0,
+  isSubscribed: true,
+}
+
 class WebPush extends PureComponent {
   static propTypes = {
-    // Below props are provided by Redux
     apiOrigin: PropTypes.string.isRequired,
-    setNextPopupTS: PropTypes.func.isRequired,
-    toShowNotifyPopup: PropTypes.bool.isRequired,
-    userID: PropTypes.number
+    userId: PropTypes.number,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      toShowNotify: false,
-      toShowInstruction: false
+      nextPopupTs: defaults.nextPopupTs,
+      isSubscribed: defaults.isSubscribed,
+      toShowInstruction: false,
     }
     this.acceptNotification = this._acceptNotification.bind(this)
     this.denyNotification = this._denyNotification.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.toShowNotifyPopup) {
-      // push manager and service worker only existed on client side
-      if (isServiceWorkerSupported() && isPushSupported())  {
-        // check if service worker registered web push notification or not
-        return navigator.serviceWorker.getRegistration()
-          .then((reg) => {
-            if (reg) {
-              return reg.pushManager.getSubscription()
-            }
-            return null
+    Promise.all([
+      this.getNextPopupTsFromBrowserStorage(),
+      this.getIsSubscribed(),
+    ]).then(results => {
+      this.setState({
+        nextPopupTs: results[0],
+        isSubscribed: results[1],
+      })
+    }).catch(logger.warn)
+  }
+
+  getIsSubscribed() {
+    // push manager and service worker only existed on client side
+    if (isServiceWorkerSupported() && isPushSupported())  {
+      // check if service worker registered web push notification or not
+      return navigator.serviceWorker.getRegistration()
+        .then((reg) => {
+          if (reg) {
+            return reg.pushManager.getSubscription()
+          }
+          return null
+        })
+        .then((subscription) => {
+          if (subscription !== null) {
+            const endpoint = subscription.endpoint
+            return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
+              .catch((err) => {
+                const statusCode = _.get(err, 'response.status')
+                if (statusCode === statusCodeConst.notFound) {
+                  return err.response
+                }
+                return Promise.reject(err)
+              })
+          }
+          return null
+        })
+        .then((axiosRes) => {
+          let isSubscribed = false
+          if (_.get(axiosRes, 'status') == statusCodeConst.ok) {
+            isSubscribed = true
+          }
+          return isSubscribed
+        })
+        .catch((err) => {
+          logger.errorReport({
+            report: err,
+            message: 'Something went wrong during checking web push subscription is existed or not'
           })
-          .then((subscription) => {
-            if (subscription !== null) {
-              const endpoint = subscription.endpoint
-              return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
-                .catch((err) => {
-                  const statusCode = _.get(err, 'response.status')
-                  if (statusCode === statusCodeConst.notFound) {
-                    return err.response
-                  }
-                  return Promise.reject(err)
-                })
-            }
-            return null
-          })
-          .then((axiosRes) => {
-            let isSubscribed = false
-            if (_.get(axiosRes, 'status') == statusCodeConst.ok) {
-              isSubscribed = true
-            }
-            return isSubscribed
-          })
-          .then((isSubscribed) => {
-            this.setState({
-              toShowNotify: !isSubscribed
-            })
-          })
-          .catch((err) => {
-            logger.errorReport({
-              report: err,
-              message: 'Something went wrong during checking web push subscription is existed or not'
-            })
-          })
-      } else {
-        logger.info('Browser does not support web push or service worker')
-      }
+          return defaults.isSubscribed
+        })
+    } else {
+      logger.info('Browser does not support web push or service worker')
+      return Promise.resolve(defaults.isSubscribed)
     }
+  }
+
+  getNextPopupTsFromBrowserStorage() {
+    return localForage.getItem(bsCosnt.keys.notifyPopupTs)
+      .then(ts => {
+        if (typeof ts === 'number' && !isNaN(ts)) {
+          return ts
+        }
+        return defaults.nextPopupTs
+      })
+      .catch(err => {
+        console.warn(`Can not get ${bsCosnt.keys.notifyPopupTs} from browser storage: `, err)
+        return defaults.nextPopupTs
+      })
   }
 
   _setNextPopupToNextMonth() {
@@ -293,11 +317,17 @@ class WebPush extends PureComponent {
     // 1000 * 60 * 60 * 24 * 30 is one month in ms format
     const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
     const oneMonthLater = Date.now() + oneMonthInterval
-    this.props.setNextPopupTS(oneMonthLater)
+    localForage.setItem(bsCosnt.keys.notifyPopupTs, oneMonthLater)
+      .catch(err => {
+        console.warn(`Can not set ${bsCosnt.keys.notifyPopupTs} into browser storage: `, err)
+      })
+    this.setState({
+      nextPopupTs: oneMonthLater,
+    })
   }
 
   _acceptNotification() {
-    const { userID } = this.props
+    const { userId } = this.props
     if (isNotificationSupported() &&
       isPushSupported() &&
       isServiceWorkerSupported()) {
@@ -338,7 +368,7 @@ class WebPush extends PureComponent {
             const data = {
               endpoint: _subscription.endpoint,
               keys: JSON.stringify(_subscription.keys),
-              userID
+              'user_id': userId,
             }
 
             if (_subscription.expirationTime &&
@@ -381,7 +411,6 @@ class WebPush extends PureComponent {
 
   _denyNotification() {
     this.setState({
-      toShowNotify: false,
       toShowInstruction: false
     })
 
@@ -435,35 +464,22 @@ class WebPush extends PureComponent {
   }
 
   render() {
-    const { toShowNotifyPopup } = this.props
     let boxJSX = null
-    if (toShowNotifyPopup) {
-      if (this.state.toShowInstruction) {
-        boxJSX = this._renderInstructionBox()
-      } else if (this.state.toShowNotify) {
-        boxJSX = this._renderAcceptanceBox()
-      }
+    const {
+      isSubscribed,
+      nextPopupTs,
+      toShowInstruction,
+    } = this.state
+
+    if (toShowInstruction) {
+      boxJSX = this._renderInstructionBox()
+    } else if (nextPopupTs < Date.now() && !isSubscribed) {
+      boxJSX = this._renderAcceptanceBox()
     }
+
     return boxJSX
   }
 }
 
-function mapStateToProps(state) {
-  const ts = _.get(state, reduxStateFields.nextNotifyPopupTS, 0)
-  const apiOrigin = _.get(state, [ reduxStateFields.origins, 'api' ], '')
-  return {
-    apiOrigin,
-    userID: _.get(state, [ 'auth', 'userInfo.id' ]),
-    toShowNotifyPopup: ts < Date.now()
-  }
-}
+export default WebPush
 
-
-function setNextPopupTS(ts) {
-  return {
-    type: actionTypes.SET_NEXT_POPUP_TIME_STAMP,
-    payload: ts
-  }
-}
-
-export default connect(mapStateToProps, { setNextPopupTS })(WebPush)
