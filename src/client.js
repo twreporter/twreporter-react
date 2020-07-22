@@ -29,29 +29,28 @@ function scrollToTopAndFirePageview() {
   return null
 }
 
-twreporterRedux.createStore(reduxState, '', globalEnv.isDevelopment)
-  .then((store) => {
-    // add Google Analytics
-    ReactGA.initialize('UA-69336956-1')
-    ReactGA.set({ page: window.location.pathname })
-    const jsx = (
-      <BrowserRouter>
-        <React.Fragment>
-          <Route path="/" component={scrollToTopAndFirePageview} />
-          <Route path="/" component={hashLinkScroll} />
-          <App reduxStore={store} releaseBranch={releaseBranch}/>
-        </React.Fragment>
-      </BrowserRouter>
-    )
+const store = twreporterRedux.createStore(reduxState, '', globalEnv.isDevelopment)
 
-    Loadable.preloadReady().then(() => {
-      if (globalEnv.isDevelopment) {
-        ReactDOM.render(jsx, document.getElementById('root'))
-        return
-      }
-      ReactDOM.hydrate(jsx, document.getElementById('root'))
-    })
-  })
+// add Google Analytics
+ReactGA.initialize('UA-69336956-1')
+ReactGA.set({ page: window.location.pathname })
+const jsx = (
+  <BrowserRouter>
+    <React.Fragment>
+      <Route path="/" component={scrollToTopAndFirePageview} />
+      <Route path="/" component={hashLinkScroll} />
+      <App reduxStore={store} releaseBranch={releaseBranch}/>
+    </React.Fragment>
+  </BrowserRouter>
+)
+
+Loadable.preloadReady().then(() => {
+  if (globalEnv.isDevelopment) {
+    ReactDOM.render(jsx, document.getElementById('root'))
+    return
+  }
+  ReactDOM.hydrate(jsx, document.getElementById('root'))
+})
 
 /**
  * Copyright 2015 Google Inc. All rights reserved.
