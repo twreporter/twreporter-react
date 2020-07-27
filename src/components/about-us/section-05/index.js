@@ -390,7 +390,7 @@ export default class Section5 extends PureComponent {
   _getConfig = () => {
     return axios.get(configs[sections.section5])
       .then(res => {
-        const config = _.get(res, 'data')
+        const config = _.get(res, 'data.rows')
         if (config) {
           this._setStateByConfig(config)
           this._setScrollingHeight()
@@ -404,9 +404,37 @@ export default class Section5 extends PureComponent {
       })
   }
   
+  /*
+   * Record type definition
+   * @typeof {Object} Record 
+   * @property {string} year
+   * @property {string} month
+   * @property {string} date
+   * @property {string} text.zh-tw - description of record (zh-tw)
+   * @property {string} text.en - description of record (en)
+   * @property {string} link - link of record
+   */
+
+  /*
+   * yearlyRecords type definition
+   * @typeof {Object} yearlyRecords
+   * @property {string} year 
+   *
+   * For example:
+   * {
+   *   '2015': [{}, {}, ...],
+   *   '2016': [{}, {}, ...]
+   * }
+   */
+    
+  /* 
+   * This function converts config to `yearlyRecords`
+   *
+   * @param {Record[]} config
+   * 
+   */
   _setStateByConfig = (config) => {
-    const rows = _.get(config, 'rows')
-    const yearlyRecords = _.groupBy(rows, record => record.year)
+    const yearlyRecords = _.groupBy(config, record => record.year)
     const orderedYears = _.keys(yearlyRecords)
       // sort by year in desc order
       .sort((a, b) => Number(b) - Number(a))

@@ -252,6 +252,36 @@ export default class Section4 extends PureComponent {
   componentDidMount() {
     this._getConfig() 
   }
+
+  /*
+   * Event type definition
+   * @typeof {Object} Event 
+   * @property {string} partner.zh-tw - partner's name (zh-tw)
+   * @property {string} partner.en - partner's name (en)
+   * @property {string} description.zh-tw - event description (zh-tw)
+   * @property {string} description.en - event description (en)
+   * @property {string} date - date of event
+   * @property {string} photo - image filename of the event 
+   * @property {string} logo - partner's logo
+   * @property {string} link - event link  
+   */
+
+  /*
+   * content type definition
+   * @typeof {Event[]} content 
+   */
+
+  /*
+   * config type definition
+   * @typeof {Object} config
+   * @property {string} partner-zh-tw - partner's name (zh-tw)
+   *
+   * For example:
+   * {
+   *   '國際調查記者聯盟': [{}, {}, ...],
+   *   '德國艾德諾基金會': [{}], {}, ...
+   * }
+   */
   _getConfig = () => {
     return axios.get(configs[sections.section4])
       .then(res => {

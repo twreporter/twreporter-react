@@ -334,6 +334,38 @@ export default class List extends PureComponent {
       )
     }
     
+    /*
+     * Record type definition
+     * @typeof {Object} Record 
+     * @property {string} year
+     * @property {string} month
+     * @property {string} date
+     * @property {string} text.zh-tw - description of record (zh-tw)
+     * @property {string} text.en - description of record (en)
+     * @property {string} link - link of record
+     */
+
+    /*
+     * annualRecord contains records have the same property `year`
+     *
+     * annualRecord type definition
+     * @typeof {Record[]} annualRecord 
+     */
+
+    /*
+     * monthlyRecords is assigned by annualRecord grouped by month
+     *
+     * monthlyRecords type definition
+     * @typeof {Object{}} monthlyRecords
+     * @property {string} month
+     *
+     * For example:
+     * {
+     *   '2': [{}, {}, {}, ...],
+     *   '5': [{}, {}, {}, ...]
+     * }
+     *
+     */
     const annualAcomplishments = (annualRecords) => {
       const monthlyRecords = _.groupBy(annualRecords, data => data.month)
       const orderedMonths = _.keys(monthlyRecords)

@@ -164,6 +164,37 @@ export default class Section2 extends PureComponent {
       window.open(url, '_blank')
     }
   }
+
+  /*
+   * Member type definition
+   * @typeof {Object} Member
+   * @property {string} name.zh-tw - member's name (zh-tw)
+   * @property {string} name.en - member's name (en)
+   * @property {string} job.zh-tw - member's job (zh-tw)
+   * @property {string} job.en - member's job (en)
+   * @property {string} profile - image filename of member's profile
+   * @property {string} email - member's email
+   * @property {string} category - the department name which member belongs to
+   */
+
+  /*
+   * groupedMembers type definition
+   * @typeof {Object} groupedMembers
+   * @property {string} category - name of departments
+   *
+   * For example:
+   * {
+   *   'fundation': [{}, {}, ...],
+   *   'editor': [{}, {}, ...]
+   * }
+   */
+    
+  /* 
+   * This function converts config to `groupedMembers`
+   *
+   * @param {Member[]} config
+   * 
+   */
   _setStateByConfig = (config) => {
     this.setState({ groupedMembers : _.groupBy(config, member => member.category) })
   }
@@ -187,6 +218,13 @@ export default class Section2 extends PureComponent {
     let membersNumberArray = []
     let content
     if (groupedMembers) {
+      /*
+       * membersNumberArray is an array contains headcounts of each departments
+       *
+       * membersNumberArray type definition
+       * @typeof {number[]} membersNumberArray
+       *
+       */
       membersNumberArray = [ ...categories.fundation, ...categories.media ].map((category) => {
         if (groupedMembers[category.id]) {
           return groupedMembers[category.id].length 
