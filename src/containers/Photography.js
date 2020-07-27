@@ -189,14 +189,10 @@ function postsProp(state, listId) {
  *  @return {bool}
  */
 function hasMoreProp(state, listId) {
-  const total = _.get(state, [reduxStateFields.lists, listId, 'total'])
+  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
   const items = _.get(state, [reduxStateFields.lists, listId, 'items', 'length'], 0)
 
-  if (typeof total === 'number') {
-    return items < total
-  }
-
-  return true
+  return items < total
 }
 
 /**

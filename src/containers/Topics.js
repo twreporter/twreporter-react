@@ -198,7 +198,7 @@ function totalPagesProp(state) {
  *  @param {ReduxState} state
  *  @return {bool} indicate if it's requesting api or not
  */
-function isFetchingProp(state, listId) {
+function isFetchingProp(state) {
   return _.get(state, [reduxStateFields.topicList, 'isFetching'])
 }
 

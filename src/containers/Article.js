@@ -207,6 +207,15 @@ class Article extends PureComponent {
       )
     }
 
+    // if post is invalid
+    if (!post) {
+      return (
+        <div>
+          <SystemError error={{statusCode: 500}} />
+        </div>
+      )
+    }
+
     const slug = _.get(post, 'slug', '')
 
     post.style = uiManager.getArticleV2Style(post.style)
@@ -367,7 +376,7 @@ export function mapStateToProps(state, props) {
     })
   }
 
-  // user clicks another topic
+  // user clicks another post
   const slug = _.get(state, [selectedPost, 'slug'], emptySlug)
   if (currentPostSlug !== slug) {
     return Object.assign(defaultRtn, {
