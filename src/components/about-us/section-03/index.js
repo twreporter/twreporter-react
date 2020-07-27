@@ -14,11 +14,9 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { storageUrlPrefix } from '../utils/config'
 //lodash
 import get from 'lodash/get'
-import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
 
 const _ = {
-  groupBy, keys, get 
+  get 
 }
 
 const logger = loggerFactory.getLogger()

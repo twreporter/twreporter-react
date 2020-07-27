@@ -14,16 +14,12 @@ import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
 //lodash
-import find from 'lodash/find'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
 
 const _ = {
-  find,
   get,
-  groupBy,
-  keys
+  groupBy
 }
 
 const logger = loggerFactory.getLogger()

@@ -16,13 +16,11 @@ import { storageUrlPrefix } from '../utils/config'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import orderBy from 'lodash/orderBy'
 
 const _ = {
   get,
   groupBy,
-  keys,
-  orderBy
+  keys
 }
 
 const yearRangebgColor = '#cacaca'

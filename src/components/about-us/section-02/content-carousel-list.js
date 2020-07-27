@@ -16,18 +16,14 @@ import { storageUrlPrefix } from '../utils/config'
 // lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
-import groupBy from 'lodash/groupBy'
 import isEqual from 'lodash/isEqual'
-import values from 'lodash/values'
 
 const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
 const _ = {
   assign,
   debounce,
-  groupBy,
-  isEqual,
-  values,
+  isEqual
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)

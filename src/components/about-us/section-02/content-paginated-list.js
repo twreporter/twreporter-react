@@ -15,12 +15,10 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { storageUrlPrefix } from '../utils/config'
 //lodash
 import values from 'lodash/values'
-import isEqual from 'lodash/isEqual'
 
 const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
 const _ = {
-  isEqual,
   values
 }
 
