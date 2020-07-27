@@ -347,6 +347,11 @@ function relatedsProp(state, id) {
   const relatedPostIds = _.get(state, [relatedPostsOf, 'byId', id, 'items'], [])
   const relateds = []
   _.forEach(relatedPostIds, postId => {
+    // skip because of duplicate
+    if (postId === id) {
+      return
+    }
+
     const post = _.get(state, [entities, postsInEntities, 'byId', postId], null)
     if (post !== null) {
       relateds.push(cloneUtils.cloneMetaOfPost(post))
