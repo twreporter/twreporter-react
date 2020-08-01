@@ -141,7 +141,7 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
-  error: PropTypes.Object,
+  error: PropTypes.object,
   isFetching: PropTypes.bool,
   nPerPage: PropTypes.number,
   page: PropTypes.number,
@@ -162,7 +162,7 @@ function pageProp(location={}) {
   const search = _.get(location, 'search', '')
   const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', `${firstPage}`)
-  let page = parseInt(pageStr, 10)
+  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
 
   if (isNaN(page) || page < firstPage) {
     page = firstPage
@@ -196,7 +196,7 @@ function totalPagesProp(state) {
 
 /**
  *  @param {ReduxState} state
- *  @return {bool} indicate if it's requesting api or not
+ *  @return {boolean} indicate if it's requesting api or not
  */
 function isFetchingProp(state) {
   return _.get(state, [reduxStateFields.topicList, 'isFetching'])
@@ -221,7 +221,7 @@ function errorProp(state) {
 
 /**
  *  @typedef {Object} TopicProp
- *  @property {bool} full - if the topic is full object or only contains metadata
+ *  @property {boolean} full - if the topic is full object or only contains metadata
  *  @property {string} id - topic id
  *  @property {string} linkTo - hyperlink of the topic
  *  @property {string} title - topic title
@@ -238,10 +238,10 @@ function errorProp(state) {
  *  This function extracts neccessary fields to create a new object
  *  for rendering.
  *
- *  @param {import('@twreporter/redux/lib/typedef').Topic)} topic
+ *  @param {import('@twreporter/redux/lib/typedef').MetaOfTopic} [topic={}]
  *  @return {TopicProp}
  */
-function topicProp(topic={}) {
+function topicProp(topic) {
   const imgUrl = _.get(topic, 'leading_image_portrait.resized_targets.mobile.url') ||
     _.get(topic, 'leading_image.resized_targets.mobile.url') ||
     _.get(topic, 'og_image.resized_targets.mobile.url')
@@ -266,11 +266,9 @@ function topicProp(topic={}) {
 
 /**
  *  This function restores feature topic with embedded posts
- *  according to `ReduxState.featureTopic`.
+ *  according to `ReduxState['featureTopic']`.
  *
- *  @param {ReduxState.featureTopic} featureTopicState
- *  @param {ReduxState.entities.posts.byId} postEntities
- *  @param {ReduxState.entities.topics.byId} topicEntities
+ *  @param {ReduxState} state
  *  @return {TopicProp}
  */
 function restoreFeatureTopic(state) {
@@ -343,8 +341,8 @@ function topicsProp(state, page) {
 /**
  *  @typedef {Object} TopicsProps
  *  @property {Object} error - error object
- *  @property {bool} isFetching - if it is requesting api or not
- *  @property {bool} nPerPage - how many topics to show per page
+ *  @property {boolean} isFetching - if it is requesting api or not
+ *  @property {number} nPerPage - how many topics to show per page
  *  @property {number} page - current page for pagination
  *  @property {string} pathname - URL path
  *  @property {TopicProp[]} topics - array of topics

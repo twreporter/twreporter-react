@@ -112,7 +112,7 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
-  background-color: ${props => (props.backgroundColor ? props.backgroundColor : '')};
+  background-color: ${props => (props['backgroundColor'] ? props['backgroundColor'] : '')};
 `
 
 const webSiteJSONLD = {
@@ -349,7 +349,7 @@ class Homepage extends React.PureComponent {
  *  @param {ObjectID[]} ids
  *  @param {Object} entities
  *  @param {Function} cloneFunc -
- *  @return {MetaOfPost[] | MetaOfTopic[]}
+ *  @return {Object[]}
  */
 function cloneEntities(ids, entities, cloneFunc) {
   return _.map(ids, id => {
@@ -358,10 +358,10 @@ function cloneEntities(ids, entities, cloneFunc) {
 }
 
 /**
- *  @param {ReduxState.index_page} indexPageState
+ *  @param {ReduxState["index_page"]} indexPageState
  *  @param {string} section
  *  @param {Object} entities
- *  @return {MetaOfPost[]>}
+ *  @return {MetaOfPost[]}
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
@@ -369,10 +369,10 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
 }
 
 /**
- *  @param {ReduxState.index_page} indexPageState
+ *  @param {ReduxState['index_page']} indexPageState
  *  @param {string} section
  *  @param {Object} entities
- *  @return {MetaOfTopic[]>}
+ *  @return {MetaOfTopic[]}
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
@@ -389,10 +389,10 @@ function restoreSectionWithTopics(indexPageState, section, entities) {
  *  `ReduxState.index_page.photos_section`.
  *  `ReduxState.index_page.infographics_section`.
  *
- *  @param {ReduxState.index_page} indexPageState
- *  @param {ReduxState.entities.posts.byId} postEntities
- *  @param {ReduxState.entities.topics.byId} topicEntities
- *  @return {Object.<string, MetaOfPost[] | MetaOfTopic[]>}
+ *  @param {ReduxState['index_page']} indexPageState
+ *  @param {ReduxState['entities']['posts']['byId']} postEntities
+ *  @param {ReduxState['entities']['topics']['byId']} topicEntities
+ *  @return {Object.<string, MetaOfPost[] | MetaOfTopic[]> | {}}
  */
 function restoreSections(indexPageState, postEntities, topicEntities) {
   const {latestTopicSection, topicsSection, ...otherSections} = fieldNames.sections
@@ -424,8 +424,8 @@ function restoreSections(indexPageState, postEntities, topicEntities) {
  *  `ReduxState.index_page.politics_and_economy`,
  *  `ReduxState.index_page.human_rights_and_society`.
  *
- *  @param {ReduxState.index_page} indexPageState
- *  @param {ReduxState.entities.posts.byId} entities
+ *  @param {ReduxState['index_page']} indexPageState
+ *  @param {ReduxState['entities']['posts']['byId']} entities
  *  @return {CategoryPost[]}
  */
 function restoreCategories(indexPageState, entities) {
@@ -435,8 +435,8 @@ function restoreCategories(indexPageState, entities) {
     const ids = _.get(indexPageState, categories[key], [])
     const clonedPosts = cloneEntities(ids, entities, cloneUtils.cloneMetaOfPost)
     rtn = rtn.concat(_.map(clonedPosts, post => {
-      post.listName = categoryConst.labels[categories[key]]
-      post.moreURI = `categories/${categories[key]}`
+      post['listName'] = categoryConst.labels[categories[key]]
+      post['moreURI'] = `categories/${categories[key]}`
       return post
     }))
   }
@@ -453,9 +453,9 @@ function restoreCategories(indexPageState, entities) {
  *  This function restores feature topic with embedded posts
  *  according to `ReduxState.featureTopic`.
  *
- *  @param {ReduxState.featureTopic} featureTopicState
- *  @param {ReduxState.entities.posts.byId} postEntities
- *  @param {ReduxState.entities.topics.byId} topicEntities
+ *  @param {ReduxState['featureTopic']} featureTopicState
+ *  @param {ReduxState['entities']['posts']['byId']} postEntities
+ *  @param {ReduxState['entities']['topics']['byId']} topicEntities
  *  @return {{} | FeatureTopic}
  */
 function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
@@ -468,7 +468,7 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   const lastThreeRelatedPostIds = _.get(featureTopicState, 'lastThreeRelatedPostIds', [])
   const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, cloneUtils.cloneMetaOfPost)
   const clonedTopic = cloneUtils.cloneMetaOfTopic(topicEntities[topicId])
-  clonedTopic.relateds = relatedPosts
+  clonedTopic['relateds'] = relatedPosts
 
   return clonedTopic
 }
@@ -476,16 +476,16 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
 /**
  *  HomepageProps type definition
  *  @typedef {Object} HomepageProps
- *  @property {MetaOfPost[]} latest_section
- *  @property {MetaOfPost[]} editor_picks_section
- *  @property {MetaOfTopic | FeatureTopic} latest_topic_section
- *  @property {MetaOfPost[]} reviews_section
- *  @property {MetaOfTopic[]} topics_section
- *  @property {MetaOfPost[]} photos_section
- *  @property {MetaOfPost[]} infographics_section
+ *  @property {MetaOfPost[]} [latest_section]
+ *  @property {MetaOfPost[]} [editor_picks_section]
+ *  @property {FeatureTopic | {}} [latest_topic_section]
+ *  @property {MetaOfPost[]} [reviews_section]
+ *  @property {MetaOfTopic[]} [topics_section]
+ *  @property {MetaOfPost[]} [photos_section]
+ *  @property {MetaOfPost[]} [infographics_section]
  *  @property {CategoryPost[]} categories
- *  @property {bool} isSpinnerDisplayed
- *  @property {bool} ifAuthenticated
+ *  @property {boolean} isSpinnerDisplayed
+ *  @property {boolean} ifAuthenticated
  */
 
 /**

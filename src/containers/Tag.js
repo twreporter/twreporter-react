@@ -143,7 +143,7 @@ function pageProp(location={}) {
   const search = _.get(location, 'search', '')
   const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
-  let page = parseInt(pageStr, 10)
+  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr , 10)
 
   if (isNaN(page)) {
     page = defaultPage
@@ -166,7 +166,7 @@ function totalPagesProp(state, listId, nPerPage) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - tag list id
- *  @return {bool}
+ *  @return {boolean}
  */
 function isFetchingProp(state, listId) {
   return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
@@ -210,7 +210,7 @@ function postsProp(state, listId, page) {
  *  @typedef {Object} TagProps
  *  @property {string} tagId - tag list id
  *  @property {Object} error - error object
- *  @property {bool} isFetching - if it is requesting api or not
+ *  @property {boolean} isFetching - if it is requesting api or not
  *  @property {number} page - current page for pagination
  *  @property {string} pathname - URL path
  *  @property {MetaOfPost[]} posts - array of posts

@@ -319,6 +319,10 @@ const {
 } = reduxStateFields
 
 /**
+ *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
+ */
+
+/**
  *  @typedef {import('../utils/clone-entity').FullPost} FullPost
  */
 

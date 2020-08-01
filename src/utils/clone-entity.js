@@ -21,7 +21,7 @@ function cloneWithFields(fields, entity) {
 
 /**
  *  MetaOfPost type definition
- *  @typedef {import('@twreporter/redux/lib/typedef').Post} MetaOfPost
+ *  @typedef {import('@twreporter/redux/lib/typedef').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -84,7 +84,7 @@ function cloneFullPost(post) {
 
 /**
  *  MetaOfTopic type definition
- *  @typedef {import('@twreporter/redux/lib/typedef').Topic} MetaOfTopic
+ *  @typedef {import('@twreporter/redux/lib/typedef').MetaOfTopic} MetaOfTopic
  */
 
 /**

@@ -312,11 +312,11 @@ function relatedsProp(state, id) {
  *  @typedef {Object} TopicLandingPageProps
  *  @property {Object} errorOfTopic
  *  @property {Object} errorOfRelateds
- *  @property {bool} isFetchingTopic
- *  @property {bool} isFetchingRelateds
+ *  @property {boolean} isFetchingTopic
+ *  @property {boolean} isFetchingRelateds
  *  @property {Object} topic
  *  @property {MetaOfPost[]} relateds
- *  @property {bool} hasMoreRelateds
+ *  @property {boolean} hasMoreRelateds
  *  @property {string} slugToFetch - topic slug to fetch due to no content in redux state
  */
 
