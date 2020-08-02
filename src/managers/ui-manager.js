@@ -104,9 +104,10 @@ const _pathnameToLayoutArr = [ {
 }, {
   pathname: routesConst.articlePage.path,
   getLayout: (reduxState) => {
-    const entities = reduxState[reduxStateFields.entities]
-    const selectedPost = reduxState[reduxStateFields.selectedPost]
-    const post = _.get(entities, [ reduxStateFields.postsInEntities, selectedPost.slug ], {})
+    const { entities, selectedPost, postsInEntities } = reduxStateFields
+    const postSlug = _.get(reduxState, [selectedPost, 'slug'], '')
+    const postId = _.get(reduxState, [entities, postsInEntities, 'slugToId', postSlug], '')
+    const post = _.get(reduxState, [entities, postsInEntities, 'byId', postId], {})
     switch(getArticleV2Style(post.style)) {
       case styleConst.v2.pink: {
         return {
