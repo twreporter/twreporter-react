@@ -13,7 +13,7 @@ import SystemError from '../components/SystemError'
 import TopicHeader from '../components/topic/header'
 
 // utils
-import cloneUtils from '../utils/clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
@@ -272,11 +272,11 @@ const {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').FullTopic} FullTopic
+ *  @typedef {import('../utils/shallow-clone-entity').FullTopic} FullTopic
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -287,7 +287,7 @@ const {
  */
 function topicProp(state, id) {
   const topic = _.get(state, [entities, topicsInEntities, 'byId', id], null)
-  return cloneUtils.cloneFullTopic(topic)
+  return cloneUtils.shallowCloneFullTopic(topic)
 }
 
 /**
@@ -302,7 +302,7 @@ function relatedsProp(state, id) {
   _.forEach(relatedPostIds, postId => {
     const post = _.get(state, [entities, postsInEntities, 'byId', postId], null)
     if (post !== null) {
-      relateds.push(cloneUtils.cloneMetaOfPost(post))
+      relateds.push(cloneUtils.shallowCloneMetaOfPost(post))
     }
   })
   return relateds

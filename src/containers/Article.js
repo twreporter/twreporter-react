@@ -19,7 +19,7 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { Link } from 'react-router-dom'
 
 // utils
-import cloneUtils from '../utils/clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -322,11 +322,11 @@ const {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').FullPost} FullPost
+ *  @typedef {import('../utils/shallow-clone-entity').FullPost} FullPost
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -337,7 +337,7 @@ const {
  */
 function postProp(state, id) {
   const post = _.get(state, [entities, postsInEntities, 'byId', id], null)
-  return cloneUtils.cloneFullPost(post)
+  return cloneUtils.shallowCloneFullPost(post)
 }
 
 /**
@@ -357,7 +357,7 @@ function relatedsProp(state, id) {
 
     const post = _.get(state, [entities, postsInEntities, 'byId', postId], null)
     if (post !== null) {
-      relateds.push(cloneUtils.cloneMetaOfPost(post))
+      relateds.push(cloneUtils.shallowCloneMetaOfPost(post))
     }
   })
   return relateds

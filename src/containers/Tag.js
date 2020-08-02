@@ -12,7 +12,7 @@ import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 
 // utils
-import cloneUtils from '../utils/clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
@@ -131,7 +131,7 @@ class Tag extends PureComponent {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -199,7 +199,7 @@ function postsProp(state, listId, page) {
   _.forEach(postIdsForCurPage, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.cloneMetaOfPost(post))
+      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
     }
   })
   return posts

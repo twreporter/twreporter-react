@@ -6,7 +6,7 @@ const _ = {
 
 /**
  *  @param {string[]} fields
- *  @param {Object} entities
+ *  @param {Object} entity
  *  @return {Object} cloned object with certain fields
  */
 function cloneWithFields(fields, entity) {
@@ -26,15 +26,15 @@ function cloneWithFields(fields, entity) {
 
 /**
  *  FullPost type definition
- *  @typedef {import('@rwreporter/redux/lib/typedef').FullPost} FullPost
+ *  @typedef {import('@twreporter/redux/lib/typedef').FullPost} FullPost
  */
 
 /**
- *  @function cloneMetaOfPost
+ *  @function shallowCloneMetaOfPost
  *  @param {Object} post
  *  @return {MetaOfPost}
  */
-function cloneMetaOfPost(post) {
+function shallowCloneMetaOfPost(post) {
   const fields = [
     'categories',
     'full',
@@ -56,11 +56,11 @@ function cloneMetaOfPost(post) {
 }
 
 /**
- *  @function cloneFullPost
+ *  @function shallowCloneFullPost
  *  @param {Object} post
  *  @return {FullPost}
  */
-function cloneFullPost(post) {
+function shallowCloneFullPost(post) {
   const fields = [
     'designers',
     'engineers',
@@ -78,7 +78,7 @@ function cloneFullPost(post) {
     'updated_at',
   ]
 
-  const metaPost = cloneMetaOfPost(post)
+  const metaPost = shallowCloneMetaOfPost(post)
   return Object.assign(metaPost, cloneWithFields(fields, post))
 }
 
@@ -93,11 +93,11 @@ function cloneFullPost(post) {
  */
 
 /**
- *  @function cloneMetaOfTopic
+ *  @function shallowCloneMetaOfTopic
  *  @param {Object} topic
  *  @return {MetaOfTopic}
  */
-function cloneMetaOfTopic(topic) {
+function shallowCloneMetaOfTopic(topic) {
   const fields = [
     'full',
     'id',
@@ -115,11 +115,11 @@ function cloneMetaOfTopic(topic) {
 }
 
 /**
- *  @function cloneFullTopic
+ *  @function shallowCloneFullTopic
  *  @param {Object} topic
  *  @return {FullTopic}
  */
-function cloneFullTopic(topic) {
+function shallowCloneFullTopic(topic) {
   const fields = [
     'relateds_format',
     'title_position',
@@ -131,14 +131,14 @@ function cloneFullTopic(topic) {
     'og_title',
   ]
 
-  const metaTopic = cloneMetaOfTopic(topic)
+  const metaTopic = shallowCloneMetaOfTopic(topic)
   return Object.assign(metaTopic, cloneWithFields(fields, topic))
 }
 
 
 export default {
-  cloneFullPost,
-  cloneMetaOfPost,
-  cloneMetaOfTopic,
-  cloneFullTopic,
+  shallowCloneFullPost,
+  shallowCloneMetaOfPost,
+  shallowCloneMetaOfTopic,
+  shallowCloneFullTopic,
 }

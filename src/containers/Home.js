@@ -13,7 +13,7 @@ import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 
 // utils
-import cloneUtils from '../utils/clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
 import get from 'lodash/get'
@@ -365,7 +365,7 @@ function cloneEntities(ids, entities, cloneFunc) {
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.cloneMetaOfPost)
+  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfPost)
 }
 
 /**
@@ -376,7 +376,7 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.cloneMetaOfTopic)
+  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfTopic)
 }
 
 /**
@@ -433,7 +433,7 @@ function restoreCategories(indexPageState, entities) {
   const categories = fieldNames.categories
   for(const key in categories) {
     const ids = _.get(indexPageState, categories[key], [])
-    const clonedPosts = cloneEntities(ids, entities, cloneUtils.cloneMetaOfPost)
+    const clonedPosts = cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfPost)
     rtn = rtn.concat(_.map(clonedPosts, post => {
       post['listName'] = categoryConst.labels[categories[key]]
       post['moreURI'] = `categories/${categories[key]}`
@@ -466,8 +466,8 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   }
 
   const lastThreeRelatedPostIds = _.get(featureTopicState, 'lastThreeRelatedPostIds', [])
-  const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, cloneUtils.cloneMetaOfPost)
-  const clonedTopic = cloneUtils.cloneMetaOfTopic(topicEntities[topicId])
+  const relatedPosts = cloneEntities(lastThreeRelatedPostIds, postEntities, cloneUtils.shallowCloneMetaOfPost)
+  const clonedTopic = cloneUtils.shallowCloneMetaOfTopic(topicEntities[topicId])
   clonedTopic['relateds'] = relatedPosts
 
   return clonedTopic

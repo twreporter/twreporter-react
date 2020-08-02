@@ -16,7 +16,7 @@ import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 
 // utils
-import cloneUtils from '../utils/clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
 import forEach from 'lodash/forEach'
@@ -57,7 +57,7 @@ class Photography extends Component {
         // TODO render alter message
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: ${listID}, page: ${page}, nPerPage: ${nPerPage}).`
+          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`
         })
       })
   }
@@ -142,7 +142,7 @@ Photography.propTypes = {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
@@ -157,7 +157,7 @@ function errorProp(state, listId) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - photography list id
- *  @return {bool}
+ *  @return {boolean}
  */
 function isFetchingProp(state, listId) {
   return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
@@ -177,7 +177,7 @@ function postsProp(state, listId) {
   _.forEach(postIds, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.cloneMetaOfPost(post))
+      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
     }
   })
   return posts
@@ -186,11 +186,17 @@ function postsProp(state, listId) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - photography list id
- *  @return {bool}
+ *  @return {boolean}
  */
 function hasMoreProp(state, listId) {
-  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  const items = _.get(state, [reduxStateFields.lists, listId, 'items', 'length'], 0)
+  const listObj = _.get(state, [reduxStateFields.lists, listId], null)
+
+  if (!listObj) {
+    return true
+  }
+
+  const total = _.get(listObj, 'total', 0)
+  const items = _.get(listObj, 'items.length', 0)
 
   return items < total
 }
@@ -198,8 +204,8 @@ function hasMoreProp(state, listId) {
 /**
  *  @typedef {Object} PhotographyProps
  *  @property {Object} error
- *  @property {bool} hasMore
- *  @property {bool} isFetching
+ *  @property {boolean} hasMore
+ *  @property {boolean} isFetching
  *  @property {string} listId
  *  @property {MetaOfPost[]} posts
  *  @property {number} nPerPage
