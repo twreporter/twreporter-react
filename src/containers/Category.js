@@ -134,7 +134,7 @@ function pageProp(location={}) {
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
   let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
 
-  if (isNaN(page)) {
+  if (isNaN(page) || page < defaultPage) {
     page = defaultPage
   }
 
