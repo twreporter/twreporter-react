@@ -18,4 +18,16 @@ const _ = {
 export default function loadData({ match, store }) {
   const slug = _.get(match, 'params.slug')
   return store.actions.fetchAFullPost(slug)
+    .then(successAction => {
+      const postId = _.get(successAction, 'payload.post.id', '')
+      if (postId) {
+        return store.actions.fetchRelatedPostsOfAnEntity(postId)
+          .catch(failAction => {
+            logger.errorReport({
+              report: _.get(failAction, 'payload.error'),
+              message: `Error to fetch a post's related posts, post slug: '${slug}'. `
+            })
+          })
+      }
+    })
 }

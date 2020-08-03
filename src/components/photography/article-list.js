@@ -146,26 +146,26 @@ const List = styled.ul`
 
 export default class ListArticleItem extends React.PureComponent {
   _buildItem(post) {
-    const { id, publishedDate, style, slug, title } = post
+    const { id, style, slug, title } = post
+    const publishedDate = post['published_date']
     const dateString = date2yyyymmdd(publishedDate , '.')
     const url = formatPostLinkTo(slug, style)
-    const excerpt =  _.get(post, 'ogDescription', '')
-    const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
+    const excerpt =  _.get(post, 'og_description', '')
+    const imageResizedTargets = _.get(post, 'hero_image.resized_targets') || _.get(post, 'og_image.resized_targets')
     const images = [
       _.get(imageResizedTargets, 'tiny'),
       _.get(imageResizedTargets, 'mobile'),
       _.get(imageResizedTargets, 'tablet'),
       _.get(imageResizedTargets, 'desktop'),
-      _.get(imageResizedTargets, 'original')
     ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
     return (
       <Item key={id}>
         <Link to={url} target={formatPostLinkTarget(style)}>
           <ImageWrapper>
             <Image
-              alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
-              defaultImage={images[1]}
-              imgPlaceholderSrc={images[0].url}
+              alt={_.get(post, 'hero_image.description') || _.get(post, 'og_image.description')}
+              defaultImage={_.get(images, '1')}
+              imgPlaceholderSrc={_.get(images, '0.url')}
               imageSet={images}
             />
           </ImageWrapper>

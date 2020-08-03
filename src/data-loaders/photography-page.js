@@ -1,8 +1,6 @@
 import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
 
-const listID = categoryConst.ids.photography
-
 /**
  *  loadData function is used for server side rendering.
  *  It depends on redux store to load data and dispatch loaded results.
@@ -12,9 +10,7 @@ const listID = categoryConst.ids.photography
  *  @returns {Promise} which resolves with loading successfully or rejects with error
  */
 export default function loadData({ store }) {
-  return Promise.all([
-    store.actions.fetchPhotographyPostsOnIndexPage(),
-    store.actions.fetchListedPosts(listID,
-      dataLoaderConst.listType.categories, dataLoaderConst.maxResult)
-  ])
+  const listId = categoryConst.ids.photography
+  const startPage = 1
+  return store.actions.fetchPostsByCategoryListId(listId, dataLoaderConst.photographyPage.nPerPage, startPage)
 }
