@@ -4,120 +4,89 @@ import Helmet from 'react-helmet'
 import loggerFactory from '../logger'
 import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
-import qs from 'qs'
+import querystring from 'querystring'
 import React, { PureComponent } from 'react'
 import SystemError from '../components/SystemError'
+import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
+
+// utils
+import cloneUtils from '../utils/shallow-clone-entity'
+
 // lodash
+import find from 'lodash/find'
+import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import isInteger from 'lodash/isInteger'
 
 const _  = {
+  find,
+  forEach,
   get,
-  isInteger
 }
 
 const { actions, reduxStateFields, utils } = twreporterRedux
-const { fetchListedPosts } = actions
+const { fetchPostsByTagListId } = actions
 
-const MAXRESULT = 10
 const logger = loggerFactory.getLogger()
 
 class Tag extends PureComponent {
   componentDidMount() {
-    const tagId = _.get(this.props, 'tagId')
-    const page = _.get(this.props, 'page', 1)
-    this.fetchPostsWithCatch(tagId, page)
+    this.fetchPostsWithCatch()
   }
 
-  componentDidUpdate() {
-    const tagId = _.get(this.props, 'tagId')
-    const page = _.get(this.props, 'page', 1)
-    this.fetchPostsWithCatch(tagId, page)
+  componentDidUpdate(prevProps) {
+    if (this.props.tagId !== prevProps.tagId ||
+      this.props.page !== prevProps.page
+    ) {
+      this.fetchPostsWithCatch()
+    }
   }
 
-  fetchPostsWithCatch = (tagId, page) => {
-    const { fetchListedPosts } = this.props
-    return fetchListedPosts(tagId, 'tags', MAXRESULT, page)
+  fetchPostsWithCatch() {
+    const {
+      nPerPage,
+      tagId,
+      fetchPostsByTagListId,
+      page,
+    } = this.props
+
+    fetchPostsByTagListId(tagId, nPerPage, page)
       .catch((failAction) => {
-        // TODO render alert message
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (tag id: ${tagId}).`
+          message: `Error to fetch posts (tag id: '${tagId}').`
         })
       })
   }
 
-  _findTagName(tags, tagId) {
-    if (!Array.isArray(tags)) {
-      return ''
-    }
-    const tag = tags.find((_tag) => {
-      if (_.get(_tag, 'id') === tagId) {
-        return true
-      }
-      return false
+  _findTagName(post, tagId) {
+    const tags = _.get(post, 'tags', [])
+    const tag = _.find(tags, _tag => {
+      return _.get(_tag, 'id') === tagId
     })
     return _.get(tag, 'name', '')
   }
 
   render() {
     const {
-      entities,
-      lists,
+      error,
+      isFetching,
       page,
-      tagId
+      pathname,
+      posts,
+      tagId,
+      totalPages,
     } = this.props
 
-    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const error = _.get(lists, [ tagId, 'error' ], null)
-
-    // total items will be in that tagId
-    const total = _.get(lists, [ tagId, 'total' ], 0)
-
-    // pages will be like
-    // {
-    //   1: [0, 9],
-    //   3: [10, 19],
-    // }
-    //
-    // which means the items of page 1 are in items[0] to items[9],
-    // the items of page 3 are in items[10] to item [19]
-    const pages = _.get(lists, [ tagId, 'pages' ], {})
-    const totalPages = Math.ceil(total / MAXRESULT)
-    if (
-      !_.isInteger(page) ||
-      totalPages && (page > totalPages) ||
-      page < 1
-    ) {
-      return (
-        <SystemError error={{ statusCode: 404 }} />
-      )
-    }
-    // denormalize the items of current page
-    const itemRangeIndices = _.get(pages, `${page}`)
-    const posts = itemRangeIndices ? utils.denormalizePosts(_.get(lists, [ tagId, 'items' ], []).slice(itemRangeIndices[0], itemRangeIndices[1] + 1), postEntities) : []
-    const postsLen = _.get(posts, 'length', 0)
-    const isFetching = postsLen === 0
-
     // Error handling
-    if (error !== null && postsLen === 0) {
+    if (error) {
       return (
         <SystemError error={error} />
       )
     }
 
-    let postForGettingTagName = {}
-    if (posts.length > 0) {
-      postForGettingTagName = posts[0]
-    } else {
-      const samplePostId = _.get(lists, [ tagId, 'items' , 0 ], '')
-      if (samplePostId) {
-        postForGettingTagName = utils.denormalizePosts([ samplePostId ], postEntities)[0]
-      }
-    }
-    const tagName = this._findTagName(_.get(postForGettingTagName, 'tags'), tagId)
+    const tagName = this._findTagName(_.get(posts, '0'), tagId)
     const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
@@ -146,6 +115,7 @@ class Tag extends PureComponent {
           data={posts}
           tagName={tagName}
           isFetching={isFetching}
+          showSpinner={true}
         />
         <Pagination
           currentPage={page}
@@ -156,33 +126,148 @@ class Tag extends PureComponent {
   }
 }
 
+/**
+ *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
+ */
+
+/**
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
+ */
+
+/**
+ *  @param {Object} [location={}] - react-router location object
+ *  @return {number} current page
+ */
+function pageProp(location={}) {
+  const defaultPage = 1
+  const search = _.get(location, 'search', '')
+  const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
+  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr , 10)
+
+  if (isNaN(page)) {
+    page = defaultPage
+  }
+
+  return page
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - tag list id
+ *  @param {number} nPerPage - number per page
+ *  @return {number}
+ */
+function totalPagesProp(state, listId, nPerPage) {
+  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
+  return Math.ceil(total / nPerPage)
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - tag list id
+ *  @return {boolean}
+ */
+function isFetchingProp(state, listId) {
+  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - tag list id
+ *  @return {Object} error object
+ */
+function errorProp(state, listId) {
+  return _.get(state, [reduxStateFields.lists, listId, 'error'])
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - tag list id
+ *  @param {number} page - current page
+ *  @return {MetaOfPost[]}
+ */
+function postsProp(state, listId, page) {
+  const { entities, postsInEntities, lists } = reduxStateFields
+  const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
+  const listObj = _.get(state, [ lists, listId ])
+  const itemsRange = _.get(listObj, ['pages', page])
+  const postIds = _.get(listObj, 'items', [])
+  const postIdsForCurPage = Array.isArray(itemsRange) && Array.isArray(postIds) ?
+    postIds.slice(itemsRange[0], itemsRange[1] + 1) : []
+  const posts = []
+  _.forEach(postIdsForCurPage, postId => {
+    const post = _.get(postEntities, postId)
+    if (post) {
+      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+    }
+  })
+  return posts
+}
+
+
+/**
+ *  @typedef {Object} TagProps
+ *  @property {string} tagId - tag list id
+ *  @property {Object} error - error object
+ *  @property {boolean} isFetching - if it is requesting api or not
+ *  @property {number} page - current page for pagination
+ *  @property {string} pathname - URL path
+ *  @property {MetaOfPost[]} posts - array of posts
+ *  @property {number} totalPages - total page for pagination
+ */
+
+/**
+ *  @param {ReduxState} state
+ *  @param {Object} props
+ *  @param {Object} props.location - react-router location object
+ *  @param {string} props.location.pathname
+ *  @param {Object} props.match - react-router match object
+ *  @param {Object} props.match.params
+ *  @param {string} props.match.params.tagId
+ *  @return {TagProps}
+ */
 function mapStateToProps(state, props) {
-  const tagId = _.get(props, 'match.params.tagId', '')
-  const search = _.get(props, 'location.search')
-  const query = qs.parse(search, { ignoreQueryPrefix: true })
-  const page = parseInt(_.get(query, 'page', 1), 10)
-  const pathname = _.get(props, 'location.pathname', `/tag/${tagId}`)
+  const location = _.get(props, 'location')
+  const tagId = _.get(props, 'match.params.tagId')
+  const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
+
+  const page = pageProp(location)
+  const nPerPage = dataLoaderConst.tagListPage.nPerPage
+
   return {
-    lists: state[reduxStateFields.lists],
-    entities: state[reduxStateFields.entities],
+    tagId,
+    error: errorProp(state, tagId),
+    isFetching: isFetchingProp(state, tagId),
     page,
     pathname,
-    tagId
+    posts: postsProp(state, tagId, page),
+    totalPages: totalPagesProp(state, tagId, nPerPage),
   }
 }
 
 Tag.defaultProps = {
-  lists: {},
-  entities: {}
+  error: null,
+  isFetching: false,
+  nPerPage: dataLoaderConst.tagListPage.nPerPage,
+  posts: [],
+  totalPages: 0,
 }
 
 Tag.propTypes = {
-  entities: PropTypes.object,
-  lists: PropTypes.object,
+  error: PropTypes.object,
+  fetchPostsByTagListId: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
+  nPerPage: PropTypes.number,
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
-  tagId: PropTypes.string.isRequired
+
+  //TODO: define metaOfPost
+  // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
+  posts: PropTypes.array,
+  tagId: PropTypes.string.isRequired,
+  totalPages: PropTypes.number,
 }
 
 export { Tag }
-export default connect(mapStateToProps, { fetchListedPosts })(Tag)
+export default connect(mapStateToProps, { fetchPostsByTagListId })(Tag)

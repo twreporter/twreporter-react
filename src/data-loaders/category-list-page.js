@@ -1,4 +1,4 @@
-import qs from 'qs'
+import querystring from 'querystring'
 import get from 'lodash/get'
 import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
@@ -21,16 +21,18 @@ const _ = {
  *  @returns {Promise} which resolves when loading finishes
  */
 export default function loadData({ location, match, store }) {
+  const defaultPage = 1
   const search = _.get(location, 'search', '')
-  const query = qs.parse(search, { ignoreQueryPrefix: true })
-  /* fetch page 1 if query is invalid */
-  let page = parseInt(_.get(query, 'page', 1), 10)
-  if (isNaN(page) || page < 0) {
-    page = 1
+  const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
+  let page = parseInt(pageStr, 10)
+
+  if (isNaN(page) || page < defaultPage) {
+    page = defaultPage
   }
 
   const pathSegment = _.get(match, 'params.category', '')
   const catId = categoryConst.ids[pathSegment]
-  return store.actions.fetchListedPosts(catId, dataLoaderConst.listType.categories,
-    dataLoaderConst.maxResult, page)
+  return store.actions.fetchPostsByCategoryListId(catId,
+    dataLoaderConst.categoryListPage.nPerPage, page)
 }

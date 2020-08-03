@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.4.26",
+  "version": "4.5.0-rc.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -28,10 +28,10 @@
   "dependencies": {
     "@google-cloud/logging-winston": "^3.0.2",
     "@twreporter/core": "^1.2.0",
-    "@twreporter/index-page": "^1.0.8",
-    "@twreporter/react-article-components": "1.1.9-rc.0",
-    "@twreporter/react-components": "^8.2.1",
-    "@twreporter/redux": "^6.0.1",
+    "@twreporter/index-page": "1.0.9-rc.0",
+    "@twreporter/react-article-components": "1.2.0-rc.4",
+    "@twreporter/react-components": "8.2.3-rc.6",
+    "@twreporter/redux": "7.0.0-rc.4",
     "@twreporter/universal-header": "^2.1.6",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
@@ -42,6 +42,7 @@
     "express": "^4.16.3",
     "hoist-non-react-statics": "^2.5.0",
     "humps": "^0.6.0",
+    "localforage": "^1.8.1",
     "lodash": "^4.0.0",
     "memoize-one": "^5.0.5",
     "path-to-regexp": "^3.0.0",

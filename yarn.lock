@@ -464,10 +464,10 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.8.tgz#63f2066c5119d718692ccde61d54b75f3efa5bb0"
-  integrity sha512-ne11Ef3v0AMgcdXJITY5wdbGZ9xLk4t+6cVz+tgtZzAiIcgaueNBZ7hTrggWxZFp2zjfjCX+mLTmU4wD8BmH0Q==
+"@twreporter/index-page@1.0.9-rc.0":
+  version "1.0.9-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.9-rc.0.tgz#d011c60da4ab44d1687cf52c9f94cf08490d1d50"
+  integrity sha512-IPsiF+k83J7opAaKeWzXica90KhnKkEB8E467bs/AtUXHD2Bx7VSnwYuRMX3jlJA+yaEre1ppI9eotaPna/MZw==
   dependencies:
     "@twreporter/core" "^1.2.0"
     lodash "^4.0.0"
@@ -481,14 +481,14 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.1.9-rc.0":
-  version "1.1.9-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.1.9-rc.0.tgz#9c4520803c240991d6592ba828f5b000a3022aa8"
-  integrity sha512-lgw9wVneL4Kecsau1EP5HYef5H4o6aOC8jwd7UM3WfvtJCC5ivQUfV0MTZ5bkG9VRU5O2ikK2qXhhvWIj4IBgA==
+"@twreporter/react-article-components@1.2.0-rc.4":
+  version "1.2.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.2.0-rc.4.tgz#d88d0a5b35a4426364880c37fe9fa19ea38820fe"
+  integrity sha512-U6FU3/250qUvmFAHpdBkL7LhF/XAWDxq9TG7AffiRCwqns5VjTNRt4kP5EKEykxzVMLDtw2VtEi75uiRjOmADw==
   dependencies:
     "@twreporter/core" "^1.2.0"
-    "@twreporter/react-components" "^8.2.2"
-    "@twreporter/redux" "^6.0.1"
+    "@twreporter/react-components" "^8.2.3-rc.6"
+    "@twreporter/redux" "^7.0.0-rc.4"
     "@twreporter/universal-header" "^2.1.7"
     howler "^2.1.1"
     lodash "^4.17.11"
@@ -499,13 +499,13 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^8.2.1", "@twreporter/react-components@^8.2.2":
-  version "8.2.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.2.2.tgz#a4f1a7e686c674d2e943d9fc6156434002eb2807"
-  integrity sha512-ONonPVetIPzoztL9CBx8WHcp7GzwYAm6o1ANyeLJyJKE/ZkOwZOagN3ydamhOOxDrv6Udd4ViI2LS9z+IlmnVg==
+"@twreporter/react-components@8.2.3-rc.6", "@twreporter/react-components@^8.2.3-rc.6":
+  version "8.2.3-rc.6"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.2.3-rc.6.tgz#94820f9bba682e9dfaabba72925c512d4fc72f4a"
+  integrity sha512-2HMNTjeRW38xdidtsma52roVhFdtf+pLr4MsJhH674ChPoWh55bdUG0jF0fKoVVOdyBjEkON4vwZxYs6OSRnqg==
   dependencies:
     "@twreporter/core" "^1.2.0"
-    "@twreporter/redux" "^6.0.1"
+    "@twreporter/redux" "^7.0.0-rc.4"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     memoize-one "^5.0.5"
@@ -518,10 +518,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-6.0.1.tgz#7591be7ef830588caeb716cefbfc26b69936c6d9"
-  integrity sha512-vKtMpaFlQxhMweNC2ZOKEsarK0fGH5UGj1N3XTlxDDxagj3oyZzFcjYy82nFPsuXMk5VdD9PmHI/7CEEuRxR3A==
+"@twreporter/redux@7.0.0-rc.4", "@twreporter/redux@^7.0.0-rc.4":
+  version "7.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.0.0-rc.4.tgz#544227e1ee4232d8fbdf1d353b89e89ab4d09f52"
+  integrity sha512-FqR8yv083HaQrjGPdYpNnOTmcjIVz+OzUDDPckAthwHueKRpst8XmaKlDfYsNvuOZqOus5EGV5r3YBkGgTDRow==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -530,7 +530,6 @@
     lodash "^4.17.4"
     normalizr "^3.2.4"
     prop-types "^15.0.0"
-    qs "^6.5.1"
     react "^16.3.0"
     redux "^4.0.1"
     redux-thunk "^2.3.0"
@@ -5481,6 +5480,13 @@ localforage@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.7.3.tgz#0082b3ca9734679e1bd534995bdd3b24cf10f204"
   integrity sha512-1TulyYfc4udS7ECSBT2vwJksWbkwwTX8BzeUIiq8Y07Riy7bDAAnxDaPU/tWyOVmQAcWJIEIFP9lPfBGqVoPgQ==
+  dependencies:
+    lie "3.1.1"
+
+localforage@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.8.1.tgz#f6c0a24b41ab33b10e4dc84342dd696f6f3e3433"
+  integrity sha512-azSSJJfc7h4bVpi0PGi+SmLQKJl2/8NErI+LhJsrORNikMZnhaQ7rv9fHj+ofwgSHrKRlsDCL/639a6nECIKuQ==
   dependencies:
     lie "3.1.1"
 

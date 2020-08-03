@@ -1,0 +1,1561 @@
+[
+  {
+    "id": "5ad04bfc34eb611b008e396d",
+    "slug": "migrant-workers-death-in-taiwan",
+    "name": "migrant-workers-death-in-taiwan",
+    "topic_name": "台灣，移工的危險之島",
+    "title": "台灣，危險之島",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "職災地獄・移工夢碎",
+    "state": "published",
+    "description": {
+      "html": "<p>去年12月，一場燃燒8個小時的大火，刺痛所有移工最深的恐懼。桃園蘆竹的移工宿舍火災，最終造成6名人死亡、5人重傷，又是一樁魂斷異鄉的悲劇。</p><p>移工的臉書群組裡，開始紛紛討論台灣工作有多危險，大家相互提醒要注意安全。比起「賺錢天堂」，現在對移工們，台灣更多是「危險之島」的印象。</p><p>據台灣官方統計，近10年已有1,540名移工喪生在台灣，這還不包括逃跑移工死亡的黑數。若以越南移工為例，越南移工在台灣的死亡率是越南移工在日本的2倍。</p><p>台灣，普遍被旅客認定是安全的國家，何以變成移工眼裡布滿生死危機的島嶼？</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "去年12月，一場燃燒8個小時的大火，刺痛所有移工最深的恐懼。桃園蘆竹的移工宿舍火災，最終造成6名人死亡、5人重傷，又是一樁魂斷異鄉的悲劇。"
+          ],
+          "id": "f0euj",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "移工的臉書群組裡，開始紛紛討論台灣工作有多危險，大家相互提醒要注意安全。比起「賺錢天堂」，現在對移工們，台灣更多是「危險之島」的印象。"
+          ],
+          "id": "510th",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "據台灣官方統計，近10年已有1,540名移工喪生在台灣，這還不包括逃跑移工死亡的黑數。若以越南移工為例，越南移工在台灣的死亡率是越南移工在日本的2倍。"
+          ],
+          "id": "19tiu",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "台灣，普遍被旅客認定是安全的國家，何以變成移工眼裡布滿生死危機的島嶼？"
+          ],
+          "id": "233vu",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>監製｜方德琳</p><p>記者｜簡永達</p><p>封面攝影｜簡永達</p><p>攝影｜余志偉、簡永達</p><p>編輯｜張詩芸 </p><p>設計｜黃禹禛、鄭涵文</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "監製｜方德琳"
+          ],
+          "id": "cpc9",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "記者｜簡永達"
+          ],
+          "id": "1go79",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "封面攝影｜簡永達"
+          ],
+          "id": "3serl",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "攝影｜余志偉、簡永達"
+          ],
+          "id": "3qn4s",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "編輯｜張詩芸 "
+          ],
+          "id": "95gd7",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "設計｜黃禹禛、鄭涵文"
+          ],
+          "id": "fhodn",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "5acefc4434eb611b008e3968",
+      "5acecbbd34eb611b008e3960",
+      "5ad4686434eb611b008e39a5",
+      "5acf127a34eb611b008e3969"
+    ],
+    "relateds_format": "in-column",
+    "relateds_background": "#ca784e",
+    "leading_image": {
+      "id": "5ad056ac34eb611b008e3983",
+      "description": "台灣，移工的危險之島_(攝影/簡永達)",
+      "copyright": "Copyrighted",
+      "height": 3088,
+      "filetype": "image/jpeg",
+      "width": 4112,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 601,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-mobile.jpg"
+        },
+        "tiny": {
+          "height": 113,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1502,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-desktop.jpg"
+        },
+        "tablet": {
+          "height": 901,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-tablet.jpg"
+        },
+        "w400": {
+          "height": 300,
+          "width": 400,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-w400.jpg"
+        }
+      }
+    },
+    "og_title": "台灣，危險之島",
+    "og_description": "在觀光客眼中，台灣相對很安全；在移工的臉書群組裡，卻開始紛紛討論在台灣工作有多危險，誰碰上職災，誰屍骨還鄉。",
+    "og_image": {
+      "id": "5ad056ac34eb611b008e3983",
+      "description": "台灣，移工的危險之島_(攝影/簡永達)",
+      "copyright": "Copyrighted",
+      "height": 3088,
+      "filetype": "image/jpeg",
+      "width": 4112,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 601,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-mobile.jpg"
+        },
+        "tiny": {
+          "height": 113,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1502,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-desktop.jpg"
+        },
+        "tablet": {
+          "height": 901,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-tablet.jpg"
+        },
+        "w400": {
+          "height": 300,
+          "width": 400,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180413150516-e6bb687e519388dc9d75f5d841297d45-w400.jpg"
+        }
+      }
+    },
+    "published_date": "2018-04-17T00:00:00Z",
+    "updated_at": "2018-04-18T07:44:24.157Z",
+    "full": true
+  },
+  {
+    "id": "5ab206508d9ce917004051c5",
+    "slug": "child-health-care-taiwan",
+    "name": "child-health-care-taiwan",
+    "topic_name": "搶救兒童高死亡率",
+    "title": "每天我們失去5個孩子——搶救兒童高死亡率",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>不到1,000公克的巴掌天使，完成腸子修補手術，細若手指的小腳在保溫箱裡微弱地顫動，那是他為了活下去的努力。加護病房外，「95！95！」的急救代碼廣播響起，母親心碎的哭聲畫破醫院長廊的寂靜，那是一個小生命消逝的聲音。   </p><p>每一天，有5個孩子從台灣離去，多少孩子儘管羸弱仍有求生本能；除了重大先天疾病，早產、急症或溺水、墜樓、車禍的孩子都有機會被救治或防範，只因居住的地方沒有兒科醫療、家庭經濟弱勢無法就醫，或因安全教育及防護不足而「枉死」。</p><p>台灣19歲以下兒童死亡率，25年來降幅落後世界平均值、是已開發國家的後段班。兒童急重症科醫師老化凋零、在後繼無人中「爆肝」；提供24小時兒童急診的醫院持續消退，家長半夜抱病兒可能求助無門；守護巴掌天使的新生兒科醫師無償外接轉診病兒、風險得自扛；站在兒虐最前線的兒少保護醫療工作者，往往只能義務「做功德」；擔負重症醫療最後線及創新技術、世代健康研究任務的四大兒童醫院，都因經費不足而「玩假的」。   </p><p>比起催生，改善兒童高死亡率是更為急迫的人口戰役！《報導者》採訪團隊從都會走進偏鄉，從醫院體制到國家政策，解析兒童照護如何貧窮化、零碎化，檢視醫療及社會防護的破網。   </p><p>「謝謝你，來到這個世界！」</p><p>10年前，日本正式成為人口負成長國家時，有老人對公園裡嬉笑玩耍的孩子敬禮、致謝。2017年，我們少了15,000個新生兒、卻有1,800多個孩子死亡，步日本後塵，死亡人口超越出生人口，我們如何以更關注兒童生命與健康權益的方式，對孩子說一聲：「謝謝你們，來到台灣！」 </p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "不到1,000公克的巴掌天使，完成腸子修補手術，細若手指的小腳在保溫箱裡微弱地顫動，那是他為了活下去的努力。加護病房外，「95！95！」的急救代碼廣播響起，母親心碎的哭聲畫破醫院長廊的寂靜，那是一個小生命消逝的聲音。   "
+          ],
+          "id": "9n94o",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "每一天，有5個孩子從台灣離去，多少孩子儘管羸弱仍有求生本能；除了重大先天疾病，早產、急症或溺水、墜樓、車禍的孩子都有機會被救治或防範，只因居住的地方沒有兒科醫療、家庭經濟弱勢無法就醫，或因安全教育及防護不足而「枉死」。"
+          ],
+          "id": "dgdnq",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "台灣19歲以下兒童死亡率，25年來降幅落後世界平均值、是已開發國家的後段班。兒童急重症科醫師老化凋零、在後繼無人中「爆肝」；提供24小時兒童急診的醫院持續消退，家長半夜抱病兒可能求助無門；守護巴掌天使的新生兒科醫師無償外接轉診病兒、風險得自扛；站在兒虐最前線的兒少保護醫療工作者，往往只能義務「做功德」；擔負重症醫療最後線及創新技術、世代健康研究任務的四大兒童醫院，都因經費不足而「玩假的」。   "
+          ],
+          "id": "4sb9u",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "比起催生，改善兒童高死亡率是更為急迫的人口戰役！《報導者》採訪團隊從都會走進偏鄉，從醫院體制到國家政策，解析兒童照護如何貧窮化、零碎化，檢視醫療及社會防護的破網。   "
+          ],
+          "id": "e59lc",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "「謝謝你，來到這個世界！」"
+          ],
+          "id": "o3af",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "10年前，日本正式成為人口負成長國家時，有老人對公園裡嬉笑玩耍的孩子敬禮、致謝。2017年，我們少了15,000個新生兒、卻有1,800多個孩子死亡，步日本後塵，死亡人口超越出生人口，我們如何以更關注兒童生命與健康權益的方式，對孩子說一聲：「謝謝你們，來到台灣！」 "
+          ],
+          "id": "a9405",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>監製｜楊惠君\n記者｜楊惠君、張子午、陳麗婷、張雅雯\n攝影｜林佑恩、曾原信、吳逸驊、余志偉、林韶安\n影片｜林佑恩、陳麗婷、吳逸驊\n編輯｜張詩芸、賴子歆、陳思樺 \n資料整合｜陳貞樺、蔣宜婷\n設計｜黃禹禛、林珍娜\n行銷｜王儀君\n合作媒體｜今周刊\n特別感謝｜台灣兒科醫學會、台灣兒童急診醫學會、台灣新生兒科醫學會、成大健康資料加值應用研究中心  \n★本專題參與「一起夢想GoReport深度報導計畫」，於GOMAJI平台募款，募集專案特約記者人力及田調經費，全職記者費用則由《報導者》自籌\n</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "監製｜楊惠君\n記者｜楊惠君、張子午、陳麗婷、張雅雯\n攝影｜林佑恩、曾原信、吳逸驊、余志偉、林韶安\n影片｜林佑恩、陳麗婷、吳逸驊\n編輯｜張詩芸、賴子歆、陳思樺 \n資料整合｜陳貞樺、蔣宜婷\n設計｜黃禹禛、林珍娜\n行銷｜王儀君\n合作媒體｜今周刊\n特別感謝｜台灣兒科醫學會、台灣兒童急診醫學會、台灣新生兒科醫學會、成大健康資料加值應用研究中心  \n★本專題參與「一起夢想GoReport深度報導計畫」，於GOMAJI平台募款，募集專案特約記者人力及田調經費，全職記者費用則由《報導者》自籌\n"
+          ],
+          "id": "7tfl8",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "5abc9ac434eb611b008e38e4",
+      "5aaa24b78d9ce9170040516d",
+      "5aaf85588d9ce91700405178",
+      "5abb4077beb140170063d375",
+      "5ab1dc2d8d9ce917004051c3",
+      "5ab8b7638d9ce917004051db",
+      "5ab9e55d8d9ce917004051eb",
+      "5abda04d34eb611b008e38f6"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#d8d8d8",
+    "leading_image": {
+      "id": "5abf67a234eb611b008e3911",
+      "description": "搶救兒童高死亡率_(攝影/余志偉)",
+      "copyright": "Copyrighted",
+      "height": 4320,
+      "filetype": "image/jpeg",
+      "width": 6480,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1333,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-tablet.jpg"
+        },
+        "w400": {
+          "height": 267,
+          "width": 400,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-w400.jpg"
+        }
+      }
+    },
+    "leading_video": {
+      "id": "5abf674934eb611b008e3910",
+      "title": "搶救兒童高死亡率",
+      "filetype": "video/mp4",
+      "size": 13395947,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/videos/20180331184737-d0bd758422e909172d0e460308e88400.mp4"
+    },
+    "og_title": "每天我們失去5個孩子——搶救兒童高死亡率",
+    "og_description": "有機會健康長大的孩子，為何輕易從台灣醫療及社會防護網破口中流逝？比起催生，改善兒童高死亡率是更急迫的戰役！",
+    "og_image": {
+      "id": "5abf67a234eb611b008e3911",
+      "description": "搶救兒童高死亡率_(攝影/余志偉)",
+      "copyright": "Copyrighted",
+      "height": 4320,
+      "filetype": "image/jpeg",
+      "width": 6480,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1333,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-tablet.jpg"
+        },
+        "w400": {
+          "height": 267,
+          "width": 400,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180331184906-a0343ca0014441e40e3dfc7cbb0b522f-w400.jpg"
+        }
+      }
+    },
+    "published_date": "2018-04-02T00:00:00Z",
+    "updated_at": "2018-04-17T08:19:35.67Z",
+    "full": true
+  },
+  {
+    "id": "5a09403809e8eb7a03e3140b",
+    "slug": "2017-taipei-golden-horse-film-festival",
+    "name": " 2017-taipei-golden-horse-film-festival",
+    "topic_name": "第54屆金馬獎系列報導",
+    "title": "金馬54｜導演，你好！",
+    "title_position": "bottom",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>台灣年度電影盛事——金馬獎頒獎典禮將在11月25日舉行。\n《報導者》推出系列報導，專訪此次導演獎項的入圍者。</p><p>這一年來，《報導者》文化領域持續聚焦華語電影導演，挖掘他們創作的根源。\n他們是，曾經腸枯思竭、內心焦慮、即使拍片拍到手頭拮据、自我推翻又再自我和好，也不放棄心中理想電影並孤注一擲的人。</p><p>「導演，你好！」藉此向他們致意，也謝謝所有辛苦的電影工作者。</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "台灣年度電影盛事——金馬獎頒獎典禮將在11月25日舉行。\n《報導者》推出系列報導，專訪此次導演獎項的入圍者。"
+          ],
+          "id": "jkdq",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "這一年來，《報導者》文化領域持續聚焦華語電影導演，挖掘他們創作的根源。\n他們是，曾經腸枯思竭、內心焦慮、即使拍片拍到手頭拮据、自我推翻又再自我和好，也不放棄心中理想電影並孤注一擲的人。"
+          ],
+          "id": "8lu37",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "「導演，你好！」藉此向他們致意，也謝謝所有辛苦的電影工作者。"
+          ],
+          "id": "ikvo",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>專題策劃｜王儀君</p><p>記者｜王儀君、蔣宜婷、鄭涵文、張子午</p><p>特約撰稿｜吳凱琳、鄧心勝、陳昱嵐</p><p>攝影｜余志偉、吳逸驊、林佑恩、蔡耀徵</p><p>設計｜黃禹禛</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "專題策劃｜王儀君"
+          ],
+          "id": "8t9st",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "記者｜王儀君、蔣宜婷、鄭涵文、張子午"
+          ],
+          "id": "jn18",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "特約撰稿｜吳凱琳、鄧心勝、陳昱嵐"
+          ],
+          "id": "37oj1",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "攝影｜余志偉、吳逸驊、林佑恩、蔡耀徵"
+          ],
+          "id": "ftv27",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "設計｜黃禹禛"
+          ],
+          "id": "d906t",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "59d832ac91cdd4170088dd7b",
+      "590a800e507c6a0d00ab0407",
+      "59659508507c6a0d00ab06ad",
+      "59cb479691cdd4170088dd2c",
+      "595a042a507c6a0d00ab0682",
+      "5a093b4f09e8eb7a03e3140a",
+      "5a0a596c09e8eb7a03e3140d",
+      "5a0ceca809e8eb7a03e31451",
+      "5a13888909e8eb7a03e31494",
+      "5a161cf009e8eb7a03e314a0",
+      "5a177d9f09e8eb7a03e314be",
+      "5a198d2109e8eb7a03e314d9",
+      "5a198e1209e8eb7a03e314da"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#339966",
+    "leading_image": {
+      "id": "5a0ab71a09e8eb7a03e31414",
+      "description": "第54屆金馬獎系列報導。（攝影／余志偉）",
+      "copyright": "Copyrighted",
+      "height": 2970,
+      "filetype": "image/jpeg",
+      "width": 4455,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1333,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "金馬54｜導演，你好！",
+    "og_description": "台灣年度電影盛事——金馬獎頒獎典禮將在11月25日舉行。《報導者》推出導演系列，專訪此次導演獎項的入圍者。",
+    "og_image": {
+      "id": "5a0ab71a09e8eb7a03e31414",
+      "description": "第54屆金馬獎系列報導。（攝影／余志偉）",
+      "copyright": "Copyrighted",
+      "height": 2970,
+      "filetype": "image/jpeg",
+      "width": 4455,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1333,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20171114172754-2ecd344171864245568510e9aa9cc5ce-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2017-11-16T00:00:00Z",
+    "updated_at": "2017-11-27T10:49:48.78Z",
+    "full": true
+  },
+  {
+    "id": "5a604ce79532eb1700f0288e",
+    "slug": "fpc-sixth-naphtha-cracker-20-years",
+    "name": "fpc-sixth-naphtha-cracker-20-years",
+    "topic_name": "六輕環境難民",
+    "title": "六輕營運20年：科學戰爭下的環境難民",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>他們是一群被放逐在自家土地上的環境難民。</p><p>西瓜再不結果，文蛤無影無蹤，村中人口流失，葬儀社卻越開越多，救護車鳴笛響徹夜間，彷彿死神晚點名：肺癌、肝癌、乳癌、血癌、肺腺癌⋯⋯，荒村中幼無所養，壯無所用，老不得善終。</p><p>他們的鄰居，是全世界單一最大的石化園區——台塑六輕，上百種化學製程，煙囪日夜吞吐不休。運轉20年來，帶來上兆產值，那是十隻手指頭也不夠數的天文數字。鄰居帶來的GDP太重要了，拚經濟如雷貫耳，難民的呼喊，無人聽聞。</p><p>豎起在環境難民面前的那道銅牆鐵壁，叫做「傲慢與粉飾的科學」。</p><p>六輕的污染為什麼測不到？測到了也不算數？因為這是一場中央部會為難地方政府的科學戰爭；六輕的污染為什麼沒有定論？學者之間爭論不休？背後則是產學聯手製造的科學煙霧彈。</p><p>「難民」並非有家歸不得，而是走也走不了，在自己的土地上流浪。</p><p>空污的傳播比什麼都厲害，無遠弗屆，無人得以倖免。</p><p>最後想問一句：你，也是環境難民嗎？</p><div><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/YvFHNiTvq_Q\" frameborder=\"0\" allowfullscreen> </iframe></div><p></p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "他們是一群被放逐在自家土地上的環境難民。"
+          ],
+          "id": "7ln2c",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "西瓜再不結果，文蛤無影無蹤，村中人口流失，葬儀社卻越開越多，救護車鳴笛響徹夜間，彷彿死神晚點名：肺癌、肝癌、乳癌、血癌、肺腺癌⋯⋯，荒村中幼無所養，壯無所用，老不得善終。"
+          ],
+          "id": "dqbsf",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "他們的鄰居，是全世界單一最大的石化園區——台塑六輕，上百種化學製程，煙囪日夜吞吐不休。運轉20年來，帶來上兆產值，那是十隻手指頭也不夠數的天文數字。鄰居帶來的GDP太重要了，拚經濟如雷貫耳，難民的呼喊，無人聽聞。"
+          ],
+          "id": "b81b8",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "豎起在環境難民面前的那道銅牆鐵壁，叫做「傲慢與粉飾的科學」。"
+          ],
+          "id": "d3rm1",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "六輕的污染為什麼測不到？測到了也不算數？因為這是一場中央部會為難地方政府的科學戰爭；六輕的污染為什麼沒有定論？學者之間爭論不休？背後則是產學聯手製造的科學煙霧彈。"
+          ],
+          "id": "eo9ra",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "「難民」並非有家歸不得，而是走也走不了，在自己的土地上流浪。"
+          ],
+          "id": "9mdtt",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "空污的傳播比什麼都厲害，無遠弗屆，無人得以倖免。"
+          ],
+          "id": "8um11",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "最後想問一句：你，也是環境難民嗎？"
+          ],
+          "id": "c3nf8",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            {
+              "description": "",
+              "youtubeId": "YvFHNiTvq_Q"
+            }
+          ],
+          "id": "a2b4e",
+          "styles": {},
+          "type": "youtube"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            ""
+          ],
+          "id": "btb5h",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>監製｜何榮幸\n記者｜房慧真、何榮幸、林雨佑、蔣宜婷\n攝影｜余志偉、吳逸驊、林佑恩、許震唐\n數位專案管理｜陳貞樺\n設計｜黃禹禛、林珍娜\n工程｜李法賢、余崇任</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "監製｜何榮幸\n記者｜房慧真、何榮幸、林雨佑、蔣宜婷\n攝影｜余志偉、吳逸驊、林佑恩、許震唐\n數位專案管理｜陳貞樺\n設計｜黃禹禛、林珍娜\n工程｜李法賢、余崇任"
+          ],
+          "id": "dltcp",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "5a66c4a19532eb1700f028d1",
+      "5a6549be9532eb1700f02898",
+      "5a6404279532eb1700f02897",
+      "5a63f6839532eb1700f02895",
+      "5a60394c9532eb1700f0288b",
+      "5a6698a99532eb1700f028cf",
+      "5a66f7699532eb1700f028d8",
+      "5a66f0c59532eb1700f028d7"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#e5ab81",
+    "leading_image": {
+      "id": "5a6706639532eb1700f028db",
+      "description": "六輕環境難民。",
+      "copyright": "Copyrighted",
+      "height": 1335,
+      "filetype": "image/jpeg",
+      "width": 2000,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38.jpeg",
+      "resized_targets": {
+        "mobile": {
+          "height": 534,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-mobile.jpeg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-tiny.jpeg"
+        },
+        "desktop": {
+          "height": 1335,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-desktop.jpeg"
+        },
+        "tablet": {
+          "height": 801,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-tablet.jpeg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "leading_image_portrait": {
+      "id": "5a6706639532eb1700f028db",
+      "description": "六輕環境難民。",
+      "copyright": "Copyrighted",
+      "height": 1335,
+      "filetype": "image/jpeg",
+      "width": 2000,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38.jpeg",
+      "resized_targets": {
+        "mobile": {
+          "height": 534,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-mobile.jpeg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-tiny.jpeg"
+        },
+        "desktop": {
+          "height": 1335,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-desktop.jpeg"
+        },
+        "tablet": {
+          "height": 801,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20180123175443-aea7a0d9adceea44182a74f3fdc93c38-tablet.jpeg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "六輕營運20年：科學戰爭下的環境難民",
+    "og_description": "六輕帶來的GDP太重要了，拚經濟如雷貫耳；環境難民的呼喊，無人聽聞。而空污的傳播比什麼都厲害，無人得以倖免。",
+    "published_date": "2018-01-25T00:00:00Z",
+    "updated_at": "2018-01-25T03:01:03.987Z",
+    "full": true
+  },
+  {
+    "id": "58941d11f37c330d00458331",
+    "slug": "no-killing-policy",
+    "name": "no-killing-policy",
+    "topic_name": "零安樂死真相",
+    "title": "零安樂死真相",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>2017年2月，零安樂死政策正式實施，表面上看來似乎是台灣動保運動的一大里程碑。然而，關乎流浪動物的諸多問題仍有待解決。政策倉促上路的結果，是對動物福利造成更多的傷害，而衝擊最深的將是第一線工作人員。</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "2017年2月，零安樂死政策正式實施，表面上看來似乎是台灣動保運動的一大里程碑。然而，關乎流浪動物的諸多問題仍有待解決。政策倉促上路的結果，是對動物福利造成更多的傷害，而衝擊最深的將是第一線工作人員。"
+          ],
+          "id": "5laag",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>記者｜吳凱琳、陳貞樺　　\n攝影｜余志偉、吳逸驊\n設計｜吳政達、黃禹禛　　\n工程｜王珣沛、李法賢</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "記者｜吳凱琳、陳貞樺　　\n攝影｜余志偉、吳逸驊\n設計｜吳政達、黃禹禛　　\n工程｜王珣沛、李法賢"
+          ],
+          "id": "6noir",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "58298f1ee62e4a0d00b34507",
+      "5829b11997bb730d00e45b7d",
+      "58298574686a580d002d0c93",
+      "582aaea336ef6c0d002bc8ed",
+      "5829c70797bb730d00e45b80",
+      "5829cb1897bb730d00e45b82"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#b88eba",
+    "leading_image": {
+      "id": "585b7389bef9330d00afc59b",
+      "description": "零安樂死政策",
+      "copyright": "Copyrighted",
+      "height": 629,
+      "filetype": "image/png",
+      "width": 1201,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161222143241-641f9e23eed12fc28dfb9b4fa3d5e413.png",
+      "resized_targets": {
+        "mobile": {
+          "height": 419,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161222143241-641f9e23eed12fc28dfb9b4fa3d5e413-mobile.png"
+        },
+        "tiny": {
+          "height": 79,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161222143241-641f9e23eed12fc28dfb9b4fa3d5e413-tiny.png"
+        },
+        "desktop": {
+          "height": 629,
+          "width": 1201,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161222143241-641f9e23eed12fc28dfb9b4fa3d5e413-desktop.png"
+        },
+        "tablet": {
+          "height": 628,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161222143241-641f9e23eed12fc28dfb9b4fa3d5e413-tablet.png"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "零安樂死真相",
+    "og_description": "零安樂死政策正式實施，表面上看來似乎是台灣動保運動的一大里程碑。然而，關乎流浪動物的諸多問題仍有待解決。政策倉促上路的結果，是對動物福利造成更多的傷害，而衝擊最深的將是第一線工作人員。",
+    "og_image": {
+      "id": "582a73fdcc869b0d00ad7b99",
+      "description": "流浪動物的新天堂樂園？（下） -台南收容所。攝影／余志偉",
+      "copyright": "Copyrighted",
+      "height": 3750,
+      "filetype": "image/jpeg",
+      "width": 5625,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161115103333-e7f09a8a403b72d56968c88835f9ecf1.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161115103333-e7f09a8a403b72d56968c88835f9ecf1-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161115103333-e7f09a8a403b72d56968c88835f9ecf1-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1333,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161115103333-e7f09a8a403b72d56968c88835f9ecf1-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20161115103333-e7f09a8a403b72d56968c88835f9ecf1-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2016-11-15T00:00:00Z",
+    "updated_at": "2017-07-11T07:40:34.528Z",
+    "full": true
+  },
+  {
+    "id": "57af2b8dc4fbb01100b73b63",
+    "slug": "taiwanese-phd-in-china",
+    "name": "taiwanese-phd-in-china",
+    "topic_name": "西進中國的學術移工",
+    "title": "台灣人在中國：生錯時代的博士教授",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>曾經不短的一段時間，台灣學術人才虎虎生風、被高薪禮聘至中國大學任教。但這樣的情況正在改變。過去幾年間，台彎正快速輸出基層的學術人才，他們多數是台灣自己培養的博士，因為產量過剩，中國大撿便宜，大量的學術移工正辛苦地跨過黑水溝，赴中國任教。</p><p>《報導者》深入這個群體，跟著他們從沿海到內陸，從上海到內蒙古，甚至進到你很少聽過的獨立學院、技職學院。他們深入中國各處，遍地開花。他們是一群生錯時代，也是一群被台灣犠牲的博士們。</p><p>此文同時在<a target=\"_blank\" href=\"http://www.cw.com.tw/article/article.action?id=5076780\"><u>《天下雜誌》</u></a>上刊登。</p><div><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/f0J7hVbytNI\" frameborder=\"0\" allowfullscreen> </iframe></div><p></p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "曾經不短的一段時間，台灣學術人才虎虎生風、被高薪禮聘至中國大學任教。但這樣的情況正在改變。過去幾年間，台彎正快速輸出基層的學術人才，他們多數是台灣自己培養的博士，因為產量過剩，中國大撿便宜，大量的學術移工正辛苦地跨過黑水溝，赴中國任教。"
+          ],
+          "id": "8qq5m",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "《報導者》深入這個群體，跟著他們從沿海到內陸，從上海到內蒙古，甚至進到你很少聽過的獨立學院、技職學院。他們深入中國各處，遍地開花。他們是一群生錯時代，也是一群被台灣犠牲的博士們。"
+          ],
+          "id": "dbj29",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "此文同時在<a target=\"_blank\" href=\"http://www.cw.com.tw/article/article.action?id=5076780\"><u>《天下雜誌》</u></a>上刊登。"
+          ],
+          "id": "ereg3",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            {
+              "description": "",
+              "youtubeId": "f0J7hVbytNI"
+            }
+          ],
+          "id": "7bfvh",
+          "styles": {},
+          "type": "youtube"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            ""
+          ],
+          "id": "3l18u",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>採訪│李雪莉</p><p>攝影│余志偉</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "採訪│李雪莉"
+          ],
+          "id": "c9vrt",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "攝影│余志偉"
+          ],
+          "id": "cmiru",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "5768ecd2406be01000c69075",
+      "5768ef02406be01000c69079",
+      "576a2bfc406be01000c69080",
+      "57b1ee5052f20612002abb5a"
+    ],
+    "relateds_format": "in-column",
+    "relateds_background": "#d8d8d8",
+    "leading_image": {
+      "id": "57b5ee2dc9d2ef0f00be0ff6",
+      "description": "跟著台灣博士西進9+1天_25_中國學術長工專題。(攝影/余志偉)",
+      "height": 1867,
+      "filetype": "image/jpeg",
+      "width": 2800,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171938-86716babbbc80be5032886efb41b4f2c.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171938-86716babbbc80be5032886efb41b4f2c-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171938-86716babbbc80be5032886efb41b4f2c-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1334,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171938-86716babbbc80be5032886efb41b4f2c-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171938-86716babbbc80be5032886efb41b4f2c-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "台灣人在中國：生錯時代的博士教授",
+    "og_description": "過去幾年間，台彎正快速輸出基層的學術人才，他們多數是台灣自己培養的博士，因為產量過剩，中國大撿便宜，大量的學術移工正辛苦地跨過黑水溝，赴中國任教。他們是一群生錯時代的台灣博士。",
+    "og_image": {
+      "id": "57b5ec6bc9d2ef0f00be0f7e",
+      "description": "被台灣拋棄的博士──西進中國的學術移工_6_中國學術已進入買方市場，合約規定也日益嚴苛。不論走的哪一軌，進入研究型或教學型學校，這一波西進的年輕教師，都像跨過深不可測的黑水溝一樣，只能忐忑前行。（攝影╱余志偉）",
+      "height": 1867,
+      "filetype": "image/jpeg",
+      "width": 2800,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171207-f11faca1af08d3d4d906b0b2dcd202d3.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 533,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171207-f11faca1af08d3d4d906b0b2dcd202d3-mobile.jpg"
+        },
+        "tiny": {
+          "height": 100,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171207-f11faca1af08d3d4d906b0b2dcd202d3-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1334,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171207-f11faca1af08d3d4d906b0b2dcd202d3-desktop.jpg"
+        },
+        "tablet": {
+          "height": 800,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818171207-f11faca1af08d3d4d906b0b2dcd202d3-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2016-06-08T00:00:00Z",
+    "updated_at": "2017-07-03T09:31:33.894Z",
+    "full": true
+  },
+  {
+    "id": "595210c3507c6a0d00ab0641",
+    "slug": "transfer-of-sovereignty-over-hong-kong-20years",
+    "name": "transfer-of-sovereignty-over-hong-kong-20years",
+    "topic_name": "香港主權移交20年",
+    "title": "20年了　香港，你好嗎？",
+    "title_position": "center",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>這些年，香港辛苦了。\n在71香港主權移交20年的前夕，\n《報導者》採訪了6位香港跨界意見領袖，\n他們來自金融、新聞、政治、音樂、電影、農業，\n跨越3個世代、參與重要歷史事件，\n有文革、有六四、有九七、也有佔中，\n親歷神氣的香港、物質的香港、士氣低迷的香港，也有被中國化的香港。</p><p>透過第一人稱的方式，我們帶讀者看見他們的生活日常，\n談過去、現在、未來的香港精神，\n談他們的香港夢。</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "這些年，香港辛苦了。\n在71香港主權移交20年的前夕，\n《報導者》採訪了6位香港跨界意見領袖，\n他們來自金融、新聞、政治、音樂、電影、農業，\n跨越3個世代、參與重要歷史事件，\n有文革、有六四、有九七、也有佔中，\n親歷神氣的香港、物質的香港、士氣低迷的香港，也有被中國化的香港。"
+          ],
+          "id": "d3vq7",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "透過第一人稱的方式，我們帶讀者看見他們的生活日常，\n談過去、現在、未來的香港精神，\n談他們的香港夢。"
+          ],
+          "id": "1qamr",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>文字│李雪莉、王儀君</p><p>攝影│陳朗熹、余志偉、黃于倩</p><p>設計│黃禹禛</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "文字│李雪莉、王儀君"
+          ],
+          "id": "3fi44",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "攝影│陳朗熹、余志偉、黃于倩"
+          ],
+          "id": "ecquj",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "設計│黃禹禛"
+          ],
+          "id": "1emkq",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "59535923507c6a0d00ab0659",
+      "5952136c507c6a0d00ab0642",
+      "595217d2507c6a0d00ab0643",
+      "595220b6507c6a0d00ab0644",
+      "59535613507c6a0d00ab0658",
+      "5955f9e3507c6a0d00ab0668",
+      "5957be7b507c6a0d00ab0679"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#e83565",
+    "leading_image": {
+      "id": "5953438f507c6a0d00ab0651",
+      "description": "香港主權移交20年。專題圖。（設計／黃禹禛）",
+      "copyright": "Copyrighted",
+      "height": 2250,
+      "filetype": "image/png",
+      "width": 4000,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843.png",
+      "resized_targets": {
+        "mobile": {
+          "height": 450,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-mobile.png"
+        },
+        "tiny": {
+          "height": 84,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-tiny.png"
+        },
+        "desktop": {
+          "height": 1125,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-desktop.png"
+        },
+        "tablet": {
+          "height": 675,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-tablet.png"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "leading_image_portrait": {
+      "id": "59ad12ce3b908e1700bd68a4",
+      "description": "香港新精神",
+      "copyright": "Copyrighted",
+      "height": 1620,
+      "filetype": "image/png",
+      "width": 1239,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170904164606-ae3e2edbd7935034c696c29f7914b473.png",
+      "resized_targets": {
+        "mobile": {
+          "height": 1046,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170904164606-ae3e2edbd7935034c696c29f7914b473-mobile.png"
+        },
+        "tiny": {
+          "height": 196,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170904164606-ae3e2edbd7935034c696c29f7914b473-tiny.png"
+        },
+        "desktop": {
+          "height": 1620,
+          "width": 1239,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170904164606-ae3e2edbd7935034c696c29f7914b473-desktop.png"
+        },
+        "tablet": {
+          "height": 1569,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170904164606-ae3e2edbd7935034c696c29f7914b473-tablet.png"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "20年了　香港，你好嗎？",
+    "og_description": "在71香港主權移交20年前夕，《報導者》採訪了6位香港跨界、跨世代意見領袖。透過第一人稱的方式，帶讀者看見他們的生活日常，談過去、現在、未來的香港精神，以及他們的香港夢。",
+    "og_image": {
+      "id": "5953438f507c6a0d00ab0651",
+      "description": "香港主權移交20年。專題圖。（設計／黃禹禛）",
+      "copyright": "Copyrighted",
+      "height": 2250,
+      "filetype": "image/png",
+      "width": 4000,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843.png",
+      "resized_targets": {
+        "mobile": {
+          "height": 450,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-mobile.png"
+        },
+        "tiny": {
+          "height": 84,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-tiny.png"
+        },
+        "desktop": {
+          "height": 1125,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-desktop.png"
+        },
+        "tablet": {
+          "height": 675,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170628135007-e83217b13613d112cb19c67f426cf843-tablet.png"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2017-06-28T00:00:00Z",
+    "updated_at": "2017-09-04T08:46:41.117Z",
+    "full": true
+  },
+  {
+    "id": "59045228507c6a0d00ab03dc",
+    "slug": "taiwan-temporary-workers",
+    "name": "taiwan-temporary-workers",
+    "topic_name": "工作貧窮",
+    "title": "工作貧窮！年資中斷、欠薪頻傳的派遣大軍們",
+    "title_position": "bottom-left",
+    "subtitle": "",
+    "headline": "",
+    "state": "published",
+    "description": {
+      "html": "<p>想要一份正職，穩定有保障的工作似乎越來越難了！</p><p>14年來，台灣派遣人力遽增5倍，已達42萬名。企業藉著派遣規避該給員工的年終福利、年資，政府藉著派遣突破公務人員名額的限制，派遣成了一門好生意，吸引各行各業投入經營。</p><p>派遣行業競爭激烈，已進入低價競爭惡性循環，而沒有明文保障的派遣大軍們的勞動環境只有越來越惡劣。</p><p>總統蔡英文曾說，勞工是她心中最軟的一塊，上台首先要做的便是扭轉低薪、改善過勞。在她上任後的第一個勞動節，我們想問，台灣勞工，你過得好嗎？</p><p>邀請你一起追蹤蔡英文總統這一年來為勞工做了哪些事情，並針對各項勞動政見的滿意度給予評分。</p><div><div><a class=\"no-hover\" href=\"https://tsai-tracker.twreporter.org/\"><img src=\"https://storage.googleapis.com/twreporter-multimedia/images/20170430203034-bbd6029d974b8c00d178f6370fb3e59b-desktop.gif\" class=\"img-responsive\"></a> </div></div><p></p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "想要一份正職，穩定有保障的工作似乎越來越難了！"
+          ],
+          "id": "5usoe",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "14年來，台灣派遣人力遽增5倍，已達42萬名。企業藉著派遣規避該給員工的年終福利、年資，政府藉著派遣突破公務人員名額的限制，派遣成了一門好生意，吸引各行各業投入經營。"
+          ],
+          "id": "ei5vm",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "派遣行業競爭激烈，已進入低價競爭惡性循環，而沒有明文保障的派遣大軍們的勞動環境只有越來越惡劣。"
+          ],
+          "id": "fa4f4",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "總統蔡英文曾說，勞工是她心中最軟的一塊，上台首先要做的便是扭轉低薪、改善過勞。在她上任後的第一個勞動節，我們想問，台灣勞工，你過得好嗎？"
+          ],
+          "id": "b32cn",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            "邀請你一起追蹤蔡英文總統這一年來為勞工做了哪些事情，並針對各項勞動政見的滿意度給予評分。"
+          ],
+          "id": "529ld",
+          "styles": {},
+          "type": "unstyled"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            {
+              "caption": "",
+              "embeddedCode": "<a class=\"no-hover\" href=\"https://tsai-tracker.twreporter.org/\"><img src=\"https://storage.googleapis.com/twreporter-multimedia/images/20170430203034-bbd6029d974b8c00d178f6370fb3e59b-desktop.gif\" class=\"img-responsive\"></a>",
+              "embeddedCodeWithoutScript": "<a class=\"no-hover\" href=\"https://tsai-tracker.twreporter.org/\"><img src=\"https://storage.googleapis.com/twreporter-multimedia/images/20170430203034-bbd6029d974b8c00d178f6370fb3e59b-desktop.gif\" class=\"img-responsive\"></a>",
+              "scripts": []
+            }
+          ],
+          "id": "ad8vl",
+          "styles": {},
+          "type": "embeddedcode"
+        },
+        {
+          "alignment": "center",
+          "content": [
+            ""
+          ],
+          "id": "d3tbs",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "team_description": {
+      "html": "<p>記者｜陳貞樺、葉瑜娟、吳凱琳 \n攝影｜林佑恩、余志偉\n工程｜王珣沛、余崇任、李法賢、曾涵郁\n設計｜黃禹禛\n特別感謝｜台北大學公共行政學系副教授胡龍騰</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "記者｜陳貞樺、葉瑜娟、吳凱琳 \n攝影｜林佑恩、余志偉\n工程｜王珣沛、余崇任、李法賢、曾涵郁\n設計｜黃禹禛\n特別感謝｜台北大學公共行政學系副教授胡龍騰"
+          ],
+          "id": "4nnbp",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "590472d3507c6a0d00ab03e2",
+      "59031f22507c6a0d00ab03cb",
+      "590442ee507c6a0d00ab03db",
+      "590395f1507c6a0d00ab03d1",
+      "590421f1507c6a0d00ab03d2"
+    ],
+    "relateds_format": "in-row",
+    "relateds_background": "#969494",
+    "leading_image": {
+      "id": "59046b37507c6a0d00ab03e1",
+      "description": "工作貧窮。TOPIC",
+      "copyright": "Copyrighted",
+      "height": 3415,
+      "filetype": "image/jpeg",
+      "width": 5021,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 544,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-mobile.jpg"
+        },
+        "tiny": {
+          "height": 102,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1360,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-desktop.jpg"
+        },
+        "tablet": {
+          "height": 816,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "【專題】工作貧窮！年資中斷、欠薪頻傳的派遣大軍們",
+    "og_description": "派遣行業競爭激烈，已進入低價競爭惡性循環，而沒有明文保障的派遣大軍們的勞動環境只有越來越惡劣。",
+    "og_image": {
+      "id": "59046b37507c6a0d00ab03e1",
+      "description": "工作貧窮。TOPIC",
+      "copyright": "Copyrighted",
+      "height": 3415,
+      "filetype": "image/jpeg",
+      "width": 5021,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 544,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-mobile.jpg"
+        },
+        "tiny": {
+          "height": 102,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1360,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-desktop.jpg"
+        },
+        "tablet": {
+          "height": 816,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170429183015-ec711d99b80d9ab3914e8b9ac999de19-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2017-04-30T00:00:00Z",
+    "updated_at": "2017-04-30T14:09:58.036Z",
+    "full": true
+  },
+  {
+    "id": "57ac8161363d1610007ef657",
+    "slug": "0206earthquake",
+    "name": "0206earthquake",
+    "topic_name": "0206地震",
+    "title": "台南地震維冠大樓釀百死，給台灣什麼警示？",
+    "title_position": "bottom-left",
+    "subtitle": "",
+    "headline": "0206高雄美濃地震",
+    "state": "published",
+    "description": {
+      "html": "<p>2016年2月6日凌晨4點，芮氏規模6.4的大地震震倒了台南永康維冠大樓，造成上百人傷亡。\n各方專家不約而同地抨擊「中央災防體系是沒錢、沒權、沒人的多頭馬車」，讓台灣災害防救工作停滯不前。 \n\n地處斷層帶上，台灣作為地震之國， 這些年來，是否真正的記取了教訓？還有哪些重要的工作我們沒有做好？ \n台南百條人命，是否足以喚醒台灣由政府、建商到一般人民對地震的防災意識？\n</p>",
+      "api_data": [
+        {
+          "alignment": "center",
+          "content": [
+            "2016年2月6日凌晨4點，芮氏規模6.4的大地震震倒了台南永康維冠大樓，造成上百人傷亡。\n各方專家不約而同地抨擊「中央災防體系是沒錢、沒權、沒人的多頭馬車」，讓台灣災害防救工作停滯不前。 \n\n地處斷層帶上，台灣作為地震之國， 這些年來，是否真正的記取了教訓？還有哪些重要的工作我們沒有做好？ \n台南百條人命，是否足以喚醒台灣由政府、建商到一般人民對地震的防災意識？\n"
+          ],
+          "id": "fklnt",
+          "styles": {},
+          "type": "unstyled"
+        }
+      ]
+    },
+    "relateds": [
+      "573423843fac3c7322005b41",
+      "573423a73fac3c7322005b5f",
+      "573423b53fac3c7322005b6e",
+      "573423bc3fac3c7322005b75",
+      "57bde85c383d600e00399db4",
+      "573423be3fac3c7322005b78",
+      "573423be3fac3c7322005b77",
+      "573423c23fac3c7322005b7a",
+      "573423b23fac3c7322005b6a",
+      "573423bf3fac3c7322005b79"
+    ],
+    "relateds_format": "in-column",
+    "relateds_background": "#EBE5F2",
+    "leading_image": {
+      "id": "57b26997cf6a2a1100403e5e",
+      "description": "台南震災如何重建？──專訪台南市副市長、善款委員會召集人曾旭正_3_在建築品質有疑慮與地震雙重影響下，造成台南維冠大樓整棟倒毀。（攝影╱余志偉）",
+      "height": 2103,
+      "filetype": "image/jpeg",
+      "width": 2800,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816011707-0333eb233b8ccc7fbf9b356a31d6b96f.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 601,
+          "width": 800,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816011707-0333eb233b8ccc7fbf9b356a31d6b96f-mobile.jpg"
+        },
+        "tiny": {
+          "height": 113,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816011707-0333eb233b8ccc7fbf9b356a31d6b96f-tiny.jpg"
+        },
+        "desktop": {
+          "height": 1502,
+          "width": 2000,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816011707-0333eb233b8ccc7fbf9b356a31d6b96f-desktop.jpg"
+        },
+        "tablet": {
+          "height": 901,
+          "width": 1200,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816011707-0333eb233b8ccc7fbf9b356a31d6b96f-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "og_title": "0206高雄美濃地震──台南維冠大樓釀百死，給台灣什麼警示？",
+    "og_description": "地處斷層帶上，台灣作為地震之國， 這些年來，我們是否真正的記取了教訓？還有哪些重要的工作我們沒有做好？  而台南百條人命，是否足以喚醒台灣由政府、建商到一般人民對地震的防災意識？",
+    "og_image": {
+      "id": "57b34fe153fcfb0f006e10a2",
+      "description": "王价巨／災後重建，不是把房子蓋回來就好！_FB_台南地震維冠大樓初一救災，李宗典。（攝影╱余志偉）",
+      "height": 380,
+      "filetype": "image/jpeg",
+      "width": 620,
+      "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816173943-06a7f0048e190f0a8b7e86ea18333a9e.jpg",
+      "resized_targets": {
+        "mobile": {
+          "height": 380,
+          "width": 620,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816173943-06a7f0048e190f0a8b7e86ea18333a9e-mobile.jpg"
+        },
+        "tiny": {
+          "height": 92,
+          "width": 150,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816173943-06a7f0048e190f0a8b7e86ea18333a9e-tiny.jpg"
+        },
+        "desktop": {
+          "height": 380,
+          "width": 620,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816173943-06a7f0048e190f0a8b7e86ea18333a9e-desktop.jpg"
+        },
+        "tablet": {
+          "height": 380,
+          "width": 620,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160816173943-06a7f0048e190f0a8b7e86ea18333a9e-tablet.jpg"
+        },
+        "w400": {
+          "height": 0,
+          "width": 0,
+          "url": ""
+        }
+      }
+    },
+    "published_date": "2016-02-13T00:00:00Z",
+    "updated_at": "2017-07-11T07:25:19.414Z",
+    "full": true
+  }
+]
