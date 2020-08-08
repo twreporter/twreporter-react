@@ -338,11 +338,11 @@ class Homepage extends React.PureComponent {
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfPost} MetaOfPost
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
 /**
- *  @typedef {import('../utils/clone-entity').MetaOfTopic} MetaOfTopic
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfTopic} MetaOfTopic
  */
 
 /**
