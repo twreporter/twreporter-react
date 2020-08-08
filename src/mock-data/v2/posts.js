@@ -1,5 +1,5 @@
 import posts from './posts.json'
-import cloneUtils from '../../utils/clone-entity'
+import cloneUtils from '../../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
@@ -63,13 +63,13 @@ function seekPostsByListIds(mockPosts, ids, listType) {
  *  This function mocks the response of go-api `/v2/posts/:slug?full=(true|false)` endpoint
  *
  *  @param {string} slug - post slug
- *  @param {bool} full - full property of post object
+ *  @param {boolean} full - full property of post object
  *
  *  @return {Object} mocked response
  */
 export function mockAPostResponse(slug, full) {
   let post = _.find(posts, post => post.slug === slug)
-  post = full ? cloneUtils.cloneFullPost(post) : cloneUtils.cloneMetaOfPost(post)
+  post = full ? cloneUtils.shallowCloneFullPost(post) : cloneUtils.shallowCloneMetaOfPost(post)
   post.full = full
 
   if (post) {
@@ -135,7 +135,7 @@ export function mockPostsResponse(limit=10, offset=0, id, category_id, tag_id) {
         total: posts.length,
       },
       records: posts.slice(offset, offset + limit).map((_post) => {
-        const post = cloneUtils.cloneMetaOfPost(_post)
+        const post = cloneUtils.shallowCloneMetaOfPost(_post)
         post.full = false
         return post
       })
