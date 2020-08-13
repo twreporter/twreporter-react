@@ -3,7 +3,7 @@ import twreporterRedux from '@twreporter/redux'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const reduxStatePropKey = twreporterRedux.reduxStateFields
@@ -20,11 +20,17 @@ const defaultSort = 'created_at'
  */
 export default function loadData({ store }) {
   const state = store.getState()
-  const isAuthed = _.get(state, [ reduxStatePropKey.auth, 'isAuthed' ])
+  const isAuthed = _.get(state, [reduxStatePropKey.auth, 'isAuthed'])
   if (isAuthed) {
-    const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
-    const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
-    return store.actions.getMultipleBookmarks(jwt, userID, 0, defaultLimit, defaultSort)
+    const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'])
+    const userID = _.get(state, [reduxStatePropKey.auth, 'userInfo', 'user_id'])
+    return store.actions.getMultipleBookmarks(
+      jwt,
+      userID,
+      0,
+      defaultLimit,
+      defaultSort
+    )
   }
   return Promise.resolve()
 }

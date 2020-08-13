@@ -69,4 +69,12 @@ clean:
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV
 
-.PHONY: help clean build start dev test ui-test
+prettier:
+	@echo "$(P) Run prettier"
+	$(BIN_DIR)/prettier --write "**/*.{js,json,css,md,html,htm}"
+
+lint:
+	@echo "$(P) Run eslint with --fix"
+	$(BIN_DIR)/eslint --fix "**/*.js"
+
+.PHONY: help clean build start dev test ui-test lint prettier

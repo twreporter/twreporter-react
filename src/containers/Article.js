@@ -32,11 +32,11 @@ const _ = {
   throttle,
 }
 
-const { actions, actionTypes, reduxStateFields, utils } = twreporterRedux
+const { actions, actionTypes, reduxStateFields } = twreporterRedux
 const { fetchAFullPost, fetchRelatedPostsOfAnEntity } = actions
 
 const _fontLevel = {
-  small: 'small'
+  small: 'small',
 }
 
 const logger = loggerFactory.getLogger()
@@ -57,23 +57,21 @@ class Article extends PureComponent {
   componentDidMount() {
     // detect scroll position
     window.addEventListener('scroll', this.handleScroll)
-    const {
-      fontLevel,
-      changeFontLevel,
-      slugToFetch,
-    } = this.props
+    const { fontLevel, changeFontLevel, slugToFetch } = this.props
 
     // Fetch the full post
     this.fetchAFullPostWithCatch(slugToFetch)
 
     // Change fontLevel according to browser storage
-    localForage.getItem(bsConst.keys.fontLevel)
+    localForage
+      .getItem(bsConst.keys.fontLevel)
       .then(value => {
         if (value !== fontLevel) {
           changeFontLevel(value)
         }
-      }).catch(err => {
-        console.warn('Can not get item from browser storage: ',  err)
+      })
+      .catch(err => {
+        console.warn('Can not get item from browser storage: ', err)
       })
   }
 
@@ -87,21 +85,18 @@ class Article extends PureComponent {
     }
   }
 
-  fetchAFullPostWithCatch = (slug) => {
+  fetchAFullPostWithCatch = slug => {
     if (slug === emptySlug) {
       return
     }
 
-    const {
-      fetchAFullPost,
-      fetchRelatedPostsOfAnEntity,
-    } = this.props
+    const { fetchAFullPost, fetchRelatedPostsOfAnEntity } = this.props
 
     fetchAFullPost(slug)
-      .catch((failAction) => {
+      .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a full post, post slug: '${slug}'.`
+          message: `Error to fetch a full post, post slug: '${slug}'.`,
         })
       })
       .then(successAction => {
@@ -110,35 +105,29 @@ class Article extends PureComponent {
           return fetchRelatedPostsOfAnEntity(postId)
         }
       })
-      .catch((failAction) => {
+      .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a post's related posts, post slug: '${slug}'. `
+          message: `Error to fetch a post's related posts, post slug: '${slug}'. `,
         })
       })
   }
 
   loadMoreRelateds = () => {
-    const {
-      fetchRelatedPostsOfAnEntity,
-      post,
-      hasMoreRelateds,
-    } = this.props
+    const { fetchRelatedPostsOfAnEntity, post, hasMoreRelateds } = this.props
 
     const id = _.get(post, 'id', '')
     const slug = _.get(post, 'slug', '')
 
     if (id && hasMoreRelateds) {
-      return fetchRelatedPostsOfAnEntity(id)
-        .catch(failAction => {
-          logger.errorReport({
-            report: _.get(failAction, 'payload.error'),
-            message: `Error to fetch post's related posts, post slug: '${slug}'. `
-          })
+      return fetchRelatedPostsOfAnEntity(id).catch(failAction => {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch post's related posts, post slug: '${slug}'. `,
         })
+      })
     }
   }
-
 
   /**
    * Calculating the reading progress percentage.
@@ -174,10 +163,9 @@ class Article extends PureComponent {
   _handleFontLevelChange(fontLevel) {
     const { changeFontLevel } = this.props
     changeFontLevel(fontLevel)
-    localForage.setItem(bsConst.keys.fontLevel, fontLevel)
-      .catch(err => {
-        console.warn('Can not set item into browser storage: ', err)
-      })
+    localForage.setItem(bsConst.keys.fontLevel, fontLevel).catch(err => {
+      console.warn('Can not set item into browser storage: ', err)
+    })
   }
 
   render() {
@@ -201,16 +189,14 @@ class Article extends PureComponent {
     }
 
     if (isFetchingPost) {
-      return (
-        <ArticlePlaceholder />
-      )
+      return <ArticlePlaceholder />
     }
 
     // if post is invalid
     if (!post) {
       return (
         <div>
-          <SystemError error={{statusCode: 500}} />
+          <SystemError error={{ statusCode: 500 }} />
         </div>
       )
     }
@@ -221,11 +207,16 @@ class Article extends PureComponent {
 
     // for head tag
     const canonical = siteMeta.urlOrigin + '/a/' + slug
-    const ogTitle = (_.get(post, 'og_title', '') || _.get(post, 'title', '')) + siteMeta.name.separator + siteMeta.name.full
+    const ogTitle =
+      (_.get(post, 'og_title', '') || _.get(post, 'title', '')) +
+      siteMeta.name.separator +
+      siteMeta.name.full
     const ogDesc = _.get(post, 'og_description', siteMeta.desc)
-    const ogImage = _.get(post, 'og_image.resized_targets.tablet.url') ? post.og_image.resized_targets.tablet : siteMeta.ogImage
+    const ogImage = _.get(post, 'og_image.resized_targets.tablet.url')
+      ? post.og_image.resized_targets.tablet
+      : siteMeta.ogImage
     const metaOgImage = [
-      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) }
+      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) },
     ]
     if (ogImage.height) {
       metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
@@ -237,13 +228,14 @@ class Article extends PureComponent {
       <div>
         <Helmet
           title={ogTitle}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: ogDesc },
             { name: 'twitter:title', content: ogTitle },
-            { name: 'twitter:image', content: replaceGCSUrlOrigin(ogImage.url) },
+            {
+              name: 'twitter:image',
+              content: replaceGCSUrlOrigin(ogImage.url),
+            },
             { name: 'twitter:description', content: ogDesc },
             { name: 'twitter:card', content: 'summary_large_image' },
             { property: 'og:title', content: ogTitle },
@@ -251,23 +243,30 @@ class Article extends PureComponent {
             { property: 'og:type', content: 'article' },
             { property: 'og:url', content: canonical },
             { property: 'og:rich_attachment', content: 'true' },
-            ...metaOgImage
+            ...metaOgImage,
           ]}
         />
         <div itemScope itemType="http://schema.org/Article">
-          <div itemProp="publisher" itemScope itemType="http://schema.org/Organization">
+          <div
+            itemProp="publisher"
+            itemScope
+            itemType="http://schema.org/Organization"
+          >
             <meta itemProp="name" content="報導者" />
             <meta itemProp="email" content="contact@twreporter.org" />
-            <link itemProp="logo" href="https://www.twreporter.org/asset/logo-large.png" />
+            <link
+              itemProp="logo"
+              href="https://www.twreporter.org/asset/logo-large.png"
+            />
             <link itemProp="url" href="https://www.twreporter.org/" />
           </div>
           <link itemProp="mainEntityOfPage" href={canonical} />
-          <meta itemProp="dateModified" content={date2yyyymmdd(_.get(post, 'updated_at'))} />
-          <ReadingProgress ref={this._rp}/>
-          <div
-            id="article-body"
-            ref={this._articleBody}
-          >
+          <meta
+            itemProp="dateModified"
+            content={date2yyyymmdd(_.get(post, 'updated_at'))}
+          />
+          <ReadingProgress ref={this._rp} />
+          <div id="article-body" ref={this._articleBody}>
             <ArticleComponent
               post={post}
               relatedTopic={post.topic}
@@ -288,11 +287,15 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
+  changeFontLevel: PropTypes.func,
   errorOfPost: PropTypes.object,
   errorOfRelateds: PropTypes.object,
+  fetchAFullPost: PropTypes.func,
+  fetchRelatedPostsOfAnEntity: PropTypes.func,
   fontLevel: PropTypes.string,
   isFetchingPost: PropTypes.bool,
   isFetchingRelateds: PropTypes.bool,
+  post: PropTypes.object,
   // TODO: relateds: PropTypes.arrayOf(propTypeConst.post)
   relateds: PropTypes.array,
   hasMoreRelateds: PropTypes.bool,
@@ -380,7 +383,7 @@ export function mapStateToProps(state, props) {
 
   if (currentPostSlug === emptySlug) {
     return Object.assign(defaultRtn, {
-      errorOfPost: {statusCode: 404},
+      errorOfPost: { statusCode: 404 },
     })
   }
 
@@ -399,13 +402,26 @@ export function mapStateToProps(state, props) {
   const postId = _.get(state, [entities, postsInEntities, 'slugToId', slug], '')
   return {
     errorOfPost: _.get(state, [selectedPost, 'error'], null),
-    errorOfRelateds: _.get(state, [relatedPostsOf, 'byId', postId, 'error'], null),
-    fontLevel: _.get(state, [ reduxStateFields.settings, 'fontLevel'], _fontLevel.small),
+    errorOfRelateds: _.get(
+      state,
+      [relatedPostsOf, 'byId', postId, 'error'],
+      null
+    ),
+    fontLevel: _.get(
+      state,
+      [reduxStateFields.settings, 'fontLevel'],
+      _fontLevel.small
+    ),
     isFetchingPost: _.get(state, [selectedPost, 'isFetching'], false),
-    isFetchingRelateds: _.get(state, [relatedPostsOf, 'byId', postId, 'isFetching'], false),
+    isFetchingRelateds: _.get(
+      state,
+      [relatedPostsOf, 'byId', postId, 'isFetching'],
+      false
+    ),
     post: postProp(state, postId),
     relateds: relatedsProp(state, postId),
-    hasMoreRelateds: _.get(state, [relatedPostsOf, 'byId', postId, 'more', 'length'], 0) > 0,
+    hasMoreRelateds:
+      _.get(state, [relatedPostsOf, 'byId', postId, 'more', 'length'], 0) > 0,
     // set slugToFetch to empty string to
     // avoid from re-fetching the post already in redux state
     slugToFetch: emptySlug,
@@ -413,13 +429,15 @@ export function mapStateToProps(state, props) {
 }
 
 function changeFontLevel(fontLevel) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch({
       type: actionTypes.settings.changeFontLevel,
-      payload: fontLevel
+      payload: fontLevel,
     })
   }
 }
 
-export { Article }
-export default connect(mapStateToProps, { fetchAFullPost, fetchRelatedPostsOfAnEntity, changeFontLevel })(Article)
+export default connect(
+  mapStateToProps,
+  { fetchAFullPost, fetchRelatedPostsOfAnEntity, changeFontLevel }
+)(Article)

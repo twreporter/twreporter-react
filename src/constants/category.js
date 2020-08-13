@@ -8,7 +8,7 @@ const pathSegments = {
   photography: 'photography',
   politicsAndEconomy: 'politics_and_economy',
   reviews: 'reviews',
-  behindTheScenes: 'behind_the_scenes'
+  behindTheScenes: 'behind_the_scenes',
 }
 
 export default {
@@ -22,7 +22,7 @@ export default {
     [pathSegments.photography]: '574d028748fa171000c45d48',
     [pathSegments.politicsAndEconomy]: '5951dbc2507c6a0d00ab0640',
     [pathSegments.reviews]: '573177cb8c0c261000b3f6d2',
-    [pathSegments.behindTheScenes]: '5cb40f712203b617004ad35d'
+    [pathSegments.behindTheScenes]: '5cb40f712203b617004ad35d',
   },
   labels: {
     cultureAndArt: '文化．藝術',
@@ -40,7 +40,7 @@ export default {
     behindTheScenes: '戲裡戲外',
     [pathSegments.behindTheScenes]: '戲裡戲外',
     [pathSegments.reviews]: '評論',
-    [pathSegments.photography]: '攝影'
+    [pathSegments.photography]: '攝影',
   },
-  pathSegments
+  pathSegments,
 }

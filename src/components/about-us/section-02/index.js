@@ -1,6 +1,9 @@
-
 import colors from '../../../constants/colors'
-import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
+import {
+  foundationIntro,
+  mediaIntro,
+  rules,
+} from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
@@ -18,12 +21,18 @@ import styled from 'styled-components'
 import categories from '../constants/section-02/categories'
 
 const _ = {
-  groupBy, find, keys
+  groupBy,
+  find,
+  keys,
 }
 
 const members = foundationMembers.concat(mediaMembers)
-const groupedMembers = _.groupBy( members, member => member.category )
-const membersNumberArray = [ ...categories.fundation, ...categories.media ].map((category) => { return groupedMembers[category.id].length})
+const groupedMembers = _.groupBy(members, member => member.category)
+const membersNumberArray = [...categories.fundation, ...categories.media].map(
+  category => {
+    return groupedMembers[category.id].length
+  }
+)
 
 const Container = styled.div`
   position: relative;
@@ -35,10 +44,10 @@ const Container = styled.div`
     margin: ${marginBetweenSections.desktop} 0;
   `}
   ${mq.tabletOnly`
-    margin: ${marginBetweenSections.tablet} 0;    
-  `}  
+    margin: ${marginBetweenSections.tablet} 0;
+  `}
   ${mq.mobileOnly`
-    margin: ${marginBetweenSections.mobile} 0;    
+    margin: ${marginBetweenSections.mobile} 0;
   `}
 `
 
@@ -53,7 +62,7 @@ const SectionWrapper = styled.section`
   ${mq.desktopOnly`
     width: 1024px;
     padding: 60px 85px 163px 79px;
-  `}  
+  `}
   ${mq.tabletOnly`
     width: 100%;
     padding: 45px 81px 94px 81px;
@@ -65,7 +74,9 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section2.png`)});
+  background-image: url(${replaceGCSUrlOrigin(
+    `${storageUrlPrefix}/title-section2.png`
+  )});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -81,7 +92,9 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${mq.tabletAndBelow`
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section2-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-section2-mob.png`
+    )});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -142,15 +155,11 @@ const Content = styled.div`
 `
 
 export default class Section2 extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-  _sendEmail = (email) => {
+  _sendEmail = email => {
     if (typeof email !== 'undefined') {
       let url = `mailto:${email}`
       window.open(url, '_blank')
     }
-    return
   }
   render() {
     return (
@@ -161,25 +170,23 @@ export default class Section2 extends PureComponent {
             <span>MEMBERS</span>
           </Title>
           <Content>
-            <CarouselMemberList 
-              membersNumberArray = {membersNumberArray}
-              groupedMembers = {groupedMembers}
-              sendEmail = {this._sendEmail} 
+            <CarouselMemberList
+              membersNumberArray={membersNumberArray}
+              groupedMembers={groupedMembers}
+              sendEmail={this._sendEmail}
             />
             <PaginatedMemberList
-              membersNumberArray = {membersNumberArray}
-              groupedMembers = {groupedMembers}
-              sendEmail = {this._sendEmail} 
-            />              
+              membersNumberArray={membersNumberArray}
+              groupedMembers={groupedMembers}
+              sendEmail={this._sendEmail}
+            />
           </Content>
           <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
-            {
-              rules.chinese.map((rule, index) => {
-                return <p key={'rule' + index}>{rule}</p>
-              })
-            }
+            {rules.chinese.map((rule, index) => {
+              return <p key={'rule' + index}>{rule}</p>
+            })}
           </Intro>
         </SectionWrapper>
       </Container>

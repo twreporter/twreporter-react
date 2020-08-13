@@ -1,3 +1,4 @@
+/* eslint react/no-find-dom-node:1 */
 import { Waypoint } from 'react-waypoint'
 import colors from '../../../constants/colors'
 import { content } from '../constants/section-05/records'
@@ -15,10 +16,16 @@ import styled from 'styled-components'
 import Timeline from './timeline'
 
 const _ = {
-  orderBy, groupBy, keys
+  orderBy,
+  groupBy,
+  keys,
 }
 
-const orderedData = _.orderBy(content, [ 'year', 'month', 'date' ], [ 'desc', 'asc', 'asc' ])
+const orderedData = _.orderBy(
+  content,
+  ['year', 'month', 'date'],
+  ['desc', 'asc', 'asc']
+)
 const orderedDataGroupByYear = _.groupBy(orderedData, record => record.year)
 const orderedYearList = _.keys(orderedDataGroupByYear)
   // sort by year in desc order
@@ -33,7 +40,7 @@ const containerWidth = {
   mobile: '100%',
   tablet: '706px',
   desktop: '1024px',
-  overDesktop: '1440px'
+  overDesktop: '1440px',
 }
 
 const Container = styled.div`
@@ -91,7 +98,9 @@ const Title = styled.div`
     position: absolute;
     left: 0;
     top: 0;
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-section5.png`
+    )});
   `}
   ${mq.hdOnly`
     width: 327px;
@@ -104,7 +113,9 @@ const Title = styled.div`
     margin: 119px 0 0 80px;
   `}
   ${mq.tabletAndBelow`
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section5-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-section5-mob.png`
+    )});
   `}
   ${mq.tabletOnly`
     width: 408px;
@@ -151,14 +162,14 @@ const Content = styled.div`
   `}
 `
 
-const BorderBottom = styled.div `
+const BorderBottom = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: ${props => props.zIndex};
   background: ${colors.red.liverRed};
   ${mq.desktopAndAbove`
-    position: ${props => props.fixed ? 'fixed' : 'absolute'};
+    position: ${props => (props.fixed ? 'fixed' : 'absolute')};
   `}
   ${mq.tabletAndBelow`
     position: absolute;
@@ -199,7 +210,7 @@ const YearTag = styled.div`
   top: 0;
   left: 0;
   transform: translateX(-100%) translateY(-100%);
-  p{
+  p {
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-size: 13px;
     font-weight: ${font.weight.bold};
@@ -231,7 +242,9 @@ const YearRange = styled.div`
     width: 100%;
     font-size: 32px;
     letter-spacing: 0.2px;
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     font-weight: ${font.weight.thin};
     background: ${yearRangebgColor};
     span{
@@ -372,14 +385,19 @@ export default class Section5 extends PureComponent {
       yearContentHeight: [],
       unfoldArray: orderedYearList.map(() => false),
       currentYear: orderedYearList[0],
-      isBorderBottomfixed: true
+      isBorderBottomfixed: true,
     }
   }
-  
+
   componentDidMount() {
-    const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
+    const timelineScrollingHeight = ReactDOM.findDOMNode(
+      this.scrollingContent
+    ).getBoundingClientRect().height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
-    if (window.matchMedia(`(max-width: ${breakpoint.tablet.minWidth - 1}px)`).matches) {
+    if (
+      window.matchMedia(`(max-width: ${breakpoint.tablet.minWidth - 1}px)`)
+        .matches
+    ) {
       this.isMobile = true
     }
   }
@@ -388,8 +406,8 @@ export default class Section5 extends PureComponent {
    * Manages the unfoldArray which represents whether content in each year is folded
    * @param {number} index
    */
-  _foldAndUnfold = (index) => {
-    let newUnfoldArray = [ ...this.state.unfoldArray ]
+  _foldAndUnfold = index => {
+    let newUnfoldArray = [...this.state.unfoldArray]
     newUnfoldArray[index] = !newUnfoldArray[index]
     this.setState({ unfoldArray: newUnfoldArray })
   }
@@ -399,14 +417,14 @@ export default class Section5 extends PureComponent {
   }
   _onEnter = () => {
     // unfold the first year
-    let newUnfoldArray = [ ...this.state.unfoldArray ]
+    let newUnfoldArray = [...this.state.unfoldArray]
     if (this.initalOpenUp) {
       newUnfoldArray[0] = true
       this.initalOpenUp = !this.initalOpenUp
     }
     this.setState({
       isBorderBottomfixed: false,
-      unfoldArray: newUnfoldArray
+      unfoldArray: newUnfoldArray,
     })
 
     // to start or resume auto-scrolling
@@ -427,16 +445,16 @@ export default class Section5 extends PureComponent {
    * Set year which will be displayed on title according to parameter
    * @param {number} currentYear
    */
-  _getYear = (currentYearIndex) => {
+  _getYear = currentYearIndex => {
     this.setState({
-      currentYear: orderedYearList[currentYearIndex]
+      currentYear: orderedYearList[currentYearIndex],
     })
   }
   /**
    * The function is used by list.js for computing the height of children in timeline after they are mounted
    * @param {Array} contentHeightArray
    */
-  _getYearContentHeight = (contentHeightArray) => {
+  _getYearContentHeight = contentHeightArray => {
     this.setState({ yearContentHeight: contentHeightArray })
   }
   render() {
@@ -452,10 +470,12 @@ export default class Section5 extends PureComponent {
           <Container>
             <SectionWrapper>
               <OuterCircle color={`${colors.black}`}>
-                <InnerCircle color={`${colors.gray.gray96}`}/>
-                <Rect color={`${colors.secondaryColor}`}/>
+                <InnerCircle color={`${colors.gray.gray96}`} />
+                <Rect color={`${colors.secondaryColor}`} />
               </OuterCircle>
-              <Title><span>大事紀</span></Title>
+              <Title>
+                <span>大事紀</span>
+              </Title>
               <Content>
                 <AccordionTimeline>
                   <List
@@ -468,23 +488,33 @@ export default class Section5 extends PureComponent {
                   />
                 </AccordionTimeline>
                 <YearRange>
-                  <p><span>{orderedYearList[orderedYearList.length - 1]}</span></p>
+                  <p>
+                    <span>{orderedYearList[orderedYearList.length - 1]}</span>
+                  </p>
                   <p>
                     <span>{orderedYearList[0]}</span>
                     <img
-                      src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/section5-arrow.png`)}`}
+                      src={`${replaceGCSUrlOrigin(
+                        `${storageUrlPrefix}/section5-arrow.png`
+                      )}`}
                     />
                   </p>
                 </YearRange>
                 <RunningTimeline>
                   <Timeline
-                    ref={scrollingContent => this.scrollingContent = scrollingContent}
-                    childrenHeight={this.state.timelineScrollingHeight * timelineScrollingPortion}
+                    ref={scrollingContent =>
+                      (this.scrollingContent = scrollingContent)
+                    }
+                    childrenHeight={
+                      this.state.timelineScrollingHeight *
+                      timelineScrollingPortion
+                    }
                     autoScrolling={this.state.timelineScrolling}
                     startAutoScroll={this._startTimelineAutoScrolling}
                     stopAutoScroll={this._stopTimelineAutoScrolling}
                     yearContentHeight={this.state.yearContentHeight}
-                    getYear={this._getYear}>
+                    getYear={this._getYear}
+                  >
                     <List
                       unfoldArray={this.state.unfoldArray}
                       orderedData={orderedData}

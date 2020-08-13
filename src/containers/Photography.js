@@ -1,17 +1,17 @@
-/* eslint no-unused-vars: [0, { "args": "all" }]*/
+/* eslint no-unused-vars: [0, { "args": "all" }] */
 
 import ArticleList from '../components/photography/article-list'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import SystemError from '../components/SystemError'
-import TopNews from '../components/photography/top-news'
 import categoryConst from '../constants/category'
 import colors from '../constants/colors'
 import dataLoaderConst from '../constants/data-loaders'
 import loggerFactory from '../logger'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
+import { TopNews } from '../components/photography/top-news'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 
@@ -29,7 +29,7 @@ const _ = {
 
 const logger = loggerFactory.getLogger()
 
-const { fetchPostsByCategoryListId } =  twreporterRedux.actions
+const { fetchPostsByCategoryListId } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
 
 class Photography extends Component {
@@ -50,38 +50,32 @@ class Photography extends Component {
       return
     }
 
-    const page = Math.ceil((posts.length / nPerPage) + 1)
+    const page = Math.ceil(posts.length / nPerPage + 1)
 
-    return fetchPostsByCategoryListId(listId, nPerPage, page)
-      .catch((failAction) => {
+    return fetchPostsByCategoryListId(listId, nPerPage, page).catch(
+      failAction => {
         // TODO render alter message
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`
+          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
         })
-      })
+      }
+    )
   }
 
   render() {
-    const {
-      error,
-      hasMore,
-      isFetching,
-      posts,
-    } = this.props
+    const { error, hasMore, isFetching, posts } = this.props
 
     // Error handling
     if (error) {
-      return (
-        <SystemError error={error} />
-      )
+      return <SystemError error={error} />
     }
 
     const topNewsNum = 6
 
     const style = {
       backgroundColor: colors.photographyColor,
-      color: '#FFFFEB'
+      color: '#FFFFEB',
     }
 
     const canonical = siteMeta.urlOrigin + '/photography'
@@ -90,9 +84,7 @@ class Photography extends Component {
       <div style={style}>
         <Helmet
           title={title}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
@@ -104,7 +96,7 @@ class Photography extends Component {
             { property: 'og:image:width', content: siteMeta.ogImage.width },
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical }
+            { property: 'og:url', content: canonical },
           ]}
         />
         <TopNews posts={posts.slice(0, topNewsNum)} />
@@ -135,6 +127,7 @@ Photography.propTypes = {
   posts: PropTypes.array,
   hasMore: PropTypes.bool,
   nPerPage: PropTypes.number,
+  fetchPostsByCategoryListId: PropTypes.func,
 }
 
 /**
@@ -171,7 +164,7 @@ function isFetchingProp(state, listId) {
 function postsProp(state, listId) {
   const { entities, postsInEntities, lists } = reduxStateFields
   const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
-  const listObj = _.get(state, [ lists, listId ])
+  const listObj = _.get(state, [lists, listId])
   const postIds = _.get(listObj, 'items', [])
   const posts = []
   _.forEach(postIds, postId => {
@@ -228,4 +221,7 @@ function mapStateToProps(state) {
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchPostsByCategoryListId })(Photography)
+export default connect(
+  mapStateToProps,
+  { fetchPostsByCategoryListId }
+)(Photography)

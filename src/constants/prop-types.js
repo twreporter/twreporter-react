@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 const img = PropTypes.shape({
   height: PropTypes.number,
   width: PropTypes.number,
-  url: PropTypes.string
+  url: PropTypes.string,
 })
 
 const imgSet = PropTypes.shape({
@@ -11,13 +11,13 @@ const imgSet = PropTypes.shape({
   mobile: img,
   desktop: img,
   tablet: img,
-  original: img
+  original: img,
 })
 
 const imgSizes = PropTypes.shape({
   tablet: PropTypes.string,
   desktop: PropTypes.string,
-  hd: PropTypes.string
+  hd: PropTypes.string,
 })
 
 const imgObj = PropTypes.shape({
@@ -30,14 +30,14 @@ const imgObj = PropTypes.shape({
     mobile: img,
     tablet: img,
     desktop: img,
-    tiny: img
-  })
+    tiny: img,
+  }),
 })
 
 const videoObj = PropTypes.shape({
   filetype: PropTypes.string,
   title: PropTypes.title,
-  url: PropTypes.url
+  url: PropTypes.url,
 })
 
 const theme = PropTypes.shape({
@@ -48,14 +48,13 @@ const theme = PropTypes.shape({
     logo: PropTypes.string,
     subtitle: PropTypes.string,
     title: PropTypes.string,
-    topic: PropTypes.string
+    topic: PropTypes.string,
   }),
   position: PropTypes.shape({
     header: PropTypes.string,
-    title: PropTypes.string
-  })
+    title: PropTypes.string,
+  }),
 })
-
 
 export default {
   img,
@@ -63,5 +62,5 @@ export default {
   imgSizes,
   imgObj,
   theme,
-  videoObj
+  videoObj,
 }

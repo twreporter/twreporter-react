@@ -18,14 +18,14 @@ const Mq = {
   `,
   TabletAndAbove: styled.div`
     display: flex;
-    width: ${props => props.showInput ? '220px' : '20px'};
-    transition: width .2s ease;
+    width: ${props => (props.showInput ? '220px' : '20px')};
+    transition: width 0.2s ease;
     overflow: hidden;
     height: 20px;
     ${mq.mobileOnly`
       display: none;
     `}
-  `
+  `,
 }
 
 const StyledIcon = styled(WhiteSearchIcon)`
@@ -64,7 +64,7 @@ export default class SearchBox extends PureComponent {
     super(props)
     this.state = {
       showInput: false,
-      inputValue: ''
+      inputValue: '',
     }
     this.handleChange = this._handleChange.bind(this)
     this.handleBlur = this._handelBlur.bind(this, false)
@@ -75,23 +75,26 @@ export default class SearchBox extends PureComponent {
 
   _toggleShow() {
     const nextShow = !this.state.showInput
-    this.setState({
-      showInput: nextShow
-    }, () => {
-      if (nextShow) {
-        try {
-          this._input.current.focus()
-        } catch (err) {
-          logger.errorReport({
-            report: err
-          })
+    this.setState(
+      {
+        showInput: nextShow,
+      },
+      () => {
+        if (nextShow) {
+          try {
+            this._input.current.focus()
+          } catch (err) {
+            logger.errorReport({
+              report: err,
+            })
+          }
         }
       }
-    })
+    )
   }
 
   _search(query) {
-    window.location=`${searchPath}?q=${query}`
+    window.location = `${searchPath}?q=${query}`
   }
 
   _handleChange(e) {

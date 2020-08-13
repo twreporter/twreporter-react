@@ -1,4 +1,4 @@
-/*eslint no-unused-vars:0, no-console:0 */
+/* eslint no-unused-vars:0, no-console:0 */
 'use strict'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
@@ -10,9 +10,7 @@ class Blank extends Component {
     })
   }
   render() {
-    return (
-      <div>server is working</div>
-    )
+    return <div>server is working</div>
   }
 }
 

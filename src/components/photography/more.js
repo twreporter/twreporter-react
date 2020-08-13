@@ -22,8 +22,9 @@ const Container = styled.div`
     transform: scale(1);
     transition: transform 200ms ease;
   }
-  
-  &:hover, :focus {
+
+  &:hover,
+  :focus {
     polyline {
       stroke-width: 3;
     }
@@ -43,7 +44,6 @@ const Container = styled.div`
   `}
 `
 
-
 export default class More extends React.PureComponent {
   render() {
     const { loadMore, children } = this.props
@@ -52,7 +52,14 @@ export default class More extends React.PureComponent {
         {children}
         <div>
           <svg>
-            <polyline points="0,0 25,10 50,0" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <polyline
+              points="0,0 25,10 50,0"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </Container>
@@ -61,7 +68,11 @@ export default class More extends React.PureComponent {
 }
 
 More.propTypes = {
-  loadMore: PropTypes.func.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  loadMore: PropTypes.func.isRequired,
 }
 
 export { More }

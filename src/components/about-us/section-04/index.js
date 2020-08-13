@@ -13,23 +13,25 @@ import keys from 'lodash/keys'
 import styled from 'styled-components'
 
 const _ = {
-  chunk, groupBy, keys
+  chunk,
+  groupBy,
+  keys,
 }
-const content = [ ...data ]
+const content = [...data]
 const groupedContent = _.groupBy(content, partner => partner.partnerId)
 const logoBlockBorderColor = ' #e9e9e9'
 const logoBlockWidthOnDesktop = '40%'
 const transitioinDuration = 100
 const column = {
   desktop: 4,
-  mobile: 2
+  mobile: 2,
 }
 
 const containerWidth = {
   mobile: '100%',
   tablet: '706px',
   desktop: '1024px',
-  overDesktop: '1440px'
+  overDesktop: '1440px',
 }
 
 const Container = styled.div`
@@ -75,7 +77,9 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section4.png`)});
+  background-image: url(${replaceGCSUrlOrigin(
+    `${storageUrlPrefix}/title-section4.png`
+  )});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -161,7 +165,9 @@ const LogoContent = styled.div`
   top: 50%;
   transform: translateY(-50%);
   h3{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     font-weight: bold;
     margin: 0;
   }
@@ -233,15 +239,15 @@ export default class Section4 extends PureComponent {
       selectedLogo: 0,
       selectedRow: 0,
       infoPageNum: 0,
-      initialState: true
+      initialState: true,
     }
   }
-  _select = (logoIndex) => {
+  _select = logoIndex => {
     this.setState({
       selectedLogo: logoIndex,
       selectedRow: Math.floor(logoIndex / column.desktop),
       infoPageNum: 0,
-      initialState: false
+      initialState: false,
     })
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
@@ -257,8 +263,8 @@ export default class Section4 extends PureComponent {
     return {
       duration: transitioinDuration,
       animation: {
-        width: getWidth
-      }
+        width: getWidth,
+      },
     }
   }
   _nextPage = () => {
@@ -267,27 +273,26 @@ export default class Section4 extends PureComponent {
   _closeInfoBox = () => {
     this.setState({
       selectedLogo: null,
-      selectedRow: null
+      selectedRow: null,
     })
   }
   _getSelectedContent = () => {
     let { selectedLogo } = this.state
-    if (selectedLogo === null ) return
+    if (selectedLogo === null) return
     return groupedContent[_.keys(groupedContent)[selectedLogo]]
   }
   render() {
     let { selectedLogo, selectedRow, infoPageNum, initialState } = this.state
     const LogoBlockList = _.keys(groupedContent).map((key, index) => {
       let data = groupedContent[key][0]
-      let animationProps = this._getLogoBlockWidthOnDesktop(index, selectedLogo, selectedRow)
+      let animationProps = this._getLogoBlockWidthOnDesktop(
+        index,
+        selectedLogo,
+        selectedRow
+      )
       return (
-        <React.Fragment
-          key={'logo' + index}
-        >
-          <VelocityComponent
-            key={index}
-            {...animationProps}
-          >
+        <React.Fragment key={'logo' + index}>
+          <VelocityComponent key={index} {...animationProps}>
             <LogoBlockOnDesktop
               selectedLogo={selectedLogo}
               onClick={() => this._select(index)}
@@ -314,31 +319,33 @@ export default class Section4 extends PureComponent {
         </React.Fragment>
       )
     })
-    const LogoTable = _.chunk(LogoBlockList, column.desktop).map((row, index) => {
-      return (
-        <React.Fragment key={index}>
-          {row}
-          <MoreInfo
-            ref={infoOverlay => this.infoOverlay = infoOverlay}
-            rowNumber={index}
-            selectedContent={this._getSelectedContent()}
-            infoPageNum={infoPageNum}
-            selectedLogo={selectedLogo}
-            selectedRow={selectedRow}
-            closeInfoBox={this._closeInfoBox}
-            nextPage={this._nextPage}
-            initial={initialState}
-          />
-        </React.Fragment>
-      )
-    })
+    const LogoTable = _.chunk(LogoBlockList, column.desktop).map(
+      (row, index) => {
+        return (
+          <React.Fragment key={index}>
+            {row}
+            <MoreInfo
+              ref={infoOverlay => (this.infoOverlay = infoOverlay)}
+              rowNumber={index}
+              selectedContent={this._getSelectedContent()}
+              infoPageNum={infoPageNum}
+              selectedLogo={selectedLogo}
+              selectedRow={selectedRow}
+              closeInfoBox={this._closeInfoBox}
+              nextPage={this._nextPage}
+              initial={initialState}
+            />
+          </React.Fragment>
+        )
+      }
+    )
     return (
       <Container>
         <SectionWrapper>
-          <Title><span>國際參與</span></Title>
-          <Content>
-            {LogoTable}
-          </Content>
+          <Title>
+            <span>國際參與</span>
+          </Title>
+          <Content>{LogoTable}</Content>
         </SectionWrapper>
       </Container>
     )

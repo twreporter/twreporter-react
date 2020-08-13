@@ -1,6 +1,6 @@
 import { buildFbShareLink } from '../utils/build-fb-share-link'
 import colors from '../../../constants/colors'
-import { css, keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { font } from '../constants/styles'
 import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
@@ -16,7 +16,6 @@ import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import siteMeta from '../../../constants/site-meta'
-import styled from 'styled-components'
 
 const transitionDuration = 300
 
@@ -26,19 +25,19 @@ const fixedPanelStyle = {
       top: 0,
       left: 0,
       bottom: 0,
-      right: 0
+      right: 0,
     },
-    width: '100%'
+    width: '100%',
   },
   tablet: {
     position: {
       top: 0,
       bottom: 0,
       right: 0,
-      left: 'auto'
+      left: 'auto',
     },
-    width: '375px'
-  }
+    width: '375px',
+  },
 }
 
 const Container = styled.div`
@@ -55,10 +54,10 @@ const TopRow = styled.div`
   margin: 0 auto;
   width: 100%;
   padding: ${headerStyle.padding.mobile};
-  a{
+  a {
     height: 30px;
     text-align: left;
-    img{
+    img {
       height: 100%;
     }
   }
@@ -74,7 +73,7 @@ const TopRow = styled.div`
   `}
 `
 
-const contentShifting = keyframes `
+const contentShifting = keyframes`
   from {
     transform: translateY(-5%);
   }
@@ -106,12 +105,12 @@ const AnchorsContainer = styled.div`
   width: calc(100% - 185px + ${allPaddingRight.mobile});
   color: ${colors.white};
   text-align: left;
-  p{
+  p {
     font-weight: ${font.weight.bold};
     line-height: 86px;
     border-bottom: solid ${colors.white} 0.1px;
   }
-  p:nth-child(6){
+  p:nth-child(6) {
     border-bottom: none;
   }
   ${mq.mobileOnly`
@@ -150,12 +149,12 @@ const rotateCounterClock45degRule = css`
   ${rotateCounterClock45deg} ${transitionDuration}ms linear;
 `
 
-const CloseBtn = styled.div `
+const CloseBtn = styled.div`
   position: relative;
   width: 24px;
   height: 24px;
   transform: translateY(50%);
-  span{
+  span {
     position: absolute;
     left: 0;
     top: 0;
@@ -163,11 +162,11 @@ const CloseBtn = styled.div `
     height: 3px;
     background: ${colors.white};
   }
-  span:first-child{
+  span:first-child {
     animation: ${rotate45degRule};
     animation-fill-mode: forwards;
   }
-  span:last-child{
+  span:last-child {
     animation: ${rotateCounterClock45degRule};
     animation-fill-mode: forwards;
   }
@@ -180,10 +179,10 @@ const Icons = styled.div`
   position: absolute;
   right: ${allPaddingRight.mobile};
   bottom: 0;
-  a{
+  a {
     display: block;
     margin-bottom: 21px;
-    img{
+    img {
       width: 45px;
     }
   }
@@ -202,8 +201,8 @@ const EnglishVersionLink = styled.a`
   transform: translate(100%, 100%) rotate(90deg);
   p {
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
-		font-size: 18px;
-  	font-weight: bold;
+    font-size: 18px;
+    font-weight: bold;
     letter-spacing: 0.7px;
     span {
       padding-left: 15px;
@@ -219,18 +218,11 @@ const IconEnLink = styled.img`
 `
 
 class AnchorsPanel extends React.PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { handleClickAnchor, closePanel } = this.props
     const Anchors = anchorlist.map((anchor, anchorIdx) => {
       return (
-        <p
-          key={anchorIdx}
-          onClick={() => handleClickAnchor(anchorIdx)}
-        >
+        <p key={anchorIdx} onClick={() => handleClickAnchor(anchorIdx)}>
           {anchor.label}
         </p>
       )
@@ -243,34 +235,56 @@ class AnchorsPanel extends React.PureComponent {
         <Container>
           <TopRow>
             <Link to="/">
-              <img src={logo}/>
+              <img src={logo} />
             </Link>
-            <CloseBtn
-              onClick={closePanel}
-            >
-              <span/>
-              <span/>
+            <CloseBtn onClick={closePanel}>
+              <span />
+              <span />
             </CloseBtn>
           </TopRow>
           <ContentWrapper>
-            <AnchorsContainer>
-              {Anchors}
-            </AnchorsContainer>
+            <AnchorsContainer>{Anchors}</AnchorsContainer>
             <Icons>
-              <DonationLink
-                utmMedium="about-us"
-              >
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1-white.png`)}`} />
+              <DonationLink utmMedium="about-us">
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/sidebar-icon1-white.png`
+                  )}`}
+                />
               </DonationLink>
-              <a href={hrefs.subscribe} target="_blank">
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2-white.png`)}`} />
+              <a
+                href={hrefs.subscribe}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/sidebar-icon2-white.png`
+                  )}`}
+                />
               </a>
-              <a href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')} target="_blank">
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3-white.png`)}`} />
+              <a
+                href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/sidebar-icon3-white.png`
+                  )}`}
+                />
               </a>
             </Icons>
-            <EnglishVersionLink href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">
-              <p>English Version<span><IconEnLink src={iconEnglishLink} /></span></p>
+            <EnglishVersionLink
+              href={'https://www.twreporter.org/a/about-us-english-version'}
+              target="_blank"
+            >
+              <p>
+                English Version
+                <span>
+                  <IconEnLink src={iconEnglishLink} />
+                </span>
+              </p>
             </EnglishVersionLink>
           </ContentWrapper>
         </Container>
@@ -280,11 +294,12 @@ class AnchorsPanel extends React.PureComponent {
 }
 
 AnchorsPanel.defaultProps = {
-  handleClickAnchor: () => {}
+  handleClickAnchor: () => {},
 }
 
 AnchorsPanel.propTypes = {
-  handleClickAnchor: PropTypes.func
+  handleClickAnchor: PropTypes.func,
+  closePanel: PropTypes.func,
 }
 
 export default AnchorsPanel

@@ -14,16 +14,19 @@ import twreporterRedux from '@twreporter/redux'
 // lodash
 import get from 'lodash/get'
 
-const { fetchAuthorCollectionIfNeeded, fetchAuthorDetails } = twreporterRedux.actions
+const {
+  fetchAuthorCollectionIfNeeded,
+  fetchAuthorDetails,
+} = twreporterRedux.actions
 
 const _ = {
-  get
+  get,
 }
 
 const authorDefaultImg = {
   url: '/asset/author-default-img.svg',
   width: 500,
-  height: 500
+  height: 500,
 }
 
 const logger = loggerFactory.getLogger()
@@ -36,14 +39,17 @@ class Author extends React.Component {
       hasMore: PropTypes.bool.isRequired,
       isFetching: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
-      totalResults: PropTypes.number
-    })
+      totalResults: PropTypes.number,
+    }),
+    authorIsFull: PropTypes.bool,
+    fetchAuthorCollectionIfNeeded: PropTypes.func,
+    fetchAuthorDetails: PropTypes.func,
   }
 
   static defaultProps = {
     totalResults: 0,
     author: {},
-    collections: []
+    collections: [],
   }
 
   componentDidMount() {
@@ -57,26 +63,32 @@ class Author extends React.Component {
     }
   }
 
-  fetchAuthorCollectionIfNeededWithCatch = (authorId) => {
-    return this.props.fetchAuthorCollectionIfNeeded(authorId)
-      // TODO render alter message
-      .catch((failAction) => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch the posts of the author (id: '${authorId}').`
+  fetchAuthorCollectionIfNeededWithCatch = authorId => {
+    return (
+      this.props
+        .fetchAuthorCollectionIfNeeded(authorId)
+        // TODO render alter message
+        .catch(failAction => {
+          logger.errorReport({
+            report: _.get(failAction, 'payload.error'),
+            message: `Error to fetch the posts of the author (id: '${authorId}').`,
+          })
         })
-      })
+    )
   }
 
-  fetchAuthorDetailsWithCatch = (authorId) => {
-    return this.props.fetchAuthorDetails(authorId)
-    // TODO render alter message
-      .catch((failAction) => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch description of the author (id: '${authorId}').`
+  fetchAuthorDetailsWithCatch = authorId => {
+    return (
+      this.props
+        .fetchAuthorDetails(authorId)
+        // TODO render alter message
+        .catch(failAction => {
+          logger.errorReport({
+            report: _.get(failAction, 'payload.error'),
+            message: `Error to fetch description of the author (id: '${authorId}').`,
+          })
         })
-      })
+    )
   }
 
   handleLoadmore = () => {
@@ -93,9 +105,7 @@ class Author extends React.Component {
       <React.Fragment>
         <Helmet
           title={fullTitle}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: pureTextBio },
             { name: 'twitter:title', content: fullTitle },
@@ -109,7 +119,7 @@ class Author extends React.Component {
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'profile' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
           ]}
         />
         <AuthorData authorData={author} />
@@ -123,7 +133,8 @@ class Author extends React.Component {
           totalResults={collectionMeta.totalResults}
         />
         <Sponsor />
-      </React.Fragment>)
+      </React.Fragment>
+    )
   }
 }
 
@@ -131,19 +142,30 @@ function mapStateToProps(state, ownProps) {
   const authorId = _.get(ownProps, 'match.params.authorId')
   const articlesByAuthor = _.get(state, 'articlesByAuthor', {})
   const entities = _.get(state, 'entitiesForAuthors', {})
-  const authorIsFull = _.get(entities, [ authorId, 'full' ], false)
-  const { hasMore, isFetching, currentPage, collectIndexList, totalResults } = _.get(articlesByAuthor, authorId, {})
+  const authorIsFull = _.get(entities, [authorId, 'full'], false)
+  const {
+    hasMore,
+    isFetching,
+    currentPage,
+    collectIndexList,
+    totalResults,
+  } = _.get(articlesByAuthor, authorId, {})
   const collections = denormalizeArticles(collectIndexList, entities)
-  const authorEntity = _.get(entities, [ 'authors', authorId ], {})
-  const authorImageSouce = _.get(authorEntity, 'thumbnail.image.resizedTargets.mobile')
-  const authorImage = authorImageSouce ? { ...authorImageSouce, url: replaceGCSUrlOrigin(authorImageSouce.url) } : authorDefaultImg
+  const authorEntity = _.get(entities, ['authors', authorId], {})
+  const authorImageSouce = _.get(
+    authorEntity,
+    'thumbnail.image.resizedTargets.mobile'
+  )
+  const authorImage = authorImageSouce
+    ? { ...authorImageSouce, url: replaceGCSUrlOrigin(authorImageSouce.url) }
+    : authorDefaultImg
   const author = {
     id: authorId,
     name: _.get(authorEntity, 'name') || '',
     title: _.get(authorEntity, 'jobTitle') || '',
     image: authorImage,
     mail: _.get(authorEntity, 'email') || '',
-    bio: _.get(authorEntity, 'bio.md' || '')
+    bio: _.get(authorEntity, 'bio.md' || ''),
   }
   return {
     author,
@@ -153,9 +175,12 @@ function mapStateToProps(state, ownProps) {
       hasMore,
       isFetching,
       currentPage,
-      totalResults
-    }
+      totalResults,
+    },
   }
 }
 
-export default connect(mapStateToProps, { fetchAuthorCollectionIfNeeded, fetchAuthorDetails })(Author)
+export default connect(
+  mapStateToProps,
+  { fetchAuthorCollectionIfNeeded, fetchAuthorDetails }
+)(Author)

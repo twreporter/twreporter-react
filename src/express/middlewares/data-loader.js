@@ -1,10 +1,11 @@
+/* eslint node/no-deprecated-api: 1 */
 import get from 'lodash/get'
 import getRoutes from '../../routes'
 import url from 'url'
 import { matchPath } from 'react-router-dom'
 
 const _ = {
-  get
+  get,
 }
 
 /**
@@ -15,7 +16,7 @@ const _ = {
  */
 function dataLoaderMiddleware(namespace) {
   return function middleware(req, res, next) {
-    const store = _.get(req, [ namespace, 'reduxStore' ])
+    const store = _.get(req, [namespace, 'reduxStore'])
     if (!store) {
       next(new Error(`req.${namespace}.reduxStore is not existed`))
       return
@@ -29,15 +30,17 @@ function dataLoaderMiddleware(namespace) {
       const match = matchPath(req.path, route)
       if (match && route.loadData) {
         const { hash, pathname, search } = url.parse(req.originalUrl)
-        dataLoadingPromises.push(route.loadData({
-          store,
-          match,
-          location: {
-            hash,
-            pathname,
-            search
-          }
-        }))
+        dataLoadingPromises.push(
+          route.loadData({
+            store,
+            match,
+            location: {
+              hash,
+              pathname,
+              search,
+            },
+          })
+        )
       }
       return match
     })
@@ -46,7 +49,7 @@ function dataLoaderMiddleware(namespace) {
       .then(() => {
         next()
       })
-      .catch((failAction) => {
+      .catch(failAction => {
         next(_.get(failAction, 'payload.error'))
       })
   }
