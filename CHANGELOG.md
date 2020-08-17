@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.5.0-rc.1
+
+### Notable Changes
+
+- add git hooks to run prettier and eslint
+- update code base to pass eslint and prettier
+
+### Commits
+
+- [[`2efefbdd06`](https://github.com/twreporter/twreporter-react/commit/2efefbdd06)] - Merge pull request #1669 from nickhsine/update-eslint-prettier (nick)
+- [[`c583a04bb2`](https://github.com/twreporter/twreporter-react/commit/c583a04bb2)] - **chore**: update package.json#scripts.lint (nickhsine)
+- [[`3f15bd643a`](https://github.com/twreporter/twreporter-react/commit/3f15bd643a)] - Merge pull request #1668 from nickhsine/fix-typo (nick)
+- [[`b412a81a24`](https://github.com/twreporter/twreporter-react/commit/b412a81a24)] - **refactor**: pass eslint and prettier (nickhsine)
+- [[`cc9456e889`](https://github.com/twreporter/twreporter-react/commit/cc9456e889)] - **refactor**: upgrade eslint and add prettier (nickhsine)
+- [[`0ec7491268`](https://github.com/twreporter/twreporter-react/commit/0ec7491268)] - **fix**: fix typo. writters -\> writers (nickhsine)
+- [[`d31fd2a2fe`](https://github.com/twreporter/twreporter-react/commit/d31fd2a2fe)] - Merge pull request #1666 from nickhsine/master (nick)
+- [[`932fac8d7d`](https://github.com/twreporter/twreporter-react/commit/932fac8d7d)] - **fix**: import clone-entity -\> shallow-clone-entity (nickhsine)
+- [[`fbce43c484`](https://github.com/twreporter/twreporter-react/commit/fbce43c484)] - Merge pull request #1663 from nickhsine/master (nick)
+
 ## 4.5.0-rc.0
 
 ### Notable Changes
@@ -12,33 +31,35 @@
 - upgrade @twreporter/index-page, @twreporter/react-components, @twreporter/react-article-components
 - add loading spinner for fetching more posts
 
-* [[`d84e037946`](https://github.com/twreporter/twreporter-react/commit/d84e037946)] - Merge pull request #1650 from nickhsine/migrate-v2 (nick)
-* [[`7b5f168279`](https://github.com/twreporter/twreporter-react/commit/7b5f168279)] - **chore**: update deps (nickhsine)
-* [[`8d646852a0`](https://github.com/twreporter/twreporter-react/commit/8d646852a0)] - **refactor**: update src/containers/Category.js (nickhsine)
-* [[`0c458b75b6`](https://github.com/twreporter/twreporter-react/commit/0c458b75b6)] - **fix**: ui-manager renders wrong univeral header (nickhsine)
-* [[`721854babb`](https://github.com/twreporter/twreporter-react/commit/721854babb)] - **refactor**: clone-entity.js -\> shallow-clone-entity.js (nickhsine)
-* [[`3d56255ad4`](https://github.com/twreporter/twreporter-react/commit/3d56255ad4)] - **refactor**: update web-push.js (nickhsine)
-* [[`1615e1ef83`](https://github.com/twreporter/twreporter-react/commit/1615e1ef83)] - **refactor**: update Article.js (nickhsine)
-* [[`5f4e0e533f`](https://github.com/twreporter/twreporter-react/commit/5f4e0e533f)] - **chore**: add localforage@^1.8.1 (nickhsine)
-* [[`94ba95bea5`](https://github.com/twreporter/twreporter-react/commit/94ba95bea5)] - **refactor**: update client.js (nickhsine)
-* [[`0a90fec484`](https://github.com/twreporter/twreporter-react/commit/0a90fec484)] - **fix**: fix ts-check and JSDoc errors (nickhsine)
-* [[`b3f72cba06`](https://github.com/twreporter/twreporter-react/commit/b3f72cba06)] - **fix**: dedup duplicate related post (nickhsine)
-* [[`8ac2ce88ed`](https://github.com/twreporter/twreporter-react/commit/8ac2ce88ed)] - **refactor**: address code review comments (nickhsine)
-* [[`8fdab03734`](https://github.com/twreporter/twreporter-react/commit/8fdab03734)] - **refactor**: update testing-server responses (nickhsine)
-* [[`730eafd35e`](https://github.com/twreporter/twreporter-react/commit/730eafd35e)] - **refactor**: update article page (nickhsine)
-* [[`4256063803`](https://github.com/twreporter/twreporter-react/commit/4256063803)] - **refactor**: update JSDoc (nickhsine)
-* [[`51af4c2015`](https://github.com/twreporter/twreporter-react/commit/51af4c2015)] - **refactor**: spinner for loading more posts in topic page (nickhsine)
-* [[`b49f24a2cc`](https://github.com/twreporter/twreporter-react/commit/b49f24a2cc)] - **refactor**: update topic landing page (nickhsine)
-* [[`dda3380e9b`](https://github.com/twreporter/twreporter-react/commit/dda3380e9b)] - **refactor**: update photography page (nickhsine)
-* [[`f8f1226637`](https://github.com/twreporter/twreporter-react/commit/f8f1226637)] - **refactor**: update topic list page (nickhsine)
-* [[`1f28bc7b96`](https://github.com/twreporter/twreporter-react/commit/1f28bc7b96)] - **fix**: update src/testing-server.js (nickhsine)
-* [[`c9f959f96b`](https://github.com/twreporter/twreporter-react/commit/c9f959f96b)] - **fix**: handle page \< 0 situation (nickhsine)
-* [[`739f9fb38e`](https://github.com/twreporter/twreporter-react/commit/739f9fb38e)] - **refactor**: update tag list page (nickhsine)
-* [[`4837020f5d`](https://github.com/twreporter/twreporter-react/commit/4837020f5d)] - **refactor**: update category list page (nickhsine)
-* [[`9a830af2b0`](https://github.com/twreporter/twreporter-react/commit/9a830af2b0)] - **refactor**: utils for clone metadata of a post or topic (nickhsine)
-* [[`3b6b63d885`](https://github.com/twreporter/twreporter-react/commit/3b6b63d885)] - **refactor**: update src/containers/Home.js (nickhsine)
-* [[`10482a9592`](https://github.com/twreporter/twreporter-react/commit/10482a9592)] - **chore**: update src/testing-server.js (nickhsine)
-* [[`c1d410cd33`](https://github.com/twreporter/twreporter-react/commit/c1d410cd33)] - **chore**: add src/mock-data/v2/ for v2 endpoints (nickhsine)
+### Commits
+
+- [[`d84e037946`](https://github.com/twreporter/twreporter-react/commit/d84e037946)] - Merge pull request #1650 from nickhsine/migrate-v2 (nick)
+- [[`7b5f168279`](https://github.com/twreporter/twreporter-react/commit/7b5f168279)] - **chore**: update deps (nickhsine)
+- [[`8d646852a0`](https://github.com/twreporter/twreporter-react/commit/8d646852a0)] - **refactor**: update src/containers/Category.js (nickhsine)
+- [[`0c458b75b6`](https://github.com/twreporter/twreporter-react/commit/0c458b75b6)] - **fix**: ui-manager renders wrong univeral header (nickhsine)
+- [[`721854babb`](https://github.com/twreporter/twreporter-react/commit/721854babb)] - **refactor**: clone-entity.js -\> shallow-clone-entity.js (nickhsine)
+- [[`3d56255ad4`](https://github.com/twreporter/twreporter-react/commit/3d56255ad4)] - **refactor**: update web-push.js (nickhsine)
+- [[`1615e1ef83`](https://github.com/twreporter/twreporter-react/commit/1615e1ef83)] - **refactor**: update Article.js (nickhsine)
+- [[`5f4e0e533f`](https://github.com/twreporter/twreporter-react/commit/5f4e0e533f)] - **chore**: add localforage@^1.8.1 (nickhsine)
+- [[`94ba95bea5`](https://github.com/twreporter/twreporter-react/commit/94ba95bea5)] - **refactor**: update client.js (nickhsine)
+- [[`0a90fec484`](https://github.com/twreporter/twreporter-react/commit/0a90fec484)] - **fix**: fix ts-check and JSDoc errors (nickhsine)
+- [[`b3f72cba06`](https://github.com/twreporter/twreporter-react/commit/b3f72cba06)] - **fix**: dedup duplicate related post (nickhsine)
+- [[`8ac2ce88ed`](https://github.com/twreporter/twreporter-react/commit/8ac2ce88ed)] - **refactor**: address code review comments (nickhsine)
+- [[`8fdab03734`](https://github.com/twreporter/twreporter-react/commit/8fdab03734)] - **refactor**: update testing-server responses (nickhsine)
+- [[`730eafd35e`](https://github.com/twreporter/twreporter-react/commit/730eafd35e)] - **refactor**: update article page (nickhsine)
+- [[`4256063803`](https://github.com/twreporter/twreporter-react/commit/4256063803)] - **refactor**: update JSDoc (nickhsine)
+- [[`51af4c2015`](https://github.com/twreporter/twreporter-react/commit/51af4c2015)] - **refactor**: spinner for loading more posts in topic page (nickhsine)
+- [[`b49f24a2cc`](https://github.com/twreporter/twreporter-react/commit/b49f24a2cc)] - **refactor**: update topic landing page (nickhsine)
+- [[`dda3380e9b`](https://github.com/twreporter/twreporter-react/commit/dda3380e9b)] - **refactor**: update photography page (nickhsine)
+- [[`f8f1226637`](https://github.com/twreporter/twreporter-react/commit/f8f1226637)] - **refactor**: update topic list page (nickhsine)
+- [[`1f28bc7b96`](https://github.com/twreporter/twreporter-react/commit/1f28bc7b96)] - **fix**: update src/testing-server.js (nickhsine)
+- [[`c9f959f96b`](https://github.com/twreporter/twreporter-react/commit/c9f959f96b)] - **fix**: handle page \< 0 situation (nickhsine)
+- [[`739f9fb38e`](https://github.com/twreporter/twreporter-react/commit/739f9fb38e)] - **refactor**: update tag list page (nickhsine)
+- [[`4837020f5d`](https://github.com/twreporter/twreporter-react/commit/4837020f5d)] - **refactor**: update category list page (nickhsine)
+- [[`9a830af2b0`](https://github.com/twreporter/twreporter-react/commit/9a830af2b0)] - **refactor**: utils for clone metadata of a post or topic (nickhsine)
+- [[`3b6b63d885`](https://github.com/twreporter/twreporter-react/commit/3b6b63d885)] - **refactor**: update src/containers/Home.js (nickhsine)
+- [[`10482a9592`](https://github.com/twreporter/twreporter-react/commit/10482a9592)] - **chore**: update src/testing-server.js (nickhsine)
+- [[`c1d410cd33`](https://github.com/twreporter/twreporter-react/commit/c1d410cd33)] - **chore**: add src/mock-data/v2/ for v2 endpoints (nickhsine)
 
 ## 4.4.26
 
