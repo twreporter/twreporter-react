@@ -51,7 +51,7 @@ const Date = styled(base.ItemDate)`
 `
 
 const textLimit = {
-  desc: 78
+  desc: 78,
 }
 
 class Item extends base.Item {
@@ -63,25 +63,29 @@ class Item extends base.Item {
       title,
       description,
       publishedDate,
-      hide
+      hide,
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
-        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
+        hide={
+          hide || undefined
+        } /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image
             alt={title}
             defaultImage={image}
-            imageSet={[ image ]}
+            imageSet={[image]}
             objectFit="cover"
           />
         </ItemImageSizing>
         <ItemMeta>
           <base.ItemTitle>{title}</base.ItemTitle>
-          <base.ItemDescription>{shortenString(description, textLimit.desc)}</base.ItemDescription>
+          <base.ItemDescription>
+            {shortenString(description, textLimit.desc)}
+          </base.ItemDescription>
           <Date>{publishedDate}</Date>
         </ItemMeta>
       </ItemLink>
@@ -91,5 +95,5 @@ class Item extends base.Item {
 
 export default {
   ItemsContainer: base.ItemsContainer,
-  Item
+  Item,
 }

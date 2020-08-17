@@ -1,5 +1,5 @@
 /* eslint no-console:0 */
-const webpackDevServer = require('webpack-dev-server')
+const WebpackDevServer = require('webpack-dev-server')
 const webpack = require('webpack')
 
 const webpackConfig = require('./webpack.config.js')
@@ -14,12 +14,12 @@ const options = {
   noInfo: false,
   publicPath: webpackConfig.output.publicPath,
   quiet: false,
-  stats: { colors: true }
+  stats: { colors: true },
 }
 
-webpackDevServer.addDevServerEntrypoints(webpackConfig, options)
+WebpackDevServer.addDevServerEntrypoints(webpackConfig, options)
 const compiler = webpack(webpackConfig)
-const server = new webpackDevServer(compiler, options)
+const server = new WebpackDevServer(compiler, options)
 
 server.listen(webpackConfig.devServer.port, 'localhost', () => {
   console.log('dev server listening on port ', webpackConfig.devServer.port)

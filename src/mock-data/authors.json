@@ -3,24 +3,24 @@
     {
       "_highlightResult": {
         "_id": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "591ac386507c6a0d00ab0490"
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "591ac386507c6a0d00ab0490"
         },
         "job_title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "澎湖安書宅主人"
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "澎湖安書宅主人"
         },
         "name": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "陳藹文"
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "陳藹文"
         },
         "updatedAt": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "2017-05-16T09:17:49.573Z"
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "2017-05-16T09:17:49.573Z"
         }
       },
       "_id": "591ac386507c6a0d00ab0490",
@@ -31,306 +31,306 @@
       "type": 0,
       "updatedAt": "2017-05-16T09:17:49.573Z"
     },
-{
-            "_highlightResult": {
-                "_id": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "571de7bbdae62379576d7f42"
-                },
-                "job_title": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": ""
-                },
-                "name": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "余志偉"
-                },
-                "thumbnail": {
-                    "_id": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "58b941c178a8c00d00d32b39"
-                    },
-                    "copyright": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "Copyrighted"
-                    },
-                    "description": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "攝影作者，余志偉"
-                    },
-                    "image": {
-                        "filename": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png"
-                        },
-                        "filetype": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "image/png"
-                        },
-                        "gcsBucket": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "twreporter-multimedia"
-                        },
-                        "gcsDir": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "images/"
-                        },
-                        "resizedTargets": {
-                            "desktop": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png"
-                                }
-                            },
-                            "mobile": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png"
-                                }
-                            },
-                            "tablet": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png"
-                                }
-                            },
-                            "tiny": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png"
-                                }
-                            }
-                        },
-                        "url": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png"
-                        }
-                    }
-                },
-                "updatedAt": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "2017-06-10T02:03:30.863Z"
-                }
-            },
-            "_id": "571de7bbdae62379576d7f42",
-            "articlesCount": 262,
-            "job_title": "",
-            "name": "余志偉",
-            "objectID": "571de7bbdae62379576d7f42",
-            "thumbnail": {
-                "__v": 0,
-                "_id": "58b941c178a8c00d00d32b39",
-                "copyright": "Copyrighted",
-                "description": "攝影作者，余志偉",
-                "image": {
-                    "filename": "20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
-                    "filetype": "image/png",
-                    "gcsBucket": "twreporter-multimedia",
-                    "gcsDir": "images/",
-                    "height": 1250,
-                    "iptc": {
-                        "keywords": []
-                    },
-                    "resizedTargets": {
-                        "desktop": {
-                            "height": 1250,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png",
-                            "width": 1250
-                        },
-                        "mobile": {
-                            "height": 800,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png",
-                            "width": 800
-                        },
-                        "tablet": {
-                            "height": 1200,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png",
-                            "width": 1200
-                        },
-                        "tiny": {
-                            "height": 150,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png",
-                            "width": 150
-                        }
-                    },
-                    "size": 76203,
-                    "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
-                    "width": 1250
-                }
-            },
-            "type": 1,
-            "updatedAt": "2017-06-10T02:03:30.863Z"
-        },        
-        {
-          "_highlightResult": {
-            "_id": {
+    {
+      "_highlightResult": {
+        "_id": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "571de7bbdae62379576d7f42"
+        },
+        "job_title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": ""
+        },
+        "name": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "余志偉"
+        },
+        "thumbnail": {
+          "_id": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "58b941c178a8c00d00d32b39"
+          },
+          "copyright": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "Copyrighted"
+          },
+          "description": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "攝影作者，余志偉"
+          },
+          "image": {
+            "filename": {
               "matchLevel": "none",
               "matchedWords": [],
-              "value": "5757f8498e4c2b171bcaf7dc"
+              "value": "20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png"
             },
-            "job_title": {
+            "filetype": {
               "matchLevel": "none",
               "matchedWords": [],
-              "value": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授"
+              "value": "image/png"
             },
-            "name": {
+            "gcsBucket": {
               "matchLevel": "none",
               "matchedWords": [],
-              "value": "佘健源、劉玉皙"
+              "value": "twreporter-multimedia"
             },
-            "thumbnail": {
-              "_id": {
-                "matchLevel": "none",
-                "matchedWords": [],
-                "value": "58b65fae78a8c00d00d32b29"
-              },
-              "copyright": {
-                "matchLevel": "none",
-                "matchedWords": [],
-                "value": "Copyrighted"
-              },
-              "description": {
-                "matchLevel": "none",
-                "matchedWords": [],
-                "value": "作者，劉玉皙和佘健源"
-              },
-              "image": {
-                "filename": {
-                  "matchLevel": "none",
-                  "matchedWords": [],
-                  "value": "20170301134414-850dcaac870553ee6292e89638229058.jpg"
-                },
-                "filetype": {
-                  "matchLevel": "none",
-                  "matchedWords": [],
-                  "value": "image/jpeg"
-                },
-                "gcsBucket": {
-                  "matchLevel": "none",
-                  "matchedWords": [],
-                  "value": "twreporter-multimedia"
-                },
-                "gcsDir": {
-                  "matchLevel": "none",
-                  "matchedWords": [],
-                  "value": "images/"
-                },
-                "iptc": {
-                  "city": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "0x00000000: 254700                                        -%"
-                  }
-                },
-                "resizedTargets": {
-                  "desktop": {
-                    "url": {
-                      "matchLevel": "none",
-                      "matchedWords": [],
-                      "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg"
-                    }
-                  },
-                  "mobile": {
-                    "url": {
-                      "matchLevel": "none",
-                      "matchedWords": [],
-                      "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg"
-                    }
-                  },
-                  "tablet": {
-                    "url": {
-                      "matchLevel": "none",
-                      "matchedWords": [],
-                      "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg"
-                    }
-                  },
-                  "tiny": {
-                    "url": {
-                      "matchLevel": "none",
-                      "matchedWords": [],
-                      "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg"
-                    }
-                  }
-                },
+            "gcsDir": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "images/"
+            },
+            "resizedTargets": {
+              "desktop": {
                 "url": {
                   "matchLevel": "none",
                   "matchedWords": [],
-                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg"
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png"
+                }
+              },
+              "mobile": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png"
+                }
+              },
+              "tablet": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png"
+                }
+              },
+              "tiny": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png"
                 }
               }
             },
-            "updatedAt": {
+            "url": {
               "matchLevel": "none",
               "matchedWords": [],
-              "value": "2017-04-20T04:40:55.841Z"
+              "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png"
+            }
+          }
+        },
+        "updatedAt": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "2017-06-10T02:03:30.863Z"
+        }
+      },
+      "_id": "571de7bbdae62379576d7f42",
+      "articlesCount": 262,
+      "job_title": "",
+      "name": "余志偉",
+      "objectID": "571de7bbdae62379576d7f42",
+      "thumbnail": {
+        "__v": 0,
+        "_id": "58b941c178a8c00d00d32b39",
+        "copyright": "Copyrighted",
+        "description": "攝影作者，余志偉",
+        "image": {
+          "filename": "20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
+          "filetype": "image/png",
+          "gcsBucket": "twreporter-multimedia",
+          "gcsDir": "images/",
+          "height": 1250,
+          "iptc": {
+            "keywords": []
+          },
+          "resizedTargets": {
+            "desktop": {
+              "height": 1250,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png",
+              "width": 1250
+            },
+            "mobile": {
+              "height": 800,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png",
+              "width": 800
+            },
+            "tablet": {
+              "height": 1200,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png",
+              "width": 1200
+            },
+            "tiny": {
+              "height": 150,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png",
+              "width": 150
             }
           },
-          "_id": "5757f8498e4c2b171bcaf7dc",
-          "articlesCount": 2,
-          "job_title": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授",
-          "name": "佘健源、劉玉皙",
-          "objectID": "5757f8498e4c2b171bcaf7dc",
-          "thumbnail": {
-            "__v": 0,
-            "_id": "58b65fae78a8c00d00d32b29",
-            "copyright": "Copyrighted",
-            "description": "作者，劉玉皙和佘健源",
-            "image": {
-              "filename": "20170301134414-850dcaac870553ee6292e89638229058.jpg",
-              "filetype": "image/jpeg",
-              "gcsBucket": "twreporter-multimedia",
-              "gcsDir": "images/",
-              "height": 300,
-              "iptc": {
-                "city": "0x00000000: 254700                                        -%",
-                "keywords": []
-              },
-              "resizedTargets": {
-                "desktop": {
-                  "height": 300,
-                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg",
-                  "width": 300
-                },
-                "mobile": {
-                  "height": 300,
-                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg",
-                  "width": 300
-                },
-                "tablet": {
-                  "height": 300,
-                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg",
-                  "width": 300
-                },
-                "tiny": {
-                  "height": 150,
-                  "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg",
-                  "width": 150
+          "size": 76203,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef.png",
+          "width": 1250
+        }
+      },
+      "type": 1,
+      "updatedAt": "2017-06-10T02:03:30.863Z"
+    },
+    {
+      "_highlightResult": {
+        "_id": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "5757f8498e4c2b171bcaf7dc"
+        },
+        "job_title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授"
+        },
+        "name": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "佘健源、劉玉皙"
+        },
+        "thumbnail": {
+          "_id": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "58b65fae78a8c00d00d32b29"
+          },
+          "copyright": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "Copyrighted"
+          },
+          "description": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "作者，劉玉皙和佘健源"
+          },
+          "image": {
+            "filename": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "20170301134414-850dcaac870553ee6292e89638229058.jpg"
+            },
+            "filetype": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "image/jpeg"
+            },
+            "gcsBucket": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "twreporter-multimedia"
+            },
+            "gcsDir": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "images/"
+            },
+            "iptc": {
+              "city": {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "0x00000000: 254700                                        -%"
+              }
+            },
+            "resizedTargets": {
+              "desktop": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg"
                 }
               },
-              "size": 130662,
-              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg",
+              "mobile": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg"
+                }
+              },
+              "tablet": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg"
+                }
+              },
+              "tiny": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg"
+                }
+              }
+            },
+            "url": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg"
+            }
+          }
+        },
+        "updatedAt": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "2017-04-20T04:40:55.841Z"
+        }
+      },
+      "_id": "5757f8498e4c2b171bcaf7dc",
+      "articlesCount": 2,
+      "job_title": "中山大學企管系專任助理教授、中山大學及高應科大兼任助理教授",
+      "name": "佘健源、劉玉皙",
+      "objectID": "5757f8498e4c2b171bcaf7dc",
+      "thumbnail": {
+        "__v": 0,
+        "_id": "58b65fae78a8c00d00d32b29",
+        "copyright": "Copyrighted",
+        "description": "作者，劉玉皙和佘健源",
+        "image": {
+          "filename": "20170301134414-850dcaac870553ee6292e89638229058.jpg",
+          "filetype": "image/jpeg",
+          "gcsBucket": "twreporter-multimedia",
+          "gcsDir": "images/",
+          "height": 300,
+          "iptc": {
+            "city": "0x00000000: 254700                                        -%",
+            "keywords": []
+          },
+          "resizedTargets": {
+            "desktop": {
+              "height": 300,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-desktop.jpg",
               "width": 300
+            },
+            "mobile": {
+              "height": 300,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-mobile.jpg",
+              "width": 300
+            },
+            "tablet": {
+              "height": 300,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tablet.jpg",
+              "width": 300
+            },
+            "tiny": {
+              "height": 150,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058-tiny.jpg",
+              "width": 150
             }
           },
-          "type": 0,
-          "updatedAt": "2017-04-20T04:40:55.841Z"
-        },    
+          "size": 130662,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170301134414-850dcaac870553ee6292e89638229058.jpg",
+          "width": 300
+        }
+      },
+      "type": 0,
+      "updatedAt": "2017-04-20T04:40:55.841Z"
+    },
     {
       "_highlightResult": {
         "_id": {
@@ -4883,152 +4883,152 @@
       "type": 0,
       "updatedAt": "2017-07-11T10:09:23.666Z"
     },
-        {
-            "_highlightResult": {
-                "_id": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "571de7b9dae62379576d7f3c"
-                },
-                "job_title": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": ""
-                },
-                "name": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "吳逸驊"
-                },
-                "thumbnail": {
-                    "_id": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "58b9418d78a8c00d00d32b37"
-                    },
-                    "copyright": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "Copyrighted"
-                    },
-                    "description": {
-                        "matchLevel": "none",
-                        "matchedWords": [],
-                        "value": "攝影作者，吳逸驊"
-                    },
-                    "image": {
-                        "filename": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png"
-                        },
-                        "filetype": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "image/png"
-                        },
-                        "gcsBucket": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "twreporter-multimedia"
-                        },
-                        "gcsDir": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "images/"
-                        },
-                        "resizedTargets": {
-                            "desktop": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-desktop.png"
-                                }
-                            },
-                            "mobile": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-mobile.png"
-                                }
-                            },
-                            "tablet": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tablet.png"
-                                }
-                            },
-                            "tiny": {
-                                "url": {
-                                    "matchLevel": "none",
-                                    "matchedWords": [],
-                                    "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tiny.png"
-                                }
-                            }
-                        },
-                        "url": {
-                            "matchLevel": "none",
-                            "matchedWords": [],
-                            "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png"
-                        }
-                    }
-                },
-                "updatedAt": {
-                    "matchLevel": "none",
-                    "matchedWords": [],
-                    "value": "2017-03-03T10:25:21.520Z"
-                }
+    {
+      "_highlightResult": {
+        "_id": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "571de7b9dae62379576d7f3c"
+        },
+        "job_title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": ""
+        },
+        "name": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "吳逸驊"
+        },
+        "thumbnail": {
+          "_id": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "58b9418d78a8c00d00d32b37"
+          },
+          "copyright": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "Copyrighted"
+          },
+          "description": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "攝影作者，吳逸驊"
+          },
+          "image": {
+            "filename": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png"
             },
-            "_id": "571de7b9dae62379576d7f3c",
-            "articlesCount": 151,
-            "job_title": "",
-            "name": "吳逸驊",
-            "objectID": "571de7b9dae62379576d7f3c",
-            "thumbnail": {
-                "__v": 0,
-                "_id": "58b9418d78a8c00d00d32b37",
-                "copyright": "Copyrighted",
-                "description": "攝影作者，吳逸驊",
-                "image": {
-                    "filename": "20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
-                    "filetype": "image/png",
-                    "gcsBucket": "twreporter-multimedia",
-                    "gcsDir": "images/",
-                    "height": 1250,
-                    "iptc": {
-                        "keywords": []
-                    },
-                    "resizedTargets": {
-                        "desktop": {
-                            "height": 1250,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-desktop.png",
-                            "width": 1250
-                        },
-                        "mobile": {
-                            "height": 800,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-mobile.png",
-                            "width": 800
-                        },
-                        "tablet": {
-                            "height": 1200,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tablet.png",
-                            "width": 1200
-                        },
-                        "tiny": {
-                            "height": 150,
-                            "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tiny.png",
-                            "width": 150
-                        }
-                    },
-                    "size": 90788,
-                    "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
-                    "width": 1250
-                }
+            "filetype": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "image/png"
             },
-            "type": 1,
-            "updatedAt": "2017-03-03T10:25:21.520Z"
-        },    
+            "gcsBucket": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "twreporter-multimedia"
+            },
+            "gcsDir": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "images/"
+            },
+            "resizedTargets": {
+              "desktop": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-desktop.png"
+                }
+              },
+              "mobile": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-mobile.png"
+                }
+              },
+              "tablet": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tablet.png"
+                }
+              },
+              "tiny": {
+                "url": {
+                  "matchLevel": "none",
+                  "matchedWords": [],
+                  "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tiny.png"
+                }
+              }
+            },
+            "url": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png"
+            }
+          }
+        },
+        "updatedAt": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "2017-03-03T10:25:21.520Z"
+        }
+      },
+      "_id": "571de7b9dae62379576d7f3c",
+      "articlesCount": 151,
+      "job_title": "",
+      "name": "吳逸驊",
+      "objectID": "571de7b9dae62379576d7f3c",
+      "thumbnail": {
+        "__v": 0,
+        "_id": "58b9418d78a8c00d00d32b37",
+        "copyright": "Copyrighted",
+        "description": "攝影作者，吳逸驊",
+        "image": {
+          "filename": "20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
+          "filetype": "image/png",
+          "gcsBucket": "twreporter-multimedia",
+          "gcsDir": "images/",
+          "height": 1250,
+          "iptc": {
+            "keywords": []
+          },
+          "resizedTargets": {
+            "desktop": {
+              "height": 1250,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-desktop.png",
+              "width": 1250
+            },
+            "mobile": {
+              "height": 800,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-mobile.png",
+              "width": 800
+            },
+            "tablet": {
+              "height": 1200,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tablet.png",
+              "width": 1200
+            },
+            "tiny": {
+              "height": 150,
+              "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6-tiny.png",
+              "width": 150
+            }
+          },
+          "size": 90788,
+          "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181229-4d04af72d67ae6c2881e6d9cf957f0e6.png",
+          "width": 1250
+        }
+      },
+      "type": 1,
+      "updatedAt": "2017-03-03T10:25:21.520Z"
+    },
     {
       "_highlightResult": {
         "_id": {

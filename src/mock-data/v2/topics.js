@@ -12,7 +12,6 @@ const mocks = {
   topics,
 }
 
-
 /**
  *  This function mocks the response of go-api `/v2/topics/:slug?full=(true|false)` endpoint
  *
@@ -23,7 +22,9 @@ const mocks = {
  */
 export function mockATopicResponse(slug, full) {
   let topic = _.find(topics, topic => topic.slug === slug)
-  topic = full ? cloneUtils.shallowCloneFullTopic(topic) : cloneUtils.shallowCloneMetaOfTopic(topic)
+  topic = full
+    ? cloneUtils.shallowCloneFullTopic(topic)
+    : cloneUtils.shallowCloneMetaOfTopic(topic)
   topic.full = full
 
   if (topic) {
@@ -48,7 +49,7 @@ export function mockATopicResponse(slug, full) {
  *  @param {number} offset - how many topics to skip
  *  @param {Object} mocked api response
  */
-export function mockTopicsResponse(limit=10, offset=0) {
+export function mockTopicsResponse(limit = 10, offset = 0) {
   return {
     status: 'success',
     data: {
@@ -57,11 +58,11 @@ export function mockTopicsResponse(limit=10, offset=0) {
         offset,
         total: mocks.topics.length,
       },
-      records: mocks.topics.slice(offset, offset + limit).map((_topic) => {
+      records: mocks.topics.slice(offset, offset + limit).map(_topic => {
         const topic = cloneUtils.shallowCloneMetaOfTopic(_topic)
         topic.full = false
         return topic
-      })
+      }),
     },
   }
 }

@@ -27,12 +27,12 @@ const Desc = styled.div`
   text-align: left;
   font-size: 14px;
   line-height: 1.4;
-  letter-spacing: .1px;
+  letter-spacing: 0.1px;
   color: #262626;
-  >p {
+  > p {
     margin-bottom: 1em;
   }
-  >p:last-child {
+  > p:last-child {
     margin-bottom: 0;
   }
 `
@@ -48,8 +48,8 @@ const SponsorButton = styled(DonationLink)`
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  letter-spacing: .1px;
-  transition: transform .2s ease;
+  letter-spacing: 0.1px;
+  transition: transform 0.2s ease;
   &:active {
     transform: translate(2px, 4px);
   }
@@ -72,7 +72,9 @@ class Sponsor extends React.Component {
       <Container size="small">
         <Title>深度調查報導，需要您的支持！</Title>
         <Desc>
-          <p>深度調查報導必須投入優秀記者、足夠時間與大量資源⋯⋯我們需要細水長流的小額贊助，才能走更長遠的路。</p>
+          <p>
+            深度調查報導必須投入優秀記者、足夠時間與大量資源⋯⋯我們需要細水長流的小額贊助，才能走更長遠的路。
+          </p>
           <p>竭誠歡迎認同《報導者》理念的朋友贊助支持我們！</p>
         </Desc>
         <SponsorButton utmMedium="author">贊助我們</SponsorButton>

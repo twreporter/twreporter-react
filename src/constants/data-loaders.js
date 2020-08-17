@@ -3,7 +3,7 @@ export default {
   maxResult: 10,
   listType: {
     categories: 'categories',
-    tags: 'tags'
+    tags: 'tags',
   },
   photographyPage: {
     nPerPage: 10,

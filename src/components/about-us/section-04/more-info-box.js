@@ -10,10 +10,11 @@ import styled from 'styled-components'
 
 const logoBlockWidthOnDesktop = '39%'
 
-const Container = styled.div `
+const Container = styled.div`
   ${mq.desktopAndAbove`
     position: relative;
-    display: ${props => props.selectedRow === props.rowNumber ? 'inline-block' : 'none'};
+    display: ${props =>
+      props.selectedRow === props.rowNumber ? 'inline-block' : 'none'};
     width: 100%;
     margin-bottom: 10px;
     h2{
@@ -45,7 +46,7 @@ const NavigationWrapper = styled.div`
   `}
 `
 
-const RightArrow = styled.div `
+const RightArrow = styled.div`
   width: 15px;
   height: 71.8px;
   line-height: 71.8px;
@@ -54,9 +55,9 @@ const RightArrow = styled.div `
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  display: ${props => props.hasNext === 'true' ? 'block' : 'none'};
+  display: ${props => (props.hasNext === 'true' ? 'block' : 'none')};
   ${mq.tabletAndBelow`
-    transform: translateX(100%) translateY(-50%);    
+    transform: translateX(100%) translateY(-50%);
   `}
   ${mq.tabletOnly`
     top: 170px;
@@ -71,11 +72,13 @@ const RightArrow = styled.div `
 const Info = styled.div`
   background: ${colors.gray.gray96};
   h4 {
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     font-weight: bold;
   }
   p {
-    font-weight: ${font.weight.medium};    
+    font-weight: ${font.weight.medium};
   }
   ${mq.desktopAndAbove`
     position: absolute;
@@ -104,7 +107,7 @@ const Info = styled.div`
   `}
   ${mq.desktopOnly`
     min-height: 170px;
-    max-height: 190px;    
+    max-height: 190px;
     padding-top: 23px;
     padding-bottom: 19px;
     h4 {
@@ -115,13 +118,13 @@ const Info = styled.div`
 
 const ArrowNextIcon = styled.div`
   height: 100%;
-  img{
+  img {
     width: auto;
     height: 100%;
   }
 `
 
-const CloseBtn = styled.div `
+const CloseBtn = styled.div`
   position: absolute;
   right: 3px;
   top: 8px;
@@ -130,7 +133,8 @@ const CloseBtn = styled.div `
   height: 20px;
   overflow: hidden;
   cursor: pointer;
-  &:before, &:after {
+  &:before,
+  &:after {
     content: '';
     position: absolute;
     height: 2px;
@@ -141,7 +145,7 @@ const CloseBtn = styled.div `
     background: #000;
   }
   &:before {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
   }
   &:after {
     transform: rotate(-45deg);
@@ -149,12 +153,9 @@ const CloseBtn = styled.div `
 `
 
 export default class InfoBox extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const { selectedContent, infoPageNum, nextPage, closeInfoBox } = this.props
-    if (selectedContent.length === 0 ) return
+    if (selectedContent.length === 0) return
     let page = infoPageNum % selectedContent.length
     let selectedItem = selectedContent[page]
     return (
@@ -163,22 +164,30 @@ export default class InfoBox extends PureComponent {
         <Info>
           <NavigationWrapper>
             <Navigation
-              pagesLength = {selectedContent.length}
-              currentPage = {page}
-              startPage = {0}
-              endPage = {selectedContent.length}
-              navigationWidth = {22}                          
+              pagesLength={selectedContent.length}
+              currentPage={page}
+              startPage={0}
+              endPage={selectedContent.length}
+              navigationWidth={22}
             />
           </NavigationWrapper>
           <h4>{selectedItem.date}</h4>
           <p>{selectedItem.description.chinese}</p>
-          <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+          <RightArrow
+            onClick={nextPage}
+            hasNext={(selectedContent.length > 1).toString()}
+          >
             <ArrowNextIcon>
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/arrow-next.png`
+                )}`}
+                alt={'>'}
+              />
             </ArrowNextIcon>
           </RightArrow>
         </Info>
-        <CloseBtn onClick={closeInfoBox} />          
+        <CloseBtn onClick={closeInfoBox} />
       </Container>
     )
   }
@@ -188,14 +197,12 @@ InfoBox.defaultProps = {
   selectedContent: [],
   infoPageNum: 0,
   nextPage: () => {},
-  closeInfoBox: () => {}
+  closeInfoBox: () => {},
 }
 
 InfoBox.propTypes = {
   selectedContent: PropTypes.array.isRequired,
   infoPageNum: PropTypes.number.isRequired,
   nextPage: PropTypes.func.isRequired,
-  closeInfoBox: PropTypes.func.isRequired
+  closeInfoBox: PropTypes.func.isRequired,
 }
-
-

@@ -12,9 +12,7 @@ const typekitScripts = `
 `
 
 const WebFont = () => (
-  <script
-    dangerouslySetInnerHTML={{ __html: typekitScripts }}
-  />
+  <script dangerouslySetInnerHTML={{ __html: typekitScripts }} />
 )
 
 export default WebFont

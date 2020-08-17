@@ -12,7 +12,7 @@ const logger = loggerFactory.getLogger()
 
 const _ = {
   get,
-  merge
+  merge,
 }
 
 class EnhancedPagination extends PureComponent {
@@ -28,8 +28,8 @@ class EnhancedPagination extends PureComponent {
       this.props.history.push(to)
     } catch (err) {
       logger.errorReport({
-        report:err,
-        message: `Error on history.push(${to}).`
+        report: err,
+        message: `Error on history.push(${to}).`,
       })
     }
   }
@@ -54,7 +54,7 @@ class EnhancedPagination extends PureComponent {
     const page = parseInt(text, 10)
     return this._pushTo({
       pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page })
+      search: this._mergeQueryToSearch({ page }),
     })
   }
 
@@ -62,7 +62,7 @@ class EnhancedPagination extends PureComponent {
     e.preventDefault()
     return this._pushTo({
       pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page: this.props.currentPage - 1 })
+      search: this._mergeQueryToSearch({ page: this.props.currentPage - 1 }),
     })
   }
 
@@ -70,7 +70,7 @@ class EnhancedPagination extends PureComponent {
     e.preventDefault()
     return this._pushTo({
       pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page: this.props.currentPage + 1 })
+      search: this._mergeQueryToSearch({ page: this.props.currentPage + 1 }),
     })
   }
 
@@ -81,7 +81,8 @@ class EnhancedPagination extends PureComponent {
         handleClickPage={this.handleClickPage}
         handleClickNext={this.handleClickNext}
         {...this.props}
-      />)
+      />
+    )
   }
 }
 
@@ -90,7 +91,7 @@ EnhancedPagination.propTypes = {
   totalPages: PropTypes.number.isRequired,
   // The props below are provided by `withRouter`
   location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 }
 
 export default withRouter(EnhancedPagination)

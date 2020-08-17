@@ -21,8 +21,16 @@ class Search extends Component {
   render() {
     return (
       <Container>
-        <div dangerouslySetInnerHTML={{ __html: '<gcse:searchbox-only></gcse:searchbox-only>' }} />
-        <div dangerouslySetInnerHTML={{ __html: '<gcse:searchresults-only></gcse:searchresults-only>' }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: '<gcse:searchbox-only></gcse:searchbox-only>',
+          }}
+        />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: '<gcse:searchresults-only></gcse:searchresults-only>',
+          }}
+        />
       </Container>
     )
   }

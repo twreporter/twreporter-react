@@ -135,7 +135,6 @@ function shallowCloneFullTopic(topic) {
   return Object.assign(metaTopic, cloneWithFields(fields, topic))
 }
 
-
 export default {
   shallowCloneFullPost,
   shallowCloneMetaOfPost,

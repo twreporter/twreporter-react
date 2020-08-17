@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const Pagination = styled.div `
+const Pagination = styled.div`
   display: inline-block;
-  width: calc(((${props => props.navigationWidth}px - ${props => props.pagesLength}px) / ${props => props.pagesLength}));
+  width: calc(
+    (
+      (${props => props.navigationWidth}px - ${props => props.pagesLength}px) /
+        ${props => props.pagesLength}
+    )
+  );
   height: 2px;
-  opacity: ${props => props.isCurrentPage ? 1 : 0.25};
+  opacity: ${props => (props.isCurrentPage ? 1 : 0.25)};
   background: ${colors.black};
   margin-left: 1px;
   ${mq.mobileOnly`
@@ -24,18 +29,21 @@ const Container = styled.div`
 `
 
 export default class Navigation extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   _createNavigation = () => {
-    const { pagesLength, currentPage, startPage, endPage, navigationWidth } = this.props
+    const {
+      pagesLength,
+      currentPage,
+      startPage,
+      endPage,
+      navigationWidth,
+    } = this.props
     let pagination = []
     let navigation = []
     for (let i = startPage; i < endPage; i++) {
       pagination.push(
-        <Pagination 
-          key={i} 
-          isCurrentPage={i === currentPage} 
+        <Pagination
+          key={i}
+          isCurrentPage={i === currentPage}
           pagesLength={pagesLength}
           navigationWidth={navigationWidth}
         />
@@ -43,7 +51,7 @@ export default class Navigation extends PureComponent {
     }
     if (pagination.length > 1) {
       navigation.push(
-        <Container 
+        <Container
           key={'nav'}
           navigationWidth={navigationWidth}
           pagesLength={pagesLength}
@@ -56,11 +64,7 @@ export default class Navigation extends PureComponent {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        { this._createNavigation() }
-      </React.Fragment>
-    )
+    return <React.Fragment>{this._createNavigation()}</React.Fragment>
   }
 }
 
@@ -69,7 +73,7 @@ Navigation.defaultProps = {
   currentPage: 0,
   startPage: 0,
   endPage: 0,
-  navigationWidth: 0
+  navigationWidth: 0,
 }
 
 Navigation.propTypes = {
@@ -77,6 +81,5 @@ Navigation.propTypes = {
   currentPage: PropTypes.number.isRequired,
   startPage: PropTypes.number,
   endPage: PropTypes.number,
-  navigationWidth: PropTypes.number
+  navigationWidth: PropTypes.number,
 }
-

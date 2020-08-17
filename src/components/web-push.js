@@ -1,4 +1,5 @@
-import { connect } from 'react-redux'
+/* global Notification */
+
 import axios from 'axios'
 import bsCosnt from '../constants/browser-storage'
 import localForage from 'localforage'
@@ -16,25 +17,24 @@ import get from 'lodash/get'
 const logger = loggerFactory.getLogger()
 
 const _ = {
-  get
+  get,
 }
 
 const formURL = twreporterRedux.utils.formURL
 
 // TODO move applicationServerPublicKey to config
-const applicationServerPublicKey = 'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
+const applicationServerPublicKey =
+  'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
 
 /**
-* The application server's public key is base 64 URL safe encoded.
-* We convert it to a UInt8Array as this is the expected input of the subscribe call.
-* @param {string} base64String Base 64 URL
-* @return {UInt8Array} Array contains uint8 values
-*/
+ * The application server's public key is base 64 URL safe encoded.
+ * We convert it to a UInt8Array as this is the expected input of the subscribe call.
+ * @param {string} base64String Base 64 URL
+ * @return {Uint8Array} Array contains uint8 values
+ */
 function urlB64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4)
-  const base64 = (base64String + padding)
-    .replace(/-/g, '+')
-    .replace(/_/g, '/')
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
 
   const rawData = window.atob(base64)
   const outputArray = new Uint8Array(rawData.length)
@@ -46,22 +46,22 @@ function urlB64ToUint8Array(base64String) {
 }
 
 /**
-* @return {bool}
-*/
+ * @return {boolean}
+ */
 function isNotificationSupported() {
   return 'Notification' in window
 }
 
 /**
-* @return {bool}
-*/
+ * @return {boolean}
+ */
 function isPushSupported() {
   return 'PushManager' in window
 }
 
 /**
-* @return {bool}
-*/
+ * @return {boolean}
+ */
 function isServiceWorkerSupported() {
   return 'serviceWorker' in navigator
 }
@@ -213,7 +213,10 @@ const closeSVG = (
     height="18"
     viewBox="0 0 24 24"
   >
-    <path style={ { stroke: '#808080' } } d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    <path
+      style={{ stroke: '#808080' }}
+      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+    />
   </svg>
 )
 
@@ -243,30 +246,41 @@ class WebPush extends PureComponent {
     Promise.all([
       this.getNextPopupTsFromBrowserStorage(),
       this.getIsSubscribed(),
-    ]).then(results => {
-      this.setState({
-        nextPopupTs: results[0],
-        isSubscribed: results[1],
+    ])
+      .then(results => {
+        this.setState({
+          nextPopupTs: results[0],
+          isSubscribed: results[1],
+        })
       })
-    }).catch(logger.warn)
+      .catch(logger.warn)
   }
 
   getIsSubscribed() {
     // push manager and service worker only existed on client side
-    if (isServiceWorkerSupported() && isPushSupported())  {
+    if (isServiceWorkerSupported() && isPushSupported()) {
       // check if service worker registered web push notification or not
-      return navigator.serviceWorker.getRegistration()
-        .then((reg) => {
+      return navigator.serviceWorker
+        .getRegistration()
+        .then(reg => {
           if (reg) {
             return reg.pushManager.getSubscription()
           }
           return null
         })
-        .then((subscription) => {
+        .then(subscription => {
           if (subscription !== null) {
             const endpoint = subscription.endpoint
-            return axios.get(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions', { endpoint }, false))
-              .catch((err) => {
+            return axios
+              .get(
+                formURL(
+                  this.props.apiOrigin,
+                  '/v1/web-push/subscriptions',
+                  { endpoint },
+                  false
+                )
+              )
+              .catch(err => {
                 const statusCode = _.get(err, 'response.status')
                 if (statusCode === statusCodeConst.notFound) {
                   return err.response
@@ -276,17 +290,18 @@ class WebPush extends PureComponent {
           }
           return null
         })
-        .then((axiosRes) => {
+        .then(axiosRes => {
           let isSubscribed = false
-          if (_.get(axiosRes, 'status') == statusCodeConst.ok) {
+          if (_.get(axiosRes, 'status') === statusCodeConst.ok) {
             isSubscribed = true
           }
           return isSubscribed
         })
-        .catch((err) => {
+        .catch(err => {
           logger.errorReport({
             report: err,
-            message: 'Something went wrong during checking web push subscription is existed or not'
+            message:
+              'Something went wrong during checking web push subscription is existed or not',
           })
           return defaults.isSubscribed
         })
@@ -297,7 +312,8 @@ class WebPush extends PureComponent {
   }
 
   getNextPopupTsFromBrowserStorage() {
-    return localForage.getItem(bsCosnt.keys.notifyPopupTs)
+    return localForage
+      .getItem(bsCosnt.keys.notifyPopupTs)
       .then(ts => {
         if (typeof ts === 'number' && !isNaN(ts)) {
           return ts
@@ -305,7 +321,10 @@ class WebPush extends PureComponent {
         return defaults.nextPopupTs
       })
       .catch(err => {
-        console.warn(`Can not get ${bsCosnt.keys.notifyPopupTs} from browser storage: `, err)
+        console.warn(
+          `Can not get ${bsCosnt.keys.notifyPopupTs} from browser storage: `,
+          err
+        )
         return defaults.nextPopupTs
       })
   }
@@ -317,9 +336,13 @@ class WebPush extends PureComponent {
     // 1000 * 60 * 60 * 24 * 30 is one month in ms format
     const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
     const oneMonthLater = Date.now() + oneMonthInterval
-    localForage.setItem(bsCosnt.keys.notifyPopupTs, oneMonthLater)
+    localForage
+      .setItem(bsCosnt.keys.notifyPopupTs, oneMonthLater)
       .catch(err => {
-        console.warn(`Can not set ${bsCosnt.keys.notifyPopupTs} into browser storage: `, err)
+        console.warn(
+          `Can not set ${bsCosnt.keys.notifyPopupTs} into browser storage: `,
+          err
+        )
       })
     this.setState({
       nextPopupTs: oneMonthLater,
@@ -328,101 +351,113 @@ class WebPush extends PureComponent {
 
   _acceptNotification() {
     const { userId } = this.props
-    if (isNotificationSupported() &&
+    if (
+      isNotificationSupported() &&
       isPushSupported() &&
-      isServiceWorkerSupported()) {
+      isServiceWorkerSupported()
+    ) {
       return new Promise((resolve, reject) => {
         if (Notification.permission === 'denied') {
-          Notification.requestPermission((permission) => {
-            const isGrant = permission === 'grant'
+          Notification.requestPermission(permission => {
+            const isGrant = permission === 'granted'
             if (isGrant) {
               return resolve(isGrant)
             }
-            return reject('User denies Notification request permission')
+            return reject(
+              new Error('User denies Notification request permission')
+            )
           })
         } else {
           const isGrant = true
           resolve(isGrant)
         }
       })
-        .then((isGrant) => {
+        .then(isGrant => {
           if (isGrant) {
             return navigator.serviceWorker.getRegistration()
           }
 
           return null
         })
-        .then((reg) => {
+        .then(reg => {
           if (reg) {
-            const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
+            const applicationServerKey = urlB64ToUint8Array(
+              applicationServerPublicKey
+            )
             return reg.pushManager.subscribe({
               userVisibleOnly: true,
-              applicationServerKey: applicationServerKey
+              applicationServerKey: applicationServerKey,
             })
           }
           return null
         })
-        .then((subscription) => {
+        .then(subscription => {
           if (subscription && typeof subscription.toJSON === 'function') {
             const _subscription = subscription.toJSON()
             const data = {
               endpoint: _subscription.endpoint,
               keys: JSON.stringify(_subscription.keys),
-              'user_id': userId,
+              user_id: userId,
             }
 
-            if (_subscription.expirationTime &&
-              typeof _subscription.expirationTime.toString === 'function') {
+            if (
+              _subscription.expirationTime &&
+              typeof _subscription.expirationTime.toString === 'function'
+            ) {
               data.expirationTime = _subscription.expirationTime.toString()
             }
 
-            return axios.post(formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'), data)
+            return axios.post(
+              formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'),
+              data
+            )
           }
 
           return null
         })
-        .then((axiosRes) => {
+        .then(axiosRes => {
           let toShowNotify = true
           if (_.get(axiosRes, 'status') === statusCodeConst.created) {
             toShowNotify = false
           }
           return toShowNotify
         })
-        .then((toShowNotify) => {
+        .then(toShowNotify => {
           this.setState({
-            toShowNotify
+            toShowNotify,
           })
           this._setNextPopupToNextMonth()
           logger.info('Accept web push notification successfully.')
         })
-        .catch((err) => {
+        .catch(err => {
           logger.errorReport({
             report: err,
-            message: 'Fail to accept web push notification'
+            message: 'Fail to accept web push notification',
           })
           this.setState({
-            toShowInstruction: true
+            toShowInstruction: true,
           })
         })
     } else {
-      logger.info('Browser does not support `Notification`, `PushManager` or `serviceWorker`.')
+      logger.info(
+        'Browser does not support `Notification`, `PushManager` or `serviceWorker`.'
+      )
     }
   }
 
   _denyNotification() {
     this.setState({
-      toShowInstruction: false
+      toShowInstruction: false,
     })
 
     this._setNextPopupToNextMonth()
   }
 
-
   /**
    *  @param {string} title - notify box title
    *  @param {string} desc - notify box description
    *  @param {string} btText - notify box button text
-   *  @param {Function} btClickCallback - callback function of button click
+   *  @param {function} btClickCallback - callback function of button click
    *  @return {Object} React node containing notify box view
    */
   _renderNotifyBox(title, desc, btText, btClickCallback) {
@@ -430,46 +465,42 @@ class WebPush extends PureComponent {
       <NotifyBackground>
         <NotifyBox>
           <MegaphoneEmoji />
-          <NotifyTitle>
-            {title}
-          </NotifyTitle>
-          <CloseButton
-            onClick={this.denyNotification}
-          >
-            {closeSVG}
-          </CloseButton>
-          <NotifyText>
-            {desc}
-          </NotifyText>
+          <NotifyTitle>{title}</NotifyTitle>
+          <CloseButton onClick={this.denyNotification}>{closeSVG}</CloseButton>
+          <NotifyText>{desc}</NotifyText>
           <NotifyHighLightRow>
             <NotifyHighLight>該如何操作？</NotifyHighLight>
-            <NotifyLink href="/a/how-to-follow-the-reporter" target="_blank">看教學</NotifyLink>
+            <NotifyLink href="/a/how-to-follow-the-reporter" target="_blank">
+              看教學
+            </NotifyLink>
           </NotifyHighLightRow>
-          <NotifyButton onClick={btClickCallback}>
-            {btText}
-          </NotifyButton>
+          <NotifyButton onClick={btClickCallback}>{btText}</NotifyButton>
         </NotifyBox>
       </NotifyBackground>
     )
   }
 
   _renderAcceptanceBox() {
-    return this._renderNotifyBox('想即時追蹤最新報導？',
-      '開啟文章推播功能得到報導者第一手消息！', '開啟通知', this.acceptNotification)
+    return this._renderNotifyBox(
+      '想即時追蹤最新報導？',
+      '開啟文章推播功能得到報導者第一手消息！',
+      '開啟通知',
+      this.acceptNotification
+    )
   }
 
   _renderInstructionBox() {
-    return this._renderNotifyBox('請更改瀏覽器設定來啟動推播通知',
-      '您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。', '略過', this.denyNotification)
+    return this._renderNotifyBox(
+      '請更改瀏覽器設定來啟動推播通知',
+      '您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。',
+      '略過',
+      this.denyNotification
+    )
   }
 
   render() {
     let boxJSX = null
-    const {
-      isSubscribed,
-      nextPopupTs,
-      toShowInstruction,
-    } = this.state
+    const { isSubscribed, nextPopupTs, toShowInstruction } = this.state
 
     if (toShowInstruction) {
       boxJSX = this._renderInstructionBox()
@@ -482,4 +513,3 @@ class WebPush extends PureComponent {
 }
 
 export default WebPush
-

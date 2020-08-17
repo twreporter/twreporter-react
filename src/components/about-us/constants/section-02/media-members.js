@@ -12,7 +12,7 @@ const members = [
     jobEng: 'Editor in chief',
     email: 'sherry@twreporter.org',
     profile: memberUrlPrefix + membersImg.editSherryLee,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '楊惠君',
@@ -21,7 +21,7 @@ const members = [
     jobEng: 'Editor in Chief',
     email: 'jill718@twreporter.org',
     profile: memberUrlPrefix + membersImg.editJillYang,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '劉致昕',
@@ -30,7 +30,7 @@ const members = [
     jobEng: 'editor',
     email: 'chihhsin@twreporter.org',
     profile: memberUrlPrefix + membersImg.editJasonLiu,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '張子午',
@@ -39,8 +39,8 @@ const members = [
     jobEng: 'Senior Journalist',
     email: 'tzewu@twreporter.org',
     profile: memberUrlPrefix + membersImg.editTzewuChang,
-    category: categoryIds.editor
-  }, 
+    category: categoryIds.editor,
+  },
   {
     name: '李法賢',
     nameEng: 'Nick Li',
@@ -48,7 +48,7 @@ const members = [
     jobEng: 'Senior Coder',
     email: 'nickhsine@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiNickLi,
-    category: categoryIds.engineer
+    category: categoryIds.engineer,
   },
   {
     name: '余志偉',
@@ -57,7 +57,7 @@ const members = [
     jobEng: 'Photo Department Director',
     email: 'shakingwave@twreporter.org',
     profile: memberUrlPrefix + membersImg.photoChihWeiYu,
-    category: categoryIds.photojournalist
+    category: categoryIds.photojournalist,
   },
   {
     name: '吳逸驊',
@@ -66,7 +66,7 @@ const members = [
     jobEng: 'Senior Photojournalist',
     email: 'jamesonwu@twreporter.org',
     profile: memberUrlPrefix + membersImg.photoJamesonWu,
-    category: categoryIds.photojournalist
+    category: categoryIds.photojournalist,
   },
   {
     name: '蘇威銘',
@@ -75,7 +75,7 @@ const members = [
     jobEng: 'Photojournalist',
     email: 'tim2468012@twreporter.org',
     profile: memberUrlPrefix + membersImg.photoWeiMinSu,
-    category: categoryIds.photojournalist
+    category: categoryIds.photojournalist,
   },
   {
     name: '楊子磊',
@@ -83,7 +83,7 @@ const members = [
     jobEng: 'Photojournalist',
     email: 'tzule@twreporter.org',
     profile: memberUrlPrefix + membersImg.photoTzuLeiYang,
-    category: categoryIds.photojournalist
+    category: categoryIds.photojournalist,
   },
   {
     name: '余崇任',
@@ -92,7 +92,7 @@ const members = [
     jobEng: 'Software Engineer',
     email: 'yucj@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiYuChungJen,
-    category: categoryIds.engineer
+    category: categoryIds.engineer,
   },
   {
     name: '方泰鈞',
@@ -101,7 +101,7 @@ const members = [
     jobEng: 'Software Engineer',
     email: 'taylorfang@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiTalorFang,
-    category: categoryIds.engineer
+    category: categoryIds.engineer,
   },
   {
     name: '曾清陽',
@@ -110,7 +110,7 @@ const members = [
     jobEng: 'Software Engineer',
     email: 'babygoat@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiChingYangTseng,
-    category: categoryIds.engineer
+    category: categoryIds.engineer,
   },
   {
     name: '吳政達',
@@ -119,7 +119,7 @@ const members = [
     jobEng: 'Art Designer',
     email: 'dadawu@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiDaDaWu,
-    category: categoryIds.designer
+    category: categoryIds.designer,
   },
   {
     name: '黃禹禛',
@@ -128,7 +128,7 @@ const members = [
     jobEng: 'Art Designer',
     email: 'hychen@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiYuChenHuang,
-    category: categoryIds.designer
+    category: categoryIds.designer,
   },
   {
     name: '林珍娜',
@@ -137,7 +137,7 @@ const members = [
     jobEng: 'Art Designer',
     email: 'ginalin@twreporter.org',
     profile: memberUrlPrefix + membersImg.digiChenNaLin,
-    category: categoryIds.designer
+    category: categoryIds.designer,
   },
   {
     name: '孔德廉',
@@ -146,7 +146,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'williamkung13578@twreporter.org',
     profile: memberUrlPrefix + membersImg.editKungTeLien,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '林雨佑',
@@ -154,7 +154,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'limuiu@twreporter.org',
     profile: memberUrlPrefix + membersImg.editUyo,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '嚴文廷',
@@ -162,7 +162,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'roger@twreporter.org',
     profile: memberUrlPrefix + membersImg.editWenTingYen,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '曹馥年',
@@ -170,7 +170,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'funientsao@twreporter.org',
     profile: memberUrlPrefix + membersImg.editFuNienTsao,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '林慧貞',
@@ -178,7 +178,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'linhuichen@twreporter.org',
     profile: memberUrlPrefix + membersImg.editLinHuiChen,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '陳潔',
@@ -186,7 +186,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'chieh@twreporter.org',
     profile: memberUrlPrefix + membersImg.editChenChieh,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '楊智強',
@@ -194,7 +194,7 @@ const members = [
     jobEng: 'Journalist',
     email: 'willyang@twreporter.org',
     profile: memberUrlPrefix + membersImg.editYangWill,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '柯皓翔',
@@ -202,7 +202,7 @@ const members = [
     jobEng: 'Data Journalist',
     email: 'hhk@twreporter.org',
     profile: memberUrlPrefix + membersImg.editKeHaoHsiang,
-    category: categoryIds.editor
+    category: categoryIds.editor,
   },
   {
     name: '張詩芸',
@@ -211,7 +211,7 @@ const members = [
     jobEng: 'Managing Editor',
     email: 'sychang@twreporter.org',
     profile: memberUrlPrefix + membersImg.editShihYunChang,
-    category: categoryIds.socialMedia
+    category: categoryIds.socialMedia,
   },
   {
     name: '陳思樺',
@@ -220,7 +220,7 @@ const members = [
     jobEng: 'Editor',
     email: 'shchen@twreporter.org',
     profile: memberUrlPrefix + membersImg.editSzuHuaChen,
-    category: categoryIds.socialMedia
+    category: categoryIds.socialMedia,
   },
   {
     name: '洪琴宣',
@@ -229,7 +229,7 @@ const members = [
     jobEng: 'Editor',
     email: 'chhung@twreporter.org',
     profile: memberUrlPrefix + membersImg.editChhung,
-    category: categoryIds.socialMedia
+    category: categoryIds.socialMedia,
   },
   {
     name: '王儀君',
@@ -238,7 +238,7 @@ const members = [
     jobEng: 'Senior Editor',
     email: 'sylviewang@twreporter.org',
     profile: memberUrlPrefix + membersImg.editSylvieWang,
-    category: categoryIds.marketing
+    category: categoryIds.marketing,
   },
   {
     name: '李盈臻',
@@ -247,7 +247,7 @@ const members = [
     jobEng: 'Marketing Specialist',
     email: 'janeli@twreporter.org',
     profile: memberUrlPrefix + foundationImg.foundationJaneLi,
-    category: categoryIds.marketing
+    category: categoryIds.marketing,
   },
   {
     name: '何榮幸',
@@ -255,8 +255,8 @@ const members = [
     job: '編輯部顧問',
     email: 'turtle@twreporter.org',
     profile: memberUrlPrefix + membersImg.editJungShinHo,
-    category: categoryIds.editor
-  }
+    category: categoryIds.editor,
+  },
 ]
 
 export default members
