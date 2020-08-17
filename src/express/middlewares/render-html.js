@@ -11,7 +11,7 @@ import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
 
 const _ = {
-  get
+  get,
 }
 
 /**
@@ -28,10 +28,15 @@ const _ = {
  *  @param {Object} options
  *  @param {string} options.releaseBranch - release branch, it could be 'master', 'test', 'staging' or 'release'
  */
-function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) {
+function renderHTMLMiddleware(
+  namespace,
+  webpackAssets,
+  loadableStats,
+  options
+) {
   return function middleware(req, res, next) {
     const modules = []
-    const storeForClientSideRendering = _.get(req, [ namespace, 'reduxStore' ])
+    const storeForClientSideRendering = _.get(req, [namespace, 'reduxStore'])
     if (!storeForClientSideRendering) {
       next(new Error(`req.${namespace}.reduxStore is not existed`))
       return
@@ -40,18 +45,18 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
     // The initial origins are for server side renedering. So we need to set them for client side rendering before we send the store to client.
     storeForClientSideRendering.dispatch({
       type: twreporterRedux.actionTypes.origins.update,
-      payload: requestOrigins.forClientSideRendering[options.releaseBranch]
+      payload: requestOrigins.forClientSideRendering[options.releaseBranch],
     })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
     const contentMarkup = ReactDOMServer.renderToString(
       <StyleSheetManager sheet={sheet.instance}>
-        <StaticRouter
-          location={req.url}
-          context={routerStaticContext}
-        >
+        <StaticRouter location={req.url} context={routerStaticContext}>
           <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-            <App reduxStore={storeForClientSideRendering} releaseBranch={options.releaseBranch}/>
+            <App
+              reduxStore={storeForClientSideRendering}
+              releaseBranch={options.releaseBranch}
+            />
           </Loadable.Capture>
         </StaticRouter>
       </StyleSheetManager>
@@ -59,8 +64,11 @@ function renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options) 
 
     const bundles = getBundles(loadableStats, modules)
 
-    const scripts = [webpackAssets.javascripts.manifest, ...webpackAssets.javascripts.vendors]
-    bundles.forEach((bundle) => {
+    const scripts = [
+      webpackAssets.javascripts.manifest,
+      ...webpackAssets.javascripts.vendors,
+    ]
+    bundles.forEach(bundle => {
       scripts.push(_.get(bundle, 'publicPath', ''))
     })
     // main bundle should be last

@@ -17,18 +17,18 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const Container = styled.div`
   position: relative;
-  height: ${props => props.viewportHeight || '100vh' };
+  height: ${props => props.viewportHeight || '100vh'};
 `
 
 const themeConsts = {
   center: 'center',
   bottomLeft: 'bottom-left',
-  bottom: 'bottom'
+  bottom: 'bottom',
 }
 
 function selectComponentsByTheme(theme) {
@@ -48,7 +48,11 @@ const defaultViewportHeight = '100vh'
 
 export default class Banner extends PureComponent {
   static propTypes = {
-    theme: PropTypes.oneOf([ themeConsts.bottom, themeConsts.bottomLeft, themeConsts.center ]).isRequired,
+    theme: PropTypes.oneOf([
+      themeConsts.bottom,
+      themeConsts.bottomLeft,
+      themeConsts.center,
+    ]).isRequired,
     headline: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
@@ -56,13 +60,13 @@ export default class Banner extends PureComponent {
     leadingVideo: predefinedPropTypes.videoObj,
     leadingImage: predefinedPropTypes.imgObj,
     leadingImagePortrait: predefinedPropTypes.imgObj,
-    ogImage: predefinedPropTypes.imgObj
+    ogImage: predefinedPropTypes.imgObj,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      viewportHeight: defaultViewportHeight
+      viewportHeight: defaultViewportHeight,
     }
     this._containerRef = React.createRef()
     this.scrollToNextSection = this._scrollToNextSection.bind(this)
@@ -83,10 +87,12 @@ export default class Banner extends PureComponent {
         Since this page should not have horizontal scroll bar, we can use `window.innerHeight` directly.
         Reference: https://stackoverflow.com/a/31655549
       */
-      const heightString = window.innerHeight ? `${window.innerHeight}px` : '100vh'
+      const heightString = window.innerHeight
+        ? `${window.innerHeight}px`
+        : '100vh'
       if (this.state.viewportHeight !== heightString) {
         this.setState({
-          viewportHeight: heightString
+          viewportHeight: heightString,
         })
       }
     }
@@ -110,7 +116,7 @@ export default class Banner extends PureComponent {
       leadingVideo,
       leadingImage,
       leadingImagePortrait,
-      ogImage
+      ogImage,
     } = this.props
     const { viewportHeight } = this.state
     const components = selectComponentsByTheme(theme)
@@ -124,7 +130,11 @@ export default class Banner extends PureComponent {
             title={title}
             uploadDate={new Date(publishedDate).toISOString()}
             description={`報導者專題《${title}》封面影片`}
-            poster={replaceGCSUrlOrigin(_.get(ogImage, 'resized_targets.tablet.url') || _.get(leadingImage, 'resized_targets.tablet.url') || siteMeta.ogImage.url)}
+            poster={replaceGCSUrlOrigin(
+              _.get(ogImage, 'resized_targets.tablet.url') ||
+                _.get(leadingImage, 'resized_targets.tablet.url') ||
+                siteMeta.ogImage.url
+            )}
             viewportHeight={viewportHeight}
           />
         ) : (
@@ -136,13 +146,20 @@ export default class Banner extends PureComponent {
           />
         )}
         <components.Content>
-          {headline ? <components.Headline>{headline}</components.Headline> : null}
+          {headline ? (
+            <components.Headline>{headline}</components.Headline>
+          ) : null}
           <components.Title>{title}</components.Title>
-          {subtitle ? <components.Subtitle>{subtitle}</components.Subtitle> : null}
+          {subtitle ? (
+            <components.Subtitle>{subtitle}</components.Subtitle>
+          ) : null}
           <components.Dash />
-          <components.PublishDate>{`${date2yyyymmdd(publishedDate, '.')} 最後更新`}</components.PublishDate>
+          <components.PublishDate>{`${date2yyyymmdd(
+            publishedDate,
+            '.'
+          )} 最後更新`}</components.PublishDate>
         </components.Content>
-        <components.ArrowDown onClick={this.scrollToNextSection} >
+        <components.ArrowDown onClick={this.scrollToNextSection}>
           <ArrowDownIcon />
         </components.ArrowDown>
       </Container>

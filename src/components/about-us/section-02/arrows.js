@@ -16,8 +16,8 @@ const Arrow = styled.div`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  visibility: ${props => props.isvisible ? 'visible' : 'hidden'};
-  img{
+  visibility: ${props => (props.isvisible ? 'visible' : 'hidden')};
+  img {
     height: 45px;
   }
 `
@@ -30,7 +30,7 @@ const LeftArrow = styled(Arrow)`
   ${mq.hdOnly`
     img{
       transform: translateX(29px) scaleX(-1);
-    } 
+    }
   `}
   ${mq.tabletOnly`
     img{
@@ -52,7 +52,7 @@ const RightArrow = styled(Arrow)`
   ${mq.hdOnly`
     img{
       transform: translateX(-29px);
-    } 
+    }
   `}
   ${mq.tabletOnly`
     img{
@@ -67,28 +67,30 @@ const RightArrow = styled(Arrow)`
 `
 
 export default class Arrows extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const { membersPageLengthArray, visible, changePage } = this.props
     return (
       <React.Fragment>
-        {
-          membersPageLengthArray.length > 0 ?
-            <Container>
-              <LeftArrow
-                isvisible={visible}
-                onClick={() => changePage('prev') }>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
-              </LeftArrow>
-              <RightArrow
-                isvisible={visible}
-                onClick = {() => changePage('next') }>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
-              </RightArrow>
-            </Container> : null
-        }
+        {membersPageLengthArray.length > 0 ? (
+          <Container>
+            <LeftArrow isvisible={visible} onClick={() => changePage('prev')}>
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/arrow-next.png`
+                )}`}
+                alt={'>'}
+              />
+            </LeftArrow>
+            <RightArrow isvisible={visible} onClick={() => changePage('next')}>
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/arrow-next.png`
+                )}`}
+                alt={'>'}
+              />
+            </RightArrow>
+          </Container>
+        ) : null}
       </React.Fragment>
     )
   }
@@ -97,11 +99,11 @@ export default class Arrows extends PureComponent {
 Arrows.defaultProps = {
   membersPageLengthArray: [],
   visible: true,
-  departmentIndex: 0
+  departmentIndex: 0,
 }
 
 Arrows.propTypes = {
   membersPageLengthArray: PropTypes.array.isRequired,
   visible: PropTypes.bool.isRequired,
-  changePage: PropTypes.func.isRequired
+  changePage: PropTypes.func.isRequired,
 }

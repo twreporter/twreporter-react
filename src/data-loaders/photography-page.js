@@ -12,5 +12,9 @@ import dataLoaderConst from '../constants/data-loaders'
 export default function loadData({ store }) {
   const listId = categoryConst.ids.photography
   const startPage = 1
-  return store.actions.fetchPostsByCategoryListId(listId, dataLoaderConst.photographyPage.nPerPage, startPage)
+  return store.actions.fetchPostsByCategoryListId(
+    listId,
+    dataLoaderConst.photographyPage.nPerPage,
+    startPage
+  )
 }

@@ -3,7 +3,8 @@ const config = require('./config')
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
+const ReactLoadablePlugin = require('react-loadable/webpack')
+  .ReactLoadablePlugin
 
 const isProduction = config.nodeEnv !== 'development'
 const webpackDevServerHost = config.webpackDevServerHost
@@ -11,14 +12,14 @@ const webpackDevServerPort = config.webpackDevServerPort
 const webpackPublicPath = config.webpackPublicPath
 const webpackOutputFilename = config.webpackOutputFilename
 
-const webpackAssets =  {
+const webpackAssets = {
   javascripts: {
     chunks: [],
     vendors: [],
     main: '',
-    manifest: ''
+    manifest: '',
   },
-  stylesheets: []
+  stylesheets: [],
 }
 
 function BundleListPlugin() {}
@@ -29,8 +30,8 @@ function BundleListPlugin() {}
 // - group node_modules files
 // - code splitting
 // into webpack-assets.json
-BundleListPlugin.prototype.apply = function (compiler) {
-  compiler.plugin('emit', function (compilation, callback) {
+BundleListPlugin.prototype.apply = function(compiler) {
+  compiler.plugin('emit', function(compilation, callback) {
     for (const filename in compilation.assets) {
       if (filename.startsWith('main')) {
         webpackAssets.javascripts.main = `${webpackPublicPath}${filename}`
@@ -39,7 +40,9 @@ BundleListPlugin.prototype.apply = function (compiler) {
       } else if (filename.endsWith('.chunk.js')) {
         webpackAssets.javascripts.chunks.push(`${webpackPublicPath}${filename}`)
       } else {
-        webpackAssets.javascripts.vendors.push(`${webpackPublicPath}${filename}`)
+        webpackAssets.javascripts.vendors.push(
+          `${webpackPublicPath}${filename}`
+        )
       }
     }
 
@@ -47,7 +50,6 @@ BundleListPlugin.prototype.apply = function (compiler) {
     callback()
   })
 }
-
 
 //
 // TO AVOID AMBIGUOUS:
@@ -57,28 +59,28 @@ BundleListPlugin.prototype.apply = function (compiler) {
 const webpackConfig = {
   context: path.resolve(__dirname),
   entry: {
-    main: './src/client.js'
+    main: './src/client.js',
   },
   output: {
     chunkFilename: '[name].[chunkhash].chunk.js',
     filename: webpackOutputFilename,
     path: path.join(__dirname, 'dist'),
-    publicPath: webpackPublicPath
+    publicPath: webpackPublicPath,
   },
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
     host: webpackDevServerHost,
-    port: webpackDevServerPort
+    port: webpackDevServerPort,
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
-      }
-    ]
+        use: 'babel-loader',
+      },
+    ],
   },
   resolve: {
     alias: {
@@ -89,9 +91,12 @@ const webpackConfig = {
       // import lw from '@google-cloud/logging-winston'
       // ->
       // import lw from 'src/logger/noop.js'
-      '@google-cloud/logging-winston': path.resolve(__dirname, 'src/logger/noop.js')
+      '@google-cloud/logging-winston': path.resolve(
+        __dirname,
+        'src/logger/noop.js'
+      ),
       // the above alias is used to not import node-specific module into webpack bundle
-    }
+    },
   },
   plugins: [
     /*
@@ -100,7 +105,7 @@ const webpackConfig = {
     */
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
-      'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch)
+      'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch),
     }),
 
     // This plugin will cause hashes to be based on the relative path of the module,
@@ -113,10 +118,13 @@ const webpackConfig = {
       name: 'babel-polyfill',
       chunks: ['main'],
       minChunks: function(module) {
-        return module.context && (
-          /node_modules\/(babel-polyfill|core-js|regenerator-runtime)/.test(module.context)
+        return (
+          module.context &&
+          /node_modules\/(babel-polyfill|core-js|regenerator-runtime)/.test(
+            module.context
+          )
         )
-      }
+      },
     }),
 
     // Move react, react-dom, react-*, redux, history and styled-components into react bundle
@@ -124,10 +132,13 @@ const webpackConfig = {
       name: 'react',
       chunks: ['main'],
       minChunks: function(module) {
-        return module.context && (
-          /node_modules\/(react|history|redux|styled-components)/.test(module.context)
+        return (
+          module.context &&
+          /node_modules\/(react|history|redux|styled-components)/.test(
+            module.context
+          )
         )
-      }
+      },
     }),
 
     // Move @twreporter/* package into twreporter bundle
@@ -135,8 +146,10 @@ const webpackConfig = {
       name: 'twreporter',
       chunks: ['main'],
       minChunks: function(module) {
-        return module.context && module.context.includes('node_modules/@twreporter')
-      }
+        return (
+          module.context && module.context.includes('node_modules/@twreporter')
+        )
+      },
     }),
 
     // Move @twreporter/redux package into twreporter-redux bundle
@@ -144,8 +157,11 @@ const webpackConfig = {
       name: 'twreporter-redux',
       chunks: ['twreporter'],
       minChunks: function(module) {
-        return module.context && module.context.includes('node_modules/@twreporter/redux')
-      }
+        return (
+          module.context &&
+          module.context.includes('node_modules/@twreporter/redux')
+        )
+      },
     }),
 
     // Move @twreporter/react-components package into twreporter-react-components bundle
@@ -153,8 +169,11 @@ const webpackConfig = {
       name: 'twreporter-react-components',
       chunks: ['twreporter'],
       minChunks: function(module) {
-        return module.context && module.context.includes('node_modules/@twreporter/react-components')
-      }
+        return (
+          module.context &&
+          module.context.includes('node_modules/@twreporter/react-components')
+        )
+      },
     }),
 
     // Move @twreporter/universal-header package into twreporter-universal-header bundle
@@ -162,8 +181,11 @@ const webpackConfig = {
       name: 'twreporter-universal-header',
       chunks: ['twreporter'],
       minChunks: function(module) {
-        return module.context && module.context.includes('node_modules/@twreporter/universal-header')
-      }
+        return (
+          module.context &&
+          module.context.includes('node_modules/@twreporter/universal-header')
+        )
+      },
     }),
 
     // Move packages except for react, react-*, styled-components and @twreporter/* into other-vendor bundle
@@ -171,39 +193,34 @@ const webpackConfig = {
       name: 'other-vendors',
       chunks: ['main'],
       minChunks: function(module) {
-        return module.context && (
-          module.context.includes('node_modules')
-        )
-      }
+        return module.context && module.context.includes('node_modules')
+      },
     }),
 
     // Move any modules that occur in at least 2 chunks to a separate file
     new webpack.optimize.CommonsChunkPlugin({
       async: true,
       children: true,
-      minChunks: 2
+      minChunks: 2,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      minChunks: Infinity
+      minChunks: Infinity,
     }),
     new ReactLoadablePlugin({
-      filename: './react-loadable.json'
+      filename: './react-loadable.json',
     }),
-    new BundleListPlugin()
-  ]
+    new BundleListPlugin(),
+  ],
 }
-
 
 if (isProduction) {
   webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin()
     //  new BundleAnalyzerPlugin()
   )
 } else {
-  webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  )
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
 module.exports = webpackConfig

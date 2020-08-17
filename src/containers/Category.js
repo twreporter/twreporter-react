@@ -24,7 +24,7 @@ const _ = {
   get,
 }
 
-const { actions, reduxStateFields, utils } = twreporterRedux
+const { actions, reduxStateFields } = twreporterRedux
 const { fetchPostsByCategoryListId } = actions
 const logger = loggerFactory.getLogger()
 
@@ -34,7 +34,8 @@ class Category extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.catId !== prevProps.catId ||
+    if (
+      this.props.catId !== prevProps.catId ||
       this.props.page !== prevProps.page
     ) {
       this.fetchPostsWithCatch()
@@ -42,20 +43,14 @@ class Category extends PureComponent {
   }
 
   fetchPostsWithCatch() {
-    const {
-      catId,
-      fetchPostsByCategoryListId,
-      nPerPage,
-      page,
-    } = this.props
+    const { catId, fetchPostsByCategoryListId, nPerPage, page } = this.props
 
-    fetchPostsByCategoryListId(catId, nPerPage, page)
-      .catch((failAction) => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: '${catId}', page: ${page}, nPerPage: ${nPerPage}).`
-        })
+    fetchPostsByCategoryListId(catId, nPerPage, page).catch(failAction => {
+      logger.errorReport({
+        report: _.get(failAction, 'payload.error'),
+        message: `Error to fetch posts (category id: '${catId}', page: ${page}, nPerPage: ${nPerPage}).`,
       })
+    })
   }
 
   render() {
@@ -71,9 +66,7 @@ class Category extends PureComponent {
 
     // Error handling
     if (error) {
-      return (
-        <SystemError error={error} />
-      )
+      return <SystemError error={error} />
     }
 
     const title = catLabel + siteMeta.name.separator + siteMeta.name.full
@@ -83,9 +76,7 @@ class Category extends PureComponent {
       <div>
         <Helmet
           title={title}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
@@ -97,7 +88,7 @@ class Category extends PureComponent {
             { property: 'og:image:width', content: siteMeta.ogImage.width },
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical }
+            { property: 'og:url', content: canonical },
           ]}
         />
         <List
@@ -106,10 +97,7 @@ class Category extends PureComponent {
           isFetching={isFetching}
           showSpinner={true}
         />
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-        />
+        <Pagination currentPage={page} totalPages={totalPages} />
       </div>
     )
   }
@@ -127,10 +115,11 @@ class Category extends PureComponent {
  *  @param {Object} [location={}] - react-router location object
  *  @return {number} current page
  */
-function pageProp(location={}) {
+function pageProp(location = {}) {
   const defaultPage = 1
   const search = _.get(location, 'search', '')
-  const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const searchWithoutPrefix =
+    typeof search === 'string' ? search.replace(/^\?/, '') : search
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
   let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
 
@@ -178,11 +167,13 @@ function errorProp(state, listId) {
 function postsProp(state, listId, page) {
   const { entities, postsInEntities, lists } = reduxStateFields
   const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
-  const listObj = _.get(state, [ lists, listId ])
+  const listObj = _.get(state, [lists, listId])
   const itemsRange = _.get(listObj, ['pages', page])
   const postIds = _.get(listObj, 'items', [])
-  const postIdsForCurPage = Array.isArray(itemsRange) && Array.isArray(postIds) ?
-    postIds.slice(itemsRange[0], itemsRange[1] + 1) : []
+  const postIdsForCurPage =
+    Array.isArray(itemsRange) && Array.isArray(postIds)
+      ? postIds.slice(itemsRange[0], itemsRange[1] + 1)
+      : []
   const posts = []
   _.forEach(postIdsForCurPage, postId => {
     const post = _.get(postEntities, postId)
@@ -192,7 +183,6 @@ function postsProp(state, listId, page) {
   })
   return posts
 }
-
 
 /**
  *  @typedef {Object} CategoryProps
@@ -260,12 +250,14 @@ Category.propTypes = {
   page: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
 
-  //TODO: define metaOfPost
+  // TODO: define metaOfPost
   // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
   posts: PropTypes.array,
   totalPages: PropTypes.number,
 }
 
 export { Category }
-export default connect(mapStateToProps, { fetchPostsByCategoryListId })(Category)
-
+export default connect(
+  mapStateToProps,
+  { fetchPostsByCategoryListId }
+)(Category)

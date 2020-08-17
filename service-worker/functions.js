@@ -6,9 +6,9 @@ export default {
     }
 
     // Otherwise compare each path regex to the path of the URL passed in.
-    const path = (new URL(absoluteUrlString)).pathname
+    const path = new URL(absoluteUrlString).pathname
     return whitelist.some(function(whitelistedPathRegex) {
       return path.match(whitelistedPathRegex)
-    });
+    })
   },
 }

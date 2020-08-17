@@ -47,8 +47,8 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = (footerType) => {
-  switch(footerType) {
+const renderFooter = footerType => {
+  switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
@@ -60,7 +60,7 @@ const renderFooter = (footerType) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
-  switch(headerType) {
+  switch (headerType) {
     case uiConst.header.none: {
       return null
     }
@@ -115,12 +115,16 @@ class AppShell extends React.PureComponent {
     headerType: PropTypes.oneOf(_.values(uiConst.header)),
     releaseBranch: PropTypes.string.isRequired,
     userId: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node,
+    ]),
   }
 
   static defaultProps = {
     headerType: uiConst.header.default,
     footerType: uiConst.footer.default,
-    backgroundColor: '#f1f1f1'
+    backgroundColor: '#f1f1f1',
   }
 
   render() {
@@ -136,14 +140,9 @@ class AppShell extends React.PureComponent {
 
     return (
       <ErrorBoundary>
-        <AppBox
-          backgroundColor={backgroundColor}
-        >
+        <AppBox backgroundColor={backgroundColor}>
           <ContentBlock>
-            <WebPush
-              apiOrigin={apiOrigin}
-              userId={userId}
-            />
+            <WebPush apiOrigin={apiOrigin} userId={userId} />
             {renderHeader(headerType, releaseBranch)}
             {children}
             {renderFooter(footerType)}
@@ -154,12 +153,13 @@ class AppShell extends React.PureComponent {
   }
 }
 
-
 function mapStateToProps(state, ownProps) {
-  return Object.assign({
-    apiOrigin: _.get(state, [ reduxStateFields.origins, 'api' ], ''),
-    userId: _.get(state, [ reduxStateFields.auth, 'userInfo.id' ]),
-  }, uiManager.getLayoutObj(state, ownProps.location)
+  return Object.assign(
+    {
+      apiOrigin: _.get(state, [reduxStateFields.origins, 'api'], ''),
+      userId: _.get(state, [reduxStateFields.auth, 'userInfo.id']),
+    },
+    uiManager.getLayoutObj(state, ownProps.location)
   )
 }
 

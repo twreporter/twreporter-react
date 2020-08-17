@@ -8,7 +8,7 @@ import map from 'lodash/map'
 
 const _ = {
   get,
-  map
+  map,
 }
 
 const SlidesContainer = styled.div`
@@ -34,8 +34,12 @@ const Slides = styled.ul`
   margin: 0;
   display: flex;
   flex-wrap: nowrap;
-  transition-property: ${props => props.isSliding ? 'transform' : 'none'};
-  transform: ${props => props.offset !== 0 ? `translateX(calc(${props.offset * 1}px - ${props.currentSlide * 100}vw))` : `translateX(-${props.currentSlide * 100}vw)`};
+  transition-property: ${props => (props.isSliding ? 'transform' : 'none')};
+  transform: ${props =>
+    props.offset !== 0
+      ? `translateX(calc(${props.offset * 1}px - ${props.currentSlide *
+          100}vw))`
+      : `translateX(-${props.currentSlide * 100}vw)`};
   transition-duration: ${props => props.transitionDuration};
   transition-timing-function: ${props => props.transitionTimingFunction};
   will-change: transform;
@@ -50,7 +54,7 @@ const Slide = styled.li`
 const Indicators = styled.ol`
   padding: 0;
   list-style-type: none;
-	text-align: center;
+  text-align: center;
   width: 100%;
   margin: 80px auto 100px auto;
   ${mq.tabletAndAbove`
@@ -59,16 +63,16 @@ const Indicators = styled.ol`
 `
 
 const Indicator = styled.li`
-	display: inline-block;
-	min-width: 10px;
-	min-height: 10px;
-	width: .6em;
-	height: .6em;
-  background-color: ${props => props.focus ? 'white' : '#BEC0BC' };
-	margin: 0 .8em;
-	border-radius: 50%;
-	overflow: hidden;
-	cursor: pointer;
+  display: inline-block;
+  min-width: 10px;
+  min-height: 10px;
+  width: 0.6em;
+  height: 0.6em;
+  background-color: ${props => (props.focus ? 'white' : '#BEC0BC')};
+  margin: 0 0.8em;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
   text-indent: 100%;
 `
 
@@ -77,7 +81,7 @@ const Button = styled.div`
   border: 0;
   cursor: pointer;
   height: 43px;
-  opacity: .75;
+  opacity: 0.75;
   outline: none;
   padding: 0;
   position: absolute;
@@ -109,7 +113,7 @@ class Carousel extends Component {
       currentSlide: this.props.initialSlide,
       dragPosition: null,
       isSliding: false,
-      offset: 0
+      offset: 0,
     }
     this.setTimer = this.setTimer.bind(this)
     this.clearTimer = this.clearTimer.bind(this)
@@ -119,7 +123,7 @@ class Carousel extends Component {
       onTouchEnd: this.onDraggingEnd.bind(this),
       onTouchCancel: this.onDraggingEnd.bind(this),
       onClick: this.onClick.bind(this),
-      onTransitionEnd: this.onTransitionEnd.bind(this)
+      onTransitionEnd: this.onTransitionEnd.bind(this),
     }
   }
 
@@ -131,12 +135,13 @@ class Carousel extends Component {
     this.clearTimer()
   }
 
-  onTransitionEnd() { // this will not be triggered when document.hidden
+  onTransitionEnd() {
+    // this will not be triggered when document.hidden
     const { currentSlide } = this.state
     let fixedSlide = currentSlide
     const count = Children.count(this.props.children)
-    if (currentSlide == count + 1) fixedSlide = 1
-    if (currentSlide == 0) fixedSlide = count
+    if (currentSlide === count + 1) fixedSlide = 1
+    if (currentSlide === 0) fixedSlide = count
     this.setState({ currentSlide: fixedSlide, isSliding: false }, () => {
       this.setTimer()
       this.props.slideDidChange && this.props.slideDidChange(fixedSlide)
@@ -147,7 +152,10 @@ class Carousel extends Component {
     const interval = this.props.autoPlayInterval
     if (Children.count(this.props.children) > 1 && interval > 0) {
       this.clearTimer()
-      this.timer = window.setInterval(this.changeSlide.bind(this, this.state.currentSlide + 1), interval)
+      this.timer = window.setInterval(
+        this.changeSlide.bind(this, this.state.currentSlide + 1),
+        interval
+      )
     }
   }
 
@@ -157,17 +165,35 @@ class Carousel extends Component {
 
   changeSlide(targetSlide) {
     if (document.hidden) return // run only when page is visible
-    if (this.props.slideWillChange && !this.props.slideWillChange(targetSlide, this.state.currentSlide)) return
-    if (targetSlide >= 0 && targetSlide <= React.Children.count(this.props.children) + 1)
-      this.setState({ currentSlide: targetSlide, isSliding: true, dragPosition: null, offset: 0 }, this.setTimer)
+    if (
+      this.props.slideWillChange &&
+      !this.props.slideWillChange(targetSlide, this.state.currentSlide)
+    )
+      return
+    if (
+      targetSlide >= 0 &&
+      targetSlide <= React.Children.count(this.props.children) + 1
+    )
+      this.setState(
+        {
+          currentSlide: targetSlide,
+          isSliding: true,
+          dragPosition: null,
+          offset: 0,
+        },
+        this.setTimer
+      )
   }
 
   onDraggingStart(event) {
     if (event.touches)
-      this.setState({ dragPosition: {
-        x: event.touches[0].pageX,
-        y: event.touches[0].pageY
-      }, offset: 0 })
+      this.setState({
+        dragPosition: {
+          x: event.touches[0].pageX,
+          y: event.touches[0].pageY,
+        },
+        offset: 0,
+      })
   }
 
   onDraggingMove(event) {
@@ -184,7 +210,12 @@ class Carousel extends Component {
     const sliderWidth = event.currentTarget.clientWidth
     const { currentSlide, offset, dragPosition } = this.state
     if (!dragPosition) return
-    const target = Math.abs(offset) > sliderWidth / 5 ? (offset > 0 ? currentSlide - 1 : currentSlide + 1) : currentSlide
+    const target =
+      Math.abs(offset) > sliderWidth / 5
+        ? offset > 0
+          ? currentSlide - 1
+          : currentSlide + 1
+        : currentSlide
     this.setState({ dragPosition: null }, this.changeSlide.bind(this, target))
   }
 
@@ -198,17 +229,26 @@ class Carousel extends Component {
   _renderSlides() {
     const children = React.Children.toArray(this.props.children)
     const { currentSlide } = this.state
-    return _.map([
-      React.cloneElement(children[children.length - 1], { key: `${children[children.length - 1].key}-clone` }),
-      ...children,
-      React.cloneElement(children[0], { key: `${children[0].key}-clone` })
-    ], (item, index) => {
-      return <Slide key={`slide-${item.key}`} focus={currentSlide === index} >{item}</Slide>
-    })
+    return _.map(
+      [
+        React.cloneElement(children[children.length - 1], {
+          key: `${children[children.length - 1].key}-clone`,
+        }),
+        ...children,
+        React.cloneElement(children[0], { key: `${children[0].key}-clone` }),
+      ],
+      (item, index) => {
+        return (
+          <Slide key={`slide-${item.key}`} focus={currentSlide === index}>
+            {item}
+          </Slide>
+        )
+      }
+    )
   }
 
   _renderIndicators() {
-    return Children.map(this.props.children, (item, index) =>
+    return Children.map(this.props.children, (item, index) => (
       <Indicator
         key={`i-${index + 1}`}
         focus={this.state.currentSlide === index + 1}
@@ -216,14 +256,14 @@ class Carousel extends Component {
       >
         {index + 1}
       </Indicator>
-    )
+    ))
   }
 
   render() {
     const {
       className,
       transitionDuration,
-      transitionTimingFunction
+      transitionTimingFunction,
     } = this.props
     const { currentSlide, isSliding, offset } = this.state
     const goPrevSlide = this.changeSlide.bind(this, currentSlide - 1)
@@ -245,9 +285,7 @@ class Carousel extends Component {
           <PrevBtn className="prev" onClick={goPrevSlide}></PrevBtn>
           <NextBtn className="next" onClick={goNextSlide}></NextBtn>
         </SlidesContainer>
-        <Indicators>
-          {this._renderIndicators()}
-        </Indicators>
+        <Indicators>{this._renderIndicators()}</Indicators>
       </div>
     )
   }
@@ -261,14 +299,14 @@ Carousel.propTypes = {
   slideDidChange: PropTypes.func,
   slideWillChange: PropTypes.func,
   transitionDuration: PropTypes.string,
-  transitionTimingFunction: PropTypes.string
+  transitionTimingFunction: PropTypes.string,
 }
 
 Carousel.defaultProps = {
   autoPlayInterval: 0,
   initialSlide: 1, // slide index start from 1
   transitionDuration: '.8s',
-  transitionTimingFunction: 'ease-in-out'
+  transitionTimingFunction: 'ease-in-out',
 }
 
 export default Carousel

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import mq from '../../utils/media-query'
-import React from 'react' // eslint-disable-next-line
+import React from 'react'
 import SearchBox from './search-box'
 import styled from 'styled-components'
 import WhiteDonationIcon from '../../../static/asset/white-donation-icon.svg'
@@ -9,7 +9,6 @@ import WhiteLogoIcon from '../../../static/asset/logo-white-s.svg'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 
-
 const Container = styled.div`
   position: absolute;
   z-index: 100;
@@ -17,16 +16,16 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   text-align: center;
-  >*:nth-child(1) {
+  > *:nth-child(1) {
     position: absolute;
     left: 34px;
     top: 50%;
     transform: translateY(-50%);
   }
-  >*:nth-child(2) {
+  > *:nth-child(2) {
     display: inline-block;
   }
-  >*:nth-child(3) {
+  > *:nth-child(3) {
     position: absolute;
     right: 34px;
     top: 50%;
@@ -35,11 +34,11 @@ const Container = styled.div`
 `
 
 const DonationBtn = styled.div`
-  >svg {
+  > svg {
     margin-right: 8px;
     width: 24px;
   }
-  >span {
+  > span {
     ${mq.mobileOnly`
       display: none;
     `}

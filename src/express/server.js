@@ -14,7 +14,7 @@ import renderHTMLMiddleware from './middlewares/render-html'
 import loggerFactory from '../logger'
 
 const _ = {
-  get
+  get,
 }
 
 const logger = loggerFactory.getLogger()
@@ -35,21 +35,36 @@ class ExpressServer {
 
   __applyStaticRoutes() {
     const oneDay = 86400000
-    this.app.use('/asset', Express.static(path.join(__dirname, '../../static/asset'), { maxAge: oneDay * 7 }))
-    this.app.use('/dist', Express.static(path.join(__dirname, '../../dist'), { maxAge: oneDay * 30 }))
-    this.app.use('/meta', Express.static(path.join(__dirname, '../../static/meta'), { maxAge: oneDay }))
+    this.app.use(
+      '/asset',
+      Express.static(path.join(__dirname, '../../static/asset'), {
+        maxAge: oneDay * 7,
+      })
+    )
+    this.app.use(
+      '/dist',
+      Express.static(path.join(__dirname, '../../dist'), {
+        maxAge: oneDay * 30,
+      })
+    )
+    this.app.use(
+      '/meta',
+      Express.static(path.join(__dirname, '../../static/meta'), {
+        maxAge: oneDay,
+      })
+    )
   }
 
   __applyServiceWorkerRoutes() {
-    this.app.get('/sw.js', function (req, res, next) {
+    this.app.get('/sw.js', function(req, res, next) {
       const options = {
-        headers:{
-          'Cache-Control': 'public, max-age=900, must-revalidate'
+        headers: {
+          'Cache-Control': 'public, max-age=900, must-revalidate',
         },
-        root: path.resolve(__dirname, '../../')
+        root: path.resolve(__dirname, '../../'),
       }
 
-      res.sendFile('sw.js', options, function (err) {
+      res.sendFile('sw.js', options, function(err) {
         if (err) {
           next(err)
         }
@@ -58,15 +73,15 @@ class ExpressServer {
   }
 
   __applySearchEngineRoutes() {
-    this.app.get('/BingSiteAuth.xml', function (req, res, next) {
+    this.app.get('/BingSiteAuth.xml', function(req, res, next) {
       const options = {
         headers: {
-          'Cache-Control': 'public, max-age=2419200, must-revalidate'
+          'Cache-Control': 'public, max-age=2419200, must-revalidate',
         },
-        root: path.resolve(__dirname, '../../static/')
+        root: path.resolve(__dirname, '../../static/'),
       }
 
-      res.sendFile('BingSiteAuth.xml', options, function (err) {
+      res.sendFile('BingSiteAuth.xml', options, function(err) {
         if (err) {
           next(err)
         }
@@ -76,12 +91,15 @@ class ExpressServer {
     this.app.get('/robots.txt', (req, res) => {
       if (globalEnv.releaseBranch === releaseBranchConsts.release) {
         res.format({
-          'text/plain': function () {
-            res.status(200).send('User-agent: * \n' +
-              'Sitemap: https://public.twreporter.org/sitemaps/www-sitemap.xml\n' +
-              'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
-            )
-          }
+          'text/plain': function() {
+            res
+              .status(200)
+              .send(
+                'User-agent: * \n' +
+                  'Sitemap: https://public.twreporter.org/sitemaps/www-sitemap.xml\n' +
+                  'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
+              )
+          },
         })
         return
       }
@@ -89,16 +107,14 @@ class ExpressServer {
       // disallow search engine crawler
       res.format({
         'text/plain': function() {
-          res.status(200).send('User-agent: * \n' +
-            'Disallow: /'
-          )
-        }
+          res.status(200).send('User-agent: * \n' + 'Disallow: /')
+        },
       })
     })
   }
 
   __applyResponseHeader() {
-    this.app.use(function (req, res, next) {
+    this.app.use(function(req, res, next) {
       res.header('Access-Control-Allow-Origin', 'https://www.twreporter.org/')
       res.header('Access-Control-Allow-Headers', 'X-Requested-With')
       next()
@@ -110,7 +126,6 @@ class ExpressServer {
       res.status(200)
       res.end('server is running')
     })
-
   }
 
   /**
@@ -136,7 +151,7 @@ class ExpressServer {
         const middlewareContext = {
           reduxStore: null,
           routerStaticContext: null,
-          html: ''
+          html: '',
         }
         req[namespace] = middlewareContext
         next()
@@ -150,14 +165,14 @@ class ExpressServer {
         const statusRedirect = 301
         const { html, routerStaticContext } = req[namespace]
 
-        if ( routerStaticContext.url ) {
+        if (routerStaticContext.url) {
           // somewhere a `<Redirect>` was rendered
           res.redirect(statusRedirect, routerStaticContext.url)
           return
         }
 
         const statusCode = _.get(routerStaticContext, 'statusCode', statusOK)
-        if (!res.headersSent && statusCode < statusRedirect ) {
+        if (!res.headersSent && statusCode < statusRedirect) {
           const idToken = _.get(req, 'cookies.id_token')
           if (idToken) {
             // not to cache personal response
@@ -170,17 +185,17 @@ class ExpressServer {
 
         res.status(statusCode)
         res.send(html)
-      }
+      },
     ])
   }
 
   __applyCustomErrorHandler() {
-
     this.app.use((err, req, res, next) => {
       if (res.headersSent) {
         logger.errorReport({
           report: err,
-          message: 'Response header is already sent to the client. Error will be handled by Express default error handler.'
+          message:
+            'Response header is already sent to the client. Error will be handled by Express default error handler.',
         })
         return next(err)
       }
@@ -191,7 +206,7 @@ class ExpressServer {
       } else {
         logger.errorReport({
           report: err,
-          message: 'Error was caught by Express custom error handler.'
+          message: 'Error was caught by Express custom error handler.',
         })
         res.redirect('/error/500')
       }
@@ -202,10 +217,10 @@ class ExpressServer {
     try {
       const mw = await loggerFactory.makeExpressMiddleware()
       this.app.use(mw)
-    } catch(err) {
+    } catch (err) {
       logger.errorReport({
         report: err,
-        message: 'Express cannot apply logger middleware.'
+        message: 'Express cannot apply logger middleware.',
       })
     }
   }
@@ -238,19 +253,22 @@ class ExpressServer {
    */
   run(host, port) {
     if (port) {
-      this.server.listen(port, (err) => {
+      this.server.listen(port, err => {
         if (err) {
           logger.errorReport({
             report: err,
-            message: `Express server cannot listen on host ${host} and port ${port}.`
+            message: `Express server cannot listen on host ${host} and port ${port}.`,
           })
           return
         }
-        logger.info(`==> 💻  Open http://${host}:${port} in a browser to view the app.`)
+        logger.info(
+          `==> 💻  Open http://${host}:${port} in a browser to view the app.`
+        )
       })
     } else {
       logger.errorReport({
-        message: '==>     ERROR: No PORT environment variable has been specified.'
+        message:
+          '==>     ERROR: No PORT environment variable has been specified.',
       })
     }
   }

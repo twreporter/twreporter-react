@@ -5,14 +5,8 @@ import React from 'react'
 export default class Lottie extends React.Component {
   componentDidMount() {
     const {
-      options: {
-        loop,
-        autoplay,
-        animationData,
-        rendererSettings,
-        segments
-      },
-      eventListeners
+      options: { loop, autoplay, animationData, rendererSettings, segments },
+      eventListeners,
     } = this.props
 
     this.options = {
@@ -22,7 +16,7 @@ export default class Lottie extends React.Component {
       autoplay: autoplay !== false,
       segments: segments !== false,
       animationData,
-      rendererSettings
+      rendererSettings,
     }
     this.anim = lottie.loadAnimation(this.options)
     this.registerEvents(eventListeners)
@@ -68,14 +62,20 @@ export default class Lottie extends React.Component {
   }
 
   registerEvents(eventListeners) {
-    eventListeners.forEach((eventListener) => {
-      this.anim.addEventListener(eventListener.eventName, eventListener.callback)
+    eventListeners.forEach(eventListener => {
+      this.anim.addEventListener(
+        eventListener.eventName,
+        eventListener.callback
+      )
     })
   }
 
   deRegisterEvents(eventListeners) {
-    eventListeners.forEach((eventListener) => {
-      this.anim.removeEventListener(eventListener.eventName, eventListener.callback)
+    eventListeners.forEach(eventListener => {
+      this.anim.removeEventListener(
+        eventListener.eventName,
+        eventListener.callback
+      )
     })
   }
 
@@ -96,10 +96,10 @@ export default class Lottie extends React.Component {
       ariaRole,
       ariaLabel,
       isClickToPauseDisabled,
-      title
+      title,
     } = this.props
 
-    const getSize = (initial) => {
+    const getSize = initial => {
       let size
 
       if (typeof initial === 'number') {
@@ -115,16 +115,18 @@ export default class Lottie extends React.Component {
       width: getSize(width),
       height: getSize(height),
       overflow: 'hidden',
-      margin: '0 auto'
+      margin: '0 auto',
     }
 
-    const onClickHandler = isClickToPauseDisabled ? () => null : this.handleClickToPause
+    const onClickHandler = isClickToPauseDisabled
+      ? () => null
+      : this.handleClickToPause
 
     return (
       // Bug with eslint rules https://github.com/airbnb/javascript/issues/1374
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        ref={(c) => {
+        ref={c => {
           this.el = c
         }}
         style={lottieStyles}
@@ -141,8 +143,8 @@ export default class Lottie extends React.Component {
 Lottie.propTypes = {
   eventListeners: PropTypes.arrayOf(PropTypes.object),
   options: PropTypes.object.isRequired,
-  height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
-  width: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isStopped: PropTypes.bool,
   isPaused: PropTypes.bool,
   speed: PropTypes.number,
@@ -151,7 +153,7 @@ Lottie.propTypes = {
   ariaRole: PropTypes.string,
   ariaLabel: PropTypes.string,
   isClickToPauseDisabled: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 Lottie.defaultProps = {
@@ -162,5 +164,5 @@ Lottie.defaultProps = {
   ariaRole: 'button',
   ariaLabel: 'animation',
   isClickToPauseDisabled: false,
-  title: ''
+  title: '',
 }

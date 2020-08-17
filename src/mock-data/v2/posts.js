@@ -1,5 +1,5 @@
 import posts from './posts.json'
-import cloneUtils from '../../utils/clone-entity'
+import cloneUtils from '../../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
@@ -63,13 +63,15 @@ function seekPostsByListIds(mockPosts, ids, listType) {
  *  This function mocks the response of go-api `/v2/posts/:slug?full=(true|false)` endpoint
  *
  *  @param {string} slug - post slug
- *  @param {bool} full - full property of post object
+ *  @param {boolean} full - full property of post object
  *
  *  @return {Object} mocked response
  */
 export function mockAPostResponse(slug, full) {
   let post = _.find(posts, post => post.slug === slug)
-  post = full ? cloneUtils.cloneFullPost(post) : cloneUtils.cloneMetaOfPost(post)
+  post = full
+    ? cloneUtils.shallowCloneFullPost(post)
+    : cloneUtils.shallowCloneMetaOfPost(post)
   post.full = full
 
   if (post) {
@@ -92,12 +94,18 @@ export function mockAPostResponse(slug, full) {
  *
  *  @param {number} limit - how many posts in the response
  *  @param {number} offset - how many posts to skip
- *  @param {string} id - post id
- *  @param {string} category_id - category id
- *  @param {string} tag_id - tag id
- *  @param {Object} mocked api response
+ *  @param {string|string[]} id - post id
+ *  @param {string|string[]} categoryId - category id
+ *  @param {string|string[]} tagId - tag id
+ *  @return {Object} mocked api response
  */
-export function mockPostsResponse(limit=10, offset=0, id, category_id, tag_id) {
+export function mockPostsResponse(
+  limit = 10,
+  offset = 0,
+  id,
+  categoryId,
+  tagId
+) {
   let posts = []
 
   if (id) {
@@ -108,19 +116,19 @@ export function mockPostsResponse(limit=10, offset=0, id, category_id, tag_id) {
     posts = posts.concat(seekPostsByIds(mocks.posts, ids))
   }
 
-  if (category_id) {
-    let ids = category_id
-    if (typeof category_id === 'string') {
-      ids = [category_id]
+  if (categoryId) {
+    let ids = categoryId
+    if (typeof categoryId === 'string') {
+      ids = [categoryId]
     }
 
     posts = posts.concat(seekPostsByListIds(mocks.posts, ids, 'categories'))
   }
 
-  if (tag_id) {
-    let ids = tag_id
-    if (typeof tag_id === 'string') {
-      ids = [tag_id]
+  if (tagId) {
+    let ids = tagId
+    if (typeof tagId === 'string') {
+      ids = [tagId]
     }
 
     posts = posts.concat(seekPostsByListIds(mocks.posts, ids, 'tags'))
@@ -134,11 +142,11 @@ export function mockPostsResponse(limit=10, offset=0, id, category_id, tag_id) {
         offset,
         total: posts.length,
       },
-      records: posts.slice(offset, offset + limit).map((_post) => {
-        const post = cloneUtils.cloneMetaOfPost(_post)
+      records: posts.slice(offset, offset + limit).map(_post => {
+        const post = cloneUtils.shallowCloneMetaOfPost(_post)
         post.full = false
         return post
-      })
+      }),
     },
   }
 }

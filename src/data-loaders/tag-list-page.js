@@ -3,7 +3,7 @@ import get from 'lodash/get'
 import dataLoaderConst from '../constants/data-loaders'
 
 const _ = {
-  get
+  get,
 }
 
 /**
@@ -22,7 +22,8 @@ const _ = {
 export default function loadData({ location, match, store }) {
   const defaultPage = 1
   const search = _.get(location, 'search', '')
-  const searchWithoutPrefix = typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const searchWithoutPrefix =
+    typeof search === 'string' ? search.replace(/^\?/, '') : search
   const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
   let page = parseInt(pageStr, 10)
 
@@ -31,6 +32,9 @@ export default function loadData({ location, match, store }) {
   }
 
   const tagId = _.get(match, 'params.tagId', '')
-  return store.actions.fetchPostsByTagListId(tagId,
-    dataLoaderConst.tagListPage.nPerPage, page)
+  return store.actions.fetchPostsByTagListId(
+    tagId,
+    dataLoaderConst.tagListPage.nPerPage,
+    page
+  )
 }

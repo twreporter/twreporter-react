@@ -56,16 +56,22 @@ class HomePageSideBar extends React.PureComponent {
 
 HomePageSideBar.defaultProps = {
   currentAnchorId: '',
-  handleClickAnchor: () => {}
+  handleClickAnchor: () => {},
 }
 
 HomePageSideBar.propTypes = {
-  anchors: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  })).isRequired,
+  anchors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   currentAnchorId: PropTypes.string,
-  handleClickAnchor: PropTypes.func
+  handleClickAnchor: PropTypes.func,
 }
 
 export default HomePageSideBar

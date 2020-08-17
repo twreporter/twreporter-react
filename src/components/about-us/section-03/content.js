@@ -25,8 +25,8 @@ const Arrow = styled.div`
 
 const TopArrow = styled(Arrow)`
   top: 0;
-  visibility: ${props => props.visible ? 'visible' : 'hidden'};
-  img{
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  img {
     transform-origin: 50% 50%;
     transform: translateY(75px) translateX(-50%) rotate(-90deg);
   }
@@ -34,8 +34,8 @@ const TopArrow = styled(Arrow)`
 
 const BottomArrow = styled(Arrow)`
   bottom: 0;
-  visibility: ${props => props.visible ? 'visible' : 'hidden'};
-  img{
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  img {
     transform-origin: 50% 50%;
     transform: translateY(40px) scaleY(-1) translateX(-50%) rotate(-90deg);
   }
@@ -52,7 +52,7 @@ const Arrows = styled.div`
   `}
 `
 
-const Container = styled.div `
+const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -75,13 +75,14 @@ const Container = styled.div `
   `}
 `
 
-const SemiTransparentMask = styled.div `
+const SemiTransparentMask = styled.div`
   position: absolute;
   left: 0;
-  ${props => props.position === 'top' ? 'top: 0' : 'bottom: 0'};
+  ${props => (props.position === 'top' ? 'top: 0' : 'bottom: 0')};
   width: 100%;
   height: 20px;
-  background: ${props => `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
+  background: ${props =>
+    `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
   ${mq.tabletAndBelow`
     display: none;
   `}
@@ -99,7 +100,7 @@ const PageWrapper = styled.div`
 
 const ArrowNextIcon = styled.div`
   height: 100%;
-  img{
+  img {
     height: 100%;
   }
 `
@@ -111,7 +112,7 @@ export default class Content extends PureComponent {
     this.pageContentHeight = []
     this.clickCtr = 0
     this.state = {
-      page: 0
+      page: 0,
     }
   }
 
@@ -122,7 +123,7 @@ export default class Content extends PureComponent {
    */
   _gotoNextPage = (direction, pagesLength) => {
     let newPage
-    switch(direction) {
+    switch (direction) {
       case 'next':
         this.setState({ page: ++this.clickCtr % pagesLength })
         break
@@ -136,9 +137,7 @@ export default class Content extends PureComponent {
         this.setState({ page: newPage })
         break
       default:
-        return
     }
-
   }
 
   _backToTop = () => {
@@ -147,12 +146,23 @@ export default class Content extends PureComponent {
   }
   render() {
     const { page } = this.state
-    const { selectedDataList, fulldatalist, awardNamelist, awardYearList, activeAwardId, activeYearIndex } = this.props
-    const pagesLength = Math.ceil(selectedDataList.length / awardsNumberInSinglePage)
+    const {
+      selectedDataList,
+      fulldatalist,
+      awardNamelist,
+      awardYearList,
+      activeAwardId,
+      activeYearIndex,
+    } = this.props
+    const pagesLength = Math.ceil(
+      selectedDataList.length / awardsNumberInSinglePage
+    )
     let paginatedAwardsList = []
     for (let i = 0; i < pagesLength; i++) {
       let cursor = (i + 1) * awardsNumberInSinglePage
-      paginatedAwardsList.push(selectedDataList.slice(cursor - awardsNumberInSinglePage, cursor))
+      paginatedAwardsList.push(
+        selectedDataList.slice(cursor - awardsNumberInSinglePage, cursor)
+      )
     }
     return (
       <Container>
@@ -171,21 +181,31 @@ export default class Content extends PureComponent {
             awardYearList={awardYearList}
             transitionDuration={transitionDuration}
           />
-          <SemiTransparentMask position={'bottom'}/>
+          <SemiTransparentMask position={'bottom'} />
         </PageWrapper>
         <Arrows>
           <TopArrow
             visible={pagesLength > 1}
-            onClick={() => this._gotoNextPage('prev', pagesLength)}>
+            onClick={() => this._gotoNextPage('prev', pagesLength)}
+          >
             <ArrowNextIcon>
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`}/>
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/arrow-next.png`
+                )}`}
+              />
             </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
             visible={pagesLength > 1}
-            onClick={() => this._gotoNextPage('next', pagesLength)}>
+            onClick={() => this._gotoNextPage('next', pagesLength)}
+          >
             <ArrowNextIcon>
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`}/>
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/arrow-next.png`
+                )}`}
+              />
             </ArrowNextIcon>
           </BottomArrow>
         </Arrows>
@@ -200,15 +220,15 @@ Content.defaultProps = {
   awardNamelist: [],
   awardYearlist: [],
   activeAwardId: '',
-  activeYearIndex: 0
+  activeYearIndex: 0,
 }
 
 Content.propTypes = {
+  awardYearList: PropTypes.array,
   selectedDataList: PropTypes.array.isRequired,
   fulldatalist: PropTypes.array.isRequired,
   awardNamelist: PropTypes.array.isRequired,
   awardYearlist: PropTypes.array.isRequired,
   activeAwardId: PropTypes.string.isRequired,
-  activeYearIndex: PropTypes.number.isRequired
+  activeYearIndex: PropTypes.number.isRequired,
 }
-

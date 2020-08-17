@@ -89,5 +89,5 @@ export default {
   Subtitle,
   Dash,
   ArrowDown,
-  PublishDate
+  PublishDate,
 }

@@ -1,5 +1,5 @@
 import topics from './topics.json'
-import cloneUtils from '../../utils/clone-entity'
+import cloneUtils from '../../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
@@ -12,18 +12,19 @@ const mocks = {
   topics,
 }
 
-
 /**
  *  This function mocks the response of go-api `/v2/topics/:slug?full=(true|false)` endpoint
  *
  *  @param {string} slug - topic slug
- *  @param {bool} full - full property of topic object
+ *  @param {boolean} full - full property of topic object
  *
  *  @return {Object} mocked response
  */
 export function mockATopicResponse(slug, full) {
   let topic = _.find(topics, topic => topic.slug === slug)
-  topic = full ? cloneUtils.cloneFullTopic(topic) : cloneUtils.cloneMetaOfTopic(topic)
+  topic = full
+    ? cloneUtils.shallowCloneFullTopic(topic)
+    : cloneUtils.shallowCloneMetaOfTopic(topic)
   topic.full = full
 
   if (topic) {
@@ -48,7 +49,7 @@ export function mockATopicResponse(slug, full) {
  *  @param {number} offset - how many topics to skip
  *  @param {Object} mocked api response
  */
-export function mockTopicsResponse(limit=10, offset=0) {
+export function mockTopicsResponse(limit = 10, offset = 0) {
   return {
     status: 'success',
     data: {
@@ -57,11 +58,11 @@ export function mockTopicsResponse(limit=10, offset=0) {
         offset,
         total: mocks.topics.length,
       },
-      records: mocks.topics.slice(offset, offset + limit).map((_topic) => {
-        const topic = cloneUtils.cloneMetaOfTopic(_topic)
+      records: mocks.topics.slice(offset, offset + limit).map(_topic => {
+        const topic = cloneUtils.shallowCloneMetaOfTopic(_topic)
         topic.full = false
         return topic
-      })
+      }),
     },
   }
 }

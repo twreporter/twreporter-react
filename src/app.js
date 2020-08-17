@@ -1,8 +1,10 @@
 import AppShell from './containers/app-shell'
+import PropTypes from 'prop-types'
 import React from 'react'
 import getRoutes from './routes'
 import colors from './constants/colors'
 import typography from './constants/typography'
+import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
 import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
@@ -102,9 +104,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-
 export default class App extends React.Component {
-
+  static propTypes = {
+    reduxStore: PropTypes.object,
+    releaseBranch: PropTypes.oneOf([
+      releaseBranchConst.master,
+      releaseBranchConst.staging,
+      releaseBranchConst.release,
+    ]),
+  }
 
   render() {
     const routes = getRoutes()
@@ -112,23 +120,20 @@ export default class App extends React.Component {
 
     return (
       <Provider store={reduxStore}>
-        <Route render={props => {
-          return (
-            <AppShell
-              location={props.location}
-              releaseBranch={releaseBranch}
-            >
-              <Switch>
-                {
-                  routes.map((route, routeIndex) => (
+        <Route
+          render={props => {
+            return (
+              <AppShell location={props.location} releaseBranch={releaseBranch}>
+                <Switch>
+                  {routes.map((route, routeIndex) => (
                     <Route key={`route-${routeIndex}`} {...route} />
-                  ))
-                }
-              </Switch>
-            </AppShell>
-          )
-        }} />
-        <GlobalStyle/>
+                  ))}
+                </Switch>
+              </AppShell>
+            )
+          }}
+        />
+        <GlobalStyle />
       </Provider>
     )
   }

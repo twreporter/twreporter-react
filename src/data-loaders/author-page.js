@@ -2,7 +2,7 @@
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 /**
@@ -18,5 +18,8 @@ const _ = {
  */
 export default function loadData({ match, store }) {
   const authorId = _.get(match, 'params.authorId', '')
-  return Promise.all([ store.actions.fetchAuthorCollectionIfNeeded(authorId), store.actions.fetchAuthorDetails(authorId) ])
+  return Promise.all([
+    store.actions.fetchAuthorCollectionIfNeeded(authorId),
+    store.actions.fetchAuthorDetails(authorId),
+  ])
 }

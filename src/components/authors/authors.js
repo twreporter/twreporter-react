@@ -10,10 +10,11 @@ import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/fo
 import map from 'lodash/map'
 
 const _ = {
-  map
+  map,
 }
 
-const calcWidth = (itemWidth, itemMargin, columns) => (itemWidth + itemMargin * 2) * columns
+const calcWidth = (itemWidth, itemMargin, columns) =>
+  (itemWidth + itemMargin * 2) * columns
 
 const fadeInDown = keyframes`
   0% {
@@ -87,44 +88,44 @@ const ImageSizing = styled.div`
 
 export default class Authors extends PureComponent {
   static propTypes = {
-    authors: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string.isRequired,
-      image: PropTypes.shape({
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        url: PropTypes.string.isRequired
-      }).isRequired,
-      url: PropTypes.string.isRequired
-    }))
+    authors: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.shape({
+          width: PropTypes.number.isRequired,
+          height: PropTypes.number.isRequired,
+          url: PropTypes.string.isRequired,
+        }).isRequired,
+        url: PropTypes.string.isRequired,
+      })
+    ),
   }
 
   static defaultProps = {
-    authors: []
+    authors: [],
   }
 
   render() {
     const { authors } = this.props
     return (
       <Container>
-        {_.map(authors, ({ id, name, image, url }) =>
-          (
-            <Item key={id}>
-              <Link to={url}>
-                <ImageSizing>
-                  <Image
-                    alt={name}
-                    imageSet={[ image ]}
-                    defaultImage={image}
-                    objectFit="cover"
-                    objectPosition="center center"
-                  />
-                </ImageSizing>
-                <Name>{name}</Name>
-              </Link>
-            </Item>
-          )
-        )}
+        {_.map(authors, ({ id, name, image, url }) => (
+          <Item key={id}>
+            <Link to={url}>
+              <ImageSizing>
+                <Image
+                  alt={name}
+                  imageSet={[image]}
+                  defaultImage={image}
+                  objectFit="cover"
+                  objectPosition="center center"
+                />
+              </ImageSizing>
+              <Name>{name}</Name>
+            </Link>
+          </Item>
+        ))}
       </Container>
     )
   }

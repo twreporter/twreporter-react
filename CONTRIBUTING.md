@@ -4,7 +4,7 @@
 
 ### Development
 
-About the environment requirements and how to run dev mode, see [#Environment](https://github.com/twreporter/twreporter-react#build-docker-image) and [#Development start](https://github.com/twreporter/twreporter-react#development-start). 
+About the environment requirements and how to run dev mode, see [#Environment](https://github.com/twreporter/twreporter-react#build-docker-image) and [#Development start](https://github.com/twreporter/twreporter-react#development-start).
 
 ### Opening a PR
 
@@ -28,15 +28,15 @@ Include your **environment information** in your issue if you want the problem t
 - browser version
 - `twreporter-react` version
 - related dependencies version or the content of `package.json` on your device
-- any other information that can help developers to reproduce the problem on your device for debugging 
+- any other information that can help developers to reproduce the problem on your device for debugging
 
 ### Testing
 
 Before a commit is made, several tests would take place automatically to ensure that UI and all of the functionalities on our website are working normally. There are:
 
 - unit tests
-- UI tests 
-  - It will take some time to compare current screenshots with the ground truth screenshot images 
+- UI tests
+  - It will take some time to compare current screenshots with the ground truth screenshot images
   - Note that the dev servers must be started up to host data which is required by UI tests:
   ```
   // start dev servers
@@ -44,6 +44,7 @@ Before a commit is made, several tests would take place automatically to ensure 
   ```
 
 These tests can also run manually:
+
 ```
 // running unit tests
 make test
@@ -51,7 +52,6 @@ make test
 // running ui-tests
 make ui-test
 ```
-
 
 ### Dependencies
 

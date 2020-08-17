@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const ImgObjectFit = styled.div`
@@ -22,7 +22,7 @@ const ImgFallback = styled.div`
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-image: ${(props) => {
+  background-image: ${props => {
     return `url(${_.get(props, 'url')})`
   }};
   background-position: center center;
@@ -32,13 +32,13 @@ class ImgWrapper extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isObjectFit: true
+      isObjectFit: true,
     }
   }
 
   componentDidMount() {
     this.setState({
-      isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
+      isObjectFit: 'objectFit' in _.get(document, 'documentElement.style'),
     })
   }
 
@@ -53,17 +53,13 @@ class ImgWrapper extends React.Component {
           srcSet={srcSet}
           sizes={sizes}
           style={{
-            transform: 'translateZ(0)'
+            transform: 'translateZ(0)',
           }}
         />
         {this.props.children}
       </ImgObjectFit>
     ) : (
-      <ImgFallback
-        url={src}
-      >
-        {this.props.children}
-      </ImgFallback>
+      <ImgFallback url={src}>{this.props.children}</ImgFallback>
     )
   }
 }
@@ -73,7 +69,7 @@ ImgWrapper.defaultProps = {
   children: null,
   src: '',
   srcSet: '',
-  sizes: ''
+  sizes: '',
 }
 
 ImgWrapper.propTypes = {
@@ -81,7 +77,7 @@ ImgWrapper.propTypes = {
   children: PropTypes.element,
   src: PropTypes.string.isRequired,
   srcSet: PropTypes.string,
-  sizes: PropTypes.string
+  sizes: PropTypes.string,
 }
 
 export default ImgWrapper

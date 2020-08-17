@@ -17,15 +17,13 @@ import map from 'lodash/map'
 
 const _ = {
   get,
-  map
+  map,
 }
 
 const formatConsts = {
   row: 'in-row',
-  column: 'in-column'
+  column: 'in-column',
 }
-
-const firstShowedLimit = 12
 
 const StyledSpinner = styled(LoadingSpinner)`
   margin: 30px auto;
@@ -53,14 +51,14 @@ function selectComponentsByFormat(format) {
 const defaultPostImage = {
   width: 681,
   height: 431,
-  url: '/asset/review.png'
+  url: '/asset/review.png',
 }
 
 export default class RelatedItems extends PureComponent {
   static propTypes = {
     background: PropTypes.string,
     items: PropTypes.array,
-    format: PropTypes.oneOf([ formatConsts.row, formatConsts.column ]),
+    format: PropTypes.oneOf([formatConsts.row, formatConsts.column]),
     hasMore: PropTypes.bool,
     isFetching: PropTypes.bool,
     loadMore: PropTypes.func.isRequired,
@@ -82,13 +80,18 @@ export default class RelatedItems extends PureComponent {
   _renderItem(item, index) {
     const charLimit = 120
     const components = selectComponentsByFormat(this.props.format)
-    const image = replaceGCSUrlOrigin(_.get(item, 'hero_image.resized_targets.mobile', defaultPostImage))
+    const image = replaceGCSUrlOrigin(
+      _.get(item, 'hero_image.resized_targets.mobile', defaultPostImage)
+    )
     const id = _.get(item, 'id', `item-${index}`)
     const slug = _.get(item, 'slug', '')
     const title = _.get(item, 'title', '')
     const publishedDate = date2yyyymmdd(_.get(item, 'published_date'), '.')
     const style = _.get(item, 'style')
-    const description = shortenString(_.get(item, 'og_description', ''), charLimit)
+    const description = shortenString(
+      _.get(item, 'og_description', ''),
+      charLimit
+    )
     return (
       <components.Item
         key={id}

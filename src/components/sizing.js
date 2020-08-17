@@ -6,18 +6,18 @@ const width = {
   tablet: {
     small: 556,
     medium: 672,
-    large: 768
+    large: 768,
   },
   desktop: {
     small: 664,
     medium: 833,
-    large: 1024
+    large: 1024,
   },
   hd: {
     small: 700,
     medium: 880,
-    large: 1440
-  }
+    large: 1440,
+  },
 }
 
 const Sizing = styled.div`
@@ -34,7 +34,7 @@ const Sizing = styled.div`
 `
 
 Sizing.propTypes = {
-  size: PropTypes.oneOf([ 'small', 'medium', 'large' ]).isRequired
+  size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
 }
 
 export default Sizing

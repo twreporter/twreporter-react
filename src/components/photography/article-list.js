@@ -3,9 +3,10 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import { Link } from 'react-router-dom'
-import More from './more'
+import { More } from './more'
+import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 // lodash
 import get from 'lodash/get'
@@ -15,7 +16,7 @@ import merge from 'lodash/merge'
 const _ = {
   get,
   map,
-  merge
+  merge,
 }
 
 const itemWidth = 451
@@ -145,25 +146,39 @@ const List = styled.ul`
 `
 
 export default class ListArticleItem extends React.PureComponent {
+  static propTypes = {
+    articles: PropTypes.array,
+    hasMore: PropTypes.bool,
+    loadMore: PropTypes.func,
+    loadMoreError: PropTypes.object,
+  }
+
   _buildItem(post) {
     const { id, style, slug, title } = post
     const publishedDate = post['published_date']
-    const dateString = date2yyyymmdd(publishedDate , '.')
+    const dateString = date2yyyymmdd(publishedDate, '.')
     const url = formatPostLinkTo(slug, style)
-    const excerpt =  _.get(post, 'og_description', '')
-    const imageResizedTargets = _.get(post, 'hero_image.resized_targets') || _.get(post, 'og_image.resized_targets')
+    const excerpt = _.get(post, 'og_description', '')
+    const imageResizedTargets =
+      _.get(post, 'hero_image.resized_targets') ||
+      _.get(post, 'og_image.resized_targets')
     const images = [
       _.get(imageResizedTargets, 'tiny'),
       _.get(imageResizedTargets, 'mobile'),
       _.get(imageResizedTargets, 'tablet'),
       _.get(imageResizedTargets, 'desktop'),
-    ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
+    ]
+      .filter(Boolean)
+      .map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
     return (
       <Item key={id}>
         <Link to={url} target={formatPostLinkTarget(style)}>
           <ImageWrapper>
             <Image
-              alt={_.get(post, 'hero_image.description') || _.get(post, 'og_image.description')}
+              alt={
+                _.get(post, 'hero_image.description') ||
+                _.get(post, 'og_image.description')
+              }
               defaultImage={_.get(images, '1')}
               imgPlaceholderSrc={_.get(images, '0.url')}
               imageSet={images}
@@ -172,7 +187,9 @@ export default class ListArticleItem extends React.PureComponent {
           <ItemDescBox>
             <ItemTitle>{title}</ItemTitle>
             <ItemExcerpt>{excerpt}</ItemExcerpt>
-            <Date dateTime={date2yyyymmdd(publishedDate, '-')}>{dateString}</Date>
+            <Date dateTime={date2yyyymmdd(publishedDate, '-')}>
+              {dateString}
+            </Date>
           </ItemDescBox>
         </Link>
       </Item>
@@ -185,22 +202,19 @@ export default class ListArticleItem extends React.PureComponent {
 
   render() {
     const { articles, hasMore, loadMore, loadMoreError } = this.props
-    if (!articles) return (<section />)
+    if (!articles) return <section />
     return (
       <section>
         <Container>
-          <List>
-            {this._buildItemList(articles)}
-          </List>
+          <List>{this._buildItemList(articles)}</List>
         </Container>
-        {
-          hasMore ? (
-            <More loadMore={loadMore}>
-              <span style={{ color: loadMoreError ? 'red' : 'white' }}>{loadMoreError ? '更多文章（請重試）' : '更多文章'}</span>
-            </More>
-          )
-            : null
-        }
+        {hasMore ? (
+          <More loadMore={loadMore}>
+            <span style={{ color: loadMoreError ? 'red' : 'white' }}>
+              {loadMoreError ? '更多文章（請重試）' : '更多文章'}
+            </span>
+          </More>
+        ) : null}
       </section>
     )
   }
