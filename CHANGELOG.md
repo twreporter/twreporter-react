@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.0-rc.2
+
+### Notable Changes
+
+- update @twreporter/react-article-components to @1.2.0-rc.5
+
+### Commits
+
+- [[`9aca12893c`](https://github.com/twreporter/twreporter-react/commit/9aca12893c)] - **chore**: update dependencies (nickhsine)
+- [[`617b0c4a1a`](https://github.com/twreporter/twreporter-react/commit/617b0c4a1a)] - Merge pull request #1670 from nickhsine/4.5.0-rc.1 (nick)
+
 ## 4.5.0-rc.1
 
 ### Notable Changes
