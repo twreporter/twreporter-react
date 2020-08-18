@@ -21,6 +21,42 @@ if (window.__REDUX_STATE__) {
   reduxState = window.__REDUX_STATE__
 }
 
+/**
+ *  Our application is a SPA (Single Page Application).
+ *  In our app, we send requests to API webservices to get data
+ *  if that data is not in the redux store.
+ *  In other words, if data is already in the redux state, we won't send requests.
+ *  There will be a problem of stale data.
+ *  For example,
+ *  1. end user goes to page A. App will fetch page A data and store it in redux state.
+ *  2. end user goes to page B. App will fetch page B data and store it in redux state.
+ *  3. end user goes to page A again. App won't fetch page A data since it already in
+ *  the redux state.
+ *
+ *  If end users don't refresh the web page, the data will be always in the
+ *  redux store. Therefore, end users might see the stale data
+ *  even the data is already updated.
+ *
+ *  This function create a closure to store current timestamp + one day timestamp,
+ *  and returns another function.
+ *  If clients invoke that returned function, that function will reload the web page
+ *  if needed.
+ *
+ *  @return {Function}
+ */
+function reloadPageIfNeeded() {
+  const oneDayTs = 60 * 60 * 24 * 1000
+  const nextTimeReloadTs = Date.now() + oneDayTs
+
+  return () => {
+    const now = Date.now()
+    if (nextTimeReloadTs < now) {
+      window.location.reload()
+    }
+    return null
+  }
+}
+
 function scrollToTopAndFirePageview() {
   window.scrollTo(0, 0)
   // send Google Analytics Pageview event on route changed
@@ -41,6 +77,7 @@ ReactGA.set({ page: window.location.pathname })
 const jsx = (
   <BrowserRouter>
     <React.Fragment>
+      <Route path="/" component={reloadPageIfNeeded()} />
       <Route path="/" component={scrollToTopAndFirePageview} />
       <Route path="/" component={hashLinkScroll} />
       <App reduxStore={store} releaseBranch={releaseBranch} />
