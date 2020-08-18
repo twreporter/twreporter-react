@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.0-rc.3
+
+### Notable Changes
+
+- fix: reload page after one day to avoid stale data
+
+### Commits
+
+- [[`bf66db81ac`](https://github.com/twreporter/twreporter-react/commit/bf66db81ac)] - Merge pull request #1674 from nickhsine/master (nick)
+- [[`a08f04ed3c`](https://github.com/twreporter/twreporter-react/commit/a08f04ed3c)] - Merge pull request #1661 from nickhsine/fix-stale-data (nick)
+- [[`ba11c73591`](https://github.com/twreporter/twreporter-react/commit/ba11c73591)] - **fix**: reload page after one day to avoid stale data (nickhsine)
+- [[`8cf8bb712b`](https://github.com/twreporter/twreporter-react/commit/8cf8bb712b)] - **fix**: relateds_background of topic landing page is not set (nickhsine)
+- [[`991ebab0bf`](https://github.com/twreporter/twreporter-react/commit/991ebab0bf)] - Merge pull request #1672 from nickhsine/4.5.0-rc.2 (nick)
+
 ## 4.5.0-rc.2
 
 ### Notable Changes
