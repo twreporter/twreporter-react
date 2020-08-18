@@ -122,6 +122,7 @@ function shallowCloneMetaOfTopic(topic) {
 function shallowCloneFullTopic(topic) {
   const fields = [
     'relateds_format',
+    'relateds_background',
     'title_position',
     'leading_video',
     'headline',
