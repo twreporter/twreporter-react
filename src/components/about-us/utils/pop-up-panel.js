@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const defaultZIndex = 2
 
 const _ = {
-  debounce
+  debounce,
 }
 
 const Panel = styled.div`
@@ -39,39 +39,75 @@ class PopUpBox extends React.PureComponent {
     super(props)
     this.startY = 0
     this.panel = null
-    this.handlePreventTouchstartWhenPanning = this._handlePreventTouchstartWhenPanning.bind(this)
-    this.handlePreventTouchendWhenPanning = this._handlePreventTouchendWhenPanning.bind(this)
-    this.handlePreventTouchmoveWhenPanning = this._handlePreventTouchmoveWhenPanning.bind(this)
+    this.handlePreventTouchstartWhenPanning = this._handlePreventTouchstartWhenPanning.bind(
+      this
+    )
+    this.handlePreventTouchendWhenPanning = this._handlePreventTouchendWhenPanning.bind(
+      this
+    )
+    this.handlePreventTouchmoveWhenPanning = this._handlePreventTouchmoveWhenPanning.bind(
+      this
+    )
     // handle window resize
     this._handleWindowHeight = this._handleWindowHeight.bind(this)
-    this.getDebouncedHeight = _.debounce(() => { this._handleWindowHeight() }, 100, { maxWait: 300 })
+    this.getDebouncedHeight = _.debounce(
+      () => {
+        this._handleWindowHeight()
+      },
+      100,
+      { maxWait: 300 }
+    )
   }
 
   componentDidMount() {
     this._handleWindowHeight()
     window.addEventListener('resize', this.getDebouncedHeight)
-    window.document.body.addEventListener('touchstart', this.handlePreventTouchstartWhenPanning, {
-      passive: false
-    })
-    window.document.body.addEventListener('touchend', this.handlePreventTouchendWhenPanning, {
-      passive: false
-    })
-    window.document.body.addEventListener('touchmove', this.handlePreventTouchmoveWhenPanning, {
-      passive: false
-    })
+    window.document.body.addEventListener(
+      'touchstart',
+      this.handlePreventTouchstartWhenPanning,
+      {
+        passive: false,
+      }
+    )
+    window.document.body.addEventListener(
+      'touchend',
+      this.handlePreventTouchendWhenPanning,
+      {
+        passive: false,
+      }
+    )
+    window.document.body.addEventListener(
+      'touchmove',
+      this.handlePreventTouchmoveWhenPanning,
+      {
+        passive: false,
+      }
+    )
   }
 
   componentWillUnmount() {
     this.panel = null
-    window.document.body.removeEventListener('touchstart', this.handlePreventTouchstartWhenPanning, {
-      passive: false
-    })
-    window.document.body.removeEventListener('touchend', this.handlePreventTouchendWhenPanning, {
-      passive: false
-    })
-    window.document.body.removeEventListener('touchmove', this.handlePreventTouchmoveWhenPanning, {
-      passive: false
-    })
+    window.document.body.removeEventListener(
+      'touchstart',
+      this.handlePreventTouchstartWhenPanning,
+      {
+        passive: false,
+      }
+    )
+    window.document.body.removeEventListener(
+      'touchend',
+      this.handlePreventTouchendWhenPanning,
+      {
+        passive: false,
+      }
+    )
+    window.document.body.removeEventListener(
+      'touchmove',
+      this.handlePreventTouchmoveWhenPanning,
+      {
+        passive: false,
+      }
+    )
     window.removeEventListener('resize', this.getDebouncedHeight)
   }
 
@@ -80,12 +116,14 @@ class PopUpBox extends React.PureComponent {
   }
 
   _handlePreventTouchendWhenPanning(event) {
-    this.panel.scrollTop = this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
+    this.panel.scrollTop =
+      this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
   }
 
-  _handlePreventTouchmoveWhenPanning = (event) => {
+  _handlePreventTouchmoveWhenPanning = event => {
     event.preventDefault()
-    this.panel.scrollTop = this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
+    this.panel.scrollTop =
+      this.panel.scrollTop + (this.startY - event.changedTouches[0].screenY)
     this.startY = event.changedTouches[0].screenY
   }
 
@@ -97,7 +135,9 @@ class PopUpBox extends React.PureComponent {
     const { background, fixedPanelStyle } = this.props
     return (
       <Panel
-        ref={(node) => { this.panel = node }}
+        ref={node => {
+          this.panel = node
+        }}
         background={background}
         mobWidth={fixedPanelStyle.mob.width || '100%'}
         mobHeight={fixedPanelStyle.mob.height || '100%'}
@@ -120,12 +160,16 @@ class PopUpBox extends React.PureComponent {
 
 PopUpBox.defaultProps = {
   background: '',
-  fixedPanelStyle: {}
+  fixedPanelStyle: {},
 }
 
 PopUpBox.propTypes = {
   background: PropTypes.string,
-  fixedPanelStyle: PropTypes.object.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  fixedPanelStyle: PropTypes.object.isRequired,
 }
 
 export default PopUpBox

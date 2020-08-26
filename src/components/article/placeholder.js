@@ -4,7 +4,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 const mockStyle = css`
-  background-color: rgba(191, 191, 191, .5);
+  background-color: rgba(191, 191, 191, 0.5);
   box-shadow: 0px 0px 3px rgba(#666666, 0.05);
   opacity: 0.9;
 `

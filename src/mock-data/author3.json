@@ -16,18 +16,14 @@
             "_id": {
               "fullyHighlighted": true,
               "matchLevel": "full",
-              "matchedWords": [
-                "5757f8498e4c2b171bcaf7dc"
-              ],
+              "matchedWords": ["5757f8498e4c2b171bcaf7dc"],
               "value": "<em>5757f8498e4c2b171bcaf7dc</em>"
             }
           }
         ]
       },
       "_id": "57fc791cb328f30f00a74003",
-      "categories": [
-        "573177cb8c0c261000b3f6d2"
-      ],
+      "categories": ["573177cb8c0c261000b3f6d2"],
       "designers": [],
       "engineers": [],
       "extend_byline": "",
@@ -211,18 +207,14 @@
             "_id": {
               "fullyHighlighted": true,
               "matchLevel": "full",
-              "matchedWords": [
-                "5757f8498e4c2b171bcaf7dc"
-              ],
+              "matchedWords": ["5757f8498e4c2b171bcaf7dc"],
               "value": "<em>5757f8498e4c2b171bcaf7dc</em>"
             }
           }
         ]
       },
       "_id": "57bc58639abc120f007a4c3c",
-      "categories": [
-        "573177cb8c0c261000b3f6d2"
-      ],
+      "categories": ["573177cb8c0c261000b3f6d2"],
       "designers": [],
       "engineers": [],
       "extend_byline": "",
@@ -240,10 +232,7 @@
             "byline": "余志偉",
             "caption": "劉玉皙、佘健源／轉型正義的經濟意義—一個實證的觀點_1_根據國際轉型正義中心的定義，轉型正義是一系列矯正大規模人權侵害的措施，透過究責與救濟受害者，讓受害者的權利獲得平反與承認。（攝影╱余志偉）",
             "city": "0x00000000: 254700                                        -%",
-            "keywords": [
-              "2015台灣新聞攝影大賽",
-              "一般新聞類"
-            ]
+            "keywords": ["2015台灣新聞攝影大賽", "一般新聞類"]
           },
           "resizedTargets": {
             "desktop": {
@@ -271,10 +260,7 @@
           "url": "https://storage.googleapis.com/twreporter-multimedia/images/20160818023004-24815a3c19b0e22b42f6f78616739a09.jpg",
           "width": 2800
         },
-        "keywords": [
-          "2015台灣新聞攝影大賽",
-          "一般新聞類"
-        ]
+        "keywords": ["2015台灣新聞攝影大賽", "一般新聞類"]
       },
       "isFeatured": false,
       "objectID": "57bc58639abc120f007a4c3c",

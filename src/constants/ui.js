@@ -8,12 +8,12 @@ const uiConst = {
     none: 'header:none',
     photo: 'header:photo',
     pink: 'header:pink',
-    transparent: 'header:transparent'
+    transparent: 'header:transparent',
   },
   footer: {
     none: 'footer:none',
-    default: 'footer:default'
-  }
+    default: 'footer:default',
+  },
 }
 
 export default uiConst

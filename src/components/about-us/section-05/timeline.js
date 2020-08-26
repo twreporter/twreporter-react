@@ -20,11 +20,11 @@ const restartRule = css`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  animation: ${props => props.returnToStart ? restartRule : 'none'};
+  animation: ${props => (props.returnToStart ? restartRule : 'none')};
   cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: ${props => props.grabbing ? 'grabbing' : 'grab'};
-  cursor: ${props => props.grabbing ? '-moz-grabbing' : '-moz-grab'};
-  cursor: ${props => props.grabbing ? '-webkit-grabbing' : '-webkit-grab'};
+  cursor: ${props => (props.grabbing ? 'grabbing' : 'grab')};
+  cursor: ${props => (props.grabbing ? '-moz-grabbing' : '-moz-grab')};
+  cursor: ${props => (props.grabbing ? '-webkit-grabbing' : '-webkit-grab')};
   user-select: none;
 `
 
@@ -40,7 +40,7 @@ export default class Timeline extends PureComponent {
     this.prevClientY = null
     this.state = {
       mouseDown: false,
-      returnToStart: false
+      returnToStart: false,
     }
   }
 
@@ -91,7 +91,7 @@ export default class Timeline extends PureComponent {
     this.setState({ mouseDown: true })
   }
 
-  _onMouseMove = (event) => {
+  _onMouseMove = event => {
     if (!this.state.mouseDown) return
     const clientY = event.clientY
     this._timelineShifting(clientY)
@@ -115,16 +115,19 @@ export default class Timeline extends PureComponent {
   }
 
   /**
- * Set shifting value of time refering to the y-coordinate of pointer (mouse or touch) at this moment
- * @param {number} coordY
- */
-  _timelineShifting = (coordY) => {
+   * Set shifting value of time refering to the y-coordinate of pointer (mouse or touch) at this moment
+   * @param {number} coordY
+   */
+  _timelineShifting = coordY => {
     if (!this.prevClientY) this.prevClientY = coordY
     if (this.prevClientY) {
       const leftBound = 0
       const shiftY = this.prevClientY - coordY
       this.prevClientY = coordY
-      if (this.timelineShiftY + shiftY >= leftBound && this.timelineShiftY + shiftY < this.props.childrenHeight) {
+      if (
+        this.timelineShiftY + shiftY >= leftBound &&
+        this.timelineShiftY + shiftY < this.props.childrenHeight
+      ) {
         this.timelineShiftY = this.timelineShiftY + shiftY
         this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
         this._setYear()
@@ -152,7 +155,9 @@ export default class Timeline extends PureComponent {
           grabbing={this.state.mouseDown}
         >
           <Scroller
-            ref={(node) => { this.scroller = node }}
+            ref={node => {
+              this.scroller = node
+            }}
             onMouseDown={this._onMouseDown}
             onMouseUp={this._onMouseUp}
             onMouseMove={event => this._onMouseMove(event)}
@@ -171,14 +176,18 @@ export default class Timeline extends PureComponent {
 Timeline.defaultProps = {
   childrenHeight: 0,
   autoScrolling: false,
-  yearContentHeight: []
+  yearContentHeight: [],
 }
 
 Timeline.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   childrenHeight: PropTypes.number.isRequired,
   autoScrolling: PropTypes.bool.isRequired,
   startAutoScroll: PropTypes.func.isRequired,
   stopAutoScroll: PropTypes.func.isRequired,
   yearContentHeight: PropTypes.array.isRequired,
-  getYear: PropTypes.func.isRequired
+  getYear: PropTypes.func.isRequired,
 }

@@ -1,4 +1,3 @@
-
 export const membersImg = {
   digiChenNaLin: 'Digi-ChenNaLin.png',
   digiChingYangTseng: 'Digi-ChingYangTseng.png',
@@ -21,7 +20,7 @@ export const membersImg = {
   editWenTingYen: 'Edit-WenTing.png',
   editFuNienTsao: 'Edit-FuNienTsao.png',
   editJasonLiu: 'Edit-JasonLiu.png',
-  editChhung:'Edit-chhung.png',
+  editChhung: 'Edit-chhung.png',
   editLinHuiChen: 'Edit-LinHuiChen.png',
   editChenChieh: 'Edit-ChenChieh.png',
   editKeHaoHsiang: 'Edit-KeHaoHsiang.png',
@@ -32,7 +31,7 @@ export const membersImg = {
   photoJamesonWu: 'Photo-JamesonWu.png',
   photoWeiMinSu: 'Photo-WeiMingSu.png',
   photoTzuLeiYang: 'Photo-TzuLeiYang.png',
-  blankFace: 'blankface.png'
+  blankFace: 'blankface.png',
 }
 
 export const foundationImg = {
@@ -57,5 +56,5 @@ export const foundationImg = {
   editSherryLee: membersImg.editSherryLee,
   editJenniferCheng: membersImg.editJenniferCheng,
   editSylvieWang: membersImg.editSylvieWang,
-  editUyo: membersImg.editUyo
+  editUyo: membersImg.editUyo,
 }

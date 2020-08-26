@@ -12,15 +12,14 @@ export default {
     gray96: '#F6F6F6',
     gray97: '#F7F7F7',
     gray98: '#F9F9F9',
-    lightGray: '#F1F1F1'
+    lightGray: '#F1F1F1',
   },
   red: {
     lightRed: '#D92616',
     rustyRed: '#c71b0a',
-    liverRed: '#C7000A'
+    liverRed: '#C7000A',
   },
   photographyColor: '#08192d',
   primaryColor: '#c71b0a',
-  secondaryColor: '#a67a44'
+  secondaryColor: '#a67a44',
 }
-

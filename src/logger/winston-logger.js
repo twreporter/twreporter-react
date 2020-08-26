@@ -9,7 +9,7 @@ import { LoggingWinston, express } from '@google-cloud/logging-winston'
  *  @return {string} kubernetes namespace
  */
 function getK8sNamespaceName(releaseBranch) {
-  switch(releaseBranch) {
+  switch (releaseBranch) {
     case releaseBranchConst.release:
       return 'production'
     case releaseBranchConst.preview:
@@ -27,8 +27,8 @@ export function createProdLogger() {
   const namespaceName = getK8sNamespaceName(globalEnv.releaseBranch)
   const opts = {
     serviceContext: {
-      version: globalEnv.pkgVersion
-    }
+      version: globalEnv.pkgVersion,
+    },
   }
 
   if (globalEnv.releaseBranch === releaseBranchConst.preview) {
@@ -42,7 +42,6 @@ export function createProdLogger() {
     // and keystone-cluster doesn't support (new) stackdriver logging;
     // hence, we use legacy stackdriver logging on preview release branch.
     // That means we use default `opts.resource` here.
-
   } else {
     const clusterName = 'twreporter'
 
@@ -59,17 +58,15 @@ export function createProdLogger() {
       labels: {
         cluster_name: clusterName,
         namespace_name: namespaceName,
-        container_name: containerName
-      }
+        container_name: containerName,
+      },
     }
   }
   const loggingWinston = new LoggingWinston(opts)
 
   return winston.createLogger({
     level: 'info',
-    transports: [
-      loggingWinston
-    ]
+    transports: [loggingWinston],
   })
 }
 
@@ -79,25 +76,30 @@ export function createProdLogger() {
 export function createDevLogger() {
   const enumerateErrorFormat = winston.format(info => {
     if (info instanceof Error) {
-      return Object.assign({
-        message: info.message,
-        stack: info.stack
-      }, info);
+      return Object.assign(
+        {
+          message: info.message,
+          stack: info.stack,
+        },
+        info
+      )
     }
 
-    return info;
-  });
-
-  const printFormat = winston.format.printf(({ level, message, timestamp: ts, stack, __errorReport }) => {
-    if (stack) {
-      message += (message ? ' ' : '') + stack
-    }
-    let ep = ''
-    if (__errorReport) {
-      ep = `\n Error report: ${util.inspect(__errorReport)}`
-    }
-    return `${ts} ${level}: ${message} ${ep}`
+    return info
   })
+
+  const printFormat = winston.format.printf(
+    ({ level, message, timestamp: ts, stack, __errorReport }) => {
+      if (stack) {
+        message += (message ? ' ' : '') + stack
+      }
+      let ep = ''
+      if (__errorReport) {
+        ep = `\n Error report: ${util.inspect(__errorReport)}`
+      }
+      return `${ts} ${level}: ${message} ${ep}`
+    }
+  )
 
   return winston.createLogger({
     level: 'info',
@@ -108,10 +110,8 @@ export function createDevLogger() {
       winston.format.colorize(),
       printFormat
     ),
-    transports: [
-      new winston.transports.Console()
-    ],
-  });
+    transports: [new winston.transports.Console()],
+  })
 }
 
 /**

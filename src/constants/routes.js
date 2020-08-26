@@ -1,44 +1,44 @@
 export default {
   homePage: {
-    path: '/'
+    path: '/',
   },
   articlePage: {
-    path: '/a/:slug'
+    path: '/a/:slug',
   },
   serviceWorkerFallBackPage: {
-    path: '/sw-fallback-page'
+    path: '/sw-fallback-page',
   },
   topicPage: {
-    path: '/topics/:slug'
+    path: '/topics/:slug',
   },
   topicListPage: {
-    path: '/topics'
+    path: '/topics',
   },
   categoryListPage: {
-    path: '/categor(y|ies)/:category'
+    path: '/categor(y|ies)/:category',
   },
   tagListPage: {
-    path: '/(tag|tags)/:tagId'
+    path: '/(tag|tags)/:tagId',
   },
   photographyPage: {
-    path: '/photography'
+    path: '/photography',
   },
   searchPage: {
-    path: '/search'
+    path: '/search',
   },
   authorPage: {
-    path: '/(author|authors)/:authorId'
+    path: '/(author|authors)/:authorId',
   },
   authorListPage: {
-    path: '/authors'
+    path: '/authors',
   },
   aboutUsPage: {
-    path: '/about-us'
+    path: '/about-us',
   },
   bookmarkListPage: {
-    path: '/bookmarks/:pageNumber?'
+    path: '/bookmarks/:pageNumber?',
   },
   errorPage: {
-    path: '/error/:errorType'
-  }
+    path: '/error/:errorType',
+  },
 }

@@ -1,97 +1,82 @@
-/* eslint no-unused-vars: [0, { "args": "all" }]*/
+/* eslint no-unused-vars: [0, { "args": "all" }] */
 
 import ArticleList from '../components/photography/article-list'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import TopNews from '../components/photography/top-news'
+import SystemError from '../components/SystemError'
 import categoryConst from '../constants/category'
 import colors from '../constants/colors'
+import dataLoaderConst from '../constants/data-loaders'
 import loggerFactory from '../logger'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
+import { TopNews } from '../components/photography/top-news'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-import { denormalizeArticles } from '../utils/denormalize-articles'
+
+// utils
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
-import filter from 'lodash/filter'
+import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-import uniq from 'lodash/uniq'
 
 const _ = {
-  filter,
+  forEach,
   get,
-  uniq
 }
 
 const logger = loggerFactory.getLogger()
 
-const { fetchListedPosts, fetchPhotographyPostsOnIndexPage } =  twreporterRedux.actions
-const { denormalizePosts, denormalizeTopics } = twreporterRedux.utils
+const { fetchPostsByCategoryListId } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
 
-const listID = _.get(categoryConst, 'ids.photography', '')
-
 class Photography extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.loadMoreArticles = this._loadMoreArticles.bind(this)
-  }
-
   componentDidMount() {
-    this.fetchPhotographyPostsOnIndexPageWithCatch()
     this.fetchPostsWithCatch()
-  }
-
-  fetchPhotographyPostsOnIndexPageWithCatch = () => {
-    const { fetchPhotographyPostsOnIndexPage } = this.props
-    return fetchPhotographyPostsOnIndexPage()
-      .catch((failAction) => {
-        // TODO render alter message
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: 'Error to fetch posts with photography style and is_feature: true.'
-        })
-      })
   }
 
   fetchPostsWithCatch = () => {
-    const maxResult = 10
-    const listType = 'categories'
-    const { fetchListedPosts } = this.props
-    return fetchListedPosts(listID, listType, maxResult)
-      .catch((failAction) => {
+    const {
+      fetchPostsByCategoryListId,
+      hasMore,
+      listId,
+      nPerPage,
+      posts,
+    } = this.props
+
+    if (!hasMore) {
+      return
+    }
+
+    const page = Math.ceil(posts.length / nPerPage + 1)
+
+    return fetchPostsByCategoryListId(listId, nPerPage, page).catch(
+      failAction => {
         // TODO render alter message
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: ${listID}).`
+          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
         })
-      })
-  }
-
-  _loadMoreArticles() {
-    this.fetchPostsWithCatch()
+      }
+    )
   }
 
   render() {
-    const { lists, featuredPosts, entities } = this.props
-    const postEntities = _.get(entities, reduxStateFields.postsInEntities, {})
-    const total = _.get(lists, [ listID, 'total' ], 0)
+    const { error, hasMore, isFetching, posts } = this.props
+
+    // Error handling
+    if (error) {
+      return <SystemError error={error} />
+    }
+
+    const topNewsNum = 6
 
     const style = {
       backgroundColor: colors.photographyColor,
-      color: '#FFFFEB'
+      color: '#FFFFEB',
     }
-
-    const topNewsItems = camelizeKeys(denormalizePosts(featuredPosts, postEntities))
-    const slugs = _.filter(_.uniq(_.get(lists, [ listID, 'items' ], [])), (slug) => {
-      if (featuredPosts.indexOf(slug) > -1) {
-        return false
-      }
-      return true
-    })
-    const posts = camelizeKeys(denormalizePosts(slugs, postEntities))
 
     const canonical = siteMeta.urlOrigin + '/photography'
     const title = '影像' + siteMeta.name.separator + siteMeta.name.full
@@ -99,9 +84,7 @@ class Photography extends Component {
       <div style={style}>
         <Helmet
           title={title}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: title },
@@ -113,40 +96,132 @@ class Photography extends Component {
             { property: 'og:image:width', content: siteMeta.ogImage.width },
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical }
+            { property: 'og:url', content: canonical },
           ]}
         />
-        <TopNews posts={topNewsItems} />
+        <TopNews posts={posts.slice(0, topNewsNum)} />
         <ArticleList
-          articles={posts}
-          hasMore={total > _.get(lists, [ listID, 'items', 'length' ], 0)}
-          loadMore={this.loadMoreArticles}
+          articles={posts.slice(topNewsNum)}
+          hasMore={hasMore}
+          loadMore={this.fetchPostsWithCatch}
         />
-        {this.props.children}
       </div>
     )
   }
 }
 
 Photography.defaultProps = {
-  entities: {},
-  featuredPosts: [],
-  lists: {}
+  error: null,
+  isFetching: false,
+  listId: _.get(categoryConst, 'ids.photography', ''),
+  posts: [],
+  hasMore: false,
+  nPerPage: dataLoaderConst.photographyPage.nPerPage,
 }
 
 Photography.propTypes = {
-  entities: PropTypes.object,
-  featuredPosts: PropTypes.array,
-  lists: PropTypes.object
+  error: PropTypes.object,
+  isFetching: PropTypes.bool,
+  listId: PropTypes.string,
+  // TODO: PropTypes.arrayOf(propTypeConst.post),
+  posts: PropTypes.array,
+  hasMore: PropTypes.bool,
+  nPerPage: PropTypes.number,
+  fetchPostsByCategoryListId: PropTypes.func,
 }
 
+/**
+ *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
+ */
+
+/**
+ *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
+ */
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - photography list id
+ *  @return {Object} error object
+ */
+function errorProp(state, listId) {
+  return _.get(state, [reduxStateFields.lists, listId, 'error'])
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - photography list id
+ *  @return {boolean}
+ */
+function isFetchingProp(state, listId) {
+  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - photography list id
+ *  @return {MetaOfPost[]}
+ */
+function postsProp(state, listId) {
+  const { entities, postsInEntities, lists } = reduxStateFields
+  const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
+  const listObj = _.get(state, [lists, listId])
+  const postIds = _.get(listObj, 'items', [])
+  const posts = []
+  _.forEach(postIds, postId => {
+    const post = _.get(postEntities, postId)
+    if (post) {
+      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+    }
+  })
+  return posts
+}
+
+/**
+ *  @param {ReduxState} state
+ *  @param {string} listId - photography list id
+ *  @return {boolean}
+ */
+function hasMoreProp(state, listId) {
+  const listObj = _.get(state, [reduxStateFields.lists, listId], null)
+
+  if (!listObj) {
+    return true
+  }
+
+  const total = _.get(listObj, 'total', 0)
+  const items = _.get(listObj, 'items.length', 0)
+
+  return items < total
+}
+
+/**
+ *  @typedef {Object} PhotographyProps
+ *  @property {Object} error
+ *  @property {boolean} hasMore
+ *  @property {boolean} isFetching
+ *  @property {string} listId
+ *  @property {MetaOfPost[]} posts
+ *  @property {number} nPerPage
+ */
+
+/**
+ *  @param {ReduxState} state
+ *  @return {PhotographyProps}
+ */
 function mapStateToProps(state) {
+  const listId = _.get(categoryConst, 'ids.photography', '')
   return {
-    lists: state[reduxStateFields.lists],
-    entities: state[reduxStateFields.entities],
-    featuredPosts: _.get(state, [ reduxStateFields.indexPage, reduxStateFields.sections.photosSection ])
+    error: errorProp(state, listId),
+    hasMore: hasMoreProp(state, listId),
+    isFetching: isFetchingProp(state, listId),
+    listId,
+    posts: postsProp(state, listId),
+    nPerPage: dataLoaderConst.photographyPage.nPerPage,
   }
 }
 
 export { Photography }
-export default connect(mapStateToProps, { fetchListedPosts, fetchPhotographyPostsOnIndexPage })(Photography)
+export default connect(
+  mapStateToProps,
+  { fetchPostsByCategoryListId }
+)(Photography)

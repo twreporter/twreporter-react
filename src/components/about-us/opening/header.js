@@ -24,7 +24,8 @@ const Container = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    z-index: ${props => props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};  
+    z-index: ${props =>
+      props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};
   `}
   ${mq.desktopOnly`
     max-width: ${containerStyle.width.desktop};
@@ -77,7 +78,7 @@ const LanguageSwitcher = styled.div`
       font-weight: bold;
     }
   }
-  span:last-child > a{
+  span:last-child > a {
     opacity: 0.26;
     padding-right: 0;
   }
@@ -88,13 +89,13 @@ const LanguageSwitcher = styled.div`
 
 const Hamburger = styled.div`
   width: 24px;
-  span{
+  span {
     width: 100%;
     height: 2px;
     background: ${colors.black};
     display: block;
   }
-  span:first-child{
+  span:first-child {
     margin-bottom: 8px;
   }
   ${mq.desktopAndAbove`
@@ -105,12 +106,10 @@ const Hamburger = styled.div`
 class Header extends React.PureComponent {
   render() {
     return (
-      <Container
-        isPanelOpen={this.props.isPanelOpen}
-      >
+      <Container isPanelOpen={this.props.isPanelOpen}>
         <TopRow>
           <Link to="/">
-            <img src={logo}/>
+            <img src={logo} />
           </Link>
           <LanguageSwitcher>
             <span>
@@ -118,7 +117,13 @@ class Header extends React.PureComponent {
             </span>
             <span>|</span>
             <span>
-              <a href={'https://www.twreporter.org/a/about-us-english-version'} target="_blank">EN</a>
+              <a
+                href={'https://www.twreporter.org/a/about-us-english-version'}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                EN
+              </a>
             </span>
           </LanguageSwitcher>
           <Hamburger onClick={this.props.onHamburgerClick}>
@@ -133,12 +138,12 @@ class Header extends React.PureComponent {
 
 Header.defaultProps = {
   onHamburgerClick: () => {},
-  isPanelOpen: false
+  isPanelOpen: false,
 }
 
 Header.propTypes = {
   onHamburgerClick: PropTypes.func.isRequired,
-  isPanelOpen: PropTypes.bool.isRequired
+  isPanelOpen: PropTypes.bool.isRequired,
 }
 
 export default Header

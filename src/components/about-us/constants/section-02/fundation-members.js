@@ -11,7 +11,7 @@ const members = [
     job: '董事長',
     jobEng: 'Director',
     profile: memberUrlPrefix + foundationImg.foundationRongTsunHuang,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '何榮幸',
@@ -19,7 +19,7 @@ const members = [
     job: '執行長',
     jobEng: 'Chief Executive Officer',
     profile: memberUrlPrefix + foundationImg.editJungShinHo,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '林以涵',
@@ -27,56 +27,56 @@ const members = [
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationYiHanLin,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '侯文詠',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationWenYongHo,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '柯珀汝',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationPoRuKo,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '許朱勝',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationChuShengHsu,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '黃旭田',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationShuTienHuang,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '林雨佑',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.editUyo,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '劉昌德',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationChangDerLiu,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '蔡裕慶',
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationYuChingTsai,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '瞿筱葳',
@@ -84,7 +84,7 @@ const members = [
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.foundationShiaoWeiChu,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '李怡志',
@@ -92,7 +92,7 @@ const members = [
     job: '董事',
     jobEng: 'Executive Director',
     profile: memberUrlPrefix + foundationImg.blankFace,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '李偉文',
@@ -100,14 +100,14 @@ const members = [
     job: '監察人',
     jobEng: 'Supervisor',
     profile: memberUrlPrefix + foundationImg.foundationWeiWanLi,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '張芷',
     job: '監察人',
     jobEng: 'Supervisor',
     profile: memberUrlPrefix + foundationImg.foundationZhiChang,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '陳順孝',
@@ -115,39 +115,39 @@ const members = [
     job: '監察人',
     jobEng: 'Supervisor',
     profile: memberUrlPrefix + foundationImg.foundationSoonShiaoChen,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '翁秀琪',
     nameEng: 'Shieu Chi Weng',
     job: '基金會顧問',
     profile: memberUrlPrefix + foundationImg.foundationSheuChiWong,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '劉怡汝',
     nameEng: 'Yi Ru Liu',
     job: '基金會顧問',
     profile: memberUrlPrefix + foundationImg.foundationYiRuLiu,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '侯宜秀',
     job: '法律顧問',
     profile: memberUrlPrefix + foundationImg.blankFace,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '翁國彥',
     job: '法律顧問',
     profile: memberUrlPrefix + foundationImg.blankFace,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '陳業鑫',
     job: '法律顧問',
     profile: memberUrlPrefix + foundationImg.blankFace,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '李雪莉',
@@ -155,7 +155,7 @@ const members = [
     job: '副執行長',
     jobEng: 'Deputy Chief Executive Officer',
     profile: memberUrlPrefix + foundationImg.editSherryLee,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '王儀君',
@@ -163,7 +163,7 @@ const members = [
     job: '行銷部經理',
     jobEng: 'Marketing Manager',
     profile: memberUrlPrefix + foundationImg.editSylvieWang,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '李盈臻',
@@ -171,7 +171,7 @@ const members = [
     job: '行銷部專員',
     jobEng: 'Marketing Specialist',
     profile: memberUrlPrefix + foundationImg.foundationJaneLi,
-    category: categoryIds.fundation
+    category: categoryIds.fundation,
   },
   {
     name: '鄭淑芬',
@@ -179,8 +179,8 @@ const members = [
     job: '行政部經理',
     jobEng: 'Administration Manager',
     profile: memberUrlPrefix + foundationImg.editJenniferCheng,
-    category: categoryIds.fundation
-  }
+    category: categoryIds.fundation,
+  },
 ]
 
 export default members

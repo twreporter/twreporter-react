@@ -12,5 +12,5 @@ function getAboutUSPageSideBar() {
 
 export default {
   getIndexPageSideBar,
-  getAboutUSPageSideBar
+  getAboutUSPageSideBar,
 }

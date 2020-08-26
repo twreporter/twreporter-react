@@ -5,16 +5,22 @@ import Header from '@twreporter/universal-header/lib/containers/header'
 import mq from '@twreporter/core/lib/utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
+import WebPush from '../components/web-push'
 import styled from 'styled-components'
+import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
 import uiManager from '../managers/ui-manager'
-import WebPush from '../containers/web-push'
+
 // lodash
+import get from 'lodash/get'
 import values from 'lodash/values'
 
 const _ = {
-  values
+  get,
+  values,
 }
+
+const { reduxStateFields } = twreporterRedux
 
 const AppBox = styled.div`
   background-color: ${props => props.backgroundColor};
@@ -41,8 +47,8 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = (footerType) => {
-  switch(footerType) {
+const renderFooter = footerType => {
+  switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
@@ -54,7 +60,7 @@ const renderFooter = (footerType) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
-  switch(headerType) {
+  switch (headerType) {
     case uiConst.header.none: {
       return null
     }
@@ -103,34 +109,40 @@ const renderHeader = (headerType, releaseBranch) => {
 
 class AppShell extends React.PureComponent {
   static propTypes = {
+    apiOrigin: PropTypes.string,
     backgroundColor: PropTypes.string,
     footerType: PropTypes.oneOf(_.values(uiConst.footer)),
     headerType: PropTypes.oneOf(_.values(uiConst.header)),
-    releaseBranch: PropTypes.string.isRequired
+    releaseBranch: PropTypes.string.isRequired,
+    userId: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node,
+    ]),
   }
 
   static defaultProps = {
     headerType: uiConst.header.default,
     footerType: uiConst.footer.default,
-    backgroundColor: '#f1f1f1'
+    backgroundColor: '#f1f1f1',
   }
 
   render() {
     const {
+      apiOrigin,
       headerType,
       footerType,
       backgroundColor,
       releaseBranch,
-      children
+      children,
+      userId,
     } = this.props
 
     return (
       <ErrorBoundary>
-        <AppBox
-          backgroundColor={backgroundColor}
-        >
+        <AppBox backgroundColor={backgroundColor}>
           <ContentBlock>
-            <WebPush />
+            <WebPush apiOrigin={apiOrigin} userId={userId} />
             {renderHeader(headerType, releaseBranch)}
             {children}
             {renderFooter(footerType)}
@@ -141,9 +153,14 @@ class AppShell extends React.PureComponent {
   }
 }
 
-
 function mapStateToProps(state, ownProps) {
-  return uiManager.getLayoutObj(state, ownProps.location)
+  return Object.assign(
+    {
+      apiOrigin: _.get(state, [reduxStateFields.origins, 'api'], ''),
+      userId: _.get(state, [reduxStateFields.auth, 'userInfo.id']),
+    },
+    uiManager.getLayoutObj(state, ownProps.location)
+  )
 }
 
 export default connect(mapStateToProps)(AppShell)

@@ -32,7 +32,7 @@ const TopicDescription = styled(Section)`
   padding-bottom: 40px; /* distacne to red line */
   /* horizontal red line */
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -54,26 +54,19 @@ const TeamDescription = styled(Section)`
   }
 `
 
-const Description = (props) => {
+const Description = props => {
   const { topicDescription, teamDescription } = props
   const topicDescElements = renderTopicContent(topicDescription)
   const teamDescElements = renderTopicContent(teamDescription)
-  if (
-    topicDescElements.length > 0 ||
-    teamDescElements.length > 0
-  ) {
+  if (topicDescElements.length > 0 || teamDescElements.length > 0) {
     return (
       <Container>
         {topicDescElements.length > 0 ? (
-          <TopicDescription>
-            {topicDescElements}
-          </TopicDescription>
+          <TopicDescription>{topicDescElements}</TopicDescription>
         ) : null}
         {teamDescElements.length > 0 ? (
-          <TeamDescription>
-            {teamDescElements}
-          </TeamDescription>
-        ): null}
+          <TeamDescription>{teamDescElements}</TeamDescription>
+        ) : null}
       </Container>
     )
   }
@@ -82,12 +75,12 @@ const Description = (props) => {
 
 Description.propTypes = {
   topicDescription: PropTypes.array,
-  teamDescription: PropTypes.array
+  teamDescription: PropTypes.array,
 }
 
 Description.defaultProps = {
   topicDescription: [],
-  teamDescription: []
+  teamDescription: [],
 }
 
 export default Description

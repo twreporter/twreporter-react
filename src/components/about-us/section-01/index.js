@@ -9,7 +9,7 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 const defaultZIndex = 0
-const animCaptions = [ '深度', '開放', '非營利' ]
+const animCaptions = ['深度', '開放', '非營利']
 
 const Container = styled.div`
   position: relative;
@@ -31,7 +31,7 @@ const Container = styled.div`
 `
 
 const BorderTop = styled.div`
-  position: ${props => props.fixed ? 'fixed' : 'absolute'};
+  position: ${props => (props.fixed ? 'fixed' : 'absolute')};
   top: 0;
   left: 0;
   width: 100%;
@@ -75,7 +75,9 @@ const SectionWrapper = styled.section`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section1.png`)});
+  background-image: url(${replaceGCSUrlOrigin(
+    `${storageUrlPrefix}/title-section1.png`
+  )});
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
@@ -91,7 +93,9 @@ const Title = styled.h1`
     height: 475px;
   `}
   ${mq.tabletAndBelow`
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section1-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-section1-mob.png`
+    )});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -198,8 +202,8 @@ const Content = styled.div`
 const Caption = styled.div`
   display: inline-block;
   cursor: pointer;
-  h2{
-    opacity: ${props => props.curCaption === props.index ? '1' : '0.2'};
+  h2 {
+    opacity: ${props => (props.curCaption === props.index ? '1' : '0.2')};
   }
 `
 
@@ -223,7 +227,7 @@ export default class Section1 extends PureComponent {
     super(props)
     this.state = {
       currentAnim: 0,
-      isBorderTopfixed: false
+      isBorderTopfixed: false,
     }
   }
   _onPositionChange = (prevPos, currPos) => {
@@ -233,8 +237,8 @@ export default class Section1 extends PureComponent {
       this.setState({ isBorderTopfixed: false })
     }
   }
-  _getIntroWords = (idx) => {
-    switch(idx) {
+  _getIntroWords = idx => {
+    switch (idx) {
       case 0:
         return (
           <IntroWords>
@@ -246,7 +250,9 @@ export default class Section1 extends PureComponent {
       case 1:
         return (
           <IntroWords>
-            <p><b>屬於社會的《報導者》</b></p>
+            <p>
+              <b>屬於社會的《報導者》</b>
+            </p>
             <br />
             <p>報導CC授權：網站多數報導採創用CC授權</p>
             <br />
@@ -256,7 +262,9 @@ export default class Section1 extends PureComponent {
       case 2:
         return (
           <IntroWords>
-            <p><b>追求公益價值</b></p>
+            <p>
+              <b>追求公益價值</b>
+            </p>
             <br />
             <p>沒有廣告：不受廣告主影響</p>
             <br />
@@ -265,7 +273,7 @@ export default class Section1 extends PureComponent {
         )
     }
   }
-  _animUpdated = (updatedIndex) => {
+  _animUpdated = updatedIndex => {
     this.setState({ currentAnim: updatedIndex })
   }
   _getBorderZIndex = () => {
@@ -275,18 +283,16 @@ export default class Section1 extends PureComponent {
     const Captions = animCaptions.map((caption, index) => {
       const dot = () => {
         if (index !== animCaptions.length - 1) {
-          return (
-            <h2>・</h2>
-          )
+          return <h2>・</h2>
         }
       }
       return (
-        <React.Fragment
-          key={index}>
+        <React.Fragment key={index}>
           <Caption
             curCaption={this.state.currentAnim}
             index={index}
-            onClick={() => this._animUpdated(index)} >
+            onClick={() => this._animUpdated(index)}
+          >
             <h2>{animCaptions[index]}</h2>
           </Caption>
           {dot()}
@@ -296,7 +302,9 @@ export default class Section1 extends PureComponent {
     return (
       <Container>
         <Waypoint
-          onPositionChange={({ previousPosition, currentPosition }) => this._onPositionChange(previousPosition, currentPosition)}
+          onPositionChange={({ previousPosition, currentPosition }) =>
+            this._onPositionChange(previousPosition, currentPosition)
+          }
           fireOnRapidScroll
         />
         <BorderTop

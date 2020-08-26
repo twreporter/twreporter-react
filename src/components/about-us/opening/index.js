@@ -103,7 +103,7 @@ const Navigator = styled.div`
   width: 50%;
   height: 50%;
   border-right: solid 0.5px ${colors.white};
-  p{
+  p {
     position: absolute;
     right: 0;
     top: 0;
@@ -163,7 +163,9 @@ const ChineseIntro = styled.div`
   display: block;
   width: 100%;
   h2 {
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     margin: 0;
     font-weight: bold;
     position: absolute;
@@ -215,7 +217,9 @@ const ChineseIntro = styled.div`
 const Title = styled.h1`
   display: block;
   float: left;
-  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-opening.png`)});
+  background-image: url(${replaceGCSUrlOrigin(
+    `${storageUrlPrefix}/title-opening.png`
+  )});
   background-repeat: no-repeat;
   background-size: contain;
   margin: 0;
@@ -225,7 +229,9 @@ const Title = styled.h1`
   ${mq.tabletAndBelow`
   `}
   ${mq.mobileOnly`
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-opening-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-opening-mob.png`
+    )});
     background-position: center center;
     width: 100%;
     height: 114px;
@@ -320,12 +326,12 @@ const SeperateLineOnMobile = styled(SeperateLine)`
   ${mq.tabletAndAbove`
     display: none;
   `}
-  h3{
+  h3 {
     margin: 52px 0;
   }
 `
 
-const SeperateLineOnTabletAbove = styled(SeperateLine) `
+const SeperateLineOnTabletAbove = styled(SeperateLine)`
   ${mq.mobileOnly`
     display: none;
   `}
@@ -334,7 +340,9 @@ const SeperateLineOnTabletAbove = styled(SeperateLine) `
 const Words = styled.div`
   display: block;
   p{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     display: inline;
     font-weight: bold;
     letter-spacing: 0.3px;
@@ -408,7 +416,9 @@ const EnglishIntro = styled.div`
   display: block;
   text-align: right;
   p{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     display: inline;
     font-weight: bold;
     letter-spacing: 0.3px;
@@ -472,36 +482,47 @@ const EnglishIntro = styled.div`
 `
 
 export class Opening extends PureComponent {
+  static propTypes = {
+    handleClickAnchor: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      isAnchorPanelOpen: false
+      isAnchorPanelOpen: false,
     }
   }
 
-  _handleClick = (event) => {
+  _handleClick = event => {
     event.preventDefault()
     const coverBottom = this._cover.scrollHeight
     return smoothScroll(coverBottom)
   }
   _closeAnchorPanel = () => {
     this.setState({
-      isAnchorPanelOpen: false
+      isAnchorPanelOpen: false,
     })
   }
   _openAnchorPanel = () => {
     this.setState({
-      isAnchorPanelOpen: true
+      isAnchorPanelOpen: true,
     })
   }
-  _closePanelAndScrollToAnchor = (idx) => {
+  _closePanelAndScrollToAnchor = idx => {
     this._closeAnchorPanel()
-    setTimeout(() => this.props.handleClickAnchor(idx), transitionDuration + 100)
+    setTimeout(
+      () => this.props.handleClickAnchor(idx),
+      transitionDuration + 100
+    )
   }
   render() {
     const { isAnchorPanelOpen } = this.state
     return (
-      <Container ref={(ele) => {this._cover = ele}}>
+      <Container
+        ref={ele => {
+          this._cover = ele
+        }}
+      >
         <CSSTransition
           in={isAnchorPanelOpen}
           classNames="effect"
@@ -510,14 +531,16 @@ export class Opening extends PureComponent {
           unmountOnExit
         >
           <AnchorsPanel
-            ref={(anchorsPanel) => this.anchorsPanel = anchorsPanel}
-            handleClickAnchor={(idx) => this._closePanelAndScrollToAnchor(idx)}
+            ref={anchorsPanel => (this.anchorsPanel = anchorsPanel)}
+            handleClickAnchor={idx => this._closePanelAndScrollToAnchor(idx)}
             isOpen={isAnchorPanelOpen}
             closePanel={this._closeAnchorPanel}
           />
         </CSSTransition>
         <Header
-          onHamburgerClick={isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel}
+          onHamburgerClick={
+            isAnchorPanelOpen ? this._closeAnchorPanel : this._openAnchorPanel
+          }
           isPanelOpen={isAnchorPanelOpen}
         />
         <Content>
@@ -532,20 +555,51 @@ export class Opening extends PureComponent {
                 <h3>・・・</h3>
               </SeperateLineOnMobile>
               <picture>
-                <source media={`(min-width: ${breakpoint.tablet.minWidth}px) and (max-width: ${breakpoint.desktop.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`} />
-                <source media={`(max-width: ${breakpoint.tablet.minWidth - 1}px)`} srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`} />
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/aboutus-opening.png`)}`} alt={'關於我們'}/>
+                <source
+                  media={`(min-width: ${
+                    breakpoint.tablet.minWidth
+                  }px) and (max-width: ${breakpoint.desktop.minWidth - 1}px)`}
+                  srcSet={`${storageUrlPrefix}/aboutus-opening-tablet.png`}
+                />
+                <source
+                  media={`(max-width: ${breakpoint.tablet.minWidth - 1}px)`}
+                  srcSet={`${storageUrlPrefix}/aboutus-opening-mob.png`}
+                />
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/aboutus-opening.png`
+                  )}`}
+                  alt={'關於我們'}
+                />
               </picture>
               <SeperateLineOnTabletAbove>
                 <h3>・・・</h3>
               </SeperateLineOnTabletAbove>
               <Words>
-                <p><span>《報導者》是台灣第一個由公益基金會成立的網路媒體。秉持<mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>的精神，致力於公共領域<mark>調查報導</mark>，共同打造<mark>多元進步的社會</mark>與媒體環境。</span></p>
+                <p>
+                  <span>
+                    《報導者》是台灣第一個由公益基金會成立的網路媒體。秉持
+                    <mark>深度</mark>、<mark>開放</mark>、<mark>非營利</mark>
+                    的精神，致力於公共領域<mark>調查報導</mark>，共同打造
+                    <mark>多元進步的社會</mark>與媒體環境。
+                  </span>
+                </p>
               </Words>
             </AboutUS>
           </ChineseIntro>
           <EnglishIntro>
-            <p><span>The Reporter is a <mark>non-profit</mark> media organization founded by The Reporter Cultural Foundation. We focus on <mark>in-depth</mark> reportage and <mark>investigative journalism</mark>, publishing our works on an <mark>open-source</mark> website. We are dedicated to probing issues at stake, and to building <mark>diverse modern society</mark> and media environment as a whole.</span></p>
+            <p>
+              <span>
+                The Reporter is a <mark>non-profit</mark> media organization
+                founded by The Reporter Cultural Foundation. We focus on{' '}
+                <mark>in-depth</mark> reportage and{' '}
+                <mark>investigative journalism</mark>, publishing our works on
+                an <mark>open-source</mark> website. We are dedicated to probing
+                issues at stake, and to building{' '}
+                <mark>diverse modern society</mark> and media environment as a
+                whole.
+              </span>
+            </p>
           </EnglishIntro>
         </Content>
         <Footer>
@@ -562,6 +616,5 @@ export default Opening
 
 Opening.contextTypes = {
   lockBackgroundScrolling: PropTypes.func,
-  unlockBackgroundScrolling: PropTypes.func
+  unlockBackgroundScrolling: PropTypes.func,
 }
-

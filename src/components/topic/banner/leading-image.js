@@ -9,7 +9,7 @@ import { getSrcSet } from '../../../utils/img'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const FullScreenContainer = styled.figure`
@@ -18,7 +18,7 @@ const FullScreenContainer = styled.figure`
 `
 
 const ImgPlaceholder = styled.img`
-  display: ${props => props.toShow ? 'block' : 'none'};
+  display: ${props => (props.toShow ? 'block' : 'none')};
   filter: blur(30px);
   object-fit: cover;
   opacity: 1;
@@ -39,7 +39,7 @@ const StyledImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: ${props => props.toShow ? '1' : '0' };
+  opacity: ${props => (props.toShow ? '1' : '0')};
   transition: opacity 1s;
 `
 
@@ -47,7 +47,7 @@ const ImgFallback = styled.div`
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-image: ${(props) => {
+  background-image: ${props => {
     return `url(${_.get(props, 'url')})`
   }};
   background-position: center center;
@@ -59,7 +59,7 @@ class LeadingImage extends React.PureComponent {
     this.state = {
       isObjectFit: true,
       isLoaded: false,
-      toShowPlaceholder: true
+      toShowPlaceholder: true,
     }
     this.onLoad = this._onLoad.bind(this)
     this._imgNode = null
@@ -68,7 +68,7 @@ class LeadingImage extends React.PureComponent {
 
   componentDidMount() {
     this.setState({
-      isObjectFit: 'objectFit' in _.get(document, 'documentElement.style')
+      isObjectFit: 'objectFit' in _.get(document, 'documentElement.style'),
     })
     this._isMounted = true
     // Check if img is already loaded, and cached on the browser.
@@ -94,7 +94,7 @@ class LeadingImage extends React.PureComponent {
     setTimeout(() => {
       if (this._isMounted) {
         this.setState({
-          isLoaded: true
+          isLoaded: true,
         })
       }
     }, 1500)
@@ -102,7 +102,7 @@ class LeadingImage extends React.PureComponent {
     setTimeout(() => {
       if (this._isMounted) {
         this.setState({
-          toShowPlaceholder: false
+          toShowPlaceholder: false,
         })
       }
     }, 3000)
@@ -114,25 +114,33 @@ class LeadingImage extends React.PureComponent {
 
     const imgJSX = isObjectFit ? (
       <StyledPicture>
-        <meta itemProp="url" content={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))} />
+        <meta
+          itemProp="url"
+          content={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))}
+        />
         <meta itemProp="description" content={alt} />
         <ImgPlaceholder
           src={replaceGCSUrlOrigin(_.get(imgSet, 'tiny.url'))}
           toShow={toShowPlaceholder}
         />
-        <source media={'(orientation: portrait)'} srcSet={getSrcSet(portraitImgSet)} />
+        <source
+          media={'(orientation: portrait)'}
+          srcSet={getSrcSet(portraitImgSet)}
+        />
         <source srcSet={getSrcSet(imgSet)} />
         <StyledImg
           alt={alt}
-          ref={node => { this._imgNode = node }}
+          ref={node => {
+            this._imgNode = node
+          }}
           onLoad={this.onLoad}
           src={replaceGCSUrlOrigin(_.get(imgSet, 'tablet.url'))}
           toShow={isLoaded}
         />
       </StyledPicture>
-    ) : <ImgFallback
-      url={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))}
-    />
+    ) : (
+      <ImgFallback url={replaceGCSUrlOrigin(_.get(imgSet, 'desktop.url'))} />
+    )
     return (
       <FullScreenContainer
         viewportHeight={viewportHeight}
@@ -150,14 +158,14 @@ LeadingImage.defaultProps = {
   alt: '',
   imgSet: {},
   portraitImgSet: {},
-  viewportHeight: '100vh'
+  viewportHeight: '100vh',
 }
 
 LeadingImage.propTypes = {
   alt: PropTypes.string,
   imgSet: constPropTypes.imgSet,
   portraitImgSet: constPropTypes.imgSet,
-  viewportHeight: PropTypes.string
+  viewportHeight: PropTypes.string,
 }
 
 export default LeadingImage

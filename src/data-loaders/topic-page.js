@@ -1,8 +1,11 @@
 import get from 'lodash/get'
+import loggerFactory from '../logger'
 
 const _ = {
-  get
+  get,
 }
+
+const logger = loggerFactory.getLogger()
 
 /**
  *  loadData function is used for server side rendering.
@@ -17,5 +20,17 @@ const _ = {
  */
 export default function loadData({ match, store }) {
   const slug = _.get(match, 'params.slug', '')
-  return store.actions.fetchAFullTopic(slug)
+  return store.actions.fetchAFullTopic(slug).then(successAction => {
+    const topicId = _.get(successAction, 'payload.topic.id', '')
+    if (topicId) {
+      return store.actions
+        .fetchRelatedPostsOfAnEntity(topicId)
+        .catch(failAction => {
+          logger.errorReport({
+            report: _.get(failAction, 'payload.error'),
+            message: `Error to fetch a topic's related posts, topic slug: '${slug}'. `,
+          })
+        })
+    }
+  })
 }

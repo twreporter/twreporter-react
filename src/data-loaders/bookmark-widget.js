@@ -7,7 +7,7 @@ import get from 'lodash/get'
 const logger = loggerFactory.getLogger()
 
 const _ = {
-  get
+  get,
 }
 
 const reduxStatePropKey = twreporterRedux.reduxStateFields
@@ -18,7 +18,7 @@ const host = {
   staging: 'https://staging.twreporter.org',
   release: 'https://www.twreporter.org',
   // `next` release branch is reserved for online migration purpose
-  next: 'https://next.twreporter.org'
+  next: 'https://next.twreporter.org',
 }[process.env.RELEASE_BRANCH || 'master']
 
 /**
@@ -35,17 +35,18 @@ const host = {
 export default function loadData({ match, store }) {
   const state = store.getState()
   const slug = _.get(match, 'params.slug')
-  const isAuthed = _.get(state, [ reduxStatePropKey.auth, 'isAuthed' ])
+  const isAuthed = _.get(state, [reduxStatePropKey.auth, 'isAuthed'])
   if (isAuthed) {
-    const jwt = _.get(state, [ reduxStatePropKey.auth, 'accessToken' ])
-    const userID = _.get(state, [ reduxStatePropKey.auth, 'userInfo', 'user_id' ])
-    return store.actions.getSingleBookmark(jwt, userID, slug, host)
+    const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'])
+    const userID = _.get(state, [reduxStatePropKey.auth, 'userInfo', 'user_id'])
+    return store.actions
+      .getSingleBookmark(jwt, userID, slug, host)
       .catch(failAction => {
         const err = _.get(failAction, 'payload.error')
-        if (_.get(err, 'statusCode') != statusCodeConst.notFound) {
+        if (_.get(err, 'statusCode') !== statusCodeConst.notFound) {
           logger.errorReport({
             report: err,
-            message: 'Bookmark widget data loader can not load data.'
+            message: 'Bookmark widget data loader can not load data.',
           })
         }
       })

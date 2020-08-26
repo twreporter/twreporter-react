@@ -16,16 +16,17 @@ import typography from '../../constants/typography'
 const StyledAnchor = styled(baseComponents.StyledAnchor)`
   position: relative;
   height: 100%;
-  color: ${props => props.highlight ? colors.black : colors.gray.gray50};
-  border-right: 2px solid ${props => props.highlight ? colors.black : colors.gray.gray50};
-  opacity: ${props => props.highlight ? '2' : '0.5'};
+  color: ${props => (props.highlight ? colors.black : colors.gray.gray50)};
+  border-right: 2px solid
+    ${props => (props.highlight ? colors.black : colors.gray.gray50)};
+  opacity: ${props => (props.highlight ? '2' : '0.5')};
   padding-right: 17px;
   padding-top: calc((170px / 6) / 2);
   padding-bottom: calc((170px / 6) / 2);
   transition: all 200ms linear;
 `
 
-const Order = styled.div `
+const Order = styled.div`
   font-size: ${typography.font.size.xSmall};
   position: absolute;
   top: 0;
@@ -48,7 +49,9 @@ class Anchors extends baseComponents.Anchors {
     return (
       <Anchor
         highlight={anchorObj.highlight}
-        onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
+        onClick={e => {
+          anchorObj.handleClick(anchorObj.id, e)
+        }}
         key={`SectionButton_${anchorObj.id}`}
       >
         <Order>{`${anchorlist[anchorObj.index - 1].label}`}</Order>
@@ -59,15 +62,17 @@ class Anchors extends baseComponents.Anchors {
 
 Anchors.defaultProps = {
   handleClickAnchor: () => {},
-  data: []
+  data: [],
 }
 
 Anchors.propTypes = {
   handleClickAnchor: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  }))
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
 }
 
 const AnchorsContainer = styled.div`
@@ -114,10 +119,6 @@ const Icons = styled.div`
 `
 
 class AboutusPageSideBar extends React.PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     // currentAnchorId and handleClickAnchor are passed from `SideBarHOC`
     const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
@@ -130,16 +131,30 @@ class AboutusPageSideBar extends React.PureComponent {
             currentAnchorId={currentAnchorId}
           />
           <Icons>
-            <DonationLink
-              utmMedium="about-us"
-            >
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon1.png`)}`} />
+            <DonationLink utmMedium="about-us">
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/sidebar-icon1.png`
+                )}`}
+              />
             </DonationLink>
-            <a href={hrefs.subscribe} target="_blank">
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon2.png`)}`} />
+            <a href={hrefs.subscribe} target="_blank" rel="noopener noreferrer">
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/sidebar-icon2.png`
+                )}`}
+              />
             </a>
-            <a href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')} target="_blank">
-              <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/sidebar-icon3.png`)}`} />
+            <a
+              href={buildFbShareLink(siteMeta.urlOrigin + '/about-us')}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${storageUrlPrefix}/sidebar-icon3.png`
+                )}`}
+              />
             </a>
           </Icons>
         </AnchorsContainer>
@@ -151,16 +166,22 @@ class AboutusPageSideBar extends React.PureComponent {
 
 AboutusPageSideBar.defaultProps = {
   currentAnchorId: '',
-  handleClickAnchor: () => {}
+  handleClickAnchor: () => {},
 }
 
 AboutusPageSideBar.propTypes = {
-  anchors: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  })).isRequired,
+  anchors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   currentAnchorId: PropTypes.string,
-  handleClickAnchor: PropTypes.func
+  handleClickAnchor: PropTypes.func,
 }
 
 export default AboutusPageSideBar

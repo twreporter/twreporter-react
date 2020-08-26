@@ -34,7 +34,7 @@ const ItemLink = styled(base.ItemLink)`
     margin: 0 10px 50px 10px;
     box-shadow: none;
     transition: top .1s ease, box-shadow .2s ease, transform .1s ease;
-    display: ${props => props.hide ? 'none' : 'flex'};
+    display: ${props => (props.hide ? 'none' : 'flex')};
     flex-direction: column;
     &::before {
       transition: border-width .1s ease-out;
@@ -68,7 +68,6 @@ const ItemLink = styled(base.ItemLink)`
   `}
 `
 
-
 const ItemImageSizing = styled(base.ItemImageSizing)`
   ${mq.tabletAndAbove`
     width: 100%;
@@ -100,7 +99,7 @@ const Date = styled(base.ItemDate)`
 `
 
 const textLimit = {
-  desc: 59
+  desc: 59,
 }
 
 class Item extends base.Item {
@@ -112,26 +111,30 @@ class Item extends base.Item {
       title,
       description,
       publishedDate,
-      hide
+      hide,
     } = this.props
     return (
       <ItemLink
         to={linkTo}
         target={linkTarget}
-        hide={hide || undefined} /* passing hide={false} to react-router Link will cause warning */
+        hide={
+          hide || undefined
+        } /* passing hide={false} to react-router Link will cause warning */
       >
         <ItemImageSizing>
           <Image
             alt={title}
             defaultImage={image}
-            imageSet={[ image ]}
+            imageSet={[image]}
             objectFit="cover"
           />
           <ImageBorder />
         </ItemImageSizing>
         <ItemMeta>
           <base.ItemTitle>{title}</base.ItemTitle>
-          <base.ItemDescription>{shortenString(description, textLimit.desc)}</base.ItemDescription>
+          <base.ItemDescription>
+            {shortenString(description, textLimit.desc)}
+          </base.ItemDescription>
           <Date>{publishedDate}</Date>
         </ItemMeta>
       </ItemLink>
@@ -141,5 +144,5 @@ class Item extends base.Item {
 
 export default {
   ItemsContainer,
-  Item
+  Item,
 }

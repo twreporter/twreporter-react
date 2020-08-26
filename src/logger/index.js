@@ -1,5 +1,9 @@
 import globalEnv from '../global-env'
-import { createDevLogger, createProdLogger, makeExpressMiddleware } from './winston-logger'
+import {
+  createDevLogger,
+  createProdLogger,
+  makeExpressMiddleware,
+} from './winston-logger'
 
 function loggerFactory() {
   let logger
@@ -20,7 +24,6 @@ function loggerFactory() {
       return logger
     }
 
-
     // on server side,
     // we use winston and logging-winston to log
     if (globalEnv.isProduction) {
@@ -34,7 +37,7 @@ function loggerFactory() {
     // @param {string} args.message - error message
     // @param {*} args.report - anything you want to record in stackdriver logging
     // @return {undefined}
-    logger.errorReport = ({message, report}) => {
+    logger.errorReport = ({ message, report }) => {
       if (report instanceof Error) {
         if (message) {
           report.message = message + ' ' + report.message
@@ -57,12 +60,19 @@ function loggerFactory() {
         logger = create()
       }
       return logger
-    }
+    },
   }
 
   factory.makeExpressMiddleware = () => {
     const logger = factory.getLogger()
-    return makeExpressMiddleware(logger)
+    if (globalEnv.isProduction) {
+      return makeExpressMiddleware(logger)
+    }
+
+    return Promise.resolve((req, res, next) => {
+      logger.info(req.url)
+      next()
+    })
   }
 
   return factory

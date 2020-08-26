@@ -76,12 +76,12 @@ const Bio = styled.div`
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   margin-top: 16px;
   white-space: pre-wrap;
 `
 
-const AuthorData = (props) => {
+const AuthorData = props => {
   const { image, name, title, mail, bio } = props.authorData
   const displayedTitle = title ? `（${title}）` : ''
   return (
@@ -91,18 +91,19 @@ const AuthorData = (props) => {
           <Image
             alt={displayedTitle}
             defaultImage={image}
-            imageSet={[ image ]}
+            imageSet={[image]}
             objectFit="cover"
           />
         </ImageContainer>
         <Content>
-          <Name>{ name + displayedTitle }</Name>
+          <Name>{name + displayedTitle}</Name>
           {!mail ? null : <Mail>{mail}</Mail>}
           <Bio>{bio}</Bio>
         </Content>
       </Container>
     </Sizing>
-  )}
+  )
+}
 
 AuthorData.propTypes = {
   authorData: PropTypes.shape({
@@ -111,8 +112,8 @@ AuthorData.propTypes = {
     title: PropTypes.string,
     image: PropTypes.object,
     mail: PropTypes.string,
-    bio: PropTypes.string
-  })
+    bio: PropTypes.string,
+  }),
 }
 
 export default AuthorData

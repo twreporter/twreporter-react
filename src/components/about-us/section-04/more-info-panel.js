@@ -3,7 +3,6 @@ import { font } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
-import InfoPanel from './more-info-panel'
 import Navigation from '../utils/navigation'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
@@ -16,25 +15,27 @@ const fixedPanelStyle = {
       top: 0,
       left: 0,
       bottom: 0,
-      right: 0
+      right: 0,
     },
-    width: '100%'
+    width: '100%',
   },
   tablet: {
     position: {
       top: 0,
       bottom: 0,
       right: 0,
-      left: 0
+      left: 0,
     },
-    width: '100%'
-  }
+    width: '100%',
+  },
 }
 
 const Container = styled.div`
   background: ${colors.gray.gray96};
   h2, h4{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
   }
   h3{
     margin: 0;
@@ -62,7 +63,7 @@ const Container = styled.div`
     }
     h3{
       font-size: 24px;
-      letter-spacing: 1.7px;      
+      letter-spacing: 1.7px;
     }
     h4{
       font-size: 13px;
@@ -73,7 +74,7 @@ const Container = styled.div`
       font-size: 18px;
       line-height: 1.67;
       padding: 0 39px 162px 100px;
-    }  
+    }
   `}
   ${mq.mobileOnly`
     position: relative;
@@ -81,7 +82,7 @@ const Container = styled.div`
     min-height: calc(100% - 61px);
     margin-top: 61px;
     h2, h3, h4 {
-      padding-left: 50px;      
+      padding-left: 50px;
     }
     h2{
       font-size: 24px;
@@ -129,7 +130,7 @@ const InfoWrapper = styled.div`
   position: relative;
 `
 
-const RightArrow = styled.div `
+const RightArrow = styled.div`
   width: 15px;
   height: 71.8px;
   line-height: 71.8px;
@@ -138,9 +139,9 @@ const RightArrow = styled.div `
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  display: ${props => props.hasNext === 'true' ? 'block' : 'none'};
+  display: ${props => (props.hasNext === 'true' ? 'block' : 'none')};
   ${mq.tabletAndBelow`
-    transform: translateX(100%) translateY(-50%);    
+    transform: translateX(100%) translateY(-50%);
   `}
   ${mq.tabletOnly`
     top: 170px;
@@ -154,13 +155,13 @@ const RightArrow = styled.div `
 
 const ArrowNextIcon = styled.div`
   height: 100%;
-  img{
+  img {
     width: auto;
     height: 100%;
   }
 `
 
-const CloseBtn = styled.div `
+const CloseBtn = styled.div`
   position: absolute;
   right: 3px;
   top: 8px;
@@ -188,7 +189,7 @@ const CloseBtn = styled.div `
     background: #000;
   }
   &:before {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
   }
   &:after {
     transform: rotate(-45deg);
@@ -196,12 +197,9 @@ const CloseBtn = styled.div `
 `
 
 export default class MoreInfo extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   render() {
     let { selectedContent, infoPageNum, nextPage, closeInfoBox } = this.props
-    if (selectedContent.length === 0 ) return
+    if (selectedContent.length === 0) return
     let page = infoPageNum % selectedContent.length
     let selectedItem = selectedContent[page]
     return (
@@ -216,43 +214,49 @@ export default class MoreInfo extends PureComponent {
           </ItemName>
           <NavigationWrapper>
             <Navigation
-              pagesLength = {selectedContent.length}
-              currentPage = {page}
-              startPage = {0}
-              endPage = {selectedContent.length}
-              navigationWidth = {22}                          
+              pagesLength={selectedContent.length}
+              currentPage={page}
+              startPage={0}
+              endPage={selectedContent.length}
+              navigationWidth={22}
             />
           </NavigationWrapper>
           <img src={replaceGCSUrlOrigin(selectedItem.photo)} />
           <InfoWrapper>
             <h4>{selectedItem.date}</h4>
-            <p>
-              {selectedItem.description.chinese}
-            </p>
-            <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+            <p>{selectedItem.description.chinese}</p>
+            <RightArrow
+              onClick={nextPage}
+              hasNext={(selectedContent.length > 1).toString()}
+            >
               <ArrowNextIcon>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/arrow-next.png`)}`} alt={'>'}/>
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/arrow-next.png`
+                  )}`}
+                  alt={'>'}
+                />
               </ArrowNextIcon>
             </RightArrow>
           </InfoWrapper>
         </Container>
-        <CloseBtn onClick={closeInfoBox} />          
+        <CloseBtn onClick={closeInfoBox} />
       </PopUpPanel>
     )
   }
 }
 
-InfoPanel.defaultProps = {
+MoreInfo.defaultProps = {
   rowNumber: 0,
   selectedContent: [],
   infoPageNum: 0,
   selectedLogo: 0,
   selectedRow: 0,
   initial: false,
-  closeInfoBox: () => {}
+  closeInfoBox: () => {},
 }
 
-InfoPanel.propTypes = {
+MoreInfo.propTypes = {
   rowNumber: PropTypes.number.isRequired,
   selectedContent: PropTypes.array.isRequired,
   infoPageNum: PropTypes.number.isRequired,
@@ -260,6 +264,5 @@ InfoPanel.propTypes = {
   selectedRow: PropTypes.number,
   closeInfoBox: PropTypes.func.isRequired,
   nextPage: PropTypes.func.isRequired,
-  initial: PropTypes.bool.isRequired
+  initial: PropTypes.bool.isRequired,
 }
-

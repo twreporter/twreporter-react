@@ -15,12 +15,12 @@ import map from 'lodash/map'
 
 const _ = {
   get,
-  map
+  map,
 }
 
 const Hexagon = styled.div`
   width: 2.6em;
-	background-image: url('/asset/photography/polygon.svg');
+  background-image: url('/asset/photography/polygon.svg');
   background-size: 100%;
   text-align: center;
   line-height: 2.63em;
@@ -80,7 +80,7 @@ const CardTitle = styled.div`
 `
 
 const CardSubtitle = styled.div`
-	color: black;
+  color: black;
   font-size: 20px;
   word-spacing: 20px;
   padding-top: 8px;
@@ -108,35 +108,45 @@ const CardDate = styled.time`
 
 function _buildSlideFromPost(post) {
   const cats = _.get(post, 'categories', [])
-  const catDisplay = _.get(cats, [ 0, 'name' ], '專題')
-  const imageResizedTargets = _.get(post, 'heroImage.resizedTargets') || _.get(post, 'ogImage.resizedTargets')
+  const catDisplay = _.get(cats, [0, 'name'], '專題')
+  const imageResizedTargets =
+    _.get(post, 'hero_image.resized_targets') ||
+    _.get(post, 'og_image.resized_targets')
   const images = [
     _.get(imageResizedTargets, 'tiny'),
     _.get(imageResizedTargets, 'mobile'),
     _.get(imageResizedTargets, 'tablet'),
     _.get(imageResizedTargets, 'desktop'),
-    _.get(imageResizedTargets, 'original')
-  ].filter(Boolean).map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
+  ]
+    .filter(Boolean)
+    .map(image => ({ ...image, url: replaceGCSUrlOrigin(image.url) }))
   return (
-    <StyledLink key={post.id} to={formatPostLinkTo(post.slug)} target={formatPostLinkTarget(post.style)}>
+    <StyledLink
+      key={post.id}
+      to={formatPostLinkTo(post.slug)}
+      target={formatPostLinkTarget(post.style)}
+    >
       <Image
-        alt={_.get(post, 'heroImage.description') || _.get(post, 'ogImage.description')}
-        defaultImage={images[1]}
-        imgPlaceholderSrc={images[0].url}
+        alt={
+          _.get(post, 'hero_image.description') ||
+          _.get(post, 'og_image.description')
+        }
+        defaultImage={_.get(images, '1')}
+        imgPlaceholderSrc={_.get(images, '0.url')}
         imageSet={images}
         objectFit="cover"
       />
       <CategoryContainer>
-        {
-          catDisplay.split('').map((word, index) => (
-            <Hexagon key={`cat-${index}`}>{word}</Hexagon>
-          ))
-        }
+        {catDisplay.split('').map((word, index) => (
+          <Hexagon key={`cat-${index}`}>{word}</Hexagon>
+        ))}
       </CategoryContainer>
       <Card>
         {post.subtitle ? <CardSubtitle>{post.subtitle}</CardSubtitle> : null}
         <CardTitle>{post.title}</CardTitle>
-        <CardDate dateTime={date2yyyymmdd(post.publishedDate, '-')}>{date2yyyymmdd(post.publishedDate, '.')}</CardDate>
+        <CardDate dateTime={date2yyyymmdd(post['published_date'], '-')}>
+          {date2yyyymmdd(post['published_date'], '.')}
+        </CardDate>
       </Card>
     </StyledLink>
   )
@@ -144,10 +154,10 @@ function _buildSlideFromPost(post) {
 
 export default class TopNews extends React.PureComponent {
   static propTypes = {
-    posts: PropTypes.array
+    posts: PropTypes.array,
   }
   static defaultProps = {
-    posts: []
+    posts: [],
   }
 
   render() {

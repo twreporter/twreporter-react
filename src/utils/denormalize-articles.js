@@ -3,31 +3,40 @@ import merge from 'lodash/merge'
 import forEach from 'lodash/forEach'
 
 function getArticleFieldToEntity() {
-  return  [ {
-    field: 'designers',
-    entity: 'authors'
-  }, {
-    field: 'engineers',
-    entity: 'authors'
-  }, {
-    field: 'photographers',
-    entity: 'authors'
-  }, {
-    field: 'writters',
-    entity: 'authors'
-  }, {
-    field: 'relateds',
-    entity: 'articles'
-  }, {
-    field: 'tags',
-    entity: 'tags'
-  }, {
-    field: 'categories',
-    entity: 'categories'
-  }, {
-    field: 'topics',
-    entity: 'topics'
-  } ]
+  return [
+    {
+      field: 'designers',
+      entity: 'authors',
+    },
+    {
+      field: 'engineers',
+      entity: 'authors',
+    },
+    {
+      field: 'photographers',
+      entity: 'authors',
+    },
+    {
+      field: 'writters',
+      entity: 'authors',
+    },
+    {
+      field: 'relateds',
+      entity: 'articles',
+    },
+    {
+      field: 'tags',
+      entity: 'tags',
+    },
+    {
+      field: 'categories',
+      entity: 'categories',
+    },
+    {
+      field: 'topics',
+      entity: 'topics',
+    },
+  ]
 }
 
 function denormalizeEntity(entityIds = [], entityObj = {}) {
@@ -35,7 +44,7 @@ function denormalizeEntity(entityIds = [], entityObj = {}) {
   entityObj = entityObj || {}
   if (Array.isArray(entityIds)) {
     rtn = []
-    forEach(entityIds, (id) => {
+    forEach(entityIds, id => {
       if (entityObj.hasOwnProperty(id)) {
         rtn.push(entityObj[id])
       }
@@ -52,12 +61,15 @@ export function denormalizeArticles(ids = [], entities = {}) {
   const { articles } = entities
   const fieldToEntity = getArticleFieldToEntity()
 
-  ids = Array.isArray(ids) ? ids : [ ids ]
-  ids.forEach((id) => {
+  ids = Array.isArray(ids) ? ids : [ids]
+  ids.forEach(id => {
     if (articles.hasOwnProperty(id)) {
       let article = merge({}, articles[id])
-      forEach(fieldToEntity, (ele) => {
-        article[ele.field] = denormalizeEntity(article[ele.field], entities[ele.entity])
+      forEach(fieldToEntity, ele => {
+        article[ele.field] = denormalizeEntity(
+          article[ele.field],
+          entities[ele.entity]
+        )
       })
       denormalizedArticles.push(article)
     }
@@ -70,8 +82,8 @@ export function shallowDenormalizeArticles(ids = [], entities = {}) {
   // extract entities articles need
   const { articles } = entities
 
-  ids = Array.isArray(ids) ? ids : [ ids ]
-  ids.forEach((id) => {
+  ids = Array.isArray(ids) ? ids : [ids]
+  ids.forEach(id => {
     if (articles.hasOwnProperty(id)) {
       let article = merge({}, articles[id])
       denormalizedArticles.push(article)
