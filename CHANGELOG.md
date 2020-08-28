@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.2
+
+### Notable Changes
+
+- perf(article-page|topic-landing-page): - use memoize-one to avoid re-rendering
+
+### Commits
+
+- [[`7500517814`](https://github.com/twreporter/twreporter-react/commit/7500517814)] - Merge pull request #1687 from nickhsine/performance-tuning (nick)
+- [[`0b21292326`](https://github.com/twreporter/twreporter-react/commit/0b21292326)] - **refactor**: use memoize-one to avoid re-rendering (nickhsine)
+
 ## 4.5.1
 
 ### Notable Changes
@@ -11,6 +22,8 @@
 - [[`a773b546fd`](https://github.com/twreporter/twreporter-react/commit/a773b546fd)] - **chore**: upgrade deps (Taylor Fang)
 - [[`67e8242566`](https://github.com/twreporter/twreporter-react/commit/67e8242566)] - **chore**: upgrade deps (Taylor Fang)
 - [[`225662dfad`](https://github.com/twreporter/twreporter-react/commit/225662dfad)] - **fix**: update footer when host or pathname changes (Taylor Fang)
+
+* [[`46695c8c8a`](https://github.com/twreporter/twreporter-react/commit/46695c8c8a)] - Merge pull request #1684 from taylrj/master (Tai-Jiun Fang)
 
 ## 4.5.0
 
