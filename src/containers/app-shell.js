@@ -47,14 +47,14 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = footerType => {
+const renderFooter = (footerType, pathname = '', host = '') => {
   switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
     case uiConst.footer.default:
     default: {
-      return <Footer />
+      return <Footer host={host} pathname={pathname} />
     }
   }
 }
@@ -119,6 +119,8 @@ class AppShell extends React.PureComponent {
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node,
     ]),
+    pathname: PropTypes.string.isRequired,
+    host: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -136,6 +138,8 @@ class AppShell extends React.PureComponent {
       releaseBranch,
       children,
       userId,
+      pathname,
+      host,
     } = this.props
 
     return (
@@ -145,7 +149,7 @@ class AppShell extends React.PureComponent {
             <WebPush apiOrigin={apiOrigin} userId={userId} />
             {renderHeader(headerType, releaseBranch)}
             {children}
-            {renderFooter(footerType)}
+            {renderFooter(footerType, pathname, host)}
           </ContentBlock>
         </AppBox>
       </ErrorBoundary>
@@ -158,6 +162,8 @@ function mapStateToProps(state, ownProps) {
     {
       apiOrigin: _.get(state, [reduxStateFields.origins, 'api'], ''),
       userId: _.get(state, [reduxStateFields.auth, 'userInfo.id']),
+      pathname: _.get(ownProps.location, 'pathname', ''),
+      host: _.get(ownProps.location, 'host', ''),
     },
     uiManager.getLayoutObj(state, ownProps.location)
   )
