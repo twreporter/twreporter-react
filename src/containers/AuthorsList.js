@@ -28,13 +28,13 @@ const reduxStateFields = twreporterRedux.reduxStateFields
 const _ = {
   get,
   map,
-  values
+  values,
 }
 
 const defaultAuthorImage = {
   url: '/asset/author-default-img.svg',
   width: 500,
-  height: 500
+  height: 500,
 }
 
 const responsePageStartFrom = 0
@@ -78,9 +78,11 @@ class AuthorsList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isSearching: false
+      isSearching: false,
     }
-    this.handleLoadmore = this.handleSensorSeen = this._fetchMoreAuthors.bind(this)
+    this.handleLoadmore = this.handleSensorSeen = this._fetchMoreAuthors.bind(
+      this
+    )
     this.setSearching = this._setSearching.bind(this)
   }
 
@@ -90,21 +92,22 @@ class AuthorsList extends React.Component {
     }
   }
 
-  searchAuthorsWithCatch = (keywords) => {
+  searchAuthorsWithCatch = keywords => {
     const { searchAuthorsIfNeeded } = this.props
-    return searchAuthorsIfNeeded(keywords)
-      .catch((failAction) => {
-        // TODO render alter message
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to search authors with keywords: '${keywords}'.`
-        })
+    return searchAuthorsIfNeeded(keywords).catch(failAction => {
+      // TODO render alter message
+      logger.errorReport({
+        report: _.get(failAction, 'payload.error'),
+        message: `Error to search authors with keywords: '${keywords}'.`,
       })
+    })
   }
 
   _getAuthorsList() {
     const { isSearching } = this.state
-    return isSearching ? this.props.filteredAuthorsList : this.props.allAuthorsList
+    return isSearching
+      ? this.props.filteredAuthorsList
+      : this.props.allAuthorsList
   }
 
   _fetchMoreAuthors() {
@@ -113,7 +116,7 @@ class AuthorsList extends React.Component {
 
   _setSearching(isSearching) {
     this.setState({
-      isSearching
+      isSearching,
     })
   }
 
@@ -123,7 +126,9 @@ class AuthorsList extends React.Component {
     if (!_.get(authorsList, 'items.length')) {
       return (
         <ErrorMessage>
-          {isSearching ? `找不到關鍵字為「${authorsList.keywords}」的結果` : '資料庫中無資料'}
+          {isSearching
+            ? `找不到關鍵字為「${authorsList.keywords}」的結果`
+            : '資料庫中無資料'}
         </ErrorMessage>
       )
     }
@@ -140,39 +145,44 @@ class AuthorsList extends React.Component {
     const authorIds = _.get(authorsList, 'items', [])
     const { authorEntities } = this.props
     const authors = _.map(authorIds, authorId => {
-      const sourceImage = _.get(authorEntities, [ authorId, 'thumbnail', 'image', 'resizedTargets', 'mobile' ])
-      const image = sourceImage ? { ...sourceImage, url: replaceGCSUrlOrigin(sourceImage.url) } : defaultAuthorImage
+      const sourceImage = _.get(authorEntities, [
+        authorId,
+        'thumbnail',
+        'image',
+        'resizedTargets',
+        'mobile',
+      ])
+      const image = sourceImage
+        ? { ...sourceImage, url: replaceGCSUrlOrigin(sourceImage.url) }
+        : defaultAuthorImage
       return {
         id: authorId,
-        name: _.get(authorEntities, [ authorId, 'name' ], ''),
+        name: _.get(authorEntities, [authorId, 'name'], ''),
         image,
-        url: `/author/${authorId}`
+        url: `/author/${authorId}`,
       }
     })
-    return (
-      <Authors authors={authors} />
-    )
+    return <Authors authors={authors} />
   }
 
   _renderServerError() {
     const errorMessage = _.get(this._getAuthorsList(), 'error.message')
     if (errorMessage) {
       logger.errorReport({
-        message: `Fail to render author list page due to server error: ${errorMessage}`
+        message: `Fail to render author list page due to server error: ${errorMessage}`,
       })
     }
-    return (
-      <ErrorMessage>
-        抱歉，資料伺服器錯誤，請稍後再嘗試
-      </ErrorMessage>
-    )
+    return <ErrorMessage>抱歉，資料伺服器錯誤，請稍後再嘗試</ErrorMessage>
   }
 
   _renderLoadMore() {
     const { hasMore, currentPage, isFetching } = this._getAuthorsList()
     if (isFetching || !hasMore) return null
-    return (currentPage <= responsePageStartFrom) ?
-      <LoadMoreButton onClick={this.handleLoadmore}>載入更多作者</LoadMoreButton> :
+    return currentPage <= responsePageStartFrom ? (
+      <LoadMoreButton onClick={this.handleLoadmore}>
+        載入更多作者
+      </LoadMoreButton>
+    ) : (
       <Waypoint
         onEnter={this.handleSensorSeen}
         fireOnRapidScroll
@@ -180,6 +190,7 @@ class AuthorsList extends React.Component {
       >
         <div></div>
       </Waypoint>
+    )
   }
 
   render() {
@@ -190,9 +201,7 @@ class AuthorsList extends React.Component {
       <React.Fragment>
         <Helmet
           title={fullTitle}
-          link={[
-            { rel: 'canonical', href: canonical }
-          ]}
+          link={[{ rel: 'canonical', href: canonical }]}
           meta={[
             { name: 'description', content: siteMeta.desc },
             { name: 'twitter:title', content: fullTitle },
@@ -206,7 +215,7 @@ class AuthorsList extends React.Component {
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' }
+            { property: 'og:rich_attachment', content: 'true' },
           ]}
         />
         <AuthorSearchBox
@@ -215,7 +224,10 @@ class AuthorsList extends React.Component {
         />
         {this._renderList()}
         {authorsList.error ? this._renderServerError() : null}
-        <StyledSpinner show={this._getAuthorsList().isFetching} alt="載入更多作者" />
+        <StyledSpinner
+          show={this._getAuthorsList().isFetching}
+          alt="載入更多作者"
+        />
         <Sponsor />
       </React.Fragment>
     )
@@ -226,19 +238,31 @@ AuthorsList.propTypes = {
   // The props below are provided by redux
   allAuthorsList: PropTypes.object.isRequired,
   filteredAuthorsList: PropTypes.object.isRequired,
-  authorEntities: PropTypes.object.isRequired
+  authorEntities: PropTypes.object.isRequired,
+  searchAuthorsIfNeeded: PropTypes.func,
 }
 
 function mapStateToProps(state) {
-  const authorEntities = _.get(state, [ reduxStateFields.entitiesForAuthors, 'authors' ], {})
+  const authorEntities = _.get(
+    state,
+    [reduxStateFields.entitiesForAuthors, 'authors'],
+    {}
+  )
   const allAuthorsList = _.get(state, reduxStateFields.authorsList, {})
-  const filteredAuthorsList = _.get(state, reduxStateFields.searchedAuthorsList, {})
+  const filteredAuthorsList = _.get(
+    state,
+    reduxStateFields.searchedAuthorsList,
+    {}
+  )
   return {
     authorEntities,
     allAuthorsList,
-    filteredAuthorsList
+    filteredAuthorsList,
   }
 }
 
 export { AuthorsList }
-export default connect(mapStateToProps, { searchAuthorsIfNeeded })(AuthorsList)
+export default connect(
+  mapStateToProps,
+  { searchAuthorsIfNeeded }
+)(AuthorsList)

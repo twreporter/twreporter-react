@@ -19,7 +19,7 @@ const Video = styled.video`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   object-fit: cover;
 `
 
@@ -29,7 +29,7 @@ const VideoMask = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 `
 
 const audioBtnStyle = css`
@@ -44,14 +44,18 @@ const audioBtnStyle = css`
   z-index: 50;
 `
 
-const StyledSoundMuteIcon = styled(SoundMuteIcon)`${audioBtnStyle}`
-const StyledSoundOnIcon = styled(SoundOnIcon)`${audioBtnStyle}`
+const StyledSoundMuteIcon = styled(SoundMuteIcon)`
+  ${audioBtnStyle}
+`
+const StyledSoundOnIcon = styled(SoundOnIcon)`
+  ${audioBtnStyle}
+`
 
 class LeadingVideo extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      isMuted: props.mute
+      isMuted: props.mute,
     }
     this.handleMuteChange = this._handleMuteChange.bind(this)
     this.onLeave = this._onLeave.bind(this)
@@ -74,7 +78,7 @@ class LeadingVideo extends React.PureComponent {
       }
 
       this.setState({
-        isMuted: !this.state.isMuted
+        isMuted: !this.state.isMuted,
       })
     }
   }
@@ -85,7 +89,7 @@ class LeadingVideo extends React.PureComponent {
     // turn on the audio again.
     if (this._isSoundOn && this._video.current) {
       this.setState({
-        isMuted: false
+        isMuted: false,
       })
       this._video.current.muted = false
     }
@@ -96,14 +100,23 @@ class LeadingVideo extends React.PureComponent {
     // turn off the audio.
     if (this._video.current) {
       this.setState({
-        isMuted: true
+        isMuted: true,
       })
       this._video.current.muted = true
     }
   }
 
   render() {
-    const { filetype, loop, poster, src, title, viewportHeight, uploadDate, description } = this.props
+    const {
+      filetype,
+      loop,
+      poster,
+      src,
+      title,
+      viewportHeight,
+      uploadDate,
+      description,
+    } = this.props
     const { isMuted } = this.state
 
     // On the mobile devices (iOS 10 above),
@@ -136,14 +149,11 @@ class LeadingVideo extends React.PureComponent {
             <source src={replaceGCSUrlOrigin(src)} type={filetype} />
           </Video>
           <VideoMask />
-          {isMuted ?
-            <StyledSoundMuteIcon
-              onClick={this.handleMuteChange}
-            /> :
-            <StyledSoundOnIcon
-              onClick={this.handleMuteChange}
-            />
-          }
+          {isMuted ? (
+            <StyledSoundMuteIcon onClick={this.handleMuteChange} />
+          ) : (
+            <StyledSoundOnIcon onClick={this.handleMuteChange} />
+          )}
         </Container>
       </Waypoint>
     )
@@ -159,7 +169,7 @@ LeadingVideo.propTypes = {
   src: PropTypes.string,
   title: PropTypes.string,
   uploadDate: PropTypes.string, // ISO 8601 date string
-  viewportHeight: PropTypes.string
+  viewportHeight: PropTypes.string,
 }
 
 LeadingVideo.defaultProps = {
@@ -171,7 +181,7 @@ LeadingVideo.defaultProps = {
   src: '',
   title: '',
   uploadDate: '',
-  viewportHeight: '100vh'
+  viewportHeight: '100vh',
 }
 
 export default LeadingVideo

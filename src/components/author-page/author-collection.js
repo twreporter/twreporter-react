@@ -18,7 +18,7 @@ import map from 'lodash/map'
 
 const _ = {
   get,
-  map
+  map,
 }
 
 const WaypointSensor = styled.div`
@@ -57,9 +57,9 @@ const Item = styled.li`
   width: 100%;
   background-color: #ffffff;
   margin: 16px 0;
-  transition: box-shadow .2s;
+  transition: box-shadow 0.2s;
   &:hover {
-    box-shadow: 0 4px 10px 0 hsla(0,0%,70%,.7);
+    box-shadow: 0 4px 10px 0 hsla(0, 0%, 70%, 0.7);
   }
   ${mq.mobileOnly`
     margin: 10px 0;
@@ -112,15 +112,14 @@ const ItemDesc = styled.p`
   `}
 `
 
-
 const LoadMore = styled.div`
   width: 100%;
   color: #c71b0a;
   margin: 0 auto 2rem auto;
   font-weight: ${fontWeight.bold};
-  padding: .6rem 0;
+  padding: 0.6rem 0;
   cursor: pointer;
-  transition: transform .2s;
+  transition: transform 0.2s;
   font-size: 16px;
   text-align: center;
   &:hover {
@@ -143,12 +142,15 @@ function buildListItem(item) {
   const description = shortenString(get(item, 'ogDescription', ''), charLimit)
   return (
     <Item key={slug}>
-      <Anchor to={formatPostLinkTo(slug, style)} target={formatPostLinkTarget(style)}>
+      <Anchor
+        to={formatPostLinkTo(slug, style)}
+        target={formatPostLinkTarget(style)}
+      >
         <ImageSizing>
           <Image
             alt={title}
             defaultImage={image}
-            imageSet={[ image ]}
+            imageSet={[image]}
             objectFit="cover"
           />
         </ImageSizing>
@@ -167,7 +169,7 @@ const _renderLoadMore = (currentPage, handleLoadmore) => {
     return (
       <Waypoint
         onEnter={() => {
-          if ((currentPage > numberOfFirstResponsePage)) {
+          if (currentPage > numberOfFirstResponsePage) {
             return handleLoadmore()
           }
         }}
@@ -181,17 +183,24 @@ const _renderLoadMore = (currentPage, handleLoadmore) => {
   return <LoadMore onClick={handleLoadmore}>載入更多文章</LoadMore>
 }
 
-const AuthorCollection = (props) => {
-  const { collections, hasMore, isFetching, currentPage, handleLoadmore, totalResults } = props
-  const titleText = '所有文章' + (totalResults ?  `（${totalResults}）`: '')
+const AuthorCollection = props => {
+  const {
+    collections,
+    hasMore,
+    isFetching,
+    currentPage,
+    handleLoadmore,
+    totalResults,
+  } = props
+  const titleText = '所有文章' + (totalResults ? `（${totalResults}）` : '')
 
   return (
     <Sizing size="small">
       <CollectionTitle>{titleText}</CollectionTitle>
-      <Collections>
-        {_.map(collections, buildListItem)}
-      </Collections>
-      {(hasMore && !isFetching) ? _renderLoadMore(currentPage, handleLoadmore) : null}
+      <Collections>{_.map(collections, buildListItem)}</Collections>
+      {hasMore && !isFetching
+        ? _renderLoadMore(currentPage, handleLoadmore)
+        : null}
       {isFetching ? <CenteredSpinner alt="載入更多文章" /> : null}
     </Sizing>
   )
@@ -203,14 +212,14 @@ AuthorCollection.propTypes = {
   handleLoadmore: PropTypes.func.isRequired,
   hasMore: PropTypes.bool,
   isFetching: PropTypes.bool,
-  totalResults: PropTypes.number
+  totalResults: PropTypes.number,
 }
 
 AuthorCollection.defaultProps = {
   collections: [],
   totalResults: 0,
   hasMore: false,
-  isFetching: false
+  isFetching: false,
 }
 
 export default AuthorCollection

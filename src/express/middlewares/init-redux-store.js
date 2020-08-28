@@ -7,7 +7,7 @@ import set from 'lodash/set'
 const stateFields = twreporterRedux.reduxStateFields
 
 const _ = {
-  set
+  set,
 }
 
 /**
@@ -24,12 +24,17 @@ function initReduxStoreMiddleware(namespace, options) {
       // The redux actions will take the `origins` in the store, and use them as the origins of request url.
       // We set the initial origins for server side renedering. And we'll set them for client side rendering before we send the store to client.
       const initState = {
-        [stateFields.origins]: requestOrigins.forServerSideRendering[options.releaseBranch]
+        [stateFields.origins]:
+          requestOrigins.forServerSideRendering[options.releaseBranch],
       }
-      const reduxStore = await twreporterRedux.createStore(initState, cookieList, globalEnv.isDevelopment)
-      _.set(req, [ namespace, 'reduxStore' ], reduxStore)
+      const reduxStore = await twreporterRedux.createStore(
+        initState,
+        cookieList,
+        globalEnv.isDevelopment
+      )
+      _.set(req, [namespace, 'reduxStore'], reduxStore)
       next()
-    } catch(err) {
+    } catch (err) {
       next(err)
     }
   }

@@ -10,7 +10,7 @@ import styled, { css } from 'styled-components'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const buildElementMarginCss = (horizontalMargin = '') => css`
@@ -50,7 +50,7 @@ export const Paragraph = styled.div`
   font-size: 18px;
   line-height: 1.8;
   text-align: center;
-  letter-spacing: .4px;
+  letter-spacing: 0.4px;
   white-space: pre-wrap;
   font-weight: ${fontWeight.normal};
 `
@@ -67,9 +67,8 @@ const ElementCaption = styled.div`
   color: #808080;
   font-size: 16px;
   line-height: 1.8;
-  margin: .6em 1.33em 0 1.33em;
+  margin: 0.6em 1.33em 0 1.33em;
 `
-
 
 /**
  *
@@ -79,66 +78,75 @@ const ElementCaption = styled.div`
  * @returns {Array} - An array of React elements
  */
 export default function renderTopicContent(data) {
-  if (!Array.isArray(data)) { return [] }
-  return data.map((ele) => {
-    switch(ele.type) {
-      case 'blockquote':
-        return (
-          <BlockQuote
-            key={ele.id}
-            dangerouslySetInnerHTML={{ __html: _.get(ele, 'content.0', '') }}
-          />
-        )
-      case 'youtube': {
-        const { description, youtubeId } = _.get(ele, 'content.0', {})
-        if (!youtubeId) {
-          return null
-        }
-        return (
-          <React.Fragment key={ele.id}>
-            <YouTube data={{
-              content: [ { youtubeId } ]
-            }} />
-            {description ? <ElementCaption>{description}</ElementCaption> : null}
-          </React.Fragment>
-        )
-      }
-      case 'image': {
-        const { description, desktop, mobile, tablet, tiny } = _.get(ele, 'content.0', {})
-        return (
-          <ImageContainer key={ele.id}>
-            <div>
-              <Img
-                alt={description}
-                imageSet={[
-                  tiny,
-                  mobile,
-                  tablet,
-                  desktop
-                ]}
-                defaultImage={mobile}
+  if (!Array.isArray(data)) {
+    return []
+  }
+  return data
+    .map(ele => {
+      switch (ele.type) {
+        case 'blockquote':
+          return (
+            <BlockQuote
+              key={ele.id}
+              dangerouslySetInnerHTML={{ __html: _.get(ele, 'content.0', '') }}
+            />
+          )
+        case 'youtube': {
+          const { description, youtubeId } = _.get(ele, 'content.0', {})
+          if (!youtubeId) {
+            return null
+          }
+          return (
+            <React.Fragment key={ele.id}>
+              <YouTube
+                data={{
+                  content: [{ youtubeId }],
+                }}
               />
-            </div>
-            {description ? <ElementCaption>{description}</ElementCaption> : null}
-          </ImageContainer>
-        )
+              {description ? (
+                <ElementCaption>{description}</ElementCaption>
+              ) : null}
+            </React.Fragment>
+          )
+        }
+        case 'image': {
+          const { description, desktop, mobile, tablet, tiny } = _.get(
+            ele,
+            'content.0',
+            {}
+          )
+          return (
+            <ImageContainer key={ele.id}>
+              <div>
+                <Img
+                  alt={description}
+                  imageSet={[tiny, mobile, tablet, desktop]}
+                  defaultImage={mobile}
+                />
+              </div>
+              {description ? (
+                <ElementCaption>{description}</ElementCaption>
+              ) : null}
+            </ImageContainer>
+          )
+        }
+        case 'unstyled': {
+          const innerHTML = _.get(ele, 'content.0', '')
+          if (!innerHTML) return null
+          return (
+            <Paragraph
+              key={ele.id}
+              dangerouslySetInnerHTML={{ __html: innerHTML }}
+            />
+          )
+        }
+        default:
+          // Force alignment to be `center-small`
+          return renderV2Element({
+            ...ele,
+            alignment: alignmentConsts.centerSmall,
+          })
       }
-      case 'unstyled': {
-        const innerHTML = _.get(ele, 'content.0', '')
-        if (!innerHTML) return null
-        return (
-          <Paragraph
-            key={ele.id}
-            dangerouslySetInnerHTML={{ __html: innerHTML }}
-          />
-        )
-      }
-      default:
-        // Force alignment to be `center-small`
-        return renderV2Element({
-          ...ele,
-          alignment: alignmentConsts.centerSmall
-        })
-    }
-  }).filter(Boolean)
+    })
+    .filter(Boolean)
 }

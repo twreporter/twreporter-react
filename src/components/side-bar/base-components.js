@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import typography from '../../constants/typography'
 
 const _ = {
-  get
+  get,
 }
 
 const StyledAnchor = styled.div`
@@ -35,12 +35,8 @@ class Anchors extends React.PureComponent {
    * @returns {Object[]} Label components
    */
   _assembleWord(words) {
-    return words.split('').map((word) => {
-      return (
-        <Label key={`anchor_label_${word}`}>
-          {word}
-        </Label>
-      )
+    return words.split('').map(word => {
+      return <Label key={`anchor_label_${word}`}>{word}</Label>
     })
   }
 
@@ -60,7 +56,9 @@ class Anchors extends React.PureComponent {
     return (
       <Anchor
         highlight={anchorObj.highlight}
-        onClick={(e) => { anchorObj.handleClick(anchorObj.id, e) }}
+        onClick={e => {
+          anchorObj.handleClick(anchorObj.id, e)
+        }}
         key={`SectionButton_${anchorObj.id}`}
       >
         <div>{this._assembleWord(anchorObj.label)}</div>
@@ -72,48 +70,47 @@ class Anchors extends React.PureComponent {
     const anchorBts = []
     const { data, currentAnchorId, handleClickAnchor } = this.props
     let index = 1
-    data.forEach((anchorObj) => {
+    data.forEach(anchorObj => {
       const id = _.get(anchorObj, 'id', '')
       const label = _.get(anchorObj, 'label', '')
 
       // id and label are not empty string
       if (id && label) {
-        anchorBts.push(this._renderAnchor({
-          handleClick: handleClickAnchor,
-          highlight: id === currentAnchorId,
-          id,
-          index,
-          label
-        }))
+        anchorBts.push(
+          this._renderAnchor({
+            handleClick: handleClickAnchor,
+            highlight: id === currentAnchorId,
+            id,
+            index,
+            label,
+          })
+        )
         index += 1
       }
     })
-    return (
-      <div>
-        { anchorBts }
-      </div>
-    )
+    return <div>{anchorBts}</div>
   }
 }
 
 Anchors.defaultProps = {
   currentAnchorId: '',
   data: [],
-  handleClickAnchor: () => {}
+  handleClickAnchor: () => {},
 }
 
 Anchors.propTypes = {
   currentAnchorId: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  })),
-  handleClickAnchor: PropTypes.func
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
+  handleClickAnchor: PropTypes.func,
 }
-
 
 export default {
   StyledAnchor,
   Anchors,
-  Label
+  Label,
 }

@@ -1,3 +1,4 @@
+/* eslint react/no-find-dom-node: 1 */
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -12,26 +13,28 @@ import { font } from '../constants/styles'
 import { months } from '../constants/section-05/months'
 
 const _ = {
-  groupBy, values, keys
+  groupBy,
+  values,
+  keys,
 }
 
 const defaultZIndex = 0
 const dateBorderColor = '#d3d3d3'
 const transitionDuration = 300
 
-const OnlyDisplayOnMobile = styled.div `
+const OnlyDisplayOnMobile = styled.div`
   ${mq.tabletAndAbove`
     display: none;
   `}
 `
 
-const DisplayOnTabletAbove = styled.div `
+const DisplayOnTabletAbove = styled.div`
   ${mq.mobileOnly`
     display: none;
   `}
 `
 
-const Record = styled.div `
+const Record = styled.div`
   display: table;
   p{
     display: table-cell;
@@ -43,7 +46,9 @@ const Record = styled.div `
     &:first-child{
       width: 47px;
       text-align: right;
-      font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+      font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
       font-size: 14px;
       font-weight: bold;
       span{
@@ -58,14 +63,14 @@ const Record = styled.div `
     }
   }
   ${mq.mobileOnly`
-    margin: 10px 5px 10px 0;  
+    margin: 10px 5px 10px 0;
   `}
   ${mq.tabletAndAbove`
     p{
       font-size: 14px;
       line-height: 1.57;
       letter-spacing: 0.9px;
-    }  
+    }
     p:last-child{
       padding: 15px 42px 20px 12px;
     }
@@ -90,22 +95,23 @@ const Record = styled.div `
   `}
 `
 
-const Year = styled.div `
+const Year = styled.div`
   margin: 0;
 `
 
-const YearLabel = styled.div `
+const YearLabel = styled.div`
   display: table;
   width: 100%;
   height: 76px;
-  background: ${props => props.unfold ? `${colors.black}` : `${colors.gray.gray96}`};
-  color:${props => props.unfold ? `${colors.white}` : `${colors.black}`};
+  background: ${props =>
+    props.unfold ? `${colors.black}` : `${colors.gray.gray96}`};
+  color: ${props => (props.unfold ? `${colors.white}` : `${colors.black}`)};
   transition: ease ${transitionDuration}ms height;
-  p{
+  p {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};    
+    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-size: 32px;
     font-weight: bold;
   }
@@ -114,7 +120,7 @@ const YearLabel = styled.div `
   `}
 `
 
-const Accomplishments = styled.div `
+const Accomplishments = styled.div`
   width: 100%;
   ${mq.mobileOnly`
     transform-style: preserve-3d;
@@ -122,13 +128,13 @@ const Accomplishments = styled.div `
   `}
 `
 
-const MonthLabel = styled.div `
+const MonthLabel = styled.div`
   display: block;
   background: ${colors.white};
   width: 54px;
   height: 23px;
   text-align: center;
-  p{
+  p {
     font-size: 12px;
     font-weight: bold;
     line-height: 23px;
@@ -139,17 +145,17 @@ const MonthLabel = styled.div `
     }
   `}
   ${mq.tabletAndAbove`
-    display: ${props => props.monthOrder === 0 ? 'block' : 'none'};
-  `}  
+    display: ${props => (props.monthOrder === 0 ? 'block' : 'none')};
+  `}
 `
 
-const MonthlyAccomplishments = styled.div `
+const MonthlyAccomplishments = styled.div`
   margin-bottom: 2px;
   background: ${colors.gray.gray96};
   min-height: 76px;
 `
 
-const Accomplishment = styled.div `
+const Accomplishment = styled.div`
   width: 100%;
   margin: 0;
   color: ${colors.black};
@@ -160,29 +166,33 @@ const Accomplishment = styled.div `
     &:nth-child(odd) {
       &:before {
         content: '';
-        background-image: linear-gradient(to top, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
+        background-image: linear-gradient(to top, ${colors.gray.gray64}, ${
+    colors.gray.gray96
+  } 80%);
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => props.unfold ? '0' : '1'};
+        opacity: ${props => (props.unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
-        transition: opacity ${transitionDuration}ms ease-in-out;      
+        transition: opacity ${transitionDuration}ms ease-in-out;
       }
     }
     &:nth-child(even) {
       &:before {
         content: '';
-        background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${colors.gray.gray96} 80%);
+        background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${
+    colors.gray.gray96
+  } 80%);
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => props.unfold ? '0' : '1'};
+        opacity: ${props => (props.unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
-        transition: opacity ${transitionDuration}ms ease-in-out;     
+        transition: opacity ${transitionDuration}ms ease-in-out;
       }
     }
   `}
@@ -192,7 +202,7 @@ const MockAccomplishment = styled.div`
   width: 100%;
   transform-origin: 50% 100% 0;
   position: relative;
-  display: ${props => props.isOdd ? 'block' : 'none'};
+  display: ${props => (props.isOdd ? 'block' : 'none')};
 `
 
 export default class List extends PureComponent {
@@ -202,19 +212,22 @@ export default class List extends PureComponent {
   }
 
   componentDidMount() {
-    const yearContentHeight = this.props.orderedYearList.map((year, index) => ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height)
+    const yearContentHeight = this.props.orderedYearList.map(
+      (year, index) =>
+        ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect()
+          .height
+    )
     this.props.getYearContentHeight(yearContentHeight)
   }
 
-  _getDate = (date) => {
+  _getDate = date => {
     if (date) {
       let dateString = date.toString()
       if (dateString.length < 2) {
         return '0' + dateString
       }
-      return dateString 
+      return dateString
     }
-    return
   }
   _foldAnimation = (isUnfold, index, mockItem = false) => {
     let isOdd = index % 2 === 1
@@ -229,8 +242,8 @@ export default class List extends PureComponent {
           rotateX: 0,
           marginTop: 0,
           maxHeight: '100%',
-          minHeight: mockItem ? 0 : 76
-        }
+          minHeight: mockItem ? 0 : 76,
+        },
       }
     } else {
       animationObj = {
@@ -242,56 +255,58 @@ export default class List extends PureComponent {
           rotateX: isOdd ? 90 : -90,
           marginTop: isOdd ? -152 : 0,
           maxHeight: 76,
-          minHeight: 76
-        }
+          minHeight: 76,
+        },
       }
     }
     return animationObj
   }
-  
+
   render() {
-    const { unfoldArray, orderedData, orderedDataGroupByYear, foldAndUnfold, orderedYearList } = this.props
-    const data = orderedYearList.map((year) => {
+    const {
+      unfoldArray,
+      orderedDataGroupByYear,
+      foldAndUnfold,
+      orderedYearList,
+    } = this.props
+    const data = orderedYearList.map(year => {
       return {
         // order data by year respect to `orderedYearList`
         // group data in year and month
-        [`${year}`]: _.groupBy(orderedDataGroupByYear[year], data => data.month)
+        [`${year}`]: _.groupBy(
+          orderedDataGroupByYear[year],
+          data => data.month
+        ),
       }
     })
     const getRecords = (content, year, indexOfUnfoldArray) => {
       let isOdd = orderedDataGroupByYear[year].length % 2 === 1
       const dataOfYear = content[year]
       return (
-        <Accomplishments
-          unfold={unfoldArray[indexOfUnfoldArray]}
-        >
+        <Accomplishments unfold={unfoldArray[indexOfUnfoldArray]}>
           <OnlyDisplayOnMobile>
-            {
-              orderedDataGroupByYear[year].map((record, index) => {
-                let unfold = unfoldArray[indexOfUnfoldArray]
-                let animationProps = this._foldAnimation(unfold, index)
-                return(
-                  <VelocityComponent 
-                    key={index + '-' + unfold.toString}
-                    {...animationProps}
-                  >
-                    <Accomplishment
-                      unfold={unfold}
-                    >
-                      <MonthLabel>
-                        <p>{months[record.month - 1]}</p>
-                      </MonthLabel>
-                      <Record>
-                        <p>
-                          <span>{this._getDate(record.date)}</span>
-                        </p>
-                        <p>{record.text.chinese}</p>
-                      </Record>
-                    </Accomplishment>
-                  </VelocityComponent>
-                )            
-              })
-            }
+            {orderedDataGroupByYear[year].map((record, index) => {
+              let unfold = unfoldArray[indexOfUnfoldArray]
+              let animationProps = this._foldAnimation(unfold, index)
+              return (
+                <VelocityComponent
+                  key={index + '-' + unfold.toString}
+                  {...animationProps}
+                >
+                  <Accomplishment unfold={unfold}>
+                    <MonthLabel>
+                      <p>{months[record.month - 1]}</p>
+                    </MonthLabel>
+                    <Record>
+                      <p>
+                        <span>{this._getDate(record.date)}</span>
+                      </p>
+                      <p>{record.text.chinese}</p>
+                    </Record>
+                  </Accomplishment>
+                </VelocityComponent>
+              )
+            })}
             <VelocityComponent
               {...this._foldAnimation(unfoldArray[indexOfUnfoldArray], 1, true)}
             >
@@ -302,33 +317,27 @@ export default class List extends PureComponent {
             </VelocityComponent>
           </OnlyDisplayOnMobile>
           <DisplayOnTabletAbove>
-            {
-              _.values(dataOfYear).map((dataOfMonth, index) => {
-                return(
-                  <MonthlyAccomplishments key={index}>
-                    {
-                      _.values(dataOfMonth).map((dataOfDay, index) => {
-                        return (
-                          <Accomplishment
-                            key={index}
-                          >
-                            <MonthLabel monthOrder={index}>
-                              <p>{months[dataOfDay.month - 1]}</p>
-                            </MonthLabel>
-                            <Record>
-                              <p>
-                                <span>{this._getDate(dataOfDay.date)}</span>
-                              </p>
-                              <p>{dataOfDay.text.chinese}</p>
-                            </Record>
-                          </Accomplishment>
-                        )
-                      })
-                    }
-                  </MonthlyAccomplishments>
-                )            
-              })
-            }
+            {_.values(dataOfYear).map((dataOfMonth, index) => {
+              return (
+                <MonthlyAccomplishments key={index}>
+                  {_.values(dataOfMonth).map((dataOfDay, index) => {
+                    return (
+                      <Accomplishment key={index}>
+                        <MonthLabel monthOrder={index}>
+                          <p>{months[dataOfDay.month - 1]}</p>
+                        </MonthLabel>
+                        <Record>
+                          <p>
+                            <span>{this._getDate(dataOfDay.date)}</span>
+                          </p>
+                          <p>{dataOfDay.text.chinese}</p>
+                        </Record>
+                      </Accomplishment>
+                    )
+                  })}
+                </MonthlyAccomplishments>
+              )
+            })}
           </DisplayOnTabletAbove>
         </Accomplishments>
       )
@@ -338,14 +347,15 @@ export default class List extends PureComponent {
       // since `orderedYearList` has the same year order with `data`
       const year = orderedYearList[index]
       return (
-        <Year 
-          key={year} 
+        <Year
+          key={year}
           unfold={unfoldArray[index]}
-          ref={yearContent => this.yearContent[index] = yearContent}
+          ref={yearContent => (this.yearContent[index] = yearContent)}
         >
           <YearLabel
             unfold={unfoldArray[index]}
-            onClick={() => foldAndUnfold(index)}>
+            onClick={() => foldAndUnfold(index)}
+          >
             <p>{year}</p>
           </YearLabel>
           {getRecords(dataOfYear, year, index)}
@@ -353,11 +363,7 @@ export default class List extends PureComponent {
       )
     })
 
-    return (
-      <React.Fragment>
-        {ListAll}
-      </React.Fragment>
-    )
+    return <React.Fragment>{ListAll}</React.Fragment>
   }
 }
 
@@ -369,5 +375,3 @@ List.propTypes = {
   getYearContentHeight: PropTypes.func,
   orderedYearList: PropTypes.array.isRequired,
 }
-
-

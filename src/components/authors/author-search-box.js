@@ -10,7 +10,7 @@ import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/fo
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 const fadeInLeft = keyframes`
@@ -43,18 +43,18 @@ const Form = styled.form`
 
 const Input = styled.input`
   display: inline-block;
-  transition: background .4s ease;
+  transition: background 0.4s ease;
   font-size: 15px;
   letter-spacing: 0.4px;
   font-weight: ${fontWeight.normal};
-  border: 1px solid #CBCBCB;
+  border: 1px solid #cbcbcb;
   border-radius: 15px;
   color: #404040;
-  background: #F9F9F9;
+  background: #f9f9f9;
   padding: 0 48px 0 20px;
   width: 100%;
   height: 100%;
-  appearance: none;  /* remove platform specific styling of search input */
+  appearance: none; /* remove platform specific styling of search input */
   &:focus {
     outline: 0;
     background: #ffffff;
@@ -63,12 +63,12 @@ const Input = styled.input`
     outline: 0;
   }
   &::placeholder {
-    color: #A4A4A4;
+    color: #a4a4a4;
   }
 `
 
 const ResetBtn = styled.button`
-  display: ${props => props.show ? 'block' : 'none'};
+  display: ${props => (props.show ? 'block' : 'none')};
   position: absolute;
   top: 1px;
   right: 30px;
@@ -125,13 +125,11 @@ const SubmitBtn = styled.button`
   }
 `
 
-
 class AuthorSearchBox extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      keywords: ''
+      keywords: '',
     }
     this.handleChange = this._handleChange.bind(this)
     this.handleSubmit = this._handleSubmit.bind(this)
@@ -158,7 +156,7 @@ class AuthorSearchBox extends React.Component {
   _handleReset(event) {
     event.preventDefault()
     this.setState({
-      keywords: ''
+      keywords: '',
     })
     this.props.setSearching(false)
   }
@@ -167,9 +165,11 @@ class AuthorSearchBox extends React.Component {
     const { keywords } = this.state
     return (
       <Container>
-        <Form noValidate="novalidate"
+        <Form
+          noValidate="novalidate"
           onReset={this.handleChange}
-          onSubmit={this.handleSubmit} >
+          onSubmit={this.handleSubmit}
+        >
           <Input
             type="search"
             name="searchAuthor"
@@ -177,10 +177,9 @@ class AuthorSearchBox extends React.Component {
             placeholder="搜尋作者"
             onChange={this.handleChange}
             autoComplete="off"
-            required="required" />
-          <SubmitBtn
-            type="button"
-            onClick={this.handleSubmit}>
+            required="required"
+          />
+          <SubmitBtn type="button" onClick={this.handleSubmit}>
             <SearchIcon />
           </SubmitBtn>
           <ResetBtn
@@ -200,7 +199,7 @@ class AuthorSearchBox extends React.Component {
 
 AuthorSearchBox.propTypes = {
   sendSearchAuthors: PropTypes.func.isRequired,
-  setSearching: PropTypes.func.isRequired
+  setSearching: PropTypes.func.isRequired,
 }
 
 export default AuthorSearchBox

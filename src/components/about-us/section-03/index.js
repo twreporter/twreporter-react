@@ -1,6 +1,6 @@
 import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { marginBetweenSections } from '../constants/styles'
+import { font, marginBetweenSections } from '../constants/styles'
+
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
@@ -14,7 +14,8 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 const _ = {
-  groupBy, keys
+  groupBy,
+  keys,
 }
 
 const groupedAwards = _.groupBy(awardsList, award => award.awardId)
@@ -24,7 +25,9 @@ const awardGroupByNameAndYear = awardsName.map(name =>
 )
 
 const awardYearList = awardsName.map(name =>
-  _.keys(_.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])).reverse()
+  _.keys(
+    _.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])
+  ).reverse()
 )
 
 const Container = styled.div`
@@ -96,7 +99,9 @@ const LeftColumnOnDesktopAbove = styled.div`
 `
 
 const Title = styled.h1`
-  background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section3.png`)});
+  background-image: url(${replaceGCSUrlOrigin(
+    `${storageUrlPrefix}/title-section3.png`
+  )});
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
@@ -113,7 +118,9 @@ const Title = styled.h1`
     height: 231px;
   `}
   ${mq.tabletAndBelow`
-    background-image: url(${replaceGCSUrlOrigin(`${storageUrlPrefix}/title-section3-mob.png`)});
+    background-image: url(${replaceGCSUrlOrigin(
+      `${storageUrlPrefix}/title-section3-mob.png`
+    )});
     background-position: center top;
     float: none;
     margin: 0 auto;
@@ -154,7 +161,9 @@ const AwardsCount = styled.div`
     line-height: 1;
   }
   h2{
-    font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
+    font-family: ${font.family.english.roboto}, ${
+  font.family.sansSerifFallback
+};
     font-weight: ${font.weight.bold};
     font-size: 36px;
     margin: 0 0 2px 0;
@@ -280,7 +289,7 @@ export default class Section3 extends PureComponent {
       activeYearIndex: 0,
       carouselPageIndex: 1,
       currentDataList: groupedAwards[awardsName[0].awardId],
-      transitionEffect: true
+      transitionEffect: true,
     }
   }
 
@@ -288,13 +297,13 @@ export default class Section3 extends PureComponent {
     this.setState({
       activeAwardId: awardId,
       activeAwardIndex: awardIndex,
-      activeYearIndex: 0
+      activeYearIndex: 0,
     })
   }
 
-  _selectYear = (yearIndex) => {
+  _selectYear = yearIndex => {
     this.setState({
-      activeYearIndex: yearIndex
+      activeYearIndex: yearIndex,
     })
   }
 
@@ -303,19 +312,26 @@ export default class Section3 extends PureComponent {
    *  @param {Array} list
    *  @returns {Array} [maxYear, minYear]
    */
-  _getYearRange = (list) => {
-    return list.map(item => Number(item.date.split('/')[0])).reduce((accumulator, currentValue) => {
-      return [
-        (!accumulator[0]) ? currentValue : Math.min(currentValue, accumulator[0]),
-        (!accumulator[1]) ? currentValue : Math.max(currentValue, accumulator[1])
-      ]
-    },[])
+  _getYearRange = list => {
+    return list
+      .map(item => Number(item.date.split('/')[0]))
+      .reduce((accumulator, currentValue) => {
+        return [
+          !accumulator[0]
+            ? currentValue
+            : Math.min(currentValue, accumulator[0]),
+          !accumulator[1]
+            ? currentValue
+            : Math.max(currentValue, accumulator[1]),
+        ]
+      }, [])
   }
 
   render() {
     const { activeYearIndex, activeAwardIndex, activeAwardId } = this.state
     const currentYear = awardYearList[activeAwardIndex][activeYearIndex]
-    const selectedDataList = awardGroupByNameAndYear[activeAwardIndex][currentYear]
+    const selectedDataList =
+      awardGroupByNameAndYear[activeAwardIndex][currentYear]
     return (
       <Container>
         <SectionWrapper>
@@ -338,12 +354,22 @@ export default class Section3 extends PureComponent {
             </ListSelector>
             <Achievement>
               <AwardsCount>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/rice-ear-black.png`
+                  )}`}
+                />
                 <h2>{awardsList.length}</h2>
                 <p>件</p>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/rice-ear-black.png`
+                  )}`}
+                />
               </AwardsCount>
-              <YearRange>{this.minMaxYear[0]}-{this.minMaxYear[1]}</YearRange>
+              <YearRange>
+                {this.minMaxYear[0]}-{this.minMaxYear[1]}
+              </YearRange>
             </Achievement>
           </LeftColumnOnDesktopAbove>
           <Content

@@ -6,21 +6,19 @@ import { ErrorMessage } from '@twreporter/react-components/lib/error'
 import get from 'lodash/get'
 
 const _ = {
-  get
+  get,
 }
 
 function SystemError({ error }) {
   let errorType = '500'
-  if (_.get(error, 'statusCode') == 404) {
+  if (_.get(error, 'statusCode') === 404) {
     errorType = '404'
   }
-  return (
-    <ErrorMessage errorType={errorType} />
-  )
+  return <ErrorMessage errorType={errorType} />
 }
 
 SystemError.propTypes = {
-  error: PropTypes.object.isRequired
+  error: PropTypes.object.isRequired,
 }
 
 export default SystemError

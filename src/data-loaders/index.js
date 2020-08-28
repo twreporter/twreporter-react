@@ -21,5 +21,5 @@ export default {
   loadPhotographyPageData,
   loadTagListPageData,
   loadTopicListPageData,
-  loadTopicPageData
+  loadTopicPageData,
 }

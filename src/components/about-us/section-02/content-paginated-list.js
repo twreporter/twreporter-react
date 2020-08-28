@@ -16,7 +16,7 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { storageUrlPrefix } from '../utils/config'
 
 const _ = {
-  values
+  values,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -40,39 +40,39 @@ const MemberBlockList = styled.div`
   background: ${colors.gray.gray96};
 `
 
-const MemberBlock = styled.div `
+const MemberBlock = styled.div`
   position: relative;
   width: 100%;
   height: calc(100% / 4);
-  padding: 0 20px; 
-  span{
+  padding: 0 20px;
+  span {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
   }
-  img{
+  img {
     vertical-align: middle;
     width: calc(60.5px * 1.2);
   }
 `
 
-const MemberBorder = styled.div `
+const MemberBorder = styled.div`
   width: 100%;
   height: 100%;
   padding: 20px 0;
   border-bottom: solid 1px ${gray.bordergray};
 `
 
-const ProfileWrapper = styled.div `
+const ProfileWrapper = styled.div`
   position: relative;
   display: table;
   float: right;
-  width: calc(100% - ( 60.5px * 1.2));
+  width: calc(100% - (60.5px * 1.2));
   height: 100%;
   padding-left: 3.9%;
-  img{
-    visibility: ${props => props.isMailIconVisible ? 'visible' : 'hidden'};
-    width: 16.9% ;
+  img {
+    visibility: ${props => (props.isMailIconVisible ? 'visible' : 'hidden')};
+    width: 16.9%;
     position: absolute;
     right: 0;
     top: 50%;
@@ -81,23 +81,23 @@ const ProfileWrapper = styled.div `
   }
 `
 
-const Profile = styled.div `
-  display: table-cell; 
-  vertical-align: middle; 
+const Profile = styled.div`
+  display: table-cell;
+  vertical-align: middle;
   text-align: left;
-  p:first-child{
+  p:first-child {
     padding-right: 30%;
     font-size: 14px;
     letter-spacing: 1px;
   }
-  p:last-child{
+  p:last-child {
     font-size: 22px;
     font-weight: bold;
     letter-spacing: 0.5px;
   }
 `
 
-const StyledArrows = styled.div `
+const StyledArrows = styled.div`
   position: absolute;
   left: 0;
   top: 50%;
@@ -115,7 +115,7 @@ const StyledArrows = styled.div `
   `}  
 `
 
-const NavigationWrapper = styled.div `
+const NavigationWrapper = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
@@ -133,7 +133,7 @@ export default class PaginatedMemberList extends PureComponent {
     this.membersPageLengthArray = []
     this.state = {
       selectedDepartmentIndex: 0,
-      currentPagesArray: categoriesAll.map(() => 0)
+      currentPagesArray: categoriesAll.map(() => 0),
     }
   }
 
@@ -152,21 +152,25 @@ export default class PaginatedMemberList extends PureComponent {
    * @param {Number} departmentIndex
    * @param {String} direction ('next' or 'prev')
    */
-  _changePage = ( departmentIndex, direction ) => {
+  _changePage = (departmentIndex, direction) => {
     const { currentPagesArray } = this.state
     let newPageNum = 0
     let newCurPagesArray = [].concat(currentPagesArray)
     switch (direction) {
       case 'next':
-        newPageNum = ++currentPagesArray[departmentIndex] % this.membersPageLengthArray[departmentIndex]
+        newPageNum =
+          ++currentPagesArray[departmentIndex] %
+          this.membersPageLengthArray[departmentIndex]
         break
       case 'prev':
-        newPageNum = --currentPagesArray[departmentIndex] % this.membersPageLengthArray[departmentIndex]
+        newPageNum =
+          --currentPagesArray[departmentIndex] %
+          this.membersPageLengthArray[departmentIndex]
         if (newPageNum < 0) {
-          newPageNum =  this.membersPageLengthArray[departmentIndex] + newPageNum
+          newPageNum = this.membersPageLengthArray[departmentIndex] + newPageNum
         }
         break
-      default: 
+      default:
         return
     }
     newCurPagesArray = [].concat(currentPagesArray)
@@ -179,10 +183,12 @@ export default class PaginatedMemberList extends PureComponent {
     const { selectedDepartmentIndex } = this.state
     const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
     const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
-    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numberPerPage))
+    this.membersPageLengthArray = membersNumberArray.map(memberNumber =>
+      Math.ceil(memberNumber / numberPerPage)
+    )
   }
 
-  _selectDepartment = (index) => {
+  _selectDepartment = index => {
     this.setState({ selectedDepartmentIndex: index })
   }
 
@@ -191,54 +197,58 @@ export default class PaginatedMemberList extends PureComponent {
     const { groupedMembers } = this.props
     const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
     const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
-    const cursor = (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage 
+    const cursor =
+      (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList.slice(cursor - numberPerPage, cursor).map((member) => {
-      return(
-        <MemberBlock key={member.name}>
-          <MemberBorder>
-            <span />
-            <img src={member.profile} />
-            <ProfileWrapper
-              isMailIconVisible={typeof member.email !== 'undefined'}
-            >
-              <Profile>
-                <p>{member.job}</p>
-                <p>{member.name}</p>
-              </Profile>
-              <img 
-                onClick={() => this.props.sendEmail(member.email)} 
-                src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
-              />
-            </ProfileWrapper>
-          </MemberBorder>          
-        </MemberBlock>
-      )
-    })
+    const memberBlocks = selectedMemberList
+      .slice(cursor - numberPerPage, cursor)
+      .map(member => {
+        return (
+          <MemberBlock key={member.name}>
+            <MemberBorder>
+              <span />
+              <img src={member.profile} />
+              <ProfileWrapper
+                isMailIconVisible={typeof member.email !== 'undefined'}
+              >
+                <Profile>
+                  <p>{member.job}</p>
+                  <p>{member.name}</p>
+                </Profile>
+                <img
+                  onClick={() => this.props.sendEmail(member.email)}
+                  src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
+                />
+              </ProfileWrapper>
+            </MemberBorder>
+          </MemberBlock>
+        )
+      })
     return (
       <Container>
-        <DepartmentsNameList 
-          categoriesAll = {categoriesAll}
-          selectDepartment = {this._selectDepartment}
-          selectedDepartmentIndex = {selectedDepartmentIndex} />
+        <DepartmentsNameList
+          categoriesAll={categoriesAll}
+          selectDepartment={this._selectDepartment}
+          selectedDepartmentIndex={selectedDepartmentIndex}
+        />
         <MemberBlockList>
-        <StyledArrows>
-          <Arrows
-            departmentIndex = {selectedDepartmentIndex}
-            membersPageLengthArray = {this.membersPageLengthArray}
-            visible = {this.membersPageLengthArray[selectedDepartmentIndex] > 1}
-            changePage = {this._changePage.bind(null,selectedDepartmentIndex)}
-          />           
-        </StyledArrows>       
+          <StyledArrows>
+            <Arrows
+              departmentIndex={selectedDepartmentIndex}
+              membersPageLengthArray={this.membersPageLengthArray}
+              visible={this.membersPageLengthArray[selectedDepartmentIndex] > 1}
+              changePage={this._changePage.bind(null, selectedDepartmentIndex)}
+            />
+          </StyledArrows>
           {memberBlocks}
         </MemberBlockList>
         <NavigationWrapper>
           <Navigation
-            pagesLength = {this.membersPageLengthArray[selectedDepartmentIndex]}
-            currentPage = {currentPagesArray[selectedDepartmentIndex]}
-            startPage = {0}
-            endPage = {this.membersPageLengthArray[selectedDepartmentIndex]}
-            navigationWidth = {65}
+            pagesLength={this.membersPageLengthArray[selectedDepartmentIndex]}
+            currentPage={currentPagesArray[selectedDepartmentIndex]}
+            startPage={0}
+            endPage={this.membersPageLengthArray[selectedDepartmentIndex]}
+            navigationWidth={65}
           />
         </NavigationWrapper>
       </Container>
@@ -249,11 +259,11 @@ export default class PaginatedMemberList extends PureComponent {
 PaginatedMemberList.defaultProps = {
   groupedMembers: {},
   sendEmail: () => {},
-  membersNumberArray: []
+  membersNumberArray: [],
 }
 
 PaginatedMemberList.propTypes = {
   groupedMembers: PropTypes.object.isRequired,
   sendEmail: PropTypes.func.isRequired,
-  membersNumberArray: PropTypes.array.isRequired
+  membersNumberArray: PropTypes.array.isRequired,
 }

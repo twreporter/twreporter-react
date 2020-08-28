@@ -8,7 +8,7 @@ import statusConsts from '../../constants/status-code'
 import twreporterRedux from '@twreporter/redux'
 
 const _ = {
-  get
+  get,
 }
 
 const developmentEnv = 'development'
@@ -46,7 +46,7 @@ function decodePayload(jwt) {
  */
 function authMiddleware(namespace, options) {
   return function middleware(req, res, next) {
-    const store = _.get(req, [ namespace, 'reduxStore' ])
+    const store = _.get(req, [namespace, 'reduxStore'])
     if (!store) {
       return next(new Error(`req.${namespace}.reduxStore is not existed`))
     }
@@ -59,7 +59,9 @@ function authMiddleware(namespace, options) {
     const subdomainsArr = _.get(req, 'subdomains', [])
 
     const routes = getRoutes()
-    const authorizationRequired = routes.some(route => matchPath(req.path, route) && route.authorizationRequired)// Use `Array.prototype.some` to imitate `<Switch>` behavior of selecting only the first to match
+    const authorizationRequired = routes.some(
+      route => matchPath(req.path, route) && route.authorizationRequired
+    ) // Use `Array.prototype.some` to imitate `<Switch>` behavior of selecting only the first to match
     const currentHref = `${req.protocol}://${req.get('host')}${req.originalUrl}` // Ref: https://stackoverflow.com/questions/10183291/how-to-get-the-full-url-in-express
     const signInHref = getSignInHref(currentHref)
     const signOutHref = getSignOutHref(currentHref)
@@ -69,28 +71,32 @@ function authMiddleware(namespace, options) {
     if (idToken) {
       const userInfoInIdToken = decodePayload(idToken)
       const accessTokenKeyName = subdomainsArr.join('_') + '_access_token'
-      const accessToken = _.get(req, [ 'signedCookies', accessTokenKeyName ])
+      const accessToken = _.get(req, ['signedCookies', accessTokenKeyName])
       // Check If the user is also authorized.
       // If the user is authenticated and authorized, dispatch AUTH_SUCCESS action directly:
       if (accessToken) {
         const userInfoInAccessToken = decodePayload(accessToken)
         // Make sure both tokens refer to the same person
-        if (_.get(userInfoInAccessToken, 'user_id') === _.get(userInfoInIdToken, 'user_id')) {
+        if (
+          _.get(userInfoInAccessToken, 'user_id') ===
+          _.get(userInfoInIdToken, 'user_id')
+        ) {
           store.dispatch({
             type: actionTypes.AUTH_SUCCESS,
             payload: {
               data: {
-                jwt: accessToken
-              }
-            }
+                jwt: accessToken,
+              },
+            },
           })
           return next()
         }
       }
       // If the user is authenticated but not authorized, try to get access token:
-      const { nodeEnv=developmentEnv, releaseBranch=masterBranch } = options
+      const { nodeEnv = developmentEnv, releaseBranch = masterBranch } = options
       const cookieList = req.get('cookie')
-      return store.actions.getAccessToken(cookieList, releaseBranch)
+      return store.actions
+        .getAccessToken(cookieList, releaseBranch)
         .then(() => {
           const reduxState = store.getState()
           const jwt = _.get(reduxState, 'auth.accessToken', '')
@@ -101,8 +107,12 @@ function authMiddleware(namespace, options) {
               maxAge: 60 * 60 * 24 * 14 * 1000, // 2 weeks
               httpOnly: nodeEnv !== developmentEnv,
               secure: nodeEnv !== developmentEnv,
-              domain: _.get(req, 'hostname', subdomainsArr.join('.') + '.twreporter.org'),
-              signed: true
+              domain: _.get(
+                req,
+                'hostname',
+                subdomainsArr.join('.') + '.twreporter.org'
+              ),
+              signed: true,
             })
             next()
           } else {
@@ -111,12 +121,14 @@ function authMiddleware(namespace, options) {
             res.redirect(statusConsts.found, signOutHref)
             if (!jwt) {
               logger.errorReport({
-                message: 'auth api call succeeded, but no access token in the redux store.'
+                message:
+                  'auth api call succeeded, but no access token in the redux store.',
               })
             }
             if (!isAuthed) {
               logger.errorReport({
-                message: 'auth api call succeeded, but isAuthed state is not true in the redux store.'
+                message:
+                  'auth api call succeeded, but isAuthed state is not true in the redux store.',
               })
             }
           }
@@ -130,13 +142,14 @@ function authMiddleware(namespace, options) {
           } else {
             // If an unexpected error occurred, log out the error and skip authorization if authorization is not required.
             // If the page requires authorization, throw an error to express.
-            const errorMessage = 'An unexpected error occurred when the server try to get access token. Skip authorization.'
+            const errorMessage =
+              'An unexpected error occurred when the server try to get access token. Skip authorization.'
             if (authorizationRequired) {
               next(err)
             } else {
               logger.errorReport({
                 report: err,
-                message: errorMessage
+                message: errorMessage,
               })
               next()
             }
@@ -151,6 +164,5 @@ function authMiddleware(namespace, options) {
     }
   }
 }
-
 
 export default authMiddleware

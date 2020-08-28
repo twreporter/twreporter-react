@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react' // eslint-disable-line
+import React from 'react'
 import styled from 'styled-components'
 
 const Bar = styled.div`
@@ -9,19 +9,21 @@ const Bar = styled.div`
   z-index: 999;
   background-color: rgba(198, 0, 11, 0.35);
   height: 2px;
-  width: ${(props) => { return props.percent + '%'}};
-  transition: .2s width linear;
+  width: ${props => {
+    return props.percent + '%'
+  }};
+  transition: 0.2s width linear;
 `
 
 class ReadingProgress extends React.PureComponent {
   static propTypes = {
-    percent: PropTypes.number
+    percent: PropTypes.number,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      percent: props.percent
+      percent: props.percent,
     }
     this.updatePercentage = this._updatePercentage.bind(this)
     this._isMount = false
@@ -38,7 +40,7 @@ class ReadingProgress extends React.PureComponent {
   _updatePercentage(percent) {
     if (typeof percent === 'number') {
       this.setState({
-        percent
+        percent,
       })
     }
   }

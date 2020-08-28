@@ -1,32 +1,29 @@
 import dataLoaderConst from '../constants/data-loaders'
-import qs from 'qs'
+import querystring from 'querystring'
 import get from 'lodash/get'
-import twreporterRedux from '@twreporter/redux'
 
 const _ = {
-  get
+  get,
 }
 
 const firstPage = 1
-const { reduxStateFields }  = twreporterRedux
 
 export default function loadData({ store, location }) {
   const search = _.get(location, 'search', '')
-  const query = qs.parse(search, { ignoreQueryPrefix: true })
-  /* fetch page 1 if page is invalid */
-  let page = parseInt(_.get(query, 'page', 1), 10)
-  if (isNaN(page) || page < 0) {
+  const searchWithoutPrefix =
+    typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
+  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
+
+  if (isNaN(page) || page < firstPage) {
     page = firstPage
   }
-  return store.actions.fetchTopics(page, dataLoaderConst.numPerPage)
+
+  return store.actions
+    .fetchTopics(page, dataLoaderConst.topicListPage.nPerPage)
     .then(() => {
-      /* fetch full topic if is at first page */
       if (page === firstPage) {
-        const state = store.getState()
-        const firstTopicSlug = _.get(state, [ reduxStateFields.topicList, 'items', firstPage, 0 ], '')
-        if (firstTopicSlug) {
-          return store.actions.fetchAFullTopic(firstTopicSlug)
-        }
+        return store.actions.fetchFeatureTopic()
       }
     })
 }
