@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.5.1-rc.0
+## 4.5.1
 
 ### Notable Changes
 
@@ -8,6 +8,7 @@
 
 ### Commits
 
+- [[`a773b546fd`](https://github.com/twreporter/twreporter-react/commit/a773b546fd)] - **chore**: upgrade deps (Taylor Fang)
 - [[`67e8242566`](https://github.com/twreporter/twreporter-react/commit/67e8242566)] - **chore**: upgrade deps (Taylor Fang)
 - [[`225662dfad`](https://github.com/twreporter/twreporter-react/commit/225662dfad)] - **fix**: update footer when host or pathname changes (Taylor Fang)
 
