@@ -23,7 +23,7 @@ const profileUrlPrefix = `${storageUrlPrefix}/member/`
 const _ = {
   assign,
   debounce,
-  isEqual
+  isEqual,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -377,21 +377,28 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              ref={memberList => this.memberList[categoryIndex] = memberList}
-              shiftx = {this._getShiftX(categoryIndex)}
-              transitionEffect = {this.state.transitionEffect}
-              onTransitionEnd={(event) => this._onMemberListShifted(event, categoryIndex)}>
-              {
-                typeof this.carouselData[categoryId] !== 'undefined' ?
-                  this.carouselData[categoryId].map((member, index) => {
-                    return(
-                      <Member key={index} numPerPage={headcountPerPage[categoryId]}>
+              ref={memberList => {
+                this.memberList[categoryIndex] = memberList
+              }}
+              shiftx={this._getShiftX(categoryIndex)}
+              transitionEffect={this.state.transitionEffect}
+              onTransitionEnd={event =>
+                this._onMemberListShifted(event, categoryIndex)
+              }
+            >
+              {typeof this.carouselData[categoryId] !== 'undefined'
+                ? this.carouselData[categoryId].map((member, index) => {
+                    return (
+                      <Member
+                        key={index}
+                        numPerPage={headcountPerPage[categoryId]}
+                      >
                         <img
-                          src={`${replaceGCSUrlOrigin(`${profileUrlPrefix}${member.profile}`)}`}
+                          src={`${replaceGCSUrlOrigin(
+                            `${profileUrlPrefix}${member.profile}`
+                          )}`}
                         />
-                        <Info
-                          isMailIconVisible={Boolean(member.email)}
-                        >
+                        <Info isMailIconVisible={Boolean(member.email)}>
                           <p>{member['job.zh-tw']}</p>
                           <p>{member['name.zh-tw']}</p>
                           <img
@@ -432,5 +439,5 @@ CarouselMemberList.defaultProps = {
 CarouselMemberList.propTypes = {
   sendEmail: PropTypes.func,
   membersNumberArray: PropTypes.array,
-  groupedMembers: PropTypes.object
+  groupedMembers: PropTypes.object,
 }

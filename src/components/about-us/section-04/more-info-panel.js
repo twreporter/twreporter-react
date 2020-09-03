@@ -1,4 +1,3 @@
-import InfoPanel from './more-info-panel'
 import Navigation from '../utils/navigation'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
@@ -12,7 +11,7 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import { storageUrlPrefix } from '../utils/config'
 
 const _ = {
-  get
+  get,
 }
 
 const fixedPanelStyle = {
@@ -227,11 +226,18 @@ export default class MoreInfo extends PureComponent {
               navigationWidth={22}
             />
           </NavigationWrapper>
-          <img src={replaceGCSUrlOrigin(storageUrlPrefix + '/' + _.get(selectedItem, 'photo'))} />
+          <img
+            src={replaceGCSUrlOrigin(
+              storageUrlPrefix + '/' + _.get(selectedItem, 'photo')
+            )}
+          />
           <InfoWrapper>
             <h4>{_.get(selectedItem, 'date')}</h4>
             <p>{_.get(selectedItem, 'description.zh-tw')}</p>
-            <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+            <RightArrow
+              onClick={nextPage}
+              hasNext={(selectedContent.length > 1).toString()}
+            >
               <ArrowNextIcon>
                 <img
                   src={`${replaceGCSUrlOrigin(

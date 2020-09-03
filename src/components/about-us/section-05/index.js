@@ -1,3 +1,4 @@
+/* eslint react/no-find-dom-node: 1 */
 import List from './list'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -12,7 +13,7 @@ import { Waypoint } from 'react-waypoint'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
-//lodash
+// lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
@@ -20,7 +21,7 @@ import keys from 'lodash/keys'
 const _ = {
   get,
   groupBy,
-  keys
+  keys,
 }
 
 const yearRangebgColor = '#cacaca'
@@ -377,7 +378,7 @@ export default class Section5 extends PureComponent {
       currentYear: null,
       isBorderBottomfixed: true,
       yearlyRecords: {},
-      orderedYears: []
+      orderedYears: [],
     }
   }
 
@@ -386,7 +387,8 @@ export default class Section5 extends PureComponent {
   }
 
   _getConfig = () => {
-    return axios.get(configs[sections.section5])
+    return axios
+      .get(configs[sections.section5])
       .then(res => {
         const config = _.get(res, 'data.rows')
         if (config) {
@@ -394,17 +396,18 @@ export default class Section5 extends PureComponent {
           this._setScrollingHeight()
         }
       })
-      .catch((err) => {
+      .catch(err => {
         logger.errorReport({
           report: err,
-          message: 'Something went wrong during getting configs for about-us page section5'
+          message:
+            'Something went wrong during getting configs for about-us page section5',
         })
       })
   }
-  
+
   /*
    * Record type definition
-   * @typeof {Object} Record 
+   * @typeof {Object} Record
    * @property {string} year
    * @property {string} month
    * @property {string} date
@@ -416,7 +419,7 @@ export default class Section5 extends PureComponent {
   /*
    * yearlyRecords type definition
    * @typeof {Object} yearlyRecords
-   * @property {string} year 
+   * @property {string} year
    *
    * For example:
    * {
@@ -424,14 +427,14 @@ export default class Section5 extends PureComponent {
    *   '2016': [{}, {}, ...]
    * }
    */
-    
-  /* 
+
+  /*
    * This function converts config to `yearlyRecords`
    *
    * @param {Record[]} config
-   * 
+   *
    */
-  _setStateByConfig = (config) => {
+  _setStateByConfig = config => {
     const yearlyRecords = _.groupBy(config, record => record.year)
     const orderedYears = _.keys(yearlyRecords)
       // sort by year in desc order
@@ -441,13 +444,15 @@ export default class Section5 extends PureComponent {
       yearlyRecords,
       orderedYears,
       unfoldArray: orderedYears.map(() => false),
-      currentYear: orderedYears[0]
+      currentYear: orderedYears[0],
     })
   }
 
   _setScrollingHeight = () => {
-    const timelineScrollingHeight = ReactDOM.findDOMNode(this.scrollingContent).getBoundingClientRect().height
-    this.setState({ timelineScrollingHeight: timelineScrollingHeight }) 
+    const timelineScrollingHeight = ReactDOM.findDOMNode(
+      this.scrollingContent
+    ).getBoundingClientRect().height
+    this.setState({ timelineScrollingHeight: timelineScrollingHeight })
   }
 
   /**
@@ -491,10 +496,10 @@ export default class Section5 extends PureComponent {
    * Set year which will be displayed on title according to parameter
    * @param {number} currentYear
    */
-  _getYear = (currentYearIndex) => {
+  _getYear = currentYearIndex => {
     const { orderedYears } = this.state
     this.setState({
-      currentYear: orderedYears[currentYearIndex]
+      currentYear: orderedYears[currentYearIndex],
     })
   }
   /**
@@ -513,7 +518,7 @@ export default class Section5 extends PureComponent {
       timelineScrolling,
       timelineScrollingHeight,
       unfoldArray,
-      yearContentHeight
+      yearContentHeight,
     } = this.state
 
     return (
@@ -545,7 +550,9 @@ export default class Section5 extends PureComponent {
                   />
                 </AccordionTimeline>
                 <YearRange>
-                  <p><span>{orderedYears[orderedYears.length - 1]}</span></p>
+                  <p>
+                    <span>{orderedYears[orderedYears.length - 1]}</span>
+                  </p>
                   <p>
                     <span>{orderedYears[0]}</span>
                     <img
@@ -557,23 +564,27 @@ export default class Section5 extends PureComponent {
                 </YearRange>
                 <RunningTimeline>
                   <Timeline
-                    ref={scrollingContent => this.scrollingContent = scrollingContent}
-                    childrenHeight={timelineScrollingHeight * timelineScrollingPortion}
+                    ref={scrollingContent => {
+                      this.scrollingContent = scrollingContent
+                    }}
+                    childrenHeight={
+                      timelineScrollingHeight * timelineScrollingPortion
+                    }
                     autoScrolling={timelineScrolling}
                     startAutoScroll={this._startTimelineAutoScrolling}
                     stopAutoScroll={this._stopTimelineAutoScrolling}
                     yearContentHeight={yearContentHeight}
-                    getYear={this._getYear}>
-                    { 
-                      orderedYears.length > 0 ?
-                        <List
-                          unfoldArray={unfoldArray}
-                          yearlyRecords={yearlyRecords}
-                          foldAndUnfold={this._foldAndUnfold}
-                          getYearContentHeight={this._getYearContentHeight}
-                          orderedYears={orderedYears}
-                        /> : null
-                    }
+                    getYear={this._getYear}
+                  >
+                    {orderedYears.length > 0 ? (
+                      <List
+                        unfoldArray={unfoldArray}
+                        yearlyRecords={yearlyRecords}
+                        foldAndUnfold={this._foldAndUnfold}
+                        getYearContentHeight={this._getYearContentHeight}
+                        orderedYears={orderedYears}
+                      />
+                    ) : null}
                   </Timeline>
                 </RunningTimeline>
                 <YearTag>

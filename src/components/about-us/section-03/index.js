@@ -8,15 +8,15 @@ import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
-import { font } from '../constants/styles'
-import { marginBetweenSections } from '../constants/styles'
+import { font, marginBetweenSections } from '../constants/styles'
+
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
-//lodash
+// lodash
 import get from 'lodash/get'
 
 const _ = {
-  get 
+  get,
 }
 
 const logger = loggerFactory.getLogger()
@@ -278,18 +278,18 @@ export default class Section3 extends PureComponent {
       activeYearIndex: 0,
       carouselPageIndex: 1,
       transitionEffect: true,
-      config: null
+      config: null,
     }
   }
-  
+
   componentDidMount() {
-    this._getConfig() 
+    this._getConfig()
   }
 
-  _selectAward = (award) => {
+  _selectAward = award => {
     this.setState({
       activeAward: award,
-      activeYearIndex: 0
+      activeYearIndex: 0,
     })
   }
 
@@ -300,14 +300,16 @@ export default class Section3 extends PureComponent {
   }
 
   _getConfig = () => {
-    return axios.get(configs[sections.section3])
+    return axios
+      .get(configs[sections.section3])
       .then(res => {
         this.setState({ config: _.get(res, 'data') })
       })
-      .catch((err) => {
+      .catch(err => {
         logger.errorReport({
           report: err,
-          message: 'Something went wrong during getting configs for about-us page section3'
+          message:
+            'Something went wrong during getting configs for about-us page section3',
         })
       })
   }
@@ -320,7 +322,11 @@ export default class Section3 extends PureComponent {
     const minYear = _.get(config, 'yearInterval.min')
     const total = _.get(config, 'total', 0)
     const currentYear = _.get(awardYears, `${activeAward}.${activeYearIndex}`)
-    const selectedRecords = _.get(groupedRecords, `${activeAward}.${currentYear}`, [])
+    const selectedRecords = _.get(
+      groupedRecords,
+      `${activeAward}.${currentYear}`,
+      []
+    )
 
     return (
       <Container>
@@ -344,7 +350,11 @@ export default class Section3 extends PureComponent {
             </ListSelector>
             <Achievement>
               <AwardsCount>
-                <img src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/rice-ear-black.png`)}`} />
+                <img
+                  src={`${replaceGCSUrlOrigin(
+                    `${storageUrlPrefix}/rice-ear-black.png`
+                  )}`}
+                />
                 <h2>{total}</h2>
                 <p>件</p>
                 <img

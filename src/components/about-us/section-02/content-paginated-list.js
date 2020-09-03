@@ -13,13 +13,13 @@ import { gray } from './utils'
 import { headcountPerPage } from '../constants/section-02/headcount-per-page'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
-//lodash
+// lodash
 import values from 'lodash/values'
 
 const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
 const _ = {
-  values
+  values,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -186,7 +186,9 @@ export default class PaginatedMemberList extends PureComponent {
     const { selectedDepartmentIndex } = this.state
     const selectedCategoryId = _.values(categoryIds)[selectedDepartmentIndex]
     const numberPerPage = headcountPerPage[selectedCategoryId][screen.mobile]
-    this.membersPageLengthArray = membersNumberArray.map((memberNumber) => Math.ceil(memberNumber / numberPerPage))
+    this.membersPageLengthArray = membersNumberArray.map(memberNumber =>
+      Math.ceil(memberNumber / numberPerPage)
+    )
     this.forceUpdate()
   }
 
@@ -202,28 +204,32 @@ export default class PaginatedMemberList extends PureComponent {
     const cursor =
       (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList.slice(cursor - numberPerPage, cursor).map((member) => {
-      return(
-        <MemberBlock key={member['name.zh-tw']}>
-          <MemberBorder>
-            <span />
-            <img src={`${replaceGCSUrlOrigin(`${profileUrlPrefix}${member.profile}`)}`} />
-            <ProfileWrapper
-              isMailIconVisible={Boolean(member.email)}
-            >
-              <Profile>
-                <p>{member['job.zh-tw']}</p>
-                <p>{member['name.zh-tw']}</p>
-              </Profile>
-              <img 
-                onClick={() => this.props.sendEmail(member.email)} 
-                src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
+    const memberBlocks = selectedMemberList
+      .slice(cursor - numberPerPage, cursor)
+      .map(member => {
+        return (
+          <MemberBlock key={member['name.zh-tw']}>
+            <MemberBorder>
+              <span />
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${profileUrlPrefix}${member.profile}`
+                )}`}
               />
-            </ProfileWrapper>
-          </MemberBorder>          
-        </MemberBlock>
-      )
-    })
+              <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
+                <Profile>
+                  <p>{member['job.zh-tw']}</p>
+                  <p>{member['name.zh-tw']}</p>
+                </Profile>
+                <img
+                  onClick={() => this.props.sendEmail(member.email)}
+                  src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
+                />
+              </ProfileWrapper>
+            </MemberBorder>
+          </MemberBlock>
+        )
+      })
     return (
       <Container>
         <DepartmentsNameList
@@ -234,12 +240,12 @@ export default class PaginatedMemberList extends PureComponent {
         <MemberBlockList>
           <StyledArrows>
             <Arrows
-              departmentIndex = {selectedDepartmentIndex}
-              membersPageLengthArray = {this.membersPageLengthArray}
-              visible = {this.membersPageLengthArray[selectedDepartmentIndex] > 1}
-              changePage = {this._changePage.bind(null,selectedDepartmentIndex)}
-            />           
-          </StyledArrows>       
+              departmentIndex={selectedDepartmentIndex}
+              membersPageLengthArray={this.membersPageLengthArray}
+              visible={this.membersPageLengthArray[selectedDepartmentIndex] > 1}
+              changePage={this._changePage.bind(null, selectedDepartmentIndex)}
+            />
+          </StyledArrows>
           {memberBlocks}
         </MemberBlockList>
         <NavigationWrapper>
@@ -265,5 +271,5 @@ PaginatedMemberList.defaultProps = {
 PaginatedMemberList.propTypes = {
   groupedMembers: PropTypes.object,
   sendEmail: PropTypes.func,
-  membersNumberArray: PropTypes.array
+  membersNumberArray: PropTypes.array,
 }

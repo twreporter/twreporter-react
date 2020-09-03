@@ -14,10 +14,10 @@ import { font } from '../constants/styles'
 import { months } from '../constants/section-05/months'
 
 const _ = {
-  get, 
-  groupBy, 
-  keys, 
-  orderBy
+  get,
+  groupBy,
+  keys,
+  orderBy,
 }
 
 const defaultZIndex = 0
@@ -204,35 +204,36 @@ const MockAccomplishment = styled.div`
   width: 100%;
   transform-origin: 50% 100% 0;
   position: relative;
-  display: ${props => props.show ? 'block' : 'none'};
+  display: ${props => (props.show ? 'block' : 'none')};
 `
 
 export default class List extends PureComponent {
   constructor(props) {
     super(props)
-    this.yearContent = [] 
+    this.yearContent = []
   }
   componentDidMount() {
-    const {
-      getYearContentHeight,
-      orderedYears
-    } = this.props
+    const { getYearContentHeight, orderedYears } = this.props
 
-    if(Array.isArray(orderedYears) 
-      && orderedYears.length > 0
-      && this.yearContent.length > 0) {
+    if (
+      Array.isArray(orderedYears) &&
+      orderedYears.length > 0 &&
+      this.yearContent.length > 0
+    ) {
       const yearContentHeight = orderedYears.map((year, index) => {
         if (this.yearContent[index]) {
-          return ReactDOM.findDOMNode(this.yearContent[index]).getBoundingClientRect().height
+          return ReactDOM.findDOMNode(
+            this.yearContent[index]
+          ).getBoundingClientRect().height
         }
       })
-      getYearContentHeight(yearContentHeight) 
+      getYearContentHeight(yearContentHeight)
     }
   }
   componentWillUnmount() {
-    this.yearContent = undefined 
+    this.yearContent = undefined
   }
-  _getDate = (date) => {
+  _getDate = date => {
     if (date) {
       let dateString = date.toString()
       if (dateString.length < 2) {
@@ -279,64 +280,53 @@ export default class List extends PureComponent {
       foldAndUnfold,
       orderedYears,
       unfoldArray,
-      yearlyRecords
+      yearlyRecords,
     } = this.props
 
     const annualAcomplishmentsOnMobile = (annualRecords, isUnfold) => {
       const isOdd = annualRecords.length % 2 === 1
       const orderedRecord = _.orderBy(
-        annualRecords, 
-        [ 
-          (record) => {
+        annualRecords,
+        [
+          record => {
             return parseInt(record.month, 10)
           },
-          (record) => {
+          record => {
             return parseInt(record.date, 10)
-          }
-        ], 
-        [ 'asc', 'asc' ]
+          },
+        ],
+        ['asc', 'asc']
       )
       return (
         <React.Fragment>
-          {
-            orderedRecord.map((record, index) => {
-              const animationProps = this._foldAnimation(isUnfold, index)
-              return(
-                <VelocityComponent 
-                  key={index}
-                  {...animationProps}
-                >
-                  <Accomplishment
-                    unfold={isUnfold}
-                  >
-                    <MonthLabel>
-                      <p>{months[record.month - 1]}</p>
-                    </MonthLabel>
-                    <Record>
-                      <p>
-                        <span>{this._getDate(record.date)}</span>
-                      </p>
-                      <p>{record['text.zh-tw']}</p>
-                    </Record>
-                  </Accomplishment>
-                </VelocityComponent>
-              )            
-            }) 
-          }
-          <VelocityComponent
-            {...this._foldAnimation(isUnfold, 1, true)}
-          >
-            <MockAccomplishment
-              show={isOdd}
-            />
+          {orderedRecord.map((record, index) => {
+            const animationProps = this._foldAnimation(isUnfold, index)
+            return (
+              <VelocityComponent key={index} {...animationProps}>
+                <Accomplishment unfold={isUnfold}>
+                  <MonthLabel>
+                    <p>{months[record.month - 1]}</p>
+                  </MonthLabel>
+                  <Record>
+                    <p>
+                      <span>{this._getDate(record.date)}</span>
+                    </p>
+                    <p>{record['text.zh-tw']}</p>
+                  </Record>
+                </Accomplishment>
+              </VelocityComponent>
+            )
+          })}
+          <VelocityComponent {...this._foldAnimation(isUnfold, 1, true)}>
+            <MockAccomplishment show={isOdd} />
           </VelocityComponent>
         </React.Fragment>
       )
     }
-    
+
     /*
      * Record type definition
-     * @typeof {Object} Record 
+     * @typeof {Object} Record
      * @property {string} year
      * @property {string} month
      * @property {string} date
@@ -349,7 +339,7 @@ export default class List extends PureComponent {
      * annualRecord contains records have the same property `year`
      *
      * annualRecord type definition
-     * @typeof {Record[]} annualRecord 
+     * @typeof {Record[]} annualRecord
      */
 
     /*
@@ -366,76 +356,68 @@ export default class List extends PureComponent {
      * }
      *
      */
-    const annualAcomplishments = (annualRecords) => {
+    const annualAcomplishments = annualRecords => {
       const monthlyRecords = _.groupBy(annualRecords, data => data.month)
       const orderedMonths = _.keys(monthlyRecords)
         // sort by year in asc order
-        .sort((a, b) => Number(a) - Number(b)) 
+        .sort((a, b) => Number(a) - Number(b))
       return orderedMonths.map((month, monthIndex) => {
         const records = _.orderBy(
           _.get(monthlyRecords, month),
-          (record) => {
+          record => {
             return parseInt(record.date, 10)
           },
           'asc'
         )
-        return(
+        return (
           <MonthlyAccomplishments key={monthIndex}>
-            {
-              records.map((record, index) => {
-                return (
-                  <Accomplishment
-                    key={`${month}-${index}`}
-                  >
-                    <MonthLabel monthOrder={index}>
-                      <p>{months[record.month - 1]}</p>
-                    </MonthLabel>
-                    <Record>
-                      <p>
-                        <span>{this._getDate(record.date)}</span>
-                      </p>
-                      <p>{record['text.zh-tw']}</p>
-                    </Record>
-                  </Accomplishment>
-                )
-              })
-            }
+            {records.map((record, index) => {
+              return (
+                <Accomplishment key={`${month}-${index}`}>
+                  <MonthLabel monthOrder={index}>
+                    <p>{months[record.month - 1]}</p>
+                  </MonthLabel>
+                  <Record>
+                    <p>
+                      <span>{this._getDate(record.date)}</span>
+                    </p>
+                    <p>{record['text.zh-tw']}</p>
+                  </Record>
+                </Accomplishment>
+              )
+            })}
           </MonthlyAccomplishments>
-        )            
+        )
       })
     }
 
     return (
       <React.Fragment>
-        {
-          orderedYears.map((year, index) => {
-            const annualRecords = _.get(yearlyRecords, year)
-            const unfold = unfoldArray[index]
-            return (
-              <Year 
-                key={index} 
-                unfold={unfold}
-                ref={yearContent => this.yearContent[index] = yearContent}
-              >
-                <YearLabel
-                  unfold={unfold}
-                  onClick={() => foldAndUnfold(index)}>
-                  <p>{year}</p>
-                </YearLabel>
-                <Accomplishments
-                  unfold={unfold}
-                >
-                  <OnlyDisplayOnMobile>
-                    {annualAcomplishmentsOnMobile(annualRecords, unfold)}
-                  </OnlyDisplayOnMobile>
-                  <DisplayOnTabletAbove>
-                    {annualAcomplishments(annualRecords)}
-                  </DisplayOnTabletAbove> 
-                </Accomplishments>
-              </Year>
-            )
-          })
-        }
+        {orderedYears.map((year, index) => {
+          const annualRecords = _.get(yearlyRecords, year)
+          const unfold = unfoldArray[index]
+          return (
+            <Year
+              key={index}
+              unfold={unfold}
+              ref={yearContent => {
+                this.yearContent[index] = yearContent
+              }}
+            >
+              <YearLabel unfold={unfold} onClick={() => foldAndUnfold(index)}>
+                <p>{year}</p>
+              </YearLabel>
+              <Accomplishments unfold={unfold}>
+                <OnlyDisplayOnMobile>
+                  {annualAcomplishmentsOnMobile(annualRecords, unfold)}
+                </OnlyDisplayOnMobile>
+                <DisplayOnTabletAbove>
+                  {annualAcomplishments(annualRecords)}
+                </DisplayOnTabletAbove>
+              </Accomplishments>
+            </Year>
+          )
+        })}
       </React.Fragment>
     )
   }
@@ -446,5 +428,5 @@ List.propTypes = {
   yearlyRecords: PropTypes.object.isRequired,
   foldAndUnfold: PropTypes.func.isRequired,
   getYearContentHeight: PropTypes.func,
-  orderedYears: PropTypes.array.isRequired
+  orderedYears: PropTypes.array.isRequired,
 }

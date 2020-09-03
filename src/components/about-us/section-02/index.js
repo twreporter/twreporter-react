@@ -8,18 +8,22 @@ import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
 import styled from 'styled-components'
-import { foundationIntro, mediaIntro, rules } from '../constants/section-02/org-intro'
+import {
+  foundationIntro,
+  mediaIntro,
+  rules,
+} from '../constants/section-02/org-intro'
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
-//lodash
+// lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 
 const _ = {
   get,
-  groupBy
+  groupBy,
 }
 
 const logger = loggerFactory.getLogger()
@@ -148,13 +152,13 @@ export default class Section2 extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      groupedMembers: null
+      groupedMembers: null,
     }
   }
   componentDidMount() {
     this._getConfig()
   }
-  _sendEmail = (email) => {
+  _sendEmail = email => {
     if (typeof email !== 'undefined') {
       const url = `mailto:${email}`
       window.open(url, '_blank')
@@ -184,28 +188,32 @@ export default class Section2 extends PureComponent {
    *   'editor': [{}, {}, ...]
    * }
    */
-    
-  /* 
+
+  /*
    * This function converts config to `groupedMembers`
    *
    * @param {Member[]} config
-   * 
+   *
    */
-  _setStateByConfig = (config) => {
-    this.setState({ groupedMembers : _.groupBy(config, member => member.category) })
+  _setStateByConfig = config => {
+    this.setState({
+      groupedMembers: _.groupBy(config, member => member.category),
+    })
   }
   _getConfig = () => {
-    return axios.get(configs[sections.section2])
+    return axios
+      .get(configs[sections.section2])
       .then(res => {
         const config = _.get(res, 'data.rows')
         if (config) {
           this._setStateByConfig(config)
         }
       })
-      .catch((err) => {
+      .catch(err => {
         logger.errorReport({
           report: err,
-          message: 'Something went wrong during getting configs for about-us page section2'
+          message:
+            'Something went wrong during getting configs for about-us page section2',
         })
       })
   }
@@ -221,25 +229,27 @@ export default class Section2 extends PureComponent {
        * @typeof {number[]} membersNumberArray
        *
        */
-      membersNumberArray = [ ...categories.fundation, ...categories.media ].map((category) => {
-        if (groupedMembers[category.id]) {
-          return groupedMembers[category.id].length 
+      membersNumberArray = [...categories.fundation, ...categories.media].map(
+        category => {
+          if (groupedMembers[category.id]) {
+            return groupedMembers[category.id].length
+          }
         }
-      })
+      )
       content = (
         <Content>
-          <CarouselMemberList 
-            membersNumberArray = {membersNumberArray}
-            groupedMembers = {groupedMembers}
-            sendEmail = {this._sendEmail} 
+          <CarouselMemberList
+            membersNumberArray={membersNumberArray}
+            groupedMembers={groupedMembers}
+            sendEmail={this._sendEmail}
           />
           <PaginatedMemberList
-            membersNumberArray = {membersNumberArray}
-            groupedMembers = {groupedMembers}
-            sendEmail = {this._sendEmail} 
-          />              
-        </Content> 
-      ) 
+            membersNumberArray={membersNumberArray}
+            groupedMembers={groupedMembers}
+            sendEmail={this._sendEmail}
+          />
+        </Content>
+      )
     }
     return (
       <Container>

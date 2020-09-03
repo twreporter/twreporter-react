@@ -5,11 +5,11 @@ import { VelocityTransitionGroup } from 'velocity-react'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-//lodash
+// lodash
 import get from 'lodash/get'
 
 const _ = {
-  get 
+  get,
 }
 
 const borderBottomColor = '#dcdcdc'
@@ -160,7 +160,7 @@ export default class AccordionList extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      unfoldArray: this.props.awardsName.map(() => false)
+      unfoldArray: this.props.awardsName.map(() => false),
     }
   }
   _foldAndUnfold = index => {
@@ -174,55 +174,54 @@ export default class AccordionList extends PureComponent {
   _renderRecords = (awardName, awardIdx) => {
     const { fullRecords, awardYears, transitionDuration } = this.props
     if (!awardYears[awardName]) return
-    return awardYears[awardName].map((year) => {
+    return awardYears[awardName].map(year => {
       let unfold = this.state.unfoldArray[awardIdx]
-      return(
-        <React.Fragment
-          key={`${awardName}-${year}`}
-        >
-          <VelocityTransitionGroup component="div" enter="slideDown" leave="slideUp">
-            { unfold ?
-              <YearTag
-                unfold={unfold}
-                transitionDuration={transitionDuration}
-              >
+      return (
+        <React.Fragment key={`${awardName}-${year}`}>
+          <VelocityTransitionGroup
+            component="div"
+            enter="slideDown"
+            leave="slideUp"
+          >
+            {unfold ? (
+              <YearTag unfold={unfold} transitionDuration={transitionDuration}>
                 <p>{year}</p>
                 <SeperatedLine />
-              </YearTag> : null
-            }
+              </YearTag>
+            ) : null}
           </VelocityTransitionGroup>
-          <RecordsInaYear
-            unfold={unfold}
-          >
-            {
-              fullRecords[awardName][year].map((item, itemIndex) => {
-                return(
-                  <StyledVelocityTransitionGroup 
-                    key={itemIndex}
-                    component="div" enter="slideDown" leave="slideUp">
-                    { unfold ? 
-                      <Record
-                        unfold={unfold}
+          <RecordsInaYear unfold={unfold}>
+            {fullRecords[awardName][year].map((item, itemIndex) => {
+              return (
+                <StyledVelocityTransitionGroup
+                  key={itemIndex}
+                  component="div"
+                  enter="slideDown"
+                  leave="slideUp"
+                >
+                  {unfold ? (
+                    <Record unfold={unfold}>
+                      <a
+                        href={_.get(item, 'titlelink', '')}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        <a href={_.get(item,'titlelink', '')} target="_blank">
-                          <AwardItem>
-                            <Ranking
-                              display={_.get(item,'ranking.zh-tw')}>
-                              {_.get(item,'ranking.zh-tw', '')}
-                            </Ranking>
-                            <MoreInfo>
-                              <p>{_.get(item,'group.zh-tw', '')}</p>
-                              <p>{_.get(item,'title.zh-tw', '')}</p>
-                              <p>{_.get(item,'prizeman.zh-tw', '')}</p>
-                            </MoreInfo>
-                          </AwardItem>
-                        </a>
-                      </Record> : null
-                    }
-                  </StyledVelocityTransitionGroup>
-                )                              
-              })
-            }
+                        <AwardItem>
+                          <Ranking display={_.get(item, 'ranking.zh-tw')}>
+                            {_.get(item, 'ranking.zh-tw', '')}
+                          </Ranking>
+                          <MoreInfo>
+                            <p>{_.get(item, 'group.zh-tw', '')}</p>
+                            <p>{_.get(item, 'title.zh-tw', '')}</p>
+                            <p>{_.get(item, 'prizeman.zh-tw', '')}</p>
+                          </MoreInfo>
+                        </AwardItem>
+                      </a>
+                    </Record>
+                  ) : null}
+                </StyledVelocityTransitionGroup>
+              )
+            })}
           </RecordsInaYear>
         </React.Fragment>
       )
@@ -233,26 +232,21 @@ export default class AccordionList extends PureComponent {
     const { awardsName, fullRecords, awardYears } = this.props
     return (
       <Container>
-        {
-          awardsName.map((name, awardIdx) => {
-            return(
-              <React.Fragment
-                key={name.award}
+        {awardsName.map((name, awardIdx) => {
+          return (
+            <React.Fragment key={name.award}>
+              <AwardName
+                onClick={() => this._foldAndUnfold(awardIdx)}
+                unfold={this.state.unfoldArray[awardIdx]}
               >
-                <AwardName 
-                  onClick={() => this._foldAndUnfold(awardIdx)}
-                  unfold={this.state.unfoldArray[awardIdx]}
-                >
-                  <p>{name.award}</p>
-                </AwardName>
-                {
-                  fullRecords && awardYears ? 
-                    this._renderRecords(name.award, awardIdx) : null
-                }
-              </React.Fragment>
-            )
-          })
-        }
+                <p>{name.award}</p>
+              </AwardName>
+              {fullRecords && awardYears
+                ? this._renderRecords(name.award, awardIdx)
+                : null}
+            </React.Fragment>
+          )
+        })}
       </Container>
     )
   }
@@ -262,12 +256,12 @@ AccordionList.defaultProps = {
   fullRecords: {},
   transitionDuration: '100ms',
   awardsName: [],
-  awardsYears: []
+  awardsYears: [],
 }
 
 AccordionList.propTypes = {
   fullRecords: PropTypes.object,
   awardsName: PropTypes.array,
   awardYears: PropTypes.object,
-  transitionDuration: PropTypes.string
+  transitionDuration: PropTypes.string,
 }

@@ -1,3 +1,4 @@
+/* eslint react/no-find-dom-node: 1 */
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -7,7 +8,7 @@ import mq from '../utils/media-query'
 import styled from 'styled-components'
 
 const _ = {
-  get
+  get,
 }
 
 const borderBottomColor = '#dcdcdc'
@@ -139,7 +140,10 @@ export default class PaginatedList extends PureComponent {
   }
   componentDidUpdate(prevProps) {
     const { activeAward, backToTop, activeYearIndex } = this.props
-    if (prevProps.activeAward !== activeAward || prevProps.activeYearIndex !== activeYearIndex) {
+    if (
+      prevProps.activeAward !== activeAward ||
+      prevProps.activeYearIndex !== activeYearIndex
+    ) {
       this._getPagesHeight()
       backToTop()
     }
@@ -151,51 +155,45 @@ export default class PaginatedList extends PureComponent {
         shiftY={() => this._getShiftY(currentPage)}
         transitionDuration={transitionDuration}
       >
-        {
-          paginatedAwardsList.map((list, listIndex) => {
-            return(
-              <SinglePage
-                key={`paginatedAwardsList-${listIndex}`}
+        {paginatedAwardsList.map((list, listIndex) => {
+          return (
+            <SinglePage key={`paginatedAwardsList-${listIndex}`}>
+              <PageItems
+                ref={singlepage => {
+                  this.singlePages[listIndex] = singlepage
+                }}
               >
-                <PageItems
-                  ref={singlepage => this.singlePages[listIndex] = singlepage}
-                >
-                  {
-                    list.map((item, itemIndex) => {
-                      let groupString = _.get(item,'group.zh-tw', '').split('')
-                      return (
-                        <li
-                          key={listIndex + '-' + itemIndex}>
-                          <a href={_.get(item,'titlelink', '')} target="_blank">
-                            <AwardItem>
-                              <Ranking
-                                display={_.get(item,'ranking.zh-tw')}>
-                                {_.get(item,'ranking.zh-tw', '')}
-                              </Ranking>
-                              <MoreInfo>
-                                <p>
-                                  {
-                                    groupString.map((char, index) => {
-                                      return(
-                                        <span key={index}>{char}</span>
-                                      )
-                                    })
-                                  }
-                                </p>
-                                <p>{_.get(item,'title.zh-tw', '')}</p>
-                                <p>{_.get(item,'prizeman.zh-tw', '')}</p>
-                              </MoreInfo>
-                            </AwardItem>
-                          </a>
-                        </li>
-                      )
-                    })
-                  }
-                </PageItems>
-              </SinglePage>
-            )
-          })
-        }
+                {list.map((item, itemIndex) => {
+                  let groupString = _.get(item, 'group.zh-tw', '').split('')
+                  return (
+                    <li key={listIndex + '-' + itemIndex}>
+                      <a
+                        href={_.get(item, 'titlelink', '')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <AwardItem>
+                          <Ranking display={_.get(item, 'ranking.zh-tw')}>
+                            {_.get(item, 'ranking.zh-tw', '')}
+                          </Ranking>
+                          <MoreInfo>
+                            <p>
+                              {groupString.map((char, index) => {
+                                return <span key={index}>{char}</span>
+                              })}
+                            </p>
+                            <p>{_.get(item, 'title.zh-tw', '')}</p>
+                            <p>{_.get(item, 'prizeman.zh-tw', '')}</p>
+                          </MoreInfo>
+                        </AwardItem>
+                      </a>
+                    </li>
+                  )
+                })}
+              </PageItems>
+            </SinglePage>
+          )
+        })}
       </Container>
     )
   }
@@ -206,7 +204,7 @@ PaginatedList.defaultProps = {
   currentPage: 0,
   paginatedAwardsList: [],
   activeAward: '',
-  activeYearIndex: 0 
+  activeYearIndex: 0,
 }
 
 PaginatedList.propTypes = {
@@ -215,5 +213,5 @@ PaginatedList.propTypes = {
   transitionDuration: PropTypes.string,
   backToTop: PropTypes.func.isRequired,
   activeAward: PropTypes.string,
-  activeYearIndex: PropTypes.number
+  activeYearIndex: PropTypes.number,
 }

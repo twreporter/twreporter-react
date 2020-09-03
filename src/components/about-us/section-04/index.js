@@ -10,14 +10,17 @@ import styled from 'styled-components'
 import { font, marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
-//lodash
+// lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
 import chunk from 'lodash/chunk'
 
 const _ = {
-  chunk, groupBy, keys, get
+  chunk,
+  groupBy,
+  keys,
+  get,
 }
 
 const logoBlockBorderColor = ' #e9e9e9'
@@ -246,29 +249,29 @@ export default class Section4 extends PureComponent {
       selectedRow: 0,
       infoPageNum: 0,
       initialState: true,
-      config: null
+      config: null,
     }
   }
   componentDidMount() {
-    this._getConfig() 
+    this._getConfig()
   }
 
   /*
    * Event type definition
-   * @typeof {Object} Event 
+   * @typeof {Object} Event
    * @property {string} partner.zh-tw - partner's name (zh-tw)
    * @property {string} partner.en - partner's name (en)
    * @property {string} description.zh-tw - event description (zh-tw)
    * @property {string} description.en - event description (en)
    * @property {string} date - date of event
-   * @property {string} photo - image filename of the event 
+   * @property {string} photo - image filename of the event
    * @property {string} logo - partner's logo
-   * @property {string} link - event link  
+   * @property {string} link - event link
    */
 
   /*
    * content type definition
-   * @typeof {Event[]} content 
+   * @typeof {Event[]} content
    */
 
   /*
@@ -283,23 +286,27 @@ export default class Section4 extends PureComponent {
    * }
    */
   _getConfig = () => {
-    return axios.get(configs[sections.section4])
+    return axios
+      .get(configs[sections.section4])
       .then(res => {
         const content = _.get(res, 'data.rows')
         if (Array.isArray(content)) {
           this.setState({
-            config: _.groupBy(content, partner => _.get(partner, 'partner.zh-tw'))
-          }) 
+            config: _.groupBy(content, partner =>
+              _.get(partner, 'partner.zh-tw')
+            ),
+          })
         }
       })
-      .catch((err) => {
+      .catch(err => {
         logger.errorReport({
           report: err,
-          message: 'Something went wrong during getting configs for about-us page section4'
+          message:
+            'Something went wrong during getting configs for about-us page section4',
         })
       })
   }
-  _select = (logoIndex) => {
+  _select = logoIndex => {
     this.setState({
       selectedLogo: logoIndex,
       selectedRow: Math.floor(logoIndex / column.desktop),
@@ -308,18 +315,18 @@ export default class Section4 extends PureComponent {
     })
   }
   _getLogoBlockWidthOnDesktop = (logoIndex, selectedLogo, selectedRow) => {
-    let width = '25%' 
+    let width = '25%'
     const logoRow = Math.floor(logoIndex / column.desktop)
     if (selectedLogo === logoIndex && selectedRow === logoRow) {
       width = '40%'
     } else if (selectedRow === logoRow) {
       width = '20%'
-    } 
+    }
     return {
       duration: transitioinDuration,
       animation: {
-        width
-      }
+        width,
+      },
     }
   }
   _nextPage = () => {
@@ -333,29 +340,38 @@ export default class Section4 extends PureComponent {
   }
   _getSelectedContent = () => {
     let { selectedLogo, config } = this.state
-    if (selectedLogo === null ) return
+    if (selectedLogo === null) return
     return config[_.keys(config)[selectedLogo]]
   }
   render() {
-    let { selectedLogo, selectedRow, infoPageNum, initialState, config } = this.state
+    let {
+      selectedLogo,
+      selectedRow,
+      infoPageNum,
+      initialState,
+      config,
+    } = this.state
     const LogoBlockList = _.keys(config).map((partner, partnerIndex) => {
       let data = _.get(config, `${partner}.0`)
-      let animationProps = this._getLogoBlockWidthOnDesktop(partnerIndex, selectedLogo, selectedRow)
+      let animationProps = this._getLogoBlockWidthOnDesktop(
+        partnerIndex,
+        selectedLogo,
+        selectedRow
+      )
       return (
-        <React.Fragment
-          key={partner}
-        >
+        <React.Fragment key={partner}>
           <OnlyDisplayOnDesktopAbove>
-            <VelocityComponent
-              key={partnerIndex}
-              {...animationProps}
-            >
+            <VelocityComponent key={partnerIndex} {...animationProps}>
               <LogoBlock
                 selectedLogo={selectedLogo}
                 onClick={() => this._select(partnerIndex)}
               >
                 <LogoContent>
-                  <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${_.get(data, 'logo')}`)} />
+                  <img
+                    src={replaceGCSUrlOrigin(
+                      `${storageUrlPrefix}/${_.get(data, 'logo')}`
+                    )}
+                  />
                   <h3>{_.get(data, 'partner.en')}</h3>
                   <p>{_.get(data, 'partner.zh-tw')}</p>
                 </LogoContent>
@@ -368,7 +384,9 @@ export default class Section4 extends PureComponent {
               onClick={() => this._select(partnerIndex)}
             >
               <LogoContent>
-                <img src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${data.logo}`)} />
+                <img
+                  src={replaceGCSUrlOrigin(`${storageUrlPrefix}/${data.logo}`)}
+                />
                 <div>
                   <h3>{_.get(data, 'partner.en')}</h3>
                   <p>{_.get(data, 'partner.zh-tw')}</p>

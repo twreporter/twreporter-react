@@ -144,7 +144,7 @@ export default class Timeline extends PureComponent {
           currentYearIndex = curIndex
           return prev + curr
         }
-      }) 
+      })
     }
     getYear(currentYearIndex)
   }
@@ -182,10 +182,11 @@ Timeline.defaultProps = {
 }
 
 Timeline.propTypes = {
-  childrenHeight: PropTypes.number,
   autoScrolling: PropTypes.bool,
+  children: PropTypes.element.isRequired,
+  childrenHeight: PropTypes.number,
+  getYear: PropTypes.func.isRequired,
   startAutoScroll: PropTypes.func.isRequired,
   stopAutoScroll: PropTypes.func.isRequired,
   yearContentHeight: PropTypes.array,
-  getYear: PropTypes.func.isRequired
 }
