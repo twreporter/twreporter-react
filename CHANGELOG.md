@@ -1,5 +1,33 @@
 # Changelog
 
+## 4.5.3 (Current), 2020-09-03
+
+### Notable Changes
+
+- refactor about-us page: extract out config which will be stored in gcs
+
+### Commits
+
+- [[`db90e59a16`](https://github.com/twreporter/twreporter-react/commit/db90e59a16)] - refactor(about-us): eslint fixes (Taylor Fang)
+- [[`0ed242aaaa`](https://github.com/twreporter/twreporter-react/commit/0ed242aaaa)] - refactor(about-us): remove unused files (Taylor Fang)
+- [[`7cd84dad6a`](https://github.com/twreporter/twreporter-react/commit/7cd84dad6a)] - refactor(about-us): remove unused code (Taylor Fang)
+- [[`620ba110a4`](https://github.com/twreporter/twreporter-react/commit/620ba110a4)] - docs(about-us): add jsdoc (Taylor Fang)
+- [[`a89572e4c2`](https://github.com/twreporter/twreporter-react/commit/a89572e4c2)] - refactor(about-us): extract out `awardYears` and `groupedByAwardAndYear` (Taylor
+  Fang)
+- [[`159d009962`](https://github.com/twreporter/twreporter-react/commit/159d009962)] - fix(about-us): update config prefix (Taylor Fang)
+- [[`e82b280f2b`](https://github.com/twreporter/twreporter-react/commit/e82b280f2b)] - refactor(about-us): remove `console.error` (Taylor Fang)
+- [[`2b7c5e5e59`](https://github.com/twreporter/twreporter-react/commit/2b7c5e5e59)] - fix(about-us): get config url by release branch (Taylor Fang)
+- [[`fb0d555733`](https://github.com/twreporter/twreporter-react/commit/fb0d555733)] - fix(about-us): update section4 config with latest data (Taylor Fang)
+- [[`b9ee0ef070`](https://github.com/twreporter/twreporter-react/commit/b9ee0ef070)] - fix(about-us): update section3 config with latest data (Taylor Fang)
+- [[`847557e8c6`](https://github.com/twreporter/twreporter-react/commit/847557e8c6)] - refactor(about-us): refactor section2 of about-us page (Taylor Fang)
+- [[`1a20bd61a4`](https://github.com/twreporter/twreporter-react/commit/1a20bd61a4)] - fix(about-us): update section2 config with latest data (Taylor Fang)
+- [[`880199095c`](https://github.com/twreporter/twreporter-react/commit/880199095c)] - refactor(about-us): refactor section5 of about-us page (Taylor Fang)
+- [[`3948cfcf54`](https://github.com/twreporter/twreporter-react/commit/3948cfcf54)] - fix(about-us): update section5 config with latest data (Taylor Fang)
+- [[`12187d59aa`](https://github.com/twreporter/twreporter-react/commit/12187d59aa)] - fix(about-us): bug fix in section4 (Taylor Fang)
+- [[`ac36004503`](https://github.com/twreporter/twreporter-react/commit/ac36004503)] - refactor(about-us): refactor section4 of about-us page (Taylor Fang)
+- [[`ead7bf7c13`](https://github.com/twreporter/twreporter-react/commit/ead7bf7c13)] - refactor(about-us): refactor section3 of about-us page (Taylor Fang)
+- [[`4267c930b3`](https://github.com/twreporter/twreporter-react/commit/4267c930b3)] - feat(about-us): add testing configs (Taylor Fang)
+
 ## 4.5.2
 
 ### Notable Changes

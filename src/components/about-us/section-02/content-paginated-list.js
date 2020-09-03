@@ -9,11 +9,14 @@ import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
 import styled from 'styled-components'
-import values from 'lodash/values'
 import { gray } from './utils'
 import { headcountPerPage } from '../constants/section-02/headcount-per-page'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
+// lodash
+import values from 'lodash/values'
+
+const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
 const _ = {
   values,
@@ -186,6 +189,7 @@ export default class PaginatedMemberList extends PureComponent {
     this.membersPageLengthArray = membersNumberArray.map(memberNumber =>
       Math.ceil(memberNumber / numberPerPage)
     )
+    this.forceUpdate()
   }
 
   _selectDepartment = index => {
@@ -204,16 +208,18 @@ export default class PaginatedMemberList extends PureComponent {
       .slice(cursor - numberPerPage, cursor)
       .map(member => {
         return (
-          <MemberBlock key={member.name}>
+          <MemberBlock key={member['name.zh-tw']}>
             <MemberBorder>
               <span />
-              <img src={member.profile} />
-              <ProfileWrapper
-                isMailIconVisible={typeof member.email !== 'undefined'}
-              >
+              <img
+                src={`${replaceGCSUrlOrigin(
+                  `${profileUrlPrefix}${member.profile}`
+                )}`}
+              />
+              <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
                 <Profile>
-                  <p>{member.job}</p>
-                  <p>{member.name}</p>
+                  <p>{member['job.zh-tw']}</p>
+                  <p>{member['name.zh-tw']}</p>
                 </Profile>
                 <img
                   onClick={() => this.props.sendEmail(member.email)}
@@ -263,7 +269,7 @@ PaginatedMemberList.defaultProps = {
 }
 
 PaginatedMemberList.propTypes = {
-  groupedMembers: PropTypes.object.isRequired,
-  sendEmail: PropTypes.func.isRequired,
-  membersNumberArray: PropTypes.array.isRequired,
+  groupedMembers: PropTypes.object,
+  sendEmail: PropTypes.func,
+  membersNumberArray: PropTypes.array,
 }
