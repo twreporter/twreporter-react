@@ -36,8 +36,8 @@ const imgObj = PropTypes.shape({
 
 const videoObj = PropTypes.shape({
   filetype: PropTypes.string,
-  title: PropTypes.title,
-  url: PropTypes.url,
+  title: PropTypes.string,
+  url: PropTypes.string,
 })
 
 const theme = PropTypes.shape({
