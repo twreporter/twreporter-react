@@ -1,4 +1,13 @@
+import CarouselMemberList from './content-carousel-list'
+import PaginatedMemberList from './content-paginated-list'
+import React, { PureComponent } from 'react'
+import axios from 'axios'
+import categories from '../constants/section-02/categories'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
+import styled from 'styled-components'
 import {
   foundationIntro,
   mediaIntro,
@@ -7,32 +16,17 @@ import {
 import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
-import CarouselMemberList from './content-carousel-list'
-import find from 'lodash/find'
-import foundationMembers from '../constants/section-02/fundation-members'
+// lodash
+import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
-import mediaMembers from '../constants/section-02/media-members'
-import PaginatedMemberList from './content-paginated-list'
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import categories from '../constants/section-02/categories'
 
 const _ = {
+  get,
   groupBy,
-  find,
-  keys,
 }
 
-const members = foundationMembers.concat(mediaMembers)
-const groupedMembers = _.groupBy(members, member => member.category)
-const membersNumberArray = [...categories.fundation, ...categories.media].map(
-  category => {
-    return groupedMembers[category.id].length
-  }
-)
+const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
@@ -155,13 +149,108 @@ const Content = styled.div`
 `
 
 export default class Section2 extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      groupedMembers: null,
+    }
+  }
+  componentDidMount() {
+    this._getConfig()
+  }
   _sendEmail = email => {
     if (typeof email !== 'undefined') {
-      let url = `mailto:${email}`
+      const url = `mailto:${email}`
       window.open(url, '_blank')
     }
   }
+
+  /*
+   * Member type definition
+   * @typeof {Object} Member
+   * @property {string} name.zh-tw - member's name (zh-tw)
+   * @property {string} name.en - member's name (en)
+   * @property {string} job.zh-tw - member's job (zh-tw)
+   * @property {string} job.en - member's job (en)
+   * @property {string} profile - image filename of member's profile
+   * @property {string} email - member's email
+   * @property {string} category - the department name which member belongs to
+   */
+
+  /*
+   * groupedMembers type definition
+   * @typeof {Object} groupedMembers
+   * @property {string} category - name of departments
+   *
+   * For example:
+   * {
+   *   'fundation': [{}, {}, ...],
+   *   'editor': [{}, {}, ...]
+   * }
+   */
+
+  /*
+   * This function converts config to `groupedMembers`
+   *
+   * @param {Member[]} config
+   *
+   */
+  _setStateByConfig = config => {
+    this.setState({
+      groupedMembers: _.groupBy(config, member => member.category),
+    })
+  }
+  _getConfig = () => {
+    return axios
+      .get(configs[sections.section2])
+      .then(res => {
+        const config = _.get(res, 'data.rows')
+        if (config) {
+          this._setStateByConfig(config)
+        }
+      })
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message:
+            'Something went wrong during getting configs for about-us page section2',
+        })
+      })
+  }
   render() {
+    const { groupedMembers } = this.state
+    let membersNumberArray = []
+    let content
+    if (groupedMembers) {
+      /*
+       * membersNumberArray is an array contains headcounts of each departments
+       *
+       * membersNumberArray type definition
+       * @typeof {number[]} membersNumberArray
+       *
+       */
+      membersNumberArray = [...categories.fundation, ...categories.media].map(
+        category => {
+          if (groupedMembers[category.id]) {
+            return groupedMembers[category.id].length
+          }
+        }
+      )
+      content = (
+        <Content>
+          <CarouselMemberList
+            membersNumberArray={membersNumberArray}
+            groupedMembers={groupedMembers}
+            sendEmail={this._sendEmail}
+          />
+          <PaginatedMemberList
+            membersNumberArray={membersNumberArray}
+            groupedMembers={groupedMembers}
+            sendEmail={this._sendEmail}
+          />
+        </Content>
+      )
+    }
     return (
       <Container>
         <SectionWrapper>
@@ -169,18 +258,7 @@ export default class Section2 extends PureComponent {
             <span>成員</span>
             <span>MEMBERS</span>
           </Title>
-          <Content>
-            <CarouselMemberList
-              membersNumberArray={membersNumberArray}
-              groupedMembers={groupedMembers}
-              sendEmail={this._sendEmail}
-            />
-            <PaginatedMemberList
-              membersNumberArray={membersNumberArray}
-              groupedMembers={groupedMembers}
-              sendEmail={this._sendEmail}
-            />
-          </Content>
+          {content}
           <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>

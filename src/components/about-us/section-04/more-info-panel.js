@@ -1,13 +1,18 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
 import Navigation from '../utils/navigation'
 import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import colors from '../../../constants/colors'
+import get from 'lodash/get'
+import mq from '../utils/media-query'
 import styled from 'styled-components'
+import { font } from '../constants/styles'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { storageUrlPrefix } from '../utils/config'
+
+const _ = {
+  get,
+}
 
 const fixedPanelStyle = {
   mob: {
@@ -209,8 +214,8 @@ export default class MoreInfo extends PureComponent {
       >
         <Container>
           <ItemName>
-            <h2>{selectedItem.name.english}</h2>
-            <h3>{selectedItem.name.chinese}</h3>
+            <h2>{_.get(selectedItem, 'partner.en')}</h2>
+            <h3>{_.get(selectedItem, 'partner.zh-tw')}</h3>
           </ItemName>
           <NavigationWrapper>
             <Navigation
@@ -221,10 +226,14 @@ export default class MoreInfo extends PureComponent {
               navigationWidth={22}
             />
           </NavigationWrapper>
-          <img src={replaceGCSUrlOrigin(selectedItem.photo)} />
+          <img
+            src={replaceGCSUrlOrigin(
+              storageUrlPrefix + '/' + _.get(selectedItem, 'photo')
+            )}
+          />
           <InfoWrapper>
-            <h4>{selectedItem.date}</h4>
-            <p>{selectedItem.description.chinese}</p>
+            <h4>{_.get(selectedItem, 'date')}</h4>
+            <p>{_.get(selectedItem, 'description.zh-tw')}</p>
             <RightArrow
               onClick={nextPage}
               hasNext={(selectedContent.length > 1).toString()}

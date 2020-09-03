@@ -1,10 +1,15 @@
 /* eslint react/no-find-dom-node: 1 */
-import colors from '../../../constants/colors'
-import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
+import colors from '../../../constants/colors'
+import get from 'lodash/get'
+import mq from '../utils/media-query'
 import styled from 'styled-components'
+
+const _ = {
+  get,
+}
 
 const borderBottomColor = '#dcdcdc'
 
@@ -134,9 +139,9 @@ export default class PaginatedList extends PureComponent {
     this._getPagesHeight()
   }
   componentDidUpdate(prevProps) {
-    const { activeAwardId, backToTop, activeYearIndex } = this.props
+    const { activeAward, backToTop, activeYearIndex } = this.props
     if (
-      prevProps.activeAwardId !== activeAwardId ||
+      prevProps.activeAward !== activeAward ||
       prevProps.activeYearIndex !== activeYearIndex
     ) {
       this._getPagesHeight()
@@ -152,22 +157,24 @@ export default class PaginatedList extends PureComponent {
       >
         {paginatedAwardsList.map((list, listIndex) => {
           return (
-            <SinglePage key={`${list[0].awardId}-${listIndex}`}>
+            <SinglePage key={`paginatedAwardsList-${listIndex}`}>
               <PageItems
-                ref={singlepage => (this.singlePages[listIndex] = singlepage)}
+                ref={singlepage => {
+                  this.singlePages[listIndex] = singlepage
+                }}
               >
                 {list.map((item, itemIndex) => {
-                  let groupString = item.group.split('')
+                  let groupString = _.get(item, 'group.zh-tw', '').split('')
                   return (
                     <li key={listIndex + '-' + itemIndex}>
                       <a
-                        href={item.titleLink}
+                        href={_.get(item, 'titlelink', '')}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <AwardItem>
-                          <Ranking display={item.ranking}>
-                            {item.ranking}
+                          <Ranking display={_.get(item, 'ranking.zh-tw')}>
+                            {_.get(item, 'ranking.zh-tw', '')}
                           </Ranking>
                           <MoreInfo>
                             <p>
@@ -175,8 +182,8 @@ export default class PaginatedList extends PureComponent {
                                 return <span key={index}>{char}</span>
                               })}
                             </p>
-                            <p>{item.title}</p>
-                            <p>{item.prizeman}</p>
+                            <p>{_.get(item, 'title.zh-tw', '')}</p>
+                            <p>{_.get(item, 'prizeman.zh-tw', '')}</p>
                           </MoreInfo>
                         </AwardItem>
                       </a>
@@ -193,19 +200,18 @@ export default class PaginatedList extends PureComponent {
 }
 
 PaginatedList.defaultProps = {
+  transitionDuration: '500ms',
   currentPage: 0,
   paginatedAwardsList: [],
-  transitionDuration: '500ms',
-  backToTop: () => {},
-  activeAwardId: '',
+  activeAward: '',
   activeYearIndex: 0,
 }
 
 PaginatedList.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  paginatedAwardsList: PropTypes.array.isRequired,
+  currentPage: PropTypes.number,
+  paginatedAwardsList: PropTypes.array,
   transitionDuration: PropTypes.string,
   backToTop: PropTypes.func.isRequired,
-  activeAwardId: PropTypes.string.isRequired,
-  activeYearIndex: PropTypes.number.isRequired,
+  activeAward: PropTypes.string,
+  activeYearIndex: PropTypes.number,
 }
