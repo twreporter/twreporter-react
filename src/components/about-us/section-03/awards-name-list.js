@@ -18,13 +18,13 @@ const AwardItem = styled.div`
     p{
       text-align: left;
       font-weight: bold;
-      opacity: ${props => (props.currentIndex === 'true' ? '1' : '0.31')};
+      opacity: ${props => props.isActive === 'true' ? '1' : '0.31'};
       font-weight: bold;
       transition: all 200ms ease-in-out;
     }
     cursor: pointer;
     ul{
-      display: ${props => (props.currentIndex === 'true' ? 'block' : 'none')};
+      display: ${props => props.isActive === 'true' ? 'block' : 'none'};
       list-style: none;
       padding: 0;
       margin-top: 0;
@@ -62,8 +62,7 @@ const AwardItem = styled.div`
 
 const Cursor = styled.span`
   display: inline-block;
-  visibility: ${props =>
-    props.isCurrentYear === 'true' ? 'visible' : 'hidden'};
+  visibility: ${props => props.isActive === 'true' ? 'visible' : 'hidden'};
   width: 12px;
   height: 4px;
   background: ${colors.black};
@@ -73,63 +72,63 @@ const Cursor = styled.span`
 
 export default class AwardNameList extends PureComponent {
   render() {
-    const {
-      awardsName,
-      activeAwardId,
-      selectAward,
-      awardYearList,
-      selectYear,
-      activeYearIndex,
-    } = this.props
+    const { awardsName, activeAward, selectAward, awardYears, selectYear, activeYearIndex } = this.props
+    const yearsInActiveAward = awardYears[activeAward]
     return (
       <React.Fragment>
-        {awardsName.map((name, index) => {
-          return (
-            <AwardItem
-              key={index}
-              currentIndex={(activeAwardId === name.awardId).toString()}
-            >
-              <p onClick={() => selectAward(name.awardId, index)}>
-                {name.award}
-              </p>
-              <ul>
-                {_.map(awardYearList[index], (year, yearIndex) => {
-                  return (
-                    <li key={year} onClick={() => selectYear(yearIndex)}>
-                      <p>
-                        <Cursor
-                          isCurrentYear={(
-                            activeYearIndex === yearIndex
-                          ).toString()}
-                        />
-                        {year}
-                      </p>
-                    </li>
-                  )
-                })}
-              </ul>
-            </AwardItem>
-          )
-        })}
-      </React.Fragment>
+        {
+          awardsName.map((name, index) => {
+            return (
+              <AwardItem
+                key={index}
+                isActive={(activeAward === name.award).toString()}
+              >
+                <p onClick={() => selectAward(name.award, index)}>
+                  {name.award}
+                </p>
+                <ul>
+                  { 
+                    _.map(yearsInActiveAward, (year) => {
+                      return(
+                        <li
+                          key={year}
+                          onClick={() => selectYear(yearsInActiveAward.indexOf(year))}>
+                          <p>
+                            <Cursor 
+                              isActive={
+                                (yearsInActiveAward[activeYearIndex] === year).toString()
+                              }
+                            />
+                            {year}
+                          </p>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </AwardItem>
+            )
+          })
+        }
+      </React.Fragment>    
     )
   }
 }
 
 AwardNameList.defaultProps = {
   awardsName: [],
-  activeAwardId: '',
-  awardYearList: [],
-  activeYearIndex: 0,
+  activeAward: '',
   selectAward: () => {},
   selectYear: () => {},
+  activeYearIndex: 0,
+  awardYears: {}
 }
 
 AwardNameList.propTypes = {
-  awardsName: PropTypes.array.isRequired,
-  activeAwardId: PropTypes.string.isRequired,
+  awardsName: PropTypes.array,
+  activeAward: PropTypes.string,
   selectAward: PropTypes.func,
-  awardYearList: PropTypes.array.isRequired,
+  awardYears: PropTypes.object,
   selectYear: PropTypes.func,
-  activeYearIndex: PropTypes.number.isRequired,
+  activeYearIndex: PropTypes.number
 }

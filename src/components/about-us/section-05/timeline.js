@@ -138,12 +138,14 @@ export default class Timeline extends PureComponent {
   _setYear = () => {
     const { yearContentHeight, getYear } = this.props
     let currentYearIndex = 0
-    yearContentHeight.reduce((prev, curr, curIndex) => {
-      if (this.timelineShiftY > prev) {
-        currentYearIndex = curIndex
-        return prev + curr
-      }
-    })
+    if (Array.isArray(yearContentHeight) && yearContentHeight.length > 0) {
+      yearContentHeight.reduce((prev, curr, curIndex) => {
+        if (this.timelineShiftY > prev) {
+          currentYearIndex = curIndex
+          return prev + curr
+        }
+      })
+    }
     getYear(currentYearIndex)
   }
 
@@ -180,14 +182,11 @@ Timeline.defaultProps = {
 }
 
 Timeline.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-  childrenHeight: PropTypes.number.isRequired,
-  autoScrolling: PropTypes.bool.isRequired,
+  autoScrolling: PropTypes.bool,
+  children: PropTypes.element.isRequired,
+  childrenHeight: PropTypes.number,
+  getYear: PropTypes.func.isRequired,
   startAutoScroll: PropTypes.func.isRequired,
   stopAutoScroll: PropTypes.func.isRequired,
-  yearContentHeight: PropTypes.array.isRequired,
-  getYear: PropTypes.func.isRequired,
+  yearContentHeight: PropTypes.array,
 }
