@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.5.3-rc.0
+## 4.5.3 (Current), 2020-09-03
 
 ### Notable Changes
 
