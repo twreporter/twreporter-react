@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.5.4
+
+### Commits
+
+- [[`b34dcf8473`](https://github.com/twreporter/twreporter-react/commit/b34dcf8473)] - **chore**: update dependencies (nickhsine)
+- [[`93a5fe0297`](https://github.com/twreporter/twreporter-react/commit/93a5fe0297)] - **fix**: typo in constants/prop-type.js (nickhsine)
+- [[`f4fde58922`](https://github.com/twreporter/twreporter-react/commit/f4fde58922)] - Merge pull request #1693 from taylrj/master (Tai-Jiun Fang)
+
 ## 4.5.3 (Current), 2020-09-03
 
 ### Notable Changes
