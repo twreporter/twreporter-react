@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.5 (Current), 2020-09-08
+
+### Notable Changes
+
+- chore: upgrade @twreporter/react-article-components@1.2.3
+
+### Commits
+
+- [[`0eb4d87afa`](https://github.com/twreporter/twreporter-react/commit/0eb4d87afa)] - **chore**: upgrade @twreporter/react-article-components@1.2.3 (Taylor Fang)
+- [[`e07a3983c0`](https://github.com/twreporter/twreporter-react/commit/e07a3983c0)] - **chore**: upgrade @twreporter/react-article-components@1.2.3-rc.0 (Taylor Fang)
+
 ## 4.5.4
 
 ### Commits
@@ -8,7 +19,7 @@
 - [[`93a5fe0297`](https://github.com/twreporter/twreporter-react/commit/93a5fe0297)] - **fix**: typo in constants/prop-type.js (nickhsine)
 - [[`f4fde58922`](https://github.com/twreporter/twreporter-react/commit/f4fde58922)] - Merge pull request #1693 from taylrj/master (Tai-Jiun Fang)
 
-## 4.5.3 (Current), 2020-09-03
+## 4.5.3
 
 ### Notable Changes
 
