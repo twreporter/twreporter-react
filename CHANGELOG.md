@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.5-rc.0
+
+### Commits
+
+- [[`e07a3983c0`](https://github.com/twreporter/twreporter-react/commit/e07a3983c0)] - **chore**: upgrade @twreporter/react-article-components@1.2.3-rc.0 (Taylor Fang)
+
 ## 4.5.4 (Current), 2020-09-04
 
 ### Commits
