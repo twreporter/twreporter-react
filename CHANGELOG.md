@@ -1,5 +1,84 @@
 # Changelog
 
+## 4.5.6 (Current), 2020-09-10
+
+### Commits
+
+- [[`ef20ef1ea9`](https://github.com/twreporter/twreporter-react/commit/ef20ef1ea9)] - **chore**: yarn add @twreporter/core@^1.2.1 (nickhsine)
+- [[`c271439b9e`](https://github.com/twreporter/twreporter-react/commit/c271439b9e)] - Merge pull request #1706 from taylrj/master (Tai-Jiun Fang)
+
+## 4.5.5, 2020-09-08
+
+### Notable Changes
+
+- chore: upgrade @twreporter/react-article-components@1.2.3
+
+### Commits
+
+- [[`0eb4d87afa`](https://github.com/twreporter/twreporter-react/commit/0eb4d87afa)] - **chore**: upgrade @twreporter/react-article-components@1.2.3 (Taylor Fang)
+- [[`e07a3983c0`](https://github.com/twreporter/twreporter-react/commit/e07a3983c0)] - **chore**: upgrade @twreporter/react-article-components@1.2.3-rc.0 (Taylor Fang)
+
+## 4.5.4
+
+### Commits
+
+- [[`b34dcf8473`](https://github.com/twreporter/twreporter-react/commit/b34dcf8473)] - **chore**: update dependencies (nickhsine)
+- [[`93a5fe0297`](https://github.com/twreporter/twreporter-react/commit/93a5fe0297)] - **fix**: typo in constants/prop-type.js (nickhsine)
+- [[`f4fde58922`](https://github.com/twreporter/twreporter-react/commit/f4fde58922)] - Merge pull request #1693 from taylrj/master (Tai-Jiun Fang)
+
+## 4.5.3
+
+### Notable Changes
+
+- refactor about-us page: extract out config which will be stored in gcs
+
+### Commits
+
+- [[`db90e59a16`](https://github.com/twreporter/twreporter-react/commit/db90e59a16)] - refactor(about-us): eslint fixes (Taylor Fang)
+- [[`0ed242aaaa`](https://github.com/twreporter/twreporter-react/commit/0ed242aaaa)] - refactor(about-us): remove unused files (Taylor Fang)
+- [[`7cd84dad6a`](https://github.com/twreporter/twreporter-react/commit/7cd84dad6a)] - refactor(about-us): remove unused code (Taylor Fang)
+- [[`620ba110a4`](https://github.com/twreporter/twreporter-react/commit/620ba110a4)] - docs(about-us): add jsdoc (Taylor Fang)
+- [[`a89572e4c2`](https://github.com/twreporter/twreporter-react/commit/a89572e4c2)] - refactor(about-us): extract out `awardYears` and `groupedByAwardAndYear` (Taylor
+  Fang)
+- [[`159d009962`](https://github.com/twreporter/twreporter-react/commit/159d009962)] - fix(about-us): update config prefix (Taylor Fang)
+- [[`e82b280f2b`](https://github.com/twreporter/twreporter-react/commit/e82b280f2b)] - refactor(about-us): remove `console.error` (Taylor Fang)
+- [[`2b7c5e5e59`](https://github.com/twreporter/twreporter-react/commit/2b7c5e5e59)] - fix(about-us): get config url by release branch (Taylor Fang)
+- [[`fb0d555733`](https://github.com/twreporter/twreporter-react/commit/fb0d555733)] - fix(about-us): update section4 config with latest data (Taylor Fang)
+- [[`b9ee0ef070`](https://github.com/twreporter/twreporter-react/commit/b9ee0ef070)] - fix(about-us): update section3 config with latest data (Taylor Fang)
+- [[`847557e8c6`](https://github.com/twreporter/twreporter-react/commit/847557e8c6)] - refactor(about-us): refactor section2 of about-us page (Taylor Fang)
+- [[`1a20bd61a4`](https://github.com/twreporter/twreporter-react/commit/1a20bd61a4)] - fix(about-us): update section2 config with latest data (Taylor Fang)
+- [[`880199095c`](https://github.com/twreporter/twreporter-react/commit/880199095c)] - refactor(about-us): refactor section5 of about-us page (Taylor Fang)
+- [[`3948cfcf54`](https://github.com/twreporter/twreporter-react/commit/3948cfcf54)] - fix(about-us): update section5 config with latest data (Taylor Fang)
+- [[`12187d59aa`](https://github.com/twreporter/twreporter-react/commit/12187d59aa)] - fix(about-us): bug fix in section4 (Taylor Fang)
+- [[`ac36004503`](https://github.com/twreporter/twreporter-react/commit/ac36004503)] - refactor(about-us): refactor section4 of about-us page (Taylor Fang)
+- [[`ead7bf7c13`](https://github.com/twreporter/twreporter-react/commit/ead7bf7c13)] - refactor(about-us): refactor section3 of about-us page (Taylor Fang)
+- [[`4267c930b3`](https://github.com/twreporter/twreporter-react/commit/4267c930b3)] - feat(about-us): add testing configs (Taylor Fang)
+
+## 4.5.2
+
+### Notable Changes
+
+- perf(article-page|topic-landing-page): - use memoize-one to avoid re-rendering
+
+### Commits
+
+- [[`7500517814`](https://github.com/twreporter/twreporter-react/commit/7500517814)] - Merge pull request #1687 from nickhsine/performance-tuning (nick)
+- [[`0b21292326`](https://github.com/twreporter/twreporter-react/commit/0b21292326)] - **refactor**: use memoize-one to avoid re-rendering (nickhsine)
+
+## 4.5.1
+
+### Notable Changes
+
+- fix: update footer when host or pathname changes (Taylor Fang)
+
+### Commits
+
+- [[`a773b546fd`](https://github.com/twreporter/twreporter-react/commit/a773b546fd)] - **chore**: upgrade deps (Taylor Fang)
+- [[`67e8242566`](https://github.com/twreporter/twreporter-react/commit/67e8242566)] - **chore**: upgrade deps (Taylor Fang)
+- [[`225662dfad`](https://github.com/twreporter/twreporter-react/commit/225662dfad)] - **fix**: update footer when host or pathname changes (Taylor Fang)
+
+* [[`46695c8c8a`](https://github.com/twreporter/twreporter-react/commit/46695c8c8a)] - Merge pull request #1684 from taylrj/master (Tai-Jiun Fang)
+
 ## 4.5.0
 
 ### Notable Changes

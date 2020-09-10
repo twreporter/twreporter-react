@@ -8,6 +8,7 @@ import ReadingProgress from '../components/article/reading-progress'
 import SystemError from '../components/SystemError'
 import bsConst from '../constants/browser-storage'
 import localForage from 'localforage'
+import memoizeOne from 'memoize-one'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 import uiManager from '../managers/ui-manager'
@@ -332,6 +333,22 @@ const {
  *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
+const arePostsIdAndFullEqual = (newArgs, lastArgs) => {
+  const post1 = _.get(newArgs, 0, null)
+  const post2 = _.get(lastArgs, 0, null)
+  if (post1 && post2) {
+    if (post1.id === post2.id && post1.full === post2.full) {
+      return true
+    }
+  }
+  return false
+}
+
+const memoizeShallowCloneFullPost = memoizeOne(
+  cloneUtils.shallowCloneFullPost,
+  arePostsIdAndFullEqual
+)
+
 /**
  *  This function returns a post which is cloned from entities state.
  *  @param {ReduxState} state
@@ -340,7 +357,7 @@ const {
  */
 function postProp(state, id) {
   const post = _.get(state, [entities, postsInEntities, 'byId', id], null)
-  return cloneUtils.shallowCloneFullPost(post)
+  return memoizeShallowCloneFullPost(post)
 }
 
 /**

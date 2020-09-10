@@ -9,6 +9,7 @@ import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Related from '../components/topic/related'
+import memoizeOne from 'memoize-one'
 import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
@@ -272,6 +273,22 @@ const {
  *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
+const areTopicsIdAndFullEqual = (newArgs, lastArgs) => {
+  const topic1 = _.get(newArgs, 0, null)
+  const topic2 = _.get(lastArgs, 0, null)
+  if (topic1 && topic2) {
+    if (topic1.id === topic2.id && topic1.full === topic2.full) {
+      return true
+    }
+  }
+  return false
+}
+
+const memoizeShallowCloneFullTopic = memoizeOne(
+  cloneUtils.shallowCloneFullTopic,
+  areTopicsIdAndFullEqual
+)
+
 /**
  *  This function returns a topic which is cloned from entities state.
  *  @param {ReduxState} state
@@ -280,7 +297,7 @@ const {
  */
 function topicProp(state, id) {
   const topic = _.get(state, [entities, topicsInEntities, 'byId', id], null)
-  return cloneUtils.shallowCloneFullTopic(topic)
+  return memoizeShallowCloneFullTopic(topic)
 }
 
 /**

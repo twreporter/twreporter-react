@@ -1,34 +1,25 @@
+import AwardsNameList from './awards-name-list'
+import Content from './content'
+import React, { PureComponent } from 'react'
+import awardsName from '../constants/section-03/awards-name.json'
+import axios from 'axios'
 import colors from '../../../constants/colors'
+import configs, { sections } from '../configs'
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
+import styled from 'styled-components'
 import { font, marginBetweenSections } from '../constants/styles'
 
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
-import awardsList from '../constants/section-03/awards.json'
-import awardsName from '../constants/section-03/awards-name.json'
-import AwardsNameList from './awards-name-list'
-import Content from './content'
-import groupBy from 'lodash/groupBy'
-import keys from 'lodash/keys'
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
+// lodash
+import get from 'lodash/get'
 
 const _ = {
-  groupBy,
-  keys,
+  get,
 }
 
-const groupedAwards = _.groupBy(awardsList, award => award.awardId)
-
-const awardGroupByNameAndYear = awardsName.map(name =>
-  _.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])
-)
-
-const awardYearList = awardsName.map(name =>
-  _.keys(
-    _.groupBy(groupedAwards[name.awardId], record => record.date.split('/')[0])
-  ).reverse()
-)
+const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
@@ -282,21 +273,22 @@ const YearRange = styled.p`
 export default class Section3 extends PureComponent {
   constructor(props) {
     super(props)
-    this.minMaxYear = this._getYearRange(awardsList)
     this.state = {
-      activeAwardId: awardsName[0].awardId,
-      activeAwardIndex: 0,
+      activeAward: awardsName[0].award,
       activeYearIndex: 0,
       carouselPageIndex: 1,
-      currentDataList: groupedAwards[awardsName[0].awardId],
       transitionEffect: true,
+      config: null,
     }
   }
 
-  _selectAward = (awardId, awardIndex) => {
+  componentDidMount() {
+    this._getConfig()
+  }
+
+  _selectAward = award => {
     this.setState({
-      activeAwardId: awardId,
-      activeAwardIndex: awardIndex,
+      activeAward: award,
       activeYearIndex: 0,
     })
   }
@@ -307,31 +299,35 @@ export default class Section3 extends PureComponent {
     })
   }
 
-  /**
-   *  Given data list and return the max and min year of current data
-   *  @param {Array} list
-   *  @returns {Array} [maxYear, minYear]
-   */
-  _getYearRange = list => {
-    return list
-      .map(item => Number(item.date.split('/')[0]))
-      .reduce((accumulator, currentValue) => {
-        return [
-          !accumulator[0]
-            ? currentValue
-            : Math.min(currentValue, accumulator[0]),
-          !accumulator[1]
-            ? currentValue
-            : Math.max(currentValue, accumulator[1]),
-        ]
-      }, [])
+  _getConfig = () => {
+    return axios
+      .get(configs[sections.section3])
+      .then(res => {
+        this.setState({ config: _.get(res, 'data') })
+      })
+      .catch(err => {
+        logger.errorReport({
+          report: err,
+          message:
+            'Something went wrong during getting configs for about-us page section3',
+        })
+      })
   }
 
   render() {
-    const { activeYearIndex, activeAwardIndex, activeAwardId } = this.state
-    const currentYear = awardYearList[activeAwardIndex][activeYearIndex]
-    const selectedDataList =
-      awardGroupByNameAndYear[activeAwardIndex][currentYear]
+    const { config, activeYearIndex, activeAward } = this.state
+    const groupedRecords = _.get(config, 'groupedRecords')
+    const awardYears = _.get(config, 'awardYears')
+    const maxYear = _.get(config, 'yearInterval.max')
+    const minYear = _.get(config, 'yearInterval.min')
+    const total = _.get(config, 'total', 0)
+    const currentYear = _.get(awardYears, `${activeAward}.${activeYearIndex}`)
+    const selectedRecords = _.get(
+      groupedRecords,
+      `${activeAward}.${currentYear}`,
+      []
+    )
+
     return (
       <Container>
         <SectionWrapper>
@@ -344,9 +340,9 @@ export default class Section3 extends PureComponent {
             <ListSelector>
               <AwardsNameList
                 awardsName={awardsName}
-                activeAwardId={activeAwardId}
+                activeAward={activeAward}
                 selectAward={this._selectAward}
-                awardYearList={awardYearList}
+                awardYears={awardYears}
                 selectYear={this._selectYear}
                 activeYearIndex={activeYearIndex}
               />
@@ -359,7 +355,7 @@ export default class Section3 extends PureComponent {
                     `${storageUrlPrefix}/rice-ear-black.png`
                   )}`}
                 />
-                <h2>{awardsList.length}</h2>
+                <h2>{total}</h2>
                 <p>件</p>
                 <img
                   src={`${replaceGCSUrlOrigin(
@@ -368,17 +364,16 @@ export default class Section3 extends PureComponent {
                 />
               </AwardsCount>
               <YearRange>
-                {this.minMaxYear[0]}-{this.minMaxYear[1]}
+                {minYear}-{maxYear}
               </YearRange>
             </Achievement>
           </LeftColumnOnDesktopAbove>
           <Content
-            gotoNextPage={this._gotoNextPage}
-            activeAwardId={activeAwardId}
-            selectedDataList={selectedDataList}
-            fulldatalist={awardGroupByNameAndYear}
-            awardNamelist={awardsName}
-            awardYearList={awardYearList}
+            activeAward={activeAward}
+            selectedRecords={selectedRecords}
+            fullRecords={groupedRecords}
+            awardsName={awardsName}
+            awardYears={awardYears}
             activeYearIndex={activeYearIndex}
           />
         </SectionWrapper>

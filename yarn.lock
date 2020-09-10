@@ -464,6 +464,15 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.2.1.tgz#b78649551f34e24aba1e0bbb4a62cbfed5ecb394"
+  integrity sha512-v74tn/U+PmGQ8zNRBKt1C+WBqNzzGj4ogAJxFiErPYgAJ+MrajpS0vUjYhrRgLDGTY0wO4F2w1cpS4+xDB642g==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.9.tgz#c628f500312660fcb8fc3e68eb1f5fe2a639dc04"
@@ -481,13 +490,13 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.2.0.tgz#f91a636a345f1faac96be12afed2cb8d1c076104"
-  integrity sha512-pD4Orh/PdTLKz22aswwkqYlG4rNga42fRAd+hSXlzAVL4A/IQWXhVNMJhmnIP0D9RQekB87SRtCrzfYxbRCNIA==
+"@twreporter/react-article-components@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.2.3.tgz#bfc256f6232947a180ebcc239f5a208d5d8d2aa8"
+  integrity sha512-5B6UgOri+KD3RK2ny7x1NQqLY75EisvIf67HpeCMRMFRRg9X5sZ8xKZB9HEB/BA/ajUeK824fioUTihVjPyduA==
   dependencies:
     "@twreporter/core" "^1.2.0"
-    "@twreporter/react-components" "^8.2.3"
+    "@twreporter/react-components" "^8.3.1"
     "@twreporter/redux" "^7.0.0"
     "@twreporter/universal-header" "^2.1.7"
     howler "^2.1.1"
@@ -499,10 +508,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.2.3", "@twreporter/react-components@^8.2.3":
-  version "8.2.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.2.3.tgz#ba6ef5a3a87be9875b44525ea4f5a30720ff9802"
-  integrity sha512-fXL1QlOJRAayOkTKRu0Q3XIllA+oJ13lqwgl4Zd/6IRQinRQyn+K8OMUb47X8NKb6gPFWU+zhDkyBVqQKuvmfw==
+"@twreporter/react-components@^8.3.1":
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.3.1.tgz#07226de3ac4351444ad54a2403ee96226138867d"
+  integrity sha512-/EqQs5VdcARcDf7Q6XbE+I5D2ZeiKGYOszXxyqQEFa3Y0uW1TPjpM2UrjpJGW2OhwoQ72lSP9LvlJTZajToi3w==
   dependencies:
     "@twreporter/core" "^1.2.0"
     "@twreporter/redux" "^7.0.0"

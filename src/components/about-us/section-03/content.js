@@ -146,39 +146,35 @@ export default class Content extends PureComponent {
   }
   render() {
     const { page } = this.state
-    const {
-      selectedDataList,
-      fulldatalist,
-      awardNamelist,
-      awardYearList,
-      activeAwardId,
-      activeYearIndex,
-    } = this.props
-    const pagesLength = Math.ceil(
-      selectedDataList.length / awardsNumberInSinglePage
-    )
+    const { selectedRecords, fullRecords, awardsName, awardYears, activeAward, activeYearIndex } = this.props
+    let pagesLength = 0
     let paginatedAwardsList = []
-    for (let i = 0; i < pagesLength; i++) {
-      let cursor = (i + 1) * awardsNumberInSinglePage
-      paginatedAwardsList.push(
-        selectedDataList.slice(cursor - awardsNumberInSinglePage, cursor)
-      )
+    if (selectedRecords.length > 0) {
+      pagesLength = Math.ceil(selectedRecords.length / awardsNumberInSinglePage)
+      for (let i = 0; i < pagesLength; i++) {
+        let cursor = (i + 1) * awardsNumberInSinglePage
+        paginatedAwardsList.push(selectedRecords.slice(cursor - awardsNumberInSinglePage, cursor))
+      }
     }
+
     return (
       <Container>
         <PageWrapper>
-          <PaginatedList
-            currentPage={page}
-            paginatedAwardsList={paginatedAwardsList}
-            transitionDuration={transitionDuration}
-            backToTop={this._backToTop}
-            activeAwardId={activeAwardId}
-            activeYearIndex={activeYearIndex}
-          />
+          { 
+            paginatedAwardsList.length > 0 ?
+              <PaginatedList
+                currentPage={page}
+                paginatedAwardsList={paginatedAwardsList}
+                transitionDuration={transitionDuration}
+                backToTop={this._backToTop}
+                activeAward={activeAward}
+                activeYearIndex={activeYearIndex}
+              /> : null
+          }
           <AccordionList
-            awardNamelist={awardNamelist}
-            fulldatalist={fulldatalist}
-            awardYearList={awardYearList}
+            awardsName={awardsName}
+            fullRecords={fullRecords}
+            awardYears={awardYears}
             transitionDuration={transitionDuration}
           />
           <SemiTransparentMask position={'bottom'} />
@@ -215,20 +211,20 @@ export default class Content extends PureComponent {
 }
 
 Content.defaultProps = {
-  selectedDataList: [],
-  fulldatalist: [],
-  awardNamelist: [],
-  awardYearlist: [],
-  activeAwardId: '',
-  activeYearIndex: 0,
+  transitionDuration: '100ms',
+  selectedRecords: [],
+  fullRecords: {},
+  awardsName: [],
+  awardYears: {},
+  activeAward: '',
+  activeYearIndex:0 
 }
 
 Content.propTypes = {
-  awardYearList: PropTypes.array,
-  selectedDataList: PropTypes.array.isRequired,
-  fulldatalist: PropTypes.array.isRequired,
-  awardNamelist: PropTypes.array.isRequired,
-  awardYearlist: PropTypes.array.isRequired,
-  activeAwardId: PropTypes.string.isRequired,
-  activeYearIndex: PropTypes.number.isRequired,
+  selectedRecords: PropTypes.array,
+  fullRecords: PropTypes.object,
+  awardsName: PropTypes.array,
+  awardYears: PropTypes.object,
+  activeAward: PropTypes.string,
+  activeYearIndex: PropTypes.number
 }

@@ -16,16 +16,14 @@ import { storageUrlPrefix } from '../utils/config'
 // lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
-import groupBy from 'lodash/groupBy'
 import isEqual from 'lodash/isEqual'
-import values from 'lodash/values'
+
+const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
 const _ = {
   assign,
   debounce,
-  groupBy,
   isEqual,
-  values,
 }
 
 const categoriesAll = categories.fundation.concat(categories.media)
@@ -379,7 +377,9 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              ref={memberList => (this.memberList[categoryIndex] = memberList)}
+              ref={memberList => {
+                this.memberList[categoryIndex] = memberList
+              }}
               shiftx={this._getShiftX(categoryIndex)}
               transitionEffect={this.state.transitionEffect}
               onTransitionEnd={event =>
@@ -393,14 +393,14 @@ export default class CarouselMemberList extends PureComponent {
                         key={index}
                         numPerPage={headcountPerPage[categoryId]}
                       >
-                        <img src={`${replaceGCSUrlOrigin(member.profile)}`} />
-                        <Info
-                          isMailIconVisible={
-                            typeof member.email !== 'undefined'
-                          }
-                        >
-                          <p>{member.job}</p>
-                          <p>{member.name}</p>
+                        <img
+                          src={`${replaceGCSUrlOrigin(
+                            `${profileUrlPrefix}${member.profile}`
+                          )}`}
+                        />
+                        <Info isMailIconVisible={Boolean(member.email)}>
+                          <p>{member['job.zh-tw']}</p>
+                          <p>{member['name.zh-tw']}</p>
                           <img
                             onClick={() => sendEmail(member.email)}
                             src={`${replaceGCSUrlOrigin(
@@ -437,7 +437,7 @@ CarouselMemberList.defaultProps = {
 }
 
 CarouselMemberList.propTypes = {
-  sendEmail: PropTypes.func.isRequired,
-  membersNumberArray: PropTypes.array.isRequired,
-  groupedMembers: PropTypes.object.isRequired,
+  sendEmail: PropTypes.func,
+  membersNumberArray: PropTypes.array,
+  groupedMembers: PropTypes.object,
 }
