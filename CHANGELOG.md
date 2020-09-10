@@ -1,6 +1,13 @@
 # Changelog
 
-## 4.5.5 (Current), 2020-09-08
+## 4.5.6 (Current), 2020-09-10
+
+### Commits
+
+- [[`ef20ef1ea9`](https://github.com/twreporter/twreporter-react/commit/ef20ef1ea9)] - **chore**: yarn add @twreporter/core@^1.2.1 (nickhsine)
+- [[`c271439b9e`](https://github.com/twreporter/twreporter-react/commit/c271439b9e)] - Merge pull request #1706 from taylrj/master (Tai-Jiun Fang)
+
+## 4.5.5, 2020-09-08
 
 ### Notable Changes
 
