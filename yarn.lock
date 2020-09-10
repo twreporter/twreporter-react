@@ -464,6 +464,15 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.2.1.tgz#b78649551f34e24aba1e0bbb4a62cbfed5ecb394"
+  integrity sha512-v74tn/U+PmGQ8zNRBKt1C+WBqNzzGj4ogAJxFiErPYgAJ+MrajpS0vUjYhrRgLDGTY0wO4F2w1cpS4+xDB642g==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.0.9.tgz#c628f500312660fcb8fc3e68eb1f5fe2a639dc04"
