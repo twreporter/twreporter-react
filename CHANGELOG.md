@@ -1,6 +1,14 @@
 # Changelog
 
-## 4.5.6 (Current), 2020-09-10
+## 4.5.7 (Current), 2020-09-14
+
+### Commits
+
+- [[`cb477f0cb9`](https://github.com/twreporter/twreporter-react/commit/cb477f0cb9)] - **chore**: yarn-deduplicate (nickhsine)
+- [[`74ecec39e9`](https://github.com/twreporter/twreporter-react/commit/74ecec39e9)] - **chore**: yarn add @twreporter/redux@^7.0.1 (nickhsine)
+- [[`b9ce372853`](https://github.com/twreporter/twreporter-react/commit/b9ce372853)] - Merge pull request #1710 from nickhsine/master (nick)
+
+## 4.5.6, 2020-09-10
 
 ### Commits
 
