@@ -8,10 +8,10 @@ import get from 'lodash/get'
 import globalEnv from '../global-env'
 import http from 'http'
 import initReduxStoreMiddleware from './middlewares/init-redux-store'
+import loggerFactory from '../logger'
 import path from 'path'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
-import loggerFactory from '../logger'
 
 const _ = {
   get,
@@ -160,19 +160,29 @@ class ExpressServer {
       authMiddleware(namespace, options),
       dataLoaderMiddleware(namespace),
       renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options),
-      (req, res) => {
-        const statusOK = 200
-        const statusRedirect = 301
-        const { html, routerStaticContext } = req[namespace]
-
+      function handleRedirect(req, res, next) {
+        const { routerStaticContext } = req[namespace]
         if (routerStaticContext.url) {
           // somewhere a `<Redirect>` was rendered
-          res.redirect(statusRedirect, routerStaticContext.url)
+          res.redirect(301, routerStaticContext.url)
           return
         }
 
-        const statusCode = _.get(routerStaticContext, 'statusCode', statusOK)
-        if (!res.headersSent && statusCode < statusRedirect) {
+        const statusCode = _.get(routerStaticContext, 'statusCode', 200)
+        res.locals.statusCode = statusCode
+        next()
+      },
+      function setResponseHeader(req, res, next) {
+        // `preivew` branch is for keystone-preview server.
+        // keystone-preview is only for internal usage, and does not need cache.
+        if (globalEnv.releaseBranch === releaseBranchConsts.preview) {
+          next()
+          return
+        }
+
+        const statusCode = res.locals.statusCode
+
+        if (!res.headersSent && statusCode < 301) {
           const idToken = _.get(req, 'cookies.id_token')
           if (idToken) {
             // not to cache personal response
@@ -182,7 +192,11 @@ class ExpressServer {
             res.header('Cache-Control', 'public, max-age=300')
           }
         }
-
+        next()
+      },
+      function sendResponse(req, res) {
+        const { html } = req[namespace]
+        const statusCode = res.locals.statusCode
         res.status(statusCode)
         res.send(html)
       },
