@@ -93,7 +93,7 @@ const param = {
   swToolBoxCode: swToolBoxCode,
   runtimeCaching: generateRuntimeCaching([
     {
-      urlPattern: new RegExp(apiURLPrefix + '/v1/posts'),
+      urlPattern: new RegExp(apiURLPrefix + '/v2/posts'),
       handler: 'networkFirst',
       options: {
         cache: {
@@ -103,7 +103,7 @@ const param = {
       },
     },
     {
-      urlPattern: new RegExp(apiURLPrefix + '/v1/topics'),
+      urlPattern: new RegExp(apiURLPrefix + '/v2/topics'),
       handler: 'networkFirst',
       options: {
         cache: {
@@ -113,7 +113,7 @@ const param = {
       },
     },
     {
-      urlPattern: new RegExp(apiURLPrefix + '/v1/index_page(_categories)?'),
+      urlPattern: new RegExp(apiURLPrefix + '/v2/index_page'),
       handler: 'networkFirst',
       options: {
         cache: {
