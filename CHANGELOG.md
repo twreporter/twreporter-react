@@ -1,6 +1,28 @@
 # Changelog
 
-## 4.5.6 (Current), 2020-09-10
+## 4.5.8 (Current), 2020-09-14
+
+### Notable Changes
+
+- [refactor: do not cache response for preview branch and update service worker runtime cache pattern](https://github.com/twreporter/twreporter-react/pull/1718)
+
+### Commits
+
+- [[`2c9a88a1d4`](https://github.com/twreporter/twreporter-react/commit/2c9a88a1d4)] - Merge pull request #1718 from nickhsine/master (nick)
+- [[`df12550d33`](https://github.com/twreporter/twreporter-react/commit/df12550d33)] - **refactor**: use statusCodeConst (nickhsine)
+- [[`0f8242fcba`](https://github.com/twreporter/twreporter-react/commit/0f8242fcba)] - **refactor**: update service-worker-generator.js (nickhsine)
+- [[`83b397f5c0`](https://github.com/twreporter/twreporter-react/commit/83b397f5c0)] - **refactor**: do not cache response for preview branch (nickhsine)
+- [[`ce93f03162`](https://github.com/twreporter/twreporter-react/commit/ce93f03162)] - Merge pull request #1715 from nickhsine/master (nick)
+
+## 4.5.7, 2020-09-14
+
+### Commits
+
+- [[`cb477f0cb9`](https://github.com/twreporter/twreporter-react/commit/cb477f0cb9)] - **chore**: yarn-deduplicate (nickhsine)
+- [[`74ecec39e9`](https://github.com/twreporter/twreporter-react/commit/74ecec39e9)] - **chore**: yarn add @twreporter/redux@^7.0.1 (nickhsine)
+- [[`b9ce372853`](https://github.com/twreporter/twreporter-react/commit/b9ce372853)] - Merge pull request #1710 from nickhsine/master (nick)
+
+## 4.5.6, 2020-09-10
 
 ### Commits
 
