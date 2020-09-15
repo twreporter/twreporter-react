@@ -333,21 +333,7 @@ const {
  *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
-const arePostsIdAndFullEqual = (newArgs, lastArgs) => {
-  const post1 = _.get(newArgs, 0, null)
-  const post2 = _.get(lastArgs, 0, null)
-  if (post1 && post2) {
-    if (post1.id === post2.id && post1.full === post2.full) {
-      return true
-    }
-  }
-  return false
-}
-
-const memoizeShallowCloneFullPost = memoizeOne(
-  cloneUtils.shallowCloneFullPost,
-  arePostsIdAndFullEqual
-)
+const memoizeShallowCloneFullPost = memoizeOne(cloneUtils.shallowCloneFullPost)
 
 /**
  *  This function returns a post which is cloned from entities state.
