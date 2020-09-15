@@ -518,10 +518,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^7.0.0", "@twreporter/redux@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.0.1.tgz#2208b68bf7eccc8f70990371cc24794d08d93e3d"
-  integrity sha512-NwBvS7kmF38nJWc4ecFaUV+fdYs7YAH2Uv1596SrBYsI6sD7E3ZxwoA4uY/COzNT8Mcki2pKksCXyFfmLSk/Ew==
+"@twreporter/redux@^7.0.0", "@twreporter/redux@7.0.2-rc.0":
+  version "7.0.2-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.0.2-rc.0.tgz#bf010428ab78ba350b60d1aed84f7f6b50d79aec"
+  integrity sha512-pwGKg4C0746FcWPuOmgLUakTqS608cMdEJQ43wmad0XoVyF8LRyx9+4m32wGP3et6nyHGBFFaS/6d8jzCGF4vA==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -3228,7 +3228,7 @@ error-ex@^1.2.0, error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
-es-abstract@^1.11.0, es-abstract@^1.17.0, es-abstract@^1.17.5, es-abstract@^1.7.0:
+es-abstract@^1.11.0, es-abstract@^1.17.0, es-abstract@^1.17.5:
   version "1.17.6"
   resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.6.tgz#9142071707857b2cacc7b89ecb670316c3e2d52a"
   integrity sha512-Fr89bON3WFyUi5EvAeI48QTWX0AyekGgLA8H+c+7fbfCkJwRWRMLd8CQedNEyJuoYYhmtEqY92pgte1FAhBlhw==
@@ -3245,7 +3245,7 @@ es-abstract@^1.11.0, es-abstract@^1.17.0, es-abstract@^1.17.5, es-abstract@^1.7.
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
-es-to-primitive@^1.2.0, es-to-primitive@^1.2.1:
+es-to-primitive@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.2.1.tgz#e55cd4c9cdc188bcefb03b366c736323fc5c898a"
   integrity sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
@@ -3795,11 +3795,6 @@ extract-zip@^1.6.6:
     debug "2.6.9"
     mkdirp "0.5.1"
     yauzl "2.4.1"
-
-fast-deep-equal@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
-  integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
 fast-deep-equal@^3.1.1:
   version "3.1.3"
@@ -5074,7 +5069,7 @@ is-redirect@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-redirect/-/is-redirect-1.0.0.tgz#1d03dded53bd8db0f30c26e4f95d36fc7c87dc24"
   integrity sha1-HQPd7VO9jbDzDCbk+V02/HyH3CQ=
 
-is-regex@^1.0.4, is-regex@^1.1.0:
+is-regex@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/is-regex/-/is-regex-1.1.1.tgz#c6f98aacc546f6cec5468a07b7b153ab564a57b9"
   integrity sha512-1+QkEcxiLlB7VEyFtyBg94e08OAsvq7FUBgApTq/w2ymCLyKJgDPsybBENVtA7XCQEgEXxKPonG+mvYRxh/LIg==
