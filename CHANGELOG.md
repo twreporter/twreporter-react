@@ -1,6 +1,26 @@
 # Changelog
 
-## 4.5.7 (Current), 2020-09-14
+## 4.5.8 (Current), 2020-09-14
+
+### Notable Changes
+
+- [refactor: do not cache response for preview branch and update service worker runtime cache pattern](https://github.com/twreporter/twreporter-react/pull/1718)
+- [fix: render stale data due to wrong memoize function](https://github.com/twreporter/twreporter-react/pull/1722)
+
+### Commits
+
+- [[`a675643c5c`](https://github.com/twreporter/twreporter-react/commit/a675643c5c)] - Merge pull request #1722 from nickhsine/fix-stale-data (nick)
+- [[`82d6f3815b`](https://github.com/twreporter/twreporter-react/commit/82d6f3815b)] - **chore**: yarn add @twreporter/redux@7.0.2-rc.0 (nickhsine)
+- [[`080991b497`](https://github.com/twreporter/twreporter-react/commit/080991b497)] - **fix**: render stale data due to wrong memoize function (nickhsine)
+- [[`979eac8ac9`](https://github.com/twreporter/twreporter-react/commit/979eac8ac9)] - Merge pull request #1719 from nickhsine/master (nick)
+- [[`c35e6ea575`](https://github.com/twreporter/twreporter-react/commit/c35e6ea575)] - **chore**: bump version to 4.5.8 (nickhsine)
+- [[`2c9a88a1d4`](https://github.com/twreporter/twreporter-react/commit/2c9a88a1d4)] - Merge pull request #1718 from nickhsine/master (nick)
+- [[`df12550d33`](https://github.com/twreporter/twreporter-react/commit/df12550d33)] - **refactor**: use statusCodeConst (nickhsine)
+- [[`0f8242fcba`](https://github.com/twreporter/twreporter-react/commit/0f8242fcba)] - **refactor**: update service-worker-generator.js (nickhsine)
+- [[`83b397f5c0`](https://github.com/twreporter/twreporter-react/commit/83b397f5c0)] - **refactor**: do not cache response for preview branch (nickhsine)
+- [[`ce93f03162`](https://github.com/twreporter/twreporter-react/commit/ce93f03162)] - Merge pull request #1715 from nickhsine/master (nick)
+
+## 4.5.7, 2020-09-14
 
 ### Commits
 

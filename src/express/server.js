@@ -9,9 +9,10 @@ import globalEnv from '../global-env'
 import http from 'http'
 import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
+import loggerFactory from '../logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
-import loggerFactory from '../logger'
+import statusCodeConst from '../constants/status-code'
 
 const _ = {
   get,
@@ -93,7 +94,7 @@ class ExpressServer {
         res.format({
           'text/plain': function() {
             res
-              .status(200)
+              .status(statusCodeConst.ok)
               .send(
                 'User-agent: * \n' +
                   'Sitemap: https://public.twreporter.org/sitemaps/www-sitemap.xml\n' +
@@ -107,7 +108,9 @@ class ExpressServer {
       // disallow search engine crawler
       res.format({
         'text/plain': function() {
-          res.status(200).send('User-agent: * \n' + 'Disallow: /')
+          res
+            .status(statusCodeConst.ok)
+            .send('User-agent: * \n' + 'Disallow: /')
         },
       })
     })
@@ -123,7 +126,7 @@ class ExpressServer {
 
   __applyHealthCheckRoutes() {
     this.app.get('/check', (req, res) => {
-      res.status(200)
+      res.status(statusCodeConst.ok)
       res.end('server is running')
     })
   }
@@ -160,19 +163,36 @@ class ExpressServer {
       authMiddleware(namespace, options),
       dataLoaderMiddleware(namespace),
       renderHTMLMiddleware(namespace, webpackAssets, loadableStats, options),
-      (req, res) => {
-        const statusOK = 200
-        const statusRedirect = 301
-        const { html, routerStaticContext } = req[namespace]
-
+      function handleRedirect(req, res, next) {
+        const { routerStaticContext } = req[namespace]
         if (routerStaticContext.url) {
           // somewhere a `<Redirect>` was rendered
-          res.redirect(statusRedirect, routerStaticContext.url)
+          res.redirect(
+            statusCodeConst.movedPermanently,
+            routerStaticContext.url
+          )
           return
         }
 
-        const statusCode = _.get(routerStaticContext, 'statusCode', statusOK)
-        if (!res.headersSent && statusCode < statusRedirect) {
+        const statusCode = _.get(
+          routerStaticContext,
+          'statusCode',
+          statusCodeConst.ok
+        )
+        res.locals.statusCode = statusCode
+        next()
+      },
+      function setResponseHeader(req, res, next) {
+        // `preivew` branch is for keystone-preview server.
+        // keystone-preview is only for internal usage, and does not need cache.
+        if (globalEnv.releaseBranch === releaseBranchConsts.preview) {
+          next()
+          return
+        }
+
+        const statusCode = res.locals.statusCode
+
+        if (!res.headersSent && statusCode < statusCodeConst.movedPermanently) {
           const idToken = _.get(req, 'cookies.id_token')
           if (idToken) {
             // not to cache personal response
@@ -182,7 +202,11 @@ class ExpressServer {
             res.header('Cache-Control', 'public, max-age=300')
           }
         }
-
+        next()
+      },
+      function sendResponse(req, res) {
+        const { html } = req[namespace]
+        const statusCode = res.locals.statusCode
         res.status(statusCode)
         res.send(html)
       },
@@ -201,14 +225,14 @@ class ExpressServer {
       }
 
       res.header('Cache-Control', 'no-store')
-      if (_.get(err, 'statusCode') === 404) {
-        res.redirect('/error/404')
+      if (_.get(err, 'statusCode') === statusCodeConst.notFound) {
+        res.redirect(`/error/${statusCodeConst.notFound}`)
       } else {
         logger.errorReport({
           report: err,
           message: 'Error was caught by Express custom error handler.',
         })
-        res.redirect('/error/500')
+        res.redirect(`/error/${statusCodeConst.internalServerError}`)
       }
     })
   }

@@ -273,20 +273,8 @@ const {
  *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
 
-const areTopicsIdAndFullEqual = (newArgs, lastArgs) => {
-  const topic1 = _.get(newArgs, 0, null)
-  const topic2 = _.get(lastArgs, 0, null)
-  if (topic1 && topic2) {
-    if (topic1.id === topic2.id && topic1.full === topic2.full) {
-      return true
-    }
-  }
-  return false
-}
-
 const memoizeShallowCloneFullTopic = memoizeOne(
-  cloneUtils.shallowCloneFullTopic,
-  areTopicsIdAndFullEqual
+  cloneUtils.shallowCloneFullTopic
 )
 
 /**
