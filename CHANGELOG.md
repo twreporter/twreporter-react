@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.5.9-rc.1
+## 4.5.9 (Current), 2020-10-08
 
 ### Notable Changes
 
@@ -12,12 +12,14 @@
 
 ### Commits
 
+- [[`af85eaa47b`](https://github.com/twreporter/twreporter-react/commit/af85eaa47b)] - Merge pull request #1730 from taylrj/master (Tai-Jiun Fang)
+- [[`0f7effdf29`](https://github.com/twreporter/twreporter-react/commit/0f7effdf29)] - **chore**: bump version to v4.5.9-rc.1 (Taylor Fang)
 - [[`a5e4514520`](https://github.com/twreporter/twreporter-react/commit/a5e4514520)] - **chore**: update @twreporter deps (Taylor Fang)
 - [[`525f411bdb`](https://github.com/twreporter/twreporter-react/commit/525f411bdb)] - Merge pull request #1728 from taylrj/master (Tai-Jiun Fang)
 - [[`7c2ea8d92c`](https://github.com/twreporter/twreporter-react/commit/7c2ea8d92c)] - **chore**: bump version to v4.5.9-rc.0 (Taylor Fang)
 - [[`28725a74e5`](https://github.com/twreporter/twreporter-react/commit/28725a74e5)] - chore(index-page): update dep @twreporter/index-page@1.1.0-rc.0 (Taylor Fang)
 
-## 4.5.8 (Current), 2020-09-14
+## 4.5.8, 2020-09-14
 
 ### Notable Changes
 
