@@ -1,9 +1,20 @@
 # Changelog
 
-## 4.5.9-rc.0
+## 4.5.9-rc.1
+
+### Notable Changes
+
+- chore: upgrade @twreporter npm deps
+  - @twreporter/index-page@1.1.0
+  - @twreporter/react-article-components@1.2.6
+  - @twreporter/react-components@8.3.4
+  - @twreporter/redux@7.0.2
 
 ### Commits
 
+- [[`a5e4514520`](https://github.com/twreporter/twreporter-react/commit/a5e4514520)] - **chore**: update @twreporter deps (Taylor Fang)
+- [[`525f411bdb`](https://github.com/twreporter/twreporter-react/commit/525f411bdb)] - Merge pull request #1728 from taylrj/master (Tai-Jiun Fang)
+- [[`7c2ea8d92c`](https://github.com/twreporter/twreporter-react/commit/7c2ea8d92c)] - **chore**: bump version to v4.5.9-rc.0 (Taylor Fang)
 - [[`28725a74e5`](https://github.com/twreporter/twreporter-react/commit/28725a74e5)] - chore(index-page): update dep @twreporter/index-page@1.1.0-rc.0 (Taylor Fang)
 
 ## 4.5.8 (Current), 2020-09-14
