@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.9-rc.0
+
+### Commits
+
+- [[`28725a74e5`](https://github.com/twreporter/twreporter-react/commit/28725a74e5)] - chore(index-page): update dep @twreporter/index-page@1.1.0-rc.0 (Taylor Fang)
+
 ## 4.5.8 (Current), 2020-09-14
 
 ### Notable Changes
