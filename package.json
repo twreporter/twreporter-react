@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.5.9",
+  "version": "4.5.10",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -29,7 +29,7 @@
     "@google-cloud/logging-winston": "^3.0.2",
     "@twreporter/core": "^1.2.1",
     "@twreporter/index-page": "^1.1.0",
-    "@twreporter/react-article-components": "^1.2.6",
+    "@twreporter/react-article-components": "^1.2.7",
     "@twreporter/react-components": "^8.3.4",
     "@twreporter/redux": "^7.0.2",
     "@twreporter/universal-header": "^2.1.6",

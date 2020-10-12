@@ -1,6 +1,13 @@
 # Changelog
 
-## 4.5.9 (Current), 2020-10-08
+## 4.5.10 (Current), 2020-10-12
+
+### Commits
+
+- [[`f58dd26600`](https://github.com/twreporter/twreporter-react/commit/f58dd26600)] - **chore**: upgrade dependency (nickhsine)
+- [[`1ee8ff96c2`](https://github.com/twreporter/twreporter-react/commit/1ee8ff96c2)] - Merge pull request #1732 from taylrj/master (Tai-Jiun Fang)
+
+## 4.5.9, 2020-10-08
 
 ### Notable Changes
 
