@@ -22,7 +22,7 @@ const logger = loggerFactory.getLogger()
 
 class ExpressServer {
   constructor() {
-    this.app = new Express()
+    this.app = Express()
     this.server = new http.Server(this.app)
   }
 
@@ -224,15 +224,46 @@ class ExpressServer {
         return next(err)
       }
 
+      // do not cache error response
       res.header('Cache-Control', 'no-store')
-      if (_.get(err, 'statusCode') === statusCodeConst.notFound) {
-        res.redirect(`/error/${statusCodeConst.notFound}`)
-      } else {
-        logger.errorReport({
-          report: err,
-          message: 'Error was caught by Express custom error handler.',
-        })
-        res.redirect(`/error/${statusCodeConst.internalServerError}`)
+
+      const errStatusCode = _.get(err, 'statusCode') || _.get(err, 'status')
+
+      switch (errStatusCode) {
+        case statusCodeConst.notFound: {
+          // redirect to 404 error page
+          res.redirect(`/error/${statusCodeConst.notFound}`)
+          return
+        }
+        case statusCodeConst.internalServerError: {
+          // error reporting
+          logger.errorReport({
+            report: err,
+            message: 'Error was caught by Express custom error handler.',
+          })
+          // redirect to 500 error page
+          res.redirect(`/error/${statusCodeConst.internalServerError}`)
+          return
+        }
+        default: {
+          if (errStatusCode < statusCodeConst.internalServerError) {
+            // log client error
+            logger.info(
+              'Client error was caught by Express custom error handler: ',
+              err
+            )
+          } else {
+            // server error report
+            logger.errorReport({
+              report: err,
+              message:
+                'Server error (but not internal server error) was caught by Express custom error handler.',
+            })
+          }
+
+          // TODO: render error page with follow-up guidance to end users
+          res.sendStatus(errStatusCode)
+        }
       }
     })
   }
