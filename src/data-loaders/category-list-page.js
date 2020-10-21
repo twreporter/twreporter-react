@@ -2,6 +2,7 @@ import querystring from 'querystring'
 import get from 'lodash/get'
 import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
+import statusCodeConst from '../constants/status-code'
 
 const _ = {
   get,
@@ -34,6 +35,19 @@ export default function loadData({ location, match, store }) {
 
   const pathSegment = _.get(match, 'params.category', '')
   const catId = categoryConst.ids[pathSegment]
+
+  if (!catId) {
+    // return status NotFound if catId not existed
+    const failAction = {
+      payload: {
+        error: {
+          statusCode: statusCodeConst.notFound,
+        },
+      },
+    }
+    return Promise.reject(failAction)
+  }
+
   return store.actions.fetchPostsByCategoryListId(
     catId,
     dataLoaderConst.categoryListPage.nPerPage,
