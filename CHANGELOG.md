@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.5.10 (Current), 2020-10-12
+## 4.5.11 (Current), 2020-10-21
+
+### Notable Changes
+
+- [fix: handle other errors except for 404 and 500 errors](https://github.com/twreporter/twreporter-react/pull/1739)
+- [fix: handle catId not existed. return 404 not found res](https://github.com/twreporter/twreporter-react/pull/1738)
+
+### Commits
+
+- [[`fec0c50341`](https://github.com/twreporter/twreporter-react/commit/fec0c50341)] - Merge pull request #1739 from nickhsine/express-custom-error (nick)
+- [[`2c3d4f2b28`](https://github.com/twreporter/twreporter-react/commit/2c3d4f2b28)] - **fix**: handle other errors except for 404 and 500 errors (nickhsine)
+- [[`2740c0eeec`](https://github.com/twreporter/twreporter-react/commit/2740c0eeec)] - Merge pull request #1738 from nickhsine/master (nick)
+- [[`8e1b78ac49`](https://github.com/twreporter/twreporter-react/commit/8e1b78ac49)] - **fix**: handle catId not existed. return 404 not found res (nickhsine)
+- [[`acacf6e18d`](https://github.com/twreporter/twreporter-react/commit/acacf6e18d)] - Merge pull request #1735 from nickhsine/master (nick)
+
+## 4.5.10, 2020-10-12
 
 ### Commits
 
