@@ -29,7 +29,7 @@ class ExpressServer {
   /**
    *  @param {string} cookieSecret - secret for cookie parser
    */
-  __applyDefaultMiddlewares(cookieSecret) {
+  __applyThirdPartyMiddlewares(cookieSecret) {
     this.app.use(Compression())
     this.app.use(cookieParser(cookieSecret))
   }
@@ -213,7 +213,7 @@ class ExpressServer {
     ])
   }
 
-  __applyCustomErrorHandler() {
+  __applyDefaultErrorHandler() {
     this.app.use((err, req, res, next) => {
       if (res.headersSent) {
         logger.errorReport({
@@ -232,24 +232,13 @@ class ExpressServer {
       switch (errStatusCode) {
         case statusCodeConst.notFound: {
           // redirect to 404 error page
-          res.redirect(`/error/${statusCodeConst.notFound}`)
-          return
-        }
-        case statusCodeConst.internalServerError: {
-          // error reporting
-          logger.errorReport({
-            report: err,
-            message: 'Error was caught by Express custom error handler.',
-          })
-          // redirect to 500 error page
-          res.redirect(`/error/${statusCodeConst.internalServerError}`)
-          return
+          return res.redirect(`/error/${statusCodeConst.notFound}`)
         }
         default: {
           if (errStatusCode < statusCodeConst.internalServerError) {
             // log client error
             logger.info(
-              'Client error was caught by Express custom error handler: ',
+              'Client error was caught by Express default error handler: ',
               err
             )
           } else {
@@ -257,12 +246,11 @@ class ExpressServer {
             logger.errorReport({
               report: err,
               message:
-                'Server error (but not internal server error) was caught by Express custom error handler.',
+                'Server error was caught by Express default error handler.',
             })
           }
 
-          // TODO: render error page with follow-up guidance to end users
-          res.sendStatus(errStatusCode)
+          return res.redirect(`/error/${errStatusCode}`)
         }
       }
     })
@@ -290,7 +278,7 @@ class ExpressServer {
    */
   async setup(webpackAssets, loadableStats, options) {
     await this.__applyLogger()
-    this.__applyDefaultMiddlewares(options.cookieSecret)
+    this.__applyThirdPartyMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
     if (globalEnv.isProduction) {
@@ -299,7 +287,7 @@ class ExpressServer {
     this.__applySearchEngineRoutes()
     this.__applyHealthCheckRoutes()
     this.__applyAppRoutes(webpackAssets, loadableStats, options)
-    this.__applyCustomErrorHandler()
+    this.__applyDefaultErrorHandler()
   }
 
   /**
