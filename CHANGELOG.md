@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.5.11 (Current), 2020-10-21
+## 4.5.12 (Current), 2020-10-28
+
+### Notable Changes
+
+- [fix: handle author page 404 error](https://github.com/twreporter/twreporter-react/pull/1743)
+
+### Commits
+
+- [[`4db53d63a7`](https://github.com/twreporter/twreporter-react/commit/4db53d63a7)] - Merge pull request #1743 from nickhsine/author-details-404 (nick)
+- [[`d3a0a72bc2`](https://github.com/twreporter/twreporter-react/commit/d3a0a72bc2)] - **fix**: handle author page 404 error (nickhsine)
+- [[`82b8b779a9`](https://github.com/twreporter/twreporter-react/commit/82b8b779a9)] - Merge pull request #1740 from nickhsine/master (nick)
+
+## 4.5.11, 2020-10-21
 
 ### Notable Changes
 
