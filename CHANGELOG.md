@@ -1,6 +1,22 @@
 # Changelog
 
-## 4.5.12 (Current), 2020-10-28
+## 4.5.13 (Current), 2020-11-12
+
+### Notable Changes
+
+- [refactor: update express server error handling](https://github.com/twreporter/twreporter-react/pull/1744)
+- [chore: add @twreporter/redux@^7.0.4](https://github.com/twreporter/twreporter-react/pull/1748)
+
+### Commits
+
+- [[`61d3a048da`](https://github.com/twreporter/twreporter-react/commit/61d3a048da)] - **chore**: update package.json#version to 4.5.13 (nickhsine)
+- [[`5fe9c50564`](https://github.com/twreporter/twreporter-react/commit/5fe9c50564)] - Merge pull request #1748 from nickhsine/master (nick)
+- [[`e91be09dfb`](https://github.com/twreporter/twreporter-react/commit/e91be09dfb)] - **chore**: add @twreporter/redux@^7.0.4 (nickhsine)
+- [[`706951d9a8`](https://github.com/twreporter/twreporter-react/commit/706951d9a8)] - Merge pull request #1744 from nickhsine/refactor-error-handling (nick)
+- [[`a512875fa6`](https://github.com/twreporter/twreporter-react/commit/a512875fa6)] - **refactor**: update express server error handling (nickhsine)
+- [[`60881fd86c`](https://github.com/twreporter/twreporter-react/commit/60881fd86c)] - Merge pull request #1745 from nickhsine/master (nick)
+
+## 4.5.12, 2020-10-28
 
 ### Notable Changes
 
@@ -8,6 +24,7 @@
 
 ### Commits
 
+- [[`ba27a4200a`](https://github.com/twreporter/twreporter-react/commit/ba27a4200a)] - chore: update CHANGELOG.md and package.json#version for 4.5.12
 - [[`4db53d63a7`](https://github.com/twreporter/twreporter-react/commit/4db53d63a7)] - Merge pull request #1743 from nickhsine/author-details-404 (nick)
 - [[`d3a0a72bc2`](https://github.com/twreporter/twreporter-react/commit/d3a0a72bc2)] - **fix**: handle author page 404 error (nickhsine)
 - [[`82b8b779a9`](https://github.com/twreporter/twreporter-react/commit/82b8b779a9)] - Merge pull request #1740 from nickhsine/master (nick)
