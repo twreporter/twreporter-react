@@ -455,7 +455,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@^1.2.0", "@twreporter/core@^1.2.1":
+"@twreporter/core@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.2.1.tgz#b78649551f34e24aba1e0bbb4a62cbfed5ecb394"
   integrity sha512-v74tn/U+PmGQ8zNRBKt1C+WBqNzzGj4ogAJxFiErPYgAJ+MrajpS0vUjYhrRgLDGTY0wO4F2w1cpS4+xDB642g==
@@ -518,10 +518,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^7.0.2", "@twreporter/redux@^7.0.3":
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.0.3.tgz#807f7519f8f0f02f99e3bcfbe99264b5f3b853b6"
-  integrity sha512-o4ptVZCfBakrcpa4mvRNQZCxdihW0/MURNGtWcOwRAoy9/vrEYMjNiTA3HkuxH12v2qL4dqjRJKnL1BDV9oPzA==
+"@twreporter/redux@^7.0.2", "@twreporter/redux@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.0.4.tgz#1e58c20ff436d94f118b4d7119f239a65e2b97d1"
+  integrity sha512-jknEZ8pRorFDb2nfJmFEdq4bbiKpNywQ6969ax9VCO4hIvuzrvJOpWLPYWZZELzcCjLhUrJI4cEDndGoYHNUww==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
