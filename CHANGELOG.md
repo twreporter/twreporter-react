@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.5.13 (Current), 2020-11-12
+## 4.5.14 (Current), 2020-11-13
+
+### Notable Changes
+
+- [chore: add @twreporter/redux@^7.0.5](https://github.com/twreporter/twreporter-react/pull/1754)
+
+### Commits
+
+- [[`5ff9faa366`](https://github.com/twreporter/twreporter-react/commit/5ff9faa366)] - Merge pull request #1754 from nickhsine/master (nick)
+- [[`91c427c888`](https://github.com/twreporter/twreporter-react/commit/91c427c888)] - **chore**: add @twreporter/redux@^7.0.5 (nickhsine)
+- [[`f0f112872e`](https://github.com/twreporter/twreporter-react/commit/f0f112872e)] - Merge pull request #1752 from nickhsine/master (nick)
+
+## 4.5.13, 2020-11-12
 
 ### Notable Changes
 
