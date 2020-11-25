@@ -133,7 +133,7 @@ jobs:
           name: Install kustomize binaries
           command: |
             curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
-            kustomize version
+            mv ./kustomize /usr/local/bin/
 
       - run:
           name: Prepare for kubernetes config build
