@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.5.14 (Current), 2020-11-13
+## 4.5.15 (Current), 2020-12-03
+
+### Notable Changes
+
+- chore: fix kustomize installation path
+- fix: update html.js with right rss feed
+
+### Commits
+
+- [[`856bb7a228`](https://github.com/twreporter/twreporter-react/commit/856bb7a228)] - Merge pull request #1760 from typebrook/rss (Tai-Jiun Fang)
+- [[`6f6a63c7b7`](https://github.com/twreporter/twreporter-react/commit/6f6a63c7b7)] - Update html.js with right rss feed (Hsieh Chin Fan)
+- [[`5ead1112c3`](https://github.com/twreporter/twreporter-react/commit/5ead1112c3)] - Merge pull request #1759 from babygoat/update-kustomize-installation (babygoat)
+- [[`ea38edf658`](https://github.com/twreporter/twreporter-react/commit/ea38edf658)] - **chore**: fix kustomize installation path (Ching-Yang, Tseng)
+- [[`17d0c3274a`](https://github.com/twreporter/twreporter-react/commit/17d0c3274a)] - Merge pull request #1756 from babygoat/update-kustomize-installation (babygoat)
+
+## 4.5.14, 2020-11-13
 
 ### Notable Changes
 
