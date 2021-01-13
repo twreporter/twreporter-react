@@ -80,8 +80,9 @@ export default class RelatedItems extends PureComponent {
   _renderItem(item, index) {
     const charLimit = 120
     const components = selectComponentsByFormat(this.props.format)
+    const imgObj = _.get(item, 'hero_image') || _.get(item, 'og_image')
     const image = replaceGCSUrlOrigin(
-      _.get(item, 'hero_image.resized_targets.mobile', defaultPostImage)
+      _.get(imgObj, 'resized_targets.mobile', defaultPostImage)
     )
     const id = _.get(item, 'id', `item-${index}`)
     const slug = _.get(item, 'slug', '')
