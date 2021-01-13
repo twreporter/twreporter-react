@@ -1,15 +1,18 @@
 # Changelog
 
-## 4.5.16-rc.0, 2021-01-13
+## 4.5.16-rc.1, 2021-01-13
 
 ### Notable Changes
 
+- feat
+  - use `og_image` as image fallback for topic landing page
 - chore: upgrade deps as follows
   - @twreporter/react-article-components@1.2.11-rc.0
   - @twreporter/react-components@8.3.8-rc.0
 
 ### Commits
 
+- [[`9a8647c641`](https://github.com/twreporter/twreporter-react/commit/9a8647c641)] - **feat**: use `og\_image` as image fallback for topic landing page (#1727) (Tai-Jiun Fang)
 - [[`a7f0d2783e`](https://github.com/twreporter/twreporter-react/commit/a7f0d2783e)] - **chore**: upgrade deps (Taylor Fang)
 
 ## 4.5.15 (Current), 2020-12-03
