@@ -7,8 +7,8 @@
 - feat
   - use `og_image` as image fallback for topic landing page
 - chore: upgrade deps as follows
-  - @twreporter/react-article-components@1.2.11-rc.0
-  - @twreporter/react-components@8.3.8-rc.0
+  - @twreporter/react-article-components@1.2.11
+  - @twreporter/react-components@8.3.8
 
 ### Commits
 
