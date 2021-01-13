@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.5.16-rc.0, 2021-01-13
+
+### Notable Changes
+
+- chore: upgrade deps as follows
+  - @twreporter/react-article-components@1.2.11-rc.0
+  - @twreporter/react-components@8.3.8-rc.0
+
+### Commits
+
+- [[`a7f0d2783e`](https://github.com/twreporter/twreporter-react/commit/a7f0d2783e)] - **chore**: upgrade deps (Taylor Fang)
+
 ## 4.5.15 (Current), 2020-12-03
 
 ### Notable Changes
