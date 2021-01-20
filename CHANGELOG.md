@@ -1,20 +1,23 @@
 # Changelog
 
-## 4.6.0-rc.0
+## 4.6.0 (Current), 2021-01-20
 
 ### Notable Changes
 
 - feat
   - add podcast box section to homepage
 - chore: upgrade deps as follows
-  - @twreporter/index-page@1.2.0-rc.0
-  - @twreporter/react-article-components@1.2.12-rc.0
-  - @twreporter/react-components@8.3.9-rc.0
+  - @twreporter/index-page@^1.2.0
+  - @twreporter/react-article-components@^1.2.12
+  - @twreporter/react-components@^8.3.9
 
 ### Commits
 
-- [[`b4f1c6742f`](https://github.com/twreporter/twreporter-react/commit/b4f1c6742f)] - **chore**: upgrade deps (Taylor Fang)
-- [[`8decbf26aa`](https://github.com/twreporter/twreporter-react/commit/8decbf26aa)] - **feat**: add podcast box section to homepage (Taylor Fang)
+- [[`81c0628c52`](https://github.com/twreporter/twreporter-react/commit/81c0628c52)] - **chore**: upgrade deps (Taylor Fang)
+- [[`9b8744ace1`](https://github.com/twreporter/twreporter-react/commit/9b8744ace1)] - **chore**: bump version to v4.6.0-rc.0 (Taylor Fang)
+
+* [[`b4f1c6742f`](https://github.com/twreporter/twreporter-react/commit/b4f1c6742f)] - **chore**: upgrade deps (Taylor Fang)
+* [[`8decbf26aa`](https://github.com/twreporter/twreporter-react/commit/8decbf26aa)] - **feat**: add podcast box section to homepage (Taylor Fang)
 
 ## 4.5.16 (Current), 2021-01-13
 
