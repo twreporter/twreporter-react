@@ -30,6 +30,7 @@ const {
   LatestTopicSection,
   NewsLetterSection,
   PhotographySection,
+  PodcastBoxSection,
   ReviewsSection,
   TopicsSection,
 } = IndexPageComposite.components
@@ -314,6 +315,7 @@ class Homepage extends React.PureComponent {
               data={this.props[fieldNames.sections.topicsSection]}
             />
           </Background>
+          <PodcastBoxSection />
           <Background backgroundColor={moduleBackgounds.photography}>
             <PhotographySection
               data={this.props[fieldNames.sections.photosSection]}
