@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.6.1-rc.0
+
+### Notable Changes
+
+- chore: upgrade deps as follows
+  - @twreporter/index-page@1.2.1-rc.0
+  - @twreporter/react-article-components@1.2.13-rc.0
+  - @twreporter/react-components@8.4.0-rc.0
+
+### Commits
+
+- [[`9a2b3219fa`](https://github.com/twreporter/twreporter-react/commit/9a2b3219fa)] - **chore**: update deps (#1783) (Tai-Jiun Fang)
+
 ## 4.6.0 (Current), 2021-01-20
 
 ### Notable Changes
