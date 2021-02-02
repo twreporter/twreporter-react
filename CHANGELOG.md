@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.6.1
+## 4.6.1 (Current), 2021-02-02
 
 ### Notable Changes
 
@@ -16,7 +16,7 @@
 
 * [[`9a2b3219fa`](https://github.com/twreporter/twreporter-react/commit/9a2b3219fa)] - **chore**: update deps (#1783) (Tai-Jiun Fang)
 
-## 4.6.0 (Current), 2021-01-20
+## 4.6.0, 2021-01-20
 
 ### Notable Changes
 
@@ -35,7 +35,7 @@
 * [[`b4f1c6742f`](https://github.com/twreporter/twreporter-react/commit/b4f1c6742f)] - **chore**: upgrade deps (Taylor Fang)
 * [[`8decbf26aa`](https://github.com/twreporter/twreporter-react/commit/8decbf26aa)] - **feat**: add podcast box section to homepage (Taylor Fang)
 
-## 4.5.16 (Current), 2021-01-13
+## 4.5.16, 2021-01-13
 
 ### Notable Changes
 
