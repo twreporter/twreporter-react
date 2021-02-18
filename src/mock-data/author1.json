@@ -1,34 +1,11 @@
 {
-  "hits": [
+  "data": [
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5ac1d88b34eb611b008e3922",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5ac1d88b34eb611b008e3922",
+      "style": "review",
+      "slug": "bookreview-people-of-the-sea",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "5ac30ce234eb611b008e3939",
         "copyright": "Copyrighted",
@@ -76,63 +53,22 @@
         "keywords": "",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5ac1d88b34eb611b008e3922",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "我們習慣用自己的生命起源，定義屬於哪一種人類，斐索人則不由「過去」來決定自己是誰，他們重視的是你「現在」做的事依海與否，便可以是「斐索人」。",
-      "og_title": "陳藹文／當我們依海時",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2018-04-07T00:00:00.000Z",
-      "slug": "bookreview-people-of-the-sea",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2018-04-07T00:00:00.000Z",
       "title": "陳藹文／當我們依海時",
-      "updatedAt": "2018-04-03T06:59:27.257Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5a9cee45de3a991700ecd436",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5a9cee45de3a991700ecd436",
+      "style": "review",
+      "slug": "bookreview-natsuko",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "5a9d1217de3a991700ecd448",
         "copyright": "Copyrighted",
@@ -175,63 +111,22 @@
         "keywords": "",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5a9cee45de3a991700ecd436",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "那個年代整個沖繩彷彿陷入了歇斯底里的狀態，是個從小孩到老人全都和走私沾上了邊的異樣時代。",
-      "og_title": "陳藹文／追傳奇的傳奇：夏子之光",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2018-03-10T00:00:00.000Z",
-      "slug": "bookreview-natsuko",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2018-03-10T00:00:00.000Z",
       "title": "陳藹文／追傳奇的傳奇：夏子之光",
-      "updatedAt": "2018-03-08T07:10:42.684Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5a571fa09532eb1700f02852",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5a571fa09532eb1700f02852",
+      "style": "review",
+      "slug": "bookreview-chasing-the-scream",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "5a5720f89532eb1700f02853",
         "copyright": "Copyrighted",
@@ -274,63 +169,22 @@
         "keywords": "",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5a571fa09532eb1700f02852",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "強迫、懲罰、與阻斷，致使親人或陌生人都想切割，無疑繼續將人推向毒癮的懷抱； 但如果有人愛你，你就有了希望。",
-      "og_title": "陳藹文／孤立或連結，你選哪個？",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2018-01-13T00:00:00.000Z",
-      "slug": "bookreview-chasing-the-scream",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2018-01-13T00:00:00.000Z",
       "title": "陳藹文／孤立或連結，你選哪個？",
-      "updatedAt": "2018-01-12T12:55:00.354Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5a2deb2a09e8eb7a03e31598",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5a2deb2a09e8eb7a03e31598",
+      "style": "article",
+      "slug": "bookreview-die-macht-in-der-mitte-europas",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "5a2def0209e8eb7a03e3159a",
         "copyright": "Copyrighted",
@@ -373,63 +227,22 @@
         "keywords": "",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5a2deb2a09e8eb7a03e31598",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "價值共同體跟我們是哪裡人無關，跟我們想要什麼樣的未來有關。德國的故事不在歐洲的心臟，在我們的心臟。",
-      "og_title": "陳藹文／德國的事在我們的心臟",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-12-16T00:00:00.000Z",
-      "slug": "bookreview-die-macht-in-der-mitte-europas",
-      "state": "published",
-      "style": "article",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-12-16T00:00:00.000Z",
       "title": "陳藹文／德國的事在我們的心臟",
-      "updatedAt": "2017-12-13T03:27:39.386Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5a04154409e8eb7a03e31403",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5a04154409e8eb7a03e31403",
+      "style": "review",
+      "slug": "bookreview-between-tectonic-plates-geoparks-in-taiwan",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "5a041b2209e8eb7a03e31405",
         "copyright": "Copyrighted",
@@ -472,63 +285,22 @@
         "keywords": "",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5a04154409e8eb7a03e31403",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "我覺得這就是「島嶼」和純粹「陸地」不同的概念——它是水火相爭的產物，也是證明水火能相容的另一種存在。",
-      "og_title": "陳藹文／億萬年裡的一個秋天",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-11-11T00:00:00.000Z",
-      "slug": "bookreview-between-tectonic-plates-geoparks-in-taiwan",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-11-11T00:00:00.000Z",
       "title": "陳藹文／億萬年裡的一個秋天",
-      "updatedAt": "2017-11-09T10:08:57.486Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "59d355ee91cdd4170088dd6f",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "59d355ee91cdd4170088dd6f",
+      "style": "review",
+      "slug": "bookreview-strangers-in-the-woods",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "59d35d1291cdd4170088dd73",
         "copyright": "Copyrighted",
@@ -571,63 +343,22 @@
         "keywords": "森林裡的陌生人",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "59d355ee91cdd4170088dd6f",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "作者問奈特，遺世獨立這麼多年，有沒有什麼深刻的體悟？奈特坐在位子上靜默許久，最後想到了答案：「睡眠要充足」。",
-      "og_title": "陳藹文／離群森林人 v.s. 離島書店人",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-10-07T00:00:00.000Z",
-      "slug": "bookreview-strangers-in-the-woods",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書店】",
+      "og_image": {},
+      "publish_date": "2017-10-07T00:00:00.000Z",
       "title": "陳藹文／離群森林人 v.s. 離島書店人",
-      "updatedAt": "2017-10-05T03:25:04.127Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書店】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "59a3e46d1c2638e603c5fcbc",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "59a3e46d1c2638e603c5fcbc",
+      "style": "review",
+      "slug": "bookreview-rock-and-roll-study-group",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "59a7dbd71c2638e603c5fd3a",
         "copyright": "Copyrighted",
@@ -673,63 +404,22 @@
         "keywords": "陳藹文、書評、搖滾讀書會",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "59a3e46d1c2638e603c5fcbc",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "「我熱愛的搖滾樂」，重點不是搖滾樂三個字，重點在於「我熱愛」。熱愛本身，就是搖滾精神的一部份。",
-      "og_title": "陳藹文／搖滾讀書會",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-09-02T00:00:00.000Z",
-      "slug": "bookreview-rock-and-roll-study-group",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-09-02T00:00:00.000Z",
       "title": "陳藹文／搖滾讀書會",
-      "updatedAt": "2017-09-01T04:05:44.739Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "597808aa9092de0d00b4168f",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "597808aa9092de0d00b4168f",
+      "style": "review",
+      "slug": "bookreview-on-jellyfish-blooms-and-the-future-of-the-ocean",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "597a0e659092de0d00b41698",
         "copyright": "Copyrighted",
@@ -773,63 +463,22 @@
         "keywords": "陳藹文、書摘、當水母佔據我舟下的海洋、安書宅",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "597808aa9092de0d00b4168f",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "穿越水母海的經歷至今仍心有餘悸，一路害怕掉進濃湯裡小命不保，直到抵達岸邊才放鬆下海。在澎湖海泳、浮潛是再自然不過的事了，此後都要小心翼翼嗎？不得不翻開剛剛上架的新書《當水母佔據海洋》找答案。",
-      "og_title": "陳藹文／當水母佔據我舟下的海洋",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-07-29T00:00:00.000Z",
-      "slug": "bookreview-on-jellyfish-blooms-and-the-future-of-the-ocean",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 x 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-07-29T00:00:00.000Z",
       "title": "陳藹文／當水母佔據我舟下的海洋",
-      "updatedAt": "2017-07-28T03:17:08.334Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 x 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "5941e67e507c6a0d00ab05a7",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "5941e67e507c6a0d00ab05a7",
+      "style": "review",
+      "slug": "bookreview-the-violet-hour-great-writers-at-the-end",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "594356c6507c6a0d00ab05bc",
         "copyright": "Copyrighted",
@@ -873,63 +522,22 @@
         "keywords": "陳藹文、不死寫作、書評",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "5941e67e507c6a0d00ab05a7",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "她不是為了「書」而寫，可以說是為了「知」而寫，為回答自己的問題而寫。",
-      "og_title": "陳藹文／不死寫作",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-06-17T00:00:00.000Z",
-      "slug": "bookreview-the-violet-hour-great-writers-at-the-end",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 Ｘ 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-06-17T00:00:00.000Z",
       "title": "陳藹文／不死寫作",
-      "updatedAt": "2017-06-17T03:12:27.487Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 Ｘ 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "591ac2b6507c6a0d00ab048f",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "591ac2b6507c6a0d00ab048f",
+      "style": "review",
+      "slug": "bookreview-elders-in-penhu",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "591e8aed507c6a0d00ab04bf",
         "copyright": "Copyrighted",
@@ -972,63 +580,22 @@
         "keywords": "陳藹文、書摘",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "591ac2b6507c6a0d00ab048f",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "澎湖真的有很多活力老人——八十幾歲還騎著摩托車到處跑的、九十歲還下潮間帶敲撿螺的，老阿嬤們在菜宅種菜不但自己吃、還會寄給台灣兒女、送鄰居朋友。",
-      "og_title": "陳藹文／老人島、老人書",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-05-20T00:00:00.000Z",
-      "slug": "bookreview-elders-in-penhu",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場 X 安書宅】",
+      "og_image": {},
+      "publish_date": "2017-05-20T00:00:00.000Z",
       "title": "陳藹文／老人島、老人書",
-      "updatedAt": "2017-05-19T06:06:01.727Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場 X 安書宅】",
+      "tags": []
     },
     {
-      "_highlightResult": {
-        "photographers": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ],
-        "writters": [
-          {
-            "_id": {
-              "fullyHighlighted": true,
-              "matchLevel": "full",
-              "matchedWords": ["591ac386507c6a0d00ab0490"],
-              "value": "<em>591ac386507c6a0d00ab0490</em>"
-            }
-          }
-        ]
-      },
-      "_id": "58e713270f56b40d001ae6f7",
-      "categories": ["573177cb8c0c261000b3f6d2"],
-      "designers": [],
-      "engineers": [],
-      "extend_byline": "",
-      "heroImage": {
+      "id": "58e713270f56b40d001ae6f7",
+      "style": "review",
+      "slug": "bookreview-bookstore-cooperative",
+      "leading_image_portrait": {},
+      "hero_image": {
         "__v": 0,
         "_id": "58e750e80f56b40d001ae6f9",
         "copyright": "Copyrighted",
@@ -1072,33 +639,15 @@
         "keywords": "陳藹文、書摘、安書宅",
         "sale": false
       },
-      "isFeatured": false,
-      "objectID": "58e713270f56b40d001ae6f7",
+      "categories": ["573177cb8c0c261000b3f6d2"],
+      "full": false,
+      "is_external": false,
       "og_description": "於是我稍微懂了合作社的意義，原來人數規模不是重點，類型也沒有限制，合作之所以有力量，是來自理念的認同和實踐。許多合作社不是「非營利組織」，反而是因為需要工作賺錢才組成，在平等的地位上共同決策，一人一票，為自己負責，盈餘平均分配，勞動者不會被剝削，正如書中幼兒園受訪者所說的「現在，我們為自己工作！為理想工作真的很踏實。」",
-      "og_title": "陳藹文／可能是年輕世代的解藥──合作社打開「我們的」想像力",
-      "photographers": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ],
-      "publishedDate": "2017-04-08T00:00:00.000Z",
-      "slug": "bookreview-bookstore-cooperative",
-      "state": "published",
-      "style": "review",
-      "subtitle": "【閱讀現場X安書宅】",
+      "og_image": {},
+      "publish_date": "2017-04-08T00:00:00.000Z",
       "title": "陳藹文／可能是年輕世代的解藥──合作社打開「我們的」想像力",
-      "updatedAt": "2017-05-16T09:18:58.419Z",
-      "writters": [
-        {
-          "_id": "591ac386507c6a0d00ab0490",
-          "email": "contact@twreporter.org",
-          "job_title": "澎湖安書宅主人",
-          "name": "陳藹文"
-        }
-      ]
+      "subtitle": "【閱讀現場X安書宅】",
+      "tags": []
     }
   ]
 }
