@@ -192,7 +192,8 @@ const AuthorCollection = props => {
     handleLoadmore,
     totalResults,
   } = props
-  const titleText = '所有文章' + (totalResults ? `（${totalResults}）` : '')
+  const titleText =
+    '所有文章' + (typeof totalResults === 'number' ? `（${totalResults}）` : '')
 
   return (
     <Sizing size="small">
