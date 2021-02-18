@@ -1,5 +1,5 @@
 import topics from './topics.json'
-import cloneUtils from '../../utils/shallow-clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'

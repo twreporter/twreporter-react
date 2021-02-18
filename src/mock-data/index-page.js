@@ -1,8 +1,8 @@
 import posts from './posts.json'
 import topics from './topics.json'
-import cloneUtils from '../../utils/shallow-clone-entity'
+import cloneUtils from '../utils/shallow-clone-entity'
 import twreporterRedux from '@twreporter/redux'
-import categoryConsts from '../../constants/category'
+import categoryConsts from '../constants/category'
 
 // lodash
 import get from 'lodash/get'

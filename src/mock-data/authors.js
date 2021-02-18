@@ -1,8 +1,8 @@
-import author1 from '../author1.json'
-import author2 from '../author2.json'
-import author3 from '../author3.json'
-import author4 from '../author4.json'
-import authors from '../authors.json'
+import author1 from './author1.json'
+import author2 from './author2.json'
+import author3 from './author3.json'
+import author4 from './author4.json'
+import authors from './authors.json'
 
 // lodash
 import find from 'lodash/find'
