@@ -154,7 +154,7 @@ function mapStateToProps(state, ownProps) {
   const authorEntity = _.get(entities, ['authors', authorId], {})
   const authorImageSouce = _.get(
     authorEntity,
-    'thumbnail.image.resizedTargets.mobile'
+    'thumbnail.resizedTargets.mobile'
   )
   const authorImage = authorImageSouce
     ? { ...authorImageSouce, url: replaceGCSUrlOrigin(authorImageSouce.url) }
