@@ -1,6 +1,16 @@
 # Changelog
 
-## 4.6.1 (Current), 2021-02-02
+## 4.6.2 (Current), 2021-02-22
+
+### Notable Changes
+
+- refactor: update section2 of about-us page
+
+### Commits
+
+- [[`35b1cd51d2`](https://github.com/twreporter/twreporter-react/commit/35b1cd51d2)] - refactor(about-us): update headcount per page constant for section2 (#1794) (Tai-Jiun Fang)
+
+## 4.6.1, 2021-02-02
 
 ### Notable Changes
 
