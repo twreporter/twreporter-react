@@ -21,9 +21,9 @@ export const headcountPerPage = {
     [screen.mobile]: 4,
   },
   [categoryIds.engineer]: {
-    [screen.hd]: 3,
-    [screen.desktop]: 3,
-    [screen.tablet]: 3,
+    [screen.hd]: 2,
+    [screen.desktop]: 2,
+    [screen.tablet]: 2,
     [screen.mobile]: 4,
   },
   [categoryIds.designer]: {
@@ -33,8 +33,8 @@ export const headcountPerPage = {
     [screen.mobile]: 4,
   },
   [categoryIds.photojournalist]: {
-    [screen.hd]: 4,
-    [screen.desktop]: 4,
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
