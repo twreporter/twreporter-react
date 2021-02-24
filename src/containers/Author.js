@@ -29,6 +29,8 @@ const authorDefaultImg = {
   height: 500,
 }
 
+const defaultEmail = 'contact@twreporter.org'
+
 const logger = loggerFactory.getLogger()
 
 class Author extends React.Component {
@@ -164,7 +166,7 @@ function mapStateToProps(state, ownProps) {
     name: _.get(authorEntity, 'name') || '',
     title: _.get(authorEntity, 'jobTitle') || '',
     image: authorImage,
-    mail: _.get(authorEntity, 'email') || '',
+    mail: _.get(authorEntity, 'email') || defaultEmail,
     bio: _.get(authorEntity, 'bio' || ''),
   }
   return {
