@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.6.2 (Current), 2021-02-22
+## 4.6.3 (Current), 2021-02-25
+
+### Notable Changes
+
+- chore: upgrade dep
+  - @twreporter/react-article-components@1.2.14
+
+### Commits
+
+- [[`4443663f70`](https://github.com/twreporter/twreporter-react/commit/4443663f70)] - **chore**: upgrade @twreporter/react-article-components to v1.2.14 (#1799) (Tai-Jiun Fang)
+
+## 4.6.2
 
 ### Notable Changes
 
