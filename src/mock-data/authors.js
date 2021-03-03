@@ -1,22 +1,26 @@
-import author1 from './author1.json'
-import author2 from './author2.json'
-import author3 from './author3.json'
-import author4 from './author4.json'
-import authors from './authors.json'
+import author from './author.json'
+import authorPost from './author-post.json'
 
 // lodash
+import assign from 'lodash/assign'
 import find from 'lodash/find'
+import map from 'lodash/map'
 
 const _ = {
+  assign,
+  map,
   find,
 }
 
+const posts = Array(50).fill(authorPost)
+
 const mocks = {
-  authors: authors.data,
-  author1: author1.data,
-  author2: author2.data,
-  author3: author3.data,
-  author4: author4.data,
+  authors: Array(100).fill(author),
+  authorPosts: _.map(posts, (post, index) => {
+    return _.assign({}, post, {
+      id: index,
+    })
+  }),
 }
 
 /**
@@ -72,14 +76,8 @@ export function mockAuthorDetailResponse(authorId) {
  */
 const _selectAuthor = authorId => {
   switch (authorId) {
-    case '591ac386507c6a0d00ab0490':
-      return mocks.author1
     case '571de7bbdae62379576d7f42':
-      return mocks.author2
-    case '5757f8498e4c2b171bcaf7dc':
-      return mocks.author3
-    case '57b13f774310e41200a0dc01':
-      return mocks.author4
+      return mocks.authorPosts
   }
 }
 
