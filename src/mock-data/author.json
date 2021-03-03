@@ -1,0 +1,40 @@
+{
+  "id": "571de7bbdae62379576d7f42",
+  "job_title": "",
+  "name": "余志偉",
+  "email": "shakingwave@twreporter.org",
+  "bio": "來自高雄，用攝影說故事、生活，跟著攝影死去。\r\nCome from Kaohsiung. Telling story with photography, living and dead.",
+  "thumbnail": {
+    "filetype": "image/png",
+    "resized_targets": {
+      "mobile": {
+        "height": 800,
+        "width": 800,
+        "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png"
+      },
+      "tiny": {
+        "height": 150,
+        "width": 150,
+        "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png"
+      },
+      "desktop": {
+        "height": 1250,
+        "width": 1250,
+        "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png"
+      },
+      "tablet": {
+        "height": 1200,
+        "width": 1200,
+        "url": "https://storage.googleapis.com/twreporter-multimedia/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png"
+      },
+      "w400": {
+        "height": 0,
+        "width": 0,
+        "url": ""
+      }
+    },
+    "id": "58b941c178a8c00d00d32b39",
+    "description": "攝影作者，余志偉"
+  },
+  "updated_at": "2018-05-08T02:48:04.392Z"
+}
