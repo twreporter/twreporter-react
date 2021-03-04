@@ -1,7 +1,7 @@
 {
-  "id": "601798f28301cc0600f09303",
+  "id": "xxoo",
   "style": "article:v2:default",
-  "slug": "my-2020-lighthouse-keeper",
+  "slug": "mock-slug",
   "leading_image_portrait": {},
   "hero_image": {
     "filetype": "image/jpeg",
@@ -32,30 +32,30 @@
         "url": "https://www.twreporter.org/images/20210203160708-bd3cab136eb567f4a77d25267639e37c-w400.jpg"
       }
     },
-    "id": "601a59ac8301cc0600f09310",
+    "id": "xxxooo",
     "description": "測試圖片描述"
   },
-  "og_image": {},
   "og_description": "測試分享標題",
-  "title": "守燈塔的人鄭仰勝：社交距離，就是我的工作本質",
-  "subtitle": "│基隆│",
+  "og_image": {},
+  "title": "這是測試用大標題",
+  "subtitle": "這是測試用子標題",
   "categories": [
     {
-      "id": "59783ad89092de0d00b41691",
+      "id": "xxxxoooo",
       "sort_order": 8,
-      "name": "生活．醫藥"
+      "name": "分類1．分類2"
     }
   ],
   "published_date": "2021-02-11T16:00:00Z",
   "is_external": false,
   "tags": [
     {
-      "id": "57627327d553481000061383",
-      "name": "基隆"
+      "id": "xxxxoooo1",
+      "name": "測試標籤1"
     },
     {
-      "id": "57df98ce61fdfb0f009f8754",
-      "name": "公務員"
+      "id": "xxxxoooo2",
+      "name": "測試標籤1"
     }
   ],
   "full": false

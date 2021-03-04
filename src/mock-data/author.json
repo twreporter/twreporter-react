@@ -1,31 +1,31 @@
 {
-  "id": "571de7bbdae62379576d7f42",
+  "id": "xxxxoooo",
   "job_title": "",
-  "name": "余志偉",
-  "email": "shakingwave@twreporter.org",
-  "bio": "來自高雄，用攝影說故事、生活，跟著攝影死去。\r\nCome from Kaohsiung. Telling story with photography, living and dead.",
+  "name": "王大明",
+  "email": "wang@twreporter.org",
+  "bio": "這是一段測試簡介。",
   "thumbnail": {
     "filetype": "image/png",
     "resized_targets": {
       "mobile": {
         "height": 800,
         "width": 800,
-        "url": "https://www.twreporter.org/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-mobile.png"
+        "url": "https://www.twreporter.org/asset/author-default-img.svg"
       },
       "tiny": {
         "height": 150,
         "width": 150,
-        "url": "https://www.twreporter.org/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tiny.png"
+        "url": "https://www.twreporter.org/asset/author-default-img.svg"
       },
       "desktop": {
         "height": 1250,
         "width": 1250,
-        "url": "https://www.twreporter.org/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-desktop.png"
+        "url": "https://www.twreporter.org/asset/author-default-img.svg"
       },
       "tablet": {
         "height": 1200,
         "width": 1200,
-        "url": "https://www.twreporter.org/images/20170303181321-19a8ced9a2802bec5e09a225a6f4e7ef-tablet.png"
+        "url": "https://www.twreporter.org/asset/author-default-img.svg"
       },
       "w400": {
         "height": 0,
@@ -33,8 +33,8 @@
         "url": ""
       }
     },
-    "id": "58b941c178a8c00d00d32b39",
-    "description": "攝影作者，余志偉"
+    "id": "xxxxxooooo",
+    "description": "攝影作者，王大明"
   },
   "updated_at": "2018-05-08T02:48:04.392Z"
 }

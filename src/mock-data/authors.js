@@ -19,6 +19,7 @@ const mocks = {
   authorPosts: _.map(posts, (post, index) => {
     return _.assign({}, post, {
       id: index,
+      slug: `mock-slug-${index}`,
     })
   }),
 }
@@ -76,7 +77,7 @@ export function mockAuthorDetailResponse(authorId) {
  */
 const _selectAuthor = authorId => {
   switch (authorId) {
-    case '571de7bbdae62379576d7f42':
+    case 'xxxxoooo':
       return mocks.authorPosts
   }
 }
