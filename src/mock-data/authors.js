@@ -12,16 +12,9 @@ const _ = {
   find,
 }
 
-const posts = Array(50).fill(authorPost)
-
 const mocks = {
   authors: Array(100).fill(author),
-  authorPosts: _.map(posts, (post, index) => {
-    return _.assign({}, post, {
-      id: index,
-      slug: `mock-slug-${index}`,
-    })
-  }),
+  post: [authorPost],
 }
 
 /**
@@ -78,7 +71,7 @@ export function mockAuthorDetailResponse(authorId) {
 const _selectAuthor = authorId => {
   switch (authorId) {
     case 'xxxxoooo':
-      return mocks.authorPosts
+      return mocks.post
   }
 }
 
