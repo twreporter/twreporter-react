@@ -102,6 +102,7 @@ function shallowCloneMetaOfTopic(topic) {
     'full',
     'id',
     'leading_image',
+    'leading_image_portrait',
     'og_description',
     'og_image',
     'published_date',
