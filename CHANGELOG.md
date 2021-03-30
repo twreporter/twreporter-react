@@ -1,6 +1,185 @@
 # Changelog
 
-## 4.5.8 (Current), 2020-09-14
+## 4.6.4 (Current), 2021-03-30
+
+### Notable Changes
+
+- fix
+  - add `leading_image_portrait` field for clone utility function
+
+### Commits
+
+- [[`727c8447e8`](https://github.com/twreporter/twreporter-react/commit/727c8447e8)] - **fix**: add `leading\_image\_portrait` field for clone utility function (#1804) (Tai-Jiun Fang)
+
+## 4.6.3, 2021-02-25
+
+### Notable Changes
+
+- chore: upgrade dep
+  - @twreporter/react-article-components@1.2.14
+
+### Commits
+
+- [[`4443663f70`](https://github.com/twreporter/twreporter-react/commit/4443663f70)] - **chore**: upgrade @twreporter/react-article-components to v1.2.14 (#1799) (Tai-Jiun Fang)
+
+## 4.6.2
+
+### Notable Changes
+
+- refactor: update section2 of about-us page
+
+### Commits
+
+- [[`35b1cd51d2`](https://github.com/twreporter/twreporter-react/commit/35b1cd51d2)] - refactor(about-us): update headcount per page constant for section2 (#1794) (Tai-Jiun Fang)
+
+## 4.6.1, 2021-02-02
+
+### Notable Changes
+
+- chore: upgrade deps as follows
+  - @twreporter/index-page@1.2.1
+  - @twreporter/react-article-components@1.2.13
+  - @twreporter/react-components@8.4.0
+
+### Commits
+
+- [[`77eb099cbb`](https://github.com/twreporter/twreporter-react/commit/77eb099cbb)] - **chore**: update dep (#1786) (Tai-Jiun Fang)
+- [[`fe8b2d2544`](https://github.com/twreporter/twreporter-react/commit/fe8b2d2544)] - **chore**: bump version to v4.6.1-rc.0 (Taylor Fang)
+
+* [[`9a2b3219fa`](https://github.com/twreporter/twreporter-react/commit/9a2b3219fa)] - **chore**: update deps (#1783) (Tai-Jiun Fang)
+
+## 4.6.0, 2021-01-20
+
+### Notable Changes
+
+- feat
+  - add podcast box section to homepage
+- chore: upgrade deps as follows
+  - @twreporter/index-page@^1.2.0
+  - @twreporter/react-article-components@^1.2.12
+  - @twreporter/react-components@^8.3.9
+
+### Commits
+
+- [[`81c0628c52`](https://github.com/twreporter/twreporter-react/commit/81c0628c52)] - **chore**: upgrade deps (Taylor Fang)
+- [[`9b8744ace1`](https://github.com/twreporter/twreporter-react/commit/9b8744ace1)] - **chore**: bump version to v4.6.0-rc.0 (Taylor Fang)
+
+* [[`b4f1c6742f`](https://github.com/twreporter/twreporter-react/commit/b4f1c6742f)] - **chore**: upgrade deps (Taylor Fang)
+* [[`8decbf26aa`](https://github.com/twreporter/twreporter-react/commit/8decbf26aa)] - **feat**: add podcast box section to homepage (Taylor Fang)
+
+## 4.5.16, 2021-01-13
+
+### Notable Changes
+
+- feat
+  - use `og_image` as image fallback for topic landing page
+- chore: upgrade deps as follows
+  - @twreporter/react-article-components@1.2.11
+  - @twreporter/react-components@8.3.8
+
+### Commits
+
+- [[`9a8647c641`](https://github.com/twreporter/twreporter-react/commit/9a8647c641)] - **feat**: use `og\_image` as image fallback for topic landing page (#1727) (Tai-Jiun Fang)
+- [[`a7f0d2783e`](https://github.com/twreporter/twreporter-react/commit/a7f0d2783e)] - **chore**: upgrade deps (Taylor Fang)
+
+## 4.5.15, 2020-12-03
+
+### Notable Changes
+
+- chore: fix kustomize installation path
+- fix: update html.js with right rss feed
+
+### Commits
+
+- [[`856bb7a228`](https://github.com/twreporter/twreporter-react/commit/856bb7a228)] - Merge pull request #1760 from typebrook/rss (Tai-Jiun Fang)
+- [[`6f6a63c7b7`](https://github.com/twreporter/twreporter-react/commit/6f6a63c7b7)] - Update html.js with right rss feed (Hsieh Chin Fan)
+- [[`5ead1112c3`](https://github.com/twreporter/twreporter-react/commit/5ead1112c3)] - Merge pull request #1759 from babygoat/update-kustomize-installation (babygoat)
+- [[`ea38edf658`](https://github.com/twreporter/twreporter-react/commit/ea38edf658)] - **chore**: fix kustomize installation path (Ching-Yang, Tseng)
+- [[`17d0c3274a`](https://github.com/twreporter/twreporter-react/commit/17d0c3274a)] - Merge pull request #1756 from babygoat/update-kustomize-installation (babygoat)
+
+## 4.5.14, 2020-11-13
+
+### Notable Changes
+
+- [chore: add @twreporter/redux@^7.0.5](https://github.com/twreporter/twreporter-react/pull/1754)
+
+### Commits
+
+- [[`5ff9faa366`](https://github.com/twreporter/twreporter-react/commit/5ff9faa366)] - Merge pull request #1754 from nickhsine/master (nick)
+- [[`91c427c888`](https://github.com/twreporter/twreporter-react/commit/91c427c888)] - **chore**: add @twreporter/redux@^7.0.5 (nickhsine)
+- [[`f0f112872e`](https://github.com/twreporter/twreporter-react/commit/f0f112872e)] - Merge pull request #1752 from nickhsine/master (nick)
+
+## 4.5.13, 2020-11-12
+
+### Notable Changes
+
+- [refactor: update express server error handling](https://github.com/twreporter/twreporter-react/pull/1744)
+- [chore: add @twreporter/redux@^7.0.4](https://github.com/twreporter/twreporter-react/pull/1748)
+
+### Commits
+
+- [[`61d3a048da`](https://github.com/twreporter/twreporter-react/commit/61d3a048da)] - **chore**: update package.json#version to 4.5.13 (nickhsine)
+- [[`5fe9c50564`](https://github.com/twreporter/twreporter-react/commit/5fe9c50564)] - Merge pull request #1748 from nickhsine/master (nick)
+- [[`e91be09dfb`](https://github.com/twreporter/twreporter-react/commit/e91be09dfb)] - **chore**: add @twreporter/redux@^7.0.4 (nickhsine)
+- [[`706951d9a8`](https://github.com/twreporter/twreporter-react/commit/706951d9a8)] - Merge pull request #1744 from nickhsine/refactor-error-handling (nick)
+- [[`a512875fa6`](https://github.com/twreporter/twreporter-react/commit/a512875fa6)] - **refactor**: update express server error handling (nickhsine)
+- [[`60881fd86c`](https://github.com/twreporter/twreporter-react/commit/60881fd86c)] - Merge pull request #1745 from nickhsine/master (nick)
+
+## 4.5.12, 2020-10-28
+
+### Notable Changes
+
+- [fix: handle author page 404 error](https://github.com/twreporter/twreporter-react/pull/1743)
+
+### Commits
+
+- [[`ba27a4200a`](https://github.com/twreporter/twreporter-react/commit/ba27a4200a)] - chore: update CHANGELOG.md and package.json#version for 4.5.12
+- [[`4db53d63a7`](https://github.com/twreporter/twreporter-react/commit/4db53d63a7)] - Merge pull request #1743 from nickhsine/author-details-404 (nick)
+- [[`d3a0a72bc2`](https://github.com/twreporter/twreporter-react/commit/d3a0a72bc2)] - **fix**: handle author page 404 error (nickhsine)
+- [[`82b8b779a9`](https://github.com/twreporter/twreporter-react/commit/82b8b779a9)] - Merge pull request #1740 from nickhsine/master (nick)
+
+## 4.5.11, 2020-10-21
+
+### Notable Changes
+
+- [fix: handle other errors except for 404 and 500 errors](https://github.com/twreporter/twreporter-react/pull/1739)
+- [fix: handle catId not existed. return 404 not found res](https://github.com/twreporter/twreporter-react/pull/1738)
+
+### Commits
+
+- [[`fec0c50341`](https://github.com/twreporter/twreporter-react/commit/fec0c50341)] - Merge pull request #1739 from nickhsine/express-custom-error (nick)
+- [[`2c3d4f2b28`](https://github.com/twreporter/twreporter-react/commit/2c3d4f2b28)] - **fix**: handle other errors except for 404 and 500 errors (nickhsine)
+- [[`2740c0eeec`](https://github.com/twreporter/twreporter-react/commit/2740c0eeec)] - Merge pull request #1738 from nickhsine/master (nick)
+- [[`8e1b78ac49`](https://github.com/twreporter/twreporter-react/commit/8e1b78ac49)] - **fix**: handle catId not existed. return 404 not found res (nickhsine)
+- [[`acacf6e18d`](https://github.com/twreporter/twreporter-react/commit/acacf6e18d)] - Merge pull request #1735 from nickhsine/master (nick)
+
+## 4.5.10, 2020-10-12
+
+### Commits
+
+- [[`f58dd26600`](https://github.com/twreporter/twreporter-react/commit/f58dd26600)] - **chore**: upgrade dependency (nickhsine)
+- [[`1ee8ff96c2`](https://github.com/twreporter/twreporter-react/commit/1ee8ff96c2)] - Merge pull request #1732 from taylrj/master (Tai-Jiun Fang)
+
+## 4.5.9, 2020-10-08
+
+### Notable Changes
+
+- chore: upgrade @twreporter npm deps
+  - @twreporter/index-page@1.1.0
+  - @twreporter/react-article-components@1.2.6
+  - @twreporter/react-components@8.3.4
+  - @twreporter/redux@7.0.2
+
+### Commits
+
+- [[`af85eaa47b`](https://github.com/twreporter/twreporter-react/commit/af85eaa47b)] - Merge pull request #1730 from taylrj/master (Tai-Jiun Fang)
+- [[`0f7effdf29`](https://github.com/twreporter/twreporter-react/commit/0f7effdf29)] - **chore**: bump version to v4.5.9-rc.1 (Taylor Fang)
+- [[`a5e4514520`](https://github.com/twreporter/twreporter-react/commit/a5e4514520)] - **chore**: update @twreporter deps (Taylor Fang)
+- [[`525f411bdb`](https://github.com/twreporter/twreporter-react/commit/525f411bdb)] - Merge pull request #1728 from taylrj/master (Tai-Jiun Fang)
+- [[`7c2ea8d92c`](https://github.com/twreporter/twreporter-react/commit/7c2ea8d92c)] - **chore**: bump version to v4.5.9-rc.0 (Taylor Fang)
+- [[`28725a74e5`](https://github.com/twreporter/twreporter-react/commit/28725a74e5)] - chore(index-page): update dep @twreporter/index-page@1.1.0-rc.0 (Taylor Fang)
+
+## 4.5.8, 2020-09-14
 
 ### Notable Changes
 

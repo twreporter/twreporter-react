@@ -1,12 +1,16 @@
 /* eslint node/no-deprecated-api: 1 */
 import get from 'lodash/get'
 import getRoutes from '../../routes'
+import loggerFactory from '../../logger'
+import statusCodeConst from '../../constants/status-code'
 import url from 'url'
 import { matchPath } from 'react-router-dom'
 
 const _ = {
   get,
 }
+
+const logger = loggerFactory.getLogger()
 
 /**
  *  This middleware prepare data according to routes
@@ -50,7 +54,22 @@ function dataLoaderMiddleware(namespace) {
         next()
       })
       .catch(failAction => {
-        next(_.get(failAction, 'payload.error'))
+        const error = _.get(failAction, 'payload.error')
+        const errStatusCode =
+          _.get(error, 'statusCode') || _.get(error, 'status')
+
+        switch (errStatusCode) {
+          case statusCodeConst.notFound: {
+            return res.redirect(`/error/${errStatusCode}`)
+          }
+          default: {
+            logger.errorReport({
+              report: error,
+              message: 'Error was caught by data-loader express middleware.',
+            })
+            return res.redirect(`/error/${errStatusCode}`)
+          }
+        }
       })
   }
 }

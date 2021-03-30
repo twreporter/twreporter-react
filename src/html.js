@@ -43,7 +43,7 @@ export default class Html extends PureComponent {
             rel="alternate"
             type="application/rss+xml"
             title="RSS 2.0"
-            href="https://www.twreporter.org/rss2.xml"
+            href="https://www.twreporter.org/a/rss2.xml"
           />
           <link rel="manifest" href="/meta/manifest.json" />
           {/* Add to home screen for Safari on iOS */}

@@ -1,5 +1,6 @@
 // lodash
 import get from 'lodash/get'
+import statusCodeConst from '../constants/status-code'
 
 const _ = {
   get,
@@ -20,6 +21,19 @@ export default function loadData({ match, store }) {
   const authorId = _.get(match, 'params.authorId', '')
   return Promise.all([
     store.actions.fetchAuthorCollectionIfNeeded(authorId),
-    store.actions.fetchAuthorDetails(authorId),
+    store.actions.fetchAuthorDetails(authorId).then(successAction => {
+      const result = _.get(successAction, 'payload.normalizedData.result')
+      // no author details
+      if (!result) {
+        const failAction = {
+          payload: {
+            error: {
+              statusCode: statusCodeConst.notFound,
+            },
+          },
+        }
+        return Promise.reject(failAction)
+      }
+    }),
   ])
 }

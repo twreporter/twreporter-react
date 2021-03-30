@@ -22,14 +22,14 @@ const logger = loggerFactory.getLogger()
 
 class ExpressServer {
   constructor() {
-    this.app = new Express()
+    this.app = Express()
     this.server = new http.Server(this.app)
   }
 
   /**
    *  @param {string} cookieSecret - secret for cookie parser
    */
-  __applyDefaultMiddlewares(cookieSecret) {
+  __applyThirdPartyMiddlewares(cookieSecret) {
     this.app.use(Compression())
     this.app.use(cookieParser(cookieSecret))
   }
@@ -213,7 +213,7 @@ class ExpressServer {
     ])
   }
 
-  __applyCustomErrorHandler() {
+  __applyDefaultErrorHandler() {
     this.app.use((err, req, res, next) => {
       if (res.headersSent) {
         logger.errorReport({
@@ -224,15 +224,34 @@ class ExpressServer {
         return next(err)
       }
 
+      // do not cache error response
       res.header('Cache-Control', 'no-store')
-      if (_.get(err, 'statusCode') === statusCodeConst.notFound) {
-        res.redirect(`/error/${statusCodeConst.notFound}`)
-      } else {
-        logger.errorReport({
-          report: err,
-          message: 'Error was caught by Express custom error handler.',
-        })
-        res.redirect(`/error/${statusCodeConst.internalServerError}`)
+
+      const errStatusCode = _.get(err, 'statusCode') || _.get(err, 'status')
+
+      switch (errStatusCode) {
+        case statusCodeConst.notFound: {
+          // redirect to 404 error page
+          return res.redirect(`/error/${statusCodeConst.notFound}`)
+        }
+        default: {
+          if (errStatusCode < statusCodeConst.internalServerError) {
+            // log client error
+            logger.info(
+              'Client error was caught by Express default error handler: ',
+              err
+            )
+          } else {
+            // server error report
+            logger.errorReport({
+              report: err,
+              message:
+                'Server error was caught by Express default error handler.',
+            })
+          }
+
+          return res.redirect(`/error/${errStatusCode}`)
+        }
       }
     })
   }
@@ -259,7 +278,7 @@ class ExpressServer {
    */
   async setup(webpackAssets, loadableStats, options) {
     await this.__applyLogger()
-    this.__applyDefaultMiddlewares(options.cookieSecret)
+    this.__applyThirdPartyMiddlewares(options.cookieSecret)
     this.__applyStaticRoutes()
     this.__applyResponseHeader()
     if (globalEnv.isProduction) {
@@ -268,7 +287,7 @@ class ExpressServer {
     this.__applySearchEngineRoutes()
     this.__applyHealthCheckRoutes()
     this.__applyAppRoutes(webpackAssets, loadableStats, options)
-    this.__applyCustomErrorHandler()
+    this.__applyDefaultErrorHandler()
   }
 
   /**
