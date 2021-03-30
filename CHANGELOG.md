@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.6.3 (Current), 2021-02-25
+## 4.6.4-rc.0 (Current), 2021-03-30
+
+### Notable Changes
+
+- fix
+  - add `leading_image_portrait` field for clone utility function
+
+### Commits
+
+- [[`727c8447e8`](https://github.com/twreporter/twreporter-react/commit/727c8447e8)] - **fix**: add `leading\_image\_portrait` field for clone utility function (#1804) (Tai-Jiun Fang)
+
+## 4.6.3, 2021-02-25
 
 ### Notable Changes
 
