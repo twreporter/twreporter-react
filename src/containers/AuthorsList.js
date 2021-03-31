@@ -148,7 +148,6 @@ class AuthorsList extends React.Component {
       const sourceImage = _.get(authorEntities, [
         authorId,
         'thumbnail',
-        'image',
         'resizedTargets',
         'mobile',
       ])

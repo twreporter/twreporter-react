@@ -29,6 +29,8 @@ const authorDefaultImg = {
   height: 500,
 }
 
+const defaultEmail = 'contact@twreporter.org'
+
 const logger = loggerFactory.getLogger()
 
 class Author extends React.Component {
@@ -154,7 +156,7 @@ function mapStateToProps(state, ownProps) {
   const authorEntity = _.get(entities, ['authors', authorId], {})
   const authorImageSouce = _.get(
     authorEntity,
-    'thumbnail.image.resizedTargets.mobile'
+    'thumbnail.resizedTargets.mobile'
   )
   const authorImage = authorImageSouce
     ? { ...authorImageSouce, url: replaceGCSUrlOrigin(authorImageSouce.url) }
@@ -164,8 +166,8 @@ function mapStateToProps(state, ownProps) {
     name: _.get(authorEntity, 'name') || '',
     title: _.get(authorEntity, 'jobTitle') || '',
     image: authorImage,
-    mail: _.get(authorEntity, 'email') || '',
-    bio: _.get(authorEntity, 'bio.md' || ''),
+    mail: _.get(authorEntity, 'email') || defaultEmail,
+    bio: _.get(authorEntity, 'bio' || ''),
   }
   return {
     author,
