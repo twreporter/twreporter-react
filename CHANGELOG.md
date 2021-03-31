@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.6.5-rc.0 (Current), 2021-03-31
+## 4.6.5-rc.1 (Current), 2021-03-31
 
 ### Notable Changes
 
@@ -13,7 +13,10 @@
 
 ### Commits
 
-- [[`99b3f43561`](https://github.com/twreporter/twreporter-react/commit/99b3f43561)] - **chore**: upgrade deps (#1812) (Tai-Jiun Fang)
+- [[`467f7c30c7`](https://github.com/twreporter/twreporter-react/commit/467f7c30c7)] - Merge pull request #1792 from taylrj/all-author-articles (Tai-Jiun Fang)
+- [[`7069f29273`](https://github.com/twreporter/twreporter-react/commit/7069f29273)] - Merge pull request #1793 from taylrj/author-v2 (Tai-Jiun Fang)
+
+* [[`99b3f43561`](https://github.com/twreporter/twreporter-react/commit/99b3f43561)] - **chore**: upgrade deps (#1812) (Tai-Jiun Fang)
 
 ## 4.6.4, 2021-03-30
 
