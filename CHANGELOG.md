@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.6.4 (Current), 2021-03-30
+## 4.6.5-rc.0 (Current), 2021-03-31
+
+### Notable Changes
+
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.2-rc.0
+    - @twreporter/react-article-components@1.2.14-rc.1
+    - @twreporter/react-components@8.4.1-rc.0
+    - @twreporter/redux@7.1.0-rc.0
+
+### Commits
+
+- [[`99b3f43561`](https://github.com/twreporter/twreporter-react/commit/99b3f43561)] - **chore**: upgrade deps (#1812) (Tai-Jiun Fang)
+
+## 4.6.4, 2021-03-30
 
 ### Notable Changes
 
