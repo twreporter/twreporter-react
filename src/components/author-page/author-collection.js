@@ -134,7 +134,7 @@ const CenteredSpinner = styled(LoadingSpinner)`
 
 function buildListItem(item) {
   const charLimit = 120
-  const image = _.get(item, 'heroImage.image.resizedTargets.mobile', {})
+  const image = _.get(item, 'heroImage.resizedTargets.mobile', {})
   image.url = replaceGCSUrlOrigin(image.url)
   const slug = _.get(item, 'slug', '')
   const title = _.get(item, 'title', '')
@@ -192,7 +192,8 @@ const AuthorCollection = props => {
     handleLoadmore,
     totalResults,
   } = props
-  const titleText = '所有文章' + (totalResults ? `（${totalResults}）` : '')
+  const titleText =
+    '所有文章' + (typeof totalResults === 'number' ? `（${totalResults}）` : '')
 
   return (
     <Sizing size="small">
