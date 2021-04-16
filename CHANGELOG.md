@@ -1,6 +1,28 @@
 # Changelog
 
-## 4.6.4 (Current), 2021-03-30
+## 4.6.5 (Current), 2021-04-16
+
+### Notable Changes
+
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.2
+    - @twreporter/react-article-components@1.2.15
+    - @twreporter/react-components@8.4.1
+    - @twreporter/redux@7.1.0
+- refactor
+  - refactor: tweak data path for author page according to @twreporter/redux updates
+
+### Commits
+
+- [[`bc8dd60919`](https://github.com/twreporter/twreporter-react/commit/bc8dd60919)] - **chore**: upgrade deps (#1817) (Tai-Jiun Fang)
+- [[`d4fb2af145`](https://github.com/twreporter/twreporter-react/commit/d4fb2af145)] - **chore**: bump version to v4.6.5-rc.1 (Taylor Fang)
+- [[`467f7c30c7`](https://github.com/twreporter/twreporter-react/commit/467f7c30c7)] - Merge pull request #1792 from taylrj/all-author-articles (Tai-Jiun Fang)
+- [[`7069f29273`](https://github.com/twreporter/twreporter-react/commit/7069f29273)] - Merge pull request #1793 from taylrj/author-v2 (Tai-Jiun Fang)
+- [[`26e680dd52`](https://github.com/twreporter/twreporter-react/commit/26e680dd52)] - **chore**: bump version to v4.6.5-rc.0 (Taylor Fang)
+- [[`99b3f43561`](https://github.com/twreporter/twreporter-react/commit/99b3f43561)] - **chore**: upgrade deps (#1812) (Tai-Jiun Fang)
+
+## 4.6.4, 2021-03-30
 
 ### Notable Changes
 
