@@ -1,6 +1,29 @@
 # Changelog
 
-## 4.6.5 (Current), 2021-04-16
+## 4.6.6 (Current), 2021-04-19
+
+### Notable Changes
+
+- fix
+  - utilize `window.location.href` as the path for GA
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.3
+    - @twreporter/react-article-components@1.3.0
+    - @twreporter/react-components@8.4.2
+    - @twreporter/redux@7.2.0
+
+### Commits
+
+- [[`daf726e8a7`](https://github.com/twreporter/twreporter-react/commit/daf726e8a7)] - **chore**: bump version to v4.6.6 (Taylor Fang)
+- [[`bb715e77b1`](https://github.com/twreporter/twreporter-react/commit/bb715e77b1)] - **chore**: update dependencies (#1826) (Tai-Jiun Fang)
+- [[`601c438899`](https://github.com/twreporter/twreporter-react/commit/601c438899)] - Merge pull request #1824 from taylrj/master (Tai-Jiun Fang)
+- [[`db7d9a5836`](https://github.com/twreporter/twreporter-react/commit/db7d9a5836)] - **chore**: bump version to v4.6.6-rc.0 (Taylor Fang)
+- [[`ed07491a0c`](https://github.com/twreporter/twreporter-react/commit/ed07491a0c)] - **chore**: update dependencies (#1823) (Tai-Jiun Fang)
+- [[`8036ce412e`](https://github.com/twreporter/twreporter-react/commit/8036ce412e)] - **fix**: utilize `window.location.href` as the path for GA (#1822) (Tai-Jiun Fang)
+- [[`c17f711c9f`](https://github.com/twreporter/twreporter-react/commit/c17f711c9f)] - Merge pull request #1819 from taylrj/master (Tai-Jiun Fang)
+
+## 4.6.5
 
 ### Notable Changes
 
@@ -15,6 +38,7 @@
 
 ### Commits
 
+- [[`23199c4868`](https://github.com/twreporter/twreporter-react/commit/23199c4868)] - **chore**: bump version to v4.6.5 (Taylor Fang)
 - [[`bc8dd60919`](https://github.com/twreporter/twreporter-react/commit/bc8dd60919)] - **chore**: upgrade deps (#1817) (Tai-Jiun Fang)
 - [[`d4fb2af145`](https://github.com/twreporter/twreporter-react/commit/d4fb2af145)] - **chore**: bump version to v4.6.5-rc.1 (Taylor Fang)
 - [[`467f7c30c7`](https://github.com/twreporter/twreporter-react/commit/467f7c30c7)] - Merge pull request #1792 from taylrj/all-author-articles (Tai-Jiun Fang)
