@@ -73,7 +73,7 @@ const store = twreporterRedux.createStore(
 
 // add Google Analytics
 ReactGA.initialize('UA-69336956-1')
-ReactGA.set({ page: window.location.pathname })
+ReactGA.set({ page: window.location.href })
 const jsx = (
   <BrowserRouter>
     <React.Fragment>
