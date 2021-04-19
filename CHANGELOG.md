@@ -1,6 +1,26 @@
 # Changelog
 
-## 4.6.5 (Current), 2021-04-16
+## 4.6.6-rc.0 (Current), 2021-04-19
+
+### Notable Changes
+
+- fix
+  - utilize `window.location.href` as the path for GA
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.3-rc.0
+    - @twreporter/react-article-components@1.3.0-rc.0
+    - @twreporter/react-components@8.4.2-rc.0
+    - @twreporter/redux@7.2.0-rc.0
+
+### Commits
+
+- [[`ed07491a0c`](https://github.com/twreporter/twreporter-react/commit/ed07491a0c)] - **chore**: update dependencies (#1823) (Tai-Jiun Fang)
+- [[`8036ce412e`](https://github.com/twreporter/twreporter-react/commit/8036ce412e)] - **fix**: utilize `window.location.href` as the path for GA (#1822) (Tai-Jiun Fang)
+- [[`c17f711c9f`](https://github.com/twreporter/twreporter-react/commit/c17f711c9f)] - Merge pull request #1819 from taylrj/master (Tai-Jiun Fang)
+- [[`23199c4868`](https://github.com/twreporter/twreporter-react/commit/23199c4868)] - **chore**: bump version to v4.6.5 (Taylor Fang)
+
+## 4.6.5
 
 ### Notable Changes
 
