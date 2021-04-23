@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.6.7-rc.0 (Current), 2021-04-23
+
+### Notable Changes
+
+- fix
+  - utilize `window.location.href` when sending pageview
+
+### Commits
+
+- [[`fd69436f`](https://github.com/twreporter/twreporter-react/commit/fd69436ff6023b7fa16a0187383b38be3b15dc1c)] - fix: utilize `window.location.href` when sending pageview(Ching-Yang, Tseng)
+
 ## 4.6.6 (Current), 2021-04-19
 
 ### Notable Changes
