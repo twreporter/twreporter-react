@@ -60,7 +60,7 @@ function reloadPageIfNeeded() {
 function scrollToTopAndFirePageview() {
   window.scrollTo(0, 0)
   // send Google Analytics Pageview event on route changed
-  ReactGA.pageview(window.location.pathname)
+  ReactGA.pageview(window.location.href)
 
   return null
 }
