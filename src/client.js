@@ -60,7 +60,7 @@ function reloadPageIfNeeded() {
 function scrollToTopAndFirePageview() {
   window.scrollTo(0, 0)
   // send Google Analytics Pageview event on route changed
-  ReactGA.pageview(window.location.href)
+  ReactGA.pageview(window.location.pathname + window.location.search)
 
   return null
 }
@@ -73,7 +73,7 @@ const store = twreporterRedux.createStore(
 
 // add Google Analytics
 ReactGA.initialize('UA-69336956-1')
-ReactGA.set({ page: window.location.href })
+ReactGA.set({ page: window.location.pathname + window.location.search })
 const jsx = (
   <BrowserRouter>
     <React.Fragment>
