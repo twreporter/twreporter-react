@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.6.7 (Current), 2021-04-29
+## 4.6.8 (Current), 2021-04-29
+
+### Notable Changes
+
+- refactor
+  - update section 2 markup for about-us page
+
+### Commits
+
+- [[`a75312a3f2`](https://github.com/twreporter/twreporter-react/commit/a75312a3f2)] - **refactor**: update about-us section 2 markup (#1840) (Tai-Jiun Fang)
+
+## 4.6.7, 2021-04-29
 
 ### Notable Changes
 
@@ -11,6 +22,7 @@
 
 - [[`f77fc1c4`](https://github.com/twreporter/twreporter-react/commit/f77fc1c4aae9be0059ebbc2b763f9da18e9e3ffb)] - fix: count the pageviews with pathname + query parameters(Ching-Yang, Tseng)
 - [[`fd69436f`](https://github.com/twreporter/twreporter-react/commit/fd69436ff6023b7fa16a0187383b38be3b15dc1c)] - fix: utilize `window.location.href` when sending pageview(Ching-Yang, Tseng)
+
 ## 4.6.6, 2021-04-19
 
 ### Notable Changes
