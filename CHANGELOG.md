@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.6.8-rc.0 (Current), 2021-04-29
+## 4.6.8 (Current), 2021-04-29
 
 ### Notable Changes
 
