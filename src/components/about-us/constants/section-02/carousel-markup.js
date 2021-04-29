@@ -63,11 +63,11 @@ const carouselMarkup = {
   },
   [categoryIds.photojournalist]: {
     [screen.hd]: {
-      width: '727px',
-      'margin-right': '41px',
+      width: '576px',
+      'margin-right': '31px',
     },
     [screen.desktop]: {
-      width: '513px',
+      width: '414px',
       'margin-right': '32px',
     },
     [screen.tablet]: {
@@ -76,10 +76,10 @@ const carouselMarkup = {
   },
   [categoryIds.marketing]: {
     [screen.hd]: {
-      width: '415px',
+      width: '576px',
     },
     [screen.desktop]: {
-      width: '315px',
+      width: '414px',
     },
     [screen.tablet]: {
       width: '100%',
