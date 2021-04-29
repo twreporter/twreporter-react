@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.6.6 (Current), 2021-04-19
+## 4.6.7 (Current), 2021-04-29
+
+### Notable Changes
+
+- fix
+  - count the pageviews with pathname + query parameters
+
+### Commits
+
+- [[`f77fc1c4`](https://github.com/twreporter/twreporter-react/commit/f77fc1c4aae9be0059ebbc2b763f9da18e9e3ffb)] - fix: count the pageviews with pathname + query parameters(Ching-Yang, Tseng)
+- [[`fd69436f`](https://github.com/twreporter/twreporter-react/commit/fd69436ff6023b7fa16a0187383b38be3b15dc1c)] - fix: utilize `window.location.href` when sending pageview(Ching-Yang, Tseng)
+## 4.6.6, 2021-04-19
 
 ### Notable Changes
 
