@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.6.9-rc.0 (Current), 2021-05-13
+## 4.6.9 (Current), 2021-05-13
 
 ### Notable Changes
 
@@ -13,9 +13,11 @@
 
 ### Commits
 
-- [[`643114670f`](https://github.com/twreporter/twreporter-react/commit/643114670f)] - **chore**: upgrade npm packages (#1852) (Tai-Jiun Fang)
-- [[`ac33b730f0`](https://github.com/twreporter/twreporter-react/commit/ac33b730f0)] - **refactor**: anchors configuration (#1847) (Tai-Jiun Fang)
-- [[`da3969b4d7`](https://github.com/twreporter/twreporter-react/commit/da3969b4d7)] - **docs**: add release-test-items (#1839) (Tai-Jiun Fang)
+- [[`eddc2a0c31`](https://github.com/twreporter/twreporter-react/commit/eddc2a0c31)] - chore(release): upgrade npm packages (#1855) (Tai-Jiun Fang)
+
+* [[`643114670f`](https://github.com/twreporter/twreporter-react/commit/643114670f)] - **chore**: upgrade npm packages (#1852) (Tai-Jiun Fang)
+* [[`ac33b730f0`](https://github.com/twreporter/twreporter-react/commit/ac33b730f0)] - **refactor**: anchors configuration (#1847) (Tai-Jiun Fang)
+* [[`da3969b4d7`](https://github.com/twreporter/twreporter-react/commit/da3969b4d7)] - **docs**: add release-test-items (#1839) (Tai-Jiun Fang)
 
 ## 4.6.8, 2021-04-29
 
