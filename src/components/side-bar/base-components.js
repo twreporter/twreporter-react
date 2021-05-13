@@ -73,9 +73,9 @@ class Anchors extends React.PureComponent {
     data.forEach(anchorObj => {
       const id = _.get(anchorObj, 'id', '')
       const label = _.get(anchorObj, 'label', '')
+      const show = _.get(anchorObj, 'show', false)
 
-      // id and label are not empty string
-      if (id && label) {
+      if (show) {
         anchorBts.push(
           this._renderAnchor({
             handleClick: handleClickAnchor,
