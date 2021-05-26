@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { Fragment } from 'react'
 import baseComponents from './base-components'
 import colors from '../../constants/colors'
 import mq from '../../utils/media-query'
 import styled from 'styled-components'
 
-// writing-mode: vertical-rl;
-// letter-spacing: 2px;
 const StyledAnchor = styled(baseComponents.StyledAnchor)`
   margin-bottom: 18px;
   color: ${props => (props.highlight ? 'white' : `${colors.primaryColor}`)};
@@ -22,11 +20,17 @@ class Anchors extends baseComponents.Anchors {
 
 const SideBarContainer = styled.div`
   position: fixed;
-  top: 50%;
+  @supports (position: sticky) {
+    position: sticky;
+  }
+
+  float: right;
+  right: 16px;
+  top: 50vh;
   z-index: 100;
   transform: translateY(-50%);
   color: ${colors.primaryColor};
-  right: 16px;
+  will-change: transform;
   ${mq.tabletOnly`
     right: 3px;
   `}
@@ -40,7 +44,7 @@ class HomePageSideBar extends React.PureComponent {
     // currentAnchorId and handleClickAnchor are passed from `SideBarHOC`
     const { anchors, children, currentAnchorId, handleClickAnchor } = this.props
     return (
-      <div>
+      <Fragment>
         <SideBarContainer>
           <Anchors
             data={anchors}
@@ -49,7 +53,7 @@ class HomePageSideBar extends React.PureComponent {
           />
         </SideBarContainer>
         {children}
-      </div>
+      </Fragment>
     )
   }
 }

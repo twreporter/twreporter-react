@@ -85,7 +85,6 @@ const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   background-color: white;
-  overflow: hidden;
   ${reactTransitionCSS}
 `
 
