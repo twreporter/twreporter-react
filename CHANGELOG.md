@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.6.9 (Current), 2021-05-13
+## 4.6.10-rc.0 (Current), 2021-05-26
+
+### Notable Changes
+
+- fix
+  - prevent sidebar from overlapping footer (#1850)
+
+### Commits
+
+- [[`99b2767218`](https://github.com/twreporter/twreporter-react/commit/99b2767218)] - fix(homepage): prevent sidebar from overlapping footer (#1850) (CHC)
+
+## 4.6.9, 2021-05-13
 
 ### Notable Changes
 
