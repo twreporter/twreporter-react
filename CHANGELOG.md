@@ -1,14 +1,19 @@
 # Changelog
 
-## 4.6.10 (Current), 2021-05-26
+## 4.6.10-rc.2 (Current), 2021-05-28
 
 ### Notable Changes
 
 - fix
   - prevent sidebar from overlapping footer (#1850)
+  - fix slideshow effect for mobile devices on index page (#1865)
 
 ### Commits
 
+- [[`9e84bb3efe`](https://github.com/twreporter/twreporter-react/commit/9e84bb3efe)] - **fix**: fix slideshow effect for mobile devices on index page (#1865) (Tai-Jiun Fang)
+- [[`95331ff463`](https://github.com/twreporter/twreporter-react/commit/95331ff463)] - **chore**: downgrade version to v4.6.10-rc.1 (Taylor Fang)
+- [[`7714f484f1`](https://github.com/twreporter/twreporter-react/commit/7714f484f1)] - chore(release): bump version to v4.6.10 (Taylor Fang)
+- [[`639b4817d7`](https://github.com/twreporter/twreporter-react/commit/639b4817d7)] - **chore**: bump version to v4.6.10-rc.0 (Taylor Fang)
 - [[`99b2767218`](https://github.com/twreporter/twreporter-react/commit/99b2767218)] - fix(homepage): prevent sidebar from overlapping footer (#1850) (CHC)
 
 ## 4.6.9, 2021-05-13
