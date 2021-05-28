@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import categoryConst from '../constants/category'
 import loggerFactory from '../logger'
+import mq from '../utils/media-query'
 import qs from 'qs'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
 import siteMeta from '../constants/site-meta'
@@ -85,6 +86,9 @@ const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   background-color: white;
+  ${mq.mobileOnly`
+    overflow: hidden;
+  `}
   ${reactTransitionCSS}
 `
 
