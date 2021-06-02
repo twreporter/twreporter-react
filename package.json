@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.6.10",
+  "version": "4.6.11-rc.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
