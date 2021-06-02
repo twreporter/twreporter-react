@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.6.10",
+  "version": "4.6.11-rc.0",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -51,7 +51,7 @@
     "react": "^16.3.0",
     "react-click-outside": "tj/react-click-outside",
     "react-dom": "^16.3.0",
-    "react-ga": "^2.1.2",
+    "react-gtm-module": "^2.0.11",
     "react-helmet": "^5.2.0",
     "react-loadable": "^5.5.0",
     "react-redux": "^6.0.0",

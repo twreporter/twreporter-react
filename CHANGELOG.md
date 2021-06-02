@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.6.11-rc.0
+
+### Notable Changes
+
+- refactor
+  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls))
+
+### Commits
+
+- [[`eedafc4a71`](https://github.com/twreporter/twreporter-react/commit/eedafc4a71)] - **refactor**: migrate ga to gtm (Ching-Yang, Tseng)
+- [[`18374b4cee`](https://github.com/twreporter/twreporter-react/commit/18374b4cee)] - **refactor**: remove unused ga.js (Ching-Yang, Tseng)
+
 ## 4.6.10 (Current), 2021-05-28
 
 ### Notable Changes

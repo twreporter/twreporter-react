@@ -5,7 +5,7 @@ import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactGA from 'react-ga'
+import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
@@ -60,7 +60,12 @@ function reloadPageIfNeeded() {
 function scrollToTopAndFirePageview() {
   window.scrollTo(0, 0)
   // send Google Analytics Pageview event on route changed
-  ReactGA.pageview(window.location.pathname + window.location.search)
+  TagManager.dataLayer({
+    dataLayer: {
+      event: 'PageView',
+      page: window.location.pathname + window.location.search,
+    },
+  })
 
   return null
 }
@@ -71,9 +76,9 @@ const store = twreporterRedux.createStore(
   globalEnv.isDevelopment
 )
 
-// add Google Analytics
-ReactGA.initialize('UA-69336956-1')
-ReactGA.set({ page: window.location.pathname + window.location.search })
+// add Google Tag Manager
+TagManager.initialize({ gtmId: 'GTM-PRMXBBN' })
+
 const jsx = (
   <BrowserRouter>
     <React.Fragment>
