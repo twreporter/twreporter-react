@@ -22,6 +22,7 @@ import cloneUtils from '../utils/shallow-clone-entity'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
+import TagManager from 'react-gtm-module'
 
 const {
   CategorySection,
@@ -184,6 +185,12 @@ class Homepage extends React.PureComponent {
   }
 
   componentDidMount() {
+    // For client-side rendering, we notify GTM that the new component is ready
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'gtm.load',
+      },
+    })
     this.fetchIndexPageContentWithCatch()
     this.fetchFeatureTopicWithCatch().then(() => {
       // EX: if the url path is /?section=categories
