@@ -176,6 +176,7 @@ class Homepage extends React.PureComponent {
     fetchIndexPageContent: PropTypes.func,
     fetchFeatureTopic: PropTypes.func,
     isSpinnerDisplayed: PropTypes.bool,
+    isContentReady: PropTypes.bool,
     categories: PropTypes.array,
   }
 
@@ -185,12 +186,6 @@ class Homepage extends React.PureComponent {
   }
 
   componentDidMount() {
-    // For client-side rendering, we notify GTM that the new component is ready
-    TagManager.dataLayer({
-      dataLayer: {
-        event: 'gtm.load',
-      },
-    })
     this.fetchIndexPageContentWithCatch()
     this.fetchFeatureTopicWithCatch().then(() => {
       // EX: if the url path is /?section=categories
@@ -203,6 +198,17 @@ class Homepage extends React.PureComponent {
         this._sidebar.current.handleClickAnchor(section)
       }
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isContentReady && this.props.isContentReady) {
+      // For client-side rendering, we notify GTM that the new component is ready
+      TagManager.dataLayer({
+        dataLayer: {
+          event: 'gtm.load',
+        },
+      })
+    }
   }
 
   fetchIndexPageContentWithCatch = () => {
@@ -563,6 +569,7 @@ function mapStateToProps(state) {
     {
       isSpinnerDisplayed: !_.get(indexPageState, 'isReady', false),
       ifAuthenticated: _.get(state, ['auth', 'authenticated'], false),
+      isContentReady: _.get(indexPageState, 'isReady', false),
     }
   )
 }
