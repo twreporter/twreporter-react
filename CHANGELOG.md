@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.6.11-rc.1
+
+### Notable Changes
+
+- feat
+
+  - manually send gtm.load event for SPA([#1878](https://github.com/twreporter/twreporter-react/pull/1878))
+
+- refactor
+  - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
+
+### Commits
+
+- [[`3966012ef5`](https://github.com/twreporter/twreporter-react/commit/3966012ef5)] - **feat**: manually send gtm.load event for SPA (Ching-Yang, Tseng)
+- [[`53ee560b90`](https://github.com/twreporter/twreporter-react/commit/53ee560b90)] - **refactor**: remove the default email of authors (Ching-Yang, Tseng)
+
 ## 4.6.11-rc.0
 
 ### Notable Changes
