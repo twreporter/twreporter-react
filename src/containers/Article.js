@@ -1,6 +1,7 @@
 import ArticleComponent from '@twreporter/react-article-components'
 import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
+import TagManager from 'react-gtm-module'
 import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -56,6 +57,12 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
+    // For client-side rendering, we notify GTM that the new component is ready
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'gtm.load',
+      },
+    })
     // detect scroll position
     window.addEventListener('scroll', this.handleScroll)
     const { fontLevel, changeFontLevel, slugToFetch } = this.props
