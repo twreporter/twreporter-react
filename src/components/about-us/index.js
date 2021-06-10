@@ -17,6 +17,7 @@ import styled from 'styled-components'
 import WebFont from './web-font'
 import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 import { Opening } from './opening'
+import TagManager from 'react-gtm-module'
 
 const Border = styled.div`
   ${mq.hdOnly`
@@ -47,6 +48,12 @@ export class AboutUs extends PureComponent {
     return smoothScroll(this.sectionOffset[anchorIdx])
   }
   componentDidMount() {
+    // For client-side rendering, we notify GTM that the new component is ready
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'gtm.load',
+      },
+    })
     this.sectionOffset = this.sectionRefs.map(elem => {
       return ReactDOM.findDOMNode(elem).getBoundingClientRect().top
     })
