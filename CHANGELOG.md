@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.6.11-rc.2
+
+### Notable Changes
+
+- fix
+  - send gtm.load event when the content is ready([#1882](https://github.com/twreporter/twreporter-react/pull/1882))
+
+### Commits
+
+- [[`3f4c29505d`](https://github.com/twreporter/twreporter-react/commit/3f4c29505d)] - **fix**: send gtm.load event when the conte
+  nt is ready (Ching-Yang, Tseng)
+
 ## 4.6.11-rc.1
 
 ### Notable Changes
