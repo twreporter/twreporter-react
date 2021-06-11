@@ -57,12 +57,6 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
-    // For client-side rendering, we notify GTM that the new component is ready
-    TagManager.dataLayer({
-      dataLayer: {
-        event: 'gtm.load',
-      },
-    })
     // detect scroll position
     window.addEventListener('scroll', this.handleScroll)
     const { fontLevel, changeFontLevel, slugToFetch } = this.props
@@ -90,6 +84,14 @@ class Article extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.slugToFetch !== this.props.slugToFetch) {
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
+    }
+    if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
+      // For client-side rendering, we notify GTM that the new component is ready when the fetching is done.
+      TagManager.dataLayer({
+        dataLayer: {
+          event: 'gtm.load',
+        },
+      })
     }
   }
 
