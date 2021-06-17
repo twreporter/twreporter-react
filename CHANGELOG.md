@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.6.11-rc.3
+
+### Notable Changes
+
+- chore
+  - upgrade @twreporter/react-article-components to `v1.3.2-rc.0` ([#1885](https://github.com/twreporter/twreporter-react/pull/1885))
+
+### Commits
+
+- [[`9b0dfc2952`](https://github.com/twreporter/twreporter-react/commit/9b0dfc2952)] - **chore**: upgrade npm packages (Ching-Yang, Tseng)
+
 ## 4.6.11-rc.2
 
 ### Notable Changes
