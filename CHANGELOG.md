@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.6.11-rc.4
+
+### Notable Changes
+
+- refactor
+  - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
+
+### Commits
+
+- [[`f6a10b6cfd`](https://github.com/twreporter/twreporter-react/commit/f6a10b6cfd)] - **refactor**: remove utm parameters (Ching-Yang, Tseng)
+
 ## 4.6.11-rc.3
 
 ### Notable Changes
