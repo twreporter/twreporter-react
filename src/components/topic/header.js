@@ -7,7 +7,7 @@ import WhiteDonationIcon from '../../../static/asset/white-donation-icon.svg'
 import WhiteLogoIcon from '../../../static/asset/logo-white-s.svg'
 // @twreporter
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
 
 const Container = styled.div`
   position: absolute;
@@ -60,7 +60,7 @@ const LogoLink = styled(Link)`
 function Header() {
   return (
     <Container>
-      <DonationLink utmMedium="topic">
+      <DonationLink>
         <DonationBtn>
           <WhiteDonationIcon />
           <span>贊助我們</span>
