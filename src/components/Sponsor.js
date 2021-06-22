@@ -1,5 +1,5 @@
 import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
 import mq from '../utils/media-query'
 import React from 'react'
 import Sizing from './sizing'
@@ -77,7 +77,7 @@ class Sponsor extends React.Component {
           </p>
           <p>竭誠歡迎認同《報導者》理念的朋友贊助支持我們！</p>
         </Desc>
-        <SponsorButton utmMedium="author">贊助我們</SponsorButton>
+        <SponsorButton>贊助我們</SponsorButton>
       </Container>
     )
   }
