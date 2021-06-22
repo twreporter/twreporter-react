@@ -1,68 +1,30 @@
 # Changelog
 
-## 4.6.11-rc.4
+## 4.6.11 (Current), 2021-06-22
 
 ### Notable Changes
 
 - refactor
+
+  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls))
+  - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
   - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
+
+- feat
+  - manually send gtm.load event for SPA([#1878](https://github.com/twreporter/twreporter-react/pull/1878), [#1882](https://github.com/twreporter/twreporter-react/pull/1882))
 
 ### Commits
 
 - [[`f6a10b6cfd`](https://github.com/twreporter/twreporter-react/commit/f6a10b6cfd)] - **refactor**: remove utm parameters (Ching-Yang, Tseng)
-
-## 4.6.11-rc.3
-
-### Notable Changes
-
-- chore
-  - upgrade @twreporter/react-article-components to `v1.3.2-rc.0` ([#1885](https://github.com/twreporter/twreporter-react/pull/1885))
-
-### Commits
-
 - [[`9b0dfc2952`](https://github.com/twreporter/twreporter-react/commit/9b0dfc2952)] - **chore**: upgrade npm packages (Ching-Yang, Tseng)
-
-## 4.6.11-rc.2
-
-### Notable Changes
-
-- fix
-  - send gtm.load event when the content is ready([#1882](https://github.com/twreporter/twreporter-react/pull/1882))
-
-### Commits
-
 - [[`3f4c29505d`](https://github.com/twreporter/twreporter-react/commit/3f4c29505d)] - **fix**: send gtm.load event when the conte
   nt is ready (Ching-Yang, Tseng)
-
-## 4.6.11-rc.1
-
-### Notable Changes
-
-- feat
-
-  - manually send gtm.load event for SPA([#1878](https://github.com/twreporter/twreporter-react/pull/1878))
-
-- refactor
-  - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
-
-### Commits
-
 - [[`3966012ef5`](https://github.com/twreporter/twreporter-react/commit/3966012ef5)] - **feat**: manually send gtm.load event for SPA (Ching-Yang, Tseng)
 - [[`53ee560b90`](https://github.com/twreporter/twreporter-react/commit/53ee560b90)] - **refactor**: remove the default email of authors (Ching-Yang, Tseng)
-
-## 4.6.11-rc.0
-
-### Notable Changes
-
-- refactor
-  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls))
-
-### Commits
-
 - [[`eedafc4a71`](https://github.com/twreporter/twreporter-react/commit/eedafc4a71)] - **refactor**: migrate ga to gtm (Ching-Yang, Tseng)
 - [[`18374b4cee`](https://github.com/twreporter/twreporter-react/commit/18374b4cee)] - **refactor**: remove unused ga.js (Ching-Yang, Tseng)
 
-## 4.6.10 (Current), 2021-05-28
+## 4.6.10, 2021-05-28
 
 ### Notable Changes
 
