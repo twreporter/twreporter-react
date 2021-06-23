@@ -464,13 +464,13 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.4.tgz#e1bcb5583fc64ac2339cad9afbcf89fe6320b860"
-  integrity sha512-zwY8tiDlwm0p4sz0rFpq7CtiuEn/Zp5tITmDPvvYQa6GGSbrBlwsby5tvrkUVojFLj9FgaaZIK8RVHO7VLYC6A==
+"@twreporter/index-page@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.5.tgz#62a025dc0845bbb30f1be2b8a64473f602eec1e3"
+  integrity sha512-Ie5015vcYBVquBT2DQTfoACfspElUnP0SNOrtBhXsQRRMDS83iz+scNC9MwXOzI713XvhKUQvIz8gGV+eeaqTA==
   dependencies:
     "@twreporter/core" "^1.2.1"
-    "@twreporter/react-components" "^8.4.3"
+    "@twreporter/react-components" "^8.4.4"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^16.3.0"
@@ -482,13 +482,13 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.3.1.tgz#e2f9b49dd2a15394a8a58bf1d3d7069d997aa593"
-  integrity sha512-Z2bZ5CFyQdeI3A3Z04j0/VAJdsczP0o9fEMJcWosSTp7MGoKKRXgjqHS/KHDSBjKYJBoSnIyYfZX76rRGI4owQ==
+"@twreporter/react-article-components@1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.3.2.tgz#b7148dad71a25a6a5a2d8732666ac8586f2cbc8c"
+  integrity sha512-2MB7d6I6lf3iG0KB0zv5JXLgwOv2r2RgZIXAWpfIf30dlAeNHum6qnkyCorLJyAF0ZpizF3UYKhNxwA3PAA3xg==
   dependencies:
     "@twreporter/core" "^1.2.1"
-    "@twreporter/react-components" "^8.4.3"
+    "@twreporter/react-components" "^8.4.4"
     "@twreporter/redux" "^7.2.0"
     "@twreporter/universal-header" "^2.1.8"
     howler "^2.1.1"
@@ -500,10 +500,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.4.3", "@twreporter/react-components@^8.4.3":
-  version "8.4.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.4.3.tgz#20008568bd522f6547797de5a33a32d2ca955442"
-  integrity sha512-pAVEjeUyvq9AbKyCM85O+NRAazyUIf/Zm10kToNbvN53SiPmbYTlL9uGQjsZXerDQMWN3pxF0nCpqO+TkXRsnw==
+"@twreporter/react-components@8.4.4", "@twreporter/react-components@^8.4.4":
+  version "8.4.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.4.4.tgz#c889fcd1e650360d67169e7b3f704381a558f20e"
+  integrity sha512-tcXVe+OtLQzdIDTjb6Nyl7J1AFFWr3KC0P62/ALkAppnirU/rLIPV2oweIqHuefMXNbuVpHpaSQQNvw2HskiEw==
   dependencies:
     "@twreporter/core" "^1.2.1"
     "@twreporter/redux" "^7.2.0"
@@ -7045,10 +7045,10 @@ react-dom@^16.3.0:
     prop-types "^15.6.2"
     scheduler "^0.15.0"
 
-react-ga@^2.1.2:
-  version "2.5.7"
-  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.7.tgz#1c80a289004bf84f84c26d46f3a6a6513081bf2e"
-  integrity sha512-UmATFaZpEQDO96KFjB5FRLcT6hFcwaxOmAJZnjrSiFN/msTqylq9G+z5Z8TYzN/dbamDTiWf92m6MnXXJkAivQ==
+react-gtm-module@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/react-gtm-module/-/react-gtm-module-2.0.11.tgz#14484dac8257acd93614e347c32da9c5ac524206"
+  integrity sha512-8gyj4TTxeP7eEyc2QKawEuQoAZdjKvMY4pgWfycGmqGByhs17fR+zEBs0JUDq4US/l+vbTl+6zvUIx27iDo/Vw==
 
 react-helmet@^5.2.0:
   version "5.2.0"

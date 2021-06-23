@@ -1,6 +1,7 @@
 import ArticleComponent from '@twreporter/react-article-components'
 import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
+import TagManager from 'react-gtm-module'
 import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -83,6 +84,14 @@ class Article extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.slugToFetch !== this.props.slugToFetch) {
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
+    }
+    if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
+      // For client-side rendering, we notify GTM that the new component is ready when the fetching is done.
+      TagManager.dataLayer({
+        dataLayer: {
+          event: 'gtm.load',
+        },
+      })
     }
   }
 
