@@ -1,12 +1,23 @@
 # Changelog
 
-## 4.6.11 (Current), 2021-06-22
+## 4.6.12-rc.0 (Current), 2021-07-09
+
+### Notable Changes
+
+- fix
+  - migrate ga to gtm ([#1898](https://github.com/twreporter/twreporter-react/pulls/1898))
+
+### Commits
+
+- [[`60ae3fc174`](https://github.com/twreporter/twreporter-react/commit/60ae3fc174)] - fix(search-box): give input a specific width to avoid bug in firefox (#1898) (Leo)
+
+## 4.6.11, 2021-06-22
 
 ### Notable Changes
 
 - refactor
 
-  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls))
+  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls/1872))
   - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
   - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
 
