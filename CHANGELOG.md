@@ -16,7 +16,6 @@
 ### Notable Changes
 
 - refactor
-
   - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls/1872))
   - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
   - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
@@ -943,6 +942,19 @@
 #### Commits
 
 - [[290326b](https://github.com/twreporter/twreporter-react/commit/290326bb05bc5c668a7fe0644b8b85b810c5d049)] - update circleci config due to k8s cluster change(nickhsine)
+
+### 4.4.7
+
+#### Notable Changes
+
+##### Bug Fixes
+
+- [Bug] Fix og-image type error on topic landing page
+
+#### Commits
+
+- [[802e69f](https://github.com/twreporter/twreporter-react/commit/802e69fa495e643dd4a03da9e43d690c2d9b3f4e)] - Fix og-image type error on topic landing page (taylrj)
+- [[a89fb28](https://github.com/twreporter/twreporter-react/commit/a89fb282afd7a47948d705b4d17dbf3ae401bb1f)] - Add `leading-image` as the fallback `og-image` on topic landing page (taylrj)
 
 ### 4.4.7
 
