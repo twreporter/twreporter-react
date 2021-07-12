@@ -5,7 +5,7 @@
 ### Notable Changes
 
 - fix
-  - migrate ga to gtm ([#1898](https://github.com/twreporter/twreporter-react/pulls/1898))
+  - fix broken search box in firefox ([#1898](https://github.com/twreporter/twreporter-react/pulls/1898))
 
 ### Commits
 
