@@ -53,6 +53,8 @@ const ItemMeta = styled.div`
 `
 
 const ItemTitle = styled.h3`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   font-size: 20px;
   color: #262626;
   letter-spacing: 0.3px;
@@ -63,6 +65,8 @@ const ItemTitle = styled.h3`
 `
 
 const ItemDescription = styled.div`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   ${mq.mobileOnly`
     display: none;
   `}

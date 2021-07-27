@@ -15,6 +15,8 @@ const Content = styled.div`
 `
 
 const Headline = styled.div`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   color: #ffffff;
   display: inline-block;
   background-color: #c71b0a;
@@ -25,6 +27,8 @@ const Headline = styled.div`
 `
 
 const Title = styled.h1`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   color: #ffffff;
   margin: 0;
   font-size: 30px;
@@ -38,6 +42,8 @@ const Title = styled.h1`
 `
 
 const Subtitle = styled.h2`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   color: #ffffff;
   margin: 0;
   font-size: 18px;
@@ -72,6 +78,8 @@ const ArrowDown = styled.div`
 `
 
 const PublishDate = styled.div`
+  /* ff-tisa-web-prop is for english text */
+  font-family: ff-tisa-web-pro, source-han-sans-traditional, sans-serif;
   color: #ffffff;
   font-size: 13px;
   font-weight: ${fontWeight.normal};
