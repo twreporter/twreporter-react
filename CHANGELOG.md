@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.7.0, 2021-07-27
+
+### Notable Changes
+
+- feat
+  - add google optimize snippet ([#1897](https://github.com/twreporter/twreporter-react/pulls/1897))
+
+### Commits
+
+- [[`10b5ec046d`](https://github.com/twreporter/twreporter-react/commit/10b5ec046d)] - **feat**: add google optimize snippet (#1897) (Tai-Jiun Fang)
+
 ## 4.6.12 (Current), 2021-07-12
 
 ### Notable Changes
