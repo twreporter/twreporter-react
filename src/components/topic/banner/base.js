@@ -1,6 +1,7 @@
-import styled from 'styled-components'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import mq from '../../../utils/media-query'
+import styled from 'styled-components'
+import typography from '../../../constants/typography'
+import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 
 const textShadow = '0 2px 10px rgba(0, 0, 0, .5)'
 
@@ -15,6 +16,7 @@ const Content = styled.div`
 `
 
 const Headline = styled.div`
+  font-family: ${typography.font.fontFamily.default};
   color: #ffffff;
   display: inline-block;
   background-color: #c71b0a;
@@ -25,6 +27,7 @@ const Headline = styled.div`
 `
 
 const Title = styled.h1`
+  font-family: ${typography.font.fontFamily.default};
   color: #ffffff;
   margin: 0;
   font-size: 30px;
@@ -38,6 +41,7 @@ const Title = styled.h1`
 `
 
 const Subtitle = styled.h2`
+  font-family: ${typography.font.fontFamily.default};
   color: #ffffff;
   margin: 0;
   font-size: 18px;
@@ -72,6 +76,7 @@ const ArrowDown = styled.div`
 `
 
 const PublishDate = styled.div`
+  font-family: ${typography.font.fontFamily.default};
   color: #ffffff;
   font-size: 13px;
   font-weight: ${fontWeight.normal};
