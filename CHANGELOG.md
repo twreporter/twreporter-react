@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.7.0-rc.0, 2021-07-13
+## 4.7.0, 2021-07-27
 
 ### Notable Changes
 
