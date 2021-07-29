@@ -15,5 +15,9 @@ export default {
       normal: '300',
       bold: '700',
     },
+    fontFamily: {
+      // ff-tisa-web-pro is for english text
+      default: 'ff-tisa-web-pro, source-han-sans-traditional, sans-serif',
+    },
   },
 }
