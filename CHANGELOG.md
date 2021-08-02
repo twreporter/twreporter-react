@@ -1,22 +1,33 @@
 # Changelog
 
+## 4.7.1 (Current), 2021-08-02
+
+### Notable Changes
+
+- refactor
+  - update font-family for English text on topic landing page ([#1917](https://github.com/twreporter/twreporter-react/pull/1917))
+
+### Commits
+
+- [[`b7c56c14e5`](https://github.com/twreporter/twreporter-react/commit/b7c56c14e5)] - **refactor**: update font-family for English text on topic landing page (#1917) (Tai-Jiun Fang)
+
 ## 4.7.0, 2021-07-27
 
 ### Notable Changes
 
 - feat
-  - add google optimize snippet ([#1897](https://github.com/twreporter/twreporter-react/pulls/1897))
+  - add google optimize snippet ([#1897](https://github.com/twreporter/twreporter-react/pull/1897))
 
 ### Commits
 
 - [[`10b5ec046d`](https://github.com/twreporter/twreporter-react/commit/10b5ec046d)] - **feat**: add google optimize snippet (#1897) (Tai-Jiun Fang)
 
-## 4.6.12 (Current), 2021-07-12
+## 4.6.12, 2021-07-12
 
 ### Notable Changes
 
 - fix
-  - fix broken search box in firefox ([#1898](https://github.com/twreporter/twreporter-react/pulls/1898))
+  - fix broken search box in firefox ([#1898](https://github.com/twreporter/twreporter-react/pull/1898))
 
 ### Commits
 
@@ -28,7 +39,7 @@
 
 - refactor
 
-  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pulls/1872))
+  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pull/1872))
   - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
   - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
 
