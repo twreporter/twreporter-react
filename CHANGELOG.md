@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.1 (Current), 2021-08-02
+## 4.7.2-rc.0 (Current), 2021-08-31
+
+### Notable Changes
+
+- feat
+  - update @twreporter/universal-header to use header 2.0
+
+### Commits
+
+- [[`97046863e0`](https://github.com/twreporter/twreporter-react/commit/97046863e0)] - **chore**: test @twreporter/universal-header v2.2.0-rc.4 (Aylie Chou)
+
+## 4.7.1, 2021-08-02
 
 ### Notable Changes
 
