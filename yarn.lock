@@ -519,6 +519,25 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
+"@twreporter/react-components@8.5.0-rc.0":
+  version "8.5.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.0.tgz#d6f0e9bc73b2f91d3c9b4ed3043c2fac7de99522"
+  integrity sha512-hcyPQ1vsyrybvzj9sVtjkzij7IHuA+Fd0Re1sxjTZELCEj4FAPTqVwFDoGoJztss5c8imxi/tCqk3vZxCH8YGw==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/redux" "^7.2.0"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
+
 "@twreporter/redux@7.2.0", "@twreporter/redux@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.2.0.tgz#95e23ffd75014e4f658e772e80f334c3b4ad8ee7"
@@ -535,7 +554,25 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.1.6", "@twreporter/universal-header@^2.1.8":
+"@twreporter/universal-header@2.2.0-rc.4":
+  version "2.2.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.4.tgz#178fe5c241c43db4167d79516637c58577918ccb"
+  integrity sha512-CJnwR+ItgWaqwsshlYv/SOXpxF3HPDIYxvqpZmcU7JvZB+C/Wk9xoJwSSEXaLNL7DhOgqj7iWoawe/COkV66aQ==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/react-components" "8.5.0-rc.0"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+    querystring "^0.2.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/universal-header@^2.1.8":
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.8.tgz#905a6334493f0b397f81428b77f63d900da4d02a"
   integrity sha512-FKENg2a4hqTUeQJZ1gH+51H9GEBRBDImrQ9+6m7Z9/Mqq9OpypVaXjyLAlXz3w7Kyjuido/tkCKEgufdrQvvyw==
@@ -937,6 +974,13 @@ axios@^0.19.0:
   dependencies:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
+
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
 
 babel-cli@^6.10.1:
   version "6.26.0"
@@ -2839,7 +2883,7 @@ debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@~4.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@^3.1.0, debug@^3.2.6:
+debug@^3.1.0:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -3972,12 +4016,10 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.0.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
-  integrity sha512-m/pZQy4Gj287eNy94nivy5wchN3Kp+Q5WgUPNy5lJSZ3sgkVKSYV/ZChMAQVIgx1SqfZ2zBZtPA2YlXIWxxJOQ==
-  dependencies:
-    debug "^3.2.6"
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.2.tgz#cecb825047c00f5e66b142f90fed4f515dec789b"
+  integrity sha512-yLR6WaE2lbF0x4K2qE2p9PEXKLDjUjnR/xmjS3wHAYxtlsI9MLLBJUZirAHKzUZDGLxje7w/cXR49WOUo4rbsA==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
