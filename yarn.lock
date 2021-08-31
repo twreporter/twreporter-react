@@ -519,6 +519,25 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
+"@twreporter/react-components@8.5.0-rc.0":
+  version "8.5.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.0.tgz#d6f0e9bc73b2f91d3c9b4ed3043c2fac7de99522"
+  integrity sha512-hcyPQ1vsyrybvzj9sVtjkzij7IHuA+Fd0Re1sxjTZELCEj4FAPTqVwFDoGoJztss5c8imxi/tCqk3vZxCH8YGw==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/redux" "^7.2.0"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
+
 "@twreporter/redux@7.2.0", "@twreporter/redux@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.2.0.tgz#95e23ffd75014e4f658e772e80f334c3b4ad8ee7"
@@ -535,7 +554,25 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.1.6", "@twreporter/universal-header@^2.1.8":
+"@twreporter/universal-header@2.2.0-rc.4":
+  version "2.2.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.4.tgz#178fe5c241c43db4167d79516637c58577918ccb"
+  integrity sha512-CJnwR+ItgWaqwsshlYv/SOXpxF3HPDIYxvqpZmcU7JvZB+C/Wk9xoJwSSEXaLNL7DhOgqj7iWoawe/COkV66aQ==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/react-components" "8.5.0-rc.0"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+    querystring "^0.2.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/universal-header@^2.1.8":
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.1.8.tgz#905a6334493f0b397f81428b77f63d900da4d02a"
   integrity sha512-FKENg2a4hqTUeQJZ1gH+51H9GEBRBDImrQ9+6m7Z9/Mqq9OpypVaXjyLAlXz3w7Kyjuido/tkCKEgufdrQvvyw==

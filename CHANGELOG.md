@@ -9,6 +9,7 @@
 
 ### Commits
 
+- [[`ce19e2de7e`](https://github.com/twreporter/twreporter-react/commit/ce19e2de7e)] - **fix**: update yarn.lock (Aylie Chou)
 - [[`97046863e0`](https://github.com/twreporter/twreporter-react/commit/97046863e0)] - **chore**: test @twreporter/universal-header v2.2.0-rc.4 (Aylie Chou)
 
 ## 4.7.1, 2021-08-02
