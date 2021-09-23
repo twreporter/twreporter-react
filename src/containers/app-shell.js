@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/universal-header/lib/containers/header'
-import mq from '@twreporter/core/lib/utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
 import WebPush from '../components/web-push'
@@ -28,17 +27,6 @@ const AppBox = styled.div`
 
 const ContentBlock = styled.div`
   position: relative;
-`
-
-const TransparentHeader = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-  ${mq.mobileOnly`
-    position: relative;
-  `}
 `
 
 // TODO add `pink` theme to universal-header
@@ -86,13 +74,11 @@ const renderHeader = (headerType, releaseBranch) => {
     }
     case uiConst.header.transparent: {
       return (
-        <TransparentHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </TransparentHeader>
+        <Header
+          theme="transparent"
+          releaseBranch={releaseBranch}
+          isLinkExternal={false}
+        />
       )
     }
     default: {
