@@ -69,8 +69,12 @@ function isServiceWorkerSupported() {
 const NotifyBackground = styled.div`
   background-color: #fff;
 
-  /* z-index and position are set for covering header */
-  z-index: 1;
+  /* z-index and position are set for covering header.
+   * Set z-index to 1000 because header has z-index 999,
+   * and notify background should be on top of header or
+   * buttons can not be clicked.
+   * /
+  z-index: 1000;
   position: relative;
 `
 
