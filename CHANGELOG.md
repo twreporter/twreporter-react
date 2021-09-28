@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.7.2-rc.0 (Current), 2021-08-31
+## 4.7.2-rc.1 (Current), 2021-09-28
+
+### Notable Changes
+
+- feat
+  - update topic landing page header to universal-header
+- fix
+  - call to action banner can not be clicked
+
+### Commits
+
+- [[`c51ba3e5ed`](https://github.com/twreporter/twreporter-react/commit/c51ba3e5ed)] - **fix**: call to action banner can not be clicked (#1938) (Tai-Jiun Fang)
+- [[`900f622c87`](https://github.com/twreporter/twreporter-react/commit/900f622c87)] - **feat**: update topic landing page header to universal-header (Aylie Chou)
+- [[`026b4b493d`](https://github.com/twreporter/twreporter-react/commit/026b4b493d)] - **doc**: update CHANGELOG.md (Aylie Chou)
+
+## 4.7.2-rc.0, 2021-08-31
 
 ### Notable Changes
 
