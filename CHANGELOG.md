@@ -1,6 +1,23 @@
 # Changelog
 
-## 4.7.2-rc.2 (Current), 2021-09-29
+## 4.7.2-rc.3 (Current), 2021-09-29
+
+### Notable Changes
+
+- fix
+  - update comments to single lines ([#1945](https://github.com/twreporter/twreporter-react/pull/1945))
+- chore
+  - update @twreporter/universal-header to v2.2.0-rc.7 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+  - update @twreporter/react-article-components to v1.4.0-rc.0 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+
+### Commits
+
+- [[`46d73cd29c`](https://github.com/twreporter/twreporter-react/commit/46d73cd29c)] - **fix**: update comments to single lines (#1945) (Tai-Ji
+  un Fang)
+- [[`02c268823b`](https://github.com/twreporter/twreporter-react/commit/02c268823b)] - **chore**: update @twreporter module version (Aylie Chou
+  )
+
+## 4.7.2-rc.2, 2021-09-29
 
 ### Notable Changes
 
