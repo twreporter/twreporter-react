@@ -1,6 +1,24 @@
 # Changelog
 
-## 4.7.2-rc.3 (Current), 2021-09-29
+## 4.7.2-rc.4 (Current), 2021-10-05
+
+### Notable Changes
+
+- fix
+  - update z-index setting between header/web-push components ([#1949](https://github.com/twreporter/twreporter-react/pull/1949))
+- chore
+  - update @twreporter/universal-header to v2.2.0-rc.8 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-article-components to v1.4.0-rc.2 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-components to v8.5.0-rc.1 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+
+### Commits
+
+- [[`77a00ef781`](https://github.com/twreporter/twreporter-react/commit/77a00ef781)] - **chore**: update @tw
+reporter module version (Aylie Chou)
+- [[`6e01ebee42`](https://github.com/twreporter/twreporter-react/commit/6e01ebee42)] - **fix**: fix header/w
+eb-push z-index & transparent warpper style (Aylie Chou)
+
+## 4.7.2-rc.3, 2021-09-29
 
 ### Notable Changes
 
