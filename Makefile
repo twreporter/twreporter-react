@@ -44,11 +44,11 @@ start-testing-server:
 
 start-dev-server: 
 	@echo " $(P) start dev server by nodemon src/server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) HOST=${HOST} $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
 
 start-webpack-dev-server:
 	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) DEV_HOST=${DEV_HOST} node webpack-dev-server.js
 
 dev: clean 
 	@echo "Setup development environment."
