@@ -553,7 +553,25 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.0-rc.8", "@twreporter/universal-header@^2.2.0-rc.8":
+"@twreporter/universal-header@2.2.0-rc.9":
+  version "2.2.0-rc.9"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.9.tgz#c9b93828344328b67ab124e86b7569688846c51f"
+  integrity sha512-6lZLrTUv0dL3frgz8J8Gmgqy7Yj+k2fZwW7Wl93L4Jofge3qSOfqcjEPkEtChvZbE0nWQmf8eYU5Iya5+D8+zQ==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/react-components" "^8.5.0-rc.1"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+    querystring "^0.2.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/universal-header@^2.2.0-rc.8":
   version "2.2.0-rc.8"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.8.tgz#69ac9123ffb698e11b24d017f76c6a635dd86362"
   integrity sha512-Ct6ToY2axEv7k21g3RDvIsHtt84Ahouhw1/AjDdMq2Z1nrnBX+JEr2YMKETp0fra2yxUgnpzS33IjD65C/PACg==
