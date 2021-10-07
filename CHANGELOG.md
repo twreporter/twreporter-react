@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.7.2-rc.6 (Current), 2021-10-07
+## 4.7.2-rc.7 (Current), 2021-10-07
+
+### Notable Changes
+
+- chore
+  - update @twreporter/universal-header to v2.2.0-rc.10([#1960](https://github.com/twreporter/twreporter-react/pull/1960))
+
+### Commits
+
+- [[`a8317ed200`](https://github.com/twreporter/twreporter-react/commit/a8317ed200)] - **chore**: update uni
+versal-header to v2.2.0-rc.10 (Aylie Chou)
+
+## 4.7.2-rc.6, 2021-10-07
 
 ### Notable Changes
 

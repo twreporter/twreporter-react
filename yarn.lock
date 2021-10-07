@@ -499,7 +499,7 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.5.0-rc.2":
+"@twreporter/react-components@8.5.0-rc.2", "@twreporter/react-components@^8.5.0-rc.2":
   version "8.5.0-rc.2"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.2.tgz#59ff40042daf3165f6508692f0b7a5947ea5f813"
   integrity sha512-X4wQy87kPI7r1pZKSc3nuJQ9sz43dvKkh0jNllVGsqrkIv7ePJK9KQxaogmkqqQ88izbwZAfegggGamyhAhhAQ==
@@ -572,13 +572,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.0-rc.9":
-  version "2.2.0-rc.9"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.9.tgz#c9b93828344328b67ab124e86b7569688846c51f"
-  integrity sha512-6lZLrTUv0dL3frgz8J8Gmgqy7Yj+k2fZwW7Wl93L4Jofge3qSOfqcjEPkEtChvZbE0nWQmf8eYU5Iya5+D8+zQ==
+"@twreporter/universal-header@2.2.0-rc.10":
+  version "2.2.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.10.tgz#53061cffb14f775507e3376cfe248c06e67c85a7"
+  integrity sha512-BH1EAqvLK/Xsv+X1hkhSKdenzqmPnUPGSDyxlCNy4UOXQ/w0Gy/fx+Gh0hkPpMZlzoj/aFSdgqgqVb1PFhxFNA==
   dependencies:
     "@twreporter/core" "^1.2.1"
-    "@twreporter/react-components" "^8.5.0-rc.1"
+    "@twreporter/react-components" "^8.5.0-rc.2"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
