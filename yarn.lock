@@ -499,10 +499,10 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.5.0-rc.1", "@twreporter/react-components@^8.5.0-rc.1":
-  version "8.5.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.1.tgz#77309d3592afa2b736dd29a6d41b038bcc134516"
-  integrity sha512-TDGqnggr4GKm4K6sMZEToCeSgCvDydW8brbG20prrqdBPb6mXEDROLu/8WspA5TkY7660a/WgOjeEvAZxpZFvA==
+"@twreporter/react-components@8.5.0-rc.2":
+  version "8.5.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.2.tgz#59ff40042daf3165f6508692f0b7a5947ea5f813"
+  integrity sha512-X4wQy87kPI7r1pZKSc3nuJQ9sz43dvKkh0jNllVGsqrkIv7ePJK9KQxaogmkqqQ88izbwZAfegggGamyhAhhAQ==
   dependencies:
     "@twreporter/core" "^1.2.1"
     "@twreporter/redux" "^7.2.0"
@@ -522,6 +522,25 @@
   version "8.4.4"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.4.4.tgz#c889fcd1e650360d67169e7b3f704381a558f20e"
   integrity sha512-tcXVe+OtLQzdIDTjb6Nyl7J1AFFWr3KC0P62/ALkAppnirU/rLIPV2oweIqHuefMXNbuVpHpaSQQNvw2HskiEw==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/redux" "^7.2.0"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/react-components@^8.5.0-rc.1":
+  version "8.5.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.1.tgz#77309d3592afa2b736dd29a6d41b038bcc134516"
+  integrity sha512-TDGqnggr4GKm4K6sMZEToCeSgCvDydW8brbG20prrqdBPb6mXEDROLu/8WspA5TkY7660a/WgOjeEvAZxpZFvA==
   dependencies:
     "@twreporter/core" "^1.2.1"
     "@twreporter/redux" "^7.2.0"
