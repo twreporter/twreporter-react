@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.2-rc.5 (Current), 2021-10-06
+## 4.7.2-rc.6 (Current), 2021-10-07
+
+### Notable Changes
+
+- chore
+  - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
+
+### Commits
+
+- [[`db844512b3`](https://github.com/twreporter/twreporter-react/commit/db844512b3)] - **chore**: update @twreporter/react-components to v8.5.0-rc.2 (Aylie Chou)
+
+## 4.7.2-rc.5, 2021-10-06
 
 ### Notable Changes
 
