@@ -572,10 +572,10 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.0-rc.10":
-  version "2.2.0-rc.10"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.10.tgz#53061cffb14f775507e3376cfe248c06e67c85a7"
-  integrity sha512-BH1EAqvLK/Xsv+X1hkhSKdenzqmPnUPGSDyxlCNy4UOXQ/w0Gy/fx+Gh0hkPpMZlzoj/aFSdgqgqVb1PFhxFNA==
+"@twreporter/universal-header@2.2.0-rc.11":
+  version "2.2.0-rc.11"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.11.tgz#e751525ca5343064cc1b50aa9f17c5428689f57d"
+  integrity sha512-bobMDOPM9m1mJcY2KoljfM2DsPeWYHy46GtFExD8vb+yRoBkRVy6XPxihzv+swcxj3GoKGvcjMwme69h5vd8bw==
   dependencies:
     "@twreporter/core" "^1.2.1"
     "@twreporter/react-components" "^8.5.0-rc.2"
