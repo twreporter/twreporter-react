@@ -499,7 +499,7 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.5.0-rc.2", "@twreporter/react-components@^8.5.0-rc.2":
+"@twreporter/react-components@8.5.0-rc.2":
   version "8.5.0-rc.2"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0-rc.2.tgz#59ff40042daf3165f6508692f0b7a5947ea5f813"
   integrity sha512-X4wQy87kPI7r1pZKSc3nuJQ9sz43dvKkh0jNllVGsqrkIv7ePJK9KQxaogmkqqQ88izbwZAfegggGamyhAhhAQ==
@@ -522,6 +522,25 @@
   version "8.4.4"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.4.4.tgz#c889fcd1e650360d67169e7b3f704381a558f20e"
   integrity sha512-tcXVe+OtLQzdIDTjb6Nyl7J1AFFWr3KC0P62/ALkAppnirU/rLIPV2oweIqHuefMXNbuVpHpaSQQNvw2HskiEw==
+  dependencies:
+    "@twreporter/core" "^1.2.1"
+    "@twreporter/redux" "^7.2.0"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    smoothscroll "^0.3.0"
+    styled-components "^4.0.0"
+
+"@twreporter/react-components@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.5.0.tgz#e540f0bd88dbe75cb1043b445222f9f069cfcc25"
+  integrity sha512-QUVhp4EPWr+KNzQY9mJyETfdXFhhasxaZEDPDOtzqxxZw4Fg0Ie5V/dgXzqMIAuqHdpHKnBodIjuDXwOU5kXSw==
   dependencies:
     "@twreporter/core" "^1.2.1"
     "@twreporter/redux" "^7.2.0"
@@ -572,13 +591,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.0-rc.12":
-  version "2.2.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.0-rc.12.tgz#ff7ab6bb18a5bc63d5dc7bf95e432414c7e4b882"
-  integrity sha512-0LmopjDqZY2tOXut78uWyPKJ9UyTPsK78pBm/CfDf3HRjiM8DCLL+3G8P28WmVXG4O3gNmj6/ycawC65BGdHQw==
+"@twreporter/universal-header@2.2.1-rc.0":
+  version "2.2.1-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.1-rc.0.tgz#758d209c65c0dc3df88610411d5caa0630ecd7c8"
+  integrity sha512-6OLIqhl8rUhjBSyy7aQvOXvrdYZlUG4vaPQhyprAu/gtYZM1SstuKMhm5Ma2dxxMOBrGVSp1Yl7JourULYaGlA==
   dependencies:
     "@twreporter/core" "^1.2.1"
-    "@twreporter/react-components" "^8.5.0-rc.2"
+    "@twreporter/react-components" "^8.5.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
