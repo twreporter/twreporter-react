@@ -31,14 +31,10 @@ const ContentBlock = styled.div`
 `
 
 const TransparentHeader = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  z-index: 1;
-  ${mq.mobileOnly`
-    position: relative;
-  `}
+  z-index: 1000; // other component has z-index 999
 `
 
 // TODO add `pink` theme to universal-header

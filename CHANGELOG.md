@@ -1,6 +1,62 @@
 # Changelog
 
-## 4.7.1 (Current), 2021-08-02
+## 4.7.2 (Current), 2021-10-12
+
+### Notable Changes
+
+- feat
+  - update @twreporter/universal-header to v2.2.1 to use header 2.0
+  - update topic landing page header to universal-header
+- fix
+  - update z-index setting between header/web-push components ([#1949](https://github.com/twreporter/twreporter-react/pull/1949))
+  - update comments to single lines ([#1945](https://github.com/twreporter/twreporter-react/pull/1945))
+  - call to action banner can not be clicked
+- chore
+  - update @twreporter/universal-header to v2.2.1([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/react-components to v8.5.0([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/react-article-components to v1.4.1([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/index-page to v1.2.6([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/universal-header to v2.2.1-rc.0([#1969](https://github.com/twreporter/twreporter-react/pull/1969))
+  - update @twreporter/universal-header to v2.2.0-rc.12([#1966](https://github.com/twreporter/twreporter-react/pull/1966))
+  - update @twreporter/universal-header to v2.2.0-rc.11([#1963](https://github.com/twreporter/twreporter-react/pull/1963))
+  - update @twreporter/universal-header to v2.2.0-rc.10([#1960](https://github.com/twreporter/twreporter-react/pull/1960))
+  - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
+  - update @twreporter/universal-header to v2.2.0-rc.9([#1953](https://github.com/twreporter/twreporter-react/pull/1953))
+  - update @twreporter/universal-header to v2.2.0-rc.8 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-article-components to v1.4.0-rc.2 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-components to v8.5.0-rc.1 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/universal-header to v2.2.0-rc.7 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+  - update @twreporter/react-article-components to v1.4.0-rc.0 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+  - update @twreporter/universal-header to v2.2.0-rc.6
+
+### Commits
+
+- [[`804c80be22`](https://github.com/twreporter/twreporter-react/commit/804c80be22)] - **chore**: update @twreporter modules version (Aylie Chou)
+- [[`082817b48c`](https://github.com/twreporter/twreporter-react/commit/082817b48c)] - **chore**: update @twreporter/universal-header to v2.2.1-rc.0 (Aylie Chou)
+- [[`afacb89eca`](https://github.com/twreporter/twreporter-react/commit/afacb89eca)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.12 (Aylie Chou)
+- [[`bd4a544b9f`](https://github.com/twreporter/twreporter-react/commit/bd4a544b9f)] - **chore**: update @tw
+reporter/universal-header to v2.2.0-rc.11 (Aylie Chou)
+- [[`a8317ed200`](https://github.com/twreporter/twreporter-react/commit/a8317ed200)] - **chore**: update uni
+versal-header to v2.2.0-rc.10 (Aylie Chou)
+  - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
+- [[`db844512b3`](https://github.com/twreporter/twreporter-react/commit/db844512b3)] - **chore**: update @twreporter/react-components to v8.5.0-rc.2 (Aylie Chou)
+- [[`863efdb1a8`](https://github.com/twreporter/twreporter-react/commit/863efdb1a8)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.9 (Aylie Chou)
+- [[`77a00ef781`](https://github.com/twreporter/twreporter-react/commit/77a00ef781)] - **chore**: update @tw
+reporter module version (Aylie Chou)
+- [[`6e01ebee42`](https://github.com/twreporter/twreporter-react/commit/6e01ebee42)] - **fix**: fix header/w
+eb-push z-index & transparent warpper style (Aylie Chou)
+- [[`46d73cd29c`](https://github.com/twreporter/twreporter-react/commit/46d73cd29c)] - **fix**: update comments to single lines (#1945) (Tai-Ji
+  un Fang)
+- [[`02c268823b`](https://github.com/twreporter/twreporter-react/commit/02c268823b)] - **chore**: update @twreporter module version (Aylie Chou
+  )
+- [[`2368b71c3d`](https://github.com/twreporter/twreporter-react/commit/2368b71c3d)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.6 (Tai-Jiun Fang)
+- [[`c51ba3e5ed`](https://github.com/twreporter/twreporter-react/commit/c51ba3e5ed)] - **fix**: call to action banner can not be clicked (#1938) (Tai-Jiun Fang)
+- [[`900f622c87`](https://github.com/twreporter/twreporter-react/commit/900f622c87)] - **feat**: update topic landing page header to universal-header (Aylie Chou)
+- [[`026b4b493d`](https://github.com/twreporter/twreporter-react/commit/026b4b493d)] - **doc**: update CHANGELOG.md (Aylie Chou)
+- [[`ce19e2de7e`](https://github.com/twreporter/twreporter-react/commit/ce19e2de7e)] - **fix**: update yarn.lock (Aylie Chou)
+- [[`97046863e0`](https://github.com/twreporter/twreporter-react/commit/97046863e0)] - **chore**: test @twreporter/universal-header v2.2.0-rc.4 (Aylie Chou)
+
+## 4.7.1, 2021-08-02
 
 ### Notable Changes
 

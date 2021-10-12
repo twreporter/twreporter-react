@@ -89,7 +89,7 @@ const _pathnameToLayoutArr = [
     pathname: routesConst.topicPage.path,
     getLayout: () => {
       return {
-        headerType: uiConst.header.none,
+        headerType: uiConst.header.transparent,
         footerType: uiConst.footer.default,
         backgroundColor: colors.lightGray,
       }
