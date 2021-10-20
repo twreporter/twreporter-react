@@ -26,7 +26,7 @@ const _ = {
   isEqual,
 }
 
-const categoriesAll = categories.fundation.concat(categories.media)
+const categoriesAll = categories.foundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`
@@ -195,6 +195,7 @@ export default class CarouselMemberList extends PureComponent {
     this.membersResidueArray = []
     this.membersNumPerPageArray = []
     this.carouselData = _.assign({}, this.props.groupedMembers)
+    this.resizeHandler = _.debounce(this._membersPageMaker, 500)
     this.state = {
       transitionEffect: true,
       currentPagesArray: [],
@@ -202,12 +203,12 @@ export default class CarouselMemberList extends PureComponent {
   }
   componentDidMount() {
     this._membersPageMaker()
-    window.addEventListener('resize', _.debounce(this._membersPageMaker, 500))
+    window.addEventListener('resize', this.resizeHandler)
   }
   componentWillUnmount() {
     window.removeEventListener(
       'resize',
-      _.debounce(this._membersPageMaker, 500)
+      this.resizeHandler
     )
     this.membersPageLengthArray = null
     this.membersResidueArray = null
@@ -270,6 +271,9 @@ export default class CarouselMemberList extends PureComponent {
     let initialCurrentPages = []
 
     const newMembersNumPerPageArray = this.memberList.map(list => {
+      if (!list.childNodes || !list.childNodes[0]) {
+        return 3
+      }
       return (
         Math.round((list.offsetWidth / list.childNodes[0].offsetWidth) * 10) /
         10
@@ -313,11 +317,11 @@ export default class CarouselMemberList extends PureComponent {
       const categoryId = category.id
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumPerPageArray[index]
-      const newMembers = [
+      const newMembers = members ? [
         ...members.slice(members.length - numbersInAPage, members.length),
         ...members,
         ...members.slice(0, numbersInAPage),
-      ]
+      ] : []
       this.carouselData[categoryId] = newMembers
     })
   }

@@ -22,7 +22,7 @@ const _ = {
   values,
 }
 
-const categoriesAll = categories.fundation.concat(categories.media)
+const categoriesAll = categories.foundation.concat(categories.media)
 
 const Container = styled.div`
   position: relative;
@@ -204,7 +204,7 @@ export default class PaginatedMemberList extends PureComponent {
     const cursor =
       (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList
+    const memberBlocks = selectedMemberList ? selectedMemberList
       .slice(cursor - numberPerPage, cursor)
       .map(member => {
         return (
@@ -229,7 +229,7 @@ export default class PaginatedMemberList extends PureComponent {
             </MemberBorder>
           </MemberBlock>
         )
-      })
+      }) : ''
     return (
       <Container>
         <DepartmentsNameList

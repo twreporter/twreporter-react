@@ -156,7 +156,12 @@ export default class Section2 extends PureComponent {
     }
   }
   componentDidMount() {
-    this._getConfig()
+    this._getConfig().then(res => {
+      const config = _.get(res, 'data.rows')
+      if (config) {
+        this._setStateByConfig(config)
+      }
+    })
   }
   _sendEmail = email => {
     if (typeof email !== 'undefined') {
@@ -184,7 +189,7 @@ export default class Section2 extends PureComponent {
    *
    * For example:
    * {
-   *   'fundation': [{}, {}, ...],
+   *   'foundation': [{}, {}, ...],
    *   'editor': [{}, {}, ...]
    * }
    */
@@ -203,12 +208,6 @@ export default class Section2 extends PureComponent {
   _getConfig = () => {
     return axios
       .get(configs[sections.section2])
-      .then(res => {
-        const config = _.get(res, 'data.rows')
-        if (config) {
-          this._setStateByConfig(config)
-        }
-      })
       .catch(err => {
         logger.errorReport({
           report: err,
@@ -229,7 +228,7 @@ export default class Section2 extends PureComponent {
        * @typeof {number[]} membersNumberArray
        *
        */
-      membersNumberArray = [...categories.fundation, ...categories.media].map(
+      membersNumberArray = [...categories.foundation, ...categories.media].map(
         category => {
           if (groupedMembers[category.id]) {
             return groupedMembers[category.id].length

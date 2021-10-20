@@ -2,7 +2,7 @@ import categoryIds from './category-ids'
 import screen from '../../utils/screen'
 
 export const headcountPerPage = {
-  [categoryIds.fundation]: {
+  [categoryIds.foundation]: {
     [screen.hd]: 7,
     [screen.desktop]: 5,
     [screen.tablet]: 3,
@@ -43,5 +43,17 @@ export const headcountPerPage = {
     [screen.desktop]: 2,
     [screen.tablet]: 2,
     [screen.mobile]: 4,
+  },
+  [categoryIds.podcast]: {
+    [screen.hd]: 2,
+    [screen.desktop]: 2,
+    [screen.tablet]: 2,
+    [screen.mobile]: 4,
+  },
+  [categoryIds.productManager]: {
+    [screen.hd]: 1,
+    [screen.desktop]: 1,
+    [screen.tablet]: 1,
+    [screen.mobile]: 1,
   },
 }

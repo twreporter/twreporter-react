@@ -43,5 +43,10 @@
     "awardId": "zheng",
     "award": "曾虛白新聞獎",
     "awardEng": "Zheng Journalism Award"
+  },
+  {
+    "awardId": "KKBOX",
+    "award": "KKBOX Podcast",
+    "awardEng": "KKBOX Podcast"
   }
 ]

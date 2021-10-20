@@ -43,19 +43,33 @@ const media = [
       chinese: '設計部',
     },
   },
+  {
+    id: categoryIds.podcast,
+    label: {
+      english: 'Podcast Department',
+      chinese: 'Podcast小組',
+    },
+  },
+  {
+    id: categoryIds.productManager,
+    label: {
+      english: 'Product Manager',
+      chinese: '產品經理',
+    },
+  },
 ]
 
-const fundation = [
+const foundation = [
   {
-    id: categoryIds.fundation,
+    id: categoryIds.foundation,
     label: {
       chinese: '基金會',
-      english: 'Fundation',
+      english: 'Foundation',
     },
   },
 ]
 
 export default {
-  fundation,
+  foundation,
   media,
 }
