@@ -1,6 +1,23 @@
 # Changelog
 
-## 4.7.2 (Current), 2021-10-12
+## 4.7.3-rc.0 (Current), 2021-10-25
+
+### Notable Changes
+
+- feat
+  - rebranding logo, color, font family
+- chore
+  - update @twreporter/core to v1.3.0-rc.1([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/index-page to v1.2.7-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-article-components to v1.4.2-rc.2[#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-components v8.6.0-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/universal-header v2.2.2-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+
+### Commits
+
+- [[`a969113577`](https://github.com/twreporter/twreporter-react/commit/a969113577)] - **chore**: update @twreporter packages & update font (Aylie Chou)
+
+## 4.7.2, 2021-10-12
 
 ### Notable Changes
 
