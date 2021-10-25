@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
     letter-spacing: 0.4px;
     line-height: 1.4;
-    font-family: "source-han-sans-traditional", "Noto Sans TC", "PingFang TC", "Apple LiGothic Medium", Roboto, "Microsoft JhengHei", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+    font-family: ${typography.font.fontFamily.default};
     abbr[title], abbr[data-original-title] {
       border-bottom: 0;
     }
