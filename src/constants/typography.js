@@ -12,7 +12,7 @@ export default {
     },
     weight: {
       extraLight: '100',
-      normal: '300',
+      normal: '400',
       bold: '700',
     },
     fontFamily: {
