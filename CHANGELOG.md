@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.7.3-rc.0 (Current), 2021-10-25
+## 4.7.3-rc.1 (Current), 2021-10-26
+
+### Notable Changes
+- fix
+  - fix defect #175, #176, #177
+- chore
+  - update @twreporter/index-page to v1.2.7-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-article-components to v1.4.2-rc.3[#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-components v8.6.0-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/universal-header v2.2.2-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+
+### Commits
+- [[`874aded1ed`](https://github.com/twreporter/twreporter-react/commit/874aded1ed)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`8cdf4a74f9`](https://github.com/twreporter/twreporter-react/commit/8cdf4a74f9)] - **fix**: fix font-family (Aylie Chou)
+
+## 4.7.3-rc.0, 2021-10-25
 
 ### Notable Changes
 

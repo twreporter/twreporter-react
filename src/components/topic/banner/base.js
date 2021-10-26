@@ -1,7 +1,6 @@
 import mq from '../../../utils/media-query'
 import styled from 'styled-components'
 import typography from '../../../constants/typography'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 
 const textShadow = '0 2px 10px rgba(0, 0, 0, .5)'
 
@@ -22,16 +21,16 @@ const Headline = styled.div`
   background-color: #c71b0a;
   padding: 5px;
   font-size: 18px;
-  font-weight: ${fontWeight.normal};
+  font-weight: ${typography.font.weight.normal};
   letter-spacing: 0.1px;
 `
 
 const Title = styled.h1`
-  font-family: ${typography.font.fontFamily.default};
+  font-family: ${typography.font.fontFamily.title};
   color: #ffffff;
   margin: 0;
   font-size: 30px;
-  font-weight: ${fontWeight.bold};
+  font-weight: ${typography.font.weight.bold};
   line-height: 1.4;
   letter-spacing: 2px;
   text-shadow: ${textShadow};
@@ -45,7 +44,7 @@ const Subtitle = styled.h2`
   color: #ffffff;
   margin: 0;
   font-size: 18px;
-  font-weight: ${fontWeight.normal};
+  font-weight: ${typography.font.weight.normal};
   line-height: 1.8;
   letter-spacing: 0.1px;
   text-shadow: ${textShadow};
@@ -79,7 +78,7 @@ const PublishDate = styled.div`
   font-family: ${typography.font.fontFamily.default};
   color: #ffffff;
   font-size: 13px;
-  font-weight: ${fontWeight.normal};
+  font-weight: ${typography.font.weight.normal};
   letter-spacing: 0.1px;
   text-shadow: ${textShadow};
   ${mq.tabletAndAbove`
