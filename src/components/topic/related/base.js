@@ -53,7 +53,7 @@ const ItemMeta = styled.div`
   `}
 `
 const ItemTitle = styled.h3`
-  font-family: ${typography.font.fontFamily.default};
+  font-family: ${typography.font.fontFamily.title};
   font-size: 20px;
   color: #262626;
   letter-spacing: 0.3px;
