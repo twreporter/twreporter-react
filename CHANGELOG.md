@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.3 (Current), 2021-10-27
+## 4.7.4-rc.0 (Current), 2021-10-27
+
+### Notable Changes
+
+- fix
+  - fix author page font family
+
+### Commits
+
+- [[`1368be77ff`](https://github.com/twreporter/twreporter-react/commit/1368be77ff)] - **fix**: fix author page font family (Aylie Chou)
+
+## 4.7.3, 2021-10-27
 
 ### Notable Changes
 
