@@ -1,6 +1,46 @@
 # Changelog
 
-## 4.7.2 (Current), 2021-10-12
+## 4.7.3 (Current), 2021-10-27
+
+### Notable Changes
+
+- feat
+  - rebranding logo, color, font family
+- chore
+  - update @twreporter/index-page to v1.2.8([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-article-components to v1.4.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-components v8.6.1([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/universal-header v2.2.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/index-page to v1.2.8-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/react-article-components to v1.4.3-rc.0[#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/react-components v8.6.1-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/universal-header v2.2.3-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/core to v1.3.0([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/index-page to v1.2.7([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/react-article-components to v1.4.2[#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/react-components v8.6.0([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/universal-header v2.2.2([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/index-page to v1.2.7-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-article-components to v1.4.2-rc.3[#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-components v8.6.0-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/universal-header v2.2.2-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/core to v1.3.0-rc.1([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/index-page to v1.2.7-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-article-components to v1.4.2-rc.2[#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-components v8.6.0-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/universal-header v2.2.2-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+
+### Commits
+
+- [[`95f6e842ae`](https://github.com/twreporter/twreporter-react/commit/95f6e842ae)] - **chore**: update @twreporter module vers
+ion (Aylie Chou)
+- [[`a133df7b3a`](https://github.com/twreporter/twreporter-react/commit/a133df7b3a)] - **chore**: update @twreporter module (Aylie Chou)
+- [[`55dd8e3c2a`](https://github.com/twreporter/twreporter-react/commit/55dd8e3c2a)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`874aded1ed`](https://github.com/twreporter/twreporter-react/commit/874aded1ed)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`8cdf4a74f9`](https://github.com/twreporter/twreporter-react/commit/8cdf4a74f9)] - **fix**: fix font-family (Aylie Chou)
+- [[`a969113577`](https://github.com/twreporter/twreporter-react/commit/a969113577)] - **chore**: update @twreporter packages & update font (Aylie Chou)
+
+## 4.7.2, 2021-10-12
 
 ### Notable Changes
 

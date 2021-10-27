@@ -1,12 +1,16 @@
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import { Link } from 'react-router-dom'
-import { More } from './more'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
+// components
+import { More } from './more'
+// constants
+import typography from '../../constants/typography'
+// @twreporter
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 // lodash
 import get from 'lodash/get'
@@ -89,7 +93,8 @@ const ItemTitle = styled.h3`
   padding: 0;
   border: 0;
   font-size: 135%;
-  font-weight: ${fontWeight.bold};
+  font-weight: ${typography.font.weight.bold};
+  font-family: ${typography.font.fontFamily.title};
   line-height: 1.25em;
   @media only screen and (max-width: ${breakPoint}px) {
     margin-bottom: 1.5em;
@@ -99,7 +104,7 @@ const ItemTitle = styled.h3`
 const ItemExcerpt = styled.div`
   display: block;
   font-size: 14px;
-  font-weight: ${fontWeight.extraLight};
+  font-weight: ${typography.font.weight.extraLight};
   line-height: 24px;
   text-align: justify;
   color: #808080;
@@ -113,7 +118,6 @@ const Date = styled.time`
   line-height: 1.2;
   margin-top: 1.2em;
   margin-bottom: 1.2em;
-  font-family: Roboto;
   padding-left: 80%;
   @media only screen and (max-width: ${breakPoint}px) {
     display: none;
