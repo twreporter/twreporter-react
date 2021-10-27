@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.7.4-rc.0 (Current), 2021-10-27
+## 4.7.4 (Current), 2021-10-27
 
 ### Notable Changes
 
