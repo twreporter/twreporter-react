@@ -1,16 +1,19 @@
-import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
-import { shortenString } from '../../utils/string'
 import { Waypoint } from 'react-waypoint'
 import { Link } from 'react-router-dom'
-import LoadingSpinner from '../Spinner'
-import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Sizing from '../sizing'
 import styled, { keyframes } from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+import { shortenString } from '../../utils/string'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
+//components
+import LoadingSpinner from '../Spinner'
+import Sizing from '../sizing'
+// constants
+import typography from '../../constants/typography'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 // lodash
 import get from 'lodash/get'
@@ -41,7 +44,7 @@ const CollectionTitle = styled.h3`
   margin: 0 auto 24px auto;
   padding: 0;
   font-size: 18px;
-  font-weight: ${fontWeight.bold};
+  font-weight: ${typography.font.weight.bold};
   border: 0;
   color: #262626;
   text-align: center;
@@ -97,7 +100,8 @@ const ItemTitle = styled.h4`
   vertical-align: text-top;
   display: inline-block;
   font-size: 20px;
-  font-weight: ${fontWeight.bold};
+  font-weight: ${typography.font.weight.bold};
+  font-family: ${typography.font.fontFamily.title};
   margin: 0;
 `
 
@@ -116,7 +120,7 @@ const LoadMore = styled.div`
   width: 100%;
   color: #c71b0a;
   margin: 0 auto 2rem auto;
-  font-weight: ${fontWeight.bold};
+  font-weight: ${typography.font.weight.bold};
   padding: 0.6rem 0;
   cursor: pointer;
   transition: transform 0.2s;
