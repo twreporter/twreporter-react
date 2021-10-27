@@ -1,12 +1,16 @@
 # Changelog
 
-## 4.7.3-rc.2 (Current), 2021-10-27
+## 4.7.3 (Current), 2021-10-27
 
 ### Notable Changes
 
 - feat
   - rebranding logo, color, font family
 - chore
+  - update @twreporter/index-page to v1.2.8([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-article-components to v1.4.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-components v8.6.1([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/universal-header v2.2.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
   - update @twreporter/index-page to v1.2.8-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
   - update @twreporter/react-article-components to v1.4.3-rc.0[#1986](https://github.com/twreporter/twreporter-react/pull/1986))
   - update @twreporter/react-components v8.6.1-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
@@ -28,6 +32,8 @@
 
 ### Commits
 
+- [[`95f6e842ae`](https://github.com/twreporter/twreporter-react/commit/95f6e842ae)] - **chore**: update @twreporter module vers
+ion (Aylie Chou)
 - [[`a133df7b3a`](https://github.com/twreporter/twreporter-react/commit/a133df7b3a)] - **chore**: update @twreporter module (Aylie Chou)
 - [[`55dd8e3c2a`](https://github.com/twreporter/twreporter-react/commit/55dd8e3c2a)] - **chore**: update @twreporter module version (Aylie Chou)
 - [[`874aded1ed`](https://github.com/twreporter/twreporter-react/commit/874aded1ed)] - **chore**: update @twreporter module version (Aylie Chou)
