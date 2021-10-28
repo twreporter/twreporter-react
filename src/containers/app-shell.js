@@ -43,14 +43,14 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = (footerType, pathname = '', host = '') => {
+const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
   switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
     case uiConst.footer.default:
     default: {
-      return <Footer host={host} pathname={pathname} />
+      return <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
     }
   }
 }
@@ -145,7 +145,7 @@ class AppShell extends React.PureComponent {
             <WebPush apiOrigin={apiOrigin} userId={userId} />
             {renderHeader(headerType, releaseBranch)}
             {children}
-            {renderFooter(footerType, pathname, host)}
+            {renderFooter(footerType, pathname, host, releaseBranch)}
           </ContentBlock>
         </AppBox>
       </ErrorBoundary>
