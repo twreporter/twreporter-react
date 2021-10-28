@@ -1,6 +1,20 @@
 # Changelog
 
-## 4.7.4 (Current), 2021-10-27
+## 4.7.5-rc.0 (Current), 2021-10-28
+
+### Notable Changes
+
+- chore
+  - update @twreporter/index-page to v1.2.9-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/react-article-components to v1.4.4-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/react-components v8.6.2-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/universal-header v2.2.4-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+
+### Commits
+
+- [[`08737705d8`](https://github.com/twreporter/twreporter-react/commit/08737705d8)] - **chore**: update @twreporter module version (Aylie Chou)
+
+## 4.7.4, 2021-10-27
 
 ### Notable Changes
 
