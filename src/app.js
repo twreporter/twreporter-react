@@ -1,13 +1,17 @@
-import AppShell from './containers/app-shell'
 import PropTypes from 'prop-types'
 import React from 'react'
 import getRoutes from './routes'
-import colors from './constants/colors'
-import typography from './constants/typography'
-import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
 import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
+// components
+import AppShell from './containers/app-shell'
+// constants
+import colors from './constants/colors'
+import typography from './constants/typography'
+// @twreporter
+import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -18,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
     letter-spacing: 0.4px;
     line-height: 1.4;
-    font-family: ${typography.font.fontFamily.default};
+    font-family: ${fontFamily.default};
     abbr[title], abbr[data-original-title] {
       border-bottom: 0;
     }
@@ -82,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     strong {
-      font-weight: ${typography.font.weight.bold};
+      font-weight: ${fontWeight.bold};
     }
 
     @media print {
