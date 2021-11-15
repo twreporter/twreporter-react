@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react'
 import styled, { keyframes } from 'styled-components'
 // @twreporter
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 // lodash
 import map from 'lodash/map'
 

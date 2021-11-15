@@ -1,5 +1,5 @@
 import { renderElement as renderV2Element } from '@twreporter/react-article-components/lib/components/body'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 import alignmentConsts from '@twreporter/react-article-components/lib/constants/element-alignment'
 import ArticleYoutube from '@twreporter/react-article-components/lib/components/body/youtube'
 import Img from '@twreporter/react-article-components/lib/components/img-with-placeholder'

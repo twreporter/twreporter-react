@@ -10,11 +10,10 @@ import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 //components
 import LoadingSpinner from '../Spinner'
 import Sizing from '../sizing'
-// constants
-import typography from '../../constants/typography'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -44,7 +43,7 @@ const CollectionTitle = styled.h3`
   margin: 0 auto 24px auto;
   padding: 0;
   font-size: 18px;
-  font-weight: ${typography.font.weight.bold};
+  font-weight: ${fontWeight.bold};
   border: 0;
   color: #262626;
   text-align: center;
@@ -100,8 +99,8 @@ const ItemTitle = styled.h4`
   vertical-align: text-top;
   display: inline-block;
   font-size: 20px;
-  font-weight: ${typography.font.weight.bold};
-  font-family: ${typography.font.fontFamily.title};
+  font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   margin: 0;
 `
 
@@ -120,7 +119,7 @@ const LoadMore = styled.div`
   width: 100%;
   color: #c71b0a;
   margin: 0 auto 2rem auto;
-  font-weight: ${typography.font.weight.bold};
+  font-weight: ${fontWeight.bold};
   padding: 0.6rem 0;
   cursor: pointer;
   transition: transform 0.2s;

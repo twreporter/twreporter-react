@@ -6,12 +6,11 @@ import styled from 'styled-components'
 import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
 // components
 import { More } from './more'
-// constants
-import typography from '../../constants/typography'
 // @twreporter
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -93,8 +92,8 @@ const ItemTitle = styled.h3`
   padding: 0;
   border: 0;
   font-size: 135%;
-  font-weight: ${typography.font.weight.bold};
-  font-family: ${typography.font.fontFamily.title};
+  font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   line-height: 1.25em;
   @media only screen and (max-width: ${breakPoint}px) {
     margin-bottom: 1.5em;
@@ -104,7 +103,7 @@ const ItemTitle = styled.h3`
 const ItemExcerpt = styled.div`
   display: block;
   font-size: 14px;
-  font-weight: ${typography.font.weight.extraLight};
+  font-weight: ${fontWeight.extraLight};
   line-height: 24px;
   text-align: justify;
   color: #808080;

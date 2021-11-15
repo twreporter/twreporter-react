@@ -3,6 +3,7 @@ import React from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
 import typography from '../../constants/typography'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 
 const _ = {
   get,
@@ -17,7 +18,7 @@ const StyledAnchor = styled.div`
 `
 const Label = styled.div`
   font-size: ${typography.font.size.xSmall};
-  font-weight: ${typography.font.weight.normal};
+  font-weight: ${fontWeight.normal};
   line-height: 1;
   margin: 2px 3px;
 `
