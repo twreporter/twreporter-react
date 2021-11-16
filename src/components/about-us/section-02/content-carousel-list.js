@@ -17,6 +17,7 @@ import { storageUrlPrefix } from '../utils/config'
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
+import reduce from 'lodash/reduce'
 
 const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
@@ -24,6 +25,7 @@ const _ = {
   assign,
   debounce,
   isEqual,
+  reduce,
 }
 
 const categoriesAll = categories.foundation.concat(categories.media)
@@ -154,6 +156,9 @@ const Name = styled.div`
     color: ${gray.lightgray};
     font-size: 20px;
     font-weight: ${font.weight.medium};
+    line-height: 18px;
+    writing-mode: vertical-lr;
+    word-spacing: 6px;
   }
   ${mq.hdOnly`
     p{
@@ -361,12 +366,21 @@ export default class CarouselMemberList extends PureComponent {
     newCurPagesArray[departmentIndex] = newPageNum
     this.setState({ currentPagesArray: newCurPagesArray })
   }
+  _getNumPerPage = (maxNumPerPage, memberLength) => {
+    return _.reduce(maxNumPerPage, (result, value, key) => {
+      result[key] = value <= memberLength ? value : memberLength
+      return result
+    }, {})
+  }
   render() {
-    const { sendEmail } = this.props
+    const { sendEmail, groupedMembers } = this.props
     const { currentPagesArray } = this.state
     const departments = categoriesAll.map((category, categoryIndex) => {
       const categoryId = category.id
       const label = category.label
+      const maxNumPerPage = headcountPerPage[categoryId]
+      const memberDataList = this.carouselData[categoryId]
+      const numPerPage = this._getNumPerPage(maxNumPerPage, groupedMembers[categoryId].length)
       return (
         <Department key={categoryId} markup={carouselMarkup[categoryId]}>
           <Name>
@@ -381,8 +395,8 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              ref={memberList => {
-                this.memberList[categoryIndex] = memberList
+              ref={memberListDom => {
+                this.memberList[categoryIndex] = memberListDom
               }}
               shiftx={this._getShiftX(categoryIndex)}
               transitionEffect={this.state.transitionEffect}
@@ -390,12 +404,12 @@ export default class CarouselMemberList extends PureComponent {
                 this._onMemberListShifted(event, categoryIndex)
               }
             >
-              {typeof this.carouselData[categoryId] !== 'undefined'
-                ? this.carouselData[categoryId].map((member, index) => {
+              {typeof memberDataList !== 'undefined'
+                ? memberDataList.map((member, index) => {
                     return (
                       <Member
                         key={index}
-                        numPerPage={headcountPerPage[categoryId]}
+                        numPerPage={numPerPage}
                       >
                         <img
                           src={`${replaceGCSUrlOrigin(

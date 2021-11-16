@@ -20,6 +20,7 @@ import { storageUrlPrefix } from '../utils/config'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
+import mock from './mock.json'
 
 const _ = {
   get,
@@ -142,9 +143,6 @@ const Content = styled.div`
   `}
   ${mq.tabletOnly`
     margin-top: 44.3px;
-  `}
-  ${mq.mobileOnly`
-    margin-top: 45px;
   `}
 `
 

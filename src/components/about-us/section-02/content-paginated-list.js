@@ -39,7 +39,7 @@ const MemberBlockList = styled.div`
   width: 100%;
   height: 465px;
   padding: 0 13px 0 13px;
-  margin-top: 10px;
+  margin-top: 20px;
   background: ${colors.gray.gray96};
 `
 
