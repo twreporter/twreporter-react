@@ -1,4 +1,4 @@
-const fundation = {
+const foundation = {
   english: 'The Reporter Cultural Foundation',
   chinese: '財團法人報導者文化基金會',
 }
@@ -9,6 +9,6 @@ const media = {
 }
 
 export default {
-  fundation,
+  foundation,
   media,
 }

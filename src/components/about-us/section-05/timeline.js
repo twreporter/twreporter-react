@@ -183,7 +183,6 @@ Timeline.defaultProps = {
 
 Timeline.propTypes = {
   autoScrolling: PropTypes.bool,
-  children: PropTypes.element.isRequired,
   childrenHeight: PropTypes.number,
   getYear: PropTypes.func.isRequired,
   startAutoScroll: PropTypes.func.isRequired,

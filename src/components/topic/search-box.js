@@ -3,7 +3,7 @@ import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
 import loggerFactory from '../../logger'
 import mq from '../../utils/media-query'
 import styled from 'styled-components'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 
 const logger = loggerFactory.getLogger()
 

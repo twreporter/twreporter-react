@@ -14,7 +14,7 @@ import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'

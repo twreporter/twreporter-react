@@ -1,4 +1,4 @@
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 import DonationLink from '@twreporter/react-components/lib/donation-link'
 import mq from '../utils/media-query'
 import React from 'react'

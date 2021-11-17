@@ -5,7 +5,7 @@ import ResetIcon from '../../../static/asset/reset.svg'
 import SearchIcon from '../../../static/asset/search.svg'
 import styled, { keyframes } from 'styled-components'
 import mq from '../../utils/media-query'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 

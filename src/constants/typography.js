@@ -10,14 +10,5 @@ export default {
       xSmaller: '13px',
       tiny: '12px',
     },
-    weight: {
-      extraLight: '100',
-      normal: '400',
-      bold: '700',
-    },
-    fontFamily: {
-      title: 'merriweather, source-han-serif-tc, serif',
-      default: 'rosario, source-han-sans-traditional, sans-serif',
-    },
   },
 }
