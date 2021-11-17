@@ -20,7 +20,6 @@ import { storageUrlPrefix } from '../utils/config'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
-import mock from './mock.json'
 
 const _ = {
   get,
@@ -139,9 +138,6 @@ const Content = styled.div`
     margin-top: 75px;
   `}
   ${mq.tabletOnly`
-    margin-top: 110px;
-  `}
-  ${mq.tabletOnly`
     margin-top: 44.3px;
   `}
 `
@@ -226,7 +222,7 @@ export default class Section2 extends PureComponent {
        * @typeof {number[]} membersNumberArray
        *
        */
-      membersNumberArray = [...categories.foundation, ...categories.media].map(
+      membersNumberArray = categories.map(
         category => {
           if (groupedMembers[category.id]) {
             return groupedMembers[category.id].length

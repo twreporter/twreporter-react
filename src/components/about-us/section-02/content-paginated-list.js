@@ -3,7 +3,7 @@ import DepartmentsNameList from './departments-name-list'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import categories from '../constants/section-02/categories'
+import categoriesAll from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
@@ -21,8 +21,6 @@ const profileUrlPrefix = `${storageUrlPrefix}/member/`
 const _ = {
   values,
 }
-
-const categoriesAll = categories.foundation.concat(categories.media)
 
 const Container = styled.div`
   position: relative;

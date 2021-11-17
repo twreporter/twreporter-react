@@ -1,6 +1,13 @@
 import categoryIds from './category-ids'
 
-const media = [
+const categories = [
+  {
+    id: categoryIds.foundation,
+    label: {
+      chinese: '基 金 會',
+      english: 'Foundation',
+    },
+  },
   {
     id: categoryIds.editor,
     label: {
@@ -59,17 +66,4 @@ const media = [
   },
 ]
 
-const foundation = [
-  {
-    id: categoryIds.foundation,
-    label: {
-      chinese: '基 金 會',
-      english: 'Foundation',
-    },
-  },
-]
-
-export default {
-  foundation,
-  media,
-}
+export default categories

@@ -3,7 +3,7 @@ import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import carouselMarkup from '../constants/section-02/carousel-markup'
-import categories from '../constants/section-02/categories'
+import categoriesAll from '../constants/section-02/categories'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
@@ -28,7 +28,6 @@ const _ = {
   reduce,
 }
 
-const categoriesAll = categories.foundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`
@@ -277,6 +276,8 @@ export default class CarouselMemberList extends PureComponent {
 
     const newMembersNumPerPageArray = this.memberList.map(list => {
       if (!list.childNodes || !list.childNodes[0]) {
+        // this check prevent js error when there's no member in certain category
+        // default to most common value 3
         return 3
       }
       return (

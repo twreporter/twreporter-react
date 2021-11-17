@@ -45,14 +45,14 @@ export const headcountPerPage = {
     [screen.mobile]: 4,
   },
   [categoryIds.podcast]: {
-    [screen.hd]: 3,
-    [screen.desktop]: 3,
+    [screen.hd]: 1,
+    [screen.desktop]: 1,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
   [categoryIds.productManager]: {
-    [screen.hd]: 3,
-    [screen.desktop]: 3,
+    [screen.hd]: 1,
+    [screen.desktop]: 1,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
