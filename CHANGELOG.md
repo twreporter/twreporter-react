@@ -1,6 +1,20 @@
 # Changelog
 
-## 4.7.5 (Current), 2021-10-28
+## 4.7.6-rc.0 (Current), 2021-11-17
+
+### Notable Changes
+
+- feat
+  - update about-us data & add new award name
+
+### Commits
+
+- [[`e0bd641faa`](https://github.com/twreporter/twreporter-react/commit/e0bd641faa)] - **fix**: address review comment (Aylie Chou)
+- [[`691f5953e5`](https://github.com/twreporter/twreporter-react/commit/691f5953e5)] - **fix**: fix KKBOX award name (Aylie Chou)
+- [[`cd8a23cd1d`](https://github.com/twreporter/twreporter-react/commit/cd8a23cd1d)] - **feat**: adjust style & add error boundary (Aylie Chou)
+- [[`71f2865f07`](https://github.com/twreporter/twreporter-react/commit/71f2865f07)] - **fix**: update about-us data & fix js error (Aylie Chou)
+
+## 4.7.5, 2021-10-28
 
 ### Notable Changes
 
