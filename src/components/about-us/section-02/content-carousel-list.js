@@ -3,7 +3,7 @@ import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import carouselMarkup from '../constants/section-02/carousel-markup'
-import categories from '../constants/section-02/categories'
+import categoriesAll from '../constants/section-02/categories'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
@@ -17,6 +17,7 @@ import { storageUrlPrefix } from '../utils/config'
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
+import reduce from 'lodash/reduce'
 
 const profileUrlPrefix = `${storageUrlPrefix}/member/`
 
@@ -24,9 +25,9 @@ const _ = {
   assign,
   debounce,
   isEqual,
+  reduce,
 }
 
-const categoriesAll = categories.fundation.concat(categories.media)
 const transitionDuration = 500
 
 const Container = styled.div`
@@ -154,6 +155,9 @@ const Name = styled.div`
     color: ${gray.lightgray};
     font-size: 20px;
     font-weight: ${font.weight.medium};
+    line-height: 18px;
+    writing-mode: vertical-lr;
+    word-spacing: 6px;
   }
   ${mq.hdOnly`
     p{
@@ -195,6 +199,7 @@ export default class CarouselMemberList extends PureComponent {
     this.membersResidueArray = []
     this.membersNumPerPageArray = []
     this.carouselData = _.assign({}, this.props.groupedMembers)
+    this.resizeHandler = _.debounce(this._membersPageMaker, 500)
     this.state = {
       transitionEffect: true,
       currentPagesArray: [],
@@ -202,12 +207,12 @@ export default class CarouselMemberList extends PureComponent {
   }
   componentDidMount() {
     this._membersPageMaker()
-    window.addEventListener('resize', _.debounce(this._membersPageMaker, 500))
+    window.addEventListener('resize', this.resizeHandler)
   }
   componentWillUnmount() {
     window.removeEventListener(
       'resize',
-      _.debounce(this._membersPageMaker, 500)
+      this.resizeHandler
     )
     this.membersPageLengthArray = null
     this.membersResidueArray = null
@@ -270,6 +275,11 @@ export default class CarouselMemberList extends PureComponent {
     let initialCurrentPages = []
 
     const newMembersNumPerPageArray = this.memberList.map(list => {
+      if (!list.childNodes || !list.childNodes[0]) {
+        // this check prevent js error when there's no member in certain category
+        // default to most common value 3
+        return 3
+      }
       return (
         Math.round((list.offsetWidth / list.childNodes[0].offsetWidth) * 10) /
         10
@@ -313,11 +323,11 @@ export default class CarouselMemberList extends PureComponent {
       const categoryId = category.id
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumPerPageArray[index]
-      const newMembers = [
+      const newMembers = members ? [
         ...members.slice(members.length - numbersInAPage, members.length),
         ...members,
         ...members.slice(0, numbersInAPage),
-      ]
+      ] : []
       this.carouselData[categoryId] = newMembers
     })
   }
@@ -357,12 +367,21 @@ export default class CarouselMemberList extends PureComponent {
     newCurPagesArray[departmentIndex] = newPageNum
     this.setState({ currentPagesArray: newCurPagesArray })
   }
+  _getNumPerPage = (maxNumPerPage, memberLength) => {
+    return _.reduce(maxNumPerPage, (result, value, key) => {
+      result[key] = value <= memberLength ? value : memberLength
+      return result
+    }, {})
+  }
   render() {
-    const { sendEmail } = this.props
+    const { sendEmail, groupedMembers } = this.props
     const { currentPagesArray } = this.state
     const departments = categoriesAll.map((category, categoryIndex) => {
       const categoryId = category.id
       const label = category.label
+      const maxNumPerPage = headcountPerPage[categoryId]
+      const memberDataList = this.carouselData[categoryId]
+      const numPerPage = this._getNumPerPage(maxNumPerPage, groupedMembers[categoryId].length)
       return (
         <Department key={categoryId} markup={carouselMarkup[categoryId]}>
           <Name>
@@ -377,8 +396,8 @@ export default class CarouselMemberList extends PureComponent {
           </StyledArrows>
           <PageWrapper>
             <MemberList
-              ref={memberList => {
-                this.memberList[categoryIndex] = memberList
+              ref={memberListDom => {
+                this.memberList[categoryIndex] = memberListDom
               }}
               shiftx={this._getShiftX(categoryIndex)}
               transitionEffect={this.state.transitionEffect}
@@ -386,12 +405,12 @@ export default class CarouselMemberList extends PureComponent {
                 this._onMemberListShifted(event, categoryIndex)
               }
             >
-              {typeof this.carouselData[categoryId] !== 'undefined'
-                ? this.carouselData[categoryId].map((member, index) => {
+              {typeof memberDataList !== 'undefined'
+                ? memberDataList.map((member, index) => {
                     return (
                       <Member
                         key={index}
-                        numPerPage={headcountPerPage[categoryId]}
+                        numPerPage={numPerPage}
                       >
                         <img
                           src={`${replaceGCSUrlOrigin(

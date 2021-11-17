@@ -2,7 +2,7 @@ import categoryIds from './category-ids'
 import screen from '../../utils/screen'
 
 const carouselMarkup = {
-  [categoryIds.fundation]: {
+  [categoryIds.foundation]: {
     [screen.hd]: {
       width: '100%',
     },
@@ -80,6 +80,34 @@ const carouselMarkup = {
     },
     [screen.desktop]: {
       width: '414px',
+    },
+    [screen.tablet]: {
+      width: '100%',
+    },
+  },
+  [categoryIds.podcast]: {
+    [screen.hd]: {
+      width: '263px',
+      'margin-right': '31px',
+      transform: 'translateX(313px)',
+    },
+    [screen.desktop]: {
+      width: '195px',
+      'margin-right': '34px',
+      transform: 'translateX(218px)',
+    },
+    [screen.tablet]: {
+      width: '100%',
+    },
+  },
+  [categoryIds.productManager]: {
+    [screen.hd]: {
+      width: '263px',
+      transform: 'translateX(313px)',
+    },
+    [screen.desktop]: {
+      width: '195px',
+      transform: 'translateX(218px)',
     },
     [screen.tablet]: {
       width: '100%',
