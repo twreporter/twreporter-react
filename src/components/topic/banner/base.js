@@ -1,6 +1,6 @@
 import mq from '../../../utils/media-query'
 import styled from 'styled-components'
-import typography from '../../../constants/typography'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 
 const textShadow = '0 2px 10px rgba(0, 0, 0, .5)'
 
@@ -15,22 +15,22 @@ const Content = styled.div`
 `
 
 const Headline = styled.div`
-  font-family: ${typography.font.fontFamily.default};
+  font-family: ${fontFamily.default};
   color: #ffffff;
   display: inline-block;
   background-color: #c71b0a;
   padding: 5px;
   font-size: 18px;
-  font-weight: ${typography.font.weight.normal};
+  font-weight: ${fontWeight.normal};
   letter-spacing: 0.1px;
 `
 
 const Title = styled.h1`
-  font-family: ${typography.font.fontFamily.title};
+  font-family: ${fontFamily.title};
   color: #ffffff;
   margin: 0;
   font-size: 30px;
-  font-weight: ${typography.font.weight.bold};
+  font-weight: ${fontWeight.bold};
   line-height: 1.4;
   letter-spacing: 2px;
   text-shadow: ${textShadow};
@@ -40,11 +40,11 @@ const Title = styled.h1`
 `
 
 const Subtitle = styled.h2`
-  font-family: ${typography.font.fontFamily.default};
+  font-family: ${fontFamily.default};
   color: #ffffff;
   margin: 0;
   font-size: 18px;
-  font-weight: ${typography.font.weight.normal};
+  font-weight: ${fontWeight.normal};
   line-height: 1.8;
   letter-spacing: 0.1px;
   text-shadow: ${textShadow};
@@ -75,10 +75,10 @@ const ArrowDown = styled.div`
 `
 
 const PublishDate = styled.div`
-  font-family: ${typography.font.fontFamily.default};
+  font-family: ${fontFamily.default};
   color: #ffffff;
   font-size: 13px;
-  font-weight: ${typography.font.weight.normal};
+  font-weight: ${fontWeight.normal};
   letter-spacing: 0.1px;
   text-shadow: ${textShadow};
   ${mq.tabletAndAbove`

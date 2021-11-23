@@ -3,6 +3,7 @@ import colors from '../../constants/colors'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import mq from './utils/media-query'
+import ErrorBoundary from './utils/error-boundary'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import Section01 from './section-01'
@@ -82,31 +83,33 @@ export class AboutUs extends PureComponent {
             { property: 'og:url', content: siteMeta.urlOrigin + '/about-us' },
           ]}
         />
-        <Border>
-          <SideBar ref={node => (this.sidebar = node)}>
-            <Anchor anchorId="opening" anchorLabel="簡介" showAnchor>
-              <Opening
-                ref={node => (this.sectionRefs[0] = node)}
-                handleClickAnchor={this._handleClickAnchor}
-              />
-            </Anchor>
-            <Anchor anchorId="section1" anchorLabel="特色" showAnchor>
-              <Section01 ref={node => (this.sectionRefs[1] = node)} />
-            </Anchor>
-            <Anchor anchorId="section2" anchorLabel="成員" showAnchor>
-              <Section02 ref={node => (this.sectionRefs[2] = node)} />
-            </Anchor>
-            <Anchor anchorId="section3" anchorLabel="得獎" showAnchor>
-              <Section03 ref={node => (this.sectionRefs[3] = node)} />
-            </Anchor>
-            <Anchor anchorId="section4" anchorLabel="國際參與" showAnchor>
-              <Section04 ref={node => (this.sectionRefs[4] = node)} />
-            </Anchor>
-            <Anchor anchorId="section5" anchorLabel="大事紀" showAnchor>
-              <Section05 ref={node => (this.sectionRefs[5] = node)} />
-            </Anchor>
-          </SideBar>
-        </Border>
+        <ErrorBoundary>
+          <Border>
+            <SideBar ref={node => (this.sidebar = node)}>
+              <Anchor anchorId="opening" anchorLabel="簡介" showAnchor>
+                <Opening
+                  ref={node => (this.sectionRefs[0] = node)}
+                  handleClickAnchor={this._handleClickAnchor}
+                />
+              </Anchor>
+              <Anchor anchorId="section1" anchorLabel="特色" showAnchor>
+                <Section01 ref={node => (this.sectionRefs[1] = node)} />
+              </Anchor>
+              <Anchor anchorId="section2" anchorLabel="成員" showAnchor>
+                <Section02 ref={node => (this.sectionRefs[2] = node)} />
+              </Anchor>
+              <Anchor anchorId="section3" anchorLabel="得獎" showAnchor>
+                <Section03 ref={node => (this.sectionRefs[3] = node)} />
+              </Anchor>
+              <Anchor anchorId="section4" anchorLabel="國際參與" showAnchor>
+                <Section04 ref={node => (this.sectionRefs[4] = node)} />
+              </Anchor>
+              <Anchor anchorId="section5" anchorLabel="大事紀" showAnchor>
+                <Section05 ref={node => (this.sectionRefs[5] = node)} />
+              </Anchor>
+            </SideBar>
+          </Border>
+        </ErrorBoundary>
         <Footer />
         <WebFont />
       </React.Fragment>

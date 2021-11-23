@@ -1,6 +1,27 @@
 # Changelog
 
-## 4.7.5 (Current), 2021-10-28
+## 4.7.6 (Current), 2021-11-23
+
+### Notable Changes
+
+- feat
+  - update about-us data & add new award name
+- chore
+  - update @twreporter/core to v1.3.1([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/index-page to v1.2.10([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/react-article-components to v1.4.5([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/react-components v8.6.3([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/universal-header v2.2.5([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+
+### Commits
+
+- [[`84be7026ed`](https://github.com/twreporter/twreporter-react/commit/84be7026ed)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`e0bd641faa`](https://github.com/twreporter/twreporter-react/commit/e0bd641faa)] - **fix**: address review comment (Aylie Chou)
+- [[`691f5953e5`](https://github.com/twreporter/twreporter-react/commit/691f5953e5)] - **fix**: fix KKBOX award name (Aylie Chou)
+- [[`cd8a23cd1d`](https://github.com/twreporter/twreporter-react/commit/cd8a23cd1d)] - **feat**: adjust style & add error boundary (Aylie Chou)
+- [[`71f2865f07`](https://github.com/twreporter/twreporter-react/commit/71f2865f07)] - **fix**: update about-us data & fix js error (Aylie Chou)
+
+## 4.7.5, 2021-10-28
 
 ### Notable Changes
 

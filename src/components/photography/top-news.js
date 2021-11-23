@@ -7,12 +7,11 @@ import mq from '../../utils/media-query'
 import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
 // components
 import Slider from './slider'
-// constants
-import typography from '../../constants/typography'
 // @twreporter
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -70,8 +69,8 @@ const Card = styled.div`
 `
 
 const CardTitle = styled.div`
-  font-weight: ${typography.font.weight.bold};
-  font-family: ${typography.font.fontFamily.title};
+  font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   font-size: 28px;
   color: black;
   line-height: 36px;
