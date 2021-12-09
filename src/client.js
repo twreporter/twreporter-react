@@ -11,9 +11,29 @@ import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
+const _ = {
+  get,
+}
 
 const logger = loggerFactory.getLogger()
 const releaseBranch = globalEnv.releaseBranch
+const tagManagerArgs = {
+  master: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: '2pJC7GotZqWa7HtmIgSFIg',
+    preview: 'env-231',
+  },
+  staging: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: 'XFsQ67nTp2wXWpJllmNBCQ',
+    preview: 'env-229',
+  },
+  release: {
+    gtmId: 'GTM-PRMXBBN',
+  },
+}
 
 let reduxState
 
@@ -70,6 +90,22 @@ function scrollToTopAndFirePageview() {
   return null
 }
 
+function sendGtmUserId() {
+  if (!store) {
+    return null
+  }
+  const currentState = store.getState()
+  const userId = _.get(currentState, ['auth', 'userInfo', 'user_id'], '')
+  if (userId) {
+    TagManager.dataLayer({
+      dataLayer: {
+        userId,
+      },
+    })
+  }
+  return null
+}
+
 const store = twreporterRedux.createStore(
   reduxState,
   '',
@@ -77,7 +113,7 @@ const store = twreporterRedux.createStore(
 )
 
 // add Google Tag Manager
-TagManager.initialize({ gtmId: 'GTM-PRMXBBN' })
+TagManager.initialize(tagManagerArgs[releaseBranch])
 
 const jsx = (
   <BrowserRouter>
@@ -85,6 +121,7 @@ const jsx = (
       <Route path="/" component={reloadPageIfNeeded()} />
       <Route path="/" component={scrollToTopAndFirePageview} />
       <Route path="/" component={hashLinkScroll} />
+      <Route path="/" component={sendGtmUserId} />
       <App reduxStore={store} releaseBranch={releaseBranch} />
     </React.Fragment>
   </BrowserRouter>
