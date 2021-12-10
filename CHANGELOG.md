@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.7-rc.0 (Current), 2021-11-24
+## 4.7.7-rc.1 (Current), 2021-12-10
+
+### Notable Changes
+
+- feat
+  - add user id datalayer for gtm
+
+### Commits
+
+- [[`1cfbc59023`](https://github.com/twreporter/twreporter-react/commit/1cfbc59023)] - **feat**: add user id datalayer (Aylie Chou)
+
+## 4.7.7-rc.0, 2021-11-24
 
 ### Notable Changes
 
