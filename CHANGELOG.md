@@ -1,6 +1,23 @@
 # Changelog
 
-## 4.7.7-rc.1 (Current), 2021-12-10
+## 4.7.7-rc.2 (Current), 2021-12-24
+
+### Notable Changes
+
+- feat
+  - add fund raising number in footer
+- chore
+  - update @twreporter/core to v1.4.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
+  - update @twreporter/index-page to v1.2.11-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
+  - update @twreporter/react-article-components to v1.4.6-rc.1([#2012](https://github.com/twreporter/twreporter-react/pull/2024))
+  - update @twreporter/react-components v8.7.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
+  - update @twreporter/universal-header v2.2.6-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
+
+### Commits
+
+- [[`0a552abb06`](https://github.com/twreporter/twreporter-react/commit/0a552abb06)] - **chore**: update @twreporter modules version (Aylie Chou)
+
+## 4.7.7-rc.1, 2021-12-10
 
 ### Notable Changes
 
