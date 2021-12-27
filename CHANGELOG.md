@@ -1,6 +1,22 @@
 # Changelog
 
-## 4.7.7-rc.2 (Current), 2021-12-24
+## 4.7.7-rc.3 (Current), 2021-12-27
+
+### Notable Changes
+
+- chore
+  - update @twreporter/core to v1.4.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/index-page to v1.2.11([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-article-components to v1.4.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-components v8.7.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/universal-header v2.2.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+
+### Commits
+
+- [[`70aeed0480`](https://github.com/twreporter/twreporter-react/commit/70aeed0480)] - **chore**: update @twreporter module versio
+  n (Aylie Chou)
+
+## 4.7.7-rc.2, 2021-12-24
 
 ### Notable Changes
 
@@ -9,7 +25,7 @@
 - chore
   - update @twreporter/core to v1.4.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
   - update @twreporter/index-page to v1.2.11-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-  - update @twreporter/react-article-components to v1.4.6-rc.1([#2012](https://github.com/twreporter/twreporter-react/pull/2024))
+  - update @twreporter/react-article-components to v1.4.6-rc.1([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
   - update @twreporter/react-components v8.7.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
   - update @twreporter/universal-header v2.2.6-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
 
