@@ -1,6 +1,28 @@
 # Changelog
 
-## 4.7.6 (Current), 2021-11-23
+## 4.7.7 (Current), 2021-12-27
+
+### Notable Changes
+
+- feat
+  - add user id datalayer for gtm
+  - add fund raising number in footer
+- chore
+  - update @twreporter/core to v1.4.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/index-page to v1.2.11([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-article-components to v1.4.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-components v8.7.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/universal-header v2.2.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+
+### Commits
+
+- [[`70aeed0480`](https://github.com/twreporter/twreporter-react/commit/70aeed0480)] - **chore**: update @twreporter module versio
+  n (Aylie Chou)
+- [[`0a552abb06`](https://github.com/twreporter/twreporter-react/commit/0a552abb06)] - **chore**: update @twreporter modules version (Aylie Chou)
+- [[`1cfbc59023`](https://github.com/twreporter/twreporter-react/commit/1cfbc59023)] - **feat**: add user id datalayer (Aylie Chou)
+- [[`8ba032b495`](https://github.com/twreporter/twreporter-react/commit/8ba032b495)] - **chore**: update @twreporter module version (Aylie Chou)
+
+## 4.7.6, 2021-11-23
 
 ### Notable Changes
 
@@ -84,7 +106,7 @@
 ### Commits
 
 - [[`95f6e842ae`](https://github.com/twreporter/twreporter-react/commit/95f6e842ae)] - **chore**: update @twreporter module vers
-ion (Aylie Chou)
+  ion (Aylie Chou)
 - [[`a133df7b3a`](https://github.com/twreporter/twreporter-react/commit/a133df7b3a)] - **chore**: update @twreporter module (Aylie Chou)
 - [[`55dd8e3c2a`](https://github.com/twreporter/twreporter-react/commit/55dd8e3c2a)] - **chore**: update @twreporter module version (Aylie Chou)
 - [[`874aded1ed`](https://github.com/twreporter/twreporter-react/commit/874aded1ed)] - **chore**: update @twreporter module version (Aylie Chou)
@@ -126,16 +148,16 @@ ion (Aylie Chou)
 - [[`082817b48c`](https://github.com/twreporter/twreporter-react/commit/082817b48c)] - **chore**: update @twreporter/universal-header to v2.2.1-rc.0 (Aylie Chou)
 - [[`afacb89eca`](https://github.com/twreporter/twreporter-react/commit/afacb89eca)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.12 (Aylie Chou)
 - [[`bd4a544b9f`](https://github.com/twreporter/twreporter-react/commit/bd4a544b9f)] - **chore**: update @tw
-reporter/universal-header to v2.2.0-rc.11 (Aylie Chou)
+  reporter/universal-header to v2.2.0-rc.11 (Aylie Chou)
 - [[`a8317ed200`](https://github.com/twreporter/twreporter-react/commit/a8317ed200)] - **chore**: update uni
-versal-header to v2.2.0-rc.10 (Aylie Chou)
+  versal-header to v2.2.0-rc.10 (Aylie Chou)
   - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
 - [[`db844512b3`](https://github.com/twreporter/twreporter-react/commit/db844512b3)] - **chore**: update @twreporter/react-components to v8.5.0-rc.2 (Aylie Chou)
 - [[`863efdb1a8`](https://github.com/twreporter/twreporter-react/commit/863efdb1a8)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.9 (Aylie Chou)
 - [[`77a00ef781`](https://github.com/twreporter/twreporter-react/commit/77a00ef781)] - **chore**: update @tw
-reporter module version (Aylie Chou)
+  reporter module version (Aylie Chou)
 - [[`6e01ebee42`](https://github.com/twreporter/twreporter-react/commit/6e01ebee42)] - **fix**: fix header/w
-eb-push z-index & transparent warpper style (Aylie Chou)
+  eb-push z-index & transparent warpper style (Aylie Chou)
 - [[`46d73cd29c`](https://github.com/twreporter/twreporter-react/commit/46d73cd29c)] - **fix**: update comments to single lines (#1945) (Tai-Ji
   un Fang)
 - [[`02c268823b`](https://github.com/twreporter/twreporter-react/commit/02c268823b)] - **chore**: update @twreporter module version (Aylie Chou
