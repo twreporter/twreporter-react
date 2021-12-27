@@ -1,9 +1,12 @@
 # Changelog
 
-## 4.7.7-rc.3 (Current), 2021-12-27
+## 4.7.7 (Current), 2021-12-27
 
 ### Notable Changes
 
+- feat
+  - add user id datalayer for gtm
+  - add fund raising number in footer
 - chore
   - update @twreporter/core to v1.4.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
   - update @twreporter/index-page to v1.2.11([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
@@ -15,44 +18,8 @@
 
 - [[`70aeed0480`](https://github.com/twreporter/twreporter-react/commit/70aeed0480)] - **chore**: update @twreporter module versio
   n (Aylie Chou)
-
-## 4.7.7-rc.2, 2021-12-24
-
-### Notable Changes
-
-- feat
-  - add fund raising number in footer
-- chore
-  - update @twreporter/core to v1.4.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-  - update @twreporter/index-page to v1.2.11-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-  - update @twreporter/react-article-components to v1.4.6-rc.1([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-  - update @twreporter/react-components v8.7.0-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-  - update @twreporter/universal-header v2.2.6-rc.0([#2024](https://github.com/twreporter/twreporter-react/pull/2024))
-
-### Commits
-
 - [[`0a552abb06`](https://github.com/twreporter/twreporter-react/commit/0a552abb06)] - **chore**: update @twreporter modules version (Aylie Chou)
-
-## 4.7.7-rc.1, 2021-12-10
-
-### Notable Changes
-
-- feat
-  - add user id datalayer for gtm
-
-### Commits
-
 - [[`1cfbc59023`](https://github.com/twreporter/twreporter-react/commit/1cfbc59023)] - **feat**: add user id datalayer (Aylie Chou)
-
-## 4.7.7-rc.0, 2021-11-24
-
-### Notable Changes
-
-- chore
-  - update @twreporter/react-article-components to v1.4.6-rc.0([#2018](https://github.com/twreporter/twreporter-react/pull/2018))
-
-### Commits
-
 - [[`8ba032b495`](https://github.com/twreporter/twreporter-react/commit/8ba032b495)] - **chore**: update @twreporter module version (Aylie Chou)
 
 ## 4.7.6, 2021-11-23
