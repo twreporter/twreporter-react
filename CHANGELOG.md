@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.7 (Current), 2021-12-27
+## 4.7.8-rc.0 (Current), 2021-12-30
+
+### Notable Changes
+
+- fix
+  - add og:updated_time in header
+
+### Commits
+
+- [[`dd6a65b6fc`](https://github.com/twreporter/twreporter-react/commit/dd6a65b6fc)] - **fix**: add og:updated_time in header (Aylie Chou)
+
+## 4.7.7, 2021-12-27
 
 ### Notable Changes
 
