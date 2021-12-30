@@ -9,6 +9,7 @@ export default {
     url: 'https://www.twreporter.org/images/og-image-large.jpg',
     width: 1200,
     height: 628,
+    updatedTime: '1640848262922', // 2021-12-30
   },
   name: {
     full: '報導者 The Reporter',
