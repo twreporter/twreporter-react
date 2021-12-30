@@ -269,6 +269,10 @@ class Homepage extends React.PureComponent {
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: siteMeta.urlOrigin + '/' },
+            {
+              property: 'og:updated_time',
+              content: siteMeta.ogImage.updatedTime,
+            },
           ]}
         />
         <SideBar ref={this._sidebar}>
