@@ -31,14 +31,10 @@ const ContentBlock = styled.div`
 `
 
 const TransparentHeader = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  z-index: 1;
-  ${mq.mobileOnly`
-    position: relative;
-  `}
+  z-index: 1000; // other component has z-index 999
 `
 
 // TODO add `pink` theme to universal-header
@@ -47,14 +43,14 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = (footerType, pathname = '', host = '') => {
+const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
   switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
     case uiConst.footer.default:
     default: {
-      return <Footer host={host} pathname={pathname} />
+      return <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
     }
   }
 }
@@ -149,7 +145,7 @@ class AppShell extends React.PureComponent {
             <WebPush apiOrigin={apiOrigin} userId={userId} />
             {renderHeader(headerType, releaseBranch)}
             {children}
-            {renderFooter(footerType, pathname, host)}
+            {renderFooter(footerType, pathname, host, releaseBranch)}
           </ContentBlock>
         </AppBox>
       </ErrorBoundary>

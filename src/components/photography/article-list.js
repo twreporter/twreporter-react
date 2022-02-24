@@ -1,13 +1,16 @@
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import { Link } from 'react-router-dom'
-import { More } from './more'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import { formatPostLinkTo, formatPostLinkTarget } from '../../utils/url'
+// components
+import { More } from './more'
+// @twreporter
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -90,6 +93,7 @@ const ItemTitle = styled.h3`
   border: 0;
   font-size: 135%;
   font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   line-height: 1.25em;
   @media only screen and (max-width: ${breakPoint}px) {
     margin-bottom: 1.5em;
@@ -113,7 +117,6 @@ const Date = styled.time`
   line-height: 1.2;
   margin-top: 1.2em;
   margin-bottom: 1.2em;
-  font-family: Roboto;
   padding-left: 80%;
   @media only screen and (max-width: ${breakPoint}px) {
     display: none;

@@ -1,13 +1,15 @@
+import { AnchorWrapper as Section } from '@twreporter/react-components/lib/side-bar'
 import { connect } from 'react-redux'
-import categoryConst from '../constants/category'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
 import IndexPageComposite from '@twreporter/index-page'
 import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
-import qs from 'qs'
 import React from 'react'
+import categoryConst from '../constants/category'
+import loggerFactory from '../logger'
+import mq from '../utils/media-query'
+import qs from 'qs'
 import sideBarFactory from '../components/side-bar/side-bar-factory'
 import siteMeta from '../constants/site-meta'
 import styled, { css } from 'styled-components'
@@ -20,6 +22,7 @@ import cloneUtils from '../utils/shallow-clone-entity'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
+import TagManager from 'react-gtm-module'
 
 const {
   CategorySection,
@@ -68,49 +71,6 @@ const LoadingCover = styled.div`
   }
 `
 
-const anchors = [
-  {
-    id: 'latest',
-    label: '',
-  },
-  {
-    id: 'editorPick',
-    label: '編輯精選',
-  },
-  {
-    id: 'latestTopic',
-    label: '最新專題',
-  },
-  {
-    id: 'donation-box',
-    label: '',
-  },
-  {
-    id: 'review',
-    label: '評論',
-  },
-  {
-    id: 'news-letter',
-    label: '',
-  },
-  {
-    id: 'categories',
-    label: '議題',
-  },
-  {
-    id: 'topic',
-    label: '專題',
-  },
-  {
-    id: 'photography',
-    label: '攝影',
-  },
-  {
-    id: 'infographic',
-    label: '多媒體',
-  },
-]
-
 const moduleBackgounds = {
   latest: '#f2f2f2',
   editorPick: 'white',
@@ -127,7 +87,9 @@ const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   background-color: white;
-  overflow: hidden;
+  ${mq.mobileOnly`
+    overflow: hidden;
+  `}
   ${reactTransitionCSS}
 `
 
@@ -214,6 +176,7 @@ class Homepage extends React.PureComponent {
     fetchIndexPageContent: PropTypes.func,
     fetchFeatureTopic: PropTypes.func,
     isSpinnerDisplayed: PropTypes.bool,
+    isContentReady: PropTypes.bool,
     categories: PropTypes.array,
   }
 
@@ -235,6 +198,17 @@ class Homepage extends React.PureComponent {
         this._sidebar.current.handleClickAnchor(section)
       }
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isContentReady && this.props.isContentReady) {
+      // For client-side rendering, we notify GTM that the new component is ready
+      TagManager.dataLayer({
+        dataLayer: {
+          event: 'gtm.load',
+        },
+      })
+    }
   }
 
   fetchIndexPageContentWithCatch = () => {
@@ -261,7 +235,9 @@ class Homepage extends React.PureComponent {
     const { isSpinnerDisplayed } = this.props
     const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
     const latestTopicJSX = latestTopicData ? (
-      <LatestTopicSection data={latestTopicData} />
+      <Section anchorId="latestTopic" anchorLabel="最新專題" showAnchor>
+        <LatestTopicSection data={latestTopicData} />
+      </Section>
     ) : null
     const SideBar = sideBarFactory.getIndexPageSideBar()
     return (
@@ -293,41 +269,67 @@ class Homepage extends React.PureComponent {
             { property: 'og:image:height', content: siteMeta.ogImage.height },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: siteMeta.urlOrigin + '/' },
+            {
+              property: 'og:updated_time',
+              content: siteMeta.ogImage.updatedTime,
+            },
           ]}
         />
-        <SideBar ref={this._sidebar} anchors={anchors}>
-          <LatestSection data={this.props[fieldNames.sections.latestSection]} />
-          <EditorPicks
-            data={this.props[fieldNames.sections.editorPicksSection]}
-          />
+        <SideBar ref={this._sidebar}>
+          <Section anchorId="latest">
+            <LatestSection
+              data={this.props[fieldNames.sections.latestSection]}
+            />
+          </Section>
+          <Section anchorId="editorPick" anchorLabel="編輯精選" showAnchor>
+            <EditorPicks
+              data={this.props[fieldNames.sections.editorPicksSection]}
+            />
+          </Section>
           {latestTopicJSX}
-          <DonationBoxSection />
-          <ReviewsSection
-            data={this.props[fieldNames.sections.reviewsSection]}
-            moreURI={`categories/${categoryConst.pathSegments.reviews}`}
-          />
-          <NewsLetterSection />
-          <Background backgroundColor={moduleBackgounds.category}>
-            <CategorySection data={this.props.categories} />
-          </Background>
-          <Background backgroundColor={moduleBackgounds.topic}>
-            <TopicsSection
-              data={this.props[fieldNames.sections.topicsSection]}
+          <Section anchorId="donation-box">
+            <DonationBoxSection />
+          </Section>
+          <Section anchorId="review" anchorLabel="評論" showAnchor>
+            <ReviewsSection
+              data={this.props[fieldNames.sections.reviewsSection]}
+              moreURI={`categories/${categoryConst.pathSegments.reviews}`}
             />
-          </Background>
-          <PodcastBoxSection />
-          <Background backgroundColor={moduleBackgounds.photography}>
-            <PhotographySection
-              data={this.props[fieldNames.sections.photosSection]}
-              moreURI="photography"
-            />
-          </Background>
-          <Background backgroundColor={moduleBackgounds.infographic}>
-            <InforgraphicSection
-              data={this.props[fieldNames.sections.infographicsSection]}
-              moreURI={`categories/${categoryConst.pathSegments.infographic}`}
-            />
-          </Background>
+          </Section>
+          <Section anchorId="news-letter">
+            <NewsLetterSection />
+          </Section>
+          <Section anchorId="categories" anchorLabel="議題" showAnchor>
+            <Background backgroundColor={moduleBackgounds.category}>
+              <CategorySection data={this.props.categories} />
+            </Background>
+          </Section>
+          <Section anchorId="topic" anchorLabel="專題" showAnchor>
+            <Background backgroundColor={moduleBackgounds.topic}>
+              <TopicsSection
+                data={this.props[fieldNames.sections.topicsSection]}
+              />
+            </Background>
+          </Section>
+          <Section anchorId="podcast">
+            <PodcastBoxSection />
+          </Section>
+          <Section anchorId="photography" anchorLabel="攝影" showAnchor>
+            <Background backgroundColor={moduleBackgounds.photography}>
+              <PhotographySection
+                data={this.props[fieldNames.sections.photosSection]}
+                moreURI="photography"
+              />
+            </Background>
+          </Section>
+          <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
+            <Background backgroundColor={moduleBackgounds.infographic}>
+              <InforgraphicSection
+                data={this.props[fieldNames.sections.infographicsSection]}
+                moreURI={`categories/${categoryConst.pathSegments.infographic}`}
+              />
+            </Background>
+          </Section>
         </SideBar>
         <script
           type="application/ld+json"
@@ -571,6 +573,7 @@ function mapStateToProps(state) {
     {
       isSpinnerDisplayed: !_.get(indexPageState, 'isReady', false),
       ifAuthenticated: _.get(state, ['auth', 'authenticated'], false),
+      isContentReady: _.get(indexPageState, 'isReady', false),
     }
   )
 }

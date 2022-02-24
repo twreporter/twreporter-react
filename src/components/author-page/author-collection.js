@@ -1,17 +1,19 @@
-import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
-import { shortenString } from '../../utils/string'
 import { Waypoint } from 'react-waypoint'
 import { Link } from 'react-router-dom'
-import LoadingSpinner from '../Spinner'
-import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Sizing from '../sizing'
 import styled, { keyframes } from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+import { shortenString } from '../../utils/string'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
+//components
+import LoadingSpinner from '../Spinner'
+import Sizing from '../sizing'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -98,6 +100,7 @@ const ItemTitle = styled.h4`
   display: inline-block;
   font-size: 20px;
   font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   margin: 0;
 `
 
@@ -134,7 +137,7 @@ const CenteredSpinner = styled(LoadingSpinner)`
 
 function buildListItem(item) {
   const charLimit = 120
-  const image = _.get(item, 'heroImage.image.resizedTargets.mobile', {})
+  const image = _.get(item, 'heroImage.resizedTargets.mobile', {})
   image.url = replaceGCSUrlOrigin(image.url)
   const slug = _.get(item, 'slug', '')
   const title = _.get(item, 'title', '')
@@ -192,7 +195,8 @@ const AuthorCollection = props => {
     handleLoadmore,
     totalResults,
   } = props
-  const titleText = '所有文章' + (totalResults ? `（${totalResults}）` : '')
+  const titleText =
+    '所有文章' + (typeof totalResults === 'number' ? `（${totalResults}）` : '')
 
   return (
     <Sizing size="small">

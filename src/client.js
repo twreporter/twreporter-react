@@ -5,15 +5,35 @@ import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactGA from 'react-ga'
+import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
+// lodash
+import get from 'lodash/get'
+const _ = {
+  get,
+}
 
 const logger = loggerFactory.getLogger()
 const releaseBranch = globalEnv.releaseBranch
+const tagManagerArgs = {
+  master: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: '2pJC7GotZqWa7HtmIgSFIg',
+    preview: 'env-231',
+  },
+  staging: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: 'XFsQ67nTp2wXWpJllmNBCQ',
+    preview: 'env-229',
+  },
+  release: {
+    gtmId: 'GTM-PRMXBBN',
+  },
+}
 
 let reduxState
 
@@ -60,8 +80,29 @@ function reloadPageIfNeeded() {
 function scrollToTopAndFirePageview() {
   window.scrollTo(0, 0)
   // send Google Analytics Pageview event on route changed
-  ReactGA.pageview(window.location.pathname)
+  TagManager.dataLayer({
+    dataLayer: {
+      event: 'PageView',
+      page: window.location.pathname + window.location.search,
+    },
+  })
 
+  return null
+}
+
+function sendGtmUserId() {
+  if (!store) {
+    return null
+  }
+  const currentState = store.getState()
+  const userId = _.get(currentState, ['auth', 'userInfo', 'user_id'], '')
+  if (userId) {
+    TagManager.dataLayer({
+      dataLayer: {
+        userId,
+      },
+    })
+  }
   return null
 }
 
@@ -71,15 +112,16 @@ const store = twreporterRedux.createStore(
   globalEnv.isDevelopment
 )
 
-// add Google Analytics
-ReactGA.initialize('UA-69336956-1')
-ReactGA.set({ page: window.location.pathname })
+// add Google Tag Manager
+TagManager.initialize(tagManagerArgs[releaseBranch])
+
 const jsx = (
   <BrowserRouter>
     <React.Fragment>
       <Route path="/" component={reloadPageIfNeeded()} />
       <Route path="/" component={scrollToTopAndFirePageview} />
       <Route path="/" component={hashLinkScroll} />
+      <Route path="/" component={sendGtmUserId} />
       <App reduxStore={store} releaseBranch={releaseBranch} />
     </React.Fragment>
   </BrowserRouter>

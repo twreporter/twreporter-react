@@ -1,14 +1,17 @@
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { Link } from 'react-router-dom'
-import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Slider from './slider'
 import styled from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
+// components
+import Slider from './slider'
+// @twreporter
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -67,6 +70,7 @@ const Card = styled.div`
 
 const CardTitle = styled.div`
   font-weight: ${fontWeight.bold};
+  font-family: ${fontFamily.title};
   font-size: 28px;
   color: black;
   line-height: 36px;
@@ -97,7 +101,6 @@ const CardDate = styled.time`
   display: none;
   ${mq.tabletAndAbove`
     display: block;
-    font-family: "Times New Roman";
     font-style: italic;
     color: black;
     word-spacing: 20px;

@@ -1,7 +1,7 @@
 import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../about-us/utils/config'
-import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import anchorlist from '../about-us/constants/data/sidebar-anchor'
@@ -131,7 +131,7 @@ class AboutusPageSideBar extends React.PureComponent {
             currentAnchorId={currentAnchorId}
           />
           <Icons>
-            <DonationLink utmMedium="about-us">
+            <DonationLink>
               <img
                 src={`${replaceGCSUrlOrigin(
                   `${storageUrlPrefix}/sidebar-icon1.png`

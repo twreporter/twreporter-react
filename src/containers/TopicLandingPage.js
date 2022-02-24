@@ -13,7 +13,6 @@ import memoizeOne from 'memoize-one'
 import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
-import TopicHeader from '../components/topic/header'
 
 // utils
 import cloneUtils from '../utils/shallow-clone-entity'
@@ -126,7 +125,6 @@ class TopicLandingPage extends Component {
     /* TODO: Add loading mockup or spinner */
     return (
       <Container>
-        <TopicHeader />
         <BannerPlaceholder />
       </Container>
     )
@@ -203,7 +201,6 @@ class TopicLandingPage extends Component {
           leadingImagePortrait={leadingImagePortrait}
           ogImage={ogImage}
         />
-        <TopicHeader />
         <Description
           topicDescription={topicDescription}
           teamDescription={teamDescription}

@@ -1,6 +1,352 @@
 # Changelog
 
-## 4.6.4 (Current), 2021-03-30
+## 4.7.8 (Current), 2022-02-24
+
+### Notable Changes
+
+- feat
+  - add animation to indicator of carousel & enhance contrast
+- fix
+  - add og:updated_time in header
+
+### Commits
+
+- [[`8deee7118f`](https://github.com/twreporter/twreporter-react/commit/8deee7118f)] - **feat**: add animation to indicator of carousel & enhance contrast (#2037) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`dd6a65b6fc`](https://github.com/twreporter/twreporter-react/commit/dd6a65b6fc)] - **fix**: add og:updated_time in header (Aylie Chou)
+
+* [[`dd6a65b6fc`](https://github.com/twreporter/twreporter-react/commit/dd6a65b6fc)] - **fix**: add og:updated_time in header (Aylie Chou)
+
+## 4.7.7, 2021-12-27
+
+### Notable Changes
+
+- feat
+  - add user id datalayer for gtm
+  - add fund raising number in footer
+- chore
+  - update @twreporter/core to v1.4.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/index-page to v1.2.11([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-article-components to v1.4.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/react-components v8.7.0([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+  - update @twreporter/universal-header v2.2.6([#2027](https://github.com/twreporter/twreporter-react/pull/2027))
+
+### Commits
+
+- [[`70aeed0480`](https://github.com/twreporter/twreporter-react/commit/70aeed0480)] - **chore**: update @twreporter module versio
+  n (Aylie Chou)
+- [[`0a552abb06`](https://github.com/twreporter/twreporter-react/commit/0a552abb06)] - **chore**: update @twreporter modules version (Aylie Chou)
+- [[`1cfbc59023`](https://github.com/twreporter/twreporter-react/commit/1cfbc59023)] - **feat**: add user id datalayer (Aylie Chou)
+- [[`8ba032b495`](https://github.com/twreporter/twreporter-react/commit/8ba032b495)] - **chore**: update @twreporter module version (Aylie Chou)
+
+## 4.7.6, 2021-11-23
+
+### Notable Changes
+
+- feat
+  - update about-us data & add new award name
+- chore
+  - update @twreporter/core to v1.3.1([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/index-page to v1.2.10([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/react-article-components to v1.4.5([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/react-components v8.6.3([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+  - update @twreporter/universal-header v2.2.5([#2012](https://github.com/twreporter/twreporter-react/pull/2012))
+
+### Commits
+
+- [[`84be7026ed`](https://github.com/twreporter/twreporter-react/commit/84be7026ed)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`e0bd641faa`](https://github.com/twreporter/twreporter-react/commit/e0bd641faa)] - **fix**: address review comment (Aylie Chou)
+- [[`691f5953e5`](https://github.com/twreporter/twreporter-react/commit/691f5953e5)] - **fix**: fix KKBOX award name (Aylie Chou)
+- [[`cd8a23cd1d`](https://github.com/twreporter/twreporter-react/commit/cd8a23cd1d)] - **feat**: adjust style & add error boundary (Aylie Chou)
+- [[`71f2865f07`](https://github.com/twreporter/twreporter-react/commit/71f2865f07)] - **fix**: update about-us data & fix js error (Aylie Chou)
+
+## 4.7.5, 2021-10-28
+
+### Notable Changes
+
+- chore
+  - update @twreporter/index-page to v1.2.9([#2003](https://github.com/twreporter/twreporter-react/pull/2003))
+  - update @twreporter/react-article-components to v1.4.4([#2003](https://github.com/twreporter/twreporter-react/pull/2003))
+  - update @twreporter/react-components v8.6.2([#2003](https://github.com/twreporter/twreporter-react/pull/2003))
+  - update @twreporter/universal-header v2.2.4([#2003](https://github.com/twreporter/twreporter-react/pull/2003))
+  - update @twreporter/index-page to v1.2.9-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/react-article-components to v1.4.4-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/react-components v8.6.2-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+  - update @twreporter/universal-header v2.2.4-rc.1([#2000](https://github.com/twreporter/twreporter-react/pull/2000))
+
+### Commits
+
+- [[`5995908b3a`](https://github.com/twreporter/twreporter-react/commit/5995908b3a)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`08737705d8`](https://github.com/twreporter/twreporter-react/commit/08737705d8)] - **chore**: update @twreporter module version (Aylie Chou)
+
+## 4.7.4, 2021-10-27
+
+### Notable Changes
+
+- fix
+  - fix author page font family
+
+### Commits
+
+- [[`1368be77ff`](https://github.com/twreporter/twreporter-react/commit/1368be77ff)] - **fix**: fix author page font family (Aylie Chou)
+
+## 4.7.3, 2021-10-27
+
+### Notable Changes
+
+- feat
+  - rebranding logo, color, font family
+- chore
+  - update @twreporter/index-page to v1.2.8([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-article-components to v1.4.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/react-components v8.6.1([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/universal-header v2.2.3([#1989](https://github.com/twreporter/twreporter-react/pull/1989))
+  - update @twreporter/index-page to v1.2.8-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/react-article-components to v1.4.3-rc.0[#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/react-components v8.6.1-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/universal-header v2.2.3-rc.0([#1986](https://github.com/twreporter/twreporter-react/pull/1986))
+  - update @twreporter/core to v1.3.0([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/index-page to v1.2.7([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/react-article-components to v1.4.2[#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/react-components v8.6.0([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/universal-header v2.2.2([#1983](https://github.com/twreporter/twreporter-react/pull/1983))
+  - update @twreporter/index-page to v1.2.7-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-article-components to v1.4.2-rc.3[#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/react-components v8.6.0-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/universal-header v2.2.2-rc.3([#1980](https://github.com/twreporter/twreporter-react/pull/1980))
+  - update @twreporter/core to v1.3.0-rc.1([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/index-page to v1.2.7-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-article-components to v1.4.2-rc.2[#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/react-components v8.6.0-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+  - update @twreporter/universal-header v2.2.2-rc.2([#1976](https://github.com/twreporter/twreporter-react/pull/1976))
+
+### Commits
+
+- [[`95f6e842ae`](https://github.com/twreporter/twreporter-react/commit/95f6e842ae)] - **chore**: update @twreporter module vers
+  ion (Aylie Chou)
+- [[`a133df7b3a`](https://github.com/twreporter/twreporter-react/commit/a133df7b3a)] - **chore**: update @twreporter module (Aylie Chou)
+- [[`55dd8e3c2a`](https://github.com/twreporter/twreporter-react/commit/55dd8e3c2a)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`874aded1ed`](https://github.com/twreporter/twreporter-react/commit/874aded1ed)] - **chore**: update @twreporter module version (Aylie Chou)
+- [[`8cdf4a74f9`](https://github.com/twreporter/twreporter-react/commit/8cdf4a74f9)] - **fix**: fix font-family (Aylie Chou)
+- [[`a969113577`](https://github.com/twreporter/twreporter-react/commit/a969113577)] - **chore**: update @twreporter packages & update font (Aylie Chou)
+
+## 4.7.2, 2021-10-12
+
+### Notable Changes
+
+- feat
+  - update @twreporter/universal-header to v2.2.1 to use header 2.0
+  - update topic landing page header to universal-header
+- fix
+  - update z-index setting between header/web-push components ([#1949](https://github.com/twreporter/twreporter-react/pull/1949))
+  - update comments to single lines ([#1945](https://github.com/twreporter/twreporter-react/pull/1945))
+  - call to action banner can not be clicked
+- chore
+  - update @twreporter/universal-header to v2.2.1([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/react-components to v8.5.0([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/react-article-components to v1.4.1([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/index-page to v1.2.6([#1972](https://github.com/twreporter/twreporter-react/pull/1972))
+  - update @twreporter/universal-header to v2.2.1-rc.0([#1969](https://github.com/twreporter/twreporter-react/pull/1969))
+  - update @twreporter/universal-header to v2.2.0-rc.12([#1966](https://github.com/twreporter/twreporter-react/pull/1966))
+  - update @twreporter/universal-header to v2.2.0-rc.11([#1963](https://github.com/twreporter/twreporter-react/pull/1963))
+  - update @twreporter/universal-header to v2.2.0-rc.10([#1960](https://github.com/twreporter/twreporter-react/pull/1960))
+  - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
+  - update @twreporter/universal-header to v2.2.0-rc.9([#1953](https://github.com/twreporter/twreporter-react/pull/1953))
+  - update @twreporter/universal-header to v2.2.0-rc.8 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-article-components to v1.4.0-rc.2 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/react-components to v8.5.0-rc.1 ([#1950](https://github.com/twreporter/twreporter-react/pull/1950))
+  - update @twreporter/universal-header to v2.2.0-rc.7 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+  - update @twreporter/react-article-components to v1.4.0-rc.0 ([#1946](https://github.com/twreporter/twreporter-react/pull/1946))
+  - update @twreporter/universal-header to v2.2.0-rc.6
+
+### Commits
+
+- [[`804c80be22`](https://github.com/twreporter/twreporter-react/commit/804c80be22)] - **chore**: update @twreporter modules version (Aylie Chou)
+- [[`082817b48c`](https://github.com/twreporter/twreporter-react/commit/082817b48c)] - **chore**: update @twreporter/universal-header to v2.2.1-rc.0 (Aylie Chou)
+- [[`afacb89eca`](https://github.com/twreporter/twreporter-react/commit/afacb89eca)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.12 (Aylie Chou)
+- [[`bd4a544b9f`](https://github.com/twreporter/twreporter-react/commit/bd4a544b9f)] - **chore**: update @tw
+  reporter/universal-header to v2.2.0-rc.11 (Aylie Chou)
+- [[`a8317ed200`](https://github.com/twreporter/twreporter-react/commit/a8317ed200)] - **chore**: update uni
+  versal-header to v2.2.0-rc.10 (Aylie Chou)
+  - update @twreporter/react-components to v8.5.0-rc.2([#1957](https://github.com/twreporter/twreporter-react/pull/1957))
+- [[`db844512b3`](https://github.com/twreporter/twreporter-react/commit/db844512b3)] - **chore**: update @twreporter/react-components to v8.5.0-rc.2 (Aylie Chou)
+- [[`863efdb1a8`](https://github.com/twreporter/twreporter-react/commit/863efdb1a8)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.9 (Aylie Chou)
+- [[`77a00ef781`](https://github.com/twreporter/twreporter-react/commit/77a00ef781)] - **chore**: update @tw
+  reporter module version (Aylie Chou)
+- [[`6e01ebee42`](https://github.com/twreporter/twreporter-react/commit/6e01ebee42)] - **fix**: fix header/w
+  eb-push z-index & transparent warpper style (Aylie Chou)
+- [[`46d73cd29c`](https://github.com/twreporter/twreporter-react/commit/46d73cd29c)] - **fix**: update comments to single lines (#1945) (Tai-Ji
+  un Fang)
+- [[`02c268823b`](https://github.com/twreporter/twreporter-react/commit/02c268823b)] - **chore**: update @twreporter module version (Aylie Chou
+  )
+- [[`2368b71c3d`](https://github.com/twreporter/twreporter-react/commit/2368b71c3d)] - **chore**: update @twreporter/universal-header to v2.2.0-rc.6 (Tai-Jiun Fang)
+- [[`c51ba3e5ed`](https://github.com/twreporter/twreporter-react/commit/c51ba3e5ed)] - **fix**: call to action banner can not be clicked (#1938) (Tai-Jiun Fang)
+- [[`900f622c87`](https://github.com/twreporter/twreporter-react/commit/900f622c87)] - **feat**: update topic landing page header to universal-header (Aylie Chou)
+- [[`026b4b493d`](https://github.com/twreporter/twreporter-react/commit/026b4b493d)] - **doc**: update CHANGELOG.md (Aylie Chou)
+- [[`ce19e2de7e`](https://github.com/twreporter/twreporter-react/commit/ce19e2de7e)] - **fix**: update yarn.lock (Aylie Chou)
+- [[`97046863e0`](https://github.com/twreporter/twreporter-react/commit/97046863e0)] - **chore**: test @twreporter/universal-header v2.2.0-rc.4 (Aylie Chou)
+
+## 4.7.1, 2021-08-02
+
+### Notable Changes
+
+- refactor
+  - update font-family for English text on topic landing page ([#1917](https://github.com/twreporter/twreporter-react/pull/1917))
+
+### Commits
+
+- [[`b7c56c14e5`](https://github.com/twreporter/twreporter-react/commit/b7c56c14e5)] - **refactor**: update font-family for English text on topic landing page (#1917) (Tai-Jiun Fang)
+
+## 4.7.0, 2021-07-27
+
+### Notable Changes
+
+- feat
+  - add google optimize snippet ([#1897](https://github.com/twreporter/twreporter-react/pull/1897))
+
+### Commits
+
+- [[`10b5ec046d`](https://github.com/twreporter/twreporter-react/commit/10b5ec046d)] - **feat**: add google optimize snippet (#1897) (Tai-Jiun Fang)
+
+## 4.6.12, 2021-07-12
+
+### Notable Changes
+
+- fix
+  - fix broken search box in firefox ([#1898](https://github.com/twreporter/twreporter-react/pull/1898))
+
+### Commits
+
+- [[`60ae3fc174`](https://github.com/twreporter/twreporter-react/commit/60ae3fc174)] - fix(search-box): give input a specific width to avoid bug in firefox (#1898) (Leo)
+
+## 4.6.11, 2021-06-22
+
+### Notable Changes
+
+- refactor
+
+  - migrate ga to gtm ([#1872](https://github.com/twreporter/twreporter-react/pull/1872))
+  - remove the default email of authors([#1876](https://github.com/twreporter/twreporter-react/pull/1876))
+  - remove utm on the website ([#1890](https://github.com/twreporter/twreporter-react/pull/1890))
+
+- feat
+  - manually send gtm.load event for SPA([#1878](https://github.com/twreporter/twreporter-react/pull/1878), [#1882](https://github.com/twreporter/twreporter-react/pull/1882))
+
+### Commits
+
+- [[`f6a10b6cfd`](https://github.com/twreporter/twreporter-react/commit/f6a10b6cfd)] - **refactor**: remove utm parameters (Ching-Yang, Tseng)
+- [[`9b0dfc2952`](https://github.com/twreporter/twreporter-react/commit/9b0dfc2952)] - **chore**: upgrade npm packages (Ching-Yang, Tseng)
+- [[`3f4c29505d`](https://github.com/twreporter/twreporter-react/commit/3f4c29505d)] - **fix**: send gtm.load event when the conte
+  nt is ready (Ching-Yang, Tseng)
+- [[`3966012ef5`](https://github.com/twreporter/twreporter-react/commit/3966012ef5)] - **feat**: manually send gtm.load event for SPA (Ching-Yang, Tseng)
+- [[`53ee560b90`](https://github.com/twreporter/twreporter-react/commit/53ee560b90)] - **refactor**: remove the default email of authors (Ching-Yang, Tseng)
+- [[`eedafc4a71`](https://github.com/twreporter/twreporter-react/commit/eedafc4a71)] - **refactor**: migrate ga to gtm (Ching-Yang, Tseng)
+- [[`18374b4cee`](https://github.com/twreporter/twreporter-react/commit/18374b4cee)] - **refactor**: remove unused ga.js (Ching-Yang, Tseng)
+
+## 4.6.10, 2021-05-28
+
+### Notable Changes
+
+- fix
+  - prevent sidebar from overlapping footer (#1850)
+  - fix slideshow effect for mobile devices on index page (#1865)
+
+### Commits
+
+- [[`9e84bb3efe`](https://github.com/twreporter/twreporter-react/commit/9e84bb3efe)] - **fix**: fix slideshow effect for mobile devices on index page (#1865) (Tai-Jiun Fang)
+- [[`95331ff463`](https://github.com/twreporter/twreporter-react/commit/95331ff463)] - **chore**: downgrade version to v4.6.10-rc.1 (Taylor Fang)
+- [[`7714f484f1`](https://github.com/twreporter/twreporter-react/commit/7714f484f1)] - chore(release): bump version to v4.6.10 (Taylor Fang)
+- [[`639b4817d7`](https://github.com/twreporter/twreporter-react/commit/639b4817d7)] - **chore**: bump version to v4.6.10-rc.0 (Taylor Fang)
+- [[`99b2767218`](https://github.com/twreporter/twreporter-react/commit/99b2767218)] - fix(homepage): prevent sidebar from overlapping footer (#1850) (CHC)
+
+## 4.6.9, 2021-05-13
+
+### Notable Changes
+
+- chore
+  - upgrade twreporter npm packages
+- refactor
+  - update anchors configuration for index page and about us page
+- docs
+  - add release test items to perform test manually after a release
+
+### Commits
+
+- [[`eddc2a0c31`](https://github.com/twreporter/twreporter-react/commit/eddc2a0c31)] - chore(release): upgrade npm packages (#1855) (Tai-Jiun Fang)
+
+* [[`643114670f`](https://github.com/twreporter/twreporter-react/commit/643114670f)] - **chore**: upgrade npm packages (#1852) (Tai-Jiun Fang)
+* [[`ac33b730f0`](https://github.com/twreporter/twreporter-react/commit/ac33b730f0)] - **refactor**: anchors configuration (#1847) (Tai-Jiun Fang)
+* [[`da3969b4d7`](https://github.com/twreporter/twreporter-react/commit/da3969b4d7)] - **docs**: add release-test-items (#1839) (Tai-Jiun Fang)
+
+## 4.6.8, 2021-04-29
+
+### Notable Changes
+
+- refactor
+  - update section 2 markup for about-us page
+
+### Commits
+
+- [[`a75312a3f2`](https://github.com/twreporter/twreporter-react/commit/a75312a3f2)] - **refactor**: update about-us section 2 markup (#1840) (Tai-Jiun Fang)
+
+## 4.6.7, 2021-04-29
+
+### Notable Changes
+
+- fix
+  - count the pageviews with pathname + query parameters
+
+### Commits
+
+- [[`f77fc1c4`](https://github.com/twreporter/twreporter-react/commit/f77fc1c4aae9be0059ebbc2b763f9da18e9e3ffb)] - fix: count the pageviews with pathname + query parameters(Ching-Yang, Tseng)
+- [[`fd69436f`](https://github.com/twreporter/twreporter-react/commit/fd69436ff6023b7fa16a0187383b38be3b15dc1c)] - fix: utilize `window.location.href` when sending pageview(Ching-Yang, Tseng)
+
+## 4.6.6, 2021-04-19
+
+### Notable Changes
+
+- fix
+  - utilize `window.location.href` as the path for GA
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.3
+    - @twreporter/react-article-components@1.3.0
+    - @twreporter/react-components@8.4.2
+    - @twreporter/redux@7.2.0
+
+### Commits
+
+- [[`daf726e8a7`](https://github.com/twreporter/twreporter-react/commit/daf726e8a7)] - **chore**: bump version to v4.6.6 (Taylor Fang)
+- [[`bb715e77b1`](https://github.com/twreporter/twreporter-react/commit/bb715e77b1)] - **chore**: update dependencies (#1826) (Tai-Jiun Fang)
+- [[`601c438899`](https://github.com/twreporter/twreporter-react/commit/601c438899)] - Merge pull request #1824 from taylrj/master (Tai-Jiun Fang)
+- [[`db7d9a5836`](https://github.com/twreporter/twreporter-react/commit/db7d9a5836)] - **chore**: bump version to v4.6.6-rc.0 (Taylor Fang)
+- [[`ed07491a0c`](https://github.com/twreporter/twreporter-react/commit/ed07491a0c)] - **chore**: update dependencies (#1823) (Tai-Jiun Fang)
+- [[`8036ce412e`](https://github.com/twreporter/twreporter-react/commit/8036ce412e)] - **fix**: utilize `window.location.href` as the path for GA (#1822) (Tai-Jiun Fang)
+- [[`c17f711c9f`](https://github.com/twreporter/twreporter-react/commit/c17f711c9f)] - Merge pull request #1819 from taylrj/master (Tai-Jiun Fang)
+
+## 4.6.5
+
+### Notable Changes
+
+- chore
+  - upgrade deps
+    - @twreporter/index-page@1.2.2
+    - @twreporter/react-article-components@1.2.15
+    - @twreporter/react-components@8.4.1
+    - @twreporter/redux@7.1.0
+- refactor
+  - refactor: tweak data path for author page according to @twreporter/redux updates
+
+### Commits
+
+- [[`23199c4868`](https://github.com/twreporter/twreporter-react/commit/23199c4868)] - **chore**: bump version to v4.6.5 (Taylor Fang)
+- [[`bc8dd60919`](https://github.com/twreporter/twreporter-react/commit/bc8dd60919)] - **chore**: upgrade deps (#1817) (Tai-Jiun Fang)
+- [[`d4fb2af145`](https://github.com/twreporter/twreporter-react/commit/d4fb2af145)] - **chore**: bump version to v4.6.5-rc.1 (Taylor Fang)
+- [[`467f7c30c7`](https://github.com/twreporter/twreporter-react/commit/467f7c30c7)] - Merge pull request #1792 from taylrj/all-author-articles (Tai-Jiun Fang)
+- [[`7069f29273`](https://github.com/twreporter/twreporter-react/commit/7069f29273)] - Merge pull request #1793 from taylrj/author-v2 (Tai-Jiun Fang)
+- [[`26e680dd52`](https://github.com/twreporter/twreporter-react/commit/26e680dd52)] - **chore**: bump version to v4.6.5-rc.0 (Taylor Fang)
+- [[`99b3f43561`](https://github.com/twreporter/twreporter-react/commit/99b3f43561)] - **chore**: upgrade deps (#1812) (Tai-Jiun Fang)
+
+## 4.6.4, 2021-03-30
 
 ### Notable Changes
 

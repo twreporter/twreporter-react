@@ -3,6 +3,7 @@ import React from 'react'
 import get from 'lodash/get'
 import styled from 'styled-components'
 import typography from '../../constants/typography'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
 
 const _ = {
   get,
@@ -17,7 +18,7 @@ const StyledAnchor = styled.div`
 `
 const Label = styled.div`
   font-size: ${typography.font.size.xSmall};
-  font-weight: ${typography.font.weight.normal};
+  font-weight: ${fontWeight.normal};
   line-height: 1;
   margin: 2px 3px;
 `
@@ -73,9 +74,9 @@ class Anchors extends React.PureComponent {
     data.forEach(anchorObj => {
       const id = _.get(anchorObj, 'id', '')
       const label = _.get(anchorObj, 'label', '')
+      const show = _.get(anchorObj, 'show', false)
 
-      // id and label are not empty string
-      if (id && label) {
+      if (show) {
         anchorBts.push(
           this._renderAnchor({
             handleClick: handleClickAnchor,

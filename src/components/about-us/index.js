@@ -1,9 +1,9 @@
 /* eslint react/no-find-dom-node:1 */
-import anchors from './constants/data/sidebar-anchor'
 import colors from '../../constants/colors'
 import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import mq from './utils/media-query'
+import ErrorBoundary from './utils/error-boundary'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import Section01 from './section-01'
@@ -16,7 +16,9 @@ import siteMeta from '../../constants/site-meta'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import WebFont from './web-font'
+import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 import { Opening } from './opening'
+import TagManager from 'react-gtm-module'
 
 const Border = styled.div`
   ${mq.hdOnly`
@@ -47,6 +49,12 @@ export class AboutUs extends PureComponent {
     return smoothScroll(this.sectionOffset[anchorIdx])
   }
   componentDidMount() {
+    // For client-side rendering, we notify GTM that the new component is ready
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'gtm.load',
+      },
+    })
     this.sectionOffset = this.sectionRefs.map(elem => {
       return ReactDOM.findDOMNode(elem).getBoundingClientRect().top
     })
@@ -75,19 +83,33 @@ export class AboutUs extends PureComponent {
             { property: 'og:url', content: siteMeta.urlOrigin + '/about-us' },
           ]}
         />
-        <Border>
-          <SideBar ref={node => (this.sidebar = node)} anchors={anchors}>
-            <Opening
-              ref={node => (this.sectionRefs[0] = node)}
-              handleClickAnchor={this._handleClickAnchor}
-            />
-            <Section01 ref={node => (this.sectionRefs[1] = node)} />
-            <Section02 ref={node => (this.sectionRefs[2] = node)} />
-            <Section03 ref={node => (this.sectionRefs[3] = node)} />
-            <Section04 ref={node => (this.sectionRefs[4] = node)} />
-            <Section05 ref={node => (this.sectionRefs[5] = node)} />
-          </SideBar>
-        </Border>
+        <ErrorBoundary>
+          <Border>
+            <SideBar ref={node => (this.sidebar = node)}>
+              <Anchor anchorId="opening" anchorLabel="簡介" showAnchor>
+                <Opening
+                  ref={node => (this.sectionRefs[0] = node)}
+                  handleClickAnchor={this._handleClickAnchor}
+                />
+              </Anchor>
+              <Anchor anchorId="section1" anchorLabel="特色" showAnchor>
+                <Section01 ref={node => (this.sectionRefs[1] = node)} />
+              </Anchor>
+              <Anchor anchorId="section2" anchorLabel="成員" showAnchor>
+                <Section02 ref={node => (this.sectionRefs[2] = node)} />
+              </Anchor>
+              <Anchor anchorId="section3" anchorLabel="得獎" showAnchor>
+                <Section03 ref={node => (this.sectionRefs[3] = node)} />
+              </Anchor>
+              <Anchor anchorId="section4" anchorLabel="國際參與" showAnchor>
+                <Section04 ref={node => (this.sectionRefs[4] = node)} />
+              </Anchor>
+              <Anchor anchorId="section5" anchorLabel="大事紀" showAnchor>
+                <Section05 ref={node => (this.sectionRefs[5] = node)} />
+              </Anchor>
+            </SideBar>
+          </Border>
+        </ErrorBoundary>
         <Footer />
         <WebFont />
       </React.Fragment>

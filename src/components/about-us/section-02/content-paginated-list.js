@@ -3,7 +3,7 @@ import DepartmentsNameList from './departments-name-list'
 import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import categories from '../constants/section-02/categories'
+import categoriesAll from '../constants/section-02/categories'
 import categoryIds from '../constants/section-02/category-ids'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
@@ -22,8 +22,6 @@ const _ = {
   values,
 }
 
-const categoriesAll = categories.fundation.concat(categories.media)
-
 const Container = styled.div`
   position: relative;
   display: block;
@@ -39,7 +37,7 @@ const MemberBlockList = styled.div`
   width: 100%;
   height: 465px;
   padding: 0 13px 0 13px;
-  margin-top: 10px;
+  margin-top: 20px;
   background: ${colors.gray.gray96};
 `
 
@@ -204,7 +202,7 @@ export default class PaginatedMemberList extends PureComponent {
     const cursor =
       (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList
+    const memberBlocks = selectedMemberList ? selectedMemberList
       .slice(cursor - numberPerPage, cursor)
       .map(member => {
         return (
@@ -229,7 +227,7 @@ export default class PaginatedMemberList extends PureComponent {
             </MemberBorder>
           </MemberBlock>
         )
-      })
+      }) : ''
     return (
       <Container>
         <DepartmentsNameList

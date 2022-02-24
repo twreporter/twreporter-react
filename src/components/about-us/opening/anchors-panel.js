@@ -7,7 +7,7 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import mq from '../../../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import anchorlist from '../constants/data/sidebar-anchor'
-import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
 import hrefs from '../constants/data/sidebar-link'
 import { Link } from 'react-router-dom'
 import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
@@ -245,7 +245,7 @@ class AnchorsPanel extends React.PureComponent {
           <ContentWrapper>
             <AnchorsContainer>{Anchors}</AnchorsContainer>
             <Icons>
-              <DonationLink utmMedium="about-us">
+              <DonationLink>
                 <img
                   src={`${replaceGCSUrlOrigin(
                     `${storageUrlPrefix}/sidebar-icon1-white.png`

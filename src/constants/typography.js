@@ -10,10 +10,5 @@ export default {
       xSmaller: '13px',
       tiny: '12px',
     },
-    weight: {
-      extraLight: '100',
-      normal: '300',
-      bold: '700',
-    },
   },
 }

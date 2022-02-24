@@ -1,9 +1,9 @@
-import { sourceHanSansTC as fontWeight } from '@twreporter/core/lib/constants/font-weight'
-import { Link } from 'react-router-dom'
-import mq from '../../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
+import mq from '../../../utils/media-query'
 import styled, { keyframes } from 'styled-components'
+import { Link } from 'react-router-dom'
+import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
 
 const fadeInSlideDown = keyframes`
   from {
@@ -51,8 +51,8 @@ const ItemMeta = styled.div`
     width: calc(100% - 110px);
   `}
 `
-
 const ItemTitle = styled.h3`
+  font-family: ${fontFamily.title};
   font-size: 20px;
   color: #262626;
   letter-spacing: 0.3px;
@@ -63,6 +63,7 @@ const ItemTitle = styled.h3`
 `
 
 const ItemDescription = styled.div`
+  font-family: ${fontFamily.default};
   ${mq.mobileOnly`
     display: none;
   `}
@@ -75,6 +76,7 @@ const ItemDescription = styled.div`
 `
 
 const ItemDate = styled.div`
+  font-family: ${fontFamily.default};
   ${mq.mobileOnly`
     display: none;
   `}
