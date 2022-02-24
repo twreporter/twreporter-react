@@ -1,15 +1,20 @@
 # Changelog
 
-## 4.7.8-rc.0 (Current), 2021-12-30
+## 4.7.8-rc.1 (Current), 2022-02-24
 
 ### Notable Changes
 
+- feat
+  - add animation to indicator of carousel & enhance contrast
 - fix
   - add og:updated_time in header
 
 ### Commits
 
+- [[`8deee7118f`](https://github.com/twreporter/twreporter-react/commit/8deee7118f)] - **feat**: add animation to indicator of carousel & enhance contrast (#2037) (許守傑 Shou-Chieh Hsu (Jason))
 - [[`dd6a65b6fc`](https://github.com/twreporter/twreporter-react/commit/dd6a65b6fc)] - **fix**: add og:updated_time in header (Aylie Chou)
+
+* [[`dd6a65b6fc`](https://github.com/twreporter/twreporter-react/commit/dd6a65b6fc)] - **fix**: add og:updated_time in header (Aylie Chou)
 
 ## 4.7.7, 2021-12-27
 
