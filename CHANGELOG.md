@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.7.8-rc.1 (Current), 2022-02-24
+## 4.7.8 (Current), 2022-02-24
 
 ### Notable Changes
 
