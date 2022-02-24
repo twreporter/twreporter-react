@@ -11,6 +11,8 @@ const _ = {
   map,
 }
 
+const defaultIndicatorColor = 'rgb(113, 113, 113)'
+
 const SlidesContainer = styled.div`
   position: relative;
   overflow: visible;
@@ -68,7 +70,8 @@ const Indicator = styled.li`
   min-height: 10px;
   width: 0.6em;
   height: 0.6em;
-  background-color: ${props => (props.focus ? 'white' : '#BEC0BC')};
+  background-color: ${props => (props.focus ? 'white' : defaultIndicatorColor)};
+  transition: background-color 0.6s ease;
   margin: 0 0.8em;
   border-radius: 50%;
   overflow: hidden;
