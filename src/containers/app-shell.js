@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/universal-header/lib/containers/header'
-import mq from '@twreporter/core/lib/utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
 import WebPush from '../components/web-push'
@@ -50,7 +49,9 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
     }
     case uiConst.footer.default:
     default: {
-      return <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
+      return (
+        <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
+      )
     }
   }
 }
