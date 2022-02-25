@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.7.9-rc.0, 2022-02-25
+
+### Notable Changes
+
+- fix
+  - add gtm preview environment config([#2048](https://github.com/twreporter/twreporter-react/pull/2048))
+
+### Commits
+
+- [[`7ccf8fb5d2`](https://github.com/twreporter/twreporter-react/commit/7ccf8fb5d2)] - **fix**: add gtm preview environment config (Aylie Chou)
+
 ## 4.7.8 (Current), 2022-02-24
 
 ### Notable Changes
