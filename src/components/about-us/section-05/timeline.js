@@ -182,6 +182,10 @@ Timeline.defaultProps = {
 }
 
 Timeline.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   autoScrolling: PropTypes.bool,
   childrenHeight: PropTypes.number,
   getYear: PropTypes.func.isRequired,
