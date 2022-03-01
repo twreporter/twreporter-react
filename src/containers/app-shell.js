@@ -75,21 +75,11 @@ const renderHeader = (headerType, releaseBranch) => {
     headerProps.theme = 'photography'
   }
 
-  let headerElement
+  let headerElement = <Header {...headerProps} />
   if (headerType === uiConst.header.transparent) {
-    headerElement = (
-      <TransparentHeader>
-        <Header {...headerProps} />
-      </TransparentHeader>
-    )
+    headerElement = <TransparentHeader>{headerElement}</TransparentHeader>
   } else if (headerType === uiConst.header.pink) {
-    headerElement = (
-      <PinkBackgroundHeader>
-        <Header {...headerProps} />
-      </PinkBackgroundHeader>
-    )
-  } else {
-    headerElement = <Header {...headerProps} />
+    headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
   return <div className="hidden-print">{headerElement}</div>
