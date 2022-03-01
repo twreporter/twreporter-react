@@ -57,51 +57,42 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
-  switch (headerType) {
-    case uiConst.header.none: {
-      return null
-    }
-    case uiConst.header.pink: {
-      return (
-        <PinkBackgroundHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </PinkBackgroundHeader>
-      )
-    }
-    case uiConst.header.photo: {
-      return (
-        <Header
-          theme="photography"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
-    case uiConst.header.transparent: {
-      return (
-        <TransparentHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </TransparentHeader>
-      )
-    }
-    default: {
-      return (
-        <Header
-          theme="normal"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
+  if (headerType === uiConst.header.none) {
+    return null
   }
+
+  let headerProps = {
+    theme: 'normal',
+    releaseBranch: releaseBranch,
+    isLinkExternal: false,
+  }
+  if (
+    headerType === uiConst.header.transparent ||
+    headerType === uiConst.header.pink
+  ) {
+    headerProps.theme = 'transparent'
+  } else if (headerType === uiConst.header.photo) {
+    headerProps.theme = 'photography'
+  }
+
+  let headerElement
+  if (headerType === uiConst.header.transparent) {
+    headerElement = (
+      <TransparentHeader>
+        <Header {...headerProps} />
+      </TransparentHeader>
+    )
+  } else if (headerType === uiConst.header.pink) {
+    headerElement = (
+      <PinkBackgroundHeader>
+        <Header {...headerProps} />
+      </PinkBackgroundHeader>
+    )
+  } else {
+    headerElement = <Header {...headerProps} />
+  }
+
+  return <div className="hidden-print">{headerElement}</div>
 }
 
 class AppShell extends React.PureComponent {
