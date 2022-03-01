@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import { colorSupportive } from '@twreporter/core/lib/constants/color'
@@ -9,7 +10,10 @@ const ErrorContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  a, a:link, a:active, a:visited {
+  a,
+  a:link,
+  a:active,
+  a:visited {
     color: ${colorSupportive.heavy};
   }
   a:hover {
@@ -24,13 +28,14 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    return { isError: true }
+    if (error) {
+      return { isError: true }
+    }
   }
 
   componentDidCatch(error, errorInfo) {
     console.error(error, errorInfo)
   }
-
 
   render() {
     if (this.state.isError) {
@@ -52,4 +57,11 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default ErrorBoundary 
+ErrorBoundary.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+}
+
+export default ErrorBoundary
