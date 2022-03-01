@@ -30,6 +30,11 @@ const tagManagerArgs = {
     auth: 'XFsQ67nTp2wXWpJllmNBCQ',
     preview: 'env-229',
   },
+  preview: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: '83UcO7BTHJ6dJZ8_nCUmug',
+    preview: 'env-234',
+  },
   release: {
     gtmId: 'GTM-PRMXBBN',
   },
