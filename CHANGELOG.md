@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.7.9-rc.1, 2022-03-01
+## 4.7.9, 2022-03-01
 
 ### Notable Changes
 
@@ -10,6 +10,7 @@
 
 ### Commits
 
+- [[`708529e04e`](https://github.com/twreporter/twreporter-react/commit/708529e04e)] - **style**: linter auto fix (Tai-Jiun Fang)
 - [[`50a7d306a0`](https://github.com/twreporter/twreporter-react/commit/50a7d306a0)] - **fix**: fix eslint error (#2051) (Tai-Jiun Fang)
 - [[`7ccf8fb5d2`](https://github.com/twreporter/twreporter-react/commit/7ccf8fb5d2)] - **fix**: add gtm preview environment config (Aylie Chou)
 
