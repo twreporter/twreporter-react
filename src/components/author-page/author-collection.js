@@ -7,7 +7,7 @@ import styled, { keyframes } from 'styled-components'
 import mq from '../../utils/media-query'
 import { shortenString } from '../../utils/string'
 import { formatPostLinkTarget, formatPostLinkTo } from '../../utils/url'
-//components
+// components
 import LoadingSpinner from '../Spinner'
 import Sizing from '../sizing'
 // @twreporter
