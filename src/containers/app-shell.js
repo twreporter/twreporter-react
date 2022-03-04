@@ -57,25 +57,29 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
-  if (headerType === uiConst.header.none) {
-    return null
+  let headerTheme
+  switch (headerType) {
+    case uiConst.header.none:
+      return null
+    case uiConst.header.transparent:
+    case uiConst.header.pink:
+      headerTheme = 'transparent'
+      break
+    case uiConst.header.photo:
+      headerTheme = 'photography'
+      break
+    default:
+      headerTheme = 'normal'
+      break
   }
 
-  let headerProps = {
-    theme: 'normal',
-    releaseBranch: releaseBranch,
-    isLinkExternal: false,
-  }
-  if (
-    headerType === uiConst.header.transparent ||
-    headerType === uiConst.header.pink
-  ) {
-    headerProps.theme = 'transparent'
-  } else if (headerType === uiConst.header.photo) {
-    headerProps.theme = 'photography'
-  }
-
-  let headerElement = <Header {...headerProps} />
+  let headerElement = (
+    <Header
+      theme={headerTheme}
+      releaseBranch={releaseBranch}
+      isLinkExternal={false}
+    />
+  )
   if (headerType === uiConst.header.transparent) {
     headerElement = <TransparentHeader>{headerElement}</TransparentHeader>
   } else if (headerType === uiConst.header.pink) {
