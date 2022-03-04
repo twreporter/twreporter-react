@@ -57,51 +57,36 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
+  let headerTheme
   switch (headerType) {
-    case uiConst.header.none: {
+    case uiConst.header.none:
       return null
-    }
-    case uiConst.header.pink: {
-      return (
-        <PinkBackgroundHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </PinkBackgroundHeader>
-      )
-    }
-    case uiConst.header.photo: {
-      return (
-        <Header
-          theme="photography"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
-    case uiConst.header.transparent: {
-      return (
-        <TransparentHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </TransparentHeader>
-      )
-    }
-    default: {
-      return (
-        <Header
-          theme="normal"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
+    case uiConst.header.transparent:
+    case uiConst.header.pink:
+      headerTheme = 'transparent'
+      break
+    case uiConst.header.photo:
+      headerTheme = 'photography'
+      break
+    default:
+      headerTheme = 'normal'
+      break
   }
+
+  let headerElement = (
+    <Header
+      theme={headerTheme}
+      releaseBranch={releaseBranch}
+      isLinkExternal={false}
+    />
+  )
+  if (headerType === uiConst.header.transparent) {
+    headerElement = <TransparentHeader>{headerElement}</TransparentHeader>
+  } else if (headerType === uiConst.header.pink) {
+    headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
+  }
+
+  return <div className="hidden-print">{headerElement}</div>
 }
 
 class AppShell extends React.PureComponent {
