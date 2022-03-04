@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.7.10-rc.0, 2022-03-04
+
+### Notable Changes
+
+- fix
+  - disappear header & web push in print mode([#2059](https://github.com/twreporter/twreporter-react/pull/2059))
+
+### Commits
+
+- [[`ef2e5ff5dd`](https://github.com/twreporter/twreporter-react/commit/ef2e5ff5dd)] - Jason/print layout issue (#2059) (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.7.9, 2022-03-01
 
 ### Notable Changes
