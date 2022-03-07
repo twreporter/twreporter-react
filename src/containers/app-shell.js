@@ -29,6 +29,12 @@ const ContentBlock = styled.div`
   position: relative;
 `
 
+const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1000; // other components in twreporter-react has z-index 999
+`
+
 const TransparentHeader = styled.div`
   position: fixed;
   top: 0;
@@ -86,7 +92,9 @@ const renderHeader = (headerType, releaseBranch) => {
     headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
-  return <div className="hidden-print">{headerElement}</div>
+  return (
+    <HeaderContainer className="hidden-print">{headerElement}</HeaderContainer>
+  )
 }
 
 class AppShell extends React.PureComponent {
