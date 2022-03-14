@@ -1,36 +1,21 @@
 # Changelog
 
-## 4.7.10-rc.2, 2022-03-14
+## 4.7.10, 2022-03-14
 
 ### Notable Changes
 
 - chore
   - revert print header([#2067](https://github.com/twreporter/twreporter-react/pull/2067))
   - remove webpush banner for live blog banner for the time being([#2066](https://github.com/twreporter/twreporter-react/pull/2066))
-
-### Commits
-
-- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
-- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.7.10-rc.1, 2022-03-07
-
-### Notable Changes
-
-- chore
   - update @twreporter/react-article-components to v1.4.7-rc.2([#2062](https://github.com/twreporter/twreporter-react/pull/2062))
-
-### Commits
-
-- [[`f31f574812`](https://github.com/twreporter/twreporter-react/commit/f31f574812)] - **chore**: upgrade react-article-component to v1.4.7-rc.2 (#2062) (許守傑 Shou-Chieh Hsu (Jason))
-
-### Notable Changes
-
 - fix
   - disappear header & web push in print mode([#2059](https://github.com/twreporter/twreporter-react/pull/2059))
 
 ### Commits
 
+- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
+- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`f31f574812`](https://github.com/twreporter/twreporter-react/commit/f31f574812)] - **chore**: upgrade react-article-component to v1.4.7-rc.2 (#2062) (許守傑 Shou-Chieh Hsu (Jason))
 - [[`ef2e5ff5dd`](https://github.com/twreporter/twreporter-react/commit/ef2e5ff5dd)] - Jason/print layout issue (#2059) (許守傑 Shou-Chieh Hsu (Jason))
 
 ## 4.7.9, 2022-03-01
