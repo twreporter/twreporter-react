@@ -4,7 +4,8 @@ import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/universal-header/lib/containers/header'
 import PropTypes from 'prop-types'
 import React from 'react'
-import WebPush from '../components/web-push'
+// comment out WebPush for live blog banners to occupy the space for the time being
+// import WebPush from '../components/web-push'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
@@ -118,13 +119,13 @@ class AppShell extends React.PureComponent {
 
   render() {
     const {
-      apiOrigin,
+      // apiOrigin,
       headerType,
       footerType,
       backgroundColor,
       releaseBranch,
       children,
-      userId,
+      // userId,
       pathname,
       host,
     } = this.props
@@ -133,7 +134,7 @@ class AppShell extends React.PureComponent {
       <ErrorBoundary>
         <AppBox backgroundColor={backgroundColor}>
           <ContentBlock>
-            <WebPush apiOrigin={apiOrigin} userId={userId} />
+            {/* <WebPush apiOrigin={apiOrigin} userId={userId} /> */}
             {renderHeader(headerType, releaseBranch)}
             {children}
             {renderFooter(footerType, pathname, host, releaseBranch)}
