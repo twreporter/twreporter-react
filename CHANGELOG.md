@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.7.10-rc.2, 2022-03-14
+
+### Notable Changes
+
+- chore
+  - revert print header([#2067](https://github.com/twreporter/twreporter-react/pull/2067))
+  - remove webpush banner for live blog banner for the time being([#2066](https://github.com/twreporter/twreporter-react/pull/2066))
+
+### Commits
+
+- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
+- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.7.10-rc.1, 2022-03-07
 
 ### Notable Changes
