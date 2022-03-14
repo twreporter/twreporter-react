@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
 import uiManager from '../managers/ui-manager'
+import featureFlags from '../constants/feature-flags'
 
 // lodash
 import get from 'lodash/get'
@@ -86,7 +87,11 @@ const renderHeader = (headerType, releaseBranch) => {
     headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
-  return <div className="hidden-print">{headerElement}</div>
+  return featureFlags.disableHeaderPrint ? (
+    headerElement
+  ) : (
+    <div className="hidden-print">{headerElement}</div>
+  )
 }
 
 class AppShell extends React.PureComponent {
