@@ -4,11 +4,13 @@ import Footer from '@twreporter/react-components/lib/footer'
 import Header from '@twreporter/universal-header/lib/containers/header'
 import PropTypes from 'prop-types'
 import React from 'react'
-import WebPush from '../components/web-push'
+// comment out WebPush for live blog banners to occupy the space for the time being
+// import WebPush from '../components/web-push'
 import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
 import uiManager from '../managers/ui-manager'
+import featureFlags from '../constants/feature-flags'
 
 // lodash
 import get from 'lodash/get'
@@ -57,51 +59,40 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
 }
 
 const renderHeader = (headerType, releaseBranch) => {
+  let headerTheme
   switch (headerType) {
-    case uiConst.header.none: {
+    case uiConst.header.none:
       return null
-    }
-    case uiConst.header.pink: {
-      return (
-        <PinkBackgroundHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </PinkBackgroundHeader>
-      )
-    }
-    case uiConst.header.photo: {
-      return (
-        <Header
-          theme="photography"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
-    case uiConst.header.transparent: {
-      return (
-        <TransparentHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </TransparentHeader>
-      )
-    }
-    default: {
-      return (
-        <Header
-          theme="normal"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
+    case uiConst.header.transparent:
+    case uiConst.header.pink:
+      headerTheme = 'transparent'
+      break
+    case uiConst.header.photo:
+      headerTheme = 'photography'
+      break
+    default:
+      headerTheme = 'normal'
+      break
   }
+
+  let headerElement = (
+    <Header
+      theme={headerTheme}
+      releaseBranch={releaseBranch}
+      isLinkExternal={false}
+    />
+  )
+  if (headerType === uiConst.header.transparent) {
+    headerElement = <TransparentHeader>{headerElement}</TransparentHeader>
+  } else if (headerType === uiConst.header.pink) {
+    headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
+  }
+
+  return featureFlags.disableHeaderPrint ? (
+    headerElement
+  ) : (
+    <div className="hidden-print">{headerElement}</div>
+  )
 }
 
 class AppShell extends React.PureComponent {
@@ -128,13 +119,13 @@ class AppShell extends React.PureComponent {
 
   render() {
     const {
-      apiOrigin,
+      // apiOrigin,
       headerType,
       footerType,
       backgroundColor,
       releaseBranch,
       children,
-      userId,
+      // userId,
       pathname,
       host,
     } = this.props
@@ -143,7 +134,7 @@ class AppShell extends React.PureComponent {
       <ErrorBoundary>
         <AppBox backgroundColor={backgroundColor}>
           <ContentBlock>
-            <WebPush apiOrigin={apiOrigin} userId={userId} />
+            {/* <WebPush apiOrigin={apiOrigin} userId={userId} /> */}
             {renderHeader(headerType, releaseBranch)}
             {children}
             {renderFooter(footerType, pathname, host, releaseBranch)}

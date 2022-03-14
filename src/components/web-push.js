@@ -464,7 +464,7 @@ class WebPush extends PureComponent {
    */
   _renderNotifyBox(title, desc, btText, btClickCallback) {
     return (
-      <NotifyBackground>
+      <NotifyBackground className="hidden-print">
         <NotifyBox>
           <MegaphoneEmoji />
           <NotifyTitle>{title}</NotifyTitle>
