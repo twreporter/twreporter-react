@@ -10,7 +10,6 @@ import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
 import uiManager from '../managers/ui-manager'
-import featureFlags from '../constants/feature-flags'
 
 // lodash
 import get from 'lodash/get'
@@ -94,9 +93,7 @@ const renderHeader = (headerType, releaseBranch) => {
     headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
-  return featureFlags.disableHeaderPrint ? (
-    headerElement
-  ) : (
+  return (
     <HeaderContainer className="hidden-print">{headerElement}</HeaderContainer>
   )
 }
