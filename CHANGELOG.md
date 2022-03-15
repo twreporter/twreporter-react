@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.7.11-rc.0, 2022-03-15
+
+### Notable Changes
+
+- chore
+  - update dep @twreporter/react-article-components@1.4.7-rc.4([#2074](https://github.com/twreporter/twreporter-react/pull/2074))
+
+### Commits
+
+- [[`92d92e7d99`](https://github.com/twreporter/twreporter-react/commit/92d92e7d99)] - **chore**: update dep @twreporter/react-article-components@1.4.7-rc.4 (#2074) (Tai-Jiun Fang)
+
 ## 4.7.10, 2022-03-14
 
 ### Notable Changes
