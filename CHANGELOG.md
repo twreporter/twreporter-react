@@ -1,36 +1,34 @@
 # Changelog
 
-## 4.7.10-rc.2, 2022-03-14
+## 4.7.11 (Current), 2022-03-16
+
+### Notable Changes
+
+- chore
+  - update @twreporter/react-article-components@1.4.7([#2077](https://github.com/twreporter/twreporter-react/pull/2077))
+
+### Commits
+
+- [[`b513ae22e2`](https://github.com/twreporter/twreporter-react/commit/b513ae22e2)] - **chore**: update dep @twreporter/react-article-components@1.4.7 (Tai-Jiun Fang)
+- [[`1ff4f31c51`](https://github.com/twreporter/twreporter-react/commit/1ff4f31c51)] - **chore**: bump version to v4.7.11-rc.0 (Tai-Jiun Fang)
+- [[`92d92e7d99`](https://github.com/twreporter/twreporter-react/commit/92d92e7d99)] - **chore**: update dep @twreporter/react-article-components@1.4.7-rc.4 (#2074) (Tai-Jiun Fang)
+
+## 4.7.10, 2022-03-14
 
 ### Notable Changes
 
 - chore
   - revert print header([#2067](https://github.com/twreporter/twreporter-react/pull/2067))
   - remove webpush banner for live blog banner for the time being([#2066](https://github.com/twreporter/twreporter-react/pull/2066))
-
-### Commits
-
-- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
-- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.7.10-rc.1, 2022-03-07
-
-### Notable Changes
-
-- chore
   - update @twreporter/react-article-components to v1.4.7-rc.2([#2062](https://github.com/twreporter/twreporter-react/pull/2062))
-
-### Commits
-
-- [[`f31f574812`](https://github.com/twreporter/twreporter-react/commit/f31f574812)] - **chore**: upgrade react-article-component to v1.4.7-rc.2 (#2062) (許守傑 Shou-Chieh Hsu (Jason))
-
-### Notable Changes
-
 - fix
   - disappear header & web push in print mode([#2059](https://github.com/twreporter/twreporter-react/pull/2059))
 
 ### Commits
 
+- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
+- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`f31f574812`](https://github.com/twreporter/twreporter-react/commit/f31f574812)] - **chore**: upgrade react-article-component to v1.4.7-rc.2 (#2062) (許守傑 Shou-Chieh Hsu (Jason))
 - [[`ef2e5ff5dd`](https://github.com/twreporter/twreporter-react/commit/ef2e5ff5dd)] - Jason/print layout issue (#2059) (許守傑 Shou-Chieh Hsu (Jason))
 
 ## 4.7.9, 2022-03-01
@@ -47,7 +45,7 @@
 - [[`50a7d306a0`](https://github.com/twreporter/twreporter-react/commit/50a7d306a0)] - **fix**: fix eslint error (#2051) (Tai-Jiun Fang)
 - [[`7ccf8fb5d2`](https://github.com/twreporter/twreporter-react/commit/7ccf8fb5d2)] - **fix**: add gtm preview environment config (Aylie Chou)
 
-## 4.7.8 (Current), 2022-02-24
+## 4.7.8, 2022-02-24
 
 ### Notable Changes
 
