@@ -1,14 +1,16 @@
 # Changelog
 
-## 4.7.11-rc.0, 2022-03-15
+## 4.7.11 (Current), 2022-03-16
 
 ### Notable Changes
 
 - chore
-  - update dep @twreporter/react-article-components@1.4.7-rc.4([#2074](https://github.com/twreporter/twreporter-react/pull/2074))
+  - update @twreporter/react-article-components@1.4.7([#2077](https://github.com/twreporter/twreporter-react/pull/2077))
 
 ### Commits
 
+- [[`b513ae22e2`](https://github.com/twreporter/twreporter-react/commit/b513ae22e2)] - **chore**: update dep @twreporter/react-article-components@1.4.7 (Tai-Jiun Fang)
+- [[`1ff4f31c51`](https://github.com/twreporter/twreporter-react/commit/1ff4f31c51)] - **chore**: bump version to v4.7.11-rc.0 (Tai-Jiun Fang)
 - [[`92d92e7d99`](https://github.com/twreporter/twreporter-react/commit/92d92e7d99)] - **chore**: update dep @twreporter/react-article-components@1.4.7-rc.4 (#2074) (Tai-Jiun Fang)
 
 ## 4.7.10, 2022-03-14
@@ -43,7 +45,7 @@
 - [[`50a7d306a0`](https://github.com/twreporter/twreporter-react/commit/50a7d306a0)] - **fix**: fix eslint error (#2051) (Tai-Jiun Fang)
 - [[`7ccf8fb5d2`](https://github.com/twreporter/twreporter-react/commit/7ccf8fb5d2)] - **fix**: add gtm preview environment config (Aylie Chou)
 
-## 4.7.8 (Current), 2022-02-24
+## 4.7.8, 2022-02-24
 
 ### Notable Changes
 
