@@ -10,7 +10,6 @@ import styled from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 import uiConst from '../constants/ui'
 import uiManager from '../managers/ui-manager'
-import featureFlags from '../constants/feature-flags'
 
 // lodash
 import get from 'lodash/get'
@@ -29,6 +28,12 @@ const AppBox = styled.div`
 
 const ContentBlock = styled.div`
   position: relative;
+`
+
+const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1000; // other components in twreporter-react has z-index 999
 `
 
 const TransparentHeader = styled.div`
@@ -88,10 +93,8 @@ const renderHeader = (headerType, releaseBranch) => {
     headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
-  return featureFlags.disableHeaderPrint ? (
-    headerElement
-  ) : (
-    <div className="hidden-print">{headerElement}</div>
+  return (
+    <HeaderContainer className="hidden-print">{headerElement}</HeaderContainer>
   )
 }
 
