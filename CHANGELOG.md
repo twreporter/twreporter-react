@@ -1,15 +1,17 @@
 # Changelog
 
-## 4.7.12-rc.0, 2022-03-18
+## 4.7.12-rc.1, 2022-03-18
 
 ### Notable Changes
 
 - fix:
+  - upgrade npm package to 1.4.8-rc.0 ([#2084](https://github.com/twreporter/twreporter-react/pull/2084))
   - fix header animation issue([#2065](https://github.com/twreporter/twreporter-react/pull/2065))
   - refactor: update mock-data to include topic state([#2073](https://github.com/twreporter/twreporter-react/pull/2073))
 
 ### Commits
 
+- [[`c91fad8021`](https://github.com/twreporter/twreporter-react/commit/c91fad8021)] - **chore**: update npm package version (duidae)
 - [[`bdb5c792e0`](https://github.com/twreporter/twreporter-react/commit/bdb5c792e0)] - **fix**: fix header animation issue (#2065) (許守傑 Shou-Chieh Hsu (Jason))
 - [[`976fa9f27a`](https://github.com/twreporter/twreporter-react/commit/976fa9f27a)] - **refactor**: update mock-data to include topic state (#2073) (Tai-Jiun Fang)
 
