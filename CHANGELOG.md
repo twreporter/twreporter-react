@@ -1,21 +1,25 @@
 # Changelog
 
-## 4.7.12-rc.1, 2022-03-18
+## 4.7.12 (Current), 2022-03-22
 
 ### Notable Changes
 
 - fix:
-  - upgrade npm package to 1.4.8-rc.0 ([#2084](https://github.com/twreporter/twreporter-react/pull/2084))
   - fix header animation issue([#2065](https://github.com/twreporter/twreporter-react/pull/2065))
+- chore:
+  - upgrade npm package to 1.4.8 ([#2089](https://github.com/twreporter/twreporter-react/pull/2089))
   - refactor: update mock-data to include topic state([#2073](https://github.com/twreporter/twreporter-react/pull/2073))
 
 ### Commits
 
+- [[`676cccf854`](https://github.com/twreporter/twreporter-react/commit/676cccf854)] - **chore**: update npm package version (#2089) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e010236c59`](https://github.com/twreporter/twreporter-react/commit/e010236c59)] - **fix**: add missing lock file (duidae)
+- [[`ca04e6461c`](https://github.com/twreporter/twreporter-react/commit/ca04e6461c)] - **chore**: bump version (duidae)
 - [[`c91fad8021`](https://github.com/twreporter/twreporter-react/commit/c91fad8021)] - **chore**: update npm package version (duidae)
 - [[`bdb5c792e0`](https://github.com/twreporter/twreporter-react/commit/bdb5c792e0)] - **fix**: fix header animation issue (#2065) (許守傑 Shou-Chieh Hsu (Jason))
 - [[`976fa9f27a`](https://github.com/twreporter/twreporter-react/commit/976fa9f27a)] - **refactor**: update mock-data to include topic state (#2073) (Tai-Jiun Fang)
 
-## 4.7.11 (Current), 2022-03-16
+## 4.7.11, 2022-03-16
 
 ### Notable Changes
 
