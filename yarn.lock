@@ -464,10 +464,10 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@^1.2.11":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.11.tgz#9cdda4be8ee889c046d582eb085019058745a7de"
-  integrity sha512-uBz3JIkv1PazcVikryOCWNqLEfbcgKqCY2wjtvClza7Tob1bmoz3k9RhDzOUouEZOAhLxUrr5oKkdXH0lAX+lw==
+"@twreporter/index-page@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.12.tgz#22bcbd8222c373f5f23addc524a76bd001dc5229"
+  integrity sha512-92GqCvhYC+rPp1OeW/NTrrsu/BNOlLNsGu6Gsb3EEglqINvtQORPKLQn90TmDtaPKfHrJZupGo9cc6gOGAdjxg==
   dependencies:
     "@twreporter/core" "^1.4.0"
     "@twreporter/react-components" "^8.7.0"
