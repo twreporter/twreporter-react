@@ -1,17 +1,19 @@
 # Changelog
 
-## 4.7.13-rc.0, 2022-03-23
+## 4.7.13 (Current), 2022-03-23
 
 ### Notable Changes
 
 - chore:
-  - update dep @twreporter/index-page@1.2.12-rc.0 ([#2093](https://github.com/twreporter/twreporter-react/pull/2093))
+  - update dep @twreporter/index-page@1.2.12 ([#2096](https://github.com/twreporter/twreporter-react/pull/2096))
 
 ### Commits
 
-- [[`92798bd9ac`](https://github.com/twreporter/twreporter-react/commit/92798bd9ac)] - **chore**: update dep @twreporter/index-page@1.2.12-rc.0 (#2093) (Tai-Jiun Fang)
+- [[`fc3c8eb4a2`](https://github.com/twreporter/twreporter-react/commit/fc3c8eb4a2)] - **chore**: update dep @twreporter/index-page@^1.2.12 (#2096) (Tai-Jiun Fang)
 
-## 4.7.12 (Current), 2022-03-22
+* [[`92798bd9ac`](https://github.com/twreporter/twreporter-react/commit/92798bd9ac)] - **chore**: update dep @twreporter/index-page@1.2.12-rc.0 (#2093) (Tai-Jiun Fang)
+
+## 4.7.12, 2022-03-22
 
 ### Notable Changes
 
