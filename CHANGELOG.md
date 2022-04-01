@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.7.14-rc.0, 2022-04-01
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/react-article-components@1.4.9-rc.0 ([#2101](https://github.com/twreporter/twreporter-react/pull/2101))
+
+### Commits
+
+- [[`e5684ebac2`](https://github.com/twreporter/twreporter-react/commit/e5684ebac2)] - **chore**: upgrade npm package (duidae)
+
 ## 4.7.13 (Current), 2022-03-23
 
 ### Notable Changes
