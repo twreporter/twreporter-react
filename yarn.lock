@@ -534,6 +534,22 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
+"@twreporter/redux@^7.2.1-rc.0":
+  version "7.2.1-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.2.1-rc.0.tgz#da9cafb515fb9b7510f7128f146ec813aaca5191"
+  integrity sha512-J3QMml4XNnM85b8b+CAQAYoJLM2+mz9LFesvIAjb5DQXIVqF6kAOvFoVbpmkCWd1B8GyvsROhadyxZ/Q1So1Rw==
+  dependencies:
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
 "@twreporter/universal-header@^2.2.6":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.6.tgz#e6f2d4eb3f198ded5fba7ae6c71d9bddd721c486"
