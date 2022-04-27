@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.7.14 (Current), 2022-04-14
+## 4.7.15-rc.0 (Current), 2022-04-27
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/redux@7.2.1-rc.0 ([#2108](https://github.com/twreporter/twreporter-react/pull/2108))
+
+### Commits
+
+- [14e7e13005] - Merge pull request #2108 from duidae/jason/upgrade_redux-v7.2.1-rc.0 (許守傑 Shou-Chieh Hsu (Jason))
+- [578ca45ffa] - chore: upgrade redux to v7.2.1-rc.0 (duidae)
+
+## 4.7.14, 2022-04-14
 
 ### Notable Changes
 
