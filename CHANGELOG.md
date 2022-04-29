@@ -1,16 +1,16 @@
 # Changelog
 
-## 4.7.15-rc.0 (Current), 2022-04-27
+## 4.7.15 (Current), 2022-04-29
 
 ### Notable Changes
 
 - chore:
-  - update dep @twreporter/redux@7.2.1-rc.0 ([#2108](https://github.com/twreporter/twreporter-react/pull/2108))
+  - update dep @twreporter/index-page@1.2.13, @twreporter/react-article-components@1.4.10, @twreporter/react-components@8.7.1, @twreporter/redux@7.2.1, @twreporter/universal-header@2.2.7 ([#2111](https://github.com/twreporter/twreporter-react/pull/2111))
 
 ### Commits
 
-- [14e7e13005] - Merge pull request #2108 from duidae/jason/upgrade_redux-v7.2.1-rc.0 (許守傑 Shou-Chieh Hsu (Jason))
-- [578ca45ffa] - chore: upgrade redux to v7.2.1-rc.0 (duidae)
+- [9a8a518d84] - Merge pull request #2111 from duidae/jason/upgrade_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [ddb822b628] - chore: upgrade npm packages (duidae)
 
 ## 4.7.14, 2022-04-14
 
