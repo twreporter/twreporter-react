@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.7.14 (Current), 2022-04-14
+## 4.7.15 (Current), 2022-04-29
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/index-page@1.2.13, @twreporter/react-article-components@1.4.10, @twreporter/react-components@8.7.1, @twreporter/redux@7.2.1, @twreporter/universal-header@2.2.7 ([#2111](https://github.com/twreporter/twreporter-react/pull/2111))
+
+### Commits
+
+- [9a8a518d84] - Merge pull request #2111 from duidae/jason/upgrade_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [ddb822b628] - chore: upgrade npm packages (duidae)
+
+## 4.7.14, 2022-04-14
 
 ### Notable Changes
 
