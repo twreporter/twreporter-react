@@ -464,13 +464,13 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@1.2.13":
-  version "1.2.13"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.13.tgz#548de1dcd5648aecd699f8032be9a53de3d378e4"
-  integrity sha512-r4/1dtncrqP8Do3ip2oHML/0vr1rIlwvrc6ksRmahYJFr7UXPEbp4Y9BptsROj8y4IS1nOEZmqUsOMNz4WfQHA==
+"@twreporter/index-page@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.14.tgz#a849a8b4f5c1c521b331b64da20a3994274a1f17"
+  integrity sha512-CWldiVhLuDsLCWzzKiZuBJRtolWTX4cn2OpCksxMqHkOBH5IxOQLK8xDJ/CsRAfolin86L712tRXiUCHPkQcqg==
   dependencies:
     "@twreporter/core" "^1.4.0"
-    "@twreporter/react-components" "^8.7.1"
+    "@twreporter/react-components" "^8.8.0"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^16.3.0"
@@ -482,16 +482,16 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.4.10":
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.4.10.tgz#3e901d983fd93fd028153d6eb0565b97f286107a"
-  integrity sha512-PxGRRf9y7p8d/mMOClBznUstDqkLucrFLCIdgBlWStPNhFfLBc+G9ntVY+qBjTzn7Ur8wU+bAOcG9PssordyPg==
+"@twreporter/react-article-components@^1.4.11":
+  version "1.4.11"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.4.11.tgz#28c071c88ab020977d755da6d14bc2482ea6d056"
+  integrity sha512-vCLfZuy3YJ3VQY7z1uviPnqTDg3/OuV8o/bmWmeuSymPUEhSWGDBAp2OURfrvif0vjPNzJXodvKIv8qhILDnWg==
   dependencies:
     "@twreporter/core" "^1.4.0"
-    "@twreporter/react-components" "^8.7.1"
+    "@twreporter/react-components" "^8.8.0"
     "@twreporter/redux" "^7.2.1"
-    "@twreporter/universal-header" "^2.2.7"
-    howler "^2.1.1"
+    "@twreporter/universal-header" "^2.2.8"
+    howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
     prop-types "^15.0.0"
@@ -499,10 +499,10 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.7.1", "@twreporter/react-components@^8.7.1":
-  version "8.7.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.7.1.tgz#0e646aa5fa01a5c60065637b1c2cf1ecc6b08db2"
-  integrity sha512-yFT9e4+Va9bvuwmMsBKnUiq76HCTs6dIGaMJjtEg9OvRerZWVHwb+ukQc0ixEvRumEran18r9DZVYZiHCvy3Mw==
+"@twreporter/react-components@^8.8.0":
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.8.0.tgz#fe1ccfd9418e5a69a1e03c74d610e34e7af66870"
+  integrity sha512-2z6c0kQXkqnZQOWrMO/ifM2PsEm50+Iltxhc+Yw0Knq7tuD8fT3tZY7vMyni3s9KQ3nrFRi62jq4+eAqE6mk+A==
   dependencies:
     "@twreporter/core" "^1.4.0"
     "@twreporter/redux" "^7.2.1"
@@ -534,13 +534,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.7", "@twreporter/universal-header@^2.2.7":
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.7.tgz#229ed2309d7ae5ab5cd390d01791dded7bab669f"
-  integrity sha512-AjKDbrbjX8pNoB2lq17FNl7Shupj8VJHFWi4yAoxmlit85/ph9Ux9RyauzpEUf8aS4FlyM3jdcTRGVhO5kC2oQ==
+"@twreporter/universal-header@^2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.8.tgz#b0fe93dbecd38f942ea803b77b7946f8ab265fc9"
+  integrity sha512-6z8veUererrOYRg5WYxxZVknaqkABxT/neGgPFO/x6w1zCw9bz/DmOD3wJWzwWoh13wyE0OdiwAxBDy/niv0Ig==
   dependencies:
     "@twreporter/core" "^1.4.0"
-    "@twreporter/react-components" "^8.7.1"
+    "@twreporter/react-components" "^8.8.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
@@ -4493,10 +4493,10 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
   integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
 
-howler@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/howler/-/howler-2.1.1.tgz#b8ae44b83f4b8a5b5ef354030ed0927314d8a996"
-  integrity sha512-9nwyDCGxhAGMmNXDfMLv0M/uS/WUg2//jG6t96D8DqbbsVZgXQzsP/ZMItbWO/Fqg7Gg69kOv3xVSDzJdd7aqA==
+howler@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/howler/-/howler-2.2.3.tgz#a2eff9b08b586798e7a2ee17a602a90df28715da"
+  integrity sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==
 
 hpack.js@^2.1.6:
   version "2.1.6"
