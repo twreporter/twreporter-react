@@ -1,17 +1,23 @@
 # Changelog
 
-## 4.7.16-rc.0, 2022-05-09
+## 4.7.16 (Current), 2022-05-09
 
 ### Notable Changes
 
 - chore:
-  - update @twreporter/react-article-components@1.4.11-rc.1
+  - update npm packages
+    - @twreporter/index-page@1.2.14
+    - @twreporter/react-article-components@1.4.11
+    - @twreporter/react-components@8.8.0
+    - @twreporter/universal-header@2.2.8
 
 ### Commits
 
-- [[`2fd203892c`](https://github.com/twreporter/twreporter-react/commit/2fd203892c)] - **chore**: update @twreporter/react-article-components@1.4.11-rc.1 (Tai-Jiun Fang)
+- [[`ecee78e276`](https://github.com/twreporter/twreporter-react/commit/ecee78e276)] - **chore**: update npm pkg version (Tai-Jiun Fang)
 
-## 4.7.15 (Current), 2022-04-29
+* [[`2fd203892c`](https://github.com/twreporter/twreporter-react/commit/2fd203892c)] - **chore**: update @twreporter/react-article-components@1.4.11-rc.1 (Tai-Jiun Fang)
+
+## 4.7.15, 2022-04-29
 
 ### Notable Changes
 
