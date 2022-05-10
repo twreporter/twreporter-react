@@ -129,9 +129,24 @@ export default class App extends React.Component {
             return (
               <AppShell location={props.location} releaseBranch={releaseBranch}>
                 <Switch>
-                  {routes.map((route, routeIndex) => (
-                    <Route key={`route-${routeIndex}`} {...route} />
-                  ))}
+                  {routes.map((route, routeIndex) => {
+                    if (route.renderWithProps) {
+                      const render = props => (
+                        <route.renderWithProps
+                          releaseBranch={releaseBranch}
+                          {...props}
+                        />
+                      )
+                      return (
+                        <Route
+                          key={`route-${routeIndex}`}
+                          render={render}
+                          {...props}
+                        />
+                      )
+                    }
+                    return <Route key={`route-${routeIndex}`} {...route} />
+                  })}
                 </Switch>
               </AppShell>
             )
