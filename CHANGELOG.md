@@ -1,6 +1,25 @@
 # Changelog
 
-## 4.7.16 (Current), 2022-05-09
+## 4.7.17-rc.0 (Current), 2022-05-13
+
+### Notable Changes
+
+- feat:
+  - add releaseBranch props into route component
+- chore:
+  - update npm packages
+    - @twreporter/index-page@1.2.15-rc.0
+    - @twreporter/react-article-components@1.4.12-rc.0
+    - @twreporter/react-components@8.9.0-rc.0
+    - @twreporter/universal-header@2.2.9-rc.0
+
+### Commits
+
+- [[`a50de8889c`](https://github.com/twreporter/twreporter-react/commit/a50de8889c)] - **feat**: update @twreporter packages to add bookmark guide (Aylie Chou)
+- [[`fcbcdb48cd`](https://github.com/twreporter/twreporter-react/commit/fcbcdb48cd)] - **fix**: remove redundant line (Aylie Chou)
+- [[`f5a7ae88aa`](https://github.com/twreporter/twreporter-react/commit/f5a7ae88aa)] - **feat**: add releaseBranch props into route component (Aylie Chou)
+
+## 4.7.16, 2022-05-09
 
 ### Notable Changes
 
