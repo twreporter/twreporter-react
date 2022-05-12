@@ -131,16 +131,9 @@ export default class App extends React.Component {
                 <Switch>
                   {routes.map((route, routeIndex) => {
                     if (route.renderWithProps) {
-                      const render = props => (
+                      route.render = props => (
                         <route.renderWithProps
                           releaseBranch={releaseBranch}
-                          {...props}
-                        />
-                      )
-                      return (
-                        <Route
-                          key={`route-${routeIndex}`}
-                          render={render}
                           {...props}
                         />
                       )
