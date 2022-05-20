@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.7.17-rc.0 (Current), 2022-05-13
+## 4.7.17-rc.1 (Current), 2022-05-20
+
+### Notable Changes
+
+- fix:
+  - replace version with package.json instead of changelog.md
+
+### Commits
+
+- [27b9d17327] - Merge pull request #2127 from duidae/jason/read_version (許守傑 Shou-Chieh Hsu (Jason))
+- [7b23539a52] - fix: replace version source (duidae)
+
+## 4.7.17-rc.0, 2022-05-13
 
 ### Notable Changes
 
