@@ -42,7 +42,7 @@ jobs:
 
       - run:
           name: Save pkg version to a file
-          command: node ./.circleci/scripts/read-changelog.js > .pkg-version
+          command: node -pe "require('./package.json').version" > .pkg-version
 
       - persist_to_workspace:
           root: ~/repo
