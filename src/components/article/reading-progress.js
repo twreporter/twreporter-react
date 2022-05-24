@@ -2,16 +2,17 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const Bar = styled.div`
+const Bar = styled.div.attrs(({ percent }) => ({
+  style: {
+    width: percent + '%',
+  },
+}))`
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
   background-color: rgba(198, 0, 11, 0.35);
   height: 2px;
-  width: ${props => {
-    return props.percent + '%'
-  }};
   transition: 0.2s width linear;
 `
 
