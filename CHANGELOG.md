@@ -1,10 +1,25 @@
 # Changelog
 
-## 4.7.17-rc.2 (Current), 2022-05-25
+## 4.7.17-rc.3 (Current), 2022-05-25
 
 ### Notable Changes
 
-- fix:
+- chore
+  - update npm packages to apply bookmark fix
+    - @twreporter/index-page@1.2.15-rc.3
+    - @twreporter/react-article-components@1.4.12-rc.3
+    - @twreporter/react-components@8.9.0-rc.3
+    - @twreporter/universal-header@2.2.9-rc.3
+
+### Commits
+
+- [[`e9da98dec1`](https://github.com/twreporter/twreporter-react/commit/e9da98dec1)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.7.17-rc.2, 2022-05-25
+
+### Notable Changes
+
+- chore:
   - update npm packages to apply bookmark fix
     - @twreporter/index-page@1.2.15-rc.2
     - @twreporter/react-article-components@1.4.12-rc.2
