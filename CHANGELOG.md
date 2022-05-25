@@ -1,6 +1,21 @@
 # Changelog
 
-## 4.7.17-rc.1 (Current), 2022-05-20
+## 4.7.17-rc.2 (Current), 2022-05-25
+
+### Notable Changes
+
+- fix:
+  - update npm packages to apply bookmark fix
+    - @twreporter/index-page@1.2.15-rc.2
+    - @twreporter/react-article-components@1.4.12-rc.2
+    - @twreporter/react-components@8.9.0-rc.2
+    - @twreporter/universal-header@2.2.9-rc.2
+
+### Commits
+
+- [[`cb17db220b`](https://github.com/twreporter/twreporter-react/commit/cb17db220b)] - **fix**: update @twreporter component version to apply bookmark fix (Aylie Chou)
+
+## 4.7.17-rc.1, 2022-05-20
 
 ### Notable Changes
 
