@@ -5,7 +5,6 @@ import TagManager from 'react-gtm-module'
 import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import ReadingProgress from '../components/article/reading-progress'
 import SystemError from '../components/SystemError'
 import bsConst from '../constants/browser-storage'
 import localForage from 'localforage'
@@ -49,16 +48,11 @@ class Article extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.handleScroll = _.throttle(this._handleScroll, 300).bind(this)
     this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
-
-    this._rp = React.createRef()
     this._articleBody = React.createRef()
   }
 
   componentDidMount() {
-    // detect scroll position
-    window.addEventListener('scroll', this.handleScroll)
     const { fontLevel, changeFontLevel, slugToFetch } = this.props
 
     // Fetch the full post
@@ -75,10 +69,6 @@ class Article extends PureComponent {
       .catch(err => {
         console.warn('Can not get item from browser storage: ', err)
       })
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
   }
 
   componentDidUpdate(prevProps) {
@@ -136,37 +126,6 @@ class Article extends PureComponent {
           message: `Error to fetch post's related posts, post slug: '${slug}'. `,
         })
       })
-    }
-  }
-
-  /**
-   * Calculating the reading progress percentage.
-   *
-   * @param {number} top - the distance between the top of the element and the viewport top.
-   * @param {number} height - the element's height
-   */
-  _handleReadingPercentage(top, height) {
-    if (this._rp.current) {
-      let scrollRatio = 0
-      // top is less than 0,
-      // which means the element is in the viewport now
-      if (top < 0) {
-        scrollRatio = Math.abs(top) / height
-      }
-      const curPercent = Math.round(scrollRatio * 100)
-      // update the header progress bar
-      this._rp.current.updatePercentage(curPercent)
-    }
-  }
-
-  _handleScroll() {
-    if (this._articleBody.current) {
-      // top will be the distance between the top of body and the viewport top
-      // bottom will be the distance between the bottom of body and the viewport top
-      // height is the height of articleBody
-      const { top, height } = this._articleBody.current.getBoundingClientRect()
-      // render reading progress percentage
-      this._handleReadingPercentage(top, height)
     }
   }
 
@@ -275,7 +234,6 @@ class Article extends PureComponent {
             itemProp="dateModified"
             content={date2yyyymmdd(_.get(post, 'updated_at'))}
           />
-          <ReadingProgress ref={this._rp} />
           <div id="article-body" ref={this._articleBody}>
             <ArticleComponent
               post={post}
