@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.7.17-rc.3 (Current), 2022-05-25
+## 4.7.17-rc.4 (Current), 2022-05-25
+
+### Notable Changes
+
+- refactor
+  - remove reading progress due to spec change
+
+### Commits
+
+- [[`b2994d865c`](https://github.com/twreporter/twreporter-react/commit/b2994d865c)] - **refactor**: remove reading progress due to spec change (#2131) (Tai-Jiun Fang)
+
+## 4.7.17-rc.3, 2022-05-25
 
 ### Notable Changes
 
