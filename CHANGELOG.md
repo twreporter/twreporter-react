@@ -1,6 +1,24 @@
 # Changelog
 
-## 4.7.17-rc.4 (Current), 2022-05-25
+## 4.7.17-rc.5 (Current), 2022-05-27
+
+### Notable Changes
+
+- chore
+  - update npm packages to apply bookmark fix
+    - @twreporter/index-page@1.2.15-rc.5
+    - @twreporter/react-article-components@1.4.12-rc.5
+    - @twreporter/react-components@8.9.0-rc.5
+    - @twreporter/universal-header@2.2.9-rc.5
+- fix
+  - support mobile test
+
+### Commits
+
+- [[`706f5dc3f7`](https://github.com/twreporter/twreporter-react/commit/706f5dc3f7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`a09f4b4a1b`](https://github.com/twreporter/twreporter-react/commit/a09f4b4a1b)] - **fix**: add mobile test support (#1956) (Aylie Chou)
+
+## 4.7.17-rc.4, 2022-05-25
 
 ### Notable Changes
 
