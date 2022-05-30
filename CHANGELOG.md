@@ -1,6 +1,20 @@
 # Changelog
 
-## 4.7.17-rc.5 (Current), 2022-05-27
+## 4.7.17-rc.6 (Current), 2022-05-30
+
+### Notable Changes
+
+- fix
+  - update npm packages for reflow issue
+    - @twreporter/react-article-components@1.4.12-rc.6
+    - @twreporter/universal-header@2.2.9-rc.6
+
+### Commits
+
+- [6a209b91d3] - Merge pull request #2144 from duidae/jason/reflow_issue (許守傑 Shou-Chieh Hsu (Jason))
+- [bfd3d199d9] - chore: upgrade react-article-component & universal-header (duidae)
+
+## 4.7.17-rc.5, 2022-05-27
 
 ### Notable Changes
 
