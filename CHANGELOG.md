@@ -1,6 +1,19 @@
 # Changelog
 
-## 4.7.17-rc.6 (Current), 2022-05-30
+## 4.7.17-rc.7 (Current), 2022-06-06
+
+### Notable Changes
+
+- feat
+  - add FPS meter stats-js
+
+### Commits
+
+- [00604d5569] - Merge pull request #2150 from duidae/jason/stats-js (許守傑 Shou-Chieh Hsu (Jason))
+- [307934d79d] - feat: integrate fps meter (duidae)
+- [60082ef42f] - feat: add stats-js (duidae)
+
+## 4.7.17-rc.6, 2022-05-30
 
 ### Notable Changes
 
