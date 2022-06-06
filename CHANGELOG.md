@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.7.17-rc.7 (Current), 2022-06-06
+## 4.7.17-rc.8 (Current), 2022-06-06
+
+### Notable Changes
+
+- fix
+  - change font loader
+
+### Commits
+
+- [[`85ee509e2f`](https://github.com/twreporter/twreporter-react/commit/85ee509e2f)] - **chore**: update npm packages (Tai-Jiun Fang)
+- [[`43200ce574`](https://github.com/twreporter/twreporter-react/commit/43200ce574)] - **fix**: change font loader (#2148) (Tai-Jiun Fang)
+
+## 4.7.17-rc.7, 2022-06-06
 
 ### Notable Changes
 
