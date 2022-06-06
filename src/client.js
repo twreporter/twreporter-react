@@ -135,6 +135,25 @@ const jsx = (
 Loadable.preloadReady().then(() => {
   if (globalEnv.isDevelopment) {
     ReactDOM.render(jsx, document.getElementById('root'))
+
+    // FPS meter
+    import('stats-js')
+      .then(Stats => {
+        const stats = new Stats()
+        stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(stats.dom)
+        function animate() {
+          stats.begin()
+          stats.end()
+          window.requestAnimationFrame(animate)
+        }
+        window.requestAnimationFrame(animate)
+        stats.dom.style.right = '0'
+        stats.dom.style.left = 'initial'
+      })
+      .catch(err => {
+        console.log(err)
+      })
     return
   }
   ReactDOM.hydrate(jsx, document.getElementById('root'))
