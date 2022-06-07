@@ -1,6 +1,37 @@
 # Changelog
 
-## 4.7.16 (Current), 2022-05-09
+## 4.8.0 (Current), 2022-06-07
+
+### Notable Changes
+
+- fix
+  - change font loader
+  - support mobile test
+  - replace version with package.json instead of changelog.md
+- feat
+  - add FPS meter stats-js
+  - add releaseBranch props into route component
+- refactor
+  - remove reading progress due to spec change
+
+### Commits
+
+- [[`3e54e21440`](https://github.com/twreporter/twreporter-react/commit/3e54e21440)] - **chore**: update @twreporter npm packages (#2155) (Tai-Jiun Fang)
+- [[`85ee509e2f`](https://github.com/twreporter/twreporter-react/commit/85ee509e2f)] - **chore**: update npm packages (Tai-Jiun Fang)
+- [[`43200ce574`](https://github.com/twreporter/twreporter-react/commit/43200ce574)] - **fix**: change font loader (#2148) (Tai-Jiun Fang)
+- [[`307934d79d`](https://github.com/twreporter/twreporter-react/commit/307934d79d)] - **feat**: integrate fps meter (duidae)
+- [[`60082ef42f`](https://github.com/twreporter/twreporter-react/commit/60082ef42f)] - **feat**: add stats-js (duidae)
+- [[`bfd3d199d9`](https://github.com/twreporter/twreporter-react/commit/bfd3d199d9)] - **chore**: upgrade react-article-component & universal-header (duidae)
+- [[`706f5dc3f7`](https://github.com/twreporter/twreporter-react/commit/706f5dc3f7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`b2994d865c`](https://github.com/twreporter/twreporter-react/commit/b2994d865c)] - **refactor**: remove reading progress due to spec change (#2131) (Tai-Jiun Fang)
+- [[`e9da98dec1`](https://github.com/twreporter/twreporter-react/commit/e9da98dec1)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cb17db220b`](https://github.com/twreporter/twreporter-react/commit/cb17db220b)] - **fix**: update @twreporter component version to apply bookmark fix (Aylie Chou)
+- [[`7b23539a52`](https://github.com/twreporter/twreporter-react/commit/7b23539a52)] - **fix**: replace version source (duidae)
+- [[`a50de8889c`](https://github.com/twreporter/twreporter-react/commit/a50de8889c)] - **feat**: update @twreporter packages to add bookmark guide (Aylie Chou)
+- [[`fcbcdb48cd`](https://github.com/twreporter/twreporter-react/commit/fcbcdb48cd)] - **fix**: remove redundant line (Aylie Chou)
+- [[`f5a7ae88aa`](https://github.com/twreporter/twreporter-react/commit/f5a7ae88aa)] - **feat**: add releaseBranch props into route component (Aylie Chou)
+
+## 4.7.16, 2022-05-09
 
 ### Notable Changes
 

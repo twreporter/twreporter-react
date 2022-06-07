@@ -247,7 +247,7 @@ export default function getRoutes() {
       path: routesConst.aboutUsPage.path,
     },
     {
-      component: loadablePages.bookmarkList,
+      renderWithProps: loadablePages.bookmarkList,
       loadData: dataLoaders.loadBookmarkListData,
       path: routesConst.bookmarkListPage.path,
       authorizationRequired: true,
