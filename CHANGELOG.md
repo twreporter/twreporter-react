@@ -1,130 +1,32 @@
 # Changelog
 
-## 4.7.17-rc.8 (Current), 2022-06-06
+## 4.8.0 (Current), 2022-06-07
 
 ### Notable Changes
 
 - fix
   - change font loader
-
-### Commits
-
-- [[`85ee509e2f`](https://github.com/twreporter/twreporter-react/commit/85ee509e2f)] - **chore**: update npm packages (Tai-Jiun Fang)
-- [[`43200ce574`](https://github.com/twreporter/twreporter-react/commit/43200ce574)] - **fix**: change font loader (#2148) (Tai-Jiun Fang)
-
-## 4.7.17-rc.7, 2022-06-06
-
-### Notable Changes
-
+  - support mobile test
+  - replace version with package.json instead of changelog.md
 - feat
   - add FPS meter stats-js
-
-### Commits
-
-- [00604d5569] - Merge pull request #2150 from duidae/jason/stats-js (許守傑 Shou-Chieh Hsu (Jason))
-- [307934d79d] - feat: integrate fps meter (duidae)
-- [60082ef42f] - feat: add stats-js (duidae)
-
-## 4.7.17-rc.6, 2022-05-30
-
-### Notable Changes
-
-- fix
-  - update npm packages for reflow issue
-    - @twreporter/react-article-components@1.4.12-rc.6
-    - @twreporter/universal-header@2.2.9-rc.6
-
-### Commits
-
-- [6a209b91d3] - Merge pull request #2144 from duidae/jason/reflow_issue (許守傑 Shou-Chieh Hsu (Jason))
-- [bfd3d199d9] - chore: upgrade react-article-component & universal-header (duidae)
-
-## 4.7.17-rc.5, 2022-05-27
-
-### Notable Changes
-
-- chore
-  - update npm packages to apply bookmark fix
-    - @twreporter/index-page@1.2.15-rc.5
-    - @twreporter/react-article-components@1.4.12-rc.5
-    - @twreporter/react-components@8.9.0-rc.5
-    - @twreporter/universal-header@2.2.9-rc.5
-- fix
-  - support mobile test
-
-### Commits
-
-- [[`706f5dc3f7`](https://github.com/twreporter/twreporter-react/commit/706f5dc3f7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
-- [[`a09f4b4a1b`](https://github.com/twreporter/twreporter-react/commit/a09f4b4a1b)] - **fix**: add mobile test support (#1956) (Aylie Chou)
-
-## 4.7.17-rc.4, 2022-05-25
-
-### Notable Changes
-
+  - add releaseBranch props into route component
 - refactor
   - remove reading progress due to spec change
 
 ### Commits
 
+- [[`3e54e21440`](https://github.com/twreporter/twreporter-react/commit/3e54e21440)] - **chore**: update @twreporter npm packages (#2155) (Tai-Jiun Fang)
+- [[`85ee509e2f`](https://github.com/twreporter/twreporter-react/commit/85ee509e2f)] - **chore**: update npm packages (Tai-Jiun Fang)
+- [[`43200ce574`](https://github.com/twreporter/twreporter-react/commit/43200ce574)] - **fix**: change font loader (#2148) (Tai-Jiun Fang)
+- [[`307934d79d`](https://github.com/twreporter/twreporter-react/commit/307934d79d)] - **feat**: integrate fps meter (duidae)
+- [[`60082ef42f`](https://github.com/twreporter/twreporter-react/commit/60082ef42f)] - **feat**: add stats-js (duidae)
+- [[`bfd3d199d9`](https://github.com/twreporter/twreporter-react/commit/bfd3d199d9)] - **chore**: upgrade react-article-component & universal-header (duidae)
+- [[`706f5dc3f7`](https://github.com/twreporter/twreporter-react/commit/706f5dc3f7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
 - [[`b2994d865c`](https://github.com/twreporter/twreporter-react/commit/b2994d865c)] - **refactor**: remove reading progress due to spec change (#2131) (Tai-Jiun Fang)
-
-## 4.7.17-rc.3, 2022-05-25
-
-### Notable Changes
-
-- chore
-  - update npm packages to apply bookmark fix
-    - @twreporter/index-page@1.2.15-rc.3
-    - @twreporter/react-article-components@1.4.12-rc.3
-    - @twreporter/react-components@8.9.0-rc.3
-    - @twreporter/universal-header@2.2.9-rc.3
-
-### Commits
-
 - [[`e9da98dec1`](https://github.com/twreporter/twreporter-react/commit/e9da98dec1)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.7.17-rc.2, 2022-05-25
-
-### Notable Changes
-
-- chore:
-  - update npm packages to apply bookmark fix
-    - @twreporter/index-page@1.2.15-rc.2
-    - @twreporter/react-article-components@1.4.12-rc.2
-    - @twreporter/react-components@8.9.0-rc.2
-    - @twreporter/universal-header@2.2.9-rc.2
-
-### Commits
-
 - [[`cb17db220b`](https://github.com/twreporter/twreporter-react/commit/cb17db220b)] - **fix**: update @twreporter component version to apply bookmark fix (Aylie Chou)
-
-## 4.7.17-rc.1, 2022-05-20
-
-### Notable Changes
-
-- fix:
-  - replace version with package.json instead of changelog.md
-
-### Commits
-
-- [27b9d17327] - Merge pull request #2127 from duidae/jason/read_version (許守傑 Shou-Chieh Hsu (Jason))
-- [7b23539a52] - fix: replace version source (duidae)
-
-## 4.7.17-rc.0, 2022-05-13
-
-### Notable Changes
-
-- feat:
-  - add releaseBranch props into route component
-- chore:
-  - update npm packages
-    - @twreporter/index-page@1.2.15-rc.0
-    - @twreporter/react-article-components@1.4.12-rc.0
-    - @twreporter/react-components@8.9.0-rc.0
-    - @twreporter/universal-header@2.2.9-rc.0
-
-### Commits
-
+- [[`7b23539a52`](https://github.com/twreporter/twreporter-react/commit/7b23539a52)] - **fix**: replace version source (duidae)
 - [[`a50de8889c`](https://github.com/twreporter/twreporter-react/commit/a50de8889c)] - **feat**: update @twreporter packages to add bookmark guide (Aylie Chou)
 - [[`fcbcdb48cd`](https://github.com/twreporter/twreporter-react/commit/fcbcdb48cd)] - **fix**: remove redundant line (Aylie Chou)
 - [[`f5a7ae88aa`](https://github.com/twreporter/twreporter-react/commit/f5a7ae88aa)] - **feat**: add releaseBranch props into route component (Aylie Chou)
