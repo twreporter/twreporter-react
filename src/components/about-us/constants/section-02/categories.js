@@ -58,6 +58,13 @@ const categories = [
     },
   },
   {
+    id: categoryIds.contentDevelopment,
+    label: {
+      english: 'Content Development',
+      chinese: '分 眾 報',
+    },
+  },
+  {
     id: categoryIds.productManager,
     label: {
       english: 'Product Manager',

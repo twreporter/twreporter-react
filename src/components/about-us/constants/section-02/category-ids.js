@@ -7,6 +7,7 @@ const categoryIds = {
   engineer: 'engineer',
   designer: 'designer',
   podcast: 'podcast',
+  contentDevelopment: 'contentDevelopment',
   productManager: 'productManager',
 }
 
