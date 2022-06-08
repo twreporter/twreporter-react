@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.8.1-rc.0, 2022-06-08
+
+### Notable Changes
+
+- refactor
+  - update about-us
+
+### Commits
+
+- [[`0fd7bf2fab`](https://github.com/twreporter/twreporter-react/commit/0fd7bf2fab)] - **refactor**: update about-us (#2154) (Tai-Jiun Fang)
+
 ## 4.8.0 (Current), 2022-06-07
 
 ### Notable Changes
