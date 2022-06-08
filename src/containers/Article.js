@@ -1,47 +1,45 @@
-import ArticleComponent from '@twreporter/react-article-components'
-import ArticlePlaceholder from '../components/article/placeholder'
 import Helmet from 'react-helmet'
 import TagManager from 'react-gtm-module'
-import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import SystemError from '../components/SystemError'
-import bsConst from '../constants/browser-storage'
 import localForage from 'localforage'
 import memoizeOne from 'memoize-one'
-import siteMeta from '../constants/site-meta'
-import twreporterRedux from '@twreporter/redux'
-import uiManager from '../managers/ui-manager'
 import { connect } from 'react-redux'
+import loggerFactory from '../logger'
+import uiManager from '../managers/ui-manager'
+// constants
+import bsConst from '../constants/browser-storage'
+import siteMeta from '../constants/site-meta'
+// components
+import ArticlePlaceholder from '../components/article/placeholder'
+import SystemError from '../components/SystemError'
+// @twreporter
+import twreporterRedux from '@twreporter/redux'
+import ArticleComponent from '@twreporter/react-article-components'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-
+import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
+import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 // dependencies of article component v2
 import { Link } from 'react-router-dom'
-
 // utils
 import cloneUtils from '../utils/shallow-clone-entity'
-
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import throttle from 'lodash/throttle'
-
 const _ = {
   forEach,
   get,
   throttle,
 }
-
+// global var
 const { actions, actionTypes, reduxStateFields } = twreporterRedux
 const { fetchAFullPost, fetchRelatedPostsOfAnEntity } = actions
-
 const _fontLevel = {
   small: 'small',
 }
-
 const logger = loggerFactory.getLogger()
-
 const emptySlug = ''
 
 class Article extends PureComponent {
@@ -147,6 +145,7 @@ class Article extends PureComponent {
       post,
       relateds,
       hasMoreRelateds,
+      releaseBranch,
     } = this.props
 
     if (errorOfPost) {
@@ -244,6 +243,7 @@ class Article extends PureComponent {
               fontLevel={fontLevel}
               onFontLevelChange={this.handleFontLevelChange}
               LinkComponent={Link}
+              releaseBranch={releaseBranch}
               // TODO: pass isFetchingRelateds to show loadin spinner
               // TODO: pass errorOfRelateds to show error message to end users
             />
@@ -268,6 +268,7 @@ Article.propTypes = {
   relateds: PropTypes.array,
   hasMoreRelateds: PropTypes.bool,
   slugToFetch: PropTypes.string,
+  releaseBranch: predefinedPropTypes.releaseBranch,
 }
 
 Article.defaultProps = {
@@ -279,6 +280,7 @@ Article.defaultProps = {
   relateds: [],
   hasMoreRelateds: false,
   slugToFetch: emptySlug,
+  releaseBranch: releaseBranchConsts.master,
 }
 
 const {
