@@ -224,7 +224,7 @@ export default function getRoutes() {
       path: routesConst.searchPage.path,
     },
     {
-      component: Article,
+      renderWithProps: Article,
       loadData: props =>
         Promise.all([
           dataLoaders.loadArticlePageData(props),

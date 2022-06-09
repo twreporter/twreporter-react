@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.8.1-rc.1, 2022-06-09
+
+### Notable Changes
+
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16-rc.0
+    - @twreporter/react-article-components@1.5.0-rc.0
+    - @twreporter/react-components@8.10.0-rc.0
+    - @twreporter/universal-header@2.2.10-rc.0
+
+### Commits
+
+- [[`61071be9de`](https://github.com/twreporter/twreporter-react/commit/61071be9de)] - **chore**: update @twreporter packages to apply article tool bar (Aylie Chou)
+
 ## 4.8.1-rc.0, 2022-06-08
 
 ### Notable Changes
@@ -24,6 +39,12 @@
   - add releaseBranch props into route component
 - refactor
   - remove reading progress due to spec change
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.15
+    - @twreporter/react-article-components@1.4.12
+    - @twreporter/react-components@8.9.0
+    - @twreporter/universal-header@2.2.9
 
 ### Commits
 
