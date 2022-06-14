@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.8.1-rc.2, 2022-06-14
+
+### Notable Changes
+
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16-rc.1
+    - @twreporter/react-article-components@1.5.0-rc.1
+    - @twreporter/react-components@8.10.0-rc.1
+    - @twreporter/universal-header@2.2.10-rc.1
+
+### Commits
+
+- [[`d217c241c7`](https://github.com/twreporter/twreporter-react/commit/d217c241c7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+
 ## 4.8.1-rc.1, 2022-06-09
 
 ### Notable Changes
