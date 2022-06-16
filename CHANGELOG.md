@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.8.1-rc.3, 2022-06-16
+
+### Notable Changes
+
+- chore
+  - update npm packages
+    - @twreporter/react-article-components@1.5.0-rc.1
+
+### Commits
+
+- [[`4d12fe45f6`](https://github.com/twreporter/twreporter-react/commit/4d12fe45f6)] - **chore**: update @twreporter/react-article-components package (Aylie Chou)
+
 ## 4.8.1-rc.2, 2022-06-14
 
 ### Notable Changes
