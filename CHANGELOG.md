@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.8.1-rc.4, 2022-06-16
+
+### Notable Changes
+
+- fix
+  - support safe-area-inset-\* css
+
+### Commits
+
+- [[`5557ce47a6`](https://github.com/twreporter/twreporter-react/commit/5557ce47a6)] - **fix**: support safe-area-inset-\* css (Aylie Chou)
+
 ## 4.8.1-rc.3, 2022-06-16
 
 ### Notable Changes
