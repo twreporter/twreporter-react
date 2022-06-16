@@ -36,7 +36,7 @@ export default class Html extends PureComponent {
           <meta httpEquiv="Cache-control" content="public" />
           <meta
             name="viewport"
-            content="width=device-width, user-scalable=no, minimum-scale=1, initial-scale=1"
+            content="viewport-fit=cover, width=device-width, user-scalable=no, minimum-scale=1, initial-scale=1"
           />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="theme-color" content="#E30B20" />
