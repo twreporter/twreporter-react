@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.8.1-rc.7, 2022-07-04
+
+### Notable Changes
+
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16-rc.4
+    - @twreporter/react-article-components@1.5.0-rc.5
+    - @twreporter/react-components@8.10.0-rc.4
+    - @twreporter/universal-header@2.2.10-rc.4
+
+### Commits
+
+- [[`8beefcf841`](https://github.com/twreporter/twreporter-react/commit/8beefcf841)] - **chore**: update @twreporter packages to apply tool bar fix (Aylie Chou)
+
 ## 4.8.1-rc.6, 2022-07-01
 
 ### Notable Changes
