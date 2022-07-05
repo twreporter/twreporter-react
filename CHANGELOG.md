@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.8.1-rc.8, 2022-07-05
+
+### Notable Changes
+
+- docs
+  - update award name in about-us page
+
+### Commits
+
+- [[`dda87ea8d1`](https://github.com/twreporter/twreporter-react/commit/dda87ea8d1)] - **docs**: update award name in about-us (#2179) (Tai-Jiun Fang)
+
 ## 4.8.1-rc.7, 2022-07-04
 
 ### Notable Changes
