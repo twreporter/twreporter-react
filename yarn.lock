@@ -464,13 +464,13 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@1.2.16-rc.4":
-  version "1.2.16-rc.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.16-rc.4.tgz#34c10011c9aa89a7358fca05bc487227ba876ac0"
-  integrity sha512-42kMOxb+ThvVQ+SKWnlKxbyQ50LCWTwUOXqjlhRMbRjIelZDmVOQ3BT0wnnc2JWn0N1Ucmiw4RaJMxa1GNfUaw==
+"@twreporter/index-page@^1.2.16":
+  version "1.2.16"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.2.16.tgz#641ed15013a33cc1bb3da48d7b4071034f832588"
+  integrity sha512-M6OWkMhKwM913yXYHkxXXcQ8w2pfcTkqmiKacbSYqMwlkJyN1vdMAZrSp8lbqo2twuAywj7DPBcJxytC8MyS/A==
   dependencies:
     "@twreporter/core" "^1.4.1"
-    "@twreporter/react-components" "^8.10.0-rc.4"
+    "@twreporter/react-components" "^8.10.0"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^16.3.0"
@@ -482,15 +482,15 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.5.0-rc.5":
-  version "1.5.0-rc.5"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.5.0-rc.5.tgz#13fe3c952039928d8a3cc706b8b3b8d5ec86bc80"
-  integrity sha512-AhdGfF414jlRdbF96KJH2Fr8fgvkbrT78c0JkF1unIob1QoFgpCxpNsXLj2FZFaJ9Cnct62o9zbN8gQA7X1mRw==
+"@twreporter/react-article-components@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.5.0.tgz#e26e5707c783dd99a2cf57e1362309ba8e7c4bdf"
+  integrity sha512-SUUCMtKlyeablUaE0b0BfgE/Kaynbmw9IlLwDuEBNHPyKJwxCOw7fTuTxXcsHwnEmD/3VvTYYrMPe5uIBQNmSA==
   dependencies:
     "@twreporter/core" "^1.4.1"
-    "@twreporter/react-components" "^8.10.0-rc.4"
-    "@twreporter/redux" "^7.2.2-rc.0"
-    "@twreporter/universal-header" "^2.2.10-rc.4"
+    "@twreporter/react-components" "^8.10.0"
+    "@twreporter/redux" "^7.2.2"
+    "@twreporter/universal-header" "^2.2.10"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -500,13 +500,13 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@8.10.0-rc.4", "@twreporter/react-components@^8.10.0-rc.4":
-  version "8.10.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.10.0-rc.4.tgz#ba3e51a1736f5ee3832de410268b26c4bbb99687"
-  integrity sha512-NheNh1alTW0H/rAz8AGy/jqAgVxbPNIvptZtxEu5RS/EhP6jS0BxQxRdvcwMbBYsLQJOeJaWR/V4lHSba97WKA==
+"@twreporter/react-components@^8.10.0":
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.10.0.tgz#f38c1fcef675e24388474e1ec2590d4fb34ec6f4"
+  integrity sha512-KJPQrnBvU/R0Rq55wInwU+V+GqmjIjXvXiuodUaLVB7GVvk905vKiOzi9aL8udJqxmKDBT6MgSx4GigXjo+Rag==
   dependencies:
     "@twreporter/core" "^1.4.1"
-    "@twreporter/redux" "^7.2.2-rc.0"
+    "@twreporter/redux" "^7.2.2"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     memoize-one "^5.0.5"
@@ -519,10 +519,10 @@
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
 
-"@twreporter/redux@7.2.2-rc.0", "@twreporter/redux@^7.2.2-rc.0":
-  version "7.2.2-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.2.2-rc.0.tgz#39be2df90e49eecf9c7a1fe97e7e57100dab291f"
-  integrity sha512-3tmZQHxAL21+PiesnhTaJWEV0UYHQHDENpEKNdSe0IDkzjIg8a1mNfmrJSVemRAtE0gsgk3nXqr8zszD4nCYUQ==
+"@twreporter/redux@^7.2.2":
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.2.2.tgz#cd10637799f0eecc063a8cda76624a01583f9b22"
+  integrity sha512-QYMu3E5sUU1LAC8zya0gXg9KUXYB//W6zWztSt0i2lqa5L9PHCRNvRhGr/mkiFHMyHIZzJghDUWT0KV7l9VS+g==
   dependencies:
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -535,13 +535,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@2.2.10-rc.4", "@twreporter/universal-header@^2.2.10-rc.4":
-  version "2.2.10-rc.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.10-rc.4.tgz#b154b5e9f2fb58173b28388f71041d8b93d3802a"
-  integrity sha512-OnnkkeOCZh7tLCiXwaa46hQq+VuGP1/x9gD+w3NUyRttXaoAdCgdp3YRFnUHcdkJBc4Wa3hX3vkRTJoKqksWWA==
+"@twreporter/universal-header@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.2.10.tgz#047e9eb176da442225858544788ce6a0ea93e005"
+  integrity sha512-1roaL6S589B2YaHCfQ53vHIMHcHRVeZ3Q+41mqJLeYSDEauPeofRgmd42zwQX8J36ws0at/H1YUrth2v4BY0CQ==
   dependencies:
     "@twreporter/core" "^1.4.1"
-    "@twreporter/react-components" "^8.10.0-rc.4"
+    "@twreporter/react-components" "^8.10.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
