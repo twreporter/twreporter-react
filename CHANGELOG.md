@@ -1,127 +1,37 @@
 # Changelog
 
-## 4.8.1-rc.8, 2022-07-05
+## 4.8.1, 2022-07-06 (Current)
 
 ### Notable Changes
 
 - docs
   - update award name in about-us page
-
-### Commits
-
-- [[`dda87ea8d1`](https://github.com/twreporter/twreporter-react/commit/dda87ea8d1)] - **docs**: update award name in about-us (#2179) (Tai-Jiun Fang)
-
-## 4.8.1-rc.7, 2022-07-04
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/index-page@1.2.16-rc.4
-    - @twreporter/react-article-components@1.5.0-rc.5
-    - @twreporter/react-components@8.10.0-rc.4
-    - @twreporter/universal-header@2.2.10-rc.4
-
-### Commits
-
-- [[`8beefcf841`](https://github.com/twreporter/twreporter-react/commit/8beefcf841)] - **chore**: update @twreporter packages to apply tool bar fix (Aylie Chou)
-
-## 4.8.1-rc.6, 2022-07-01
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/index-page@1.2.16-rc.3
-    - @twreporter/react-article-components@1.5.0-rc.4
-    - @twreporter/react-components@8.10.0-rc.3
-    - @twreporter/universal-header@2.2.10-rc.3
-
-### Commits
-
-- [[`294b653578`](https://github.com/twreporter/twreporter-react/commit/294b653578)] - **chore**: update @twreporter packages toapply tool bar fix (Aylie Chou)
-
-## 4.8.1-rc.5, 2022-07-01
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/index-page@1.2.16-rc.2
-    - @twreporter/react-article-components@1.5.0-rc.3
-    - @twreporter/react-components@8.10.0-rc.2
-    - @twreporter/redux@7.2.2-rc.0
-    - @twreporter/universal-header@2.2.10-rc.2
-
-### Commits
-
-- [[`e0029b04c9`](https://github.com/twreporter/twreporter-react/commit/e0029b04c9)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
-
-## 4.8.1-rc.4, 2022-06-16
-
-### Notable Changes
-
 - fix
   - support safe-area-inset-\* css
-
-### Commits
-
-- [[`5557ce47a6`](https://github.com/twreporter/twreporter-react/commit/5557ce47a6)] - **fix**: support safe-area-inset-\* css (Aylie Chou)
-
-## 4.8.1-rc.3, 2022-06-16
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/react-article-components@1.5.0-rc.1
-
-### Commits
-
-- [[`4d12fe45f6`](https://github.com/twreporter/twreporter-react/commit/4d12fe45f6)] - **chore**: update @twreporter/react-article-components package (Aylie Chou)
-
-## 4.8.1-rc.2, 2022-06-14
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/index-page@1.2.16-rc.1
-    - @twreporter/react-article-components@1.5.0-rc.1
-    - @twreporter/react-components@8.10.0-rc.1
-    - @twreporter/universal-header@2.2.10-rc.1
-
-### Commits
-
-- [[`d217c241c7`](https://github.com/twreporter/twreporter-react/commit/d217c241c7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
-
-## 4.8.1-rc.1, 2022-06-09
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/index-page@1.2.16-rc.0
-    - @twreporter/react-article-components@1.5.0-rc.0
-    - @twreporter/react-components@8.10.0-rc.0
-    - @twreporter/universal-header@2.2.10-rc.0
-
-### Commits
-
-- [[`61071be9de`](https://github.com/twreporter/twreporter-react/commit/61071be9de)] - **chore**: update @twreporter packages to apply article tool bar (Aylie Chou)
-
-## 4.8.1-rc.0, 2022-06-08
-
-### Notable Changes
-
 - refactor
   - update about-us
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16
+    - @twreporter/react-article-components@1.5.0
+    - @twreporter/react-components@8.10.0
+    - @twreporter/redux@7.2.2
+    - @twreporter/universal-header@2.2.10
 
 ### Commits
 
+- [[`92c4c791fb`](https://github.com/twreporter/twreporter-react/commit/92c4c791fb)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`dda87ea8d1`](https://github.com/twreporter/twreporter-react/commit/dda87ea8d1)] - **docs**: update award name in about-us (#2179) (Tai-Jiun Fang)
+- [[`8beefcf841`](https://github.com/twreporter/twreporter-react/commit/8beefcf841)] - **chore**: update @twreporter packages to apply tool bar fix (Aylie Chou)
+- [[`294b653578`](https://github.com/twreporter/twreporter-react/commit/294b653578)] - **chore**: update @twreporter packages toapply tool bar fix (Aylie Chou)
+- [[`e0029b04c9`](https://github.com/twreporter/twreporter-react/commit/e0029b04c9)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`5557ce47a6`](https://github.com/twreporter/twreporter-react/commit/5557ce47a6)] - **fix**: support safe-area-inset-\* css (Aylie Chou)
+- [[`4d12fe45f6`](https://github.com/twreporter/twreporter-react/commit/4d12fe45f6)] - **chore**: update @twreporter/react-article-components package (Aylie Chou)
+- [[`d217c241c7`](https://github.com/twreporter/twreporter-react/commit/d217c241c7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`61071be9de`](https://github.com/twreporter/twreporter-react/commit/61071be9de)] - **chore**: update @twreporter packages to apply article tool bar (Aylie Chou)
 - [[`0fd7bf2fab`](https://github.com/twreporter/twreporter-react/commit/0fd7bf2fab)] - **refactor**: update about-us (#2154) (Tai-Jiun Fang)
 
-## 4.8.0 (Current), 2022-06-07
+## 4.8.0, 2022-06-07
 
 ### Notable Changes
 
