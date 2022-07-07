@@ -87,14 +87,23 @@ const carouselMarkup = {
   },
   [categoryIds.podcast]: {
     [screen.hd]: {
-      width: '263px',
+      width: '576px',
       'margin-right': '31px',
-      transform: 'translateX(313px)',
     },
     [screen.desktop]: {
-      width: '195px',
-      'margin-right': '34px',
-      transform: 'translateX(218px)',
+      width: '414px',
+      'margin-right': '32px',
+    },
+    [screen.tablet]: {
+      width: '100%',
+    },
+  },
+  [categoryIds.contentDevelopment]: {
+    [screen.hd]: {
+      width: '576px',
+    },
+    [screen.desktop]: {
+      width: '414px',
     },
     [screen.tablet]: {
       width: '100%',
@@ -103,11 +112,11 @@ const carouselMarkup = {
   [categoryIds.productManager]: {
     [screen.hd]: {
       width: '263px',
-      transform: 'translateX(313px)',
+      transform: 'translateX(460px)',
     },
     [screen.desktop]: {
       width: '195px',
-      transform: 'translateX(218px)',
+      transform: 'translateX(331px)',
     },
     [screen.tablet]: {
       width: '100%',

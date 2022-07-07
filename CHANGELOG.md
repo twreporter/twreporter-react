@@ -1,6 +1,37 @@
 # Changelog
 
-## 4.8.0 (Current), 2022-06-07
+## 4.8.1, 2022-07-06 (Current)
+
+### Notable Changes
+
+- docs
+  - update award name in about-us page
+- fix
+  - support safe-area-inset-\* css
+- refactor
+  - update about-us
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16
+    - @twreporter/react-article-components@1.5.0
+    - @twreporter/react-components@8.10.0
+    - @twreporter/redux@7.2.2
+    - @twreporter/universal-header@2.2.10
+
+### Commits
+
+- [[`92c4c791fb`](https://github.com/twreporter/twreporter-react/commit/92c4c791fb)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`dda87ea8d1`](https://github.com/twreporter/twreporter-react/commit/dda87ea8d1)] - **docs**: update award name in about-us (#2179) (Tai-Jiun Fang)
+- [[`8beefcf841`](https://github.com/twreporter/twreporter-react/commit/8beefcf841)] - **chore**: update @twreporter packages to apply tool bar fix (Aylie Chou)
+- [[`294b653578`](https://github.com/twreporter/twreporter-react/commit/294b653578)] - **chore**: update @twreporter packages toapply tool bar fix (Aylie Chou)
+- [[`e0029b04c9`](https://github.com/twreporter/twreporter-react/commit/e0029b04c9)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`5557ce47a6`](https://github.com/twreporter/twreporter-react/commit/5557ce47a6)] - **fix**: support safe-area-inset-\* css (Aylie Chou)
+- [[`4d12fe45f6`](https://github.com/twreporter/twreporter-react/commit/4d12fe45f6)] - **chore**: update @twreporter/react-article-components package (Aylie Chou)
+- [[`d217c241c7`](https://github.com/twreporter/twreporter-react/commit/d217c241c7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`61071be9de`](https://github.com/twreporter/twreporter-react/commit/61071be9de)] - **chore**: update @twreporter packages to apply article tool bar (Aylie Chou)
+- [[`0fd7bf2fab`](https://github.com/twreporter/twreporter-react/commit/0fd7bf2fab)] - **refactor**: update about-us (#2154) (Tai-Jiun Fang)
+
+## 4.8.0, 2022-06-07
 
 ### Notable Changes
 
@@ -13,6 +44,12 @@
   - add releaseBranch props into route component
 - refactor
   - remove reading progress due to spec change
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.15
+    - @twreporter/react-article-components@1.4.12
+    - @twreporter/react-components@8.9.0
+    - @twreporter/universal-header@2.2.9
 
 ### Commits
 
