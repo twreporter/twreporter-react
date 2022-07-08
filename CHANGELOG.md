@@ -1,6 +1,19 @@
 # Changelog
 
-## 4.8.1, 2022-07-06 (Current)
+## 4.8.2-rc.0, 2022-07-08 (Current)
+
+### Notable Changes
+
+- chore
+  - update npm packages
+    - @twreporter/react-article-components@1.6.0-rc.0
+
+### Commits
+
+- \[[`dbe80bf539`](https://github.com/twreporter/twreporter-react/commit/dbe80bf539)] - Merge pull request #2189 from duidae/jason/issue_60 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`fe20cecf9f`](https://github.com/twreporter/twreporter-react/commit/fe20cecf9f)] - **chore**: update react-article-component to v1.6.0-rc.0 (duidae)
+
+## 4.8.1, 2022-07-06
 
 ### Notable Changes
 
