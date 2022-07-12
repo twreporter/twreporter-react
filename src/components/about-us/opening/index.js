@@ -9,7 +9,6 @@ import CSSTransition from 'react-transition-group/CSSTransition'
 import Header from './header'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import smoothScroll from 'smoothscroll'
 import styled, { css } from 'styled-components'
 
 const transitionDuration = 200
@@ -495,8 +494,10 @@ export class Opening extends PureComponent {
 
   _handleClick = event => {
     event.preventDefault()
-    const coverBottom = this._cover.scrollHeight
-    return smoothScroll(coverBottom)
+    window.scroll({
+      top: this._cover.scrollHeight, // cover bottom
+      behavior: 'smooth',
+    })
   }
   _closeAnchorPanel = () => {
     this.setState({

@@ -9,7 +9,6 @@ import predefinedPropTypes from '../../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import siteMeta from '../../../constants/site-meta'
-import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 // @twreporter
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
@@ -102,7 +101,10 @@ export default class Banner extends PureComponent {
     e.preventDefault()
     const container = this._containerRef.current
     if (container) {
-      smoothScroll(container.offsetHeight || container.clientHeight)
+      window.scroll({
+        top: container.offsetHeight || container.clientHeight,
+        behavior: 'smooth',
+      })
     }
   }
 

@@ -59,7 +59,6 @@
     "react-transition-group": "^2.0.0",
     "react-waypoint": "^9.0.2",
     "serialize-javascript": "^2.1.1",
-    "smoothscroll": "0.3.0",
     "styled-components": "^4.0.0",
     "sw-toolbox": "^3.6.0",
     "velocity-react": "^1.4.3",
