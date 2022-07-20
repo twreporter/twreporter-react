@@ -29,9 +29,9 @@ const {
   DonationBoxSection,
   EditorPicks,
   InforgraphicSection,
+  JuniorBoxSection,
   LatestSection,
   LatestTopicSection,
-  NewsLetterSection,
   PhotographySection,
   PodcastBoxSection,
   ReviewsSection,
@@ -296,8 +296,8 @@ class Homepage extends React.PureComponent {
               moreURI={`categories/${categoryConst.pathSegments.reviews}`}
             />
           </Section>
-          <Section anchorId="news-letter">
-            <NewsLetterSection />
+          <Section anchorId="junior">
+            <JuniorBoxSection />
           </Section>
           <Section anchorId="categories" anchorLabel="議題" showAnchor>
             <Background backgroundColor={moduleBackgounds.category}>
