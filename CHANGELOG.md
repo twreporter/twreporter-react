@@ -1,6 +1,22 @@
 # Changelog
 
-## 4.8.2-rc.1, 2022-07-20 (Current)
+## 4.8.2-rc.2, 2022-07-20 (Current)
+
+### Notable Changes
+
+- chore: update twreporter npm packages
+  - @twreporter/index-page@1.3.0-rc.0
+  - @twreporter/react-article-components@1.6.0-rc.2
+  - @twreporter/react-components@8.11.0-rc.0
+  - @twreporter/universal-header@2.2.11-rc.0
+
+### Commits
+
+- [[`2c8b86fa1f`](https://github.com/twreporter/twreporter-react/commit/2c8b86fa1f)] - **refactor**: replace the NewsletterSection with JuniorBoxSection
+  ang)
+- [[`24d9e41cf0`](https://github.com/twreporter/twreporter-react/commit/24d9e41cf0)] - **chore**: update twreporter npm packages (#2196) (Tai-Jiun Fang)
+
+## 4.8.2-rc.1, 2022-07-20
 
 ### Notable Changes
 
