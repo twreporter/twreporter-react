@@ -1,6 +1,19 @@
 # Changelog
 
-## 4.8.2-rc.0, 2022-07-08 (Current)
+## 4.8.2-rc.1, 2022-07-20 (Current)
+
+### Notable Changes
+
+- chore
+  - downgrade npm packages
+    - @twreporter/react-article-components@1.5.0
+
+### Commits
+
+- \[[`6fed91657b`](https://github.com/twreporter/twreporter-react/commit/6fed91657b)] - Merge pull request #2194 from duidae/jason/downgrade_react-article-component_v1.5.0 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`33652de641`](https://github.com/twreporter/twreporter-react/commit/33652de641)] - **chore**: downgrade react-article-components to v1.5.0 (duidae)
+
+## 4.8.2-rc.0, 2022-07-08
 
 ### Notable Changes
 
