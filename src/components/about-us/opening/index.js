@@ -1,7 +1,6 @@
 import colors from '../../../constants/colors'
 import { containerStyle, contentStyle, headerStyle } from './section-style'
 import { font } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import mq, { breakpoint } from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
 import AnchorsPanel from './anchors-panel'
@@ -10,6 +9,10 @@ import Header from './header'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled, { css } from 'styled-components'
+
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 
 const transitionDuration = 200
 
@@ -494,10 +497,7 @@ export class Opening extends PureComponent {
 
   _handleClick = event => {
     event.preventDefault()
-    window.scroll({
-      top: this._cover.scrollHeight, // cover bottom
-      behavior: 'smooth',
-    })
+    smoothScroll(this._cover.scrollHeight) // cover bottom
   }
   _closeAnchorPanel = () => {
     this.setState({

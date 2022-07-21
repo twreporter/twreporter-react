@@ -1,4 +1,3 @@
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import BottomComponents from './bottom'
 import BottomLeftComponents from './bottom-left'
@@ -11,7 +10,9 @@ import React, { PureComponent } from 'react'
 import siteMeta from '../../../constants/site-meta'
 import styled from 'styled-components'
 // @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 // lodash
 import get from 'lodash/get'
 
@@ -101,10 +102,7 @@ export default class Banner extends PureComponent {
     e.preventDefault()
     const container = this._containerRef.current
     if (container) {
-      window.scroll({
-        top: container.offsetHeight || container.clientHeight,
-        behavior: 'smooth',
-      })
+      smoothScroll(container.offsetHeight || container.clientHeight)
     }
   }
 
