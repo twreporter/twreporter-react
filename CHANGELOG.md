@@ -1,28 +1,24 @@
 # Changelog
 
-## 4.8.2-rc.1, 2022-07-20 (Current)
+## 4.8.2, 2022-07-21 (Current)
 
 ### Notable Changes
 
-- chore
-  - downgrade npm packages
-    - @twreporter/react-article-components@1.5.0
+- chore: update @twreporter npm packages
+  e927268
+  - @twreporter/index-page@^1.3.0
+  - @twreporter/react-article-components@^1.6.0
+  - @twreporter/react-components@^8.11.0
+  - @twreporter/universal-header@^2.2.11
 
 ### Commits
 
+- [[`be70da1150`](https://github.com/twreporter/twreporter-react/commit/be70da1150)] - **chore**: update @twreporter npm packages (#2199) (Tai-Jiun Fang)
+- [[`2c8b86fa1f`](https://github.com/twreporter/twreporter-react/commit/2c8b86fa1f)] - **refactor**: replace the NewsletterSection with JuniorBoxSection
+  ang)
+- [[`24d9e41cf0`](https://github.com/twreporter/twreporter-react/commit/24d9e41cf0)] - **chore**: update twreporter npm packages (#2196) (Tai-Jiun Fang)
 - \[[`6fed91657b`](https://github.com/twreporter/twreporter-react/commit/6fed91657b)] - Merge pull request #2194 from duidae/jason/downgrade_react-article-component_v1.5.0 (許守傑 Shou-Chieh Hsu (Jason))
 - \[[`33652de641`](https://github.com/twreporter/twreporter-react/commit/33652de641)] - **chore**: downgrade react-article-components to v1.5.0 (duidae)
-
-## 4.8.2-rc.0, 2022-07-08
-
-### Notable Changes
-
-- chore
-  - update npm packages
-    - @twreporter/react-article-components@1.6.0-rc.0
-
-### Commits
-
 - \[[`dbe80bf539`](https://github.com/twreporter/twreporter-react/commit/dbe80bf539)] - Merge pull request #2189 from duidae/jason/issue_60 (許守傑 Shou-Chieh Hsu (Jason))
 - \[[`fe20cecf9f`](https://github.com/twreporter/twreporter-react/commit/fe20cecf9f)] - **chore**: update react-article-component to v1.6.0-rc.0 (duidae)
 
