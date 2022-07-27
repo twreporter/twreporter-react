@@ -1,17 +1,18 @@
 # Changelog
 
-## 4.8.3-rc.0, 2022-07-25
+## 4.8.3, 2022-07-27 (Current)
 
 ### Notable Changes
 
 - chore: update @twreporter npm packages
-  - @twreporter/react-article-components@1.6.1-rc.0
+  - @twreporter/react-article-components@1.6.1
 
 ### Commits
 
-- [[`b6713cb3a4`](https://github.com/twreporter/twreporter-react/commit/b6713cb3a4)] - **chore**: update @twreporter package to apply tool bar change (Aylie Chou)
+- [[`b6713cb3a4`](https://github.com/twreporter/twreporter-react/commit/b6713cb3a4)] - **chore**: update @twreporter package to apply tool bar change (#2203) (Aylie Chou)
+- [[`407c9cead4`](https://github.com/twreporter/twreporter-react/commit/407c9cead4)] - **chore**: update @twreporter package to release version (#2206) (Aylie Chou)
 
-## 4.8.2, 2022-07-21 (Current)
+## 4.8.2, 2022-07-21
 
 ### Notable Changes
 
