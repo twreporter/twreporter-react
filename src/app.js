@@ -3,34 +3,56 @@ import React from 'react'
 import getRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
 // components
 import AppShell from './containers/app-shell'
 // constants
 import colors from './constants/colors'
 import typography from './constants/typography'
 // @twreporter
+import getFontFaces from '@twreporter/react-components/lib/text/utils/get-fontfaces'
 import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
-import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import useFontFaceObserver from '@twreporter/react-components/lib/hook/use-font-face-observer'
+import {
+  fonts,
+  fontWeight,
+  fontFamily,
+} from '@twreporter/core/lib/constants/font'
 
-const GlobalStyle = createGlobalStyle`
+// lodash
+import map from 'lodash/map'
+
+const _ = {
+  map,
+}
+
+const selfHostedFonts = [fonts.notoSansTC]
+
+const BaseStyle = css`
   html {
     font-size: ${typography.font.size.base};
+  }
+  html.fontsLoaded {
+    font-family: ${fontFamily.default};
   }
   body {
     overflow-x: hidden;
     overflow-y: auto;
     letter-spacing: 0.4px;
     line-height: 1.4;
-    font-family: ${fontFamily.default};
-    abbr[title], abbr[data-original-title] {
+    abbr[title],
+    abbr[data-original-title] {
       border-bottom: 0;
     }
-    *, :before, :after {
+    *,
+    :before,
+    :after {
       box-sizing: border-box;
     }
 
-    a, a:link, a:visited {
+    a,
+    a:link,
+    a:visited {
       text-decoration: none;
     }
 
@@ -55,11 +77,11 @@ const GlobalStyle = createGlobalStyle`
     .no-hover {
       border-bottom: 0 !important;
       &:after {
-          display: none;
+        display: none;
       }
       &:hover:after {
-          width: 0;
-          display: none;
+        width: 0;
+        display: none;
       }
     }
 
@@ -72,16 +94,17 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .center-block {
-      display:block;
-      margin-left:auto;
-      margin-right:auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .visible-print {
       display: none;
     }
 
-    figure, p {
+    figure,
+    p {
       margin: 0;
     }
 
@@ -108,6 +131,29 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const GlobalStyle = createGlobalStyle`
+  ${props => props.fontfaces}
+  ${BaseStyle}
+`
+
+const GlobalStyleWithFonts = ({ fonts = [] }) => {
+  const fontfaces = _.map(fonts, font => getFontFaces[font]).join()
+  useFontFaceObserver(
+    _.map(fonts, font => ({ family: font })),
+    // add classname 'fontsLoaded' to <html> to apply the loaded fonts
+    // to address FOUT issue
+    () => {
+      document.documentElement.className += ' fontsLoaded'
+    }
+  )
+
+  return <GlobalStyle fontfaces={fontfaces} />
+}
+
+GlobalStyleWithFonts.propTypes = {
+  fonts: PropTypes.arrayOf(PropTypes.string),
+}
+
 export default class App extends React.Component {
   static propTypes = {
     reduxStore: PropTypes.object,
@@ -121,7 +167,6 @@ export default class App extends React.Component {
   render() {
     const routes = getRoutes()
     const { reduxStore, releaseBranch } = this.props
-
     return (
       <Provider store={reduxStore}>
         <Route
@@ -145,7 +190,7 @@ export default class App extends React.Component {
             )
           }}
         />
-        <GlobalStyle />
+        <GlobalStyleWithFonts fonts={selfHostedFonts} />
       </Provider>
     )
   }
