@@ -1,6 +1,22 @@
 # Changelog
 
-## 4.8.3, 2022-07-27 (Current)
+## 4.8.4-rc.0, 2022-07-27 (Current)
+
+### Notable Changes
+
+- chore: update @twreporter npm packages
+  - @twreporter/core@1.4.2-rc.0
+  - @twreporter/index-page@1.3.1-rc.0
+  - @twreporter/react-article-components@1.6.2-rc.0
+  - @twreporter/react-components@8.11.1-rc.0
+  - @twreporter/universal-header@2.2.12-rc.0
+- chore: replace smoothScroll npm package with our custom smooth-scroll
+
+### Commits
+
+- [[`bbc8242585`](https://github.com/twreporter/twreporter-react/commit/bbc8242585)] - **fix**: remove smoothscroll lib (#2192) (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.8.3, 2022-07-27
 
 ### Notable Changes
 
