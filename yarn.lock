@@ -482,10 +482,10 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@1.6.1-rc.0":
-  version "1.6.1-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.6.1-rc.0.tgz#e75c09904ce325f71683085819b45fc33cdba86a"
-  integrity sha512-Ld6q/gAEvagXbf4dEW6+yKHuoE+g09hO4+KYXgSVR4ETqdbYhU+p7Y9c2LEQnXtBSr7JjvQ40I19jMZqTnt3pg==
+"@twreporter/react-article-components@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.6.1.tgz#9deaef87876f1c56efda21f416af621ec7797675"
+  integrity sha512-DXBxYUK0JvEWxPGqQR7ZZrrsQMkpZKPEUGpjkGyjNTIhGKHbTBbAI04FlfcjKjEQ9JPvsGRNdh9YZtebGIeoLQ==
   dependencies:
     "@twreporter/core" "^1.4.1"
     "@twreporter/react-components" "^8.11.0"
