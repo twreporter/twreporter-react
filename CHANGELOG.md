@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.8.4-rc.0, 2022-07-27 (Current)
+## 4.8.4-rc.1, 2022-08-03 (Current)
+
+### Notable Changes
+
+- chore: update @twreporter npm packages
+  - @twreporter/react-article-components@1.6.2-rc.1
+
+### Commits
+
+- \[[`b1ba9685d1`](https://github.com/twreporter/twreporter-react/commit/b1ba9685d1)] - **chore**: upgrade react-article-components to v1.6.2-rc.1 (#2212) (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.8.4-rc.0, 2022-07-27
 
 ### Notable Changes
 
