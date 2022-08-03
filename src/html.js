@@ -111,7 +111,7 @@ export default class Html extends PureComponent {
                 var wf = document.createElement("script"),
                 webFontConfig={
                   google: {
-                    families: ['Merriweather:700','Rosario:400,700','Noto+Sans+TC:200,300,400,700','Noto+Serif+TC:500,600,700&display=swap']
+                    families: ['Merriweather:700','Rosario:400,700','Noto+Serif+TC:500,600,700&display=swap']
                   }
                 };
                 wf.type = "text/javascript";
