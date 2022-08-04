@@ -31,6 +31,7 @@ const selfHostedFonts = [fonts.notoSansTC]
 const BaseStyle = css`
   html {
     font-size: ${typography.font.size.base};
+    font-family: ${fontFamily.defaultFallback};
   }
   html.fontsLoaded {
     font-family: ${fontFamily.default};
