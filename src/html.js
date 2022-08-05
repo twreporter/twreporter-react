@@ -2,9 +2,13 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import map from 'lodash/map'
 import serialize from 'serialize-javascript'
 
+// @twreporter
+import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
+
+// lodash
+import map from 'lodash/map'
 const _ = {
   map,
 }
@@ -67,6 +71,15 @@ export default class Html extends PureComponent {
 
           <link href="/asset/favicon.png" rel="shortcut icon" />
           <link rel="stylesheet" href="/asset/normalize.css" />
+          {_.map(webfonts.fontGCSFiles, (fileSrc, key) => (
+            <link
+              rel="preload"
+              href={fileSrc}
+              key={'webfont' + key}
+              as="font"
+              crossOrigin="anonymous"
+            />
+          ))}
           {_.map(styles, (stylesheet, key) => (
             <link
               href={stylesheet}
