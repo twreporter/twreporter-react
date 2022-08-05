@@ -10,9 +10,9 @@ import AppShell from './containers/app-shell'
 import colors from './constants/colors'
 import typography from './constants/typography'
 // @twreporter
-import getFontFaces from '@twreporter/react-components/lib/text/utils/get-fontfaces'
 import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
 import useFontFaceObserver from '@twreporter/react-components/lib/hook/use-font-face-observer'
+import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
 import {
   fonts,
   fontWeight,
@@ -138,7 +138,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const GlobalStyleWithFonts = ({ fonts = [] }) => {
-  const fontfaces = _.map(fonts, font => getFontFaces[font]).join()
+  const fontfaces = _.map(fonts, font => webfonts.fontFaces[font]).join()
   useFontFaceObserver(
     _.map(fonts, font => ({ family: font })),
     // add classname 'fontsLoaded' to <html> to apply the loaded fonts
