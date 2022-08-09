@@ -1,6 +1,5 @@
 /* eslint react/no-find-dom-node:1 */
 import colors from '../../constants/colors'
-import Footer from '@twreporter/react-components/lib/footer'
 import Helmet from 'react-helmet'
 import mq from './utils/media-query'
 import ErrorBoundary from './utils/error-boundary'
@@ -13,12 +12,15 @@ import Section04 from './section-04'
 import Section05 from './section-05'
 import SideBarFactory from '../side-bar/side-bar-factory'
 import siteMeta from '../../constants/site-meta'
-import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 import WebFont from './web-font'
-import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 import { Opening } from './opening'
 import TagManager from 'react-gtm-module'
+
+// @twreporter
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
+import Footer from '@twreporter/react-components/lib/footer'
+import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 
 const Border = styled.div`
   ${mq.hdOnly`
@@ -46,7 +48,7 @@ export class AboutUs extends PureComponent {
     this.sectionOffset = []
   }
   _handleClickAnchor = anchorIdx => {
-    return smoothScroll(this.sectionOffset[anchorIdx])
+    smoothScroll(this.sectionOffset[anchorIdx])
   }
   componentDidMount() {
     // For client-side rendering, we notify GTM that the new component is ready
