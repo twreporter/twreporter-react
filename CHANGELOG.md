@@ -1,29 +1,27 @@
 # Changelog
 
-## 4.8.4-rc.1, 2022-08-03 (Current)
+## 4.8.4, 2022-08-09 (Current)
 
 ### Notable Changes
 
 - chore: update @twreporter npm packages
-  - @twreporter/react-article-components@1.6.2-rc.1
-
-### Commits
-
-- \[[`b1ba9685d1`](https://github.com/twreporter/twreporter-react/commit/b1ba9685d1)] - **chore**: upgrade react-article-components to v1.6.2-rc.1 (#2212) (許守傑 Shou-Chieh Hsu (Jason))
-
-### Notable Changes
-
-- chore: update @twreporter npm packages
-  - @twreporter/core@1.4.2-rc.0
-  - @twreporter/index-page@1.3.1-rc.0
-  - @twreporter/react-article-components@1.6.2-rc.0
-  - @twreporter/react-components@8.11.1-rc.0
-  - @twreporter/universal-header@2.2.12-rc.0
+  - @twreporter/core@1.4.2
+  - @twreporter/index-page@1.3.1
+  - @twreporter/react-article-components@1.6.2
+  - @twreporter/react-components@8.11.1
+  - @twreporter/universal-header@2.2.12
 - chore: replace smoothScroll npm package with our custom smooth-scroll
 
 ### Commits
 
-- [[`bbc8242585`](https://github.com/twreporter/twreporter-react/commit/bbc8242585)] - **fix**: remove smoothscroll lib (#2192) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`587e780ae8`](https://github.com/twreporter/twreporter-react/commit/587e780ae8)] - Merge pull request #2217 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`345824bf3c`](https://github.com/twreporter/twreporter-react/commit/345824bf3c)] - **chore**: update npm packages (duidae)
+- \[[`82c1f91313`](https://github.com/twreporter/twreporter-react/commit/82c1f91313)] - Merge branch 'staging' into master (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`2da25c28e9`](https://github.com/twreporter/twreporter-react/commit/2da25c28e9)] - **chore**: bump version v4.8.4-rc.1 (#2213) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`b1ba9685d1`](https://github.com/twreporter/twreporter-react/commit/b1ba9685d1)] - **chore**: upgrade react-article-components to v1.6.2-rc.1 (#2212) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`b54301715d`](https://github.com/twreporter/twreporter-react/commit/b54301715d)] - **chore**: release v4.8.4-rc.0 to staging (#2211) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`a7153891b8`](https://github.com/twreporter/twreporter-react/commit/a7153891b8)] - **chore**: bump version v4.8.4-rc.0 (#2210) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`bbc8242585`](https://github.com/twreporter/twreporter-react/commit/bbc8242585)] - **fix**: remove smoothscroll lib (#2192) (許守傑 Shou-Chieh Hsu (Jason))
 
 ## 4.8.3, 2022-07-27
 
