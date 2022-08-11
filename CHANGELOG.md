@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.9.0-rc.0, 2022-08-10
+## 4.9.0, 2022-08-11 (Current)
 
 ### Notable Changes
 
@@ -13,6 +13,7 @@
 
 ### Commits
 
+- [24f35d4511] - chore: update @twreporter npm packages (#2223) (Tai-Jiun Fang)
 - [0caba9792c] - chore: update twreporter npm pkgs (Tai-Jiun Fang)
 - [e00f8a46c2] - feat: preload self hosted fonts (Tai-Jiun Fang)
 - [f3f15505f0] - refactor: update `getFontFaces` to `webfonts.fontFaces` (Tai-Jiun Fang)
@@ -20,7 +21,7 @@
 - [3fe48d7b72] - refactor: update global style to include fontfaces (Tai-Jiun Fang)
 - [f31accd867] - fix: remove `Noto Sans TC` font from webfontloader loading list (Tai-Jiun Fang)
 
-## 4.8.4, 2022-08-09 (Current)
+## 4.8.4, 2022-08-09
 
 ### Notable Changes
 
