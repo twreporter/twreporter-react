@@ -2,9 +2,13 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import map from 'lodash/map'
 import serialize from 'serialize-javascript'
 
+// @twreporter
+import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
+
+// lodash
+import map from 'lodash/map'
 const _ = {
   map,
 }
@@ -67,6 +71,15 @@ export default class Html extends PureComponent {
 
           <link href="/asset/favicon.png" rel="shortcut icon" />
           <link rel="stylesheet" href="/asset/normalize.css" />
+          {_.map(webfonts.fontGCSFiles, (fileSrc, key) => (
+            <link
+              rel="preload"
+              href={fileSrc}
+              key={'webfont' + key}
+              as="font"
+              crossOrigin="anonymous"
+            />
+          ))}
           {_.map(styles, (stylesheet, key) => (
             <link
               href={stylesheet}
@@ -111,7 +124,7 @@ export default class Html extends PureComponent {
                 var wf = document.createElement("script"),
                 webFontConfig={
                   google: {
-                    families: ['Merriweather:700','Rosario:400,700','Noto+Sans+TC:200,300,400,700','Noto+Serif+TC:500,600,700&display=swap']
+                    families: ['Merriweather:700','Rosario:400,700','Noto+Serif+TC:500,600,700&display=swap']
                   }
                 };
                 wf.type = "text/javascript";
