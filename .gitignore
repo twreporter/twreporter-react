@@ -30,3 +30,6 @@ yarn-error.log
 
 #Ignore testing screenshots
 src/test/screenshots/testDir/
+
+#Ignore files after running lighthouse CI locally 
+.lighthouseci/
