@@ -1,6 +1,6 @@
 import querystring from 'querystring'
 import get from 'lodash/get'
-import categoryConst from '../constants/category'
+import { CATEGORY } from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
 import statusCodeConst from '../constants/status-code'
 
@@ -34,7 +34,7 @@ export default function loadData({ location, match, store }) {
   }
 
   const pathSegment = _.get(match, 'params.category', '')
-  const catId = categoryConst.ids[pathSegment]
+  const catId = CATEGORY[pathSegment] && CATEGORY[pathSegment].id
 
   if (!catId) {
     // return status NotFound if catId not existed

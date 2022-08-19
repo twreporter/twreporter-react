@@ -14,8 +14,10 @@ import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
 import SystemError from '../components/SystemError'
 
-// utils
-import cloneUtils from '../utils/shallow-clone-entity'
+// feature-toggle
+import cloneUtilsNew from '../utils/shallow-clone-entity'
+import cloneUtilsOld from '../utils/shallow-clone-entity-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
@@ -24,6 +26,7 @@ import twreporterRedux from '@twreporter/redux'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 
 const logger = loggerFactory.getLogger()
 const { actions, reduxStateFields } = twreporterRedux

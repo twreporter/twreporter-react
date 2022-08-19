@@ -11,13 +11,16 @@ import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 import twreporterRedux from '@twreporter/redux'
 
-// utils
-import cloneUtils from '../utils/shallow-clone-entity'
+// feature-toggle
+import cloneUtilsNew from '../utils/shallow-clone-entity'
+import cloneUtilsOld from '../utils/shallow-clone-entity-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 
 // lodash
 import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 
 const _ = {
   find,

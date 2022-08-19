@@ -1,17 +1,35 @@
-import Article from './containers/Article'
-import dataLoaders from './data-loaders/index'
-import FallbackPage from './containers/ServiceWorkerFallbackPage'
-import get from 'lodash/get'
 import Loadable from 'react-loadable'
 import PropTypes from 'prop-types'
 import React from 'react'
-import routesConst from './constants/routes'
+// utils
+import dataLoaders from './data-loaders/index'
+// constants
+import routesNewConst from './constants/routes'
+import routesOldConst from './constants/routes-old'
 import statusCodeConst from './constants/status-code'
+// components
+import FallbackPage from './containers/ServiceWorkerFallbackPage'
+import Article from './containers/Article'
 import SystemError from './components/SystemError'
-
+// lodash
+import get from 'lodash/get'
+// feature toggle
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 const _ = {
   get,
 }
+const routesConst = ENABLE_NEW_INFO_ARCH ? routesNewConst : routesOldConst
+const categoryLoader = ENABLE_NEW_INFO_ARCH
+  ? () =>
+      import(
+        /* webpackChunkName: "category-list-page" */
+        './containers/Category'
+      )
+  : () =>
+      import(
+        /* webpackChunkName: "category-list-page" */
+        './containers/Category-old'
+      )
 
 class LoadingComponent extends React.Component {
   static propTypes = {
@@ -33,7 +51,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "index-page" */
-        './containers/Home'
+        './containers/Home-old'
       ),
     loading: LoadingComponent,
   }),
@@ -54,11 +72,7 @@ const loadablePages = {
     loading: LoadingComponent,
   }),
   category: Loadable({
-    loader: () =>
-      import(
-        /* webpackChunkName: "category-list-page" */
-        './containers/Category'
-      ),
+    loader: categoryLoader,
     loading: LoadingComponent,
   }),
   tag: Loadable({
