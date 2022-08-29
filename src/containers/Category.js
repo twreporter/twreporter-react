@@ -79,20 +79,21 @@ const Category = ({
   totalPages,
   page,
 }) => {
-  const fetchPostsWithCatch = () => {
-    return fetchPostsByCategorySetListId(listId, nPerPage, page).catch(
-      failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: '${listId}', page: ${page}, nPerPage: ${nPerPage}).`,
-        })
-      }
-    )
-  }
-
   useEffect(() => {
-    fetchPostsWithCatch()
-  }, [category, activeTabIndex, page])
+    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
+      logger.errorReport({
+        report: _.get(failAction, 'payload.error'),
+        message: `Error to fetch posts (category id: '${listId}', page: ${page}, nPerPage: ${nPerPage}).`,
+      })
+    })
+  }, [
+    category,
+    activeTabIndex,
+    page,
+    listId,
+    fetchPostsByCategorySetListId,
+    nPerPage,
+  ])
 
   // Error handling
   if (error) {
