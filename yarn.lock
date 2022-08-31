@@ -455,6 +455,15 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@twreporter/core@1.6.0-rc.0":
+  version "1.6.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.6.0-rc.0.tgz#99f0c860f7045dcf5ebea99776a7a9cacc17dc09"
+  integrity sha512-u48btb+Hjnke23DGeS3x9AEQaGv9U/9tKJ2usrhzwFl/N7n674AhcgQKZmml8dj8JyHGuDEH6PJQfhoIthMrxw==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/core@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.5.0.tgz#723c412dfb10366aa0f0d704f9c3681f214db66b"

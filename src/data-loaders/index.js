@@ -3,12 +3,18 @@ import loadAuthorListPageData from './author-list-page'
 import loadAuthorPageData from './author-page'
 import loadBookmarkListData from './bookmark-list'
 import loadBookmarkWidgetData from './bookmark-widget'
-import loadCategoryListPageData from './category-list-page'
+import loadCategoryListPageDataNew from './category-list-page'
+import loadCategoryListPageDataOld from './category-list-page-old'
 import loadIndexPageData from './index-page'
 import loadPhotographyPageData from './photography-page'
 import loadTagListPageData from './tag-list-page'
 import loadTopicListPageData from './topic-list-page'
 import loadTopicPageData from './topic-page'
+// feature toggle
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
+const loadCategoryListPageData = ENABLE_NEW_INFO_ARCH
+  ? loadCategoryListPageDataNew
+  : loadCategoryListPageDataOld
 
 export default {
   loadArticlePageData,

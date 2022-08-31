@@ -2,12 +2,12 @@
 
 import apiEndpoints from '@twreporter/redux/lib/constants/api-endpoints'
 import Express from 'express'
-import get from 'lodash/get'
 import net from 'net'
+
+import get from 'lodash/get'
 
 // mock api response
 import mockIndexPageResponse from './mock-data/index-page'
-import { mockAPostResponse, mockPostsResponse } from './mock-data/posts'
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/topics'
 import {
   mockAuthorsResponse,
@@ -15,14 +15,21 @@ import {
   mockAuthorCollectionsResponse,
 } from './mock-data/authors'
 
+// feature toggle
+import mockPostsNew from './mock-data/posts'
+import mockPostsOld from './mock-data/posts-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
+const _ = {
+  get: get,
+}
+const { mockAPostResponse, mockPostsResponse } = ENABLE_NEW_INFO_ARCH
+  ? mockPostsNew
+  : mockPostsOld
+
 const app = Express()
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8080
 const router = Express.Router()
-
-const _ = {
-  get: get,
-}
 
 const _checkIfPortIsTaken = port =>
   new Promise((resolve, reject) => {
@@ -73,11 +80,20 @@ router.route(`/${apiEndpoints.posts}/:slug`).get((req, res) => {
 })
 
 router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
-  const { limit = '10', offset = '0', id, category_id, tag_id } = req.query
+  const {
+    limit = '10',
+    offset = '0',
+    id,
+    category_id,
+    tag_id,
+    subcategory_id,
+  } = req.query
   const _limit = Number(limit)
   const _offset = Number(offset)
 
-  res.json(mockPostsResponse(_limit, _offset, id, category_id, tag_id))
+  res.json(
+    mockPostsResponse(_limit, _offset, id, category_id, tag_id, subcategory_id)
+  )
 })
 
 router.route(`/${apiEndpoints.topics}/`).get((req, res) => {

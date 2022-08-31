@@ -1,13 +1,22 @@
 import posts from './posts.json'
-import cloneUtils from '../utils/shallow-clone-entity'
+
+// feature-toggle
+import {
+  shallowCloneMetaOfPost,
+  shallowCloneFullPost,
+} from '../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
 import forEach from 'lodash/forEach'
+import filter from 'lodash/filter'
+import some from 'lodash/some'
 
 const _ = {
   find,
   forEach,
+  filter,
+  some,
 }
 
 const mocks = {
@@ -60,6 +69,19 @@ function seekPostsByListIds(mockPosts, ids, listType) {
 }
 
 /**
+ *  This function seeks the posts with certain category set.
+ *
+ *  @param {Object[]} mockPosts - array of mocked posts
+ *  @param {string[]} categorySet - category set object
+ *  @return {Object[]} - matched posts
+ */
+function seekPostsByCategorySet(mockPosts, categorySet) {
+  return _.filter(mockPosts, post => {
+    return _.some(post['category_set'], categorySet)
+  })
+}
+
+/**
  *  This function mocks the response of go-api `/v2/posts/:slug?full=(true|false)` endpoint
  *
  *  @param {string} slug - post slug
@@ -69,9 +91,7 @@ function seekPostsByListIds(mockPosts, ids, listType) {
  */
 export function mockAPostResponse(slug, full) {
   let post = _.find(posts, post => post.slug === slug)
-  post = full
-    ? cloneUtils.shallowCloneFullPost(post)
-    : cloneUtils.shallowCloneMetaOfPost(post)
+  post = full ? shallowCloneFullPost(post) : shallowCloneMetaOfPost(post)
   post.full = full
 
   if (post) {
@@ -104,7 +124,8 @@ export function mockPostsResponse(
   offset = 0,
   id,
   categoryId,
-  tagId
+  tagId,
+  subcategoryId
 ) {
   let posts = []
 
@@ -117,12 +138,11 @@ export function mockPostsResponse(
   }
 
   if (categoryId) {
-    let ids = categoryId
-    if (typeof categoryId === 'string') {
-      ids = [categoryId]
+    const categorySet = { category: categoryId }
+    if (subcategoryId) {
+      categorySet.subcategory = subcategoryId
     }
-
-    posts = posts.concat(seekPostsByListIds(mocks.posts, ids, 'categories'))
+    posts = posts.concat(seekPostsByCategorySet(mocks.posts, categorySet))
   }
 
   if (tagId) {
@@ -143,7 +163,7 @@ export function mockPostsResponse(
         total: posts.length,
       },
       records: posts.slice(offset, offset + limit).map(_post => {
-        const post = cloneUtils.shallowCloneMetaOfPost(_post)
+        const post = shallowCloneMetaOfPost(_post)
         post.full = false
         return post
       }),

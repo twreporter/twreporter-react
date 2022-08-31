@@ -1,5 +1,8 @@
 import topics from './topics.json'
-import cloneUtils from '../utils/shallow-clone-entity'
+import {
+  shallowCloneFullTopic,
+  shallowCloneMetaOfTopic,
+} from '../utils/shallow-clone-entity'
 
 // lodash
 import find from 'lodash/find'
@@ -22,9 +25,7 @@ const mocks = {
  */
 export function mockATopicResponse(slug, full) {
   let topic = _.find(topics, topic => topic.slug === slug)
-  topic = full
-    ? cloneUtils.shallowCloneFullTopic(topic)
-    : cloneUtils.shallowCloneMetaOfTopic(topic)
+  topic = full ? shallowCloneFullTopic(topic) : shallowCloneMetaOfTopic(topic)
   topic.full = full
 
   if (topic) {
@@ -59,7 +60,7 @@ export function mockTopicsResponse(limit = 10, offset = 0) {
         total: mocks.topics.length,
       },
       records: mocks.topics.slice(offset, offset + limit).map(_topic => {
-        const topic = cloneUtils.shallowCloneMetaOfTopic(_topic)
+        const topic = shallowCloneMetaOfTopic(_topic)
         topic.full = false
         return topic
       }),

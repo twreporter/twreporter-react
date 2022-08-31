@@ -1,106 +1,149 @@
 import { connect } from 'react-redux'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import categoryConst from '../constants/category'
-import dataLoaderConst from '../constants/data-loaders'
 import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
-import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { PureComponent } from 'react'
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+// components
 import SystemError from '../components/SystemError'
-import siteMeta from '../constants/site-meta'
-import twreporterRedux from '@twreporter/redux'
-
+import Pagination from '../components/Pagination'
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
-
+import loggerFactory from '../logger'
+import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
+// constants
+import { CATEGORY, SUBCATEGORY, CATEGORY_SET } from '../constants/category'
+import dataLoaderConst from '../constants/data-loaders'
+import siteMeta from '../constants/site-meta'
+// @twreporter
+import twreporterRedux from '@twreporter/redux'
+import mq from '@twreporter/core/lib/utils/media-query'
+import { List } from '@twreporter/react-components/lib/listing-page'
+import { TitleTab } from '@twreporter/react-components/lib/title-bar'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-
+import map from 'lodash/map'
+import findIndex from 'lodash/findIndex'
 const _ = {
   forEach,
   get,
+  map,
+  findIndex,
 }
-
+// global var
 const { actions, reduxStateFields } = twreporterRedux
-const { fetchPostsByCategoryListId } = actions
+const { fetchPostsByCategorySetListId } = actions
 const logger = loggerFactory.getLogger()
 
-class Category extends PureComponent {
-  componentDidMount() {
-    this.fetchPostsWithCatch()
-  }
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 1130px; //hd
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.catId !== prevProps.catId ||
-      this.props.page !== prevProps.page
-    ) {
-      this.fetchPostsWithCatch()
-    }
-  }
+  ${mq.desktopOnly`
+    max-width: 922px;
+  `}
+  ${mq.tabletOnly`
+    max-width: 698px;
+  `}
+  ${mq.mobileOnly`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 375px;
+  `}
+`
 
-  fetchPostsWithCatch() {
-    const { catId, fetchPostsByCategoryListId, nPerPage, page } = this.props
+const TitleTabContainer = styled.div`
+  margin: 64px 0;
 
-    fetchPostsByCategoryListId(catId, nPerPage, page).catch(failAction => {
+  ${mq.tabletOnly`
+    margin: 32px 0;
+  `}
+  ${mq.mobileOnly`
+    margin: 24px 0;
+    width: 86.66666666666667%;
+  `}
+`
+
+const Category = ({
+  category,
+  subcategoryList,
+  activeTabIndex,
+  listId,
+  pathname,
+  posts,
+  error,
+  isFetching,
+  fetchPostsByCategorySetListId,
+  nPerPage,
+  totalPages,
+  page,
+}) => {
+  useEffect(() => {
+    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
-        message: `Error to fetch posts (category id: '${catId}', page: ${page}, nPerPage: ${nPerPage}).`,
+        message: `Error to fetch posts (category id: '${listId}', page: ${page}, nPerPage: ${nPerPage}).`,
       })
     })
+  }, [
+    category,
+    activeTabIndex,
+    page,
+    listId,
+    fetchPostsByCategorySetListId,
+    nPerPage,
+  ])
+
+  // Error handling
+  if (error) {
+    return <SystemError error={error} />
   }
 
-  render() {
-    const {
-      catLabel,
-      error,
-      isFetching,
-      page,
-      pathname,
-      posts,
-      totalPages,
-    } = this.props
-
-    // Error handling
-    if (error) {
-      return <SystemError error={error} />
+  const catLabel = category.label
+  const title = catLabel + siteMeta.name.separator + siteMeta.name.full
+  const canonical = `${siteMeta.urlOrigin}${pathname}`
+  const tabs = _.map(subcategoryList, subcategory => {
+    const { label, link, isExternal } = subcategory
+    return {
+      text: label,
+      link,
+      isExternal,
     }
+  })
 
-    const title = catLabel + siteMeta.name.separator + siteMeta.name.full
-    const canonical = `${siteMeta.urlOrigin}${pathname}`
-
-    return (
-      <div>
-        <Helmet
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <List
-          data={posts}
-          catName={catLabel}
-          isFetching={isFetching}
-          showSpinner={true}
-        />
+  return (
+    <div>
+      <Helmet
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { name: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
+      <Container>
+        <TitleTabContainer>
+          <TitleTab
+            title={catLabel}
+            tabs={tabs}
+            activeTabIndex={activeTabIndex}
+          />
+        </TitleTabContainer>
+        <List data={posts} isFetching={isFetching} showSpinner={true} />
         <Pagination currentPage={page} totalPages={totalPages} />
-      </div>
-    )
-  }
+      </Container>
+    </div>
+  )
 }
 
 /**
@@ -178,7 +221,7 @@ function postsProp(state, listId, page) {
   _.forEach(postIdsForCurPage, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+      posts.push(shallowCloneMetaOfPost(post))
     }
   })
   return posts
@@ -186,8 +229,7 @@ function postsProp(state, listId, page) {
 
 /**
  *  @typedef {Object} CategoryProps
- *  @property {string} catId - category list id
- *  @property {string} catLabel - category label
+ *  @property {string} listId - category set id
  *  @property {Object} error - error object
  *  @property {boolean} isFetching - if it is requesting api or not
  *  @property {number} page - current page for pagination
@@ -209,30 +251,53 @@ function postsProp(state, listId, page) {
  */
 function mapStateToProps(state, props) {
   const location = _.get(props, 'location')
-  const pathSegment = _.get(props, 'match.params.category')
-  const catId = categoryConst.ids[pathSegment]
-  const catLabel = categoryConst.labels[pathSegment]
-  const pathname = _.get(location, 'pathname', `/categories/${pathSegment}`)
+  const categoryPath = _.get(props, 'match.params.category')
+  const subcategoryPath = _.get(props, 'match.params.subcategory')
+  const category = CATEGORY[categoryPath]
+  const subcategory = SUBCATEGORY[subcategoryPath]
 
+  let listId = `${category && category.id}`
+  if (subcategory) {
+    // todo: set listId as `${category_id}_${subcategory_id}` when db ready
+    listId += `_tag-${subcategory.path}`
+  }
+  const defaultPathname = subcategoryPath
+    ? `/categories/${categoryPath}/${subcategoryPath}`
+    : `/categories/${categoryPath}`
+  const pathname = _.get(location, 'pathname', defaultPathname)
+  const subcategoryList = _.map(CATEGORY_SET[categoryPath], subcategory => {
+    const { path } = subcategory
+    const link = path
+      ? `/categories/${categoryPath}/${path}`
+      : `/categories/${categoryPath}`
+    const isExternal = false
+    return { link, isExternal, ...subcategory }
+  })
+  const activeTabIndex = subcategoryPath
+    ? _.findIndex(subcategoryList, ['path', subcategoryPath])
+    : 0
   const page = pageProp(location)
   const nPerPage = dataLoaderConst.categoryListPage.nPerPage
 
   return {
-    catId,
-    catLabel,
-    error: errorProp(state, catId),
-    isFetching: isFetchingProp(state, catId),
+    category,
+    subcategoryList,
+    activeTabIndex,
+    listId,
+    error: errorProp(state, listId),
+    isFetching: isFetchingProp(state, listId),
     nPerPage,
     page,
     pathname,
-    posts: postsProp(state, catId, page),
-    totalPages: totalPagesProp(state, catId, nPerPage),
+    posts: postsProp(state, listId, page),
+    totalPages: totalPagesProp(state, listId, nPerPage),
   }
 }
 
 Category.defaultProps = {
-  catId: '',
-  catLabel: '',
+  category: {},
+  subcategoryList: [],
+  activeTabIndex: 0,
   error: null,
   isFetching: false,
   posts: [],
@@ -241,10 +306,12 @@ Category.defaultProps = {
 }
 
 Category.propTypes = {
-  catId: PropTypes.string,
-  catLabel: PropTypes.string,
+  category: PropTypes.object,
+  subcategoryList: PropTypes.array,
+  activeTabIndex: PropTypes.number,
+  listId: PropTypes.String,
   error: PropTypes.object,
-  fetchPostsByCategoryListId: PropTypes.func.isRequired,
+  fetchPostsByCategorySetListId: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   nPerPage: PropTypes.number,
   page: PropTypes.number.isRequired,
@@ -259,5 +326,5 @@ Category.propTypes = {
 export { Category }
 export default connect(
   mapStateToProps,
-  { fetchPostsByCategoryListId }
+  { fetchPostsByCategorySetListId }
 )(Category)
