@@ -27,7 +27,10 @@ export default class Html extends PureComponent {
     return (
       <html lang="zh-TW">
         <head>
-          <script src="https://www.googleoptimize.com/optimize.js?id=OPT-NGNDMW8" />
+          <script
+            async
+            src="https://www.googleoptimize.com/optimize.js?id=OPT-NGNDMW8"
+          />
           {head.base.toComponent()}
           {head.title.toComponent()}
           {head.meta.toComponent()}
