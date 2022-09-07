@@ -15,7 +15,7 @@ export default {
     path: '/topics',
   },
   categoryListPage: {
-    path: '/categor(y|ies)/:category',
+    path: '/categor(y|ies)/:category/:subcategory?',
   },
   tagListPage: {
     path: '/(tag|tags)/:tagId',

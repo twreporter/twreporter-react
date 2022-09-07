@@ -16,7 +16,10 @@ import styled, { css } from 'styled-components'
 import twreporterRedux from '@twreporter/redux'
 
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
+import {
+  shallowCloneMetaOfPost,
+  shallowCloneMetaOfTopic,
+} from '../utils/shallow-clone-entity'
 
 // lodash
 import get from 'lodash/get'
@@ -384,7 +387,7 @@ function cloneEntities(ids, entities, cloneFunc) {
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfPost)
+  return cloneEntities(ids, entities, shallowCloneMetaOfPost)
 }
 
 /**
@@ -395,7 +398,7 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfTopic)
+  return cloneEntities(ids, entities, shallowCloneMetaOfTopic)
 }
 
 /**
@@ -467,11 +470,7 @@ function restoreCategories(indexPageState, entities) {
   const categories = fieldNames.categories
   for (const key in categories) {
     const ids = _.get(indexPageState, categories[key], [])
-    const clonedPosts = cloneEntities(
-      ids,
-      entities,
-      cloneUtils.shallowCloneMetaOfPost
-    )
+    const clonedPosts = cloneEntities(ids, entities, shallowCloneMetaOfPost)
     rtn = rtn.concat(
       _.map(clonedPosts, post => {
         post['listName'] = categoryConst.labels[categories[key]]
@@ -513,9 +512,9 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   const relatedPosts = cloneEntities(
     lastThreeRelatedPostIds,
     postEntities,
-    cloneUtils.shallowCloneMetaOfPost
+    shallowCloneMetaOfPost
   )
-  const clonedTopic = cloneUtils.shallowCloneMetaOfTopic(topicEntities[topicId])
+  const clonedTopic = shallowCloneMetaOfTopic(topicEntities[topicId])
   clonedTopic['relateds'] = relatedPosts
 
   return clonedTopic

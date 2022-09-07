@@ -22,12 +22,15 @@ import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 // dependencies of article component v2
 import { Link } from 'react-router-dom'
-// utils
-import cloneUtils from '../utils/shallow-clone-entity'
+// feature-toggle
+import cloneUtilsNew from '../utils/shallow-clone-entity'
+import cloneUtilsOld from '../utils/shallow-clone-entity-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import throttle from 'lodash/throttle'
+const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 const _ = {
   forEach,
   get,

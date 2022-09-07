@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.9.1-rc.0, 2022-09-07
+
+### Notable Changes
+
+- chore
+  - update @twreporter npm packages
+- feat
+  - update category page with feature toggle
+- refactor
+  - async load google optimize script
+
+### Commits
+
+- [[`b658898245`](https://github.com/twreporter/twreporter-react/commit/b658898245)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1599f277d8`](https://github.com/twreporter/twreporter-react/commit/1599f277d8)] - **fix**: fix category constants (Aylie Chou)
+- [[`0a4c5d964b`](https://github.com/twreporter/twreporter-react/commit/0a4c5d964b)] - **refactor**: async load google optimize script (#2230) (Tai-Jiun Fang)
+- [[`9d48e90d37`](https://github.com/twreporter/twreporter-react/commit/9d48e90d37)] - **fix**: update @twreporter/core package (Aylie Chou)
+- [[`04b55ed8bd`](https://github.com/twreporter/twreporter-react/commit/04b55ed8bd)] - **feat**: update Category page with feature toggle (Aylie Chou)
+
 ## 4.9.0, 2022-08-11 (Current)
 
 ### Notable Changes

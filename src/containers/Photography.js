@@ -15,12 +15,15 @@ import { TopNews } from '../components/photography/top-news'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 
-// utils
-import cloneUtils from '../utils/shallow-clone-entity'
+// feature-toggle
+import cloneUtilsNew from '../utils/shallow-clone-entity'
+import cloneUtilsOld from '../utils/shallow-clone-entity-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 
 const _ = {
   forEach,

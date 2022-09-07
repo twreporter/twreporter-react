@@ -1,12 +1,17 @@
 import posts from './posts.json'
 import topics from './topics.json'
-import cloneUtils from '../utils/shallow-clone-entity'
 import twreporterRedux from '@twreporter/redux'
-import categoryConsts from '../constants/category'
+import categoryConsts from '../constants/category-old'
+
+// feature-toggle
+import cloneUtilsNew from '../utils/shallow-clone-entity'
+import cloneUtilsOld from '../utils/shallow-clone-entity-old'
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
+const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 
 const _ = {
   get,
