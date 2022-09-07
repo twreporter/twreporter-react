@@ -7,6 +7,8 @@ const categoryPath = {
   econ: 'econ',
   culture: 'culture',
   education: 'education',
+  podcast: 'podcast',
+  opinion: 'opinion',
 }
 
 // todo: update id when db ready
@@ -22,6 +24,8 @@ export const CATEGORY = {
   [categoryPath.econ]: { label: '經濟產業', id: 'category-econ' },
   [categoryPath.culture]: { label: '文化生活', id: 'category-culture' },
   [categoryPath.education]: { label: '教育校園', id: 'category-education' },
+  [categoryPath.podcast]: { label: 'Podcast', id: 'category-podcast' },
+  [categoryPath.opinion]: { label: '評論', id: 'category-opinion' },
 }
 
 // todo: update id when db ready
@@ -84,6 +88,10 @@ const subcategory = {
   teens: { label: '青少年', path: 'teens' },
   parenting: { label: '育兒', path: 'parenting' },
   lowBirthRate: { label: '少子化', path: 'low-birth-rate' },
+  theRealStory: { label: 'The Real Story', path: 'the-real-story' },
+  onTheGround: { label: 'On the Ground 路邊攤計畫', path: 'on-the-ground' },
+  bookReview: { label: '書摘', path: 'book-review' },
+  letter: { label: '讀者投書', path: 'letter' },
 }
 
 export const SUBCATEGORY = subcategory
@@ -162,6 +170,16 @@ export const CATEGORY_SET = {
     subcategory.teens,
     subcategory.parenting,
     subcategory.lowBirthRate,
+  ],
+  [categoryPath.podcast]: [
+    subcategory.all,
+    subcategory.theRealStory,
+    subcategory.onTheGround,
+  ],
+  [categoryPath.opinion]: [
+    subcategory.all,
+    subcategory.bookReview,
+    subcategory.letter,
   ],
 }
 

@@ -1,7 +1,7 @@
 import posts from './posts.json'
 import topics from './topics.json'
 import twreporterRedux from '@twreporter/redux'
-import categoryConsts from '../constants/category'
+import categoryConsts from '../constants/category-old'
 
 // feature-toggle
 import cloneUtilsNew from '../utils/shallow-clone-entity'
