@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.9.1, 2022-09-14 (Currrent)
+## 4.9.2, 2022-09-14 (Currrent)
+
+### Notable Changes
+
+- fix
+  - fix photography page cannot get posts
+
+### Commits
+
+- [[`2075d9930f`](https://github.com/twreporter/twreporter-react/commit/2075d9930f)] - **fix**: fix photography page cannot get posts (Aylie Chou)
+
+## 4.9.1, 2022-09-14
 
 ### Notable Changes
 
