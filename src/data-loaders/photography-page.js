@@ -1,4 +1,4 @@
-import categoryConst from '../constants/category'
+import categoryConst from '../constants/category-old'
 import dataLoaderConst from '../constants/data-loaders'
 
 /**
