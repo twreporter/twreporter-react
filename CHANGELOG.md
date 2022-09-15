@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.9.2, 2022-09-14 (Currrent)
+## 4.9.3, 2022-09-15 (Currrent)
+
+### Notable Changes
+
+- fix
+  - fix photography page data loader
+
+### Commits
+
+- [[`55f6cf9d22`](https://github.com/twreporter/twreporter-react/commit/55f6cf9d22)] - **fix**: photography page data loader (#2242) (Tai-Jiun Fang)
+
+## 4.9.2, 2022-09-14
 
 ### Notable Changes
 
