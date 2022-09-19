@@ -7,7 +7,6 @@ import net from 'net'
 import get from 'lodash/get'
 
 // mock api response
-import mockIndexPageResponse from './mock-data/index-page'
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/topics'
 import {
   mockAuthorsResponse,
@@ -18,6 +17,8 @@ import {
 // feature toggle
 import mockPostsNew from './mock-data/posts'
 import mockPostsOld from './mock-data/posts-old'
+import mockIndexPageNew from './mock-data/index-page'
+import mockIndexPageOld from './mock-data/index-page-old'
 import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 const _ = {
   get: get,
@@ -25,6 +26,9 @@ const _ = {
 const { mockAPostResponse, mockPostsResponse } = ENABLE_NEW_INFO_ARCH
   ? mockPostsNew
   : mockPostsOld
+const mockIndexPageResponse = ENABLE_NEW_INFO_ARCH
+  ? mockIndexPageNew
+  : mockIndexPageOld
 
 const app = Express()
 const host = process.env.HOST || 'localhost'

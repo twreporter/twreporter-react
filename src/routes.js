@@ -19,6 +19,17 @@ const _ = {
   get,
 }
 const routesConst = ENABLE_NEW_INFO_ARCH ? routesNewConst : routesOldConst
+const homeLoader = ENABLE_NEW_INFO_ARCH
+  ? () =>
+      import(
+        /* webpackChunkName: "index-page" */
+        './containers/Home'
+      )
+  : () =>
+      import(
+        /* webpackChunkName: "index-page" */
+        './containers/Home-old'
+      )
 const categoryLoader = ENABLE_NEW_INFO_ARCH
   ? () =>
       import(
@@ -29,6 +40,17 @@ const categoryLoader = ENABLE_NEW_INFO_ARCH
       import(
         /* webpackChunkName: "category-list-page" */
         './containers/Category-old'
+      )
+const photographyLoader = ENABLE_NEW_INFO_ARCH
+  ? () =>
+      import(
+        /* webpackChunkName: "photography-page" */
+        './containers/Photography'
+      )
+  : () =>
+      import(
+        /* webpackChunkName: "photography-page" */
+        './containers/Photography-old'
       )
 
 class LoadingComponent extends React.Component {
@@ -48,11 +70,7 @@ class LoadingComponent extends React.Component {
 
 const loadablePages = {
   home: Loadable({
-    loader: () =>
-      import(
-        /* webpackChunkName: "index-page" */
-        './containers/Home-old'
-      ),
+    loader: homeLoader,
     loading: LoadingComponent,
   }),
   topic: Loadable({
@@ -100,11 +118,7 @@ const loadablePages = {
     loading: LoadingComponent,
   }),
   photography: Loadable({
-    loader: () =>
-      import(
-        /* webpackChunkName: "photography-page" */
-        './containers/Photography'
-      ),
+    loader: photographyLoader,
     loading: LoadingComponent,
   }),
   search: Loadable({
