@@ -11,7 +11,6 @@ import Pagination from '../components/Pagination'
 import loggerFactory from '../logger'
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
 // constants
-import { CATEGORY, SUBCATEGORY, CATEGORY_SET } from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 // @twreporter
@@ -19,6 +18,13 @@ import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
+import {
+  CATEGORY_ID,
+  CATEGORY_LABEL,
+  SUBCATEGORY_ID,
+  SUBCATEGORY_LABEL,
+  CATEGORY_SET,
+} from '@twreporter/core/lib/constants/category-set'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -66,7 +72,7 @@ const TitleTabContainer = styled.div`
 `
 
 const Category = ({
-  category,
+  catLabel,
   subcategoryList,
   activeTabIndex,
   listId,
@@ -87,7 +93,7 @@ const Category = ({
       })
     })
   }, [
-    category,
+    catLabel,
     activeTabIndex,
     page,
     listId,
@@ -100,7 +106,6 @@ const Category = ({
     return <SystemError error={error} />
   }
 
-  const catLabel = category.label
   const title = catLabel + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
   const tabs = _.map(subcategoryList, subcategory => {
@@ -253,25 +258,26 @@ function mapStateToProps(state, props) {
   const location = _.get(props, 'location')
   const categoryPath = _.get(props, 'match.params.category')
   const subcategoryPath = _.get(props, 'match.params.subcategory')
-  const category = CATEGORY[categoryPath]
-  const subcategory = SUBCATEGORY[subcategoryPath]
+  const categoryId = CATEGORY_ID[categoryPath]
+  const subcategoryId = SUBCATEGORY_ID[subcategoryPath]
+  const listId =
+    categoryId && subcategoryId ? `${categoryId}_${subcategoryId}` : categoryId
+  const catLabel = CATEGORY_LABEL[categoryPath]
 
-  let listId = `${category && category.id}`
-  if (subcategory) {
-    // todo: set listId as `${category_id}_${subcategory_id}` when db ready
-    listId += `_tag-${subcategory.path}`
-  }
   const defaultPathname = subcategoryPath
     ? `/categories/${categoryPath}/${subcategoryPath}`
     : `/categories/${categoryPath}`
   const pathname = _.get(location, 'pathname', defaultPathname)
-  const subcategoryList = _.map(CATEGORY_SET[categoryPath], subcategory => {
-    const { path } = subcategory
-    const link = path
-      ? `/categories/${categoryPath}/${path}`
-      : `/categories/${categoryPath}`
+  const subcategoryList = _.map(CATEGORY_SET[categoryPath], subcategoryKey => {
+    const path = subcategoryKey
+    const label = SUBCATEGORY_LABEL[subcategoryKey]
+    const id = SUBCATEGORY_ID[subcategoryKey]
+    const link =
+      subcategoryKey !== 'all'
+        ? `/categories/${categoryPath}/${path}`
+        : `/categories/${categoryPath}`
     const isExternal = false
-    return { link, isExternal, ...subcategory }
+    return { id, label, link, path, isExternal }
   })
   const activeTabIndex = subcategoryPath
     ? _.findIndex(subcategoryList, ['path', subcategoryPath])
@@ -280,7 +286,7 @@ function mapStateToProps(state, props) {
   const nPerPage = dataLoaderConst.categoryListPage.nPerPage
 
   return {
-    category,
+    catLabel,
     subcategoryList,
     activeTabIndex,
     listId,
@@ -295,7 +301,7 @@ function mapStateToProps(state, props) {
 }
 
 Category.defaultProps = {
-  category: {},
+  catLabel: '',
   subcategoryList: [],
   activeTabIndex: 0,
   error: null,
@@ -306,7 +312,7 @@ Category.defaultProps = {
 }
 
 Category.propTypes = {
-  category: PropTypes.object,
+  catLabel: PropTypes.string,
   subcategoryList: PropTypes.array,
   activeTabIndex: PropTypes.number,
   listId: PropTypes.String,

@@ -1,31 +1,44 @@
-import { AnchorWrapper as Section } from '@twreporter/react-components/lib/side-bar'
 import { connect } from 'react-redux'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import Helmet from 'react-helmet'
-import IndexPageComposite from '@twreporter/index-page'
-import LoadingSpinner from '../components/Spinner'
 import PropTypes from 'prop-types'
 import React from 'react'
-import categoryConst from '../constants/category'
-import loggerFactory from '../logger'
-import mq from '../utils/media-query'
 import qs from 'qs'
-import sideBarFactory from '../components/side-bar/side-bar-factory'
-import siteMeta from '../constants/site-meta'
 import styled, { css } from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-
+import TagManager from 'react-gtm-module'
+// constants
+import siteMeta from '../constants/site-meta'
 // utils
+import mq from '../utils/media-query'
 import {
   shallowCloneMetaOfPost,
   shallowCloneMetaOfTopic,
 } from '../utils/shallow-clone-entity'
-
+// components
+import LoadingSpinner from '../components/Spinner'
+// factory
+import loggerFactory from '../logger'
+import sideBarFactory from '../components/side-bar/side-bar-factory'
+// @twreporter
+import { AnchorWrapper as Section } from '@twreporter/react-components/lib/side-bar'
+import IndexPageComposite from '@twreporter/index-page'
+import twreporterRedux from '@twreporter/redux'
+import {
+  CATEGORY_PATH,
+  CATEGORY_LABEL,
+} from '@twreporter/core/lib/constants/category-set'
+import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
-import TagManager from 'react-gtm-module'
+import forEach from 'lodash/forEach'
+const _ = {
+  get,
+  map,
+  merge,
+  forEach,
+}
 
 const {
   CategorySection,
@@ -43,12 +56,6 @@ const {
 const { fetchIndexPageContent, fetchFeatureTopic } = twreporterRedux.actions
 const fieldNames = twreporterRedux.reduxStateFields
 const logger = loggerFactory.getLogger()
-
-const _ = {
-  get,
-  map,
-  merge,
-}
 
 const reactTransitionCSS = css`
   .spinner-exit {
@@ -128,47 +135,52 @@ const siteNavigationJSONLD = {
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/human_rights_and_society',
-      name: '人權．社會',
+      url: 'https://www.twreporter.org/categories/world',
+      name: '國際兩岸',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/environment_and_education',
-      name: '環境．教育',
+      url: 'https://www.twreporter.org/categories/humanrights',
+      name: '人權司法',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/politics_and_economy',
-      name: '政經．產業',
+      url: 'https://www.twreporter.org/categories/politics-and-society',
+      name: '政治社會',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/living_and_medical_care',
-      name: '生活．醫療',
+      url: 'https://www.twreporter.org/categories/health',
+      name: '醫療健康',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/culture_and_art',
-      name: '文化．藝術',
+      url: 'https://www.twreporter.org/categories/environment',
+      name: '環境永續',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/international',
-      name: '國際．兩岸',
+      url: 'https://www.twreporter.org/categories/econ',
+      name: '經濟產業',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/infographic',
-      name: '多媒體',
+      url: 'https://www.twreporter.org/categories/culture',
+      name: '文化生活',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/photography',
-      name: '影像',
+      url: 'https://www.twreporter.org/categories/education',
+      name: '教育校園',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/reviews',
+      url: 'https://www.twreporter.org/categories/podcast',
+      name: 'Podcast',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      url: 'https://www.twreporter.org/categories/opinion',
       name: '評論',
     },
   ],
@@ -296,7 +308,7 @@ class Homepage extends React.PureComponent {
           <Section anchorId="review" anchorLabel="評論" showAnchor>
             <ReviewsSection
               data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${categoryConst.pathSegments.reviews}`}
+              moreURI={`categories/${CATEGORY_PATH.opinion}`}
             />
           </Section>
           <Section anchorId="junior">
@@ -329,7 +341,7 @@ class Homepage extends React.PureComponent {
             <Background backgroundColor={moduleBackgounds.infographic}>
               <InforgraphicSection
                 data={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`categories/${categoryConst.pathSegments.infographic}`}
+                moreURI={`tag/${INFOGRAM_ID}`}
               />
             </Background>
           </Section>
@@ -468,17 +480,18 @@ function restoreSections(indexPageState, postEntities, topicEntities) {
 function restoreCategories(indexPageState, entities) {
   let rtn = []
   const categories = fieldNames.categories
-  for (const key in categories) {
-    const ids = _.get(indexPageState, categories[key], [])
+  _.forEach(categories, categoryKey => {
+    const label = CATEGORY_LABEL[categoryKey]
+    const ids = _.get(indexPageState, categoryKey, [])
     const clonedPosts = cloneEntities(ids, entities, shallowCloneMetaOfPost)
     rtn = rtn.concat(
       _.map(clonedPosts, post => {
-        post['listName'] = categoryConst.labels[categories[key]]
-        post['moreURI'] = `categories/${categories[key]}`
+        post['listName'] = label
+        post['moreURI'] = `categories/${categoryKey}`
         return post
       })
     )
-  }
+  })
   return rtn
 }
 

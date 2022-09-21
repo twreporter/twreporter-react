@@ -11,12 +11,14 @@ import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 import filter from 'lodash/filter'
 import some from 'lodash/some'
+import map from 'lodash/map'
 
 const _ = {
   find,
   forEach,
   filter,
   some,
+  map,
 }
 
 const mocks = {
@@ -52,7 +54,7 @@ function seekPostsByIds(mockPosts, ids) {
  *  @param {string} listType - categories or tags
  *  @return {Object[]} - matched posts
  */
-function seekPostsByListIds(mockPosts, ids, listType) {
+export function seekPostsByListIds(mockPosts, ids, listType) {
   const rtn = []
 
   _.forEach(ids, id => {
@@ -75,9 +77,15 @@ function seekPostsByListIds(mockPosts, ids, listType) {
  *  @param {string[]} categorySet - category set object
  *  @return {Object[]} - matched posts
  */
-function seekPostsByCategorySet(mockPosts, categorySet) {
+export function seekPostsByCategorySet(mockPosts, categorySet) {
   return _.filter(mockPosts, post => {
-    return _.some(post['category_set'], categorySet)
+    const postCategorySet = _.map(post['category_set'], set => {
+      return {
+        category: set.category && set.category.id,
+        subcategory: set.subcategory && set.subcategory.id,
+      }
+    })
+    return _.some(postCategorySet, categorySet)
   })
 }
 
