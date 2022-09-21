@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.4-rc.0, 2022-09-21
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+- fix
+  - apply new category set in index-page & photography page
+
+### Commits
+
+- [[`29afe2c089`](https://github.com/twreporter/twreporter-react/commit/29afe2c089)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`e7d7f02a9d`](https://github.com/twreporter/twreporter-react/commit/e7d7f02a9d)] - **chore**: upgrade @twreporter packages version (Aylie Chou)
+- [[`28c063fc2e`](https://github.com/twreporter/twreporter-react/commit/28c063fc2e)] - **fix**: apply new category set in index-page & photography page (Aylie Chou)
+
 ## 4.9.3, 2022-09-15 (Currrent)
 
 ### Notable Changes
