@@ -12,7 +12,7 @@ const presets = [
         browsers: ['last 2 versions'],
       },
       debug: isProduction,
-      useBuiltIns: 'usage',
+      useBuiltIns: 'entry',
       corejs: {
         version: 3,
         proposals: true,

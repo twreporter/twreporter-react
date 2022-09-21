@@ -1,4 +1,6 @@
 /* eslint-env browser */
+import 'core-js'
+import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
 import AppNew from './app'
 import AppOld from './app-old'
