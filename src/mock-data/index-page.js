@@ -1,21 +1,27 @@
+// mock data
 import posts from './posts.json'
 import topics from './topics.json'
+// methods
+import { seekPostsByListIds, seekPostsByCategorySet } from './posts'
+// utils
+import cloneUtils from '../utils/shallow-clone-entity'
+// @twreporter
 import twreporterRedux from '@twreporter/redux'
-import categoryConsts from '../constants/category-old'
-
-// feature-toggle
-import cloneUtilsNew from '../utils/shallow-clone-entity'
-import cloneUtilsOld from '../utils/shallow-clone-entity-old'
-import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
-
+import {
+  CATEGORY_PATH,
+  CATEGORY_ID,
+} from '@twreporter/core/lib/constants/category-set'
+import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
-const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
-
+import filter from 'lodash/filter'
+import some from 'lodash/some'
 const _ = {
   get,
   values,
+  filter,
+  some,
 }
 
 const { reduxStateFields } = twreporterRedux
@@ -28,6 +34,10 @@ function cloneDecorator(cloneFunc) {
       return e
     }
   }
+}
+
+function getCategoryPost(categoryKey) {
+  return seekPostsByCategorySet(posts, { category: CATEGORY_ID[categoryKey] })
 }
 
 /**
@@ -48,34 +58,30 @@ export default function mockGoApiResponse() {
     [reduxStateFields.sections.latestTopicSection]: topics
       .slice(0, 1)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfTopic)(full)),
-    [reduxStateFields.sections.reviewsSection]: posts
-      .filter(post => {
-        return _.get(post, 'categories.0.id') === categoryConsts.ids.reviews
-      })
+    [reduxStateFields.sections.reviewsSection]: getCategoryPost(
+      CATEGORY_PATH.opinion
+    )
       .slice(0, 4)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfPost)(full)),
     [reduxStateFields.sections.topicsSection]: topics
       .slice(1, 5)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfTopic)(full)),
-    [reduxStateFields.sections.photosSection]: posts
-      .filter(post => {
-        return _.get(post, 'categories.0.id') === categoryConsts.ids.photography
-      })
+    [reduxStateFields.sections.photosSection]: getCategoryPost(
+      CATEGORY_PATH.photography
+    )
       .slice(0, 4)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfPost)(full)),
-    [reduxStateFields.sections.infographicsSection]: posts
-      .filter(post => {
-        return _.get(post, 'categories.0.id') === categoryConsts.ids.infographic
-      })
+    [reduxStateFields.sections.infographicsSection]: seekPostsByListIds(
+      posts,
+      [INFOGRAM_ID],
+      'tags'
+    )
       .slice(0, 6)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfPost)(full)),
   }
 
   _.values(reduxStateFields.categories).forEach(cat => {
-    data[cat] = posts
-      .filter(post => {
-        return _.get(post, 'categories.0.id') === categoryConsts.ids[cat]
-      })
+    data[cat] = getCategoryPost(cat)
       .slice(0, 1)
       .map(cloneDecorator(cloneUtils.shallowCloneMetaOfPost)(full))
   })
