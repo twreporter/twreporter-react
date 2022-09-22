@@ -30,9 +30,18 @@ jobs:
 
       - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
 
-      - run: sudo npm install -g @lhci/cli
-
-      - run: lhci autorun
+      - run:
+          name: run Lighthouse CI
+          command: |
+            sudo npm install -g @lhci/cli
+            lhci autorun || echo "LHCI failed!"
+          environment:
+            # LHCI_SERVER_BASE_URL, LHCI_SERVER_USERNAME, LHCI_SERVER_PASSWORD, LHCI_TOKEN,
+            # is defined in Environment Variables of circleci project
+            LHCI_SERVER_BASE_URL=${LHCI_SERVER_BASE_URL}
+            LHCI_USERNAME=${LHCI_SERVER_USERNAME}
+            LHCI_PASSWORD=${LHCI_SERVER_PASSWORD}
+            LHCI_TOKEN=${LHCI_TOKEN}
 
       - run: rm -rf node_modules
 
