@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.9.4-rc.1, 2022-09-27
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c0b6d6cc3d`](https://github.com/twreporter/twreporter-react/commit/c0b6d6cc3d)] - **chore**: update @twreporter npm packages (#2250) (Tai-Jiun Fang)
+
 ## 4.9.4-rc.0, 2022-09-21
 
 ### Notable Changes
