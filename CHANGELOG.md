@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.4-rc.3, 2022-09-27
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - disable feature toggle: new info structure
+
+### Commits
+
+- [[`3b4f6ad939`](https://github.com/twreporter/twreporter-react/commit/3b4f6ad939)] - **chore**: update @twreporter npm packages (#2256) (Tai-Jiun Fang)
+
 ## 4.9.4-rc.2, 2022-09-27
 
 ### Notable Changes
