@@ -5,7 +5,7 @@ import get from 'lodash/get'
 import loggerFactory from '../../logger'
 import statusConsts from '../../constants/status-code'
 import twreporterRedux from '@twreporter/redux'
-import getRoutes from '../../routes'
+import getRoutes from '../../routes-old'
 
 const _ = {
   get,
