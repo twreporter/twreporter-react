@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.9.4-rc.5, 2022-09-30
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+- fix
+  - fix feature toggle
+
+### Commits
+
+- [[`c53ac15c9d`](https://github.com/twreporter/twreporter-react/commit/c53ac15c9d)] - **chore**: update @twreporter npm packages (Aylie Chou)
+- [[`8f620ac90c`](https://github.com/twreporter/twreporter-react/commit/8f620ac90c)] - **fix**: fix feature toggle level (Aylie Chou)
+
 ## 4.9.4-rc.4, 2022-09-27
 
 ### Notable Changes
