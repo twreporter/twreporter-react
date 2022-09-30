@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import getRoutes from './routes'
+import getRoutes from './routes-old'
 import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'

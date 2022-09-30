@@ -4,7 +4,7 @@ import React from 'react'
 // utils
 import dataLoaders from './data-loaders/index'
 // constants
-import routesConst from './constants/routes'
+import routesConst from './constants/routes-old'
 import statusCodeConst from './constants/status-code'
 // components
 import FallbackPage from './containers/ServiceWorkerFallbackPage'
@@ -36,7 +36,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "index-page" */
-        './containers/Home'
+        './containers/Home-old'
       ),
     loading: LoadingComponent,
   }),
@@ -60,7 +60,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "category-list-page" */
-        './containers/Category'
+        './containers/Category-old'
       ),
     loading: LoadingComponent,
   }),
@@ -92,7 +92,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "photography-page" */
-        './containers/Photography'
+        './containers/Photography-old'
       ),
     loading: LoadingComponent,
   }),

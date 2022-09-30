@@ -4,7 +4,7 @@ import loggerFactory from '../../logger'
 import statusCodeConst from '../../constants/status-code'
 import url from 'url'
 import { matchPath } from 'react-router-dom'
-import getRoutes from '../../routes'
+import getRoutes from '../../routes-old'
 
 const _ = {
   get,

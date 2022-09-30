@@ -1,9 +1,11 @@
 import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
-import authMiddleware from './middlewares/auth'
+import authMiddlewareNew from './middlewares/auth'
+import authMiddlewareOld from './middlewares/auth-old'
 import cookieParser from 'cookie-parser'
-import dataLoaderMiddleware from './middlewares/data-loader'
+import dataLoaderMiddlewareNew from './middlewares/data-loader'
+import dataLoaderMiddlewareOld from './middlewares/data-loader-old'
 import get from 'lodash/get'
 import globalEnv from '../global-env'
 import http from 'http'
@@ -13,6 +15,14 @@ import loggerFactory from '../logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import renderHTMLMiddleware from './middlewares/render-html'
 import statusCodeConst from '../constants/status-code'
+// feature toggle
+import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
+const authMiddleware = ENABLE_NEW_INFO_ARCH
+  ? authMiddlewareNew
+  : authMiddlewareOld
+const dataLoaderMiddleware = ENABLE_NEW_INFO_ARCH
+  ? dataLoaderMiddlewareNew
+  : dataLoaderMiddlewareOld
 
 const _ = {
   get,
