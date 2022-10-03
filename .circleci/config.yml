@@ -12,9 +12,7 @@ jobs:
       - image: circleci/node:10.15
     working_directory: ~/repo
     steps:
-      - checkout  
-               
-      - browser-tools/install-chrome
+      - checkout
 
       # Download and cache dependencies
       - restore_cache:
@@ -29,19 +27,6 @@ jobs:
           key: v1-dependencies-build-{{ checksum "yarn.lock" }}
 
       - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
-
-      - run:
-          name: run Lighthouse CI
-          command: |
-            sudo npm install -g @lhci/cli
-            lhci autorun || echo "LHCI failed!"
-          environment:
-            # LHCI_SERVER_BASE_URL, LHCI_SERVER_USERNAME, LHCI_SERVER_PASSWORD, LHCI_TOKEN,
-            # is defined in Environment Variables of circleci project
-            LHCI_SERVER_BASE_URL=${LHCI_SERVER_BASE_URL}
-            LHCI_USERNAME=${LHCI_SERVER_USERNAME}
-            LHCI_PASSWORD=${LHCI_SERVER_PASSWORD}
-            LHCI_TOKEN=${LHCI_TOKEN}
 
       - run: rm -rf node_modules
 
@@ -172,10 +157,41 @@ jobs:
               kubectl set image deployment/${DEPLOYMENT} ${APP}=gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER -n $CLUSTER_NAMESPACE
             fi
             kubectl rollout status deployment/${DEPLOYMENT} -n $CLUSTER_NAMESPACE
+  lighthouseci:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - browser-tools/install-chrome
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-build-{{ checksum "yarn.lock" }}
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-build-{{ checksum "yarn.lock" }}
+      - run:
+          name: run Lighthouse CI
+          command: |
+            sudo npm install -g @lhci/cli
+            lhci autorun || echo "LHCI failed!"
+          environment:
+            # LHCI_SERVER_BASE_URL, LHCI_SERVER_USERNAME, LHCI_SERVER_PASSWORD, LHCI_TOKEN,
+            # is defined in Environment Variables of circleci project
+            LHCI_SERVER_BASE_URL=${LHCI_SERVER_BASE_URL}
+            LHCI_USERNAME=${LHCI_SERVER_USERNAME}
+            LHCI_PASSWORD=${LHCI_SERVER_PASSWORD}
+            LHCI_TOKEN=${LHCI_TOKEN}
 
 workflows:
   build_and_deploy:
     jobs:
+      - lighthouseci:
       - build:
           filters:
             branches:
