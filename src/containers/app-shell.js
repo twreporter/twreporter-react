@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/universal-header/lib/containers/header'
+import { Header } from '@twreporter/universal-header/lib/index'
 import PropTypes from 'prop-types'
 import React from 'react'
 // comment out WebPush for live blog banners to occupy the space for the time being

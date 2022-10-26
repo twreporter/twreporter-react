@@ -1,93 +1,34 @@
 # Changelog
 
-## 4.9.4-rc.6, 2022-10-26
+## 4.9.4, 2022-10-27 (Current)
 
 ### Notable Changes
 
 - chore
   - update @twreporter packages
     - update kids reporter link & wording
-
-### Commits
-
-- [[`e39362839c`](https://github.com/twreporter/twreporter-react/commit/e39362839c)] - **chore**: upadte @twreporter packages (Aylie Chou)
-
-## 4.9.4-rc.5, 2022-09-30
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
+    - disable feature toggle: new info structure
+  - Revert "**chore**: update @twreporter npm packages (#2250)"
 - fix
   - fix feature toggle
-
-### Commits
-
-- [[`c53ac15c9d`](https://github.com/twreporter/twreporter-react/commit/c53ac15c9d)] - **chore**: update @twreporter npm packages (Aylie Chou)
-- [[`8f620ac90c`](https://github.com/twreporter/twreporter-react/commit/8f620ac90c)] - **fix**: fix feature toggle level (Aylie Chou)
-
-## 4.9.4-rc.4, 2022-09-27
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - downgrade packages for testing
-
-### Commits
-
-- [[`4a445f24f4`](https://github.com/twreporter/twreporter-react/commit/4a445f24f4)] - **chore**: update @twreporter npm packages (#2259) (Tai-Jiun Fang)
-
-## 4.9.4-rc.3, 2022-09-27
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - disable feature toggle: new info structure
-
-### Commits
-
-- [[`3b4f6ad939`](https://github.com/twreporter/twreporter-react/commit/3b4f6ad939)] - **chore**: update @twreporter npm packages (#2256) (Tai-Jiun Fang)
-
-## 4.9.4-rc.2, 2022-09-27
-
-### Notable Changes
-
-- chore
-  - Revert "**chore**: update @twreporter npm packages (#2250)"
-
-### Commits
-
-- [[`ce07074dd8`](https://github.com/twreporter/twreporter-react/commit/ce07074dd8)] - _**Revert**_ "**chore**: update @twreporter npm packages (#2250)" (Tai-Jiun Fang)
-
-## 4.9.4-rc.1, 2022-09-27
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`c0b6d6cc3d`](https://github.com/twreporter/twreporter-react/commit/c0b6d6cc3d)] - **chore**: update @twreporter npm packages (#2250) (Tai-Jiun Fang)
-
-## 4.9.4-rc.0, 2022-09-21
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-- fix
   - apply new category set in index-page & photography page
 
 ### Commits
 
+- [[`f3d9ddf62a`](https://github.com/twreporter/twreporter-react/commit/f3d9ddf62a)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`21ca70d8bd`](https://github.com/twreporter/twreporter-react/commit/21ca70d8bd)] - **fix**: import header with featuer toggle applied level (Aylie Chou)
+- [[`e39362839c`](https://github.com/twreporter/twreporter-react/commit/e39362839c)] - **chore**: upadte @twreporter packages (Aylie Chou)
+- [[`c53ac15c9d`](https://github.com/twreporter/twreporter-react/commit/c53ac15c9d)] - **chore**: update @twreporter npm packages (Aylie Chou)
+- [[`8f620ac90c`](https://github.com/twreporter/twreporter-react/commit/8f620ac90c)] - **fix**: fix feature toggle level (Aylie Chou)
+- [[`4a445f24f4`](https://github.com/twreporter/twreporter-react/commit/4a445f24f4)] - **chore**: update @twreporter npm packages (#2259) (Tai-Jiun Fang)
+- [[`3b4f6ad939`](https://github.com/twreporter/twreporter-react/commit/3b4f6ad939)] - **chore**: update @twreporter npm packages (#2256) (Tai-Jiun Fang)
+- [[`ce07074dd8`](https://github.com/twreporter/twreporter-react/commit/ce07074dd8)] - _**Revert**_ "**chore**: update @twreporter npm packages (#2250)" (Tai-Jiun Fang)
+- [[`c0b6d6cc3d`](https://github.com/twreporter/twreporter-react/commit/c0b6d6cc3d)] - **chore**: update @twreporter npm packages (#2250) (Tai-Jiun Fang)
 - [[`29afe2c089`](https://github.com/twreporter/twreporter-react/commit/29afe2c089)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`e7d7f02a9d`](https://github.com/twreporter/twreporter-react/commit/e7d7f02a9d)] - **chore**: upgrade @twreporter packages version (Aylie Chou)
 - [[`28c063fc2e`](https://github.com/twreporter/twreporter-react/commit/28c063fc2e)] - **fix**: apply new category set in index-page & photography page (Aylie Chou)
 
-## 4.9.3, 2022-09-15 (Currrent)
+## 4.9.3, 2022-09-15
 
 ### Notable Changes
 
