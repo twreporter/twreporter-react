@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.4-rc.6, 2022-10-26
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update kids reporter link & wording
+
+### Commits
+
+- [[`e39362839c`](https://github.com/twreporter/twreporter-react/commit/e39362839c)] - **chore**: upadte @twreporter packages (Aylie Chou)
+
 ## 4.9.4-rc.5, 2022-09-30
 
 ### Notable Changes
