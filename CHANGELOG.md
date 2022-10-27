@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.9.5-rc.0, 2022-10-27
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - desktop hamburger menu
+    - enable feature toggle
+- fix
+  - style & eslint warning
+
+### Commits
+
+- [[`aa55654a2f`](https://github.com/twreporter/twreporter-react/commit/aa55654a2f)] - **chore**: update @twreporter packages (Aylie Chou)
+
+* [[`625db1b83c`](https://github.com/twreporter/twreporter-react/commit/625db1b83c)] - **fix**: fix style & eslint warning (Aylie Chou)
+
 ## 4.9.4, 2022-10-27 (Current)
 
 ### Notable Changes
