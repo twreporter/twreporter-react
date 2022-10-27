@@ -2,10 +2,10 @@ import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import { getSignOutHref } from '@twreporter/core/lib/utils/sign-out-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
-import getRoutes from '../../routes'
 import loggerFactory from '../../logger'
 import statusConsts from '../../constants/status-code'
 import twreporterRedux from '@twreporter/redux'
+import getRoutes from '../../routes'
 
 const _ = {
   get,

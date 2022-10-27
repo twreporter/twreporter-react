@@ -1,10 +1,10 @@
 /* eslint node/no-deprecated-api: 1 */
 import get from 'lodash/get'
-import getRoutes from '../../routes'
 import loggerFactory from '../../logger'
 import statusCodeConst from '../../constants/status-code'
 import url from 'url'
 import { matchPath } from 'react-router-dom'
+import getRoutes from '../../routes'
 
 const _ = {
   get,

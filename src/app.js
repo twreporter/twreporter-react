@@ -18,10 +18,8 @@ import {
   fontWeight,
   fontFamily,
 } from '@twreporter/core/lib/constants/font'
-
 // lodash
 import map from 'lodash/map'
-
 const _ = {
   map,
 }

@@ -6,7 +6,8 @@ import loadBookmarkWidgetData from './bookmark-widget'
 import loadCategoryListPageDataNew from './category-list-page'
 import loadCategoryListPageDataOld from './category-list-page-old'
 import loadIndexPageData from './index-page'
-import loadPhotographyPageData from './photography-page'
+import loadPhotographyPageDataNew from './photography-page'
+import loadPhotographyPageDataOld from './photography-page-old'
 import loadTagListPageData from './tag-list-page'
 import loadTopicListPageData from './topic-list-page'
 import loadTopicPageData from './topic-page'
@@ -15,6 +16,9 @@ import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-fla
 const loadCategoryListPageData = ENABLE_NEW_INFO_ARCH
   ? loadCategoryListPageDataNew
   : loadCategoryListPageDataOld
+const loadPhotographyPageData = ENABLE_NEW_INFO_ARCH
+  ? loadPhotographyPageDataNew
+  : loadPhotographyPageDataOld
 
 export default {
   loadArticlePageData,
