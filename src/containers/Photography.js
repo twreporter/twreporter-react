@@ -7,7 +7,7 @@ import loggerFactory from '../logger'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
+import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
 // constants
 import colors from '../constants/colors'
 import dataLoaderConst from '../constants/data-loaders'
@@ -163,7 +163,7 @@ function postsProp(state, listId) {
   _.forEach(postIds, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+      posts.push(shallowCloneMetaOfPost(post))
     }
   })
   return posts
