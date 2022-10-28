@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.5-rc.2, 2022-10-28
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - disable feature toggle
+
+### Commits
+
+- [[`e5d7ea6ddd`](https://github.com/twreporter/twreporter-react/commit/e5d7ea6ddd)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.9.5-rc.1, 2022-10-28
 
 ### Notable Changes
