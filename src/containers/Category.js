@@ -55,7 +55,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 375px;
+    max-width: 767px;
   `}
 `
 

@@ -1,6 +1,27 @@
 # Changelog
 
-## 4.9.4, 2022-10-27 (Current)
+## 4.9.5, 2022-10-28 (Current)
+
+### Notable Changes
+
+- chore
+  - force to use old header
+  - update @twreporter packages
+    - disable feature toggle
+    - desktop hamburger menu
+- fix
+  - style & eslint warning
+
+### Commits
+
+- [[`e5d7ea6ddd`](https://github.com/twreporter/twreporter-react/commit/e5d7ea6ddd)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1532da2988`](https://github.com/twreporter/twreporter-react/commit/1532da2988)] - **fix**: force to use old universal-header (Aylie Chou)
+- fix
+  - style & eslint warning
+- [[`aa55654a2f`](https://github.com/twreporter/twreporter-react/commit/aa55654a2f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`625db1b83c`](https://github.com/twreporter/twreporter-react/commit/625db1b83c)] - **fix**: fix style & eslint warning (Aylie Chou)
+
+## 4.9.4, 2022-10-27
 
 ### Notable Changes
 
