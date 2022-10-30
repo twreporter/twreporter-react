@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.6-rc.0, 2022-10-30
+
+### Notable Change
+
+- chore
+  - update @twreporter packages
+    - update font-family
+- refactor
+  - adopt adobe font as the third-party web fonts
+
+### Commits
+
+- [[`85c34d508b`](https://github.com/twreporter/twreporter-react/commit/85c34d508b)] - **refactor**: adopt adobe font as the third-party web fonts (#2266) (Tai-Jiun Fang)
+- [[`8175df741c`](https://github.com/twreporter/twreporter-react/commit/8175df741c)] - **chore**: update twreporter npm packages (Tai-Jiun Fang)
+
 ## 4.9.5, 2022-10-28 (Current)
 
 ### Notable Changes
