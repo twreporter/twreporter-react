@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.6-rc.1, 2022-10-31
+
+### Notable Change
+
+- chore
+  - update @twreporter packages
+    - enable feature toggle
+
+### Commits
+
+- [[`454c1ae324`](https://github.com/twreporter/twreporter-react/commit/454c1ae324)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.9.6-rc.0, 2022-10-30
 
 ### Notable Change
@@ -31,8 +43,6 @@
 
 - [[`e5d7ea6ddd`](https://github.com/twreporter/twreporter-react/commit/e5d7ea6ddd)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`1532da2988`](https://github.com/twreporter/twreporter-react/commit/1532da2988)] - **fix**: force to use old universal-header (Aylie Chou)
-- fix
-  - style & eslint warning
 - [[`aa55654a2f`](https://github.com/twreporter/twreporter-react/commit/aa55654a2f)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`625db1b83c`](https://github.com/twreporter/twreporter-react/commit/625db1b83c)] - **fix**: fix style & eslint warning (Aylie Chou)
 
