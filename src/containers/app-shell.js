@@ -63,7 +63,7 @@ const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
   }
 }
 
-const renderHeader = (headerType, releaseBranch) => {
+const renderHeader = (headerType, releaseBranch, pathname) => {
   let headerTheme
   switch (headerType) {
     case uiConst.header.none:
@@ -85,6 +85,7 @@ const renderHeader = (headerType, releaseBranch) => {
       theme={headerTheme}
       releaseBranch={releaseBranch}
       isLinkExternal={false}
+      pathname={pathname}
     />
   )
   if (headerType === uiConst.header.transparent) {
@@ -98,54 +99,43 @@ const renderHeader = (headerType, releaseBranch) => {
   )
 }
 
-class AppShell extends React.PureComponent {
-  static propTypes = {
-    apiOrigin: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    footerType: PropTypes.oneOf(_.values(uiConst.footer)),
-    headerType: PropTypes.oneOf(_.values(uiConst.header)),
-    releaseBranch: PropTypes.string.isRequired,
-    userId: PropTypes.string,
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]),
-    pathname: PropTypes.string.isRequired,
-    host: PropTypes.string.isRequired,
-  }
-
-  static defaultProps = {
-    headerType: uiConst.header.default,
-    footerType: uiConst.footer.default,
-    backgroundColor: '#f1f1f1',
-  }
-
-  render() {
-    const {
-      // apiOrigin,
-      headerType,
-      footerType,
-      backgroundColor,
-      releaseBranch,
-      children,
-      // userId,
-      pathname,
-      host,
-    } = this.props
-
-    return (
-      <ErrorBoundary>
-        <AppBox backgroundColor={backgroundColor}>
-          <ContentBlock>
-            {/* <WebPush apiOrigin={apiOrigin} userId={userId} /> */}
-            {renderHeader(headerType, releaseBranch)}
-            {children}
-            {renderFooter(footerType, pathname, host, releaseBranch)}
-          </ContentBlock>
-        </AppBox>
-      </ErrorBoundary>
-    )
-  }
+const AppShell = ({
+  headerType = uiConst.header.default,
+  footerType = uiConst.footer.default,
+  backgroundColor = '#f1f1f1',
+  apiOrigin,
+  releaseBranch,
+  userId,
+  children,
+  pathname,
+  host,
+}) => {
+  return (
+    <ErrorBoundary>
+      <AppBox backgroundColor={backgroundColor}>
+        <ContentBlock>
+          {/* <WebPush apiOrigin={apiOrigin} userId={userId} /> */}
+          {renderHeader(headerType, releaseBranch, pathname)}
+          {children}
+          {renderFooter(footerType, pathname, host, releaseBranch)}
+        </ContentBlock>
+      </AppBox>
+    </ErrorBoundary>
+  )
+}
+AppShell.propTypes = {
+  apiOrigin: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  footerType: PropTypes.oneOf(_.values(uiConst.footer)),
+  headerType: PropTypes.oneOf(_.values(uiConst.header)),
+  releaseBranch: PropTypes.string.isRequired,
+  userId: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  pathname: PropTypes.string.isRequired,
+  host: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state, ownProps) {
