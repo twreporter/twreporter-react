@@ -56,7 +56,7 @@ export const headcountPerPage = {
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
-  [categoryIds.productManager]: {
+  [categoryIds.dataJournalist]: {
     [screen.hd]: 1,
     [screen.desktop]: 1,
     [screen.tablet]: 3,
