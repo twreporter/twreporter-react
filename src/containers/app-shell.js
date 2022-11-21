@@ -1,26 +1,24 @@
 import { connect } from 'react-redux'
-import ErrorBoundary from '../components/ErrorBoundary'
-import Footer from '@twreporter/react-components/lib/footer'
-import { Header } from '@twreporter/universal-header/lib/index'
 import PropTypes from 'prop-types'
 import React from 'react'
-// comment out WebPush for live blog banners to occupy the space for the time being
-// import WebPush from '../components/web-push'
 import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-import uiConst from '../constants/ui'
+// managers
 import uiManager from '../managers/ui-manager'
-
+// constants
+import uiConst from '../constants/ui'
+// components
+import ErrorBoundary from '../components/ErrorBoundary'
+// @twreporter
+import Footer from '@twreporter/react-components/lib/footer'
+import { Header } from '@twreporter/universal-header/lib/index'
+import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
-
 const _ = {
   get,
   values,
 }
-
-const { reduxStateFields } = twreporterRedux
 
 const AppBox = styled.div`
   background-color: ${props => props.backgroundColor};
@@ -49,16 +47,14 @@ const PinkBackgroundHeader = styled.div`
   background-color: #fabcf0;
 `
 
-const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
+const renderFooter = (footerType, releaseBranch) => {
   switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
     case uiConst.footer.default:
     default: {
-      return (
-        <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
-      )
+      return <Footer releaseBranch={releaseBranch} />
     }
   }
 }
@@ -103,48 +99,38 @@ const AppShell = ({
   headerType = uiConst.header.default,
   footerType = uiConst.footer.default,
   backgroundColor = '#f1f1f1',
-  apiOrigin,
   releaseBranch,
-  userId,
   children,
   pathname,
-  host,
 }) => {
   return (
     <ErrorBoundary>
       <AppBox backgroundColor={backgroundColor}>
         <ContentBlock>
-          {/* <WebPush apiOrigin={apiOrigin} userId={userId} /> */}
           {renderHeader(headerType, releaseBranch, pathname)}
           {children}
-          {renderFooter(footerType, pathname, host, releaseBranch)}
+          {renderFooter(footerType, releaseBranch)}
         </ContentBlock>
       </AppBox>
     </ErrorBoundary>
   )
 }
 AppShell.propTypes = {
-  apiOrigin: PropTypes.string,
   backgroundColor: PropTypes.string,
   footerType: PropTypes.oneOf(_.values(uiConst.footer)),
   headerType: PropTypes.oneOf(_.values(uiConst.header)),
-  releaseBranch: PropTypes.string.isRequired,
-  userId: PropTypes.string,
+  releaseBranch: BRANCH_PROP_TYPES,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
   pathname: PropTypes.string.isRequired,
-  host: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state, ownProps) {
   return Object.assign(
     {
-      apiOrigin: _.get(state, [reduxStateFields.origins, 'api'], ''),
-      userId: _.get(state, [reduxStateFields.auth, 'userInfo.id']),
       pathname: _.get(ownProps.location, 'pathname', ''),
-      host: _.get(ownProps.location, 'host', ''),
     },
     uiManager.getLayoutObj(state, ownProps.location)
   )
