@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.6-rc.3, 2022-11-22
+
+### Notable Change
+
+- chore
+  - update @twreporter/index-page to v1.4.1-rc.6
+  - fix
+    - send releaseBranch prop to banner
+
+### Commits
+
+- - \[[`5320c479db`](https://github.com/twreporter/twreporter-react/commit/5320c479db)] - Merge pull request #2299 from duidae/jason/update_kids_banner (許守傑 Shou-Chieh Hsu (Jason))
+- - \[[`55c8771c47`](https://github.com/twreporter/twreporter-react/commit/55c8771c47)] - **fix**: update npm packages (duidae)
+- - \[[`8f6c51337d`](https://github.com/twreporter/twreporter-react/commit/8f6c51337d)] - **fix**: add releaseBranch props to home (duidae)
+
 ## 4.9.6-rc.2, 2022-11-07
 
 ### Notable Change
