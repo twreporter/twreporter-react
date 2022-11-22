@@ -28,6 +28,7 @@ import {
   CATEGORY_LABEL,
 } from '@twreporter/core/lib/constants/category-set'
 import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
+import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -193,6 +194,7 @@ class Homepage extends React.PureComponent {
     isSpinnerDisplayed: PropTypes.bool,
     isContentReady: PropTypes.bool,
     categories: PropTypes.array,
+    releaseBranch: BRANCH_PROP_TYPES,
   }
 
   constructor(props) {
@@ -247,7 +249,7 @@ class Homepage extends React.PureComponent {
     })
   }
   render() {
-    const { isSpinnerDisplayed } = this.props
+    const { isSpinnerDisplayed, releaseBranch } = this.props
     const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
     const latestTopicJSX = latestTopicData ? (
       <Section anchorId="latestTopic" anchorLabel="最新專題" showAnchor>
@@ -312,7 +314,7 @@ class Homepage extends React.PureComponent {
             />
           </Section>
           <Section anchorId="junior">
-            <JuniorBoxSection />
+            <JuniorBoxSection releaseBranch={releaseBranch} />
           </Section>
           <Section anchorId="categories" anchorLabel="議題" showAnchor>
             <Background backgroundColor={moduleBackgounds.category}>
@@ -327,7 +329,7 @@ class Homepage extends React.PureComponent {
             </Background>
           </Section>
           <Section anchorId="podcast">
-            <PodcastBoxSection />
+            <PodcastBoxSection releaseBranch={releaseBranch} />
           </Section>
           <Section anchorId="photography" anchorLabel="攝影" showAnchor>
             <Background backgroundColor={moduleBackgounds.photography}>
