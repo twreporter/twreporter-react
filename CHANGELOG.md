@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.9.6-rc.4, 2022-11-25
+
+### Notable Change
+
+- fix
+  - update about-us department name
+  - pass location props to universal-header
+- chore
+  - update @twreporter packages
+    - mobile universal-header
+
+### Commits
+
+- [[`b5844cefe3`](https://github.com/twreporter/twreporter-react/commit/b5844cefe3)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`37c91dbc00`](https://github.com/twreporter/twreporter-react/commit/37c91dbc00)] - Merge pull request #2300 from Aylie-Chou/16-fix-about-us-department-naming (Aylie)
+- [[`9360f50f49`](https://github.com/twreporter/twreporter-react/commit/9360f50f49)] - Merge pull request #2296 from Aylie-Chou/12-feature-info-struct-redesign (Aylie)
+- [[`8be208b967`](https://github.com/twreporter/twreporter-react/commit/8be208b967)] - Merge pull request #2301 from duidae/jason/bump_version_v4.9.6-rc.3 (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.9.6-rc.3, 2022-11-22
 
 ### Notable Change
