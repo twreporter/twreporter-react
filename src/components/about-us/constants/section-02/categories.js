@@ -39,8 +39,8 @@ const categories = [
   {
     id: categoryIds.engineer,
     label: {
-      english: 'Engineering Department',
-      chinese: '工 程 部',
+      english: 'Digital Product Department',
+      chinese: '數 位 產 品 部',
     },
   },
   {
@@ -65,10 +65,10 @@ const categories = [
     },
   },
   {
-    id: categoryIds.productManager,
+    id: categoryIds.dataJournalist,
     label: {
-      english: 'Product Manager',
-      chinese: '產 品 經 理',
+      english: 'Data Journalism Team',
+      chinese: 'Data 小 組',
     },
   },
 ]
