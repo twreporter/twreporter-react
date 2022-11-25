@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.6-rc.5, 2022-11-25
+
+### Notable Change
+
+- fix
+  - refine design details for new info arch
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- \[[`2a2bf9df2d`](https://github.com/twreporter/twreporter-react/commit/2a2bf9df2d)] - Merge pull request #2297 from duidae/jason/refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`ee21cb78d3`](https://github.com/twreporter/twreporter-react/commit/ee21cb78d3)] - **fix**: update npm packages (duidae)
+- \[[`d371f2354a`](https://github.com/twreporter/twreporter-react/commit/d371f2354a)] - Merge branch 'master' into jason/refinement_new_arch (duidae)
+
 ## 4.9.6-rc.4, 2022-11-25
 
 ### Notable Change
