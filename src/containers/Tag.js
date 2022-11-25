@@ -1,15 +1,19 @@
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { List } from '@twreporter/react-components/lib/listing-page'
 import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
-import Pagination from '../components/Pagination'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { PureComponent } from 'react'
+import styled from 'styled-components'
+import loggerFactory from '../logger'
+import Pagination from '../components/Pagination'
 import SystemError from '../components/SystemError'
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
+import mq from '../utils/media-query'
+
+// @twreporter
 import twreporterRedux from '@twreporter/redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
 
 // feature-toggle
 import cloneUtilsNew from '../utils/shallow-clone-entity'
@@ -21,6 +25,23 @@ import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
+
+const PageContainer = styled.div`
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  ${mq.mobileOnly`
+    padding-top: 24px;
+  `}
+  ${mq.tabletOnly`
+    padding-top: 32px;
+  `}
+  ${mq.desktopAndAbove`
+    padding-top: 64px;
+  `}
+`
 
 const _ = {
   find,
@@ -79,7 +100,7 @@ class Tag extends PureComponent {
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
     return (
-      <div>
+      <PageContainer>
         <Helmet
           title={title}
           link={[{ rel: 'canonical', href: canonical }]}
@@ -104,7 +125,7 @@ class Tag extends PureComponent {
           showSpinner={true}
         />
         <Pagination currentPage={page} totalPages={totalPages} />
-      </div>
+      </PageContainer>
     )
   }
 }
