@@ -109,7 +109,7 @@ const carouselMarkup = {
       width: '100%',
     },
   },
-  [categoryIds.productManager]: {
+  [categoryIds.dataJournalist]: {
     [screen.hd]: {
       width: '263px',
       transform: 'translateX(460px)',

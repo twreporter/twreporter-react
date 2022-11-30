@@ -188,7 +188,7 @@ NotFoundErrorPage.propTypes = {
 export default function getRoutes() {
   return [
     {
-      component: loadablePages.home,
+      renderWithProps: loadablePages.home,
       exact: true,
       loadData: dataLoaders.loadIndexPageData,
       path: routesConst.homePage.path,
@@ -255,12 +255,10 @@ export default function getRoutes() {
       path: routesConst.bookmarkListPage.path,
       authorizationRequired: true,
     },
-    // error  page
     {
       path: routesConst.errorPage.path,
       component: ErrorPage,
     },
-    // no routes match
     {
       component: NotFoundErrorPage,
     },

@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
 import React from 'react'
 import getRoutes from './routes'
 import { Provider } from 'react-redux'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'
 // components
 import AppShell from './containers/app-shell'
@@ -10,7 +11,7 @@ import AppShell from './containers/app-shell'
 import colors from './constants/colors'
 import typography from './constants/typography'
 // @twreporter
-import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
+import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 import useFontFaceObserver from '@twreporter/react-components/lib/hook/use-font-face-observer'
 import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
 import {
@@ -153,44 +154,36 @@ GlobalStyleWithFonts.propTypes = {
   fonts: PropTypes.arrayOf(PropTypes.string),
 }
 
-export default class App extends React.Component {
-  static propTypes = {
-    reduxStore: PropTypes.object,
-    releaseBranch: PropTypes.oneOf([
-      releaseBranchConst.master,
-      releaseBranchConst.staging,
-      releaseBranchConst.release,
-    ]),
-  }
+const App = ({ reduxStore, releaseBranch }) => {
+  const location = useLocation()
+  const routes = getRoutes()
+  const routeJSX = routes.map((route, routeIndex) => {
+    if (route.renderWithProps) {
+      route.render = props => (
+        <route.renderWithProps releaseBranch={releaseBranch} {...props} />
+      )
+    }
+    return <Route key={`route-${routeIndex}`} {...route} />
+  })
 
-  render() {
-    const routes = getRoutes()
-    const { reduxStore, releaseBranch } = this.props
-    return (
-      <Provider store={reduxStore}>
-        <Route
-          render={props => {
-            return (
-              <AppShell location={props.location} releaseBranch={releaseBranch}>
-                <Switch>
-                  {routes.map((route, routeIndex) => {
-                    if (route.renderWithProps) {
-                      route.render = props => (
-                        <route.renderWithProps
-                          releaseBranch={releaseBranch}
-                          {...props}
-                        />
-                      )
-                    }
-                    return <Route key={`route-${routeIndex}`} {...route} />
-                  })}
-                </Switch>
-              </AppShell>
-            )
-          }}
-        />
-        <GlobalStyleWithFonts fonts={selfHostedFonts} />
-      </Provider>
-    )
-  }
+  return (
+    <Provider store={reduxStore}>
+      <Route
+        render={props => {
+          return (
+            <AppShell location={location} releaseBranch={releaseBranch}>
+              <Switch>{routeJSX}</Switch>
+            </AppShell>
+          )
+        }}
+      />
+      <GlobalStyleWithFonts fonts={selfHostedFonts} />
+    </Provider>
+  )
 }
+App.propTypes = {
+  reduxStore: PropTypes.object,
+  releaseBranch: BRANCH_PROP_TYPES,
+}
+
+export default App

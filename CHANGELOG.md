@@ -1,6 +1,43 @@
 # Changelog
 
-## 4.9.5, 2022-10-28 (Current)
+## 4.9.6, 2022-11-30 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update font-family
+- fix
+  - revert: refine design details for new info arch
+  - refine design details for new info arch
+  - update about-us department name
+  - pass location props to universal-header
+  - send releaseBranch prop to banner
+- refactor
+  - adopt adobe font as the third-party web fonts
+
+### Commits
+
+- [[`989a06f7df`](https://github.com/twreporter/twreporter-react/commit/989a06f7df)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`4dca3f9715`](https://github.com/twreporter/twreporter-react/commit/4dca3f9715)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0914195308`](https://github.com/twreporter/twreporter-react/commit/0914195308)] - Merge pull request #2308 from twreporter/revert-2297-jason/refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`d34bb27afd`](https://github.com/twreporter/twreporter-react/commit/d34bb27afd)] - _**Revert**_ "**fix**: fix topic top padding" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`2a2bf9df2d`](https://github.com/twreporter/twreporter-react/commit/2a2bf9df2d)] - Merge pull request #2297 from duidae/jason/refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`ee21cb78d3`](https://github.com/twreporter/twreporter-react/commit/ee21cb78d3)] - **fix**: update npm packages (duidae)
+- [[`d371f2354a`](https://github.com/twreporter/twreporter-react/commit/d371f2354a)] - Merge branch 'master' into jason/refinement_new_arch (duidae)
+- [[`b5844cefe3`](https://github.com/twreporter/twreporter-react/commit/b5844cefe3)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`37c91dbc00`](https://github.com/twreporter/twreporter-react/commit/37c91dbc00)] - Merge pull request #2300 from Aylie-Chou/16-fix-about-us-department-naming (Aylie)
+- [[`9360f50f49`](https://github.com/twreporter/twreporter-react/commit/9360f50f49)] - Merge pull request #2296 from Aylie-Chou/12-feature-info-struct-redesign (Aylie)
+- [[`8be208b967`](https://github.com/twreporter/twreporter-react/commit/8be208b967)] - Merge pull request #2301 from duidae/jason/bump_version_v4.9.6-rc.3 (許守傑 Shou-Chieh Hsu (Jason))
+- [[`5320c479db`](https://github.com/twreporter/twreporter-react/commit/5320c479db)] - Merge pull request #2299 from duidae/jason/update_kids_banner (許守傑 Shou-Chieh Hsu (Jason))
+- [[`55c8771c47`](https://github.com/twreporter/twreporter-react/commit/55c8771c47)] - **fix**: update npm packages (duidae)
+- [[`8f6c51337d`](https://github.com/twreporter/twreporter-react/commit/8f6c51337d)] - **fix**: add releaseBranch props to home (duidae)
+- [[`1497004ac5`](https://github.com/twreporter/twreporter-react/commit/1497004ac5)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`454c1ae324`](https://github.com/twreporter/twreporter-react/commit/454c1ae324)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`85c34d508b`](https://github.com/twreporter/twreporter-react/commit/85c34d508b)] - **refactor**: adopt adobe font as the third-party web fonts (#2266) (Tai-Jiun Fang)
+- [[`8175df741c`](https://github.com/twreporter/twreporter-react/commit/8175df741c)] - **chore**: update twreporter npm packages (Tai-Jiun Fang)
+
+## 4.9.5, 2022-10-28
 
 ### Notable Changes
 
@@ -16,8 +53,6 @@
 
 - [[`e5d7ea6ddd`](https://github.com/twreporter/twreporter-react/commit/e5d7ea6ddd)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`1532da2988`](https://github.com/twreporter/twreporter-react/commit/1532da2988)] - **fix**: force to use old universal-header (Aylie Chou)
-- fix
-  - style & eslint warning
 - [[`aa55654a2f`](https://github.com/twreporter/twreporter-react/commit/aa55654a2f)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`625db1b83c`](https://github.com/twreporter/twreporter-react/commit/625db1b83c)] - **fix**: fix style & eslint warning (Aylie Chou)
 
