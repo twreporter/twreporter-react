@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.9.7-rc.0, 2022-12-01
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - enable info struct feature toggle
+
+### Commits
+
+- [[`5c6a1c3569`](https://github.com/twreporter/twreporter-react/commit/5c6a1c3569)] - **chore**: use universal header with feature toggle (Aylie Chou)
+- [[`482873a056`](https://github.com/twreporter/twreporter-react/commit/482873a056)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.9.6, 2022-11-30 (Current)
 
 ### Notable Changes
