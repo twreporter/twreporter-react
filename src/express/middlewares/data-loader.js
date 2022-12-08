@@ -33,7 +33,7 @@ function dataLoaderMiddleware(namespace) {
     routes.some(route => {
       const match = matchPath(req.path, route)
       if (match && route.loadData) {
-        const { hash, pathname, search } = url.parse(req.originalUrl)
+        const { hash, pathname, search } = new url.URL(req.originalUrl)
         dataLoadingPromises.push(
           route.loadData({
             store,
