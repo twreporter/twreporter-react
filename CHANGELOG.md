@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.7-rc.1, 2022-12-13
+
+### Notable Changes
+
+- fix
+  - refine design details for new info arch
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- \[[`8cde5246f0`](https://github.com/twreporter/twreporter-react/commit/8cde5246f0)] - Merge pull request #2317 from duidae/jason/revert_refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`2d7930b4cc`](https://github.com/twreporter/twreporter-react/commit/2d7930b4cc)] - **fix**: update npm packages (duidae)
+- \[[`5ed921d031`](https://github.com/twreporter/twreporter-react/commit/5ed921d031)] - _**Revert**_ "Revert "fix: fix topic top padding"" (duidae)
+
 ## 4.9.7-rc.0, 2022-12-01
 
 ### Notable Changes
