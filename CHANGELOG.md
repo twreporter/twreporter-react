@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.7-rc.2, 2022-12-16
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages for fixing mobile rwd issue in tag page
+
+### Commits
+
+- \[[`a789ecf763`](https://github.com/twreporter/twreporter-react/commit/a789ecf763)] - Merge pull request #2324 from duidae/jason/fix_mobile_rwd_defect (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`6c4dbda5a3`](https://github.com/twreporter/twreporter-react/commit/6c4dbda5a3)] - **fix**: update npm packages (duidae)
+
 ## 4.9.7-rc.1, 2022-12-13
 
 ### Notable Changes
