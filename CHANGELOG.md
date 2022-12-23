@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.7-rc.4, 2022-12-23
+
+### Notable Changes
+
+- fix
+  - fix gke auth error in ci flow
+
+### Commits
+
+- \[[`63014e7db7`](https://github.com/twreporter/twreporter-react/commit/63014e7db7)] - Merge pull request #2331 from duidae/jason/install_gke_auth_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`e572539d7d`](https://github.com/twreporter/twreporter-react/commit/e572539d7d)] - **fix**: install gke auth plugin (duidae)
+
 ## 4.9.7-rc.3, 2022-12-23
 
 ### Notable Changes
