@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.7-rc.5, 2022-12-23
+
+### Notable Changes
+
+- fix
+  - remove install cmd
+
+### Commits
+
+- \[[`cbf4c23a2b`](https://github.com/twreporter/twreporter-react/commit/cbf4c23a2b)] - Merge pull request #2334 from duidae/jason/remove_install_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`34633d5cc8`](https://github.com/twreporter/twreporter-react/commit/34633d5cc8)] - **fix**: remove install command (duidae)
+
 ## 4.9.7-rc.4, 2022-12-23
 
 ### Notable Changes
