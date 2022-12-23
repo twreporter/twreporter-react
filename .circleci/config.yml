@@ -102,7 +102,7 @@ jobs:
             # GOOGLE_PREVIEW_CLUSTER_NAME,
             # GOOGLE_CLUSTER_NAME
             # and K8S_CLUSTER_NAME is defined in Environment Variables of circleci project
-            gcloud components install gke-gcloud-auth-plugin
+            sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
             echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
