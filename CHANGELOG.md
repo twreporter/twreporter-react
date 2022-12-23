@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.9.7-rc.3, 2022-12-23
+
+### Notable Changes
+
+- fix
+  - fix gke auth error in ci flow
+
+### Commits
+
+- \[[`58eb5a70bb`](https://github.com/twreporter/twreporter-react/commit/58eb5a70bb)] - Merge pull request #2328 from duidae/jason/fix_gke_upgrade_issue (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`62337cee78`](https://github.com/twreporter/twreporter-react/commit/62337cee78)] - **fix**: update ci for gke auth error issue (duidae)
+
 ## 4.9.7-rc.2, 2022-12-16
 
 ### Notable Changes
