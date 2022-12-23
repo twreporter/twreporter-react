@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.7-rc.6, 2022-12-23
+
+### Notable Changes
+
+- fix
+  - pass referrer location from react-router-dom for spa
+- chore
+  - update @twreporter packages
+    - fix mobile universal-header defects
+
+### Commits
+
+- [[`118aa2518c`](https://github.com/twreporter/twreporter-react/commit/118aa2518c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`664e76a256`](https://github.com/twreporter/twreporter-react/commit/664e76a256)] - **fix**: pass referrer location from react-router-dom for spa (Aylie Chou)
+
 ## 4.9.7-rc.5, 2022-12-23
 
 ### Notable Changes
