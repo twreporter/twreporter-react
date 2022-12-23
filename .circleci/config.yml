@@ -93,6 +93,7 @@ jobs:
             echo "export CLUSTER_NAMESPACE=${CLUSTER_NAMESPACE}" >> $BASH_ENV
             echo "export ENVIRONMENT=${ENVIRONMENT}" >> $BASH_ENV
             echo "export PKG_VER=${PKG_VER}" >> $BASH_ENV
+            echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $BASH_ENV
 
       - run:
           name: Connect to container cluster
@@ -101,6 +102,7 @@ jobs:
             # GOOGLE_PREVIEW_CLUSTER_NAME,
             # GOOGLE_CLUSTER_NAME
             # and K8S_CLUSTER_NAME is defined in Environment Variables of circleci project
+            gcloud components install gke-gcloud-auth-plugin
             echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
