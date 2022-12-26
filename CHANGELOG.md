@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.9.7-rc.7, 2022-12-26
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix tag page mobile layout
+
+### Commits
+
+- \[[`e535b30c9c`](https://github.com/twreporter/twreporter-react/commit/e535b30c9c)] - Merge pull request #2340 from duidae/jason/fix_tag_mobile_layout (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`85a73eb8d9`](https://github.com/twreporter/twreporter-react/commit/85a73eb8d9)] - **fix**: fix tag page mobile layout issue (duidae)
+
 ## 4.9.7-rc.6, 2022-12-23
 
 ### Notable Changes
