@@ -38,6 +38,9 @@ export default {
   bookmarkListPage: {
     path: '/bookmarks/:pageNumber?',
   },
+  latestPage: {
+    path: '/latest/:tagId?',
+  },
   errorPage: {
     path: '/error/:errorType',
   },
