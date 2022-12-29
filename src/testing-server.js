@@ -32,7 +32,7 @@ const mockIndexPageResponse = ENABLE_NEW_INFO_ARCH
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 8080
 const router = Express.Router()
 
 const _checkIfPortIsTaken = port =>
