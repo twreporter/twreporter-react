@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.9.7-rc.8, 2023-01-04
+
+### Notable Changes
+
+- fix
+  - restore style refinement PR
+
+### Commits
+
+- \[[`166c62a480`](https://github.com/twreporter/twreporter-react/commit/166c62a480)] - Merge pull request #2344 from duidae/jason/revert_style_refinement_PR (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`1d2e9ba4b8`](https://github.com/twreporter/twreporter-react/commit/1d2e9ba4b8)] - **fix**: restore npm packages (duidae)
+- \[[`b49197837b`](https://github.com/twreporter/twreporter-react/commit/b49197837b)] - _**Revert**_ "Revert "Revert "fix: fix topic top padding""" (duidae)
+
 ## 4.9.7-rc.7, 2022-12-26
 
 ### Notable Changes
