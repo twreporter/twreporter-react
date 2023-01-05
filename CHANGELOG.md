@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.9.7-rc.9, 2023-01-05
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update 2023 fundraising number
+    - force to use old universal-header
+
+### Commits
+
+- [[`56d2093e3d`](https://github.com/twreporter/twreporter-react/commit/56d2093e3d)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`41e9c05334`](https://github.com/twreporter/twreporter-react/commit/41e9c05334)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.9.7-rc.8, 2023-01-04
 
 ### Notable Changes
