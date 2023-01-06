@@ -59,7 +59,7 @@ const renderFooter = (footerType, releaseBranch) => {
   }
 }
 
-const renderHeader = (headerType, releaseBranch, pathname) => {
+const renderHeader = (headerType, releaseBranch, pathname, referrerPath) => {
   let headerTheme
   switch (headerType) {
     case uiConst.header.none:
@@ -82,6 +82,7 @@ const renderHeader = (headerType, releaseBranch, pathname) => {
       releaseBranch={releaseBranch}
       isLinkExternal={false}
       pathname={pathname}
+      referrerPath={referrerPath}
     />
   )
   if (headerType === uiConst.header.transparent) {
@@ -102,12 +103,13 @@ const AppShell = ({
   releaseBranch,
   children,
   pathname,
+  referrerPath,
 }) => {
   return (
     <ErrorBoundary>
       <AppBox backgroundColor={backgroundColor}>
         <ContentBlock>
-          {renderHeader(headerType, releaseBranch, pathname)}
+          {renderHeader(headerType, releaseBranch, pathname, referrerPath)}
           {children}
           {renderFooter(footerType, releaseBranch)}
         </ContentBlock>
@@ -125,12 +127,14 @@ AppShell.propTypes = {
     PropTypes.node,
   ]),
   pathname: PropTypes.string.isRequired,
+  referrerPath: PropTypes.string,
 }
 
 function mapStateToProps(state, ownProps) {
   return Object.assign(
     {
       pathname: _.get(ownProps.location, 'pathname', ''),
+      referrerPath: _.get(ownProps.referrer, 'pathname', ''),
     },
     uiManager.getLayoutObj(state, ownProps.location)
   )

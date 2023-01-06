@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import getRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
@@ -154,8 +154,17 @@ GlobalStyleWithFonts.propTypes = {
   fonts: PropTypes.arrayOf(PropTypes.string),
 }
 
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+
 const App = ({ reduxStore, releaseBranch }) => {
   const location = useLocation()
+  const prevLocation = usePrevious(location)
   const routes = getRoutes()
   const routeJSX = routes.map((route, routeIndex) => {
     if (route.renderWithProps) {
@@ -171,7 +180,11 @@ const App = ({ reduxStore, releaseBranch }) => {
       <Route
         render={props => {
           return (
-            <AppShell location={location} releaseBranch={releaseBranch}>
+            <AppShell
+              location={location}
+              releaseBranch={releaseBranch}
+              referrer={prevLocation}
+            >
               <Switch>{routeJSX}</Switch>
             </AppShell>
           )

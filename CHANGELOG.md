@@ -1,6 +1,45 @@
 # Changelog
 
-## 4.9.6, 2022-11-30 (Current)
+## 4.9.7, 2023-01-06 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update 2023 fundraising number
+    - force to use old universal-header
+- fix
+  - pass referrer location from react-router-dom for spa
+  - fix gke auth error in ci flow
+  - refine design details for new info arch
+
+### Commits
+
+- [[`73c504e467`](https://github.com/twreporter/twreporter-react/commit/73c504e467)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`56d2093e3d`](https://github.com/twreporter/twreporter-react/commit/56d2093e3d)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`41e9c05334`](https://github.com/twreporter/twreporter-react/commit/41e9c05334)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`166c62a480`](https://github.com/twreporter/twreporter-react/commit/166c62a480)] - Merge pull request #2344 from duidae/jason/revert_style_refinement_PR (許守傑 Shou-Chieh Hsu (Jason))
+- [[`1d2e9ba4b8`](https://github.com/twreporter/twreporter-react/commit/1d2e9ba4b8)] - **fix**: restore npm packages (duidae)
+- [[`b49197837b`](https://github.com/twreporter/twreporter-react/commit/b49197837b)] - _**Revert**_ "Revert "Revert "fix: fix topic top padding""" (duidae)
+- [[`e535b30c9c`](https://github.com/twreporter/twreporter-react/commit/e535b30c9c)] - Merge pull request #2340 from duidae/jason/fix_tag_mobile_layout (許守傑 Shou-Chieh Hsu (Jason))
+- [[`85a73eb8d9`](https://github.com/twreporter/twreporter-react/commit/85a73eb8d9)] - **fix**: fix tag page mobile layout issue (duidae)
+- [[`118aa2518c`](https://github.com/twreporter/twreporter-react/commit/118aa2518c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`664e76a256`](https://github.com/twreporter/twreporter-react/commit/664e76a256)] - **fix**: pass referrer location from react-router-dom for spa (Aylie Chou)
+- [[`cbf4c23a2b`](https://github.com/twreporter/twreporter-react/commit/cbf4c23a2b)] - Merge pull request #2334 from duidae/jason/remove_install_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- [[`34633d5cc8`](https://github.com/twreporter/twreporter-react/commit/34633d5cc8)] - **fix**: remove install command (duidae)
+- [[`63014e7db7`](https://github.com/twreporter/twreporter-react/commit/63014e7db7)] - Merge pull request #2331 from duidae/jason/install_gke_auth_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e572539d7d`](https://github.com/twreporter/twreporter-react/commit/e572539d7d)] - **fix**: install gke auth plugin (duidae)
+- [[`58eb5a70bb`](https://github.com/twreporter/twreporter-react/commit/58eb5a70bb)] - Merge pull request #2328 from duidae/jason/fix_gke_upgrade_issue (許守傑 Shou-Chieh Hsu (Jason))
+- [[`62337cee78`](https://github.com/twreporter/twreporter-react/commit/62337cee78)] - **fix**: update ci for gke auth error issue (duidae)
+- [[`a789ecf763`](https://github.com/twreporter/twreporter-react/commit/a789ecf763)] - Merge pull request #2324 from duidae/jason/fix_mobile_rwd_defect (許守傑 Shou-Chieh Hsu (Jason))
+- [[`6c4dbda5a3`](https://github.com/twreporter/twreporter-react/commit/6c4dbda5a3)] - **fix**: update npm packages (duidae)
+- [[`8cde5246f0`](https://github.com/twreporter/twreporter-react/commit/8cde5246f0)] - Merge pull request #2317 from duidae/jason/revert_refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`2d7930b4cc`](https://github.com/twreporter/twreporter-react/commit/2d7930b4cc)] - **fix**: update npm packages (duidae)
+- [[`5ed921d031`](https://github.com/twreporter/twreporter-react/commit/5ed921d031)] - _**Revert**_ "Revert "fix: fix topic top padding"" (duidae)
+- [[`5c6a1c3569`](https://github.com/twreporter/twreporter-react/commit/5c6a1c3569)] - **chore**: use universal header with feature toggle (Aylie Chou)
+- [[`482873a056`](https://github.com/twreporter/twreporter-react/commit/482873a056)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.9.6, 2022-11-30
 
 ### Notable Changes
 
