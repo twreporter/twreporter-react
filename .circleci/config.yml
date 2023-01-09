@@ -68,7 +68,7 @@ jobs:
             PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
-              CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
+              CLUSTER_NAME=${K8S_PREVIEW_CLUSTER_NAME}
             fi
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
@@ -99,9 +99,8 @@ jobs:
           name: Connect to container cluster
           command: |
             # GOOGLE_AUTH, GOOGLE_PROJECT_ID,
-            # GOOGLE_PREVIEW_CLUSTER_NAME,
-            # GOOGLE_CLUSTER_NAME
-            # and K8S_CLUSTER_NAME is defined in Environment Variables of circleci project
+            # K8S_PREVIEW_CLUSTER_NAME,
+            # and K8S_CLUSTER_NAME is defined in context of circleci organization
             echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
@@ -114,7 +113,7 @@ jobs:
               # TODO
               # After new cluster settle down,
               # change asia-east1-a -> asia-east1
-              # change ${GOOGLE_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
+              # change ${K8S_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --zone=asia-east1-a
             fi
 
@@ -170,7 +169,7 @@ workflows:
                 - preview
                 - next
       - deploy:
-          context: twreporter
+          context: twreporter-gcp
           requires:
             - build
           filters:
