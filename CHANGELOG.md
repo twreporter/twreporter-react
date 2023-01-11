@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.9.8-rc.0, 2023-01-09
+## 4.9.8, 2023-01-12 (Current)
 
 ### Notable Changes
 
@@ -11,7 +11,7 @@
 
 - [[`8e0e91ab34`](https://github.com/twreporter/twreporter-react/commit/8e0e91ab34)] - **fix**: modify circleci config for new context (Aylie Chou)
 
-## 4.9.7, 2023-01-06 (Current)
+## 4.9.7, 2023-01-06
 
 ### Notable Changes
 
