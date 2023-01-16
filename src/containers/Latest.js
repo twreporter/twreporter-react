@@ -34,7 +34,7 @@ const _ = {
   concat,
 }
 // global var
-const { actions, reduxStateFields } = twreporterRedux
+const { actions, reduxStateFields, LATEST_LIST_ID } = twreporterRedux
 const { fetchPostsByTagListId, fetchLatestPosts, fetchLatestTags } = actions
 const logger = loggerFactory.getLogger()
 
@@ -117,7 +117,8 @@ const Latest = ({
     return <SystemError error={error} />
   }
 
-  const title = 'latest' + siteMeta.name.separator + siteMeta.name.full
+  const titleText = '最新'
+  const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
   const tabs = _.map(latestTagList, latestTag => {
     const { text, link, isExternal } = latestTag
@@ -149,7 +150,11 @@ const Latest = ({
       />
       <Container>
         <TitleTabContainer>
-          <TitleTab title="最新" tabs={tabs} activeTabIndex={activeTabIndex} />
+          <TitleTab
+            title={titleText}
+            tabs={tabs}
+            activeTabIndex={activeTabIndex}
+          />
         </TitleTabContainer>
         <List data={posts} isFetching={isFetching} showSpinner={true} />
         <Pagination currentPage={page} totalPages={totalPages} />
@@ -296,7 +301,7 @@ function mapStateToProps(state, props) {
   const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
   const page = pageProp(location)
   const nPerPage = dataLoaderConst.latestPage.nPerPage
-  const listId = tagId || 'latest'
+  const listId = tagId || LATEST_LIST_ID
 
   return {
     latestTagList,

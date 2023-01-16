@@ -246,8 +246,7 @@ function titleTabProp(categoryPath, subcategoryPath) {
       subcategoryKey !== 'all'
         ? `/categories/${categoryPath}/${path}`
         : `/categories/${categoryPath}`
-    const isExternal = false
-    return { id, label, link, path, isExternal }
+    return { id, label, link, path, isExternal: false }
   })
   const activeTabIndex = subcategoryPath
     ? _.findIndex(subcategoryList, ['path', subcategoryPath])
