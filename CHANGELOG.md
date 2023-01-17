@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.10.0-rc.0, 2023-01-17
+
+### Notable Changes
+
+- feat
+  - add latest page
+- chore
+  - update @twerporter packages
+    - address universal-header defects
+    - add latest page actions & reducers
+  - remove testing change
+
+### Commits
+
+- [[`108cda660f`](https://github.com/twreporter/twreporter-react/commit/108cda660f)] - **chore**: apply universal-header with feature toggle (Aylie Chou)
+- [[`b2915ab172`](https://github.com/twreporter/twreporter-react/commit/b2915ab172)] - **chore**: update @twerporter packages (Aylie Chou)
+- [[`ac2670c5c5`](https://github.com/twreporter/twreporter-react/commit/ac2670c5c5)] - **fix**: address review comment (Aylie Chou)
+- [[`eb85162412`](https://github.com/twreporter/twreporter-react/commit/eb85162412)] - **chore**: remove testing change (Aylie Chou)
+- [[`84d17738e2`](https://github.com/twreporter/twreporter-react/commit/84d17738e2)] - **feat**: add latest page (Aylie Chou)
+
 ## 4.9.8, 2023-01-12 (Current)
 
 ### Notable Changes
