@@ -18,27 +18,24 @@ import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
-import {
-  CATEGORY_ID,
-  CATEGORY_LABEL,
-  SUBCATEGORY_ID,
-  SUBCATEGORY_LABEL,
-  CATEGORY_SET,
-} from '@twreporter/core/lib/constants/category-set'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import findIndex from 'lodash/findIndex'
+import merge from 'lodash/merge'
+import concat from 'lodash/concat'
 const _ = {
   forEach,
   get,
   map,
   findIndex,
+  merge,
+  concat,
 }
 // global var
-const { actions, reduxStateFields } = twreporterRedux
-const { fetchPostsByCategorySetListId } = actions
+const { actions, reduxStateFields, LATEST_LIST_ID } = twreporterRedux
+const { fetchPostsByTagListId, fetchLatestPosts, fetchLatestTags } = actions
 const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
@@ -71,34 +68,48 @@ const TitleTabContainer = styled.div`
   `}
 `
 
-const Category = ({
-  catLabel,
-  subcategoryList,
+const Latest = ({
+  latestTagList,
   activeTabIndex,
-  listId,
+  tagId,
   pathname,
   posts,
   error,
   isFetching,
-  fetchPostsByCategorySetListId,
+  fetchPostsByTagListId,
+  fetchLatestPosts,
+  fetchLatestTags,
   nPerPage,
   totalPages,
   page,
 }) => {
   useEffect(() => {
-    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
+    fetchLatestTags().catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
-        message: `Error to fetch posts (category id: '${listId}', page: ${page}, nPerPage: ${nPerPage}).`,
+        message: `Error to fetch latest tags`,
       })
     })
+  }, [])
+  useEffect(() => {
+    const catchFunc = failAction => {
+      logger.errorReport({
+        report: _.get(failAction, 'payload.error'),
+        message: `Error to fetch posts (tag id: '${tagId}', page: ${page}, nPerPage: ${nPerPage}).`,
+      })
+    }
+    if (tagId) {
+      fetchPostsByTagListId(tagId, nPerPage, page).catch(catchFunc)
+    } else {
+      fetchLatestPosts(nPerPage, page).catch(catchFunc)
+    }
   }, [
-    catLabel,
+    tagId,
     activeTabIndex,
     page,
-    listId,
-    fetchPostsByCategorySetListId,
     nPerPage,
+    fetchPostsByTagListId,
+    fetchLatestPosts,
   ])
 
   // Error handling
@@ -106,12 +117,13 @@ const Category = ({
     return <SystemError error={error} />
   }
 
-  const title = catLabel + siteMeta.name.separator + siteMeta.name.full
+  const titleText = '最新'
+  const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
-  const tabs = _.map(subcategoryList, subcategory => {
-    const { label, link, isExternal } = subcategory
+  const tabs = _.map(latestTagList, latestTag => {
+    const { text, link, isExternal } = latestTag
     return {
-      text: label,
+      text,
       link,
       isExternal,
     }
@@ -139,7 +151,7 @@ const Category = ({
       <Container>
         <TitleTabContainer>
           <TitleTab
-            title={catLabel}
+            title={titleText}
             tabs={tabs}
             activeTabIndex={activeTabIndex}
           />
@@ -180,7 +192,7 @@ function pageProp(location = {}) {
 
 /**
  *  @param {ReduxState} state
- *  @param {string} listId - category list id
+ *  @param {string} listId - tag id
  *  @return {number}
  */
 function totalPagesProp(state, listId, nPerPage) {
@@ -190,7 +202,7 @@ function totalPagesProp(state, listId, nPerPage) {
 
 /**
  *  @param {ReduxState} state
- *  @param {string} listId - category list id
+ *  @param {string} listId - tag id
  *  @return {boolean}
  */
 function isFetchingProp(state, listId) {
@@ -199,7 +211,7 @@ function isFetchingProp(state, listId) {
 
 /**
  *  @param {ReduxState} state
- *  @param {string} listId - category list id
+ *  @param {string} listId - tag id
  *  @return {Object} error object
  */
 function errorProp(state, listId) {
@@ -208,7 +220,7 @@ function errorProp(state, listId) {
 
 /**
  *  @param {ReduxState} state
- *  @param {string} listId - category list id
+ *  @param {string} listId - tag id
  *  @param {number} page - current page
  *  @return {MetaOfPost[]}
  */
@@ -233,31 +245,36 @@ function postsProp(state, listId, page) {
 }
 
 /**
- *  @param {string} categoryPath - category pathname
- *  @param {string} subcategoryPath - subcategory pathname
- *  @return {Object} - subcategoryList, activeTabIndex
+ *  @param {ReduxState} state
+ *  @param {string} listId - tag id
+ *  @return {Object} - latestTagList, activeTabIndex
  */
-function titleTabProp(categoryPath, subcategoryPath) {
-  const subcategoryList = _.map(CATEGORY_SET[categoryPath], subcategoryKey => {
-    const path = subcategoryKey
-    const label = SUBCATEGORY_LABEL[subcategoryKey]
-    const id = SUBCATEGORY_ID[subcategoryKey]
-    const link =
-      subcategoryKey !== 'all'
-        ? `/categories/${categoryPath}/${path}`
-        : `/categories/${categoryPath}`
-    return { id, label, link, path, isExternal: false }
-  })
-  const activeTabIndex = subcategoryPath
-    ? _.findIndex(subcategoryList, ['path', subcategoryPath])
-    : 0
+function titleTabProp(state, listId) {
+  const latestPageState = _.get(state, reduxStateFields.latest, {})
+  const latestTag = _.get(latestPageState, 'latestTag', [])
+  let latestTagList = [{ text: '全部', link: '/latest', isExternal: false }]
+  latestTagList = _.concat(
+    latestTagList,
+    _.map(latestTag, tag => {
+      const { id, name } = tag
+      return {
+        id,
+        text: name,
+        link: `/latest/${id}`,
+        isExternal: false,
+      }
+    })
+  )
+  const activeTabIndex = listId ? _.findIndex(latestTagList, ['id', listId]) : 0
 
-  return { subcategoryList, activeTabIndex }
+  return { latestTagList, activeTabIndex }
 }
 
 /**
- *  @typedef {Object} CategoryProps
- *  @property {string} listId - category set id
+ *  @typedef {Object} LatestProps
+ *  @property {string} tagId - tag id
+ *  @property {Object} latestTagList - latest tag list
+ *  @property {number} activeTabIndex - index of active tag
  *  @property {Object} error - error object
  *  @property {boolean} isFetching - if it is requesting api or not
  *  @property {number} page - current page for pagination
@@ -279,30 +296,17 @@ function titleTabProp(categoryPath, subcategoryPath) {
  */
 function mapStateToProps(state, props) {
   const location = _.get(props, 'location')
-  const categoryPath = _.get(props, 'match.params.category')
-  const subcategoryPath = _.get(props, 'match.params.subcategory')
-  const categoryId = CATEGORY_ID[categoryPath]
-  const subcategoryId = SUBCATEGORY_ID[subcategoryPath]
-  const listId =
-    categoryId && subcategoryId ? `${categoryId}_${subcategoryId}` : categoryId
-  const catLabel = CATEGORY_LABEL[categoryPath]
-  const { subcategoryList, activeTabIndex } = titleTabProp(
-    categoryPath,
-    subcategoryPath
-  )
+  const tagId = _.get(props, 'match.params.tagId')
+  const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
+  const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
   const page = pageProp(location)
-  const nPerPage = dataLoaderConst.categoryListPage.nPerPage
-
-  const defaultPathname = subcategoryPath
-    ? `/categories/${categoryPath}/${subcategoryPath}`
-    : `/categories/${categoryPath}`
-  const pathname = _.get(location, 'pathname', defaultPathname)
+  const nPerPage = dataLoaderConst.latestPage.nPerPage
+  const listId = tagId || LATEST_LIST_ID
 
   return {
-    catLabel,
-    subcategoryList,
+    latestTagList,
     activeTabIndex,
-    listId,
+    tagId,
     error: errorProp(state, listId),
     isFetching: isFetchingProp(state, listId),
     nPerPage,
@@ -313,28 +317,28 @@ function mapStateToProps(state, props) {
   }
 }
 
-Category.defaultProps = {
-  catLabel: '',
-  subcategoryList: [],
+Latest.defaultProps = {
+  latestTagList: [],
   activeTabIndex: 0,
   error: null,
   isFetching: false,
   posts: [],
   totalPages: 0,
-  nPerPage: dataLoaderConst.categoryListPage.nPerPage,
+  nPerPage: dataLoaderConst.latestPage.nPerPage,
 }
 
-Category.propTypes = {
-  catLabel: PropTypes.string,
-  subcategoryList: PropTypes.array,
+Latest.propTypes = {
+  latestTagList: PropTypes.array,
   activeTabIndex: PropTypes.number,
-  listId: PropTypes.String,
+  tagId: PropTypes.string,
   error: PropTypes.object,
-  fetchPostsByCategorySetListId: PropTypes.func.isRequired,
+  fetchPostsByTagListId: PropTypes.func,
+  fetchLatestPosts: PropTypes.func,
+  fetchLatestTags: PropTypes.func,
   isFetching: PropTypes.bool,
   nPerPage: PropTypes.number,
-  page: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired,
+  page: PropTypes.number,
+  pathname: PropTypes.string,
 
   // TODO: define metaOfPost
   // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
@@ -342,8 +346,8 @@ Category.propTypes = {
   totalPages: PropTypes.number,
 }
 
-export { Category }
+export { Latest }
 export default connect(
   mapStateToProps,
-  { fetchPostsByCategorySetListId }
-)(Category)
+  { fetchPostsByTagListId, fetchLatestPosts, fetchLatestTags }
+)(Latest)

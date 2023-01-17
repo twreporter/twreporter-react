@@ -17,4 +17,7 @@ export default {
   topicListPage: {
     nPerPage: 5,
   },
+  latestPage: {
+    nPerPage: 10,
+  },
 }

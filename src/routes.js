@@ -120,6 +120,14 @@ const loadablePages = {
       ),
     loading: LoadingComponent,
   }),
+  latest: Loadable({
+    loader: () =>
+      import(
+        /* webpackChunkName: "latest" */
+        './containers/Latest'
+      ),
+    loading: LoadingComponent,
+  }),
 }
 
 function ErrorPage({ match, staticContext }) {
@@ -255,6 +263,12 @@ export default function getRoutes() {
       path: routesConst.bookmarkListPage.path,
       authorizationRequired: true,
     },
+    {
+      component: loadablePages.latest,
+      loadData: dataLoaders.loadLatestPageData,
+      path: routesConst.latestPage.path,
+    },
+    // error  page
     {
       path: routesConst.errorPage.path,
       component: ErrorPage,

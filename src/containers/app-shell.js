@@ -10,7 +10,7 @@ import uiConst from '../constants/ui'
 import ErrorBoundary from '../components/ErrorBoundary'
 // @twreporter
 import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/universal-header/lib/containers/header-old'
+import { Header } from '@twreporter/universal-header/lib/index'
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import get from 'lodash/get'
