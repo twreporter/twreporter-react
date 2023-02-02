@@ -200,15 +200,13 @@ export default class Section2 extends PureComponent {
     })
   }
   _getConfig = () => {
-    return axios
-      .get(configs[sections.section2])
-      .catch(err => {
-        logger.errorReport({
-          report: err,
-          message:
-            'Something went wrong during getting configs for about-us page section2',
-        })
+    return axios.get(configs[sections.section2]).catch(err => {
+      logger.errorReport({
+        report: err,
+        message:
+          'Something went wrong during getting configs for about-us page section2',
       })
+    })
   }
   render() {
     const { groupedMembers } = this.state
@@ -222,13 +220,11 @@ export default class Section2 extends PureComponent {
        * @typeof {number[]} membersNumberArray
        *
        */
-      membersNumberArray = categories.map(
-        category => {
-          if (groupedMembers[category.id]) {
-            return groupedMembers[category.id].length
-          }
+      membersNumberArray = categories.map(category => {
+        if (groupedMembers[category.id]) {
+          return groupedMembers[category.id].length
         }
-      )
+      })
       content = (
         <Content>
           <CarouselMemberList
@@ -255,6 +251,7 @@ export default class Section2 extends PureComponent {
           <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
+            <br />
             {rules.chinese.map((rule, index) => {
               return <p key={'rule' + index}>{rule}</p>
             })}
