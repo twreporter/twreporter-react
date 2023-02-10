@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.1, 2023-02-10
+
+### Notable Changes
+
+- chore
+  - update @twerporter packages (react-article-components)
+
+### Commits
+
+- \[[`5c828c93f0`](https://github.com/twreporter/twreporter-react/commit/5c828c93f0)] - Merge pull request #2365 from duidae/jason/upgrade_react_article_component (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`019d9a70a5`](https://github.com/twreporter/twreporter-react/commit/019d9a70a5)] - **chore**: upgrade react-article-component (duidae)
+
 ## 4.10.0-rc.0, 2023-01-17
 
 ### Notable Changes
