@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.0-rc.2, 2023-02-13
+
+### Notable Changes
+
+- fix
+  - about-us
+    - section2 intro wording
+    - update awards order & add new awards
+
+### Commits
+
+- [[`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
+- [[`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
+
 ## 4.10.0-rc.1, 2023-02-10
 
 ### Notable Changes

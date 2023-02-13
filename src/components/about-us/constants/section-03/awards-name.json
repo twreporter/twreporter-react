@@ -5,19 +5,54 @@
     "awardEng": "The Society of Publishers in Asia Awards"
   },
   {
+    "awardId": "excellence",
+    "award": "卓越新聞獎",
+    "awardEng": "Excellent Journalism Award"
+  },
+  {
+    "awardId": "zheng",
+    "award": "曾虛白新聞獎",
+    "awardEng": "Zheng Journalism Award"
+  },
+  {
+    "awardId": "vivianwu",
+    "award": "吳舜文新聞獎",
+    "awardEng": "Vivianwu Journalism Award"
+  },
+  {
+    "awardId": "goldenTripod",
+    "award": "金鼎獎",
+    "awardEng": "Golden Tripod Awards for Publications"
+  },
+  {
+    "awardId": "tibe",
+    "award": "台北國際書展大獎",
+    "awardEng": "TIBE Book Prize Award"
+  },
+  {
+    "awardId": "twPressPhoto",
+    "award": "台灣新聞攝影大賽",
+    "awardEng": "Taiwan Press Photo Contest"
+  },
+  {
     "awardId": "taiHai",
     "award": "台海新聞攝影大賽",
     "awardEng": "Tai Hai Press Photo Contest"
   },
   {
+    "awardId": "hkPressPhoto",
+    "award": "香港攝影記者協會新聞攝影大賽",
+    "awardEng": "Hong Kong Press Photographers Association Photo Competition"
+  },
+  {
+    "awardId": "KKBOX",
+    "award": "KKBOX Podcast 風雲榜",
+    "awardEng": "KKBOX Podcast"
+  },
+  {
     "awardId": "humanRights",
     "award": "人權新聞獎",
     "awardEng": "Human Rights Press Awards"
-  },
-  {
-    "awardId": "excellence",
-    "award": "卓越新聞獎",
-    "awardEng": "Excellent Journalism Award"
   },
   {
     "awardId": "queermosa",
@@ -28,25 +63,5 @@
     "awardId": "twInnocence",
     "award": "平冤年度新聞獎",
     "awardEng": "Taiwan Innocence Press Awards"
-  },
-  {
-    "awardId": "twPressPhoto",
-    "award": "台灣新聞攝影大賽",
-    "awardEng": "Taiwan Press Photo Contest"
-  },
-  {
-    "awardId": "vivianwu",
-    "award": "吳舜文新聞獎",
-    "awardEng": "Vivianwu Journalism Award"
-  },
-  {
-    "awardId": "zheng",
-    "award": "曾虛白新聞獎",
-    "awardEng": "Zheng Journalism Award"
-  },
-  {
-    "awardId": "KKBOX",
-    "award": "KKBOX Podcast 風雲榜",
-    "awardEng": "KKBOX Podcast"
   }
 ]
