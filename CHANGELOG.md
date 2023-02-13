@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.3, 2023-02-13
+
+### Notable Changes
+
+- feat
+  - update npm packages
+
+### Commits
+
+- \[[`9f6c6d2dc4`](https://github.com/twreporter/twreporter-react/commit/9f6c6d2dc4)] - Merge pull request #2370 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`b964f3149b`](https://github.com/twreporter/twreporter-react/commit/b964f3149b)] - **chore**: update npm packages (duidae)
+
 ## 4.10.0-rc.2, 2023-02-13
 
 ### Notable Changes
