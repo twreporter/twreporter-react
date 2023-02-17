@@ -47,9 +47,7 @@ function generateRuntimeCaching(runtimeCaching) {
 }
 
 const releaseBranch = config.releaseBranch
-const origin = url.parse(
-  requestOrigins.forClientSideRendering[releaseBranch].api
-)
+const origin = url.URL(requestOrigins.forClientSideRendering[releaseBranch].api)
 
 const apiURLPrefix = `${origin.protocol}//${origin.hostname}(:${origin.port})?`
 const hash = crypto
