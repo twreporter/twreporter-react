@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.7, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert: update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`c514d06118`](https://github.com/twreporter/twreporter-react/commit/c514d06118)] - Merge pull request #2382 from twreporter/revert-2376-jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`40e460adff`](https://github.com/twreporter/twreporter-react/commit/40e460adff)] - _**Revert**_ "**fix**: sync node version with npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.0-rc.6, 2023-02-17
 
 ### Notable Changes
