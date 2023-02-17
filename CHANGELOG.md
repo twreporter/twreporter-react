@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.5, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert previous update of npm packages due to old node version
+
+### Commits
+
+- \[[`e70b52439c`](https://github.com/twreporter/twreporter-react/commit/e70b52439c)] - Merge pull request #2377 from twreporter/revert-2373-jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`8859d5a4e0`](https://github.com/twreporter/twreporter-react/commit/8859d5a4e0)] - _**Revert**_ "**chore**: update npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.0-rc.4, 2023-02-16
 
 ### Notable Changes
