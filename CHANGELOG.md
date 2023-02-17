@@ -1,5 +1,68 @@
 # Changelog
 
+## 4.10.0-rc.9, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert: update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`f49cbbeb3d`](https://github.com/twreporter/twreporter-react/commit/f49cbbeb3d)] - Merge pull request #2389 from twreporter/revert-2385-jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`54db11379d`](https://github.com/twreporter/twreporter-react/commit/54db11379d)] - _**Revert**_ "Jason/revert url parse" (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.10.0-rc.8, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`e0528e7597`](https://github.com/twreporter/twreporter-react/commit/e0528e7597)] - Merge pull request #2385 from duidae/jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`bac917cf53`](https://github.com/twreporter/twreporter-react/commit/bac917cf53)] - **fix**: restore to url.parse (duidae)
+
+## 4.10.0-rc.7, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert: update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`c514d06118`](https://github.com/twreporter/twreporter-react/commit/c514d06118)] - Merge pull request #2382 from twreporter/revert-2376-jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`40e460adff`](https://github.com/twreporter/twreporter-react/commit/40e460adff)] - _**Revert**_ "**fix**: sync node version with npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.10.0-rc.6, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`07403378dc`](https://github.com/twreporter/twreporter-react/commit/07403378dc)] - Merge pull request #2376 from duidae/jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`d70b149886`](https://github.com/twreporter/twreporter-react/commit/d70b149886)] - **chore**: update npm packages (duidae)
+- \[[`b1b7b74f71`](https://github.com/twreporter/twreporter-react/commit/b1b7b74f71)] - Merge branch 'master' into jason/update_ci_node (duidae)
+- \[[`d8bc3bdf04`](https://github.com/twreporter/twreporter-react/commit/d8bc3bdf04)] - Merge pull request #2378 from duidae/jason/bump_version_v4.10.0-rc.5 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`0765757fdd`](https://github.com/twreporter/twreporter-react/commit/0765757fdd)] - **chore**: bump version 4.10.0-rc.5 (duidae)
+
+## 4.10.0-rc.5, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert previous update of npm packages due to old node version
+
+### Commits
+
+- \[[`e70b52439c`](https://github.com/twreporter/twreporter-react/commit/e70b52439c)] - Merge pull request #2377 from twreporter/revert-2373-jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`8859d5a4e0`](https://github.com/twreporter/twreporter-react/commit/8859d5a4e0)] - _**Revert**_ "**chore**: update npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.0-rc.4, 2023-02-16
 
 ### Notable Changes
