@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.10.0-rc.6, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`07403378dc`](https://github.com/twreporter/twreporter-react/commit/07403378dc)] - Merge pull request #2376 from duidae/jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`d70b149886`](https://github.com/twreporter/twreporter-react/commit/d70b149886)] - **chore**: update npm packages (duidae)
+- \[[`b1b7b74f71`](https://github.com/twreporter/twreporter-react/commit/b1b7b74f71)] - Merge branch 'master' into jason/update_ci_node (duidae)
+- \[[`d8bc3bdf04`](https://github.com/twreporter/twreporter-react/commit/d8bc3bdf04)] - Merge pull request #2378 from duidae/jason/bump_version_v4.10.0-rc.5 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`0765757fdd`](https://github.com/twreporter/twreporter-react/commit/0765757fdd)] - **chore**: bump version 4.10.0-rc.5 (duidae)
+
 ## 4.10.0-rc.5, 2023-02-17
 
 ### Notable Changes
