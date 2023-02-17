@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.9, 2023-02-17
+
+### Notable Changes
+
+- fix
+  - revert: update of npm packages due to old node version & update node image
+
+### Commits
+
+- \[[`f49cbbeb3d`](https://github.com/twreporter/twreporter-react/commit/f49cbbeb3d)] - Merge pull request #2389 from twreporter/revert-2385-jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`54db11379d`](https://github.com/twreporter/twreporter-react/commit/54db11379d)] - _**Revert**_ "Jason/revert url parse" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.0-rc.8, 2023-02-17
 
 ### Notable Changes
