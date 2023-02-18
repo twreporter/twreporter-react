@@ -25,6 +25,7 @@ import map from 'lodash/map'
 import findIndex from 'lodash/findIndex'
 import merge from 'lodash/merge'
 import concat from 'lodash/concat'
+import sortBy from 'lodash/sortBy'
 const _ = {
   forEach,
   get,
@@ -32,6 +33,7 @@ const _ = {
   findIndex,
   merge,
   concat,
+  sortBy,
 }
 // global var
 const { actions, reduxStateFields, LATEST_LIST_ID } = twreporterRedux
@@ -255,15 +257,18 @@ function titleTabProp(state, listId) {
   let latestTagList = [{ text: '全部', link: '/latest', isExternal: false }]
   latestTagList = _.concat(
     latestTagList,
-    _.map(latestTag, tag => {
-      const { id, name } = tag
-      return {
-        id,
-        text: name,
-        link: `/latest/${id}`,
-        isExternal: false,
-      }
-    })
+    _.sortBy(
+      _.map(latestTag, tag => {
+        const { id, name } = tag
+        return {
+          id,
+          text: name,
+          link: `/latest/${id}`,
+          isExternal: false,
+        }
+      }),
+      ['latest_order']
+    )
   )
   const activeTabIndex = listId ? _.findIndex(latestTagList, ['id', listId]) : 0
 

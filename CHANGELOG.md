@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.10.0-rc.11, 2023-02-18
+
+### Notable Changes
+
+- fix
+  - show latest tags sorting with latest_order
+- chore
+  - update @twreporter packages
+    - fix defects
+
+### Commits
+
+- [[`4da1d4c728`](https://github.com/twreporter/twreporter-react/commit/4da1d4c728)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f20a53a7f5`](https://github.com/twreporter/twreporter-react/commit/f20a53a7f5)] - **fix**: show latest tags sorting with latest_order (Aylie Chou)
+
 ## 4.10.0-rc.10, 2023-02-18
 
 ### Notable Changes
