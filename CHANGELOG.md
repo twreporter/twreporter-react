@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.10, 2023-02-18
+
+### Notable Changes
+
+- chore
+  - update of npm packages due to object.fromentries issue
+
+### Commits
+
+- \[[`bac55fb661`](https://github.com/twreporter/twreporter-react/commit/bac55fb661)] - Merge pull request #2394 from duidae/jason/upgrade_npm_packages_object_fromentries (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`981cad4f9e`](https://github.com/twreporter/twreporter-react/commit/981cad4f9e)] - **chore**: upgrade npm package for fixing object.fromentries issue (duidae)
+
 ## 4.10.0-rc.9, 2023-02-17
 
 ### Notable Changes
