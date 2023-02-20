@@ -1,5 +1,44 @@
 # Changelog
 
+## 4.10.0-rc.12, 2023-02-20
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix missing import
+
+### Commits
+
+- [[`759ee763d6`](https://github.com/twreporter/twreporter-react/commit/759ee763d6)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.10.0-rc.11, 2023-02-18
+
+### Notable Changes
+
+- fix
+  - show latest tags sorting with latest_order
+- chore
+  - update @twreporter packages
+    - fix defects
+
+### Commits
+
+- [[`4da1d4c728`](https://github.com/twreporter/twreporter-react/commit/4da1d4c728)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f20a53a7f5`](https://github.com/twreporter/twreporter-react/commit/f20a53a7f5)] - **fix**: show latest tags sorting with latest_order (Aylie Chou)
+
+## 4.10.0-rc.10, 2023-02-18
+
+### Notable Changes
+
+- chore
+  - update of npm packages due to object.fromentries issue
+
+### Commits
+
+- \[[`bac55fb661`](https://github.com/twreporter/twreporter-react/commit/bac55fb661)] - Merge pull request #2394 from duidae/jason/upgrade_npm_packages_object_fromentries (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`981cad4f9e`](https://github.com/twreporter/twreporter-react/commit/981cad4f9e)] - **chore**: upgrade npm package for fixing object.fromentries issue (duidae)
+
 ## 4.10.0-rc.9, 2023-02-17
 
 ### Notable Changes
