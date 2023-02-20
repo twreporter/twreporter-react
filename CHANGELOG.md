@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.0-rc.12, 2023-02-20
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix missing import
+
+### Commits
+
+- [[`759ee763d6`](https://github.com/twreporter/twreporter-react/commit/759ee763d6)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.10.0-rc.11, 2023-02-18
 
 ### Notable Changes
