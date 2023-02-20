@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.0-rc.13, 2023-02-20
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix subcategory path issue
+
+### Commits
+
+- \[[`bffa611070`](https://github.com/twreporter/twreporter-react/commit/bffa611070)] - Merge pull request #2403 from duidae/jason/upgrade_npm_packs_subcategory_path (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`8cc4172b32`](https://github.com/twreporter/twreporter-react/commit/8cc4172b32)] - **chore**: update npm packages to fix subcategory path issue (duidae)
+
 ## 4.10.0-rc.12, 2023-02-20
 
 ### Notable Changes
