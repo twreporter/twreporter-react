@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.0-rc.14, 2023-02-22
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - disable info struct feature toggle
+  - force to use old universal-header
+
+### Commits
+
+- [[`e42ad803f2`](https://github.com/twreporter/twreporter-react/commit/e42ad803f2)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`9d8be757e7`](https://github.com/twreporter/twreporter-react/commit/9d8be757e7)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.10.0-rc.13, 2023-02-20
 
 ### Notable Changes
