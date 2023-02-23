@@ -1,20 +1,22 @@
 import { connect } from 'react-redux'
-import { List } from '@twreporter/react-components/lib/listing-page'
-import categoryConst from '../constants/category-old'
-import dataLoaderConst from '../constants/data-loaders'
-import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
-import Pagination from '../components/Pagination'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { PureComponent } from 'react'
-import SystemError from '../components/SystemError'
-import siteMeta from '../constants/site-meta'
-import twreporterRedux from '@twreporter/redux'
-
+import Helmet from 'react-helmet'
+import styled from 'styled-components'
+import loggerFactory from '../logger'
 // utils
 import cloneUtils from '../utils/shallow-clone-entity-old'
-
+// constants
+import categoryConst from '../constants/category-old'
+import dataLoaderConst from '../constants/data-loaders'
+import siteMeta from '../constants/site-meta'
+// components
+import Pagination from '../components/Pagination'
+import SystemError from '../components/SystemError'
+// @twreporter
+import twreporterRedux from '@twreporter/redux'
+import { List } from '@twreporter/react-components/lib/listing-page'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -23,6 +25,10 @@ const _ = {
   forEach,
   get,
 }
+
+const ListContainer = styled.div`
+  margin-top: 45px;
+`
 
 const { actions, reduxStateFields } = twreporterRedux
 const { fetchPostsByCategoryListId } = actions
@@ -91,12 +97,14 @@ class Category extends PureComponent {
             { property: 'og:url', content: canonical },
           ]}
         />
-        <List
-          data={posts}
-          catName={catLabel}
-          isFetching={isFetching}
-          showSpinner={true}
-        />
+        <ListContainer>
+          <List
+            data={posts}
+            catName={catLabel}
+            isFetching={isFetching}
+            showSpinner={true}
+          />
+        </ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
       </div>
     )
