@@ -5,21 +5,20 @@ import PropTypes from 'prop-types'
 import querystring from 'querystring'
 import styled from 'styled-components'
 import loggerFactory from '../logger'
-import Pagination from '../components/Pagination'
-import SystemError from '../components/SystemError'
+import mq from '../utils/media-query'
+// constants
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
-import mq from '../utils/media-query'
-
+// components
+import Pagination from '../components/Pagination'
+import SystemError from '../components/SystemError'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import { List } from '@twreporter/react-components/lib/listing-page'
-
 // feature-toggle
 import cloneUtilsNew from '../utils/shallow-clone-entity'
 import cloneUtilsOld from '../utils/shallow-clone-entity-old'
 import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
-
 // lodash
 import find from 'lodash/find'
 import forEach from 'lodash/forEach'
@@ -48,6 +47,10 @@ const _ = {
   forEach,
   get,
 }
+
+const ListContainer = styled.div`
+  margin-top: 45px;
+`
 
 const { actions, reduxStateFields } = twreporterRedux
 const { fetchPostsByTagListId } = actions
@@ -118,12 +121,14 @@ class Tag extends PureComponent {
             { property: 'og:url', content: canonical },
           ]}
         />
-        <List
-          data={posts}
-          tagName={tagName}
-          isFetching={isFetching}
-          showSpinner={true}
-        />
+        <ListContainer>
+          <List
+            data={posts}
+            tagName={tagName}
+            isFetching={isFetching}
+            showSpinner={true}
+          />
+        </ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
       </PageContainer>
     )
