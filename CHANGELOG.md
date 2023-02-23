@@ -1,216 +1,58 @@
 # Changelog
 
-## 4.10.0-rc.15, 2023-02-23
+## 4.10.0, 2023-02-23 (Current)
 
 ### Notable Changes
 
+- feat
+  - add latest page
+- fix
+  - about-us
+    - section2 intro wording
+    - update awards order & add new awards
 - chore
   - update @twreporter packages
 
 ### Commits
 
 - [[`0dcccd9c90`](https://github.com/twreporter/twreporter-react/commit/0dcccd9c90)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.10.0-rc.14, 2023-02-22
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - disable info struct feature toggle
-  - force to use old universal-header
-
-### Commits
-
 - [[`e42ad803f2`](https://github.com/twreporter/twreporter-react/commit/e42ad803f2)] - **chore**: force to use old universal-header (Aylie Chou)
 - [[`9d8be757e7`](https://github.com/twreporter/twreporter-react/commit/9d8be757e7)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.10.0-rc.13, 2023-02-20
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - fix subcategory path issue
-
-### Commits
-
-- \[[`bffa611070`](https://github.com/twreporter/twreporter-react/commit/bffa611070)] - Merge pull request #2403 from duidae/jason/upgrade_npm_packs_subcategory_path (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`8cc4172b32`](https://github.com/twreporter/twreporter-react/commit/8cc4172b32)] - **chore**: update npm packages to fix subcategory path issue (duidae)
-
-## 4.10.0-rc.12, 2023-02-20
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - fix missing import
-
-### Commits
-
+- [[`bffa611070`](https://github.com/twreporter/twreporter-react/commit/bffa611070)] - Merge pull request #2403 from duidae/jason/upgrade_npm_packs_subcategory_path (許守傑 Shou-Chieh Hsu (Jason))
+- [[`8cc4172b32`](https://github.com/twreporter/twreporter-react/commit/8cc4172b32)] - **chore**: update npm packages to fix subcategory path issue (duidae)
 - [[`759ee763d6`](https://github.com/twreporter/twreporter-react/commit/759ee763d6)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.10.0-rc.11, 2023-02-18
-
-### Notable Changes
-
-- fix
-  - show latest tags sorting with latest_order
-- chore
-  - update @twreporter packages
-    - fix defects
-
-### Commits
-
 - [[`4da1d4c728`](https://github.com/twreporter/twreporter-react/commit/4da1d4c728)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`f20a53a7f5`](https://github.com/twreporter/twreporter-react/commit/f20a53a7f5)] - **fix**: show latest tags sorting with latest_order (Aylie Chou)
-
-## 4.10.0-rc.10, 2023-02-18
-
-### Notable Changes
-
-- chore
-  - update of npm packages due to object.fromentries issue
-
-### Commits
-
-- \[[`bac55fb661`](https://github.com/twreporter/twreporter-react/commit/bac55fb661)] - Merge pull request #2394 from duidae/jason/upgrade_npm_packages_object_fromentries (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`981cad4f9e`](https://github.com/twreporter/twreporter-react/commit/981cad4f9e)] - **chore**: upgrade npm package for fixing object.fromentries issue (duidae)
-
-## 4.10.0-rc.9, 2023-02-17
-
-### Notable Changes
-
-- fix
-  - revert: update of npm packages due to old node version & update node image
-
-### Commits
-
-- \[[`f49cbbeb3d`](https://github.com/twreporter/twreporter-react/commit/f49cbbeb3d)] - Merge pull request #2389 from twreporter/revert-2385-jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`54db11379d`](https://github.com/twreporter/twreporter-react/commit/54db11379d)] - _**Revert**_ "Jason/revert url parse" (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.10.0-rc.8, 2023-02-17
-
-### Notable Changes
-
-- fix
-  - update of npm packages due to old node version & update node image
-
-### Commits
-
-- \[[`e0528e7597`](https://github.com/twreporter/twreporter-react/commit/e0528e7597)] - Merge pull request #2385 from duidae/jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`bac917cf53`](https://github.com/twreporter/twreporter-react/commit/bac917cf53)] - **fix**: restore to url.parse (duidae)
-
-## 4.10.0-rc.7, 2023-02-17
-
-### Notable Changes
-
-- fix
-  - revert: update of npm packages due to old node version & update node image
-
-### Commits
-
-- \[[`c514d06118`](https://github.com/twreporter/twreporter-react/commit/c514d06118)] - Merge pull request #2382 from twreporter/revert-2376-jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`40e460adff`](https://github.com/twreporter/twreporter-react/commit/40e460adff)] - _**Revert**_ "**fix**: sync node version with npm packages" (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.10.0-rc.6, 2023-02-17
-
-### Notable Changes
-
-- fix
-  - update of npm packages due to old node version & update node image
-
-### Commits
-
-- \[[`07403378dc`](https://github.com/twreporter/twreporter-react/commit/07403378dc)] - Merge pull request #2376 from duidae/jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`d70b149886`](https://github.com/twreporter/twreporter-react/commit/d70b149886)] - **chore**: update npm packages (duidae)
-- \[[`b1b7b74f71`](https://github.com/twreporter/twreporter-react/commit/b1b7b74f71)] - Merge branch 'master' into jason/update_ci_node (duidae)
-- \[[`d8bc3bdf04`](https://github.com/twreporter/twreporter-react/commit/d8bc3bdf04)] - Merge pull request #2378 from duidae/jason/bump_version_v4.10.0-rc.5 (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`0765757fdd`](https://github.com/twreporter/twreporter-react/commit/0765757fdd)] - **chore**: bump version 4.10.0-rc.5 (duidae)
-
-## 4.10.0-rc.5, 2023-02-17
-
-### Notable Changes
-
-- fix
-  - revert previous update of npm packages due to old node version
-
-### Commits
-
-- \[[`e70b52439c`](https://github.com/twreporter/twreporter-react/commit/e70b52439c)] - Merge pull request #2377 from twreporter/revert-2373-jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`8859d5a4e0`](https://github.com/twreporter/twreporter-react/commit/8859d5a4e0)] - _**Revert**_ "**chore**: update npm packages" (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.10.0-rc.4, 2023-02-16
-
-### Notable Changes
-
-- feat
-  - update npm packages
-
-### Commits
-
-- \[[`bb3af7ac2d`](https://github.com/twreporter/twreporter-react/commit/bb3af7ac2d)] - Merge pull request #2373 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`06c7dfc001`](https://github.com/twreporter/twreporter-react/commit/06c7dfc001)] - **chore**: update npm packages (duidae)
-
-## 4.10.0-rc.3, 2023-02-13
-
-### Notable Changes
-
-- feat
-  - update npm packages
-
-### Commits
-
-- \[[`9f6c6d2dc4`](https://github.com/twreporter/twreporter-react/commit/9f6c6d2dc4)] - Merge pull request #2370 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`b964f3149b`](https://github.com/twreporter/twreporter-react/commit/b964f3149b)] - **chore**: update npm packages (duidae)
-
-## 4.10.0-rc.2, 2023-02-13
-
-### Notable Changes
-
-- fix
-  - about-us
-    - section2 intro wording
-    - update awards order & add new awards
-
-### Commits
-
-- [[`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
-- [[`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
-
-## 4.10.0-rc.1, 2023-02-10
-
-### Notable Changes
-
-- chore
-  - update @twerporter packages (react-article-components)
-
-### Commits
-
-- \[[`5c828c93f0`](https://github.com/twreporter/twreporter-react/commit/5c828c93f0)] - Merge pull request #2365 from duidae/jason/upgrade_react_article_component (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`019d9a70a5`](https://github.com/twreporter/twreporter-react/commit/019d9a70a5)] - **chore**: upgrade react-article-component (duidae)
-
-## 4.10.0-rc.0, 2023-01-17
-
-### Notable Changes
-
-- feat
-  - add latest page
-- chore
-  - update @twerporter packages
-    - address universal-header defects
-    - add latest page actions & reducers
-  - remove testing change
-
-### Commits
-
+- [[`bac55fb661`](https://github.com/twreporter/twreporter-react/commit/bac55fb661)] - Merge pull request #2394 from duidae/jason/upgrade_npm_packages_object_fromentries (許守傑 Shou-Chieh Hsu (Jason))
+- [[`981cad4f9e`](https://github.com/twreporter/twreporter-react/commit/981cad4f9e)] - **chore**: upgrade npm package for fixing object.fromentries issue (duidae)
+- [[`f49cbbeb3d`](https://github.com/twreporter/twreporter-react/commit/f49cbbeb3d)] - Merge pull request #2389 from twreporter/revert-2385-jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- [[`54db11379d`](https://github.com/twreporter/twreporter-react/commit/54db11379d)] - _**Revert**_ "Jason/revert url parse" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e0528e7597`](https://github.com/twreporter/twreporter-react/commit/e0528e7597)] - Merge pull request #2385 from duidae/jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- [[`bac917cf53`](https://github.com/twreporter/twreporter-react/commit/bac917cf53)] - **fix**: restore to url.parse (duidae)
+- [[`c514d06118`](https://github.com/twreporter/twreporter-react/commit/c514d06118)] - Merge pull request #2382 from twreporter/revert-2376-jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- [[`40e460adff`](https://github.com/twreporter/twreporter-react/commit/40e460adff)] - _**Revert**_ "**fix**: sync node version with npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`07403378dc`](https://github.com/twreporter/twreporter-react/commit/07403378dc)] - Merge pull request #2376 from duidae/jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- [[`d70b149886`](https://github.com/twreporter/twreporter-react/commit/d70b149886)] - **chore**: update npm packages (duidae)
+- [[`b1b7b74f71`](https://github.com/twreporter/twreporter-react/commit/b1b7b74f71)] - Merge branch 'master' into jason/update_ci_node (duidae)
+- [[`d8bc3bdf04`](https://github.com/twreporter/twreporter-react/commit/d8bc3bdf04)] - Merge pull request #2378 from duidae/jason/bump_version_v4.10.0-rc.5 (許守傑 Shou-Chieh Hsu (Jason))
+- [[`0765757fdd`](https://github.com/twreporter/twreporter-react/commit/0765757fdd)] - **chore**: bump version 4.10.0-rc.5 (duidae)
+- [[`e70b52439c`](https://github.com/twreporter/twreporter-react/commit/e70b52439c)] - Merge pull request #2377 from twreporter/revert-2373-jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`8859d5a4e0`](https://github.com/twreporter/twreporter-react/commit/8859d5a4e0)] - _**Revert**_ "**chore**: update npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`bb3af7ac2d`](https://github.com/twreporter/twreporter-react/commit/bb3af7ac2d)] - Merge pull request #2373 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`06c7dfc001`](https://github.com/twreporter/twreporter-react/commit/06c7dfc001)] - **chore**: update npm packages (duidae)
+- [[`9f6c6d2dc4`](https://github.com/twreporter/twreporter-react/commit/9f6c6d2dc4)] - Merge pull request #2370 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`b964f3149b`](https://github.com/twreporter/twreporter-react/commit/b964f3149b)] - **chore**: update npm packages (duidae)
+- [`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
+- [`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
+- [[`5c828c93f0`](https://github.com/twreporter/twreporter-react/commit/5c828c93f0)] - Merge pull request #2365 from duidae/jason/upgrade_react_article_component (許守傑 Shou-Chieh Hsu (Jason))
+- [[`019d9a70a5`](https://github.com/twreporter/twreporter-react/commit/019d9a70a5)] - **chore**: upgrade react-article-component (duidae)
 - [[`108cda660f`](https://github.com/twreporter/twreporter-react/commit/108cda660f)] - **chore**: apply universal-header with feature toggle (Aylie Chou)
 - [[`b2915ab172`](https://github.com/twreporter/twreporter-react/commit/b2915ab172)] - **chore**: update @twerporter packages (Aylie Chou)
 - [[`ac2670c5c5`](https://github.com/twreporter/twreporter-react/commit/ac2670c5c5)] - **fix**: address review comment (Aylie Chou)
 - [[`eb85162412`](https://github.com/twreporter/twreporter-react/commit/eb85162412)] - **chore**: remove testing change (Aylie Chou)
 - [[`84d17738e2`](https://github.com/twreporter/twreporter-react/commit/84d17738e2)] - **feat**: add latest page (Aylie Chou)
 
-## 4.9.8, 2023-01-12 (Current)
+## 4.9.8, 2023-01-12
 
 ### Notable Changes
 
