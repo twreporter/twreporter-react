@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.1-rc.1, 2023-02-23
+
+### Notable Changes
+
+- chore
+  - apply feature toggle on header
+
+### Commits
+
+- [[`7ec0ad7530`](https://github.com/twreporter/twreporter-react/commit/7ec0ad7530)] - **chore**: apply feature toggle on header (Aylie Chou)
+
 ## 4.10.1-rc.0, 2023-02-23
 
 ### Notable Changes
