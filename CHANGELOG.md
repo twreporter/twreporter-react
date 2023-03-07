@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.10.1-rc.2, 2023-03-07
+
+### Notable Changes
+
+- fix
+  - latest tag order
+- chore
+  - update @twreporter packages
+    - fix defects
+
+### Commits
+
+- [[`f25136c8b0`](https://github.com/twreporter/twreporter-react/commit/f25136c8b0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a6cee0d228`](https://github.com/twreporter/twreporter-react/commit/a6cee0d228)] - **fix**: latest tag order (Aylie Chou)
+
 ## 4.10.1-rc.1, 2023-02-23
 
 ### Notable Changes
