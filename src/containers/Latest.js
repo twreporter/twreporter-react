@@ -257,18 +257,15 @@ function titleTabProp(state, listId) {
   let latestTagList = [{ text: '全部', link: '/latest', isExternal: false }]
   latestTagList = _.concat(
     latestTagList,
-    _.sortBy(
-      _.map(latestTag, tag => {
-        const { id, name } = tag
-        return {
-          id,
-          text: name,
-          link: `/latest/${id}`,
-          isExternal: false,
-        }
-      }),
-      ['latest_order']
-    )
+    _.map(_.sortBy(latestTag, ['latest_order']), tag => {
+      const { id, name } = tag
+      return {
+        id,
+        text: name,
+        link: `/latest/${id}`,
+        isExternal: false,
+      }
+    })
   )
   const activeTabIndex = listId ? _.findIndex(latestTagList, ['id', listId]) : 0
 

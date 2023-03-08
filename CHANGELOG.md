@@ -1,5 +1,43 @@
 # Changelog
 
+## 4.10.1-rc.2, 2023-03-07
+
+### Notable Changes
+
+- fix
+  - latest tag order
+- chore
+  - update @twreporter packages
+    - fix defects
+
+### Commits
+
+- [[`f25136c8b0`](https://github.com/twreporter/twreporter-react/commit/f25136c8b0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a6cee0d228`](https://github.com/twreporter/twreporter-react/commit/a6cee0d228)] - **fix**: latest tag order (Aylie Chou)
+
+## 4.10.1-rc.1, 2023-02-23
+
+### Notable Changes
+
+- chore
+  - apply feature toggle on header
+
+### Commits
+
+- [[`7ec0ad7530`](https://github.com/twreporter/twreporter-react/commit/7ec0ad7530)] - **chore**: apply feature toggle on header (Aylie Chou)
+
+## 4.10.1-rc.0, 2023-02-23
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - enable info struct feature toggle
+
+### Commits
+
+- [[`a4b5901634`](https://github.com/twreporter/twreporter-react/commit/a4b5901634)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.10.0, 2023-02-23 (Current)
 
 ### Notable Changes
@@ -42,8 +80,8 @@
 - [[`06c7dfc001`](https://github.com/twreporter/twreporter-react/commit/06c7dfc001)] - **chore**: update npm packages (duidae)
 - [[`9f6c6d2dc4`](https://github.com/twreporter/twreporter-react/commit/9f6c6d2dc4)] - Merge pull request #2370 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
 - [[`b964f3149b`](https://github.com/twreporter/twreporter-react/commit/b964f3149b)] - **chore**: update npm packages (duidae)
-- [`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
-- [`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
+- [[`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
+- [[`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
 - [[`5c828c93f0`](https://github.com/twreporter/twreporter-react/commit/5c828c93f0)] - Merge pull request #2365 from duidae/jason/upgrade_react_article_component (許守傑 Shou-Chieh Hsu (Jason))
 - [[`019d9a70a5`](https://github.com/twreporter/twreporter-react/commit/019d9a70a5)] - **chore**: upgrade react-article-component (duidae)
 - [[`108cda660f`](https://github.com/twreporter/twreporter-react/commit/108cda660f)] - **chore**: apply universal-header with feature toggle (Aylie Chou)
