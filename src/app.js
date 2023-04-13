@@ -31,6 +31,7 @@ const BaseStyle = css`
   html {
     font-size: ${typography.font.size.base};
     font-family: ${fontFamily.defaultFallback};
+    -webkit-font-smoothing: antialiased;
   }
   html.fontsLoaded {
     font-family: ${fontFamily.default};

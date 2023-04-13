@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.10.1-rc.4, 2023-04-13
+## 4.10.1-rc.5, 2023-04-13
 
 ### Notable Changes
 
@@ -14,6 +14,17 @@
 
 - [[`9d3e2f748b`](https://github.com/twreporter/twreporter-react/commit/9d3e2f748b)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`8ec2b12796`](https://github.com/twreporter/twreporter-react/commit/8ec2b12796)] - **fix**: use CardList component for Latest posts (Aylie Chou)
+
+## 4.10.1-rc.4, 2023-04-06
+
+### Notable Changes
+
+- fix
+  - add font smoothing
+
+### Commits
+
+- [[`b45423f7a6`](https://github.com/twreporter/twreporter-react/commit/b45423f7a6)] - **fix**: add font smoothing (#2433) (許守傑 Shou-Chieh Hsu (Jason))
 
 ## 4.10.1-rc.3, 2023-03-16
 
