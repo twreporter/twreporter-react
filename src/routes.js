@@ -264,7 +264,7 @@ export default function getRoutes() {
       authorizationRequired: true,
     },
     {
-      component: loadablePages.latest,
+      renderWithProps: loadablePages.latest,
       loadData: dataLoaders.loadLatestPageData,
       path: routesConst.latestPage.path,
     },

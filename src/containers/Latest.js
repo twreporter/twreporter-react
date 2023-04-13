@@ -16,8 +16,12 @@ import siteMeta from '../constants/site-meta'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
-import { List } from '@twreporter/react-components/lib/listing-page'
+import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
+import {
+  BRANCH,
+  BRANCH_PROP_TYPES,
+} from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -84,6 +88,7 @@ const Latest = ({
   nPerPage,
   totalPages,
   page,
+  releaseBranch = BRANCH.master,
 }) => {
   useEffect(() => {
     fetchLatestTags().catch(failAction => {
@@ -158,7 +163,12 @@ const Latest = ({
             activeTabIndex={activeTabIndex}
           />
         </TitleTabContainer>
-        <List data={posts} isFetching={isFetching} showSpinner={true} />
+        <CardList
+          data={posts}
+          isFetching={isFetching}
+          showSpinner={true}
+          releaseBranch={releaseBranch}
+        />
         <Pagination currentPage={page} totalPages={totalPages} />
       </Container>
     </div>
@@ -346,6 +356,7 @@ Latest.propTypes = {
   // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
   posts: PropTypes.array,
   totalPages: PropTypes.number,
+  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export { Latest }
