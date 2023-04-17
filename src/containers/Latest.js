@@ -63,10 +63,10 @@ const Container = styled.div`
 `
 
 const TitleTabContainer = styled.div`
-  margin: 64px 0;
+  margin: 64px 0 24px 0;
 
   ${mq.tabletOnly`
-    margin: 32px 0;
+    margin: 32px 0 24px 0;
   `}
   ${mq.mobileOnly`
     margin: 24px 0;
