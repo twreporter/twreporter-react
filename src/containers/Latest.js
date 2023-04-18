@@ -63,10 +63,10 @@ const Container = styled.div`
 `
 
 const TitleTabContainer = styled.div`
-  margin: 64px 0;
+  margin: 64px 0 24px 0;
 
   ${mq.tabletOnly`
-    margin: 32px 0;
+    margin: 32px 0 24px 0;
   `}
   ${mq.mobileOnly`
     margin: 24px 0;
@@ -264,7 +264,7 @@ function postsProp(state, listId, page) {
 function titleTabProp(state, listId) {
   const latestPageState = _.get(state, reduxStateFields.latest, {})
   const latestTag = _.get(latestPageState, 'latestTag', [])
-  let latestTagList = [{ text: '全部', link: '/latest', isExternal: false }]
+  let latestTagList = [{ text: '所有文章', link: '/latest', isExternal: false }]
   latestTagList = _.concat(
     latestTagList,
     _.map(_.sortBy(latestTag, ['latest_order']), tag => {
