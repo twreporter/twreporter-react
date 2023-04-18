@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.10.1-rc.6, 2023-04-18
+
+### Notable Changes
+
+- fix
+  - latest page defects (style, words)
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3d4126007d`](https://github.com/twreporter/twreporter-react/commit/3d4126007d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88d4a53fbd`](https://github.com/twreporter/twreporter-react/commit/88d4a53fbd)] - **fix**: latest title bar style (Aylie Chou)
+- [[`062e696e4e`](https://github.com/twreporter/twreporter-react/commit/062e696e4e)] - **fix**: update naming (Aylie Chou)
+
 ## 4.10.1-rc.5, 2023-04-13
 
 ### Notable Changes
