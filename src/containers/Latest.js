@@ -16,8 +16,12 @@ import siteMeta from '../constants/site-meta'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
-import { List } from '@twreporter/react-components/lib/listing-page'
+import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
+import {
+  BRANCH,
+  BRANCH_PROP_TYPES,
+} from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -59,10 +63,10 @@ const Container = styled.div`
 `
 
 const TitleTabContainer = styled.div`
-  margin: 64px 0;
+  margin: 64px 0 24px 0;
 
   ${mq.tabletOnly`
-    margin: 32px 0;
+    margin: 32px 0 24px 0;
   `}
   ${mq.mobileOnly`
     margin: 24px 0;
@@ -84,6 +88,7 @@ const Latest = ({
   nPerPage,
   totalPages,
   page,
+  releaseBranch = BRANCH.master,
 }) => {
   useEffect(() => {
     fetchLatestTags().catch(failAction => {
@@ -158,7 +163,12 @@ const Latest = ({
             activeTabIndex={activeTabIndex}
           />
         </TitleTabContainer>
-        <List data={posts} isFetching={isFetching} showSpinner={true} />
+        <CardList
+          data={posts}
+          isFetching={isFetching}
+          showSpinner={true}
+          releaseBranch={releaseBranch}
+        />
         <Pagination currentPage={page} totalPages={totalPages} />
       </Container>
     </div>
@@ -254,7 +264,7 @@ function postsProp(state, listId, page) {
 function titleTabProp(state, listId) {
   const latestPageState = _.get(state, reduxStateFields.latest, {})
   const latestTag = _.get(latestPageState, 'latestTag', [])
-  let latestTagList = [{ text: '全部', link: '/latest', isExternal: false }]
+  let latestTagList = [{ text: '所有文章', link: '/latest', isExternal: false }]
   latestTagList = _.concat(
     latestTagList,
     _.map(_.sortBy(latestTag, ['latest_order']), tag => {
@@ -346,6 +356,7 @@ Latest.propTypes = {
   // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
   posts: PropTypes.array,
   totalPages: PropTypes.number,
+  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export { Latest }

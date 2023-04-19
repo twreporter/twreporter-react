@@ -1,5 +1,47 @@
 # Changelog
 
+## 4.10.1-rc.7, 2023-04-18
+
+### Notable Changes
+
+- feat
+  - support dev branch
+
+### Commits
+
+- \[[`6b7004ec45`](https://github.com/twreporter/twreporter-react/commit/6b7004ec45)] - Merge pull request #2442 from duidae/jason/feature_branch_mainsite (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`ba103237be`](https://github.com/twreporter/twreporter-react/commit/ba103237be)] - **feat**: enable dev branc (duidae)
+
+## 4.10.1-rc.6, 2023-04-18
+
+### Notable Changes
+
+- fix
+  - latest page defects (style, words)
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3d4126007d`](https://github.com/twreporter/twreporter-react/commit/3d4126007d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88d4a53fbd`](https://github.com/twreporter/twreporter-react/commit/88d4a53fbd)] - **fix**: latest title bar style (Aylie Chou)
+- [[`062e696e4e`](https://github.com/twreporter/twreporter-react/commit/062e696e4e)] - **fix**: update naming (Aylie Chou)
+
+## 4.10.1-rc.5, 2023-04-13
+
+### Notable Changes
+
+- fix
+  - use CardList component for Latest posts
+- chore
+  - update @twreporter packages
+    - add ArticleCard & CardList component
+
+### Commits
+
+- [[`9d3e2f748b`](https://github.com/twreporter/twreporter-react/commit/9d3e2f748b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`8ec2b12796`](https://github.com/twreporter/twreporter-react/commit/8ec2b12796)] - **fix**: use CardList component for Latest posts (Aylie Chou)
+
 ## 4.10.1-rc.4, 2023-04-06
 
 ### Notable Changes
@@ -9,7 +51,7 @@
 
 ### Commits
 
-- \[[`b45423f7a6`](https://github.com/twreporter/twreporter-react/commit/b45423f7a6)] - **fix**: add font smoothing (#2433) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`b45423f7a6`](https://github.com/twreporter/twreporter-react/commit/b45423f7a6)] - **fix**: add font smoothing (#2433) (許守傑 Shou-Chieh Hsu (Jason))
 
 ## 4.10.1-rc.3, 2023-03-16
 
