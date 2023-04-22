@@ -1,3 +1,5 @@
+FROM node:10.15-slim AS dev
+
 FROM node:10.15-slim
 
 ARG app_group=main_site_user

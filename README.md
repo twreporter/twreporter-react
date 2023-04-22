@@ -26,6 +26,10 @@ Install node(https://nodejs.org/en/) @7.9.0 above.
 
 `yarn install`
 
+Or through docker:
+
+`docker compose run dev yarn install`
+
 # Production start
 
 `make start`

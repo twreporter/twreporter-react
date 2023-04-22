@@ -1,0 +1,12 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+version: "3.8"
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    profiles:
+      - dev
+    volumes:
+      - $PWD:/workdir
