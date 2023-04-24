@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.1-rc.8, 2023-04-24
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - update webpack server default port from 5000 to 5050
+
+### Commits
+
+- [[`a515b74605`](https://github.com/twreporter/twreporter-react/commit/a515b74605)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c99c7fd79a`](https://github.com/twreporter/twreporter-react/commit/c99c7fd79a)] - Merge pull request #2431 from sharils/change-webpack-dev-server-port-2430 (Lucien)
+
 ## 4.10.1-rc.7, 2023-04-18
 
 ### Notable Changes
