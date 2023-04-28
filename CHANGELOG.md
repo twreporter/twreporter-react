@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.1-rc.9, 2023-04-28
+
+### Notable Changes
+
+- fix
+  - tag list should show `category` name
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`fc0ea44bc9`](https://github.com/twreporter/twreporter-react/commit/fc0ea44bc9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`892897789b`](https://github.com/twreporter/twreporter-react/commit/892897789b)] - **fix**: tag list should show `category` info (Aylie Chou)
+
 ## 4.10.1-rc.8, 2023-04-24
 
 ### Notable Changes
