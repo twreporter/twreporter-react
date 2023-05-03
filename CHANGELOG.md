@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.1-rc.10, 2023-05-03
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix tab bar defects
+
+### Commits
+
+- [[`27b18ddeda`](https://github.com/twreporter/twreporter-react/commit/27b18ddeda)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.10.1-rc.9, 2023-04-28
 
 ### Notable Changes
