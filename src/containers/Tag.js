@@ -1,10 +1,11 @@
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import loggerFactory from '../logger'
+import mq from '../utils/media-query'
 // constants
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
@@ -23,6 +24,23 @@ import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
+
+const PageContainer = styled.div`
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  ${mq.mobileOnly`
+    padding-top: 24px;
+  `}
+  ${mq.tabletOnly`
+    padding-top: 32px;
+  `}
+  ${mq.desktopAndAbove`
+    padding-top: 64px;
+  `}
+`
 
 const _ = {
   find,
@@ -85,7 +103,7 @@ class Tag extends PureComponent {
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
     return (
-      <div>
+      <PageContainer>
         <Helmet
           title={title}
           link={[{ rel: 'canonical', href: canonical }]}
@@ -113,7 +131,7 @@ class Tag extends PureComponent {
           />
         </ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
-      </div>
+      </PageContainer>
     )
   }
 }
