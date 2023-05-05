@@ -127,6 +127,7 @@ class Tag extends PureComponent {
             tagName={tagName}
             isFetching={isFetching}
             showSpinner={true}
+            showCategory={true}
           />
         </ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
