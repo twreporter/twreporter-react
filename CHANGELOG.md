@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.1-rc.11, 2023-05-05
+
+### Notable Changes
+
+- fix
+  - style refinement
+
+### Commits
+
+- \[[`114645cc56`](https://github.com/twreporter/twreporter-react/commit/114645cc56)] - _**Revert**_ "Revert "Revert "Revert "fix: fix topic top padding"""" (#2347)" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.1-rc.10, 2023-05-03
 
 ### Notable Changes
