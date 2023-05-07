@@ -12,6 +12,7 @@ import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
+import 'material-symbols/outlined.css'
 // feature toggle
 import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
