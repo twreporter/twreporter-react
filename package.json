@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.10.1-rc.12",
+  "version": "4.10.1-rc.13",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -93,6 +93,7 @@
     "eslint-plugin-react": "7.13.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-standard": "4.0.0",
+    "file-loader": "4.0.0",
     "husky": "^3.1.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
