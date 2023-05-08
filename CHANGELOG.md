@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.1-rc.13, 2023-05-08
+
+### Notable Changes
+
+- chore
+  - revert commit 558a0922ac
+    - file-loader is the dependency of url-loader
+
+### Commits
+
+- [[`664cae1a92`](https://github.com/twreporter/twreporter-react/commit/664cae1a92)] - **_Revert_** "**chore**: remove useless dependency `file-loader`" (Aylie Chou)
+
 ## 4.10.1-rc.12, 2023-05-08
 
 ### Notable Changes
