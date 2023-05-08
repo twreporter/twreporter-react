@@ -1,5 +1,32 @@
 # Changelog
 
+## 4.10.1-rc.12, 2023-05-08
+
+### Notable Changes
+
+- chore
+  - add webpack loader for css & font files
+    - style-loader, css-loader, url-loader
+  - update @twreporter components
+    - fix tab bar defects
+
+### Commits
+
+- [[`558a0922ac`](https://github.com/twreporter/twreporter-react/commit/558a0922ac)] - **chore**: remove useless dependency `file-loader` (Aylie Chou)
+- [[`aeb95f8301`](https://github.com/twreporter/twreporter-react/commit/aeb95f8301)] - **chore**: update @twreporter components (Aylie Chou)
+- [[`093c416df6`](https://github.com/twreporter/twreporter-react/commit/093c416df6)] - **fix**: add webpack loader for css & font files (Aylie Chou)
+
+## 4.10.1-rc.11, 2023-05-05
+
+### Notable Changes
+
+- fix
+  - style refinement
+
+### Commits
+
+- [[`114645cc56`](https://github.com/twreporter/twreporter-react/commit/114645cc56)] - _**Revert**_ "Revert "Revert "Revert "fix: fix topic top padding"""" (#2347)" (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.10.1-rc.10, 2023-05-03
 
 ### Notable Changes
