@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.2-rc.0, 2023-05-09
+
+### Notable Changes
+
+- chore
+  - use @material-symbols/font400 to reduce bundle size
+  - update @twreporter packages
+
+### Commits
+
+- [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
+
 ## 4.10.1, 2023-05-09 (Current)
 
 ### Notable Changes
