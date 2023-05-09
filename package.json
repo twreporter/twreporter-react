@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^3.0.2",
+    "@material-symbols/font-400": "^0.5.5",
     "@twreporter/core": "^1.9.0",
     "@twreporter/index-page": "^1.4.4",
     "@twreporter/react-article-components": "^1.7.4",
