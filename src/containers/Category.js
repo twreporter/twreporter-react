@@ -70,6 +70,11 @@ const TitleTabContainer = styled.div`
     width: 86.66666666666667%;
   `}
 `
+const ListContainer = styled.div`
+  ${mq.mobileOnly`
+    width: 86.66666666666667%;
+  `}
+`
 
 const Category = ({
   catLabel,
@@ -144,7 +149,9 @@ const Category = ({
             activeTabIndex={activeTabIndex}
           />
         </TitleTabContainer>
-        <List data={posts} isFetching={isFetching} showSpinner={true} />
+        <ListContainer>
+          <List data={posts} isFetching={isFetching} showSpinner={true} />
+        </ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
       </Container>
     </div>
