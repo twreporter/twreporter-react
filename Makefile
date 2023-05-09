@@ -54,7 +54,7 @@ dev: clean
 	@echo "Setup development environment."
 	@echo "Development environment will contains three different servers."
 	@echo "One will be application server, hosted on 3000 port."
-	@echo "Another will be webpack dev server, hosted on 5000 port."
+	@echo "Another will be webpack dev server, hosted on 5050 port."
 	@echo "The other will be mocked api server, hosted on 8080 port."
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server"
 

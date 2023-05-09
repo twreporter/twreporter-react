@@ -6,7 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:10.15
     working_directory: ~/repo
     steps:
@@ -24,7 +23,14 @@ jobs:
             - node_modules
           key: v1-dependencies-build-{{ checksum "yarn.lock" }}
 
-      - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
+      - run:
+          name: Specify release branch
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              make build RELEASE_BRANCH=staging
+            else
+              make build RELEASE_BRANCH=${CIRCLE_BRANCH}
+            fi
 
       - run: rm -rf node_modules
 
@@ -76,6 +82,11 @@ jobs:
               ENVIRONMENT="staging"
             fi
 
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              CLUSTER_NAMESPACE="dev"
+              ENVIRONMENT="dev"
+            fi
+
             if [ "${CIRCLE_BRANCH}" == "next" ]; then
               CLUSTER_NAMESPACE="production"
               ENVIRONMENT="next"
@@ -105,7 +116,7 @@ jobs:
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
-            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
+            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "dev" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --region=asia-east1
             fi
 
@@ -120,7 +131,11 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} --build-arg PKG_VERSION=${PKG_VER} .
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=staging --build-arg PKG_VERSION=${PKG_VER} .
+            else
+              docker build -t gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH=${CIRCLE_BRANCH} --build-arg PKG_VERSION=${PKG_VER} .
+            fi
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
             docker push gcr.io/${GOOGLE_PROJECT_ID}/${APP}:$CIRCLE_BRANCH-$PKG_VER
 
@@ -168,6 +183,7 @@ workflows:
                 - staging
                 - preview
                 - next
+                - dev
       - deploy:
           context: twreporter-gcp
           requires:
@@ -179,3 +195,4 @@ workflows:
                 - staging
                 - preview
                 - next
+                - dev
