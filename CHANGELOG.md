@@ -1,15 +1,17 @@
 # Changelog
 
-## 4.10.2-rc.0, 2023-05-09
+## 4.10.2, 2023-05-09 (Current)
 
 ### Notable Changes
 
 - chore
   - use @material-symbols/font400 to reduce bundle size
   - update @twreporter packages
+    - fix tab bar style in transparent theme
 
 ### Commits
 
+- [[`7e33d6c43a`](https://github.com/twreporter/twreporter-react/commit/7e33d6c43a)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
 
