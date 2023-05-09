@@ -61,7 +61,6 @@ const Container = styled.div`
     max-width: 767px;
   `}
 `
-
 const TitleTabContainer = styled.div`
   margin: 64px 0 24px 0;
 
@@ -70,6 +69,11 @@ const TitleTabContainer = styled.div`
   `}
   ${mq.mobileOnly`
     margin: 24px 0;
+    width: 86.66666666666667%;
+  `}
+`
+const CardListContainer = styled.div`
+  ${mq.mobileOnly`
     width: 86.66666666666667%;
   `}
 `
@@ -163,12 +167,14 @@ const Latest = ({
             activeTabIndex={activeTabIndex}
           />
         </TitleTabContainer>
-        <CardList
-          data={posts}
-          isFetching={isFetching}
-          showSpinner={true}
-          releaseBranch={releaseBranch}
-        />
+        <CardListContainer>
+          <CardList
+            data={posts}
+            isFetching={isFetching}
+            showSpinner={true}
+            releaseBranch={releaseBranch}
+          />
+        </CardListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
       </Container>
     </div>
