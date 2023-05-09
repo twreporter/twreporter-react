@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.10.1-rc.14, 2023-05-09
+
+### Notable Changes
+
+- fix
+  - mobile category page style
+  - mobile latest page style
+- chore
+  - update @twreporter packages
+    - fix listing-page style
+    - fix index-page latest section style
+
+### Commits
+
+- [[`2f3cf45c6b`](https://github.com/twreporter/twreporter-react/commit/2f3cf45c6b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88abfb19b6`](https://github.com/twreporter/twreporter-react/commit/88abfb19b6)] - **fix**: mobile category page style (Aylie Chou)
+- [[`f8bb42abc3`](https://github.com/twreporter/twreporter-react/commit/f8bb42abc3)] - **fix**: latest page mobile style (Aylie Chou)
+
 ## 4.10.1-rc.13, 2023-05-08
 
 ### Notable Changes
