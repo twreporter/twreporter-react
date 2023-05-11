@@ -34,13 +34,6 @@ const HeaderContainer = styled.div`
   z-index: 1000; // other components in twreporter-react has z-index 999
 `
 
-const TransparentHeader = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000; // other component has z-index 999
-`
-
 // TODO add `pink` theme to universal-header
 const PinkBackgroundHeader = styled.div`
   position: relative;
@@ -85,9 +78,8 @@ const renderHeader = (headerType, releaseBranch, pathname, referrerPath) => {
       referrerPath={referrerPath}
     />
   )
-  if (headerType === uiConst.header.transparent) {
-    headerElement = <TransparentHeader>{headerElement}</TransparentHeader>
-  } else if (headerType === uiConst.header.pink) {
+
+  if (headerType === uiConst.header.pink) {
     headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
   }
 
