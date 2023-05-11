@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.10.3-rc.0, 2023-05-10
+
+### Notable Changes
+
+- fix
+  - transparent tab bar scroll not smoothly
+- chore
+  - update @twreporter packages
+    - fix index page latest section category wording
+    - fix tab bar scroll not smoothly
+
+### Commits
+
+- [[`ceb62634ce`](https://github.com/twreporter/twreporter-react/commit/ceb62634ce)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d66b86ffb3`](https://github.com/twreporter/twreporter-react/commit/d66b86ffb3)] - **fix**: transparent tab bar scroll not smoothly (Aylie Chou)
+
 ## 4.10.2, 2023-05-09 (Current)
 
 ### Notable Changes
