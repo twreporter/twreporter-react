@@ -486,15 +486,15 @@
     styled-components "^4.0.0"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.7.6":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.7.6.tgz#c3911b204a82b77f1d76a379e2ec4fc4aeeb6ba0"
-  integrity sha512-CzExLA7rY5c0cfyn6t90eAt6QNW8aUMQ7xmR/5bfILJSdmM0sbV3JzlJnyrTIJCHg6K5S0TCurATEb5f6y4RfQ==
+"@twreporter/react-article-components@^1.7.7":
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.7.7.tgz#241aa947c80aa5d7ccb765fa5d9749c847679b63"
+  integrity sha512-nXyLlS58UaeOqyWVlwNb5BabJXzMm9cAwLEiG8vs5fzbQxb56n5q1hXORtT6Q1iEA9JUXDNeQzwRsgyRImqiIw==
   dependencies:
     "@twreporter/core" "^1.9.0"
     "@twreporter/react-components" "^8.17.1"
     "@twreporter/redux" "^7.5.1"
-    "@twreporter/universal-header" "^2.5.2"
+    "@twreporter/universal-header" "^2.5.3"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -540,10 +540,10 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.5.2.tgz#5cdfa755ca101402faa46d71f918f7238407710c"
-  integrity sha512-06IJVsatVlFjg7ieonnjdRHDk8Pk46EpPj0ULAaSvtG4mNDHGnUDeyk5vjJvDv3geU71GbMiSGd5dbzYCk34nA==
+"@twreporter/universal-header@^2.5.3":
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.5.3.tgz#a76089e36e3c3587af3d888d6ae5a5dd7208097d"
+  integrity sha512-erVZusKHpQYj2tuCGLq6lxXT2Wdr4C6FWWpzI2+1n9BKhpqHSOncU21QglJciIC5zkPi6hyZ6opt5dQapYeN+w==
   dependencies:
     "@twreporter/core" "^1.9.0"
     "@twreporter/react-components" "^8.17.1"
