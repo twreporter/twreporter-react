@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.10.4-rc.0, 2023-05-12
+## 4.10.4, 2023-05-12 (Current)
 
 ### Notable Changes
 
@@ -10,9 +10,10 @@
 
 ### Commits
 
+- [[`41bd11522c`](https://github.com/twreporter/twreporter-react/commit/41bd11522c)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`6178213443`](https://github.com/twreporter/twreporter-react/commit/6178213443)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 4.10.3, 2023-05-12 (Current)
+## 4.10.3, 2023-05-12
 
 ### Notable Changes
 
