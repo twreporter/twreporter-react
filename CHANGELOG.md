@@ -1,148 +1,96 @@
 # Changelog
 
-## 4.10.1-rc.10, 2023-05-03
+## 4.10.4, 2023-05-12 (Current)
 
 ### Notable Changes
 
 - chore
   - update @twreporter packages
-    - fix tab bar defects
+    - fix universal-header z-index problem
 
 ### Commits
 
-- [[`27b18ddeda`](https://github.com/twreporter/twreporter-react/commit/27b18ddeda)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`41bd11522c`](https://github.com/twreporter/twreporter-react/commit/41bd11522c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`6178213443`](https://github.com/twreporter/twreporter-react/commit/6178213443)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 4.10.1-rc.9, 2023-04-28
+## 4.10.3, 2023-05-12
 
 ### Notable Changes
 
 - fix
-  - tag list should show `category` name
+  - transparent tab bar scroll not smoothly
 - chore
   - update @twreporter packages
+    - fix index page latest section category wording
 
 ### Commits
 
-- [[`fc0ea44bc9`](https://github.com/twreporter/twreporter-react/commit/fc0ea44bc9)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`892897789b`](https://github.com/twreporter/twreporter-react/commit/892897789b)] - **fix**: tag list should show `category` info (Aylie Chou)
+- [[`71b5af13c8`](https://github.com/twreporter/twreporter-react/commit/71b5af13c8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ceb62634ce`](https://github.com/twreporter/twreporter-react/commit/ceb62634ce)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d66b86ffb3`](https://github.com/twreporter/twreporter-react/commit/d66b86ffb3)] - **fix**: transparent tab bar scroll not smoothly (Aylie Chou)
 
-## 4.10.1-rc.8, 2023-04-24
+## 4.10.2, 2023-05-09
 
 ### Notable Changes
 
 - chore
+  - use @material-symbols/font400 to reduce bundle size
   - update @twreporter packages
-  - update webpack server default port from 5000 to 5050
+    - fix tab bar style in transparent theme
 
 ### Commits
 
-- [[`a515b74605`](https://github.com/twreporter/twreporter-react/commit/a515b74605)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`c99c7fd79a`](https://github.com/twreporter/twreporter-react/commit/c99c7fd79a)] - Merge pull request #2431 from sharils/change-webpack-dev-server-port-2430 (Lucien)
+- [[`7e33d6c43a`](https://github.com/twreporter/twreporter-react/commit/7e33d6c43a)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
 
-## 4.10.1-rc.7, 2023-04-18
+## 4.10.1, 2023-05-09 (Current)
 
 ### Notable Changes
 
 - feat
-  - support dev branch
-
-### Commits
-
-- \[[`6b7004ec45`](https://github.com/twreporter/twreporter-react/commit/6b7004ec45)] - Merge pull request #2442 from duidae/jason/feature_branch_mainsite (許守傑 Shou-Chieh Hsu (Jason))
-- \[[`ba103237be`](https://github.com/twreporter/twreporter-react/commit/ba103237be)] - **feat**: enable dev branc (duidae)
-
-## 4.10.1-rc.6, 2023-04-18
-
-### Notable Changes
-
+  - enable new info structure feature toggle
 - fix
-  - latest page defects (style, words)
+  - add font smoothing
+  - use CardList component for Latest posts
 - chore
-  - update @twreporter packages
+  - support dev branch
+  - add webpack loader for css & font files
+    - style-loader, css-loader, url-loader
+  - update webpack server default port from 5000 to 5050
+  - update @twreporter components
 
 ### Commits
 
+- [[`1f96f886b9`](https://github.com/twreporter/twreporter-react/commit/1f96f886b9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`2f3cf45c6b`](https://github.com/twreporter/twreporter-react/commit/2f3cf45c6b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88abfb19b6`](https://github.com/twreporter/twreporter-react/commit/88abfb19b6)] - **fix**: mobile category page style (Aylie Chou)
+- [[`f8bb42abc3`](https://github.com/twreporter/twreporter-react/commit/f8bb42abc3)] - **fix**: latest page mobile style (Aylie Chou)
+- [[`664cae1a92`](https://github.com/twreporter/twreporter-react/commit/664cae1a92)] - **_Revert_** "**chore**: remove useless dependency `file-loader`" (Aylie Chou)
+- [[`558a0922ac`](https://github.com/twreporter/twreporter-react/commit/558a0922ac)] - **chore**: remove useless dependency `file-loader` (Aylie Chou)
+- [[`aeb95f8301`](https://github.com/twreporter/twreporter-react/commit/aeb95f8301)] - **chore**: update @twreporter components (Aylie Chou)
+- [[`093c416df6`](https://github.com/twreporter/twreporter-react/commit/093c416df6)] - **fix**: add webpack loader for css & font files (Aylie Chou)
+- [[`114645cc56`](https://github.com/twreporter/twreporter-react/commit/114645cc56)] - _**Revert**_ "Revert "Revert "Revert "fix: fix topic top padding"""" (#2347)" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`27b18ddeda`](https://github.com/twreporter/twreporter-react/commit/27b18ddeda)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`fc0ea44bc9`](https://github.com/twreporter/twreporter-react/commit/fc0ea44bc9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`892897789b`](https://github.com/twreporter/twreporter-react/commit/892897789b)] - **fix**: tag list should show `category` info (Aylie Chou)
+- [[`a515b74605`](https://github.com/twreporter/twreporter-react/commit/a515b74605)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c99c7fd79a`](https://github.com/twreporter/twreporter-react/commit/c99c7fd79a)] - Merge pull request #2431 from sharils/change-webpack-dev-server-port-2430 (Lucien)
+- [[`6b7004ec45`](https://github.com/twreporter/twreporter-react/commit/6b7004ec45)] - Merge pull request #2442 from duidae/jason/feature_branch_mainsite (許守傑 Shou-Chieh Hsu (Jason))
+- [[`ba103237be`](https://github.com/twreporter/twreporter-react/commit/ba103237be)] - **feat**: enable dev branc (duidae)
 - [[`3d4126007d`](https://github.com/twreporter/twreporter-react/commit/3d4126007d)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`88d4a53fbd`](https://github.com/twreporter/twreporter-react/commit/88d4a53fbd)] - **fix**: latest title bar style (Aylie Chou)
 - [[`062e696e4e`](https://github.com/twreporter/twreporter-react/commit/062e696e4e)] - **fix**: update naming (Aylie Chou)
-
-## 4.10.1-rc.5, 2023-04-13
-
-### Notable Changes
-
-- fix
-  - use CardList component for Latest posts
-- chore
-  - update @twreporter packages
-    - add ArticleCard & CardList component
-
-### Commits
-
 - [[`9d3e2f748b`](https://github.com/twreporter/twreporter-react/commit/9d3e2f748b)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`8ec2b12796`](https://github.com/twreporter/twreporter-react/commit/8ec2b12796)] - **fix**: use CardList component for Latest posts (Aylie Chou)
-
-## 4.10.1-rc.4, 2023-04-06
-
-### Notable Changes
-
-- fix
-  - add font smoothing
-
-### Commits
-
 - [[`b45423f7a6`](https://github.com/twreporter/twreporter-react/commit/b45423f7a6)] - **fix**: add font smoothing (#2433) (許守傑 Shou-Chieh Hsu (Jason))
-
-## 4.10.1-rc.3, 2023-03-16
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - fix universal-header defect
-
-### Commits
-
 - [[`5a319042a3`](https://github.com/twreporter/twreporter-react/commit/5a319042a3)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.10.1-rc.2, 2023-03-07
-
-### Notable Changes
-
-- fix
-  - latest tag order
-- chore
-  - update @twreporter packages
-    - fix defects
-
-### Commits
-
 - [[`f25136c8b0`](https://github.com/twreporter/twreporter-react/commit/f25136c8b0)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`a6cee0d228`](https://github.com/twreporter/twreporter-react/commit/a6cee0d228)] - **fix**: latest tag order (Aylie Chou)
-
-## 4.10.1-rc.1, 2023-02-23
-
-### Notable Changes
-
-- chore
-  - apply feature toggle on header
-
-### Commits
-
 - [[`7ec0ad7530`](https://github.com/twreporter/twreporter-react/commit/7ec0ad7530)] - **chore**: apply feature toggle on header (Aylie Chou)
-
-## 4.10.1-rc.0, 2023-02-23
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-    - enable info struct feature toggle
-
-### Commits
-
 - [[`a4b5901634`](https://github.com/twreporter/twreporter-react/commit/a4b5901634)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 4.10.0, 2023-02-23 (Current)
+## 4.10.0, 2023-02-23
 
 ### Notable Changes
 

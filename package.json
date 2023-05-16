@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.10.1-rc.10",
+  "version": "4.10.4",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -29,12 +29,13 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@google-cloud/logging-winston": "^3.0.2",
-    "@twreporter/core": "1.9.0-rc.1",
-    "@twreporter/index-page": "1.4.4-rc.12",
-    "@twreporter/react-article-components": "1.7.4-rc.14",
-    "@twreporter/react-components": "8.17.0-rc.10",
-    "@twreporter/redux": "7.5.1-rc.2",
-    "@twreporter/universal-header": "2.5.0-rc.2",
+    "@material-symbols/font-400": "^0.5.5",
+    "@twreporter/core": "^1.9.0",
+    "@twreporter/index-page": "^1.4.6",
+    "@twreporter/react-article-components": "^1.7.7",
+    "@twreporter/react-components": "^8.17.1",
+    "@twreporter/redux": "^7.5.1",
+    "@twreporter/universal-header": "^2.5.3",
     "axios": "^0.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.3",
@@ -98,6 +99,7 @@
     "chai-as-promised": "^5.1.0",
     "changelog-maker": "^2.3.0",
     "concurrently": "3.5.1",
+    "css-loader": "3.6.0",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-config-standard": "12.0.0",
@@ -108,6 +110,7 @@
     "eslint-plugin-react": "7.13.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-standard": "4.0.0",
+    "file-loader": "4.0.0",
     "husky": "^3.1.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
@@ -119,9 +122,11 @@
     "puppeteer": "^1.3.0",
     "rimraf": "^2.5.2",
     "stats-js": "^1.0.1",
+    "style-loader": "2.0.0",
+    "url-loader": "^4.1.1",
     "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-dev-server": "^2.9.5"
+    "webpack-dev-server": "2.11.3"
   },
   "husky": {
     "hooks": {
