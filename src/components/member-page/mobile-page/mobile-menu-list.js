@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import styled from 'styled-components'
 import querystring from 'querystring'
 
@@ -6,7 +6,10 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
-import { BRANCH, BRANCH_PROP_TYPES } from "@twreporter/core/lib/constants/release-branch";
+import {
+  BRANCH,
+  BRANCH_PROP_TYPES,
+} from '@twreporter/core/lib/constants/release-branch'
 import MenuButton from '@twreporter/react-components/lib/menu-button/index'
 import Divider from '@twreporter/react-components/lib/divider'
 import { getLogoutLink } from '@twreporter/universal-header/lib/utils/links'
@@ -22,8 +25,7 @@ const DividerContainer = styled.div`
   margin: 24px 0px;
 `
 
-
-const MobileMemberMenuList = ({releaseBranch = BRANCH.master}) => {
+const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const MenuData = [
     {
       type: 'normal',
@@ -62,13 +64,13 @@ const MobileMemberMenuList = ({releaseBranch = BRANCH.master}) => {
     window.location = `${path}?${query}`
   }
 
-  const itemJSX = MenuData.map(({type, text, path}, idx) => {
+  const itemJSX = MenuData.map(({ type, text, path }, idx) => {
     if (type === 'normal') {
       return (
         <MenuButton
           key={idx}
           text={text}
-          link={{isExternal: false, to: path}}
+          link={{ isExternal: false, to: path }}
           color={colorGrayscale.gray800}
           hoverBgColor={colorOpacity['black_0.05']}
           activeBgColor={colorOpacity['black_0.1']}
@@ -106,7 +108,7 @@ const MobileMemberMenuList = ({releaseBranch = BRANCH.master}) => {
 }
 
 MobileMemberMenuList.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES
+  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default MobileMemberMenuList

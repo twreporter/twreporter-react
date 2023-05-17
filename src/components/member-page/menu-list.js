@@ -73,7 +73,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
         <MenuButton
           key={idx}
           text={text}
-          link={{isExternal: false, to: path}}
+          link={{ isExternal: false, to: path }}
           color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
           hoverBgColor={colorOpacity['black_0.05']}
           activeBgColor={colorOpacity['black_0.1']}

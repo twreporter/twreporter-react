@@ -3,9 +3,15 @@ import styled from 'styled-components'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
 import mq from '@twreporter/core/lib/utils/media-query'
-import { BRANCH_PROP_TYPES, BRANCH } from '@twreporter/core/lib/constants/release-branch'
+import {
+  BRANCH_PROP_TYPES,
+  BRANCH,
+} from '@twreporter/core/lib/constants/release-branch'
 
-import { MobileOnly, TabletAndAbove } from '@twreporter/react-components/lib/rwd'
+import {
+  MobileOnly,
+  TabletAndAbove,
+} from '@twreporter/react-components/lib/rwd'
 
 import { MEMBER_ROLE } from '../constants/member-role'
 import MemberMenuList from '../components/member-page/menu-list'
@@ -45,92 +51,105 @@ const PageContainer = styled.div`
 const MenuContainer = styled.div``
 
 const ContentContainer = styled.div`
-	${mq.mobileOnly`
+  ${mq.mobileOnly`
 	padding: 24px 24px 200px;
 	`}
 `
 
 const RoleCardContainer = styled.div`
-	margin: auto;
+  margin: auto;
 `
 
 const tempMemberData = [
-	{
-		role: MEMBER_ROLE.EXPLORER,
-		email: 'abc@email',
-		joinDate: '2020/01/01'
-	},
-	{
-		role: MEMBER_ROLE.ACTION_TAKER,
-		name: '小富翁',
-		email: 'efh@email',
-		joinDate: '2022/02/02'
-	},
-	{
-		role: MEMBER_ROLE.TRAILBLAZER,
-		name: '大富翁',
-		email: 'vip@email',
-		joinDate: '1900/12/21'
-	}
+  {
+    role: MEMBER_ROLE.EXPLORER,
+    email: 'abc@email',
+    joinDate: '2020/01/01',
+  },
+  {
+    role: MEMBER_ROLE.ACTION_TAKER,
+    name: '小富翁',
+    email: 'efh@email',
+    joinDate: '2022/02/02',
+  },
+  {
+    role: MEMBER_ROLE.TRAILBLAZER,
+    name: '大富翁',
+    email: 'vip@email',
+    joinDate: '1900/12/21',
+  },
 ]
 
-const MemberPage = ({releaseBranch = BRANCH.master}) => {
+const MemberPage = ({ releaseBranch = BRANCH.master }) => {
   const { path } = useRouteMatch()
-	// TODO: fake data to show all roles
-	const memberData = tempMemberData[Math.floor(Math.random() * 3)];
+  // TODO: fake data to show all roles
+  const memberData = tempMemberData[Math.floor(Math.random() * 3)]
   return (
-		<div>
-			<TabletAndAbove>
-				<PageContainer>
-					<MenuContainer>
-						<MemberMenuList releaseBranch={releaseBranch} />
-					</MenuContainer>
-					<ContentContainer>
-						<Switch>
-							<Route exact path={path}>
-								<MemberData role={memberData.role} email={memberData.email} joinDate={memberData.joinDate} name={memberData.name || ''} />
-							</Route>
-							<Route path={`${path}/donation`}>
-								<MemberDonationPage releaseBranch={releaseBranch} />
-							</Route>
-							<Route path={`${path}/email-subscription`}>
-								<EmailSubscription />
-							</Route>
-						</Switch>
-					</ContentContainer>
-					<Route exact path={path}>
-						<RoleCardContainer>
-							<MemberRoleCard role={memberData.role} releaseBranch={releaseBranch}/>
-						</RoleCardContainer>
-					</Route>
-				</PageContainer>
-			</TabletAndAbove>
-			<MobileOnly>
-				<Route exact path={path}>
-					<PageContainer>
-						<MobileMemberPage role={memberData.role} releaseBranch={releaseBranch} email={memberData.email} joinDate={memberData.joinDate} name={memberData.name || ''}/>
-					</PageContainer>
-				</Route>
-				<Switch>
-					<Route path={`${path}/donation`}>
-						<ContentContainer>
-							<MemberDonationPage releaseBranch={releaseBranch} />
-						</ContentContainer>
-					</Route>
-					<Route path={`${path}/email-subscription`}>
-						<ContentContainer>
-							<EmailSubscription />
-						</ContentContainer>
-					</Route>
-				</Switch>
-			</MobileOnly>
-		</div>
-
+    <div>
+      <TabletAndAbove>
+        <PageContainer>
+          <MenuContainer>
+            <MemberMenuList releaseBranch={releaseBranch} />
+          </MenuContainer>
+          <ContentContainer>
+            <Switch>
+              <Route exact path={path}>
+                <MemberData
+                  role={memberData.role}
+                  email={memberData.email}
+                  joinDate={memberData.joinDate}
+                  name={memberData.name || ''}
+                />
+              </Route>
+              <Route path={`${path}/donation`}>
+                <MemberDonationPage releaseBranch={releaseBranch} />
+              </Route>
+              <Route path={`${path}/email-subscription`}>
+                <EmailSubscription />
+              </Route>
+            </Switch>
+          </ContentContainer>
+          <Route exact path={path}>
+            <RoleCardContainer>
+              <MemberRoleCard
+                role={memberData.role}
+                releaseBranch={releaseBranch}
+              />
+            </RoleCardContainer>
+          </Route>
+        </PageContainer>
+      </TabletAndAbove>
+      <MobileOnly>
+        <Route exact path={path}>
+          <PageContainer>
+            <MobileMemberPage
+              role={memberData.role}
+              releaseBranch={releaseBranch}
+              email={memberData.email}
+              joinDate={memberData.joinDate}
+              name={memberData.name || ''}
+            />
+          </PageContainer>
+        </Route>
+        <Switch>
+          <Route path={`${path}/donation`}>
+            <ContentContainer>
+              <MemberDonationPage releaseBranch={releaseBranch} />
+            </ContentContainer>
+          </Route>
+          <Route path={`${path}/email-subscription`}>
+            <ContentContainer>
+              <EmailSubscription />
+            </ContentContainer>
+          </Route>
+        </Switch>
+      </MobileOnly>
+    </div>
   )
 }
 
 MemberPage.propTypes = {
-	releaseBranch: BRANCH_PROP_TYPES
+  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default MemberPage

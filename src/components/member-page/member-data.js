@@ -28,7 +28,7 @@ const MemberData = ({
   role = MEMBER_ROLE.EXPLORER,
   email = 'user@email.com',
   joinDate = '2023/09/01',
-  name = ''
+  name = '',
 }) => {
   return (
     <div>
@@ -36,7 +36,7 @@ const MemberData = ({
       <DividerContainer>
         <Divider />
       </DividerContainer>
-      {name && 
+      {name && (
         <div>
           <RowContainer>
             <TitleContainer>
@@ -48,7 +48,7 @@ const MemberData = ({
             <Divider />
           </DividerContainer>
         </div>
-      }
+      )}
       <RowContainer>
         <TitleContainer>
           <P1 text={'會員身分'} />
@@ -84,7 +84,7 @@ MemberData.propTypes = {
   role: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
   email: PropTypes.string,
   joinDate: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
 }
 
 export default MemberData

@@ -1,12 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React from 'react'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
-import { BRANCH, BRANCH_PROP_TYPES } from "@twreporter/core/lib/constants/release-branch";
+import {
+  BRANCH,
+  BRANCH_PROP_TYPES,
+} from '@twreporter/core/lib/constants/release-branch'
 
-import MobileMemberMenuList from "./mobile-menu-list";
-import MobileMemberRoleCard from "./mobile-member-role-card";
-import { MEMBER_ROLE } from "../../../constants/member-role";
+import MobileMemberMenuList from './mobile-menu-list'
+import MobileMemberRoleCard from './mobile-member-role-card'
+import { MEMBER_ROLE } from '../../../constants/member-role'
 
 const RoleCardContainer = styled.div`
   display: flex;
@@ -14,11 +17,23 @@ const RoleCardContainer = styled.div`
   padding-bottom: 48px;
 `
 
-const MobileMemberPage = ({role = MEMBER_ROLE.EXPLORER, releaseBranch = BRANCH.master, email, joinDate, name = ''}) => {
+const MobileMemberPage = ({
+  role = MEMBER_ROLE.EXPLORER,
+  releaseBranch = BRANCH.master,
+  email,
+  joinDate,
+  name = '',
+}) => {
   return (
     <div>
       <RoleCardContainer>
-        <MobileMemberRoleCard role={role} releaseBranch={releaseBranch} email={email} joinDate={joinDate} name={name}/>
+        <MobileMemberRoleCard
+          role={role}
+          releaseBranch={releaseBranch}
+          email={email}
+          joinDate={joinDate}
+          name={name}
+        />
       </RoleCardContainer>
       <MobileMemberMenuList />
     </div>

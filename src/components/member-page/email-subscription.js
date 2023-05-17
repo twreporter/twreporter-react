@@ -1,9 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export default function EmailSubscription() {
-    return (
-        <div>
-            EMAIL
-        </div>
-    )
+  return <div>EMAIL</div>
 }
