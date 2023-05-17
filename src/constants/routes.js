@@ -44,4 +44,7 @@ export default {
   errorPage: {
     path: '/error/:errorType',
   },
+  memberPage: {
+    path: '/member',
+  },
 }
