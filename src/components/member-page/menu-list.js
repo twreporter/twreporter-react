@@ -4,6 +4,10 @@ import { useLocation } from 'react-router-dom'
 import querystring from 'querystring'
 
 import {
+  TabletAndBelow,
+  DesktopAndAbove,
+} from '@twreporter/react-components/lib/rwd'
+import {
   colorBrand,
   colorGrayscale,
   colorOpacity,
@@ -70,16 +74,32 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
     const isActive = pathname === path
     if (type === 'normal') {
       return (
-        <MenuButton
-          key={idx}
-          text={text}
-          link={{ isExternal: false, to: path }}
-          color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
-          hoverBgColor={colorOpacity['black_0.05']}
-          activeBgColor={colorOpacity['black_0.1']}
-          paddingLeft={16}
-          paddingRight={16}
-        />
+        <div>
+          <TabletAndBelow>
+            <MenuButton
+              key={idx}
+              text={text}
+              link={{ isExternal: false, to: path }}
+              color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
+              hoverBgColor={colorOpacity['black_0.05']}
+              activeBgColor={colorOpacity['black_0.1']}
+              paddingLeft={0}
+              paddingRight={0}
+            />
+          </TabletAndBelow>
+          <DesktopAndAbove>
+            <MenuButton
+              key={idx}
+              text={text}
+              link={{ isExternal: false, to: path }}
+              color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
+              hoverBgColor={colorOpacity['black_0.05']}
+              activeBgColor={colorOpacity['black_0.1']}
+              paddingLeft={16}
+              paddingRight={16}
+            />
+          </DesktopAndAbove>
+        </div>
       )
     }
 
@@ -93,15 +113,30 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
 
     if (type === 'logout') {
       return (
-        <MenuButton
-          key={idx}
-          text={text}
-          hoverBgColor={colorOpacity['black_0.05']}
-          activeBgColor={colorOpacity['black_0.1']}
-          paddingLeft={16}
-          paddingRight={16}
-          onClick={e => handleClick(e, path)}
-        />
+        <div>
+          <TabletAndBelow>
+            <MenuButton
+              key={idx}
+              text={text}
+              hoverBgColor={colorOpacity['black_0.05']}
+              activeBgColor={colorOpacity['black_0.1']}
+              paddingLeft={0}
+              paddingRight={0}
+              onClick={e => handleClick(e, path)}
+            />
+          </TabletAndBelow>
+          <DesktopAndAbove>
+            <MenuButton
+              key={idx}
+              text={text}
+              hoverBgColor={colorOpacity['black_0.05']}
+              activeBgColor={colorOpacity['black_0.1']}
+              paddingLeft={16}
+              paddingRight={16}
+              onClick={e => handleClick(e, path)}
+            />
+          </DesktopAndAbove>
+        </div>
       )
     }
   })
