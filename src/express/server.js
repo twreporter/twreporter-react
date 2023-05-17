@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import Compression from 'compression'
 import Express from 'express'
 import authMiddlewareNew from './middlewares/auth'
