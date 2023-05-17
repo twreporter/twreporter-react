@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import mq from '@twreporter/core/lib/utils/media-query'
 import Divider from '@twreporter/react-components/lib/divider'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -15,9 +14,6 @@ const RowContainer = styled.div`
 
 const TitleContainer = styled.div`
   width: 120px;
-  ${mq.tabletAndAbove`
-    width: 170px;
-  `}
 `
 
 const DividerContainer = styled.div`

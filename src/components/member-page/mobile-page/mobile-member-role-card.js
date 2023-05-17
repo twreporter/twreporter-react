@@ -113,20 +113,20 @@ const MobileMemberRoleCard = ({
     )
   }, [logoHeight, logoHeightPlusPagging, dataContainerDistanceFromTop])
 
-  const logo = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_logo.png`
-  const title = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_title.png`
-  const mark = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_mark.png`
+  const logoUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_logo.png`
+  const titleUrl= `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_title.png`
+  const markUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}_mark.png`
 
   return (
     <CardContainer bgColor={CardBgColor[role]}>
       <LogoContainer ref={logoContainerRef}>
-        <img src={logo}></img>
+        <img src={logoUrl}></img>
       </LogoContainer>
       <TitleContainer>
-        <img style={{ height: '100%' }} src={title}></img>
+        <img style={{ height: '100%' }} src={titleUrl}></img>
       </TitleContainer>
       <MarkContainer top={markContainerTop} translateY={logoHeight}>
-        <img src={mark}></img>
+        <img src={markUrl}></img>
       </MarkContainer>
       <DataContainer ref={dataContainerRef}>
         {name && (
