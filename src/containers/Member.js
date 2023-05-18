@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import mq from '@twreporter/core/lib/utils/media-query'
 import {
   BRANCH_PROP_TYPES,
@@ -13,7 +14,6 @@ import {
   TabletAndAbove,
 } from '@twreporter/react-components/lib/rwd'
 
-import { MEMBER_ROLE } from '../constants/member-role'
 import MemberMenuList from '../components/member-page/menu-list'
 import MemberData from '../components/member-page/member-data'
 import MemberRoleCard from '../components/member-page/member-role-card'

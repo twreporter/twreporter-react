@@ -7,8 +7,8 @@ import {
   BRANCH,
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
-import { MEMBER_ROLE } from '../../constants/member-role'
 
 const Image = styled.img`
   width: 147px;

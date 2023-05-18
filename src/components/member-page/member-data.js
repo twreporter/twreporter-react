@@ -6,7 +6,7 @@ import Divider from '@twreporter/react-components/lib/divider'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 
-import { MEMBER_ROLE, MEMBER_ROLE_ZH_TW } from '../../constants/member-role'
+import { MEMBER_ROLE, MEMBER_ROLE_ZH_TW } from '@twreporter/core/lib/constants/member-role'
 
 const RowContainer = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const MemberData = ({
       <DividerContainer>
         <Divider />
       </DividerContainer>
-      {name && (
+      {role !== MEMBER_ROLE.EXPLORER && (
         <div>
           <RowContainer>
             <TitleContainer>

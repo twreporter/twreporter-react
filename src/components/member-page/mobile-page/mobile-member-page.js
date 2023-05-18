@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import {
   BRANCH,
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
+import MobileMemberRoleCard from '@twreporter/react-components/lib/mobile-member-role-card'
 
 import MobileMemberMenuList from './mobile-menu-list'
-import MobileMemberRoleCard from './mobile-member-role-card'
-import { MEMBER_ROLE } from '../../../constants/member-role'
 
 const RoleCardContainer = styled.div`
   display: flex;
