@@ -5,23 +5,28 @@ const isServeSideRendering = process.env.RENDER_ENV === 'server'
 
 const presets = [
   [
-    'env',
+    '@babel/preset-env',
     {
       targets: {
         node: 'current',
         browsers: ['last 2 versions'],
       },
       debug: isProduction,
-      useBuiltIns: true,
+      useBuiltIns: 'entry',
+      corejs: {
+        version: 3,
+        proposals: true,
+      },
     },
   ],
-  require('babel-preset-react'),
-  require('babel-preset-stage-0'),
+  require('@babel/preset-react'),
 ]
 
 const plugins = [
   'react-loadable/babel',
-  isServeSideRendering ? 'dynamic-import-node' : 'syntax-dynamic-import',
+  isServeSideRendering
+    ? 'dynamic-import-node-babel-7'
+    : '@babel/plugin-syntax-dynamic-import',
   [
     'babel-plugin-styled-components',
     {

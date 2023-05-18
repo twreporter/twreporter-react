@@ -2,7 +2,7 @@ const nodeEnv = process.env.NODE_ENV || 'development'
 const releaseBranch = process.env.RELEASE_BRANCH || 'master'
 
 const webpackDevServerHost = process.env.DEV_HOST || 'localhost'
-const webpackDevServerPort = 5000
+const webpackDevServerPort = 5050
 
 const webpackConfig = {
   webpackOutputFilename:

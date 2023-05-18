@@ -80,6 +80,18 @@ const webpackConfig = {
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      {
+        test: /\.(woff(2)?|ttf|eot)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 4096,
+          name: './fonts/[name].[ext]?[hash]', // was '/fonts/[name].[ext]?[hash]',
+        },
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {

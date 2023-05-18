@@ -1,5 +1,4 @@
 /* global before, beforeEach, afterEach, describe, it */
-import 'babel-polyfill'
 import { expect } from 'chai'
 import { host, devices, routes } from './static/screenshot.config'
 import { PNG } from 'pngjs'
