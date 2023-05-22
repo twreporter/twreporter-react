@@ -16,7 +16,7 @@ import {
   BRANCH,
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
-import MenuButton from '@twreporter/react-components/lib/menu-button/index'
+import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import { getLogoutLink } from '@twreporter/universal-header/lib/utils/links'
 

@@ -18,7 +18,7 @@ const RoleCardContainer = styled.div`
 `
 
 const MobileMemberPage = ({
-  role = MEMBER_ROLE.EXPLORER,
+  role = MEMBER_ROLE.explorer,
   releaseBranch = BRANCH.master,
   email,
   joinDate,

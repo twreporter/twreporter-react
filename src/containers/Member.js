@@ -62,18 +62,18 @@ const RoleCardContainer = styled.div`
 
 const tempMemberData = [
   {
-    role: MEMBER_ROLE.EXPLORER,
+    role: MEMBER_ROLE.explorer,
     email: 'abc@email',
     joinDate: '2020/01/01',
   },
   {
-    role: MEMBER_ROLE.ACTION_TAKER,
+    role: MEMBER_ROLE.action_taker,
     name: '小富翁',
     email: 'efh@email',
     joinDate: '2022/02/02',
   },
   {
-    role: MEMBER_ROLE.TRAILBLAZER,
+    role: MEMBER_ROLE.trailblazer,
     name: '大富翁',
     email: 'vip@email',
     joinDate: '1900/12/21',

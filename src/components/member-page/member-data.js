@@ -20,8 +20,12 @@ const DividerContainer = styled.div`
   margin: 24px 0px;
 `
 
+const BottomDividerContainer = styled.div`
+  margin-top: 24px;
+`
+
 const MemberData = ({
-  role = MEMBER_ROLE.EXPLORER,
+  role = MEMBER_ROLE.explorer,
   email = 'user@email.com',
   joinDate = '2023/09/01',
   name = '',
@@ -32,7 +36,7 @@ const MemberData = ({
       <DividerContainer>
         <Divider />
       </DividerContainer>
-      {role !== MEMBER_ROLE.EXPLORER && (
+      {role !== MEMBER_ROLE.explorer && (
         <div>
           <RowContainer>
             <TitleContainer>
@@ -69,9 +73,9 @@ const MemberData = ({
         </TitleContainer>
         <P1 text={joinDate} />
       </RowContainer>
-      <DividerContainer style={{ marginBottom: '0px' }}>
+      <BottomDividerContainer>
         <Divider />
-      </DividerContainer>
+      </BottomDividerContainer>
     </div>
   )
 }
