@@ -12,6 +12,7 @@ import loadTagListPageData from './tag-list-page'
 import loadTopicListPageData from './topic-list-page'
 import loadTopicPageData from './topic-page'
 import loadLatestPageData from './latest-page'
+import loadMemberPageData from './member-page'
 // feature toggle
 import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 const loadCategoryListPageData = ENABLE_NEW_INFO_ARCH
@@ -34,4 +35,5 @@ export default {
   loadTopicListPageData,
   loadTopicPageData,
   loadLatestPageData,
+  loadMemberPageData,
 }

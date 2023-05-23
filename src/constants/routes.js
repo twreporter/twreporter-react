@@ -44,4 +44,13 @@ export default {
   errorPage: {
     path: '/error/:errorType',
   },
+  memberPage: {
+    path: '/member',
+    memberDonationPage: {
+      path: '/member/donation'
+    },
+    memberEmailSubscriptionPage: {
+      path: '/member/email-subscription'
+    }
+  },
 }
