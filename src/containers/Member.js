@@ -23,38 +23,38 @@ import MobileMemberPage from '../components/member-page/mobile-page/mobile-membe
 import routes from '../constants/routes'
 
 const PageContainer = styled.div`
-	width: 100%;
-	padding-bottom: 200px;
-	${mq.mobileOnly`
-		padding: 24px 24px 64px;
-	`}
-	${mq.tabletAndAbove`
-		display: grid;
-		grid-template-columns: 2fr 7fr 3fr;
-	`}
-	${mq.tabletOnly`
-		padding-top: 32px;
-		padding-left: 32px;
-		grid-column-gap: 24px;
-	`}
+  width: 100%;
+  padding-bottom: 200px;
+  ${mq.mobileOnly`
+    padding: 24px 24px 64px;
+  `}
+  ${mq.tabletAndAbove`
+    display: grid;
+    grid-template-columns: 2fr 7fr 3fr;
+  `}
+  ${mq.tabletOnly`
+    padding-top: 32px;
+    padding-left: 32px;
+    grid-column-gap: 24px;
+  `}
   ${mq.desktopAndAbove`
     padding-top: 64px;
-		padding-left: 48px;
-		grid-column-gap: 32px;
+    padding-left: 48px;
+    grid-column-gap: 32px;
   `}
-	${mq.hdOnly`
-		padding-left: 0px;
-		width: 1280px;
-		margin: auto;
-	`}
+  ${mq.hdOnly`
+    padding-left: 0px;
+    width: 1280px;
+    margin: auto;
+  `}
 `
 
 const MenuContainer = styled.div``
 
 const ContentContainer = styled.div`
   ${mq.mobileOnly`
-	padding: 24px 24px 200px;
-	`}
+  padding: 24px 24px 200px;
+  `}
 `
 
 const RoleCardContainer = styled.div`
