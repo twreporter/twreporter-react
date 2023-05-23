@@ -129,7 +129,10 @@ const loadablePages = {
     loading: LoadingComponent,
   }),
   member: Loadable({
-    loader: () => import('./containers/Member'),
+    loader: () => import(
+      /* webpackChunkName: "member" */
+      './containers/Member'
+    ),
     loading: LoadingComponent,
   }),
 }
