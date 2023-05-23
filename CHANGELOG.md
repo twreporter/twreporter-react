@@ -6,6 +6,7 @@
 
 - feat
   - add member page
+- chore
   - update @twreporter packages
 
 ### Commits
