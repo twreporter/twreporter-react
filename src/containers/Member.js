@@ -20,6 +20,7 @@ import MemberRoleCard from '../components/member-page/member-role-card'
 import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
+import routes from '../constants/routes'
 
 const PageContainer = styled.div`
 	width: 100%;
@@ -93,7 +94,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
           </MenuContainer>
           <ContentContainer>
             <Switch>
-              <Route exact path={path}>
+              <Route exact path={routes.memberPage.path}>
                 <MemberData
                   role={memberData.role}
                   email={memberData.email}
@@ -101,15 +102,15 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
                   name={memberData.name || ''}
                 />
               </Route>
-              <Route path={`${path}/donation`}>
+              <Route path={routes.memberPage.memberDonationPage.path}>
                 <MemberDonationPage releaseBranch={releaseBranch} />
               </Route>
-              <Route path={`${path}/email-subscription`}>
+              <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
                 <EmailSubscription />
               </Route>
             </Switch>
           </ContentContainer>
-          <Route exact path={path}>
+          <Route exact path={routes.memberPage.path}>
             <RoleCardContainer>
               <MemberRoleCard
                 role={memberData.role}
@@ -120,7 +121,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
         </PageContainer>
       </TabletAndAbove>
       <MobileOnly>
-        <Route exact path={path}>
+        <Route exact path={routes.memberPage.path}>
           <PageContainer>
             <MobileMemberPage
               role={memberData.role}
@@ -132,12 +133,12 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
           </PageContainer>
         </Route>
         <Switch>
-          <Route path={`${path}/donation`}>
+          <Route path={routes.memberPage.memberDonationPage.path}>
             <ContentContainer>
               <MemberDonationPage releaseBranch={releaseBranch} />
             </ContentContainer>
           </Route>
-          <Route path={`${path}/email-subscription`}>
+          <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
             <ContentContainer>
               <EmailSubscription />
             </ContentContainer>

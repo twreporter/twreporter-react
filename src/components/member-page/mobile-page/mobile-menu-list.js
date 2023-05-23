@@ -14,6 +14,9 @@ import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import { getLogoutLink } from '@twreporter/universal-header/lib/utils/links'
 
+import routes from '../../../constants/routes'
+import menuListType from '../../../constants/menu-list-type'
+
 const MobileMemberMenuListConatiner = styled.div`
   max-width: 320px;
   width: 100%;
@@ -28,28 +31,28 @@ const DividerContainer = styled.div`
 const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const MenuData = [
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '贊助紀錄',
-      path: '/member/donation',
+      path: routes.memberPage.memberDonationPage.path,
     },
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '電子報設定',
-      path: '/member/email-subscription',
+      path: routes.memberPage.memberEmailSubscriptionPage.path,
     },
     {
-      type: 'divider',
+      type: menuListType.divider,
     },
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '我的書籤',
-      path: '/bookmarks',
+      path: routes.bookmarkListPage.path,
     },
     {
-      type: 'divider',
+      type: menuListType.divider,
     },
     {
-      type: 'logout',
+      type: menuListType.logout,
       text: '登出',
       path: getLogoutLink(releaseBranch).to,
     },
@@ -65,7 +68,7 @@ const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   }
 
   const itemJSX = MenuData.map(({ type, text, path }, idx) => {
-    if (type === 'normal') {
+    if (type === menuListType.normal) {
       return (
         <MenuButton
           key={idx}
@@ -80,7 +83,7 @@ const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
       )
     }
 
-    if (type === 'divider') {
+    if (type === menuListType.divider) {
       return (
         <DividerContainer key={idx}>
           <Divider />
@@ -88,7 +91,7 @@ const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
       )
     }
 
-    if (type === 'logout') {
+    if (type === menuListType.logout) {
       return (
         <MenuButton
           key={idx}

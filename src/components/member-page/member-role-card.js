@@ -19,7 +19,7 @@ const Image = styled.img`
 
 const MemberRoleCard = ({
   releaseBranch = BRANCH.master,
-  role = MEMBER_ROLE.exoplorer,
+  role = MEMBER_ROLE.explorer,
 }) => {
   const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}.png`
   return <Image src={imageUrl}></Image>

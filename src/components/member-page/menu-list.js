@@ -20,42 +20,44 @@ import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import { getLogoutLink } from '@twreporter/universal-header/lib/utils/links'
 
+import routes from '../../constants/routes'
+import menuListType from '../../constants/menu-list-type'
+
 const DividerContainer = styled.div`
   margin: 24px 0px;
 `
 
 const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const { pathname } = useLocation()
-  // TODO: move to constants ? type: 'normal', 'divider', 'dropdown' ?
   const MenuData = [
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '會員資料',
-      path: '/member',
+      path: routes.memberPage.path,
     },
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '贊助紀錄',
-      path: '/member/donation',
+      path: routes.memberPage.memberDonationPage.path,
     },
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '電子報設定',
-      path: '/member/email-subscription',
+      path: routes.memberPage.memberEmailSubscriptionPage.path,
     },
     {
-      type: 'divider',
+      type: menuListType.divider,
     },
     {
-      type: 'normal',
+      type: menuListType.normal,
       text: '我的書籤',
-      path: '/bookmarks',
+      path: routes.bookmarkListPage.path,
     },
     {
-      type: 'divider',
+      type: menuListType.divider,
     },
     {
-      type: 'logout',
+      type: menuListType.logout,
       text: '登出',
       path: getLogoutLink(releaseBranch).to,
     },
@@ -72,12 +74,11 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
 
   const itemJSX = MenuData.map(({ type, text, path }, idx) => {
     const isActive = pathname === path
-    if (type === 'normal') {
+    if (type === menuListType.normal) {
       return (
-        <div>
+        <div key={idx}>
           <TabletAndBelow>
             <MenuButton
-              key={idx}
               text={text}
               link={{ isExternal: false, to: path }}
               color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
@@ -89,7 +90,6 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
           </TabletAndBelow>
           <DesktopAndAbove>
             <MenuButton
-              key={idx}
               text={text}
               link={{ isExternal: false, to: path }}
               color={isActive ? colorBrand.heavy : colorGrayscale.gray800}
@@ -103,7 +103,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
       )
     }
 
-    if (type === 'divider') {
+    if (type === menuListType.divider) {
       return (
         <DividerContainer key={idx}>
           <Divider />
@@ -111,12 +111,11 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
       )
     }
 
-    if (type === 'logout') {
+    if (type === menuListType.logout) {
       return (
-        <div>
+        <div key={idx}>
           <TabletAndBelow>
             <MenuButton
-              key={idx}
               text={text}
               hoverBgColor={colorOpacity['black_0.05']}
               activeBgColor={colorOpacity['black_0.1']}
@@ -127,7 +126,6 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
           </TabletAndBelow>
           <DesktopAndAbove>
             <MenuButton
-              key={idx}
               text={text}
               hoverBgColor={colorOpacity['black_0.05']}
               activeBgColor={colorOpacity['black_0.1']}

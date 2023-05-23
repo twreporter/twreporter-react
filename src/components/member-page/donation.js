@@ -13,18 +13,22 @@ const Block = styled.div`
   height: 72px;
 `
 
+const StyledP2 = styled(P2)`
+  justify-content: center
+`
+
 const MemberDonationPage = ({ releaseBranch = BRANCH.master }) => {
   return (
     <div>
-      <H3 text={'贊助紀錄'} />
+      <H3 text="贊助紀錄" />
       <Block />
       <EmptyState
         style={EmptyState.Style.UNDER_CONSTRUCTION}
-        title={'功能即將推出！'}
+        title="功能即將推出！"
         guide={
           <div>
             <P2 text="我們正在開發這個頁面的功能，" />
-            <P2 style={{ justifyContent: 'center' }} text="敬請期待！" />
+            <StyledP2 text="敬請期待！" />
           </div>
         }
         showButton={false}
