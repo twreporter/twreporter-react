@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.4-rc.0, 2023-05-23
+
+### Notable Changes
+
+- feat
+  - add member page
+  - update @twreporter packages
+
+### Commits
+
+- [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
+
 ## 4.10.4, 2023-05-12 (Current)
 
 ### Notable Changes
