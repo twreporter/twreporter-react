@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -82,7 +82,6 @@ const tempMemberData = [
 ]
 
 const MemberPage = ({ releaseBranch = BRANCH.master }) => {
-  const { path } = useRouteMatch()
   // TODO: fake data to show all roles
   const memberData = tempMemberData[Math.floor(Math.random() * 3)]
   return (
