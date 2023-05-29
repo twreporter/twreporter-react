@@ -47,7 +47,7 @@ function generateRuntimeCaching(runtimeCaching) {
 }
 
 const releaseBranch = config.releaseBranch
-const origin = url.parse(
+const origin = new url.URL(
   requestOrigins.forClientSideRendering[releaseBranch].api
 )
 

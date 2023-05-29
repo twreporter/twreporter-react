@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.10.5-rc.0, 2023-05-29
+
+### Notable Changes
+
+- fix
+  - kids reporter name in about us page
+- chore
+  - upgrade node to v16
+  - upgrade babel to ^7.4.0
+
+### Commits
+
+- [[`77302ba0fa`](https://github.com/twreporter/twreporter-react/commit/77302ba0fa)] - **fix**: kids reporter name in about us page (Aylie Chou)
+- [[`18331891d8`](https://github.com/twreporter/twreporter-react/commit/18331891d8)] - **fix**: replace deprecated url.parse with url.URL (duidae)
+- [[`7a29ed737b`](https://github.com/twreporter/twreporter-react/commit/7a29ed737b)] - **chore**: upgrade node to v16 (duidae)
+- [[`6dae1aea82`](https://github.com/twreporter/twreporter-react/commit/6dae1aea82)] - **fix**: fix regenerationRuntime not defined error (Aylie Chou)
+- [[`4f2fa55e92`](https://github.com/twreporter/twreporter-react/commit/4f2fa55e92)] - **chore**: upgrade babel to ^7.4.0 (Aylie Chou)
+
 ## 4.10.4, 2023-05-12 (Current)
 
 ### Notable Changes
@@ -44,7 +62,7 @@
 - [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
 
-## 4.10.1, 2023-05-09 (Current)
+## 4.10.1, 2023-05-09
 
 ### Notable Changes
 
