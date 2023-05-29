@@ -8,12 +8,15 @@
   - kids reporter name in about us page
 - chore
   - upgrade node to v16
+  - upgrade babel to ^7.4.0
 
 ### Commits
 
 - [[`77302ba0fa`](https://github.com/twreporter/twreporter-react/commit/77302ba0fa)] - **fix**: kids reporter name in about us page (Aylie Chou)
 - [[`18331891d8`](https://github.com/twreporter/twreporter-react/commit/18331891d8)] - **fix**: replace deprecated url.parse with url.URL (duidae)
 - [[`7a29ed737b`](https://github.com/twreporter/twreporter-react/commit/7a29ed737b)] - **chore**: upgrade node to v16 (duidae)
+- [[`6dae1aea82`](https://github.com/twreporter/twreporter-react/commit/6dae1aea82)] - **fix**: fix regenerationRuntime not defined error (Aylie Chou)
+- [[`4f2fa55e92`](https://github.com/twreporter/twreporter-react/commit/4f2fa55e92)] - **chore**: upgrade babel to ^7.4.0 (Aylie Chou)
 
 ## 4.10.4, 2023-05-12 (Current)
 
