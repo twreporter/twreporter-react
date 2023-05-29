@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
 
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -30,7 +30,7 @@ const PageContainer = styled.div`
   `}
   ${mq.tabletAndAbove`
     display: grid;
-    grid-template-columns: 2fr 7fr 3fr;
+    grid-template-columns: repeat(12, 1fr);
   `}
   ${mq.tabletOnly`
     padding-top: 32px;
@@ -49,16 +49,30 @@ const PageContainer = styled.div`
   `}
 `
 
-const MenuContainer = styled.div``
+const MenuContainer = styled.div`
+  grid-column: 1 / 3;
+`
 
 const ContentContainer = styled.div`
+  ${mq.tabletOnly`
+    grid-column: ${props =>
+      props.path === routes.memberPage.path ? '3 / 10' : '3 / 13'}
+  `}
+  ${mq.desktopAndAbove`
+    grid-column: ${props =>
+      props.path === routes.memberPage.path ? '3 / 10' : '3 / 11'}
+  `}
   ${mq.mobileOnly`
-  padding: 24px 24px 200px;
+    padding: 24px 24px 200px;
   `}
 `
 
 const RoleCardContainer = styled.div`
-  margin: auto;
+  grid-column: 10 / 13;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const tempMemberData = [
@@ -89,6 +103,8 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
     setRandomIndex(Math.floor(Math.random() * 3))
     setMemberData(tempMemberData[randomIndex])
   }, [randomIndex])
+
+  const { pathname } = useLocation()
   return (
     <div>
       <TabletAndAbove>
@@ -96,7 +112,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
           <MenuContainer>
             <MemberMenuList releaseBranch={releaseBranch} />
           </MenuContainer>
-          <ContentContainer>
+          <ContentContainer path={pathname}>
             <Switch>
               <Route exact path={routes.memberPage.path}>
                 <MemberData
