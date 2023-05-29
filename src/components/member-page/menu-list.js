@@ -24,7 +24,7 @@ import routes from '../../constants/routes'
 import menuListType from '../../constants/menu-list-type'
 
 const DividerContainer = styled.div`
-  margin: 24px 0px;
+  margin: 16px 0px;
 `
 
 const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {

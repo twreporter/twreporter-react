@@ -25,7 +25,7 @@ const MobileMemberMenuListConatiner = styled.div`
 `
 
 const DividerContainer = styled.div`
-  margin: 24px 0px;
+  margin: 16px 0px;
 `
 
 const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {

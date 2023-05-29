@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
 
@@ -83,7 +83,12 @@ const tempMemberData = [
 
 const MemberPage = ({ releaseBranch = BRANCH.master }) => {
   // TODO: fake data to show all roles
-  const memberData = tempMemberData[Math.floor(Math.random() * 3)]
+  const [randomIndex, setRandomIndex] = useState(0)
+  const [memberData, setMemberData] = useState(tempMemberData[0])
+  useEffect(() => {
+    setRandomIndex(Math.floor(Math.random() * 3))
+    setMemberData(tempMemberData[randomIndex])
+  }, [randomIndex])
   return (
     <div>
       <TabletAndAbove>

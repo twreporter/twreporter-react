@@ -5,8 +5,15 @@ import PropTypes from 'prop-types'
 import Divider from '@twreporter/react-components/lib/divider'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+import {
+  MEMBER_ROLE,
+  MEMBER_ROLE_ZH_TW,
+} from '@twreporter/core/lib/constants/member-role'
 
-import { MEMBER_ROLE, MEMBER_ROLE_ZH_TW } from '@twreporter/core/lib/constants/member-role'
+const MemberDataContainer = styled.div`
+  color: ${colorGrayscale.gray800};
+`
 
 const RowContainer = styled.div`
   display: flex;
@@ -31,7 +38,7 @@ const MemberData = ({
   name = '',
 }) => {
   return (
-    <div>
+    <MemberDataContainer>
       <H3 text={'會員資料'} />
       <DividerContainer>
         <Divider />
@@ -76,7 +83,7 @@ const MemberData = ({
       <BottomDividerContainer>
         <Divider />
       </BottomDividerContainer>
-    </div>
+    </MemberDataContainer>
   )
 }
 
