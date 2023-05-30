@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.6-rc.0, 2023-05-30
+
+## Notable Changes
+
+- fix
+  - replace url.URL with new URL
+
+### Commits
+
+- [[`3159ecbd1b`](https://github.com/twreporter/twreporter-react/commit/3159ecbd1b)] - **fix**: replace url.URL with new URL (Lucien Lu)
+
 ## 4.10.5, 2023-05-30 (Current)
 
 ### Notable Changes
