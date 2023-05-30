@@ -61,7 +61,7 @@ const categories = [
     id: categoryIds.contentDevelopment,
     label: {
       english: 'Content Development',
-      chinese: '分 眾 報',
+      chinese: '少 年 報 導 者',
     },
   },
   {
