@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.10.5-rc.0, 2023-05-30
+## 4.10.6-rc.0, 2023-05-30
 
 ## Notable Changes
 
