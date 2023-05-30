@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.10.5-rc.0, 2023-05-29
+## 4.10.5, 2023-05-30 (Current)
 
 ### Notable Changes
 
@@ -18,7 +18,7 @@
 - [[`6dae1aea82`](https://github.com/twreporter/twreporter-react/commit/6dae1aea82)] - **fix**: fix regenerationRuntime not defined error (Aylie Chou)
 - [[`4f2fa55e92`](https://github.com/twreporter/twreporter-react/commit/4f2fa55e92)] - **chore**: upgrade babel to ^7.4.0 (Aylie Chou)
 
-## 4.10.4, 2023-05-12 (Current)
+## 4.10.4, 2023-05-12
 
 ### Notable Changes
 
