@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.5-beta.2, 2023-05-30
+
+### Notable Changes
+
+- fix
+  - fix member page grid
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
+
 ## 4.10.5-beta.1, 2023-05-23
 
 ### Notable Changes
