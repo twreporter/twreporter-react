@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.6-rc.1, 2023-05-30
+
+## Notable Changes
+
+- fix
+  - use original url.parse
+
+### Commits
+
+- [[`cb040c3431`](https://github.com/twreporter/twreporter-react/commit/cb040c3431)] - **fix**: use original url.parse (Lucien Lu)
+
 ## 4.10.6-rc.0, 2023-05-30
 
 ## Notable Changes
