@@ -4,7 +4,6 @@ import loggerFactory from '../../logger'
 import statusCodeConst from '../../constants/status-code'
 import { matchPath } from 'react-router-dom'
 import getRoutes from '../../routes'
-import url from 'url'
 
 const _ = {
   get,
@@ -33,7 +32,9 @@ function dataLoaderMiddleware(namespace) {
     routes.some(route => {
       const match = matchPath(req.path, route)
       if (match && route.loadData) {
-        const { hash, pathname, search } = url.parse(req.originalUrl)
+        const { hash, pathname, search } = new URL(
+          `${req.protocol}://${req.get('host')}${req.originalUrl}`
+        )
         dataLoadingPromises.push(
           route.loadData({
             store,
