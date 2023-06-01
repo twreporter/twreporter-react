@@ -24,7 +24,6 @@ import routes from '../constants/routes'
 
 const PageContainer = styled.div`
   width: 100%;
-  padding-bottom: 200px;
   ${mq.mobileOnly`
     padding: 24px 24px 64px;
   `}
