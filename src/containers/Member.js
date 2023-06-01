@@ -33,17 +33,15 @@ const PageContainer = styled.div`
     grid-template-columns: repeat(12, 1fr);
   `}
   ${mq.tabletOnly`
-    padding-top: 32px;
-    padding-left: 32px;
+    padding: 32px 32px 200px;
     grid-column-gap: 24px;
   `}
   ${mq.desktopAndAbove`
-    padding-top: 64px;
-    padding-left: 48px;
+    padding: 64px 48px 200px;
     grid-column-gap: 32px;
   `}
   ${mq.hdOnly`
-    padding-left: 0px;
+    padding: 64px 0px 200px;
     width: 1280px;
     margin: auto;
   `}
