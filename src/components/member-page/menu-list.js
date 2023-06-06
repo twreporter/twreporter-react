@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
-import querystring from 'querystring'
 
 import {
   TabletAndBelow,
@@ -65,11 +64,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
 
   const handleClick = (e, path) => {
     e.preventDefault()
-    const redirectURL = window.location.href
-    const query = querystring.stringify({
-      destination: redirectURL,
-    })
-    window.location = `${path}?${query}`
+    window.location = '/'
   }
 
   const itemJSX = MenuData.map(({ type, text, path }, idx) => {

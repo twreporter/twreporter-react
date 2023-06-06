@@ -18,7 +18,7 @@ import MemberMenuList from '../components/member-page/menu-list'
 import MemberData from '../components/member-page/member-data'
 import MemberRoleCard from '../components/member-page/member-role-card'
 import MemberDonationPage from '../components/member-page/donation'
-import EmailSubscription from '../components/member-page/email-subscription'
+import EmailSubscription from '../components/member-page/email-subscription/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
 import routes from '../constants/routes'
 
