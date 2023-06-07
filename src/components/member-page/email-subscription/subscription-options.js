@@ -8,7 +8,7 @@ import {
   colorBrand,
   colorGrayscale,
 } from '@twreporter/core/lib/constants/color'
-import { OPTION_KEYS } from '@twreporter/core/lib/constants/email-subscription-options'
+import { EMAIL_SUBSCRIPTION_KEY } from '@twreporter/core/lib/constants/email-subscription'
 import mq from '@twreporter/core/lib/utils/media-query'
 import Divider from '@twreporter/react-components/lib/divider'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -74,21 +74,21 @@ const ToggleButtonContainer = styled.div`
 
 const options = [
   {
-    key: OPTION_KEYS.featured,
+    key: EMAIL_SUBSCRIPTION_KEY.featured,
     text: '報導者精選',
     desc:
       '由《報導者》編輯台精選近兩週的最新報導，和我們一起看見世界上正在發生的、重要的事。',
     label: '雙週',
   },
   {
-    key: OPTION_KEYS.behindTheScenes,
+    key: EMAIL_SUBSCRIPTION_KEY.behindTheScenes,
     text: '採訪幕後故事',
     desc:
       '總是好奇記者們如何深入現場，採訪過程中又有哪些不為人知的故事嗎？我們會不定期分享給你。',
     label: '不定期',
   },
   {
-    key: OPTION_KEYS.operationalJournal,
+    key: EMAIL_SUBSCRIPTION_KEY.operationalJournal,
     text: '報導者營運手記',
     desc:
       '一路走來，各個決策有什麼背後故事，團隊又是過著怎樣的工作日常？一起來開箱報導者團隊！',
