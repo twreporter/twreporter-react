@@ -8,6 +8,7 @@ import {
   colorBrand,
   colorGrayscale,
 } from '@twreporter/core/lib/constants/color'
+import { OPTION_KEYS } from '@twreporter/core/lib/constants/email-subscription-options'
 import mq from '@twreporter/core/lib/utils/media-query'
 import Divider from '@twreporter/react-components/lib/divider'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -15,8 +16,6 @@ import { Weight } from '@twreporter/react-components/lib/text/enums'
 import { Badge } from '@twreporter/react-components/lib/badge'
 import { ToggleButton } from '@twreporter/react-components/lib/button'
 import twreporterRedux from '@twreporter/redux'
-import colors from '../../../constants/colors'
-import optionKeys from '../../../constants/email-subscription-options'
 
 // useContext
 import { EmailSubscriptionContext } from './email-subscription'
@@ -75,21 +74,21 @@ const ToggleButtonContainer = styled.div`
 
 const options = [
   {
-    key: optionKeys.featured,
+    key: OPTION_KEYS.featured,
     text: '報導者精選',
     desc:
       '由《報導者》編輯台精選近兩週的最新報導，和我們一起看見世界上正在發生的、重要的事。',
     label: '雙週',
   },
   {
-    key: optionKeys.behindTheScenes,
+    key: OPTION_KEYS.behindTheScenes,
     text: '採訪幕後故事',
     desc:
       '總是好奇記者們如何深入現場，採訪過程中又有哪些不為人知的故事嗎？我們會不定期分享給你。',
     label: '不定期',
   },
   {
-    key: optionKeys.operationalJournal,
+    key: OPTION_KEYS.operationalJournal,
     text: '報導者營運手記',
     desc:
       '一路走來，各個決策有什麼背後故事，團隊又是過著怎樣的工作日常？一起來開箱報導者團隊！',
@@ -124,7 +123,7 @@ const SubscriptionOptions = ({ jwt, userID, setUserData }) => {
     setUserData(jwt, userID, [], subscriptions)
       .then(() => {
         setIsToggleBtnDisabled(false)
-        toastr({ text: snackBarText, timeout: 1000000000 })
+        toastr({ text: snackBarText })
       })
       .catch(error => {
         console.error('error: ', error)
@@ -149,7 +148,7 @@ const SubscriptionOptions = ({ jwt, userID, setUserData }) => {
               <BadgeComponent
                 text={option.label}
                 textColor={colorBrand.heavy}
-                backgroundColor={colors.white}
+                backgroundColor={colorGrayscale.white}
               />
             </OptionTitle>
             <P1Gray800 text={option.desc} />
