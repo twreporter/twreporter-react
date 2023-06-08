@@ -133,9 +133,14 @@ export function mockPostsResponse(
   id,
   categoryId,
   tagId,
-  subcategoryId
+  subcategoryId,
+  sort = '-published_date'
 ) {
   let posts = []
+
+  if (!id && !categoryId && !tagId && !subcategoryId) {
+    posts = mocks.posts
+  }
 
   if (id) {
     let ids = id
