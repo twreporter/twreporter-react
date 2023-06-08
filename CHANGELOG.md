@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.3, 2023-06-08
+
+### Notable Changes
+
+- fix
+  - fix member page padding
+
+## Commits
+
+- [[`6e2a1236ba`](https://github.com/twreporter/twreporter-react/commit/6e2a1236ba)] - Merge pull request #2510 from liruchen32/fix/fix-member-page-padding (Lucien)
+
 ## 4.10.5-beta.2, 2023-05-30
 
 ### Notable Changes
