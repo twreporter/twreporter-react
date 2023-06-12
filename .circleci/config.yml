@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/node:16.14.2
+      - image: cimg/node:12.22.12
     working_directory: ~/repo
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-build-{{ checksum "yarn.lock" }}
+            - v1-dependencies-build-{{ checksum "yarn.lock" }}
 
       - run: yarn install --frozen-lockfile
 
