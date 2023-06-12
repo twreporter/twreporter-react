@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.10.6-rc.3, 2023-06-12
+
+- chore
+- downgrade node to v12.22.12
+
+## Commits
+
+- [[`b6cf05f725`](https://github.com/twreporter/twreporter-react/commit/b6cf05f725)] - **chore**: downgrade to node v12.22.12 (Lucien)
+
 ## 4.10.6-rc.2, 2023-05-30
 
 ## Notable Changes
