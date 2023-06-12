@@ -3,7 +3,7 @@
 ## 4.10.6-rc.3, 2023-06-12
 
 - chore
-- downgrade node to v12.22.12
+  - downgrade node to v12.22.12
 
 ## Commits
 
