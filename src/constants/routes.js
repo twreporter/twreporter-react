@@ -47,10 +47,10 @@ export default {
   memberPage: {
     path: '/member',
     memberDonationPage: {
-      path: '/member/donation'
+      path: '/member/donation',
     },
     memberEmailSubscriptionPage: {
-      path: '/member/email-subscription'
-    }
+      path: '/member/email-subscription',
+    },
   },
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
-import querystring from 'querystring'
 
 import {
   TabletAndBelow,
@@ -51,7 +50,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
     {
       type: menuListType.normal,
       text: '我的書籤',
-      path: routes.bookmarkListPage.path,
+      path: routes.bookmarkListPage.path.slice(0, 10),
     },
     {
       type: menuListType.divider,
@@ -65,11 +64,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
 
   const handleClick = (e, path) => {
     e.preventDefault()
-    const redirectURL = window.location.href
-    const query = querystring.stringify({
-      destination: redirectURL,
-    })
-    window.location = `${path}?${query}`
+    window.location = '/'
   }
 
   const itemJSX = MenuData.map(({ type, text, path }, idx) => {
