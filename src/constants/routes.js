@@ -36,7 +36,7 @@ export default {
     path: '/about-us',
   },
   bookmarkListPage: {
-    path: '/bookmarks',
+    path: '/bookmarks/:pageNumber?',
   },
   latestPage: {
     path: '/latest/:tagId?',

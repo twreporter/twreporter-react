@@ -50,7 +50,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
     {
       type: menuListType.normal,
       text: '我的書籤',
-      path: routes.bookmarkListPage.path,
+      path: routes.bookmarkListPage.path.slice(0, 10),
     },
     {
       type: menuListType.divider,
