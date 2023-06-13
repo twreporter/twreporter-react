@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.5-beta.4, 2023-06-13
+
+### Notable Changes
+
+- feat
+  - add email subscription page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`5a6e3921d5`](https://github.com/twreporter/twreporter-react/commit/5a6e3921d5)] - Merge pull request #2511 from liruchen32/feature/email-subscription-page (Lucien)
+
 ## 4.10.5-beta.3, 2023-06-08
 
 ### Notable Changes
