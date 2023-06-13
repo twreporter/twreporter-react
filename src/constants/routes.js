@@ -36,7 +36,7 @@ export default {
     path: '/about-us',
   },
   bookmarkListPage: {
-    path: '/bookmarks/:pageNumber?',
+    path: '/bookmarks',
   },
   latestPage: {
     path: '/latest/:tagId?',
@@ -47,10 +47,10 @@ export default {
   memberPage: {
     path: '/member',
     memberDonationPage: {
-      path: '/member/donation'
+      path: '/member/donation',
     },
     memberEmailSubscriptionPage: {
-      path: '/member/email-subscription'
-    }
+      path: '/member/email-subscription',
+    },
   },
 }

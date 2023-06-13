@@ -18,7 +18,7 @@ import { ToggleButton } from '@twreporter/react-components/lib/button'
 import twreporterRedux from '@twreporter/redux'
 
 // useContext
-import { EmailSubscriptionContext } from './email-subscription'
+import { EmailSubscriptionContext } from '.'
 
 // lodash
 import get from 'lodash/get'
