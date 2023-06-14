@@ -8,19 +8,24 @@ import {
   BRANCH,
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+
+const StyledH3 = styled(H3)`
+  color: ${colorGrayscale.gray800};
+`
 
 const Block = styled.div`
   height: 72px;
 `
 
 const StyledP2 = styled(P2)`
-  justify-content: center
+  justify-content: center;
 `
 
 const MemberDonationPage = ({ releaseBranch = BRANCH.master }) => {
   return (
     <div>
-      <H3 text="贊助紀錄" />
+      <StyledH3 text="贊助紀錄" />
       <Block />
       <EmptyState
         style={EmptyState.Style.UNDER_CONSTRUCTION}
