@@ -13,6 +13,7 @@ import {
   mockAuthorDetailResponse,
   mockAuthorCollectionsResponse,
 } from './mock-data/authors'
+import { mockTagsResponse } from './mock-data/tags'
 
 // feature toggle
 import mockPostsNew from './mock-data/posts'
@@ -87,6 +88,7 @@ router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
   const {
     limit = '10',
     offset = '0',
+    sort = '-published_date',
     id,
     category_id,
     tag_id,
@@ -96,7 +98,15 @@ router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
   const _offset = Number(offset)
 
   res.json(
-    mockPostsResponse(_limit, _offset, id, category_id, tag_id, subcategory_id)
+    mockPostsResponse(
+      _limit,
+      _offset,
+      id,
+      category_id,
+      tag_id,
+      subcategory_id,
+      sort
+    )
   )
 })
 
@@ -165,6 +175,14 @@ router.route(`/${apiEndpoints.authors}/:authorId/posts/`).get((req, res) => {
 
 router.route(`/${apiEndpoints.indexPage}/`).get((req, res) => {
   res.json(mockIndexPageResponse())
+})
+
+router.route(`/${apiEndpoints.tags}/`).get((req, res) => {
+  const { limit = '10', offset = '0' } = req.query
+  const _limit = Number(limit)
+  const _offset = Number(offset)
+  const latestOrder = Number(_.get(req, 'query.latest_order', '0'))
+  res.json(mockTagsResponse(_limit, _offset, latestOrder))
 })
 
 app.use((err, req, res, next) => {
