@@ -47,7 +47,7 @@ export default {
   memberPage: {
     path: '/member',
     memberDonationPage: {
-      path: '/member/donation',
+      path: '/member/donation-history',
     },
     memberEmailSubscriptionPage: {
       path: '/member/email-subscription',
