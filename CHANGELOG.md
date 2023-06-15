@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.6, 2023-06-15
+
+### Notable Changes
+
+- chore
+  - add dev gtm env
+
+### Commits
+
+- [[`938ef7c286`](https://github.com/twreporter/twreporter-react/commit/938ef7c286)] - **chore**: add dev gtm env (Lucien)
+
 ## 4.10.5-beta.5, 2023-06-15
 
 ### Notable Changes
