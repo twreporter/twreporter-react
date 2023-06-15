@@ -2,6 +2,7 @@ import React, { createContext } from 'react'
 import styled from 'styled-components'
 
 // @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import {
   SnackBar,
@@ -13,6 +14,10 @@ import SubscriptionOptions from './subscription-options'
 
 const EmailSubscriptionContainer = styled.div`
   width: 100%;
+`
+
+const StyledH3 = styled(H3)`
+  color: ${colorGrayscale.gray800};
 `
 
 const Block = styled.div`
@@ -28,8 +33,8 @@ const SnackBarContainer = styled.div`
   width: 100%;
   left: 50%;
   ${mq.desktopAndAbove`
-    top: calc(100vh - 24px);
-    transform: translate(-50%, -50%);
+    bottom: 24px;
+    transform: translateX(-50%);
   `}
   ${mq.tabletAndBelow`
     bottom: calc(env(safe-area-inset-bottom, 0) + 60px + 8px);
@@ -52,7 +57,7 @@ const EmailSubscription = () => {
   return (
     <EmailSubscriptionContext.Provider value={contextValue}>
       <EmailSubscriptionContainer>
-        <H3 text="電子報設定" />
+        <StyledH3 text="電子報設定" />
         <Block />
         <SubscriptionOptions />
         <SnackBarContainer showSnackBar={showSnackBar}>
