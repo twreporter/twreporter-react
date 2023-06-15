@@ -8,6 +8,7 @@
   - fix member donation page route and title color
 - chore
   - update @twreporter packages
+  - update circle ci config for dev branch
 
 ### Commits
 
