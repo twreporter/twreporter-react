@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.5-beta.5, 2023-06-15
+
+### Notable Changes
+
+- fix
+  - fix member donation page route and title color
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`9d8187ab85`](https://github.com/twreporter/twreporter-react/commit/9d8187ab85)] - Merge pull request #2518 from liruchen32/fix/fix-donation-page (Lucien)
+
 ## 4.10.5-beta.4, 2023-06-13
 
 ### Notable Changes
