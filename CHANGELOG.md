@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.7, 2023-06-16
+
+### Notable Changes
+
+- fix
+  - fix email subscription page title and snackbar
+
+### Commits
+
+- [[`2bc24ff7ed`](https://github.com/twreporter/twreporter-react/commit/2bc24ff7ed)] - Merge pull request #2522 from liruchen32/fix/fix-email-subscription-page (Lucien)
+
 ## 4.10.5-beta.6, 2023-06-15
 
 ### Notable Changes
