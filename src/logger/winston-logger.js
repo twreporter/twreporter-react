@@ -2,7 +2,7 @@ import globalEnv from '../global-env'
 import releaseBranchConst from '@twreporter/core/lib/constants/release-branch'
 import util from 'util'
 import winston from 'winston'
-import { LoggingWinston, express } from '@google-cloud/logging-winston'
+const { LoggingWinston, express } = require('@google-cloud/logging-winston')
 
 /**
  *  @param {string} releaseBranch - 'master', 'preview', 'staging' or 'release'
