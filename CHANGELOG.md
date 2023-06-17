@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.6-rc.4, 2023-06-17
+
+- fix
+  - import winston module with require
+  - add mock method for latest page
+
+## Commits
+
+- [[`bade2d9910`](https://github.com/twreporter/twreporter-react/commit/bade2d9910)] - **fix**: import winston module with require (Aylie Chou)
+- [[`09340303e3`](https://github.com/twreporter/twreporter-react/commit/09340303e3)] - Merge pull request #2513 from Aylie-Chou/12-fix-support-mock-latest (Aylie)
+
 ## 4.10.6-rc.3, 2023-06-12
 
 - chore
