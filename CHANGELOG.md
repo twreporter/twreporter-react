@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.10.6-rc.5, 2023-06-19
+
+- chore
+  - update @twreporter packages
+
+## Commits
+
+- [[`99607683e7`](https://github.com/twreporter/twreporter-react/commit/99607683e7)] - **chore**: update twreporter packages (Lucien)
+
 ## 4.10.6-rc.4, 2023-06-17
 
 - fix
