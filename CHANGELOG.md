@@ -1,6 +1,19 @@
 # Changelog
 
+## 4.10.6-rc.7, 2023-06-20
+
+## Notable Changes
+
+- fix
+  - apply `babel-loader` on react-article-components
+
+## Commits
+
+- [[`9ad4e36c99`](https://github.com/twreporter/twreporter-react/commit/9ad4e36c99)] - **fix**: apply `babel-loader` on react-article-components (Aylie Chou)
+
 ## 4.10.6-rc.6, 2023-06-19
+
+## Notable Changes
 
 - chore
   - update @twreporter packages
@@ -11,6 +24,8 @@
 
 ## 4.10.6-rc.5, 2023-06-19
 
+## Notable Changes
+
 - chore
   - update @twreporter packages
 
@@ -19,6 +34,8 @@
 - [[`99607683e7`](https://github.com/twreporter/twreporter-react/commit/99607683e7)] - **chore**: update twreporter packages (Lucien)
 
 ## 4.10.6-rc.4, 2023-06-17
+
+## Notable Changes
 
 - fix
   - import winston module with require
@@ -30,6 +47,8 @@
 - [[`09340303e3`](https://github.com/twreporter/twreporter-react/commit/09340303e3)] - Merge pull request #2513 from Aylie-Chou/12-fix-support-mock-latest (Aylie)
 
 ## 4.10.6-rc.3, 2023-06-12
+
+## Notable Changes
 
 - chore
   - downgrade node to v12.22.12
