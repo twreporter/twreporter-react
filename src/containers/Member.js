@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useLocation } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
+// @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
 import {
   BRANCH_PROP_TYPES,
   BRANCH,
 } from '@twreporter/core/lib/constants/release-branch'
-
 import {
   MobileOnly,
   TabletAndAbove,
 } from '@twreporter/react-components/lib/rwd'
+import twreporterRedux from '@twreporter/redux'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 
+// components
 import MemberMenuList from '../components/member-page/menu-list'
 import MemberData from '../components/member-page/member-data'
 import MemberRoleCard from '../components/member-page/member-role-card'
@@ -21,6 +24,14 @@ import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
 import routes from '../constants/routes'
+
+// lodash
+import get from 'lodash/get'
+import propTypes from 'prop-types'
+
+const _ = {
+  get,
+}
 
 const PageContainer = styled.div`
   width: 100%;
@@ -72,35 +83,7 @@ const RoleCardContainer = styled.div`
   align-items: center;
 `
 
-const tempMemberData = [
-  {
-    role: MEMBER_ROLE.explorer,
-    email: 'abc@email',
-    joinDate: '2020/01/01',
-  },
-  {
-    role: MEMBER_ROLE.action_taker,
-    name: '小富翁',
-    email: 'efh@email',
-    joinDate: '2022/02/02',
-  },
-  {
-    role: MEMBER_ROLE.trailblazer,
-    name: '大富翁',
-    email: 'vip@email',
-    joinDate: '1900/12/21',
-  },
-]
-
-const MemberPage = ({ releaseBranch = BRANCH.master }) => {
-  // TODO: fake data to show all roles
-  const [randomIndex, setRandomIndex] = useState(0)
-  const [memberData, setMemberData] = useState(tempMemberData[0])
-  useEffect(() => {
-    setRandomIndex(Math.floor(Math.random() * 3))
-    setMemberData(tempMemberData[randomIndex])
-  }, [randomIndex])
-
+const MemberPage = ({ releaseBranch = BRANCH.master, memberData }) => {
   const { pathname } = useLocation()
   return (
     <div>
@@ -130,7 +113,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
           <Route exact path={routes.memberPage.path}>
             <RoleCardContainer>
               <MemberRoleCard
-                role={memberData.role}
+                roleKey={memberData.role.key}
                 releaseBranch={releaseBranch}
               />
             </RoleCardContainer>
@@ -141,7 +124,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
         <Route exact path={routes.memberPage.path}>
           <PageContainer>
             <MobileMemberPage
-              role={memberData.role}
+              roleKey={memberData.role.key}
               releaseBranch={releaseBranch}
               email={memberData.email}
               joinDate={memberData.joinDate}
@@ -168,6 +151,27 @@ const MemberPage = ({ releaseBranch = BRANCH.master }) => {
 
 MemberPage.propTypes = {
   releaseBranch: BRANCH_PROP_TYPES,
+  memberData: propTypes.object,
 }
 
-export default MemberPage
+const { reduxStateFields } = twreporterRedux
+const mapStateToProps = state => {
+  const email = _.get(state, [reduxStateFields.user, 'email'])
+  const firstName = _.get(state, [reduxStateFields.user, 'firstName'])
+  const lastName = _.get(state, [reduxStateFields.user, 'lastName'])
+  const roles = _.get(state, [reduxStateFields.user, 'roles'], [])
+  const registrationDate = _.get(state, [
+    reduxStateFields.user,
+    'registrationDate',
+  ])
+  return {
+    memberData: {
+      email,
+      name: `${lastName}${firstName}`,
+      role: roles[0],
+      joinDate: date2yyyymmdd(registrationDate, '/'),
+    },
+  }
+}
+
+export default connect(mapStateToProps)(MemberPage)

@@ -99,9 +99,16 @@ const options = [
 const { actions, reduxStateFields } = twreporterRedux
 const { setUserData } = actions
 
-const SubscriptionOptions = ({ jwt, userID, setUserData }) => {
-  // TODO: get from state
-  const [newsletterSubscriptions, setNewsletterSubscriptions] = useState([])
+const SubscriptionOptions = ({
+  jwt,
+  userID,
+  setUserData,
+  readPreference,
+  maillist,
+}) => {
+  const [newsletterSubscriptions, setNewsletterSubscriptions] = useState([
+    ...maillist,
+  ])
 
   const [isToggleBtnDisabled, setIsToggleBtnDisabled] = useState(false)
   const { toastr } = useContext(EmailSubscriptionContext)
@@ -119,8 +126,7 @@ const SubscriptionOptions = ({ jwt, userID, setUserData }) => {
     }
     setNewsletterSubscriptions(subscriptions)
     setIsToggleBtnDisabled(true)
-    // TODO: get read_preference
-    setUserData(jwt, userID, [], subscriptions)
+    setUserData(jwt, userID, readPreference, subscriptions)
       .then(() => {
         setIsToggleBtnDisabled(false)
         toastr({ text: snackBarText })
@@ -175,9 +181,17 @@ const SubscriptionOptions = ({ jwt, userID, setUserData }) => {
 function mapStateToProps(state) {
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
   const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  const readPreference = _.get(
+    state,
+    [reduxStateFields.user, 'readPreference'],
+    []
+  )
+  const maillist = _.get(state, [reduxStateFields.user, 'maillist'], [])
   return {
     jwt,
     userID,
+    readPreference,
+    maillist,
   }
 }
 
@@ -185,6 +199,8 @@ SubscriptionOptions.propTypes = {
   jwt: PropTypes.string,
   userID: PropTypes.number,
   setUserData: PropTypes.func.isRequired,
+  readPreference: PropTypes.array,
+  maillist: PropTypes.array,
 }
 
 export default connect(

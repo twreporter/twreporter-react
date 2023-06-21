@@ -19,7 +19,9 @@ export default function loadData({ store }) {
   const state = store.getState()
   const isAuthed = _.get(state, [reduxStatePropKey.auth, 'isAuthed'])
   if (isAuthed) {
-    // TODO: add redux
+    const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'])
+    const userID = _.get(state, [reduxStatePropKey.auth, 'userInfo', 'user_id'])
+    return store.actions.getUserData(jwt, userID)
   }
   return Promise.resolve()
 }

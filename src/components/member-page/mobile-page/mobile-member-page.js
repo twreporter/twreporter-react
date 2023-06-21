@@ -18,7 +18,7 @@ const RoleCardContainer = styled.div`
 `
 
 const MobileMemberPage = ({
-  role = MEMBER_ROLE.explorer,
+  roleKey = MEMBER_ROLE.explorer,
   releaseBranch = BRANCH.master,
   email,
   joinDate,
@@ -28,7 +28,7 @@ const MobileMemberPage = ({
     <div>
       <RoleCardContainer>
         <MobileMemberRoleCard
-          role={role}
+          role={roleKey}
           releaseBranch={releaseBranch}
           email={email}
           joinDate={joinDate}
@@ -41,7 +41,7 @@ const MobileMemberPage = ({
 }
 
 MobileMemberPage.propTypes = {
-  role: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
+  roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
   releaseBranch: BRANCH_PROP_TYPES,
   email: PropTypes.string,
   joinDate: PropTypes.string,

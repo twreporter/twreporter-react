@@ -6,10 +6,7 @@ import Divider from '@twreporter/react-components/lib/divider'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
-import {
-  MEMBER_ROLE,
-  MEMBER_ROLE_ZH_TW,
-} from '@twreporter/core/lib/constants/member-role'
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
 const MemberDataContainer = styled.div`
   color: ${colorGrayscale.gray800};
@@ -32,7 +29,7 @@ const BottomDividerContainer = styled.div`
 `
 
 const MemberData = ({
-  role = MEMBER_ROLE.explorer,
+  role = { key: MEMBER_ROLE.explorer },
   email = 'user@email.com',
   joinDate = '2023/09/01',
   name = '',
@@ -43,7 +40,7 @@ const MemberData = ({
       <DividerContainer>
         <Divider />
       </DividerContainer>
-      {role !== MEMBER_ROLE.explorer && (
+      {role.key !== MEMBER_ROLE.explorer && (
         <div>
           <RowContainer>
             <TitleContainer>
@@ -60,7 +57,7 @@ const MemberData = ({
         <TitleContainer>
           <P1 text={'會員身分'} />
         </TitleContainer>
-        <P1 text={MEMBER_ROLE_ZH_TW[role]} />
+        <P1 text={role.name} />
       </RowContainer>
       <DividerContainer>
         <Divider />
@@ -88,7 +85,7 @@ const MemberData = ({
 }
 
 MemberData.propTypes = {
-  role: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
+  role: PropTypes.object,
   email: PropTypes.string,
   joinDate: PropTypes.string,
   name: PropTypes.string,
