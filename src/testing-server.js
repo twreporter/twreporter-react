@@ -1,11 +1,7 @@
 /* eslint camelcase: ["error", {ignoreDestructuring: true}] */
-
 import apiEndpoints from '@twreporter/redux/lib/constants/api-endpoints'
 import Express from 'express'
 import net from 'net'
-
-import get from 'lodash/get'
-
 // mock api response
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/topics'
 import {
@@ -14,22 +10,15 @@ import {
   mockAuthorCollectionsResponse,
 } from './mock-data/authors'
 import { mockTagsResponse } from './mock-data/tags'
-
-// feature toggle
-import mockPostsNew from './mock-data/posts'
-import mockPostsOld from './mock-data/posts-old'
-import mockIndexPageNew from './mock-data/index-page'
-import mockIndexPageOld from './mock-data/index-page-old'
-import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
+import mockPosts from './mock-data/posts'
+import mockIndexPage from './mock-data/index-page'
+// lodash
+import get from 'lodash/get'
 const _ = {
   get: get,
 }
-const { mockAPostResponse, mockPostsResponse } = ENABLE_NEW_INFO_ARCH
-  ? mockPostsNew
-  : mockPostsOld
-const mockIndexPageResponse = ENABLE_NEW_INFO_ARCH
-  ? mockIndexPageNew
-  : mockIndexPageOld
+const { mockAPostResponse, mockPostsResponse } = mockPosts
+const mockIndexPageResponse = mockIndexPage
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
