@@ -45,12 +45,12 @@ export default {
     path: '/error/:errorType',
   },
   memberPage: {
-    path: '/member',
+    path: '/account',
     memberDonationPage: {
-      path: '/member/donation-history',
+      path: '/account/donation-history',
     },
     memberEmailSubscriptionPage: {
-      path: '/member/email-subscription',
+      path: '/account/email-subscription',
     },
   },
 }
