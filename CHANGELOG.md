@@ -1,5 +1,30 @@
 # Changelog
 
+## 4.10.6-rc.9, 2023-06-28
+
+## Notable Changes
+
+- fix
+  - remove @babel/plugin-transform-runtime
+- chore
+  - update @twreporter packages
+
+## Commits
+
+- [[`6a77576c53`](https://github.com/twreporter/twreporter-react/commit/6a77576c53)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`60d77a94ba`](https://github.com/twreporter/twreporter-react/commit/60d77a94ba)] - **fix**: remove @babel/plugin-transform-runtime (Aylie Chou)
+
+## 4.10.6-rc.8, 2023-06-28
+
+## Notable Changes
+
+- chore
+  - update node to v16.14.2
+
+## Commits
+
+- [[`c43e46eaec`](https://github.com/twreporter/twreporter-react/commit/c43e46eaec)] - **chore**: update node version to 16.14.2 (Lucien)
+
 ## 4.10.6-rc.7, 2023-06-20
 
 ## Notable Changes
