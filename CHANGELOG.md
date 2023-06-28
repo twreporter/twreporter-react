@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.6-rc.8, 2023-06-28
+
+## Notable Changes
+
+- chore
+  - update node to v16.14.2
+
+## Commits
+
+- [[`c43e46eaec`](https://github.com/twreporter/twreporter-react/commit/c43e46eaec)] - **chore**: update node version to 16.14.2 (Lucien)
+
 ## 4.10.6-rc.7, 2023-06-20
 
 ## Notable Changes
