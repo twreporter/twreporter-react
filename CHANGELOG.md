@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.6-rc.10, 2023-06-30
+
+## Notable Changes
+
+- chore
+  - remove info struct feature toggle
+
+## Commits
+
+- [[`4fbbdde066`](https://github.com/twreporter/twreporter-react/commit/4fbbdde066)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1d723ce209`](https://github.com/twreporter/twreporter-react/commit/1d723ce209)] - **chore**: remove info struct feature toggle (Aylie Chou)
+
 ## 4.10.6-rc.9, 2023-06-28
 
 ## Notable Changes
