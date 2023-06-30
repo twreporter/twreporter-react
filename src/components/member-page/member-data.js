@@ -39,7 +39,7 @@ const MemberData = ({
 }) => {
   return (
     <MemberDataContainer>
-      <H3 text={'會員資料'} />
+      <H3 text={'個人資料'} />
       <DividerContainer>
         <Divider />
       </DividerContainer>
@@ -58,7 +58,7 @@ const MemberData = ({
       )}
       <RowContainer>
         <TitleContainer>
-          <P1 text={'會員身分'} />
+          <P1 text={'方案身分'} />
         </TitleContainer>
         <P1 text={MEMBER_ROLE_ZH_TW[role]} />
       </RowContainer>
