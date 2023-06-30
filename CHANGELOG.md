@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.8, 2023-06-30
+
+### Notable Changes
+
+- fix
+  - change member to account
+
+### Commits
+
+- [[`ac261e53dc`](https://github.com/twreporter/twreporter-react/commit/ac261e53dc)] - **feat**: change route to account (Lucien)
+
 ## 4.10.5-beta.7, 2023-06-16
 
 ### Notable Changes
