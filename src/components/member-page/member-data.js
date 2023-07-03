@@ -29,7 +29,7 @@ const BottomDividerContainer = styled.div`
 `
 
 const MemberData = ({
-  role = { key: MEMBER_ROLE.explorer },
+  role = { key: MEMBER_ROLE.explorer, name: '' },
   email = 'user@email.com',
   joinDate = '2023/09/01',
   name = '',
@@ -85,7 +85,12 @@ const MemberData = ({
 }
 
 MemberData.propTypes = {
-  role: PropTypes.object,
+  role: PropTypes.shape({
+    id: PropTypes.string,
+    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    name_en: PropTypes.string,
+  }),
   email: PropTypes.string,
   joinDate: PropTypes.string,
   name: PropTypes.string,
