@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -15,6 +16,7 @@ import {
 } from '@twreporter/react-components/lib/rwd'
 import twreporterRedux from '@twreporter/redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -27,7 +29,6 @@ import routes from '../constants/routes'
 
 // lodash
 import get from 'lodash/get'
-import propTypes from 'prop-types'
 
 const _ = {
   get,
@@ -113,7 +114,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master, memberData }) => {
           <Route exact path={routes.memberPage.path}>
             <RoleCardContainer>
               <MemberRoleCard
-                roleKey={memberData.role.key}
+                roleKey={memberData.role?.key || MEMBER_ROLE.explorer}
                 releaseBranch={releaseBranch}
               />
             </RoleCardContainer>
@@ -124,7 +125,7 @@ const MemberPage = ({ releaseBranch = BRANCH.master, memberData }) => {
         <Route exact path={routes.memberPage.path}>
           <PageContainer>
             <MobileMemberPage
-              roleKey={memberData.role.key}
+              roleKey={memberData.role?.key || MEMBER_ROLE.explorer}
               releaseBranch={releaseBranch}
               email={memberData.email}
               joinDate={memberData.joinDate}
@@ -151,7 +152,17 @@ const MemberPage = ({ releaseBranch = BRANCH.master, memberData }) => {
 
 MemberPage.propTypes = {
   releaseBranch: BRANCH_PROP_TYPES,
-  memberData: propTypes.object,
+  memberData: PropTypes.shape({
+    email: PropTypes.string,
+    name: PropTypes.string,
+    role: PropTypes.shape({
+      id: PropTypes.string,
+      key: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      name_en: PropTypes.string,
+    }),
+    joinDate: PropTypes.string,
+  }),
 }
 
 const { reduxStateFields } = twreporterRedux
