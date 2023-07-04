@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.5-beta.12, 2023-07-04
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - enable MEMBERSHIP feature toggle
+
+### Commits
+
+- [[`82ab2f84cd`](https://github.com/twreporter/twreporter-react/commit/82ab2f84cd)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.10.5-beta.11, 2023-07-04
 
 ### Notable Changes
