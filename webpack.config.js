@@ -81,6 +81,14 @@ const webpackConfig = {
         use: 'babel-loader',
       },
       {
+        test: /\.jsx?$/,
+        include: path.join(
+          __dirname,
+          'node_modules/@twreporter/react-article-components/lib'
+        ),
+        use: 'babel-loader',
+      },
+      {
         test: /\.(woff(2)?|ttf|eot)$/,
         loader: 'url-loader',
         options: {

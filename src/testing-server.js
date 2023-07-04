@@ -1,11 +1,7 @@
 /* eslint camelcase: ["error", {ignoreDestructuring: true}] */
-
 import apiEndpoints from '@twreporter/redux/lib/constants/api-endpoints'
 import Express from 'express'
 import net from 'net'
-
-import get from 'lodash/get'
-
 // mock api response
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/topics'
 import {
@@ -13,22 +9,16 @@ import {
   mockAuthorDetailResponse,
   mockAuthorCollectionsResponse,
 } from './mock-data/authors'
-
-// feature toggle
-import mockPostsNew from './mock-data/posts'
-import mockPostsOld from './mock-data/posts-old'
-import mockIndexPageNew from './mock-data/index-page'
-import mockIndexPageOld from './mock-data/index-page-old'
-import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
+import { mockTagsResponse } from './mock-data/tags'
+import mockPosts from './mock-data/posts'
+import mockIndexPage from './mock-data/index-page'
+// lodash
+import get from 'lodash/get'
 const _ = {
   get: get,
 }
-const { mockAPostResponse, mockPostsResponse } = ENABLE_NEW_INFO_ARCH
-  ? mockPostsNew
-  : mockPostsOld
-const mockIndexPageResponse = ENABLE_NEW_INFO_ARCH
-  ? mockIndexPageNew
-  : mockIndexPageOld
+const { mockAPostResponse, mockPostsResponse } = mockPosts
+const mockIndexPageResponse = mockIndexPage
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
@@ -87,6 +77,7 @@ router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
   const {
     limit = '10',
     offset = '0',
+    sort = '-published_date',
     id,
     category_id,
     tag_id,
@@ -96,7 +87,15 @@ router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
   const _offset = Number(offset)
 
   res.json(
-    mockPostsResponse(_limit, _offset, id, category_id, tag_id, subcategory_id)
+    mockPostsResponse(
+      _limit,
+      _offset,
+      id,
+      category_id,
+      tag_id,
+      subcategory_id,
+      sort
+    )
   )
 })
 
@@ -165,6 +164,14 @@ router.route(`/${apiEndpoints.authors}/:authorId/posts/`).get((req, res) => {
 
 router.route(`/${apiEndpoints.indexPage}/`).get((req, res) => {
   res.json(mockIndexPageResponse())
+})
+
+router.route(`/${apiEndpoints.tags}/`).get((req, res) => {
+  const { limit = '10', offset = '0' } = req.query
+  const _limit = Number(limit)
+  const _offset = Number(offset)
+  const latestOrder = Number(_.get(req, 'query.latest_order', '0'))
+  res.json(mockTagsResponse(_limit, _offset, latestOrder))
 })
 
 app.use((err, req, res, next) => {

@@ -109,7 +109,152 @@
 
 - [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
 
-## 4.10.4, 2023-05-12 (Current)
+## 4.10.6-rc.10, 2023-06-30
+
+## Notable Changes
+
+- chore
+  - remove info struct feature toggle
+
+## Commits
+
+- [[`4fbbdde066`](https://github.com/twreporter/twreporter-react/commit/4fbbdde066)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1d723ce209`](https://github.com/twreporter/twreporter-react/commit/1d723ce209)] - **chore**: remove info struct feature toggle (Aylie Chou)
+
+## 4.10.6-rc.9, 2023-06-28
+
+## Notable Changes
+
+- fix
+  - remove @babel/plugin-transform-runtime
+- chore
+  - update @twreporter packages
+
+## Commits
+
+- [[`6a77576c53`](https://github.com/twreporter/twreporter-react/commit/6a77576c53)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`60d77a94ba`](https://github.com/twreporter/twreporter-react/commit/60d77a94ba)] - **fix**: remove @babel/plugin-transform-runtime (Aylie Chou)
+
+## 4.10.6-rc.8, 2023-06-28
+
+## Notable Changes
+
+- chore
+  - update node to v16.14.2
+
+## Commits
+
+- [[`c43e46eaec`](https://github.com/twreporter/twreporter-react/commit/c43e46eaec)] - **chore**: update node version to 16.14.2 (Lucien)
+
+## 4.10.6-rc.7, 2023-06-20
+
+## Notable Changes
+
+- fix
+  - apply `babel-loader` on react-article-components
+
+## Commits
+
+- [[`9ad4e36c99`](https://github.com/twreporter/twreporter-react/commit/9ad4e36c99)] - **fix**: apply `babel-loader` on react-article-components (Aylie Chou)
+
+## 4.10.6-rc.6, 2023-06-19
+
+## Notable Changes
+
+- chore
+  - update @twreporter packages
+
+## Commits
+
+- [[`52418c707d`](https://github.com/twreporter/twreporter-react/commit/52418c707d)] - **chore**: update twreporter packages (Lucien)
+
+## 4.10.6-rc.5, 2023-06-19
+
+## Notable Changes
+
+- chore
+  - update @twreporter packages
+
+## Commits
+
+- [[`99607683e7`](https://github.com/twreporter/twreporter-react/commit/99607683e7)] - **chore**: update twreporter packages (Lucien)
+
+## 4.10.6-rc.4, 2023-06-17
+
+## Notable Changes
+
+- fix
+  - import winston module with require
+  - add mock method for latest page
+
+## Commits
+
+- [[`bade2d9910`](https://github.com/twreporter/twreporter-react/commit/bade2d9910)] - **fix**: import winston module with require (Aylie Chou)
+- [[`09340303e3`](https://github.com/twreporter/twreporter-react/commit/09340303e3)] - Merge pull request #2513 from Aylie-Chou/12-fix-support-mock-latest (Aylie)
+
+## 4.10.6-rc.3, 2023-06-12
+
+## Notable Changes
+
+- chore
+  - downgrade node to v12.22.12
+
+## Commits
+
+- [[`b6cf05f725`](https://github.com/twreporter/twreporter-react/commit/b6cf05f725)] - **chore**: downgrade to node v12.22.12 (Lucien)
+
+## 4.10.6-rc.2, 2023-05-30
+
+## Notable Changes
+
+- fix
+  - replace all old url with new URL
+
+### Commits
+
+- [[`aaa31e19a9`](https://github.com/twreporter/twreporter-react/commit/aaa31e19a9)] - **fix**: replace all old url with new URL (Lucien)
+
+## 4.10.6-rc.1, 2023-05-30
+
+## Notable Changes
+
+- fix
+  - use original url.parse
+
+### Commits
+
+- [[`cb040c3431`](https://github.com/twreporter/twreporter-react/commit/cb040c3431)] - **fix**: use original url.parse (Lucien Lu)
+
+## 4.10.6-rc.0, 2023-05-30
+
+## Notable Changes
+
+- fix
+  - replace url.URL with new URL
+
+### Commits
+
+- [[`3159ecbd1b`](https://github.com/twreporter/twreporter-react/commit/3159ecbd1b)] - **fix**: replace url.URL with new URL (Lucien Lu)
+
+## 4.10.5, 2023-05-30 (Current)
+
+### Notable Changes
+
+- fix
+  - kids reporter name in about us page
+- chore
+  - upgrade node to v16
+  - upgrade babel to ^7.4.0
+
+### Commits
+
+- [[`77302ba0fa`](https://github.com/twreporter/twreporter-react/commit/77302ba0fa)] - **fix**: kids reporter name in about us page (Aylie Chou)
+- [[`18331891d8`](https://github.com/twreporter/twreporter-react/commit/18331891d8)] - **fix**: replace deprecated url.parse with url.URL (duidae)
+- [[`7a29ed737b`](https://github.com/twreporter/twreporter-react/commit/7a29ed737b)] - **chore**: upgrade node to v16 (duidae)
+- [[`6dae1aea82`](https://github.com/twreporter/twreporter-react/commit/6dae1aea82)] - **fix**: fix regenerationRuntime not defined error (Aylie Chou)
+- [[`4f2fa55e92`](https://github.com/twreporter/twreporter-react/commit/4f2fa55e92)] - **chore**: upgrade babel to ^7.4.0 (Aylie Chou)
+
+## 4.10.4, 2023-05-12
 
 ### Notable Changes
 
@@ -153,7 +298,7 @@
 - [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
 
-## 4.10.1, 2023-05-09 (Current)
+## 4.10.1, 2023-05-09
 
 ### Notable Changes
 
