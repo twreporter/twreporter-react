@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.9, 2023-07-04
+
+### Notable Changes
+
+- feat
+  - fetch data from getUser
+
+### Commits
+
+- [[`a3b5b1e54f`](https://github.com/twreporter/twreporter-react/commit/a3b5b1e54f)] - Merge pull request #2534 from liruchen32/feature/getUser (Lucien)
+
 ## 4.10.5-beta.8, 2023-06-30
 
 ### Notable Changes
