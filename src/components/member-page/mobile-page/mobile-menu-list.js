@@ -12,7 +12,7 @@ import {
 } from '@twreporter/core/lib/constants/release-branch'
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
-import { getLogoutLink } from '@twreporter/universal-header/lib/utils/links'
+import origins from '@twreporter/core/lib/constants/request-origins'
 
 import routes from '../../../constants/routes'
 import menuListType from '../../../constants/menu-list-type'
@@ -28,6 +28,7 @@ const DividerContainer = styled.div`
   margin: 16px 0px;
 `
 
+const originsForClient = origins.forClientSideRendering
 const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const MenuData = [
     {
@@ -54,15 +55,14 @@ const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
     {
       type: menuListType.logout,
       text: '登出',
-      path: getLogoutLink(releaseBranch).to,
+      path: `${originsForClient[releaseBranch]['api']}/v2/auth/logout`,
     },
   ]
 
   const handleClick = (e, path) => {
     e.preventDefault()
-    const redirectURL = window.location.href
     const query = querystring.stringify({
-      destination: redirectURL,
+      destination: '/',
     })
     window.location = `${path}?${query}`
   }
