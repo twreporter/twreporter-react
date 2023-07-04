@@ -6,10 +6,13 @@
 
 - feat
   - fetch data from getUser
+- chore
+  - update @twreporter packages
 
 ### Commits
 
 - [[`a3b5b1e54f`](https://github.com/twreporter/twreporter-react/commit/a3b5b1e54f)] - Merge pull request #2534 from liruchen32/feature/getUser (Lucien)
+- [[`b70064dcaf`](https://github.com/twreporter/twreporter-react/commit/b70064dcaf)] - **chore**: update npm packages (Lucien)
 
 ## 4.10.5-beta.9, 2023-07-04
 
