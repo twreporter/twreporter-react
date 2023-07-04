@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.5-beta.11, 2023-07-04
+
+### Notable Changes
+
+- feat
+  - add auth requirement for account page
+- fix
+  - fix logout path
+
+### Commits
+
+- [[`d1797a6caf`](https://github.com/twreporter/twreporter-react/commit/d1797a6caf)] - **fix**: add auth requirement for account page and fix logout path (Lucien)
+
 ## 4.10.5-beta.10, 2023-07-04
 
 ### Notable Changes

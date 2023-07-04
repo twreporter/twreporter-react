@@ -129,10 +129,11 @@ const loadablePages = {
     loading: LoadingComponent,
   }),
   member: Loadable({
-    loader: () => import(
-      /* webpackChunkName: "member" */
-      './containers/Member'
-    ),
+    loader: () =>
+      import(
+        /* webpackChunkName: "member" */
+        './containers/Member'
+      ),
     loading: LoadingComponent,
   }),
 }
@@ -279,7 +280,7 @@ export default function getRoutes() {
       renderWithProps: loadablePages.member,
       loadData: dataLoaders.loadMemberPageData,
       path: routesConst.memberPage.path,
-      // TODO: add authorizationRequired
+      authorizationRequired: true,
     },
     // error  page
     {
