@@ -9,7 +9,6 @@ import {
 } from '@twreporter/core/lib/constants/release-branch'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
-
 const Image = styled.img`
   width: 147px;
   ${mq.desktopAndAbove`
@@ -19,15 +18,15 @@ const Image = styled.img`
 
 const MemberRoleCard = ({
   releaseBranch = BRANCH.master,
-  role = MEMBER_ROLE.explorer,
+  roleKey = MEMBER_ROLE.explorer,
 }) => {
-  const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${role}.png`
+  const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${roleKey}.png`
   return <Image src={imageUrl}></Image>
 }
 
 MemberRoleCard.propTypes = {
   releaseBranch: BRANCH_PROP_TYPES,
-  role: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
+  roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
 }
 
 export default MemberRoleCard
