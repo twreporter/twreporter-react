@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.9, 2023-07-04
+
+### Notable Changes
+
+- fix
+  - remove deprecated `getLogoutLink` method
+
+### Commits
+
+- [[`24e75507cf`](https://github.com/twreporter/twreporter-react/commit/24e75507cf)] - **fix**: remove deprecated `getLogoutLink` method (Aylie Chou)
+
 ## 4.10.5-beta.8, 2023-06-30
 
 ### Notable Changes
