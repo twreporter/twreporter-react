@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.5-beta.13, 2023-07-07
+
+### Notable Changes
+
+- fix
+  - specify logout redirect destination
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`4b9692fbf0`](https://github.com/twreporter/twreporter-react/commit/4b9692fbf0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c15a78e8e6`](https://github.com/twreporter/twreporter-react/commit/c15a78e8e6)] - **fix**: specify logout redirect destination (Aylie Chou)
+
 ## 4.10.5-beta.12, 2023-07-04
 
 ### Notable Changes
