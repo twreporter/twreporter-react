@@ -67,7 +67,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const handleClick = (e, path) => {
     e.preventDefault()
     const query = querystring.stringify({
-      destination: '/',
+      destination: `${originsForClient[releaseBranch]['main']}`,
     })
     window.location = `${path}?${query}`
   }
