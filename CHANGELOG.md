@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.14, 2023-07-07
+
+### Notable Changes
+
+- fix
+  - account page typo
+
+### Commits
+
+- [[`6a729cbffc`](https://github.com/twreporter/twreporter-react/commit/6a729cbffc)] - **fix**: change showing text (Lucien)
+
 ## 4.10.5-beta.13, 2023-07-07
 
 ### Notable Changes
