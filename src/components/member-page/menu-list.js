@@ -33,7 +33,7 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   const MenuData = [
     {
       type: menuListType.normal,
-      text: '會員資料',
+      text: '個人資料',
       path: routes.memberPage.path,
     },
     {
