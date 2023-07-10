@@ -17,6 +17,7 @@ import {
 import twreporterRedux from '@twreporter/redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
+import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -84,8 +85,23 @@ const RoleCardContainer = styled.div`
   align-items: center;
 `
 
-const MemberPage = ({ releaseBranch = BRANCH.master, memberData }) => {
+const MemberPage = ({
+  releaseBranch = BRANCH.master,
+  memberData,
+  jwt,
+  isAuthed,
+}) => {
   const { pathname } = useLocation()
+
+  // check authorization
+  // redirect to singin page if user has not been authorized
+  if (!isAuthed || !jwt) {
+    const currentHref =
+      typeof window === 'undefined' ? '' : window.location.href
+    window.location.href = getSignInHref(currentHref)
+    return
+  }
+
   return (
     <div>
       <TabletAndAbove>
@@ -163,10 +179,14 @@ MemberPage.propTypes = {
     }),
     joinDate: PropTypes.string,
   }),
+  isAuthed: PropTypes.bool.isRequired,
+  jwt: PropTypes.string.isRequired,
 }
 
 const { reduxStateFields } = twreporterRedux
 const mapStateToProps = state => {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const email = _.get(state, [reduxStateFields.user, 'email'])
   const firstName = _.get(state, [reduxStateFields.user, 'firstName'])
   const lastName = _.get(state, [reduxStateFields.user, 'lastName'])
@@ -176,6 +196,8 @@ const mapStateToProps = state => {
     'registrationDate',
   ])
   return {
+    jwt,
+    isAuthed,
     memberData: {
       email,
       name: `${lastName}${firstName}`,
