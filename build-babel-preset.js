@@ -47,6 +47,7 @@ const plugins = [
       },
     },
   ],
+  '@babel/plugin-transform-runtime',
 ].filter(Boolean)
 
 module.exports = function buildTwreporterReactPreset() {
