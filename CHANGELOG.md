@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.6-rc.11, 2023-07-10
+
+## Notable Changes
+
+- fix
+  - use official hosted `lottie` package
+  - load polyfill on usage
+
+## Commits
+
+- [[`23a4c2f0dc`](https://github.com/twreporter/twreporter-react/commit/23a4c2f0dc)] - **fix**: load polyfill on usage (Aylie Chou)
+- [[`14161b0cb0`](https://github.com/twreporter/twreporter-react/commit/14161b0cb0)] - **fix**: use official hosted `lottie` package (Aylie Chou)
+
 ## 4.10.6-rc.10, 2023-06-30
 
 ## Notable Changes
