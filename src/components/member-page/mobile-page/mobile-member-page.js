@@ -35,7 +35,7 @@ const MobileMemberPage = ({
           name={name}
         />
       </RoleCardContainer>
-      <MobileMemberMenuList />
+      <MobileMemberMenuList releaseBranch={releaseBranch} />
     </div>
   )
 }
