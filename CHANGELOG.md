@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.5-beta.15, 2023-07-10
+
+### Notable Changes
+
+- fix
+  - mobile logout fail on `dev` env
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`b1b6c70727`](https://github.com/twreporter/twreporter-react/commit/b1b6c70727)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ea52e7c176`](https://github.com/twreporter/twreporter-react/commit/ea52e7c176)] - **fix**: mobile logout fail on `dev` env (Aylie Chou)
+
 ## 4.10.5-beta.14, 2023-07-07
 
 ### Notable Changes
