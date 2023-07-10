@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.6-rc.12, 2023-07-10
+
+## Notable Changes
+
+- chore
+  - revert `remove @babel/plugin-transfor-runtime`
+
+## Commits
+
+- [[`b03bd93994`](https://github.com/twreporter/twreporter-react/commit/b03bd93994)] - **_Revert_** "**fix**: remove @babel/plugin-transform-runtime" (Aylie)
+
 ## 4.10.6-rc.11, 2023-07-10
 
 ## Notable Changes
