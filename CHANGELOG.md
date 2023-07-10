@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.16, 2023-07-10
+
+### Notable Changes
+
+- fix
+  - check member page auth state when csr
+
+### Commits
+
+- [[`dda8b03648`](https://github.com/twreporter/twreporter-react/commit/dda8b03648)] - **fix**: check member page auth state when csr (Aylie Chou)
+
 ## 4.10.5-beta.15, 2023-07-10
 
 ### Notable Changes
