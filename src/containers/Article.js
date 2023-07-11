@@ -10,6 +10,8 @@ import uiManager from '../managers/ui-manager'
 // constants
 import bsConst from '../constants/browser-storage'
 import siteMeta from '../constants/site-meta'
+// utils
+import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
@@ -22,15 +24,10 @@ import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 // dependencies of article component v2
 import { Link } from 'react-router-dom'
-// feature-toggle
-import cloneUtilsNew from '../utils/shallow-clone-entity'
-import cloneUtilsOld from '../utils/shallow-clone-entity-old'
-import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import throttle from 'lodash/throttle'
-const cloneUtils = ENABLE_NEW_INFO_ARCH ? cloneUtilsNew : cloneUtilsOld
 const _ = {
   forEach,
   get,

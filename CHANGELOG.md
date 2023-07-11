@@ -1,6 +1,43 @@
 # Changelog
 
-## 4.10.5, 2023-05-30 (Current)
+## 4.10.6, 2023-07-11 (Current)
+
+## Notable Changes
+
+- fix
+  - add mock method for latest page
+  - use official hosted `lottie` package
+  - load polyfill on usage
+  - apply `babel-loader` on react-article-components
+  - import winston module with require
+  - replace all old url with new URL
+  - use original url.parse
+- chore
+  - revert `remove @babel/plugin-transfor-runtime`
+  - remove info struct feature toggle
+  - update @twreporter packages
+
+## Commits
+
+- [[`b03bd93994`](https://github.com/twreporter/twreporter-react/commit/b03bd93994)] - **_Revert_** "**fix**: remove @babel/plugin-transform-runtime" (Aylie)
+- [[`23a4c2f0dc`](https://github.com/twreporter/twreporter-react/commit/23a4c2f0dc)] - **fix**: load polyfill on usage (Aylie Chou)
+- [[`14161b0cb0`](https://github.com/twreporter/twreporter-react/commit/14161b0cb0)] - **fix**: use official hosted `lottie` package (Aylie Chou)
+- [[`4fbbdde066`](https://github.com/twreporter/twreporter-react/commit/4fbbdde066)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1d723ce209`](https://github.com/twreporter/twreporter-react/commit/1d723ce209)] - **chore**: remove info struct feature toggle (Aylie Chou)
+- [[`6a77576c53`](https://github.com/twreporter/twreporter-react/commit/6a77576c53)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`60d77a94ba`](https://github.com/twreporter/twreporter-react/commit/60d77a94ba)] - **fix**: remove @babel/plugin-transform-runtime (Aylie Chou)
+- [[`c43e46eaec`](https://github.com/twreporter/twreporter-react/commit/c43e46eaec)] - **chore**: update node version to 16.14.2 (Lucien)
+- [[`9ad4e36c99`](https://github.com/twreporter/twreporter-react/commit/9ad4e36c99)] - **fix**: apply `babel-loader` on react-article-components (Aylie Chou)
+- [[`52418c707d`](https://github.com/twreporter/twreporter-react/commit/52418c707d)] - **chore**: update twreporter packages (Lucien)
+- [[`99607683e7`](https://github.com/twreporter/twreporter-react/commit/99607683e7)] - **chore**: update twreporter packages (Lucien)
+- [[`bade2d9910`](https://github.com/twreporter/twreporter-react/commit/bade2d9910)] - **fix**: import winston module with require (Aylie Chou)
+- [[`09340303e3`](https://github.com/twreporter/twreporter-react/commit/09340303e3)] - Merge pull request #2513 from Aylie-Chou/12-fix-support-mock-latest (Aylie)
+- [[`b6cf05f725`](https://github.com/twreporter/twreporter-react/commit/b6cf05f725)] - **chore**: downgrade to node v12.22.12 (Lucien)
+- [[`aaa31e19a9`](https://github.com/twreporter/twreporter-react/commit/aaa31e19a9)] - **fix**: replace all old url with new URL (Lucien)
+- [[`cb040c3431`](https://github.com/twreporter/twreporter-react/commit/cb040c3431)] - **fix**: use original url.parse (Lucien Lu)
+- [[`3159ecbd1b`](https://github.com/twreporter/twreporter-react/commit/3159ecbd1b)] - **fix**: replace url.URL with new URL (Lucien Lu)
+
+## 4.10.5, 2023-05-30
 
 ### Notable Changes
 

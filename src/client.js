@@ -1,9 +1,7 @@
 /* eslint-env browser */
-import 'core-js'
 import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
-import AppNew from './app'
-import AppOld from './app-old'
+import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -14,15 +12,11 @@ import loggerFactory from './logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
 import '@material-symbols/font-400/outlined.css'
-// feature toggle
-import { ENABLE_NEW_INFO_ARCH } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import get from 'lodash/get'
 const _ = {
   get,
 }
-// feature toggle
-const App = ENABLE_NEW_INFO_ARCH ? AppNew : AppOld
 
 const logger = loggerFactory.getLogger()
 const releaseBranch = globalEnv.releaseBranch

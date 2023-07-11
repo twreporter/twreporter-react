@@ -6,7 +6,6 @@ import fs from 'fs'
 import path from 'path'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import template from 'lodash/template'
-import url from 'url'
 import util from 'util'
 import webpackAssets from '../webpack-assets.json'
 
@@ -47,9 +46,7 @@ function generateRuntimeCaching(runtimeCaching) {
 }
 
 const releaseBranch = config.releaseBranch
-const origin = new url.URL(
-  requestOrigins.forClientSideRendering[releaseBranch].api
-)
+const origin = new URL(requestOrigins.forClientSideRendering[releaseBranch].api)
 
 const apiURLPrefix = `${origin.protocol}//${origin.hostname}(:${origin.port})?`
 const hash = crypto
