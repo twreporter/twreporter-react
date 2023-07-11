@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.10.5-beta.17, 2023-07-11
+
+### Notable Changes
+
+- fix
+  - react error `nothing was returned from render`
+  - regarding user unauthenticated if they're deactivated
+
+### Commits
+
+- [[`fcf9130dcb`](https://github.com/twreporter/twreporter-react/commit/fcf9130dcb)] - **fix**: react error `nothing was returned from render` (Aylie Chou)
+- [[`621118b006`](https://github.com/twreporter/twreporter-react/commit/621118b006)] - **fix**: regarding user unauthenticated if they're deactivated (Aylie Chou)
+
 ## 4.10.5-beta.16, 2023-07-10
 
 ### Notable Changes
