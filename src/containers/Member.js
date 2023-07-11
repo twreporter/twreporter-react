@@ -99,7 +99,7 @@ const MemberPage = ({
     const currentHref =
       typeof window === 'undefined' ? '' : window.location.href
     window.location.href = getSignInHref(currentHref)
-    return
+    return null
   }
 
   return (
