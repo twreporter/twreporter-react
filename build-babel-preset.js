@@ -12,7 +12,7 @@ const presets = [
         browsers: ['last 2 versions'],
       },
       debug: isProduction,
-      useBuiltIns: 'entry',
+      useBuiltIns: 'usage',
       corejs: {
         version: 3,
         proposals: true,
@@ -47,6 +47,7 @@ const plugins = [
       },
     },
   ],
+  '@babel/plugin-transform-runtime',
 ].filter(Boolean)
 
 module.exports = function buildTwreporterReactPreset() {

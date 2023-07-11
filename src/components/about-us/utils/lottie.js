@@ -1,4 +1,4 @@
-import lottie from './lottie-light-min'
+import lottie from 'lottie-web'
 import PropTypes from 'prop-types'
 import React from 'react'
 

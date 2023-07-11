@@ -28,6 +28,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@babel/runtime": "^7.22.5",
     "@google-cloud/logging-winston": "^3.0.2",
     "@material-symbols/font-400": "^0.5.5",
     "@twreporter/core": "^1.11.0-rc.2",
@@ -46,6 +47,7 @@
     "humps": "^0.6.0",
     "localforage": "^1.8.1",
     "lodash": "^4.0.0",
+    "lottie-web": "^5.12.2",
     "memoize-one": "^5.0.5",
     "path-to-regexp": "^3.0.0",
     "prop-types": "^15.0.0",
@@ -86,6 +88,7 @@
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.22.5",
     "@babel/preset-react": "^7.0.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
