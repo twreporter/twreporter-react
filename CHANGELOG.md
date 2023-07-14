@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.7-rc.0, 2023-07-14
+
+## Notable Changes
+
+- chore
+  - update @twreporter/redux@^7.7.0-rc.3
+
+## Commits
+
+- [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
+- [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
+
 ## 4.10.6, 2023-07-11 (Current)
 
 ## Notable Changes
