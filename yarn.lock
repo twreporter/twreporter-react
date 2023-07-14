@@ -1598,6 +1598,15 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
+"@twreporter/core@^1.11.0-rc.2":
+  version "1.11.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.11.0-rc.2.tgz#fd843bfe457652ec7035fa4c85eba28b97fe76a0"
+  integrity sha512-WakBmWBJYRyEsaEFIDJIppDsOo1FSKb41DRvckIOTmzG1rsWrmq0dsV3noWOjcG1AxAWeD0XhyRnu2hPx4oZrw==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
 "@twreporter/index-page@^1.4.8-rc.0":
   version "1.4.8-rc.0"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.4.8-rc.0.tgz#3e5eb878c16f6192f962c28ce153b147cc3d8291"
@@ -1658,6 +1667,23 @@
   integrity sha512-kE8xJS+I2ZETCfs6razEeSTq3Qtw46DKBYptY7KgZDDFgHDixcSsvfMfRCHqLqqO4RsZXzciJu+VaVtJ61wiWg==
   dependencies:
     "@twreporter/core" "^1.10.1-rc.0"
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
+"@twreporter/redux@^7.7.0-rc.3":
+  version "7.7.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.7.0-rc.3.tgz#224f421bdc8eeae1422f32acf74bdf8a62fd3d2d"
+  integrity sha512-RmVkDpNPqZ26Ds18aTItDw0EKyUEdDRh5txpLotSNFUKfkjG45IbIIsAuOEk90YkDhAJBwkUaDnk0+q2GHiOYw==
+  dependencies:
+    "@twreporter/core" "^1.11.0-rc.2"
     axios "^0.19.0"
     es6-error "^4.0.2"
     humps "^0.6.0"
