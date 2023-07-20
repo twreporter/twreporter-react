@@ -1,0 +1,149 @@
+import React, { useContext } from 'react'
+import styled, { css } from 'styled-components'
+// contexts
+import { PromoContext } from '../../contexts'
+// components
+import MoreButton from './more'
+// @twreporter
+import { IconButton } from '@twreporter/react-components/lib/button'
+import { Cross } from '@twreporter/react-components/lib/icon'
+import {
+  DesktopAndAbove,
+  TabletAndBelow,
+} from '@twreporter/react-components/lib/rwd'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
+import { useOutsideClick } from '@twreporter/react-components/lib/hook'
+
+// desktop popup component
+const boxCss = css`
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
+  background-color: ${colorGrayscale.white};
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+const boxPadding = 48
+const DesktopPopupBox = styled.div`
+  ${boxCss}
+  padding: 24px 24px ${boxPadding}px ${boxPadding}px;
+  width: 600px;
+`
+const FlexGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const CloseButton = styled(IconButton)`
+  justify-content: flex-end;
+`
+const textWidth = 284
+const TextImg = styled.img`
+  width: ${textWidth}px;
+  margin-bottom: 16px;
+`
+const hiveFiveLeft = textWidth + boxPadding + 16
+const HighFiveImg = styled.img`
+  width: 321px;
+  position: absolute;
+  left: ${hiveFiveLeft}px;
+  top: 50%;
+  transform: translateY(-50%);
+`
+const DesktopMore = styled(MoreButton)`
+  width: 240px;
+  margin: 0 24px;
+`
+const DesktopPopup = () => {
+  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_text_desktop.png`
+  const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_desktop.png`
+
+  return (
+    <DesktopPopupBox>
+      <CloseButton
+        iconComponent={<Cross releaseBranch={releaseBranch} />}
+        theme={IconButton.THEME.normal}
+        onClick={closePromo}
+      />
+      <FlexGroup>
+        <TextImg src={textUrl} />
+        <DesktopMore releaseBranch={releaseBranch} />
+      </FlexGroup>
+      <HighFiveImg src={imageUrl} />
+    </DesktopPopupBox>
+  )
+}
+
+// mobile popup component
+const MobilePopupBox = styled.div`
+  ${boxCss}
+  width: 300px;
+  padding: 24px;
+`
+const MobileImg = styled.img`
+  width: 267px;
+  align-self: center;
+`
+const MobileMore = styled(MoreButton)`
+  width: 100%;
+  margin-top: 24px;
+`
+const MobilePopup = () => {
+  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_mobile.png`
+
+  return (
+    <MobilePopupBox>
+      <CloseButton
+        iconComponent={<Cross releaseBranch={releaseBranch} />}
+        theme={IconButton.THEME.normal}
+        onClick={closePromo}
+      />
+      <MobileImg src={imgUrl} />
+      <MobileMore releaseBranch={releaseBranch} />
+    </MobilePopupBox>
+  )
+}
+
+// popup component
+const fade = (hex, opacity) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16))
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+const PopupContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${fade(colorGrayscale.gray100, 0.5)};
+  background-color: ${colorOpacity['black_0.2']};
+  z-index: 10000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  visibility: ${props => (props.show ? 'visible' : 'hidden')};
+`
+const Box = styled.div``
+const Popup = () => {
+  const { isShowPromo, closePromo } = useContext(PromoContext)
+  const ref = useOutsideClick(closePromo)
+
+  return (
+    <PopupContainer show={isShowPromo}>
+      <Box ref={ref}>
+        <DesktopAndAbove>
+          <DesktopPopup />
+        </DesktopAndAbove>
+        <TabletAndBelow>
+          <MobilePopup />
+        </TabletAndBelow>
+      </Box>
+    </PopupContainer>
+  )
+}
+
+export default Popup

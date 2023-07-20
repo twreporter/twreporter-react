@@ -1,0 +1,60 @@
+import { useState, useEffect, useRef } from 'react'
+import { matchPath } from 'react-router-dom'
+import localForage from 'localforage'
+import * as dayjs from 'dayjs'
+// constants
+import routes from '../constants/routes'
+// lodash
+import some from 'lodash/some'
+const _ = {
+  some,
+}
+
+const PromoType = {
+  POPUP: 'popup',
+  BANNER: 'banner',
+}
+const usePromo = pathname => {
+  const [isShowPromo, setIsShowPromo] = useState(false)
+  const [promoType, setPromoType] = useState(PromoType.POPUP)
+  const closePromo = async () => {
+    setIsShowPromo(false)
+    await localForage.setItem(
+      'membership-promo',
+      dayjs()
+        .add(15, 'day')
+        .format()
+    )
+  }
+  const openPromo = async () => {
+    const nextShowDate = await localForage.getItem('membership-promo')
+    if (nextShowDate) {
+      setPromoType(PromoType.BANNER)
+    }
+    if (!nextShowDate || dayjs().isAfter(dayjs(nextShowDate))) {
+      setIsShowPromo(true)
+    }
+  }
+  const timerId = useRef()
+  const isPathShowPopup = pathname => {
+    const { homePage, topicListPage, categoryListPage, latestPage } = routes
+    const homeRoute = { path: homePage.path, exact: true }
+    return _.some(
+      [homeRoute, topicListPage, categoryListPage, latestPage],
+      route => matchPath(pathname, route)
+    )
+  }
+
+  useEffect(() => {
+    if (timerId.current) {
+      window.clearTimeout(timerId.current)
+    }
+    if (isPathShowPopup(pathname)) {
+      timerId.current = window.setTimeout(openPromo, 3000)
+    }
+  }, [pathname])
+
+  return { isShowPromo, closePromo, openPromo, promoType, PromoType }
+}
+
+export default usePromo
