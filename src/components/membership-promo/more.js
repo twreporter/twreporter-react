@@ -16,7 +16,7 @@ const StretchPillButton = styled(PillButton)`
 `
 const MoreButton = ({ releaseBranch = BRANCH.master, ...props }) => (
   <Link
-    to={`${requestOrigins.forClientSideRendering[releaseBranch].support}#roles`}
+    to={`${requestOrigins.forClientSideRendering[releaseBranch].support}#plan`}
     {...props}
   >
     <StretchPillButton

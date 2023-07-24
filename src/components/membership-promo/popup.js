@@ -112,14 +112,9 @@ const MobilePopup = () => {
 }
 
 // popup component
-const fade = (hex, opacity) => {
-  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16))
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
 const PopupContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${fade(colorGrayscale.gray100, 0.5)};
   background-color: ${colorOpacity['black_0.2']};
   z-index: 10000;
   position: fixed;
