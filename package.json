@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.10.5-beta.17",
+  "version": "4.10.5-beta.18",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -41,6 +41,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.3",
     "core-js": "3",
+    "dayjs": "^1.11.9",
     "es6-error": "^2.1.1",
     "express": "^4.16.3",
     "hoist-non-react-statics": "^2.5.0",

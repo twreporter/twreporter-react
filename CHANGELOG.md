@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.5-beta.18, 2023-07-25
+
+### Notable Changes
+
+- feat
+  - add membership promo champaign
+
+### Commits
+
+- [[`4ffa4f39ff`](https://github.com/twreporter/twreporter-react/commit/4ffa4f39ff)] - **fix**: address review comments (Aylie Chou)
+- [[`377219eb7d`](https://github.com/twreporter/twreporter-react/commit/377219eb7d)] - **feat**: add membership promo champaign (Aylie Chou)
+
 ## 4.10.5-beta.17, 2023-07-11
 
 ### Notable Changes
