@@ -18,6 +18,7 @@ const usePromo = pathname => {
   const [isShowPromo, setIsShowPromo] = useState(false)
   const [promoType, setPromoType] = useState(PromoType.POPUP)
   const closePromo = async () => {
+    document.body.classList.remove('disable-scroll')
     setIsShowPromo(false)
     await localForage.setItem(
       'membership-promo',
@@ -30,7 +31,10 @@ const usePromo = pathname => {
     const nextShowDate = await localForage.getItem('membership-promo')
     if (nextShowDate) {
       setPromoType(PromoType.BANNER)
+    } else {
+      document.body.classList.add('disable-scroll')
     }
+
     if (!nextShowDate || dayjs().isAfter(dayjs(nextShowDate))) {
       setIsShowPromo(true)
     }
