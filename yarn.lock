@@ -1661,6 +1661,25 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
+"@twreporter/react-components@^8.18.1-rc.5":
+  version "8.18.1-rc.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.18.1-rc.5.tgz#1a0044ab6f75138f913e489b08448a570b5004b7"
+  integrity sha512-yFCgurLPVgKIpuczbN1EWJtynFHX841kYZIAnAonQBO6y5fe4DgUdnRKGyMNrGeOAULLHAanrAY8sJ9mUSbajQ==
+  dependencies:
+    "@twreporter/core" "^1.11.0-rc.2"
+    "@twreporter/redux" "^7.7.0-rc.3"
+    fontfaceobserver-es "^3.3.3"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    styled-components "^4.0.0"
+
 "@twreporter/redux@^7.6.1-rc.0":
   version "7.6.1-rc.0"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.6.1-rc.0.tgz#d4dd24b4817653dd2c119724fd88c7a077d9626b"
