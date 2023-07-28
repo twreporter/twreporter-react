@@ -1,6 +1,18 @@
 # Changelog
 
-## 4.10.7, 2023-07-24 (Current)
+## 4.10.8, 2023-078 (Current)
+
+## Notable Changes
+
+- chore
+  - update @twreporter/react-components@^8.18.1-rc.5
+
+## Commits
+
+- [[`f981298df7`](https://github.com/twreporter/twreporter-react/commit/f981298df7)] - **chore**: update version to 4.10.8 and upgrade @twreporter/react-compoennts (nickhsine)
+- [[`ef87700162`](https://github.com/twreporter/twreporter-react/commit/ef87700162)] - Merge pull request #2571 from nickhsine/master (nick)
+
+## 4.10.7, 2023-07-24
 
 ## Notable Changes
 
@@ -9,11 +21,13 @@
 
 ## Commits
 
-- [[`7b1ee2a43e`](https://github.com/twreporter/twreporter-react/commit/7b1ee2a43e)] - Merge pull request #2566 from nickhsine/master (nick)
-- [[`3aa65ffab9`](https://github.com/twreporter/twreporter-react/commit/3aa65ffab9)] - **chore**: bump version to 4.10.7-rc.0 (nickhsine)
+- [[`1d46e17a07`](https://github.com/twreporter/twreporter-react/commit/1d46e17a07)] - **chore**: bump to @4.10.7 stable version (nickhsine)
 
-* [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
-* [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
+* [[`7b1ee2a43e`](https://github.com/twreporter/twreporter-react/commit/7b1ee2a43e)] - Merge pull request #2566 from nickhsine/master (nick)
+* [[`3aa65ffab9`](https://github.com/twreporter/twreporter-react/commit/3aa65ffab9)] - **chore**: bump version to 4.10.7-rc.0 (nickhsine)
+
+- [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
+- [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
 
 ## 4.10.6, 2023-07-11
 
