@@ -6,8 +6,10 @@ import * as dayjs from 'dayjs'
 import routes from '../constants/routes'
 // lodash
 import some from 'lodash/some'
+import map from 'lodash/map'
 const _ = {
   some,
+  map,
 }
 
 const PromoType = {
@@ -42,9 +44,11 @@ const usePromo = pathname => {
   const timerId = useRef()
   const isPathShowPopup = pathname => {
     const { homePage, topicListPage, categoryListPage, latestPage } = routes
-    const homeRoute = { path: homePage.path, exact: true }
     return _.some(
-      [homeRoute, topicListPage, categoryListPage, latestPage],
+      _.map(
+        [homePage, topicListPage, categoryListPage, latestPage],
+        ({ path }) => ({ path, exact: true })
+      ),
       route => matchPath(pathname, route)
     )
   }
