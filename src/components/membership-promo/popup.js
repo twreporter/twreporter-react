@@ -72,10 +72,13 @@ const DesktopPopup = () => {
         onClick={closePromo}
       />
       <FlexGroup>
-        <TextImg src={textUrl} />
+        <TextImg
+          src={textUrl}
+          alt="報導者支持方案上線，用你的方式支持報導者！"
+        />
         <DesktopMore releaseBranch={releaseBranch} />
       </FlexGroup>
-      <HighFiveImg src={imageUrl} />
+      <HighFiveImg src={imageUrl} alt="開創組織永續經營之路" />
     </DesktopPopupBox>
   )
 }
@@ -105,7 +108,10 @@ const MobilePopup = () => {
         theme={IconButton.THEME.normal}
         onClick={closePromo}
       />
-      <MobileImg src={imgUrl} />
+      <MobileImg
+        src={imgUrl}
+        alt="報導者支持方案上線，用你的方式支持報導者！"
+      />
       <MobileMore releaseBranch={releaseBranch} />
     </MobilePopupBox>
   )
