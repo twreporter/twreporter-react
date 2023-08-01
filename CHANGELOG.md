@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.10.5-beta.19, 2023-08-01
+
+### Notable Changes
+
+- fix
+  - membership promo defects
+
+### Commits
+
+- [[`01f0c36e82`](https://github.com/twreporter/twreporter-react/commit/01f0c36e82)] - **fix**: defects (Aylie Chou)
+- [[`638f58408a`](https://github.com/twreporter/twreporter-react/commit/638f58408a)] - **fix**: /topics/:slug page should not appear promo (Aylie Chou)
+- [[`bba82ffbf1`](https://github.com/twreporter/twreporter-react/commit/bba82ffbf1)] - **fix**: close model when clicking more button (Aylie Chou)
+- [[`daceac0e74`](https://github.com/twreporter/twreporter-react/commit/daceac0e74)] - **fix**: disable background scrolling when popup open (Aylie Chou)
+
 ## 4.10.5-beta.18, 2023-07-25
 
 ### Notable Changes
