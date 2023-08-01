@@ -6,8 +6,10 @@ import * as dayjs from 'dayjs'
 import routes from '../constants/routes'
 // lodash
 import some from 'lodash/some'
+import map from 'lodash/map'
 const _ = {
   some,
+  map,
 }
 
 const PromoType = {
@@ -18,6 +20,7 @@ const usePromo = pathname => {
   const [isShowPromo, setIsShowPromo] = useState(false)
   const [promoType, setPromoType] = useState(PromoType.POPUP)
   const closePromo = async () => {
+    document.body.classList.remove('disable-scroll')
     setIsShowPromo(false)
     await localForage.setItem(
       'membership-promo',
@@ -30,7 +33,10 @@ const usePromo = pathname => {
     const nextShowDate = await localForage.getItem('membership-promo')
     if (nextShowDate) {
       setPromoType(PromoType.BANNER)
+    } else {
+      document.body.classList.add('disable-scroll')
     }
+
     if (!nextShowDate || dayjs().isAfter(dayjs(nextShowDate))) {
       setIsShowPromo(true)
     }
@@ -38,9 +44,11 @@ const usePromo = pathname => {
   const timerId = useRef()
   const isPathShowPopup = pathname => {
     const { homePage, topicListPage, categoryListPage, latestPage } = routes
-    const homeRoute = { path: homePage.path, exact: true }
     return _.some(
-      [homeRoute, topicListPage, categoryListPage, latestPage],
+      _.map(
+        [homePage, topicListPage, categoryListPage, latestPage],
+        ({ path }) => ({ path, exact: true })
+      ),
       route => matchPath(pathname, route)
     )
   }

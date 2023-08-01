@@ -130,6 +130,10 @@ const BaseStyle = css`
         content: '';
       }
     }
+
+    &.disable-scroll {
+      overflow: hidden;
+    }
   }
 
   ::selection {

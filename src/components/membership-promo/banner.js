@@ -17,6 +17,7 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
+import mq from '@twreporter/core/lib/utils/media-query'
 
 const boxCss = css`
   display: flex;
@@ -26,6 +27,8 @@ const boxCss = css`
   z-index: 10;
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
+  transform: translateY(${props => (props.show ? 0 : '100%')});
+  transition: transform 0.5s ease-in-out;
 `
 
 const DesktopBox = styled.div`
@@ -34,8 +37,6 @@ const DesktopBox = styled.div`
   justify-content: center;
   bottom: 0;
   padding: 24px;
-  opacity: ${props => (props.show ? '1' : '0')};
-  transition: opacity 0.5s linear;
 `
 const HighFiveImg = styled.img`
   width: 240px;
@@ -51,6 +52,9 @@ const Title = styled(H4)`
 const Description = styled(P2)`
   color: ${colorGrayscale.gray600};
   margin-top: 4px;
+  ${mq.tabletAndBelow`
+    margin: 8px 0;
+  `}
 `
 const DesktopMore = styled(MoreButton)`
   width: 180px;
@@ -62,7 +66,7 @@ const CloseButton = styled(IconButton)`
 `
 const FlexRow = styled.div`
   display: flex;
-  width: 900px;
+  width: 950px;
 `
 const DesktopBanner = () => {
   const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
@@ -76,10 +80,11 @@ const DesktopBanner = () => {
         onClick={closePromo}
       />
       <FlexRow>
-        <HighFiveImg src={imageUrl} />
+        <HighFiveImg src={imageUrl} alt="開創組織永續經營之路" />
         <TextBox>
           <Title text="用你的方式支持報導者" />
-          <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力來自您的支持 —— 加入 3 種支持方案，與報導者同行！" />
+          <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力" />
+          <Description text="來自您的支持 —— 加入 3 種支持方案，與報導者同行！" />
         </TextBox>
         <DesktopMore />
       </FlexRow>
@@ -92,8 +97,6 @@ const MobileBox = styled.div`
   ${boxCss}
   bottom: 60px;
   padding: 16px;
-  transform: translateY(${props => (props.show ? 0 : '100%')});
-  transition: transform 0.5s linear;
 `
 const FlexGroup = styled.div`
   display: flex;
@@ -123,16 +126,23 @@ const MobileBanner = () => {
   )
 }
 
-const Box = styled.div``
-const Banner = () => (
-  <Box>
-    <DesktopAndAbove>
-      <DesktopBanner />
-    </DesktopAndAbove>
-    <TabletAndBelow>
-      <MobileBanner />
-    </TabletAndBelow>
-  </Box>
-)
+const Box = styled.div`
+  visibility: ${props => (props.show ? 'visible' : 'hidden')};
+  ${props => (props.show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
+`
+const Banner = () => {
+  const { isShowPromo } = useContext(PromoContext)
+
+  return (
+    <Box show={isShowPromo}>
+      <DesktopAndAbove>
+        <DesktopBanner />
+      </DesktopAndAbove>
+      <TabletAndBelow>
+        <MobileBanner />
+      </TabletAndBelow>
+    </Box>
+  )
+}
 
 export default Banner
