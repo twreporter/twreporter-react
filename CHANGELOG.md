@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.10.5-beta.20, 2023-08-01
+
+### Notable Changes
+
+- fix
+  - membership promo defects
+
+### Commits
+
+- [[`ef18531ea4`](https://github.com/twreporter/twreporter-react/commit/ef18531ea4)] - **fix**: `closePromo` been called in unexpected place (Aylie Chou)
+
 ## 4.10.5-beta.19, 2023-08-01
 
 ### Notable Changes

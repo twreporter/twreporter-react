@@ -15,7 +15,6 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
-import { useOutsideClick } from '@twreporter/react-components/lib/hook'
 
 // desktop popup component
 const boxCss = css`
@@ -131,11 +130,11 @@ const PopupContainer = styled.div`
 const Box = styled.div``
 const Popup = () => {
   const { isShowPromo, closePromo } = useContext(PromoContext)
-  const ref = useOutsideClick(closePromo)
+  const preventClosePromo = e => e.stopPropagation()
 
   return (
-    <PopupContainer show={isShowPromo}>
-      <Box ref={ref}>
+    <PopupContainer show={isShowPromo} onClick={closePromo}>
+      <Box onClick={preventClosePromo}>
         <DesktopAndAbove>
           <DesktopPopup />
         </DesktopAndAbove>
