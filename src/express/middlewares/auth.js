@@ -68,7 +68,9 @@ function authMiddleware(namespace, options) {
     // Check if the user is authenticated.
     // If the user is authenticated, handle user authorization:
     const idToken = _.get(req, 'cookies.id_token')
-    if (idToken) {
+    // If the user is deactivated, regard as unauthenticated
+    const activated = !!_.get(req, 'cookies.activated')
+    if (idToken && activated) {
       const userInfoInIdToken = decodePayload(idToken)
       const accessTokenKeyName = subdomainsArr.join('_') + '_access_token'
       const accessToken = _.get(req, ['signedCookies', accessTokenKeyName])
