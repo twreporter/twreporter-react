@@ -1652,10 +1652,46 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
+"@twreporter/react-components@^8.18.1-rc.5":
+  version "8.18.1-rc.5"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.18.1-rc.5.tgz#1a0044ab6f75138f913e489b08448a570b5004b7"
+  integrity sha512-yFCgurLPVgKIpuczbN1EWJtynFHX841kYZIAnAonQBO6y5fe4DgUdnRKGyMNrGeOAULLHAanrAY8sJ9mUSbajQ==
+  dependencies:
+    "@twreporter/core" "^1.11.0-rc.2"
+    "@twreporter/redux" "^7.7.0-rc.3"
+    fontfaceobserver-es "^3.3.3"
+    hoist-non-react-statics "^2.3.1"
+    lodash "^4.0.0"
+    memoize-one "^5.0.5"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    react-redux "^6.0.0"
+    react-router-dom "^5.1.2"
+    react-transition-group "^2.0.0"
+    react-waypoint "^9.0.2"
+    styled-components "^4.0.0"
+
 "@twreporter/redux@^7.7.0-rc.2":
   version "7.7.0-rc.2"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.7.0-rc.2.tgz#df8c4623cee503b0cd671c1829f57c3731014d36"
   integrity sha512-0MGB/DTEeFTFxEgYu5ys2uKwBTh+ti0WIMolX8GZFKRoQ1QM2Y8/xZ44szaP4mTdBVfxjaQiRym0DUytnNgjGg==
+  dependencies:
+    "@twreporter/core" "^1.11.0-rc.2"
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
+"@twreporter/redux@^7.7.0-rc.3":
+  version "7.7.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.7.0-rc.3.tgz#224f421bdc8eeae1422f32acf74bdf8a62fd3d2d"
+  integrity sha512-RmVkDpNPqZ26Ds18aTItDw0EKyUEdDRh5txpLotSNFUKfkjG45IbIIsAuOEk90YkDhAJBwkUaDnk0+q2GHiOYw==
   dependencies:
     "@twreporter/core" "^1.11.0-rc.2"
     axios "^0.19.0"

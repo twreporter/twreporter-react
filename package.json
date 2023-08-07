@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.10.5-beta.20",
+  "version": "4.10.5-beta.21",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -34,8 +34,8 @@
     "@twreporter/core": "^1.11.0-rc.2",
     "@twreporter/index-page": "^1.4.8-rc.3",
     "@twreporter/react-article-components": "^1.7.9-rc.5",
-    "@twreporter/react-components": "^8.18.1-rc.3",
-    "@twreporter/redux": "^7.7.0-rc.2",
+    "@twreporter/react-components": "^8.18.1-rc.5",
+    "@twreporter/redux": "^7.7.0-rc.3",
     "@twreporter/universal-header": "^2.7.0-rc.3",
     "axios": "^0.19.0",
     "compression": "^1.7.4",

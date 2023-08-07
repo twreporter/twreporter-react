@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.10.5-beta.21, 2023-08-07
+
+### Notable Changes
+
+- chore: upgrade @twreporter/react-components@^8.18.1-rc.5
+- chore: upgrade @twreporter/redux@^7.7.0-rc.3
+
+### Commits
+
+- [[`dfec7c58e0`](https://github.com/twreporter/twreporter-react/commit/dfec7c58e0)] - **chore**: update version to 4.10.5-beta.21 (nickhsine)
+- [[`3abe81f430`](https://github.com/twreporter/twreporter-react/commit/3abe81f430)] - **chore**: upgrade @twreporter deps (nickhsine)
+
 ## 4.10.5-beta.20, 2023-08-01
 
 ### Notable Changes
