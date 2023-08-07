@@ -10,6 +10,7 @@ import loadTagListPageData from './tag-list-page'
 import loadTopicListPageData from './topic-list-page'
 import loadTopicPageData from './topic-page'
 import loadLatestPageData from './latest-page'
+import loadMemberPageData from './member-page'
 
 export default {
   loadArticlePageData,
@@ -24,4 +25,5 @@ export default {
   loadTopicListPageData,
   loadTopicPageData,
   loadLatestPageData,
+  loadMemberPageData,
 }

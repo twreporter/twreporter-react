@@ -7,6 +7,12 @@ import { Switch, Route, useLocation } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'
 // components
 import AppShell from './containers/app-shell'
+import Popup from './components/membership-promo/popup'
+import Banner from './components/membership-promo/banner'
+// hooks
+import { usePromo } from './hooks'
+// contexts
+import { PromoContext } from './contexts'
 // constants
 import colors from './constants/colors'
 import typography from './constants/typography'
@@ -124,6 +130,10 @@ const BaseStyle = css`
         content: '';
       }
     }
+
+    &.disable-scroll {
+      overflow: hidden;
+    }
   }
 
   ::selection {
@@ -153,6 +163,23 @@ const GlobalStyleWithFonts = ({ fonts = [] }) => {
 
 GlobalStyleWithFonts.propTypes = {
   fonts: PropTypes.arrayOf(PropTypes.string),
+}
+
+const MembershipPromo = ({ releaseBranch, location }) => {
+  const { pathname } = location
+  const { isShowPromo, closePromo, promoType, PromoType } = usePromo(pathname)
+  const contextValue = { isShowPromo, closePromo, releaseBranch }
+  const Promo = promoType === PromoType.POPUP ? Popup : Banner
+
+  return (
+    <PromoContext.Provider value={contextValue}>
+      <Promo />
+    </PromoContext.Provider>
+  )
+}
+MembershipPromo.propTypes = {
+  releaseBranch: BRANCH_PROP_TYPES,
+  location: PropTypes.object.isRequired,
 }
 
 function usePrevious(value) {
@@ -192,6 +219,7 @@ const App = ({ reduxStore, releaseBranch }) => {
         }}
       />
       <GlobalStyleWithFonts fonts={selfHostedFonts} />
+      <MembershipPromo releaseBranch={releaseBranch} location={location} />
     </Provider>
   )
 }
