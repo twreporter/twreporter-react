@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -27,6 +28,9 @@ import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
 import routes from '../constants/routes'
+
+// constants
+import siteMeta from '../constants/site-meta'
 
 // lodash
 import get from 'lodash/get'
@@ -102,8 +106,42 @@ const MemberPage = ({
     return null
   }
 
+  const getSiteTitle = pathname => {
+    switch (pathname) {
+      case routes.memberPage.path:
+        return '個人專區'
+      case routes.memberPage.memberDonationPage.path:
+        return '贊助紀錄'
+      case routes.memberPage.memberEmailSubscriptionPage.path:
+        return '電子報設定'
+      default:
+        return '個人專區'
+    }
+  }
+
+  const titleText = getSiteTitle(pathname)
+  const title = titleText + siteMeta.name.separator + siteMeta.name.full
+  const canonical = `${siteMeta.urlOrigin}${pathname}`
+
   return (
     <div>
+      <Helmet
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { name: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
       <TabletAndAbove>
         <PageContainer>
           <MenuContainer>
