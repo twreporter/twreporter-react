@@ -280,7 +280,6 @@ export default function getRoutes() {
       renderWithProps: loadablePages.member,
       loadData: dataLoaders.loadMemberPageData,
       path: routesConst.memberPage.path,
-      authorizationRequired: true,
     },
     // error  page
     {
