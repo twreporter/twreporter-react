@@ -116,7 +116,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "bookmark-list" */
-        '@twreporter/react-components/lib/bookmark-list'
+        './containers/BookmarkList'
       ),
     loading: LoadingComponent,
   }),
