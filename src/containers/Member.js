@@ -105,14 +105,11 @@ const MemberPage = ({
     const currentHref =
       typeof window === 'undefined' ? '' : window.location.href
     if (
-      !matchPath(pathname, {
+      matchPath(pathname, {
         path: routes.memberPage.memberEmailSubscriptionPage.path,
         exact: true,
       })
     ) {
-      window.location.href = getSignInHref(currentHref)
-      return null
-    } else {
       return (
         <LoginContainer>
           <EmptyState
@@ -125,6 +122,9 @@ const MemberPage = ({
           />
         </LoginContainer>
       )
+    } else {
+      window.location.href = getSignInHref(currentHref)
+      return null
     }
   }
 
