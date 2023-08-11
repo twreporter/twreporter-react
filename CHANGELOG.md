@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.11.0-rc.1, 2023-08-11
+
+### Notable Changes
+
+- fix
+  - change photography font weight
+
+### Commits
+
+- [[`d58c46ae7d`](https://github.com/twreporter/twreporter-react/commit/d58c46ae7d)] - **fix**: change font weight to normal (Lucien)
+
 ## 4.11.0-rc.0, 2023-08-07
 
 ### Notable Changes
