@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -18,6 +18,7 @@ import twreporterRedux from '@twreporter/redux'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
+import EmptyState from '@twreporter/react-components/lib/empty-state'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -85,6 +86,11 @@ const RoleCardContainer = styled.div`
   align-items: center;
 `
 
+const LoginContainer = styled.div`
+  margin-top: 72px;
+  margin-bottom: 120px;
+`
+
 const MemberPage = ({
   releaseBranch = BRANCH.master,
   memberData,
@@ -98,8 +104,28 @@ const MemberPage = ({
   if (!isAuthed || !jwt) {
     const currentHref =
       typeof window === 'undefined' ? '' : window.location.href
-    window.location.href = getSignInHref(currentHref)
-    return null
+    if (
+      matchPath(pathname, {
+        path: routes.memberPage.memberEmailSubscriptionPage.path,
+        exact: true,
+      })
+    ) {
+      return (
+        <LoginContainer>
+          <EmptyState
+            style={EmptyState.Style.DEFAULT}
+            title="請先登入/註冊"
+            guide="登入《報導者》網站，即可免費訂閱報導精選與幕後電子報。"
+            buttonText="立即登入"
+            buttonUrl={getSignInHref(currentHref)}
+            releaseBranch={releaseBranch}
+          />
+        </LoginContainer>
+      )
+    } else {
+      window.location.href = getSignInHref(currentHref)
+      return null
+    }
   }
 
   return (
