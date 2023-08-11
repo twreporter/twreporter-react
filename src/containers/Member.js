@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
@@ -107,15 +107,14 @@ const MemberPage = ({
   }
 
   const getSiteTitle = pathname => {
-    switch (pathname) {
-      case routes.memberPage.path:
-        return '個人專區'
-      case routes.memberPage.memberDonationPage.path:
-        return '贊助紀錄'
-      case routes.memberPage.memberEmailSubscriptionPage.path:
-        return '電子報設定'
-      default:
-        return '個人專區'
+    if (matchPath(pathname, routes.memberPage.memberDonationPage.path)) {
+      return '贊助紀錄'
+    } else if (
+      matchPath(pathname, routes.memberPage.memberEmailSubscriptionPage.path)
+    ) {
+      return '電子報設定'
+    } else {
+      return '個人專區'
     }
   }
 

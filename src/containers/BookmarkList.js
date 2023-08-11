@@ -10,7 +10,7 @@ import siteMeta from '../constants/site-meta'
 
 const BookmarkListPage = () => {
   const { pathname } = useLocation()
-  const titleText = '最新'
+  const titleText = '我的書籤'
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
   return (
