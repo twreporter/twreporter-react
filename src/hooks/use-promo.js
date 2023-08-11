@@ -16,7 +16,7 @@ const PromoType = {
   POPUP: 'popup',
   BANNER: 'banner',
 }
-const usePromo = pathname => {
+const usePromo = (pathname, isAuthed) => {
   const [isShowPromo, setIsShowPromo] = useState(false)
   const [promoType, setPromoType] = useState(PromoType.POPUP)
   const closePromo = async () => {
@@ -56,6 +56,9 @@ const usePromo = pathname => {
   useEffect(() => {
     if (timerId.current) {
       window.clearTimeout(timerId.current)
+    }
+    if (isAuthed) {
+      return
     }
     if (isPathShowPopup(pathname)) {
       timerId.current = window.setTimeout(openPromo, 3000)
