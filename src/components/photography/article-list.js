@@ -103,7 +103,7 @@ const ItemTitle = styled.h3`
 const ItemExcerpt = styled.div`
   display: block;
   font-size: 14px;
-  font-weight: ${fontWeight.extraLight};
+  font-weight: ${fontWeight.normal};
   line-height: 24px;
   text-align: justify;
   color: #808080;
