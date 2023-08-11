@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.11.0-rc.2, 2023-08-11
+
+### Notable Changes
+
+- feat
+  - account page and booklist page metadata
+
+### Commits
+
+- [[`bdea4bcb8a`](https://github.com/twreporter/twreporter-react/commit/bdea4bcb8a)] - **feat**: fix typo and use matchPath (Lucien)
+- [[`f18ecde040`](https://github.com/twreporter/twreporter-react/commit/f18ecde040)] - **feat**: booklist page metadata (Lucien)
+
 ## 4.11.0-rc.1, 2023-08-11
 
 ### Notable Changes
