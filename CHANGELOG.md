@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.11.0-rc.3, 2023-08-11
+
+### Notable Changes
+
+- fix
+  - bottom banner style
+  - do not show membership promo when user is authed
+
+### Commits
+
+- [[`5452ab21e2`](https://github.com/nodejs/node/commit/5452ab21e2)] - **fix**: bottom banner style (Aylie Chou)
+- [[`306cf1a231`](https://github.com/nodejs/node/commit/306cf1a231)] - **fix**: do not show membership promo when user is authed (Aylie Chou)
+
 ## 4.11.0-rc.2, 2023-08-11
 
 ### Notable Changes
