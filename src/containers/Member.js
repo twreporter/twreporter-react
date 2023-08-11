@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -104,7 +104,12 @@ const MemberPage = ({
   if (!isAuthed || !jwt) {
     const currentHref =
       typeof window === 'undefined' ? '' : window.location.href
-    if (pathname !== routes.memberPage.memberEmailSubscriptionPage.path) {
+    if (
+      !matchPath(pathname, {
+        path: routes.memberPage.memberEmailSubscriptionPage.path,
+        exact: true,
+      })
+    ) {
       window.location.href = getSignInHref(currentHref)
       return null
     } else {
