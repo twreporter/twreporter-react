@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.11.0-rc.4, 2023-08-14
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`a7889b6c5f`](https://github.com/twreporter/twreporter-react/commit/a7889b6c5f)] - **chore**: update reporter packages (Lucien)
+
 ## 4.11.0-rc.3, 2023-08-11
 
 ### Notable Changes
