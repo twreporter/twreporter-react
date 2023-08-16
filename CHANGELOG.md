@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.11.0-rc.5, 2023-08-16
+
+### Notable Changes
+
+- fix
+  - wrap member data text when overflow
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`48b77546d8`](https://github.com/twreporter/twreporter-react/commit/48b77546d8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`27d82f6df8`](https://github.com/twreporter/twreporter-react/commit/27d82f6df8)] - **fix**: wrap member data text when overflow (Aylie Chou)
+
 ## 4.11.0-rc.4, 2023-08-14
 
 ### Notable Changes
