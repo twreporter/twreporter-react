@@ -1,13 +1,14 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 // managers
 import uiManager from '../managers/ui-manager'
 // constants
 import uiConst from '../constants/ui'
 // components
 import ErrorBoundary from '../components/ErrorBoundary'
+import MembershipPromo from '../components/membership-promo'
 // @twreporter
 import Footer from '@twreporter/react-components/lib/footer'
 import { Header } from '@twreporter/universal-header/lib/index'
@@ -52,7 +53,13 @@ const renderFooter = (footerType, releaseBranch) => {
   }
 }
 
-const renderHeader = (headerType, releaseBranch, pathname, referrerPath) => {
+const renderHeader = (
+  headerType,
+  releaseBranch,
+  pathname,
+  referrerPath,
+  hamburgerContext
+) => {
   let headerTheme
   switch (headerType) {
     case uiConst.header.none:
@@ -76,6 +83,7 @@ const renderHeader = (headerType, releaseBranch, pathname, referrerPath) => {
       isLinkExternal={false}
       pathname={pathname}
       referrerPath={referrerPath}
+      hamburgerContext={hamburgerContext}
     />
   )
 
@@ -97,15 +105,29 @@ const AppShell = ({
   pathname,
   referrerPath,
 }) => {
+  const [showHamburger, setShowHamburger] = useState(false)
+  const hamburgerContext = { showHamburger, setShowHamburger }
+
   return (
     <ErrorBoundary>
       <AppBox backgroundColor={backgroundColor}>
         <ContentBlock>
-          {renderHeader(headerType, releaseBranch, pathname, referrerPath)}
+          {renderHeader(
+            headerType,
+            releaseBranch,
+            pathname,
+            referrerPath,
+            hamburgerContext
+          )}
           {children}
           {renderFooter(footerType, releaseBranch)}
         </ContentBlock>
       </AppBox>
+      <MembershipPromo
+        releaseBranch={releaseBranch}
+        pathname={pathname}
+        showHamburger={showHamburger}
+      />
     </ErrorBoundary>
   )
 }
