@@ -1,21 +1,17 @@
 /* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import getRoutes from './routes'
-import { Provider, connect } from 'react-redux'
+import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'
 // components
 import AppShell from './containers/app-shell'
-import Popup from './components/membership-promo/popup'
-import Banner from './components/membership-promo/banner'
-// hooks
-import { usePromo } from './hooks'
-// contexts
-import { PromoContext } from './contexts'
 // constants
 import colors from './constants/colors'
 import typography from './constants/typography'
+// hooks
+import { usePrevious } from './hooks'
 // @twreporter
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 import useFontFaceObserver from '@twreporter/react-components/lib/hook/use-font-face-observer'
@@ -25,13 +21,10 @@ import {
   fontWeight,
   fontFamily,
 } from '@twreporter/core/lib/constants/font'
-import twreporterRedux from '@twreporter/redux'
 // lodash
 import map from 'lodash/map'
-import get from 'lodash/get'
 const _ = {
   map,
-  get,
 }
 
 const selfHostedFonts = [fonts.notoSansTC]
@@ -168,45 +161,6 @@ GlobalStyleWithFonts.propTypes = {
   fonts: PropTypes.arrayOf(PropTypes.string),
 }
 
-const MembershipPromoItem = ({ releaseBranch, location, isAuthed }) => {
-  const { pathname } = location
-  const { isShowPromo, closePromo, promoType, PromoType } = usePromo(
-    pathname,
-    isAuthed
-  )
-
-  if (isAuthed) {
-    return null
-  }
-
-  const contextValue = { isShowPromo, closePromo, releaseBranch }
-  const Promo = promoType === PromoType.POPUP ? Popup : Banner
-  return (
-    <PromoContext.Provider value={contextValue}>
-      <Promo />
-    </PromoContext.Provider>
-  )
-}
-MembershipPromoItem.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
-  location: PropTypes.object.isRequired,
-  isAuthed: PropTypes.bool.isRequired,
-}
-const { reduxStateFields } = twreporterRedux
-const mapStateToProps = state => {
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  return { isAuthed }
-}
-const MembershipPromo = connect(mapStateToProps)(MembershipPromoItem)
-
-function usePrevious(value) {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value
-  })
-  return ref.current
-}
-
 const App = ({ reduxStore, releaseBranch }) => {
   const location = useLocation()
   const prevLocation = usePrevious(location)
@@ -236,7 +190,6 @@ const App = ({ reduxStore, releaseBranch }) => {
         }}
       />
       <GlobalStyleWithFonts fonts={selfHostedFonts} />
-      <MembershipPromo releaseBranch={releaseBranch} location={location} />
     </Provider>
   )
 }
