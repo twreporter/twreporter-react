@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.11.0-rc.7, 2023-08-22
+
+### Notable Changes
+
+- fix
+  - do not show membership promo when open hamburger menu
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`da0dbe5692`](https://github.com/twreporter/twreporter-react/commit/da0dbe5692)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cf7b9b6ee3`](https://github.com/twreporter/twreporter-react/commit/cf7b9b6ee3)] - **fix**: do not show membership promo when open hamburger menu (Aylie Chou)
+
 ## 4.11.0-rc.6, 2023-08-21
 
 ### Notable Changes
