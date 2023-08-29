@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.11.0-rc.8, 2023-08-29
+
+### Notable Changes
+
+- refactor
+  - update response Cache-Control header value
+
+### Commits
+
+- [[`bbd429e176`](https://github.com/twreporter/twreporter-react/commit/bbd429e176)] - Merge pull request #2605 from nickhsine/update-cache-control (nick)
+- [[`8d9961893e`](https://github.com/twreporter/twreporter-react/commit/8d9961893e)] - **refactor**: update response Cache-Control header value (nickhsine)
+
 ## 4.11.0-rc.7, 2023-08-22
 
 ### Notable Changes
