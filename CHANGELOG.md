@@ -1,6 +1,177 @@
 # Changelog
 
-## 4.10.7, 2023-07-24 (Current)
+## 4.11.0-rc.9, 2023-09-01
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d98c334b27`](https://github.com/twreporter/twreporter-react/commit/d98c334b27)] - **chore**: update twreporter packages (Lucien)
+
+## 4.11.0-rc.8, 2023-08-29
+
+### Notable Changes
+
+- refactor
+  - update response Cache-Control header value
+
+### Commits
+
+- [[`bbd429e176`](https://github.com/twreporter/twreporter-react/commit/bbd429e176)] - Merge pull request #2605 from nickhsine/update-cache-control (nick)
+- [[`8d9961893e`](https://github.com/twreporter/twreporter-react/commit/8d9961893e)] - **refactor**: update response Cache-Control header value (nickhsine)
+
+## 4.11.0-rc.7, 2023-08-22
+
+### Notable Changes
+
+- fix
+  - do not show membership promo when open hamburger menu
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`da0dbe5692`](https://github.com/twreporter/twreporter-react/commit/da0dbe5692)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cf7b9b6ee3`](https://github.com/twreporter/twreporter-react/commit/cf7b9b6ee3)] - **fix**: do not show membership promo when open hamburger menu (Aylie Chou)
+
+## 4.11.0-rc.6, 2023-08-21
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d41d8d90b7`](https://github.com/twreporter/twreporter-react/commit/d41d8d90b7)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.11.0-rc.5, 2023-08-16
+
+### Notable Changes
+
+- fix
+  - wrap member data text when overflow
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`48b77546d8`](https://github.com/twreporter/twreporter-react/commit/48b77546d8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`27d82f6df8`](https://github.com/twreporter/twreporter-react/commit/27d82f6df8)] - **fix**: wrap member data text when overflow (Aylie Chou)
+
+## 4.11.0-rc.4, 2023-08-14
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`a7889b6c5f`](https://github.com/twreporter/twreporter-react/commit/a7889b6c5f)] - **chore**: update reporter packages (Lucien)
+
+## 4.11.0-rc.3, 2023-08-11
+
+### Notable Changes
+
+- fix
+  - bottom banner style
+  - do not show membership promo when user is authed
+
+### Commits
+
+- [[`5452ab21e2`](https://github.com/nodejs/node/commit/5452ab21e2)] - **fix**: bottom banner style (Aylie Chou)
+- [[`306cf1a231`](https://github.com/nodejs/node/commit/306cf1a231)] - **fix**: do not show membership promo when user is authed (Aylie Chou)
+
+## 4.11.0-rc.2, 2023-08-11
+
+### Notable Changes
+
+- feat
+  - account page and booklist page metadata
+
+### Commits
+
+- [[`bdea4bcb8a`](https://github.com/twreporter/twreporter-react/commit/bdea4bcb8a)] - **feat**: fix typo and use matchPath (Lucien)
+- [[`f18ecde040`](https://github.com/twreporter/twreporter-react/commit/f18ecde040)] - **feat**: booklist page metadata (Lucien)
+
+## 4.11.0-rc.1, 2023-08-11
+
+### Notable Changes
+
+- fix
+  - change photography font weight
+
+### Commits
+
+- [[`d58c46ae7d`](https://github.com/twreporter/twreporter-react/commit/d58c46ae7d)] - **fix**: change font weight to normal (Lucien)
+
+## 4.11.0-rc.0, 2023-08-07
+
+### Notable Changes
+
+- feat
+  - add account page
+  - add membership promo champaign
+- fix
+  - regarding user unauthenticated if they're deactivated
+  - check member page auth state when csr
+  - mobile logout fail on `dev` env
+- chore
+  - update @twreporter packages
+  - remove deprecated `getLogoutLink` method
+  - add dev gtm env
+  - update circle ci config for dev branch
+
+### Commits
+
+- [[`dfec7c58e0`](https://github.com/twreporter/twreporter-react/commit/dfec7c58e0)] - **chore**: update version to 4.10.5-beta.21 (nickhsine)
+- [[`3abe81f430`](https://github.com/twreporter/twreporter-react/commit/3abe81f430)] - **chore**: upgrade @twreporter deps (nickhsine)
+- [[`ef18531ea4`](https://github.com/twreporter/twreporter-react/commit/ef18531ea4)] - **fix**: `closePromo` been called in unexpected place (Aylie Chou)
+- [[`01f0c36e82`](https://github.com/twreporter/twreporter-react/commit/01f0c36e82)] - **fix**: defects (Aylie Chou)
+- [[`638f58408a`](https://github.com/twreporter/twreporter-react/commit/638f58408a)] - **fix**: /topics/:slug page should not appear promo (Aylie Chou)
+- [[`bba82ffbf1`](https://github.com/twreporter/twreporter-react/commit/bba82ffbf1)] - **fix**: close model when clicking more button (Aylie Chou)
+- [[`daceac0e74`](https://github.com/twreporter/twreporter-react/commit/daceac0e74)] - **fix**: disable background scrolling when popup open (Aylie Chou)
+- [[`4ffa4f39ff`](https://github.com/twreporter/twreporter-react/commit/4ffa4f39ff)] - **fix**: address review comments (Aylie Chou)
+- [[`fcf9130dcb`](https://github.com/twreporter/twreporter-react/commit/fcf9130dcb)] - **fix**: react error `nothing was returned from render` (Aylie Chou)
+- [[`621118b006`](https://github.com/twreporter/twreporter-react/commit/621118b006)] - **fix**: regarding user unauthenticated if they're deactivated (Aylie Chou)
+- [[`dda8b03648`](https://github.com/twreporter/twreporter-react/commit/dda8b03648)] - **fix**: check member page auth state when csr (Aylie Chou)
+- [[`b1b6c70727`](https://github.com/twreporter/twreporter-react/commit/b1b6c70727)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ea52e7c176`](https://github.com/twreporter/twreporter-react/commit/ea52e7c176)] - **fix**: mobile logout fail on `dev` env (Aylie Chou)
+- [[`6a729cbffc`](https://github.com/twreporter/twreporter-react/commit/6a729cbffc)] - **fix**: change showing text (Lucien)
+- [[`4b9692fbf0`](https://github.com/twreporter/twreporter-react/commit/4b9692fbf0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c15a78e8e6`](https://github.com/twreporter/twreporter-react/commit/c15a78e8e6)] - **fix**: specify logout redirect destination (Aylie Chou)
+- [[`82ab2f84cd`](https://github.com/twreporter/twreporter-react/commit/82ab2f84cd)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d1797a6caf`](https://github.com/twreporter/twreporter-react/commit/d1797a6caf)] - **fix**: add auth requirement for account page and fix logout path (Lucien)
+- [[`a3b5b1e54f`](https://github.com/twreporter/twreporter-react/commit/a3b5b1e54f)] - Merge pull request #2534 from liruchen32/feature/getUser (Lucien)
+- [[`b70064dcaf`](https://github.com/twreporter/twreporter-react/commit/b70064dcaf)] - **chore**: update npm packages (Lucien)
+- [[`24e75507cf`](https://github.com/twreporter/twreporter-react/commit/24e75507cf)] - **fix**: remove deprecated `getLogoutLink` method (Aylie Chou)
+- [[`ac261e53dc`](https://github.com/twreporter/twreporter-react/commit/ac261e53dc)] - **feat**: change route to account (Lucien)
+- [[`2bc24ff7ed`](https://github.com/twreporter/twreporter-react/commit/2bc24ff7ed)] - Merge pull request #2522 from liruchen32/fix/fix-email-subscription-page (Lucien)
+- [[`938ef7c286`](https://github.com/twreporter/twreporter-react/commit/938ef7c286)] - **chore**: add dev gtm env (Lucien)
+- [[`9d8187ab85`](https://github.com/twreporter/twreporter-react/commit/9d8187ab85)] - Merge pull request #2518 from liruchen32/fix/fix-donation-page (Lucien)
+- [[`fadcb542cb`](https://github.com/twreporter/twreporter-react/commit/fadcb542cb)] - **chore**: update circleci config (Lucien)
+- [[`5a6e3921d5`](https://github.com/twreporter/twreporter-react/commit/5a6e3921d5)] - Merge pull request #2511 from liruchen32/feature/email-subscription-page (Lucien)
+- [[`6e2a1236ba`](https://github.com/twreporter/twreporter-react/commit/6e2a1236ba)] - Merge pull request #2510 from liruchen32/fix/fix-member-page-padding (Lucien)
+- [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
+- [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
+
+## 4.10.8, 2023-078 (Current)
+
+## Notable Changes
+
+- chore
+  - update @twreporter/react-components@^8.18.1-rc.5
+
+## Commits
+
+- [[`f981298df7`](https://github.com/twreporter/twreporter-react/commit/f981298df7)] - **chore**: update version to 4.10.8 and upgrade @twreporter/react-compoennts (nickhsine)
+- [[`ef87700162`](https://github.com/twreporter/twreporter-react/commit/ef87700162)] - Merge pull request #2571 from nickhsine/master (nick)
+
+## 4.10.7, 2023-07-24
 
 ## Notable Changes
 
@@ -9,11 +180,13 @@
 
 ## Commits
 
-- [[`7b1ee2a43e`](https://github.com/twreporter/twreporter-react/commit/7b1ee2a43e)] - Merge pull request #2566 from nickhsine/master (nick)
-- [[`3aa65ffab9`](https://github.com/twreporter/twreporter-react/commit/3aa65ffab9)] - **chore**: bump version to 4.10.7-rc.0 (nickhsine)
+- [[`1d46e17a07`](https://github.com/twreporter/twreporter-react/commit/1d46e17a07)] - **chore**: bump to @4.10.7 stable version (nickhsine)
 
-* [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
-* [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
+* [[`7b1ee2a43e`](https://github.com/twreporter/twreporter-react/commit/7b1ee2a43e)] - Merge pull request #2566 from nickhsine/master (nick)
+* [[`3aa65ffab9`](https://github.com/twreporter/twreporter-react/commit/3aa65ffab9)] - **chore**: bump version to 4.10.7-rc.0 (nickhsine)
+
+- [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
+- [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
 
 ## 4.10.6, 2023-07-11
 

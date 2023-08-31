@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import getRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
@@ -10,6 +10,8 @@ import AppShell from './containers/app-shell'
 // constants
 import colors from './constants/colors'
 import typography from './constants/typography'
+// hooks
+import { usePrevious } from './hooks'
 // @twreporter
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 import useFontFaceObserver from '@twreporter/react-components/lib/hook/use-font-face-observer'
@@ -124,6 +126,10 @@ const BaseStyle = css`
         content: '';
       }
     }
+
+    &.disable-scroll {
+      overflow: hidden;
+    }
   }
 
   ::selection {
@@ -153,14 +159,6 @@ const GlobalStyleWithFonts = ({ fonts = [] }) => {
 
 GlobalStyleWithFonts.propTypes = {
   fonts: PropTypes.arrayOf(PropTypes.string),
-}
-
-function usePrevious(value) {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value
-  })
-  return ref.current
 }
 
 const App = ({ reduxStore, releaseBranch }) => {

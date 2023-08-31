@@ -116,7 +116,7 @@ const loadablePages = {
     loader: () =>
       import(
         /* webpackChunkName: "bookmark-list" */
-        '@twreporter/react-components/lib/bookmark-list'
+        './containers/BookmarkList'
       ),
     loading: LoadingComponent,
   }),
@@ -125,6 +125,14 @@ const loadablePages = {
       import(
         /* webpackChunkName: "latest" */
         './containers/Latest'
+      ),
+    loading: LoadingComponent,
+  }),
+  member: Loadable({
+    loader: () =>
+      import(
+        /* webpackChunkName: "member" */
+        './containers/Member'
       ),
     loading: LoadingComponent,
   }),
@@ -267,6 +275,12 @@ export default function getRoutes() {
       renderWithProps: loadablePages.latest,
       loadData: dataLoaders.loadLatestPageData,
       path: routesConst.latestPage.path,
+    },
+    {
+      renderWithProps: loadablePages.member,
+      loadData: dataLoaders.loadMemberPageData,
+      path: routesConst.memberPage.path,
+      authorizationRequired: true,
     },
     // error  page
     {
