@@ -5,10 +5,15 @@ import { useLocation } from 'react-router-dom'
 // twreporters
 import BookmarkList from '@twreporter/react-components/lib/bookmark-list'
 
+import {
+  BRANCH_PROP_TYPES,
+  BRANCH,
+} from '@twreporter/core/lib/constants/release-branch'
+
 // constants
 import siteMeta from '../constants/site-meta'
 
-const BookmarkListPage = () => {
+const BookmarkListPage = ({ releaseBranch = BRANCH.master }) => {
   const { pathname } = useLocation()
   const titleText = '我的書籤'
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
@@ -32,9 +37,13 @@ const BookmarkListPage = () => {
           { property: 'og:url', content: canonical },
         ]}
       />
-      <BookmarkList />
+      <BookmarkList releaseBranch={releaseBranch} />
     </div>
   )
+}
+
+BookmarkListPage.propTypes = {
+  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default BookmarkListPage
