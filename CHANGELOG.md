@@ -1,15 +1,15 @@
 # Changelog
 
-## 4.11.0-rc.9, 2023-09-01
+## 4.11.0-rc.10, 2023-09-01
 
 ### Notable Changes
 
-- chore
-  - update @twreporter packages
+- fix
+  - add releaseBranch to BookmarkList
 
 ### Commits
 
-- [[`d98c334b27`](https://github.com/twreporter/twreporter-react/commit/d98c334b27)] - **chore**: update twreporter packages (Lucien)
+- [[`c225079ebe`](https://github.com/twreporter/twreporter-react/commit/c225079ebe)] - **fix**: forget to pass `releaseBranch` into `BookmarkList` (nickhsine)
 
 ## 4.11.0-rc.8, 2023-08-29
 
