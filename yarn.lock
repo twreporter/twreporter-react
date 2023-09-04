@@ -1598,10 +1598,10 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@^1.5.0-rc.0":
-  version "1.5.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.5.0-rc.0.tgz#16fed78509cb6a83d3e429478341ec825650168b"
-  integrity sha512-WO/1yVtfLHTGBVBDj2gD1TWBr10vBDYXcLuh/2GqmrzfCUhO5kRTWpjA66sQY0Z54Vw63a35YoSiBaj/82mmdw==
+"@twreporter/index-page@^1.5.0-rc.1":
+  version "1.5.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.5.0-rc.1.tgz#356514611b91967d228099fa6ee49ac010035076"
+  integrity sha512-DRXtfiSgzRrhe+nWt4+v7tFhF02wg6888eig0nTfxZJsIZ+PDzYYFFH8eN8T+OkpxdrcKq4GsMh2cjCip0iNXA==
   dependencies:
     "@twreporter/core" "^1.11.0"
     "@twreporter/react-components" "^8.19.0-rc.0"
