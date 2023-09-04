@@ -1,4 +1,4 @@
-FROM node:16.14.2
+FROM node:18.17.1
 
 ARG app_group=main_site_user
 ARG app_user=main_site_user

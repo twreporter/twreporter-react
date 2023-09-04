@@ -1,6 +1,21 @@
 # Changelog
 
+## 4.11.1-rc.1, 2023-09-04
+
+### Notable Changes
+
+- chore
+  - upgrade node to v18.17.1 (LTS)
+  - update @twreporter packages
+
+### Commits
+
+- [[`cf3a18b0f4`](https://github.com/twreporter/twreporter-react/commit/cf3a18b0f4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`56f0f2754c`](https://github.com/twreporter/twreporter-react/commit/56f0f2754c)] - **chore**: upgrade node to v18.17.1 (LTS) (Aylie Chou)
+
 ## 4.11.1-rc.0, 2023-09-04
+
+### Notable Changes
 
 - chore
   - update @twreporter packages
