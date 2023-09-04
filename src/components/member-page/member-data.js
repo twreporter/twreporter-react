@@ -14,10 +14,12 @@ const MemberDataContainer = styled.div`
 
 const RowContainer = styled.div`
   display: flex;
+  overflow-wrap: anywhere;
 `
 
 const TitleContainer = styled.div`
   width: 120px;
+  flex: none;
 `
 
 const DividerContainer = styled.div`

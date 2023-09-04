@@ -16,8 +16,9 @@ const PromoType = {
   POPUP: 'popup',
   BANNER: 'banner',
 }
-const usePromo = pathname => {
+const usePromo = (pathname, isAuthed, showHamburger) => {
   const [isShowPromo, setIsShowPromo] = useState(false)
+  const [isOpened, setIsOpened] = useState(false)
   const [promoType, setPromoType] = useState(PromoType.POPUP)
   const closePromo = async () => {
     document.body.classList.remove('disable-scroll')
@@ -31,15 +32,17 @@ const usePromo = pathname => {
   }
   const openPromo = async () => {
     const nextShowDate = await localForage.getItem('membership-promo')
+    if (nextShowDate && dayjs().isBefore(dayjs(nextShowDate))) {
+      return
+    }
+
     if (nextShowDate) {
       setPromoType(PromoType.BANNER)
     } else {
       document.body.classList.add('disable-scroll')
     }
-
-    if (!nextShowDate || dayjs().isAfter(dayjs(nextShowDate))) {
-      setIsShowPromo(true)
-    }
+    setIsShowPromo(true)
+    setIsOpened(true)
   }
   const timerId = useRef()
   const isPathShowPopup = pathname => {
@@ -57,10 +60,16 @@ const usePromo = pathname => {
     if (timerId.current) {
       window.clearTimeout(timerId.current)
     }
-    if (isPathShowPopup(pathname)) {
+    if (isOpened) {
+      return
+    }
+    if (isAuthed) {
+      return
+    }
+    if (!showHamburger && isPathShowPopup(pathname)) {
       timerId.current = window.setTimeout(openPromo, 3000)
     }
-  }, [pathname])
+  }, [pathname, showHamburger, isOpened])
 
   return { isShowPromo, closePromo, openPromo, promoType, PromoType }
 }
