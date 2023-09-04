@@ -3,7 +3,7 @@
 ## 4.11.1-rc.0, 2023-09-04
 
 - chore
-- update @twreporter packages
+  - update @twreporter packages
 
 ### Commits
 
