@@ -24,7 +24,7 @@ const boxCss = css`
   flex-direction: column;
   width: 100vw;
   position: fixed;
-  z-index: 10;
+  z-index: 101;
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
   transform: translateY(${props => (props.show ? 0 : '100%')});
@@ -48,12 +48,15 @@ const TextBox = styled.div`
 `
 const Title = styled(H4)`
   color: ${colorGrayscale.gray800};
+  @media (min-width: 600px) and (max-width: 1023px) {
+    margin: auto;
+  }
 `
 const Description = styled(P2)`
   color: ${colorGrayscale.gray600};
   margin-top: 4px;
   ${mq.tabletAndBelow`
-    margin: 8px 0;
+    margin-top: 0;
   `}
 `
 const DesktopMore = styled(MoreButton)`
@@ -97,15 +100,30 @@ const MobileBox = styled.div`
   ${boxCss}
   bottom: 60px;
   padding: 16px;
+  @media (min-width: 600px) and (max-width: 1023px) {
+    padding: 24px;
+  }
 `
 const FlexGroup = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const DescriptionBox = styled.div`
+  margin: 8px 0;
+  @media (min-width: 600px) and (max-width: 1023px) {
+    align-self: center;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
 const MobileMore = styled(MoreButton)`
   width: 96px;
   align-self: flex-end;
-  margin-top: 4px;
+  @media (min-width: 600px) and (max-width: 1023px) {
+    align-self: center;
+  }
 `
 const MobileBanner = () => {
   const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
@@ -120,7 +138,10 @@ const MobileBanner = () => {
           onClick={closePromo}
         />
       </FlexGroup>
-      <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力來自您的支持 —— 加入 3 種支持方案，與報導者同行！" />
+      <DescriptionBox>
+        <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力來自您的支持 —— " />
+        <Description text="加入 3 種支持方案，與報導者同行！" />
+      </DescriptionBox>
       <MobileMore />
     </MobileBox>
   )

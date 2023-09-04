@@ -198,7 +198,7 @@ class ExpressServer {
             res.header('Cache-Control', 'no-store')
           } else {
             // set Cache-Control header for caching
-            res.header('Cache-Control', 'public, max-age=300')
+            res.header('Cache-Control', 'public, max-age=0, s-maxage=300')
           }
         }
         next()
