@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.11.1-rc.4, 2023-09-05
+
+### Notable Changes
+
+- chore
+  - import swiper css
+  - update @twreporter packages
+
+### Commits
+
+- [[`77f2a95c56`](https://github.com/twreporter/twreporter-react/commit/77f2a95c56)] - **chore**: update twreporter packages (Lucien)
+
 ## 4.11.1-rc.3, 2023-09-04
 
 ### Notable Changes
