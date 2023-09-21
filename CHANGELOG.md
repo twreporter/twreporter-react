@@ -1,86 +1,27 @@
 # Changelog
 
-## 4.11.1-rc.6, 2023-09-19
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`5c086f564e`](https://github.com/twreporter/twreporter-react/commit/5c086f564e)] - **chore**: update twreporter packages (Lucien)
-
-## 4.11.1-rc.5, 2023-09-08
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`83fad64b77`](https://github.com/twreporter/twreporter-react/commit/83fad64b77)] - **chore**: update twreporter packages (Lucien)
-
-## 4.11.1-rc.4, 2023-09-05
-
-### Notable Changes
-
-- chore
-  - import swiper css
-  - update @twreporter packages
-
-### Commits
-
-- [[`77f2a95c56`](https://github.com/twreporter/twreporter-react/commit/77f2a95c56)] - **chore**: update twreporter packages (Lucien)
-
-## 4.11.1-rc.3, 2023-09-04
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`886083038c`](https://github.com/twreporter/twreporter-react/commit/886083038c)] - **chore**: update twreporter packages (Lucien)
-
-## 4.11.1-rc.2, 2023-09-04
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`6ea223de54`](https://github.com/twreporter/twreporter-react/commit/6ea223de54)] - **chore**: update twreporter packages (Lucien)
-
-## 4.11.1-rc.1, 2023-09-04
+## 4.11.1, 2023-09-21 (Current)
 
 ### Notable Changes
 
 - chore
   - upgrade node to v18.17.1 (LTS)
+  - import swiper css
   - update @twreporter packages
 
 ### Commits
 
+- [[`2c0c894953`](https://github.com/twreporter/twreporter-react/commit/2c0c894953)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5c086f564e`](https://github.com/twreporter/twreporter-react/commit/5c086f564e)] - **chore**: update twreporter packages (Lucien)
+- [[`83fad64b77`](https://github.com/twreporter/twreporter-react/commit/83fad64b77)] - **chore**: update twreporter packages (Lucien)
+- [[`77f2a95c56`](https://github.com/twreporter/twreporter-react/commit/77f2a95c56)] - **chore**: update twreporter packages (Lucien)
+- [[`886083038c`](https://github.com/twreporter/twreporter-react/commit/886083038c)] - **chore**: update twreporter packages (Lucien)
+- [[`6ea223de54`](https://github.com/twreporter/twreporter-react/commit/6ea223de54)] - **chore**: update twreporter packages (Lucien)
 - [[`cf3a18b0f4`](https://github.com/twreporter/twreporter-react/commit/cf3a18b0f4)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`56f0f2754c`](https://github.com/twreporter/twreporter-react/commit/56f0f2754c)] - **chore**: upgrade node to v18.17.1 (LTS) (Aylie Chou)
-
-## 4.11.1-rc.0, 2023-09-04
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`94ba11d5bc`](https://github.com/twreporter/twreporter-react/commit/94ba11d5bc)] - **chore**: update twreporter packages (Lucien)
 
-## 4.11.0, 2023-09-04 (Current)
+## 4.11.0, 2023-09-04
 
 ### Notable Changes
 
