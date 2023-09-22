@@ -1,133 +1,41 @@
 # Changelog
 
-## 4.11.0-rc.10, 2023-09-01
-
-### Notable Changes
-
-- fix
-  - add releaseBranch to BookmarkList
-
-### Commits
-
-- [[`c225079ebe`](https://github.com/twreporter/twreporter-react/commit/c225079ebe)] - **fix**: forget to pass `releaseBranch` into `BookmarkList` (nickhsine)
-
-## 4.11.0-rc.9, 2023-09-01
+## 4.11.1, 2023-09-21 (Current)
 
 ### Notable Changes
 
 - chore
+  - upgrade node to v18.17.1 (LTS)
+  - import swiper css
   - update @twreporter packages
 
 ### Commits
 
-- [[`d98c334b27`](https://github.com/twreporter/twreporter-react/commit/d98c334b27)] - **chore**: update twreporter packages (Lucien)
+- [[`2c0c894953`](https://github.com/twreporter/twreporter-react/commit/2c0c894953)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5c086f564e`](https://github.com/twreporter/twreporter-react/commit/5c086f564e)] - **chore**: update twreporter packages (Lucien)
+- [[`83fad64b77`](https://github.com/twreporter/twreporter-react/commit/83fad64b77)] - **chore**: update twreporter packages (Lucien)
+- [[`77f2a95c56`](https://github.com/twreporter/twreporter-react/commit/77f2a95c56)] - **chore**: update twreporter packages (Lucien)
+- [[`886083038c`](https://github.com/twreporter/twreporter-react/commit/886083038c)] - **chore**: update twreporter packages (Lucien)
+- [[`6ea223de54`](https://github.com/twreporter/twreporter-react/commit/6ea223de54)] - **chore**: update twreporter packages (Lucien)
+- [[`cf3a18b0f4`](https://github.com/twreporter/twreporter-react/commit/cf3a18b0f4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`56f0f2754c`](https://github.com/twreporter/twreporter-react/commit/56f0f2754c)] - **chore**: upgrade node to v18.17.1 (LTS) (Aylie Chou)
+- [[`94ba11d5bc`](https://github.com/twreporter/twreporter-react/commit/94ba11d5bc)] - **chore**: update twreporter packages (Lucien)
 
-## 4.11.0-rc.8, 2023-08-29
-
-### Notable Changes
-
-- refactor
-  - update response Cache-Control header value
-
-### Commits
-
-- [[`bbd429e176`](https://github.com/twreporter/twreporter-react/commit/bbd429e176)] - Merge pull request #2605 from nickhsine/update-cache-control (nick)
-- [[`8d9961893e`](https://github.com/twreporter/twreporter-react/commit/8d9961893e)] - **refactor**: update response Cache-Control header value (nickhsine)
-
-## 4.11.0-rc.7, 2023-08-22
-
-### Notable Changes
-
-- fix
-  - do not show membership promo when open hamburger menu
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`da0dbe5692`](https://github.com/twreporter/twreporter-react/commit/da0dbe5692)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`cf7b9b6ee3`](https://github.com/twreporter/twreporter-react/commit/cf7b9b6ee3)] - **fix**: do not show membership promo when open hamburger menu (Aylie Chou)
-
-## 4.11.0-rc.6, 2023-08-21
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`d41d8d90b7`](https://github.com/twreporter/twreporter-react/commit/d41d8d90b7)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.11.0-rc.5, 2023-08-16
-
-### Notable Changes
-
-- fix
-  - wrap member data text when overflow
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`48b77546d8`](https://github.com/twreporter/twreporter-react/commit/48b77546d8)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`27d82f6df8`](https://github.com/twreporter/twreporter-react/commit/27d82f6df8)] - **fix**: wrap member data text when overflow (Aylie Chou)
-
-## 4.11.0-rc.4, 2023-08-14
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`a7889b6c5f`](https://github.com/twreporter/twreporter-react/commit/a7889b6c5f)] - **chore**: update reporter packages (Lucien)
-
-## 4.11.0-rc.3, 2023-08-11
-
-### Notable Changes
-
-- fix
-  - bottom banner style
-  - do not show membership promo when user is authed
-
-### Commits
-
-- [[`5452ab21e2`](https://github.com/nodejs/node/commit/5452ab21e2)] - **fix**: bottom banner style (Aylie Chou)
-- [[`306cf1a231`](https://github.com/nodejs/node/commit/306cf1a231)] - **fix**: do not show membership promo when user is authed (Aylie Chou)
-
-## 4.11.0-rc.2, 2023-08-11
+## 4.11.0, 2023-09-04
 
 ### Notable Changes
 
 - feat
   - account page and booklist page metadata
-
-### Commits
-
-- [[`bdea4bcb8a`](https://github.com/twreporter/twreporter-react/commit/bdea4bcb8a)] - **feat**: fix typo and use matchPath (Lucien)
-- [[`f18ecde040`](https://github.com/twreporter/twreporter-react/commit/f18ecde040)] - **feat**: booklist page metadata (Lucien)
-
-## 4.11.0-rc.1, 2023-08-11
-
-### Notable Changes
-
-- fix
-  - change photography font weight
-
-### Commits
-
-- [[`d58c46ae7d`](https://github.com/twreporter/twreporter-react/commit/d58c46ae7d)] - **fix**: change font weight to normal (Lucien)
-
-## 4.11.0-rc.0, 2023-08-07
-
-### Notable Changes
-
-- feat
   - add account page
   - add membership promo champaign
 - fix
+  - add releaseBranch to BookmarkList
+  - do not show membership promo when open hamburger menu
+  - wrap member data text when overflow
+  - bottom banner style
+  - do not show membership promo when user is authed
+  - change photography font weight
   - regarding user unauthenticated if they're deactivated
   - check member page auth state when csr
   - mobile logout fail on `dev` env
@@ -136,8 +44,26 @@
   - remove deprecated `getLogoutLink` method
   - add dev gtm env
   - update circle ci config for dev branch
+- refactor
+  - update response Cache-Control header value
 
 ### Commits
+
+- [[`c225079ebe`](https://github.com/twreporter/twreporter-react/commit/c225079ebe)] - **fix**: forget to pass `releaseBranch` into `BookmarkList` (nickhsine)
+- [[`d98c334b27`](https://github.com/twreporter/twreporter-react/commit/d98c334b27)] - **chore**: update twreporter packages (Lucien)
+- [[`bbd429e176`](https://github.com/twreporter/twreporter-react/commit/bbd429e176)] - Merge pull request #2605 from nickhsine/update-cache-control (nick)
+- [[`8d9961893e`](https://github.com/twreporter/twreporter-react/commit/8d9961893e)] - **refactor**: update response Cache-Control header value (nickhsine)
+- [[`da0dbe5692`](https://github.com/twreporter/twreporter-react/commit/da0dbe5692)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cf7b9b6ee3`](https://github.com/twreporter/twreporter-react/commit/cf7b9b6ee3)] - **fix**: do not show membership promo when open hamburger menu (Aylie Chou)
+- [[`d41d8d90b7`](https://github.com/twreporter/twreporter-react/commit/d41d8d90b7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`48b77546d8`](https://github.com/twreporter/twreporter-react/commit/48b77546d8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`27d82f6df8`](https://github.com/twreporter/twreporter-react/commit/27d82f6df8)] - **fix**: wrap member data text when overflow (Aylie Chou)
+- [[`a7889b6c5f`](https://github.com/twreporter/twreporter-react/commit/a7889b6c5f)] - **chore**: update reporter packages (Lucien)
+- [[`5452ab21e2`](https://github.com/nodejs/node/commit/5452ab21e2)] - **fix**: bottom banner style (Aylie Chou)
+- [[`306cf1a231`](https://github.com/nodejs/node/commit/306cf1a231)] - **fix**: do not show membership promo when user is authed (Aylie Chou)
+- [[`bdea4bcb8a`](https://github.com/twreporter/twreporter-react/commit/bdea4bcb8a)] - **feat**: fix typo and use matchPath (Lucien)
+- [[`f18ecde040`](https://github.com/twreporter/twreporter-react/commit/f18ecde040)] - **feat**: booklist page metadata (Lucien)
+- [[`d58c46ae7d`](https://github.com/twreporter/twreporter-react/commit/d58c46ae7d)] - **fix**: change font weight to normal (Lucien)
 
 - [[`dfec7c58e0`](https://github.com/twreporter/twreporter-react/commit/dfec7c58e0)] - **chore**: update version to 4.10.5-beta.21 (nickhsine)
 - [[`3abe81f430`](https://github.com/twreporter/twreporter-react/commit/3abe81f430)] - **chore**: upgrade @twreporter deps (nickhsine)
@@ -170,7 +96,7 @@
 - [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
 - [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
 
-## 4.10.8, 2023-078 (Current)
+## 4.10.8, 2023-078
 
 ## Notable Changes
 
