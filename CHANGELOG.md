@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.11.2-rc.1, 2023-10-03
+
+### Notable Changes
+
+- feat
+  - change donation link anchor
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`9bd947b9ca`](https://github.com/twreporter/twreporter-react/commit/9bd947b9ca)] - Merge remote-tracking branch 'upstream/master' into feature/new-about-us (Lucien)
+- [[`afc8f87af8`](https://github.com/twreporter/twreporter-react/commit/afc8f87af8)] - **feat**: update about-us page
+
 ## 4.11.2-rc.0, 2023-09-28
 
 ### Notable Changes

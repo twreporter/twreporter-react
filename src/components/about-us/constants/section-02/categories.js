@@ -9,6 +9,13 @@ const categories = [
     },
   },
   {
+    id: categoryIds.leaderTeam,
+    label: {
+      english: 'Leader Team',
+      chinese: '領 導 團 隊',
+    },
+  },
+  {
     id: categoryIds.editor,
     label: {
       english: 'Editorial Department',
@@ -58,17 +65,17 @@ const categories = [
     },
   },
   {
-    id: categoryIds.contentDevelopment,
-    label: {
-      english: 'Content Development',
-      chinese: '少 年 報 導 者',
-    },
-  },
-  {
     id: categoryIds.dataJournalist,
     label: {
       english: 'Data Journalism Team',
       chinese: 'Data 小 組',
+    },
+  },
+  {
+    id: categoryIds.theReporterForKids,
+    label: {
+      english: 'The Reporter For Kids',
+      chinese: '少 年 報 導 者',
     },
   },
 ]
