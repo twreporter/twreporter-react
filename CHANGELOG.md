@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.11.2-rc.0, 2023-09-28
+
+### Notable Changes
+
+- feat
+  - change donation link anchor
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`098e2540f7`](https://github.com/twreporter/twreporter-react/commit/098e2540f7)] - **chore**: update twreporter packages (Lucien)
+- [[`69eee10864`](https://github.com/twreporter/twreporter-react/commit/69eee10864)] - **feat**: change donation anchor (Lucien)
+
 ## 4.11.1, 2023-09-21 (Current)
 
 ### Notable Changes
