@@ -8,8 +8,8 @@ const categoryIds = {
   engineer: 'engineer',
   designer: 'designer',
   podcast: 'podcast',
-  theReporterForKids: 'theReporterForKids',
   dataJournalist: 'dataJournalist',
+  theReporterForKids: 'theReporterForKids',
 }
 
 export default categoryIds

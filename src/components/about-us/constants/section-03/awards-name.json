@@ -50,6 +50,11 @@
     "awardEng": "KKBOX Podcast"
   },
   {
+    "awardId": "SND",
+    "award": "SND最佳新聞設計創意競賽",
+    "awardEng": "CREATIVE COMPETITION RESULTS"
+  },
+  {
     "awardId": "humanRights",
     "award": "人權新聞獎",
     "awardEng": "Human Rights Press Awards"
