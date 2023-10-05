@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.11.2-rc.2, 2023-10-05
+
+### Notable Changes
+
+- fix
+  - fix about us page
+
+### Commits
+
+- [[`47ad39646f`](https://github.com/twreporter/twreporter-react/commit/47ad39646f)] - **fix**: format (Lucien)
+- [[`874c003367`](https://github.com/twreporter/twreporter-react/commit/874c003367)] - **fix**: use categroiesAll order (Lucien)
+- [[`2d81ea3bb6`](https://github.com/twreporter/twreporter-react/commit/2d81ea3bb6)] - **fix**: white space (Lucien)
+- [[`4a991973fc`](https://github.com/twreporter/twreporter-react/commit/4a991973fc)] - **fix**: add new award and sorting (Lucien)
+
 ## 4.11.2-rc.1, 2023-10-03
 
 ### Notable Changes
