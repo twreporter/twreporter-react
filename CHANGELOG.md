@@ -2,6 +2,8 @@
 
 ## 4.11.2, 2023-10-11 (Current)
 
+### Notable Changes
+
 - feat
   - update about-us page
   - change donation link anchor
@@ -10,7 +12,7 @@
 - fix
   - fix about-us page
 
-## Commits
+### Commits
 
 - [[`47ad39646f`](https://github.com/twreporter/twreporter-react/commit/47ad39646f)] - **fix**: format (Lucien)
 - [[`874c003367`](https://github.com/twreporter/twreporter-react/commit/874c003367)] - **fix**: use categroiesAll order (Lucien)
