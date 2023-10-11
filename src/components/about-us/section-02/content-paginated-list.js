@@ -4,7 +4,6 @@ import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import categoriesAll from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
 import colors from '../../../constants/colors'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
@@ -21,6 +20,8 @@ const profileUrlPrefix = `${storageUrlPrefix}/member/`
 const _ = {
   values,
 }
+
+const categoryIds = categoriesAll.map(({ id }) => id)
 
 const Container = styled.div`
   position: relative;
@@ -202,32 +203,34 @@ export default class PaginatedMemberList extends PureComponent {
     const cursor =
       (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList ? selectedMemberList
-      .slice(cursor - numberPerPage, cursor)
-      .map(member => {
-        return (
-          <MemberBlock key={member['name.zh-tw']}>
-            <MemberBorder>
-              <span />
-              <img
-                src={`${replaceGCSUrlOrigin(
-                  `${profileUrlPrefix}${member.profile}`
-                )}`}
-              />
-              <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
-                <Profile>
-                  <p>{member['job.zh-tw']}</p>
-                  <p>{member['name.zh-tw']}</p>
-                </Profile>
+    const memberBlocks = selectedMemberList
+      ? selectedMemberList.slice(cursor - numberPerPage, cursor).map(member => {
+          return (
+            <MemberBlock key={member['name.zh-tw']}>
+              <MemberBorder>
+                <span />
                 <img
-                  onClick={() => this.props.sendEmail(member.email)}
-                  src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
+                  src={`${replaceGCSUrlOrigin(
+                    `${profileUrlPrefix}${member.profile}`
+                  )}`}
                 />
-              </ProfileWrapper>
-            </MemberBorder>
-          </MemberBlock>
-        )
-      }) : ''
+                <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
+                  <Profile>
+                    <p>{member['job.zh-tw']}</p>
+                    <p>{member['name.zh-tw']}</p>
+                  </Profile>
+                  <img
+                    onClick={() => this.props.sendEmail(member.email)}
+                    src={`${replaceGCSUrlOrigin(
+                      `${storageUrlPrefix}/mail.png`
+                    )}`}
+                  />
+                </ProfileWrapper>
+              </MemberBorder>
+            </MemberBlock>
+          )
+        })
+      : ''
     return (
       <Container>
         <DepartmentsNameList

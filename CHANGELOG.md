@@ -1,6 +1,29 @@
 # Changelog
 
-## 4.11.1, 2023-09-21 (Current)
+## 4.11.2, 2023-10-11 (Current)
+
+### Notable Changes
+
+- feat
+  - update about-us page
+  - change donation link anchor
+- chore
+  - update @twreporter packages
+- fix
+  - fix about-us page
+
+### Commits
+
+- [[`47ad39646f`](https://github.com/twreporter/twreporter-react/commit/47ad39646f)] - **fix**: format (Lucien)
+- [[`874c003367`](https://github.com/twreporter/twreporter-react/commit/874c003367)] - **fix**: use categroiesAll order (Lucien)
+- [[`2d81ea3bb6`](https://github.com/twreporter/twreporter-react/commit/2d81ea3bb6)] - **fix**: white space (Lucien)
+- [[`4a991973fc`](https://github.com/twreporter/twreporter-react/commit/4a991973fc)] - **fix**: add new award and sorting (Lucien)
+- [[`9bd947b9ca`](https://github.com/twreporter/twreporter-react/commit/9bd947b9ca)] - Merge remote-tracking branch 'upstream/master' into feature/new-about-us (Lucien)
+- [[`afc8f87af8`](https://github.com/twreporter/twreporter-react/commit/afc8f87af8)] - **feat**: update about-us page
+- [[`098e2540f7`](https://github.com/twreporter/twreporter-react/commit/098e2540f7)] - **chore**: update twreporter packages (Lucien)
+- [[`69eee10864`](https://github.com/twreporter/twreporter-react/commit/69eee10864)] - **feat**: change donation anchor (Lucien)
+
+## 4.11.1, 2023-09-21
 
 ### Notable Changes
 

@@ -1,5 +1,6 @@
 const categoryIds = {
   foundation: 'foundation',
+  leaderTeam: 'leaderTeam',
   editor: 'editor',
   socialMedia: 'socialMedia',
   photojournalist: 'photojournalist',
@@ -7,7 +8,7 @@ const categoryIds = {
   engineer: 'engineer',
   designer: 'designer',
   podcast: 'podcast',
-  contentDevelopment: 'contentDevelopment',
+  theReporterForKids: 'theReporterForKids',
   dataJournalist: 'dataJournalist',
 }
 

@@ -8,6 +8,12 @@ export const headcountPerPage = {
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
+  [categoryIds.leaderTeam]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
   [categoryIds.editor]: {
     [screen.hd]: 3,
     [screen.desktop]: 3,
@@ -50,15 +56,15 @@ export const headcountPerPage = {
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
-  [categoryIds.contentDevelopment]: {
+  [categoryIds.theReporterForKids]: {
     [screen.hd]: 3,
     [screen.desktop]: 3,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
   [categoryIds.dataJournalist]: {
-    [screen.hd]: 1,
-    [screen.desktop]: 1,
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },

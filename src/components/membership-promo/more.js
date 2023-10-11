@@ -6,6 +6,7 @@ import { PromoContext } from '../../contexts'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import Link from '@twreporter/react-components/lib/customized-link'
 import { PillButton } from '@twreporter/react-components/lib/button'
+import { DONATION_LINK_ANCHOR } from '@twreporter/core/lib/constants/donation-link-anchor'
 
 const StretchPillButton = styled(PillButton)`
   width: auto;
@@ -17,7 +18,7 @@ const MoreButton = ({ ...props }) => {
 
   return (
     <Link
-      to={`${requestOrigins.forClientSideRendering[releaseBranch].support}#plan`}
+      to={`${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`}
       isExternal={true}
       target="_blank"
       onClick={closePromo}
