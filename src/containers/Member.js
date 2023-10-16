@@ -167,7 +167,7 @@ const MemberPage = ({
           <Route exact path={routes.memberPage.path}>
             <RoleCardContainer>
               <MemberRoleCard
-                roleKey={memberData.role?.key || MEMBER_ROLE.explorer}
+                roleKey={memberData.role.key}
                 releaseBranch={releaseBranch}
               />
             </RoleCardContainer>
@@ -178,7 +178,7 @@ const MemberPage = ({
         <Route exact path={routes.memberPage.path}>
           <PageContainer>
             <MobileMemberPage
-              roleKey={memberData.role?.key || MEMBER_ROLE.explorer}
+              roleKey={memberData.role.key}
               releaseBranch={releaseBranch}
               email={memberData.email}
               joinDate={memberData.joinDate}
@@ -213,6 +213,7 @@ MemberPage.propTypes = {
       key: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       name_en: PropTypes.string,
+      weight: PropTypes.number,
     }),
     joinDate: PropTypes.string,
   }),
@@ -238,7 +239,10 @@ const mapStateToProps = state => {
     memberData: {
       email,
       name: `${lastName}${firstName}`,
-      role: roles[0],
+      role: {
+        ...roles[0],
+        key: roles[0]?.key ? MEMBER_ROLE[roles[0].key] : MEMBER_ROLE.explorer,
+      },
       joinDate: date2yyyymmdd(registrationDate, '/'),
     },
   }
