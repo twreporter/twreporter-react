@@ -17,3 +17,15 @@ export const PromoContext = createContext({
     releaseBranch: BRANCH.master,
   },
 })
+
+export const ArticlePromoContext = createContext({
+  propTypes: {
+    isShowPromo: PropTypes.bool,
+    closePromo: PropTypes.func,
+    openPromo: PropTypes.func,
+    releaseBranch: BRANCH_PROP_TYPES,
+  },
+  defaultProps: {
+    releaseBranch: BRANCH.master,
+  },
+})
