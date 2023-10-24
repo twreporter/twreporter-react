@@ -15,6 +15,7 @@ import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
+import ArticleBanner from '../components/membership-promo/article-banner'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import ArticleComponent from '@twreporter/react-article-components'
@@ -47,7 +48,11 @@ class Article extends PureComponent {
     super(props)
 
     this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
+    this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
     this._articleBody = React.createRef()
+    this.state = {
+      isExpanded: false,
+    }
   }
 
   componentDidMount() {
@@ -135,6 +140,12 @@ class Article extends PureComponent {
     })
   }
 
+  _onToggleTabExpanded(isExpanded) {
+    this.setState({
+      isExpanded,
+    })
+  }
+
   render() {
     const {
       errorOfPost,
@@ -146,7 +157,9 @@ class Article extends PureComponent {
       relateds,
       hasMoreRelateds,
       releaseBranch,
+      isAuthed,
     } = this.props
+    const { isExpanded } = this.state
 
     if (errorOfPost) {
       return (
@@ -244,11 +257,13 @@ class Article extends PureComponent {
               onFontLevelChange={this.handleFontLevelChange}
               LinkComponent={Link}
               releaseBranch={releaseBranch}
+              onToggleTabExpanded={this.onToggleTabExpanded}
               // TODO: pass isFetchingRelateds to show loadin spinner
               // TODO: pass errorOfRelateds to show error message to end users
             />
           </div>
         </div>
+        <ArticleBanner isExpanded={isExpanded} isAuthed={isAuthed} />
       </div>
     )
   }
@@ -269,6 +284,7 @@ Article.propTypes = {
   hasMoreRelateds: PropTypes.bool,
   slugToFetch: PropTypes.string,
   releaseBranch: predefinedPropTypes.releaseBranch,
+  isAuthed: PropTypes.bool,
 }
 
 Article.defaultProps = {
@@ -281,6 +297,7 @@ Article.defaultProps = {
   hasMoreRelateds: false,
   slugToFetch: emptySlug,
   releaseBranch: releaseBranchConsts.master,
+  isAuthed: false,
 }
 
 const {
@@ -397,6 +414,7 @@ export function mapStateToProps(state, props) {
     // set slugToFetch to empty string to
     // avoid from re-fetching the post already in redux state
     slugToFetch: emptySlug,
+    isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
   }
 }
 
