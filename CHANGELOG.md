@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.11.3-rc.2, 2023-10-24
+
+### Notable Changes
+
+- feat
+  - new user role
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`50afad7995`](https://github.com/twreporter/twreporter-react/commit/50afad7995)] - **chore**: update twreporter packages (Lucien)
+- [[`12e387cae1`](https://github.com/twreporter/twreporter-react/commit/12e387cae1)] - Merge remote-tracking branch 'upstream/master' into feature/new-user-role (Lucien)
+- [[`4587783b2c`](https://github.com/twreporter/twreporter-react/commit/4587783b2c)] - **fix**: fix comment (Lucien)
+- [[`5e698493dc`](https://github.com/twreporter/twreporter-react/commit/5e698493dc)] - **feat**: new user role (Lucien)
+
 ## 4.11.3-rc.1, 2023-10-24
 
 ### Notable Changes
