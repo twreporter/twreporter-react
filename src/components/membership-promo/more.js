@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 // contexts
-import { PromoContext } from '../../contexts'
+import { PromoContext, ArticlePromoContext } from '../../contexts'
 // @twreporter
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import Link from '@twreporter/react-components/lib/customized-link'
@@ -14,7 +15,8 @@ const StretchPillButton = styled(PillButton)`
   justify-content: center;
 `
 const MoreButton = ({ ...props }) => {
-  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const context = props.isArticlePage ? ArticlePromoContext : PromoContext
+  const { closePromo, releaseBranch } = useContext(context)
 
   return (
     <Link
@@ -33,6 +35,14 @@ const MoreButton = ({ ...props }) => {
       />
     </Link>
   )
+}
+
+MoreButton.propTypes = {
+  isArticlePage: PropTypes.bool,
+}
+
+MoreButton.defaultProps = {
+  isArticlePage: false,
 }
 
 export default MoreButton

@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.11.2",
+  "version": "4.11.3-rc.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -33,7 +33,7 @@
     "@material-symbols/font-400": "^0.5.5",
     "@twreporter/core": "^1.12.0",
     "@twreporter/index-page": "^1.5.1",
-    "@twreporter/react-article-components": "^1.8.0",
+    "@twreporter/react-article-components": "^1.9.0-rc.0",
     "@twreporter/react-components": "^8.20.0",
     "@twreporter/redux": "^7.7.1",
     "@twreporter/universal-header": "^2.7.2",
