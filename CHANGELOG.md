@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.11.3-rc.3, 2023-10-24
+
+### Notable Changes
+
+- fix
+  - update access token name & use wildcard domain
+
+### Commits
+
+- [[`f041c64751`](https://github.com/twreporter/twreporter-react/commit/f041c64751)] - **fix**: update access token name & use wildcard domain (Aylie Chou)
+
 ## 4.11.3-rc.2, 2023-10-24
 
 ### Notable Changes
