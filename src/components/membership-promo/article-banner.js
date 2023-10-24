@@ -93,7 +93,7 @@ const DesktopBanner = () => {
         <TextBox>
           <Title text="有你才有報導者" />
           <Description text="這篇文章的完成有賴讀者的贊助支持，我們以非營利模式運作，" />
-          <Description text="邀請你加入3種支持方案，讓報導者能夠走更長遠的路。" />
+          <Description text="邀請你加入 3 種支持方案，讓報導者能夠走更長遠的路。" />
         </TextBox>
         <DesktopMore isArticlePage={true} />
       </FlexRow>
@@ -146,7 +146,7 @@ const MobileBanner = () => {
         />
       </FlexGroup>
       <DescriptionBox>
-        <Description text="這篇文章有賴讀者的贊助完成，我們以非營利模式運作，邀請你加入3種支持方案，讓我們能走更長遠的路。" />
+        <Description text="這篇文章有賴讀者的贊助完成，我們以非營利模式運作，邀請你加入 3 種支持方案，讓我們能走更長遠的路。" />
       </DescriptionBox>
       <MobileMore isArticlePage={true} />
     </MobileBox>
