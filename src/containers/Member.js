@@ -213,7 +213,6 @@ MemberPage.propTypes = {
       key: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       name_en: PropTypes.string,
-      weight: PropTypes.number,
     }),
     joinDate: PropTypes.string,
   }),
