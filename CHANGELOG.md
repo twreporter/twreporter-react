@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.11.3-rc.1, 2023-10-24
+
+### Notable Changes
+
+- feat
+  - article bottom banner
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7aee2eb149`](https://github.com/twreporter/twreporter-react/commit/7aee2eb149)] - **chore**: update twreporter packages (Lucien)
+- [[`9a78971ccd`](https://github.com/twreporter/twreporter-react/commit/9a78971ccd)] - Merge remote-tracking branch 'upstream/master' into feature/article-bottom-banner (Lucien)
+- [[`14149be29a`](https://github.com/twreporter/twreporter-react/commit/14149be29a)] - **fix**: fix comment (Lucien)
+- [[`d2ac234bbf`](https://github.com/twreporter/twreporter-react/commit/d2ac234bbf)] - **feat**: article bottom banner (Lucien)
+
 ## 4.11.3-rc.0, 2023-10-24
 
 ### Notable Changes
