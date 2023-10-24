@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.11.3-rc.0, 2023-10-24
+
+### Notable Changes
+
+- feat
+  - change about-us page line height
+
+### Commits
+
+- [[`132de1a533`](https://github.com/twreporter/twreporter-react/commit/132de1a533)] - **feat**: section03 line height (Lucien)
+
 ## 4.11.2, 2023-10-11 (Current)
 
 ### Notable Changes
