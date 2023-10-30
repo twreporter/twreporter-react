@@ -1,60 +1,32 @@
 # Changelog
 
-## 4.11.3-rc.3, 2023-10-24
+## 4.11.3, 2023-10-30 (Current)
 
 ### Notable Changes
 
+- feat
+  - change about-us page line height
+  - article bottom banner
+  - new user role
+- chore
+  - update @twreporter packages
 - fix
   - update access token name & use wildcard domain
 
 ### Commits
 
 - [[`f041c64751`](https://github.com/twreporter/twreporter-react/commit/f041c64751)] - **fix**: update access token name & use wildcard domain (Aylie Chou)
-
-## 4.11.3-rc.2, 2023-10-24
-
-### Notable Changes
-
-- feat
-  - new user role
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`50afad7995`](https://github.com/twreporter/twreporter-react/commit/50afad7995)] - **chore**: update twreporter packages (Lucien)
 - [[`12e387cae1`](https://github.com/twreporter/twreporter-react/commit/12e387cae1)] - Merge remote-tracking branch 'upstream/master' into feature/new-user-role (Lucien)
 - [[`4587783b2c`](https://github.com/twreporter/twreporter-react/commit/4587783b2c)] - **fix**: fix comment (Lucien)
 - [[`5e698493dc`](https://github.com/twreporter/twreporter-react/commit/5e698493dc)] - **feat**: new user role (Lucien)
-
-## 4.11.3-rc.1, 2023-10-24
-
-### Notable Changes
-
-- feat
-  - article bottom banner
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`7aee2eb149`](https://github.com/twreporter/twreporter-react/commit/7aee2eb149)] - **chore**: update twreporter packages (Lucien)
 - [[`9a78971ccd`](https://github.com/twreporter/twreporter-react/commit/9a78971ccd)] - Merge remote-tracking branch 'upstream/master' into feature/article-bottom-banner (Lucien)
 - [[`14149be29a`](https://github.com/twreporter/twreporter-react/commit/14149be29a)] - **fix**: fix comment (Lucien)
 - [[`d2ac234bbf`](https://github.com/twreporter/twreporter-react/commit/d2ac234bbf)] - **feat**: article bottom banner (Lucien)
-
-## 4.11.3-rc.0, 2023-10-24
-
-### Notable Changes
-
-- feat
-  - change about-us page line height
-
-### Commits
-
 - [[`132de1a533`](https://github.com/twreporter/twreporter-react/commit/132de1a533)] - **feat**: section03 line height (Lucien)
 
-## 4.11.2, 2023-10-11 (Current)
+## 4.11.2, 2023-10-11
 
 ### Notable Changes
 
