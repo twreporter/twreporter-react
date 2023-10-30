@@ -24,7 +24,33 @@
 - [[`2c728991a7`](https://github.com/twreporter/twreporter-react/commit/2c728991a7)] - **feat**: use matchPath (Lucien)
 - [[`0eed92bede`](https://github.com/twreporter/twreporter-react/commit/0eed92bede)] - **feat**: login page for member page (Lucien)
 
-## 4.11.2, 2023-10-11 (Current)
+## 4.11.3, 2023-10-30 (Current)
+
+### Notable Changes
+
+- feat
+  - change about-us page line height
+  - article bottom banner
+  - new user role
+- chore
+  - update @twreporter packages
+- fix
+  - update access token name & use wildcard domain
+
+### Commits
+
+- [[`f041c64751`](https://github.com/twreporter/twreporter-react/commit/f041c64751)] - **fix**: update access token name & use wildcard domain (Aylie Chou)
+- [[`50afad7995`](https://github.com/twreporter/twreporter-react/commit/50afad7995)] - **chore**: update twreporter packages (Lucien)
+- [[`12e387cae1`](https://github.com/twreporter/twreporter-react/commit/12e387cae1)] - Merge remote-tracking branch 'upstream/master' into feature/new-user-role (Lucien)
+- [[`4587783b2c`](https://github.com/twreporter/twreporter-react/commit/4587783b2c)] - **fix**: fix comment (Lucien)
+- [[`5e698493dc`](https://github.com/twreporter/twreporter-react/commit/5e698493dc)] - **feat**: new user role (Lucien)
+- [[`7aee2eb149`](https://github.com/twreporter/twreporter-react/commit/7aee2eb149)] - **chore**: update twreporter packages (Lucien)
+- [[`9a78971ccd`](https://github.com/twreporter/twreporter-react/commit/9a78971ccd)] - Merge remote-tracking branch 'upstream/master' into feature/article-bottom-banner (Lucien)
+- [[`14149be29a`](https://github.com/twreporter/twreporter-react/commit/14149be29a)] - **fix**: fix comment (Lucien)
+- [[`d2ac234bbf`](https://github.com/twreporter/twreporter-react/commit/d2ac234bbf)] - **feat**: article bottom banner (Lucien)
+- [[`132de1a533`](https://github.com/twreporter/twreporter-react/commit/132de1a533)] - **feat**: section03 line height (Lucien)
+
+## 4.11.2, 2023-10-11
 
 ### Notable Changes
 
@@ -143,7 +169,7 @@
 - [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
 - [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
 
-## 4.10.8, 2023-07-28
+## 4.10.8, 2023-078
 
 ## Notable Changes
 
