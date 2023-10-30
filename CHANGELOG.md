@@ -145,7 +145,7 @@
 - [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
 - [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
 
-## 4.10.8, 2023-078
+## 4.10.8, 2023-07-28
 
 ## Notable Changes
 
