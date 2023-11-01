@@ -1,6 +1,22 @@
 # Changelog
 
-## 4.11.3, 2023-10-30 (Current)
+## 4.12.0, 2023-11-01 (Current)
+
+### Notable Changes
+
+- feat
+  - login page for account page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c0dc04a5f2`](https://github.com/twreporter/twreporter-react/commit/c0dc04a5f2)] - **chore**: update reporter packages (Lucien)
+- [[`6d8c281ea4`](https://github.com/twreporter/twreporter-react/commit/6d8c281ea4)] - **feat**: condition (Lucien)
+- [[`2c728991a7`](https://github.com/twreporter/twreporter-react/commit/2c728991a7)] - **feat**: use matchPath (Lucien)
+- [[`0eed92bede`](https://github.com/twreporter/twreporter-react/commit/0eed92bede)] - **feat**: login page for member page (Lucien)
+
+## 4.11.3, 2023-10-30
 
 ### Notable Changes
 
@@ -145,7 +161,7 @@
 - [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
 - [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
 
-## 4.10.8, 2023-078
+## 4.10.8, 2023-07-28
 
 ## Notable Changes
 
