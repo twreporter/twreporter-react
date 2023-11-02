@@ -158,6 +158,7 @@ class Article extends PureComponent {
       hasMoreRelateds,
       releaseBranch,
       isAuthed,
+      userRole,
     } = this.props
     const { isExpanded } = this.state
 
@@ -263,7 +264,11 @@ class Article extends PureComponent {
             />
           </div>
         </div>
-        <ArticleBanner isExpanded={isExpanded} isAuthed={isAuthed} />
+        <ArticleBanner
+          isExpanded={isExpanded}
+          isAuthed={isAuthed}
+          userRole={userRole}
+        />
       </div>
     )
   }
@@ -285,6 +290,7 @@ Article.propTypes = {
   slugToFetch: PropTypes.string,
   releaseBranch: predefinedPropTypes.releaseBranch,
   isAuthed: PropTypes.bool,
+  userRole: PropTypes.array,
 }
 
 Article.defaultProps = {
@@ -415,6 +421,7 @@ export function mapStateToProps(state, props) {
     // avoid from re-fetching the post already in redux state
     slugToFetch: emptySlug,
     isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
+    userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'role'], []),
   }
 }
 
