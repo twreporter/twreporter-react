@@ -290,7 +290,7 @@ Article.propTypes = {
   slugToFetch: PropTypes.string,
   releaseBranch: predefinedPropTypes.releaseBranch,
   isAuthed: PropTypes.bool,
-  userRole: PropTypes.array,
+  userRole: PropTypes.array.isRequired,
 }
 
 Article.defaultProps = {
