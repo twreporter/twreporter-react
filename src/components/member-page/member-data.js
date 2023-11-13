@@ -65,7 +65,7 @@ const MemberData = ({
         <ReadingStatisticsContainer>
           <ReadingStatistics>
             <P1 text={'閱讀篇數'} />
-            <H1 text={articleReadCount.toLocaleString('en=US')} />
+            <H1 text={articleReadCount.toLocaleString('en-US')} />
             <P1 text={'篇'} />
           </ReadingStatistics>
           <ReadingStatistics>
