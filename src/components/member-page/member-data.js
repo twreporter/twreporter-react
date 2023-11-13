@@ -65,7 +65,7 @@ const MemberData = ({
         <ReadingStatisticsContainer>
           <ReadingStatistics>
             <P1 text={'閱讀篇數'} />
-            <H1 text={articleReadCount.toLocaleString()} />
+            <H1 text={articleReadCount.toLocaleString('en=US')} />
             <P1 text={'篇'} />
           </ReadingStatistics>
           <ReadingStatistics>
@@ -74,7 +74,7 @@ const MemberData = ({
               text={
                 articleReadingTime > 99999
                   ? '99,999+'
-                  : articleReadingTime.toLocaleString()
+                  : articleReadingTime.toLocaleString('en-US')
               }
             />
             <P1 text={READING_TIME_UNIT_TEXT[articleReadingTimeUnit]} />
