@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.1-rc.0, 2023-11-13
+
+### Notable Changes
+
+- feat
+  - show article bottom banner by role
+
+### Commits
+
+- [[`a162974fba`](https://github.com/twreporter/twreporter-react/commit/a162974fba)] - **fix**: add isRequired to userRole (Lucien)
+- [[`ec2153c46a`](https://github.com/twreporter/twreporter-react/commit/ec2153c46a)] - **feat**: show article bottom banner by role (Lucien)
+- [[`4b3110ab09`](https://github.com/twreporter/twreporter-react/commit/4b3110ab09)] - Merge branch 'twreporter:master' into master (Lucien)
+- [[`7831655713`](https://github.com/twreporter/twreporter-react/commit/7831655713)] - **fix**: changelog (Lucien)
+
 ## 4.12.0, 2023-11-01 (Current)
 
 ### Notable Changes
