@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-rc.2, 2023-11-14
+
+### Notable Changes
+
+- feat
+  - add article card skeleton & use load more in latest page
+
+### Commits
+
+- [[`48c0e391e4`](https://github.com/twreporter/twreporter-react/commit/48c0e391e4)] - **feat**: add article card skeleton & use load more in latest (Aylie Chou)
+
 ## 4.12.1-rc.1, 2023-11-14
 
 ### Notable Changes
