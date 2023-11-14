@@ -1,12 +1,12 @@
-import { connect } from 'react-redux'
+import { ReactReduxContext, connect } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
-import querystring from 'querystring'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 // components
 import SystemError from '../components/SystemError'
-import Pagination from '../components/Pagination'
+import Skeleton from '../components/skeleton'
 // utils
 import loggerFactory from '../logger'
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
@@ -16,12 +16,15 @@ import siteMeta from '../constants/site-meta'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
+import Divider from '@twreporter/react-components/lib/divider'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
+import { PillButton } from '@twreporter/react-components/lib/button'
 import {
   BRANCH,
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -77,23 +80,59 @@ const CardListContainer = styled.div`
     width: 86.66666666666667%;
   `}
 `
+const LoadMoreBox = styled.div`
+  width: 100%;
+  ${mq.mobileOnly`
+    width: 86.66666666666667%;
+  `}
+`
+const LoadMoreButton = styled(PillButton)`
+  width: 100%;
+  max-width: 480px;
+  margin: 64px auto;
+  display: flex;
+  justify-content: center;
+  ${mq.tabletAndBelow`
+    margin: 48px auto;
+  `}
+
+  ${props => (props.show ? '' : 'display: none;')}
+`
+const SkeletonBox = styled.div`
+  ${props => (props.show ? '' : 'display: none;')}
+`
+const ListSkeleton = styled(Skeleton)`
+  padding: 24px 0;
+`
+const Gray300Divider = styled(Divider)`
+  color: ${colorGrayscale.gray300};
+`
 
 const Latest = ({
+  // redux state
   latestTagList,
   activeTabIndex,
   tagId,
-  pathname,
-  posts,
-  error,
   isFetching,
+  nPerPage,
+  totalPages,
+  // redux actions
   fetchPostsByTagListId,
   fetchLatestPosts,
   fetchLatestTags,
-  nPerPage,
-  totalPages,
-  page,
+  // props
   releaseBranch = BRANCH.master,
 }) => {
+  const listId = tagId || LATEST_LIST_ID
+  const location = useLocation()
+  const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
+
+  const state = useContext(ReactReduxContext).store.getState()
+  const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
+  const [page, setPage] = useState(1)
+  const [posts, setPosts] = useState(postsProp(state, listId, 1, page))
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     fetchLatestTags().catch(failAction => {
       logger.errorReport({
@@ -103,17 +142,21 @@ const Latest = ({
     })
   }, [])
   useEffect(() => {
-    const catchFunc = failAction => {
-      logger.errorReport({
-        report: _.get(failAction, 'payload.error'),
-        message: `Error to fetch posts (tag id: '${tagId}', page: ${page}, nPerPage: ${nPerPage}).`,
-      })
+    const getPosts = async () => {
+      try {
+        if (tagId) {
+          await fetchPostsByTagListId(tagId, nPerPage, page)
+        } else {
+          await fetchLatestPosts(nPerPage, page)
+        }
+      } catch (failAction) {
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (tag id: '${tagId}', page: ${page}, nPerPage: ${nPerPage}).`,
+        })
+      }
     }
-    if (tagId) {
-      fetchPostsByTagListId(tagId, nPerPage, page).catch(catchFunc)
-    } else {
-      fetchLatestPosts(nPerPage, page).catch(catchFunc)
-    }
+    getPosts()
   }, [
     tagId,
     activeTabIndex,
@@ -122,6 +165,20 @@ const Latest = ({
     fetchPostsByTagListId,
     fetchLatestPosts,
   ])
+  useEffect(() => {
+    // set loading true at init state
+    // set loading false when post ready
+    setIsLoading(isFetching || isFetching === undefined)
+  }, [isFetching])
+  useEffect(() => {
+    setPage(1)
+  }, [listId])
+  useEffect(() => {
+    if (isFetching || isFetching === undefined) {
+      return
+    }
+    setPosts(postsProp(state, listId, 1, page))
+  }, [isFetching, listId])
 
   // Error handling
   if (error) {
@@ -139,6 +196,12 @@ const Latest = ({
       isExternal,
     }
   })
+  const loadMore = () => {
+    if (isFetching || isLoading) {
+      return
+    }
+    setPage(page + 1)
+  }
 
   return (
     <div>
@@ -170,12 +233,29 @@ const Latest = ({
         <CardListContainer>
           <CardList
             data={posts}
-            isFetching={isFetching}
             showSpinner={true}
             releaseBranch={releaseBranch}
           />
         </CardListContainer>
-        <Pagination currentPage={page} totalPages={totalPages} />
+        <LoadMoreBox>
+          <SkeletonBox show={isLoading}>
+            <ListSkeleton />
+            <Gray300Divider />
+            <ListSkeleton />
+            <Gray300Divider />
+            <ListSkeleton />
+            <Gray300Divider />
+          </SkeletonBox>
+          <LoadMoreButton
+            loading={isLoading}
+            onClick={loadMore}
+            style={PillButton.Style.DARK}
+            type={PillButton.Type.PRIMARY}
+            size={PillButton.Size.L}
+            text="載入更多"
+            show={totalPages > page}
+          />
+        </LoadMoreBox>
       </Container>
     </div>
   )
@@ -188,25 +268,6 @@ const Latest = ({
 /**
  *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
  */
-
-/**
- *  @param {Object} [location={}] - react-router location object
- *  @return {number} current page
- */
-function pageProp(location = {}) {
-  const defaultPage = 1
-  const search = _.get(location, 'search', '')
-  const searchWithoutPrefix =
-    typeof search === 'string' ? search.replace(/^\?/, '') : search
-  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
-  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
-
-  if (isNaN(page) || page < defaultPage) {
-    page = defaultPage
-  }
-
-  return page
-}
 
 /**
  *  @param {ReduxState} state
@@ -230,27 +291,21 @@ function isFetchingProp(state, listId) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - tag id
- *  @return {Object} error object
- */
-function errorProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'error'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag id
  *  @param {number} page - current page
  *  @return {MetaOfPost[]}
  */
-function postsProp(state, listId, page) {
+function postsProp(state, listId, fromPage = 1, toPage = 1) {
   const { entities, postsInEntities, lists } = reduxStateFields
   const postEntities = _.get(state, [entities, postsInEntities, 'byId'])
   const listObj = _.get(state, [lists, listId])
-  const itemsRange = _.get(listObj, ['pages', page])
+  const itemsRangeFrom = _.get(listObj, ['pages', fromPage])
+  const itemsRangeTo = _.get(listObj, ['pages', toPage])
   const postIds = _.get(listObj, 'items', [])
   const postIdsForCurPage =
-    Array.isArray(itemsRange) && Array.isArray(postIds)
-      ? postIds.slice(itemsRange[0], itemsRange[1] + 1)
+    Array.isArray(itemsRangeFrom) &&
+    Array.isArray(itemsRangeTo) &&
+    Array.isArray(postIds)
+      ? postIds.slice(itemsRangeFrom[0], itemsRangeTo[1] + 1)
       : []
   const posts = []
   _.forEach(postIdsForCurPage, postId => {
@@ -289,35 +344,12 @@ function titleTabProp(state, listId) {
 }
 
 /**
- *  @typedef {Object} LatestProps
- *  @property {string} tagId - tag id
- *  @property {Object} latestTagList - latest tag list
- *  @property {number} activeTabIndex - index of active tag
- *  @property {Object} error - error object
- *  @property {boolean} isFetching - if it is requesting api or not
- *  @property {number} page - current page for pagination
- *  @property {number} nPerPage - number per page
- *  @property {string} pathname - URL path
- *  @property {MetaOfPost[]} posts - array of posts
- *  @property {number} totalPages - total page for pagination
- */
-
-/**
  *  @param {ReduxState} state
  *  @param {Object} props
- *  @param {Object} props.location - react-router location object
- *  @param {string} props.location.pathname
- *  @param {Object} props.match - react-router match object
- *  @param {Object} props.match.params
- *  @param {string} props.match.params.category
- *  @return {CategoryProps}
  */
 function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
   const tagId = _.get(props, 'match.params.tagId')
-  const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
   const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
-  const page = pageProp(location)
   const nPerPage = dataLoaderConst.latestPage.nPerPage
   const listId = tagId || LATEST_LIST_ID
 
@@ -325,43 +357,36 @@ function mapStateToProps(state, props) {
     latestTagList,
     activeTabIndex,
     tagId,
-    error: errorProp(state, listId),
     isFetching: isFetchingProp(state, listId),
     nPerPage,
-    page,
-    pathname,
-    posts: postsProp(state, listId, page),
     totalPages: totalPagesProp(state, listId, nPerPage),
   }
 }
 
 Latest.defaultProps = {
+  // redux state
   latestTagList: [],
   activeTabIndex: 0,
-  error: null,
   isFetching: false,
-  posts: [],
-  totalPages: 0,
   nPerPage: dataLoaderConst.latestPage.nPerPage,
+  totalPages: 0,
+  // props
+  releaseBranch: BRANCH.master,
 }
 
 Latest.propTypes = {
+  // redux state
   latestTagList: PropTypes.array,
   activeTabIndex: PropTypes.number,
   tagId: PropTypes.string,
-  error: PropTypes.object,
-  fetchPostsByTagListId: PropTypes.func,
-  fetchLatestPosts: PropTypes.func,
-  fetchLatestTags: PropTypes.func,
   isFetching: PropTypes.bool,
   nPerPage: PropTypes.number,
-  page: PropTypes.number,
-  pathname: PropTypes.string,
-
-  // TODO: define metaOfPost
-  // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
-  posts: PropTypes.array,
   totalPages: PropTypes.number,
+  // redux action
+  fetchPostsByTagListId: PropTypes.func.isRequired,
+  fetchLatestPosts: PropTypes.func.isRequired,
+  fetchLatestTags: PropTypes.func.isRequired,
+  // props
   releaseBranch: BRANCH_PROP_TYPES,
 }
 
