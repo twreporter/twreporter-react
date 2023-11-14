@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.1-rc.1, 2023-11-14
+
+### Notable Changes
+
+- feat
+  - add kids newsletter subscription link in member page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`688d8f7f68`](https://github.com/twreporter/twreporter-react/commit/688d8f7f68)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`6820a04818`](https://github.com/twreporter/twreporter-react/commit/6820a04818)] - **feat**: add kids newsletter subscription link in member page (Aylie Chou)
+
 ## 4.12.1-rc.0, 2023-11-13
 
 ### Notable Changes
