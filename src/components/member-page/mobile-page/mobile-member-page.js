@@ -8,6 +8,7 @@ import {
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
 import MobileMemberRoleCard from '@twreporter/react-components/lib/mobile-member-role-card'
+import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
 
 import MobileMemberMenuList from './mobile-menu-list'
 
@@ -23,6 +24,10 @@ const MobileMemberPage = ({
   email,
   joinDate,
   name = '',
+  hideInfo = false,
+  articleReadCount = 0,
+  articleReadingTime = 0,
+  articleReadingTimeUnit = READING_TIME_UNIT.minute,
 }) => {
   return (
     <div>
@@ -33,6 +38,10 @@ const MobileMemberPage = ({
           email={email}
           joinDate={joinDate}
           name={name}
+          hideInfo={hideInfo}
+          articleReadCount={articleReadCount}
+          articleReadingTime={articleReadingTime}
+          articleReadingTimeUnit={articleReadingTimeUnit}
         />
       </RoleCardContainer>
       <MobileMemberMenuList releaseBranch={releaseBranch} />
@@ -46,6 +55,10 @@ MobileMemberPage.propTypes = {
   email: PropTypes.string,
   joinDate: PropTypes.string,
   name: PropTypes.string,
+  articleReadCount: PropTypes.number,
+  articleReadingTimeUnit: PropTypes.oneOf(Object.values(READING_TIME_UNIT)),
+  articleReadingTime: PropTypes.number,
+  hideInfo: PropTypes.bool,
 }
 
 export default MobileMemberPage

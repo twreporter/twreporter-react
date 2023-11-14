@@ -35,6 +35,7 @@ import siteMeta from '../constants/site-meta'
 
 // lodash
 import get from 'lodash/get'
+import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
 
 const _ = {
   get,
@@ -101,7 +102,7 @@ const MemberPage = ({
   jwt,
   isAuthed,
 }) => {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
 
   // check authorization
   // redirect to singin page if user has not been authorized
@@ -148,6 +149,38 @@ const MemberPage = ({
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
 
+  const getReadingTimeAndUnit = readingSec => {
+    const minutes = Math.floor(readingSec / 60)
+    if (minutes < 10000) {
+      return {
+        articleReadingTime: minutes,
+        articleReadingTimeUnit: READING_TIME_UNIT.minute,
+      }
+    } else if (minutes < 1000 * 60) {
+      const hours = Math.floor(minutes / 60)
+      return {
+        articleReadingTime: hours,
+        articleReadingTimeUnit: READING_TIME_UNIT.hour,
+      }
+    } else {
+      const days = Math.floor(minutes / (60 * 24))
+      return {
+        articleReadingTime: days,
+        articleReadingTimeUnit: READING_TIME_UNIT.day,
+      }
+    }
+  }
+
+  // TODO: remove after get data from api
+  // ?hideInfo=true&articleReadCount=1000&readingSec=123
+  const param = new URLSearchParams(search)
+  const hideInfo = param.get('hideInfo') === 'true'
+  const articleReadCount = Number(param.get('articleReadCount'))
+  const readingSec = Number(param.get('readingSec'))
+  const { articleReadingTime, articleReadingTimeUnit } = getReadingTimeAndUnit(
+    readingSec
+  )
+
   return (
     <div>
       <Helmet
@@ -180,6 +213,10 @@ const MemberPage = ({
                   email={memberData.email}
                   joinDate={memberData.joinDate}
                   name={memberData.name || ''}
+                  hideInfo={hideInfo}
+                  articleReadCount={articleReadCount}
+                  articleReadingTime={articleReadingTime}
+                  articleReadingTimeUnit={articleReadingTimeUnit}
                 />
               </Route>
               <Route path={routes.memberPage.memberDonationPage.path}>
@@ -209,6 +246,10 @@ const MemberPage = ({
               email={memberData.email}
               joinDate={memberData.joinDate}
               name={memberData.name || ''}
+              hideInfo={hideInfo}
+              articleReadCount={articleReadCount}
+              articleReadingTime={articleReadingTime}
+              articleReadingTimeUnit={articleReadingTimeUnit}
             />
           </PageContainer>
         </Route>

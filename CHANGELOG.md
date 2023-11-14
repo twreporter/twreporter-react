@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.1-beta.0, 2023-11-14
+
+### Notable Changes
+
+- feat
+  - reading statistics for member page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`20664e6a93`](https://github.com/twreporter/twreporter-react/commit/20664e6a93)] - **chore**: update twreporter packages (Lucien)
+
+* [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
+* [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
+* [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
+
 ## 4.12.0, 2023-11-01 (Current)
 
 ### Notable Changes
