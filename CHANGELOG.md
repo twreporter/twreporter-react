@@ -1,5 +1,30 @@
 # Changelog
 
+## 4.12.1-rc.4, 2023-11-15
+
+### Notable Changes
+
+- fix
+  - article page banner roles
+
+### Commits
+
+- [[`0fb54394af`](https://github.com/twreporter/twreporter-react/commit/0fb54394af)] - **fix**: typo role =\> roles (Lucien)
+
+## 4.12.1-rc.3, 2023-11-15
+
+### Notable Changes
+
+- fix
+  - kids link type should be `undeline`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`a50fa4e06d`](https://github.com/twreporter/twreporter-react/commit/a50fa4e06d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d347270e7a`](https://github.com/twreporter/twreporter-react/commit/d347270e7a)] - **fix**: kids link type should be `underline` (Aylie Chou)
+
 ## 4.12.1-rc.2, 2023-11-14
 
 ### Notable Changes

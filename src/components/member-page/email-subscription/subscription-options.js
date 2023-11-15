@@ -134,7 +134,12 @@ const options = [
         兒少新聞平台
         <InheritLinkButton
           text="《少年報導者》"
-          link={{ isExternal: true, to: 'https://kids.twreporter.org' }}
+          link={{
+            isExternal: true,
+            to: 'https://kids.twreporter.org',
+            target: '_blank',
+          }}
+          type={InheritLinkButton.Type.UNDERLINE}
         />
         的最新專題和活動消息，就讓可愛的報導仔來告訴你！
       </DescWithLink>
