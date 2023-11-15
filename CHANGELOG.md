@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.1-rc.3, 2023-11-15
+
+### Notable Changes
+
+- fix
+  - kids link type should be `undeline`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`a50fa4e06d`](https://github.com/twreporter/twreporter-react/commit/a50fa4e06d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d347270e7a`](https://github.com/twreporter/twreporter-react/commit/d347270e7a)] - **fix**: kids link type should be `underline` (Aylie Chou)
+
 ## 4.12.1-rc.2, 2023-11-14
 
 ### Notable Changes
