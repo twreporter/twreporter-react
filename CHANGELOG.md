@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-rc.4, 2023-11-15
+
+### Notable Changes
+
+- fix
+  - article page banner roles
+
+### Commits
+
+- [[`0fb54394af`](https://github.com/twreporter/twreporter-react/commit/0fb54394af)] - **fix**: typo role =\> roles (Lucien)
+
 ## 4.12.1-rc.3, 2023-11-15
 
 ### Notable Changes
