@@ -421,7 +421,7 @@ export function mapStateToProps(state, props) {
     // avoid from re-fetching the post already in redux state
     slugToFetch: emptySlug,
     isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
-    userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'role'], []),
+    userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], []),
   }
 }
 
