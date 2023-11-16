@@ -107,6 +107,11 @@ const ListSkeleton = styled(Skeleton)`
 const Gray300Divider = styled(Divider)`
   color: ${colorGrayscale.gray300};
 `
+const GetSomeSpace = styled.div`
+  width: 100%;
+  height: ${props => props.height};
+  ${props => (props.show ? '' : 'display: none;')}
+`
 
 const Latest = ({
   // redux state
@@ -256,6 +261,7 @@ const Latest = ({
             show={totalPages > page}
           />
         </LoadMoreBox>
+        <GetSomeSpace height={'120px'} show={totalPages <= page} />
       </Container>
     </div>
   )

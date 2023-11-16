@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.1-rc.5, 2023-11-16
+
+### Notable Changes
+
+- fix
+  - add space after last post card
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c8ccb0c1d4`](https://github.com/twreporter/twreporter-react/commit/c8ccb0c1d4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ab9f4b77b6`](https://github.com/twreporter/twreporter-react/commit/ab9f4b77b6)] - **fix**: add space after last post card (Aylie Chou)
+
 ## 4.12.1-rc.4, 2023-11-15
 
 ### Notable Changes
