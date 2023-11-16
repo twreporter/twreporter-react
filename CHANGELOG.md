@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.2, 2023-11-16
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`be376bc9ac`](https://github.com/twreporter/twreporter-react/commit/be376bc9ac)] - **chore**: update twreporter packages (Lucien)
+
 ## 4.12.1-beta.1, 2023-11-16
 
 ### Notable Changes
