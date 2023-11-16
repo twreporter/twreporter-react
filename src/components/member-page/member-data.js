@@ -9,7 +9,7 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import {
   READING_TIME_UNIT,
-  READING_TIME_UNIT_TEXT,
+  READING_TIME_UNIT_PAGE_TEXT,
 } from '@twreporter/core/lib/constants/reading-time-unit'
 
 const MemberDataContainer = styled.div`
@@ -77,7 +77,7 @@ const MemberData = ({
                   : articleReadingTime.toLocaleString('en-US')
               }
             />
-            <P1 text={READING_TIME_UNIT_TEXT[articleReadingTimeUnit]} />
+            <P1 text={READING_TIME_UNIT_PAGE_TEXT[articleReadingTimeUnit]} />
           </ReadingStatistics>
         </ReadingStatisticsContainer>
       )}

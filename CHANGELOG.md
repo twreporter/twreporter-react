@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.1-beta.1, 2023-11-16
+
+### Notable Changes
+
+- fix
+  - use page text
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`8dade4e3bf`](https://github.com/twreporter/twreporter-react/commit/8dade4e3bf)] - **chore**: update twreporter packages (Lucien)
+- [[`7a56ca2474`](https://github.com/twreporter/twreporter-react/commit/7a56ca2474)] - **fix**: use page text (Lucien)
+
 ## 4.12.1-beta.0, 2023-11-14
 
 ### Notable Changes
@@ -12,10 +26,9 @@
 ### Commits
 
 - [[`20664e6a93`](https://github.com/twreporter/twreporter-react/commit/20664e6a93)] - **chore**: update twreporter packages (Lucien)
-
-* [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
-* [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
-* [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
+- [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
+- [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
+- [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
 
 ## 4.12.0, 2023-11-01 (Current)
 
