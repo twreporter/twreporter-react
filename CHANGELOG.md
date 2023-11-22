@@ -1,6 +1,36 @@
 # Changelog
 
-## 4.12.0, 2023-11-01 (Current)
+## 4.12.1, 2023-11-20 (Current)
+
+### Notable Changes
+
+- feat
+  - add article card skeleton & use load more in latest page
+  - add kids newsletter subscription link in member page
+  - show article bottom banner by role
+- fix
+  - add space after last post card
+  - article page banner roles
+  - kids link type should be `undeline`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c8ccb0c1d4`](https://github.com/twreporter/twreporter-react/commit/c8ccb0c1d4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ab9f4b77b6`](https://github.com/twreporter/twreporter-react/commit/ab9f4b77b6)] - **fix**: add space after last post card (Aylie Chou)
+- [[`0fb54394af`](https://github.com/twreporter/twreporter-react/commit/0fb54394af)] - **fix**: typo role =\> roles (Lucien)
+- [[`a50fa4e06d`](https://github.com/twreporter/twreporter-react/commit/a50fa4e06d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d347270e7a`](https://github.com/twreporter/twreporter-react/commit/d347270e7a)] - **fix**: kids link type should be `underline` (Aylie Chou)
+- [[`48c0e391e4`](https://github.com/twreporter/twreporter-react/commit/48c0e391e4)] - **feat**: add article card skeleton & use load more in latest (Aylie Chou)
+- [[`688d8f7f68`](https://github.com/twreporter/twreporter-react/commit/688d8f7f68)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`6820a04818`](https://github.com/twreporter/twreporter-react/commit/6820a04818)] - **feat**: add kids newsletter subscription link in member page (Aylie Chou)
+- [[`a162974fba`](https://github.com/twreporter/twreporter-react/commit/a162974fba)] - **fix**: add isRequired to userRole (Lucien)
+- [[`ec2153c46a`](https://github.com/twreporter/twreporter-react/commit/ec2153c46a)] - **feat**: show article bottom banner by role (Lucien)
+- [[`4b3110ab09`](https://github.com/twreporter/twreporter-react/commit/4b3110ab09)] - Merge branch 'twreporter:master' into master (Lucien)
+- [[`7831655713`](https://github.com/twreporter/twreporter-react/commit/7831655713)] - **fix**: changelog (Lucien)
+
+## 4.12.0, 2023-11-01
 
 ### Notable Changes
 
