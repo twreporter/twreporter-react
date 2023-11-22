@@ -11,10 +11,15 @@ import {
 import { EMAIL_SUBSCRIPTION_KEY } from '@twreporter/core/lib/constants/email-subscription'
 import mq from '@twreporter/core/lib/utils/media-query'
 import Divider from '@twreporter/react-components/lib/divider'
+import Link from '@twreporter/react-components/lib/customized-link'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 import { Weight } from '@twreporter/react-components/lib/text/enums'
 import { Badge } from '@twreporter/react-components/lib/badge'
-import { ToggleButton } from '@twreporter/react-components/lib/button'
+import {
+  ToggleButton,
+  PillButton,
+  InheritLinkButton,
+} from '@twreporter/react-components/lib/button'
 import twreporterRedux from '@twreporter/redux'
 
 // useContext
@@ -40,6 +45,7 @@ const OptionContainer = styled.div`
 
 const OptionContent = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
 `
@@ -54,6 +60,10 @@ const P1Gray800 = styled(P1)`
   color: ${colorGrayscale.gray800};
 `
 
+const DescWithLink = styled(P1Gray800)`
+  display: unset;
+`
+
 const BadgeComponent = styled(Badge)`
   margin-left: 8px;
 `
@@ -62,8 +72,10 @@ const DividerContainer = styled.div`
   margin: 24px 0px;
 `
 
-const ToggleButtonContainer = styled.div`
+const CtaContainer = styled.div`
   display: flex;
+  align-items: center;
+  flex-shrink: 0;
   margin-left: 24px;
   margin-right: 24px;
   ${mq.mobileOnly`
@@ -72,6 +84,15 @@ const ToggleButtonContainer = styled.div`
   `}
 `
 
+const OptionType = Object.freeze({
+  TOGGLE: 'toggle',
+  BUTTON: 'button',
+})
+const OptionDescType = Object.freeze({
+  PLAIN_TEXT: 'text',
+  JSX: 'jsx',
+})
+
 const options = [
   {
     key: EMAIL_SUBSCRIPTION_KEY.featured,
@@ -79,6 +100,8 @@ const options = [
     desc:
       '由《報導者》編輯台精選近兩週的最新報導，和我們一起看見世界上正在發生的、重要的事。',
     label: '雙週',
+    type: OptionType.TOGGLE,
+    descType: OptionDescType.PLAIN_TEXT,
   },
   {
     key: EMAIL_SUBSCRIPTION_KEY.behindTheScenes,
@@ -86,6 +109,8 @@ const options = [
     desc:
       '總是好奇記者們如何深入現場，採訪過程中又有哪些不為人知的故事嗎？我們會不定期分享給你。',
     label: '不定期',
+    type: OptionType.TOGGLE,
+    descType: OptionDescType.PLAIN_TEXT,
   },
   {
     key: EMAIL_SUBSCRIPTION_KEY.operationalJournal,
@@ -93,6 +118,32 @@ const options = [
     desc:
       '一路走來，各個決策有什麼背後故事，團隊又是過著怎樣的工作日常？一起來開箱報導者團隊！',
     label: '雙週',
+    type: OptionType.TOGGLE,
+    descType: OptionDescType.PLAIN_TEXT,
+  },
+  {
+    key: 'kids-newletter',
+    text: '報導仔新聞聯絡簿',
+    label: '每月',
+    type: OptionType.BUTTON,
+    link:
+      'https://twreporter.us14.list-manage.com/subscribe?u=4da5a7d3b98dbc9fdad009e7e&id=2154ac40c3',
+    descType: OptionDescType.JSX,
+    desc: (
+      <DescWithLink>
+        兒少新聞平台
+        <InheritLinkButton
+          text="《少年報導者》"
+          link={{
+            isExternal: true,
+            to: 'https://kids.twreporter.org',
+            target: '_blank',
+          }}
+          type={InheritLinkButton.Type.UNDERLINE}
+        />
+        的最新專題和活動消息，就讓可愛的報導仔來告訴你！
+      </DescWithLink>
+    ),
   },
 ]
 
@@ -145,6 +196,36 @@ const SubscriptionOptions = ({
   }
 
   return options.map((option, index) => {
+    const ctaJSX =
+      option.type === OptionType.TOGGLE ? (
+        <CtaContainer>
+          <ToggleButton
+            value={_.indexOf(newsletterSubscriptions, option.key) !== -1}
+            labelOn="已訂閱"
+            labelOff="未訂閱"
+            onChange={() => onClickNewsletterSubscriptions(option.key)}
+            disabled={isToggleBtnDisabled}
+          />
+        </CtaContainer>
+      ) : (
+        <CtaContainer>
+          <Link isExternal={true} to={option.link} target="_blank">
+            <PillButton
+              theme={PillButton.THEME.normal}
+              style={PillButton.Style.LIGHT}
+              size={PillButton.Size.S}
+              type={PillButton.Type.PRIMARY}
+              text="訂閱"
+            />
+          </Link>
+        </CtaContainer>
+      )
+    const descJSX =
+      option.descType === OptionDescType.PLAIN_TEXT ? (
+        <P1Gray800 text={option.desc} />
+      ) : (
+        option.desc
+      )
     return (
       <div key={`option-${index}`}>
         <OptionContainer>
@@ -157,17 +238,9 @@ const SubscriptionOptions = ({
                 backgroundColor={colorGrayscale.white}
               />
             </OptionTitle>
-            <P1Gray800 text={option.desc} />
+            {descJSX}
           </OptionContent>
-          <ToggleButtonContainer>
-            <ToggleButton
-              value={_.indexOf(newsletterSubscriptions, option.key) !== -1}
-              labelOn="已訂閱"
-              labelOff="未訂閱"
-              onChange={() => onClickNewsletterSubscriptions(option.key)}
-              disabled={isToggleBtnDisabled}
-            />
-          </ToggleButtonContainer>
+          {ctaJSX}
         </OptionContainer>
         {index !== options.length - 1 && (
           <DividerContainer>
