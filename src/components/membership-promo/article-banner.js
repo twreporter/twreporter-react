@@ -21,6 +21,8 @@ import {
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
+
 import globalEnv from '../../global-env'
 
 const boxCss = css`
@@ -157,7 +159,11 @@ const Box = styled.div`
   visibility: ${props => (props.show ? 'visible' : 'hidden')};
   ${props => (props.show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
 `
-const ArticleBanner = ({ isExpanded = false, isAuthed = false }) => {
+const ArticleBanner = ({
+  isExpanded = false,
+  isAuthed = false,
+  userRole = [],
+}) => {
   const [isShowPromo, setIsShowPromo] = useState(false)
   const [isOpened, setIsOpened] = useState(false)
   const closePromo = async () => {
@@ -187,12 +193,20 @@ const ArticleBanner = ({ isExpanded = false, isAuthed = false }) => {
       return
     }
     if (isAuthed) {
-      return
+      if (userRole.length) {
+        const { key } = userRole[0]
+        if (
+          MEMBER_ROLE[key] === MEMBER_ROLE.action_taker ||
+          MEMBER_ROLE[key] === MEMBER_ROLE.trailblazer
+        ) {
+          return
+        }
+      }
     }
     if (!isExpanded) {
       timerId.current = window.setTimeout(openPromo, 70000)
     }
-  }, [isExpanded, isAuthed, isOpened])
+  }, [isExpanded, isAuthed, userRole, isOpened])
   const releaseBranch = globalEnv.releaseBranch
   const contextValue = { isShowPromo, closePromo, releaseBranch }
   return (
@@ -212,6 +226,7 @@ const ArticleBanner = ({ isExpanded = false, isAuthed = false }) => {
 ArticleBanner.propTypes = {
   isExpanded: PropTypes.bool,
   isAuthed: PropTypes.bool,
+  userRole: PropTypes.array,
 }
 
 export default ArticleBanner
