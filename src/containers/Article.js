@@ -50,16 +50,31 @@ class Article extends PureComponent {
     this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
     this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
     this._articleBody = React.createRef()
+    this.timerId = React.createRef()
     this.state = {
       isExpanded: false,
+      isReachedTargetHeight: false,
+      isReachedTargetTime: false,
     }
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+
+  startTimer() {
+    if (this.timerId.current) {
+      window.clearTimeout(this.timerId.current)
+    }
+    this.timerId.current = window.setTimeout(() => {
+      this.setState({ isReachedTargetTime: true })
+    }, 10000)
   }
 
   componentDidMount() {
     const { fontLevel, changeFontLevel, slugToFetch } = this.props
+    window.addEventListener('scroll', this.handleScroll)
 
     // Fetch the full post
     this.fetchAFullPostWithCatch(slugToFetch)
+    this.startTimer()
 
     // Change fontLevel according to browser storage
     localForage
@@ -85,6 +100,28 @@ class Article extends PureComponent {
           event: 'gtm.load',
         },
       })
+      this.startTimer()
+    }
+    if (this.state.isReachedTargetHeight && this.state.isReachedTargetTime) {
+      // TODO: waiting for api
+      // eslint-disable-next-line no-undef
+      alert(`你閱讀了 post_id: ${_.get(this.props.post, 'id')} 喔喔喔`)
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll() {
+    const scrollHeight = window.scrollY || document.documentElement.scrollTop
+    const totalHeight = document.documentElement.scrollHeight
+    const targetHeight = totalHeight * 0.75
+    if (scrollHeight >= targetHeight) {
+      this.setState({
+        isReachedTargetHeight: true,
+      })
+      window.removeEventListener('scroll', this.handleScroll)
     }
   }
 
