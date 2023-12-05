@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.12.1-beta.3, 2023-12-05
+
+### Notable Changes
+
+- feat
+  - reading count by timer and height
+
+### Commits
+
+- [[`e439d443ce`](https://github.com/twreporter/twreporter-react/commit/e439d443ce)] - **fix**: renaming constant (Lucien)
+- [[`e6b4107c57`](https://github.com/twreporter/twreporter-react/commit/e6b4107c57)] - **feat**: reading count by timer and height (Lucien)
+
 ## 4.12.1-beta.2, 2023-11-16
 
 ### Notable Changes

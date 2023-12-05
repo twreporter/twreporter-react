@@ -42,6 +42,10 @@ const _fontLevel = {
 }
 const logger = loggerFactory.getLogger()
 const emptySlug = ''
+const articleReadCountConditionConfig = {
+  reading_height: 0.75,
+  reading_time: 10000,
+}
 
 class Article extends PureComponent {
   constructor(props) {
@@ -50,16 +54,32 @@ class Article extends PureComponent {
     this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
     this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
     this._articleBody = React.createRef()
+    this.timerId = React.createRef()
     this.state = {
       isExpanded: false,
+      isReachedArticleReadTargetHeight: false,
+      isReachedArticleReadTargetTime: false,
     }
+    this.handleScroll = this._handleScroll.bind(this)
+  }
+
+  startTimer() {
+    if (this.timerId.current) {
+      window.clearTimeout(this.timerId.current)
+    }
+    this.timerId.current = window.setTimeout(() => {
+      this.setState({ isReachedArticleReadTargetTime: true })
+    }, articleReadCountConditionConfig.reading_time)
   }
 
   componentDidMount() {
     const { fontLevel, changeFontLevel, slugToFetch } = this.props
+    window.addEventListener('scroll', this.handleScroll)
 
     // Fetch the full post
     this.fetchAFullPostWithCatch(slugToFetch)
+    // Start timer if post is fetched from SSR
+    this.startTimer()
 
     // Change fontLevel according to browser storage
     localForage
@@ -85,6 +105,32 @@ class Article extends PureComponent {
           event: 'gtm.load',
         },
       })
+      this.startTimer()
+    }
+    if (
+      this.state.isReachedArticleReadTargetHeight &&
+      this.state.isReachedArticleReadTargetTime
+    ) {
+      // TODO: waiting for api
+      // eslint-disable-next-line no-undef
+      alert(`你閱讀了 post_id: ${_.get(this.props.post, 'slug')} 喔喔喔`)
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  _handleScroll() {
+    const scrollHeight = window.scrollY || document.documentElement.scrollTop
+    const totalHeight = document.documentElement.scrollHeight
+    const targetHeight =
+      totalHeight * articleReadCountConditionConfig.reading_time
+    if (scrollHeight >= targetHeight) {
+      this.setState({
+        isReachedArticleReadTargetHeight: true,
+      })
+      window.removeEventListener('scroll', this.handleScroll)
     }
   }
 
