@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.6, 2023-12-05
+
+### Notable Changes
+
+- fix
+  - reading_height & slug
+
+### Commits
+
+- [[`f2254181a2`](https://github.com/twreporter/twreporter-react/commit/f2254181a2)] - **fix**: reading_height & slug (Lucien)
+
 ## 4.12.1-beta.5, 2023-12-05
 
 ### Notable Changes
