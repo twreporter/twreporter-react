@@ -113,7 +113,7 @@ class Article extends PureComponent {
     ) {
       // TODO: waiting for api
       // eslint-disable-next-line no-undef
-      alert(`你閱讀了 post_id: ${_.get(this.props.post, 'slug')} 喔喔喔`)
+      alert(`你閱讀了 post_slug: ${_.get(this.props.post, 'slug')} 喔喔喔`)
     }
   }
 
@@ -125,7 +125,7 @@ class Article extends PureComponent {
     const scrollHeight = window.scrollY || document.documentElement.scrollTop
     const totalHeight = document.documentElement.scrollHeight
     const targetHeight =
-      totalHeight * articleReadCountConditionConfig.reading_time
+      totalHeight * articleReadCountConditionConfig.reading_height
     if (scrollHeight >= targetHeight) {
       this.setState({
         isReachedArticleReadTargetHeight: true,
