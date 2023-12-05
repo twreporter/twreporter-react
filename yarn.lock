@@ -1505,15 +1505,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@^1.14.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.14.0.tgz#f3a89642e83994cd571d822b37b321e069f35882"
-  integrity sha512-Rxpa+csjo12C4Sk/FnHpBtHqiuXE5VwcA/V7J1wrdkTVKb1VoigXaOjFGYs/ffptxfONlcreLEnY1fDrEQbbLQ==
-  dependencies:
-    lodash "^4.0.0"
-    prop-types "^15.0.0"
-    styled-components "^4.0.0"
-
 "@twreporter/core@^1.15.0-rc.1":
   version "1.15.0-rc.1"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.15.0-rc.1.tgz#ca716f465e536154a0cfe8bf57b87b7bd5aa1e6f"
@@ -1577,23 +1568,6 @@
     react-transition-group "^2.0.0"
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
-
-"@twreporter/redux@^7.8.1":
-  version "7.8.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.8.1.tgz#710ab810f29a18319d0d9ab9a5374097b14dbf24"
-  integrity sha512-1Rugp7nNhDZa2EBr2vBi0XnPt0YZSe6NYS+2nvBe8DgJgqYWkPqE4TMjvZ3CGwTKuxbWG93i0n3sQSBEC7h8yA==
-  dependencies:
-    "@twreporter/core" "^1.14.0"
-    axios "^0.19.0"
-    es6-error "^4.0.2"
-    humps "^0.6.0"
-    localforage "^1.7.3"
-    lodash "^4.17.4"
-    normalizr "^3.2.4"
-    prop-types "^15.0.0"
-    react "^16.3.0"
-    redux "^4.0.1"
-    redux-thunk "^2.3.0"
 
 "@twreporter/redux@^7.8.2-rc.1":
   version "7.8.2-rc.1"
