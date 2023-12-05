@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.5, 2023-12-05
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`58e41c813b`](https://github.com/twreporter/twreporter-react/commit/58e41c813b)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.12.1-beta.4, 2023-12-05
 
 ### Notable Changes
@@ -7,7 +18,7 @@
 - feat
   - add foundation category set
 - chore
-- update @twreporter packages
+  - update @twreporter packages
 
 ### Commits
 
