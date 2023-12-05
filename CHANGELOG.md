@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.7, 2023-12-05
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`bf6b41106f`](https://github.com/twreporter/twreporter-react/commit/bf6b41106f)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.12.1-beta.6, 2023-12-05
 
 ### Notable Changes
