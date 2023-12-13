@@ -44,7 +44,7 @@ const logger = loggerFactory.getLogger()
 const emptySlug = ''
 const articleReadCountConditionConfig = {
   reading_height: 0.75,
-  reading_time: 10000,
+  reading_time: 10000, // 10 second
 }
 
 class Article extends PureComponent {
@@ -54,7 +54,7 @@ class Article extends PureComponent {
     this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
     this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
     this._articleBody = React.createRef()
-    this.timerId = React.createRef()
+    this.readingCountTimerId = React.createRef()
     this.state = {
       isExpanded: false,
       isReachedArticleReadTargetHeight: false,
@@ -63,11 +63,11 @@ class Article extends PureComponent {
     this.handleScroll = this._handleScroll.bind(this)
   }
 
-  startTimer() {
-    if (this.timerId.current) {
-      window.clearTimeout(this.timerId.current)
+  startReadingCountTimer() {
+    if (this.readingCountTimerId.current) {
+      window.clearTimeout(this.readingCountTimerId.current)
     }
-    this.timerId.current = window.setTimeout(() => {
+    this.readingCountTimerId.current = window.setTimeout(() => {
       this.setState({ isReachedArticleReadTargetTime: true })
     }, articleReadCountConditionConfig.reading_time)
   }
@@ -79,7 +79,7 @@ class Article extends PureComponent {
     // Fetch the full post
     this.fetchAFullPostWithCatch(slugToFetch)
     // Start timer if post is fetched from SSR
-    this.startTimer()
+    this.startReadingCountTimer()
 
     // Change fontLevel according to browser storage
     localForage
@@ -105,7 +105,7 @@ class Article extends PureComponent {
           event: 'gtm.load',
         },
       })
-      this.startTimer()
+      this.startReadingCountTimer()
     }
     if (
       this.state.isReachedArticleReadTargetHeight &&
