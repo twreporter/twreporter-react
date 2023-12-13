@@ -1,6 +1,19 @@
 # Changelog
 
-## 4.12.1, 2023-11-20 (Current)
+## 4.12.2, 2023-12-13 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`1c876f448f`](https://github.com/twreporter/twreporter-react/commit/1c876f448f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d7a917b089`](https://github.com/twreporter/twreporter-react/commit/d7a917b089)] - **chore**: update twreporter packages (Lucien)
+- [[`f20751e1cb`](https://github.com/twreporter/twreporter-react/commit/f20751e1cb)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.12.1, 2023-11-20
 
 ### Notable Changes
 
