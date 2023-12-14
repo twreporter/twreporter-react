@@ -59,6 +59,7 @@ class Article extends PureComponent {
       isExpanded: false,
       isReachedArticleReadTargetHeight: false,
       isReachedArticleReadTargetTime: false,
+      isBeenRead: false,
     }
     this.handleScroll = this._handleScroll.bind(this)
   }
@@ -97,6 +98,12 @@ class Article extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.slugToFetch !== this.props.slugToFetch) {
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
+      // reset readingCount state
+      this.setState({
+        isBeenRead: false,
+        isReachedArticleReadTargetHeight: false,
+        isReachedArticleReadTargetTime: false,
+      })
     }
     if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
       // For client-side rendering, we notify GTM that the new component is ready when the fetching is done.
@@ -107,13 +114,16 @@ class Article extends PureComponent {
       })
       this.startReadingCountTimer()
     }
+
     if (
+      !this.state.isReachedArticleReadTargetHeight.isBeenRead &&
       this.state.isReachedArticleReadTargetHeight &&
       this.state.isReachedArticleReadTargetTime
     ) {
       // TODO: waiting for api
       // eslint-disable-next-line no-undef
       alert(`你閱讀了 post_slug: ${_.get(this.props.post, 'slug')} 喔喔喔`)
+      this.setState({ isBeenRead: true })
     }
   }
 
@@ -130,7 +140,6 @@ class Article extends PureComponent {
       this.setState({
         isReachedArticleReadTargetHeight: true,
       })
-      window.removeEventListener('scroll', this.handleScroll)
     }
   }
 
