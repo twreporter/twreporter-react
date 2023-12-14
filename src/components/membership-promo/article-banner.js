@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import localForage from 'localforage'
 import * as dayjs from 'dayjs'
 // contexts
-import { ArticlePromoContext } from '../../contexts'
+import { ArticlePromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -23,8 +23,6 @@ import {
 import mq from '@twreporter/core/lib/utils/media-query'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
-
-import globalEnv from '../../global-env'
 
 const boxCss = css`
   display: flex;
@@ -79,9 +77,8 @@ const FlexRow = styled.div`
   width: 950px;
 `
 const DesktopBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(
-    ArticlePromoContext
-  )
+  const { isShowPromo, closePromo } = useContext(ArticlePromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/pencil.png`
 
   return (
@@ -134,9 +131,8 @@ const MobileMore = styled(MoreButton)`
   }
 `
 const MobileBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(
-    ArticlePromoContext
-  )
+  const { isShowPromo, closePromo } = useContext(ArticlePromoContext)
+  const { releaseBranch } = useContext(CoreContext)
 
   return (
     <MobileBox show={isShowPromo}>
@@ -208,8 +204,7 @@ const ArticleBanner = ({
       timerId.current = window.setTimeout(openPromo, 70000)
     }
   }, [isExpanded, isAuthed, userRole, isOpened])
-  const releaseBranch = globalEnv.releaseBranch
-  const contextValue = { isShowPromo, closePromo, releaseBranch }
+  const contextValue = { isShowPromo, closePromo }
   return (
     <ArticlePromoContext.Provider value={contextValue}>
       <Box show={isShowPromo}>

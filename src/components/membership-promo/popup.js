@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
 // contexts
-import { PromoContext } from '../../contexts'
+import { PromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -60,7 +60,8 @@ const DesktopMore = styled(MoreButton)`
   margin: 0 24px;
 `
 const DesktopPopup = () => {
-  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_text_desktop.png`
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_desktop.png`
 
@@ -98,7 +99,8 @@ const MobileMore = styled(MoreButton)`
   margin-top: 24px;
 `
 const MobilePopup = () => {
-  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_mobile.png`
 
   return (

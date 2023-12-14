@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
 // contexts
-import { PromoContext } from '../../contexts'
+import { PromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -73,7 +73,8 @@ const FlexRow = styled.div`
   width: 950px;
 `
 const DesktopBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
+  const { isShowPromo, closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/banner_desktop.png`
 
   return (
@@ -127,7 +128,8 @@ const MobileMore = styled(MoreButton)`
   }
 `
 const MobileBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
+  const { isShowPromo, closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
 
   return (
     <MobileBox show={isShowPromo}>
