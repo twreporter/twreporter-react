@@ -115,10 +115,16 @@ class Article extends PureComponent {
       this.startReadingCountTimer()
     }
 
+    const {
+      isBeenRead,
+      isReachedArticleReadTargetHeight,
+      isReachedArticleReadTargetTime,
+    } = this.state
+
     if (
-      !this.state.isReachedArticleReadTargetHeight.isBeenRead &&
-      this.state.isReachedArticleReadTargetHeight &&
-      this.state.isReachedArticleReadTargetTime
+      !isBeenRead &&
+      isReachedArticleReadTargetHeight &&
+      isReachedArticleReadTargetTime
     ) {
       // TODO: waiting for api
       // eslint-disable-next-line no-undef
