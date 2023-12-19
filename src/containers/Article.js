@@ -28,15 +28,22 @@ import { Link } from 'react-router-dom'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
+
 const _ = {
   forEach,
   get,
+  debounce,
   throttle,
 }
 // global var
 const { actions, actionTypes, reduxStateFields } = twreporterRedux
-const { fetchAFullPost, fetchRelatedPostsOfAnEntity } = actions
+const {
+  fetchAFullPost,
+  fetchRelatedPostsOfAnEntity,
+  setUserAnalyticsData,
+} = actions
 const _fontLevel = {
   small: 'small',
 }
@@ -45,6 +52,10 @@ const emptySlug = ''
 const articleReadCountConditionConfig = {
   reading_height: 0.75,
   reading_time: 10000, // 10 second
+}
+const articleReadTimeConditionConfig = {
+  inactive_time: 900000, // 900 second
+  min_active_time: 5000, // 5 second
 }
 
 class Article extends PureComponent {
@@ -55,13 +66,25 @@ class Article extends PureComponent {
     this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
     this._articleBody = React.createRef()
     this.readingCountTimerId = React.createRef()
+    this.inactiveTimerId = React.createRef()
     this.state = {
       isExpanded: false,
       isReachedArticleReadTargetHeight: false,
       isReachedArticleReadTargetTime: false,
       isBeenRead: false,
+      startReadingTime: 0,
+      isActive: true,
+      activeTime: 0,
     }
-    this.handleScroll = this._handleScroll.bind(this)
+    this.handleScroll = _.debounce(this._handleScroll.bind(this), 500)
+    this.handleVisibilityChange = _.throttle(
+      this._handleVisibilityChange.bind(this),
+      1000
+    )
+    this.handleUserActivity = _.debounce(
+      this._handleUserActivity.bind(this),
+      500
+    )
   }
 
   startReadingCountTimer() {
@@ -73,14 +96,84 @@ class Article extends PureComponent {
     }, articleReadCountConditionConfig.reading_time)
   }
 
-  componentDidMount() {
-    const { fontLevel, changeFontLevel, slugToFetch } = this.props
-    window.addEventListener('scroll', this.handleScroll)
+  calculateActiveTime() {
+    const elapsedTime = Math.floor(Date.now() - this.state.startReadingTime)
+    this.setState(prevState => ({
+      activeTime: prevState.activeTime + elapsedTime,
+      startReadingTime: Date.now(),
+    }))
+  }
 
-    // Fetch the full post
-    this.fetchAFullPostWithCatch(slugToFetch)
-    // Start timer if post is fetched from SSR
-    this.startReadingCountTimer()
+  startInactiveTimer() {
+    if (this.inactiveTimerId.current) {
+      window.clearTimeout(this.inactiveTimerId.current)
+    }
+    this.inactiveTimerId.current = window.setTimeout(() => {
+      this.calculateActiveTime()
+      this.setState({
+        isActive: false,
+      })
+    }, articleReadTimeConditionConfig.inactive_time)
+  }
+
+  sendReadCount() {
+    const { jwt, userID, postID, setUserAnalyticsData } = this.props
+    setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+  }
+
+  sendActiveTime() {
+    const { jwt, userID, postID, setUserAnalyticsData } = this.props
+    const { activeTime } = this.state
+    const activeSec = Math.round(activeTime / 1000)
+    setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+    this.setState({
+      activeTime: 0,
+    })
+  }
+
+  _handleVisibilityChange() {
+    if (document.visibilityState === 'hidden') {
+      if (
+        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
+      ) {
+        this.sendActiveTime()
+        this.setState({
+          isActive: false,
+        })
+      }
+    }
+  }
+
+  _handleUserActivity() {
+    if (!this.state.isActive) {
+      this.setState({
+        isActive: true,
+        startReadingTime: Date.now(),
+      })
+    } else {
+      this.startInactiveTimer()
+    }
+  }
+
+  componentDidMount() {
+    const { fontLevel, changeFontLevel, slugToFetch, isAuthed } = this.props
+
+    if (isAuthed) {
+      window.addEventListener('scroll', this.handleScroll)
+      // Fetch the full post
+      this.fetchAFullPostWithCatch(slugToFetch)
+      // Start timer if post is fetched from SSR
+      this.startReadingCountTimer()
+      // Start reading time if post is fetched from SSR
+      this.setState({
+        startReadingTime: Date.now(),
+      })
+      this.startInactiveTimer()
+      document.addEventListener('visibilitychange', this.handleVisibilityChange)
+      document.addEventListener('mousemove', this.handleUserActivity)
+      document.addEventListener('scroll', this.handleUserActivity)
+      document.addEventListener('click', this.handleUserActivity)
+    }
 
     // Change fontLevel according to browser storage
     localForage
@@ -97,13 +190,22 @@ class Article extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.slugToFetch !== this.props.slugToFetch) {
+      if (this.props.isAuthed) {
+        // reset readingCount state
+        this.setState({
+          isBeenRead: false,
+          isReachedArticleReadTargetHeight: false,
+          isReachedArticleReadTargetTime: false,
+        })
+        this.calculateActiveTime()
+        if (
+          this.state.activeTime >=
+          articleReadTimeConditionConfig.min_active_time
+        ) {
+          this.sendActiveTime()
+        }
+      }
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
-      // reset readingCount state
-      this.setState({
-        isBeenRead: false,
-        isReachedArticleReadTargetHeight: false,
-        isReachedArticleReadTargetTime: false,
-      })
     }
     if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
       // For client-side rendering, we notify GTM that the new component is ready when the fetching is done.
@@ -112,29 +214,43 @@ class Article extends PureComponent {
           event: 'gtm.load',
         },
       })
-      this.startReadingCountTimer()
+      if (this.props.isAuthed) {
+        this.startReadingCountTimer()
+        this.setState({
+          startReadingTime: Date.now(),
+        })
+      }
     }
 
-    const {
-      isBeenRead,
-      isReachedArticleReadTargetHeight,
-      isReachedArticleReadTargetTime,
-    } = this.state
+    if (this.props.isAuthed) {
+      const {
+        isBeenRead,
+        isReachedArticleReadTargetHeight,
+        isReachedArticleReadTargetTime,
+      } = this.state
 
-    if (
-      !isBeenRead &&
-      isReachedArticleReadTargetHeight &&
-      isReachedArticleReadTargetTime
-    ) {
-      // TODO: waiting for api
-      // eslint-disable-next-line no-undef
-      alert(`你閱讀了 post_slug: ${_.get(this.props.post, 'slug')} 喔喔喔`)
-      this.setState({ isBeenRead: true })
+      if (
+        !isBeenRead &&
+        isReachedArticleReadTargetHeight &&
+        isReachedArticleReadTargetTime
+      ) {
+        this.sendReadCount()
+        this.setState({ isBeenRead: true })
+      }
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+    if (this.props.isAuthed) {
+      window.removeEventListener('scroll', this.handleScroll)
+      document.removeEventListener(
+        'visibilitychange',
+        this.handleVisibilityChange
+      )
+      document.removeEventListener('mousemove', this.handleUserActivity)
+      document.removeEventListener('scroll', this.handleUserActivity)
+      document.removeEventListener('click', this.handleUserActivity)
+    }
   }
 
   _handleScroll() {
@@ -352,6 +468,10 @@ Article.propTypes = {
   releaseBranch: predefinedPropTypes.releaseBranch,
   isAuthed: PropTypes.bool,
   userRole: PropTypes.array.isRequired,
+  setUserAnalyticsData: PropTypes.func,
+  jwt: PropTypes.string,
+  userID: PropTypes.string,
+  postID: PropTypes.string,
 }
 
 Article.defaultProps = {
@@ -483,6 +603,9 @@ export function mapStateToProps(state, props) {
     slugToFetch: emptySlug,
     isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
     userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], []),
+    jwt: _.get(state, [reduxStateFields.auth, 'accessToken'], ''),
+    userID: _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id']),
+    postID: postId,
   }
 }
 
@@ -497,5 +620,10 @@ function changeFontLevel(fontLevel) {
 
 export default connect(
   mapStateToProps,
-  { fetchAFullPost, fetchRelatedPostsOfAnEntity, changeFontLevel }
+  {
+    fetchAFullPost,
+    fetchRelatedPostsOfAnEntity,
+    changeFontLevel,
+    setUserAnalyticsData,
+  }
 )(Article)
