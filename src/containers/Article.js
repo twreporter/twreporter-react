@@ -24,7 +24,7 @@ import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-proc
 import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 // dependencies of article component v2
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -189,7 +189,7 @@ class Article extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.slugToFetch !== this.props.slugToFetch) {
+    this.props.history.block(() => {
       if (this.props.isAuthed) {
         // reset readingCount state
         this.setState({
@@ -205,6 +205,9 @@ class Article extends PureComponent {
           this.sendActiveTime()
         }
       }
+      return true
+    })
+    if (prevProps.slugToFetch !== this.props.slugToFetch) {
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
     }
     if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
@@ -472,6 +475,9 @@ Article.propTypes = {
   jwt: PropTypes.string,
   userID: PropTypes.string,
   postID: PropTypes.string,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 Article.defaultProps = {
@@ -618,12 +624,14 @@ function changeFontLevel(fontLevel) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    fetchAFullPost,
-    fetchRelatedPostsOfAnEntity,
-    changeFontLevel,
-    setUserAnalyticsData,
-  }
-)(Article)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      fetchAFullPost,
+      fetchRelatedPostsOfAnEntity,
+      changeFontLevel,
+      setUserAnalyticsData,
+    }
+  )(Article)
+)
