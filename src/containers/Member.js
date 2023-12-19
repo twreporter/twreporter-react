@@ -101,8 +101,10 @@ const MemberPage = ({
   memberData,
   jwt,
   isAuthed,
+  readPostsCount,
+  readPostsSec,
 }) => {
-  const { pathname, search } = useLocation()
+  const { pathname } = useLocation()
 
   // check authorization
   // redirect to singin page if user has not been authorized
@@ -171,14 +173,8 @@ const MemberPage = ({
     }
   }
 
-  // TODO: remove after get data from api
-  // ?hideInfo=true&articleReadCount=1000&readingSec=123
-  const param = new URLSearchParams(search)
-  const hideInfo = param.get('hideInfo') === 'true'
-  const articleReadCount = Number(param.get('articleReadCount'))
-  const readingSec = Number(param.get('readingSec'))
   const { articleReadingTime, articleReadingTimeUnit } = getReadingTimeAndUnit(
-    readingSec
+    readPostsSec
   )
 
   return (
@@ -213,8 +209,8 @@ const MemberPage = ({
                   email={memberData.email}
                   joinDate={memberData.joinDate}
                   name={memberData.name || ''}
-                  hideInfo={hideInfo}
-                  articleReadCount={articleReadCount}
+                  hideInfo={false} // change after user agree data collection
+                  articleReadCount={readPostsCount}
                   articleReadingTime={articleReadingTime}
                   articleReadingTimeUnit={articleReadingTimeUnit}
                 />
@@ -246,8 +242,8 @@ const MemberPage = ({
               email={memberData.email}
               joinDate={memberData.joinDate}
               name={memberData.name || ''}
-              hideInfo={hideInfo}
-              articleReadCount={articleReadCount}
+              hideInfo={false} // change after user agree data collection
+              articleReadCount={readPostsCount}
               articleReadingTime={articleReadingTime}
               articleReadingTimeUnit={articleReadingTimeUnit}
             />
@@ -285,6 +281,8 @@ MemberPage.propTypes = {
   }),
   isAuthed: PropTypes.bool.isRequired,
   jwt: PropTypes.string.isRequired,
+  readPostsCount: PropTypes.number,
+  readPostsSec: PropTypes.number,
 }
 
 const { reduxStateFields } = twreporterRedux
@@ -299,6 +297,12 @@ const mapStateToProps = state => {
     reduxStateFields.user,
     'registrationDate',
   ])
+  const readPostsCount = _.get(
+    state,
+    [reduxStateFields.user, 'readPostsCount'],
+    0
+  )
+  const readPostsSec = _.get(state, [reduxStateFields.user, 'readPostsSec'], 0)
   return {
     jwt,
     isAuthed,
@@ -311,6 +315,8 @@ const mapStateToProps = state => {
       },
       joinDate: date2yyyymmdd(registrationDate, '/'),
     },
+    readPostsCount,
+    readPostsSec,
   }
 }
 
