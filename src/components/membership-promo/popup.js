@@ -15,6 +15,7 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 // desktop popup component
 const boxCss = css`
@@ -121,7 +122,7 @@ const PopupContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${colorOpacity['black_0.2']};
-  z-index: 10000;
+  z-index: ${zIndexConst.popup};
   position: fixed;
   left: 0;
   top: 0;

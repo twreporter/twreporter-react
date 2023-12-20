@@ -22,6 +22,7 @@ import {
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 import globalEnv from '../../global-env'
 
@@ -30,7 +31,7 @@ const boxCss = css`
   flex-direction: column;
   width: 100vw;
   position: fixed;
-  z-index: 1000; // article component tool bar z-index: 999
+  z-index: ${zIndexConst.buttomBanner};
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
   transform: translateY(${props => (props.show ? 0 : '100%')});
