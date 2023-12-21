@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.12.2, 2023-12-13 (Current)
+## 4.12.3, 2023-12-21 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`b4acc29ad2`](https://github.com/twreporter/twreporter-react/commit/b4acc29ad2)] - **chore**: update twreporter packages (Lucien)
+
+## 4.12.2, 2023-12-13
 
 ### Notable Changes
 
