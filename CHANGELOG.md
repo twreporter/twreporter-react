@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.12.4-rc.0, 2023-12-25 (Current)
+
+### Notable Changes
+
+- feat
+  - use @twreporter packages z-index
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`0e9a826a7c`](https://github.com/twreporter/twreporter-react/commit/0e9a826a7c)] - **chore**: sync master (Lucien)
+- [[`9233215580`](https://github.com/twreporter/twreporter-react/commit/9233215580)] - **chore**: update twreporter packages (Lucien)
+- [[`978d163ebf`](https://github.com/twreporter/twreporter-react/commit/978d163ebf)] - **feat**: use twreporter core z-index (Lucien)
+
 ## 4.12.3, 2023-12-21 (Current)
 
 ### Notable Changes

@@ -18,13 +18,14 @@ import {
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 const boxCss = css`
   display: flex;
   flex-direction: column;
   width: 100vw;
   position: fixed;
-  z-index: 101;
+  z-index: ${zIndexConst.buttomBanner};
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
   transform: translateY(${props => (props.show ? 0 : '100%')});

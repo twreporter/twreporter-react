@@ -29,6 +29,7 @@ import {
 } from '@twreporter/core/lib/constants/category-set'
 import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -72,7 +73,7 @@ const LoadingCover = styled.div`
   position: fixed;
   height: 100vh;
   width: 100%;
-  z-index: 1999;
+  z-index: ${zIndexConst.loadingCover};
   background-color: white;
   div {
     position: absolute;

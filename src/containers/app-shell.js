@@ -13,6 +13,7 @@ import MembershipPromo from '../components/membership-promo'
 import Footer from '@twreporter/react-components/lib/footer'
 import { Header } from '@twreporter/universal-header/lib/index'
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
@@ -32,7 +33,7 @@ const ContentBlock = styled.div`
 const HeaderContainer = styled.div`
   position: sticky;
   top: 0;
-  z-index: 1000; // other components in twreporter-react has z-index 999
+  z-index: ${zIndexConst.header};
 `
 
 // TODO add `pink` theme to universal-header
