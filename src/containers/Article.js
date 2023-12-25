@@ -158,10 +158,10 @@ class Article extends PureComponent {
   componentDidMount() {
     const { fontLevel, changeFontLevel, slugToFetch, isAuthed } = this.props
 
+    // Fetch the full post
+    this.fetchAFullPostWithCatch(slugToFetch)
     if (isAuthed) {
       window.addEventListener('scroll', this.handleScroll)
-      // Fetch the full post
-      this.fetchAFullPostWithCatch(slugToFetch)
       // Start timer if post is fetched from SSR
       this.startReadingCountTimer()
       // Start reading time if post is fetched from SSR
