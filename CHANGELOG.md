@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.4-rc.2, 2023-12-26
+
+### Notable Changes
+
+- feat
+  - add category page empty state
+
+### Commits
+
+- [[`d05057f238`](https://github.com/twreporter/twreporter-react/commit/d05057f238)] - **feat**: add category page empty state (Aylie Chou)
+
 ## 4.12.4-rc.1, 2023-12-26
 
 ### Notable Changes
