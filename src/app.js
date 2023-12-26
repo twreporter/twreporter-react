@@ -5,6 +5,8 @@ import getRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'
+// context
+import { CoreContext } from './contexts'
 // components
 import AppShell from './containers/app-shell'
 // constants
@@ -23,8 +25,10 @@ import {
 } from '@twreporter/core/lib/constants/font'
 // lodash
 import map from 'lodash/map'
+import get from 'lodash/get'
 const _ = {
   map,
+  get,
 }
 
 const selfHostedFonts = [fonts.notoSansTC]
@@ -173,22 +177,24 @@ const App = ({ reduxStore, releaseBranch }) => {
     }
     return <Route key={`route-${routeIndex}`} {...route} />
   })
+  const contextValue = {
+    releaseBranch,
+    referrerPath: _.get(prevLocation, 'pathname', ''),
+  }
 
   return (
     <Provider store={reduxStore}>
-      <Route
-        render={props => {
-          return (
-            <AppShell
-              location={location}
-              releaseBranch={releaseBranch}
-              referrer={prevLocation}
-            >
-              <Switch>{routeJSX}</Switch>
-            </AppShell>
-          )
-        }}
-      />
+      <CoreContext.Provider value={contextValue}>
+        <Route
+          render={props => {
+            return (
+              <AppShell location={location}>
+                <Switch>{routeJSX}</Switch>
+              </AppShell>
+            )
+          }}
+        />
+      </CoreContext.Provider>
       <GlobalStyleWithFonts fonts={selfHostedFonts} />
     </Provider>
   )

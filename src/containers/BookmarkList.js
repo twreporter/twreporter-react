@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Helmet from 'react-helmet'
 import { useLocation } from 'react-router-dom'
 
-// twreporters
-import BookmarkList from '@twreporter/react-components/lib/bookmark-list'
+// context
+import { CoreContext } from '../contexts'
 
-import {
-  BRANCH_PROP_TYPES,
-  BRANCH,
-} from '@twreporter/core/lib/constants/release-branch'
+// @twreporter
+import BookmarkList from '@twreporter/react-components/lib/bookmark-list'
 
 // constants
 import siteMeta from '../constants/site-meta'
 
-const BookmarkListPage = ({ releaseBranch = BRANCH.master }) => {
+const BookmarkListPage = () => {
   const { pathname } = useLocation()
+  const { releaseBranch } = useContext(CoreContext)
   const titleText = '我的書籤'
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
@@ -40,10 +39,6 @@ const BookmarkListPage = ({ releaseBranch = BRANCH.master }) => {
       <BookmarkList releaseBranch={releaseBranch} />
     </div>
   )
-}
-
-BookmarkListPage.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default BookmarkListPage

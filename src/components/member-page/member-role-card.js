@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+// context
+import { CoreContext } from '../../contexts'
+
+// @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
 const Image = styled.img`
@@ -16,16 +16,13 @@ const Image = styled.img`
   `}
 `
 
-const MemberRoleCard = ({
-  releaseBranch = BRANCH.master,
-  roleKey = MEMBER_ROLE.explorer,
-}) => {
+const MemberRoleCard = ({ roleKey = MEMBER_ROLE.explorer }) => {
+  const { releaseBranch } = useContext(CoreContext)
   const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${roleKey}.png`
   return <Image src={imageUrl}></Image>
 }
 
 MemberRoleCard.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
   roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
 }
 
