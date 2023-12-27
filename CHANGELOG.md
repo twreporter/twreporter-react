@@ -1,5 +1,27 @@
 # Changelog
 
+## 4.12.1-beta.8, 2023-12-27
+
+### Notable Changes
+
+- feat
+  - get analytics data from getUser
+  - send analytics data to backend
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7095843788`](https://github.com/twreporter/twreporter-react/commit/7095843788)] - **chore**: update twreporter packages (Lucien)
+- [[`96c4f66865`](https://github.com/twreporter/twreporter-react/commit/96c4f66865)] - **feat**: calculate active while visibility change (Lucien)
+- [[`dae75c8008`](https://github.com/twreporter/twreporter-react/commit/dae75c8008)] - **fix**: fetch without authed (Lucien)
+- [[`24994db9cd`](https://github.com/twreporter/twreporter-react/commit/24994db9cd)] - **feat**: send analytics data to backend while route change (Lucien)
+- [[`4d3d72db38`](https://github.com/twreporter/twreporter-react/commit/4d3d72db38)] - **feat**: send analytics data to backend (Lucien)
+- [[`7b4c1d9200`](https://github.com/twreporter/twreporter-react/commit/7b4c1d9200)] - **feat**: get analytics data from getUser (Lucien)
+- [[`63fd00bac5`](https://github.com/twreporter/twreporter-react/commit/63fd00bac5)] - **fix**: typo (Lucien)
+- [[`aa82c0ca8d`](https://github.com/twreporter/twreporter-react/commit/aa82c0ca8d)] - **fix**: change article retrigger read count (Lucien)
+- [[`8ce1ba48fd`](https://github.com/twreporter/twreporter-react/commit/8ce1ba48fd)] - **feat**: renaming reading count timer (Lucien)
+
 ## 4.12.1-beta.7, 2023-12-05
 
 ### Notable Changes
