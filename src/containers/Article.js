@@ -220,7 +220,7 @@ class Article extends PureComponent {
       ) {
         this.sendActiveTime()
       }
-      return false
+      return true
     })
     if (prevProps.slugToFetch !== this.props.slugToFetch) {
       this.fetchAFullPostWithCatch(this.props.slugToFetch)
