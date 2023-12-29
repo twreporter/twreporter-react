@@ -85,6 +85,7 @@ class Article extends PureComponent {
       this._handleUserActivity.bind(this),
       500
     )
+    this.handlePagehide = this._handlePagehide.bind(this)
   }
 
   startReadingCountTimer() {
@@ -117,18 +118,22 @@ class Article extends PureComponent {
   }
 
   sendReadCount() {
-    const { jwt, userID, postID, setUserAnalyticsData } = this.props
-    setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+    const { isAuthed, jwt, userID, postID, setUserAnalyticsData } = this.props
+    if (isAuthed) {
+      setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+    }
   }
 
   sendActiveTime() {
-    const { jwt, userID, postID, setUserAnalyticsData } = this.props
+    const { isAuthed, jwt, userID, postID, setUserAnalyticsData } = this.props
     const { activeTime } = this.state
     const activeSec = Math.round(activeTime / 1000)
-    setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
-    this.setState({
-      activeTime: 0,
-    })
+    if (isAuthed) {
+      setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      this.setState({
+        activeTime: 0,
+      })
+    }
   }
 
   _handleVisibilityChange() {
@@ -160,25 +165,33 @@ class Article extends PureComponent {
     }
   }
 
+  _handlePagehide() {
+    this.calculateActiveTime()
+    if (
+      this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
+    ) {
+      this.sendActiveTime()
+    }
+  }
+
   componentDidMount() {
-    const { fontLevel, changeFontLevel, slugToFetch, isAuthed } = this.props
+    const { fontLevel, changeFontLevel, slugToFetch } = this.props
 
     // Fetch the full post
     this.fetchAFullPostWithCatch(slugToFetch)
-    if (isAuthed) {
-      window.addEventListener('scroll', this.handleScroll)
-      // Start timer if post is fetched from SSR
-      this.startReadingCountTimer()
-      // Start reading time if post is fetched from SSR
-      this.setState({
-        startReadingTime: Date.now(),
-      })
-      this.startInactiveTimer()
-      document.addEventListener('visibilitychange', this.handleVisibilityChange)
-      document.addEventListener('mousemove', this.handleUserActivity)
-      document.addEventListener('scroll', this.handleUserActivity)
-      document.addEventListener('click', this.handleUserActivity)
-    }
+    document.addEventListener('scroll', this.handleScroll)
+    // Start timer if post is fetched from SSR
+    this.startReadingCountTimer()
+    // Start reading time if post is fetched from SSR
+    this.setState({
+      startReadingTime: Date.now(),
+    })
+    this.startInactiveTimer()
+    document.addEventListener('visibilitychange', this.handleVisibilityChange)
+    document.addEventListener('mousemove', this.handleUserActivity)
+    document.addEventListener('scroll', this.handleUserActivity)
+    document.addEventListener('click', this.handleUserActivity)
+    window.addEventListener('pagehide', this.handlePagehide)
 
     // Change fontLevel according to browser storage
     localForage
@@ -195,20 +208,17 @@ class Article extends PureComponent {
 
   componentDidUpdate(prevProps) {
     this.props.history.block(() => {
-      if (this.props.isAuthed) {
-        // reset readingCount state
-        this.setState({
-          isBeenRead: false,
-          isReachedArticleReadTargetHeight: false,
-          isReachedArticleReadTargetTime: false,
-        })
-        this.calculateActiveTime()
-        if (
-          this.state.activeTime >=
-          articleReadTimeConditionConfig.min_active_time
-        ) {
-          this.sendActiveTime()
-        }
+      // reset readingCount state
+      this.setState({
+        isBeenRead: false,
+        isReachedArticleReadTargetHeight: false,
+        isReachedArticleReadTargetTime: false,
+      })
+      this.calculateActiveTime()
+      if (
+        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
+      ) {
+        this.sendActiveTime()
       }
       return true
     })
@@ -230,35 +240,32 @@ class Article extends PureComponent {
       }
     }
 
-    if (this.props.isAuthed) {
-      const {
-        isBeenRead,
-        isReachedArticleReadTargetHeight,
-        isReachedArticleReadTargetTime,
-      } = this.state
+    const {
+      isBeenRead,
+      isReachedArticleReadTargetHeight,
+      isReachedArticleReadTargetTime,
+    } = this.state
 
-      if (
-        !isBeenRead &&
-        isReachedArticleReadTargetHeight &&
-        isReachedArticleReadTargetTime
-      ) {
-        this.sendReadCount()
-        this.setState({ isBeenRead: true })
-      }
+    if (
+      !isBeenRead &&
+      isReachedArticleReadTargetHeight &&
+      isReachedArticleReadTargetTime
+    ) {
+      this.sendReadCount()
+      this.setState({ isBeenRead: true })
     }
   }
 
   componentWillUnmount() {
-    if (this.props.isAuthed) {
-      window.removeEventListener('scroll', this.handleScroll)
-      document.removeEventListener(
-        'visibilitychange',
-        this.handleVisibilityChange
-      )
-      document.removeEventListener('mousemove', this.handleUserActivity)
-      document.removeEventListener('scroll', this.handleUserActivity)
-      document.removeEventListener('click', this.handleUserActivity)
-    }
+    document.removeEventListener('scroll', this.handleScroll)
+    document.removeEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange
+    )
+    document.removeEventListener('mousemove', this.handleUserActivity)
+    document.removeEventListener('scroll', this.handleUserActivity)
+    document.removeEventListener('click', this.handleUserActivity)
+    window.removeEventListener('pagehide', this.handlePagehide)
   }
 
   _handleScroll() {
