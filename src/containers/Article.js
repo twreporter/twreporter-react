@@ -85,7 +85,7 @@ class Article extends PureComponent {
       this._handleUserActivity.bind(this),
       500
     )
-    this.handleBeforeunload = this._handleBeforeunload.bind(this)
+    this.handlePagehide = this._handlePagehide.bind(this)
   }
 
   startReadingCountTimer() {
@@ -165,7 +165,7 @@ class Article extends PureComponent {
     }
   }
 
-  _handleBeforeunload() {
+  _handlePagehide() {
     this.calculateActiveTime()
     if (
       this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
@@ -191,7 +191,7 @@ class Article extends PureComponent {
     document.addEventListener('mousemove', this.handleUserActivity)
     document.addEventListener('scroll', this.handleUserActivity)
     document.addEventListener('click', this.handleUserActivity)
-    window.addEventListener('beforeunload', this.handleBeforeunload)
+    window.addEventListener('pagehide', this.handlePagehide)
 
     // Change fontLevel according to browser storage
     localForage
@@ -265,7 +265,7 @@ class Article extends PureComponent {
     document.removeEventListener('mousemove', this.handleUserActivity)
     document.removeEventListener('scroll', this.handleUserActivity)
     document.removeEventListener('click', this.handleUserActivity)
-    window.removeEventListener('beforeunload', this.handleBeforeunload)
+    window.removeEventListener('pagehide', this.handlePagehide)
   }
 
   _handleScroll() {
