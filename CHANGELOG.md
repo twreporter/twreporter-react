@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.4-rc.3, 2024-01-02
+
+### Notable Changes
+
+- feat
+  - add animation for Skeleton component
+
+### Commits
+
+- [[`c9b6fed07c`](https://github.com/twreporter/twreporter-react/commit/c9b6fed07c)] - **feat**: add animation for Skeleton component (Aylie Chou)
+
 ## 4.12.4-rc.2, 2023-12-26
 
 ### Notable Changes
