@@ -22,7 +22,7 @@ const mockIndexPageResponse = mockIndexPage
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8081
 const router = Express.Router()
 
 const _checkIfPortIsTaken = port =>
