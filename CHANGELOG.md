@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.12.1-beta.9, 2024-01-02
+
+### Notable Changes
+
+- fix
+  - add pagehide eventListener
+  - trigger inactive timer
+
+### Commits
+
+- [[`536f0b5c7c`](https://github.com/twreporter/twreporter-react/commit/536f0b5c7c)] - **fix**: trigger inactive timer (Lucien)
+- [[`169ebf3e77`](https://github.com/twreporter/twreporter-react/commit/169ebf3e77)] - **fix**: use pagehide instead of beforeunload (Lucien)
+- [[`c843c9d741`](https://github.com/twreporter/twreporter-react/commit/c843c9d741)] - **fix**: return true for history block (Lucien)
+- [[`03a26097c2`](https://github.com/twreporter/twreporter-react/commit/03a26097c2)] - **fix**: add beforeunload eventListener (Lucien)
+
 ## 4.12.1-beta.8, 2023-12-27
 
 ### Notable Changes
