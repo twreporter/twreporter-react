@@ -232,12 +232,11 @@ class Article extends PureComponent {
           event: 'gtm.load',
         },
       })
-      if (this.props.isAuthed) {
-        this.startReadingCountTimer()
-        this.setState({
-          startReadingTime: Date.now(),
-        })
-      }
+      this.startReadingCountTimer()
+      this.setState({
+        startReadingTime: Date.now(),
+      })
+      this.startInactiveTimer()
     }
 
     const {
