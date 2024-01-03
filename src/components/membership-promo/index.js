@@ -10,19 +10,13 @@ import Popup from './popup'
 import Banner from './banner'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
-import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 // lodash
 import get from 'lodash/get'
 const _ = {
   get,
 }
 
-const MembershipPromo = ({
-  releaseBranch,
-  pathname,
-  isAuthed,
-  showHamburger,
-}) => {
+const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
   const { isShowPromo, closePromo, promoType, PromoType } = usePromo(
     pathname,
     isAuthed,
@@ -33,7 +27,7 @@ const MembershipPromo = ({
     return null
   }
 
-  const contextValue = { isShowPromo, closePromo, releaseBranch }
+  const contextValue = { isShowPromo, closePromo }
   const Promo = promoType === PromoType.POPUP ? Popup : Banner
   return (
     <PromoContext.Provider value={contextValue}>
@@ -42,7 +36,6 @@ const MembershipPromo = ({
   )
 }
 MembershipPromo.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
   pathname: PropTypes.string.isRequired,
   isAuthed: PropTypes.bool.isRequired,
   showHamburger: PropTypes.bool.isRequired,

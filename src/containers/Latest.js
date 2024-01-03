@@ -4,6 +4,8 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
+// context
+import { CoreContext } from '../contexts'
 // components
 import SystemError from '../components/SystemError'
 import Skeleton from '../components/skeleton'
@@ -20,10 +22,6 @@ import Divider from '@twreporter/react-components/lib/divider'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
 import { PillButton } from '@twreporter/react-components/lib/button'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import forEach from 'lodash/forEach'
@@ -125,12 +123,11 @@ const Latest = ({
   fetchPostsByTagListId,
   fetchLatestPosts,
   fetchLatestTags,
-  // props
-  releaseBranch = BRANCH.master,
 }) => {
   const listId = tagId || LATEST_LIST_ID
   const location = useLocation()
   const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
+  const { releaseBranch } = useContext(CoreContext)
 
   const state = useContext(ReactReduxContext).store.getState()
   const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
@@ -376,8 +373,6 @@ Latest.defaultProps = {
   isFetching: false,
   nPerPage: dataLoaderConst.latestPage.nPerPage,
   totalPages: 0,
-  // props
-  releaseBranch: BRANCH.master,
 }
 
 Latest.propTypes = {
@@ -392,8 +387,6 @@ Latest.propTypes = {
   fetchPostsByTagListId: PropTypes.func.isRequired,
   fetchLatestPosts: PropTypes.func.isRequired,
   fetchLatestTags: PropTypes.func.isRequired,
-  // props
-  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export { Latest }

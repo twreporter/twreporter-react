@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import localForage from 'localforage'
 import * as dayjs from 'dayjs'
 // contexts
-import { ArticlePromoContext } from '../../contexts'
+import { ArticlePromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -22,15 +22,14 @@ import {
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
-
-import globalEnv from '../../global-env'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 const boxCss = css`
   display: flex;
   flex-direction: column;
   width: 100vw;
   position: fixed;
-  z-index: 1000; // article component tool bar z-index: 999
+  z-index: ${zIndexConst.buttomBanner};
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
   transform: translateY(${props => (props.show ? 0 : '100%')});
@@ -78,9 +77,8 @@ const FlexRow = styled.div`
   width: 950px;
 `
 const DesktopBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(
-    ArticlePromoContext
-  )
+  const { isShowPromo, closePromo } = useContext(ArticlePromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/pencil.png`
 
   return (
@@ -133,9 +131,8 @@ const MobileMore = styled(MoreButton)`
   }
 `
 const MobileBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(
-    ArticlePromoContext
-  )
+  const { isShowPromo, closePromo } = useContext(ArticlePromoContext)
+  const { releaseBranch } = useContext(CoreContext)
 
   return (
     <MobileBox show={isShowPromo}>
@@ -207,8 +204,7 @@ const ArticleBanner = ({
       timerId.current = window.setTimeout(openPromo, 70000)
     }
   }, [isExpanded, isAuthed, userRole, isOpened])
-  const releaseBranch = globalEnv.releaseBranch
-  const contextValue = { isShowPromo, closePromo, releaseBranch }
+  const contextValue = { isShowPromo, closePromo }
   return (
     <ArticlePromoContext.Provider value={contextValue}>
       <Box show={isShowPromo}>

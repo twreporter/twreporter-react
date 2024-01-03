@@ -266,18 +266,18 @@ export default function getRoutes() {
       path: routesConst.aboutUsPage.path,
     },
     {
-      renderWithProps: loadablePages.bookmarkList,
+      component: loadablePages.bookmarkList,
       loadData: dataLoaders.loadBookmarkListData,
       path: routesConst.bookmarkListPage.path,
       authorizationRequired: true,
     },
     {
-      renderWithProps: loadablePages.latest,
+      component: loadablePages.latest,
       loadData: dataLoaders.loadLatestPageData,
       path: routesConst.latestPage.path,
     },
     {
-      renderWithProps: loadablePages.member,
+      component: loadablePages.member,
       loadData: dataLoaders.loadMemberPageData,
       path: routesConst.memberPage.path,
     },

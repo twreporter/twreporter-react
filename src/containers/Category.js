@@ -7,6 +7,7 @@ import styled from 'styled-components'
 // components
 import SystemError from '../components/SystemError'
 import Pagination from '../components/Pagination'
+import EmptyState from '../components/EmptyState'
 // utils
 import loggerFactory from '../logger'
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
@@ -121,6 +122,12 @@ const Category = ({
       isExternal,
     }
   })
+  const listJSX =
+    isFetching === false && (!posts || posts.length === 0) ? (
+      <EmptyState />
+    ) : (
+      <List data={posts} isFetching={isFetching} showSpinner={true} />
+    )
 
   return (
     <div>
@@ -149,9 +156,7 @@ const Category = ({
             activeTabIndex={activeTabIndex}
           />
         </TitleTabContainer>
-        <ListContainer>
-          <List data={posts} isFetching={isFetching} showSpinner={true} />
-        </ListContainer>
+        <ListContainer>{listJSX}</ListContainer>
         <Pagination currentPage={page} totalPages={totalPages} />
       </Container>
     </div>
@@ -325,7 +330,6 @@ Category.defaultProps = {
   subcategoryList: [],
   activeTabIndex: 0,
   error: null,
-  isFetching: false,
   posts: [],
   totalPages: 0,
   nPerPage: dataLoaderConst.categoryListPage.nPerPage,
