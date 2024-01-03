@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+// context
+import { CoreContext } from '../../../contexts'
+
+// @twreporter
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import MobileMemberRoleCard from '@twreporter/react-components/lib/mobile-member-role-card'
 import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
 
+// components
 import MobileMemberMenuList from './mobile-menu-list'
 
 const RoleCardContainer = styled.div`
@@ -20,7 +21,6 @@ const RoleCardContainer = styled.div`
 
 const MobileMemberPage = ({
   roleKey = MEMBER_ROLE.explorer,
-  releaseBranch = BRANCH.master,
   email,
   joinDate,
   name = '',
@@ -29,6 +29,8 @@ const MobileMemberPage = ({
   articleReadingTime = 0,
   articleReadingTimeUnit = READING_TIME_UNIT.minute,
 }) => {
+  const { releaseBranch } = useContext(CoreContext)
+
   return (
     <div>
       <RoleCardContainer>
@@ -44,14 +46,13 @@ const MobileMemberPage = ({
           articleReadingTimeUnit={articleReadingTimeUnit}
         />
       </RoleCardContainer>
-      <MobileMemberMenuList releaseBranch={releaseBranch} />
+      <MobileMemberMenuList />
     </div>
   )
 }
 
 MobileMemberPage.propTypes = {
   roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
-  releaseBranch: BRANCH_PROP_TYPES,
   email: PropTypes.string,
   joinDate: PropTypes.string,
   name: PropTypes.string,

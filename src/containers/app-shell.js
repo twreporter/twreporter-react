@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+// context
+import { CoreContext } from '../contexts'
 // managers
 import uiManager from '../managers/ui-manager'
 // constants
@@ -12,7 +14,7 @@ import MembershipPromo from '../components/membership-promo'
 // @twreporter
 import Footer from '@twreporter/react-components/lib/footer'
 import { Header } from '@twreporter/universal-header/lib/index'
-import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
@@ -32,7 +34,7 @@ const ContentBlock = styled.div`
 const HeaderContainer = styled.div`
   position: sticky;
   top: 0;
-  z-index: 1000; // other components in twreporter-react has z-index 999
+  z-index: ${zIndexConst.header};
 `
 
 // TODO add `pink` theme to universal-header
@@ -100,11 +102,10 @@ const AppShell = ({
   headerType = uiConst.header.default,
   footerType = uiConst.footer.default,
   backgroundColor = '#f1f1f1',
-  releaseBranch,
   children,
   pathname,
-  referrerPath,
 }) => {
+  const { referrerPath, releaseBranch } = useContext(CoreContext)
   const [showHamburger, setShowHamburger] = useState(false)
   const hamburgerContext = { showHamburger, setShowHamburger }
 
@@ -123,11 +124,7 @@ const AppShell = ({
           {renderFooter(footerType, releaseBranch)}
         </ContentBlock>
       </AppBox>
-      <MembershipPromo
-        releaseBranch={releaseBranch}
-        pathname={pathname}
-        showHamburger={showHamburger}
-      />
+      <MembershipPromo pathname={pathname} showHamburger={showHamburger} />
     </ErrorBoundary>
   )
 }
@@ -135,20 +132,17 @@ AppShell.propTypes = {
   backgroundColor: PropTypes.string,
   footerType: PropTypes.oneOf(_.values(uiConst.footer)),
   headerType: PropTypes.oneOf(_.values(uiConst.header)),
-  releaseBranch: BRANCH_PROP_TYPES,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
   pathname: PropTypes.string.isRequired,
-  referrerPath: PropTypes.string,
 }
 
 function mapStateToProps(state, ownProps) {
   return Object.assign(
     {
       pathname: _.get(ownProps.location, 'pathname', ''),
-      referrerPath: _.get(ownProps.referrer, 'pathname', ''),
     },
     uiManager.getLayoutObj(state, ownProps.location)
   )

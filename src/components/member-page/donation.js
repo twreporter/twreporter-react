@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 
+// context
+import { CoreContext } from '../../contexts'
+
+// @twreporter
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const StyledH3 = styled(H3)`
@@ -22,7 +22,9 @@ const StyledP2 = styled(P2)`
   justify-content: center;
 `
 
-const MemberDonationPage = ({ releaseBranch = BRANCH.master }) => {
+const MemberDonationPage = () => {
+  const { releaseBranch } = useContext(CoreContext)
+
   return (
     <div>
       <StyledH3 text="贊助紀錄" />
@@ -41,10 +43,6 @@ const MemberDonationPage = ({ releaseBranch = BRANCH.master }) => {
       />
     </div>
   )
-}
-
-MemberDonationPage.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default MemberDonationPage

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
 // contexts
-import { PromoContext } from '../../contexts'
+import { PromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -15,6 +15,7 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 // desktop popup component
 const boxCss = css`
@@ -59,7 +60,8 @@ const DesktopMore = styled(MoreButton)`
   margin: 0 24px;
 `
 const DesktopPopup = () => {
-  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_text_desktop.png`
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_desktop.png`
 
@@ -97,7 +99,8 @@ const MobileMore = styled(MoreButton)`
   margin-top: 24px;
 `
 const MobilePopup = () => {
-  const { closePromo, releaseBranch } = useContext(PromoContext)
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_mobile.png`
 
   return (
@@ -121,7 +124,7 @@ const PopupContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${colorOpacity['black_0.2']};
-  z-index: 10000;
+  z-index: ${zIndexConst.popup};
   position: fixed;
   left: 0;
   top: 0;
