@@ -1569,7 +1569,7 @@
     react-waypoint "^9.0.2"
     styled-components "^4.0.0"
 
-"@twreporter/redux@^7.8.3", "@twreporter/redux@^7.9.0":
+"@twreporter/redux@^7.9.0":
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.9.0.tgz#9964877359d0fa61a0a7b953b5aa84f18eb16628"
   integrity sha512-RYM6F/qW617W69jyrOieRF32p006Kc9vudyfMwJdtdk4SC5ywUolH1TFTQTNVcGvGPjkIt0Pb8IvfxGYbZE8cA==
