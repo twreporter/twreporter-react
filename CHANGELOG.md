@@ -137,7 +137,38 @@
 - [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
 - [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
 
-## 4.12.2, 2023-12-13 (Current)
+## 4.12.4, 2024-01-03 (Current)
+
+### Notable Changes
+
+- feat
+  - add animation for Skeleton component
+  - add category page empty state
+  - use @twreporter packages z-index
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c9b6fed07c`](https://github.com/twreporter/twreporter-react/commit/c9b6fed07c)] - **feat**: add animation for Skeleton component (Aylie Chou)
+- [[`d05057f238`](https://github.com/twreporter/twreporter-react/commit/d05057f238)] - **feat**: add category page empty state (Aylie Chou)
+- [[`d56603a68c`](https://github.com/twreporter/twreporter-react/commit/d56603a68c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0e9a826a7c`](https://github.com/twreporter/twreporter-react/commit/0e9a826a7c)] - **chore**: sync master (Lucien)
+- [[`9233215580`](https://github.com/twreporter/twreporter-react/commit/9233215580)] - **chore**: update twreporter packages (Lucien)
+- [[`978d163ebf`](https://github.com/twreporter/twreporter-react/commit/978d163ebf)] - **feat**: use twreporter core z-index (Lucien)
+
+## 4.12.3, 2023-12-21
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`b4acc29ad2`](https://github.com/twreporter/twreporter-react/commit/b4acc29ad2)] - **chore**: update twreporter packages (Lucien)
+
+## 4.12.2, 2023-12-13
 
 ### Notable Changes
 

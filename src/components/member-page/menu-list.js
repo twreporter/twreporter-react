@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 import querystring from 'querystring'
 
+// context
+import { CoreContext } from '../../contexts'
+
+// @twreporter
 import {
   TabletAndBelow,
   DesktopAndAbove,
@@ -12,14 +16,11 @@ import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
 
+// contants
 import routes from '../../constants/routes'
 import menuListType from '../../constants/menu-list-type'
 
@@ -28,8 +29,9 @@ const DividerContainer = styled.div`
 `
 
 const originsForClient = origins.forClientSideRendering
-const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
+const MemberMenuList = () => {
   const { pathname } = useLocation()
+  const { releaseBranch } = useContext(CoreContext)
   const MenuData = [
     {
       type: menuListType.normal,
@@ -140,10 +142,6 @@ const MemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   })
 
   return <div>{itemJSX}</div>
-}
-
-MemberMenuList.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default MemberMenuList

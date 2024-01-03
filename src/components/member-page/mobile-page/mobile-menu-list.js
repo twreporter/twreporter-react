@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import querystring from 'querystring'
 
+// context
+import { CoreContext } from '../../../contexts'
+
+// @twreporter
 import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
-import {
-  BRANCH,
-  BRANCH_PROP_TYPES,
-} from '@twreporter/core/lib/constants/release-branch'
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
@@ -29,7 +29,8 @@ const DividerContainer = styled.div`
 `
 
 const originsForClient = origins.forClientSideRendering
-const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
+const MobileMemberMenuList = () => {
+  const { releaseBranch } = useContext(CoreContext)
   const MenuData = [
     {
       type: menuListType.normal,
@@ -108,10 +109,6 @@ const MobileMemberMenuList = ({ releaseBranch = BRANCH.master }) => {
   return (
     <MobileMemberMenuListConatiner>{itemJSX}</MobileMemberMenuListConatiner>
   )
-}
-
-MobileMemberMenuList.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
 }
 
 export default MobileMemberMenuList

@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
+// context
+import { CoreContext } from '../contexts'
+
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
-import {
-  BRANCH_PROP_TYPES,
-  BRANCH,
-} from '@twreporter/core/lib/constants/release-branch'
 import {
   MobileOnly,
   TabletAndAbove,
@@ -97,7 +96,6 @@ const LoginContainer = styled.div`
 `
 
 const MemberPage = ({
-  releaseBranch = BRANCH.master,
   memberData,
   jwt,
   isAuthed,
@@ -105,6 +103,7 @@ const MemberPage = ({
   readPostsSec,
 }) => {
   const { pathname } = useLocation()
+  const { releaseBranch } = useContext(CoreContext)
 
   // check authorization
   // redirect to singin page if user has not been authorized
@@ -199,7 +198,7 @@ const MemberPage = ({
       <TabletAndAbove>
         <PageContainer>
           <MenuContainer>
-            <MemberMenuList releaseBranch={releaseBranch} />
+            <MemberMenuList />
           </MenuContainer>
           <ContentContainer path={pathname}>
             <Switch>
@@ -216,7 +215,7 @@ const MemberPage = ({
                 />
               </Route>
               <Route path={routes.memberPage.memberDonationPage.path}>
-                <MemberDonationPage releaseBranch={releaseBranch} />
+                <MemberDonationPage />
               </Route>
               <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
                 <EmailSubscription />
@@ -225,10 +224,7 @@ const MemberPage = ({
           </ContentContainer>
           <Route exact path={routes.memberPage.path}>
             <RoleCardContainer>
-              <MemberRoleCard
-                roleKey={memberData.role.key}
-                releaseBranch={releaseBranch}
-              />
+              <MemberRoleCard roleKey={memberData.role.key} />
             </RoleCardContainer>
           </Route>
         </PageContainer>
@@ -238,7 +234,6 @@ const MemberPage = ({
           <PageContainer>
             <MobileMemberPage
               roleKey={memberData.role.key}
-              releaseBranch={releaseBranch}
               email={memberData.email}
               joinDate={memberData.joinDate}
               name={memberData.name || ''}
@@ -252,7 +247,7 @@ const MemberPage = ({
         <Switch>
           <Route path={routes.memberPage.memberDonationPage.path}>
             <ContentContainer>
-              <MemberDonationPage releaseBranch={releaseBranch} />
+              <MemberDonationPage />
             </ContentContainer>
           </Route>
           <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
@@ -267,7 +262,6 @@ const MemberPage = ({
 }
 
 MemberPage.propTypes = {
-  releaseBranch: BRANCH_PROP_TYPES,
   memberData: PropTypes.shape({
     email: PropTypes.string,
     name: PropTypes.string,

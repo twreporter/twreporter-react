@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
 // contexts
-import { PromoContext } from '../../contexts'
+import { PromoContext, CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
@@ -18,13 +18,14 @@ import {
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 const boxCss = css`
   display: flex;
   flex-direction: column;
   width: 100vw;
   position: fixed;
-  z-index: 101;
+  z-index: ${zIndexConst.buttomBanner};
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
   transform: translateY(${props => (props.show ? 0 : '100%')});
@@ -72,7 +73,8 @@ const FlexRow = styled.div`
   width: 950px;
 `
 const DesktopBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
+  const { isShowPromo, closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/banner_desktop.png`
 
   return (
@@ -126,7 +128,8 @@ const MobileMore = styled(MoreButton)`
   }
 `
 const MobileBanner = () => {
-  const { isShowPromo, closePromo, releaseBranch } = useContext(PromoContext)
+  const { isShowPromo, closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
 
   return (
     <MobileBox show={isShowPromo}>
