@@ -1,54 +1,26 @@
 # Changelog
 
-## 4.12.4-rc.3, 2024-01-02
+## 4.12.4, 2024-01-03 (Current)
 
 ### Notable Changes
 
 - feat
   - add animation for Skeleton component
-
-### Commits
-
-- [[`c9b6fed07c`](https://github.com/twreporter/twreporter-react/commit/c9b6fed07c)] - **feat**: add animation for Skeleton component (Aylie Chou)
-
-## 4.12.4-rc.2, 2023-12-26
-
-### Notable Changes
-
-- feat
   - add category page empty state
-
-### Commits
-
-- [[`d05057f238`](https://github.com/twreporter/twreporter-react/commit/d05057f238)] - **feat**: add category page empty state (Aylie Chou)
-
-## 4.12.4-rc.1, 2023-12-26
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`d56603a68c`](https://github.com/twreporter/twreporter-react/commit/d56603a68c)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.12.4-rc.0, 2023-12-25
-
-### Notable Changes
-
-- feat
   - use @twreporter packages z-index
 - chore
   - update @twreporter packages
 
 ### Commits
 
+- [[`c9b6fed07c`](https://github.com/twreporter/twreporter-react/commit/c9b6fed07c)] - **feat**: add animation for Skeleton component (Aylie Chou)
+- [[`d05057f238`](https://github.com/twreporter/twreporter-react/commit/d05057f238)] - **feat**: add category page empty state (Aylie Chou)
+- [[`d56603a68c`](https://github.com/twreporter/twreporter-react/commit/d56603a68c)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`0e9a826a7c`](https://github.com/twreporter/twreporter-react/commit/0e9a826a7c)] - **chore**: sync master (Lucien)
 - [[`9233215580`](https://github.com/twreporter/twreporter-react/commit/9233215580)] - **chore**: update twreporter packages (Lucien)
 - [[`978d163ebf`](https://github.com/twreporter/twreporter-react/commit/978d163ebf)] - **feat**: use twreporter core z-index (Lucien)
 
-## 4.12.3, 2023-12-21 (Current)
+## 4.12.3, 2023-12-21
 
 ### Notable Changes
 
