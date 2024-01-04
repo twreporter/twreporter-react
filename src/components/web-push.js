@@ -1,15 +1,19 @@
 /* global Notification */
 
+import React, { PureComponent } from 'react'
+import styled from 'styled-components'
 import axios from 'axios'
-import bsCosnt from '../constants/browser-storage'
+import PropTypes from 'prop-types'
 import localForage from 'localforage'
+// constants
+import bsCosnt from '../constants/browser-storage'
+import statusCodeConst from '../constants/status-code'
+
 import loggerFactory from '../logger'
 import mq from '../utils/media-query'
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
-import statusCodeConst from '../constants/status-code'
-import styled from 'styled-components'
+// twreporter
 import twreporterRedux from '@twreporter/redux'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 
 // lodash
 import get from 'lodash/get'
@@ -68,11 +72,7 @@ function isServiceWorkerSupported() {
 
 const NotifyBackground = styled.div`
   background-color: #fff;
-  // z-index and position are set for covering header.
-  // Set z-index to 1001 because header has z-index 1000,
-  // and notify background should be on top of header or
-  // buttons can not be clicked.
-  z-index: 1001;
+  z-index: ${zIndexConst.webPush};
   position: relative;
 `
 
