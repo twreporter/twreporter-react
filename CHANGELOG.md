@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.12.1-beta.10, 2024-01-04
+
+### Notable Changes
+
+- fix
+  - send active time after inactive
+
+### Commits
+
+- [[`7097bbc998`](https://github.com/twreporter/twreporter-react/commit/7097bbc998)] - Merge remote-tracking branch 'upstream/dev' into fix/article-read-time-1 (Lucien)
+- [[`0a3f40e3c2`](https://github.com/twreporter/twreporter-react/commit/0a3f40e3c2)] - **fix**: send active time after inactive (Lucien)
+
 ## 4.12.1-beta.9, 2024-01-02
 
 ### Notable Changes

@@ -111,6 +111,11 @@ class Article extends PureComponent {
     }
     this.inactiveTimerId.current = window.setTimeout(() => {
       this.calculateActiveTime()
+      if (
+        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
+      ) {
+        this.sendActiveTime()
+      }
       this.setState({
         isActive: false,
       })
@@ -160,9 +165,8 @@ class Article extends PureComponent {
         isActive: true,
         startReadingTime: Date.now(),
       })
-    } else {
-      this.startInactiveTimer()
     }
+    this.startInactiveTimer()
   }
 
   _handlePagehide() {
