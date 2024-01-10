@@ -13,9 +13,13 @@ import {
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
-
-import routes from '../../../constants/routes'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
+// constants
+import routesOld from '../../../constants/routes-old'
+import routesNew from '../../../constants/routes'
 import menuListType from '../../../constants/menu-list-type'
+
+const routes = MY_READING ? routesNew : routesOld
 
 const MobileMemberMenuListConatiner = styled.div`
   max-width: 320px;

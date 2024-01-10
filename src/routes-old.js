@@ -112,11 +112,11 @@ const loadablePages = {
       ),
     loading: LoadingComponent,
   }),
-  myReading: Loadable({
+  bookmarkList: Loadable({
     loader: () =>
       import(
-        /* webpackChunkName: "my-reading" */
-        './containers/MyReading'
+        /* webpackChunkName: "bookmark-list" */
+        './containers/BookmarkList'
       ),
     loading: LoadingComponent,
   }),
@@ -266,9 +266,9 @@ export default function getRoutes() {
       path: routesConst.aboutUsPage.path,
     },
     {
-      component: loadablePages.myReading,
-      loadData: dataLoaders.loadMyReadingPageData,
-      path: routesConst.myReadingPage.path,
+      component: loadablePages.bookmarkList,
+      loadData: dataLoaders.loadBookmarkListData,
+      path: routesConst.bookmarkListPage.path,
       authorizationRequired: true,
     },
     {
