@@ -8,7 +8,7 @@ const _ = {
 
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
-const defaultLimit = 5
+const defaultLimit = 6
 
 /**
  *  loadData function is used for server side rendering.
