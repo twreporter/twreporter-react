@@ -23,6 +23,7 @@ import routes from '../constants/routes'
 
 // components
 import SavedBookmarks from '../components/my-reading/saved-bookmarks'
+import BrowsingHistory from '../components/my-reading/browsing-history'
 
 const GridContainer = styled.div`
   width: 100%;
@@ -83,6 +84,16 @@ const MyReadingPage = () => {
       }
     />
   )
+
+  const moreHistoryBtn = (
+    <TextButton
+      text="查看更多"
+      rightIconComponent={<Arrow direction="right" />}
+      onClick={() =>
+        navigate.push(routes.myReadingPage.browsingHistoryPage.path)
+      }
+    />
+  )
   return (
     <div>
       <Helmet
@@ -109,9 +120,13 @@ const MyReadingPage = () => {
               <PageTitle text={'我的閱讀'} />
               {/* TODO: move to components */}
               <Title2 title={'已收藏'} buttonComponent={moreSavedBookmarkBtn} />
+              <Title2 title={'造訪紀錄'} buttonComponent={moreHistoryBtn} />
             </Route>
             <Route path={routes.myReadingPage.savedBookmarksPage.path}>
               <SavedBookmarks />
+            </Route>
+            <Route path={routes.myReadingPage.browsingHistoryPage.path}>
+              <BrowsingHistory />
             </Route>
           </Switch>
         </ContentContainer>

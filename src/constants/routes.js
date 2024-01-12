@@ -40,6 +40,9 @@ export default {
     savedBookmarksPage: {
       path: '/myreading/saved',
     },
+    browsingHistoryPage: {
+      path: '/myreading/history',
+    },
   },
   latestPage: {
     path: '/latest/:tagId?',
