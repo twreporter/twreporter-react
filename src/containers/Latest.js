@@ -113,6 +113,7 @@ const GetSomeSpace = styled.div`
 
 const Latest = ({
   // redux state
+  jwt,
   latestTagList,
   activeTabIndex,
   tagId,
@@ -147,9 +148,9 @@ const Latest = ({
     const getPosts = async () => {
       try {
         if (tagId) {
-          await fetchPostsByTagListId(tagId, nPerPage, page)
+          await fetchPostsByTagListId(tagId, nPerPage, page, jwt)
         } else {
-          await fetchLatestPosts(nPerPage, page)
+          await fetchLatestPosts(nPerPage, page, jwt)
         }
       } catch (failAction) {
         logger.errorReport({
@@ -351,12 +352,14 @@ function titleTabProp(state, listId) {
  *  @param {Object} props
  */
 function mapStateToProps(state, props) {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
   const tagId = _.get(props, 'match.params.tagId')
   const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
   const nPerPage = dataLoaderConst.latestPage.nPerPage
   const listId = tagId || LATEST_LIST_ID
 
   return {
+    jwt,
     latestTagList,
     activeTabIndex,
     tagId,
@@ -368,6 +371,7 @@ function mapStateToProps(state, props) {
 
 Latest.defaultProps = {
   // redux state
+  jwt: '',
   latestTagList: [],
   activeTabIndex: 0,
   isFetching: false,
@@ -377,6 +381,7 @@ Latest.defaultProps = {
 
 Latest.propTypes = {
   // redux state
+  jwt: PropTypes.string,
   latestTagList: PropTypes.array,
   activeTabIndex: PropTypes.number,
   tagId: PropTypes.string,
