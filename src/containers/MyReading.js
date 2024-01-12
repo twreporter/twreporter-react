@@ -22,8 +22,8 @@ import siteMeta from '../constants/site-meta'
 import routes from '../constants/routes'
 
 // components
-import SavedBookmarks from '../components/my-reading/saved-bookmarks'
-import BrowsingHistory from '../components/my-reading/browsing-history'
+import SavedBookmarksPage from '../components/my-reading/saved-bookmarks'
+import BrowsingHistoryPage from '../components/my-reading/browsing-history'
 
 const GridContainer = styled.div`
   width: 100%;
@@ -59,6 +59,22 @@ const PageTitle = styled(H2)`
   margin-bottom: 24px;
 `
 
+const SavedBookmarks = styled.div`
+  width: 100%;
+  padding-bottom: 24px;
+`
+
+const BrowsingHistory = styled.div`
+  width: 100%;
+  padding-bottom: 24px;
+`
+
+const EmptyBox = styled.div`
+  margin-top: 24px;
+  margin-bottom: 24px;
+  height: 300px;
+`
+
 const MyReadingPage = () => {
   const { pathname } = useLocation()
   const navigate = useHistory()
@@ -75,25 +91,42 @@ const MyReadingPage = () => {
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
 
-  const moreSavedBookmarkBtn = (
-    <TextButton
-      text="查看更多"
-      rightIconComponent={<Arrow direction="right" />}
-      onClick={() =>
-        navigate.push(routes.myReadingPage.savedBookmarksPage.path)
-      }
-    />
-  )
+  const SavedBookmarksContent = () => {
+    const moreSavedBookmarkBtn = (
+      <TextButton
+        text="查看更多"
+        rightIconComponent={<Arrow direction="right" />}
+        onClick={() =>
+          navigate.push(routes.myReadingPage.savedBookmarksPage.path)
+        }
+      />
+    )
+    return (
+      <div>
+        <Title2 title={'已收藏'} buttonComponent={moreSavedBookmarkBtn} />
+        <EmptyBox>空無一物</EmptyBox>
+      </div>
+    )
+  }
 
-  const moreHistoryBtn = (
-    <TextButton
-      text="查看更多"
-      rightIconComponent={<Arrow direction="right" />}
-      onClick={() =>
-        navigate.push(routes.myReadingPage.browsingHistoryPage.path)
-      }
-    />
-  )
+  const BrowsingHistoryContent = () => {
+    const moreHistoryBtn = (
+      <TextButton
+        text="查看更多"
+        rightIconComponent={<Arrow direction="right" />}
+        onClick={() =>
+          navigate.push(routes.myReadingPage.browsingHistoryPage.path)
+        }
+      />
+    )
+    return (
+      <div>
+        <Title2 title={'造訪紀錄'} buttonComponent={moreHistoryBtn} />
+        <EmptyBox>空無一物</EmptyBox>
+      </div>
+    )
+  }
+
   return (
     <div>
       <Helmet
@@ -118,15 +151,18 @@ const MyReadingPage = () => {
           <Switch>
             <Route exact path={routes.myReadingPage.path}>
               <PageTitle text={'我的閱讀'} />
-              {/* TODO: move to components */}
-              <Title2 title={'已收藏'} buttonComponent={moreSavedBookmarkBtn} />
-              <Title2 title={'造訪紀錄'} buttonComponent={moreHistoryBtn} />
+              <SavedBookmarks>
+                <SavedBookmarksContent />
+              </SavedBookmarks>
+              <BrowsingHistory>
+                <BrowsingHistoryContent />
+              </BrowsingHistory>
             </Route>
             <Route path={routes.myReadingPage.savedBookmarksPage.path}>
-              <SavedBookmarks />
+              <SavedBookmarksPage />
             </Route>
             <Route path={routes.myReadingPage.browsingHistoryPage.path}>
-              <BrowsingHistory />
+              <BrowsingHistoryPage />
             </Route>
           </Switch>
         </ContentContainer>
