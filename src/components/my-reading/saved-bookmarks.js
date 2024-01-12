@@ -172,7 +172,7 @@ const SavedBookmarks = ({
   }
 
   useEffect(() => {
-    if (bookmarks.length === 0) {
+    if (bookmarks.length === 0 && page > 1) {
       const redirectPage = Math.max(page === totalPages ? page - 1 : page, 1)
       navigate.push(
         `${routes.myReadingPage.savedBookmarksPage.path}?page=${redirectPage}`
