@@ -60,9 +60,9 @@ export const MENU_LIST_DATA = [
   donation,
   newsletter,
   divider,
+  myReading,
   bookmark,
   readingFootprint,
-  myReading,
   divider,
   logout,
 ]
@@ -71,9 +71,9 @@ export const MENU_LIST_DATA_MOBILE = [
   donation,
   newsletter,
   divider,
+  myReading,
   bookmark,
   readingFootprint,
-  myReading,
   divider,
   logout,
 ]
