@@ -25,14 +25,14 @@ import map from 'lodash/map'
 const BROWSING_HISTORY_PER_PAGE = 10
 
 const TEST_POST = {
-  slug: 'migrant-workers-return-home-with-ashes',
-  title: '從台灣到越南，傷心的屍骨還鄉路 ',
+  slug: 'migrant-workers-dormfire-in-luzhu',
+  title: '夾層裡的6條人命——蘆竹大火暴露移工安全漏洞 ',
   state: 'published',
   hero_image: {
     resized_targets: {
       mobile: {
         url:
-          'https://www.twreporter.org/images/20180413144637-692c1c0eb0c62035867b85c5ad236367-mobile.jpg',
+          'https://www.twreporter.org/images/20180413151305-e66c12bb019d870303e367fdaed50bc3-mobile.jpg',
       },
     },
   },
@@ -54,10 +54,20 @@ const TEST_POST = {
         name: '移工與移民',
       },
     },
+    {
+      category: {
+        i: '63206383207bf7c5f8716234',
+        name: '人權司法',
+      },
+      subcategory: {
+        id: '63206383207bf7c5f8716236',
+        name: '勞動',
+      },
+    },
   ],
   style: 'article',
   og_description:
-    '兩位哥哥分別捧著弟弟的骨灰，離開台灣這處斷魂地。兩個月後，《報導者》重走這條屍骨還鄉的路線⋯⋯',
+    '這是台灣最嚴重的移工宿舍火警，引起國際重視。悲劇的背後，是布滿漏洞的法規權責、吃緊的管理、忽視的心態。',
   published_date: '2018-04-17T00:00:00Z',
 }
 
