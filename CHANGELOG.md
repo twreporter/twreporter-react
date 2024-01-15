@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.11, 2024-01-15
+
+### Notable Changes
+
+- fix
+  - clear timer if visibility change
+
+### Commits
+
+- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
+
 ## 4.12.1-beta.10, 2024-01-04
 
 ### Notable Changes

@@ -144,6 +144,9 @@ class Article extends PureComponent {
   _handleVisibilityChange() {
     this.calculateActiveTime()
     if (document.visibilityState === 'hidden') {
+      if (this.inactiveTimerId.current) {
+        window.clearTimeout(this.inactiveTimerId.current)
+      }
       if (
         this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
       ) {
