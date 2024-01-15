@@ -92,36 +92,48 @@ const MyReadingPage = () => {
   const canonical = `${siteMeta.urlOrigin}${pathname}`
 
   const SavedBookmarksContent = () => {
-    const moreSavedBookmarkBtn = (
-      <TextButton
-        text="查看更多"
-        rightIconComponent={<Arrow direction="right" />}
-        onClick={() =>
-          navigate.push(routes.myReadingPage.savedBookmarksPage.path)
-        }
-      />
-    )
+    const moreSavedBookmarkBtn = size => {
+      return (
+        <TextButton
+          text="查看更多"
+          rightIconComponent={<Arrow direction="right" />}
+          onClick={() =>
+            navigate.push(routes.myReadingPage.savedBookmarksPage.path)
+          }
+          size={size}
+        />
+      )
+    }
     return (
       <div>
-        <Title2 title={'已收藏'} buttonComponent={moreSavedBookmarkBtn} />
+        <Title2
+          title={'已收藏'}
+          renderButton={size => moreSavedBookmarkBtn(size)}
+        />
         <EmptyBox>空無一物</EmptyBox>
       </div>
     )
   }
 
   const BrowsingHistoryContent = () => {
-    const moreHistoryBtn = (
-      <TextButton
-        text="查看更多"
-        rightIconComponent={<Arrow direction="right" />}
-        onClick={() =>
-          navigate.push(routes.myReadingPage.browsingHistoryPage.path)
-        }
-      />
-    )
+    const moreHistoryBtn = size => {
+      return (
+        <TextButton
+          text="查看更多"
+          rightIconComponent={<Arrow direction="right" />}
+          onClick={() =>
+            navigate.push(routes.myReadingPage.browsingHistoryPage.path)
+          }
+          size={size}
+        />
+      )
+    }
     return (
       <div>
-        <Title2 title={'造訪紀錄'} buttonComponent={moreHistoryBtn} />
+        <Title2
+          title={'造訪紀錄'}
+          renderButton={size => moreHistoryBtn(size)}
+        />
         <EmptyBox>空無一物</EmptyBox>
       </div>
     )
