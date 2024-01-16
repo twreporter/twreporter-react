@@ -153,10 +153,10 @@ class Article extends PureComponent {
           articleReadTimeConditionConfig.min_active_time
         ) {
           this.sendActiveTime()
-          this.setState({
-            isActive: false,
-          })
         }
+        this.setState({
+          isActive: false,
+        })
       }
     } else {
       if (!this.state.isActive) {
