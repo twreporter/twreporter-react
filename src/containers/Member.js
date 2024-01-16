@@ -19,6 +19,7 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -27,14 +28,17 @@ import MemberRoleCard from '../components/member-page/member-role-card'
 import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
-import routes from '../constants/routes'
 
 // constants
 import siteMeta from '../constants/site-meta'
+import routesOld from '../constants/routes-old'
+import routesNew from '../constants/routes'
 
 // lodash
 import get from 'lodash/get'
 import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
+
+const routes = MY_READING ? routesNew : routesOld
 
 const _ = {
   get,

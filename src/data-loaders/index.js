@@ -11,6 +11,7 @@ import loadTopicListPageData from './topic-list-page'
 import loadTopicPageData from './topic-page'
 import loadLatestPageData from './latest-page'
 import loadMemberPageData from './member-page'
+import loadMyReadingPageData from './my-reading-page'
 
 export default {
   loadArticlePageData,
@@ -26,4 +27,5 @@ export default {
   loadTopicPageData,
   loadLatestPageData,
   loadMemberPageData,
+  loadMyReadingPageData,
 }

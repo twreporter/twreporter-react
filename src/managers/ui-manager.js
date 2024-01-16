@@ -1,8 +1,12 @@
 import get from 'lodash/get'
 import pathToRegexp from 'path-to-regexp'
-import routesConst from '../constants/routes'
+import routesOld from '../constants/routes-old'
+import routesNew from '../constants/routes'
 import uiConst from '../constants/ui'
 import twreporterRedux from '@twreporter/redux'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
+
+const routesConst = MY_READING ? routesNew : routesOld
 
 const _ = {
   get,

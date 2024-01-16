@@ -19,10 +19,14 @@ import {
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 
 // contants
-import routes from '../../constants/routes'
+import routesOld from '../../constants/routes-old'
+import routesNew from '../../constants/routes'
 import menuListType from '../../constants/menu-list-type'
+
+const routes = MY_READING ? routesNew : routesOld
 
 const DividerContainer = styled.div`
   margin: 16px 0px;

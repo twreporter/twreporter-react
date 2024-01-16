@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
 import React from 'react'
-import getRoutes from './routes'
+import oldRoutes from './routes-old'
+import newRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { createGlobalStyle, css } from 'styled-components'
@@ -23,6 +24,7 @@ import {
   fontWeight,
   fontFamily,
 } from '@twreporter/core/lib/constants/font'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import map from 'lodash/map'
 import get from 'lodash/get'
@@ -30,6 +32,8 @@ const _ = {
   map,
   get,
 }
+
+const getRoutes = MY_READING ? newRoutes : oldRoutes
 
 const selfHostedFonts = [fonts.notoSansTC]
 
