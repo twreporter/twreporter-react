@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.13, 2024-01-16
+
+### Notable Changes
+
+- fix
+  - set isActive to false after visibility change to hidden
+
+### Commits
+
+- [[`ef0f639099`](https://github.com/twreporter/twreporter-react/commit/ef0f639099)] - **fix**: set isActive to false after visibility change to hidden (Lucien)
+
 ## 4.12.1-beta.12, 2024-01-16
 
 ### Notable Changes
