@@ -82,6 +82,10 @@ const MyReadingPage = () => {
   const getSiteTitle = pathname => {
     if (matchPath(pathname, routes.myReadingPage.savedBookmarksPage.path)) {
       return '已收藏'
+    } else if (
+      matchPath(pathname, routes.myReadingPage.browsingHistoryPage.path)
+    ) {
+      return '造訪紀錄'
     } else {
       return '我的閱讀'
     }

@@ -28,14 +28,14 @@ import routes from '../../constants/routes'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
-import filter from 'lodash/filter'
+import remove from 'lodash/remove'
 
 const BOOKMARK_PER_PAGE = 10
 
 const _ = {
   get,
   map,
-  filter,
+  remove,
 }
 
 const Container = styled.div`
@@ -107,15 +107,18 @@ const SavedBookmarks = ({
     removeAction(bookmarkID)
       .then(() => {
         toastr({ text: '已取消收藏' })
-        setBookmarks(prevBookmarks =>
-          _.filter(prevBookmarks, bookmark => bookmark.id !== bookmarkID)
-        )
+        setBookmarks(prevBookmarks => {
+          const newBookmarks = _.remove(
+            prevBookmarks,
+            bookmark => bookmark.id !== bookmarkID
+          )
+          return newBookmarks
+        })
         setTotalSavedBookmarkCount(
           prevTotalSavedBookmark => prevTotalSavedBookmark - 1
         )
       })
-      .catch(error => {
-        console.error('error: ', error)
+      .catch(_error => {
         toastr({ text: '出了點小問題，請再試一次' })
       })
   }
@@ -249,8 +252,8 @@ SavedBookmarks.propTypes = {
   jwt: PropTypes.string,
   userID: PropTypes.number,
   getMultipleBookmarks: PropTypes.func,
-  page: PropTypes.number,
-  totalPages: PropTypes.number,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
 }
 
 const { reduxStateFields, actions } = twreporterRedux
@@ -285,7 +288,7 @@ const mapStateToProps = (state, props) => {
   )
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
   const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'])
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const total = _.get(state, [reduxStateFields.bookmarks, 'total'], 0)
 
   let currentPage = pageProp(location)

@@ -260,8 +260,8 @@ const BrowsingHistory = ({ page, totalPages }) => {
 }
 
 BrowsingHistory.propTypes = {
-  page: PropTypes.number,
-  totalPages: PropTypes.number,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
 }
 
 function pageProp(location = {}) {
