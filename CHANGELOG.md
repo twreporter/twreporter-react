@@ -23,7 +23,6 @@
 - [[`da9b746b36`](https://github.com/twreporter/twreporter-react/commit/da9b746b36)] - **feat**: my reading page layout for test (Lucien)
 - [[`5067ce6171`](https://github.com/twreporter/twreporter-react/commit/5067ce6171)] - **feat**: change redirect logic (Lucien)
 - [[`3cb8de0c49`](https://github.com/twreporter/twreporter-react/commit/3cb8de0c49)] - **feat**: change test post (Lucien)
-- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
 - [[`9c41192c74`](https://github.com/twreporter/twreporter-react/commit/9c41192c74)] - **feat**: add browsing history page (Lucien)
 - [[`c73c369aa5`](https://github.com/twreporter/twreporter-react/commit/c73c369aa5)] - **feat**: my reading page and saved bookmarks page (Lucien)
 - [[`a464f36ae1`](https://github.com/twreporter/twreporter-react/commit/a464f36ae1)] - **feat**: add data loader for my-reading page (Lucien)
