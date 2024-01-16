@@ -1,5 +1,38 @@
 # Changelog
 
+## 4.12.1-beta.13, 2024-01-16
+
+### Notable Changes
+
+- fix
+  - set isActive to false after visibility change to hidden
+
+### Commits
+
+- [[`ef0f639099`](https://github.com/twreporter/twreporter-react/commit/ef0f639099)] - **fix**: set isActive to false after visibility change to hidden (Lucien)
+
+## 4.12.1-beta.12, 2024-01-16
+
+### Notable Changes
+
+- fix
+  - set start reading time to now after active
+
+### Commits
+
+- [[`9d6ebc4d29`](https://github.com/twreporter/twreporter-react/commit/9d6ebc4d29)] - **fix**: set start reading time to now after active (Lucien)
+
+## 4.12.1-beta.11, 2024-01-15
+
+### Notable Changes
+
+- fix
+  - clear timer if visibility change
+
+### Commits
+
+- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
+
 ## 4.12.1-beta.10, 2024-01-04
 
 ### Notable Changes

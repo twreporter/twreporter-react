@@ -142,20 +142,30 @@ class Article extends PureComponent {
   }
 
   _handleVisibilityChange() {
-    this.calculateActiveTime()
     if (document.visibilityState === 'hidden') {
-      if (
-        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
-      ) {
-        this.sendActiveTime()
+      if (this.state.isActive) {
+        if (this.inactiveTimerId.current) {
+          window.clearTimeout(this.inactiveTimerId.current)
+        }
+        this.calculateActiveTime()
+        if (
+          this.state.activeTime >=
+          articleReadTimeConditionConfig.min_active_time
+        ) {
+          this.sendActiveTime()
+        }
         this.setState({
           isActive: false,
         })
       }
     } else {
-      this.setState({
-        isActive: true,
-      })
+      if (!this.state.isActive) {
+        this.setState({
+          isActive: true,
+          startReadingTime: Date.now(),
+        })
+      }
+      this.startInactiveTimer()
     }
   }
 
