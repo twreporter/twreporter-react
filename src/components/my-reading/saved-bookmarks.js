@@ -108,11 +108,8 @@ const SavedBookmarks = ({
       .then(() => {
         toastr({ text: '已取消收藏' })
         setBookmarks(prevBookmarks => {
-          const newBookmarks = _.remove(
-            prevBookmarks,
-            bookmark => bookmark.id !== bookmarkID
-          )
-          return newBookmarks
+          _.remove(prevBookmarks, bookmark => bookmark.id === bookmarkID)
+          return prevBookmarks
         })
         setTotalSavedBookmarkCount(
           prevTotalSavedBookmark => prevTotalSavedBookmark - 1
@@ -247,11 +244,11 @@ const SavedBookmarks = ({
 }
 
 SavedBookmarks.propTypes = {
-  isDeleting: PropTypes.bool,
-  isFetching: PropTypes.bool,
+  isDeleting: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   jwt: PropTypes.string,
   userID: PropTypes.number,
-  getMultipleBookmarks: PropTypes.func,
+  getMultipleBookmarks: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
 }
