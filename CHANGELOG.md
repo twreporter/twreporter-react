@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.12, 2024-01-16
+
+### Notable Changes
+
+- fix
+  - set start reading time to now after active
+
+### Commits
+
+- [[`9d6ebc4d29`](https://github.com/twreporter/twreporter-react/commit/9d6ebc4d29)] - **fix**: set start reading time to now after active (Lucien)
+
 ## 4.12.1-beta.11, 2024-01-15
 
 ### Notable Changes
