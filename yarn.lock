@@ -1532,15 +1532,15 @@
     swiper "6.8.4"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.11.2-rc.2":
-  version "1.11.2-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.11.2-rc.2.tgz#5be0714058f98356c2479242ecbe5d3ea185473d"
-  integrity sha512-gwxMhCvzYoPaMGs/YFLVLKo3/GzlzluusxkxEuj2v5Db/Am9jfYCmEExqAW5Wy9IKObfgvuyiVthBkqZzqKpbA==
+"@twreporter/react-article-components@^1.11.2-rc.3":
+  version "1.11.2-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.11.2-rc.3.tgz#3ade810ae350d6551b773f5df2c66664f59c33df"
+  integrity sha512-shrkVD59XbqzKWQWN+LF7jL7vR/k3dkwSvxVhRwzJE+Up5K3AIMOI+qwF/wgs70QmS/QBKsQQyVo7jS4N5akng==
   dependencies:
     "@twreporter/core" "^1.17.0-rc.0"
     "@twreporter/react-components" "^8.24.0-rc.2"
     "@twreporter/redux" "^7.10.0-rc.1"
-    "@twreporter/universal-header" "^2.10.0-rc.0"
+    "@twreporter/universal-header" "^2.10.0-rc.1"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -1587,10 +1587,10 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.10.0-rc.0":
-  version "2.10.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.10.0-rc.0.tgz#1497df7eed2a47cfa93fb8028aea41e906c6e4d5"
-  integrity sha512-K//066WEfAsbM1vWxlGnkS+nfISJ4co43WMvzsPMURHKAtZQXJ2lRoFVvbdfDuW2TjZMbNQDe/LzVlVyGU1YUw==
+"@twreporter/universal-header@^2.10.0-rc.1":
+  version "2.10.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.10.0-rc.1.tgz#408cfb3e151351e75af7d0907292ca7cdacf795f"
+  integrity sha512-+VW5r/0x5y3fc06A2d+5K10m0PQTjYilZhilS4W9ZCVaiAjMVerpgVWArDDlDcK/DiHSHnuBd6JJlLhPyaNM9g==
   dependencies:
     "@twreporter/core" "^1.17.0-rc.0"
     "@twreporter/react-components" "^8.24.0-rc.2"
