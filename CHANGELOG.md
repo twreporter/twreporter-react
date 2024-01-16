@@ -1,5 +1,34 @@
 # Changelog
 
+## 4.12.1-beta.14, 2024-01-16
+
+### Notable Changes
+
+- feat
+  - my reading route
+  - my reading page layout
+  - saved bookmarks page
+  - history page layout
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`5a272053ae`](https://github.com/twreporter/twreporter-react/commit/5a272053ae)] - **chore**: update twreporter packages (Lucien)
+- [[`8e551e035b`](https://github.com/twreporter/twreporter-react/commit/8e551e035b)] - Merge remote-tracking branch 'upstream/dev' into feature/my-reading-saved (Lucien)
+- [[`4ffbeccf30`](https://github.com/twreporter/twreporter-react/commit/4ffbeccf30)] - **fix**: add isRequired (Lucien)
+- [[`fc6d578e30`](https://github.com/twreporter/twreporter-react/commit/fc6d578e30)] - **fix**: fix comment (Lucien)
+- [[`53ddba1a54`](https://github.com/twreporter/twreporter-react/commit/53ddba1a54)] - **chore**: update twreporter packages (Lucien)
+- [[`4b02659825`](https://github.com/twreporter/twreporter-react/commit/4b02659825)] - **fix**: use renderButton for Title2 (Lucien)
+- [[`da9b746b36`](https://github.com/twreporter/twreporter-react/commit/da9b746b36)] - **feat**: my reading page layout for test (Lucien)
+- [[`5067ce6171`](https://github.com/twreporter/twreporter-react/commit/5067ce6171)] - **feat**: change redirect logic (Lucien)
+- [[`3cb8de0c49`](https://github.com/twreporter/twreporter-react/commit/3cb8de0c49)] - **feat**: change test post (Lucien)
+- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
+- [[`9c41192c74`](https://github.com/twreporter/twreporter-react/commit/9c41192c74)] - **feat**: add browsing history page (Lucien)
+- [[`c73c369aa5`](https://github.com/twreporter/twreporter-react/commit/c73c369aa5)] - **feat**: my reading page and saved bookmarks page (Lucien)
+- [[`a464f36ae1`](https://github.com/twreporter/twreporter-react/commit/a464f36ae1)] - **feat**: add data loader for my-reading page (Lucien)
+- [[`9e5c4ff2ec`](https://github.com/twreporter/twreporter-react/commit/9e5c4ff2ec)] - **feat**: set feature toggle (Lucien)
+
 ## 4.12.1-beta.13, 2024-01-16
 
 ### Notable Changes
