@@ -116,6 +116,7 @@ const GetSomeSpace = styled.div`
 const Latest = ({
   // redux state
   jwt,
+  isAuthed,
   latestTagList,
   activeTabIndex,
   tagId,
@@ -130,7 +131,7 @@ const Latest = ({
   const listId = tagId || LATEST_LIST_ID
   const location = useLocation()
   const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
-  const { releaseBranch } = useContext(CoreContext)
+  const { releaseBranch, toastr } = useContext(CoreContext)
 
   const state = useContext(ReactReduxContext).store.getState()
   const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
@@ -143,11 +144,20 @@ const Latest = ({
       post['is_bookmarked'] = !!post.bookmarkId
       post['toggle_bookmark'] = async () => {
         if (post.bookmarkId) {
-          await removeAction(post.bookmarkId)
-          onBookmarkUpdate()
-          return
+          try {
+            await removeAction(post.bookmarkId)
+            toastr({ text: '已取消收藏' })
+          } catch (err) {
+            toastr({ text: '連線失敗，請再試一次' })
+          }
+        } else {
+          try {
+            await addAction(getBookmarkFromPost(post))
+            toastr({ text: '已收藏' })
+          } catch (err) {
+            toastr({ text: '連線失敗，請再試一次' })
+          }
         }
-        await addAction(getBookmarkFromPost(post))
         onBookmarkUpdate()
       }
     })
@@ -259,7 +269,7 @@ const Latest = ({
           <CardList
             data={posts}
             showSpinner={true}
-            showIsBookmarked={true}
+            showIsBookmarked={isAuthed}
             releaseBranch={releaseBranch}
           />
         </CardListContainer>
@@ -376,6 +386,7 @@ function titleTabProp(state, listId) {
  */
 function mapStateToProps(state, props) {
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const tagId = _.get(props, 'match.params.tagId')
   const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
   const nPerPage = dataLoaderConst.latestPage.nPerPage
@@ -383,6 +394,7 @@ function mapStateToProps(state, props) {
 
   return {
     jwt,
+    isAuthed,
     latestTagList,
     activeTabIndex,
     tagId,
@@ -395,6 +407,7 @@ function mapStateToProps(state, props) {
 Latest.defaultProps = {
   // redux state
   jwt: '',
+  isAuthed: false,
   latestTagList: [],
   activeTabIndex: 0,
   isFetching: false,
@@ -405,6 +418,7 @@ Latest.defaultProps = {
 Latest.propTypes = {
   // redux state
   jwt: PropTypes.string,
+  isAuthed: PropTypes.bool,
   latestTagList: PropTypes.array,
   activeTabIndex: PropTypes.number,
   tagId: PropTypes.string,
