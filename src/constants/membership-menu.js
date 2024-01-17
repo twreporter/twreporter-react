@@ -29,7 +29,7 @@ const newsletter = {
 const bookmark = {
   type: ListType.NORMAL,
   text: '已收藏',
-  path: '/myreading/saved', // todo: use routes after dependency merged
+  path: routes.myReadingPage.savedBookmarksPage.path,
 }
 
 const logout = {
@@ -45,13 +45,13 @@ const divider = {
 const myReading = {
   type: ListType.NORMAL,
   text: '我的閱讀',
-  path: '/myreading', // todo: use routes after dependency merged
+  path: routes.myReadingPage.path,
 }
 
 const readingFootprint = {
   type: ListType.NORMAL,
   text: '造訪紀錄',
-  path: '/myreading/history', // todo: use routes after dependency merged
+  path: routes.myReadingPage.browsingHistoryPage.path,
 }
 
 // menu list data

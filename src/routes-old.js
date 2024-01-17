@@ -4,7 +4,7 @@ import React from 'react'
 // utils
 import dataLoaders from './data-loaders/index'
 // constants
-import routesConst from './constants/routes'
+import routesConst from './constants/routes-old'
 import statusCodeConst from './constants/status-code'
 // components
 import FallbackPage from './containers/ServiceWorkerFallbackPage'

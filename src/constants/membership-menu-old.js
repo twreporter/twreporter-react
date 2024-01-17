@@ -1,4 +1,4 @@
-import routes from './routes'
+import routes from './routes-old'
 
 // menu list type enum
 export const ListType = {
