@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.1-beta.15, 2024-01-17
+
+### Notable Changes
+
+- feat
+  - add my-reading entry on member page with feature toggle
+
+### Commits
+
+- [[`17b262ef43`](https://github.com/twreporter/twreporter-react/commit/17b262ef43)] - **fix**: resolve conflicts & todos (Aylie Chou)
+- [[`263c6b27c6`](https://github.com/twreporter/twreporter-react/commit/263c6b27c6)] - **fix**: update myReading order in member page menu list (Aylie Chou)
+- [[`0997d70fe4`](https://github.com/twreporter/twreporter-react/commit/0997d70fe4)] - **feat**: add my-reading entry on member page with feature toggle (Aylie Chou)
+
 ## 4.12.1-beta.14, 2024-01-16
 
 ### Notable Changes
