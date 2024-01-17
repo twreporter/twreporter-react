@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.5-rc.0, 2024-01-17
+
+### Notable Changes
+
+- feat
+  - toggle bookmark on latest page
+  - add `toastr` in CoreContext
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7439d5d5b7`](https://github.com/twreporter/twreporter-react/commit/7439d5d5b7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0678a0767f`](https://github.com/twreporter/twreporter-react/commit/0678a0767f)] - **fix**: add `toastr` in CoreContext & hide bookmark icon if user not authed (Aylie Chou)
+- [[`a93a4646e7`](https://github.com/twreporter/twreporter-react/commit/a93a4646e7)] - **feat**: toggle bookmark on latest page (Aylie Chou)
+- [[`d6207ae216`](https://github.com/twreporter/twreporter-react/commit/d6207ae216)] - **feat**: pass jwt token for getting bookmarkId data (Aylie Chou)
+
 ## 4.12.4, 2024-01-03 (Current)
 
 ### Notable Changes
