@@ -12,12 +12,14 @@ import Skeleton from '../components/skeleton'
 // utils
 import loggerFactory from '../logger'
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
+import { getBookmarkFromPost } from '../utils/bookmark'
 // constants
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
+import { useStore, useBookmark } from '@twreporter/react-components/lib/hook'
 import Divider from '@twreporter/react-components/lib/divider'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
@@ -133,8 +135,28 @@ const Latest = ({
   const state = useContext(ReactReduxContext).store.getState()
   const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
   const [page, setPage] = useState(1)
-  const [posts, setPosts] = useState(postsProp(state, listId, 1, page))
   const [isLoading, setIsLoading] = useState(false)
+  const store = useStore()
+  const { addAction, removeAction } = useBookmark(store)
+  const normalizePosts = rawPosts => {
+    return _.forEach(rawPosts, post => {
+      post['is_bookmarked'] = !!post.bookmarkId
+      post['toggle_bookmark'] = async () => {
+        if (post.bookmarkId) {
+          await removeAction(post.bookmarkId)
+          onBookmarkUpdate()
+          return
+        }
+        await addAction(getBookmarkFromPost(post))
+        onBookmarkUpdate()
+      }
+    })
+  }
+  const [posts, setPosts] = useState(
+    normalizePosts(postsProp(state, listId, 1, page))
+  )
+  const onBookmarkUpdate = () =>
+    setPosts(normalizePosts(postsProp(state, listId, 1, page)))
 
   useEffect(() => {
     fetchLatestTags().catch(failAction => {
@@ -180,7 +202,7 @@ const Latest = ({
     if (isFetching || isFetching === undefined) {
       return
     }
-    setPosts(postsProp(state, listId, 1, page))
+    setPosts(normalizePosts(postsProp(state, listId, 1, page)))
   }, [isFetching, listId])
 
   // Error handling
@@ -237,6 +259,7 @@ const Latest = ({
           <CardList
             data={posts}
             showSpinner={true}
+            showIsBookmarked={true}
             releaseBranch={releaseBranch}
           />
         </CardListContainer>
