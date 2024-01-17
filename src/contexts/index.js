@@ -6,14 +6,17 @@ import {
   BRANCH_PROP_TYPES,
 } from '@twreporter/core/lib/constants/release-branch'
 
+const defaultFunc = () => {}
 export const CoreContext = createContext({
   propTypes: {
     releaseBranch: BRANCH_PROP_TYPES,
     referrerPath: PropTypes.string,
+    toastr: PropTypes.func,
   },
   defaultProps: {
     releaseBranch: BRANCH.master,
     referrerPath: '',
+    toastr: defaultFunc,
   },
 })
 
