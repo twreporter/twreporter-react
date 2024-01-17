@@ -19,14 +19,19 @@ import {
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
+
+// feature toggle
+import {
+  ListType as ListTypeOld,
+  MENU_LIST_DATA as MENU_LIST_DATA_OLD,
+} from '../../constants/membership-menu-old'
+import {
+  ListType as ListTypeNew,
+  MENU_LIST_DATA as MENU_LIST_DATA_NEW,
+} from '../../constants/membership-menu'
 import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
-
-// contants
-import routesOld from '../../constants/routes-old'
-import routesNew from '../../constants/routes'
-import menuListType from '../../constants/menu-list-type'
-
-const routes = MY_READING ? routesNew : routesOld
+const ListType = MY_READING ? ListTypeNew : ListTypeOld
+const MENU_LIST_DATA = MY_READING ? MENU_LIST_DATA_NEW : MENU_LIST_DATA_OLD
 
 const DividerContainer = styled.div`
   margin: 16px 0px;
@@ -36,39 +41,7 @@ const originsForClient = origins.forClientSideRendering
 const MemberMenuList = () => {
   const { pathname } = useLocation()
   const { releaseBranch } = useContext(CoreContext)
-  const MenuData = [
-    {
-      type: menuListType.normal,
-      text: '個人資料',
-      path: routes.memberPage.path,
-    },
-    {
-      type: menuListType.normal,
-      text: '贊助紀錄',
-      path: routes.memberPage.memberDonationPage.path,
-    },
-    {
-      type: menuListType.normal,
-      text: '電子報設定',
-      path: routes.memberPage.memberEmailSubscriptionPage.path,
-    },
-    {
-      type: menuListType.divider,
-    },
-    {
-      type: menuListType.normal,
-      text: '我的書籤',
-      path: routes.bookmarkListPage.path.slice(0, 10),
-    },
-    {
-      type: menuListType.divider,
-    },
-    {
-      type: menuListType.logout,
-      text: '登出',
-      path: `${originsForClient[releaseBranch]['api']}/v2/auth/logout`,
-    },
-  ]
+  const MenuData = MENU_LIST_DATA
 
   const handleClick = (e, path) => {
     e.preventDefault()
@@ -80,7 +53,7 @@ const MemberMenuList = () => {
 
   const itemJSX = MenuData.map(({ type, text, path }, idx) => {
     const isActive = pathname === path
-    if (type === menuListType.normal) {
+    if (type === ListType.NORMAL) {
       return (
         <div key={idx}>
           <TabletAndBelow>
@@ -109,7 +82,7 @@ const MemberMenuList = () => {
       )
     }
 
-    if (type === menuListType.divider) {
+    if (type === ListType.DIVIDER) {
       return (
         <DividerContainer key={idx}>
           <Divider />
@@ -117,7 +90,8 @@ const MemberMenuList = () => {
       )
     }
 
-    if (type === menuListType.logout) {
+    if (type === ListType.LOGOUT) {
+      const apiPath = `${originsForClient[releaseBranch]['api']}${path}`
       return (
         <div key={idx}>
           <TabletAndBelow>
@@ -127,7 +101,7 @@ const MemberMenuList = () => {
               activeBgColor={colorOpacity['black_0.1']}
               paddingLeft={0}
               paddingRight={0}
-              onClick={e => handleClick(e, path)}
+              onClick={e => handleClick(e, apiPath)}
             />
           </TabletAndBelow>
           <DesktopAndAbove>
@@ -137,7 +111,7 @@ const MemberMenuList = () => {
               activeBgColor={colorOpacity['black_0.1']}
               paddingLeft={16}
               paddingRight={16}
-              onClick={e => handleClick(e, path)}
+              onClick={e => handleClick(e, apiPath)}
             />
           </DesktopAndAbove>
         </div>
