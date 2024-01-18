@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.16, 2024-01-18
+
+### Notable Changes
+
+- fix
+  - show loading and refresh page if no bookmarks
+
+### Commits
+
+- [[`94c636afe4`](https://github.com/twreporter/twreporter-react/commit/94c636afe4)] - **fix**: show loading and refresh page if no bookmarks (Lucien)
+
 ## 4.12.1-beta.15, 2024-01-17
 
 ### Notable Changes

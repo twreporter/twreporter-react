@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { withRouter, useHistory } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import querystring from 'querystring'
 import PropTypes from 'prop-types'
 // @twreporters
@@ -93,15 +93,18 @@ const SavedBookmarks = ({
   getMultipleBookmarks,
   page,
   totalPages,
+  totalSavedBookmark,
 }) => {
-  const [totalSavedBookmarkCount, setTotalSavedBookmarkCount] = useState(0)
+  const [totalSavedBookmarkCount, setTotalSavedBookmarkCount] = useState(
+    totalSavedBookmark
+  )
   const [bookmarks, setBookmarks] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const { releaseBranch } = useContext(CoreContext)
   const store = useStore()
   const { removeAction } = useBookmark(store)
   const { showSnackBar, snackBarText, toastr } = useSnackBar()
-  const navigate = useHistory()
+  const [isLoading, setIsLoading] = useState(true)
 
   const removeBookmark = bookmarkID => {
     removeAction(bookmarkID)
@@ -109,6 +112,15 @@ const SavedBookmarks = ({
         toastr({ text: '已取消收藏' })
         setBookmarks(prevBookmarks => {
           _.remove(prevBookmarks, bookmark => bookmark.id === bookmarkID)
+          if (prevBookmarks.length === 0) {
+            const redirectPage = Math.max(
+              page === totalPages ? page - 1 : page,
+              1
+            )
+            window.location.replace(
+              `${routes.myReadingPage.savedBookmarksPage.path}?page=${redirectPage}`
+            )
+          }
           return prevBookmarks
         })
         setTotalSavedBookmarkCount(
@@ -116,7 +128,7 @@ const SavedBookmarks = ({
         )
       })
       .catch(_error => {
-        toastr({ text: '出了點小問題，請再試一次' })
+        toastr({ text: '連線失敗，請再試一次' })
       })
   }
 
@@ -172,23 +184,19 @@ const SavedBookmarks = ({
   }
 
   useEffect(() => {
-    if (bookmarks.length === 0 && page > 1) {
-      const redirectPage = Math.max(page === totalPages ? page - 1 : page, 1)
-      navigate.push(
-        `${routes.myReadingPage.savedBookmarksPage.path}?page=${redirectPage}`
-      )
-    }
-  }, [bookmarks])
-
-  useEffect(() => {
-    if (totalSavedBookmarkCount === 0) {
-      setShowEmptyState(true)
-    }
-  }, [totalSavedBookmarkCount])
-
-  useEffect(() => {
+    setIsLoading(true)
     getBookmarks(page)
+    setIsLoading(false)
   }, [page])
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Title1 title={'已收藏'} />
+        <CardList isFetching={true} showSpinner={true} data={{}} />
+      </Container>
+    )
+  }
 
   return (
     <Container>
@@ -251,6 +259,7 @@ SavedBookmarks.propTypes = {
   getMultipleBookmarks: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
+  totalSavedBookmark: PropTypes.number.isRequired,
 }
 
 const { reduxStateFields, actions } = twreporterRedux
@@ -286,12 +295,16 @@ const mapStateToProps = (state, props) => {
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
   const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
   const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  const total = _.get(state, [reduxStateFields.bookmarks, 'total'], 0)
+  const totalSavedBookmark = _.get(
+    state,
+    [reduxStateFields.bookmarks, 'total'],
+    0
+  )
 
   let currentPage = pageProp(location)
-  const totalPages = Math.ceil(total / 10)
+  const totalPages = Math.ceil(totalSavedBookmark / 10)
   if (currentPage > totalPages) {
-    currentPage = totalPages
+    currentPage = Math.max(totalPages, 1)
   }
   return {
     isDeleting,
@@ -301,6 +314,7 @@ const mapStateToProps = (state, props) => {
     userID,
     page: currentPage,
     totalPages,
+    totalSavedBookmark,
   }
 }
 
