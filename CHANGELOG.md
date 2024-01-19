@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.1-beta.18, 2024-01-19
+
+### Notable Changes
+
+- chore
+  - upadate @twreporter packages
+
+### Commits
+
+- [[`8cf5f0451f`](https://github.com/twreporter/twreporter-react/commit/8cf5f0451f)] - **chore**: upadate twreporter packages (Lucien)
+
 ## 4.12.1-beta.17, 2024-01-19
 
 ### Notable Changes
