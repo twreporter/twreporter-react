@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import {
@@ -28,6 +28,9 @@ import routes from '../constants/routes'
 // components
 import SavedBookmarksPage from '../components/my-reading/saved-bookmarks'
 import BrowsingHistoryPage from '../components/my-reading/browsing-history'
+
+// context
+import { CoreContext } from '../contexts'
 
 const GridContainer = styled.div`
   width: 100%;
@@ -82,6 +85,7 @@ const EmptyBox = styled.div`
 const MyReadingPage = () => {
   const { pathname } = useLocation()
   const navigate = useHistory()
+  const { releaseBranch } = useContext(CoreContext)
 
   const getSiteTitle = pathname => {
     if (matchPath(pathname, routes.myReadingPage.savedBookmarksPage.path)) {
@@ -111,6 +115,7 @@ const MyReadingPage = () => {
                 navigate.push(routes.myReadingPage.savedBookmarksPage.path)
               }
               size={TextButton.Size.L}
+              releaseBranch={releaseBranch}
             />
           </DesktopAndAbove>
           <TabletAndBelow>
@@ -121,6 +126,7 @@ const MyReadingPage = () => {
                 navigate.push(routes.myReadingPage.savedBookmarksPage.path)
               }
               size={TextButton.Size.S}
+              releaseBranch={releaseBranch}
             />
           </TabletAndBelow>
         </>
@@ -146,6 +152,7 @@ const MyReadingPage = () => {
                 navigate.push(routes.myReadingPage.browsingHistoryPage.path)
               }
               size={TextButton.Size.L}
+              releaseBranch={releaseBranch}
             />
           </DesktopAndAbove>
           <TabletAndBelow>
@@ -156,6 +163,7 @@ const MyReadingPage = () => {
                 navigate.push(routes.myReadingPage.browsingHistoryPage.path)
               }
               size={TextButton.Size.S}
+              releaseBranch={releaseBranch}
             />
           </TabletAndBelow>
         </>
