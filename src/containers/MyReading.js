@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import {
@@ -16,6 +16,10 @@ import mq from '@twreporter/core/lib/utils/media-query'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { TextButton } from '@twreporter/react-components/lib/button'
 import { Arrow } from '@twreporter/react-components/lib/icon'
+import {
+  DesktopAndAbove,
+  TabletAndBelow,
+} from '@twreporter/react-components/lib/rwd'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -24,6 +28,9 @@ import routes from '../constants/routes'
 // components
 import SavedBookmarksPage from '../components/my-reading/saved-bookmarks'
 import BrowsingHistoryPage from '../components/my-reading/browsing-history'
+
+// context
+import { CoreContext } from '../contexts'
 
 const GridContainer = styled.div`
   width: 100%;
@@ -78,6 +85,7 @@ const EmptyBox = styled.div`
 const MyReadingPage = () => {
   const { pathname } = useLocation()
   const navigate = useHistory()
+  const { releaseBranch } = useContext(CoreContext)
 
   const getSiteTitle = pathname => {
     if (matchPath(pathname, routes.myReadingPage.savedBookmarksPage.path)) {
@@ -98,46 +106,72 @@ const MyReadingPage = () => {
   const SavedBookmarksContent = () => {
     const moreSavedBookmarkBtn = size => {
       return (
-        <TextButton
-          text="查看更多"
-          rightIconComponent={<Arrow direction="right" />}
-          onClick={() =>
-            navigate.push(routes.myReadingPage.savedBookmarksPage.path)
-          }
-          size={size}
-        />
+        <>
+          <DesktopAndAbove>
+            <TextButton
+              text="查看更多"
+              rightIconComponent={<Arrow direction="right" />}
+              onClick={() =>
+                navigate.push(routes.myReadingPage.savedBookmarksPage.path)
+              }
+              size={TextButton.Size.L}
+              releaseBranch={releaseBranch}
+            />
+          </DesktopAndAbove>
+          <TabletAndBelow>
+            <TextButton
+              text="查看更多"
+              rightIconComponent={<Arrow direction="right" />}
+              onClick={() =>
+                navigate.push(routes.myReadingPage.savedBookmarksPage.path)
+              }
+              size={TextButton.Size.S}
+              releaseBranch={releaseBranch}
+            />
+          </TabletAndBelow>
+        </>
       )
     }
     return (
       <div>
-        <Title2
-          title={'已收藏'}
-          renderButton={size => moreSavedBookmarkBtn(size)}
-        />
+        <Title2 title={'已收藏'} renderButton={moreSavedBookmarkBtn()} />
         <EmptyBox>空無一物</EmptyBox>
       </div>
     )
   }
 
   const BrowsingHistoryContent = () => {
-    const moreHistoryBtn = size => {
+    const moreHistoryBtn = () => {
       return (
-        <TextButton
-          text="查看更多"
-          rightIconComponent={<Arrow direction="right" />}
-          onClick={() =>
-            navigate.push(routes.myReadingPage.browsingHistoryPage.path)
-          }
-          size={size}
-        />
+        <>
+          <DesktopAndAbove>
+            <TextButton
+              text="查看更多"
+              rightIconComponent={<Arrow direction="right" />}
+              onClick={() =>
+                navigate.push(routes.myReadingPage.browsingHistoryPage.path)
+              }
+              size={TextButton.Size.L}
+              releaseBranch={releaseBranch}
+            />
+          </DesktopAndAbove>
+          <TabletAndBelow>
+            <TextButton
+              text="查看更多"
+              rightIconComponent={<Arrow direction="right" />}
+              onClick={() =>
+                navigate.push(routes.myReadingPage.browsingHistoryPage.path)
+              }
+              size={TextButton.Size.S}
+              releaseBranch={releaseBranch}
+            />
+          </TabletAndBelow>
+        </>
       )
     }
     return (
       <div>
-        <Title2
-          title={'造訪紀錄'}
-          renderButton={size => moreHistoryBtn(size)}
-        />
+        <Title2 title={'造訪紀錄'} renderButton={moreHistoryBtn()} />
         <EmptyBox>空無一物</EmptyBox>
       </div>
     )
