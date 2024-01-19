@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.1-beta.17, 2024-01-19
+
+### Notable Changes
+
+- fix
+  - title 2 spec change
+
+### Commits
+
+- [[`3801e3969c`](https://github.com/twreporter/twreporter-react/commit/3801e3969c)] - **chore**: update twreporter packages (Lucien)
+- [[`bd24294871`](https://github.com/twreporter/twreporter-react/commit/bd24294871)] - **fix**: remove yalc (Lucien)
+- [[`7a027bd7d1`](https://github.com/twreporter/twreporter-react/commit/7a027bd7d1)] - **fix**: title 2 spec change (Lucien)
+
 ## 4.12.1-beta.16, 2024-01-18
 
 ### Notable Changes
