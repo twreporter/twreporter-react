@@ -13,7 +13,7 @@ const _ = {
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const host = {
-  dev: 'http://dev.twreporter.org',
+  dev: 'https://dev.twreporter.org',
   master: 'http://localhost:3000',
   staging: 'https://staging.twreporter.org',
   release: 'https://www.twreporter.org',
