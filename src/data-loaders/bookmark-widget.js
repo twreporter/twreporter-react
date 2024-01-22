@@ -13,8 +13,8 @@ const _ = {
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const host = {
-  master: 'http://testtest.twreporter.org:3000',
-  preview: 'http://testtest.twreporter.org:3000',
+  dev: 'http://dev.twreporter.org',
+  master: 'http://localhost:3000',
   staging: 'https://staging.twreporter.org',
   release: 'https://www.twreporter.org',
   // `next` release branch is reserved for online migration purpose
