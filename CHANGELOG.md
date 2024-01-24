@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.5-rc.4, 2024-01-24
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`a1e1ba2118`](https://github.com/twreporter/twreporter-react/commit/a1e1ba2118)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.12.5-rc.3, 2024-01-24
 
 ### Notable Changes
