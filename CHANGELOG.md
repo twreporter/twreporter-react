@@ -1,5 +1,94 @@
 # Changelog
 
+## 4.12.5-rc.3, 2024-01-24
+
+### Notable Changes
+
+- feat
+  - reading statistics for member page
+  - reading count by timer and height
+  - add foundation category set
+  - get analytics data from getUser
+  - send analytics data to backend
+  - my reading route
+  - my reading page layout
+  - saved bookmarks page
+  - history page layout
+  - add my-reading entry on member page with feature toggle
+- fix
+  - use page text
+  - reading_height & slug
+  - add pagehide eventListener
+  - trigger inactive timer
+  - send active time after inactive
+  - clear timer if visibility change
+  - set start reading time to now after active
+  - set isActive to false after visibility change to hidden
+  - show loading and refresh page if no bookmarks
+  - title 2 spec change
+  - fix bookmark widget data loader host
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`46ec823246`](https://github.com/twreporter/twreporter-react/commit/46ec823246)] - **fix**: add preview back (Lucien)
+- [[`369d0c04a9`](https://github.com/twreporter/twreporter-react/commit/369d0c04a9)] - **fix**: http =\> https (Lucien)
+- [[`22617e8807`](https://github.com/twreporter/twreporter-react/commit/22617e8807)] - **fix**: add dev host and change mastern host (Lucien)
+- [[`8cf5f0451f`](https://github.com/twreporter/twreporter-react/commit/8cf5f0451f)] - **chore**: upadate twreporter packages (Lucien)
+- [[`3801e3969c`](https://github.com/twreporter/twreporter-react/commit/3801e3969c)] - **chore**: update twreporter packages (Lucien)
+- [[`bd24294871`](https://github.com/twreporter/twreporter-react/commit/bd24294871)] - **fix**: remove yalc (Lucien)
+- [[`7a027bd7d1`](https://github.com/twreporter/twreporter-react/commit/7a027bd7d1)] - **fix**: title 2 spec change (Lucien)
+- [[`94c636afe4`](https://github.com/twreporter/twreporter-react/commit/94c636afe4)] - **fix**: show loading and refresh page if no bookmarks (Lucien)
+- [[`17b262ef43`](https://github.com/twreporter/twreporter-react/commit/17b262ef43)] - **fix**: resolve conflicts & todos (Aylie Chou)
+- [[`263c6b27c6`](https://github.com/twreporter/twreporter-react/commit/263c6b27c6)] - **fix**: update myReading order in member page menu list (Aylie Chou)
+- [[`0997d70fe4`](https://github.com/twreporter/twreporter-react/commit/0997d70fe4)] - **feat**: add my-reading entry on member page with feature toggle (Aylie Chou)
+- [[`5a272053ae`](https://github.com/twreporter/twreporter-react/commit/5a272053ae)] - **chore**: update twreporter packages (Lucien)
+- [[`8e551e035b`](https://github.com/twreporter/twreporter-react/commit/8e551e035b)] - Merge remote-tracking branch 'upstream/dev' into feature/my-reading-saved (Lucien)
+- [[`4ffbeccf30`](https://github.com/twreporter/twreporter-react/commit/4ffbeccf30)] - **fix**: add isRequired (Lucien)
+- [[`fc6d578e30`](https://github.com/twreporter/twreporter-react/commit/fc6d578e30)] - **fix**: fix comment (Lucien)
+- [[`53ddba1a54`](https://github.com/twreporter/twreporter-react/commit/53ddba1a54)] - **chore**: update twreporter packages (Lucien)
+- [[`4b02659825`](https://github.com/twreporter/twreporter-react/commit/4b02659825)] - **fix**: use renderButton for Title2 (Lucien)
+- [[`da9b746b36`](https://github.com/twreporter/twreporter-react/commit/da9b746b36)] - **feat**: my reading page layout for test (Lucien)
+- [[`5067ce6171`](https://github.com/twreporter/twreporter-react/commit/5067ce6171)] - **feat**: change redirect logic (Lucien)
+- [[`3cb8de0c49`](https://github.com/twreporter/twreporter-react/commit/3cb8de0c49)] - **feat**: change test post (Lucien)
+- [[`9c41192c74`](https://github.com/twreporter/twreporter-react/commit/9c41192c74)] - **feat**: add browsing history page (Lucien)
+- [[`c73c369aa5`](https://github.com/twreporter/twreporter-react/commit/c73c369aa5)] - **feat**: my reading page and saved bookmarks page (Lucien)
+- [[`a464f36ae1`](https://github.com/twreporter/twreporter-react/commit/a464f36ae1)] - **feat**: add data loader for my-reading page (Lucien)
+- [[`9e5c4ff2ec`](https://github.com/twreporter/twreporter-react/commit/9e5c4ff2ec)] - **feat**: set feature toggle (Lucien)
+- [[`ef0f639099`](https://github.com/twreporter/twreporter-react/commit/ef0f639099)] - **fix**: set isActive to false after visibility change to hidden (Lucien)
+- [[`9d6ebc4d29`](https://github.com/twreporter/twreporter-react/commit/9d6ebc4d29)] - **fix**: set start reading time to now after active (Lucien)
+- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
+- [[`7097bbc998`](https://github.com/twreporter/twreporter-react/commit/7097bbc998)] - Merge remote-tracking branch 'upstream/dev' into fix/article-read-time-1 (Lucien)
+- [[`0a3f40e3c2`](https://github.com/twreporter/twreporter-react/commit/0a3f40e3c2)] - **fix**: send active time after inactive (Lucien)
+- [[`536f0b5c7c`](https://github.com/twreporter/twreporter-react/commit/536f0b5c7c)] - **fix**: trigger inactive timer (Lucien)
+- [[`169ebf3e77`](https://github.com/twreporter/twreporter-react/commit/169ebf3e77)] - **fix**: use pagehide instead of beforeunload (Lucien)
+- [[`c843c9d741`](https://github.com/twreporter/twreporter-react/commit/c843c9d741)] - **fix**: return true for history block (Lucien)
+- [[`03a26097c2`](https://github.com/twreporter/twreporter-react/commit/03a26097c2)] - **fix**: add beforeunload eventListener (Lucien)
+- [[`7095843788`](https://github.com/twreporter/twreporter-react/commit/7095843788)] - **chore**: update twreporter packages (Lucien)
+- [[`96c4f66865`](https://github.com/twreporter/twreporter-react/commit/96c4f66865)] - **feat**: calculate active while visibility change (Lucien)
+- [[`dae75c8008`](https://github.com/twreporter/twreporter-react/commit/dae75c8008)] - **fix**: fetch without authed (Lucien)
+- [[`24994db9cd`](https://github.com/twreporter/twreporter-react/commit/24994db9cd)] - **feat**: send analytics data to backend while route change (Lucien)
+- [[`4d3d72db38`](https://github.com/twreporter/twreporter-react/commit/4d3d72db38)] - **feat**: send analytics data to backend (Lucien)
+- [[`7b4c1d9200`](https://github.com/twreporter/twreporter-react/commit/7b4c1d9200)] - **feat**: get analytics data from getUser (Lucien)
+- [[`63fd00bac5`](https://github.com/twreporter/twreporter-react/commit/63fd00bac5)] - **fix**: typo (Lucien)
+- [[`aa82c0ca8d`](https://github.com/twreporter/twreporter-react/commit/aa82c0ca8d)] - **fix**: change article retrigger read count (Lucien)
+- [[`8ce1ba48fd`](https://github.com/twreporter/twreporter-react/commit/8ce1ba48fd)] - **feat**: renaming reading count timer (Lucien)
+- [[`bf6b41106f`](https://github.com/twreporter/twreporter-react/commit/bf6b41106f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f2254181a2`](https://github.com/twreporter/twreporter-react/commit/f2254181a2)] - **fix**: reading_height & slug (Lucien)
+- [[`58e41c813b`](https://github.com/twreporter/twreporter-react/commit/58e41c813b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`189e832750`](https://github.com/twreporter/twreporter-react/commit/189e832750)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d231f560f0`](https://github.com/twreporter/twreporter-react/commit/d231f560f0)] - **feat**: apply `FOUNDATION\_CATEGORY\_SET` feature flag (Aylie Chou)
+- [[`e439d443ce`](https://github.com/twreporter/twreporter-react/commit/e439d443ce)] - **fix**: renaming constant (Lucien)
+- [[`e6b4107c57`](https://github.com/twreporter/twreporter-react/commit/e6b4107c57)] - **feat**: reading count by timer and height (Lucien)
+- [[`be376bc9ac`](https://github.com/twreporter/twreporter-react/commit/be376bc9ac)] - **chore**: update twreporter packages (Lucien)
+- [[`8dade4e3bf`](https://github.com/twreporter/twreporter-react/commit/8dade4e3bf)] - **chore**: update twreporter packages (Lucien)
+- [[`7a56ca2474`](https://github.com/twreporter/twreporter-react/commit/7a56ca2474)] - **fix**: use page text (Lucien)
+- [[`20664e6a93`](https://github.com/twreporter/twreporter-react/commit/20664e6a93)] - **chore**: update twreporter packages (Lucien)
+- [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
+- [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
+- [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
+
 ## 4.12.5-rc.2, 2024-01-24
 
 ### Notable Changes

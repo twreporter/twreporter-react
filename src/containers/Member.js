@@ -19,6 +19,7 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -27,13 +28,17 @@ import MemberRoleCard from '../components/member-page/member-role-card'
 import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
-import routes from '../constants/routes'
 
 // constants
 import siteMeta from '../constants/site-meta'
+import routesOld from '../constants/routes-old'
+import routesNew from '../constants/routes'
 
 // lodash
 import get from 'lodash/get'
+import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
+
+const routes = MY_READING ? routesNew : routesOld
 
 const _ = {
   get,
@@ -94,7 +99,13 @@ const LoginContainer = styled.div`
   margin-bottom: 120px;
 `
 
-const MemberPage = ({ memberData, jwt, isAuthed }) => {
+const MemberPage = ({
+  memberData,
+  jwt,
+  isAuthed,
+  readPostsCount,
+  readPostsSec,
+}) => {
   const { pathname } = useLocation()
   const { releaseBranch } = useContext(CoreContext)
 
@@ -143,6 +154,32 @@ const MemberPage = ({ memberData, jwt, isAuthed }) => {
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
 
+  const getReadingTimeAndUnit = readingSec => {
+    const minutes = Math.floor(readingSec / 60)
+    if (minutes < 10000) {
+      return {
+        articleReadingTime: minutes,
+        articleReadingTimeUnit: READING_TIME_UNIT.minute,
+      }
+    } else if (minutes < 1000 * 60) {
+      const hours = Math.floor(minutes / 60)
+      return {
+        articleReadingTime: hours,
+        articleReadingTimeUnit: READING_TIME_UNIT.hour,
+      }
+    } else {
+      const days = Math.floor(minutes / (60 * 24))
+      return {
+        articleReadingTime: days,
+        articleReadingTimeUnit: READING_TIME_UNIT.day,
+      }
+    }
+  }
+
+  const { articleReadingTime, articleReadingTimeUnit } = getReadingTimeAndUnit(
+    readPostsSec
+  )
+
   return (
     <div>
       <Helmet
@@ -175,6 +212,10 @@ const MemberPage = ({ memberData, jwt, isAuthed }) => {
                   email={memberData.email}
                   joinDate={memberData.joinDate}
                   name={memberData.name || ''}
+                  hideInfo={false} // change after user agree data collection
+                  articleReadCount={readPostsCount}
+                  articleReadingTime={articleReadingTime}
+                  articleReadingTimeUnit={articleReadingTimeUnit}
                 />
               </Route>
               <Route path={routes.memberPage.memberDonationPage.path}>
@@ -200,6 +241,10 @@ const MemberPage = ({ memberData, jwt, isAuthed }) => {
               email={memberData.email}
               joinDate={memberData.joinDate}
               name={memberData.name || ''}
+              hideInfo={false} // change after user agree data collection
+              articleReadCount={readPostsCount}
+              articleReadingTime={articleReadingTime}
+              articleReadingTimeUnit={articleReadingTimeUnit}
             />
           </PageContainer>
         </Route>
@@ -234,6 +279,8 @@ MemberPage.propTypes = {
   }),
   isAuthed: PropTypes.bool.isRequired,
   jwt: PropTypes.string.isRequired,
+  readPostsCount: PropTypes.number,
+  readPostsSec: PropTypes.number,
 }
 
 const { reduxStateFields } = twreporterRedux
@@ -248,6 +295,12 @@ const mapStateToProps = state => {
     reduxStateFields.user,
     'registrationDate',
   ])
+  const readPostsCount = _.get(
+    state,
+    [reduxStateFields.user, 'readPostsCount'],
+    0
+  )
+  const readPostsSec = _.get(state, [reduxStateFields.user, 'readPostsSec'], 0)
   return {
     jwt,
     isAuthed,
@@ -260,6 +313,8 @@ const mapStateToProps = state => {
       },
       joinDate: date2yyyymmdd(registrationDate, '/'),
     },
+    readPostsCount,
+    readPostsSec,
   }
 }
 
