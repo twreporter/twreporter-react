@@ -35,14 +35,8 @@ export default {
   aboutUsPage: {
     path: '/about-us',
   },
-  myReadingPage: {
-    path: '/myreading',
-    savedBookmarksPage: {
-      path: '/myreading/saved',
-    },
-    browsingHistoryPage: {
-      path: '/myreading/history',
-    },
+  bookmarkListPage: {
+    path: '/bookmarks/:pageNumber?',
   },
   latestPage: {
     path: '/latest/:tagId?',
