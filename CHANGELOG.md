@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.1-beta.19, 2024-01-24
+
+### Notable Changes
+
+- fix
+  - fix bookmark widget data loader host
+
+### Commits
+
+- [[`46ec823246`](https://github.com/twreporter/twreporter-react/commit/46ec823246)] - **fix**: add preview back (Lucien)
+- [[`369d0c04a9`](https://github.com/twreporter/twreporter-react/commit/369d0c04a9)] - **fix**: http =\> https (Lucien)
+- [[`22617e8807`](https://github.com/twreporter/twreporter-react/commit/22617e8807)] - **fix**: add dev host and change mastern host (Lucien)
+
 ## 4.12.1-beta.18, 2024-01-19
 
 ### Notable Changes
