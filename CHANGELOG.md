@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.12.6-rc.0, 2024-01-30
+## 4.12.6, 2024-01-30 (Current)
 
 ### Notable Changes
 
@@ -11,7 +11,7 @@
 
 - [[`ec185c3bb8`](https://github.com/twreporter/twreporter-react/commit/ec185c3bb8)] - **fix**: check visibility at componentDidMount (Lucien)
 
-## 4.12.5, 2024-01-29 (Current)
+## 4.12.5, 2024-01-29
 
 ### Notable Changes
 
