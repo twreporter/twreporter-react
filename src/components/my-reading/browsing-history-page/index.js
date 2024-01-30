@@ -14,62 +14,20 @@ import {
 } from '@twreporter/react-components/lib/snack-bar'
 import requestOrigin from '@twreporter/core/lib/constants/request-origins'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
+import twreporterRedux from '@twreporter/redux'
+import useBookmark from '@twreporter/react-components/lib/hook/use-bookmark'
+import useStore from '@twreporter/react-components/lib/hook/use-store'
 // components
 import Pagination from '../../Pagination'
 // context
 import { CoreContext } from '../../../contexts'
+// utils
+import { getBookmarkFromPost } from '../../../utils/bookmark'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
 
 const BROWSING_HISTORY_PER_PAGE = 10
-
-const TEST_POST = {
-  slug: 'migrant-workers-dormfire-in-luzhu',
-  title: '夾層裡的6條人命——蘆竹大火暴露移工安全漏洞 ',
-  state: 'published',
-  hero_image: {
-    resized_targets: {
-      mobile: {
-        url:
-          'https://www.twreporter.org/images/20180413151305-e66c12bb019d870303e367fdaed50bc3-mobile.jpg',
-      },
-    },
-  },
-  categories: [
-    {
-      id: '5951db87507c6a0d00ab063c',
-      sort_order: 0,
-      name: '人權．社會',
-    },
-  ],
-  category_set: [
-    {
-      category: {
-        id: '63206383207bf7c5f8716234',
-        name: '人權司法',
-      },
-      subcategory: {
-        id: '63206383207bf7c5f8716237',
-        name: '移工與移民',
-      },
-    },
-    {
-      category: {
-        i: '63206383207bf7c5f8716234',
-        name: '人權司法',
-      },
-      subcategory: {
-        id: '63206383207bf7c5f8716236',
-        name: '勞動',
-      },
-    },
-  ],
-  style: 'article',
-  og_description:
-    '這是台灣最嚴重的移工宿舍火警，引起國際重視。悲劇的背後，是布滿漏洞的法規權責、吃緊的管理、忽視的心態。',
-  published_date: '2018-04-17T00:00:00Z',
-}
 
 const _ = {
   get,
@@ -123,104 +81,108 @@ const EmptyStateConatiner = styled.div`
   margin-bottom: 120px;
 `
 
-const BrowsingHistory = ({ page, totalPages }) => {
+const BrowsingHistory = ({
+  isTogglingBookmark,
+  isFetching,
+  jwt,
+  userID,
+  getUserFootprints,
+  page,
+  totalPages,
+}) => {
   const [browsingHistory, setBrowsingHistory] = useState([])
-  const [fakeBrowsingHistory, setFakeBrowsingHistory] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const { releaseBranch } = useContext(CoreContext)
+  const store = useStore()
+  const { addAction, removeAction } = useBookmark(store)
   const { showSnackBar, snackBarText, toastr } = useSnackBar()
+  const [isLoading, setIsLoading] = useState(true)
 
-  const updateBookmarkStatus = (postID, isBookmarked) => {
-    toastr({ text: isBookmarked ? '已收藏' : '已取消收藏' })
-
+  const updateBrowsingHistory = (targetHistory, isBookmarking) => {
     const handleToggleBookmark = () => {
-      updateBookmarkStatus(postID, !isBookmarked)
+      isBookmarking ? removeBookmark(targetHistory) : addBookmark(targetHistory)
     }
 
     setBrowsingHistory(prevHistory =>
-      prevHistory.map(post =>
-        post.id === postID
+      prevHistory.map(history =>
+        history.id === targetHistory.id
           ? {
-              ...post,
-              is_bookmarked: isBookmarked,
+              ...targetHistory,
+              is_bookmarked: isBookmarking,
               toggle_bookmark: handleToggleBookmark,
             }
-          : post
-      )
-    )
-
-    setFakeBrowsingHistory(prevHistory =>
-      prevHistory.map(post =>
-        post.id === postID
-          ? {
-              ...post,
-              is_bookmarked: isBookmarked,
-              toggle_bookmark: handleToggleBookmark,
-            }
-          : post
+          : history
       )
     )
   }
 
-  const removeBookmark = postID => {
-    updateBookmarkStatus(postID, false)
+  const removeBookmark = history => {
+    removeAction(history.bookmark_id)
+      .then(() => {
+        updateBrowsingHistory(history, false)
+        toastr({ text: '已取消收藏' })
+      })
+      .catch(() => {
+        toastr({ text: '連線失敗，請再試一次' })
+      })
   }
 
-  const addBookmark = postID => {
-    updateBookmarkStatus(postID, true)
+  const addBookmark = history => {
+    addAction(getBookmarkFromPost(history))
+      .then(res => {
+        history.bookmark_id = _.get(res, 'payload.data.record.id')
+        updateBrowsingHistory(history, true)
+        toastr({ text: '已收藏' })
+      })
+      .catch(() => {
+        toastr({ text: '連線失敗，請再試一次' })
+      })
   }
 
-  const filterPost = post => {
-    const { id, bookmark_id: bookmarkID } = post
+  const filterBrowsingHistory = history => {
+    const { bookmark_id: bookmarkID } = history
     const handleToggleBookmark = () => {
-      return bookmarkID ? removeBookmark(id) : addBookmark(id)
+      return bookmarkID ? removeBookmark(history) : addBookmark(history)
     }
     return {
-      ...post,
-      id,
+      ...history,
       is_bookmarked: !!bookmarkID,
       toggle_bookmark: handleToggleBookmark,
     }
   }
 
-  const paginate = (array, pageSize, pageNumber) => {
-    --pageNumber
-    return array.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize)
-  }
-
-  const getBrowsingHistory = page => {
-    const hasPages = totalPages > 0
-
-    if (hasPages) {
-      let historyToPaginate
-
-      if (!fakeBrowsingHistory.length) {
-        const record = Array.from(
-          { length: totalPages * BROWSING_HISTORY_PER_PAGE },
-          (_, i) => {
-            const post = { ...TEST_POST, id: i + 1 }
-            return filterPost(post)
-          }
-        )
-
-        setFakeBrowsingHistory(record)
-        historyToPaginate = record
-      } else {
-        historyToPaginate = fakeBrowsingHistory
-      }
-
-      setBrowsingHistory(
-        paginate(historyToPaginate, BROWSING_HISTORY_PER_PAGE, page)
-      )
-      setShowEmptyState(false)
-    } else {
+  const getBrowsingHistory = async page => {
+    const { payload } = await getUserFootprints(
+      jwt,
+      userID,
+      (page - 1) * BROWSING_HISTORY_PER_PAGE,
+      BROWSING_HISTORY_PER_PAGE
+    )
+    const { records } = _.get(payload, 'data', [])
+    if (records.length === 0) {
       setShowEmptyState(true)
+    } else {
+      setShowEmptyState(false)
+      setBrowsingHistory(
+        _.map(records, history => filterBrowsingHistory(history))
+      )
     }
   }
 
   useEffect(() => {
+    setIsLoading(true)
     getBrowsingHistory(page)
+    setIsLoading(false)
   }, [page])
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Title1 title={'造訪紀錄'} />
+        <CardList isFetching={true} showSpinner={true} data={[{}]} />
+      </Container>
+    )
+  }
 
   return (
     <Container>
@@ -240,6 +202,8 @@ const BrowsingHistory = ({ page, totalPages }) => {
         <>
           <ListContainer>
             <CardList
+              isFetching={!isTogglingBookmark && isFetching}
+              showSpinner={!isTogglingBookmark && isFetching}
               data={browsingHistory}
               showIsBookmarked={true}
               width={100}
@@ -260,9 +224,17 @@ const BrowsingHistory = ({ page, totalPages }) => {
 }
 
 BrowsingHistory.propTypes = {
+  isTogglingBookmark: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  jwt: PropTypes.string,
+  userID: PropTypes.number,
+  getUserFootprints: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
 }
+
+const { reduxStateFields, actions } = twreporterRedux
+const { getUserFootprints } = actions
 
 function pageProp(location = {}) {
   const defaultPage = 1
@@ -279,41 +251,44 @@ function pageProp(location = {}) {
   return page
 }
 
-// TODO: change after connect to api
-function totalPage(location = {}) {
-  const defaultTotalPage = 0
-  const search = _.get(location, 'search', '')
-  const searchWithoutPrefix =
-    typeof search === 'string' ? search.replace(/^\?/, '') : search
-  const totalPageStr = _.get(
-    querystring.parse(searchWithoutPrefix),
-    'total_page',
-    '0'
-  )
-  let totalPage = parseInt(
-    Array.isArray(totalPageStr) ? totalPageStr[0] : totalPageStr,
-    10
-  )
-
-  if (isNaN(totalPage) || totalPage < defaultTotalPage) {
-    totalPage = defaultTotalPage
-  }
-
-  return totalPage
-}
-
-const mapStateToProps = (_state, props) => {
+const mapStateToProps = (state, props) => {
   const location = _.get(props, 'location')
+  const isTogglingBookmark = _.get(
+    state,
+    [reduxStateFields.bookmarkWidget, 'isRequesting'],
+    false
+  )
+  const isFetching = _.get(
+    state,
+    [reduxStateFields.footprints, 'isRequesting'],
+    false
+  )
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
+  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  const totalBrowsingHistory = _.get(
+    state,
+    [reduxStateFields.footprints, 'total'],
+    0
+  )
 
   let currentPage = pageProp(location)
-  const totalPages = totalPage(location)
+  const totalPages = Math.ceil(totalBrowsingHistory / 10)
   if (currentPage > totalPages) {
-    currentPage = totalPages
+    currentPage = Math.max(totalPages, 1)
   }
   return {
+    isTogglingBookmark,
+    isFetching,
+    jwt,
+    userID,
     page: currentPage,
     totalPages,
   }
 }
 
-export default withRouter(connect(mapStateToProps)(BrowsingHistory))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserFootprints }
+  )(BrowsingHistory)
+)
