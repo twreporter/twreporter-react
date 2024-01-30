@@ -15,9 +15,9 @@ import {
 import requestOrigin from '@twreporter/core/lib/constants/request-origins'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 // components
-import Pagination from '../Pagination'
+import Pagination from '../../Pagination'
 // context
-import { CoreContext } from '../../contexts'
+import { CoreContext } from '../../../contexts'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'

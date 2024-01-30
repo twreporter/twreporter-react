@@ -20,11 +20,11 @@ import EmptyState from '@twreporter/react-components/lib/empty-state'
 import { Bookmark } from '@twreporter/react-components/lib/icon'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
 // components
-import Pagination from '../Pagination'
+import Pagination from '../../Pagination'
 // context
-import { CoreContext } from '../../contexts'
+import { CoreContext } from '../../../contexts'
 // constants
-import routes from '../../constants/routes'
+import routes from '../../../constants/routes'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
