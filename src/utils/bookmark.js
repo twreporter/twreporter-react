@@ -12,6 +12,7 @@ const _ = {
  * @param {string} bookmark.desc
  * @param {string} bookmark.thumbnail
  * @param {string} bookmark.published_date
+ * @param {string} bookmark.post_id
  */
 export const getBookmarkFromPost = post => {
   return {
@@ -22,5 +23,6 @@ export const getBookmarkFromPost = post => {
     published_date: _.get(post, 'published_date'),
     thumbnail: _.get(post, 'hero_image.resized_targets.mobile.url'),
     category: _.get(post, 'category_set[0].category.name'),
+    post_id: _.get(post, 'id'),
   }
 }
