@@ -23,7 +23,10 @@ export default function loadData({ store }) {
   if (isAuthed) {
     const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'])
     const userID = _.get(state, [reduxStatePropKey.auth, 'userInfo', 'user_id'])
-    return store.actions.getMultipleBookmarks(jwt, userID, 0, defaultLimit)
+    return Promise.all([
+      store.actions.getMultipleBookmarks(jwt, userID, 0, defaultLimit),
+      store.actions.getUserFootprints(jwt, userID, 0, defaultLimit),
+    ])
   }
   return Promise.resolve()
 }
