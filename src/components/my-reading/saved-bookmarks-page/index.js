@@ -193,7 +193,7 @@ const SavedBookmarks = ({
     return (
       <Container>
         <Title1 title={'已收藏'} />
-        <CardList isFetching={true} showSpinner={true} data={{}} />
+        <CardList isFetching={true} showSpinner={true} data={[{}]} />
       </Container>
     )
   }
@@ -294,7 +294,6 @@ const mapStateToProps = (state, props) => {
   )
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
   const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const totalSavedBookmark = _.get(
     state,
     [reduxStateFields.bookmarks, 'total'],
@@ -309,7 +308,6 @@ const mapStateToProps = (state, props) => {
   return {
     isDeleting,
     isFetching,
-    isAuthed,
     jwt,
     userID,
     page: currentPage,
