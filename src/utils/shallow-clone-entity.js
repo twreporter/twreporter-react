@@ -50,6 +50,7 @@ export function shallowCloneMetaOfPost(post) {
     'subtitle',
     'tags',
     'title',
+    'bookmarkId',
   ]
 
   return cloneWithFields(fields, post)

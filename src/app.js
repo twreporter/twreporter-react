@@ -1,10 +1,11 @@
 /* eslint-disable react/display-name */
 import PropTypes from 'prop-types'
 import React from 'react'
-import getRoutes from './routes'
+import oldRoutes from './routes-old'
+import newRoutes from './routes'
 import { Provider } from 'react-redux'
 import { Switch, Route, useLocation } from 'react-router-dom'
-import { createGlobalStyle, css } from 'styled-components'
+import styled, { createGlobalStyle, css } from 'styled-components'
 // context
 import { CoreContext } from './contexts'
 // components
@@ -23,6 +24,12 @@ import {
   fontWeight,
   fontFamily,
 } from '@twreporter/core/lib/constants/font'
+import {
+  SnackBar,
+  useSnackBar,
+} from '@twreporter/react-components/lib/snack-bar'
+import mq from '@twreporter/core/lib/utils/media-query'
+import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import map from 'lodash/map'
 import get from 'lodash/get'
@@ -30,6 +37,8 @@ const _ = {
   map,
   get,
 }
+
+const getRoutes = MY_READING ? newRoutes : oldRoutes
 
 const selfHostedFonts = [fonts.notoSansTC]
 
@@ -147,6 +156,28 @@ const GlobalStyle = createGlobalStyle`
   ${BaseStyle}
 `
 
+const SnackBarContainer = styled.div`
+  position: fixed;
+  bottom: 8px;
+  z-index: 1;
+  transition: opacity 100ms ease-in-out;
+  opacity: ${props => (props.show ? 1 : 0)};
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  ${mq.desktopAndAbove`
+    bottom: 24px;
+  `}
+  ${mq.tabletAndBelow`
+    bottom: calc(env(safe-area-inset-bottom, 0) + 60px + 8px); // tab bar 60px
+    padding: 0 16px;
+  `}
+  & > div {
+    max-width: 440px;
+    max-width: 100%;
+  }
+`
+
 const GlobalStyleWithFonts = ({ fonts = [] }) => {
   const fontfaces = _.map(fonts, font => webfonts.fontFaces[font]).join()
   useFontFaceObserver(
@@ -177,9 +208,11 @@ const App = ({ reduxStore, releaseBranch }) => {
     }
     return <Route key={`route-${routeIndex}`} {...route} />
   })
+  const { showSnackBar, snackBarText, toastr } = useSnackBar()
   const contextValue = {
     releaseBranch,
     referrerPath: _.get(prevLocation, 'pathname', ''),
+    toastr,
   }
 
   return (
@@ -194,6 +227,9 @@ const App = ({ reduxStore, releaseBranch }) => {
             )
           }}
         />
+        <SnackBarContainer show={showSnackBar}>
+          <SnackBar text={snackBarText} />
+        </SnackBarContainer>
       </CoreContext.Provider>
       <GlobalStyleWithFonts fonts={selfHostedFonts} />
     </Provider>

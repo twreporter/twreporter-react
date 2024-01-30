@@ -19,18 +19,22 @@ import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { List } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
-import {
-  CATEGORY_ID,
-  CATEGORY_LABEL,
-  SUBCATEGORY_ID,
-  SUBCATEGORY_LABEL,
-  CATEGORY_SET,
-} from '@twreporter/core/lib/constants/category-set'
+// feature toggle
+import categoryConstNew from '@twreporter/core/lib/constants/category-set'
+import categoryConstOld from '@twreporter/core/lib/constants/category-set-old'
+import { FOUNDATION_CATEGORY_SET } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import findIndex from 'lodash/findIndex'
+const {
+  CATEGORY_ID,
+  CATEGORY_LABEL,
+  SUBCATEGORY_ID,
+  SUBCATEGORY_LABEL,
+  CATEGORY_SET,
+} = FOUNDATION_CATEGORY_SET ? categoryConstNew : categoryConstOld
 const _ = {
   forEach,
   get,

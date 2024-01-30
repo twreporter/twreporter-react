@@ -12,12 +12,14 @@ import Skeleton from '../components/skeleton'
 // utils
 import loggerFactory from '../logger'
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
+import { getBookmarkFromPost } from '../utils/bookmark'
 // constants
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import mq from '@twreporter/core/lib/utils/media-query'
+import { useStore, useBookmark } from '@twreporter/react-components/lib/hook'
 import Divider from '@twreporter/react-components/lib/divider'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { TitleTab } from '@twreporter/react-components/lib/title-bar'
@@ -113,6 +115,8 @@ const GetSomeSpace = styled.div`
 
 const Latest = ({
   // redux state
+  jwt,
+  isAuthed,
   latestTagList,
   activeTabIndex,
   tagId,
@@ -127,13 +131,42 @@ const Latest = ({
   const listId = tagId || LATEST_LIST_ID
   const location = useLocation()
   const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
-  const { releaseBranch } = useContext(CoreContext)
+  const { releaseBranch, toastr } = useContext(CoreContext)
 
   const state = useContext(ReactReduxContext).store.getState()
   const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
   const [page, setPage] = useState(1)
-  const [posts, setPosts] = useState(postsProp(state, listId, 1, page))
   const [isLoading, setIsLoading] = useState(false)
+  const store = useStore()
+  const { addAction, removeAction } = useBookmark(store)
+  const normalizePosts = rawPosts => {
+    return _.forEach(rawPosts, post => {
+      post['is_bookmarked'] = !!post.bookmarkId
+      post['toggle_bookmark'] = async () => {
+        if (post.bookmarkId) {
+          try {
+            await removeAction(post.bookmarkId)
+            toastr({ text: '已取消收藏' })
+          } catch (err) {
+            toastr({ text: '連線失敗，請再試一次' })
+          }
+        } else {
+          try {
+            await addAction(getBookmarkFromPost(post))
+            toastr({ text: '已收藏' })
+          } catch (err) {
+            toastr({ text: '連線失敗，請再試一次' })
+          }
+        }
+        onBookmarkUpdate()
+      }
+    })
+  }
+  const [posts, setPosts] = useState(
+    normalizePosts(postsProp(state, listId, 1, page))
+  )
+  const onBookmarkUpdate = () =>
+    setPosts(normalizePosts(postsProp(state, listId, 1, page)))
 
   useEffect(() => {
     fetchLatestTags().catch(failAction => {
@@ -147,9 +180,9 @@ const Latest = ({
     const getPosts = async () => {
       try {
         if (tagId) {
-          await fetchPostsByTagListId(tagId, nPerPage, page)
+          await fetchPostsByTagListId(tagId, nPerPage, page, jwt)
         } else {
-          await fetchLatestPosts(nPerPage, page)
+          await fetchLatestPosts(nPerPage, page, jwt)
         }
       } catch (failAction) {
         logger.errorReport({
@@ -179,7 +212,7 @@ const Latest = ({
     if (isFetching || isFetching === undefined) {
       return
     }
-    setPosts(postsProp(state, listId, 1, page))
+    setPosts(normalizePosts(postsProp(state, listId, 1, page)))
   }, [isFetching, listId])
 
   // Error handling
@@ -236,6 +269,7 @@ const Latest = ({
           <CardList
             data={posts}
             showSpinner={true}
+            showIsBookmarked={false}
             releaseBranch={releaseBranch}
           />
         </CardListContainer>
@@ -351,12 +385,16 @@ function titleTabProp(state, listId) {
  *  @param {Object} props
  */
 function mapStateToProps(state, props) {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const tagId = _.get(props, 'match.params.tagId')
   const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
   const nPerPage = dataLoaderConst.latestPage.nPerPage
   const listId = tagId || LATEST_LIST_ID
 
   return {
+    jwt,
+    isAuthed,
     latestTagList,
     activeTabIndex,
     tagId,
@@ -368,6 +406,8 @@ function mapStateToProps(state, props) {
 
 Latest.defaultProps = {
   // redux state
+  jwt: '',
+  isAuthed: false,
   latestTagList: [],
   activeTabIndex: 0,
   isFetching: false,
@@ -377,6 +417,8 @@ Latest.defaultProps = {
 
 Latest.propTypes = {
   // redux state
+  jwt: PropTypes.string,
+  isAuthed: PropTypes.bool,
   latestTagList: PropTypes.array,
   activeTabIndex: PropTypes.number,
   tagId: PropTypes.string,
