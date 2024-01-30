@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.6-rc.0, 2024-01-30
+
+### Notable Changes
+
+- fix
+  - check visibility at componentDidMount
+
+### Commits
+
+- [[`ec185c3bb8`](https://github.com/twreporter/twreporter-react/commit/ec185c3bb8)] - **fix**: check visibility at componentDidMount (Lucien)
+
 ## 4.12.5, 2024-01-29 (Current)
 
 ### Notable Changes
