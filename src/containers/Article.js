@@ -43,6 +43,7 @@ const {
   fetchAFullPost,
   fetchRelatedPostsOfAnEntity,
   setUserAnalyticsData,
+  setUserFootprint,
 } = actions
 const _fontLevel = {
   small: 'small',
@@ -141,6 +142,13 @@ class Article extends PureComponent {
     }
   }
 
+  sendUserFootprint() {
+    const { isAuthed, jwt, userID, postID, setUserFootprint } = this.props
+    if (isAuthed) {
+      setUserFootprint(jwt, userID, postID)
+    }
+  }
+
   _handleVisibilityChange() {
     if (document.visibilityState === 'hidden') {
       if (this.state.isActive) {
@@ -218,6 +226,8 @@ class Article extends PureComponent {
       .catch(err => {
         console.warn('Can not get item from browser storage: ', err)
       })
+
+    this.sendUserFootprint()
   }
 
   componentDidUpdate(prevProps) {
@@ -503,6 +513,7 @@ Article.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  setUserFootprint: PropTypes.func,
 }
 
 Article.defaultProps = {
@@ -657,6 +668,7 @@ export default withRouter(
       fetchRelatedPostsOfAnEntity,
       changeFontLevel,
       setUserAnalyticsData,
+      setUserFootprint,
     }
   )(Article)
 )
