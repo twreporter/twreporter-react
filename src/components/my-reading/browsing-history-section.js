@@ -15,6 +15,7 @@ import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { ShortStory } from '@twreporter/react-components/lib/card'
 import mq from '@twreporter/core/lib/utils/media-query'
 import Divider from '@twreporter/react-components/lib/divider'
+import twreporterRedux from '@twreporter/redux'
 
 // constants
 import routes from '../../constants/routes'
@@ -33,6 +34,9 @@ const _ = {
   get,
   map,
 }
+
+const { actions, reduxStateFields } = twreporterRedux
+const { getUserFootprints } = actions
 
 const CardListContainer = styled.div`
   padding-top: 24px;
@@ -66,7 +70,7 @@ const BrowsingHistorySection = () => {
   const [browsingHistory, setBrowsingHistory] = useState([])
   const [totalBrowsingHistory, setTotalBrowsingHistory] = useState(-1)
   const store = useStore()
-  const state = store[0]
+  const [state, dispatch] = store
 
   const moreHistoryBtn = () => {
     if (totalBrowsingHistory <= 0) return
@@ -117,15 +121,29 @@ const BrowsingHistorySection = () => {
   }
 
   useEffect(() => {
-    const footprints = _.get(state, ['footprints', 'footprints'], [])
-    const totalFootprints = _.get(state, ['footprints', 'total'], 0)
+    const footprints = _.get(
+      state,
+      [reduxStateFields.footprints, 'footprints'],
+      []
+    )
+    const totalFootprints = _.get(
+      state,
+      [reduxStateFields.footprints, 'total'],
+      0
+    )
     setBrowsingHistory(
       _.map(footprints, footprint => filterFootprint(footprint))
     )
     setTotalBrowsingHistory(totalFootprints)
-  }, [state.footprints])
+  }, [state[reduxStateFields.footprints]])
 
-  if (totalBrowsingHistory < 0) {
+  useEffect(() => {
+    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
+    const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+    dispatch(getUserFootprints(jwt, userID, 0, 6))
+  }, [])
+
+  if (state[reduxStateFields.footprints].isFetching) {
     return (
       <div>
         <Title2 title={'造訪紀錄'} />
