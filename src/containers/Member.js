@@ -144,7 +144,7 @@ const MemberPage = ({
     } else if (
       matchPath(pathname, routes.memberPage.memberEmailSubscriptionPage.path)
     ) {
-      return '電子報設定'
+      return '訂閱電子報'
     } else {
       return '個人專區'
     }
