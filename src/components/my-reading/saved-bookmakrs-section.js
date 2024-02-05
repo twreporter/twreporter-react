@@ -49,6 +49,10 @@ const CardListContainer = styled.div`
   width: 100%;
 `
 
+const StyledTextButton = styled(TextButton)`
+  height: 100%;
+`
+
 const SavedBookmarksSection = () => {
   const { releaseBranch, toastr } = useContext(CoreContext)
   const navigate = useHistory()
@@ -64,7 +68,7 @@ const SavedBookmarksSection = () => {
     return (
       <>
         <DesktopAndAbove>
-          <TextButton
+          <StyledTextButton
             text="查看更多"
             rightIconComponent={<Arrow direction="right" />}
             onClick={() =>
@@ -75,7 +79,7 @@ const SavedBookmarksSection = () => {
           />
         </DesktopAndAbove>
         <TabletAndBelow>
-          <TextButton
+          <StyledTextButton
             text="查看更多"
             rightIconComponent={<Arrow direction="right" />}
             onClick={() =>

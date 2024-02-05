@@ -60,6 +60,10 @@ const StyledDivider = styled(Divider)`
   margin-top: 24px;
 `
 
+const StyledTextButton = styled(TextButton)`
+  height: 100%;
+`
+
 const Card = styled.div`
   width: 100%;
 `
@@ -77,7 +81,7 @@ const BrowsingHistorySection = () => {
     return (
       <>
         <DesktopAndAbove>
-          <TextButton
+          <StyledTextButton
             text="查看更多"
             rightIconComponent={<Arrow direction="right" />}
             onClick={() =>
@@ -88,7 +92,7 @@ const BrowsingHistorySection = () => {
           />
         </DesktopAndAbove>
         <TabletAndBelow>
-          <TextButton
+          <StyledTextButton
             text="查看更多"
             rightIconComponent={<Arrow direction="right" />}
             onClick={() =>
