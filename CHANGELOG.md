@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-rc.1, 2024-02-07
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`bf8c2efc55`](https://github.com/twreporter/twreporter-react/commit/bf8c2efc55)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 4.12.7-rc.0, 2024-02-07
 
 ### Notable Changes
