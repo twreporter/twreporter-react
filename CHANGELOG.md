@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.7.beta.0, 2024-02-07
+
+### Notable Changes
+
+- feat
+  - new email subscription page
+
+### Commits
+
+- [[`da60f76726`](https://github.com/twreporter/twreporter-react/commit/da60f76726)] - **feat**: use new component (Lucien)
+- [[`7bd4f42d59`](https://github.com/twreporter/twreporter-react/commit/7bd4f42d59)] - **feat**: add Card component for new subscription page (Lucien)
+- [[`a04760c3fd`](https://github.com/twreporter/twreporter-react/commit/a04760c3fd)] - **feat**: change email-subscription name (Lucien)
+
 ## 4.12.6, 2024-01-30 (Current)
 
 ### Notable Changes
