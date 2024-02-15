@@ -1,5 +1,31 @@
 # Changelog
 
+## 4.12.7-rc.4, 2024-02-15
+
+### Notable Changes
+
+- feat
+  - my reading page with saved bookmarks & browsing history page
+
+### Commits
+
+- [[`344d1d3e30`](https://github.com/twreporter/twreporter-react/commit/344d1d3e30)] - **chore**: sync master (Lucien)
+- [[`477836e327`](https://github.com/twreporter/twreporter-react/commit/477836e327)] - **chore**: update twreporter packages (Lucien)
+- [[`1b049bd131`](https://github.com/twreporter/twreporter-react/commit/1b049bd131)] - **fix**: add height to TextButton (Lucien)
+- [[`f03328b2fc`](https://github.com/twreporter/twreporter-react/commit/f03328b2fc)] - **feat**: use toastr from coreContext (Lucien)
+- [[`70ceb171a8`](https://github.com/twreporter/twreporter-react/commit/70ceb171a8)] - **feat**: use data from components instead of data loader (Lucien)
+- [[`57cecdb97a`](https://github.com/twreporter/twreporter-react/commit/57cecdb97a)] - **feat**: remove default width (Lucien)
+- [[`3e1766746f`](https://github.com/twreporter/twreporter-react/commit/3e1766746f)] - **feat**: get data while mounted (Lucien)
+- [[`9486f72801`](https://github.com/twreporter/twreporter-react/commit/9486f72801)] - **feat**: add width detector hook (Lucien)
+- [[`8c0d23d188`](https://github.com/twreporter/twreporter-react/commit/8c0d23d188)] - **feat**: set user foot print at article page (Lucien)
+- [[`f0aa72866f`](https://github.com/twreporter/twreporter-react/commit/f0aa72866f)] - **feat**: use api data for browsing history page (Lucien)
+- [[`1a0ca820ca`](https://github.com/twreporter/twreporter-react/commit/1a0ca820ca)] - **feat**: add post_id to bookmark property (Lucien)
+- [[`b06919e35f`](https://github.com/twreporter/twreporter-react/commit/b06919e35f)] - **fix**: fix prop types error and remove unused code (Lucien)
+- [[`b45cb28180`](https://github.com/twreporter/twreporter-react/commit/b45cb28180)] - **feat**: my reading page with real data (Lucien)
+- [[`51d09a654c`](https://github.com/twreporter/twreporter-react/commit/51d09a654c)] - **feat**: move to my reading components (Lucien)
+- [[`8067b40eea`](https://github.com/twreporter/twreporter-react/commit/8067b40eea)] - **feat**: load footprints at data loader (Lucien)
+- [[`acb217ce0c`](https://github.com/twreporter/twreporter-react/commit/acb217ce0c)] - **feat**: empty box components (Lucien)
+
 ## 4.12.7-rc.3, 2024-02-15
 
 ### Notable Changes
