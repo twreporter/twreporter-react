@@ -125,7 +125,7 @@ const EmptyBrowsingHistory = () => {
   )
 }
 
-const ShowMoreBookmark = () => {
+const ShowMoreBookmark = ({ isMobile = false }) => {
   return (
     <EmptyBoxContainer>
       <DesktopAndAbove>
@@ -138,7 +138,10 @@ const ShowMoreBookmark = () => {
       </DesktopAndAbove>
       <TabletAndBelow>
         <Title>
-          <P2 weight={P2.Weight.BOLD} text="你已取消收藏最近的六篇文章" />
+          <P2
+            weight={P2.Weight.BOLD}
+            text={`你已取消收藏最近的${isMobile ? '四' : '六'}篇文章`}
+          />
         </Title>
         <Description>
           <P2 text="點擊查看更多，看你的其他已收藏文章吧！" />
@@ -148,14 +151,20 @@ const ShowMoreBookmark = () => {
   )
 }
 
-const EmptyBox = ({ type = Type.Bookmark }) => {
+ShowMoreBookmark.propTypes = {
+  isMobile: PropTypes.bool,
+}
+
+const EmptyBox = ({ type = Type.Bookmark, isMobile = false }) => {
   if (type === Type.Bookmark) return <EmptyBookmark />
   if (type === Type.BrowsingHistory) return <EmptyBrowsingHistory />
-  if (type === Type.ShowMoreBookmark) return <ShowMoreBookmark />
+  if (type === Type.ShowMoreBookmark)
+    return <ShowMoreBookmark isMobile={isMobile} />
 }
 
 EmptyBox.propTypes = {
   type: PropTypes.oneOf(Object.values(Type)),
+  isMobile: PropTypes.bool,
 }
 
 EmptyBox.Type = Type
