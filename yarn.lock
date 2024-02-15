@@ -1415,10 +1415,10 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
-"@material-symbols/font-400@^0.5.5":
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/@material-symbols/font-400/-/font-400-0.5.5.tgz#af37b097da672a67f8bdd10d51fdb7f776db26e3"
-  integrity sha512-ykFcuNbilkAPCYpLpLNCqHdfmaqiGPUmbBJHIDy+L6aHTgPCt5H9oHBdD0Kr/njV9Dy/cGMYW9C0dq6w2N3fTQ==
+"@material-symbols/font-400@^0.14.7":
+  version "0.14.7"
+  resolved "https://registry.yarnpkg.com/@material-symbols/font-400/-/font-400-0.14.7.tgz#22c2c15a8443da9e7a0addc256be553cc94d09d1"
+  integrity sha512-lW5e6mo16wpNiGhOM4Hi16ddrd5s55LZBKAgHiGuwbfFgjE2M1wnDUTSdV41wQE2jRfnE4+cVjC5/+t6RdRUcQ==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
