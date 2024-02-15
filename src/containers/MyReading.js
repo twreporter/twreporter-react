@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 // @twreporter
 import { H2 } from '@twreporter/react-components/lib/text/headline'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+import twreporterRedux from '@twreporter/redux'
+import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
+import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -17,6 +22,12 @@ import SavedBookmarksPage from '../components/my-reading/saved-bookmarks-page'
 import BrowsingHistoryPage from '../components/my-reading/browsing-history-page'
 import SavedBookmarksSection from '../components/my-reading/saved-bookmakrs-section'
 import BrowsingHistorySection from '../components/my-reading/browsing-history-section'
+
+// lodash
+import get from 'lodash/get'
+const _ = {
+  get,
+}
 
 const GridContainer = styled.div`
   width: 100%;
@@ -62,8 +73,23 @@ const BrowsingHistory = styled.div`
   padding-bottom: 24px;
 `
 
-const MyReadingPage = () => {
+const MyReadingPage = ({ isAuthed, jwt }) => {
   const { pathname } = useLocation()
+  useEffect(() => {
+    // check authorization
+    // redirect to singin page if user has not been authorized
+    if (!isAuthed || !jwt) {
+      setTimeout(() => {
+        const currentHref =
+          typeof window === 'undefined' ? '' : window.location.href
+        window.location.href = getSignInHref(currentHref)
+      }, 2000)
+    }
+  }, [])
+
+  if (!isAuthed || !jwt) {
+    return <RedirectToSignIn>您尚未登入，將跳轉至登入頁</RedirectToSignIn>
+  }
 
   const getSiteTitle = pathname => {
     if (matchPath(pathname, routes.myReadingPage.savedBookmarksPage.path)) {
@@ -125,4 +151,16 @@ const MyReadingPage = () => {
   )
 }
 
-export default MyReadingPage
+MyReadingPage.propTypes = {
+  jwt: PropTypes.string.isRequired,
+  isAuthed: PropTypes.bool.isRequired,
+}
+
+const { reduxStateFields } = twreporterRedux
+const mapStateToProps = state => {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  return { jwt, isAuthed }
+}
+
+export default connect(mapStateToProps)(MyReadingPage)
