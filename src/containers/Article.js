@@ -208,12 +208,13 @@ class Article extends PureComponent {
     this.setState({
       startReadingTime: Date.now(),
     })
-    this.startInactiveTimer()
     document.addEventListener('visibilitychange', this.handleVisibilityChange)
     document.addEventListener('mousemove', this.handleUserActivity)
     document.addEventListener('scroll', this.handleUserActivity)
     document.addEventListener('click', this.handleUserActivity)
     window.addEventListener('pagehide', this.handlePagehide)
+    // check visibility to prevent tab been hidden before componentDidMount execute
+    this.handleVisibilityChange()
 
     // Change fontLevel according to browser storage
     localForage

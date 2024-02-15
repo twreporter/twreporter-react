@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.12.5-rc.5, 2024-01-25
+## 4.12.7-rc.3, 2024-02-15
+
+### Notable Changes
+
+- chore
+  - upgrade `@material-symbols/font-400` version to support `kid_star` icon
+
+### Commits
+
+- [[`c3c2f5a325`](https://github.com/twreporter/twreporter-react/commit/c3c2f5a325)] - **chore**: upgrade `@material-symbols/font-400` version (Aylie Chou)
+
+## 4.12.7-rc.2, 2024-02-15
 
 ### Notable Changes
 
@@ -9,9 +20,9 @@
 
 ### Commits
 
-- [[`5406a2a31d`](https://github.com/twreporter/twreporter-react/commit/5406a2a31d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`2f7e0b254b`](https://github.com/twreporter/twreporter-react/commit/2f7e0b254b)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 4.12.5-rc.4, 2024-01-24
+## 4.12.7-rc.1, 2024-02-07
 
 ### Notable Changes
 
@@ -20,40 +31,58 @@
 
 ### Commits
 
-- [[`a1e1ba2118`](https://github.com/twreporter/twreporter-react/commit/a1e1ba2118)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`bf8c2efc55`](https://github.com/twreporter/twreporter-react/commit/bf8c2efc55)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 4.12.5-rc.3, 2024-01-24
+## 4.12.7-rc.0, 2024-02-07
+
+### Notable Changes
+
+- chore
+  - remove `FOUNDATION_CATEGORY_SET` feature toggle
+
+### Commits
+
+- [[`a65474b884`](https://github.com/twreporter/twreporter-react/commit/a65474b884)] - **chore**: remove `FOUNDATION\_CATEGORY\_SET` feature toggle (Aylie Chou)
+
+## 4.12.6, 2024-01-30 (Current)
+
+### Notable Changes
+
+- fix
+  - check visibility at componentDidMount
+
+### Commits
+
+- [[`ec185c3bb8`](https://github.com/twreporter/twreporter-react/commit/ec185c3bb8)] - **fix**: check visibility at componentDidMount (Lucien)
+
+## 4.12.5, 2024-01-29
 
 ### Notable Changes
 
 - feat
-  - reading statistics for member page
-  - reading count by timer and height
-  - add foundation category set
-  - get analytics data from getUser
-  - send analytics data to backend
-  - my reading route
-  - my reading page layout
-  - saved bookmarks page
-  - history page layout
-  - add my-reading entry on member page with feature toggle
-- fix
-  - use page text
-  - reading_height & slug
-  - add pagehide eventListener
-  - trigger inactive timer
-  - send active time after inactive
-  - clear timer if visibility change
-  - set start reading time to now after active
-  - set isActive to false after visibility change to hidden
-  - show loading and refresh page if no bookmarks
-  - title 2 spec change
-  - fix bookmark widget data loader host
+  - membership
+    - reading statistics for member page
+    - reading count by timer and height
+    - get analytics data from getUser
+    - send analytics data to backend
+    - my reading route
+    - my reading page layout
+    - saved bookmarks page
+    - history page layout
+    - add my-reading entry on member page with feature toggle
+  - general
+    - toggle bookmark on latest page
+    - add `toastr` in CoreContext
+    - add foundation category set
 - chore
   - update @twreporter packages
 
 ### Commits
 
+-[[`d470f7aa43`](https://github.com/twreporter/twreporter-react/commit/d470f7aa43)] - **chore**: hide bookmark on latest before bug resolved (Aylie Chou)
+
+- [[`5406a2a31d`](https://github.com/twreporter/twreporter-react/commit/5406a2a31d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a1e1ba2118`](https://github.com/twreporter/twreporter-react/commit/a1e1ba2118)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`46ec823246`](https://github.com/twreporter/twreporter-react/commit/46ec823246)] - **fix**: add preview back (Lucien)
 - [[`369d0c04a9`](https://github.com/twreporter/twreporter-react/commit/369d0c04a9)] - **fix**: http =\> https (Lucien)
 - [[`22617e8807`](https://github.com/twreporter/twreporter-react/commit/22617e8807)] - **fix**: add dev host and change mastern host (Lucien)
@@ -110,47 +139,14 @@
 - [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
 - [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
 - [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
-
-## 4.12.5-rc.2, 2024-01-24
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`9fe0e90851`](https://github.com/twreporter/twreporter-react/commit/9fe0e90851)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.12.5-rc.1, 2024-01-22
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`f71cc93370`](https://github.com/twreporter/twreporter-react/commit/f71cc93370)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.12.5-rc.0, 2024-01-17
-
-### Notable Changes
-
-- feat
-  - toggle bookmark on latest page
-  - add `toastr` in CoreContext
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`7439d5d5b7`](https://github.com/twreporter/twreporter-react/commit/7439d5d5b7)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`0678a0767f`](https://github.com/twreporter/twreporter-react/commit/0678a0767f)] - **fix**: add `toastr` in CoreContext & hide bookmark icon if user not authed (Aylie Chou)
 - [[`a93a4646e7`](https://github.com/twreporter/twreporter-react/commit/a93a4646e7)] - **feat**: toggle bookmark on latest page (Aylie Chou)
 - [[`d6207ae216`](https://github.com/twreporter/twreporter-react/commit/d6207ae216)] - **feat**: pass jwt token for getting bookmarkId data (Aylie Chou)
 
-## 4.12.4, 2024-01-03 (Current)
+## 4.12.4, 2024-01-03
 
 ### Notable Changes
 
