@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-rc.3, 2024-02-15
+
+### Notable Changes
+
+- chore
+  - upgrade `@material-symbols/font-400` version to support `kid_star` icon
+
+### Commits
+
+- [[`c3c2f5a325`](https://github.com/twreporter/twreporter-react/commit/c3c2f5a325)] - **chore**: upgrade `@material-symbols/font-400` version (Aylie Chou)
+
 ## 4.12.7-rc.2, 2024-02-15
 
 ### Notable Changes
