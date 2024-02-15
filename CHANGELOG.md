@@ -1,5 +1,38 @@
 # Changelog
 
+## 4.12.7-rc.2, 2024-02-15
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`2f7e0b254b`](https://github.com/twreporter/twreporter-react/commit/2f7e0b254b)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.12.7-rc.1, 2024-02-07
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`bf8c2efc55`](https://github.com/twreporter/twreporter-react/commit/bf8c2efc55)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.12.7-rc.0, 2024-02-07
+
+### Notable Changes
+
+- chore
+  - remove `FOUNDATION_CATEGORY_SET` feature toggle
+
+### Commits
+
+- [[`a65474b884`](https://github.com/twreporter/twreporter-react/commit/a65474b884)] - **chore**: remove `FOUNDATION\_CATEGORY\_SET` feature toggle (Aylie Chou)
+
 ## 4.12.6, 2024-01-30 (Current)
 
 ### Notable Changes
