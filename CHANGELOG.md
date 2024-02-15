@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-rc.5, 2024-02-15
+
+### Notable Changes
+
+- fix
+  - show empty page instead of loading spinner
+
+### Commits
+
+- [[`88fdd5f958`](https://github.com/twreporter/twreporter-react/commit/88fdd5f958)] - **fix**: saved bookmark section loading & text (Lucien)
+
 ## 4.12.7-rc.4, 2024-02-15
 
 ### Notable Changes

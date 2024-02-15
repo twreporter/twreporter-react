@@ -166,7 +166,7 @@ const SavedBookmarksSection = () => {
     dispatch(getMultipleBookmarks(jwt, userID, 0, isMobile ? 4 : 6))
   }, [isMobile])
 
-  if (totalBoorkmarks <= 0) {
+  if (state[reduxStateFields.bookmarks].isRequesting) {
     return (
       <div>
         <Title2 title={'已收藏'} />
@@ -178,7 +178,9 @@ const SavedBookmarksSection = () => {
   const BookmarksJSX = () => {
     if (bookmarks.length === 0) {
       if (totalBoorkmarks > 0) {
-        return <EmptyBox type={EmptyBox.Type.ShowMoreBookmark} />
+        return (
+          <EmptyBox type={EmptyBox.Type.ShowMoreBookmark} isMobile={isMobile} />
+        )
       }
       if (totalBoorkmarks === 0) {
         return <EmptyBox type={EmptyBox.Type.Bookmark} />
