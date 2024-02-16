@@ -90,7 +90,10 @@ const param = {
   swToolBoxCode: swToolBoxCode,
   runtimeCaching: generateRuntimeCaching([
     {
-      urlPattern: new RegExp(apiURLPrefix + '/v2/posts'),
+      // match posts route exclude url ends with -published_date
+      urlPattern: new RegExp(
+        apiURLPrefix + '/v2/posts' + '.+(?<!-published_date)$'
+      ),
       handler: 'networkFirst',
       options: {
         cache: {
