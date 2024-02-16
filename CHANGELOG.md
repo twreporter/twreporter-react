@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7.beta.1, 2024-02-16
+
+### Notable Changes
+
+- fix
+  - use P2 for LinkButton
+
+### Commits
+
+- [[`66f8a1d9ca`](https://github.com/twreporter/twreporter-react/commit/66f8a1d9ca)] - **fix**: use P2 for LinkButton (Lucien)
+
 ## 4.12.7.beta.0, 2024-02-07
 
 ### Notable Changes
