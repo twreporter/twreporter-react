@@ -86,6 +86,7 @@ const Card = ({
       <Description>{descJSX}</Description>
       <LinkContainer>
         <LinkButton
+          TextComponent={P2}
           type={LinkButton.Type.UNDERLINE}
           text={linkText}
           link={{ to: link, isExternal: true, target: '_blank' }}
