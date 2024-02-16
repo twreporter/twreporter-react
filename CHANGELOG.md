@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.12.7-rc.6, 2024-02-17
+
+### Notable Changes
+
+- fix
+  - diasble sw cache in latest posts request
+  - redirect to signin page if not authed when enter myreading page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`9a69e24b92`](https://github.com/twreporter/twreporter-react/commit/9a69e24b92)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`4e9995c079`](https://github.com/twreporter/twreporter-react/commit/4e9995c079)] - **fix**: diasble sw cache in latest posts request (Aylie Chou)
+- [[`1b3cf3c587`](https://github.com/twreporter/twreporter-react/commit/1b3cf3c587)] - **fix**: redirect to signin page if not authed when enter myreading page (Aylie Chou)
+
 ## 4.12.7-rc.5, 2024-02-15
 
 ### Notable Changes
