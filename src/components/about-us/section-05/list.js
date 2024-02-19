@@ -3,16 +3,19 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import VelocityComponent from 'velocity-react/velocity-component'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+// constants
+import { font } from '../constants/styles'
+import { months } from '../constants/section-05/months'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import mq from '../utils/media-query'
-import styled from 'styled-components'
 import orderBy from 'lodash/orderBy'
-import { font } from '../constants/styles'
-import { months } from '../constants/section-05/months'
-
 const _ = {
   get,
   groupBy,
@@ -21,7 +24,7 @@ const _ = {
 }
 
 const defaultZIndex = 0
-const dateBorderColor = '#d3d3d3'
+const dateBorderColor = colorGrayscale.gray300
 const transitionDuration = 300
 
 const OnlyDisplayOnMobile = styled.div`
@@ -106,8 +109,9 @@ const YearLabel = styled.div`
   width: 100%;
   height: 76px;
   background: ${props =>
-    props.unfold ? `${colors.black}` : `${colors.gray.gray96}`};
-  color: ${props => (props.unfold ? `${colors.white}` : `${colors.black}`)};
+    props.unfold ? `${colorGrayscale.black}` : `${colorGrayscale.gray100}`};
+  color: ${props =>
+    props.unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
   transition: ease ${transitionDuration}ms height;
   p {
     display: table-cell;
@@ -132,7 +136,7 @@ const Accomplishments = styled.div`
 
 const MonthLabel = styled.div`
   display: block;
-  background: ${colors.white};
+  background: ${colorGrayscale.white};
   width: 54px;
   height: 23px;
   text-align: center;
@@ -153,23 +157,23 @@ const MonthLabel = styled.div`
 
 const MonthlyAccomplishments = styled.div`
   margin-bottom: 2px;
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
   min-height: 76px;
 `
 
 const Accomplishment = styled.div`
   width: 100%;
   margin: 0;
-  color: ${colors.black};
+  color: ${colorGrayscale.black};
   ${mq.mobileOnly`
     position: relative;
-    border-bottom: solid 1px ${colors.white};
-    background: ${colors.gray.gray96};
+    border-bottom: solid 1px ${colorGrayscale.white};
+    background: ${colorGrayscale.gray100};
     &:nth-child(odd) {
       &:before {
         content: '';
-        background-image: linear-gradient(to top, ${colors.gray.gray64}, ${
-    colors.gray.gray96
+        background-image: linear-gradient(to top, ${colorGrayscale.gray300}, ${
+    colorGrayscale.gray100
   } 80%);
         position: absolute;
         bottom: 0;
@@ -184,9 +188,9 @@ const Accomplishment = styled.div`
     &:nth-child(even) {
       &:before {
         content: '';
-        background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${
-    colors.gray.gray96
-  } 80%);
+        background-image: linear-gradient(to bottom, ${
+          colorGrayscale.gray300
+        }, ${colorGrayscale.gray100} 80%);
         position: absolute;
         top: 0;
         left: 0;

@@ -12,6 +12,7 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import { colorOpacity } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -51,7 +52,7 @@ const CategoryContainer = styled.div`
 
 const Card = styled.div`
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: ${colorOpacity['white_0.9']};
   border: 2px solid black;
   ${mq.tabletAndAbove`
     padding: 30px 30px 0;

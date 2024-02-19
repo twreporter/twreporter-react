@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import renderTopicContent, { Paragraph } from './render-content'
 import styled from 'styled-components'
+import renderTopicContent, { Paragraph } from './render-content'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const Container = styled.div`
   position: relative;
@@ -17,12 +21,12 @@ const Section = styled.div`
   max-width: 90%;
   a {
     cursor: pointer;
-    border-bottom: 1px #c71b0a solid;
+    border-bottom: 1px ${colorBrand.heavy} solid;
     transition: 100ms color ease;
     position: relative;
-    color: #262626;
+    color: ${colorGrayscale.gray900};
     &:hover {
-      color: #c71b0a;
+      color: ${colorBrand.heavy};
     }
   }
 `
@@ -39,7 +43,7 @@ const TopicDescription = styled(Section)`
     bottom: 0;
     width: 200px;
     margin: auto;
-    border-top: 2px solid #c71b0a;
+    border-top: 2px solid ${colorBrand.heavy};
   }
 `
 
@@ -49,7 +53,7 @@ const TeamDescription = styled(Section)`
   /* overwrite paragraph styles */
   ${Paragraph} {
     font-size: 15px;
-    color: #808080;
+    color: ${colorGrayscale.gray600};
     margin: 0 auto;
   }
 `

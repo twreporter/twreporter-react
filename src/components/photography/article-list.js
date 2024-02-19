@@ -11,6 +11,7 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -106,7 +107,7 @@ const ItemExcerpt = styled.div`
   font-weight: ${fontWeight.normal};
   line-height: 24px;
   text-align: justify;
-  color: #808080;
+  color: ${colorGrayscale.gray600};
   @media only screen and (max-width: ${breakPoint}px) {
     display: none;
   }
@@ -136,14 +137,14 @@ const List = styled.ul`
   }
 
   ${ItemTitle}, ${ItemExcerpt}, ${Date} {
-    color: #F7F7F7;
+    color: ${colorGrayscale.gray100};
   }
   ${Item}:hover {
     ${ItemTitle}, ${Date} {
       color: black;
     }
     ${ItemExcerpt} {
-      color: #808080;
+      color: ${colorGrayscale.gray600};
     }
   }
 `

@@ -6,6 +6,10 @@ import serialize from 'serialize-javascript'
 
 // @twreporter
 import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 // lodash
 import map from 'lodash/map'
@@ -46,7 +50,7 @@ export default class Html extends PureComponent {
             content="viewport-fit=cover, width=device-width, user-scalable=no, minimum-scale=1, initial-scale=1"
           />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="theme-color" content="#E30B20" />
+          <meta name="theme-color" content={colorGrayscale.gray100} />
           <link
             rel="alternate"
             type="application/rss+xml"
@@ -70,7 +74,7 @@ export default class Html extends PureComponent {
             name="msapplication-TileImage"
             content="https://www.twreporter.org/images/icon-normal.png"
           />
-          <meta name="msapplication-TileColor" content="#2F3BA2" />
+          <meta name="msapplication-TileColor" content={colorBrand.main} />
 
           <link href="/asset/favicon.png" rel="shortcut icon" />
           <link rel="stylesheet" href="/asset/normalize.css" />

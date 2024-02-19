@@ -1,15 +1,21 @@
-import { fontWeight } from '@twreporter/core/lib/constants/font'
-import DonationLink from '@twreporter/react-components/lib/donation-link'
-import mq from '../utils/media-query'
 import React from 'react'
-import Sizing from './sizing'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+// components
+import Sizing from './sizing'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const Container = styled(Sizing)`
   width: 100%;
   height: auto;
   padding: 24px 0;
-  background-color: #ffffff;
+  background-color: ${colorGrayscale.white};
   position: relative;
   margin: 48px auto 72px auto;
 `
@@ -18,7 +24,7 @@ const Title = styled.div`
   font-size: 20px;
   font-weight: ${fontWeight.bold};
   text-align: center;
-  color: #262626;
+  color: ${colorGrayscale.gray900};
 `
 
 const Desc = styled.div`
@@ -28,7 +34,7 @@ const Desc = styled.div`
   font-size: 14px;
   line-height: 1.4;
   letter-spacing: 0.1px;
-  color: #262626;
+  color: ${colorGrayscale.gray900};
   > p {
     margin-bottom: 1em;
   }
@@ -42,12 +48,12 @@ const SponsorButton = styled(DonationLink)`
   height: 48px;
   border: 0;
   box-sizing: border-box;
-  background-color: #c71b0a;
+  background-color: ${colorBrand.heavy};
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   letter-spacing: 0.1px;
   transition: transform 0.2s ease;
   &:active {

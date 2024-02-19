@@ -1,11 +1,15 @@
-import colors from '../../../constants/colors'
-import { containerStyle, headerStyle } from './section-style'
-import mq from '../utils/media-query'
 import { Link } from 'react-router-dom'
-import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+// style
+import { containerStyle, headerStyle } from './section-style'
+// assets
+import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-red.png'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const defaultZIndex = 0
 
@@ -74,7 +78,7 @@ const LanguageSwitcher = styled.div`
       cursor: pointer;
       padding-left: 14px;
       padding-right: 14px;
-      color: ${colors.black};
+      color: ${colorGrayscale.black};
       font-weight: bold;
     }
   }
@@ -92,7 +96,7 @@ const Hamburger = styled.div`
   span {
     width: 100%;
     height: 2px;
-    background: ${colors.black};
+    background: ${colorGrayscale.black};
     display: block;
   }
   span:first-child {

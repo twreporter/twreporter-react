@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import loggerFactory from '../logger'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const logger = loggerFactory.getLogger()
 
@@ -39,7 +40,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError && !this.state.hideInstruction) {
       return (
-        <div style={{ background: '#F1F1F1' }}>
+        <div style={{ background: colorGrayscale.gray100 }}>
           {this.props.children}
           <section
             style={{

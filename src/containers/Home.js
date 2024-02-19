@@ -7,6 +7,7 @@ import qs from 'qs'
 import styled, { css } from 'styled-components'
 import TagManager from 'react-gtm-module'
 // constants
+import colors from '../constants/colors'
 import siteMeta from '../constants/site-meta'
 // utils
 import mq from '../utils/media-query'
@@ -30,6 +31,7 @@ import {
 import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
 import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -84,15 +86,15 @@ const LoadingCover = styled.div`
 `
 
 const moduleBackgounds = {
-  latest: '#f2f2f2',
-  editorPick: 'white',
-  latestTopic: '#f2f2f2',
-  review: 'white',
-  category: '#e2e2e2',
-  topic: '#f2f2f2',
-  photography: '#08192d',
-  infographic: '#f2f2f2',
-  footer: 'white',
+  latest: colorGrayscale.gray100,
+  editorPick: colorGrayscale.white,
+  latestTopic: colorGrayscale.gray100,
+  review: colorGrayscale.white,
+  category: colorGrayscale.gray200,
+  topic: colorGrayscale.gray100,
+  photography: colors.photographyColor,
+  infographic: colorGrayscale.gray100,
+  footer: colorGrayscale.white,
 }
 
 const Container = styled.div`

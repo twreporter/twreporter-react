@@ -1,8 +1,11 @@
-import { fontWeight } from '@twreporter/core/lib/constants/font'
-import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+// @twreporter
+import { fontWeight } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const Container = styled.div`
   cursor: pointer;
@@ -55,7 +58,7 @@ export default class More extends React.PureComponent {
             <polyline
               points="0,0 25,10 50,0"
               fill="none"
-              stroke="#FFFFFF"
+              stroke={colorGrayscale.white}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -1,14 +1,21 @@
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
-import baseComponents from './base-components'
-import colors from '../../constants/colors'
-import mq from '../../utils/media-query'
 import styled from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+// components
+import baseComponents from './base-components'
+// @twreporter
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const StyledAnchor = styled(baseComponents.StyledAnchor)`
   margin-bottom: 18px;
-  color: ${props => (props.highlight ? 'white' : `${colors.primaryColor}`)};
-  background: ${props => (props.highlight ? `${colors.primaryColor}` : 'none')};
+  color: ${props =>
+    props.highlight ? colorGrayscale.white : colorBrand.heavy};
+  background: ${props => (props.highlight ? colorBrand.heavy : 'none')};
 `
 
 class Anchors extends baseComponents.Anchors {
@@ -29,7 +36,7 @@ const SideBarContainer = styled.div`
   top: 50vh;
   z-index: 100;
   transform: translateY(-50%);
-  color: ${colors.primaryColor};
+  color: ${colorBrand.heavy};
   will-change: transform;
   ${mq.tabletOnly`
     right: 3px;
