@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-rc.7, 2024-02-19
+
+### Notable Changes
+
+- fix
+  - member page would have js error when ssr
+
+### Commits
+
+- [[`ce518a65fa`](https://github.com/twreporter/twreporter-react/commit/ce518a65fa)] - **fix**: member page would have js error when ssr (Aylie Chou)
+
 ## 4.12.7-rc.6, 2024-02-17
 
 ### Notable Changes
