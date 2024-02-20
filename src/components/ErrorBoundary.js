@@ -49,12 +49,12 @@ class ErrorBoundary extends React.Component {
               maxWidth: '1024px',
               padding: '12px 26px',
               margin: '0',
-              border: '1px solid black',
+              border: `1px solid ${colorGrayscale.black}`,
               position: 'fixed',
               bottom: '10px',
               left: '5%',
               zIndex: '9999',
-              boxShadow: '2px 4px 5px black',
+              boxShadow: `2px 4px 5px ${colorGrayscale.black}`,
             }}
           >
             <strong style={{ fontSize: '1.2em' }}>

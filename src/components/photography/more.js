@@ -11,7 +11,7 @@ const Container = styled.div`
   cursor: pointer;
   width: 100%;
   height: 105px;
-  background-color: black;
+  background-color: ${colorGrayscale.black};
   text-align: center;
   span {
     color: white;

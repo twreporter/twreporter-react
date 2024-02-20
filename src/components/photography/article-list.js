@@ -144,7 +144,7 @@ const List = styled.ul`
   }
   ${Item}:hover {
     ${ItemTitle}, ${Date} {
-      color: black;
+      color: ${colorGrayscale.black};
     }
     ${ItemExcerpt} {
       color: ${colorGrayscale.gray600};

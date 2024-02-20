@@ -12,7 +12,10 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
-import { colorOpacity } from '@twreporter/core/lib/constants/color'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -29,7 +32,7 @@ const Hexagon = styled.div`
   text-align: center;
   line-height: 2.63em;
   padding: 0 0.4em;
-  color: black;
+  color: ${colorGrayscale.black};
 `
 
 const StyledLink = styled(Link)`
@@ -53,7 +56,7 @@ const CategoryContainer = styled.div`
 const Card = styled.div`
   position: absolute;
   background-color: ${colorOpacity['white_0.9']};
-  border: 2px solid black;
+  border: 2px solid ${colorGrayscale.black};
   ${mq.tabletAndAbove`
     padding: 30px 30px 0;
     width: 475px;
@@ -73,7 +76,7 @@ const CardTitle = styled.div`
   font-weight: ${fontWeight.bold};
   font-family: ${fontFamily.title};
   font-size: 28px;
-  color: black;
+  color: ${colorGrayscale.black};
   line-height: 36px;
   word-spacing: 20px;
   padding-bottom: 20px;
@@ -85,7 +88,7 @@ const CardTitle = styled.div`
 `
 
 const CardSubtitle = styled.div`
-  color: black;
+  color: ${colorGrayscale.black};
   font-size: 20px;
   word-spacing: 20px;
   padding-top: 8px;
@@ -103,7 +106,7 @@ const CardDate = styled.time`
   ${mq.tabletAndAbove`
     display: block;
     font-style: italic;
-    color: black;
+    color: ${colorGrayscale.black};
     word-spacing: 20px;
     padding-bottom: 30px;
     font-size: 12px;

@@ -7,7 +7,10 @@ import SoundMuteIcon from '../../../../static/asset/sound-mute.svg'
 import SoundOnIcon from '../../../../static/asset/sound-on.svg'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { colorOpacity } from '@twreporter/core/lib/constants/color'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 
 const Container = styled.div`
   position: relative;
@@ -42,7 +45,7 @@ const audioBtnStyle = css`
   bottom: 5%;
   right: 5%;
   cursor: pointer;
-  background-color: black;
+  background-color: ${colorGrayscale.black};
   border-radius: 30px;
   z-index: 50;
 `
