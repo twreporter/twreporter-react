@@ -1,9 +1,13 @@
 import React, { PureComponent } from 'react'
-import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
+import styled from 'styled-components'
+// utils
 import loggerFactory from '../../logger'
 import mq from '../../utils/media-query'
-import styled from 'styled-components'
+// assets
+import WhiteSearchIcon from '../../../static/asset/white-search-icon.svg'
+// @twreporter
 import { fontWeight } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const logger = loggerFactory.getLogger()
 
@@ -50,11 +54,11 @@ const Input = styled.input`
   margin: 0;
   padding-left: 10px;
   background-color: transparent;
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   font-size: 16px;
   font-weight: ${fontWeight.normal};
   ::placeholder {
-    color: #ffffff;
+    color: ${colorGrayscale.white};
     font-size: 16px;
     font-weight: ${fontWeight.normal};
   }

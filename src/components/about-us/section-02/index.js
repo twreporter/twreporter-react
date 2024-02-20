@@ -1,22 +1,27 @@
-import CarouselMemberList from './content-carousel-list'
-import PaginatedMemberList from './content-paginated-list'
 import React, { PureComponent } from 'react'
 import axios from 'axios'
-import categories from '../constants/section-02/categories'
-import colors from '../../../constants/colors'
-import configs, { sections } from '../configs'
-import loggerFactory from '../../../logger'
-import mq from '../utils/media-query'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+import loggerFactory from '../../../logger'
+import { gray } from './utils'
+import { storageUrlPrefix } from '../utils/config'
+// configs
+import configs, { sections } from '../configs'
+// constants
+import categories from '../constants/section-02/categories'
 import {
   foundationIntro,
   mediaIntro,
   rules,
 } from '../constants/section-02/org-intro'
-import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
+// components
+import CarouselMemberList from './content-carousel-list'
+import PaginatedMemberList from './content-paginated-list'
+// @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
@@ -30,7 +35,7 @@ const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}

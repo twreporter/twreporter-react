@@ -14,6 +14,10 @@ import Sizing from '../sizing'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -45,7 +49,7 @@ const CollectionTitle = styled.h3`
   font-size: 18px;
   font-weight: ${fontWeight.bold};
   border: 0;
-  color: #262626;
+  color: ${colorGrayscale.gray900};
   text-align: center;
 `
 
@@ -57,7 +61,7 @@ const Collections = styled.ul`
 const Item = styled.li`
   animation: ${fadeInDown} 0.5s;
   width: 100%;
-  background-color: #ffffff;
+  background-color: ${colorGrayscale.white};
   margin: 16px 0;
   transition: box-shadow 0.2s;
   &:hover {
@@ -95,7 +99,7 @@ const Content = styled.div`
 `
 
 const ItemTitle = styled.h4`
-  color: #101010;
+  color: ${colorGrayscale.gray900};
   vertical-align: text-top;
   display: inline-block;
   font-size: 20px;
@@ -108,7 +112,7 @@ const ItemDesc = styled.p`
   margin: 0;
   text-align: justify;
   vertical-align: text-bottom;
-  color: #808080;
+  color: ${colorGrayscale.gray600};
   font-size: 15px;
   ${mq.mobileOnly`
     display: none;
@@ -117,7 +121,7 @@ const ItemDesc = styled.p`
 
 const LoadMore = styled.div`
   width: 100%;
-  color: #c71b0a;
+  color: ${colorBrand.heavy};
   margin: 0 auto 2rem auto;
   font-weight: ${fontWeight.bold};
   padding: 0.6rem 0;

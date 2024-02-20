@@ -1,10 +1,17 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import mq from '../utils/media-query'
-import { VelocityTransitionGroup } from 'velocity-react'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// constants
+import { font } from '../constants/styles'
+// utils
+import mq from '../utils/media-query'
+// components
+import { VelocityTransitionGroup } from 'velocity-react'
+// @twreporter
+import {
+  colorGrayscale,
+  colorSupportive,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 
@@ -12,8 +19,8 @@ const _ = {
   get,
 }
 
-const borderBottomColor = '#dcdcdc'
-const mobileBorderColor = '#e9e9e9'
+const borderBottomColor = colorGrayscale.gray300
+const mobileBorderColor = colorGrayscale.gray200
 const defaultZIndex = 0
 
 const Container = styled.div`
@@ -35,7 +42,7 @@ const AwardItem = styled.div`
 `
 
 const Ranking = styled.p`
-  color: ${colors.secondaryColor};
+  color: ${colorSupportive.heavy};
   text-align: left;
   font-size: 14px;
   font-weight: bold;
@@ -51,7 +58,7 @@ const MoreInfo = styled.div`
     margin-bottom: 15px;
     span:first-child {
       padding-bottom: 10px;
-      border-bottom: 0.5px solid ${colors.black};
+      border-bottom: 0.5px solid ${colorGrayscale.black};
     }
   }
   p:nth-child(2) {
@@ -82,14 +89,14 @@ const Record = styled.div`
   width: 100%;
   margin: auto 0;
   overflow: hidden;
-  color: ${colors.black};
+  color: ${colorGrayscale.black};
   text-align: left;
   border-bottom: solid ${props => (props.unfold ? '1px' : '0')}
     ${borderBottomColor};
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
   padding: 20px 21px 19px 15px;
   a {
-    color: ${colors.black};
+    color: ${colorGrayscale.black};
   }
   ${StyledVelocityTransitionGroup}:last-child & {
     border-bottom: none;
@@ -104,8 +111,9 @@ const AwardName = styled.div`
   }
   min-height: 76px;
   background: ${props =>
-    props.unfold ? `${colors.black}` : `${colors.white}`};
-  color: ${props => (props.unfold ? `${colors.white}` : `${colors.black}`)};
+    props.unfold ? `${colorGrayscale.black}` : `${colorGrayscale.white}`};
+  color: ${props =>
+    props.unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,7 +132,7 @@ const SeperatedLine = styled.div`
   left: 50%;
   transform: translateX(-50%);
   height: 50%;
-  border-bottom: solid 0.5px ${colors.black};
+  border-bottom: solid 0.5px ${colorGrayscale.black};
   ${mq.tabletOnly`
     width: 65%;
   `}
@@ -135,7 +143,7 @@ const SeperatedLine = styled.div`
 
 const YearTag = styled.div`
   position: relative;
-  background: ${colors.white};
+  background: ${colorGrayscale.white};
   overflow: hidden;
   height: 65px;
   p {
@@ -144,8 +152,8 @@ const YearTag = styled.div`
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     display: inline-block;
-    background: ${colors.white};
-    color: ${colors.black};
+    background: ${colorGrayscale.white};
+    color: ${colorGrayscale.black};
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-size: 18px;
     font-weight: ${font.weight.bold};
