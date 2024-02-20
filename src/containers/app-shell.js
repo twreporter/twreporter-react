@@ -7,6 +7,7 @@ import { CoreContext } from '../contexts'
 // managers
 import uiManager from '../managers/ui-manager'
 // constants
+import colors from '../constants/colors'
 import uiConst from '../constants/ui'
 // components
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -15,6 +16,7 @@ import MembershipPromo from '../components/membership-promo'
 import Footer from '@twreporter/react-components/lib/footer'
 import { Header } from '@twreporter/universal-header/lib/index'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
@@ -40,7 +42,7 @@ const HeaderContainer = styled.div`
 // TODO add `pink` theme to universal-header
 const PinkBackgroundHeader = styled.div`
   position: relative;
-  background-color: #fabcf0;
+  background-color: ${colors.pink};
 `
 
 const renderFooter = (footerType, releaseBranch) => {
@@ -101,7 +103,7 @@ const renderHeader = (
 const AppShell = ({
   headerType = uiConst.header.default,
   footerType = uiConst.footer.default,
-  backgroundColor = '#f1f1f1',
+  backgroundColor = colorGrayscale.gray100,
   children,
   pathname,
 }) => {

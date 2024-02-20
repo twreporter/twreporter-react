@@ -1,18 +1,21 @@
-import Arrows from './arrows'
-import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import carouselMarkup from '../constants/section-02/carousel-markup'
-import categoriesAll from '../constants/section-02/categories'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import Navigation from '../utils/navigation'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
-import styled from 'styled-components'
-import { font } from '../constants/styles'
 import { gray } from './utils'
+import { storageUrlPrefix } from '../utils/config'
+// constants
+import carouselMarkup from '../constants/section-02/carousel-markup'
+import categoriesAll from '../constants/section-02/categories'
+import { font } from '../constants/styles'
 import { headcountPerPage } from '../constants/section-02/headcount-per-page'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// components
+import Arrows from './arrows'
 // lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
@@ -38,8 +41,8 @@ const Container = styled.div`
 
 const Department = styled.div`
   position: relative;
-  background: linear-gradient(to bottom, ${colors.white} 30%, ${
-  colors.gray.gray96
+  background: linear-gradient(to bottom, ${colorGrayscale.white} 30%, ${
+  colorGrayscale.gray100
 } 30%);
   display: inline-block;
   ${mq.hdOnly`
@@ -210,10 +213,7 @@ export default class CarouselMemberList extends PureComponent {
     window.addEventListener('resize', this.resizeHandler)
   }
   componentWillUnmount() {
-    window.removeEventListener(
-      'resize',
-      this.resizeHandler
-    )
+    window.removeEventListener('resize', this.resizeHandler)
     this.membersPageLengthArray = null
     this.membersResidueArray = null
     this.membersNumPerPageArray = null
@@ -323,11 +323,13 @@ export default class CarouselMemberList extends PureComponent {
       const categoryId = category.id
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumPerPageArray[index]
-      const newMembers = members ? [
-        ...members.slice(members.length - numbersInAPage, members.length),
-        ...members,
-        ...members.slice(0, numbersInAPage),
-      ] : []
+      const newMembers = members
+        ? [
+            ...members.slice(members.length - numbersInAPage, members.length),
+            ...members,
+            ...members.slice(0, numbersInAPage),
+          ]
+        : []
       this.carouselData[categoryId] = newMembers
     })
   }
@@ -368,10 +370,14 @@ export default class CarouselMemberList extends PureComponent {
     this.setState({ currentPagesArray: newCurPagesArray })
   }
   _getNumPerPage = (maxNumPerPage, memberLength) => {
-    return _.reduce(maxNumPerPage, (result, value, key) => {
-      result[key] = value <= memberLength ? value : memberLength
-      return result
-    }, {})
+    return _.reduce(
+      maxNumPerPage,
+      (result, value, key) => {
+        result[key] = value <= memberLength ? value : memberLength
+        return result
+      },
+      {}
+    )
   }
   render() {
     const { sendEmail, groupedMembers } = this.props
@@ -381,7 +387,10 @@ export default class CarouselMemberList extends PureComponent {
       const label = category.label
       const maxNumPerPage = headcountPerPage[categoryId]
       const memberDataList = this.carouselData[categoryId]
-      const numPerPage = this._getNumPerPage(maxNumPerPage, groupedMembers[categoryId].length)
+      const numPerPage = this._getNumPerPage(
+        maxNumPerPage,
+        groupedMembers[categoryId].length
+      )
       return (
         <Department key={categoryId} markup={carouselMarkup[categoryId]}>
           <Name>
@@ -408,10 +417,7 @@ export default class CarouselMemberList extends PureComponent {
               {typeof memberDataList !== 'undefined'
                 ? memberDataList.map((member, index) => {
                     return (
-                      <Member
-                        key={index}
-                        numPerPage={numPerPage}
-                      >
+                      <Member key={index} numPerPage={numPerPage}>
                         <img
                           src={`${replaceGCSUrlOrigin(
                             `${profileUrlPrefix}${member.profile}`

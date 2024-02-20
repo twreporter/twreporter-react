@@ -1,21 +1,29 @@
-import { buildFbShareLink } from '../utils/build-fb-share-link'
-import colors from '../../../constants/colors'
 import styled, { css, keyframes } from 'styled-components'
-import { font } from '../constants/styles'
-import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../../../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
-import anchorlist from '../constants/data/sidebar-anchor'
-import DonationLink from '@twreporter/react-components/lib/donation-link'
-import hrefs from '../constants/data/sidebar-link'
 import { Link } from 'react-router-dom'
-import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
-import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.png'
-import PopUpPanel from '../utils/pop-up-panel'
 import PropTypes from 'prop-types'
 import React from 'react'
+// utils
+import mq from '../../../utils/media-query'
+import { buildFbShareLink } from '../utils/build-fb-share-link'
+import { storageUrlPrefix } from '../utils/config'
+import PopUpPanel from '../utils/pop-up-panel'
+// constants
+import { font } from '../constants/styles'
+import anchorlist from '../constants/data/sidebar-anchor'
+import hrefs from '../constants/data/sidebar-link'
 import siteMeta from '../../../constants/site-meta'
+// style
+import { headerStyle, allPaddingLeft, allPaddingRight } from './section-style'
+// assets
+import logo from '../../../../static/asset/about-us/Thereporter-logo-mono-white.png'
+import iconEnglishLink from '../../../../static/asset/about-us/icon-englishlink.png'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import DonationLink from '@twreporter/react-components/lib/donation-link'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const transitionDuration = 300
 
@@ -103,12 +111,12 @@ const contentShiftingRule = css`
 const AnchorsContainer = styled.div`
   display: block;
   width: calc(100% - 185px + ${allPaddingRight.mobile});
-  color: ${colors.white};
+  color: ${colorGrayscale.white};
   text-align: left;
   p {
     font-weight: ${font.weight.bold};
     line-height: 86px;
-    border-bottom: solid ${colors.white} 0.1px;
+    border-bottom: solid ${colorGrayscale.white} 0.1px;
   }
   p:nth-child(6) {
     border-bottom: none;
@@ -160,7 +168,7 @@ const CloseBtn = styled.div`
     top: 0;
     width: 100%;
     height: 3px;
-    background: ${colors.white};
+    background: ${colorGrayscale.white};
   }
   span:first-child {
     animation: ${rotate45degRule};
@@ -195,7 +203,7 @@ const EnglishVersionLink = styled.a`
   position: absolute;
   top: 0;
   right: ${allPaddingRight.mobile};
-  color: ${colors.white};
+  color: ${colorGrayscale.white};
   padding-left: 17px;
   transform-origin: 0 0;
   transform: translate(100%, 100%) rotate(90deg);
@@ -229,7 +237,7 @@ class AnchorsPanel extends React.PureComponent {
     })
     return (
       <PopUpPanel
-        background={`${colors.red.liverRed}`}
+        background={`${colorBrand.heavy}`}
         fixedPanelStyle={fixedPanelStyle}
       >
         <Container>

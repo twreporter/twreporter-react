@@ -1,12 +1,19 @@
 import { Waypoint } from 'react-waypoint'
-import colors from '../../../constants/colors'
-import { marginBetweenSections } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
-import LottieAnim from './lottie-animation'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+import { storageUrlPrefix } from '../utils/config'
+// constants
+import { marginBetweenSections } from '../constants/styles'
+// components
+import LottieAnim from './lottie-animation'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const defaultZIndex = 0
 const animCaptions = ['深度', '開放', '非營利']
@@ -14,7 +21,7 @@ const animCaptions = ['深度', '開放', '非營利']
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   overflow: hidden;
   ${mq.hdOnly`
     margin: 0 0 ${marginBetweenSections.overDesktop} 0;
@@ -36,7 +43,7 @@ const BorderTop = styled.div`
   left: 0;
   width: 100%;
   z-index: ${props => props.zIndex};
-  background: ${colors.red.liverRed};
+  background: ${colorBrand.heavy};
   ${mq.hdOnly`
     height: 8px;
   `}
@@ -115,7 +122,7 @@ const IntroWords = styled.div`
   padding: 15px;
   ${mq.tabletAndBelow`
     padding: 15px;
-    background: ${colors.gray.gray96};
+    background: ${colorGrayscale.gray100};
     br {
       display: none;
     }
@@ -132,7 +139,7 @@ const Introduction = styled.div`
   }
   ${mq.desktopAndAbove`
     p{
-      background-color: ${colors.gray.gray96};
+      background-color: ${colorGrayscale.gray100};
       padding: 5px;
     }
   `}

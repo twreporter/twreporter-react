@@ -11,7 +11,6 @@ import { CoreContext } from './contexts'
 // components
 import AppShell from './containers/app-shell'
 // constants
-import colors from './constants/colors'
 import typography from './constants/typography'
 // hooks
 import { usePrevious } from './hooks'
@@ -29,6 +28,10 @@ import {
   useSnackBar,
 } from '@twreporter/react-components/lib/snack-bar'
 import mq from '@twreporter/core/lib/utils/media-query'
+import {
+  colorGrayscale,
+  colorSupportive,
+} from '@twreporter/core/lib/constants/color'
 import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 // lodash
 import map from 'lodash/map'
@@ -146,8 +149,8 @@ const BaseStyle = css`
   }
 
   ::selection {
-    background-color: ${colors.secondaryColor};
-    color: ${colors.white};
+    background-color: ${colorSupportive.heavy};
+    color: ${colorGrayscale.white};
   }
 `
 
