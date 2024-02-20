@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.7-rc.8, 2024-02-20
+
+### Notable Changes
+
+- fix
+  - use design guideline color
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3916a0e08b`](https://github.com/twreporter/twreporter-react/commit/3916a0e08b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`2b36bcb141`](https://github.com/twreporter/twreporter-react/commit/2b36bcb141)] - **fix**: use design guideline black (Aylie
+  Chou)
+- [[`278bfef9a2`](https://github.com/twreporter/twreporter-react/commit/278bfef9a2)] - **fix**: replace rgba with design guideline color (Aylie Chou)
+- [[`5f16fff0fc`](https://github.com/twreporter/twreporter-react/commit/5f16fff0fc)] - **fix**: use design guideline color (Aylie Chou)
+
 ## 4.12.7-rc.7, 2024-02-19
 
 ### Notable Changes
