@@ -1,69 +1,36 @@
 # Changelog
 
-## 4.12.7-rc.8, 2024-02-20
+## 4.12.7, 2024-02-21 (Current)
 
 ### Notable Changes
 
 - fix
+  - disable bookmark toggle in latest page
   - use design guideline color
+  - member page would have js error when ssr
+  - diasble sw cache in latest posts request
+  - redirect to signin page if not authed when enter myreading page
+  - show empty page instead of loading spinner
+- feat
+  - my reading page with saved bookmarks & browsing history page
 - chore
   - update @twreporter packages
+  - upgrade `@material-symbols/font-400` version to support `kid_star` icon
+  - remove `FOUNDATION_CATEGORY_SET` feature toggle
 
 ### Commits
 
+- [[`07e0c87afb`](https://github.com/twreporter/twreporter-react/commit/07e0c87afb)] - **fix**: disable bookmark toggle in latest page (Aylie Chou)
 - [[`3916a0e08b`](https://github.com/twreporter/twreporter-react/commit/3916a0e08b)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`2b36bcb141`](https://github.com/twreporter/twreporter-react/commit/2b36bcb141)] - **fix**: use design guideline black (Aylie
   Chou)
 - [[`278bfef9a2`](https://github.com/twreporter/twreporter-react/commit/278bfef9a2)] - **fix**: replace rgba with design guideline color (Aylie Chou)
 - [[`5f16fff0fc`](https://github.com/twreporter/twreporter-react/commit/5f16fff0fc)] - **fix**: use design guideline color (Aylie Chou)
-
-## 4.12.7-rc.7, 2024-02-19
-
-### Notable Changes
-
-- fix
-  - member page would have js error when ssr
-
-### Commits
-
 - [[`ce518a65fa`](https://github.com/twreporter/twreporter-react/commit/ce518a65fa)] - **fix**: member page would have js error when ssr (Aylie Chou)
-
-## 4.12.7-rc.6, 2024-02-17
-
-### Notable Changes
-
-- fix
-  - diasble sw cache in latest posts request
-  - redirect to signin page if not authed when enter myreading page
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`9a69e24b92`](https://github.com/twreporter/twreporter-react/commit/9a69e24b92)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`4e9995c079`](https://github.com/twreporter/twreporter-react/commit/4e9995c079)] - **fix**: diasble sw cache in latest posts request (Aylie Chou)
 - [[`1b3cf3c587`](https://github.com/twreporter/twreporter-react/commit/1b3cf3c587)] - **fix**: redirect to signin page if not authed when enter myreading page (Aylie Chou)
-
-## 4.12.7-rc.5, 2024-02-15
-
-### Notable Changes
-
-- fix
-  - show empty page instead of loading spinner
-
-### Commits
-
 - [[`88fdd5f958`](https://github.com/twreporter/twreporter-react/commit/88fdd5f958)] - **fix**: saved bookmark section loading & text (Lucien)
-
-## 4.12.7-rc.4, 2024-02-15
-
-### Notable Changes
-
-- feat
-  - my reading page with saved bookmarks & browsing history page
-
-### Commits
-
 - [[`344d1d3e30`](https://github.com/twreporter/twreporter-react/commit/344d1d3e30)] - **chore**: sync master (Lucien)
 - [[`477836e327`](https://github.com/twreporter/twreporter-react/commit/477836e327)] - **chore**: update twreporter packages (Lucien)
 - [[`1b049bd131`](https://github.com/twreporter/twreporter-react/commit/1b049bd131)] - **fix**: add height to TextButton (Lucien)
@@ -80,52 +47,12 @@
 - [[`51d09a654c`](https://github.com/twreporter/twreporter-react/commit/51d09a654c)] - **feat**: move to my reading components (Lucien)
 - [[`8067b40eea`](https://github.com/twreporter/twreporter-react/commit/8067b40eea)] - **feat**: load footprints at data loader (Lucien)
 - [[`acb217ce0c`](https://github.com/twreporter/twreporter-react/commit/acb217ce0c)] - **feat**: empty box components (Lucien)
-
-## 4.12.7-rc.3, 2024-02-15
-
-### Notable Changes
-
-- chore
-  - upgrade `@material-symbols/font-400` version to support `kid_star` icon
-
-### Commits
-
 - [[`c3c2f5a325`](https://github.com/twreporter/twreporter-react/commit/c3c2f5a325)] - **chore**: upgrade `@material-symbols/font-400` version (Aylie Chou)
-
-## 4.12.7-rc.2, 2024-02-15
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`2f7e0b254b`](https://github.com/twreporter/twreporter-react/commit/2f7e0b254b)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.12.7-rc.1, 2024-02-07
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`bf8c2efc55`](https://github.com/twreporter/twreporter-react/commit/bf8c2efc55)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 4.12.7-rc.0, 2024-02-07
-
-### Notable Changes
-
-- chore
-  - remove `FOUNDATION_CATEGORY_SET` feature toggle
-
-### Commits
-
 - [[`a65474b884`](https://github.com/twreporter/twreporter-react/commit/a65474b884)] - **chore**: remove `FOUNDATION\_CATEGORY\_SET` feature toggle (Aylie Chou)
 
-## 4.12.6, 2024-01-30 (Current)
+## 4.12.6, 2024-01-30
 
 ### Notable Changes
 
