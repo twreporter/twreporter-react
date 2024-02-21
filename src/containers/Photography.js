@@ -69,7 +69,6 @@ const Photography = ({
 
   const style = {
     backgroundColor: colors.photographyColor,
-    color: '#FFFFEB',
   }
 
   const canonical = siteMeta.urlOrigin + '/photography'

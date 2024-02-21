@@ -1,8 +1,13 @@
 import mq from '../../../utils/media-query'
 import styled from 'styled-components'
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorBrand,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 
-const textShadow = '0 2px 10px rgba(0, 0, 0, .5)'
+const textShadow = `0 2px 10px ${colorOpacity['black_0.5']}`
 
 const Content = styled.div`
   display: flex;
@@ -16,9 +21,9 @@ const Content = styled.div`
 
 const Headline = styled.div`
   font-family: ${fontFamily.default};
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   display: inline-block;
-  background-color: #c71b0a;
+  background-color: ${colorBrand.heavy};
   padding: 5px;
   font-size: 18px;
   font-weight: ${fontWeight.normal};
@@ -27,7 +32,7 @@ const Headline = styled.div`
 
 const Title = styled.h1`
   font-family: ${fontFamily.title};
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   margin: 0;
   font-size: 30px;
   font-weight: ${fontWeight.bold};
@@ -41,7 +46,7 @@ const Title = styled.h1`
 
 const Subtitle = styled.h2`
   font-family: ${fontFamily.default};
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   margin: 0;
   font-size: 18px;
   font-weight: ${fontWeight.normal};
@@ -51,10 +56,10 @@ const Subtitle = styled.h2`
 `
 
 const Dash = styled.div`
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   width: 30px;
   height: 5px;
-  background-color: #ffffff;
+  background-color: ${colorGrayscale.white};
   text-shadow: ${textShadow};
 `
 
@@ -76,7 +81,7 @@ const ArrowDown = styled.div`
 
 const PublishDate = styled.div`
   font-family: ${fontFamily.default};
-  color: #ffffff;
+  color: ${colorGrayscale.white};
   font-size: 13px;
   font-weight: ${fontWeight.normal};
   letter-spacing: 0.1px;

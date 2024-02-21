@@ -267,7 +267,6 @@ export default function getRoutes() {
     },
     {
       component: loadablePages.myReading,
-      loadData: dataLoaders.loadMyReadingPageData,
       path: routesConst.myReadingPage.path,
       authorizationRequired: true,
     },

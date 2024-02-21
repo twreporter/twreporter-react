@@ -1,26 +1,28 @@
-import Arrows from './arrows'
-import DepartmentsNameList from './departments-name-list'
-import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import categoriesAll from '../constants/section-02/categories'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import Navigation from '../utils/navigation'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
-import styled from 'styled-components'
 import { gray } from './utils'
-import { headcountPerPage } from '../constants/section-02/headcount-per-page'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
+// constants
+import categoriesAll from '../constants/section-02/categories'
+import { headcountPerPage } from '../constants/section-02/headcount-per-page'
+// components
+import Arrows from './arrows'
+import DepartmentsNameList from './departments-name-list'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import values from 'lodash/values'
-
-const profileUrlPrefix = `${storageUrlPrefix}/member/`
-
 const _ = {
   values,
 }
 
+const profileUrlPrefix = `${storageUrlPrefix}/member/`
 const categoryIds = categoriesAll.map(({ id }) => id)
 
 const Container = styled.div`
@@ -39,7 +41,7 @@ const MemberBlockList = styled.div`
   height: 465px;
   padding: 0 13px 0 13px;
   margin-top: 20px;
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
 `
 
 const MemberBlock = styled.div`

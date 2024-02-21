@@ -6,6 +6,7 @@ import styled, { keyframes } from 'styled-components'
 // @twreporter
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
 import { fontWeight } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import map from 'lodash/map'
 
@@ -60,7 +61,7 @@ const Item = styled.div`
 const Name = styled.div`
   text-align: center;
   margin-top: 14px;
-  color: #404040;
+  color: ${colorGrayscale.gray800};
   font-size: 18px;
   text-align: center;
   font-weight: ${fontWeight.normal};

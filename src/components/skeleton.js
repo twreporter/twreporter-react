@@ -2,7 +2,10 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
-import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 import {
   DesktopAndAbove,
   TabletAndBelow,
@@ -62,10 +65,10 @@ const Rectangle = styled.div`
     transform: translateX(-100%);
     background-image: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0.2) 20%,
-      rgba(255, 255, 255, 0.5) 60%,
-      rgba(255, 255, 255, 0) 100%
+      ${colorGrayscale.white} 0,
+      ${colorOpacity['white_0.2']} 20%,
+      ${colorOpacity['white_0.5']} 60%,
+      ${colorGrayscale.white} 100%
     );
     animation: ${shimmer} ${props => props.shimmerSec || 2.5}s infinite;
     content: '';
