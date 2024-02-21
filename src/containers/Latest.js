@@ -269,7 +269,7 @@ const Latest = ({
           <CardList
             data={posts}
             showSpinner={true}
-            showIsBookmarked={!!isAuthed}
+            showIsBookmarked={false}
             releaseBranch={releaseBranch}
           />
         </CardListContainer>
