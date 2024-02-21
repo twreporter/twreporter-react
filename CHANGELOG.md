@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.8-rc.0, 2024-02-21
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - enable bookmark toggle for testing
+
+### Commits
+
+- [[`e4dd427a94`](https://github.com/twreporter/twreporter-react/commit/e4dd427a94)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`52a27a7ccb`](https://github.com/twreporter/twreporter-react/commit/52a27a7ccb)] - **chore**: enable bookmark toggle for testing (Aylie Chou)
+
 ## 4.12.7, 2024-02-21 (Current)
 
 ### Notable Changes
