@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-rc.9, 2024-02-21
+
+### Notable Changes
+
+- fix
+  - disable bookmark toggle in latest page
+
+### Commits
+
+- [[`07e0c87afb`](https://github.com/twreporter/twreporter-react/commit/07e0c87afb)] - **fix**: disable bookmark toggle in latest page (Aylie Chou)
+
 ## 4.12.7-rc.8, 2024-02-20
 
 ### Notable Changes
