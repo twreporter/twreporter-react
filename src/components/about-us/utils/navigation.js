@@ -1,8 +1,10 @@
-import colors from '../../../constants/colors'
-import mq from './media-query'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// utils
+import mq from './media-query'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const Pagination = styled.div`
   display: inline-block;
@@ -14,7 +16,7 @@ const Pagination = styled.div`
   );
   height: 2px;
   opacity: ${props => (props.isCurrentPage ? 1 : 0.25)};
-  background: ${colors.black};
+  background: ${colorGrayscale.black};
   margin-left: 1px;
   ${mq.mobileOnly`
     width: 11px;

@@ -1,20 +1,27 @@
 import { connect } from 'react-redux'
 import { Waypoint } from 'react-waypoint'
-import Authors from '../components/authors/authors'
-import AuthorSearchBox from '../components/authors/author-search-box'
-import Helmet from 'react-helmet'
-import LoadingSpinner from '../components/Spinner'
-import loggerFactory from '../logger'
-import mq from '../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Sponsor from '../components/Sponsor'
-import siteMeta from '../constants/site-meta'
+import Helmet from 'react-helmet'
 import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
+// utils
+import mq from '../utils/media-query'
+import loggerFactory from '../logger'
+// components
+import Authors from '../components/authors/authors'
+import AuthorSearchBox from '../components/authors/author-search-box'
+import LoadingSpinner from '../components/Spinner'
+import Sponsor from '../components/Sponsor'
+// constants
+import siteMeta from '../constants/site-meta'
 // @twreporter
+import twreporterRedux from '@twreporter/redux'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { fontWeight } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -41,14 +48,14 @@ const responsePageStartFrom = 0
 
 const ErrorMessage = styled.div`
   font-size: 18px;
-  color: #808080;
+  color: ${colorGrayscale.gray600};
   padding: 0 15px 0 15px;
   margin: 40px auto 70px auto;
   text-align: center;
 `
 
 const LoadMoreButton = styled.div`
-  color: #c71b0a;
+  color: ${colorBrand.heavy};
   cursor: pointer;
   font-size: 16px;
   font-weight: ${fontWeight.bold};

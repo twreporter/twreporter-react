@@ -1,11 +1,14 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import mq from '../utils/media-query'
-import map from 'lodash/map'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-
+// utils
+import mq from '../utils/media-query'
+// constants
+import { font } from '../constants/styles'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// lodash
+import map from 'lodash/map'
 const _ = {
   map,
 }
@@ -18,13 +21,13 @@ const AwardItem = styled.div`
     p{
       text-align: left;
       font-weight: bold;
-      opacity: ${props => props.isActive === 'true' ? '1' : '0.31'};
+      opacity: ${props => (props.isActive === 'true' ? '1' : '0.31')};
       font-weight: bold;
       transition: all 200ms ease-in-out;
     }
     cursor: pointer;
     ul{
-      display: ${props => props.isActive === 'true' ? 'block' : 'none'};
+      display: ${props => (props.isActive === 'true' ? 'block' : 'none')};
       list-style: none;
       padding: 0;
       margin-top: 0;
@@ -62,55 +65,59 @@ const AwardItem = styled.div`
 
 const Cursor = styled.span`
   display: inline-block;
-  visibility: ${props => props.isActive === 'true' ? 'visible' : 'hidden'};
+  visibility: ${props => (props.isActive === 'true' ? 'visible' : 'hidden')};
   width: 12px;
   height: 4px;
-  background: ${colors.black};
+  background: ${colorGrayscale.black};
   vertical-align: middle;
   margin-right: 5px;
 `
 
 export default class AwardNameList extends PureComponent {
   render() {
-    const { awardsName, activeAward, selectAward, awardYears, selectYear, activeYearIndex } = this.props
+    const {
+      awardsName,
+      activeAward,
+      selectAward,
+      awardYears,
+      selectYear,
+      activeYearIndex,
+    } = this.props
     const yearsInActiveAward = awardYears[activeAward]
     return (
       <React.Fragment>
-        {
-          awardsName.map((name, index) => {
-            return (
-              <AwardItem
-                key={index}
-                isActive={(activeAward === name.award).toString()}
-              >
-                <p onClick={() => selectAward(name.award, index)}>
-                  {name.award}
-                </p>
-                <ul>
-                  { 
-                    _.map(yearsInActiveAward, (year) => {
-                      return(
-                        <li
-                          key={year}
-                          onClick={() => selectYear(yearsInActiveAward.indexOf(year))}>
-                          <p>
-                            <Cursor 
-                              isActive={
-                                (yearsInActiveAward[activeYearIndex] === year).toString()
-                              }
-                            />
-                            {year}
-                          </p>
-                        </li>
-                      )
-                    })
-                  }
-                </ul>
-              </AwardItem>
-            )
-          })
-        }
-      </React.Fragment>    
+        {awardsName.map((name, index) => {
+          return (
+            <AwardItem
+              key={index}
+              isActive={(activeAward === name.award).toString()}
+            >
+              <p onClick={() => selectAward(name.award, index)}>{name.award}</p>
+              <ul>
+                {_.map(yearsInActiveAward, year => {
+                  return (
+                    <li
+                      key={year}
+                      onClick={() =>
+                        selectYear(yearsInActiveAward.indexOf(year))
+                      }
+                    >
+                      <p>
+                        <Cursor
+                          isActive={(
+                            yearsInActiveAward[activeYearIndex] === year
+                          ).toString()}
+                        />
+                        {year}
+                      </p>
+                    </li>
+                  )
+                })}
+              </ul>
+            </AwardItem>
+          )
+        })}
+      </React.Fragment>
     )
   }
 }
@@ -121,7 +128,7 @@ AwardNameList.defaultProps = {
   selectAward: () => {},
   selectYear: () => {},
   activeYearIndex: 0,
-  awardYears: {}
+  awardYears: {},
 }
 
 AwardNameList.propTypes = {
@@ -130,5 +137,5 @@ AwardNameList.propTypes = {
   selectAward: PropTypes.func,
   awardYears: PropTypes.object,
   selectYear: PropTypes.func,
-  activeYearIndex: PropTypes.number
+  activeYearIndex: PropTypes.number,
 }

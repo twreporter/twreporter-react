@@ -1,9 +1,13 @@
-import { shortenString } from '../../../utils/string'
-import base from './base'
-import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
-import mq from '../../../utils/media-query'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../../../utils/media-query'
+import { shortenString } from '../../../utils/string'
+// components
+import base from './base'
+// @twrewporter
+import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { colorBrand, colorOpacity } from '@twreporter/core/lib/constants/color'
 
 const ItemLink = styled(base.ItemLink)`
   ${mq.tabletAndAbove`
@@ -16,9 +20,9 @@ const ItemLink = styled(base.ItemLink)`
     transition: transform .2s ease,box-shadow .2s ease;
     &:hover {
       transform: translate(-5px, -5px);
-      box-shadow: 0 8px 12px 0 rgba(0,0,0,.25);
+      box-shadow: 0 8px 12px 0 ${colorOpacity['black_0.2']};
       ${base.ItemTitle} {
-        color: #c71b0a;
+        color: ${colorBrand.heavy};
       }
     }
   `}
