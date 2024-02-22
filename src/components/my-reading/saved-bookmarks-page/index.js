@@ -11,20 +11,16 @@ import mq from '@twreporter/core/lib/utils/media-query'
 import twreporterRedux from '@twreporter/redux'
 import useBookmark from '@twreporter/react-components/lib/hook/use-bookmark'
 import useStore from '@twreporter/react-components/lib/hook/use-store'
-import {
-  SnackBar,
-  useSnackBar,
-} from '@twreporter/react-components/lib/snack-bar'
 import requestOrigin from '@twreporter/core/lib/constants/request-origins'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import { Bookmark } from '@twreporter/react-components/lib/icon'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
 // components
-import Pagination from '../Pagination'
+import Pagination from '../../Pagination'
 // context
-import { CoreContext } from '../../contexts'
+import { CoreContext } from '../../../contexts'
 // constants
-import routes from '../../constants/routes'
+import routes from '../../../constants/routes'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -56,30 +52,6 @@ const PaginationContainer = styled.div`
   `}
 `
 
-const SnackBarContainer = styled.div`
-  z-index: 1;
-  position: fixed;
-  transition: opacity 100ms;
-  opacity: ${props => (props.showSnackBar ? 1 : 0)};
-  max-width: 440px;
-  width: 100%;
-  left: 50%;
-  ${mq.desktopAndAbove`
-    bottom: 24px;
-    transform: translateX(-50%);
-  `}
-  ${mq.tabletAndBelow`
-    bottom: calc(env(safe-area-inset-bottom, 0) + 60px + 8px);
-    transform: translateX(-50%);
-    padding: 0 16px;
-  `}
-`
-
-const SnackBarDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const EmptyStateConatiner = styled.div`
   margin-top: 72px;
   margin-bottom: 120px;
@@ -100,10 +72,9 @@ const SavedBookmarks = ({
   )
   const [bookmarks, setBookmarks] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
-  const { releaseBranch } = useContext(CoreContext)
+  const { releaseBranch, toastr } = useContext(CoreContext)
   const store = useStore()
   const { removeAction } = useBookmark(store)
-  const { showSnackBar, snackBarText, toastr } = useSnackBar()
   const [isLoading, setIsLoading] = useState(true)
 
   const removeBookmark = bookmarkID => {
@@ -193,7 +164,7 @@ const SavedBookmarks = ({
     return (
       <Container>
         <Title1 title={'已收藏'} />
-        <CardList isFetching={true} showSpinner={true} data={{}} />
+        <CardList isFetching={true} showSpinner={true} data={[{}]} />
       </Container>
     )
   }
@@ -240,11 +211,6 @@ const SavedBookmarks = ({
           <PaginationContainer>
             <Pagination currentPage={page} totalPages={totalPages} />
           </PaginationContainer>
-          <SnackBarContainer showSnackBar={showSnackBar}>
-            <SnackBarDiv>
-              <SnackBar text={snackBarText} />
-            </SnackBarDiv>
-          </SnackBarContainer>
         </>
       )}
     </Container>
@@ -294,7 +260,6 @@ const mapStateToProps = (state, props) => {
   )
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
   const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   const totalSavedBookmark = _.get(
     state,
     [reduxStateFields.bookmarks, 'total'],
@@ -309,7 +274,6 @@ const mapStateToProps = (state, props) => {
   return {
     isDeleting,
     isFetching,
-    isAuthed,
     jwt,
     userID,
     page: currentPage,

@@ -1,18 +1,27 @@
 /* eslint react/no-find-dom-node: 1 */
-import List from './list'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
-import Timeline from './timeline'
 import axios from 'axios'
-import colors from '../../../constants/colors'
-import configs, { sections } from '../configs'
-import loggerFactory from '../../../logger'
-import mq from '../utils/media-query'
 import styled from 'styled-components'
 import { Waypoint } from 'react-waypoint'
-import { font, marginBetweenSections } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+// utils
+import loggerFactory from '../../../logger'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
+// configs
+import configs, { sections } from '../configs'
+// constants
+import { font, marginBetweenSections } from '../constants/styles'
+// components
+import List from './list'
+import Timeline from './timeline'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import {
+  colorGrayscale,
+  colorSupportive,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
@@ -24,7 +33,7 @@ const _ = {
   keys,
 }
 
-const yearRangebgColor = '#cacaca'
+const yearRangebgColor = colorGrayscale.gray400
 const timelineScrollingPortion = 0.98
 const defaultZIndex = 0
 const containerWidth = {
@@ -38,7 +47,7 @@ const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   overflow: hidden;
   ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
@@ -160,7 +169,7 @@ const BorderBottom = styled.div`
   left: 0;
   width: 100%;
   z-index: ${props => props.zIndex};
-  background: ${colors.red.liverRed};
+  background: ${colorBrand.heavy};
   ${mq.desktopAndAbove`
     position: ${props => (props.fixed ? 'fixed' : 'absolute')};
   `}
@@ -186,7 +195,7 @@ const RunningTimeline = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: hidden;
-  background: ${colors.white};
+  background: ${colorGrayscale.white};
   ${mq.mobileOnly`
     display: none;
   `}
@@ -207,8 +216,8 @@ const YearTag = styled.div`
     font-family: ${font.family.english.roboto}, ${font.family.sansSerifFallback};
     font-size: 13px;
     font-weight: ${font.weight.bold};
-    background: ${colors.black};
-    color: ${colors.white};
+    background: ${colorGrayscale.black};
+    color: ${colorGrayscale.white};
     padding: 2px;
   }
   ${mq.hdOnly`
@@ -252,8 +261,8 @@ const YearRange = styled.div`
     text-align: right;
     transform: translateY(100%) rotate(90deg);
     span{
-      background: ${colors.black};
-      color: ${colors.white};
+      background: ${colorGrayscale.black};
+      color: ${colorGrayscale.white};
     }
   }
   p:nth-child(2){
@@ -261,7 +270,7 @@ const YearRange = styled.div`
     left: 0;
     top: 0;
     span{
-      background: ${colors.white};
+      background: ${colorGrayscale.white};
       color: ${yearRangebgColor};
       border-collapse: collapse;
       box-shadow: inset 0 0 0 1px ${yearRangebgColor};
@@ -532,9 +541,9 @@ export default class Section5 extends PureComponent {
         <div>
           <Container>
             <SectionWrapper>
-              <OuterCircle color={`${colors.black}`}>
-                <InnerCircle color={`${colors.gray.gray96}`} />
-                <Rect color={`${colors.secondaryColor}`} />
+              <OuterCircle color={`${colorGrayscale.black}`}>
+                <InnerCircle color={`${colorGrayscale.gray100}`} />
+                <Rect color={`${colorSupportive.heavy}`} />
               </OuterCircle>
               <Title>
                 <span>大事紀</span>

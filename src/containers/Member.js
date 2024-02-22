@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -20,6 +20,7 @@ import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
+import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
@@ -108,18 +109,25 @@ const MemberPage = ({
 }) => {
   const { pathname } = useLocation()
   const { releaseBranch } = useContext(CoreContext)
+  const [currentHref, setCurrentHref] = useState('')
+  const isEmailSubscription = matchPath(pathname, {
+    path: routes.memberPage.memberEmailSubscriptionPage.path,
+    exact: true,
+  })
 
-  // check authorization
-  // redirect to singin page if user has not been authorized
+  useEffect(() => {
+    // check authorization
+    // redirect to singin page if user has not been authorized
+    setCurrentHref(typeof window === 'undefined' ? '' : window.location.href)
+    if ((!isAuthed || !jwt) && !isEmailSubscription) {
+      setTimeout(() => {
+        window.location.href = getSignInHref(currentHref)
+      }, 2000)
+    }
+  }, [])
+
   if (!isAuthed || !jwt) {
-    const currentHref =
-      typeof window === 'undefined' ? '' : window.location.href
-    if (
-      matchPath(pathname, {
-        path: routes.memberPage.memberEmailSubscriptionPage.path,
-        exact: true,
-      })
-    ) {
+    if (isEmailSubscription) {
       return (
         <LoginContainer>
           <EmptyState
@@ -133,8 +141,7 @@ const MemberPage = ({
         </LoginContainer>
       )
     } else {
-      window.location.href = getSignInHref(currentHref)
-      return null
+      return <RedirectToSignIn>您尚未登入，將跳轉至登入頁</RedirectToSignIn>
     }
   }
 

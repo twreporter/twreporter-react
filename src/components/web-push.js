@@ -8,12 +8,16 @@ import localForage from 'localforage'
 // constants
 import bsCosnt from '../constants/browser-storage'
 import statusCodeConst from '../constants/status-code'
-
+// utils
 import loggerFactory from '../logger'
 import mq from '../utils/media-query'
 // twreporter
 import twreporterRedux from '@twreporter/redux'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import {
+  colorGrayscale,
+  colorSupportive,
+} from '@twreporter/core/lib/constants/color'
 
 // lodash
 import get from 'lodash/get'
@@ -71,14 +75,14 @@ function isServiceWorkerSupported() {
 }
 
 const NotifyBackground = styled.div`
-  background-color: #fff;
+  background-color: ${colorGrayscale.white};
   z-index: ${zIndexConst.webPush};
   position: relative;
 `
 
 const NotifyBox = styled.div`
   position: relative;
-  color: #404040;
+  color: ${colorGrayscale.gray800};
   font-size: 14px;
 
   ${mq.mobileOnly`
@@ -165,18 +169,18 @@ const NotifyHighLightRow = styled.div`
 `
 
 const NotifyHighLight = styled.span`
-  color: #a67a44;
+  color: ${colorSupportive.heavy};
 `
 
 const NotifyLink = styled.a`
   font-weight: bold;
-  color: #a67a44;
+  color: ${colorSupportive.heavy};
 `
 
 const NotifyButton = styled.div`
-  background-color: #fff;
-  border: 1px solid #a67a44;
-  color: #a67a44;
+  background-color: ${colorGrayscale.white};
+  border: 1px solid ${colorSupportive.heavy};
+  color: ${colorSupportive.heavy};
   cursor: pointer;
   font-size: 14px;
   position: absolute;
@@ -202,8 +206,8 @@ const NotifyButton = styled.div`
   `}
 
   &:hover {
-    background-color: #a67a44;
-    color: #fff;
+    background-color: ${colorSupportive.heavy};
+    color: ${colorGrayscale.white};
     transition: background-color .2s linear;
   }
 `
@@ -216,7 +220,7 @@ const closeSVG = (
     viewBox="0 0 24 24"
   >
     <path
-      style={{ stroke: '#808080' }}
+      style={{ stroke: colorGrayscale.gray600 }}
       d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
     />
   </svg>

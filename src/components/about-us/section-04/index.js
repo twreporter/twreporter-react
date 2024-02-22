@@ -1,15 +1,19 @@
-import MoreInfo from './more-info'
 import React, { PureComponent } from 'react'
 import VelocityComponent from 'velocity-react/velocity-component'
 import axios from 'axios'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// constants
+import { font, marginBetweenSections } from '../constants/styles'
+// utils
 import configs, { sections } from '../configs'
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
-import styled from 'styled-components'
-import { font, marginBetweenSections } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
+// components
+import MoreInfo from './more-info'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
@@ -23,7 +27,7 @@ const _ = {
   get,
 }
 
-const logoBlockBorderColor = ' #e9e9e9'
+const logoBlockBorderColor = colorGrayscale.gray200
 const transitioinDuration = 100
 const column = {
   desktop: 4,
@@ -41,7 +45,7 @@ const containerWidth = {
 
 const Container = styled.div`
   position: relative;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}

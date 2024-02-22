@@ -1,36 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
-import {
-  Switch,
-  Route,
-  useLocation,
-  matchPath,
-  useHistory,
-} from 'react-router-dom'
+import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 // @twreporter
-import { Title2 } from '@twreporter/react-components/lib/title-bar'
 import { H2 } from '@twreporter/react-components/lib/text/headline'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
-import { TextButton } from '@twreporter/react-components/lib/button'
-import { Arrow } from '@twreporter/react-components/lib/icon'
-import {
-  DesktopAndAbove,
-  TabletAndBelow,
-} from '@twreporter/react-components/lib/rwd'
+import twreporterRedux from '@twreporter/redux'
+import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
+import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 
 // constants
 import siteMeta from '../constants/site-meta'
 import routes from '../constants/routes'
 
 // components
-import SavedBookmarksPage from '../components/my-reading/saved-bookmarks'
-import BrowsingHistoryPage from '../components/my-reading/browsing-history'
+import SavedBookmarksPage from '../components/my-reading/saved-bookmarks-page'
+import BrowsingHistoryPage from '../components/my-reading/browsing-history-page'
+import SavedBookmarksSection from '../components/my-reading/saved-bookmakrs-section'
+import BrowsingHistorySection from '../components/my-reading/browsing-history-section'
 
-// context
-import { CoreContext } from '../contexts'
+// lodash
+import get from 'lodash/get'
+const _ = {
+  get,
+}
 
 const GridContainer = styled.div`
   width: 100%;
@@ -76,16 +73,23 @@ const BrowsingHistory = styled.div`
   padding-bottom: 24px;
 `
 
-const EmptyBox = styled.div`
-  margin-top: 24px;
-  margin-bottom: 24px;
-  height: 300px;
-`
-
-const MyReadingPage = () => {
+const MyReadingPage = ({ isAuthed, jwt }) => {
   const { pathname } = useLocation()
-  const navigate = useHistory()
-  const { releaseBranch } = useContext(CoreContext)
+  useEffect(() => {
+    // check authorization
+    // redirect to singin page if user has not been authorized
+    if (!isAuthed || !jwt) {
+      setTimeout(() => {
+        const currentHref =
+          typeof window === 'undefined' ? '' : window.location.href
+        window.location.href = getSignInHref(currentHref)
+      }, 2000)
+    }
+  }, [])
+
+  if (!isAuthed || !jwt) {
+    return <RedirectToSignIn>您尚未登入，將跳轉至登入頁</RedirectToSignIn>
+  }
 
   const getSiteTitle = pathname => {
     if (matchPath(pathname, routes.myReadingPage.savedBookmarksPage.path)) {
@@ -102,80 +106,6 @@ const MyReadingPage = () => {
   const titleText = getSiteTitle(pathname)
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
-
-  const SavedBookmarksContent = () => {
-    const moreSavedBookmarkBtn = size => {
-      return (
-        <>
-          <DesktopAndAbove>
-            <TextButton
-              text="查看更多"
-              rightIconComponent={<Arrow direction="right" />}
-              onClick={() =>
-                navigate.push(routes.myReadingPage.savedBookmarksPage.path)
-              }
-              size={TextButton.Size.L}
-              releaseBranch={releaseBranch}
-            />
-          </DesktopAndAbove>
-          <TabletAndBelow>
-            <TextButton
-              text="查看更多"
-              rightIconComponent={<Arrow direction="right" />}
-              onClick={() =>
-                navigate.push(routes.myReadingPage.savedBookmarksPage.path)
-              }
-              size={TextButton.Size.S}
-              releaseBranch={releaseBranch}
-            />
-          </TabletAndBelow>
-        </>
-      )
-    }
-    return (
-      <div>
-        <Title2 title={'已收藏'} renderButton={moreSavedBookmarkBtn()} />
-        <EmptyBox>空無一物</EmptyBox>
-      </div>
-    )
-  }
-
-  const BrowsingHistoryContent = () => {
-    const moreHistoryBtn = () => {
-      return (
-        <>
-          <DesktopAndAbove>
-            <TextButton
-              text="查看更多"
-              rightIconComponent={<Arrow direction="right" />}
-              onClick={() =>
-                navigate.push(routes.myReadingPage.browsingHistoryPage.path)
-              }
-              size={TextButton.Size.L}
-              releaseBranch={releaseBranch}
-            />
-          </DesktopAndAbove>
-          <TabletAndBelow>
-            <TextButton
-              text="查看更多"
-              rightIconComponent={<Arrow direction="right" />}
-              onClick={() =>
-                navigate.push(routes.myReadingPage.browsingHistoryPage.path)
-              }
-              size={TextButton.Size.S}
-              releaseBranch={releaseBranch}
-            />
-          </TabletAndBelow>
-        </>
-      )
-    }
-    return (
-      <div>
-        <Title2 title={'造訪紀錄'} renderButton={moreHistoryBtn()} />
-        <EmptyBox>空無一物</EmptyBox>
-      </div>
-    )
-  }
 
   return (
     <div>
@@ -202,10 +132,10 @@ const MyReadingPage = () => {
             <Route exact path={routes.myReadingPage.path}>
               <PageTitle text={'我的閱讀'} />
               <SavedBookmarks>
-                <SavedBookmarksContent />
+                <SavedBookmarksSection />
               </SavedBookmarks>
               <BrowsingHistory>
-                <BrowsingHistoryContent />
+                <BrowsingHistorySection />
               </BrowsingHistory>
             </Route>
             <Route path={routes.myReadingPage.savedBookmarksPage.path}>
@@ -221,4 +151,16 @@ const MyReadingPage = () => {
   )
 }
 
-export default MyReadingPage
+MyReadingPage.propTypes = {
+  jwt: PropTypes.string.isRequired,
+  isAuthed: PropTypes.bool.isRequired,
+}
+
+const { reduxStateFields } = twreporterRedux
+const mapStateToProps = state => {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  return { jwt, isAuthed }
+}
+
+export default connect(mapStateToProps)(MyReadingPage)

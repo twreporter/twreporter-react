@@ -1,43 +1,45 @@
 /* eslint react/no-find-dom-node:1 */
-import colors from '../../constants/colors'
+import TagManager from 'react-gtm-module'
 import Helmet from 'react-helmet'
-import mq from './utils/media-query'
-import ErrorBoundary from './utils/error-boundary'
+import styled from 'styled-components'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
+// utils
+import mq from './utils/media-query'
+import ErrorBoundary from './utils/error-boundary'
+// constants
+import siteMeta from '../../constants/site-meta'
+// components
 import Section01 from './section-01'
 import Section02 from './section-02'
 import Section03 from './section-03'
 import Section04 from './section-04'
 import Section05 from './section-05'
 import SideBarFactory from '../side-bar/side-bar-factory'
-import siteMeta from '../../constants/site-meta'
-import styled from 'styled-components'
 import WebFont from './web-font'
 import { Opening } from './opening'
-import TagManager from 'react-gtm-module'
-
 // @twreporter
 import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 import Footer from '@twreporter/react-components/lib/footer'
 import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
+import { colorBrand } from '@twreporter/core/lib/constants/color'
 
 const Border = styled.div`
   ${mq.hdOnly`
-    border-left: solid 8px ${colors.red.liverRed};
-    border-right: solid 8px ${colors.red.liverRed};
+    border-left: solid 8px ${colorBrand.heavy};
+    border-right: solid 8px ${colorBrand.heavy};
   `}
   ${mq.desktopOnly`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
+    border-left: solid 6px ${colorBrand.heavy};
+    border-right: solid 6px ${colorBrand.heavy};
   `}
   ${mq.tabletOnly`
-    border-left: solid 7px ${colors.red.liverRed};
-    border-right: solid 7px ${colors.red.liverRed};
+    border-left: solid 7px ${colorBrand.heavy};
+    border-right: solid 7px ${colorBrand.heavy};
   `}
   ${mq.mobileOnly`
-    border-left: solid 6px ${colors.red.liverRed};
-    border-right: solid 6px ${colors.red.liverRed};
+    border-left: solid 6px ${colorBrand.heavy};
+    border-right: solid 6px ${colorBrand.heavy};
   `}
 `
 

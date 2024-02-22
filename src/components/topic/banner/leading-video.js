@@ -1,10 +1,16 @@
 import { Waypoint } from 'react-waypoint'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled, { css } from 'styled-components'
+// assets
 import SoundMuteIcon from '../../../../static/asset/sound-mute.svg'
 import SoundOnIcon from '../../../../static/asset/sound-on.svg'
-import styled, { css } from 'styled-components'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 
 const Container = styled.div`
   position: relative;
@@ -29,7 +35,7 @@ const VideoMask = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: ${colorOpacity['black_0.1']};
 `
 
 const audioBtnStyle = css`
@@ -39,7 +45,7 @@ const audioBtnStyle = css`
   bottom: 5%;
   right: 5%;
   cursor: pointer;
-  background-color: black;
+  background-color: ${colorGrayscale.black};
   border-radius: 30px;
   z-index: 50;
 `

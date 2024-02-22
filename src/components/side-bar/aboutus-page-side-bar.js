@@ -1,24 +1,31 @@
-import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../about-us/utils/config'
-import DonationLink from '@twreporter/react-components/lib/donation-link'
 import PropTypes from 'prop-types'
 import React from 'react'
-import anchorlist from '../about-us/constants/data/sidebar-anchor'
-import baseComponents from './base-components'
-import colors from '../../constants/colors'
-import hrefs from '../about-us/constants/data/sidebar-link'
-import mq from '../about-us/utils/media-query'
-import siteMeta from '../../constants/site-meta'
 import styled from 'styled-components'
+// utils
+import mq from '../about-us/utils/media-query'
+import { buildFbShareLink } from '../about-us/utils/build-fb-share-link'
+import { storageUrlPrefix } from '../about-us/utils/config'
+// constants
+import hrefs from '../about-us/constants/data/sidebar-link'
+import siteMeta from '../../constants/site-meta'
 import typography from '../../constants/typography'
+// data
+import anchorlist from '../about-us/constants/data/sidebar-anchor'
+// components
+import baseComponents from './base-components'
+// @twreporter
+import DonationLink from '@twreporter/react-components/lib/donation-link'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const StyledAnchor = styled(baseComponents.StyledAnchor)`
   position: relative;
   height: 100%;
-  color: ${props => (props.highlight ? colors.black : colors.gray.gray50)};
+  color: ${props =>
+    props.highlight ? colorGrayscale.black : colorGrayscale.gray600};
   border-right: 2px solid
-    ${props => (props.highlight ? colors.black : colors.gray.gray50)};
+    ${props =>
+      props.highlight ? colorGrayscale.black : colorGrayscale.gray600};
   opacity: ${props => (props.highlight ? '2' : '0.5')};
   padding-right: 17px;
   padding-top: calc((170px / 6) / 2);
@@ -78,7 +85,7 @@ Anchors.propTypes = {
 const AnchorsContainer = styled.div`
   z-index: 200;
   position: fixed;
-  color: ${colors.gray.gray50};
+  color: ${colorGrayscale.gray600};
   right: 0;
   top: 50%;
   transform: translate(-49px, -50%);
