@@ -48,6 +48,8 @@ const BottomDividerContainer = styled.div`
   margin-top: 24px;
 `
 
+const OnlyForGTM = styled.div``
+
 const MemberData = ({
   role = { key: MEMBER_ROLE.explorer, name: '' },
   email = 'user@email.com',
@@ -124,6 +126,7 @@ const MemberData = ({
       <BottomDividerContainer>
         <Divider />
       </BottomDividerContainer>
+      <OnlyForGTM name="merchandise-promo-code" />
     </MemberDataContainer>
   )
 }

@@ -19,6 +19,8 @@ const RoleCardContainer = styled.div`
   padding-bottom: 48px;
 `
 
+const OnlyForGTM = styled.div``
+
 const MobileMemberPage = ({
   roleKey = MEMBER_ROLE.explorer,
   email,
@@ -46,6 +48,7 @@ const MobileMemberPage = ({
           articleReadingTimeUnit={articleReadingTimeUnit}
         />
       </RoleCardContainer>
+      <OnlyForGTM name="merchandise-promo-code" />
       <MobileMemberMenuList />
     </div>
   )
