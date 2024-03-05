@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.8-rc.1, 2024-03-05
+
+### Notable Changes
+
+- fix
+  - replace state and give startReadingTime default Date.now
+
+### Commits
+
+- [[`b60e5c1662`](https://github.com/twreporter/twreporter-react/commit/b60e5c1662)] - **fix**: replace state and give startReadingTime default Date.now (Lucien)
+
 ## 4.12.8-rc.0, 2024-02-21
 
 ### Notable Changes
