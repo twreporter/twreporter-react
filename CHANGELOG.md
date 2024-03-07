@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.12.8-rc.2, 2024-03-07
+
+### Commits
+
+- [[`64f80f8351`](https://github.com/twreporter/twreporter-react/commit/64f80f8351)] - **chore**: upgrade react-article-components dep to ^1.12.2-rc.3 (nickhsine)
+
 ## 4.12.8-rc.1, 2024-03-05
 
 ### Notable Changes
