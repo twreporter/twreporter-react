@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.12.8-rc.3, 2024-03-08
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - sync master
+
+### Commits
+
+- [[`4987ec3a44`](https://github.com/twreporter/twreporter-react/commit/4987ec3a44)] - **chore**: update twreporter packages (Lucien)
+- [[`6a44791c90`](https://github.com/twreporter/twreporter-react/commit/6a44791c90)] - **chore**: sync master (Lucien)
+- [[`edf959bf6b`](https://github.com/twreporter/twreporter-react/commit/edf959bf6b)] - **chore**: update twreporter packages (Lucien)
+
 ## 4.12.8-rc.2, 2024-03-07
 
 ### Commits
