@@ -1532,10 +1532,10 @@
     swiper "6.8.4"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.12.2-rc.4":
-  version "1.12.2-rc.4"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.12.2-rc.4.tgz#049e66398bd6dde53f8ee1a54951def637709b65"
-  integrity sha512-160YcTEs5SefzzmY8TmKDy/utUFQcUHBkAoF4gZKo5XgkJMs9cfU1lUAardNKkzksCafCq+WS1f75dEPaP9EKA==
+"@twreporter/react-article-components@^1.13.0-rc.0":
+  version "1.13.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.13.0-rc.0.tgz#49d574e4a313f6cd943eaa2287a8c4a33990bd04"
+  integrity sha512-xto0Jxb51LSG9l6pWRZMsyc2ZGfXDU+vEpUQDoKtuitfVGINxtCjNGefiHUA1K0RmFQM/887MVwuNFFlfk6tug==
   dependencies:
     "@twreporter/core" "^1.19.0-rc.0"
     "@twreporter/react-components" "^8.26.0-rc.1"
