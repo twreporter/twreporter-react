@@ -92,7 +92,7 @@ const param = {
     {
       // match posts route exclude url ends with -published_date
       urlPattern: new RegExp(
-        apiURLPrefix + '/v2/posts' + '.+(?<!-published_date)$'
+        apiURLPrefix + '/v2/posts' + '.+(?<!toggleBookmark=1)$'
       ),
       handler: 'networkFirst',
       options: {
