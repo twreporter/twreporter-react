@@ -179,10 +179,17 @@ const Latest = ({
   useEffect(() => {
     const getPosts = async () => {
       try {
+        const toggleBookmark = !!isAuthed
         if (tagId) {
-          await fetchPostsByTagListId(tagId, nPerPage, page, jwt)
+          await fetchPostsByTagListId(
+            tagId,
+            nPerPage,
+            page,
+            jwt,
+            toggleBookmark
+          )
         } else {
-          await fetchLatestPosts(nPerPage, page, jwt)
+          await fetchLatestPosts(nPerPage, page, jwt, toggleBookmark)
         }
       } catch (failAction) {
         logger.errorReport({

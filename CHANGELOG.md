@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.8-rc.5, 2024-03-11
+
+### Notable Changes
+
+- feat
+  - add id for merchandise promo code
+- fix
+  - use `toggleBookmark` parameter to retrieve posts in latest page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3eaaf5afbc`](https://github.com/twreporter/twreporter-react/commit/3eaaf5afbc)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`277e9f69e3`](https://github.com/twreporter/twreporter-react/commit/277e9f69e3)] - **fix**: use `toggleBookmark` parameter (Aylie Chou)
+- [[`db8fb58741`](https://github.com/twreporter/twreporter-react/commit/db8fb58741)] - **feat**: add id for merchandise promo code (Aylie Chou)
+
 ## 4.12.8-rc.4, 2024-03-11
 
 ### Notable Changes
