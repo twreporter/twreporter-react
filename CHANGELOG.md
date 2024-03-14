@@ -1,6 +1,36 @@
 # Changelog
 
-## 4.12.7, 2024-02-21 (Current)
+## 4.12.8, 2024-03-13 (Current)
+
+### Notable Changes
+
+- feat
+  - add id for merchandise promo code
+- fix
+  - use `toggleBookmark` parameter to retrieve posts in latest page
+  - replace state and give startReadingTime default Date.now
+- chore
+  - sync master
+  - update @twreporter packages
+  - enable bookmark toggle for testing
+
+### Commits
+
+- [[`ff49c2df32`](https://github.com/twreporter/twreporter-react/commit/ff49c2df32)] - **chore**: update twreporter packages (Lucien)
+- [[`46ada0da61`](https://github.com/twreporter/twreporter-react/commit/46ada0da61)] - **chore**: update twreporter packages (Lucien)
+- [[`3eaaf5afbc`](https://github.com/twreporter/twreporter-react/commit/3eaaf5afbc)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`277e9f69e3`](https://github.com/twreporter/twreporter-react/commit/277e9f69e3)] - **fix**: use `toggleBookmark` parameter (Aylie Chou)
+- [[`db8fb58741`](https://github.com/twreporter/twreporter-react/commit/db8fb58741)] - **feat**: add id for merchandise promo code (Aylie Chou)
+- [[`adf7ae595a`](https://github.com/twreporter/twreporter-react/commit/adf7ae595a)] - **chore**: update twreporter packages (Lucien)
+- [[`4987ec3a44`](https://github.com/twreporter/twreporter-react/commit/4987ec3a44)] - **chore**: update twreporter packages (Lucien)
+- [[`6a44791c90`](https://github.com/twreporter/twreporter-react/commit/6a44791c90)] - **chore**: sync master (Lucien)
+- [[`edf959bf6b`](https://github.com/twreporter/twreporter-react/commit/edf959bf6b)] - **chore**: update twreporter packages (Lucien)
+- [[`64f80f8351`](https://github.com/twreporter/twreporter-react/commit/64f80f8351)] - **chore**: upgrade react-article-components dep to ^1.12.2-rc.3 (nickhsine)
+- [[`b60e5c1662`](https://github.com/twreporter/twreporter-react/commit/b60e5c1662)] - **fix**: replace state and give startReadingTime default Date.now (Lucien)
+- [[`e4dd427a94`](https://github.com/twreporter/twreporter-react/commit/e4dd427a94)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`52a27a7ccb`](https://github.com/twreporter/twreporter-react/commit/52a27a7ccb)] - **chore**: enable bookmark toggle for testing (Aylie Chou)
+
+## 4.12.7, 2024-02-21
 
 ### Notable Changes
 
