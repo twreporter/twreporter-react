@@ -100,6 +100,10 @@ const LoginContainer = styled.div`
   margin-bottom: 120px;
 `
 
+const OnlyForGTM = styled.div`
+  visibility: hidden;
+`
+
 const MemberPage = ({
   memberData,
   jwt,
@@ -160,6 +164,7 @@ const MemberPage = ({
   const titleText = getSiteTitle(pathname)
   const title = titleText + siteMeta.name.separator + siteMeta.name.full
   const canonical = `${siteMeta.urlOrigin}${pathname}`
+  const roleKey = _.get(memberData, 'role.key', '')
 
   const getReadingTimeAndUnit = readingSec => {
     const minutes = Math.floor(readingSec / 60)
@@ -268,6 +273,7 @@ const MemberPage = ({
           </Route>
         </Switch>
       </MobileOnly>
+      <OnlyForGTM id="role-key">{roleKey}</OnlyForGTM>
     </div>
   )
 }
