@@ -68,14 +68,14 @@ class Article extends PureComponent {
     this._articleBody = React.createRef()
     this.readingCountTimerId = React.createRef()
     this.inactiveTimerId = React.createRef()
+    this.startReadingTime = Date.now()
+    this.isActive = true
+    this.activeTime = 0
     this.state = {
       isExpanded: false,
       isReachedArticleReadTargetHeight: false,
       isReachedArticleReadTargetTime: false,
       isBeenRead: false,
-      startReadingTime: 0,
-      isActive: true,
-      activeTime: 0,
     }
     this.handleScroll = _.debounce(this._handleScroll.bind(this), 500)
     this.handleVisibilityChange = _.throttle(
@@ -99,11 +99,9 @@ class Article extends PureComponent {
   }
 
   calculateActiveTime() {
-    const elapsedTime = Math.floor(Date.now() - this.state.startReadingTime)
-    this.setState(prevState => ({
-      activeTime: prevState.activeTime + elapsedTime,
-      startReadingTime: Date.now(),
-    }))
+    const elapsedTime = Math.floor(Date.now() - this.startReadingTime)
+    this.activeTime = this.activeTime + elapsedTime
+    this.startReadingTime = Date.now()
   }
 
   startInactiveTimer() {
@@ -112,14 +110,10 @@ class Article extends PureComponent {
     }
     this.inactiveTimerId.current = window.setTimeout(() => {
       this.calculateActiveTime()
-      if (
-        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
-      ) {
+      if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
         this.sendActiveTime()
       }
-      this.setState({
-        isActive: false,
-      })
+      this.isActive = false
     }, articleReadTimeConditionConfig.inactive_time)
   }
 
@@ -132,13 +126,10 @@ class Article extends PureComponent {
 
   sendActiveTime() {
     const { isAuthed, jwt, userID, postID, setUserAnalyticsData } = this.props
-    const { activeTime } = this.state
-    const activeSec = Math.round(activeTime / 1000)
+    const activeSec = Math.round(this.activeTime / 1000)
     if (isAuthed) {
       setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
-      this.setState({
-        activeTime: 0,
-      })
+      this.activeTime = 0
     }
   }
 
@@ -151,47 +142,36 @@ class Article extends PureComponent {
 
   _handleVisibilityChange() {
     if (document.visibilityState === 'hidden') {
-      if (this.state.isActive) {
+      if (this.isActive) {
         if (this.inactiveTimerId.current) {
           window.clearTimeout(this.inactiveTimerId.current)
         }
         this.calculateActiveTime()
-        if (
-          this.state.activeTime >=
-          articleReadTimeConditionConfig.min_active_time
-        ) {
+        if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
           this.sendActiveTime()
         }
-        this.setState({
-          isActive: false,
-        })
+        this.isActive = false
       }
     } else {
-      if (!this.state.isActive) {
-        this.setState({
-          isActive: true,
-          startReadingTime: Date.now(),
-        })
+      if (!this.isActive) {
+        this.isActive = true
+        this.startReadingTime = Date.now()
       }
       this.startInactiveTimer()
     }
   }
 
   _handleUserActivity() {
-    if (!this.state.isActive) {
-      this.setState({
-        isActive: true,
-        startReadingTime: Date.now(),
-      })
+    if (!this.isActive) {
+      this.isActive = true
+      this.startReadingTime = Date.now()
     }
     this.startInactiveTimer()
   }
 
   _handlePagehide() {
     this.calculateActiveTime()
-    if (
-      this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
-    ) {
+    if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
       this.sendActiveTime()
     }
   }
@@ -205,9 +185,7 @@ class Article extends PureComponent {
     // Start timer if post is fetched from SSR
     this.startReadingCountTimer()
     // Start reading time if post is fetched from SSR
-    this.setState({
-      startReadingTime: Date.now(),
-    })
+    this.startReadingTime = Date.now()
     document.addEventListener('visibilitychange', this.handleVisibilityChange)
     document.addEventListener('mousemove', this.handleUserActivity)
     document.addEventListener('scroll', this.handleUserActivity)
@@ -240,9 +218,7 @@ class Article extends PureComponent {
         isReachedArticleReadTargetTime: false,
       })
       this.calculateActiveTime()
-      if (
-        this.state.activeTime >= articleReadTimeConditionConfig.min_active_time
-      ) {
+      if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
         this.sendActiveTime()
       }
       return true
@@ -258,9 +234,7 @@ class Article extends PureComponent {
         },
       })
       this.startReadingCountTimer()
-      this.setState({
-        startReadingTime: Date.now(),
-      })
+      this.startReadingTime = Date.now()
       this.startInactiveTimer()
     }
 
