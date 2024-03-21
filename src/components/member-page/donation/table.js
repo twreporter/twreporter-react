@@ -89,6 +89,9 @@ const TableContent = styled.div`
   }
   .donation-number {
     grid-column: 3 / 5;
+    width: 100%;
+    display: block;
+    word-break: break-all;
   }
   .amount {
     grid-column: 5 / 6;
@@ -118,26 +121,27 @@ const MobileTableContent = styled.div`
       justify-content: end;
     }
   }
+  .donation-number {
+    width: 100%;
+    display: block;
+    word-break: break-all;
+  }
   ${mq.tabletAndAbove`
     display: none;
   `}
 `
 
+const BadgeContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const P1Gray800 = styled(P1)`
-  display: block;
   color: ${colorGrayscale.gray800};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `
 
 const P1Gray600 = styled(P1)`
-  width: 100%;
-  display: block;
   color: ${colorGrayscale.gray600};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `
 
 const badgePropsByStatus = {
@@ -210,11 +214,13 @@ const BadgeComponent = memo(({ status, type }) => {
   const { text, textColor, backgroundColor } = badgePropsByStatus[key]
 
   return (
-    <Badge
-      text={text}
-      textColor={textColor}
-      backgroundColor={backgroundColor}
-    />
+    <BadgeContainer>
+      <Badge
+        text={text}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+    </BadgeContainer>
   )
 })
 
