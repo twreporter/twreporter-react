@@ -7,6 +7,7 @@ import { P2 } from '@twreporter/react-components/lib/text/paragraph'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { InheritLinkButton } from '@twreporter/react-components/lib/button'
 import mq from '@twreporter/core/lib/utils/media-query'
+import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 // components
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
@@ -54,6 +55,8 @@ const Info = styled.div`
 const DescWithLink = styled(P2Gray600)`
   display: unset;
 `
+const Loading = styled.div``
+const LoadingMask = FetchingWrapper(Loading)
 
 const MemberDonationPage = () => {
   // TODO: remove after get data from api
@@ -64,24 +67,25 @@ const MemberDonationPage = () => {
   const page = Number(param.get('page'))
   const limitPerPage = 10
   const totalPages = Math.ceil(total / limitPerPage)
-  const [fakeData, setFakeData] = useState([])
+  const [fakeData] = useState(generateFakeData(total))
   const [records, setRecords] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setFakeData(generateFakeData(total))
-  }, [total])
-
-  useEffect(() => {
+    setIsLoading(true)
     setRecords(fakeData.slice((page - 1) * limitPerPage, page * limitPerPage))
+    setTimeout(() => setIsLoading(false), 1000)
   }, [page, fakeData])
 
   if (total <= 0) {
     return (
       <DonationPageContainer>
         <StyledH3 text="贊助紀錄" />
-        <EmptyDonationContainer>
-          <EmptyDonation />
-        </EmptyDonationContainer>
+        <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
+          <EmptyDonationContainer>
+            <EmptyDonation />
+          </EmptyDonationContainer>
+        </LoadingMask>
       </DonationPageContainer>
     )
   }
@@ -89,16 +93,18 @@ const MemberDonationPage = () => {
   return (
     <DonationPageContainer>
       <StyledH3 text="贊助紀錄" />
-      <Table totalPages={totalPages} page={page} records={records} />
-      {totalPages > 1 && (
-        <PaginationContainer>
-          <Pagination
-            className={'no-margin'}
-            currentPage={page}
-            totalPages={totalPages}
-          />
-        </PaginationContainer>
-      )}
+      <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
+        <Table totalPages={totalPages} page={page} records={records} />
+        {totalPages > 1 && (
+          <PaginationContainer>
+            <Pagination
+              className={'no-margin'}
+              currentPage={page}
+              totalPages={totalPages}
+            />
+          </PaginationContainer>
+        )}
+      </LoadingMask>
       <Info isPaginationShow={totalPages > 1}>
         <DescWithLink>
           因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
