@@ -5,37 +5,11 @@ import PropTypes from 'prop-types'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 import Divider from '@twreporter/react-components/lib/divider'
-import {
-  colorBrand,
-  colorGrayscale,
-} from '@twreporter/core/lib/constants/color'
-import Badge from '@twreporter/react-components/lib/badge'
-
-const DonationType = Object.freeze({
-  PRIME: 'prime',
-  PERIODIC: 'periodic',
-})
-
-const DonationTypeLabel = {
-  [DonationType.PRIME]: '單筆贊助',
-  [DonationType.PERIODIC]: '定期定額',
-}
-
-const PeriodicDonationStatus = Object.freeze({
-  TO_PAY: 'to_pay',
-  PAYING: 'paying',
-  PAID: 'paid',
-  FAIL: 'fail',
-  STOPPED: 'stopped',
-  INVALID: 'invalid',
-})
-
-const PrimeDonationStatus = Object.freeze({
-  PAYING: 'paying',
-  PAID: 'paid',
-  FAIL: 'fail',
-  REFUNDED: 'refunded',
-})
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// constants
+import { DonationType, DonationTypeLabel } from '../../../constants/donation'
+// components
+import { StatusBadge } from './status-bagde'
 
 const TableContainer = styled.div`
   width: 100%;
@@ -143,90 +117,6 @@ const P1Gray600 = styled(P1)`
   color: ${colorGrayscale.gray600};
 `
 
-const badgePropsByStatus = {
-  [PeriodicDonationStatus.TO_PAY]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PeriodicDonationStatus.PAYING]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PeriodicDonationStatus.PAID]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PeriodicDonationStatus.FAIL]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PeriodicDonationStatus.STOPPED]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PeriodicDonationStatus.INVALID]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PrimeDonationStatus.PAYING]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PrimeDonationStatus.FAIL]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PrimeDonationStatus.PAID]: {
-    text: '已完成',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: 'transparent',
-  },
-  [PrimeDonationStatus.REFUNDED]: {
-    text: '已退款',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  default: {
-    text: '進行中',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  }, // Default case
-}
-
-const BadgeComponent = memo(({ status, type }) => {
-  // Determine key based on type and status
-  const key =
-    type === DonationType.PERIODIC && status in badgePropsByStatus
-      ? status
-      : type === DonationType.PRIME && status in badgePropsByStatus
-      ? status
-      : 'default'
-
-  const { text, textColor, backgroundColor } = badgePropsByStatus[key]
-
-  return (
-    <Badge
-      text={text}
-      textColor={textColor}
-      backgroundColor={backgroundColor}
-    />
-  )
-})
-
-BadgeComponent.propTypes = {
-  status: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(Object.values(DonationType)).isRequired,
-}
-BadgeComponent.displayName = 'BadgeComponent'
-
 const formattedDate = date =>
   `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}`
 
@@ -252,14 +142,14 @@ const TableRow = memo(({ record }) => {
           text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
         />
         <div className="status">
-          <BadgeComponent status={status} type={type} />
+          <StatusBadge status={status} type={type} />
         </div>
       </TableContent>
       <MobileTableContent>
         <P1Gray800 text={donationDate} />
         <div className="row">
           <P1Gray800 weight={P1.Weight.BOLD} text={DonationTypeLabel[type]} />
-          <BadgeComponent status={status} type={type} />
+          <StatusBadge status={status} type={type} />
           <P1Gray800
             className="amount"
             text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
