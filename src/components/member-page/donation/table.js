@@ -81,6 +81,8 @@ const DividerContainer = styled.div`
 
 const TableContent = styled.div`
   display: contents;
+  /* phase 2 */
+  /* cursor: pointer; */
   .donation-date {
     grid-column: 1 / 2;
   }
@@ -98,6 +100,8 @@ const TableContent = styled.div`
   }
   .status {
     grid-column: 6 / 7;
+    display: flex;
+    align-items: center;
   }
   ${mq.mobileOnly`
     display: none;
@@ -129,11 +133,6 @@ const MobileTableContent = styled.div`
   ${mq.tabletAndAbove`
     display: none;
   `}
-`
-
-const BadgeContainer = styled.div`
-  display: flex;
-  align-items: center;
 `
 
 const P1Gray800 = styled(P1)`
@@ -214,13 +213,11 @@ const BadgeComponent = memo(({ status, type }) => {
   const { text, textColor, backgroundColor } = badgePropsByStatus[key]
 
   return (
-    <BadgeContainer>
-      <Badge
-        text={text}
-        textColor={textColor}
-        backgroundColor={backgroundColor}
-      />
-    </BadgeContainer>
+    <Badge
+      text={text}
+      textColor={textColor}
+      backgroundColor={backgroundColor}
+    />
   )
 })
 
@@ -254,7 +251,9 @@ const TableRow = memo(({ record }) => {
           className="amount"
           text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
         />
-        <BadgeComponent className="status" status={status} type={type} />
+        <div className="status">
+          <BadgeComponent status={status} type={type} />
+        </div>
       </TableContent>
       <MobileTableContent>
         <P1Gray800 text={donationDate} />
