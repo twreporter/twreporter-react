@@ -63,8 +63,8 @@ const MemberDonationPage = () => {
   // ?total=100page=5
   const { search } = useLocation()
   const param = new URLSearchParams(search)
-  const total = Number(param.get('total'))
-  const page = Number(param.get('page'))
+  const total = Number(param.get('total')) || 0
+  const page = Number(param.get('page')) || 1
   const limitPerPage = 10
   const totalPages = Math.ceil(total / limitPerPage)
   const [fakeData] = useState(generateFakeData(total))
