@@ -75,7 +75,7 @@ const MemberDonationPage = () => {
     setRecords(fakeData.slice((page - 1) * limitPerPage, page * limitPerPage))
   }, [page, fakeData])
 
-  if (total === 0) {
+  if (total <= 0) {
     return (
       <DonationPageContainer>
         <StyledH3 text="贊助紀錄" />
