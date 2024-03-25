@@ -1,6 +1,6 @@
 {
   "name": "twreporter-react",
-  "version": "4.12.8-rc.0",
+  "version": "4.12.8-rc.1",
   "description": "React-Redux site for The Reporter Foundation in Taiwan",
   "scripts": {
     "build": "make build",
@@ -32,11 +32,11 @@
     "@google-cloud/logging-winston": "^3.0.2",
     "@material-symbols/font-400": "^0.14.7",
     "@twreporter/core": "^1.19.0",
-    "@twreporter/index-page": "^1.5.10",
-    "@twreporter/react-article-components": "^1.13.0",
-    "@twreporter/react-components": "^8.26.0",
+    "@twreporter/index-page": "^1.5.11-rc.0",
+    "@twreporter/react-article-components": "^1.13.1-rc.0",
+    "@twreporter/react-components": "^8.27.0-rc.0",
     "@twreporter/redux": "^7.11.2",
-    "@twreporter/universal-header": "^2.12.0",
+    "@twreporter/universal-header": "^2.12.1-rc.0",
     "axios": "^0.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.3",
