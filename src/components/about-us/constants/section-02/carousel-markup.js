@@ -56,15 +56,17 @@ const carouselMarkup = {
     },
   },
   [categoryIds.leaderTeam]: leftColumn,
-  [categoryIds.editor]: rightColumn,
   [categoryIds.socialMedia]: leftColumn,
-  [categoryIds.engineer]: rightColumn,
   [categoryIds.designer]: leftColumn,
-  [categoryIds.photojournalist]: rightColumn,
   [categoryIds.marketing]: leftColumn,
+  [categoryIds.theReporterForKids]: leftColumn,
+  [categoryIds.video]: leftColumn,
+  [categoryIds.editor]: rightColumn,
+  [categoryIds.photojournalist]: rightColumn,
+  [categoryIds.engineer]: rightColumn,
+  [categoryIds.administration]: rightColumn,
+  [categoryIds.dataJournalist]: rightColumn,
   [categoryIds.podcast]: rightColumn,
-  [categoryIds.theReporterForKids]: rightColumn,
-  [categoryIds.dataJournalist]: leftColumn,
 }
 
 export default carouselMarkup
