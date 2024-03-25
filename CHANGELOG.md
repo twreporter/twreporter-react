@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.8-rc.0, 2024-03-25
+
+### Notable Changes
+
+- feat
+  - new category for about us
+
+### Commits
+
+- [[`7453669084`](https://github.com/twreporter/twreporter-react/commit/7453669084)] - **feat**: new category for about us (Lucien)
+
 ## 4.12.8, 2024-03-13 (Current)
 
 ### Notable Changes
