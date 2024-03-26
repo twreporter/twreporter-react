@@ -1,6 +1,32 @@
 # Changelog
 
-## 4.12.7.beta.1, 2024-02-16
+## 4.12.7-beta.2, 2024-03-26
+
+### Notable Changes
+
+- feat
+  - donation history layout
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`67e537d0bf`](https://github.com/twreporter/twreporter-react/commit/67e537d0bf)] - **chore**: update twreporter packages (Lucien)
+- [[`0dbcd7e27c`](https://github.com/twreporter/twreporter-react/commit/0dbcd7e27c)] - **fix**: fix comments (Lucien)
+- [[`7ec216f0fd`](https://github.com/twreporter/twreporter-react/commit/7ec216f0fd)] - **feat**: give default value for page and total (Lucien)
+- [[`bf24927c74`](https://github.com/twreporter/twreporter-react/commit/bf24927c74)] - **feat**: status badge components (Lucien)
+- [[`988b81bc0a`](https://github.com/twreporter/twreporter-react/commit/988b81bc0a)] - **feat**: move constants to constants folder (Lucien)
+- [[`f8e7ab1e99`](https://github.com/twreporter/twreporter-react/commit/f8e7ab1e99)] - **feat**: add loading wrapper (Lucien)
+- [[`bf1caf72ab`](https://github.com/twreporter/twreporter-react/commit/bf1caf72ab)] - **feat**: use status div (Lucien)
+- [[`c80a24ad02`](https://github.com/twreporter/twreporter-react/commit/c80a24ad02)] - **feat**: total \<= 0 (Lucien)
+- [[`7bebc93ec1`](https://github.com/twreporter/twreporter-react/commit/7bebc93ec1)] - **feat**: change text overflow display (Lucien)
+- [[`04fcab6e10`](https://github.com/twreporter/twreporter-react/commit/04fcab6e10)] - **feat**: donation data table (Lucien)
+- [[`7d8231dcb2`](https://github.com/twreporter/twreporter-react/commit/7d8231dcb2)] - **feat**: grid column for donation page (Lucien)
+- [[`ad0adeb68b`](https://github.com/twreporter/twreporter-react/commit/ad0adeb68b)] - **feat**: fake data generator (Lucien)
+- [[`6982e8c0ab`](https://github.com/twreporter/twreporter-react/commit/6982e8c0ab)] - **feat**: create table component for donation page (Lucien)
+- [[`8e660efbb1`](https://github.com/twreporter/twreporter-react/commit/8e660efbb1)] - **feat**: add empty donation component (Lucien)
+
+## 4.12.7-beta.1, 2024-02-16
 
 ### Notable Changes
 
@@ -11,7 +37,7 @@
 
 - [[`66f8a1d9ca`](https://github.com/twreporter/twreporter-react/commit/66f8a1d9ca)] - **fix**: use P2 for LinkButton (Lucien)
 
-## 4.12.7.beta.0, 2024-02-07
+## 4.12.7-beta.0, 2024-02-07
 
 ### Notable Changes
 
