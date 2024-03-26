@@ -74,9 +74,11 @@ const badgePropsByStatus = {
 export const StatusBadge = memo(({ status, type }) => {
   // Determine key based on type and status
   const key =
-    type === DonationType.PERIODIC && status in badgePropsByStatus
+    type === DonationType.PERIODIC &&
+    Object.values(PeriodicDonationStatus).includes(status)
       ? status
-      : type === DonationType.PRIME && status in badgePropsByStatus
+      : type === DonationType.PRIME &&
+        Object.values(PrimeDonationStatus).includes(status)
       ? status
       : 'default'
 

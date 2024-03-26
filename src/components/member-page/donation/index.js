@@ -32,9 +32,10 @@ const PaginationContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  .no-margin {
-    margin: 0px;
-  }
+`
+
+const NoMarginPagination = styled(Pagination)`
+  margin: 0px;
 `
 
 const P2Gray600 = styled(P2)`
@@ -97,11 +98,7 @@ const MemberDonationPage = () => {
         <Table totalPages={totalPages} page={page} records={records} />
         {totalPages > 1 && (
           <PaginationContainer>
-            <Pagination
-              className={'no-margin'}
-              currentPage={page}
-              totalPages={totalPages}
-            />
+            <NoMarginPagination currentPage={page} totalPages={totalPages} />
           </PaginationContainer>
         )}
       </LoadingMask>
