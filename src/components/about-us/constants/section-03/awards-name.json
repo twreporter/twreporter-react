@@ -30,6 +30,11 @@
     "awardEng": "TIBE Book Prize Award"
   },
   {
+    "awardId": "theSigma",
+    "award": "The Sigma Awards",
+    "awardEng": "The Sigma Awards"
+  },
+  {
     "awardId": "twPressPhoto",
     "award": "台灣新聞攝影大賽",
     "awardEng": "Taiwan Press Photo Contest"
