@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.9-rc.3, 2024-03-28
+
+### Notable Changes
+
+- feat
+  - update about us section 03
+
+### Commits
+
+- [[`5928cdcaa8`](https://github.com/twreporter/twreporter-react/commit/5928cdcaa8)] - **feat**: new aboust us section 03 (Lucien)
+
 ## 4.12.9-rc.2, 2024-03-27
 
 ### Notable Changes
