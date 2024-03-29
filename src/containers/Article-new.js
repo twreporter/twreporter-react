@@ -26,6 +26,8 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
+// hooks
+import { usePrevious } from '../hooks'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -51,28 +53,33 @@ const articleReadTimeConditionConfig = {
 }
 
 const Article = ({
-  slugToFetch,
+  // props from redux state
   errorOfPost,
   // errorOfRelateds,
+  fontLevel,
   isFetchingPost,
   // isFetchingRelateds,
-  fontLevel,
   post,
   relateds,
   hasMoreRelateds,
-  releaseBranch,
+  slugToFetch,
   isAuthed,
   userRole,
-  fetchAFullPost,
-  fetchRelatedPostsOfAnEntity,
-  changeFontLevel,
   jwt,
   userID,
   postID,
-  setUserFootprint,
+  // props from redux actions
+  fetchAFullPost,
+  fetchRelatedPostsOfAnEntity,
+  changeFontLevel,
   setUserAnalyticsData,
+  setUserFootprint,
+  // props from react-router-dom
   history,
+  // props from parents
+  releaseBranch,
 }) => {
+  const prevIsFetchingPost = usePrevious(isFetchingPost)
   const [isExpanded, setIsExpaned] = useState(false)
   const [
     isReachedArticleReadTargetHeight,
@@ -295,7 +302,7 @@ const Article = ({
   }, [])
 
   useEffect(() => {
-    if (!isFetchingPost) {
+    if (prevIsFetchingPost && !isFetchingPost) {
       TagManager.dataLayer({
         dataLayer: {
           event: 'gtm.load',
@@ -430,11 +437,8 @@ const Article = ({
 }
 
 Article.propTypes = {
-  changeFontLevel: PropTypes.func,
   errorOfPost: PropTypes.object,
   errorOfRelateds: PropTypes.object,
-  fetchAFullPost: PropTypes.func,
-  fetchRelatedPostsOfAnEntity: PropTypes.func,
   fontLevel: PropTypes.string,
   isFetchingPost: PropTypes.bool,
   isFetchingRelateds: PropTypes.bool,
@@ -443,17 +447,20 @@ Article.propTypes = {
   relateds: PropTypes.array,
   hasMoreRelateds: PropTypes.bool,
   slugToFetch: PropTypes.string,
-  releaseBranch: predefinedPropTypes.releaseBranch,
   isAuthed: PropTypes.bool,
   userRole: PropTypes.array.isRequired,
-  setUserAnalyticsData: PropTypes.func,
   jwt: PropTypes.string,
   userID: PropTypes.string,
   postID: PropTypes.string,
+  fetchAFullPost: PropTypes.func,
+  fetchRelatedPostsOfAnEntity: PropTypes.func,
+  changeFontLevel: PropTypes.func,
+  setUserAnalyticsData: PropTypes.func,
+  setUserFootprint: PropTypes.func,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  setUserFootprint: PropTypes.func,
+  releaseBranch: predefinedPropTypes.releaseBranch,
 }
 
 Article.defaultProps = {
