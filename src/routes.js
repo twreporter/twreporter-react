@@ -8,7 +8,8 @@ import routesConst from './constants/routes'
 import statusCodeConst from './constants/status-code'
 // components
 import FallbackPage from './containers/ServiceWorkerFallbackPage'
-import Article from './containers/Article'
+// import Article from './containers/Article'
+import Article from './containers/Article-new.js'
 import SystemError from './components/SystemError'
 // lodash
 import get from 'lodash/get'
