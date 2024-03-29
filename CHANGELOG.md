@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.12.9-rc.4, 2024-03-29
+
+### Notable Changes
+
+- feat
+  - migrate article page from class component to functional component
+
+### Commits
+
+- [[`e55aa30021`](https://github.com/twreporter/twreporter-react/commit/e55aa30021)] - **fix**: fix comments (Lucien)
+- [[`f2e6bb2a10`](https://github.com/twreporter/twreporter-react/commit/f2e6bb2a10)] - **feat**: article page refactor to functional componet (Lucien)
+
 ## 4.12.9-rc.3, 2024-03-28
 
 ### Notable Changes
