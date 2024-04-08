@@ -1,6 +1,26 @@
 # Changelog
 
-## 4.12.8, 2024-03-13 (Current)
+## 4.12.9, 2024-04-08 (Current)
+
+### Notable Changes
+
+- feat
+  - new category for about us
+  - update about us section 03
+  - migrate article page from class component to functional component
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7453669084`](https://github.com/twreporter/twreporter-react/commit/7453669084)] - **feat**: new category for about us (Lucien)
+- [[`5f29a3e1e3`](https://github.com/twreporter/twreporter-react/commit/5f29a3e1e3)] - **chore**: update twreporter packages (Lucien)
+- [[`04a982d316`](https://github.com/twreporter/twreporter-react/commit/04a982d316)] - **chore**: update twreporter packages (Lucien)
+- [[`5928cdcaa8`](https://github.com/twreporter/twreporter-react/commit/5928cdcaa8)] - **feat**: new aboust us section 03 (Lucien)
+- [[`e55aa30021`](https://github.com/twreporter/twreporter-react/commit/e55aa30021)] - **fix**: fix comments (Lucien)
+- [[`f2e6bb2a10`](https://github.com/twreporter/twreporter-react/commit/f2e6bb2a10)] - **feat**: article page refactor to functional componet (Lucien)
+
+## 4.12.8, 2024-03-13
 
 ### Notable Changes
 

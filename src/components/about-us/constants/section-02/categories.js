@@ -37,10 +37,10 @@ const categories = [
     },
   },
   {
-    id: categoryIds.marketing,
+    id: categoryIds.designer,
     label: {
-      english: 'Marketing Department',
-      chinese: '行 銷 部',
+      english: 'Design Department',
+      chinese: '設 計 部',
     },
   },
   {
@@ -51,17 +51,24 @@ const categories = [
     },
   },
   {
-    id: categoryIds.designer,
+    id: categoryIds.marketing,
     label: {
-      english: 'Design Department',
-      chinese: '設 計 部',
+      english: 'Marketing Department',
+      chinese: '行 銷 部',
     },
   },
   {
-    id: categoryIds.podcast,
+    id: categoryIds.administration,
     label: {
-      english: 'Podcast Department',
-      chinese: 'Podcast 小 組',
+      enghlish: 'Administration',
+      chinese: '行 政 部',
+    },
+  },
+  {
+    id: categoryIds.theReporterForKids,
+    label: {
+      english: 'The Reporter For Kids',
+      chinese: '少 年 報 導 者',
     },
   },
   {
@@ -72,10 +79,17 @@ const categories = [
     },
   },
   {
-    id: categoryIds.theReporterForKids,
+    id: categoryIds.video,
     label: {
-      english: 'The Reporter For Kids',
-      chinese: '少 年 報 導 者',
+      english: 'Video Team',
+      chinese: '影 音 小 組',
+    },
+  },
+  {
+    id: categoryIds.podcast,
+    label: {
+      english: 'Podcast Department',
+      chinese: 'Podcast 小 組',
     },
   },
 ]
