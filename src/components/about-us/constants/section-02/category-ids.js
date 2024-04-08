@@ -10,6 +10,8 @@ const categoryIds = {
   podcast: 'podcast',
   theReporterForKids: 'theReporterForKids',
   dataJournalist: 'dataJournalist',
+  administration: 'administration',
+  video: 'video',
 }
 
 export default categoryIds

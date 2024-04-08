@@ -68,4 +68,16 @@ export const headcountPerPage = {
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
+  [categoryIds.administration]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
+  [categoryIds.video]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
 }
