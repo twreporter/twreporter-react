@@ -1,6 +1,17 @@
 # Changelog
 
-## 4.12.9, 2024-04-08 (Current)
+## 4.12.10, 2024-04-10 (Current)
+
+### Notable Changes
+
+- fix
+  - get slug from post for canonical
+
+### Commits
+
+- [[`495e85eab4`](https://github.com/twreporter/twreporter-react/commit/495e85eab4)] - **fix**: get slug from post for canonical (Lucien)
+
+## 4.12.9, 2024-04-08
 
 ### Notable Changes
 
