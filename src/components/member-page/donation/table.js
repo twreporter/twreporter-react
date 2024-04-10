@@ -157,6 +157,9 @@ const TableRow = memo(({ record }) => {
         </div>
         <P1Gray600 className="donation-number" text={orderNumber} />
       </MobileTableContent>
+      <DividerContainer>
+        <Divider />
+      </DividerContainer>
     </React.Fragment>
   )
 })
@@ -190,9 +193,6 @@ export const Table = ({ records }) => (
     {records.map(record => (
       <React.Fragment key={record.order_number}>
         <TableRow record={record} />
-        <DividerContainer>
-          <Divider />
-        </DividerContainer>
       </React.Fragment>
     ))}
   </TableContainer>

@@ -34,3 +34,10 @@ export const ArticlePromoContext = createContext({
     closePromo: PropTypes.func,
   },
 })
+
+export const DonationHistoryContext = createContext({
+  propTypes: {
+    jwt: PropTypes.string,
+    getUserPeriodicDonationHistory: PropTypes.func,
+  },
+})
