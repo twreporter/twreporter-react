@@ -352,7 +352,7 @@ const Article = ({
 
   post.style = uiManager.getArticleV2Style(post.style)
   // for head tag
-  const canonical = `${siteMeta.urlOrigin}/a/${slugToFetch}`
+  const canonical = `${siteMeta.urlOrigin}/a/${_.get(post, 'slug', '')}`
   const ogTitle = `${_.get(post, 'og_title', '') || _.get(post, 'title', '')}${
     siteMeta.name.separator
   }${siteMeta.name.full}`
