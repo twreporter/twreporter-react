@@ -1,7 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 // constants
-import routesOld from '../constants/routes-old'
-import routesNew from '../constants/routes'
+import routesConst from '../constants/routes'
 import uiConst from '../constants/ui'
 import colors from '../constants/colors'
 // @twreporter
@@ -9,10 +8,6 @@ import twreporterRedux from '@twreporter/redux'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
-// feature toggle
-import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
-
-const routesConst = MY_READING ? routesNew : routesOld
 
 const _ = {
   get,

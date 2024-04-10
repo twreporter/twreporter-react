@@ -19,19 +19,8 @@ import {
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
-
-// feature toggle
-import {
-  ListType as ListTypeOld,
-  MENU_LIST_DATA as MENU_LIST_DATA_OLD,
-} from '../../constants/membership-menu-old'
-import {
-  ListType as ListTypeNew,
-  MENU_LIST_DATA as MENU_LIST_DATA_NEW,
-} from '../../constants/membership-menu'
-import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
-const ListType = MY_READING ? ListTypeNew : ListTypeOld
-const MENU_LIST_DATA = MY_READING ? MENU_LIST_DATA_NEW : MENU_LIST_DATA_OLD
+// constants
+import { ListType, MENU_LIST_DATA } from '../../constants/membership-menu'
 
 const DividerContainer = styled.div`
   margin: 16px 0px;
