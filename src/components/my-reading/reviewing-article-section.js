@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
 import Divider from '@twreporter/react-components/lib/divider'
 import { TextButton } from '@twreporter/react-components/lib/button'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { Arrow } from '@twreporter/react-components/lib/icon'
+import {
+  TabletAndAbove,
+  MobileOnly,
+} from '@twreporter/react-components/lib/rwd'
 
 // components
 import EmptyBox from './empty-box'
@@ -31,6 +37,13 @@ const ReviewingArticleList = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  .swiper-container {
+    width: 100%;
+  }
+  .swiper-slide {
+    width: 75vw;
+    max-width: 400px;
+  }
 `
 
 const DividerContainer = styled.div`
@@ -71,25 +84,40 @@ const ReviewingArticleSection = () => {
         <EmptyBox type={EmptyBox.Type.ReviewingArticle} />
       )}
       {showingReviewingArticle.length > 0 && (
-        <ReviewingArticleList>
-          {showingReviewingArticle.map((article, idx) => {
-            return (
-              <div key={idx}>
-                <ReviewingCard {...article} />
-                <DividerContainer>
-                  <Divider />
-                </DividerContainer>
-              </div>
-            )
-          })}
-          {showMore && (
-            <MoreButton
-              text="展開更多"
-              rightIconComponent={<Arrow direction="down" />}
-              onClick={handleShowMoreClick}
-            />
-          )}
-        </ReviewingArticleList>
+        <>
+          <TabletAndAbove>
+            <ReviewingArticleList>
+              {showingReviewingArticle.map((article, idx) => {
+                return (
+                  <div key={idx}>
+                    <ReviewingCard {...article} />
+                    <DividerContainer>
+                      <Divider />
+                    </DividerContainer>
+                  </div>
+                )
+              })}
+              {showMore && (
+                <MoreButton
+                  text="展開更多"
+                  rightIconComponent={<Arrow direction="down" />}
+                  onClick={handleShowMoreClick}
+                />
+              )}
+            </ReviewingArticleList>
+          </TabletAndAbove>
+          <MobileOnly>
+            <ReviewingArticleList>
+              <Swiper slidesPerView={'auto'} spaceBetween={24} freeMode={true}>
+                {reviewingArticles.map((article, idx) => (
+                  <SwiperSlide key={idx}>
+                    <ReviewingCard {...article} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </ReviewingArticleList>
+          </MobileOnly>
+        </>
       )}
     </ReviewingArticleContainer>
   )

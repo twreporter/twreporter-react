@@ -127,6 +127,7 @@
     "rimraf": "^2.5.2",
     "stats-js": "^1.0.1",
     "style-loader": "2.0.0",
+    "swiper": "6.8.4",
     "url-loader": "^4.1.1",
     "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^3.3.2",
