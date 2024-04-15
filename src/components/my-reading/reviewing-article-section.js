@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useLocation } from 'react-router-dom'
 
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
 import Divider from '@twreporter/react-components/lib/divider'
 import { TextButton } from '@twreporter/react-components/lib/button'
-import {
-  colorBrand,
-  colorGrayscale,
-} from '@twreporter/core/lib/constants/color'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { Arrow } from '@twreporter/react-components/lib/icon'
 import {
   TabletAndAbove,
@@ -42,7 +40,8 @@ const ReviewingArticleList = styled.div`
   flex-direction: column;
   align-items: center;
   .swiper-container {
-    width: 100%;
+    width: 100vw;
+    margin-left: -24px;
   }
   .swiper-slide {
     width: 75vw;
@@ -61,17 +60,15 @@ const MoreButton = styled(TextButton)`
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
-const FakeDataButton = styled.button`
-  margin-left: 2px;
-  ${props => (props.isActive ? `color: ${colorBrand.heavy};` : ``)}
-`
-
 const ReviewingArticleSection = () => {
-  const [totalReviewingArticle, setTotalReviewingArticle] = useState(0)
   const [showMore, setShowMore] = useState(false)
   const [reviewingArticles, setReviewingArticles] = useState([])
   const [showingReviewingArticle, setShowingReviewingArticle] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const { search } = useLocation()
+  const param = new URLSearchParams(search)
+  const totalReviewingArticle = Number(param.get('total')) || 0
 
   const generateFakeData = length => {
     return Array(length).fill(fakeArticle)
@@ -80,37 +77,6 @@ const ReviewingArticleSection = () => {
   const handleShowMoreClick = () => {
     setShowMore(false)
     setShowingReviewingArticle(reviewingArticles)
-  }
-
-  const testDataButton = () => {
-    const handleClick = e => {
-      setTotalReviewingArticle(Number(e.target.value || 0))
-    }
-    return (
-      <div>
-        <FakeDataButton
-          isActive={totalReviewingArticle === 0}
-          value={0}
-          onClick={handleClick}
-        >
-          0
-        </FakeDataButton>
-        <FakeDataButton
-          isActive={totalReviewingArticle === 2}
-          value={2}
-          onClick={handleClick}
-        >
-          2
-        </FakeDataButton>
-        <FakeDataButton
-          isActive={totalReviewingArticle === 8}
-          value={8}
-          onClick={handleClick}
-        >
-          8
-        </FakeDataButton>
-      </div>
-    )
   }
 
   useEffect(() => {
@@ -124,15 +90,11 @@ const ReviewingArticleSection = () => {
       setShowingReviewingArticle(fakeData)
     }
     setTimeout(() => setIsLoading(false), 1000)
-  }, [totalReviewingArticle])
+  }, [])
 
   return (
     <ReviewingArticleContainer>
-      <Title2
-        title="報導回顧"
-        subtitle="和報導者編輯台一起，與議題持續對話"
-        renderButton={testDataButton()}
-      />
+      <Title2 title="報導回顧" subtitle="和報導者編輯台一起，與議題持續對話" />
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         {totalReviewingArticle === 0 && (
           <EmptyBox type={EmptyBox.Type.ReviewingArticle} />
@@ -166,6 +128,8 @@ const ReviewingArticleSection = () => {
                   slidesPerView={'auto'}
                   spaceBetween={24}
                   freeMode={true}
+                  slidesOffsetBefore={24}
+                  slidesOffsetAfter={24}
                 >
                   {reviewingArticles.map((article, idx) => (
                     <SwiperSlide key={idx}>
