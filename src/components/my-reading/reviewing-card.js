@@ -146,7 +146,7 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
         </Photo>
         <Article>
           <Title>
-            <H4 text={title} />
+            <H4 type={H4.Type.ARTICLE} text={title} />
           </Title>
           <Description>
             <P1 text={ogDescription} />
@@ -161,7 +161,7 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
             </AwardBadge>
           </AwardBadgeContainer>
           <Title>
-            <H4 text={title} />
+            <H4 type={H4.Type.ARTICLE} text={title} />
           </Title>
         </Photo>
         <Description>
