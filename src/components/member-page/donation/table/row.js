@@ -143,6 +143,7 @@ export const TableRow = memo(({ record }) => {
   }
 
   const handleRowClick = () => {
+    if (type !== DonationType.PERIODIC) return
     if (!isOpen) {
       getPeriodicDonationHistory()
     }
@@ -160,11 +161,13 @@ export const TableRow = memo(({ record }) => {
         />
         <div className="status">
           <StatusBadge status={status} type={type} />
-          <ArrowIcon
-            direction="down"
-            rotate={isOpen ? '-180deg' : '0'}
-            releaseBranch={releaseBranch}
-          />
+          {type === DonationType.PERIODIC && (
+            <ArrowIcon
+              direction="down"
+              rotate={isOpen ? '-180deg' : '0'}
+              releaseBranch={releaseBranch}
+            />
+          )}
         </div>
       </TableContent>
       <MobileTableContent onClick={handleRowClick}>
@@ -176,11 +179,13 @@ export const TableRow = memo(({ record }) => {
             className="amount"
             text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
           />
-          <ArrowIcon
-            direction="down"
-            rotate={isOpen ? '-180deg' : '0'}
-            releaseBranch={releaseBranch}
-          />
+          {type === DonationType.PERIODIC && (
+            <ArrowIcon
+              direction="down"
+              rotate={isOpen ? '-180deg' : '0'}
+              releaseBranch={releaseBranch}
+            />
+          )}
         </div>
         <P1Gray600 className="donation-number" text={orderNumber} />
       </MobileTableContent>
