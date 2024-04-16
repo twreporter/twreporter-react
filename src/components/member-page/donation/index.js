@@ -16,8 +16,6 @@ import twreporterRedux from '@twreporter/redux'
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
 import Pagination from '../../Pagination'
-// context
-import { DonationHistoryContext } from '../../../contexts'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -77,15 +75,12 @@ const MemberDonationPage = ({
   jwt,
   userID,
   getUserDonationHistory,
-  getUserPeriodicDonationHistory,
   page,
   totalPages,
 }) => {
   const [records, setRecords] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-
-  const contextValue = { jwt, getUserPeriodicDonationHistory }
 
   const getDonationHistory = async page => {
     const { payload } = await getUserDonationHistory(
@@ -123,39 +118,32 @@ const MemberDonationPage = ({
   }
 
   return (
-    <DonationHistoryContext.Provider value={contextValue}>
-      <DonationPageContainer>
-        <StyledH3 text="贊助紀錄" />
-        <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
-          <Table
-            totalPages={totalPages}
-            page={page}
-            records={records}
-            getPeriodicDonationHistory={getUserPeriodicDonationHistory}
+    <DonationPageContainer>
+      <StyledH3 text="贊助紀錄" />
+      <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
+        <Table records={records} />
+        {totalPages > 1 && (
+          <PaginationContainer>
+            <NoMarginPagination currentPage={page} totalPages={totalPages} />
+          </PaginationContainer>
+        )}
+      </LoadingMask>
+      <Info isPaginationShow={totalPages > 1}>
+        <DescWithLink>
+          因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
+          <InheritLinkButton
+            text="events@twreporter.org"
+            link={{
+              isExternal: true,
+              to: 'mailto:events@twreporter.org',
+              target: '_blank',
+            }}
+            type={InheritLinkButton.Type.UNDERLINE}
           />
-          {totalPages > 1 && (
-            <PaginationContainer>
-              <NoMarginPagination currentPage={page} totalPages={totalPages} />
-            </PaginationContainer>
-          )}
-        </LoadingMask>
-        <Info isPaginationShow={totalPages > 1}>
-          <DescWithLink>
-            因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
-            <InheritLinkButton
-              text="events@twreporter.org"
-              link={{
-                isExternal: true,
-                to: 'mailto:events@twreporter.org',
-                target: '_blank',
-              }}
-              type={InheritLinkButton.Type.UNDERLINE}
-            />
-            。」
-          </DescWithLink>
-        </Info>
-      </DonationPageContainer>
-    </DonationHistoryContext.Provider>
+          。」
+        </DescWithLink>
+      </Info>
+    </DonationPageContainer>
   )
 }
 
@@ -163,13 +151,12 @@ MemberDonationPage.propTypes = {
   jwt: PropTypes.string.isRequired,
   userID: PropTypes.number.isRequired,
   getUserDonationHistory: PropTypes.func.isRequired,
-  getUserPeriodicDonationHistory: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
 }
 
 const { reduxStateFields, actions } = twreporterRedux
-const { getUserDonationHistory, getUserPeriodicDonationHistory } = actions
+const { getUserDonationHistory } = actions
 
 function pageProp(location = {}) {
   const defaultPage = 1
@@ -212,6 +199,6 @@ const mapStateToProps = (state, props) => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserDonationHistory, getUserPeriodicDonationHistory }
+    { getUserDonationHistory }
   )(MemberDonationPage)
 )
