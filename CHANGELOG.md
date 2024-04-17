@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.7-beta.4, 2024-04-17
+
+### Notable Changes
+
+- feat
+  - use donation data from redux
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`e40346e4a9`](https://github.com/twreporter/twreporter-react/commit/e40346e4a9)] - **chore**: update twreporter packages (Lucien)
+- [[`dc153a9f4f`](https://github.com/twreporter/twreporter-react/commit/dc153a9f4f)] - **fix**: use arrow enum direction (Lucien)
+- [[`347a86cae6`](https://github.com/twreporter/twreporter-react/commit/347a86cae6)] - **feat**: hide arrow while type is not periodic (Lucien)
+- [[`dd78fdf080`](https://github.com/twreporter/twreporter-react/commit/dd78fdf080)] - **feat**: periodic donation phase 2 (Lucien)
+- [[`1f448ff502`](https://github.com/twreporter/twreporter-react/commit/1f448ff502)] - **feat**: use donation data from redux (Lucien)
+
 ## 4.12.7-beta.3, 2024-04-17
 
 ### Notable Changes
