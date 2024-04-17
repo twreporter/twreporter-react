@@ -75,7 +75,7 @@ const ReportersCards = [
   },
   {
     title: '報導者營運手記',
-    badgeText: '雙週',
+    badgeText: '不定期',
     descriptionType: DescriptionType.PLAIN_TEXT,
     description:
       '一路走來，各個決策有什麼背後故事，團隊又是過著怎樣的工作日常？一起來開箱報導者團隊！',

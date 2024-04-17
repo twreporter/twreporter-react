@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-beta.3, 2024-04-17
+
+### Notable Changes
+
+- fix
+  - change email subscription badge text
+
+### Commits
+
+- [[`d748a62db6`](https://github.com/twreporter/twreporter-react/commit/d748a62db6)] - **fix**: change email subscription badge text (Lucien)
+
 ## 4.12.7-beta.2, 2024-03-26
 
 ### Notable Changes
