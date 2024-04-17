@@ -22,6 +22,7 @@ const Type = {
   Bookmark: 'bookmark',
   BrowsingHistory: 'browsing-history',
   ShowMoreBookmark: 'show-more-bookmark',
+  ReviewingArticle: 'reviewing-article',
 }
 
 const EmptyBoxContainer = styled.div`
@@ -47,6 +48,14 @@ const Description = styled.div`
   flex-direction: row;
   justify-content: center;
 `
+const DescriptionCol = styled.div`
+  color: ${colorGrayscale.gray600};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const BookmarkIcon = styled.div`
   display: flex;
   & svg {
@@ -151,6 +160,37 @@ const ShowMoreBookmark = ({ isMobile = false }) => {
   )
 }
 
+const EmptyReviewingArticle = () => {
+  return (
+    <EmptyBoxContainer>
+      <DesktopAndAbove>
+        <Title>
+          <P1
+            weight={P1.Weight.BOLD}
+            text="深度報導不受時空限制，讓我們持續與議題對話"
+          />
+        </Title>
+        <DescriptionCol>
+          <P1 text="《報導者》編輯台將不定期回顧重要報導" />
+          <P1 text="別忘了回來這裡看看！" />
+        </DescriptionCol>
+      </DesktopAndAbove>
+      <TabletAndBelow>
+        <Title>
+          <P2
+            weight={P2.Weight.BOLD}
+            text="深度報導不受時空限制，讓我們持續與議題對話"
+          />
+        </Title>
+        <DescriptionCol>
+          <P2 text="《報導者》編輯台將不定期回顧重要報導" />
+          <P2 text="別忘了回來這裡看看！" />
+        </DescriptionCol>
+      </TabletAndBelow>
+    </EmptyBoxContainer>
+  )
+}
+
 ShowMoreBookmark.propTypes = {
   isMobile: PropTypes.bool,
 }
@@ -160,6 +200,7 @@ const EmptyBox = ({ type = Type.Bookmark, isMobile = false }) => {
   if (type === Type.BrowsingHistory) return <EmptyBrowsingHistory />
   if (type === Type.ShowMoreBookmark)
     return <ShowMoreBookmark isMobile={isMobile} />
+  if (type === Type.ReviewingArticle) return <EmptyReviewingArticle />
 }
 
 EmptyBox.propTypes = {
