@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom'
+import { connect } from 'react-redux'
+import querystring from 'querystring'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 // @twreporter
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
@@ -8,12 +11,21 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { InheritLinkButton } from '@twreporter/react-components/lib/button'
 import mq from '@twreporter/core/lib/utils/media-query'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
+import twreporterRedux from '@twreporter/redux'
 // components
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
 import Pagination from '../../Pagination'
-// fake data
-import { generateFakeData } from './fake-data'
+// lodash
+import get from 'lodash/get'
+import map from 'lodash/map'
+
+const DONATION_HISTORY_PER_PAGE = 10
+
+const _ = {
+  get,
+  map,
+}
 
 const DonationPageContainer = styled.div`
   width: 100%;
@@ -59,26 +71,40 @@ const DescWithLink = styled(P2Gray600)`
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
-const MemberDonationPage = () => {
-  // TODO: remove after get data from api
-  // ?total=100page=5
-  const { search } = useLocation()
-  const param = new URLSearchParams(search)
-  const total = Number(param.get('total')) || 0
-  const page = Number(param.get('page')) || 1
-  const limitPerPage = 10
-  const totalPages = Math.ceil(total / limitPerPage)
-  const [fakeData] = useState(generateFakeData(total))
+const MemberDonationPage = ({
+  jwt,
+  userID,
+  getUserDonationHistory,
+  page,
+  totalPages,
+}) => {
   const [records, setRecords] = useState([])
+  const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+
+  const getDonationHistory = async page => {
+    const { payload } = await getUserDonationHistory(
+      jwt,
+      userID,
+      (page - 1) * DONATION_HISTORY_PER_PAGE,
+      DONATION_HISTORY_PER_PAGE
+    )
+    const { records } = _.get(payload, 'data', [])
+    if (records.length === 0) {
+      setShowEmptyState(true)
+    } else {
+      setShowEmptyState(false)
+      setRecords(records)
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true)
-    setRecords(fakeData.slice((page - 1) * limitPerPage, page * limitPerPage))
-    setTimeout(() => setIsLoading(false), 1000)
-  }, [page, fakeData])
+    getDonationHistory(page)
+    setIsLoading(false)
+  }, [page])
 
-  if (total <= 0) {
+  if (showEmptyState) {
     return (
       <DonationPageContainer>
         <StyledH3 text="贊助紀錄" />
@@ -95,7 +121,7 @@ const MemberDonationPage = () => {
     <DonationPageContainer>
       <StyledH3 text="贊助紀錄" />
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
-        <Table totalPages={totalPages} page={page} records={records} />
+        <Table records={records} />
         {totalPages > 1 && (
           <PaginationContainer>
             <NoMarginPagination currentPage={page} totalPages={totalPages} />
@@ -121,4 +147,58 @@ const MemberDonationPage = () => {
   )
 }
 
-export default MemberDonationPage
+MemberDonationPage.propTypes = {
+  jwt: PropTypes.string.isRequired,
+  userID: PropTypes.number.isRequired,
+  getUserDonationHistory: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+}
+
+const { reduxStateFields, actions } = twreporterRedux
+const { getUserDonationHistory } = actions
+
+function pageProp(location = {}) {
+  const defaultPage = 1
+  const search = _.get(location, 'search', '')
+  const searchWithoutPrefix =
+    typeof search === 'string' ? search.replace(/^\?/, '') : search
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
+  let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
+
+  if (isNaN(page) || page < defaultPage) {
+    page = defaultPage
+  }
+
+  return page
+}
+
+const mapStateToProps = (state, props) => {
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
+  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  const totalDonationHistory = _.get(
+    state,
+    [reduxStateFields.donationHistory, 'total'],
+    0
+  )
+
+  const location = _.get(props, 'location')
+  let currentPage = pageProp(location)
+  const totalPages = Math.ceil(totalDonationHistory / 10)
+  if (currentPage > totalPages) {
+    currentPage = Math.max(totalPages, 1)
+  }
+  return {
+    jwt,
+    userID,
+    page: currentPage,
+    totalPages,
+  }
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserDonationHistory }
+  )(MemberDonationPage)
+)
