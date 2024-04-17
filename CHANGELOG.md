@@ -1,5 +1,39 @@
 # Changelog
 
+## 4.12.11-rc.1, 2024-04-17
+
+### Notable Changes
+
+- feat
+  - add reviewing post section
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`ced037d5be`](https://github.com/twreporter/twreporter-react/commit/ced037d5be)] - **chore**: update twreporter packages (Lucien)
+- [[`37f02abf09`](https://github.com/twreporter/twreporter-react/commit/37f02abf09)] - Merge remote-tracking branch 'upstream/master' into feature/post-review (Lucien)
+- [[`70f8af59c1`](https://github.com/twreporter/twreporter-react/commit/70f8af59c1)] - **feat**: generate fake data from url param (Lucien)
+- [[`e4e792584f`](https://github.com/twreporter/twreporter-react/commit/e4e792584f)] - **fix**: use article type for headline (Lucien)
+- [[`d18a5ef4cb`](https://github.com/twreporter/twreporter-react/commit/d18a5ef4cb)] - **feat**: add loading mask and fake data (Lucien)
+- [[`40ae668c5f`](https://github.com/twreporter/twreporter-react/commit/40ae668c5f)] - **feat**: add swiper and mobile reviewing article (Lucien)
+- [[`8bb9212cd7`](https://github.com/twreporter/twreporter-react/commit/8bb9212cd7)] - **feat**: add reviewing section (Lucien)
+- [[`4c216835d3`](https://github.com/twreporter/twreporter-react/commit/4c216835d3)] - **feat**: add reviewing card component (Lucien)
+- [[`beba7bf5bc`](https://github.com/twreporter/twreporter-react/commit/beba7bf5bc)] - **feat**: add empty state for reviewing article (Lucien)
+
+## 4.12.11-rc.0, 2024-04-17
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - remove MY_READING feature toggle
+
+### Commits
+
+- [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
+- [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
+
 ## 4.12.10, 2024-04-10 (Current)
 
 ### Notable Changes
