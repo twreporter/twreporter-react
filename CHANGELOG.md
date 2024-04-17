@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.11-rc.0, 2024-04-17
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - remove MY_READING feature toggle
+
+### Commits
+
+- [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
+- [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
+
 ## 4.12.10, 2024-04-10 (Current)
 
 ### Notable Changes
