@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.7-beta.5, 2024-04-19
+
+### Notable Changes
+
+- fix
+  - text and badges status
+
+### Commits
+
+- [[`148718636d`](https://github.com/twreporter/twreporter-react/commit/148718636d)] - **fix**: text and badges status (Lucien)
+
 ## 4.12.7-beta.4, 2024-04-17
 
 ### Notable Changes
