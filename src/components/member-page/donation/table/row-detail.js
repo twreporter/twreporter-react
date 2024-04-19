@@ -94,10 +94,9 @@ const PaymentRecordBox = styled.div`
     }
     .payment-number {
       grid-column: 2 / 4;
+      width: 100%;
       display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      word-break: break-all;
     }
     .payment-amount {
       grid-column: 4 / 5;
@@ -107,6 +106,7 @@ const PaymentRecordBox = styled.div`
       display: flex;
       justify-content: end;
       padding-right: 8px;
+      align-items: center;
     }
     ${mq.mobileOnly`
       grid-template-columns: repeat(4, 1fr);
@@ -123,9 +123,6 @@ const PaymentRecordBox = styled.div`
       .payment-number {
         grid-column: 1 / 3;
         width: 100%;
-        display: block;
-        word-break: break-all;
-        white-space: normal;
       }
       .payment-amount {
         grid-column: 3 / 4;
@@ -137,6 +134,7 @@ const PaymentRecordBox = styled.div`
         display: flex;
         justify-content: end;
         padding-right: 0px;
+        align-items: center;
       }
     `}
   }
@@ -148,6 +146,9 @@ const Loading = styled.div`
   gap: 48px;
   padding: 32px;
   width: 100%;
+  ${mq.mobileOnly`
+    padding: 24px 16px;
+  `}
 `
 const LoadingMask = FetchingWrapper(Loading)
 
@@ -162,7 +163,13 @@ const CardTypeDictionary = {
 
 const sendReceiptDictionary = {
   no_receipt: '不需要收據',
-  paperback_receipt_by_year: '需要收據',
+  paperback_receipt_by_month: '需要，請按月開立',
+  paperback_receipt_by_year: '需要，請按年開立',
+}
+
+const isAnonymousDictionary = {
+  0: '我願意將全名公開在《報導者》的捐款徵信名冊',
+  1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
 }
 
 export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
@@ -171,6 +178,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     card_type: cardType,
     send_receipt: sendReceipt,
     receipt_header: receiptHeader,
+    is_anonymous: isAnonymous,
   } = record
   const receiptAddress = `${record.address_state || ''}${record.address_city ||
     ''}${record.address_detail || ''}`
@@ -210,7 +218,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
               <P1Gray800 className="receipt-table-header" text="其他" />
               <P1Gray800
                 className="receipt-table-content"
-                text="我願意將全名公開在《報導者》的捐款徵信名冊"
+                text={isAnonymousDictionary[Number(isAnonymous)]}
               />
             </div>
           </TabletAndAbove>
@@ -230,7 +238,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </div>
             <div className="row">
               <P2Gray600 text="其他" />
-              <P1Gray800 text="我願意將全名公開在《報導者》的捐款徵信名冊" />
+              <P1Gray800 text={isAnonymousDictionary[Number(isAnonymous)]} />
             </div>
           </MobileOnly>
         </ReceiptInfoBox>
@@ -243,66 +251,68 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             <P1Gray800 text={cardLastFour} />
           </div>
         </PaymentInfoBox>
-        <PaymentRecordBox>
-          <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
-          <Divider />
-          <TabletAndAbove>
-            <div className="payment-record-table">
-              {periodicHistory.map((history, idx) => {
-                return (
-                  <React.Fragment key={idx}>
-                    <P1Gray800
-                      className="payment-date"
-                      text={formattedDate(new Date(history.created_at))}
-                    />
-                    <P1Gray800
-                      className="payment-number"
-                      text={history.order_number}
-                    />
-                    <P1Gray800
-                      className="payment-amount"
-                      text={history.amount}
-                    />
-                    <div className="payment-status">
-                      <StatusBadge
-                        status={history.status}
-                        type={DonationType.PERIODIC}
+        {record.type === DonationType.PERIODIC && (
+          <PaymentRecordBox>
+            <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+            <Divider />
+            <TabletAndAbove>
+              <div className="payment-record-table">
+                {periodicHistory.map((history, idx) => {
+                  return (
+                    <React.Fragment key={idx}>
+                      <P1Gray800
+                        className="payment-date"
+                        text={formattedDate(new Date(history.created_at))}
+                      />
+                      <P1Gray800
+                        className="payment-number"
+                        text={history.order_number}
+                      />
+                      <P1Gray800
+                        className="payment-amount"
+                        text={`${history.amount.toLocaleString('en-US')}元`}
+                      />
+                      <div className="payment-status">
+                        <StatusBadge
+                          status={history.status}
+                          type={DonationType.PERIODIC}
+                        />
+                      </div>
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </TabletAndAbove>
+            <MobileOnly>
+              <div className="payment-record-table">
+                {periodicHistory.map((history, idx) => {
+                  return (
+                    <div className="grid-row" key={idx}>
+                      <P1Gray800
+                        className="payment-date"
+                        text={formattedDate(new Date(history.created_at))}
+                      />
+                      <P1Gray800
+                        className="payment-amount"
+                        text={`${history.amount.toLocaleString('en-US')}元`}
+                      />
+                      <div className="payment-status">
+                        <StatusBadge
+                          status={history.status}
+                          type={DonationType.PERIODIC}
+                        />
+                      </div>
+                      <P2Gray600
+                        className="payment-number"
+                        text={history.order_number}
                       />
                     </div>
-                  </React.Fragment>
-                )
-              })}
-            </div>
-          </TabletAndAbove>
-          <MobileOnly>
-            <div className="payment-record-table">
-              {periodicHistory.map((history, idx) => {
-                return (
-                  <div className="grid-row" key={idx}>
-                    <P1Gray800
-                      className="payment-date"
-                      text={formattedDate(new Date(history.created_at))}
-                    />
-                    <P1Gray800
-                      className="payment-amount"
-                      text={history.amount}
-                    />
-                    <div className="payment-status">
-                      <StatusBadge
-                        status={history.status}
-                        type={DonationType.PERIODIC}
-                      />
-                    </div>
-                    <P1Gray800
-                      className="payment-number"
-                      text={history.order_number}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          </MobileOnly>
-        </PaymentRecordBox>
+                  )
+                })}
+              </div>
+            </MobileOnly>
+          </PaymentRecordBox>
+        )}
       </LoadingMask>
     </RowDetail>
   )
