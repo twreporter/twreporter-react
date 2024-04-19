@@ -12,57 +12,67 @@ import {
   PeriodicDonationStatus,
   PrimeDonationStatus,
 } from '../../../constants/donation'
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get,
+}
 
 const badgePropsByStatus = {
-  [PeriodicDonationStatus.TO_PAY]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
+  [DonationType.PERIODIC]: {
+    [PeriodicDonationStatus.TO_PAY]: {
+      text: '進行中',
+      textColor: colorBrand.heavy,
+      backgroundColor: colorGrayscale.white,
+    },
+    [PeriodicDonationStatus.PAYING]: {
+      text: '進行中',
+      textColor: colorBrand.heavy,
+      backgroundColor: colorGrayscale.white,
+    },
+    [PeriodicDonationStatus.PAID]: {
+      text: '進行中',
+      textColor: colorBrand.heavy,
+      backgroundColor: colorGrayscale.white,
+    },
+    [PeriodicDonationStatus.FAIL]: {
+      text: '扣款失敗',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
+    [PeriodicDonationStatus.INVALID]: {
+      text: '扣款失敗',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
+    [PeriodicDonationStatus.STOPPED]: {
+      text: '已終止',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
   },
-  [PeriodicDonationStatus.PAYING]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PeriodicDonationStatus.PAID]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PeriodicDonationStatus.FAIL]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PeriodicDonationStatus.STOPPED]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PeriodicDonationStatus.INVALID]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PrimeDonationStatus.PAYING]: {
-    text: '進行中',
-    textColor: colorBrand.heavy,
-    backgroundColor: colorGrayscale.white,
-  },
-  [PrimeDonationStatus.FAIL]: {
-    text: '扣款失敗',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
-  },
-  [PrimeDonationStatus.PAID]: {
-    text: '已完成',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: 'transparent',
-  },
-  [PrimeDonationStatus.REFUNDED]: {
-    text: '已退款',
-    textColor: colorGrayscale.gray800,
-    backgroundColor: colorGrayscale.gray200,
+  [DonationType.PRIME]: {
+    [PrimeDonationStatus.PAYING]: {
+      text: '進行中',
+      textColor: colorBrand.heavy,
+      backgroundColor: colorGrayscale.white,
+    },
+    [PrimeDonationStatus.PAID]: {
+      text: '已完成',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: 'transparent',
+    },
+    [PrimeDonationStatus.FAIL]: {
+      text: '扣款失敗',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
+    [PrimeDonationStatus.REFUNDED]: {
+      text: '已退款',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
   },
   default: {
     text: '進行中',
@@ -72,17 +82,12 @@ const badgePropsByStatus = {
 }
 
 export const StatusBadge = memo(({ status, type }) => {
-  // Determine key based on type and status
-  const key =
-    type === DonationType.PERIODIC &&
-    Object.values(PeriodicDonationStatus).includes(status)
-      ? status
-      : type === DonationType.PRIME &&
-        Object.values(PrimeDonationStatus).includes(status)
-      ? status
-      : 'default'
-
-  const { text, textColor, backgroundColor } = badgePropsByStatus[key]
+  const key = `${type}.${status}`
+  const { text, textColor, backgroundColor } = _.get(
+    badgePropsByStatus,
+    key,
+    badgePropsByStatus.default
+  )
 
   return (
     <Badge
