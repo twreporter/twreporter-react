@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.11-rc.2, 2024-04-19
+
+### Notable Changes
+
+- fix
+  - change sub title text
+
+### Commits
+
+- [[`f4036f786f`](https://github.com/twreporter/twreporter-react/commit/f4036f786f)] - **fix**: change sub title text (Lucien)
+
 ## 4.12.11-rc.1, 2024-04-17
 
 ### Notable Changes

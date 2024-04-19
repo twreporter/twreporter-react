@@ -20,13 +20,13 @@ import EmptyBox from './empty-box'
 import ReviewingCard from './reviewing-card'
 
 const fakeArticle = {
-  slug: '318-movement-10th-anniversary-10-keywords',
+  slug: 'oppose-introducing-indian-migrant-workers',
   reviewWord: '好看的喔',
-  title: '太陽花10年後──10個值得被記住的關鍵字',
+  title: '暌違20年再開國門，歧視移工爭議風波如何因印度再現？',
   ogDescription:
-    '10年過去，當318運動逐漸成為下一世代眼中的歷史名詞，甚至僅是高中教科書的一小章節，它還有哪些訴求與影響值得被反覆提起？在如今「反黑箱還是反服貿」的爭論下，一起來重探它複雜的運動內涵。',
+    '週末，台灣首見「反對增加新移工國」抗議集會。當台灣人對印度的不理解、勞動階級對政府的不信任互相加乘，彷彿重返1992年場景，複製了過往對東南亞各國的偏見，也象徵台印間的合作，確實需要更多配套與交流。',
   bgImage:
-    'https://www.twreporter.org/images/20240312105602-6b8b658d6dd37519c5f5d099c227fe05-tablet.jpg',
+    'https://www.twreporter.org/images/20231204041907-82c3b4ae9a893d08b176a96f5476dbdd-tablet.jpg',
 }
 
 const ReviewingArticleContainer = styled.div`
@@ -94,7 +94,7 @@ const ReviewingArticleSection = () => {
 
   return (
     <ReviewingArticleContainer>
-      <Title2 title="報導回顧" subtitle="和報導者編輯台一起，與議題持續對話" />
+      <Title2 title="報導回顧" subtitle="和我們一起與議題持續對話" />
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         {totalReviewingArticle === 0 && (
           <EmptyBox type={EmptyBox.Type.ReviewingArticle} />
