@@ -29,6 +29,7 @@ const _ = {
 
 const DonationPageContainer = styled.div`
   width: 100%;
+  margin-bottom: -136px; // targe padding-bottom is 64px, but parent container has padding-bottom 200px
 `
 
 const StyledH3 = styled(H3)`
@@ -62,7 +63,6 @@ const Info = styled.div`
   ${mq.mobileOnly`
     margin-top: ${props => (props.isPaginationShow ? '64px' : '80px')};
   `}
-  margin-bottom: 64px;
 `
 
 const DescWithLink = styled(P2Gray600)`
