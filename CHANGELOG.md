@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.12.7-beta.6, 2024-04-19
+
+### Notable Changes
+
+- fix
+  - add feature toggle and fix defects
+  - row detail badge type
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d3634586ab`](https://github.com/twreporter/twreporter-react/commit/d3634586ab)] - **chore**: update twreporter packages (Lucien)
+- [[`e665c43b4c`](https://github.com/twreporter/twreporter-react/commit/e665c43b4c)] - Merge remote-tracking branch 'upstream/dev' into fix/donation-history-phase-2 (Lucien)
+- [[`2f1484ffc5`](https://github.com/twreporter/twreporter-react/commit/2f1484ffc5)] - **fix**: row detail badge type (Lucien)
+- [[`bcdffa0d55`](https://github.com/twreporter/twreporter-react/commit/bcdffa0d55)] - **fix**: add feature toggle and fix defects (Lucien)
+
 ## 4.12.7-beta.5, 2024-04-19
 
 ### Notable Changes
