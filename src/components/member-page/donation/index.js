@@ -140,7 +140,6 @@ const MemberDonationPage = ({
             }}
             type={InheritLinkButton.Type.UNDERLINE}
           />
-          。」
         </DescWithLink>
       </Info>
     </DonationPageContainer>
