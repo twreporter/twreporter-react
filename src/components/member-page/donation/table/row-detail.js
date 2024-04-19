@@ -275,7 +275,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
                       <div className="payment-status">
                         <StatusBadge
                           status={history.status}
-                          type={DonationType.PERIODIC}
+                          type={DonationType.PRIME}
                         />
                       </div>
                     </React.Fragment>
@@ -299,7 +299,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
                       <div className="payment-status">
                         <StatusBadge
                           status={history.status}
-                          type={DonationType.PERIODIC}
+                          type={DonationType.PRIME}
                         />
                       </div>
                       <P2Gray600
