@@ -161,13 +161,13 @@ const CardTypeDictionary = {
   '5': 'AMEX',
 }
 
-const sendReceiptDictionary = {
+const SendReceiptDictionary = {
   no_receipt: '不需要收據',
   paperback_receipt_by_month: '需要，請按月開立',
   paperback_receipt_by_year: '需要，請按年開立',
 }
 
-const isAnonymousDictionary = {
+const IsAnonymousDictionary = {
   0: '我願意將全名公開在《報導者》的捐款徵信名冊',
   1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
 }
@@ -208,7 +208,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
               <P1Gray800 className="receipt-table-header" text="收據開立方式" />
               <P1Gray800
                 className="receipt-table-content"
-                text={sendReceiptDictionary[sendReceipt]}
+                text={SendReceiptDictionary[sendReceipt]}
               />
               <P1Gray800 className="receipt-table-header" text="收據寄送地址" />
               <P1Gray800
@@ -218,7 +218,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
               <P1Gray800 className="receipt-table-header" text="其他" />
               <P1Gray800
                 className="receipt-table-content"
-                text={isAnonymousDictionary[Number(isAnonymous)]}
+                text={IsAnonymousDictionary[Number(isAnonymous)]}
               />
             </div>
           </TabletAndAbove>
@@ -230,7 +230,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </div>
             <div className="row">
               <P2Gray600 text="收據開立方式" />
-              <P1Gray800 text={sendReceiptDictionary[sendReceipt]} />
+              <P1Gray800 text={SendReceiptDictionary[sendReceipt]} />
             </div>
             <div className="row">
               <P2Gray600 text="收據寄送地址" />
@@ -238,7 +238,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </div>
             <div className="row">
               <P2Gray600 text="其他" />
-              <P1Gray800 text={isAnonymousDictionary[Number(isAnonymous)]} />
+              <P1Gray800 text={IsAnonymousDictionary[Number(isAnonymous)]} />
             </div>
           </MobileOnly>
         </ReceiptInfoBox>
