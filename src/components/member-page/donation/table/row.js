@@ -124,7 +124,6 @@ export const TableRow = memo(({ record }) => {
   const [state, dispatch] = useStore()
 
   const getPeriodicDonationHistory = () => {
-    setIsLoading(true)
     const detail = _.get(state, [
       reduxStateFields.donationHistory,
       'periodicDonationHistory',
@@ -141,14 +140,17 @@ export const TableRow = memo(({ record }) => {
         }
       )
     }
-    setTimeout(() => setIsLoading(false), 1000)
   }
 
   const handleRowClick = () => {
     if (!DONDATION_HISTORY_PHASE_2) return
+    setIsLoading(true)
     if (!isOpen) {
-      getPeriodicDonationHistory()
+      if (type === DonationType.PERIODIC) {
+        getPeriodicDonationHistory()
+      }
     }
+    setTimeout(() => setIsLoading(false), 1000)
     setIsOpen(!isOpen)
   }
   return (

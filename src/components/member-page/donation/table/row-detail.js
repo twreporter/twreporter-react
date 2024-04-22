@@ -152,7 +152,7 @@ const Loading = styled.div`
 `
 const LoadingMask = FetchingWrapper(Loading)
 
-const CardTypeDictionary = {
+const cardTypeDictionary = {
   '-1': 'Unknown',
   '1': 'VISA',
   '2': 'MasterCard',
@@ -246,7 +246,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
           <P1Gray800 weight={P1.Weight.BOLD} text="扣款方式" />
           <Divider />
           <div className="card-number">
-            <P1Gray800 text={CardTypeDictionary[cardType]} />
+            <P1Gray800 text={cardTypeDictionary[cardType]} />
             <DotGroups />
             <P1Gray800 text={cardLastFour} />
           </div>

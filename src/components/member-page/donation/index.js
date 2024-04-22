@@ -29,7 +29,7 @@ const _ = {
 
 const DonationPageContainer = styled.div`
   width: 100%;
-  margin-bottom: -136px; // targe padding-bottom is 64px, but parent container has padding-bottom 200px
+  margin-bottom: -136px; // target padding-bottom is 64px, but parent container has padding-bottom 200px
 `
 
 const StyledH3 = styled(H3)`
