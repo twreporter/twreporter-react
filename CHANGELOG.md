@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.7-beta.7, 2024-04-22
+
+### Notable Changes
+
+- fix
+  - follow style guide
+  - typo
+
+### Commits
+
+- [[`d66e050c83`](https://github.com/twreporter/twreporter-react/commit/d66e050c83)] - **fix**: follow style guide (Lucien)
+- [[`e3a85488e2`](https://github.com/twreporter/twreporter-react/commit/e3a85488e2)] - **fix**: typo (Lucien)
+
 ## 4.12.7-beta.6, 2024-04-19
 
 ### Notable Changes
