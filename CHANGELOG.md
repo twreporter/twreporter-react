@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.12.11-rc.3, 2024-04-23
+## 4.13.0, 2024-04-23
 
 ### Notable Changes
 
@@ -8,6 +8,7 @@
   - use donation data from redux
   - donation history layout
   - new email subscription page
+  - add reviewing post section
 - fix
   - follow style guide
   - typo
@@ -16,8 +17,10 @@
   - text and badges status
   - change email subscription badge text
   - use P2 for LinkButton
+  - change sub title text
 - chore
   - update @twreporter packages
+  - remove MY_READING feature toggle
 
 ### Commits
 
@@ -52,29 +55,7 @@
 - [[`da60f76726`](https://github.com/twreporter/twreporter-react/commit/da60f76726)] - **feat**: use new component (Lucien)
 - [[`7bd4f42d59`](https://github.com/twreporter/twreporter-react/commit/7bd4f42d59)] - **feat**: add Card component for new subscription page (Lucien)
 - [[`a04760c3fd`](https://github.com/twreporter/twreporter-react/commit/a04760c3fd)] - **feat**: change email-subscription name (Lucien)
-
-## 4.12.11-rc.2, 2024-04-19
-
-### Notable Changes
-
-- fix
-  - change sub title text
-
-### Commits
-
 - [[`f4036f786f`](https://github.com/twreporter/twreporter-react/commit/f4036f786f)] - **fix**: change sub title text (Lucien)
-
-## 4.12.11-rc.1, 2024-04-17
-
-### Notable Changes
-
-- feat
-  - add reviewing post section
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`ced037d5be`](https://github.com/twreporter/twreporter-react/commit/ced037d5be)] - **chore**: update twreporter packages (Lucien)
 - [[`37f02abf09`](https://github.com/twreporter/twreporter-react/commit/37f02abf09)] - Merge remote-tracking branch 'upstream/master' into feature/post-review (Lucien)
 - [[`70f8af59c1`](https://github.com/twreporter/twreporter-react/commit/70f8af59c1)] - **feat**: generate fake data from url param (Lucien)
@@ -84,17 +65,6 @@
 - [[`8bb9212cd7`](https://github.com/twreporter/twreporter-react/commit/8bb9212cd7)] - **feat**: add reviewing section (Lucien)
 - [[`4c216835d3`](https://github.com/twreporter/twreporter-react/commit/4c216835d3)] - **feat**: add reviewing card component (Lucien)
 - [[`beba7bf5bc`](https://github.com/twreporter/twreporter-react/commit/beba7bf5bc)] - **feat**: add empty state for reviewing article (Lucien)
-
-## 4.12.11-rc.0, 2024-04-17
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-  - remove MY_READING feature toggle
-
-### Commits
-
 - [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
 - [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
 
