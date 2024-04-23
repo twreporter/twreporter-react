@@ -71,12 +71,22 @@ const MenuContainer = styled.div`
 
 const ContentContainer = styled.div`
   ${mq.tabletOnly`
-    grid-column: ${props =>
-      props.path === routes.memberPage.path ? '3 / 10' : '3 / 13'}
+    ${props =>
+      props.path === routes.memberPage.memberDonationPage.path &&
+      'grid-column: 3 / 13'};
+    ${props =>
+      props.path === routes.memberPage.memberEmailSubscriptionPage.path &&
+      'grid-column: 3 / 13'};
+    ${props => props.path === routes.memberPage.path && 'grid-column: 3 / 10'};
   `}
   ${mq.desktopAndAbove`
-    grid-column: ${props =>
-      props.path === routes.memberPage.path ? '3 / 10' : '3 / 11'}
+    ${props =>
+      props.path === routes.memberPage.memberDonationPage.path &&
+      'grid-column: 3 / 13'};
+    ${props =>
+      props.path === routes.memberPage.memberEmailSubscriptionPage.path &&
+      'grid-column: 3 / 11'};
+    ${props => props.path === routes.memberPage.path && 'grid-column: 3 / 10'};
   `}
   ${mq.mobileOnly`
     padding: 24px 24px 200px;
@@ -151,7 +161,7 @@ const MemberPage = ({
     } else if (
       matchPath(pathname, routes.memberPage.memberEmailSubscriptionPage.path)
     ) {
-      return '電子報設定'
+      return '訂閱電子報'
     } else {
       return '個人專區'
     }
