@@ -1,27 +1,61 @@
 # Changelog
 
-## 4.12.11-rc.2, 2024-04-19
-
-### Notable Changes
-
-- fix
-  - change sub title text
-
-### Commits
-
-- [[`f4036f786f`](https://github.com/twreporter/twreporter-react/commit/f4036f786f)] - **fix**: change sub title text (Lucien)
-
-## 4.12.11-rc.1, 2024-04-17
+## 4.13.0, 2024-04-23
 
 ### Notable Changes
 
 - feat
+  - use donation data from redux
+  - donation history layout
+  - new email subscription page
   - add reviewing post section
+- fix
+  - follow style guide
+  - typo
+  - add feature toggle and fix defects
+  - row detail badge type
+  - text and badges status
+  - change email subscription badge text
+  - use P2 for LinkButton
+  - change sub title text
 - chore
   - update @twreporter packages
+  - remove MY_READING feature toggle
 
 ### Commits
 
+- [[`d66e050c83`](https://github.com/twreporter/twreporter-react/commit/d66e050c83)] - **fix**: follow style guide (Lucien)
+- [[`e3a85488e2`](https://github.com/twreporter/twreporter-react/commit/e3a85488e2)] - **fix**: typo (Lucien)
+- [[`d3634586ab`](https://github.com/twreporter/twreporter-react/commit/d3634586ab)] - **chore**: update twreporter packages (Lucien)
+- [[`e665c43b4c`](https://github.com/twreporter/twreporter-react/commit/e665c43b4c)] - Merge remote-tracking branch 'upstream/dev' into fix/donation-history-phase-2 (Lucien)
+- [[`2f1484ffc5`](https://github.com/twreporter/twreporter-react/commit/2f1484ffc5)] - **fix**: row detail badge type (Lucien)
+- [[`bcdffa0d55`](https://github.com/twreporter/twreporter-react/commit/bcdffa0d55)] - **fix**: add feature toggle and fix defects (Lucien)
+- [[`148718636d`](https://github.com/twreporter/twreporter-react/commit/148718636d)] - **fix**: text and badges status (Lucien)
+- [[`e40346e4a9`](https://github.com/twreporter/twreporter-react/commit/e40346e4a9)] - **chore**: update twreporter packages (Lucien)
+- [[`dc153a9f4f`](https://github.com/twreporter/twreporter-react/commit/dc153a9f4f)] - **fix**: use arrow enum direction (Lucien)
+- [[`347a86cae6`](https://github.com/twreporter/twreporter-react/commit/347a86cae6)] - **feat**: hide arrow while type is not periodic (Lucien)
+- [[`dd78fdf080`](https://github.com/twreporter/twreporter-react/commit/dd78fdf080)] - **feat**: periodic donation phase 2 (Lucien)
+- [[`1f448ff502`](https://github.com/twreporter/twreporter-react/commit/1f448ff502)] - **feat**: use donation data from redux (Lucien)
+- [[`d748a62db6`](https://github.com/twreporter/twreporter-react/commit/d748a62db6)] - **fix**: change email subscription badge text (Lucien)
+- [[`67e537d0bf`](https://github.com/twreporter/twreporter-react/commit/67e537d0bf)] - **chore**: update twreporter packages (Lucien)
+- [[`0dbcd7e27c`](https://github.com/twreporter/twreporter-react/commit/0dbcd7e27c)] - **fix**: fix comments (Lucien)
+- [[`7ec216f0fd`](https://github.com/twreporter/twreporter-react/commit/7ec216f0fd)] - **feat**: give default value for page and total (Lucien)
+- [[`bf24927c74`](https://github.com/twreporter/twreporter-react/commit/bf24927c74)] - **feat**: status badge components (Lucien)
+- [[`988b81bc0a`](https://github.com/twreporter/twreporter-react/commit/988b81bc0a)] - **feat**: move constants to constants folder (Lucien)
+- [[`f8e7ab1e99`](https://github.com/twreporter/twreporter-react/commit/f8e7ab1e99)] - **feat**: add loading wrapper (Lucien)
+- [[`bf1caf72ab`](https://github.com/twreporter/twreporter-react/commit/bf1caf72ab)] - **feat**: use status div (Lucien)
+- [[`c80a24ad02`](https://github.com/twreporter/twreporter-react/commit/c80a24ad02)] - **feat**: total \<= 0 (Lucien)
+- [[`7bebc93ec1`](https://github.com/twreporter/twreporter-react/commit/7bebc93ec1)] - **feat**: change text overflow display (Lucien)
+- [[`04fcab6e10`](https://github.com/twreporter/twreporter-react/commit/04fcab6e10)] - **feat**: donation data table (Lucien)
+- [[`7d8231dcb2`](https://github.com/twreporter/twreporter-react/commit/7d8231dcb2)] - **feat**: grid column for donation page (Lucien)
+- [[`ad0adeb68b`](https://github.com/twreporter/twreporter-react/commit/ad0adeb68b)] - **feat**: fake data generator (Lucien)
+- [[`6982e8c0ab`](https://github.com/twreporter/twreporter-react/commit/6982e8c0ab)] - **feat**: create table component for donation page (Lucien)
+- [[`8e660efbb1`](https://github.com/twreporter/twreporter-react/commit/8e660efbb1)] - **feat**: add empty donation component (Lucien)
+- [[`66f8a1d9ca`](https://github.com/twreporter/twreporter-react/commit/66f8a1d9ca)] - **fix**: use P2 for LinkButton (Lucien)
+- [[`da60f76726`](https://github.com/twreporter/twreporter-react/commit/da60f76726)] - **feat**: use new component (Lucien)
+- [[`7bd4f42d59`](https://github.com/twreporter/twreporter-react/commit/7bd4f42d59)] - **feat**: add Card component for new subscription page (Lucien)
+- [[`a04760c3fd`](https://github.com/twreporter/twreporter-react/commit/a04760c3fd)] - **feat**: change email-subscription name (Lucien)
+- [[`f4036f786f`](https://github.com/twreporter/twreporter-react/commit/f4036f786f)] - **fix**: change sub title text (Lucien)
 - [[`ced037d5be`](https://github.com/twreporter/twreporter-react/commit/ced037d5be)] - **chore**: update twreporter packages (Lucien)
 - [[`37f02abf09`](https://github.com/twreporter/twreporter-react/commit/37f02abf09)] - Merge remote-tracking branch 'upstream/master' into feature/post-review (Lucien)
 - [[`70f8af59c1`](https://github.com/twreporter/twreporter-react/commit/70f8af59c1)] - **feat**: generate fake data from url param (Lucien)
@@ -31,17 +65,6 @@
 - [[`8bb9212cd7`](https://github.com/twreporter/twreporter-react/commit/8bb9212cd7)] - **feat**: add reviewing section (Lucien)
 - [[`4c216835d3`](https://github.com/twreporter/twreporter-react/commit/4c216835d3)] - **feat**: add reviewing card component (Lucien)
 - [[`beba7bf5bc`](https://github.com/twreporter/twreporter-react/commit/beba7bf5bc)] - **feat**: add empty state for reviewing article (Lucien)
-
-## 4.12.11-rc.0, 2024-04-17
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-  - remove MY_READING feature toggle
-
-### Commits
-
 - [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
 - [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
 
