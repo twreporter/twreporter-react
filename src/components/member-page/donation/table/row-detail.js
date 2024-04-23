@@ -11,10 +11,11 @@ import {
 } from '@twreporter/react-components/lib/rwd'
 import divider from '@twreporter/react-components/lib/divider'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
+import { LinkButton } from '@twreporter/react-components/lib/button'
 // components
 import { StatusBadge } from '../status-bagde'
 import { formattedDate } from './row'
-import { DonationType } from '../../../../constants/donation'
+import { DonationType, PayMethodType } from '../../../../constants/donation'
 
 const P1Gray800 = styled(P1)`
   color: ${colorGrayscale.gray800};
@@ -85,6 +86,12 @@ const Dot = styled.div`
 
 const PaymentRecordBox = styled.div`
   width: 100%;
+  .payment-record-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
   .payment-record-table {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -179,6 +186,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     send_receipt: sendReceipt,
     receipt_header: receiptHeader,
     is_anonymous: isAnonymous,
+    pay_method: payMethod,
   } = record
   const receiptAddress = `${record.address_state || ''}${record.address_city ||
     ''}${record.address_detail || ''}`
@@ -246,14 +254,31 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
           <P1Gray800 weight={P1.Weight.BOLD} text="扣款方式" />
           <Divider />
           <div className="card-number">
-            <P1Gray800 text={cardTypeDictionary[cardType]} />
-            <DotGroups />
-            <P1Gray800 text={cardLastFour} />
+            {payMethod === PayMethodType.LINE ? (
+              <P1Gray800 text="Line Pay" />
+            ) : (
+              <>
+                <P1Gray800 text={cardTypeDictionary[cardType]} />
+                <DotGroups />
+                <P1Gray800 text={cardLastFour} />
+              </>
+            )}
           </div>
         </PaymentInfoBox>
         {record.type === DonationType.PERIODIC && (
           <PaymentRecordBox>
-            <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+            <div className="payment-record-title">
+              <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+              <LinkButton
+                type={LinkButton.Type.UNDERLINE}
+                text="下載所有紀錄"
+                TextComponent={P2}
+                link={{
+                  to: '/account/donation-history/download',
+                  target: '_blank',
+                }}
+              />
+            </div>
             <Divider />
             <TabletAndAbove>
               <div className="payment-record-table">
