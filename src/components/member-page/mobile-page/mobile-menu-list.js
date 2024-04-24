@@ -14,20 +14,10 @@ import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
 
-// feature toggle
 import {
-  ListType as ListTypeOld,
-  MENU_LIST_DATA_MOBILE as MENU_LIST_DATA_MOBILE_OLD,
-} from '../../../constants/membership-menu-old'
-import {
-  ListType as ListTypeNew,
-  MENU_LIST_DATA_MOBILE as MENU_LIST_DATA_MOBILE_NEW,
+  ListType,
+  MENU_LIST_DATA_MOBILE,
 } from '../../../constants/membership-menu'
-import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
-const ListType = MY_READING ? ListTypeNew : ListTypeOld
-const MENU_LIST_DATA_MOBILE = MY_READING
-  ? MENU_LIST_DATA_MOBILE_NEW
-  : MENU_LIST_DATA_MOBILE_OLD
 
 const MobileMemberMenuListConatiner = styled.div`
   max-width: 320px;

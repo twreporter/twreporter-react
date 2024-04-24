@@ -2,11 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { matchPath } from 'react-router-dom'
 import localForage from 'localforage'
 import * as dayjs from 'dayjs'
-//  @twreporters
-import { MY_READING } from '@twreporter/core/lib/constants/feature-flag'
 // constants
-import routesOld from '../constants/routes-old'
-import routesNew from '../constants/routes'
+import routes from '../constants/routes'
 // lodash
 import some from 'lodash/some'
 import map from 'lodash/map'
@@ -14,8 +11,6 @@ const _ = {
   some,
   map,
 }
-
-const routes = MY_READING ? routesNew : routesOld
 
 const PromoType = {
   POPUP: 'popup',

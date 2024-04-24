@@ -12,6 +12,7 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import twreporterRedux from '@twreporter/redux'
 import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
+import { POST_REVIEW } from '@twreporter/core/lib/constants/feature-flag'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -22,6 +23,7 @@ import SavedBookmarksPage from '../components/my-reading/saved-bookmarks-page'
 import BrowsingHistoryPage from '../components/my-reading/browsing-history-page'
 import SavedBookmarksSection from '../components/my-reading/saved-bookmakrs-section'
 import BrowsingHistorySection from '../components/my-reading/browsing-history-section'
+import ReviewingArticleSection from '../components/my-reading/reviewing-article-section'
 
 // lodash
 import get from 'lodash/get'
@@ -69,6 +71,11 @@ const SavedBookmarks = styled.div`
 `
 
 const BrowsingHistory = styled.div`
+  width: 100%;
+  padding-bottom: 24px;
+`
+
+const ReviewingArticles = styled.div`
   width: 100%;
   padding-bottom: 24px;
 `
@@ -137,6 +144,11 @@ const MyReadingPage = ({ isAuthed, jwt }) => {
               <BrowsingHistory>
                 <BrowsingHistorySection />
               </BrowsingHistory>
+              {POST_REVIEW && (
+                <ReviewingArticles>
+                  <ReviewingArticleSection />
+                </ReviewingArticles>
+              )}
             </Route>
             <Route path={routes.myReadingPage.savedBookmarksPage.path}>
               <SavedBookmarksPage />
