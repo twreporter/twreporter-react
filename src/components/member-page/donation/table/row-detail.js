@@ -159,7 +159,7 @@ const Loading = styled.div`
 `
 const LoadingMask = FetchingWrapper(Loading)
 
-const cardTypeDictionary = {
+export const cardTypeDictionary = {
   '-1': 'Unknown',
   '1': 'VISA',
   '2': 'MasterCard',
@@ -187,6 +187,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     receipt_header: receiptHeader,
     is_anonymous: isAnonymous,
     pay_method: payMethod,
+    order_number: orderNumber,
   } = record
   const receiptAddress = `${record.address_state || ''}${record.address_city ||
     ''}${record.address_detail || ''}`
@@ -274,7 +275,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
                 text="下載所有紀錄"
                 TextComponent={P2}
                 link={{
-                  to: '/account/donation-history/download',
+                  to: `/download/donation-history/${orderNumber}?${periodicHistory.total}`,
                   target: '_blank',
                 }}
               />
@@ -282,7 +283,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             <Divider />
             <TabletAndAbove>
               <div className="payment-record-table">
-                {periodicHistory.map((history, idx) => {
+                {periodicHistory?.records?.map((history, idx) => {
                   return (
                     <React.Fragment key={idx}>
                       <P1Gray800
@@ -310,7 +311,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </TabletAndAbove>
             <MobileOnly>
               <div className="payment-record-table">
-                {periodicHistory.map((history, idx) => {
+                {periodicHistory?.records?.map((history, idx) => {
                   return (
                     <div className="grid-row" key={idx}>
                       <P1Gray800
@@ -345,7 +346,12 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
 
 TableRowDetail.propTypes = {
   record: PropTypes.object.isRequired,
-  periodicHistory: PropTypes.array,
+  periodicHistory: PropTypes.objectOf({
+    offset: PropTypes.number,
+    limit: PropTypes.number,
+    total: PropTypes.number,
+    records: PropTypes.array,
+  }),
   isLoading: PropTypes.bool,
 }
 

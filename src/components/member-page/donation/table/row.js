@@ -1,6 +1,8 @@
 import React, { memo, useState, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import localForage from 'localforage'
+
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -114,7 +116,13 @@ export const TableRow = memo(({ record }) => {
     amount,
     status,
     order_number: orderNumber,
+    receipt_header: receiptHeader,
+    pay_method: payMethod,
+    card_last_four: cardLastFour,
+    card_type: cardType,
   } = record
+  const receiptAddress = `${record.address_state || ''}${record.address_city ||
+    ''}${record.address_detail || ''}`
   const donationDate = formattedDate(new Date(createdAt))
   const amountSuffix = type === DonationType.PRIME ? '元' : '元/月'
   const [isOpen, setIsOpen] = useState(false)
@@ -131,24 +139,47 @@ export const TableRow = memo(({ record }) => {
       orderNumber,
     ])
     if (detail) {
-      setPeriodicHistory(detail.records)
+      setPeriodicHistory(detail)
     } else {
       const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
       dispatch(getUserPeriodicDonationHistory(jwt, orderNumber, 0, 18)).then(
         res => {
-          setPeriodicHistory(_.get(res, 'payload.data.records'))
+          const { meta, records } = _.get(res, 'payload.data')
+          const { limit, offset, total } = meta
+          setPeriodicHistory({ limit, offset, total, records })
         }
       )
     }
   }
 
-  const handleRowClick = () => {
+  const saveToLocalForage = async () => {
+    const storeData = {
+      receiptHeader,
+      receiptAddress,
+      payMethod,
+      cardLastFour,
+      cardType,
+    }
+    await localForage.setItem(
+      `receipt-${orderNumber}`,
+      JSON.stringify(storeData)
+    )
+  }
+
+  const removeFromLocalForage = async () => {
+    await localForage.removeItem(`receipt-${orderNumber}`)
+  }
+
+  const handleRowClick = async () => {
     if (!DONDATION_HISTORY_PHASE_2) return
     setIsLoading(true)
     if (!isOpen) {
       if (type === DonationType.PERIODIC) {
         getPeriodicDonationHistory()
       }
+      await saveToLocalForage()
+    } else {
+      await removeFromLocalForage()
     }
     setTimeout(() => setIsLoading(false), 1000)
     setIsOpen(!isOpen)
