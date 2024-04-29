@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
 import Loadable from 'react-loadable'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
@@ -140,8 +140,10 @@ const jsx = (
 )
 
 Loadable.preloadReady().then(() => {
+  const container = document.getElementById('root')
   if (globalEnv.isDevelopment) {
-    ReactDOM.render(jsx, document.getElementById('root'))
+    const root = createRoot(container)
+    root.render(jsx)
 
     // FPS meter
     import('stats-js')
@@ -163,7 +165,7 @@ Loadable.preloadReady().then(() => {
       })
     return
   }
-  ReactDOM.hydrate(jsx, document.getElementById('root'))
+  hydrateRoot(container, jsx)
 })
 
 /**

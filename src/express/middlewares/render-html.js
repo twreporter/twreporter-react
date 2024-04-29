@@ -6,7 +6,7 @@ import get from 'lodash/get'
 import Html from '../../html'
 import Loadable from 'react-loadable'
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
 
@@ -49,7 +49,7 @@ function renderHTMLMiddleware(
     })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
-    const contentMarkup = ReactDOMServer.renderToString(
+    const contentMarkup = renderToString(
       <StyleSheetManager sheet={sheet.instance}>
         <StaticRouter location={req.url} context={routerStaticContext}>
           <Loadable.Capture report={moduleName => modules.push(moduleName)}>
@@ -74,7 +74,7 @@ function renderHTMLMiddleware(
     // main bundle should be last
     scripts.push(webpackAssets.javascripts.main)
 
-    const html = ReactDOMServer.renderToString(
+    const html = renderToString(
       <Html
         contentMarkup={contentMarkup}
         store={storeForClientSideRendering}
