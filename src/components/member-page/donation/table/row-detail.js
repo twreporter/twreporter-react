@@ -256,7 +256,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
           <Divider />
           <div className="card-number">
             {payMethod === PayMethodType.LINE ? (
-              <P1Gray800 text="Line Pay" />
+              <P1Gray800 text="LINE Pay" />
             ) : (
               <>
                 <P1Gray800 text={cardTypeDictionary[cardType]} />
