@@ -317,7 +317,7 @@ const DonwloadPage = () => {
           <ReceiptContent>
             <ReceiptContentHeader text="付款方式" />
             {receiptPayMethod === PayMethodType.LINE ? (
-              <P3Gray800 text="Line Pay" />
+              <P3Gray800 text="LINE Pay" />
             ) : (
               <>
                 <P3Gray800 text={cardTypeDictionary[cardType]} />
