@@ -221,7 +221,6 @@ const App = ({ reduxStore, releaseBranch }) => {
     <Provider store={reduxStore}>
       {matchDownload ? (
         <Route path={routesConst.download.donationHistory.path}>
-          {' '}
           <DonwloadPage />
         </Route>
       ) : (
