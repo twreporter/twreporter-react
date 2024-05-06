@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useParams, useLocation } from 'react-router-dom'
-import localforage from 'localforage'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 // @twreporter
 import { P3, P4 } from '@twreporter/react-components/lib/text/paragraph'
 import {
@@ -163,8 +163,7 @@ const DotGroups = () =>
     </DotGroup>
   ))
 
-const { actions, reduxStateFields } = twreporterRedux
-const { getUserPeriodicDonationHistory } = actions
+const { reduxStateFields } = twreporterRedux
 
 const statusDictionary = {
   paying: '進行中',
@@ -175,11 +174,8 @@ const statusDictionary = {
 
 const DonwloadPage = () => {
   const { orderNumber } = useParams()
-  const { search } = useLocation()
-  const param = new URLSearchParams(search)
-  const totalHistoryFromParam = Number(param.get('total')) || 18
   const store = useStore()
-  const [state, dispatch] = store
+  const [state] = store
   const [history, setHistory] = useState()
   const [receiptHeader, setReceiptHeader] = useState('')
   const [receiptAddress, setReceiptAddress] = useState('')
@@ -187,47 +183,54 @@ const DonwloadPage = () => {
   const [cardLastFour, setCardLastFour] = useState('')
   const [cardType, setCardType] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
+  const apiOrigin = _.get(state, [reduxStateFields.origins, 'api'])
 
-  const getPeriodicHistory = total => {
-    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-    dispatch(getUserPeriodicDonationHistory(jwt, orderNumber, 0, total))
+  const getReceiptData = async () => {
+    const { data: orderResponseData } = await axios.get(
+      `${apiOrigin}/v1/periodic-donations/orders/${orderNumber}`,
+      {
+        timeout: 8000,
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+        withCredentials: true,
+      }
+    )
+    const {
+      card_info: cardInfo,
+      receipt,
+      pay_method: payMethod,
+    } = orderResponseData.data
+    const address = `${receipt.address_state || ''}${receipt.address_city ||
+      ''}${receipt.address_detail || ''}`
+    setReceiptHeader(receipt.header)
+    setReceiptAddress(address)
+    setReceiptPayMethod(payMethod)
+    setCardLastFour(cardInfo.last_four)
+    setCardType(cardInfo.type)
   }
-
-  useEffect(() => {
-    getPeriodicHistory(totalHistoryFromParam)
-    const getReceiptData = async () => {
-      const data = JSON.parse(
-        await localforage.getItem(`receipt-${orderNumber}`)
-      )
-      setReceiptHeader(data.receiptHeader)
-      setReceiptAddress(data.receiptAddress)
-      setReceiptPayMethod(data.setReceiptPayMethod)
-      setCardLastFour(data.cardLastFour)
-      setCardType(data.cardType)
-    }
-    getReceiptData()
-  }, [])
-
-  useEffect(() => {
-    const records = _.get(state, [
-      reduxStateFields.donationHistory,
-      'periodicDonationHistory',
-      'records',
-      orderNumber,
-      'records',
-    ])
-    const total = _.get(state, [
-      reduxStateFields.donationHistory,
-      'periodicDonationHistory',
-      'records',
-      orderNumber,
-      'total',
-    ])
-    if (total > totalHistoryFromParam) getPeriodicHistory(total)
+  const getPaymentHistory = async () => {
+    // set limit to -1 to get all records
+    const { data: historyResponseData } = await axios.get(
+      `${apiOrigin}/v1/periodic-donations/orders/${orderNumber}/payments?limit=-1`,
+      {
+        timeout: 8000,
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+        withCredentials: true,
+      }
+    )
+    const { records } = historyResponseData
     setHistory(records)
+  }
+  useEffect(() => {
+    getReceiptData()
+    getPaymentHistory()
     setIsLoading(false)
     window.print()
-  }, [state[reduxStateFields.donationHistory]])
+  }, [])
 
   return (
     <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
