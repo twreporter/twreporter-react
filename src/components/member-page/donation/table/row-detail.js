@@ -275,7 +275,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
                 text="下載所有紀錄"
                 TextComponent={P2}
                 link={{
-                  to: `/download/donation-history/${orderNumber}?${periodicHistory.total}`,
+                  to: `/download/donation-history/${orderNumber}`,
                   target: '_blank',
                 }}
               />
