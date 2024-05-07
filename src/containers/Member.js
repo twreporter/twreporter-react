@@ -136,6 +136,7 @@ const MemberPage = ({
         window.location.href = getSignInHref(currentHref)
       }, 2000)
     }
+    // force to get data while CSR
     getUserData(jwt, userID)
   }, [])
 
