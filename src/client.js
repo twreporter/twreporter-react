@@ -2,7 +2,7 @@
 import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
-import Loadable from 'react-loadable'
+import { loadableReady } from '@loadable/component'
 import React from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
@@ -139,7 +139,7 @@ const jsx = (
   </BrowserRouter>
 )
 
-Loadable.preloadReady().then(() => {
+loadableReady(() => {
   const container = document.getElementById('root')
   if (globalEnv.isDevelopment) {
     const root = createRoot(container)

@@ -3,8 +3,7 @@ const config = require('./config')
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const ReactLoadablePlugin = require('react-loadable/webpack')
-  .ReactLoadablePlugin
+const ReactLoadablePlugin = require('@loadable/webpack-plugin')
 
 const isProduction = config.nodeEnv !== 'development'
 const webpackDevServerHost = config.webpackDevServerHost
@@ -57,6 +56,10 @@ BundleListPlugin.prototype.apply = function(compiler) {
 // Hence, we can treat 'bundle' and 'chunk' as the same thing here.
 //
 const webpackConfig = {
+  mode: isProduction ? 'production' : 'development',
+  optimization: {
+    splitChunks: { chunks: 'all' },
+  },
   context: path.resolve(__dirname),
   entry: {
     main: './src/client.js',
@@ -133,103 +136,10 @@ const webpackConfig = {
     // Ref: https://webpack.js.org/plugins/hashed-module-ids-plugin/
     new webpack.HashedModuleIdsPlugin(),
 
-    // Move babel-polyfill and its dependecies into babel-polyfill bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'babel-polyfill',
-      chunks: ['main'],
-      minChunks: function(module) {
-        return (
-          module.context &&
-          /node_modules\/(babel-polyfill|core-js|regenerator-runtime)/.test(
-            module.context
-          )
-        )
-      },
-    }),
-
-    // Move react, react-dom, react-*, redux, history and styled-components into react bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'react',
-      chunks: ['main'],
-      minChunks: function(module) {
-        return (
-          module.context &&
-          /node_modules\/(react|history|redux|styled-components)/.test(
-            module.context
-          )
-        )
-      },
-    }),
-
-    // Move @twreporter/* package into twreporter bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'twreporter',
-      chunks: ['main'],
-      minChunks: function(module) {
-        return (
-          module.context && module.context.includes('node_modules/@twreporter')
-        )
-      },
-    }),
-
-    // Move @twreporter/redux package into twreporter-redux bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'twreporter-redux',
-      chunks: ['twreporter'],
-      minChunks: function(module) {
-        return (
-          module.context &&
-          module.context.includes('node_modules/@twreporter/redux')
-        )
-      },
-    }),
-
-    // Move @twreporter/react-components package into twreporter-react-components bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'twreporter-react-components',
-      chunks: ['twreporter'],
-      minChunks: function(module) {
-        return (
-          module.context &&
-          module.context.includes('node_modules/@twreporter/react-components')
-        )
-      },
-    }),
-
-    // Move @twreporter/universal-header package into twreporter-universal-header bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'twreporter-universal-header',
-      chunks: ['twreporter'],
-      minChunks: function(module) {
-        return (
-          module.context &&
-          module.context.includes('node_modules/@twreporter/universal-header')
-        )
-      },
-    }),
-
-    // Move packages except for react, react-*, styled-components and @twreporter/* into other-vendor bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'other-vendors',
-      chunks: ['main'],
-      minChunks: function(module) {
-        return module.context && module.context.includes('node_modules')
-      },
-    }),
-
-    // Move any modules that occur in at least 2 chunks to a separate file
-    new webpack.optimize.CommonsChunkPlugin({
-      async: true,
-      children: true,
-      minChunks: 2,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity,
-    }),
     new ReactLoadablePlugin({
-      filename: './react-loadable.json',
+      writeToDisk: { filename: path.resolve(__dirname) },
     }),
+
     new BundleListPlugin(),
   ],
 }

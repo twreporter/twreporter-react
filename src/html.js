@@ -20,13 +20,21 @@ const _ = {
 export default class Html extends PureComponent {
   static propTypes = {
     scripts: PropTypes.array.isRequired,
+    scriptElement: PropTypes.arrayOf(PropTypes.element).isRequired,
     styles: PropTypes.array.isRequired,
     contentMarkup: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     styleElement: PropTypes.arrayOf(PropTypes.element).isRequired,
   }
   render() {
-    const { contentMarkup, scripts, store, styleElement, styles } = this.props
+    const {
+      contentMarkup,
+      scripts,
+      scriptElement,
+      store,
+      styleElement,
+      styles,
+    } = this.props
     const head = Helmet.rewind()
     return (
       <html lang="zh-TW">
@@ -114,6 +122,7 @@ export default class Html extends PureComponent {
           {_.map(scripts, (script, key) => (
             <script src={script} key={'scripts' + key} charSet="UTF-8" />
           ))}
+          {scriptElement}
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(d) {
