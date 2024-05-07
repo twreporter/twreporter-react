@@ -83,7 +83,7 @@ const ReviewingArticleSection = () => {
         const { slug, reviewWord, title } = review
         const { url: bgImage } = _.get(
           review,
-          ['og_image', 'resized_targets', 'mobile'],
+          ['og_image', 'resized_targets', 'w400'],
           ''
         )
         const ogDescription = _.get(review, ['og_description'], '')
