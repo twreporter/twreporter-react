@@ -1609,13 +1609,22 @@
     prop-types "^15.0.0"
     styled-components "^4.0.0"
 
-"@twreporter/index-page@^1.5.12":
-  version "1.5.12"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.5.12.tgz#8edc941aec9a7b065510b15e365a8c908a0db47e"
-  integrity sha512-fi9o3UmP3Sh7gdQ+lso0YNSXUXrUTJukhJ5yyXs4VZfs3reUeafuFj4R+E+XagNEo2G89QaBOQCcp4vEukoQjQ==
+"@twreporter/core@^1.21.0-rc.1":
+  version "1.21.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.21.0-rc.1.tgz#2bfcdb3cd2fa64bc5e44edc7a4e12c24535e0306"
+  integrity sha512-Xxpl4NrRRTQGHDfweEMloGjrltomeKJJdiVq0urtwA1Cy2Zm8T/to0qK/t9b5hKZUf9sync185HAAA7dL+cteQ==
   dependencies:
-    "@twreporter/core" "^1.20.0"
-    "@twreporter/react-components" "^8.27.1"
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^4.0.0"
+
+"@twreporter/index-page@^1.5.13-rc.3":
+  version "1.5.13-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-1.5.13-rc.3.tgz#75238d9257e7b19936a53ca0fa54025d6628d634"
+  integrity sha512-tb1PqChDY14r3drCmNfsefwmc50EcUcWvsAW9gpH/o+4AAPw2ZrczzApz664t1pyzRhlLw6Ljn7ZijR/59M5QA==
+  dependencies:
+    "@twreporter/core" "^1.21.0-rc.1"
+    "@twreporter/react-components" "^8.28.0-rc.0"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^16.3.0"
@@ -1627,15 +1636,15 @@
     swiper "6.8.4"
     velocity-react "^1.4.3"
 
-"@twreporter/react-article-components@^1.13.2":
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.13.2.tgz#0f3d9a72e470b2e04d55b4e41883e82b10855be1"
-  integrity sha512-TCsGxPj69lE+2mxHFwJvZhdOA+/lkDiitHqOYhdy6ibAk78roDXaIk4T2I0nmgKFUbyMxiiv4XGjjLw1+u7qoQ==
+"@twreporter/react-article-components@^1.14.0-rc.3":
+  version "1.14.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-1.14.0-rc.3.tgz#f70775b3f3aa099d3a9b6d79c78ca63630704023"
+  integrity sha512-6Vbtzh4m2NSMhRvrDEDuQhBkIsn8lID2WLfLhC5CyeiKQIWtK3zhUPKumoety8PceNIYDGBjQcNoez88MwwO9w==
   dependencies:
-    "@twreporter/core" "^1.20.0"
-    "@twreporter/react-components" "^8.27.1"
-    "@twreporter/redux" "^7.12.0"
-    "@twreporter/universal-header" "^2.12.2"
+    "@twreporter/core" "^1.21.0-rc.1"
+    "@twreporter/react-components" "^8.28.0-rc.0"
+    "@twreporter/redux" "^7.12.1-rc.1"
+    "@twreporter/universal-header" "^2.12.3-rc.3"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
@@ -1645,13 +1654,13 @@
     smooth-scroll "16.1.3"
     styled-components "^4.0.0"
 
-"@twreporter/react-components@^8.27.1":
-  version "8.27.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.27.1.tgz#d0fc2408e879330ddec416bc0dba85988663b652"
-  integrity sha512-Beqx7R+aRfzsj8qfZ/8Wqajhl0D+65gBAkfLLGnDyPtUELwlg2v0cKCUhrTeOqf/jRV0cvFgqTH0bTfyKtJO+g==
+"@twreporter/react-components@^8.28.0-rc.0":
+  version "8.28.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-8.28.0-rc.0.tgz#3ac8e55bd7d8f89ce8d30e44ad7e273b1b22564e"
+  integrity sha512-RaZm7Ap90n9or9Twt33Z1YNzbzGbQYZjqA4m/YkFfn4Mjn1qE4k/p5E4d62YodOcQP5nl5CgEN3DI5fp4bvZ8Q==
   dependencies:
-    "@twreporter/core" "^1.20.0"
-    "@twreporter/redux" "^7.12.0"
+    "@twreporter/core" "^1.21.0-rc.1"
+    "@twreporter/redux" "^7.12.1-rc.1"
     fontfaceobserver-es "^3.3.3"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
@@ -1682,13 +1691,31 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^2.12.2":
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.12.2.tgz#b48796c320feefc6e12190aff84fceea7f102a89"
-  integrity sha512-jTEclVWfihGbkvJq8gWG0oilQeoo+L6HO5eEdiArX2b92JcL+MQUUoe4pLAeILsbfepRiz6XHayxZ+sUmU4Q4A==
+"@twreporter/redux@^7.12.1-rc.1":
+  version "7.12.1-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-7.12.1-rc.1.tgz#8ec37e5e548791846c31347a2dfc5d6f55f3108b"
+  integrity sha512-mwvdSw4DuTjCjw2eMstdah5vb0+6YdSuj4Z5ZHeu5csLfYAo6jflaV7yT4/lJc4oPbIPZkcUB/3Tnsb4vcCoRA==
   dependencies:
-    "@twreporter/core" "^1.20.0"
-    "@twreporter/react-components" "^8.27.1"
+    "@twreporter/core" "^1.21.0-rc.1"
+    axios "^0.19.0"
+    es6-error "^4.0.2"
+    humps "^0.6.0"
+    localforage "^1.7.3"
+    lodash "^4.17.4"
+    node-fetch "^2.6.0"
+    normalizr "^3.2.4"
+    prop-types "^15.0.0"
+    react "^16.3.0"
+    redux "^4.0.1"
+    redux-thunk "^2.3.0"
+
+"@twreporter/universal-header@^2.12.3-rc.3":
+  version "2.12.3-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-2.12.3-rc.3.tgz#47eaa5ac4929c17adccc5118237c4897fce7380d"
+  integrity sha512-v/aNIlvhxat20aRCtTzUT3w3AWwGWZSAgeaafqW48iFN93on4NQ9I1v/lNNg+ks3bC2PAMFadYx6AndGbJJf8A==
+  dependencies:
+    "@twreporter/core" "^1.21.0-rc.1"
+    "@twreporter/react-components" "^8.28.0-rc.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
