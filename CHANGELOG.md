@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.13.1-rc.2, 2024-05-08
+
+### Notable Changes
+
+- fix
+  - fetch user data while CSR
+
+### Commits
+
+- [[`665ab8f67c`](https://github.com/twreporter/twreporter-react/commit/665ab8f67c)] - Merge remote-tracking branch 'upstream/master' into fix/member-page-csr (Lucien)
+- [[`107047f364`](https://github.com/twreporter/twreporter-react/commit/107047f364)] - **fix**: give user_id a default value (Lucien)
+- [[`7fc054290d`](https://github.com/twreporter/twreporter-react/commit/7fc054290d)] - **feat**: add comment (Lucien)
+- [[`8f2b586b44`](https://github.com/twreporter/twreporter-react/commit/8f2b586b44)] - **feat**: fetch user data at mount (Lucien)
+
 ## 4.13.1-rc.1, 2024-05-08
 
 ### Notable Changes
