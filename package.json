@@ -134,6 +134,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^4.47.0",
     "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "2.11.3"
   },
   "husky": {
