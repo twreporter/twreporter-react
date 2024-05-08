@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.0.0-rc.0, 2024-05-08
+
+### Notable Changes
+
+- feat
+  - upgrade `react` & `react-dom` to v18
+- fix
+  - replace `react-loadable` with `@loadable/component`
+- chore
+  - update @twreporter packages version
+
+### Commits
+
+- [[`85b25859b0`](https://github.com/twreporter/twreporter-react/commit/85b25859b0)] - **chore**: update @twreporter packages version (Aylie Chou)
+- [[`2683ef1701`](https://github.com/twreporter/twreporter-react/commit/2683ef1701)] - **fix**: replace `react-loadable` with `@loadable/component` (Aylie Chou)
+- [[`9a6df1c00a`](https://github.com/twreporter/twreporter-react/commit/9a6df1c00a)] - **feat**: upgrade `react` & `react-dom` to v18 (Aylie Chou)
+
 ## 4.13.1-rc.2, 2024-05-08
 
 ### Notable Changes
