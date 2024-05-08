@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.0-rc.1, 2024-05-09
+
+### Notable Changes
+
+- fix
+  - add `webpack-cli` & remove deprecated uglify plugin
+  - replace `react-helmet` with `react-helmet-async`
+
+### Commits
+
+- [[`77543c1251`](https://github.com/twreporter/twreporter-react/commit/77543c1251)] - **fix**: replace `react-helmet` with `react-helmet-async` (Aylie Chou)
+- [[`854d418201`](https://github.com/twreporter/twreporter-react/commit/854d418201)] - **fix**: add `webpack-cli` & remove deprecated uglify plugin (Aylie Chou)
+
 ## 5.0.0-rc.0, 2024-05-08
 
 ### Notable Changes
