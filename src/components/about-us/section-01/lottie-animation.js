@@ -1,6 +1,6 @@
 // polyfill webpack require.ensure for node environment
 import mq from '../utils/media-query'
-import Loadable from 'react-loadable'
+import Loadable from '@loadable/component'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -40,43 +40,46 @@ export default class LottieAnim extends PureComponent {
   }
   _getLottieComponent = () => {
     const modulePlaceHolder = null
-    const LoadableComponent = Loadable.Map({
-      loader: {
-        Lottie: () =>
+    const LoadableComponent = (...props) => {
+      const Lottie = Loadable.lib(
+        () =>
           import(
             /* webpackChunkName: "lottie" */
             '../utils/lottie'
           ),
-        anim1: () =>
+        { fallback: modulePlaceHolder }
+      )
+      const anim1 = Loadable.lib(
+        () =>
           import(
             /* webpackChunkName: "aboutus-section1-anim1" */
             '../../../../static/asset/about-us/animation/section1-1.json'
           ),
-        anim2: () =>
+        { fallback: modulePlaceHolder }
+      )
+      const anim2 = Loadable.lib(
+        () =>
           import(
             /* webpackChunkName: "aboutus-section1-anim2" */
             '../../../../static/asset/about-us/animation/section1-2.json'
           ),
-        anim3: () =>
+        { fallback: modulePlaceHolder }
+      )
+      const anim3 = Loadable.lib(
+        () =>
           import(
             /* webpackChunkName: "aboutus-section1-anim3" */
             '../../../../static/asset/about-us/animation/section1-3.json'
           ),
-      },
-      render(loaded, props) {
-        if (loaded.Lottie) {
-          const Lottie = loaded.Lottie.default
-          const { anim1, anim2, anim3 } = loaded
-          this.animations = [anim1, anim2, anim3]
-          props.options.animationData = this.animations[props.dataIndex]
-          return <Lottie {...props} />
-        }
-        return modulePlaceHolder
-      },
-      loading() {
-        return modulePlaceHolder
-      },
-    })
+        { fallback: modulePlaceHolder }
+      )
+
+      const animations = [anim1, anim2, anim3]
+      if (props.options) {
+        props.options.animationData = animations[props.dataIndex]
+      }
+      return <Lottie {...props} />
+    }
     return LoadableComponent
   }
   render() {

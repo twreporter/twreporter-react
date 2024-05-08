@@ -23,7 +23,6 @@ const presets = [
 ]
 
 const plugins = [
-  'react-loadable/babel',
   isServeSideRendering
     ? 'dynamic-import-node-babel-7'
     : '@babel/plugin-syntax-dynamic-import',
@@ -48,6 +47,7 @@ const plugins = [
     },
   ],
   '@babel/plugin-transform-runtime',
+  '@loadable/babel-plugin',
 ].filter(Boolean)
 
 module.exports = function buildTwreporterReactPreset() {
