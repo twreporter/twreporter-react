@@ -6,6 +6,7 @@ import get from 'lodash/get'
 import Html from '../../html'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { HelmetProvider } from 'react-helmet-async'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import twreporterRedux from '@twreporter/redux'
 
@@ -47,19 +48,22 @@ function renderHTMLMiddleware(
     })
     const routerStaticContext = {}
     const sheet = new ServerStyleSheet()
+    const helmetContext = {}
     // get loadable chunk
     // `loadable-state.json` is created by `@lodable/webpack-plugin`
     const extractor = new ChunkExtractor({ stats: loadableStats })
     const contentMarkup = renderToString(
       extractor.collectChunks(
-        <StyleSheetManager sheet={sheet.instance}>
-          <StaticRouter location={req.url} context={routerStaticContext}>
-            <App
-              reduxStore={storeForClientSideRendering}
-              releaseBranch={options.releaseBranch}
-            />
-          </StaticRouter>
-        </StyleSheetManager>
+        <HelmetProvider context={helmetContext}>
+          <StyleSheetManager sheet={sheet.instance}>
+            <StaticRouter location={req.url} context={routerStaticContext}>
+              <App
+                reduxStore={storeForClientSideRendering}
+                releaseBranch={options.releaseBranch}
+              />
+            </StaticRouter>
+          </StyleSheetManager>
+        </HelmetProvider>
       )
     )
 
@@ -70,6 +74,7 @@ function renderHTMLMiddleware(
     // main bundle should be last
     scripts.push(webpackAssets.javascripts.main)
 
+    const { helmet } = helmetContext
     const html = renderToString(
       <Html
         contentMarkup={contentMarkup}
@@ -78,6 +83,7 @@ function renderHTMLMiddleware(
         scriptElement={extractor.getScriptElements()}
         styles={webpackAssets.stylesheets}
         styleElement={sheet.getStyleElement()}
+        helmet={helmet}
       />
     )
 

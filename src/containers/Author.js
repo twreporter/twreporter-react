@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { denormalizeArticles } from '../utils/denormalize-articles'
 import AuthorCollection from '../components/author-page/author-collection'
 import AuthorData from '../components/author-page/author-data'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import loggerFactory from '../logger'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -102,7 +102,7 @@ class Author extends React.Component {
     const canonical = `${siteMeta.urlOrigin}/authors/${author.id}`
     const pureTextBio = author.bio ? author.bio.replace(/<[^>]*>?/gm, '') : '' // pure text only
     return (
-      <React.Fragment>
+      <HelmetProvider>
         <Helmet
           title={fullTitle}
           link={[{ rel: 'canonical', href: canonical }]}
@@ -133,7 +133,7 @@ class Author extends React.Component {
           totalResults={collectionMeta.totalResults}
         />
         <Sponsor />
-      </React.Fragment>
+      </HelmetProvider>
     )
   }
 }

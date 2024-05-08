@@ -69,6 +69,7 @@ const webpackConfig = {
     filename: webpackOutputFilename,
     path: path.join(__dirname, 'dist'),
     publicPath: webpackPublicPath,
+    hashFunction: 'sha256',
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -145,10 +146,7 @@ const webpackConfig = {
 }
 
 if (isProduction) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin()
-    //  new BundleAnalyzerPlugin()
-  )
+  webpackConfig.optimization.minimize = true
 } else {
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 }
