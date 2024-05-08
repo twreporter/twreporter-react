@@ -1,5 +1,26 @@
 # Changelog
 
+## 4.13.1-rc.0, 2024-05-08
+
+### Notable Changes
+
+- feat
+  - download page for donation history records
+- chore
+  - update @twreporter packages
+  - remove `DONDATION_HISTORY_PHASE_2` feature toggle
+
+### Commits
+
+- [[`6b73fb947f`](https://github.com/twreporter/twreporter-react/commit/6b73fb947f)] - **chore**: update twreporter packages (Lucien)
+- [[`4a0a92a8d8`](https://github.com/twreporter/twreporter-react/commit/4a0a92a8d8)] - **feat**: add try catch for axios request (Lucien)
+- [[`cb89b94c7d`](https://github.com/twreporter/twreporter-react/commit/cb89b94c7d)] - **fix**: remove unused code (Lucien)
+- [[`742e3e20b7`](https://github.com/twreporter/twreporter-react/commit/742e3e20b7)] - **feat**: get data from api (Lucien)
+- [[`2ef689408d`](https://github.com/twreporter/twreporter-react/commit/2ef689408d)] - **feat**: remove feature toggle and fix typo (Lucien)
+- [[`ea9fc3a78d`](https://github.com/twreporter/twreporter-react/commit/ea9fc3a78d)] - **feat**: download page (Lucien)
+- [[`2833281236`](https://github.com/twreporter/twreporter-react/commit/2833281236)] - **feat**: add download route (Lucien)
+- [[`cc1125bbf1`](https://github.com/twreporter/twreporter-react/commit/cc1125bbf1)] - **feat**: pay method and download button (Lucien)
+
 ## 4.13.0, 2024-04-23 (Current)
 
 ### Notable Changes
