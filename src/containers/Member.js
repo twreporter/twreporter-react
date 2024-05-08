@@ -114,8 +114,10 @@ const MemberPage = ({
   memberData,
   jwt,
   isAuthed,
+  userID,
   readPostsCount,
   readPostsSec,
+  getUserData,
 }) => {
   const { pathname } = useLocation()
   const { releaseBranch } = useContext(CoreContext)
@@ -134,6 +136,8 @@ const MemberPage = ({
         window.location.href = getSignInHref(currentHref)
       }, 2000)
     }
+    // force to get data while CSR
+    getUserData(jwt, userID)
   }, [])
 
   if (!isAuthed || !jwt) {
@@ -298,14 +302,22 @@ MemberPage.propTypes = {
   }),
   isAuthed: PropTypes.bool.isRequired,
   jwt: PropTypes.string.isRequired,
+  userID: PropTypes.number.isRequired,
   readPostsCount: PropTypes.number,
   readPostsSec: PropTypes.number,
+  getUserData: PropTypes.func.isRequired,
 }
 
-const { reduxStateFields } = twreporterRedux
+const { actions, reduxStateFields } = twreporterRedux
+const { getUserData } = actions
 const mapStateToProps = state => {
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
   const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  const userID = _.get(
+    state,
+    [reduxStateFields.auth, 'userInfo', 'user_id'],
+    -1
+  )
   const email = _.get(state, [reduxStateFields.user, 'email'])
   const firstName = _.get(state, [reduxStateFields.user, 'firstName'])
   const lastName = _.get(state, [reduxStateFields.user, 'lastName'])
@@ -323,6 +335,7 @@ const mapStateToProps = state => {
   return {
     jwt,
     isAuthed,
+    userID,
     memberData: {
       email,
       name: `${lastName}${firstName}`,
@@ -337,4 +350,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(MemberPage)
+export default connect(
+  mapStateToProps,
+  { getUserData }
+)(MemberPage)
