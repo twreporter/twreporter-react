@@ -313,7 +313,11 @@ const { getUserData } = actions
 const mapStateToProps = state => {
   const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
   const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  const userID = _.get(
+    state,
+    [reduxStateFields.auth, 'userInfo', 'user_id'],
+    -1
+  )
   const email = _.get(state, [reduxStateFields.user, 'email'])
   const firstName = _.get(state, [reduxStateFields.user, 'firstName'])
   const lastName = _.get(state, [reduxStateFields.user, 'lastName'])
