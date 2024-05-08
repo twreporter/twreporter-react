@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useLocation } from 'react-router-dom'
 
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
@@ -14,19 +13,18 @@ import {
   MobileOnly,
 } from '@twreporter/react-components/lib/rwd'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
+import { useStore } from '@twreporter/react-components/lib/hook'
+import twreporterRedux from '@twreporter/redux'
 
 // components
 import EmptyBox from './empty-box'
 import ReviewingCard from './reviewing-card'
 
-const fakeArticle = {
-  slug: 'oppose-introducing-indian-migrant-workers',
-  reviewWord: '好看的喔',
-  title: '暌違20年再開國門，歧視移工爭議風波如何因印度再現？',
-  ogDescription:
-    '週末，台灣首見「反對增加新移工國」抗議集會。當台灣人對印度的不理解、勞動階級對政府的不信任互相加乘，彷彿重返1992年場景，複製了過往對東南亞各國的偏見，也象徵台印間的合作，確實需要更多配套與交流。',
-  bgImage:
-    'https://www.twreporter.org/images/20231204041907-82c3b4ae9a893d08b176a96f5476dbdd-tablet.jpg',
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get,
 }
 
 const ReviewingArticleContainer = styled.div`
@@ -60,19 +58,16 @@ const MoreButton = styled(TextButton)`
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
+const { actions, reduxStateFields } = twreporterRedux
+const { getPostReviews } = actions
+
 const ReviewingArticleSection = () => {
   const [showMore, setShowMore] = useState(false)
   const [reviewingArticles, setReviewingArticles] = useState([])
   const [showingReviewingArticle, setShowingReviewingArticle] = useState([])
+  const [totalReviewingArticle, setTotalReviewingArticle] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-
-  const { search } = useLocation()
-  const param = new URLSearchParams(search)
-  const totalReviewingArticle = Number(param.get('total')) || 0
-
-  const generateFakeData = length => {
-    return Array(length).fill(fakeArticle)
-  }
+  const [state, dispatch] = useStore()
 
   const handleShowMoreClick = () => {
     setShowMore(false)
@@ -81,15 +76,35 @@ const ReviewingArticleSection = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    const fakeData = generateFakeData(totalReviewingArticle)
-    setReviewingArticles(fakeData)
-    if (fakeData.length > 3) {
-      setShowingReviewingArticle(fakeData.slice(0, 3))
-      setShowMore(true)
-    } else {
-      setShowingReviewingArticle(fakeData)
-    }
-    setTimeout(() => setIsLoading(false), 1000)
+    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
+    dispatch(getPostReviews(jwt)).then(res => {
+      const reviews = _.get(res, ['payload', 'data', 'data'], [])
+      const formattedReviews = reviews.map(review => {
+        const { slug, reviewWord, title } = review
+        const { url: bgImage } = _.get(
+          review,
+          ['og_image', 'resized_targets', 'w400'],
+          ''
+        )
+        const ogDescription = _.get(review, ['og_description'], '')
+        return {
+          slug,
+          reviewWord,
+          title,
+          bgImage,
+          ogDescription,
+        }
+      })
+      setTotalReviewingArticle(formattedReviews.length)
+      setReviewingArticles(formattedReviews)
+      if (formattedReviews.length > 3) {
+        setShowingReviewingArticle(formattedReviews.slice(0, 3))
+        setShowMore(true)
+      } else {
+        setShowingReviewingArticle(formattedReviews)
+      }
+      setIsLoading(false)
+    })
   }, [])
 
   return (

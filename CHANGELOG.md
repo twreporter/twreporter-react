@@ -1,6 +1,56 @@
 # Changelog
 
-## 4.13.0, 2024-04-23
+## 4.13.1-rc.2, 2024-05-08
+
+### Notable Changes
+
+- fix
+  - fetch user data while CSR
+
+### Commits
+
+- [[`665ab8f67c`](https://github.com/twreporter/twreporter-react/commit/665ab8f67c)] - Merge remote-tracking branch 'upstream/master' into fix/member-page-csr (Lucien)
+- [[`107047f364`](https://github.com/twreporter/twreporter-react/commit/107047f364)] - **fix**: give user_id a default value (Lucien)
+- [[`7fc054290d`](https://github.com/twreporter/twreporter-react/commit/7fc054290d)] - **feat**: add comment (Lucien)
+- [[`8f2b586b44`](https://github.com/twreporter/twreporter-react/commit/8f2b586b44)] - **feat**: fetch user data at mount (Lucien)
+
+## 4.13.1-rc.1, 2024-05-08
+
+### Notable Changes
+
+- feat
+  - use post reviews data from redux
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`e6cc4c14d4`](https://github.com/twreporter/twreporter-react/commit/e6cc4c14d4)] - **chore**: update twreporter packages (Lucien)
+- [[`2404e4db22`](https://github.com/twreporter/twreporter-react/commit/2404e4db22)] - **fix**: use w400 image (Lucien)
+- [[`050ed80508`](https://github.com/twreporter/twreporter-react/commit/050ed80508)] - **feat**: use post reviews data from redux (Lucien)
+
+## 4.13.1-rc.0, 2024-05-08
+
+### Notable Changes
+
+- feat
+  - download page for donation history records
+- chore
+  - update @twreporter packages
+  - remove `DONDATION_HISTORY_PHASE_2` feature toggle
+
+### Commits
+
+- [[`6b73fb947f`](https://github.com/twreporter/twreporter-react/commit/6b73fb947f)] - **chore**: update twreporter packages (Lucien)
+- [[`4a0a92a8d8`](https://github.com/twreporter/twreporter-react/commit/4a0a92a8d8)] - **feat**: add try catch for axios request (Lucien)
+- [[`cb89b94c7d`](https://github.com/twreporter/twreporter-react/commit/cb89b94c7d)] - **fix**: remove unused code (Lucien)
+- [[`742e3e20b7`](https://github.com/twreporter/twreporter-react/commit/742e3e20b7)] - **feat**: get data from api (Lucien)
+- [[`2ef689408d`](https://github.com/twreporter/twreporter-react/commit/2ef689408d)] - **feat**: remove feature toggle and fix typo (Lucien)
+- [[`ea9fc3a78d`](https://github.com/twreporter/twreporter-react/commit/ea9fc3a78d)] - **feat**: download page (Lucien)
+- [[`2833281236`](https://github.com/twreporter/twreporter-react/commit/2833281236)] - **feat**: add download route (Lucien)
+- [[`cc1125bbf1`](https://github.com/twreporter/twreporter-react/commit/cc1125bbf1)] - **feat**: pay method and download button (Lucien)
+
+## 4.13.0, 2024-04-23 (Current)
 
 ### Notable Changes
 
@@ -68,7 +118,7 @@
 - [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
 - [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
 
-## 4.12.10, 2024-04-10 (Current)
+## 4.12.10, 2024-04-10
 
 ### Notable Changes
 
