@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.13.1-rc.1, 2024-05-08
+
+### Notable Changes
+
+- feat
+  - use post reviews data from redux
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`e6cc4c14d4`](https://github.com/twreporter/twreporter-react/commit/e6cc4c14d4)] - **chore**: update twreporter packages (Lucien)
+- [[`2404e4db22`](https://github.com/twreporter/twreporter-react/commit/2404e4db22)] - **fix**: use w400 image (Lucien)
+- [[`050ed80508`](https://github.com/twreporter/twreporter-react/commit/050ed80508)] - **feat**: use post reviews data from redux (Lucien)
+
 ## 4.13.1-rc.0, 2024-05-08
 
 ### Notable Changes
