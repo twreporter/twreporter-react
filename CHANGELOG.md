@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.0-rc.2, 2024-05-09
+
+### Notable Changes
+
+- fix
+  - build fail in node v18
+
+### Commits
+
+- [[`ee733bb505`](https://github.com/twreporter/twreporter-react/commit/ee733bb505)] - **fix**: build fail in node v18 (Aylie Chou)
+
 ## 5.0.0-rc.1, 2024-05-09
 
 ### Notable Changes

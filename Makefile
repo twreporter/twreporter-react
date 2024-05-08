@@ -17,9 +17,11 @@ help:
 	@echo "\033[33mmake test\033[0m - run unit tests and UI tests"
 
 # build webpacks client side needed
+# set NODE_OPTIONS as --openssl-legacy-provider to fix digital envelope routines::unsupported error
+#   ref: https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js
+	NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js
 
 build-service-worker: 
 	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
