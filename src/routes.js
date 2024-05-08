@@ -281,6 +281,10 @@ export default function getRoutes() {
       loadData: dataLoaders.loadMemberPageData,
       path: routesConst.memberPage.path,
     },
+    {
+      path: routesConst.download.donationHistory.path,
+      authorizationRequired: true,
+    },
     // error  page
     {
       path: routesConst.errorPage.path,

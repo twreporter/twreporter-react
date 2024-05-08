@@ -23,3 +23,11 @@ export const PrimeDonationStatus = Object.freeze({
   FAIL: 'fail',
   REFUNDED: 'refunded',
 })
+
+export const PayMethodType = Object.freeze({
+  CREDIT_CARD: 'credit_card',
+  LINE: 'line',
+  APPLE: 'apple',
+  GOOGLE: 'google',
+  SAMSUNG: 'samsung',
+})

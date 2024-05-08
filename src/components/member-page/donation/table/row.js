@@ -1,6 +1,7 @@
 import React, { memo, useState, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -10,7 +11,6 @@ import divider from '@twreporter/react-components/lib/divider'
 import { useStore } from '@twreporter/react-components/lib/hook'
 import twreporterRedux from '@twreporter/redux'
 import { IconButton } from '@twreporter/react-components/lib/button'
-import { DONDATION_HISTORY_PHASE_2 } from '@twreporter/core/lib/constants/feature-flag'
 // constants
 import { DonationType, DonationTypeLabel } from '../../../../constants/donation'
 // components
@@ -30,7 +30,7 @@ const { getUserPeriodicDonationHistory } = actions
 
 const TableContent = styled.div`
   display: contents;
-  ${props => (props.isPhase2 ? 'cursor: pointer;' : '')}
+  cursor: pointer;
   .donation-date {
     grid-column: 1 / 2;
   }
@@ -131,19 +131,20 @@ export const TableRow = memo(({ record }) => {
       orderNumber,
     ])
     if (detail) {
-      setPeriodicHistory(detail.records)
+      setPeriodicHistory(detail)
     } else {
       const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
       dispatch(getUserPeriodicDonationHistory(jwt, orderNumber, 0, 18)).then(
         res => {
-          setPeriodicHistory(_.get(res, 'payload.data.records'))
+          const { meta, records } = _.get(res, 'payload.data')
+          const { limit, offset, total } = meta
+          setPeriodicHistory({ limit, offset, total, records })
         }
       )
     }
   }
 
-  const handleRowClick = () => {
-    if (!DONDATION_HISTORY_PHASE_2) return
+  const handleRowClick = async () => {
     setIsLoading(true)
     if (!isOpen) {
       if (type === DonationType.PERIODIC) {
@@ -155,10 +156,7 @@ export const TableRow = memo(({ record }) => {
   }
   return (
     <React.Fragment>
-      <TableContent
-        onClick={handleRowClick}
-        isPhase2={DONDATION_HISTORY_PHASE_2}
-      >
+      <TableContent onClick={handleRowClick}>
         <P1Gray800 className="donation-date" text={donationDate} />
         <P1Gray800 className="type" text={DonationTypeLabel[type]} />
         <P1Gray800 className="donation-number" text={orderNumber} />
@@ -168,20 +166,18 @@ export const TableRow = memo(({ record }) => {
         />
         <div className="status">
           <StatusBadge status={status} type={type} />
-          {DONDATION_HISTORY_PHASE_2 && (
-            <IconButton
-              iconComponent={
-                <ArrowIcon
-                  direction={Arrow.Direction.DOWN}
-                  rotate={isOpen ? '-180deg' : '0'}
-                  releaseBranch={releaseBranch}
-                />
-              }
-              theme={IconButton.THEME.normal}
-              type={IconButton.Type.PRIMARY}
-              active={false}
-            />
-          )}
+          <IconButton
+            iconComponent={
+              <ArrowIcon
+                direction={Arrow.Direction.DOWN}
+                rotate={isOpen ? '-180deg' : '0'}
+                releaseBranch={releaseBranch}
+              />
+            }
+            theme={IconButton.THEME.normal}
+            type={IconButton.Type.PRIMARY}
+            active={false}
+          />
         </div>
       </TableContent>
       <MobileTableContent onClick={handleRowClick}>
@@ -193,20 +189,18 @@ export const TableRow = memo(({ record }) => {
             className="amount"
             text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
           />
-          {DONDATION_HISTORY_PHASE_2 && (
-            <IconButton
-              iconComponent={
-                <ArrowIcon
-                  direction={Arrow.Direction.DOWN}
-                  rotate={isOpen ? '-180deg' : '0'}
-                  releaseBranch={releaseBranch}
-                />
-              }
-              theme={IconButton.THEME.normal}
-              type={IconButton.Type.PRIMARY}
-              active={false}
-            />
-          )}
+          <IconButton
+            iconComponent={
+              <ArrowIcon
+                direction={Arrow.Direction.DOWN}
+                rotate={isOpen ? '-180deg' : '0'}
+                releaseBranch={releaseBranch}
+              />
+            }
+            theme={IconButton.THEME.normal}
+            type={IconButton.Type.PRIMARY}
+            active={false}
+          />
         </div>
         <P1Gray600 className="donation-number" text={orderNumber} />
       </MobileTableContent>
