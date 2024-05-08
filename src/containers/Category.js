@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
 import React, { useEffect } from 'react'
@@ -130,36 +130,38 @@ const Category = ({
     )
 
   return (
-    <div>
-      <Helmet
-        title={title}
-        link={[{ rel: 'canonical', href: canonical }]}
-        meta={[
-          { name: 'description', content: siteMeta.desc },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: siteMeta.desc },
-          { name: 'twitter:image', content: siteMeta.ogImage.url },
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: siteMeta.desc },
-          { property: 'og:image', content: siteMeta.ogImage.url },
-          { property: 'og:image:width', content: siteMeta.ogImage.width },
-          { property: 'og:image:height', content: siteMeta.ogImage.height },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: canonical },
-        ]}
-      />
-      <Container>
-        <TitleTabContainer>
-          <TitleTab
-            title={catLabel}
-            tabs={tabs}
-            activeTabIndex={activeTabIndex}
-          />
-        </TitleTabContainer>
-        <ListContainer>{listJSX}</ListContainer>
-        <Pagination currentPage={page} totalPages={totalPages} />
-      </Container>
-    </div>
+    <HelmetProvider>
+      <div>
+        <Helmet
+          title={title}
+          link={[{ rel: 'canonical', href: canonical }]}
+          meta={[
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical },
+          ]}
+        />
+        <Container>
+          <TitleTabContainer>
+            <TitleTab
+              title={catLabel}
+              tabs={tabs}
+              activeTabIndex={activeTabIndex}
+            />
+          </TitleTabContainer>
+          <ListContainer>{listJSX}</ListContainer>
+          <Pagination currentPage={page} totalPages={totalPages} />
+        </Container>
+      </div>
+    </HelmetProvider>
   )
 }
 

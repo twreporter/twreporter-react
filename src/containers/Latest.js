@@ -1,6 +1,6 @@
 import { ReactReduxContext, connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
@@ -246,62 +246,64 @@ const Latest = ({
   }
 
   return (
-    <div>
-      <Helmet
-        title={title}
-        link={[{ rel: 'canonical', href: canonical }]}
-        meta={[
-          { name: 'description', content: siteMeta.desc },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: siteMeta.desc },
-          { name: 'twitter:image', content: siteMeta.ogImage.url },
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: siteMeta.desc },
-          { property: 'og:image', content: siteMeta.ogImage.url },
-          { property: 'og:image:width', content: siteMeta.ogImage.width },
-          { property: 'og:image:height', content: siteMeta.ogImage.height },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: canonical },
-        ]}
-      />
-      <Container>
-        <TitleTabContainer>
-          <TitleTab
-            title={titleText}
-            tabs={tabs}
-            activeTabIndex={activeTabIndex}
-          />
-        </TitleTabContainer>
-        <CardListContainer>
-          <CardList
-            data={posts}
-            showSpinner={true}
-            showIsBookmarked={!!isAuthed}
-            releaseBranch={releaseBranch}
-          />
-        </CardListContainer>
-        <LoadMoreBox>
-          <SkeletonBox show={isLoading}>
-            <ListSkeleton />
-            <Gray300Divider />
-            <ListSkeleton />
-            <Gray300Divider />
-            <ListSkeleton />
-            <Gray300Divider />
-          </SkeletonBox>
-          <LoadMoreButton
-            loading={isLoading}
-            onClick={loadMore}
-            style={PillButton.Style.DARK}
-            type={PillButton.Type.PRIMARY}
-            size={PillButton.Size.L}
-            text="載入更多"
-            show={totalPages > page}
-          />
-        </LoadMoreBox>
-        <GetSomeSpace height={'120px'} show={totalPages <= page} />
-      </Container>
-    </div>
+    <HelmetProvider>
+      <div>
+        <Helmet
+          title={title}
+          link={[{ rel: 'canonical', href: canonical }]}
+          meta={[
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical },
+          ]}
+        />
+        <Container>
+          <TitleTabContainer>
+            <TitleTab
+              title={titleText}
+              tabs={tabs}
+              activeTabIndex={activeTabIndex}
+            />
+          </TitleTabContainer>
+          <CardListContainer>
+            <CardList
+              data={posts}
+              showSpinner={true}
+              showIsBookmarked={!!isAuthed}
+              releaseBranch={releaseBranch}
+            />
+          </CardListContainer>
+          <LoadMoreBox>
+            <SkeletonBox show={isLoading}>
+              <ListSkeleton />
+              <Gray300Divider />
+              <ListSkeleton />
+              <Gray300Divider />
+              <ListSkeleton />
+              <Gray300Divider />
+            </SkeletonBox>
+            <LoadMoreButton
+              loading={isLoading}
+              onClick={loadMore}
+              style={PillButton.Style.DARK}
+              type={PillButton.Type.PRIMARY}
+              size={PillButton.Size.L}
+              text="載入更多"
+              show={totalPages > page}
+            />
+          </LoadMoreBox>
+          <GetSomeSpace height={'120px'} show={totalPages <= page} />
+        </Container>
+      </div>
+    </HelmetProvider>
   )
 }
 

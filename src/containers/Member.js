@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 // context
 import { CoreContext } from '../contexts'
@@ -203,88 +203,92 @@ const MemberPage = ({
   )
 
   return (
-    <div>
-      <Helmet
-        title={title}
-        link={[{ rel: 'canonical', href: canonical }]}
-        meta={[
-          { name: 'description', content: siteMeta.desc },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: siteMeta.desc },
-          { name: 'twitter:image', content: siteMeta.ogImage.url },
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: siteMeta.desc },
-          { property: 'og:image', content: siteMeta.ogImage.url },
-          { property: 'og:image:width', content: siteMeta.ogImage.width },
-          { property: 'og:image:height', content: siteMeta.ogImage.height },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: canonical },
-        ]}
-      />
-      <TabletAndAbove>
-        <PageContainer>
-          <MenuContainer>
-            <MemberMenuList />
-          </MenuContainer>
-          <ContentContainer path={pathname}>
-            <Switch>
-              <Route exact path={routes.memberPage.path}>
-                <MemberData
-                  role={memberData.role}
-                  email={memberData.email}
-                  joinDate={memberData.joinDate}
-                  name={memberData.name || ''}
-                  hideInfo={false} // change after user agree data collection
-                  articleReadCount={readPostsCount}
-                  articleReadingTime={articleReadingTime}
-                  articleReadingTimeUnit={articleReadingTimeUnit}
-                />
-              </Route>
-              <Route path={routes.memberPage.memberDonationPage.path}>
-                <MemberDonationPage />
-              </Route>
-              <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
-                <EmailSubscription />
-              </Route>
-            </Switch>
-          </ContentContainer>
-          <Route exact path={routes.memberPage.path}>
-            <RoleCardContainer>
-              <MemberRoleCard roleKey={memberData.role.key} />
-            </RoleCardContainer>
-          </Route>
-        </PageContainer>
-      </TabletAndAbove>
-      <MobileOnly>
-        <Route exact path={routes.memberPage.path}>
+    <HelmetProvider>
+      <div>
+        <Helmet
+          title={title}
+          link={[{ rel: 'canonical', href: canonical }]}
+          meta={[
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical },
+          ]}
+        />
+        <TabletAndAbove>
           <PageContainer>
-            <MobileMemberPage
-              roleKey={memberData.role.key}
-              email={memberData.email}
-              joinDate={memberData.joinDate}
-              name={memberData.name || ''}
-              hideInfo={false} // change after user agree data collection
-              articleReadCount={readPostsCount}
-              articleReadingTime={articleReadingTime}
-              articleReadingTimeUnit={articleReadingTimeUnit}
-            />
+            <MenuContainer>
+              <MemberMenuList />
+            </MenuContainer>
+            <ContentContainer path={pathname}>
+              <Switch>
+                <Route exact path={routes.memberPage.path}>
+                  <MemberData
+                    role={memberData.role}
+                    email={memberData.email}
+                    joinDate={memberData.joinDate}
+                    name={memberData.name || ''}
+                    hideInfo={false} // change after user agree data collection
+                    articleReadCount={readPostsCount}
+                    articleReadingTime={articleReadingTime}
+                    articleReadingTimeUnit={articleReadingTimeUnit}
+                  />
+                </Route>
+                <Route path={routes.memberPage.memberDonationPage.path}>
+                  <MemberDonationPage />
+                </Route>
+                <Route
+                  path={routes.memberPage.memberEmailSubscriptionPage.path}
+                >
+                  <EmailSubscription />
+                </Route>
+              </Switch>
+            </ContentContainer>
+            <Route exact path={routes.memberPage.path}>
+              <RoleCardContainer>
+                <MemberRoleCard roleKey={memberData.role.key} />
+              </RoleCardContainer>
+            </Route>
           </PageContainer>
-        </Route>
-        <Switch>
-          <Route path={routes.memberPage.memberDonationPage.path}>
-            <ContentContainer>
-              <MemberDonationPage />
-            </ContentContainer>
+        </TabletAndAbove>
+        <MobileOnly>
+          <Route exact path={routes.memberPage.path}>
+            <PageContainer>
+              <MobileMemberPage
+                roleKey={memberData.role.key}
+                email={memberData.email}
+                joinDate={memberData.joinDate}
+                name={memberData.name || ''}
+                hideInfo={false} // change after user agree data collection
+                articleReadCount={readPostsCount}
+                articleReadingTime={articleReadingTime}
+                articleReadingTimeUnit={articleReadingTimeUnit}
+              />
+            </PageContainer>
           </Route>
-          <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
-            <ContentContainer>
-              <EmailSubscription />
-            </ContentContainer>
-          </Route>
-        </Switch>
-      </MobileOnly>
-      <OnlyForGTM id="role-key">{roleKey}</OnlyForGTM>
-    </div>
+          <Switch>
+            <Route path={routes.memberPage.memberDonationPage.path}>
+              <ContentContainer>
+                <MemberDonationPage />
+              </ContentContainer>
+            </Route>
+            <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
+              <ContentContainer>
+                <EmailSubscription />
+              </ContentContainer>
+            </Route>
+          </Switch>
+        </MobileOnly>
+        <OnlyForGTM id="role-key">{roleKey}</OnlyForGTM>
+      </div>
+    </HelmetProvider>
   )
 }
 

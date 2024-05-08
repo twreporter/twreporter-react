@@ -19,7 +19,7 @@ help:
 # build webpacks client side needed
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --colors
+	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js
 
 build-service-worker: 
 	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
@@ -63,8 +63,8 @@ ui-test:
 	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
 
 clean: 
-	@echo "delete auto generated files, including processes.json, sw.js, dist/, webpack-assets.json and react-loadabel.json\n"
-	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json react-loadable.json
+	@echo "delete auto generated files, including processes.json, sw.js, dist/, webpack-assets.json and loadable-stats.json\n"
+	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json loadable-stats.json
 
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV

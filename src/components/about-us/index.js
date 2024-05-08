@@ -1,6 +1,6 @@
 /* eslint react/no-find-dom-node:1 */
 import TagManager from 'react-gtm-module'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import styled from 'styled-components'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -66,7 +66,7 @@ export class AboutUs extends PureComponent {
   render() {
     const SideBar = SideBarFactory.getAboutUSPageSideBar()
     return (
-      <React.Fragment>
+      <HelmetProvider>
         <Helmet
           title={siteMeta.name.full}
           link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/about-us' }]}
@@ -116,7 +116,7 @@ export class AboutUs extends PureComponent {
         </ErrorBoundary>
         <Footer />
         <WebFont />
-      </React.Fragment>
+      </HelmetProvider>
     )
   }
 }
