@@ -12,7 +12,6 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import twreporterRedux from '@twreporter/redux'
 import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
-import { POST_REVIEW } from '@twreporter/core/lib/constants/feature-flag'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -144,11 +143,9 @@ const MyReadingPage = ({ isAuthed, jwt }) => {
               <BrowsingHistory>
                 <BrowsingHistorySection />
               </BrowsingHistory>
-              {POST_REVIEW && (
-                <ReviewingArticles>
-                  <ReviewingArticleSection />
-                </ReviewingArticles>
-              )}
+              <ReviewingArticles>
+                <ReviewingArticleSection />
+              </ReviewingArticles>
             </Route>
             <Route path={routes.myReadingPage.savedBookmarksPage.path}>
               <SavedBookmarksPage />
