@@ -270,7 +270,6 @@ const Article = ({
   }, [slugToFetch])
 
   useEffect(() => {
-    fetchAFullPostWithCatch(slugToFetch)
     startReadingCountTimer()
     startReadingTime = Date.now()
     document.addEventListener('scroll', handleScroll)
