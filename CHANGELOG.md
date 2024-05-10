@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.0-rc.4, 2024-05-10
+
+### Notable Changes
+
+- fix
+  - fetch at mount while cause duplicated related articles
+
+### Commits
+
+- [[`76184708ce`](https://github.com/twreporter/twreporter-react/commit/76184708ce)] - **fix**: fetch at mount while cause duplicated related articles (Lucien)
+
 ## 5.0.0-rc.3, 2024-05-10
 
 ### Notable Changes
