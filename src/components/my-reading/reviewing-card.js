@@ -134,14 +134,16 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
       <TabletAndAboveFlex>
         <Photo bgUrl={bgImage}>
           <AwardBadgeContainer>
-            <AwardBadge>
-              <TabletAndBelow>
-                <P3 text={reviewWord} />
-              </TabletAndBelow>
-              <DesktopAndAbove>
-                <P2 text={reviewWord} />
-              </DesktopAndAbove>
-            </AwardBadge>
+            {reviewWord && (
+              <AwardBadge>
+                <TabletAndBelow>
+                  <P3 text={reviewWord} />
+                </TabletAndBelow>
+                <DesktopAndAbove>
+                  <P2 text={reviewWord} />
+                </DesktopAndAbove>
+              </AwardBadge>
+            )}
           </AwardBadgeContainer>
         </Photo>
         <Article>
@@ -156,9 +158,11 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
       <MobileOnly>
         <Photo bgUrl={bgImage}>
           <AwardBadgeContainer>
-            <AwardBadge>
-              <P3 text={reviewWord} />
-            </AwardBadge>
+            {reviewWord && (
+              <AwardBadge>
+                <P3 text={reviewWord} />
+              </AwardBadge>
+            )}
           </AwardBadgeContainer>
           <Title>
             <H4 type={H4.Type.ARTICLE} text={title} />
