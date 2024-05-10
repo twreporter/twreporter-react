@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.0.0-rc.3, 2024-05-10
+
+### Notable Changes
+
+- fix
+  - no badge if no reviewWord
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`fe4e04468f`](https://github.com/twreporter/twreporter-react/commit/fe4e04468f)] - **chore**: update twreporter packages (Lucien)
+- [[`e625560b38`](https://github.com/twreporter/twreporter-react/commit/e625560b38)] - **fix**: no badge if no reviewWord (Lucien)
+
 ## 5.0.0-rc.2, 2024-05-09
 
 ### Notable Changes
