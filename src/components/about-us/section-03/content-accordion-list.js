@@ -77,7 +77,7 @@ const RecordsInaYear = styled.div`
   position: relative;
   width: 100%;
   margin-top: 0;
-  margin-bottom: ${props => (props.unfold ? '9px' : '0')};
+  margin-bottom: ${props => (props.$unfold ? '9px' : '0')};
   padding: 0;
   list-style: none;
 `
@@ -91,7 +91,7 @@ const Record = styled.div`
   overflow: hidden;
   color: ${colorGrayscale.black};
   text-align: left;
-  border-bottom: solid ${props => (props.unfold ? '1px' : '0')}
+  border-bottom: solid ${props => (props.$unfold ? '1px' : '0')}
     ${borderBottomColor};
   background: ${colorGrayscale.gray100};
   padding: 20px 21px 19px 15px;
@@ -111,9 +111,9 @@ const AwardName = styled.div`
   }
   min-height: 76px;
   background: ${props =>
-    props.unfold ? `${colorGrayscale.black}` : `${colorGrayscale.white}`};
+    props.$unfold ? `${colorGrayscale.black}` : `${colorGrayscale.white}`};
   color: ${props =>
-    props.unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
+    props.$unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -183,7 +183,7 @@ export default class AccordionList extends PureComponent {
   }
 
   _renderRecords = (awardName, awardIdx) => {
-    const { fullRecords, awardYears, transitionDuration } = this.props
+    const { fullRecords, awardYears } = this.props
     if (!awardYears[awardName]) return
     return awardYears[awardName].map(year => {
       let unfold = this.state.unfoldArray[awardIdx]
@@ -195,13 +195,13 @@ export default class AccordionList extends PureComponent {
             leave="slideUp"
           >
             {unfold ? (
-              <YearTag unfold={unfold} transitionDuration={transitionDuration}>
+              <YearTag>
                 <p>{year}</p>
                 <SeperatedLine />
               </YearTag>
             ) : null}
           </VelocityTransitionGroup>
-          <RecordsInaYear unfold={unfold}>
+          <RecordsInaYear $unfold={unfold}>
             {fullRecords[awardName][year].map((item, itemIndex) => {
               return (
                 <StyledVelocityTransitionGroup
@@ -211,7 +211,7 @@ export default class AccordionList extends PureComponent {
                   leave="slideUp"
                 >
                   {unfold ? (
-                    <Record unfold={unfold}>
+                    <Record $unfold={unfold}>
                       <a
                         href={_.get(item, 'titlelink', '')}
                         target="_blank"
@@ -248,7 +248,7 @@ export default class AccordionList extends PureComponent {
             <React.Fragment key={name.award}>
               <AwardName
                 onClick={() => this._foldAndUnfold(awardIdx)}
-                unfold={this.state.unfoldArray[awardIdx]}
+                $unfold={this.state.unfoldArray[awardIdx]}
               >
                 <p>{name.award}</p>
               </AwardName>
@@ -265,7 +265,6 @@ export default class AccordionList extends PureComponent {
 
 AccordionList.defaultProps = {
   fullRecords: {},
-  transitionDuration: '100ms',
   awardsName: [],
   awardsYears: [],
 }
@@ -274,5 +273,4 @@ AccordionList.propTypes = {
   fullRecords: PropTypes.object,
   awardsName: PropTypes.array,
   awardYears: PropTypes.object,
-  transitionDuration: PropTypes.string,
 }

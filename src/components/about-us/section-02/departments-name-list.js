@@ -13,7 +13,8 @@ const DepartmentName = styled.div`
     font-size: 14px;
     font-weight: ${font.weight.bold};
     word-spacing: -1px;
-    color: ${props => (props.selected ? colorGrayscale.black : gray.lightgray)};
+    color: ${props =>
+      props.$selected ? colorGrayscale.black : gray.lightgray};
     width: max-content;
     margin-right: 20px;
   }
@@ -43,7 +44,7 @@ export default class DepartmentsNameList extends PureComponent {
             <DepartmentName
               key={category.id}
               onClick={() => selectDepartment(categoryIndex)}
-              selected={selectedDepartmentIndex === categoryIndex}
+              $selected={selectedDepartmentIndex === categoryIndex}
             >
               <p>{category.label.chinese}</p>
             </DepartmentName>

@@ -128,7 +128,7 @@ const PopupContainer = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  visibility: ${props => (props.show ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$show ? 'visible' : 'hidden')};
 `
 const Box = styled.div``
 const Popup = () => {
@@ -136,7 +136,7 @@ const Popup = () => {
   const preventClosePromo = e => e.stopPropagation()
 
   return (
-    <PopupContainer show={isShowPromo} onClick={closePromo}>
+    <PopupContainer $show={isShowPromo} onClick={closePromo}>
       <Box onClick={preventClosePromo}>
         <DesktopAndAbove>
           <DesktopPopup />

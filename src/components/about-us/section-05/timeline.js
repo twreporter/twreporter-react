@@ -20,11 +20,11 @@ const restartRule = css`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  animation: ${props => (props.returnToStart ? restartRule : 'none')};
+  animation: ${props => (props.$returnToStart ? restartRule : 'none')};
   cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: ${props => (props.grabbing ? 'grabbing' : 'grab')};
-  cursor: ${props => (props.grabbing ? '-moz-grabbing' : '-moz-grab')};
-  cursor: ${props => (props.grabbing ? '-webkit-grabbing' : '-webkit-grab')};
+  cursor: ${props => (props.$grabbing ? 'grabbing' : 'grab')};
+  cursor: ${props => (props.$grabbing ? '-moz-grabbing' : '-moz-grab')};
+  cursor: ${props => (props.$grabbing ? '-webkit-grabbing' : '-webkit-grab')};
   user-select: none;
 `
 
@@ -153,8 +153,8 @@ export default class Timeline extends PureComponent {
     return (
       <div>
         <Container
-          returnToStart={this.state.returnToStart}
-          grabbing={this.state.mouseDown}
+          $returnToStart={this.state.returnToStart}
+          $grabbing={this.state.mouseDown}
         >
           <Scroller
             ref={node => {

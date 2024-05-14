@@ -75,7 +75,7 @@ const SponsorButton = styled(DonationLink)`
 class Sponsor extends React.Component {
   render() {
     return (
-      <Container size="small">
+      <Container $size="small">
         <Title>深度調查報導，需要您的支持！</Title>
         <Desc>
           <p>

@@ -36,14 +36,14 @@ const Slides = styled.ul`
   margin: 0;
   display: flex;
   flex-wrap: nowrap;
-  transition-property: ${props => (props.isSliding ? 'transform' : 'none')};
+  transition-property: ${props => (props.$isSliding ? 'transform' : 'none')};
   transform: ${props =>
-    props.offset !== 0
-      ? `translateX(calc(${props.offset * 1}px - ${props.currentSlide *
+    props.$offset !== 0
+      ? `translateX(calc(${props.$offset * 1}px - ${props.$currentSlide *
           100}vw))`
-      : `translateX(-${props.currentSlide * 100}vw)`};
-  transition-duration: ${props => props.transitionDuration};
-  transition-timing-function: ${props => props.transitionTimingFunction};
+      : `translateX(-${props.$currentSlide * 100}vw)`};
+  transition-duration: ${props => props.$transitionDuration};
+  transition-timing-function: ${props => props.$transitionTimingFunction};
   will-change: transform;
   height: 100%;
 `
@@ -70,7 +70,8 @@ const Indicator = styled.li`
   min-height: 10px;
   width: 0.6em;
   height: 0.6em;
-  background-color: ${props => (props.focus ? 'white' : defaultIndicatorColor)};
+  background-color: ${props =>
+    props.$focus ? 'white' : defaultIndicatorColor};
   transition: background-color 0.6s ease;
   margin: 0 0.8em;
   border-radius: 50%;
@@ -254,7 +255,7 @@ class Carousel extends Component {
     return Children.map(this.props.children, (item, index) => (
       <Indicator
         key={`i-${index + 1}`}
-        focus={this.state.currentSlide === index + 1}
+        $focus={this.state.currentSlide === index + 1}
         onClick={this.changeSlide.bind(this, index + 1)}
       >
         {index + 1}
@@ -276,11 +277,11 @@ class Carousel extends Component {
       <div className={className}>
         <SlidesContainer>
           <Slides
-            currentSlide={currentSlide}
-            isSliding={isSliding}
-            offset={offset}
-            transitionDuration={transitionDuration}
-            transitionTimingFunction={transitionTimingFunction}
+            $currentSlide={currentSlide}
+            $isSliding={isSliding}
+            $offset={offset}
+            $transitionDuration={transitionDuration}
+            $transitionTimingFunction={transitionTimingFunction}
             {...this.events}
           >
             {this._renderSlides()}

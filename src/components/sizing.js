@@ -23,18 +23,18 @@ const width = {
 const Sizing = styled.div`
   margin: 0 auto;
   ${mq.tabletOnly`
-    max-width: ${props => width.tablet[props.size]}px;
+    max-width: ${props => width.tablet[props.$size]}px;
   `}
   ${mq.desktopOnly`
-    max-width: ${props => width.desktop[props.size]}px;
+    max-width: ${props => width.desktop[props.$size]}px;
   `}
   ${mq.hdOnly`
-    max-width: ${props => width.hd[props.size]}px;
+    max-width: ${props => width.hd[props.$size]}px;
   `}
 `
 
 Sizing.propTypes = {
-  size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
+  $size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
 }
 
 export default Sizing

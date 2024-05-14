@@ -203,7 +203,7 @@ const AuthorCollection = props => {
     '所有文章' + (typeof totalResults === 'number' ? `（${totalResults}）` : '')
 
   return (
-    <Sizing size="small">
+    <Sizing $size="small">
       <CollectionTitle>{titleText}</CollectionTitle>
       <Collections>{_.map(collections, buildListItem)}</Collections>
       {hasMore && !isFetching

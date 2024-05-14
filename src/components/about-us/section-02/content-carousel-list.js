@@ -49,19 +49,19 @@ const Department = styled.div`
     margin-top: 102px;
     height: calc(148px * 3/2);
     padding: 0px 72px;
-    ${props => props.markup[screen.hd]}
+    ${props => props.$markup[screen.hd]}
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
     padding: 0 30px;
-    ${props => props.markup[screen.desktop]}
+    ${props => props.$markup[screen.desktop]}
   `}
   ${mq.tabletOnly`
     margin-top: 30px;
     height: calc(116px * 3/2);
     padding: 0px 95px;
-    ${props => props.markup[screen.tablet]}
+    ${props => props.$markup[screen.tablet]}
   `}
 `
 
@@ -79,9 +79,9 @@ const MemberList = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
   white-space: nowrap;
-  transform: translate3d(${props => props.shiftx}, 0px, 0px);
+  transform: translate3d(${props => props.$shiftx}, 0px, 0px);
   transition: ${props =>
-    props.transitionEffect
+    props.$transitionEffect
       ? `all ${transitionDuration}ms ease-in-out`
       : 'all 1ms ease-in-out'};
 `
@@ -96,20 +96,20 @@ const Member = styled.li`
       width: 114px;
       margin-bottom: 19px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.hd]});
+    width: calc(100% / ${props => props.$numPerPage[screen.hd]});
   `}
   ${mq.desktopOnly`
     img:first-child{
       width: 85px;
       margin-bottom: 15px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.desktop]});
+    width: calc(100% / ${props => props.$numPerPage[screen.desktop]});
   `}
   ${mq.tabletOnly`
     img:first-child{
       width: 94px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.tablet]});
+    width: calc(100% / ${props => props.$numPerPage[screen.tablet]});
   `}
 `
 
@@ -124,7 +124,7 @@ const Info = styled.div`
     letter-spacing: 0.4px;
   }
   img{
-    visibility: ${props => (props.isMailIconVisible ? 'visible' : 'hidden')};
+    visibility: ${props => (props.$isMailIconVisible ? 'visible' : 'hidden')};
     width: 15px;
     cursor: pointer;
   }
@@ -392,7 +392,7 @@ export default class CarouselMemberList extends PureComponent {
         groupedMembers[categoryId].length
       )
       return (
-        <Department key={categoryId} markup={carouselMarkup[categoryId]}>
+        <Department key={categoryId} $markup={carouselMarkup[categoryId]}>
           <Name>
             <p>{label.chinese}</p>
           </Name>
@@ -408,8 +408,8 @@ export default class CarouselMemberList extends PureComponent {
               ref={memberListDom => {
                 this.memberList[categoryIndex] = memberListDom
               }}
-              shiftx={this._getShiftX(categoryIndex)}
-              transitionEffect={this.state.transitionEffect}
+              $shiftx={this._getShiftX(categoryIndex)}
+              $transitionEffect={this.state.transitionEffect}
               onTransitionEnd={event =>
                 this._onMemberListShifted(event, categoryIndex)
               }
@@ -417,13 +417,13 @@ export default class CarouselMemberList extends PureComponent {
               {typeof memberDataList !== 'undefined'
                 ? memberDataList.map((member, index) => {
                     return (
-                      <Member key={index} numPerPage={numPerPage}>
+                      <Member key={index} $numPerPage={numPerPage}>
                         <img
                           src={`${replaceGCSUrlOrigin(
                             `${profileUrlPrefix}${member.profile}`
                           )}`}
                         />
-                        <Info isMailIconVisible={Boolean(member.email)}>
+                        <Info $isMailIconVisible={Boolean(member.email)}>
                           <p>{member['job.zh-tw']}</p>
                           <p>{member['name.zh-tw']}</p>
                           <img

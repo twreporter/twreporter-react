@@ -32,7 +32,7 @@ const boxCss = css`
   z-index: ${zIndexConst.buttomBanner};
   background-color: ${colorGrayscale.white};
   box-shadow: 0px 0px 24px 0px ${colorOpacity['black_0.1']};
-  transform: translateY(${props => (props.show ? 0 : '100%')});
+  transform: translateY(${props => (props.$show ? 0 : '100%')});
   transition: transform 0.5s ease-in-out;
 `
 
@@ -82,7 +82,7 @@ const DesktopBanner = () => {
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/pencil.png`
 
   return (
-    <DesktopBox show={isShowPromo}>
+    <DesktopBox $show={isShowPromo}>
       <CloseButton
         iconComponent={<Cross releaseBranch={releaseBranch} />}
         theme={IconButton.THEME.normal}
@@ -135,7 +135,7 @@ const MobileBanner = () => {
   const { releaseBranch } = useContext(CoreContext)
 
   return (
-    <MobileBox show={isShowPromo}>
+    <MobileBox $show={isShowPromo}>
       <FlexGroup>
         <Title text="有你才有報導者" />
         <CloseButton
@@ -153,8 +153,8 @@ const MobileBanner = () => {
 }
 
 const Box = styled.div`
-  visibility: ${props => (props.show ? 'visible' : 'hidden')};
-  ${props => (props.show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
+  visibility: ${props => (props.$show ? 'visible' : 'hidden')};
+  ${props => (props.$show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
 `
 const ArticleBanner = ({
   isExpanded = false,
@@ -207,7 +207,7 @@ const ArticleBanner = ({
   const contextValue = { isShowPromo, closePromo }
   return (
     <ArticlePromoContext.Provider value={contextValue}>
-      <Box show={isShowPromo}>
+      <Box $show={isShowPromo}>
         <DesktopAndAbove>
           <DesktopBanner />
         </DesktopAndAbove>

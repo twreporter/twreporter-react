@@ -54,16 +54,16 @@ function renderHTMLMiddleware(
     const extractor = new ChunkExtractor({ stats: loadableStats })
     const contentMarkup = renderToString(
       extractor.collectChunks(
-        <HelmetProvider context={helmetContext}>
-          <StyleSheetManager sheet={sheet.instance}>
-            <StaticRouter location={req.url} context={routerStaticContext}>
+        <StyleSheetManager sheet={sheet.instance}>
+          <StaticRouter location={req.url} context={routerStaticContext}>
+            <HelmetProvider context={helmetContext}>
               <App
                 reduxStore={storeForClientSideRendering}
                 releaseBranch={options.releaseBranch}
               />
-            </StaticRouter>
-          </StyleSheetManager>
-        </HelmetProvider>
+            </HelmetProvider>
+          </StaticRouter>
+        </StyleSheetManager>
       )
     )
 

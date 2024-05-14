@@ -22,7 +22,7 @@ const Mq = {
   `,
   TabletAndAbove: styled.div`
     display: flex;
-    width: ${props => (props.showInput ? '220px' : '20px')};
+    width: ${props => (props.$showInput ? '220px' : '20px')};
     transition: width 0.2s ease;
     overflow: hidden;
     height: 20px;
@@ -129,7 +129,7 @@ export default class SearchBox extends PureComponent {
             <StyledIcon />
           </a>
         </Mq.MobileOnly>
-        <Mq.TabletAndAbove showInput={showInput}>
+        <Mq.TabletAndAbove $howInput={showInput}>
           <StyledIcon onClick={this.handleClick} />
           <Form onSubmit={this.handleSubmit}>
             <Input

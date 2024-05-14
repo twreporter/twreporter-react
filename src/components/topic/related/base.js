@@ -121,7 +121,7 @@ const ShowAllButton = styled.div`
 `
 
 const Background = styled.div`
-  background: ${props => props.background || colorGrayscale.gray300};
+  background: ${props => props.$background || colorGrayscale.gray300};
   ${mq.mobileOnly`
     padding: 30px 0 40px 0;
   `}

@@ -16,7 +16,7 @@ const Arrow = styled.div`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  visibility: ${props => (props.isvisible ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$isvisible ? 'visible' : 'hidden')};
   img {
     height: 45px;
   }
@@ -73,7 +73,7 @@ export default class Arrows extends PureComponent {
       <React.Fragment>
         {membersPageLengthArray.length > 0 ? (
           <Container>
-            <LeftArrow isvisible={visible} onClick={() => changePage('prev')}>
+            <LeftArrow $isvisible={visible} onClick={() => changePage('prev')}>
               <img
                 src={`${replaceGCSUrlOrigin(
                   `${storageUrlPrefix}/arrow-next.png`
@@ -81,7 +81,7 @@ export default class Arrows extends PureComponent {
                 alt={'>'}
               />
             </LeftArrow>
-            <RightArrow isvisible={visible} onClick={() => changePage('next')}>
+            <RightArrow $isvisible={visible} onClick={() => changePage('next')}>
               <img
                 src={`${replaceGCSUrlOrigin(
                   `${storageUrlPrefix}/arrow-next.png`
