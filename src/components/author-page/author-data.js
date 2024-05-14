@@ -88,7 +88,7 @@ const AuthorData = props => {
   const { image, name, title, mail, bio } = props.authorData
   const displayedTitle = title ? `（${title}）` : ''
   return (
-    <Sizing size="small">
+    <Sizing $size="small">
       <Container>
         <ImageContainer>
           <Image

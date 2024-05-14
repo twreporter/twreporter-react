@@ -26,7 +26,7 @@ const _ = {
 }
 
 const AppBox = styled.div`
-  background-color: ${props => props.backgroundColor};
+  background-color: ${props => props.$backgroundColor};
 `
 
 const ContentBlock = styled.div`
@@ -113,7 +113,7 @@ const AppShell = ({
 
   return (
     <ErrorBoundary>
-      <AppBox backgroundColor={backgroundColor}>
+      <AppBox $backgroundColor={backgroundColor}>
         <ContentBlock>
           {renderHeader(
             headerType,

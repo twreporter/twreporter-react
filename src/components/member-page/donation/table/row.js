@@ -93,7 +93,7 @@ const MobileTableContent = styled.div`
 `
 
 const ArrowIcon = styled(Arrow)`
-  transform: rotate(${props => props.rotate});
+  transform: rotate(${props => props.$rotate});
   transition: all 300ms;
 `
 
@@ -170,7 +170,7 @@ export const TableRow = memo(({ record }) => {
             iconComponent={
               <ArrowIcon
                 direction={Arrow.Direction.DOWN}
-                rotate={isOpen ? '-180deg' : '0'}
+                $rotate={isOpen ? '-180deg' : '0'}
                 releaseBranch={releaseBranch}
               />
             }
@@ -193,7 +193,7 @@ export const TableRow = memo(({ record }) => {
             iconComponent={
               <ArrowIcon
                 direction={Arrow.Direction.DOWN}
-                rotate={isOpen ? '-180deg' : '0'}
+                $rotate={isOpen ? '-180deg' : '0'}
                 releaseBranch={releaseBranch}
               />
             }

@@ -96,10 +96,10 @@ const LoadMoreButton = styled(PillButton)`
     margin: 48px auto;
   `}
 
-  ${props => (props.show ? '' : 'display: none;')}
+  ${props => (props.$show ? '' : 'display: none;')}
 `
 const SkeletonBox = styled.div`
-  ${props => (props.show ? '' : 'display: none;')}
+  ${props => (props.$show ? '' : 'display: none;')}
 `
 const ListSkeleton = styled(Skeleton)`
   padding: 24px 0;
@@ -109,8 +109,8 @@ const Gray300Divider = styled(Divider)`
 `
 const GetSomeSpace = styled.div`
   width: 100%;
-  height: ${props => props.height};
-  ${props => (props.show ? '' : 'display: none;')}
+  height: ${props => props.$height};
+  ${props => (props.$show ? '' : 'display: none;')}
 `
 
 const Latest = ({
@@ -282,7 +282,7 @@ const Latest = ({
             />
           </CardListContainer>
           <LoadMoreBox>
-            <SkeletonBox show={isLoading}>
+            <SkeletonBox $show={isLoading}>
               <ListSkeleton />
               <Gray300Divider />
               <ListSkeleton />
@@ -297,10 +297,10 @@ const Latest = ({
               type={PillButton.Type.PRIMARY}
               size={PillButton.Size.L}
               text="載入更多"
-              show={totalPages > page}
+              $show={totalPages > page}
             />
           </LoadMoreBox>
-          <GetSomeSpace height={'120px'} show={totalPages <= page} />
+          <GetSomeSpace $height={'120px'} $show={totalPages <= page} />
         </Container>
       </div>
     </HelmetProvider>

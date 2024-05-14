@@ -21,13 +21,13 @@ const AwardItem = styled.div`
     p{
       text-align: left;
       font-weight: bold;
-      opacity: ${props => (props.isActive === 'true' ? '1' : '0.31')};
+      opacity: ${props => (props.$isActive === 'true' ? '1' : '0.31')};
       font-weight: bold;
       transition: all 200ms ease-in-out;
     }
     cursor: pointer;
     ul{
-      display: ${props => (props.isActive === 'true' ? 'block' : 'none')};
+      display: ${props => (props.$isActive === 'true' ? 'block' : 'none')};
       list-style: none;
       padding: 0;
       margin-top: 0;
@@ -65,7 +65,7 @@ const AwardItem = styled.div`
 
 const Cursor = styled.span`
   display: inline-block;
-  visibility: ${props => (props.isActive === 'true' ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$isActive === 'true' ? 'visible' : 'hidden')};
   width: 12px;
   height: 4px;
   background: ${colorGrayscale.black};
@@ -90,7 +90,7 @@ export default class AwardNameList extends PureComponent {
           return (
             <AwardItem
               key={index}
-              isActive={(activeAward === name.award).toString()}
+              $isActive={(activeAward === name.award).toString()}
             >
               <p onClick={() => selectAward(name.award, index)}>{name.award}</p>
               <ul>
@@ -104,7 +104,7 @@ export default class AwardNameList extends PureComponent {
                     >
                       <p>
                         <Cursor
-                          isActive={(
+                          $isActive={(
                             yearsInActiveAward[activeYearIndex] === year
                           ).toString()}
                         />

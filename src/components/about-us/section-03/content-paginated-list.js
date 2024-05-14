@@ -23,8 +23,8 @@ const Container = styled.div`
   width: 100%;
   ${mq.desktopAndAbove`
     height: 100%;
-    transform: translate3d(0, ${props => props.shiftY}, 0);
-    transition: all ${props => props.transitionDuration} ease-in-out;
+    transform: translate3d(0, ${props => props.$shiftY}, 0);
+    transition: all ${props => props.$transitionDuration} ease-in-out;
   `}
   ${mq.tabletAndBelow`
     display: none;
@@ -157,8 +157,8 @@ export default class PaginatedList extends PureComponent {
     const { currentPage, paginatedAwardsList, transitionDuration } = this.props
     return (
       <Container
-        shiftY={() => this._getShiftY(currentPage)}
-        transitionDuration={transitionDuration}
+        $shiftY={() => this._getShiftY(currentPage)}
+        $transitionDuration={transitionDuration}
       >
         {paginatedAwardsList.map((list, listIndex) => {
           return (

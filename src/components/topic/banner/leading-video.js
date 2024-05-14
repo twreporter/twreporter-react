@@ -15,7 +15,7 @@ import {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: ${props => props.viewportHeight};
+  height: ${props => props.$viewportHeight};
 `
 
 const Video = styled.video`
@@ -137,7 +137,7 @@ class LeadingVideo extends React.PureComponent {
         <Container
           itemScope
           itemType="http://schema.org/VideoObject"
-          viewportHeight={viewportHeight}
+          $viewportHeight={viewportHeight}
         >
           <link itemProp="url" href={src} />
           <meta itemProp="name" content={title} />

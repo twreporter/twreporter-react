@@ -120,7 +120,7 @@ export default class RelatedItems extends PureComponent {
     } = this.props
     const components = selectComponentsByFormat(format)
     return (
-      <base.Background background={background}>
+      <base.Background $background={background}>
         <components.ItemsContainer>
           {_.map(items, this.renderItem)}
         </components.ItemsContainer>

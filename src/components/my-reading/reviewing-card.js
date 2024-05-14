@@ -47,7 +47,7 @@ const Photo = styled.div`
   height: 100%;
   aspect-ratio: 3 / 2;
   margin-right: 32px;
-  background-image: url(${props => props.bgUrl});
+  background-image: url(${props => props.$bgUrl});
   background-size: cover;
   background-repeat: no-repeat;
   ${mq.tabletOnly`
@@ -132,7 +132,7 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
   return (
     <CardContainer {...link}>
       <TabletAndAboveFlex>
-        <Photo bgUrl={bgImage}>
+        <Photo $bgUrl={bgImage}>
           <AwardBadgeContainer>
             {reviewWord && (
               <AwardBadge>

@@ -28,7 +28,7 @@ const Arrow = styled.div`
 
 const TopArrow = styled(Arrow)`
   top: 0;
-  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$visible ? 'visible' : 'hidden')};
   img {
     transform-origin: 50% 50%;
     transform: translateY(75px) translateX(-50%) rotate(-90deg);
@@ -37,7 +37,7 @@ const TopArrow = styled(Arrow)`
 
 const BottomArrow = styled(Arrow)`
   bottom: 0;
-  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$visible ? 'visible' : 'hidden')};
   img {
     transform-origin: 50% 50%;
     transform: translateY(40px) scaleY(-1) translateX(-50%) rotate(-90deg);
@@ -81,11 +81,11 @@ const Container = styled.div`
 const SemiTransparentMask = styled.div`
   position: absolute;
   left: 0;
-  ${props => (props.position === 'top' ? 'top: 0' : 'bottom: 0')};
+  ${props => (props.$position === 'top' ? 'top: 0' : 'bottom: 0')};
   width: 100%;
   height: 20px;
   background: ${props =>
-    `linear-gradient(to ${props.position}, ${colorGrayscale.white}, ${colorGrayscale.white})`};
+    `linear-gradient(to ${props.$position}, ${colorGrayscale.white}, ${colorGrayscale.white})`};
   ${mq.tabletAndBelow`
     display: none;
   `}
@@ -188,11 +188,11 @@ export default class Content extends PureComponent {
             awardYears={awardYears}
             transitionDuration={transitionDuration}
           />
-          <SemiTransparentMask position={'bottom'} />
+          <SemiTransparentMask $position={'bottom'} />
         </PageWrapper>
         <Arrows>
           <TopArrow
-            visible={pagesLength > 1}
+            $visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}
           >
             <ArrowNextIcon>
@@ -204,7 +204,7 @@ export default class Content extends PureComponent {
             </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
-            visible={pagesLength > 1}
+            $visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}
           >
             <ArrowNextIcon>

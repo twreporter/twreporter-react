@@ -75,7 +75,7 @@ const ProfileWrapper = styled.div`
   height: 100%;
   padding-left: 3.9%;
   img {
-    visibility: ${props => (props.isMailIconVisible ? 'visible' : 'hidden')};
+    visibility: ${props => (props.$isMailIconVisible ? 'visible' : 'hidden')};
     width: 16.9%;
     position: absolute;
     right: 0;
@@ -216,7 +216,7 @@ export default class PaginatedMemberList extends PureComponent {
                     `${profileUrlPrefix}${member.profile}`
                   )}`}
                 />
-                <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
+                <ProfileWrapper $isMailIconVisible={Boolean(member.email)}>
                   <Profile>
                     <p>{member['job.zh-tw']}</p>
                     <p>{member['name.zh-tw']}</p>
