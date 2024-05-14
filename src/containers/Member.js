@@ -72,21 +72,21 @@ const MenuContainer = styled.div`
 const ContentContainer = styled.div`
   ${mq.tabletOnly`
     ${props =>
-      props.path === routes.memberPage.memberDonationPage.path &&
+      props.$path === routes.memberPage.memberDonationPage.path &&
       'grid-column: 3 / 13'};
     ${props =>
-      props.path === routes.memberPage.memberEmailSubscriptionPage.path &&
+      props.$path === routes.memberPage.memberEmailSubscriptionPage.path &&
       'grid-column: 3 / 13'};
-    ${props => props.path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
   `}
   ${mq.desktopAndAbove`
     ${props =>
-      props.path === routes.memberPage.memberDonationPage.path &&
+      props.$path === routes.memberPage.memberDonationPage.path &&
       'grid-column: 3 / 13'};
     ${props =>
-      props.path === routes.memberPage.memberEmailSubscriptionPage.path &&
+      props.$path === routes.memberPage.memberEmailSubscriptionPage.path &&
       'grid-column: 3 / 11'};
-    ${props => props.path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
   `}
   ${mq.mobileOnly`
     padding: 24px 24px 200px;
@@ -227,7 +227,7 @@ const MemberPage = ({
             <MenuContainer>
               <MemberMenuList />
             </MenuContainer>
-            <ContentContainer path={pathname}>
+            <ContentContainer $path={pathname}>
               <Switch>
                 <Route exact path={routes.memberPage.path}>
                   <MemberData

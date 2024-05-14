@@ -29,7 +29,7 @@ const Divider = styled(divider)`
   width: 100%;
   margin-top: 16px;
   margin-bottom: 16px;
-  ${props => (props.isMobile ? 'margin-top: 8px; margin-bottom: 8px;' : '')};
+  ${props => (props.$isMobile ? 'margin-top: 8px; margin-bottom: 8px;' : '')};
 `
 
 const RowDetail = styled.div`
@@ -232,7 +232,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </div>
           </TabletAndAbove>
           <MobileOnly>
-            <Divider isMobile />
+            <Divider $isMobile />
             <div className="row">
               <P2Gray600 text="收據抬頭" />
               <P1Gray800 text={receiptHeader} />

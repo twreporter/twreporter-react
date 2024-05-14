@@ -109,9 +109,9 @@ const YearLabel = styled.div`
   width: 100%;
   height: 76px;
   background: ${props =>
-    props.unfold ? `${colorGrayscale.black}` : `${colorGrayscale.gray100}`};
+    props.$unfold ? `${colorGrayscale.black}` : `${colorGrayscale.gray100}`};
   color: ${props =>
-    props.unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
+    props.$unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
   transition: ease ${transitionDuration}ms height;
   p {
     display: table-cell;
@@ -151,7 +151,7 @@ const MonthLabel = styled.div`
     }
   `}
   ${mq.tabletAndAbove`
-    display: ${props => (props.monthOrder === 0 ? 'block' : 'none')};
+    display: ${props => (props.$monthOrder === 0 ? 'block' : 'none')};
   `}
 `
 
@@ -180,7 +180,7 @@ const Accomplishment = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => (props.unfold ? '0' : '1')};
+        opacity: ${props => (props.$unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
         transition: opacity ${transitionDuration}ms ease-in-out;
       }
@@ -196,7 +196,7 @@ const Accomplishment = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => (props.unfold ? '0' : '1')};
+        opacity: ${props => (props.$unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
         transition: opacity ${transitionDuration}ms ease-in-out;
       }
@@ -208,7 +208,7 @@ const MockAccomplishment = styled.div`
   width: 100%;
   transform-origin: 50% 100% 0;
   position: relative;
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${props => (props.$show ? 'block' : 'none')};
 `
 
 export default class List extends PureComponent {
@@ -307,7 +307,7 @@ export default class List extends PureComponent {
             const animationProps = this._foldAnimation(isUnfold, index)
             return (
               <VelocityComponent key={index} {...animationProps}>
-                <Accomplishment unfold={isUnfold}>
+                <Accomplishment $unfold={isUnfold}>
                   <MonthLabel>
                     <p>{months[record.month - 1]}</p>
                   </MonthLabel>
@@ -322,7 +322,7 @@ export default class List extends PureComponent {
             )
           })}
           <VelocityComponent {...this._foldAnimation(isUnfold, 1, true)}>
-            <MockAccomplishment show={isOdd} />
+            <MockAccomplishment $show={isOdd} />
           </VelocityComponent>
         </React.Fragment>
       )
@@ -378,7 +378,7 @@ export default class List extends PureComponent {
             {records.map((record, index) => {
               return (
                 <Accomplishment key={`${month}-${index}`}>
-                  <MonthLabel monthOrder={index}>
+                  <MonthLabel $monthOrder={index}>
                     <p>{months[record.month - 1]}</p>
                   </MonthLabel>
                   <Record>
@@ -403,15 +403,14 @@ export default class List extends PureComponent {
           return (
             <Year
               key={index}
-              unfold={unfold}
               ref={yearContent => {
                 this.yearContent[index] = yearContent
               }}
             >
-              <YearLabel unfold={unfold} onClick={() => foldAndUnfold(index)}>
+              <YearLabel $unfold={unfold} onClick={() => foldAndUnfold(index)}>
                 <p>{year}</p>
               </YearLabel>
-              <Accomplishments unfold={unfold}>
+              <Accomplishments>
                 <OnlyDisplayOnMobile>
                   {annualAcomplishmentsOnMobile(annualRecords, unfold)}
                 </OnlyDisplayOnMobile>

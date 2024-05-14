@@ -76,6 +76,10 @@ const webpackConfig = {
     hot: true,
     host: webpackDevServerHost,
     port: webpackDevServerPort,
+    quiet: false,
+    inline: true,
+    lazy: false,
+    overlay: false,
   },
   module: {
     rules: [

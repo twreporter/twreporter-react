@@ -1,9 +1,10 @@
 // polyfill webpack require.ensure for node environment
 import mq from '../utils/media-query'
-import Loadable from '@loadable/component'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// component
+import Lottie from './lottie'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
@@ -38,56 +39,13 @@ export default class LottieAnim extends PureComponent {
     let dataIndex = ++this.currentData % animationLength
     this.props.animDidUpdate(dataIndex)
   }
-  _getLottieComponent = () => {
-    const modulePlaceHolder = null
-    const LoadableComponent = (...props) => {
-      const Lottie = Loadable.lib(
-        () =>
-          import(
-            /* webpackChunkName: "lottie" */
-            '../utils/lottie'
-          ),
-        { fallback: modulePlaceHolder }
-      )
-      const anim1 = Loadable.lib(
-        () =>
-          import(
-            /* webpackChunkName: "aboutus-section1-anim1" */
-            '../../../../static/asset/about-us/animation/section1-1.json'
-          ),
-        { fallback: modulePlaceHolder }
-      )
-      const anim2 = Loadable.lib(
-        () =>
-          import(
-            /* webpackChunkName: "aboutus-section1-anim2" */
-            '../../../../static/asset/about-us/animation/section1-2.json'
-          ),
-        { fallback: modulePlaceHolder }
-      )
-      const anim3 = Loadable.lib(
-        () =>
-          import(
-            /* webpackChunkName: "aboutus-section1-anim3" */
-            '../../../../static/asset/about-us/animation/section1-3.json'
-          ),
-        { fallback: modulePlaceHolder }
-      )
 
-      const animations = [anim1, anim2, anim3]
-      if (props.options) {
-        props.options.animationData = animations[props.dataIndex]
-      }
-      return <Lottie {...props} />
-    }
-    return LoadableComponent
-  }
   render() {
     let options = {
       loop: true,
       autoplay: true,
     }
-    const Lottie = this._getLottieComponent()
+
     return (
       <Container>
         <Lottie

@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.0.0-rc.5, 2024-05-14
+
+### Notable Changes
+
+- fix
+  - upgrade `styled-component` version to resolve conflict
+  - update `.gitignore`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`45cc7bc0b2`](https://github.com/twreporter/twreporter-react/commit/45cc7bc0b2)] - **fix**: update @twreporter packages (Aylie Chou)
+- [[`b6663057bd`](https://github.com/twreporter/twreporter-react/commit/b6663057bd)] - **fix**: update @twreporter packages & `.gitignore` (Aylie Chou)
+- [[`51592f6ec2`](https://github.com/twreporter/twreporter-react/commit/51592f6ec2)] - **fix**: upgrade `styled-component` version to resolve conflict (Aylie Chou)
+
 ## 5.0.0-rc.4, 2024-05-10
 
 ### Notable Changes

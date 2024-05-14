@@ -58,10 +58,10 @@ const P2Gray600 = styled(P2)`
 const Info = styled.div`
   width: 100%;
   ${mq.tabletAndAbove`
-    margin-top: ${props => (props.isPaginationShow ? '120px' : '80px')};
+    margin-top: ${props => (props.$isPaginationShow ? '120px' : '80px')};
   `}
   ${mq.mobileOnly`
-    margin-top: ${props => (props.isPaginationShow ? '64px' : '80px')};
+    margin-top: ${props => (props.$isPaginationShow ? '64px' : '80px')};
   `}
 `
 
@@ -128,7 +128,7 @@ const MemberDonationPage = ({
           </PaginationContainer>
         )}
       </LoadingMask>
-      <Info isPaginationShow={totalPages > 1}>
+      <Info $isPaginationShow={totalPages > 1}>
         <DescWithLink>
           因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
           <InheritLinkButton

@@ -14,11 +14,11 @@ const _ = {
 
 const FullScreenContainer = styled.figure`
   width: 100vw;
-  height: ${props => props.viewportHeight};
+  height: ${props => props.$viewportHeight};
 `
 
 const ImgPlaceholder = styled.img`
-  display: ${props => (props.toShow ? 'block' : 'none')};
+  display: ${props => (props.$toShow ? 'block' : 'none')};
   filter: blur(30px);
   object-fit: cover;
   opacity: 1;
@@ -39,7 +39,7 @@ const StyledImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: ${props => (props.toShow ? '1' : '0')};
+  opacity: ${props => (props.$toShow ? '1' : '0')};
   transition: opacity 1s;
 `
 
@@ -121,7 +121,7 @@ class LeadingImage extends React.PureComponent {
         <meta itemProp="description" content={alt} />
         <ImgPlaceholder
           src={replaceGCSUrlOrigin(_.get(imgSet, 'tiny.url'))}
-          toShow={toShowPlaceholder}
+          $toShow={toShowPlaceholder}
         />
         <source
           media={'(orientation: portrait)'}
@@ -135,7 +135,7 @@ class LeadingImage extends React.PureComponent {
           }}
           onLoad={this.onLoad}
           src={replaceGCSUrlOrigin(_.get(imgSet, 'tablet.url'))}
-          toShow={isLoaded}
+          $toShow={isLoaded}
         />
       </StyledPicture>
     ) : (
@@ -143,7 +143,7 @@ class LeadingImage extends React.PureComponent {
     )
     return (
       <FullScreenContainer
-        viewportHeight={viewportHeight}
+        $viewportHeight={viewportHeight}
         itemProp="image"
         itemScop
         itemType="http://schema.org/ImageObject"

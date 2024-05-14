@@ -168,10 +168,10 @@ const BorderBottom = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: ${props => props.zIndex};
+  z-index: ${props => props.$zIndex};
   background: ${colorBrand.heavy};
   ${mq.desktopAndAbove`
-    position: ${props => (props.fixed ? 'fixed' : 'absolute')};
+    position: ${props => (props.$fixed ? 'fixed' : 'absolute')};
   `}
   ${mq.tabletAndBelow`
     position: absolute;
@@ -335,7 +335,7 @@ const Circle = styled.div`
   width: 218px;
   height: 218px;
   border-radius: 50%;
-  background: ${props => props.color};
+  background: ${props => props.$color};
   ${mq.hdOnly`
     width: 277px;
     height: 277px;
@@ -367,7 +367,7 @@ const Rect = styled.div`
   width: 30px;
   height: 30px;
   margin: 0 -38px 0 0;
-  background: ${props => props.color};
+  background: ${props => props.$color};
   ${mq.hdOnly`
     width: 45px;
     height: 45px;
@@ -541,9 +541,9 @@ export default class Section5 extends PureComponent {
         <div>
           <Container>
             <SectionWrapper>
-              <OuterCircle color={`${colorGrayscale.black}`}>
-                <InnerCircle color={`${colorGrayscale.gray100}`} />
-                <Rect color={`${colorSupportive.heavy}`} />
+              <OuterCircle $color={`${colorGrayscale.black}`}>
+                <InnerCircle $color={`${colorGrayscale.gray100}`} />
+                <Rect $color={`${colorSupportive.heavy}`} />
               </OuterCircle>
               <Title>
                 <span>大事紀</span>
@@ -602,8 +602,8 @@ export default class Section5 extends PureComponent {
               </Content>
             </SectionWrapper>
             <BorderBottom
-              fixed={isBorderBottomfixed}
-              zIndex={this._getBorderZIndex()}
+              $fixed={isBorderBottomfixed}
+              $zIndex={this._getBorderZIndex()}
             />
           </Container>
         </div>

@@ -35,21 +35,21 @@ const shimmer = keyframes`
   }
 `
 const Rectangle = styled.div`
-  width: ${props => props.width};
-  height: ${props => props.height};
+  width: ${props => props.$width};
+  height: ${props => props.$height};
   border-radius: 2px;
   background-color: ${colorGrayscale.gray300};
   ${props =>
-    props.marginBottom
-      ? `margin-bottom: ${props.marginBottom === 'wide' ? '16px' : '8px'};`
+    props.$marginBottom
+      ? `margin-bottom: ${props.$marginBottom === 'wide' ? '16px' : '8px'};`
       : ''}
-  ${props => (props.marginRight ? `margin-right: ${props.marginRight};` : '')}
-  ${props => (props.maxWidth ? `max-width: ${props.maxWidth};` : '')}
+  ${props => (props.$marginRight ? `margin-right: ${props.$marginRight};` : '')}
+  ${props => (props.$maxWidth ? `max-width: ${props.$maxWidth};` : '')}
 
   ${mq.tabletAndBelow`
     ${props =>
-      props.marginBottom
-        ? `margin-bottom: ${props.marginBottom === 'wide' ? '8px' : '4px'};`
+      props.$marginBottom
+        ? `margin-bottom: ${props.$marginBottom === 'wide' ? '8px' : '4px'};`
         : ''}
   `}
 
@@ -70,7 +70,7 @@ const Rectangle = styled.div`
       ${colorOpacity['white_0.5']} 60%,
       ${colorGrayscale.white} 100%
     );
-    animation: ${shimmer} ${props => props.shimmerSec || 2.5}s infinite;
+    animation: ${shimmer} ${props => props.$shimmerSec || 2.5}s infinite;
     content: '';
   }
 `
@@ -93,41 +93,41 @@ const Skeleton = ({ ...props }) => (
       <Left>
         <FlexRow>
           <Rectangle
-            width="48px"
-            height="12px"
-            marginBottom="wide"
-            marginRight="8px"
-            shimmerSec="3"
+            $width="48px"
+            $height="12px"
+            $marginBottom="wide"
+            $marginRight="8px"
+            $shimmerSec="3"
           />
           <Rectangle
-            width="48px"
-            height="12px"
-            marginBottom="wide"
-            shimmerSec="3"
+            $width="48px"
+            $height="12px"
+            $marginBottom="wide"
+            $shimmerSec="3"
           />
         </FlexRow>
         <DesktopAndAbove>
           <Rectangle
-            width="100%"
-            height="25px"
-            marginBottom="wide"
-            maxWidth="720px"
+            $width="100%"
+            $height="25px"
+            $marginBottom="wide"
+            $maxWidth="720px"
           />
-          <Rectangle width="100%" height="16px" marginBottom="wide" />
-          <Rectangle width="240px" height="16px" />
+          <Rectangle $width="100%" $height="16px" $marginBottom="wide" />
+          <Rectangle $width="240px" $height="16px" />
         </DesktopAndAbove>
         <TabletAndBelow>
-          <Rectangle width="100%" height="16px" marginBottom="wide" />
-          <Rectangle width="50%" height="16px" />
+          <Rectangle $width="100%" $height="16px" $marginBottom="wide" />
+          <Rectangle $width="50%" $height="16px" />
         </TabletAndBelow>
       </Left>
       <Photo />
     </Up>
     <TabletAndBelow>
       <Down>
-        <Rectangle width="100%" height="12px" marginBottom="narrow" />
-        <Rectangle width="100%" height="12px" marginBottom="narrow" />
-        <Rectangle width="240px" height="12px" marginBottom="narrow" />
+        <Rectangle $width="100%" $height="12px" $marginBottom="narrow" />
+        <Rectangle $width="100%" $height="12px" $marginBottom="narrow" />
+        <Rectangle $width="240px" $height="12px" $marginBottom="narrow" />
       </Down>
     </TabletAndBelow>
   </Box>

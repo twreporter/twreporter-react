@@ -153,7 +153,7 @@ const BaseStyle = css`
 `
 
 const GlobalStyle = createGlobalStyle`
-  ${props => props.fontfaces}
+  ${props => props.$fontfaces}
   ${BaseStyle}
 `
 
@@ -162,7 +162,7 @@ const SnackBarContainer = styled.div`
   bottom: 8px;
   z-index: 1;
   transition: opacity 100ms ease-in-out;
-  opacity: ${props => (props.show ? 1 : 0)};
+  opacity: ${props => (props.$show ? 1 : 0)};
   display: flex;
   justify-content: center;
   width: 100%;
@@ -190,7 +190,7 @@ const GlobalStyleWithFonts = ({ fonts = [] }) => {
     }
   )
 
-  return <GlobalStyle fontfaces={fontfaces} />
+  return <GlobalStyle $fontfaces={fontfaces} />
 }
 
 GlobalStyleWithFonts.propTypes = {
@@ -234,7 +234,7 @@ const App = ({ reduxStore, releaseBranch }) => {
               )
             }}
           />
-          <SnackBarContainer show={showSnackBar}>
+          <SnackBarContainer $show={showSnackBar}>
             <SnackBar text={snackBarText} />
           </SnackBarContainer>
         </CoreContext.Provider>
