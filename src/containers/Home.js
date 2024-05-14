@@ -108,8 +108,7 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
-  background-color: ${props =>
-    props['backgroundColor'] ? props['backgroundColor'] : ''};
+  ${props => props.$backgroundColor ? `background-color: ${props.$backgroundColor};` : ''}
 `
 
 const webSiteJSONLD = {
@@ -321,12 +320,12 @@ class Homepage extends React.PureComponent {
               <JuniorBoxSection releaseBranch={releaseBranch} />
             </Section>
             <Section anchorId="categories" anchorLabel="議題" showAnchor>
-              <Background backgroundColor={moduleBackgounds.category}>
+              <Background $backgroundColor={moduleBackgounds.category}>
                 <CategorySection data={this.props.categories} />
               </Background>
             </Section>
             <Section anchorId="topic" anchorLabel="專題" showAnchor>
-              <Background backgroundColor={moduleBackgounds.topic}>
+              <Background $backgroundColor={moduleBackgounds.topic}>
                 <TopicsSection
                   data={this.props[fieldNames.sections.topicsSection]}
                 />
@@ -336,7 +335,7 @@ class Homepage extends React.PureComponent {
               <PodcastBoxSection releaseBranch={releaseBranch} />
             </Section>
             <Section anchorId="photography" anchorLabel="攝影" showAnchor>
-              <Background backgroundColor={moduleBackgounds.photography}>
+              <Background $backgroundColor={moduleBackgounds.photography}>
                 <PhotographySection
                   data={this.props[fieldNames.sections.photosSection]}
                   moreURI="photography"
@@ -344,7 +343,7 @@ class Homepage extends React.PureComponent {
               </Background>
             </Section>
             <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
-              <Background backgroundColor={moduleBackgounds.infographic}>
+              <Background $backgroundColor={moduleBackgounds.infographic}>
                 <InforgraphicSection
                   data={this.props[fieldNames.sections.infographicsSection]}
                   moreURI={`tag/${INFOGRAM_ID}`}

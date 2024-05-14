@@ -79,6 +79,7 @@ const webpackConfig = {
     quiet: false,
     inline: true,
     lazy: false,
+    overlay: false,
   },
   module: {
     rules: [

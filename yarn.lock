@@ -1655,13 +1655,13 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/index-page@^2.0.0-rc.2":
-  version "2.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.0.0-rc.2.tgz#a06b8b13cfc047ae93484043b66d6b5a14ed6512"
-  integrity sha512-Q8NnQb0LFncMHAEln8rQ/Pr1A/erOsP7aLN3CZgnaD56UjIR833/3HSwV5nSbAxv5p3AlqTUOqHqrLYraJjzLQ==
+"@twreporter/index-page@^2.0.0-rc.3":
+  version "2.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.0.0-rc.3.tgz#1cd179639003b146704424d425c47bb215169e32"
+  integrity sha512-EVy7zs2Kowa7Ra5+U/BHv0iqTj1fgdb2v70pS6DtDXpgzd6D9OQqCVp9+xcLrFEy6AaL/TjtYzHIjgOeDVRQNg==
   dependencies:
     "@twreporter/core" "^1.21.0-rc.3"
-    "@twreporter/react-components" "^9.0.0-rc.2"
+    "@twreporter/react-components" "^9.0.0-rc.3"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^18.2.0"
@@ -1669,34 +1669,34 @@
     react-router-dom "^5.1.2"
     react-swipeable "^4.0.1"
     react-transition-group "^4.4.5"
-    react-waypoint "^9.0.2"
+    react-waypoint "^10.3.0"
     styled-components "^6.0.0"
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.0.0-rc.2":
-  version "2.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.0.0-rc.2.tgz#4d3cf64a2546f13df42153a4c7d80ba78c13fa0e"
-  integrity sha512-jy6338waBUys7+wDUY/JUmttJs8ImaceJMUqECHYW/7nkOOdrhnci3NM57hGqFBT0aVV+lOtwSOy2CZvIFxoKQ==
+"@twreporter/react-article-components@^2.0.0-rc.3":
+  version "2.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.0.0-rc.3.tgz#ee8bba107d8bbc3d2372804d160177a4a2aa4959"
+  integrity sha512-hhjJPRKlsi5US19/J+TPaMDllHlKm8BTXKfMV9x/+v63FMu4DwIf9RNYpHeacth63OeCT4lZ2u/QT6jLHoAwjA==
   dependencies:
     "@twreporter/core" "^1.21.0-rc.3"
-    "@twreporter/react-components" "^9.0.0-rc.2"
+    "@twreporter/react-components" "^9.0.0-rc.3"
     "@twreporter/redux" "^8.0.0-rc.1"
-    "@twreporter/universal-header" "^3.0.0-rc.2"
+    "@twreporter/universal-header" "^3.0.0-rc.3"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
     prop-types "^15.0.0"
     react "^18.2.0"
-    react-waypoint "^9.0.2"
+    react-waypoint "^10.3.0"
     smooth-scroll "16.1.3"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/react-components@^9.0.0-rc.2":
-  version "9.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-9.0.0-rc.2.tgz#5b12f212fd615d792ce089f6d41223aeef92c9ac"
-  integrity sha512-gUdrsGnY9d/AKZHXLQCi8Q/OidgzwPTiksTJQbu1MT0f03dWB1JwPb09cYLXfNDil3FTpwr69r0GynunjpzUqA==
+"@twreporter/react-components@^9.0.0-rc.3":
+  version "9.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-9.0.0-rc.3.tgz#1e1a3e99a1a2fc8d988e30f89a6a3832126aea8e"
+  integrity sha512-rdl3XLP4McZuj1WGqahSoNgTtlKKSLyAheshgjL/rfI/sxj9/ZEWh/c18TU2H3DD2SQDxYfLwkk6jirIuAOCbA==
   dependencies:
     "@twreporter/core" "^1.21.0-rc.3"
     "@twreporter/redux" "^8.0.0-rc.1"
@@ -1709,7 +1709,7 @@
     react-redux "^6.0.0"
     react-router-dom "^5.1.2"
     react-transition-group "^4.4.5"
-    react-waypoint "^9.0.2"
+    react-waypoint "^10.3.0"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
@@ -1731,13 +1731,13 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/universal-header@^3.0.0-rc.2":
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.0.0-rc.2.tgz#b1a9d7688683f73411f1780c8e4651af07fb5644"
-  integrity sha512-nbBhCa1d7IagCOXndibaDZ4xqlVHvDiagXdf2cQEuSKxg0+kIWhGDwiCS7wiNftxGLqiT6bL8dpc5mYhsPWqmQ==
+"@twreporter/universal-header@^3.0.0-rc.3":
+  version "3.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.0.0-rc.3.tgz#8202c5b91f58d096bcf3e189b3f81b191c419561"
+  integrity sha512-4wN4yjTzs+YgRwO8LDelZzVtYk+uA9ivr1F/koK0xIDVoe0SfJA2+KjQJrO8cfxXdeaQowKlvoNKVoLpcXrsOA==
   dependencies:
     "@twreporter/core" "^1.21.0-rc.3"
-    "@twreporter/react-components" "^9.0.0-rc.2"
+    "@twreporter/react-components" "^9.0.0-rc.3"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
@@ -8813,7 +8813,7 @@ react-helmet-async@^1.3.0:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.2:
+react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.2:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -8876,6 +8876,16 @@ react-swipeable@^4.0.1:
     detect-passive-events "^1.0.4"
     prop-types "^15.5.8"
 
+react-transition-group@^2.0.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
+  integrity sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==
+  dependencies:
+    dom-helpers "^3.4.0"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+    react-lifecycles-compat "^3.0.4"
+
 react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
@@ -8895,15 +8905,6 @@ react-waypoint@^10.3.0:
     consolidated-events "^1.1.0 || ^2.0.0"
     prop-types "^15.0.0"
     react-is "^17.0.1 || ^18.0.0"
-
-react-waypoint@^9.0.2:
-  version "9.0.3"
-  resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-9.0.3.tgz"
-  integrity sha512-NRmyjW8CUBNNl4WpvBqLDgBs18rFUsixeHVHrRrFlWTdOlWP7eiDjptqlR/cJAPLD6RwP5XFCm3bi9OiofN3nA==
-  dependencies:
-    consolidated-events "^1.1.0 || ^2.0.0"
-    prop-types "^15.0.0"
-    react-is "^16.6.3"
 
 react@^18.2.0:
   version "18.2.0"
