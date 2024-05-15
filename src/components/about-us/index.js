@@ -23,6 +23,8 @@ import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 import Footer from '@twreporter/react-components/lib/footer'
 import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 import { colorBrand } from '@twreporter/core/lib/constants/color'
+// env
+import globalEnv from '../../global-env'
 
 const Border = styled.div`
   ${mq.hdOnly`
@@ -114,7 +116,7 @@ export class AboutUs extends PureComponent {
             </SideBar>
           </Border>
         </ErrorBoundary>
-        <Footer />
+        <Footer releaseBranch={globalEnv.releaseBranch} />
         <WebFont />
       </HelmetProvider>
     )
