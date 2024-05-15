@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.0-rc.6, 2024-05-15
+
+### Notable Changes
+
+- fix
+  - add `releaseBranch` to Footer
+
+### Commits
+
+- [[`166e6559cb`](https://github.com/twreporter/twreporter-react/commit/166e6559cb)] - **fix**: add releaseBranch to Footer (Lucien)
+
 ## 5.0.0-rc.5, 2024-05-14
 
 ### Notable Changes
