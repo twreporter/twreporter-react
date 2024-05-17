@@ -22,6 +22,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
+    // eslint-disable-next-line no-undef
+    if (error instanceof DOMException) {
+      // react-transition-group might throw domException on ssr
+      // catch it with error report only
+      this.hide()
+    }
     logger.errorReport({
       message: 'An error was catched in React ErrorBoundary.',
       report: error,
