@@ -129,13 +129,13 @@ TagManager.initialize(tagManagerArgs[releaseBranch])
 
 const jsx = (
   <BrowserRouter>
-    <React.Fragment>
+    <div>
       <Route path="/" component={reloadPageIfNeeded()} />
       <Route path="/" component={scrollToTopAndFirePageview} />
       <Route path="/" component={hashLinkScroll} />
       <Route path="/" component={sendGtmUserId} />
       <App reduxStore={store} releaseBranch={releaseBranch} />
-    </React.Fragment>
+    </div>
   </BrowserRouter>
 )
 

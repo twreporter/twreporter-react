@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled, { css, keyframes } from 'styled-components'
+import { flushSync } from 'react-dom'
 
 const returnToStartDuration = 1000
 
@@ -74,7 +75,9 @@ export default class Timeline extends PureComponent {
       this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`
       this._setYear()
     } else {
-      this.setState({ returnToStart: true })
+      flushSync(() => {
+        this.setState({ returnToStart: true })
+      })
       setTimeout(() => {
         this.timelineShiftY = 0
         this.scroller.style.transform = `translateY(-${this.timelineShiftY}px)`

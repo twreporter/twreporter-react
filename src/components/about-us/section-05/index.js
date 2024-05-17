@@ -1,6 +1,6 @@
 /* eslint react/no-find-dom-node: 1 */
 import React, { PureComponent } from 'react'
-import ReactDOM from 'react-dom'
+import { findDOMNode, flushSync } from 'react-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Waypoint } from 'react-waypoint'
@@ -401,7 +401,9 @@ export default class Section5 extends PureComponent {
       .then(res => {
         const config = _.get(res, 'data.rows')
         if (config) {
-          this._setStateByConfig(config)
+          flushSync(() => {
+            this._setStateByConfig(config)
+          })
           this._setScrollingHeight()
         }
       })
@@ -458,7 +460,7 @@ export default class Section5 extends PureComponent {
   }
 
   _setScrollingHeight = () => {
-    const timelineScrollingHeight = ReactDOM.findDOMNode(
+    const timelineScrollingHeight = findDOMNode(
       this.scrollingContent
     ).getBoundingClientRect().height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
