@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.0.0-rc.7, 2024-05-17
+
+### Notable Changes
+
+- fix
+  - defects after upgrade react to v18
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`012bab53e6`](https://github.com/twreporter/twreporter-react/commit/012bab53e6)] - **chore**: update @twreporter packages (Ayllie Chou)
+- [[`3d9cc44739`](https://github.com/twreporter/twreporter-react/commit/3d9cc44739)] - **fix**: defects after upgrade react to v18 (Aylie Chou)
+
 ## 5.0.0-rc.6, 2024-05-15
 
 ### Notable Changes
