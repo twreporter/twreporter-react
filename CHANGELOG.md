@@ -1,167 +1,56 @@
 # Changelog
 
-## 5.0.0-rc.8, 2024-05-20
-
-### Notable Changes
-
-- fix
-  - use `React.render` before resolving react issue #418, #423
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`8cd1fa65bf`](https://github.com/twreporter/twreporter-react/commit/8cd1fa65bf)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`f88a531d52`](https://github.com/twreporter/twreporter-react/commit/f88a531d52)] - **fix**: use `React.render` before resolving issue #418, #423 (Aylie Chou)
-
-## 5.0.0-rc.7, 2024-05-17
-
-### Notable Changes
-
-- fix
-  - defects after upgrade react to v18
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`012bab53e6`](https://github.com/twreporter/twreporter-react/commit/012bab53e6)] - **chore**: update @twreporter packages (Ayllie Chou)
-- [[`3d9cc44739`](https://github.com/twreporter/twreporter-react/commit/3d9cc44739)] - **fix**: defects after upgrade react to v18 (Aylie Chou)
-
-## 5.0.0-rc.6, 2024-05-15
-
-### Notable Changes
-
-- fix
-  - add `releaseBranch` to Footer
-
-### Commits
-
-- [[`166e6559cb`](https://github.com/twreporter/twreporter-react/commit/166e6559cb)] - **fix**: add releaseBranch to Footer (Lucien)
-
-## 5.0.0-rc.5, 2024-05-14
-
-### Notable Changes
-
-- fix
-  - upgrade `styled-component` version to resolve conflict
-  - update `.gitignore`
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`45cc7bc0b2`](https://github.com/twreporter/twreporter-react/commit/45cc7bc0b2)] - **fix**: update @twreporter packages (Aylie Chou)
-- [[`b6663057bd`](https://github.com/twreporter/twreporter-react/commit/b6663057bd)] - **fix**: update @twreporter packages & `.gitignore` (Aylie Chou)
-- [[`51592f6ec2`](https://github.com/twreporter/twreporter-react/commit/51592f6ec2)] - **fix**: upgrade `styled-component` version to resolve conflict (Aylie Chou)
-
-## 5.0.0-rc.4, 2024-05-10
-
-### Notable Changes
-
-- fix
-  - fetch at mount while cause duplicated related articles
-
-### Commits
-
-- [[`76184708ce`](https://github.com/twreporter/twreporter-react/commit/76184708ce)] - **fix**: fetch at mount while cause duplicated related articles (Lucien)
-
-## 5.0.0-rc.3, 2024-05-10
-
-### Notable Changes
-
-- fix
-  - no badge if no reviewWord
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`fe4e04468f`](https://github.com/twreporter/twreporter-react/commit/fe4e04468f)] - **chore**: update twreporter packages (Lucien)
-- [[`e625560b38`](https://github.com/twreporter/twreporter-react/commit/e625560b38)] - **fix**: no badge if no reviewWord (Lucien)
-
-## 5.0.0-rc.2, 2024-05-09
-
-### Notable Changes
-
-- fix
-  - build fail in node v18
-
-### Commits
-
-- [[`ee733bb505`](https://github.com/twreporter/twreporter-react/commit/ee733bb505)] - **fix**: build fail in node v18 (Aylie Chou)
-
-## 5.0.0-rc.1, 2024-05-09
-
-### Notable Changes
-
-- fix
-  - add `webpack-cli` & remove deprecated uglify plugin
-  - replace `react-helmet` with `react-helmet-async`
-
-### Commits
-
-- [[`77543c1251`](https://github.com/twreporter/twreporter-react/commit/77543c1251)] - **fix**: replace `react-helmet` with `react-helmet-async` (Aylie Chou)
-- [[`854d418201`](https://github.com/twreporter/twreporter-react/commit/854d418201)] - **fix**: add `webpack-cli` & remove deprecated uglify plugin (Aylie Chou)
-
-## 5.0.0-rc.0, 2024-05-08
+## 5.0.0, 2024-05-20 (Current)
 
 ### Notable Changes
 
 - feat
   - upgrade `react` & `react-dom` to v18
-- fix
-  - replace `react-loadable` with `@loadable/component`
-- chore
-  - update @twreporter packages version
-
-### Commits
-
-- [[`85b25859b0`](https://github.com/twreporter/twreporter-react/commit/85b25859b0)] - **chore**: update @twreporter packages version (Aylie Chou)
-- [[`2683ef1701`](https://github.com/twreporter/twreporter-react/commit/2683ef1701)] - **fix**: replace `react-loadable` with `@loadable/component` (Aylie Chou)
-- [[`9a6df1c00a`](https://github.com/twreporter/twreporter-react/commit/9a6df1c00a)] - **feat**: upgrade `react` & `react-dom` to v18 (Aylie Chou)
-
-## 4.13.1-rc.2, 2024-05-08
-
-### Notable Changes
-
-- fix
-  - fetch user data while CSR
-
-### Commits
-
-- [[`665ab8f67c`](https://github.com/twreporter/twreporter-react/commit/665ab8f67c)] - Merge remote-tracking branch 'upstream/master' into fix/member-page-csr (Lucien)
-- [[`107047f364`](https://github.com/twreporter/twreporter-react/commit/107047f364)] - **fix**: give user_id a default value (Lucien)
-- [[`7fc054290d`](https://github.com/twreporter/twreporter-react/commit/7fc054290d)] - **feat**: add comment (Lucien)
-- [[`8f2b586b44`](https://github.com/twreporter/twreporter-react/commit/8f2b586b44)] - **feat**: fetch user data at mount (Lucien)
-
-## 4.13.1-rc.1, 2024-05-08
-
-### Notable Changes
-
-- feat
+    - use `React.render` before resolving react issue #418, #423
+  - upgrade `styled-component` version to v6
   - use post reviews data from redux
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`e6cc4c14d4`](https://github.com/twreporter/twreporter-react/commit/e6cc4c14d4)] - **chore**: update twreporter packages (Lucien)
-- [[`2404e4db22`](https://github.com/twreporter/twreporter-react/commit/2404e4db22)] - **fix**: use w400 image (Lucien)
-- [[`050ed80508`](https://github.com/twreporter/twreporter-react/commit/050ed80508)] - **feat**: use post reviews data from redux (Lucien)
-
-## 4.13.1-rc.0, 2024-05-08
-
-### Notable Changes
-
-- feat
   - download page for donation history records
+- fix
+  - replace `react-helmet` with `react-helmet-async`
+  - replace `react/loadable` with `@lodable/components`
+    - upgrade `webpack` to v4
+    - add `webpack-cli` & remove deprecated uglify plugin
+  - add `releaseBranch` to Footer
+  - fetch at mount while cause duplicated related articles
+  - no badge if no reviewWord
+  - fetch user data while CSR in member page
 - chore
   - update @twreporter packages
+  - update `.gitignore`
   - remove `DONDATION_HISTORY_PHASE_2` feature toggle
 
 ### Commits
 
+- [[`b85267b3ff`](https://github.com/twreporter/twreporter-react/commit/b85267b3ff)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`8cd1fa65bf`](https://github.com/twreporter/twreporter-react/commit/8cd1fa65bf)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f88a531d52`](https://github.com/twreporter/twreporter-react/commit/f88a531d52)] - **fix**: use `React.render` before resolving issue #418, #423 (Aylie Chou)
+- [[`012bab53e6`](https://github.com/twreporter/twreporter-react/commit/012bab53e6)] - **chore**: update @twreporter packages (Ayllie Chou)
+- [[`3d9cc44739`](https://github.com/twreporter/twreporter-react/commit/3d9cc44739)] - **fix**: defects after upgrade react to v18 (Aylie Chou)
+- [[`166e6559cb`](https://github.com/twreporter/twreporter-react/commit/166e6559cb)] - **fix**: add releaseBranch to Footer (Lucien)
+- [[`45cc7bc0b2`](https://github.com/twreporter/twreporter-react/commit/45cc7bc0b2)] - **fix**: update @twreporter packages (Aylie Chou)
+- [[`b6663057bd`](https://github.com/twreporter/twreporter-react/commit/b6663057bd)] - **fix**: update @twreporter packages & `.gitignore` (Aylie Chou)
+- [[`51592f6ec2`](https://github.com/twreporter/twreporter-react/commit/51592f6ec2)] - **fix**: upgrade `styled-component` version to resolve conflict (Aylie Chou)
+- [[`76184708ce`](https://github.com/twreporter/twreporter-react/commit/76184708ce)] - **fix**: fetch at mount while cause duplicated related articles (Lucien)
+- [[`fe4e04468f`](https://github.com/twreporter/twreporter-react/commit/fe4e04468f)] - **chore**: update twreporter packages (Lucien)
+- [[`e625560b38`](https://github.com/twreporter/twreporter-react/commit/e625560b38)] - **fix**: no badge if no reviewWord (Lucien)
+- [[`ee733bb505`](https://github.com/twreporter/twreporter-react/commit/ee733bb505)] - **fix**: build fail in node v18 (Aylie Chou)
+- [[`77543c1251`](https://github.com/twreporter/twreporter-react/commit/77543c1251)] - **fix**: replace `react-helmet` with `react-helmet-async` (Aylie Chou)
+- [[`854d418201`](https://github.com/twreporter/twreporter-react/commit/854d418201)] - **fix**: add `webpack-cli` & remove deprecated uglify plugin (Aylie Chou)
+- [[`85b25859b0`](https://github.com/twreporter/twreporter-react/commit/85b25859b0)] - **chore**: update @twreporter packages version (Aylie Chou)
+- [[`2683ef1701`](https://github.com/twreporter/twreporter-react/commit/2683ef1701)] - **fix**: replace `react-loadable` with `@loadable/component` (Aylie Chou)
+- [[`9a6df1c00a`](https://github.com/twreporter/twreporter-react/commit/9a6df1c00a)] - **feat**: upgrade `react` & `react-dom` to v18 (Aylie Chou)
+- [[`665ab8f67c`](https://github.com/twreporter/twreporter-react/commit/665ab8f67c)] - Merge remote-tracking branch 'upstream/master' into fix/member-page-csr (Lucien)
+- [[`107047f364`](https://github.com/twreporter/twreporter-react/commit/107047f364)] - **fix**: give user_id a default value (Lucien)
+- [[`7fc054290d`](https://github.com/twreporter/twreporter-react/commit/7fc054290d)] - **feat**: add comment (Lucien)
+- [[`8f2b586b44`](https://github.com/twreporter/twreporter-react/commit/8f2b586b44)] - **feat**: fetch user data at mount (Lucien)
+- [[`e6cc4c14d4`](https://github.com/twreporter/twreporter-react/commit/e6cc4c14d4)] - **chore**: update twreporter packages (Lucien)
+- [[`2404e4db22`](https://github.com/twreporter/twreporter-react/commit/2404e4db22)] - **fix**: use w400 image (Lucien)
+- [[`050ed80508`](https://github.com/twreporter/twreporter-react/commit/050ed80508)] - **feat**: use post reviews data from redux (Lucien)
 - [[`6b73fb947f`](https://github.com/twreporter/twreporter-react/commit/6b73fb947f)] - **chore**: update twreporter packages (Lucien)
 - [[`4a0a92a8d8`](https://github.com/twreporter/twreporter-react/commit/4a0a92a8d8)] - **feat**: add try catch for axios request (Lucien)
 - [[`cb89b94c7d`](https://github.com/twreporter/twreporter-react/commit/cb89b94c7d)] - **fix**: remove unused code (Lucien)
@@ -171,7 +60,7 @@
 - [[`2833281236`](https://github.com/twreporter/twreporter-react/commit/2833281236)] - **feat**: add download route (Lucien)
 - [[`cc1125bbf1`](https://github.com/twreporter/twreporter-react/commit/cc1125bbf1)] - **feat**: pay method and download button (Lucien)
 
-## 4.13.0, 2024-04-23 (Current)
+## 4.13.0, 2024-04-23
 
 ### Notable Changes
 
