@@ -24,8 +24,9 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
     // eslint-disable-next-line no-undef
     if (error instanceof DOMException) {
-      // react-transition-group might throw domException on ssr
-      // catch it with error report only
+      // todo: remove it after resolving react hydrateRoot issue #418 & #423
+      //   react-transition-group might throw domException on ssr
+      //   catch it with error report only
       this.hide()
     }
     logger.errorReport({
