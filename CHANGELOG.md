@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.0.0-rc.8, 2024-05-20
+
+### Notable Changes
+
+- fix
+  - use `React.render` before resolving react issue #418, #423
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`8cd1fa65bf`](https://github.com/twreporter/twreporter-react/commit/8cd1fa65bf)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f88a531d52`](https://github.com/twreporter/twreporter-react/commit/f88a531d52)] - **fix**: use `React.render` before resolving issue #418, #423 (Aylie Chou)
+
 ## 5.0.0-rc.7, 2024-05-17
 
 ### Notable Changes
