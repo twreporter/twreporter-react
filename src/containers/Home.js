@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import CSSTransition from 'react-transition-group/CSSTransition'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
@@ -108,8 +108,7 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
-  background-color: ${props =>
-    props['backgroundColor'] ? props['backgroundColor'] : ''};
+  ${props => props.$backgroundColor ? `background-color: ${props.$backgroundColor};` : ''}
 `
 
 const webSiteJSONLD = {
@@ -261,107 +260,109 @@ class Homepage extends React.PureComponent {
     ) : null
     const SideBar = sideBarFactory.getIndexPageSideBar()
     return (
-      <Container>
-        <CSSTransition
-          in={isSpinnerDisplayed}
-          classNames="spinner"
-          timeout={2000}
-          enter={false}
-          mountOnEnter
-          unmountOnExit
-        >
-          <LoadingCover>
-            <LoadingSpinner alt="首頁載入中" />
-          </LoadingCover>
-        </CSSTransition>
-        <Helmet
-          title={siteMeta.name.full}
-          link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/' }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: siteMeta.name.full },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { property: 'og:title', content: siteMeta.name.full },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: siteMeta.urlOrigin + '/' },
-            {
-              property: 'og:updated_time',
-              content: siteMeta.ogImage.updatedTime,
-            },
-          ]}
-        />
-        <SideBar ref={this._sidebar}>
-          <Section anchorId="latest">
-            <LatestSection
-              data={this.props[fieldNames.sections.latestSection]}
-            />
-          </Section>
-          <Section anchorId="editorPick" anchorLabel="編輯精選" showAnchor>
-            <EditorPicks
-              data={this.props[fieldNames.sections.editorPicksSection]}
-            />
-          </Section>
-          {latestTopicJSX}
-          <Section anchorId="donation-box">
-            <DonationBoxSection />
-          </Section>
-          <Section anchorId="review" anchorLabel="評論" showAnchor>
-            <ReviewsSection
-              data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${CATEGORY_PATH.opinion}`}
-            />
-          </Section>
-          <Section anchorId="junior">
-            <JuniorBoxSection releaseBranch={releaseBranch} />
-          </Section>
-          <Section anchorId="categories" anchorLabel="議題" showAnchor>
-            <Background backgroundColor={moduleBackgounds.category}>
-              <CategorySection data={this.props.categories} />
-            </Background>
-          </Section>
-          <Section anchorId="topic" anchorLabel="專題" showAnchor>
-            <Background backgroundColor={moduleBackgounds.topic}>
-              <TopicsSection
-                data={this.props[fieldNames.sections.topicsSection]}
+      <HelmetProvider>
+        <Container>
+          <CSSTransition
+            in={isSpinnerDisplayed}
+            classNames="spinner"
+            timeout={2000}
+            enter={false}
+            mountOnEnter
+            unmountOnExit
+          >
+            <LoadingCover>
+              <LoadingSpinner alt="首頁載入中" />
+            </LoadingCover>
+          </CSSTransition>
+          <Helmet
+            title={siteMeta.name.full}
+            link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/' }]}
+            meta={[
+              { name: 'description', content: siteMeta.desc },
+              { name: 'twitter:title', content: siteMeta.name.full },
+              { name: 'twitter:image', content: siteMeta.ogImage.url },
+              { name: 'twitter:description', content: siteMeta.desc },
+              { property: 'og:title', content: siteMeta.name.full },
+              { property: 'og:description', content: siteMeta.desc },
+              { property: 'og:image', content: siteMeta.ogImage.url },
+              { property: 'og:image:width', content: siteMeta.ogImage.width },
+              { property: 'og:image:height', content: siteMeta.ogImage.height },
+              { property: 'og:type', content: 'website' },
+              { property: 'og:url', content: siteMeta.urlOrigin + '/' },
+              {
+                property: 'og:updated_time',
+                content: siteMeta.ogImage.updatedTime,
+              },
+            ]}
+          />
+          <SideBar ref={this._sidebar}>
+            <Section anchorId="latest">
+              <LatestSection
+                data={this.props[fieldNames.sections.latestSection]}
               />
-            </Background>
-          </Section>
-          <Section anchorId="podcast">
-            <PodcastBoxSection releaseBranch={releaseBranch} />
-          </Section>
-          <Section anchorId="photography" anchorLabel="攝影" showAnchor>
-            <Background backgroundColor={moduleBackgounds.photography}>
-              <PhotographySection
-                data={this.props[fieldNames.sections.photosSection]}
-                moreURI="photography"
+            </Section>
+            <Section anchorId="editorPick" anchorLabel="編輯精選" showAnchor>
+              <EditorPicks
+                data={this.props[fieldNames.sections.editorPicksSection]}
               />
-            </Background>
-          </Section>
-          <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
-            <Background backgroundColor={moduleBackgounds.infographic}>
-              <InforgraphicSection
-                data={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`tag/${INFOGRAM_ID}`}
+            </Section>
+            {latestTopicJSX}
+            <Section anchorId="donation-box">
+              <DonationBoxSection />
+            </Section>
+            <Section anchorId="review" anchorLabel="評論" showAnchor>
+              <ReviewsSection
+                data={this.props[fieldNames.sections.reviewsSection]}
+                moreURI={`categories/${CATEGORY_PATH.opinion}`}
               />
-            </Background>
-          </Section>
-        </SideBar>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(siteNavigationJSONLD),
-          }}
-        />
-      </Container>
+            </Section>
+            <Section anchorId="junior">
+              <JuniorBoxSection releaseBranch={releaseBranch} />
+            </Section>
+            <Section anchorId="categories" anchorLabel="議題" showAnchor>
+              <Background $backgroundColor={moduleBackgounds.category}>
+                <CategorySection data={this.props.categories} />
+              </Background>
+            </Section>
+            <Section anchorId="topic" anchorLabel="專題" showAnchor>
+              <Background $backgroundColor={moduleBackgounds.topic}>
+                <TopicsSection
+                  data={this.props[fieldNames.sections.topicsSection]}
+                />
+              </Background>
+            </Section>
+            <Section anchorId="podcast">
+              <PodcastBoxSection releaseBranch={releaseBranch} />
+            </Section>
+            <Section anchorId="photography" anchorLabel="攝影" showAnchor>
+              <Background $backgroundColor={moduleBackgounds.photography}>
+                <PhotographySection
+                  data={this.props[fieldNames.sections.photosSection]}
+                  moreURI="photography"
+                />
+              </Background>
+            </Section>
+            <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
+              <Background $backgroundColor={moduleBackgounds.infographic}>
+                <InforgraphicSection
+                  data={this.props[fieldNames.sections.infographicsSection]}
+                  moreURI={`tag/${INFOGRAM_ID}`}
+                />
+              </Background>
+            </Section>
+          </SideBar>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(siteNavigationJSONLD),
+            }}
+          />
+        </Container>
+      </HelmetProvider>
     )
   }
 }

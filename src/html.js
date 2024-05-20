@@ -1,5 +1,4 @@
 'use strict'
-import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import serialize from 'serialize-javascript'
@@ -20,14 +19,24 @@ const _ = {
 export default class Html extends PureComponent {
   static propTypes = {
     scripts: PropTypes.array.isRequired,
+    scriptElement: PropTypes.arrayOf(PropTypes.element).isRequired,
     styles: PropTypes.array.isRequired,
     contentMarkup: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     styleElement: PropTypes.arrayOf(PropTypes.element).isRequired,
+    helmet: PropTypes.object.isRequired,
   }
   render() {
-    const { contentMarkup, scripts, store, styleElement, styles } = this.props
-    const head = Helmet.rewind()
+    const {
+      contentMarkup,
+      scripts,
+      scriptElement,
+      store,
+      styleElement,
+      styles,
+      helmet,
+    } = this.props
+
     return (
       <html lang="zh-TW">
         <head>
@@ -35,11 +44,11 @@ export default class Html extends PureComponent {
             async
             src="https://www.googleoptimize.com/optimize.js?id=OPT-NGNDMW8"
           />
-          {head.base.toComponent()}
-          {head.title.toComponent()}
-          {head.meta.toComponent()}
-          {head.link.toComponent()}
-          {head.script.toComponent()}
+          {helmet.base.toComponent()}
+          {helmet.title.toComponent()}
+          {helmet.meta.toComponent()}
+          {helmet.link.toComponent()}
+          {helmet.script.toComponent()}
 
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -114,6 +123,7 @@ export default class Html extends PureComponent {
           {_.map(scripts, (script, key) => (
             <script src={script} key={'scripts' + key} charSet="UTF-8" />
           ))}
+          {scriptElement}
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(d) {

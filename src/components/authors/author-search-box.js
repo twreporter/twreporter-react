@@ -73,7 +73,7 @@ const Input = styled.input`
 `
 
 const ResetBtn = styled.button`
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${props => (props.$show ? 'block' : 'none')};
   position: absolute;
   top: 1px;
   right: 30px;
@@ -191,7 +191,7 @@ class AuthorSearchBox extends React.Component {
             type="reset"
             title="Clear the search query"
             onClick={this.handleReset}
-            show={Boolean(keywords)}
+            $show={Boolean(keywords)}
           >
             <ResetIcon />
           </ResetBtn>

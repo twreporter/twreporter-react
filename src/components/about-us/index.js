@@ -1,6 +1,6 @@
 /* eslint react/no-find-dom-node:1 */
 import TagManager from 'react-gtm-module'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import styled from 'styled-components'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
@@ -23,6 +23,8 @@ import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 import Footer from '@twreporter/react-components/lib/footer'
 import { AnchorWrapper as Anchor } from '@twreporter/react-components/lib/side-bar'
 import { colorBrand } from '@twreporter/core/lib/constants/color'
+// env
+import globalEnv from '../../global-env'
 
 const Border = styled.div`
   ${mq.hdOnly`
@@ -66,7 +68,7 @@ export class AboutUs extends PureComponent {
   render() {
     const SideBar = SideBarFactory.getAboutUSPageSideBar()
     return (
-      <React.Fragment>
+      <HelmetProvider>
         <Helmet
           title={siteMeta.name.full}
           link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/about-us' }]}
@@ -114,9 +116,9 @@ export class AboutUs extends PureComponent {
             </SideBar>
           </Border>
         </ErrorBoundary>
-        <Footer />
+        <Footer releaseBranch={globalEnv.releaseBranch} />
         <WebFont />
-      </React.Fragment>
+      </HelmetProvider>
     )
   }
 }

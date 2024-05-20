@@ -11,10 +11,11 @@ import {
 } from '@twreporter/react-components/lib/rwd'
 import divider from '@twreporter/react-components/lib/divider'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
+import { LinkButton } from '@twreporter/react-components/lib/button'
 // components
 import { StatusBadge } from '../status-bagde'
 import { formattedDate } from './row'
-import { DonationType } from '../../../../constants/donation'
+import { DonationType, PayMethodType } from '../../../../constants/donation'
 
 const P1Gray800 = styled(P1)`
   color: ${colorGrayscale.gray800};
@@ -28,7 +29,7 @@ const Divider = styled(divider)`
   width: 100%;
   margin-top: 16px;
   margin-bottom: 16px;
-  ${props => (props.isMobile ? 'margin-top: 8px; margin-bottom: 8px;' : '')};
+  ${props => (props.$isMobile ? 'margin-top: 8px; margin-bottom: 8px;' : '')};
 `
 
 const RowDetail = styled.div`
@@ -85,6 +86,12 @@ const Dot = styled.div`
 
 const PaymentRecordBox = styled.div`
   width: 100%;
+  .payment-record-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
   .payment-record-table {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -152,7 +159,7 @@ const Loading = styled.div`
 `
 const LoadingMask = FetchingWrapper(Loading)
 
-const cardTypeDictionary = {
+export const cardTypeDictionary = {
   '-1': 'Unknown',
   '1': 'VISA',
   '2': 'MasterCard',
@@ -179,6 +186,8 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     send_receipt: sendReceipt,
     receipt_header: receiptHeader,
     is_anonymous: isAnonymous,
+    pay_method: payMethod,
+    order_number: orderNumber,
   } = record
   const receiptAddress = `${record.address_state || ''}${record.address_city ||
     ''}${record.address_detail || ''}`
@@ -223,7 +232,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </div>
           </TabletAndAbove>
           <MobileOnly>
-            <Divider isMobile />
+            <Divider $isMobile />
             <div className="row">
               <P2Gray600 text="收據抬頭" />
               <P1Gray800 text={receiptHeader} />
@@ -246,18 +255,35 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
           <P1Gray800 weight={P1.Weight.BOLD} text="扣款方式" />
           <Divider />
           <div className="card-number">
-            <P1Gray800 text={cardTypeDictionary[cardType]} />
-            <DotGroups />
-            <P1Gray800 text={cardLastFour} />
+            {payMethod === PayMethodType.LINE ? (
+              <P1Gray800 text="LINE Pay" />
+            ) : (
+              <>
+                <P1Gray800 text={cardTypeDictionary[cardType]} />
+                <DotGroups />
+                <P1Gray800 text={cardLastFour} />
+              </>
+            )}
           </div>
         </PaymentInfoBox>
         {record.type === DonationType.PERIODIC && (
           <PaymentRecordBox>
-            <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+            <div className="payment-record-title">
+              <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+              <LinkButton
+                type={LinkButton.Type.UNDERLINE}
+                text="下載所有紀錄"
+                TextComponent={P2}
+                link={{
+                  to: `/download/donation-history/${orderNumber}`,
+                  target: '_blank',
+                }}
+              />
+            </div>
             <Divider />
             <TabletAndAbove>
               <div className="payment-record-table">
-                {periodicHistory.map((history, idx) => {
+                {periodicHistory?.records?.map((history, idx) => {
                   return (
                     <React.Fragment key={idx}>
                       <P1Gray800
@@ -285,7 +311,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
             </TabletAndAbove>
             <MobileOnly>
               <div className="payment-record-table">
-                {periodicHistory.map((history, idx) => {
+                {periodicHistory?.records?.map((history, idx) => {
                   return (
                     <div className="grid-row" key={idx}>
                       <P1Gray800
@@ -320,7 +346,12 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
 
 TableRowDetail.propTypes = {
   record: PropTypes.object.isRequired,
-  periodicHistory: PropTypes.array,
+  periodicHistory: PropTypes.objectOf({
+    offset: PropTypes.number,
+    limit: PropTypes.number,
+    total: PropTypes.number,
+    records: PropTypes.array,
+  }),
   isLoading: PropTypes.bool,
 }
 

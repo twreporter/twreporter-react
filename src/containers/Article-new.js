@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import TagManager from 'react-gtm-module'
 import localForage from 'localforage'
 import memoizeOne from 'memoize-one'
@@ -270,7 +270,6 @@ const Article = ({
   }, [slugToFetch])
 
   useEffect(() => {
-    fetchAFullPostWithCatch(slugToFetch)
     startReadingCountTimer()
     startReadingTime = Date.now()
     document.addEventListener('scroll', handleScroll)
@@ -370,69 +369,71 @@ const Article = ({
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
   return (
-    <div>
-      <Helmet
-        title={ogTitle}
-        link={[{ rel: 'canonical', href: canonical }]}
-        meta={[
-          { name: 'description', content: ogDesc },
-          { name: 'twitter:title', content: ogTitle },
-          {
-            name: 'twitter:image',
-            content: replaceGCSUrlOrigin(ogImage.url),
-          },
-          { name: 'twitter:description', content: ogDesc },
-          { name: 'twitter:card', content: 'summary_large_image' },
-          { property: 'og:title', content: ogTitle },
-          { property: 'og:description', content: ogDesc },
-          { property: 'og:type', content: 'article' },
-          { property: 'og:url', content: canonical },
-          { property: 'og:rich_attachment', content: 'true' },
-          ...metaOgImage,
-        ]}
-      />
-      <div itemScope itemType="http://schema.org/Article">
-        <div
-          itemProp="publisher"
-          itemScope
-          itemType="http://schema.org/Organization"
-        >
-          <meta itemProp="name" content="報導者" />
-          <meta itemProp="email" content="contact@twreporter.org" />
-          <link
-            itemProp="logo"
-            href="https://www.twreporter.org/asset/logo-large.png"
-          />
-          <link itemProp="url" href="https://www.twreporter.org/" />
-        </div>
-        <link itemProp="mainEntityOfPage" href={canonical} />
-        <meta
-          itemProp="dateModified"
-          content={date2yyyymmdd(_.get(post, 'updated_at'))}
+    <HelmetProvider>
+      <div>
+        <Helmet
+          title={ogTitle}
+          link={[{ rel: 'canonical', href: canonical }]}
+          meta={[
+            { name: 'description', content: ogDesc },
+            { name: 'twitter:title', content: ogTitle },
+            {
+              name: 'twitter:image',
+              content: replaceGCSUrlOrigin(ogImage.url),
+            },
+            { name: 'twitter:description', content: ogDesc },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { property: 'og:title', content: ogTitle },
+            { property: 'og:description', content: ogDesc },
+            { property: 'og:type', content: 'article' },
+            { property: 'og:url', content: canonical },
+            { property: 'og:rich_attachment', content: 'true' },
+            ...metaOgImage,
+          ]}
         />
-        <div id="article-body" ref={articleBodyRef}>
-          <ArticleComponent
-            post={post}
-            relatedTopic={post.topic}
-            relatedPosts={relateds}
-            hasMoreRelateds={hasMoreRelateds}
-            loadMoreRelateds={loadMoreRelateds}
-            fontLevel={fontLevel}
-            onFontLevelChange={handleFontLevelChange}
-            LinkComponent={Link}
-            releaseBranch={releaseBranch}
-            onToggleTabExpanded={onToggleTabExpanded}
-            // TODO: pass isFetchingRelateds to show loadin spinner
-            // TODO: pass errorOfRelateds to show error message to end users
+        <div itemScope itemType="http://schema.org/Article">
+          <div
+            itemProp="publisher"
+            itemScope
+            itemType="http://schema.org/Organization"
+          >
+            <meta itemProp="name" content="報導者" />
+            <meta itemProp="email" content="contact@twreporter.org" />
+            <link
+              itemProp="logo"
+              href="https://www.twreporter.org/asset/logo-large.png"
+            />
+            <link itemProp="url" href="https://www.twreporter.org/" />
+          </div>
+          <link itemProp="mainEntityOfPage" href={canonical} />
+          <meta
+            itemProp="dateModified"
+            content={date2yyyymmdd(_.get(post, 'updated_at'))}
           />
+          <div id="article-body" ref={articleBodyRef}>
+            <ArticleComponent
+              post={post}
+              relatedTopic={post.topic}
+              relatedPosts={relateds}
+              hasMoreRelateds={hasMoreRelateds}
+              loadMoreRelateds={loadMoreRelateds}
+              fontLevel={fontLevel}
+              onFontLevelChange={handleFontLevelChange}
+              LinkComponent={Link}
+              releaseBranch={releaseBranch}
+              onToggleTabExpanded={onToggleTabExpanded}
+              // TODO: pass isFetchingRelateds to show loadin spinner
+              // TODO: pass errorOfRelateds to show error message to end users
+            />
+          </div>
         </div>
+        <ArticleBanner
+          isExpanded={isExpanded}
+          isAuthed={isAuthed}
+          userRole={userRole}
+        />
       </div>
-      <ArticleBanner
-        isExpanded={isExpanded}
-        isAuthed={isAuthed}
-        userRole={userRole}
-      />
-    </div>
+    </HelmetProvider>
   )
 }
 

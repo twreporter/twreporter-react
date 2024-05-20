@@ -2,9 +2,9 @@
 import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
-import Loadable from 'react-loadable'
+import { loadableReady } from '@loadable/component'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
@@ -129,20 +129,23 @@ TagManager.initialize(tagManagerArgs[releaseBranch])
 
 const jsx = (
   <BrowserRouter>
-    <React.Fragment>
+    <div>
       <Route path="/" component={reloadPageIfNeeded()} />
       <Route path="/" component={scrollToTopAndFirePageview} />
       <Route path="/" component={hashLinkScroll} />
       <Route path="/" component={sendGtmUserId} />
       <App reduxStore={store} releaseBranch={releaseBranch} />
-    </React.Fragment>
+    </div>
   </BrowserRouter>
 )
 
-Loadable.preloadReady().then(() => {
-  if (globalEnv.isDevelopment) {
-    ReactDOM.render(jsx, document.getElementById('root'))
+loadableReady(() => {
+  const container = document.getElementById('root')
+  const root = createRoot(container)
+  // todo: use `hydrateRoot` after resolving react issue #418 & #423
+  root.render(jsx)
 
+  if (globalEnv.isDevelopment) {
     // FPS meter
     import('stats-js')
       .then(Stats => {
@@ -161,9 +164,7 @@ Loadable.preloadReady().then(() => {
       .catch(err => {
         console.log(err)
       })
-    return
   }
-  ReactDOM.hydrate(jsx, document.getElementById('root'))
 })
 
 /**

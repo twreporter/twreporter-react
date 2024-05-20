@@ -21,8 +21,7 @@ const logoBlockWidthOnDesktop = '39%'
 const Container = styled.div`
   ${mq.desktopAndAbove`
     position: relative;
-    display: ${props =>
-      props.selectedRow === props.rowNumber ? 'inline-block' : 'none'};
+    display: inline-block;
     width: 100%;
     margin-bottom: 10px;
     h2{
@@ -63,7 +62,7 @@ const RightArrow = styled.div`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  display: ${props => (props.hasNext === 'true' ? 'block' : 'none')};
+  display: ${props => (props.$hasNext === 'true' ? 'block' : 'none')};
   ${mq.tabletAndBelow`
     transform: translateX(100%) translateY(-50%);
   `}
@@ -187,7 +186,7 @@ export default class InfoBox extends PureComponent {
           <p>{_.get(selectedItem, 'description.zh-tw')}</p>
           <RightArrow
             onClick={nextPage}
-            hasNext={(selectedContent.length > 1).toString()}
+            $hasNext={(selectedContent.length > 1).toString()}
           >
             <ArrowNextIcon>
               <img

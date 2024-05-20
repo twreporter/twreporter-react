@@ -10,12 +10,12 @@ const Pagination = styled.div`
   display: inline-block;
   width: calc(
     (
-      (${props => props.navigationWidth}px - ${props => props.pagesLength}px) /
-        ${props => props.pagesLength}
+      (${props => props.$navigationWidth}px - ${props => props.$pagesLength}px) /
+        ${props => props.$pagesLength}
     )
   );
   height: 2px;
-  opacity: ${props => (props.isCurrentPage ? 1 : 0.25)};
+  opacity: ${props => (props.$isCurrentPage ? 1 : 0.25)};
   background: ${colorGrayscale.black};
   margin-left: 1px;
   ${mq.mobileOnly`
@@ -45,9 +45,9 @@ export default class Navigation extends PureComponent {
       pagination.push(
         <Pagination
           key={i}
-          isCurrentPage={i === currentPage}
-          pagesLength={pagesLength}
-          navigationWidth={navigationWidth}
+          $isCurrentPage={i === currentPage}
+          $pagesLength={pagesLength}
+          $navigationWidth={navigationWidth}
         />
       )
     }

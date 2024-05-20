@@ -1,4 +1,4 @@
-import Loadable from 'react-loadable'
+import Loadable from '@loadable/component'
 import PropTypes from 'prop-types'
 import React from 'react'
 // utils
@@ -33,110 +33,110 @@ class LoadingComponent extends React.Component {
 }
 
 const loadablePages = {
-  home: Loadable({
-    loader: () =>
+  home: Loadable(
+    () =>
       import(
         /* webpackChunkName: "index-page" */
         './containers/Home'
       ),
-    loading: LoadingComponent,
-  }),
-  topic: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  topic: Loadable(
+    () =>
       import(
         /* webpackChunkName: "topic-page" */
         './containers/TopicLandingPage'
       ),
-    loading: LoadingComponent,
-  }),
-  topics: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  topics: Loadable(
+    () =>
       import(
         /* webpackChunkName: "topic-list-page" */
         './containers/Topics'
       ),
-    loading: LoadingComponent,
-  }),
-  category: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  category: Loadable(
+    () =>
       import(
         /* webpackChunkName: "category-list-page" */
         './containers/Category'
       ),
-    loading: LoadingComponent,
-  }),
-  tag: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  tag: Loadable(
+    () =>
       import(
         /* webpackChunkName: "tag-list-page" */
         './containers/Tag'
       ),
-    loading: LoadingComponent,
-  }),
-  author: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  author: Loadable(
+    () =>
       import(
         /* webpackChunkName: "author-page" */
         './containers/Author'
       ),
-    loading: LoadingComponent,
-  }),
-  authors: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  authors: Loadable(
+    () =>
       import(
         /* webpackChunkName: "author-list-page" */
         './containers/AuthorsList'
       ),
-    loading: LoadingComponent,
-  }),
-  photography: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  photography: Loadable(
+    () =>
       import(
         /* webpackChunkName: "photography-page" */
         './containers/Photography'
       ),
-    loading: LoadingComponent,
-  }),
-  search: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  search: Loadable(
+    () =>
       import(
         /* webpackChunkName: "search-page" */
         './containers/Search'
       ),
-    loading: LoadingComponent,
-  }),
-  aboutUs: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  aboutUs: Loadable(
+    () =>
       import(
         /* webpackChunkName: "about-us-page" */
         './components/about-us'
       ),
-    loading: LoadingComponent,
-  }),
-  myReading: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  myReading: Loadable(
+    () =>
       import(
         /* webpackChunkName: "my-reading" */
         './containers/MyReading'
       ),
-    loading: LoadingComponent,
-  }),
-  latest: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  latest: Loadable(
+    () =>
       import(
         /* webpackChunkName: "latest" */
         './containers/Latest'
       ),
-    loading: LoadingComponent,
-  }),
-  member: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  member: Loadable(
+    () =>
       import(
         /* webpackChunkName: "member" */
         './containers/Member'
       ),
-    loading: LoadingComponent,
-  }),
+    { fallback: LoadingComponent }
+  ),
 }
 
 function ErrorPage({ match, staticContext }) {
@@ -196,7 +196,7 @@ NotFoundErrorPage.propTypes = {
 
 /**
  *  getRoutes function
- *  uses `react-loadable` to do the code splitting,
+ *  uses `@loadable/component` to do the code splitting,
  *  and adopts react-router
  *  to render the corresponding React components
  *
@@ -280,6 +280,10 @@ export default function getRoutes() {
       component: loadablePages.member,
       loadData: dataLoaders.loadMemberPageData,
       path: routesConst.memberPage.path,
+    },
+    {
+      path: routesConst.download.donationHistory.path,
+      authorizationRequired: true,
     },
     // error  page
     {

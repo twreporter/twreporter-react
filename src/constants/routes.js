@@ -59,4 +59,9 @@ export default {
       path: '/account/email-subscription',
     },
   },
+  download: {
+    donationHistory: {
+      path: '/download/donation-history/:orderNumber',
+    },
+  },
 }

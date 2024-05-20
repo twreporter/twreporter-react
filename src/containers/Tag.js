@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
 import styled from 'styled-components'
@@ -100,35 +100,37 @@ class Tag extends PureComponent {
     const title = tagName + siteMeta.name.separator + siteMeta.name.full
 
     return (
-      <PageContainer>
-        <Helmet
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <ListContainer>
-          <List
-            data={posts}
-            tagName={tagName}
-            isFetching={isFetching}
-            showSpinner={true}
-            showCategory={true}
+      <HelmetProvider>
+        <PageContainer>
+          <Helmet
+            title={title}
+            link={[{ rel: 'canonical', href: canonical }]}
+            meta={[
+              { name: 'description', content: siteMeta.desc },
+              { name: 'twitter:title', content: title },
+              { name: 'twitter:description', content: siteMeta.desc },
+              { name: 'twitter:image', content: siteMeta.ogImage.url },
+              { property: 'og:title', content: title },
+              { property: 'og:description', content: siteMeta.desc },
+              { property: 'og:image', content: siteMeta.ogImage.url },
+              { property: 'og:image:width', content: siteMeta.ogImage.width },
+              { property: 'og:image:height', content: siteMeta.ogImage.height },
+              { property: 'og:type', content: 'website' },
+              { property: 'og:url', content: canonical },
+            ]}
           />
-        </ListContainer>
-        <Pagination currentPage={page} totalPages={totalPages} />
-      </PageContainer>
+          <ListContainer>
+            <List
+              data={posts}
+              tagName={tagName}
+              isFetching={isFetching}
+              showSpinner={true}
+              showCategory={true}
+            />
+          </ListContainer>
+          <Pagination currentPage={page} totalPages={totalPages} />
+        </PageContainer>
+      </HelmetProvider>
     )
   }
 }

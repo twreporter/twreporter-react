@@ -19,7 +19,14 @@ export default class Lottie extends React.Component {
       rendererSettings,
     }
     this.anim = lottie.loadAnimation(this.options)
+
     this.registerEvents(eventListeners)
+  }
+
+  componentDidUpdate() {
+    this.destroy() // remove old animation before load new animation
+    this.options.animationData = this.props.options.animationData
+    this.anim = lottie.loadAnimation(this.options)
   }
 
   componentWillUnmount() {

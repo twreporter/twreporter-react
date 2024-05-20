@@ -29,7 +29,7 @@ const Container = styled.div`
     left: 0;
     right: 0;
     z-index: ${props =>
-      props.isPanelOpen ? defaultZIndex : defaultZIndex + 3};
+      props.$isPanelOpen ? defaultZIndex : defaultZIndex + 3};
   `}
   ${mq.desktopOnly`
     max-width: ${containerStyle.width.desktop};
@@ -110,7 +110,7 @@ const Hamburger = styled.div`
 class Header extends React.PureComponent {
   render() {
     return (
-      <Container isPanelOpen={this.props.isPanelOpen}>
+      <Container $isPanelOpen={this.props.isPanelOpen}>
         <TopRow>
           <Link to="/">
             <img src={logo} />

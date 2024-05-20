@@ -38,11 +38,11 @@ const Container = styled.div`
 `
 
 const BorderTop = styled.div`
-  position: ${props => (props.fixed ? 'fixed' : 'absolute')};
+  position: ${props => (props.$fixed ? 'fixed' : 'absolute')};
   top: 0;
   left: 0;
   width: 100%;
-  z-index: ${props => props.zIndex};
+  z-index: ${props => props.$zIndex};
   background: ${colorBrand.heavy};
   ${mq.hdOnly`
     height: 8px;
@@ -210,7 +210,7 @@ const Caption = styled.div`
   display: inline-block;
   cursor: pointer;
   h2 {
-    opacity: ${props => (props.curCaption === props.index ? '1' : '0.2')};
+    opacity: ${props => (props.$curCaption === props.$index ? '1' : '0.2')};
   }
 `
 
@@ -296,8 +296,8 @@ export default class Section1 extends PureComponent {
       return (
         <React.Fragment key={index}>
           <Caption
-            curCaption={this.state.currentAnim}
-            index={index}
+            $curCaption={this.state.currentAnim}
+            $index={index}
             onClick={() => this._animUpdated(index)}
           >
             <h2>{animCaptions[index]}</h2>
@@ -315,8 +315,8 @@ export default class Section1 extends PureComponent {
           fireOnRapidScroll
         />
         <BorderTop
-          fixed={this.state.isBorderTopfixed}
-          zIndex={this._getBorderZIndex()}
+          $fixed={this.state.isBorderTopfixed}
+          $zIndex={this._getBorderZIndex()}
         />
         <SectionWrapper>
           <Title>

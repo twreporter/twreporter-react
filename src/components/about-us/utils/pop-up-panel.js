@@ -14,23 +14,23 @@ const Panel = styled.div`
   z-index: calc(${defaultZIndex} + 1);
   position: fixed;
   overflow: scroll;
-  background: ${props => props.background};
+  background: ${props => props.$background};
   -webkit-overflow-scrolling: touch;
   ${mq.mobileOnly`
-    width: ${props => props.mobWidth};
-    height: ${props => props.mobHeight};
-    top: ${props => props.mobPositionTop};
-    bottom: ${props => props.mobPositionBottom};
-    left: ${props => props.mobPositionLeft};
-    right: ${props => props.mobPositionRight};
+    width: ${props => props.$mobWidth};
+    height: ${props => props.$mobHeight};
+    top: ${props => props.$mobPositionTop};
+    bottom: ${props => props.$mobPositionBottom};
+    left: ${props => props.$mobPositionLeft};
+    right: ${props => props.$mobPositionRight};
   `}
   ${mq.tabletOnly`
-    width: ${props => props.tabletWidth};
-    height: ${props => props.tabletHeight};
-    top: ${props => props.tabletPositionTop};
-    bottom: ${props => props.tabletPositionBottom};
-    left: ${props => props.tabletPositionLeft};
-    right: ${props => props.tabletPositionRight};
+    width: ${props => props.$tabletWidth};
+    height: ${props => props.$tabletHeight};
+    top: ${props => props.$tabletPositionTop};
+    bottom: ${props => props.$tabletPositionBottom};
+    left: ${props => props.$tabletPositionLeft};
+    right: ${props => props.$tabletPositionRight};
   `}
 `
 
@@ -138,19 +138,19 @@ class PopUpBox extends React.PureComponent {
         ref={node => {
           this.panel = node
         }}
-        background={background}
-        mobWidth={fixedPanelStyle.mob.width || '100%'}
-        mobHeight={fixedPanelStyle.mob.height || '100%'}
-        tabletWidth={fixedPanelStyle.tablet.width || '100%'}
-        tabletHeight={fixedPanelStyle.tablet.height || '100%'}
-        mobPositionTop={fixedPanelStyle.mob.position.top || 0}
-        tabletPositionTop={fixedPanelStyle.tablet.position.top || 0}
-        mobPositionBottom={fixedPanelStyle.mob.position.bottom || 0}
-        tabletPositionBottom={fixedPanelStyle.tablet.position.bottom || 0}
-        mobPositionLeft={fixedPanelStyle.mob.position.left || 0}
-        tabletPositionLeft={fixedPanelStyle.tablet.position.left || 0}
-        mobPositionRight={fixedPanelStyle.mob.position.right || 0}
-        tabletPositionRight={fixedPanelStyle.tablet.position.right || 0}
+        $background={background}
+        $mobWidth={fixedPanelStyle.mob.width || '100%'}
+        $mobHeight={fixedPanelStyle.mob.height || '100%'}
+        $tabletWidth={fixedPanelStyle.tablet.width || '100%'}
+        $tabletHeight={fixedPanelStyle.tablet.height || '100%'}
+        $mobPositionTop={fixedPanelStyle.mob.position.top || 0}
+        $tabletPositionTop={fixedPanelStyle.tablet.position.top || 0}
+        $mobPositionBottom={fixedPanelStyle.mob.position.bottom || 0}
+        $tabletPositionBottom={fixedPanelStyle.tablet.position.bottom || 0}
+        $mobPositionLeft={fixedPanelStyle.mob.position.left || 0}
+        $tabletPositionLeft={fixedPanelStyle.tablet.position.left || 0}
+        $mobPositionRight={fixedPanelStyle.mob.position.right || 0}
+        $tabletPositionRight={fixedPanelStyle.tablet.position.right || 0}
       >
         {this.props.children}
       </Panel>

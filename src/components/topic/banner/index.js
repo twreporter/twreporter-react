@@ -22,7 +22,7 @@ const _ = {
 
 const Container = styled.div`
   position: relative;
-  height: ${props => props.viewportHeight || '100vh'};
+  height: ${props => props.$viewportHeight || '100vh'};
 `
 
 const themeConsts = {
@@ -122,7 +122,7 @@ export default class Banner extends PureComponent {
     const components = selectComponentsByTheme(theme)
     const videoSrc = _.get(leadingVideo, 'url')
     return (
-      <Container viewportHeight={viewportHeight} ref={this._containerRef}>
+      <Container $viewportHeight={viewportHeight} ref={this._containerRef}>
         {videoSrc ? (
           <LeadingVideo
             filetype={_.get(leadingVideo, 'filetype')}

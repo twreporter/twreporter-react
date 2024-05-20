@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -12,7 +12,6 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import twreporterRedux from '@twreporter/redux'
 import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
-import { POST_REVIEW } from '@twreporter/core/lib/constants/feature-flag'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -115,51 +114,51 @@ const MyReadingPage = ({ isAuthed, jwt }) => {
   const canonical = `${siteMeta.urlOrigin}${pathname}`
 
   return (
-    <div>
-      <Helmet
-        title={title}
-        link={[{ rel: 'canonical', href: canonical }]}
-        meta={[
-          { name: 'description', content: siteMeta.desc },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: siteMeta.desc },
-          { name: 'twitter:image', content: siteMeta.ogImage.url },
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: siteMeta.desc },
-          { property: 'og:image', content: siteMeta.ogImage.url },
-          { property: 'og:image:width', content: siteMeta.ogImage.width },
-          { property: 'og:image:height', content: siteMeta.ogImage.height },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: canonical },
-        ]}
-      />
-      <GridContainer>
-        <ContentContainer>
-          <Switch>
-            <Route exact path={routes.myReadingPage.path}>
-              <PageTitle text={'我的閱讀'} />
-              <SavedBookmarks>
-                <SavedBookmarksSection />
-              </SavedBookmarks>
-              <BrowsingHistory>
-                <BrowsingHistorySection />
-              </BrowsingHistory>
-              {POST_REVIEW && (
+    <HelmetProvider>
+      <div>
+        <Helmet
+          title={title}
+          link={[{ rel: 'canonical', href: canonical }]}
+          meta={[
+            { name: 'description', content: siteMeta.desc },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: siteMeta.desc },
+            { name: 'twitter:image', content: siteMeta.ogImage.url },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: siteMeta.desc },
+            { property: 'og:image', content: siteMeta.ogImage.url },
+            { property: 'og:image:width', content: siteMeta.ogImage.width },
+            { property: 'og:image:height', content: siteMeta.ogImage.height },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: canonical },
+          ]}
+        />
+        <GridContainer>
+          <ContentContainer>
+            <Switch>
+              <Route exact path={routes.myReadingPage.path}>
+                <PageTitle text={'我的閱讀'} />
+                <SavedBookmarks>
+                  <SavedBookmarksSection />
+                </SavedBookmarks>
+                <BrowsingHistory>
+                  <BrowsingHistorySection />
+                </BrowsingHistory>
                 <ReviewingArticles>
                   <ReviewingArticleSection />
                 </ReviewingArticles>
-              )}
-            </Route>
-            <Route path={routes.myReadingPage.savedBookmarksPage.path}>
-              <SavedBookmarksPage />
-            </Route>
-            <Route path={routes.myReadingPage.browsingHistoryPage.path}>
-              <BrowsingHistoryPage />
-            </Route>
-          </Switch>
-        </ContentContainer>
-      </GridContainer>
-    </div>
+              </Route>
+              <Route path={routes.myReadingPage.savedBookmarksPage.path}>
+                <SavedBookmarksPage />
+              </Route>
+              <Route path={routes.myReadingPage.browsingHistoryPage.path}>
+                <BrowsingHistoryPage />
+              </Route>
+            </Switch>
+          </ContentContainer>
+        </GridContainer>
+      </div>
+    </HelmetProvider>
   )
 }
 

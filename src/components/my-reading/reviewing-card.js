@@ -47,7 +47,7 @@ const Photo = styled.div`
   height: 100%;
   aspect-ratio: 3 / 2;
   margin-right: 32px;
-  background-image: url(${props => props.bgUrl});
+  background-image: url(${props => props.$bgUrl});
   background-size: cover;
   background-repeat: no-repeat;
   ${mq.tabletOnly`
@@ -132,16 +132,18 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
   return (
     <CardContainer {...link}>
       <TabletAndAboveFlex>
-        <Photo bgUrl={bgImage}>
+        <Photo $bgUrl={bgImage}>
           <AwardBadgeContainer>
-            <AwardBadge>
-              <TabletAndBelow>
-                <P3 text={reviewWord} />
-              </TabletAndBelow>
-              <DesktopAndAbove>
-                <P2 text={reviewWord} />
-              </DesktopAndAbove>
-            </AwardBadge>
+            {reviewWord && (
+              <AwardBadge>
+                <TabletAndBelow>
+                  <P3 text={reviewWord} />
+                </TabletAndBelow>
+                <DesktopAndAbove>
+                  <P2 text={reviewWord} />
+                </DesktopAndAbove>
+              </AwardBadge>
+            )}
           </AwardBadgeContainer>
         </Photo>
         <Article>
@@ -154,11 +156,13 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
         </Article>
       </TabletAndAboveFlex>
       <MobileOnly>
-        <Photo bgUrl={bgImage}>
+        <Photo $bgUrl={bgImage}>
           <AwardBadgeContainer>
-            <AwardBadge>
-              <P3 text={reviewWord} />
-            </AwardBadge>
+            {reviewWord && (
+              <AwardBadge>
+                <P3 text={reviewWord} />
+              </AwardBadge>
+            )}
           </AwardBadgeContainer>
           <Title>
             <H4 type={H4.Type.ARTICLE} text={title} />

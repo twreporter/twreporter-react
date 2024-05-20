@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import getRoutes from './routes'
 import { Provider } from 'react-redux'
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation, useRouteMatch } from 'react-router-dom'
 import styled, { createGlobalStyle, css } from 'styled-components'
 // context
 import { CoreContext } from './contexts'
 // components
 import AppShell from './containers/app-shell'
+import DonwloadPage from './components/member-page/donation/download-page'
 // constants
 import typography from './constants/typography'
+import routesConst from './constants/routes'
 // hooks
 import { usePrevious } from './hooks'
 // @twreporter
@@ -51,7 +53,7 @@ const BaseStyle = css`
     font-family: ${fontFamily.default};
   }
   body {
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: auto;
     letter-spacing: 0.4px;
     line-height: 1.4;
@@ -151,7 +153,7 @@ const BaseStyle = css`
 `
 
 const GlobalStyle = createGlobalStyle`
-  ${props => props.fontfaces}
+  ${props => props.$fontfaces}
   ${BaseStyle}
 `
 
@@ -160,7 +162,7 @@ const SnackBarContainer = styled.div`
   bottom: 8px;
   z-index: 1;
   transition: opacity 100ms ease-in-out;
-  opacity: ${props => (props.show ? 1 : 0)};
+  opacity: ${props => (props.$show ? 1 : 0)};
   display: flex;
   justify-content: center;
   width: 100%;
@@ -188,7 +190,7 @@ const GlobalStyleWithFonts = ({ fonts = [] }) => {
     }
   )
 
-  return <GlobalStyle fontfaces={fontfaces} />
+  return <GlobalStyle $fontfaces={fontfaces} />
 }
 
 GlobalStyleWithFonts.propTypes = {
@@ -214,22 +216,29 @@ const App = ({ reduxStore, releaseBranch }) => {
     toastr,
   }
 
+  const matchDownload = useRouteMatch(routesConst.download.donationHistory.path)
   return (
     <Provider store={reduxStore}>
-      <CoreContext.Provider value={contextValue}>
-        <Route
-          render={props => {
-            return (
-              <AppShell location={location}>
-                <Switch>{routeJSX}</Switch>
-              </AppShell>
-            )
-          }}
-        />
-        <SnackBarContainer show={showSnackBar}>
-          <SnackBar text={snackBarText} />
-        </SnackBarContainer>
-      </CoreContext.Provider>
+      {matchDownload ? (
+        <Route path={routesConst.download.donationHistory.path}>
+          <DonwloadPage />
+        </Route>
+      ) : (
+        <CoreContext.Provider value={contextValue}>
+          <Route
+            render={props => {
+              return (
+                <AppShell location={location}>
+                  <Switch>{routeJSX}</Switch>
+                </AppShell>
+              )
+            }}
+          />
+          <SnackBarContainer $show={showSnackBar}>
+            <SnackBar text={snackBarText} />
+          </SnackBarContainer>
+        </CoreContext.Provider>
+      )}
       <GlobalStyleWithFonts fonts={selfHostedFonts} />
     </Provider>
   )

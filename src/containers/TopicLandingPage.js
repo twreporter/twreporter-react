@@ -1,7 +1,7 @@
 /* eslint camelcase: ["error", {"properties": "never", ignoreDestructuring: true}] */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 // utils
@@ -167,7 +167,7 @@ class TopicLandingPage extends Component {
       metaOgImage.push({ property: 'og:image:width', content: metaImg.width })
     }
     return (
-      <React.Fragment>
+      <HelmetProvider>
         <Helmet
           title={fullTitle}
           link={[{ rel: 'canonical', href: canonical }]}
@@ -203,7 +203,7 @@ class TopicLandingPage extends Component {
           topicDescription={topicDescription}
           teamDescription={teamDescription}
         />
-      </React.Fragment>
+      </HelmetProvider>
     )
   }
 

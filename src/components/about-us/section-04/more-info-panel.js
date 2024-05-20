@@ -148,7 +148,7 @@ const RightArrow = styled.div`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  display: ${props => (props.hasNext === 'true' ? 'block' : 'none')};
+  display: ${props => (props.$hasNext === 'true' ? 'block' : 'none')};
   ${mq.tabletAndBelow`
     transform: translateX(100%) translateY(-50%);
   `}
@@ -240,7 +240,7 @@ export default class MoreInfo extends PureComponent {
             <p>{_.get(selectedItem, 'description.zh-tw')}</p>
             <RightArrow
               onClick={nextPage}
-              hasNext={(selectedContent.length > 1).toString()}
+              $hasNext={(selectedContent.length > 1).toString()}
             >
               <ArrowNextIcon>
                 <img
