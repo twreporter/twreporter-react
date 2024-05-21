@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.0.0, 2024-05-20 (Current)
+## 5.0.1, 2024-05-21 (Current)
+
+### Notable Changes
+
+- fix
+  - duplicate helmet provider issue
+
+### Commits
+
+- [[`9de706986d`](https://github.com/twreporter/twreporter-react/commit/9de706986d)] - **fix**: duplicate helmet provider issue (Aylie Chou)
+
+## 5.0.0, 2024-05-20
 
 ### Notable Changes
 
