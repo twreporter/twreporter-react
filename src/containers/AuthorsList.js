@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { Waypoint } from 'react-waypoint'
 import PropTypes from 'prop-types'
-import React from 'react'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
+import React, { Fragment } from 'react'
+import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 // utils
 import mq from '../utils/media-query'
@@ -204,8 +204,9 @@ class AuthorsList extends React.Component {
     const fullTitle = '作者列表' + siteMeta.name.separator + siteMeta.name.full
     const canonical = `${siteMeta.urlOrigin}/authors`
     return (
-      <HelmetProvider>
+      <Fragment>
         <Helmet
+          prioritizeSeoTags
           title={fullTitle}
           link={[{ rel: 'canonical', href: canonical }]}
           meta={[
@@ -235,7 +236,7 @@ class AuthorsList extends React.Component {
           alt="載入更多作者"
         />
         <Sponsor />
-      </HelmetProvider>
+      </Fragment>
     )
   }
 }

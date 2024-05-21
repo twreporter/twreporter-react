@@ -1,6 +1,6 @@
 /* eslint no-unused-vars: [0, { "args": "all" }] */
 
-import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import loggerFactory from '../logger'
@@ -74,33 +74,32 @@ const Photography = ({
   const canonical = siteMeta.urlOrigin + '/photography'
   const title = '影像' + siteMeta.name.separator + siteMeta.name.full
   return (
-    <HelmetProvider>
-      <div style={style}>
-        <Helmet
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { property: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <TopNews posts={posts.slice(0, topNewsNum)} />
-        <ArticleList
-          articles={posts.slice(topNewsNum)}
-          hasMore={hasMore}
-          loadMore={loadMore}
-        />
-      </div>
-    </HelmetProvider>
+    <div style={style}>
+      <Helmet
+        prioritizeSeoTags
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { property: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
+      <TopNews posts={posts.slice(0, topNewsNum)} />
+      <ArticleList
+        articles={posts.slice(topNewsNum)}
+        hasMore={hasMore}
+        loadMore={loadMore}
+      />
+    </div>
   )
 }
 
