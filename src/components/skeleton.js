@@ -34,7 +34,7 @@ const shimmer = keyframes`
     transform: translateX(100%);
   }
 `
-const Rectangle = styled.div`
+export const Rectangle = styled.div`
   width: ${props => props.$width};
   height: ${props => props.$height};
   border-radius: 2px;
