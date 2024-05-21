@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.2-rc.0, 2024-05-21
+
+### Notable Changes
+
+- fix
+  - auth issue for reading time
+
+### Commits
+
+- [[`3e5b5d5ff2`](https://github.com/twreporter/twreporter-react/commit/3e5b5d5ff2)] - **fix**: auth issue for reading time (Lucien)
+
 ## 5.0.1, 2024-05-21 (Current)
 
 ### Notable Changes
