@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
 import { loadableReady } from '@loadable/component'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { createRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
@@ -13,6 +13,7 @@ import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
 import '@material-symbols/font-400/outlined.css'
 import 'swiper/swiper.min.css'
+import { HelmetProvider } from 'react-helmet-async'
 // lodash
 import get from 'lodash/get'
 const _ = {
@@ -128,15 +129,17 @@ const store = twreporterRedux.createStore(
 TagManager.initialize(tagManagerArgs[releaseBranch])
 
 const jsx = (
-  <BrowserRouter>
-    <div>
-      <Route path="/" component={reloadPageIfNeeded()} />
-      <Route path="/" component={scrollToTopAndFirePageview} />
-      <Route path="/" component={hashLinkScroll} />
-      <Route path="/" component={sendGtmUserId} />
-      <App reduxStore={store} releaseBranch={releaseBranch} />
-    </div>
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <Fragment>
+        <Route path="/" component={reloadPageIfNeeded()} />
+        <Route path="/" component={scrollToTopAndFirePageview} />
+        <Route path="/" component={hashLinkScroll} />
+        <Route path="/" component={sendGtmUserId} />
+        <App reduxStore={store} releaseBranch={releaseBranch} />
+      </Fragment>
+    </BrowserRouter>
+  </HelmetProvider>
 )
 
 loadableReady(() => {
