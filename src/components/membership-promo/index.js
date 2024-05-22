@@ -30,9 +30,11 @@ const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
   const contextValue = { isShowPromo, closePromo }
   const Promo = promoType === PromoType.POPUP ? Popup : Banner
   return (
-    <PromoContext.Provider value={contextValue}>
-      <Promo />
-    </PromoContext.Provider>
+    <div>
+      <PromoContext.Provider value={contextValue}>
+        <Promo />
+      </PromoContext.Provider>
+    </div>
   )
 }
 MembershipPromo.propTypes = {
