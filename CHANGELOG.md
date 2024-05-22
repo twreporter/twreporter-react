@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.2-rc.1, 2024-05-22
+
+### Notable Changes
+
+- fix
+  - unexpected DOMExceptionError due to rendering promote `Banner`
+
+### Commits
+
+- [[`bd3af4dca3`](https://github.com/twreporter/twreporter-react/commit/bd3af4dca3)] - **fix**: unexpected DOMExceptionError due to rendering promote `Banner` (nickhsine)
+
 ## 5.0.2-rc.0, 2024-05-21
 
 ### Notable Changes
