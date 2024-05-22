@@ -1,28 +1,19 @@
 # Changelog
 
-## 5.0.2-rc.1, 2024-05-22
+## 5.0.2, 2024-05-22 (Current)
 
 ### Notable Changes
 
 - fix
   - unexpected DOMExceptionError due to rendering promote `Banner`
-
-### Commits
-
-- [[`bd3af4dca3`](https://github.com/twreporter/twreporter-react/commit/bd3af4dca3)] - **fix**: unexpected DOMExceptionError due to rendering promote `Banner` (nickhsine)
-
-## 5.0.2-rc.0, 2024-05-21
-
-### Notable Changes
-
-- fix
   - auth issue for reading time
 
 ### Commits
 
+- [[`bd3af4dca3`](https://github.com/twreporter/twreporter-react/commit/bd3af4dca3)] - **fix**: unexpected DOMExceptionError due to rendering promote `Banner` (nickhsine)
 - [[`3e5b5d5ff2`](https://github.com/twreporter/twreporter-react/commit/3e5b5d5ff2)] - **fix**: auth issue for reading time (Lucien)
 
-## 5.0.1, 2024-05-21 (Current)
+## 5.0.1, 2024-05-21
 
 ### Notable Changes
 
