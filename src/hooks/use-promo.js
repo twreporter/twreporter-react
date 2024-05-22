@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { flushSync } from 'react-dom'
 import { matchPath } from 'react-router-dom'
 import localForage from 'localforage'
 import * as dayjs from 'dayjs'
@@ -37,7 +38,9 @@ const usePromo = (pathname, isAuthed, showHamburger) => {
     }
 
     if (nextShowDate) {
-      setPromoType(PromoType.BANNER)
+      flushSync(() => {
+        setPromoType(PromoType.BANNER)
+      })
     } else {
       document.body.classList.add('disable-scroll')
     }
