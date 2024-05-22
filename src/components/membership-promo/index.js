@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 // hooks
 import { usePromo } from '../../hooks'
@@ -16,6 +17,10 @@ const _ = {
   get,
 }
 
+const Box = styled.div`
+  ${props => (props.$show ? '' : 'display: none;')}
+`
+
 const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
   const { isShowPromo, closePromo, promoType, PromoType } = usePromo(
     pathname,
@@ -28,10 +33,14 @@ const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
   }
 
   const contextValue = { isShowPromo, closePromo }
-  const Promo = promoType === PromoType.POPUP ? Popup : Banner
   return (
     <PromoContext.Provider value={contextValue}>
-      <Promo />
+      <Box $show={promoType === PromoType.POPUP}>
+        <Popup />
+      </Box>
+      <Box $show={promoType === PromoType.BANNER}>
+        <Banner />
+      </Box>
     </PromoContext.Provider>
   )
 }
