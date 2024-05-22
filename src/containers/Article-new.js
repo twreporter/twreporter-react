@@ -267,9 +267,6 @@ const Article = ({
   useEffect(() => {
     fetchAFullPostWithCatch(slugToFetch)
     sendUserFootprint()
-  }, [slugToFetch])
-
-  useEffect(() => {
     startReadingCountTimer()
     startReadingTime = Date.now()
     document.addEventListener('scroll', handleScroll)
@@ -298,7 +295,7 @@ const Article = ({
       document.removeEventListener('click', handleUserActivity)
       window.removeEventListener('pagehide', handlePagehide)
     }
-  }, [])
+  }, [slugToFetch])
 
   useEffect(() => {
     if (prevIsFetchingPost && !isFetchingPost) {
