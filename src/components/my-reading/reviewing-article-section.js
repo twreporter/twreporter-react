@@ -75,7 +75,6 @@ const ReviewingArticleSection = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
     const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
     dispatch(getPostReviews(jwt)).then(res => {
       const reviews = _.get(res, ['payload', 'data', 'data'], [])
@@ -103,8 +102,8 @@ const ReviewingArticleSection = () => {
       } else {
         setShowingReviewingArticle(formattedReviews)
       }
-      setIsLoading(false)
     })
+    setIsLoading(false)
   }, [])
 
   return (
