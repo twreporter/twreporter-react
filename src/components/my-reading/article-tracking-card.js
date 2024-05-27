@@ -146,7 +146,7 @@ export const ArticleTrackingCard = ({
       </TrackingContentContainer>
       <TrackingArticleTitleContainer>
         <TrackingArticleTitle>
-          <P2 text={`《${trackingArticleTitle}》`} />
+          <P2 text={trackingArticleTitle} />
         </TrackingArticleTitle>
       </TrackingArticleTitleContainer>
     </TrackingCardContainer>
