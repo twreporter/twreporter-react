@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.3-rc.1, 2024-05-27
+
+### Notable Changes
+
+- fix
+  - apply new added menu list type on mobile
+
+### Commits
+
+- [[`23596b0af3`](https://github.com/twreporter/twreporter-react/commit/23596b0af3)] - **fix**: apply new added menu list type on mobile (Aylie Chou)
+
 ## 5.0.3-rc.0, 2024-05-27
 
 ### Notable Changes
