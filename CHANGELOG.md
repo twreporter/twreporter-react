@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.3-rc.0, 2024-05-27
+
+### Notable Changes
+
+- feat
+  - add bookshop friend link on member page menu
+
+### Commits
+
+- [[`9d6a5f423e`](https://github.com/twreporter/twreporter-react/commit/9d6a5f423e)] - **feat**: add bookshop friend link on member page menu (Aylie Chou)
+
 ## 5.0.2, 2024-05-22 (Current)
 
 ### Notable Changes
