@@ -49,7 +49,7 @@ const MobileMemberPage = ({
         />
       </RoleCardContainer>
       <OnlyForGTM name="merchandise-promo-code" />
-      <MobileMemberMenuList />
+      <MobileMemberMenuList roleKey={roleKey} />
     </div>
   )
 }

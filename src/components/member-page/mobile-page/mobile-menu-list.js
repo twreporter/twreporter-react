@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import querystring from 'querystring'
 
@@ -13,11 +14,19 @@ import {
 import { MenuButton } from '@twreporter/react-components/lib/button'
 import Divider from '@twreporter/react-components/lib/divider'
 import origins from '@twreporter/core/lib/constants/request-origins'
+import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
+// constants
 import {
   ListType,
   MENU_LIST_DATA_MOBILE,
 } from '../../../constants/membership-menu'
+
+// const lodash
+import includes from 'lodash/includes'
+const _ = {
+  includes,
+}
 
 const MobileMemberMenuListConatiner = styled.div`
   max-width: 320px;
@@ -31,7 +40,7 @@ const DividerContainer = styled.div`
 `
 
 const originsForClient = origins.forClientSideRendering
-const MobileMemberMenuList = () => {
+const MobileMemberMenuList = ({ roleKey }) => {
   const { releaseBranch } = useContext(CoreContext)
   const MenuData = MENU_LIST_DATA_MOBILE
 
@@ -43,48 +52,62 @@ const MobileMemberMenuList = () => {
     window.location = `${path}?${query}`
   }
 
-  const itemJSX = MenuData.map(({ type, text, path }, idx) => {
-    if (type === ListType.NORMAL) {
-      return (
-        <MenuButton
-          key={idx}
-          text={text}
-          link={{ isExternal: false, to: path }}
-          color={colorGrayscale.gray800}
-          hoverBgColor={colorOpacity['black_0.05']}
-          activeBgColor={colorOpacity['black_0.1']}
-          paddingLeft={16}
-          paddingRight={16}
-        />
-      )
-    }
+  const itemJSX = MenuData.map(
+    ({ type, text, path, link, target, excludeRole = [] }, idx) => {
+      if (_.includes(excludeRole, roleKey)) {
+        return
+      }
 
-    if (type === ListType.DIVIDER) {
-      return (
-        <DividerContainer key={idx}>
-          <Divider />
-        </DividerContainer>
-      )
-    }
+      if (type === ListType.NORMAL || type === ListType.LINK) {
+        const linkObject = {
+          isExternal: type === ListType.LINK,
+          to: type === ListType.LINK ? link : path,
+          target: target || '_self',
+        }
+        return (
+          <MenuButton
+            key={idx}
+            text={text}
+            link={linkObject}
+            color={colorGrayscale.gray800}
+            hoverBgColor={colorOpacity['black_0.05']}
+            activeBgColor={colorOpacity['black_0.1']}
+            paddingLeft={16}
+            paddingRight={16}
+          />
+        )
+      }
 
-    if (type === ListType.LOGOUT) {
-      const apiPath = `${originsForClient[releaseBranch]['api']}${path}`
-      return (
-        <MenuButton
-          key={idx}
-          text={text}
-          hoverBgColor={colorOpacity['black_0.05']}
-          activeBgColor={colorOpacity['black_0.1']}
-          paddingLeft={16}
-          paddingRight={16}
-          onClick={e => handleClick(e, apiPath)}
-        />
-      )
+      if (type === ListType.DIVIDER) {
+        return (
+          <DividerContainer key={idx}>
+            <Divider />
+          </DividerContainer>
+        )
+      }
+
+      if (type === ListType.LOGOUT) {
+        const apiPath = `${originsForClient[releaseBranch]['api']}${path}`
+        return (
+          <MenuButton
+            key={idx}
+            text={text}
+            hoverBgColor={colorOpacity['black_0.05']}
+            activeBgColor={colorOpacity['black_0.1']}
+            paddingLeft={16}
+            paddingRight={16}
+            onClick={e => handleClick(e, apiPath)}
+          />
+        )
+      }
     }
-  })
+  )
   return (
     <MobileMemberMenuListConatiner>{itemJSX}</MobileMemberMenuListConatiner>
   )
+}
+MobileMemberMenuList.propTypes = {
+  roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
 }
 
 export default MobileMemberMenuList
