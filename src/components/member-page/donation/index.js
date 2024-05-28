@@ -96,12 +96,12 @@ const MemberDonationPage = ({
       setShowEmptyState(false)
       setRecords(records)
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
     setIsLoading(true)
     getDonationHistory(page)
-    setIsLoading(false)
   }, [page])
 
   if (showEmptyState) {

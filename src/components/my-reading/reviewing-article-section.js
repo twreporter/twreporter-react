@@ -75,36 +75,38 @@ const ReviewingArticleSection = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
     const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-    dispatch(getPostReviews(jwt)).then(res => {
-      const reviews = _.get(res, ['payload', 'data', 'data'], [])
-      const formattedReviews = reviews.map(review => {
-        const { slug, reviewWord, title } = review
-        const { url: bgImage } = _.get(
-          review,
-          ['og_image', 'resized_targets', 'w400'],
-          ''
-        )
-        const ogDescription = _.get(review, ['og_description'], '')
-        return {
-          slug,
-          reviewWord,
-          title,
-          bgImage,
-          ogDescription,
+    dispatch(getPostReviews(jwt))
+      .then(res => {
+        const reviews = _.get(res, ['payload', 'data', 'data'], [])
+        const formattedReviews = reviews.map(review => {
+          const { slug, reviewWord, title } = review
+          const { url: bgImage } = _.get(
+            review,
+            ['og_image', 'resized_targets', 'w400'],
+            ''
+          )
+          const ogDescription = _.get(review, ['og_description'], '')
+          return {
+            slug,
+            reviewWord,
+            title,
+            bgImage,
+            ogDescription,
+          }
+        })
+        setTotalReviewingArticle(formattedReviews.length)
+        setReviewingArticles(formattedReviews)
+        if (formattedReviews.length > 3) {
+          setShowingReviewingArticle(formattedReviews.slice(0, 3))
+          setShowMore(true)
+        } else {
+          setShowingReviewingArticle(formattedReviews)
         }
       })
-      setTotalReviewingArticle(formattedReviews.length)
-      setReviewingArticles(formattedReviews)
-      if (formattedReviews.length > 3) {
-        setShowingReviewingArticle(formattedReviews.slice(0, 3))
-        setShowMore(true)
-      } else {
-        setShowingReviewingArticle(formattedReviews)
-      }
-      setIsLoading(false)
-    })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
 
   return (

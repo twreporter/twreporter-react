@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.0.3-rc.3, 2024-05-28
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3ec073a97e`](https://github.com/twreporter/twreporter-react/commit/3ec073a97e)] - **chore**: update twreporter packages (Lucien)
+
+## 5.0.3-rc.2, 2024-05-28
+
+### Notable Changes
+
+- fix
+  - set isLoading to false after dispatch
+
+### Commits
+
+- [[`36ae81e7e4`](https://github.com/twreporter/twreporter-react/commit/36ae81e7e4)] - **fix**: setIsLoading runtime (Lucien)
+- [[`457572a0c4`](https://github.com/twreporter/twreporter-react/commit/457572a0c4)] - **fix**: set isLoading to false after dispatch (Lucien)
+
 ## 5.0.3-rc.1, 2024-05-27
 
 ### Notable Changes
