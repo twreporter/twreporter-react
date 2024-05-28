@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.0.3-beta.0, 2024-05-28
+
+### Notable Changes
+
+- fix
+  - unexpected DOMExceptionError due to rendering promote `Banner`
+  - auth issue for reading time
+
+### Commits
+
+- \[[`44779c997c`](https://github.com/twreporter/twreporter-react/commit/44779c997c)] - **fix**: fix conflict (Lucien)
+- \[[`5d67e9c39d`](https://github.com/twreporter/twreporter-react/commit/5d67e9c39d)] - **fix**: add releaseBranch for icon (Lucien)
+- \[[`bd6f60502e`](https://github.com/twreporter/twreporter-react/commit/bd6f60502e)] - **feat**: use MarginBottomType enum (Lucien)
+- \[[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
+- \[[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
+- \[[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
+
 ## 5.0.2, 2024-05-22 (Current)
 
 ### Notable Changes
