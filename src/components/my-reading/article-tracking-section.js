@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { styled } from 'styled-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useLocation } from 'react-router-dom'
@@ -15,6 +15,9 @@ import mq from '@twreporter/core/lib/utils/media-query'
 
 // components
 import { ArticleTrackingCard } from './article-tracking-card'
+
+// context
+import { CoreContext } from '../../contexts'
 
 // lodash
 import throttle from 'lodash/throttle'
@@ -94,6 +97,7 @@ export const ArticleTrackingSection = () => {
   const containerRef = useRef(null)
   const [marginLeft, setMarginLeft] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  const { releaseBranch } = useContext(CoreContext)
 
   const cardPerRow = 3
 
@@ -191,7 +195,12 @@ export const ArticleTrackingSection = () => {
             <TrackingCardList>
               <ArrowButton
                 $hidden={isSlideBeginning}
-                iconComponent={<Arrow direction={Arrow.Direction.LEFT} />}
+                iconComponent={
+                  <Arrow
+                    direction={Arrow.Direction.LEFT}
+                    releaseBranch={releaseBranch}
+                  />
+                }
                 onClick={() => handleArrowClick(Arrow.Direction.LEFT)}
               ></ArrowButton>
               <Swiper
@@ -206,7 +215,12 @@ export const ArticleTrackingSection = () => {
               </Swiper>
               <ArrowButton
                 $hidden={isSlideEnd}
-                iconComponent={<Arrow direction={Arrow.Direction.RIGHT} />}
+                iconComponent={
+                  <Arrow
+                    direction={Arrow.Direction.RIGHT}
+                    releaseBranch={releaseBranch}
+                  />
+                }
                 onClick={() => handleArrowClick(Arrow.Direction.RIGHT)}
               ></ArrowButton>
             </TrackingCardList>
