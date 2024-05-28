@@ -34,6 +34,12 @@ const shimmer = keyframes`
     transform: translateX(100%);
   }
 `
+
+export const MarginBottomType = Object.freeze({
+  WIDE: 'wide',
+  NARROW: 'narrow',
+})
+
 export const Rectangle = styled.div`
   width: ${props => props.$width};
   height: ${props => props.$height};
@@ -41,7 +47,9 @@ export const Rectangle = styled.div`
   background-color: ${colorGrayscale.gray300};
   ${props =>
     props.$marginBottom
-      ? `margin-bottom: ${props.$marginBottom === 'wide' ? '16px' : '8px'};`
+      ? `margin-bottom: ${
+          props.$marginBottom === MarginBottomType.WIDE ? '16px' : '8px'
+        };`
       : ''}
   ${props => (props.$marginRight ? `margin-right: ${props.$marginRight};` : '')}
   ${props => (props.$maxWidth ? `max-width: ${props.$maxWidth};` : '')}
@@ -49,7 +57,9 @@ export const Rectangle = styled.div`
   ${mq.tabletAndBelow`
     ${props =>
       props.$marginBottom
-        ? `margin-bottom: ${props.$marginBottom === 'wide' ? '8px' : '4px'};`
+        ? `margin-bottom: ${
+            props.$marginBottom === MarginBottomType.WIDE ? '8px' : '4px'
+          };`
         : ''}
   `}
 
@@ -95,14 +105,14 @@ const Skeleton = ({ ...props }) => (
           <Rectangle
             $width="48px"
             $height="12px"
-            $marginBottom="wide"
+            $marginBottom={MarginBottomType.WIDE}
             $marginRight="8px"
             $shimmerSec="3"
           />
           <Rectangle
             $width="48px"
             $height="12px"
-            $marginBottom="wide"
+            $marginBottom={MarginBottomType.WIDE}
             $shimmerSec="3"
           />
         </FlexRow>
@@ -110,14 +120,22 @@ const Skeleton = ({ ...props }) => (
           <Rectangle
             $width="100%"
             $height="25px"
-            $marginBottom="wide"
+            $marginBottom={MarginBottomType.WIDE}
             $maxWidth="720px"
           />
-          <Rectangle $width="100%" $height="16px" $marginBottom="wide" />
+          <Rectangle
+            $width="100%"
+            $height="16px"
+            $marginBottom={MarginBottomType.WIDE}
+          />
           <Rectangle $width="240px" $height="16px" />
         </DesktopAndAbove>
         <TabletAndBelow>
-          <Rectangle $width="100%" $height="16px" $marginBottom="wide" />
+          <Rectangle
+            $width="100%"
+            $height="16px"
+            $marginBottom={MarginBottomType.WIDE}
+          />
           <Rectangle $width="50%" $height="16px" />
         </TabletAndBelow>
       </Left>
@@ -125,9 +143,21 @@ const Skeleton = ({ ...props }) => (
     </Up>
     <TabletAndBelow>
       <Down>
-        <Rectangle $width="100%" $height="12px" $marginBottom="narrow" />
-        <Rectangle $width="100%" $height="12px" $marginBottom="narrow" />
-        <Rectangle $width="240px" $height="12px" $marginBottom="narrow" />
+        <Rectangle
+          $width="100%"
+          $height="12px"
+          $marginBottom={MarginBottomType.NARROW}
+        />
+        <Rectangle
+          $width="100%"
+          $height="12px"
+          $marginBottom={MarginBottomType.NARROW}
+        />
+        <Rectangle
+          $width="240px"
+          $height="12px"
+          $marginBottom={MarginBottomType.NARROW}
+        />
       </Down>
     </TabletAndBelow>
   </Box>

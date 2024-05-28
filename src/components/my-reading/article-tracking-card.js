@@ -10,7 +10,7 @@ import { H5 } from '@twreporter/react-components/lib/text/headline'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 
 // components
-import { Rectangle } from '../skeleton'
+import { Rectangle, MarginBottomType } from '../skeleton'
 
 const TrackingCardContainer = styled.div`
   display: flex;
@@ -106,20 +106,56 @@ const LoadingCard = () => {
         <Rectangle $width={'48px'} $height={'12px'} />
       </div>
       <div>
-        <Rectangle $width={'100%'} $height={'16px'} $marginBottom="wide" />
-        <Rectangle $width={'50%'} $height={'16px'} $marginBottom="wide" />
+        <Rectangle
+          $width={'100%'}
+          $height={'16px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'50%'}
+          $height={'16px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
       </div>
       <div>
-        <Rectangle $width={'100%'} $height={'12px'} $marginBottom="wide" />
-        <Rectangle $width={'100%'} $height={'12px'} $marginBottom="wide" />
-        <Rectangle $width={'100%'} $height={'12px'} $marginBottom="wide" />
-        <Rectangle $width={'75%'} $height={'12px'} $marginBottom="wide" />
+        <Rectangle
+          $width={'100%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'100%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'100%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'75%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
       </div>
       <div className="spacing" />
       <div>
-        <Rectangle $width={'100%'} $height={'12px'} $marginBottom="wide" />
-        <Rectangle $width={'100%'} $height={'12px'} $marginBottom="wide" />
-        <Rectangle $width={'75%'} $height={'12px'} $marginBottom="wide" />
+        <Rectangle
+          $width={'100%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'100%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
+        <Rectangle
+          $width={'75%'}
+          $height={'12px'}
+          $marginBottom={MarginBottomType.WIDE}
+        />
       </div>
     </LoadingCardContainer>
   )
@@ -155,8 +191,8 @@ export const ArticleTrackingCard = ({
 
 ArticleTrackingCard.propTypes = {
   isLoading: PropTypes.bool,
-  publishDate: PropTypes.string,
-  trackingTitle: PropTypes.string,
-  trackingContent: PropTypes.string,
-  trackingArticleTitle: PropTypes.string,
+  publishDate: PropTypes.string.isRequired,
+  trackingTitle: PropTypes.string.isRequired,
+  trackingContent: PropTypes.string.isRequired,
+  trackingArticleTitle: PropTypes.string.isRequired,
 }
