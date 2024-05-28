@@ -46,6 +46,7 @@ export default class Html extends PureComponent {
           />
           {helmet.base.toComponent()}
           {helmet.title.toComponent()}
+          {helmet.priority.toComponent()}
           {helmet.meta.toComponent()}
           {helmet.link.toComponent()}
           {helmet.script.toComponent()}

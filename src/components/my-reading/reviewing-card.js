@@ -156,7 +156,7 @@ const ReviewingCard = ({ slug, reviewWord, title, ogDescription, bgImage }) => {
         </Article>
       </TabletAndAboveFlex>
       <MobileOnly>
-        <Photo bgUrl={bgImage}>
+        <Photo $bgUrl={bgImage}>
           <AwardBadgeContainer>
             {reviewWord && (
               <AwardBadge>
