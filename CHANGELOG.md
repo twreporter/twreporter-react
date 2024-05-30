@@ -1,62 +1,27 @@
 # Changelog
 
-## 5.0.3-rc.4, 2024-05-28
+## 5.0.3, 2024-05-30 (Current)
 
 ### Notable Changes
 
+- feat
+  - add bookshop friend link on member page menu
+- fix
+  - set isLoading to false after dispatch
+  - apply new added menu list type on mobile
 - chore
   - update @twreporter packages
 
 ### Commits
 
 - [[`58c297e0e3`](https://github.com/twreporter/twreporter-react/commit/58c297e0e3)] - **chore**: update twreporter packages (Lucien)
-
-## 5.0.3-rc.3, 2024-05-28
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`3ec073a97e`](https://github.com/twreporter/twreporter-react/commit/3ec073a97e)] - **chore**: update twreporter packages (Lucien)
-
-## 5.0.3-rc.2, 2024-05-28
-
-### Notable Changes
-
-- fix
-  - set isLoading to false after dispatch
-
-### Commits
-
 - [[`36ae81e7e4`](https://github.com/twreporter/twreporter-react/commit/36ae81e7e4)] - **fix**: setIsLoading runtime (Lucien)
 - [[`457572a0c4`](https://github.com/twreporter/twreporter-react/commit/457572a0c4)] - **fix**: set isLoading to false after dispatch (Lucien)
-
-## 5.0.3-rc.1, 2024-05-27
-
-### Notable Changes
-
-- fix
-  - apply new added menu list type on mobile
-
-### Commits
-
 - [[`23596b0af3`](https://github.com/twreporter/twreporter-react/commit/23596b0af3)] - **fix**: apply new added menu list type on mobile (Aylie Chou)
-
-## 5.0.3-rc.0, 2024-05-27
-
-### Notable Changes
-
-- feat
-  - add bookshop friend link on member page menu
-
-### Commits
-
 - [[`9d6a5f423e`](https://github.com/twreporter/twreporter-react/commit/9d6a5f423e)] - **feat**: add bookshop friend link on member page menu (Aylie Chou)
 
-## 5.0.2, 2024-05-22 (Current)
+## 5.0.2, 2024-05-22
 
 ### Notable Changes
 
