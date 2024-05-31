@@ -56,7 +56,7 @@ const ItemLink = styled(base.ItemLink)`
       border-width: 25px 25px 0 0;
       border-color: ${colorGrayscale.white} transparent transparent;
     }
-    :hover {
+    &:hover {
       &::before {
         border-width: 0;
       }
