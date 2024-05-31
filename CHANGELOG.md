@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.0.2, 2024-05-22 (Current)
+## 5.0.3, 2024-05-31 (Current)
+
+### Notable Changes
+
+- chore(hotfix)
+  - upgrade @twreporter/react-article-components to 2.1.1-beta.0
+
+### Commits
+
+- [[`5daf5426ba`](https://github.com/twreporter/twreporter-react/commit/5daf5426ba)] - **chore(hotfix)**: upgrade react-article-components to 2.1.1-beta.0 (nickhsine)
+
+## 5.0.2, 2024-05-22
 
 ### Notable Changes
 
