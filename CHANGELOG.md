@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.4-rc.0, 2024-05-31
+
+### Notable Changes
+
+- fix
+  - styled component & behavior change on v6
+
+### Commits
+
+- [[`5bbfc1101a`](https://github.com/twreporter/twreporter-react/commit/5bbfc1101a)] - **fix**: styled component & behavior change on v6 (Aylie Chou)
+
 ## 5.0.3, 2024-05-30 (Current)
 
 ### Notable Changes
