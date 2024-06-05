@@ -238,8 +238,9 @@ const DonwloadPage = () => {
   }
 
   useEffect(() => {
-    getReceiptData().then(() => getPaymentHistory())
-    setIsLoading(false)
+    getReceiptData()
+      .then(() => getPaymentHistory())
+      .finally(() => setIsLoading(false))
     window.print()
   }, [])
 

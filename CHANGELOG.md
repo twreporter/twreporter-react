@@ -10,14 +10,49 @@
 
 ### Commits
 
-- \[[`44779c997c`](https://github.com/twreporter/twreporter-react/commit/44779c997c)] - **fix**: fix conflict (Lucien)
-- \[[`5d67e9c39d`](https://github.com/twreporter/twreporter-react/commit/5d67e9c39d)] - **fix**: add releaseBranch for icon (Lucien)
-- \[[`bd6f60502e`](https://github.com/twreporter/twreporter-react/commit/bd6f60502e)] - **feat**: use MarginBottomType enum (Lucien)
-- \[[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
-- \[[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
-- \[[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
+- [[`44779c997c`](https://github.com/twreporter/twreporter-react/commit/44779c997c)] - **fix**: fix conflict (Lucien)
+- [[`5d67e9c39d`](https://github.com/twreporter/twreporter-react/commit/5d67e9c39d)] - **fix**: add releaseBranch for icon (Lucien)
+- [[`bd6f60502e`](https://github.com/twreporter/twreporter-react/commit/bd6f60502e)] - **feat**: use MarginBottomType enum (Lucien)
+- [[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
+- [[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
+- [[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
 
-## 5.0.2, 2024-05-22 (Current)
+## 5.0.4, 2024-06-04 (Current)
+
+### Notable Changes
+
+- fix
+  - styled component & behavior change on v6
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`ec1f07862c`](https://github.com/twreporter/twreporter-react/commit/ec1f07862c)] - **chore**: update twreporter packages (Lucien)
+- [[`5bbfc1101a`](https://github.com/twreporter/twreporter-react/commit/5bbfc1101a)] - **fix**: styled component & behavior change on v6 (Aylie Chou)
+
+## 5.0.3, 2024-05-30
+
+### Notable Changes
+
+- feat
+  - add bookshop friend link on member page menu
+- fix
+  - set isLoading to false after dispatch
+  - apply new added menu list type on mobile
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`58c297e0e3`](https://github.com/twreporter/twreporter-react/commit/58c297e0e3)] - **chore**: update twreporter packages (Lucien)
+- [[`3ec073a97e`](https://github.com/twreporter/twreporter-react/commit/3ec073a97e)] - **chore**: update twreporter packages (Lucien)
+- [[`36ae81e7e4`](https://github.com/twreporter/twreporter-react/commit/36ae81e7e4)] - **fix**: setIsLoading runtime (Lucien)
+- [[`457572a0c4`](https://github.com/twreporter/twreporter-react/commit/457572a0c4)] - **fix**: set isLoading to false after dispatch (Lucien)
+- [[`23596b0af3`](https://github.com/twreporter/twreporter-react/commit/23596b0af3)] - **fix**: apply new added menu list type on mobile (Aylie Chou)
+- [[`9d6a5f423e`](https://github.com/twreporter/twreporter-react/commit/9d6a5f423e)] - **feat**: add bookshop friend link on member page menu (Aylie Chou)
+
+## 5.0.2, 2024-05-22
 
 ### Notable Changes
 
