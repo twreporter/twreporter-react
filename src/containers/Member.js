@@ -224,7 +224,7 @@ const MemberPage = ({
       <TabletAndAbove>
         <PageContainer>
           <MenuContainer>
-            <MemberMenuList />
+            <MemberMenuList role={memberData.role} />
           </MenuContainer>
           <ContentContainer $path={pathname}>
             <Switch>
