@@ -12,7 +12,6 @@ import requestOrigin from '@twreporter/core/lib/constants/request-origins'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import twreporterRedux from '@twreporter/redux'
 import useBookmark from '@twreporter/react-components/lib/hook/use-bookmark'
-import useStore from '@twreporter/react-components/lib/hook/use-store'
 // components
 import Pagination from '../../Pagination'
 // context
@@ -65,8 +64,7 @@ const BrowsingHistory = ({
   const [browsingHistory, setBrowsingHistory] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const { releaseBranch, toastr } = useContext(CoreContext)
-  const store = useStore()
-  const { addAction, removeAction } = useBookmark(store)
+  const { addAction, removeAction } = useBookmark()
   const [isLoading, setIsLoading] = useState(true)
 
   const updateBrowsingHistory = (targetHistory, isBookmarking) => {
