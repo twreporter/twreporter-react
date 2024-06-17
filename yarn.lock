@@ -1679,8 +1679,10 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@file:.yalc/@twreporter/react-article-components":
+"@twreporter/react-article-components@^2.1.1":
   version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.1.1.tgz#f2c4832d976a10f12be779636c56fdd1a3b02205"
+  integrity sha512-bAayS3jRxETdVGSRkXHDplIlGH3sDPE7cV+dKEf0lhb/v/8m65OrsIb05UFU0nhULN1b55rqq8Hawi1ErfAoeA==
   dependencies:
     "@twreporter/core" "^1.22.1"
     "@twreporter/react-components" "^9.0.2"
@@ -1716,24 +1718,6 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/react-components@file:.yalc/@twreporter/react-components":
-  version "9.0.2"
-  dependencies:
-    "@twreporter/core" "^1.22.1"
-    "@twreporter/redux" "^8.0.2"
-    fontfaceobserver-es "^3.3.3"
-    hoist-non-react-statics "^2.3.1"
-    lodash "^4.0.0"
-    memoize-one "^5.0.5"
-    prop-types "^15.0.0"
-    react "^18.2.0"
-    react-redux "^9.1.2"
-    react-router-dom "^5.1.2"
-    react-transition-group "^4.4.5"
-    react-waypoint "^10.3.0"
-    styled-components "^6.0.0"
-    stylis "^4.0.0"
-
 "@twreporter/redux@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-8.0.2.tgz#0c561c4fa8b331d22529b313925b6af6c7e229f4"
@@ -1752,22 +1736,6 @@
     redux "^4.0.1"
     redux-thunk "^2.3.0"
 
-"@twreporter/redux@file:.yalc/@twreporter/redux":
-  version "8.0.2"
-  dependencies:
-    "@twreporter/core" "^1.22.1"
-    axios "^0.19.0"
-    es6-error "^4.0.2"
-    humps "^0.6.0"
-    localforage "^1.7.3"
-    lodash "^4.17.4"
-    node-fetch "^2.6.0"
-    normalizr "^3.2.4"
-    prop-types "^15.0.0"
-    react "^18.2.0"
-    redux "^5.0.1"
-    redux-thunk "^3.1.0"
-
 "@twreporter/universal-header@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.0.2.tgz#f9790678ee1c8045d0cdf309bd38a85db7815cae"
@@ -1784,24 +1752,6 @@
     react-transition-group "^4.4.5"
     redux "^4.0.1"
     redux-thunk "^2.3.0"
-    styled-components "^6.0.0"
-    stylis "^4.0.0"
-
-"@twreporter/universal-header@file:.yalc/@twreporter/universal-header":
-  version "3.0.2"
-  dependencies:
-    "@reduxjs/toolkit" "^2.2.5"
-    "@twreporter/core" "^1.22.1"
-    "@twreporter/react-components" "^9.0.2"
-    lodash "^4.17.11"
-    prop-types "^15.6.2"
-    querystring "^0.2.0"
-    react "^18.2.0"
-    react-redux "^9.1.2"
-    react-router-dom "^5.1.2"
-    react-transition-group "^4.4.5"
-    redux "^5.0.1"
-    redux-thunk "^3.1.0"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
