@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { connect, useStore } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet-async'
@@ -79,6 +79,7 @@ const Article = ({
   // props from parents
   releaseBranch,
 }) => {
+  const store = useStore()
   const prevIsFetchingPost = usePrevious(isFetchingPost)
   const [isExpanded, setIsExpaned] = useState(false)
   const [
@@ -419,6 +420,7 @@ const Article = ({
             LinkComponent={Link}
             releaseBranch={releaseBranch}
             onToggleTabExpanded={onToggleTabExpanded}
+            store={store}
             // TODO: pass isFetchingRelateds to show loadin spinner
             // TODO: pass errorOfRelateds to show error message to end users
           />

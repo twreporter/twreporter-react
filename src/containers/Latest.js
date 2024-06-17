@@ -1,4 +1,4 @@
-import { ReactReduxContext, connect } from 'react-redux'
+import { useSelector, connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
@@ -133,8 +133,10 @@ const Latest = ({
   const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
   const { releaseBranch, toastr } = useContext(CoreContext)
 
-  const state = useContext(ReactReduxContext).store.getState()
-  const error = _.get(state, [reduxStateFields.lists, listId, 'error'])
+  const state = useSelector(state => state)
+  const error = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, listId, 'error'])
+  )
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const store = useStore()
