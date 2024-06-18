@@ -1,12 +1,25 @@
 # Changelog
 
+## 5.0.3-beta.1, 2024-06-18
+
+### Notable Changes
+
+- feat
+  - add test data for article page tracking section
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`efc8ee981c`](https://github.com/twreporter/twreporter-react/commit/efc8ee981c)] - **chore**: update twreporter packages (Lucien)
+- [[`a03ef47909`](https://github.com/twreporter/twreporter-react/commit/a03ef47909)] - **feat**: add test data for article page tracking section (Lucien)
+
 ## 5.0.3-beta.0, 2024-05-28
 
 ### Notable Changes
 
-- fix
-  - unexpected DOMExceptionError due to rendering promote `Banner`
-  - auth issue for reading time
+- feat
+  - article tracking section
 
 ### Commits
 
