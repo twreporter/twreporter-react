@@ -16,7 +16,7 @@ const _ = {
   get,
 }
 
-const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
+const NotifyAndPromo = ({ pathname, isAuthed, showHamburger }) => {
   const { isShowPromo, closePromo, promoType, PromoType } = usePromo(
     pathname,
     isAuthed,
@@ -37,7 +37,7 @@ const MembershipPromo = ({ pathname, isAuthed, showHamburger }) => {
     </div>
   )
 }
-MembershipPromo.propTypes = {
+NotifyAndPromo.propTypes = {
   pathname: PropTypes.string.isRequired,
   isAuthed: PropTypes.bool.isRequired,
   showHamburger: PropTypes.bool.isRequired,
@@ -48,4 +48,4 @@ const mapStateToProps = state => {
   return { isAuthed }
 }
 
-export default connect(mapStateToProps)(MembershipPromo)
+export default connect(mapStateToProps)(NotifyAndPromo)
