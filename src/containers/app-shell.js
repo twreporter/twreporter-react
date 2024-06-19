@@ -11,7 +11,8 @@ import colors from '../constants/colors'
 import uiConst from '../constants/ui'
 // components
 import ErrorBoundary from '../components/ErrorBoundary'
-import MembershipPromo from '../components/membership-promo'
+import NotifyAndPromo from '../components/notify-and-promo'
+import Webpush from '../components/web-push'
 // @twreporter
 import Footer from '@twreporter/react-components/lib/footer'
 import { Header } from '@twreporter/universal-header/lib/index'
@@ -126,7 +127,8 @@ const AppShell = ({
           {renderFooter(footerType, releaseBranch)}
         </ContentBlock>
       </AppBox>
-      <MembershipPromo pathname={pathname} showHamburger={showHamburger} />
+      <NotifyAndPromo pathname={pathname} showHamburger={showHamburger} />
+      <Webpush pathname={pathname} showHamburger={showHamburger} />
     </ErrorBoundary>
   )
 }
