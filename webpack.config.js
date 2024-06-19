@@ -152,7 +152,9 @@ const webpackConfig = {
 if (isProduction) {
   webpackConfig.optimization.minimize = true
 } else {
-  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+  webpackConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin({ multiStep: true })
+  )
 }
 
 module.exports = webpackConfig
