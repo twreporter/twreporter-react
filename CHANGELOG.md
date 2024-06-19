@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.0.5-rc.1, 2024-06-20
+
+### Notable Changes
+
+- feat
+  - add `useWebpush` hook & normalize Banner
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`14ce5f8054`](https://github.com/twreporter/twreporter-react/commit/14ce5f8054)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5e41e26d7d`](https://github.com/twreporter/twreporter-react/commit/5e41e26d7d)] - **fix**: update import path for article-banner (Aylie Chou)
+- [[`b7fbdd3e4c`](https://github.com/twreporter/twreporter-react/commit/b7fbdd3e4c)] - **feat**: add `useWebpush` hook & normalize Banner (Aylie Chou)
+
 ## 5.0.5-rc.0, 2024-06-19
 
 ### Notable Changes
