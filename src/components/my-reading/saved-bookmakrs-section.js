@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
@@ -10,7 +11,6 @@ import {
   DesktopAndAbove,
   TabletAndBelow,
 } from '@twreporter/react-components/lib/rwd'
-import useStore from '@twreporter/react-components/lib/hook/use-store'
 import useBookmark from '@twreporter/react-components/lib/hook/use-bookmark'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import twreporterRedux from '@twreporter/redux'
@@ -56,15 +56,33 @@ const StyledTextButton = styled(TextButton)`
 const SavedBookmarksSection = () => {
   const { releaseBranch, toastr } = useContext(CoreContext)
   const navigate = useHistory()
-  const store = useStore()
-  const [state, dispatch] = store
-  const { removeAction } = useBookmark(store)
+  const { removeAction } = useBookmark()
   const [bookmarks, setBookmarks] = useState([])
   const [totalBoorkmarks, setTotalBookmarks] = useState(-1)
   const isMobile = useWidthDetector(MobileMaxWidth)
 
+  const dispatch = useDispatch()
+  const bookmarkIDList = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'bookmarkIDList'], [])
+  )
+  const bookmarkEntities = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'entities'], {})
+  )
+  const totalBookmarks = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'total'], 0)
+  )
+  const isRequesting = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'isRequesting'], false)
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const userID = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
+
   const moreSavedBookmarkBtn = () => {
-    if (totalBoorkmarks <= 0) return
+    if (totalBoorkmarks <= 0) return null
     return (
       <>
         <DesktopAndAbove>
@@ -98,7 +116,7 @@ const SavedBookmarksSection = () => {
       .then(() => {
         toastr({ text: '已取消收藏' })
       })
-      .catch(_error => {
+      .catch(() => {
         toastr({ text: '連線失敗，請再試一次' })
       })
   }
@@ -138,35 +156,18 @@ const SavedBookmarksSection = () => {
   }
 
   useEffect(() => {
-    const bookmarkIDList = _.get(
-      state,
-      [reduxStateFields.bookmarks, 'bookmarkIDList'],
-      []
-    )
-    const bookmarkEntities = _.get(
-      state,
-      [reduxStateFields.bookmarks, 'entities'],
-      {}
-    )
-    const totalBookmarks = _.get(
-      state,
-      [reduxStateFields.bookmarks, 'total'],
-      0
-    )
     const bookmarks = _.map(bookmarkIDList, id =>
       filterBookmark(_.get(bookmarkEntities, id))
     )
     setBookmarks(bookmarks)
     setTotalBookmarks(totalBookmarks)
-  }, [state[reduxStateFields.bookmarks]])
+  }, [bookmarkIDList, bookmarkEntities, totalBookmarks])
 
   useEffect(() => {
-    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-    const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
     dispatch(getMultipleBookmarks(jwt, userID, 0, isMobile ? 4 : 6))
-  }, [isMobile])
+  }, [dispatch, jwt, userID, isMobile])
 
-  if (state[reduxStateFields.bookmarks].isRequesting) {
+  if (isRequesting) {
     return (
       <div>
         <Title2 title={'已收藏'} />
