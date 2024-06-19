@@ -1177,7 +1177,7 @@
   resolved "https://registry.yarnpkg.com/@babel/regjsgen/-/regjsgen-0.8.0.tgz#f0ba69b075e1f05fb2825b7fad991e7adbb18310"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.18", "@babel/runtime@^7.12.5", "@babel/runtime@^7.22.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.18", "@babel/runtime@^7.12.5", "@babel/runtime@^7.22.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.24.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.5.tgz#230946857c053a36ccc66e1dd03b17dd0c4ed02c"
   integrity sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==
@@ -1660,13 +1660,13 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/index-page@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.0.2.tgz#7c910ea6266c6a57ae9f0cf818f05c234616b84d"
-  integrity sha512-Zy+T5RV3cLORMzMVjVa8CsGaz8OQU8ZMJSURIi5SBvmLUbo6rRNo38ntUpZWHeYjDMqjIVNPmgGvTj21VGOqvw==
+"@twreporter/index-page@^2.0.3-rc.1":
+  version "2.0.3-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.0.3-rc.1.tgz#d4a4de82e20f883b0b28ab930bf01126961fc568"
+  integrity sha512-alfJC6DTLWaVkqU/Jj9mzySD5W+RWiriTpoIjysOPYOgsTOO57I3YuUFDWAUZj/zmOUcvNj016IttOQb5GphgQ==
   dependencies:
     "@twreporter/core" "^1.22.1"
-    "@twreporter/react-components" "^9.0.2"
+    "@twreporter/react-components" "^9.1.0-rc.0"
     lodash "^4.0.0"
     prop-types "^15.0.0"
     react "^18.2.0"
@@ -1679,50 +1679,52 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.1.1.tgz#f2c4832d976a10f12be779636c56fdd1a3b02205"
-  integrity sha512-bAayS3jRxETdVGSRkXHDplIlGH3sDPE7cV+dKEf0lhb/v/8m65OrsIb05UFU0nhULN1b55rqq8Hawi1ErfAoeA==
+"@twreporter/react-article-components@^2.2.0-rc.1":
+  version "2.2.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.2.0-rc.1.tgz#3c9741d1a6ff7e0884187aff5c0c89971a0afb56"
+  integrity sha512-qqbafJqm4rvtcsl8Brk+z3ae+TogWQI+x0x3v0pu7yOjVaMoDqa/9MPAmtbRPgKDxhAJFPW11IMnUZT9M6wvlg==
   dependencies:
     "@twreporter/core" "^1.22.1"
-    "@twreporter/react-components" "^9.0.2"
-    "@twreporter/redux" "^8.0.2"
-    "@twreporter/universal-header" "^3.0.2"
+    "@twreporter/react-components" "^9.1.0-rc.0"
+    "@twreporter/redux" "^8.0.3-rc.0"
+    "@twreporter/universal-header" "^3.0.3-rc.1"
     howler "^2.2.3"
     lodash "^4.17.11"
     memoize-one "^5.0.5"
     prop-types "^15.0.0"
     react "^18.2.0"
+    react-redux "^9.1.2"
     react-waypoint "^10.3.0"
     smooth-scroll "16.1.3"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/react-components@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-9.0.2.tgz#2bf5e09ecdffe97c407a8b5439baa1887d331356"
-  integrity sha512-ufoCKhw3QLNlk57poX/I0Kx4pQEQbb61PSNsXOjaW0eadaABbgOxXNV5N8Z9p1iEHG2TZf5Mur0YyL4c67AYbg==
+"@twreporter/react-components@^9.1.0-rc.0":
+  version "9.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-9.1.0-rc.0.tgz#a6223816c1a5ba2bcd63934e4ac7d82b8cc39733"
+  integrity sha512-HWEetnX6OcIytjZBlQJPEKstdQj0JwkjWgPz8h4GWmLdiXD1RrK2BQRjMoI+lgRcM65y2x9YgF6FDwEYj41s4w==
   dependencies:
     "@twreporter/core" "^1.22.1"
-    "@twreporter/redux" "^8.0.2"
+    "@twreporter/redux" "^8.0.3-rc.0"
     fontfaceobserver-es "^3.3.3"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     memoize-one "^5.0.5"
     prop-types "^15.0.0"
     react "^18.2.0"
-    react-redux "^6.0.0"
+    react-redux "^9.1.2"
     react-router-dom "^5.1.2"
     react-transition-group "^4.4.5"
     react-waypoint "^10.3.0"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/redux@^8.0.2":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-8.0.2.tgz#0c561c4fa8b331d22529b313925b6af6c7e229f4"
-  integrity sha512-a2R+0YwQqOCPUFWzK/ZFZXCbJmcTwruRHLKR7/nIv9oLStMMJAebGO8rPoAKFIJUcmQWNzRxxShBse9LGdZHUw==
+"@twreporter/redux@^8.0.3-rc.0":
+  version "8.0.3-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-8.0.3-rc.0.tgz#c9490b155563adcd15f55f5723b0fedade4e5f0c"
+  integrity sha512-2JHJ7189YDOewCnIh1+1uM0Dj8zouACsHpFkiKT5IA9bJSV9/gF8a9kHSNDsWAafUofPfUMIxntagPyGX1yDDA==
   dependencies:
+    "@reduxjs/toolkit" "^2.2.5"
     "@twreporter/core" "^1.22.1"
     axios "^0.19.0"
     es6-error "^4.0.2"
@@ -1733,25 +1735,26 @@
     normalizr "^3.2.4"
     prop-types "^15.0.0"
     react "^18.2.0"
-    redux "^4.0.1"
-    redux-thunk "^2.3.0"
+    redux "^5.0.1"
+    redux-thunk "^3.1.0"
 
-"@twreporter/universal-header@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.0.2.tgz#f9790678ee1c8045d0cdf309bd38a85db7815cae"
-  integrity sha512-+Yb0J6i/tvOFN9M1hldp7K+61dp2owUc58qbohpLFx/SPJ/RSDPRLPRxCXItwH96iClMmJpEYV2f57ki/BIkbg==
+"@twreporter/universal-header@^3.0.3-rc.1":
+  version "3.0.3-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.0.3-rc.1.tgz#27a6ae773a530c4dd4626284e7a0c2780fda1bdd"
+  integrity sha512-wg2iwijWZp1SRdok3ZY1NuFHcLowKEaZdHihjGi7eTFmIj5Pps9zplDhq9YFCINbfagWx4vHDhDp3WjSTUa6kA==
   dependencies:
+    "@reduxjs/toolkit" "^2.2.5"
     "@twreporter/core" "^1.22.1"
-    "@twreporter/react-components" "^9.0.2"
+    "@twreporter/react-components" "^9.1.0-rc.0"
     lodash "^4.17.11"
     prop-types "^15.6.2"
     querystring "^0.2.0"
     react "^18.2.0"
-    react-redux "^6.0.0"
+    react-redux "^9.1.2"
     react-router-dom "^5.1.2"
     react-transition-group "^4.4.5"
-    redux "^4.0.1"
-    redux-thunk "^2.3.0"
+    redux "^5.0.1"
+    redux-thunk "^3.1.0"
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
@@ -5678,7 +5681,7 @@ hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1:
+hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.1:
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -8828,7 +8831,7 @@ react-helmet-async@^1.3.0:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.2:
+react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -8842,18 +8845,6 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-redux@^6.0.0:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/react-redux/-/react-redux-6.0.1.tgz"
-  integrity sha512-T52I52Kxhbqy/6TEfBv85rQSDz6+Y28V/pf52vDWs1YRXG19mcFOGfHnY2HsNFHyhP+ST34Aih98fvt6tqwVcQ==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    hoist-non-react-statics "^3.3.0"
-    invariant "^2.2.4"
-    loose-envify "^1.4.0"
-    prop-types "^15.7.2"
-    react-is "^16.8.2"
 
 react-redux@^9.1.2:
   version "9.1.2"
@@ -9086,22 +9077,10 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
-redux-thunk@^2.3.0:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.2.tgz#b9d05d11994b99f7a91ea223e8b04cf0afa5ef3b"
-  integrity sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==
-
 redux-thunk@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-3.1.0.tgz#94aa6e04977c30e14e892eae84978c1af6058ff3"
   integrity sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==
-
-redux@^4.0.1:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz"
-  integrity sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==
-  dependencies:
-    "@babel/runtime" "^7.9.2"
 
 redux@^5.0.1:
   version "5.0.1"
