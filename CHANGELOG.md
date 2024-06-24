@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.3-beta.2, 2024-06-24
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+  - sync master
+
+### Commits
+
+- [[`c223356835`](https://github.com/twreporter/twreporter-react/commit/c223356835)] - **chore**: update twreporter packages (Lucien)
+- [[`deb89f965a`](https://github.com/twreporter/twreporter-react/commit/deb89f965a)] - **chore**: sync master (Lucien)
+
 ## 5.0.3-beta.1, 2024-06-18
 
 ### Notable Changes
