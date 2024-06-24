@@ -16,6 +16,8 @@ import {
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
+import { DONATION_LINK_ANCHOR } from '@twreporter/core/lib/constants/donation-link-anchor'
 
 // desktop popup component
 const boxCss = css`
@@ -64,6 +66,11 @@ const DesktopPopup = () => {
   const { releaseBranch } = useContext(CoreContext)
   const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_text_desktop.png`
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_desktop.png`
+  const moreAction = () => {
+    const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
+    window.open(membershipPromoLink, '_blank')
+    closePromo()
+  }
 
   return (
     <DesktopPopupBox>
@@ -77,7 +84,7 @@ const DesktopPopup = () => {
           src={textUrl}
           alt="報導者支持方案上線，用你的方式支持報導者！"
         />
-        <DesktopMore releaseBranch={releaseBranch} />
+        <DesktopMore onClickButton={moreAction} text="瞭解更多" />
       </FlexGroup>
       <HighFiveImg src={imageUrl} alt="開創組織永續經營之路" />
     </DesktopPopupBox>
@@ -102,6 +109,11 @@ const MobilePopup = () => {
   const { closePromo } = useContext(PromoContext)
   const { releaseBranch } = useContext(CoreContext)
   const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_mobile.png`
+  const moreAction = () => {
+    const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
+    window.open(membershipPromoLink, '_blank')
+    closePromo()
+  }
 
   return (
     <MobilePopupBox>
@@ -114,7 +126,7 @@ const MobilePopup = () => {
         src={imgUrl}
         alt="報導者支持方案上線，用你的方式支持報導者！"
       />
-      <MobileMore releaseBranch={releaseBranch} />
+      <MobileMore onClickButton={moreAction} text="瞭解更多" />
     </MobilePopupBox>
   )
 }

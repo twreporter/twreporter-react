@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { connect, useStore } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet-async'
@@ -18,7 +18,7 @@ import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
-import ArticleBanner from '../components/membership-promo/article-banner'
+import ArticleBanner from '../components/notify-and-promo/article-banner'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import ArticleComponent from '@twreporter/react-article-components'
@@ -79,6 +79,7 @@ const Article = ({
   // props from parents
   releaseBranch,
 }) => {
+  const store = useStore()
   const prevIsFetchingPost = usePrevious(isFetchingPost)
   const [isExpanded, setIsExpaned] = useState(false)
   const [
@@ -1327,6 +1328,7 @@ const Article = ({
             LinkComponent={Link}
             releaseBranch={releaseBranch}
             onToggleTabExpanded={onToggleTabExpanded}
+            store={store}
             // TODO: pass isFetchingRelateds to show loadin spinner
             // TODO: pass errorOfRelateds to show error message to end users
             trackingSection={trackingSection}
