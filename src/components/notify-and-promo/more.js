@@ -8,6 +8,7 @@ const StretchPillButton = styled(PillButton)`
   width: auto;
   display: flex;
   justify-content: center;
+  text-align: center;
 `
 const Box = styled.div``
 

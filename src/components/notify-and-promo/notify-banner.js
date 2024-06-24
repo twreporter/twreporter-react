@@ -44,7 +44,7 @@ const DesktopBox = styled.div`
   padding: 24px;
 `
 const SketchImg = styled.img`
-  width: 222px;
+  height: 116px;
   margin-right: 48px;
 `
 const TextBox = styled.div`
