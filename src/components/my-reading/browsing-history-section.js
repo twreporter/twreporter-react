@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
@@ -10,7 +11,6 @@ import {
   DesktopAndAbove,
   TabletAndBelow,
 } from '@twreporter/react-components/lib/rwd'
-import useStore from '@twreporter/react-components/lib/hook/use-store'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
 import { ShortStory } from '@twreporter/react-components/lib/card'
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -73,11 +73,26 @@ const BrowsingHistorySection = () => {
   const navigate = useHistory()
   const [browsingHistory, setBrowsingHistory] = useState([])
   const [totalBrowsingHistory, setTotalBrowsingHistory] = useState(-1)
-  const store = useStore()
-  const [state, dispatch] = store
+  const dispatch = useDispatch()
+
+  const footprints = useSelector(state =>
+    _.get(state, [reduxStateFields.footprints, 'footprints'], [])
+  )
+  const totalFootprints = useSelector(state =>
+    _.get(state, [reduxStateFields.footprints, 'total'], 0)
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.footprints, 'isFetching'], false)
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const userID = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
 
   const moreHistoryBtn = () => {
-    if (totalBrowsingHistory <= 0) return
+    if (totalBrowsingHistory <= 0) return null
     return (
       <>
         <DesktopAndAbove>
@@ -125,29 +140,17 @@ const BrowsingHistorySection = () => {
   }
 
   useEffect(() => {
-    const footprints = _.get(
-      state,
-      [reduxStateFields.footprints, 'footprints'],
-      []
-    )
-    const totalFootprints = _.get(
-      state,
-      [reduxStateFields.footprints, 'total'],
-      0
-    )
     setBrowsingHistory(
       _.map(footprints, footprint => filterFootprint(footprint))
     )
     setTotalBrowsingHistory(totalFootprints)
-  }, [state[reduxStateFields.footprints]])
+  }, [footprints, totalFootprints])
 
   useEffect(() => {
-    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-    const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
     dispatch(getUserFootprints(jwt, userID, 0, 6))
-  }, [])
+  }, [dispatch, jwt, userID])
 
-  if (state[reduxStateFields.footprints].isFetching) {
+  if (isFetching) {
     return (
       <div>
         <Title2 title={'造訪紀錄'} />

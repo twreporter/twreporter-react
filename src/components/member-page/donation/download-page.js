@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 // @twreporter
 import { P3, P4 } from '@twreporter/react-components/lib/text/paragraph'
 import {
   colorGrayscale,
   colorOpacity,
 } from '@twreporter/core/lib/constants/color'
-import { useStore } from '@twreporter/react-components/lib/hook'
 import twreporterRedux from '@twreporter/redux'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 // components
@@ -175,8 +175,6 @@ const statusDictionary = {
 
 const DonwloadPage = () => {
   const { orderNumber } = useParams()
-  const store = useStore()
-  const [state] = store
   const [history, setHistory] = useState()
   const [receiptHeader, setReceiptHeader] = useState('')
   const [receiptAddress, setReceiptAddress] = useState('')
@@ -186,8 +184,12 @@ const DonwloadPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-  const apiOrigin = _.get(state, [reduxStateFields.origins, 'api'])
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const apiOrigin = useSelector(state =>
+    _.get(state, [reduxStateFields.origins, 'api'])
+  )
 
   const getReceiptData = async () => {
     try {

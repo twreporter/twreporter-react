@@ -10,7 +10,6 @@ import { CardList } from '@twreporter/react-components/lib/listing-page'
 import mq from '@twreporter/core/lib/utils/media-query'
 import twreporterRedux from '@twreporter/redux'
 import useBookmark from '@twreporter/react-components/lib/hook/use-bookmark'
-import useStore from '@twreporter/react-components/lib/hook/use-store'
 import requestOrigin from '@twreporter/core/lib/constants/request-origins'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import { Bookmark } from '@twreporter/react-components/lib/icon'
@@ -73,8 +72,7 @@ const SavedBookmarks = ({
   const [bookmarks, setBookmarks] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const { releaseBranch, toastr } = useContext(CoreContext)
-  const store = useStore()
-  const { removeAction } = useBookmark(store)
+  const { removeAction } = useBookmark()
   const [isLoading, setIsLoading] = useState(true)
 
   const removeBookmark = bookmarkID => {

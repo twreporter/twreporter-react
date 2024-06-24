@@ -34,3 +34,10 @@ export const ArticlePromoContext = createContext({
     closePromo: PropTypes.func,
   },
 })
+
+export const WebpushPromoContext = createContext({
+  propTypes: {
+    isShowPromo: PropTypes.bool,
+    closePromo: PropTypes.func,
+  },
+})
