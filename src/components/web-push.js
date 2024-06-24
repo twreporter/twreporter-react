@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 // constants
 import statusCodeConst from '../constants/status-code'
 // utils
@@ -85,9 +85,10 @@ const Box = styled.div`
   ${props => (props.$show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
 `
 
+const { reduxStateFields } = twreporterRedux
 const defaultSubscribed = true
 const apiPath = '/v1/web-push/subscriptions'
-const WebPush = ({ userId, pathname, showHamburger }) => {
+const WebPush = ({ pathname, showHamburger }) => {
   const [isSubscribed, setIsSubscribed] = useState(defaultSubscribed)
   const [isShowInstruction, setIsShowInstruction] = useState(false)
   const { isShowPromo, closePromo } = useWebpush(
@@ -97,6 +98,9 @@ const WebPush = ({ userId, pathname, showHamburger }) => {
   )
   const { releaseBranch } = useContext(CoreContext)
   const apiOrigin = requestOrigins.forServerSideRendering[releaseBranch].api
+  const userId = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
 
   useEffect(() => {
     const initialize = async () => {
@@ -121,7 +125,16 @@ const WebPush = ({ userId, pathname, showHamburger }) => {
     // check if service worker registered web push notification or not
     try {
       const reg = await navigator.serviceWorker.getRegistration()
-      const subscription = reg ? reg.pushManager.getSubscription() : null
+      if (!reg) {
+        return false
+      }
+      const subscribeStatus = await reg.pushManager.permissionState({
+        userVisibleOnly: true,
+      })
+      if (subscribeStatus === 'denied') {
+        setIsShowInstruction(true)
+      }
+      const subscription = await reg.pushManager.getSubscription()
       if (!subscription) {
         return false
       }
@@ -175,7 +188,7 @@ const WebPush = ({ userId, pathname, showHamburger }) => {
       return
     }
 
-    if (Notification.permission !== 'denied') {
+    if (Notification.permission === 'granted') {
       return true
     }
 
@@ -257,7 +270,7 @@ const WebPush = ({ userId, pathname, showHamburger }) => {
         <DesktopAndAbove>
           <DesktopBanner
             customContext={WebpushPromoContext}
-            imageUrl={`https://www.twreporter.org/assets/membership-promo/${releaseBranch}/banner_desktop.png`}
+            imageUrl={`https://www.twreporter.org/assets/membership-promo/${releaseBranch}/ciao.png`}
             title="即時追蹤最新報導"
             description={description}
             buttonText={buttonText}
@@ -278,17 +291,8 @@ const WebPush = ({ userId, pathname, showHamburger }) => {
   )
 }
 WebPush.propTypes = {
-  // props from redux state
-  userId: PropTypes.number,
-  // props pass by parent
   pathname: PropTypes.string.isRequired,
   showHamburger: PropTypes.bool.isRequired,
 }
 
-const { reduxStateFields } = twreporterRedux
-const mapStateToProps = state => {
-  const userId = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  return { userId }
-}
-
-export default connect(mapStateToProps)(WebPush)
+export default WebPush

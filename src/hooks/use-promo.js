@@ -33,10 +33,14 @@ const usePromo = (pathname, isAuthed, showHamburger) => {
   const clearPromoStatus = async () => {
     await localForage.removeItem('membership-promo-status')
   }
+  const wait = async ms => {
+    await new Promise((resolve, reject) => setTimeout(resolve, ms))
+  }
   const checkPromoPriority = async promo => {
     if (promo === PromoType.POPUP) {
       return true
     }
+    await wait(300)
     const webpushPromoStatus = await localForage.getItem('webpush-promo-status')
     return !webpushPromoStatus
   }
