@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.5-rc.3, 2024-06-24
+
+### Notable Changes
+
+- fix
+  - web push defects
+
+### Commits
+
+- [[`63ae0f9ee0`](https://github.com/twreporter/twreporter-react/commit/63ae0f9ee0)] - **fix**: web push defects (Aylie Chou)
+
 ## 5.0.5-rc.2, 2024-06-23
 
 ### Notable Changes
