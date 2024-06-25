@@ -1,76 +1,28 @@
 # Changelog
 
-## 5.0.5-rc.5, 2024-06-25
-
-### Notable Changes
-
-- fix
-  - more button style in notify banner component
-
-### Commits
-
-- [[`8ea9d359ca`](https://github.com/twreporter/twreporter-react/commit/8ea9d359ca)] - **fix**: more button style (Aylie Chou)
-
-## 5.0.5-rc.4, 2024-06-24
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`6b8328b690`](https://github.com/twreporter/twreporter-react/commit/6b8328b690)] - **chore**: update twreporter packages (Lucien)
-
-## 5.0.5-rc.3, 2024-06-24
-
-### Notable Changes
-
-- fix
-  - web push defects
-
-### Commits
-
-- [[`63ae0f9ee0`](https://github.com/twreporter/twreporter-react/commit/63ae0f9ee0)] - **fix**: web push defects (Aylie Chou)
-
-## 5.0.5-rc.2, 2024-06-23
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`4e6bb7867d`](https://github.com/twreporter/twreporter-react/commit/4e6bb7867d)] - **chore**: update twreporter packages (Lucien)
-
-## 5.0.5-rc.1, 2024-06-20
+## 5.0.5, 2024-06-25
 
 ### Notable Changes
 
 - feat
   - add `useWebpush` hook & normalize Banner
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`14ce5f8054`](https://github.com/twreporter/twreporter-react/commit/14ce5f8054)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`5e41e26d7d`](https://github.com/twreporter/twreporter-react/commit/5e41e26d7d)] - **fix**: update import path for article-banner (Aylie Chou)
-- [[`b7fbdd3e4c`](https://github.com/twreporter/twreporter-react/commit/b7fbdd3e4c)] - **feat**: add `useWebpush` hook & normalize Banner (Aylie Chou)
-
-## 5.0.5-rc.0, 2024-06-19
-
-### Notable Changes
-
-- feat
   - use react-redux hook
+- fix
+  - more button style in notify banner component
+  - web push defects
 - chore
   - update @twreporter packages
   - update to latest redux
 
 ### Commits
 
+- [[`8ea9d359ca`](https://github.com/twreporter/twreporter-react/commit/8ea9d359ca)] - **fix**: more button style (Aylie Chou)
+- [[`6b8328b690`](https://github.com/twreporter/twreporter-react/commit/6b8328b690)] - **chore**: update twreporter packages (Lucien)
+- [[`63ae0f9ee0`](https://github.com/twreporter/twreporter-react/commit/63ae0f9ee0)] - **fix**: web push defects (Aylie Chou)
+- [[`4e6bb7867d`](https://github.com/twreporter/twreporter-react/commit/4e6bb7867d)] - **chore**: update twreporter packages (Lucien)
+- [[`14ce5f8054`](https://github.com/twreporter/twreporter-react/commit/14ce5f8054)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5e41e26d7d`](https://github.com/twreporter/twreporter-react/commit/5e41e26d7d)] - **fix**: update import path for article-banner (Aylie Chou)
+- [[`b7fbdd3e4c`](https://github.com/twreporter/twreporter-react/commit/b7fbdd3e4c)] - **feat**: add `useWebpush` hook & normalize Banner (Aylie Chou)
 - [[`d3245ff100`](https://github.com/twreporter/twreporter-react/commit/d3245ff100)] - **chore**: update twreporter packages (Lucien)
 - [[`624ffb5cc6`](https://github.com/twreporter/twreporter-react/commit/624ffb5cc6)] - **feat**: use react-redux hook (Lucien)
 - [[`a09cbb24de`](https://github.com/twreporter/twreporter-react/commit/a09cbb24de)] - **fix**: remove yalc packages (Lucien)
