@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.0.5-rc.5, 2024-06-25
+
+### Notable Changes
+
+- fix
+  - more button style in notify banner component
+
+### Commits
+
+- [[`8ea9d359ca`](https://github.com/twreporter/twreporter-react/commit/8ea9d359ca)] - **fix**: more button style (Aylie Chou)
+
 ## 5.0.5-rc.4, 2024-06-24
 
 ### Notable Changes
