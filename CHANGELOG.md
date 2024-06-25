@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.0.5, 2024-06-25
+## 5.0.5, 2024-06-25 (Current)
 
 ### Notable Changes
 
@@ -28,7 +28,7 @@
 - [[`a09cbb24de`](https://github.com/twreporter/twreporter-react/commit/a09cbb24de)] - **fix**: remove yalc packages (Lucien)
 - [[`7ff15790d2`](https://github.com/twreporter/twreporter-react/commit/7ff15790d2)] - **chore**: update to latest redux (Lucien)
 
-## 5.0.4, 2024-06-04 (Current)
+## 5.0.4, 2024-06-04
 
 ### Notable Changes
 
