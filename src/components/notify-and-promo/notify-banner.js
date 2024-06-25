@@ -149,7 +149,7 @@ const DescriptionBox = styled.div`
   }
 `
 const MobileMore = styled(MoreButton)`
-  width: 96px;
+  width: fit-content;
   align-self: flex-end;
   @media (min-width: 600px) and (max-width: 1023px) {
     align-self: center;
