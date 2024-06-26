@@ -1,6 +1,7 @@
 import React, { memo, useState, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
@@ -8,7 +9,6 @@ import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { Arrow } from '@twreporter/react-components/lib/icon'
 import divider from '@twreporter/react-components/lib/divider'
-import { useStore } from '@twreporter/react-components/lib/hook'
 import twreporterRedux from '@twreporter/redux'
 import { IconButton } from '@twreporter/react-components/lib/button'
 // constants
@@ -121,19 +121,24 @@ export const TableRow = memo(({ record }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [periodicHistory, setPeriodicHistory] = useState([])
   const { releaseBranch } = useContext(CoreContext)
-  const [state, dispatch] = useStore()
 
-  const getPeriodicDonationHistory = () => {
-    const detail = _.get(state, [
+  const dispatch = useDispatch()
+
+  const detail = useSelector(state =>
+    _.get(state, [
       reduxStateFields.donationHistory,
       'periodicDonationHistory',
       'records',
       orderNumber,
     ])
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const getPeriodicDonationHistory = () => {
     if (detail) {
       setPeriodicHistory(detail)
     } else {
-      const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
       dispatch(getUserPeriodicDonationHistory(jwt, orderNumber, 0, 18)).then(
         res => {
           const { meta, records } = _.get(res, 'payload.data')

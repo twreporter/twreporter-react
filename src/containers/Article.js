@@ -15,7 +15,7 @@ import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
-import ArticleBanner from '../components/membership-promo/article-banner'
+import ArticleBanner from '../components/notify-and-promo/article-banner'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import ArticleComponent from '@twreporter/react-article-components'

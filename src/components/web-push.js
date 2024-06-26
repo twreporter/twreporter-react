@@ -1,23 +1,28 @@
 /* global Notification */
 
-import React, { PureComponent } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import localForage from 'localforage'
+import { useSelector } from 'react-redux'
 // constants
-import bsCosnt from '../constants/browser-storage'
 import statusCodeConst from '../constants/status-code'
 // utils
 import loggerFactory from '../logger'
-import mq from '../utils/media-query'
+// contexts
+import { CoreContext, WebpushPromoContext } from '../contexts'
+// hooks
+import useWebpush from '../hooks/use-web-push'
+// components
+import { DesktopBanner, MobileBanner } from './notify-and-promo/notify-banner'
 // twreporter
 import twreporterRedux from '@twreporter/redux'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
 import {
-  colorGrayscale,
-  colorSupportive,
-} from '@twreporter/core/lib/constants/color'
+  DesktopAndAbove,
+  TabletAndBelow,
+} from '@twreporter/react-components/lib/rwd'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 
 // lodash
 import get from 'lodash/get'
@@ -74,448 +79,220 @@ function isServiceWorkerSupported() {
   return 'serviceWorker' in navigator
 }
 
-const NotifyBackground = styled.div`
-  background-color: ${colorGrayscale.white};
+const Box = styled.div`
   z-index: ${zIndexConst.webPush};
-  position: relative;
+  visibility: ${props => (props.$show ? 'visible' : 'hidden')};
+  ${props => (props.$show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
 `
 
-const NotifyBox = styled.div`
-  position: relative;
-  color: ${colorGrayscale.gray800};
-  font-size: 14px;
+const { reduxStateFields } = twreporterRedux
+const defaultSubscribed = true
+const apiPath = '/v1/web-push/subscriptions'
+const WebPush = ({ pathname, showHamburger }) => {
+  const [isSubscribed, setIsSubscribed] = useState(defaultSubscribed)
+  const [isShowInstruction, setIsShowInstruction] = useState(false)
+  const { isShowPromo, closePromo } = useWebpush(
+    pathname,
+    isSubscribed,
+    showHamburger
+  )
+  const { releaseBranch } = useContext(CoreContext)
+  const apiOrigin = requestOrigins.forServerSideRendering[releaseBranch].api
+  const userId = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
 
-  ${mq.mobileOnly`
-    padding: 20px 22px 45px 22px;
-  `}
-
-  ${mq.tabletOnly`
-    padding: 20px 50px 50px 50px;
-  `}
-
-  ${mq.desktopOnly`
-    width: calc(875/1024*100%);
-  `}
-
-  ${mq.desktopAndAbove`
-    padding: 20px 0;
-    margin: 0 auto;
-  `}
-
-  ${mq.hdOnly`
-    width: calc(992/1440*100%);
-  `}
-`
-
-const MegaphoneEmoji = styled.div`
-  display: inline-block;
-
-  /* flip the emoji */
-  transform: scaleX(-1);
-  margin-right: 6px;
-  &:before {
-    content: '📣';
-    line-height: 1.5;
-  }
-`
-
-const NotifyTitle = styled.div`
-  font-size: 16px;
-  display: inline-block;
-  font-weight: bold;
-
-  ${mq.mobileOnly`
-    margin-bottom: 12px;
-  `}
-
-  ${mq.tabletOnly`
-    margin-bottom: 12px;
-  `}
-
-  ${mq.tabletAndAbove`
-    font-size: 14px;
-  `}
-`
-
-const CloseButton = styled.div`
-  position: absolute;
-  cursor: pointer;
-  top: 20px;
-  right: 22px;
-`
-
-const NotifyText = styled.p`
-  line-height: 1.43;
-  position: relative;
-
-  ${mq.mobileOnly`
-    margin-bottom: 12px;
-  `}
-
-  ${mq.tabletOnly`
-    margin-left: 15px;
-    margin-bottom: 20px;
-  `}
-
-  ${mq.tabletAndAbove`
-    display: inline-block;
-  `}
-`
-
-const NotifyHighLightRow = styled.div`
-  ${mq.desktopAndAbove`
-    display: inline-block;
-  `}
-`
-
-const NotifyHighLight = styled.span`
-  color: ${colorSupportive.heavy};
-`
-
-const NotifyLink = styled.a`
-  font-weight: bold;
-  color: ${colorSupportive.heavy};
-`
-
-const NotifyButton = styled.div`
-  background-color: ${colorGrayscale.white};
-  border: 1px solid ${colorSupportive.heavy};
-  color: ${colorSupportive.heavy};
-  cursor: pointer;
-  font-size: 14px;
-  position: absolute;
-
-  ${mq.mobileOnly`
-    right: 20px;
-    bottom: 12px;
-    padding: 10px 20px;
-  `}
-
-  ${mq.tabletOnly`
-    text-align: center;
-    width: calc(514/768*100%);
-    padding: 10px 0;
-    right: calc(52/768*100%);
-    bottom: 23px;
-  `}
-
-  ${mq.desktopAndAbove`
-    padding: 10px 20px;
-    bottom: 11px;
-    right: 60px;
-  `}
-
-  &:hover {
-    background-color: ${colorSupportive.heavy};
-    color: ${colorGrayscale.white};
-    transition: background-color .2s linear;
-  }
-`
-
-const closeSVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-  >
-    <path
-      style={{ stroke: colorGrayscale.gray600 }}
-      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-    />
-  </svg>
-)
-
-const defaults = {
-  nextPopupTs: 0,
-  isSubscribed: true,
-}
-
-class WebPush extends PureComponent {
-  static propTypes = {
-    apiOrigin: PropTypes.string.isRequired,
-    userId: PropTypes.number,
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      nextPopupTs: defaults.nextPopupTs,
-      isSubscribed: defaults.isSubscribed,
-      toShowInstruction: false,
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const subscribedStatus = await getIsSubscribed()
+        setIsSubscribed(subscribedStatus)
+      } catch (err) {
+        logger.warn(err)
+      }
     }
-    this.acceptNotification = this._acceptNotification.bind(this)
-    this.denyNotification = this._denyNotification.bind(this)
-  }
+    initialize()
+  }, [])
 
-  componentDidMount() {
-    Promise.all([
-      this.getNextPopupTsFromBrowserStorage(),
-      this.getIsSubscribed(),
-    ])
-      .then(results => {
-        this.setState({
-          nextPopupTs: results[0],
-          isSubscribed: results[1],
-        })
-      })
-      .catch(logger.warn)
-  }
-
-  getIsSubscribed() {
+  const getIsSubscribed = async () => {
+    // check service support
     // push manager and service worker only existed on client side
-    if (isServiceWorkerSupported() && isPushSupported()) {
-      // check if service worker registered web push notification or not
-      return navigator.serviceWorker
-        .getRegistration()
-        .then(reg => {
-          if (reg) {
-            return reg.pushManager.getSubscription()
-          }
-          return null
-        })
-        .then(subscription => {
-          if (subscription !== null) {
-            const endpoint = subscription.endpoint
-            return axios
-              .get(
-                formURL(
-                  this.props.apiOrigin,
-                  '/v1/web-push/subscriptions',
-                  { endpoint },
-                  false
-                )
-              )
-              .catch(err => {
-                const statusCode = _.get(err, 'response.status')
-                if (statusCode === statusCodeConst.notFound) {
-                  return err.response
-                }
-                return Promise.reject(err)
-              })
-          }
-          return null
-        })
-        .then(axiosRes => {
-          let isSubscribed = false
-          if (_.get(axiosRes, 'status') === statusCodeConst.ok) {
-            isSubscribed = true
-          }
-          return isSubscribed
-        })
-        .catch(err => {
-          logger.errorReport({
-            report: err,
-            message:
-              'Something went wrong during checking web push subscription is existed or not',
-          })
-          return defaults.isSubscribed
-        })
-    } else {
+    if (!isServiceWorkerSupported() || !isPushSupported()) {
       logger.info('Browser does not support web push or service worker')
-      return Promise.resolve(defaults.isSubscribed)
+      return defaultSubscribed
+    }
+
+    // check if service worker registered web push notification or not
+    try {
+      const reg = await navigator.serviceWorker.getRegistration()
+      if (!reg) {
+        return false
+      }
+      const subscribeStatus = await reg.pushManager.permissionState({
+        userVisibleOnly: true,
+      })
+      if (subscribeStatus === 'denied') {
+        setIsShowInstruction(true)
+      }
+      const subscription = await reg.pushManager.getSubscription()
+      if (!subscription) {
+        return false
+      }
+
+      const endpoint = subscription.endpoint
+      const url = formURL(apiOrigin, apiPath, { endpoint }, false)
+      try {
+        const axiosRes = await axios.get(url)
+        if (_.get(axiosRes, 'status') === statusCodeConst.ok) {
+          return true
+        }
+        return false
+      } catch (err) {
+        const statusCode = _.get(err, 'response.status')
+        if (statusCode === statusCodeConst.notFound) {
+          return false
+        }
+        return Promise.reject(err)
+      }
+    } catch (err) {
+      logger.errorReport({
+        report: err,
+        message:
+          'Something went wrong during checking web push subscription is existed or not',
+      })
+      return defaultSubscribed
     }
   }
 
-  getNextPopupTsFromBrowserStorage() {
-    return localForage
-      .getItem(bsCosnt.keys.notifyPopupTs)
-      .then(ts => {
-        if (typeof ts === 'number' && !isNaN(ts)) {
-          return ts
+  const requestNotificationPermission = () => {
+    return new Promise((resolve, reject) => {
+      Notification.requestPermission(permission => {
+        const isGrant = permission === 'granted'
+        if (isGrant) {
+          return resolve(isGrant)
         }
-        return defaults.nextPopupTs
+        return reject(new Error('User denies Notification request permission'))
       })
-      .catch(err => {
-        console.warn(
-          `Can not get ${bsCosnt.keys.notifyPopupTs} from browser storage: `,
-          err
-        )
-        return defaults.nextPopupTs
-      })
-  }
-
-  _setNextPopupToNextMonth() {
-    // In order to reduce the interference,
-    // if the user deny accepting notification,
-    // and then we ask them next month.
-    // 1000 * 60 * 60 * 24 * 30 is one month in ms format
-    const oneMonthInterval = 1000 * 60 * 60 * 24 * 30
-    const oneMonthLater = Date.now() + oneMonthInterval
-    localForage
-      .setItem(bsCosnt.keys.notifyPopupTs, oneMonthLater)
-      .catch(err => {
-        console.warn(
-          `Can not set ${bsCosnt.keys.notifyPopupTs} into browser storage: `,
-          err
-        )
-      })
-    this.setState({
-      nextPopupTs: oneMonthLater,
     })
   }
 
-  _acceptNotification() {
-    const { userId } = this.props
+  const acceptNotification = async () => {
     if (
-      isNotificationSupported() &&
-      isPushSupported() &&
-      isServiceWorkerSupported()
+      !isNotificationSupported() ||
+      !isPushSupported() ||
+      !isServiceWorkerSupported()
     ) {
-      return new Promise((resolve, reject) => {
-        if (Notification.permission === 'denied') {
-          Notification.requestPermission(permission => {
-            const isGrant = permission === 'granted'
-            if (isGrant) {
-              return resolve(isGrant)
-            }
-            return reject(
-              new Error('User denies Notification request permission')
-            )
-          })
-        } else {
-          const isGrant = true
-          resolve(isGrant)
-        }
-      })
-        .then(isGrant => {
-          if (isGrant) {
-            return navigator.serviceWorker.getRegistration()
-          }
-
-          return null
-        })
-        .then(reg => {
-          if (reg) {
-            const applicationServerKey = urlB64ToUint8Array(
-              applicationServerPublicKey
-            )
-            return reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: applicationServerKey,
-            })
-          }
-          return null
-        })
-        .then(subscription => {
-          if (subscription && typeof subscription.toJSON === 'function') {
-            const _subscription = subscription.toJSON()
-            const data = {
-              endpoint: _subscription.endpoint,
-              keys: JSON.stringify(_subscription.keys),
-              user_id: userId,
-            }
-
-            if (
-              _subscription.expirationTime &&
-              typeof _subscription.expirationTime.toString === 'function'
-            ) {
-              data.expirationTime = _subscription.expirationTime.toString()
-            }
-
-            return axios.post(
-              formURL(this.props.apiOrigin, '/v1/web-push/subscriptions'),
-              data
-            )
-          }
-
-          return null
-        })
-        .then(axiosRes => {
-          let toShowNotify = true
-          if (_.get(axiosRes, 'status') === statusCodeConst.created) {
-            toShowNotify = false
-          }
-          return toShowNotify
-        })
-        .then(toShowNotify => {
-          this.setState({
-            toShowNotify,
-          })
-          this._setNextPopupToNextMonth()
-          logger.info('Accept web push notification successfully.')
-        })
-        .catch(err => {
-          logger.errorReport({
-            report: err,
-            message: 'Fail to accept web push notification',
-          })
-          this.setState({
-            toShowInstruction: true,
-          })
-        })
-    } else {
       logger.info(
         'Browser does not support `Notification`, `PushManager` or `serviceWorker`.'
       )
+      return
+    }
+
+    if (Notification.permission === 'granted') {
+      return true
+    }
+
+    const breakHere = () => {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      return Promise.reject('BREAK')
+    }
+    try {
+      // request permission on client side
+      const isGrant = await requestNotificationPermission()
+      if (!isGrant) {
+        breakHere()
+      }
+      const reg = await navigator.serviceWorker.getRegistration()
+      if (!reg) {
+        breakHere()
+      }
+      const applicationServerKey = urlB64ToUint8Array(
+        applicationServerPublicKey
+      )
+      const subscription = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: applicationServerKey,
+      })
+      if (!subscription || typeof subscription.toJSON !== 'function') {
+        breakHere()
+      }
+      // update subscription data to twreporter backend
+      const _subscription = subscription.toJSON()
+      const data = {
+        endpoint: _subscription.endpoint,
+        keys: JSON.stringify(_subscription.keys),
+        user_id: userId,
+      }
+      if (
+        _subscription.expirationTime &&
+        typeof _subscription.expirationTime.toString === 'function'
+      ) {
+        data.expirationTime = _subscription.expirationTime.toString()
+      }
+      const axiosRes = await axios.post(formURL(apiOrigin, apiPath), data)
+      let accepted = false
+      if (_.get(axiosRes, 'status') === statusCodeConst.created) {
+        accepted = true
+      }
+      closePromo()
+      return accepted
+    } catch (err) {
+      if (err === 'BREAK') {
+        return
+      }
+      logger.errorReport({
+        report: err,
+        message: 'Fail to accept web push notification',
+      })
+      setIsShowInstruction(true)
     }
   }
 
-  _denyNotification() {
-    this.setState({
-      toShowInstruction: false,
-    })
-
-    this._setNextPopupToNextMonth()
-  }
-
-  /**
-   *  @param {string} title - notify box title
-   *  @param {string} desc - notify box description
-   *  @param {string} btText - notify box button text
-   *  @param {function} btClickCallback - callback function of button click
-   *  @return {Object} React node containing notify box view
-   */
-  _renderNotifyBox(title, desc, btText, btClickCallback) {
-    return (
-      <NotifyBackground className="hidden-print">
-        <NotifyBox>
-          <MegaphoneEmoji />
-          <NotifyTitle>{title}</NotifyTitle>
-          <CloseButton onClick={this.denyNotification}>{closeSVG}</CloseButton>
-          <NotifyText>{desc}</NotifyText>
-          <NotifyHighLightRow>
-            <NotifyHighLight>該如何操作？</NotifyHighLight>
-            <NotifyLink href="/a/how-to-follow-the-reporter" target="_blank">
-              看教學
-            </NotifyLink>
-          </NotifyHighLightRow>
-          <NotifyButton onClick={btClickCallback}>{btText}</NotifyButton>
-        </NotifyBox>
-      </NotifyBackground>
-    )
-  }
-
-  _renderAcceptanceBox() {
-    return this._renderNotifyBox(
-      '想即時追蹤最新報導？',
-      '開啟文章推播功能得到報導者第一手消息！',
-      '開啟通知',
-      this.acceptNotification
-    )
-  }
-
-  _renderInstructionBox() {
-    return this._renderNotifyBox(
-      '請更改瀏覽器設定來啟動推播通知',
-      '您的瀏覽器目前封鎖推播通知，請更改瀏覽器設定。',
-      '略過',
-      this.denyNotification
-    )
-  }
-
-  render() {
-    let boxJSX = null
-    const { isSubscribed, nextPopupTs, toShowInstruction } = this.state
-
-    if (toShowInstruction) {
-      boxJSX = this._renderInstructionBox()
-    } else if (nextPopupTs < Date.now() && !isSubscribed) {
-      boxJSX = this._renderAcceptanceBox()
+  const contextValue = { isShowPromo, closePromo }
+  const description = isShowInstruction
+    ? ['您的瀏覽器目前封鎖推播通知，需先更改瀏覽器設定！']
+    : ['開啟文章推播功能得到報導者第一手消息！']
+  const buttonText = isShowInstruction ? '前往操作教學' : '開啟通知'
+  const onClickButton = async () => {
+    if (isShowInstruction) {
+      window.open(
+        'https://www.twreporter.org/a/how-to-follow-the-reporter#方法2：設定文章推播',
+        '_blank'
+      )
+    } else {
+      await acceptNotification()
     }
-
-    return boxJSX
+    closePromo()
   }
+  return (
+    <Box $show={isShowPromo}>
+      <WebpushPromoContext.Provider value={contextValue}>
+        <DesktopAndAbove>
+          <DesktopBanner
+            customContext={WebpushPromoContext}
+            imageUrl={`https://www.twreporter.org/assets/membership-promo/${releaseBranch}/ciao.png`}
+            title="即時追蹤最新報導"
+            description={description}
+            buttonText={buttonText}
+            onClickButton={onClickButton}
+          />
+        </DesktopAndAbove>
+        <TabletAndBelow>
+          <MobileBanner
+            customContext={WebpushPromoContext}
+            title="即時追蹤最新報導"
+            description={description}
+            buttonText={buttonText}
+            onClickButton={onClickButton}
+          />
+        </TabletAndBelow>
+      </WebpushPromoContext.Provider>
+    </Box>
+  )
+}
+WebPush.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  showHamburger: PropTypes.bool.isRequired,
 }
 
 export default WebPush

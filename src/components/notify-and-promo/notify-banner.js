@@ -1,16 +1,13 @@
 import React, { useContext } from 'react'
 import styled, { css } from 'styled-components'
+import PropTypes from 'prop-types'
 // contexts
-import { PromoContext, CoreContext } from '../../contexts'
+import { CoreContext } from '../../contexts'
 // components
 import MoreButton from './more'
 // @twreporter
 import { IconButton } from '@twreporter/react-components/lib/button'
 import { Cross } from '@twreporter/react-components/lib/icon'
-import {
-  DesktopAndAbove,
-  TabletAndBelow,
-} from '@twreporter/react-components/lib/rwd'
 import { H4 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
 import {
@@ -19,6 +16,13 @@ import {
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import requestOrigins from '@twreporter/core/lib/constants/request-origins'
+import { DONATION_LINK_ANCHOR } from '@twreporter/core/lib/constants/donation-link-anchor'
+// lodash
+import map from 'lodash/map'
+const _ = {
+  map,
+}
 
 const boxCss = css`
   display: flex;
@@ -39,8 +43,8 @@ const DesktopBox = styled.div`
   bottom: 0;
   padding: 24px;
 `
-const HighFiveImg = styled.img`
-  width: 240px;
+const SketchImg = styled.img`
+  height: 116px;
   margin-right: 48px;
 `
 const TextBox = styled.div`
@@ -72,10 +76,28 @@ const FlexRow = styled.div`
   display: flex;
   width: 950px;
 `
-const DesktopBanner = () => {
-  const { isShowPromo, closePromo } = useContext(PromoContext)
+export const DesktopBanner = ({
+  customContext,
+  imageUrl,
+  title = '',
+  description = [],
+  buttonText = '瞭解更多',
+  onClickButton,
+}) => {
+  const { isShowPromo, closePromo } = useContext(customContext)
   const { releaseBranch } = useContext(CoreContext)
-  const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/banner_desktop.png`
+  const descriptionJSX = _.map(description, (text, index) => {
+    return <Description text={text} key={`desktop-banner-desc-${index}`} />
+  })
+
+  let moreAction = onClickButton
+  if (!onClickButton || typeof onClickButton !== 'function') {
+    moreAction = () => {
+      const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
+      window.open(membershipPromoLink, '_blank')
+      closePromo()
+    }
+  }
 
   return (
     <DesktopBox $show={isShowPromo}>
@@ -85,26 +107,30 @@ const DesktopBanner = () => {
         onClick={closePromo}
       />
       <FlexRow>
-        <HighFiveImg src={imageUrl} alt="開創組織永續經營之路" />
+        <SketchImg src={imageUrl} alt={title} />
         <TextBox>
-          <Title text="用你的方式支持報導者" />
-          <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力" />
-          <Description text="來自您的支持 —— 加入 3 種支持方案，與報導者同行！" />
+          <Title text={title} />
+          {descriptionJSX}
         </TextBox>
-        <DesktopMore />
+        <DesktopMore text={buttonText} onClickButton={moreAction} />
       </FlexRow>
     </DesktopBox>
   )
+}
+DesktopBanner.propTypes = {
+  customContext: PropTypes.object.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.arrayOf(PropTypes.string),
+  buttonText: PropTypes.string,
+  onClickButton: PropTypes.func,
 }
 
 // mobile banner
 const MobileBox = styled.div`
   ${boxCss}
-  bottom: 60px;
-  padding: 16px;
-  @media (min-width: 600px) and (max-width: 1023px) {
-    padding: 24px;
-  }
+  bottom: 0px;
+  padding: 24px 16px;
 `
 const FlexGroup = styled.div`
   display: flex;
@@ -118,55 +144,58 @@ const DescriptionBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 360px;
+    text-align: center;
   }
 `
 const MobileMore = styled(MoreButton)`
-  width: 96px;
+  width: fit-content;
   align-self: flex-end;
   @media (min-width: 600px) and (max-width: 1023px) {
     align-self: center;
   }
 `
-const MobileBanner = () => {
-  const { isShowPromo, closePromo } = useContext(PromoContext)
+export const MobileBanner = ({
+  customContext,
+  title = '',
+  description = [],
+  buttonText = '瞭解更多',
+  onClickButton,
+}) => {
+  const { isShowPromo, closePromo } = useContext(customContext)
   const { releaseBranch } = useContext(CoreContext)
+  const descriptionJSX = _.map(description, (text, index) => {
+    return <Description text={text} key={`mobile-banner-desc-${index}`} />
+  })
+
+  let moreAction = onClickButton
+  if (!onClickButton || typeof onClickButton !== 'function') {
+    moreAction = () => {
+      const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
+      window.open(membershipPromoLink, '_blank')
+      closePromo()
+    }
+  }
 
   return (
     <MobileBox $show={isShowPromo}>
       <FlexGroup>
-        <Title text="用你的方式支持報導者" />
+        <Title text={title} />
         <CloseButton
           iconComponent={<Cross releaseBranch={releaseBranch} />}
           theme={IconButton.THEME.normal}
           onClick={closePromo}
         />
       </FlexGroup>
-      <DescriptionBox>
-        <Description text="《報導者》營運經費全由民間捐助，我們的新聞獨立性與社會影響力來自您的支持 —— " />
-        <Description text="加入 3 種支持方案，與報導者同行！" />
-      </DescriptionBox>
-      <MobileMore />
+      <DescriptionBox>{descriptionJSX}</DescriptionBox>
+      <MobileMore text={buttonText} onClickButton={moreAction} />
     </MobileBox>
   )
 }
-
-const Box = styled.div`
-  visibility: ${props => (props.$show ? 'visible' : 'hidden')};
-  ${props => (props.$show ? '' : 'transition: visibility 0.5s linear 0.5s;')}
-`
-const Banner = () => {
-  const { isShowPromo } = useContext(PromoContext)
-
-  return (
-    <Box $show={isShowPromo}>
-      <DesktopAndAbove>
-        <DesktopBanner />
-      </DesktopAndAbove>
-      <TabletAndBelow>
-        <MobileBanner />
-      </TabletAndBelow>
-    </Box>
-  )
+MobileBanner.propTypes = {
+  customContext: PropTypes.object.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.arrayOf(PropTypes.string),
+  buttonText: PropTypes.string,
+  onClickButton: PropTypes.func,
 }
-
-export default Banner

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // @twreporter
@@ -13,7 +14,6 @@ import {
   MobileOnly,
 } from '@twreporter/react-components/lib/rwd'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
-import { useStore } from '@twreporter/react-components/lib/hook'
 import twreporterRedux from '@twreporter/redux'
 
 // components
@@ -67,7 +67,11 @@ const ReviewingArticleSection = () => {
   const [showingReviewingArticle, setShowingReviewingArticle] = useState([])
   const [totalReviewingArticle, setTotalReviewingArticle] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const [state, dispatch] = useStore()
+
+  const dispatch = useDispatch()
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
 
   const handleShowMoreClick = () => {
     setShowMore(false)
@@ -75,7 +79,6 @@ const ReviewingArticleSection = () => {
   }
 
   useEffect(() => {
-    const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
     dispatch(getPostReviews(jwt))
       .then(res => {
         const reviews = _.get(res, ['payload', 'data', 'data'], [])
@@ -107,7 +110,7 @@ const ReviewingArticleSection = () => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [])
+  }, [dispatch, jwt])
 
   return (
     <ReviewingArticleContainer>
@@ -120,16 +123,14 @@ const ReviewingArticleSection = () => {
           <>
             <TabletAndAbove>
               <ReviewingArticleList>
-                {showingReviewingArticle.map((article, idx) => {
-                  return (
-                    <div key={idx}>
-                      <ReviewingCard {...article} />
-                      <DividerContainer>
-                        <Divider />
-                      </DividerContainer>
-                    </div>
-                  )
-                })}
+                {showingReviewingArticle.map((article, idx) => (
+                  <div key={idx}>
+                    <ReviewingCard {...article} />
+                    <DividerContainer>
+                      <Divider />
+                    </DividerContainer>
+                  </div>
+                ))}
                 {showMore && (
                   <MoreButton
                     text="展開更多"
