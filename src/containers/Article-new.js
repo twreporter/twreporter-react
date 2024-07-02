@@ -34,14 +34,12 @@ import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
-import map from 'lodash/map'
 
 const _ = {
   forEach,
   get,
   debounce,
   throttle,
-  map,
 }
 
 // global var
