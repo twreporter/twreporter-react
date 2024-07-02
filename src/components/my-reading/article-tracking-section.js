@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { styled } from 'styled-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useLocation } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 // @twreporter
 import { Title2 } from '@twreporter/react-components/lib/title-bar'
@@ -12,6 +12,7 @@ import {
 import { Arrow } from '@twreporter/react-components/lib/icon'
 import { IconButton } from '@twreporter/react-components/lib/button'
 import mq from '@twreporter/core/lib/utils/media-query'
+import twreporterRedux from '@twreporter/redux'
 
 // components
 import { ArticleTrackingCard } from './article-tracking-card'
@@ -21,10 +22,15 @@ import { CoreContext } from '../../contexts'
 
 // lodash
 import throttle from 'lodash/throttle'
+import get from 'lodash/get'
 
 const _ = {
   throttle,
+  get,
 }
+
+const { actions, reduxStateFields } = twreporterRedux
+const { getPostFollowups } = actions
 
 const ArticleTrackingContainer = styled.div`
   width: 100%;
@@ -80,36 +86,32 @@ const LoadingCardContainer = styled.div`
   grid-column-gap: 16px;
 `
 
-const fakeData = {
-  publishDate: '2024-05-16',
-  trackingTitle: '大法官宣告《原住民身分法》違憲大法官宣告《原住民身分法》違憲',
-  trackingContent:
-    '原保地專題發揮影響力！9月17日最高法院民事大法庭裁定統一見解，直指「非原住民以借名登記、簽訂買賣契約、設定地上權及所有權轉移的行為，違反禁止規定，應屬',
-  trackingArticleTitle:
-    '掠奪原保地：玩法賣地，你不知道的露營和溫泉區亂象掠奪原保地：玩法賣地，你不知道的露營和溫泉區亂象',
-}
-
 export const ArticleTrackingSection = () => {
   const [swiper, setSwiper] = useState(null)
-  const [trackingArticles, setTrackingArticles] = useState([])
   const [isSlideBeginning, setIsSlideBeginning] = useState(true)
   const [isSlideEnd, setIsSlideEnd] = useState(false)
   const containerRef = useRef(null)
   const [marginLeft, setMarginLeft] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
   const { releaseBranch } = useContext(CoreContext)
 
   const cardPerRow = 3
 
-  // for UI test
-  const { search } = useLocation()
-  const params = new URLSearchParams(search)
-  const total = Number(params.get('total')) || 1
-
-  useEffect(() => {
-    setTrackingArticles(Array(total).fill(fakeData))
-    setTimeout(() => setIsLoading(false), 1000)
-  }, [total])
+  const dispatch = useDispatch()
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const trackingArticles = useSelector(state =>
+    _.get(state, [reduxStateFields.postFollowups, 'postFollowups'], [])
+  )
+  const totalTrackingArticles = useSelector(state =>
+    _.get(state, [reduxStateFields.postFollowups, 'total'], 0)
+  )
+  const isLoading = useSelector(state =>
+    _.get(state, [reduxStateFields.postFollowups, 'isFetching'], false)
+  )
+  const getTrackingArticle = () => {
+    dispatch(getPostFollowups(jwt, 0, cardPerRow * 3))
+  }
 
   const handleArrowClick = direction => {
     if (direction === Arrow.Direction.LEFT) {
@@ -166,6 +168,7 @@ export const ArticleTrackingSection = () => {
   }
 
   useEffect(() => {
+    getTrackingArticle()
     const handleResize = _.throttle(() => {
       setMarginLeft(containerRef.current.offsetLeft)
     }, 150)
@@ -179,67 +182,71 @@ export const ArticleTrackingSection = () => {
 
   return (
     <ArticleTrackingContainer ref={containerRef}>
-      <Title2 title="報導後續追蹤" />
-      {isLoading && (
-        <LoadingCardContainer>
-          {Array(cardPerRow)
-            .fill(0)
-            .map((_v, idx) => {
-              return <ArticleTrackingCard key={idx} isLoading={true} />
-            })}
-        </LoadingCardContainer>
-      )}
-      {!isLoading && trackingArticles.length > 0 && (
+      {totalTrackingArticles > 0 && (
         <>
-          <DesktopAndAbove>
-            <TrackingCardList>
-              <ArrowButton
-                $hidden={isSlideBeginning}
-                iconComponent={
-                  <Arrow
-                    direction={Arrow.Direction.LEFT}
-                    releaseBranch={releaseBranch}
-                  />
-                }
-                onClick={() => handleArrowClick(Arrow.Direction.LEFT)}
-              ></ArrowButton>
-              <Swiper
-                slidesPerView={cardPerRow}
-                slidesPerGroup={cardPerRow}
-                spaceBetween={16}
-                onSwiper={swiper => setSwiper(swiper)}
-                onSlideChange={onSwiperSlideChange}
-                onAfterInit={onSwiperInit}
-              >
-                {trackingCardsJSX(true, cardPerRow)}
-              </Swiper>
-              <ArrowButton
-                $hidden={isSlideEnd}
-                iconComponent={
-                  <Arrow
-                    direction={Arrow.Direction.RIGHT}
-                    releaseBranch={releaseBranch}
-                  />
-                }
-                onClick={() => handleArrowClick(Arrow.Direction.RIGHT)}
-              ></ArrowButton>
-            </TrackingCardList>
-          </DesktopAndAbove>
-          <TabletAndBelow>
-            <TabletAndBelowTrackingCardList $marginLeft={marginLeft}>
-              {marginLeft > 0 && (
-                <Swiper
-                  slidesPerView={'auto'}
-                  spaceBetween={16}
-                  freeMode={true}
-                  slidesOffsetBefore={marginLeft}
-                  slidesOffsetAfter={marginLeft}
-                >
-                  {trackingCardsJSX(false)}
-                </Swiper>
-              )}
-            </TabletAndBelowTrackingCardList>
-          </TabletAndBelow>
+          <Title2 title="報導後續追蹤" />
+          {isLoading && (
+            <LoadingCardContainer>
+              {Array(cardPerRow)
+                .fill(0)
+                .map((_v, idx) => {
+                  return <ArticleTrackingCard key={idx} isLoading={true} />
+                })}
+            </LoadingCardContainer>
+          )}
+          {!isLoading && (
+            <>
+              <DesktopAndAbove>
+                <TrackingCardList>
+                  <ArrowButton
+                    $hidden={isSlideBeginning}
+                    iconComponent={
+                      <Arrow
+                        direction={Arrow.Direction.LEFT}
+                        releaseBranch={releaseBranch}
+                      />
+                    }
+                    onClick={() => handleArrowClick(Arrow.Direction.LEFT)}
+                  ></ArrowButton>
+                  <Swiper
+                    slidesPerView={cardPerRow}
+                    slidesPerGroup={cardPerRow}
+                    spaceBetween={16}
+                    onSwiper={swiper => setSwiper(swiper)}
+                    onSlideChange={onSwiperSlideChange}
+                    onAfterInit={onSwiperInit}
+                  >
+                    {trackingCardsJSX(true, cardPerRow)}
+                  </Swiper>
+                  <ArrowButton
+                    $hidden={isSlideEnd}
+                    iconComponent={
+                      <Arrow
+                        direction={Arrow.Direction.RIGHT}
+                        releaseBranch={releaseBranch}
+                      />
+                    }
+                    onClick={() => handleArrowClick(Arrow.Direction.RIGHT)}
+                  ></ArrowButton>
+                </TrackingCardList>
+              </DesktopAndAbove>
+              <TabletAndBelow>
+                <TabletAndBelowTrackingCardList $marginLeft={marginLeft}>
+                  {marginLeft > 0 && (
+                    <Swiper
+                      slidesPerView={'auto'}
+                      spaceBetween={16}
+                      freeMode={true}
+                      slidesOffsetBefore={marginLeft}
+                      slidesOffsetAfter={marginLeft}
+                    >
+                      {trackingCardsJSX(false)}
+                    </Swiper>
+                  )}
+                </TabletAndBelowTrackingCardList>
+              </TabletAndBelow>
+            </>
+          )}
         </>
       )}
     </ArticleTrackingContainer>
