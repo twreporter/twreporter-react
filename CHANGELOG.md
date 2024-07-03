@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.0.6-rc.0, 2024-07-03
+## 5.0.6, 2024-07-03 (Current)
 
 - fix
   - remove cdn.polyfill.io script for security issue
@@ -9,7 +9,7 @@
 
 - [[`e4e5e9e489`](https://github.com/twreporter/twreporter-react/commit/e4e5e9e489)] - **fix**: remove cdn.polyfill.io script for security issue (nickhsine)
 
-## 5.0.5, 2024-06-25 (Current)
+## 5.0.5, 2024-06-25
 
 ### Notable Changes
 
