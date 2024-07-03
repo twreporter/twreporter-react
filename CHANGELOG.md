@@ -2,6 +2,8 @@
 
 ## 5.0.6, 2024-07-03 (Current)
 
+### Notable Changes
+
 - fix
   - remove cdn.polyfill.io script for security issue
 
