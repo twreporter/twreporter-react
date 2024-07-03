@@ -112,10 +112,6 @@ export default class Html extends PureComponent {
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: contentMarkup }} />
           <script
-            defer
-            src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.zh-Hant-TW"
-          />
-          <script
             dangerouslySetInnerHTML={{
               __html: `window.__REDUX_STATE__=${serialize(store.getState())};`,
             }}
