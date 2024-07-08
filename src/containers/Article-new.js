@@ -105,7 +105,7 @@ const Article = ({
       return
     }
 
-    fetchAFullPost(slug)
+    fetchAFullPost(slug, jwt)
       .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
