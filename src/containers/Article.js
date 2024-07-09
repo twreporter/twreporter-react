@@ -1,11 +1,14 @@
+import React, { useState, useEffect, useRef } from 'react'
+import { connect, useStore } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet-async'
 import TagManager from 'react-gtm-module'
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
 import localForage from 'localforage'
 import memoizeOne from 'memoize-one'
-import { connect } from 'react-redux'
+// logger
 import loggerFactory from '../logger'
+// uiManager
 import uiManager from '../managers/ui-manager'
 // constants
 import bsConst from '../constants/browser-storage'
@@ -23,8 +26,8 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
-// dependencies of article component v2
-import { Link, withRouter } from 'react-router-dom'
+// hooks
+import { usePrevious } from '../hooks'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -37,19 +40,9 @@ const _ = {
   debounce,
   throttle,
 }
+
 // global var
-const { actions, actionTypes, reduxStateFields } = twreporterRedux
-const {
-  fetchAFullPost,
-  fetchRelatedPostsOfAnEntity,
-  setUserAnalyticsData,
-  setUserFootprint,
-} = actions
-const _fontLevel = {
-  small: 'small',
-}
 const logger = loggerFactory.getLogger()
-const emptySlug = ''
 const articleReadCountConditionConfig = {
   reading_height: 0.75,
   reading_time: 10000, // 10 second
@@ -59,233 +52,60 @@ const articleReadTimeConditionConfig = {
   min_active_time: 5000, // 5 second
 }
 
-class Article extends PureComponent {
-  constructor(props) {
-    super(props)
+const Article = ({
+  // props from redux state
+  errorOfPost,
+  // errorOfRelateds,
+  fontLevel,
+  isFetchingPost,
+  // isFetchingRelateds,
+  post,
+  relateds,
+  hasMoreRelateds,
+  slugToFetch,
+  isAuthed,
+  userRole,
+  jwt,
+  userID,
+  postID,
+  // props from redux actions
+  fetchAFullPost,
+  fetchRelatedPostsOfAnEntity,
+  changeFontLevel,
+  setUserAnalyticsData,
+  setUserFootprint,
+  // props from react-router-dom
+  history,
+  // props from parents
+  releaseBranch,
+}) => {
+  const store = useStore()
+  const prevIsFetchingPost = usePrevious(isFetchingPost)
+  const [isExpanded, setIsExpaned] = useState(false)
+  const [
+    isReachedArticleReadTargetHeight,
+    setIsReachedArticleReadTargetHeight,
+  ] = useState(false)
+  const [
+    isReachedArticleReadTargetTime,
+    setIsReachedArticleReadTargetTime,
+  ] = useState(false)
+  const [isBeenRead, setIsBeenRead] = useState(false)
 
-    this.handleFontLevelChange = this._handleFontLevelChange.bind(this)
-    this.onToggleTabExpanded = this._onToggleTabExpanded.bind(this)
-    this._articleBody = React.createRef()
-    this.readingCountTimerId = React.createRef()
-    this.inactiveTimerId = React.createRef()
-    this.startReadingTime = Date.now()
-    this.isActive = true
-    this.activeTime = 0
-    this.state = {
-      isExpanded: false,
-      isReachedArticleReadTargetHeight: false,
-      isReachedArticleReadTargetTime: false,
-      isBeenRead: false,
-    }
-    this.handleScroll = _.debounce(this._handleScroll.bind(this), 500)
-    this.handleVisibilityChange = _.throttle(
-      this._handleVisibilityChange.bind(this),
-      1000
-    )
-    this.handleUserActivity = _.debounce(
-      this._handleUserActivity.bind(this),
-      500
-    )
-    this.handlePagehide = this._handlePagehide.bind(this)
-  }
+  const articleBodyRef = useRef(null)
+  const readingCountTimerId = useRef(null)
+  const inactiveTimerId = useRef(null)
 
-  startReadingCountTimer() {
-    if (this.readingCountTimerId.current) {
-      window.clearTimeout(this.readingCountTimerId.current)
-    }
-    this.readingCountTimerId.current = window.setTimeout(() => {
-      this.setState({ isReachedArticleReadTargetTime: true })
-    }, articleReadCountConditionConfig.reading_time)
-  }
+  let startReadingTime = Date.now()
+  let isActive = false
+  let activeTime = 0
 
-  calculateActiveTime() {
-    const elapsedTime = Math.floor(Date.now() - this.startReadingTime)
-    this.activeTime = this.activeTime + elapsedTime
-    this.startReadingTime = Date.now()
-  }
-
-  startInactiveTimer() {
-    if (this.inactiveTimerId.current) {
-      window.clearTimeout(this.inactiveTimerId.current)
-    }
-    this.inactiveTimerId.current = window.setTimeout(() => {
-      this.calculateActiveTime()
-      if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
-        this.sendActiveTime()
-      }
-      this.isActive = false
-    }, articleReadTimeConditionConfig.inactive_time)
-  }
-
-  sendReadCount() {
-    const { isAuthed, jwt, userID, postID, setUserAnalyticsData } = this.props
-    if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
-    }
-  }
-
-  sendActiveTime() {
-    const { isAuthed, jwt, userID, postID, setUserAnalyticsData } = this.props
-    const activeSec = Math.round(this.activeTime / 1000)
-    if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
-      this.activeTime = 0
-    }
-  }
-
-  sendUserFootprint() {
-    const { isAuthed, jwt, userID, postID, setUserFootprint } = this.props
-    if (isAuthed) {
-      setUserFootprint(jwt, userID, postID)
-    }
-  }
-
-  _handleVisibilityChange() {
-    if (document.visibilityState === 'hidden') {
-      if (this.isActive) {
-        if (this.inactiveTimerId.current) {
-          window.clearTimeout(this.inactiveTimerId.current)
-        }
-        this.calculateActiveTime()
-        if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
-          this.sendActiveTime()
-        }
-        this.isActive = false
-      }
-    } else {
-      if (!this.isActive) {
-        this.isActive = true
-        this.startReadingTime = Date.now()
-      }
-      this.startInactiveTimer()
-    }
-  }
-
-  _handleUserActivity() {
-    if (!this.isActive) {
-      this.isActive = true
-      this.startReadingTime = Date.now()
-    }
-    this.startInactiveTimer()
-  }
-
-  _handlePagehide() {
-    this.calculateActiveTime()
-    if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
-      this.sendActiveTime()
-    }
-  }
-
-  componentDidMount() {
-    const { fontLevel, changeFontLevel, slugToFetch } = this.props
-
-    // Fetch the full post
-    this.fetchAFullPostWithCatch(slugToFetch)
-    document.addEventListener('scroll', this.handleScroll)
-    // Start timer if post is fetched from SSR
-    this.startReadingCountTimer()
-    // Start reading time if post is fetched from SSR
-    this.startReadingTime = Date.now()
-    document.addEventListener('visibilitychange', this.handleVisibilityChange)
-    document.addEventListener('mousemove', this.handleUserActivity)
-    document.addEventListener('scroll', this.handleUserActivity)
-    document.addEventListener('click', this.handleUserActivity)
-    window.addEventListener('pagehide', this.handlePagehide)
-    // check visibility to prevent tab been hidden before componentDidMount execute
-    this.handleVisibilityChange()
-
-    // Change fontLevel according to browser storage
-    localForage
-      .getItem(bsConst.keys.fontLevel)
-      .then(value => {
-        if (value !== fontLevel) {
-          changeFontLevel(value)
-        }
-      })
-      .catch(err => {
-        console.warn('Can not get item from browser storage: ', err)
-      })
-
-    this.sendUserFootprint()
-  }
-
-  componentDidUpdate(prevProps) {
-    this.props.history.block(() => {
-      // reset readingCount state
-      this.setState({
-        isBeenRead: false,
-        isReachedArticleReadTargetHeight: false,
-        isReachedArticleReadTargetTime: false,
-      })
-      this.calculateActiveTime()
-      if (this.activeTime >= articleReadTimeConditionConfig.min_active_time) {
-        this.sendActiveTime()
-      }
-      return true
-    })
-    if (prevProps.slugToFetch !== this.props.slugToFetch) {
-      this.fetchAFullPostWithCatch(this.props.slugToFetch)
-    }
-    if (prevProps.isFetchingPost && !this.props.isFetchingPost) {
-      // For client-side rendering, we notify GTM that the new component is ready when the fetching is done.
-      TagManager.dataLayer({
-        dataLayer: {
-          event: 'gtm.load',
-        },
-      })
-      this.startReadingCountTimer()
-      this.startReadingTime = Date.now()
-      this.startInactiveTimer()
-    }
-
-    const {
-      isBeenRead,
-      isReachedArticleReadTargetHeight,
-      isReachedArticleReadTargetTime,
-    } = this.state
-
-    if (
-      !isBeenRead &&
-      isReachedArticleReadTargetHeight &&
-      isReachedArticleReadTargetTime
-    ) {
-      this.sendReadCount()
-      this.setState({ isBeenRead: true })
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll)
-    document.removeEventListener(
-      'visibilitychange',
-      this.handleVisibilityChange
-    )
-    document.removeEventListener('mousemove', this.handleUserActivity)
-    document.removeEventListener('scroll', this.handleUserActivity)
-    document.removeEventListener('click', this.handleUserActivity)
-    window.removeEventListener('pagehide', this.handlePagehide)
-  }
-
-  _handleScroll() {
-    const scrollHeight = window.scrollY || document.documentElement.scrollTop
-    const totalHeight = document.documentElement.scrollHeight
-    const targetHeight =
-      totalHeight * articleReadCountConditionConfig.reading_height
-    if (scrollHeight >= targetHeight) {
-      this.setState({
-        isReachedArticleReadTargetHeight: true,
-      })
-    }
-  }
-
-  fetchAFullPostWithCatch = slug => {
-    if (slug === emptySlug) {
+  const fetchAFullPostWithCatch = slug => {
+    if (slug === '') {
       return
     }
 
-    const { fetchAFullPost, fetchRelatedPostsOfAnEntity } = this.props
-
-    fetchAFullPost(slug)
+    fetchAFullPost(slug, jwt)
       .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
@@ -306,9 +126,7 @@ class Article extends PureComponent {
       })
   }
 
-  loadMoreRelateds = () => {
-    const { fetchRelatedPostsOfAnEntity, post, hasMoreRelateds } = this.props
-
+  const loadMoreRelateds = () => {
     const id = _.get(post, 'id', '')
     const slug = _.get(post, 'slug', '')
 
@@ -322,155 +140,304 @@ class Article extends PureComponent {
     }
   }
 
-  _handleFontLevelChange(fontLevel) {
-    const { changeFontLevel } = this.props
+  const handleFontLevelChange = fontLevel => {
     changeFontLevel(fontLevel)
     localForage.setItem(bsConst.keys.fontLevel, fontLevel).catch(err => {
       console.warn('Can not set item into browser storage: ', err)
     })
   }
 
-  _onToggleTabExpanded(isExpanded) {
-    this.setState({
-      isExpanded,
-    })
+  const onToggleTabExpanded = isExpanded => {
+    setIsExpaned(isExpanded)
   }
 
-  render() {
-    const {
-      errorOfPost,
-      // errorOfRelateds,
-      isFetchingPost,
-      // isFetchingRelateds,
-      fontLevel,
-      post,
-      relateds,
-      hasMoreRelateds,
-      releaseBranch,
-      isAuthed,
-      userRole,
-    } = this.props
-    const { isExpanded } = this.state
-
-    if (errorOfPost) {
-      return (
-        <div>
-          <SystemError error={errorOfPost} />
-        </div>
-      )
+  const sendReadCount = () => {
+    if (isAuthed) {
+      setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
     }
+  }
 
-    if (isFetchingPost) {
-      return <ArticlePlaceholder />
+  const sendActiveTime = () => {
+    const activeSec = Math.round(activeTime / 1000)
+    if (activeSec > 7200) {
+      logger.errorReport({
+        report: 'read time error',
+        message: `StartReadingTime: ${startReadingTime}, ActiveTime: ${activeTime}`,
+      })
     }
-
-    // if post is invalid
-    if (!post) {
-      return (
-        <div>
-          <SystemError error={{ statusCode: 500 }} />
-        </div>
-      )
+    if (isAuthed) {
+      setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      activeTime = 0
     }
+  }
 
-    const slug = _.get(post, 'slug', '')
-
-    post.style = uiManager.getArticleV2Style(post.style)
-
-    // for head tag
-    const canonical = siteMeta.urlOrigin + '/a/' + slug
-    const ogTitle =
-      (_.get(post, 'og_title', '') || _.get(post, 'title', '')) +
-      siteMeta.name.separator +
-      siteMeta.name.full
-    const ogDesc = _.get(post, 'og_description', siteMeta.desc)
-    const ogImage = _.get(post, 'og_image.resized_targets.tablet.url')
-      ? post.og_image.resized_targets.tablet
-      : siteMeta.ogImage
-    const metaOgImage = [
-      { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) },
-    ]
-    if (ogImage.height) {
-      metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+  const sendUserFootprint = () => {
+    if (isAuthed) {
+      setUserFootprint(jwt, userID, postID)
     }
-    if (ogImage.width) {
-      metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+  }
+
+  const startReadingCountTimer = () => {
+    if (readingCountTimerId.current) {
+      window.clearTimeout(readingCountTimerId.current)
     }
+    readingCountTimerId.current = window.setTimeout(() => {
+      setIsReachedArticleReadTargetTime(true)
+    }, articleReadCountConditionConfig.reading_time)
+  }
+
+  const calculateActiveTime = () => {
+    const elapsedTime = Math.floor(Date.now() - startReadingTime)
+    activeTime = activeTime + elapsedTime
+    startReadingTime = Date.now()
+  }
+
+  const startInactiveTimer = () => {
+    if (inactiveTimerId.current) {
+      window.clearTimeout(inactiveTimerId.current)
+    }
+    inactiveTimerId.current = window.setTimeout(() => {
+      calculateActiveTime()
+      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+        sendActiveTime()
+      }
+      isActive = false
+    }, articleReadTimeConditionConfig.inactive_time)
+  }
+
+  const handleScroll = _.debounce(() => {
+    const scrollHeight = window.scrollY || document.documentElement.scrollTop
+    const totalHeight = document.documentElement.scrollHeight
+    const targetHeight =
+      totalHeight * articleReadCountConditionConfig.reading_height
+    if (scrollHeight >= targetHeight) {
+      setIsReachedArticleReadTargetHeight(true)
+    }
+  }, 500)
+
+  const handleVisibilityChange = _.throttle(() => {
+    if (document.visibilityState === 'hidden') {
+      if (isActive) {
+        if (inactiveTimerId.current) {
+          window.clearTimeout(inactiveTimerId.current)
+        }
+        calculateActiveTime()
+        if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+          sendActiveTime()
+        }
+        isActive = false
+      }
+    } else {
+      if (!isActive) {
+        isActive = true
+        startReadingTime = Date.now()
+      }
+      startInactiveTimer()
+    }
+  }, 1000)
+
+  const handleUserActivity = _.debounce(() => {
+    if (!isActive) {
+      isActive = true
+      startReadingTime = Date.now()
+    }
+    startInactiveTimer()
+  }, 500)
+
+  const handlePagehide = () => {
+    calculateActiveTime()
+    if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+      sendActiveTime()
+    }
+  }
+
+  useEffect(() => {
+    // reset readingCount state
+    history.block(() => {
+      setIsBeenRead(false)
+      setIsReachedArticleReadTargetHeight(false)
+      setIsReachedArticleReadTargetTime(false)
+      calculateActiveTime()
+      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+        sendActiveTime()
+      }
+      return true
+    })
+  }, [history])
+
+  useEffect(() => {
+    fetchAFullPostWithCatch(slugToFetch)
+    sendUserFootprint()
+    startReadingCountTimer()
+    startReadingTime = Date.now()
+    document.addEventListener('scroll', handleScroll)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    document.addEventListener('mousemove', handleUserActivity)
+    document.addEventListener('click', handleUserActivity)
+    window.addEventListener('pagehide', handlePagehide)
+
+    handleVisibilityChange()
+
+    localForage
+      .getItem(bsConst.keys.fontLevel)
+      .then(value => {
+        if (value !== fontLevel) {
+          changeFontLevel(value)
+        }
+      })
+      .catch(err => {
+        console.warn('Can not get item from browser storage: ', err)
+      })
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      document.removeEventListener('mousemove', handleUserActivity)
+      document.removeEventListener('click', handleUserActivity)
+      window.removeEventListener('pagehide', handlePagehide)
+    }
+  }, [slugToFetch])
+
+  useEffect(() => {
+    if (prevIsFetchingPost && !isFetchingPost) {
+      TagManager.dataLayer({
+        dataLayer: {
+          event: 'gtm.load',
+        },
+      })
+      startReadingCountTimer()
+      startReadingTime = Date.now()
+      startInactiveTimer()
+    }
+  }, [isFetchingPost])
+
+  useEffect(() => {
+    if (
+      !isBeenRead &&
+      isReachedArticleReadTargetHeight &&
+      isReachedArticleReadTargetTime
+    ) {
+      sendReadCount()
+      setIsBeenRead(true)
+    }
+  }, [
+    isBeenRead,
+    isReachedArticleReadTargetHeight,
+    isReachedArticleReadTargetTime,
+  ])
+
+  if (errorOfPost) {
     return (
       <div>
-        <Helmet
-          prioritizeSeoTags
-          title={ogTitle}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: ogDesc },
-            { name: 'twitter:title', content: ogTitle },
-            {
-              name: 'twitter:image',
-              content: replaceGCSUrlOrigin(ogImage.url),
-            },
-            { name: 'twitter:description', content: ogDesc },
-            { name: 'twitter:card', content: 'summary_large_image' },
-            { property: 'og:title', content: ogTitle },
-            { property: 'og:description', content: ogDesc },
-            { property: 'og:type', content: 'article' },
-            { property: 'og:url', content: canonical },
-            { property: 'og:rich_attachment', content: 'true' },
-            ...metaOgImage,
-          ]}
-        />
-        <div itemScope itemType="http://schema.org/Article">
-          <div
-            itemProp="publisher"
-            itemScope
-            itemType="http://schema.org/Organization"
-          >
-            <meta itemProp="name" content="報導者" />
-            <meta itemProp="email" content="contact@twreporter.org" />
-            <link
-              itemProp="logo"
-              href="https://www.twreporter.org/asset/logo-large.png"
-            />
-            <link itemProp="url" href="https://www.twreporter.org/" />
-          </div>
-          <link itemProp="mainEntityOfPage" href={canonical} />
-          <meta
-            itemProp="dateModified"
-            content={date2yyyymmdd(_.get(post, 'updated_at'))}
-          />
-          <div id="article-body" ref={this._articleBody}>
-            <ArticleComponent
-              post={post}
-              relatedTopic={post.topic}
-              relatedPosts={relateds}
-              hasMoreRelateds={hasMoreRelateds}
-              loadMoreRelateds={this.loadMoreRelateds}
-              fontLevel={fontLevel}
-              onFontLevelChange={this.handleFontLevelChange}
-              LinkComponent={Link}
-              releaseBranch={releaseBranch}
-              onToggleTabExpanded={this.onToggleTabExpanded}
-              // TODO: pass isFetchingRelateds to show loadin spinner
-              // TODO: pass errorOfRelateds to show error message to end users
-            />
-          </div>
-        </div>
-        <ArticleBanner
-          isExpanded={isExpanded}
-          isAuthed={isAuthed}
-          userRole={userRole}
-        />
+        <SystemError error={errorOfPost} />
       </div>
     )
   }
+
+  if (isFetchingPost) {
+    return <ArticlePlaceholder />
+  }
+
+  // if post is invalid
+  if (!post) {
+    return (
+      <div>
+        <SystemError error={{ statusCode: 500 }} />
+      </div>
+    )
+  }
+
+  post.style = uiManager.getArticleV2Style(post.style)
+  // for head tag
+  const canonical = `${siteMeta.urlOrigin}/a/${_.get(post, 'slug', '')}`
+  const ogTitle = `${_.get(post, 'og_title', '') || _.get(post, 'title', '')}${
+    siteMeta.name.separator
+  }${siteMeta.name.full}`
+  const ogDesc = _.get(post, 'og_description', siteMeta.desc)
+  const ogImage = _.get(post, 'og_image.resized_targets.tablet.url')
+    ? post.og_image.resized_targets.tablet
+    : siteMeta.ogImage
+  const metaOgImage = [
+    { property: 'og:image', content: replaceGCSUrlOrigin(ogImage.url) },
+  ]
+  if (ogImage.height) {
+    metaOgImage.push({ property: 'og:image:height', content: ogImage.height })
+  }
+  if (ogImage.width) {
+    metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
+  }
+  return (
+    <div>
+      <Helmet
+        prioritizeSeoTags
+        title={ogTitle}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: ogDesc },
+          { name: 'twitter:title', content: ogTitle },
+          {
+            name: 'twitter:image',
+            content: replaceGCSUrlOrigin(ogImage.url),
+          },
+          { name: 'twitter:description', content: ogDesc },
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { property: 'og:title', content: ogTitle },
+          { property: 'og:description', content: ogDesc },
+          { property: 'og:type', content: 'article' },
+          { property: 'og:url', content: canonical },
+          { property: 'og:rich_attachment', content: 'true' },
+          ...metaOgImage,
+        ]}
+      />
+      <div itemScope itemType="http://schema.org/Article">
+        <div
+          itemProp="publisher"
+          itemScope
+          itemType="http://schema.org/Organization"
+        >
+          <meta itemProp="name" content="報導者" />
+          <meta itemProp="email" content="contact@twreporter.org" />
+          <link
+            itemProp="logo"
+            href="https://www.twreporter.org/asset/logo-large.png"
+          />
+          <link itemProp="url" href="https://www.twreporter.org/" />
+        </div>
+        <link itemProp="mainEntityOfPage" href={canonical} />
+        <meta
+          itemProp="dateModified"
+          content={date2yyyymmdd(_.get(post, 'updated_at'))}
+        />
+        <div id="article-body" ref={articleBodyRef}>
+          <ArticleComponent
+            post={post}
+            relatedTopic={post.topic}
+            relatedPosts={relateds}
+            hasMoreRelateds={hasMoreRelateds}
+            loadMoreRelateds={loadMoreRelateds}
+            fontLevel={fontLevel}
+            onFontLevelChange={handleFontLevelChange}
+            LinkComponent={Link}
+            releaseBranch={releaseBranch}
+            onToggleTabExpanded={onToggleTabExpanded}
+            store={store}
+            // TODO: pass isFetchingRelateds to show loadin spinner
+            // TODO: pass errorOfRelateds to show error message to end users
+          />
+        </div>
+      </div>
+      <ArticleBanner
+        isExpanded={isExpanded}
+        isAuthed={isAuthed}
+        userRole={userRole}
+      />
+    </div>
+  )
 }
 
 Article.propTypes = {
-  changeFontLevel: PropTypes.func,
   errorOfPost: PropTypes.object,
   errorOfRelateds: PropTypes.object,
-  fetchAFullPost: PropTypes.func,
-  fetchRelatedPostsOfAnEntity: PropTypes.func,
   fontLevel: PropTypes.string,
   isFetchingPost: PropTypes.bool,
   isFetchingRelateds: PropTypes.bool,
@@ -479,32 +446,42 @@ Article.propTypes = {
   relateds: PropTypes.array,
   hasMoreRelateds: PropTypes.bool,
   slugToFetch: PropTypes.string,
-  releaseBranch: predefinedPropTypes.releaseBranch,
   isAuthed: PropTypes.bool,
   userRole: PropTypes.array.isRequired,
-  setUserAnalyticsData: PropTypes.func,
   jwt: PropTypes.string,
   userID: PropTypes.string,
   postID: PropTypes.string,
+  fetchAFullPost: PropTypes.func,
+  fetchRelatedPostsOfAnEntity: PropTypes.func,
+  changeFontLevel: PropTypes.func,
+  setUserAnalyticsData: PropTypes.func,
+  setUserFootprint: PropTypes.func,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  setUserFootprint: PropTypes.func,
+  releaseBranch: predefinedPropTypes.releaseBranch,
 }
 
 Article.defaultProps = {
   errorOfPost: null,
   errorOfRelateds: null,
-  fontLevel: _fontLevel.small,
+  fontLevel: 'small',
   isFetchingPost: false,
   isFetchingRelateds: false,
   relateds: [],
   hasMoreRelateds: false,
-  slugToFetch: emptySlug,
+  slugToFetch: '',
   releaseBranch: releaseBranchConsts.master,
   isAuthed: false,
 }
 
+const { actions, actionTypes, reduxStateFields } = twreporterRedux
+const {
+  fetchAFullPost,
+  fetchRelatedPostsOfAnEntity,
+  setUserAnalyticsData,
+  setUserFootprint,
+} = actions
 const {
   entities,
   relatedPostsOf,
@@ -561,28 +538,28 @@ function relatedsProp(state, id) {
 }
 
 export function mapStateToProps(state, props) {
-  const currentPostSlug = _.get(props, 'match.params.slug', emptySlug)
+  const currentPostSlug = _.get(props, 'match.params.slug', '')
 
   const defaultRtn = {
     errorOfPost: null,
     errorOfRelateds: null,
-    fontLevel: _fontLevel.small,
+    fontLevel: 'small',
     isFetchingPost: false,
     isFetchingRelateds: false,
     post: null,
     relateds: [],
     hasMoreRelateds: false,
-    slugToFetch: emptySlug,
+    slugToFetch: '',
   }
 
-  if (currentPostSlug === emptySlug) {
+  if (currentPostSlug === '') {
     return Object.assign(defaultRtn, {
       errorOfPost: { statusCode: 404 },
     })
   }
 
   // user clicks another post
-  const slug = _.get(state, [selectedPost, 'slug'], emptySlug)
+  const slug = _.get(state, [selectedPost, 'slug'], '')
   if (currentPostSlug !== slug) {
     return Object.assign(defaultRtn, {
       isFetchingPost: true,
@@ -601,11 +578,7 @@ export function mapStateToProps(state, props) {
       [relatedPostsOf, 'byId', postId, 'error'],
       null
     ),
-    fontLevel: _.get(
-      state,
-      [reduxStateFields.settings, 'fontLevel'],
-      _fontLevel.small
-    ),
+    fontLevel: _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small'),
     isFetchingPost: _.get(state, [selectedPost, 'isFetching'], false),
     isFetchingRelateds: _.get(
       state,
@@ -618,7 +591,7 @@ export function mapStateToProps(state, props) {
       _.get(state, [relatedPostsOf, 'byId', postId, 'more', 'length'], 0) > 0,
     // set slugToFetch to empty string to
     // avoid from re-fetching the post already in redux state
-    slugToFetch: emptySlug,
+    slugToFetch: '',
     isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
     userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], []),
     jwt: _.get(state, [reduxStateFields.auth, 'accessToken'], ''),

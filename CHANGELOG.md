@@ -1,6 +1,25 @@
 # Changelog
 
+## 5.0.7-rc.0, 2024-07-10
+
+### Notable Changes
+
+- feat
+  - add jwt for getting full post
+- fix
+  - remove old Article component file
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`88868a750d`](https://github.com/twreporter/twreporter-react/commit/88868a750d)] - **chore**: update twreporter packages (Lucien)
+- [[`07cb2d7fb5`](https://github.com/twreporter/twreporter-react/commit/07cb2d7fb5)] - **fix**: remove old Article component file (Lucien)
+- [[`312e887f45`](https://github.com/twreporter/twreporter-react/commit/312e887f45)] - **feat**: add jwt for getting full post (Lucien)
+
 ## 5.0.6, 2024-07-03 (Current)
+
+### Notable Changes
 
 - fix
   - remove cdn.polyfill.io script for security issue
