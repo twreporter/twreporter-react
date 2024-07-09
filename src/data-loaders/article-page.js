@@ -1,3 +1,5 @@
+import twreporterRedux from '@twreporter/redux'
+
 import get from 'lodash/get'
 import loggerFactory from '../logger'
 
@@ -6,6 +8,8 @@ const _ = {
 }
 
 const logger = loggerFactory.getLogger()
+
+const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 /**
  *  loadData function is used for server side rendering.
@@ -21,7 +25,9 @@ const logger = loggerFactory.getLogger()
  */
 export default function loadData({ match, store }) {
   const slug = _.get(match, 'params.slug')
-  return store.actions.fetchAFullPost(slug).then(successAction => {
+  const state = store.getState()
+  const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'], '')
+  return store.actions.fetchAFullPost(slug, jwt).then(successAction => {
     const postId = _.get(successAction, 'payload.post.id', '')
     if (postId) {
       return store.actions
