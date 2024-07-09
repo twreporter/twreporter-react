@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.0.3-beta.4, 2024-07-09
+
+### Notable Changes
+
+- feat
+  - use tracking section data from api
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`026515c067`](https://github.com/twreporter/twreporter-react/commit/026515c067)] - **chore**: update twreporter packages (Lucien)
+- [[`bf4dd8a908`](https://github.com/twreporter/twreporter-react/commit/bf4dd8a908)] - **fix**: fix comments (Lucien)
+- [[`4fb0ce9169`](https://github.com/twreporter/twreporter-react/commit/4fb0ce9169)] - **fix**: change port back to 8080 (Lucien)
+- [[`a53733c35a`](https://github.com/twreporter/twreporter-react/commit/a53733c35a)] - **fix**: remove unused lodash map (Lucien)
+- [[`7c23baf3ad`](https://github.com/twreporter/twreporter-react/commit/7c23baf3ad)] - **feat**: use tracking section data from api (Lucien)
+
 ## 5.0.3-beta.3, 2024-06-24
 
 ### Notable Changes
