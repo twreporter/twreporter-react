@@ -8,6 +8,7 @@ import { P1, P2, P3 } from '@twreporter/react-components/lib/text/paragraph'
 import { H5 } from '@twreporter/react-components/lib/text/headline'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import origins from '@twreporter/core/lib/constants/request-origins'
+import entityPaths from '@twreporter/core/lib/constants/entity-path'
 // components
 import { Rectangle, MarginBottomType } from '../skeleton'
 // context
@@ -173,7 +174,10 @@ export const ArticleTrackingCard = ({
   const { releaseBranch } = useContext(CoreContext)
   const handleCardOnClick = () => {
     const originsForClient = origins.forClientSideRendering[releaseBranch].main
-    window.open(`${originsForClient}/a/${trackingArticleSlug}`, '_blank')
+    window.open(
+      `${originsForClient}${entityPaths}${trackingArticleSlug}`,
+      '_blank'
+    )
   }
 
   if (isLoading) {
