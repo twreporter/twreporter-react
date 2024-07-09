@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { styled } from 'styled-components'
 import PropTypes from 'prop-types'
-
 // @twreporter
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1, P2, P3 } from '@twreporter/react-components/lib/text/paragraph'
 import { H5 } from '@twreporter/react-components/lib/text/headline'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-
+import origins from '@twreporter/core/lib/constants/request-origins'
+import entityPaths from '@twreporter/core/lib/constants/entity-path'
 // components
 import { Rectangle, MarginBottomType } from '../skeleton'
+// context
+import { CoreContext } from '../../contexts'
 
 const TrackingCardContainer = styled.div`
   display: flex;
@@ -167,12 +169,22 @@ export const ArticleTrackingCard = ({
   trackingTitle,
   trackingContent,
   trackingArticleTitle,
+  trackingArticleSlug,
 }) => {
+  const { releaseBranch } = useContext(CoreContext)
+  const handleCardOnClick = () => {
+    const originsForClient = origins.forClientSideRendering[releaseBranch].main
+    window.open(
+      `${originsForClient}${entityPaths}${trackingArticleSlug}`,
+      '_blank'
+    )
+  }
+
   if (isLoading) {
     return <LoadingCard />
   }
   return (
-    <TrackingCardContainer>
+    <TrackingCardContainer onClick={handleCardOnClick}>
       <TrackingContentContainer>
         <PublishDate text={date2yyyymmdd(publishDate, '/')} />
         <TrackingTitle text={trackingTitle} />
@@ -195,4 +207,5 @@ ArticleTrackingCard.propTypes = {
   trackingTitle: PropTypes.string.isRequired,
   trackingContent: PropTypes.string.isRequired,
   trackingArticleTitle: PropTypes.string.isRequired,
+  trackingArticleSlug: PropTypes.string.isRequired,
 }
