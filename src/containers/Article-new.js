@@ -338,7 +338,8 @@ const Article = ({
       if (!elementToScroll) return
       const start = window.scrollY
       const end = elementToScroll.getBoundingClientRect().top
-      smoothScroll(start + end)
+      // header height = 63px
+      smoothScroll(start + end - 63)
     }
 
     // wait till component render
