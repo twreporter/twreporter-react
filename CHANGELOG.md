@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.0.3-beta.5, 2024-07-11
+
+### Notable Changes
+
+- fix
+  - open tab while click article-tracking-card
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`ac5d6718e0`](https://github.com/twreporter/twreporter-react/commit/ac5d6718e0)] - **chore**: update twreporter packages (Lucien)
+- [[`826ce5262b`](https://github.com/twreporter/twreporter-react/commit/826ce5262b)] - **fix**: open tab while click article-tracking-card (Lucien)
+
 ## 5.0.3-beta.4, 2024-07-09
 
 ### Notable Changes
