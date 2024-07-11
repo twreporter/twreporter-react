@@ -175,7 +175,7 @@ export const ArticleTrackingCard = ({
   const handleCardOnClick = () => {
     const originsForClient = origins.forClientSideRendering[releaseBranch].main
     window.open(
-      `${originsForClient}${entityPaths}${trackingArticleSlug}`,
+      `${originsForClient}${entityPaths.article}${trackingArticleSlug}#${trackingTitle}`,
       '_blank'
     )
   }
