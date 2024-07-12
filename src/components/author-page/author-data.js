@@ -101,7 +101,7 @@ const AuthorData = props => {
         <Content>
           <Name>{name + displayedTitle}</Name>
           {!mail ? null : <Mail>{mail}</Mail>}
-          <Bio>{bio}</Bio>
+          {!bio ? null : <Bio dangerouslySetInnerHTML={{ __html: bio }} />}
         </Content>
       </Container>
     </Sizing>
