@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.0.7-rc.2, 2024-07-15
+
+### Notable Changes
+
+- fix
+  - render author bio with html
+- chore
+  - use `isomorphic-dompurify` for dangerouslySetInnerHTML
+
+### Commits
+
+- [[`d11fe515d4`](https://github.com/twreporter/twreporter-react/commit/d11fe515d4)] - **chore**: use for dangerouslySetInnerHTML (Lucien)
+- [[`f64c6bde95`](https://github.com/twreporter/twreporter-react/commit/f64c6bde95)] - **fix**: render bio with html (Lucien)
+
 ## 5.0.7-rc.1, 2024-07-10
 
 ### Notable Changes
