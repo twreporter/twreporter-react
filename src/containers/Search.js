@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import DOMPurify from 'isomorphic-dompurify'
 
 const googleSearchId = '013371828254368986439:_ega685nikw'
 
@@ -23,12 +24,16 @@ class Search extends Component {
       <Container>
         <div
           dangerouslySetInnerHTML={{
-            __html: '<gcse:searchbox-only></gcse:searchbox-only>',
+            __html: DOMPurify.sanitize(
+              '<gcse:searchbox-only></gcse:searchbox-only>'
+            ),
           }}
         />
         <div
           dangerouslySetInnerHTML={{
-            __html: '<gcse:searchresults-only></gcse:searchresults-only>',
+            __html: DOMPurify.sanitize(
+              '<gcse:searchresults-only></gcse:searchresults-only>'
+            ),
           }}
         />
       </Container>

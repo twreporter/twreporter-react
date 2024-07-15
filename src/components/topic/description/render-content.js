@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import DOMPurify from 'isomorphic-dompurify'
 // utils
 import mq from '../../../utils/media-query'
 // @twreporter
@@ -91,7 +92,9 @@ export default function renderTopicContent(data) {
           return (
             <BlockQuote
               key={ele.id}
-              dangerouslySetInnerHTML={{ __html: _.get(ele, 'content.0', '') }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(_.get(ele, 'content.0', '')),
+              }}
             />
           )
         case 'youtube': {
@@ -139,7 +142,9 @@ export default function renderTopicContent(data) {
           return (
             <Paragraph
               key={ele.id}
-              dangerouslySetInnerHTML={{ __html: innerHTML }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(innerHTML),
+              }}
             />
           )
         }
