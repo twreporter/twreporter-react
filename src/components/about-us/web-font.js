@@ -1,4 +1,5 @@
 import React from 'react'
+import DOMPurify from 'isomorphic-dompurify'
 
 const typekitScripts = `
   (function(d) {
@@ -12,7 +13,9 @@ const typekitScripts = `
 `
 
 const WebFont = () => (
-  <script dangerouslySetInnerHTML={{ __html: typekitScripts }} />
+  <script
+    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(typekitScripts) }}
+  />
 )
 
 export default WebFont
