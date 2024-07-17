@@ -1,17 +1,21 @@
 # Changelog
 
-## 5.0.7-rc.3, 2024-07-17
+## 5.1.0, 2024-07-17 (Current)
 
 ### Notable Changes
 
 - feat
+  - add jwt for getting full post
   - article tracking section
   - add test data for article page tracking section
   - use tracking section data from api
 - fix
+  - remove old Article component file
+  - render author bio with html
   - open tab while click article-tracking-card
 - chore
   - update @twreporter packages
+  - use `isomorphic-dompurify` for dangerouslySetInnerHTML
   - sync master
 
 ### Commits
@@ -34,50 +38,14 @@
 - [[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
 - [[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
 - [[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
-
-## 5.0.7-rc.2, 2024-07-15
-
-### Notable Changes
-
-- fix
-  - render author bio with html
-- chore
-  - use `isomorphic-dompurify` for dangerouslySetInnerHTML
-
-### Commits
-
 - [[`d11fe515d4`](https://github.com/twreporter/twreporter-react/commit/d11fe515d4)] - **chore**: use for dangerouslySetInnerHTML (Lucien)
 - [[`f64c6bde95`](https://github.com/twreporter/twreporter-react/commit/f64c6bde95)] - **fix**: render bio with html (Lucien)
-
-## 5.0.7-rc.1, 2024-07-10
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`75faa3cbcc`](https://github.com/twreporter/twreporter-react/commit/75faa3cbcc)] - **chore**: update twreporter packages (Lucien)
-
-## 5.0.7-rc.0, 2024-07-10
-
-### Notable Changes
-
-- feat
-  - add jwt for getting full post
-- fix
-  - remove old Article component file
-- chore
-  - update @twreporter packages
-
-### Commits
-
 - [[`88868a750d`](https://github.com/twreporter/twreporter-react/commit/88868a750d)] - **chore**: update twreporter packages (Lucien)
 - [[`07cb2d7fb5`](https://github.com/twreporter/twreporter-react/commit/07cb2d7fb5)] - **fix**: remove old Article component file (Lucien)
 - [[`312e887f45`](https://github.com/twreporter/twreporter-react/commit/312e887f45)] - **feat**: add jwt for getting full post (Lucien)
 
-## 5.0.6, 2024-07-03 (Current)
+## 5.0.6, 2024-07-03
 
 ### Notable Changes
 
