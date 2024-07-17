@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import DOMPurify from 'isomorphic-dompurify'
 // utils
 import mq from '../../utils/media-query'
 // components
@@ -101,7 +102,11 @@ const AuthorData = props => {
         <Content>
           <Name>{name + displayedTitle}</Name>
           {!mail ? null : <Mail>{mail}</Mail>}
-          <Bio>{bio}</Bio>
+          {!bio ? null : (
+            <Bio
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(bio) }}
+            />
+          )}
         </Content>
       </Container>
     </Sizing>

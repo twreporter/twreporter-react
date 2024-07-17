@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import serialize from 'serialize-javascript'
+import DOMPurify from 'isomorphic-dompurify'
 
 // @twreporter
 import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
@@ -110,10 +111,17 @@ export default class Html extends PureComponent {
           {styleElement}
         </head>
         <body>
-          <div id="root" dangerouslySetInnerHTML={{ __html: contentMarkup }} />
+          <div
+            id="root"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(contentMarkup),
+            }}
+          />
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.__REDUX_STATE__=${serialize(store.getState())};`,
+              __html: DOMPurify.sanitize(
+                `window.__REDUX_STATE__=${serialize(store.getState())};`
+              ),
             }}
             charSet="UTF-8"
           />
@@ -123,7 +131,7 @@ export default class Html extends PureComponent {
           {scriptElement}
           <script
             dangerouslySetInnerHTML={{
-              __html: `(function(d) {
+              __html: DOMPurify.sanitize(`(function(d) {
                 var config = {
                   kitId: 'vlk1qbe',
                   scriptTimeout: 3000,
@@ -131,7 +139,7 @@ export default class Html extends PureComponent {
                 },
                 h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
               })(document);
-            `,
+            `),
             }}
           />
         </body>

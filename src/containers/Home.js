@@ -6,6 +6,7 @@ import React from 'react'
 import qs from 'qs'
 import styled, { css } from 'styled-components'
 import TagManager from 'react-gtm-module'
+import DOMPurify from 'isomorphic-dompurify'
 // constants
 import colors from '../constants/colors'
 import siteMeta from '../constants/site-meta'
@@ -356,12 +357,14 @@ class Homepage extends React.PureComponent {
         </SideBar>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(JSON.stringify(webSiteJSONLD)),
+          }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(siteNavigationJSONLD),
+            __html: DOMPurify.sanitize(JSON.stringify(siteNavigationJSONLD)),
           }}
         />
       </Container>

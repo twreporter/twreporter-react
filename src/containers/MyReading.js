@@ -23,6 +23,7 @@ import BrowsingHistoryPage from '../components/my-reading/browsing-history-page'
 import SavedBookmarksSection from '../components/my-reading/saved-bookmakrs-section'
 import BrowsingHistorySection from '../components/my-reading/browsing-history-section'
 import ReviewingArticleSection from '../components/my-reading/reviewing-article-section'
+import { ArticleTrackingSection } from '../components/my-reading/article-tracking-section'
 
 // lodash
 import get from 'lodash/get'
@@ -32,6 +33,7 @@ const _ = {
 
 const GridContainer = styled.div`
   width: 100%;
+  overflow: hidden;
   ${mq.mobileOnly`
     padding: 24px 24px 120px;
   `}
@@ -62,6 +64,11 @@ const PageTitle = styled(H2)`
   color: ${colorGrayscale.gray800};
   width: 100%;
   margin-bottom: 24px;
+`
+
+const ArticleTracking = styled.div`
+  width: 100%;
+  padding-bottom: 24px;
 `
 
 const SavedBookmarks = styled.div`
@@ -137,6 +144,9 @@ const MyReadingPage = ({ isAuthed, jwt }) => {
           <Switch>
             <Route exact path={routes.myReadingPage.path}>
               <PageTitle text={'我的閱讀'} />
+              <ArticleTracking>
+                <ArticleTrackingSection />
+              </ArticleTracking>
               <SavedBookmarks>
                 <SavedBookmarksSection />
               </SavedBookmarks>
