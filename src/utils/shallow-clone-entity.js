@@ -77,6 +77,7 @@ export function shallowCloneFullPost(post) {
     'leading_image_description',
     'og_title',
     'updated_at',
+    'followups',
   ]
 
   const metaPost = shallowCloneMetaOfPost(post)

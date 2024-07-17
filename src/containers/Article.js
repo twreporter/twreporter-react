@@ -26,6 +26,7 @@ import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 // hooks
 import { usePrevious } from '../hooks'
 // lodash
@@ -326,6 +327,29 @@ const Article = ({
     isReachedArticleReadTargetTime,
   ])
 
+  useEffect(() => {
+    const scrollToHashElement = () => {
+      const { hash } = window.location
+      if (!hash) return
+      const decodedHash = decodeURIComponent(hash)
+      const elementToScroll = document.getElementById(
+        decodedHash.replace('#', '')
+      )
+      if (!elementToScroll) return
+      const start = window.scrollY
+      const end = elementToScroll.getBoundingClientRect().top
+      // header height = 63px
+      smoothScroll(start + end - 63)
+    }
+
+    // wait till component render
+    setTimeout(() => scrollToHashElement(), 1000)
+    window.addEventListener('hashchange', scrollToHashElement)
+    return () => {
+      window.removeEventListener('hashchange', scrollToHashElement)
+    }
+  }, [])
+
   if (errorOfPost) {
     return (
       <div>
@@ -366,6 +390,23 @@ const Article = ({
   if (ogImage.width) {
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
+
+  const followups = _.get(post, 'followups', [])
+  const trackingSection = []
+  if (followups.length > 0) {
+    _.forEach(followups, followup => {
+      const { title, date, content } = followup
+      if (content.api_data && content.api_data.length > 0) {
+        trackingSection.push({
+          type: 'tracking-section',
+          title,
+          publishDate: date,
+          content: content.api_data,
+        })
+      }
+    })
+  }
+
   return (
     <div>
       <Helmet
@@ -423,6 +464,7 @@ const Article = ({
             store={store}
             // TODO: pass isFetchingRelateds to show loadin spinner
             // TODO: pass errorOfRelateds to show error message to end users
+            trackingSection={trackingSection}
           />
         </div>
       </div>
