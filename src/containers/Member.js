@@ -243,9 +243,7 @@ const MemberPage = ({
               <Route path={routes.memberPage.memberDonationPage.path}>
                 <MemberDonationPage />
               </Route>
-              <Route
-                path={routes.memberPage.memberEmailSubscriptionPage.path}
-              >
+              <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
                 <EmailSubscription />
               </Route>
             </Switch>

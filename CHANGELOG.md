@@ -1,5 +1,40 @@
 # Changelog
 
+## 5.0.7-rc.3, 2024-07-17
+
+### Notable Changes
+
+- feat
+  - article tracking section
+  - add test data for article page tracking section
+  - use tracking section data from api
+- fix
+  - open tab while click article-tracking-card
+- chore
+  - update @twreporter packages
+  - sync master
+
+### Commits
+
+- [[`ac5d6718e0`](https://github.com/twreporter/twreporter-react/commit/ac5d6718e0)] - **chore**: update twreporter packages (Lucien)
+- [[`826ce5262b`](https://github.com/twreporter/twreporter-react/commit/826ce5262b)] - **fix**: open tab while click article-tracking-card (Lucien)
+- [[`026515c067`](https://github.com/twreporter/twreporter-react/commit/026515c067)] - **chore**: update twreporter packages (Lucien)
+- [[`bf4dd8a908`](https://github.com/twreporter/twreporter-react/commit/bf4dd8a908)] - **fix**: fix comments (Lucien)
+- [[`4fb0ce9169`](https://github.com/twreporter/twreporter-react/commit/4fb0ce9169)] - **fix**: change port back to 8080 (Lucien)
+- [[`a53733c35a`](https://github.com/twreporter/twreporter-react/commit/a53733c35a)] - **fix**: remove unused lodash map (Lucien)
+- [[`7c23baf3ad`](https://github.com/twreporter/twreporter-react/commit/7c23baf3ad)] - **feat**: use tracking section data from api (Lucien)
+- [[`bf7840c347`](https://github.com/twreporter/twreporter-react/commit/bf7840c347)] - **chore**: update twreporter packages (Lucien)
+- [[`c223356835`](https://github.com/twreporter/twreporter-react/commit/c223356835)] - **chore**: update twreporter packages (Lucien)
+- [[`deb89f965a`](https://github.com/twreporter/twreporter-react/commit/deb89f965a)] - **chore**: sync master (Lucien)
+- [[`efc8ee981c`](https://github.com/twreporter/twreporter-react/commit/efc8ee981c)] - **chore**: update twreporter packages (Lucien)
+- [[`a03ef47909`](https://github.com/twreporter/twreporter-react/commit/a03ef47909)] - **feat**: add test data for article page tracking section (Lucien)
+- [[`44779c997c`](https://github.com/twreporter/twreporter-react/commit/44779c997c)] - **fix**: fix conflict (Lucien)
+- [[`5d67e9c39d`](https://github.com/twreporter/twreporter-react/commit/5d67e9c39d)] - **fix**: add releaseBranch for icon (Lucien)
+- [[`bd6f60502e`](https://github.com/twreporter/twreporter-react/commit/bd6f60502e)] - **feat**: use MarginBottomType enum (Lucien)
+- [[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
+- [[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
+- [[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
+
 ## 5.0.7-rc.2, 2024-07-15
 
 ### Notable Changes
