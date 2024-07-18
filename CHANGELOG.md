@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.1.0, 2024-07-17 (Current)
+## 5.1.1, 2024-07-18 (Current)
+
+### Notable Changes
+
+- fix
+  - remove dompurify for search
+
+### Commits
+
+- [[`1fcae7ef30`](https://github.com/twreporter/twreporter-react/commit/1fcae7ef30)] - **fix**: remove dompurify for search (Lucien)
+
+## 5.1.0, 2024-07-17
 
 ### Notable Changes
 
