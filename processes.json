@@ -8,7 +8,7 @@
     "error_file"  : "pm2-server-err.log",
     "env"         : {
       "NODE_ENV": "production",
-      "RELEASE_BRANCH": "production",
+      "RELEASE_BRANCH": "preview",
       "API_HOST": "go-api",
       "API_PROTOCOL": "http",
       "API_PORT": 8080
