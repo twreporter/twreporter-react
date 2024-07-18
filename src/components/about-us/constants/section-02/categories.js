@@ -9,6 +9,13 @@ const categories = [
     },
   },
   {
+    id: categoryIds.leaderTeam,
+    label: {
+      english: 'Leader Team',
+      chinese: '領 導 團 隊',
+    },
+  },
+  {
     id: categoryIds.editor,
     label: {
       english: 'Editorial Department',
@@ -30,20 +37,6 @@ const categories = [
     },
   },
   {
-    id: categoryIds.marketing,
-    label: {
-      english: 'Marketing Department',
-      chinese: '行 銷 部',
-    },
-  },
-  {
-    id: categoryIds.engineer,
-    label: {
-      english: 'Engineering Department',
-      chinese: '工 程 部',
-    },
-  },
-  {
     id: categoryIds.designer,
     label: {
       english: 'Design Department',
@@ -51,17 +44,52 @@ const categories = [
     },
   },
   {
+    id: categoryIds.engineer,
+    label: {
+      english: 'Digital Product Department',
+      chinese: '數 位 產 品 部',
+    },
+  },
+  {
+    id: categoryIds.marketing,
+    label: {
+      english: 'Marketing Department',
+      chinese: '行 銷 部',
+    },
+  },
+  {
+    id: categoryIds.administration,
+    label: {
+      enghlish: 'Administration',
+      chinese: '行 政 部',
+    },
+  },
+  {
+    id: categoryIds.theReporterForKids,
+    label: {
+      english: 'The Reporter For Kids',
+      chinese: '少 年 報 導 者',
+    },
+  },
+  {
+    id: categoryIds.dataJournalist,
+    label: {
+      english: 'Data Journalism Team',
+      chinese: 'Data 小 組',
+    },
+  },
+  {
+    id: categoryIds.video,
+    label: {
+      english: 'Video Team',
+      chinese: '影 音 小 組',
+    },
+  },
+  {
     id: categoryIds.podcast,
     label: {
       english: 'Podcast Department',
       chinese: 'Podcast 小 組',
-    },
-  },
-  {
-    id: categoryIds.productManager,
-    label: {
-      english: 'Product Manager',
-      chinese: '產 品 經 理',
     },
   },
 ]

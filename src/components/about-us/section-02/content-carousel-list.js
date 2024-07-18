@@ -1,18 +1,21 @@
-import Arrows from './arrows'
-import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import carouselMarkup from '../constants/section-02/carousel-markup'
-import categoriesAll from '../constants/section-02/categories'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import Navigation from '../utils/navigation'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
-import styled from 'styled-components'
-import { font } from '../constants/styles'
 import { gray } from './utils'
+import { storageUrlPrefix } from '../utils/config'
+// constants
+import carouselMarkup from '../constants/section-02/carousel-markup'
+import categoriesAll from '../constants/section-02/categories'
+import { font } from '../constants/styles'
 import { headcountPerPage } from '../constants/section-02/headcount-per-page'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// components
+import Arrows from './arrows'
 // lodash
 import assign from 'lodash/assign'
 import debounce from 'lodash/debounce'
@@ -38,27 +41,27 @@ const Container = styled.div`
 
 const Department = styled.div`
   position: relative;
-  background: linear-gradient(to bottom, ${colors.white} 30%, ${
-  colors.gray.gray96
+  background: linear-gradient(to bottom, ${colorGrayscale.white} 30%, ${
+  colorGrayscale.gray100
 } 30%);
   display: inline-block;
   ${mq.hdOnly`
     margin-top: 102px;
     height: calc(148px * 3/2);
     padding: 0px 72px;
-    ${props => props.markup[screen.hd]}
+    ${props => props.$markup[screen.hd]}
   `}
   ${mq.desktopOnly`
     margin-top: 35px;
     height: calc(116px * 3/2);
     padding: 0 30px;
-    ${props => props.markup[screen.desktop]}
+    ${props => props.$markup[screen.desktop]}
   `}
   ${mq.tabletOnly`
     margin-top: 30px;
     height: calc(116px * 3/2);
     padding: 0px 95px;
-    ${props => props.markup[screen.tablet]}
+    ${props => props.$markup[screen.tablet]}
   `}
 `
 
@@ -76,9 +79,9 @@ const MemberList = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
   white-space: nowrap;
-  transform: translate3d(${props => props.shiftx}, 0px, 0px);
+  transform: translate3d(${props => props.$shiftx}, 0px, 0px);
   transition: ${props =>
-    props.transitionEffect
+    props.$transitionEffect
       ? `all ${transitionDuration}ms ease-in-out`
       : 'all 1ms ease-in-out'};
 `
@@ -93,20 +96,20 @@ const Member = styled.li`
       width: 114px;
       margin-bottom: 19px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.hd]});
+    width: calc(100% / ${props => props.$numPerPage[screen.hd]});
   `}
   ${mq.desktopOnly`
     img:first-child{
       width: 85px;
       margin-bottom: 15px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.desktop]});
+    width: calc(100% / ${props => props.$numPerPage[screen.desktop]});
   `}
   ${mq.tabletOnly`
     img:first-child{
       width: 94px;
     }
-    width: calc(100% / ${props => props.numPerPage[screen.tablet]});
+    width: calc(100% / ${props => props.$numPerPage[screen.tablet]});
   `}
 `
 
@@ -121,7 +124,7 @@ const Info = styled.div`
     letter-spacing: 0.4px;
   }
   img{
-    visibility: ${props => (props.isMailIconVisible ? 'visible' : 'hidden')};
+    visibility: ${props => (props.$isMailIconVisible ? 'visible' : 'hidden')};
     width: 15px;
     cursor: pointer;
   }
@@ -210,10 +213,7 @@ export default class CarouselMemberList extends PureComponent {
     window.addEventListener('resize', this.resizeHandler)
   }
   componentWillUnmount() {
-    window.removeEventListener(
-      'resize',
-      this.resizeHandler
-    )
+    window.removeEventListener('resize', this.resizeHandler)
     this.membersPageLengthArray = null
     this.membersResidueArray = null
     this.membersNumPerPageArray = null
@@ -323,11 +323,13 @@ export default class CarouselMemberList extends PureComponent {
       const categoryId = category.id
       const members = groupedMembers[categoryId]
       const numbersInAPage = this.membersNumPerPageArray[index]
-      const newMembers = members ? [
-        ...members.slice(members.length - numbersInAPage, members.length),
-        ...members,
-        ...members.slice(0, numbersInAPage),
-      ] : []
+      const newMembers = members
+        ? [
+            ...members.slice(members.length - numbersInAPage, members.length),
+            ...members,
+            ...members.slice(0, numbersInAPage),
+          ]
+        : []
       this.carouselData[categoryId] = newMembers
     })
   }
@@ -368,10 +370,14 @@ export default class CarouselMemberList extends PureComponent {
     this.setState({ currentPagesArray: newCurPagesArray })
   }
   _getNumPerPage = (maxNumPerPage, memberLength) => {
-    return _.reduce(maxNumPerPage, (result, value, key) => {
-      result[key] = value <= memberLength ? value : memberLength
-      return result
-    }, {})
+    return _.reduce(
+      maxNumPerPage,
+      (result, value, key) => {
+        result[key] = value <= memberLength ? value : memberLength
+        return result
+      },
+      {}
+    )
   }
   render() {
     const { sendEmail, groupedMembers } = this.props
@@ -381,9 +387,12 @@ export default class CarouselMemberList extends PureComponent {
       const label = category.label
       const maxNumPerPage = headcountPerPage[categoryId]
       const memberDataList = this.carouselData[categoryId]
-      const numPerPage = this._getNumPerPage(maxNumPerPage, groupedMembers[categoryId].length)
+      const numPerPage = this._getNumPerPage(
+        maxNumPerPage,
+        groupedMembers[categoryId].length
+      )
       return (
-        <Department key={categoryId} markup={carouselMarkup[categoryId]}>
+        <Department key={categoryId} $markup={carouselMarkup[categoryId]}>
           <Name>
             <p>{label.chinese}</p>
           </Name>
@@ -399,8 +408,8 @@ export default class CarouselMemberList extends PureComponent {
               ref={memberListDom => {
                 this.memberList[categoryIndex] = memberListDom
               }}
-              shiftx={this._getShiftX(categoryIndex)}
-              transitionEffect={this.state.transitionEffect}
+              $shiftx={this._getShiftX(categoryIndex)}
+              $transitionEffect={this.state.transitionEffect}
               onTransitionEnd={event =>
                 this._onMemberListShifted(event, categoryIndex)
               }
@@ -408,16 +417,13 @@ export default class CarouselMemberList extends PureComponent {
               {typeof memberDataList !== 'undefined'
                 ? memberDataList.map((member, index) => {
                     return (
-                      <Member
-                        key={index}
-                        numPerPage={numPerPage}
-                      >
+                      <Member key={index} $numPerPage={numPerPage}>
                         <img
                           src={`${replaceGCSUrlOrigin(
                             `${profileUrlPrefix}${member.profile}`
                           )}`}
                         />
-                        <Info isMailIconVisible={Boolean(member.email)}>
+                        <Info $isMailIconVisible={Boolean(member.email)}>
                           <p>{member['job.zh-tw']}</p>
                           <p>{member['name.zh-tw']}</p>
                           <img

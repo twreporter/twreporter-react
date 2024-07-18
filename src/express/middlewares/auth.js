@@ -2,10 +2,10 @@ import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import { getSignOutHref } from '@twreporter/core/lib/utils/sign-out-href'
 import { matchPath } from 'react-router-dom'
 import get from 'lodash/get'
-import getRoutes from '../../routes'
 import loggerFactory from '../../logger'
 import statusConsts from '../../constants/status-code'
 import twreporterRedux from '@twreporter/redux'
+import getRoutes from '../../routes'
 
 const _ = {
   get,
@@ -51,13 +51,6 @@ function authMiddleware(namespace, options) {
       return next(new Error(`req.${namespace}.reduxStore is not existed`))
     }
 
-    /*
-      Host: "tobi.ferrets.example.com"
-        => req.subdomains = ["ferrets", "tobi"]
-      Ref: https://expressjs.com/en/api.html#req.subdomains
-     */
-    const subdomainsArr = _.get(req, 'subdomains', [])
-
     const routes = getRoutes()
     const authorizationRequired = routes.some(
       route => matchPath(req.path, route) && route.authorizationRequired
@@ -68,9 +61,11 @@ function authMiddleware(namespace, options) {
     // Check if the user is authenticated.
     // If the user is authenticated, handle user authorization:
     const idToken = _.get(req, 'cookies.id_token')
-    if (idToken) {
+    // If the user is deactivated, regard as unauthenticated
+    const activated = !!_.get(req, 'cookies.activated')
+    if (idToken && activated) {
       const userInfoInIdToken = decodePayload(idToken)
-      const accessTokenKeyName = subdomainsArr.join('_') + '_access_token'
+      const accessTokenKeyName = 'access_token'
       const accessToken = _.get(req, ['signedCookies', accessTokenKeyName])
       // Check If the user is also authorized.
       // If the user is authenticated and authorized, dispatch AUTH_SUCCESS action directly:
@@ -107,11 +102,8 @@ function authMiddleware(namespace, options) {
               maxAge: 60 * 60 * 24 * 14 * 1000, // 2 weeks
               httpOnly: nodeEnv !== developmentEnv,
               secure: nodeEnv !== developmentEnv,
-              domain: _.get(
-                req,
-                'hostname',
-                subdomainsArr.join('.') + '.twreporter.org'
-              ),
+              domain:
+                nodeEnv !== developmentEnv ? '.twreporter.org' : 'localhost',
               signed: true,
             })
             next()

@@ -1,8 +1,8 @@
 import querystring from 'querystring'
 import get from 'lodash/get'
-import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
 import statusCodeConst from '../constants/status-code'
+import { CATEGORY_ID } from '@twreporter/core/lib/constants/category-set'
 
 const _ = {
   get,
@@ -34,7 +34,7 @@ export default function loadData({ location, match, store }) {
   }
 
   const pathSegment = _.get(match, 'params.category', '')
-  const catId = categoryConst.ids[pathSegment]
+  const catId = CATEGORY_ID[pathSegment]
 
   if (!catId) {
     // return status NotFound if catId not existed

@@ -1,28 +1,29 @@
 /* eslint camelcase: ["error", {ignoreDestructuring: true}] */
-
 import apiEndpoints from '@twreporter/redux/lib/constants/api-endpoints'
 import Express from 'express'
-import get from 'lodash/get'
 import net from 'net'
-
 // mock api response
-import mockIndexPageResponse from './mock-data/index-page'
-import { mockAPostResponse, mockPostsResponse } from './mock-data/posts'
 import { mockATopicResponse, mockTopicsResponse } from './mock-data/topics'
 import {
   mockAuthorsResponse,
   mockAuthorDetailResponse,
   mockAuthorCollectionsResponse,
 } from './mock-data/authors'
+import { mockTagsResponse } from './mock-data/tags'
+import mockPosts from './mock-data/posts'
+import mockIndexPage from './mock-data/index-page'
+// lodash
+import get from 'lodash/get'
+const _ = {
+  get: get,
+}
+const { mockAPostResponse, mockPostsResponse } = mockPosts
+const mockIndexPageResponse = mockIndexPage
 
 const app = Express()
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8080
 const router = Express.Router()
-
-const _ = {
-  get: get,
-}
 
 const _checkIfPortIsTaken = port =>
   new Promise((resolve, reject) => {
@@ -73,11 +74,29 @@ router.route(`/${apiEndpoints.posts}/:slug`).get((req, res) => {
 })
 
 router.route(`/${apiEndpoints.posts}/`).get((req, res) => {
-  const { limit = '10', offset = '0', id, category_id, tag_id } = req.query
+  const {
+    limit = '10',
+    offset = '0',
+    sort = '-published_date',
+    id,
+    category_id,
+    tag_id,
+    subcategory_id,
+  } = req.query
   const _limit = Number(limit)
   const _offset = Number(offset)
 
-  res.json(mockPostsResponse(_limit, _offset, id, category_id, tag_id))
+  res.json(
+    mockPostsResponse(
+      _limit,
+      _offset,
+      id,
+      category_id,
+      tag_id,
+      subcategory_id,
+      sort
+    )
+  )
 })
 
 router.route(`/${apiEndpoints.topics}/`).get((req, res) => {
@@ -145,6 +164,14 @@ router.route(`/${apiEndpoints.authors}/:authorId/posts/`).get((req, res) => {
 
 router.route(`/${apiEndpoints.indexPage}/`).get((req, res) => {
   res.json(mockIndexPageResponse())
+})
+
+router.route(`/${apiEndpoints.tags}/`).get((req, res) => {
+  const { limit = '10', offset = '0' } = req.query
+  const _limit = Number(limit)
+  const _offset = Number(offset)
+  const latestOrder = Number(_.get(req, 'query.latest_order', '0'))
+  res.json(mockTagsResponse(_limit, _offset, latestOrder))
 })
 
 app.use((err, req, res, next) => {

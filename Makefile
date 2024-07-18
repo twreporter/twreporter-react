@@ -17,9 +17,11 @@ help:
 	@echo "\033[33mmake test\033[0m - run unit tests and UI tests"
 
 # build webpacks client side needed
+# set NODE_OPTIONS as --openssl-legacy-provider to fix digital envelope routines::unsupported error
+#   ref: https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
 build-webpack: 
 	@echo "\033[33m[webpack]\033[0m build client side bundles"
-	NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js --colors
+	NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=$(PROD_NODE_ENV) $(BIN_DIR)/webpack --config webpack.config.js
 
 build-service-worker: 
 	@echo "\033[33m[service-worker]\033[0m genereate service worker by babel-node service-worker/service-worker-generator.js"
@@ -44,17 +46,17 @@ start-testing-server:
 
 start-dev-server: 
 	@echo " $(P) start dev server by nodemon src/server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) RENDER_ENV=$(SERVER_RENDER_ENV) HOST=${HOST} $(BIN_DIR)/nodemon src/server.js --exec $(BIN_DIR)/babel-node
 
 start-webpack-dev-server:
 	@echo " $(P) start webpack dev server by node webpack-dev-server.js\n"
-	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) node webpack-dev-server.js
+	NODE_ENV=development RELEASE_BRANCH=$(RELEASE_BRANCH) DEV_HOST=${DEV_HOST} node webpack-dev-server.js
 
 dev: clean 
 	@echo "Setup development environment."
 	@echo "Development environment will contains three different servers."
 	@echo "One will be application server, hosted on 3000 port."
-	@echo "Another will be webpack dev server, hosted on 5000 port."
+	@echo "Another will be webpack dev server, hosted on 5050 port."
 	@echo "The other will be mocked api server, hosted on 8080 port."
 	@$(BIN_DIR)/concurrently --kill-others "$(MAKE) start-webpack-dev-server" "$(MAKE) start-dev-server" "$(MAKE) start-testing-server"
 
@@ -63,8 +65,8 @@ ui-test:
 	@$(BIN_DIR)/mocha $(SCREENSHOT_TEST_SCRIPT) --compilers js:babel-core/register --require babel-polyfill --reporter $(REPORTER) --local 3000	
 
 clean: 
-	@echo "delete auto generated files, including processes.json, sw.js, dist/, webpack-assets.json and react-loadabel.json\n"
-	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json react-loadable.json
+	@echo "delete auto generated files, including processes.json, sw.js, dist/, webpack-assets.json and loadable-stats.json\n"
+	@$(BIN_DIR)/rimraf processe.json sw.js dist webpack-assets.json loadable-stats.json
 
 build-babelrc:
 	@build .babelrc depends on the NODE_ENV and RENDER_ENV

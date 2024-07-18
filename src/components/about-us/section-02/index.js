@@ -1,22 +1,27 @@
-import CarouselMemberList from './content-carousel-list'
-import PaginatedMemberList from './content-paginated-list'
 import React, { PureComponent } from 'react'
 import axios from 'axios'
-import categories from '../constants/section-02/categories'
-import colors from '../../../constants/colors'
-import configs, { sections } from '../configs'
-import loggerFactory from '../../../logger'
-import mq from '../utils/media-query'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+import loggerFactory from '../../../logger'
+import { gray } from './utils'
+import { storageUrlPrefix } from '../utils/config'
+// configs
+import configs, { sections } from '../configs'
+// constants
+import categories from '../constants/section-02/categories'
 import {
   foundationIntro,
   mediaIntro,
   rules,
 } from '../constants/section-02/org-intro'
-import { gray } from './utils'
 import { marginBetweenSections } from '../constants/styles'
+// components
+import CarouselMemberList from './content-carousel-list'
+import PaginatedMemberList from './content-paginated-list'
+// @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import { storageUrlPrefix } from '../utils/config'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
@@ -30,7 +35,7 @@ const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   ${mq.hdOnly`
     margin: ${marginBetweenSections.overDesktop} 0;
   `}
@@ -200,15 +205,13 @@ export default class Section2 extends PureComponent {
     })
   }
   _getConfig = () => {
-    return axios
-      .get(configs[sections.section2])
-      .catch(err => {
-        logger.errorReport({
-          report: err,
-          message:
-            'Something went wrong during getting configs for about-us page section2',
-        })
+    return axios.get(configs[sections.section2]).catch(err => {
+      logger.errorReport({
+        report: err,
+        message:
+          'Something went wrong during getting configs for about-us page section2',
       })
+    })
   }
   render() {
     const { groupedMembers } = this.state
@@ -222,13 +225,11 @@ export default class Section2 extends PureComponent {
        * @typeof {number[]} membersNumberArray
        *
        */
-      membersNumberArray = categories.map(
-        category => {
-          if (groupedMembers[category.id]) {
-            return groupedMembers[category.id].length
-          }
+      membersNumberArray = categories.map(category => {
+        if (groupedMembers[category.id]) {
+          return groupedMembers[category.id].length
         }
-      )
+      })
       content = (
         <Content>
           <CarouselMemberList
@@ -255,6 +256,7 @@ export default class Section2 extends PureComponent {
           <Intro>
             <p>{foundationIntro.chinese}</p>
             <p>{mediaIntro.chinese}</p>
+            <br />
             {rules.chinese.map((rule, index) => {
               return <p key={'rule' + index}>{rule}</p>
             })}

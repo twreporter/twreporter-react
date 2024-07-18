@@ -1,27 +1,30 @@
 /* eslint no-unused-vars: [0, { "args": "all" }] */
 
-import ArticleList from '../components/photography/article-list'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import SystemError from '../components/SystemError'
-import categoryConst from '../constants/category'
-import colors from '../constants/colors'
-import dataLoaderConst from '../constants/data-loaders'
+import React, { useEffect, useState } from 'react'
 import loggerFactory from '../logger'
-import siteMeta from '../constants/site-meta'
-import twreporterRedux from '@twreporter/redux'
-import { TopNews } from '../components/photography/top-news'
 import { camelizeKeys } from 'humps'
 import { connect } from 'react-redux'
-
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
-
+import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
+// constants
+import colors from '../constants/colors'
+import dataLoaderConst from '../constants/data-loaders'
+import siteMeta from '../constants/site-meta'
+// components
+import ArticleList from '../components/photography/article-list'
+import SystemError from '../components/SystemError'
+import { TopNews } from '../components/photography/top-news'
+// @twreporter
+import twreporterRedux from '@twreporter/redux'
+import {
+  CATEGORY_PATH,
+  CATEGORY_ID,
+} from '@twreporter/core/lib/constants/category-set'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
-
 const _ = {
   forEach,
   get,
@@ -29,91 +32,81 @@ const _ = {
 
 const logger = loggerFactory.getLogger()
 
-const { fetchPostsByCategoryListId } = twreporterRedux.actions
+const { fetchPostsByCategorySetListId } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
 
-class Photography extends Component {
-  componentDidMount() {
-    this.fetchPostsWithCatch()
-  }
-
-  fetchPostsWithCatch = () => {
-    const {
-      fetchPostsByCategoryListId,
-      hasMore,
-      listId,
-      nPerPage,
-      posts,
-    } = this.props
-
+const Photography = ({
+  error,
+  isFetching,
+  listId,
+  posts,
+  hasMore,
+  nPerPage,
+  fetchPostsByCategorySetListId,
+}) => {
+  const [page, setPage] = useState(Math.ceil(posts.length / nPerPage + 1))
+  useEffect(() => {
     if (!hasMore) {
       return
     }
 
-    const page = Math.ceil(posts.length / nPerPage + 1)
+    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
+      // TODO render alter message
+      logger.errorReport({
+        report: _.get(failAction, 'payload.error'),
+        message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
+      })
+    })
+  }, [listId, page, fetchPostsByCategorySetListId])
 
-    return fetchPostsByCategoryListId(listId, nPerPage, page).catch(
-      failAction => {
-        // TODO render alter message
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
-        })
-      }
-    )
+  // Error handling
+  if (error) {
+    return <SystemError error={error} />
   }
 
-  render() {
-    const { error, hasMore, isFetching, posts } = this.props
+  const loadMore = () => setPage(page + 1)
+  const topNewsNum = 6
 
-    // Error handling
-    if (error) {
-      return <SystemError error={error} />
-    }
-
-    const topNewsNum = 6
-
-    const style = {
-      backgroundColor: colors.photographyColor,
-      color: '#FFFFEB',
-    }
-
-    const canonical = siteMeta.urlOrigin + '/photography'
-    const title = '影像' + siteMeta.name.separator + siteMeta.name.full
-    return (
-      <div style={style}>
-        <Helmet
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { property: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <TopNews posts={posts.slice(0, topNewsNum)} />
-        <ArticleList
-          articles={posts.slice(topNewsNum)}
-          hasMore={hasMore}
-          loadMore={this.fetchPostsWithCatch}
-        />
-      </div>
-    )
+  const style = {
+    backgroundColor: colors.photographyColor,
   }
+
+  const canonical = siteMeta.urlOrigin + '/photography'
+  const title = '影像' + siteMeta.name.separator + siteMeta.name.full
+  return (
+    <div style={style}>
+      <Helmet
+        prioritizeSeoTags
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { property: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
+      <TopNews posts={posts.slice(0, topNewsNum)} />
+      <ArticleList
+        articles={posts.slice(topNewsNum)}
+        hasMore={hasMore}
+        loadMore={loadMore}
+      />
+    </div>
+  )
 }
 
 Photography.defaultProps = {
   error: null,
   isFetching: false,
-  listId: _.get(categoryConst, 'ids.photography', ''),
+  listId: _.get(CATEGORY_ID, CATEGORY_PATH.photography, ''),
   posts: [],
   hasMore: false,
   nPerPage: dataLoaderConst.photographyPage.nPerPage,
@@ -127,7 +120,7 @@ Photography.propTypes = {
   posts: PropTypes.array,
   hasMore: PropTypes.bool,
   nPerPage: PropTypes.number,
-  fetchPostsByCategoryListId: PropTypes.func,
+  fetchPostsByCategorySetListId: PropTypes.func,
 }
 
 /**
@@ -170,7 +163,7 @@ function postsProp(state, listId) {
   _.forEach(postIds, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+      posts.push(shallowCloneMetaOfPost(post))
     }
   })
   return posts
@@ -209,7 +202,7 @@ function hasMoreProp(state, listId) {
  *  @return {PhotographyProps}
  */
 function mapStateToProps(state) {
-  const listId = _.get(categoryConst, 'ids.photography', '')
+  const listId = _.get(CATEGORY_ID, CATEGORY_PATH.photography, '')
   return {
     error: errorProp(state, listId),
     hasMore: hasMoreProp(state, listId),
@@ -223,5 +216,5 @@ function mapStateToProps(state) {
 export { Photography }
 export default connect(
   mapStateToProps,
-  { fetchPostsByCategoryListId }
+  { fetchPostsByCategorySetListId }
 )(Photography)

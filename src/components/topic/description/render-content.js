@@ -1,11 +1,15 @@
-import { renderElement as renderV2Element } from '@twreporter/react-article-components/lib/components/body'
-import { fontWeight } from '@twreporter/core/lib/constants/font'
+import React from 'react'
+import styled, { css } from 'styled-components'
+import DOMPurify from 'isomorphic-dompurify'
+// utils
+import mq from '../../../utils/media-query'
+// @twreporter
 import alignmentConsts from '@twreporter/react-article-components/lib/constants/element-alignment'
 import ArticleYoutube from '@twreporter/react-article-components/lib/components/body/youtube'
 import Img from '@twreporter/react-article-components/lib/components/img-with-placeholder'
-import mq from '../../../utils/media-query'
-import React from 'react'
-import styled, { css } from 'styled-components'
+import { renderElement as renderV2Element } from '@twreporter/react-article-components/lib/components/body'
+import { fontWeight } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 
@@ -46,7 +50,7 @@ const YouTube = styled(ArticleYoutube)`
 
 export const Paragraph = styled.div`
   ${buildElementMarginCss('auto')}
-  color: #262626;
+  color: ${colorGrayscale.gray900};
   font-size: 18px;
   line-height: 1.8;
   text-align: center;
@@ -64,7 +68,7 @@ const ImageContainer = styled.div`
 `
 
 const ElementCaption = styled.div`
-  color: #808080;
+  color: ${colorGrayscale.gray600};
   font-size: 16px;
   line-height: 1.8;
   margin: 0.6em 1.33em 0 1.33em;
@@ -88,7 +92,9 @@ export default function renderTopicContent(data) {
           return (
             <BlockQuote
               key={ele.id}
-              dangerouslySetInnerHTML={{ __html: _.get(ele, 'content.0', '') }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(_.get(ele, 'content.0', '')),
+              }}
             />
           )
         case 'youtube': {
@@ -136,7 +142,9 @@ export default function renderTopicContent(data) {
           return (
             <Paragraph
               key={ele.id}
-              dangerouslySetInnerHTML={{ __html: innerHTML }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(innerHTML),
+              }}
             />
           )
         }

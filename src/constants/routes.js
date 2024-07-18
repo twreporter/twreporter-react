@@ -15,7 +15,7 @@ export default {
     path: '/topics',
   },
   categoryListPage: {
-    path: '/categor(y|ies)/:category',
+    path: '/categor(y|ies)/:category/:subcategory?',
   },
   tagListPage: {
     path: '/(tag|tags)/:tagId',
@@ -35,10 +35,33 @@ export default {
   aboutUsPage: {
     path: '/about-us',
   },
-  bookmarkListPage: {
-    path: '/bookmarks/:pageNumber?',
+  myReadingPage: {
+    path: '/myreading',
+    savedBookmarksPage: {
+      path: '/myreading/saved',
+    },
+    browsingHistoryPage: {
+      path: '/myreading/history',
+    },
+  },
+  latestPage: {
+    path: '/latest/:tagId?',
   },
   errorPage: {
     path: '/error/:errorType',
+  },
+  memberPage: {
+    path: '/account',
+    memberDonationPage: {
+      path: '/account/donation-history',
+    },
+    memberEmailSubscriptionPage: {
+      path: '/account/email-subscription',
+    },
+  },
+  download: {
+    donationHistory: {
+      path: '/download/donation-history/:orderNumber',
+    },
   },
 }

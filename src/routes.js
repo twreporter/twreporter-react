@@ -1,14 +1,17 @@
-import Article from './containers/Article'
-import dataLoaders from './data-loaders/index'
-import FallbackPage from './containers/ServiceWorkerFallbackPage'
-import get from 'lodash/get'
-import Loadable from 'react-loadable'
+import Loadable from '@loadable/component'
 import PropTypes from 'prop-types'
 import React from 'react'
+// utils
+import dataLoaders from './data-loaders/index'
+// constants
 import routesConst from './constants/routes'
 import statusCodeConst from './constants/status-code'
+// components
+import FallbackPage from './containers/ServiceWorkerFallbackPage'
+import Article from './containers/Article.js'
 import SystemError from './components/SystemError'
-
+// lodash
+import get from 'lodash/get'
 const _ = {
   get,
 }
@@ -29,94 +32,110 @@ class LoadingComponent extends React.Component {
 }
 
 const loadablePages = {
-  home: Loadable({
-    loader: () =>
+  home: Loadable(
+    () =>
       import(
         /* webpackChunkName: "index-page" */
         './containers/Home'
       ),
-    loading: LoadingComponent,
-  }),
-  topic: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  topic: Loadable(
+    () =>
       import(
         /* webpackChunkName: "topic-page" */
         './containers/TopicLandingPage'
       ),
-    loading: LoadingComponent,
-  }),
-  topics: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  topics: Loadable(
+    () =>
       import(
         /* webpackChunkName: "topic-list-page" */
         './containers/Topics'
       ),
-    loading: LoadingComponent,
-  }),
-  category: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  category: Loadable(
+    () =>
       import(
         /* webpackChunkName: "category-list-page" */
         './containers/Category'
       ),
-    loading: LoadingComponent,
-  }),
-  tag: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  tag: Loadable(
+    () =>
       import(
         /* webpackChunkName: "tag-list-page" */
         './containers/Tag'
       ),
-    loading: LoadingComponent,
-  }),
-  author: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  author: Loadable(
+    () =>
       import(
         /* webpackChunkName: "author-page" */
         './containers/Author'
       ),
-    loading: LoadingComponent,
-  }),
-  authors: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  authors: Loadable(
+    () =>
       import(
         /* webpackChunkName: "author-list-page" */
         './containers/AuthorsList'
       ),
-    loading: LoadingComponent,
-  }),
-  photography: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  photography: Loadable(
+    () =>
       import(
         /* webpackChunkName: "photography-page" */
         './containers/Photography'
       ),
-    loading: LoadingComponent,
-  }),
-  search: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  search: Loadable(
+    () =>
       import(
         /* webpackChunkName: "search-page" */
         './containers/Search'
       ),
-    loading: LoadingComponent,
-  }),
-  aboutUs: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  aboutUs: Loadable(
+    () =>
       import(
         /* webpackChunkName: "about-us-page" */
         './components/about-us'
       ),
-    loading: LoadingComponent,
-  }),
-  bookmarkList: Loadable({
-    loader: () =>
+    { fallback: LoadingComponent }
+  ),
+  myReading: Loadable(
+    () =>
       import(
-        /* webpackChunkName: "bookmark-list" */
-        '@twreporter/react-components/lib/bookmark-list'
+        /* webpackChunkName: "my-reading" */
+        './containers/MyReading'
       ),
-    loading: LoadingComponent,
-  }),
+    { fallback: LoadingComponent }
+  ),
+  latest: Loadable(
+    () =>
+      import(
+        /* webpackChunkName: "latest" */
+        './containers/Latest'
+      ),
+    { fallback: LoadingComponent }
+  ),
+  member: Loadable(
+    () =>
+      import(
+        /* webpackChunkName: "member" */
+        './containers/Member'
+      ),
+    { fallback: LoadingComponent }
+  ),
 }
 
 function ErrorPage({ match, staticContext }) {
@@ -176,7 +195,7 @@ NotFoundErrorPage.propTypes = {
 
 /**
  *  getRoutes function
- *  uses `react-loadable` to do the code splitting,
+ *  uses `@loadable/component` to do the code splitting,
  *  and adopts react-router
  *  to render the corresponding React components
  *
@@ -185,7 +204,7 @@ NotFoundErrorPage.propTypes = {
 export default function getRoutes() {
   return [
     {
-      component: loadablePages.home,
+      renderWithProps: loadablePages.home,
       exact: true,
       loadData: dataLoaders.loadIndexPageData,
       path: routesConst.homePage.path,
@@ -224,7 +243,7 @@ export default function getRoutes() {
       path: routesConst.searchPage.path,
     },
     {
-      component: Article,
+      renderWithProps: Article,
       loadData: props =>
         Promise.all([
           dataLoaders.loadArticlePageData(props),
@@ -247,9 +266,22 @@ export default function getRoutes() {
       path: routesConst.aboutUsPage.path,
     },
     {
-      component: loadablePages.bookmarkList,
-      loadData: dataLoaders.loadBookmarkListData,
-      path: routesConst.bookmarkListPage.path,
+      component: loadablePages.myReading,
+      path: routesConst.myReadingPage.path,
+      authorizationRequired: true,
+    },
+    {
+      component: loadablePages.latest,
+      loadData: dataLoaders.loadLatestPageData,
+      path: routesConst.latestPage.path,
+    },
+    {
+      component: loadablePages.member,
+      loadData: dataLoaders.loadMemberPageData,
+      path: routesConst.memberPage.path,
+    },
+    {
+      path: routesConst.download.donationHistory.path,
       authorizationRequired: true,
     },
     // error  page
@@ -257,7 +289,6 @@ export default function getRoutes() {
       path: routesConst.errorPage.path,
       component: ErrorPage,
     },
-    // no routes match
     {
       component: NotFoundErrorPage,
     },

@@ -2,24 +2,29 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
-import colors from '../../../constants/colors'
-import get from 'lodash/get'
-import mq from '../utils/media-query'
 import styled from 'styled-components'
-
+// utils
+import mq from '../utils/media-query'
+// @twreporter
+import {
+  colorGrayscale,
+  colorSupportive,
+} from '@twreporter/core/lib/constants/color'
+// lodash
+import get from 'lodash/get'
 const _ = {
   get,
 }
 
-const borderBottomColor = '#dcdcdc'
+const borderBottomColor = colorGrayscale.gray300
 
 const Container = styled.div`
   display: block;
   width: 100%;
   ${mq.desktopAndAbove`
     height: 100%;
-    transform: translate3d(0, ${props => props.shiftY}, 0);
-    transition: all ${props => props.transitionDuration} ease-in-out;
+    transform: translate3d(0, ${props => props.$shiftY}, 0);
+    transition: all ${props => props.$transitionDuration} ease-in-out;
   `}
   ${mq.tabletAndBelow`
     display: none;
@@ -44,7 +49,7 @@ const PageItems = styled.ul`
     padding: 0 0 0 17px;
   `}
   a {
-    color: ${colors.black};
+    color: ${colorGrayscale.black};
   }
   ${mq.tabletOnly`
     li:last-child{
@@ -70,7 +75,7 @@ const AwardItem = styled.div`
 `
 
 const Ranking = styled.p`
-  color: ${colors.secondaryColor};
+  color: ${colorSupportive.heavy};
   text-align: left;
   font-size: 14px;
   font-weight: bold;
@@ -86,7 +91,7 @@ const MoreInfo = styled.div`
     margin-bottom: 15px;
     span:first-child {
       padding-bottom: 10px;
-      border-bottom: 0.5px solid ${colors.black};
+      border-bottom: 0.5px solid ${colorGrayscale.black};
     }
   }
   p:nth-child(2) {
@@ -152,8 +157,8 @@ export default class PaginatedList extends PureComponent {
     const { currentPage, paginatedAwardsList, transitionDuration } = this.props
     return (
       <Container
-        shiftY={() => this._getShiftY(currentPage)}
-        transitionDuration={transitionDuration}
+        $shiftY={() => this._getShiftY(currentPage)}
+        $transitionDuration={transitionDuration}
       >
         {paginatedAwardsList.map((list, listIndex) => {
           return (

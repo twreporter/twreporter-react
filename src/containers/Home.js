@@ -1,37 +1,58 @@
-import { AnchorWrapper as Section } from '@twreporter/react-components/lib/side-bar'
 import { connect } from 'react-redux'
 import CSSTransition from 'react-transition-group/CSSTransition'
-import Helmet from 'react-helmet'
-import IndexPageComposite from '@twreporter/index-page'
-import LoadingSpinner from '../components/Spinner'
+import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import React from 'react'
-import categoryConst from '../constants/category'
-import loggerFactory from '../logger'
-import mq from '../utils/media-query'
 import qs from 'qs'
-import sideBarFactory from '../components/side-bar/side-bar-factory'
-import siteMeta from '../constants/site-meta'
 import styled, { css } from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-
+import TagManager from 'react-gtm-module'
+import DOMPurify from 'isomorphic-dompurify'
+// constants
+import colors from '../constants/colors'
+import siteMeta from '../constants/site-meta'
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
-
+import mq from '../utils/media-query'
+import {
+  shallowCloneMetaOfPost,
+  shallowCloneMetaOfTopic,
+} from '../utils/shallow-clone-entity'
+// components
+import LoadingSpinner from '../components/Spinner'
+// factory
+import loggerFactory from '../logger'
+import sideBarFactory from '../components/side-bar/side-bar-factory'
+// @twreporter
+import { AnchorWrapper as Section } from '@twreporter/react-components/lib/side-bar'
+import IndexPageComposite from '@twreporter/index-page'
+import twreporterRedux from '@twreporter/redux'
+import {
+  CATEGORY_PATH,
+  CATEGORY_LABEL,
+} from '@twreporter/core/lib/constants/category-set'
+import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
+import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
-import TagManager from 'react-gtm-module'
+import forEach from 'lodash/forEach'
+const _ = {
+  get,
+  map,
+  merge,
+  forEach,
+}
 
 const {
   CategorySection,
   DonationBoxSection,
   EditorPicks,
   InforgraphicSection,
+  JuniorBoxSection,
   LatestSection,
   LatestTopicSection,
-  NewsLetterSection,
   PhotographySection,
   PodcastBoxSection,
   ReviewsSection,
@@ -40,12 +61,6 @@ const {
 const { fetchIndexPageContent, fetchFeatureTopic } = twreporterRedux.actions
 const fieldNames = twreporterRedux.reduxStateFields
 const logger = loggerFactory.getLogger()
-
-const _ = {
-  get,
-  map,
-  merge,
-}
 
 const reactTransitionCSS = css`
   .spinner-exit {
@@ -61,7 +76,7 @@ const LoadingCover = styled.div`
   position: fixed;
   height: 100vh;
   width: 100%;
-  z-index: 1999;
+  z-index: ${zIndexConst.loadingCover};
   background-color: white;
   div {
     position: absolute;
@@ -72,15 +87,15 @@ const LoadingCover = styled.div`
 `
 
 const moduleBackgounds = {
-  latest: '#f2f2f2',
-  editorPick: 'white',
-  latestTopic: '#f2f2f2',
-  review: 'white',
-  category: '#e2e2e2',
-  topic: '#f2f2f2',
-  photography: '#08192d',
-  infographic: '#f2f2f2',
-  footer: 'white',
+  latest: colorGrayscale.gray100,
+  editorPick: colorGrayscale.white,
+  latestTopic: colorGrayscale.gray100,
+  review: colorGrayscale.white,
+  category: colorGrayscale.gray200,
+  topic: colorGrayscale.gray100,
+  photography: colors.photographyColor,
+  infographic: colorGrayscale.gray100,
+  footer: colorGrayscale.white,
 }
 
 const Container = styled.div`
@@ -94,8 +109,10 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
-  background-color: ${props =>
-    props['backgroundColor'] ? props['backgroundColor'] : ''};
+  ${props =>
+    props.$backgroundColor
+      ? `background-color: ${props.$backgroundColor};`
+      : ''}
 `
 
 const webSiteJSONLD = {
@@ -125,47 +142,52 @@ const siteNavigationJSONLD = {
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/human_rights_and_society',
-      name: '人權．社會',
+      url: 'https://www.twreporter.org/categories/world',
+      name: '國際兩岸',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/environment_and_education',
-      name: '環境．教育',
+      url: 'https://www.twreporter.org/categories/humanrights',
+      name: '人權司法',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/politics_and_economy',
-      name: '政經．產業',
+      url: 'https://www.twreporter.org/categories/politics-and-society',
+      name: '政治社會',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/living_and_medical_care',
-      name: '生活．醫療',
+      url: 'https://www.twreporter.org/categories/health',
+      name: '醫療健康',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/culture_and_art',
-      name: '文化．藝術',
+      url: 'https://www.twreporter.org/categories/environment',
+      name: '環境永續',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/international',
-      name: '國際．兩岸',
+      url: 'https://www.twreporter.org/categories/econ',
+      name: '經濟產業',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/infographic',
-      name: '多媒體',
+      url: 'https://www.twreporter.org/categories/culture',
+      name: '文化生活',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/photography',
-      name: '影像',
+      url: 'https://www.twreporter.org/categories/education',
+      name: '教育校園',
     },
     {
       '@type': 'SiteNavigationElement',
-      url: 'https://www.twreporter.org/categories/reviews',
+      url: 'https://www.twreporter.org/categories/podcast',
+      name: 'Podcast',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      url: 'https://www.twreporter.org/categories/opinion',
       name: '評論',
     },
   ],
@@ -178,6 +200,7 @@ class Homepage extends React.PureComponent {
     isSpinnerDisplayed: PropTypes.bool,
     isContentReady: PropTypes.bool,
     categories: PropTypes.array,
+    releaseBranch: BRANCH_PROP_TYPES,
   }
 
   constructor(props) {
@@ -232,7 +255,7 @@ class Homepage extends React.PureComponent {
     })
   }
   render() {
-    const { isSpinnerDisplayed } = this.props
+    const { isSpinnerDisplayed, releaseBranch } = this.props
     const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
     const latestTopicJSX = latestTopicData ? (
       <Section anchorId="latestTopic" anchorLabel="最新專題" showAnchor>
@@ -255,6 +278,7 @@ class Homepage extends React.PureComponent {
           </LoadingCover>
         </CSSTransition>
         <Helmet
+          prioritizeSeoTags
           title={siteMeta.name.full}
           link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/' }]}
           meta={[
@@ -293,29 +317,29 @@ class Homepage extends React.PureComponent {
           <Section anchorId="review" anchorLabel="評論" showAnchor>
             <ReviewsSection
               data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${categoryConst.pathSegments.reviews}`}
+              moreURI={`categories/${CATEGORY_PATH.opinion}`}
             />
           </Section>
-          <Section anchorId="news-letter">
-            <NewsLetterSection />
+          <Section anchorId="junior">
+            <JuniorBoxSection releaseBranch={releaseBranch} />
           </Section>
           <Section anchorId="categories" anchorLabel="議題" showAnchor>
-            <Background backgroundColor={moduleBackgounds.category}>
+            <Background $backgroundColor={moduleBackgounds.category}>
               <CategorySection data={this.props.categories} />
             </Background>
           </Section>
           <Section anchorId="topic" anchorLabel="專題" showAnchor>
-            <Background backgroundColor={moduleBackgounds.topic}>
+            <Background $backgroundColor={moduleBackgounds.topic}>
               <TopicsSection
                 data={this.props[fieldNames.sections.topicsSection]}
               />
             </Background>
           </Section>
           <Section anchorId="podcast">
-            <PodcastBoxSection />
+            <PodcastBoxSection releaseBranch={releaseBranch} />
           </Section>
           <Section anchorId="photography" anchorLabel="攝影" showAnchor>
-            <Background backgroundColor={moduleBackgounds.photography}>
+            <Background $backgroundColor={moduleBackgounds.photography}>
               <PhotographySection
                 data={this.props[fieldNames.sections.photosSection]}
                 moreURI="photography"
@@ -323,22 +347,24 @@ class Homepage extends React.PureComponent {
             </Background>
           </Section>
           <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
-            <Background backgroundColor={moduleBackgounds.infographic}>
+            <Background $backgroundColor={moduleBackgounds.infographic}>
               <InforgraphicSection
                 data={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`categories/${categoryConst.pathSegments.infographic}`}
+                moreURI={`tag/${INFOGRAM_ID}`}
               />
             </Background>
           </Section>
         </SideBar>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJSONLD) }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(JSON.stringify(webSiteJSONLD)),
+          }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(siteNavigationJSONLD),
+            __html: DOMPurify.sanitize(JSON.stringify(siteNavigationJSONLD)),
           }}
         />
       </Container>
@@ -384,7 +410,7 @@ function cloneEntities(ids, entities, cloneFunc) {
  */
 function restoreSectionWithPosts(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfPost)
+  return cloneEntities(ids, entities, shallowCloneMetaOfPost)
 }
 
 /**
@@ -395,7 +421,7 @@ function restoreSectionWithPosts(indexPageState, section, entities) {
  */
 function restoreSectionWithTopics(indexPageState, section, entities) {
   const ids = _.get(indexPageState, section, [])
-  return cloneEntities(ids, entities, cloneUtils.shallowCloneMetaOfTopic)
+  return cloneEntities(ids, entities, shallowCloneMetaOfTopic)
 }
 
 /**
@@ -465,21 +491,18 @@ function restoreSections(indexPageState, postEntities, topicEntities) {
 function restoreCategories(indexPageState, entities) {
   let rtn = []
   const categories = fieldNames.categories
-  for (const key in categories) {
-    const ids = _.get(indexPageState, categories[key], [])
-    const clonedPosts = cloneEntities(
-      ids,
-      entities,
-      cloneUtils.shallowCloneMetaOfPost
-    )
+  _.forEach(categories, categoryKey => {
+    const label = CATEGORY_LABEL[categoryKey]
+    const ids = _.get(indexPageState, categoryKey, [])
+    const clonedPosts = cloneEntities(ids, entities, shallowCloneMetaOfPost)
     rtn = rtn.concat(
       _.map(clonedPosts, post => {
-        post['listName'] = categoryConst.labels[categories[key]]
-        post['moreURI'] = `categories/${categories[key]}`
+        post['listName'] = label
+        post['moreURI'] = `categories/${categoryKey}`
         return post
       })
     )
-  }
+  })
   return rtn
 }
 
@@ -513,9 +536,9 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   const relatedPosts = cloneEntities(
     lastThreeRelatedPostIds,
     postEntities,
-    cloneUtils.shallowCloneMetaOfPost
+    shallowCloneMetaOfPost
   )
-  const clonedTopic = cloneUtils.shallowCloneMetaOfTopic(topicEntities[topicId])
+  const clonedTopic = shallowCloneMetaOfTopic(topicEntities[topicId])
   clonedTopic['relateds'] = relatedPosts
 
   return clonedTopic

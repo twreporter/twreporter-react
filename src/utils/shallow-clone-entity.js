@@ -34,9 +34,9 @@ function cloneWithFields(fields, entity) {
  *  @param {Object} post
  *  @return {MetaOfPost}
  */
-function shallowCloneMetaOfPost(post) {
+export function shallowCloneMetaOfPost(post) {
   const fields = [
-    'categories',
+    'category_set',
     'full',
     'hero_image',
     'id',
@@ -50,6 +50,7 @@ function shallowCloneMetaOfPost(post) {
     'subtitle',
     'tags',
     'title',
+    'bookmarkId',
   ]
 
   return cloneWithFields(fields, post)
@@ -60,7 +61,7 @@ function shallowCloneMetaOfPost(post) {
  *  @param {Object} post
  *  @return {FullPost}
  */
-function shallowCloneFullPost(post) {
+export function shallowCloneFullPost(post) {
   const fields = [
     'designers',
     'engineers',
@@ -76,6 +77,7 @@ function shallowCloneFullPost(post) {
     'leading_image_description',
     'og_title',
     'updated_at',
+    'followups',
   ]
 
   const metaPost = shallowCloneMetaOfPost(post)
@@ -97,7 +99,7 @@ function shallowCloneFullPost(post) {
  *  @param {Object} topic
  *  @return {MetaOfTopic}
  */
-function shallowCloneMetaOfTopic(topic) {
+export function shallowCloneMetaOfTopic(topic) {
   const fields = [
     'full',
     'id',
@@ -120,7 +122,7 @@ function shallowCloneMetaOfTopic(topic) {
  *  @param {Object} topic
  *  @return {FullTopic}
  */
-function shallowCloneFullTopic(topic) {
+export function shallowCloneFullTopic(topic) {
   const fields = [
     'relateds_format',
     'relateds_background',

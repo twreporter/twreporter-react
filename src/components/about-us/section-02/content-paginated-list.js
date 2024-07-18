@@ -1,26 +1,29 @@
-import Arrows from './arrows'
-import DepartmentsNameList from './departments-name-list'
-import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import categoriesAll from '../constants/section-02/categories'
-import categoryIds from '../constants/section-02/category-ids'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import Navigation from '../utils/navigation'
 import mq from '../utils/media-query'
 import screen from '../utils/screen'
-import styled from 'styled-components'
 import { gray } from './utils'
-import { headcountPerPage } from '../constants/section-02/headcount-per-page'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
+// constants
+import categoriesAll from '../constants/section-02/categories'
+import { headcountPerPage } from '../constants/section-02/headcount-per-page'
+// components
+import Arrows from './arrows'
+import DepartmentsNameList from './departments-name-list'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import values from 'lodash/values'
-
-const profileUrlPrefix = `${storageUrlPrefix}/member/`
-
 const _ = {
   values,
 }
+
+const profileUrlPrefix = `${storageUrlPrefix}/member/`
+const categoryIds = categoriesAll.map(({ id }) => id)
 
 const Container = styled.div`
   position: relative;
@@ -38,7 +41,7 @@ const MemberBlockList = styled.div`
   height: 465px;
   padding: 0 13px 0 13px;
   margin-top: 20px;
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
 `
 
 const MemberBlock = styled.div`
@@ -72,7 +75,7 @@ const ProfileWrapper = styled.div`
   height: 100%;
   padding-left: 3.9%;
   img {
-    visibility: ${props => (props.isMailIconVisible ? 'visible' : 'hidden')};
+    visibility: ${props => (props.$isMailIconVisible ? 'visible' : 'hidden')};
     width: 16.9%;
     position: absolute;
     right: 0;
@@ -202,32 +205,34 @@ export default class PaginatedMemberList extends PureComponent {
     const cursor =
       (currentPagesArray[selectedDepartmentIndex] + 1) * numberPerPage
     const selectedMemberList = groupedMembers[selectedCategoryId]
-    const memberBlocks = selectedMemberList ? selectedMemberList
-      .slice(cursor - numberPerPage, cursor)
-      .map(member => {
-        return (
-          <MemberBlock key={member['name.zh-tw']}>
-            <MemberBorder>
-              <span />
-              <img
-                src={`${replaceGCSUrlOrigin(
-                  `${profileUrlPrefix}${member.profile}`
-                )}`}
-              />
-              <ProfileWrapper isMailIconVisible={Boolean(member.email)}>
-                <Profile>
-                  <p>{member['job.zh-tw']}</p>
-                  <p>{member['name.zh-tw']}</p>
-                </Profile>
+    const memberBlocks = selectedMemberList
+      ? selectedMemberList.slice(cursor - numberPerPage, cursor).map(member => {
+          return (
+            <MemberBlock key={member['name.zh-tw']}>
+              <MemberBorder>
+                <span />
                 <img
-                  onClick={() => this.props.sendEmail(member.email)}
-                  src={`${replaceGCSUrlOrigin(`${storageUrlPrefix}/mail.png`)}`}
+                  src={`${replaceGCSUrlOrigin(
+                    `${profileUrlPrefix}${member.profile}`
+                  )}`}
                 />
-              </ProfileWrapper>
-            </MemberBorder>
-          </MemberBlock>
-        )
-      }) : ''
+                <ProfileWrapper $isMailIconVisible={Boolean(member.email)}>
+                  <Profile>
+                    <p>{member['job.zh-tw']}</p>
+                    <p>{member['name.zh-tw']}</p>
+                  </Profile>
+                  <img
+                    onClick={() => this.props.sendEmail(member.email)}
+                    src={`${replaceGCSUrlOrigin(
+                      `${storageUrlPrefix}/mail.png`
+                    )}`}
+                  />
+                </ProfileWrapper>
+              </MemberBorder>
+            </MemberBlock>
+          )
+        })
+      : ''
     return (
       <Container>
         <DepartmentsNameList

@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import mq from '../../../utils/media-query'
 import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
+// utils
+import mq from '../../../utils/media-query'
+// @twreporter
 import { fontWeight, fontFamily } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 
 const fadeInSlideDown = keyframes`
   from {
@@ -23,13 +29,13 @@ const ItemLink = styled(Link)`
   animation: ${fadeInSlideDown} 300ms ease-in-out;
   display: ${props => (props.hide ? 'none' : 'block')};
   position: relative;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px 0 ${colorOpacity['black_0.1']};
   ${mq.mobileOnly`
     width: 100%;
     margin: 10px 0;
     min-height: 110px;
     padding: 11px 36px 12px 18px;
-    background: #ffffff;
+    background: ${colorGrayscale.white};
   `}
 `
 
@@ -44,7 +50,7 @@ const ItemImageSizing = styled.div`
 `
 
 const ItemMeta = styled.div`
-  background: #ffffff;
+  background: ${colorGrayscale.white};
   ${mq.mobileOnly`
     position: relative;
     left: 110px;
@@ -54,7 +60,7 @@ const ItemMeta = styled.div`
 const ItemTitle = styled.h3`
   font-family: ${fontFamily.title};
   font-size: 20px;
-  color: #262626;
+  color: ${colorGrayscale.gray900};
   letter-spacing: 0.3px;
   font-weight: ${fontWeight.bold};
   margin: 0;
@@ -92,17 +98,17 @@ const ShowAllButton = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #262626;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  background-color: ${colorGrayscale.gray900};
+  box-shadow: 0 2px 5px 0 ${colorOpacity['black_0.1']};
   transition-property: transform, box-shadow;
   transition-timing-function: ease;
   transition-duration: 0.2s;
   &:hover {
-    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 5px 15px 0 ${colorOpacity['black_0.2']};
     transform: translateY(-5px);
   }
   & > div {
-    color: #fff;
+    color: ${colorGrayscale.white};
     font-size: 17px;
     font-weight: ${fontWeight.bold};
     letter-spacing: 1px;
@@ -115,7 +121,7 @@ const ShowAllButton = styled.div`
 `
 
 const Background = styled.div`
-  background: ${props => props.background || '#d8d8d8'};
+  background: ${props => props.$background || colorGrayscale.gray300};
   ${mq.mobileOnly`
     padding: 30px 0 40px 0;
   `}

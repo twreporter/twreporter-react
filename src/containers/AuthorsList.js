@@ -1,20 +1,27 @@
 import { connect } from 'react-redux'
 import { Waypoint } from 'react-waypoint'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { Helmet } from 'react-helmet-async'
+import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+import loggerFactory from '../logger'
+// components
 import Authors from '../components/authors/authors'
 import AuthorSearchBox from '../components/authors/author-search-box'
-import Helmet from 'react-helmet'
 import LoadingSpinner from '../components/Spinner'
-import loggerFactory from '../logger'
-import mq from '../utils/media-query'
-import PropTypes from 'prop-types'
-import React from 'react'
 import Sponsor from '../components/Sponsor'
+// constants
 import siteMeta from '../constants/site-meta'
-import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
 // @twreporter
+import twreporterRedux from '@twreporter/redux'
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { fontWeight } from '@twreporter/core/lib/constants/font'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -41,14 +48,14 @@ const responsePageStartFrom = 0
 
 const ErrorMessage = styled.div`
   font-size: 18px;
-  color: #808080;
+  color: ${colorGrayscale.gray600};
   padding: 0 15px 0 15px;
   margin: 40px auto 70px auto;
   text-align: center;
 `
 
 const LoadMoreButton = styled.div`
-  color: #c71b0a;
+  color: ${colorBrand.heavy};
   cursor: pointer;
   font-size: 16px;
   font-weight: ${fontWeight.bold};
@@ -197,8 +204,9 @@ class AuthorsList extends React.Component {
     const fullTitle = '作者列表' + siteMeta.name.separator + siteMeta.name.full
     const canonical = `${siteMeta.urlOrigin}/authors`
     return (
-      <React.Fragment>
+      <Fragment>
         <Helmet
+          prioritizeSeoTags
           title={fullTitle}
           link={[{ rel: 'canonical', href: canonical }]}
           meta={[
@@ -228,7 +236,7 @@ class AuthorsList extends React.Component {
           alt="載入更多作者"
         />
         <Sponsor />
-      </React.Fragment>
+      </Fragment>
     )
   }
 }

@@ -1,16 +1,19 @@
-import Navigation from '../utils/navigation'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import colors from '../../../constants/colors'
-import get from 'lodash/get'
-import mq from '../utils/media-query'
 import styled from 'styled-components'
-import { font } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+// utils
+import Navigation from '../utils/navigation'
+import mq from '../utils/media-query'
 import { storageUrlPrefix } from '../utils/config'
-
+// constants
+import { font } from '../constants/styles'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// lodash
+import get from 'lodash/get'
 const _ = {
-  get
+  get,
 }
 
 const logoBlockWidthOnDesktop = '39%'
@@ -18,8 +21,7 @@ const logoBlockWidthOnDesktop = '39%'
 const Container = styled.div`
   ${mq.desktopAndAbove`
     position: relative;
-    display: ${props =>
-      props.selectedRow === props.rowNumber ? 'inline-block' : 'none'};
+    display: inline-block;
     width: 100%;
     margin-bottom: 10px;
     h2{
@@ -60,7 +62,7 @@ const RightArrow = styled.div`
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  display: ${props => (props.hasNext === 'true' ? 'block' : 'none')};
+  display: ${props => (props.$hasNext === 'true' ? 'block' : 'none')};
   ${mq.tabletAndBelow`
     transform: translateX(100%) translateY(-50%);
   `}
@@ -75,7 +77,7 @@ const RightArrow = styled.div`
 `
 
 const Info = styled.div`
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
   h4 {
     font-family: ${font.family.english.roboto}, ${
   font.family.sansSerifFallback
@@ -147,7 +149,7 @@ const CloseBtn = styled.div`
     top: 50%;
     left: 0;
     margin-top: -1px;
-    background: #000;
+    background: ${colorGrayscale.black};
   }
   &:before {
     transform: rotate(45deg);
@@ -165,7 +167,11 @@ export default class InfoBox extends PureComponent {
     let selectedItem = selectedContent[page]
     return (
       <Container>
-        <img src={replaceGCSUrlOrigin(storageUrlPrefix + '/' + _.get(selectedItem, 'photo'))} />
+        <img
+          src={replaceGCSUrlOrigin(
+            storageUrlPrefix + '/' + _.get(selectedItem, 'photo')
+          )}
+        />
         <Info>
           <NavigationWrapper>
             <Navigation
@@ -178,7 +184,10 @@ export default class InfoBox extends PureComponent {
           </NavigationWrapper>
           <h4>{_.get(selectedItem, 'date')}</h4>
           <p>{_.get(selectedItem, 'description.zh-tw')}</p>
-          <RightArrow onClick={nextPage} hasNext={(selectedContent.length > 1).toString()}>
+          <RightArrow
+            onClick={nextPage}
+            $hasNext={(selectedContent.length > 1).toString()}
+          >
             <ArrowNextIcon>
               <img
                 src={`${replaceGCSUrlOrigin(

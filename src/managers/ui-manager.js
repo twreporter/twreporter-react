@@ -1,8 +1,13 @@
-import get from 'lodash/get'
 import pathToRegexp from 'path-to-regexp'
+// constants
 import routesConst from '../constants/routes'
 import uiConst from '../constants/ui'
+import colors from '../constants/colors'
+// @twreporter
 import twreporterRedux from '@twreporter/redux'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// lodash
+import get from 'lodash/get'
 
 const _ = {
   get,
@@ -26,17 +31,10 @@ const styleConst = {
   },
 }
 
-const colors = {
-  culturePink: '#fadaf5',
-  darkBlue: '#08192d',
-  darkEarth: '#2c2c2c',
-  lightGray: '#f1f1f1',
-}
-
 const defaultLayoutObj = {
   headerType: uiConst.header.default,
   footerType: uiConst.footer.default,
-  backgroundColor: colors.lightGray,
+  backgroundColor: colorGrayscale.gray100,
 }
 
 /**
@@ -81,7 +79,7 @@ const _pathnameToLayoutArr = [
       return {
         headerType: uiConst.header.photo,
         footerType: uiConst.footer.default,
-        backgroundColor: colors.darkBlue,
+        backgroundColor: colors.photographyColor,
       }
     },
   },
@@ -91,7 +89,7 @@ const _pathnameToLayoutArr = [
       return {
         headerType: uiConst.header.transparent,
         footerType: uiConst.footer.default,
-        backgroundColor: colors.lightGray,
+        backgroundColor: colorGrayscale.gray100,
       }
     },
   },
@@ -101,7 +99,7 @@ const _pathnameToLayoutArr = [
       return {
         headerType: uiConst.header.none,
         footerType: uiConst.footer.none,
-        backgroundColor: colors.lightGray,
+        backgroundColor: colorGrayscale.gray100,
       }
     },
   },
@@ -133,13 +131,13 @@ const _pathnameToLayoutArr = [
             return {
               headerType: uiConst.header.transparent,
               footerType: uiConst.footer.default,
-              backgroundColor: colors.darkBlue,
+              backgroundColor: colors.photographyColor,
             }
           }
           return {
             headerType: uiConst.header.photo,
             footerType: uiConst.footer.default,
-            backgroundColor: colors.darkBlue,
+            backgroundColor: colors.photographyColor,
           }
         }
         case styleConst.v2.default:
@@ -148,7 +146,7 @@ const _pathnameToLayoutArr = [
             return {
               headerType: uiConst.header.transparent,
               footerType: uiConst.footer.default,
-              backgroundColor: colors.lightGray,
+              backgroundColor: colorGrayscale.gray100,
             }
           }
           return defaultLayoutObj

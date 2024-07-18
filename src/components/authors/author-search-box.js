@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled, { keyframes } from 'styled-components'
+// utils
+import mq from '../../utils/media-query'
+// components
 import PoweredByAlgolia from './algolia'
+// assets
 import ResetIcon from '../../../static/asset/reset.svg'
 import SearchIcon from '../../../static/asset/search.svg'
-import styled, { keyframes } from 'styled-components'
-import mq from '../../utils/media-query'
+// @twreporter
 import { fontWeight } from '@twreporter/core/lib/constants/font'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 
@@ -47,28 +52,28 @@ const Input = styled.input`
   font-size: 15px;
   letter-spacing: 0.4px;
   font-weight: ${fontWeight.normal};
-  border: 1px solid #cbcbcb;
+  border: 1px solid ${colorGrayscale.gray400};
   border-radius: 15px;
-  color: #404040;
-  background: #f9f9f9;
+  color: ${colorGrayscale.gray800};
+  background: ${colorGrayscale.gray100};
   padding: 0 48px 0 20px;
   width: 100%;
   height: 100%;
   appearance: none; /* remove platform specific styling of search input */
   &:focus {
     outline: 0;
-    background: #ffffff;
+    background: ${colorGrayscale.white};
   }
   &:active {
     outline: 0;
   }
   &::placeholder {
-    color: #a4a4a4;
+    color: ${colorGrayscale.gray300};
   }
 `
 
 const ResetBtn = styled.button`
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${props => (props.$show ? 'block' : 'none')};
   position: absolute;
   top: 1px;
   right: 30px;
@@ -186,7 +191,7 @@ class AuthorSearchBox extends React.Component {
             type="reset"
             title="Clear the search query"
             onClick={this.handleReset}
-            show={Boolean(keywords)}
+            $show={Boolean(keywords)}
           >
             <ResetIcon />
           </ResetBtn>

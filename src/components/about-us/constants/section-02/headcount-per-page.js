@@ -8,6 +8,12 @@ export const headcountPerPage = {
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
+  [categoryIds.leaderTeam]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
   [categoryIds.editor]: {
     [screen.hd]: 3,
     [screen.desktop]: 3,
@@ -45,14 +51,32 @@ export const headcountPerPage = {
     [screen.mobile]: 4,
   },
   [categoryIds.podcast]: {
-    [screen.hd]: 1,
-    [screen.desktop]: 1,
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
-  [categoryIds.productManager]: {
-    [screen.hd]: 1,
-    [screen.desktop]: 1,
+  [categoryIds.theReporterForKids]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
+  [categoryIds.dataJournalist]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
+  [categoryIds.administration]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
+    [screen.tablet]: 3,
+    [screen.mobile]: 4,
+  },
+  [categoryIds.video]: {
+    [screen.hd]: 3,
+    [screen.desktop]: 3,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },

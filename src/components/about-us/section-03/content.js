@@ -1,12 +1,15 @@
-import colors from '../../../constants/colors'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
-import AccordionList from './content-accordion-list'
-import PaginatedList from './content-paginated-list'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+import { storageUrlPrefix } from '../utils/config'
+// components
+import AccordionList from './content-accordion-list'
+import PaginatedList from './content-paginated-list'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const awardsNumberInSinglePage = 3
 const transitionDuration = '.3s'
@@ -25,7 +28,7 @@ const Arrow = styled.div`
 
 const TopArrow = styled(Arrow)`
   top: 0;
-  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$visible ? 'visible' : 'hidden')};
   img {
     transform-origin: 50% 50%;
     transform: translateY(75px) translateX(-50%) rotate(-90deg);
@@ -34,7 +37,7 @@ const TopArrow = styled(Arrow)`
 
 const BottomArrow = styled(Arrow)`
   bottom: 0;
-  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  visibility: ${props => (props.$visible ? 'visible' : 'hidden')};
   img {
     transform-origin: 50% 50%;
     transform: translateY(40px) scaleY(-1) translateX(-50%) rotate(-90deg);
@@ -65,7 +68,7 @@ const Container = styled.div`
     width: 432px;
   `}
   ${mq.desktopAndAbove`
-    background: ${colors.gray.gray96};
+    background: ${colorGrayscale.gray100};
   `}
   ${mq.tabletOnly`
     margin-top: 60.1px;
@@ -78,11 +81,11 @@ const Container = styled.div`
 const SemiTransparentMask = styled.div`
   position: absolute;
   left: 0;
-  ${props => (props.position === 'top' ? 'top: 0' : 'bottom: 0')};
+  ${props => (props.$position === 'top' ? 'top: 0' : 'bottom: 0')};
   width: 100%;
   height: 20px;
   background: ${props =>
-    `linear-gradient(to ${props.position}, rgba(255,255,255,0), ${colors.white})`};
+    `linear-gradient(to ${props.$position}, ${colorGrayscale.white}, ${colorGrayscale.white})`};
   ${mq.tabletAndBelow`
     display: none;
   `}
@@ -146,42 +149,50 @@ export default class Content extends PureComponent {
   }
   render() {
     const { page } = this.state
-    const { selectedRecords, fullRecords, awardsName, awardYears, activeAward, activeYearIndex } = this.props
+    const {
+      selectedRecords,
+      fullRecords,
+      awardsName,
+      awardYears,
+      activeAward,
+      activeYearIndex,
+    } = this.props
     let pagesLength = 0
     let paginatedAwardsList = []
     if (selectedRecords.length > 0) {
       pagesLength = Math.ceil(selectedRecords.length / awardsNumberInSinglePage)
       for (let i = 0; i < pagesLength; i++) {
         let cursor = (i + 1) * awardsNumberInSinglePage
-        paginatedAwardsList.push(selectedRecords.slice(cursor - awardsNumberInSinglePage, cursor))
+        paginatedAwardsList.push(
+          selectedRecords.slice(cursor - awardsNumberInSinglePage, cursor)
+        )
       }
     }
 
     return (
       <Container>
         <PageWrapper>
-          { 
-            paginatedAwardsList.length > 0 ?
-              <PaginatedList
-                currentPage={page}
-                paginatedAwardsList={paginatedAwardsList}
-                transitionDuration={transitionDuration}
-                backToTop={this._backToTop}
-                activeAward={activeAward}
-                activeYearIndex={activeYearIndex}
-              /> : null
-          }
+          {paginatedAwardsList.length > 0 ? (
+            <PaginatedList
+              currentPage={page}
+              paginatedAwardsList={paginatedAwardsList}
+              transitionDuration={transitionDuration}
+              backToTop={this._backToTop}
+              activeAward={activeAward}
+              activeYearIndex={activeYearIndex}
+            />
+          ) : null}
           <AccordionList
             awardsName={awardsName}
             fullRecords={fullRecords}
             awardYears={awardYears}
             transitionDuration={transitionDuration}
           />
-          <SemiTransparentMask position={'bottom'} />
+          <SemiTransparentMask $position={'bottom'} />
         </PageWrapper>
         <Arrows>
           <TopArrow
-            visible={pagesLength > 1}
+            $visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('prev', pagesLength)}
           >
             <ArrowNextIcon>
@@ -193,7 +204,7 @@ export default class Content extends PureComponent {
             </ArrowNextIcon>
           </TopArrow>
           <BottomArrow
-            visible={pagesLength > 1}
+            $visible={pagesLength > 1}
             onClick={() => this._gotoNextPage('next', pagesLength)}
           >
             <ArrowNextIcon>
@@ -217,7 +228,7 @@ Content.defaultProps = {
   awardsName: [],
   awardYears: {},
   activeAward: '',
-  activeYearIndex:0 
+  activeYearIndex: 0,
 }
 
 Content.propTypes = {
@@ -226,5 +237,5 @@ Content.propTypes = {
   awardsName: PropTypes.array,
   awardYears: PropTypes.object,
   activeAward: PropTypes.string,
-  activeYearIndex: PropTypes.number
+  activeYearIndex: PropTypes.number,
 }

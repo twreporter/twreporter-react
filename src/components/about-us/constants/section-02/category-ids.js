@@ -1,5 +1,6 @@
 const categoryIds = {
   foundation: 'foundation',
+  leaderTeam: 'leaderTeam',
   editor: 'editor',
   socialMedia: 'socialMedia',
   photojournalist: 'photojournalist',
@@ -7,7 +8,10 @@ const categoryIds = {
   engineer: 'engineer',
   designer: 'designer',
   podcast: 'podcast',
-  productManager: 'productManager',
+  theReporterForKids: 'theReporterForKids',
+  dataJournalist: 'dataJournalist',
+  administration: 'administration',
+  video: 'video',
 }
 
 export default categoryIds

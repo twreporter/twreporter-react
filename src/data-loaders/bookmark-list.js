@@ -9,7 +9,6 @@ const _ = {
 const reduxStatePropKey = twreporterRedux.reduxStateFields
 
 const defaultLimit = 5
-const defaultSort = 'created_at'
 
 /**
  *  loadData function is used for server side rendering.
@@ -24,13 +23,7 @@ export default function loadData({ store }) {
   if (isAuthed) {
     const jwt = _.get(state, [reduxStatePropKey.auth, 'accessToken'])
     const userID = _.get(state, [reduxStatePropKey.auth, 'userInfo', 'user_id'])
-    return store.actions.getMultipleBookmarks(
-      jwt,
-      userID,
-      0,
-      defaultLimit,
-      defaultSort
-    )
+    return store.actions.getMultipleBookmarks(jwt, userID, 0, defaultLimit)
   }
   return Promise.resolve()
 }

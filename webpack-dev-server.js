@@ -9,18 +9,16 @@ const options = {
   host: webpackConfig.devServer.host,
   port: webpackConfig.devServer.port,
   hot: true,
-  inline: true,
-  lazy: false,
-  noInfo: false,
-  publicPath: webpackConfig.output.publicPath,
-  quiet: false,
-  stats: { colors: true },
+  devMiddleware: {
+    publicPath: webpackConfig.output.publicPath,
+    stats: { colors: true },
+  },
 }
 
-WebpackDevServer.addDevServerEntrypoints(webpackConfig, options)
 const compiler = webpack(webpackConfig)
-const server = new WebpackDevServer(compiler, options)
+const server = new WebpackDevServer(options, compiler)
 
-server.listen(webpackConfig.devServer.port, 'localhost', () => {
+;(async () => {
+  await server.start()
   console.log('dev server listening on port ', webpackConfig.devServer.port)
-})
+})()

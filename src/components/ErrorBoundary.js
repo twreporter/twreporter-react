@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import loggerFactory from '../logger'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const logger = loggerFactory.getLogger()
 
@@ -21,6 +22,13 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
+    // eslint-disable-next-line no-undef
+    if (error instanceof DOMException) {
+      // todo: remove it after resolving react hydrateRoot issue #418 & #423
+      //   react-transition-group might throw domException on ssr
+      //   catch it with error report only
+      this.hide()
+    }
     logger.errorReport({
       message: 'An error was catched in React ErrorBoundary.',
       report: error,
@@ -39,7 +47,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError && !this.state.hideInstruction) {
       return (
-        <div style={{ background: '#F1F1F1' }}>
+        <div style={{ background: colorGrayscale.gray100 }}>
           {this.props.children}
           <section
             style={{
@@ -48,12 +56,12 @@ class ErrorBoundary extends React.Component {
               maxWidth: '1024px',
               padding: '12px 26px',
               margin: '0',
-              border: '1px solid black',
+              border: `1px solid ${colorGrayscale.black}`,
               position: 'fixed',
               bottom: '10px',
               left: '5%',
               zIndex: '9999',
-              boxShadow: '2px 4px 5px black',
+              boxShadow: `2px 4px 5px ${colorGrayscale.black}`,
             }}
           >
             <strong style={{ fontSize: '1.2em' }}>

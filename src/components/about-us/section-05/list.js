@@ -3,16 +3,19 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import VelocityComponent from 'velocity-react/velocity-component'
-import colors from '../../../constants/colors'
+import styled from 'styled-components'
+// utils
+import mq from '../utils/media-query'
+// constants
+import { font } from '../constants/styles'
+import { months } from '../constants/section-05/months'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+// lodash
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 import keys from 'lodash/keys'
-import mq from '../utils/media-query'
-import styled from 'styled-components'
 import orderBy from 'lodash/orderBy'
-import { font } from '../constants/styles'
-import { months } from '../constants/section-05/months'
-
 const _ = {
   get,
   groupBy,
@@ -21,7 +24,7 @@ const _ = {
 }
 
 const defaultZIndex = 0
-const dateBorderColor = '#d3d3d3'
+const dateBorderColor = colorGrayscale.gray300
 const transitionDuration = 300
 
 const OnlyDisplayOnMobile = styled.div`
@@ -106,8 +109,9 @@ const YearLabel = styled.div`
   width: 100%;
   height: 76px;
   background: ${props =>
-    props.unfold ? `${colors.black}` : `${colors.gray.gray96}`};
-  color: ${props => (props.unfold ? `${colors.white}` : `${colors.black}`)};
+    props.$unfold ? `${colorGrayscale.black}` : `${colorGrayscale.gray100}`};
+  color: ${props =>
+    props.$unfold ? `${colorGrayscale.white}` : `${colorGrayscale.black}`};
   transition: ease ${transitionDuration}ms height;
   p {
     display: table-cell;
@@ -132,7 +136,7 @@ const Accomplishments = styled.div`
 
 const MonthLabel = styled.div`
   display: block;
-  background: ${colors.white};
+  background: ${colorGrayscale.white};
   width: 54px;
   height: 23px;
   text-align: center;
@@ -147,36 +151,36 @@ const MonthLabel = styled.div`
     }
   `}
   ${mq.tabletAndAbove`
-    display: ${props => (props.monthOrder === 0 ? 'block' : 'none')};
+    display: ${props => (props.$monthOrder === 0 ? 'block' : 'none')};
   `}
 `
 
 const MonthlyAccomplishments = styled.div`
   margin-bottom: 2px;
-  background: ${colors.gray.gray96};
+  background: ${colorGrayscale.gray100};
   min-height: 76px;
 `
 
 const Accomplishment = styled.div`
   width: 100%;
   margin: 0;
-  color: ${colors.black};
+  color: ${colorGrayscale.black};
   ${mq.mobileOnly`
     position: relative;
-    border-bottom: solid 1px ${colors.white};
-    background: ${colors.gray.gray96};
+    border-bottom: solid 1px ${colorGrayscale.white};
+    background: ${colorGrayscale.gray100};
     &:nth-child(odd) {
       &:before {
         content: '';
-        background-image: linear-gradient(to top, ${colors.gray.gray64}, ${
-    colors.gray.gray96
+        background-image: linear-gradient(to top, ${colorGrayscale.gray300}, ${
+    colorGrayscale.gray100
   } 80%);
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => (props.unfold ? '0' : '1')};
+        opacity: ${props => (props.$unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
         transition: opacity ${transitionDuration}ms ease-in-out;
       }
@@ -184,15 +188,15 @@ const Accomplishment = styled.div`
     &:nth-child(even) {
       &:before {
         content: '';
-        background-image: linear-gradient(to bottom, ${colors.gray.gray64}, ${
-    colors.gray.gray96
-  } 80%);
+        background-image: linear-gradient(to bottom, ${
+          colorGrayscale.gray300
+        }, ${colorGrayscale.gray100} 80%);
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: ${props => (props.unfold ? '0' : '1')};
+        opacity: ${props => (props.$unfold ? '0' : '1')};
         z-index: calc(${defaultZIndex} - 1);
         transition: opacity ${transitionDuration}ms ease-in-out;
       }
@@ -204,7 +208,7 @@ const MockAccomplishment = styled.div`
   width: 100%;
   transform-origin: 50% 100% 0;
   position: relative;
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${props => (props.$show ? 'block' : 'none')};
 `
 
 export default class List extends PureComponent {
@@ -303,7 +307,7 @@ export default class List extends PureComponent {
             const animationProps = this._foldAnimation(isUnfold, index)
             return (
               <VelocityComponent key={index} {...animationProps}>
-                <Accomplishment unfold={isUnfold}>
+                <Accomplishment $unfold={isUnfold}>
                   <MonthLabel>
                     <p>{months[record.month - 1]}</p>
                   </MonthLabel>
@@ -318,7 +322,7 @@ export default class List extends PureComponent {
             )
           })}
           <VelocityComponent {...this._foldAnimation(isUnfold, 1, true)}>
-            <MockAccomplishment show={isOdd} />
+            <MockAccomplishment $show={isOdd} />
           </VelocityComponent>
         </React.Fragment>
       )
@@ -374,7 +378,7 @@ export default class List extends PureComponent {
             {records.map((record, index) => {
               return (
                 <Accomplishment key={`${month}-${index}`}>
-                  <MonthLabel monthOrder={index}>
+                  <MonthLabel $monthOrder={index}>
                     <p>{months[record.month - 1]}</p>
                   </MonthLabel>
                   <Record>
@@ -399,15 +403,14 @@ export default class List extends PureComponent {
           return (
             <Year
               key={index}
-              unfold={unfold}
               ref={yearContent => {
                 this.yearContent[index] = yearContent
               }}
             >
-              <YearLabel unfold={unfold} onClick={() => foldAndUnfold(index)}>
+              <YearLabel $unfold={unfold} onClick={() => foldAndUnfold(index)}>
                 <p>{year}</p>
               </YearLabel>
-              <Accomplishments unfold={unfold}>
+              <Accomplishments>
                 <OnlyDisplayOnMobile>
                   {annualAcomplishmentsOnMobile(annualRecords, unfold)}
                 </OnlyDisplayOnMobile>

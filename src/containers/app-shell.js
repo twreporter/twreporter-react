@@ -1,166 +1,152 @@
-import { connect } from 'react-redux'
-import ErrorBoundary from '../components/ErrorBoundary'
-import Footer from '@twreporter/react-components/lib/footer'
-import Header from '@twreporter/universal-header/lib/containers/header'
 import PropTypes from 'prop-types'
-import React from 'react'
-import WebPush from '../components/web-push'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
-import twreporterRedux from '@twreporter/redux'
-import uiConst from '../constants/ui'
+import { connect } from 'react-redux'
+// context
+import { CoreContext } from '../contexts'
+// managers
 import uiManager from '../managers/ui-manager'
-
+// constants
+import colors from '../constants/colors'
+import uiConst from '../constants/ui'
+// components
+import ErrorBoundary from '../components/ErrorBoundary'
+import NotifyAndPromo from '../components/notify-and-promo'
+import Webpush from '../components/web-push'
+// @twreporter
+import Footer from '@twreporter/react-components/lib/footer'
+import { Header } from '@twreporter/universal-header/lib/index'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import values from 'lodash/values'
-
 const _ = {
   get,
   values,
 }
 
-const { reduxStateFields } = twreporterRedux
-
 const AppBox = styled.div`
-  background-color: ${props => props.backgroundColor};
+  background-color: ${props => props.$backgroundColor};
 `
 
 const ContentBlock = styled.div`
   position: relative;
 `
 
-const TransparentHeader = styled.div`
-  position: fixed;
+const HeaderContainer = styled.div`
+  position: sticky;
   top: 0;
-  width: 100%;
-  z-index: 1000; // other component has z-index 999
+  z-index: ${zIndexConst.header};
 `
 
 // TODO add `pink` theme to universal-header
 const PinkBackgroundHeader = styled.div`
   position: relative;
-  background-color: #fabcf0;
+  background-color: ${colors.pink};
 `
 
-const renderFooter = (footerType, pathname = '', host = '', releaseBranch) => {
+const renderFooter = (footerType, releaseBranch) => {
   switch (footerType) {
     case uiConst.footer.none: {
       return null
     }
     case uiConst.footer.default:
     default: {
-      return (
-        <Footer host={host} pathname={pathname} releaseBranch={releaseBranch} />
-      )
+      return <Footer releaseBranch={releaseBranch} />
     }
   }
 }
 
-const renderHeader = (headerType, releaseBranch) => {
+const renderHeader = (
+  headerType,
+  releaseBranch,
+  pathname,
+  referrerPath,
+  hamburgerContext
+) => {
+  let headerTheme
   switch (headerType) {
-    case uiConst.header.none: {
+    case uiConst.header.none:
       return null
-    }
-    case uiConst.header.pink: {
-      return (
-        <PinkBackgroundHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </PinkBackgroundHeader>
-      )
-    }
-    case uiConst.header.photo: {
-      return (
-        <Header
-          theme="photography"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
-    case uiConst.header.transparent: {
-      return (
-        <TransparentHeader>
-          <Header
-            theme="transparent"
-            releaseBranch={releaseBranch}
-            isLinkExternal={false}
-          />
-        </TransparentHeader>
-      )
-    }
-    default: {
-      return (
-        <Header
-          theme="normal"
-          releaseBranch={releaseBranch}
-          isLinkExternal={false}
-        />
-      )
-    }
+    case uiConst.header.transparent:
+    case uiConst.header.pink:
+      headerTheme = 'transparent'
+      break
+    case uiConst.header.photo:
+      headerTheme = 'photography'
+      break
+    default:
+      headerTheme = 'normal'
+      break
   }
+
+  let headerElement = (
+    <Header
+      theme={headerTheme}
+      releaseBranch={releaseBranch}
+      isLinkExternal={false}
+      pathname={pathname}
+      referrerPath={referrerPath}
+      hamburgerContext={hamburgerContext}
+    />
+  )
+
+  if (headerType === uiConst.header.pink) {
+    headerElement = <PinkBackgroundHeader>{headerElement}</PinkBackgroundHeader>
+  }
+
+  return (
+    <HeaderContainer className="hidden-print">{headerElement}</HeaderContainer>
+  )
 }
 
-class AppShell extends React.PureComponent {
-  static propTypes = {
-    apiOrigin: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    footerType: PropTypes.oneOf(_.values(uiConst.footer)),
-    headerType: PropTypes.oneOf(_.values(uiConst.header)),
-    releaseBranch: PropTypes.string.isRequired,
-    userId: PropTypes.string,
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]),
-    pathname: PropTypes.string.isRequired,
-    host: PropTypes.string.isRequired,
-  }
+const AppShell = ({
+  headerType = uiConst.header.default,
+  footerType = uiConst.footer.default,
+  backgroundColor = colorGrayscale.gray100,
+  children,
+  pathname,
+}) => {
+  const { referrerPath, releaseBranch } = useContext(CoreContext)
+  const [showHamburger, setShowHamburger] = useState(false)
+  const hamburgerContext = { showHamburger, setShowHamburger }
 
-  static defaultProps = {
-    headerType: uiConst.header.default,
-    footerType: uiConst.footer.default,
-    backgroundColor: '#f1f1f1',
-  }
-
-  render() {
-    const {
-      apiOrigin,
-      headerType,
-      footerType,
-      backgroundColor,
-      releaseBranch,
-      children,
-      userId,
-      pathname,
-      host,
-    } = this.props
-
-    return (
-      <ErrorBoundary>
-        <AppBox backgroundColor={backgroundColor}>
-          <ContentBlock>
-            <WebPush apiOrigin={apiOrigin} userId={userId} />
-            {renderHeader(headerType, releaseBranch)}
-            {children}
-            {renderFooter(footerType, pathname, host, releaseBranch)}
-          </ContentBlock>
-        </AppBox>
-      </ErrorBoundary>
-    )
-  }
+  return (
+    <ErrorBoundary>
+      <AppBox $backgroundColor={backgroundColor}>
+        <ContentBlock>
+          {renderHeader(
+            headerType,
+            releaseBranch,
+            pathname,
+            referrerPath,
+            hamburgerContext
+          )}
+          {children}
+          {renderFooter(footerType, releaseBranch)}
+        </ContentBlock>
+      </AppBox>
+      <NotifyAndPromo pathname={pathname} showHamburger={showHamburger} />
+      <Webpush pathname={pathname} showHamburger={showHamburger} />
+    </ErrorBoundary>
+  )
+}
+AppShell.propTypes = {
+  backgroundColor: PropTypes.string,
+  footerType: PropTypes.oneOf(_.values(uiConst.footer)),
+  headerType: PropTypes.oneOf(_.values(uiConst.header)),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  pathname: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state, ownProps) {
   return Object.assign(
     {
-      apiOrigin: _.get(state, [reduxStateFields.origins, 'api'], ''),
-      userId: _.get(state, [reduxStateFields.auth, 'userInfo.id']),
       pathname: _.get(ownProps.location, 'pathname', ''),
-      host: _.get(ownProps.location, 'host', ''),
     },
     uiManager.getLayoutObj(state, ownProps.location)
   )

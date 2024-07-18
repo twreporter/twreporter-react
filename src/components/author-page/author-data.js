@@ -1,10 +1,14 @@
-import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Sizing from '../sizing'
 import styled from 'styled-components'
+import DOMPurify from 'isomorphic-dompurify'
+// utils
+import mq from '../../utils/media-query'
+// components
+import Sizing from '../sizing'
 // @twreporter
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const Container = styled.div`
   margin: 30px auto 50px auto;
@@ -52,7 +56,7 @@ const Content = styled.div`
 `
 
 const Name = styled.div`
-  color: #404040;
+  color: ${colorGrayscale.gray800};
   font-size: 20px;
   font-weight: 700;
   ${mq.mobileOnly`
@@ -64,7 +68,7 @@ const Name = styled.div`
 `
 
 const Mail = styled.div`
-  color: #404040;
+  color: ${colorGrayscale.gray800};
   font-size: 15px;
   ${mq.tabletAndAbove`
     word-break: break-all;
@@ -72,7 +76,7 @@ const Mail = styled.div`
 `
 
 const Bio = styled.div`
-  color: #262626;
+  color: ${colorGrayscale.gray900};
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
@@ -85,7 +89,7 @@ const AuthorData = props => {
   const { image, name, title, mail, bio } = props.authorData
   const displayedTitle = title ? `（${title}）` : ''
   return (
-    <Sizing size="small">
+    <Sizing $size="small">
       <Container>
         <ImageContainer>
           <Image
@@ -98,7 +102,11 @@ const AuthorData = props => {
         <Content>
           <Name>{name + displayedTitle}</Name>
           {!mail ? null : <Mail>{mail}</Mail>}
-          <Bio>{bio}</Bio>
+          {!bio ? null : (
+            <Bio
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(bio) }}
+            />
+          )}
         </Content>
       </Container>
     </Sizing>

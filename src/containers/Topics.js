@@ -1,16 +1,22 @@
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
-import { TopicsList } from '@twreporter/react-components/lib/listing-page'
-import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
-import Pagination from '../components/Pagination'
+import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { Component } from 'react'
-import siteMeta from '../constants/site-meta'
 import styled from 'styled-components'
+
+// twreporter-react
+import loggerFactory from '../logger'
+import siteMeta from '../constants/site-meta'
+import Pagination from '../components/Pagination'
 import SystemError from '../components/SystemError'
+import mq from '../utils/media-query'
+
+// @twreporter
 import twreporterRedux from '@twreporter/redux'
+import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { TopicsList } from '@twreporter/react-components/lib/listing-page'
+
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -31,7 +37,17 @@ const PageContainer = styled.div`
   position: relative;
   min-height: 100vh;
   width: 100%;
-  padding: 30px 24px 0 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  ${mq.mobileOnly`
+    padding-top: 24px;
+  `}
+  ${mq.tabletOnly`
+    padding-top: 32px;
+  `}
+  ${mq.desktopAndAbove`
+    padding-top: 64px;
+  `}
 `
 
 const firstPage = 1
@@ -87,6 +103,7 @@ class Topics extends Component {
     return (
       <PageContainer>
         <Helmet
+          prioritizeSeoTags
           title={title}
           link={[{ rel: 'canonical', href: canonical }]}
           meta={[

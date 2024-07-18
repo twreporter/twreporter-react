@@ -1,5 +1,8 @@
-import categoryConst from '../constants/category'
 import dataLoaderConst from '../constants/data-loaders'
+import {
+  CATEGORY_ID,
+  CATEGORY_PATH,
+} from '@twreporter/core/lib/constants/category-set'
 
 /**
  *  loadData function is used for server side rendering.
@@ -10,7 +13,7 @@ import dataLoaderConst from '../constants/data-loaders'
  *  @returns {Promise} which resolves with loading successfully or rejects with error
  */
 export default function loadData({ store }) {
-  const listId = categoryConst.ids.photography
+  const listId = CATEGORY_ID[CATEGORY_PATH.photography]
   const startPage = 1
   return store.actions.fetchPostsByCategoryListId(
     listId,

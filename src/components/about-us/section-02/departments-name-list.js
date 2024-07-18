@@ -1,16 +1,20 @@
-import colors from '../../../constants/colors'
-import { font } from '../constants/styles'
-import { gray } from './utils'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+// utils
+import { gray } from './utils'
+// constants
+import { font } from '../constants/styles'
+// @twreporter
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 
 const DepartmentName = styled.div`
   p {
     font-size: 14px;
     font-weight: ${font.weight.bold};
     word-spacing: -1px;
-    color: ${props => (props.selected ? colors.black : gray.lightgray)};
+    color: ${props =>
+      props.$selected ? colorGrayscale.black : gray.lightgray};
     width: max-content;
     margin-right: 20px;
   }
@@ -40,7 +44,7 @@ export default class DepartmentsNameList extends PureComponent {
             <DepartmentName
               key={category.id}
               onClick={() => selectDepartment(categoryIndex)}
-              selected={selectedDepartmentIndex === categoryIndex}
+              $selected={selectedDepartmentIndex === categoryIndex}
             >
               <p>{category.label.chinese}</p>
             </DepartmentName>

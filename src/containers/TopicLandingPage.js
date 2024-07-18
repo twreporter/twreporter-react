@@ -1,38 +1,36 @@
 /* eslint camelcase: ["error", {"properties": "never", ignoreDestructuring: true}] */
-
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { Helmet } from 'react-helmet-async'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+// utils
+import loggerFactory from '../logger'
+import memoizeOne from 'memoize-one'
+import cloneUtils from '../utils/shallow-clone-entity'
+// constants
+import siteMeta from '../constants/site-meta'
+// components
 import Banner from '../components/topic/banner'
 import Description from '../components/topic/description'
-import Helmet from 'react-helmet'
-import loggerFactory from '../logger'
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
 import Related from '../components/topic/related'
-import memoizeOne from 'memoize-one'
-import siteMeta from '../constants/site-meta'
-import styled from 'styled-components'
 import SystemError from '../components/SystemError'
-
-// utils
-import cloneUtils from '../utils/shallow-clone-entity'
-
 // @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import twreporterRedux from '@twreporter/redux'
-
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
-
-const logger = loggerFactory.getLogger()
-const { actions, reduxStateFields } = twreporterRedux
-const { fetchAFullTopic, fetchRelatedPostsOfAnEntity } = actions
 const _ = {
   forEach,
   get,
   merge,
 }
+
+const logger = loggerFactory.getLogger()
+const { actions, reduxStateFields } = twreporterRedux
+const { fetchAFullTopic, fetchRelatedPostsOfAnEntity } = actions
 
 const Container = styled.div`
   position: relative;
@@ -169,8 +167,9 @@ class TopicLandingPage extends Component {
       metaOgImage.push({ property: 'og:image:width', content: metaImg.width })
     }
     return (
-      <React.Fragment>
+      <Fragment>
         <Helmet
+          prioritizeSeoTags
           title={fullTitle}
           link={[{ rel: 'canonical', href: canonical }]}
           meta={[
@@ -205,7 +204,7 @@ class TopicLandingPage extends Component {
           topicDescription={topicDescription}
           teamDescription={teamDescription}
         />
-      </React.Fragment>
+      </Fragment>
     )
   }
 

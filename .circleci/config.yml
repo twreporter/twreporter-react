@@ -6,8 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:10.15
+      - image: cimg/node:18.17.1
     working_directory: ~/repo
     steps:
       - checkout
@@ -15,7 +14,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-build-{{ checksum "yarn.lock" }}
+            - v1-dependencies-build-{{ checksum "yarn.lock" }}
 
       - run: yarn install --frozen-lockfile
 
@@ -24,7 +23,10 @@ jobs:
             - node_modules
           key: v1-dependencies-build-{{ checksum "yarn.lock" }}
 
-      - run: make build RELEASE_BRANCH=${CIRCLE_BRANCH}
+      - run:
+          name: Specify release branch
+          command: |
+            make build RELEASE_BRANCH=${CIRCLE_BRANCH}
 
       - run: rm -rf node_modules
 
@@ -42,7 +44,7 @@ jobs:
 
       - run:
           name: Save pkg version to a file
-          command: node ./.circleci/scripts/read-changelog.js > .pkg-version
+          command: node -pe "require('./package.json').version" > .pkg-version
 
       - persist_to_workspace:
           root: ~/repo
@@ -68,12 +70,17 @@ jobs:
             PKG_VER="$(cat .pkg-version)-$CIRCLE_BUILD_NUM"
 
             if [ "${CIRCLE_BRANCH}" == "preview" ]; then
-              CLUSTER_NAME=${GOOGLE_PREVIEW_CLUSTER_NAME}
+              CLUSTER_NAME=${K8S_PREVIEW_CLUSTER_NAME}
             fi
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
               CLUSTER_NAMESPACE="staging"
               ENVIRONMENT="staging"
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              CLUSTER_NAMESPACE="dev"
+              ENVIRONMENT="dev"
             fi
 
             if [ "${CIRCLE_BRANCH}" == "next" ]; then
@@ -93,19 +100,19 @@ jobs:
             echo "export CLUSTER_NAMESPACE=${CLUSTER_NAMESPACE}" >> $BASH_ENV
             echo "export ENVIRONMENT=${ENVIRONMENT}" >> $BASH_ENV
             echo "export PKG_VER=${PKG_VER}" >> $BASH_ENV
+            echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $BASH_ENV
 
       - run:
           name: Connect to container cluster
           command: |
             # GOOGLE_AUTH, GOOGLE_PROJECT_ID,
-            # GOOGLE_PREVIEW_CLUSTER_NAME,
-            # GOOGLE_CLUSTER_NAME
-            # and K8S_CLUSTER_NAME is defined in Environment Variables of circleci project
+            # K8S_PREVIEW_CLUSTER_NAME,
+            # and K8S_CLUSTER_NAME is defined in context of circleci organization
             echo ${GOOGLE_AUTH} | base64 -i --decode > ${HOME}/gcp-key.json
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
-            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
+            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "dev" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --region=asia-east1
             fi
 
@@ -113,7 +120,7 @@ jobs:
               # TODO
               # After new cluster settle down,
               # change asia-east1-a -> asia-east1
-              # change ${GOOGLE_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
+              # change ${K8S_PREVIEW_CLUSTER_NAME} -> ${K8S_CLUSTER_NAME}
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --zone=asia-east1-a
             fi
 
@@ -168,8 +175,9 @@ workflows:
                 - staging
                 - preview
                 - next
+                - dev
       - deploy:
-          context: twreporter
+          context: twreporter-gcp
           requires:
             - build
           filters:
@@ -179,3 +187,4 @@ workflows:
                 - staging
                 - preview
                 - next
+                - dev

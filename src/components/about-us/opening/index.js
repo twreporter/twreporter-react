@@ -1,16 +1,24 @@
-import colors from '../../../constants/colors'
-import { containerStyle, contentStyle, headerStyle } from './section-style'
-import { font } from '../constants/styles'
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq, { breakpoint } from '../utils/media-query'
-import { storageUrlPrefix } from '../utils/config'
-import AnchorsPanel from './anchors-panel'
 import CSSTransition from 'react-transition-group/CSSTransition'
-import Header from './header'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import smoothScroll from 'smoothscroll'
 import styled, { css } from 'styled-components'
+// utils
+import mq, { breakpoint } from '../utils/media-query'
+import { storageUrlPrefix } from '../utils/config'
+// constants
+import { font } from '../constants/styles'
+// style
+import { containerStyle, contentStyle, headerStyle } from './section-style'
+// components
+import Header from './header'
+import AnchorsPanel from './anchors-panel'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
+import {
+  colorGrayscale,
+  colorBrand,
+} from '@twreporter/core/lib/constants/color'
 
 const transitionDuration = 200
 
@@ -53,7 +61,7 @@ const Container = styled.section`
   position: relative;
   overflow: hidden;
   height: 100vh;
-  background: ${colors.white};
+  background: ${colorGrayscale.white};
   ${mq.hdOnly`
     margin: 0 -8px;
   `}
@@ -78,7 +86,7 @@ const Footer = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  background: ${colors.red.liverRed};
+  background: ${colorBrand.heavy};
   ${mq.mobileOnly`
     height: 54px;
   `}
@@ -102,7 +110,7 @@ const Navigator = styled.div`
   bottom: 0;
   width: 50%;
   height: 50%;
-  border-right: solid 0.5px ${colors.white};
+  border-right: solid 0.5px ${colorGrayscale.white};
   p {
     position: absolute;
     right: 0;
@@ -112,7 +120,7 @@ const Navigator = styled.div`
     font-weight: bold;
     line-height: 1.54;
     letter-spacing: 1.4px;
-    color: ${colors.white};
+    color: ${colorGrayscale.white};
     cursor: pointer;
   }
   ${mq.mobileOnly`
@@ -350,11 +358,11 @@ const Words = styled.div`
     white-space: pre-wrap;
   }
   p>span{
-    background: ${colors.gray.lightGray};
-    box-shadow: -10px 0 0 ${colors.gray.lightGray};
+    background: ${colorGrayscale.gray100};
+    box-shadow: -10px 0 0 ${colorGrayscale.gray100};
     padding: 5px 0;
     mark{
-      background: ${colors.white};
+      background: ${colorGrayscale.white};
     }
   }
   ${mq.tabletAndBelow`
@@ -362,10 +370,10 @@ const Words = styled.div`
     float: left;
     text-align: left;
     p > span{
-      background: ${colors.white};;
+      background: ${colorGrayscale.white};;
       box-shadow: none;
       mark{
-        background: ${colors.white};
+        background: ${colorGrayscale.white};
       }
     }
   `}
@@ -426,20 +434,20 @@ const EnglishIntro = styled.div`
     white-space:pre-wrap;
   }
   p > span{
-    background: #d8d8d8;
-    box-shadow: -10px 0 0 #d8d8d8;
+    background: ${colorGrayscale.gray300};
+    box-shadow: -10px 0 0 ${colorGrayscale.gray300};
     padding: 5px 0;
     mark{
-      background: ${colors.gray.lightGray};
+      background: ${colorGrayscale.gray100};
     }
   }
   ${mq.tabletAndBelow`
     text-align: left;
     p > span{
-      background: ${colors.white};
+      background: ${colorGrayscale.white};
       box-shadow: none;
       mark{
-        background: ${colors.white};
+        background: ${colorGrayscale.white};
       }
     }
   `}
@@ -495,8 +503,7 @@ export class Opening extends PureComponent {
 
   _handleClick = event => {
     event.preventDefault()
-    const coverBottom = this._cover.scrollHeight
-    return smoothScroll(coverBottom)
+    smoothScroll(this._cover.scrollHeight) // cover bottom
   }
   _closeAnchorPanel = () => {
     this.setState({

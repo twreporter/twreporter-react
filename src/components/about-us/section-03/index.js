@@ -1,17 +1,21 @@
-import AwardsNameList from './awards-name-list'
-import Content from './content'
 import React, { PureComponent } from 'react'
-import awardsName from '../constants/section-03/awards-name.json'
 import axios from 'axios'
-import colors from '../../../constants/colors'
-import configs, { sections } from '../configs'
+import styled from 'styled-components'
+// utils
 import loggerFactory from '../../../logger'
 import mq from '../utils/media-query'
-import styled from 'styled-components'
-import { font, marginBetweenSections } from '../constants/styles'
-
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { storageUrlPrefix } from '../utils/config'
+// configs
+import configs, { sections } from '../configs'
+// constants
+import awardsName from '../constants/section-03/awards-name.json'
+import { font, marginBetweenSections } from '../constants/styles'
+// components
+import AwardsNameList from './awards-name-list'
+import Content from './content'
+// @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 
@@ -23,7 +27,7 @@ const logger = loggerFactory.getLogger()
 
 const Container = styled.div`
   position: relative;
-  background-color: ${colors.white};
+  background-color: ${colorGrayscale.white};
   overflow: hidden;
   ${mq.desktopAndAbove`
     min-height: 100vh;
@@ -228,7 +232,7 @@ const Circle = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: ${colors.black};
+  background: ${colorGrayscale.black};
   ${mq.desktopOnly`
     left: -80px;
   `}

@@ -1,9 +1,16 @@
-import { shortenString } from '../../../utils/string'
-import base from './base'
-import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
-import mq from '../../../utils/media-query'
 import React from 'react'
 import styled from 'styled-components'
+// utils
+import mq from '../../../utils/media-query'
+import { shortenString } from '../../../utils/string'
+// components
+import base from './base'
+// @twreporter
+import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 
 const ImageBorder = styled.div`
   ${mq.tabletAndAbove`
@@ -12,7 +19,7 @@ const ImageBorder = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    border: 0 solid #ffffff;
+    border: 0 solid ${colorGrayscale.white};
     transition: border .1s ease;
   `}
 `
@@ -47,19 +54,19 @@ const ItemLink = styled(base.ItemLink)`
       z-index: 5;
       border-style: solid;
       border-width: 25px 25px 0 0;
-      border-color: #fff transparent transparent;
+      border-color: ${colorGrayscale.white} transparent transparent;
     }
-    :hover {
+    &:hover {
       &::before {
         border-width: 0;
       }
       transform: translateY(-5px);
-      box-shadow: 0 5px 15px 0 rgba(0,0,0,.25);
+      box-shadow: 0 5px 15px 0 ${colorOpacity['black_0.2']};
       ${base.ItemMeta} {
         transform: translateY(0);
       }
       ${ImageBorder} {
-        border: 5px solid #ffffff;
+        border: 5px solid ${colorGrayscale.white};
       }
       ${base.ItemImageSizing}, ${base.ItemMeta} {
         box-shadow: none;
@@ -74,7 +81,7 @@ const ItemImageSizing = styled(base.ItemImageSizing)`
     height: 200px;
     flex: 0 0 200px;
     position: relative;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 5px 0 ${colorOpacity['black_0.1']};
     transition: box-shadow .1s ease, transform .2s ease;
   `}
 `
@@ -87,7 +94,7 @@ const ItemMeta = styled(base.ItemMeta)`
     position: relative;
     transform: translateY(5px);
     padding: 17px 12px 2.5em 20px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 5px 0 ${colorOpacity['black_0.1']};
     transition: box-shadow .1s ease, transform .2s ease;
   `}
 `

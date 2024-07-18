@@ -2,10 +2,11 @@ import LogoIcon from '../../../static/asset/icon-placeholder.svg'
 import mq from '../../utils/media-query'
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { colorOpacity } from '@twreporter/core/lib/constants/color'
 
 const mockStyle = css`
-  background-color: rgba(191, 191, 191, 0.5);
-  box-shadow: 0px 0px 3px rgba(#666666, 0.05);
+  background-color: ${colorOpacity['black_0.1']};
+  box-shadow: 0px 0px 3px ${colorOpacity['black_0.05']};
   opacity: 0.9;
 `
 

@@ -15,7 +15,7 @@ api-err.log
 .idea/
 .vscode/
 webpack-assets.json
-react-loadable.json
+loadable-stats.json
 
 # Ignore webpack generated service worker file
 sw.js
@@ -30,3 +30,7 @@ yarn-error.log
 
 #Ignore testing screenshots
 src/test/screenshots/testDir/
+
+# Ignore .yalc
+.yalc/
+yalc.lock

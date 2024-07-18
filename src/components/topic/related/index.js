@@ -1,16 +1,19 @@
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import styled from 'styled-components'
+// utils
+import mq from '../../../utils/media-query'
 import { formatPostLinkTarget, formatPostLinkTo } from '../../../utils/url'
 import { shortenString } from '../../../utils/string'
+// components
 import BarComponents from './related-as-bars'
 import base from './base'
 import CardComponents from './related-as-cards'
 import LoadingSpinner from '../../Spinner'
-import mq from '../../../utils/media-query'
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
 // @twreporter
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -65,7 +68,7 @@ export default class RelatedItems extends PureComponent {
   }
 
   static defaultProps = {
-    background: '#d8d8d8',
+    background: colorGrayscale.gray300,
     items: [],
     format: formatConsts.row,
     hasMore: false,
@@ -117,7 +120,7 @@ export default class RelatedItems extends PureComponent {
     } = this.props
     const components = selectComponentsByFormat(format)
     return (
-      <base.Background background={background}>
+      <base.Background $background={background}>
         <components.ItemsContainer>
           {_.map(items, this.renderItem)}
         </components.ItemsContainer>

@@ -1,4 +1,3 @@
-import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import ArrowDownIcon from '../../../../static/asset/arrow-down.svg'
 import BottomComponents from './bottom'
 import BottomLeftComponents from './bottom-left'
@@ -9,10 +8,11 @@ import predefinedPropTypes from '../../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import siteMeta from '../../../constants/site-meta'
-import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 // @twreporter
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import { date2yyyymmdd } from '@twreporter/core/lib/utils/date'
+import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 // lodash
 import get from 'lodash/get'
 
@@ -22,7 +22,7 @@ const _ = {
 
 const Container = styled.div`
   position: relative;
-  height: ${props => props.viewportHeight || '100vh'};
+  height: ${props => props.$viewportHeight || '100vh'};
 `
 
 const themeConsts = {
@@ -122,7 +122,7 @@ export default class Banner extends PureComponent {
     const components = selectComponentsByTheme(theme)
     const videoSrc = _.get(leadingVideo, 'url')
     return (
-      <Container viewportHeight={viewportHeight} ref={this._containerRef}>
+      <Container $viewportHeight={viewportHeight} ref={this._containerRef}>
         {videoSrc ? (
           <LeadingVideo
             filetype={_.get(leadingVideo, 'filetype')}

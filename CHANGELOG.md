@@ -1,5 +1,1397 @@
 # Changelog
 
+## 5.1.2, 2024-07-18 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`f116f48394`](https://github.com/twreporter/twreporter-react/commit/f116f48394)] - **chore**: update twreporter packages (Lucien)
+
+## 5.1.1, 2024-07-18
+
+### Notable Changes
+
+- fix
+  - remove dompurify for search
+
+### Commits
+
+- [[`1fcae7ef30`](https://github.com/twreporter/twreporter-react/commit/1fcae7ef30)] - **fix**: remove dompurify for search (Lucien)
+
+## 5.1.0, 2024-07-17
+
+### Notable Changes
+
+- feat
+  - add jwt for getting full post
+  - article tracking section
+  - add test data for article page tracking section
+  - use tracking section data from api
+- fix
+  - remove old Article component file
+  - render author bio with html
+  - open tab while click article-tracking-card
+- chore
+  - update @twreporter packages
+  - use `isomorphic-dompurify` for dangerouslySetInnerHTML
+  - sync master
+
+### Commits
+
+- [[`ac5d6718e0`](https://github.com/twreporter/twreporter-react/commit/ac5d6718e0)] - **chore**: update twreporter packages (Lucien)
+- [[`826ce5262b`](https://github.com/twreporter/twreporter-react/commit/826ce5262b)] - **fix**: open tab while click article-tracking-card (Lucien)
+- [[`026515c067`](https://github.com/twreporter/twreporter-react/commit/026515c067)] - **chore**: update twreporter packages (Lucien)
+- [[`bf4dd8a908`](https://github.com/twreporter/twreporter-react/commit/bf4dd8a908)] - **fix**: fix comments (Lucien)
+- [[`4fb0ce9169`](https://github.com/twreporter/twreporter-react/commit/4fb0ce9169)] - **fix**: change port back to 8080 (Lucien)
+- [[`a53733c35a`](https://github.com/twreporter/twreporter-react/commit/a53733c35a)] - **fix**: remove unused lodash map (Lucien)
+- [[`7c23baf3ad`](https://github.com/twreporter/twreporter-react/commit/7c23baf3ad)] - **feat**: use tracking section data from api (Lucien)
+- [[`bf7840c347`](https://github.com/twreporter/twreporter-react/commit/bf7840c347)] - **chore**: update twreporter packages (Lucien)
+- [[`c223356835`](https://github.com/twreporter/twreporter-react/commit/c223356835)] - **chore**: update twreporter packages (Lucien)
+- [[`deb89f965a`](https://github.com/twreporter/twreporter-react/commit/deb89f965a)] - **chore**: sync master (Lucien)
+- [[`efc8ee981c`](https://github.com/twreporter/twreporter-react/commit/efc8ee981c)] - **chore**: update twreporter packages (Lucien)
+- [[`a03ef47909`](https://github.com/twreporter/twreporter-react/commit/a03ef47909)] - **feat**: add test data for article page tracking section (Lucien)
+- [[`44779c997c`](https://github.com/twreporter/twreporter-react/commit/44779c997c)] - **fix**: fix conflict (Lucien)
+- [[`5d67e9c39d`](https://github.com/twreporter/twreporter-react/commit/5d67e9c39d)] - **fix**: add releaseBranch for icon (Lucien)
+- [[`bd6f60502e`](https://github.com/twreporter/twreporter-react/commit/bd6f60502e)] - **feat**: use MarginBottomType enum (Lucien)
+- [[`45d0922621`](https://github.com/twreporter/twreporter-react/commit/45d0922621)] - **feat**: remove bracket for article title (Lucien)
+- [[`81ad77f4a5`](https://github.com/twreporter/twreporter-react/commit/81ad77f4a5)] - **feat**: article tracking section (Lucien)
+- [[`b1bbe8ec56`](https://github.com/twreporter/twreporter-react/commit/b1bbe8ec56)] - **feat**: article tracking card (Lucien)
+- [[`d11fe515d4`](https://github.com/twreporter/twreporter-react/commit/d11fe515d4)] - **chore**: use for dangerouslySetInnerHTML (Lucien)
+- [[`f64c6bde95`](https://github.com/twreporter/twreporter-react/commit/f64c6bde95)] - **fix**: render bio with html (Lucien)
+- [[`75faa3cbcc`](https://github.com/twreporter/twreporter-react/commit/75faa3cbcc)] - **chore**: update twreporter packages (Lucien)
+- [[`88868a750d`](https://github.com/twreporter/twreporter-react/commit/88868a750d)] - **chore**: update twreporter packages (Lucien)
+- [[`07cb2d7fb5`](https://github.com/twreporter/twreporter-react/commit/07cb2d7fb5)] - **fix**: remove old Article component file (Lucien)
+- [[`312e887f45`](https://github.com/twreporter/twreporter-react/commit/312e887f45)] - **feat**: add jwt for getting full post (Lucien)
+
+## 5.0.6, 2024-07-03
+
+### Notable Changes
+
+- fix
+  - remove cdn.polyfill.io script for security issue
+
+### Commits
+
+- [[`e4e5e9e489`](https://github.com/twreporter/twreporter-react/commit/e4e5e9e489)] - **fix**: remove cdn.polyfill.io script for security issue (nickhsine)
+
+## 5.0.5, 2024-06-25
+
+### Notable Changes
+
+- feat
+  - add `useWebpush` hook & normalize Banner
+  - use react-redux hook
+- fix
+  - more button style in notify banner component
+  - web push defects
+- chore
+  - update @twreporter packages
+  - update to latest redux
+
+### Commits
+
+- [[`8ea9d359ca`](https://github.com/twreporter/twreporter-react/commit/8ea9d359ca)] - **fix**: more button style (Aylie Chou)
+- [[`6b8328b690`](https://github.com/twreporter/twreporter-react/commit/6b8328b690)] - **chore**: update twreporter packages (Lucien)
+- [[`63ae0f9ee0`](https://github.com/twreporter/twreporter-react/commit/63ae0f9ee0)] - **fix**: web push defects (Aylie Chou)
+- [[`4e6bb7867d`](https://github.com/twreporter/twreporter-react/commit/4e6bb7867d)] - **chore**: update twreporter packages (Lucien)
+- [[`14ce5f8054`](https://github.com/twreporter/twreporter-react/commit/14ce5f8054)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5e41e26d7d`](https://github.com/twreporter/twreporter-react/commit/5e41e26d7d)] - **fix**: update import path for article-banner (Aylie Chou)
+- [[`b7fbdd3e4c`](https://github.com/twreporter/twreporter-react/commit/b7fbdd3e4c)] - **feat**: add `useWebpush` hook & normalize Banner (Aylie Chou)
+- [[`d3245ff100`](https://github.com/twreporter/twreporter-react/commit/d3245ff100)] - **chore**: update twreporter packages (Lucien)
+- [[`624ffb5cc6`](https://github.com/twreporter/twreporter-react/commit/624ffb5cc6)] - **feat**: use react-redux hook (Lucien)
+- [[`a09cbb24de`](https://github.com/twreporter/twreporter-react/commit/a09cbb24de)] - **fix**: remove yalc packages (Lucien)
+- [[`7ff15790d2`](https://github.com/twreporter/twreporter-react/commit/7ff15790d2)] - **chore**: update to latest redux (Lucien)
+
+## 5.0.4, 2024-06-04
+
+### Notable Changes
+
+- fix
+  - styled component & behavior change on v6
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`ec1f07862c`](https://github.com/twreporter/twreporter-react/commit/ec1f07862c)] - **chore**: update twreporter packages (Lucien)
+- [[`5bbfc1101a`](https://github.com/twreporter/twreporter-react/commit/5bbfc1101a)] - **fix**: styled component & behavior change on v6 (Aylie Chou)
+
+## 5.0.3, 2024-05-30
+
+### Notable Changes
+
+- feat
+  - add bookshop friend link on member page menu
+- fix
+  - set isLoading to false after dispatch
+  - apply new added menu list type on mobile
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`58c297e0e3`](https://github.com/twreporter/twreporter-react/commit/58c297e0e3)] - **chore**: update twreporter packages (Lucien)
+- [[`3ec073a97e`](https://github.com/twreporter/twreporter-react/commit/3ec073a97e)] - **chore**: update twreporter packages (Lucien)
+- [[`36ae81e7e4`](https://github.com/twreporter/twreporter-react/commit/36ae81e7e4)] - **fix**: setIsLoading runtime (Lucien)
+- [[`457572a0c4`](https://github.com/twreporter/twreporter-react/commit/457572a0c4)] - **fix**: set isLoading to false after dispatch (Lucien)
+- [[`23596b0af3`](https://github.com/twreporter/twreporter-react/commit/23596b0af3)] - **fix**: apply new added menu list type on mobile (Aylie Chou)
+- [[`9d6a5f423e`](https://github.com/twreporter/twreporter-react/commit/9d6a5f423e)] - **feat**: add bookshop friend link on member page menu (Aylie Chou)
+
+## 5.0.2, 2024-05-22
+
+### Notable Changes
+
+- fix
+  - unexpected DOMExceptionError due to rendering promote `Banner`
+  - auth issue for reading time
+
+### Commits
+
+- [[`bd3af4dca3`](https://github.com/twreporter/twreporter-react/commit/bd3af4dca3)] - **fix**: unexpected DOMExceptionError due to rendering promote `Banner` (nickhsine)
+- [[`3e5b5d5ff2`](https://github.com/twreporter/twreporter-react/commit/3e5b5d5ff2)] - **fix**: auth issue for reading time (Lucien)
+
+## 5.0.1, 2024-05-21
+
+### Notable Changes
+
+- fix
+  - duplicate helmet provider issue
+
+### Commits
+
+- [[`9de706986d`](https://github.com/twreporter/twreporter-react/commit/9de706986d)] - **fix**: duplicate helmet provider issue (Aylie Chou)
+
+## 5.0.0, 2024-05-20
+
+### Notable Changes
+
+- feat
+  - upgrade `react` & `react-dom` to v18
+    - use `React.render` before resolving react issue #418, #423
+  - upgrade `styled-component` version to v6
+  - use post reviews data from redux
+  - download page for donation history records
+- fix
+  - replace `react-helmet` with `react-helmet-async`
+  - replace `react/loadable` with `@lodable/components`
+    - upgrade `webpack` to v4
+    - add `webpack-cli` & remove deprecated uglify plugin
+  - add `releaseBranch` to Footer
+  - fetch at mount while cause duplicated related articles
+  - no badge if no reviewWord
+  - fetch user data while CSR in member page
+- chore
+  - update @twreporter packages
+  - update `.gitignore`
+  - remove `DONDATION_HISTORY_PHASE_2` feature toggle
+
+### Commits
+
+- [[`b85267b3ff`](https://github.com/twreporter/twreporter-react/commit/b85267b3ff)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`8cd1fa65bf`](https://github.com/twreporter/twreporter-react/commit/8cd1fa65bf)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f88a531d52`](https://github.com/twreporter/twreporter-react/commit/f88a531d52)] - **fix**: use `React.render` before resolving issue #418, #423 (Aylie Chou)
+- [[`012bab53e6`](https://github.com/twreporter/twreporter-react/commit/012bab53e6)] - **chore**: update @twreporter packages (Ayllie Chou)
+- [[`3d9cc44739`](https://github.com/twreporter/twreporter-react/commit/3d9cc44739)] - **fix**: defects after upgrade react to v18 (Aylie Chou)
+- [[`166e6559cb`](https://github.com/twreporter/twreporter-react/commit/166e6559cb)] - **fix**: add releaseBranch to Footer (Lucien)
+- [[`45cc7bc0b2`](https://github.com/twreporter/twreporter-react/commit/45cc7bc0b2)] - **fix**: update @twreporter packages (Aylie Chou)
+- [[`b6663057bd`](https://github.com/twreporter/twreporter-react/commit/b6663057bd)] - **fix**: update @twreporter packages & `.gitignore` (Aylie Chou)
+- [[`51592f6ec2`](https://github.com/twreporter/twreporter-react/commit/51592f6ec2)] - **fix**: upgrade `styled-component` version to resolve conflict (Aylie Chou)
+- [[`76184708ce`](https://github.com/twreporter/twreporter-react/commit/76184708ce)] - **fix**: fetch at mount while cause duplicated related articles (Lucien)
+- [[`fe4e04468f`](https://github.com/twreporter/twreporter-react/commit/fe4e04468f)] - **chore**: update twreporter packages (Lucien)
+- [[`e625560b38`](https://github.com/twreporter/twreporter-react/commit/e625560b38)] - **fix**: no badge if no reviewWord (Lucien)
+- [[`ee733bb505`](https://github.com/twreporter/twreporter-react/commit/ee733bb505)] - **fix**: build fail in node v18 (Aylie Chou)
+- [[`77543c1251`](https://github.com/twreporter/twreporter-react/commit/77543c1251)] - **fix**: replace `react-helmet` with `react-helmet-async` (Aylie Chou)
+- [[`854d418201`](https://github.com/twreporter/twreporter-react/commit/854d418201)] - **fix**: add `webpack-cli` & remove deprecated uglify plugin (Aylie Chou)
+- [[`85b25859b0`](https://github.com/twreporter/twreporter-react/commit/85b25859b0)] - **chore**: update @twreporter packages version (Aylie Chou)
+- [[`2683ef1701`](https://github.com/twreporter/twreporter-react/commit/2683ef1701)] - **fix**: replace `react-loadable` with `@loadable/component` (Aylie Chou)
+- [[`9a6df1c00a`](https://github.com/twreporter/twreporter-react/commit/9a6df1c00a)] - **feat**: upgrade `react` & `react-dom` to v18 (Aylie Chou)
+- [[`665ab8f67c`](https://github.com/twreporter/twreporter-react/commit/665ab8f67c)] - Merge remote-tracking branch 'upstream/master' into fix/member-page-csr (Lucien)
+- [[`107047f364`](https://github.com/twreporter/twreporter-react/commit/107047f364)] - **fix**: give user_id a default value (Lucien)
+- [[`7fc054290d`](https://github.com/twreporter/twreporter-react/commit/7fc054290d)] - **feat**: add comment (Lucien)
+- [[`8f2b586b44`](https://github.com/twreporter/twreporter-react/commit/8f2b586b44)] - **feat**: fetch user data at mount (Lucien)
+- [[`e6cc4c14d4`](https://github.com/twreporter/twreporter-react/commit/e6cc4c14d4)] - **chore**: update twreporter packages (Lucien)
+- [[`2404e4db22`](https://github.com/twreporter/twreporter-react/commit/2404e4db22)] - **fix**: use w400 image (Lucien)
+- [[`050ed80508`](https://github.com/twreporter/twreporter-react/commit/050ed80508)] - **feat**: use post reviews data from redux (Lucien)
+- [[`6b73fb947f`](https://github.com/twreporter/twreporter-react/commit/6b73fb947f)] - **chore**: update twreporter packages (Lucien)
+- [[`4a0a92a8d8`](https://github.com/twreporter/twreporter-react/commit/4a0a92a8d8)] - **feat**: add try catch for axios request (Lucien)
+- [[`cb89b94c7d`](https://github.com/twreporter/twreporter-react/commit/cb89b94c7d)] - **fix**: remove unused code (Lucien)
+- [[`742e3e20b7`](https://github.com/twreporter/twreporter-react/commit/742e3e20b7)] - **feat**: get data from api (Lucien)
+- [[`2ef689408d`](https://github.com/twreporter/twreporter-react/commit/2ef689408d)] - **feat**: remove feature toggle and fix typo (Lucien)
+- [[`ea9fc3a78d`](https://github.com/twreporter/twreporter-react/commit/ea9fc3a78d)] - **feat**: download page (Lucien)
+- [[`2833281236`](https://github.com/twreporter/twreporter-react/commit/2833281236)] - **feat**: add download route (Lucien)
+- [[`cc1125bbf1`](https://github.com/twreporter/twreporter-react/commit/cc1125bbf1)] - **feat**: pay method and download button (Lucien)
+
+## 4.13.0, 2024-04-23
+
+### Notable Changes
+
+- feat
+  - use donation data from redux
+  - donation history layout
+  - new email subscription page
+  - add reviewing post section
+- fix
+  - follow style guide
+  - typo
+  - add feature toggle and fix defects
+  - row detail badge type
+  - text and badges status
+  - change email subscription badge text
+  - use P2 for LinkButton
+  - change sub title text
+- chore
+  - update @twreporter packages
+  - remove MY_READING feature toggle
+
+### Commits
+
+- [[`d66e050c83`](https://github.com/twreporter/twreporter-react/commit/d66e050c83)] - **fix**: follow style guide (Lucien)
+- [[`e3a85488e2`](https://github.com/twreporter/twreporter-react/commit/e3a85488e2)] - **fix**: typo (Lucien)
+- [[`d3634586ab`](https://github.com/twreporter/twreporter-react/commit/d3634586ab)] - **chore**: update twreporter packages (Lucien)
+- [[`e665c43b4c`](https://github.com/twreporter/twreporter-react/commit/e665c43b4c)] - Merge remote-tracking branch 'upstream/dev' into fix/donation-history-phase-2 (Lucien)
+- [[`2f1484ffc5`](https://github.com/twreporter/twreporter-react/commit/2f1484ffc5)] - **fix**: row detail badge type (Lucien)
+- [[`bcdffa0d55`](https://github.com/twreporter/twreporter-react/commit/bcdffa0d55)] - **fix**: add feature toggle and fix defects (Lucien)
+- [[`148718636d`](https://github.com/twreporter/twreporter-react/commit/148718636d)] - **fix**: text and badges status (Lucien)
+- [[`e40346e4a9`](https://github.com/twreporter/twreporter-react/commit/e40346e4a9)] - **chore**: update twreporter packages (Lucien)
+- [[`dc153a9f4f`](https://github.com/twreporter/twreporter-react/commit/dc153a9f4f)] - **fix**: use arrow enum direction (Lucien)
+- [[`347a86cae6`](https://github.com/twreporter/twreporter-react/commit/347a86cae6)] - **feat**: hide arrow while type is not periodic (Lucien)
+- [[`dd78fdf080`](https://github.com/twreporter/twreporter-react/commit/dd78fdf080)] - **feat**: periodic donation phase 2 (Lucien)
+- [[`1f448ff502`](https://github.com/twreporter/twreporter-react/commit/1f448ff502)] - **feat**: use donation data from redux (Lucien)
+- [[`d748a62db6`](https://github.com/twreporter/twreporter-react/commit/d748a62db6)] - **fix**: change email subscription badge text (Lucien)
+- [[`67e537d0bf`](https://github.com/twreporter/twreporter-react/commit/67e537d0bf)] - **chore**: update twreporter packages (Lucien)
+- [[`0dbcd7e27c`](https://github.com/twreporter/twreporter-react/commit/0dbcd7e27c)] - **fix**: fix comments (Lucien)
+- [[`7ec216f0fd`](https://github.com/twreporter/twreporter-react/commit/7ec216f0fd)] - **feat**: give default value for page and total (Lucien)
+- [[`bf24927c74`](https://github.com/twreporter/twreporter-react/commit/bf24927c74)] - **feat**: status badge components (Lucien)
+- [[`988b81bc0a`](https://github.com/twreporter/twreporter-react/commit/988b81bc0a)] - **feat**: move constants to constants folder (Lucien)
+- [[`f8e7ab1e99`](https://github.com/twreporter/twreporter-react/commit/f8e7ab1e99)] - **feat**: add loading wrapper (Lucien)
+- [[`bf1caf72ab`](https://github.com/twreporter/twreporter-react/commit/bf1caf72ab)] - **feat**: use status div (Lucien)
+- [[`c80a24ad02`](https://github.com/twreporter/twreporter-react/commit/c80a24ad02)] - **feat**: total \<= 0 (Lucien)
+- [[`7bebc93ec1`](https://github.com/twreporter/twreporter-react/commit/7bebc93ec1)] - **feat**: change text overflow display (Lucien)
+- [[`04fcab6e10`](https://github.com/twreporter/twreporter-react/commit/04fcab6e10)] - **feat**: donation data table (Lucien)
+- [[`7d8231dcb2`](https://github.com/twreporter/twreporter-react/commit/7d8231dcb2)] - **feat**: grid column for donation page (Lucien)
+- [[`ad0adeb68b`](https://github.com/twreporter/twreporter-react/commit/ad0adeb68b)] - **feat**: fake data generator (Lucien)
+- [[`6982e8c0ab`](https://github.com/twreporter/twreporter-react/commit/6982e8c0ab)] - **feat**: create table component for donation page (Lucien)
+- [[`8e660efbb1`](https://github.com/twreporter/twreporter-react/commit/8e660efbb1)] - **feat**: add empty donation component (Lucien)
+- [[`66f8a1d9ca`](https://github.com/twreporter/twreporter-react/commit/66f8a1d9ca)] - **fix**: use P2 for LinkButton (Lucien)
+- [[`da60f76726`](https://github.com/twreporter/twreporter-react/commit/da60f76726)] - **feat**: use new component (Lucien)
+- [[`7bd4f42d59`](https://github.com/twreporter/twreporter-react/commit/7bd4f42d59)] - **feat**: add Card component for new subscription page (Lucien)
+- [[`a04760c3fd`](https://github.com/twreporter/twreporter-react/commit/a04760c3fd)] - **feat**: change email-subscription name (Lucien)
+- [[`f4036f786f`](https://github.com/twreporter/twreporter-react/commit/f4036f786f)] - **fix**: change sub title text (Lucien)
+- [[`ced037d5be`](https://github.com/twreporter/twreporter-react/commit/ced037d5be)] - **chore**: update twreporter packages (Lucien)
+- [[`37f02abf09`](https://github.com/twreporter/twreporter-react/commit/37f02abf09)] - Merge remote-tracking branch 'upstream/master' into feature/post-review (Lucien)
+- [[`70f8af59c1`](https://github.com/twreporter/twreporter-react/commit/70f8af59c1)] - **feat**: generate fake data from url param (Lucien)
+- [[`e4e792584f`](https://github.com/twreporter/twreporter-react/commit/e4e792584f)] - **fix**: use article type for headline (Lucien)
+- [[`d18a5ef4cb`](https://github.com/twreporter/twreporter-react/commit/d18a5ef4cb)] - **feat**: add loading mask and fake data (Lucien)
+- [[`40ae668c5f`](https://github.com/twreporter/twreporter-react/commit/40ae668c5f)] - **feat**: add swiper and mobile reviewing article (Lucien)
+- [[`8bb9212cd7`](https://github.com/twreporter/twreporter-react/commit/8bb9212cd7)] - **feat**: add reviewing section (Lucien)
+- [[`4c216835d3`](https://github.com/twreporter/twreporter-react/commit/4c216835d3)] - **feat**: add reviewing card component (Lucien)
+- [[`beba7bf5bc`](https://github.com/twreporter/twreporter-react/commit/beba7bf5bc)] - **feat**: add empty state for reviewing article (Lucien)
+- [[`68a217cea9`](https://github.com/twreporter/twreporter-react/commit/68a217cea9)] - **chore**: update twreporter packages (Lucien)
+- [[`f9988bc7b9`](https://github.com/twreporter/twreporter-react/commit/f9988bc7b9)] - **chore**: remove MY_READING feature toggle (Lucien)
+
+## 4.12.10, 2024-04-10
+
+### Notable Changes
+
+- fix
+  - get slug from post for canonical
+
+### Commits
+
+- [[`495e85eab4`](https://github.com/twreporter/twreporter-react/commit/495e85eab4)] - **fix**: get slug from post for canonical (Lucien)
+
+## 4.12.9, 2024-04-08
+
+### Notable Changes
+
+- feat
+  - new category for about us
+  - update about us section 03
+  - migrate article page from class component to functional component
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7453669084`](https://github.com/twreporter/twreporter-react/commit/7453669084)] - **feat**: new category for about us (Lucien)
+- [[`5f29a3e1e3`](https://github.com/twreporter/twreporter-react/commit/5f29a3e1e3)] - **chore**: update twreporter packages (Lucien)
+- [[`04a982d316`](https://github.com/twreporter/twreporter-react/commit/04a982d316)] - **chore**: update twreporter packages (Lucien)
+- [[`5928cdcaa8`](https://github.com/twreporter/twreporter-react/commit/5928cdcaa8)] - **feat**: new aboust us section 03 (Lucien)
+- [[`e55aa30021`](https://github.com/twreporter/twreporter-react/commit/e55aa30021)] - **fix**: fix comments (Lucien)
+- [[`f2e6bb2a10`](https://github.com/twreporter/twreporter-react/commit/f2e6bb2a10)] - **feat**: article page refactor to functional componet (Lucien)
+
+## 4.12.8, 2024-03-13
+
+### Notable Changes
+
+- feat
+  - add id for merchandise promo code
+- fix
+  - use `toggleBookmark` parameter to retrieve posts in latest page
+  - replace state and give startReadingTime default Date.now
+- chore
+  - sync master
+  - update @twreporter packages
+  - enable bookmark toggle for testing
+
+### Commits
+
+- [[`ff49c2df32`](https://github.com/twreporter/twreporter-react/commit/ff49c2df32)] - **chore**: update twreporter packages (Lucien)
+- [[`46ada0da61`](https://github.com/twreporter/twreporter-react/commit/46ada0da61)] - **chore**: update twreporter packages (Lucien)
+- [[`3eaaf5afbc`](https://github.com/twreporter/twreporter-react/commit/3eaaf5afbc)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`277e9f69e3`](https://github.com/twreporter/twreporter-react/commit/277e9f69e3)] - **fix**: use `toggleBookmark` parameter (Aylie Chou)
+- [[`db8fb58741`](https://github.com/twreporter/twreporter-react/commit/db8fb58741)] - **feat**: add id for merchandise promo code (Aylie Chou)
+- [[`adf7ae595a`](https://github.com/twreporter/twreporter-react/commit/adf7ae595a)] - **chore**: update twreporter packages (Lucien)
+- [[`4987ec3a44`](https://github.com/twreporter/twreporter-react/commit/4987ec3a44)] - **chore**: update twreporter packages (Lucien)
+- [[`6a44791c90`](https://github.com/twreporter/twreporter-react/commit/6a44791c90)] - **chore**: sync master (Lucien)
+- [[`edf959bf6b`](https://github.com/twreporter/twreporter-react/commit/edf959bf6b)] - **chore**: update twreporter packages (Lucien)
+- [[`64f80f8351`](https://github.com/twreporter/twreporter-react/commit/64f80f8351)] - **chore**: upgrade react-article-components dep to ^1.12.2-rc.3 (nickhsine)
+- [[`b60e5c1662`](https://github.com/twreporter/twreporter-react/commit/b60e5c1662)] - **fix**: replace state and give startReadingTime default Date.now (Lucien)
+- [[`e4dd427a94`](https://github.com/twreporter/twreporter-react/commit/e4dd427a94)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`52a27a7ccb`](https://github.com/twreporter/twreporter-react/commit/52a27a7ccb)] - **chore**: enable bookmark toggle for testing (Aylie Chou)
+
+## 4.12.7, 2024-02-21
+
+### Notable Changes
+
+- fix
+  - disable bookmark toggle in latest page
+  - use design guideline color
+  - member page would have js error when ssr
+  - diasble sw cache in latest posts request
+  - redirect to signin page if not authed when enter myreading page
+  - show empty page instead of loading spinner
+- feat
+  - my reading page with saved bookmarks & browsing history page
+- chore
+  - update @twreporter packages
+  - upgrade `@material-symbols/font-400` version to support `kid_star` icon
+  - remove `FOUNDATION_CATEGORY_SET` feature toggle
+
+### Commits
+
+- [[`07e0c87afb`](https://github.com/twreporter/twreporter-react/commit/07e0c87afb)] - **fix**: disable bookmark toggle in latest page (Aylie Chou)
+- [[`3916a0e08b`](https://github.com/twreporter/twreporter-react/commit/3916a0e08b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`2b36bcb141`](https://github.com/twreporter/twreporter-react/commit/2b36bcb141)] - **fix**: use design guideline black (Aylie
+  Chou)
+- [[`278bfef9a2`](https://github.com/twreporter/twreporter-react/commit/278bfef9a2)] - **fix**: replace rgba with design guideline color (Aylie Chou)
+- [[`5f16fff0fc`](https://github.com/twreporter/twreporter-react/commit/5f16fff0fc)] - **fix**: use design guideline color (Aylie Chou)
+- [[`ce518a65fa`](https://github.com/twreporter/twreporter-react/commit/ce518a65fa)] - **fix**: member page would have js error when ssr (Aylie Chou)
+- [[`9a69e24b92`](https://github.com/twreporter/twreporter-react/commit/9a69e24b92)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`4e9995c079`](https://github.com/twreporter/twreporter-react/commit/4e9995c079)] - **fix**: diasble sw cache in latest posts request (Aylie Chou)
+- [[`1b3cf3c587`](https://github.com/twreporter/twreporter-react/commit/1b3cf3c587)] - **fix**: redirect to signin page if not authed when enter myreading page (Aylie Chou)
+- [[`88fdd5f958`](https://github.com/twreporter/twreporter-react/commit/88fdd5f958)] - **fix**: saved bookmark section loading & text (Lucien)
+- [[`344d1d3e30`](https://github.com/twreporter/twreporter-react/commit/344d1d3e30)] - **chore**: sync master (Lucien)
+- [[`477836e327`](https://github.com/twreporter/twreporter-react/commit/477836e327)] - **chore**: update twreporter packages (Lucien)
+- [[`1b049bd131`](https://github.com/twreporter/twreporter-react/commit/1b049bd131)] - **fix**: add height to TextButton (Lucien)
+- [[`f03328b2fc`](https://github.com/twreporter/twreporter-react/commit/f03328b2fc)] - **feat**: use toastr from coreContext (Lucien)
+- [[`70ceb171a8`](https://github.com/twreporter/twreporter-react/commit/70ceb171a8)] - **feat**: use data from components instead of data loader (Lucien)
+- [[`57cecdb97a`](https://github.com/twreporter/twreporter-react/commit/57cecdb97a)] - **feat**: remove default width (Lucien)
+- [[`3e1766746f`](https://github.com/twreporter/twreporter-react/commit/3e1766746f)] - **feat**: get data while mounted (Lucien)
+- [[`9486f72801`](https://github.com/twreporter/twreporter-react/commit/9486f72801)] - **feat**: add width detector hook (Lucien)
+- [[`8c0d23d188`](https://github.com/twreporter/twreporter-react/commit/8c0d23d188)] - **feat**: set user foot print at article page (Lucien)
+- [[`f0aa72866f`](https://github.com/twreporter/twreporter-react/commit/f0aa72866f)] - **feat**: use api data for browsing history page (Lucien)
+- [[`1a0ca820ca`](https://github.com/twreporter/twreporter-react/commit/1a0ca820ca)] - **feat**: add post_id to bookmark property (Lucien)
+- [[`b06919e35f`](https://github.com/twreporter/twreporter-react/commit/b06919e35f)] - **fix**: fix prop types error and remove unused code (Lucien)
+- [[`b45cb28180`](https://github.com/twreporter/twreporter-react/commit/b45cb28180)] - **feat**: my reading page with real data (Lucien)
+- [[`51d09a654c`](https://github.com/twreporter/twreporter-react/commit/51d09a654c)] - **feat**: move to my reading components (Lucien)
+- [[`8067b40eea`](https://github.com/twreporter/twreporter-react/commit/8067b40eea)] - **feat**: load footprints at data loader (Lucien)
+- [[`acb217ce0c`](https://github.com/twreporter/twreporter-react/commit/acb217ce0c)] - **feat**: empty box components (Lucien)
+- [[`c3c2f5a325`](https://github.com/twreporter/twreporter-react/commit/c3c2f5a325)] - **chore**: upgrade `@material-symbols/font-400` version (Aylie Chou)
+- [[`2f7e0b254b`](https://github.com/twreporter/twreporter-react/commit/2f7e0b254b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`bf8c2efc55`](https://github.com/twreporter/twreporter-react/commit/bf8c2efc55)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a65474b884`](https://github.com/twreporter/twreporter-react/commit/a65474b884)] - **chore**: remove `FOUNDATION\_CATEGORY\_SET` feature toggle (Aylie Chou)
+
+## 4.12.6, 2024-01-30
+
+### Notable Changes
+
+- fix
+  - check visibility at componentDidMount
+
+### Commits
+
+- [[`ec185c3bb8`](https://github.com/twreporter/twreporter-react/commit/ec185c3bb8)] - **fix**: check visibility at componentDidMount (Lucien)
+
+## 4.12.5, 2024-01-29
+
+### Notable Changes
+
+- feat
+  - membership
+    - reading statistics for member page
+    - reading count by timer and height
+    - get analytics data from getUser
+    - send analytics data to backend
+    - my reading route
+    - my reading page layout
+    - saved bookmarks page
+    - history page layout
+    - add my-reading entry on member page with feature toggle
+  - general
+    - toggle bookmark on latest page
+    - add `toastr` in CoreContext
+    - add foundation category set
+- chore
+  - update @twreporter packages
+
+### Commits
+
+-[[`d470f7aa43`](https://github.com/twreporter/twreporter-react/commit/d470f7aa43)] - **chore**: hide bookmark on latest before bug resolved (Aylie Chou)
+
+- [[`5406a2a31d`](https://github.com/twreporter/twreporter-react/commit/5406a2a31d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a1e1ba2118`](https://github.com/twreporter/twreporter-react/commit/a1e1ba2118)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`46ec823246`](https://github.com/twreporter/twreporter-react/commit/46ec823246)] - **fix**: add preview back (Lucien)
+- [[`369d0c04a9`](https://github.com/twreporter/twreporter-react/commit/369d0c04a9)] - **fix**: http =\> https (Lucien)
+- [[`22617e8807`](https://github.com/twreporter/twreporter-react/commit/22617e8807)] - **fix**: add dev host and change mastern host (Lucien)
+- [[`8cf5f0451f`](https://github.com/twreporter/twreporter-react/commit/8cf5f0451f)] - **chore**: upadate twreporter packages (Lucien)
+- [[`3801e3969c`](https://github.com/twreporter/twreporter-react/commit/3801e3969c)] - **chore**: update twreporter packages (Lucien)
+- [[`bd24294871`](https://github.com/twreporter/twreporter-react/commit/bd24294871)] - **fix**: remove yalc (Lucien)
+- [[`7a027bd7d1`](https://github.com/twreporter/twreporter-react/commit/7a027bd7d1)] - **fix**: title 2 spec change (Lucien)
+- [[`94c636afe4`](https://github.com/twreporter/twreporter-react/commit/94c636afe4)] - **fix**: show loading and refresh page if no bookmarks (Lucien)
+- [[`17b262ef43`](https://github.com/twreporter/twreporter-react/commit/17b262ef43)] - **fix**: resolve conflicts & todos (Aylie Chou)
+- [[`263c6b27c6`](https://github.com/twreporter/twreporter-react/commit/263c6b27c6)] - **fix**: update myReading order in member page menu list (Aylie Chou)
+- [[`0997d70fe4`](https://github.com/twreporter/twreporter-react/commit/0997d70fe4)] - **feat**: add my-reading entry on member page with feature toggle (Aylie Chou)
+- [[`5a272053ae`](https://github.com/twreporter/twreporter-react/commit/5a272053ae)] - **chore**: update twreporter packages (Lucien)
+- [[`8e551e035b`](https://github.com/twreporter/twreporter-react/commit/8e551e035b)] - Merge remote-tracking branch 'upstream/dev' into feature/my-reading-saved (Lucien)
+- [[`4ffbeccf30`](https://github.com/twreporter/twreporter-react/commit/4ffbeccf30)] - **fix**: add isRequired (Lucien)
+- [[`fc6d578e30`](https://github.com/twreporter/twreporter-react/commit/fc6d578e30)] - **fix**: fix comment (Lucien)
+- [[`53ddba1a54`](https://github.com/twreporter/twreporter-react/commit/53ddba1a54)] - **chore**: update twreporter packages (Lucien)
+- [[`4b02659825`](https://github.com/twreporter/twreporter-react/commit/4b02659825)] - **fix**: use renderButton for Title2 (Lucien)
+- [[`da9b746b36`](https://github.com/twreporter/twreporter-react/commit/da9b746b36)] - **feat**: my reading page layout for test (Lucien)
+- [[`5067ce6171`](https://github.com/twreporter/twreporter-react/commit/5067ce6171)] - **feat**: change redirect logic (Lucien)
+- [[`3cb8de0c49`](https://github.com/twreporter/twreporter-react/commit/3cb8de0c49)] - **feat**: change test post (Lucien)
+- [[`9c41192c74`](https://github.com/twreporter/twreporter-react/commit/9c41192c74)] - **feat**: add browsing history page (Lucien)
+- [[`c73c369aa5`](https://github.com/twreporter/twreporter-react/commit/c73c369aa5)] - **feat**: my reading page and saved bookmarks page (Lucien)
+- [[`a464f36ae1`](https://github.com/twreporter/twreporter-react/commit/a464f36ae1)] - **feat**: add data loader for my-reading page (Lucien)
+- [[`9e5c4ff2ec`](https://github.com/twreporter/twreporter-react/commit/9e5c4ff2ec)] - **feat**: set feature toggle (Lucien)
+- [[`ef0f639099`](https://github.com/twreporter/twreporter-react/commit/ef0f639099)] - **fix**: set isActive to false after visibility change to hidden (Lucien)
+- [[`9d6ebc4d29`](https://github.com/twreporter/twreporter-react/commit/9d6ebc4d29)] - **fix**: set start reading time to now after active (Lucien)
+- [[`3872177e55`](https://github.com/twreporter/twreporter-react/commit/3872177e55)] - **fix**: clear timer if visibility change (Lucien)
+- [[`7097bbc998`](https://github.com/twreporter/twreporter-react/commit/7097bbc998)] - Merge remote-tracking branch 'upstream/dev' into fix/article-read-time-1 (Lucien)
+- [[`0a3f40e3c2`](https://github.com/twreporter/twreporter-react/commit/0a3f40e3c2)] - **fix**: send active time after inactive (Lucien)
+- [[`536f0b5c7c`](https://github.com/twreporter/twreporter-react/commit/536f0b5c7c)] - **fix**: trigger inactive timer (Lucien)
+- [[`169ebf3e77`](https://github.com/twreporter/twreporter-react/commit/169ebf3e77)] - **fix**: use pagehide instead of beforeunload (Lucien)
+- [[`c843c9d741`](https://github.com/twreporter/twreporter-react/commit/c843c9d741)] - **fix**: return true for history block (Lucien)
+- [[`03a26097c2`](https://github.com/twreporter/twreporter-react/commit/03a26097c2)] - **fix**: add beforeunload eventListener (Lucien)
+- [[`7095843788`](https://github.com/twreporter/twreporter-react/commit/7095843788)] - **chore**: update twreporter packages (Lucien)
+- [[`96c4f66865`](https://github.com/twreporter/twreporter-react/commit/96c4f66865)] - **feat**: calculate active while visibility change (Lucien)
+- [[`dae75c8008`](https://github.com/twreporter/twreporter-react/commit/dae75c8008)] - **fix**: fetch without authed (Lucien)
+- [[`24994db9cd`](https://github.com/twreporter/twreporter-react/commit/24994db9cd)] - **feat**: send analytics data to backend while route change (Lucien)
+- [[`4d3d72db38`](https://github.com/twreporter/twreporter-react/commit/4d3d72db38)] - **feat**: send analytics data to backend (Lucien)
+- [[`7b4c1d9200`](https://github.com/twreporter/twreporter-react/commit/7b4c1d9200)] - **feat**: get analytics data from getUser (Lucien)
+- [[`63fd00bac5`](https://github.com/twreporter/twreporter-react/commit/63fd00bac5)] - **fix**: typo (Lucien)
+- [[`aa82c0ca8d`](https://github.com/twreporter/twreporter-react/commit/aa82c0ca8d)] - **fix**: change article retrigger read count (Lucien)
+- [[`8ce1ba48fd`](https://github.com/twreporter/twreporter-react/commit/8ce1ba48fd)] - **feat**: renaming reading count timer (Lucien)
+- [[`bf6b41106f`](https://github.com/twreporter/twreporter-react/commit/bf6b41106f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f2254181a2`](https://github.com/twreporter/twreporter-react/commit/f2254181a2)] - **fix**: reading_height & slug (Lucien)
+- [[`58e41c813b`](https://github.com/twreporter/twreporter-react/commit/58e41c813b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`189e832750`](https://github.com/twreporter/twreporter-react/commit/189e832750)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d231f560f0`](https://github.com/twreporter/twreporter-react/commit/d231f560f0)] - **feat**: apply `FOUNDATION\_CATEGORY\_SET` feature flag (Aylie Chou)
+- [[`e439d443ce`](https://github.com/twreporter/twreporter-react/commit/e439d443ce)] - **fix**: renaming constant (Lucien)
+- [[`e6b4107c57`](https://github.com/twreporter/twreporter-react/commit/e6b4107c57)] - **feat**: reading count by timer and height (Lucien)
+- [[`be376bc9ac`](https://github.com/twreporter/twreporter-react/commit/be376bc9ac)] - **chore**: update twreporter packages (Lucien)
+- [[`8dade4e3bf`](https://github.com/twreporter/twreporter-react/commit/8dade4e3bf)] - **chore**: update twreporter packages (Lucien)
+- [[`7a56ca2474`](https://github.com/twreporter/twreporter-react/commit/7a56ca2474)] - **fix**: use page text (Lucien)
+- [[`20664e6a93`](https://github.com/twreporter/twreporter-react/commit/20664e6a93)] - **chore**: update twreporter packages (Lucien)
+- [[`8d59721bfa`](https://github.com/twreporter/twreporter-react/commit/8d59721bfa)] - **fix**: typo (Lucien)
+- [[`446410d1b2`](https://github.com/twreporter/twreporter-react/commit/446410d1b2)] - **fix**: set LocaleString to en-US (Lucien)
+- [[`d11c7f0e5d`](https://github.com/twreporter/twreporter-react/commit/d11c7f0e5d)] - **feat**: reading statistics for member page (Lucien)
+- [[`9fe0e90851`](https://github.com/twreporter/twreporter-react/commit/9fe0e90851)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f71cc93370`](https://github.com/twreporter/twreporter-react/commit/f71cc93370)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`7439d5d5b7`](https://github.com/twreporter/twreporter-react/commit/7439d5d5b7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0678a0767f`](https://github.com/twreporter/twreporter-react/commit/0678a0767f)] - **fix**: add `toastr` in CoreContext & hide bookmark icon if user not authed (Aylie Chou)
+- [[`a93a4646e7`](https://github.com/twreporter/twreporter-react/commit/a93a4646e7)] - **feat**: toggle bookmark on latest page (Aylie Chou)
+- [[`d6207ae216`](https://github.com/twreporter/twreporter-react/commit/d6207ae216)] - **feat**: pass jwt token for getting bookmarkId data (Aylie Chou)
+
+## 4.12.4, 2024-01-03
+
+### Notable Changes
+
+- feat
+  - add animation for Skeleton component
+  - add category page empty state
+  - use @twreporter packages z-index
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c9b6fed07c`](https://github.com/twreporter/twreporter-react/commit/c9b6fed07c)] - **feat**: add animation for Skeleton component (Aylie Chou)
+- [[`d05057f238`](https://github.com/twreporter/twreporter-react/commit/d05057f238)] - **feat**: add category page empty state (Aylie Chou)
+- [[`d56603a68c`](https://github.com/twreporter/twreporter-react/commit/d56603a68c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0e9a826a7c`](https://github.com/twreporter/twreporter-react/commit/0e9a826a7c)] - **chore**: sync master (Lucien)
+- [[`9233215580`](https://github.com/twreporter/twreporter-react/commit/9233215580)] - **chore**: update twreporter packages (Lucien)
+- [[`978d163ebf`](https://github.com/twreporter/twreporter-react/commit/978d163ebf)] - **feat**: use twreporter core z-index (Lucien)
+
+## 4.12.3, 2023-12-21
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`b4acc29ad2`](https://github.com/twreporter/twreporter-react/commit/b4acc29ad2)] - **chore**: update twreporter packages (Lucien)
+
+## 4.12.2, 2023-12-13
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`1c876f448f`](https://github.com/twreporter/twreporter-react/commit/1c876f448f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d7a917b089`](https://github.com/twreporter/twreporter-react/commit/d7a917b089)] - **chore**: update twreporter packages (Lucien)
+- [[`f20751e1cb`](https://github.com/twreporter/twreporter-react/commit/f20751e1cb)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.12.1, 2023-11-20
+
+### Notable Changes
+
+- feat
+  - add article card skeleton & use load more in latest page
+  - add kids newsletter subscription link in member page
+  - show article bottom banner by role
+- fix
+  - add space after last post card
+  - article page banner roles
+  - kids link type should be `undeline`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c8ccb0c1d4`](https://github.com/twreporter/twreporter-react/commit/c8ccb0c1d4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ab9f4b77b6`](https://github.com/twreporter/twreporter-react/commit/ab9f4b77b6)] - **fix**: add space after last post card (Aylie Chou)
+- [[`0fb54394af`](https://github.com/twreporter/twreporter-react/commit/0fb54394af)] - **fix**: typo role =\> roles (Lucien)
+- [[`a50fa4e06d`](https://github.com/twreporter/twreporter-react/commit/a50fa4e06d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d347270e7a`](https://github.com/twreporter/twreporter-react/commit/d347270e7a)] - **fix**: kids link type should be `underline` (Aylie Chou)
+- [[`48c0e391e4`](https://github.com/twreporter/twreporter-react/commit/48c0e391e4)] - **feat**: add article card skeleton & use load more in latest (Aylie Chou)
+- [[`688d8f7f68`](https://github.com/twreporter/twreporter-react/commit/688d8f7f68)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`6820a04818`](https://github.com/twreporter/twreporter-react/commit/6820a04818)] - **feat**: add kids newsletter subscription link in member page (Aylie Chou)
+- [[`a162974fba`](https://github.com/twreporter/twreporter-react/commit/a162974fba)] - **fix**: add isRequired to userRole (Lucien)
+- [[`ec2153c46a`](https://github.com/twreporter/twreporter-react/commit/ec2153c46a)] - **feat**: show article bottom banner by role (Lucien)
+- [[`4b3110ab09`](https://github.com/twreporter/twreporter-react/commit/4b3110ab09)] - Merge branch 'twreporter:master' into master (Lucien)
+- [[`7831655713`](https://github.com/twreporter/twreporter-react/commit/7831655713)] - **fix**: changelog (Lucien)
+
+## 4.12.0, 2023-11-01
+
+### Notable Changes
+
+- feat
+  - login page for account page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c0dc04a5f2`](https://github.com/twreporter/twreporter-react/commit/c0dc04a5f2)] - **chore**: update reporter packages (Lucien)
+- [[`6d8c281ea4`](https://github.com/twreporter/twreporter-react/commit/6d8c281ea4)] - **feat**: condition (Lucien)
+- [[`2c728991a7`](https://github.com/twreporter/twreporter-react/commit/2c728991a7)] - **feat**: use matchPath (Lucien)
+- [[`0eed92bede`](https://github.com/twreporter/twreporter-react/commit/0eed92bede)] - **feat**: login page for member page (Lucien)
+
+## 4.11.3, 2023-10-30
+
+### Notable Changes
+
+- feat
+  - change about-us page line height
+  - article bottom banner
+  - new user role
+- chore
+  - update @twreporter packages
+- fix
+  - update access token name & use wildcard domain
+
+### Commits
+
+- [[`f041c64751`](https://github.com/twreporter/twreporter-react/commit/f041c64751)] - **fix**: update access token name & use wildcard domain (Aylie Chou)
+- [[`50afad7995`](https://github.com/twreporter/twreporter-react/commit/50afad7995)] - **chore**: update twreporter packages (Lucien)
+- [[`12e387cae1`](https://github.com/twreporter/twreporter-react/commit/12e387cae1)] - Merge remote-tracking branch 'upstream/master' into feature/new-user-role (Lucien)
+- [[`4587783b2c`](https://github.com/twreporter/twreporter-react/commit/4587783b2c)] - **fix**: fix comment (Lucien)
+- [[`5e698493dc`](https://github.com/twreporter/twreporter-react/commit/5e698493dc)] - **feat**: new user role (Lucien)
+- [[`7aee2eb149`](https://github.com/twreporter/twreporter-react/commit/7aee2eb149)] - **chore**: update twreporter packages (Lucien)
+- [[`9a78971ccd`](https://github.com/twreporter/twreporter-react/commit/9a78971ccd)] - Merge remote-tracking branch 'upstream/master' into feature/article-bottom-banner (Lucien)
+- [[`14149be29a`](https://github.com/twreporter/twreporter-react/commit/14149be29a)] - **fix**: fix comment (Lucien)
+- [[`d2ac234bbf`](https://github.com/twreporter/twreporter-react/commit/d2ac234bbf)] - **feat**: article bottom banner (Lucien)
+- [[`132de1a533`](https://github.com/twreporter/twreporter-react/commit/132de1a533)] - **feat**: section03 line height (Lucien)
+
+## 4.11.2, 2023-10-11
+
+### Notable Changes
+
+- feat
+  - update about-us page
+  - change donation link anchor
+- chore
+  - update @twreporter packages
+- fix
+  - fix about-us page
+
+### Commits
+
+- [[`47ad39646f`](https://github.com/twreporter/twreporter-react/commit/47ad39646f)] - **fix**: format (Lucien)
+- [[`874c003367`](https://github.com/twreporter/twreporter-react/commit/874c003367)] - **fix**: use categroiesAll order (Lucien)
+- [[`2d81ea3bb6`](https://github.com/twreporter/twreporter-react/commit/2d81ea3bb6)] - **fix**: white space (Lucien)
+- [[`4a991973fc`](https://github.com/twreporter/twreporter-react/commit/4a991973fc)] - **fix**: add new award and sorting (Lucien)
+- [[`9bd947b9ca`](https://github.com/twreporter/twreporter-react/commit/9bd947b9ca)] - Merge remote-tracking branch 'upstream/master' into feature/new-about-us (Lucien)
+- [[`afc8f87af8`](https://github.com/twreporter/twreporter-react/commit/afc8f87af8)] - **feat**: update about-us page
+- [[`098e2540f7`](https://github.com/twreporter/twreporter-react/commit/098e2540f7)] - **chore**: update twreporter packages (Lucien)
+- [[`69eee10864`](https://github.com/twreporter/twreporter-react/commit/69eee10864)] - **feat**: change donation anchor (Lucien)
+
+## 4.11.1, 2023-09-21
+
+### Notable Changes
+
+- chore
+  - upgrade node to v18.17.1 (LTS)
+  - import swiper css
+  - update @twreporter packages
+
+### Commits
+
+- [[`2c0c894953`](https://github.com/twreporter/twreporter-react/commit/2c0c894953)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5c086f564e`](https://github.com/twreporter/twreporter-react/commit/5c086f564e)] - **chore**: update twreporter packages (Lucien)
+- [[`83fad64b77`](https://github.com/twreporter/twreporter-react/commit/83fad64b77)] - **chore**: update twreporter packages (Lucien)
+- [[`77f2a95c56`](https://github.com/twreporter/twreporter-react/commit/77f2a95c56)] - **chore**: update twreporter packages (Lucien)
+- [[`886083038c`](https://github.com/twreporter/twreporter-react/commit/886083038c)] - **chore**: update twreporter packages (Lucien)
+- [[`6ea223de54`](https://github.com/twreporter/twreporter-react/commit/6ea223de54)] - **chore**: update twreporter packages (Lucien)
+- [[`cf3a18b0f4`](https://github.com/twreporter/twreporter-react/commit/cf3a18b0f4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`56f0f2754c`](https://github.com/twreporter/twreporter-react/commit/56f0f2754c)] - **chore**: upgrade node to v18.17.1 (LTS) (Aylie Chou)
+- [[`94ba11d5bc`](https://github.com/twreporter/twreporter-react/commit/94ba11d5bc)] - **chore**: update twreporter packages (Lucien)
+
+## 4.11.0, 2023-09-04
+
+### Notable Changes
+
+- feat
+  - account page and booklist page metadata
+  - add account page
+  - add membership promo champaign
+- fix
+  - add releaseBranch to BookmarkList
+  - do not show membership promo when open hamburger menu
+  - wrap member data text when overflow
+  - bottom banner style
+  - do not show membership promo when user is authed
+  - change photography font weight
+  - regarding user unauthenticated if they're deactivated
+  - check member page auth state when csr
+  - mobile logout fail on `dev` env
+- chore
+  - update @twreporter packages
+  - remove deprecated `getLogoutLink` method
+  - add dev gtm env
+  - update circle ci config for dev branch
+- refactor
+  - update response Cache-Control header value
+
+### Commits
+
+- [[`c225079ebe`](https://github.com/twreporter/twreporter-react/commit/c225079ebe)] - **fix**: forget to pass `releaseBranch` into `BookmarkList` (nickhsine)
+- [[`d98c334b27`](https://github.com/twreporter/twreporter-react/commit/d98c334b27)] - **chore**: update twreporter packages (Lucien)
+- [[`bbd429e176`](https://github.com/twreporter/twreporter-react/commit/bbd429e176)] - Merge pull request #2605 from nickhsine/update-cache-control (nick)
+- [[`8d9961893e`](https://github.com/twreporter/twreporter-react/commit/8d9961893e)] - **refactor**: update response Cache-Control header value (nickhsine)
+- [[`da0dbe5692`](https://github.com/twreporter/twreporter-react/commit/da0dbe5692)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cf7b9b6ee3`](https://github.com/twreporter/twreporter-react/commit/cf7b9b6ee3)] - **fix**: do not show membership promo when open hamburger menu (Aylie Chou)
+- [[`d41d8d90b7`](https://github.com/twreporter/twreporter-react/commit/d41d8d90b7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`48b77546d8`](https://github.com/twreporter/twreporter-react/commit/48b77546d8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`27d82f6df8`](https://github.com/twreporter/twreporter-react/commit/27d82f6df8)] - **fix**: wrap member data text when overflow (Aylie Chou)
+- [[`a7889b6c5f`](https://github.com/twreporter/twreporter-react/commit/a7889b6c5f)] - **chore**: update reporter packages (Lucien)
+- [[`5452ab21e2`](https://github.com/nodejs/node/commit/5452ab21e2)] - **fix**: bottom banner style (Aylie Chou)
+- [[`306cf1a231`](https://github.com/nodejs/node/commit/306cf1a231)] - **fix**: do not show membership promo when user is authed (Aylie Chou)
+- [[`bdea4bcb8a`](https://github.com/twreporter/twreporter-react/commit/bdea4bcb8a)] - **feat**: fix typo and use matchPath (Lucien)
+- [[`f18ecde040`](https://github.com/twreporter/twreporter-react/commit/f18ecde040)] - **feat**: booklist page metadata (Lucien)
+- [[`d58c46ae7d`](https://github.com/twreporter/twreporter-react/commit/d58c46ae7d)] - **fix**: change font weight to normal (Lucien)
+
+- [[`dfec7c58e0`](https://github.com/twreporter/twreporter-react/commit/dfec7c58e0)] - **chore**: update version to 4.10.5-beta.21 (nickhsine)
+- [[`3abe81f430`](https://github.com/twreporter/twreporter-react/commit/3abe81f430)] - **chore**: upgrade @twreporter deps (nickhsine)
+- [[`ef18531ea4`](https://github.com/twreporter/twreporter-react/commit/ef18531ea4)] - **fix**: `closePromo` been called in unexpected place (Aylie Chou)
+- [[`01f0c36e82`](https://github.com/twreporter/twreporter-react/commit/01f0c36e82)] - **fix**: defects (Aylie Chou)
+- [[`638f58408a`](https://github.com/twreporter/twreporter-react/commit/638f58408a)] - **fix**: /topics/:slug page should not appear promo (Aylie Chou)
+- [[`bba82ffbf1`](https://github.com/twreporter/twreporter-react/commit/bba82ffbf1)] - **fix**: close model when clicking more button (Aylie Chou)
+- [[`daceac0e74`](https://github.com/twreporter/twreporter-react/commit/daceac0e74)] - **fix**: disable background scrolling when popup open (Aylie Chou)
+- [[`4ffa4f39ff`](https://github.com/twreporter/twreporter-react/commit/4ffa4f39ff)] - **fix**: address review comments (Aylie Chou)
+- [[`fcf9130dcb`](https://github.com/twreporter/twreporter-react/commit/fcf9130dcb)] - **fix**: react error `nothing was returned from render` (Aylie Chou)
+- [[`621118b006`](https://github.com/twreporter/twreporter-react/commit/621118b006)] - **fix**: regarding user unauthenticated if they're deactivated (Aylie Chou)
+- [[`dda8b03648`](https://github.com/twreporter/twreporter-react/commit/dda8b03648)] - **fix**: check member page auth state when csr (Aylie Chou)
+- [[`b1b6c70727`](https://github.com/twreporter/twreporter-react/commit/b1b6c70727)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ea52e7c176`](https://github.com/twreporter/twreporter-react/commit/ea52e7c176)] - **fix**: mobile logout fail on `dev` env (Aylie Chou)
+- [[`6a729cbffc`](https://github.com/twreporter/twreporter-react/commit/6a729cbffc)] - **fix**: change showing text (Lucien)
+- [[`4b9692fbf0`](https://github.com/twreporter/twreporter-react/commit/4b9692fbf0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c15a78e8e6`](https://github.com/twreporter/twreporter-react/commit/c15a78e8e6)] - **fix**: specify logout redirect destination (Aylie Chou)
+- [[`82ab2f84cd`](https://github.com/twreporter/twreporter-react/commit/82ab2f84cd)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d1797a6caf`](https://github.com/twreporter/twreporter-react/commit/d1797a6caf)] - **fix**: add auth requirement for account page and fix logout path (Lucien)
+- [[`a3b5b1e54f`](https://github.com/twreporter/twreporter-react/commit/a3b5b1e54f)] - Merge pull request #2534 from liruchen32/feature/getUser (Lucien)
+- [[`b70064dcaf`](https://github.com/twreporter/twreporter-react/commit/b70064dcaf)] - **chore**: update npm packages (Lucien)
+- [[`24e75507cf`](https://github.com/twreporter/twreporter-react/commit/24e75507cf)] - **fix**: remove deprecated `getLogoutLink` method (Aylie Chou)
+- [[`ac261e53dc`](https://github.com/twreporter/twreporter-react/commit/ac261e53dc)] - **feat**: change route to account (Lucien)
+- [[`2bc24ff7ed`](https://github.com/twreporter/twreporter-react/commit/2bc24ff7ed)] - Merge pull request #2522 from liruchen32/fix/fix-email-subscription-page (Lucien)
+- [[`938ef7c286`](https://github.com/twreporter/twreporter-react/commit/938ef7c286)] - **chore**: add dev gtm env (Lucien)
+- [[`9d8187ab85`](https://github.com/twreporter/twreporter-react/commit/9d8187ab85)] - Merge pull request #2518 from liruchen32/fix/fix-donation-page (Lucien)
+- [[`fadcb542cb`](https://github.com/twreporter/twreporter-react/commit/fadcb542cb)] - **chore**: update circleci config (Lucien)
+- [[`5a6e3921d5`](https://github.com/twreporter/twreporter-react/commit/5a6e3921d5)] - Merge pull request #2511 from liruchen32/feature/email-subscription-page (Lucien)
+- [[`6e2a1236ba`](https://github.com/twreporter/twreporter-react/commit/6e2a1236ba)] - Merge pull request #2510 from liruchen32/fix/fix-member-page-padding (Lucien)
+- [[`bd89187`](https://github.com/twreporter/twreporter-react/commit/bd89187)] - Merge pull request #2496 from liruchen32/fix/member-page-grid (Lucien Lu)
+- [[`0cd21d9`](https://github.com/twreporter/twreporter-react/commit/0cd21d9)] - Merge pull request #2488 from liruchen32/feature/member-page (Lucien Lu)
+
+## 4.10.8, 2023-07-28
+
+## Notable Changes
+
+- chore
+  - update @twreporter/react-components@^8.18.1-rc.5
+
+## Commits
+
+- [[`f981298df7`](https://github.com/twreporter/twreporter-react/commit/f981298df7)] - **chore**: update version to 4.10.8 and upgrade @twreporter/react-compoennts (nickhsine)
+- [[`ef87700162`](https://github.com/twreporter/twreporter-react/commit/ef87700162)] - Merge pull request #2571 from nickhsine/master (nick)
+
+## 4.10.7, 2023-07-24
+
+## Notable Changes
+
+- chore
+  - update @twreporter/redux@^7.7.0-rc.3
+
+## Commits
+
+- [[`1d46e17a07`](https://github.com/twreporter/twreporter-react/commit/1d46e17a07)] - **chore**: bump to @4.10.7 stable version (nickhsine)
+
+* [[`7b1ee2a43e`](https://github.com/twreporter/twreporter-react/commit/7b1ee2a43e)] - Merge pull request #2566 from nickhsine/master (nick)
+* [[`3aa65ffab9`](https://github.com/twreporter/twreporter-react/commit/3aa65ffab9)] - **chore**: bump version to 4.10.7-rc.0 (nickhsine)
+
+- [[`58a5ce3aa6`](https://github.com/twreporter/twreporter-react/commit/58a5ce3aa6)] - Merge pull request #2565 from nickhsine/master (nick)
+- [[`3444bc95d2`](https://github.com/twreporter/twreporter-react/commit/3444bc95d2)] - **chore**: update @twreporter/redux to ^7.7.0-rc.3 (nickhsine)
+
+## 4.10.6, 2023-07-11
+
+## Notable Changes
+
+- fix
+  - add mock method for latest page
+  - use official hosted `lottie` package
+  - load polyfill on usage
+  - apply `babel-loader` on react-article-components
+  - import winston module with require
+  - replace all old url with new URL
+  - use original url.parse
+- chore
+  - revert `remove @babel/plugin-transfor-runtime`
+  - remove info struct feature toggle
+  - update @twreporter packages
+
+## Commits
+
+- [[`b03bd93994`](https://github.com/twreporter/twreporter-react/commit/b03bd93994)] - **_Revert_** "**fix**: remove @babel/plugin-transform-runtime" (Aylie)
+- [[`23a4c2f0dc`](https://github.com/twreporter/twreporter-react/commit/23a4c2f0dc)] - **fix**: load polyfill on usage (Aylie Chou)
+- [[`14161b0cb0`](https://github.com/twreporter/twreporter-react/commit/14161b0cb0)] - **fix**: use official hosted `lottie` package (Aylie Chou)
+- [[`4fbbdde066`](https://github.com/twreporter/twreporter-react/commit/4fbbdde066)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1d723ce209`](https://github.com/twreporter/twreporter-react/commit/1d723ce209)] - **chore**: remove info struct feature toggle (Aylie Chou)
+- [[`6a77576c53`](https://github.com/twreporter/twreporter-react/commit/6a77576c53)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`60d77a94ba`](https://github.com/twreporter/twreporter-react/commit/60d77a94ba)] - **fix**: remove @babel/plugin-transform-runtime (Aylie Chou)
+- [[`c43e46eaec`](https://github.com/twreporter/twreporter-react/commit/c43e46eaec)] - **chore**: update node version to 16.14.2 (Lucien)
+- [[`9ad4e36c99`](https://github.com/twreporter/twreporter-react/commit/9ad4e36c99)] - **fix**: apply `babel-loader` on react-article-components (Aylie Chou)
+- [[`52418c707d`](https://github.com/twreporter/twreporter-react/commit/52418c707d)] - **chore**: update twreporter packages (Lucien)
+- [[`99607683e7`](https://github.com/twreporter/twreporter-react/commit/99607683e7)] - **chore**: update twreporter packages (Lucien)
+- [[`bade2d9910`](https://github.com/twreporter/twreporter-react/commit/bade2d9910)] - **fix**: import winston module with require (Aylie Chou)
+- [[`09340303e3`](https://github.com/twreporter/twreporter-react/commit/09340303e3)] - Merge pull request #2513 from Aylie-Chou/12-fix-support-mock-latest (Aylie)
+- [[`b6cf05f725`](https://github.com/twreporter/twreporter-react/commit/b6cf05f725)] - **chore**: downgrade to node v12.22.12 (Lucien)
+- [[`aaa31e19a9`](https://github.com/twreporter/twreporter-react/commit/aaa31e19a9)] - **fix**: replace all old url with new URL (Lucien)
+- [[`cb040c3431`](https://github.com/twreporter/twreporter-react/commit/cb040c3431)] - **fix**: use original url.parse (Lucien Lu)
+- [[`3159ecbd1b`](https://github.com/twreporter/twreporter-react/commit/3159ecbd1b)] - **fix**: replace url.URL with new URL (Lucien Lu)
+
+## 4.10.5, 2023-05-30
+
+### Notable Changes
+
+- fix
+  - kids reporter name in about us page
+- chore
+  - upgrade node to v16
+  - upgrade babel to ^7.4.0
+
+### Commits
+
+- [[`77302ba0fa`](https://github.com/twreporter/twreporter-react/commit/77302ba0fa)] - **fix**: kids reporter name in about us page (Aylie Chou)
+- [[`18331891d8`](https://github.com/twreporter/twreporter-react/commit/18331891d8)] - **fix**: replace deprecated url.parse with url.URL (duidae)
+- [[`7a29ed737b`](https://github.com/twreporter/twreporter-react/commit/7a29ed737b)] - **chore**: upgrade node to v16 (duidae)
+- [[`6dae1aea82`](https://github.com/twreporter/twreporter-react/commit/6dae1aea82)] - **fix**: fix regenerationRuntime not defined error (Aylie Chou)
+- [[`4f2fa55e92`](https://github.com/twreporter/twreporter-react/commit/4f2fa55e92)] - **chore**: upgrade babel to ^7.4.0 (Aylie Chou)
+
+## 4.10.4, 2023-05-12
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - fix universal-header z-index problem
+
+### Commits
+
+- [[`41bd11522c`](https://github.com/twreporter/twreporter-react/commit/41bd11522c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`6178213443`](https://github.com/twreporter/twreporter-react/commit/6178213443)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.10.3, 2023-05-12
+
+### Notable Changes
+
+- fix
+  - transparent tab bar scroll not smoothly
+- chore
+  - update @twreporter packages
+    - fix index page latest section category wording
+
+### Commits
+
+- [[`71b5af13c8`](https://github.com/twreporter/twreporter-react/commit/71b5af13c8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ceb62634ce`](https://github.com/twreporter/twreporter-react/commit/ceb62634ce)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`d66b86ffb3`](https://github.com/twreporter/twreporter-react/commit/d66b86ffb3)] - **fix**: transparent tab bar scroll not smoothly (Aylie Chou)
+
+## 4.10.2, 2023-05-09
+
+### Notable Changes
+
+- chore
+  - use @material-symbols/font400 to reduce bundle size
+  - update @twreporter packages
+    - fix tab bar style in transparent theme
+
+### Commits
+
+- [[`7e33d6c43a`](https://github.com/twreporter/twreporter-react/commit/7e33d6c43a)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`62c9a6c2aa`](https://github.com/twreporter/twreporter-react/commit/62c9a6c2aa)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ec5a995afb`](https://github.com/twreporter/twreporter-react/commit/ec5a995afb)] - **chore**: use @material-symbols/font400 to reduce bundle size (Aylie Chou)
+
+## 4.10.1, 2023-05-09
+
+### Notable Changes
+
+- feat
+  - enable new info structure feature toggle
+- fix
+  - add font smoothing
+  - use CardList component for Latest posts
+- chore
+  - support dev branch
+  - add webpack loader for css & font files
+    - style-loader, css-loader, url-loader
+  - update webpack server default port from 5000 to 5050
+  - update @twreporter components
+
+### Commits
+
+- [[`1f96f886b9`](https://github.com/twreporter/twreporter-react/commit/1f96f886b9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`2f3cf45c6b`](https://github.com/twreporter/twreporter-react/commit/2f3cf45c6b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88abfb19b6`](https://github.com/twreporter/twreporter-react/commit/88abfb19b6)] - **fix**: mobile category page style (Aylie Chou)
+- [[`f8bb42abc3`](https://github.com/twreporter/twreporter-react/commit/f8bb42abc3)] - **fix**: latest page mobile style (Aylie Chou)
+- [[`664cae1a92`](https://github.com/twreporter/twreporter-react/commit/664cae1a92)] - **_Revert_** "**chore**: remove useless dependency `file-loader`" (Aylie Chou)
+- [[`558a0922ac`](https://github.com/twreporter/twreporter-react/commit/558a0922ac)] - **chore**: remove useless dependency `file-loader` (Aylie Chou)
+- [[`aeb95f8301`](https://github.com/twreporter/twreporter-react/commit/aeb95f8301)] - **chore**: update @twreporter components (Aylie Chou)
+- [[`093c416df6`](https://github.com/twreporter/twreporter-react/commit/093c416df6)] - **fix**: add webpack loader for css & font files (Aylie Chou)
+- [[`114645cc56`](https://github.com/twreporter/twreporter-react/commit/114645cc56)] - _**Revert**_ "Revert "Revert "Revert "fix: fix topic top padding"""" (#2347)" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`27b18ddeda`](https://github.com/twreporter/twreporter-react/commit/27b18ddeda)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`fc0ea44bc9`](https://github.com/twreporter/twreporter-react/commit/fc0ea44bc9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`892897789b`](https://github.com/twreporter/twreporter-react/commit/892897789b)] - **fix**: tag list should show `category` info (Aylie Chou)
+- [[`a515b74605`](https://github.com/twreporter/twreporter-react/commit/a515b74605)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c99c7fd79a`](https://github.com/twreporter/twreporter-react/commit/c99c7fd79a)] - Merge pull request #2431 from sharils/change-webpack-dev-server-port-2430 (Lucien)
+- [[`6b7004ec45`](https://github.com/twreporter/twreporter-react/commit/6b7004ec45)] - Merge pull request #2442 from duidae/jason/feature_branch_mainsite (許守傑 Shou-Chieh Hsu (Jason))
+- [[`ba103237be`](https://github.com/twreporter/twreporter-react/commit/ba103237be)] - **feat**: enable dev branc (duidae)
+- [[`3d4126007d`](https://github.com/twreporter/twreporter-react/commit/3d4126007d)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`88d4a53fbd`](https://github.com/twreporter/twreporter-react/commit/88d4a53fbd)] - **fix**: latest title bar style (Aylie Chou)
+- [[`062e696e4e`](https://github.com/twreporter/twreporter-react/commit/062e696e4e)] - **fix**: update naming (Aylie Chou)
+- [[`9d3e2f748b`](https://github.com/twreporter/twreporter-react/commit/9d3e2f748b)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`8ec2b12796`](https://github.com/twreporter/twreporter-react/commit/8ec2b12796)] - **fix**: use CardList component for Latest posts (Aylie Chou)
+- [[`b45423f7a6`](https://github.com/twreporter/twreporter-react/commit/b45423f7a6)] - **fix**: add font smoothing (#2433) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`5a319042a3`](https://github.com/twreporter/twreporter-react/commit/5a319042a3)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f25136c8b0`](https://github.com/twreporter/twreporter-react/commit/f25136c8b0)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`a6cee0d228`](https://github.com/twreporter/twreporter-react/commit/a6cee0d228)] - **fix**: latest tag order (Aylie Chou)
+- [[`7ec0ad7530`](https://github.com/twreporter/twreporter-react/commit/7ec0ad7530)] - **chore**: apply feature toggle on header (Aylie Chou)
+- [[`a4b5901634`](https://github.com/twreporter/twreporter-react/commit/a4b5901634)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.10.0, 2023-02-23
+
+### Notable Changes
+
+- feat
+  - add latest page
+- fix
+  - about-us
+    - section2 intro wording
+    - update awards order & add new awards
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`0dcccd9c90`](https://github.com/twreporter/twreporter-react/commit/0dcccd9c90)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`e42ad803f2`](https://github.com/twreporter/twreporter-react/commit/e42ad803f2)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`9d8be757e7`](https://github.com/twreporter/twreporter-react/commit/9d8be757e7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`bffa611070`](https://github.com/twreporter/twreporter-react/commit/bffa611070)] - Merge pull request #2403 from duidae/jason/upgrade_npm_packs_subcategory_path (許守傑 Shou-Chieh Hsu (Jason))
+- [[`8cc4172b32`](https://github.com/twreporter/twreporter-react/commit/8cc4172b32)] - **chore**: update npm packages to fix subcategory path issue (duidae)
+- [[`759ee763d6`](https://github.com/twreporter/twreporter-react/commit/759ee763d6)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`4da1d4c728`](https://github.com/twreporter/twreporter-react/commit/4da1d4c728)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f20a53a7f5`](https://github.com/twreporter/twreporter-react/commit/f20a53a7f5)] - **fix**: show latest tags sorting with latest_order (Aylie Chou)
+- [[`bac55fb661`](https://github.com/twreporter/twreporter-react/commit/bac55fb661)] - Merge pull request #2394 from duidae/jason/upgrade_npm_packages_object_fromentries (許守傑 Shou-Chieh Hsu (Jason))
+- [[`981cad4f9e`](https://github.com/twreporter/twreporter-react/commit/981cad4f9e)] - **chore**: upgrade npm package for fixing object.fromentries issue (duidae)
+- [[`f49cbbeb3d`](https://github.com/twreporter/twreporter-react/commit/f49cbbeb3d)] - Merge pull request #2389 from twreporter/revert-2385-jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- [[`54db11379d`](https://github.com/twreporter/twreporter-react/commit/54db11379d)] - _**Revert**_ "Jason/revert url parse" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e0528e7597`](https://github.com/twreporter/twreporter-react/commit/e0528e7597)] - Merge pull request #2385 from duidae/jason/revert_url_parse (許守傑 Shou-Chieh Hsu (Jason))
+- [[`bac917cf53`](https://github.com/twreporter/twreporter-react/commit/bac917cf53)] - **fix**: restore to url.parse (duidae)
+- [[`c514d06118`](https://github.com/twreporter/twreporter-react/commit/c514d06118)] - Merge pull request #2382 from twreporter/revert-2376-jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- [[`40e460adff`](https://github.com/twreporter/twreporter-react/commit/40e460adff)] - _**Revert**_ "**fix**: sync node version with npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`07403378dc`](https://github.com/twreporter/twreporter-react/commit/07403378dc)] - Merge pull request #2376 from duidae/jason/update_ci_node (許守傑 Shou-Chieh Hsu (Jason))
+- [[`d70b149886`](https://github.com/twreporter/twreporter-react/commit/d70b149886)] - **chore**: update npm packages (duidae)
+- [[`b1b7b74f71`](https://github.com/twreporter/twreporter-react/commit/b1b7b74f71)] - Merge branch 'master' into jason/update_ci_node (duidae)
+- [[`d8bc3bdf04`](https://github.com/twreporter/twreporter-react/commit/d8bc3bdf04)] - Merge pull request #2378 from duidae/jason/bump_version_v4.10.0-rc.5 (許守傑 Shou-Chieh Hsu (Jason))
+- [[`0765757fdd`](https://github.com/twreporter/twreporter-react/commit/0765757fdd)] - **chore**: bump version 4.10.0-rc.5 (duidae)
+- [[`e70b52439c`](https://github.com/twreporter/twreporter-react/commit/e70b52439c)] - Merge pull request #2377 from twreporter/revert-2373-jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`8859d5a4e0`](https://github.com/twreporter/twreporter-react/commit/8859d5a4e0)] - _**Revert**_ "**chore**: update npm packages" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`bb3af7ac2d`](https://github.com/twreporter/twreporter-react/commit/bb3af7ac2d)] - Merge pull request #2373 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`06c7dfc001`](https://github.com/twreporter/twreporter-react/commit/06c7dfc001)] - **chore**: update npm packages (duidae)
+- [[`9f6c6d2dc4`](https://github.com/twreporter/twreporter-react/commit/9f6c6d2dc4)] - Merge pull request #2370 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [[`b964f3149b`](https://github.com/twreporter/twreporter-react/commit/b964f3149b)] - **chore**: update npm packages (duidae)
+- [[`bbc9f1428e`](https://github.com/twreporter/twreporter-react/commit/bbc9f1428e)] - **fix**: about-us section2 intro wording (Aylie Chou)
+- [[`858682b70c`](https://github.com/twreporter/twreporter-react/commit/858682b70c)] - **fix**: update awards order & add new awards (Aylie Chou)
+- [[`5c828c93f0`](https://github.com/twreporter/twreporter-react/commit/5c828c93f0)] - Merge pull request #2365 from duidae/jason/upgrade_react_article_component (許守傑 Shou-Chieh Hsu (Jason))
+- [[`019d9a70a5`](https://github.com/twreporter/twreporter-react/commit/019d9a70a5)] - **chore**: upgrade react-article-component (duidae)
+- [[`108cda660f`](https://github.com/twreporter/twreporter-react/commit/108cda660f)] - **chore**: apply universal-header with feature toggle (Aylie Chou)
+- [[`b2915ab172`](https://github.com/twreporter/twreporter-react/commit/b2915ab172)] - **chore**: update @twerporter packages (Aylie Chou)
+- [[`ac2670c5c5`](https://github.com/twreporter/twreporter-react/commit/ac2670c5c5)] - **fix**: address review comment (Aylie Chou)
+- [[`eb85162412`](https://github.com/twreporter/twreporter-react/commit/eb85162412)] - **chore**: remove testing change (Aylie Chou)
+- [[`84d17738e2`](https://github.com/twreporter/twreporter-react/commit/84d17738e2)] - **feat**: add latest page (Aylie Chou)
+
+## 4.9.8, 2023-01-12
+
+### Notable Changes
+
+- chore
+  - use new context (twreporter-react)
+
+### Commits
+
+- [[`8e0e91ab34`](https://github.com/twreporter/twreporter-react/commit/8e0e91ab34)] - **fix**: modify circleci config for new context (Aylie Chou)
+
+## 4.9.7, 2023-01-06
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update 2023 fundraising number
+    - force to use old universal-header
+- fix
+  - pass referrer location from react-router-dom for spa
+  - fix gke auth error in ci flow
+  - refine design details for new info arch
+
+### Commits
+
+- [[`73c504e467`](https://github.com/twreporter/twreporter-react/commit/73c504e467)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`56d2093e3d`](https://github.com/twreporter/twreporter-react/commit/56d2093e3d)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`41e9c05334`](https://github.com/twreporter/twreporter-react/commit/41e9c05334)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`166c62a480`](https://github.com/twreporter/twreporter-react/commit/166c62a480)] - Merge pull request #2344 from duidae/jason/revert_style_refinement_PR (許守傑 Shou-Chieh Hsu (Jason))
+- [[`1d2e9ba4b8`](https://github.com/twreporter/twreporter-react/commit/1d2e9ba4b8)] - **fix**: restore npm packages (duidae)
+- [[`b49197837b`](https://github.com/twreporter/twreporter-react/commit/b49197837b)] - _**Revert**_ "Revert "Revert "fix: fix topic top padding""" (duidae)
+- [[`e535b30c9c`](https://github.com/twreporter/twreporter-react/commit/e535b30c9c)] - Merge pull request #2340 from duidae/jason/fix_tag_mobile_layout (許守傑 Shou-Chieh Hsu (Jason))
+- [[`85a73eb8d9`](https://github.com/twreporter/twreporter-react/commit/85a73eb8d9)] - **fix**: fix tag page mobile layout issue (duidae)
+- [[`118aa2518c`](https://github.com/twreporter/twreporter-react/commit/118aa2518c)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`664e76a256`](https://github.com/twreporter/twreporter-react/commit/664e76a256)] - **fix**: pass referrer location from react-router-dom for spa (Aylie Chou)
+- [[`cbf4c23a2b`](https://github.com/twreporter/twreporter-react/commit/cbf4c23a2b)] - Merge pull request #2334 from duidae/jason/remove_install_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- [[`34633d5cc8`](https://github.com/twreporter/twreporter-react/commit/34633d5cc8)] - **fix**: remove install command (duidae)
+- [[`63014e7db7`](https://github.com/twreporter/twreporter-react/commit/63014e7db7)] - Merge pull request #2331 from duidae/jason/install_gke_auth_plugin (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e572539d7d`](https://github.com/twreporter/twreporter-react/commit/e572539d7d)] - **fix**: install gke auth plugin (duidae)
+- [[`58eb5a70bb`](https://github.com/twreporter/twreporter-react/commit/58eb5a70bb)] - Merge pull request #2328 from duidae/jason/fix_gke_upgrade_issue (許守傑 Shou-Chieh Hsu (Jason))
+- [[`62337cee78`](https://github.com/twreporter/twreporter-react/commit/62337cee78)] - **fix**: update ci for gke auth error issue (duidae)
+- [[`a789ecf763`](https://github.com/twreporter/twreporter-react/commit/a789ecf763)] - Merge pull request #2324 from duidae/jason/fix_mobile_rwd_defect (許守傑 Shou-Chieh Hsu (Jason))
+- [[`6c4dbda5a3`](https://github.com/twreporter/twreporter-react/commit/6c4dbda5a3)] - **fix**: update npm packages (duidae)
+- [[`8cde5246f0`](https://github.com/twreporter/twreporter-react/commit/8cde5246f0)] - Merge pull request #2317 from duidae/jason/revert_refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`2d7930b4cc`](https://github.com/twreporter/twreporter-react/commit/2d7930b4cc)] - **fix**: update npm packages (duidae)
+- [[`5ed921d031`](https://github.com/twreporter/twreporter-react/commit/5ed921d031)] - _**Revert**_ "Revert "fix: fix topic top padding"" (duidae)
+- [[`5c6a1c3569`](https://github.com/twreporter/twreporter-react/commit/5c6a1c3569)] - **chore**: use universal header with feature toggle (Aylie Chou)
+- [[`482873a056`](https://github.com/twreporter/twreporter-react/commit/482873a056)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 4.9.6, 2022-11-30
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update font-family
+- fix
+  - revert: refine design details for new info arch
+  - refine design details for new info arch
+  - update about-us department name
+  - pass location props to universal-header
+  - send releaseBranch prop to banner
+- refactor
+  - adopt adobe font as the third-party web fonts
+
+### Commits
+
+- [[`989a06f7df`](https://github.com/twreporter/twreporter-react/commit/989a06f7df)] - **chore**: force to use old universal-header (Aylie Chou)
+- [[`4dca3f9715`](https://github.com/twreporter/twreporter-react/commit/4dca3f9715)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0914195308`](https://github.com/twreporter/twreporter-react/commit/0914195308)] - Merge pull request #2308 from twreporter/revert-2297-jason/refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`d34bb27afd`](https://github.com/twreporter/twreporter-react/commit/d34bb27afd)] - _**Revert**_ "**fix**: fix topic top padding" (許守傑 Shou-Chieh Hsu (Jason))
+- [[`2a2bf9df2d`](https://github.com/twreporter/twreporter-react/commit/2a2bf9df2d)] - Merge pull request #2297 from duidae/jason/refinement_new_arch (許守傑 Shou-Chieh Hsu (Jason))
+- [[`ee21cb78d3`](https://github.com/twreporter/twreporter-react/commit/ee21cb78d3)] - **fix**: update npm packages (duidae)
+- [[`d371f2354a`](https://github.com/twreporter/twreporter-react/commit/d371f2354a)] - Merge branch 'master' into jason/refinement_new_arch (duidae)
+- [[`b5844cefe3`](https://github.com/twreporter/twreporter-react/commit/b5844cefe3)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`37c91dbc00`](https://github.com/twreporter/twreporter-react/commit/37c91dbc00)] - Merge pull request #2300 from Aylie-Chou/16-fix-about-us-department-naming (Aylie)
+- [[`9360f50f49`](https://github.com/twreporter/twreporter-react/commit/9360f50f49)] - Merge pull request #2296 from Aylie-Chou/12-feature-info-struct-redesign (Aylie)
+- [[`8be208b967`](https://github.com/twreporter/twreporter-react/commit/8be208b967)] - Merge pull request #2301 from duidae/jason/bump_version_v4.9.6-rc.3 (許守傑 Shou-Chieh Hsu (Jason))
+- [[`5320c479db`](https://github.com/twreporter/twreporter-react/commit/5320c479db)] - Merge pull request #2299 from duidae/jason/update_kids_banner (許守傑 Shou-Chieh Hsu (Jason))
+- [[`55c8771c47`](https://github.com/twreporter/twreporter-react/commit/55c8771c47)] - **fix**: update npm packages (duidae)
+- [[`8f6c51337d`](https://github.com/twreporter/twreporter-react/commit/8f6c51337d)] - **fix**: add releaseBranch props to home (duidae)
+- [[`1497004ac5`](https://github.com/twreporter/twreporter-react/commit/1497004ac5)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`454c1ae324`](https://github.com/twreporter/twreporter-react/commit/454c1ae324)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`85c34d508b`](https://github.com/twreporter/twreporter-react/commit/85c34d508b)] - **refactor**: adopt adobe font as the third-party web fonts (#2266) (Tai-Jiun Fang)
+- [[`8175df741c`](https://github.com/twreporter/twreporter-react/commit/8175df741c)] - **chore**: update twreporter npm packages (Tai-Jiun Fang)
+
+## 4.9.5, 2022-10-28
+
+### Notable Changes
+
+- chore
+  - force to use old header
+  - update @twreporter packages
+    - disable feature toggle
+    - desktop hamburger menu
+- fix
+  - style & eslint warning
+
+### Commits
+
+- [[`e5d7ea6ddd`](https://github.com/twreporter/twreporter-react/commit/e5d7ea6ddd)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1532da2988`](https://github.com/twreporter/twreporter-react/commit/1532da2988)] - **fix**: force to use old universal-header (Aylie Chou)
+- [[`aa55654a2f`](https://github.com/twreporter/twreporter-react/commit/aa55654a2f)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`625db1b83c`](https://github.com/twreporter/twreporter-react/commit/625db1b83c)] - **fix**: fix style & eslint warning (Aylie Chou)
+
+## 4.9.4, 2022-10-27
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+    - update kids reporter link & wording
+    - disable feature toggle: new info structure
+  - Revert "**chore**: update @twreporter npm packages (#2250)"
+- fix
+  - fix feature toggle
+  - apply new category set in index-page & photography page
+
+### Commits
+
+- [[`f3d9ddf62a`](https://github.com/twreporter/twreporter-react/commit/f3d9ddf62a)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`21ca70d8bd`](https://github.com/twreporter/twreporter-react/commit/21ca70d8bd)] - **fix**: import header with featuer toggle applied level (Aylie Chou)
+- [[`e39362839c`](https://github.com/twreporter/twreporter-react/commit/e39362839c)] - **chore**: upadte @twreporter packages (Aylie Chou)
+- [[`c53ac15c9d`](https://github.com/twreporter/twreporter-react/commit/c53ac15c9d)] - **chore**: update @twreporter npm packages (Aylie Chou)
+- [[`8f620ac90c`](https://github.com/twreporter/twreporter-react/commit/8f620ac90c)] - **fix**: fix feature toggle level (Aylie Chou)
+- [[`4a445f24f4`](https://github.com/twreporter/twreporter-react/commit/4a445f24f4)] - **chore**: update @twreporter npm packages (#2259) (Tai-Jiun Fang)
+- [[`3b4f6ad939`](https://github.com/twreporter/twreporter-react/commit/3b4f6ad939)] - **chore**: update @twreporter npm packages (#2256) (Tai-Jiun Fang)
+- [[`ce07074dd8`](https://github.com/twreporter/twreporter-react/commit/ce07074dd8)] - _**Revert**_ "**chore**: update @twreporter npm packages (#2250)" (Tai-Jiun Fang)
+- [[`c0b6d6cc3d`](https://github.com/twreporter/twreporter-react/commit/c0b6d6cc3d)] - **chore**: update @twreporter npm packages (#2250) (Tai-Jiun Fang)
+- [[`29afe2c089`](https://github.com/twreporter/twreporter-react/commit/29afe2c089)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`e7d7f02a9d`](https://github.com/twreporter/twreporter-react/commit/e7d7f02a9d)] - **chore**: upgrade @twreporter packages version (Aylie Chou)
+- [[`28c063fc2e`](https://github.com/twreporter/twreporter-react/commit/28c063fc2e)] - **fix**: apply new category set in index-page & photography page (Aylie Chou)
+
+## 4.9.3, 2022-09-15
+
+### Notable Changes
+
+- fix
+  - fix photography page data loader
+
+### Commits
+
+- [[`55f6cf9d22`](https://github.com/twreporter/twreporter-react/commit/55f6cf9d22)] - **fix**: photography page data loader (#2242) (Tai-Jiun Fang)
+
+## 4.9.2, 2022-09-14
+
+### Notable Changes
+
+- fix
+  - fix photography page cannot get posts
+
+### Commits
+
+- [[`2075d9930f`](https://github.com/twreporter/twreporter-react/commit/2075d9930f)] - **fix**: fix photography page cannot get posts (Aylie Chou)
+
+## 4.9.1, 2022-09-14
+
+### Notable Changes
+
+- chore
+  - update @twreporter npm packages
+- feat
+  - update category page with feature toggle
+- refactor
+  - async load google optimize script
+
+### Commits
+
+- [[`f95f1c53d5`](https://github.com/twreporter/twreporter-react/commit/f95f1c53d5)] - **chore**: update @twreporter packages version (Aylie Chou)
+- [[`b658898245`](https://github.com/twreporter/twreporter-react/commit/b658898245)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`1599f277d8`](https://github.com/twreporter/twreporter-react/commit/1599f277d8)] - **fix**: fix category constants (Aylie Chou)
+- [[`0a4c5d964b`](https://github.com/twreporter/twreporter-react/commit/0a4c5d964b)] - **refactor**: async load google optimize script (#2230) (Tai-Jiun Fang)
+- [[`9d48e90d37`](https://github.com/twreporter/twreporter-react/commit/9d48e90d37)] - **fix**: update @twreporter/core package (Aylie Chou)
+- [[`04b55ed8bd`](https://github.com/twreporter/twreporter-react/commit/04b55ed8bd)] - **feat**: update Category page with feature toggle (Aylie Chou)
+
+## 4.9.0, 2022-08-11
+
+### Notable Changes
+
+- chore
+  - update @twreporter npm packages
+- fix
+  - render blocking issue
+    - remove `Noto Sans TC` in font loaded from google font
+    - self host `Noto Sans TC` and add the corresponding font-face into GlobalStyle
+
+### Commits
+
+- [24f35d4511] - chore: update @twreporter npm packages (#2223) (Tai-Jiun Fang)
+- [0caba9792c] - chore: update twreporter npm pkgs (Tai-Jiun Fang)
+- [e00f8a46c2] - feat: preload self hosted fonts (Tai-Jiun Fang)
+- [f3f15505f0] - refactor: update `getFontFaces` to `webfonts.fontFaces` (Tai-Jiun Fang)
+- [41bb3808c8] - refactor: add font-family `defaultFallback` (Tai-Jiun Fang)
+- [3fe48d7b72] - refactor: update global style to include fontfaces (Tai-Jiun Fang)
+- [f31accd867] - fix: remove `Noto Sans TC` font from webfontloader loading list (Tai-Jiun Fang)
+
+## 4.8.4, 2022-08-09
+
+### Notable Changes
+
+- chore: update @twreporter npm packages
+  - @twreporter/core@1.4.2
+  - @twreporter/index-page@1.3.1
+  - @twreporter/react-article-components@1.6.2
+  - @twreporter/react-components@8.11.1
+  - @twreporter/universal-header@2.2.12
+- chore: replace smoothScroll npm package with our custom smooth-scroll
+
+### Commits
+
+- \[[`587e780ae8`](https://github.com/twreporter/twreporter-react/commit/587e780ae8)] - Merge pull request #2217 from duidae/jason/update_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`345824bf3c`](https://github.com/twreporter/twreporter-react/commit/345824bf3c)] - **chore**: update npm packages (duidae)
+- \[[`82c1f91313`](https://github.com/twreporter/twreporter-react/commit/82c1f91313)] - Merge branch 'staging' into master (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`2da25c28e9`](https://github.com/twreporter/twreporter-react/commit/2da25c28e9)] - **chore**: bump version v4.8.4-rc.1 (#2213) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`b1ba9685d1`](https://github.com/twreporter/twreporter-react/commit/b1ba9685d1)] - **chore**: upgrade react-article-components to v1.6.2-rc.1 (#2212) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`b54301715d`](https://github.com/twreporter/twreporter-react/commit/b54301715d)] - **chore**: release v4.8.4-rc.0 to staging (#2211) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`a7153891b8`](https://github.com/twreporter/twreporter-react/commit/a7153891b8)] - **chore**: bump version v4.8.4-rc.0 (#2210) (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`bbc8242585`](https://github.com/twreporter/twreporter-react/commit/bbc8242585)] - **fix**: remove smoothscroll lib (#2192) (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.8.3, 2022-07-27
+
+### Notable Changes
+
+- chore: update @twreporter npm packages
+  - @twreporter/react-article-components@1.6.1
+
+### Commits
+
+- [[`b6713cb3a4`](https://github.com/twreporter/twreporter-react/commit/b6713cb3a4)] - **chore**: update @twreporter package to apply tool bar change (#2203) (Aylie Chou)
+- [[`407c9cead4`](https://github.com/twreporter/twreporter-react/commit/407c9cead4)] - **chore**: update @twreporter package to release version (#2206) (Aylie Chou)
+
+## 4.8.2, 2022-07-21
+
+### Notable Changes
+
+- chore: update @twreporter npm packages
+  - @twreporter/index-page@^1.3.0
+  - @twreporter/react-article-components@^1.6.0
+  - @twreporter/react-components@^8.11.0
+  - @twreporter/universal-header@^2.2.11
+
+### Commits
+
+- [[`be70da1150`](https://github.com/twreporter/twreporter-react/commit/be70da1150)] - **chore**: update @twreporter npm packages (#2199) (Tai-Jiun Fang)
+- [[`2c8b86fa1f`](https://github.com/twreporter/twreporter-react/commit/2c8b86fa1f)] - **refactor**: replace the NewsletterSection with JuniorBoxSection
+  ang)
+- [[`24d9e41cf0`](https://github.com/twreporter/twreporter-react/commit/24d9e41cf0)] - **chore**: update twreporter npm packages (#2196) (Tai-Jiun Fang)
+- \[[`6fed91657b`](https://github.com/twreporter/twreporter-react/commit/6fed91657b)] - Merge pull request #2194 from duidae/jason/downgrade_react-article-component_v1.5.0 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`33652de641`](https://github.com/twreporter/twreporter-react/commit/33652de641)] - **chore**: downgrade react-article-components to v1.5.0 (duidae)
+- \[[`dbe80bf539`](https://github.com/twreporter/twreporter-react/commit/dbe80bf539)] - Merge pull request #2189 from duidae/jason/issue_60 (許守傑 Shou-Chieh Hsu (Jason))
+- \[[`fe20cecf9f`](https://github.com/twreporter/twreporter-react/commit/fe20cecf9f)] - **chore**: update react-article-component to v1.6.0-rc.0 (duidae)
+
+## 4.8.1, 2022-07-06
+
+### Notable Changes
+
+- docs
+  - update award name in about-us page
+- fix
+  - support safe-area-inset-\* css
+- refactor
+  - update about-us
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.16
+    - @twreporter/react-article-components@1.5.0
+    - @twreporter/react-components@8.10.0
+    - @twreporter/redux@7.2.2
+    - @twreporter/universal-header@2.2.10
+
+### Commits
+
+- [[`92c4c791fb`](https://github.com/twreporter/twreporter-react/commit/92c4c791fb)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`dda87ea8d1`](https://github.com/twreporter/twreporter-react/commit/dda87ea8d1)] - **docs**: update award name in about-us (#2179) (Tai-Jiun Fang)
+- [[`8beefcf841`](https://github.com/twreporter/twreporter-react/commit/8beefcf841)] - **chore**: update @twreporter packages to apply tool bar fix (Aylie Chou)
+- [[`294b653578`](https://github.com/twreporter/twreporter-react/commit/294b653578)] - **chore**: update @twreporter packages toapply tool bar fix (Aylie Chou)
+- [[`e0029b04c9`](https://github.com/twreporter/twreporter-react/commit/e0029b04c9)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`5557ce47a6`](https://github.com/twreporter/twreporter-react/commit/5557ce47a6)] - **fix**: support safe-area-inset-\* css (Aylie Chou)
+- [[`4d12fe45f6`](https://github.com/twreporter/twreporter-react/commit/4d12fe45f6)] - **chore**: update @twreporter/react-article-components package (Aylie Chou)
+- [[`d217c241c7`](https://github.com/twreporter/twreporter-react/commit/d217c241c7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`61071be9de`](https://github.com/twreporter/twreporter-react/commit/61071be9de)] - **chore**: update @twreporter packages to apply article tool bar (Aylie Chou)
+- [[`0fd7bf2fab`](https://github.com/twreporter/twreporter-react/commit/0fd7bf2fab)] - **refactor**: update about-us (#2154) (Tai-Jiun Fang)
+
+## 4.8.0, 2022-06-07
+
+### Notable Changes
+
+- fix
+  - change font loader
+  - support mobile test
+  - replace version with package.json instead of changelog.md
+- feat
+  - add FPS meter stats-js
+  - add releaseBranch props into route component
+- refactor
+  - remove reading progress due to spec change
+- chore
+  - update npm packages
+    - @twreporter/index-page@1.2.15
+    - @twreporter/react-article-components@1.4.12
+    - @twreporter/react-components@8.9.0
+    - @twreporter/universal-header@2.2.9
+
+### Commits
+
+- [[`3e54e21440`](https://github.com/twreporter/twreporter-react/commit/3e54e21440)] - **chore**: update @twreporter npm packages (#2155) (Tai-Jiun Fang)
+- [[`85ee509e2f`](https://github.com/twreporter/twreporter-react/commit/85ee509e2f)] - **chore**: update npm packages (Tai-Jiun Fang)
+- [[`43200ce574`](https://github.com/twreporter/twreporter-react/commit/43200ce574)] - **fix**: change font loader (#2148) (Tai-Jiun Fang)
+- [[`307934d79d`](https://github.com/twreporter/twreporter-react/commit/307934d79d)] - **feat**: integrate fps meter (duidae)
+- [[`60082ef42f`](https://github.com/twreporter/twreporter-react/commit/60082ef42f)] - **feat**: add stats-js (duidae)
+- [[`bfd3d199d9`](https://github.com/twreporter/twreporter-react/commit/bfd3d199d9)] - **chore**: upgrade react-article-component & universal-header (duidae)
+- [[`706f5dc3f7`](https://github.com/twreporter/twreporter-react/commit/706f5dc3f7)] - **chore**: update @twreporter packages to apply bookmark fix (Aylie Chou)
+- [[`b2994d865c`](https://github.com/twreporter/twreporter-react/commit/b2994d865c)] - **refactor**: remove reading progress due to spec change (#2131) (Tai-Jiun Fang)
+- [[`e9da98dec1`](https://github.com/twreporter/twreporter-react/commit/e9da98dec1)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`cb17db220b`](https://github.com/twreporter/twreporter-react/commit/cb17db220b)] - **fix**: update @twreporter component version to apply bookmark fix (Aylie Chou)
+- [[`7b23539a52`](https://github.com/twreporter/twreporter-react/commit/7b23539a52)] - **fix**: replace version source (duidae)
+- [[`a50de8889c`](https://github.com/twreporter/twreporter-react/commit/a50de8889c)] - **feat**: update @twreporter packages to add bookmark guide (Aylie Chou)
+- [[`fcbcdb48cd`](https://github.com/twreporter/twreporter-react/commit/fcbcdb48cd)] - **fix**: remove redundant line (Aylie Chou)
+- [[`f5a7ae88aa`](https://github.com/twreporter/twreporter-react/commit/f5a7ae88aa)] - **feat**: add releaseBranch props into route component (Aylie Chou)
+
+## 4.7.16, 2022-05-09
+
+### Notable Changes
+
+- chore:
+  - update npm packages
+    - @twreporter/index-page@1.2.14
+    - @twreporter/react-article-components@1.4.11
+    - @twreporter/react-components@8.8.0
+    - @twreporter/universal-header@2.2.8
+
+### Commits
+
+- [[`ecee78e276`](https://github.com/twreporter/twreporter-react/commit/ecee78e276)] - **chore**: update npm pkg version (Tai-Jiun Fang)
+
+* [[`2fd203892c`](https://github.com/twreporter/twreporter-react/commit/2fd203892c)] - **chore**: update @twreporter/react-article-components@1.4.11-rc.1 (Tai-Jiun Fang)
+
+## 4.7.15, 2022-04-29
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/index-page@1.2.13, @twreporter/react-article-components@1.4.10, @twreporter/react-components@8.7.1, @twreporter/redux@7.2.1, @twreporter/universal-header@2.2.7 ([#2111](https://github.com/twreporter/twreporter-react/pull/2111))
+
+### Commits
+
+- [9a8a518d84] - Merge pull request #2111 from duidae/jason/upgrade_npm_packages (許守傑 Shou-Chieh Hsu (Jason))
+- [ddb822b628] - chore: upgrade npm packages (duidae)
+
+## 4.7.14, 2022-04-14
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/react-article-components@1.4.9 ([#2104](https://github.com/twreporter/twreporter-react/pull/2104))
+
+### Commits
+
+- [[`0f2c4cbd12`](https://github.com/twreporter/twreporter-react/commit/0f2c4cbd12)] - **chore**: upgrade react-article-components to v1.4.9 (#2104) (許守傑 Shou-Chieh Hsu (Jason))
+
+## 4.7.13, 2022-03-23
+
+### Notable Changes
+
+- chore:
+  - update dep @twreporter/index-page@1.2.12 ([#2096](https://github.com/twreporter/twreporter-react/pull/2096))
+
+### Commits
+
+- [[`fc3c8eb4a2`](https://github.com/twreporter/twreporter-react/commit/fc3c8eb4a2)] - **chore**: update dep @twreporter/index-page@^1.2.12 (#2096) (Tai-Jiun Fang)
+- [[`92798bd9ac`](https://github.com/twreporter/twreporter-react/commit/92798bd9ac)] - **chore**: update dep @twreporter/index-page@1.2.12-rc.0 (#2093) (Tai-Jiun Fang)
+
+## 4.7.12, 2022-03-22
+
+### Notable Changes
+
+- fix:
+  - fix header animation issue([#2065](https://github.com/twreporter/twreporter-react/pull/2065))
+- chore:
+  - upgrade npm package to 1.4.8 ([#2089](https://github.com/twreporter/twreporter-react/pull/2089))
+  - refactor: update mock-data to include topic state([#2073](https://github.com/twreporter/twreporter-react/pull/2073))
+
+### Commits
+
+- [[`676cccf854`](https://github.com/twreporter/twreporter-react/commit/676cccf854)] - **chore**: update npm package version (#2089) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`e010236c59`](https://github.com/twreporter/twreporter-react/commit/e010236c59)] - **fix**: add missing lock file (duidae)
+- [[`ca04e6461c`](https://github.com/twreporter/twreporter-react/commit/ca04e6461c)] - **chore**: bump version (duidae)
+- [[`c91fad8021`](https://github.com/twreporter/twreporter-react/commit/c91fad8021)] - **chore**: update npm package version (duidae)
+- [[`bdb5c792e0`](https://github.com/twreporter/twreporter-react/commit/bdb5c792e0)] - **fix**: fix header animation issue (#2065) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`976fa9f27a`](https://github.com/twreporter/twreporter-react/commit/976fa9f27a)] - **refactor**: update mock-data to include topic state (#2073) (Tai-Jiun Fang)
+
+## 4.7.11, 2022-03-16
+
+### Notable Changes
+
+- chore
+  - update @twreporter/react-article-components@1.4.7([#2077](https://github.com/twreporter/twreporter-react/pull/2077))
+
+### Commits
+
+- [[`b513ae22e2`](https://github.com/twreporter/twreporter-react/commit/b513ae22e2)] - **chore**: update dep @twreporter/react-article-components@1.4.7 (Tai-Jiun Fang)
+- [[`1ff4f31c51`](https://github.com/twreporter/twreporter-react/commit/1ff4f31c51)] - **chore**: bump version to v4.7.11-rc.0 (Tai-Jiun Fang)
+- [[`92d92e7d99`](https://github.com/twreporter/twreporter-react/commit/92d92e7d99)] - **chore**: update dep @twreporter/react-article-components@1.4.7-rc.4 (#2074) (Tai-Jiun Fang)
+
+## 4.7.10, 2022-03-14
+
+### Notable Changes
+
+- chore
+  - revert print header([#2067](https://github.com/twreporter/twreporter-react/pull/2067))
+  - remove webpush banner for live blog banner for the time being([#2066](https://github.com/twreporter/twreporter-react/pull/2066))
+  - update @twreporter/react-article-components to v1.4.7-rc.2([#2062](https://github.com/twreporter/twreporter-react/pull/2062))
+- fix
+  - disappear header & web push in print mode([#2059](https://github.com/twreporter/twreporter-react/pull/2059))
+
+### Commits
+
+- [[`8bb0f26c6d`](https://github.com/twreporter/twreporter-react/commit/8bb0f26c6d)] - **chore**: remove webpush banner for live blog banner for the time being (#2066) (Tai-Jiun Fang)
+- [[`6ae4b6ca20`](https://github.com/twreporter/twreporter-react/commit/6ae4b6ca20)] - Jason/revert print header (#2067) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`f31f574812`](https://github.com/twreporter/twreporter-react/commit/f31f574812)] - **chore**: upgrade react-article-component to v1.4.7-rc.2 (#2062) (許守傑 Shou-Chieh Hsu (Jason))
+- [[`ef2e5ff5dd`](https://github.com/twreporter/twreporter-react/commit/ef2e5ff5dd)] - Jason/print layout issue (#2059) (許守傑 Shou-Chieh Hsu (Jason))
+
 ## 4.7.9, 2022-03-01
 
 ### Notable Changes
@@ -14,7 +1406,7 @@
 - [[`50a7d306a0`](https://github.com/twreporter/twreporter-react/commit/50a7d306a0)] - **fix**: fix eslint error (#2051) (Tai-Jiun Fang)
 - [[`7ccf8fb5d2`](https://github.com/twreporter/twreporter-react/commit/7ccf8fb5d2)] - **fix**: add gtm preview environment config (Aylie Chou)
 
-## 4.7.8 (Current), 2022-02-24
+## 4.7.8, 2022-02-24
 
 ### Notable Changes
 

@@ -1,16 +1,19 @@
 /* eslint-env browser */
-import 'babel-polyfill'
+import 'regenerator-runtime/runtime'
 import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
-import Loadable from 'react-loadable'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { loadableReady } from '@loadable/component'
+import React, { Fragment } from 'react'
+import { createRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
 import loggerFactory from './logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import twreporterRedux from '@twreporter/redux'
+import '@material-symbols/font-400/outlined.css'
+import 'swiper/swiper.min.css'
+import { HelmetProvider } from 'react-helmet-async'
 // lodash
 import get from 'lodash/get'
 const _ = {
@@ -24,6 +27,11 @@ const tagManagerArgs = {
     gtmId: 'GTM-PRMXBBN',
     auth: '2pJC7GotZqWa7HtmIgSFIg',
     preview: 'env-231',
+  },
+  dev: {
+    gtmId: 'GTM-PRMXBBN',
+    auth: 'XFsQ67nTp2wXWpJllmNBCQ',
+    preview: 'env-229',
   },
   staging: {
     gtmId: 'GTM-PRMXBBN',
@@ -121,23 +129,45 @@ const store = twreporterRedux.createStore(
 TagManager.initialize(tagManagerArgs[releaseBranch])
 
 const jsx = (
-  <BrowserRouter>
-    <React.Fragment>
-      <Route path="/" component={reloadPageIfNeeded()} />
-      <Route path="/" component={scrollToTopAndFirePageview} />
-      <Route path="/" component={hashLinkScroll} />
-      <Route path="/" component={sendGtmUserId} />
-      <App reduxStore={store} releaseBranch={releaseBranch} />
-    </React.Fragment>
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <Fragment>
+        <Route path="/" component={reloadPageIfNeeded()} />
+        <Route path="/" component={scrollToTopAndFirePageview} />
+        <Route path="/" component={hashLinkScroll} />
+        <Route path="/" component={sendGtmUserId} />
+        <App reduxStore={store} releaseBranch={releaseBranch} />
+      </Fragment>
+    </BrowserRouter>
+  </HelmetProvider>
 )
 
-Loadable.preloadReady().then(() => {
+loadableReady(() => {
+  const container = document.getElementById('root')
+  const root = createRoot(container)
+  // todo: use `hydrateRoot` after resolving react issue #418 & #423
+  root.render(jsx)
+
   if (globalEnv.isDevelopment) {
-    ReactDOM.render(jsx, document.getElementById('root'))
-    return
+    // FPS meter
+    import('stats-js')
+      .then(Stats => {
+        const stats = new Stats()
+        stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(stats.dom)
+        function animate() {
+          stats.begin()
+          stats.end()
+          window.requestAnimationFrame(animate)
+        }
+        window.requestAnimationFrame(animate)
+        stats.dom.style.right = '0'
+        stats.dom.style.left = 'initial'
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
-  ReactDOM.hydrate(jsx, document.getElementById('root'))
 })
 
 /**

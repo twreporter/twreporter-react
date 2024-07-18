@@ -1,4 +1,6 @@
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+
 export const gray = {
-  lightgray: '#bcbcbc',
-  bordergray: '#e9e9e9',
+  lightgray: colorGrayscale.gray500,
+  bordergray: colorGrayscale.gray200,
 }
