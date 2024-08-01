@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 // @twreporter
@@ -12,10 +12,13 @@ import {
 import divider from '@twreporter/react-components/lib/divider'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 import { LinkButton } from '@twreporter/react-components/lib/button'
+import origins from '@twreporter/core/lib/constants/request-origins'
 // components
 import { StatusBadge } from '../status-bagde'
 import { formattedDate } from './row'
 import { DonationType, PayMethodType } from '../../../../constants/donation'
+// context
+import { CoreContext } from '../../../../contexts'
 
 const P1Gray800 = styled(P1)`
   color: ${colorGrayscale.gray800};
@@ -40,6 +43,12 @@ const RowDetail = styled.div`
 
 const ReceiptInfoBox = styled.div`
   width: 100%;
+  .receipt-info-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
   .receipt-table {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -179,6 +188,11 @@ const isAnonymousDictionary = {
   1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
 }
 
+const contributeType = {
+  prime: 'one_time',
+  periodic: 'monthly',
+}
+
 export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
   const {
     card_last_four: cardLastFour,
@@ -188,9 +202,13 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     is_anonymous: isAnonymous,
     pay_method: payMethod,
     order_number: orderNumber,
+    type,
   } = record
   const receiptAddress = `${record.address_state || ''}${record.address_city ||
     ''}${record.address_detail || ''}`
+
+  const { releaseBranch } = useContext(CoreContext)
+  const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}?utm_source=supportsuccess&utm_medium=account`
 
   const DotGroups = () =>
     Array.from({ length: 3 }, (_, i) => (
@@ -201,11 +219,23 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
         <Dot />
       </DotGroup>
     ))
+
   return (
     <RowDetail>
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         <ReceiptInfoBox>
-          <P1Gray800 weight={P1.Weight.BOLD} text="收據資料" />
+          <div className="receipt-info-title">
+            <P1Gray800 weight={P1.Weight.BOLD} text="收據資料" />
+            <LinkButton
+              type={LinkButton.Type.UNDERLINE}
+              text="修改贊助資料"
+              TextComponent={P2}
+              link={{
+                to: editReceiptUrl,
+                target: '_blank',
+              }}
+            />
+          </div>
           <TabletAndAbove>
             <Divider />
             <div className="receipt-table">
