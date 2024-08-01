@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.1.3-rc.0, 2024-08-01
+
+### Notable Changes
+
+- feat
+  - add edit link for receipt info
+- fix
+  - query string
+
+### Commits
+
+- [[`f7eadab54f`](https://github.com/twreporter/twreporter-react/commit/f7eadab54f)] - **fix**: query string (Lucien)
+- [[`fb15f2011f`](https://github.com/twreporter/twreporter-react/commit/fb15f2011f)] - Merge remote-tracking branch 'upstream/master' into feature/edit-payment-link (Lucien)
+- [[`b5f6341566`](https://github.com/twreporter/twreporter-react/commit/b5f6341566)] - **feat**: add edit link for receipt info (Lucien)
+
 ## 5.1.2, 2024-07-18 (Current)
 
 ### Notable Changes
