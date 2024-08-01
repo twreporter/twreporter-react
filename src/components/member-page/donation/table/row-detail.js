@@ -208,7 +208,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     ''}${record.address_detail || ''}`
 
   const { releaseBranch } = useContext(CoreContext)
-  const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}/utm_source=supportsuccess&utm_medium=account`
+  const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}?utm_source=supportsuccess&utm_medium=account`
 
   const DotGroups = () =>
     Array.from({ length: 3 }, (_, i) => (
