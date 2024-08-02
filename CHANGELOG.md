@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.1.3-rc.1, 2024-08-02
+
+### Notable Changes
+
+- feat
+  - leading_embedded for article
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`8750f3b1b4`](https://github.com/twreporter/twreporter-react/commit/8750f3b1b4)] - **chore**: update twreporter packages (Lucien)
+- [[`32f956b3a8`](https://github.com/twreporter/twreporter-react/commit/32f956b3a8)] - Merge remote-tracking branch 'upstream/master' into feature/leading-embedded-article (Lucien)
+- [[`43571250e5`](https://github.com/twreporter/twreporter-react/commit/43571250e5)] - **feat**: leading_embedded for article (Lucien)
+
 ## 5.1.3-rc.0, 2024-08-01
 
 ### Notable Changes
