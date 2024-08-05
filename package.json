@@ -36,7 +36,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@twreporter/core": "^1.23.0-rc.0",
     "@twreporter/index-page": "^2.0.7-rc.0",
-    "@twreporter/react-article-components": "^2.4.0-rc.0",
+    "@twreporter/react-article-components": "^2.4.0-rc.1",
     "@twreporter/react-components": "^9.2.2-rc.0",
     "@twreporter/redux": "^8.1.2-rc.0",
     "@twreporter/universal-header": "^3.0.7-rc.0",
