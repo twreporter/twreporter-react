@@ -1,6 +1,29 @@
 # Changelog
 
-## 5.1.2, 2024-07-18 (Current)
+## 5.1.3, 2024-08-07 (Current)
+
+### Notable Changes
+
+- feat
+  - add edit link for receipt info
+  - leading_embedded for article
+- fix
+  - query string
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`0d4313a3cb`](https://github.com/twreporter/twreporter-react/commit/0d4313a3cb)] - **chore**: update twreporter packages (Lucien)
+- [[`146631e9a3`](https://github.com/twreporter/twreporter-react/commit/146631e9a3)] - **chore**: update twreporter packages (Lucien)
+- [[`8750f3b1b4`](https://github.com/twreporter/twreporter-react/commit/8750f3b1b4)] - **chore**: update twreporter packages (Lucien)
+- [[`32f956b3a8`](https://github.com/twreporter/twreporter-react/commit/32f956b3a8)] - Merge remote-tracking branch 'upstream/master' into feature/leading-embedded-article (Lucien)
+- [[`43571250e5`](https://github.com/twreporter/twreporter-react/commit/43571250e5)] - **feat**: leading_embedded for article (Lucien)
+- [[`f7eadab54f`](https://github.com/twreporter/twreporter-react/commit/f7eadab54f)] - **fix**: query string (Lucien)
+- [[`fb15f2011f`](https://github.com/twreporter/twreporter-react/commit/fb15f2011f)] - Merge remote-tracking branch 'upstream/master' into feature/edit-payment-link (Lucien)
+- [[`b5f6341566`](https://github.com/twreporter/twreporter-react/commit/b5f6341566)] - **feat**: add edit link for receipt info (Lucien)
+
+## 5.1.2, 2024-07-18
 
 ### Notable Changes
 

@@ -6,6 +6,7 @@ import colors from '../constants/colors'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+import { ARTICLE_THEME } from '@twreporter/core/lib/constants/theme'
 // lodash
 import get from 'lodash/get'
 
@@ -25,9 +26,7 @@ const styleConst = {
     article: 'article',
   },
   v2: {
-    default: 'article:v2:default',
-    photo: 'article:v2:photo',
-    pink: 'article:v2:pink',
+    ...ARTICLE_THEME.v2,
   },
 }
 
@@ -140,6 +139,13 @@ const _pathnameToLayoutArr = [
             backgroundColor: colors.photographyColor,
           }
         }
+        case styleConst.v2.embedded: {
+          return {
+            headerType: uiConst.header.transparent,
+            footerType: uiConst.footer.default,
+            backgroundColor: colorGrayscale.gray100,
+          }
+        }
         case styleConst.v2.default:
         default: {
           if (post.hero_image_size === 'fullscreen') {
@@ -185,7 +191,8 @@ function getArticleV2Style(postStyle) {
   switch (postStyle) {
     case styleConst.v2.pink:
     case styleConst.v2.default:
-    case styleConst.v2.photo: {
+    case styleConst.v2.photo:
+    case styleConst.v2.embedded: {
       return postStyle
     }
     case styleConst.v1.photo: {
