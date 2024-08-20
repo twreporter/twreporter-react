@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.1.4-rc.1, 2024-08-20
+
+### Notable Changes
+
+- feat
+  - add new self-host font `tauhu-oo`
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`5256e0b5f7`](https://github.com/twreporter/twreporter-react/commit/5256e0b5f7)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`b38ec6b1ba`](https://github.com/twreporter/twreporter-react/commit/b38ec6b1ba)] - **feat**: add new self-host font `tauhu-oo` (Aylie Chou)
+
 ## 5.1.4-rc.0, 2024-08-20
 
 ### Notable Changes
