@@ -41,7 +41,7 @@ const _ = {
   get,
 }
 
-const selfHostedFonts = [fonts.notoSansTC]
+const selfHostedFonts = [fonts.notoSansTC, fonts.tauhuOo]
 
 const BaseStyle = css`
   html {
