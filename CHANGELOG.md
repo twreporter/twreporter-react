@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.1.4, 2024-08-28 (Current)
+## 5.1.5, 2024-08-30 (Current)
+
+### Notable Changes
+
+- fix
+  - hide isAnonymous option
+
+### Commits
+
+- [[`c1cfea74cf`](https://github.com/twreporter/twreporter-react/commit/c1cfea74cf)] - **fix**: hide isAnonymous option (Lucien)
+
+## 5.1.4, 2024-08-28
 
 ### Notable Changes
 
