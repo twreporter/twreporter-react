@@ -183,10 +183,10 @@ const sendReceiptDictionary = {
   paperback_receipt_by_year: '需要，請按年開立',
 }
 
-const isAnonymousDictionary = {
-  0: '我願意將全名公開在《報導者》的捐款徵信名冊',
-  1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
-}
+// const isAnonymousDictionary = {
+//   0: '我願意將全名公開在《報導者》的捐款徵信名冊',
+//   1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
+// }
 
 const contributeType = {
   prime: 'one_time',
@@ -199,7 +199,7 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
     card_type: cardType,
     send_receipt: sendReceipt,
     receipt_header: receiptHeader,
-    is_anonymous: isAnonymous,
+    // is_anonymous: isAnonymous,
     pay_method: payMethod,
     order_number: orderNumber,
     type,
@@ -254,11 +254,11 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
                 className="receipt-table-content"
                 text={receiptAddress}
               />
-              <P1Gray800 className="receipt-table-header" text="其他" />
+              {/* <P1Gray800 className="receipt-table-header" text="其他" />
               <P1Gray800
                 className="receipt-table-content"
                 text={isAnonymousDictionary[Number(isAnonymous)]}
-              />
+              /> */}
             </div>
           </TabletAndAbove>
           <MobileOnly>
@@ -275,10 +275,10 @@ export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
               <P2Gray600 text="收據寄送地址" />
               <P1Gray800 text={receiptAddress} />
             </div>
-            <div className="row">
+            {/* <div className="row">
               <P2Gray600 text="其他" />
               <P1Gray800 text={isAnonymousDictionary[Number(isAnonymous)]} />
-            </div>
+            </div> */}
           </MobileOnly>
         </ReceiptInfoBox>
         <PaymentInfoBox>
