@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 // utils
 import mq from '../../utils/media-query'
@@ -130,76 +130,61 @@ const SubmitBtn = styled.button`
   }
 `
 
-class AuthorSearchBox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      keywords: '',
-    }
-    this.handleChange = this._handleChange.bind(this)
-    this.handleSubmit = this._handleSubmit.bind(this)
-    this.handleReset = this._handleReset.bind(this)
-  }
+const AuthorSearchBox = ({ sendSearchAuthors, setSearching }) => {
+  const [keywords, setKeywords] = useState('')
 
-  // Save user input keywords to this.state when typing
-  _handleChange(event) {
+  // Save user input keywords to state when typing
+  const handleChange = event => {
     event.preventDefault()
     const input = _.get(event, 'target.value', '')
-    return this.setState({ keywords: input })
+    setKeywords(input)
   }
 
   // Send search request when submit the form (press enter) or click the button
-  _handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault()
-    const { setSearching, sendSearchAuthors } = this.props
-    const { keywords } = this.state
     sendSearchAuthors(keywords)
     setSearching(Boolean(keywords))
   }
 
   // Clear the search input and state and send blank search when click reset
-  _handleReset(event) {
+  const handleReset = event => {
     event.preventDefault()
-    this.setState({
-      keywords: '',
-    })
-    this.props.setSearching(false)
+    setKeywords('')
+    setSearching(false)
   }
 
-  render() {
-    const { keywords } = this.state
-    return (
-      <Container>
-        <Form
-          noValidate="novalidate"
-          onReset={this.handleChange}
-          onSubmit={this.handleSubmit}
+  return (
+    <Container>
+      <Form
+        noValidate="novalidate"
+        onReset={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Input
+          type="search"
+          name="searchAuthor"
+          value={keywords}
+          placeholder="搜尋作者"
+          onChange={handleChange}
+          autoComplete="off"
+          required="required"
+        />
+        <SubmitBtn type="button" onClick={handleSubmit}>
+          <SearchIcon />
+        </SubmitBtn>
+        <ResetBtn
+          type="reset"
+          title="Clear the search query"
+          onClick={handleReset}
+          $show={Boolean(keywords)}
         >
-          <Input
-            type="search"
-            name="searchAuthor"
-            value={keywords}
-            placeholder="搜尋作者"
-            onChange={this.handleChange}
-            autoComplete="off"
-            required="required"
-          />
-          <SubmitBtn type="button" onClick={this.handleSubmit}>
-            <SearchIcon />
-          </SubmitBtn>
-          <ResetBtn
-            type="reset"
-            title="Clear the search query"
-            onClick={this.handleReset}
-            $show={Boolean(keywords)}
-          >
-            <ResetIcon />
-          </ResetBtn>
-        </Form>
-        <PoweredByAlgolia />
-      </Container>
-    )
-  }
+          <ResetIcon />
+        </ResetBtn>
+      </Form>
+      <PoweredByAlgolia />
+    </Container>
+  )
 }
 
 AuthorSearchBox.propTypes = {
