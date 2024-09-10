@@ -119,7 +119,7 @@ const ItemDesc = styled.p`
   `}
 `
 
-const LoadMore = styled.div`
+const LoadMoreDiv = styled.div`
   width: 100%;
   color: ${colorBrand.heavy};
   margin: 0 auto 2rem auto;
@@ -170,7 +170,7 @@ function buildListItem(item) {
   )
 }
 
-const _renderLoadMore = (currentPage, handleLoadmore) => {
+const LoadMore = ({ currentPage, handleLoadmore }) => {
   const numberOfFirstResponsePage = 0
   if (currentPage > numberOfFirstResponsePage) {
     return (
@@ -187,18 +187,21 @@ const _renderLoadMore = (currentPage, handleLoadmore) => {
       </Waypoint>
     )
   }
-  return <LoadMore onClick={handleLoadmore}>載入更多文章</LoadMore>
+  return <LoadMoreDiv onClick={handleLoadmore}>載入更多文章</LoadMoreDiv>
+}
+LoadMore.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  handleLoadmore: PropTypes.func.isRequired,
 }
 
-const AuthorCollection = props => {
-  const {
-    collections,
-    hasMore,
-    isFetching,
-    currentPage,
-    handleLoadmore,
-    totalResults,
-  } = props
+const AuthorCollection = ({
+  collections = [],
+  hasMore = false,
+  isFetching = false,
+  currentPage,
+  handleLoadmore,
+  totalResults = 0,
+}) => {
   const titleText =
     '所有文章' + (typeof totalResults === 'number' ? `（${totalResults}）` : '')
 
@@ -206,9 +209,9 @@ const AuthorCollection = props => {
     <Sizing $size="small">
       <CollectionTitle>{titleText}</CollectionTitle>
       <Collections>{_.map(collections, buildListItem)}</Collections>
-      {hasMore && !isFetching
-        ? _renderLoadMore(currentPage, handleLoadmore)
-        : null}
+      {hasMore && !isFetching ? (
+        <LoadMore currentPage={currentPage} handleLoadmore={handleLoadmore} />
+      ) : null}
       {isFetching ? <CenteredSpinner alt="載入更多文章" /> : null}
     </Sizing>
   )
@@ -221,13 +224,6 @@ AuthorCollection.propTypes = {
   hasMore: PropTypes.bool,
   isFetching: PropTypes.bool,
   totalResults: PropTypes.number,
-}
-
-AuthorCollection.defaultProps = {
-  collections: [],
-  totalResults: 0,
-  hasMore: false,
-  isFetching: false,
 }
 
 export default AuthorCollection

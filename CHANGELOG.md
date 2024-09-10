@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.1.6-rc.0, 2024-09-10
+
+### Notable Changes
+
+- fix
+  - update component to functional components on Tag, Category, Authors pages
+
+### Commits
+
+- [[`d2cce6be9d`](https://github.com/twreporter/twreporter-react/commit/d2cce6be9d)] - **fix**: update Tag to functional component (Aylie Chou)
+- [[`7f1a069761`](https://github.com/twreporter/twreporter-react/commit/7f1a069761)] - **fix**: update Category to functional components (Aylie Chou)
+- [[`1484a5703f`](https://github.com/twreporter/twreporter-react/commit/1484a5703f)] - **fix**: update Authors page to functional components (Aylie Chou)
+
 ## 5.1.5, 2024-08-30 (Current)
 
 ### Notable Changes
