@@ -1,8 +1,8 @@
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 // components
 import SystemError from '../components/SystemError'
@@ -77,27 +77,59 @@ const ListContainer = styled.div`
   `}
 `
 
-const Category = ({
-  catLabel,
-  subcategoryList,
-  activeTabIndex,
-  listId,
-  pathname,
-  posts,
-  error,
-  isFetching,
-  fetchPostsByCategorySetListId,
-  nPerPage,
-  totalPages,
-  page,
-}) => {
-  useEffect(() => {
-    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
+const Category = ({ location, match }) => {
+  const categoryPath = useMemo(() => _.get(match, 'params.category'), [match])
+  const subcategoryPath = useMemo(() => _.get(match, 'params.subcategory'), [
+    match,
+  ])
+  const pathname = useMemo(() => _.get(location, 'pathname', defaultPathname), [
+    location,
+  ])
+
+  const categoryId = CATEGORY_ID[categoryPath]
+  const subcategoryId = SUBCATEGORY_ID[subcategoryPath]
+  const listId =
+    categoryId && subcategoryId ? `${categoryId}_${subcategoryId}` : categoryId
+  const catLabel = CATEGORY_LABEL[categoryPath]
+
+  const { subcategoryList, activeTabIndex } = useMemo(
+    () => titleTabProp(categoryPath, subcategoryPath),
+    [categoryPath, subcategoryPath]
+  )
+  const defaultPathname = subcategoryPath
+    ? `/categories/${categoryPath}/${subcategoryPath}`
+    : `/categories/${categoryPath}`
+
+  const nPerPage = dataLoaderConst.categoryListPage.nPerPage
+  const page = useMemo(() => pageProp(location), [location])
+  const totalPages = useSelector(state =>
+    Math.ceil(
+      _.get(state, [reduxStateFields.lists, listId, 'total'], 0) / nPerPage
+    )
+  )
+  const error = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, listId, 'error'])
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
+  )
+  const posts = useSelector(state => postsProp(state, listId, page))
+  console.log('page', page, totalPages)
+
+  const dispatch = useDispatch()
+  const fetchPostsByCategorySetListIdWithCatch = async () => {
+    try {
+      await dispatch(fetchPostsByCategorySetListId(listId, nPerPage, page))
+    } catch (err) {
       logger.errorReport({
-        report: _.get(failAction, 'payload.error'),
+        report: _.get(err, 'payload.error'),
         message: `Error to fetch posts (category id: '${listId}', page: ${page}, nPerPage: ${nPerPage}).`,
       })
-    })
+    }
+  }
+
+  useEffect(() => {
+    fetchPostsByCategorySetListIdWithCatch()
   }, [
     catLabel,
     activeTabIndex,
@@ -194,34 +226,6 @@ function pageProp(location = {}) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - category list id
- *  @return {number}
- */
-function totalPagesProp(state, listId, nPerPage) {
-  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  return Math.ceil(total / nPerPage)
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - category list id
- *  @return {boolean}
- */
-function isFetchingProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - category list id
- *  @return {Object} error object
- */
-function errorProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'error'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - category list id
  *  @param {number} page - current page
  *  @return {MetaOfPost[]}
  */
@@ -267,95 +271,10 @@ function titleTabProp(categoryPath, subcategoryPath) {
 
   return { subcategoryList, activeTabIndex }
 }
-
-/**
- *  @typedef {Object} CategoryProps
- *  @property {string} listId - category set id
- *  @property {Object} error - error object
- *  @property {boolean} isFetching - if it is requesting api or not
- *  @property {number} page - current page for pagination
- *  @property {number} nPerPage - number per page
- *  @property {string} pathname - URL path
- *  @property {MetaOfPost[]} posts - array of posts
- *  @property {number} totalPages - total page for pagination
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {Object} props
- *  @param {Object} props.location - react-router location object
- *  @param {string} props.location.pathname
- *  @param {Object} props.match - react-router match object
- *  @param {Object} props.match.params
- *  @param {string} props.match.params.category
- *  @return {CategoryProps}
- */
-function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const categoryPath = _.get(props, 'match.params.category')
-  const subcategoryPath = _.get(props, 'match.params.subcategory')
-  const categoryId = CATEGORY_ID[categoryPath]
-  const subcategoryId = SUBCATEGORY_ID[subcategoryPath]
-  const listId =
-    categoryId && subcategoryId ? `${categoryId}_${subcategoryId}` : categoryId
-  const catLabel = CATEGORY_LABEL[categoryPath]
-  const { subcategoryList, activeTabIndex } = titleTabProp(
-    categoryPath,
-    subcategoryPath
-  )
-  const page = pageProp(location)
-  const nPerPage = dataLoaderConst.categoryListPage.nPerPage
-
-  const defaultPathname = subcategoryPath
-    ? `/categories/${categoryPath}/${subcategoryPath}`
-    : `/categories/${categoryPath}`
-  const pathname = _.get(location, 'pathname', defaultPathname)
-
-  return {
-    catLabel,
-    subcategoryList,
-    activeTabIndex,
-    listId,
-    error: errorProp(state, listId),
-    isFetching: isFetchingProp(state, listId),
-    nPerPage,
-    page,
-    pathname,
-    posts: postsProp(state, listId, page),
-    totalPages: totalPagesProp(state, listId, nPerPage),
-  }
-}
-
-Category.defaultProps = {
-  catLabel: '',
-  subcategoryList: [],
-  activeTabIndex: 0,
-  error: null,
-  posts: [],
-  totalPages: 0,
-  nPerPage: dataLoaderConst.categoryListPage.nPerPage,
-}
-
 Category.propTypes = {
-  catLabel: PropTypes.string,
-  subcategoryList: PropTypes.array,
-  activeTabIndex: PropTypes.number,
-  listId: PropTypes.String,
-  error: PropTypes.object,
-  fetchPostsByCategorySetListId: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool,
-  nPerPage: PropTypes.number,
-  page: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired,
-
-  // TODO: define metaOfPost
-  // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
-  posts: PropTypes.array,
-  totalPages: PropTypes.number,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export { Category }
-export default connect(
-  mapStateToProps,
-  { fetchPostsByCategorySetListId }
-)(Category)
+export default Category
