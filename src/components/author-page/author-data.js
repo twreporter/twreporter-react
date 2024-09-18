@@ -85,8 +85,8 @@ const Bio = styled.div`
   white-space: pre-wrap;
 `
 
-const AuthorData = props => {
-  const { image, name, title, mail, bio } = props.authorData
+const AuthorData = ({ authorData = {} }) => {
+  const { image, name, title, mail, bio } = authorData
   const displayedTitle = title ? `（${title}）` : ''
   return (
     <Sizing $size="small">

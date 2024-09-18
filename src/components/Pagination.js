@@ -1,9 +1,11 @@
 import { withRouter } from 'react-router-dom'
-import Pagination from '@twreporter/react-components/lib/pagination'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
-import loggerFactory from '../logger'
+import React, { useMemo } from 'react'
 import qs from 'qs'
+// utils
+import loggerFactory from '../logger'
+// @twreporter
+import Pagination from '@twreporter/react-components/lib/pagination'
 // lodash
 import get from 'lodash/get'
 import merge from 'lodash/merge'
@@ -15,17 +17,17 @@ const _ = {
   merge,
 }
 
-class EnhancedPagination extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.handleClickPage = this._handleClickPage.bind(this)
-    this.handleClickPrev = this._handleClickPrev.bind(this)
-    this.handleClickNext = this._handleClickNext.bind(this)
-  }
-
-  _pushTo(to) {
+const EnhancedPagination = ({
+  history,
+  location,
+  currentPage,
+  totalPages,
+  ...props
+}) => {
+  const pathname = useMemo(() => _.get(location, 'pathname'), [location])
+  const pushTo = to => {
     try {
-      this.props.history.push(to)
+      history.push(to)
     } catch (err) {
       logger.errorReport({
         report: err,
@@ -40,50 +42,50 @@ class EnhancedPagination extends PureComponent {
    * @returns {string} search string as `?q=xxx`
    * @memberof EnhancedPagination
    */
-  _mergeQueryToSearch(query) {
-    const currentSearch = _.get(this.props, 'location.search', '')
+  const mergeQueryToSearch = query => {
+    const currentSearch = _.get(location, 'search', '')
     const currentQuery = qs.parse(currentSearch, { ignoreQueryPrefix: true })
     const nextQuery = _.merge({}, currentQuery, query)
     const nextSearch = qs.stringify(nextQuery, { addQueryPrefix: true })
     return nextSearch
   }
 
-  _handleClickPage(e) {
+  const handleClickPage = e => {
     e.preventDefault()
     const text = _.get(e, 'target.innerText')
     const page = parseInt(text, 10)
-    return this._pushTo({
-      pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page }),
+    return pushTo({
+      pathname,
+      search: mergeQueryToSearch({ page }),
     })
   }
 
-  _handleClickPrev(e) {
+  const handleClickPrev = e => {
     e.preventDefault()
-    return this._pushTo({
-      pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page: this.props.currentPage - 1 }),
+    return pushTo({
+      pathname,
+      search: mergeQueryToSearch({ page: currentPage - 1 }),
     })
   }
 
-  _handleClickNext(e) {
+  const handleClickNext = e => {
     e.preventDefault()
-    return this._pushTo({
-      pathname: _.get(this.props, 'location.pathname'),
-      search: this._mergeQueryToSearch({ page: this.props.currentPage + 1 }),
+    return pushTo({
+      pathname,
+      search: mergeQueryToSearch({ page: currentPage + 1 }),
     })
   }
 
-  render() {
-    return (
-      <Pagination
-        handleClickPrev={this.handleClickPrev}
-        handleClickPage={this.handleClickPage}
-        handleClickNext={this.handleClickNext}
-        {...this.props}
-      />
-    )
-  }
+  return (
+    <Pagination
+      handleClickPrev={handleClickPrev}
+      handleClickPage={handleClickPage}
+      handleClickNext={handleClickNext}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      {...props}
+    />
+  )
 }
 
 EnhancedPagination.propTypes = {

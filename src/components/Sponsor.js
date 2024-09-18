@@ -72,21 +72,16 @@ const SponsorButton = styled(DonationLink)`
   `}
 `
 
-class Sponsor extends React.Component {
-  render() {
-    return (
-      <Container $size="small">
-        <Title>深度調查報導，需要您的支持！</Title>
-        <Desc>
-          <p>
-            深度調查報導必須投入優秀記者、足夠時間與大量資源⋯⋯我們需要細水長流的小額贊助，才能走更長遠的路。
-          </p>
-          <p>竭誠歡迎認同《報導者》理念的朋友贊助支持我們！</p>
-        </Desc>
-        <SponsorButton>贊助我們</SponsorButton>
-      </Container>
-    )
-  }
-}
-
+const Sponsor = () => (
+  <Container $size="small">
+    <Title>深度調查報導，需要您的支持！</Title>
+    <Desc>
+      <p>
+        深度調查報導必須投入優秀記者、足夠時間與大量資源⋯⋯我們需要細水長流的小額贊助，才能走更長遠的路。
+      </p>
+      <p>竭誠歡迎認同《報導者》理念的朋友贊助支持我們！</p>
+    </Desc>
+    <SponsorButton>贊助我們</SponsorButton>
+  </Container>
+)
 export default Sponsor
