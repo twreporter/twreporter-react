@@ -9,7 +9,7 @@ const _ = {
   get,
 }
 
-function SystemError({ error }) {
+const SystemError = ({ error }) => {
   let errorType = '500'
   if (_.get(error, 'statusCode') === 404) {
     errorType = '404'

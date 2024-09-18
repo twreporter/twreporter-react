@@ -12,9 +12,9 @@ const Container = styled.div`
   transition: opacity 0.5s ease;
 `
 
-const LoadingSpinner = props => (
-  <Container $show={props.show} className={props.className}>
-    <img src={replaceGCSUrlOrigin(spinnerLogoUrl)} alt={props.alt} />
+const LoadingSpinner = ({ show = true, alt = '載入中...', className }) => (
+  <Container $show={show} className={className}>
+    <img src={replaceGCSUrlOrigin(spinnerLogoUrl)} alt={alt} />
   </Container>
 )
 
@@ -22,11 +22,6 @@ LoadingSpinner.propTypes = {
   show: PropTypes.bool,
   alt: PropTypes.string,
   className: PropTypes.string,
-}
-
-LoadingSpinner.defaultProps = {
-  show: true,
-  alt: '載入中...',
 }
 
 export default LoadingSpinner

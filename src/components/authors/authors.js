@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import mq from '../../utils/media-query'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 // @twreporter
 import Image from '@twreporter/react-article-components/lib/components/img-with-placeholder'
@@ -87,47 +87,39 @@ const ImageSizing = styled.div`
   `}
 `
 
-export default class Authors extends PureComponent {
-  static propTypes = {
-    authors: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string.isRequired,
-        image: PropTypes.shape({
-          width: PropTypes.number.isRequired,
-          height: PropTypes.number.isRequired,
-          url: PropTypes.string.isRequired,
-        }).isRequired,
+const Authors = ({ authors = [] }) => (
+  <Container>
+    {_.map(authors, ({ id, name, image, url }) => (
+      <Item key={id}>
+        <Link to={url}>
+          <ImageSizing>
+            <Image
+              alt={name}
+              imageSet={[image]}
+              defaultImage={image}
+              objectFit="cover"
+              objectPosition="center center"
+            />
+          </ImageSizing>
+          <Name>{name}</Name>
+        </Link>
+      </Item>
+    ))}
+  </Container>
+)
+Authors.propTypes = {
+  authors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      image: PropTypes.shape({
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
         url: PropTypes.string.isRequired,
-      })
-    ),
-  }
-
-  static defaultProps = {
-    authors: [],
-  }
-
-  render() {
-    const { authors } = this.props
-    return (
-      <Container>
-        {_.map(authors, ({ id, name, image, url }) => (
-          <Item key={id}>
-            <Link to={url}>
-              <ImageSizing>
-                <Image
-                  alt={name}
-                  imageSet={[image]}
-                  defaultImage={image}
-                  objectFit="cover"
-                  objectPosition="center center"
-                />
-              </ImageSizing>
-              <Name>{name}</Name>
-            </Link>
-          </Item>
-        ))}
-      </Container>
-    )
-  }
+      }).isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ),
 }
+
+export default Authors

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React, { useMemo, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import querystring from 'querystring'
@@ -10,7 +10,7 @@ import mq from '../utils/media-query'
 import dataLoaderConst from '../constants/data-loaders'
 import siteMeta from '../constants/site-meta'
 // utils
-import cloneUtils from '../utils/shallow-clone-entity'
+import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
 // components
 import Pagination from '../components/Pagination'
 import SystemError from '../components/SystemError'
@@ -21,6 +21,11 @@ import { List } from '@twreporter/react-components/lib/listing-page'
 import find from 'lodash/find'
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
+const _ = {
+  find,
+  forEach,
+  get,
+}
 
 const PageContainer = styled.div`
   position: relative;
@@ -39,12 +44,6 @@ const PageContainer = styled.div`
   `}
 `
 
-const _ = {
-  find,
-  forEach,
-  get,
-}
-
 const ListContainer = styled.div`
   margin-top: 45px;
 `
@@ -54,32 +53,45 @@ const { fetchPostsByTagListId } = actions
 
 const logger = loggerFactory.getLogger()
 
-class Tag extends PureComponent {
-  componentDidMount() {
-    this.fetchPostsWithCatch()
-  }
+const Tag = ({ location, match }) => {
+  const tagId = useMemo(() => _.get(match, 'params.tagId'), [match])
+  const page = useMemo(() => pageProp(location), [location])
+  const nPerPage = dataLoaderConst.tagListPage.nPerPage
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.tagId !== prevProps.tagId ||
-      this.props.page !== prevProps.page
-    ) {
-      this.fetchPostsWithCatch()
+  const error = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, tagId, 'error'], null)
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, tagId, 'isFetching'], false)
+  )
+  const totalPages = useSelector(state =>
+    Math.ceil(
+      _.get(state, [reduxStateFields.lists, tagId, 'total'], 0) / nPerPage
+    )
+  )
+  const posts = useSelector(state => postsProp(state, tagId, page))
+
+  useEffect(() => {
+    fetchPostsWithCatch()
+  }, [])
+
+  useEffect(() => {
+    fetchPostsWithCatch()
+  }, [tagId, page])
+
+  const dispatch = useDispatch()
+  const fetchPostsWithCatch = async () => {
+    try {
+      await dispatch(fetchPostsByTagListId(tagId, nPerPage, page))
+    } catch (err) {
+      logger.errorReport({
+        report: _.get(err, 'payload.error'),
+        message: `Error to fetch posts (tag id: '${tagId}').`,
+      })
     }
   }
 
-  fetchPostsWithCatch() {
-    const { nPerPage, tagId, fetchPostsByTagListId, page } = this.props
-
-    fetchPostsByTagListId(tagId, nPerPage, page).catch(failAction => {
-      logger.errorReport({
-        report: _.get(failAction, 'payload.error'),
-        message: `Error to fetch posts (tag id: '${tagId}').`,
-      })
-    })
-  }
-
-  _findTagName(post, tagId) {
+  const findTagName = (post, tagId) => {
     const tags = _.get(post, 'tags', [])
     const tag = _.find(tags, _tag => {
       return _.get(_tag, 'id') === tagId
@@ -87,51 +99,47 @@ class Tag extends PureComponent {
     return _.get(tag, 'name', '')
   }
 
-  render() {
-    const { error, isFetching, page, posts, tagId, totalPages } = this.props
-
-    // Error handling
-    if (error) {
-      return <SystemError error={error} />
-    }
-
-    const tagName = this._findTagName(_.get(posts, '0'), tagId)
-    const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
-    const title = tagName + siteMeta.name.separator + siteMeta.name.full
-
-    return (
-      <PageContainer>
-        <Helmet
-          prioritizeSeoTags
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <ListContainer>
-          <List
-            data={posts}
-            tagName={tagName}
-            isFetching={isFetching}
-            showSpinner={true}
-            showCategory={true}
-          />
-        </ListContainer>
-        <Pagination currentPage={page} totalPages={totalPages} />
-      </PageContainer>
-    )
+  // Error handling
+  if (error) {
+    return <SystemError error={error} />
   }
+
+  const tagName = findTagName(_.get(posts, '0'), tagId)
+  const canonical = `${siteMeta.urlOrigin}/tag/${tagId}`
+  const title = tagName + siteMeta.name.separator + siteMeta.name.full
+
+  return (
+    <PageContainer>
+      <Helmet
+        prioritizeSeoTags
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { name: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
+      <ListContainer>
+        <List
+          data={posts}
+          tagName={tagName}
+          isFetching={isFetching}
+          showSpinner={true}
+          showCategory={true}
+        />
+      </ListContainer>
+      <Pagination currentPage={page} totalPages={totalPages} />
+    </PageContainer>
+  )
 }
 
 /**
@@ -164,35 +172,6 @@ function pageProp(location = {}) {
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - tag list id
- *  @param {number} nPerPage - number per page
- *  @return {number}
- */
-function totalPagesProp(state, listId, nPerPage) {
-  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  return Math.ceil(total / nPerPage)
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag list id
- *  @return {boolean}
- */
-function isFetchingProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag list id
- *  @return {Object} error object
- */
-function errorProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'error'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag list id
  *  @param {number} page - current page
  *  @return {MetaOfPost[]}
  */
@@ -210,77 +189,16 @@ function postsProp(state, listId, page) {
   _.forEach(postIdsForCurPage, postId => {
     const post = _.get(postEntities, postId)
     if (post) {
-      posts.push(cloneUtils.shallowCloneMetaOfPost(post))
+      posts.push(shallowCloneMetaOfPost(post))
     }
   })
   return posts
 }
 
-/**
- *  @typedef {Object} TagProps
- *  @property {string} tagId - tag list id
- *  @property {Object} error - error object
- *  @property {boolean} isFetching - if it is requesting api or not
- *  @property {number} page - current page for pagination
- *  @property {string} pathname - URL path
- *  @property {MetaOfPost[]} posts - array of posts
- *  @property {number} totalPages - total page for pagination
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {Object} props
- *  @param {Object} props.location - react-router location object
- *  @param {string} props.location.pathname
- *  @param {Object} props.match - react-router match object
- *  @param {Object} props.match.params
- *  @param {string} props.match.params.tagId
- *  @return {TagProps}
- */
-function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const tagId = _.get(props, 'match.params.tagId')
-  const pathname = _.get(location, 'pathname', `/tag/${tagId}`)
-
-  const page = pageProp(location)
-  const nPerPage = dataLoaderConst.tagListPage.nPerPage
-
-  return {
-    tagId,
-    error: errorProp(state, tagId),
-    isFetching: isFetchingProp(state, tagId),
-    page,
-    pathname,
-    posts: postsProp(state, tagId, page),
-    totalPages: totalPagesProp(state, tagId, nPerPage),
-  }
-}
-
-Tag.defaultProps = {
-  error: null,
-  isFetching: false,
-  nPerPage: dataLoaderConst.tagListPage.nPerPage,
-  posts: [],
-  totalPages: 0,
-}
-
 Tag.propTypes = {
-  error: PropTypes.object,
-  fetchPostsByTagListId: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool,
-  nPerPage: PropTypes.number,
-  page: PropTypes.number.isRequired,
-  pathname: PropTypes.string.isRequired,
-
-  // TODO: define metaOfPost
-  // posts: PropTypes.arrayOf(propTypesConst.metaOfPost),
-  posts: PropTypes.array,
-  tagId: PropTypes.string.isRequired,
-  totalPages: PropTypes.number,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export { Tag }
-export default connect(
-  mapStateToProps,
-  { fetchPostsByTagListId }
-)(Tag)
+export default Tag
