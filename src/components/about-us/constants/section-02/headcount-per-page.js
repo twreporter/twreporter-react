@@ -15,8 +15,8 @@ export const headcountPerPage = {
     [screen.mobile]: 4,
   },
   [categoryIds.editor]: {
-    [screen.hd]: 3,
-    [screen.desktop]: 3,
+    [screen.hd]: 2,
+    [screen.desktop]: 2,
     [screen.tablet]: 3,
     [screen.mobile]: 4,
   },
