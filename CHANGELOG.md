@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.1.6-rc.1, 2024-09-18
+
+### Notable Changes
+
+- fix
+  - change editor row count
+
+### Commits
+
+- [[`d57b54cd19`](https://github.com/twreporter/twreporter-react/commit/d57b54cd19)] - **fix**: change editor row count (Lucien)
+
 ## 5.1.6-rc.0, 2024-09-10
 
 ### Notable Changes
