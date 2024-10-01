@@ -1,5 +1,4 @@
-import { useSelector, connect, useStore } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useSelector, useDispatch, useStore } from 'react-redux'
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useContext } from 'react'
@@ -113,30 +112,33 @@ const GetSomeSpace = styled.div`
   ${props => (props.$show ? '' : 'display: none;')}
 `
 
-const Latest = ({
-  // redux state
-  jwt,
-  isAuthed,
-  latestTagList,
-  activeTabIndex,
-  tagId,
-  isFetching,
-  nPerPage,
-  totalPages,
-  // redux actions
-  fetchPostsByTagListId,
-  fetchLatestPosts,
-  fetchLatestTags,
-}) => {
+const Latest = ({ location, match }) => {
+  const tagId = _.get(match, 'params.tagId')
+  const nPerPage = dataLoaderConst.latestPage.nPerPage
   const listId = tagId || LATEST_LIST_ID
-  const location = useLocation()
-  const pathname = _.get(location, 'pathname', `/latest/${tagId}`)
+  const pathname = _.get(location, 'pathname', `/latest/${listId}`)
   const { releaseBranch, toastr } = useContext(CoreContext)
 
+  const dispatch = useDispatch()
   const store = useStore()
   const state = store.getState()
   const error = useSelector(state =>
     _.get(state, [reduxStateFields.lists, listId, 'error'])
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, listId, 'isFetching'], false)
+  )
+  const totalPages = useSelector(state =>
+    Math.ceil(
+      _.get(state, [reduxStateFields.lists, listId, 'total'], 0) / nPerPage
+    )
+  )
+  const { latestTagList, activeTabIndex } = titleTabProp(state, listId)
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  )
+  const isAuthed = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
   )
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -171,7 +173,7 @@ const Latest = ({
     setPosts(normalizePosts(postsProp(state, listId, 1, page)))
 
   useEffect(() => {
-    fetchLatestTags().catch(failAction => {
+    dispatch(fetchLatestTags()).catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
         message: `Error to fetch latest tags`,
@@ -183,15 +185,11 @@ const Latest = ({
       try {
         const toggleBookmark = !!isAuthed
         if (tagId) {
-          await fetchPostsByTagListId(
-            tagId,
-            nPerPage,
-            page,
-            jwt,
-            toggleBookmark
+          await dispatch(
+            fetchPostsByTagListId(tagId, nPerPage, page, jwt, toggleBookmark)
           )
         } else {
-          await fetchLatestPosts(nPerPage, page, jwt, toggleBookmark)
+          await dispatch(fetchLatestPosts(nPerPage, page, jwt, toggleBookmark))
         }
       } catch (failAction) {
         logger.errorReport({
@@ -309,33 +307,6 @@ const Latest = ({
 }
 
 /**
- *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
- */
-
-/**
- *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag id
- *  @return {number}
- */
-function totalPagesProp(state, listId, nPerPage) {
-  const total = _.get(state, [reduxStateFields.lists, listId, 'total'], 0)
-  return Math.ceil(total / nPerPage)
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - tag id
- *  @return {boolean}
- */
-function isFetchingProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
-}
-
-/**
  *  @param {ReduxState} state
  *  @param {string} listId - tag id
  *  @param {number} page - current page
@@ -390,59 +361,10 @@ function titleTabProp(state, listId) {
   return { latestTagList, activeTabIndex }
 }
 
-/**
- *  @param {ReduxState} state
- *  @param {Object} props
- */
-function mapStateToProps(state, props) {
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  const tagId = _.get(props, 'match.params.tagId')
-  const { latestTagList, activeTabIndex } = titleTabProp(state, tagId)
-  const nPerPage = dataLoaderConst.latestPage.nPerPage
-  const listId = tagId || LATEST_LIST_ID
-
-  return {
-    jwt,
-    isAuthed,
-    latestTagList,
-    activeTabIndex,
-    tagId,
-    isFetching: isFetchingProp(state, listId),
-    nPerPage,
-    totalPages: totalPagesProp(state, listId, nPerPage),
-  }
-}
-
-Latest.defaultProps = {
-  // redux state
-  jwt: '',
-  isAuthed: false,
-  latestTagList: [],
-  activeTabIndex: 0,
-  isFetching: false,
-  nPerPage: dataLoaderConst.latestPage.nPerPage,
-  totalPages: 0,
-}
-
 Latest.propTypes = {
-  // redux state
-  jwt: PropTypes.string,
-  isAuthed: PropTypes.bool,
-  latestTagList: PropTypes.array,
-  activeTabIndex: PropTypes.number,
-  tagId: PropTypes.string,
-  isFetching: PropTypes.bool,
-  nPerPage: PropTypes.number,
-  totalPages: PropTypes.number,
-  // redux action
-  fetchPostsByTagListId: PropTypes.func.isRequired,
-  fetchLatestPosts: PropTypes.func.isRequired,
-  fetchLatestTags: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 }
 
 export { Latest }
-export default connect(
-  mapStateToProps,
-  { fetchPostsByTagListId, fetchLatestPosts, fetchLatestTags }
-)(Latest)
+export default Latest

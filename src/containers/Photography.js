@@ -1,11 +1,7 @@
-/* eslint no-unused-vars: [0, { "args": "all" }] */
-
 import { Helmet } from 'react-helmet-async'
-import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import loggerFactory from '../logger'
-import { camelizeKeys } from 'humps'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // utils
 import { shallowCloneMetaOfPost } from '../utils/shallow-clone-entity'
 // constants
@@ -35,28 +31,32 @@ const logger = loggerFactory.getLogger()
 const { fetchPostsByCategorySetListId } = twreporterRedux.actions
 const reduxStateFields = twreporterRedux.reduxStateFields
 
-const Photography = ({
-  error,
-  isFetching,
-  listId,
-  posts,
-  hasMore,
-  nPerPage,
-  fetchPostsByCategorySetListId,
-}) => {
+const Photography = () => {
+  const listId = _.get(CATEGORY_ID, CATEGORY_PATH.photography, '')
+  const nPerPage = dataLoaderConst.photographyPage.nPerPage
+
+  const dispatch = useDispatch()
+  const error = useSelector(state =>
+    _.get(state, [reduxStateFields.lists, listId, 'error'], null)
+  )
+  const hasMore = useSelector(state => hasMoreProp(state, listId))
+  const posts = useSelector(state => postsProp(state, listId))
+
   const [page, setPage] = useState(Math.ceil(posts.length / nPerPage + 1))
   useEffect(() => {
     if (!hasMore) {
       return
     }
 
-    fetchPostsByCategorySetListId(listId, nPerPage, page).catch(failAction => {
-      // TODO render alter message
-      logger.errorReport({
-        report: _.get(failAction, 'payload.error'),
-        message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
-      })
-    })
+    dispatch(fetchPostsByCategorySetListId(listId, nPerPage, page)).catch(
+      failAction => {
+        // TODO render alter message
+        logger.errorReport({
+          report: _.get(failAction, 'payload.error'),
+          message: `Error to fetch posts (category id: ${listId}, page: ${page}, nPerPage: ${nPerPage}).`,
+        })
+      }
+    )
   }, [listId, page, fetchPostsByCategorySetListId])
 
   // Error handling
@@ -103,52 +103,6 @@ const Photography = ({
   )
 }
 
-Photography.defaultProps = {
-  error: null,
-  isFetching: false,
-  listId: _.get(CATEGORY_ID, CATEGORY_PATH.photography, ''),
-  posts: [],
-  hasMore: false,
-  nPerPage: dataLoaderConst.photographyPage.nPerPage,
-}
-
-Photography.propTypes = {
-  error: PropTypes.object,
-  isFetching: PropTypes.bool,
-  listId: PropTypes.string,
-  // TODO: PropTypes.arrayOf(propTypeConst.post),
-  posts: PropTypes.array,
-  hasMore: PropTypes.bool,
-  nPerPage: PropTypes.number,
-  fetchPostsByCategorySetListId: PropTypes.func,
-}
-
-/**
- *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
- */
-
-/**
- *  @typedef {import('../utils/shallow-clone-entity').MetaOfPost} MetaOfPost
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - photography list id
- *  @return {Object} error object
- */
-function errorProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'error'])
-}
-
-/**
- *  @param {ReduxState} state
- *  @param {string} listId - photography list id
- *  @return {boolean}
- */
-function isFetchingProp(state, listId) {
-  return _.get(state, [reduxStateFields.lists, listId, 'isFetching'])
-}
-
 /**
  *  @param {ReduxState} state
  *  @param {string} listId - photography list id
@@ -187,34 +141,5 @@ function hasMoreProp(state, listId) {
   return items < total
 }
 
-/**
- *  @typedef {Object} PhotographyProps
- *  @property {Object} error
- *  @property {boolean} hasMore
- *  @property {boolean} isFetching
- *  @property {string} listId
- *  @property {MetaOfPost[]} posts
- *  @property {number} nPerPage
- */
-
-/**
- *  @param {ReduxState} state
- *  @return {PhotographyProps}
- */
-function mapStateToProps(state) {
-  const listId = _.get(CATEGORY_ID, CATEGORY_PATH.photography, '')
-  return {
-    error: errorProp(state, listId),
-    hasMore: hasMoreProp(state, listId),
-    isFetching: isFetchingProp(state, listId),
-    listId,
-    posts: postsProp(state, listId),
-    nPerPage: dataLoaderConst.photographyPage.nPerPage,
-  }
-}
-
 export { Photography }
-export default connect(
-  mapStateToProps,
-  { fetchPostsByCategorySetListId }
-)(Photography)
+export default Photography

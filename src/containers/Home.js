@@ -1,8 +1,8 @@
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 import qs from 'qs'
 import styled, { css } from 'styled-components'
 import TagManager from 'react-gtm-module'
@@ -10,6 +10,8 @@ import DOMPurify from 'isomorphic-dompurify'
 // constants
 import colors from '../constants/colors'
 import siteMeta from '../constants/site-meta'
+// context
+import { CoreContext } from '../contexts'
 // utils
 import mq from '../utils/media-query'
 import {
@@ -30,7 +32,6 @@ import {
   CATEGORY_LABEL,
 } from '@twreporter/core/lib/constants/category-set'
 import { INFOGRAM_ID } from '@twreporter/core/lib/constants/infogram'
-import { BRANCH_PROP_TYPES } from '@twreporter/core/lib/constants/release-branch'
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // lodash
@@ -86,7 +87,7 @@ const LoadingCover = styled.div`
   }
 `
 
-const moduleBackgounds = {
+const moduleBackgrounds = {
   latest: colorGrayscale.gray100,
   editorPick: colorGrayscale.white,
   latestTopic: colorGrayscale.gray100,
@@ -193,38 +194,56 @@ const siteNavigationJSONLD = {
   ],
 }
 
-class Homepage extends React.PureComponent {
-  static propTypes = {
-    fetchIndexPageContent: PropTypes.func,
-    fetchFeatureTopic: PropTypes.func,
-    isSpinnerDisplayed: PropTypes.bool,
-    isContentReady: PropTypes.bool,
-    categories: PropTypes.array,
-    releaseBranch: BRANCH_PROP_TYPES,
-  }
+const Homepage = ({ location }) => {
+  const dispatch = useDispatch()
+  const sidebarRef = useRef(null)
 
-  constructor(props) {
-    super(props)
-    this._sidebar = React.createRef()
-  }
+  const entities = useSelector(state => _.get(state, fieldNames.entities, {}))
+  const postEntities = _.get(entities, [fieldNames.postsInEntities, 'byId'], {})
+  const topicEntities = _.get(
+    entities,
+    [fieldNames.topicsInEntities, 'byId'],
+    {}
+  )
 
-  componentDidMount() {
-    this.fetchIndexPageContentWithCatch()
-    this.fetchFeatureTopicWithCatch().then(() => {
+  const indexPageState = useSelector(state =>
+    _.get(state, fieldNames.indexPage, {})
+  )
+  const featureTopicState = useSelector(state =>
+    _.get(state, fieldNames.featureTopic, {})
+  )
+  const fieldSections = restoreSections(
+    indexPageState,
+    postEntities,
+    topicEntities
+  )
+  const categories = restoreCategories(indexPageState, postEntities)
+  const isSpinnerDisplayed = !_.get(indexPageState, 'isReady', false)
+  const isContentReady = _.get(indexPageState, 'isReady', false)
+  const latestTopicData = restoreFeatureTopic(
+    featureTopicState,
+    postEntities,
+    topicEntities
+  )
+  const { releaseBranch } = useContext(CoreContext)
+
+  useEffect(() => {
+    fetchIndexPageContentWithCatch()
+    fetchFeatureTopicWithCatch().then(() => {
       // EX: if the url path is /?section=categories
       // after this component mounted and rendered,
       // the browser will smoothly scroll to categories section
-      const search = _.get(this.props, 'location.search', '')
+      const search = _.get(location, 'search', '')
       const query = qs.parse(search, { ignoreQueryPrefix: true })
       const section = _.get(query, 'section', '')
-      if (this._sidebar.current && section) {
-        this._sidebar.current.handleClickAnchor(section)
+      if (sidebarRef.current && section) {
+        sidebarRef.current.handleClickAnchor(section)
       }
     })
-  }
+  }, [])
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.isContentReady && this.props.isContentReady) {
+  useEffect(() => {
+    if (isContentReady) {
       // For client-side rendering, we notify GTM that the new component is ready
       TagManager.dataLayer({
         dataLayer: {
@@ -232,11 +251,10 @@ class Homepage extends React.PureComponent {
         },
       })
     }
-  }
+  }, [isContentReady])
 
-  fetchIndexPageContentWithCatch = () => {
-    return this.props.fetchIndexPageContent().catch(failAction => {
-      // TODO render alter message
+  const fetchIndexPageContentWithCatch = () => {
+    return dispatch(fetchIndexPageContent()).catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
         message:
@@ -245,131 +263,129 @@ class Homepage extends React.PureComponent {
     })
   }
 
-  fetchFeatureTopicWithCatch = () => {
-    return this.props.fetchFeatureTopic().catch(failAction => {
-      // TODO render alter message
+  const fetchFeatureTopicWithCatch = () => {
+    return dispatch(fetchFeatureTopic()).catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
         message: 'Error to fetch feature topic on index page.',
       })
     })
   }
-  render() {
-    const { isSpinnerDisplayed, releaseBranch } = this.props
-    const latestTopicData = this.props[fieldNames.sections.latestTopicSection]
-    const latestTopicJSX = latestTopicData ? (
-      <Section anchorId="latestTopic" anchorLabel="最新專題" showAnchor>
-        <LatestTopicSection data={latestTopicData} />
-      </Section>
-    ) : null
-    const SideBar = sideBarFactory.getIndexPageSideBar()
-    return (
-      <Container>
-        <CSSTransition
-          in={isSpinnerDisplayed}
-          classNames="spinner"
-          timeout={2000}
-          enter={false}
-          mountOnEnter
-          unmountOnExit
-        >
-          <LoadingCover>
-            <LoadingSpinner alt="首頁載入中" />
-          </LoadingCover>
-        </CSSTransition>
-        <Helmet
-          prioritizeSeoTags
-          title={siteMeta.name.full}
-          link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/' }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: siteMeta.name.full },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { property: 'og:title', content: siteMeta.name.full },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: siteMeta.urlOrigin + '/' },
-            {
-              property: 'og:updated_time',
-              content: siteMeta.ogImage.updatedTime,
-            },
-          ]}
-        />
-        <SideBar ref={this._sidebar}>
-          <Section anchorId="latest">
-            <LatestSection
-              data={this.props[fieldNames.sections.latestSection]}
+
+  const latestTopicJSX = latestTopicData ? (
+    <Section anchorId="latestTopic" anchorLabel="最新專題" showAnchor>
+      <LatestTopicSection data={latestTopicData} />
+    </Section>
+  ) : null
+
+  const SideBar = sideBarFactory.getIndexPageSideBar()
+
+  return (
+    <Container>
+      <CSSTransition
+        in={isSpinnerDisplayed}
+        classNames="spinner"
+        timeout={2000}
+        enter={false}
+        mountOnEnter
+        unmountOnExit
+      >
+        <LoadingCover>
+          <LoadingSpinner alt="首頁載入中" />
+        </LoadingCover>
+      </CSSTransition>
+      <Helmet
+        prioritizeSeoTags
+        title={siteMeta.name.full}
+        link={[{ rel: 'canonical', href: siteMeta.urlOrigin + '/' }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: siteMeta.name.full },
+          { name: 'twitter:image', content: siteMeta.ogImage.url },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { property: 'og:title', content: siteMeta.name.full },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: siteMeta.urlOrigin + '/' },
+          {
+            property: 'og:updated_time',
+            content: siteMeta.ogImage.updatedTime,
+          },
+        ]}
+      />
+      <SideBar ref={sidebarRef}>
+        <Section anchorId="latest">
+          <LatestSection
+            data={fieldSections[fieldNames.sections.latestSection]}
+          />
+        </Section>
+        <Section anchorId="editorPick" anchorLabel="編輯精選" showAnchor>
+          <EditorPicks
+            data={fieldSections[fieldNames.sections.editorPicksSection]}
+          />
+        </Section>
+        {latestTopicJSX}
+        <Section anchorId="donation-box">
+          <DonationBoxSection />
+        </Section>
+        <Section anchorId="review" anchorLabel="評論" showAnchor>
+          <ReviewsSection
+            data={fieldSections[fieldNames.sections.reviewsSection]}
+            moreURI={`categories/${CATEGORY_PATH.opinion}`}
+          />
+        </Section>
+        <Section anchorId="junior">
+          <JuniorBoxSection releaseBranch={releaseBranch} />
+        </Section>
+        <Section anchorId="categories" anchorLabel="議題" showAnchor>
+          <Background $backgroundColor={moduleBackgrounds.category}>
+            <CategorySection data={categories} />
+          </Background>
+        </Section>
+        <Section anchorId="topic" anchorLabel="專題" showAnchor>
+          <Background $backgroundColor={moduleBackgrounds.topic}>
+            <TopicsSection
+              data={fieldSections[fieldNames.sections.topicsSection]}
             />
-          </Section>
-          <Section anchorId="editorPick" anchorLabel="編輯精選" showAnchor>
-            <EditorPicks
-              data={this.props[fieldNames.sections.editorPicksSection]}
+          </Background>
+        </Section>
+        <Section anchorId="podcast">
+          <PodcastBoxSection releaseBranch={releaseBranch} />
+        </Section>
+        <Section anchorId="photography" anchorLabel="攝影" showAnchor>
+          <Background $backgroundColor={moduleBackgrounds.photography}>
+            <PhotographySection
+              data={fieldSections[fieldNames.sections.photosSection]}
+              moreURI="photography"
             />
-          </Section>
-          {latestTopicJSX}
-          <Section anchorId="donation-box">
-            <DonationBoxSection />
-          </Section>
-          <Section anchorId="review" anchorLabel="評論" showAnchor>
-            <ReviewsSection
-              data={this.props[fieldNames.sections.reviewsSection]}
-              moreURI={`categories/${CATEGORY_PATH.opinion}`}
+          </Background>
+        </Section>
+        <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
+          <Background $backgroundColor={moduleBackgrounds.infographic}>
+            <InforgraphicSection
+              data={fieldSections[fieldNames.sections.infographicsSection]}
+              moreURI={`tag/${INFOGRAM_ID}`}
             />
-          </Section>
-          <Section anchorId="junior">
-            <JuniorBoxSection releaseBranch={releaseBranch} />
-          </Section>
-          <Section anchorId="categories" anchorLabel="議題" showAnchor>
-            <Background $backgroundColor={moduleBackgounds.category}>
-              <CategorySection data={this.props.categories} />
-            </Background>
-          </Section>
-          <Section anchorId="topic" anchorLabel="專題" showAnchor>
-            <Background $backgroundColor={moduleBackgounds.topic}>
-              <TopicsSection
-                data={this.props[fieldNames.sections.topicsSection]}
-              />
-            </Background>
-          </Section>
-          <Section anchorId="podcast">
-            <PodcastBoxSection releaseBranch={releaseBranch} />
-          </Section>
-          <Section anchorId="photography" anchorLabel="攝影" showAnchor>
-            <Background $backgroundColor={moduleBackgounds.photography}>
-              <PhotographySection
-                data={this.props[fieldNames.sections.photosSection]}
-                moreURI="photography"
-              />
-            </Background>
-          </Section>
-          <Section anchorId="infographic" anchorLabel="多媒體" showAnchor>
-            <Background $backgroundColor={moduleBackgounds.infographic}>
-              <InforgraphicSection
-                data={this.props[fieldNames.sections.infographicsSection]}
-                moreURI={`tag/${INFOGRAM_ID}`}
-              />
-            </Background>
-          </Section>
-        </SideBar>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(JSON.stringify(webSiteJSONLD)),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(JSON.stringify(siteNavigationJSONLD)),
-          }}
-        />
-      </Container>
-    )
-  }
+          </Background>
+        </Section>
+      </SideBar>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(JSON.stringify(webSiteJSONLD)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(JSON.stringify(siteNavigationJSONLD)),
+        }}
+      />
+    </Container>
+  )
 }
 
 /**
@@ -544,65 +560,9 @@ function restoreFeatureTopic(featureTopicState, postEntities, topicEntities) {
   return clonedTopic
 }
 
-/**
- *  HomepageProps type definition
- *  @typedef {Object} HomepageProps
- *  @property {MetaOfPost[]} [latest_section]
- *  @property {MetaOfPost[]} [editor_picks_section]
- *  @property {FeatureTopic | {}} [latest_topic_section]
- *  @property {MetaOfPost[]} [reviews_section]
- *  @property {MetaOfTopic[]} [topics_section]
- *  @property {MetaOfPost[]} [photos_section]
- *  @property {MetaOfPost[]} [infographics_section]
- *  @property {CategoryPost[]} categories
- *  @property {boolean} isSpinnerDisplayed
- *  @property {boolean} ifAuthenticated
- */
-
-/**
- *  This function subscribes to redux store.
- *  If redux store state changed,
- *  this function will collect the latest state
- *  and pass those changed state to `Homepage` React component
- *  as component `props`.
- *
- *  @param {ReduxState} state
- *  @return {HomepageProps}
- */
-function mapStateToProps(state) {
-  const entities = _.get(state, fieldNames.entities, {})
-  const indexPageState = _.get(state, fieldNames.indexPage, {})
-  const featureTopicState = _.get(state, fieldNames.featureTopic, {})
-  const postEntities = _.get(entities, [fieldNames.postsInEntities, 'byId'], {})
-  const topicEntities = _.get(
-    entities,
-    [fieldNames.topicsInEntities, 'byId'],
-    {}
-  )
-
-  return _.merge(
-    {},
-    restoreSections(indexPageState, postEntities, topicEntities),
-    {
-      [fieldNames.sections.latestTopicSection]: restoreFeatureTopic(
-        featureTopicState,
-        postEntities,
-        topicEntities
-      ),
-    },
-    {
-      categories: restoreCategories(indexPageState, postEntities),
-    },
-    {
-      isSpinnerDisplayed: !_.get(indexPageState, 'isReady', false),
-      ifAuthenticated: _.get(state, ['auth', 'authenticated'], false),
-      isContentReady: _.get(indexPageState, 'isReady', false),
-    }
-  )
+Homepage.propTypes = {
+  location: PropTypes.object.isRequired,
 }
 
 export { Homepage }
-export default connect(
-  mapStateToProps,
-  { fetchIndexPageContent, fetchFeatureTopic }
-)(Homepage)
+export default Homepage
