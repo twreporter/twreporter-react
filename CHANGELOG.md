@@ -1,5 +1,26 @@
 # Changelog
 
+## 5.1.7, 2024-10-08 (Current)
+
+### Notable Changes
+
+- feat
+  - useDispatch & useSelector for Latest page
+  - useDispatch & useSelector for Photography page
+  - change Home to functional component and useDispatch & useSelector
+- fix
+  - change Search page to functional component
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`dcc47c4251`](https://github.com/twreporter/twreporter-react/commit/dcc47c4251)] - **chore**: update twreporter packages (Lucien)
+- [[`fc41e4dae6`](https://github.com/twreporter/twreporter-react/commit/fc41e4dae6)] - **feat**: change Home to functional component and useDispatch & useSelector (Lucien)
+- [[`62066d3483`](https://github.com/twreporter/twreporter-react/commit/62066d3483)] - **fix**: change Search page to functional component (Lucien)
+- [[`ea394cca34`](https://github.com/twreporter/twreporter-react/commit/ea394cca34)] - **feat**: useDispatch & useSelector for Photography page (Lucien)
+- [[`5861ded784`](https://github.com/twreporter/twreporter-react/commit/5861ded784)] - **feat**: useDispatch & useSelector for Latest page (Lucien)
+
 ## 5.1.6, 2024-09-18
 
 ### Notable Changes
@@ -15,7 +36,7 @@
 - [[`7f1a069761`](https://github.com/twreporter/twreporter-react/commit/7f1a069761)] - **fix**: update Category to functional components (Aylie Chou)
 - [[`1484a5703f`](https://github.com/twreporter/twreporter-react/commit/1484a5703f)] - **fix**: update Authors page to functional components (Aylie Chou)
 
-## 5.1.5, 2024-08-30 (Current)
+## 5.1.5, 2024-08-30
 
 ### Notable Changes
 
