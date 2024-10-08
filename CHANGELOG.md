@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.1.7-rc.0, 2024-10-01
+## 5.1.7, 2024-10-08 (Current)
 
 ### Notable Changes
 
@@ -21,7 +21,7 @@
 - [[`ea394cca34`](https://github.com/twreporter/twreporter-react/commit/ea394cca34)] - **feat**: useDispatch & useSelector for Photography page (Lucien)
 - [[`5861ded784`](https://github.com/twreporter/twreporter-react/commit/5861ded784)] - **feat**: useDispatch & useSelector for Latest page (Lucien)
 
-## 5.1.6, 2024-09-18 (Current)
+## 5.1.6, 2024-09-18
 
 ### Notable Changes
 
