@@ -11,6 +11,7 @@ import { Arrow } from '@twreporter/react-components/lib/icon'
 import divider from '@twreporter/react-components/lib/divider'
 import twreporterRedux from '@twreporter/redux'
 import { IconButton } from '@twreporter/react-components/lib/button'
+import { useLazyGetPrimeReceiptQuery } from '@twreporter/redux/lib/actions/receipt'
 // constants
 import { DonationType, DonationTypeLabel } from '../../../../constants/donation'
 // components
@@ -119,6 +120,7 @@ export const TableRow = memo(({ record }) => {
   const amountSuffix = type === DonationType.PRIME ? '元' : '元/月'
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isReceiptDownloading, setIsReceiptDownloading] = useState(false)
   const [periodicHistory, setPeriodicHistory] = useState([])
   const { releaseBranch } = useContext(CoreContext)
 
@@ -146,6 +148,47 @@ export const TableRow = memo(({ record }) => {
           setPeriodicHistory({ limit, offset, total, records })
         }
       )
+    }
+  }
+
+  const showDownloadReceipt =
+    type === DonationType.PRIME && record.send_receipt !== 'no_receipt'
+  const [downloadReceiptTrigger, ,] = useLazyGetPrimeReceiptQuery()
+  const { toastr } = useContext(CoreContext)
+  const downloadReceipt = async e => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (isReceiptDownloading) {
+      return
+    }
+    toastr({ text: '收據開立中，開立完成會自動下載' })
+    setIsReceiptDownloading(true)
+    try {
+      const result = await downloadReceiptTrigger({
+        orderNumber: record.order_number,
+        jwt,
+      }).unwrap()
+
+      // Create a link element to trigger the download
+      const url = window.URL.createObjectURL(result)
+      const link = document.createElement('a')
+      link.href = url
+
+      // Set the filename from the server's headers, or use a fallback name
+      const filename = `${record.order_number}.pdf`
+      link.download = filename.replace(/['"]/g, '') // Remove any quotes from filename
+
+      // Append the link, click it to start download, and remove it afterward
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+
+      // Release the blob URL to free up memory
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error('download receipt failed. err:', err)
+    } finally {
+      setIsReceiptDownloading(false)
     }
   }
 
@@ -214,6 +257,9 @@ export const TableRow = memo(({ record }) => {
           record={record}
           periodicHistory={periodicHistory}
           isLoading={isLoading}
+          showDownloadReceipt={showDownloadReceipt}
+          downloadReceipt={downloadReceipt}
+          isDownloading={isReceiptDownloading}
         />
       )}
       <Divider />
