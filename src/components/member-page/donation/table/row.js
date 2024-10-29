@@ -17,6 +17,7 @@ import {
   DonationType,
   DonationTypeLabel,
   PrimeDonationStatus,
+  PeriodicDonationStatus,
 } from '../../../../constants/donation'
 // components
 import { StatusBadge } from '../status-bagde'
@@ -112,6 +113,20 @@ const Divider = styled(divider)`
 export const formattedDate = date =>
   `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}`
 
+const getShowEditDonationInfo = status => {
+  switch (status) {
+    case PrimeDonationStatus.PAYING:
+    case PrimeDonationStatus.PAID:
+    case PeriodicDonationStatus.TO_PAY:
+    case PeriodicDonationStatus.PAYING:
+    case PeriodicDonationStatus.PAID:
+    case PeriodicDonationStatus.STOPPED:
+      return true
+    default:
+      return false
+  }
+}
+
 export const TableRow = memo(({ record }) => {
   const {
     type,
@@ -155,11 +170,12 @@ export const TableRow = memo(({ record }) => {
     }
   }
 
-  const showEditDonationInfo = record.status === PrimeDonationStatus.PAID
+  const showEditDonationInfo = getShowEditDonationInfo(record.status)
   const showDownloadReceipt =
     type === DonationType.PRIME &&
     record.send_receipt !== 'no_receipt' &&
-    record.status === PrimeDonationStatus.PAID
+    record.status === PrimeDonationStatus.PAID &&
+    new Date(createdAt) >= new Date(2024, 8, 1)
   const [downloadReceiptTrigger, ,] = useLazyGetPrimeReceiptQuery()
   const { toastr } = useContext(CoreContext)
   const downloadReceipt = async e => {
