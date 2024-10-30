@@ -198,18 +198,18 @@ const contributeType = {
 export const TableRowDetail = memo(
   ({
     record,
-    periodicHistory,
-    isLoading,
-    showDownloadReceipt,
-    downloadReceipt,
-    isDownloading,
+    periodicHistory = {},
+    isLoading = false,
+    showDownloadReceipt = false,
+    downloadReceipt = () => {},
+    isDownloading = false,
+    showEditDonationInfo = false,
   }) => {
     const {
       card_last_four: cardLastFour,
       card_type: cardType,
       send_receipt: sendReceipt,
       receipt_header: receiptHeader,
-      // is_anonymous: isAnonymous,
       pay_method: payMethod,
       order_number: orderNumber,
       type,
@@ -239,6 +239,17 @@ export const TableRowDetail = memo(
         onClick={downloadReceipt}
       />
     ) : null
+    const editDonationInfoJSX = showEditDonationInfo ? (
+      <LinkButton
+        type={LinkButton.Type.UNDERLINE}
+        text="修改贊助資料"
+        TextComponent={P2}
+        link={{
+          to: editReceiptUrl,
+          target: '_blank',
+        }}
+      />
+    ) : null
 
     return (
       <RowDetail>
@@ -248,15 +259,7 @@ export const TableRowDetail = memo(
               <P1Gray800 weight={P1.Weight.BOLD} text="收據資料" />
               <div className="receipt-action-button">
                 {receiptButtonJSX}
-                <LinkButton
-                  type={LinkButton.Type.UNDERLINE}
-                  text="修改贊助資料"
-                  TextComponent={P2}
-                  link={{
-                    to: editReceiptUrl,
-                    target: '_blank',
-                  }}
-                />
+                {editDonationInfoJSX}
               </div>
             </div>
             <TabletAndAbove>
@@ -407,6 +410,7 @@ TableRowDetail.propTypes = {
   showDownloadReceipt: PropTypes.bool,
   downloadReceipt: PropTypes.func,
   isDownloading: PropTypes.bool,
+  showEditDonationInfo: PropTypes.bool,
 }
 
 TableRowDetail.displayName = 'TableRowDetail'

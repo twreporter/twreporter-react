@@ -13,7 +13,12 @@ import twreporterRedux from '@twreporter/redux'
 import { IconButton } from '@twreporter/react-components/lib/button'
 import { useLazyGetPrimeReceiptQuery } from '@twreporter/redux/lib/actions/receipt'
 // constants
-import { DonationType, DonationTypeLabel } from '../../../../constants/donation'
+import {
+  DonationType,
+  DonationTypeLabel,
+  PrimeDonationStatus,
+  PeriodicDonationStatus,
+} from '../../../../constants/donation'
 // components
 import { StatusBadge } from '../status-bagde'
 import { TableRowDetail } from './row-detail'
@@ -108,6 +113,20 @@ const Divider = styled(divider)`
 export const formattedDate = date =>
   `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}`
 
+const getShowEditDonationInfo = status => {
+  switch (status) {
+    case PrimeDonationStatus.PAYING:
+    case PrimeDonationStatus.PAID:
+    case PeriodicDonationStatus.TO_PAY:
+    case PeriodicDonationStatus.PAYING:
+    case PeriodicDonationStatus.PAID:
+    case PeriodicDonationStatus.STOPPED:
+      return true
+    default:
+      return false
+  }
+}
+
 export const TableRow = memo(({ record }) => {
   const {
     type,
@@ -151,8 +170,12 @@ export const TableRow = memo(({ record }) => {
     }
   }
 
+  const showEditDonationInfo = getShowEditDonationInfo(record.status)
   const showDownloadReceipt =
-    type === DonationType.PRIME && record.send_receipt !== 'no_receipt'
+    type === DonationType.PRIME &&
+    record.send_receipt !== 'no_receipt' &&
+    record.status === PrimeDonationStatus.PAID &&
+    new Date(createdAt) >= new Date(2024, 8, 1)
   const [downloadReceiptTrigger, ,] = useLazyGetPrimeReceiptQuery()
   const { toastr } = useContext(CoreContext)
   const downloadReceipt = async e => {
@@ -174,7 +197,7 @@ export const TableRow = memo(({ record }) => {
       const link = document.createElement('a')
       link.href = url
 
-      // Set the filename from the server's headers, or use a fallback name
+      // Set the filename as `<order number>.pdf`
       const filename = `${record.order_number}.pdf`
       link.download = filename.replace(/['"]/g, '') // Remove any quotes from filename
 
@@ -260,6 +283,7 @@ export const TableRow = memo(({ record }) => {
           showDownloadReceipt={showDownloadReceipt}
           downloadReceipt={downloadReceipt}
           isDownloading={isReceiptDownloading}
+          showEditDonationInfo={showEditDonationInfo}
         />
       )}
       <Divider />
