@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.3-beta.7, 2024-10-30
+
+### Notable Changes
+
+- fix
+  - add rules for hidding `download receipt` & `edit donation info` button
+
+### Commits
+
+- [[`61e5f0bd7f`](https://github.com/twreporter/twreporter-react/commit/61e5f0bd7f)] - **fix**: not show `download receipt` before 0801 (Aylie Chou)
+- [[`0d9f1ad01c`](https://github.com/twreporter/twreporter-react/commit/0d9f1ad01c)] - **fix**: hide `download receipt` if not paid (Aylie Chou)
+
 ## 5.0.3-beta.6, 2024-10-25
 
 ### Notable Changes
