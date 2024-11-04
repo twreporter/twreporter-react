@@ -1686,10 +1686,10 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.5.2-rc.1":
-  version "2.5.2-rc.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.5.2-rc.1.tgz#9bb6ddcae5b012a3609744e7f61208b53bdaf277"
-  integrity sha512-lL1WNNkXpLZ0PiQcOOwGFkXyfv1Vjcwpz3uHE5PChltqEVsueCIKbPvH3h/Dscdxz6rD6ixtYCRDGdzOLlM1ig==
+"@twreporter/react-article-components@^2.5.2-rc.3":
+  version "2.5.2-rc.3"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.5.2-rc.3.tgz#74cc602b04cf34779437455b0160b2d2cbefbc06"
+  integrity sha512-i0Mt2bUnbwUfq03TQRkE7AbSc7bYyoY9tKgVk+QzZ/ALdzXifkrB7FLpOmEd8q9j9ks/AybC12clzM7iqyowkA==
   dependencies:
     "@twreporter/core" "^1.24.0"
     "@twreporter/react-components" "^9.4.1-rc.0"
