@@ -1,5 +1,34 @@
 # Changelog
 
+## 5.2.0-rc.1, 2024-11-04
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c035535089`](https://github.com/twreporter/twreporter-react/commit/c035535089)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 5.2.0-rc.0, 2024-11-01
+
+### Notable Changes
+
+- feat
+  - add receipt download button for prime donation
+- fix
+  - add rules for hidding `download receipt` & `edit donation info` button
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`61e5f0bd7f`](https://github.com/twreporter/twreporter-react/commit/61e5f0bd7f)] - **fix**: not show `download receipt` before 0801 (Aylie Chou)
+- [[`0d9f1ad01c`](https://github.com/twreporter/twreporter-react/commit/0d9f1ad01c)] - **fix**: hide `download receipt` if not paid (Aylie Chou)
+- [[`0438162db3`](https://github.com/twreporter/twreporter-react/commit/0438162db3)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`fdb21c3b9a`](https://github.com/twreporter/twreporter-react/commit/fdb21c3b9a)] - **feat**: add receipt download button for prime donation (Aylie Chou)
+
 ## 5.1.7, 2024-10-08 (Current)
 
 ### Notable Changes
