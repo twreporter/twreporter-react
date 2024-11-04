@@ -43,6 +43,13 @@ const RowDetail = styled.div`
 
 const ReceiptInfoBox = styled.div`
   width: 100%;
+  .receipt-action-button {
+    display: flex;
+    flex-direction: row;
+    :nth-child(even) {
+      margin-left: 8px;
+    }
+  }
   .receipt-info-title {
     display: flex;
     flex-direction: row;
@@ -183,196 +190,213 @@ const sendReceiptDictionary = {
   paperback_receipt_by_year: '需要，請按年開立',
 }
 
-// const isAnonymousDictionary = {
-//   0: '我願意將全名公開在《報導者》的捐款徵信名冊',
-//   1: '我不希望將全名公開在《報導者》的捐款徵信名冊',
-// }
-
 const contributeType = {
   prime: 'one_time',
   periodic: 'monthly',
 }
 
-export const TableRowDetail = memo(({ record, periodicHistory, isLoading }) => {
-  const {
-    card_last_four: cardLastFour,
-    card_type: cardType,
-    send_receipt: sendReceipt,
-    receipt_header: receiptHeader,
-    // is_anonymous: isAnonymous,
-    pay_method: payMethod,
-    order_number: orderNumber,
-    type,
-  } = record
-  const receiptAddress = `${record.address_state || ''}${record.address_city ||
-    ''}${record.address_detail || ''}`
+export const TableRowDetail = memo(
+  ({
+    record,
+    periodicHistory = {},
+    isLoading = false,
+    showDownloadReceipt = false,
+    downloadReceipt = () => {},
+    isDownloading = false,
+    showEditDonationInfo = false,
+  }) => {
+    const {
+      card_last_four: cardLastFour,
+      card_type: cardType,
+      send_receipt: sendReceipt,
+      receipt_header: receiptHeader,
+      pay_method: payMethod,
+      order_number: orderNumber,
+      type,
+    } = record
+    const receiptAddress = `${record.address_state ||
+      ''}${record.address_city || ''}${record.address_detail || ''}`
 
-  const { releaseBranch } = useContext(CoreContext)
-  const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}?utm_source=supportsuccess&utm_medium=account`
+    const { releaseBranch } = useContext(CoreContext)
+    const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}?utm_source=supportsuccess&utm_medium=account`
 
-  const DotGroups = () =>
-    Array.from({ length: 3 }, (_, i) => (
-      <DotGroup key={i}>
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-      </DotGroup>
-    ))
+    const DotGroups = () =>
+      Array.from({ length: 3 }, (_, i) => (
+        <DotGroup key={i}>
+          <Dot />
+          <Dot />
+          <Dot />
+          <Dot />
+        </DotGroup>
+      ))
 
-  return (
-    <RowDetail>
-      <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
-        <ReceiptInfoBox>
-          <div className="receipt-info-title">
-            <P1Gray800 weight={P1.Weight.BOLD} text="收據資料" />
-            <LinkButton
-              type={LinkButton.Type.UNDERLINE}
-              text="修改贊助資料"
-              TextComponent={P2}
-              link={{
-                to: editReceiptUrl,
-                target: '_blank',
-              }}
-            />
-          </div>
-          <TabletAndAbove>
-            <Divider />
-            <div className="receipt-table">
-              <P1Gray800 className="receipt-table-header" text="收據抬頭" />
-              <P1Gray800
-                className="receipt-table-content"
-                text={receiptHeader}
-              />
-              <P1Gray800 className="receipt-table-header" text="收據開立方式" />
-              <P1Gray800
-                className="receipt-table-content"
-                text={sendReceiptDictionary[sendReceipt]}
-              />
-              <P1Gray800 className="receipt-table-header" text="收據寄送地址" />
-              <P1Gray800
-                className="receipt-table-content"
-                text={receiptAddress}
-              />
-              {/* <P1Gray800 className="receipt-table-header" text="其他" />
-              <P1Gray800
-                className="receipt-table-content"
-                text={isAnonymousDictionary[Number(isAnonymous)]}
-              /> */}
+    const receiptButtonJSX = showDownloadReceipt ? (
+      <LinkButton
+        type={LinkButton.Type.UNDERLINE}
+        text="下載收據"
+        TextComponent={P2}
+        disabled={isDownloading}
+        onClick={downloadReceipt}
+      />
+    ) : null
+    const editDonationInfoJSX = showEditDonationInfo ? (
+      <LinkButton
+        type={LinkButton.Type.UNDERLINE}
+        text="修改贊助資料"
+        TextComponent={P2}
+        link={{
+          to: editReceiptUrl,
+          target: '_blank',
+        }}
+      />
+    ) : null
+
+    return (
+      <RowDetail>
+        <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
+          <ReceiptInfoBox>
+            <div className="receipt-info-title">
+              <P1Gray800 weight={P1.Weight.BOLD} text="收據資料" />
+              <div className="receipt-action-button">
+                {receiptButtonJSX}
+                {editDonationInfoJSX}
+              </div>
             </div>
-          </TabletAndAbove>
-          <MobileOnly>
-            <Divider $isMobile />
-            <div className="row">
-              <P2Gray600 text="收據抬頭" />
-              <P1Gray800 text={receiptHeader} />
-            </div>
-            <div className="row">
-              <P2Gray600 text="收據開立方式" />
-              <P1Gray800 text={sendReceiptDictionary[sendReceipt]} />
-            </div>
-            <div className="row">
-              <P2Gray600 text="收據寄送地址" />
-              <P1Gray800 text={receiptAddress} />
-            </div>
-            {/* <div className="row">
-              <P2Gray600 text="其他" />
-              <P1Gray800 text={isAnonymousDictionary[Number(isAnonymous)]} />
-            </div> */}
-          </MobileOnly>
-        </ReceiptInfoBox>
-        <PaymentInfoBox>
-          <P1Gray800 weight={P1.Weight.BOLD} text="扣款方式" />
-          <Divider />
-          <div className="card-number">
-            {payMethod === PayMethodType.LINE ? (
-              <P1Gray800 text="LINE Pay" />
-            ) : (
-              <>
-                <P1Gray800 text={cardTypeDictionary[cardType]} />
-                <DotGroups />
-                <P1Gray800 text={cardLastFour} />
-              </>
-            )}
-          </div>
-        </PaymentInfoBox>
-        {record.type === DonationType.PERIODIC && (
-          <PaymentRecordBox>
-            <div className="payment-record-title">
-              <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
-              <LinkButton
-                type={LinkButton.Type.UNDERLINE}
-                text="下載所有紀錄"
-                TextComponent={P2}
-                link={{
-                  to: `/download/donation-history/${orderNumber}`,
-                  target: '_blank',
-                }}
-              />
-            </div>
-            <Divider />
             <TabletAndAbove>
-              <div className="payment-record-table">
-                {periodicHistory?.records?.map((history, idx) => {
-                  return (
-                    <React.Fragment key={idx}>
-                      <P1Gray800
-                        className="payment-date"
-                        text={formattedDate(new Date(history.created_at))}
-                      />
-                      <P1Gray800
-                        className="payment-number"
-                        text={history.order_number}
-                      />
-                      <P1Gray800
-                        className="payment-amount"
-                        text={`${history.amount.toLocaleString('en-US')}元`}
-                      />
-                      <div className="payment-status">
-                        <StatusBadge
-                          status={history.status}
-                          type={DonationType.PRIME}
-                        />
-                      </div>
-                    </React.Fragment>
-                  )
-                })}
+              <Divider />
+              <div className="receipt-table">
+                <P1Gray800 className="receipt-table-header" text="收據抬頭" />
+                <P1Gray800
+                  className="receipt-table-content"
+                  text={receiptHeader}
+                />
+                <P1Gray800
+                  className="receipt-table-header"
+                  text="收據開立方式"
+                />
+                <P1Gray800
+                  className="receipt-table-content"
+                  text={sendReceiptDictionary[sendReceipt]}
+                />
+                <P1Gray800
+                  className="receipt-table-header"
+                  text="收據寄送地址"
+                />
+                <P1Gray800
+                  className="receipt-table-content"
+                  text={receiptAddress}
+                />
               </div>
             </TabletAndAbove>
             <MobileOnly>
-              <div className="payment-record-table">
-                {periodicHistory?.records?.map((history, idx) => {
-                  return (
-                    <div className="grid-row" key={idx}>
-                      <P1Gray800
-                        className="payment-date"
-                        text={formattedDate(new Date(history.created_at))}
-                      />
-                      <P1Gray800
-                        className="payment-amount"
-                        text={`${history.amount.toLocaleString('en-US')}元`}
-                      />
-                      <div className="payment-status">
-                        <StatusBadge
-                          status={history.status}
-                          type={DonationType.PRIME}
-                        />
-                      </div>
-                      <P2Gray600
-                        className="payment-number"
-                        text={history.order_number}
-                      />
-                    </div>
-                  )
-                })}
+              <Divider $isMobile />
+              <div className="row">
+                <P2Gray600 text="收據抬頭" />
+                <P1Gray800 text={receiptHeader} />
+              </div>
+              <div className="row">
+                <P2Gray600 text="收據開立方式" />
+                <P1Gray800 text={sendReceiptDictionary[sendReceipt]} />
+              </div>
+              <div className="row">
+                <P2Gray600 text="收據寄送地址" />
+                <P1Gray800 text={receiptAddress} />
               </div>
             </MobileOnly>
-          </PaymentRecordBox>
-        )}
-      </LoadingMask>
-    </RowDetail>
-  )
-})
+          </ReceiptInfoBox>
+          <PaymentInfoBox>
+            <P1Gray800 weight={P1.Weight.BOLD} text="扣款方式" />
+            <Divider />
+            <div className="card-number">
+              {payMethod === PayMethodType.LINE ? (
+                <P1Gray800 text="LINE Pay" />
+              ) : (
+                <>
+                  <P1Gray800 text={cardTypeDictionary[cardType]} />
+                  <DotGroups />
+                  <P1Gray800 text={cardLastFour} />
+                </>
+              )}
+            </div>
+          </PaymentInfoBox>
+          {record.type === DonationType.PERIODIC && (
+            <PaymentRecordBox>
+              <div className="payment-record-title">
+                <P1Gray800 weight={P1.Weight.BOLD} text="扣款紀錄" />
+                <LinkButton
+                  type={LinkButton.Type.UNDERLINE}
+                  text="下載所有紀錄"
+                  TextComponent={P2}
+                  link={{
+                    to: `/download/donation-history/${orderNumber}`,
+                    target: '_blank',
+                  }}
+                />
+              </div>
+              <Divider />
+              <TabletAndAbove>
+                <div className="payment-record-table">
+                  {periodicHistory?.records?.map((history, idx) => {
+                    return (
+                      <React.Fragment key={idx}>
+                        <P1Gray800
+                          className="payment-date"
+                          text={formattedDate(new Date(history.created_at))}
+                        />
+                        <P1Gray800
+                          className="payment-number"
+                          text={history.order_number}
+                        />
+                        <P1Gray800
+                          className="payment-amount"
+                          text={`${history.amount.toLocaleString('en-US')}元`}
+                        />
+                        <div className="payment-status">
+                          <StatusBadge
+                            status={history.status}
+                            type={DonationType.PRIME}
+                          />
+                        </div>
+                      </React.Fragment>
+                    )
+                  })}
+                </div>
+              </TabletAndAbove>
+              <MobileOnly>
+                <div className="payment-record-table">
+                  {periodicHistory?.records?.map((history, idx) => {
+                    return (
+                      <div className="grid-row" key={idx}>
+                        <P1Gray800
+                          className="payment-date"
+                          text={formattedDate(new Date(history.created_at))}
+                        />
+                        <P1Gray800
+                          className="payment-amount"
+                          text={`${history.amount.toLocaleString('en-US')}元`}
+                        />
+                        <div className="payment-status">
+                          <StatusBadge
+                            status={history.status}
+                            type={DonationType.PRIME}
+                          />
+                        </div>
+                        <P2Gray600
+                          className="payment-number"
+                          text={history.order_number}
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              </MobileOnly>
+            </PaymentRecordBox>
+          )}
+        </LoadingMask>
+      </RowDetail>
+    )
+  }
+)
 
 TableRowDetail.propTypes = {
   record: PropTypes.object.isRequired,
@@ -383,6 +407,10 @@ TableRowDetail.propTypes = {
     records: PropTypes.array,
   }),
   isLoading: PropTypes.bool,
+  showDownloadReceipt: PropTypes.bool,
+  downloadReceipt: PropTypes.func,
+  isDownloading: PropTypes.bool,
+  showEditDonationInfo: PropTypes.bool,
 }
 
 TableRowDetail.displayName = 'TableRowDetail'
