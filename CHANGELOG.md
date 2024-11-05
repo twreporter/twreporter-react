@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.1-rc.0, 2024-11-05
+
+### Notable Changes
+
+- fix
+  - add digital receipt info on donation page
+
+### Commits
+
+- [[`3ceb717dcd`](https://github.com/twreporter/twreporter-react/commit/3ceb717dcd)] - **fix**: add digital receipt info on donation page (Aylie Chou)
+
 ## 5.2.0, 2024-11-04 (Current)
 
 ### Notable Changes
