@@ -1,28 +1,21 @@
 # Changelog
 
-## 5.2.1-rc.1, 2024-11-05
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`f240cffab9`](https://github.com/twreporter/twreporter-react/commit/f240cffab9)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 5.2.1-rc.0, 2024-11-05
+## 5.2.1, 2024-11-05 (Current)
 
 ### Notable Changes
 
 - fix
   - add digital receipt info on donation page
+- chore
+  - update @twreporter packages
 
 ### Commits
 
+- [[`8a63a9aeca`](https://github.com/twreporter/twreporter-react/commit/8a63a9aeca)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f240cffab9`](https://github.com/twreporter/twreporter-react/commit/f240cffab9)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`3ceb717dcd`](https://github.com/twreporter/twreporter-react/commit/3ceb717dcd)] - **fix**: add digital receipt info on donation page (Aylie Chou)
 
-## 5.2.0, 2024-11-04 (Current)
+## 5.2.0, 2024-11-04
 
 ### Notable Changes
 
