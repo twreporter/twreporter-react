@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.1-rc.1, 2024-11-05
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`f240cffab9`](https://github.com/twreporter/twreporter-react/commit/f240cffab9)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 5.2.1-rc.0, 2024-11-05
 
 ### Notable Changes
