@@ -156,6 +156,9 @@ export const TableRow = memo(({ record }) => {
   const jwt = useSelector(state =>
     _.get(state, [reduxStateFields.auth, 'accessToken'])
   )
+  const email = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'email'])
+  )
   const getPeriodicDonationHistory = () => {
     if (detail) {
       setPeriodicHistory(detail)
@@ -284,6 +287,7 @@ export const TableRow = memo(({ record }) => {
           downloadReceipt={downloadReceipt}
           isDownloading={isReceiptDownloading}
           showEditDonationInfo={showEditDonationInfo}
+          email={email}
         />
       )}
       <Divider />

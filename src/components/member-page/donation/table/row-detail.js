@@ -184,10 +184,18 @@ export const cardTypeDictionary = {
   '5': 'AMEX',
 }
 
+const sendReceiptKey = {
+  no: 'no_receipt',
+  monthly: 'paperback_receipt_by_month',
+  yearly: 'paperback_receipt_by_year',
+  digital: 'digital_receipt_by_year',
+}
+
 const sendReceiptDictionary = {
-  no_receipt: '不需要收據',
-  paperback_receipt_by_month: '需要，請按月開立',
-  paperback_receipt_by_year: '需要，請按年開立',
+  [sendReceiptKey.no]: '不需要收據',
+  [sendReceiptKey.monthly]: '需要，請按月開立紙本收據',
+  [sendReceiptKey.yearly]: '需要，請按年開立紙本收據',
+  [sendReceiptKey.digital]: '需要，請開立電子收據',
 }
 
 const contributeType = {
@@ -204,6 +212,7 @@ export const TableRowDetail = memo(
     downloadReceipt = () => {},
     isDownloading = false,
     showEditDonationInfo = false,
+    email = '',
   }) => {
     const {
       card_last_four: cardLastFour,
@@ -219,6 +228,8 @@ export const TableRowDetail = memo(
 
     const { releaseBranch } = useContext(CoreContext)
     const editReceiptUrl = `${origins.forClientSideRendering[releaseBranch].support}/contribute/${contributeType[type]}/${orderNumber}?utm_source=supportsuccess&utm_medium=account`
+    const sendReceiptTo =
+      sendReceipt === sendReceiptKey.digital ? email : receiptAddress
 
     const DotGroups = () =>
       Array.from({ length: 3 }, (_, i) => (
@@ -284,7 +295,7 @@ export const TableRowDetail = memo(
                 />
                 <P1Gray800
                   className="receipt-table-content"
-                  text={receiptAddress}
+                  text={sendReceiptTo}
                 />
               </div>
             </TabletAndAbove>
@@ -300,7 +311,7 @@ export const TableRowDetail = memo(
               </div>
               <div className="row">
                 <P2Gray600 text="收據寄送地址" />
-                <P1Gray800 text={receiptAddress} />
+                <P1Gray800 text={sendReceiptTo} />
               </div>
             </MobileOnly>
           </ReceiptInfoBox>
@@ -411,6 +422,7 @@ TableRowDetail.propTypes = {
   downloadReceipt: PropTypes.func,
   isDownloading: PropTypes.bool,
   showEditDonationInfo: PropTypes.bool,
+  email: PropTypes.string,
 }
 
 TableRowDetail.displayName = 'TableRowDetail'
