@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect, useStore } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { useStore, useSelector, useDispatch } from 'react-redux'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import TagManager from 'react-gtm-module'
 import localForage from 'localforage'
@@ -53,34 +52,57 @@ const articleReadTimeConditionConfig = {
   min_active_time: 5000, // 5 second
 }
 
-const Article = ({
-  // props from redux state
-  errorOfPost,
-  // errorOfRelateds,
-  fontLevel,
-  isFetchingPost,
-  // isFetchingRelateds,
-  post,
-  relateds,
-  hasMoreRelateds,
-  slugToFetch,
-  isAuthed,
-  userRole,
-  jwt,
-  userID,
-  postID,
-  // props from redux actions
+const { actions, actionTypes, reduxStateFields } = twreporterRedux
+const {
   fetchAFullPost,
   fetchRelatedPostsOfAnEntity,
-  changeFontLevel,
   setUserAnalyticsData,
   setUserFootprint,
-  // props from react-router-dom
-  history,
-  // props from parents
-  releaseBranch,
-}) => {
+} = actions
+const {
+  entities,
+  relatedPostsOf,
+  selectedPost,
+  postsInEntities,
+} = reduxStateFields
+
+const Article = ({ releaseBranch }) => {
+  const history = useHistory()
+  const dispatch = useDispatch()
   const store = useStore()
+
+  const { slug: slugToFetch } = useParams()
+  const errorOfPost = useSelector(state =>
+    _.get(state, [selectedPost, 'error'], null)
+  )
+  const fontLevel = useSelector(state =>
+    _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small')
+  )
+  const isFetchingPost = useSelector(state =>
+    _.get(state, [selectedPost, 'isFetching'], false)
+  )
+  const postID = useSelector(state =>
+    _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], '')
+  )
+  const post = useSelector(state => postProp(state, postID))
+  const relateds = useSelector(state => relatedsProp(state, postID))
+  const hasMoreRelateds = useSelector(
+    state =>
+      _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0
+  )
+  const isAuthed = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  )
+  const userRole = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], [])
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  )
+  const userID = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
+
   const prevIsFetchingPost = usePrevious(isFetchingPost)
   const [isExpanded, setIsExpaned] = useState(false)
   const [
@@ -101,12 +123,19 @@ const Article = ({
   let isActive = false
   let activeTime = 0
 
+  const changeFontLevel = fontLevel => {
+    dispatch({
+      type: actionTypes.settings.changeFontLevel,
+      payload: fontLevel,
+    })
+  }
+
   const fetchAFullPostWithCatch = slug => {
     if (slug === '') {
       return
     }
 
-    fetchAFullPost(slug, jwt)
+    dispatch(fetchAFullPost(slug, jwt))
       .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
@@ -116,7 +145,7 @@ const Article = ({
       .then(successAction => {
         const postId = _.get(successAction, 'payload.post.id', '')
         if (postId) {
-          return fetchRelatedPostsOfAnEntity(postId)
+          return dispatch(fetchRelatedPostsOfAnEntity(postId))
         }
       })
       .catch(failAction => {
@@ -132,7 +161,7 @@ const Article = ({
     const slug = _.get(post, 'slug', '')
 
     if (id && hasMoreRelateds) {
-      return fetchRelatedPostsOfAnEntity(id).catch(failAction => {
+      return dispatch(fetchRelatedPostsOfAnEntity(id)).catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
           message: `Error to fetch post's related posts, post slug: '${slug}'. `,
@@ -154,7 +183,9 @@ const Article = ({
 
   const sendReadCount = () => {
     if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+      )
     }
   }
 
@@ -167,14 +198,16 @@ const Article = ({
       })
     }
     if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      )
       activeTime = 0
     }
   }
 
   const sendUserFootprint = () => {
     if (isAuthed) {
-      setUserFootprint(jwt, userID, postID)
+      dispatch(setUserFootprint(jwt, userID, postID))
     }
   }
 
@@ -350,10 +383,10 @@ const Article = ({
     }
   }, [])
 
-  if (errorOfPost) {
+  if (errorOfPost || slugToFetch === '') {
     return (
       <div>
-        <SystemError error={errorOfPost} />
+        <SystemError error={errorOfPost || { statusCode: 404 }} />
       </div>
     )
   }
@@ -478,58 +511,12 @@ const Article = ({
 }
 
 Article.propTypes = {
-  errorOfPost: PropTypes.object,
-  errorOfRelateds: PropTypes.object,
-  fontLevel: PropTypes.string,
-  isFetchingPost: PropTypes.bool,
-  isFetchingRelateds: PropTypes.bool,
-  post: PropTypes.object,
-  // TODO: relateds: PropTypes.arrayOf(propTypeConst.post)
-  relateds: PropTypes.array,
-  hasMoreRelateds: PropTypes.bool,
-  slugToFetch: PropTypes.string,
-  isAuthed: PropTypes.bool,
-  userRole: PropTypes.array.isRequired,
-  jwt: PropTypes.string,
-  userID: PropTypes.string,
-  postID: PropTypes.string,
-  fetchAFullPost: PropTypes.func,
-  fetchRelatedPostsOfAnEntity: PropTypes.func,
-  changeFontLevel: PropTypes.func,
-  setUserAnalyticsData: PropTypes.func,
-  setUserFootprint: PropTypes.func,
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   releaseBranch: predefinedPropTypes.releaseBranch,
 }
 
 Article.defaultProps = {
-  errorOfPost: null,
-  errorOfRelateds: null,
-  fontLevel: 'small',
-  isFetchingPost: false,
-  isFetchingRelateds: false,
-  relateds: [],
-  hasMoreRelateds: false,
-  slugToFetch: '',
   releaseBranch: releaseBranchConsts.master,
-  isAuthed: false,
 }
-
-const { actions, actionTypes, reduxStateFields } = twreporterRedux
-const {
-  fetchAFullPost,
-  fetchRelatedPostsOfAnEntity,
-  setUserAnalyticsData,
-  setUserFootprint,
-} = actions
-const {
-  entities,
-  relatedPostsOf,
-  selectedPost,
-  postsInEntities,
-} = reduxStateFields
 
 /**
  *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
@@ -579,87 +566,4 @@ function relatedsProp(state, id) {
   return relateds
 }
 
-export function mapStateToProps(state, props) {
-  const currentPostSlug = _.get(props, 'match.params.slug', '')
-
-  const defaultRtn = {
-    errorOfPost: null,
-    errorOfRelateds: null,
-    fontLevel: 'small',
-    isFetchingPost: false,
-    isFetchingRelateds: false,
-    post: null,
-    relateds: [],
-    hasMoreRelateds: false,
-    slugToFetch: '',
-  }
-
-  if (currentPostSlug === '') {
-    return Object.assign(defaultRtn, {
-      errorOfPost: { statusCode: 404 },
-    })
-  }
-
-  // user clicks another post
-  const slug = _.get(state, [selectedPost, 'slug'], '')
-  if (currentPostSlug !== slug) {
-    return Object.assign(defaultRtn, {
-      isFetchingPost: true,
-      // set slugToFetch to current post slug to
-      // make requests to api server to fetch that post
-      slugToFetch: currentPostSlug,
-    })
-  }
-
-  // the results of a full post or corresponding related posts are changed
-  const postId = _.get(state, [entities, postsInEntities, 'slugToId', slug], '')
-  return {
-    errorOfPost: _.get(state, [selectedPost, 'error'], null),
-    errorOfRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', postId, 'error'],
-      null
-    ),
-    fontLevel: _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small'),
-    isFetchingPost: _.get(state, [selectedPost, 'isFetching'], false),
-    isFetchingRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', postId, 'isFetching'],
-      false
-    ),
-    post: postProp(state, postId),
-    relateds: relatedsProp(state, postId),
-    hasMoreRelateds:
-      _.get(state, [relatedPostsOf, 'byId', postId, 'more', 'length'], 0) > 0,
-    // set slugToFetch to empty string to
-    // avoid from re-fetching the post already in redux state
-    slugToFetch: '',
-    isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
-    userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], []),
-    jwt: _.get(state, [reduxStateFields.auth, 'accessToken'], ''),
-    userID: _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id']),
-    postID: postId,
-  }
-}
-
-function changeFontLevel(fontLevel) {
-  return function(dispatch) {
-    dispatch({
-      type: actionTypes.settings.changeFontLevel,
-      payload: fontLevel,
-    })
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchAFullPost,
-      fetchRelatedPostsOfAnEntity,
-      changeFontLevel,
-      setUserAnalyticsData,
-      setUserFootprint,
-    }
-  )(Article)
-)
+export default Article
