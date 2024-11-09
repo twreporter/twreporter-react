@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import querystring from 'querystring'
-import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
 // @twreporter
 import { H3 } from '@twreporter/react-components/lib/text/headline'
@@ -89,8 +88,11 @@ const MemberDonationPage = () => {
   const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const currentPage = pageProp(location)
-  const totalPages = Math.ceil(totalDonationHistory / DONATION_HISTORY_PER_PAGE)
+  let currentPage = pageProp(location)
+  const totalPages = Math.ceil(totalDonationHistory / 10)
+  if (currentPage > totalPages) {
+    currentPage = Math.max(totalPages, 1)
+  }
 
   const getDonationHistory = async page => {
     const { payload } = await dispatch(
@@ -161,17 +163,12 @@ const MemberDonationPage = () => {
   )
 }
 
-MemberDonationPage.propTypes = {
-  jwt: PropTypes.string,
-  userID: PropTypes.number,
-}
-
 function pageProp(location = {}) {
   const defaultPage = 1
-  const search = get(location, 'search', '')
+  const search = _.get(location, 'search', '')
   const searchWithoutPrefix =
     typeof search === 'string' ? search.replace(/^\?/, '') : search
-  const pageStr = get(querystring.parse(searchWithoutPrefix), 'page', '1')
+  const pageStr = _.get(querystring.parse(searchWithoutPrefix), 'page', '1')
   let page = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10)
 
   if (isNaN(page) || page < defaultPage) {
