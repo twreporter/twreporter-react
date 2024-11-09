@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 // @twreporter
 import { H2 } from '@twreporter/react-components/lib/text/headline'
@@ -86,8 +85,17 @@ const ReviewingArticles = styled.div`
   padding-bottom: 24px;
 `
 
-const MyReadingPage = ({ isAuthed, jwt }) => {
+const { reduxStateFields } = twreporterRedux
+
+const MyReadingPage = () => {
   const { pathname } = useLocation()
+  const isAuthed = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'], '')
+  )
+
   useEffect(() => {
     // check authorization
     // redirect to singin page if user has not been authorized
@@ -170,16 +178,4 @@ const MyReadingPage = ({ isAuthed, jwt }) => {
   )
 }
 
-MyReadingPage.propTypes = {
-  jwt: PropTypes.string.isRequired,
-  isAuthed: PropTypes.bool.isRequired,
-}
-
-const { reduxStateFields } = twreporterRedux
-const mapStateToProps = state => {
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  return { jwt, isAuthed }
-}
-
-export default connect(mapStateToProps)(MyReadingPage)
+export default MyReadingPage
