@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.2-rc.0, 2024-11-12
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [a552d9988e] - chore: update @twreporter packages (Aylie Chou)
+
 ## 5.2.1, 2024-11-05 (Current)
 
 ### Notable Changes
