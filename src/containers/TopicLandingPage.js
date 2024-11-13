@@ -1,8 +1,8 @@
 /* eslint camelcase: ["error", {"properties": "never", ignoreDestructuring: true}] */
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 // utils
 import loggerFactory from '../logger'
@@ -30,6 +30,13 @@ const _ = {
 
 const logger = loggerFactory.getLogger()
 const { actions, reduxStateFields } = twreporterRedux
+const {
+  entities,
+  relatedPostsOf,
+  selectedTopic,
+  postsInEntities,
+  topicsInEntities,
+} = reduxStateFields
 const { fetchAFullTopic, fetchRelatedPostsOfAnEntity } = actions
 
 const Container = styled.div`
@@ -43,46 +50,35 @@ const BannerPlaceholder = styled.div`
 
 const emptySlug = ''
 
-class TopicLandingPage extends Component {
-  static defaultProps = {
-    errorOfTopic: null,
-    errorOfRelateds: null,
-    isFetchingTopic: false,
-    isFetchingRelateds: false,
-    topic: null,
-    relateds: [],
-    hasMoreRelateds: false,
-    slugToFetch: emptySlug,
-  }
+const TopicLandingPage = () => {
+  const dispatch = useDispatch()
+  const { slug: slugToFetch } = useParams()
+  const topicId = useSelector(state =>
+    _.get(state, [entities, topicsInEntities, 'slugToId', slugToFetch], '')
+  )
+  const errorOfTopic = useSelector(state =>
+    _.get(state, [selectedTopic, 'error'], null)
+  )
+  const errorOfRelateds = useSelector(state =>
+    _.get(state, [relatedPostsOf, 'byId', topicId, 'error'], null)
+  )
+  const isFetchingTopic = useSelector(state =>
+    _.get(state, [selectedTopic, 'isFetching'], false)
+  )
+  const isFetchingRelateds = useSelector(state =>
+    _.get(state, [relatedPostsOf, 'byId', topicId, 'isFetching'], false)
+  )
+  const topic = useSelector(state => topicProp(state, topicId))
+  const relateds = useSelector(state => relatedsProp(state, topicId))
+  const hasMoreRelateds = useSelector(
+    state =>
+      _.get(state, [relatedPostsOf, 'byId', topicId, 'more', 'length'], 0) > 0
+  )
 
-  static propTypes = {
-    errorOfTopic: PropTypes.object,
-    errorOfRelateds: PropTypes.object,
-    isFetchingTopic: PropTypes.bool,
-    isFetchingRelateds: PropTypes.bool,
-    // TODO: topic: propTypesConst.fullTopic
-    topic: PropTypes.object,
-    // TODO: relateds: PropTypes.arrayOf(propTypesConst.post)
-    relateds: PropTypes.array,
-    hasMoreRelateds: PropTypes.bool,
-    slugToFetch: PropTypes.string,
-    fetchAFullTopic: PropTypes.func,
-    fetchRelatedPostsOfAnEntity: PropTypes.func,
-  }
+  const fetchAFullTopicWithCatch = slug => {
+    if (slug === emptySlug) return
 
-  componentDidMount() {
-    const { slugToFetch } = this.props
-    this.fetchAFullTopicWithCatch(slugToFetch)
-  }
-
-  fetchAFullTopicWithCatch = slug => {
-    if (slug === emptySlug) {
-      return
-    }
-
-    const { fetchAFullTopic, fetchRelatedPostsOfAnEntity } = this.props
-    fetchAFullTopic(slug)
-      // TODO render alert message for users
+    dispatch(fetchAFullTopic(slug))
       .catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
@@ -92,7 +88,7 @@ class TopicLandingPage extends Component {
       .then(successAction => {
         const topicId = _.get(successAction, 'payload.topic.id', '')
         if (topicId) {
-          return fetchRelatedPostsOfAnEntity(topicId)
+          return dispatch(fetchRelatedPostsOfAnEntity(topicId))
         }
       })
       .catch(failAction => {
@@ -103,14 +99,12 @@ class TopicLandingPage extends Component {
       })
   }
 
-  loadMore = () => {
-    const { fetchRelatedPostsOfAnEntity, topic, hasMoreRelateds } = this.props
-
+  const loadMore = () => {
     const id = _.get(topic, 'id', '')
     const slug = _.get(topic, 'slug', '')
 
     if (id && hasMoreRelateds) {
-      return fetchRelatedPostsOfAnEntity(id).catch(failAction => {
+      return dispatch(fetchRelatedPostsOfAnEntity(id)).catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
           message: `Error to fetch topic's related posts, topic slug: '${slug}'. `,
@@ -119,16 +113,17 @@ class TopicLandingPage extends Component {
     }
   }
 
-  _renderLoadingElements() {
-    /* TODO: Add loading mockup or spinner */
-    return (
-      <Container>
-        <BannerPlaceholder />
-      </Container>
-    )
-  }
+  useEffect(() => {
+    fetchAFullTopicWithCatch(slugToFetch)
+  }, [slugToFetch])
 
-  _renderTopic(topic) {
+  const renderLoadingElements = () => (
+    <Container>
+      <BannerPlaceholder />
+    </Container>
+  )
+
+  const renderTopic = topic => {
     const {
       title_position: titlePosition,
       og_image: ogImage,
@@ -149,14 +144,13 @@ class TopicLandingPage extends Component {
     const canonical = `${siteMeta.urlOrigin}/topics/${slug}`
     const fullTitle = ogTitle + siteMeta.name.separator + siteMeta.name.full
 
-    let metaImg
+    let metaImg = siteMeta.ogImage
     if (_.get(topic, 'og_image.resized_targets.tablet.url')) {
       metaImg = topic.og_image.resized_targets.tablet
     } else if (_.get(topic, 'leading_image.resized_targets.tablet.url')) {
       metaImg = topic.leading_image.resized_targets.tablet
-    } else {
-      metaImg = siteMeta.ogImage
     }
+
     const metaOgImage = [
       { property: 'og:image', content: replaceGCSUrlOrigin(metaImg.url) },
     ]
@@ -166,6 +160,7 @@ class TopicLandingPage extends Component {
     if (metaImg.width) {
       metaOgImage.push({ property: 'og:image:width', content: metaImg.width })
     }
+
     return (
       <Fragment>
         <Helmet
@@ -208,54 +203,34 @@ class TopicLandingPage extends Component {
     )
   }
 
-  render() {
-    const {
-      errorOfTopic,
-      errorOfRelateds,
-      isFetchingTopic,
-      isFetchingRelateds,
-      topic,
-      relateds,
-      hasMoreRelateds,
-    } = this.props
-
-    if (errorOfTopic) {
-      return <SystemError error={errorOfTopic} />
-    }
-
-    if (isFetchingTopic) {
-      return this._renderLoadingElements()
-    }
-
-    if (!topic) {
-      return <SystemError error={{ statusCode: 500 }} />
-    }
-
-    return (
-      <Container>
-        {this._renderTopic(topic)}
-        <Related
-          items={relateds}
-          format={_.get(topic, 'relateds_format')}
-          background={_.get(topic, 'relateds_background')}
-          isFetching={isFetchingRelateds}
-          hasMore={hasMoreRelateds}
-          loadMore={this.loadMore}
-          // TODO: show error message to user
-          error={errorOfRelateds}
-        />
-      </Container>
-    )
+  if (errorOfTopic || slugToFetch === '') {
+    return <SystemError error={errorOfTopic || { statusCode: 404 }} />
   }
-}
 
-const {
-  entities,
-  relatedPostsOf,
-  selectedTopic,
-  postsInEntities,
-  topicsInEntities,
-} = reduxStateFields
+  if (isFetchingTopic) {
+    return renderLoadingElements()
+  }
+
+  if (!topic) {
+    return <SystemError error={{ statusCode: 500 }} />
+  }
+
+  return (
+    <Container>
+      {renderTopic(topic)}
+      <Related
+        items={relateds}
+        format={_.get(topic, 'relateds_format')}
+        background={_.get(topic, 'relateds_background')}
+        isFetching={isFetchingRelateds}
+        hasMore={hasMoreRelateds}
+        loadMore={loadMore}
+        // TODO: show error message to user
+        error={errorOfRelateds}
+      />
+    </Container>
+  )
+}
 
 /**
  *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
@@ -302,88 +277,5 @@ function relatedsProp(state, id) {
   return relateds
 }
 
-/**
- *  @typedef {Object} TopicLandingPageProps
- *  @property {Object} errorOfTopic
- *  @property {Object} errorOfRelateds
- *  @property {boolean} isFetchingTopic
- *  @property {boolean} isFetchingRelateds
- *  @property {Object} topic
- *  @property {MetaOfPost[]} relateds
- *  @property {boolean} hasMoreRelateds
- *  @property {string} slugToFetch - topic slug to fetch due to no content in redux state
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {Object} props
- *  @param {Object} props.match - react-router match object
- *  @param {Object} props.match.params
- *  @param {string} props.match.params.slug
- *  @return {TopicLandingPageProps}
- */
-function mapStateToProps(state, props) {
-  const currentTopicSlug = _.get(props, 'match.params.slug', emptySlug)
-
-  const defaultRtn = {
-    errorOfTopic: null,
-    errorOfRelateds: null,
-    isFetchingTopic: false,
-    isFetchingRelateds: false,
-    topic: null,
-    relateds: [],
-    hasMoreRelateds: false,
-    slugToFetch: emptySlug,
-  }
-
-  if (currentTopicSlug === emptySlug) {
-    return Object.assign(defaultRtn, {
-      errorOfTopic: { statusCode: 404 },
-    })
-  }
-
-  // user clicks another topic
-  const slug = _.get(state, [selectedTopic, 'slug'], emptySlug)
-  if (currentTopicSlug !== slug) {
-    return Object.assign(defaultRtn, {
-      isFetchingTopic: true,
-      // set slugToFetch to current topic slug to
-      // make requests to api server to fetch that topic
-      slugToFetch: currentTopicSlug,
-    })
-  }
-
-  // the results of a full topic or corresponding related posts are changed
-  const topicId = _.get(
-    state,
-    [entities, topicsInEntities, 'slugToId', slug],
-    ''
-  )
-  return {
-    errorOfTopic: _.get(state, [selectedTopic, 'error'], null),
-    errorOfRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', topicId, 'error'],
-      null
-    ),
-    isFetchingTopic: _.get(state, [selectedTopic, 'isFetching'], false),
-    isFetchingRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', topicId, 'isFetching'],
-      false
-    ),
-    topic: topicProp(state, topicId),
-    relateds: relatedsProp(state, topicId),
-    hasMoreRelateds:
-      _.get(state, [relatedPostsOf, 'byId', topicId, 'more', 'length'], 0) > 0,
-    // set slugToFetch to empty string to
-    // avoid from re-fetching the topic already in redux state
-    slugToFetch: emptySlug,
-  }
-}
-
 export { TopicLandingPage }
-export default connect(
-  mapStateToProps,
-  { fetchAFullTopic, fetchRelatedPostsOfAnEntity }
-)(TopicLandingPage)
+export default TopicLandingPage

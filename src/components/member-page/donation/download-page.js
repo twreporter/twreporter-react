@@ -243,8 +243,11 @@ const DonwloadPage = () => {
     getReceiptData()
       .then(() => getPaymentHistory())
       .finally(() => setIsLoading(false))
-    window.print()
   }, [])
+
+  useEffect(() => {
+    if (!isLoading) window.print()
+  }, [isLoading])
 
   if (hasError) {
     window.alert('發生一些問題，請重新下載')

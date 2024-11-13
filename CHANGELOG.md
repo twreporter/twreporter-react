@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.2.2-rc.1, 2024-11-13
+
+### Notable Changes
+
+- fix
+  - show print after loading for download-page
+  - useDispatch & useSelector for member page & donation page
+  - useDispatch & useSelector for article page
+  - useDispatch & useSelector for topics page
+  - change to functional component & redux hook for topic landing page
+  - remove unused code for donation page
+  - useDispatch & useSelector for myreading page
+
+### Commits
+
+- [[`d5214f8f3d`](https://github.com/twreporter/twreporter-react/commit/d5214f8f3d)] - **fix**: useDispatch & useSelector for myreading page (Lucien)
+- [[`22546b28b4`](https://github.com/twreporter/twreporter-react/commit/22546b28b4)] - **fix**: remove unused code for donation page (Lucien)
+- [[`96c3dd28ee`](https://github.com/twreporter/twreporter-react/commit/96c3dd28ee)] - **fix**: change to functional component & redux hook for topic landing page (Lucien)
+- [[`e02b7afab7`](https://github.com/twreporter/twreporter-react/commit/e02b7afab7)] - **fix**: useDispatch & useSelector for topics page (Lucien)
+- [[`6d8bd6549b`](https://github.com/twreporter/twreporter-react/commit/6d8bd6549b)] - **fix**: useDispatch & useSelector for article page (Lucien)
+- [[`9e64f09a8a`](https://github.com/twreporter/twreporter-react/commit/9e64f09a8a)] - **fix**: useDispatch & useSelector for member page & donation page (Lucien)
+- [[`adc00a1261`](https://github.com/twreporter/twreporter-react/commit/adc00a1261)] - **fix**: show print after loading for download-page (Lucien)
+
 ## 5.2.2-rc.0, 2024-11-12
 
 ### Notable Changes
