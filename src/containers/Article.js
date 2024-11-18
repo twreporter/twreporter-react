@@ -86,7 +86,7 @@ const Article = ({ releaseBranch }) => {
     _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], '')
   )
   const post = useSelector(state => postProp(state, postID))
-  const relateds = createSelector(
+  const relatedsSelector = createSelector(
     [
       state => _.get(state, [relatedPostsOf, 'byId', postID, 'items'], []),
       state => _.get(state, [entities, postsInEntities], [null]),
@@ -105,6 +105,7 @@ const Article = ({ releaseBranch }) => {
       return result
     }
   )
+  const relateds = useSelector(relatedsSelector)
   const hasMoreRelateds = useSelector(
     state =>
       _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0
