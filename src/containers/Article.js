@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import TagManager from 'react-gtm-module'
 import localForage from 'localforage'
 import memoizeOne from 'memoize-one'
+import { createSelector } from '@reduxjs/toolkit'
 // logger
 import loggerFactory from '../logger'
 // uiManager
@@ -85,7 +86,25 @@ const Article = ({ releaseBranch }) => {
     _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], '')
   )
   const post = useSelector(state => postProp(state, postID))
-  const relateds = useSelector(state => relatedsProp(state, postID))
+  const relateds = createSelector(
+    [
+      state => _.get(state, [relatedPostsOf, 'byId', postID, 'items'], []),
+      state => _.get(state, [entities, postsInEntities], [null]),
+    ],
+    (ids, postData) => {
+      const result = []
+      _.forEach(ids, postId => {
+        if (postId === postID) {
+          return
+        }
+        const post = _.get(postData, ['byId', postId], null)
+        if (post !== null) {
+          result.push(cloneUtils.shallowCloneMetaOfPost(post))
+        }
+      })
+      return result
+    }
+  )
   const hasMoreRelateds = useSelector(
     state =>
       _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0
@@ -541,29 +560,6 @@ const memoizeShallowCloneFullPost = memoizeOne(cloneUtils.shallowCloneFullPost)
 function postProp(state, id) {
   const post = _.get(state, [entities, postsInEntities, 'byId', id], null)
   return memoizeShallowCloneFullPost(post)
-}
-
-/**
- *  This function returns cloned related posts of the post.
- *  @param {ReduxState} state
- *  @param {string} id - id of post
- *  @return {MetaOfPost[]}
- */
-function relatedsProp(state, id) {
-  const relatedPostIds = _.get(state, [relatedPostsOf, 'byId', id, 'items'], [])
-  const relateds = []
-  _.forEach(relatedPostIds, postId => {
-    // skip because of duplicate
-    if (postId === id) {
-      return
-    }
-
-    const post = _.get(state, [entities, postsInEntities, 'byId', postId], null)
-    if (post !== null) {
-      relateds.push(cloneUtils.shallowCloneMetaOfPost(post))
-    }
-  })
-  return relateds
 }
 
 export default Article

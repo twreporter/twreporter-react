@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.2-rc.2, 2024-11-18
+
+### Notable Changes
+
+- fix
+  - use createSelector to avoid rerender
+
+### Commits
+
+- [[`cab0632daf`](https://github.com/twreporter/twreporter-react/commit/cab0632daf)] - **fix**: use createSelector to avoid rerender (Lucien)
+
 ## 5.2.2-rc.1, 2024-11-13
 
 ### Notable Changes
