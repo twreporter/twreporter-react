@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.2-rc.3, 2024-11-18
+
+### Notable Changes
+
+- fix
+  - use relatedsSelector
+
+### Commits
+
+- [[`f06a2d2035`](https://github.com/twreporter/twreporter-react/commit/f06a2d2035)] - **fix**: use relatedsSelector (Lucien)
+
 ## 5.2.2-rc.2, 2024-11-18
 
 ### Notable Changes
