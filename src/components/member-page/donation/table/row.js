@@ -2,7 +2,7 @@ import React, { memo, useState, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { createSelector } from '@reduxjs/toolkit'
 // @twreporter
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
@@ -145,20 +145,32 @@ export const TableRow = memo(({ record }) => {
 
   const dispatch = useDispatch()
 
-  const detail = useSelector(state =>
-    _.get(state, [
-      reduxStateFields.donationHistory,
-      'periodicDonationHistory',
-      'records',
-      orderNumber,
-    ])
+  // redux state selector
+  const authSelector = state => _.get(state, reduxStateFields.auth, {})
+  const donationSelector = state =>
+    _.get(state, reduxStateFields.donationHistory, {})
+
+  const detailSelector = createSelector(
+    donationSelector,
+    donationHistory =>
+      _.get(donationHistory, [
+        'periodicDonationHistory',
+        'records',
+        orderNumber,
+      ])
   )
-  const jwt = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  const userInfoSelector = createSelector(
+    authSelector,
+    auth => ({
+      jwt: _.get(auth, 'acceessToken'),
+      email: _.get(auth, ['userInfo', 'email']),
+    })
   )
-  const email = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'userInfo', 'email'])
-  )
+
+  // use selector
+  const { jwt, email } = useSelector(userInfoSelector)
+  const detail = useSelector(detailSelector)
+
   const getPeriodicDonationHistory = () => {
     if (detail) {
       setPeriodicHistory(detail)
@@ -178,7 +190,7 @@ export const TableRow = memo(({ record }) => {
     type === DonationType.PRIME &&
     record.send_receipt !== 'no_receipt' &&
     record.status === PrimeDonationStatus.PAID &&
-    new Date(createdAt) >= new Date(2024, 8, 1)
+    new Date(createdAt).getFullYear() >= 2024
   const [downloadReceiptTrigger, ,] = useLazyGetPrimeReceiptQuery()
   const { toastr } = useContext(CoreContext)
   const downloadReceipt = async e => {
