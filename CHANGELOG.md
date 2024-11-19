@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.2-rc.4, 2024-11-19
+
+### Notable Changes
+
+- fix
+  - article page clean code
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`3274fa995e`](https://github.com/twreporter/twreporter-react/commit/3274fa995e)] - **chore**: update twreporter packages (Lucien)
+- [[`46d02bce3d`](https://github.com/twreporter/twreporter-react/commit/46d02bce3d)] - **fix**: article page clean code (Lucien)
+
 ## 5.2.2-rc.3, 2024-11-18
 
 ### Notable Changes
