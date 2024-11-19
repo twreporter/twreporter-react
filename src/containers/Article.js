@@ -68,24 +68,28 @@ const {
 } = reduxStateFields
 
 const Article = ({ releaseBranch }) => {
-  const history = useHistory()
+  // Redux hooks
   const dispatch = useDispatch()
+  const history = useHistory()
   const store = useStore()
-
   const { slug: slugToFetch } = useParams()
-  const errorOfPost = useSelector(state =>
-    _.get(state, [selectedPost, 'error'], null)
-  )
-  const fontLevel = useSelector(state =>
-    _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small')
-  )
-  const isFetchingPost = useSelector(state =>
-    _.get(state, [selectedPost, 'isFetching'], false)
-  )
-  const postID = useSelector(state =>
-    _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], '')
-  )
-  const post = useSelector(state => postProp(state, postID))
+
+  // Selectors
+  const selectors = {
+    errorOfPost: state => _.get(state, [selectedPost, 'error'], null),
+    fontLevel: state =>
+      _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small'),
+    isFetchingPost: state => _.get(state, [selectedPost, 'isFetching'], false),
+    postID: state =>
+      _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], ''),
+    post: state => postProp(state, postID),
+    isAuthed: state => _.get(state, ['auth', 'isAuthed'], false),
+    userRole: state => _.get(state, ['auth', 'userInfo', 'roles'], []),
+    jwt: state => _.get(state, ['auth', 'accessToken'], ''),
+    userID: state => _.get(state, ['auth', 'userInfo', 'user_id']),
+    hasMoreRelateds: state =>
+      _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0,
+  }
   const relatedsSelector = createSelector(
     [
       state => _.get(state, [relatedPostsOf, 'byId', postID, 'items'], []),
@@ -105,26 +109,22 @@ const Article = ({ releaseBranch }) => {
       return result
     }
   )
-  const relateds = useSelector(relatedsSelector)
-  const hasMoreRelateds = useSelector(
-    state =>
-      _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0
-  )
-  const isAuthed = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  )
-  const userRole = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], [])
-  )
-  const jwt = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'accessToken'], '')
-  )
-  const userID = useSelector(state =>
-    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  )
 
-  const prevIsFetchingPost = usePrevious(isFetchingPost)
-  const [isExpanded, setIsExpaned] = useState(false)
+  // Use selectors
+  const errorOfPost = useSelector(selectors.errorOfPost)
+  const fontLevel = useSelector(selectors.fontLevel)
+  const isFetchingPost = useSelector(selectors.isFetchingPost)
+  const postID = useSelector(selectors.postID)
+  const post = useSelector(selectors.post)
+  const isAuthed = useSelector(selectors.isAuthed)
+  const userRole = useSelector(selectors.userRole)
+  const jwt = useSelector(selectors.jwt)
+  const userID = useSelector(selectors.userID)
+  const relateds = useSelector(relatedsSelector)
+  const hasMoreRelateds = useSelector(selectors.hasMoreRelateds)
+
+  // Local state
+  const [isExpanded, setIsExpanded] = useState(false)
   const [
     isReachedArticleReadTargetHeight,
     setIsReachedArticleReadTargetHeight,
@@ -135,128 +135,61 @@ const Article = ({ releaseBranch }) => {
   ] = useState(false)
   const [isBeenRead, setIsBeenRead] = useState(false)
 
+  // Refs
   const articleBodyRef = useRef(null)
   const readingCountTimerId = useRef(null)
   const inactiveTimerId = useRef(null)
 
+  // Reading time tracking
   let startReadingTime = Date.now()
   let isActive = false
   let activeTime = 0
 
-  const changeFontLevel = fontLevel => {
+  const prevIsFetchingPost = usePrevious(isFetchingPost)
+
+  // Process tracking sections
+  const processTrackingSections = post => {
+    const followups = _.get(post, 'followups', [])
+    const trackingSection = []
+
+    followups.forEach(followup => {
+      const { title, date, content } = followup
+      if (content?.api_data?.length > 0) {
+        trackingSection.push({
+          type: 'tracking-section',
+          title,
+          publishDate: date,
+          content: content.api_data,
+        })
+      }
+    })
+
+    return trackingSection
+  }
+
+  // Load more related posts
+  const loadMoreRelateds = async () => {
+    if (!postID || !hasMoreRelateds) return
+
+    try {
+      await dispatch(fetchRelatedPostsOfAnEntity(postID))
+    } catch (error) {
+      logger.errorReport({
+        report: error,
+        message: `Error loading more related posts for post ID: ${postID}`,
+      })
+    }
+  }
+
+  // Handlers
+  const handleFontLevelChange = newFontLevel => {
     dispatch({
       type: actionTypes.settings.changeFontLevel,
-      payload: fontLevel,
+      payload: newFontLevel,
     })
-  }
-
-  const fetchAFullPostWithCatch = slug => {
-    if (slug === '') {
-      return
-    }
-
-    dispatch(fetchAFullPost(slug, jwt))
-      .catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a full post, post slug: '${slug}'.`,
-        })
-      })
-      .then(successAction => {
-        const postId = _.get(successAction, 'payload.post.id', '')
-        if (postId) {
-          return dispatch(fetchRelatedPostsOfAnEntity(postId))
-        }
-      })
-      .catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a post's related posts, post slug: '${slug}'. `,
-        })
-      })
-  }
-
-  const loadMoreRelateds = () => {
-    const id = _.get(post, 'id', '')
-    const slug = _.get(post, 'slug', '')
-
-    if (id && hasMoreRelateds) {
-      return dispatch(fetchRelatedPostsOfAnEntity(id)).catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch post's related posts, post slug: '${slug}'. `,
-        })
-      })
-    }
-  }
-
-  const handleFontLevelChange = fontLevel => {
-    changeFontLevel(fontLevel)
-    localForage.setItem(bsConst.keys.fontLevel, fontLevel).catch(err => {
-      console.warn('Can not set item into browser storage: ', err)
-    })
-  }
-
-  const onToggleTabExpanded = isExpanded => {
-    setIsExpaned(isExpanded)
-  }
-
-  const sendReadCount = () => {
-    if (isAuthed) {
-      dispatch(
-        setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
-      )
-    }
-  }
-
-  const sendActiveTime = () => {
-    const activeSec = Math.round(activeTime / 1000)
-    if (activeSec > 7200) {
-      logger.errorReport({
-        report: 'read time error',
-        message: `StartReadingTime: ${startReadingTime}, ActiveTime: ${activeTime}`,
-      })
-    }
-    if (isAuthed) {
-      dispatch(
-        setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
-      )
-      activeTime = 0
-    }
-  }
-
-  const sendUserFootprint = () => {
-    if (isAuthed) {
-      dispatch(setUserFootprint(jwt, userID, postID))
-    }
-  }
-
-  const startReadingCountTimer = () => {
-    if (readingCountTimerId.current) {
-      window.clearTimeout(readingCountTimerId.current)
-    }
-    readingCountTimerId.current = window.setTimeout(() => {
-      setIsReachedArticleReadTargetTime(true)
-    }, articleReadCountConditionConfig.reading_time)
-  }
-
-  const calculateActiveTime = () => {
-    const elapsedTime = Math.floor(Date.now() - startReadingTime)
-    activeTime = activeTime + elapsedTime
-    startReadingTime = Date.now()
-  }
-
-  const startInactiveTimer = () => {
-    if (inactiveTimerId.current) {
-      window.clearTimeout(inactiveTimerId.current)
-    }
-    inactiveTimerId.current = window.setTimeout(() => {
-      calculateActiveTime()
-      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
-        sendActiveTime()
-      }
-      isActive = false
-    }, articleReadTimeConditionConfig.inactive_time)
+    localForage
+      .setItem(bsConst.keys.fontLevel, newFontLevel)
+      .catch(err => console.warn('Storage error:', err))
   }
 
   const handleScroll = _.debounce(() => {
@@ -264,6 +197,7 @@ const Article = ({ releaseBranch }) => {
     const totalHeight = document.documentElement.scrollHeight
     const targetHeight =
       totalHeight * articleReadCountConditionConfig.reading_height
+
     if (scrollHeight >= targetHeight) {
       setIsReachedArticleReadTargetHeight(true)
     }
@@ -305,6 +239,94 @@ const Article = ({ releaseBranch }) => {
     }
   }
 
+  // Analytics functions
+  const sendReadCount = () => {
+    if (isAuthed) {
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+      )
+    }
+  }
+
+  const sendActiveTime = () => {
+    const activeSec = Math.round(activeTime / 1000)
+    if (activeSec > 7200) {
+      logger.errorReport({
+        report: 'read time error',
+        message: `StartReadingTime: ${startReadingTime}, ActiveTime: ${activeTime}`,
+      })
+    }
+
+    if (isAuthed) {
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      )
+      activeTime = 0
+    }
+  }
+
+  // Timer functions
+  const startReadingCountTimer = () => {
+    if (readingCountTimerId.current) {
+      window.clearTimeout(readingCountTimerId.current)
+    }
+    readingCountTimerId.current = window.setTimeout(() => {
+      setIsReachedArticleReadTargetTime(true)
+    }, articleReadCountConditionConfig.reading_time)
+  }
+
+  const calculateActiveTime = () => {
+    const elapsedTime = Math.floor(Date.now() - startReadingTime)
+    activeTime += elapsedTime
+    startReadingTime = Date.now()
+  }
+
+  const startInactiveTimer = () => {
+    if (inactiveTimerId.current) {
+      window.clearTimeout(inactiveTimerId.current)
+    }
+    inactiveTimerId.current = window.setTimeout(() => {
+      calculateActiveTime()
+      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+        sendActiveTime()
+      }
+      isActive = false
+    }, articleReadTimeConditionConfig.inactive_time)
+  }
+
+  // Data fetching
+  const fetchPostData = async () => {
+    try {
+      const action = await dispatch(fetchAFullPost(slugToFetch, jwt))
+      const postId = _.get(action, 'payload.post.id', '')
+      if (postId) {
+        await dispatch(fetchRelatedPostsOfAnEntity(postId))
+      }
+    } catch (error) {
+      logger.errorReport({
+        report: error,
+        message: `Error fetching post data for slug: ${slugToFetch}`,
+      })
+    }
+  }
+
+  // Hash navigation
+  const scrollToHashElement = () => {
+    const { hash } = window.location
+    if (!hash) return
+
+    const decodedHash = decodeURIComponent(hash)
+    const elementToScroll = document.getElementById(
+      decodedHash.replace('#', '')
+    )
+    if (!elementToScroll) return
+
+    const start = window.scrollY
+    const end = elementToScroll.getBoundingClientRect().top
+    smoothScroll(start + end - 63) // 63px is header height
+  }
+
+  // Effects
   useEffect(() => {
     // reset readingCount state
     history.block(() => {
@@ -320,10 +342,15 @@ const Article = ({ releaseBranch }) => {
   }, [history])
 
   useEffect(() => {
-    fetchAFullPostWithCatch(slugToFetch)
-    sendUserFootprint()
+    // Initialize article
+    fetchPostData()
+    if (isAuthed) {
+      dispatch(setUserFootprint(jwt, userID, postID))
+    }
     startReadingCountTimer()
     startReadingTime = Date.now()
+
+    // Event listeners
     document.addEventListener('scroll', handleScroll)
     document.addEventListener('visibilitychange', handleVisibilityChange)
     document.addEventListener('mousemove', handleUserActivity)
@@ -332,17 +359,7 @@ const Article = ({ releaseBranch }) => {
 
     handleVisibilityChange()
 
-    localForage
-      .getItem(bsConst.keys.fontLevel)
-      .then(value => {
-        if (value !== fontLevel) {
-          changeFontLevel(value)
-        }
-      })
-      .catch(err => {
-        console.warn('Can not get item from browser storage: ', err)
-      })
-
+    // Cleanup
     return () => {
       document.removeEventListener('scroll', handleScroll)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
@@ -353,6 +370,7 @@ const Article = ({ releaseBranch }) => {
   }, [slugToFetch])
 
   useEffect(() => {
+    // Handle post fetch completion
     if (prevIsFetchingPost && !isFetchingPost) {
       TagManager.dataLayer({
         dataLayer: {
@@ -366,6 +384,7 @@ const Article = ({ releaseBranch }) => {
   }, [isFetchingPost])
 
   useEffect(() => {
+    // Handle read status
     if (
       !isBeenRead &&
       isReachedArticleReadTargetHeight &&
@@ -381,34 +400,15 @@ const Article = ({ releaseBranch }) => {
   ])
 
   useEffect(() => {
-    const scrollToHashElement = () => {
-      const { hash } = window.location
-      if (!hash) return
-      const decodedHash = decodeURIComponent(hash)
-      const elementToScroll = document.getElementById(
-        decodedHash.replace('#', '')
-      )
-      if (!elementToScroll) return
-      const start = window.scrollY
-      const end = elementToScroll.getBoundingClientRect().top
-      // header height = 63px
-      smoothScroll(start + end - 63)
-    }
-
-    // wait till component render
-    setTimeout(() => scrollToHashElement(), 1000)
+    // Handle hash navigation
+    setTimeout(scrollToHashElement, 1000)
     window.addEventListener('hashchange', scrollToHashElement)
-    return () => {
-      window.removeEventListener('hashchange', scrollToHashElement)
-    }
+    return () => window.removeEventListener('hashchange', scrollToHashElement)
   }, [])
 
+  // Error and loading states
   if (errorOfPost || slugToFetch === '') {
-    return (
-      <div>
-        <SystemError error={errorOfPost || { statusCode: 404 }} />
-      </div>
-    )
+    return <SystemError error={errorOfPost || { statusCode: 404 }} />
   }
 
   if (isFetchingPost) {
@@ -417,14 +417,15 @@ const Article = ({ releaseBranch }) => {
 
   // if post is invalid
   if (!post) {
-    return (
-      <div>
-        <SystemError error={{ statusCode: 500 }} />
-      </div>
-    )
+    return <SystemError error={{ statusCode: 500 }} />
   }
 
-  post.style = uiManager.getArticleV2Style(post.style)
+  // Process post data
+  const processedPost = {
+    ...post,
+    style: uiManager.getArticleV2Style(post.style),
+  }
+
   // for head tag
   const canonical = `${siteMeta.urlOrigin}/a/${_.get(post, 'slug', '')}`
   const ogTitle = `${_.get(post, 'og_title', '') || _.get(post, 'title', '')}${
@@ -444,22 +445,10 @@ const Article = ({ releaseBranch }) => {
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
 
-  const followups = _.get(post, 'followups', [])
-  const trackingSection = []
-  if (followups.length > 0) {
-    _.forEach(followups, followup => {
-      const { title, date, content } = followup
-      if (content.api_data && content.api_data.length > 0) {
-        trackingSection.push({
-          type: 'tracking-section',
-          title,
-          publishDate: date,
-          content: content.api_data,
-        })
-      }
-    })
-  }
+  // Process tracking sections
+  const trackingSection = processTrackingSections(post)
 
+  // Render article
   return (
     <div>
       <Helmet
@@ -504,7 +493,7 @@ const Article = ({ releaseBranch }) => {
         />
         <div id="article-body" ref={articleBodyRef}>
           <ArticleComponent
-            post={post}
+            post={processedPost}
             relatedTopic={post.topic}
             relatedPosts={relateds}
             hasMoreRelateds={hasMoreRelateds}
@@ -513,7 +502,7 @@ const Article = ({ releaseBranch }) => {
             onFontLevelChange={handleFontLevelChange}
             LinkComponent={Link}
             releaseBranch={releaseBranch}
-            onToggleTabExpanded={onToggleTabExpanded}
+            onToggleTabExpanded={setIsExpanded}
             store={store}
             // TODO: pass isFetchingRelateds to show loadin spinner
             // TODO: pass errorOfRelateds to show error message to end users
