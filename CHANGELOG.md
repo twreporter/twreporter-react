@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.2-rc.5, 2024-11-20
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`c70b84feea`](https://github.com/twreporter/twreporter-react/commit/c70b84feea)] - **chore**: update twreporter packages (Lucien)
+
 ## 5.2.2-rc.4, 2024-11-19
 
 ### Notable Changes
