@@ -1,6 +1,43 @@
 # Changelog
 
-## 5.2.1, 2024-11-05 (Current)
+## 5.2.2, 2024-11-20 (Current)
+
+### Notable Changes
+
+- fix
+  - add digital receipt info on donation page
+  - show print after loading for download-page
+  - useDispatch & useSelector for member page & donation page
+  - useDispatch & useSelector for article page
+  - useDispatch & useSelector for topics page
+  - change to functional component & redux hook for topic landing page
+  - remove unused code for donation page
+  - useDispatch & useSelector for myreading page
+  - use createSelector to avoid rerender
+  - use relatedsSelector
+  - article page clean code
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`8a63a9aeca`](https://github.com/twreporter/twreporter-react/commit/8a63a9aeca)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`f240cffab9`](https://github.com/twreporter/twreporter-react/commit/f240cffab9)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`3ceb717dcd`](https://github.com/twreporter/twreporter-react/commit/3ceb717dcd)] - **fix**: add digital receipt info on donation page (Aylie Chou)
+- [[`d5214f8f3d`](https://github.com/twreporter/twreporter-react/commit/d5214f8f3d)] - **fix**: useDispatch & useSelector for myreading page (Lucien)
+- [[`22546b28b4`](https://github.com/twreporter/twreporter-react/commit/22546b28b4)] - **fix**: remove unused code for donation page (Lucien)
+- [[`96c3dd28ee`](https://github.com/twreporter/twreporter-react/commit/96c3dd28ee)] - **fix**: change to functional component & redux hook for topic landing page (Lucien)
+- [[`e02b7afab7`](https://github.com/twreporter/twreporter-react/commit/e02b7afab7)] - **fix**: useDispatch & useSelector for topics page (Lucien)
+- [[`6d8bd6549b`](https://github.com/twreporter/twreporter-react/commit/6d8bd6549b)] - **fix**: useDispatch & useSelector for article page (Lucien)
+- [[`9e64f09a8a`](https://github.com/twreporter/twreporter-react/commit/9e64f09a8a)] - **fix**: useDispatch & useSelector for member page & donation page (Lucien)
+- [[`adc00a1261`](https://github.com/twreporter/twreporter-react/commit/adc00a1261)] - **fix**: show print after loading for download-page (Lucien)
+- [[`cab0632daf`](https://github.com/twreporter/twreporter-react/commit/cab0632daf)] - **fix**: use createSelector to avoid rerender (Lucien)
+- [[`f06a2d2035`](https://github.com/twreporter/twreporter-react/commit/f06a2d2035)] - **fix**: use relatedsSelector (Lucien)
+- [[`3274fa995e`](https://github.com/twreporter/twreporter-react/commit/3274fa995e)] - **chore**: update twreporter packages (Lucien)
+- [[`46d02bce3d`](https://github.com/twreporter/twreporter-react/commit/46d02bce3d)] - **fix**: article page clean code (Lucien)
+- [[`c70b84feea`](https://github.com/twreporter/twreporter-react/commit/c70b84feea)] - **chore**: update twreporter packages (Lucien)
+
+## 5.2.1, 2024-11-05
 
 ### Notable Changes
 

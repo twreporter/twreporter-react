@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Switch, Route, useLocation, matchPath } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet-async'
 
@@ -110,18 +110,56 @@ const OnlyForGTM = styled.div`
   visibility: hidden;
 `
 
-const MemberPage = ({
-  memberData,
-  jwt,
-  isAuthed,
-  userID,
-  readPostsCount,
-  readPostsSec,
-  getUserData,
-}) => {
+const { actions, reduxStateFields } = twreporterRedux
+const { getUserData } = actions
+
+const MemberPage = () => {
   const { pathname } = useLocation()
   const { releaseBranch } = useContext(CoreContext)
+  const dispatch = useDispatch()
   const [currentHref, setCurrentHref] = useState('')
+
+  const jwt = useSelector(state =>
+    get(state, [reduxStateFields.auth, 'accessToken'], '')
+  )
+  const isAuthed = useSelector(state =>
+    get(state, [reduxStateFields.auth, 'isAuthed'], false)
+  )
+  const userID = useSelector(state =>
+    get(state, [reduxStateFields.auth, 'userInfo', 'user_id'], -1)
+  )
+  const email = useSelector(state =>
+    get(state, [reduxStateFields.user, 'email'])
+  )
+  const firstName = useSelector(state =>
+    get(state, [reduxStateFields.user, 'firstName'])
+  )
+  const lastName = useSelector(state =>
+    get(state, [reduxStateFields.user, 'lastName'])
+  )
+  const roles = useSelector(state =>
+    get(state, [reduxStateFields.user, 'roles'], [])
+  )
+  const registrationDate = useSelector(state =>
+    get(state, [reduxStateFields.user, 'registrationDate'])
+  )
+  const readPostsCount = useSelector(state =>
+    get(state, [reduxStateFields.user, 'readPostsCount'], 0)
+  )
+  const readPostsSec = useSelector(state =>
+    get(state, [reduxStateFields.user, 'readPostsSec'], 0)
+  )
+
+  const memberData = {
+    email,
+    name: `${lastName}${firstName}`,
+    role: {
+      ...roles[0],
+      key: roles[0]?.key ? MEMBER_ROLE[roles[0].key] : MEMBER_ROLE.explorer,
+    },
+    joinDate: date2yyyymmdd(registrationDate, '/'),
+  }
+
   const isEmailSubscription = matchPath(pathname, {
     path: routes.memberPage.memberEmailSubscriptionPage.path,
     exact: true,
@@ -137,7 +175,7 @@ const MemberPage = ({
       }, 2000)
     }
     // force to get data while CSR
-    getUserData(jwt, userID)
+    dispatch(getUserData(jwt, userID))
   }, [])
 
   if (!isAuthed || !jwt) {
@@ -308,49 +346,4 @@ MemberPage.propTypes = {
   getUserData: PropTypes.func.isRequired,
 }
 
-const { actions, reduxStateFields } = twreporterRedux
-const { getUserData } = actions
-const mapStateToProps = state => {
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'], '')
-  const isAuthed = _.get(state, [reduxStateFields.auth, 'isAuthed'], false)
-  const userID = _.get(
-    state,
-    [reduxStateFields.auth, 'userInfo', 'user_id'],
-    -1
-  )
-  const email = _.get(state, [reduxStateFields.user, 'email'])
-  const firstName = _.get(state, [reduxStateFields.user, 'firstName'])
-  const lastName = _.get(state, [reduxStateFields.user, 'lastName'])
-  const roles = _.get(state, [reduxStateFields.user, 'roles'], [])
-  const registrationDate = _.get(state, [
-    reduxStateFields.user,
-    'registrationDate',
-  ])
-  const readPostsCount = _.get(
-    state,
-    [reduxStateFields.user, 'readPostsCount'],
-    0
-  )
-  const readPostsSec = _.get(state, [reduxStateFields.user, 'readPostsSec'], 0)
-  return {
-    jwt,
-    isAuthed,
-    userID,
-    memberData: {
-      email,
-      name: `${lastName}${firstName}`,
-      role: {
-        ...roles[0],
-        key: roles[0]?.key ? MEMBER_ROLE[roles[0].key] : MEMBER_ROLE.explorer,
-      },
-      joinDate: date2yyyymmdd(registrationDate, '/'),
-    },
-    readPostsCount,
-    readPostsSec,
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { getUserData }
-)(MemberPage)
+export default MemberPage

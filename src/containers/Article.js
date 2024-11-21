@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect, useStore } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { useStore, useSelector, useDispatch } from 'react-redux'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import TagManager from 'react-gtm-module'
 import localForage from 'localforage'
 import memoizeOne from 'memoize-one'
+import { createSelector } from '@reduxjs/toolkit'
 // logger
 import loggerFactory from '../logger'
 // uiManager
@@ -53,36 +53,78 @@ const articleReadTimeConditionConfig = {
   min_active_time: 5000, // 5 second
 }
 
-const Article = ({
-  // props from redux state
-  errorOfPost,
-  // errorOfRelateds,
-  fontLevel,
-  isFetchingPost,
-  // isFetchingRelateds,
-  post,
-  relateds,
-  hasMoreRelateds,
-  slugToFetch,
-  isAuthed,
-  userRole,
-  jwt,
-  userID,
-  postID,
-  // props from redux actions
+const { actions, actionTypes, reduxStateFields } = twreporterRedux
+const {
   fetchAFullPost,
   fetchRelatedPostsOfAnEntity,
-  changeFontLevel,
   setUserAnalyticsData,
   setUserFootprint,
-  // props from react-router-dom
-  history,
-  // props from parents
-  releaseBranch,
-}) => {
+} = actions
+const {
+  entities,
+  relatedPostsOf,
+  selectedPost,
+  postsInEntities,
+} = reduxStateFields
+
+const Article = ({ releaseBranch }) => {
+  // Redux hooks
+  const dispatch = useDispatch()
+  const history = useHistory()
   const store = useStore()
-  const prevIsFetchingPost = usePrevious(isFetchingPost)
-  const [isExpanded, setIsExpaned] = useState(false)
+  const { slug: slugToFetch } = useParams()
+
+  // Selectors
+  const selectors = {
+    errorOfPost: state => _.get(state, [selectedPost, 'error'], null),
+    fontLevel: state =>
+      _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small'),
+    isFetchingPost: state => _.get(state, [selectedPost, 'isFetching'], false),
+    postID: state =>
+      _.get(state, [entities, postsInEntities, 'slugToId', slugToFetch], ''),
+    post: state => postProp(state, postID),
+    isAuthed: state => _.get(state, ['auth', 'isAuthed'], false),
+    userRole: state => _.get(state, ['auth', 'userInfo', 'roles'], []),
+    jwt: state => _.get(state, ['auth', 'accessToken'], ''),
+    userID: state => _.get(state, ['auth', 'userInfo', 'user_id']),
+    hasMoreRelateds: state =>
+      _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0,
+  }
+  const relatedsSelector = createSelector(
+    [
+      state => _.get(state, [relatedPostsOf, 'byId', postID, 'items'], []),
+      state => _.get(state, [entities, postsInEntities], [null]),
+    ],
+    (ids, postData) => {
+      const result = []
+      _.forEach(ids, postId => {
+        if (postId === postID) {
+          return
+        }
+        const post = _.get(postData, ['byId', postId], null)
+        if (post !== null) {
+          result.push(cloneUtils.shallowCloneMetaOfPost(post))
+        }
+      })
+      return result
+    }
+  )
+
+  // Use selectors
+  const errorOfPost = useSelector(selectors.errorOfPost)
+  const fontLevel = useSelector(selectors.fontLevel)
+  const isFetchingPost = useSelector(selectors.isFetchingPost)
+  const postID = useSelector(selectors.postID)
+  const post = useSelector(selectors.post)
+  const isAuthed = useSelector(selectors.isAuthed)
+  const userRole = useSelector(selectors.userRole)
+  const jwt = useSelector(selectors.jwt)
+  const userID = useSelector(selectors.userID)
+  const relateds = useSelector(relatedsSelector)
+  const hasMoreRelateds = useSelector(selectors.hasMoreRelateds)
+
+  // Local state
+  const [isExpanded, setIsExpanded] = useState(false)
   const [
     isReachedArticleReadTargetHeight,
     setIsReachedArticleReadTargetHeight,
@@ -93,117 +135,61 @@ const Article = ({
   ] = useState(false)
   const [isBeenRead, setIsBeenRead] = useState(false)
 
+  // Refs
   const articleBodyRef = useRef(null)
   const readingCountTimerId = useRef(null)
   const inactiveTimerId = useRef(null)
 
+  // Reading time tracking
   let startReadingTime = Date.now()
   let isActive = false
   let activeTime = 0
 
-  const fetchAFullPostWithCatch = slug => {
-    if (slug === '') {
-      return
-    }
+  const prevIsFetchingPost = usePrevious(isFetchingPost)
 
-    fetchAFullPost(slug, jwt)
-      .catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a full post, post slug: '${slug}'.`,
+  // Process tracking sections
+  const processTrackingSections = post => {
+    const followups = _.get(post, 'followups', [])
+    const trackingSection = []
+
+    followups.forEach(followup => {
+      const { title, date, content } = followup
+      if (content?.api_data?.length > 0) {
+        trackingSection.push({
+          type: 'tracking-section',
+          title,
+          publishDate: date,
+          content: content.api_data,
         })
-      })
-      .then(successAction => {
-        const postId = _.get(successAction, 'payload.post.id', '')
-        if (postId) {
-          return fetchRelatedPostsOfAnEntity(postId)
-        }
-      })
-      .catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch a post's related posts, post slug: '${slug}'. `,
-        })
-      })
-  }
-
-  const loadMoreRelateds = () => {
-    const id = _.get(post, 'id', '')
-    const slug = _.get(post, 'slug', '')
-
-    if (id && hasMoreRelateds) {
-      return fetchRelatedPostsOfAnEntity(id).catch(failAction => {
-        logger.errorReport({
-          report: _.get(failAction, 'payload.error'),
-          message: `Error to fetch post's related posts, post slug: '${slug}'. `,
-        })
-      })
-    }
-  }
-
-  const handleFontLevelChange = fontLevel => {
-    changeFontLevel(fontLevel)
-    localForage.setItem(bsConst.keys.fontLevel, fontLevel).catch(err => {
-      console.warn('Can not set item into browser storage: ', err)
-    })
-  }
-
-  const onToggleTabExpanded = isExpanded => {
-    setIsExpaned(isExpanded)
-  }
-
-  const sendReadCount = () => {
-    if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
-    }
-  }
-
-  const sendActiveTime = () => {
-    const activeSec = Math.round(activeTime / 1000)
-    if (activeSec > 7200) {
-      logger.errorReport({
-        report: 'read time error',
-        message: `StartReadingTime: ${startReadingTime}, ActiveTime: ${activeTime}`,
-      })
-    }
-    if (isAuthed) {
-      setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
-      activeTime = 0
-    }
-  }
-
-  const sendUserFootprint = () => {
-    if (isAuthed) {
-      setUserFootprint(jwt, userID, postID)
-    }
-  }
-
-  const startReadingCountTimer = () => {
-    if (readingCountTimerId.current) {
-      window.clearTimeout(readingCountTimerId.current)
-    }
-    readingCountTimerId.current = window.setTimeout(() => {
-      setIsReachedArticleReadTargetTime(true)
-    }, articleReadCountConditionConfig.reading_time)
-  }
-
-  const calculateActiveTime = () => {
-    const elapsedTime = Math.floor(Date.now() - startReadingTime)
-    activeTime = activeTime + elapsedTime
-    startReadingTime = Date.now()
-  }
-
-  const startInactiveTimer = () => {
-    if (inactiveTimerId.current) {
-      window.clearTimeout(inactiveTimerId.current)
-    }
-    inactiveTimerId.current = window.setTimeout(() => {
-      calculateActiveTime()
-      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
-        sendActiveTime()
       }
-      isActive = false
-    }, articleReadTimeConditionConfig.inactive_time)
+    })
+
+    return trackingSection
+  }
+
+  // Load more related posts
+  const loadMoreRelateds = async () => {
+    if (!postID || !hasMoreRelateds) return
+
+    try {
+      await dispatch(fetchRelatedPostsOfAnEntity(postID))
+    } catch (error) {
+      logger.errorReport({
+        report: error,
+        message: `Error loading more related posts for post ID: ${postID}`,
+      })
+    }
+  }
+
+  // Handlers
+  const handleFontLevelChange = newFontLevel => {
+    dispatch({
+      type: actionTypes.settings.changeFontLevel,
+      payload: newFontLevel,
+    })
+    localForage
+      .setItem(bsConst.keys.fontLevel, newFontLevel)
+      .catch(err => console.warn('Storage error:', err))
   }
 
   const handleScroll = _.debounce(() => {
@@ -211,6 +197,7 @@ const Article = ({
     const totalHeight = document.documentElement.scrollHeight
     const targetHeight =
       totalHeight * articleReadCountConditionConfig.reading_height
+
     if (scrollHeight >= targetHeight) {
       setIsReachedArticleReadTargetHeight(true)
     }
@@ -252,6 +239,94 @@ const Article = ({
     }
   }
 
+  // Analytics functions
+  const sendReadCount = () => {
+    if (isAuthed) {
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostCount: true })
+      )
+    }
+  }
+
+  const sendActiveTime = () => {
+    const activeSec = Math.round(activeTime / 1000)
+    if (activeSec > 7200) {
+      logger.errorReport({
+        report: 'read time error',
+        message: `StartReadingTime: ${startReadingTime}, ActiveTime: ${activeTime}`,
+      })
+    }
+
+    if (isAuthed) {
+      dispatch(
+        setUserAnalyticsData(jwt, userID, postID, { readPostSec: activeSec })
+      )
+      activeTime = 0
+    }
+  }
+
+  // Timer functions
+  const startReadingCountTimer = () => {
+    if (readingCountTimerId.current) {
+      window.clearTimeout(readingCountTimerId.current)
+    }
+    readingCountTimerId.current = window.setTimeout(() => {
+      setIsReachedArticleReadTargetTime(true)
+    }, articleReadCountConditionConfig.reading_time)
+  }
+
+  const calculateActiveTime = () => {
+    const elapsedTime = Math.floor(Date.now() - startReadingTime)
+    activeTime += elapsedTime
+    startReadingTime = Date.now()
+  }
+
+  const startInactiveTimer = () => {
+    if (inactiveTimerId.current) {
+      window.clearTimeout(inactiveTimerId.current)
+    }
+    inactiveTimerId.current = window.setTimeout(() => {
+      calculateActiveTime()
+      if (activeTime >= articleReadTimeConditionConfig.min_active_time) {
+        sendActiveTime()
+      }
+      isActive = false
+    }, articleReadTimeConditionConfig.inactive_time)
+  }
+
+  // Data fetching
+  const fetchPostData = async () => {
+    try {
+      const action = await dispatch(fetchAFullPost(slugToFetch, jwt))
+      const postId = _.get(action, 'payload.post.id', '')
+      if (postId) {
+        await dispatch(fetchRelatedPostsOfAnEntity(postId))
+      }
+    } catch (error) {
+      logger.errorReport({
+        report: error,
+        message: `Error fetching post data for slug: ${slugToFetch}`,
+      })
+    }
+  }
+
+  // Hash navigation
+  const scrollToHashElement = () => {
+    const { hash } = window.location
+    if (!hash) return
+
+    const decodedHash = decodeURIComponent(hash)
+    const elementToScroll = document.getElementById(
+      decodedHash.replace('#', '')
+    )
+    if (!elementToScroll) return
+
+    const start = window.scrollY
+    const end = elementToScroll.getBoundingClientRect().top
+    smoothScroll(start + end - 63) // 63px is header height
+  }
+
+  // Effects
   useEffect(() => {
     // reset readingCount state
     history.block(() => {
@@ -267,10 +342,15 @@ const Article = ({
   }, [history])
 
   useEffect(() => {
-    fetchAFullPostWithCatch(slugToFetch)
-    sendUserFootprint()
+    // Initialize article
+    fetchPostData()
+    if (isAuthed) {
+      dispatch(setUserFootprint(jwt, userID, postID))
+    }
     startReadingCountTimer()
     startReadingTime = Date.now()
+
+    // Event listeners
     document.addEventListener('scroll', handleScroll)
     document.addEventListener('visibilitychange', handleVisibilityChange)
     document.addEventListener('mousemove', handleUserActivity)
@@ -279,17 +359,7 @@ const Article = ({
 
     handleVisibilityChange()
 
-    localForage
-      .getItem(bsConst.keys.fontLevel)
-      .then(value => {
-        if (value !== fontLevel) {
-          changeFontLevel(value)
-        }
-      })
-      .catch(err => {
-        console.warn('Can not get item from browser storage: ', err)
-      })
-
+    // Cleanup
     return () => {
       document.removeEventListener('scroll', handleScroll)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
@@ -300,6 +370,7 @@ const Article = ({
   }, [slugToFetch])
 
   useEffect(() => {
+    // Handle post fetch completion
     if (prevIsFetchingPost && !isFetchingPost) {
       TagManager.dataLayer({
         dataLayer: {
@@ -313,6 +384,7 @@ const Article = ({
   }, [isFetchingPost])
 
   useEffect(() => {
+    // Handle read status
     if (
       !isBeenRead &&
       isReachedArticleReadTargetHeight &&
@@ -328,34 +400,15 @@ const Article = ({
   ])
 
   useEffect(() => {
-    const scrollToHashElement = () => {
-      const { hash } = window.location
-      if (!hash) return
-      const decodedHash = decodeURIComponent(hash)
-      const elementToScroll = document.getElementById(
-        decodedHash.replace('#', '')
-      )
-      if (!elementToScroll) return
-      const start = window.scrollY
-      const end = elementToScroll.getBoundingClientRect().top
-      // header height = 63px
-      smoothScroll(start + end - 63)
-    }
-
-    // wait till component render
-    setTimeout(() => scrollToHashElement(), 1000)
+    // Handle hash navigation
+    setTimeout(scrollToHashElement, 1000)
     window.addEventListener('hashchange', scrollToHashElement)
-    return () => {
-      window.removeEventListener('hashchange', scrollToHashElement)
-    }
+    return () => window.removeEventListener('hashchange', scrollToHashElement)
   }, [])
 
-  if (errorOfPost) {
-    return (
-      <div>
-        <SystemError error={errorOfPost} />
-      </div>
-    )
+  // Error and loading states
+  if (errorOfPost || slugToFetch === '') {
+    return <SystemError error={errorOfPost || { statusCode: 404 }} />
   }
 
   if (isFetchingPost) {
@@ -364,14 +417,15 @@ const Article = ({
 
   // if post is invalid
   if (!post) {
-    return (
-      <div>
-        <SystemError error={{ statusCode: 500 }} />
-      </div>
-    )
+    return <SystemError error={{ statusCode: 500 }} />
   }
 
-  post.style = uiManager.getArticleV2Style(post.style)
+  // Process post data
+  const processedPost = {
+    ...post,
+    style: uiManager.getArticleV2Style(post.style),
+  }
+
   // for head tag
   const canonical = `${siteMeta.urlOrigin}/a/${_.get(post, 'slug', '')}`
   const ogTitle = `${_.get(post, 'og_title', '') || _.get(post, 'title', '')}${
@@ -391,22 +445,10 @@ const Article = ({
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
 
-  const followups = _.get(post, 'followups', [])
-  const trackingSection = []
-  if (followups.length > 0) {
-    _.forEach(followups, followup => {
-      const { title, date, content } = followup
-      if (content.api_data && content.api_data.length > 0) {
-        trackingSection.push({
-          type: 'tracking-section',
-          title,
-          publishDate: date,
-          content: content.api_data,
-        })
-      }
-    })
-  }
+  // Process tracking sections
+  const trackingSection = processTrackingSections(post)
 
+  // Render article
   return (
     <div>
       <Helmet
@@ -451,7 +493,7 @@ const Article = ({
         />
         <div id="article-body" ref={articleBodyRef}>
           <ArticleComponent
-            post={post}
+            post={processedPost}
             relatedTopic={post.topic}
             relatedPosts={relateds}
             hasMoreRelateds={hasMoreRelateds}
@@ -460,7 +502,7 @@ const Article = ({
             onFontLevelChange={handleFontLevelChange}
             LinkComponent={Link}
             releaseBranch={releaseBranch}
-            onToggleTabExpanded={onToggleTabExpanded}
+            onToggleTabExpanded={setIsExpanded}
             store={store}
             // TODO: pass isFetchingRelateds to show loadin spinner
             // TODO: pass errorOfRelateds to show error message to end users
@@ -478,58 +520,12 @@ const Article = ({
 }
 
 Article.propTypes = {
-  errorOfPost: PropTypes.object,
-  errorOfRelateds: PropTypes.object,
-  fontLevel: PropTypes.string,
-  isFetchingPost: PropTypes.bool,
-  isFetchingRelateds: PropTypes.bool,
-  post: PropTypes.object,
-  // TODO: relateds: PropTypes.arrayOf(propTypeConst.post)
-  relateds: PropTypes.array,
-  hasMoreRelateds: PropTypes.bool,
-  slugToFetch: PropTypes.string,
-  isAuthed: PropTypes.bool,
-  userRole: PropTypes.array.isRequired,
-  jwt: PropTypes.string,
-  userID: PropTypes.string,
-  postID: PropTypes.string,
-  fetchAFullPost: PropTypes.func,
-  fetchRelatedPostsOfAnEntity: PropTypes.func,
-  changeFontLevel: PropTypes.func,
-  setUserAnalyticsData: PropTypes.func,
-  setUserFootprint: PropTypes.func,
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   releaseBranch: predefinedPropTypes.releaseBranch,
 }
 
 Article.defaultProps = {
-  errorOfPost: null,
-  errorOfRelateds: null,
-  fontLevel: 'small',
-  isFetchingPost: false,
-  isFetchingRelateds: false,
-  relateds: [],
-  hasMoreRelateds: false,
-  slugToFetch: '',
   releaseBranch: releaseBranchConsts.master,
-  isAuthed: false,
 }
-
-const { actions, actionTypes, reduxStateFields } = twreporterRedux
-const {
-  fetchAFullPost,
-  fetchRelatedPostsOfAnEntity,
-  setUserAnalyticsData,
-  setUserFootprint,
-} = actions
-const {
-  entities,
-  relatedPostsOf,
-  selectedPost,
-  postsInEntities,
-} = reduxStateFields
 
 /**
  *  @typedef {import('@twreporter/redux/lib/typedef').ReduxState} ReduxState
@@ -556,110 +552,4 @@ function postProp(state, id) {
   return memoizeShallowCloneFullPost(post)
 }
 
-/**
- *  This function returns cloned related posts of the post.
- *  @param {ReduxState} state
- *  @param {string} id - id of post
- *  @return {MetaOfPost[]}
- */
-function relatedsProp(state, id) {
-  const relatedPostIds = _.get(state, [relatedPostsOf, 'byId', id, 'items'], [])
-  const relateds = []
-  _.forEach(relatedPostIds, postId => {
-    // skip because of duplicate
-    if (postId === id) {
-      return
-    }
-
-    const post = _.get(state, [entities, postsInEntities, 'byId', postId], null)
-    if (post !== null) {
-      relateds.push(cloneUtils.shallowCloneMetaOfPost(post))
-    }
-  })
-  return relateds
-}
-
-export function mapStateToProps(state, props) {
-  const currentPostSlug = _.get(props, 'match.params.slug', '')
-
-  const defaultRtn = {
-    errorOfPost: null,
-    errorOfRelateds: null,
-    fontLevel: 'small',
-    isFetchingPost: false,
-    isFetchingRelateds: false,
-    post: null,
-    relateds: [],
-    hasMoreRelateds: false,
-    slugToFetch: '',
-  }
-
-  if (currentPostSlug === '') {
-    return Object.assign(defaultRtn, {
-      errorOfPost: { statusCode: 404 },
-    })
-  }
-
-  // user clicks another post
-  const slug = _.get(state, [selectedPost, 'slug'], '')
-  if (currentPostSlug !== slug) {
-    return Object.assign(defaultRtn, {
-      isFetchingPost: true,
-      // set slugToFetch to current post slug to
-      // make requests to api server to fetch that post
-      slugToFetch: currentPostSlug,
-    })
-  }
-
-  // the results of a full post or corresponding related posts are changed
-  const postId = _.get(state, [entities, postsInEntities, 'slugToId', slug], '')
-  return {
-    errorOfPost: _.get(state, [selectedPost, 'error'], null),
-    errorOfRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', postId, 'error'],
-      null
-    ),
-    fontLevel: _.get(state, [reduxStateFields.settings, 'fontLevel'], 'small'),
-    isFetchingPost: _.get(state, [selectedPost, 'isFetching'], false),
-    isFetchingRelateds: _.get(
-      state,
-      [relatedPostsOf, 'byId', postId, 'isFetching'],
-      false
-    ),
-    post: postProp(state, postId),
-    relateds: relatedsProp(state, postId),
-    hasMoreRelateds:
-      _.get(state, [relatedPostsOf, 'byId', postId, 'more', 'length'], 0) > 0,
-    // set slugToFetch to empty string to
-    // avoid from re-fetching the post already in redux state
-    slugToFetch: '',
-    isAuthed: _.get(state, [reduxStateFields.auth, 'isAuthed'], false),
-    userRole: _.get(state, [reduxStateFields.auth, 'userInfo', 'roles'], []),
-    jwt: _.get(state, [reduxStateFields.auth, 'accessToken'], ''),
-    userID: _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id']),
-    postID: postId,
-  }
-}
-
-function changeFontLevel(fontLevel) {
-  return function(dispatch) {
-    dispatch({
-      type: actionTypes.settings.changeFontLevel,
-      payload: fontLevel,
-    })
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchAFullPost,
-      fetchRelatedPostsOfAnEntity,
-      changeFontLevel,
-      setUserAnalyticsData,
-      setUserFootprint,
-    }
-  )(Article)
-)
+export default Article

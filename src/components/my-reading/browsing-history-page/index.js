@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import querystring from 'querystring'
-import PropTypes from 'prop-types'
 // @twreporters
 import { Title1 } from '@twreporter/react-components/lib/title-bar'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
@@ -52,15 +51,35 @@ const EmptyStateConatiner = styled.div`
   margin-bottom: 120px;
 `
 
-const BrowsingHistory = ({
-  isTogglingBookmark,
-  isFetching,
-  jwt,
-  userID,
-  getUserFootprints,
-  page,
-  totalPages,
-}) => {
+const { reduxStateFields, actions } = twreporterRedux
+const { getUserFootprints } = actions
+
+const BrowsingHistory = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+
+  const isTogglingBookmark = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarkWidget, 'isRequesting'], false)
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.footprints, 'isRequesting'], false)
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const userID = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
+  const totalBrowsingHistory = useSelector(state =>
+    _.get(state, [reduxStateFields.footprints, 'total'], 0)
+  )
+
+  let currentPage = pageProp(location)
+  const totalPages = Math.ceil(totalBrowsingHistory / 10)
+  if (currentPage > totalPages) {
+    currentPage = Math.max(totalPages, 1)
+  }
+
   const [browsingHistory, setBrowsingHistory] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const { releaseBranch, toastr } = useContext(CoreContext)
@@ -121,11 +140,13 @@ const BrowsingHistory = ({
   }
 
   const getBrowsingHistory = async page => {
-    const { payload } = await getUserFootprints(
-      jwt,
-      userID,
-      (page - 1) * BROWSING_HISTORY_PER_PAGE,
-      BROWSING_HISTORY_PER_PAGE
+    const { payload } = await dispatch(
+      getUserFootprints(
+        jwt,
+        userID,
+        (page - 1) * BROWSING_HISTORY_PER_PAGE,
+        BROWSING_HISTORY_PER_PAGE
+      )
     )
     const { records } = _.get(payload, 'data', [])
     if (records.length === 0) {
@@ -140,9 +161,9 @@ const BrowsingHistory = ({
 
   useEffect(() => {
     setIsLoading(true)
-    getBrowsingHistory(page)
+    getBrowsingHistory(currentPage)
     setIsLoading(false)
-  }, [page])
+  }, [currentPage])
 
   if (isLoading) {
     return (
@@ -179,26 +200,13 @@ const BrowsingHistory = ({
             />
           </ListContainer>
           <PaginationContainer>
-            <Pagination currentPage={page} totalPages={totalPages} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
           </PaginationContainer>
         </>
       )}
     </Container>
   )
 }
-
-BrowsingHistory.propTypes = {
-  isTogglingBookmark: PropTypes.bool.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  jwt: PropTypes.string,
-  userID: PropTypes.number,
-  getUserFootprints: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-}
-
-const { reduxStateFields, actions } = twreporterRedux
-const { getUserFootprints } = actions
 
 function pageProp(location = {}) {
   const defaultPage = 1
@@ -215,44 +223,4 @@ function pageProp(location = {}) {
   return page
 }
 
-const mapStateToProps = (state, props) => {
-  const location = _.get(props, 'location')
-  const isTogglingBookmark = _.get(
-    state,
-    [reduxStateFields.bookmarkWidget, 'isRequesting'],
-    false
-  )
-  const isFetching = _.get(
-    state,
-    [reduxStateFields.footprints, 'isRequesting'],
-    false
-  )
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const totalBrowsingHistory = _.get(
-    state,
-    [reduxStateFields.footprints, 'total'],
-    0
-  )
-
-  let currentPage = pageProp(location)
-  const totalPages = Math.ceil(totalBrowsingHistory / 10)
-  if (currentPage > totalPages) {
-    currentPage = Math.max(totalPages, 1)
-  }
-  return {
-    isTogglingBookmark,
-    isFetching,
-    jwt,
-    userID,
-    page: currentPage,
-    totalPages,
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getUserFootprints }
-  )(BrowsingHistory)
-)
+export default BrowsingHistory
