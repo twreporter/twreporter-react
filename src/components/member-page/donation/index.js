@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import querystring from 'querystring'
 import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { Blob } from 'buffer'
 // @twreporter
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
@@ -143,11 +142,9 @@ const MemberDonationPage = () => {
     toastr({ text: '收據開立中，開立完成會自動下載' })
     setTimeout(() => {
       // TODO: remove after using api
-      const content = 'For Yearly Receipt Download test'
-      const blob = new Blob([content], { type: 'text/plain' })
       const link = document.createElement('a')
       link.download = `《報導者》${yearlyDownloadTextYear}年度贊助收據.pdf`
-      link.href = window.URL.createObjectURL(blob)
+      link.href = 'src/static/asset/404.jpg'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
