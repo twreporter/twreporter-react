@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import querystring from 'querystring'
 import { useLocation } from 'react-router-dom'
+import dayjs from 'dayjs'
+import { Blob } from 'buffer'
 // @twreporter
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
-import { InheritLinkButton } from '@twreporter/react-components/lib/button'
+import {
+  InheritLinkButton,
+  PillButton,
+} from '@twreporter/react-components/lib/button'
 import mq from '@twreporter/core/lib/utils/media-query'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 import twreporterRedux from '@twreporter/redux'
@@ -15,6 +20,8 @@ import twreporterRedux from '@twreporter/redux'
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
 import Pagination from '../../Pagination'
+// context
+import { CoreContext } from '../../../contexts'
 // lodash
 import get from 'lodash/get'
 
@@ -65,6 +72,18 @@ const Info = styled.div`
 const DescWithLink = styled(P2Gray600)`
   display: unset;
 `
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const DownloadYearlyReceiptButton = styled(PillButton)`
+  height: 122px;
+  height: 29px;
+`
+
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
@@ -87,6 +106,12 @@ const MemberDonationPage = () => {
   const [records, setRecords] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isYearlyReceiptDownloading, setIsYearlyReceiptDownloading] = useState(
+    false
+  )
+  const [yearlyDownloadTextYear, setYearlyDownloadTextYear] = useState(2024)
+
+  const { toastr } = useContext(CoreContext)
 
   let currentPage = pageProp(location)
   const totalPages = Math.ceil(totalDonationHistory / 10)
@@ -113,7 +138,31 @@ const MemberDonationPage = () => {
     setIsLoading(false)
   }
 
+  const handleYearlyReceiptDownload = () => {
+    setIsYearlyReceiptDownloading(true)
+    toastr({ text: '收據開立中，開立完成會自動下載' })
+    setTimeout(() => {
+      // TODO: remove after using api
+      const content = 'For Yearly Receipt Download test'
+      const blob = new Blob([content], { type: 'text/plain' })
+      const link = document.createElement('a')
+      link.download = `《報導者》${yearlyDownloadTextYear}年度贊助收據.pdf`
+      link.href = window.URL.createObjectURL(blob)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(link.href)
+      setIsYearlyReceiptDownloading(false)
+    }, 1000)
+  }
+
   useEffect(() => {
+    const now = dayjs()
+    const currentYear = now.year()
+    // if current time is before 1/10, show previous year
+    const downloadYear =
+      now.month() === 0 && now.date() < 10 ? currentYear - 1 : currentYear
+    setYearlyDownloadTextYear(downloadYear)
     setIsLoading(true)
     getDonationHistory(currentPage)
   }, [currentPage])
@@ -133,7 +182,18 @@ const MemberDonationPage = () => {
 
   return (
     <DonationPageContainer>
-      <StyledH3 text="贊助紀錄" />
+      <TitleContainer>
+        <StyledH3 text="贊助紀錄" />
+        <DownloadYearlyReceiptButton
+          text={`${yearlyDownloadTextYear}年度收據`}
+          style={PillButton.Style.DARK}
+          type={PillButton.Type.PRIMARY}
+          size={PillButton.Size.S}
+          loading={isYearlyReceiptDownloading}
+          disabled={isYearlyReceiptDownloading}
+          onClick={handleYearlyReceiptDownload}
+        />
+      </TitleContainer>
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         <Table records={records} />
         {totalPages > 1 && (
