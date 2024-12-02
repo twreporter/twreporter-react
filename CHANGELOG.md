@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.2.3-beta.0, 2024-12-03
+
+### Notable Changes
+
+- feat
+  - add download button for yearly receipt
+- fix
+  - min-width typo
+  - use static file instead of Blob
+
+### Commits
+
+- [[`556c8a880f`](https://github.com/twreporter/twreporter-react/commit/556c8a880f)] - **fix**: use static file instead of Blob (Lucien)
+- [[`9f5bb10d27`](https://github.com/twreporter/twreporter-react/commit/9f5bb10d27)] - **feat**: add download button for yearly receipt (Lucien)
+- [[`a783cb0afe`](https://github.com/twreporter/twreporter-react/commit/a783cb0afe)] - **fix**: min-width typo (Lucien)
+
 ## 5.2.2, 2024-11-20 (Current)
 
 ### Notable Changes
