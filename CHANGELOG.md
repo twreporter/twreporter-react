@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.3-rc.0, 2024-12-03
+
+### Notable Changes
+
+- fix
+  - update download receipt rules & use `createSelector`
+
+### Commits
+
+- [[`02d04c7e70`](https://github.com/twreporter/twreporter-react/commit/02d04c7e70)] - **fix**: update download receipt rules & use `createSelector`(Aylie Chou)
+
 ## 5.2.2, 2024-11-20 (Current)
 
 ### Notable Changes
