@@ -16,7 +16,29 @@
 - [[`9f5bb10d27`](https://github.com/twreporter/twreporter-react/commit/9f5bb10d27)] - **feat**: add download button for yearly receipt (Lucien)
 - [[`a783cb0afe`](https://github.com/twreporter/twreporter-react/commit/a783cb0afe)] - **fix**: min-width typo (Lucien)
 
-## 5.2.2, 2024-11-20 (Current)
+## 5.2.4, 2024-12-11 (Current)
+
+### Notable Changes
+
+- fix
+  - authentication token undefined (typo)
+
+### Commits
+
+- [[`5d9309ea54`](https://github.com/twreporter/twreporter-react/commit/5d9309ea54)] - **fix**: authentication token undefined (Aylie Chou)
+
+## 5.2.3, 2024-12-11
+
+### Notable Changes
+
+- fix
+  - update download receipt rules & use `createSelector`
+
+### Commits
+
+- [[`02d04c7e70`](https://github.com/twreporter/twreporter-react/commit/02d04c7e70)] - **fix**: update download receipt rules & use `createSelector`(Aylie Chou)
+
+## 5.2.2, 2024-11-20
 
 ### Notable Changes
 
