@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import querystring from 'querystring'
-import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 // @twreporter
 import { H3 } from '@twreporter/react-components/lib/text/headline'
 import { P2 } from '@twreporter/react-components/lib/text/paragraph'
@@ -18,13 +17,11 @@ import { Table } from './table'
 import Pagination from '../../Pagination'
 // lodash
 import get from 'lodash/get'
-import map from 'lodash/map'
 
 const DONATION_HISTORY_PER_PAGE = 10
 
 const _ = {
   get,
-  map,
 }
 
 const DonationPageContainer = styled.div`
@@ -71,23 +68,40 @@ const DescWithLink = styled(P2Gray600)`
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
-const MemberDonationPage = ({
-  jwt,
-  userID,
-  getUserDonationHistory,
-  page,
-  totalPages,
-}) => {
+const { reduxStateFields, actions } = twreporterRedux
+const { getUserDonationHistory } = actions
+
+const MemberDonationPage = () => {
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const jwt = useSelector(state =>
+    get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const userID = useSelector(state =>
+    get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
+  const totalDonationHistory = useSelector(state =>
+    get(state, [reduxStateFields.donationHistory, 'total'], 0)
+  )
+
   const [records, setRecords] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  let currentPage = pageProp(location)
+  const totalPages = Math.ceil(totalDonationHistory / 10)
+  if (currentPage > totalPages) {
+    currentPage = Math.max(totalPages, 1)
+  }
+
   const getDonationHistory = async page => {
-    const { payload } = await getUserDonationHistory(
-      jwt,
-      userID,
-      (page - 1) * DONATION_HISTORY_PER_PAGE,
-      DONATION_HISTORY_PER_PAGE
+    const { payload } = await dispatch(
+      getUserDonationHistory(
+        jwt,
+        userID,
+        (page - 1) * DONATION_HISTORY_PER_PAGE,
+        DONATION_HISTORY_PER_PAGE
+      )
     )
     const { records } = _.get(payload, 'data', [])
     if (records.length === 0) {
@@ -101,8 +115,8 @@ const MemberDonationPage = ({
 
   useEffect(() => {
     setIsLoading(true)
-    getDonationHistory(page)
-  }, [page])
+    getDonationHistory(currentPage)
+  }, [currentPage])
 
   if (showEmptyState) {
     return (
@@ -124,7 +138,10 @@ const MemberDonationPage = ({
         <Table records={records} />
         {totalPages > 1 && (
           <PaginationContainer>
-            <NoMarginPagination currentPage={page} totalPages={totalPages} />
+            <NoMarginPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
           </PaginationContainer>
         )}
       </LoadingMask>
@@ -146,17 +163,6 @@ const MemberDonationPage = ({
   )
 }
 
-MemberDonationPage.propTypes = {
-  jwt: PropTypes.string.isRequired,
-  userID: PropTypes.number.isRequired,
-  getUserDonationHistory: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-}
-
-const { reduxStateFields, actions } = twreporterRedux
-const { getUserDonationHistory } = actions
-
 function pageProp(location = {}) {
   const defaultPage = 1
   const search = _.get(location, 'search', '')
@@ -172,32 +178,4 @@ function pageProp(location = {}) {
   return page
 }
 
-const mapStateToProps = (state, props) => {
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const totalDonationHistory = _.get(
-    state,
-    [reduxStateFields.donationHistory, 'total'],
-    0
-  )
-
-  const location = _.get(props, 'location')
-  let currentPage = pageProp(location)
-  const totalPages = Math.ceil(totalDonationHistory / 10)
-  if (currentPage > totalPages) {
-    currentPage = Math.max(totalPages, 1)
-  }
-  return {
-    jwt,
-    userID,
-    page: currentPage,
-    totalPages,
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getUserDonationHistory }
-  )(MemberDonationPage)
-)
+export default MemberDonationPage

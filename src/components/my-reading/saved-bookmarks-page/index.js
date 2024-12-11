@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import querystring from 'querystring'
-import PropTypes from 'prop-types'
 // @twreporters
 import { Title1 } from '@twreporter/react-components/lib/title-bar'
 import { CardList } from '@twreporter/react-components/lib/listing-page'
@@ -56,16 +55,34 @@ const EmptyStateConatiner = styled.div`
   margin-bottom: 120px;
 `
 
-const SavedBookmarks = ({
-  isDeleting,
-  isFetching,
-  jwt,
-  userID,
-  getMultipleBookmarks,
-  page,
-  totalPages,
-  totalSavedBookmark,
-}) => {
+const { reduxStateFields, actions } = twreporterRedux
+const { getMultipleBookmarks } = actions
+
+const SavedBookmarks = () => {
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  const isDeleting = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarkWidget, 'isRequesting'], false)
+  )
+  const isFetching = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'isRequesting'], false)
+  )
+  const jwt = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'accessToken'])
+  )
+  const userID = useSelector(state =>
+    _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  )
+  const totalSavedBookmark = useSelector(state =>
+    _.get(state, [reduxStateFields.bookmarks, 'total'], 0)
+  )
+  let currentPage = pageProp(location)
+  const totalPages = Math.ceil(totalSavedBookmark / 10)
+  if (currentPage > totalPages) {
+    currentPage = Math.max(totalPages, 1)
+  }
+
   const [totalSavedBookmarkCount, setTotalSavedBookmarkCount] = useState(
     totalSavedBookmark
   )
@@ -83,7 +100,7 @@ const SavedBookmarks = ({
           _.remove(prevBookmarks, bookmark => bookmark.id === bookmarkID)
           if (prevBookmarks.length === 0) {
             const redirectPage = Math.max(
-              page === totalPages ? page - 1 : page,
+              currentPage === totalPages ? currentPage - 1 : currentPage,
               1
             )
             window.location.replace(
@@ -136,11 +153,13 @@ const SavedBookmarks = ({
   }
 
   const getBookmarks = async page => {
-    const { payload } = await getMultipleBookmarks(
-      jwt,
-      userID,
-      (page - 1) * BOOKMARK_PER_PAGE,
-      BOOKMARK_PER_PAGE
+    const { payload } = await dispatch(
+      getMultipleBookmarks(
+        jwt,
+        userID,
+        (page - 1) * BOOKMARK_PER_PAGE,
+        BOOKMARK_PER_PAGE
+      )
     )
     setTotalSavedBookmarkCount(_.get(payload, 'data.meta.total', 0))
     const { records } = _.get(payload, 'data', [])
@@ -154,9 +173,9 @@ const SavedBookmarks = ({
 
   useEffect(() => {
     setIsLoading(true)
-    getBookmarks(page)
+    getBookmarks(currentPage)
     setIsLoading(false)
-  }, [page])
+  }, [currentPage])
 
   if (isLoading) {
     return (
@@ -207,27 +226,13 @@ const SavedBookmarks = ({
             />
           </ListContainer>
           <PaginationContainer>
-            <Pagination currentPage={page} totalPages={totalPages} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
           </PaginationContainer>
         </>
       )}
     </Container>
   )
 }
-
-SavedBookmarks.propTypes = {
-  isDeleting: PropTypes.bool.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  jwt: PropTypes.string,
-  userID: PropTypes.number,
-  getMultipleBookmarks: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-  totalSavedBookmark: PropTypes.number.isRequired,
-}
-
-const { reduxStateFields, actions } = twreporterRedux
-const { getMultipleBookmarks } = actions
 
 function pageProp(location = {}) {
   const defaultPage = 1
@@ -244,45 +249,4 @@ function pageProp(location = {}) {
   return page
 }
 
-const mapStateToProps = (state, props) => {
-  const location = _.get(props, 'location')
-  const isDeleting = _.get(
-    state,
-    [reduxStateFields.bookmarkWidget, 'isRequesting'],
-    false
-  )
-  const isFetching = _.get(
-    state,
-    [reduxStateFields.bookmarks, 'isRequesting'],
-    false
-  )
-  const jwt = _.get(state, [reduxStateFields.auth, 'accessToken'])
-  const userID = _.get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
-  const totalSavedBookmark = _.get(
-    state,
-    [reduxStateFields.bookmarks, 'total'],
-    0
-  )
-
-  let currentPage = pageProp(location)
-  const totalPages = Math.ceil(totalSavedBookmark / 10)
-  if (currentPage > totalPages) {
-    currentPage = Math.max(totalPages, 1)
-  }
-  return {
-    isDeleting,
-    isFetching,
-    jwt,
-    userID,
-    page: currentPage,
-    totalPages,
-    totalSavedBookmark,
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getMultipleBookmarks }
-  )(SavedBookmarks)
-)
+export default SavedBookmarks

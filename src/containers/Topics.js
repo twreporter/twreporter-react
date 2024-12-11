@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import PropTypes from 'prop-types'
 import querystring from 'querystring'
 import styled from 'styled-components'
 
@@ -52,23 +52,18 @@ const PageContainer = styled.div`
 
 const firstPage = 1
 
-class Topics extends Component {
-  componentDidMount() {
-    this.fetchTopicsWithCatch()
-    this.featchFeatureTopicWithCatch()
-  }
+const Topics = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const error = useSelector(state => errorProp(state))
+  const isFetching = useSelector(state => isFetchingProp(state))
+  const page = pageProp(location)
+  const nPerPage = useSelector(state => nPerPageProp(state))
+  const topics = useSelector(state => topicsProp(state, page))
+  const totalPages = useSelector(state => totalPagesProp(state))
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.page !== this.props.page) {
-      this.fetchTopicsWithCatch()
-      this.featchFeatureTopicWithCatch()
-    }
-  }
-
-  fetchTopicsWithCatch() {
-    const { fetchTopics, nPerPage, page } = this.props
-
-    fetchTopics(page, nPerPage).catch(failAction => {
+  const fetchTopicsWithCatch = () => {
+    dispatch(fetchTopics(page, nPerPage)).catch(failAction => {
       logger.errorReport({
         report: _.get(failAction, 'payload.error'),
         message: `Error to fetch topics ( page: ${page} )`,
@@ -76,11 +71,9 @@ class Topics extends Component {
     })
   }
 
-  featchFeatureTopicWithCatch() {
-    const { fetchFeatureTopic, page } = this.props
-
+  const featchFeatureTopicWithCatch = () => {
     if (page === firstPage) {
-      fetchFeatureTopic().catch(failAction => {
+      dispatch(fetchFeatureTopic()).catch(failAction => {
         logger.errorReport({
           report: _.get(failAction, 'payload.error'),
           message: `Error to fetch feature topic`,
@@ -89,59 +82,48 @@ class Topics extends Component {
     }
   }
 
-  render() {
-    const { error, isFetching, page, topics, totalPages } = this.props
+  useEffect(() => {
+    fetchTopicsWithCatch()
+    featchFeatureTopicWithCatch()
+  }, [page])
 
-    // Error handling
-    if (error) {
-      return <SystemError error={error} />
-    }
-
-    /* For helmet */
-    const canonical = `${siteMeta.urlOrigin}/topics`
-    const title = '專題' + siteMeta.name.separator + siteMeta.name.full
-    return (
-      <PageContainer>
-        <Helmet
-          prioritizeSeoTags
-          title={title}
-          link={[{ rel: 'canonical', href: canonical }]}
-          meta={[
-            { name: 'description', content: siteMeta.desc },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: siteMeta.desc },
-            { name: 'twitter:image', content: siteMeta.ogImage.url },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: siteMeta.desc },
-            { property: 'og:image', content: siteMeta.ogImage.url },
-            { property: 'og:image:width', content: siteMeta.ogImage.width },
-            { property: 'og:image:height', content: siteMeta.ogImage.height },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: canonical },
-          ]}
-        />
-        <TopicsList
-          currentPage={page}
-          topics={topics}
-          isFetching={isFetching}
-          showSpinner={true}
-        />
-        <Pagination currentPage={page} totalPages={totalPages} />
-      </PageContainer>
-    )
+  // Error handling
+  if (error) {
+    return <SystemError error={error} />
   }
-}
 
-Topics.propTypes = {
-  error: PropTypes.object,
-  isFetching: PropTypes.bool,
-  nPerPage: PropTypes.number,
-  page: PropTypes.number,
-  pathname: PropTypes.string,
-  topics: PropTypes.array,
-  totalPages: PropTypes.number,
-  fetchTopics: PropTypes.func,
-  fetchFeatureTopic: PropTypes.func,
+  /* For helmet */
+  const canonical = `${siteMeta.urlOrigin}/topics`
+  const title = '專題' + siteMeta.name.separator + siteMeta.name.full
+  return (
+    <PageContainer>
+      <Helmet
+        prioritizeSeoTags
+        title={title}
+        link={[{ rel: 'canonical', href: canonical }]}
+        meta={[
+          { name: 'description', content: siteMeta.desc },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: siteMeta.desc },
+          { name: 'twitter:image', content: siteMeta.ogImage.url },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: siteMeta.desc },
+          { property: 'og:image', content: siteMeta.ogImage.url },
+          { property: 'og:image:width', content: siteMeta.ogImage.width },
+          { property: 'og:image:height', content: siteMeta.ogImage.height },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: canonical },
+        ]}
+      />
+      <TopicsList
+        currentPage={page}
+        topics={topics}
+        isFetching={isFetching}
+        showSpinner={true}
+      />
+      <Pagination currentPage={page} totalPages={totalPages} />
+    </PageContainer>
+  )
 }
 
 /**
@@ -349,45 +331,4 @@ function topicsProp(state, page) {
   return topics
 }
 
-/**
- *  @typedef {Object} TopicsProps
- *  @property {Object} error - error object
- *  @property {boolean} isFetching - if it is requesting api or not
- *  @property {number} nPerPage - how many topics to show per page
- *  @property {number} page - current page for pagination
- *  @property {string} pathname - URL path
- *  @property {TopicProp[]} topics - array of topics
- *  @property {number} totalPages - total page for pagination
- */
-
-/**
- *  @param {ReduxState} state
- *  @param {Object} props
- *  @param {Object} props.location - react-router location object
- *  @param {string} props.location.pathname
- *  @param {Object} props.match - react-router match object
- *  @param {Object} props.match.params
- *  @param {string} props.match.params.tagId
- *  @return {TopicsProps}
- */
-function mapStateToProps(state, props) {
-  const location = _.get(props, 'location')
-  const pathname = _.get(location, 'pathname', `/topics`)
-
-  const page = pageProp(location)
-
-  return {
-    error: errorProp(state),
-    isFetching: isFetchingProp(state),
-    nPerPage: nPerPageProp(state),
-    page,
-    pathname,
-    topics: topicsProp(state, page),
-    totalPages: totalPagesProp(state),
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { fetchTopics, fetchFeatureTopic }
-)(Topics)
+export default Topics
