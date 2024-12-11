@@ -162,7 +162,7 @@ export const TableRow = memo(({ record }) => {
   const userInfoSelector = createSelector(
     authSelector,
     auth => ({
-      jwt: _.get(auth, 'acceessToken'),
+      jwt: _.get(auth, 'accessToken'),
       email: _.get(auth, ['userInfo', 'email']),
     })
   )

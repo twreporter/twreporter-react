@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.2.3, 2024-12-11 (Current)
+## 5.2.4, 2024-12-11 (Current)
+
+### Notable Changes
+
+- fix
+  - authentication token undefined (typo)
+
+### Commits
+
+- [[`5d9309ea54`](https://github.com/twreporter/twreporter-react/commit/5d9309ea54)] - **fix**: authentication token undefined (Aylie Chou)
+
+## 5.2.3, 2024-12-11
 
 ### Notable Changes
 
