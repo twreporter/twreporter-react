@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
+import { createSelector } from '@reduxjs/toolkit'
 import querystring from 'querystring'
 import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -15,6 +16,7 @@ import {
 import mq from '@twreporter/core/lib/utils/media-query'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 import twreporterRedux from '@twreporter/redux'
+import { useLazyGetYearlyReceiptQuery } from '@twreporter/redux/lib/actions/receipt'
 // components
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
@@ -23,12 +25,11 @@ import Pagination from '../../Pagination'
 import { CoreContext } from '../../../contexts'
 // lodash
 import get from 'lodash/get'
-
-const DONATION_HISTORY_PER_PAGE = 10
-
 const _ = {
   get,
 }
+
+const DONATION_HISTORY_PER_PAGE = 10
 
 const DonationPageContainer = styled.div`
   width: 100%;
@@ -92,15 +93,28 @@ const { getUserDonationHistory } = actions
 const MemberDonationPage = () => {
   const location = useLocation()
   const dispatch = useDispatch()
-  const jwt = useSelector(state =>
-    get(state, [reduxStateFields.auth, 'accessToken'])
+
+  // redux state
+  const authState = state => _.get(state, reduxStateFields.auth, {})
+  const donationHistoryState = state =>
+    _.get(state, reduxStateFields.donationHistory)
+
+  const userInfoSelectoy = createSelector(
+    authState,
+    auth => ({
+      userID: _.get(auth, ['userInfo', 'user_id']),
+      email: _.get(auth, ['userInfo', 'email']),
+      jwt: _.get(auth, 'accessToken'),
+    })
   )
-  const userID = useSelector(state =>
-    get(state, [reduxStateFields.auth, 'userInfo', 'user_id'])
+  const totalDonationSelector = createSelector(
+    donationHistoryState,
+    donationHistory => ({
+      totalDonationHistory: _.get(donationHistory, 'total', 0),
+    })
   )
-  const totalDonationHistory = useSelector(state =>
-    get(state, [reduxStateFields.donationHistory, 'total'], 0)
-  )
+  const { userID, email, jwt } = useSelector(userInfoSelectoy)
+  const { totalDonationHistory } = useSelector(totalDonationSelector)
 
   const [records, setRecords] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
@@ -108,7 +122,9 @@ const MemberDonationPage = () => {
   const [isYearlyReceiptDownloading, setIsYearlyReceiptDownloading] = useState(
     false
   )
-  const [yearlyDownloadTextYear, setYearlyDownloadTextYear] = useState(2024)
+  const [yearlyDownloadTextYear, setYearlyDownloadTextYear] = useState(0)
+
+  const [downloadYearlyReceiptTrigger, ,] = useLazyGetYearlyReceiptQuery()
 
   const { toastr } = useContext(CoreContext)
 
@@ -137,31 +153,49 @@ const MemberDonationPage = () => {
     setIsLoading(false)
   }
 
-  const handleYearlyReceiptDownload = () => {
+  const handleYearlyReceiptDownload = async () => {
+    if (isYearlyReceiptDownloading) {
+      return
+    }
     setIsYearlyReceiptDownloading(true)
     toastr({ text: '收據開立中，開立完成會自動下載' })
-    setTimeout(() => {
-      // TODO: remove after using api
+
+    try {
+      const result = await downloadYearlyReceiptTrigger({
+        year: yearlyDownloadTextYear,
+        email,
+        jwt,
+      }).unwrap()
+
+      const url = window.URL.createObjectURL(result)
       const link = document.createElement('a')
+      link.href = url
       link.download = `《報導者》${yearlyDownloadTextYear}年度贊助收據.pdf`
-      link.href = 'src/static/asset/404.jpg'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
       window.URL.revokeObjectURL(link.href)
+    } catch (err) {
+      console.error('download receipt failed. err:', err)
+    } finally {
       setIsYearlyReceiptDownloading(false)
-    }, 1000)
+    }
   }
 
   useEffect(() => {
-    const now = dayjs()
-    const currentYear = now.year()
-    // if current time is before 1/10, show previous year
-    const downloadYear =
-      now.month() === 0 && now.date() < 10 ? currentYear - 1 : currentYear
-    setYearlyDownloadTextYear(downloadYear)
+    // get donations
     setIsLoading(true)
     getDonationHistory(currentPage)
+
+    // check yearly receipt download state
+    const now = dayjs()
+    const currentYear = now.year()
+    if (currentYear >= 2024) {
+      // if current time is before 1/10, show previous year
+      const downloadYear =
+        now.month() === 0 && now.date() < 10 ? currentYear - 1 : currentYear
+      setYearlyDownloadTextYear(downloadYear)
+    }
   }, [currentPage])
 
   if (showEmptyState) {
@@ -181,15 +215,17 @@ const MemberDonationPage = () => {
     <DonationPageContainer>
       <TitleContainer>
         <StyledH3 text="贊助紀錄" />
-        <DownloadYearlyReceiptButton
-          text={`${yearlyDownloadTextYear}年度收據`}
-          style={PillButton.Style.DARK}
-          type={PillButton.Type.PRIMARY}
-          size={PillButton.Size.S}
-          loading={isYearlyReceiptDownloading}
-          disabled={isYearlyReceiptDownloading}
-          onClick={handleYearlyReceiptDownload}
-        />
+        {yearlyDownloadTextYear > 0 ? (
+          <DownloadYearlyReceiptButton
+            text={`${yearlyDownloadTextYear}年度收據`}
+            style={PillButton.Style.DARK}
+            type={PillButton.Type.PRIMARY}
+            size={PillButton.Size.S}
+            loading={isYearlyReceiptDownloading}
+            disabled={isYearlyReceiptDownloading}
+            onClick={handleYearlyReceiptDownload}
+          />
+        ) : null}
       </TitleContainer>
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         <Table records={records} />
