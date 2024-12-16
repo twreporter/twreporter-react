@@ -190,6 +190,7 @@ const MemberDonationPage = () => {
     // check yearly receipt download state
     const now = dayjs()
     const currentYear = now.year()
+    // todo: update to 2025 after testing
     if (currentYear >= 2024) {
       // if current time is before 1/10, show previous year
       const downloadYear =
