@@ -180,7 +180,7 @@ const SnackBarContainer = styled.div`
 `
 
 const GlobalStyleWithFonts = ({ fonts = [] }) => {
-  const fontfaces = _.map(fonts, font => webfonts.fontFaces[font]).join()
+  const fontfaces = _.map(fonts, font => webfonts.fontFaces[font]).join('')
   useFontFaceObserver(
     _.map(fonts, font => ({ family: font })),
     // add classname 'fontsLoaded' to <html> to apply the loaded fonts
