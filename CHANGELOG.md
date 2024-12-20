@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.6-rc.0, 2024-12-20
+
+### Notable Changes
+
+- fix
+  - join font faces with no comma
+
+### Commits
+
+- [[`f1698169ed`](https://github.com/twreporter/twreporter-react/commit/f1698169ed)] - **fix**: join font faces with no comma (Lucien)
+
 ## 5.2.5, 2024-12-16 (Current)
 
 ### Notable Changes
