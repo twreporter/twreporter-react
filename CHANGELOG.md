@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.6-rc.1, 2024-12-20
+
+### Notable Changes
+
+- fix
+  - add material symbol font prefetch
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`b053f6ace4`](https://github.com/twreporter/twreporter-react/commit/b053f6ace4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`7cb3f4c62a`](https://github.com/twreporter/twreporter-react/commit/7cb3f4c62a)] - **fix**: add material symbol font prefetch (Aylie Chou)
+
 ## 5.2.6-rc.0, 2024-12-20
 
 ### Notable Changes

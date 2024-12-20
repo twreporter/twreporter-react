@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import serialize from 'serialize-javascript'
 import DOMPurify from 'isomorphic-dompurify'
+import globalEnv from './global-env'
 
 // @twreporter
 import webfonts from '@twreporter/react-components/lib/text/utils/webfonts'
@@ -37,6 +38,14 @@ export default class Html extends PureComponent {
       styles,
       helmet,
     } = this.props
+
+    const materialSymbolFontPrefetch = !globalEnv.isDevelopment ? (
+      <link
+        rel="preload"
+        href="/dist/fonts/material-symbols-outlined.woff2"
+        as="font"
+      />
+    ) : null
 
     return (
       <html lang="zh-TW">
@@ -89,6 +98,7 @@ export default class Html extends PureComponent {
 
           <link href="/asset/favicon.png" rel="shortcut icon" />
           <link rel="stylesheet" href="/asset/normalize.css" />
+          {materialSymbolFontPrefetch}
           {_.map(webfonts.fontGCSFiles, (fileSrc, key) => (
             <link
               rel="preload"
