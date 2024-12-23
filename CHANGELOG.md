@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.2.3-beta.1, 2024-12-23
+
+### Notable Changes
+
+- feat
+  - integrate with receipt api
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`5ae1ca9466`](https://github.com/twreporter/twreporter-react/commit/5ae1ca9466)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c799c63199`](https://github.com/twreporter/twreporter-react/commit/c799c63199)] - **chore**: add todo comment (Aylie Chou)
+- [[`758e56fe96`](https://github.com/twreporter/twreporter-react/commit/758e56fe96)] - **feat**: integrate with receipt api (Aylie Chou)
+
 ## 5.2.3-beta.0, 2024-12-03
 
 ### Notable Changes
