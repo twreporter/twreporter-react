@@ -1,13 +1,32 @@
 # Changelog
 
+## 5.2.6-rc.2, 2024-12-26
+
+### Notable Changes
+
+- feat
+  - add download button for yearly receipt
+- fix
+  - min-width typo
+  - use static file instead of Blob
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`5ae1ca9466`](https://github.com/twreporter/twreporter-react/commit/5ae1ca9466)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`c799c63199`](https://github.com/twreporter/twreporter-react/commit/c799c63199)] - **chore**: add todo comment (Aylie Chou)
+- [[`758e56fe96`](https://github.com/twreporter/twreporter-react/commit/758e56fe96)] - **feat**: integrate with receipt api (Aylie Chou)
+- [[`556c8a880f`](https://github.com/twreporter/twreporter-react/commit/556c8a880f)] - **fix**: use static file instead of Blob (Lucien)
+- [[`9f5bb10d27`](https://github.com/twreporter/twreporter-react/commit/9f5bb10d27)] - **feat**: add download button for yearly receipt (Lucien)
+- [[`a783cb0afe`](https://github.com/twreporter/twreporter-react/commit/a783cb0afe)] - **fix**: min-width typo (Lucien)
+
 ## 5.2.6-rc.1, 2024-12-20
 
 ### Notable Changes
 
 - fix
   - add material symbol font prefetch
-- chore
-  - update @twreporter packages
 
 ### Commits
 

@@ -31,7 +31,7 @@ const _ = {
 const MobileMemberMenuListConatiner = styled.div`
   max-width: 320px;
   width: 100%;
-  min-widht: 296px;
+  min-width: 296px;
   margin: auto;
 `
 
