@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.6-rc.3, 2024-12-30
+
+### Notable Changes
+
+- fix
+  - update yearly receipt download rule
+
+### Commits
+
+- [[`3d55e14fb9`](https://github.com/twreporter/twreporter-react/commit/3d55e14fb9)] - **fix**: yearly receipt download rule (Aylie Chou)
+
 ## 5.2.6-rc.2, 2024-12-26
 
 ### Notable Changes
