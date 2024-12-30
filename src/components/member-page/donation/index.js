@@ -99,7 +99,7 @@ const MemberDonationPage = () => {
   const donationHistoryState = state =>
     _.get(state, reduxStateFields.donationHistory)
 
-  const userInfoSelectoy = createSelector(
+  const userInfoSelector = createSelector(
     authState,
     auth => ({
       userID: _.get(auth, ['userInfo', 'user_id']),
@@ -113,7 +113,7 @@ const MemberDonationPage = () => {
       totalDonationHistory: _.get(donationHistory, 'total', 0),
     })
   )
-  const { userID, email, jwt } = useSelector(userInfoSelectoy)
+  const { userID, email, jwt } = useSelector(userInfoSelector)
   const { totalDonationHistory } = useSelector(totalDonationSelector)
 
   const [records, setRecords] = useState([])
@@ -190,11 +190,11 @@ const MemberDonationPage = () => {
     // check yearly receipt download state
     const now = dayjs()
     const currentYear = now.year()
-    // todo: update to 2025 after testing
-    if (currentYear >= 2024) {
-      // if current time is before 1/10, show previous year
-      const downloadYear =
-        now.month() === 0 && now.date() < 10 ? currentYear - 1 : currentYear
+    // previous year reveipt could be download after 1/10
+    // if current time is before 1/10, show -2 year
+    const downloadYear =
+      now.month() === 0 && now.date() < 10 ? currentYear - 2 : currentYear - 1
+    if (downloadYear >= 2024) {
       setYearlyDownloadTextYear(downloadYear)
     }
   }, [currentPage])
