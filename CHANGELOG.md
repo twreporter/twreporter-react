@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.6-rc.4, 2024-12-31
+
+### Notable Changes
+
+- feat
+  - add download hint for donation page
+
+### Commits
+
+- [[`dff10adfb1`](https://github.com/twreporter/twreporter-react/commit/dff10adfb1)] - **feat**: add download hint for donation page (Lucien)
+
 ## 5.2.6-rc.3, 2024-12-30
 
 ### Notable Changes
