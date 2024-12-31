@@ -241,7 +241,7 @@ const MemberDonationPage = () => {
       </LoadingMask>
       <Info $isPaginationShow={totalPages > 1}>
         <DescWithLink>
-          因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
+          ・因系統限制，本頁面僅顯示透過《報導者》網站進行贊助的資料。若您是透過其他方式贊助，且需要相關贊助紀錄，請透過客服信箱聯繫我們：
           <InheritLinkButton
             text="events@twreporter.org"
             link={{
@@ -251,6 +251,7 @@ const MemberDonationPage = () => {
             }}
             type={InheritLinkButton.Type.UNDERLINE}
           />
+          <P2Gray600 text="・因應贊助者年度報稅所需，可下載前一年度贊助收據。" />
         </DescWithLink>
       </Info>
     </DonationPageContainer>
