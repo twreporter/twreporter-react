@@ -1,83 +1,37 @@
 # Changelog
 
-## 5.2.6-rc.5, 2025-01-02
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`be08177b27`](https://github.com/twreporter/twreporter-react/commit/be08177b27)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 5.2.6-rc.4, 2024-12-31
-
-### Notable Changes
-
-- feat
-  - add download hint for donation page
-
-### Commits
-
-- [[`dff10adfb1`](https://github.com/twreporter/twreporter-react/commit/dff10adfb1)] - **feat**: add download hint for donation page (Lucien)
-
-## 5.2.6-rc.3, 2024-12-30
-
-### Notable Changes
-
-- fix
-  - update yearly receipt download rule
-
-### Commits
-
-- [[`3d55e14fb9`](https://github.com/twreporter/twreporter-react/commit/3d55e14fb9)] - **fix**: yearly receipt download rule (Aylie Chou)
-
-## 5.2.6-rc.2, 2024-12-26
+## 5.2.6, 2025-01-02 (Current)
 
 ### Notable Changes
 
 - feat
   - add download button for yearly receipt
+  - add download hint for donation page
 - fix
+  - join font faces with no comma
+  - add material symbol font prefetch
   - min-width typo
   - use static file instead of Blob
+  - update yearly receipt download rule
 - chore
   - update @twreporter packages
 
 ### Commits
 
+- [[`f1698169ed`](https://github.com/twreporter/twreporter-react/commit/f1698169ed)] - **fix**: join font faces with no comma (Lucien)
+- [[`b053f6ace4`](https://github.com/twreporter/twreporter-react/commit/b053f6ace4)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`7cb3f4c62a`](https://github.com/twreporter/twreporter-react/commit/7cb3f4c62a)] - **fix**: add material symbol font prefetch (Aylie Chou)
 - [[`5ae1ca9466`](https://github.com/twreporter/twreporter-react/commit/5ae1ca9466)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`c799c63199`](https://github.com/twreporter/twreporter-react/commit/c799c63199)] - **chore**: add todo comment (Aylie Chou)
 - [[`758e56fe96`](https://github.com/twreporter/twreporter-react/commit/758e56fe96)] - **feat**: integrate with receipt api (Aylie Chou)
 - [[`556c8a880f`](https://github.com/twreporter/twreporter-react/commit/556c8a880f)] - **fix**: use static file instead of Blob (Lucien)
 - [[`9f5bb10d27`](https://github.com/twreporter/twreporter-react/commit/9f5bb10d27)] - **feat**: add download button for yearly receipt (Lucien)
 - [[`a783cb0afe`](https://github.com/twreporter/twreporter-react/commit/a783cb0afe)] - **fix**: min-width typo (Lucien)
+- [[`3d55e14fb9`](https://github.com/twreporter/twreporter-react/commit/3d55e14fb9)] - **fix**: yearly receipt download rule (Aylie Chou)
+- [[`dff10adfb1`](https://github.com/twreporter/twreporter-react/commit/dff10adfb1)] - **feat**: add download hint for donation page (Lucien)
+- [[`be08177b27`](https://github.com/twreporter/twreporter-react/commit/be08177b27)] - **chore**: update @twreporter packages (Aylie Chou)
 
-## 5.2.6-rc.1, 2024-12-20
-
-### Notable Changes
-
-- fix
-  - add material symbol font prefetch
-
-### Commits
-
-- [[`b053f6ace4`](https://github.com/twreporter/twreporter-react/commit/b053f6ace4)] - **chore**: update @twreporter packages (Aylie Chou)
-- [[`7cb3f4c62a`](https://github.com/twreporter/twreporter-react/commit/7cb3f4c62a)] - **fix**: add material symbol font prefetch (Aylie Chou)
-
-## 5.2.6-rc.0, 2024-12-20
-
-### Notable Changes
-
-- fix
-  - join font faces with no comma
-
-### Commits
-
-- [[`f1698169ed`](https://github.com/twreporter/twreporter-react/commit/f1698169ed)] - **fix**: join font faces with no comma (Lucien)
-
-## 5.2.5, 2024-12-16 (Current)
+## 5.2.5, 2024-12-16
 
 ### Notable Changes
 
