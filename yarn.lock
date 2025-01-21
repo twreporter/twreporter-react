@@ -1691,10 +1691,10 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.5.6":
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.5.6.tgz#93592f2938b77af5c095d4f0e0d8b0519ab011b6"
-  integrity sha512-NF0WDZaDfVt4IwQeL+GWNYAOrKlQJ5Xr9IPrtpgdGuQjvvH3q9Vx4K7Hw4HaYNX4T0lYS0bfVqSyOayG6lvDtQ==
+"@twreporter/react-article-components@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.5.7.tgz#ac0dd33c1d364f0a6cbdfdf5242aeda31fe84ff4"
+  integrity sha512-K/DndVWGn0SjH5zNcjlSh7kaEHhqYzB4fzKVz6jdl8hOxHlEvJXeEr+cBvTOGy0Ynapassa9hOekrUcqnBoN6g==
   dependencies:
     "@twreporter/core" "^1.24.1"
     "@twreporter/react-components" "^9.4.3"
