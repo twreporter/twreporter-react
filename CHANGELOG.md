@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.8-rc.0, 2025-02-06
+## 5.2.8, 2025-02-11 (Current)
 
 ### Notable Changes
 
@@ -9,9 +9,10 @@
 
 ### Commits
 
+- [[`65110e90f1`](https://github.com/twreporter/twreporter-react/commit/65110e90f1)] - **chore**: update twreporter packages (Lucien)
 - [[`2d7d51918c`](https://github.com/twreporter/twreporter-react/commit/2d7d51918c)] - **chore**: update twreporter packages (Lucien)
 
-## 5.2.7, 2025-01-21 (Current)
+## 5.2.7, 2025-01-21
 
 ### Notable Changes
 
