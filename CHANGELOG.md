@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.9-rc.0, 2025-02-26
+
+### Notable Changes
+
+- fix
+  - update `designer` name & position
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`188c287316`](https://github.com/twreporter/twreporter-react/commit/188c287316)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ca7c4fdfac`](https://github.com/twreporter/twreporter-react/commit/ca7c4fdfac)] - **fix**: update `designer` name & position (Aylie Chou)
+
 ## 5.2.8, 2025-02-11 (Current)
 
 ### Notable Changes
