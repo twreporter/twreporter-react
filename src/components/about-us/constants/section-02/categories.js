@@ -37,13 +37,6 @@ const categories = [
     },
   },
   {
-    id: categoryIds.designer,
-    label: {
-      english: 'Design Department',
-      chinese: '設 計 部',
-    },
-  },
-  {
     id: categoryIds.engineer,
     label: {
       english: 'Digital Product Department',
@@ -69,6 +62,13 @@ const categories = [
     label: {
       english: 'The Reporter For Kids',
       chinese: '少 年 報 導 者',
+    },
+  },
+  {
+    id: categoryIds.designer,
+    label: {
+      english: 'Design Department',
+      chinese: '設 計 小 組',
     },
   },
   {

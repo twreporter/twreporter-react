@@ -1,6 +1,21 @@
 # Changelog
 
-## 5.2.8, 2025-02-11 (Current)
+## 5.2.9, 2025-03-06 (Current)
+
+### Notable Changes
+
+- fix
+  - update `designer` department name & position in about-us page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d38919e635`](https://github.com/twreporter/twreporter-react/commit/d38919e635)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`188c287316`](https://github.com/twreporter/twreporter-react/commit/188c287316)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ca7c4fdfac`](https://github.com/twreporter/twreporter-react/commit/ca7c4fdfac)] - **fix**: update `designer` name & position (Aylie Chou)
+
+## 5.2.8, 2025-02-11
 
 ### Notable Changes
 
