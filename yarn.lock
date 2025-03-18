@@ -1672,6 +1672,16 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
+"@twreporter/core@^1.24.4-rc.0":
+  version "1.24.4-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.24.4-rc.0.tgz#fe4d808049670f3842777b743874d81a2c38d7be"
+  integrity sha512-s1tckXT1jevU/HsQyzdx0iHOvCUrLVpjX4w0vDC7GWMloQRktqkp8CGlKvTAlsxiLs747/acdzQVXFiC43P+8Q==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.0.0"
+    styled-components "^6.0.0"
+    stylis "^4.0.0"
+
 "@twreporter/index-page@^2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.1.5.tgz#d9902009bcf52554166c13933ea4584c2131b695"
