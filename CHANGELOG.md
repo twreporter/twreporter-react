@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.10-rc.2, 2025-03-20
+
+### Notable Changes
+
+- fix
+  - hard code promotions on member page
+
+### Commits
+
+- [[`1c6342489d`](https://github.com/twreporter/twreporter-react/commit/1c6342489d)] - **fix**: hard code promotions on member page (Aylie Chou)
+
 ## 5.2.10-rc.1, 2025-03-18
 
 ### Notable Changes
