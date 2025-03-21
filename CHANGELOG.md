@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.10-rc.3, 2025-03-21
+
+### Notable Changes
+
+- fix
+  - typo
+
+### Commits
+
+- [[`0eb993c765`](https://github.com/twreporter/twreporter-react/commit/0eb993c765)] - **fix**: typo (Aylie Chou)
+
 ## 5.2.10-rc.2, 2025-03-20
 
 ### Notable Changes
