@@ -79,7 +79,7 @@ const promotion = {
         href="https://docs.google.com/forms/d/108kjczL7_zva7p0sQMWoHFPqWGIfvMavgik5HYX8mM4/edit"
         rel="noopener noreferrer"
       >
-        會籍申請／展延
+        申請／展延會籍
       </a>
       ｜
       <a
