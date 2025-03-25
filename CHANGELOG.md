@@ -1,6 +1,23 @@
 # Changelog
 
-## 5.2.9, 2025-03-06 (Current)
+## 5.2.10, 2025-03-25 (Current)
+
+### Notable Changes
+
+- fix
+  - hard code promotions on member page
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`090e298a89`](https://github.com/twreporter/twreporter-react/commit/090e298a89)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`0eb993c765`](https://github.com/twreporter/twreporter-react/commit/0eb993c765)] - **fix**: typo (Aylie Chou)
+- [[`1c6342489d`](https://github.com/twreporter/twreporter-react/commit/1c6342489d)] - **fix**: hard code promotions on member page (Aylie Chou)
+- [[`05a92437be`](https://github.com/twreporter/twreporter-react/commit/05a92437be)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`890ef55983`](https://github.com/twreporter/twreporter-react/commit/890ef55983)] - **chore**: update twreporter packages (Lucien)
+
+## 5.2.9, 2025-03-06
 
 ### Notable Changes
 
