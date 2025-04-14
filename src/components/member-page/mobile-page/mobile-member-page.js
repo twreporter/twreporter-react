@@ -1,28 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-
 // context
 import { CoreContext } from '../../../contexts'
-
 // @twreporter
 import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import MobileMemberRoleCard from '@twreporter/react-components/lib/mobile-member-role-card'
 import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
-
 // components
 import MobileMemberMenuList from './mobile-menu-list'
+import Promotion from '../promotion'
 
 const RoleCardContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 48px;
+`
+const StyledPromotion = styled(Promotion)`
+  margin: 24px auto 48px auto;
 `
 
-const OnlyForGTM = styled.div``
-
 const MobileMemberPage = ({
-  roleKey = MEMBER_ROLE.explorer,
+  role = { key: MEMBER_ROLE.explorer, name: '探索者' },
   email,
   joinDate,
   name = '',
@@ -32,6 +30,7 @@ const MobileMemberPage = ({
   articleReadingTimeUnit = READING_TIME_UNIT.minute,
 }) => {
   const { releaseBranch } = useContext(CoreContext)
+  const roleKey = useMemo(() => role.key, [role])
 
   return (
     <div>
@@ -48,14 +47,19 @@ const MobileMemberPage = ({
           articleReadingTimeUnit={articleReadingTimeUnit}
         />
       </RoleCardContainer>
-      <OnlyForGTM name="merchandise-promo-code" />
+      <StyledPromotion role={role} type={Promotion.Type.P3} />
       <MobileMemberMenuList roleKey={roleKey} />
     </div>
   )
 }
 
 MobileMemberPage.propTypes = {
-  roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
+  role: PropTypes.shape({
+    id: PropTypes.string,
+    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    name_en: PropTypes.string,
+  }),
   email: PropTypes.string,
   joinDate: PropTypes.string,
   name: PropTypes.string,

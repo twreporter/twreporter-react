@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.11-rc.0, 2025-04-14
+
+### Notable Changes
+
+- fix
+  - add `Promotion` for rwd merchandise promo code in member page
+
+### Commits
+
+- [[`5abffe8322`](https://github.com/twreporter/twreporter-react/commit/5abffe8322)] - **fix**: add `Promotion` for rwd promotions (Aylie Chou)
+
 ## 5.2.10, 2025-03-25 (Current)
 
 ### Notable Changes
