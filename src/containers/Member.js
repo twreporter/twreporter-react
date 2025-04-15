@@ -297,7 +297,7 @@ const MemberPage = () => {
         <Route exact path={routes.memberPage.path}>
           <PageContainer>
             <MobileMemberPage
-              roleKey={memberData.role.key}
+              role={memberData.role}
               email={memberData.email}
               joinDate={memberData.joinDate}
               name={memberData.name || ''}
