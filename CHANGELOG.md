@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.11-rc.0, 2025-04-14
+## 5.2.11, 2025-04-15 (Current)
 
 ### Notable Changes
 
@@ -11,7 +11,7 @@
 
 - [[`5abffe8322`](https://github.com/twreporter/twreporter-react/commit/5abffe8322)] - **fix**: add `Promotion` for rwd promotions (Aylie Chou)
 
-## 5.2.10, 2025-03-25 (Current)
+## 5.2.10, 2025-03-25
 
 ### Notable Changes
 
