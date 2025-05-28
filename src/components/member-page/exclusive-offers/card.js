@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-// @twreproter
+// @twreporter
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import { P1, P2 } from '@twreporter/react-components/lib/text/paragraph'
 import { LinkButton } from '@twreporter/react-components/lib/button'
