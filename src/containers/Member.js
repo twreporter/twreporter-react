@@ -72,24 +72,38 @@ const MenuContainer = styled.div`
 
 const ContentContainer = styled.div`
   ${mq.tabletOnly`
-    ${props =>
-      props.$path === routes.memberPage.memberDonationPage.path &&
-      'grid-column: 3 / 13'};
-    ${props =>
-      (props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
-        props.$path === routes.memberPage.exclusiveOffersPage.path) &&
-      'grid-column: 3 / 13'};
-    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => {
+      if (props.$path === routes.memberPage.memberDonationPage.path) {
+        return 'grid-column: 3 / 13'
+      }
+      if (
+        props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
+        props.$path === routes.memberPage.exclusiveOffersPage.path
+      ) {
+        return 'grid-column: 3 / 13'
+      }
+      if (props.$path === routes.memberPage.path) {
+        return 'grid-column: 3 / 10'
+      }
+      return ''
+    }}
   `}
   ${mq.desktopAndAbove`
-    ${props =>
-      props.$path === routes.memberPage.memberDonationPage.path &&
-      'grid-column: 3 / 13'};
-    ${props =>
-      props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
-      (props.$path === routes.memberPage.exclusiveOffersPage.path &&
-        'grid-column: 3 / 11')};
-    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => {
+      if (props.$path === routes.memberPage.memberDonationPage.path) {
+        return 'grid-column: 3 / 13'
+      }
+      if (
+        props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
+        props.$path === routes.memberPage.exclusiveOffersPage.path
+      ) {
+        return 'grid-column: 3 / 11'
+      }
+      if (props.$path === routes.memberPage.path) {
+        return 'grid-column: 3 / 10'
+      }
+      return ''
+    }}
   `}
   ${mq.mobileOnly`
     padding: 24px 24px 200px;
