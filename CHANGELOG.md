@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.2.12-rc.0, 2025-06-03
+
+### Notable Changes
+
+- feat
+  - add exclusive offers page to replace hard coding promotion
+- fix
+  - fix member page grid condition
+  - typo
+  - address comments
+
+### Commits
+
+- [[`1a1e10eedb`](https://github.com/twreporter/twreporter-react/commit/1a1e10eedb)] - **fix**: address comments (Lucien)
+- [[`40e429a5e1`](https://github.com/twreporter/twreporter-react/commit/40e429a5e1)] - **fix**: typo (Lucien)
+- [[`2137674aaa`](https://github.com/twreporter/twreporter-react/commit/2137674aaa)] - **fix**: fix member page grid condition (Lucien)
+- [[`e5652d4556`](https://github.com/twreporter/twreporter-react/commit/e5652d4556)] - **feat**: add exclusive offers page to replace hard coding promotion (Lucien)
+
 ## 5.2.11, 2025-04-15 (Current)
 
 ### Notable Changes
