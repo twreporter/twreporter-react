@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-// components
-import Promotion from './promotion'
 // @twreporter
 import Divider from '@twreporter/react-components/lib/divider'
 import { H1, H3 } from '@twreporter/react-components/lib/text/headline'
@@ -47,10 +45,6 @@ const DividerContainer = styled.div`
 `
 
 const BottomDividerContainer = styled.div`
-  margin-top: 24px;
-`
-
-const StyledPromotion = styled(Promotion)`
   margin-top: 24px;
 `
 
@@ -130,7 +124,6 @@ const MemberData = ({
       <BottomDividerContainer>
         <Divider />
       </BottomDividerContainer>
-      <StyledPromotion role={role} type={Promotion.Type.P2} />
     </MemberDataContainer>
   )
 }
