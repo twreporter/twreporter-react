@@ -93,7 +93,7 @@ const Card = ({
               TextComponent={P2}
               type={LinkButton.Type.UNDERLINE}
               text={link.text}
-              link={{ to: link.to, isExternal: true, target: '_blank' }}
+              link={{ to: link.link, isExternal: true, target: '_blank' }}
             />
           ))}
         </LinkContainer>

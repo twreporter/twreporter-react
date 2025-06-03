@@ -14,6 +14,7 @@ import {
   MobileOnly,
 } from '@twreporter/react-components/lib/rwd'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
+import origins from '@twreporter/core/lib/constants/request-origins'
 // context
 import { CoreContext } from '../../../contexts'
 // components
@@ -79,7 +80,7 @@ const ExclusiveOffers = ({ role }) => {
     try {
       setIsLoading(true)
       const { data } = await axios(
-        `https://storage.googleapis.com/twreporter-multimedia/assets/exclusive-offers/${releaseBranch}/${role.key}.json`
+        `https://twreporter.org/assets/exclusive-offers/${releaseBranch}/${role.key}.json`
       )
       const groupedCards = _.groupBy(data, 'role')
       setCards(groupedCards || [])
@@ -101,7 +102,12 @@ const ExclusiveOffers = ({ role }) => {
       size={PillButton.Size.S}
       releaseBranch={releaseBranch}
       style={PillButton.Style.DARK}
-      onClick={() => window.open('https://support.twreporter.org/', '_blank')}
+      onClick={() =>
+        window.open(
+          origins.forClientSideRendering[releaseBranch].support,
+          '_blank'
+        )
+      }
     />
   )
 
