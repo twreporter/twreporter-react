@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.12-rc.1, 2025-06-03
+
+### Notable Changes
+
+- fix
+  - add www for url
+
+### Commits
+
+- [[`31245da5f3`](https://github.com/twreporter/twreporter-react/commit/31245da5f3)] - **fix**: add www for url (Lucien)
+
 ## 5.2.12-rc.0, 2025-06-03
 
 ### Notable Changes
