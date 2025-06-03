@@ -69,7 +69,7 @@ const Card = ({
     <CardContainer $disabled={disabled}>
       <IconAndBadge>
         <Icon
-          src={`https://twreporter.org/assets/exclusive-offers/${releaseBranch}/${icon}.svg`}
+          src={`https://www.twreporter.org/assets/exclusive-offers/${releaseBranch}/${icon}.svg`}
         />
         {badge ? (
           <BadgeContainer>
