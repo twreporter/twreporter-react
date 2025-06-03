@@ -79,8 +79,8 @@ const ExclusiveOffers = ({ role }) => {
   const getRoleCards = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios(
-        `https://twreporter.org/assets/exclusive-offers/${releaseBranch}/${role.key}.json`
+      const { data } = await axios.get(
+        `https://www.twreporter.org/assets/exclusive-offers/${releaseBranch}/${role.key}.json`
       )
       const groupedCards = _.groupBy(data, 'role')
       setCards(groupedCards || [])
