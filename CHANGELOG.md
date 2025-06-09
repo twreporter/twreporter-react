@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.12-rc.2, 2025-06-09
+
+### Notable Changes
+
+- fix
+  - buttonOnclick typo
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`7f8237fa8a`](https://github.com/twreporter/twreporter-react/commit/7f8237fa8a)] - **chore**: update twreporter packages (Lucien)
+- [[`15b4b7e335`](https://github.com/twreporter/twreporter-react/commit/15b4b7e335)] - **fix**: buttonOnclick typo (Lucien)
+
 ## 5.2.12-rc.1, 2025-06-03
 
 ### Notable Changes

@@ -24,7 +24,7 @@ export const EmptyDonation = () => {
       guide="很抱歉，目前沒有你線上贊助的資料"
       showButton={true}
       buttonText={'前往贊助'}
-      buttonOnclick={onButtonClick}
+      buttonOnClick={onButtonClick}
       releaseBranch={releaseBranch}
     />
   )
