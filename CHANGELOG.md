@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.12-rc.3, 2025-06-11
+
+### Notable Changes
+
+- fix
+  - menu list text
+
+### Commits
+
+- [[`072354de5a`](https://github.com/twreporter/twreporter-react/commit/072354de5a)] - **fix**: menu list text (Lucien)
+
 ## 5.2.12-rc.2, 2025-06-09
 
 ### Notable Changes
