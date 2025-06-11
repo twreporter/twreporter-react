@@ -57,7 +57,7 @@ const readingFootprint = {
 
 const exclusiveOffers = {
   type: ListType.NORMAL,
-  text: '專屬優惠',
+  text: '專屬回饋',
   path: routes.memberPage.exclusiveOffersPage.path,
 }
 
