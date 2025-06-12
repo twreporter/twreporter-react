@@ -1,42 +1,6 @@
 # Changelog
 
-## 5.2.12-rc.3, 2025-06-11
-
-### Notable Changes
-
-- fix
-  - menu list text
-
-### Commits
-
-- [[`072354de5a`](https://github.com/twreporter/twreporter-react/commit/072354de5a)] - **fix**: menu list text (Lucien)
-
-## 5.2.12-rc.2, 2025-06-09
-
-### Notable Changes
-
-- fix
-  - buttonOnclick typo
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`7f8237fa8a`](https://github.com/twreporter/twreporter-react/commit/7f8237fa8a)] - **chore**: update twreporter packages (Lucien)
-- [[`15b4b7e335`](https://github.com/twreporter/twreporter-react/commit/15b4b7e335)] - **fix**: buttonOnclick typo (Lucien)
-
-## 5.2.12-rc.1, 2025-06-03
-
-### Notable Changes
-
-- fix
-  - add www for url
-
-### Commits
-
-- [[`31245da5f3`](https://github.com/twreporter/twreporter-react/commit/31245da5f3)] - **fix**: add www for url (Lucien)
-
-## 5.2.12-rc.0, 2025-06-03
+## 5.2.12, 2025-06-12 (Current)
 
 ### Notable Changes
 
@@ -46,15 +10,24 @@
   - fix member page grid condition
   - typo
   - address comments
+  - add www for url
+  - buttonOnclick typo
+  - menu list text
+- chore
+  - update @twreporter packages
 
 ### Commits
 
+- [[`072354de5a`](https://github.com/twreporter/twreporter-react/commit/072354de5a)] - **fix**: menu list text (Lucien)
+- [[`7f8237fa8a`](https://github.com/twreporter/twreporter-react/commit/7f8237fa8a)] - **chore**: update twreporter packages (Lucien)
+- [[`15b4b7e335`](https://github.com/twreporter/twreporter-react/commit/15b4b7e335)] - **fix**: buttonOnclick typo (Lucien)
+- [[`31245da5f3`](https://github.com/twreporter/twreporter-react/commit/31245da5f3)] - **fix**: add www for url (Lucien)
 - [[`1a1e10eedb`](https://github.com/twreporter/twreporter-react/commit/1a1e10eedb)] - **fix**: address comments (Lucien)
 - [[`40e429a5e1`](https://github.com/twreporter/twreporter-react/commit/40e429a5e1)] - **fix**: typo (Lucien)
 - [[`2137674aaa`](https://github.com/twreporter/twreporter-react/commit/2137674aaa)] - **fix**: fix member page grid condition (Lucien)
 - [[`e5652d4556`](https://github.com/twreporter/twreporter-react/commit/e5652d4556)] - **feat**: add exclusive offers page to replace hard coding promotion (Lucien)
 
-## 5.2.11, 2025-04-15 (Current)
+## 5.2.11, 2025-04-15
 
 ### Notable Changes
 
