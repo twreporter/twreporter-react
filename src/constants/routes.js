@@ -58,6 +58,9 @@ export default {
     memberEmailSubscriptionPage: {
       path: '/account/email-subscription',
     },
+    exclusiveOffersPage: {
+      path: '/account/exclusive-offers',
+    },
   },
   download: {
     donationHistory: {

@@ -1,5 +1,4 @@
 import routes from './routes'
-import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 
 // menu list type enum
 export const ListType = {
@@ -56,12 +55,10 @@ const readingFootprint = {
   path: routes.myReadingPage.browsingHistoryPage.path,
 }
 
-const bookshopFriend = {
-  type: ListType.LINK,
-  text: '特約優惠',
-  link: 'https://www.twreporter.org/a/bookstore-partnership',
-  target: '_self',
-  excludeRole: [MEMBER_ROLE.explorer, MEMBER_ROLE.action_taker],
+const exclusiveOffers = {
+  type: ListType.NORMAL,
+  text: '專屬回饋',
+  path: routes.memberPage.exclusiveOffersPage.path,
 }
 
 // menu list data
@@ -69,7 +66,7 @@ export const MENU_LIST_DATA = [
   memberData,
   donation,
   newsletter,
-  bookshopFriend,
+  exclusiveOffers,
   divider,
   myReading,
   bookmark,
@@ -81,7 +78,7 @@ export const MENU_LIST_DATA = [
 export const MENU_LIST_DATA_MOBILE = [
   donation,
   newsletter,
-  bookshopFriend,
+  exclusiveOffers,
   divider,
   myReading,
   bookmark,

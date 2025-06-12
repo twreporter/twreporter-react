@@ -9,14 +9,10 @@ import MobileMemberRoleCard from '@twreporter/react-components/lib/mobile-member
 import { READING_TIME_UNIT } from '@twreporter/core/lib/constants/reading-time-unit'
 // components
 import MobileMemberMenuList from './mobile-menu-list'
-import Promotion from '../promotion'
 
 const RoleCardContainer = styled.div`
   display: flex;
   justify-content: center;
-`
-const StyledPromotion = styled(Promotion)`
-  margin: 24px auto 48px auto;
 `
 
 const MobileMemberPage = ({
@@ -47,7 +43,6 @@ const MobileMemberPage = ({
           articleReadingTimeUnit={articleReadingTimeUnit}
         />
       </RoleCardContainer>
-      <StyledPromotion role={role} type={Promotion.Type.P3} />
       <MobileMemberMenuList roleKey={roleKey} />
     </div>
   )

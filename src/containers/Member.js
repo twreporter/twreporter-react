@@ -28,6 +28,7 @@ import MemberRoleCard from '../components/member-page/member-role-card'
 import MemberDonationPage from '../components/member-page/donation'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
+import ExclusiveOffers from '../components/member-page/exclusive-offers'
 
 // constants
 import siteMeta from '../constants/site-meta'
@@ -71,22 +72,38 @@ const MenuContainer = styled.div`
 
 const ContentContainer = styled.div`
   ${mq.tabletOnly`
-    ${props =>
-      props.$path === routes.memberPage.memberDonationPage.path &&
-      'grid-column: 3 / 13'};
-    ${props =>
-      props.$path === routes.memberPage.memberEmailSubscriptionPage.path &&
-      'grid-column: 3 / 13'};
-    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => {
+      if (props.$path === routes.memberPage.memberDonationPage.path) {
+        return 'grid-column: 3 / 13'
+      }
+      if (
+        props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
+        props.$path === routes.memberPage.exclusiveOffersPage.path
+      ) {
+        return 'grid-column: 3 / 13'
+      }
+      if (props.$path === routes.memberPage.path) {
+        return 'grid-column: 3 / 10'
+      }
+      return ''
+    }}
   `}
   ${mq.desktopAndAbove`
-    ${props =>
-      props.$path === routes.memberPage.memberDonationPage.path &&
-      'grid-column: 3 / 13'};
-    ${props =>
-      props.$path === routes.memberPage.memberEmailSubscriptionPage.path &&
-      'grid-column: 3 / 11'};
-    ${props => props.$path === routes.memberPage.path && 'grid-column: 3 / 10'};
+    ${props => {
+      if (props.$path === routes.memberPage.memberDonationPage.path) {
+        return 'grid-column: 3 / 13'
+      }
+      if (
+        props.$path === routes.memberPage.memberEmailSubscriptionPage.path ||
+        props.$path === routes.memberPage.exclusiveOffersPage.path
+      ) {
+        return 'grid-column: 3 / 11'
+      }
+      if (props.$path === routes.memberPage.path) {
+        return 'grid-column: 3 / 10'
+      }
+      return ''
+    }}
   `}
   ${mq.mobileOnly`
     padding: 24px 24px 200px;
@@ -204,6 +221,10 @@ const MemberPage = () => {
       matchPath(pathname, routes.memberPage.memberEmailSubscriptionPage.path)
     ) {
       return '訂閱電子報'
+    } else if (
+      matchPath(pathname, routes.memberPage.exclusiveOffersPage.path)
+    ) {
+      return '專屬優惠'
     } else {
       return '個人專區'
     }
@@ -284,6 +305,9 @@ const MemberPage = () => {
               <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
                 <EmailSubscription />
               </Route>
+              <Route path={routes.memberPage.exclusiveOffersPage.path}>
+                <ExclusiveOffers role={memberData.role} />
+              </Route>
             </Switch>
           </ContentContainer>
           <Route exact path={routes.memberPage.path}>
@@ -317,6 +341,11 @@ const MemberPage = () => {
           <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
             <ContentContainer>
               <EmailSubscription />
+            </ContentContainer>
+          </Route>
+          <Route path={routes.memberPage.exclusiveOffersPage.path}>
+            <ContentContainer>
+              <ExclusiveOffers role={memberData.role} />
             </ContentContainer>
           </Route>
         </Switch>
