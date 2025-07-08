@@ -288,7 +288,7 @@ const MemberDonationPage = () => {
     // TODO: call api
     toastr({ text: '匯入中...' })
     setHasOfflineDonation(false)
-    records.unshift(...fakeOfflineDonation)
+    setRecords(prev => [...fakeOfflineDonation, ...prev])
     setShowOfflineDonationPopup(false)
   }
 
