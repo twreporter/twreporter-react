@@ -1,5 +1,26 @@
 # Changelog
 
+## 5.2.13-rc.0, 2025-07-16
+
+## Notable Changes
+
+- feat
+  - add offline donation record
+  - add new empty state for no record
+- fix
+  - setRecords instead of unshift
+  - address comments
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`d5af268bfc`](https://github.com/twreporter/twreporter-react/commit/d5af268bfc)] - **chore**: update twreporter packages (Lucien)
+- [[`3c1bf0cbf3`](https://github.com/twreporter/twreporter-react/commit/3c1bf0cbf3)] - **fix**: address comments (Lucien)
+- [[`a8efde3829`](https://github.com/twreporter/twreporter-react/commit/a8efde3829)] - **fix**: setRecords instead of unshift (Lucien)
+- [[`b5d518c3b1`](https://github.com/twreporter/twreporter-react/commit/b5d518c3b1)] - **feat**: add new empty state for no record (Lucien)
+- [[`6b4a2292df`](https://github.com/twreporter/twreporter-react/commit/6b4a2292df)] - **feat**: add offline donation record (Lucien)
+
 ## 5.2.12, 2025-06-12 (Current)
 
 ### Notable Changes
