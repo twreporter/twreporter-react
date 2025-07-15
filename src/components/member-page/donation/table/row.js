@@ -145,16 +145,15 @@ export const TableRow = memo(({ record }) => {
       ? OfflineDonationAttributeLabel[attribute]
       : DonationTypeLabel[type]
   const amountSuffix = type => {
-    if (type === DonationType.PRIME) {
-      return '元'
-    } else if (type === DonationType.PERIODIC) {
-      return '元/月'
-    } else if (type === DonationType.OFFLINE) {
-      if (attribute === OfflineDonationAttribute.PERIODIC) {
-        return '元/月'
-      } else {
+    switch (type) {
+      case DonationType.PRIME:
         return '元'
-      }
+      case DonationType.PERIODIC:
+        return '元/月'
+      case DonationType.OFFLINE:
+        return attribute === OfflineDonationAttribute.PERIODIC ? '元/月' : '元'
+      default:
+        return '元'
     }
   }
   const [isOpen, setIsOpen] = useState(false)

@@ -245,8 +245,8 @@ const MemberDonationPage = () => {
         DONATION_HISTORY_PER_PAGE
       )
     )
-    const { records } = _.get(payload, 'data', [])
-    if (records.length === 0) {
+    const { records } = _.get(payload, 'data', {})
+    if (!records || records.length === 0) {
       setShowEmptyState(true)
     } else {
       setShowEmptyState(false)
