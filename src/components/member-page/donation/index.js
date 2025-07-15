@@ -6,17 +6,23 @@ import querystring from 'querystring'
 import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
 // @twreporter
-import { H3 } from '@twreporter/react-components/lib/text/headline'
-import { P2 } from '@twreporter/react-components/lib/text/paragraph'
-import { colorGrayscale } from '@twreporter/core/lib/constants/color'
+import { H3, H4 } from '@twreporter/react-components/lib/text/headline'
+import { P2, P1 } from '@twreporter/react-components/lib/text/paragraph'
+import {
+  colorGrayscale,
+  colorOpacity,
+} from '@twreporter/core/lib/constants/color'
 import {
   InheritLinkButton,
   PillButton,
+  TextButton,
 } from '@twreporter/react-components/lib/button'
 import mq from '@twreporter/core/lib/utils/media-query'
 import FetchingWrapper from '@twreporter/react-components/lib/is-fetching-wrapper'
 import twreporterRedux from '@twreporter/redux'
 import { useLazyGetYearlyReceiptQuery } from '@twreporter/redux/lib/actions/receipt'
+import { Download } from '@twreporter/react-components/lib/icon'
+import zIndexConst from '@twreporter/core/lib/constants/z-index'
 // components
 import { EmptyDonation } from './empty-donation'
 import { Table } from './table'
@@ -43,6 +49,8 @@ const StyledH3 = styled(H3)`
 const EmptyDonationContainer = styled.div`
   width: 100%;
   padding-top: 72px;
+  display: flex;
+  justify-content: center;
 `
 
 const PaginationContainer = styled.div`
@@ -77,11 +85,70 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mq.mobileOnly`
+    flex-direction: column;
+    gap: 16px;
+    align-items: start;
+  `}
 `
 
-const DownloadYearlyReceiptButton = styled(PillButton)`
-  height: 122px;
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 16px;
   height: 29px;
+`
+
+const ImportOfflineDonationButton = styled(PillButton)``
+
+const DownloadYearlyReceiptButton = styled(PillButton)``
+
+const PopupContainer = styled.div`
+  visibility: ${props => (props.$show ? 'visible' : 'hidden')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${colorOpacity['black_0.7']};
+  z-index: ${zIndexConst.popup};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Popup = styled.div`
+  padding: 40px;
+  width: 400px;
+  background-color: ${colorGrayscale.white};
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  ${mq.mobileOnly`
+    width: 100%;
+    margin: 0 12px;
+  `}
+`
+
+const PopupTitle = styled(H4)`
+  color: ${colorGrayscale.black};
+`
+
+const PopupDesc = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: ${colorGrayscale.black};
+`
+
+const PopupButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const PopupConfirmButton = styled(PillButton)`
+  width: 96px;
+  justify-content: center;
 `
 
 const Loading = styled.div``
@@ -89,6 +156,36 @@ const LoadingMask = FetchingWrapper(Loading)
 
 const { reduxStateFields, actions } = twreporterRedux
 const { getUserDonationHistory } = actions
+
+// TODO: properties will change after connect to api
+const fakeOfflineDonation = [
+  {
+    type: 'offline',
+    attribute: 'periodic',
+    order_number: 'twreporter-174349312872931487200',
+    created_at: new Date('2025/5/25'),
+    amount: 1000,
+    status: 'paid',
+    send_receipt: 'no_receipt',
+    receipt_header: '王小明',
+    sponsorship_resource: 'line',
+  },
+  {
+    type: 'offline',
+    attribute: 'prime',
+    order_number: 'twreporter-174349312872931487211',
+    created_at: new Date('2025/5/26'),
+    amount: 3000,
+    status: 'paid',
+    send_receipt: 'paperback_receipt',
+    receipt_header: '王小明',
+    receipt_address_zip_code: '104',
+    receipt_address_state: '台北市',
+    receipt_address_city: '中山區',
+    receipt_address_detail: '南京東路一段31巷6號6樓',
+    sponsorship_resource: 'credit_card_prime',
+  },
+]
 
 const MemberDonationPage = () => {
   const location = useLocation()
@@ -123,6 +220,11 @@ const MemberDonationPage = () => {
     false
   )
   const [yearlyDownloadTextYear, setYearlyDownloadTextYear] = useState(0)
+  // for testing, need to remove after connect to api
+  const [hasOfflineDonation, setHasOfflineDonation] = useState(true)
+  const [showOfflineDonationPopup, setShowOfflineDonationPopup] = useState(
+    false
+  )
 
   const [downloadYearlyReceiptTrigger, ,] = useLazyGetYearlyReceiptQuery()
 
@@ -143,8 +245,8 @@ const MemberDonationPage = () => {
         DONATION_HISTORY_PER_PAGE
       )
     )
-    const { records } = _.get(payload, 'data', [])
-    if (records.length === 0) {
+    const { records } = _.get(payload, 'data', {})
+    if (!records || records.length === 0) {
       setShowEmptyState(true)
     } else {
       setShowEmptyState(false)
@@ -182,6 +284,14 @@ const MemberDonationPage = () => {
     }
   }
 
+  const handleImportOfflineDonation = () => {
+    // TODO: call api
+    toastr({ text: '匯入中...' })
+    setHasOfflineDonation(false)
+    setRecords(prev => [...fakeOfflineDonation, ...prev])
+    setShowOfflineDonationPopup(false)
+  }
+
   useEffect(() => {
     // get donations
     setIsLoading(true)
@@ -216,17 +326,29 @@ const MemberDonationPage = () => {
     <DonationPageContainer>
       <TitleContainer>
         <StyledH3 text="贊助紀錄" />
-        {yearlyDownloadTextYear > 0 ? (
-          <DownloadYearlyReceiptButton
-            text={`${yearlyDownloadTextYear}年度收據`}
-            style={PillButton.Style.DARK}
-            type={PillButton.Type.PRIMARY}
-            size={PillButton.Size.S}
-            loading={isYearlyReceiptDownloading}
-            disabled={isYearlyReceiptDownloading}
-            onClick={handleYearlyReceiptDownload}
-          />
-        ) : null}
+        <ButtonsContainer>
+          {hasOfflineDonation ? (
+            <ImportOfflineDonationButton
+              text="匯入非官網贊助紀錄"
+              style={PillButton.Style.DARK}
+              type={PillButton.Type.SECONDARY}
+              size={PillButton.Size.S}
+              onClick={() => setShowOfflineDonationPopup(true)}
+            />
+          ) : null}
+          {yearlyDownloadTextYear > 0 ? (
+            <DownloadYearlyReceiptButton
+              text={`${yearlyDownloadTextYear}收據`}
+              style={PillButton.Style.DARK}
+              type={PillButton.Type.PRIMARY}
+              size={PillButton.Size.S}
+              loading={isYearlyReceiptDownloading}
+              disabled={isYearlyReceiptDownloading}
+              onClick={handleYearlyReceiptDownload}
+              rightIconComponent={<Download />}
+            />
+          ) : null}
+        </ButtonsContainer>
       </TitleContainer>
       <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
         <Table records={records} />
@@ -254,6 +376,29 @@ const MemberDonationPage = () => {
           <P2Gray600 text="・因應贊助者年度報稅所需，可下載前一年度贊助收據。" />
         </DescWithLink>
       </Info>
+      <PopupContainer $show={showOfflineDonationPopup}>
+        <Popup>
+          <PopupTitle text="請確認是否同意《報導者》為您匯入非官網贊助紀錄" />
+          <PopupDesc>
+            <P1 text="按下同意後，將匯入此帳號自2024年1月起，於任何管道所進行贊助的紀錄。自即日起，非透過《報導者》網站贊助的紀錄，將於贊助日期的次月底匯入。" />
+            <P1 text={`帳號：${email}`} />
+          </PopupDesc>
+          <PopupButtonsContainer>
+            <TextButton
+              text="取消"
+              style={TextButton.Style.LIGHT}
+              onClick={() => setShowOfflineDonationPopup(false)}
+            />
+            <PopupConfirmButton
+              text="同意"
+              style={PillButton.Style.DARK}
+              type={PillButton.Type.PRIMARY}
+              size={PillButton.Size.S}
+              onClick={handleImportOfflineDonation}
+            />
+          </PopupButtonsContainer>
+        </Popup>
+      </PopupContainer>
     </DonationPageContainer>
   )
 }
