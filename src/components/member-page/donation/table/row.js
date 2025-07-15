@@ -18,10 +18,13 @@ import {
   DonationTypeLabel,
   PrimeDonationStatus,
   PeriodicDonationStatus,
+  OfflineDonationAttribute,
+  OfflineDonationAttributeLabel,
 } from '../../../../constants/donation'
 // components
 import { StatusBadge } from '../status-bagde'
 import { TableRowDetail } from './row-detail'
+import { TableRowDetailForOffline } from './row-detail-for-offline'
 // context
 import { CoreContext } from '../../../../contexts'
 // lodash
@@ -134,9 +137,25 @@ export const TableRow = memo(({ record }) => {
     amount,
     status,
     order_number: orderNumber,
+    attribute,
   } = record
   const donationDate = formattedDate(new Date(createdAt))
-  const amountSuffix = type === DonationType.PRIME ? '元' : '元/月'
+  const typeLabel =
+    type === DonationType.OFFLINE
+      ? OfflineDonationAttributeLabel[attribute]
+      : DonationTypeLabel[type]
+  const amountSuffix = type => {
+    switch (type) {
+      case DonationType.PRIME:
+        return '元'
+      case DonationType.PERIODIC:
+        return '元/月'
+      case DonationType.OFFLINE:
+        return attribute === OfflineDonationAttribute.PERIODIC ? '元/月' : '元'
+      default:
+        return '元'
+    }
+  }
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isReceiptDownloading, setIsReceiptDownloading] = useState(false)
@@ -244,11 +263,11 @@ export const TableRow = memo(({ record }) => {
     <React.Fragment>
       <TableContent onClick={handleRowClick}>
         <P1Gray800 className="donation-date" text={donationDate} />
-        <P1Gray800 className="type" text={DonationTypeLabel[type]} />
+        <P1Gray800 className="type" text={typeLabel} />
         <P1Gray800 className="donation-number" text={orderNumber} />
         <P1Gray800
           className="amount"
-          text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
+          text={`${amount.toLocaleString('en-US')}${amountSuffix(type)}`}
         />
         <div className="status">
           <StatusBadge status={status} type={type} />
@@ -269,11 +288,11 @@ export const TableRow = memo(({ record }) => {
       <MobileTableContent onClick={handleRowClick}>
         <P1Gray800 text={donationDate} />
         <div className="row">
-          <P1Gray800 weight={P1.Weight.BOLD} text={DonationTypeLabel[type]} />
+          <P1Gray800 weight={P1.Weight.BOLD} text={typeLabel} />
           <StatusBadge status={status} type={type} />
           <P1Gray800
             className="amount"
-            text={`${amount.toLocaleString('en-US')}${amountSuffix}`}
+            text={`${amount.toLocaleString('en-US')}${amountSuffix(type)}`}
           />
           <IconButton
             iconComponent={
@@ -290,18 +309,22 @@ export const TableRow = memo(({ record }) => {
         </div>
         <P1Gray600 className="donation-number" text={orderNumber} />
       </MobileTableContent>
-      {isOpen && (
-        <TableRowDetail
-          record={record}
-          periodicHistory={periodicHistory}
-          isLoading={isLoading}
-          showDownloadReceipt={showDownloadReceipt}
-          downloadReceipt={downloadReceipt}
-          isDownloading={isReceiptDownloading}
-          showEditDonationInfo={showEditDonationInfo}
-          email={email}
-        />
-      )}
+      {isOpen ? (
+        type === DonationType.OFFLINE ? (
+          <TableRowDetailForOffline record={record} email={email} />
+        ) : (
+          <TableRowDetail
+            record={record}
+            periodicHistory={periodicHistory}
+            isLoading={isLoading}
+            showDownloadReceipt={showDownloadReceipt}
+            downloadReceipt={downloadReceipt}
+            isDownloading={isReceiptDownloading}
+            showEditDonationInfo={showEditDonationInfo}
+            email={email}
+          />
+        )
+      ) : null}
       <Divider />
     </React.Fragment>
   )

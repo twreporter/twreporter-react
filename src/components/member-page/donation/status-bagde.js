@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {
   colorBrand,
   colorGrayscale,
+  COLOR_SEMANTIC,
 } from '@twreporter/core/lib/constants/color'
 import Badge from '@twreporter/react-components/lib/badge'
 // constants
@@ -11,6 +12,7 @@ import {
   DonationType,
   PeriodicDonationStatus,
   PrimeDonationStatus,
+  OfflineDonationStatus,
 } from '../../../constants/donation'
 // lodash
 import get from 'lodash/get'
@@ -38,12 +40,12 @@ const badgePropsByStatus = {
     },
     [PeriodicDonationStatus.FAIL]: {
       text: '扣款失敗',
-      textColor: colorGrayscale.gray800,
+      textColor: COLOR_SEMANTIC.danger,
       backgroundColor: colorGrayscale.gray200,
     },
     [PeriodicDonationStatus.INVALID]: {
       text: '扣款失敗',
-      textColor: colorGrayscale.gray800,
+      textColor: COLOR_SEMANTIC.danger,
       backgroundColor: colorGrayscale.gray200,
     },
     [PeriodicDonationStatus.STOPPED]: {
@@ -65,10 +67,32 @@ const badgePropsByStatus = {
     },
     [PrimeDonationStatus.FAIL]: {
       text: '扣款失敗',
-      textColor: colorGrayscale.gray800,
+      textColor: COLOR_SEMANTIC.danger,
       backgroundColor: colorGrayscale.gray200,
     },
     [PrimeDonationStatus.REFUNDED]: {
+      text: '已退款',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: colorGrayscale.gray200,
+    },
+  },
+  [DonationType.OFFLINE]: {
+    [OfflineDonationStatus.PAYING]: {
+      text: '交易中',
+      textColor: colorBrand.heavy,
+      backgroundColor: colorGrayscale.white,
+    },
+    [OfflineDonationStatus.PAID]: {
+      text: '已完成',
+      textColor: colorGrayscale.gray800,
+      backgroundColor: 'transparent',
+    },
+    [OfflineDonationStatus.FAIL]: {
+      text: '失敗',
+      textColor: COLOR_SEMANTIC.danger,
+      backgroundColor: colorGrayscale.gray200,
+    },
+    [OfflineDonationStatus.REFUNDED]: {
       text: '已退款',
       textColor: colorGrayscale.gray800,
       backgroundColor: colorGrayscale.gray200,
