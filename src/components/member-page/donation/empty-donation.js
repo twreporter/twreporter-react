@@ -18,7 +18,7 @@ const ImportButton = styled(PillButton)`
   justify-content: center;
 `
 
-export const EmptyDonation = ({ handleImportOfflineDonation = () => {} }) => {
+export const EmptyDonation = ({ handleImportOfflineDonation }) => {
   const { releaseBranch } = useContext(CoreContext)
 
   const onDonateButtonClick = e => {
@@ -55,5 +55,5 @@ export const EmptyDonation = ({ handleImportOfflineDonation = () => {} }) => {
 }
 
 EmptyDonation.propTypes = {
-  handleImportOfflineDonation: PropTypes.func,
+  handleImportOfflineDonation: PropTypes.func.isRequired,
 }
