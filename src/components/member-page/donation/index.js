@@ -289,6 +289,7 @@ const MemberDonationPage = () => {
     toastr({ text: '匯入中...' })
     setHasOfflineDonation(false)
     setRecords(prev => [...fakeOfflineDonation, ...prev])
+    setShowEmptyState(false)
     setShowOfflineDonationPopup(false)
   }
 
@@ -315,7 +316,9 @@ const MemberDonationPage = () => {
         <StyledH3 text="贊助紀錄" />
         <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
           <EmptyDonationContainer>
-            <EmptyDonation />
+            <EmptyDonation
+              handleImportOfflineDonation={handleImportOfflineDonation}
+            />
           </EmptyDonationContainer>
         </LoadingMask>
       </DonationPageContainer>
