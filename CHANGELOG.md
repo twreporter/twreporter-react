@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.2.13-rc.1, 2025-07-16
+
+## Notable Changes
+
+- fix
+  - handle offline donation at empty state
+  - isRequired for handleImportOfflineDonation
+
+### Commits
+
+- [[`d961a88d1f`](https://github.com/twreporter/twreporter-react/commit/d961a88d1f)] - **fix**: isRequired for handleImportOfflineDonation (Lucien)
+- [[`b039f3d20a`](https://github.com/twreporter/twreporter-react/commit/b039f3d20a)] - **fix**: handle offline donation at empty state (Lucien)
+
 ## 5.2.13-rc.0, 2025-07-16
 
 ## Notable Changes
