@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 // context
 import { CoreContext } from '../../../contexts'
 // @twreporter
@@ -17,7 +18,7 @@ const ImportButton = styled(PillButton)`
   justify-content: center;
 `
 
-export const EmptyDonation = () => {
+export const EmptyDonation = ({ handleImportOfflineDonation }) => {
   const { releaseBranch } = useContext(CoreContext)
 
   const onDonateButtonClick = e => {
@@ -42,13 +43,17 @@ export const EmptyDonation = () => {
           text="前往贊助"
           onClick={onDonateButtonClick}
         />,
-        // TODO: add onClick
         <ImportButton
           key="import"
           text="匯入非官網贊助紀錄"
           type={PillButton.Type.SECONDARY}
+          onClick={handleImportOfflineDonation}
         />,
       ]}
     />
   )
+}
+
+EmptyDonation.propTypes = {
+  handleImportOfflineDonation: PropTypes.func.isRequired,
 }
