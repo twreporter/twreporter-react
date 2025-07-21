@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 // utils
 import mq from '../utils/media-query'
@@ -108,134 +108,127 @@ const ArrowNextIcon = styled.div`
   }
 `
 
-export default class Content extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.singlePages = []
-    this.pageContentHeight = []
-    this.clickCtr = 0
-    this.state = {
-      page: 0,
+const Content = ({
+  selectedRecords = [],
+  fullRecords = [],
+  awardYears = {},
+  awardsName = [],
+  activeAward = '',
+  activeYearIndex = 0,
+}) => {
+  const clickCtr = useRef(0)
+  const [page, setPage] = useState(0)
+  const [pagesLength, setPagesLength] = useState(0)
+  const [paginatedAwardsList, setPaginatedAwardsList] = useState([])
+
+  useEffect(() => {
+    if (selectedRecords.length > 0) {
+      let newPagesLength = Math.ceil(
+        selectedRecords.length / awardsNumberInSinglePage
+      )
+      if (selectedRecords.length % awardsNumberInSinglePage === 0) {
+        newPagesLength += 1
+      }
+      let newPaginatedAwardsList = []
+      for (let i = 0; i < newPagesLength; i++) {
+        let cursor = (i + 1) * awardsNumberInSinglePage
+        newPaginatedAwardsList.push(
+          selectedRecords.slice(cursor - awardsNumberInSinglePage, cursor)
+        )
+      }
+
+      setPagesLength(newPagesLength)
+      setPaginatedAwardsList(newPaginatedAwardsList)
     }
-  }
+  }, [selectedRecords, awardsNumberInSinglePage])
 
   /**
    * This callback function is used to scroll the award items page when clicking arrows
    * @param {String} direction
    * @param {Number} pagesLength
    */
-  _gotoNextPage = (direction, pagesLength) => {
-    let newPage
+  const gotoNextPage = (direction, pagesLength) => {
     switch (direction) {
       case 'next':
-        this.setState({ page: ++this.clickCtr % pagesLength })
+        setPage(++clickCtr.current % pagesLength)
         break
       case 'prev':
-        if (this.clickCtr === 0) {
-          this.clickCtr = pagesLength - 1
-          newPage = this.clickCtr
+        let newPage
+        if (clickCtr.current === 0) {
+          clickCtr.current = pagesLength - 1
+          newPage = clickCtr.current
         } else {
-          newPage = --this.clickCtr % pagesLength
+          newPage = --clickCtr.current % pagesLength
         }
-        this.setState({ page: newPage })
+        setPage(newPage)
         break
       default:
     }
   }
 
-  _backToTop = () => {
-    this.clickCtr = 0
-    this.setState({ page: 0 })
+  const backToTop = () => {
+    clickCtr.current = 0
+    setPage(0)
   }
-  render() {
-    const { page } = this.state
-    const {
-      selectedRecords,
-      fullRecords,
-      awardsName,
-      awardYears,
-      activeAward,
-      activeYearIndex,
-    } = this.props
-    let pagesLength = 0
-    let paginatedAwardsList = []
-    if (selectedRecords.length > 0) {
-      pagesLength = Math.ceil(selectedRecords.length / awardsNumberInSinglePage)
-      for (let i = 0; i < pagesLength; i++) {
-        let cursor = (i + 1) * awardsNumberInSinglePage
-        paginatedAwardsList.push(
-          selectedRecords.slice(cursor - awardsNumberInSinglePage, cursor)
-        )
-      }
-    }
 
-    return (
-      <Container>
-        <PageWrapper>
-          {paginatedAwardsList.length > 0 ? (
-            <PaginatedList
-              currentPage={page}
-              paginatedAwardsList={paginatedAwardsList}
-              transitionDuration={transitionDuration}
-              backToTop={this._backToTop}
-              activeAward={activeAward}
-              activeYearIndex={activeYearIndex}
-            />
-          ) : null}
-          <AccordionList
-            awardsName={awardsName}
-            fullRecords={fullRecords}
-            awardYears={awardYears}
+  return (
+    <Container>
+      <PageWrapper>
+        {paginatedAwardsList.length > 0 ? (
+          <PaginatedList
+            currentPage={page}
+            paginatedAwardsList={paginatedAwardsList}
             transitionDuration={transitionDuration}
+            backToTop={backToTop}
+            activeAward={activeAward}
+            activeYearIndex={activeYearIndex}
           />
-          <SemiTransparentMask $position={'bottom'} />
-        </PageWrapper>
-        <Arrows>
-          <TopArrow
-            $visible={pagesLength > 1}
-            onClick={() => this._gotoNextPage('prev', pagesLength)}
-          >
-            <ArrowNextIcon>
-              <img
-                src={`${replaceGCSUrlOrigin(
-                  `${storageUrlPrefix}/arrow-next.png`
-                )}`}
-              />
-            </ArrowNextIcon>
-          </TopArrow>
-          <BottomArrow
-            $visible={pagesLength > 1}
-            onClick={() => this._gotoNextPage('next', pagesLength)}
-          >
-            <ArrowNextIcon>
-              <img
-                src={`${replaceGCSUrlOrigin(
-                  `${storageUrlPrefix}/arrow-next.png`
-                )}`}
-              />
-            </ArrowNextIcon>
-          </BottomArrow>
-        </Arrows>
-      </Container>
-    )
-  }
-}
-
-Content.defaultProps = {
-  transitionDuration: '100ms',
-  selectedRecords: [],
-  fullRecords: {},
-  awardsName: [],
-  awardYears: {},
-  activeAward: '',
-  activeYearIndex: 0,
+        ) : null}
+        <AccordionList
+          awardsName={awardsName}
+          fullRecords={fullRecords}
+          awardYears={awardYears}
+          transitionDuration={transitionDuration}
+        />
+        <SemiTransparentMask $position={'bottom'} />
+      </PageWrapper>
+      <Arrows>
+        <TopArrow
+          $visible={pagesLength > 1}
+          onClick={() => gotoNextPage('prev', pagesLength)}
+        >
+          <ArrowNextIcon>
+            <img
+              src={`${replaceGCSUrlOrigin(
+                `${storageUrlPrefix}/arrow-next.png`
+              )}`}
+            />
+          </ArrowNextIcon>
+        </TopArrow>
+        <BottomArrow
+          $visible={pagesLength > 1}
+          onClick={() => gotoNextPage('next', pagesLength)}
+        >
+          <ArrowNextIcon>
+            <img
+              src={`${replaceGCSUrlOrigin(
+                `${storageUrlPrefix}/arrow-next.png`
+              )}`}
+            />
+          </ArrowNextIcon>
+        </BottomArrow>
+      </Arrows>
+    </Container>
+  )
 }
 
 Content.propTypes = {
   selectedRecords: PropTypes.array,
   fullRecords: PropTypes.object,
-  awardsName: PropTypes.array,
   awardYears: PropTypes.object,
+  awardsName: PropTypes.array,
   activeAward: PropTypes.string,
   activeYearIndex: PropTypes.number,
 }
+
+export default Content
