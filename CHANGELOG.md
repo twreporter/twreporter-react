@@ -1,8 +1,19 @@
 # Changelog
 
+## 5.2.13-rc.2, 2025-07-22
+
+### Notable Changes
+
+- fix
+  - add one more page for SOPA awards
+
+### Commits
+
+- [[`1eaf208b11`](https://github.com/twreporter/twreporter-react/commit/1eaf208b11)] - **fix**: add one more page for SOPA (Aylie Chou)
+
 ## 5.2.13-rc.1, 2025-07-16
 
-## Notable Changes
+### Notable Changes
 
 - fix
   - handle offline donation at empty state
@@ -15,7 +26,7 @@
 
 ## 5.2.13-rc.0, 2025-07-16
 
-## Notable Changes
+### Notable Changes
 
 - feat
   - add offline donation record
