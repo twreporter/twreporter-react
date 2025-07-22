@@ -317,10 +317,35 @@ const MemberDonationPage = () => {
         <LoadingMask isFetching={isLoading} showSpinner={isLoading}>
           <EmptyDonationContainer>
             <EmptyDonation
-              handleImportOfflineDonation={handleImportOfflineDonation}
+              handleImportOfflineDonation={() =>
+                setShowOfflineDonationPopup(true)
+              }
             />
           </EmptyDonationContainer>
         </LoadingMask>
+        <PopupContainer $show={showOfflineDonationPopup}>
+          <Popup>
+            <PopupTitle text="請確認是否同意《報導者》為您匯入非官網贊助紀錄" />
+            <PopupDesc>
+              <P1 text="按下同意後，將匯入此帳號自2024年1月起，於任何管道所進行贊助的紀錄。自即日起，非透過《報導者》網站贊助的紀錄，將於贊助日期的次月底匯入。" />
+              <P1 text={`帳號：${email}`} />
+            </PopupDesc>
+            <PopupButtonsContainer>
+              <TextButton
+                text="取消"
+                style={TextButton.Style.LIGHT}
+                onClick={() => setShowOfflineDonationPopup(false)}
+              />
+              <PopupConfirmButton
+                text="同意"
+                style={PillButton.Style.DARK}
+                type={PillButton.Type.PRIMARY}
+                size={PillButton.Size.S}
+                onClick={handleImportOfflineDonation}
+              />
+            </PopupButtonsContainer>
+          </Popup>
+        </PopupContainer>
       </DonationPageContainer>
     )
   }
