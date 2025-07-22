@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.2.13-rc.3, 2025-07-22
+
+### Notable Changes
+
+- feat
+  - add feature toggle for offline donation
+- fix
+  - show popup for empty state
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`bf629a1870`](https://github.com/twreporter/twreporter-react/commit/bf629a1870)] - **chore**: update twreporter packages (Lucien)
+- [[`d031b2cbca`](https://github.com/twreporter/twreporter-react/commit/d031b2cbca)] - **feat**: add feature toggle for offline donation (Lucien)
+- [[`61a3dcbd5b`](https://github.com/twreporter/twreporter-react/commit/61a3dcbd5b)] - **fix**: show popup for empty state (Lucien)
+
 ## 5.2.13-rc.2, 2025-07-22
 
 ### Notable Changes
