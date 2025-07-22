@@ -1,65 +1,18 @@
 # Changelog
 
-## 5.2.13-rc.4, 2025-07-22
-
-### Notable Changes
-
-- chore
-  - update twreporter packages
-
-### Commits
-
-- [[`3f3cb54239`](https://github.com/twreporter/twreporter-react/commit/3f3cb54239)] - **chore**: update twreporter packages (Lucien)
-
-## 5.2.13-rc.3, 2025-07-22
+## 5.2.13, 2025-07-22 (Current)
 
 ### Notable Changes
 
 - feat
   - add feature toggle for offline donation
-- fix
-  - show popup for empty state
-- chore
-  - update twreporter packages
-
-### Commits
-
-- [[`bf629a1870`](https://github.com/twreporter/twreporter-react/commit/bf629a1870)] - **chore**: update twreporter packages (Lucien)
-- [[`d031b2cbca`](https://github.com/twreporter/twreporter-react/commit/d031b2cbca)] - **feat**: add feature toggle for offline donation (Lucien)
-- [[`61a3dcbd5b`](https://github.com/twreporter/twreporter-react/commit/61a3dcbd5b)] - **fix**: show popup for empty state (Lucien)
-
-## 5.2.13-rc.2, 2025-07-22
-
-### Notable Changes
-
-- fix
-  - add one more page for SOPA awards
-
-### Commits
-
-- [[`1eaf208b11`](https://github.com/twreporter/twreporter-react/commit/1eaf208b11)] - **fix**: add one more page for SOPA (Aylie Chou)
-
-## 5.2.13-rc.1, 2025-07-16
-
-### Notable Changes
-
-- fix
-  - handle offline donation at empty state
-  - isRequired for handleImportOfflineDonation
-
-### Commits
-
-- [[`d961a88d1f`](https://github.com/twreporter/twreporter-react/commit/d961a88d1f)] - **fix**: isRequired for handleImportOfflineDonation (Lucien)
-- [[`b039f3d20a`](https://github.com/twreporter/twreporter-react/commit/b039f3d20a)] - **fix**: handle offline donation at empty state (Lucien)
-
-## 5.2.13-rc.0, 2025-07-16
-
-### Notable Changes
-
-- feat
   - add offline donation record
   - add new empty state for no record
 - fix
+  - show popup for empty state
+  - add one more page for SOPA awards
+  - handle offline donation at empty state
+  - isRequired for handleImportOfflineDonation
   - setRecords instead of unshift
   - address comments
 - chore
@@ -67,13 +20,20 @@
 
 ### Commits
 
+- [[`3f3cb54239`](https://github.com/twreporter/twreporter-react/commit/3f3cb54239)] - **chore**: update twreporter packages (Lucien)
+- [[`bf629a1870`](https://github.com/twreporter/twreporter-react/commit/bf629a1870)] - **chore**: update twreporter packages (Lucien)
+- [[`d031b2cbca`](https://github.com/twreporter/twreporter-react/commit/d031b2cbca)] - **feat**: add feature toggle for offline donation (Lucien)
+- [[`61a3dcbd5b`](https://github.com/twreporter/twreporter-react/commit/61a3dcbd5b)] - **fix**: show popup for empty state (Lucien)
+- [[`1eaf208b11`](https://github.com/twreporter/twreporter-react/commit/1eaf208b11)] - **fix**: add one more page for SOPA (Aylie Chou)
+- [[`d961a88d1f`](https://github.com/twreporter/twreporter-react/commit/d961a88d1f)] - **fix**: isRequired for handleImportOfflineDonation (Lucien)
+- [[`b039f3d20a`](https://github.com/twreporter/twreporter-react/commit/b039f3d20a)] - **fix**: handle offline donation at empty state (Lucien)
 - [[`d5af268bfc`](https://github.com/twreporter/twreporter-react/commit/d5af268bfc)] - **chore**: update twreporter packages (Lucien)
 - [[`3c1bf0cbf3`](https://github.com/twreporter/twreporter-react/commit/3c1bf0cbf3)] - **fix**: address comments (Lucien)
 - [[`a8efde3829`](https://github.com/twreporter/twreporter-react/commit/a8efde3829)] - **fix**: setRecords instead of unshift (Lucien)
 - [[`b5d518c3b1`](https://github.com/twreporter/twreporter-react/commit/b5d518c3b1)] - **feat**: add new empty state for no record (Lucien)
 - [[`6b4a2292df`](https://github.com/twreporter/twreporter-react/commit/6b4a2292df)] - **feat**: add offline donation record (Lucien)
 
-## 5.2.12, 2025-06-12 (Current)
+## 5.2.12, 2025-06-12
 
 ### Notable Changes
 
