@@ -20,12 +20,14 @@ import { MEMBER_ROLE } from '@twreporter/core/lib/constants/member-role'
 import { getSignInHref } from '@twreporter/core/lib/utils/sign-in-href'
 import EmptyState from '@twreporter/react-components/lib/empty-state'
 import RedirectToSignIn from '@twreporter/react-components/lib/bookmark-list/redirect-to-sign-in'
+import { OFFLINE_DONATION } from '@twreporter/core/lib/constants/feature-flag'
 
 // components
 import MemberMenuList from '../components/member-page/menu-list'
 import MemberData from '../components/member-page/member-data'
 import MemberRoleCard from '../components/member-page/member-role-card'
-import MemberDonationPage from '../components/member-page/donation'
+import MemberDonationPage from '../components/member-page/donation/index'
+import OldMemberDonationPage from '../components/member-page/donation/index-old'
 import EmailSubscription from '../components/member-page/email-subscription'
 import MobileMemberPage from '../components/member-page/mobile-page/mobile-member-page'
 import ExclusiveOffers from '../components/member-page/exclusive-offers'
@@ -300,7 +302,11 @@ const MemberPage = () => {
                 />
               </Route>
               <Route path={routes.memberPage.memberDonationPage.path}>
-                <MemberDonationPage />
+                {OFFLINE_DONATION ? (
+                  <MemberDonationPage />
+                ) : (
+                  <OldMemberDonationPage />
+                )}
               </Route>
               <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
                 <EmailSubscription />
