@@ -168,6 +168,9 @@ const MemberPage = () => {
   const readPostsSec = useSelector(state =>
     get(state, [reduxStateFields.user, 'readPostsSec'], 0)
   )
+  const isPeriodicPatron = useSelector(state =>
+    get(state, [reduxStateFields.user, 'isPeriodicPatron'])
+  )
 
   const memberData = {
     email,
@@ -312,7 +315,10 @@ const MemberPage = () => {
                 <EmailSubscription />
               </Route>
               <Route path={routes.memberPage.exclusiveOffersPage.path}>
-                <ExclusiveOffers role={memberData.role} />
+                <ExclusiveOffers
+                  role={memberData.role}
+                  isPeriodicPatron={isPeriodicPatron}
+                />
               </Route>
             </Switch>
           </ContentContainer>
@@ -351,7 +357,10 @@ const MemberPage = () => {
           </Route>
           <Route path={routes.memberPage.exclusiveOffersPage.path}>
             <ContentContainer>
-              <ExclusiveOffers role={memberData.role} />
+              <ExclusiveOffers
+                role={memberData.role}
+                isPeriodicPatron={isPeriodicPatron}
+              />
             </ContentContainer>
           </Route>
         </Switch>
