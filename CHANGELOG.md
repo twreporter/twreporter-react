@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.14-rc.0, 2025-08-06
+
+### Notable Changes
+
+- feat
+  - add `periodic` section in member offers
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`bba936b356`](https://github.com/twreporter/twreporter-react/commit/bba936b356)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`096217429f`](https://github.com/twreporter/twreporter-react/commit/096217429f)] - **feat**: add `periodic` section in member offers (Aylie Chou)
+
 ## 5.2.13, 2025-07-22 (Current)
 
 ### Notable Changes
