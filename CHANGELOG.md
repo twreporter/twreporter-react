@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.14-rc.1, 2025-08-06
+
+### Notable Changes
+
+- chore
+  - fix docker not found when build
+
+### Commits
+
+- [[`97a7dc80d7`](https://github.com/twreporter/twreporter-react/commit/97a7dc80d7)] - **chore**: fix docker not found when build (Aylie Chou)
+
 ## 5.2.14-rc.0, 2025-08-06
 
 ### Notable Changes
