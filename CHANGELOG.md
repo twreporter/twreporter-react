@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.14-rc.3, 2025-08-07
+
+### Notable Changes
+
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`5278887978`](https://github.com/twreporter/twreporter-react/commit/5278887978)] - **chore**: update twreporter packages (Lucien)
+
 ## 5.2.14-rc.2, 2025-08-07
 
 ### Notable Changes
