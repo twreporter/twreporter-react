@@ -59,6 +59,14 @@ jobs:
 
       - attach_workspace:
           at: .
+
+      - run:
+          name: Install Docker CLI (if not present)
+          command: |
+            if ! command -v docker; then
+              apt-get update && apt-get install -y docker.io
+            fi
+
       - run:
           name: Setup custom environment variables
           command: |
