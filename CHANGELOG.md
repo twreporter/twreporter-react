@@ -7,12 +7,12 @@
 - feat
   - add `periodic` section in member offers
 - chore
+  - update twreporter packages
   - fix docker not found when build
-  - update @twreporter packages
 
 ### Commits
 
-- [[`57e514563d`](https://github.com/twreporter/twreporter-react/commit/57e514563d)] - **chore**: update twreporter packages (Lucien)
+- [[`4b328a9a87`](https://github.com/twreporter/twreporter-react/commit/4b328a9a87)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`5278887978`](https://github.com/twreporter/twreporter-react/commit/5278887978)] - **chore**: update twreporter packages (Lucien)
 - [[`3c105828f5`](https://github.com/twreporter/twreporter-react/commit/3c105828f5)] - **chore**: update twreporter packages (Lucien)
 - [[`97a7dc80d7`](https://github.com/twreporter/twreporter-react/commit/97a7dc80d7)] - **chore**: fix docker not found when build (Aylie Chou)

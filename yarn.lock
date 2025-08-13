@@ -1662,7 +1662,7 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@twreporter/core@1.26.0", "@twreporter/core@^1.26.0":
+"@twreporter/core@^1.26.0":
   version "1.26.0"
   resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.26.0.tgz#479f419e8e447e50e2d7727f81f5a5fe04b3b456"
   integrity sha512-AXauMmwQ6Xk3lGnLFBnPJ5/PoblMpGiyR/RmycQZMRoSn9TMvo9We9uv/dWaThQdhfbp0IAETsexAbFbXGtGyw==
@@ -1672,7 +1672,7 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/index-page@2.1.9":
+"@twreporter/index-page@^2.1.9":
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.1.9.tgz#9d9fa85aa701e0999a57e110544b22dc385f8522"
   integrity sha512-gkHfl4EU3Ls/6oM23RgEFFkvT3xU02U2yqhd/dTSZCyo2JBbXabNuc5tPVFlNOurx/a/3567rX0HoX0tE94x5g==
@@ -1691,7 +1691,7 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@2.5.13":
+"@twreporter/react-article-components@^2.5.13":
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.5.13.tgz#8dc5b4649f2fa3159dd2b7bf15618653eb01a2eb"
   integrity sha512-AzGVI3QxAC/a2YRV6UCU21QL3whaRLr+p8ckSK5CO+x7y5NWap9PKeu1ocBmajZfz4umf+OukCr8Z/6rtrou0w==
@@ -1711,7 +1711,7 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/react-components@9.8.1", "@twreporter/react-components@^9.8.1":
+"@twreporter/react-components@^9.8.1":
   version "9.8.1"
   resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-9.8.1.tgz#ea97e1d5a74d8ec400d07f7298480aadab301fae"
   integrity sha512-zaTbPC0GPnGsCzSgahZGAs/QwGc+IBs8nUZKp1U6p6v2QoXwPc8Ye2AEwxty2K1tF21BtXIheEbN8C1HguBISA==
@@ -1731,7 +1731,7 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/redux@8.4.0", "@twreporter/redux@^8.4.0":
+"@twreporter/redux@^8.4.0":
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-8.4.0.tgz#2130a4ef885dc884efd42605ba18358f6f4b7712"
   integrity sha512-dDeA3Eu/HOuvXyW5nirgEngiRtjoG9mbORN7QEG8oQxyDBNLWc1Etscr+3VwbQGxTiHyDW9X4+WJUcAalB8cUg==
@@ -1750,7 +1750,7 @@
     redux "^5.0.1"
     redux-thunk "^3.1.0"
 
-"@twreporter/universal-header@3.1.0", "@twreporter/universal-header@^3.1.0":
+"@twreporter/universal-header@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.1.0.tgz#645f99107c454525587f02b7b30e6f13efb2e7a3"
   integrity sha512-ACFNU1p79h+boCv+YEQeGNrXIAXV87fDL+SaJJsNXRkOSafn/kGsomuyoW0mC0tK5uXqOFvxXD5nbMIJe4gEBQ==
