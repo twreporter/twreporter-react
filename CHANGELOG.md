@@ -1,53 +1,25 @@
 # Changelog
 
-## 5.2.14-rc.3, 2025-08-07
-
-### Notable Changes
-
-- chore
-  - update twreporter packages
-
-### Commits
-
-- [[`5278887978`](https://github.com/twreporter/twreporter-react/commit/5278887978)] - **chore**: update twreporter packages (Lucien)
-
-## 5.2.14-rc.2, 2025-08-07
-
-### Notable Changes
-
-- chore
-  - update twreporter packages
-
-### Commits
-
-- [[`3c105828f5`](https://github.com/twreporter/twreporter-react/commit/3c105828f5)] - **chore**: update twreporter packages (Lucien)
-
-## 5.2.14-rc.1, 2025-08-06
-
-### Notable Changes
-
-- chore
-  - fix docker not found when build
-
-### Commits
-
-- [[`97a7dc80d7`](https://github.com/twreporter/twreporter-react/commit/97a7dc80d7)] - **chore**: fix docker not found when build (Aylie Chou)
-
-## 5.2.14-rc.0, 2025-08-06
+## 5.2.14, 2025-08-13 (Current)
 
 ### Notable Changes
 
 - feat
   - add `periodic` section in member offers
 - chore
-  - update @twreporter packages
+  - update twreporter packages
+  - fix docker not found when build
 
 ### Commits
 
+- [[`4b328a9a87`](https://github.com/twreporter/twreporter-react/commit/4b328a9a87)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`5278887978`](https://github.com/twreporter/twreporter-react/commit/5278887978)] - **chore**: update twreporter packages (Lucien)
+- [[`3c105828f5`](https://github.com/twreporter/twreporter-react/commit/3c105828f5)] - **chore**: update twreporter packages (Lucien)
+- [[`97a7dc80d7`](https://github.com/twreporter/twreporter-react/commit/97a7dc80d7)] - **chore**: fix docker not found when build (Aylie Chou)
 - [[`bba936b356`](https://github.com/twreporter/twreporter-react/commit/bba936b356)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`096217429f`](https://github.com/twreporter/twreporter-react/commit/096217429f)] - **feat**: add `periodic` section in member offers (Aylie Chou)
 
-## 5.2.13, 2025-07-22 (Current)
+## 5.2.13, 2025-07-22
 
 ### Notable Changes
 
