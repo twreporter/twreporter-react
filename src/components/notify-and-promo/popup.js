@@ -18,6 +18,8 @@ import {
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import { DONATION_LINK_ANCHOR } from '@twreporter/core/lib/constants/donation-link-anchor'
+import { TEN_YEAR_ANNIVERSARY } from '@twreporter/core/lib/constants/feature-flag'
+import externalLinks from '@twreporter/core/lib/constants/external-links'
 
 // desktop popup component
 const boxCss = css`
@@ -91,6 +93,33 @@ const DesktopPopup = () => {
   )
 }
 
+const AnniversaryDesktopPopup = () => {
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
+  const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_text_desktop.png`
+  const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_desktop.png`
+  const moreAction = () => {
+    const anniversaryLink = externalLinks.tenYearAnniversary
+    window.open(anniversaryLink, '_blank')
+    closePromo()
+  }
+
+  return (
+    <DesktopPopupBox>
+      <CloseButton
+        iconComponent={<Cross releaseBranch={releaseBranch} />}
+        theme={IconButton.THEME.normal}
+        onClick={closePromo}
+      />
+      <FlexGroup>
+        <TextImg src={textUrl} alt="報導者十歲了！" />
+        <DesktopMore onClickButton={moreAction} text="看見改變" />
+      </FlexGroup>
+      <HighFiveImg src={imageUrl} alt="報導者十歲了！" />
+    </DesktopPopupBox>
+  )
+}
+
 // mobile popup component
 const MobilePopupBox = styled.div`
   ${boxCss}
@@ -131,6 +160,29 @@ const MobilePopup = () => {
   )
 }
 
+const AnniversaryMobilePopup = () => {
+  const { closePromo } = useContext(PromoContext)
+  const { releaseBranch } = useContext(CoreContext)
+  const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_mobile.png`
+  const moreAction = () => {
+    const anniversaryLink = externalLinks.tenYearAnniversary
+    window.open(anniversaryLink, '_blank')
+    closePromo()
+  }
+
+  return (
+    <MobilePopupBox>
+      <CloseButton
+        iconComponent={<Cross releaseBranch={releaseBranch} />}
+        theme={IconButton.THEME.normal}
+        onClick={closePromo}
+      />
+      <MobileImg src={imgUrl} alt="報導者十歲了！" />
+      <MobileMore onClickButton={moreAction} text="看見改變" />
+    </MobilePopupBox>
+  )
+}
+
 // popup component
 const PopupContainer = styled.div`
   width: 100vw;
@@ -151,10 +203,14 @@ const Popup = () => {
     <PopupContainer $show={isShowPromo} onClick={closePromo}>
       <Box onClick={preventClosePromo}>
         <DesktopAndAbove>
-          <DesktopPopup />
+          {TEN_YEAR_ANNIVERSARY ? (
+            <AnniversaryDesktopPopup />
+          ) : (
+            <DesktopPopup />
+          )}
         </DesktopAndAbove>
         <TabletAndBelow>
-          <MobilePopup />
+          {TEN_YEAR_ANNIVERSARY ? <AnniversaryMobilePopup /> : <MobilePopup />}
         </TabletAndBelow>
       </Box>
     </PopupContainer>
