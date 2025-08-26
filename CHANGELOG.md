@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.15-rc.0, 2025-08-26
+
+### Notable Changes
+
+- feat
+  - 10 year anniversary popup and banner
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`03ac9da2d1`](https://github.com/twreporter/twreporter-react/commit/03ac9da2d1)] - **chore**: update twreporter packages (Lucien)
+- [[`6c904c1de5`](https://github.com/twreporter/twreporter-react/commit/6c904c1de5)] - **feat**: 10 year anniversary popup and banner (Lucien)
+
 ## 5.2.14, 2025-08-13 (Current)
 
 ### Notable Changes
