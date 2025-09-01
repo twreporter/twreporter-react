@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.15-rc.1, 2025-09-01
+
+### Notable Changes
+
+- fix
+  - anniversary banner text
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`c560724451`](https://github.com/twreporter/twreporter-react/commit/c560724451)] - **chore**: update twreporter packages (Lucien)
+- [[`589bd7ddf3`](https://github.com/twreporter/twreporter-react/commit/589bd7ddf3)] - **fix**: anniversary banner text (Lucien)
+
 ## 5.2.15-rc.0, 2025-08-26
 
 ### Notable Changes
