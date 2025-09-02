@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.15-rc.2, 2025-09-02
+
+### Notable Changes
+
+- fix
+  - banner text
+
+### Commits
+
+- [[`dcbf450aea`](https://github.com/twreporter/twreporter-react/commit/dcbf450aea)] - **fix**: banner text (Lucien)
+
 ## 5.2.15-rc.1, 2025-09-01
 
 ### Notable Changes
