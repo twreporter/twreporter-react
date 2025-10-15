@@ -15,7 +15,7 @@ const defaultIndicatorColor = 'rgb(113, 113, 113)'
 
 const SlidesContainer = styled.div`
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   touch-action: pan-y;
   ${mq.mobileOnly`
     height: 300px;
