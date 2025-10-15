@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.16-rc.0, 2025-10-15
+
+### Notable Changes
+
+- fix
+  - photography page scroll hidden
+
+### Commits
+
+- [[`eb73b2bfde`](https://github.com/twreporter/twreporter-react/commit/eb73b2bfde)] - **fix**: photography page scroll hidden (Lucien)
+
 ## 5.2.15, 2025-09-15 (Current)
 
 ### Notable Changes
