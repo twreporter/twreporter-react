@@ -444,6 +444,9 @@ const Article = ({ releaseBranch }) => {
   if (ogImage.width) {
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
+  const publishDate = _.get(post, 'published_date')
+  const category = _.get(post, 'category_set[0].category.name', '')
+  const subcategory = _.get(post, 'category_set[0].subcategory.name', '')
 
   // Process tracking sections
   const trackingSection = processTrackingSections(post)
@@ -469,6 +472,10 @@ const Article = ({ releaseBranch }) => {
           { property: 'og:type', content: 'article' },
           { property: 'og:url', content: canonical },
           { property: 'og:rich_attachment', content: 'true' },
+          { property: 'article:published_time', content: publishDate },
+          { property: 'article:section', content: category },
+          { property: 'twreporter:category', content: category },
+          { property: 'twreporter:subcategory', content: subcategory },
           ...metaOgImage,
         ]}
       />
