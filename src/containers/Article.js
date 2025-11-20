@@ -444,6 +444,10 @@ const Article = ({ releaseBranch }) => {
   if (ogImage.width) {
     metaOgImage.push({ property: 'og:image:width', content: ogImage.width })
   }
+  const ogImageAlt = _.get(post, 'og_image.description')
+  if (ogImageAlt) {
+    metaOgImage.push({ property: 'og:image:alt', content: ogImageAlt })
+  }
   const publishDate = _.get(post, 'published_date')
   const category = _.get(post, 'category_set[0].category.name', '')
   const subcategory = _.get(post, 'category_set[0].subcategory.name', '')
