@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.18-rc.0, 2025-11-24
+## 5.2.18, 2025-11-27 (Current)
 
 ### Notable Changes
 
@@ -14,7 +14,7 @@
 - [[`25fc87bf2b`](https://github.com/twreporter/twreporter-react/commit/25fc87bf2b)] - **fix**: add `og:image:alt` for meta crawler (Aylie Chou)
 - [[`7faa5bbd71`](https://github.com/twreporter/twreporter-react/commit/7faa5bbd71)] - **fix**: add category & published date in og (Aylie Chou)
 
-## 5.2.17, 2025-11-11 (Current)
+## 5.2.17, 2025-11-11
 
 ### Notable Changes
 
