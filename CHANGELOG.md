@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.2.18, 2025-11-27 (Current)
+## 5.2.19, 2025-12-22 (Current)
+
+### Notable Changes
+
+- fix
+  - apply `OFFLINE_DONATION` feature toggle to mobile page
+
+### Commits
+
+- [[`b7796a21a9`](https://github.com/twreporter/twreporter-react/commit/b7796a21a9)] - **fix**: apply OFFLINE_DONATION to mobile page (Aylie Chou)
+
+## 5.2.18, 2025-11-27
 
 ### Notable Changes
 
