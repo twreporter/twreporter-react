@@ -347,7 +347,11 @@ const MemberPage = () => {
         <Switch>
           <Route path={routes.memberPage.memberDonationPage.path}>
             <ContentContainer>
-              <MemberDonationPage />
+              {OFFLINE_DONATION ? (
+                <MemberDonationPage />
+              ) : (
+                <OldMemberDonationPage />
+              )}
             </ContentContainer>
           </Route>
           <Route path={routes.memberPage.memberEmailSubscriptionPage.path}>
