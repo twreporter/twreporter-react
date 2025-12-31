@@ -1,6 +1,18 @@
 # Changelog
 
-## 5.2.19, 2025-12-22 (Current)
+## 5.2.20, 2025-12-31 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d7832784ca`](https://github.com/twreporter/twreporter-react/commit/d7832784ca)] - **chore**: update @twreporter packages (Lucien)
+- [[`7aab031b5c`](https://github.com/twreporter/twreporter-react/commit/7aab031b5c)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 5.2.19, 2025-12-22
 
 ### Notable Changes
 
