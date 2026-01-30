@@ -79,10 +79,7 @@ const TitleContainer = styled.div`
   align-items: center;
 `
 
-const DownloadYearlyReceiptButton = styled(PillButton)`
-  height: 122px;
-  height: 29px;
-`
+const DownloadYearlyReceiptButton = styled(PillButton)``
 
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
