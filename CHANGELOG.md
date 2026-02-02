@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.20-rc.0, 2026-02-02
+## 5.2.21-rc.0, 2026-02-02
 
 ### Notable Changes
 
@@ -13,7 +13,19 @@
 - [[`7733b1d7ab`](https://github.com/twreporter/twreporter-react/commit/7733b1d7ab)] - **fix**: use PillButton (Lucien)
 - [[`616c6fd8ba`](https://github.com/twreporter/twreporter-react/commit/616c6fd8ba)] - **fix**: update date formatting in donation table to use local time (Lucien)
 
-## 5.2.19, 2025-12-22 (Current)
+## 5.2.20, 2025-12-31 (Current)
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`d7832784ca`](https://github.com/twreporter/twreporter-react/commit/d7832784ca)] - **chore**: update @twreporter packages (Lucien)
+- [[`7aab031b5c`](https://github.com/twreporter/twreporter-react/commit/7aab031b5c)] - **chore**: update @twreporter packages (Aylie Chou)
+
+## 5.2.19, 2025-12-22
 
 ### Notable Changes
 
