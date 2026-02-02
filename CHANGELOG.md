@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.2.21-rc.0, 2026-02-02
+
+### Notable Changes
+
+- fix
+  - use PillButton
+  - update date formatting in donation table to use local time
+
+### Commits
+
+- [[`7733b1d7ab`](https://github.com/twreporter/twreporter-react/commit/7733b1d7ab)] - **fix**: use PillButton (Lucien)
+- [[`616c6fd8ba`](https://github.com/twreporter/twreporter-react/commit/616c6fd8ba)] - **fix**: update date formatting in donation table to use local time (Lucien)
+
 ## 5.2.20, 2025-12-31 (Current)
 
 ### Notable Changes
