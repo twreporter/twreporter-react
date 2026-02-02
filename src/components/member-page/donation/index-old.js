@@ -79,8 +79,6 @@ const TitleContainer = styled.div`
   align-items: center;
 `
 
-const DownloadYearlyReceiptButton = styled(PillButton)``
-
 const Loading = styled.div``
 const LoadingMask = FetchingWrapper(Loading)
 
@@ -214,7 +212,7 @@ const MemberDonationPage = () => {
       <TitleContainer>
         <StyledH3 text="贊助紀錄" />
         {yearlyDownloadTextYear > 0 ? (
-          <DownloadYearlyReceiptButton
+          <PillButton
             text={`${yearlyDownloadTextYear}年度收據`}
             style={PillButton.Style.DARK}
             type={PillButton.Type.PRIMARY}
