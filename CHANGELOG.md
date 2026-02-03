@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.21-rc.1, 2026-02-03
+
+### Notable Changes
+
+- feat
+  - pass `is_hide_title_block` to article props
+- chore
+  - upadte @twreporter packages
+
+### Commits
+
+- [[`93e8597229`](https://github.com/twreporter/twreporter-react/commit/93e8597229)] - **chore**: upadte @twreporter packages (Aylie Chou)
+- [[`b90fa466dd`](https://github.com/twreporter/twreporter-react/commit/b90fa466dd)] - **feat**: pass `is_hide_title_block` to article props (Aylie Chou)
+
 ## 5.2.21-rc.0, 2026-02-02
 
 ### Notable Changes

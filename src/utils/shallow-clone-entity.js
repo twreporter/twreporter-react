@@ -79,6 +79,7 @@ export function shallowCloneFullPost(post) {
     'updated_at',
     'followups',
     'leading_embedded',
+    'is_hide_title_block',
   ]
 
   const metaPost = shallowCloneMetaOfPost(post)
