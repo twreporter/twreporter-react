@@ -114,7 +114,7 @@ const Divider = styled(divider)`
 `
 
 export const formattedDate = date =>
-  `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}`
+  `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 
 const getShowEditDonationInfo = status => {
   switch (status) {
