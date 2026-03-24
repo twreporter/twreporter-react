@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.22-rc.0, 2026-03-25
+
+### Notable Changes
+
+- chore
+  - upadte @twreporter packages
+
+### Commits
+
+- [[`97d874bd2d`](https://github.com/twreporter/twreporter-react/commit/97d874bd2d)] - **chore**: update @twreporter packages (Lucien)
+
 ## 5.2.21, 2026-02-06 (Current)
 
 ### Notable Changes
