@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.22-rc.1, 2026-03-25
+
+### Notable Changes
+
+- fix
+  - add `created_at` to post component
+
+### Commits
+
+- [[`ae44dfda00`](https://github.com/twreporter/twreporter-react/commit/ae44dfda00)] - **fix**: add created_at to post (Aylie Chou)
+
 ## 5.2.22-rc.0, 2026-03-25
 
 ### Notable Changes
