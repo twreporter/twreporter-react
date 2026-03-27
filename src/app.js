@@ -150,6 +150,17 @@ const BaseStyle = css`
     background-color: ${colorSupportive.heavy};
     color: ${colorGrayscale.white};
   }
+
+  /* replace google search css */
+  form.gsc-search-box {
+    max-width: 100% !important;
+  }
+  .gsc-above-wrapper-area {
+    max-width: 100% !important;
+  }
+  .gsc-wrapper {
+    max-width: 100% !important;
+  }
 `
 
 const GlobalStyle = createGlobalStyle`
