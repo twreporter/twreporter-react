@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.2.21, 2026-02-06 (Current)
+## 5.2.22, 2026-03-27 (Current)
+
+### Notable Changes
+
+- fix
+  - use max-width to replace google style
+
+### Commits
+
+- [[`b4302a3b31`](https://github.com/twreporter/twreporter-react/commit/b4302a3b31)] - **fix**: use max-width to replace google style (Lucien)
+
+## 5.2.21, 2026-02-06
 
 ### Notable Changes
 
