@@ -152,12 +152,8 @@ const BaseStyle = css`
   }
 
   /* replace google search css */
-  form.gsc-search-box {
-    max-width: 100% !important;
-  }
-  .gsc-above-wrapper-area {
-    max-width: 100% !important;
-  }
+  form.gsc-search-box,
+  .gsc-above-wrapper-area,
   .gsc-wrapper {
     max-width: 100% !important;
   }
