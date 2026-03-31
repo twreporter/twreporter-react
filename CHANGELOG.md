@@ -1,39 +1,22 @@
 # Changelog
 
-## 5.2.22-rc.2, 2026-03-30
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`b0d7c13db5`](https://github.com/twreporter/twreporter-react/commit/b0d7c13db5)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 5.2.22-rc.1, 2026-03-25
+## 5.2.22, 2026-03-31 (Current)
 
 ### Notable Changes
 
 - fix
   - add `created_at` to post component
-
-### Commits
-
-- [[`ae44dfda00`](https://github.com/twreporter/twreporter-react/commit/ae44dfda00)] - **fix**: add created_at to post (Aylie Chou)
-
-## 5.2.22-rc.0, 2026-03-25
-
-### Notable Changes
-
 - chore
-  - upadte @twreporter packages
+  - update @twreporter packages
 
 ### Commits
 
+- [[`b4dc0bd2d8`](https://github.com/twreporter/twreporter-react/commit/b4dc0bd2d8)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`b0d7c13db5`](https://github.com/twreporter/twreporter-react/commit/b0d7c13db5)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`ae44dfda00`](https://github.com/twreporter/twreporter-react/commit/ae44dfda00)] - **fix**: add created_at to post (Aylie Chou)
 - [[`97d874bd2d`](https://github.com/twreporter/twreporter-react/commit/97d874bd2d)] - **chore**: update @twreporter packages (Lucien)
 
-## 5.2.21, 2026-02-06 (Current)
+## 5.2.21, 2026-02-06
 
 ### Notable Changes
 
