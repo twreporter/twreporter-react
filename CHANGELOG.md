@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.23-rc.0, 2026-04-09
+
+### Notable Changes
+
+- fix
+  - google search css
+
+### Commits
+
+- [[`f5ed58dade`](https://github.com/twreporter/twreporter-react/commit/f5ed58dade)] - **fix**: google search css (Lucien)
+
 ## 5.2.22, 2026-03-31 (Current)
 
 ### Notable Changes
