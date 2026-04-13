@@ -1,6 +1,21 @@
 # Changelog
 
-## 5.2.23, 2026-03-31 (Current)
+## 5.2.24, 2026-04-09 (Current)
+
+### Notable Changes
+
+- fix
+  - google search css
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`86df4d0e47`](https://github.com/twreporter/twreporter-react/commit/86df4d0e47)] - **chore**: update @twreporter packages (Lucien)
+- [[`f373dcd9ba`](https://github.com/twreporter/twreporter-react/commit/f373dcd9ba)] - **chore**: update @twreporter packages (Lucien)
+- [[`f5ed58dade`](https://github.com/twreporter/twreporter-react/commit/f5ed58dade)] - **fix**: google search css (Lucien)
+
+## 5.2.23, 2026-03-31
 
 ### Notable Changes
 
