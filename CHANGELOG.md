@@ -1,28 +1,21 @@
 # Changelog
 
-## 5.2.23-rc.01, 2026-04-10
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`f373dcd9ba`](https://github.com/twreporter/twreporter-react/commit/f373dcd9ba)] - **chore**: update @twreporter packages (Lucien)
-
-## 5.2.23-rc.0, 2026-04-09
+## 5.2.24, 2026-04-09 (Current)
 
 ### Notable Changes
 
 - fix
   - google search css
+- chore
+  - update @twreporter packages
 
 ### Commits
 
+- [[`86df4d0e47`](https://github.com/twreporter/twreporter-react/commit/86df4d0e47)] - **chore**: update @twreporter packages (Lucien)
+- [[`f373dcd9ba`](https://github.com/twreporter/twreporter-react/commit/f373dcd9ba)] - **chore**: update @twreporter packages (Lucien)
 - [[`f5ed58dade`](https://github.com/twreporter/twreporter-react/commit/f5ed58dade)] - **fix**: google search css (Lucien)
 
-## 5.2.22, 2026-03-31 (Current)
+## 5.2.23, 2026-03-31
 
 ### Notable Changes
 
@@ -37,6 +30,17 @@
 - [[`b0d7c13db5`](https://github.com/twreporter/twreporter-react/commit/b0d7c13db5)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`ae44dfda00`](https://github.com/twreporter/twreporter-react/commit/ae44dfda00)] - **fix**: add created_at to post (Aylie Chou)
 - [[`97d874bd2d`](https://github.com/twreporter/twreporter-react/commit/97d874bd2d)] - **chore**: update @twreporter packages (Lucien)
+
+## 5.2.22, 2026-03-27
+
+### Notable Changes
+
+- fix
+  - use max-width to replace google style
+
+### Commits
+
+- [[`b4302a3b31`](https://github.com/twreporter/twreporter-react/commit/b4302a3b31)] - **fix**: use max-width to replace google style (Lucien)
 
 ## 5.2.21, 2026-02-06
 
