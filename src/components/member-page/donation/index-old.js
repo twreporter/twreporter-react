@@ -196,9 +196,7 @@ const MemberDonationPage = () => {
         } else {
           try {
             await axios.post(
-              `${apiOrigin}/v1/donations/receipt/${yearlyDownloadTextYear}?email=${encodeURIComponent(
-                email
-              )}`,
+              `${apiOrigin}/v1/donations/receipt/${yearlyDownloadTextYear}`,
               null,
               {
                 withCredentials: true,
