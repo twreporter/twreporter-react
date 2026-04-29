@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
+import axios from 'axios'
 import querystring from 'querystring'
 import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -212,11 +213,17 @@ const MemberDonationPage = () => {
   )
   const { userID, email, jwt } = useSelector(userInfoSelector)
   const { totalDonationHistory } = useSelector(totalDonationSelector)
+  const apiOrigin = useSelector(state =>
+    _.get(state, [reduxStateFields.origins, 'api'])
+  )
 
   const [records, setRecords] = useState([])
   const [showEmptyState, setShowEmptyState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isYearlyReceiptDownloading, setIsYearlyReceiptDownloading] = useState(
+    false
+  )
+  const [isYearlyReceiptGenerating, setIsYearlyReceiptGenerating] = useState(
     false
   )
   const [yearlyDownloadTextYear, setYearlyDownloadTextYear] = useState(0)
@@ -227,6 +234,7 @@ const MemberDonationPage = () => {
   )
 
   const [downloadYearlyReceiptTrigger, ,] = useLazyGetYearlyReceiptQuery()
+  const yearlyReceiptGeneratingTimerRef = useRef(null)
 
   const { toastr } = useContext(CoreContext)
 
@@ -256,11 +264,10 @@ const MemberDonationPage = () => {
   }
 
   const handleYearlyReceiptDownload = async () => {
-    if (isYearlyReceiptDownloading) {
+    if (isYearlyReceiptDownloading || isYearlyReceiptGenerating) {
       return
     }
     setIsYearlyReceiptDownloading(true)
-    toastr({ text: '收據開立中，開立完成會自動下載' })
 
     try {
       const result = await downloadYearlyReceiptTrigger({
@@ -268,6 +275,12 @@ const MemberDonationPage = () => {
         email,
         jwt,
       }).unwrap()
+
+      if (yearlyReceiptGeneratingTimerRef.current) {
+        clearTimeout(yearlyReceiptGeneratingTimerRef.current)
+        yearlyReceiptGeneratingTimerRef.current = null
+      }
+      setIsYearlyReceiptGenerating(false)
 
       const url = window.URL.createObjectURL(result)
       const link = document.createElement('a')
@@ -278,7 +291,62 @@ const MemberDonationPage = () => {
       document.body.removeChild(link)
       window.URL.revokeObjectURL(link.href)
     } catch (err) {
-      console.error('download receipt failed. err:', err)
+      // If the receipt file doesn't exist yet (404), trigger on-demand generation.
+      // The generation is async on the server side; notify the user to retry in a moment.
+      if (err && err.status === 404) {
+        if (!apiOrigin) {
+          console.error('yearly receipt generation: API origin not configured')
+          toastr({
+            text:
+              '收據下載失敗，請稍後再試，或來信 contact@twreporter.org 由專人協助',
+          })
+        } else {
+          try {
+            await axios.post(
+              `${apiOrigin}/v1/donations/receipt/${yearlyDownloadTextYear}`,
+              null,
+              {
+                withCredentials: true,
+                headers: { Authorization: `Bearer ${jwt}` },
+                timeout: 8000,
+              }
+            )
+            // axios resolves only on 2xx; reaching here means receipt generation started
+            setIsYearlyReceiptGenerating(true)
+            toastr({ text: '收據製作中，請 1 分鐘後再次點擊' })
+            if (yearlyReceiptGeneratingTimerRef.current) {
+              clearTimeout(yearlyReceiptGeneratingTimerRef.current)
+            }
+            yearlyReceiptGeneratingTimerRef.current = setTimeout(() => {
+              setIsYearlyReceiptGenerating(false)
+              yearlyReceiptGeneratingTimerRef.current = null
+            }, 60 * 1000)
+          } catch (postErr) {
+            if (postErr?.response?.status === 404) {
+              // go-api proxies 404 from member-cms: no donations for this year,
+              // so a receipt can never be generated.
+              toastr({
+                text: `${yearlyDownloadTextYear} 年度無贊助紀錄，無法產生收據`,
+              })
+            } else {
+              console.error(
+                'failed to trigger yearly receipt generation:',
+                postErr
+              )
+              toastr({
+                text:
+                  '收據下載失敗，請稍後再試，或來信 contact@twreporter.org 由專人協助',
+              })
+            }
+          }
+        }
+      } else {
+        console.error('download receipt failed. err:', err)
+        toastr({
+          text:
+            '收據下載失敗，請稍後再試，或來信 contact@twreporter.org 由專人協助',
+        })
+      }
     } finally {
       setIsYearlyReceiptDownloading(false)
     }
@@ -292,6 +360,15 @@ const MemberDonationPage = () => {
     setShowEmptyState(false)
     setShowOfflineDonationPopup(false)
   }
+
+  useEffect(() => {
+    return () => {
+      if (yearlyReceiptGeneratingTimerRef.current) {
+        clearTimeout(yearlyReceiptGeneratingTimerRef.current)
+        yearlyReceiptGeneratingTimerRef.current = null
+      }
+    }
+  }, [])
 
   useEffect(() => {
     // get donations
@@ -366,12 +443,16 @@ const MemberDonationPage = () => {
           ) : null}
           {yearlyDownloadTextYear > 0 ? (
             <DownloadYearlyReceiptButton
-              text={`${yearlyDownloadTextYear}收據`}
+              text={
+                isYearlyReceiptGenerating
+                  ? '收據製作中...'
+                  : `${yearlyDownloadTextYear}收據`
+              }
               style={PillButton.Style.DARK}
               type={PillButton.Type.PRIMARY}
               size={PillButton.Size.S}
               loading={isYearlyReceiptDownloading}
-              disabled={isYearlyReceiptDownloading}
+              disabled={isYearlyReceiptDownloading || isYearlyReceiptGenerating}
               onClick={handleYearlyReceiptDownload}
               rightIconComponent={<Download />}
             />
