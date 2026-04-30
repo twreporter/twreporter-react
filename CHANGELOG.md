@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.3.0-rc.0, 2026-04-24
+## 5.3.0, 2026-04-24 (Current)
 
 ### Notable Changes
 
@@ -13,7 +13,7 @@
 - [[`4977cb646c`](https://github.com/twreporter/twreporter-react/commit/4977cb646c)] - **fix**: apply same code changes to index-old.js (nickhsine)
 - [[`0ee07f6696`](https://github.com/twreporter/twreporter-react/commit/0ee07f6696)] - **feat**: support on-demand yearly receipt generation (nickhsine)
 
-## 5.2.24, 2026-04-09 (Current)
+## 5.2.24, 2026-04-09
 
 ### Notable Changes
 
