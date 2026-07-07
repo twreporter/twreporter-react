@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.0, 2026-04-24 (Current)
+## 5.3.1, 2026-07-07 (Current)
+
+### Notable Changes
+
+- fix
+  - update robots.txt for ai crawlers
+
+### Commits
+
+- [[`d73998c55e`](https://github.com/twreporter/twreporter-react/commit/d73998c55e)] - **fix**: update robots.txt for ai crawlers (Aylie Chou)
+
+## 5.3.0, 2026-04-24
 
 ### Notable Changes
 
