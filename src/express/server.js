@@ -10,6 +10,7 @@ import initReduxStoreMiddleware from './middlewares/init-redux-store'
 import path from 'path'
 import loggerFactory from '../logger'
 import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
+import releaseRobotsTxt from './robots-txt'
 import renderHTMLMiddleware from './middlewares/render-html'
 import statusCodeConst from '../constants/status-code'
 
@@ -92,13 +93,7 @@ class ExpressServer {
       if (globalEnv.releaseBranch === releaseBranchConsts.release) {
         res.format({
           'text/plain': function() {
-            res
-              .status(statusCodeConst.ok)
-              .send(
-                'User-agent: * \n' +
-                  'Sitemap: https://public.twreporter.org/sitemaps/www-sitemap.xml\n' +
-                  'Sitemap: https://www.twreporter.org/sitemaps/index-articles.xml'
-              )
+            res.status(statusCodeConst.ok).send(releaseRobotsTxt)
           },
         })
         return
