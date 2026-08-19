@@ -18,7 +18,7 @@ import {
 import zIndexConst from '@twreporter/core/lib/constants/z-index'
 import requestOrigins from '@twreporter/core/lib/constants/request-origins'
 import { DONATION_LINK_ANCHOR } from '@twreporter/core/lib/constants/donation-link-anchor'
-import { TEN_YEAR_ANNIVERSARY } from '@twreporter/core/lib/constants/feature-flag'
+import { ACADEMY } from '@twreporter/core/lib/constants/feature-flag'
 import externalLinks from '@twreporter/core/lib/constants/external-links'
 
 // desktop popup component
@@ -39,6 +39,13 @@ const DesktopPopupBox = styled.div`
   padding: 24px 24px ${boxPadding}px ${boxPadding}px;
   width: 600px;
 `
+
+const AcademyDesktopPopupBox = styled.div`
+  ${boxCss}
+  width: fit-content;
+  padding: 24px 48px 48px 48px;
+`
+
 const FlexGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,30 +100,28 @@ const DesktopPopup = () => {
   )
 }
 
-const AnniversaryDesktopPopup = () => {
+const AcademyDesktopPopup = () => {
   const { closePromo } = useContext(PromoContext)
   const { releaseBranch } = useContext(CoreContext)
-  const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_text_desktop.png`
-  const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_desktop.png`
+  const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/academy-desktop.png`
   const moreAction = () => {
-    const anniversaryLink = externalLinks.tenYearAnniversary
-    window.open(anniversaryLink, '_blank')
+    const academyLink = externalLinks.academy
+    window.open(academyLink, '_blank')
     closePromo()
   }
 
   return (
-    <DesktopPopupBox>
+    <AcademyDesktopPopupBox>
       <CloseButton
         iconComponent={<Cross releaseBranch={releaseBranch} />}
         theme={IconButton.THEME.normal}
         onClick={closePromo}
       />
       <FlexGroup>
-        <TextImg src={textUrl} alt="報導者十歲了！" />
-        <DesktopMore onClickButton={moreAction} text="看見改變" />
+        <TextImg src={textUrl} alt="報導者學院" />
+        <DesktopMore onClickButton={moreAction} text="瞭解更多" />
       </FlexGroup>
-      <HighFiveImg src={imageUrl} alt="報導者十歲了！" />
-    </DesktopPopupBox>
+    </AcademyDesktopPopupBox>
   )
 }
 
@@ -160,13 +165,13 @@ const MobilePopup = () => {
   )
 }
 
-const AnniversaryMobilePopup = () => {
+const AcademyMobilePopup = () => {
   const { closePromo } = useContext(PromoContext)
   const { releaseBranch } = useContext(CoreContext)
-  const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/10_popup_mobile.png`
+  const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/academy-mobile.png`
   const moreAction = () => {
-    const anniversaryLink = externalLinks.tenYearAnniversary
-    window.open(anniversaryLink, '_blank')
+    const academyLink = externalLinks.academy
+    window.open(academyLink, '_blank')
     closePromo()
   }
 
@@ -177,8 +182,8 @@ const AnniversaryMobilePopup = () => {
         theme={IconButton.THEME.normal}
         onClick={closePromo}
       />
-      <MobileImg src={imgUrl} alt="報導者十歲了！" />
-      <MobileMore onClickButton={moreAction} text="看見改變" />
+      <MobileImg src={imgUrl} alt="報導者學院" />
+      <MobileMore onClickButton={moreAction} text="瞭解更多" />
     </MobilePopupBox>
   )
 }
@@ -203,14 +208,10 @@ const Popup = () => {
     <PopupContainer $show={isShowPromo} onClick={closePromo}>
       <Box onClick={preventClosePromo}>
         <DesktopAndAbove>
-          {TEN_YEAR_ANNIVERSARY ? (
-            <AnniversaryDesktopPopup />
-          ) : (
-            <DesktopPopup />
-          )}
+          {ACADEMY ? <AcademyDesktopPopup /> : <DesktopPopup />}
         </DesktopAndAbove>
         <TabletAndBelow>
-          {TEN_YEAR_ANNIVERSARY ? <AnniversaryMobilePopup /> : <MobilePopup />}
+          {ACADEMY ? <AcademyMobilePopup /> : <MobilePopup />}
         </TabletAndBelow>
       </Box>
     </PopupContainer>
