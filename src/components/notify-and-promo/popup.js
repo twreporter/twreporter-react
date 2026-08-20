@@ -77,7 +77,7 @@ const DesktopPopup = () => {
   const imageUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_desktop.png`
   const moreAction = () => {
     const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
-    window.open(membershipPromoLink, '_blank')
+    window.open(membershipPromoLink, '_blank', 'noopener,noreferrer')
     closePromo()
   }
 
@@ -106,7 +106,7 @@ const AcademyDesktopPopup = () => {
   const textUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/academy-desktop.png`
   const moreAction = () => {
     const academyLink = externalLinks.academy
-    window.open(academyLink, '_blank')
+    window.open(academyLink, '_blank', 'noopener,noreferrer')
     closePromo()
   }
 
