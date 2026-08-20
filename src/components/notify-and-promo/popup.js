@@ -145,7 +145,7 @@ const MobilePopup = () => {
   const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/popup_mobile.png`
   const moreAction = () => {
     const membershipPromoLink = `${requestOrigins.forClientSideRendering[releaseBranch].support}#${DONATION_LINK_ANCHOR.impact}`
-    window.open(membershipPromoLink, '_blank')
+    window.open(membershipPromoLink, '_blank', 'noopener,noreferrer')
     closePromo()
   }
 
@@ -171,7 +171,7 @@ const AcademyMobilePopup = () => {
   const imgUrl = `https://www.twreporter.org/assets/membership-promo/${releaseBranch}/academy-mobile.png`
   const moreAction = () => {
     const academyLink = externalLinks.academy
-    window.open(academyLink, '_blank')
+    window.open(academyLink, '_blank', 'noopener,noreferrer')
     closePromo()
   }
 
