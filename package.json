@@ -133,7 +133,7 @@
     "rimraf": "^2.5.2",
     "stats-js": "^1.0.1",
     "style-loader": "2.0.0",
-    "swiper": "6.8.4",
+    "swiper": "12.1.2",
     "url-loader": "^4.1.1",
     "webpack": "^4.47.0",
     "webpack-bundle-analyzer": "^3.3.2",
