@@ -1711,10 +1711,10 @@
     styled-components "^6.0.0"
     stylis "^4.0.0"
 
-"@twreporter/index-page@^2.3.0-rc.0":
-  version "2.3.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.3.0-rc.0.tgz#832f050fe857ebcfc0dd55df71c12ed1c72f0fbe"
-  integrity sha512-cyWuhH7hts2GN0fnwbPXC8hhZGHVC0oMqXLPSF2cDYNgoEynIrenMYpEUycxaBevgShyYHW0Uda/6Z8u/eoFYw==
+"@twreporter/index-page@^2.3.0-rc.1":
+  version "2.3.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/index-page/-/index-page-2.3.0-rc.1.tgz#42253b60edae420c78cc3cbb17a4f9ff820dc5c0"
+  integrity sha512-h6UlvPoiD1Utqz2tF9aifujbmR4GQDO385XbS6RyfKHX+vb1UFurDx3V1eyD7J3wlBNPpw103MnFftF+qbDgaw==
   dependencies:
     "@twreporter/core" "^1.29.0-rc.0"
     "@twreporter/react-components" "^9.12.0-rc.1"
@@ -1730,10 +1730,10 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.10.0-rc.0":
-  version "2.10.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.10.0-rc.0.tgz#f7dc40a470a395b847e716d1e1bb3db0bf974b60"
-  integrity sha512-4/8C0L3nM2IhQPr5D9/S3fsKEBOnKn5tgM+fikcBlm/gqEaohc1wy+6tXjwigkyb9A8LnWeAhmEdrTcyxQRdow==
+"@twreporter/react-article-components@^2.10.0-rc.1":
+  version "2.10.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.10.0-rc.1.tgz#fac75814e728de9ec3c84e6de0b996866a55d749"
+  integrity sha512-YomR2E8/t1NEv72hJGEZN/62c6wQdLstFKcL7dAGrS9fuCnGQrRY5NV6WHoz2oISkPQcm12MnWAF+Ufbwz72xQ==
   dependencies:
     "@twreporter/core" "^1.29.0-rc.0"
     "@twreporter/react-components" "^9.12.0-rc.1"
