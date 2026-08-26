@@ -104,18 +104,18 @@ function scrollToTopAndFirePageview() {
 }
 
 function sendGtmUserId() {
-  if (!store) {
-    return null
-  }
   const currentState = store.getState()
-  const userId = _.get(currentState, ['auth', 'userInfo', 'user_id'], '')
-  if (userId) {
-    TagManager.dataLayer({
-      dataLayer: {
-        userId,
-      },
-    })
-  }
+  const isAuthed = _.get(currentState, ['auth', 'isAuthed'], false)
+  const userId = isAuthed
+    ? _.get(currentState, ['auth', 'userInfo', 'user_id'], null)
+    : null
+
+  TagManager.dataLayer({
+    dataLayer: {
+      event: 'gtm.userIdReady',
+      userId,
+    },
+  })
   return null
 }
 
@@ -127,6 +127,7 @@ const store = twreporterRedux.createStore(
 
 // add Google Tag Manager
 TagManager.initialize(tagManagerArgs[releaseBranch])
+sendGtmUserId()
 
 const jsx = (
   <HelmetProvider>
@@ -135,7 +136,6 @@ const jsx = (
         <Route path="/" component={reloadPageIfNeeded()} />
         <Route path="/" component={scrollToTopAndFirePageview} />
         <Route path="/" component={hashLinkScroll} />
-        <Route path="/" component={sendGtmUserId} />
         <App reduxStore={store} releaseBranch={releaseBranch} />
       </Fragment>
     </BrowserRouter>
