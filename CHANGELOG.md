@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.3.2-rc.2, 2026-08-26
+
+### Notable Changes
+
+- feat
+  - data layer user id ready
+
+### Commits
+
+- [[`25af036189`](https://github.com/twreporter/twreporter-react/commit/25af036189)] - **feat**: data layer user id ready (Lucien)
+
 ## 5.3.2-rc.1, 2026-08-24
 
 ### Notable Changes
