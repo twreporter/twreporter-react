@@ -17,6 +17,9 @@ const webpackConfig = {
 
 module.exports = Object.assign(
   {
+    applicationServerPublicKey:
+      process.env.APPLICATION_SERVER_PUBLIC_KEY ||
+      'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0',
     cookieSecret: process.env.COOKIE_SECRET || 'twreporter-cookie-secret',
     host: process.env.HOST || 'localhost',
     nodeEnv,
