@@ -1,6 +1,28 @@
 # Changelog
 
-## 5.3.1, 2026-07-07 (Current)
+## 5.3.2, 2026-09-01 (Current)
+
+### Notable Changes
+
+- feat
+  - data layer user id ready
+  - remove 10 anniversary content and add academy content
+- fix
+  - address comments
+  - noopener noreferrer
+- chore
+  - update twreporter packages
+
+### Commits
+
+- [[`25af036189`](https://github.com/twreporter/twreporter-react/commit/25af036189)] - **feat**: data layer user id ready (Lucien)
+- [[`58c8faa498`](https://github.com/twreporter/twreporter-react/commit/58c8faa498)] - **chore**: update twreporter packages (Lucien)
+- [[`64d643065e`](https://github.com/twreporter/twreporter-react/commit/64d643065e)] - **chore**: update twreporter packages (Lucien)
+- [[`d7d423a430`](https://github.com/twreporter/twreporter-react/commit/d7d423a430)] - **fix**: noopener noreferrer (Lucien)
+- [[`a10754b0d1`](https://github.com/twreporter/twreporter-react/commit/a10754b0d1)] - **fix**: address comments (Lucien)
+- [[`ad484e6d6a`](https://github.com/twreporter/twreporter-react/commit/ad484e6d6a)] - **feat**: remove 10 anniversary content and add academy content (Lucien)
+
+## 5.3.1, 2026-07-07
 
 ### Notable Changes
 
