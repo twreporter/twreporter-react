@@ -1730,15 +1730,15 @@
     stylis "^4.0.0"
     swiper "6.8.4"
 
-"@twreporter/react-article-components@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.10.0.tgz#43b2435cb37e3f5c5e65157252699441079a3f95"
-  integrity sha512-ZVLLaK6TgFI6VHEX4tZO4IaoM81/QNsTGFtWXSrYNILQCJ3sY3L0JBi9ZkYqrBwlz8byOnJQwmicug8ttFfkFA==
+"@twreporter/react-article-components@^2.10.1-rc.0":
+  version "2.10.1-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-article-components/-/react-article-components-2.10.1-rc.0.tgz#0f41a708015e4263450443049c947bea665c08ed"
+  integrity sha512-s8evhQLNl9w7XhBneV836M5XUYdX55uD9JZDFzPtWtJi+sitgS32vi2AdKKTTJ8Gitnvtdcz/1uZrZqKV3y+ow==
   dependencies:
     "@twreporter/core" "^1.29.0"
     "@twreporter/react-components" "^9.12.0"
     "@twreporter/redux" "^8.4.4"
-    "@twreporter/universal-header" "^3.2.3"
+    "@twreporter/universal-header" "^3.3.0-rc.0"
     howler "^2.2.3"
     isomorphic-dompurify "^2.26.0"
     lodash "^4.17.11"
@@ -1790,10 +1790,10 @@
     redux "^5.0.1"
     redux-thunk "^3.1.0"
 
-"@twreporter/universal-header@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.2.3.tgz#3061493a11e5e358adde157c09da757d08b5c283"
-  integrity sha512-AjtuwnD3noAHEGnd6RkWPQhBRuJ8MWSxMDaDHmMcTjm5zvIjEYjyTAEff1pzQ48Y3aK7FOeFhNNCp2Tti9ZX3Q==
+"@twreporter/universal-header@^3.3.0-rc.0":
+  version "3.3.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@twreporter/universal-header/-/universal-header-3.3.0-rc.0.tgz#74e5e86475deea8be642f8b78026bfc8ba5d5910"
+  integrity sha512-8dp2vh7uaYC8W/IRTN7CDC7ZNFOnyU7u3mX2jpHblCYKQeS6ZJOHle9HnF7E4bBbq6QGrSXH6pAsDmo4W1e+3A==
   dependencies:
     "@material-symbols/svg-400" "^0.27.2"
     "@reduxjs/toolkit" "^2.2.5"
