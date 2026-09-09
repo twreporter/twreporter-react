@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.3.4-rc.0, 2026-09-10
+
+### Notable Changes
+
+- fix
+  - address academy related roles on member page
+
+### Commits
+
+- [[`cca9b853eb`](https://github.com/twreporter/twreporter-react/commit/cca9b853eb)] - **fix**: address academy related roles on member page (Aylie Chou)
+
 ## 5.3.3, 2026-09-07 (Current)
 
 ### Notable Changes
