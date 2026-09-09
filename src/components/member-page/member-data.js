@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+// constants
+import { MEMBER_ROLE_DISPLAY } from './constants'
 // @twreporter
 import Divider from '@twreporter/react-components/lib/divider'
 import { H1, H3 } from '@twreporter/react-components/lib/text/headline'
@@ -101,7 +103,7 @@ const MemberData = ({
         <TitleContainer>
           <P1 text={'方案身分'} />
         </TitleContainer>
-        <P1 text={role.name} />
+        <P1 text={MEMBER_ROLE_DISPLAY[role.key]?.name || role.name} />
       </RowContainer>
       <DividerContainer>
         <Divider />
