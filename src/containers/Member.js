@@ -35,6 +35,7 @@ import ExclusiveOffers from '../components/member-page/exclusive-offers'
 // constants
 import siteMeta from '../constants/site-meta'
 import routes from '../constants/routes'
+import { MEMBER_ROLE_DATA } from '../constants/role'
 
 // lodash
 import get from 'lodash/get'
@@ -129,6 +130,11 @@ const OnlyForGTM = styled.div`
   visibility: hidden;
 `
 
+const getActiveRole = roles => {
+  const roleKey = MEMBER_ROLE[(roles?.[0]?.key)] || MEMBER_ROLE.explorer
+  return MEMBER_ROLE_DATA[roleKey]
+}
+
 const { actions, reduxStateFields } = twreporterRedux
 const { getUserData } = actions
 
@@ -175,10 +181,7 @@ const MemberPage = () => {
   const memberData = {
     email,
     name: `${lastName}${firstName}`,
-    role: {
-      ...roles[0],
-      key: roles[0]?.key ? MEMBER_ROLE[roles[0].key] : MEMBER_ROLE.explorer,
-    },
+    role: getActiveRole(roles),
     joinDate: date2yyyymmdd(registrationDate, '/'),
   }
 
@@ -379,10 +382,8 @@ MemberPage.propTypes = {
     email: PropTypes.string,
     name: PropTypes.string,
     role: PropTypes.shape({
-      id: PropTypes.string,
       key: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      name_en: PropTypes.string,
     }),
     joinDate: PropTypes.string,
   }),
