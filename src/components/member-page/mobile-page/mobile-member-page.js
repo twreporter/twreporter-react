@@ -1,8 +1,6 @@
 import React, { useContext, useMemo } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-// constants
-import { MEMBER_ROLE_DISPLAY } from '../constants'
 // context
 import { CoreContext } from '../../../contexts'
 // @twreporter
@@ -34,7 +32,7 @@ const MobileMemberPage = ({
     <div>
       <RoleCardContainer>
         <MobileMemberRoleCard
-          role={MEMBER_ROLE_DISPLAY[roleKey]?.cardKey || roleKey}
+          role={roleKey}
           releaseBranch={releaseBranch}
           email={email}
           joinDate={joinDate}

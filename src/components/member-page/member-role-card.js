@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-// constants
-import { MEMBER_ROLE_DISPLAY } from './constants'
 
 // context
 import { CoreContext } from '../../contexts'
@@ -20,13 +18,12 @@ const Image = styled.img`
 
 const MemberRoleCard = ({ roleKey = MEMBER_ROLE.explorer }) => {
   const { releaseBranch } = useContext(CoreContext)
-  const cardKey = MEMBER_ROLE_DISPLAY[roleKey]?.cardKey || roleKey
-  const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${cardKey}.png`
+  const imageUrl = `https://www.twreporter.org/assets/user-role-card/${releaseBranch}/${roleKey}.png`
   return <Image src={imageUrl}></Image>
 }
 
 MemberRoleCard.propTypes = {
-  roleKey: PropTypes.oneOf(Object.keys(MEMBER_ROLE_DISPLAY)),
+  roleKey: PropTypes.oneOf(Object.values(MEMBER_ROLE)),
 }
 
 export default MemberRoleCard
