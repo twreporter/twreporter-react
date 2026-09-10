@@ -130,10 +130,8 @@ const MemberData = ({
 
 MemberData.propTypes = {
   role: PropTypes.shape({
-    id: PropTypes.string,
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    name_en: PropTypes.string,
   }),
   email: PropTypes.string,
   joinDate: PropTypes.string,

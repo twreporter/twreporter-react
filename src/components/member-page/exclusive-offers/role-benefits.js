@@ -118,10 +118,8 @@ const RoleBenefits = ({ role, cards = {} }) => {
 
 RoleBenefits.propTypes = {
   role: PropTypes.shape({
-    id: PropTypes.string,
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    name_en: PropTypes.string,
   }),
   cards: PropTypes.shape({
     [MEMBER_ROLE.explorer]: PropTypes.array,

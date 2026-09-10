@@ -128,10 +128,8 @@ const MemberMenuList = ({ role = { key: MEMBER_ROLE.explorer, name: '' } }) => {
 
 MemberMenuList.propTypes = {
   role: PropTypes.shape({
-    id: PropTypes.string,
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    name_en: PropTypes.string,
   }),
 }
 
