@@ -114,10 +114,8 @@ const ExclusiveOffers = ({ role, isPeriodicPatron }) => {
 
 ExclusiveOffers.propTypes = {
   role: PropTypes.shape({
-    id: PropTypes.string,
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    name_en: PropTypes.string,
   }),
   isPeriodicPatron: PropTypes.bool,
 }
