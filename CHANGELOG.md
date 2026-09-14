@@ -1,39 +1,23 @@
 # Changelog
 
-## 5.3.4-rc.2, 2026-09-10
-
-### Notable Changes
-
-- fix
-  - use role name from config instead of db data
-
-## Commits
-
-- [[`77a6d8c6cd`](https://github.com/twreporter/twreporter-react/commit/77a6d8c6cd)] - **fix**: use role name from config instead of db data (Aylie Chou)
-
-## 5.3.4-rc.1, 2026-09-10
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`c1629a1590`](https://github.com/twreporter/twreporter-react/commit/c1629a1590)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 5.3.4-rc.0, 2026-09-10
+## 5.3.4, 2026-09-14 (Current)
 
 ### Notable Changes
 
 - fix
   - address academy related roles on member page
+  - use role name from config instead of db data
+- chore
+  - update @twreporter packages
 
-### Commits
+## Commits
 
+- [[`db808e352a`](https://github.com/twreporter/twreporter-react/commit/db808e352a)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`77a6d8c6cd`](https://github.com/twreporter/twreporter-react/commit/77a6d8c6cd)] - **fix**: use role name from config instead of db data (Aylie Chou)
+- [[`c1629a1590`](https://github.com/twreporter/twreporter-react/commit/c1629a1590)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`cca9b853eb`](https://github.com/twreporter/twreporter-react/commit/cca9b853eb)] - **fix**: address academy related roles on member page (Aylie Chou)
 
-## 5.3.3, 2026-09-07 (Current)
+## 5.3.3, 2026-09-07
 
 ### Notable Changes
 
