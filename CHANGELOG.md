@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.3.5-rc.0, 2026-09-18
+
+### Notable Changes
+
+- feat
+  - add jai ab test popup
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`1210d5d671`](https://github.com/twreporter/twreporter-react/commit/1210d5d671)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`b4119a916c`](https://github.com/twreporter/twreporter-react/commit/b4119a916c)] - **fix**: use `getJaiAbTestGroup` (Aylie Chou)
+- [[`ed90b90e6b`](https://github.com/twreporter/twreporter-react/commit/ed90b90e6b)] - **fix**: add jai ab test popup (Aylie Chou)
+
 ## 5.3.4, 2026-09-14 (Current)
 
 ### Notable Changes
