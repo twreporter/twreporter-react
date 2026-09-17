@@ -1,5 +1,5 @@
-// The users API should expose users.jai_ab_test_group on auth.userInfo.
-export const GROUP_A = 'a'
+// getJaiAbTestGroup stores the API assignment on auth.userInfo.
+export const GROUP_A = 'A'
 export const INACTIVE_TIME = 90 * 1000
 
 export const candidateSlugs = [

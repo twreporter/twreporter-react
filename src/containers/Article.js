@@ -31,6 +31,7 @@ import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 // hooks
 import { usePrevious } from '../hooks'
+import useJaiAbTestGroup from '../hooks/use-jai-ab-test-group'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -91,8 +92,6 @@ const Article = ({ releaseBranch }) => {
     userID: state => _.get(state, ['auth', 'userInfo', 'user_id']),
     hasMoreRelateds: state =>
       _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0,
-    jaiAbTestGroup: state =>
-      _.get(state, ['auth', 'userInfo', 'jai_ab_test_group']),
   }
   const relatedsSelector = createSelector(
     [
@@ -124,7 +123,7 @@ const Article = ({ releaseBranch }) => {
   const userRole = useSelector(selectors.userRole)
   const jwt = useSelector(selectors.jwt)
   const userID = useSelector(selectors.userID)
-  const jaiAbTestGroup = useSelector(selectors.jaiAbTestGroup)
+  const jaiAbTestGroup = useJaiAbTestGroup(slugToFetch)
   const relateds = useSelector(relatedsSelector)
   const hasMoreRelateds = useSelector(selectors.hasMoreRelateds)
 
