@@ -13,12 +13,14 @@ import uiManager from '../managers/ui-manager'
 // constants
 import bsConst from '../constants/browser-storage'
 import siteMeta from '../constants/site-meta'
+import { GROUP_A } from '../constants/jai-ab-test'
 // utils
 import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
 import ArticleBanner from '../components/notify-and-promo/article-banner'
+import FurtherReadingPopup from '../components/article/further-reading-popup'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import ArticleComponent from '@twreporter/react-article-components'
@@ -89,6 +91,8 @@ const Article = ({ releaseBranch }) => {
     userID: state => _.get(state, ['auth', 'userInfo', 'user_id']),
     hasMoreRelateds: state =>
       _.get(state, [relatedPostsOf, 'byId', postID, 'more', 'length'], 0) > 0,
+    jaiAbTestGroup: state =>
+      _.get(state, ['auth', 'userInfo', 'jai_ab_test_group']),
   }
   const relatedsSelector = createSelector(
     [
@@ -120,6 +124,7 @@ const Article = ({ releaseBranch }) => {
   const userRole = useSelector(selectors.userRole)
   const jwt = useSelector(selectors.jwt)
   const userID = useSelector(selectors.userID)
+  const jaiAbTestGroup = useSelector(selectors.jaiAbTestGroup)
   const relateds = useSelector(relatedsSelector)
   const hasMoreRelateds = useSelector(selectors.hasMoreRelateds)
 
@@ -535,6 +540,12 @@ const Article = ({ releaseBranch }) => {
         isAuthed={isAuthed}
         userRole={userRole}
       />
+      {jaiAbTestGroup === GROUP_A && (
+        <FurtherReadingPopup
+          key={`${slugToFetch}:${userID}`}
+          currentSlug={slugToFetch}
+        />
+      )}
     </div>
   )
 }
