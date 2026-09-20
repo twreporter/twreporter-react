@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.3.5-rc.1, 2026-09-20
+
+### Notable Changes
+
+- chore
+  - update @twreporter packages
+
+### Commits
+
+- [[`2b6d44153b`](https://github.com/twreporter/twreporter-react/commit/2b6d44153b)] - **chore**: update @twreporter packages (Aylie Chou)
+
 ## 5.3.5-rc.0, 2026-09-18
 
 ### Notable Changes
