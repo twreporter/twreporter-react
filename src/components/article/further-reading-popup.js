@@ -26,6 +26,7 @@ import {
 import loggerFactory from '../../logger'
 
 const { formURL } = twreporterRedux.utils
+const popupContainerId = 'jai-further-reading-popup'
 
 const Mask = styled.div`
   position: fixed;
@@ -112,17 +113,6 @@ const Photo = styled.img`
     height: 48px;
   `}
 `
-// The Figma cards show category and title; expose OG descriptions to assistive
-// technology without adding text that is absent from the visual design.
-const Description = styled.span`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-`
 const BackButton = styled(PillButton)`
   margin: 32px auto 0;
   width: 96px;
@@ -134,7 +124,11 @@ const BackButton = styled(PillButton)`
 const track = (event, parameters = {}) =>
   TagManager.dataLayer({ dataLayer: { event, ...parameters } })
 
-export function FurtherReadingDialog({ posts, onBack }) {
+export function FurtherReadingDialog({
+  posts,
+  onBack,
+  container = document.body,
+}) {
   const dialogRef = useRef(null)
   const tracked = useRef(false)
   useEffect(() => {
@@ -213,7 +207,6 @@ export function FurtherReadingDialog({ posts, onBack }) {
           <PostLink
             key={post.slug}
             to={`/a/${post.slug}`}
-            aria-describedby={`jai-description-${post.slug}`}
             onClick={() =>
               track('jai_popup_click_read', { post_slug: post.slug })
             }
@@ -221,9 +214,6 @@ export function FurtherReadingDialog({ posts, onBack }) {
             <PostContent>
               {post.category && <Category>{post.category}</Category>}
               <Title>{post.title}</Title>
-              <Description id={`jai-description-${post.slug}`}>
-                {post.description}
-              </Description>
             </PostContent>
             <Photo src={post.image} alt="" />
           </PostLink>
@@ -245,7 +235,7 @@ export function FurtherReadingDialog({ posts, onBack }) {
         />
       </Dialog>
     </Mask>,
-    document.body
+    container
   )
 }
 
@@ -254,20 +244,27 @@ FurtherReadingDialog.propTypes = {
     PropTypes.shape({
       slug: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      description: PropTypes.string,
       image: PropTypes.string.isRequired,
       category: PropTypes.string,
     })
   ).isRequired,
   onBack: PropTypes.func.isRequired,
+  container: PropTypes.object,
 }
 
 // Mounted only for group A, keyed by the current article (and user) by Article.
-export default function FurtherReadingPopup({ currentSlug }) {
+export default function FurtherReadingPopup({ currentSlug, isReady = true }) {
   const apiOrigin = useSelector(state => get(state, 'origins.api'))
   const [posts, setPosts] = useState([])
   const [open, setOpen] = useState(false)
   const shown = useRef(false)
+  const popupContainer = useRef(null)
+
+  useEffect(() => {
+    return () => {
+      if (popupContainer.current) popupContainer.current.remove()
+    }
+  }, [])
 
   useEffect(() => {
     if (!apiOrigin) return
@@ -288,7 +285,6 @@ export default function FurtherReadingPopup({ currentSlug }) {
           return {
             slug,
             title: post.og_title || post.title,
-            description: post.og_description || '',
             image: replaceGCSUrlOrigin(
               get(post, 'og_image.resized_targets.tablet.url') ||
                 siteMeta.ogImage.url
@@ -315,22 +311,35 @@ export default function FurtherReadingPopup({ currentSlug }) {
   }, [apiOrigin, currentSlug])
 
   useEffect(() => {
-    if (!posts.length || shown.current) return
+    if (!isReady || !posts.length || shown.current) return
     return observePopupEligibility({
       win: window,
       doc: document,
       onEligible: () => {
         shown.current = true
+        // Claim the document synchronously, before React renders the portal.
+        // Instance-local refs cannot prevent two mounted controllers opening
+        // together. Keep the claim after closing until this visit unmounts.
+        if (document.getElementById(popupContainerId)) return
+        const container = document.createElement('div')
+        container.id = popupContainerId
+        document.body.appendChild(container)
+        popupContainer.current = container
         setOpen(true)
       },
     })
-  }, [posts])
+  }, [isReady, posts])
 
   return open && posts.length ? (
-    <FurtherReadingDialog posts={posts} onBack={() => setOpen(false)} />
+    <FurtherReadingDialog
+      posts={posts}
+      onBack={() => setOpen(false)}
+      container={popupContainer.current}
+    />
   ) : null
 }
 
 FurtherReadingPopup.propTypes = {
   currentSlug: PropTypes.string.isRequired,
+  isReady: PropTypes.bool,
 }
