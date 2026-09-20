@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.3.5-rc.2, 2026-09-20
+
+### Notable Changes
+
+- fix
+  - prevent duplicate ab test popup
+
+### Commits
+
+- [[`9a44589bf4`](https://github.com/twreporter/twreporter-react/commit/9a44589bf4)] - **fix**: prevent duplicate ab test popup (Aylie Chou)
+
 ## 5.3.5-rc.1, 2026-09-20
 
 ### Notable Changes
