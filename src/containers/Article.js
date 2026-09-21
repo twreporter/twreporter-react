@@ -13,12 +13,14 @@ import uiManager from '../managers/ui-manager'
 // constants
 import bsConst from '../constants/browser-storage'
 import siteMeta from '../constants/site-meta'
+import { GROUP_A } from '../constants/jai-ab-test'
 // utils
 import cloneUtils from '../utils/shallow-clone-entity'
 // components
 import ArticlePlaceholder from '../components/article/placeholder'
 import SystemError from '../components/SystemError'
 import ArticleBanner from '../components/notify-and-promo/article-banner'
+import FurtherReadingPopup from '../components/article/further-reading-popup'
 // @twreporter
 import twreporterRedux from '@twreporter/redux'
 import ArticleComponent from '@twreporter/react-article-components'
@@ -29,6 +31,7 @@ import releaseBranchConsts from '@twreporter/core/lib/constants/release-branch'
 import smoothScroll from '@twreporter/core/lib/utils/smooth-scroll'
 // hooks
 import { usePrevious } from '../hooks'
+import useJaiAbTestGroup from '../hooks/use-jai-ab-test-group'
 // lodash
 import forEach from 'lodash/forEach'
 import get from 'lodash/get'
@@ -120,6 +123,7 @@ const Article = ({ releaseBranch }) => {
   const userRole = useSelector(selectors.userRole)
   const jwt = useSelector(selectors.jwt)
   const userID = useSelector(selectors.userID)
+  const jaiAbTestGroup = useJaiAbTestGroup(slugToFetch)
   const relateds = useSelector(relatedsSelector)
   const hasMoreRelateds = useSelector(selectors.hasMoreRelateds)
 
@@ -535,6 +539,12 @@ const Article = ({ releaseBranch }) => {
         isAuthed={isAuthed}
         userRole={userRole}
       />
+      {jaiAbTestGroup === GROUP_A && (
+        <FurtherReadingPopup
+          key={`${slugToFetch}:${userID}`}
+          currentSlug={slugToFetch}
+        />
+      )}
     </div>
   )
 }
