@@ -1,28 +1,6 @@
 # Changelog
 
-## 5.3.5-rc.2, 2026-09-20
-
-### Notable Changes
-
-- fix
-  - prevent duplicate ab test popup
-
-### Commits
-
-- [[`9a44589bf4`](https://github.com/twreporter/twreporter-react/commit/9a44589bf4)] - **fix**: prevent duplicate ab test popup (Aylie Chou)
-
-## 5.3.5-rc.1, 2026-09-20
-
-### Notable Changes
-
-- chore
-  - update @twreporter packages
-
-### Commits
-
-- [[`2b6d44153b`](https://github.com/twreporter/twreporter-react/commit/2b6d44153b)] - **chore**: update @twreporter packages (Aylie Chou)
-
-## 5.3.5-rc.0, 2026-09-18
+## 5.3.5, 2026-09-21 (Current)
 
 ### Notable Changes
 
@@ -33,11 +11,14 @@
 
 ### Commits
 
+- [[`5440117882`](https://github.com/twreporter/twreporter-react/commit/5440117882)] - **chore**: update @twreporter packages (Aylie Chou)
+- [[`9a44589bf4`](https://github.com/twreporter/twreporter-react/commit/9a44589bf4)] - **fix**: prevent duplicate ab test popup (Aylie Chou)
+- [[`2b6d44153b`](https://github.com/twreporter/twreporter-react/commit/2b6d44153b)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`1210d5d671`](https://github.com/twreporter/twreporter-react/commit/1210d5d671)] - **chore**: update @twreporter packages (Aylie Chou)
 - [[`b4119a916c`](https://github.com/twreporter/twreporter-react/commit/b4119a916c)] - **fix**: use `getJaiAbTestGroup` (Aylie Chou)
 - [[`ed90b90e6b`](https://github.com/twreporter/twreporter-react/commit/ed90b90e6b)] - **fix**: add jai ab test popup (Aylie Chou)
 
-## 5.3.4, 2026-09-14 (Current)
+## 5.3.4, 2026-09-14
 
 ### Notable Changes
 
