@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import App from './app'
 import { loadableReady } from '@loadable/component'
 import React, { Fragment } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import globalEnv from './global-env'
 import hashLinkScroll from './utils/hash-link-scroll'
@@ -144,9 +144,11 @@ const jsx = (
 
 loadableReady(() => {
   const container = document.getElementById('root')
-  const root = createRoot(container)
-  // todo: use `hydrateRoot` after resolving react issue #418 & #423
-  root.render(jsx)
+  if (globalEnv.isProduction) {
+    hydrateRoot(container, jsx)
+  } else {
+    createRoot(container).render(jsx)
+  }
 
   if (globalEnv.isDevelopment) {
     // FPS meter
