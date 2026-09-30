@@ -1,6 +1,7 @@
 // getJaiAbTestGroup stores the API assignment on auth.userInfo.
 export const GROUP_A = 'A'
-export const INACTIVE_TIME = 90 * 1000
+export const INACTIVE_TIME = 45 * 1000
+export const SCROLL_DEPTH = 0.25
 
 export const candidateSlugs = [
   'age-of-disconnection-before-dying-alone',

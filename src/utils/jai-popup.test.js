@@ -48,7 +48,7 @@ describe('JAI popup', () => {
       win = {
         ...target(),
         innerHeight: 1000,
-        scrollY: 501,
+        scrollY: 251,
         setTimeout: (callback, delay) => {
           const id = ++nextId
           timers.set(id, { callback, at: now + delay })
@@ -68,23 +68,23 @@ describe('JAI popup', () => {
       Date.now = realNow
     })
 
-    it('requires strictly more than 90 seconds and shows only once', () => {
-      advance(90000)
+    it('requires strictly more than 45 seconds and shows only once', () => {
+      advance(45000)
       assert.strictEqual(shown, 0)
       advance(1)
       assert.strictEqual(shown, 1)
-      advance(90001)
+      advance(45001)
       assert.strictEqual(shown, 1)
       assert.strictEqual(doc.listeners.size + win.listeners.size, 0)
     })
 
-    it('requires strictly more than 50% of the scrollable page', () => {
-      win.scrollY = 500
-      advance(90001)
+    it('requires strictly more than 25% of the scrollable page', () => {
+      win.scrollY = 250
+      advance(45001)
       assert.strictEqual(shown, 0)
-      win.scrollY = 501
+      win.scrollY = 251
       doc.emit('scroll')
-      advance(90001)
+      advance(45001)
       assert.strictEqual(shown, 1)
     })
     ;[
@@ -96,11 +96,11 @@ describe('JAI popup', () => {
       'scroll',
     ].forEach(event => {
       it(`resets the entire inactivity period on ${event}`, () => {
-        advance(60000)
+        advance(30000)
         doc.emit(event)
-        advance(30001)
+        advance(15001)
         assert.strictEqual(shown, 0)
-        advance(60000)
+        advance(30000)
         assert.strictEqual(shown, 1)
       })
     })
@@ -108,7 +108,7 @@ describe('JAI popup', () => {
     it('waits for visibility before recording an impression', () => {
       doc.visibilityState = 'hidden'
       doc.emit('visibilitychange')
-      advance(90001)
+      advance(45001)
       assert.strictEqual(shown, 0)
       doc.visibilityState = 'visible'
       doc.emit('visibilitychange')
@@ -116,23 +116,23 @@ describe('JAI popup', () => {
     })
 
     it('resets a short absence when the user returns', () => {
-      advance(60000)
+      advance(30000)
       win.emit('focus')
-      advance(30001)
+      advance(15001)
       assert.strictEqual(shown, 0)
-      advance(60000)
+      advance(30000)
       assert.strictEqual(shown, 1)
     })
 
     it('does not show on a page without scrollable content', () => {
       doc.documentElement.scrollHeight = 1000
-      advance(90001)
+      advance(45001)
       assert.strictEqual(shown, 0)
     })
 
     it('cancels timers and listeners on navigation/unmount', () => {
       cleanup()
-      advance(90001)
+      advance(45001)
       assert.strictEqual(shown, 0)
       assert.strictEqual(timers.size, 0)
       assert.strictEqual(doc.listeners.size + win.listeners.size, 0)
