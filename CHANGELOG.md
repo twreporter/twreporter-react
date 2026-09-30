@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.5, 2026-09-21 (Current)
+## 5.3.6, 2026-09-30 (Current)
+
+### Notable Changes
+
+- fix
+  - update rule of jai popup (inactive time & scroll depth)
+
+### Commits
+
+- [[`6404e37ee8`](https://github.com/twreporter/twreporter-react/commit/6404e37ee8)] - **fix**: update rule of jai popup (Aylie Chou)
+
+## 5.3.5, 2026-09-21
 
 ### Notable Changes
 
