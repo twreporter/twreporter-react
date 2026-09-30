@@ -1,4 +1,4 @@
-import { INACTIVE_TIME } from '../constants/jai-ab-test'
+import { INACTIVE_TIME, SCROLL_DEPTH } from '../constants/jai-ab-test'
 
 export function selectCandidateSlugs(slugs, currentSlug, count = 2) {
   const candidates = [...new Set(slugs)].filter(
@@ -26,11 +26,12 @@ export function observePopupEligibility({ win, doc, onEligible }) {
     'wheel',
     'scroll',
   ]
-  const pastHalfway = () => {
+  const pastScrollDepth = () => {
     const scrollableHeight = doc.documentElement.scrollHeight - win.innerHeight
     return (
       scrollableHeight > 0 &&
-      (win.scrollY || doc.documentElement.scrollTop) / scrollableHeight > 0.5
+      (win.scrollY || doc.documentElement.scrollTop) / scrollableHeight >
+        SCROLL_DEPTH
     )
   }
   const check = () => {
@@ -38,7 +39,7 @@ export function observePopupEligibility({ win, doc, onEligible }) {
       !stopped &&
       doc.visibilityState === 'visible' &&
       Date.now() - lastActivity > INACTIVE_TIME &&
-      pastHalfway()
+      pastScrollDepth()
     ) {
       stop()
       onEligible()
