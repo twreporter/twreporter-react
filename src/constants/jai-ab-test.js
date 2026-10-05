@@ -1,3 +1,5 @@
+export const JAI_AB_TEST_ENABLED = true
+
 // getJaiAbTestGroup stores the API assignment on auth.userInfo.
 export const GROUP_A = 'A'
 export const INACTIVE_TIME = 45 * 1000
