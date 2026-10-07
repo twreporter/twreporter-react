@@ -134,6 +134,9 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.nodeEnv),
       'process.env.RELEASE_BRANCH': JSON.stringify(config.releaseBranch),
+      'process.env.APPLICATION_SERVER_PUBLIC_KEY': JSON.stringify(
+        config.applicationServerPublicKey
+      ),
     }),
 
     // This plugin will cause hashes to be based on the relative path of the module,
