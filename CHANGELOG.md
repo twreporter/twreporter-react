@@ -1,6 +1,18 @@
 # Changelog
 
-## 5.3.6, 2026-09-30 (Current)
+## 5.3.7, 2026-10-08 (Current)
+
+### Notable Changes
+
+- feat
+  - add feature toggle for jai ab test & set as false
+
+### Commits
+
+- [[`ebc0afcd00`](https://github.com/twreporter/twreporter-react/commit/ebc0afcd00)] - **chore**: set `JAI_AB_TEST_ENABLED` false (Aylie Chou)
+- [[`558fa28268`](https://github.com/twreporter/twreporter-react/commit/558fa28268)] - **feat**: add feature toggle for jai ab test (Aylie Chou)
+
+## 5.3.6, 2026-09-30
 
 ### Notable Changes
 

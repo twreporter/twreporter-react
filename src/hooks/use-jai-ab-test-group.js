@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import get from 'lodash/get'
 import twreporterRedux from '@twreporter/redux'
 import loggerFactory from '../logger'
+import { JAI_AB_TEST_ENABLED } from '../constants/jai-ab-test'
 
 const useJaiAbTestGroup = slug => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ const useJaiAbTestGroup = slug => {
     // "none" is a cached assignment too. Wait until authentication settles;
     // the Redux reducer rejects responses belonging to an earlier auth revision.
     if (
+      !JAI_AB_TEST_ENABLED ||
       group != null ||
       isRequestingAuth ||
       pendingRevisions.current.has(authRevision)
@@ -42,7 +44,7 @@ const useJaiAbTestGroup = slug => {
     fetchGroup()
   }, [dispatch, slug, group, isRequestingAuth, authRevision])
 
-  return group
+  return JAI_AB_TEST_ENABLED ? group : undefined
 }
 
 export default useJaiAbTestGroup
