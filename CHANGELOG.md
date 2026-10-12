@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.7, 2026-10-08 (Current)
+## 5.3.8, 2026-10-12 (Current)
+
+### Notable Changes
+
+- fix
+  - update 2nd round ab test data
+
+### Commits
+
+- [[`0d9ff5d41a`](https://github.com/twreporter/twreporter-react/commit/0d9ff5d41a)] - **fix**: update 2nd round ab test data (Aylie Chou)
+
+## 5.3.7, 2026-10-08
 
 ### Notable Changes
 
