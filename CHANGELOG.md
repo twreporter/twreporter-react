@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.8, 2026-10-12 (Current)
+## 5.3.9, 2026-10-19 (Current)
+
+### Notable Changes
+
+- fix
+  - update org intro rule wording
+
+### Commits
+
+- [[`b76f27402c`](https://github.com/twreporter/twreporter-react/commit/b76f27402c)] - **fix**: update org intro rule wording (Aylie Chou)
+
+## 5.3.8, 2026-10-12
 
 ### Notable Changes
 
