@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.9, 2026-10-19 (Current)
+## 5.3.9, 2026-10-22 (Current)
+
+### Notable Changes
+
+- chore
+  - upgrade node version
+
+### Commits
+
+- [[`0c3ede3d68`](https://github.com/twreporter/twreporter-react/commit/0c3ede3d68)] - **chore**: upgrade node version (Lucien)
+
+## 5.3.9, 2026-10-19
 
 ### Notable Changes
 
