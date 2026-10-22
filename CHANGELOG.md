@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.9, 2026-10-22 (Current)
+## 5.3.11, 2026-10-22 (Current)
+
+### Notable Changes
+
+- fix
+  - about us load issue
+
+### Commits
+
+- [[`1eaec482d3`](https://github.com/twreporter/twreporter-react/commit/1eaec482d3)] - **fix**: about us load issue (Lucien)
+
+## 5.3.10, 2026-10-22
 
 ### Notable Changes
 
