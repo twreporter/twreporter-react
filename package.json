@@ -20,7 +20,7 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=7.9.0"
+    "node": "24.22.1"
   },
   "bugs": {
     "url": "https://github.com/twreporter/twreporter-react/issues"

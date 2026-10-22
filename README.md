@@ -20,7 +20,7 @@ New Media foundation in Taiwan.
 
 # Environment
 
-Install node(https://nodejs.org/en/) @7.9.0 above.
+Install [Node.js](https://nodejs.org/en/) v24.22.1. With nvm, run `nvm use`.
 
 # Installation
 
