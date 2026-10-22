@@ -5,8 +5,9 @@ import React from 'react'
 import anim1 from '../../../../static/asset/about-us/animation/section1-1.json'
 import anim2 from '../../../../static/asset/about-us/animation/section1-2.json'
 import anim3 from '../../../../static/asset/about-us/animation/section1-3.json'
-const Lottie = Loadable(() =>
-  import(/* webpackChunkName: "lottie" */ '../utils/lottie')
+const Lottie = Loadable(
+  () => import(/* webpackChunkName: "lottie" */ '../utils/lottie'),
+  { ssr: false }
 )
 
 const LoadableLottie = ({ dataIndex = 0, options = {}, ...props }) => {
