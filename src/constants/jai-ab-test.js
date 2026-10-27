@@ -1,4 +1,4 @@
-export const JAI_AB_TEST_ENABLED = true
+export const JAI_AB_TEST_ENABLED = false
 
 // getJaiAbTestGroup stores the API assignment on auth.userInfo.
 export const GROUP_A = 'A'
