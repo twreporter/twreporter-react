@@ -1,6 +1,17 @@
 # Changelog
 
-## 5.3.11, 2026-10-22 (Current)
+## 5.3.12, 2026-10-27 (Current)
+
+### Notable Changes
+
+- chore
+  - disable jai ab test feature toggle
+
+### Commits
+
+- [[`0c360ec217`](https://github.com/twreporter/twreporter-react/commit/0c360ec217)] - **chore**: disable jai ab test feature toggle (Aylie Chou)
+
+## 5.3.11, 2026-10-22
 
 ### Notable Changes
 
