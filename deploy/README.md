@@ -2,6 +2,7 @@
 
 dev、staging、release 分支透過 Cloud Build 分別部署至 dev、staging、
 production 的 Cloud Run service。release 部署須經人工核准。
+release 的建置與 runtime 仍使用 `RELEASE_BRANCH=release`，部署環境名稱為 `prod`。
 
 建置與部署設定見 [cloudbuild.yaml](../cloudbuild.yaml)。
 

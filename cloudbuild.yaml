@@ -7,7 +7,14 @@ steps:
       - -c
       - |
         set -euo pipefail
-        [[ -f "deploy/env.${BRANCH_NAME}.public.yaml" ]] || exit 1
+        case "${BRANCH_NAME}" in
+          dev|staging) environment="${BRANCH_NAME}"; runtime=nonprod ;;
+          release) environment=prod; runtime=prod ;;
+          *) echo 'Expected dev, staging or release branch.' >&2; exit 1 ;;
+        esac
+        [[ -f "deploy/env.$${environment}.public.yaml" ]] || exit 1
+        # Share the branch mapping with the deploy step.
+        printf 'environment=%s\nruntime=%s\n' "$$environment" "$$runtime" > .cloud-run.env
         [[ "$$(yarn --version)" == 1.22.22 ]]
         export NODE_ENV=production RELEASE_BRANCH="${BRANCH_NAME}"
         yarn install --frozen-lockfile --production=false
@@ -40,17 +47,24 @@ steps:
       - -c
       - |
         set -euo pipefail
+        source .cloud-run.env
+        if [[ "$$environment" == prod ]]; then
+          max_instances=10
+        else
+          max_instances=3
+        fi
         region=asia-east1
-        service="${BRANCH_NAME}-twreporter-react"
+        service="$${environment}-twreporter-react"
         image="$${region}-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/twreporter-react"
         tag="${BRANCH_NAME}-${COMMIT_SHA}-${BUILD_ID}"
         gcloud run deploy "$$service" --project="${PROJECT_ID}" --region="$$region" \
           --image="$$image:$$tag" \
-          --service-account="sa-www-nonprod-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
-          --cpu=1 --memory=1Gi --cpu-throttling \
-          --concurrency=20 --min-instances=0 --max-instances=3 --port=3000 \
+          --service-account="sa-www-$${runtime}-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
+          --cpu=1 --memory=1Gi --no-cpu-throttling \
+          --concurrency=20 --scaling=auto --min=0 --max="$$max_instances" --port=3000 \
+          --min-instances=default --max-instances=default \
           --ingress=internal-and-cloud-load-balancing --allow-unauthenticated \
-          --env-vars-file="deploy/env.${BRANCH_NAME}.public.yaml" \
+          --env-vars-file="deploy/env.$${environment}.public.yaml" \
           --set-secrets="COOKIE_SECRET=$${service}_cookie-secret:latest" \
           --quiet
 

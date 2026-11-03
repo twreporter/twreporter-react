@@ -14,7 +14,8 @@
 bash deploy/secrets/create-secrets.sh --apply YOUR_ACCOUNT_EMAIL ENV
 ```
 
-`ENV` 為部署環境。腳本會建立缺少的 secret 並授予 runtime service account
+`ENV` 為 `dev`、`staging` 或 `prod`；release 分支使用 `prod`。
+腳本會建立缺少的 secret 並授予對應的 nonprod／prod runtime service account
 存取權，不讀寫 secret 值。執行後，須另行將既有 cookie secret
 加入 Secret Manager version，才能部署。
 
