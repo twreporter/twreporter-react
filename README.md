@@ -47,6 +47,8 @@ make build
 docker build -t twreporter-react:latest .
 ```
 
+Cloud Run dev/staging 設定與維護方式見 [部署文件](deploy/README.md)。
+
 # Testing
 
 Run unit tests
