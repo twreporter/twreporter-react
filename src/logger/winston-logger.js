@@ -31,7 +31,22 @@ export function createProdLogger() {
     },
   }
 
-  if (globalEnv.releaseBranch === releaseBranchConst.preview) {
+  if (process.env.K_SERVICE) {
+    // logging 7.x cannot autodetect Cloud Run. These public values come from
+    // deploy/env.*.public.yaml and the Cloud Run runtime environment.
+    opts.serviceContext.service = process.env.K_SERVICE
+    opts.serviceContext.version = process.env.K_REVISION
+    opts.resource = {
+      type: 'cloud_run_revision',
+      labels: {
+        project_id: process.env.GOOGLE_CLOUD_PROJECT,
+        location: process.env.CLOUD_RUN_REGION,
+        service_name: process.env.K_SERVICE,
+        revision_name: process.env.K_REVISION,
+        configuration_name: process.env.K_CONFIGURATION,
+      },
+    }
+  } else if (globalEnv.releaseBranch === releaseBranchConst.preview) {
     const clusterName = 'keystone'
 
     // for stackdriver error reporting
@@ -119,5 +134,10 @@ export function createDevLogger() {
  *  @return {Promise} - resolve with Express middleware function
  */
 export function makeExpressMiddleware(logger) {
+  if (process.env.K_SERVICE) {
+    // Without this argument the SDK adds another, unconfigured transport.
+    const transport = logger.transports.find(t => t instanceof LoggingWinston)
+    return express.makeMiddleware(logger, transport)
+  }
   return express.makeMiddleware(logger)
 }
