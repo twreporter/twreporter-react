@@ -1,7 +1,5 @@
-/* eslint react/no-find-dom-node: 1 */
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 // utils
 import mq from '../utils/media-query'
@@ -135,7 +133,7 @@ export default class PaginatedList extends PureComponent {
   _getPagesHeight = () => {
     let pagesHeight = this.singlePages.map(page => {
       if (page) {
-        return ReactDOM.findDOMNode(page).getBoundingClientRect().height
+        return page.getBoundingClientRect().height
       }
     })
     this.pageContentHeight = pagesHeight

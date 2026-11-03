@@ -1,7 +1,5 @@
-/* eslint react/no-find-dom-node: 1 */
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import ReactDOM from 'react-dom'
 import VelocityComponent from 'velocity-react/velocity-component'
 import styled from 'styled-components'
 // utils
@@ -226,9 +224,7 @@ export default class List extends PureComponent {
     ) {
       const yearContentHeight = orderedYears.map((year, index) => {
         if (this.yearContent[index]) {
-          return ReactDOM.findDOMNode(
-            this.yearContent[index]
-          ).getBoundingClientRect().height
+          return this.yearContent[index].getBoundingClientRect().height
         }
       })
       getYearContentHeight(yearContentHeight)
