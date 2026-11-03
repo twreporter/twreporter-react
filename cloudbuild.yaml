@@ -1,0 +1,59 @@
+# Push triggers and base IAM: https://github.com/twreporter/gcp-infrastructure
+steps:
+  - id: build-app
+    name: node:24.22.1
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        [[ -f "deploy/env.${BRANCH_NAME}.public.yaml" ]] || exit 1
+        [[ "$$(yarn --version)" == 1.22.22 ]]
+        export NODE_ENV=production RELEASE_BRANCH="${BRANCH_NAME}"
+        yarn install --frozen-lockfile --production=false
+        make build
+        rm -rf node_modules
+        yarn install --production --frozen-lockfile
+        for file in dist/server.js config.js sw.js webpack-assets.json loadable-stats.json; do
+          test -s "$$file"
+        done
+        test -d static/asset
+  - id: build-image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        docker build --platform=linux/amd64 \
+          --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH="${BRANCH_NAME}" \
+          -t "asia-east1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/twreporter-react:${BRANCH_NAME}-${COMMIT_SHA}-${BUILD_ID}" .
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/twreporter-react:$BRANCH_NAME-$COMMIT_SHA-$BUILD_ID
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        region=asia-east1
+        service="${BRANCH_NAME}-twreporter-react"
+        image="$${region}-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/twreporter-react"
+        tag="${BRANCH_NAME}-${COMMIT_SHA}-${BUILD_ID}"
+        gcloud run deploy "$$service" --project="${PROJECT_ID}" --region="$$region" \
+          --image="$$image:$$tag" \
+          --service-account="sa-www-nonprod-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
+          --cpu=1 --memory=1Gi --cpu-throttling \
+          --concurrency=20 --min-instances=0 --max-instances=3 --port=3000 \
+          --ingress=internal-and-cloud-load-balancing --allow-unauthenticated \
+          --env-vars-file="deploy/env.${BRANCH_NAME}.public.yaml" \
+          --set-secrets="COOKIE_SECRET=$${service}_cookie-secret:latest" \
+          --quiet
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s

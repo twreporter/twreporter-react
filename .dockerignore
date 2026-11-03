@@ -1,16 +1,12 @@
-# Directories
-service-worker
-src
-.git
-
-# Files
-*.md
-*.txt
-*.png
-Makefile
-package.json
-build-babel-preset.js
-build-pm2-processes.js
-yarn.lock
-webpack-dev-server.js
-webpack.config.js
+# Package only the output of the existing build-then-package workflow.
+**
+!dist/
+!dist/**
+!static/
+!static/**
+!node_modules/
+!node_modules/**
+!config.js
+!sw.js
+!webpack-assets.json
+!loadable-stats.json
