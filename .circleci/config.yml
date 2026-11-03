@@ -91,11 +91,6 @@ jobs:
               ENVIRONMENT="dev"
             fi
 
-            if [ "${CIRCLE_BRANCH}" == "next" ]; then
-              CLUSTER_NAMESPACE="production"
-              ENVIRONMENT="next"
-            fi
-
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               PKG_VER="$(cat .pkg-version)"
               CLUSTER_NAMESPACE="production"
@@ -120,7 +115,7 @@ jobs:
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
-            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "dev" ] || [ "${CIRCLE_BRANCH}" == "next" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
+            if [ "${CIRCLE_BRANCH}" == "staging" ] || [ "${CIRCLE_BRANCH}" == "dev" ] || [ "${CIRCLE_BRANCH}" == "release" ]; then
               gcloud --quiet container clusters get-credentials $CLUSTER_NAME --region=asia-east1
             fi
 
@@ -182,7 +177,6 @@ workflows:
                 - release
                 - staging
                 - preview
-                - next
                 - dev
       - deploy:
           context: twreporter-gcp
@@ -194,5 +188,4 @@ workflows:
                 - release
                 - staging
                 - preview
-                - next
                 - dev
