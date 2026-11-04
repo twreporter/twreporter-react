@@ -35,7 +35,8 @@ nginx 使用獨立 build context，不包含在 React image。
 兩個 images 共用分支、commit SHA、build ID tag，在同一 revision 發布；回退 revision
 會一併回退兩個 containers。nginx 額外使用 1 vCPU／256 MiB，React 維持 1 vCPU／1 GiB，
 應於 staging 觀察資源用量後調整。既有單容器服務的首次轉換由維護者手動處理，
-確認 container 名稱為 `nginx`、`react`；Cloud Build 只更新這兩個 containers，不自動刪除其他 containers。
+確認 container 名稱為 `nginx`、`react`，且只有 nginx 宣告 ingress port 8080，React 不宣告 container port；
+Cloud Build 只更新這兩個 containers，不自動刪除其他 containers。
 
 nginx 不再提供本機 cache 或 purge，快取由 Cloudflare 管理；保留既有回應快取標頭。
 `/PURGE/*`、`/nginx_status`、`/_CHECK_` 改為 404，外部工具須移除對這些維運端點的依賴；

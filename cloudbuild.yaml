@@ -81,7 +81,7 @@ steps:
           --cpu=1 --memory=256Mi --depends-on=react \
           --clear-env-vars --clear-secrets \
           --startup-probe=httpGet.path=/check,httpGet.port=8080,periodSeconds=5,timeoutSeconds=2,failureThreshold=24 \
-          --container=react --image="$$image:$$tag" --port=default \
+          --container=react --image="$$image:$$tag" \
           --cpu=1 --memory=1Gi \
           --startup-probe=httpGet.path=/check,httpGet.port=3000,periodSeconds=5,timeoutSeconds=2,failureThreshold=24 \
           --env-vars-file="deploy/env.$${environment}.public.yaml" \
