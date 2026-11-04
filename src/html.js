@@ -50,10 +50,6 @@ export default class Html extends PureComponent {
     return (
       <html lang="zh-TW">
         <head>
-          <script
-            async
-            src="https://www.googleoptimize.com/optimize.js?id=OPT-NGNDMW8"
-          />
           {helmet.base.toComponent()}
           {helmet.title.toComponent()}
           {helmet.priority.toComponent()}
