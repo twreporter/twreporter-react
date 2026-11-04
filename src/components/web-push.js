@@ -35,9 +35,7 @@ const _ = {
 
 const formURL = twreporterRedux.utils.formURL
 
-// TODO move applicationServerPublicKey to config
-const applicationServerPublicKey =
-  'BHkStXEZjGMSdCHolgJAdmREB75lfi42OLNyRt4NRkLu_FEJYR-7Jv8hho1TSuYxTw2GqpYc3tLrotc55DfaNx0'
+const applicationServerPublicKey = process.env.APPLICATION_SERVER_PUBLIC_KEY
 
 /**
  * The application server's public key is base 64 URL safe encoded.
