@@ -35,11 +35,24 @@ steps:
         docker build --platform=linux/amd64 \
           --build-arg NODE_ENV=production --build-arg RELEASE_BRANCH="${BRANCH_NAME}" \
           -t "asia-east1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/twreporter-react:${BRANCH_NAME}-${COMMIT_SHA}-${BUILD_ID}" .
+  - id: build-nginx-image
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --platform=linux/amd64
+      - -t
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/twreporter-react-nginx:$BRANCH_NAME-$COMMIT_SHA-$BUILD_ID
+      - deploy/nginx
   - id: push
     name: gcr.io/cloud-builders/docker
     args:
       - push
       - asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/twreporter-react:$BRANCH_NAME-$COMMIT_SHA-$BUILD_ID
+  - id: push-nginx
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/twreporter-react-nginx:$BRANCH_NAME-$COMMIT_SHA-$BUILD_ID
   - id: deploy
     name: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
     entrypoint: bash
@@ -58,15 +71,21 @@ steps:
         image="$${region}-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/twreporter-react"
         tag="${BRANCH_NAME}-${COMMIT_SHA}-${BUILD_ID}"
         gcloud run deploy "$$service" --project="${PROJECT_ID}" --region="$$region" \
-          --image="$$image:$$tag" \
           --service-account="sa-www-$${runtime}-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
-          --cpu=1 --memory=1Gi --no-cpu-throttling \
-          --concurrency=20 --scaling=auto --min=0 --max="$$max_instances" --port=3000 \
+          --no-cpu-throttling \
+          --concurrency=20 --scaling=auto --min=0 --max="$$max_instances" \
           --min-instances=default --max-instances=default \
           --ingress=internal-and-cloud-load-balancing --allow-unauthenticated \
+          --quiet \
+          --container=nginx --image="$$image-nginx:$$tag" --port=8080 \
+          --cpu=1 --memory=256Mi --depends-on=react \
+          --clear-env-vars --clear-secrets \
+          --startup-probe=httpGet.path=/check,httpGet.port=8080,periodSeconds=5,timeoutSeconds=2,failureThreshold=24 \
+          --container=react --image="$$image:$$tag" --port=default \
+          --cpu=1 --memory=1Gi \
+          --startup-probe=httpGet.path=/check,httpGet.port=3000,periodSeconds=5,timeoutSeconds=2,failureThreshold=24 \
           --env-vars-file="deploy/env.$${environment}.public.yaml" \
-          --set-secrets="COOKIE_SECRET=$${service}_cookie-secret:latest" \
-          --quiet
+          --set-secrets="COOKIE_SECRET=$${service}_cookie-secret:latest"
 
 options:
   logging: CLOUD_LOGGING_ONLY
