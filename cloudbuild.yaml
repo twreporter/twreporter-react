@@ -62,8 +62,10 @@ steps:
         set -euo pipefail
         source .cloud-run.env
         if [[ "$$environment" == prod ]]; then
+          min_instances=1
           max_instances=10
         else
+          min_instances=0
           max_instances=3
         fi
         region=asia-east1
@@ -73,7 +75,7 @@ steps:
         gcloud run deploy "$$service" --project="${PROJECT_ID}" --region="$$region" \
           --service-account="sa-www-$${runtime}-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
           --no-cpu-throttling \
-          --concurrency=20 --scaling=auto --min=0 --max="$$max_instances" \
+          --concurrency=20 --scaling=auto --min="$$min_instances" --max="$$max_instances" \
           --min-instances=default --max-instances=default \
           --ingress=internal-and-cloud-load-balancing --allow-unauthenticated \
           --quiet \
