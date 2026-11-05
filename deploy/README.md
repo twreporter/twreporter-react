@@ -42,6 +42,14 @@ nginx 不再提供本機 cache 或 purge，快取由 Cloudflare 管理；保留�
 `/PURGE/*`、`/nginx_status`、`/_CHECK_` 改為 404，外部工具須移除對這些維運端點的依賴；
 健康檢查統一使用 `/check`。TLS 由平台處理，nginx 不掛載憑證。
 
+## Auto scaling 與 concurrency
+
+使用 service 層級的 auto scaling，concurrency 設為 10。
+production 的 min／max instances 為 1／10，dev、staging 為 0／3。
+SSR 壓測顯示，concurrency 從 20 降到 10 後，auto scaling 會增加更多 instances，
+每秒處理的請求數與回應時間都有改善，因此採用這個設定。
+壓測結果與調整依據見 [PR #3288](https://github.com/twreporter/twreporter-react/pull/3288)。
+
 ## 流量
 
 部署沿用服務既有的流量設定。若曾手動 rollback 或固定 revision，

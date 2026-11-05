@@ -75,7 +75,7 @@ steps:
         gcloud run deploy "$$service" --project="${PROJECT_ID}" --region="$$region" \
           --service-account="sa-www-$${runtime}-runtime@${PROJECT_ID}.iam.gserviceaccount.com" \
           --no-cpu-throttling \
-          --concurrency=20 --scaling=auto --min="$$min_instances" --max="$$max_instances" \
+          --concurrency=10 --scaling=auto --min="$$min_instances" --max="$$max_instances" \
           --min-instances=default --max-instances=default \
           --ingress=internal-and-cloud-load-balancing --allow-unauthenticated \
           --quiet \
