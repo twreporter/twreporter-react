@@ -1,9 +1,7 @@
-/* eslint react/no-find-dom-node:1 */
 import TagManager from 'react-gtm-module'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import React, { PureComponent, Fragment } from 'react'
-import ReactDOM from 'react-dom'
 // utils
 import mq from './utils/media-query'
 import ErrorBoundary from './utils/error-boundary'
@@ -49,10 +47,14 @@ export class AboutUs extends PureComponent {
   constructor(props) {
     super(props)
     this.sectionRefs = []
-    this.sectionOffset = []
   }
   _handleClickAnchor = anchorIdx => {
-    smoothScroll(this.sectionOffset[anchorIdx])
+    const section = this.sectionRefs[anchorIdx]
+    if (section) {
+      // pass the DOM node so the offset is computed at click time,
+      // after async contents of sections above have been rendered
+      smoothScroll(section)
+    }
   }
   componentDidMount() {
     // For client-side rendering, we notify GTM that the new component is ready
@@ -60,9 +62,6 @@ export class AboutUs extends PureComponent {
       dataLayer: {
         event: 'gtm.load',
       },
-    })
-    this.sectionOffset = this.sectionRefs.map(elem => {
-      return ReactDOM.findDOMNode(elem).getBoundingClientRect().top
     })
   }
   render() {
@@ -93,25 +92,34 @@ export class AboutUs extends PureComponent {
           <Border>
             <SideBar ref={node => (this.sidebar = node)}>
               <Anchor anchorId="opening" anchorLabel="簡介" showAnchor>
-                <Opening
-                  ref={node => (this.sectionRefs[0] = node)}
-                  handleClickAnchor={this._handleClickAnchor}
-                />
+                <div ref={node => (this.sectionRefs[0] = node)}>
+                  <Opening handleClickAnchor={this._handleClickAnchor} />
+                </div>
               </Anchor>
               <Anchor anchorId="section1" anchorLabel="特色" showAnchor>
-                <Section01 ref={node => (this.sectionRefs[1] = node)} />
+                <div ref={node => (this.sectionRefs[1] = node)}>
+                  <Section01 />
+                </div>
               </Anchor>
               <Anchor anchorId="section2" anchorLabel="成員" showAnchor>
-                <Section02 ref={node => (this.sectionRefs[2] = node)} />
+                <div ref={node => (this.sectionRefs[2] = node)}>
+                  <Section02 />
+                </div>
               </Anchor>
               <Anchor anchorId="section3" anchorLabel="得獎" showAnchor>
-                <Section03 ref={node => (this.sectionRefs[3] = node)} />
+                <div ref={node => (this.sectionRefs[3] = node)}>
+                  <Section03 />
+                </div>
               </Anchor>
               <Anchor anchorId="section4" anchorLabel="國際參與" showAnchor>
-                <Section04 ref={node => (this.sectionRefs[4] = node)} />
+                <div ref={node => (this.sectionRefs[4] = node)}>
+                  <Section04 />
+                </div>
               </Anchor>
               <Anchor anchorId="section5" anchorLabel="大事紀" showAnchor>
-                <Section05 ref={node => (this.sectionRefs[5] = node)} />
+                <div ref={node => (this.sectionRefs[5] = node)}>
+                  <Section05 />
+                </div>
               </Anchor>
             </SideBar>
           </Border>

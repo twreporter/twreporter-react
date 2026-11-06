@@ -1,6 +1,5 @@
-/* eslint react/no-find-dom-node: 1 */
 import React, { PureComponent } from 'react'
-import { findDOMNode, flushSync } from 'react-dom'
+import { flushSync } from 'react-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Waypoint } from 'react-waypoint'
@@ -460,9 +459,8 @@ export default class Section5 extends PureComponent {
   }
 
   _setScrollingHeight = () => {
-    const timelineScrollingHeight = findDOMNode(
-      this.scrollingContent
-    ).getBoundingClientRect().height
+    const timelineScrollingHeight = this.scrollingContent.getBoundingClientRect()
+      .height
     this.setState({ timelineScrollingHeight: timelineScrollingHeight })
   }
 
@@ -574,29 +572,32 @@ export default class Section5 extends PureComponent {
                   </p>
                 </YearRange>
                 <RunningTimeline>
-                  <Timeline
+                  <div
                     ref={scrollingContent => {
                       this.scrollingContent = scrollingContent
                     }}
-                    childrenHeight={
-                      timelineScrollingHeight * timelineScrollingPortion
-                    }
-                    autoScrolling={timelineScrolling}
-                    startAutoScroll={this._startTimelineAutoScrolling}
-                    stopAutoScroll={this._stopTimelineAutoScrolling}
-                    yearContentHeight={yearContentHeight}
-                    getYear={this._getYear}
                   >
-                    {orderedYears.length > 0 ? (
-                      <List
-                        unfoldArray={unfoldArray}
-                        yearlyRecords={yearlyRecords}
-                        foldAndUnfold={this._foldAndUnfold}
-                        getYearContentHeight={this._getYearContentHeight}
-                        orderedYears={orderedYears}
-                      />
-                    ) : null}
-                  </Timeline>
+                    <Timeline
+                      childrenHeight={
+                        timelineScrollingHeight * timelineScrollingPortion
+                      }
+                      autoScrolling={timelineScrolling}
+                      startAutoScroll={this._startTimelineAutoScrolling}
+                      stopAutoScroll={this._stopTimelineAutoScrolling}
+                      yearContentHeight={yearContentHeight}
+                      getYear={this._getYear}
+                    >
+                      {orderedYears.length > 0 ? (
+                        <List
+                          unfoldArray={unfoldArray}
+                          yearlyRecords={yearlyRecords}
+                          foldAndUnfold={this._foldAndUnfold}
+                          getYearContentHeight={this._getYearContentHeight}
+                          orderedYears={orderedYears}
+                        />
+                      ) : null}
+                    </Timeline>
+                  </div>
                 </RunningTimeline>
                 <YearTag>
                   <p>{currentYear}</p>
