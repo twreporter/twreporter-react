@@ -1,0 +1,18 @@
+# Cloud Run build context, independent of the existing K8s image.
+**
+!dist/
+!dist/**
+!static/
+!static/**
+!node_modules/
+!node_modules/**
+!config.js
+!sw.js
+!webpack-assets.json
+!loadable-stats.json
+!deploy/
+!deploy/cloud-run/
+!deploy/cloud-run/start.sh
+!deploy/nginx/
+!deploy/nginx/nginx.conf
+!deploy/nginx/react-proxy.conf
